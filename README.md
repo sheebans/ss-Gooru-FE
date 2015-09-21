@@ -1,7 +1,39 @@
-# Gooru-web
+Gooru Web
+=============
+Introducing Gooru Web  - a solution to help teachers faciliate personalized learning for students.
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+## Introduction
+Gooru Web is the front-end of the Gooru application. Gooru’s free solution enables teachers to create, curate, and share collections of web resources on any K-12 topic. With millions of multimedia resources and quiz questions, Gooru makes it easy to discover topic-relevant and standards-aligned content to address specific students’ needs.  At Gooru, we believe education is a human right.  Now, with access to this Git repository, open-sourced under the MIT license, you can build along side us to support this mission and help students around the world reach their full potential.
+
+Gooru Web is developed using GWTP model-view-presenter framework to simplify the GWT implementation, followed by advanced Restlet client which will communicate with the high performance Gooru Restful Services. 
+
+## Features:
+Gooru’s features fall into four major groups: Discover, Organize, Teach and Study.  Here are short descriptions of each component. 
+
+## Discover
+Discover services provide the solution to search millions of resources, collections, and question items in the Gooru Learning Catalog. The Search APIs with the indexing support allow for filtering content or the Suggest APIs to personalize the experience by taking user activity and preferences into account.
+
+## Organize
+Organize services provide the solution for the registered users to create collections (multimedia lessons) which include resources such as videos, textbooks, interactives and question items. The Organize services allow you to access content and perform CRUD operations for collections, resources and question items.
+
+## Teach
+Teach services provide the solution to manage classes, create assignments, and track collection sessions. Teachers can create multiple Classpages, which are unique pages for different student groups accessible through URL or a “Class Code”. Each Classpage can have a set of assignments, with instructions and a date.
+
+## Library
+The Gooru Library is a brand new way to discover the best collections that the Gooru community has curated across core subject areas.
+
+## Authentication
+Create new accounts on Gooru using the authentication system or Gmail connect.
+
+## Social
+Share, flag and tag content, access a flexible rating system and protect your users with abuse reporting using Gooru Social services.
+
+## Resource Player
+This module is responsible for rendering Gooru Resources. Resources can be labeled with one of the following nine categories: Video, Website, Interactive, Question, Slide, Textbook, Handout, Lesson, Exam. The Resource Player is capable of rendering all of them. This player also provides functionality for sharing a Resource via Facebook, Twitter or Email.
+
+## Collection Player
+The Gooru Collection Player is capable of rendering all types of Gooru Collections including Quizzes, and other collections with Questions. The player module contains collection navigation, narration, summary, sharing out, and adding the resource/collection to the user’s Organize page.
+
 
 ## Prerequisites
 
@@ -15,7 +47,7 @@ You will need the following things properly installed on your computer.
 
 ## Installation
 
-* `git clone <repository-url>` this repository
+* `git clone https://github.com/Gooru/Gooru-FE.git` this repository
 * change into the new directory
 * `npm install`
 * `bower install`
@@ -25,14 +57,26 @@ You will need the following things properly installed on your computer.
 * `ember server`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
+### Coding standards
+@TODO
+
 ### Code Generators
 
 Make use of the many generators for code, try `ember help generate` for more details
+
+### Git strategy
+`Git Flow` strategy was selected, look at [Git Flow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow/) and [Git Flow Cheatsheet](http://danielkummer.github.io/git-flow-cheatsheet/)
 
 ### Running Tests
 
 * `ember test`
 * `ember test --server`
+
+### Mocking the api server - Stubby
+@TODO
+
+### Proxy-ing the api server
+* `ember server --proxy your_server`
 
 ### Building
 
@@ -41,13 +85,5 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Deploying
 
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
-
-* [ember.js](http://emberjs.com/)
-* [ember-cli](http://www.ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+@TODO: Specify what it takes to deploy your app.
 
