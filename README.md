@@ -45,6 +45,32 @@ You will need the following things properly installed on your computer.
 * [Ember CLI](http://www.ember-cli.com/)
 * [PhantomJS](http://phantomjs.org/)
 
+## High Level Architecture
+This project is built on top of EmberJS 2.x and Ember CLI
+![Alt text](high-level-architecture.png)
+
+#### Technology stack
+* Ember CLI
+* Ember 2.x
+* Ember Simple Auth
+* Ember i18n
+* Handlebars
+* SASS
+* Boostrap
+* jQuery
+
+#### Project Structure
+This project follows the project structure suggested by Ember CLI
+
+#### Communication Layer - Custom Adapters and Serializers
+EmberJS 2.x implements by default json:api specification for REST communication, custom EmberJS adapters and serializers are necessary to communitate and match the current Gooru's API end points convention. 
+
+#### Authentication and Authorization
+The library ember-simple-auth is used for authentication and authorization, it also track the user client session. See [Ember Simple Auth](http://ember-simple-auth.com/)
+
+#### Internationalization
+@TODO
+
 ## Installation
 
 * `git clone https://github.com/Gooru/Gooru-FE.git` this repository
