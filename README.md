@@ -106,7 +106,7 @@ Make use of the many generators for code, try `ember help generate` for more det
 * `ember test --server`
 
 ### Mocking the api server - Stubby
-@TODO
+* `grunt stubby` To startup a mocked API Server. Then make sure to run ember with the --proxy option to point to the Stubby server.
 
 ### Configuring a proxy server
 * `ember server --proxy your_server`
