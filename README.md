@@ -49,6 +49,16 @@ You will need the following things properly installed on your computer.
 This project is built on top of EmberJS 2.x and Ember CLI
 ![Alt text](high-level-architecture.png)
 
+#### Technology stack
+* Ember CLI
+* Ember 2.x
+* Ember Simple Auth
+* Ember i18n
+* Handlebars
+* SASS
+* Boostrap
+* jQuery
+
 #### Project Structure
 This project follows the project structure suggested by Ember CLI
 
