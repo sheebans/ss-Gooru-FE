@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 
   model: function() {
+    Ember.Logger.debug("Testing logger");
     return this.store.createRecord('sign-in');
   },
 
