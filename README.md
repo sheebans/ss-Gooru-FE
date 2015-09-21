@@ -84,7 +84,14 @@ The library ember-simple-auth is used for authentication and authorization, it a
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
 ### Coding standards
-@TODO
+This application follows [Ember CLI standards and conventions](http://www.ember-cli.com/user-guide/#naming-conventions) and it also uses JSHint (http://jshint.com/) _"JSHint is a program that flags suspicious usage in programs written in JavaScript."_
+
+See 
+* [JSHint Options](http://jshint.com/docs/options/). 
+* A new project has been started [JSCS](http://jscs.info/rules) for javascript code style validations, this project would move to it once it is fully integrated with ember cli
+
+JSHint rules will be enforced while running application tests.
+
 
 ### Code Generators
 
@@ -101,7 +108,7 @@ Make use of the many generators for code, try `ember help generate` for more det
 ### Mocking the api server - Stubby
 @TODO
 
-### Proxy-ing the api server
+### Configuring a proxy server
 * `ember server --proxy your_server`
 
 ### Building
