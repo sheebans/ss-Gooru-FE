@@ -1,16 +1,24 @@
-<form {{action 'authenticate' on='submit'}}>
-    <div>
-        <label for="identification">Login</label>
-        {{input value=identification placeholder='Enter Login' class='form-control'}}
-    </div>
-    <div>
-        <label for="password">Password</label>
-        {{input value=password placeholder='Enter Password' class='form-control' type='password'}}
-    </div>
-    <button type="submit">Sign In</button>
-</form>
-{{#if errorMessage}}
-    <div>
-        <strong>Login failed:</strong> {{errorMessage}}
-    </div>
-{{/if}}
+<div class="login-popup-main">
+  <div class="login-popup-header">Log In</div>
+  <div class="login-popup-content">
+
+    <form {{action 'authenticate' on='submit'}}>
+        <div>
+            <label for="username">Username</label>
+            {{input value=username placeholder='Enter Username' class='form-control'}}
+        </div>
+        <div>
+            <label for="password">Password</label>
+            {{input value=password placeholder='Enter Password' class='form-control' type='password'}}
+        </div>
+        <button type="submit">Sign In</button>
+    </form>
+
+    {{#if errorMessage}}
+        <div>
+            <strong>Login failed:</strong> {{errorMessage}}
+        </div>
+    {{/if}}
+
+  </div>
+</div>
