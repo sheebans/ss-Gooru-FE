@@ -69,7 +69,16 @@ EmberJS 2.x implements by default json:api specification for REST communication,
 The library ember-simple-auth is used for authentication and authorization, it also track the user client session. See [Ember Simple Auth](http://ember-simple-auth.com/)
 
 #### Internationalization
-@TODO
+The library ember-i18n is used for internationalization, it is fully integrated with Ember-CLI. 
+
+See [ember-i18n](https://github.com/jamesarosen/ember-i18n/wiki)
+
+#### Application Logger
+ Ember.Logger is used for logging application messages.
+ 
+ See 
+ * [Ember Logger](http://emberjs.com/api/classes/Ember.Logger.html)
+ * [Ember Debugging](http://guides.emberjs.com/v2.0.0/configuring-ember/debugging/)
 
 ## Installation
 
