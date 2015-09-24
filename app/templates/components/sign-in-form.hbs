@@ -1,24 +1,48 @@
 <div class="login-popup-main">
-  <div class="login-popup-header">Log In</div>
-  <div class="login-popup-content">
+  <div class="login-popup-inner">
+    <div class="login-popup-header">
+        <div class="row">Log In</div>
+    </div>
+    <div class="login-popup-content">
+      <div class="login-popup-welcome">Welcome to Gooru!</div>
 
-    <form {{action 'authenticate' on='submit'}}>
-        <div>
-            <label for="username">Username</label>
-            {{input value=username placeholder='Enter Username' class='form-control'}}
-        </div>
-        <div>
-            <label for="password">Password</label>
-            {{input value=password placeholder='Enter Password' class='form-control' type='password'}}
-        </div>
-        <button type="submit">Sign In</button>
-    </form>
+      <div class="sign-in-container">
+        <div class="email-sign-in">
+            <div class="login-with-gooru-lbl" alt="Log in to your Gooru account" title="Log in to your Gooru account">Log in to your Gooru account</div>
+            <br>
+            <button type="button" class="google-connect-button" alt="Log in with Google" title="Log in with Google">Log in with Google</button>
 
-    {{#if errorMessage}}
-        <div>
-            <strong>Login failed:</strong> {{errorMessage}}
-        </div>
-    {{/if}}
+          <div class="divider">
+              <div class="divider-text">Or</div>
+          </div>
 
+          <form {{action 'authenticate' on='submit'}}>
+              <div>
+                  {{input value=username placeholder='Username or Email' class='form-control text-box'}}
+              </div>
+              <div>
+                  {{input value=password placeholder='Password' class='form-control text-box' type='password'}}
+              </div>
+              <div class="forgot-your-password">
+                  <a alt="Forgot your password?" title="Forgot your password?">Forgot your password?</a>
+              </div>
+              <button type="submit" class="primary">Log in</button>
+          </form>
+
+
+          {{#if errorMessage}}
+              <div>
+                  <strong>Login failed:</strong> {{errorMessage}}
+              </div>
+          {{/if}}
+        </div>
+      </div>
+
+      <div class="dont-have-account-container">
+          <div class="dont-have-account" alt="Don't have an account?" title="Don't have an account?">Don't have an account?</div>
+          <a alt="Sign Up here!" title="Sign Up here!">Sign Up here!</a>
+      </div>
+
+    </div>
   </div>
 </div>
