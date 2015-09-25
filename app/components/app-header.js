@@ -8,4 +8,10 @@ import Ember from 'ember';
  * @class
  */
 export default Ember.Component.extend({
+
+  /**
+   * @property {User} current user
+   */
+  user: null
+
 });

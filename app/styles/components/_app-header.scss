@@ -1,0 +1,59 @@
+header.app-header {
+  background: -webkit-linear-gradient(top, $color-gray-primary, #333);
+  .navbar-default {
+    background-color: inherit;
+    border: none;
+    border-radius: 0px;
+    margin: 0;
+    .navbar-header {
+      .navbar-brand {
+        background: url("gooru/landing-page-sprite.png") -8px -207px transparent;
+        width: 110px;
+        background-position-y: initial;
+        background-position-x: initial;
+      }
+    }
+
+    .dropdown-toggle,
+    .navbar-link,
+    .navbar-text,
+    button,
+    a,
+    input {
+      color: $color-white;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+    }
+
+    .dropdown-toggle:hover,
+    .navbar-link:hover {
+      color: #ffff00;
+    }
+
+    .search-navbar-form {
+      margin-left: 50px;
+    }
+
+    .menu-navbar {
+      .navbar-link {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      li {
+        margin-left: 5px;
+        margin-right: 5px;
+      }
+
+      .libraries-link {
+        padding-right: 5px;
+        border-right: 1px $color-gray-lighter-1 solid;
+      }
+
+      .sign-up-button,
+      .login-link {
+        margin-left: 30px;
+      }
+    }
+  }
+}

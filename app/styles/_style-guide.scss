@@ -1,0 +1,59 @@
+/* contains the style guide css rules */
+
+/* COLORS */
+$color-black: #000000;
+$color-white: #FFFFFF;
+
+/* i.e apply to header bar */
+$color-gray-primary: #4A4A4A;
+/* i.e apply to default text */
+$color-gray-secondary: #515151;
+/* i.e apply to some backgrounds */
+$color-gray-lighter-1: #f0f0f0;
+/* i.e apply to some borders */
+$color-gray-lighter-2: #DDDDDD;
+
+
+/* i.e apply to default buttons */
+$color-blue-primary: #1076bb;
+
+/* i.e apply to default buttons */
+$color-blue-secondary: #87badd;
+
+/* i.e apply to blue text */
+$color-blue-lighter-1: #4c98cc;
+
+/* i.e apply to hover light buttons border */
+$color-blue-lighter-2: #7cb0d4;
+
+/* i.e apply to some background */
+$color-blue-lighter-3: #deebf3;
+
+$color-green-primary: #4e9746;
+
+
+body, p, div, span, li, textarea, input, a, td, th {
+  font-family: "Arvo", Arial, sans-serif;
+  font-size: 15px;
+  color: $color-gray-secondary;
+}
+
+button{
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+}
+
+h1 {
+  font-size: 34px;
+  color: $color-blue-lighter-1;
+}
+
+h2 {
+  font-size: 25px;
+  color: $color-gray-secondary;
+}
+
+h3 {
+  font-size: 20px;
+  color: $color-blue-primary;
+}
