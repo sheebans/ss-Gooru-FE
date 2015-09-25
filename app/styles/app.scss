@@ -1,3 +1,171 @@
 @import 'bower_components/bootstrap-sass/assets/stylesheets/_bootstrap';
 
 /** import some other files **/
+
+.main {
+  position: relative;
+  background: url("//cdn.goorulearning.org/webapp/release-2.0.6-PRL01/images/background-image.png") repeat scroll 0 0 #efeded!important;
+  height: 100%;
+}
+
+.login-popup-main {
+  width: 520px;
+  color: #515151;
+  margin: 30px auto;
+  position: relative;
+  font-family: arial;
+  font-size: 12px;
+  background: #fff;
+  border-radius: 0;
+  border: 1px solid #999;
+  padding: 3px 3px;
+  outline: 0;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+}
+
+.login-popup-inner {
+  border: 1px solid #ddd;
+  position: relative;
+  background: url(//cdn.goorulearning.org/webapp/release-2.0.6-PRL01/images/login/registration-bg.png) no-repeat -50px 30px;
+}
+
+.login-popup-header {
+  background: -webkit-gradient(linear,0 0,0 100%,from(#7ab075),to(#4e9746));
+  background: -webkit-linear-gradient(top,#7ab075,#4e9746);
+  background: -moz-linear-gradient(top,#7ab075,#4e9746);
+  background: -ms-linear-gradient(top,#7ab075,#4e9746);
+  background: -o-linear-gradient(top,#7ab075,#4e9746);
+  background: #4e9746;
+  color: white;
+  font-size: 16px;
+  padding: 10px 15px;
+  outline: 0;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
+}
+
+.login-popup-content {
+  padding: 10px 75px;
+}
+
+.login-popup-header {
+  padding: 10px 75px;
+}
+
+.login-popup-welcome {
+  color: #4e9746;
+  font-size: 20px;
+  margin: 0 0 20px;
+  text-align: center;
+}
+
+.sign-in-container {
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  padding: 50px 50px 25px;
+  text-align: center;
+}
+
+.divider {
+  border-bottom: 1px solid #ddd;
+  height: 1em;
+  margin: 10px 0 20px;
+  width: 100%;
+}
+
+.divider-text {
+  background-color: #f0f0f0;
+  display: inline;
+  padding: 0 10px;
+  position: relative;
+  top: .5em;
+}
+
+.form-control {
+  margin-bottom: 6px;
+  border-radius: 0;
+  width: 99%!important;
+  display: block;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.text-box {
+  outline: 0;
+}
+
+.email-sign-in {
+  padding-top: 7px;
+  line-height: 1.9em;
+}
+
+.login-with-gooru-lbl {
+  font-size: 14px;
+}
+
+.google-connect-button {
+  padding: 16px 16px 15px 64px;
+  color: white;
+  background: #1076bb url(//cdn.goorulearning.org/webapp/release-2.0.6-PRL01/images/login/g.png) left center no-repeat;
+  background: url(//cdn.goorulearning.org/webapp/release-2.0.6-PRL01/images/login/g.png) left center no-repeat,-webkit-gradient(linear,0 0,0 100%,from(#4c98cc),to(#1076bb));
+  background: url(//cdn.goorulearning.org/webapp/release-2.0.6-PRL01/images/login/g.png) left center no-repeat,-webkit-linear-gradient(top,#4c98cc,#1076bb);
+  background: url(//cdn.goorulearning.org/webapp/release-2.0.6-PRL01/images/login/g.png) left center no-repeat,-ms-linear-gradient(top,#4c98cc,#1076bb);
+  background: url(//cdn.goorulearning.org/webapp/release-2.0.6-PRL01/images/login/g.png) left center no-repeat,-moz-linear-gradient(top,#4c98cc,#1076bb);
+  background: url(//cdn.goorulearning.org/webapp/release-2.0.6-PRL01/images/login/g.png) left center no-repeat,-o-linear-gradient(top,#4c98cc,#1076bb);
+  border-radius: 4px;
+  border: 1px solid #1076bb;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.row {
+  margin-right: -15px;
+  margin-left: -45px;
+}
+
+.forgot-your-password {
+  text-align: left;
+}
+
+.primary {
+  color: white;
+  background-color: #1076bb;
+  border-radius: 4px;
+  padding: 7px 9px;
+  border: 1px solid #1076bb;
+  font-family: Arial,sans-serif;
+  display: inline-block;
+  background: #1076bb;
+  background: -webkit-gradient(linear,0% 0,0% 100%,from(#4c98cc),to(#1076bb));
+  background: -webkit-linear-gradient(top,#4c98cc,#1076bb);
+  background: -moz-linear-gradient(top,#4c98cc,#1076bb);
+  background: -ms-linear-gradient(top,#4c98cc,#1076bb);
+  background: -o-linear-gradient(top,#4c98cc,#1076bb);
+}
+
+.dont-have-account-container {
+  color: #515151;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.dont-have-account {
+  color: #999;
+  margin-right: 5px;
+  display: inline-block;
+}

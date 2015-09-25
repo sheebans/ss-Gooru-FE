@@ -19,11 +19,21 @@ module.exports = function(environment) {
     }
   };
 
-  ENV['simple-auth'] = {
-    store: 'simple-auth-session-store:local-storage',
-    authorizer: 'authorizer:custom',
+
+  //ENV['ember-simple-auth'] = {
+   // store: 'simple-auth-session-store:local-storage',
+   // authorizer: 'authorizer:custom',
     //crossOriginWhitelist: ['http://localhost:8882/'],
-    routeAfterAuthentication: '/index'
+   // routeAfterAuthentication: '/index'
+ // };
+
+  ENV['ember-simple-auth'] = {
+    base: {
+      store: 'session-store:local-storage',
+      authorizer: 'authorizer:custom',
+      session: 'session:withCurrentUser',
+      routeAfterAuthentication: '/index'
+    }
   };
 
 
@@ -37,7 +47,7 @@ module.exports = function(environment) {
       'default-src': "'none'",
       'script-src': "'self'",
       'font-src': "'self'",
-      'connect-src': "'self'",
+      'connect-src': "'self' http://localhost:8882",
       'img-src': "'self'",
       'style-src': "'self'",
       'media-src': "'self'"

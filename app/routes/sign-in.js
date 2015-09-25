@@ -1,27 +1,11 @@
 import Ember from 'ember';
+import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 
-export default Ember.Route.extend({
-
-  model: function() {
-    Ember.Logger.debug("Testing logger");
-    return this.store.createRecord('sign-in');
-  },
+export default Ember.Route.extend(ApplicationRouteMixin, {
 
   actions: {
-
-    signIn: function() {
-      var self = this;
-      this.controller.get('model').save().then(
-        function() {
-          //var session = self.store.peekRecord('session', model.id);
-          self.transitionTo('index');
-          //self.transitionTo('index', session);
-        });
-    },
-
-    // clear a potentially stale error message from previous login attempts
-    setupController: function(controller, model) {
-      controller.set('errorMessage', null);
+    onAuthenticate: function() {
+      this.transitionTo('/index');
     }
   }
 
