@@ -1,46 +1,33 @@
-<div class="login-popup-content">
-    <div class="login-popup-welcome">Welcome to Gooru!</div>
+<div class="sign-in-form">
+    <h3>{{t "login.title"}}</h3>
 
-    <div class="sign-in-container">
-        <div class="email-sign-in">
-            <div class="login-with-gooru-lbl" alt="Log in to your Gooru account" title="Log in to your Gooru account">
-                Log in to your Gooru account
-            </div>
-            <br>
-            <button type="button" class="google-connect-button" alt="Log in with Google" title="Log in with Google">Log
-                in with Google
-            </button>
-
-            <div class="divider">
-                <div class="divider-text">Or</div>
-            </div>
-
+    <div class="row">
+        <div class="col-md-9 col-center-block login-form-box">
             <form {{action 'authenticate' on='submit'}}>
-                <div>
-                  {{input value=username placeholder='Username or Email' class='form-control text-box'}}
+                <div class="form-group">
+                  {{input value=username placeholder=(t 'login.usernameOrEmail') class='form-control text-box'}}
                 </div>
-                <div>
-                  {{input value=password placeholder='Password' class='form-control text-box' type='password'}}
+                <div class="form-group">
+                  {{input value=password placeholder=(t 'login.password') class='form-control text-box' type='password'}}
                 </div>
-                <div class="forgot-your-password">
-                    <a alt="Forgot your password?" title="Forgot your password?">Forgot your password?</a>
+                <div class="form-group">
+                    <a alt="{{t "login.forgotPassword"}}"
+                       title="{{t "login.forgotPassword"}}">{{t "login.forgotPassword"}}</a>
                 </div>
-                <button type="submit" class="primary">Log in</button>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary">{{t "common.login"}}</button>
+                </div>
+              {{#if errorMessage}}
+                  <div class="form-group">
+                      <span class="text text-danger">{{errorMessage}}</span>
+                  </div>
+              {{/if}}
             </form>
-
-
-          {{#if errorMessage}}
-              <div>
-                  <strong>Login failed:</strong> {{errorMessage}}
-              </div>
-          {{/if}}
         </div>
     </div>
-
-    <div class="dont-have-account-container">
-        <div class="dont-have-account" alt="Don't have an account?" title="Don't have an account?">Don't have an
-            account?
+    <div class="row">
+        <div class="col-md-12">
+            <span class="sign-up-here">{{t "login.haveAccount"}} <a href="#">{{t "login.signUpHere"}}</a> </span>
         </div>
-        <a alt="Sign Up here!" title="Sign Up here!">Sign Up here!</a>
     </div>
 </div>

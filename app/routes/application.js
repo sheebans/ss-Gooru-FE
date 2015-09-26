@@ -4,6 +4,17 @@ import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mi
 export default Ember.Route.extend(ApplicationRouteMixin, {
 
   actions: {
+    /**
+     * Action triggered when submitting the login form
+     * @see application.hbs and app-header.hbs
+     */
+    onAuthenticate: function() {
+      this.transitionTo('/index');
+    },
+
+    /**
+     * Action triggered when login out
+     */
     invalidateSession: function() {
       this.get('session').invalidate();
     }

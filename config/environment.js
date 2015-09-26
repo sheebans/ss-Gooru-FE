@@ -36,6 +36,12 @@ module.exports = function(environment) {
     }
   };
 
+  ENV['simple-auth-custom'] = {
+    serverTokenEndpoint: '/rest/v2/account/login',
+    apiKey: 'ASERTYUIOMNHBGFDXSDWERT123RTGHYT'
+  };
+
+
 
   if (environment === 'development') {
     ENV.APP.LOG_RESOLVER = true;
