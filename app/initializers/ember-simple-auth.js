@@ -6,6 +6,10 @@ import setupSession from 'ember-simple-auth/initializers/setup-session';
 import setupSessionService from 'ember-simple-auth/initializers/setup-session-service';
 import setupAuthorizers from 'ember-simple-auth/initializers/setup-authorizers';
 
+/**
+ * Custom ember auth initializer
+ *
+ */
 export default {
   name:       'ember-simple-auth',
   initialize: function(registry) {
@@ -18,6 +22,7 @@ export default {
     setupSession(registry);
     setupSessionService(registry);
     setupAuthorizers(registry);
-    console.log('Init...');
+
+    Ember.Logger.info('Init...');
   }
 };

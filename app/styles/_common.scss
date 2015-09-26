@@ -1,0 +1,24 @@
+/* Bootstrap specific rules */
+.col-center-block {
+  float: none;
+  display: block;
+  margin: 0 auto;
+}
+
+.align-cols-vertically {
+  display: flex;
+  align-items: center;
+}
+
+.no-gutter > [class*='col-'] {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.btn-primary {
+  background: -webkit-linear-gradient(top, $color-blue-lighter-1, $color-blue-primary);
+}
+
+.app-container {
+  min-height: 400px;
+}
