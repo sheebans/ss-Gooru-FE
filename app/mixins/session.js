@@ -11,7 +11,7 @@ export default Ember.Mixin.create({
   /**
    * @property {User}
    */
-  me: Ember.computed.bool('session.currentUser'),
+  me: Ember.computed.alias('session.currentUser'),
 
   /**
    * Indicates if the user is authenticated
