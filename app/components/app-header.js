@@ -12,6 +12,17 @@ export default Ember.Component.extend({
   /**
    * @property {User} current user
    */
-  user: null
+  user: null,
+
+  /**
+   * @property {string} on authenticate action
+   */
+  onAuthenticateAction: "onAuthenticate",
+
+  actions: {
+    onAuthenticate: function(){
+      this.sendAction("onAuthenticateAction")
+    }
+  }
 
 });

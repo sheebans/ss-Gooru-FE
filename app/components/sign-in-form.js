@@ -1,10 +1,27 @@
 import Ember from 'ember';
+import SessionMixin from '../mixins/session';
 
-const { service } = Ember.inject;
+export default Ember.Component.extend(SessionMixin, {
 
-export default Ember.Component.extend({
+  /**
+   * @property {string} authentication error message
+   */
+  errorMessage: null,
 
-  session: service('session'),
+  /**
+   * @property {string} on authenticate action to be sent to the parent component
+   */
+  onAuthenticateAction: "onAuthenticate",
+
+  /**
+   * @property {string} on success action to be sent to the parent component
+   */
+  onSuccessAction: null,
+
+  /**
+   * @property {string} on failure action to be sent to the parent component
+   */
+  onFailureAction: null,
 
   actions: {
     authenticate: function() {
@@ -12,10 +29,18 @@ export default Ember.Component.extend({
       var credentials = this.getProperties('username', 'password');
       this.get('session').authenticate('authenticator:custom', credentials)
         .then(function() {
-          self.sendAction('onAuthenticate');
+          self.sendAction('onAuthenticateAction');
+          if (self.get("onSuccessAction")){
+            self.sendAction('onSuccessAction');
+          }
+
         })
         .catch((reason) => {
           this.set('errorMessage', reason.error);
+          if (self.get("onFailureAction")){
+            self.sendAction('onFailureAction');
+          }
+
         });
     }
   }

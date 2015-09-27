@@ -12,6 +12,8 @@ $color-gray-secondary: #515151;
 $color-gray-lighter-1: #f0f0f0;
 /* i.e apply to some borders */
 $color-gray-lighter-2: #DDDDDD;
+/* i.e apply to some texts */
+$color-gray-lighter-3: #999999;
 
 
 /* i.e apply to default buttons */
@@ -33,15 +35,21 @@ $color-green-primary: #4e9746;
 
 
 body, p, div, span, li, textarea, input, a, td, th {
-  font-family: "Arvo", Arial, sans-serif;
+  font-family: Arial, sans-serif;
   font-size: 15px;
   color: $color-gray-secondary;
 }
 
-button{
-  font-family: Arial, sans-serif;
-  font-size: 15px;
+a {
+  cursor: pointer;
+  font-size: 12px;
+  color: $color-blue-lighter-1;
+  &:hover,
+  &:visited {
+    color: $color-blue-lighter-2;
+  }
 }
+
 
 h1 {
   font-size: 34px;
