@@ -5,15 +5,16 @@ import Ember from 'ember';
  * @see application.hbs
  *
  *
- * @class
+ * @module
+ * @typedef {object} AppHeader
  */
 export default Ember.Component.extend({
 
+
   /**
-   * @property {User} current user
+   * @property {object} user
    */
   user: null,
-
   /**
    * @property {string} on authenticate action
    */
@@ -21,7 +22,7 @@ export default Ember.Component.extend({
 
   actions: {
     onAuthenticate: function(){
-      this.sendAction("onAuthenticateAction")
+      this.sendAction("onAuthenticateAction");
     }
   }
 

@@ -3,6 +3,7 @@ import Session from 'ember-simple-auth/session';
 
 /**
  * Custom session
+ * @typedef {Object} CustomizeSession
  */
 var SessionWithCurrentUser = Session.extend({
 
@@ -10,7 +11,7 @@ var SessionWithCurrentUser = Session.extend({
    * Returns the current user if available
    * @return {*} user
    */
-  currentUser: function() {
+  currentUser: function () {
     var userId = this.get('user_id');
     if (!Ember.isEmpty(userId)) {
       return this.container.lookup('store:main').find('user', userId);
@@ -20,6 +21,9 @@ var SessionWithCurrentUser = Session.extend({
 
 /**
  * Session initializer
+ *
+ * @module
+ * @typedef {Object} SessionInitializer
  */
 export default {
   name: 'customize-session',
@@ -28,7 +32,7 @@ export default {
    * Registering the custom session
    * @param container
    */
-  initialize: function(container) {
+  initialize: function (container) {
     container.register('session:withCurrentUser', SessionWithCurrentUser);
   }
 };

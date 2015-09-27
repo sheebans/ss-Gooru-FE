@@ -1,15 +1,18 @@
 import Ember from 'ember';
 const { service } = Ember.inject;
 
+/**
+ * @typedef {Object} SessionMixin
+ */
 export default Ember.Mixin.create({
 
   /**
-   * @property {CustomizeSession} user session
+   * @property {CustomizeSession} custom user session
    */
   session: service('session'),
 
   /**
-   * @property {User}
+   * @property {SessionMixin} user
    */
   me: Ember.computed.alias('session.currentUser'),
 

@@ -8,13 +8,14 @@ import setupAuthorizers from 'ember-simple-auth/initializers/setup-authorizers';
 
 /**
  * Custom ember auth initializer
- *
+ * @module
+ * @typedef {Object} EmberSimpleAuthInitializer
  */
 export default {
   name:       'ember-simple-auth',
   initialize: function(registry) {
     const config        = ENV['ember-simple-auth'] || {};
-    config.base         = config.base || {}
+    config.base         = config.base || {};
     config.base.baseURL = ENV.baseURL;
     Configuration.load(config);
 

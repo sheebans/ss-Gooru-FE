@@ -19,10 +19,15 @@ export default Ember.Component.extend({
   footer: false,
 
   /**
+   * @property {string} close action name
+   */
+  onCloseAction: null,
+
+  /**
    * @property {} modal element
    */
   modalElement: function(){
-    return $(this.get("element")).find(".modal");
+    return this.$(this.get("element")).find(".modal");
   }.property(),
 
   actions: {
@@ -32,7 +37,10 @@ export default Ember.Component.extend({
      */
     onClose: function(){
       var component = this;
-      $(component.get("modalElement")).modal("hide");
+      component.$(component.get("modalElement")).modal("hide");
+      if (component.get("onCloseAction")){
+        component.sendAction("onCloseAction");
+      }
     }
   }
 

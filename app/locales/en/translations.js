@@ -11,7 +11,9 @@ export default {
     "libraries": "Libraries"
   },
 
-  "header": {},
+  "header": {
+    "searchForTopic": "Search for a topic"
+  },
 
   "home": {
     "welcome": "Welcome"

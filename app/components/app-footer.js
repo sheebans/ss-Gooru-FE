@@ -5,6 +5,7 @@ import Ember from 'ember';
  * @see application.hbs
  *
  * @class
+ * @typedef {Object} AppFooter
  */
 export default Ember.Component.extend({
 });
