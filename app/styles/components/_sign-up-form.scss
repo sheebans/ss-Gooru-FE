@@ -9,13 +9,7 @@
     font-size: 12px;
     background: #fff;
     border-radius: 0;
-    border: 1px solid #999;
     padding: 3px 3px;
-  }
-
-  .sign-up-popup-inner {
-    border: 1px solid #ddd;
-    position: relative;
     background: url(//cdn.goorulearning.org/webapp/release-2.0.6-PRL01/images/login/registration-bg.png) no-repeat -50px 30px;
   }
 
@@ -68,6 +62,32 @@
     width: 30px;
   }
 
+  .sign-up-input-group {
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-bottom: 10px;
+    position: relative;
+  }
 
+  .col-width-fifty {
+    width: 50%;
+  }
+
+  .col-width-hundred {
+    width: 100%;
+  }
+
+  .sign-up-form-control {
+    border-radius: 0;
+    font-size: 14px;
+    height: 34px;
+    outline: 0;
+    color: #999;
+    width: 100%;
+  }
+
+  .btn-sign-up {
+    margin-top: 15px;
+  }
 
 }

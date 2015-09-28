@@ -1,40 +1,39 @@
 <div class="sign-up-form">
     <div class="sign-up-popup-main">
-        <div class="sign-up-popup-inner">
-            <div class="sign-up-popup-header">
-                <div class="row">Sign Up!</div>
-            </div>
+
             <div class="sign-up-popup-content">
                 <div class="sign-up-popup-welcome">Please fill out the following information.</div>
                 <div class="sign-up-container">
                     <form {{action 'signUp' on='submit'}}>
                         <div>
-                            <div>
-                              {{input value=model.username placeholder='Username' class='form-control text-box'}}
+                            <div class="sign-up-input-group col-width-fifty">
+                              {{input value=model.username placeholder='Username' class='sign-up-form-control text-box'}}
                             </div>
 
                             {{date-field model=model}}
 
                         </div>
-                            <div>
-                              {{input value=model.firstName placeholder='First Name' class='form-control text-box'}}
+                            <div class="sign-up-input-group col-width-fifty">
+                              {{input value=model.firstName placeholder='First Name' class='sign-up-form-control'}}
                             </div>
-                            <div>
-                              {{input value=model.lastName placeholder='Last Name' class='form-control text-box'}}
+                            <div class="sign-up-input-group col-width-fifty">
+                              {{input value=model.lastName placeholder='Last Name' class='sign-up-form-control'}}
                             </div>
-                            <div>
-                              {{input value=model.emailId placeholder='Email' class='form-control text-box'}}
+                            <div class="sign-up-input-group col-width-hundred">
+                              {{input value=model.emailId placeholder='Email' class='sign-up-form-control'}}
                             </div>
-                            <div>
-                              {{input value=model.password placeholder='Password' class='form-control text-box' type='password'}}
+                            <div class="sign-up-input-group col-width-hundred">
+                              {{input value=model.password placeholder='Password' class='sign-up-form-control' type='password'}}
                             </div>
-                            <div>
-                              {{input value=model.confirmedPassword placeholder='Confirm Password' class='form-control text-box' type='password'}}
+                            <div class="sign-up-input-group col-width-hundred">
+                              {{input value=model.confirmedPassword placeholder='Confirm Password' class='sign-up-form-control' type='password'}}
                             </div>
 
                             {{role-radio-button model=model}}
 
-                            <button type="submit" class="primary">Sign Up</button>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-primary btn-sign-up">Sign Up</button>
+                            </div>
 
 
                         {{#if errorMessage}}
@@ -45,12 +44,14 @@
                     </form>
                 </div>
 
-                <div class="dont-have-account-container">
-                    <div class="dont-have-account" alt="Don't have an account?" title="Don't have an account?">Don't have an account?</div>
-                    <a alt="Sign Up here!" title="Sign Up here!">Sign Up here!</a>
+                <div class="have-account-container">
+                    <span class="gwt-InlineLabel" id="lblAgree" alt="By clicking Sign Up, I agree to the" title="By clicking Sign Up, I agree to the">By clicking Sign Up, I agree to the </span>
+                    <a class="org-ednovo-gooru-client-mvp-authentication-SignUpCBundle-SignUp-termsAlignStyle" id="lnkCopyRight" alt="Copyright Policy" title="Copyright Policy">Copyright Policy,</a>
+                    <a class="org-ednovo-gooru-client-mvp-authentication-SignUpCBundle-SignUp-termsAlignStyle" id="lnkTermsAndPrivacy" alt="Terms of Service" title="Terms of Service">Terms of Service</a>
+                    <span class="gwt-InlineLabel" id="spnAndText" alt="and" title="and">and </span>
+                    <a class="org-ednovo-gooru-client-mvp-authentication-SignUpCBundle-SignUp-termsAlignStyle" id="lnkPrivacy" alt="Privacy Policy." title="Privacy Policy.">Privacy Policy.</a>
                 </div>
 
             </div>
-        </div>
     </div>
 </div>

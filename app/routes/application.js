@@ -3,13 +3,17 @@ import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mi
 
 export default Ember.Route.extend(ApplicationRouteMixin, {
 
+  model: function() {
+    return this.store.createRecord('sign-up');
+  },
+
   actions: {
     /**
      * Action triggered when submitting the login form
      * @see application.hbs and app-header.hbs
      */
     onAuthenticate: function() {
-      this.transitionTo('/index');
+      this.transitionTo('index');
     },
 
     /**
@@ -17,6 +21,14 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      */
     invalidateSession: function() {
       this.get('session').invalidate();
+    },
+
+    signUp: function() {
+      var self = this;
+      this.controller.get('model').save().then(
+        function() {
+          self.transitionTo('index');
+        });
     }
   }
 });
