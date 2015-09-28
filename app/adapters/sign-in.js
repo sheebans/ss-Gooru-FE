@@ -10,6 +10,7 @@ export default ApplicationAdapter.extend({
   },
 
   buildURL: function(record, suffix) {
+    //@todo try using header instead of query param, if so we could inject it in all ajax requests
     return this._super(record, suffix) + '?' + this.apiKey;
   }
 

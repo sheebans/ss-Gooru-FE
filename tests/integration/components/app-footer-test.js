@@ -1,24 +1,20 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import T from 'gooru-web/tests/helpers/assert';
 
 moduleForComponent('app-footer', 'Integration | Component | app footer', {
-  integration: true
+  // needs: ['component:foo', 'helper:bar']
+  integration: true,
+  beforeEach: function () {
+    this.container.lookup('service:i18n').set("locale","en");
+  }
 });
 
-test('it renders', function(assert) {
-  assert.expect(2);
+test('footer layout', function(assert) {
+  assert.expect(1); //making sure all asserts are called
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+  this.render(hbs`{{app-footer}}`); //render the component
+  var $component = this.$(); //component dom element
 
-  this.render(hbs`{{app-footer}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#app-footer}}{{/app-footer}}
-  `);
-
-  //assert.equal(this.$().text().trim(), 'template block text');
+  T.exists(assert, $component.find("footer.app-footer"), "Footer root element not found");
 });

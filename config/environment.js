@@ -1,6 +1,6 @@
 /* jshint node: true */
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   var ENV = {
     modulePrefix: 'gooru-web',
     environment: environment,
@@ -20,12 +20,9 @@ module.exports = function(environment) {
   };
 
 
-  //ENV['ember-simple-auth'] = {
-   // store: 'simple-auth-session-store:local-storage',
-   // authorizer: 'authorizer:custom',
-    //crossOriginWhitelist: ['http://localhost:8882/'],
-   // routeAfterAuthentication: '/index'
- // };
+  ENV.i18n = {
+    defaultLocale: 'en'
+  };
 
   ENV['ember-simple-auth'] = {
     base: {
@@ -40,7 +37,6 @@ module.exports = function(environment) {
     serverTokenEndpoint: '/rest/v2/account/login',
     apiKey: 'ASERTYUIOMNHBGFDXSDWERT123RTGHYT'
   };
-
 
 
   if (environment === 'development') {
@@ -69,6 +65,8 @@ module.exports = function(environment) {
     // keep test console output quieter
     ENV.APP.LOG_ACTIVE_GENERATION = false;
     ENV.APP.LOG_VIEW_LOOKUPS = false;
+
+    ENV['ember-simple-auth'].store = 'simple-auth-session-store:ephemeral';
 
     ENV.APP.rootElement = '#ember-testing';
   }

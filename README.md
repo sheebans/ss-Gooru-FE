@@ -101,6 +101,11 @@ See
 
 JSHint rules will be enforced while running application tests.
 
+### Code Documentation
+Code should be really well documented, please use [jsDoc](http://usejsdoc.org/)
+
+See
+* @typedef for type definition
 
 ### Code Generators
 
@@ -110,9 +115,21 @@ Make use of the many generators for code, try `ember help generate` for more det
 `Git Flow` strategy was selected, look at [Git Flow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow/) and [Git Flow Cheatsheet](http://danielkummer.github.io/git-flow-cheatsheet/)
 
 ### Running Tests
+This project uses Ember Tests
+See 
+* [Ember Tests](http://guides.emberjs.com/v2.0.0/testing/) 
+* [QUnit](https://api.qunitjs.com/)
+* [Testem](https://github.com/airportyh/testem)
+* [Ember QUnit](https://github.com/rwjblue/ember-qunit)
 
 * `ember test`
-* `ember test --server`
+* `ember test --server` to let the test running
+* `ember test --filter your_pattern` to execute some tests only
+
+
+
+### Code Coverage
+More than 80% of coverage is mandatory for this project 
 
 ### Mocking the api server - Stubby
 * `grunt stubby` To startup a mocked API Server. Then make sure to run ember with the --proxy option to point to the Stubby server.

@@ -2,6 +2,10 @@ import Ember from 'ember';
 import ENV from '../config/environment';
 import Base from 'ember-simple-auth/authenticators/base';
 
+/**
+ * @class
+ * @typedef {Object} CustomAuthenticator
+ */
 export default Base.extend({
 
   /**
