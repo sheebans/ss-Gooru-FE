@@ -1,0 +1,44 @@
+.roleOption {
+  text-align: center;
+  width: 25%;
+  float: left;
+}
+
+.roleLabel {
+  color: #999;
+  font-size: 12px;
+}
+
+.roleRadioButton {
+  margin: 4px 0 0;
+  line-height: normal;
+  margin-right: .5ex!important;
+}
+
+.teacherRoleImage {
+  background: url("gooru/teacher.png") no-repeat scroll center bottom rgba(0,0,0,0);
+  height: 45px;
+  margin: 10px 0 5px;
+  width: 100%;
+}
+
+.studentRoleImage {
+  background: url("gooru/student.png") no-repeat scroll center bottom rgba(0,0,0,0);
+  height: 45px;
+  margin: 10px 0 5px;
+  width: 100%;
+}
+
+.parentRoleImage {
+  background: url("gooru/parent.png") no-repeat scroll center bottom rgba(0,0,0,0);
+  height: 45px;
+  margin: 10px 0 5px;
+  width: 100%;
+}
+
+.otherRoleImage {
+  background: url("gooru/other.png") no-repeat scroll center bottom rgba(0,0,0,0);
+  height: 45px;
+  margin: 10px 0 5px;
+  width: 100%;
+}

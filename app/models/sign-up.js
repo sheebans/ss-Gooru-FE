@@ -10,6 +10,7 @@ export default DS.Model.extend({
   gender: DS.attr('string'),
   dateOfBirth: DS.attr('string'),
   role: DS.attr('string'),
-  password: DS.attr('string')
+  password: DS.attr('string'),
+  confirmedPassword: DS.attr('string')
 
 });
