@@ -11,12 +11,20 @@ export default {
     "libraries": "Libraries"
   },
 
-  "header": {
-
-  },
+  "header": {},
 
   "home": {
     "welcome": "Welcome"
+  },
+
+  "login": {
+    "title": "Welcome to Gooru",
+    "haveAccount": "Do you have an account?",
+    "signUpHere": "Sign Up here!",
+    "forgotPassword": "Forgot your Password?",
+    "password": "Password",
+    "usernameOrEmail": "Username or Email"
   }
+
 
 };

@@ -1,12 +1,29 @@
 import Ember from 'ember';
+import ENV from '../config/environment';
 import Base from 'ember-simple-auth/authenticators/base';
 
 export default Base.extend({
 
-  //tokenEndpoint: 'http://localhost:3001/sessions/create',
-  tokenEndpoint: 'http://localhost:8882/gooruapi/rest/v2/account/login',
-  apiKey: 'apiKey=ASERTYUIOMNHBGFDXSDWERT123RTGHYT',
+  /**
+   * @property {string} Token end point
+   * @see simple-auth-custom at environment.js
+   */
+  serverTokenEndpoint: null,
 
+  /**
+   * @property {string} api key
+   * @see simple-auth-custom at environment.js
+   */
+  apiKey: null,
+
+  /**
+   * Initializing the authorizer
+   */
+  init: function() {
+    const config        = ENV['simple-auth-custom'] || {};
+    this.serverTokenEndpoint = config['serverTokenEndpoint'];
+    this.apiKey = config['apiKey'];
+  },
 
   restore: function(data) {
     return new Ember.RSVP.Promise(function(resolve, reject) {
@@ -21,7 +38,7 @@ export default Base.extend({
   authenticate: function(options) {
     return new Ember.RSVP.Promise((resolve, reject) => {
       Ember.$.ajax({
-        url: this.tokenEndpoint + '?' + this.apiKey,
+        url: this.serverTokenEndpoint + '?apiKey=' + this.apiKey,
         type: 'POST',
         data: JSON.stringify({
           username: options.username,
@@ -35,7 +52,7 @@ export default Base.extend({
             token: response.token
           });
         });
-      }, function(xhr, status, error) {
+      }, function(xhr) {
         var response = xhr.responseText;
         Ember.run(function() {
           reject(response);

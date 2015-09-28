@@ -1,0 +1,29 @@
+.app-modal.modal {
+  .modal-content {
+    border: 2px solid $color-white;
+    border-radius: 0;
+
+    .modal-header {
+      background-color: $color-green-primary;
+
+      button.close {
+        text-shadow: none;
+        opacity: 1;
+        filter: alpha(opacity=100);
+
+        span {
+          color: $color-white;
+          font-size: 25px;
+          font-weight: normal;
+        }
+      }
+      .modal-title {
+        color: $color-white;
+      }
+    }
+
+    .modal-body {
+      border: 1px solid $color-gray-lighter-1;
+    }
+  }
+}

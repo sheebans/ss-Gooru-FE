@@ -89,7 +89,7 @@ See [ember-i18n](https://github.com/jamesarosen/ember-i18n/wiki)
 
 ## Running / Development
 
-* `ember server`
+* `ember server --proxy http://localhost:8882/gooruapi` to run it against the stubby server
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
 ### Coding standards
@@ -118,6 +118,8 @@ Make use of the many generators for code, try `ember help generate` for more det
 * `grunt stubby` To startup a mocked API Server. Then make sure to run ember with the --proxy option to point to the Stubby server.
 
 ### Configuring a proxy server
+It is possible to proxy a server so you can connect to a different environment
+
 * `ember server --proxy your_server`
 
 ### Building

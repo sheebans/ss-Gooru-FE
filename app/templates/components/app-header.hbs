@@ -23,7 +23,10 @@
                         <a href="#" class="navbar-link my-content-link">{{t "common.myContent"}}</a>
                     </li>
                     <li>
-                      {{#link-to 'sign-in' class="navbar-link login-link"}} {{t "common.login"}} {{/link-to}}
+                        <a href="#" class="navbar-link login-link" data-toggle="modal"
+                           data-target="#login-modal > .modal">
+                          {{t "common.login"}}
+                        </a>
                     </li>
                     <li>
                       {{#link-to 'sign-up' tagName='button' class="btn btn-primary navbar-btn sign-up-button"}} {{t "common.signUp"}} {{/link-to}}
@@ -33,5 +36,9 @@
         </nav>
     </div>
 </header>
+{{#app-modal id="login-modal" title=(t "common.login") as |onClose|}}
+  {{sign-in-form onAuthenticateAction="onAuthenticate" onSuccessAction=onClose}}
+{{/app-modal}}
+
 
 

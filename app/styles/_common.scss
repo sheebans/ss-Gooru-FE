@@ -15,7 +15,7 @@
   padding-left: 0;
 }
 
-.btn-primary {
+.btn-primary, .btn-primary.active{
   background: -webkit-linear-gradient(top, $color-blue-lighter-1, $color-blue-primary);
 }
 
