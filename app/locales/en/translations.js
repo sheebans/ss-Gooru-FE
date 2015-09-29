@@ -26,7 +26,10 @@ export default {
     "forgotPassword": "Forgot your Password?",
     "password": "Password",
     "usernameOrEmail": "Username or Email"
-  }
+  },
 
+  "signUp": {
+    "dateOfBirth": "Birthday"
+  }
 
 };

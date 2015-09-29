@@ -19,10 +19,18 @@ export default Ember.Component.extend({
    * @property {string} on authenticate action
    */
   onAuthenticateAction: "onAuthenticate",
+  /**
+   * @property {string} on select date of birth action
+   */
+  onSelectDateOfBirthAction: "onSelectDateOfBirth",
 
   actions: {
     onAuthenticate: function(){
       this.sendAction("onAuthenticateAction");
+    },
+
+    onSelectDateOfBirthAction: function(dateValue) {
+      this.sendAction("onSelectDateOfBirthAction", dateValue);
     }
   }
 

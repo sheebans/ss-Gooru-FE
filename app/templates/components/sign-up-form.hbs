@@ -10,7 +10,7 @@
                               {{input value=model.username placeholder='Username' class='sign-up-form-control text-box'}}
                             </div>
 
-                            {{date-field model=model}}
+                            {{datepicker-field onSelectDateAction="onSelectDateOfBirthAction" placeholder=(t "signUp.dateOfBirth")}}
 
                         </div>
                             <div class="sign-up-input-group col-width-fifty">

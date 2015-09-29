@@ -7,6 +7,11 @@ export default Ember.Component.extend({
    */
   onSuccessAction: null,
 
+  /**
+   * @property {string} on select date of birth action
+   */
+  onSelectDateOfBirthAction: "onSelectDateOfBirth",
+
   actions: {
     signUp: function () {
       var self = this;
@@ -17,10 +22,17 @@ export default Ember.Component.extend({
             self.sendAction('onSuccessAction');
           }
         });
-      }
+      },
       //if (self.get("onSignUpAction")){
       //  self.sendAction('onSignUpAction');
      // }
+
+    onSelectDateOfBirthAction: function(dateValue) {
+      this.sendAction("onSelectDateOfBirthAction", dateValue);
+    }
+
+
+
   }
 
 });

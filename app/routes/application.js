@@ -29,6 +29,11 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
         function() {
           self.transitionTo('index');
         });
+    },
+
+    onSelectDateOfBirth: function(dateValue) {
+      var model = this.controller.get('model');
+      model.set('dateOfBirth', dateValue);
     }
   }
 });

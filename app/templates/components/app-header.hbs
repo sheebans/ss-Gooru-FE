@@ -52,6 +52,6 @@
 {{/app-modal}}
 
 {{#app-modal id="sign-up-modal" title=(t "common.signUp") as |onClose|}}
-  {{sign-up-form model=model onSignUpAction="onSignUp" onSuccessAction=onClose}}
+  {{sign-up-form model=model onSignUpAction="onSignUp" onSuccessAction=onClose onSelectDateOfBirthAction="onSelectDateOfBirthAction"}}
 {{/app-modal}}
 
