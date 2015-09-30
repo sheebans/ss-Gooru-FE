@@ -1,0 +1,15 @@
+.index {
+  .hero {
+    background: url('gooru/hero.png') no-repeat;
+    background-size: contain;
+    min-height: 460px;
+
+    h1 {
+      color: $color-white;
+      font-weight: bolder;
+      text-align: center;
+      font-size: 61px;
+      font-family: "Arvo";
+    }
+  }
+}

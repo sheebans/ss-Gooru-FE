@@ -15,8 +15,8 @@ export default {
     "searchForTopic": "Search for a topic"
   },
 
-  "home": {
-    "welcome": "Welcome"
+  "index": {
+    "joinUs": "Join Us to <br/> Honor the Human Right to <br/> Education"
   },
 
   "login": {
