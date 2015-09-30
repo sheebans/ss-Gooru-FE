@@ -45,7 +45,7 @@ test('header layout', function(assert) {
 });
 
 test('header layout with user', function(assert) {
-  assert.expect(3); //making sure all asserts are called
+  assert.expect(4); //making sure all asserts are called
 
   this.set('myUser', Ember.Object.create({ username: 'jperez' }));
 
@@ -55,7 +55,10 @@ test('header layout with user', function(assert) {
 
   var $navMenu = $component.find(".menu-navbar");
   T.notExists(assert, $navMenu.find(".login-link"), "Missing login link");
-  T.exists(assert, $navMenu.find(".user-logged"), "User info should not be present");
-  assert.equal(T.text($navMenu.find(".user-logged")), "jperez", "Wrong username");
+
+  T.exists(assert, $navMenu.find(".profile .username"), "User info should not be present");
+  assert.equal(T.text($navMenu.find(".profile .username")), "jperez", "Wrong username");
+
+  T.exists(assert, $navMenu.find(".settings"), "Missing settings icon");
 
 });
