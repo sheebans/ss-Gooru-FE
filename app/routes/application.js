@@ -31,9 +31,22 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
         });
     },
 
+    /**
+     * Action triggered when birthday is selected in the sign-up form
+     * @see app-header.hbs and sign-up-form.hbs and role-radio-button.hbs
+     */
     onSelectDateOfBirth: function(dateValue) {
       var model = this.controller.get('model');
       model.set('dateOfBirth', dateValue);
+    },
+
+    /**
+     * Action triggered when role is selected in the sign-up form
+     * @see app-header.hbs and sign-up-form.hbs and role-radio-button.hbs
+     */
+    onCheckRoleOption: function(optionValue) {
+      var model = this.controller.get('model');
+      model.set('role', optionValue);
     }
   }
 });

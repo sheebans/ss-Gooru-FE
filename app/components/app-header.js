@@ -23,6 +23,10 @@ export default Ember.Component.extend({
    * @property {string} on select date of birth action
    */
   onSelectDateOfBirthAction: "onSelectDateOfBirth",
+  /**
+   * @property {string} on check role option action
+   */
+  onCheckRoleOptionAction: "onCheckRoleOption",
 
   actions: {
     onAuthenticate: function(){
@@ -31,7 +35,11 @@ export default Ember.Component.extend({
 
     onSelectDateOfBirthAction: function(dateValue) {
       this.sendAction("onSelectDateOfBirthAction", dateValue);
-    }
+    },
+
+    onCheckRoleOptionAction: function(optionValue) {
+      this.sendAction("onCheckRoleOptionAction", optionValue);
+    },
   }
 
 });

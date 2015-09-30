@@ -48,10 +48,17 @@
 </header>
 
 {{#app-modal id="login-modal" title=(t "common.login") as |onClose|}}
-  {{sign-in-form onAuthenticateAction="onAuthenticate" onSuccessAction=onClose}}
+  {{sign-in-form
+      onAuthenticateAction="onAuthenticate"
+      onSuccessAction=onClose}}
 {{/app-modal}}
 
 {{#app-modal id="sign-up-modal" title=(t "common.signUp") as |onClose|}}
-  {{sign-up-form model=model onSignUpAction="onSignUp" onSuccessAction=onClose onSelectDateOfBirthAction="onSelectDateOfBirthAction"}}
+  {{sign-up-form
+      model=model
+      onSignUpAction="onSignUp"
+      onSuccessAction=onClose
+      onSelectDateOfBirthAction="onSelectDateOfBirthAction"
+      onCheckRoleOptionAction="onCheckRoleOptionAction"}}
 {{/app-modal}}
 

@@ -1,26 +1,19 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import T from 'gooru-web/tests/helpers/assert';
 
 moduleForComponent('role-radio-button', 'Integration | Component | role radio button', {
   integration: true
 });
 
-test('it renders', function(assert) {
-  assert.expect(2);
+test('renders role radio button', function(assert) {
+  assert.expect(4); // making sure all asserts are called
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+  this.render(hbs`{{role-radio-button onCheckRoleOptionAction=onCheckRoleOptionAction}}`); // render the component
+  var $component = this.$(); // component dom element
 
-  this.render(hbs`{{role-radio-button}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#role-radio-button}}
-      template block text
-    {{/role-radio-button}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  T.exists(assert, $component.find("#teacherRadioButton"), "Missing teacher radio option");
+  T.exists(assert, $component.find("#studentRadioButton"), "Missing teacher radio option");
+  T.exists(assert, $component.find("#parentRadioButton"), "Missing teacher radio option");
+  T.exists(assert, $component.find("#otherRadioButton"), "Missing teacher radio option");
 });

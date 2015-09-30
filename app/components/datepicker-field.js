@@ -1,7 +1,18 @@
 import Ember from 'ember';
 
+/**
+ * Datepicker field component
+ * @see datepicker-field.hbs
+ *
+ *
+ * @module
+ * @typedef {object} DatepickerField
+ */
 export default Ember.Component.extend({
 
+  /**
+   * @property {string} placeholder
+   */
   placeholder: null,
 
   /**

@@ -12,27 +12,30 @@ export default Ember.Component.extend({
    */
   onSelectDateOfBirthAction: "onSelectDateOfBirth",
 
+  /**
+   * @property {string} on check role option action
+   */
+  onCheckRoleOptionAction: "onCheckRoleOption",
+
   actions: {
-    signUp: function () {
+    signUp: function() {
       var self = this;
-      this.get('model').save().then(
-        function() {
+      this.get('model').save()
+        .then(function() {
           //self.transitionTo('index');
           if (self.get("onSuccessAction")){
             self.sendAction('onSuccessAction');
           }
         });
-      },
-      //if (self.get("onSignUpAction")){
-      //  self.sendAction('onSignUpAction');
-     // }
+    },
 
     onSelectDateOfBirthAction: function(dateValue) {
       this.sendAction("onSelectDateOfBirthAction", dateValue);
+    },
+
+    onCheckRoleOptionAction: function(optionValue) {
+      this.sendAction("onCheckRoleOptionAction", optionValue);
     }
-
-
-
   }
 
 });
