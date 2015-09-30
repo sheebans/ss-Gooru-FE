@@ -29,7 +29,11 @@ export default {
   },
 
   "signUp": {
-    "dateOfBirth": "Birthday"
+    "dateOfBirth": "Birthday",
+    "usernameToolTip": "Choose wisely! This is how students and others in the Gooru community will identify you. (Between 4 and 20 characters, with no spaces or special characters.)",
+    "nameToolTip": "Your name will not appear publicly anywhere on Gooru.",
+    "emailToolTip": "Double check your email. Make sure it's correct!",
+    "passwordToolTip": "Passwords must be between 5 and 14 characters and contain at least one number."
   }
 
 };

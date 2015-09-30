@@ -5,29 +5,64 @@
                 <div class="sign-up-popup-welcome">Please fill out the following information.</div>
                 <div class="sign-up-container">
                     <form {{action 'signUp' on='submit'}}>
-                        <div>
-                            <div class="sign-up-input-group col-width-fifty">
-                              {{input value=model.username placeholder='Username' class='sign-up-form-control text-box'}}
-                            </div>
-
-                            {{datepicker-field onSelectDateAction="onSelectDateOfBirthAction" placeholder=(t "signUp.dateOfBirth")}}
-
+                        <div class="row">
+                          <div class="col-xs-6">
+                            {{input
+                                id="username"
+                                value=model.username
+                                placeholder='Username'
+                                class="form-control"}}
+                          </div>
+                          {{datepicker-field
+                              onSelectDateAction="onSelectDateOfBirthAction"
+                              placeholder=(t "signUp.dateOfBirth")
+                              class="col-xs-6"}}
                         </div>
-                            <div class="sign-up-input-group col-width-fifty">
-                              {{input value=model.firstName placeholder='First Name' class='sign-up-form-control'}}
-                            </div>
-                            <div class="sign-up-input-group col-width-fifty">
-                              {{input value=model.lastName placeholder='Last Name' class='sign-up-form-control'}}
-                            </div>
-                            <div class="sign-up-input-group col-width-hundred">
-                              {{input value=model.emailId placeholder='Email' class='sign-up-form-control'}}
-                            </div>
-                            <div class="sign-up-input-group col-width-hundred">
-                              {{input value=model.password placeholder='Password' class='sign-up-form-control' type='password'}}
-                            </div>
-                            <div class="sign-up-input-group col-width-hundred">
-                              {{input value=model.confirmedPassword placeholder='Confirm Password' class='sign-up-form-control' type='password'}}
-                            </div>
+                        <div class="row">
+                          <div class="col-xs-6">
+                            {{input
+                                id="firstName"
+                                value=model.firstName
+                                placeholder='First Name'
+                                class='form-control'}}
+                          </div>
+                          <div class="col-xs-6">
+                            {{input
+                                id="lastName"
+                                value=model.lastName
+                                placeholder='Last Name'
+                                class='form-control'}}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xs-12">
+                            {{input
+                                id="email"
+                                value=model.emailId
+                                placeholder='Email'
+                                class='form-control'}}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xs-12">
+                            {{input
+                                id="password"
+                                value=model.password
+                                placeholder='Password'
+                                class='form-control'
+                                type='password'}}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xs-12">
+                            {{input
+                                id="re-password"
+                                value=model.confirmedPassword
+                                placeholder='Confirm Password'
+                                class='form-control'
+                                type='password'}}
+                          </div>
+                        </div>
 
                             {{role-radio-button onCheckRoleOptionAction="onCheckRoleOptionAction"}}
 

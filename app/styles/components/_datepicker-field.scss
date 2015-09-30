@@ -1,13 +1,39 @@
 .datepicker {
+
+  padding: 0px 0px 4px 0px;
+
+  .btn-default {
+    border: 0px solid transparent;
+  }
+
+  .input-group .form-control:first-child {
+    border-radius: 4px;
+  }
+
+  .form-control[readonly] {
+    border-radius: 4px;
+    background-color: $color-white;
+  }
+
+  .input-group-btn {
+    position: absolute;
+    padding: 7px 17px;
+    right: 0px;
+  }
+
   .datepicker-field {
   }
+
   .datepicker-icon {
     background: url("gooru/icon-sprite.png") no-repeat scroll -7px -472px transparent;
     cursor: pointer;
     display: block;
     float: right;
-    height: 21px;
+    height: 22px;
     margin-left: -20px;
-    width: 30px;
+    width: 32px;
   }
+
 }
+
+

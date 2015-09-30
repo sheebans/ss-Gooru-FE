@@ -90,4 +90,33 @@
     margin-top: 15px;
   }
 
+  .row {
+    margin-top: 15px;
+  }
+
 }
+
+.tooltip-inner {
+  text-align: left;
+  color: #515151;
+  font-size: 12px;
+  font-weight: normal;
+  border: 1px solid #ddd;
+  padding: 15px;
+  background-color: white;
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  position: relative;
+  top: -10px;
+  width: 180px;
+  float: left;
+}
+
+.tooltip.left .tooltip-arrow {
+  border-left-color: white;
+}
+
