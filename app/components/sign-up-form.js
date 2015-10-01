@@ -19,14 +19,17 @@ export default Ember.Component.extend({
    */
   onCheckRoleOptionAction: "onCheckRoleOption",
 
+  username: null,
+  firstName: null,
+  lastName: null,
+  email: null,
+  password: null,
+  confirmedPassword: null,
+
+
   didInsertElement: function() {
     var component = this;
-    component.$('#username').tooltip({title:component.get('i18n').t('signUp.usernameToolTip'), placement: "left"});
-    component.$('#firstName').tooltip({title:component.get('i18n').t('signUp.nameToolTip'), placement: "left"});
-    component.$('#lastName').tooltip({title:component.get('i18n').t('signUp.nameToolTip'), placement: "left"});
-    component.$('#email').tooltip({title:component.get('i18n').t('signUp.emailToolTip'), placement: "left"});
-    component.$('#password').tooltip({title:component.get('i18n').t('signUp.passwordToolTip'), placement: "left"});
-    component.$('#re-password').tooltip({title:component.get('i18n').t('signUp.passwordToolTip'), placement: "left"});
+    component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
   },
 
   actions: {
@@ -47,6 +50,30 @@ export default Ember.Component.extend({
 
     onCheckRoleOptionAction: function(optionValue) {
       this.sendAction("onCheckRoleOptionAction", optionValue);
+    },
+
+    usernameDidChange: function(value) {
+      console.log(value);
+    },
+
+    firstNameDidChange: function(value) {
+      console.log(value);
+    },
+
+    lastNameDidChange: function(value) {
+      console.log(value);
+    },
+
+    emailDidChange: function(value) {
+      console.log(value);
+    },
+
+    passwordDidChange: function(value) {
+      console.log(value);
+    },
+
+    rePasswordDidChange: function(value) {
+      console.log(value);
     }
   }
 

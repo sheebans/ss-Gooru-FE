@@ -7,11 +7,14 @@
                     <form {{action 'signUp' on='submit'}}>
                         <div class="row">
                           <div class="col-xs-6">
-                            {{input
-                                id="username"
-                                value=model.username
-                                placeholder='Username'
-                                class="form-control"}}
+                            <input type="text"
+                                   value={{username}}
+                                   onblur={{action "usernameDidChange" value="target.value"}}
+                                   class="form-control"
+                                   data-toggle="tooltip"
+                                   data-placement="left"
+                                   title="{{t 'signUp.usernameToolTip'}}"
+                                   placeholder="{{t 'signUp.username'}}"/>
                           </div>
                           {{datepicker-field
                               onSelectDateAction="onSelectDateOfBirthAction"
@@ -20,55 +23,68 @@
                         </div>
                         <div class="row">
                           <div class="col-xs-6">
-                            {{input
-                                id="firstName"
-                                value=model.firstName
-                                placeholder='First Name'
-                                class='form-control'}}
+                            <input type="text"
+                                value={{firstName}}
+                                onblur={{action "firstNameDidChange" value="target.value"}}
+                                class="form-control"
+                                data-toggle="tooltip"
+                                data-placement="left"
+                                title="{{t 'signUp.nameToolTip'}}"
+                                placeholder="{{t 'signUp.firstName'}}"/>
                           </div>
                           <div class="col-xs-6">
-                            {{input
-                                id="lastName"
-                                value=model.lastName
-                                placeholder='Last Name'
-                                class='form-control'}}
+                            <input type="text"
+                                value={{lastName}}
+                                onblur={{action "lastNameDidChange" value="target.value"}}
+                                class="form-control"
+                                data-toggle="tooltip"
+                                data-placement="left"
+                                title="{{t 'signUp.nameToolTip'}}"
+                                placeholder="{{t 'signUp.lastName'}}"/>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-xs-12">
-                            {{input
-                                id="email"
-                                value=model.emailId
-                                placeholder='Email'
-                                class='form-control'}}
+                            <input type="text"
+                                value={{email}}
+                                onblur={{action "emailDidChange" value="target.value"}}
+                                class="form-control"
+                                data-toggle="tooltip"
+                                data-placement="left"
+                                title="{{t 'signUp.emailToolTip'}}"
+                                placeholder="{{t 'signUp.email'}}"/>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-xs-12">
-                            {{input
-                                id="password"
-                                value=model.password
-                                placeholder='Password'
-                                class='form-control'
-                                type='password'}}
+                            <input type="password"
+                                value={{password}}
+                                onblur={{action "passwordDidChange" value="target.value"}}
+                                class="form-control"
+                                data-toggle="tooltip"
+                                data-placement="left"
+                                title="{{t 'signUp.passwordToolTip'}}"
+                                placeholder="{{t 'signUp.password'}}"/>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-xs-12">
-                            {{input
-                                id="re-password"
-                                value=model.confirmedPassword
-                                placeholder='Confirm Password'
-                                class='form-control'
-                                type='password'}}
+                            <input type="password"
+                                value={{confirmedPassword}}
+                                onblur={{action "rePasswordDidChange" value="target.value"}}
+                                class="form-control"
+                                data-toggle="tooltip"
+                                data-placement="left"
+                                title="{{t 'signUp.passwordToolTip'}}"
+                                placeholder="{{t 'signUp.rePassword'}}"/>
                           </div>
                         </div>
 
-                            {{role-radio-button onCheckRoleOptionAction="onCheckRoleOptionAction"}}
+                        {{role-radio-button onCheckRoleOptionAction="onCheckRoleOptionAction"}}
 
-                            <div class="form-group text-center">
-                                <button type="submit" class="btn btn-primary btn-sign-up">Sign Up</button>
-                            </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary btn-sign-up">Sign Up</button>
+                        </div>
 
 
                         {{#if errorMessage}}
