@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Session from 'ember-simple-auth/session';
+import Session from 'ember-simple-auth/internal-session';
 
 /**
  * Custom session

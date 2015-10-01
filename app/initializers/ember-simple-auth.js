@@ -4,7 +4,6 @@ import Configuration from 'ember-simple-auth/configuration';
 import setupSessionStores from 'ember-simple-auth/initializers/setup-session-stores';
 import setupSession from 'ember-simple-auth/initializers/setup-session';
 import setupSessionService from 'ember-simple-auth/initializers/setup-session-service';
-import setupAuthorizers from 'ember-simple-auth/initializers/setup-authorizers';
 
 /**
  * Custom ember auth initializer
@@ -22,7 +21,6 @@ export default {
     setupSessionStores(registry);
     setupSession(registry);
     setupSessionService(registry);
-    setupAuthorizers(registry);
 
     Ember.Logger.info('Init...');
   }
