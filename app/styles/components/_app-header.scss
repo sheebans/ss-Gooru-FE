@@ -54,6 +54,32 @@ header.app-header {
       .login-link {
         margin-left: 30px;
       }
+
+      .profile {
+        .icon {
+          background: url("gooru/profile.png") no-repeat;
+          -webkit-background-size: contain;
+          background-size: contain;
+          border-radius: 50px;
+          box-shadow: 0 0 0 2px $color-blue-lighter-2;
+          width: 30px;
+          height: 30px;
+          display: block;
+          margin-top: -4px;
+        }
+        .username {
+          margin-left: 10px;
+        }
+        border-right: 1px solid $color-gray-lighter-1;
+      }
+
+      .settings {
+        background: url("gooru/settings.png") no-repeat;
+        width: 30px;
+        height: 30px;
+        display: block;
+        margin-top: -5px;
+      }
     }
   }
 }

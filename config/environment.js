@@ -66,7 +66,7 @@ module.exports = function (environment) {
     ENV.APP.LOG_ACTIVE_GENERATION = false;
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
-    ENV['ember-simple-auth'].store = 'simple-auth-session-store:ephemeral';
+    ENV['ember-simple-auth'].store = 'session-store:ephemeral';
 
     ENV.APP.rootElement = '#ember-testing';
   }

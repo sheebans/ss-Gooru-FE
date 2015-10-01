@@ -34,10 +34,11 @@ $color-blue-lighter-3: #deebf3;
 $color-green-primary: #4e9746;
 
 
-body, p, div, span, li, textarea, input, a, td, th {
+body, p, div, span, li, textarea, input, a, td, th, select, button, i {
   font-family: Arial, sans-serif;
   font-size: 15px;
   color: $color-gray-secondary;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -54,14 +55,17 @@ a {
 h1 {
   font-size: 34px;
   color: $color-blue-lighter-1;
+  -webkit-font-smoothing: antialiased;
 }
 
 h2 {
   font-size: 25px;
   color: $color-gray-secondary;
+  -webkit-font-smoothing: antialiased;
 }
 
 h3 {
   font-size: 20px;
   color: $color-blue-primary;
+  -webkit-font-smoothing: antialiased;
 }
