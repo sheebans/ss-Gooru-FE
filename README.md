@@ -146,12 +146,15 @@ See
 * `ember test --server` to let the test running
 * `ember test --filter your_pattern` to execute some tests only
 
+Testem is configured to proxy ajax request to the stubby server, make sure your stubby server is running
+Other option is to use
+ * `grunt test` which start the stubby and run the test by using `ember test`
 
 ### Code Coverage
 More than 80% of coverage is mandatory for this project 
 
 ### Mocking the api server - Stubby
-* `grunt stubby` To startup a mocked API Server. Then make sure to run ember with the --proxy option to point to the Stubby server.
+* `grunt stubby:server` To startup a mocked API Server. Then make sure to run ember with the --proxy option to point to the Stubby server.
 
 ### Configuring a proxy server
 It is possible to proxy a server so you can connect to a different environment
