@@ -29,15 +29,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
   #config.vm.synced_folder './', '/var/www/gooru-web'
+  config.vm.synced_folder ".", "/vagrant", fsnotify: true,
+    exclude: [".vagrant", ".git", "tmp", "node_modules", "bower_components", "dist"]
 
-  config.vm.synced_folder ".", "/vagrant", type: "rsync",
-    rsync__exclude: [".git/", "node_modules", "bower_components", "tmp"]
+  #config.vm.synced_folder ".", "/vagrant", type: "rsync",
+  #  rsync__exclude: ["tmp/*", "node_modules", "bower_components", ".git/"]
 
   # Configure the window for gatling to coalesce writes.
-  if Vagrant.has_plugin?("vagrant-gatling-rsync")
-    config.gatling.latency = 2.5
-    config.gatling.time_format = "%H:%M:%S"
-  end
+  #if Vagrant.has_plugin?("vagrant-gatling-rsync")
+  #  config.gatling.latency = 2.5
+  #  config.gatling.time_format = "%H:%M:%S"
+  #end
 
   # Automatically sync when machines with rsync folders come up.
   config.gatling.rsync_on_startup = false
@@ -51,7 +53,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   vb.gui = true
   #
   # Use VBoxManage to customize the VM. For example to change memory:
-    vb.customize ["modifyvm", :id, "--memory", "1024"]
+    vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", 2]
   end
   #
   # View the documentation for the provider you're using for more

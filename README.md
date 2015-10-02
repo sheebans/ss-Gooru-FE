@@ -91,8 +91,7 @@ See [ember-i18n](https://github.com/jamesarosen/ember-i18n/wiki)
 
 ### Development environment
 * Install [Vagrant](http://www.vagrantup.com/downloads)
-* Install [vagrant-gatling-rsync](https://github.com/smerrill/vagrant-gatling-rsync)
-* `vagrant gatling-rsync-auto` Run rsync to listen and notify changes to guest vm 
+* Install [vagrant-fsnotify](http://www.rubydoc.info/gems/vagrant-fsnotify#Installation) 
 * `vagrant up` to setup your vagrant instance
 * `vagrant ssh` to ssh to the vagrant instance
 * `cd /vagrant` to access the project folder
@@ -110,6 +109,8 @@ Useful commands [Vagrant CLI](https://docs.vagrantup.com/v2/cli/index.html)
 ### Running the app
 * `ember server --proxy http://localhost:8882/gooruapi` to run it against the stubby server
 * Visit your app at [http://localhost:4200](http://localhost:4200).
+
+* `vagrant fsnotify` this is necessary so file changes (at host) are notified (to guest) while running the app 
 
 ### Coding standards
 This application follows [Ember CLI standards and conventions](http://www.ember-cli.com/user-guide/#naming-conventions) and it also uses JSHint (http://jshint.com/) _"JSHint is a program that flags suspicious usage in programs written in JavaScript."_
