@@ -89,6 +89,25 @@ See [ember-i18n](https://github.com/jamesarosen/ember-i18n/wiki)
 
 ## Running / Development
 
+### Development environment
+* Install [Vagrant](http://www.vagrantup.com/downloads)
+* Install [vagrant-gatling-rsync](https://github.com/smerrill/vagrant-gatling-rsync)
+* `vagrant gatling-rsync-auto` Run rsync to listen and notify changes to guest vm 
+* `vagrant up` to setup your vagrant instance
+* `vagrant ssh` to ssh to the vagrant instance
+* `cd /vagrant` to access the project folder
+
+Useful commands [Vagrant CLI](https://docs.vagrantup.com/v2/cli/index.html)
+* `vagrant provision` to install tools on vm
+* `vagrant halt` stops vm
+* `vagrant destroy` destroys the vm 
+
+
+### Installing dependencies
+* `npm install`
+* `bower install`
+
+### Running the app
 * `ember server --proxy http://localhost:8882/gooruapi` to run it against the stubby server
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
@@ -127,7 +146,6 @@ See
 * `ember test --filter your_pattern` to execute some tests only
 
 
-
 ### Code Coverage
 More than 80% of coverage is mandatory for this project 
 
@@ -144,7 +162,16 @@ It is possible to proxy a server so you can connect to a different environment
 * `ember build` (development)
 * `ember build --environment production` (production)
 
+### Continuous Integration
+We have setup Bamboo as continuous integration server
+* when publishing a feature branch a bamboo build is triggered
+* when a feature is finished and changes are merge to develop, another build is performed and the app is deployed
+
 ### Deploying
 
-@TODO: Specify what it takes to deploy your app.
+*QA deployment*
+At this point develop branch is deployed by Bamboo to the configured QA servers
+
+*Production deployment*
+TBD
 
