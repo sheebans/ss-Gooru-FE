@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "broccoli-sass": "^0.6.6",
-    "broccoli-static-compiler": "^0.2.2"
+    "broccoli-static-compiler": "^0.2.2",
+    "grunt-exec": "^0.4.6"
   }
 }
