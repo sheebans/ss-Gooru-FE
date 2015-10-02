@@ -37,13 +37,17 @@ The Gooru Collection Player is capable of rendering all types of Gooru Collectio
 
 ## Prerequisites
 
-You will need the following things properly installed on your computer.
+You can use the vagrant configuration (suggested) or install the following things properly on your computer.
 
 * [Git](http://git-scm.com/)
 * [Node.js](http://nodejs.org/) (with NPM)
 * [Bower](http://bower.io/)
 * [Ember CLI](http://www.ember-cli.com/)
 * [PhantomJS](http://phantomjs.org/)
+* [Grunt-CLI](https://github.com/gruntjs/grunt-cli)
+* [Stubby](https://github.com/mrak/stubby4node)
+* [Vagrant](https://www.vagrantup.com/)
+
 
 ## High Level Architecture
 This project is built on top of EmberJS 2.x and Ember CLI
@@ -58,6 +62,8 @@ This project is built on top of EmberJS 2.x and Ember CLI
 * SASS
 * Boostrap
 * jQuery
+* Grunt
+* Stubby
 
 #### Project Structure
 This project follows the project structure suggested by Ember CLI
@@ -84,8 +90,10 @@ See [ember-i18n](https://github.com/jamesarosen/ember-i18n/wiki)
 
 * `git clone https://github.com/Gooru/Gooru-FE.git` this repository
 * change into the new directory
-* `npm install`
-* `bower install`
+* Install dependencies `npm install` and `bower install`
+* Or use vagrant instance `vagrant up` 
+
+
 
 ## Running / Development
 
