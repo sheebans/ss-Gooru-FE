@@ -91,9 +91,17 @@ See [ember-i18n](https://github.com/jamesarosen/ember-i18n/wiki)
 
 ### Development environment
 * Install [Vagrant](http://www.vagrantup.com/downloads)
+* Install [vagrant-gatling-rsync](https://github.com/smerrill/vagrant-gatling-rsync)
+* `vagrant gatling-rsync-auto` Run rsync to listen and notify changes to guest vm 
 * `vagrant up` to setup your vagrant instance
 * `vagrant ssh` to ssh to the vagrant instance
-* `cd \vagrant` to access the project folder
+* `cd /vagrant` to access the project folder
+
+Useful commands [Vagrant CLI](https://docs.vagrantup.com/v2/cli/index.html)
+* `vagrant provision` to install tools on vm
+* `vagrant halt` stops vm
+* `vagrant destroy` destroys the vm 
+
 
 ### Installing dependencies
 * `npm install`

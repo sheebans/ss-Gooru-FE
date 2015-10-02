@@ -21,12 +21,26 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # using a specific IP.
   config.vm.network "private_network", ip: "192.168.33.10"
 
+  # config.vm.network "forwarded_port", guest: 4200, host: 4200, auto_correct: true
+
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-  config.vm.synced_folder './', '/var/www/gooru-web'
+  #config.vm.synced_folder './', '/var/www/gooru-web'
+
+  config.vm.synced_folder ".", "/vagrant", type: "rsync",
+    rsync__exclude: [".git/", "node_modules", "bower_components", "tmp"]
+
+  # Configure the window for gatling to coalesce writes.
+  if Vagrant.has_plugin?("vagrant-gatling-rsync")
+    config.gatling.latency = 2.5
+    config.gatling.time_format = "%H:%M:%S"
+  end
+
+  # Automatically sync when machines with rsync folders come up.
+  config.gatling.rsync_on_startup = false
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
