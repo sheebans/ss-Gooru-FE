@@ -1,4 +1,8 @@
 .index {
+   h2 {
+    font-family: "Arvo";
+
+  }
   .hero {
     background: url('gooru/hero.png') no-repeat;
     background-size: contain;
@@ -10,6 +14,45 @@
       text-align: center;
       font-size: 61px;
       font-family: "Arvo";
+    }
+  }
+  .getting-started-banner{
+    background:url('gooru/getting-started-banner.png') no-repeat;
+    backgorund-size: contain;
+    @media (min-width: $screen-sm-min) {
+        min-height: 346px;
+    }
+    @media (min-width: $screen-md-min) {
+        min-height: 400px;
+    }
+  }
+
+  .getting-started-content{
+
+    p{
+      font-size: 15px;
+      color: $color-gray-secondary;
+    }
+    .events{
+      @media (min-width: $screen-md-min)
+      {
+        margin-bottom: 0px;
+        margin-top: 30px;
+      }
+    }
+    .events-icon{
+      float: left;
+      height: 82px;
+      vertical-align: middle;
+      margin-top: 15px;
+      margin-left: -28px;
+      margin-right: 20px;
+      width: 93px;
+      display: inline-block;
+      left: 10px;
+      position: relative;
+      background: url('gooru/landingpageSprite.png') no-repeat;
+      background-position: -270px -2px;
     }
   }
 }
