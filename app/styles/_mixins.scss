@@ -1,0 +1,47 @@
+@mixin make-padding($class, $increaseBy) {
+  @for $i from 1 through 10 {
+    .pa-#{$class}-#{$i} {
+      padding: $i * $increaseBy $i * $increaseBy $i * $increaseBy $i * $increaseBy;
+    }
+
+    .pa-#{$class}-top-#{$i} {
+      padding-top: $i * $increaseBy;
+    }
+
+    .pa-#{$class}-bottom-#{$i} {
+      padding-bottom: $i * $increaseBy;
+    }
+
+    .pa-#{$class}-left-#{$i} {
+      padding-left: $i * $increaseBy;
+    }
+
+    .pa-#{$class}-right-#{$i} {
+      padding-right: $i * $increaseBy;
+    }
+  }
+}
+
+@mixin make-margin($class, $increaseBy) {
+  @for $i from 1 through 10 {
+    .ma-#{$class}-#{$i} {
+      margin: $i * $increaseBy $i * $increaseBy $i * $increaseBy $i * $increaseBy;
+    }
+
+    .ma-#{$class}-top-#{$i} {
+      margin-top: $i * $increaseBy;
+    }
+
+    .ma-#{$class}-bottom-#{$i} {
+      margin-bottom: $i * $increaseBy;
+    }
+
+    .ma-#{$class}-left-#{$i} {
+      margin-left: $i * $increaseBy;
+    }
+
+    .ma-#{$class}-right-#{$i} {
+      margin-right: $i * $increaseBy;
+    }
+  }
+}
