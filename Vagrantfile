@@ -42,7 +42,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #end
 
   # Automatically sync when machines with rsync folders come up.
-  config.gatling.rsync_on_startup = false
+  #config.gatling.rsync_on_startup = false
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
