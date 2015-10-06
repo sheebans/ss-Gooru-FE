@@ -17,7 +17,7 @@ test('header layout', function(assert) {
     assert.ok(false, "onAuthenticateAction should not be called");
   });
 
-  this.render(hbs`{{app-header onAuthenticateAction=myAuthenticateAction}}`);
+  this.render(hbs`{{app-header onAuthenticateAction='myAuthenticateAction'}}`);
 
   var $component = this.$(); //component dom element
 
@@ -51,14 +51,39 @@ test('header layout with user', function(assert) {
 
   this.render(hbs`{{app-header user=myUser}}`);
 
-  var $component = this.$(); //component dom element
+  const $component = this.$(); //component dom element
 
-  var $navMenu = $component.find(".menu-navbar");
+  const $navMenu = $component.find(".menu-navbar");
   T.notExists(assert, $navMenu.find(".login-link"), "Missing login link");
 
   T.exists(assert, $navMenu.find(".profile .username"), "User info should not be present");
   assert.equal(T.text($navMenu.find(".profile .username")), "jperez", "Wrong username");
 
   T.exists(assert, $navMenu.find(".settings"), "Missing settings icon");
+
+});
+
+test('search box', function(assert) {
+  assert.expect(4); //making sure all asserts are called
+
+  this.on('mySearchAction', function(term){
+    assert.equal(term, "test", "onSearchAction should be called once");
+  });
+
+  this.render(hbs`{{app-header user=myUser onSearchAction='mySearchAction'}}`);
+
+  const $component = this.$(); //component dom element
+
+  const $navSearch = $component.find(".search-navbar-form");
+  T.exists(assert, $navSearch, "Missing nav search form");
+  T.exists(assert, $navSearch.find(".search-button"), "Missing search button");
+  T.exists(assert, $navSearch.find(".search-input"), "Missing search input");
+
+  const $searchInput = $navSearch.find(".search-input");
+  $searchInput.val("test");
+  $searchInput.change();
+
+  const $searchButton = $navSearch.find(".search-button");
+  $searchButton.click();
 
 });
