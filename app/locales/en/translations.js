@@ -18,7 +18,8 @@ export default {
   "index": {
     "joinUs": "Join Us to <br/> Honor the Human Right to <br/> Education",
     "freeAndOpen":"Free and Open.<br/>Always.",
-    "freeAndOpenDescription":"We believe education is a human right. Gooru will always be free of cost and ads for educators and students worldwide."
+    "freeAndOpenDescription":"We believe education is a human right. Gooru will always be free of cost and ads for educators and students worldwide.",
+    "freeAndOpenButton":"Learn More about Our Approach"
   },
 
   "login": {

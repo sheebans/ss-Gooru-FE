@@ -17,7 +17,7 @@ test('Page Layout', function(assert) {
   visit('/');
 
   andThen(function() {
-    assert.expect(3); //making sure all asserts are called
+    assert.expect(7); //making sure all asserts are called
 
     assert.equal(currentURL(), '/');
 
@@ -25,6 +25,12 @@ test('Page Layout', function(assert) {
     var $hero = find('.hero');
     T.exists(assert, $hero, "Missing hero section");
     T.exists(assert, $hero.find("h1"), "Missing hero title");
+
+    var $freeAndOpen = find('.free_and_open');
+    T.exists(assert, $freeAndOpen, "Missing free and open section");
+    T.exists(assert, $freeAndOpen.find("h1"), "Missing free and open  title");
+    T.exists(assert,$freeAndOpen.find('.free_and_open_descrip'),"Missing free and open description");
+    T.exists(assert,$freeAndOpen.find('.free_and_open_button'),"Missing free and open button");
 
   });
 });
