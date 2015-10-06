@@ -31,7 +31,22 @@ export default {
     "usernameOrEmail": "Username or Email"
   },
   "footer":{
-    "footerDescription":"Gooru is committed to keeping its platform open-source and community created content CC0."
+    "footerDescription":"Gooru is committed to keeping its platform open-source and community created content CC0.",
+    "company":"Company",
+    "community":"Community",
+    "legal":"Legal",
+    "connect":"Connect",
+    "aboutGooru":"About Gooru",
+    "careers":"Careers",
+    "supportCenter":"Support Center",
+    "contactUs":"Contact Us",
+    "districts":"Districts",
+    "partners":"Partners",
+    "coaches":"Coaches",
+    "events":"Events",
+    "terms":"Terms",
+    "privacy":"Privacy",
+    "Copyright":"Copyright"
   }
 
 
