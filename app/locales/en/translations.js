@@ -26,6 +26,9 @@ export default {
     "forgotPassword": "Forgot your Password?",
     "password": "Password",
     "usernameOrEmail": "Username or Email"
+  },
+  "footer":{
+    "footerDescription":"Gooru is committed to keeping its platform open-source and community created content CC0."
   }
 
 

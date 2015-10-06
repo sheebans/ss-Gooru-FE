@@ -1,4 +1,18 @@
 footer.app-footer {
   min-height: 180px;
-  background-color: $color-gray-primary;
+  background-color: $color-gray-3;
+
+  .imgLogo{
+    background: url('gooru/footer-logo.png') no-repeat -8px -207px;
+    background-size: contain;
+    min-height: 56px;
+    background-position-y: initial;
+    background-position-x: initial;
+  }
+  p{
+    color: $color-white;
+  }
+  .footercolum{
+    border-right: 1px solid #616161;
+  }
 }
