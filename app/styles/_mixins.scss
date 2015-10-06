@@ -1,5 +1,5 @@
-@mixin make-padding($class, $increaseBy) {
-  @for $i from 1 through 10 {
+@mixin make-padding($total, $class, $increaseBy) {
+  @for $i from 1 through $total {
     .pa-#{$class}-#{$i} {
       padding: $i * $increaseBy $i * $increaseBy $i * $increaseBy $i * $increaseBy;
     }
@@ -22,8 +22,8 @@
   }
 }
 
-@mixin make-margin($class, $increaseBy) {
-  @for $i from 1 through 10 {
+@mixin make-margin($total, $class, $increaseBy) {
+  @for $i from 1 through $total {
     .ma-#{$class}-#{$i} {
       margin: $i * $increaseBy $i * $increaseBy $i * $increaseBy $i * $increaseBy;
     }

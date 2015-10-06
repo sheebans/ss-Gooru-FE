@@ -70,24 +70,24 @@ h3 {
   -webkit-font-smoothing: antialiased;
 }
 
-@include make-padding(xs, 2px);
+@include make-padding(20, xs, 2px);
 @media (min-width: $screen-sm-min) {
-  @include make-padding(sm, 3px);
+  @include make-padding(20, sm, 2px);
 }
 @media (min-width: $screen-md-min) {
-  @include make-padding(md, 4px);
+  @include make-padding(20, md, 2px);
 }
 @media (min-width: $screen-lg-min) {
-  @include make-padding(lg, 5px);
+  @include make-padding(20, lg, 2px);
 }
 
-@include make-margin(xs, 2px);
+@include make-margin(20, xs, 2px);
 @media (min-width: $screen-sm-min) {
-  @include make-margin(sm, 3px);
+  @include make-margin(20, sm, 2px);
 }
 @media (min-width: $screen-md-min) {
-  @include make-margin(md, 4px);
+  @include make-margin(20, md, 2px);
 }
 @media (min-width: $screen-lg-min) {
-  @include make-margin(lg, 5px);
+  @include make-margin(20, lg, 2px);
 }
