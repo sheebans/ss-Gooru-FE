@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import { module, test } from 'qunit';
 import startApp from 'gooru-web/tests/helpers/start-app';
-import T from 'gooru-web/tests/helpers/assert';
 
 module('Acceptance | search/collections', {
   beforeEach: function() {
