@@ -12,4 +12,36 @@
       font-family: "Arvo";
     }
   }
+  .empowerStudents{
+    h2{
+      font-family: "Arvo";
+      font-weight: bold;
+      font-size: 22px;
+    }
+    h2.title{
+      font-size: 30px;
+    }
+    .empowerSprite{
+      min-height: 158px;
+      width: 200px;
+      display: inline-block;
+      background: url('gooru/gooru-sprite.png') no-repeat;
+    }
+    .findImg{
+      background-position: -10px -311px;
+    }
+    .remixImg{
+      background-position: -453px -147px;
+    }
+    .shareImg{
+      background-position: -197px -150px;
+    }
+    .monitorImg{
+      background-position: 23px -151px;
+    }
+    p{
+      font-family: "Arvo";
+      font-size: 16px;
+    }
+  }
 }
