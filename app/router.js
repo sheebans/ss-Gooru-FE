@@ -7,6 +7,10 @@ var Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('index', {path: '/'});
+
+  this.route('search', function() {
+    this.route('collections');
+  });
 });
 
 export default Router;

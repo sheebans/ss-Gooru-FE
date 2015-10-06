@@ -10,7 +10,8 @@ export default Ember.Route.extend(ApplicationRouteMixin, SessionMixin, {
   actions: {
     /**
      * Action triggered when submitting the login form
-     * @see application.hbs and app-header.hbs
+     * @see application.hbs
+     * @see app-header.hbs
      */
     onAuthenticate: function() {
       this.transitionTo('/index');
@@ -21,6 +22,16 @@ export default Ember.Route.extend(ApplicationRouteMixin, SessionMixin, {
      */
     invalidateSession: function() {
       this.get('session').invalidate();
+    },
+
+
+    /**
+     * Action triggered when the user search for collections
+     * @see application.hbs
+     * @see app-header.js
+     */
+    onSearch: function (term){
+      this.transitionTo('/search/collections?term=' + term);
     }
   }
 });
