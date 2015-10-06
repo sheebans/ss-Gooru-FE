@@ -4,6 +4,12 @@
   display: block;
   margin: 0 auto;
 }
+.vertical-align-col{
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  -webkit-align-items: center;
+}
 
 .align-cols-vertically {
   display: flex;
