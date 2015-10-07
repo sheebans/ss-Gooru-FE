@@ -1,11 +1,12 @@
 <div class="gooru">
-  {{app-header onAuthenticateAction="onAuthenticate" user=me}}
+  {{app-header
+  onAuthenticateAction="onAuthenticate"
+  onSearchAction="onSearch"
+  user=me}}
 
-    <div class="container-fluid app-container" >
-      {{outlet}}
-    </div>
+  <div class="container-fluid app-container">
+    {{outlet}}
+  </div>
   {{app-footer}}
-
-
 </div>
 
