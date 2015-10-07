@@ -3,12 +3,24 @@
     <div class="col-md-12">
       <h1>{{t "index.joinUs"}}</h1>
     </div>
-  </div>
-  <div class="row bg-gray getting-started row-eq-height">
-   <div class="col-md-5 col-sm-5 getting-started-banner">
+    </div>
+    <div>
+      {{app-dropdown
+      placeholder=(t "grade-dropdown.placeholder")
+      items=subjectItems
+      multiple=true
+      onChangeAction="onSubjectChange"}}
 
-   </div>
-   <div class="col-md-7 col-sm-7 getting-started-content">
+      {{standard-dropdown
+      standards=standards
+      onStandardSelectedAction="onStandardSelected"}}
+
+    </div>
+    <div class="row bg-gray getting-started row-eq-height">
+       <div class="col-md-5 col-sm-5 getting-started-banner">
+
+       </div>
+    <div class="col-md-7 col-sm-7 getting-started-content">
       <div class="row">
           <h2 class="ma-md-15 ma-sm-top-6 ma-sm-left-15 ma-sm-right-15">{{t "index.gettingStarted"}}</h2>
           <div class="pa-md-left-15 pa-sm-left-15 col-md-10 col-sm-10 toolkit">
@@ -36,7 +48,6 @@
            </div>
        </div>
    </div>
-  </div>
   <div class="container">
   <div class="row empowerStudents">
           <div>

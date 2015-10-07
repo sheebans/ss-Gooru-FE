@@ -86,6 +86,11 @@ export default {
     "terms":"Terms",
     "privacy":"Privacy",
     "Copyright":"Copyright"
+  },
+
+  "grade-dropdown" : {
+    "placeholder" : "grade(s)",
+    "prompt": "Select a grade"
   }
 
 };
