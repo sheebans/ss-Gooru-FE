@@ -3,18 +3,16 @@
     <div class="col-md-12">
       <h1>{{t "index.joinUs"}}</h1>
     </div>
-    </div>
+  </div>
     <div>
       {{app-dropdown
       placeholder=(t "grade-dropdown.placeholder")
       items=subjectItems
       multiple=true
       onChangeAction="onSubjectChange"}}
-
       {{standard-dropdown
       standards=standards
       onStandardSelectedAction="onStandardSelected"}}
-
     </div>
     <div class="row bg-gray getting-started row-eq-height">
        <div class="col-md-5 col-sm-5 getting-started-banner">
@@ -27,7 +25,7 @@
             <a target="_blank"  href="http://about.goorulearning.org/educators/get-started/"><h3>{{t "index.toolkit.title"}}</h3></a>
             <p>{{t "index.toolkit.description"}}</p>
           </div>
-        </div>
+      </div>
        <div class="row">
            <div class="pa-md-left-15 pa-sm-left-15 col-md-10 col-sm-10 classroom">
                <a target="_blank" href="http://about.goorulearning.org/educators/stories/"><h3>{{t "index.classroom.title"}}</h3></a>
@@ -47,8 +45,9 @@
                </div>
            </div>
        </div>
-   </div>
-  <div class="container">
+    </div>
+    </div>
+    <div class="container">
   <div class="row empowerStudents">
           <div>
               <h2 class="text-blue title text-center">{{t "index.empowerStudents.title"}}</h2>
