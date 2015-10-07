@@ -3,7 +3,7 @@
     "request": {
       "url": "^/gooruapi/rest/v2/user$",
       "query": {
-        "sessionToken": "9b147580-76df-11e4-8d16-123141016e2a"
+        "sessionToken": "(.+)"
       },
       "post": "{\"user\":{\"firstName\":([^,]+),\"lastName\":([^,]+),\"username\":([^,]+),\"emailId\":([^,]+),\"organization\":{\"organizationCode\":([^}]+)}},\"gender\":\"male\",\"dateOfBirth\":([^,]+),\"role\":([^,]+),\"password\":([^,]+)}",
       "method": "POST"

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 /**
  * Application header component
@@ -10,36 +10,38 @@ import Ember from 'ember';
  */
 export default Ember.Component.extend({
 
-
   /**
-   * @property {object} user
+   * @property {object} current session
    */
-  user: null,
+  currentSession: null,
+
   /**
    * @property {string} on authenticate action
    */
   onAuthenticateAction: "onAuthenticate",
+
   /**
-   * @property {string} on select date of birth action
+   * @property {string} on invalidate session action
    */
-  onSelectDateOfBirthAction: "onSelectDateOfBirth",
+  onInvalidateSessionAction: "onInvalidateSession",
+
   /**
-   * @property {string} on check role option action
+   * @property {string} on close modal action
    */
-  onCheckRoleOptionAction: "onCheckRoleOption",
+  onCloseModalAction: "onCloseModal",
 
   actions: {
     onAuthenticate: function(){
       this.sendAction("onAuthenticateAction");
     },
 
-    onSelectDateOfBirthAction: function(dateValue) {
-      this.sendAction("onSelectDateOfBirthAction", dateValue);
+    onInvalidateSession: function() {
+      this.sendAction("onInvalidateSessionAction");
     },
 
-    onCheckRoleOptionAction: function(optionValue) {
-      this.sendAction("onCheckRoleOptionAction", optionValue);
-    },
+    onCloseModalAction: function() {
+      this.sendAction("onCloseModalAction");
+    }
   }
 
 });

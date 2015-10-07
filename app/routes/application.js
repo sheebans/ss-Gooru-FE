@@ -1,11 +1,26 @@
-import Ember from 'ember';
-import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
-import SessionMixin from '../mixins/session';
+import Ember from "ember";
+import ApplicationRouteMixin from "ember-simple-auth/mixins/application-route-mixin";
 
-export default Ember.Route.extend(ApplicationRouteMixin, SessionMixin, {
+export default Ember.Route.extend(ApplicationRouteMixin, {
+
+  sessionService: Ember.inject.service("api-sdk/session"),
 
   model: function() {
-    return this.store.createRecord('sign-up');
+    var route = this;
+    var currentSession = null;
+
+    if (route.get("session.isAuthenticated")) {
+      currentSession = route.get("session.data.authenticated");
+    } else {
+      route.get("sessionService").signInWithDefaultUser()
+        .then(function () {
+          currentSession = route.get("session.data.authenticated");
+        })
+    }
+
+    return Ember.RSVP.hash({
+      currentSession: currentSession
+    });
   },
 
   actions: {
@@ -14,40 +29,23 @@ export default Ember.Route.extend(ApplicationRouteMixin, SessionMixin, {
      * @see application.hbs and app-header.hbs
      */
     onAuthenticate: function() {
-      this.transitionTo('index');
+      this.transitionTo("index");
     },
 
     /**
      * Action triggered when login out
      */
-    invalidateSession: function() {
-      this.get('session').invalidate();
-    },
-
-    signUp: function() {
-      var self = this;
-      this.controller.get('model').save().then(
-        function() {
-          self.transitionTo('index');
-        });
+    onInvalidateSession: function() {
+      this.get("session").invalidate();
+      this.refresh();
     },
 
     /**
-     * Action triggered when birthday is selected in the sign-up form
-     * @see app-header.hbs and sign-up-form.hbs and role-radio-button.hbs
+     * Action triggered when close modal
      */
-    onSelectDateOfBirth: function(dateValue) {
-      var model = this.controller.get('model');
-      model.set('dateOfBirth', dateValue);
-    },
-
-    /**
-     * Action triggered when role is selected in the sign-up form
-     * @see app-header.hbs and sign-up-form.hbs and role-radio-button.hbs
-     */
-    onCheckRoleOption: function(optionValue) {
-      var model = this.controller.get('model');
-      model.set('role', optionValue);
+    onCloseModal: function() {
+      this.refresh();
     }
+
   }
 });

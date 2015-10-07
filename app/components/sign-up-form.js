@@ -1,8 +1,20 @@
-import Ember from 'ember';
+import Ember from "ember";
+
+Ember.TextField.reopen({
+  attributeBindings: ["data-toggle", "data-placement"]
+});
 
 export default Ember.Component.extend({
 
+  /**
+   * @property {Service} I18N service
+   */
   i18n: Ember.inject.service(),
+
+  /**
+   * @property {Service} User service API SDK
+   */
+  userService: Ember.inject.service("api-sdk/user"),
 
   /**
    * @property {string} on success action to be sent to the parent component
@@ -19,61 +31,55 @@ export default Ember.Component.extend({
    */
   onCheckRoleOptionAction: "onCheckRoleOption",
 
+  /**
+   * Data-biding properties for the form fields
+   */
   username: null,
   firstName: null,
   lastName: null,
   email: null,
+  dateOfBirth: null,
+  role: null,
   password: null,
   confirmedPassword: null,
 
 
   didInsertElement: function() {
     var component = this;
-    component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
+    component.$("[data-toggle='tooltip']").tooltip({trigger: "hover"});
   },
 
   actions: {
     signUp: function() {
-      var self = this;
-      this.get('model').save()
+      var component = this;
+      this.get("userService").create({
+          username: component.get("username"),
+          firstName: component.get("firstName"),
+          lastName: component.get("lastName"),
+          email: component.get("email"),
+          dateOfBirth: component.get("dateOfBirth"),
+          role: component.get("role"),
+          password: component.get("password")
+        })
         .then(function() {
-          //self.transitionTo('index');
-          if (self.get("onSuccessAction")){
-            self.sendAction('onSuccessAction');
+          if (component.get("onSuccessAction")) {
+            component.sendAction("onSuccessAction");
           }
         });
     },
 
+    /**
+     * Action triggered when birthday is selected in the sign-up form
+     */
     onSelectDateOfBirthAction: function(dateValue) {
-      this.sendAction("onSelectDateOfBirthAction", dateValue);
+      this.set("dateOfBirth", dateValue);
     },
 
+    /**
+     * Action triggered when role is selected in the sign-up form
+     */
     onCheckRoleOptionAction: function(optionValue) {
-      this.sendAction("onCheckRoleOptionAction", optionValue);
-    },
-
-    usernameDidChange: function(value) {
-      console.log(value);
-    },
-
-    firstNameDidChange: function(value) {
-      console.log(value);
-    },
-
-    lastNameDidChange: function(value) {
-      console.log(value);
-    },
-
-    emailDidChange: function(value) {
-      console.log(value);
-    },
-
-    passwordDidChange: function(value) {
-      console.log(value);
-    },
-
-    rePasswordDidChange: function(value) {
-      console.log(value);
+      this.set("role", optionValue);
     }
   }
 

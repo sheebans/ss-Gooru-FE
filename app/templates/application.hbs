@@ -1,11 +1,12 @@
 <div class="gooru">
-  {{app-header onAuthenticateAction="onAuthenticate" user=me model=model}}
-
+  {{app-header
+    currentSession=model.currentSession
+    onAuthenticateAction="onAuthenticate"
+    onInvalidateSessionAction="onInvalidateSession"
+    onCloseModalAction="onCloseModal"}}
     <div class="container-fluid app-container" >
       {{outlet}}
     </div>
   {{app-footer}}
-
-
 </div>
 

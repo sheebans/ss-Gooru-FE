@@ -1,33 +1,26 @@
-import Ember from 'ember';
-import ENV from '../config/environment';
-import Base from 'ember-simple-auth/authenticators/base';
+import Ember from "ember";
+import BaseAuthenticator from "ember-simple-auth/authenticators/base";
+import Env from "../config/environment";
+
+const Config = Env["simple-auth-custom"] || {};
 
 /**
  * @class
  * @typedef {Object} CustomAuthenticator
  */
-export default Base.extend({
+export default BaseAuthenticator.extend({
 
   /**
-   * @property {string} Token end point
+   * @property {string} Server token end-point
    * @see simple-auth-custom at environment.js
    */
-  serverTokenEndpoint: null,
+  serverTokenEndpoint: Config.serverTokenEndpoint,
 
   /**
-   * @property {string} api key
+   * @property {string} API Key
    * @see simple-auth-custom at environment.js
    */
-  apiKey: null,
-
-  /**
-   * Initializing the authorizer
-   */
-  init: function() {
-    const config        = ENV['simple-auth-custom'] || {};
-    this.serverTokenEndpoint = config['serverTokenEndpoint'];
-    this.apiKey = config['apiKey'];
-  },
+  apiKey: Config.apiKey,
 
   restore: function(data) {
     return new Ember.RSVP.Promise(function(resolve, reject) {
@@ -42,19 +35,18 @@ export default Base.extend({
   authenticate: function(options) {
     return new Ember.RSVP.Promise((resolve, reject) => {
       Ember.$.ajax({
-        url: this.serverTokenEndpoint + '?apiKey=' + this.apiKey,
-        type: 'POST',
+        url: this.serverTokenEndpoint + "?apiKey=" + this.apiKey,
+        type: "POST",
         data: JSON.stringify({
           username: options.username,
           password: options.password
         }),
-        contentType: 'application/json;charset=utf-8',
-        dataType: 'json'
+        contentType: "application/json;charset=utf-8",
+        dataType: "json"
       }).then(function(response) {
+        response.isDefaultUser = options.isDefaultUser;
         Ember.run(function() {
-          resolve({
-            token: response.token
-          });
+          resolve(response);
         });
       }, function(xhr) {
         var response = xhr.responseText;
@@ -68,4 +60,5 @@ export default Base.extend({
   invalidate: function() {
     return Ember.RSVP.resolve();
   }
+
 });

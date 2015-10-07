@@ -25,12 +25,13 @@ module.exports = function (environment) {
   };
 
   ENV['ember-simple-auth'] = {
-    base: {
-      store: 'session-store:local-storage',
-      authorizer: 'authorizer:custom',
-      session: 'session:withCurrentUser',
-      routeAfterAuthentication: '/index'
-    }
+    store: 'session-store:local-storage',
+    session: 'session:withCurrentUser',
+    baseURL: '/',
+
+    //base: {
+    //  authorizer: 'authorizer:custom',
+    //}
   };
 
   ENV['simple-auth-custom'] = {
@@ -38,6 +39,10 @@ module.exports = function (environment) {
     apiKey: 'ASERTYUIOMNHBGFDXSDWERT123RTGHYT'
   };
 
+  ENV['default-user'] = {
+    username: "param",
+    password: "aaa123"
+  };
 
   if (environment === 'development') {
     ENV.APP.LOG_RESOLVER = true;

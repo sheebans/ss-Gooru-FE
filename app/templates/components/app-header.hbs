@@ -23,11 +23,18 @@
           <li>
             <a href="#" class="navbar-link my-content-link">{{t "common.myContent"}}</a>
           </li>
-          {{#if user}}
+          {{#if currentSession.isDefaultUser}}
             <li>
-              <a href="#" class="profile" title="{{ user.username }}">
+              <a href="#" class="navbar-link login-link" data-toggle="modal"
+                 data-target="#login-modal > .modal">
+                {{t "common.login"}}
+              </a>
+            </li>
+          {{else}}
+            <li>
+              <a href="#" class="profile" title="{{currentSession.user.username}}">
                 <i class="icon pull-left">&nbsp;</i>
-                <span class="username text-white">{{ user.username }}</span>
+                <span class="username text-white">{{currentSession.user.username}}</span>
               </a>
             </li>
             <li>
@@ -35,16 +42,15 @@
                 <span class="settings"></span>
               </a>
             </li>
-          {{else}}
             <li>
-              <a href="#" class="navbar-link login-link" data-toggle="modal"
-                 data-target="#login-modal > .modal">
-                {{t "common.login"}}
-              </a>
+              <a {{action "onInvalidateSession"}}> {{t "common.logout"}}</a>
             </li>
           {{/if}}
           <li class="hidden-sm">
-            {{#link-to 'index' tagName='button' class="btn btn-primary navbar-btn sign-up-button"}} {{t "common.signUp"}} {{/link-to}}
+            <a href="#" class="btn btn-primary navbar-btn sign-up-button" data-toggle="modal"
+               data-target="#sign-up-modal > .modal">
+              {{t "common.signUp"}}
+            </a>
           </li>
         </ul>
       </div>
@@ -52,18 +58,14 @@
   </div>
 </header>
 
-{{#app-modal id="login-modal" title=(t "common.login") as |onClose|}}
+{{#app-modal id="login-modal" title=(t "common.login") onCloseAction="onCloseModalAction" as |onClose|}}
   {{sign-in-form
-      onAuthenticateAction="onAuthenticate"
+      onAuthenticateAction=onAuthenticate
       onSuccessAction=onClose}}
 {{/app-modal}}
 
 {{#app-modal id="sign-up-modal" title=(t "common.signUp") as |onClose|}}
   {{sign-up-form
-      model=model
-      onSignUpAction="onSignUp"
-      onSuccessAction=onClose
-      onSelectDateOfBirthAction="onSelectDateOfBirthAction"
-      onCheckRoleOptionAction="onCheckRoleOptionAction"}}
+      onSignUpAction=onSignUp
+      onSuccessAction=onClose}}
 {{/app-modal}}
-

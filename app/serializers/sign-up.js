@@ -1,4 +1,4 @@
-import DS from 'ember-data';
+import DS from "ember-data";
 
 export default DS.JSONAPISerializer.extend({
 
@@ -9,7 +9,7 @@ export default DS.JSONAPISerializer.extend({
         firstName: signUpObject.firstName,
         lastName: signUpObject.lastName,
         username: signUpObject.username,
-        emailId: signUpObject.emailId,
+        emailId: signUpObject.email,
         organization: {
           organizationCode: "gooru"
         }
@@ -27,14 +27,14 @@ export default DS.JSONAPISerializer.extend({
     var userModel =  {
       data: {
         id: payload.gooruUId,
-        type: 'user',
+        type: "user",
         attributes: {
           accountCreatedType: payload.accountCreatedType,
           accountTypeId: payload.accountTypeId,
           active: payload.active,
           confirmStatus: payload.confirmStatus,
           createdOn: payload.createdOn,
-          emailId: payload.emailId,
+          email: payload.emailId,
           firstName: payload.firstName,
           gooruUId: payload.gooruUId,
           lastName: payload.lastName,
