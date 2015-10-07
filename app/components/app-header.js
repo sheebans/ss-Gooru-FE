@@ -30,8 +30,20 @@ export default Ember.Component.extend({
    */
   onCloseModalAction: "onCloseModal",
 
+  /**
+   * @property {string} on search action
+   */
+  onSearchAction: "onSearchAction",
+
+  /**
+   * Search term
+   * @property {string}
+   */
+  term: null,
+
   actions: {
-    onAuthenticate: function(){
+
+    onAuthenticate: function () {
       this.sendAction("onAuthenticateAction");
     },
 
@@ -41,7 +53,12 @@ export default Ember.Component.extend({
 
     onCloseModalAction: function() {
       this.sendAction("onCloseModalAction");
+    },
+
+    onSearch: function () {
+      this.sendAction("onSearchAction", this.get("term"));
     }
+
   }
 
 });

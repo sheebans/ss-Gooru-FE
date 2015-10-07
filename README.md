@@ -37,13 +37,17 @@ The Gooru Collection Player is capable of rendering all types of Gooru Collectio
 
 ## Prerequisites
 
-You will need the following things properly installed on your computer.
+You can use the vagrant configuration (suggested) or install the following things properly on your computer.
 
 * [Git](http://git-scm.com/)
 * [Node.js](http://nodejs.org/) (with NPM)
 * [Bower](http://bower.io/)
 * [Ember CLI](http://www.ember-cli.com/)
 * [PhantomJS](http://phantomjs.org/)
+* [Grunt-CLI](https://github.com/gruntjs/grunt-cli)
+* [Stubby](https://github.com/mrak/stubby4node)
+* [Vagrant](https://www.vagrantup.com/)
+
 
 ## High Level Architecture
 This project is built on top of EmberJS 2.x and Ember CLI
@@ -58,6 +62,8 @@ This project is built on top of EmberJS 2.x and Ember CLI
 * SASS
 * Boostrap
 * jQuery
+* Grunt
+* Stubby
 
 #### Project Structure
 This project follows the project structure suggested by Ember CLI
@@ -84,13 +90,35 @@ See [ember-i18n](https://github.com/jamesarosen/ember-i18n/wiki)
 
 * `git clone https://github.com/Gooru/Gooru-FE.git` this repository
 * change into the new directory
-* `npm install`
-* `bower install`
+* Install dependencies `npm install` and `bower install`
+* Or use vagrant instance `vagrant up` 
+
+
 
 ## Running / Development
 
+### Development environment
+* Install [Vagrant](http://www.vagrantup.com/downloads)
+* Install [vagrant-fsnotify](http://www.rubydoc.info/gems/vagrant-fsnotify#Installation) 
+* `vagrant up` to setup your vagrant instance
+* `vagrant ssh` to ssh to the vagrant instance
+* `cd /vagrant` to access the project folder
+
+Useful commands [Vagrant CLI](https://docs.vagrantup.com/v2/cli/index.html)
+* `vagrant provision` to install tools on vm
+* `vagrant halt` stops vm
+* `vagrant destroy` destroys the vm 
+
+
+### Installing dependencies
+* `npm install`
+* `bower install`
+
+### Running the app
 * `ember server --proxy http://localhost:8882/gooruapi` to run it against the stubby server
 * Visit your app at [http://localhost:4200](http://localhost:4200).
+
+* `vagrant fsnotify` this is necessary so file changes (at host) are notified (to guest) while running the app 
 
 ### Coding standards
 This application follows [Ember CLI standards and conventions](http://www.ember-cli.com/user-guide/#naming-conventions) and it also uses JSHint (http://jshint.com/) _"JSHint is a program that flags suspicious usage in programs written in JavaScript."_
@@ -126,13 +154,15 @@ See
 * `ember test --server` to let the test running
 * `ember test --filter your_pattern` to execute some tests only
 
-
+Testem is configured to proxy ajax request to the stubby server, make sure your stubby server is running
+Other option is to use
+ * `grunt test` which start the stubby and run the test by using `ember test`
 
 ### Code Coverage
 More than 80% of coverage is mandatory for this project 
 
 ### Mocking the api server - Stubby
-* `grunt stubby` To startup a mocked API Server. Then make sure to run ember with the --proxy option to point to the Stubby server.
+* `grunt stubby:server` To startup a mocked API Server. Then make sure to run ember with the --proxy option to point to the Stubby server.
 
 ### Configuring a proxy server
 It is possible to proxy a server so you can connect to a different environment
@@ -144,7 +174,16 @@ It is possible to proxy a server so you can connect to a different environment
 * `ember build` (development)
 * `ember build --environment production` (production)
 
+### Continuous Integration
+We have setup Bamboo as continuous integration server
+* when publishing a feature branch a bamboo build is triggered
+* when a feature is finished and changes are merge to develop, another build is performed and the app is deployed
+
 ### Deploying
 
-@TODO: Specify what it takes to deploy your app.
+*QA deployment*
+At this point develop branch is deployed by Bamboo to the configured QA servers
+
+*Production deployment*
+TBD
 

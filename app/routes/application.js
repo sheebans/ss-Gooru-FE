@@ -1,6 +1,9 @@
 import Ember from "ember";
 import ApplicationRouteMixin from "ember-simple-auth/mixins/application-route-mixin";
 
+/**
+ * @typedef {object} ApplicationRoute
+ */
 export default Ember.Route.extend(ApplicationRouteMixin, {
 
   sessionService: Ember.inject.service("api-sdk/session"),
@@ -26,7 +29,8 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   actions: {
     /**
      * Action triggered when submitting the login form
-     * @see application.hbs and app-header.hbs
+     * @see application.hbs
+     * @see app-header.hbs
      */
     onAuthenticate: function() {
       this.transitionTo("index");
@@ -45,6 +49,15 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      */
     onCloseModal: function() {
       this.refresh();
+    },
+
+    /**
+     * Action triggered when the user search for collections
+     * @see application.hbs
+     * @see app-header.js
+     */
+    onSearch: function (term){
+      this.transitionTo('/search/collections?term=' + term);
     }
 
   }

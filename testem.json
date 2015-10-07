@@ -9,5 +9,11 @@
   "launch_in_dev": [
     "PhantomJS",
     "Chrome"
-  ]
+  ],
+
+  "proxies": {
+    "/rest": {
+      "target": "http://localhost:8882/gooruapi/rest"
+    }
+  }
 }

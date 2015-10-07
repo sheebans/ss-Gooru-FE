@@ -6,11 +6,14 @@
       </div>
       <div class="navbar-form navbar-left search-navbar-form">
         <div class="form-group">
-          <input type="text" class="form-control search-input" placeholder="{{t "header.searchForTopic"}}"
-                 spellcheck="true">
+          {{input type="text" class="form-control search-input"
+              value=term
+              placeholder=(t "header.searchForTopic") spellcheck="true"}}
         </div>
         <button type="button" class="btn btn-primary search-button" alt="{{t "common.search"}}"
-                title="{{t "common.search"}}">{{t "common.search"}}</button>
+          {{action 'onSearch'}} title="{{t "common.search"}}">
+          {{t "common.search"}}
+        </button>
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right menu-navbar">

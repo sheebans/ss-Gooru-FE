@@ -5,6 +5,7 @@ import Ember from 'ember';
  *
  *
  * @class
+ * @typedef {object} AppModal
  */
 export default Ember.Component.extend({
 
@@ -24,7 +25,7 @@ export default Ember.Component.extend({
   onCloseAction: null,
 
   /**
-   * @property {} modal element
+   * @property {jQuery} modal element
    */
   modalElement: function(){
     return this.$(this.get("element")).find(".modal");

@@ -3,13 +3,29 @@
     background: url('gooru/hero.png') no-repeat;
     background-size: contain;
     min-height: 460px;
-
-    h1 {
-      color: $color-white;
-      font-weight: bolder;
-      text-align: center;
-      font-size: 61px;
-      font-family: "Arvo";
+  }
+  h1 {
+    color: $color-white;
+    font-weight: bolder;
+    text-align: center;
+    font-size: 61px;
+    font-family: "Arvo";
+  }
+  .free_and_open{
+    background: url('gooru/free-to-open-banner.png') no-repeat;
+    height: 385px;
+    h1{
+      font-size: 44px;
+    }
+    .free_and_open_descrip{
+      background: $color-white;
+      border-radius: 4px 4px;
+      opacity: .75;
+      p{
+        color: $color-black;
+        font-family: "Arvo";
+      }
     }
   }
+
 }
