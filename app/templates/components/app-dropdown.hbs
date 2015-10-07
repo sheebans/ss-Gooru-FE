@@ -9,21 +9,25 @@
       <span class="caret"></span>
       <span class="sr-only">Toggle Dropdown</span>
     </button>
-    <ul class="dropdown-menu">
-      {{#if prompt}}
-        <li class="dropdown-header">{{prompt}}</li>
-      {{/if}}
-      {{#each items as |item|}}
-        {{#if item.disabled}}
-          <li class="disabled"><a class="item">{{ item.label }}</a></li>
-        {{else}}
-          {{#if item.selected}}
-            <li class="selected"><a class="item" href="#" {{action 'onItemSelected' item }}>{{ item.label }}</a></li>
-          {{else}}
-            <li><a class="item" href="#" {{action 'onItemSelected' item }}>{{ item.label }}</a></li>
-          {{/if}}
+    {{#if hasBlock}}
+      {{yield (action "onItemSelected")}}
+    {{else}}
+      <ul class="dropdown-menu">
+        {{#if prompt}}
+          <li class="dropdown-header">{{prompt}}</li>
         {{/if}}
-      {{/each}}
-    </ul>
+        {{#each items as |item|}}
+          {{#if item.disabled}}
+            <li class="disabled"><a class="item">{{ item.label }}</a></li>
+          {{else}}
+            {{#if item.selected}}
+              <li class="selected"><a class="item" href="#" {{action 'onItemSelected' item }}>{{ item.label }}</a></li>
+            {{else}}
+              <li><a class="item" href="#" {{action 'onItemSelected' item }}>{{ item.label }}</a></li>
+            {{/if}}
+          {{/if}}
+        {{/each}}
+      </ul>
+    {{/if}}
   </div>
 </div>
