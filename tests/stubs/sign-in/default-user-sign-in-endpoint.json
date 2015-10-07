@@ -5,7 +5,7 @@
       "query": {
         "apiKey": "ASERTYUIOMNHBGFDXSDWERT123RTGHYT"
       },
-      "post": "(.+)\"username\":\"teacher\"(.+)",
+      "post": "(.+)\"username\":\"param\"(.+)",
       "method": "POST"
     },
     "response": {
@@ -14,7 +14,7 @@
         "Content-Type": "application/json"
       },
       "body": "File not found!",
-      "file": "teacher-sign-in-ok-response.json"
+      "file": "default-user-sign-in-ok-response.json"
     }
   }
 ]

@@ -1,0 +1,102 @@
+<div class="sign-up-form">
+  <div class="sign-up-popup-main">
+    <div class="sign-up-popup-content">
+      <div class="sign-up-popup-welcome">{{t "signUp.infoMessage"}}</div>
+        <div class="sign-up-container">
+
+          <form {{action "signUp" on="submit"}}>
+            <div class="row">
+              <div class="col-xs-6">
+                {{input
+                  value=username
+                  title=(t "signUp.usernameToolTip")
+                  placeholder=(t "signUp.username")
+                  class="form-control"
+                  data-toggle="tooltip"
+                  data-placement="left"}}
+              </div>
+              {{datepicker-field
+                  onSelectDateAction="onSelectDateOfBirthAction"
+                  placeholder=(t "signUp.dateOfBirth")
+                  class="col-xs-6"}}
+            </div>
+            <div class="row">
+              <div class="col-xs-6">
+                {{input
+                  value=firstName
+                  title=(t "signUp.nameToolTip")
+                  placeholder=(t "signUp.firstName")
+                  class="form-control"
+                  data-toggle="tooltip"
+                  data-placement="left"}}
+              </div>
+              <div class="col-xs-6">
+                {{input
+                  value=lastName
+                  title=(t "signUp.nameToolTip")
+                  placeholder=(t "signUp.lastName")
+                  class="form-control"
+                  data-toggle="tooltip"
+                  data-placement="left"}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                {{input
+                  value=email
+                  title=(t "signUp.emailToolTip")
+                  placeholder=(t "signUp.email")
+                  class="form-control"
+                  data-toggle="tooltip"
+                  data-placement="left"}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                {{input
+                  type="password"
+                  value=password
+                  title=(t "signUp.passwordToolTip")
+                  placeholder=(t "signUp.password")
+                  class="form-control"
+                  data-toggle="tooltip"
+                  data-placement="left"}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                {{input
+                  type="password"
+                  value=confirmedPassword
+                  title=(t "signUp.passwordToolTip")
+                  placeholder=(t "signUp.rePassword")
+                  class="form-control"
+                  data-toggle="tooltip"
+                  data-placement="left"}}
+              </div>
+            </div>
+
+            {{role-radio-button onCheckRoleOptionAction="onCheckRoleOptionAction"}}
+
+            <div class="form-group text-center">
+              <button type="submit" class="btn btn-primary btn-sign-up">Sign Up</button>
+            </div>
+
+            {{#if errorMessage}}
+                <div>
+                    <strong>Sign Up failed:</strong> {{errorMessage}}
+                </div>
+            {{/if}}
+          </form>
+
+      </div>
+      <div class="have-account-container">
+        <span class="gwt-InlineLabel" id="lblAgree" alt="By clicking Sign Up, I agree to the" title="By clicking Sign Up, I agree to the">By clicking Sign Up, I agree to the </span>
+        <a class="org-ednovo-gooru-client-mvp-authentication-SignUpCBundle-SignUp-termsAlignStyle" id="lnkCopyRight" alt="Copyright Policy" title="Copyright Policy">Copyright Policy,</a>
+        <a class="org-ednovo-gooru-client-mvp-authentication-SignUpCBundle-SignUp-termsAlignStyle" id="lnkTermsAndPrivacy" alt="Terms of Service" title="Terms of Service">Terms of Service</a>
+        <span class="gwt-InlineLabel" id="spnAndText" alt="and" title="and">and </span>
+        <a class="org-ednovo-gooru-client-mvp-authentication-SignUpCBundle-SignUp-termsAlignStyle" id="lnkPrivacy" alt="Privacy Policy." title="Privacy Policy.">Privacy Policy.</a>
+      </div>
+    </div>
+  </div>
+</div>

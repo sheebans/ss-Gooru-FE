@@ -1,12 +1,13 @@
 <div class="gooru">
   {{app-header
-  onAuthenticateAction="onAuthenticate"
-  onSearchAction="onSearch"
-  user=me}}
-
-  <div class="container-fluid app-container">
-    {{outlet}}
-  </div>
+    currentSession=model.currentSession
+    onAuthenticateAction="onAuthenticate"
+    onInvalidateSessionAction="onInvalidateSession"
+    onCloseModalAction="onCloseModal"
+    onSearchAction="onSearch"}}
+    <div class="container-fluid app-container" >
+      {{outlet}}
+    </div>
   {{app-footer}}
 </div>
 

@@ -25,12 +25,13 @@ module.exports = function (environment) {
   };
 
   ENV['ember-simple-auth'] = {
-    base: {
-      store: 'session-store:local-storage',
-      authorizer: 'authorizer:custom',
-      session: 'session:withCurrentUser',
-      routeAfterAuthentication: '/index'
-    }
+    store: 'session-store:local-storage',
+    session: 'session:withCurrentUser',
+    baseURL: '/',
+
+    //base: {
+    //  authorizer: 'authorizer:custom',
+    //}
   };
 
   ENV['simple-auth-custom'] = {
@@ -38,6 +39,10 @@ module.exports = function (environment) {
     apiKey: 'ASERTYUIOMNHBGFDXSDWERT123RTGHYT'
   };
 
+  ENV['default-user'] = {
+    username: "param",
+    password: "aaa123"
+  };
 
   if (environment === 'development') {
     ENV.APP.LOG_RESOLVER = true;
@@ -48,8 +53,8 @@ module.exports = function (environment) {
     ENV.contentSecurityPolicy = {
       'default-src': "'none'",
       'script-src': "'self'",
-      'font-src': "'self'",
-      'connect-src': "'self' http://localhost:8882",
+      'font-src': "'self' https://fonts.gstatic.com",
+      'connect-src': "'self' http://localhost:8882 http://qa.gooru.org",
       'img-src': "'self'",
       'style-src': "'self'",
       'media-src': "'self'"

@@ -5,16 +5,15 @@ export default ApplicationAdapter.extend({
   /**
    * @property {string} End-point URI
    */
-  namespace: "rest/v2/account/login",
+  namespace: "rest/v2/user",
 
   pathForType() {
     return '';
   },
 
   buildURL: function(record, suffix) {
-    var apiKeyParam = "apiKey="+ this.get("apiKey");
-    return this._super(record, suffix) + "?" + apiKeyParam;
+    var sessionTokenParam = "sessionToken=" + this.get("sessionToken");
+    return this._super(record, suffix) + "?" + sessionTokenParam;
   }
 
 });
-

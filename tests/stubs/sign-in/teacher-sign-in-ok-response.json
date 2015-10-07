@@ -1,0 +1,10 @@
+{
+  "gooruUId": "acbdef123456",
+  "token": "9b60fef5-6427-41bc-8928-7a34ce42ca98",
+  "user": {
+    "username": "teacher",
+    "firstName": "John",
+    "lastName": "Smith",
+    "usernameDisplay": "Mr. John Smith"
+  }
+}

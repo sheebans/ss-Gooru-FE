@@ -1,7 +1,12 @@
-import Ember from 'ember';
-import SessionMixin from '../mixins/session';
+import Ember from "ember";
+import SessionMixin from "../mixins/session";
 
 export default Ember.Component.extend(SessionMixin, {
+
+  /**
+   * @property {SessionService} Session service
+   */
+  sessionService: Ember.inject.service("api-sdk/session"),
 
   /**
    * @property {string} authentication error message
@@ -23,24 +28,28 @@ export default Ember.Component.extend(SessionMixin, {
    */
   onFailureAction: null,
 
+  /**
+   * Data-biding properties for the form fields
+   */
+  username: null,
+  password: null,
+
   actions: {
     authenticate: function() {
-      var self = this;
-      var credentials = this.getProperties('username', 'password');
-      this.get('session').authenticate('authenticator:custom', credentials)
+      var component = this;
+      var credentials = component.getProperties("username", "password");
+      this.get("sessionService").signInWithUser(credentials)
         .then(function() {
-          self.sendAction('onAuthenticateAction');
-          if (self.get("onSuccessAction")){
-            self.sendAction('onSuccessAction');
+          component.sendAction("onAuthenticateAction");
+          if (component.get("onSuccessAction")) {
+            component.sendAction("onSuccessAction");
           }
-
         })
         .catch((reason) => {
-          this.set('errorMessage', reason.error);
-          if (self.get("onFailureAction")){
-            self.sendAction('onFailureAction');
+          this.set("errorMessage", reason.error);
+          if (component.get("onFailureAction")) {
+            component.sendAction("onFailureAction");
           }
-
         });
     }
   }
