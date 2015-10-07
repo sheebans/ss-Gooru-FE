@@ -3,7 +3,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
     exec: {
       "ember-test": 'ember test --silent --reporter xunit',
-      "ember-test-dev": 'ember test'
+      "ember-test-dev": 'ember test --server'
     },
 
     stubby: {
