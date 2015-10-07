@@ -13,13 +13,14 @@
     }
   }
   .empowerStudents{
-    h2{
+    h2,p,h3{
       font-family: "Arvo";
-      font-weight: bold;
-      font-size: 22px;
     }
-    h2.title{
-      font-size: 30px;
+    h2,h3{
+      font-weight: bold;
+    }
+    h3{
+      color:$color-gray-secondary;
     }
     .empowerSprite{
       min-height: 158px;
@@ -38,10 +39,6 @@
     }
     .monitorImg{
       background-position: 23px -151px;
-    }
-    p{
-      font-family: "Arvo";
-      font-size: 16px;
     }
   }
 }
