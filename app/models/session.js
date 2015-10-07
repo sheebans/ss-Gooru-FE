@@ -1,12 +1,10 @@
-import DS from 'ember-data';
+import DS from "ember-data";
 
 export default DS.Model.extend({
 
-  gooruUId: DS.attr('string'),
-  token: DS.attr('string'),
-  username: DS.attr('string'),
-  firstName: DS.attr('string'),
-  lastName: DS.attr('string'),
-  usernameDisplay: DS.attr('string')
+  username: DS.attr("string"),
+  password: DS.attr("string"),
+  sessionToken: DS.attr("string"),
+  user: DS.belongsTo("user", { async: true })
 
 });

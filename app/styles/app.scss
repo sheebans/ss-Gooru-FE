@@ -1,5 +1,6 @@
 @import 'bower_components/bootstrap-sass/assets/stylesheets/_bootstrap';
 
+@import 'mixins';
 @import 'style-guide';
 @import 'common';
 
@@ -9,3 +10,6 @@
 @import 'components/app-modal';
 
 @import 'controllers/index';
+@import 'components/sign-up-form';
+@import 'components/role-radio-button';
+@import 'components/datepicker-field';

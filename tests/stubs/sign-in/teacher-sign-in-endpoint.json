@@ -14,7 +14,7 @@
         "Content-Type": "application/json"
       },
       "body": "File not found!",
-      "file": "teacher-sing-in-ok-response.json"
+      "file": "teacher-sign-in-ok-response.json"
     }
   }
 ]

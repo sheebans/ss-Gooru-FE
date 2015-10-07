@@ -8,6 +8,10 @@ $color-white: #FFFFFF;
 $color-gray-primary: #4A4A4A;
 /* i.e apply to default text */
 $color-gray-secondary: #515151;
+/* i.e apply to footer bar */
+$color-gray-3: #444;
+/* i.e apply to footer border */
+$color-gray-4:#616161;
 /* i.e apply to some backgrounds */
 $color-gray-lighter-1: #f0f0f0;
 /* i.e apply to some borders */
@@ -16,6 +20,7 @@ $color-gray-lighter-2: #DDDDDD;
 $color-gray-lighter-3: #999999;
 /*i.e apply to some sections*/
 $color-gray-lighter-4:#e3e3e3;
+
 
 
 /* i.e apply to default buttons */
@@ -72,3 +77,24 @@ h3 {
   -webkit-font-smoothing: antialiased;
 }
 
+@include make-padding(20, xs, 2px);
+@media (min-width: $screen-sm-min) {
+  @include make-padding(20, sm, 2px);
+}
+@media (min-width: $screen-md-min) {
+  @include make-padding(20, md, 2px);
+}
+@media (min-width: $screen-lg-min) {
+  @include make-padding(20, lg, 2px);
+}
+
+@include make-margin(20, xs, 2px);
+@media (min-width: $screen-sm-min) {
+  @include make-margin(20, sm, 2px);
+}
+@media (min-width: $screen-md-min) {
+  @include make-margin(20, md, 2px);
+}
+@media (min-width: $screen-lg-min) {
+  @include make-margin(20, lg, 2px);
+}

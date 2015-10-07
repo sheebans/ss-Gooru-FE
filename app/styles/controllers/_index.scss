@@ -7,13 +7,57 @@
     background: url('gooru/hero.png') no-repeat;
     background-size: contain;
     min-height: 460px;
-
-    h1 {
-      color: $color-white;
-      font-weight: bolder;
-      text-align: center;
-      font-size: 61px;
+  }
+  h1 {
+    color: $color-white;
+    font-weight: bolder;
+    text-align: center;
+    font-size: 61px;
+    font-family: "Arvo";
+  }
+  .free_and_open{
+    background: url('gooru/free-to-open-banner.png') no-repeat;
+    height: 385px;
+    h1{
+      font-size: 44px;
+    }
+    .free_and_open_descrip{
+      background: $color-white;
+      border-radius: 4px 4px;
+      opacity: .75;
+      p{
+        color: $color-black;
+        font-family: "Arvo";
+      }
+    }
+  }
+  .empowerStudents{
+    h2,p,h3{
       font-family: "Arvo";
+    }
+    h2,h3{
+      font-weight: bold;
+    }
+    h3{
+      color:$color-gray-secondary;
+    }
+    .empowerSprite{
+      min-height: 158px;
+      width: 187px;
+      display: inline-block;
+      background: url('gooru/gooru-sprite.png') no-repeat;
+    }
+    .findImg{
+      background-position: -10px -311px;
+    }
+    .remixImg{
+      background-position: -453px -147px;
+    }
+    .shareImg{
+      background-position: -213px -150px;
+    }
+    .monitorImg{
+      background-position: 23px -151px;
     }
   }
   .getting-started-banner{

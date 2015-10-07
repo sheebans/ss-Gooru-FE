@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 /**
  * Application header component
@@ -10,20 +10,55 @@ import Ember from 'ember';
  */
 export default Ember.Component.extend({
 
-
   /**
-   * @property {object} user
+   * @property {object} current session
    */
-  user: null,
+  currentSession: null,
+
   /**
    * @property {string} on authenticate action
    */
   onAuthenticateAction: "onAuthenticate",
 
+  /**
+   * @property {string} on invalidate session action
+   */
+  onInvalidateSessionAction: "onInvalidateSession",
+
+  /**
+   * @property {string} on close modal action
+   */
+  onCloseModalAction: "onCloseModal",
+
+  /**
+   * @property {string} on search action
+   */
+  onSearchAction: "onSearchAction",
+
+  /**
+   * Search term
+   * @property {string}
+   */
+  term: null,
+
   actions: {
-    onAuthenticate: function(){
+
+    onAuthenticate: function () {
       this.sendAction("onAuthenticateAction");
+    },
+
+    onInvalidateSession: function() {
+      this.sendAction("onInvalidateSessionAction");
+    },
+
+    onCloseModalAction: function() {
+      this.sendAction("onCloseModalAction");
+    },
+
+    onSearch: function () {
+      this.sendAction("onSearchAction", this.get("term"));
     }
+
   }
 
 });
