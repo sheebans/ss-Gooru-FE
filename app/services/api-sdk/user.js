@@ -1,3 +1,4 @@
+import Ember from "ember";
 import StoreMixin from "../../mixins/store";
 
 export default Ember.Service.extend(StoreMixin, {

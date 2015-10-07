@@ -1,26 +1,19 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import T from 'gooru-web/tests/helpers/assert';
 
 moduleForComponent('sign-up-form', 'Integration | Component | sign up form', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.container.lookup('service:i18n').set("locale","en");
+  }
 });
 
 test('it renders', function(assert) {
-  assert.expect(2);
-
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+  assert.expect(1);
 
   this.render(hbs`{{sign-up-form}}`);
+  var $component = this.$(); //component dom element
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#sign-up-form}}
-      template block text
-    {{/sign-up-form}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  T.exists(assert, $component.find("div.sign-up-form"), "Root element not found");
 });

@@ -18,7 +18,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       route.get("sessionService").signInWithDefaultUser()
         .then(function () {
           currentSession = route.get("session.data.authenticated");
-        })
+        });
     }
 
     return Ember.RSVP.hash({

@@ -1,21 +1,17 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { moduleForModel, test } from "ember-qunit";
 
-moduleForModel('session');
+moduleForModel("session", "Session Model", {
+  needs: ["model:user"]
+});
 
-test('it exists', function(assert) {
+test("session content", function(assert) {
   var session = this.subject({
-    gooruUId: 'abc123',
-    token: '9b60fef5-6427-41bc-8928-7a34ce42ca98',
-    username: 'username',
-    firstName: 'FirstName',
-    lastName: 'LastName',
-    usernameDisplay: 'DisplayName'
+    username: "jefberpe",
+    password: "pass123",
+    sessionToken: "9b60fef5-6427-41bc-8928-7a34ce42ca98",
   });
 
-  assert.equal(session.get('gooruUId'), 'abc123');
-  assert.equal(session.get('token'), '9b60fef5-6427-41bc-8928-7a34ce42ca98');
-  assert.equal(session.get('username'), 'username');
-  assert.equal(session.get('firstName'), 'FirstName');
-  assert.equal(session.get('lastName'), 'LastName');
-  assert.equal(session.get('usernameDisplay'), 'DisplayName');
+  assert.equal(session.get("sessionToken"), "9b60fef5-6427-41bc-8928-7a34ce42ca98");
+  assert.equal(session.get("username"), "jefberpe");
+  assert.equal(session.get("password"), "pass123");
 });
