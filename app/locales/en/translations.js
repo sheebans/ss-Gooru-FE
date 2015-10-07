@@ -34,7 +34,6 @@ export default {
       "button":"Learn More about Our Approach"
     },
   },
-
   "login": {
     "title": "Welcome to Gooru",
     "haveAccount": "Do you have an account?",
@@ -43,7 +42,6 @@ export default {
     "password": "Password",
     "usernameOrEmail": "Username or Email"
   },
-
   "signUp": {
     "username": "Username",
     "dateOfBirth": "Birthday",
@@ -57,6 +55,24 @@ export default {
     "emailToolTip": "Double check your email. Make sure it's correct!",
     "passwordToolTip": "Passwords must be between 5 and 14 characters and contain at least one number.",
     "infoMessage": "Please fill out the following information."
+  },
+  "footer":{
+    "footerDescription":"Gooru is committed to keeping its platform open-source and community created content CC0.",
+    "company":"Company",
+    "community":"Community",
+    "legal":"Legal",
+    "connect":"Connect",
+    "aboutGooru":"About Gooru",
+    "careers":"Careers",
+    "supportCenter":"Support Center",
+    "contactUs":"Contact Us",
+    "districts":"Districts",
+    "partners":"Partners",
+    "coaches":"Coaches",
+    "events":"Events",
+    "terms":"Terms",
+    "privacy":"Privacy",
+    "Copyright":"Copyright"
   }
 
 };
