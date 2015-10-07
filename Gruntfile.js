@@ -2,7 +2,8 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     exec: {
-      "ember-test": 'ember test --silent --reporter xunit'
+      "ember-test": 'ember test --silent --reporter xunit',
+      "ember-test-dev": 'ember test'
     },
 
     stubby: {
@@ -33,9 +34,10 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-exec');
 
   grunt.registerTask('test', function (target) {
+
     var tasks = [
       'stubby:test',
-      'exec:ember-test'
+      'exec:ember-test' + ((target === 'dev') ? '-dev' : '')
     ];
     grunt.task.run(tasks);
   });

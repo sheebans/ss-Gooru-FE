@@ -17,9 +17,22 @@ export default {
 
   "index": {
     "joinUs": "Join Us to <br/> Honor the Human Right to <br/> Education",
-    "freeAndOpen":"Free and Open.<br/>Always.",
-    "freeAndOpenDescription":"We believe education is a human right. Gooru will always be free of cost and ads for educators and students worldwide.",
-    "freeAndOpenButton":"Learn More about Our Approach"
+    "empowerStudents":{
+      "title":"Empower Students to Learn Their Way",
+      "find":"Find",
+      "remix":"Remix",
+      "share":"Share",
+      "monitor":"Monitor"
+    },
+    "findDescription":"Browse thousands of K-12 collections made by teachers, or search over 16M resources",
+    "remixDescription":"Remix collections and customize content to meet your students' needs.",
+    "shareDescription":"Share collections with students via My Classes. Login is not required to access.",
+    "monitorDescription":"Measure your students' engagement and progress to intervene in real-time.",
+    "freeAndOpen":{
+      "title":"Free and Open.<br/>Always.",
+      "description":"We believe education is a human right. Gooru will always be free of cost and ads for educators and students worldwide.",
+      "button":"Learn More about Our Approach"
+    },
   },
 
   "login": {
@@ -29,6 +42,21 @@ export default {
     "forgotPassword": "Forgot your Password?",
     "password": "Password",
     "usernameOrEmail": "Username or Email"
+  },
+
+  "signUp": {
+    "username": "Username",
+    "dateOfBirth": "Birthday",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "password": "Password",
+    "rePassword": "Confirm Password",
+    "usernameToolTip": "Choose wisely! This is how students and others in the Gooru community will identify you. (Between 4 and 20 characters, with no spaces or special characters.)",
+    "nameToolTip": "Your name will not appear publicly anywhere on Gooru.",
+    "emailToolTip": "Double check your email. Make sure it's correct!",
+    "passwordToolTip": "Passwords must be between 5 and 14 characters and contain at least one number.",
+    "infoMessage": "Please fill out the following information."
   },
 
   "grade-dropdown" : {
