@@ -69,3 +69,25 @@ h3 {
   color: $color-blue-primary;
   -webkit-font-smoothing: antialiased;
 }
+
+@include make-padding(20, xs, 2px);
+@media (min-width: $screen-sm-min) {
+  @include make-padding(20, sm, 2px);
+}
+@media (min-width: $screen-md-min) {
+  @include make-padding(20, md, 2px);
+}
+@media (min-width: $screen-lg-min) {
+  @include make-padding(20, lg, 2px);
+}
+
+@include make-margin(20, xs, 2px);
+@media (min-width: $screen-sm-min) {
+  @include make-margin(20, sm, 2px);
+}
+@media (min-width: $screen-md-min) {
+  @include make-margin(20, md, 2px);
+}
+@media (min-width: $screen-lg-min) {
+  @include make-margin(20, lg, 2px);
+}

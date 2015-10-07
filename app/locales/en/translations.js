@@ -25,7 +25,10 @@ export default {
     "findDescription":"Browse thousands of K-12 collections made by teachers, or search over 16M resources",
     "remixDescription":"Remix collections and customize content to meet your students' needs.",
     "shareDescription":"Share collections with students via My Classes. Login is not required to access.",
-    "monitorDescription":"Measure your students' engagement and progress to intervene in real-time."
+    "monitorDescription":"Measure your students' engagement and progress to intervene in real-time.",
+    "freeAndOpen":"Free and Open.<br/>Always.",
+    "freeAndOpenDescription":"We believe education is a human right. Gooru will always be free of cost and ads for educators and students worldwide.",
+    "freeAndOpenButton":"Learn More about Our Approach"
   },
 
   "login": {
@@ -35,6 +38,7 @@ export default {
     "forgotPassword": "Forgot your Password?",
     "password": "Password",
     "usernameOrEmail": "Username or Email"
+
   }
 
 

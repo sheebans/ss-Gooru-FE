@@ -18,10 +18,10 @@ sudo npm install -g phantomjs -qq
 sudo apt-get install libfontconfig -qq -y
 
 echo '-----> Installing stubby'
-sudo npm install -g stubby -qq
+sudo npm install -g stubby -qq -y
 
 echo '-----> Installing grunt-cli'
-sudo npm install -g grunt-cli -qq
+sudo npm install -g grunt-cli -qq -y
 
 echo '-----> Done'
 
