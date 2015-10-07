@@ -157,6 +157,9 @@ See
 Testem is configured to proxy ajax request to the stubby server, make sure your stubby server is running
 Other option is to use
  * `grunt test` which start the stubby and run the test by using `ember test`
+ * `grunt test:server` which start the stubby and run the test by using `ember test --server`
+ * `grunt test:cli` which start the stubby and run the test by using `ember test --silent --reporter xunit`
+ 
 
 ### Code Coverage
 More than 80% of coverage is mandatory for this project 

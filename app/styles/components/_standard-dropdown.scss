@@ -1,0 +1,13 @@
+.standard-dropdown {
+  .app-dropdown {
+    .dropdown-menu {
+      li:not(.disabled) {
+        &.selected {
+          p {
+            color: $color-white;
+          }
+        }
+      }
+    }
+  }
+}

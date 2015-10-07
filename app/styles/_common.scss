@@ -35,6 +35,13 @@
 .text-white {
   color: $color-white;
 }
+
 .text-blue{
   color:$color-blue-primary;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

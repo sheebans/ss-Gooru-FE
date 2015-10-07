@@ -57,6 +57,12 @@ export default {
     "emailToolTip": "Double check your email. Make sure it's correct!",
     "passwordToolTip": "Passwords must be between 5 and 14 characters and contain at least one number.",
     "infoMessage": "Please fill out the following information."
+  },
+
+  "grade-dropdown" : {
+    "placeholder" : "grade(s)",
+    "prompt": "Select a grade"
   }
+
 
 };

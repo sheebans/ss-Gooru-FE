@@ -4,6 +4,17 @@
       <h1>{{t "index.joinUs"}}</h1>
     </div>
   </div>
+  <div>
+    {{app-dropdown
+    placeholder=(t "grade-dropdown.placeholder")
+    items=subjectItems
+    multiple=true
+    onChangeAction="onSubjectChange"}}
+
+    {{standard-dropdown
+    standards=standards
+    onStandardSelectedAction="onStandardSelected"}}
+  </div>
   <div class="container">
   <div class="row empowerStudents">
           <div>
@@ -71,7 +82,6 @@
 
           </div>
     </div>
-
 </section>
 
 
