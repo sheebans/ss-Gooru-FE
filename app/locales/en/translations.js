@@ -17,6 +17,19 @@ export default {
 
   "index": {
     "joinUs": "Join Us to <br/> Honor the Human Right to <br/> Education",
+    "gettingStarted":"Getting Started with Gooru",
+    "toolkit":{
+      "title":"Getting Started Toolkit",
+      "description":"Welcome to Gooru! Check out these resources to learn what you can do with Gooru and get started quickly."
+    },
+    "classroom":{
+      "title":"Stories from the Classroom",
+      "description":"Learn by example through stories of teachers who say Gooru has made a difference in their classroom."
+    },
+    "events":{
+      "title":"Check Out our Events!",
+      "description":"We offer free webinars and trainings to help you get started with Gooru."
+    },
     "empowerStudents":{
       "title":"Empower Students to Learn Their Way",
       "find":"Find",

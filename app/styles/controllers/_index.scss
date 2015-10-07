@@ -37,6 +37,7 @@
     }
     h2,h3{
       font-weight: bold;
+      margin-bottom: 0px
     }
     h3{
       color:$color-gray-secondary;
@@ -62,9 +63,11 @@
   }
   .getting-started-banner{
     background:url('gooru/getting-started-banner.png') no-repeat;
-    backgorund-size: contain;
     @media (min-width: $screen-sm-min) {
-        min-height: 346px;
+        min-height: 400px;
+    }
+    @media(max-width: $screen-sm-max){
+      background-position: -149px;
     }
     @media (min-width: $screen-md-min) {
         min-height: 400px;
@@ -72,12 +75,15 @@
   }
 
   .getting-started-content{
+    position:relative;
 
     p{
       font-size: 15px;
       color: $color-gray-secondary;
     }
     .events{
+      position:absolute;
+      bottom: 0;
       @media (min-width: $screen-md-min)
       {
         margin-bottom: 0px;
@@ -86,15 +92,13 @@
     }
     .events-icon{
       float: left;
-      height: 82px;
-      vertical-align: middle;
+      height: 59px;
       margin-top: 15px;
       margin-left: -28px;
       margin-right: 20px;
       width: 93px;
       display: inline-block;
       left: 10px;
-      position: relative;
       background: url('gooru/landingpageSprite.png') no-repeat;
       background-position: -270px -2px;
     }
