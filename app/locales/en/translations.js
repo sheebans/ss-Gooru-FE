@@ -29,7 +29,11 @@ export default {
     "forgotPassword": "Forgot your Password?",
     "password": "Password",
     "usernameOrEmail": "Username or Email"
+  },
 
+  "grade-dropdown" : {
+    "placeholder" : "grade(s)",
+    "prompt": "Select a grade"
   }
 
 

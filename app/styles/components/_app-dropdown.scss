@@ -1,0 +1,19 @@
+.app-dropdown {
+  > .btn-group {
+    .caret {
+      color: $color-white;
+    }
+  }
+
+  .dropdown-menu {
+    li:not(.disabled) {
+      &.selected {
+        background-color: $color-blue-lighter-2;
+        a, a:hover {
+          background-color: $color-blue-lighter-2;
+          color: $color-white;
+        }
+      }
+    }
+  }
+}
