@@ -6,11 +6,8 @@
   </div>
   <div class="row">
     <div class="col-md-4">
-      {{app-dropdown
-      placeholder=(t "subject-dropdown.placeholder")
-      prompt=(t "subject-dropdown.prompt")
-      items=subjectItems
-      multiple=true
+      {{subject-dropdown
+      subjects=subjects
       onChangeAction="onSubjectChange"}}
     </div>
     <div class="col-md-4">

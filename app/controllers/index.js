@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import DropdownItem from '../utils/dropdown-item';
 
 /**
  * @typedef {object} IndexController
@@ -7,13 +6,13 @@ import DropdownItem from '../utils/dropdown-item';
 export default Ember.Controller.extend({
 
 
-  subjectItems: function(){
+  subjects: function(){
     //@todo: use data retrieved in the route
     const items = Ember.A();
-    items.addObject(DropdownItem.create({ id: 1, label: "Math"}));
-    items.addObject(DropdownItem.create({ id: 2, label: "Science"}));
-    items.addObject(DropdownItem.create({ id: 3, label: "History"}));
-    items.addObject(DropdownItem.create({ id: 4, label: "Language"}));
+    items.addObject(Ember.Object.create({ id: 1, name: "Math"}));
+    items.addObject(Ember.Object.create({ id: 2, name: "Science"}));
+    items.addObject(Ember.Object.create({ id: 3, name: "History"}));
+    items.addObject(Ember.Object.create({ id: 4, name: "Language"}));
     return items;
   }.property(),
 

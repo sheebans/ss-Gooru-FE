@@ -19,8 +19,7 @@ test('Layout using defaults', function (assert) {
 
   this.set('items', items);
 
-  this.render(hbs`{{app-dropdown items=items}}
-  `);
+  this.render(hbs`{{app-dropdown items=items}}`);
 
   const $component = this.$(),
     $dropdown = $component.find(".app-dropdown");
