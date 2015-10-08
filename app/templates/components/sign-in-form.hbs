@@ -3,12 +3,21 @@
 
     <div class="row">
         <div class="col-md-9 col-center-block login-form-box">
-            <form {{action 'authenticate' on='submit'}}>
+            <form {{action "authenticate" on="submit"}}>
                 <div class="form-group">
-                  {{input value=username placeholder=(t 'login.usernameOrEmail') class='form-control text-box'}}
+                  {{input
+                    id="signin_username"
+                    value=username
+                    placeholder=(t "login.usernameOrEmail")
+                    class="form-control text-box"}}
                 </div>
                 <div class="form-group">
-                  {{input value=password placeholder=(t 'login.password') class='form-control text-box' type='password'}}
+                  {{input
+                    id="signin_password"
+                    type="password"
+                    value=password
+                    placeholder=(t "login.password")
+                    class="form-control text-box"}}
                 </div>
                 <div class="form-group">
                     <a alt="{{t "login.forgotPassword"}}"
