@@ -5,7 +5,11 @@ import T from 'gooru-web/tests/helpers/assert';
 
 
 moduleForComponent('standard-dropdown', 'Integration | Component | standard dropdown', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.container.lookup('service:i18n').set("locale","en");
+  }
+
 });
 
 test('Layout and interaction', function (assert) {
