@@ -4,7 +4,8 @@ module.exports = function (grunt) {
     exec: {
       "ember-test": 'ember test',
       "ember-test-cli": 'ember test --silent --reporter xunit',
-      "ember-test-server": 'ember test --server'
+      "ember-test-server": 'ember test --server',
+      "ember-server-stubby": 'ember server --proxy http://localhost:8882/gooruapi',
     },
 
     stubby: {
@@ -40,6 +41,15 @@ module.exports = function (grunt) {
     var tasks = [
       'stubby:test',
       testExecTask
+    ];
+    grunt.task.run(tasks);
+  });
+
+  grunt.registerTask('run', function (target) {
+    var serverExecTask = 'exec:ember-server-' + (target || 'stubby');
+    var tasks = [
+      'stubby:test',
+      serverExecTask
     ];
     grunt.task.run(tasks);
   });

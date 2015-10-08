@@ -115,7 +115,8 @@ Useful commands [Vagrant CLI](https://docs.vagrantup.com/v2/cli/index.html)
 * `bower install`
 
 ### Running the app
-* `ember server --proxy http://localhost:8882/gooruapi` to run it against the stubby server
+* `ember server --proxy http://localhost:8882/gooruapi` to run it using the stubby server
+* `grunt run` to run it using the stubby server, this task starts up stubby server and proxy ember to it
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
 * `vagrant fsnotify` this is necessary so file changes (at host) are notified (to guest) while running the app 
