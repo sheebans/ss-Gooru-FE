@@ -34,6 +34,16 @@ export default AppDropdown.extend({
   },
 
   /**
+   * @see AppDropdown.willDestroyElement
+   */
+  willDestroyElement: function(){
+    //this._super();//calling app-dropdown didInsertElement
+    this.get("tree").clear();
+    this.get("items").clear();
+  },
+
+
+  /**
    * Initialize the dropdown items
    */
   initDropdownItems: function () {
@@ -42,6 +52,9 @@ export default AppDropdown.extend({
       grades = component.get("grades"),
       items = component.get("items"),
       tree = component.get("tree");
+
+    this.get("tree").clear();
+    this.get("items").clear();
 
     grades.forEach(function (grade) {
       const levels = grade.get("levels"),

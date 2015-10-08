@@ -82,7 +82,7 @@ export default Ember.Component.extend(i18nMixin, {
    * This is triggered when the drop down selection changes
    * @property {string} on selection action
    */
-  onChangeAction: "onChange",
+  onChangeAction: null,
 
   /**
    * DidInsertElement ember event
@@ -102,6 +102,14 @@ export default Ember.Component.extend(i18nMixin, {
       }
     });
   },
+
+  /**
+   * willDestroyElement event
+   */
+  willDestroyElement: function(){
+
+  },
+
 
   /**
    * Marks all items as non selected
