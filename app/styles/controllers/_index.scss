@@ -63,17 +63,9 @@
   }
   .getting-started-banner{
     background:url('gooru/getting-started-banner.png') no-repeat;
-    @media (min-width: $screen-sm-min) {
-        min-height: 400px;
-    }
-    @media(max-width: $screen-sm-max){
-      background-position: -149px;
-    }
-    @media (min-width: $screen-md-min) {
-        min-height: 400px;
-    }
+    background-position: center;
+    min-height: 400px;
   }
-
   .getting-started-content{
     position:relative;
 
@@ -87,7 +79,6 @@
       @media (min-width: $screen-md-min)
       {
         margin-bottom: 0px;
-        margin-top: 30px;
       }
     }
     .events-icon{
