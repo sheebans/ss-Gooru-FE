@@ -19,8 +19,7 @@ test('Layout using defaults', function (assert) {
 
   this.set('items', items);
 
-  this.render(hbs`{{app-dropdown items=items}}
-  `);
+  this.render(hbs`{{app-dropdown items=items}}`);
 
   const $component = this.$(),
     $dropdown = $component.find(".app-dropdown");
@@ -59,6 +58,7 @@ test('Layout with options', function (assert) {
   this.set('items', items);
 
   this.render(hbs`{{app-dropdown items=items btn-group-size='btn-group-sm' multiple=true
+        split=false
         btn-type='btn-danger' placeholder='Select Subject' prompt='Select a subject'}}`);
 
   const $component = this.$(),
@@ -73,7 +73,7 @@ test('Layout with options', function (assert) {
   assert.ok($buttonGroup.hasClass("keep-open-yes"), "Missing keep-open-yes class");
   T.exists(assert, $buttonGroup.find(".selected-text"), "Missing select text button");
   assert.equal(T.text($buttonGroup.find(".selected-text")), "Select Subject", "Missing provided placeholder text");
-  assert.equal($buttonGroup.find(".btn.btn-danger").length, 2, "Missing specified btn-type class");
+  assert.equal($buttonGroup.find(".btn.btn-danger").length, 1, "Should be a single button when split=false");
 
   //Dropdown menu
   const $dropdownMenu = $dropdown.find(".dropdown-menu");

@@ -1,14 +1,21 @@
 <div class="app-dropdown">
   <!-- Split button -->
   <div class="btn-group {{btn-group-size}} {{keep-open}}">
-    <button type="button" class="btn {{btn-type}} ellipsis selected-text" data-toggle="dropdown">
-      {{selectedText}}
-    </button>
-    <button type="button" class="btn {{btn-type}} dropdown-toggle" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="true">
-      <span class="caret"></span>
-      <span class="sr-only">Toggle Dropdown</span>
-    </button>
+    {{#if split}}
+      <button type="button" class="btn {{btn-type}} ellipsis selected-text" data-toggle="dropdown">
+        {{selectedText}}
+      </button>
+      <button type="button" class="btn {{btn-type}} dropdown-toggle" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="true">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+    {{else}}
+      <button type="button" class="btn {{btn-type}} ellipsis selected-text dropdown-toggle"
+              data-toggle="dropdown">
+        {{selectedText}} <span class="caret"></span>
+      </button>
+    {{/if}}
     {{#if hasBlock}}
       {{yield (action "onItemSelected")}}
     {{else}}
