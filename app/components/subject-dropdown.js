@@ -1,0 +1,38 @@
+import Ember from 'ember';
+import DropdownItem from '../utils/dropdown-item';
+
+/**
+ * @typedef {object} SubjectDropdown
+ */
+export default Ember.Component.extend({
+
+
+  /**
+   * @property {[]} subjects
+   */
+  subjects: null,
+
+  /**
+   * @property {string} on change action
+   */
+  onChangeAction: null,
+
+  dropdownItems: function(){
+    const subjects = this.get('subjects');
+    return subjects.map(function(subject){
+      return DropdownItem.create({
+        id: subject.get("id"),
+        label: subject.get("name"),
+        data: subject
+      });
+    });
+  }.property('subjects.[]'),
+
+
+  actions: {
+    onChange: function(items){
+      this.sendAction('onChangeAction', items);
+    }
+  }
+
+});
