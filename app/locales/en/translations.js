@@ -78,6 +78,15 @@ export default {
   "grade-dropdown" : {
     "placeholder" : "grade(s)",
     "prompt": "Select a grade"
+  },
+
+  "standard-dropdown": {
+    "placeholder" : "Browse by Standard"
+  },
+
+  "subject-dropdown": {
+    "placeholder" : "subject(s)",
+    "prompt": "Select a subject"
   }
 
 };

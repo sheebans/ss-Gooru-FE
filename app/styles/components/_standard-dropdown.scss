@@ -1,5 +1,15 @@
 .standard-dropdown {
   .app-dropdown {
+    > .btn-group {
+      .caret {
+        color: $color-white;
+      }
+
+      .selected-text{
+        width: inherit;
+      }
+    }
+
     .dropdown-menu {
       li:not(.disabled) {
         &.selected {

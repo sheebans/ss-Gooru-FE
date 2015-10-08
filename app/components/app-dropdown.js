@@ -22,6 +22,19 @@ export default Ember.Component.extend(i18nMixin, {
   prompt: null,
 
   /**
+   * Indicates if the dropdown should be split or not
+   * @property {bool}
+   */
+  split: true,
+
+
+  /**
+   * Indicates if the dropdown should display the selected items text
+   * @property {bool}
+   */
+  showSelection: true,
+
+  /**
    *
    * @property {string} size class
    * @see bootstrap button dropdown
@@ -56,11 +69,12 @@ export default Ember.Component.extend(i18nMixin, {
   selectedText: function () {
     const component = this,
       selectedItems = component.get("selectedItems"),
+      showSelection = component.get("showSelection"),
       names = selectedItems.map(function (item) {
         return item.get("label");
       }).toArray().join(",");
 
-    return (!names.length)? component.get("placeholder") : names;
+    return (showSelection && names.length) ? names : component.get("placeholder");
 
   }.property("selectedItems.[]"),
 
@@ -79,8 +93,13 @@ export default Ember.Component.extend(i18nMixin, {
 
     var canClose = true;
     element.find('.keep-open-yes').on({
-      "click":             function(e) { canClose = !component.$(e.target).hasClass('item'); },
-      "hide.bs.dropdown":  function() { return canClose; }
+      "click":             function(e) {
+        const $target = component.$(e.target);
+        canClose = !$target.hasClass('item') && !$target.hasClass('no-close');
+      },
+      "hide.bs.dropdown":  function() {
+        return canClose;
+      }
     });
   },
 
@@ -95,13 +114,18 @@ export default Ember.Component.extend(i18nMixin, {
 
   actions: {
 
+    /**
+     * When an items is selected
+     * @param {DropdownItem} item
+     */
     onItemSelected: function (item) {
-      const component = this;
+      const component = this,
+        selected = item.get("selected");
 
       if (!component.get("multiple")){
         component.unselectAll();
       }
-      item.set("selected", !item.get("selected"));
+      item.set("selected", !selected);
 
       if (component.get("onChangeAction")) {
         component.sendAction("onChangeAction", component.get("selectedItems"));

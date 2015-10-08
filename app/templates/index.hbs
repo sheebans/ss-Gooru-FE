@@ -4,84 +4,97 @@
       <h1>{{t "index.joinUs"}}</h1>
     </div>
   </div>
-  <div>
-    {{app-dropdown
-    placeholder=(t "grade-dropdown.placeholder")
-    items=subjectItems
-    multiple=true
-    onChangeAction="onSubjectChange"}}
-
-    {{standard-dropdown
-    standards=standards
-    onStandardSelectedAction="onStandardSelected"}}
-  </div>
-  <div class="container">
-  <div class="row empowerStudents">
-          <div>
-              <h2 class="text-blue title text-center">{{t "index.empowerStudents.title"}}</h2>
-          </div>
-      <div class="col-center-block col-md-10 col-sm-12">
-          <div class="row">
-            <div class="col-md-3 col-sm-6 ma-sm-top-5 find">
-                <div class="row">
-                    <div class="col-md-12 col-sm-8 col-center-block">
-                        <h3 class="text-center">{{t "index.empowerStudents.find"}}</h3>
-                        <div class="ma-md-top-15 ma-sm-top-15 findImg empowerSprite"></div>
-                        <p>{{t "index.findDescription"}}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 ma-sm-top-5 remix">
-                <div class="row">
-                    <div class="col-md-12 col-sm-8 col-center-block">
-                        <h3 class="text-center">{{t "index.empowerStudents.remix"}}</h3>
-                        <div class="ma-md-top-15 ma-sm-top-15 remixImg empowerSprite"></div>
-                        <p>{{t "index.remixDescription"}}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 ma-sm-top-5 share">
-                <div class="row">
-                    <div class="col-md-12 col-sm-8 col-center-block">
-                        <h3 class="text-center">{{t "index.empowerStudents.share"}}</h3>
-                        <div class="ma-md-top-15 ma-sm-top-15 shareImg empowerSprite"></div>
-                        <p>{{t "index.shareDescription"}}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 ma-sm-top-5 monitor">
-                <div class="row">
-                    <div class="col-md-12 col-sm-8 col-center-block ">
-                        <h3 class="text-center">{{t "index.empowerStudents.monitor"}}</h3>
-                        <div class="ma-md-top-15 ma-sm-top-15 monitorImg empowerSprite"></div>
-                        <p>{{t "index.monitorDescription"}}</p>
-                    </div>
-                </div>
-            </div>
-          </div>
-      </div>
-  </div>
-  </div>
-    <div class="row free_and_open vertical-align-col">
-          <div class="col-md-offset-1 col-md-4 col-sm-offset-1 col-sm-6 ">
-              <div>
-                  <h1>{{t "index.freeAndOpen.title"}}</h1>
-              </div>
-          </div>
-          <div class="col-md-offset-1 col-md-5 col-sm-offset-1 col-sm-5">
-              <div class="row">
-                  <div class="col-md-12 col-sm-12 vertical-align-col free_and_open_descrip pa-md-10  pa-sm-10">
-                      <p>{{t "index.freeAndOpen.description"}}</p>
-                  </div>
-              </div>
-              <div class="row">
-                  <div class="col-md-offset-3 col-md-9 col-md-offset-3 col-sm-9 vertical-align-col free_and_open_button pa-sm-10">
-                      <a class="btn btn-primary">{{t "index.freeAndOpen.button"}}</a>
-                  </div>
-              </div>
-
-          </div>
+  <div class="row">
+    <div class="col-md-4">
+      {{app-dropdown
+      placeholder=(t "subject-dropdown.placeholder")
+      prompt=(t "subject-dropdown.prompt")
+      items=subjectItems
+      multiple=true
+      onChangeAction="onSubjectChange"}}
     </div>
+    <div class="col-md-4">
+      {{grade-dropdown
+      placeholder=(t "grade-dropdown.placeholder")
+      prompt=(t "grade-dropdown.prompt")
+      grades=grades
+      onChangeAction="onGradeSelected"}}
+    </div>
+    <div class="col-md-4">
+      {{standard-dropdown
+      standards=standards
+      onStandardSelectedAction="onStandardSelected"}}
+    </div>
+  </div>
+  <div class="row empowerStudents">
+    <div>
+      <h2 class="text-blue title text-center">{{t "index.empowerStudents.title"}}</h2>
+    </div>
+    <div class="col-center-block col-md-10 col-sm-12">
+      <div class="row">
+        <div class="col-md-3 col-sm-6 ma-sm-top-5 find">
+          <div class="row">
+            <div class="col-md-12 col-sm-8 col-center-block">
+              <h3 class="text-center">{{t "index.empowerStudents.find"}}</h3>
+
+              <div class="ma-md-top-15 ma-sm-top-15 findImg empowerSprite"></div>
+              <p>{{t "index.findDescription"}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 ma-sm-top-5 remix">
+          <div class="row">
+            <div class="col-md-12 col-sm-8 col-center-block">
+              <h3 class="text-center">{{t "index.empowerStudents.remix"}}</h3>
+
+              <div class="ma-md-top-15 ma-sm-top-15 remixImg empowerSprite"></div>
+              <p>{{t "index.remixDescription"}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 ma-sm-top-5 share">
+          <div class="row">
+            <div class="col-md-12 col-sm-8 col-center-block">
+              <h3 class="text-center">{{t "index.empowerStudents.share"}}</h3>
+
+              <div class="ma-md-top-15 ma-sm-top-15 shareImg empowerSprite"></div>
+              <p>{{t "index.shareDescription"}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 ma-sm-top-5 monitor">
+          <div class="row">
+            <div class="col-md-12 col-sm-8 col-center-block ">
+              <h3 class="text-center">{{t "index.empowerStudents.monitor"}}</h3>
+
+              <div class="ma-md-top-15 ma-sm-top-15 monitorImg empowerSprite"></div>
+              <p>{{t "index.monitorDescription"}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row free_and_open vertical-align-col">
+    <div class="col-md-offset-1 col-md-4 col-sm-offset-1 col-sm-6 ">
+      <div>
+        <h1>{{t "index.freeAndOpen.title"}}</h1>
+      </div>
+    </div>
+    <div class="col-md-offset-1 col-md-5 col-sm-offset-1 col-sm-5">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 vertical-align-col free_and_open_descrip pa-md-10  pa-sm-10">
+          <p>{{t "index.freeAndOpen.description"}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-offset-3 col-md-9 col-md-offset-3 col-sm-9 vertical-align-col free_and_open_button pa-sm-10">
+          <a class="btn btn-primary">{{t "index.freeAndOpen.button"}}</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
 

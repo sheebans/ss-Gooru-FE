@@ -1,5 +1,10 @@
 <div class="standard-dropdown">
-  {{#app-dropdown onChangeAction='onStandardSelected' items=dropdownItems as |onItemSelected|}}
+  {{#app-dropdown
+    split=false
+    showSelection=false
+    onChangeAction='onStandardSelected'
+    placeholder=(t "standard-dropdown.placeholder")
+    items=dropdownItems as |onItemSelected|}}
     <ul class="dropdown-menu">
       {{#each dropdownItems as |item|}}
         {{#if item.disabled}}
