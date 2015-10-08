@@ -37,7 +37,7 @@ export default AppDropdown.extend({
    * @see AppDropdown.willDestroyElement
    */
   willDestroyElement: function(){
-    //this._super();//calling app-dropdown didInsertElement
+    this._super();//calling app-dropdown didInsertElement
     this.get("tree").clear();
     this.get("items").clear();
   },
