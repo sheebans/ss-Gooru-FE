@@ -8,12 +8,42 @@
     background-size: contain;
     min-height: 460px;
   }
+  .browse_content{
+    border-radius:4px;
+    border: 1px solid $color-blue-lighter-4;
+    margin-top: -247px;
+    @media (min-width: $screen-md-min)
+    {
+      margin-top: -181px;
+    }
+    ul{
+      list-style: none;
+      li{
+        float:left;
+      }
+    }
+    .btn-browseContent{
+      padding: 10px 16px;
+      font-size: 18px;
+    }
+  }
+  .browse_content .title{
+    div{
+      border:1px solid $color-gray-lighter-2;
+      border-top-left-radius:4px;
+      border-top-right-radius:4px;
+    }
+  }
   h1 {
     color: $color-white;
     font-weight: bolder;
     text-align: center;
-    font-size: 61px;
+    font-size: 45px;
     font-family: "Arvo";
+    @media (min-width: $screen-md-min)
+    {
+      font-size: 61px;
+    }
   }
   .free_and_open{
     background: url('gooru/free-to-open-banner.png') no-repeat;

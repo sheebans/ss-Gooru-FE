@@ -43,8 +43,14 @@
 .bg-gray{
   background-color:$color-gray-lighter-4;
 }
+.bg-gray-light{
+  background-color: $color-gray-lighter-5;
+}
 .bg-blue {
   background-color: $color-blue-lighter-3;
+}
+.bg-white{
+  background-color: $color-white;
 }
 .text-blue{
   color:$color-blue-primary;
