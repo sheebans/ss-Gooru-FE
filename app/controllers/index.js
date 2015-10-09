@@ -1,19 +1,14 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 /**
  * @typedef {object} IndexController
  */
 export default Ember.Controller.extend({
 
+  subjectService: Ember.inject.service("api-sdk/subject"),
 
-  subjects: function(){
-    //@todo: use data retrieved in the route
-    const items = Ember.A();
-    items.addObject(Ember.Object.create({ id: 1, name: "Math"}));
-    items.addObject(Ember.Object.create({ id: 2, name: "Science"}));
-    items.addObject(Ember.Object.create({ id: 3, name: "History"}));
-    items.addObject(Ember.Object.create({ id: 4, name: "Language"}));
-    return items;
+  subjects: function() {
+    return this.get("model").subjects.filterBy("library", "library");
   }.property(),
 
   standards: function(){

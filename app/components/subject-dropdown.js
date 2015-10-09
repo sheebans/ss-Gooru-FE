@@ -1,5 +1,5 @@
-import Ember from 'ember';
-import DropdownItem from '../utils/dropdown-item';
+import Ember from "ember";
+import DropdownItem from "../utils/dropdown-item";
 
 /**
  * @typedef {object} SubjectDropdown
@@ -17,12 +17,12 @@ export default Ember.Component.extend({
    */
   onChangeAction: null,
 
-  dropdownItems: function(){
-    const subjects = this.get('subjects');
+  dropdownItems: function() {
+    const subjects = this.get("subjects");
     return subjects.map(function(subject){
       return DropdownItem.create({
-        id: subject.get("id"),
-        label: subject.get("name"),
+        id: subject.get("libraryId"),
+        label: subject.get("label"),
         data: subject
       });
     });

@@ -1,8 +1,18 @@
 import Ember from 'ember';
-import SessionMixin from '../mixins/session';
 
 /**
  * @typedef {object} IndexRoute
  */
-export default Ember.Route.extend(SessionMixin, {
+export default Ember.Route.extend({
+
+  subjectService: Ember.inject.service("api-sdk/subject"),
+
+  model: function() {
+    var subjects = this.get("subjectService").readAll();
+
+    return Ember.RSVP.hash({
+      subjects: subjects
+    });
+  }
+
 });
