@@ -23,7 +23,7 @@ export default {
       "description_2":"learning materials in",
       "description_3":"or",
       "button":"Browse Content",
-      footer:{
+      "footer":{
         "description_1":"Already have an account? ",
         "description_2":" here.",
         "login":"Login"
