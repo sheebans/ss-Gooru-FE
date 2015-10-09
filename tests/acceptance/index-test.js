@@ -18,7 +18,7 @@ test('Page Layout', function(assert) {
 
   andThen(function() {
 
-    assert.expect(37); //making sure all asserts are called
+    assert.expect(48); //making sure all asserts are called
 
 
     assert.equal(currentURL(), '/');
@@ -27,6 +27,23 @@ test('Page Layout', function(assert) {
     var $hero = find('.hero');
     T.exists(assert, $hero, "Missing hero section");
     T.exists(assert, $hero.find("h1"), "Missing hero title");
+
+    var $browseContent = find('.browse_content');
+    T.exists(assert, $browseContent, "Missing browse content section");
+    T.exists(assert, $browseContent.find('.title'), "Missing browse content title");
+
+    var $browseContentDropdowns =find('.browse_content_dropdowns');
+    T.exists(assert, $browseContentDropdowns.find('.lookingFor'), "Missing I am looking for text");
+    T.exists(assert, $browseContentDropdowns.find('.grade'), "Missing grade dropdown");
+    T.exists(assert, $browseContentDropdowns.find('.learningMaterials'), "Missing learning materials in text");
+    T.exists(assert, $browseContentDropdowns.find('.subject'), "Missing subject dropdown");
+    T.exists(assert, $browseContentDropdowns.find('.or'), "Missing or text");
+    T.exists(assert, $browseContentDropdowns.find('.browseContentButton'), "Missing browse content button");
+    T.exists(assert, $browseContentDropdowns.find('.standard'), "Missing standard dropdown");
+
+    var $browseContentFooter = find('.browse_content_footer');
+    T.exists(assert, $browseContentFooter, "Missing footer section");
+    T.exists(assert, $browseContentFooter.find("p"), "Missing footer contect");
 
 
     var $gettingStarted = find('.getting-started-content');

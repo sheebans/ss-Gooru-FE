@@ -17,6 +17,18 @@ export default {
 
   "index": {
     "joinUs": "Join Us to <br/> Honor the Human Right to <br/> Education",
+    "browseContent":{
+      "title":"Hi there! What are you looking for?",
+      "description_1":"I am looking for",
+      "description_2":"learning materials in",
+      "description_3":"or",
+      "button":"Browse Content",
+      footer:{
+        "description_1":"Already have an account? ",
+        "description_2":" here.",
+        "login":"Login"
+      }
+    },
     "gettingStarted":{
       "title":"Getting Started with Gooru",
       "toolkit":{
