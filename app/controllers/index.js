@@ -1,15 +1,15 @@
 import Ember from "ember";
 
 /**
- * @typedef {object} IndexController
+ * @typedef {object} Index Controller
  */
 export default Ember.Controller.extend({
 
-  subjectService: Ember.inject.service("api-sdk/subject"),
-
-  subjects: function() {
-    return this.get("model").subjects.filterBy("library", "library");
-  }.property(),
+  /**
+   * @property {[]} subjects
+   * @see setupController at routes/index.js
+   */
+  subjects: null,
 
   standards: function(){
     //@todo: use data retrieved in the route
