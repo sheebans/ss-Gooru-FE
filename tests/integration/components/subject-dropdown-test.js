@@ -15,10 +15,10 @@ test('Layout using defaults', function (assert) {
   assert.expect(14);
 
   const subjects = Ember.A();
-  subjects.addObject(Ember.Object.create({ id: 1, name: "Math"}));
-  subjects.addObject(Ember.Object.create({ id: 2, name: "Science"}));
-  subjects.addObject(Ember.Object.create({ id: 3, name: "History"}));
-  subjects.addObject(Ember.Object.create({ id: 4, name: "Language"}));
+  subjects.addObject(Ember.Object.create({ libraryId: 1, library:"library", label: "Math", subjectCode: "10001" }));
+  subjects.addObject(Ember.Object.create({ libraryId: 2, library:"library", label: "Science", subjectCode: "10002" }));
+  subjects.addObject(Ember.Object.create({ libraryId: 3, library:"library", label: "History", subjectCode: "10003" }));
+  subjects.addObject(Ember.Object.create({ libraryId: 4, library:"library", label: "Language", subjectCode: "10004" }));
 
   this.set('subjects', subjects);
 
