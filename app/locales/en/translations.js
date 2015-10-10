@@ -104,8 +104,26 @@ export default {
 
   "grade-dropdown" : {
     "placeholder" : "grade(s)",
-    "prompt": "Select a grade"
-  },
+    "prompt": "Select a grade",
+    "pre-k": "Pre-K",
+    "elementary": "Elementary",
+    "middle-school": "Middle School",
+    "high-school": "High School",
+    "higher-ed": "Higher Ed",
+    "k": "K",
+    "first": "1",
+    "second": "2",
+    "third": "3",
+    "fourth": "4",
+    "fifth": "5",
+    "sixth": "6",
+    "seventh": "7",
+    "eighth": "8",
+    "ninth": "9",
+    "tenth": "10",
+    "eleventh": "11",
+    "twelfth": "12"
+    },
 
   "standard-dropdown": {
     "placeholder" : "Browse by Standard"

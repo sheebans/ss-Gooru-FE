@@ -6,15 +6,22 @@ import Ember from "ember";
 export default Ember.Route.extend({
 
   /**
-   * @property {SubjectService} Service to retrive subjects
+   * @property {SubjectService} Service to retrieve subjects
    */
   subjectService: Ember.inject.service("api-sdk/subject"),
 
+  /**
+   * @property {GradeService} Service to retrieve grades
+   */
+  gradeService: Ember.inject.service("api-sdk/grade"),
+
   model: function() {
     var subjects = this.get("subjectService").readAll();
+    var grades = this.get("gradeService").readAll();
 
     return Ember.RSVP.hash({
-      subjects: subjects
+      subjects: subjects,
+      grades: grades
     });
   },
 
@@ -27,6 +34,8 @@ export default Ember.Route.extend({
     this._super(controller, model);
     // @TODO We are filtering by library == "library value, we need to verify if this is the correct filter value.
     controller.set("subjects", model.subjects.filterBy("library", "library"));
+    controller.set("grades", model.grades);
+
   }
 
 
