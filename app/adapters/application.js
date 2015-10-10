@@ -20,6 +20,10 @@ export default DS.RESTAdapter.extend(SessionMixin, {
    */
   apiKey: Config.apiKey,
 
+  pathForType() {
+    return '';
+  },
+
   /**
    * Customizing ajax calls
    * @param url

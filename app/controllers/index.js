@@ -1,20 +1,15 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 /**
- * @typedef {object} IndexController
+ * @typedef {object} Index Controller
  */
 export default Ember.Controller.extend({
 
-
-  subjects: function(){
-    //@todo: use data retrieved in the route
-    const items = Ember.A();
-    items.addObject(Ember.Object.create({ id: 1, name: "Math"}));
-    items.addObject(Ember.Object.create({ id: 2, name: "Science"}));
-    items.addObject(Ember.Object.create({ id: 3, name: "History"}));
-    items.addObject(Ember.Object.create({ id: 4, name: "Language"}));
-    return items;
-  }.property(),
+  /**
+   * @property {[]} subjects
+   * @see setupController at routes/index.js
+   */
+  subjects: null,
 
   standards: function(){
     //@todo: use data retrieved in the route
