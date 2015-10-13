@@ -6,6 +6,20 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
 
 
+  /**
+   * Selected grade items
+   * @property {array}
+   */
+  grade: null,
+
+  /**
+   * Selected subject item
+   * @property {array}
+   */
+  subject: null,
+
+  errorMessage:null,
+
   subjects: function(){
     //@todo: use data retrieved in the route
     const items = Ember.A();
@@ -36,6 +50,7 @@ export default Ember.Controller.extend({
     return items;
   }.property(),
 
+
   actions: {
 
     /**
@@ -43,7 +58,8 @@ export default Ember.Controller.extend({
      * @param {DropdownItem[]} items
      */
     onSubjectChange: function(items){
-      console.debug(items);
+      //console.debug(items);
+      this.set("subject",items);
     },
 
     /**
@@ -52,15 +68,33 @@ export default Ember.Controller.extend({
      */
     onStandardSelected: function(item){
       console.debug(item);
+
     },
 
     /**
      * Triggered when grade selection changes
      * @param {DropdownItem} item
      */
+
     onGradeSelected: function(items){
-      console.debug(items);
-    }
+      //console.debug(items);
+      this.set("grade",items);
+    },
+    /**
+     * Triggered when click browseContent button
+     * @param {}
+     */
+    onbrowseContentClick:function(){
+        if(this.get("grade") == null){
+          this.set("errorMessage","Please select Grade and Subject.");
+        }else{
+          this.set("errorMessage",null);
+          if(this.get("subject")==null){
+            this.set("errorMessage","Please select Subject.");
+          }else{
+            this.set("errorMessage",null);
+          }}
+        }
   }
 
 });
