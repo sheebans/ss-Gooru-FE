@@ -31,10 +31,10 @@
                         subjects=subjects
                         onChangeAction="onSubjectChange"}}
                       </li>
-                      <li class="or pa-md-top-15 pa-md-bottom-15 pa-md-left-2 pa-md-right-2 pa-sm-top-5 pa-sm-bottom-5 pa-sm-left-2 pa-sm-right-2">
-                          <a  {{action 'onbrowseContentClick'}} class="btn btn-primary btn-browseContent">{{t "index.browseContent.button"}}</a>
+                      <li class="browseContentButton pa-md-top-15 pa-md-bottom-15 pa-md-left-2 pa-md-right-2 pa-sm-top-5 pa-sm-bottom-5 pa-sm-left-2 pa-sm-right-2">
+                          <a  {{action 'onbrowseContentClick'}} class="btn btn-primary btn-browse-content">{{t "index.browseContent.button"}}</a>
                       </li>
-                      <li class="browseContentButton pa-md-top-20 pa-md-bottom-20 pa-sm-top-20 pa-sm-bottom-20">
+                      <li class="or pa-md-top-20 pa-md-bottom-20 pa-sm-top-20 pa-sm-bottom-20">
                           <p class="text-blue">{{t "index.browseContent.description_3"}}</p>
                       </li>
                       <li class="standard pa-md-top-15 pa-md-bottom-15 pa-md-left-2 pa-md-right-2 pa-sm-top-5 pa-sm-bottom-5 pa-sm-left-2 pa-sm-right-2">
@@ -47,7 +47,7 @@
               </div>
           <div class="row text-center bg-white">
               <div class="col-md-12 col-sm-12">
-                  <div>{{#if errorMessage}}
+                  <div class="errorMessage">{{#if errorMessage}}
                       <p class="text-blue italic">{{errorMessage}}</p><br />
                   {{/if}} </div>
               </div>

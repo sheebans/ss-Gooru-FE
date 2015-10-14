@@ -127,3 +127,57 @@ test('Search box navigation', function(assert) {
     });
   });
 });
+
+test('Browse content', function(assert) {
+  visit('/');
+
+  andThen(function() {
+    assert.expect(8); //making sure all asserts are called
+
+    assert.equal(currentURL(), '/');
+
+    const $browseContent = find('.browse_content');
+    const $browseContentButton = $browseContent.find(".browseContentButton .btn-browse-content");
+
+    click($browseContentButton);
+
+    andThen(function(){
+      var $errorMessage = find('.errorMessage'); // validating missing grade
+      T.exists(assert, $errorMessage, "Missing error message section");
+      T.exists(assert, $errorMessage.find("p"), "Missing error message");
+      assert.equal(T.text($errorMessage.find("p")), "Please select Grade and Subject.", "Incorrect Message");
+
+      const $selectedGradesDropdown = $browseContent.find(".grade");
+      click($selectedGradesDropdown);
+
+      andThen(function(){
+        var $gradeOption =$selectedGradesDropdown.find("ul.dropdown-menu li.dropdown-item:eq(0) span");
+        click($gradeOption);
+
+        andThen(function(){
+          click($browseContentButton);
+          andThen(function(){
+            var $errorMessage = find('.errorMessage');
+            T.exists(assert, $errorMessage, "Missing error message section");
+            T.exists(assert, $errorMessage.find("p"), "Missing error message");
+            assert.equal(T.text($errorMessage.find("p")), "Please select Subject.", "Incorrect Message");
+
+            const $selectedSubjectDropdown = $browseContent.find(".subject");
+            click($selectedSubjectDropdown);
+
+            andThen(function() {
+              var $subjectOption =$selectedSubjectDropdown.find("ul.dropdown-menu li:eq(1) a.item");
+              click($subjectOption);
+              andThen(function(){
+                click($browseContentButton);
+                andThen(function(){
+                  assert.equal(currentURL(), '/search/collections?grades=1&subject=1');
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+});

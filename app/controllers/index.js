@@ -7,18 +7,23 @@ export default Ember.Controller.extend({
 
 
   /**
-   * Selected grade items
+   * Selected grades items
    * @property {array}
    */
-  grade: null,
+  selectedGrades: null,
 
   /**
    * Selected subject item
    * @property {array}
    */
-  subject: null,
+  selectedSubject: null,
 
+  /**
+   * Error message displayed when click Browse Content button
+   * @property {}
+   */
   errorMessage:null,
+
 
   subjects: function(){
     //@todo: use data retrieved in the route
@@ -59,7 +64,7 @@ export default Ember.Controller.extend({
      */
     onSubjectChange: function(items){
       //console.debug(items);
-      this.set("subject",items);
+      this.set("selectedSubject",items);
     },
 
     /**
@@ -78,21 +83,30 @@ export default Ember.Controller.extend({
 
     onGradeSelected: function(items){
       //console.debug(items);
-      this.set("grade",items);
+      this.set("selectedGrades",items);
     },
     /**
      * Triggered when click browseContent button
      * @param {}
      */
     onbrowseContentClick:function(){
-        if(this.get("grade") == null){
+      var gradeId;
+      var subjectId;
+        if(this.get("selectedGrades") == null){
           this.set("errorMessage","Please select Grade and Subject.");
         }else{
           this.set("errorMessage",null);
-          if(this.get("subject")==null){
+          if(this.get("selectedSubject")==null){
             this.set("errorMessage","Please select Subject.");
           }else{
             this.set("errorMessage",null);
+            gradeId = this.get("selectedGrades").map(function (item) {
+              return item.get("id");
+            });
+            subjectId = this.get("selectedSubject").map(function (item) {
+              return item.get("id");
+            });
+            this.transitionToRoute('/search/collections?grades=' +gradeId+"&subject="+subjectId);
           }}
         }
   }
