@@ -171,7 +171,7 @@ test('Browse content', function(assert) {
               andThen(function(){
                 click($browseContentButton);
                 andThen(function(){
-                  assert.equal(currentURL(), '/search/collections?grades=1&subject=1');
+                  assert.equal(currentURL(), '/search/collections?grades=1&subject=390');
                 });
               });
             });
