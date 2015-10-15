@@ -53,6 +53,7 @@ export default Ember.Controller.extend(i18nMixin,{
   }.property(),
 
   isEmptyGrades : Ember.computed.empty("selectedGrades"),
+  isEmptySubjects : Ember.computed.empty("selectedSubjects"),
 
   actions: {
 
@@ -93,7 +94,7 @@ export default Ember.Controller.extend(i18nMixin,{
           controller.set("errorMessage",controller.t("index.browseContent.grades_missing_message"));
         }else{
           controller.set("errorMessage",null);
-          if(controller.get("selectedSubjects")==null){
+          if(controller.get("isEmptySubjects")){
             controller.set("errorMessage",controller.t("index.browseContent.subjects_missing_message"));
           }else{
             controller.set("errorMessage",null);
