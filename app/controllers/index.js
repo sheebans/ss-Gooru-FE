@@ -51,8 +51,15 @@ export default Ember.Controller.extend(i18nMixin,{
     items.addObject(Ember.Object.create({ id: 1, name: "Higher Ed", levels: [] }));
     return items;
   }.property(),
-
+  /**
+   * Validate if selectedGrades is null or empty
+   * @property
+   */
   isEmptyGrades : Ember.computed.empty("selectedGrades"),
+  /**
+   * Validate if selectedSubject is null or empty
+   * @property
+   */
   isEmptySubjects : Ember.computed.empty("selectedSubjects"),
 
   actions: {
