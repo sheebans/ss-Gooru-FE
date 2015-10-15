@@ -28,20 +28,20 @@ test('Page Layout', function(assert) {
     T.exists(assert, $hero, "Missing hero section");
     T.exists(assert, $hero.find("h1"), "Missing hero title");
 
-    var $browseContent = find('.browse_content');
+    var $browseContent = find('.browse-content');
     T.exists(assert, $browseContent, "Missing browse content section");
     T.exists(assert, $browseContent.find('.title'), "Missing browse content title");
 
-    var $browseContentDropdowns =find('.browse_content_dropdowns');
+    var $browseContentDropdowns =find('.browse-content-dropdowns');
     T.exists(assert, $browseContentDropdowns.find('.lookingFor'), "Missing I am looking for text");
     T.exists(assert, $browseContentDropdowns.find('.grade'), "Missing grade dropdown");
     T.exists(assert, $browseContentDropdowns.find('.learningMaterials'), "Missing learning materials in text");
     T.exists(assert, $browseContentDropdowns.find('.subject'), "Missing subject dropdown");
     T.exists(assert, $browseContentDropdowns.find('.or'), "Missing or text");
-    T.exists(assert, $browseContentDropdowns.find('.browseContentButton'), "Missing browse content button");
+    T.exists(assert, $browseContentDropdowns.find('.browse-content-button'), "Missing browse content button");
     T.exists(assert, $browseContentDropdowns.find('.standard'), "Missing standard dropdown");
 
-    var $browseContentFooter = find('.browse_content_footer');
+    var $browseContentFooter = find('.browse-content-footer');
     T.exists(assert, $browseContentFooter, "Missing footer section");
     T.exists(assert, $browseContentFooter.find("p"), "Missing footer contect");
 
@@ -136,8 +136,8 @@ test('Browse content', function(assert) {
 
     assert.equal(currentURL(), '/');
 
-    const $browseContent = find('.browse_content');
-    const $browseContentButton = $browseContent.find(".browseContentButton .btn-browse-content");
+    const $browseContent = find('.browse-content');
+    const $browseContentButton = $browseContent.find(".browse-content-button .btn-browse-content");
 
     click($browseContentButton);
 
@@ -171,7 +171,7 @@ test('Browse content', function(assert) {
               andThen(function(){
                 click($browseContentButton);
                 andThen(function(){
-                  assert.equal(currentURL(), '/search/collections?grades=1&subject=1');
+                  assert.equal(currentURL(), '/search/collections?grades=1&subjects=390');
                 });
               });
             });

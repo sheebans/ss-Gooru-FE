@@ -27,7 +27,9 @@ export default {
         "description_1":"Already have an account? ",
         "description_2":" here.",
         "login":"Login"
-      }
+      },
+      "grades_missing_message":"Please select Grade and Subject.",
+      "subjects_missing_message":"Please select Subject."
     },
     "gettingStarted":{
       "title":"Getting Started with Gooru",

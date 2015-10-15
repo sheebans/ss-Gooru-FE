@@ -1,9 +1,10 @@
 import Ember from "ember";
+import i18nMixin from '../mixins/i18n';
 
 /**
  * @typedef {object} Index Controller
  */
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(i18nMixin,{
 
 
 
@@ -17,7 +18,7 @@ export default Ember.Controller.extend({
    * Selected subject item
    * @property {array}
    */
-  selectedSubject: null,
+  selectedSubjects: null,
 
   /**
    * Error message displayed when click Browse Content button
@@ -50,7 +51,16 @@ export default Ember.Controller.extend({
     items.addObject(Ember.Object.create({ id: 1, name: "Higher Ed", levels: [] }));
     return items;
   }.property(),
-
+  /**
+   * Validate if selectedGrades is null or empty
+   * @property
+   */
+  isEmptyGrades : Ember.computed.empty("selectedGrades"),
+  /**
+   * Validate if selectedSubject is null or empty
+   * @property
+   */
+  isEmptySubjects : Ember.computed.empty("selectedSubjects"),
 
   actions: {
 
@@ -59,8 +69,7 @@ export default Ember.Controller.extend({
      * @param {DropdownItem[]} items
      */
     onSubjectChange: function(items){
-      //console.debug(items);
-      this.set("selectedSubject",items);
+      this.set("selectedSubjects",items);
     },
 
     /**
@@ -78,7 +87,6 @@ export default Ember.Controller.extend({
      */
 
     onGradeSelected: function(items){
-      //console.debug(items);
       this.set("selectedGrades",items);
     },
     /**
@@ -86,23 +94,24 @@ export default Ember.Controller.extend({
      * @param {}
      */
     onbrowseContentClick:function(){
+      const controller =this;
       var gradeId;
       var subjectId;
-        if(this.get("selectedGrades") == null){
-          this.set("errorMessage","Please select Grade and Subject.");
+        if(controller.get("isEmptyGrades")){
+          controller.set("errorMessage",controller.t("index.browseContent.grades_missing_message"));
         }else{
-          this.set("errorMessage",null);
-          if(this.get("selectedSubject")==null){
-            this.set("errorMessage","Please select Subject.");
+          controller.set("errorMessage",null);
+          if(controller.get("isEmptySubjects")){
+            controller.set("errorMessage",controller.t("index.browseContent.subjects_missing_message"));
           }else{
-            this.set("errorMessage",null);
-            gradeId = this.get("selectedGrades").map(function (item) {
+            controller.set("errorMessage",null);
+            gradeId = controller.get("selectedGrades").map(function (item) {
               return item.get("id");
             });
-            subjectId = this.get("selectedSubject").map(function (item) {
+            subjectId = controller.get("selectedSubjects").map(function (item) {
               return item.get("id");
             });
-            this.transitionToRoute('/search/collections?grades=' +gradeId+"&subject="+subjectId);
+            controller.transitionToRoute('/search/collections?grades=' +gradeId+"&subjects="+subjectId);
           }}
         }
   }
