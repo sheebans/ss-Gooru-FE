@@ -28,20 +28,20 @@ test('Page Layout', function(assert) {
     T.exists(assert, $hero, "Missing hero section");
     T.exists(assert, $hero.find("h1"), "Missing hero title");
 
-    var $browseContent = find('.browse_content');
+    var $browseContent = find('.browse-content');
     T.exists(assert, $browseContent, "Missing browse content section");
     T.exists(assert, $browseContent.find('.title'), "Missing browse content title");
 
-    var $browseContentDropdowns =find('.browse_content_dropdowns');
+    var $browseContentDropdowns =find('.browse-content-dropdowns');
     T.exists(assert, $browseContentDropdowns.find('.lookingFor'), "Missing I am looking for text");
     T.exists(assert, $browseContentDropdowns.find('.grade'), "Missing grade dropdown");
     T.exists(assert, $browseContentDropdowns.find('.learningMaterials'), "Missing learning materials in text");
     T.exists(assert, $browseContentDropdowns.find('.subject'), "Missing subject dropdown");
     T.exists(assert, $browseContentDropdowns.find('.or'), "Missing or text");
-    T.exists(assert, $browseContentDropdowns.find('.browseContentButton'), "Missing browse content button");
+    T.exists(assert, $browseContentDropdowns.find('.browse-content-button'), "Missing browse content button");
     T.exists(assert, $browseContentDropdowns.find('.standard'), "Missing standard dropdown");
 
-    var $browseContentFooter = find('.browse_content_footer');
+    var $browseContentFooter = find('.browse-content-footer');
     T.exists(assert, $browseContentFooter, "Missing footer section");
     T.exists(assert, $browseContentFooter.find("p"), "Missing footer contect");
 
@@ -100,7 +100,7 @@ test('Page Layout', function(assert) {
     T.exists(assert, $freeAndOpen, "Missing free and open section");
     T.exists(assert, $freeAndOpen.find("h1"), "Missing free and open  title");
     T.exists(assert,$freeAndOpen.find('.free_and_open_descrip'),"Missing free and open description");
-    T.exists(assert,$freeAndOpen.find('.free_and_open_button'),"Missing free and open button");
+    T.exists(assert,$freeAndOpen.find('.free_and_open_button button'),"Missing free and open button");
 
   });
 });
@@ -124,6 +124,60 @@ test('Search box navigation', function(assert) {
 
     andThen(function(){
       assert.equal(currentURL(), '/search/collections?term=test');
+    });
+  });
+});
+
+test('Browse content', function(assert) {
+  visit('/');
+
+  andThen(function() {
+    assert.expect(8); //making sure all asserts are called
+
+    assert.equal(currentURL(), '/');
+
+    const $browseContent = find('.browse-content');
+    const $browseContentButton = $browseContent.find(".browse-content-button .btn-browse-content");
+
+    click($browseContentButton);
+
+    andThen(function(){
+      var $errorMessage = find('.errorMessage'); // validating missing grade
+      T.exists(assert, $errorMessage, "Missing error message section");
+      T.exists(assert, $errorMessage.find("p"), "Missing error message");
+      assert.equal(T.text($errorMessage.find("p")), "Please select Grade and Subject.", "Incorrect Message");
+
+      const $selectedGradesDropdown = $browseContent.find(".grade");
+      click($selectedGradesDropdown);
+
+      andThen(function(){
+        var $gradeOption =$selectedGradesDropdown.find("ul.dropdown-menu li.dropdown-item:eq(0) span");
+        click($gradeOption);
+
+        andThen(function(){
+          click($browseContentButton);
+          andThen(function(){
+            var $errorMessage = find('.errorMessage');
+            T.exists(assert, $errorMessage, "Missing error message section");
+            T.exists(assert, $errorMessage.find("p"), "Missing error message");
+            assert.equal(T.text($errorMessage.find("p")), "Please select Subject.", "Incorrect Message");
+
+            const $selectedSubjectDropdown = $browseContent.find(".subject");
+            click($selectedSubjectDropdown);
+
+            andThen(function() {
+              var $subjectOption =$selectedSubjectDropdown.find("ul.dropdown-menu li:eq(1) a.item");
+              click($subjectOption);
+              andThen(function(){
+                click($browseContentButton);
+                andThen(function(){
+                  assert.equal(currentURL(), '/search/collections?grades=1&subjects=390');
+                });
+              });
+            });
+          });
+        });
+      });
     });
   });
 });

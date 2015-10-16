@@ -5,15 +5,14 @@
     </div>
   </div>
   <div class="row">
-      <div class="browse_content col-md-10 col-sm-10 col-center-block">
+      <div class="browse-content col-md-10 col-sm-10 col-center-block">
               <div class="row title">
                   <div class="col-md-12 col-sm-12 bg-gray-light pa-md-6 pa-sm-6 text-center">
                       <h2 class="text-blue">{{t "index.browseContent.title"}}</h2>
                   </div>
               </div>
-
-              <div class="row browse_content_dropdowns bg-white">
-                  <ul class="browse_content_list pa-md-left-20 pa-sm-left-20">
+              <div class="row browse-content-dropdowns bg-white">
+                  <ul class="browse-content-list pa-md-left-20 pa-sm-left-20">
                       <li class="lookingFor pa-md-top-20 pa-md-bottom-20 pa-sm-top-5 pa-sm-bottom-5">
                           <p class="text-blue">{{t "index.browseContent.description_1"}}</p>
                       </li>
@@ -32,10 +31,10 @@
                           subjects=subjects
                           onChangeAction="onSubjectChange"}}
                       </li>
-                      <li class="or pa-md-top-15 pa-md-bottom-15 pa-md-left-2 pa-md-right-2 pa-sm-top-5 pa-sm-bottom-5 pa-sm-left-2 pa-sm-right-2">
-                          <a class="btn btn-primary btn-browseContent">{{t "index.browseContent.button"}}</a>
+                      <li class="browse-content-button pa-md-top-15 pa-md-bottom-15 pa-md-left-2 pa-md-right-2 pa-sm-top-5 pa-sm-bottom-5 pa-sm-left-2 pa-sm-right-2">
+                          <a  {{action 'onbrowseContentClick'}} class="btn btn-primary btn-browse-content">{{t "index.browseContent.button"}}</a>
                       </li>
-                      <li class="browseContentButton pa-md-top-20 pa-md-bottom-20 pa-sm-top-20 pa-sm-bottom-20">
+                      <li class="or pa-md-top-20 pa-md-bottom-20 pa-sm-top-20 pa-sm-bottom-20">
                           <p class="text-blue">{{t "index.browseContent.description_3"}}</p>
                       </li>
                       <li class="standard pa-md-top-15 pa-md-bottom-15 pa-md-left-2 pa-md-right-2 pa-sm-top-5 pa-sm-bottom-5 pa-sm-left-2 pa-sm-right-2">
@@ -44,8 +43,16 @@
                         onStandardSelectedAction="onStandardSelected"}}
                       </li>
                   </ul>
+
               </div>
-              <div class="row browse_content_footer text-center bg-blue  pa-md-6 pa-sm-6">
+          <div class="row text-center bg-white">
+              <div class="col-md-12 col-sm-12">
+                  <div class="errorMessage">{{#if errorMessage}}
+                      <p class="text-blue italic">{{errorMessage}}</p><br />
+                  {{/if}} </div>
+              </div>
+          </div>
+              <div class="row browse-content-footer text-center bg-blue  pa-md-6 pa-sm-6">
                   <div class="col-md-12 col-sm-12">
                   <p>{{t "index.browseContent.footer.description_1"}}<a class="text-blue">{{t "index.browseContent.footer.login"}}</a>{{t "index.browseContent.footer.description_2"}}</p>
                   </div>
@@ -149,7 +156,7 @@
       </div>
       <div class="row">
         <div class="col-md-offset-3 col-md-9 col-md-offset-3 col-sm-9 vertical-align-col free_and_open_button pa-sm-10">
-          <a class="btn btn-primary">{{t "index.freeAndOpen.button"}}</a>
+          <button  class="btn btn-primary">{{t "index.freeAndOpen.button"}}</button>
         </div>
       </div>
 

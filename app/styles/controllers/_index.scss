@@ -8,7 +8,7 @@
     background-size: contain;
     min-height: 460px;
   }
-  .browse_content{
+  .browse-content{
     border-radius:4px;
     border: 1px solid $color-blue-lighter-4;
     margin-top: -247px;
@@ -16,18 +16,18 @@
     {
       margin-top: -181px;
     }
-    .browse_content_list{
+    .browse-content-list{
       list-style: none;
-      .lookingFor,.grade,.learningMaterials,.subject,.or,.browseContentButton,.standard{
+      .lookingFor,.grade,.learningMaterials,.subject,.or,.browse-content-button,.standard{
         float:left;
       }
     }
-    .btn-browseContent{
+    .btn-browse-content{
       padding: 10px 16px;
       font-size: 18px;
     }
   }
-  .browse_content .title{
+  .browse-content .title{
     div{
       border:1px solid $color-gray-lighter-2;
       border-top-left-radius:4px;
@@ -58,6 +58,11 @@
       p{
         color: $color-black;
         font-family: "Arvo";
+      }
+    }
+    .free_and_open_button{
+      button{
+        white-space: normal;
       }
     }
   }
