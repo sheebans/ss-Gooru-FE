@@ -47,16 +47,6 @@ export default Ember.Controller.extend(i18nMixin,{
     return items;
   }.property(),
 
-  grades: function(){
-    //@todo: use data retrieved in the route
-    const items = Ember.A();
-    items.addObject(Ember.Object.create({ id: 1, name: "Pre-K", levels: [] }));
-    items.addObject(Ember.Object.create({ id: 1, name: "Elementary", levels: ["K", "1", "2", "3", "4", "5"] }));
-    items.addObject(Ember.Object.create({ id: 1, name: "Middle School", levels: ["6", "7", "8"] }));
-    items.addObject(Ember.Object.create({ id: 1, name: "High School", levels: ["9", "10", "11", "12"] }));
-    items.addObject(Ember.Object.create({ id: 1, name: "Higher Ed", levels: [] }));
-    return items;
-  }.property(),
   /**
    * Validate if selectedGrades is null or empty
    * @property
