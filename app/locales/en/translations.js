@@ -116,6 +116,17 @@ export default {
   "subject-dropdown": {
     "placeholder" : "subject(s)",
     "prompt": "Select a subject"
+  },
+  "search-filter":{
+    "collection":"Collection",
+    "resource":"Resource",
+    "collectionsButton":"Collections",
+    "assessmentsButton":"Assessments",
+    "autor":{
+      "title":"Autor",
+      "placeholder":"e.g. Username"
+    }
+
   }
 
 };

@@ -1,0 +1,45 @@
+.search-filter{
+  .img-collections{
+    width:30px;
+    height: 24px;
+    background: url('gooru/collection-icon.png') no-repeat;
+  }
+  .collections,.assessments{
+    div{
+      float:left;
+    }
+  }
+  .img-assessments{
+    width:30px;
+    height: 24px;
+    background: url('gooru/assessment-type.png') no-repeat;
+  }
+  .btn-search-filter{
+    border-radius: 4px;
+    border: 2px solid $color-white;
+    background-color: $color-white;
+    &:hover {
+      border-color: $color-blue-secondary;
+      background-color: $color-white;
+    }
+    &:active {
+      border-color: $color-blue-secondary;
+    }
+  }
+  .buttons-filter{
+    ul{
+      list-style: none;
+      li{
+        float:left;
+      }
+    }
+  }
+  .img-question{
+    width:15px;
+    height: 15px;
+    background: url('gooru/questionmark.png') no-repeat;
+  }
+  .border-gray{
+    border-right: 1px solid $color-gray-lighter-3;
+  }
+}
