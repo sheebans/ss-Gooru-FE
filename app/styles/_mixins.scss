@@ -1,5 +1,5 @@
 @mixin make-padding($total, $class, $increaseBy) {
-  @for $i from 1 through $total {
+  @for $i from 0 through $total {
     .pa-#{$class}-#{$i} {
       padding: $i * $increaseBy $i * $increaseBy $i * $increaseBy $i * $increaseBy;
     }
@@ -19,11 +19,30 @@
     .pa-#{$class}-right-#{$i} {
       padding-right: $i * $increaseBy;
     }
+
+    .pa-#{$i} {
+      padding: $i * $increaseBy;
+    }
+    .pa-top-#{$i} {
+      padding-top: $i * $increaseBy;
+    }
+
+    .pa-bottom-#{$i} {
+      padding-bottom: $i * $increaseBy;
+    }
+
+    .pa-left-#{$i} {
+      padding-left: $i * $increaseBy;
+    }
+
+    .pa-right-#{$i} {
+      padding-right: $i * $increaseBy;
+    }
   }
 }
 
 @mixin make-margin($total, $class, $increaseBy) {
-  @for $i from 1 through $total {
+  @for $i from 0 through $total {
     .ma-#{$class}-#{$i} {
       margin: $i * $increaseBy $i * $increaseBy $i * $increaseBy $i * $increaseBy;
     }
@@ -41,6 +60,26 @@
     }
 
     .ma-#{$class}-right-#{$i} {
+      margin-right: $i * $increaseBy;
+    }
+
+    .ma-#{$i} {
+      margin: $i * $increaseBy;
+    }
+
+    .ma-top-#{$i} {
+      margin-top: $i * $increaseBy;
+    }
+
+    .ma-bottom-#{$i} {
+      margin-bottom: $i * $increaseBy;
+    }
+
+    .ma-left-#{$i} {
+      margin-left: $i * $increaseBy;
+    }
+
+    .ma-right-#{$i} {
       margin-right: $i * $increaseBy;
     }
   }
