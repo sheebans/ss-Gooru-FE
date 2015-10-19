@@ -6,7 +6,12 @@ import DropdownItem from "../utils/dropdown-item";
  */
 export default Ember.Component.extend({
 
-
+  /**
+   *
+   * @property {string} size class
+   * @see bootstrap button dropdown
+   */
+  "btn-group-size": 'btn-group-lg',
   /**
    * @property {[]} subjects
    */
