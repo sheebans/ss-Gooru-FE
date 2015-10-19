@@ -29,7 +29,7 @@
                       </button>
                   </div>
                </li>
-               <li class="ma-md-left-1 ma-sm-left-1">
+               <li class="ma-md-left-1 ma-sm-left-1 autor-label">
                    <p class="pa-md-4 pa-sm-4">{{t "search-filter.autor.title"}}</p>
                </li>
                <li>{{input
@@ -43,24 +43,27 @@
            </ul>
        </div>
     </div>
-    <div class="row bg-gray">
+    <div class="row bg-gray-light subfilters pa-md-left-10 pa-sm-left-10">
       <ul>
-          <li>
+          <li class="subfilters-dropdowns pa-md-5 pa-sm-5 grade">
             {{grade-dropdown
-          placeholder=(t "grade-dropdown.placeholder")
-          prompt=(t "grade-dropdown.prompt")
-          grades=grades
-          onChangeAction="onGradeSelected"}}
+              placeholder=(t "grade-dropdown.placeholder")
+              prompt=(t "grade-dropdown.prompt")
+              grades=grades
+              onChangeAction="onGradeSelected"
+              btn-group-size="btn-group-sm"}}
           </li>
-          <li>
+          <li class="subfilters-dropdowns pa-md-5 pa-sm-5 subject">
             {{subject-dropdown
-            subjects=subjects
-            onChangeAction="onSubjectChange"}}
+              subjects=subjects
+              onChangeAction="onSubjectChange"
+            btn-group-size="btn-group-sm"}}
           </li>
-          <li>
+          <li class="subfilters-dropdowns pa-md-5 pa-sm-5 standard">
             {{standard-dropdown
             standards=standards
-            onStandardSelectedAction="onStandardSelected"}}
+            onStandardSelectedAction="onStandardSelected"
+            btn-group-size="btn-group-sm"}}
           </li>
       </ul>
     </div>

@@ -34,6 +34,10 @@
       }
     }
   }
+  .subfilters-dropdowns{
+    list-style: none;
+    float:left;
+  }
   .img-question{
     width:15px;
     height: 15px;
@@ -41,5 +45,13 @@
   }
   .border-gray{
     border-right: 1px solid $color-gray-lighter-3;
+  }
+  .subfilters{
+    .grade-dropdown > .btn-group .selected-text{
+      width:68px;
+    }
+    .subject-dropdown .app-dropdown > .btn-group .selected-text{
+      width:80px;
+    }
   }
 }

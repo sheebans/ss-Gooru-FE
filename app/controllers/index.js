@@ -111,7 +111,7 @@ export default Ember.Controller.extend(i18nMixin,{
             subjectId = controller.get("selectedSubjects").map(function (item) {
               return item.get("id");
             });
-            controller.transitionToRoute('/search/collections?grades=' +gradeId+"&subjects="+subjectId);
+            controller.transitionToRoute('/search/collections?grades=' +gradeId+"&subjectsId="+subjectId);
           }}
         }
   }
