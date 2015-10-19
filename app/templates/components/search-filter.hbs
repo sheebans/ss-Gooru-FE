@@ -32,11 +32,13 @@
                <li class="ma-md-left-1 ma-sm-left-1 autor-label">
                    <p class="pa-md-4 pa-sm-4">{{t "search-filter.autor.title"}}</p>
                </li>
-               <li>{{input
-               id="autor"
-               class="autor pa-md-2 pa-sm-2"
-               placeholder=(t "search-filter.autor.placeholder")
-               }}</li>
+               <li>
+                 {{input
+                     id="autor"
+                     class="autor pa-md-2 pa-sm-2"
+                     placeholder=(t "search-filter.autor.placeholder")
+                 }}
+               </li>
                <li class="ma-md-2 ma-sm-2">
                    <div class="img-question"></div>
                </li>
@@ -57,13 +59,13 @@
             {{subject-dropdown
               subjects=subjects
               onChangeAction="onSubjectChange"
-            btn-group-size="btn-group-sm"}}
+              btn-group-size="btn-group-sm"}}
           </li>
           <li class="subfilters-dropdowns pa-md-5 pa-sm-5 standard">
             {{standard-dropdown
-            standards=standards
-            onStandardSelectedAction="onStandardSelected"
-            btn-group-size="btn-group-sm"}}
+              standards=standards
+              onStandardSelectedAction="onStandardSelected"
+              btn-group-size="btn-group-sm"}}
           </li>
       </ul>
     </div>

@@ -16,7 +16,7 @@ export default Ember.Component.extend(i18nMixin, {
 
   /**
    * @property {[]} subjects
-   * @see setupController at routes/index.js
+   * @see setupController at routes/search/collections.js
    */
   subjects: null,
 
@@ -42,6 +42,11 @@ export default Ember.Component.extend(i18nMixin, {
 
 
   actions: {
+
+    /**
+     * Triggered when grade selection changes
+     * @param {DropdownItem} item
+     */
     onGradeSelected: function (items) {
       this.set("selectedGrades", items);
     },
