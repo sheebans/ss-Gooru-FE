@@ -38,7 +38,7 @@
     "ember-disable-proxy-controllers": "^1.0.0",
     "ember-export-application-global": "^1.0.3",
     "ember-i18n": "4.1.3",
-    "ember-simple-auth": "simplabs/ember-simple-auth#jj-abrams",
+    "ember-simple-auth": "simplabs/ember-simple-auth",
     "grunt": "^0.4.5",
     "grunt-stubby": "^0.1.4"
   },
