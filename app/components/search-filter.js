@@ -40,7 +40,6 @@ export default Ember.Component.extend(i18nMixin, {
     return items;
   }.property(),
 
-
   actions: {
 
     /**

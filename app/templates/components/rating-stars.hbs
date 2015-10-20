@@ -1,0 +1,17 @@
+  <div class="row rating-stars">
+    <ul>
+      {{#each stars as |star|}}
+
+        {{#if star.full}}
+            <li {{action 'set' star.rating}}>
+              <span class="star">{{fa-icon icon="star"}}</span>
+            </li>
+            {{else}}
+                <li {{action 'set' star.rating}}>
+                  <span class="star">{{fa-icon icon="star-o"}}</span>
+                </li>
+            {{/if}}
+      {{/each}}
+    </ul>
+    </div>
+  <div class="row pa-md-left-20 pa-sm-left-20">{{#if rating}}<p>{{rating}}+ Stars</p>{{/if}}</div>

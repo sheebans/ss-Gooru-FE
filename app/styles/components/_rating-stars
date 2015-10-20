@@ -1,0 +1,14 @@
+.rating-stars{
+  ul{
+    list-style: none;
+    li{
+      float:left;
+    }
+  }
+ .star{
+   font-size: 25px;
+   i{
+     color: $color-green-primary;
+   }
+ }
+}
