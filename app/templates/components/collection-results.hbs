@@ -1,0 +1,47 @@
+<div class="collection-results">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-center-block">
+                <div class="col-md-6 col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="col-md-6 col-sm-6 viewContainer">
+                                <span class="glyphicon glyphicon-retweet"> 4</span>
+                                <span class="glyphicon glyphicon-eye-open">53 </span>
+                            </div>
+                            <div class="col-md-6 col-sm-6 remixButton">
+                                <button type="button" class="primary" id="btnRemix">Remix</button>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-6 col-sm-6 collectionImg">
+                                <a> <img class="gwt-Image" src="images/default-collection-image-160x120.png" style="border-left: 10px solid rgb(16, 118, 187); z-index: 9999;" id="imgCollection">
+                                </a>
+                            </div>
+                            <div class="col-md-6 col-sm-6 collectionDesc">
+                                <div class="collectionTitleincoll" id="lblCollectionTitle" alt="math" title="math">math</div>
+                                <div class="userDetails">
+                                    <img class="gwt-Image" src="images/settings/setting-user-image.png">
+                                    <div class="authorName authorNameAddLeft" style="color: rgb(16, 118, 187); cursor: pointer;" id="lblAuthorName" alt="caitey1" title="caitey1">caitey1</div>
+                                    <div class="authorName"></div> <div id="pnlcreatorPanel"></div></div>
+                                    <div class="collectionDescription" title="the learning objective for these questions i have provided you with are to refresh yourself in some of the basics in geo..." id="pnlCollectionDescription" alt="the learning objective for these questions i have provided you with are to refresh yourself in some of the basics in geo...">the learning objective for these questions i have provided you with are to refresh yourself in some of the basics in geo...</div>
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ul>
+      {{#each results as |item|}}
+         <li class="disabled">
+            <a class="item">
+              <strong>{{ item.name }}</strong>
+              <p>{{ item.name }}</p>
+            </a>
+          </li>
+      {{/each}}
+    </ul>
