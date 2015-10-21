@@ -1,0 +1,72 @@
+<section class="search-filter">
+    <div class="row pa-md-left-10 pa-sm-left-10">
+       <div class="buttons-filter">
+           <ul>
+               <li class="ma-md-2 ma-sm-2">
+                   <div class="collections-select">
+                       <div class="dropdown">
+                           <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                             {{t "search-filter.collection"}}
+                               <span class="caret"></span>
+                           </button>
+                           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                               <li><a href="#">{{t "search-filter.collection"}}</a></li>
+                               <li><a href="#">{{t "search-filter.resource"}}</a></li>
+                           </ul>
+                       </div>
+                   </div>
+               </li>
+               <li class="ma-md-left-1 ma-sm-left-1">
+                   <button class="btn btn-default collections btn-search-filter">
+                   <span><div class="img-collections"></div></span>
+                     {{t "search-filter.collectionsButton"}}
+                   </button></li>
+               <li class="ma-md-left-1 ma-sm-left-1">
+                  <div class="border-gray pa-md-right-2 pa-sm-right-2">
+                      <button class="col-center-block  btn btn-default assessments btn-search-filter">
+                          <span><div class="img-assessments"></div></span>
+                        {{t "search-filter.assessmentsButton"}}
+                      </button>
+                  </div>
+               </li>
+               <li class="ma-md-left-1 ma-sm-left-1 autor-label">
+                   <p class="pa-md-4 pa-sm-4">{{t "search-filter.autor.title"}}</p>
+               </li>
+               <li>
+                 {{input
+                     id="autor"
+                     class="autor pa-md-2 pa-sm-2"
+                     placeholder=(t "search-filter.autor.placeholder")
+                 }}
+               </li>
+               <li class="ma-md-2 ma-sm-2">
+                   <div class="img-question"></div>
+               </li>
+           </ul>
+       </div>
+    </div>
+    <div class="row bg-gray-light subfilters pa-md-left-10 pa-sm-left-10">
+      <ul>
+          <li class="subfilters-dropdowns pa-md-5 pa-sm-5 grade">
+            {{grade-dropdown
+              placeholder=(t "grade-dropdown.placeholder")
+              prompt=(t "grade-dropdown.prompt")
+              grades=grades
+              onChangeAction="onGradeSelected"
+              btn-group-size="btn-group-sm"}}
+          </li>
+          <li class="subfilters-dropdowns pa-md-5 pa-sm-5 subject">
+            {{subject-dropdown
+              subjects=subjects
+              onChangeAction="onSubjectChange"
+              btn-group-size="btn-group-sm"}}
+          </li>
+          <li class="subfilters-dropdowns pa-md-5 pa-sm-5 standard">
+            {{standard-dropdown
+              standards=standards
+              onStandardSelectedAction="onStandardSelected"
+              btn-group-size="btn-group-sm"}}
+          </li>
+      </ul>
+    </div>
+</section>

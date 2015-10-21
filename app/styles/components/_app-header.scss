@@ -1,5 +1,13 @@
 header.app-header {
-  background: -webkit-linear-gradient(top, $color-gray-primary, #333);
+  box-shadow:0 0 10px rgba(0,0,0,0.3);
+  top:0;
+  width:100%;
+  z-index:98;
+  height:50px;
+  background:-webkit-linear-gradient(top,$color-gray-secondary,$color-gray-primary);
+  background:-moz-linear-gradient(top,$color-gray-secondary,$color-gray-primary);
+  background:-ms-linear-gradient(top,$color-gray-secondary,$color-gray-primary);
+  background:-o-linear-gradient(top,$color-gray-secondary,$color-gray-primary);
   .navbar-default {
     background-color: inherit;
     border: none;
@@ -8,9 +16,9 @@ header.app-header {
     .navbar-header {
       .navbar-brand {
         background: url("gooru/landing-page-sprite.png") -8px -207px transparent;
-        width: 110px;
-        background-position-y: initial;
-        background-position-x: initial;
+        width: 108px;
+        height: 30px;
+        margin: 10px 5px 10px 0;
       }
     }
 
@@ -37,20 +45,39 @@ header.app-header {
       .navbar-link {
         padding-left: 0;
         padding-right: 0;
+        &:hover,
+        &:active,
+        &:visited{
+          color: $color-white;
+        }
       }
 
-      li {
-        margin-left: 5px;
-        margin-right: 5px;
+      .navbar-nav-list {
+        color: $color-white;
+        cursor: pointer;
+        padding: 0 10px;
+        &:first-child {
+          border-right: 1px solid $color-gray-4;
+        }
+        &:hover,
+        &:active {
+          background-color: $color-gray-primary-hover;
+          color: $color-white;
+        }
+      }
+
+      .no-hover {
+        &:hover,
+        &:active {
+          background-color: inherit;
+        }
       }
 
       .libraries-link {
         padding-right: 5px;
-        border-right: 1px $color-gray-lighter-1 solid;
       }
 
-      .sign-up-button,
-      .login-link {
+      .sign-up-button{
         margin-left: 30px;
       }
 
