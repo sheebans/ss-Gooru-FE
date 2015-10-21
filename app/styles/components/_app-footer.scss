@@ -1,5 +1,6 @@
 footer.app-footer {
   min-height: 180px;
+  padding: 25px 0;
   background-color: $color-gray-3;
 
   .imgLogo{
@@ -8,21 +9,28 @@ footer.app-footer {
     height: 56px;
     width: 163px;
   }
-  p,h4,a{
-    color: $color-white;
+  p{
+    color: $color-gray-lighter-6;
+    font-size: 13px;
   }
   .footercolum{
     border-right: 1px solid;
     border-right-color: $color-gray-4;
+    min-height: 132px;
   }
   h4{
     font-family: "Arvo";
+    margin-top: 0;
+    color: $color-white;
+    font-size: 15px;
   }
   ul
   {
     list-style-type: none;
+    padding: 0;
     a{
       text-decoration: none;
+      color: $color-gray-lighter-6;
     }
   }
   .social{

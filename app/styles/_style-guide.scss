@@ -5,7 +5,9 @@ $color-black: #000000;
 $color-white: #FFFFFF;
 
 /* i.e apply to header bar */
-$color-gray-primary: #4A4A4A;
+$color-gray-primary: #333;
+/* i.e apply to header bar hover*/
+$color-gray-primary-hover: #393939;
 /* i.e apply to default text */
 $color-gray-secondary: #515151;
 /* i.e apply to footer bar */
@@ -22,6 +24,8 @@ $color-gray-lighter-3: #999999;
 $color-gray-lighter-4:#e3e3e3;
 /*i.e apply to some backgrounds*/
 $color-gray-lighter-5: #f5f5f5;
+/* i.e apply to footer text */
+$color-gray-lighter-6:#eee;
 
 
 /* i.e apply to default buttons */
@@ -80,24 +84,26 @@ h3 {
   -webkit-font-smoothing: antialiased;
 }
 
-@include make-padding(20, xs, 2px);
+@include make-padding(25, xs, 2px);
+@include make-padding(25, null, 2px);
+@include make-margin(25, null, 2px);
 @media (min-width: $screen-sm-min) {
-  @include make-padding(20, sm, 2px);
+  @include make-padding(25, sm, 2px);
 }
 @media (min-width: $screen-md-min) {
-  @include make-padding(20, md, 2px);
+  @include make-padding(25, md, 2px);
 }
 @media (min-width: $screen-lg-min) {
-  @include make-padding(20, lg, 2px);
+  @include make-padding(25, lg, 2px);
 }
 
-@include make-margin(20, xs, 2px);
+@include make-margin(25, xs, 2px);
 @media (min-width: $screen-sm-min) {
-  @include make-margin(20, sm, 2px);
+  @include make-margin(25, sm, 2px);
 }
 @media (min-width: $screen-md-min) {
-  @include make-margin(20, md, 2px);
+  @include make-margin(25, md, 2px);
 }
 @media (min-width: $screen-lg-min) {
-  @include make-margin(20, lg, 2px);
+  @include make-margin(25, lg, 2px);
 }
