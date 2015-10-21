@@ -26,6 +26,8 @@ export default DS.Model.extend({
   gender: DS.attr("string"),
   dateOfBirth: DS.attr("string"),
   password: DS.attr("string"),
-  role: DS.attr("string")
+  role: DS.attr("string"),
+
+  metadata: DS.belongsTo("meta", { async: true })
 
 });

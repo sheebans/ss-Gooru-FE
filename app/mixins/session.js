@@ -13,18 +13,31 @@ export default Ember.Mixin.create({
   session: service("session"),
 
   /**
-   * @property {SessionMixin} user
+   * @property {string} Current Session Token
    */
-  //me: Ember.computed.alias('session.currentUser'),
-  //me: {
-  //  firstName: session.get('user.firstName')
-  //},
+  sessionToken: Ember.computed("session.data.authenticated", function() {
+    return this.get("session.data.authenticated")["token"];
+  }),
+
+  /**
+   * @property {string} Current Session User Id
+   */
+  sessionUserId: Ember.computed("session.data.authenticated", function() {
+    return this.get("session.data.authenticated.user")["gooruUId"];
+  }),
 
   /**
    * Indicates if the user is authenticated
    * @property {boolean}
    */
-  isAuthenticated: Ember.computed.bool("session.isAuthenticated")
+  isAuthenticated: Ember.computed.bool("session.isAuthenticated"),
 
+  /**
+   * Indicates if the user is Anonymous
+   * @property {boolean}
+   */
+  isAnonymous:  Ember.computed("session.data.authenticated", function() {
+    return this.get("session.data.authenticated")["isDefaultUser"];
+  })
 
 });
