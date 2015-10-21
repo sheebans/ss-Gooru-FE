@@ -85,6 +85,8 @@ h3 {
 }
 
 @include make-padding(25, xs, 2px);
+@include make-padding(25, null, 2px);
+@include make-margin(25, null, 2px);
 @media (min-width: $screen-sm-min) {
   @include make-padding(25, sm, 2px);
 }

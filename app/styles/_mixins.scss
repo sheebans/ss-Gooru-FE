@@ -20,23 +20,26 @@
       padding-right: $i * $increaseBy;
     }
 
-    .pa-#{$i} {
-      padding: $i * $increaseBy;
-    }
-    .pa-top-#{$i} {
-      padding-top: $i * $increaseBy;
-    }
+    @if $class == null {
+      .pa-#{$i} {
+        padding: $i * $increaseBy;
+      }
 
-    .pa-bottom-#{$i} {
-      padding-bottom: $i * $increaseBy;
-    }
+      .pa-top-#{$i} {
+        padding-top: $i * $increaseBy;
+      }
 
-    .pa-left-#{$i} {
-      padding-left: $i * $increaseBy;
-    }
+      .pa-bottom-#{$i} {
+        padding-bottom: $i * $increaseBy;
+      }
 
-    .pa-right-#{$i} {
-      padding-right: $i * $increaseBy;
+      .pa-left-#{$i} {
+        padding-left: $i * $increaseBy;
+      }
+
+      .pa-right-#{$i} {
+        padding-right: $i * $increaseBy;
+      }
     }
   }
 }
@@ -63,24 +66,26 @@
       margin-right: $i * $increaseBy;
     }
 
-    .ma-#{$i} {
-      margin: $i * $increaseBy;
-    }
+    @if $class == null {
+      .ma-#{$i} {
+        margin: $i * $increaseBy;
+      }
 
-    .ma-top-#{$i} {
-      margin-top: $i * $increaseBy;
-    }
+      .ma-top-#{$i} {
+        margin-top: $i * $increaseBy;
+      }
 
-    .ma-bottom-#{$i} {
-      margin-bottom: $i * $increaseBy;
-    }
+      .ma-bottom-#{$i} {
+        margin-bottom: $i * $increaseBy;
+      }
 
-    .ma-left-#{$i} {
-      margin-left: $i * $increaseBy;
-    }
+      .ma-left-#{$i} {
+        margin-left: $i * $increaseBy;
+      }
 
-    .ma-right-#{$i} {
-      margin-right: $i * $increaseBy;
+      .ma-right-#{$i} {
+        margin-right: $i * $increaseBy;
+      }
     }
   }
 }
