@@ -1,17 +1,34 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-
+  /**
+   * Selected rating
+   * @property {int between 0-5}
+   */
   rating:     0,
+  /**
+   * Max rating
+   * @property
+   */
   maxRating:  5,
 
+  /**
+   * Return array with empty and full stars
+   * @param rating
+   * @param maxRating
+   */
   stars: Ember.computed('rating', 'maxRating', function() {
     var rating = Math.round(this.get('rating'));
     var fullStars = this.starRange(1, rating, 'full');
     var emptyStars = this.starRange(rating + 1, this.get('maxRating'), 'empty');
     return fullStars.concat(emptyStars);
   }),
-
+  /**
+   * Create a range of stars
+   * @param start of the range
+   * @param end of the range
+   * @param type {empty or full}
+   */
   starRange: function(start, end, type) {
     var starsData = [];
     for (var i = start; i <= end; i++) {
@@ -21,6 +38,10 @@ export default Ember.Component.extend({
   },
 
   actions: {
+    /**
+     * Triggered when change the rating
+     * @param newRating
+     */
     set: function(newRating) {
       if(this.get("rating") ==newRating){
         this.set("rating",0);
