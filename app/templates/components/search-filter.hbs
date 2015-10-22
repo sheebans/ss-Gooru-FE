@@ -14,21 +14,22 @@
                                <span class="caret"></span>
                            </button>
                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                               <li {{action 'onCollectionSelected'}}><a>{{t "search-filter.collection"}}</a></li>
-                               <li {{action 'onResourceSelected'}}><a>{{t "search-filter.resource"}}</a></li>
+                               <li class="collection" {{action 'onCollectionSelected'}}><a>{{t "search-filter.collection"}}</a></li>
+                               <li class="resource"{{action 'onResourceSelected'}}><a>{{t "search-filter.resource"}}</a></li>
                            </ul>
                        </div>
                    </div>
                </li>
+              {{#if collectionSelected}}
                <li class="ma-md-left-1 ma-sm-left-1">
                    <button class="btn btn-default collections btn-search-filter">
-                   <span><div class="img-collections"></div></span>
+                   <span class="pa-md-right-2 pa-sm-right-2"><div class="img-collections"></div></span>
                      {{t "search-filter.collectionsButton"}}
                    </button></li>
                <li class="ma-md-left-1 ma-sm-left-1">
                   <div class="border-gray pa-md-right-2 pa-sm-right-2">
                       <button class="col-center-block  btn btn-default assessments btn-search-filter">
-                          <span><div class="img-assessments"></div></span>
+                          <span class="pa-md-right-2 pa-sm-right-2"><div class="img-assessments"></div></span>
                         {{t "search-filter.assessmentsButton"}}
                       </button>
                   </div>
@@ -46,8 +47,12 @@
                <li class="ma-md-2 ma-sm-2">
                    <div class="img-question"></div>
                </li>
+              {{/if}}
                <li>
-                  {{#if resourceSelected}}{{rating-stars}}{{/if}}
+                  {{#if resourceSelected}}
+                    {{rating-stars onChangeAction='onRateChange'}}
+                    {{rating-stars rating-star-size='rating-stars-xs' isClickable=false rating=5}}
+                  {{/if}}
                </li>
            </ul>
        </div>
@@ -76,4 +81,5 @@
           </li>
       </ul>
     </div>
+
 </section>

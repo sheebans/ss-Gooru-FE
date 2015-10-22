@@ -3,6 +3,7 @@
     list-style: none;
     li{
       float:left;
+      cursor:pointer;
     }
   }
  .star{
@@ -11,4 +12,8 @@
      color: $color-green-primary;
    }
  }
+  .rating-stars-xs{
+      font-size: 15px;
+      cursor:auto;
+  }
 }

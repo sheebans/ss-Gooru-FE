@@ -31,7 +31,7 @@ export default Ember.Component.extend(i18nMixin, {
    *  @property {[]} subjects
    *
    */
-  collectionSelected: false,
+  collectionSelected: true,
 
   grades: function(){
     //@todo: use data retrieved in the route
@@ -90,6 +90,13 @@ export default Ember.Component.extend(i18nMixin, {
         this.set("resourceSelected", false);
         this.set("collectionSelected", true);
     },
+
+    /**
+     * Triggered when change the rating
+     */
+    onRateChange: function(newRating){
+      console.log('Changing Rate'+newRating);
+    }
   }
 
 });

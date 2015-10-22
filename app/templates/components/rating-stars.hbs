@@ -1,17 +1,21 @@
-  <div class="row rating-stars">
-    <ul>
+<div class="row rating-stars">
+      <ul>
       {{#each stars as |star|}}
-
-        {{#if star.full}}
-            <li {{action 'set' star.rating}}>
-              <span class="star">{{fa-icon icon="star"}}</span>
-            </li>
+            {{#if star.full}}
+              <li {{action 'onSetRating' star.rating isClickable}}>
+                <span class="{{rating-star-size}} star">{{fa-icon icon="star"}}</span>
+              </li>
             {{else}}
-                <li {{action 'set' star.rating}}>
-                  <span class="star">{{fa-icon icon="star-o"}}</span>
+                <li {{action 'onSetRating' star.rating isClickable}}>
+                  <span class="{{rating-star-size}} star">{{fa-icon icon="star-o"}}</span>
                 </li>
             {{/if}}
       {{/each}}
-    </ul>
+     </ul>
+</div>
+{{#if isClickable}}
+    <div class="number-stars-label row pa-md-left-20 pa-sm-left-20">
+      {{#if rating}}<p>{{rating}}+ Stars</p>{{/if}}
     </div>
-  <div class="row pa-md-left-20 pa-sm-left-20">{{#if rating}}<p>{{rating}}+ Stars</p>{{/if}}</div>
+{{/if}}
+
