@@ -1,6 +1,8 @@
 .collection-results {
-  background-color: #E8E7E7;
-  padding: 20px 0;
+  .search-results {
+    font-size: 14px;
+    height: 35px;
+  }
   .panel {
     border: 1px solid $color-gray-lighter-2;
     border-radius: 4px;
@@ -12,11 +14,10 @@
       height: 45px;
       .view-container {
         margin: 7px 0 6px;
-        color: #555;
+        color: $color-gray-5;
         display: table;
-        padding: 0;
         i {
-          color: #999;
+          color: $color-gray-lighter-3;
           font-size: 22px;
         }
         span {
@@ -25,9 +26,6 @@
           display: table-cell;
           vertical-align: middle;
         }
-      }
-      .remix-button {
-        padding: 0;
       }
     }
   }
