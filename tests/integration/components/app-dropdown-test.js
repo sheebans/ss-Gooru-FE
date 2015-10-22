@@ -9,7 +9,7 @@ moduleForComponent('app-dropdown', 'Integration | Component | app dropdown', {
 });
 
 test('Layout using defaults', function (assert) {
-  assert.expect(13);
+  assert.expect(16);
 
   const items = Ember.A();
   items.addObject(DropdownItem.create({id: 1, label: "Math"}));
@@ -44,10 +44,18 @@ test('Layout using defaults', function (assert) {
   T.notExists(assert, $dropdownMenu.find("li.disabled"), "Disabled items should not exists");
   T.notExists(assert, $dropdownMenu.find("li.selected"), "Selected items should not exists");
 
+  T.notExists(assert, $dropdown.find(".keep-open-no.open"), "Dropdown should not be open");
+  //open the dropdown
+  $buttonGroup.find(".selected-text").click();
+  T.exists(assert, $dropdown.find(".keep-open-no.open"), "Missing open class when click button");
+  //select a choice
+  $dropdownMenu.find("li a.item:eq(0)").click();
+  T.notExists(assert, $dropdown.find(".keep-open-no.open"), "Dropdown should not be open after selecting item");
+
 });
 
 test('Layout with options', function (assert) {
-  assert.expect(14);
+  assert.expect(17);
 
   const items = Ember.A();
   items.addObject(DropdownItem.create({id: 1, label: "Math"}));
@@ -84,6 +92,14 @@ test('Layout with options', function (assert) {
   assert.equal(T.text($dropdownMenu.find("li a.item:eq(0)")), "Math", "Wrong item text");
   T.notExists(assert, $dropdownMenu.find("li.disabled"), "Disabled items should not exists");
   T.notExists(assert, $dropdownMenu.find("li.selected"), "Selected items should not exists");
+
+  T.notExists(assert, $dropdown.find(".keep-open-yes.open"), "Dropdown should not be open");
+  //open the dropdown
+  $buttonGroup.find(".selected-text").click();
+  T.exists(assert, $dropdown.find(".keep-open-yes.open"), "Missing open class when click button");
+  //select a choice
+  $dropdownMenu.find("li a.item:eq(0)").click();
+  T.exists(assert, $dropdown.find(".keep-open-yes.open"), "Dropdown should remain open after selecting item");
 
 });
 

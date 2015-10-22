@@ -91,14 +91,17 @@ export default Ember.Component.extend(i18nMixin, {
     const component = this,
       element = component.$(component.get("element"));
 
-    var canClose = true;
+    var count = -1;
     element.find('.keep-open-yes').on({
       "click":             function(e) {
         const $target = component.$(e.target);
-        canClose = !$target.hasClass('item') && !$target.hasClass('no-close');
+        if ($target.hasClass('item') || $target.hasClass('no-close')){
+          count = 2; // the hide event is called twice per click
+        }
       },
+
       "hide.bs.dropdown":  function() {
-        return canClose;
+        return count-- < 0;
       }
     });
   },
@@ -107,7 +110,9 @@ export default Ember.Component.extend(i18nMixin, {
    * willDestroyElement event
    */
   willDestroyElement: function(){
-
+    const component = this,
+      element = component.$(component.get("element"));
+    element.find('.keep-open-yes').off("click", "hide.bs.dropdown");
   },
 
 
