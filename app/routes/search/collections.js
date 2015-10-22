@@ -33,6 +33,7 @@ export default Ember.Route.extend({
     return Ember.RSVP.hash({
       subjects: subjects
     });
+
   },
   /**
    * Set all controller properties used in the template
