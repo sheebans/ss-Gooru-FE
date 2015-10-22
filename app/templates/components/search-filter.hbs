@@ -48,12 +48,11 @@
                    <div class="img-question"></div>
                </li>
               {{/if}}
+             {{#if resourceSelected}}
                <li>
-                  {{#if resourceSelected}}
                     {{rating-stars onChangeAction='onRateChange'}}
-                    {{rating-stars rating-star-size='rating-stars-xs' isClickable=false rating=5}}
-                  {{/if}}
                </li>
+             {{/if}}
            </ul>
        </div>
     </div>

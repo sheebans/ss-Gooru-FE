@@ -1,15 +1,9 @@
 <div class="row rating-stars">
       <ul>
       {{#each stars as |star|}}
-            {{#if star.full}}
-              <li {{action 'onSetRating' star.rating isClickable}}>
-                <span class="{{rating-star-size}} star">{{fa-icon icon="star"}}</span>
-              </li>
-            {{else}}
-                <li {{action 'onSetRating' star.rating isClickable}}>
-                  <span class="{{rating-star-size}} star">{{fa-icon icon="star-o"}}</span>
-                </li>
-            {{/if}}
+          <li {{action 'onSetRating' star.rating isClickable}}>
+              <span class="{{rating-star-size}} star">{{#if star.full}}{{fa-icon icon="star"}}{{else}}{{fa-icon icon="star-o"}}{{/if}}</span>
+          </li>
       {{/each}}
      </ul>
 </div>

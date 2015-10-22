@@ -1,4 +1,9 @@
 import Ember from 'ember';
+/**
+ * Max rating
+ * @property
+ */
+const maxRating=  5;
 
 export default Ember.Component.extend({
   /**
@@ -6,12 +11,6 @@ export default Ember.Component.extend({
    * @property {int between 0-5}
    */
   rating:     0,
-  /**
-   * Max rating
-   * @property
-   */
-  maxRating:  5,
-
   /**
    * This is triggered when the rating change
    * @property {string} on selection action
@@ -39,21 +38,21 @@ export default Ember.Component.extend({
    * @param maxRating
    * @return {{ rating: number, full: string}[]}
    */
-  stars: Ember.computed('rating', 'maxRating', function() {
+  stars: Ember.computed('rating', function() {
     var rating = Math.round(this.get('rating'));
     var fullStars = this.starRange(1, rating, 'full');
-    var emptyStars = this.starRange(rating + 1, this.get('maxRating'), 'empty');
+    var emptyStars = this.starRange(rating + 1, maxRating, 'empty');
     return fullStars.concat(emptyStars);
   }),
   /**
    * Create a range of stars
-   * @param start of the range
+   * @param begin of the range
    * @param end of the range
    * @param type {empty or full}
    */
-  starRange: function(start, end, type) {
+  starRange: function(begin, end, type) {
     var starsData = [];
-    for (var i = start; i <= end; i++) {
+    for (var i = begin; i <= end; i++) {
       starsData.push({ rating: i, full: type === 'full' });
     }
     return starsData;
