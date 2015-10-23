@@ -1,0 +1,21 @@
+#standards-modal{
+  .modal-header {
+    background-color: $color-gray-secondary;
+  }
+}
+.standards{
+  overflow: auto;
+  position: relative;
+  height:300px;
+  .standard-title{
+    background-color: $color-gray-secondary;
+    border-radius: 4px;
+    display:inline-block;
+    span{
+      color:$color-white;
+    }
+  }
+  ul{
+    list-style: none;
+  }
+}

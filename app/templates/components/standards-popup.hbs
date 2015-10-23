@@ -1,0 +1,14 @@
+<div class="row standards">
+    <ul class="standards-list pa-md-left-5 pa-sm-left-5">
+      {{#each standards as |standard|}}
+          <li class="pa-md-2 pa-sm-2">
+              <div class="standard-title pa-md-2 pa-sm-2">
+                  <span>{{standard.title}}</span>
+              </div>
+              <div class="standard-description">
+                  <p>{{standard.description}}</p>
+              </div>
+          </li>
+      {{/each}}
+    </ul>
+</div>
