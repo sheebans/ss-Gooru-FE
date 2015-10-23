@@ -19,7 +19,10 @@
               {{datepicker-field
                   onSelectDateAction="onSelectDateOfBirthAction"
                   placeholder=(t "signUp.dateOfBirth")
-                  class="col-xs-6"}}
+                  class="col-xs-5 pa-md-left-2 pa-md-right-2 pa-sm-left-2 pa-sm-right-2"}}
+                <div class="col-xs-1">
+                    <div class="img-question" data-toggle="tooltip" data-placement="right" title={{t "signUp.birthdayToolTip"}}></div>
+                </div>
             </div>
             <div class="row">
               <div class="col-xs-6">
@@ -32,7 +35,7 @@
                   data-toggle="tooltip"
                   data-placement="left"}}
               </div>
-              <div class="col-xs-6">
+              <div class="col-xs-5 pa-md-left-2 pa-md-right-2 pa-sm-left-2 pa-sm-right-2">
                 {{input
                   id="lastName"
                   value=lastName
@@ -44,7 +47,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-12">
+              <div class="col-xs-11 pa-md-right-0 pa-sm-right-0">
                 {{input
                   id="email"
                   value=email
@@ -56,7 +59,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-12">
+              <div class="col-xs-11 pa-md-right-0 pa-sm-right-0">
                 {{input
                   id="password"
                   type="password"
@@ -69,7 +72,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-12">
+              <div class="col-xs-11 pa-md-right-0 pa-sm-right-0">
                 {{input
                   id="rePassword"
                   type="password"
