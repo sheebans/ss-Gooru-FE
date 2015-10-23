@@ -41,11 +41,11 @@ test('search-filter-default', function(assert) {
       const $imgAssessmentsButton =$component.find('.img-assessments');
       T.exists(assert, $imgAssessmentsButton, "Missing image assessments button");
 
-      const $autorLabel = $component.find('.autor-label');
-      assert.equal(T.text($autorLabel.find("p")), "Autor", "Incorrect autor label");
+      const $authorLabel = $component.find('.author-label');
+      assert.equal(T.text($authorLabel.find("p")), "Author", "Incorrect author label");
 
-      const $autorInput = $component.find('.autor');
-      T.exists(assert, $autorInput, "Missing autor input");
+      const $authorInput = $component.find('.author');
+      T.exists(assert, $authorInput, "Missing author input");
 
       const $imgQuestion = $component.find('.img-question');
       T.exists(assert, $imgQuestion, "Missing image question");
