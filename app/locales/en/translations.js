@@ -141,11 +141,11 @@ export default {
     "resource":"Resource",
     "collectionsButton":"Collections",
     "assessmentsButton":"Assessments",
-    "autor":{
-      "title":"Autor",
-      "placeholder":"e.g. Username"
+    "author":{
+      "title":"Author",
+      "placeholder":"e.g. Username",
+      "questionToolTip":"Enter the username of an author on Gooru."
     }
-
   }
 
 };
