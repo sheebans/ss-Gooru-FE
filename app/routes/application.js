@@ -6,20 +6,9 @@ import ApplicationRouteMixin from "ember-simple-auth/mixins/application-route-mi
  */
 export default Ember.Route.extend(ApplicationRouteMixin, {
 
-  sessionService: Ember.inject.service("api-sdk/session"),
-
   model: function() {
     var route = this;
-    var currentSession = null;
-
-    if (route.get("session.isAuthenticated")) {
-      currentSession = route.get("session.data.authenticated");
-    } else {
-      route.get("sessionService").signInWithDefaultUser()
-        .then(function () {
-          currentSession = route.get("session.data.authenticated");
-        });
-    }
+    var currentSession = route.get("session.data.authenticated");
 
     return Ember.RSVP.hash({
       currentSession: currentSession

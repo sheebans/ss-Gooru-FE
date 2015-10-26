@@ -28,7 +28,7 @@
                   <li class="navbar-nav-list">
                     <a href="#" class="navbar-link my-content-link">{{t "common.myContent"}}</a>
                   </li>
-                  {{#if currentSession.isDefaultUser}}
+                  {{#if session.isAnonymous}}
                     <li class="navbar-nav-list">
                       <a href="#" class="navbar-link login-link" data-toggle="modal"
                          data-target="#login-modal > .modal">
@@ -37,9 +37,9 @@
                     </li>
                   {{else}}
                     <li class="navbar-nav-list">
-                      <a href="#" class="profile" title="{{currentSession.user.username}}">
+                      <a href="#" class="profile" title="{{session.userData.username}}">
                         <i class="icon pull-left">&nbsp;</i>
-                        <span class="username text-white">{{currentSession.user.username}}</span>
+                        <span class="username text-white">{{session.userData.username}}</span>
                       </a>
                     </li>
                     <li class="navbar-nav-list">

@@ -1,10 +1,9 @@
 import Ember from "ember";
-import SessionMixin from "../mixins/session";
 
 /**
  * @typedef {object} Index Route
  */
-export default Ember.Route.extend(SessionMixin, {
+export default Ember.Route.extend({
 
   /**
    * @property {SubjectService} Service to retrieve subjects
@@ -27,13 +26,13 @@ export default Ember.Route.extend(SessionMixin, {
     var subjects = this.get("subjectService").readAll();
     var grades = this.get("gradeService").readAll();
     var standards = this.get("standardService").readAll();
-    var profile = this.get("profileService").findByCurrentUser();
+    //var profile = this.get("profileService").findByCurrentUser();
 
     return Ember.RSVP.hash({
       subjects: subjects,
       grades: grades,
       standards: standards,
-      profile: profile
+      //profile: profile
     });
   },
 
@@ -48,10 +47,10 @@ export default Ember.Route.extend(SessionMixin, {
     controller.set("subjects", model.subjects.filterBy("library", "library"));
     controller.set("grades", model.grades);
 
-    if (!this.get("isAnonymous")) {
-      var codes = model.profile.get("user").get("metadata").get("taxonomyPreference").get("code");
-      this.checkStandards(model.standards, codes);
-    }
+    //if (!this.get("isAnonymous")) {
+    //  var codes = model.profile.get("user").get("metadata").get("taxonomyPreference").get("code");
+    //  this.checkStandards(model.standards, codes);
+    //}
 
     controller.set("standards", model.standards);
   },

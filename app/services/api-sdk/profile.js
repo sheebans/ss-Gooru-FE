@@ -1,11 +1,12 @@
 import Ember from "ember";
 import StoreMixin from "../../mixins/store";
-import SessionMixin from "../../mixins/session";
 
-export default Ember.Service.extend(StoreMixin, SessionMixin, {
+export default Ember.Service.extend(StoreMixin, {
+
+  session: Ember.inject.service("session"),
 
   findByCurrentUser: function() {
-    var currentProfileId = this.get("sessionUserId");
+    var currentProfileId = this.get("session.userId");
     return this.findById(currentProfileId);
   },
 
