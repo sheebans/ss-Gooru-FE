@@ -8,6 +8,6 @@ export default Ember.Mixin.create({
   /**
    * @property {GooruSessionService} Gooru custom session service
    */
-  session: Ember.inject.service('session')
+  session: Ember.inject.service()
 
 });
