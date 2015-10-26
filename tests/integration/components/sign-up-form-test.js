@@ -10,7 +10,7 @@ moduleForComponent('sign-up-form', 'Integration | Component | sign up form', {
 });
 
 test('sign up form renders', function(assert) {
-  assert.expect(10);
+  assert.expect(11);
 
   this.render(hbs`{{sign-up-form}}`);
 
@@ -27,5 +27,6 @@ test('sign up form renders', function(assert) {
   T.exists(assert, $form.find("#password"), "Missing password field");
   T.exists(assert, $form.find("#rePassword"), "Missing confirm password field");
   T.exists(assert, $form.find("button.btn-sign-up"), "Missing sign up button");
+  T.exists(assert, $form.find(".img-question"), "Missing image question");
 
 });

@@ -83,7 +83,8 @@ export default {
     "nameToolTip": "Your name will not appear publicly anywhere on Gooru.",
     "emailToolTip": "Double check your email. Make sure it's correct!",
     "passwordToolTip": "Passwords must be between 5 and 14 characters and contain at least one number.",
-    "infoMessage": "Please fill out the following information."
+    "infoMessage": "Please fill out the following information.",
+    "birthdayToolTip":"Why enter your birthday?Your birthday helps ensure you get the right Gooru experience for your age. This information will never appear anywhere on the website"
   },
   "footer":{
     "footerDescription":"Gooru is committed to keeping its platform open-source and community created content CC0.",
@@ -140,11 +141,11 @@ export default {
     "resource":"Resource",
     "collectionsButton":"Collections",
     "assessmentsButton":"Assessments",
-    "autor":{
-      "title":"Autor",
-      "placeholder":"e.g. Username"
+    "author":{
+      "title":"Author",
+      "placeholder":"e.g. Username",
+      "questionToolTip":"Enter the username of an author on Gooru."
     }
-
   }
 
 };

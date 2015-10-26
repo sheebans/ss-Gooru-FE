@@ -10,7 +10,7 @@ moduleForComponent('search-filter', 'Integration | Component | search filter', {
   }
 });
 
-test('search-filter', function(assert) {
+test('search-filter-default', function(assert) {
   const subjects = Ember.A();
   subjects.addObject(Ember.Object.create({ libraryId: 1, library:"library", label: "Math", subjectCode: "10001" }));
   subjects.addObject(Ember.Object.create({ libraryId: 2, library:"library", label: "Science", subjectCode: "10002" }));
@@ -41,11 +41,11 @@ test('search-filter', function(assert) {
       const $imgAssessmentsButton =$component.find('.img-assessments');
       T.exists(assert, $imgAssessmentsButton, "Missing image assessments button");
 
-      const $autorLabel = $component.find('.autor-label');
-      assert.equal(T.text($autorLabel.find("p")), "Autor", "Incorrect autor label");
+      const $authorLabel = $component.find('.author-label');
+      assert.equal(T.text($authorLabel.find("p")), "Author", "Incorrect author label");
 
-      const $autorInput = $component.find('.autor');
-      T.exists(assert, $autorInput, "Missing autor input");
+      const $authorInput = $component.find('.author');
+      T.exists(assert, $authorInput, "Missing author input");
 
       const $imgQuestion = $component.find('.img-question');
       T.exists(assert, $imgQuestion, "Missing image question");
@@ -58,4 +58,23 @@ test('search-filter', function(assert) {
 
       const $standardDropdown = $component.find('.standard');
       T.exists(assert, $standardDropdown, "Missing standard dropdown");
+});
+test('search-filter-onResourceClick', function(assert) {
+  assert.expect(1); //making sure all asserts are called
+  const subjects = Ember.A();
+  subjects.addObject(Ember.Object.create({ libraryId: 1, library:"library", label: "Math", subjectCode: "10001" }));
+  subjects.addObject(Ember.Object.create({ libraryId: 2, library:"library", label: "Science", subjectCode: "10002" }));
+  subjects.addObject(Ember.Object.create({ libraryId: 3, library:"library", label: "History", subjectCode: "10003" }));
+  subjects.addObject(Ember.Object.create({ libraryId: 4, library:"library", label: "Language", subjectCode: "10004" }));
+
+  this.set('subjects', subjects);
+
+  this.render(hbs`{{search-filter subjects=subjects}}`); //render the component
+  var $component = this.$(); //component dom element
+  const $collectionsDropdown = $component.find(".collections-select .dropdown button");
+  $collectionsDropdown.click();
+  const $resourceOption = $component.find(".collections-select .dropdown .dropdown-menu .resource");
+  $resourceOption.click();
+  const $ratingStars = $component.find(".rating-stars");
+  T.exists(assert, $ratingStars, "Missing rating stars section");
 });

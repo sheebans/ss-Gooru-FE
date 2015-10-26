@@ -22,6 +22,12 @@ header.app-header {
       }
     }
 
+    .search-navbar-form {
+      input {
+        font-size: 12px;
+      }
+    }
+
     .dropdown-toggle,
     .navbar-link,
     .navbar-text,
@@ -37,10 +43,6 @@ header.app-header {
       color: #ffff00;
     }
 
-    .search-navbar-form {
-      margin-left: 50px;
-    }
-
     .menu-navbar {
       .navbar-link {
         padding-left: 0;
@@ -50,20 +52,24 @@ header.app-header {
         &:visited{
           color: $color-white;
         }
+        span {
+          font-size: 12px;
+        }
       }
 
       .navbar-nav-list {
         color: $color-white;
         cursor: pointer;
         padding: 0 10px;
-        &:first-child {
-          border-right: 1px solid $color-gray-4;
-        }
         &:hover,
         &:active {
           background-color: $color-gray-primary-hover;
           color: $color-white;
         }
+      }
+
+      .border-right {
+        border-right: 1px solid $color-gray-4;
       }
 
       .no-hover {
@@ -96,15 +102,17 @@ header.app-header {
         .username {
           margin-left: 10px;
         }
-        border-right: 1px solid $color-gray-lighter-1;
       }
 
       .settings {
-        background: url("gooru/settings.png") no-repeat;
-        width: 30px;
-        height: 30px;
-        display: block;
-        margin-top: -5px;
+        padding: 0;
+        .icon {
+          background: url("gooru/settings.png") no-repeat;
+          width: 30px;
+          height: 30px;
+          display: block;
+          margin-top: 10px;
+        }
       }
     }
   }
