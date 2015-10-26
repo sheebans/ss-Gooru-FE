@@ -1,4 +1,7 @@
 .search-filter{
+  .search-filter-options{
+    padding-left: 0px;
+  }
   .img-collections{
     width:30px;
     height: 24px;
@@ -37,9 +40,6 @@
   .subfilters-dropdowns{
     list-style: none;
     float:left;
-  }
-  .border-gray{
-    border-right: 1px solid $color-gray-lighter-3;
   }
   .subfilters{
     .grade-dropdown > .btn-group .selected-text{
