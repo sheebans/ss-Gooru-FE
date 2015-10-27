@@ -1,6 +1,4 @@
-import Ember from "ember";
-
-const { service } = Ember.inject;
+import Ember from 'ember';
 
 /**
  * @typedef {Object} SessionMixin
@@ -8,23 +6,8 @@ const { service } = Ember.inject;
 export default Ember.Mixin.create({
 
   /**
-   * @property {CustomizeSession} custom user session
+   * @property {GooruSessionService} Gooru custom session service
    */
-  session: service("session"),
-
-  /**
-   * @property {SessionMixin} user
-   */
-  //me: Ember.computed.alias('session.currentUser'),
-  //me: {
-  //  firstName: session.get('user.firstName')
-  //},
-
-  /**
-   * Indicates if the user is authenticated
-   * @property {boolean}
-   */
-  isAuthenticated: Ember.computed.bool("session.isAuthenticated")
-
+  session: Ember.inject.service()
 
 });

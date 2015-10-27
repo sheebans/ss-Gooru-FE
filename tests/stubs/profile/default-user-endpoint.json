@@ -1,0 +1,20 @@
+[
+  {
+    "request": {
+      "url": "^/gooruapi/rest/v2/user/param-123$",
+      "query": {
+        "sessionToken": "(.+)"
+      },
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "default-user-ok-response.json"
+    }
+  }
+]
+

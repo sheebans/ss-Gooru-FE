@@ -1,18 +1,10 @@
-import Ember from "ember";
-import DS from "ember-data";
-import SessionMixin from "../mixins/session";
-import Env from "../config/environment";
+import DS from 'ember-data';
+import Env from '../config/environment';
+import SessionMixin from '../mixins/session';
 
-const Config = Env["simple-auth-custom"] || {};
+const Config = Env['simple-auth-custom'] || {};
 
 export default DS.RESTAdapter.extend(SessionMixin, {
-
-  /**
-   * @property {string} Session token
-   */
-  sessionToken: Ember.computed("session.authToken", function() {
-    return this.get("session.data.authenticated")["token"];
-  }),
 
   /**
    * @property {string} API Key
@@ -20,6 +12,23 @@ export default DS.RESTAdapter.extend(SessionMixin, {
    */
   apiKey: Config.apiKey,
 
+  /**
+   * Builds the end-point URL using the sessionToken as a query string param
+   * @param modelName
+   * @param id
+   * @param snapshot
+   * @param requestType
+   * @param query
+   * @returns {string}
+   */
+  buildURL: function(modelName, id, snapshot, requestType, query) {
+    var sessionTokenParam = 'sessionToken=' + this.get('session.token');
+    return this._super(modelName, id, snapshot, requestType, query) + '?' + sessionTokenParam;
+  },
+
+  /**
+   * This custom implementation removes the default pluralization of the type
+   */
   pathForType() {
     return '';
   },

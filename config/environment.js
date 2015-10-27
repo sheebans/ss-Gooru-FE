@@ -25,23 +25,13 @@ module.exports = function (environment) {
   };
 
   ENV['ember-simple-auth'] = {
-    store: 'session-store:local-storage',
-    session: 'session:withCurrentUser',
-    baseURL: '/',
-
-    //base: {
-    //  authorizer: 'authorizer:custom',
-    //}
+    baseURL: '/'
   };
 
   ENV['simple-auth-custom'] = {
+    apiKey: 'ASERTYUIOMNHBGFDXSDWERT123RTGHYT',
     serverTokenEndpoint: '/rest/v2/account/login',
-    apiKey: 'ASERTYUIOMNHBGFDXSDWERT123RTGHYT'
-  };
-
-  ENV['default-user'] = {
-    username: "param",
-    password: "aaa123"
+    anonymousEndpoint: '/rest/v2/account/loginas/anonymous'
   };
 
   if (environment === 'development') {

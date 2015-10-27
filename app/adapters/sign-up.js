@@ -5,11 +5,6 @@ export default ApplicationAdapter.extend({
   /**
    * @property {string} End-point URI
    */
-  namespace: "rest/v2/user",
-
-  buildURL: function(record, suffix) {
-    var sessionTokenParam = "sessionToken=" + this.get("sessionToken");
-    return this._super(record, suffix) + "?" + sessionTokenParam;
-  }
+  namespace: "rest/v2/user"
 
 });
