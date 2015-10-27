@@ -3,14 +3,14 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
     /**
-     * Selected subject item
+     * Selected collection results items
      * @property {array}
      */
     results: function(){
         //@todo: use data retrieved in the route
-        const items = Ember.A();
+        var items = Ember.A();
 
-        const itemsResources = Ember.A();
+        var itemsResources = Ember.A();
         itemsResources.addObject(Ember.Object.create({ name: "Preparing the Learner", image: "http://cdn.goorulearning.org/prod1/f000/2137/8066/b9396c20-90f6-4bc1-b434-a39386f5e7b3_0480a001-2070-40b9-b211-ef67638a33d0.jpg", type: "text"}));
         itemsResources.addObject(Ember.Object.create({ name: "Activity 2and 3", image:"", type: "text"}));
         itemsResources.addObject(Ember.Object.create({ name: "Brain Pop", image:"http://cdn.goorulearning.org/prod1/f000/1436/8541/cd5cfba2-591d-492f-946f-07a4c1df5432_cb55ce82-67d7-46b5-b657-9ac6ff5851d6.gif", type: "webpage"}));
@@ -18,7 +18,7 @@ export default Ember.Component.extend({
         itemsResources.addObject(Ember.Object.create({ name: "Types", image:"http://cdn.goorulearning.org/prod1/f000/1876/6096/0706001a-363d-4bc0-bfde-aa8220005cc7_34026720-e81e-4fe7-ad0c-60df8e0b4b59.jpg", type: "question"}));
         itemsResources.addObject(Ember.Object.create({ name: "Types", image:"http://cdn.goorulearning.org/prod1/f000/1876/6096/0706001a-363d-4bc0-bfde-aa8220005cc7_34026720-e81e-4fe7-ad0c-60df8e0b4b59.jpg", type: "question"}));
 
-        const itemsStandards = Ember.A();
+        var itemsStandards = Ember.A();
         itemsStandards.addObject(Ember.Object.create({ name: "CCSS.ELA-Literacy.RI.9-10.6", description: "Demostrate command of the conventions"}));
         itemsStandards.addObject(Ember.Object.create({ name: "CCSS.ELA-Literacy.RI.9-10.2", description: "Demostrate command of the conventions"}));
         itemsStandards.addObject(Ember.Object.create({ name: "CCSS.ELA-Literacy.RI.9-10.3", description: "Demostrate command of the conventions"}));
@@ -26,7 +26,7 @@ export default Ember.Component.extend({
         itemsStandards.addObject(Ember.Object.create({ name: "CCSS.ELA-Literacy.RI.9-10.5", description: "Demostrate command of the conventions"}));
         itemsStandards.addObject(Ember.Object.create({ name: "CCSS.ELA-Literacy.RI.9-10.7", description: "Demostrate command of the conventions"}));
 
-        const itemsStandards2 = Ember.A();
+        var itemsStandards2 = Ember.A();
         itemsStandards2.addObject(Ember.Object.create({ name: "CCSS.ELA-Literacy.RI.9-10.6", description: "Demostrate command of the conventions"}));
 
         items.addObject(Ember.Object.create({
@@ -88,6 +88,9 @@ export default Ember.Component.extend({
       return items;
     }.property(),
 
+    /**
+     * DidInsertElement ember event
+     */
     didInsertElement: function(){
         var component = this;
         component.$("[data-toggle='tooltip']").tooltip({trigger: "hover"});

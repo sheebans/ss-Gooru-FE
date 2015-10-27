@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
     /**
-     * @property {integer} quantityTooltips
+     * @property {number} quantityTooltips
      */
     quantityTooltips: null,
 
@@ -12,9 +12,13 @@ export default Ember.Component.extend({
     */
     tooltipStandards: '',
 
+    /**
+     * Selected collection results itemsStandards
+     * @property {array}
+     */
     itemsStandards: function() {
-        const standards = this.get("standards");
-        const itemsStandards = Ember.A();
+        var standards = this.get("standards");
+        var itemsStandards = Ember.A();
         var tooltipsStand = '';
         var count = 0;
         var itemName = '';

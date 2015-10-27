@@ -3,19 +3,23 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
     /**
-     * @property {integer} quantityResources
+     * @property {number} quantityResources
      */
     quantityResources: null,
 
     /**
-     * @property {integer} quantityQuestions
+     * @property {number} quantityQuestions
      */
     quantityQuestions: null,
 
+    /**
+     * Selected collection results itemResources
+     * @property {array}
+     */
     itemResources: function() {
 
-        const itemsResources = Ember.A();
-        const resources = this.get("resources");
+        var itemsResources = Ember.A();
+        var resources = this.get("resources");
         var countQuestions = 0,
             countResources = 0;
 

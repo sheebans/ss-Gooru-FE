@@ -12,7 +12,7 @@ moduleForComponent('collection-results-resources', 'Integration | Component | co
 
 test('collection results resources layout', function(assert) {
 
-    const resources = Ember.A();
+    var resources = Ember.A();
     resources.addObject(Ember.Object.create({ name: "Preparing the Learner", image: "http://cdn.goorulearning.org/prod1/f000/2137/8066/b9396c20-90f6-4bc1-b434-a39386f5e7b3_0480a001-2070-40b9-b211-ef67638a33d0.jpg", type: "text"}));
     resources.addObject(Ember.Object.create({ name: "Activity 2and 3", image:"", type: "text"}));
     resources.addObject(Ember.Object.create({ name: "Brain Pop", image:"http://cdn.goorulearning.org/prod1/f000/1436/8541/cd5cfba2-591d-492f-946f-07a4c1df5432_cb55ce82-67d7-46b5-b657-9ac6ff5851d6.gif", type: "webpage"}));
@@ -25,13 +25,13 @@ test('collection results resources layout', function(assert) {
     this.render(hbs`{{collection-results-resources resources=resources}}`); //render the component
     var $component = this.$(); //component dom element
 
-    const $collectionResources = $component.find(".collection-results-resources");
+    var $collectionResources = $component.find(".collection-results-resources");
     T.exists(assert, $collectionResources, "Missing collection resources");
 
-    const $resourceImage =$component.find('.resource-image a img');
+    var $resourceImage =$component.find('.resource-image a img');
     T.exists(assert, $resourceImage, "Missing resource image");
 
-    const $collectionViews =$component.find('.resource-image-type');
+    var $collectionViews =$component.find('.resource-image-type');
     T.exists(assert, $collectionViews, "Missing resource image type icon");
 
 });

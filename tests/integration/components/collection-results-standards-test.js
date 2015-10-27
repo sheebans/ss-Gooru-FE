@@ -12,7 +12,7 @@ moduleForComponent('collection-results-standards', 'Integration | Component | co
 
 test('collection results standards layout', function(assert) {
 
-    const standards = Ember.A();
+    var standards = Ember.A();
     standards.addObject(Ember.Object.create({ name: "CCSS.ELA-Literacy.RI.9-10.6", description: "Demostrate command of the conventions"}));
     standards.addObject(Ember.Object.create({ name: "CCSS.ELA-Literacy.RI.9-10.2", description: "Demostrate command of the conventions"}));
     standards.addObject(Ember.Object.create({ name: "CCSS.ELA-Literacy.RI.9-10.3", description: "Demostrate command of the conventions"}));
@@ -23,15 +23,15 @@ test('collection results standards layout', function(assert) {
     this.render(hbs`{{collection-results-standards standards=standards}}`); //render the component
     var $component = this.$(); //component dom element
 
-    const $collectionResources = $component.find(".collection-results-standards");
+    var $collectionResources = $component.find(".collection-results-standards");
     T.exists(assert, $collectionResources, "Missing collection standards");
 
-    const $searchStandardLabel = $component.find(".uc-search-standard:eq(0) .label");
+    var $searchStandardLabel = $component.find(".uc-search-standard:eq(0) .label");
     T.exists(assert, $searchStandardLabel, "Missing search standard label");
 
     assert.equal(T.text($searchStandardLabel), standards[0].name, "Incorrect name text");
 
-    const $standardBlueLink =$component.find('.blue-link');
+    var $standardBlueLink =$component.find('.blue-link');
     T.exists(assert, $standardBlueLink, "Missing standard blue link");
 
 });
