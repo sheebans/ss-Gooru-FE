@@ -13,13 +13,13 @@ moduleForComponent('app-header', 'Integration | Component | app header', {
 test('header layout', function(assert) {
   assert.expect(13); //making sure all asserts are called
 
-  this.set('mySession', Ember.Object.create({ user: {username: 'param'}, isDefaultUser: true}));
+  this.set('session', Ember.Object.create({isAnonymous: true}));
 
   this.on('myAuthenticateAction', function() {
     assert.ok(false, "onAuthenticateAction should not be called");
   });
 
-  this.render(hbs`{{app-header currentSession=mySession onAuthenticateAction='myAuthenticateAction'}}`);
+  this.render(hbs`{{app-header session=session onAuthenticateAction='myAuthenticateAction'}}`);
 
   var $component = this.$(); //component dom element
 
@@ -49,9 +49,12 @@ test('header layout', function(assert) {
 test('header layout with user', function(assert) {
   assert.expect(4); //making sure all asserts are called
 
-  this.set('mySession', Ember.Object.create({ user: {username: 'jperez'}, isDefaultUser: false}));
+  this.set('session', Ember.Object.create({
+    isAnonymous: false,
+    userData: {username: 'jperez'}
+  }));
 
-  this.render(hbs`{{app-header currentSession=mySession}}`);
+  this.render(hbs`{{app-header session=session}}`);
 
   const $component = this.$(); //component dom element
 

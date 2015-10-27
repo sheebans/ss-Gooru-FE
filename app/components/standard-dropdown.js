@@ -31,7 +31,8 @@ export default Ember.Component.extend({
       return DropdownItem.create({
         data: standard,
         id: standard.get("id"),
-        label: standard.get("name")
+        label: standard.get("name"),
+        disabled: standard.get("disabled")
       });
     });
   }.property("standards"),

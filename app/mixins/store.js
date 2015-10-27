@@ -1,6 +1,4 @@
-import Ember from "ember";
-
-const { service } = Ember.inject;
+import Ember from 'ember';
 
 /**
  * @typedef {Object} StoreMixin
@@ -8,8 +6,8 @@ const { service } = Ember.inject;
 export default Ember.Mixin.create({
 
   /**
-   * @property {Store} store
+   * @property {Store} Store service
    */
-  store: service("store")
+  store: Ember.inject.service()
 
 });

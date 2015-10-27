@@ -15,13 +15,27 @@ export default Ember.Route.extend({
    */
   gradeService: Ember.inject.service("api-sdk/grade"),
 
+  /**
+   * @property {StandardService} Service to retrieve standards
+   */
+  standardService: Ember.inject.service("api-sdk/standard"),
+
+  /**
+   * @property {ProfileService} Service to retrieve profiles
+   */
+  profileService: Ember.inject.service("api-sdk/profile"),
+
   model: function() {
     var subjects = this.get("subjectService").readAll();
     var grades = this.get("gradeService").readAll();
+    var standards = this.get("standardService").readAll();
+    var profile = this.get("profileService").findByCurrentUser();
 
     return Ember.RSVP.hash({
       subjects: subjects,
-      grades: grades
+      grades: grades,
+      standards: standards,
+      profile: profile
     });
   },
 
@@ -36,7 +50,20 @@ export default Ember.Route.extend({
     controller.set("subjects", model.subjects.filterBy("library", "library"));
     controller.set("grades", model.grades);
 
+    if (model.profile) {
+      var checkableStandards = this.get("standardService").getCheckableStandards();
+      var codes = model.profile.get("user").get("metadata").get("taxonomyPreference").get("code");
+      checkStandards(model.standards, checkableStandards, codes);
+    }
+
+    controller.set("standards", model.standards);
   }
-
-
 });
+
+function checkStandards(standards, checkableStandards, codes) {
+  standards.forEach(function(standard) {
+    if (checkableStandards.contains(standard.get("id"))) {
+      standard.set("disabled", !codes.contains(standard.get("id")));
+    }
+  });
+}

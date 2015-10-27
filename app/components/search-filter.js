@@ -20,6 +20,19 @@ export default Ember.Component.extend(i18nMixin, {
    */
   subjects: null,
 
+  /**
+   * True if resources option are selected
+   *  @property {[]} subjects
+   *
+   */
+  resourceSelected: false,
+  /**
+   * True if collection option are selected
+   *  @property {[]} subjects
+   *
+   */
+  collectionSelected: true,
+
   grades: function(){
     //@todo: use data retrieved in the route
     const items = Ember.A();
@@ -39,7 +52,6 @@ export default Ember.Component.extend(i18nMixin, {
     items.addObject(Ember.Object.create({ id: 2, name: "NGSS", title: "Next Generation State Standard"}));
     return items;
   }.property(),
-
 
   actions: {
 
@@ -63,8 +75,28 @@ export default Ember.Component.extend(i18nMixin, {
      */
     onStandardSelected: function(item){
       console.debug(item);
-
     },
+    /**
+     * Triggered when select the resources option
+     */
+    onResourceSelected: function(){
+        this.set("collectionSelected", false);
+        this.set("resourceSelected", true);
+    },
+    /**
+     * Triggered when select the collection option
+     */
+    onCollectionSelected: function(){
+        this.set("resourceSelected", false);
+        this.set("collectionSelected", true);
+    },
+
+    /**
+     * Triggered when change the rating
+     */
+    onRateChange: function(newRating){
+      console.log('Changing Rate'+newRating);
+    }
   }
 
 });
