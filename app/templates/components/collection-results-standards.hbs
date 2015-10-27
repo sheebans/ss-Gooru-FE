@@ -1,0 +1,11 @@
+<div class="collection-results-standards pa-md-1 pa-sm-0">
+    {{#each itemsStandards as |standard|}}
+        <div class="uc-search-standard pa-md-1 pa-sm-0">
+           <div class="label" data-toggle="tooltip" data-placement="bottom" title="{{standard.description}}">{{standard.name}}</div>
+        </div>
+    {{/each}}
+    {{#if quantityTooltips}}
+        <div class="blue-link pa-left-1 pa-top-2" data-html ="true" data-toggle="tooltip" data-placement="bottom" title="{{tooltipStandards}}"> +{{quantityTooltips}} </div>
+    {{/if}}
+</div>
+
