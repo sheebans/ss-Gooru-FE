@@ -32,10 +32,10 @@ export default Ember.Component.extend({
   }.property("result.id"),
 
   /**
-   * Selected collection results itemsStandards
+   * Selected collection results fillStandardsTooltipSection
    * @property {array}
    */
-  itemsStandards: function () {
+  fillStandardsTooltipSection: function () {
     var standards = this.get("standards");
     var itemsStandards = Ember.A();
     var tooltipsStand = '';

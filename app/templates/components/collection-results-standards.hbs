@@ -1,5 +1,5 @@
 <div class="collection-results-standards pa-md-1 pa-sm-0">
-    {{#each itemsStandards as |standard|}}
+    {{#each fillStandardsTooltipSection as |standard|}}
         <div class="uc-search-standard pa-md-1 pa-sm-0">
            <div class="label"  data-toggle="tooltip" data-placement="bottom" title="{{standard.description}}"><a data-toggle="modal" data-target="#{{standardsPopupIdentifier}} > .modal">{{standard.name}}</a></div>
         </div>
