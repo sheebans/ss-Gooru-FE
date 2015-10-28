@@ -1,7 +1,7 @@
 <section class="search-filter">
     <div class="row pa-md-left-10 pa-sm-left-10">
        <div class="buttons-filter">
-           <ul>
+           <ul class="search-filter-options">
                <li class="ma-md-2 ma-sm-2">
                    <div class="collections-select">
                        <div class="dropdown">
@@ -50,14 +50,14 @@
               {{/if}}
              {{#if resourceSelected}}
                <li>
-                    {{rating-stars onChangeAction='onRateChange'}}
+                   {{resource-options}}
                </li>
              {{/if}}
            </ul>
        </div>
     </div>
     <div class="row bg-gray-light subfilters pa-md-left-10 pa-sm-left-10">
-      <ul>
+      <ul class="search-filter-options">
           <li class="subfilters-dropdowns pa-md-5 pa-sm-5 grade">
             {{grade-dropdown
               placeholder=(t "grade-dropdown.placeholder")

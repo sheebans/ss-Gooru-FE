@@ -38,14 +38,11 @@ export default Ember.Controller.extend(i18nMixin,{
    */
   grades: null,
 
-  standards: function(){
-    //@todo: use data retrieved in the route
-    const items = Ember.A();
-    items.addObject(Ember.Object.create({ id: 1, name: "CCSS", title: "Common Core State Standard"}));
-    items.addObject(Ember.Object.create({ id: 2, name: "CA SS", title: "California State Standard"}));
-    items.addObject(Ember.Object.create({ id: 2, name: "NGSS", title: "Next Generation State Standard"}));
-    return items;
-  }.property(),
+  /**
+   * @property {[]} standards
+   * @see setupController at routes/index.js
+   */
+  standards: null,
 
   /**
    * Validate if selectedGrades is null or empty

@@ -146,6 +146,16 @@ export default {
       "placeholder":"e.g. Username",
       "questionToolTip":"Enter the username of an author on Gooru."
     }
+  },
+  "resource":{
+    "video":"Video",
+    "webpage":"Webpage",
+    "interactive":"Interactive",
+    "question":"Question",
+    "image":"Image",
+    "text":"Text",
+    "audio":"Audio",
+    "oer":"OER"
   }
 
 };

@@ -7,9 +7,18 @@ export default ApplicationAdapter.extend({
    */
   namespace: "rest/v2/account/login",
 
-  buildURL: function(record, suffix) {
+  /**
+   * Builds the end-point URL using the apiKey as a query string param
+   * @param modelName
+   * @param id
+   * @param snapshot
+   * @param requestType
+   * @param query
+   * @returns {string}
+   */
+  buildURL: function(modelName, id, snapshot, requestType, query) {
     var apiKeyParam = "apiKey="+ this.get("apiKey");
-    return this._super(record, suffix) + "?" + apiKeyParam;
+    return this._super(modelName, id, snapshot, requestType, query) + "?" + apiKeyParam;
   }
 
 });

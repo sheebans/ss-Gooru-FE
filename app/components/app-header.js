@@ -1,4 +1,5 @@
 import Ember from "ember";
+import SessionMixin from '../mixins/session';
 
 /**
  * Application header component
@@ -8,12 +9,7 @@ import Ember from "ember";
  * @module
  * @typedef {object} AppHeader
  */
-export default Ember.Component.extend({
-
-  /**
-   * @property {object} current session
-   */
-  currentSession: null,
+export default Ember.Component.extend(SessionMixin, {
 
   /**
    * @property {string} on authenticate action
