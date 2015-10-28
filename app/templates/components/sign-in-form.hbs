@@ -3,11 +3,11 @@
 
   <div class="row">
     <div class="col-md-9 col-center-block login-form-box">
-      <div class="login-gooru" alt="Log in to your Gooru account" title="Log in to your Gooru account">Log in to your Gooru account</div>
+      <div class="login-gooru" alt="{{t "login.gooruAccountTitle"}}" title="{{t "login.gooruAccountTitle"}}">{{t "login.gooruAccountTitle"}}</div>
       <br>
-      <button type="button" class="connect-button" alt="Log in with Google" title="Log in with Google">Log in with Google</button>
+      <button type="button" class="connect-button" alt="{{t "login.googleButton"}}" title="{{t "login.googleButton"}}">{{t "login.googleButton"}}</button>
       <div class="divider">
-        <div class="divider-text" alt="Or" title="Or">Or</div>
+        <div class="divider-text" alt="{{t "login.or"}}" title="{{t "login.or"}}">{{t "login.or"}}</div>
       </div>
       <form {{action "authenticate" on="submit"}}>
           <div class="form-group">
