@@ -86,3 +86,28 @@ test('app-modal close action not provided', function(assert) {
 
   $button.click();
 });
+test('green header', function(assert) {
+  assert.expect(1); //making sure all asserts are called
+
+  this.render(hbs`{{#app-modal}} <div class="app-content">Test</div> {{/app-modal}}`);
+
+  var $component = this.$(); //component dom element
+
+  var $modalGreenHeader = $component.find(".green-header");
+  T.exists(assert, $modalGreenHeader, 'Missing class green-header');
+
+});
+
+test('gray header', function(assert) {
+  assert.expect(1); //making sure all asserts are called
+
+  this.render(hbs`{{#app-modal headerClass="gray-header"}} <div class="app-content">Test</div> {{/app-modal}}`);
+
+  var $component = this.$(); //component dom element
+
+  var $modalGrayHeader = $component.find(".gray-header");
+  T.exists(assert, $modalGrayHeader, 'Missing class gray-header');
+
+});
+
+

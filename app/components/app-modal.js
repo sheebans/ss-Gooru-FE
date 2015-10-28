@@ -25,6 +25,12 @@ export default Ember.Component.extend({
   onCloseAction: null,
 
   /**
+   * Indicates the modal header class
+   * @property {string}
+   */
+  headerClass: 'green-header',
+
+  /**
    * @property {jQuery} modal element
    */
   modalElement: function(){

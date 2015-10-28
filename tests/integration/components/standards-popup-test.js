@@ -10,19 +10,19 @@ moduleForComponent('standards-popup', 'Integration | Component | search filter',
   }
 });
 
-test('it renders', function(assert) {
+test('standards-popup', function(assert) {
   assert.expect(5);
 
   var standards = Ember.A();
 
-  standards.addObject(Ember.Object.create({ id: 1, title: "CCSS.ELA-Literacy.RI.9-10.6", description: "Determine an author’s point of view or purpose in a text and analyze how an author uses rhetoric to advance that point of view or purpose."}));
+  standards.addObject(Ember.Object.create({ name: "CCSS.ELA-Literacy.RI.9-10.6", description: "Determine an author’s point of view or purpose in a text and analyze how an author uses rhetoric to advance that point of view or purpose."}));
 
   this.set('standards', standards);
 
   this.render(hbs`{{standards-popup standards=standards}}`);
   var $component = this.$(); //component dom element
 
-  var $standardsPopupSection = $component.find(".standards");
+  var $standardsPopupSection = $component.find(".standards-popup");
   T.exists(assert, $standardsPopupSection, "Missing standards popup");
   T.exists(assert, $standardsPopupSection.find(".standard-title"), "Missing standard title");
   assert.equal(T.text($standardsPopupSection.find('span')), "CCSS.ELA-Literacy.RI.9-10.6", "Incorrect standard title");

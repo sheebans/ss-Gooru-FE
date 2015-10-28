@@ -4,7 +4,13 @@
     border-radius: 0;
 
     .modal-header {
-      background-color: $color-green-primary;
+      &.green-header{
+        background-color: $color-green-primary;
+      }
+
+      &.gray-header {
+        background-color: $color-gray-secondary;
+      }
 
       button.close {
         text-shadow: none;
