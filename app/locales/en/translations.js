@@ -65,6 +65,9 @@ export default {
   },
   "login": {
     "title": "Welcome to Gooru",
+    "gooruAccountTitle": "Log in to your Gooru account",
+    "googleButton": "Log in with Google",
+    "or": "Or",
     "haveAccount": "Do you have an account?",
     "signUpHere": "Sign Up here!",
     "forgotPassword": "Forgot your Password?",

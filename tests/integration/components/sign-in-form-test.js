@@ -10,12 +10,20 @@ moduleForComponent('sign-up-form', 'Integration | Component | sign in form', {
 });
 
 test('sign in form renders', function(assert) {
-  assert.expect(4);
+  assert.expect(8);
 
   this.render(hbs`{{sign-in-form}}`);
 
   var $component = this.$(); //component dom element
   T.exists(assert, $component.find("div.sign-in-form"), "Root element not found");
+
+  var $loginGooruTitle =$component.find('.login-gooru');
+  T.exists(assert, $loginGooruTitle, "Missing login gooru title");
+  assert.equal(T.text($loginGooruTitle), "Log in to your Gooru account", "Incorrect login gooru title text");
+
+  var $connectButton =$component.find('.connect-button');
+  T.exists(assert, $connectButton, "Missing  google connect button");
+  assert.equal(T.text($connectButton), "Log in with Google", "Incorrect  google connect button text");
 
   var $form = $component.find("form");
   T.exists(assert, $form, "Missing sign in form");

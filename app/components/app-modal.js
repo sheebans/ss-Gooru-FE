@@ -14,7 +14,7 @@ export default Ember.Component.extend({
   classNameBindings: ['component-class'],
 
   /**
-   * @type {?String} specific class 
+   * @type {?String} specific class
    */
   'component-class':null,
   /**
