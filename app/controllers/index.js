@@ -1,12 +1,9 @@
 import Ember from "ember";
-import i18nMixin from '../mixins/i18n';
 
 /**
  * @typedef {object} Index Controller
  */
-export default Ember.Controller.extend(i18nMixin,{
-
-
+export default Ember.Controller.extend({
 
   /**
    * Selected grades items
@@ -87,15 +84,17 @@ export default Ember.Controller.extend(i18nMixin,{
      * @param {}
      */
     onbrowseContentClick:function(){
-      const controller =this;
-      var gradeId;
-      var subjectId;
+      const controller = this;
+      const i18n = this.get('i18n');
+
+      var gradeId, subjectId;
+
         if(controller.get("isEmptyGrades")){
-          controller.set("errorMessage",controller.t("index.browseContent.grades_missing_message"));
+          controller.set("errorMessage", i18n.t("index.browseContent.grades_missing_message"));
         }else{
           controller.set("errorMessage",null);
           if(controller.get("isEmptySubjects")){
-            controller.set("errorMessage",controller.t("index.browseContent.subjects_missing_message"));
+            controller.set("errorMessage", i18n.t("index.browseContent.subjects_missing_message"));
           }else{
             controller.set("errorMessage",null);
             gradeId = controller.get("selectedGrades").map(function (item) {
