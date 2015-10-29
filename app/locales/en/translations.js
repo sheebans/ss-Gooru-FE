@@ -159,6 +159,8 @@ export default {
     "text":"Text",
     "audio":"Audio",
     "oer":"OER"
+  },
+  "standardsPopup":{
+    "title":"Standards"
   }
-
 };

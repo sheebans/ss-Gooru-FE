@@ -9,6 +9,14 @@ import Ember from 'ember';
  */
 export default Ember.Component.extend({
 
+  classNames:['app-modal','fade','modal'],
+
+  classNameBindings: ['component-class'],
+
+  /**
+   * @type {?String} specific class
+   */
+  'component-class':null,
   /**
    * @property {string} modal title
    */
@@ -23,7 +31,6 @@ export default Ember.Component.extend({
    * @property {string} close action name
    */
   onCloseAction: null,
-
   /**
    * @property {jQuery} modal element
    */

@@ -2,12 +2,10 @@
   .modal-content {
     border: 2px solid $color-white;
     border-radius: 0;
-
     .modal-header {
       background-color: $color-green-primary;
       padding: 10px 15px;
       font-size: 16px;
-
       button.close {
         text-shadow: none;
         opacity: 1;
@@ -30,6 +28,13 @@
 
     .modal-body {
       border: 1px solid $color-gray-lighter-1;
+    }
+  }
+  &.standards {
+    .modal-content{
+      .modal-header {
+        background-color: $color-gray-secondary;
+      }
     }
   }
 }

@@ -18,7 +18,7 @@ test('collection results standards layout', function(assert) {
     standards.addObject(Ember.Object.create({ name: "CCSS.ELA-Literacy.RI.9-10.3", description: "Demostrate command of the conventions"}));
 
     this.set('standards', standards);
-    assert.expect(4);
+    assert.expect(5);
 
     this.render(hbs`{{collection-results-standards standards=standards}}`); //render the component
     var $component = this.$(); //component dom element
@@ -33,5 +33,8 @@ test('collection results standards layout', function(assert) {
 
     var $standardBlueLink =$component.find('.blue-link');
     T.exists(assert, $standardBlueLink, "Missing standard blue link");
+
+    var $standardsPopup = $component.find(".standards-popup");
+    T.exists(assert, $standardsPopup , "Missing standards-popup");
 
 });
