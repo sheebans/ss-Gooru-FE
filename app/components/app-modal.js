@@ -13,6 +13,9 @@ export default Ember.Component.extend({
 
   classNameBindings: ['component-class'],
 
+  /**
+   * @type {?String} specific class 
+   */
   'component-class':null,
   /**
    * @property {string} modal title
@@ -28,13 +31,6 @@ export default Ember.Component.extend({
    * @property {string} close action name
    */
   onCloseAction: null,
-
-  /**
-   * Indicates the modal header class
-   * @property {string}
-   */
-  //headerClass: 'green-header',
-
   /**
    * @property {jQuery} modal element
    */
