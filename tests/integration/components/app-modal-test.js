@@ -86,3 +86,17 @@ test('app-modal close action not provided', function(assert) {
 
   $button.click();
 });
+
+test('A specific class is added to the component', function(assert) {
+  assert.expect(1); //making sure all asserts are called
+
+  this.render(hbs`{{#app-modal component-class="test-class"}} <div class="app-content">Test</div> {{/app-modal}}`);
+
+  var $component = this.$(); //component dom element
+
+  var $modalGrayHeader = $component.find(".test-class");
+  T.exists(assert, $modalGrayHeader, 'Missing class standards');
+
+});
+
+

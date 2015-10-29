@@ -1,0 +1,208 @@
+.collection-results {
+  .tooltip {
+    background-color: $color-white;
+    font-size: 12px;
+    color: $color-gray-5;
+    opacity: 1;
+    border-radius: 3px;
+    border: solid 1px $color-gray-lighter-2;
+    max-width: 250px;
+    .tooltip-arrow {
+      border-width: 0 10px 8px;
+      top: -7px;
+      border-bottom-color: $color-white;
+      background-color: transparent;
+    }
+    .tooltip-inner {
+      color: $color-gray-5;
+      background: $color-white;
+      border: solid 1px #fff;
+      max-width: 250px;
+      padding: 2px 5px;
+      font-size: 12px;
+      text-align: left;
+      p {
+        font-size: 12px;
+      }
+    }
+  }
+  .search-results {
+    font-size: 14px;
+    height: 35px;
+  }
+  .panel {
+    border: 1px solid $color-gray-lighter-2;
+    border-radius: 4px;
+    box-shadow: none;
+    .panel-heading {
+      background: none;
+      border-bottom: 1px solid $color-gray-lighter-2;
+      padding: 5px 10px;
+      height: 45px;
+      .view-container {
+        margin: 7px 0 6px;
+        color: $color-gray-5;
+        display: table;
+        i {
+          color: $color-gray-lighter-3;
+          font-size: 22px;
+        }
+        span {
+          font-size: 12px;
+          padding: 0 8px 0 0;
+          display: table-cell;
+          vertical-align: middle;
+        }
+      }
+      .remix-button {
+        .tooltip {
+          max-width: 180px;
+        }
+      }
+    }
+    .panel-body {
+      .collection-img {
+        a{
+          img {
+            border-left: 10px solid $color-blue-primary;
+            z-index: 9999;
+            width: 100%;
+          }
+          &:hover{
+            opacity: 0.6;
+          }
+        }
+      }
+      .collection-desc {
+        .title {
+          font-size: 17px;
+          font-weight: 400;
+          color: $color-blue-dark;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          cursor: pointer;
+          max-height: 20px;
+        }
+        .details {
+          padding: 6px 0;
+          img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50px;
+            box-shadow: 0 0 0 2px $color-blue-secondary;
+          }
+          .author-name-link {
+            a {
+              color: $color-blue-primary;
+              cursor: pointer;
+              &:hover {
+                text-decoration: none;
+              }
+            }
+          }
+          .author-name-link, .author-name-team {
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-block;
+            vertical-align: middle;
+          }
+        }
+        .description {
+          font-size: 12px;
+          max-height: 55px;
+          overflow: hidden;
+        }
+      }
+      .standard-container {
+        border-bottom: 1px solid $color-gray-lighter-2;
+        min-height: 40px;
+        height: auto;
+        box-sizing: content-box;
+        .collection-results-standards {
+          border-radius: 3px;
+          font-size: 10px;
+          display: inline-block;
+          margin: 8px 0;
+          .uc-search-standard {
+            background-color: $color-gray-secondary;
+            border-radius: 3px;
+            color: $color-white;
+            font-size: 10px;
+            float: left;
+            margin-right: 5px;
+            margin-top: 1px;
+            .label {
+              font-size: 10px;
+              font-weight: normal;
+            }
+          }
+          .blue-link {
+            display: inline-block;
+            float: left;
+            font-size: 10px;
+            color: $color-blue-dark;
+            width: 15px;
+            height: 15px;
+          }
+        }
+      }
+      .collection-results-resources {
+        padding: 8px 8px;
+        height: auto;
+        p {
+          font-size: 12px;
+        }
+        .resource-image {
+          display: inline-block;
+          height: 60px;
+          margin: 2%;
+          position: relative;
+          width: 80px;
+          vertical-align: middle;
+          a, img {
+            height: 60px;
+            width: 80px;
+          }
+          a:hover {
+            opacity: 0.6;
+          }
+          .resource-image-type {
+            color: #fff;
+            font-size: 12px;
+            height: 61px;
+            position: absolute;
+            text-align: center;
+            top: 0;
+            width: 81px;
+          }
+          .text-icon {
+            background:url("gooru/text_1.png") no-repeat 0 0 transparent;
+          }
+          .interactive-icon {
+            background:url("gooru/interactive_1.png") no-repeat 0 0 transparent;
+          }
+          .image-icon {
+            background:url("gooru/image_1.png") no-repeat 0 0 transparent;
+          }
+          .question-icon {
+            background:url("gooru/question_1.png") no-repeat transparent;
+          }
+          .video-icon {
+            background:url("gooru/video_1.png") no-repeat transparent;
+          }
+          .webpage-icon {
+            background:url("gooru/webpage_1.png") no-repeat transparent;
+          }
+          .tooltip {
+            width: 250px;
+          }
+        }
+      }
+    }
+  }
+  .label a{
+    text-decoration: none;
+    color:$color-white;
+  }
+}

@@ -11,6 +11,30 @@ export default {
     "libraries": "Libraries"
   },
 
+  "gru-category-panel": {
+      "teacher": {
+          "title": "For Teachers",
+          "body": "Discover standards-aligned content, customize content, and track student progress through data analytics.",
+          "cta": "See Stories"
+      },
+      "student": {
+          "title": "For Students",
+          "body": "Explore interests, build, and monitor progress through learning materials.",
+          "cta": "Enter",
+          "text-placeholder": "Enter Class Code"
+      },
+      "district": {
+        "title": "For Districts",
+        "body": "Collaborate with Gooru to unleash personalized learning and share a district-vetted curriculum.",
+        "cta": "See Our Impact"
+      },
+      "partner": {
+        "title": "For Partners",
+        "body": "Collaborate with mission-aligned partners to increase our collective impact on the education ecosystem.",
+        "cta": "Learn More"
+      }
+  },
+
   "header": {
     "searchForTopic": "Search for a topic"
   },
@@ -61,10 +85,13 @@ export default {
       "title":"Free and Open.<br/>Always.",
       "description":"We believe education is a human right. Gooru will always be free of cost and ads for educators and students worldwide.",
       "button":"Learn More about Our Approach"
-    },
+    }
   },
   "login": {
     "title": "Welcome to Gooru",
+    "gooruAccountTitle": "Log in to your Gooru account",
+    "googleButton": "Log in with Google",
+    "or": "Or",
     "haveAccount": "Do you have an account?",
     "signUpHere": "Sign Up here!",
     "forgotPassword": "Forgot your Password?",
@@ -146,6 +173,18 @@ export default {
       "placeholder":"e.g. Username",
       "questionToolTip":"Enter the username of an author on Gooru."
     }
+  },
+  "resource":{
+    "video":"Video",
+    "webpage":"Webpage",
+    "interactive":"Interactive",
+    "question":"Question",
+    "image":"Image",
+    "text":"Text",
+    "audio":"Audio",
+    "oer":"OER"
+  },
+  "standardsPopup":{
+    "title":"Standards"
   }
-
 };

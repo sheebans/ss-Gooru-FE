@@ -1,7 +1,6 @@
 import Ember from "ember";
-import SessionMixin from "../mixins/session";
 
-export default Ember.Component.extend(SessionMixin, {
+export default Ember.Component.extend({
 
   /**
    * @property {SessionService} Session service

@@ -1,5 +1,5 @@
 <div class="row rating-stars">
-      <ul>
+      <ul class="pa-md-left-10 pa-sm-left-10">
       {{#each stars as |star|}}
           <li {{action 'onSetRating' star.rating isClickable}}>
               <span class="{{rating-star-size}} star">{{#if star.full}}{{fa-icon icon="star"}}{{else}}{{fa-icon icon="star-o"}}{{/if}}</span>
