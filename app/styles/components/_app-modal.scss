@@ -2,15 +2,9 @@
   .modal-content {
     border: 2px solid $color-white;
     border-radius: 0;
-
     .modal-header {
-      &.green-header{
-        background-color: $color-green-primary;
-      }
 
-      &.gray-header {
-        background-color: $color-gray-secondary;
-      }
+        background-color: $color-green-primary;
 
       button.close {
         text-shadow: none;
@@ -30,6 +24,13 @@
 
     .modal-body {
       border: 1px solid $color-gray-lighter-1;
+    }
+  }
+  &.standards {
+    .modal-content{
+      .modal-header {
+        background-color: $color-gray-secondary;
+      }
     }
   }
 }

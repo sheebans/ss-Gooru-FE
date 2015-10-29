@@ -9,6 +9,11 @@ import Ember from 'ember';
  */
 export default Ember.Component.extend({
 
+  classNames:['app-modal','fade','modal'],
+
+  classNameBindings: ['component-class'],
+
+  'component-class':null,
   /**
    * @property {string} modal title
    */
@@ -28,7 +33,7 @@ export default Ember.Component.extend({
    * Indicates the modal header class
    * @property {string}
    */
-  headerClass: 'green-header',
+  //headerClass: 'green-header',
 
   /**
    * @property {jQuery} modal element

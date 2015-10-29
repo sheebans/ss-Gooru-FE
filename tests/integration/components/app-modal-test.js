@@ -86,27 +86,16 @@ test('app-modal close action not provided', function(assert) {
 
   $button.click();
 });
-test('green header', function(assert) {
+
+test('A specific class is added to the component', function(assert) {
   assert.expect(1); //making sure all asserts are called
 
-  this.render(hbs`{{#app-modal}} <div class="app-content">Test</div> {{/app-modal}}`);
+  this.render(hbs`{{#app-modal component-class="test-class"}} <div class="app-content">Test</div> {{/app-modal}}`);
 
   var $component = this.$(); //component dom element
 
-  var $modalGreenHeader = $component.find(".green-header");
-  T.exists(assert, $modalGreenHeader, 'Missing class green-header');
-
-});
-
-test('gray header', function(assert) {
-  assert.expect(1); //making sure all asserts are called
-
-  this.render(hbs`{{#app-modal headerClass="gray-header"}} <div class="app-content">Test</div> {{/app-modal}}`);
-
-  var $component = this.$(); //component dom element
-
-  var $modalGrayHeader = $component.find(".gray-header");
-  T.exists(assert, $modalGrayHeader, 'Missing class gray-header');
+  var $modalGrayHeader = $component.find(".test-class");
+  T.exists(assert, $modalGrayHeader, 'Missing class standards');
 
 });
 
