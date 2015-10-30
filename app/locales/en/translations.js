@@ -165,7 +165,7 @@ export default {
   "standardsPopup":{
     "title":"Standards"
   },
-  "forgotPasswordPopup":{
+  "forgot-password-popup":{
     "title":"Please enter your email or <br/> username below.",
     "description":"You will receive an email with a link to reset your password.",
     "footer":"If you have any questions,<br/> Please contact",
