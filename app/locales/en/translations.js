@@ -8,7 +8,9 @@ export default {
     "myClasses": "My Classes",
     "myContent": "My Content",
     "login": "Log in",
-    "libraries": "Libraries"
+    "libraries": "Libraries",
+    "submit":"Submit",
+    "forgotPassword":"Forgot Password"
   },
 
   "header": {
@@ -162,5 +164,11 @@ export default {
   },
   "standardsPopup":{
     "title":"Standards"
+  },
+  "forgotPasswordPopup":{
+    "title":"Please enter your email or <br/> username below.",
+    "description":"You will receive an email with a link to reset your password.",
+    "footer":"If you have any questions,<br/> Please contact",
+    "mail":"support@goorulearning.org"
   }
 };
