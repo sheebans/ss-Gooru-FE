@@ -80,3 +80,7 @@
       onSignUpAction=onSignUp
       onSuccessAction=onClose}}
 {{/app-modal}}
+
+{{#app-modal id="forgot-password-popup" title=(t "common.forgotPassword") as |onClose|}}
+  {{gru-forgot-password-popup}}
+{{/app-modal}}
