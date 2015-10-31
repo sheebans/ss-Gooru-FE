@@ -1,8 +1,5 @@
 import Ember from "ember";
 
-Ember.TextField.reopen({
-  attributeBindings: ["data-toggle", "data-placement"]
-});
 
 export default Ember.Component.extend({
 

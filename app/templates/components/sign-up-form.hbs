@@ -6,9 +6,12 @@
 
           <form {{action "signUp" on="submit"}}>
             <div class="row">
-              <div class="col-xs-6" title={{t "signUp.usernameToolTip"}} data-toggle="tooltip" data-placement="left">
+              <div class="col-xs-6">
                 {{input
                   id="username"
+                  title=(t "signUp.usernameToolTip")
+                  data-toggle="tooltip"
+                  data-placement="left"
                   value=username
                   placeholder=(t "signUp.username")
                   class="form-control"
@@ -23,16 +26,22 @@
                 </div>
             </div>
             <div class="row">
-              <div class="col-xs-6" title={{t "signUp.nameToolTip"}} data-toggle="tooltip" data-placement="left">
+              <div class="col-xs-6">
                 {{input
                   id="firstName"
+                  title=(t "signUp.nameToolTip")
+                  data-toggle="tooltip"
+                  data-placement="left"
                   value=firstName
                   placeholder=(t "signUp.firstName")
                   class="form-control"}}
               </div>
-              <div class="col-xs-5 pa-md-left-2 pa-md-right-2 pa-sm-left-2 pa-sm-right-2" title={{t "signUp.nameToolTip"}} data-toggle="tooltip" data-placement="left">
+              <div class="col-xs-5 pa-md-left-2 pa-md-right-2 pa-sm-left-2 pa-sm-right-2">
                 {{input
                   id="lastName"
+                  title=(t "signUp.nameToolTip")
+                  data-toggle="tooltip"
+                  data-placement="left"
                   value=lastName
                   placeholder=(t "signUp.lastName")
                   class="form-control"
@@ -40,9 +49,12 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-11 pa-md-right-0 pa-sm-right-0" title={{t "signUp.emailToolTip"}} data-toggle="tooltip" data-placement="left">
+              <div class="col-xs-11 pa-md-right-0 pa-sm-right-0">
                 {{input
                   id="email"
+                  title=(t "signUp.emailToolTip")
+                  data-toggle="tooltip"
+                  data-placement="left"
                   value=email
                   placeholder=(t "signUp.email")
                   class="form-control"
@@ -50,9 +62,12 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-11 pa-md-right-0 pa-sm-right-0" title={{t "signUp.passwordToolTip"}} data-toggle="tooltip" data-placement="left">
+              <div class="col-xs-11 pa-md-right-0 pa-sm-right-0">
                 {{input
                   id="password"
+                  title=(t "signUp.passwordToolTip")
+                  data-toggle="tooltip"
+                  data-placement="left"
                   type="password"
                   value=password
                   placeholder=(t "signUp.password")
@@ -61,9 +76,12 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-11 pa-md-right-0 pa-sm-right-0" title={{t "signUp.passwordToolTip"}} data-toggle="tooltip" data-placement="left">
+              <div class="col-xs-11 pa-md-right-0 pa-sm-right-0">
                 {{input
                   id="rePassword"
+                  title=(t "signUp.passwordToolTip")
+                  data-toggle="tooltip"
+                  data-placement="left"
                   type="password"
                   value=confirmedPassword
                   placeholder=(t "signUp.rePassword")
