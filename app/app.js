@@ -7,6 +7,10 @@ var App;
 
 Ember.MODEL_FACTORY_INJECTIONS = true;
 
+Ember.TextField.reopen({
+  attributeBindings: ["data-toggle", "data-placement"]
+});
+
 App = Ember.Application.extend({
   modulePrefix: config.modulePrefix,
   podModulePrefix: config.podModulePrefix,
