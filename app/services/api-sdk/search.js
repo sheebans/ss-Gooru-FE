@@ -4,14 +4,18 @@ import StoreMixin from '../../mixins/store';
 export default Ember.Service.extend(StoreMixin, {
 
   searchCollections: function(params) {
-    return this.get('store').queryRecord('search/collection-result', {
-      q: params.term,
-      length: 8,
-      start: 1,
-      includeCIMetaData: true,
-      category: 'All',
-      'flt.collectionType': 'collection'
-    });
-  },
+    if(params.term) {
+      return this.get('store').queryRecord('search/collection-result', {
+        category: 'All',
+        'flt.collectionType': 'collection',
+        includeCIMetaData: true,
+        length: 8,
+        q: params.term,
+        start: 1
+      });
+    } else {
+      return Ember.A();
+    }
+  }
 
 });

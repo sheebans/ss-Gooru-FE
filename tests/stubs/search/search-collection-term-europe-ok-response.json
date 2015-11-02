@@ -1,0 +1,1341 @@
+{
+  "executionTime": 3101,
+  "query": {
+    "rewrittenQueryString": "europe",
+    "userQueryString": "Europe"
+  },
+  "resultCount": 8,
+  "searchCount": 0,
+  "searchResults": [
+    {
+      "addDate": "2014-06-04T12:36:47.000Z",
+      "assetURI": "http://qacdn.gooru.org/qalive/",
+      "category": "someQuestion",
+      "collaboratorCount": 0,
+      "collaborators": "",
+      "collectionItemCount": 4,
+      "collectionItems": [
+        {
+          "collectionItemId": "0c41d47c-f471-45ad-a5bf-e8d677314caa",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "video",
+            "folder": "f000/2157/7425/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "video"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "title": "Animals of Europe",
+            "url": "http://app.discoveryeducation.com/player/view/assetGuid/016E7759-C839-4634-B401-9AAADECB9C3D",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "16224e06-7a24-41d6-ae77-3080cd4cfc87",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "text",
+            "folder": "f000/2156/8900/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "text"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "thumbnail": "f330d828-d80c-4b39-ae93-b14938c23b21_6cc9acd7-d258-4c85-ba7f-bbdf388f635c.jpg",
+            "thumbnails": {
+              "defaultImage": false,
+              "dimensions": "80x60,160x120",
+              "resourceUrl": "https://docs.google.com/document/d/12j_azZL03jzEy1uiCAtLGt3a-Khctb6Ev3ufWCeD3PI/edit?usp=sharing",
+              "thumbnailAssetURI": "http://qacdn.gooru.org/qalive/",
+              "thumbnailFolder": "f000/2156/8900/",
+              "thumbnailName": "f330d828-d80c-4b39-ae93-b14938c23b21_6cc9acd7-d258-4c85-ba7f-bbdf388f635c.jpg",
+              "thumbnailResourceType": {
+                "name": "resource/url"
+              },
+              "url": "http://qacdn.gooru.org/qalive/f000/2156/8900/f330d828-d80c-4b39-ae93-b14938c23b21_6cc9acd7-d258-4c85-ba7f-bbdf388f635c.jpg"
+            },
+            "title": "14.1 Europe Text",
+            "url": "https://docs.google.com/document/d/12j_azZL03jzEy1uiCAtLGt3a-Khctb6Ev3ufWCeD3PI/edit?usp=sharing",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "9a2857d9-5163-4653-a7bc-beb1f6717011",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "text",
+            "folder": "f000/2156/8902/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "text"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "thumbnail": "014d32a3-f850-46b4-8a63-7a8b4eb332ac_f015ba21-0769-44b1-8102-5800bfd1b68a.jpg",
+            "thumbnails": {
+              "defaultImage": false,
+              "dimensions": "80x60,160x120",
+              "resourceUrl": "https://docs.google.com/document/d/1w5OkoG9iB6nM0xzwQV02vRU2YtYB_jchObcCQrT0hIU/edit?usp=sharing",
+              "thumbnailAssetURI": "http://qacdn.gooru.org/qalive/",
+              "thumbnailFolder": "f000/2156/8902/",
+              "thumbnailName": "014d32a3-f850-46b4-8a63-7a8b4eb332ac_f015ba21-0769-44b1-8102-5800bfd1b68a.jpg",
+              "thumbnailResourceType": {
+                "name": "resource/url"
+              },
+              "url": "http://qacdn.gooru.org/qalive/f000/2156/8902/014d32a3-f850-46b4-8a63-7a8b4eb332ac_f015ba21-0769-44b1-8102-5800bfd1b68a.jpg"
+            },
+            "title": "14.3 Student Reflection on Europe",
+            "url": "https://docs.google.com/document/d/1w5OkoG9iB6nM0xzwQV02vRU2YtYB_jchObcCQrT0hIU/edit?usp=sharing",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "b9ede8db-0dc4-4bed-b911-0302d6494b4a",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "question",
+            "folder": "f000/2157/4790/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "question"
+            },
+            "resourceType": {
+              "name": "assessment-question"
+            },
+            "taxonomySet": [],
+            "title": "<p>What are some animals found in Europe?</p>",
+            "url": "",
+            "views": 0
+          }
+        }
+      ],
+      "collectionType": "collection",
+      "contentId": 21568895,
+      "contentOrganizationCode": "gooru",
+      "contentOrganizationName": "Gooru",
+      "contentOrganizationUid": "4261739e-ccae-11e1-adfb-5404a609bd14",
+      "creatorFirstname": "SAUSD",
+      "creatorId": "9b4c83b0-a091-47c8-b676-8b11f32f2d68",
+      "creatorLastname": "SS",
+      "creatornameDisplay": "SAUSDSS",
+      "description": "Students will learn about the continent of Europe.",
+      "distinguish": 10,
+      "folder": "f000/2156/8895/",
+      "goals": "Students will learn about the continent of Europe.",
+      "gooruUId": "9b4c83b0-a091-47c8-b676-8b11f32f2d68",
+      "grade": "1",
+      "id": "4ed019b2-9eb2-4af0-a5c0-e5d48764f443",
+      "languageObjective": "Students+will+describe+Europe.+%0A%0AStudent+Friendly%3A+Today+you+will+talk+about+Europe.",
+      "lastModified": "2015-10-28T09:57:41.000Z",
+      "lastModifiedBy": "0a1788e8-89e0-499a-8cca-981a2f58f93d",
+      "lesson": "",
+      "libraryNames": [
+        "sausd"
+      ],
+      "license": {},
+      "numberOfResources": 4,
+      "profileUserVisibility": false,
+      "questionCount": "1",
+      "ratings": {
+        "count": 0.0,
+        "average": 0
+      },
+      "resourceCount": "3",
+      "scollectionRemixCount": 0,
+      "sharing": "public",
+      "skills": [],
+      "subject": " Language Arts  ",
+      "tags": [],
+      "taxonomyDataSet": "{\"course\":[\"English Language Arts 1\"],\"topic\":[],\"unit\":[],\"lesson\":[],\"subject\":[\" Language Arts  \"],\"curriculum\":{\"curriculumName\":[\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\"],\"curriculumCode\":[\"CCSS.ELA-Literacy.L.1.2\",\"CCSS.ELA-Literacy.W.1.2\",\"CCSS.ELA-Literacy.SL.1.2\",\"CCSS.ELA-Literacy.RI.1.5\",\"CCSS.ELA-Literacy.SL.1.1\",\"CCSS.ELA-Literacy.RI.1.6\",\"CCSS.ELA-Literacy.RI.1.2\",\"CCSS.ELA-Literacy.RF.1.1\",\"CCSS.ELA-Literacy.RF.1.3\",\"CCSS.ELA-Literacy.RF.1.4\",\"CCSS.ELA-Literacy.SL.1.4\",\"CCSS.ELA-Literacy.SL.1.6\",\"CCSS.ELA-Literacy.RI.1.1\"],\"curriculumDesc\":[\"Demonstrate command of the conventions of standard English capitalization, punctuation, and spelling when writing.\",\"Write informative/explanatory texts in which they name a topic, supply some facts about the topic, and provide some sense of closure.\",\"Ask and answer questions about key details in a text read aloud or information presented orally or through other media.\",\"Know and use various text features (e.g., headings, tables of contents, glossaries, electronic menus, icons) to locate key facts or information in a text.\",\"Participate in collaborative conversations with diverse partners about grade 1 topics and texts with peers and adults in small and larger groups.\",\"Distinguish between information provided by pictures or other illustrations and information provided by the words in a text.\",\"Identify the main topic and retell key details of a text.\",\"Demonstrate understanding of the organization and basic features of print.\",\"Know and apply grade-level phonics and word analysis skills in decoding words.\",\"Read with sufficient accuracy and fluency to support comprehension.\",\"Describe people, places, things, and events with relevant details, expressing ideas and feelings clearly.\",\"Produce complete sentences when appropriate to task and situation.\",\"Ask and answer questions about key details in a text.\"]}}",
+      "taxonomyLesson": "",
+      "taxonomySkills": "",
+      "thumbnail": "f000/2156/8895/4ed019b2-9eb2-4af0-a5c0-e5d48764f443_522ca207-c962-4fb2-b953-682fd2063cad.jpg",
+      "thumbnails": {
+        "defaultImage": false,
+        "dimensions": "80x60,160x120",
+        "url": "http://qacdn.gooru.org/qalive/f000/2156/8895/4ed019b2-9eb2-4af0-a5c0-e5d48764f443_522ca207-c962-4fb2-b953-682fd2063cad.jpg"
+      },
+      "title": "Europe",
+      "topic": "",
+      "type": "collection",
+      "unit": "",
+      "userFirstName": "SAUSD",
+      "userLastName": "SS",
+      "usernameDisplay": "SAUSDSS",
+      "viewCount": 3
+    },
+    {
+      "addDate": "2014-06-04T12:36:58.000Z",
+      "assetURI": "http://qacdn.gooru.org/qalive/",
+      "category": "noQuestion",
+      "collaboratorCount": 0,
+      "collaborators": "",
+      "collectionItemCount": 5,
+      "collectionItems": [
+        {
+          "collectionItemId": "639f7da9-ef3f-4304-b582-da7f9fd02a0f",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "text",
+            "folder": "f000/2156/8901/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "text"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "thumbnail": "2e81e767-98fb-45e6-b0e7-f3daefe539da_45c8a668-c364-4a1f-8fb7-17df54781dce.jpg",
+            "thumbnails": {
+              "defaultImage": false,
+              "dimensions": "80x60,160x120",
+              "resourceUrl": "https://docs.google.com/document/d/1WHtCDfXvgQXUPJTkh7tXbrFZoHC6vTiVzbtf1Yx3JBk/edit?usp=sharing",
+              "thumbnailAssetURI": "http://qacdn.gooru.org/qalive/",
+              "thumbnailFolder": "f000/2156/8901/",
+              "thumbnailName": "2e81e767-98fb-45e6-b0e7-f3daefe539da_45c8a668-c364-4a1f-8fb7-17df54781dce.jpg",
+              "thumbnailResourceType": {
+                "name": "resource/url"
+              },
+              "url": "http://qacdn.gooru.org/qalive/f000/2156/8901/2e81e767-98fb-45e6-b0e7-f3daefe539da_45c8a668-c364-4a1f-8fb7-17df54781dce.jpg"
+            },
+            "title": "14.2 Europe Annotated Text",
+            "url": "https://docs.google.com/document/d/1WHtCDfXvgQXUPJTkh7tXbrFZoHC6vTiVzbtf1Yx3JBk/edit?usp=sharing",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "9587016b-1c45-4b45-9b96-137207b9f32c",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "text",
+            "folder": "f000/2156/8902/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "text"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "thumbnail": "014d32a3-f850-46b4-8a63-7a8b4eb332ac_f015ba21-0769-44b1-8102-5800bfd1b68a.jpg",
+            "thumbnails": {
+              "defaultImage": false,
+              "dimensions": "80x60,160x120",
+              "resourceUrl": "https://docs.google.com/document/d/1w5OkoG9iB6nM0xzwQV02vRU2YtYB_jchObcCQrT0hIU/edit?usp=sharing",
+              "thumbnailAssetURI": "http://qacdn.gooru.org/qalive/",
+              "thumbnailFolder": "f000/2156/8902/",
+              "thumbnailName": "014d32a3-f850-46b4-8a63-7a8b4eb332ac_f015ba21-0769-44b1-8102-5800bfd1b68a.jpg",
+              "thumbnailResourceType": {
+                "name": "resource/url"
+              },
+              "url": "http://qacdn.gooru.org/qalive/f000/2156/8902/014d32a3-f850-46b4-8a63-7a8b4eb332ac_f015ba21-0769-44b1-8102-5800bfd1b68a.jpg"
+            },
+            "title": "14.3 Student Reflection on Europe",
+            "url": "https://docs.google.com/document/d/1w5OkoG9iB6nM0xzwQV02vRU2YtYB_jchObcCQrT0hIU/edit?usp=sharing",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "bff2c7a2-4da6-4897-9ead-128e838c0435",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "video",
+            "folder": "f000/2157/7425/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "video"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "title": "Animals of Europe",
+            "url": "http://app.discoveryeducation.com/player/view/assetGuid/016E7759-C839-4634-B401-9AAADECB9C3D",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "ddc280cc-25ce-4800-8392-f58c0e995ce0",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "text",
+            "folder": "f000/2156/8899/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "text"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "thumbnail": "870b6832-4607-41f4-a447-bb0dfe1303c3_30f5273d-1244-4e95-8e6f-3f5a066d3450.jpg",
+            "thumbnails": {
+              "defaultImage": false,
+              "dimensions": "80x60,160x120",
+              "resourceUrl": "https://docs.google.com/file/d/0Bx-wBb9Q5DkJZkJWVFB1NVRsNFE/edit",
+              "thumbnailAssetURI": "http://qacdn.gooru.org/qalive/",
+              "thumbnailFolder": "f000/2156/8899/",
+              "thumbnailName": "870b6832-4607-41f4-a447-bb0dfe1303c3_30f5273d-1244-4e95-8e6f-3f5a066d3450.jpg",
+              "thumbnailResourceType": {
+                "name": "resource/url"
+              },
+              "url": "http://qacdn.gooru.org/qalive/f000/2156/8899/870b6832-4607-41f4-a447-bb0dfe1303c3_30f5273d-1244-4e95-8e6f-3f5a066d3450.jpg"
+            },
+            "title": "Lesson Plan",
+            "url": "https://docs.google.com/file/d/0Bx-wBb9Q5DkJZkJWVFB1NVRsNFE/edit",
+            "views": 0
+          }
+        }
+      ],
+      "collectionType": "collection",
+      "contentId": 21568896,
+      "contentOrganizationCode": "gooru",
+      "contentOrganizationName": "Gooru",
+      "contentOrganizationUid": "4261739e-ccae-11e1-adfb-5404a609bd14",
+      "creatorFirstname": "SAUSD",
+      "creatorId": "9b4c83b0-a091-47c8-b676-8b11f32f2d68",
+      "creatorLastname": "SS",
+      "creatornameDisplay": "SAUSDSS",
+      "description": "Students will learn about the continent of Europe.",
+      "distinguish": 10,
+      "folder": "f000/2156/8896/",
+      "goals": "Students will learn about the continent of Europe.",
+      "gooruUId": "9b4c83b0-a091-47c8-b676-8b11f32f2d68",
+      "grade": "1",
+      "id": "2c352d9d-3950-46cc-b17b-49dd1f9ac26c",
+      "languageObjective": "Students+will+describe+Europe.+%0A%0AStudent+Friendly%3A+Today+you+will+talk+about+Europe.",
+      "lastModified": "2015-10-28T09:57:41.000Z",
+      "lastModifiedBy": "0a1788e8-89e0-499a-8cca-981a2f58f93d",
+      "lesson": "",
+      "libraryNames": [
+        "sausd"
+      ],
+      "license": {},
+      "numberOfResources": 5,
+      "profileUserVisibility": false,
+      "questionCount": "0",
+      "ratings": {
+        "count": 0.0,
+        "average": 0
+      },
+      "resourceCount": "5",
+      "scollectionRemixCount": 0,
+      "sharing": "public",
+      "skills": [],
+      "subject": " Language Arts  ",
+      "tags": [],
+      "taxonomyDataSet": "{\"course\":[\"English Language Arts 1\"],\"topic\":[],\"unit\":[],\"lesson\":[],\"subject\":[\" Language Arts  \"],\"curriculum\":{\"curriculumName\":[\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\",\"Common Core State Standards - ELA\"],\"curriculumCode\":[\"CCSS.ELA-Literacy.L.1.2\",\"CCSS.ELA-Literacy.W.1.2\",\"CCSS.ELA-Literacy.SL.1.2\",\"CCSS.ELA-Literacy.RI.1.5\",\"CCSS.ELA-Literacy.SL.1.1\",\"CCSS.ELA-Literacy.RI.1.6\",\"CCSS.ELA-Literacy.RI.1.2\",\"CCSS.ELA-Literacy.RF.1.1\",\"CCSS.ELA-Literacy.RF.1.3\",\"CCSS.ELA-Literacy.RF.1.4\",\"CCSS.ELA-Literacy.SL.1.4\",\"CCSS.ELA-Literacy.SL.1.6\"],\"curriculumDesc\":[\"Demonstrate command of the conventions of standard English capitalization, punctuation, and spelling when writing.\",\"Write informative/explanatory texts in which they name a topic, supply some facts about the topic, and provide some sense of closure.\",\"Ask and answer questions about key details in a text read aloud or information presented orally or through other media.\",\"Know and use various text features (e.g., headings, tables of contents, glossaries, electronic menus, icons) to locate key facts or information in a text.\",\"Participate in collaborative conversations with diverse partners about grade 1 topics and texts with peers and adults in small and larger groups.\",\"Distinguish between information provided by pictures or other illustrations and information provided by the words in a text.\",\"Identify the main topic and retell key details of a text.\",\"Demonstrate understanding of the organization and basic features of print.\",\"Know and apply grade-level phonics and word analysis skills in decoding words.\",\"Read with sufficient accuracy and fluency to support comprehension.\",\"Describe people, places, things, and events with relevant details, expressing ideas and feelings clearly.\",\"Produce complete sentences when appropriate to task and situation.\"]}}",
+      "taxonomyLesson": "",
+      "taxonomySkills": "",
+      "thumbnail": "f000/2156/8896/2c352d9d-3950-46cc-b17b-49dd1f9ac26c_93fe49c8-8455-431e-9437-b2e00dca89e9.jpg",
+      "thumbnails": {
+        "defaultImage": false,
+        "dimensions": "80x60,160x120",
+        "url": "http://qacdn.gooru.org/qalive/f000/2156/8896/2c352d9d-3950-46cc-b17b-49dd1f9ac26c_93fe49c8-8455-431e-9437-b2e00dca89e9.jpg"
+      },
+      "title": "Europe",
+      "topic": "",
+      "type": "collection",
+      "unit": "",
+      "userFirstName": "SAUSD",
+      "userLastName": "SS",
+      "usernameDisplay": "SAUSDSS",
+      "viewCount": 0
+    },
+    {
+      "addDate": "2013-06-21T23:21:59.000Z",
+      "assetURI": "http://qacdn.gooru.org/qalive/",
+      "category": "noQuestion",
+      "collaboratorCount": 0,
+      "collaborators": "",
+      "collectionItemCount": 7,
+      "collectionItems": [
+        {
+          "collectionItemId": "0fdc38d2-eba2-43c3-9ad9-05856513bd68",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Interactive",
+            "folder": "f000/1164/1080/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "interactive"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "title": "Europe Map Match Game - By KidsGeo.com",
+            "url": "http://www.kidsgeo.com/geography-games/europe-map-game.php",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "1a187294-1a43-4a64-87eb-00c4f81cd88f",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Website",
+            "folder": "f000/1164/1082/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "webpage"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "title": "Geography for Kids: European countries flags, maps, industries, culture of Europe",
+            "url": "http://www.ducksters.com/geography/europe.php",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "21955734-d430-47d9-ab9f-38396631407c",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Interactive",
+            "folder": "f000/1164/1084/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "interactive"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "title": "Explore Countries of the World -- National Geograp",
+            "url": "http://kids.nationalgeographic.com/kids/places/find",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "4a3fac8d-dd79-4a7a-84f4-8de1ea26d95a",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Interactive",
+            "folder": "f000/1164/1086/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "interactive"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "title": "Test Your Geography Knowledge- Europe",
+            "url": "http://www.lizardpoint.com/fun/geoquiz/euroquiz.html",
+            "views": 0
+          }
+        }
+      ],
+      "collectionType": "collection",
+      "contentId": 11641078,
+      "contentOrganizationCode": "gooru",
+      "contentOrganizationName": "Gooru",
+      "contentOrganizationUid": "4261739e-ccae-11e1-adfb-5404a609bd14",
+      "creatorFirstname": "Emily",
+      "creatorId": "840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "creatorLastname": "Liebtag",
+      "creatornameDisplay": "emily.liebtag",
+      "description": "Students will be able to examine maps (physical and political) in order to describe the location of the continent and identify its major features, both natural and man-made.",
+      "distinguish": 0,
+      "folder": "f000/1164/1078/",
+      "goals": "Students will be able to examine maps (physical and political) in order to describe the location of the continent and identify its major features, both natural and man-made.",
+      "gooruUId": "840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "grade": "5",
+      "id": "8b571177-3235-4f11-9e7a-b4be3aecd267",
+      "lastModified": "2015-06-19T14:12:52.000Z",
+      "lastModifiedBy": "840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "lesson": "",
+      "libraryNames": [],
+      "license": {
+        "code": "",
+        "definition": "",
+        "icon": "",
+        "name": "Other",
+        "tag": "",
+        "url": " "
+      },
+      "numberOfResources": 7,
+      "profileUserVisibility": false,
+      "questionCount": "0",
+      "ratings": {
+        "count": 0.0,
+        "average": 0
+      },
+      "resourceCount": "7",
+      "scollectionRemixCount": 0,
+      "sharing": "public",
+      "skills": [],
+      "subject": "",
+      "tags": [],
+      "taxonomyDataSet": "{\"course\":[],\"topic\":[],\"unit\":[],\"lesson\":[],\"subject\":[],\"curriculum\":{\"curriculumName\":[],\"curriculumCode\":[],\"curriculumDesc\":[]}}",
+      "taxonomyLesson": "",
+      "taxonomySkills": "",
+      "thumbnail": "f000/1164/1078/8b571177-3235-4f11-9e7a-b4be3aecd267_08a2e653-95c7-4cc6-9dc2-257cedfb9952.png",
+      "thumbnails": {
+        "defaultImage": false,
+        "dimensions": "80x60,160x120",
+        "url": "http://qacdn.gooru.org/qalive/f000/1164/1078/8b571177-3235-4f11-9e7a-b4be3aecd267_08a2e653-95c7-4cc6-9dc2-257cedfb9952.png"
+      },
+      "title": "Europe",
+      "topic": "",
+      "type": "collection",
+      "unit": "",
+      "userFirstName": "Emily",
+      "userLastName": "Liebtag",
+      "usernameDisplay": "emily.liebtag",
+      "viewCount": 0
+    },
+    {
+      "addDate": "2013-05-02T11:51:56.000Z",
+      "assetURI": "http://qacdn.gooru.org/qalive/",
+      "batchId": "QUESTSCOLLACOPSTOPROD",
+      "category": "someQuestion",
+      "collaboratorCount": 0,
+      "collaborators": "",
+      "collectionItemCount": 5,
+      "collectionItems": [
+        {
+          "collectionItemId": "87dd82f6-843f-11e3-a253-12313f070480",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Video",
+            "folder": "f000/0227/0408/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "video"
+            },
+            "resourceType": {
+              "name": "video/youtube"
+            },
+            "taxonomySet": [],
+            "thumbnail": "http://i1.ytimg.com/vi/b3fYF6YvesA/hqdefault.jpg",
+            "thumbnails": {
+              "defaultImage": false,
+              "dimensions": "80x60,160x120",
+              "resourceUrl": "http://www.youtube.com/watch?v=b3fYF6YvesA",
+              "thumbnailAssetURI": "http://qacdn.gooru.org/qalive/",
+              "thumbnailFolder": "f000/0227/0408/",
+              "thumbnailName": "http://i1.ytimg.com/vi/b3fYF6YvesA/hqdefault.jpg",
+              "thumbnailResourceType": {
+                "name": "video/youtube"
+              },
+              "url": "http://qacdn.gooru.org/qalive/f000/0227/0408/http://i1.ytimg.com/vi/b3fYF6YvesA/hqdefault.jpg"
+            },
+            "title": "Turning Points In History - Age Of Exploration",
+            "url": "http://www.youtube.com/watch?v=b3fYF6YvesA",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "87dd858a-843f-11e3-a253-12313f070480",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Interactive",
+            "folder": "f000/0227/0410/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "interactive"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "thumbnail": "d5d321c8-987d-4978-9c72-8bbfdd545bfb.png",
+            "thumbnails": {
+              "defaultImage": false,
+              "dimensions": "80x60,160x120",
+              "resourceUrl": "http://ageofex.marinersmuseum.org/index.php?page=voyages",
+              "thumbnailAssetURI": "http://qacdn.gooru.org/qalive/",
+              "thumbnailFolder": "f000/0227/0410/",
+              "thumbnailName": "d5d321c8-987d-4978-9c72-8bbfdd545bfb.png",
+              "thumbnailResourceType": {
+                "name": "resource/url"
+              },
+              "url": "http://qacdn.gooru.org/qalive/f000/0227/0410/d5d321c8-987d-4978-9c72-8bbfdd545bfb.png"
+            },
+            "title": "Exploration Through The Ages",
+            "url": "http://ageofex.marinersmuseum.org/index.php?page=voyages",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "87dd880a-843f-11e3-a253-12313f070480",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Video",
+            "folder": "f000/0227/0411/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "video"
+            },
+            "resourceType": {
+              "name": "video/youtube"
+            },
+            "taxonomySet": [],
+            "thumbnail": "http://i1.ytimg.com/vi/PnDYnjiLUic/hqdefault.jpg",
+            "thumbnails": {
+              "defaultImage": false,
+              "dimensions": "80x60,160x120",
+              "resourceUrl": "http://www.youtube.com/watch?v=PnDYnjiLUic",
+              "thumbnailAssetURI": "http://qacdn.gooru.org/qalive/",
+              "thumbnailFolder": "f000/0227/0411/",
+              "thumbnailName": "http://i1.ytimg.com/vi/PnDYnjiLUic/hqdefault.jpg",
+              "thumbnailResourceType": {
+                "name": "video/youtube"
+              },
+              "url": "http://qacdn.gooru.org/qalive/f000/0227/0411/http://i1.ytimg.com/vi/PnDYnjiLUic/hqdefault.jpg"
+            },
+            "title": "World Exploration During The Renaissance",
+            "url": "http://www.youtube.com/watch?v=PnDYnjiLUic",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "87dd894a-843f-11e3-a253-12313f070480",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Question",
+            "folder": "f000/1433/3988/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "question"
+            },
+            "resourceType": {
+              "name": "assessment-question"
+            },
+            "taxonomySet": [],
+            "title": "What were the first countries to launch ocean voyages?",
+            "url": "",
+            "views": 0
+          }
+        }
+      ],
+      "collectionType": "collection",
+      "contentId": 11666943,
+      "contentOrganizationCode": "gooru",
+      "contentOrganizationName": "Gooru",
+      "contentOrganizationUid": "4261739e-ccae-11e1-adfb-5404a609bd14",
+      "creatorFirstname": "Jack",
+      "creatorId": "e726e79f-b350-4153-b2f6-1f53456fe568",
+      "creatorLastname": "Moser",
+      "creatornameDisplay": "JackMoser",
+      "description": "Students will learn about the Renaissance and its influence on the science and technology that eventually led to European explorations.",
+      "distinguish": 0,
+      "folder": "f000/1166/6943/",
+      "goals": "Students will learn about the Renaissance and its influence on the science and technology that eventually led to European explorations.",
+      "gooruUId": "9bf38c72-7719-45ae-a9cb-6c5d519dd8dd",
+      "grade": "8",
+      "id": "f7887c85-2c75-4e89-9d82-e175ade558f7",
+      "lastModified": "2015-06-19T14:12:52.000Z",
+      "lesson": "Europe Begins to Explore",
+      "libraryNames": [],
+      "license": {
+        "code": "",
+        "definition": "",
+        "icon": "",
+        "name": "Other",
+        "tag": "",
+        "url": " "
+      },
+      "network": "Gooru",
+      "numberOfResources": 5,
+      "profileUserVisibility": true,
+      "questionCount": "2",
+      "ratings": {
+        "count": 0.0,
+        "average": 0
+      },
+      "resourceCount": "3",
+      "scollectionRemixCount": 6,
+      "sharing": "public",
+      "skills": [],
+      "subject": "Social Sciences",
+      "tags": [],
+      "taxonomyDataSet": "{\"course\":[\"US History\"],\"topic\":[\"Colonizing America: Prehistory-1754\"],\"unit\":[\"Creating a Nation\"],\"lesson\":[\"Europe Begins to Explore\"],\"subject\":[\"Social Sciences\"],\"curriculum\":{\"curriculumName\":[],\"curriculumCode\":[],\"curriculumDesc\":[]}}",
+      "taxonomyLesson": "Europe Begins to Explore",
+      "taxonomySkills": "",
+      "thumbnail": "f000/1166/6943/35ea21fb-868b-4636-a6e3-d4fe74fbeec9.png",
+      "thumbnails": {
+        "defaultImage": false,
+        "dimensions": "80x60,160x120",
+        "url": "http://qacdn.gooru.org/qalive/f000/1166/6943/35ea21fb-868b-4636-a6e3-d4fe74fbeec9.png"
+      },
+      "title": "European Explorations",
+      "topic": "Colonizing America: Prehistory-1754",
+      "type": "collection",
+      "unit": "Creating a Nation",
+      "userFirstName": "Linda",
+      "userLastName": "Brown",
+      "usernameDisplay": "LindaBrown",
+      "viewCount": 0
+    },
+    {
+      "addDate": "2013-05-02T12:08:58.000Z",
+      "assetURI": "http://qacdn.gooru.org/qalive/",
+      "batchId": "QUESTSCOLLACOPSTOPROD",
+      "category": "someQuestion",
+      "collaboratorCount": 0,
+      "collaborators": "",
+      "collectionItemCount": 6,
+      "collectionItems": [
+        {
+          "collectionItemId": "87f26342-843f-11e3-a253-12313f070480",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Interactive",
+            "folder": "f000/0226/9170/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "interactive"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "thumbnail": "eb761be2-e2e6-4f68-902b-3fd67c03d8ff-80x60.gif",
+            "thumbnails": {
+              "defaultImage": false,
+              "dimensions": "80x60,160x120",
+              "resourceUrl": "http://www.metmuseum.org/toah/world-regions/#/07/Europe",
+              "thumbnailAssetURI": "http://qacdn.gooru.org/qalive/",
+              "thumbnailFolder": "f000/0226/9170/",
+              "thumbnailName": "eb761be2-e2e6-4f68-902b-3fd67c03d8ff-80x60.gif",
+              "thumbnailResourceType": {
+                "name": "resource/url"
+              },
+              "url": "http://qacdn.gooru.org/qalive/f000/0226/9170/eb761be2-e2e6-4f68-902b-3fd67c03d8ff-80x60.gif"
+            },
+            "title": "Europe 1000-1400 AD",
+            "url": "http://www.metmuseum.org/toah/world-regions/#/07/Europe",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "87f26496-843f-11e3-a253-12313f070480",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Video",
+            "folder": "f000/0012/9660/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "video"
+            },
+            "resourceType": {
+              "name": "video/youtube"
+            },
+            "taxonomySet": [],
+            "thumbnail": "http://i1.ytimg.com/vi/XrPe3aOM678/hqdefault.jpg",
+            "thumbnails": {
+              "defaultImage": false,
+              "dimensions": "80x60,160x120",
+              "resourceUrl": "http://www.youtube.com/watch?v=XrPe3aOM678",
+              "thumbnailAssetURI": "http://qacdn.gooru.org/qalive/",
+              "thumbnailFolder": "f000/0012/9660/",
+              "thumbnailName": "http://i1.ytimg.com/vi/XrPe3aOM678/hqdefault.jpg",
+              "thumbnailResourceType": {
+                "name": "video/youtube"
+              },
+              "url": "http://qacdn.gooru.org/qalive/f000/0012/9660/http://i1.ytimg.com/vi/XrPe3aOM678/hqdefault.jpg"
+            },
+            "title": "Metal Making & Roman Roads - Wild Europe - Bbc Natural History",
+            "url": "http://www.youtube.com/watch?v=XrPe3aOM678",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "87f265d6-843f-11e3-a253-12313f070480",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Handout",
+            "folder": "f000/0226/9172/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "webpage"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "thumbnail": "33c51a18-f652-45e1-9083-9e594cee0136.png",
+            "thumbnails": {
+              "defaultImage": false,
+              "dimensions": "80x60,160x120",
+              "resourceUrl": "http://www.fordham.edu/halsall/maps/mapquiz.asp",
+              "thumbnailAssetURI": "http://qacdn.gooru.org/qalive/",
+              "thumbnailFolder": "f000/0226/9172/",
+              "thumbnailName": "33c51a18-f652-45e1-9083-9e594cee0136.png",
+              "thumbnailResourceType": {
+                "name": "resource/url"
+              },
+              "url": "http://qacdn.gooru.org/qalive/f000/0226/9172/33c51a18-f652-45e1-9083-9e594cee0136.png"
+            },
+            "title": "Geography Quiz",
+            "url": "http://www.fordham.edu/halsall/maps/mapquiz.asp",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "87f2670c-843f-11e3-a253-12313f070480",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Interactive",
+            "folder": "f000/0226/9171/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "interactive"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "thumbnail": "aea0a5e3-1912-4778-af92-b7644a1c81ff-80x60.jpg",
+            "thumbnails": {
+              "defaultImage": false,
+              "dimensions": "80x60,160x120",
+              "resourceUrl": "http://www.worldology.com/Europe/dark_ages_imap.htm",
+              "thumbnailAssetURI": "http://qacdn.gooru.org/qalive/",
+              "thumbnailFolder": "f000/0226/9171/",
+              "thumbnailName": "aea0a5e3-1912-4778-af92-b7644a1c81ff-80x60.jpg",
+              "thumbnailResourceType": {
+                "name": "resource/url"
+              },
+              "url": "http://qacdn.gooru.org/qalive/f000/0226/9171/aea0a5e3-1912-4778-af92-b7644a1c81ff-80x60.jpg"
+            },
+            "title": "Map of the Dark Ages",
+            "url": "http://www.worldology.com/Europe/dark_ages_imap.htm",
+            "views": 0
+          }
+        }
+      ],
+      "collectionType": "collection",
+      "contentId": 11666572,
+      "contentOrganizationCode": "gooru",
+      "contentOrganizationName": "Gooru",
+      "contentOrganizationUid": "4261739e-ccae-11e1-adfb-5404a609bd14",
+      "creatorFirstname": "Jack",
+      "creatorId": "e726e79f-b350-4153-b2f6-1f53456fe568",
+      "creatorLastname": "Moser",
+      "creatornameDisplay": "JackMoser",
+      "description": "Students will be able to explain how geography influenced European settlement.",
+      "distinguish": 0,
+      "folder": "f000/1166/6572/",
+      "goals": "Students will be able to explain how geography influenced European settlement.",
+      "gooruUId": "9bf38c72-7719-45ae-a9cb-6c5d519dd8dd",
+      "grade": "7",
+      "id": "aeec6a81-e5a8-4c27-9d55-5696dbae51ac",
+      "lastModified": "2015-06-19T14:12:52.000Z",
+      "lesson": "The Early Middle Ages",
+      "libraryNames": [],
+      "license": {
+        "code": "",
+        "definition": "",
+        "icon": "",
+        "name": "Other",
+        "tag": "",
+        "url": " "
+      },
+      "network": "Gooru",
+      "numberOfResources": 6,
+      "profileUserVisibility": true,
+      "questionCount": "2",
+      "ratings": {
+        "count": 0.0,
+        "average": 0
+      },
+      "resourceCount": "4",
+      "scollectionRemixCount": 2,
+      "sharing": "public",
+      "skills": [],
+      "subject": "Social Sciences",
+      "tags": [],
+      "taxonomyDataSet": "{\"course\":[\"World History\"],\"topic\":[\"Medieval Europe\"],\"unit\":[\" The Middle Ages  \"],\"lesson\":[\"The Early Middle Ages\"],\"subject\":[\"Social Sciences\"],\"curriculum\":{\"curriculumName\":[],\"curriculumCode\":[],\"curriculumDesc\":[]}}",
+      "taxonomyLesson": "The Early Middle Ages",
+      "taxonomySkills": "",
+      "thumbnail": "f000/1166/6572/dddf488e-f10d-47fc-9410-a476c185e60a.png",
+      "thumbnails": {
+        "defaultImage": false,
+        "dimensions": "80x60,160x120",
+        "url": "http://qacdn.gooru.org/qalive/f000/1166/6572/dddf488e-f10d-47fc-9410-a476c185e60a.png"
+      },
+      "title": "The Geography of Europe",
+      "topic": "Medieval Europe",
+      "type": "collection",
+      "unit": " The Middle Ages  ",
+      "userFirstName": "Linda",
+      "userLastName": "Brown",
+      "usernameDisplay": "LindaBrown",
+      "viewCount": 0
+    },
+    {
+      "addDate": "2013-07-10T13:58:52.000Z",
+      "assetURI": "http://qacdn.gooru.org/qalive/",
+      "category": "noQuestion",
+      "collaboratorCount": 0,
+      "collaborators": "",
+      "collectionItemCount": 7,
+      "collectionItems": [
+        {
+          "collectionItemId": "2352d227-35ae-488f-b0b0-3d7ffe7918aa",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Website",
+            "folder": "f000/1164/7078/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "webpage"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "title": "Acid Rain - Causes, Effects, and Solutions",
+            "url": "http://geography.about.com/od/globalproblemsandissues/a/acidrain.htm",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "46133f5f-4b6a-46ba-9a75-2c4b47093e12",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Interactive",
+            "folder": "f000/1164/7079/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "interactive"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "title": "Acid rain in Europe | GRID-Arendal - Maps ",
+            "url": "http://www.grida.no/graphicslib/detail/acid-rain-in-europe_2853",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "4742cbbe-88b4-4c6f-9b7d-57ebbcd7063d",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Exam",
+            "folder": "f000/1164/7083/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "webpage"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "title": "Pollution Quiz - National Geographic",
+            "url": "http://environment.nationalgeographic.com/environment/global-warming/pollution-quiz",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "4e9afbc9-3c0b-471b-969c-3da811ef9f9c",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Video",
+            "folder": "f000/1164/7080/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "video"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "title": "BBC - Learning Zone Class Clips - Improving air po",
+            "url": "http://www.bbc.co.uk/learningzone/clips/improving-air-pollution-across-europe/1579.html",
+            "views": 0
+          }
+        }
+      ],
+      "collectionType": "collection",
+      "contentId": 11646662,
+      "contentOrganizationCode": "gooru",
+      "contentOrganizationName": "Gooru",
+      "contentOrganizationUid": "4261739e-ccae-11e1-adfb-5404a609bd14",
+      "creatorFirstname": "Emily",
+      "creatorId": "840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "creatorLastname": "Liebtag",
+      "creatornameDisplay": "emily.liebtag",
+      "description": "Students will be able to understand that acid rain is damaging Europe's forests, waterways, wildlife, and buildings, that air pollution from factories endangers public health and the environment, that greenhouse gases contribute to global warming, and that  pollution threatens the water quality and wildlife in the Mediterranean Sea and Eastern Europe.",
+      "distinguish": 0,
+      "folder": "f000/1164/6662/",
+      "goals": "Students will be able to understand that acid rain is damaging Europe's forests, waterways, wildlife, and buildings, that air pollution from factories endangers public health and the environment, that greenhouse gases contribute to global warming, and that  pollution threatens the water quality and wildlife in the Mediterranean Sea and Eastern Europe.",
+      "gooruUId": "840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "grade": "5",
+      "id": "48be4c3e-6416-47cb-a650-3cd8bce6361b",
+      "lastModified": "2015-06-19T14:12:52.000Z",
+      "lastModifiedBy": "840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "lesson": "",
+      "libraryNames": [],
+      "license": {
+        "code": "",
+        "definition": "",
+        "icon": "",
+        "name": "Other",
+        "tag": "",
+        "url": " "
+      },
+      "numberOfResources": 7,
+      "profileUserVisibility": false,
+      "questionCount": "0",
+      "ratings": {
+        "count": 0.0,
+        "average": 0
+      },
+      "resourceCount": "7",
+      "scollectionRemixCount": 1,
+      "sharing": "public",
+      "skills": [],
+      "subject": "",
+      "tags": [],
+      "taxonomyDataSet": "{\"course\":[],\"topic\":[],\"unit\":[],\"lesson\":[],\"subject\":[],\"curriculum\":{\"curriculumName\":[],\"curriculumCode\":[],\"curriculumDesc\":[]}}",
+      "taxonomyLesson": "",
+      "taxonomySkills": "",
+      "thumbnail": "f000/1164/6662/48be4c3e-6416-47cb-a650-3cd8bce6361b_12e92fe6-e6c3-4f51-a2ae-12860a2e2aaf.png",
+      "thumbnails": {
+        "defaultImage": false,
+        "dimensions": "80x60,160x120",
+        "url": "http://qacdn.gooru.org/qalive/f000/1164/6662/48be4c3e-6416-47cb-a650-3cd8bce6361b_12e92fe6-e6c3-4f51-a2ae-12860a2e2aaf.png"
+      },
+      "title": "Pollution in Europe",
+      "topic": "",
+      "type": "collection",
+      "unit": "",
+      "userFirstName": "Emily",
+      "userLastName": "Liebtag",
+      "usernameDisplay": "emily.liebtag",
+      "viewCount": 0
+    },
+    {
+      "addDate": "2014-05-23T22:14:31.000Z",
+      "assetURI": "http://qacdn.gooru.org/qalive/",
+      "category": "noQuestion",
+      "collaboratorCount": 0,
+      "collaborators": "",
+      "collectionItemCount": 4,
+      "collectionItems": [
+        {
+          "collectionItemId": "b76983d0-e2c7-11e3-a253-12313f070480",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Interactive",
+            "folder": "f000/2119/1595/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "interactive"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "title": "Spice Islands Historic Maps",
+            "url": "http://libweb5.princeton.edu/visual_materials/maps/websites/pacific/spice-islands/spice-islands-maps.html",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "c77010f0-e2c7-11e3-a253-12313f070480",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Website",
+            "folder": "f000/2119/1709/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "webpage"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "title": "indahnesia.com - Maluku - History of Maluku - Hist",
+            "url": "http://indahnesia.com/indonesia/MALHIS",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "d81f1a18-e2c7-11e3-a253-12313f070480",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Video",
+            "folder": "f000/2119/2222/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "video"
+            },
+            "resourceType": {
+              "name": "video/youtube"
+            },
+            "taxonomySet": [],
+            "thumbnail": "b0418ea8-a575-46f5-bd81-5eb2cd3b2852_64663713-7d20-4f25-b54f-cbe1cedfe336.jpg",
+            "thumbnails": {
+              "defaultImage": false,
+              "dimensions": "80x60,160x120",
+              "resourceUrl": "http://www.youtube.com/watch?v=2pQ7XxjNWlE",
+              "thumbnailAssetURI": "http://qacdn.gooru.org/qalive/",
+              "thumbnailFolder": "f000/2119/2222/",
+              "thumbnailName": "b0418ea8-a575-46f5-bd81-5eb2cd3b2852_64663713-7d20-4f25-b54f-cbe1cedfe336.jpg",
+              "thumbnailResourceType": {
+                "name": "video/youtube"
+              },
+              "url": "http://qacdn.gooru.org/qalive/f000/2119/2222/b0418ea8-a575-46f5-bd81-5eb2cd3b2852_64663713-7d20-4f25-b54f-cbe1cedfe336.jpg"
+            },
+            "title": "BBC.The.Spice.Trail.2of3.Nutmeg.and.Cloves 003",
+            "url": "http://www.youtube.com/watch?v=2pQ7XxjNWlE",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "e8bd18ac-e2c7-11e3-a253-12313f070480",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Exam",
+            "folder": "f000/2119/2372/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "text"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "title": "History Ch. 14/15 Terms for Quiz flashcards | Quiz",
+            "url": "http://quizlet.com/4707339/history-ch-1415-terms-for-quiz-flash-cards",
+            "views": 0
+          }
+        }
+      ],
+      "collectionType": "collection",
+      "contentId": 21191594,
+      "contentOrganizationCode": "gooru",
+      "contentOrganizationName": "Gooru",
+      "contentOrganizationUid": "4261739e-ccae-11e1-adfb-5404a609bd14",
+      "creatorFirstname": "Ashley",
+      "creatorId": "97cd124f-f10f-4f47-b3fe-9034bf0e5fb6",
+      "creatorLastname": "W.",
+      "creatornameDisplay": "washley",
+      "description": "Students will learn about the arrival of the Europeans in southeast Asia during this time.  Students will learn how the mainland states of southeast Asia were able to come together to resist the Europeans and their influences. ",
+      "distinguish": 0,
+      "folder": "f000/2119/1594/",
+      "goals": "Students will learn about the arrival of the Europeans in southeast Asia during this time.  Students will learn how the mainland states of southeast Asia were able to come together to resist the Europeans and their influences. ",
+      "gooruUId": "97cd124f-f10f-4f47-b3fe-9034bf0e5fb6",
+      "grade": "12",
+      "id": "cef507a1-9de4-439d-bc05-84c2bfb8ea42",
+      "lastModified": "2015-06-19T14:12:52.000Z",
+      "lesson": "",
+      "libraryNames": [],
+      "license": {},
+      "numberOfResources": 4,
+      "profileUserVisibility": false,
+      "questionCount": "0",
+      "ratings": {
+        "count": 0.0,
+        "average": 0
+      },
+      "resourceCount": "4",
+      "scollectionRemixCount": 0,
+      "sharing": "public",
+      "skills": [],
+      "subject": "",
+      "tags": [],
+      "taxonomyDataSet": "{\"course\":[],\"topic\":[],\"unit\":[],\"lesson\":[],\"subject\":[],\"curriculum\":{\"curriculumName\":[],\"curriculumCode\":[],\"curriculumDesc\":[]}}",
+      "taxonomyLesson": "",
+      "taxonomySkills": "",
+      "thumbnail": "f000/2119/1594/cef507a1-9de4-439d-bc05-84c2bfb8ea42_55aa252e-d1ec-4f8a-9fd7-75e43c442fba.png",
+      "thumbnails": {
+        "defaultImage": false,
+        "dimensions": "80x60,160x120",
+        "url": "http://qacdn.gooru.org/qalive/f000/2119/1594/cef507a1-9de4-439d-bc05-84c2bfb8ea42_55aa252e-d1ec-4f8a-9fd7-75e43c442fba.png"
+      },
+      "title": "The Arrival of Europeans",
+      "topic": "",
+      "type": "collection",
+      "unit": "",
+      "userFirstName": "Ashley",
+      "userLastName": "W.",
+      "usernameDisplay": "washley",
+      "viewCount": 0
+    },
+    {
+      "addDate": "2014-05-23T21:55:33.000Z",
+      "assetURI": "http://qacdn.gooru.org/qalive/",
+      "category": "noQuestion",
+      "collaboratorCount": 0,
+      "collaborators": "",
+      "collectionItemCount": 4,
+      "collectionItems": [
+        {
+          "collectionItemId": "12ae14f2-e2c5-11e3-a253-12313f070480",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Website",
+            "folder": "f000/0227/3107/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "webpage"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "thumbnail": "8784b538-c909-4cd1-abd3-8766f90aeaa3-80x60.jpg",
+            "thumbnails": {
+              "defaultImage": false,
+              "dimensions": "80x60,160x120",
+              "resourceUrl": "http://www.historywiz.com/revolutionary.htm",
+              "thumbnailAssetURI": "http://qacdn.gooru.org/qalive/",
+              "thumbnailFolder": "f000/0227/3107/",
+              "thumbnailName": "8784b538-c909-4cd1-abd3-8766f90aeaa3-80x60.jpg",
+              "thumbnailResourceType": {
+                "name": "resource/url"
+              },
+              "url": "http://qacdn.gooru.org/qalive/f000/0227/3107/8784b538-c909-4cd1-abd3-8766f90aeaa3-80x60.jpg"
+            },
+            "title": "An Interactive Napoleon Exhibit",
+            "url": "http://www.historywiz.com/revolutionary.htm",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "226e9de4-e2c5-11e3-a253-12313f070480",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Textbook",
+            "folder": "f000/2119/1508/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "text"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "title": "JSTOR: The Journal of Modern History, Vol. 22, No.",
+            "url": "http://www.jstor.org/discover/10.2307/1875877?uid=2",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "3984925e-e2c5-11e3-a253-12313f070480",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Video",
+            "folder": "f000/1168/4939/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "video"
+            },
+            "resourceType": {
+              "name": "video/youtube"
+            },
+            "taxonomySet": [],
+            "title": "Napoleon's early victories",
+            "url": "http://www.youtube.com/watch?v=gaAjVbTw5CI",
+            "views": 0
+          }
+        },
+        {
+          "collectionItemId": "4b171aaa-e2c5-11e3-a253-12313f070480",
+          "resource": {
+            "assetURI": "http://qacdn.gooru.org/qalive/",
+            "category": "Exam",
+            "folder": "f000/1168/4938/",
+            "isDeleted": 0,
+            "resourceFormat": {
+              "value": "text"
+            },
+            "resourceType": {
+              "name": "resource/url"
+            },
+            "taxonomySet": [],
+            "thumbnail": "aab27c2c-a556-4b41-9d8b-0ec4275c7a1c_98c493a6-8bc9-460e-9f60-9463ec44bab4.jpg",
+            "thumbnails": {
+              "defaultImage": false,
+              "dimensions": "80x60,160x120",
+              "resourceUrl": "https://docs.google.com/forms/d/1PueDjiM1dprGy1TRgbrMav2JjUUqMu569JFulcuh-_o/viewform",
+              "thumbnailAssetURI": "http://qacdn.gooru.org/qalive/",
+              "thumbnailFolder": "f000/1168/4938/",
+              "thumbnailName": "aab27c2c-a556-4b41-9d8b-0ec4275c7a1c_98c493a6-8bc9-460e-9f60-9463ec44bab4.jpg",
+              "thumbnailResourceType": {
+                "name": "resource/url"
+              },
+              "url": "http://qacdn.gooru.org/qalive/f000/1168/4938/aab27c2c-a556-4b41-9d8b-0ec4275c7a1c_98c493a6-8bc9-460e-9f60-9463ec44bab4.jpg"
+            },
+            "title": "The French Revolution and Napoleon Quiz",
+            "url": "https://docs.google.com/forms/d/1PueDjiM1dprGy1TRgbrMav2JjUUqMu569JFulcuh-_o/viewform",
+            "views": 0
+          }
+        }
+      ],
+      "collectionType": "collection",
+      "contentId": 21191502,
+      "contentOrganizationCode": "gooru",
+      "contentOrganizationName": "Gooru",
+      "contentOrganizationUid": "4261739e-ccae-11e1-adfb-5404a609bd14",
+      "creatorFirstname": "Ashley",
+      "creatorId": "97cd124f-f10f-4f47-b3fe-9034bf0e5fb6",
+      "creatorLastname": "W.",
+      "creatornameDisplay": "washley",
+      "description": "Students will learn about the two main reasons that brought the downfall of Napoleon and his army, which included the survival of Great Britain and the force of nationalism.  Students will learn that nationalism was spread to other countries under French rule and influence, and this sense of nationalism would unite the people against Napoleon and his great army.",
+      "distinguish": 0,
+      "folder": "f000/2119/1502/",
+      "goals": "Students will learn about the two main reasons that brought the downfall of Napoleon and his army, which included the survival of Great Britain and the force of nationalism.  Students will learn that nationalism was spread to other countries under French rule and influence, and this sense of nationalism would unite the people against Napoleon and his great army.",
+      "gooruUId": "97cd124f-f10f-4f47-b3fe-9034bf0e5fb6",
+      "grade": "12",
+      "id": "44f508bd-b0f1-4a01-9272-2a4e77e86940",
+      "lastModified": "2015-06-19T14:12:52.000Z",
+      "lesson": "",
+      "libraryNames": [],
+      "license": {},
+      "numberOfResources": 4,
+      "profileUserVisibility": false,
+      "questionCount": "0",
+      "ratings": {
+        "count": 0.0,
+        "average": 0
+      },
+      "resourceCount": "4",
+      "scollectionRemixCount": 0,
+      "sharing": "public",
+      "skills": [],
+      "subject": "",
+      "tags": [],
+      "taxonomyDataSet": "{\"course\":[],\"topic\":[],\"unit\":[],\"lesson\":[],\"subject\":[],\"curriculum\":{\"curriculumName\":[],\"curriculumCode\":[],\"curriculumDesc\":[]}}",
+      "taxonomyLesson": "",
+      "taxonomySkills": "",
+      "thumbnail": "f000/2119/1502/44f508bd-b0f1-4a01-9272-2a4e77e86940_1f61021b-aae7-4963-a661-5f47793ee928.png",
+      "thumbnails": {
+        "defaultImage": false,
+        "dimensions": "80x60,160x120",
+        "url": "http://qacdn.gooru.org/qalive/f000/2119/1502/44f508bd-b0f1-4a01-9272-2a4e77e86940_1f61021b-aae7-4963-a661-5f47793ee928.png"
+      },
+      "title": "The European Response",
+      "topic": "",
+      "type": "collection",
+      "unit": "",
+      "userFirstName": "Ashley",
+      "userLastName": "W.",
+      "usernameDisplay": "washley",
+      "viewCount": 0
+    }
+  ],
+  "stats": {
+    "totalHitCount": 1005,
+    "pageSize": 8
+  },
+  "totalHitCount": 1005
+}

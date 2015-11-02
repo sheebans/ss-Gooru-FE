@@ -5,7 +5,7 @@ module.exports = function (grunt) {
       "ember-test": 'ember test',
       "ember-test-cli": 'ember test --silent --reporter xunit',
       "ember-test-server": 'ember test --server',
-      "ember-server-stubby": 'ember server --proxy http://localhost:8882/gooruapi',
+      "ember-server-stubby": 'ember server --proxy http://localhost:8882',
     },
 
     stubby: {

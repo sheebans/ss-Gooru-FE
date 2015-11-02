@@ -20,9 +20,13 @@ test('visiting /search/collections', function(assert) {
 
     andThen(function() {
       const $searchButton = find('.search-button');
+      const $searchInput = find('.search-input');
+
+      fillIn($searchInput, 'europe');
       click($searchButton);
+
       andThen(function(){
-        assert.equal(currentURL(), '/search/collections?term=null');
+        assert.equal(currentURL(), '/search/collections?term=europe');
         const $filterSection = find('.search-filter');
         T.exists(assert, $filterSection, "Missing filter section");
       });
