@@ -17,9 +17,23 @@ test('search-filter-default', function(assert) {
   subjects.addObject(Ember.Object.create({ libraryId: 3, library:"library", label: "History", subjectCode: "10003" }));
   subjects.addObject(Ember.Object.create({ libraryId: 4, library:"library", label: "Language", subjectCode: "10004" }));
 
-  this.set('subjects', subjects);
+  const  grades = Ember.A();
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "Pre-K", levels: [] }));
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "Elementary", levels: ["K", "1", "2", "3", "4", "5"] }));
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "Middle School", levels: ["6", "7", "8"] }));
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "High School", levels: ["9", "10", "11", "12"] }));
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "Higher Ed", levels: [] }));
 
-  this.render(hbs`{{search-filter subjects=subjects}}`); //render the component
+  const standards = Ember.A();
+  standards.addObject(Ember.Object.create({ libraryId: 1, name: "CCSS", title: "Common Core State Standard"}));
+  standards.addObject(Ember.Object.create({ libraryId: 2, name: "CA SS", title: "California State Standard"}));
+  standards.addObject(Ember.Object.create({ libraryId: 2, name: "NGSS", title: "Next Generation State Standard"}));
+
+  this.set('subjects', subjects);
+  this.set('grades', grades);
+  this.set('standards', standards);
+
+  this.render(hbs`{{search-filter subjects=subjects grades=grades standards=standards}}`); //render the component
   var $component = this.$(); //component dom element
 
       assert.expect(13); //making sure all asserts are called
@@ -67,9 +81,23 @@ test('search-filter-onResourceClick', function(assert) {
   subjects.addObject(Ember.Object.create({ libraryId: 3, library:"library", label: "History", subjectCode: "10003" }));
   subjects.addObject(Ember.Object.create({ libraryId: 4, library:"library", label: "Language", subjectCode: "10004" }));
 
-  this.set('subjects', subjects);
+  const  grades = Ember.A();
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "Pre-K", levels: [] }));
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "Elementary", levels: ["K", "1", "2", "3", "4", "5"] }));
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "Middle School", levels: ["6", "7", "8"] }));
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "High School", levels: ["9", "10", "11", "12"] }));
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "Higher Ed", levels: [] }));
 
-  this.render(hbs`{{search-filter subjects=subjects}}`); //render the component
+  const standards = Ember.A();
+  standards.addObject(Ember.Object.create({ libraryId: 1, name: "CCSS", title: "Common Core State Standard"}));
+  standards.addObject(Ember.Object.create({ libraryId: 2, name: "CA SS", title: "California State Standard"}));
+  standards.addObject(Ember.Object.create({ libraryId: 2, name: "NGSS", title: "Next Generation State Standard"}));
+
+  this.set('subjects', subjects);
+  this.set('grades', grades);
+  this.set('standards', standards);
+
+  this.render(hbs`{{search-filter subjects=subjects grades=grades standards=standards}}`); //render the component
   var $component = this.$(); //component dom element
   const $collectionsDropdown = $component.find(".collections-select .dropdown button");
   $collectionsDropdown.click();
