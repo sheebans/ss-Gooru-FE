@@ -103,7 +103,7 @@ export default Ember.Controller.extend({
             subjectId = controller.get("selectedSubjects").map(function (item) {
               return item.get("id");
             });
-            controller.transitionToRoute('/search/collections?gradesId=' +gradeId+"&subjectsId="+subjectId);
+            controller.transitionToRoute('/search/collections?gradeIds=' +gradeId+"&subjectsId="+subjectId);
           }}
         }
   }

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { checkStandards } from '../../utils/utils';
 
 /**
  * @typedef {object} SearchCollectionsController
@@ -9,7 +10,7 @@ export default Ember.Route.extend({
    * @property {[]} query params supported
    */
   queryParams: {'term' : 'term',
-  'gradesId':'gradesId','subjectsId':'subjectsId'},
+  "gradeIds":'gradeIds','subjectsId':'subjectsId'},
 
   /**
    * @property {string} term filter
@@ -69,16 +70,9 @@ export default Ember.Route.extend({
     controller.set("standards", model.standards);
   },
 
-
   actions: {
 
   }
 
 });
-function checkStandards(standards, checkableStandards, codes) {
-  standards.forEach(function(standard) {
-    if (checkableStandards.contains(standard.get("id"))) {
-      standard.set("disabled", !codes.contains(standard.get("id")));
-    }
-  });
-}
+
