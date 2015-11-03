@@ -39,6 +39,17 @@ export default {
   },
 
   "gru-user-sign-up": {
+    "signUpTitle": "Sign Up",
+    "joinTitle": "Join the Gooru Community!",
+    "joinDescription": "Find, remix, and share the best free K-12 learning resources.",
+    "googleButton": "Sign up with Google",
+    "whyGoogle": "Why sign up with Google",
+    "descriptionWhyGoogle": "It's fast and easy. Use your existing Google account to sign in without a password.",
+    "or": "Or",
+    "noGoogleAccount": "Don't have a Google account?",
+    "signUpEmail": "Sign up with your email address",
+    "haveAccount": "Already have an account?",
+    "clickLogIn": "Click here to log in.",
     "username": "Username",
     "dateOfBirth": "Birthday",
     "firstName": "First Name",
@@ -51,7 +62,7 @@ export default {
     "emailToolTip": "Double check your email. Make sure it's correct!",
     "passwordToolTip": "Passwords must be between 5 and 14 characters and contain at least one number.",
     "infoMessage": "Please fill out the following information.",
-    "birthdayToolTip": "Why enter your birthday?Your birthday helps ensure you get the right Gooru experience for your age. This information will never appear anywhere on the website"
+    "birthdayToolTip":"<p><strong>Why enter your birthday?</strong></p><p>Your birthday helps ensure you get the right Gooru experience for your age. This information will never appear anywhere on the website</p>"
   },
 
   "header": {

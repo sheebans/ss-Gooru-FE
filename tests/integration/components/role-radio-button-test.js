@@ -9,7 +9,7 @@ moduleForComponent('role-radio-button', 'Integration | Component | role radio bu
 test('renders role radio button', function(assert) {
   assert.expect(4); // making sure all asserts are called
 
-  this.render(hbs`{{role-radio-button onCheckRoleOptionAction=onCheckRoleOptionAction}}`); // render the component
+  this.render(hbs`{{role-radio-button}}`); // render the component
   var $component = this.$(); // component dom element
 
   T.exists(assert, $component.find("#teacherRadioButton"), "Missing teacher radio option");

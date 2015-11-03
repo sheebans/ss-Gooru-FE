@@ -18,8 +18,12 @@ export default Ember.Component.extend({
   actions: {
 
     checkRoleOption: function(optionValue) {
+
+      this.$().find('.roleOption').removeClass("selected");
+      this.$().find('input:checked').closest(".roleOption").addClass("selected");
+
       var handler = this.get('onCheck');
-      if (handler && typeof handler == 'function') {
+      if (handler && typeof handler === 'function') {
         handler(optionValue);
       }
     }

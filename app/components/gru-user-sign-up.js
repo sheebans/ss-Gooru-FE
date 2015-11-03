@@ -1,6 +1,12 @@
 import Ember from "ember";
 
 /**
+ * @const
+ * @type {string[]}
+ */
+const steps = ['intro', 'form', 'leave'];
+
+/**
  * User sign up
  *
  * Component that retrieves a user's information for signing up into the system.
@@ -24,21 +30,6 @@ export default Ember.Component.extend({
    * @property {Service} User service API SDK
    */
   userService: Ember.inject.service("api-sdk/user"),
-
-  /**
-   * @property {string} on success action to be sent to the parent component
-   */
-  onSuccessAction: null,
-
-  /**
-   * @property {string} on select date of birth action
-   */
-  onSelectDateOfBirthAction: "onSelectDateOfBirth",
-
-  /**
-   * @property {string} on check role option action
-   */
-  onCheckRoleOptionAction: "onCheckRoleOption",
 
   /**
    * Class handling the actions from the component.

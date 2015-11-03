@@ -1,3 +1,49 @@
+/* General styles */
+a {
+  color: $color-blue-dark-2;
+  &:hover,
+  &:visited {
+    text-decoration: none;
+    color: $color-blue-lighter-2;
+  }
+}
+
+/* Tooltip styles */
+.tooltip.in,
+.tooltip {
+  background-color: $color-white;
+  font-size: 12px;
+  color: $color-gray-5;
+  opacity: 1;
+  border-radius: 3px;
+  border: solid 1px $color-gray-lighter-2;
+  max-width: 250px;
+  .tooltip-inner {
+    color: $color-gray-5;
+    background: $color-white;
+    border: solid 1px $color-white;
+    max-width: 250px;
+    padding: 2px 5px;
+    font-size: 12px;
+    text-align: left;
+    p {
+      font-size: 12px;
+    }
+  }
+}
+
+.tooltip.bottom .tooltip-arrow {
+  border-width: 0 10px 8px;
+  top: -7px;
+  border-bottom-color: $color-white;
+  background-color: transparent;
+}
+
+.tooltip.left .tooltip-arrow {
+  right: -5px;
+  border-left-color: $color-white;
+}
+
 /* Bootstrap specific rules */
 .col-center-block {
   float: none;
