@@ -3,10 +3,14 @@ import Ember from "ember";
 
 export default Ember.Component.extend({
 
+  classNames:['gru-user-sign-up'],
+
+  classNameBindings: ['component-class'],
+
   /**
-   * @property {Service} I18N service
+   * @type {?String} specific class
    */
-  i18n: Ember.inject.service(),
+  'component-class':null,
 
   /**
    * @property {Service} User service API SDK

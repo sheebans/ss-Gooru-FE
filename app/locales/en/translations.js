@@ -1,6 +1,7 @@
 export default {
 
   "common": {
+    "close": "Close",
     "logout": "Logout",
     "create": "Create",
     "signUp": "Sign Up",
@@ -9,98 +10,35 @@ export default {
     "myContent": "My Content",
     "login": "Log in",
     "libraries": "Libraries",
-    "submit":"Submit",
-    "forgotPassword":"Forgot Password"
+    "submit": "Submit",
+    "forgotPassword": "Forgot Password"
   },
 
   "gru-category-panel": {
-      "teacher": {
-          "title": "For Teachers",
-          "body": "Discover standards-aligned content, customize content, and track student progress through data analytics.",
-          "cta": "See Stories"
-      },
-      "student": {
-          "title": "For Students",
-          "body": "Explore interests, build, and monitor progress through learning materials.",
-          "cta": "Enter",
-          "text-placeholder": "Enter Class Code"
-      },
-      "district": {
-        "title": "For Districts",
-        "body": "Collaborate with Gooru to unleash personalized learning and share a district-vetted curriculum.",
-        "cta": "See Our Impact"
-      },
-      "partner": {
-        "title": "For Partners",
-        "body": "Collaborate with mission-aligned partners to increase our collective impact on the education ecosystem.",
-        "cta": "Learn More"
-      }
-  },
-
-  "header": {
-    "searchForTopic": "Search for a topic"
-  },
-
-  "index": {
-    "joinUs": "Join Us to <br/> Honor the Human Right to <br/> Education",
-    "browseContent":{
-      "title":"Hi there! What are you looking for?",
-      "description_1":"I am looking for",
-      "description_2":"learning materials in",
-      "description_3":"or",
-      "button":"Browse Content",
-      "footer":{
-        "description_1":"Already have an account? ",
-        "description_2":" here.",
-        "login":"Login"
-      },
-      "grades_missing_message":"Please select Grade and Subject.",
-      "subjects_missing_message":"Please select Subject."
+    "teacher": {
+      "title": "For Teachers",
+      "body": "Discover standards-aligned content, customize content, and track student progress through data analytics.",
+      "cta": "See Stories"
     },
-    "gettingStarted":{
-      "title":"Getting Started with Gooru",
-      "toolkit":{
-        "title":"Getting Started Toolkit",
-        "description":"Welcome to Gooru! Check out these resources to learn what you can do with Gooru and get started quickly."
-      },
-      "classroom":{
-        "title":"Stories from the Classroom",
-        "description":"Learn by example through stories of teachers who say Gooru has made a difference in their classroom."
-      },
-      "events":{
-        "title":"Check Out our Events!",
-        "description":"We offer free webinars and trainings to help you get started with Gooru."
-      }
+    "student": {
+      "title": "For Students",
+      "body": "Explore interests, build, and monitor progress through learning materials.",
+      "cta": "Enter",
+      "text-placeholder": "Enter Class Code"
     },
-    "empowerStudents":{
-      "title":"Empower Students to Learn Their Way",
-      "find":"Find",
-      "remix":"Remix",
-      "share":"Share",
-      "monitor":"Monitor"
+    "district": {
+      "title": "For Districts",
+      "body": "Collaborate with Gooru to unleash personalized learning and share a district-vetted curriculum.",
+      "cta": "See Our Impact"
     },
-    "findDescription":"Browse thousands of K-12 collections made by teachers, or search over 16M resources",
-    "remixDescription":"Remix collections and customize content to meet your students' needs.",
-    "shareDescription":"Share collections with students via My Classes. Login is not required to access.",
-    "monitorDescription":"Measure your students' engagement and progress to intervene in real-time.",
-    "freeAndOpen":{
-      "title":"Free and Open.<br/>Always.",
-      "description":"We believe education is a human right. Gooru will always be free of cost and ads for educators and students worldwide.",
-      "button":"Learn More about Our Approach"
+    "partner": {
+      "title": "For Partners",
+      "body": "Collaborate with mission-aligned partners to increase our collective impact on the education ecosystem.",
+      "cta": "Learn More"
     }
   },
-  "login": {
-    "title": "Welcome to Gooru",
-    "gooruAccountTitle": "Log in to your Gooru account",
-    "googleButton": "Log in with Google",
-    "or": "Or",
-    "haveAccount": "Do you have an account?",
-    "signUpHere": "Sign Up here!",
-    "forgotPassword": "Forgot your Password?",
-    "password": "Password",
-    "usernameOrEmail": "Username or Email"
-  },
-  "signUp": {
+
+  "gru-user-sign-up": {
     "username": "Username",
     "dateOfBirth": "Birthday",
     "firstName": "First Name",
@@ -113,29 +51,95 @@ export default {
     "emailToolTip": "Double check your email. Make sure it's correct!",
     "passwordToolTip": "Passwords must be between 5 and 14 characters and contain at least one number.",
     "infoMessage": "Please fill out the following information.",
-    "birthdayToolTip":"Why enter your birthday?Your birthday helps ensure you get the right Gooru experience for your age. This information will never appear anywhere on the website"
-  },
-  "footer":{
-    "footerDescription":"Gooru is committed to keeping its platform open-source and community created content CC0.",
-    "company":"Company",
-    "community":"Community",
-    "legal":"Legal",
-    "connect":"Connect",
-    "aboutGooru":"About Gooru",
-    "careers":"Careers",
-    "supportCenter":"Support Center",
-    "contactUs":"Contact Us",
-    "districts":"Districts",
-    "partners":"Partners",
-    "coaches":"Coaches",
-    "events":"Events",
-    "terms":"Terms",
-    "privacy":"Privacy",
-    "Copyright":"Copyright"
+    "birthdayToolTip": "Why enter your birthday?Your birthday helps ensure you get the right Gooru experience for your age. This information will never appear anywhere on the website"
   },
 
-  "grade-dropdown" : {
-    "placeholder" : "grade(s)",
+  "header": {
+    "searchForTopic": "Search for a topic"
+  },
+
+  "index": {
+    "joinUs": "Join Us to <br/> Honor the Human Right to <br/> Education",
+    "browseContent": {
+      "title": "Hi there! What are you looking for?",
+      "description_1": "I am looking for",
+      "description_2": "learning materials in",
+      "description_3": "or",
+      "button": "Browse Content",
+      "footer": {
+        "description_1": "Already have an account? ",
+        "description_2": " here.",
+        "login": "Login"
+      },
+      "grades_missing_message": "Please select Grade and Subject.",
+      "subjects_missing_message": "Please select Subject."
+    },
+    "gettingStarted": {
+      "title": "Getting Started with Gooru",
+      "toolkit": {
+        "title": "Getting Started Toolkit",
+        "description": "Welcome to Gooru! Check out these resources to learn what you can do with Gooru and get started quickly."
+      },
+      "classroom": {
+        "title": "Stories from the Classroom",
+        "description": "Learn by example through stories of teachers who say Gooru has made a difference in their classroom."
+      },
+      "events": {
+        "title": "Check Out our Events!",
+        "description": "We offer free webinars and trainings to help you get started with Gooru."
+      }
+    },
+    "empowerStudents": {
+      "title": "Empower Students to Learn Their Way",
+      "find": "Find",
+      "remix": "Remix",
+      "share": "Share",
+      "monitor": "Monitor"
+    },
+    "findDescription": "Browse thousands of K-12 collections made by teachers, or search over 16M resources",
+    "remixDescription": "Remix collections and customize content to meet your students' needs.",
+    "shareDescription": "Share collections with students via My Classes. Login is not required to access.",
+    "monitorDescription": "Measure your students' engagement and progress to intervene in real-time.",
+    "freeAndOpen": {
+      "title": "Free and Open.<br/>Always.",
+      "description": "We believe education is a human right. Gooru will always be free of cost and ads for educators and students worldwide.",
+      "button": "Learn More about Our Approach"
+    }
+  },
+
+  "login": {
+    "title": "Welcome to Gooru",
+    "gooruAccountTitle": "Log in to your Gooru account",
+    "googleButton": "Log in with Google",
+    "or": "Or",
+    "haveAccount": "Do you have an account?",
+    "signUpHere": "Sign Up here!",
+    "forgotPassword": "Forgot your Password?",
+    "password": "Password",
+    "usernameOrEmail": "Username or Email"
+  },
+
+  "footer": {
+    "footerDescription": "Gooru is committed to keeping its platform open-source and community created content CC0.",
+    "company": "Company",
+    "community": "Community",
+    "legal": "Legal",
+    "connect": "Connect",
+    "aboutGooru": "About Gooru",
+    "careers": "Careers",
+    "supportCenter": "Support Center",
+    "contactUs": "Contact Us",
+    "districts": "Districts",
+    "partners": "Partners",
+    "coaches": "Coaches",
+    "events": "Events",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "Copyright": "Copyright"
+  },
+
+  "grade-dropdown": {
+    "placeholder": "grade(s)",
     "prompt": "Select a grade",
     "pre-k": "Pre-K",
     "elementary": "Elementary",
@@ -155,44 +159,48 @@ export default {
     "tenth": "10",
     "eleventh": "11",
     "twelfth": "12"
-    },
+  },
 
   "standard-dropdown": {
-    "placeholder" : "Browse by Standard"
+    "placeholder": "Browse by Standard"
   },
 
   "subject-dropdown": {
-    "placeholder" : "subject(s)",
+    "placeholder": "subject(s)",
     "prompt": "Select a subject"
   },
-  "search-filter":{
-    "collection":"Collection",
-    "resource":"Resource",
-    "collectionsButton":"Collections",
-    "assessmentsButton":"Assessments",
-    "author":{
-      "title":"Author",
-      "placeholder":"e.g. Username",
-      "questionToolTip":"Enter the username of an author on Gooru."
+
+  "search-filter": {
+    "collection": "Collection",
+    "resource": "Resource",
+    "collectionsButton": "Collections",
+    "assessmentsButton": "Assessments",
+    "author": {
+      "title": "Author",
+      "placeholder": "e.g. Username",
+      "questionToolTip": "Enter the username of an author on Gooru."
     }
   },
-  "resource":{
-    "video":"Video",
-    "webpage":"Webpage",
-    "interactive":"Interactive",
-    "question":"Question",
-    "image":"Image",
-    "text":"Text",
-    "audio":"Audio",
-    "oer":"OER"
+
+  "resource": {
+    "video": "Video",
+    "webpage": "Webpage",
+    "interactive": "Interactive",
+    "question": "Question",
+    "image": "Image",
+    "text": "Text",
+    "audio": "Audio",
+    "oer": "OER"
   },
-  "standardsPopup":{
-    "title":"Standards"
+
+  "standardsPopup": {
+    "title": "Standards"
   },
-  "forgot-password-popup":{
-    "title":"Please enter your email or <br/> username below.",
-    "description":"You will receive an email with a link to reset your password.",
-    "footer":"If you have any questions,<br/> Please contact",
-    "mail":"support@goorulearning.org"
+
+  "forgot-password-popup": {
+    "title": "Please enter your email or <br/> username below.",
+    "description": "You will receive an email with a link to reset your password.",
+    "footer": "If you have any questions,<br/> Please contact",
+    "mail": "support@goorulearning.org"
   }
 };

@@ -1,5 +1,6 @@
 import Ember from "ember";
 import SessionMixin from '../mixins/session';
+import ModalMixin from '../mixins/modal';
 
 /**
  * Application header component
@@ -9,7 +10,7 @@ import SessionMixin from '../mixins/session';
  * @module
  * @typedef {object} AppHeader
  */
-export default Ember.Component.extend(SessionMixin, {
+export default Ember.Component.extend(SessionMixin, ModalMixin, {
 
   /**
    * @property {string} on authenticate action
