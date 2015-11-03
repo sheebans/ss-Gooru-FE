@@ -10,7 +10,7 @@ export default Ember.Route.extend({
    * @property {[]} query params supported
    */
   queryParams: {'term' : 'term',
-  "gradeIds":'gradeIds','subjectsId':'subjectsId'},
+  "gradeIds":'gradeIds',"subjectIds":'subjectIds'},
 
   /**
    * @property {string} term filter
