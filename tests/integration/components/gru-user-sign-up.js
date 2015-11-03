@@ -16,7 +16,7 @@ test('it renders', function(assert) {
 
   var $component = this.$(); //component dom element
   T.exists(assert, $component.find("div.gru-user-sign-up"), "Root element not found");
-  T.exists(assert, $component.find("div.sign-up-container"), "Container element not found");
+  T.exists(assert, $component.find("div.modal-body"), "Container element not found");
 
   var $form = $component.find("form");
   T.exists(assert, $form, "Missing sign up form");
