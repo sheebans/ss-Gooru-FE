@@ -15,33 +15,21 @@ export default Ember.Component.extend({
   /**
    * @property {boolean} Indicates if collection has 1 or more resources
    */
-  hasResources: function() {
-    var resourceCount = this.get('collection.resourceCount');
-    return (resourceCount ? resourceCount > 0 : false);
-  }.property(),
+  hasResources: Ember.computed.gt('collection.resourceCount', 0),
 
   /**
    * @property {boolean} Indicates if collection has more than 1 resource
    */
-  hasSeveralResources: function() {
-    var resourceCount = this.get('collection.resourceCount');
-    return (resourceCount ? resourceCount > 1 : false);
-  }.property(),
+  hasSeveralResources: Ember.computed.gt('collection.resourceCount', 1),
 
   /**
    * @property {boolean} Indicates if collection has 1 or more questions
    */
-  hasQuestions: function() {
-    var questionCount = this.get('collection.questionCount');
-    return (questionCount ? questionCount > 0 : false);
-  }.property(),
+  hasQuestions: Ember.computed.gt('collection.questionCount', 0),
 
   /**
    * @property {boolean} Indicates if collection has more than 1 question
    */
-  hasSeveralQuestions: function() {
-    var questionCount = this.get('collection.questionCount');
-    return (questionCount ? questionCount > 1 : false);
-  }.property()
+  hasSeveralQuestions: Ember.computed.gt('collection.questionCount', 1)
 
 });
