@@ -1,4 +1,5 @@
-import Ember from "ember";
+import Ember from 'ember';
+import { checkStandards } from '../utils/utils';
 
 /**
  * @typedef {object} Index Route
@@ -6,22 +7,22 @@ import Ember from "ember";
 export default Ember.Route.extend({
 
   /**
-   * @property {SubjectService} Service to retrieve subjects
+   * @property {Ember.Service} Service to retrieve subjects
    */
   subjectService: Ember.inject.service("api-sdk/subject"),
 
   /**
-   * @property {GradeService} Service to retrieve grades
+   * @property {Ember.Service} Service to retrieve grades
    */
   gradeService: Ember.inject.service("api-sdk/grade"),
 
   /**
-   * @property {StandardService} Service to retrieve standards
+   * @property {Ember.Service} Service to retrieve standards
    */
   standardService: Ember.inject.service("api-sdk/standard"),
 
   /**
-   * @property {ProfileService} Service to retrieve profiles
+   * @property {Ember.Service} Service to retrieve profiles
    */
   profileService: Ember.inject.service("api-sdk/profile"),
 
@@ -59,11 +60,3 @@ export default Ember.Route.extend({
     controller.set("standards", model.standards);
   }
 });
-
-function checkStandards(standards, checkableStandards, codes) {
-  standards.forEach(function(standard) {
-    if (checkableStandards.contains(standard.get("id"))) {
-      standard.set("disabled", !codes.contains(standard.get("id")));
-    }
-  });
-}
