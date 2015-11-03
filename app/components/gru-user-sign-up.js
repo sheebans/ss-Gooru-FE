@@ -1,6 +1,14 @@
 import Ember from "ember";
 
-
+/**
+ * User sign up
+ *
+ * Component that retrieves a user's information for signing up into the system.
+ * May be embedded into a modal window (@see gru-modal).
+ *
+ * @module
+ * @augments ember/Component
+ */
 export default Ember.Component.extend({
 
   classNames:['gru-user-sign-up'],
@@ -33,17 +41,29 @@ export default Ember.Component.extend({
   onCheckRoleOptionAction: "onCheckRoleOption",
 
   /**
-   * Data-biding properties for the form fields
+   * Class handling the actions from the component.
+   * This value will be set on instantiation by gru-modal.
+   *
+   * @type {Ember.Component}
+   * @private
    */
-  username: null,
-  firstName: null,
-  lastName: null,
-  email: null,
-  dateOfBirth: null,
-  role: null,
-  password: null,
-  confirmedPassword: null,
+  target: null,
 
+  /**
+   * User object with all attributes for sign-up
+   *
+   * @type {Ember.Object}
+   */
+  user: Ember.Object.create({
+    username: null,
+    firstName: null,
+    lastName: null,
+    email: null,
+    dateOfBirth: null,
+    role: null,
+    password: null,
+    confirmedPassword: null
+  }),
 
   didInsertElement: function() {
     var component = this;
@@ -51,36 +71,40 @@ export default Ember.Component.extend({
   },
 
   actions: {
+
+    /**
+     * Sign up user
+     */
     signUp: function() {
-      var component = this;
-      this.get("userService").create({
-          username: component.get("username"),
-          firstName: component.get("firstName"),
-          lastName: component.get("lastName"),
-          email: component.get("email"),
-          dateOfBirth: component.get("dateOfBirth"),
-          role: component.get("role"),
-          password: component.get("password")
-        })
+      this.get("userService")
+        .create(this.get('user'))
         .then(function() {
-          if (component.get("onSuccessAction")) {
-            component.sendAction("onSuccessAction");
-          }
-        });
+          this.triggerAction({
+            action: 'closeModal'
+          });
+        }.bind(this),
+        function() {
+          Ember.Logger.error('Error signing up user');
+        }
+      );
     },
 
     /**
-     * Action triggered when birthday is selected in the sign-up form
+     * Update user birth date
+     * @param {String} dateValue - birth date as a string
      */
-    onSelectDateOfBirthAction: function(dateValue) {
-      this.set("dateOfBirth", dateValue);
+    setBirthDate: function(dateValue) {
+      this.set("user.dateOfBirth", dateValue);
     },
 
     /**
-     * Action triggered when role is selected in the sign-up form
+     * Update user role
+     * @param {String} role
+     * @example
+     * "teacher", "student", "parent"
      */
-    onCheckRoleOptionAction: function(optionValue) {
-      this.set("role", optionValue);
+    setRoleValue: function(role) {
+      this.set("user.role", role);
     }
   }
 

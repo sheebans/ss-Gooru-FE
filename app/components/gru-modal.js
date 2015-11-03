@@ -49,7 +49,8 @@ export default Ember.Component.extend(ModalMixin, {
   // Properties
 
   /**
-   * Context listening to the
+   * Context listening to the actions from the embedded component.
+   * 'targetObject' for the embedded component will point to this component
    * @type {String}
    * @private
    */
@@ -106,6 +107,14 @@ export default Ember.Component.extend(ModalMixin, {
     } else {
       this.$().modal("hide");
     }
-  }.observes('is-visible')
+  }.observes('is-visible'),
+
+  actions: {
+
+    closeModal: function() {
+      this.set('modal.isVisible', false);
+    }
+
+  }
 
 });
