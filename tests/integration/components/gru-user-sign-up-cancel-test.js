@@ -1,26 +1,25 @@
 import { moduleForComponent, test } from 'ember-qunit';
+import T from 'gooru-web/tests/helpers/assert';
 import hbs from 'htmlbars-inline-precompile';
 
+
 moduleForComponent('gru-user-sign-up-cancel', 'Integration | Component | gru user sign up cancel', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.container.lookup('service:i18n').set("locale","en");
+  }
 });
-
-test('it renders', function(assert) {
-  assert.expect(2);
-
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
+test('Cancel Signup Confirmation', function(assert) {
+  assert.expect(8);
   this.render(hbs`{{gru-user-sign-up-cancel}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#gru-user-sign-up-cancel}}
-      template block text
-    {{/gru-user-sign-up-cancel}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  var $component = this.$(); //component dom element
+  const $cancelConfirmationSignup = $component.find(".cancel-signup-confirmation-section");
+  T.exists(assert, $cancelConfirmationSignup, "Missing cancel confirmation section");
+  T.exists(assert, $cancelConfirmationSignup.find(".title"), "Missing title");
+  T.exists(assert, $cancelConfirmationSignup.find(".description"), "Missing description");
+  T.exists(assert, $cancelConfirmationSignup.find(".leave-registration-submit"), "Missing leave registration button");
+  T.exists(assert, $cancelConfirmationSignup.find(".continue-registration-submit"), "Missing continue registration button");
+  T.exists(assert, $cancelConfirmationSignup.find(".footer"), "Missing footer section");
+  T.exists(assert, $cancelConfirmationSignup.find(".footer-description"), "Missing footer description");
+  T.exists(assert, $cancelConfirmationSignup.find(".support-mail"), "Missing support email");
 });
