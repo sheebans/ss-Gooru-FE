@@ -33,25 +33,18 @@ export default Ember.Component.extend(i18nMixin, {
    */
   collectionSelected: true,
 
-  grades: function(){
-    //@todo: use data retrieved in the route
-    const items = Ember.A();
-    items.addObject(Ember.Object.create({ id: 1, name: "Pre-K", levels: [] }));
-    items.addObject(Ember.Object.create({ id: 1, name: "Elementary", levels: ["K", "1", "2", "3", "4", "5"] }));
-    items.addObject(Ember.Object.create({ id: 1, name: "Middle School", levels: ["6", "7", "8"] }));
-    items.addObject(Ember.Object.create({ id: 1, name: "High School", levels: ["9", "10", "11", "12"] }));
-    items.addObject(Ember.Object.create({ id: 1, name: "Higher Ed", levels: [] }));
-    return items;
-  }.property(),
 
-  standards: function(){
-    //@todo: use data retrieved in the route
-    const items = Ember.A();
-    items.addObject(Ember.Object.create({ id: 1, name: "CCSS", title: "Common Core State Standard"}));
-    items.addObject(Ember.Object.create({ id: 2, name: "CA SS", title: "California State Standard"}));
-    items.addObject(Ember.Object.create({ id: 2, name: "NGSS", title: "Next Generation State Standard"}));
-    return items;
-  }.property(),
+  /**
+   * @property {[]} standards
+   * @see setupController at routes/search/collections.js
+   */
+  standards: null,
+
+  /**
+   * @property {[]} grades
+   * @see setupController at routes/search/collections.js
+   */
+  grades:null,
 
   actions: {
 
