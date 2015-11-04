@@ -14,18 +14,13 @@ export default Ember.Route.extend({
       refreshModel: true
     },
     gradeIds: 'gradeIds',
-    subjectsId: 'subjectsId'
+    subjectIds: 'subjectIds'
   },
 
   /**
    * @property {string} term filter
    */
   term: null,
-
-  /**
-   * @property {Ember.Service} Service to retrieve subjects
-   */
-  subjectService: Ember.inject.service("api-sdk/subject"),
 
   /**
    * @property {string} collections filter
@@ -37,7 +32,7 @@ export default Ember.Route.extend({
   gradeService: Ember.inject.service("api-sdk/grade"),
 
   /**
-   * @property {SubjectService} Service to retrieve subjects
+   * @property {Ember.Service} Service to retrieve subjects
    */
   subjectService: Ember.inject.service('api-sdk/subject'),
 
@@ -52,7 +47,7 @@ export default Ember.Route.extend({
   profileService: Ember.inject.service("api-sdk/profile"),
 
   /**
-   * @property {SearchService} Service to do the search
+   * @property {Ember.Service} Service to do the search
    */
   searchService: Ember.inject.service('api-sdk/search'),
 
