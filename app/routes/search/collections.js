@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { checkStandards } from '../../utils/utils';
 
 /**
  * @typedef {object} SearchCollectionsController
@@ -12,7 +13,7 @@ export default Ember.Route.extend({
     term: {
       refreshModel: true
     },
-    grades: 'grades',
+    gradeIds: 'gradeIds',
     subjectsId: 'subjectsId'
   },
 
@@ -22,15 +23,18 @@ export default Ember.Route.extend({
   term: null,
 
   /**
-   * @property {string} subjects filter
+   * @property {Ember.Service} Service to retrieve subjects
    */
-  subjects: null,
+  subjectService: Ember.inject.service("api-sdk/subject"),
 
   /**
    * @property {string} collections filter
    */
   collections: null,
-
+  /**
+   * @property {Ember.Service} Service to retrieve grades
+   */
+  gradeService: Ember.inject.service("api-sdk/grade"),
 
   /**
    * @property {SubjectService} Service to retrieve subjects
@@ -38,16 +42,31 @@ export default Ember.Route.extend({
   subjectService: Ember.inject.service('api-sdk/subject'),
 
   /**
+   * @property {Ember.Service} Service to retrieve standards
+   */
+  standardService: Ember.inject.service("api-sdk/standard"),
+
+  /**
+   * @property {Ember.Service} Service to retrieve profiles
+   */
+  profileService: Ember.inject.service("api-sdk/profile"),
+
+  /**
    * @property {SearchService} Service to do the search
    */
   searchService: Ember.inject.service('api-sdk/search'),
 
   model: function(params) {
-    var subjects = this.get('subjectService').readAll();
+    var subjects = this.get("subjectService").readAll();
+    var grades = this.get("gradeService").readAll();
+    var standards = this.get("standardService").readAll();
+    var profile = this.get("profileService").findByCurrentUser();
     var collectionResults = this.get('searchService').searchCollections(params);
     return Ember.RSVP.hash({
       subjects: subjects,
-      collectionResults: collectionResults
+      grades: grades,
+      standards: standards,
+      profile: profile
     });
   },
   /**
@@ -57,9 +76,22 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
     this._super(controller, model);
-    // @TODO We are filtering by library == 'library value, we need to verify if this is the correct filter value.
-    controller.set('subjects', model.subjects.filterBy('library', 'library'));
+    // @TODO We are filtering by library == "library value, we need to verify if this is the correct filter value.
+    controller.set("subjects", model.subjects.filterBy("library", "library"));
+    controller.set("grades", model.grades);
+
+    if (model.profile) {
+      var checkableStandards = this.get("standardService").getCheckableStandards();
+      var codes = model.profile.get("user.metadata.taxonomyPreference.code");
+      checkStandards(model.standards, checkableStandards, codes);
+    }
+
+    controller.set("standards", model.standards);
     controller.set('collectionResults', model.collectionResults);
+  },
+
+  actions: {
+
   }
 
 });
