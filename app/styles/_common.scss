@@ -1,5 +1,5 @@
 /* General styles */
-a {
+a, button.btn-link {
   color: $color-blue-dark-2;
   &:hover,
   &:visited {
@@ -124,6 +124,7 @@ a {
 
 .gru-modal {
 
+  .gru-user-registration,
   .gru-user-sign-up {
 
     &.modal-content {
@@ -157,6 +158,18 @@ a {
 
       .modal-body {
         border: 1px solid $color-gray-lighter-1;
+        background: url(//cdn.goorulearning.org/webapp/release-2.0.6-PRL01/images/login/registration-bg.png) no-repeat -50px 30px;
+
+        .wrapper {
+          width: 520px;
+          color: #515151;
+          margin: 0 auto;
+          position: relative;
+          font-family: arial, sans-serif;
+          font-size: 12px;
+          border-radius: 0;
+          padding: 3px 3px;
+        }
       }
     }
   }

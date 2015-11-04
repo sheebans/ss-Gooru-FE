@@ -1,12 +1,6 @@
 import Ember from "ember";
 
 /**
- * @const
- * @type {string[]}
- */
-const steps = ['intro', 'form', 'leave'];
-
-/**
  * User sign up
  *
  * Component that retrieves a user's information for signing up into the system.
@@ -17,49 +11,23 @@ const steps = ['intro', 'form', 'leave'];
  */
 export default Ember.Component.extend({
 
-  classNames:['gru-user-sign-up'],
-
-  classNameBindings: ['component-class'],
-
-  /**
-   * @type {?String} specific class
-   */
-  'component-class':null,
+  // -------------------------------------------------------------------------
+  // Dependencies
 
   /**
    * @property {Service} User service API SDK
    */
   userService: Ember.inject.service("api-sdk/user"),
 
-  /**
-   * Class handling the actions from the component.
-   * This value will be set on instantiation by gru-modal.
-   *
-   * @type {Ember.Component}
-   * @private
-   */
-  target: null,
+  // -------------------------------------------------------------------------
+  // Attributes
 
-  /**
-   * User object with all attributes for sign-up
-   *
-   * @type {Ember.Object}
-   */
-  user: Ember.Object.create({
-    username: null,
-    firstName: null,
-    lastName: null,
-    email: null,
-    dateOfBirth: null,
-    role: null,
-    password: null,
-    confirmedPassword: null
-  }),
+  classNames:['gru-user-sign-up'],
 
-  didInsertElement: function() {
-    var component = this;
-    component.$("[data-toggle='tooltip']").tooltip({trigger: "hover"});
-  },
+  classNameBindings: ['component-class'],
+
+  // -------------------------------------------------------------------------
+  // Actions
 
   actions: {
 
@@ -97,6 +65,47 @@ export default Ember.Component.extend({
     setRoleValue: function(role) {
       this.set("user.role", role);
     }
-  }
+  },
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  didInsertElement: function() {
+    var component = this;
+    component.$("[data-toggle='tooltip']").tooltip({trigger: "hover"});
+  },
+
+  // -------------------------------------------------------------------------
+  // Properties
+
+  /**
+   * @type {?String} specific class
+   */
+  'component-class':null,
+
+  /**
+   * Class handling the actions from the component.
+   * This value will be set on instantiation by gru-modal.
+   *
+   * @type {Ember.Component}
+   * @private
+   */
+  target: null,
+
+  /**
+   * User object with all attributes for sign-up
+   *
+   * @type {Ember.Object}
+   */
+  user: Ember.Object.create({
+    username: null,
+    firstName: null,
+    lastName: null,
+    email: null,
+    dateOfBirth: null,
+    role: null,
+    password: null,
+    confirmedPassword: null
+  })
 
 });
