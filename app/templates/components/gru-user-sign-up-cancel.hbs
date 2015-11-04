@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="{{t 'common.close'}}">
+    <span aria-hidden="true">×</span>
+  </button>
+  <h4 class="modal-title">{{t "gru-user-sign-up-cancel.title"}}</h4>
+</div>
+<div class="modal-body">
+  <div class="wrapper">
+    <div class="main">
+      <h3>{{t "gru-user-sign-up-cancel.exit?"}}</h3>
+      <p>{{t "gru-user-sign-up-cancel.registration_incomplete"}}</p>
+      <div class="actions">
+        <button class="btn btn-link" data-dismiss="modal">{{t "gru-user-sign-up-cancel.leave"}}</button>
+        <button class="btn btn-link" {{action "showModal" "gru-user-sign-up"}}>{{t "gru-user-sign-up-cancel.continue"}}</button>
+      </div>
+      <div class="footer">
+        <p>{{t "common.if_questions"}}<br>
+          {{t "common.please_contact"}} <a>{{t "common.email_support"}}</a></p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,9 +2,9 @@ import Ember from "ember";
 import ModalMixin from '../mixins/modal';
 
 /**
- * User registration
+ * User sign up cancel
  *
- * Component that routes the user either to the log in flow or the sign up flow.
+ * Component that lets the user return to or end the sign up flow
  * May be embedded into a modal window (@see gru-modal).
  *
  * @module
@@ -15,17 +15,9 @@ export default Ember.Component.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-user-registration'],
+  classNames:['gru-user-sign-up-cancel'],
 
   classNameBindings: ['component-class'],
-
-  // -------------------------------------------------------------------------
-  // Events
-
-  didInsertElement: function() {
-    var component = this;
-    component.$("[data-toggle='tooltip']").tooltip({trigger: "hover"});
-  },
 
   // -------------------------------------------------------------------------
   // Properties

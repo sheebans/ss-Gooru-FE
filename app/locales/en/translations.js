@@ -11,7 +11,10 @@ export default {
     "login": "Log in",
     "libraries": "Libraries",
     "submit": "Submit",
-    "forgotPassword": "Forgot Password"
+    "forgotPassword": "Forgot Password",
+    "if_questions": "If you have any questions,",
+    "please_contact": "Please contact",
+    "email_support": "support@gooru.org"
   },
 
   "gru-category-panel": {
@@ -38,8 +41,7 @@ export default {
     }
   },
 
-  "gru-user-sign-up": {
-    "signUpTitle": "Sign Up",
+  "gru-user-registration": {
     "joinTitle": "Join the Gooru Community!",
     "joinDescription": "Find, remix, and share the best free K-12 learning resources.",
     "googleButton": "Sign up with Google",
@@ -49,7 +51,10 @@ export default {
     "noGoogleAccount": "Don't have a Google account?",
     "signUpEmail": "Sign up with your email address",
     "haveAccount": "Already have an account?",
-    "clickLogIn": "Click here to log in.",
+    "clickLogIn": "Click here to log in."
+  },
+
+  "gru-user-sign-up": {
     "username": "Username",
     "dateOfBirth": "Birthday",
     "firstName": "First Name",
@@ -63,6 +68,14 @@ export default {
     "passwordToolTip": "Passwords must be between 5 and 14 characters and contain at least one number.",
     "infoMessage": "Please fill out the following information.",
     "birthdayToolTip":"<p><strong>Why enter your birthday?</strong></p><p>Your birthday helps ensure you get the right Gooru experience for your age. This information will never appear anywhere on the website</p>"
+  },
+
+  "gru-user-sign-up-cancel": {
+    "title": "Leave Registration?",
+    "exit?": "Are you sure you want to exit?",
+    "registration_incomplete": "Your registration is not complete.",
+    "leave": "Leave Registration",
+    "continue": "Continue with Registration"
   },
 
   "header": {
