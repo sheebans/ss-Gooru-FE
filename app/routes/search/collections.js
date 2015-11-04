@@ -66,7 +66,8 @@ export default Ember.Route.extend({
       subjects: subjects,
       grades: grades,
       standards: standards,
-      profile: profile
+      profile: profile,
+      collectionResults: collectionResults
     });
   },
   /**
