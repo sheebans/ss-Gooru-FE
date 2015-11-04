@@ -1,13 +1,22 @@
 <div class="collection-results-resources pa-4">
-    <p class="pa-left-6 ma-bottom-0 quantity-resources">{{#if quantityResources}}{{quantityResources}} resources{{/if}}{{#if quantityQuestions}} and {{quantityQuestions}} questions{{/if}} in this collection</p>
+    <p class="pa-left-6 ma-bottom-0 quantity-resources">
+      {{#if hasResources}}
+        {{collection.resourceCount}} {{#if hasSeveralResources}} {{t "search-result.resources"}} {{else}} {{t "search-result.resource"}} {{/if}}
+      {{/if}}
+      {{#if hasQuestions}}
+        {{t "search-result.and"}} {{collection.questionCount}}
+        {{#if hasSeveralQuestions}} {{t "search-result.questions"}} {{else}} {{t "search-result.question"}} {{/if}}
+      {{/if}}
+      {{t "search-result.in-this-collection"}}
+    </p>
     <div class="col-md-12 col-sm-12 col-center-block pa-0">
-    {{#each itemResources as |resource|}}
+    {{#each resources as |resource|}}
         <div class="resource-image col-md-4 col-sm-4">
             <a data-toggle="tooltip" data-html ="true" data-placement="bottom" title="<strong>{{unbound resource.name }}</strong><p>{{unbound resource.type }}</p>">
-                {{#if resource.image }}
-                     <img class="gwt-image" src="{{ resource.image }}">
+                {{#if resource.imageUrl }}
+                  <img class="gwt-image" src="{{ resource.imageUrl }}">
                 {{else}}
-                    <img class="gwt-image" src="/assets/gooru/default-{{unbound resource.type }}.png">
+                  <img class="gwt-image" src="/assets/gooru/default-{{unbound resource.type }}.png">
                 {{/if}}
                 <div class="resource-image-type {{unbound resource.type }}-icon"> </div>
             </a>

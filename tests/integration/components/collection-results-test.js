@@ -15,8 +15,8 @@ test('collections layout', function(assert) {
     var results = Ember.A();
 
     var itemsResources = Ember.A();
-    itemsResources.addObject(Ember.Object.create({ name: "Preparing the Learner", image: "http://cdn.goorulearning.org/prod1/f000/2137/8066/b9396c20-90f6-4bc1-b434-a39386f5e7b3_0480a001-2070-40b9-b211-ef67638a33d0.jpg", type: "text"}));
-    itemsResources.addObject(Ember.Object.create({ name: "Activity 2and 3", image:"", type: "text"}));
+    itemsResources.addObject(Ember.Object.create({ name: "Preparing the Learner", imageUrl: "http://cdn.goorulearning.org/prod1/f000/2137/8066/b9396c20-90f6-4bc1-b434-a39386f5e7b3_0480a001-2070-40b9-b211-ef67638a33d0.jpg", type: "text"}));
+    itemsResources.addObject(Ember.Object.create({ name: "Activity 2and 3", imageUrl:"", type: "text"}));
 
     var itemsStandards = Ember.A();
     itemsStandards.addObject(Ember.Object.create({ name: "CCSS.ELA-Literacy.RI.9-10.6", description: "Demostrate command of the conventions"}));
@@ -27,10 +27,10 @@ test('collections layout', function(assert) {
         remixes: 4,
         views: 53,
         title: "1.1 Variables and Expressions",
-        image: "http://www.goorulearning.org/images/default-collection-image-160x120.png",
+        imageUrl: "http://www.goorulearning.org/images/default-collection-image-160x120.png",
         url: "http://www.goorulearning.org/#collection-play&id=e6e392e5-e025-4458-9e7e-c4d148eb6b1b",
         author: "TCPMathLab",
-        authorImage: "http://profile-images.goorulearning.org.s3.amazonaws.com/2341faae-16db-4f59-8418-f8c83a3e845b.png",
+        avatarUrl: "http://profile-images.goorulearning.org.s3.amazonaws.com/2341faae-16db-4f59-8418-f8c83a3e845b.png",
         profilePageUrl: "http://www.goorulearning.org/#collection-play&id=e6e392e5-e025-4458-9e7e-c4d148eb6b1b",
         description: "The summative assessment for this unit has students analyzing the use of irony in a short story, summarizing an opinion ...",
         resources: itemsResources,
@@ -41,20 +41,27 @@ test('collections layout', function(assert) {
         remixes: 6,
         views: 253,
         title: "Types of Poetry",
-        image: "http://cdn.goorulearning.org/prod1/f000/2084/1115/009621fb-2a5f-499f-9d85-d119a92bf9c6_696302d8-b2ef-4691-9363-2e9e09b6ba83-160x120.jpg",
+        imageUrl: "http://cdn.goorulearning.org/prod1/f000/2084/1115/009621fb-2a5f-499f-9d85-d119a92bf9c6_696302d8-b2ef-4691-9363-2e9e09b6ba83-160x120.jpg",
         url: "http://www.goorulearning.org/#collection-play&id=e6e392e5-e025-4458-9e7e-c4d148eb6b1b",
         author: "vbowley and",
-        authorImage: " http://profile-images.goorulearning.org.s3.amazonaws.com/a8fc5310-c296-49d1-9fc8-8d34b54f9ad8.png",
+        avatarUrl: " http://profile-images.goorulearning.org.s3.amazonaws.com/a8fc5310-c296-49d1-9fc8-8d34b54f9ad8.png",
         profilePageUrl: "http://www.goorulearning.org/#profilepage&id=a8fc5310-c296-49d1-9fc8-8d34b54f9ad8&user=vbowley",
         description: "Students will review the literary element of satire. Students will use the information in this collection to synthesize ...",
         resources: itemsResources,
         standards: itemsStandards
     }));
 
-    this.set('results', results);
+    var collectionResults = Ember.Object.create({
+      totalHitCount: 1,
+      collections: results
+    });
+
+    this.set('term', 'europe');
+    this.set('collectionResults', collectionResults);
+
     assert.expect(17);
 
-    this.render(hbs`{{collection-results results=results}}`); //render the component
+    this.render(hbs`{{collection-results term=term collectionResults=collectionResults}}`); //render the component
     var $component = this.$(); //component dom element
     var $collectionResults = $component.find(".collection-results");
 

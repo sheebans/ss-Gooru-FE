@@ -17,9 +17,7 @@ test('Page Layout', function(assert) {
   visit('/');
 
   andThen(function() {
-
     assert.expect(48); //making sure all asserts are called
-
 
     assert.equal(currentURL(), '/');
 
@@ -119,11 +117,11 @@ test('Search box navigation', function(assert) {
     const $searchButton = $appHeader.find(".search-button");
     const $searchInput = $appHeader.find(".search-input");
 
-    fillIn($searchInput, 'test');
+    fillIn($searchInput, 'europe');
     click($searchButton);
 
     andThen(function(){
-      assert.equal(currentURL(), '/search/collections?term=test');
+      assert.equal(currentURL(), '/search/collections?term=europe');
     });
   });
 });

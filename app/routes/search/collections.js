@@ -9,8 +9,13 @@ export default Ember.Route.extend({
   /**
    * @property {[]} query params supported
    */
-  queryParams: {'term' : 'term',
-  "gradeIds":'gradeIds',"subjectIds":'subjectIds'},
+  queryParams: {
+    term: {
+      refreshModel: true
+    },
+    gradeIds: 'gradeIds',
+    subjectIds: 'subjectIds'
+  },
 
   /**
    * @property {string} term filter
@@ -18,14 +23,18 @@ export default Ember.Route.extend({
   term: null,
 
   /**
-   * @property {Ember.Service} Service to retrieve subjects
+   * @property {string} collections filter
    */
-  subjectService: Ember.inject.service("api-sdk/subject"),
-
+  collections: null,
   /**
    * @property {Ember.Service} Service to retrieve grades
    */
   gradeService: Ember.inject.service("api-sdk/grade"),
+
+  /**
+   * @property {Ember.Service} Service to retrieve subjects
+   */
+  subjectService: Ember.inject.service('api-sdk/subject'),
 
   /**
    * @property {Ember.Service} Service to retrieve standards
@@ -37,17 +46,23 @@ export default Ember.Route.extend({
    */
   profileService: Ember.inject.service("api-sdk/profile"),
 
-  model: function() {
+  /**
+   * @property {Ember.Service} Service to do the search
+   */
+  searchService: Ember.inject.service('api-sdk/search'),
+
+  model: function(params) {
     var subjects = this.get("subjectService").readAll();
     var grades = this.get("gradeService").readAll();
     var standards = this.get("standardService").readAll();
     var profile = this.get("profileService").findByCurrentUser();
-
+    var collectionResults = this.get('searchService').searchCollections(params);
     return Ember.RSVP.hash({
       subjects: subjects,
       grades: grades,
       standards: standards,
-      profile: profile
+      profile: profile,
+      collectionResults: collectionResults
     });
   },
   /**
@@ -68,6 +83,7 @@ export default Ember.Route.extend({
     }
 
     controller.set("standards", model.standards);
+    controller.set('collectionResults', model.collectionResults);
   },
 
   actions: {
@@ -75,4 +91,3 @@ export default Ember.Route.extend({
   }
 
 });
-

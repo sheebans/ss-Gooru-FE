@@ -194,5 +194,14 @@ export default {
     "description":"You will receive an email with a link to reset your password.",
     "footer":"If you have any questions,<br/> Please contact",
     "mail":"support@goorulearning.org"
-  }
+  },
+  "search-result": {
+    "resource": "resource",
+    "resources": "resources",
+    "and": "and",
+    "question": "question",
+    "questions": "questions",
+    "in-this-collection": "in this collection",
+    "search-results-for": "Search Results for",
+  },
 };

@@ -1,0 +1,20 @@
+[
+  {
+    "request": {
+      "url": "^/gooru-search/rest/v2/search/scollection$",
+      "query": {
+        "sessionToken": "(.+)",
+        "q": "europe"
+      },
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "search-collection-term-europe-ok-response.json"
+    }
+  }
+]

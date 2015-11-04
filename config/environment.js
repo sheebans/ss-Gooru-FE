@@ -30,8 +30,8 @@ module.exports = function (environment) {
 
   ENV['simple-auth-custom'] = {
     apiKey: 'ASERTYUIOMNHBGFDXSDWERT123RTGHYT',
-    serverTokenEndpoint: '/rest/v2/account/login',
-    anonymousEndpoint: '/rest/v2/account/loginas/anonymous'
+    serverTokenEndpoint: '/gooruapi/rest/v2/account/login',
+    anonymousEndpoint: '/gooruapi/rest/v2/account/loginas/anonymous'
   };
 
   if (environment === 'development') {

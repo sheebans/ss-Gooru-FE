@@ -45,8 +45,9 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      * @see application.hbs
      * @see app-header.js
      */
-    onSearch: function (term){
-      this.transitionTo('/search/collections?term=' + term);
+    onSearch: function(term) {
+      var termParam = '?term=' + term;
+      this.transitionTo('/search/collections' + termParam);
     }
 
   }

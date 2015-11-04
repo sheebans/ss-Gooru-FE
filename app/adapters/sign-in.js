@@ -1,11 +1,11 @@
-import ApplicationAdapter from "./application";
+import ApplicationAdapter from './application';
 
 export default ApplicationAdapter.extend({
 
   /**
    * @property {string} End-point URI
    */
-  namespace: "rest/v2/account/login",
+  namespace: 'gooruapi/rest/v2/account/login',
 
   /**
    * Builds the end-point URL using the apiKey as a query string param
@@ -17,8 +17,8 @@ export default ApplicationAdapter.extend({
    * @returns {string}
    */
   buildURL: function(modelName, id, snapshot, requestType, query) {
-    var apiKeyParam = "apiKey="+ this.get("apiKey");
-    return this._super(modelName, id, snapshot, requestType, query) + "?" + apiKeyParam;
+    var apiKeyParam = 'apiKey='+ this.get('apiKey');
+    return this._super(modelName, id, snapshot, requestType, query) + '?' + apiKeyParam;
   }
 
 });
