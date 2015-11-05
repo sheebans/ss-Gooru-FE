@@ -126,7 +126,9 @@ a, button.btn-link {
 
   .gru-user-registration,
   .gru-user-sign-up,
-  .gru-user-sign-up-cancel {
+  .gru-user-sign-up-cancel,
+  .gru-sign-in-form,
+  .gru-forgot-password-popup{
 
     &.modal-content {
       border: 2px solid $color-white;
