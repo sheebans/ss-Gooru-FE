@@ -12,8 +12,11 @@
   ],
 
   "proxies": {
-    "/rest": {
-      "target": "http://localhost:8882/gooruapi"
+    "/gooruapi": {
+      "target": "http://localhost:8882"
+    },
+    "/gooru-search": {
+      "target": "http://localhost:8882"
     }
   }
 }

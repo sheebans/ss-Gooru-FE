@@ -3,6 +3,11 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
   /**
+   * @property {object} Collection item
+   */
+  collection: null,
+
+  /**
    * @property {number} quantityTooltips
    */
   quantityTooltips: null,
@@ -11,11 +16,6 @@ export default Ember.Component.extend({
    * @property {string} tooltipStandards
    */
   tooltipStandards: '',
-
-  /**
-   * @property {Object}
-   */
-  result: null,
 
   /**
    * Selected all standards for each item
@@ -28,8 +28,8 @@ export default Ember.Component.extend({
    * @property {string}
    */
   standardsPopupIdentifier: function (){
-    return "standards-popup_" + this.get("result.id");
-  }.property("result.id"),
+    return "standards-popup_" + this.get("collection.id");
+  }.property("collection.id"),
 
   /**
    * Selected collection results fillStandardsTooltipSection
@@ -48,7 +48,7 @@ export default Ember.Component.extend({
           itemsStandards.addObject(item);
         }
         else {
-          itemName = '<p>' + item.name + '</p>';
+          itemName = '<p>' + item.get('name') + '</p>';
           count += 1;
           tooltipsStand = tooltipsStand + itemName;
         }

@@ -2,51 +2,34 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 
-    /**
-     * @property {number} quantityResources
-     */
-    quantityResources: null,
+  /**
+   * @property {object} Collection item
+   */
+  collection: null,
 
-    /**
-     * @property {number} quantityQuestions
-     */
-    quantityQuestions: null,
+  /**
+   * @property {array} List of resources of the collection
+   */
+  resources: null,
 
-    /**
-     * Selected collection results itemResources
-     * @property {array}
-     */
-    itemResources: function() {
+  /**
+   * @property {boolean} Indicates if collection has 1 or more resources
+   */
+  hasResources: Ember.computed.gt('collection.resourceCount', 0),
 
-        var itemsResources = Ember.A();
-        var resources = this.get("resources");
-        var countQuestions = 0,
-            countResources = 0;
+  /**
+   * @property {boolean} Indicates if collection has more than 1 resource
+   */
+  hasSeveralResources: Ember.computed.gt('collection.resourceCount', 1),
 
-        if(resources){
-            resources.forEach(function(item, index){
-                if(index<4){
-                    itemsResources.addObject(item);
-                }
+  /**
+   * @property {boolean} Indicates if collection has 1 or more questions
+   */
+  hasQuestions: Ember.computed.gt('collection.questionCount', 0),
 
-                if (item.type === "question"){
-                    countQuestions +=1;
-                }
-                else {
-                    countResources +=1;
-                }
+  /**
+   * @property {boolean} Indicates if collection has more than 1 question
+   */
+  hasSeveralQuestions: Ember.computed.gt('collection.questionCount', 1)
 
-            });
-
-            if (countResources > 0){
-                this.set('quantityResources', countResources);
-            }
-            if (countQuestions > 0){
-                this.set('quantityQuestions', countQuestions);
-            }
-        }
-
-        return  itemsResources;
-
-    }.property()
 });

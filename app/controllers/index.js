@@ -87,25 +87,25 @@ export default Ember.Controller.extend({
       const controller = this;
       const i18n = this.get('i18n');
 
-      var gradeId, subjectId;
+      if (controller.get("isEmptyGrades")) {
+        controller.set("errorMessage", i18n.t("index.browseContent.grades_missing_message"));
+      } else {
+        controller.set("errorMessage", null);
+        if (controller.get("isEmptySubjects")) {
+          controller.set("errorMessage", i18n.t("index.browseContent.subjects_missing_message"));
+        } else {
+          controller.set("errorMessage", null);
+          var selectedGrades = controller.get("selectedGrades").map(function (item) {
+            return item.get("id");
+          });
+          var selectedSubjects = controller.get("selectedSubjects").map(function (item) {
+            return item.get("id");
+          });
 
-        if(controller.get("isEmptyGrades")){
-          controller.set("errorMessage", i18n.t("index.browseContent.grades_missing_message"));
-        }else{
-          controller.set("errorMessage",null);
-          if(controller.get("isEmptySubjects")){
-            controller.set("errorMessage", i18n.t("index.browseContent.subjects_missing_message"));
-          }else{
-            controller.set("errorMessage",null);
-            gradeId = controller.get("selectedGrades").map(function (item) {
-              return item.get("id");
-            });
-            subjectId = controller.get("selectedSubjects").map(function (item) {
-              return item.get("id");
-            });
-            controller.transitionToRoute('/search/collections?gradeIds=' +gradeId+"&subjectIds="+subjectId);
-          }}
+          controller.transitionToRoute('/search/collections' + '?gradeIds=' + selectedGrades + '&subjectIds=' + selectedSubjects);
         }
+      }
+    }
   }
 
 });
