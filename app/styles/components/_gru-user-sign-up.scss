@@ -1,0 +1,51 @@
+.gru-user-sign-up {
+
+  .wrapper {
+
+    > .main {
+      padding: 10px 60px;
+
+      .btn-sign-up {
+        margin-top: 15px;
+      }
+
+      .row {
+        margin-top: 15px;
+      }
+
+      form {
+        > .intro,
+        .accept-terms span {
+          font-size: 12px;
+        }
+
+        > .intro {
+          margin: 0 0 20px 0;
+          color: #515151;
+          text-align: center;
+        }
+
+        > .content {
+          background-color: #f0f0f0;
+          border: 1px solid #ddd;
+          padding: 10px 25px;
+          display: inline-block;
+          .img-question {
+            margin: 10px 0 0 -5px;
+          }
+        }
+
+        > .accept-terms {
+          text-align: center;
+          padding: 0 10px;
+          clear: both;
+        }
+
+        .tooltip-inner {
+          width: 180px;
+        }
+      }
+    }
+  }
+}
+

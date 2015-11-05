@@ -1,0 +1,121 @@
+<div class="modal-header">
+  <button type="button" class="close" aria-label="{{t 'common.close'}}" {{action "showModal" "gru-user-sign-up-cancel"}}>
+    <span aria-hidden="true">×</span>
+  </button>
+  <h4 class="modal-title">{{t "common.signUp"}}</h4>
+</div>
+<div class="modal-body">
+  <div class="wrapper">
+    <div class="main">
+      <form>
+        <div class="intro">{{t "gru-user-sign-up.infoMessage"}}</div>
+        <div class="content">
+          <div class="row">
+            <div class="col-xs-6">
+              {{input
+              id="username"
+              title=(t "gru-user-sign-up.usernameToolTip")
+              data-toggle="tooltip"
+              data-placement="left"
+              value=user.username
+              placeholder=(t "gru-user-sign-up.username")
+              class="form-control" }}
+            </div>
+            {{datepicker-field
+            onSelectDateAction=(action "setBirthDate")
+            placeholder=(t "gru-user-sign-up.dateOfBirth")
+            class="col-xs-5 pa-md-left-2 pa-md-right-2 pa-sm-left-2 pa-sm-right-2"}}
+            <div class="col-xs-1">
+              <div class="img-question" data-toggle="tooltip" data-html="true" data-placement="bottom"
+                   title={{t "gru-user-sign-up.birthdayToolTip"}}></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              {{input
+              id="firstName"
+              title=(t "gru-user-sign-up.nameToolTip")
+              data-toggle="tooltip"
+              data-placement="left"
+              value=user.firstName
+              placeholder=(t "gru-user-sign-up.firstName")
+              class="form-control" }}
+            </div>
+            <div class="col-xs-5 pa-md-left-2 pa-md-right-2 pa-sm-left-2 pa-sm-right-2">
+              {{input
+              id="lastName"
+              title=(t "gru-user-sign-up.nameToolTip")
+              data-toggle="tooltip"
+              data-placement="left"
+              value=user.lastName
+              placeholder=(t "gru-user-sign-up.lastName")
+              class="form-control" }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-11 pa-md-right-0 pa-sm-right-0">
+              {{input
+              id="email"
+              title=(t "gru-user-sign-up.emailToolTip")
+              data-toggle="tooltip"
+              data-placement="left"
+              value=user.email
+              placeholder=(t "gru-user-sign-up.email")
+              class="form-control" }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-11 pa-md-right-0 pa-sm-right-0">
+              {{input
+              id="password"
+              title=(t "gru-user-sign-up.passwordToolTip")
+              data-toggle="tooltip"
+              data-placement="left"
+              type="password"
+              value=user.password
+              placeholder=(t "gru-user-sign-up.password")
+              class="form-control" }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-11 pa-md-right-0 pa-sm-right-0">
+              {{input
+              id="rePassword"
+              title=(t "gru-user-sign-up.passwordToolTip")
+              data-toggle="tooltip"
+              data-placement="left"
+              type="password"
+              value=user.confirmedPassword
+              placeholder=(t "gru-user-sign-up.rePassword")
+              class="form-control" }}
+            </div>
+          </div>
+
+          {{role-radio-button onCheck=(action "setRoleValue")}}
+
+          {{#if errorMessage}}
+            <div>
+              <strong>Sign Up failed:</strong> {{errorMessage}}
+            </div>
+          {{/if}}
+
+        </div>
+
+        <div class="accept-terms">
+          <span class="gwt-InlineLabel" id="lblAgree">By clicking Sign Up, I agree to the</span>
+          <a class="org-ednovo-gooru-client-mvp-authentication-SignUpCBundle-SignUp-termsAlignStyle"
+             id="lnkCopyRight">Copyright Policy,</a>
+          <a class="org-ednovo-gooru-client-mvp-authentication-SignUpCBundle-SignUp-termsAlignStyle"
+             id="lnkTermsAndPrivacy">Terms of Service</a>
+          <span class="gwt-InlineLabel" id="spnAndText"> and </span>
+          <a class="org-ednovo-gooru-client-mvp-authentication-SignUpCBundle-SignUp-termsAlignStyle"
+             id="lnkPrivacy">Privacy Policy.</a>
+        </div>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-primary btn-sign-up">Sign Up</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

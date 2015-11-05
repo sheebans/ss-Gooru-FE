@@ -15,7 +15,7 @@
                        placeholder=(t "header.searchForTopic") spellcheck="true"}}
                       </div>
                     </div>
-                    <button type="button" class="btn btn-primary search-button" alt="{{t "common.search"}}"
+                    <button type="button" class="btn btn-primary search-button"
                       {{action 'onSearch'}} title="{{t "common.search"}}">
                       {{t "common.search"}}
                     </button>
@@ -40,8 +40,7 @@
                       </a>
                     </li>
                     <li class="hidden-sm navbar-nav-list no-hover">
-                      <button class="btn btn-primary navbar-btn sign-up-button" data-toggle="modal"
-                         data-target="#sign-up-modal.modal">
+                      <button class="btn btn-primary navbar-btn sign-up-button" {{action "showModal" "gru-user-registration"}}>
                         {{t "common.signUp"}}
                       </button>
                     </li>
@@ -72,12 +71,6 @@
 {{#app-modal id="login-modal" title=(t "common.login") onCloseAction="onCloseModalAction" as |onClose|}}
   {{sign-in-form
       onAuthenticateAction=onAuthenticate
-      onSuccessAction=onClose}}
-{{/app-modal}}
-
-{{#app-modal id="sign-up-modal" title=(t "common.signUp") as |onClose|}}
-  {{sign-up-form
-      onSignUpAction=onSignUp
       onSuccessAction=onClose}}
 {{/app-modal}}
 

@@ -11,14 +11,23 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
   /**
-   * @property {string} on check role option action
+   * @property {Function} action handler to call when a role option is selected
    */
-  onCheckRoleOptionAction: "onCheckRoleOption",
+  onCheck: null,
 
   actions: {
+
     checkRoleOption: function(optionValue) {
-      this.sendAction("onCheckRoleOptionAction", optionValue);
+
+      this.$().find('.roleOption').removeClass("selected");
+      this.$().find('input:checked').closest(".roleOption").addClass("selected");
+
+      var handler = this.get('onCheck');
+      if (handler && typeof handler === 'function') {
+        handler(optionValue);
+      }
     }
+
   }
 
 });

@@ -22,11 +22,19 @@
   width: 100%;
 }
 
+.selected .teacherRoleImage {
+  background: url("gooru/teacher_selected.png") no-repeat scroll center bottom rgba(0,0,0,0);
+}
+
 .studentRoleImage {
   background: url("gooru/student.png") no-repeat scroll center bottom rgba(0,0,0,0);
   height: 45px;
   margin: 10px 0 5px;
   width: 100%;
+}
+
+.selected .studentRoleImage {
+  background: url("gooru/student_selected.png") no-repeat scroll center bottom rgba(0,0,0,0);
 }
 
 .parentRoleImage {
@@ -36,9 +44,17 @@
   width: 100%;
 }
 
+.selected .parentRoleImage {
+  background: url("gooru/parent_selected.png") no-repeat scroll center bottom rgba(0,0,0,0);
+}
+
 .otherRoleImage {
   background: url("gooru/other.png") no-repeat scroll center bottom rgba(0,0,0,0);
   height: 45px;
   margin: 10px 0 5px;
   width: 100%;
+}
+
+.selected .otherRoleImage {
+  background: url("gooru/other_selected.png") no-repeat scroll center bottom rgba(0,0,0,0);
 }

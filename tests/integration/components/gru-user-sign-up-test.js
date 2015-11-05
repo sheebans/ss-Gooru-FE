@@ -2,21 +2,21 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 
-moduleForComponent('sign-up-form', 'Integration | Component | sign up form', {
+moduleForComponent('gru-user-sign-up', 'Integration | Component | user sign up', {
   integration: true,
   beforeEach: function () {
     this.container.lookup('service:i18n').set("locale","en");
   }
 });
 
-test('sign up form renders', function(assert) {
+test('it renders', function(assert) {
   assert.expect(11);
 
-  this.render(hbs`{{sign-up-form}}`);
+  this.render(hbs`{{gru-user-sign-up}}`);
 
   var $component = this.$(); //component dom element
-  T.exists(assert, $component.find("div.sign-up-form"), "Root element not found");
-  T.exists(assert, $component.find("div.sign-up-container"), "Container element not found");
+  T.exists(assert, $component.find("div.gru-user-sign-up"), "Root element not found");
+  T.exists(assert, $component.find("div.modal-body"), "Container element not found");
 
   var $form = $component.find("form");
   T.exists(assert, $form, "Missing sign up form");

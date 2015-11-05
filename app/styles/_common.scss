@@ -1,3 +1,49 @@
+/* General styles */
+a, button.btn-link {
+  color: $color-blue-dark-2;
+  &:hover,
+  &:visited {
+    text-decoration: none;
+    color: $color-blue-lighter-2;
+  }
+}
+
+/* Tooltip styles */
+.tooltip.in,
+.tooltip {
+  background-color: $color-white;
+  font-size: 12px;
+  color: $color-gray-5;
+  opacity: 1;
+  border-radius: 3px;
+  border: solid 1px $color-gray-lighter-2;
+  max-width: 250px;
+  .tooltip-inner {
+    color: $color-gray-5;
+    background: $color-white;
+    border: solid 1px $color-white;
+    max-width: 250px;
+    padding: 2px 5px;
+    font-size: 12px;
+    text-align: left;
+    p {
+      font-size: 12px;
+    }
+  }
+}
+
+.tooltip.bottom .tooltip-arrow {
+  border-width: 0 10px 8px;
+  top: -7px;
+  border-bottom-color: $color-white;
+  background-color: transparent;
+}
+
+.tooltip.left .tooltip-arrow {
+  right: -5px;
+  border-left-color: $color-white;
+}
+
 /* Bootstrap specific rules */
 .col-center-block {
   float: none;
@@ -74,4 +120,58 @@
 }
 .border-gray{
   border-right: 1px solid $color-gray-lighter-3;
+}
+
+.gru-modal {
+
+  .gru-user-registration,
+  .gru-user-sign-up,
+  .gru-user-sign-up-cancel {
+
+    &.modal-content {
+      border: 2px solid $color-white;
+      border-radius: 0;
+
+      .modal-header {
+        background-color: $color-green-primary;
+        padding: 10px 15px;
+        font-size: 16px;
+
+        button.close {
+          text-shadow: none;
+          opacity: 1;
+          filter: alpha(opacity=100);
+          margin: -5px;
+
+          span {
+            color: $color-white;
+            font-size: 34px;
+            font-weight: normal;
+          }
+          &:hover {
+            opacity: 0.6;
+          }
+        }
+        .modal-title {
+          color: $color-white;
+        }
+      }
+
+      .modal-body {
+        border: 1px solid $color-gray-lighter-1;
+        background: url(//cdn.goorulearning.org/webapp/release-2.0.6-PRL01/images/login/registration-bg.png) no-repeat -50px 30px;
+
+        .wrapper {
+          width: 520px;
+          color: #515151;
+          margin: 0 auto;
+          position: relative;
+          font-family: arial, sans-serif;
+          font-size: 12px;
+          border-radius: 0;
+          padding: 3px 3px;
+        }
+      }
+    }
+  }
 }
