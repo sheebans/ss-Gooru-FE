@@ -25,7 +25,7 @@ test('header layout', function(assert) {
 
   T.exists(assert, $component.find("header.app-header"), "Root element not found");
 
-  T.exists(assert, $component.find("#login-modal"), "Missing login modal");
+  T.exists(assert, $component.find(".login-modal"), "Missing login modal");
 
   var $navHeader = $component.find(".navbar-header");
   T.exists(assert, $navHeader, "Missing nav header");
