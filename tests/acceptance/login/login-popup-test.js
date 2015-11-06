@@ -16,37 +16,42 @@ module('Acceptance | Login', {
 test('Login popup', function(assert) {
   visit('/');
   andThen(function() {
-    //assert.expect(5);
+
     assert.equal(currentURL(), '/');
 
-    //Login popup
     var $loginLink = find('.login-link');
+    var $modal = find(".gru-modal");
+
+    assert.ok(!$modal.hasClass('in'), "Modal should not be visible");
+
     click($loginLink);
+    andThen(function() {
 
-    var $signInForm = find('.sign-in-form');
-    var $usernameInput = $signInForm.find('.sign-in-username');
-    var $passwordInput = $signInForm.find('.sign-in-password');
-    //var $loginButton = $signInForm.find('button.submit-sign-in');
+      $modal = find(".gru-modal");
 
-    console.log($usernameInput);
-    console.log($passwordInput);
+      //TODO: Test that the classes are being correctly updated
+      //assert.ok($modal.hasClass('in'), "Modal should be visible");
 
+      var $signInForm = $modal.find('.sign-in-form');
+      var $usernameInput = $signInForm.find('.sign-in-username');
+      var $passwordInput = $signInForm.find('.sign-in-password');
+      var $loginButton = $signInForm.find('button.submit-sign-in');
 
-     fillIn($usernameInput, 'teacher');
-    //fillIn($passwordInput, '');
-    //click($loginButton);
-    //
-    //andThen(function() {
-    //  assert.equal(currentURL(), '/');
-    //
-    //  var $navBar = find('ul.menu-navbar');
-    //  T.exists(assert, $navBar, "Missing Navigation Bar");
-    //  var $profile = $navBar.find('li a.profile span.username');
-    //  T.exists(assert, $profile, "Missing profile");
-    //  assert.equal(T.text($profile), "teacher", "Wrong profile text");
-    //});
+      fillIn($usernameInput, 'teacher');
+      fillIn($passwordInput, '');
+      click($loginButton);
+
+      andThen(function() {
+        assert.equal(currentURL(), '/');
+        //assert.ok(!$modal.hasClass('in'), "Modal should have been hidden");
+
+        var $navBar = find('ul.menu-navbar');
+        assert.ok($navBar, "Missing Navigation Bar");
+
+        var $profile = $navBar.find('li a.profile span.username');
+        assert.ok($profile, "Missing profile");
+        assert.equal($profile.text(), "teacher", "Wrong profile text");
+      });
+    });
   });
 });
-
-
-

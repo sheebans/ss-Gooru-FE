@@ -2,7 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 
-moduleForComponent('sign-up-form', 'Integration | Component | sign in form', {
+moduleForComponent('gru-sign-in', 'Integration | Component | gru sign in', {
   integration: true,
   beforeEach: function () {
     this.container.lookup('service:i18n').set("locale","en");
@@ -12,10 +12,10 @@ moduleForComponent('sign-up-form', 'Integration | Component | sign in form', {
 test('sign in form renders', function(assert) {
   assert.expect(8);
 
-  this.render(hbs`{{sign-in-form}}`);
+  this.render(hbs`{{gru-sign-in}}`);
 
   var $component = this.$(); //component dom element
-  T.exists(assert, $component.find("div.sign-in-form"), "Root element not found");
+  T.exists(assert, $component.find("div.gru-sign-in"), "Root element not found");
 
   var $loginGooruTitle =$component.find('.login-gooru');
   T.exists(assert, $loginGooruTitle, "Missing login gooru title");
