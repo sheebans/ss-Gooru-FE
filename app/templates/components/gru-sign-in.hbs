@@ -1,62 +1,64 @@
 <div class="modal-header">
-    <button type="button" class="close" aria-label="{{t 'common.close'}}" data-dismiss="modal">
-        <span aria-hidden="true">×</span>
-    </button>
-    <h4 class="modal-title">{{t "common.login"}}</h4>
+  <button type="button" class="close" aria-label="{{t 'common.close'}}" data-dismiss="modal">
+    <span aria-hidden="true">×</span>
+  </button>
+  <h4 class="modal-title">{{t "common.login"}}</h4>
 </div>
 <div class="modal-body">
-    <div class="wrapper">
+  <div class="wrapper">
 
-        <div class="main">
-            <div class="sign-in-form">
-                <h3>{{t "login.title"}}</h3>
+    <div class="main">
+      <div class="sign-in-form">
+        <h3>{{t "login.title"}}</h3>
 
-                <div class="row">
-                    <div class="col-md-9 col-center-block login-form-box">
-                        <div class="login-gooru" alt="{{t "login.gooruAccountTitle"}}" title="{{t "login.gooruAccountTitle"}}">{{t "login.gooruAccountTitle"}}</div>
-                        <br>
-                        <button type="button" class="connect-button" alt="{{t "login.googleButton"}}" title="{{t "login.googleButton"}}">{{t "login.googleButton"}}</button>
-                        <div class="divider">
-                            <div class="divider-text" alt="{{t "login.or"}}" title="{{t "login.or"}}">{{t "login.or"}}</div>
-                        </div>
-                        <form {{action "authenticate" on="submit"}}>
-                            <div class="form-group">
-                              {{input
-                              id="signin_username"
-                              value=username
-                              placeholder=(t "login.usernameOrEmail")
-                              class="form-control text-box sign-in-username"}}
-                            </div>
-                            <div class="form-group">
-                              {{input
-                              id="signin_password"
-                              type="password"
-                              value=password
-                              placeholder=(t "login.password")
-                              class="form-control text-box sign-in-password"}}
-                            </div>
-                            <div class="form-group text-left">
-                                <a alt="{{t "login.forgotPassword"}}"
-                                   title="{{t "login.forgotPassword"}}" {{action "showModal" "gru-forgot-password-popup"}}>{{t "login.forgotPassword"}}</a>
-                            </div>
-                            <div class="form-group text-center">
-                                <button type="submit" class="btn btn-primary submit-sign-in">{{t "common.login"}}</button>
-                            </div>
-                          {{#if errorMessage}}
-                              <div class="form-group">
-                                  <span class="text text-danger">{{errorMessage}}</span>
-                              </div>
-                          {{/if}}
-                        </form>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <span class="sign-up-here">{{t "login.haveAccount"}} <a href="#">{{t "login.signUpHere"}}</a> </span>
-                    </div>
-                </div>
+        <div class="row">
+          <div class="col-md-9 col-center-block login-form-box">
+            <div class="login-gooru" alt="{{t "login.gooruAccountTitle"}}"
+                 title="{{t "login.gooruAccountTitle"}}">{{t "login.gooruAccountTitle"}}</div>
+            <br>
+            <button type="button" class="connect-button" alt="{{t "login.googleButton"}}"
+                    title="{{t "login.googleButton"}}">{{t "login.googleButton"}}</button>
+            <div class="divider">
+              <div class="divider-text" alt="{{t "login.or"}}" title="{{t "login.or"}}">{{t "login.or"}}</div>
             </div>
+            <form {{action "authenticate" on="submit"}}>
+              <div class="form-group">
+                  {{input
+                  id="signin_username"
+                  value=username
+                  placeholder=(t "login.usernameOrEmail")
+                  class="form-control text-box sign-in-username"}}
+              </div>
+              <div class="form-group">
+                  {{input
+                  id="signin_password"
+                  type="password"
+                  value=password
+                  placeholder=(t "login.password")
+                  class="form-control text-box sign-in-password"}}
+              </div>
+              <div class="form-group text-left">
+                <button class="btn btn-link" alt="{{t "login.forgotPassword"}}"
+                   title="{{t "login.forgotPassword"}}" {{action "showModal" "gru-forgot-password-popup"}}>{{t "login.forgotPassword"}}</button>
+              </div>
+              <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary submit-sign-in">{{t "common.login"}}</button>
+              </div>
+              {{#if errorMessage}}
+                <div class="form-group">
+                  <span class="text text-danger">{{errorMessage}}</span>
+                </div>
+              {{/if}}
+            </form>
+          </div>
         </div>
-
+        <div class="row">
+          <div class="col-md-12">
+            <span class="sign-up-here">{{t "login.haveAccount"}} <button class="btn btn-link" {{action "showModal" "gru-user-registration"}}>{{t "login.signUpHere"}}</button></span>
+          </div>
+        </div>
+      </div>
     </div>
+
+  </div>
 </div>

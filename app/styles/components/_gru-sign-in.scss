@@ -6,6 +6,11 @@
     text-align: center;
   }
 
+  button.btn-link {
+    font-size: 12px;
+    padding: 0;
+  }
+
   .login-form-box {
     background-color: $color-gray-lighter-1;
     border: 1px solid $color-gray-lighter-2;
