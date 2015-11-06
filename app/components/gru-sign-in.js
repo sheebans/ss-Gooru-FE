@@ -1,9 +1,8 @@
 import Ember from "ember";
-import ModalMixin from '../mixins/modal';
 
-export default Ember.Component.extend(ModalMixin,{
+export default Ember.Component.extend({
 
-  classNames:['gru-sign-in-form'],
+  classNames:['gru-sign-in'],
 
   classNameBindings: ['component-class'],
 
