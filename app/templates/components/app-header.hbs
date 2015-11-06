@@ -34,8 +34,7 @@
                   </li>
                   {{#if session.isAnonymous}}
                     <li class="navbar-nav-list">
-                      <a href="#" class="navbar-link login-link" data-toggle="modal"
-                         data-target="#login-modal.modal">
+                      <a href="#" class="navbar-link login-link login-modal" {{action "showModal" "gru-sign-in"}}>
                         {{t "common.login"}}
                       </a>
                     </li>
@@ -67,13 +66,3 @@
     </div>
   </div>
 </header>
-
-{{#app-modal id="login-modal" title=(t "common.login") onCloseAction="onCloseModalAction" as |onClose|}}
-  {{sign-in-form
-      onAuthenticateAction=onAuthenticate
-      onSuccessAction=onClose}}
-{{/app-modal}}
-
-{{#app-modal id="forgot-password-popup" title=(t "common.forgotPassword") as |onClose|}}
-  {{gru-forgot-password-popup}}
-{{/app-modal}}

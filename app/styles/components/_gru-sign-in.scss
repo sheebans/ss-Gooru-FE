@@ -1,9 +1,14 @@
-.sign-in-form {
+.gru-sign-in {
   h3 {
     margin-top: 0;
     margin-bottom: 25px;
     color: $color-green-primary;
     text-align: center;
+  }
+
+  button.btn-link {
+    font-size: 12px;
+    padding: 0;
   }
 
   .login-form-box {
