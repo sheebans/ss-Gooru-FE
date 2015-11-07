@@ -3,14 +3,51 @@ import ModalMixin from '../mixins/modal';
 
 export default Ember.Component.extend(ModalMixin, {
 
+  // -------------------------------------------------------------------------
+  // Dependencies
+
+  /**
+   * @property {Service} Session service
+   */
+  sessionService: Ember.inject.service("api-sdk/session"),
+
+  // -------------------------------------------------------------------------
+  // Attributes
+
   classNames:['gru-sign-in'],
 
   classNameBindings: ['component-class'],
 
-  /**
-   * @property {SessionService} Session service
-   */
-  sessionService: Ember.inject.service("api-sdk/session"),
+  // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+
+    authenticate: function() {
+      var _this = this;
+
+      this.get("sessionService")
+        .signInWithUser(this.get("credentials"))
+        .then(function() {
+          // Close the modal
+          _this.triggerAction({
+            action: 'closeModal'
+          });
+          // Trigger action in parent
+          _this.triggerAction({
+            action: 'signIn',
+            target: _this.get('target')
+          });
+        })
+        .catch((reason) => {
+          _this.set("errorMessage", reason.error);
+        });
+    }
+
+  },
+
+  // -------------------------------------------------------------------------
+  // Properties
 
   /**
    * @property {string} authentication error message
@@ -18,44 +55,23 @@ export default Ember.Component.extend(ModalMixin, {
   errorMessage: null,
 
   /**
-   * @property {string} on authenticate action to be sent to the parent component
+   * Object with credentials for signing in
+   *
+   * @type {Ember.Object}
    */
-  onAuthenticateAction: "onAuthenticate",
+  credentials: Ember.Object.create({
+    username: null,
+    password: null
+  }),
 
   /**
-   * @property {string} on success action to be sent to the parent component
+   * Class handling the actions from the component.
+   * This value will be set on instantiation by gru-modal.
+   *
+   * @type {Ember.Component}
+   * @private
    */
-  onSuccessAction: null,
+  target: null
 
-  /**
-   * @property {string} on failure action to be sent to the parent component
-   */
-  onFailureAction: null,
-
-  /**
-   * Data-biding properties for the form fields
-   */
-  username: null,
-  password: null,
-
-  actions: {
-    authenticate: function() {
-      var component = this;
-      var credentials = component.getProperties("username", "password");
-      this.get("sessionService").signInWithUser(credentials)
-        .then(function() {
-          component.sendAction("onAuthenticateAction");
-          if (component.get("onSuccessAction")) {
-            component.sendAction("onSuccessAction");
-          }
-        })
-        .catch((reason) => {
-          this.set("errorMessage", reason.error);
-          if (component.get("onFailureAction")) {
-            component.sendAction("onFailureAction");
-          }
-        });
-    }
-  }
 
 });

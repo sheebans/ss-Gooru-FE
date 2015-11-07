@@ -3,6 +3,7 @@
   "test_page": "tests/index.html?hidepassed",
   "report_file": "report-xunit.xml",
   "disable_watching": true,
+  "phantomjs_debug_port": 9900,
   "launch_in_ci": [
     "PhantomJS"
   ],
