@@ -1,17 +1,15 @@
 <div class="collection-results-standards pa-md-1 pa-sm-0">
-    {{#each fillStandardsTooltipSection as |standard|}}
-        <div class="uc-search-standard pa-md-1 pa-sm-0">
-           <div class="label"  data-toggle="tooltip" data-placement="bottom" title="{{standard.description}}"><a data-toggle="modal" data-target="#{{standardsPopupIdentifier}}.modal">{{standard.name}}</a></div>
-        </div>
-    {{/each}}
-    {{#if quantityTooltips}}
-        <div class="blue-link pa-left-1 pa-top-2" data-html ="true" data-toggle="tooltip" data-placement="bottom" title="{{tooltipStandards}}"> <a data-toggle="modal" data-target="#{{standardsPopupIdentifier}}.modal">+{{quantityTooltips}}</a></div>
-    {{/if}}
+  {{#each fillStandardsTooltipSection as |standard|}}
+    <div class="uc-search-standard pa-md-1 pa-sm-0">
+      <div class="label" data-toggle="tooltip" data-placement="bottom" title="{{standard.description}}">
+        <button class="btn btn-link" {{action "showModal" "gru-standards-popup" standards}}>{{standard.name}}</button>
+      </div>
+    </div>
+  {{/each}}
+  {{#if quantityTooltips}}
+    <div class="blue-link pa-left-1 pa-top-2" data-html="true" data-toggle="tooltip" data-placement="bottom"
+         title="{{tooltipStandards}}">
+      <button class="btn btn-link" {{action "showModal" "gru-standards-popup" standards}}>+{{quantityTooltips}}</button>
+    </div>
+  {{/if}}
 </div>
-
-{{#app-modal
-      id=standardsPopupIdentifier
-      component-class="standards"
-      title=(t "standardsPopup.title") as |onClose|}}
-  {{standards-popup standards=standards}}
-{{/app-modal}}

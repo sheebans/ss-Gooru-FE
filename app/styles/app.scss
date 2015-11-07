@@ -1,4 +1,4 @@
-@import 'bower_components/bootstrap-sass/assets/stylesheets/_bootstrap';
+@import '../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap';
 
 @import 'mixins';
 @import 'style-guide';
@@ -7,7 +7,6 @@
 @import 'components/gru-sign-in';
 @import 'components/app-header';
 @import 'components/app-footer';
-@import 'components/app-modal';
 @import 'components/app-dropdown';
 @import 'components/gru-category-panel';
 @import 'components/grade-dropdown';
@@ -20,7 +19,7 @@
 @import 'components/collection-results';
 @import 'components/search-filter';
 @import 'components/rating-stars';
-@import 'components/standards-popup';
+@import 'components/gru-standards-popup';
 @import 'components/resource-options';
 @import 'components/gru-forgot-password-popup';
 @import 'components/gru-user-sign-up-cancel';
