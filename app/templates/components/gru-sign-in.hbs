@@ -21,11 +21,11 @@
             <div class="divider">
               <div class="divider-text" alt="{{t "login.or"}}" title="{{t "login.or"}}">{{t "login.or"}}</div>
             </div>
-            <form {{action "authenticate" on="submit"}}>
+            <form>
               <div class="form-group">
                   {{input
                   id="signin_username"
-                  value=username
+                  value=credentials.username
                   placeholder=(t "login.usernameOrEmail")
                   class="form-control text-box sign-in-username"}}
               </div>
@@ -33,7 +33,7 @@
                   {{input
                   id="signin_password"
                   type="password"
-                  value=password
+                  value=credentials.password
                   placeholder=(t "login.password")
                   class="form-control text-box sign-in-password"}}
               </div>
@@ -42,7 +42,7 @@
                    title="{{t "login.forgotPassword"}}" {{action "showModal" "gru-forgot-password-popup"}}>{{t "login.forgotPassword"}}</button>
               </div>
               <div class="form-group text-center">
-                <button type="submit" class="btn btn-primary submit-sign-in">{{t "common.login"}}</button>
+                <button class="btn btn-primary submit-sign-in" {{action "authenticate"}}>{{t "common.login"}}</button>
               </div>
               {{#if errorMessage}}
                 <div class="form-group">
