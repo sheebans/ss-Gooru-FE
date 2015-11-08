@@ -50,6 +50,12 @@ export default Ember.Component.extend(ModalMixin, {
   // Properties
 
   /**
+   * Specific component class(es). Multiple classes are separated with spaces.
+   * @type {?String}
+   */
+  'component-class':null,
+
+  /**
    * @property {string} authentication error message
    */
   errorMessage: null,
