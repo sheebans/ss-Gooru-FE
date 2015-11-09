@@ -1,6 +1,26 @@
 import Ember from "ember";
 import ModalMixin from '../mixins/modal';
 
+import {
+  validator, buildValidations
+}
+  from 'ember-cp-validations';
+
+var validations = buildValidations({
+  username: validator('presence', true),
+  password: [
+    validator('presence', true),
+    validator('length', {
+      min: 4,
+      max: 8
+    })
+  ],
+  email: [
+    validator('presence', true),
+    validator('format', { type: 'email' })
+  ]
+});
+
 /**
  * User sign up
  *
@@ -10,7 +30,7 @@ import ModalMixin from '../mixins/modal';
  * @module
  * @augments ember/Component
  */
-export default Ember.Component.extend(ModalMixin, {
+export default Ember.Component.extend(ModalMixin,validations, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -98,7 +118,7 @@ export default Ember.Component.extend(ModalMixin, {
    *
    * @type {Ember.Object}
    */
-  user: Ember.Object.create({
+  user: Ember.Object.extend(Validations,{
     username: null,
     firstName: null,
     lastName: null,

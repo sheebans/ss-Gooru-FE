@@ -3,7 +3,7 @@ import DS from "ember-data";
 /**
  * Model to represent the Users obtained from the end-point
  */
-export default DS.Model.extend({
+export default DS.Model.extend(validations,{
 
   // Values used to capture and to read data to/from SignUp end-point
   /**
