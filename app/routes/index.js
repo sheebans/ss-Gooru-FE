@@ -32,11 +32,15 @@ export default Ember.Route.extend({
     var standards = this.get("standardService").readAll();
     var profile = this.get("profileService").findByCurrentUser();
 
+    // TODO: Remove user record creation.
+    // User record should be accessible from the session.
+
     return Ember.RSVP.hash({
       subjects: subjects,
       grades: grades,
       standards: standards,
-      profile: profile
+      profile: profile,
+      user: this.get('store').createRecord('user')
     });
   },
 

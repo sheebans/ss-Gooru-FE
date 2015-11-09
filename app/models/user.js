@@ -1,9 +1,25 @@
 import DS from "ember-data";
-import ValidationMixin from '../mixins/validation';
+import { validator, buildValidations } from 'ember-cp-validations';
+
+const UserValidations = buildValidations({
+  username: validator('presence', true),
+  password: [
+    validator('presence', true),
+    validator('length', {
+      min: 4,
+      max: 8
+    })
+  ],
+  email: [
+    validator('presence', true),
+    validator('format', { type: 'email' })
+  ]
+});
+
 /**
  * Model to represent the Users obtained from the end-point
  */
-export default DS.Model.extend(ValidationMixin,{
+export default DS.Model.extend(UserValidations, {
 
   // Values used to capture and to read data to/from SignUp end-point
   /**
