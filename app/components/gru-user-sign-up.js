@@ -1,6 +1,6 @@
 import Ember from "ember";
 import ModalMixin from '../mixins/modal';
-import ValidationMixin from '../mixins/validation';
+
 
 
 /**
@@ -12,7 +12,7 @@ import ValidationMixin from '../mixins/validation';
  * @module
  * @augments ember/Component
  */
-export default Ember.Component.extend(ModalMixin,ValidationMixin, {
+export default Ember.Component.extend(ModalMixin,{
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -38,6 +38,13 @@ export default Ember.Component.extend(ModalMixin,ValidationMixin, {
      * Sign up user
      */
     signUp: function() {
+      this.get('user').validate().then(function(value){
+          console.log(value);
+        },function(err){
+          console.log(err);
+      }
+
+      );
       this.get("userService")
         .create(this.get('user'))
         .then(function() {
@@ -96,19 +103,9 @@ export default Ember.Component.extend(ModalMixin,ValidationMixin, {
   target: null,
 
   /**
-   * User object with all attributes for sign-up
-   *
-   * @type {Ember.Object}
+   * User
+   * @property {Ember.Model}
    */
-  user: Ember.Object.create({
-    username: null,
-    firstName: null,
-    lastName: null,
-    email: null,
-    dateOfBirth: null,
-    role: null,
-    password: null,
-    confirmedPassword: null
-  })
+  model: []
 
 });
