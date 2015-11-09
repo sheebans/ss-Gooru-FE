@@ -1,9 +1,7 @@
 <div class="gooru">
   {{app-header
-    onAuthenticateAction="onAuthenticate"
-    onInvalidateSessionAction="onInvalidateSession"
-    onCloseModalAction="onCloseModal"
-    onSearchAction="onSearch"}}
+    onLogout="logout"
+    onSearch="searchTerm"}}
     <div class="container-fluid app-container ma-top-25">
       {{outlet}}
     </div>

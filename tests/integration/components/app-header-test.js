@@ -75,7 +75,7 @@ test('Do search by clicking search button', function(assert) {
     assert.equal(term, "test", "onSearchAction should be called once");
   });
 
-  this.render(hbs`{{app-header user=myUser onSearchAction='mySearchAction'}}`);
+  this.render(hbs`{{app-header user=myUser onSearch='mySearchAction'}}`);
 
   const $component = this.$(); //component dom element
 

@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import { module, test } from 'qunit';
 import startApp from 'gooru-web/tests/helpers/start-app';
-//import T from 'gooru-web/tests/helpers/assert';
 
 module('Acceptance | Login', {
   beforeEach: function() {
@@ -14,6 +13,7 @@ module('Acceptance | Login', {
 });
 
 test('Login popup', function(assert) {
+
   visit('/');
   andThen(function() {
 
@@ -29,8 +29,7 @@ test('Login popup', function(assert) {
 
       $modal = find(".gru-modal");
 
-      //TODO: Test that the classes are being correctly updated
-      //assert.ok($modal.hasClass('in'), "Modal should be visible");
+      assert.ok($modal.hasClass('in'), "Modal should be visible");
 
       var $signInForm = $modal.find('.sign-in-form');
       var $usernameInput = $signInForm.find('.sign-in-username');
@@ -42,8 +41,9 @@ test('Login popup', function(assert) {
       click($loginButton);
 
       andThen(function() {
+
         assert.equal(currentURL(), '/');
-        //assert.ok(!$modal.hasClass('in'), "Modal should have been hidden");
+        assert.ok(!$modal.hasClass('in'), "Modal should have been hidden");
 
         var $navBar = find('ul.menu-navbar');
         assert.ok($navBar, "Missing Navigation Bar");
