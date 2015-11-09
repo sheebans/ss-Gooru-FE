@@ -118,7 +118,7 @@ export default Ember.Component.extend(ModalMixin,validations, {
    *
    * @type {Ember.Object}
    */
-  user: Ember.Object.extend(Validations,{
+  user: Ember.Object.extend(validations,{
     username: null,
     firstName: null,
     lastName: null,
