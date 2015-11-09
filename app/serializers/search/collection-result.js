@@ -38,17 +38,17 @@ function normalizeCollections(searchResults, relationshipItems, collectionModel)
       id: result.id,
       attributes: {
         title: result.title,
-        remixes: result.scollectionRemixCount,
-        views: result.viewCount,
-        imageUrl: result.thumbnails.url,
+        remixes: (result.scollectionRemixCount ? result.scollectionRemixCount : 0),
+        views: (result.viewCount ? result.viewCount : 0),
+        imageUrl: (result.thumbnails ? result.thumbnails.url : ''),
         url: '',
         author: result.creatornameDisplay,
         avatarUrl: 'http://profile-images.goorulearning.org.s3.amazonaws.com/' + result.creatorId + '.png',
         profilePageUrl: 'http://www.goorulearning.org/#profilepage&id=' + result.creatorId + '&user=' + result.creatornameDisplay,
         description: result.description,
-        resourceCount: result.resourceCount,
-        questionCount: result.questionCount,
-        hasTeam: result.libraryNames.length > 0,
+        resourceCount: (result.resourceCount ? result.resourceCount : 0),
+        questionCount: (result.questionCount ? result.questionCount : 0),
+        hasTeam: (result.libraryNames.length > 0),
         libraries: getLibraries(result.libraryNames)
       },
       relationships: {

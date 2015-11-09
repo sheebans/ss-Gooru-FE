@@ -68,7 +68,7 @@ test('header layout with user', function(assert) {
 
 });
 
-test('search box', function(assert) {
+test('Do search by clicking search button', function(assert) {
   assert.expect(4); //making sure all asserts are called
 
   this.on('mySearchAction', function(term){
@@ -90,5 +90,22 @@ test('search box', function(assert) {
 
   const $searchButton = $navSearch.find(".search-button");
   $searchButton.click();
+});
 
+
+test('Do search by hitting Enter', function(assert) {
+  assert.expect(1); //making sure all asserts are called
+
+  const ANY_TERM = 'any term';
+
+  this.on('searchAction', function(term){
+    assert.equal(term, ANY_TERM, 'onSearchAction should be called once');
+  });
+
+  this.render(hbs`{{app-header onSearchAction='searchAction'}}`);
+
+  var $searchInput = this.$('.search-input');
+  $searchInput.val(ANY_TERM);
+  $searchInput.change();
+  this.$('form').submit();
 });
