@@ -1,67 +1,69 @@
 <header class="app-header navbar-fixed-top">
   <div class="container">
     <div class="row">
-        <div class="col-md-12 col-sm-12 col-center-block pa-sm-left-0 pa-sm-right-0">
-            <nav class="navbar navbar-default">
-              <div class="navbar-header col-md-2 col-sm-2">
-                {{#link-to 'index' class="navbar-brand home-link"}}  {{/link-to}}
+      <div class="col-md-12 col-sm-12 col-center-block pa-sm-left-0 pa-sm-right-0">
+        <nav class="navbar navbar-default">
+          <div class="navbar-header col-md-2 col-sm-2">
+              {{#link-to 'index' class="navbar-brand home-link"}}  {{/link-to}}
+          </div>
+          <div class="search-navbar-form col-md-3 col-sm-3 pa-top-4">
+            <form {{action "searchTerm" on="submit"}} class="form-inline">
+              <div class="form-group col-md-8 col-sm-6 pa-right-2 pa-left-0">
+                <div class="input-group">
+                    {{input type="text" class="form-control search-input"
+                    value=term
+                    placeholder=(t "header.searchForTopic") spellcheck="true"}}
+                </div>
               </div>
-              <div class="search-navbar-form col-md-3 col-sm-3 pa-top-4">
-                <form {{action "searchTerm" on="submit"}} class="form-inline">
-                  <div class="form-group col-md-8 col-sm-6 pa-right-2 pa-left-0">
-                    <div class="input-group">
-                      {{input type="text" class="form-control search-input"
-                      value=term
-                      placeholder=(t "header.searchForTopic") spellcheck="true"}}
-                    </div>
-                  </div>
-                  <button type="submit" class="btn btn-primary search-button" title="{{t "common.search"}}" disabled={{isIncorrectTermSize}}>
-                    {{t "common.search"}}
+              <button type="submit" class="btn btn-primary search-button" title="{{t "common.search"}}"
+                      disabled={{isIncorrectTermSize}}>
+                {{t "common.search"}}
+              </button>
+            </form>
+          </div>
+          <div class="collapse navbar-collapse col-md-7 col-sm-7 pull-right">
+            <ul class="nav navbar-nav pull-right menu-navbar">
+              <li class="navbar-nav-list border-right">
+                <a href="#" class="navbar-link libraries-link">{{t "common.libraries"}}</a>
+              </li>
+              <li class="navbar-nav-list">
+                <a href="#" class="navbar-link my-content-link">{{t "common.myContent"}}</a>
+              </li>
+              <li class="navbar-nav-list">
+                <a href="#" class="navbar-link my-classes-link">{{t "common.myClasses"}}</a>
+              </li>
+              {{#if session.isAnonymous}}
+                <li class="navbar-nav-list">
+                  <a href="#" class="navbar-link login-link login-modal" {{action "showModal" "gru-sign-in"}}>
+                    {{t "common.login"}}
+                  </a>
+                </li>
+                <li class="hidden-sm navbar-nav-list no-hover">
+                  <button
+                      class="btn btn-primary navbar-btn sign-up-button" {{action "showModal" "gru-user-registration"}}>
+                    {{t "common.signUp"}}
                   </button>
-                </form>
-              </div>
-              <div class="collapse navbar-collapse col-md-7 col-sm-7 pull-right">
-                <ul class="nav navbar-nav pull-right menu-navbar">
-                  <li class="navbar-nav-list border-right">
-                    <a href="#" class="navbar-link libraries-link">{{t "common.libraries"}}</a>
-                  </li>
-                  <li class="navbar-nav-list">
-                    <a href="#" class="navbar-link my-content-link">{{t "common.myContent"}}</a>
-                  </li>
-                  <li class="navbar-nav-list">
-                    <a href="#" class="navbar-link my-classes-link">{{t "common.myClasses"}}</a>
-                  </li>
-                  {{#if session.isAnonymous}}
-                    <li class="navbar-nav-list">
-                      <a href="#" class="navbar-link login-link login-modal" {{action "showModal" "gru-sign-in"}}>
-                        {{t "common.login"}}
-                      </a>
-                    </li>
-                    <li class="hidden-sm navbar-nav-list no-hover">
-                      <button class="btn btn-primary navbar-btn sign-up-button" {{action "showModal" "gru-user-registration"}}>
-                        {{t "common.signUp"}}
-                      </button>
-                    </li>
-                  {{else}}
-                    <li class="navbar-nav-list border-right">
-                      <a href="#" class="profile navbar-link" title="{{session.userData.username}}">
-                        <i class="icon pull-left">&nbsp;</i>
-                        <span class="username text-white">{{session.userData.username}}</span>
-                      </a>
-                    </li>
-                    <li class="navbar-nav-list">
-                      <a href="#" class="navbar-link settings">
-                        <span class="icon"></span>
-                      </a>
-                    </li>
-                    <li class="navbar-nav-list">
-                      <a class="navbar-link" {{action "logout"}}> {{t "common.logout"}}</a>
-                    </li>
-                  {{/if}}
-                </ul>
-              </div>
-            </nav>
-        </div>
+                </li>
+              {{else}}
+                <li class="navbar-nav-list border-right">
+                  <a href="#" class="profile navbar-link" title="{{session.userData.username}}">
+                    <i class="icon pull-left">&nbsp;</i>
+                    <span class="username text-white">{{session.userData.username}}</span>
+                  </a>
+                </li>
+                <li class="navbar-nav-list">
+                  <a href="#" class="navbar-link settings">
+                    <span class="icon"></span>
+                  </a>
+                </li>
+                <li class="navbar-nav-list">
+                  <a class="navbar-link" {{action "logout"}}> {{t "common.logout"}}</a>
+                </li>
+              {{/if}}
+            </ul>
+          </div>
+        </nav>
+      </div>
     </div>
   </div>
 </header>
