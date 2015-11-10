@@ -109,3 +109,19 @@ test('Do search by hitting Enter', function(assert) {
   $searchInput.change();
   this.$('form').submit();
 });
+test('Disabled Search Button', function(assert) {
+  assert.expect(1); //making sure all asserts are called
+
+  this.render(hbs`{{app-header}}`);
+  assert.equal($('.search-button').attr("disabled"),'disabled',"Button should be disabled");
+
+});
+
+test('Enable Search Button', function(assert) {
+  assert.expect(1); //making sure all asserts are called
+
+  this.render(hbs`{{app-header term='test'}}`);
+  assert.equal($('.search-button').attr("disabled"),null, "Button should be enable");
+
+
+});

@@ -38,6 +38,12 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    */
   term: null,
 
+  /**
+   * Validate if the property term have the correct number of
+   * @property
+   */
+  isIncorrectTermSize : Ember.computed.lt('term.length',3),
+
   actions: {
 
     onAuthenticate: function () {
