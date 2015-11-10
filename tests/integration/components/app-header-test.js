@@ -102,7 +102,7 @@ test('Do search by hitting Enter', function(assert) {
     assert.equal(term, ANY_TERM, 'onSearchAction should be called once');
   });
 
-  this.render(hbs`{{app-header onSearchAction='searchAction'}}`);
+  this.render(hbs`{{app-header onSearch='searchAction'}}`);
 
   var $searchInput = this.$('.search-input');
   $searchInput.val(ANY_TERM);
