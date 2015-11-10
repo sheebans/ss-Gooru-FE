@@ -15,7 +15,7 @@
                        placeholder=(t "header.searchForTopic") spellcheck="true"}}
                       </div>
                     </div>
-                    <button type="submit" class="btn btn-primary search-button" title="{{t "common.search"}}">
+                    <button type="submit" class="btn btn-primary search-button" title="{{t "common.search"}}" disabled={{isIncorrectTermSize}}>
                       {{t "common.search"}}
                     </button>
                 </form>
