@@ -63,6 +63,13 @@ export default Ember.Component.extend(ModalMixin, {
   'component-class':null,
 
   /**
+   * Component data
+   * @type {*}
+   * @private
+   */
+  'component-model': Ember.computed.alias('modal.model'),
+
+  /**
    * Name of the component to display
    * @type {String}
    * @private

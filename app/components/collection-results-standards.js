@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import ModalMixin from '../mixins/modal';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ModalMixin, {
 
   /**
    * @property {object} Collection item
@@ -22,14 +23,6 @@ export default Ember.Component.extend({
    * @property {array}
    */
   standards: null,
-
-  /**
-   * Standards popup identifier
-   * @property {string}
-   */
-  standardsPopupIdentifier: function (){
-    return "standards-popup_" + this.get("collection.id");
-  }.property("collection.id"),
 
   /**
    * Selected collection results fillStandardsTooltipSection

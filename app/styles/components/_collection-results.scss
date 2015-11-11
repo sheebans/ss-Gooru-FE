@@ -134,9 +134,10 @@
             float: left;
             margin-right: 5px;
             margin-top: 1px;
-            .label a {
+            .label button.btn-link {
               font-size: 10px;
               font-weight: normal;
+              color: $color-white;
             }
           }
           .blue-link {
@@ -148,7 +149,7 @@
             vertical-align: middle;
             position: relative;
             padding: 0 ;
-            a {
+            button.btn-link {
               font-size: 10px;
               &:hover {
                 text-decoration: none;
