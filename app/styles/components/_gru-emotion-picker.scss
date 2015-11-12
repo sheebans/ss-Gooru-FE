@@ -1,0 +1,44 @@
+.gru-emotion-picker{
+  .emotics{
+    background: url('gooru/emotics.png') no-repeat 0 0;
+    width: 35px;
+    height: 35px;
+  }
+  .need-help{
+    background-position: -184px -4px;
+  }
+  .need-help.active {
+    background-position: -222px -52px;
+  }
+  .do-not-understand{
+    background-position: -143px -4px;
+  }
+  .do-not-understand.active{
+    background-position: -143px -52px;
+  }
+  .meh{
+    background-position: -99px -4px;
+  }
+  .meh.active{
+    background-position: -230px -4px;
+  }
+  .understand{
+    background-position: -54px -4px;
+  }
+  .understand.active{
+    background-position: -184px -52px;
+  }
+  .can-explain{
+    background-position: -10px -4px;
+  }
+  .can-explain.active{
+    background-position: -266px -4px;
+  }
+  .emotions-list{
+    list-style: none;
+    padding-left: 0px;
+    li{
+      float:left;
+    }
+  }
+}

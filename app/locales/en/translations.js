@@ -234,5 +234,12 @@ export default {
     "questions": "questions",
     "in-this-collection": "in this collection",
     "search-results-for": "Search Results for"
+  },
+  "gru-emotion-picker":{
+    "need-help":"I need help",
+    "do-not-understand":"I don't understand",
+    "meh":"Meh...",
+    "understand":"I understand",
+    "can-explain":"I can explain"
   }
 };
