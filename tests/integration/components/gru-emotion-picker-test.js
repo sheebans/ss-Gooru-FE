@@ -25,13 +25,17 @@ test('Emotion Picker', function(assert) {
     T.exists(assert, $emotionPicker.find("."+emotion.emotion), 'Missing emotion ');
   });
 });
-//test('Click emotion', function(assert) {
-//  var emotionsList = emotions();
-//  this.set('externalAction', (attributes) => assert.deepEqual(attributes, { emotion: emotionsList[0].emotion }, 'submitted emotion'));
-//
-//  this.render(hbs`{{gru-emotion-picker onSetEmotion=(action externalAction)}}`);
-//  var $component = this.$(); //component dom element
-//  var $emotionPicker = $component.find(".emotion-picker");
-//  $emotionPicker.find("ul li div.emotics:eq(1)").click(); //CCSS
-//
-//});
+test('Click emotion', function(assert) {
+  assert.expect(1);
+  var emotionsList = emotions();
+
+  this.on('onChangeEmotionAction', function(attributes){
+    assert.deepEqual(attributes, emotionsList[0].emotion, 'submitted emotion');
+  });
+
+  this.render(hbs`{{gru-emotion-picker onChangeEmotionAction='onChangeEmotionAction'}}`);
+  var $component = this.$(); //component dom element
+  var $emotionPicker = $component.find("div.emotion-picker");
+  $emotionPicker.find("ul.emotions-list li.pa-sm-5:eq(0) div").click();
+
+});
