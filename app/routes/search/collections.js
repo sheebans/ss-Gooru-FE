@@ -90,8 +90,8 @@ export default Ember.Route.extend({
     /**
      * Action triggered to open the content player
      */
-    openContentPlayer: function() {
-      this.transitionTo('/content-player');
+    onOpenContentPlayer: function() {
+      this.transitionTo('/player');
     }
   }
 
