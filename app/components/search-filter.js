@@ -38,7 +38,19 @@ export default Ember.Component.extend(i18nMixin, {
    *  @property {boolean} collectionFilterSelected
    *
    */
-  collectionFilterSelected: false,
+  //collectionFilterSelected: false,
+
+  collectionFilterSelected: Ember.computed('selectedCollectionType', function() {
+    var selectedCollectionType = this.get('selectedCollectionType');
+    if (!selectedCollectionType && selectedCollectionType =='collection'){
+      return true;
+    }
+    else{
+      return false;
+    }
+
+    console.log('selectedCollectionType', this.get('selectedCollectionType'));
+  }),
 
   /**
    * True if assessment filter option is selected
@@ -108,18 +120,16 @@ export default Ember.Component.extend(i18nMixin, {
      * Triggered when search collection filter is selected
      */
     searchCollectionFilter: function(){
-      this.set("collectionFilterSelected", true);
-      this.set("assessmentFilterSelected", false);
-      this.sendAction("onFilterTypeAction", this.get("term"),'collection');
+      this.sendAction("onFilterType", this.get("term"),'collection');
+      console.log('selectedCollectionType', this.get('selectedCollectionType'));
     },
 
     /**
      * Triggered when search assessment filter is selected
      */
     searchAssessmentFilter: function(){
-      this.set("collectionFilterSelected", false);
-      this.set("assessmentFilterSelected", true);
-      this.sendAction("onFilterTypeAction",this.get("term"), 'assessment');
+      this.sendAction("onFilterType",this.get("term"), 'assessment');
+      console.log('selectedCollectionType', this.get('selectedCollectionType'));
     }
   },
 

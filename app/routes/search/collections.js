@@ -65,7 +65,8 @@ export default Ember.Route.extend({
       grades: grades,
       standards: standards,
       profile: profile,
-      collectionResults: collectionResults
+      collectionResults: collectionResults,
+      collectionType: params.collectionType
     });
   },
   /**
@@ -87,10 +88,11 @@ export default Ember.Route.extend({
 
     controller.set("standards", model.standards);
     controller.set('collectionResults', model.collectionResults);
+    controller.set('selectedCollectionType', model.collectionType);
   },
 
   actions: {
-    onFilterType: function(term, collectionType) {
+    filterType: function(term, collectionType) {
       var termParam = '?term=' + term;
       var collectionTypeParam = '&collectionType=' + collectionType;
       this.transitionTo('/search/collections' + termParam + collectionTypeParam);

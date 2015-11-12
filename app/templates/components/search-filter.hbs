@@ -28,7 +28,7 @@
                    </button></li>
                <li class="ma-md-left-1 ma-sm-left-1">
                   <div class="border-gray pa-md-right-2 pa-sm-right-2">
-                      <button class="col-center-block  btn btn-default assessments btn-search-filter {{if assessmentFilterSelected 'selected'}}" {{action 'searchAssessmentFilter'}}>
+                      <button class="col-center-block  btn btn-default assessments btn-search-filter {{unless collectionFilterSelected 'selected'}}" {{action 'searchAssessmentFilter'}}>
                         <span class="pa-md-right-2 pa-sm-right-2"><div class="img-assessments"></div></span>
                         {{t "search-filter.assessmentsButton"}}
                       </button>
