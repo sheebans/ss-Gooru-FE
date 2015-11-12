@@ -4,23 +4,26 @@
 @import 'style-guide';
 @import 'common';
 
-@import 'components/gru-sign-in';
-@import 'components/app-header';
-@import 'components/app-footer';
-@import 'components/app-dropdown';
-@import 'components/gru-category-panel';
-@import 'components/grade-dropdown';
-@import 'components/standard-dropdown';
 @import 'controllers/index';
-@import 'components/gru-user-sign-up';
-@import 'components/gru-user-registration';
+@import 'controllers/player';
+
+@import 'components/app-dropdown';
+@import 'components/standard-dropdown';
 @import 'components/role-radio-button';
 @import 'components/datepicker-field';
-@import 'components/collection-results';
 @import 'components/search-filter';
 @import 'components/rating-stars';
-@import 'components/gru-standards-popup';
+@import 'components/collection-results';
 @import 'components/resource-options';
+@import 'components/grade-dropdown';
+
+@import 'components/gru-sign-in';
+@import 'components/gru-header';
+@import 'components/gru-footer';
+@import 'components/gru-category-panel';
+@import 'components/gru-user-sign-up';
+@import 'components/gru-user-registration';
+@import 'components/gru-standards-popup';
 @import 'components/gru-forgot-password-popup';
 @import 'components/gru-user-sign-up-cancel';
 

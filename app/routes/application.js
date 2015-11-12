@@ -19,7 +19,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     /**
      * Action triggered when submitting the login form
      * @see application.hbs
-     * @see app-header.hbs
+     * @see gru-header.hbs
      */
     signIn: function() {
       this.transitionTo("index");
@@ -36,7 +36,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     /**
      * Action triggered when the user search for collections
      * @see application.hbs
-     * @see app-header.js
+     * @see gru-header.js
      */
     searchTerm: function(term) {
       var termParam = '?term=' + term;
