@@ -1,6 +1,14 @@
 import Ember from 'ember';
-import {emotions} from '../utils/constants';
 
+/**
+ * Emotion picker
+ *
+ * Component responsible for letting the user select and update an emotion
+ * from a predefined list of emotions
+ *
+ * @module
+ * @augments ember/Component
+ */
 export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
@@ -15,19 +23,23 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
+
     /**
-     * Triggered when change the emotion
-     * @param newEmotion
+     * Set a new emotion as selected and update the component appearance accordingly
+     *
+     * @function actions:setEmotion
+     * @param {string} newEmotion - newly selected emotion
+     * @returns {undefined}
      */
-    onSetEmotion: function(newEmotion) {
+    setEmotion: function(newEmotion) {
       this.$("." + newEmotion).parent().siblings().find(".active").removeClass("active");
-      this.$("."+newEmotion).toggleClass("active");
-      if(!this.get('selectedEmotion') || this.get('selectedEmotion')!== newEmotion){
-        this.set('selectedEmotion',newEmotion);
+      this.$("." + newEmotion).toggleClass("active");
+      if(!this.get('selectedEmotion') || this.get('selectedEmotion') !== newEmotion){
+        this.set('selectedEmotion', newEmotion);
       }else{
-        this.set('selectedEmotion',null);
+        this.set('selectedEmotion', null);
       }
-      this.sendAction("onChangeEmotionAction", this.get('selectedEmotion'));
+      this.sendAction("onChangeEmotion", this.get('selectedEmotion'));
     }
   },
 
@@ -35,7 +47,7 @@ export default Ember.Component.extend({
   // Events
 
   /**
-   * DidInsertElement ember event
+   * Add tooltip to UI elements (elements with attribute 'data-toggle')
    */
   addTooltip: function() {
     var component = this;
@@ -46,20 +58,39 @@ export default Ember.Component.extend({
   // Properties
 
   /**
-   * List of emotions
-   * @property {array}
+   * List of emotions to be displayed by the component
+   *
+   * @constant {Array}
    */
-  emotionsList :emotions(),
+  emotionsList: [
+    {
+      'emotion': 'need-help',
+      'icon-class': 'need-help'
+    },
+    {
+      'emotion': 'do-not-understand',
+      'icon-class': 'do-not-understand'
+    },
+    {
+      'emotion': 'meh',
+      'icon-class': 'meh'
+    },
+    {
+      'emotion': 'understand',
+      'icon-class': 'understand'
+    },
+    {
+      'emotion': 'can-explain',
+      'icon-class': 'can-explain'
+    }],
 
   /**
-   * This is triggered when the emotion change
-   * @property {string} on selection action
+   * @property {String|Function} onChangeEmotion - event handler for when the selected emotion is changed
    */
-  onChangeEmotionAction: null,
+  onChangeEmotion: null,
 
   /**
-   * Selected Emotion
-   * @property {string}
+   * @property {?string} selectedEmotion - selected emotion
    */
   selectedEmotion: null
 

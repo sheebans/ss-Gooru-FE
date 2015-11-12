@@ -1,5 +1,5 @@
 .gru-emotion-picker{
-  .emotics{
+  .emotion{
     background: url('gooru/emotics.png') no-repeat 0 0;
     width: 35px;
     height: 35px;
@@ -36,7 +36,7 @@
   }
   .emotions-list{
     list-style: none;
-    padding-left: 0px;
+    padding-left: 0;
     li{
       float:left;
     }

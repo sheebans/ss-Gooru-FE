@@ -7,7 +7,7 @@ export default Ember.Route.extend({
      * Action triggered when the user change the emotion
      * @see gru-emotion-picker
      */
-    onChangeEmotion: function(emotion) {
+    changeEmotion: function(emotion) {
       //TODO remove when implement the content player
       console.log(emotion);
     }

@@ -1,9 +1,11 @@
 <div class="row emotion-picker">
-    <ul class="emotions-list pa-md-left-10 pa-sm-left-10">
-      {{#each emotionsList as |emotion|}}
-          <li class="pa-md-5 pa-sm-5">
-             <div title="{{t (concat 'gru-emotion-picker.' emotion.icon-class) }}" data-toggle="tooltip" data-placement="bottom" class="emotics {{emotion.icon-class}}" {{action 'onSetEmotion' emotion.emotion}}></div>
-          </li>
-      {{/each}}
-    </ul>
+  <ul class="emotions-list pa-md-left-10 pa-sm-left-10">
+    {{#each emotionsList as |emotion|}}
+      <li class="pa-md-5 pa-sm-5">
+        <div title="{{t (concat 'gru-emotion-picker.' emotion.icon-class) }}" data-toggle="tooltip"
+             data-placement="bottom"
+             class="emotion {{emotion.icon-class}}" {{action 'setEmotion' emotion.emotion}}></div>
+      </li>
+    {{/each}}
+  </ul>
 </div>
