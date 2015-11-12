@@ -15,7 +15,7 @@ export default Ember.Component.extend({
   /**
    * @property {string} on content player action
    */
-  onContentPlayerAction: "onContentPlayerAction",
+  onOpenContentPlayer: "onOpenContentPlayer",
 
 
   /**
@@ -29,8 +29,8 @@ export default Ember.Component.extend({
     /**
      * Action triggered to open the content player
      */
-    onContentPlayer: function() {
-      this.sendAction("onContentPlayerAction");
+    openContentPlayer: function() {
+      this.sendAction("onOpenContentPlayer");
     }
   }
 });
