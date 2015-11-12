@@ -117,14 +117,13 @@
       }
       .standard-container {
         border-bottom: 1px solid $color-gray-lighter-2;
-        min-height: 40px;
-        height: auto;
+        height: 40px;
         box-sizing: content-box;
         .collection-results-standards {
           border-radius: 3px;
           font-size: 10px;
           display: inline-block;
-          margin: 8px 0;
+          margin: 7px 0;
           width: 100%;
           .uc-search-standard {
             background-color: $color-gray-secondary;

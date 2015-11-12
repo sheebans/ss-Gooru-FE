@@ -14,7 +14,10 @@ export default Ember.Route.extend({
       refreshModel: true
     },
     gradeIds: 'gradeIds',
-    subjectIds: 'subjectIds'
+    subjectIds: 'subjectIds',
+    collectionType: {
+      refreshModel: true
+    }
   },
 
   /**
@@ -87,7 +90,11 @@ export default Ember.Route.extend({
   },
 
   actions: {
-
+    onFilterType: function(term, collectionType) {
+      var termParam = '?term=' + term;
+      var collectionTypeParam = '&collectionType=' + collectionType;
+      this.transitionTo('/search/collections' + termParam + collectionTypeParam);
+    }
   }
 
 });

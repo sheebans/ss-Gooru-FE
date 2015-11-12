@@ -7,7 +7,7 @@ export default Ember.Service.extend(StoreMixin, {
     if(params.term) {
       return this.get('store').queryRecord('search/collection-result', {
         category: 'All',
-        'flt.collectionType': 'collection',
+        'flt.collectionType': (params.collectionType)?params.collectionType:'collection',
         includeCIMetaData: true,
         length: 8,
         q: params.term,

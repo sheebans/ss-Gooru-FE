@@ -234,5 +234,8 @@ export default {
     "questions": "questions",
     "in-this-collection": "in this collection",
     "search-results-for": "Search Results for"
+  },
+  "loading": {
+    "text": "Loading..."
   }
 };

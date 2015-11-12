@@ -96,26 +96,26 @@ h3 {
   -webkit-font-smoothing: antialiased;
 }
 
-@include make-padding(25, xs, 2px);
-@include make-padding(25, null, 2px);
-@include make-margin(25, null, 2px);
+@include make-padding(30, xs, 2px);
+@include make-padding(30, null, 2px);
+@include make-margin(30, null, 2px);
 @media (min-width: $screen-sm-min) {
-  @include make-padding(25, sm, 2px);
+  @include make-padding(30, sm, 2px);
 }
 @media (min-width: $screen-md-min) {
-  @include make-padding(25, md, 2px);
+  @include make-padding(30, md, 2px);
 }
 @media (min-width: $screen-lg-min) {
-  @include make-padding(25, lg, 2px);
+  @include make-padding(30, lg, 2px);
 }
 
-@include make-margin(25, xs, 2px);
+@include make-margin(30, xs, 2px);
 @media (min-width: $screen-sm-min) {
-  @include make-margin(25, sm, 2px);
+  @include make-margin(30, sm, 2px);
 }
 @media (min-width: $screen-md-min) {
-  @include make-margin(25, md, 2px);
+  @include make-margin(30, md, 2px);
 }
 @media (min-width: $screen-lg-min) {
-  @include make-margin(25, lg, 2px);
+  @include make-margin(30, lg, 2px);
 }
