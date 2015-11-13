@@ -3,7 +3,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 
-moduleForComponent('app-header', 'Integration | Component | app header', {
+moduleForComponent('gru-header', 'Integration | Component | Header', {
   integration: true,
   beforeEach: function () {
     this.container.lookup('service:i18n').set("locale","en");
@@ -19,11 +19,11 @@ test('header layout', function(assert) {
     assert.ok(false, "onAuthenticateAction should not be called");
   });
 
-  this.render(hbs`{{app-header session=session onAuthenticateAction='myAuthenticateAction'}}`);
+  this.render(hbs`{{gru-header session=session onAuthenticateAction='myAuthenticateAction'}}`);
 
   var $component = this.$(); //component dom element
 
-  T.exists(assert, $component.find("header.app-header"), "Root element not found");
+  T.exists(assert, $component.find("header.gru-header"), "Root element not found");
 
   T.exists(assert, $component.find(".login-modal"), "Missing login modal");
 
@@ -54,7 +54,7 @@ test('header layout with user', function(assert) {
     userData: {username: 'jperez'}
   }));
 
-  this.render(hbs`{{app-header session=session}}`);
+  this.render(hbs`{{gru-header session=session}}`);
 
   const $component = this.$(); //component dom element
 
@@ -75,7 +75,7 @@ test('Do search by clicking search button', function(assert) {
     assert.equal(term, "test", "onSearchAction should be called once");
   });
 
-  this.render(hbs`{{app-header user=myUser onSearch='mySearchAction'}}`);
+  this.render(hbs`{{gru-header user=myUser onSearch='mySearchAction'}}`);
 
   const $component = this.$(); //component dom element
 
@@ -102,7 +102,7 @@ test('Do search by hitting Enter', function(assert) {
     assert.equal(term, ANY_TERM, 'onSearchAction should be called once');
   });
 
-  this.render(hbs`{{app-header onSearch='searchAction'}}`);
+  this.render(hbs`{{gru-header onSearch='searchAction'}}`);
 
   var $searchInput = this.$('.search-input');
   $searchInput.val(ANY_TERM);
@@ -111,11 +111,11 @@ test('Do search by hitting Enter', function(assert) {
 });
 
 test('Disabled Search Button', function(assert) {
-  this.render(hbs`{{app-header}}`);
+  this.render(hbs`{{gru-header}}`);
   assert.equal($('.search-button').attr("disabled"),'disabled',"Button should be disabled");
 });
 
 test('Enable Search Button', function(assert) {
-  this.render(hbs`{{app-header term='test'}}`);
+  this.render(hbs`{{gru-header term='test'}}`);
   assert.equal($('.search-button').attr("disabled"),null, "Button should be enable");
 });

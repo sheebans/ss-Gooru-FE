@@ -113,7 +113,7 @@ test('Search box navigation', function(assert) {
     assert.equal(currentURL(), '/');
 
     //hero
-    const $appHeader = find('.app-header');
+    const $appHeader = find('.gru-header');
     const $searchButton = $appHeader.find(".search-button");
     const $searchInput = $appHeader.find(".search-input");
 
