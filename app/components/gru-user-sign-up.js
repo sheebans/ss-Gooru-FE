@@ -36,7 +36,7 @@ export default Ember.Component.extend(ModalMixin, {
      * Sign up user
      */
     signUp: function() {
-      this.get("userService")
+      /*this.get("userService")
         .create(this.get('user'))
         .then(function() {
           this.triggerAction({
@@ -46,7 +46,13 @@ export default Ember.Component.extend(ModalMixin, {
         function() {
           Ember.Logger.error('Error signing up user');
         }
-      );
+      );*/
+      console.log('calling username service');
+      
+      this.get("userService")
+        .checkUsernameAvailabilty('asdf');
+
+
     },
 
     /**

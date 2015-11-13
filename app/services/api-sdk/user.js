@@ -11,6 +11,11 @@ export default Ember.Service.extend(StoreMixin, {
   create: function(user) {
     var model = this.get("store").createRecord('sign-up', user);
     return model.save();
+  },
+  checkUsernameAvailabilty:function(username){
+  	return this.get('store').queryRecord('user/availability', {
+        keyword: username
+        
+      });
   }
-
 });
