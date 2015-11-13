@@ -1,29 +1,24 @@
 import { moduleForComponent, test } from 'ember-qunit';
+import T from 'gooru-web/tests/helpers/assert';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('player/gru-navigation', 'Integration | Component | player/gru navigation', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.container.lookup('service:i18n').set("locale","en");
+  }
 });
 
-test('it renders', function(assert) {
+test('Navigation', function(assert) {
 
-  // TODO: write tests
 
-  assert.expect(0);
-  //
-  //// Set any properties with this.set('myProperty', 'value');
-  //// Handle any actions with this.on('myAction', function(val) { ... });
-  //
+  assert.expect(3);
+
   this.render(hbs`{{player/gru-navigation}}`);
-  //
-  //assert.equal(this.$().text().trim(), '');
-  //
-  //// Template block usage:
-  //this.render(hbs`
-  //  {{#player/gru-navigation}}
-  //    template block text
-  //  {{/player/gru-navigation}}
-  //`);
-  //
-  //assert.equal(this.$().text().trim(), 'template block text');
+
+  var $component = this.$(); //component dom element
+  const $navigation = $component.find(".gru-navigation");
+  T.exists(assert, $navigation, "Missing navigation section");
+  T.exists(assert, $navigation.find("span.hamburger-icon"), "Missing navigation section");
+  T.exists(assert, $navigation.find("span.x-icon"), "Missing navigation section");
 });

@@ -11,9 +11,8 @@ Router.map(function() {
   this.route('search', function() {
     this.route('collections');
   });
-
+  
   this.route('player');
-
 });
 
 export default Router;

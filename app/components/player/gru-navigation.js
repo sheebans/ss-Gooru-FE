@@ -19,11 +19,20 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-navigation']
+  classNames:['gru-navigation'],
 
   // -------------------------------------------------------------------------
   // Actions
-
+  actions: {
+    /**
+     * Action triggered when the user change the emotion
+     * @see gru-emotion-picker
+     */
+    changeEmotion: function(emotion) {
+      //TODO remove when implement the content player
+      console.log(emotion);
+    }
+  }
 
   // -------------------------------------------------------------------------
   // Events
