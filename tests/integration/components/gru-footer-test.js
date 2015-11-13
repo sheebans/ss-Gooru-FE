@@ -3,7 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 
 
-moduleForComponent('app-footer', 'Integration | Component | app footer', {
+moduleForComponent('gru-footer', 'Integration | Component | Footer', {
   // needs: ['component:foo', 'helper:bar']
   integration: true,
   beforeEach: function () {
@@ -14,10 +14,10 @@ moduleForComponent('app-footer', 'Integration | Component | app footer', {
 test('footer layout', function(assert) {
   assert.expect(27); //making sure all asserts are called
 
-  this.render(hbs`{{app-footer}}`); //render the component
+  this.render(hbs`{{gru-footer}}`); //render the component
   var $component = this.$(); //component dom element
 
-  T.exists(assert, $component.find("footer.app-footer"), "Footer root element not found");
+  T.exists(assert, $component.find("footer.gru-footer"), "Footer root element not found");
 
   var $footerLogo  = $component.find(".logoColumn");
   T.exists(assert, $footerLogo, "Missing logo section");
