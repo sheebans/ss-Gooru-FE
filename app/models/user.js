@@ -1,18 +1,57 @@
 import DS from "ember-data";
-import { validator, buildValidations } from 'ember-cp-validations';
+import { validator, buildValidations } from "ember-cp-validations";
 
 const UserValidations = buildValidations({
-  username: validator('presence', true),
+
+  firstName: [
+    validator('presence', true)
+  ],
+
+  lastName: [
+    validator('presence', true)
+  ],
+
+  username: {
+    description: 'Username',
+    validators: [
+      validator('presence', true),
+      validator('length', {
+        min: 4,
+        max: 20
+      }),
+      validator('format', {
+        regex: /\\w+/,
+        message: '{description} cannot use special characters'
+      })
+    ]
+  },
+
   password: [
     validator('presence', true),
     validator('length', {
-      min: 4,
-      max: 8
+      min: 5,
+      max: 14
+    }),
+    validator('format', {
+      regex: /\\w+/,
+      message: '{description} cannot use special characters'
     })
   ],
+
   email: [
     validator('presence', true),
-    validator('format', { type: 'email' })
+    validator('format', {
+      type: 'email',
+      message: 'Not a valid email'
+    })
+  ],
+
+  dateOfBirth: [
+    validator('presence', true)
+  ],
+
+  role: [
+    validator('presence', true)
   ]
 });
 

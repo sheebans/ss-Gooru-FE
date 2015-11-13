@@ -38,24 +38,36 @@ export default Ember.Component.extend(ModalMixin,{
      * Sign up user
      */
     signUp: function() {
-      this.get('user').validate().then(function(value){
-          console.log(value);
-        },function(err){
-          console.log(err);
-      }
+      const component = this;
 
-      );
-      this.get("userService")
-        .create(this.get('user'))
-        .then(function() {
-          this.triggerAction({
-            action: 'closeModal'
-          });
-        }.bind(this),
-        function() {
-          Ember.Logger.error('Error signing up user');
-        }
-      );
+      this.get('user')
+        .validate({
+          on: [
+            'firstName',
+            'lastName',
+            'username',
+            'password',
+            'email',
+            'dateOfBirth',
+            'role'
+          ]
+        })
+        .then(({ user, validations }) => {
+
+          if (validations.get('isValid')) {
+            //component.get("userService")
+            //  .create(user)
+            //  .then(function() {
+            //    this.triggerAction({
+            //      action: 'closeModal'
+            //    });
+            //  })
+            console.log('Form is valid!');
+          }
+        })
+        .catch((err) => {
+          Ember.Logger.error('Error signing up user: ', err);
+        });
     },
 
     /**
@@ -85,6 +97,14 @@ export default Ember.Component.extend(ModalMixin,{
     component.$("[data-toggle='tooltip']").tooltip({trigger: "hover"});
   },
 
+  setupModel: function() {
+    // TODO: Remove once user is available from the session
+    var store = GooruWeb.__container__.lookup('service:store');
+    var user = store.createRecord('user', {});
+
+    this.set('user', user);
+  }.on('init'),
+
   // -------------------------------------------------------------------------
   // Properties
 
@@ -103,9 +123,9 @@ export default Ember.Component.extend(ModalMixin,{
   target: null,
 
   /**
-   * User
+   * User model instance to use for validation
+   * TODO: Remove once user is available from the session
    * @property {Ember.Model}
    */
-  model: []
-
+  user: null
 });
