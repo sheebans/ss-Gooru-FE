@@ -108,7 +108,7 @@ test('search-filter-onResourceClick', function(assert) {
 });
 
 test('search-filter-onCollectionFilterClick', function(assert) {
-  assert.expect(2); //making sure all asserts are called
+  assert.expect(1); //making sure all asserts are called
   const subjects = Ember.A();
   subjects.addObject(Ember.Object.create({ libraryId: 1, library:"library", label: "Math", subjectCode: "10001" }));
   subjects.addObject(Ember.Object.create({ libraryId: 2, library:"library", label: "Science", subjectCode: "10002" }));
@@ -131,21 +131,20 @@ test('search-filter-onCollectionFilterClick', function(assert) {
   this.set('grades', grades);
   this.set('standards', standards);
 
-  this.on('filterType', function(term, filterType) {
-    assert.equal(filterType, 'collection', "Incorrect assessment filter type");
+  this.on('filterType', function(term, collectionType) {
+    assert.equal(collectionType, 'collection', "Incorrect assessment filter type");
   });
 
-  this.render(hbs`{{search-filter subjects=subjects grades=grades standards=standards onFilterType='filterType'}}`);
+  this.render(hbs`{{search-filter subjects=subjects grades=grades standards=standards onFilterType='filterType' selectedCollectionType='collection'}}`);
 
   var $component = this.$(); //component dom element
-  const $collectionsFilter = $component.find(".collections.btn-search-filter");
-  $collectionsFilter.click();
+
   const $collectionsFilterSelected = $component.find(".collections.btn-search-filter.selected");
   T.exists(assert, $collectionsFilterSelected, "Missing collection filter selected");
 });
 
 test('search-filter-onAssessmentFilterClick', function(assert) {
-  assert.expect(2); //making sure all asserts are called
+  assert.expect(1); //making sure all asserts are called
   const subjects = Ember.A();
   subjects.addObject(Ember.Object.create({ libraryId: 1, library:"library", label: "Math", subjectCode: "10001" }));
   subjects.addObject(Ember.Object.create({ libraryId: 2, library:"library", label: "Science", subjectCode: "10002" }));
@@ -168,16 +167,14 @@ test('search-filter-onAssessmentFilterClick', function(assert) {
   this.set('grades', grades);
   this.set('standards', standards);
 
-  this.on('filterType', function(term, filterType) {
-    assert.equal(filterType, 'assessment', "Incorrect assessment filter type");
+  this.on('onFilterType', function(term, collectionType) {
+    assert.equal(collectionType, 'assessment', "Incorrect assessment filter type");
   });
 
-  this.render(hbs`{{search-filter subjects=subjects grades=grades standards=standards onFilterType='filterType'}}`);
+  this.render(hbs`{{search-filter subjects=subjects grades=grades standards=standards onFilterType='filterType' selectedCollectionType='assessment'}}`);
 
   var $component = this.$(); //component dom element
-  const $assessmentsFilter = $component.find(".assessments.btn-search-filter");
 
-  $assessmentsFilter.click();
   const $assessmentsFilterSelected = $component.find(".assessments.btn-search-filter.selected");
   T.exists(assert, $assessmentsFilterSelected, "Missing assessment filter selected");
 

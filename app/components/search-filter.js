@@ -38,26 +38,14 @@ export default Ember.Component.extend(i18nMixin, {
    *  @property {boolean} collectionFilterSelected
    *
    */
-  //collectionFilterSelected: false,
+
+  selectedCollectionType: 'collection',
 
   collectionFilterSelected: Ember.computed('selectedCollectionType', function() {
     var selectedCollectionType = this.get('selectedCollectionType');
-    if (!selectedCollectionType && selectedCollectionType =='collection'){
-      return true;
-    }
-    else{
-      return false;
-    }
 
-    console.log('selectedCollectionType', this.get('selectedCollectionType'));
+    return (!selectedCollectionType || selectedCollectionType === 'collection');
   }),
-
-  /**
-   * True if assessment filter option is selected
-   *  @property {boolean} assessmentFilterSelected
-   *
-   */
-  assessmentFilterSelected: false,
 
   /**
    * @property {[]} standards
@@ -121,7 +109,6 @@ export default Ember.Component.extend(i18nMixin, {
      */
     searchCollectionFilter: function(){
       this.sendAction("onFilterType", this.get("term"),'collection');
-      console.log('selectedCollectionType', this.get('selectedCollectionType'));
     },
 
     /**
@@ -129,7 +116,6 @@ export default Ember.Component.extend(i18nMixin, {
      */
     searchAssessmentFilter: function(){
       this.sendAction("onFilterType",this.get("term"), 'assessment');
-      console.log('selectedCollectionType', this.get('selectedCollectionType'));
     }
   },
 
