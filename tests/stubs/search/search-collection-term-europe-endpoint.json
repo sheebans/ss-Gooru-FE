@@ -14,7 +14,25 @@
         "Content-Type": "application/json"
       },
       "body": "File not found!",
-      "file": "search-collection-term-europe-ok-response.json"
+      "file": "search-collection-term-europe-200-response.json"
+    }
+  },
+  {
+    "request": {
+      "url": "^/gooru-search/rest/v2/search/scollection$",
+      "query": {
+        "sessionToken": "(.+)",
+        "q": "(.*)"
+      },
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "search-collection-term-any-200-response.json"
     }
   }
 ]
