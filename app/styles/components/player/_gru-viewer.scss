@@ -32,17 +32,17 @@
       margin-left: $player-navigator-width;
     }
   }
-  div.autor-container{
-    width: $narration-autor-width;
-    height: $narration-autor-height;
+  div.avatar-container{
+    width: $narration-avatar-width;
+    height: $narration-avatar-height;
   }
   .autor{
-    width: $narration-autor-width;
-    height: $narration-autor-height;
+    width: $narration-avatar-width;
+    height: $narration-avatar-height;
     border-radius: 50px;
     box-shadow: 0 0 0 2px #87badd;
   }
-  .narration-text{
+  .message{
     color:$color-white;
   }
 }
