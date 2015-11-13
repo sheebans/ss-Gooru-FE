@@ -21,22 +21,15 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      * @see application.hbs
      * @see app-header.hbs
      */
-    onAuthenticate: function() {
+    signIn: function() {
       this.transitionTo("index");
     },
 
     /**
      * Action triggered when login out
      */
-    onInvalidateSession: function() {
+    logout: function() {
       this.get("session").invalidate();
-      this.refresh();
-    },
-
-    /**
-     * Action triggered when close modal
-     */
-    onCloseModal: function() {
       this.refresh();
     },
 
@@ -45,10 +38,10 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      * @see application.hbs
      * @see app-header.js
      */
-    onSearch: function(term) {
+    searchTerm: function(term) {
       var termParam = '?term=' + term;
       this.transitionTo('/search/collections' + termParam);
     }
-
   }
+
 });

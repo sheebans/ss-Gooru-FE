@@ -1,10 +1,10 @@
 [
   {
     "request": {
-      "url": "^/gooru-search/rest/v2/search/scollection$",
+      "url": "^/gooruapi/rest/v2/user/username/availability$",
       "query": {
         "sessionToken": "(.+)",
-        "q": "europe"
+        "keyword": "^gooru$"
       },
       "method": "GET"
     },
@@ -14,15 +14,15 @@
         "Content-Type": "application/json"
       },
       "body": "File not found!",
-      "file": "search-collection-term-europe-200-response.json"
+      "file": "availability-by-username-already-exist-200-response.json"
     }
   },
   {
     "request": {
-      "url": "^/gooru-search/rest/v2/search/scollection$",
+      "url": "^/gooruapi/rest/v2/user/username/availability$",
       "query": {
         "sessionToken": "(.+)",
-        "q": "(.*)"
+        "keyword": "(.+)"
       },
       "method": "GET"
     },
@@ -32,7 +32,8 @@
         "Content-Type": "application/json"
       },
       "body": "File not found!",
-      "file": "search-collection-term-any-200-response.json"
+      "file": "availability-by-username-does-not-exist-200-response.json"
     }
   }
+
 ]

@@ -10,6 +10,7 @@ export default {
     "myContent": "My Content",
     "login": "Log in",
     "libraries": "Libraries",
+    "standards": "Standards",
     "submit": "Submit",
     "forgotPassword": "Forgot Password",
     "if_questions": "If you have any questions,",
@@ -217,9 +218,6 @@ export default {
     "oer": "OER"
   },
 
-  "standardsPopup": {
-    "title": "Standards"
-  },
   "forgot-password-popup":{
     "title":"Please enter your email or <br/> username below.",
     "description":"You will receive an email with a link to reset your password.",
@@ -234,6 +232,13 @@ export default {
     "questions": "questions",
     "in-this-collection": "in this collection",
     "search-results-for": "Search Results for"
+  },
+  "gru-emotion-picker":{
+    "need-help":"I need help",
+    "do-not-understand":"I don't understand",
+    "meh":"Meh...",
+    "understand":"I understand",
+    "can-explain":"I can explain"
   },
   "loading": {
     "text": "Loading..."

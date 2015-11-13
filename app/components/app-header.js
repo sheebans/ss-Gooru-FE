@@ -13,24 +13,14 @@ import ModalMixin from '../mixins/modal';
 export default Ember.Component.extend(SessionMixin, ModalMixin, {
 
   /**
-   * @property {string} on authenticate action
+   * @property {?string} action to send up when a user logs out
    */
-  onAuthenticateAction: "onAuthenticate",
+  onLogout: null,
 
   /**
-   * @property {string} on invalidate session action
+   * @property {?string} action to send up when searching for a term
    */
-  onInvalidateSessionAction: "onInvalidateSession",
-
-  /**
-   * @property {string} on close modal action
-   */
-  onCloseModalAction: "onCloseModal",
-
-  /**
-   * @property {string} on search action
-   */
-  onSearchAction: "onSearchAction",
+  onSearch: null,
 
   /**
    * Search term
@@ -46,20 +36,12 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
 
   actions: {
 
-    onAuthenticate: function () {
-      this.sendAction("onAuthenticateAction");
+    logout: function() {
+      this.sendAction('onLogout');
     },
 
-    onInvalidateSession: function() {
-      this.sendAction("onInvalidateSessionAction");
-    },
-
-    onCloseModalAction: function() {
-      this.sendAction("onCloseModalAction");
-    },
-
-    onSearch: function () {
-      this.sendAction("onSearchAction", this.get("term"));
+    searchTerm: function () {
+      this.sendAction('onSearch', this.get("term"));
     }
 
   }

@@ -132,14 +132,14 @@ button.btn-link {
   .gru-user-sign-up,
   .gru-user-sign-up-cancel,
   .gru-sign-in,
-  .gru-forgot-password-popup{
+  .gru-forgot-password-popup,
+  .gru-standards-popup {
 
     &.modal-content {
       border: 2px solid $color-white;
       border-radius: 0;
 
       .modal-header {
-        background-color: $color-green-primary;
         padding: 10px 15px;
         font-size: 16px;
 
@@ -165,7 +165,6 @@ button.btn-link {
 
       .modal-body {
         border: 1px solid $color-gray-lighter-1;
-        background: url(//cdn.goorulearning.org/webapp/release-2.0.6-PRL01/images/login/registration-bg.png) no-repeat -50px 30px;
 
         .wrapper {
           width: 520px;
@@ -178,6 +177,20 @@ button.btn-link {
           padding: 3px 3px;
         }
       }
+    }
+  }
+
+  .gru-user-registration,
+  .gru-user-sign-up,
+  .gru-user-sign-up-cancel,
+  .gru-sign-in,
+  .gru-forgot-password-popup {
+
+    .modal-header {
+      background-color: $color-green-primary;
+    }
+    .modal-body {
+      background: url(//cdn.goorulearning.org/webapp/release-2.0.6-PRL01/images/login/registration-bg.png) no-repeat -50px 30px;
     }
   }
 }
