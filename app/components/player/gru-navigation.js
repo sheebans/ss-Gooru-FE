@@ -28,7 +28,7 @@ export default Ember.Component.extend({
      * Action triggered when the user change the emotion
      * @see gru-emotion-picker
      */
-    changeEmotion: function(emotion) {
+    onChangeEmotion: function(emotion) {
       //TODO remove when implement the content player
       console.log(emotion);
     }

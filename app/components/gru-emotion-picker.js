@@ -39,7 +39,7 @@ export default Ember.Component.extend({
       }else{
         this.set('selectedEmotion', null);
       }
-      this.sendAction("changeEmotion", this.get('selectedEmotion'));
+      this.sendAction("onChangeEmotion", this.get('selectedEmotion'));
     }
   },
 
