@@ -97,8 +97,11 @@ export default Ember.Route.extend({
      */
     onOpenContentPlayer: function() {
       this.transitionTo('/player');
-    }
+    },
 
+    /**
+     * Action triggered to filter by type in collections page
+     */
     filterType: function(term, collectionType) {
       var termParam = '?term=' + term;
       var collectionTypeParam = '&collectionType=' + collectionType;
