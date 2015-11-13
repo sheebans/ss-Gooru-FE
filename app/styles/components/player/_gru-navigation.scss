@@ -2,4 +2,16 @@
   // temporary for GG-92
   background-color: gray;
   height: $player-navigation-height;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+
+  .content {
+    @media (min-width: $screen-md) {
+      margin-left: $player-navigator-width;
+    }
+  }
 }
