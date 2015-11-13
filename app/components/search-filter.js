@@ -21,18 +21,31 @@ export default Ember.Component.extend(i18nMixin, {
   subjects: null,
 
   /**
-   * True if resources option are selected
-   *  @property {[]} subjects
+   * True if resources option is selected
+   *  @property {boolean} resourceSelected
    *
    */
   resourceSelected: false,
   /**
-   * True if collection option are selected
-   *  @property {[]} subjects
+   * True if collection option is selected
+   *  @property {boolean} collectionSelected
    *
    */
   collectionSelected: true,
 
+  /**
+   * True if collection filter option is selected
+   *  @property {boolean} collectionFilterSelected
+   *
+   */
+
+  selectedCollectionType: 'collection',
+
+  collectionFilterSelected: Ember.computed('selectedCollectionType', function() {
+    var selectedCollectionType = this.get('selectedCollectionType');
+
+    return (!selectedCollectionType || selectedCollectionType === 'collection');
+  }),
 
   /**
    * @property {[]} standards
@@ -89,7 +102,29 @@ export default Ember.Component.extend(i18nMixin, {
      */
     onRateChange: function(newRating){
       console.log('Changing Rate'+newRating);
+    },
+
+    /**
+     * Triggered when search collection filter is selected
+     */
+    searchCollectionFilter: function(){
+      this.sendAction("onFilterType", this.get("term"),'collection');
+    },
+
+    /**
+     * Triggered when search assessment filter is selected
+     */
+    searchAssessmentFilter: function(){
+      this.sendAction("onFilterType",this.get("term"), 'assessment');
     }
+  },
+
+  /**
+   * DidInsertElement ember event
+   */
+  didInsertElement: function() {
+    var component = this;
+    component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
   }
 
 });

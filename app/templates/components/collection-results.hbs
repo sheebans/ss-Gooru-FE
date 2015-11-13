@@ -1,7 +1,7 @@
 <div class="collection-results">
     <div class="row bg-gray-light-2">
         <div class="container">
-            <div class="col-md-12 col-sm-12 col-center-block">
+            <div class="col-md-12 col-sm-12 pa-0 col-center-block">
                 <div class="search-results">{{t "search-result.search-results-for"}} {{term}} ({{collectionResults.totalHitCount}})</div>
                 {{#each collectionResults.collections as |collection|}}
 
@@ -36,7 +36,7 @@
                                     <div class="description" title="{{ collection.description }}" alt="{{ collection.description }}">{{ collection.description }}</div>
                                 </div>
                                 <div class="clearfix"></div>
-                                <div class="standard-container pa-left-5 pa-sm-0">
+                                <div class="standard-container pa-md-left-5 pa-sm-left-0">
                                     {{#if collection.standards }}
                                          {{collection-results-standards collection=collection standards=collection.standards}}
                                     {{/if}}

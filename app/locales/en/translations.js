@@ -239,5 +239,8 @@ export default {
     "meh":"Meh...",
     "understand":"I understand",
     "can-explain":"I can explain"
+  },
+  "loading": {
+    "text": "Loading..."
   }
 };
