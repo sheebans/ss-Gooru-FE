@@ -1,6 +1,6 @@
 .player .gru-navigation {
   // temporary for GG-92
-  background-color: gray;
+  background-color: $color-blue-primary;
   height: $player-navigation-height;
 
   position: fixed;
@@ -13,5 +13,11 @@
     @media (min-width: $screen-md) {
       margin-left: $player-navigator-width;
     }
+  }
+  .hamburger-icon,.x-icon{
+    font-size: 33px;
+     i{
+       color:$color-white;
+     }
   }
 }

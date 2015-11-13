@@ -31,7 +31,7 @@ test('Click emotion', function(assert) {
     assert.equal('need-help', emotion);
   });
 
-  this.render(hbs`{{gru-emotion-picker openContentPlayer='parentAction'}}`);
+  this.render(hbs`{{gru-emotion-picker changeEmotion='parentAction'}}`);
   var $component = this.$(); //component dom element
   var $emotionPicker = $component.find("div.emotion-picker");
   $emotionPicker.find(".emotions-list li:first-child .emotion").click();
