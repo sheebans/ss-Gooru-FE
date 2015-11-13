@@ -35,12 +35,12 @@
   div.avatar-container{
     width: $narration-avatar-width;
     height: $narration-avatar-height;
-  }
-  .autor{
-    width: $narration-avatar-width;
-    height: $narration-avatar-height;
-    border-radius: 50px;
-    box-shadow: 0 0 0 2px #87badd;
+     img{
+       width: $narration-avatar-width;
+       height: $narration-avatar-height;
+       border-radius: 50px;
+       box-shadow: 0 0 0 2px #87badd;
+     }
   }
   .message{
     color:$color-white;
