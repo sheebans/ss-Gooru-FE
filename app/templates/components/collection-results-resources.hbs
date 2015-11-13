@@ -1,10 +1,10 @@
 <div class="collection-results-resources pa-4">
     <p class="pa-left-6 ma-bottom-0 quantity-resources">
       {{#if hasResources}}
-        {{collection.resourceCount}} {{#if hasSeveralResources}} {{t "search-result.resources"}} {{else}} {{t "search-result.resource"}} {{/if}}
+        {{collection.resourceCount}} {{#if hasSeveralResources}} {{t "search-result.resources"}} {{else}} {{t "search-result.resource"}} {{t "search-result.and"}} {{/if}}
       {{/if}}
       {{#if hasQuestions}}
-        {{t "search-result.and"}} {{collection.questionCount}}
+        {{collection.questionCount}}
         {{#if hasSeveralQuestions}} {{t "search-result.questions"}} {{else}} {{t "search-result.question"}} {{/if}}
       {{/if}}
       {{t "search-result.in-this-collection"}}
