@@ -47,11 +47,14 @@ export default Ember.Component.extend(ModalMixin, {
           Ember.Logger.error('Error signing up user');
         }
       );*/
-      console.log('calling username service');
-      
-      this.get("userService")
-        .checkUsernameAvailabilty('asdf');
 
+
+      console.log('calling username service');
+      this.get("userService").checkUsernameAvailability(this.get('user').username)
+        .then(function(availability) {
+          console.log('Showing result from checkUsername...');
+          console.log(availability.get('confirmStatus'));
+        });
 
     },
 

@@ -1,5 +1,5 @@
-import Ember from "ember";
-import StoreMixin from "../../mixins/store";
+import Ember from 'ember';
+import StoreMixin from '../../mixins/store';
 
 export default Ember.Service.extend(StoreMixin, {
 
@@ -9,13 +9,14 @@ export default Ember.Service.extend(StoreMixin, {
    * @returns {*|Ember.RSVP.Promise}
    */
   create: function(user) {
-    var model = this.get("store").createRecord('sign-up', user);
+    var model = this.get('store').createRecord('sign-up', user);
     return model.save();
   },
-  checkUsernameAvailabilty:function(username){
+
+  checkUsernameAvailability:function(username){
   	return this.get('store').queryRecord('user/availability', {
         keyword: username
-        
-      });
+    });
   }
+
 });
