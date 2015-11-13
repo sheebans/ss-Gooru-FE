@@ -1,5 +1,12 @@
 <div class="narration">
-  <div>Narration</div>
+  <div class="row">
+      <div class="autor-container col-md-2 col-sm-2 col-xs-2 ma-md-5 ma-sm-5 ma-xs-5">
+          <img class="autor" src="{{ narration.image-url }}">
+      </div>
+      <div class="narration-text col-md-10 col-sm-10 col-xs-8">
+        {{narration.narration}}
+      </div>
+  </div>
 </div>
 <div class="content">
     {{player.gru-question-viewer}}

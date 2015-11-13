@@ -1,29 +1,24 @@
 import { moduleForComponent, test } from 'ember-qunit';
+import T from 'gooru-web/tests/helpers/assert';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('player/gru-viewer', 'Integration | Component | player/gru viewer', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.container.lookup('service:i18n').set("locale","en");
+  }
 });
 
-test('it renders', function(assert) {
+test('Narration', function(assert) {
 
-  // TODO: write tests
 
-  assert.expect(0);
-  //
-  //// Set any properties with this.set('myProperty', 'value');
-  //// Handle any actions with this.on('myAction', function(val) { ... });
-  //
+  assert.expect(3);
+
   this.render(hbs`{{player/gru-viewer}}`);
-  //
-  //assert.equal(this.$().text().trim(), '');
-  //
-  //// Template block usage:
-  //this.render(hbs`
-  //  {{#player/gru-viewer}}
-  //    template block text
-  //  {{/player/gru-viewer}}
-  //`);
-  //
-  //assert.equal(this.$().text().trim(), 'template block text');
+
+  var $component = this.$(); //component dom element
+  const $narration = $component.find(".gru-viewer");
+  T.exists(assert, $narration, "Missing narration section");
+  T.exists(assert, $narration.find(".autor-container img.autor"), "Missing autor image");
+  T.exists(assert, $narration.find(".narration-text"), "Missing narration");
 });

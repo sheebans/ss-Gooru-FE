@@ -2,7 +2,7 @@
 
   .narration {
     // temporary for GG-92
-    background-color: hsla(3, 66%, 69%, 0.69);;
+    background-color: #000000;
 
     width: 100%;
     position: fixed;
@@ -31,5 +31,18 @@
     @media (min-width: $screen-md) {
       margin-left: $player-navigator-width;
     }
+  }
+  div.autor-container{
+    width: $narration-autor-width;
+    height: $narration-autor-height;
+  }
+  .autor{
+    width: $narration-autor-width;
+    height: $narration-autor-height;
+    border-radius: 50px;
+    box-shadow: 0 0 0 2px #87badd;
+  }
+  .narration-text{
+    color:$color-white;
   }
 }
