@@ -1,9 +1,32 @@
 import DS from "ember-data";
+import { validator, buildValidations } from "ember-cp-validations";
+
+const Validations = buildValidations({
+  username: {
+      description: 'Username',
+      validators: [
+        validator('presence', true),
+        validator('length', {
+            min: 4,
+            max: 20
+        }),
+        validator('format', {
+          regex: /\\w+/,
+          message: '{description} cannot use special characters'
+        }),
+        validator('username', {
+          showSuggestions: true
+        })
+    ]
+  }
+});
+
+
 
 /**
  * Model to represent the Users obtained from the end-point
  */
-export default DS.Model.extend({
+export default DS.Model.extend(Validations, {
 
   // Values used to capture and to read data to/from SignUp end-point
   /**
