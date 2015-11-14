@@ -21,12 +21,6 @@
               placeholder=(t "gru-user-sign-up.username")
               class="form-control" }}
             </div>
-            {{#if (v-get user 'username' 'isInvalid')}}
-              <div class="col-xs-6">
-                <span class="error">{{v-get user 'username' 'message'}}</span>
-              </div>
-
-              {{/if}}
             {{datepicker-field
             onSelectDateAction=(action "setBirthDate")
             placeholder=(t "gru-user-sign-up.dateOfBirth")

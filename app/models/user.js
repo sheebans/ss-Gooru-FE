@@ -6,14 +6,6 @@ const Validations = buildValidations({
       description: 'Username',
       validators: [
         validator('presence', true),
-        validator('length', {
-            min: 4,
-            max: 20
-        }),
-        validator('format', {
-          regex: /\\w+/,
-          message: '{description} cannot use special characters'
-        }),
         validator('username', {
           showSuggestions: true
         })
