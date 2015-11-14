@@ -36,6 +36,18 @@
                    title={{t "gru-user-sign-up.birthdayToolTip"}}></div>
             </div>
           </div>
+
+          <div class="row error-messages">
+            {{#if (v-get user 'username' 'isInvalid')}}
+            <div class="col-xs-6">
+              <span class="error">{{v-get user 'username' 'message'}}</span>
+            </div>
+            {{/if}}
+            <div class="col-xs-6">
+              <span class="error">Error messages will appear here for date of birth</span>
+            </div>
+          </div>
+
           <div class="row">
             <div class="col-xs-6">
               {{input
@@ -58,6 +70,14 @@
               class="form-control" }}
             </div>
           </div>
+          <div class="row error-messages">
+            <div class="col-xs-6">
+              <span class="error">Error messages will appear here for firstname</span>
+            </div>
+            <div class="col-xs-6">
+              <span class="error">Error messages will appear here for lastname</span>
+            </div>
+          </div>
           <div class="row">
             <div class="col-xs-11 pa-md-right-0 pa-sm-right-0">
               {{input
@@ -68,6 +88,11 @@
               value=user.email
               placeholder=(t "gru-user-sign-up.email")
               class="form-control" }}
+            </div>
+          </div>
+          <div class="row error-messages">
+            <div class="col-xs-11">
+              <span class="error">Error messages will appear here for the email</span>
             </div>
           </div>
           <div class="row">
@@ -83,6 +108,11 @@
               class="form-control" }}
             </div>
           </div>
+          <div class="row error-messages">
+            <div class="col-xs-11">
+              <span class="error">Error messages will appear here for the password</span>
+            </div>
+          </div>
           <div class="row">
             <div class="col-xs-11 pa-md-right-0 pa-sm-right-0">
               {{input
@@ -96,14 +126,19 @@
               class="form-control" }}
             </div>
           </div>
+          <div class="row error-messages">
+            <div class="col-xs-11">
+              <span class="error">Error messages will appear here for the confirm password</span>
+            </div>
+          </div>
 
           {{role-radio-button onCheck=(action "setRoleValue")}}
 
-          {{#if errorMessage}}
-            <div>
-              <strong>Sign Up failed:</strong> {{errorMessage}}
+          <div class="row error-messages">
+            <div class="col-xs-11">
+              <span class="error">Error messages will appear here for the role</span>
             </div>
-          {{/if}}
+          </div>
 
         </div>
 
