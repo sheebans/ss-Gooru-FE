@@ -21,7 +21,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-navigator']
+  classNames:['gru-navigator'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -33,6 +33,10 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * @property {Collection} collection
+   */
+  collection: null
 
 
   // -------------------------------------------------------------------------

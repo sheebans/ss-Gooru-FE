@@ -19,7 +19,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-viewer']
+  classNames:['gru-viewer'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -31,6 +31,11 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * The resource playing
+   * @property {Resource} resource
+   */
+  resource: null
 
 
   // -------------------------------------------------------------------------

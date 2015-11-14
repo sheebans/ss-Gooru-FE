@@ -20,11 +20,19 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-multiple-choice']
+  classNames:['gru-multiple-choice'],
 
   // -------------------------------------------------------------------------
   // Actions
+  actions: {
 
+    /**
+     * When the user changes the answer choice selection
+     */
+    selectAnswerChoice: function(){
+      this.sendAction('onChangeQuestion', this.get("question"));
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Events
@@ -33,6 +41,16 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Properties
 
+  /**
+   * @property {String|Function} onChangeQuestion - event handler for when the question is changed
+   */
+  onChangeQuestion: null,
+
+  /**
+   * Question information
+   * @property {Question} question
+   */
+  question: null
 
   // -------------------------------------------------------------------------
   // Observers
