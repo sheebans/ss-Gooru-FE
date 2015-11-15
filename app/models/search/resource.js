@@ -1,5 +1,9 @@
 import DS from 'ember-data';
 
+/**
+ * @module
+ * @typedef {Object} Resource
+ */
 export default DS.Model.extend({
 
   /**

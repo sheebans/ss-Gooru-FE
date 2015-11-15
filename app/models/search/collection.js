@@ -1,5 +1,9 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 
+/**
+ * @typedef {Object} Collection
+ */
 export default DS.Model.extend({
 
   /**
@@ -64,9 +68,24 @@ export default DS.Model.extend({
    * @property {Array} List of resources associated to the collection
    */
   resources: DS.hasMany('search/resource'),
+
+  /**
+   * @property {boolean} hasResources
+   */
+  hasResources: Ember.computed.bool("resources.length"),
+
   /**
    * @property {Array} List of standards associated to the collection
    */
-  standards: DS.hasMany('search/standard')
+  standards: DS.hasMany('search/standard'),
+
+  /**
+   * Returns the last visited resource
+   * @property {Resource} lastVisitedResource
+   */
+  lastVisitedResource: function(){
+    //@todo implement logic to return the last visited, for returns the first one
+    return this.get("hasResources") ? this.get("resources.fistObject") : null;
+  }.property()
 
 });

@@ -26,8 +26,10 @@ export default Ember.Component.extend({
       component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
   },
   actions:{
+
     /**
      * Action triggered to open the content player
+     * @param {string} gooruOid collection identifier
      */
     openContentPlayer: function(gooruOid) {
       this.sendAction("onOpenContentPlayer", gooruOid);
