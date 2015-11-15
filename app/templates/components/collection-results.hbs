@@ -21,7 +21,7 @@
                                     <a {{action "openContentPlayer" collection.gooruOid}}><img src="{{ collection.imageUrl }}"></a>
                                 </div>
                                 <div class="col-md-8 col-sm-8 collection-desc">
-                                    <a {{action "openContentPlayer"}} target="_blank"><div class="title ma-top-1" alt="{{ collection.title }}">{{ collection.title }}</div></a>
+                                    <a {{action "openContentPlayer" collection.gooruOid}} target="_blank"><div class="title ma-top-1" alt="{{ collection.title }}">{{ collection.title }}</div></a>
                                     <div class="details">
                                         {{#if collection.avatarUrl }}
                                             <img src="{{ collection.avatarUrl }}">

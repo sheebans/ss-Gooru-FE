@@ -14,8 +14,3 @@ export default ApplicationAdapter.extend({
   }
 
 });
-
-
-
-http://qa.gooru.org/gooruapi/rest/v3/collection/8b571177-3235-4f11-9e7a-b4be3aecd267
-// ?includeItems=true&includeLastModifiedUser=true&sessionToken=0ecfafb0-9778-4183-a962-40027e8329c2

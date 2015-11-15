@@ -33,6 +33,8 @@ function normalizeCollections(searchResults, relationshipItems, collectionModel)
     };
     relationshipItems.push(collectionRelationship);
 
+    console.log('GooruOid: %s', result.id);
+
     var collection =  {
       type: 'search/collection',
       id: result.id,
@@ -49,7 +51,7 @@ function normalizeCollections(searchResults, relationshipItems, collectionModel)
         resourceCount: (result.resourceCount ? result.resourceCount : 0),
         questionCount: (result.questionCount ? result.questionCount : 0),
         hasTeam: (result.libraryNames.length > 0),
-        gooruOid: result.gooruOid,
+        gooruOid: result.id,
         libraries: getLibraries(result.libraryNames)
       },
       relationships: {

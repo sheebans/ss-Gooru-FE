@@ -2,13 +2,21 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
+
+  /**
+   * @property {Ember.Service} Service to retrieve a Collection
+   */
+  collectionService: Ember.inject.service("api-sdk/collection"),
+
   /**
    * @param {{ collectionId: string, resourceId: string }} params
    */
   model(params) {
-    const collectionId = params.collectionId,
+    const gooruOid = params.gooruOid,
       resourceId = params.resourceId;
     //@todo replace mock for sdk calls
+
+    var collection = this.get("collectionService").findById(gooruOid);
 
 
     const narration = Ember.Object.create({
@@ -22,7 +30,7 @@ export default Ember.Route.extend({
       resourceMockC = Ember.Object.create({ id: '9', name: 'Resource #2', type: 'question' });
 
     const collectionMock = Ember.Object.create({
-      id: collectionId,
+      id: gooruOid,
       title: 'Test collection',
       resources: Ember.A([
         resourceMockB,
@@ -32,7 +40,7 @@ export default Ember.Route.extend({
     });
 
     return Ember.RSVP.hash({
-      collection: collectionMock,
+      collection: collection,
       resource: (resourceId) ? resourceMockA : null
     });
   },
