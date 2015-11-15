@@ -29,8 +29,8 @@ export default Ember.Component.extend({
     /**
      * Action triggered to open the content player
      */
-    openContentPlayer: function() {
-      this.sendAction("onOpenContentPlayer");
+    openContentPlayer: function(gooruOid) {
+      this.sendAction("onOpenContentPlayer", gooruOid);
     }
   }
 });

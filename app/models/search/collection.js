@@ -50,6 +50,12 @@ export default DS.Model.extend({
    * @property {boolean} It says if collection's owner has a team
    */
   hasTeam: DS.attr('boolean'),
+
+  /**
+   * @property {string} Gooru OID used to get collection information
+   */
+  gooruOid: DS.attr('string'),
+
   /**
    * @property {Array} List of libraries
    */

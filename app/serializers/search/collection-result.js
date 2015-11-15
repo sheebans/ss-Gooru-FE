@@ -49,6 +49,7 @@ function normalizeCollections(searchResults, relationshipItems, collectionModel)
         resourceCount: (result.resourceCount ? result.resourceCount : 0),
         questionCount: (result.questionCount ? result.questionCount : 0),
         hasTeam: (result.libraryNames.length > 0),
+        gooruOid: result.gooruOid,
         libraries: getLibraries(result.libraryNames)
       },
       relationships: {

@@ -11,8 +11,8 @@ Router.map(function() {
   this.route('search', function() {
     this.route('collections');
   });
-  
-  this.route('player');
+
+  this.route('player', { path: '/player/:gooruOid'});
 });
 
 export default Router;
