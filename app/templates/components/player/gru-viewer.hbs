@@ -1,8 +1,23 @@
-<div class="narration">
-  <div>Narration</div>
-</div>
 <div class="content">
-    {{player.gru-question-viewer}}
+  {{#if resource.narration}}
+    <div class="narration">
+      <div class="row">
+        <div class="avatar-container col-md-2 col-sm-2 col-xs-2 ma-md-10 ma-sm-10 ma-xs-5">
+          <img class="author" src="{{ resource.narration.image-url }}">
+        </div>
+        <div class="message col-md-8 col-sm-10 col-xs-8 pa-md-10 pa-sm-10 pa-xs-5">
+          {{resource.narration.message}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
+
+  {{#if resource.isQuestion}}
+    {{player.gru-question-viewer question=resource}}
+  {{else}}
+    Viewer not implemented
+  {{/if}}
+
 </div>
 
 

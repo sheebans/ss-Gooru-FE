@@ -21,11 +21,23 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-navigator']
+  classNames:['gru-navigator'],
 
   // -------------------------------------------------------------------------
   // Actions
+  actions: {
 
+    /**
+     *
+     * Triggered when an item is selected
+     * @param item
+     */
+    selectItem: function(item){
+      if (this.get("onItemSelected")){
+        this.sendAction("onItemSelected", item);
+      }
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Events
@@ -33,6 +45,15 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * @property {Collection} collection
+   */
+  collection: null,
+
+  /**
+   * @property {String|Function} onItemSelected - event handler for when an item is selected
+   */
+  onItemSelected: null
 
 
   // -------------------------------------------------------------------------

@@ -1,28 +1,13 @@
 .player .gru-viewer {
 
   .narration {
-    // temporary for GG-92
-    background-color: hsla(3, 66%, 69%, 0.69);;
-
-    width: 100%;
-    position: fixed;
-    top: $player-navigation-height;
-    left: 0;
-    z-index: 10;
-
-    > div {
-      @media (min-width: $screen-md) {
-        margin-left: $player-navigator-width;
-      }
-    }
+    background-color: hsla(0, 0%, 20%, 0.7);
   }
 
   .content {
-    // temporary for GG-92
-    background: #40A640;
-
     overflow-y: auto;
     height: 100%;
+    width: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -31,5 +16,18 @@
     @media (min-width: $screen-md) {
       margin-left: $player-navigator-width;
     }
+  }
+  div.avatar-container{
+    width: $narration-avatar-width;
+    height: $narration-avatar-height;
+     img{
+       width: $narration-avatar-width;
+       height: $narration-avatar-height;
+       border-radius: 50px;
+       box-shadow: 0 0 0 2px #87badd;
+     }
+  }
+  .message{
+    color:$color-white;
   }
 }

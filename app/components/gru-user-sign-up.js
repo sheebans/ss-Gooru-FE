@@ -98,7 +98,7 @@ export default Ember.Component.extend(ModalMixin, {
    *
    * @type {Ember.Object}
    */
-  user: Ember.Object.create({
+  user: {
     username: null,
     firstName: null,
     lastName: null,
@@ -107,6 +107,6 @@ export default Ember.Component.extend(ModalMixin, {
     role: null,
     password: null,
     confirmedPassword: null
-  })
+  }
 
 });
