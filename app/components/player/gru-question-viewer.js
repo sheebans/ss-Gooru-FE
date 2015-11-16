@@ -20,7 +20,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-question-viewer']
+  classNames:['gru-question-viewer'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -32,6 +32,11 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * The question
+   * @property {Question} question
+   */
+  question: null
 
 
   // -------------------------------------------------------------------------
