@@ -29,10 +29,10 @@ export default Ember.Component.extend({
 
     /**
      * Action triggered to open the content player
-     * @param {string} gooruOid collection identifier
+     * @param {string} collectionId collection identifier
      */
-    openContentPlayer: function(gooruOid) {
-      this.sendAction("onOpenContentPlayer", gooruOid);
+    openContentPlayer: function(collectionId) {
+      this.sendAction("onOpenContentPlayer", collectionId);
     }
   }
 });
