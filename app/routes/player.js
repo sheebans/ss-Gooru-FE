@@ -3,6 +3,18 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 
 
+  // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+    /**
+     * Action triggered when the user close the content player
+     */
+    closeContentPlayer:function(){
+      window.history.back();
+    }
+  },
+
   /**
    * @property {Ember.Service} Service to retrieve a Collection
    */
@@ -111,5 +123,4 @@ export default Ember.Route.extend({
     controller.set("resource", resource);
 
   }
-
 });
