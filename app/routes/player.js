@@ -14,8 +14,8 @@ export default Ember.Route.extend({
   model(params) {
     const
       collectionId = params.collectionId,
-      resourceId = params.resourceId,
-      collection = this.get("collectionService").findById(collectionId);
+      resourceId = params.resourceId;
+      //collection = this.get("collectionService").findById(collectionId);
 
     //@todo replace mock for sdk calls
     const narration = Ember.Object.create({

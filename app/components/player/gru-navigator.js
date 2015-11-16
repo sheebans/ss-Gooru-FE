@@ -30,6 +30,7 @@ export default Ember.Component.extend({
     /**
      *
      * Triggered when an item is selected
+     * Triggered when an item is selected
      * @param item
      */
     selectItem: function(item){

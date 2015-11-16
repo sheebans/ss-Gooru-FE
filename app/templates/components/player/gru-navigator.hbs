@@ -2,6 +2,6 @@
 
 <ul class="list-group">
   {{#each collection.collectionItems as |item|}}
-    <li class="list-group-item">{{item.title}}</li>
+    <li class="list-group-item" {{action 'selectItem' item}}>{{item.title}}</li>
   {{/each}}
 </ul>
