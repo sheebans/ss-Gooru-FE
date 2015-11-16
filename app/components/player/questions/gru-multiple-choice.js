@@ -1,5 +1,4 @@
-import Ember from "ember";
-
+import QuestionComponent from './gru-question';
 /**
  * Multiple Choice Question
  *
@@ -9,9 +8,9 @@ import Ember from "ember";
  * @module
  * @see controllers/player.js
  * @see components/player/gru-question-viewer.js
- * @augments ember/Component
+ * @augments Ember/Component
  */
-export default Ember.Component.extend({
+export default QuestionComponent.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -31,10 +30,12 @@ export default Ember.Component.extend({
      * @param {number} answerId
      */
     selectAnswerChoice: function(answerId){
+      const component = this;
       //todo mark the answer as selected
-      this.sendAction('onQuestionChanged', this.get("question"), answerId);
+      component.notifyAnswerChanged(answerId);
+      component.notifyAnswerCompleted(answerId);
     }
-  },
+  }
 
   // -------------------------------------------------------------------------
   // Events
@@ -42,17 +43,6 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
-
-  /**
-   * @property {String|Function} onQuestionChanged - event handler for when the question is changed
-   */
-  onQuestionChanged: null,
-
-  /**
-   * Question information
-   * @property {Question} question
-   */
-  question: null
 
   // -------------------------------------------------------------------------
   // Observers

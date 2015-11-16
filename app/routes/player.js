@@ -59,7 +59,7 @@ export default Ember.Route.extend({
           "title": "Question 1",
 
           "isQuestion": true,
-          "isMultipleChoice": true
+          "isMultipleAnswer": true
         }
       ),
 
