@@ -2,7 +2,11 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('player/questions/gru-multiple-choice', 'Integration | Component | player/questions/gru multiple choice', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.container.lookup('service:i18n').set("locale","en");
+  }
+
 });
 
 test('it renders', function(assert) {

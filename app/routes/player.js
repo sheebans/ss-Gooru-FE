@@ -56,11 +56,26 @@ export default Ember.Route.extend({
           "explanation": "",
           "type": "MC",
           "narration": narration,
-          "title": "Question 1"
+          "title": "Question 1",
+
+          "isQuestion": true,
+          "isMultipleChoice": true
         }
       ),
-      resourceMockB = Ember.Object.create({ id: '10', title: 'Resource #1', resourceType: 'question' }),
-      resourceMockC = Ember.Object.create({ id: '9', title: 'Resource #2', resourceType: 'question' });
+
+      resourceMockB = Ember.Object.create({
+        id: '10',
+        title: 'Resource #1',
+        resourceType: 'url',
+        "isQuestion": false
+      }),
+
+      resourceMockC = Ember.Object.create({
+        id: '9',
+        title: 'Resource #2',
+        resourceType: 'video',
+        "isQuestion": false
+      });
 
     const collectionMock = Ember.Object.create({
       id: collectionId,
