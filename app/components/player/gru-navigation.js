@@ -21,12 +21,6 @@ export default Ember.Component.extend({
 
   classNames:['gru-navigation'],
 
-
-  /**
-   * @property {array} Term used to search
-   */
-  term: '',
-
   // -------------------------------------------------------------------------
   // Actions
   actions: {
