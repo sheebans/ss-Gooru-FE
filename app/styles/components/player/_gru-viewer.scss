@@ -15,19 +15,28 @@
 
     @media (min-width: $screen-md) {
       margin-left: $player-navigator-width;
+      width: 100% - $player-navigator-width;
     }
-  }
-  div.avatar-container{
-    width: $narration-avatar-width;
-    height: $narration-avatar-height;
-     img{
-       width: $narration-avatar-width;
-       height: $narration-avatar-height;
-       border-radius: 50px;
-       box-shadow: 0 0 0 2px #87badd;
-     }
-  }
-  .message{
-    color:$color-white;
+
+    img.avatar {
+      width: $narration-avatar-width;
+      height: $narration-avatar-height;
+      border-radius: 50px;
+      box-shadow: 0 0 0 2px #87badd;
+      float: left;
+      margin: 15px;
+    }
+
+    .message {
+      color:$color-white;
+      display: block;
+      min-height: 70px;
+      margin-left: 70px;
+      padding: 10px 15px 10px 0;
+    }
+
+    @media (min-width: $screen-md) {
+      margin-left: $player-navigator-width;
+    }
   }
 }
