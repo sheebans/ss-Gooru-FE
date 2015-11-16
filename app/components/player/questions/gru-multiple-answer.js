@@ -21,7 +21,7 @@ export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-multiple-choice'],
+  classNames:['gru-multiple-answer'],
 
   // -------------------------------------------------------------------------
   // Actions
