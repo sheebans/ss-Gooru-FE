@@ -18,10 +18,10 @@
                             </div>
                             <div class="panel-body pa-0">
                                 <div class="col-md-4 col-sm-4 pa-0 collection-img">
-                                    <a {{action "openContentPlayer"}}><img src="{{ collection.imageUrl }}"></a>
+                                    <a {{action "openContentPlayer" collection.id}}><img src="{{ collection.imageUrl }}"></a>
                                 </div>
                                 <div class="col-md-8 col-sm-8 collection-desc">
-                                    <a {{action "openContentPlayer"}} target="_blank"><div class="title ma-top-1" alt="{{ collection.title }}">{{ collection.title }}</div></a>
+                                    <a {{action "openContentPlayer" collection.id}}><div class="title ma-top-1" alt="{{ collection.title }}">{{ collection.title }}</div></a>
                                     <div class="details">
                                         {{#if collection.avatarUrl }}
                                             <img src="{{ collection.avatarUrl }}">

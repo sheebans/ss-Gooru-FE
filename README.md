@@ -120,7 +120,7 @@ Useful commands [Vagrant CLI](https://docs.vagrantup.com/v2/cli/index.html)
 ### Running the app
 * `ember server --proxy http://localhost:8882` to run it using the stubby server
 * `grunt run` to run it using the stubby server, this task starts up stubby server and proxy ember to it
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+* Visit your app at [http://localhost:4200](http://localhost:4200). Or [http://192.168.33.10:4200/](http://192.168.33.10:4200/) when using vagrant
 
 * `vagrant fsnotify` this is necessary so file changes (at host) are notified (to guest) while running the app 
 
