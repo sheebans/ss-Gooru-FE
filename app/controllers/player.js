@@ -20,6 +20,14 @@ export default Ember.Controller.extend({
   // Actions
   actions: {
 
+    /**
+     * Triggered when a navigator item is selected
+     * @param {Resource} item
+     */
+    selectNavigatorItem: function(item){
+      this.set("resourceId", item.get("id"));
+      this.set("resource", item);
+    }
   },
 
   // -------------------------------------------------------------------------

@@ -4,6 +4,11 @@ import SessionMixin from '../../mixins/session';
 
 export default Ember.Service.extend(StoreMixin, SessionMixin, {
 
+  /**
+   * Find a collection by identifier
+   * @param {string} collectionId it corresponds to gooruOid
+   * @returns {Collection|Promise}
+   */
   findById: function(collectionId) {
     return this.get('store').findRecord('collection/collection', collectionId, { reload: true });
   }

@@ -9,6 +9,6 @@ export default DS.Model.extend({
   imageUrl: DS.attr('string'),
   resourceCount: DS.attr('number'),
   questionCount: DS.attr('number'),
-  collectionItems: DS.hasMany('collection/resource')
+  collectionItems: DS.hasMany('resource/resource')
 
 });

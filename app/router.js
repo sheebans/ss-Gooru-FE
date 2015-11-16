@@ -12,7 +12,7 @@ Router.map(function() {
     this.route('collections');
   });
 
-  this.route('player', { path: '/player/:gooruOid'});
+  this.route('player', { path: '/player/:collectionId'});
 });
 
 export default Router;

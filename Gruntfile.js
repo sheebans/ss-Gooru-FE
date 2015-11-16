@@ -6,6 +6,7 @@ module.exports = function (grunt) {
       "ember-test-cli": 'ember test --silent --reporter xunit',
       "ember-test-server": 'ember test --server',
       "ember-server-stubby": 'ember server --proxy http://localhost:8882',
+      "ember-server-qa": 'ember server --proxy http://qa.gooru.org',
     },
 
     stubby: {
@@ -46,11 +47,12 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('run', function (target) {
-    var serverExecTask = 'exec:ember-server-' + (target || 'stubby');
-    var tasks = [
-      'stubby:test',
-      serverExecTask
-    ];
+    target = target || 'stubby';
+
+    var stubbyTask = target === 'stubby',
+        serverExecTask = 'exec:ember-server-' + (target),
+        tasks = (stubbyTask) ? ['stubby:test', serverExecTask] : [serverExecTask];
+
     grunt.task.run(tasks);
   });
 

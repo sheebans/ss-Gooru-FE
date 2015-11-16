@@ -12,27 +12,61 @@ export default Ember.Route.extend({
    * @param {{ collectionId: string, resourceId: string }} params
    */
   model(params) {
-    const gooruOid = params.gooruOid,
-      resourceId = params.resourceId;
+    const
+      collectionId = params.collectionId,
+      resourceId = params.resourceId,
+      collection = this.get("collectionService").findById(collectionId);
+
     //@todo replace mock for sdk calls
-
-    var collection = this.get("collectionService").findById(gooruOid);
-
-
     const narration = Ember.Object.create({
       'image-url': 'http://profile-images.goorulearning.org.s3.amazonaws.com/76514d68-5f4b-48e2-b4bc-879b745f3d70.png',
       'message': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
     });
 
     const
-      resourceMockA = Ember.Object.create({ id: resourceId, 'name': 'Resource #3', 'type': 'question', narration: narration }),
-      resourceMockB = Ember.Object.create({ id: '10', name: 'Resource #1', type: 'question' }),
-      resourceMockC = Ember.Object.create({ id: '9', name: 'Resource #2', type: 'question' });
+      resourceMockA = Ember.Object.create(
+        {
+          "id": (resourceId || "068caf89-317a-44fe-a12a-bfa3abcd4d20"),
+          "answers": [
+            {
+              "answerId": 10252843,
+              "answerText": "An aquifer ",
+              "answerType": "text",
+              "isCorrect": true,
+              "sequence": 1
+            },
+            {
+              "answerId": 10252844,
+              "answerText": "A well",
+              "answerType": "text",
+              "isCorrect": false,
+              "sequence": 2
+            },
+            {
+              "answerId": 10252845,
+              "answerText": "A pump",
+              "answerType": "text",
+              "isCorrect": false,
+              "sequence": 3
+            }
+          ],
+          "order": 2,
+          "text": "An underground layer of water-bearing rock or materials that clean drinking water can be extracted from is called...",
+          "hints": [],
+          "explanation": "",
+          "type": "MC",
+          "narration": narration,
+          "title": "Question 1"
+        }
+      ),
+      resourceMockB = Ember.Object.create({ id: '10', title: 'Resource #1', resourceType: 'question' }),
+      resourceMockC = Ember.Object.create({ id: '9', title: 'Resource #2', resourceType: 'question' });
 
     const collectionMock = Ember.Object.create({
-      id: gooruOid,
+      id: collectionId,
       title: 'Test collection',
-      resources: Ember.A([
+      collectionItems: Ember.A([
+        resourceMockA,
         resourceMockB,
         resourceMockC
       ]),
@@ -40,7 +74,7 @@ export default Ember.Route.extend({
     });
 
     return Ember.RSVP.hash({
-      collection: collection,
+      collection: collectionMock,
       resource: (resourceId) ? resourceMockA : null
     });
   },
