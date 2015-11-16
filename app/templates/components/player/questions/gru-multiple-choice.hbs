@@ -1,27 +1,21 @@
-<h4>Question #{{question.id}}</h4>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-Nam lacinia massa ullamcorper lobortis mattis. Proin magna turpis, auctor et feugiat hendrerit, eleifend vel mauris. Vestibulum sodales nisi ullamcorper aliquam consectetur. Sed velit eros, pulvinar non neque ac, vestibulum posuere mauris. Etiam elementum neque imperdiet erat auctor euismod. Quisque ullamcorper sem tempor elit semper vestibulum. Morbi in augue in massa euismod volutpat sed eget velit. Cras pellentesque nec dolor consequat ullamcorper. Fusce vel tellus sit amet lacus pulvinar tempor eu sed metus. Cras in arcu at massa pretium pellentesque. Phasellus imperdiet vehicula ipsum sed sodales. Praesent eget sapien et lorem porta condimentum nec eu odio. Aliquam sodales dictum lacus, eget iaculis nibh pretium in. Vivamus nec leo purus. Pellentesque iaculis molestie lectus, id ultricies tellus porta et.
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-Donec mollis porta lectus, a aliquam est feugiat ac. Mauris in condimentum diam, non dapibus felis. Aenean cursus aliquet sollicitudin. Pellentesque pulvinar sit amet urna vel scelerisque. Proin commodo condimentum purus eu eleifend. Aenean est justo, finibus in molestie nec, maximus eu est. Nulla ultrices dui a consequat sollicitudin. Cras a arcu id eros ornare pharetra nec eget nulla. Suspendisse augue risus, euismod sed turpis iaculis, fringilla semper dolor. Curabitur a elit aliquet felis maximus tincidunt. Proin ac nisi cursus, luctus dui a, posuere dolor. Nulla facilisis, odio non pharetra posuere, nibh tellus cursus diam, et tristique libero ante sit amet est. Suspendisse quis porttitor ex, at cursus massa. Cras velit mauris, congue eu dignissim eget, porta ac eros.
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-Etiam dapibus fermentum neque, nec varius nibh dapibus sit amet. Nullam mollis, magna eu fermentum sagittis, metus nisl tincidunt turpis, eu pellentesque risus orci vel mi. Morbi ullamcorper vestibulum ligula. Etiam fermentum, dolor ut ultricies sodales, purus justo pretium nunc, vitae pharetra nulla lectus sit amet justo. Vestibulum nibh ex, consequat eu faucibus vitae, congue vel quam. Quisque finibus justo nisl, eget egestas est condimentum rutrum. Sed interdum nibh quis vulputate egestas. Etiam id molestie elit, pellentesque blandit nibh. Ut orci turpis, tempor id lorem eu, ornare blandit dolor. Praesent id mi urna. Nullam efficitur vehicula ante, vel sagittis augue pretium non. Proin ac maximus mi. Curabitur fringilla congue vestibulum.
+<div>
+  <p class="instructions">
+    {{t "gru-multiple-choice.instructions"}}
+  </p>
+
+  <div class="answer-choices">
+    <form class="form-horizontal">
+      {{#each question.answers as |answer|}}
+      <div class="radio">
+          {{#radio-button
+            value=answer.id
+            changed="selectAnswerChoice"
+            name="answer-choice-radio"}}
+            {{answer.answerText}}
+            {{/radio-button}}
+      </div>
+      {{/each}}
+    </form>
+  </div>
+</div>
 

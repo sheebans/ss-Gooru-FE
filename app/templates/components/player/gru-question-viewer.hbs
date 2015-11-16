@@ -1,11 +1,18 @@
-<div class="question-panel">
+<div class="row">
+  <div class="col-md-4 col-sm-6 col-xs-12">
+    <div class="question-panel">
+      <h3>{{t "gru-question-viewer.question"}}</h3>
+    </div>
+  </div>
+  <div class="col-md-5 col-sm-6 col-xs-12">
+    <div class="answers-panel">
+      <h3>{{t "gru-question-viewer.answer"}}</h3>
 
-    Question Panel placeholder
-
-</div>
-<div class="answers-panel">
-
-  Answer Panel placeholder
-
-  {{player.questions.gru-multiple-choice question=question}}
+      {{#if question.isMultipleChoice}}
+        {{player.questions.gru-multiple-choice question=question}}
+      {{else}}
+        Question not implemented
+      {{/if}}
+    </div>
+  </div>
 </div>

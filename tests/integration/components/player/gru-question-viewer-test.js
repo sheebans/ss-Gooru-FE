@@ -2,7 +2,11 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('player/gru-question-viewer', 'Integration | Component | player/gru question viewer', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.container.lookup('service:i18n').set("locale","en");
+  }
+
 });
 
 test('it renders', function(assert) {

@@ -233,6 +233,7 @@ export default {
     "in-this-collection": "in this collection",
     "search-results-for": "Search Results for"
   },
+
   "gru-emotion-picker":{
     "need-help":"I need help",
     "do-not-understand":"I don't understand",
@@ -240,7 +241,18 @@ export default {
     "understand":"I understand",
     "can-explain":"I can explain"
   },
+
   "loading": {
     "text": "Loading..."
+  },
+
+  "gru-question-viewer": {
+    "answer": "Answer",
+    "question": "Question"
+  },
+
+  "gru-multiple-choice": {
+    "instructions" : "Please select the correct answer, and click \"Submit\"."
   }
+
 };
