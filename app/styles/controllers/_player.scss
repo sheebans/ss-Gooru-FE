@@ -14,7 +14,7 @@
 
     .aside {
       // temporary for GG-92
-      background: #1A1E5D;
+      background: #EEEEEE;
 
       @include translate-hide(-$player-navigator-width);
       @include position(absolute, 0, null, 0, 0);

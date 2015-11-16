@@ -3,4 +3,54 @@
   overflow-x: hidden;
   height: 100%;
   width: $player-navigator-width;
+  .resources {
+    padding: 0;
+    li {
+      list-style: none;
+      border-top: 1px solid $color-gray-lighter-9;
+      height: 50px;
+      overflow: hidden;
+      padding: 0 0 0 5px;
+      display: table;
+      width: 100%;
+      .resources-info {
+        display: table-cell;
+        vertical-align: middle;
+        .bubble-type {
+          border-radius: 50px;
+          box-shadow: 0 0 0 2px $color-gray-lighter-9;
+          background: #FFF url("gooru/resource-type-icons.png") no-repeat scroll 0 0;
+          float: left;
+          height: 30px;
+          width: 30px;
+        }
+        .video {
+          background-position: 2px 5px;
+        }
+        .webpage {
+          background-position: 2px -219px;
+        }
+        .interactive {
+          background-position: 2px -23px;
+        }
+        .question {
+          background-position: 2px -135px;
+        }
+        .image {
+          background-position: 2px -247px;
+        }
+        .text {
+          background-position: 2px -50px;
+        }
+        .audio {
+          background-position: 2px -273px;
+        }
+        .title {
+          padding: 10px;
+          float: left;
+          font-size: 12px;
+        }
+      }
+    }
+  }
 }
