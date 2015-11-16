@@ -21,6 +21,12 @@ export default Ember.Component.extend({
 
   classNames:['gru-navigation'],
 
+
+  /**
+   * @property {array} Term used to search
+   */
+  term: '',
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -31,8 +37,14 @@ export default Ember.Component.extend({
     changeEmotion: function(emotion) {
       //TODO remove when implement the content player
       console.log(emotion);
+    },
+    /**
+     * Action triggered when the user close the content player
+     */
+    closeContentPlayer:function(){
+      this.sendAction("onCloseContentPlayer","Close");
     }
-  }
+  },
 
   // -------------------------------------------------------------------------
   // Events
@@ -41,6 +53,10 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Properties
 
+  /**
+   * @property {string} on content player action
+   */
+  onCloseContentPlayer: "onCloseContentPlayer",
 
   // -------------------------------------------------------------------------
   // Observers
