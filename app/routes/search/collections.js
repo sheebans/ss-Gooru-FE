@@ -97,7 +97,7 @@ export default Ember.Route.extend({
      * @param {string} collectionId collection identifier
      */
     onOpenContentPlayer: function(collectionId) {
-      this.transitionTo('/player/' + collectionId);
+      this.transitionTo('player', collectionId);
     },
 
     /**
