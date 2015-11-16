@@ -36,7 +36,7 @@ export default Ember.Component.extend({
      * Action triggered when the user close the content player
      */
     closeContentPlayer:function(){
-      this.sendAction("onCloseContentPlayer","Close");
+      this.sendAction("onCloseContentPlayer");
     }
   },
 

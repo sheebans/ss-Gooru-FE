@@ -26,8 +26,8 @@ test('Navigation', function(assert) {
 test('Close player', function(assert) {
   assert.expect(1);
 
-  this.on('parentAction', function(event){
-    assert.equal('Close', event);
+  this.on('parentAction', function(){
+    assert.ok(true, 'external Action was called!');
   });
 
   this.render(hbs`{{player/gru-navigation onCloseContentPlayer='parentAction'}}`);
