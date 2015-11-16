@@ -1,7 +1,7 @@
-<div class="row emotion-picker">
-  <ul class="emotions-list pa-md-left-10 pa-sm-left-10 pa-xs-left-5">
+<div class="emotion-picker">
+  <ul class="emotions-list">
     {{#each emotionsList as |emotion|}}
-      <li class="pa-xs-2">
+      <li>
         <div title="{{t (concat 'gru-emotion-picker.' emotion.icon-class) }}" data-toggle="tooltip"
              data-placement="bottom"
              class="emotion {{emotion.icon-class}}" {{action 'setEmotion' emotion.emotion}}></div>
