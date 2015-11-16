@@ -28,9 +28,11 @@ export default Ember.Component.extend({
 
     /**
      * When the user changes the answer choice selection
+     * @param {number} answerId
      */
-    selectAnswerChoice: function(){
-      this.sendAction('onChangeQuestion', this.get("question"));
+    selectAnswerChoice: function(answerId){
+      //todo mark the answer as selected
+      this.sendAction('onQuestionChanged', this.get("question"), answerId);
     }
   },
 
@@ -42,9 +44,9 @@ export default Ember.Component.extend({
   // Properties
 
   /**
-   * @property {String|Function} onChangeQuestion - event handler for when the question is changed
+   * @property {String|Function} onQuestionChanged - event handler for when the question is changed
    */
-  onChangeQuestion: null,
+  onQuestionChanged: null,
 
   /**
    * Question information

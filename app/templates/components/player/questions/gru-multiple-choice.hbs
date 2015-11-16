@@ -1,16 +1,18 @@
 <div>
-  <p>
+  <p class="instructions">
     {{t "gru-multiple-choice.instructions"}}
   </p>
 
-  <div>
+  <div class="answer-choices">
     <form class="form-horizontal">
       {{#each question.answers as |answer|}}
       <div class="radio">
-        <label>
-          <input type="radio" name="answer-choice" value="{{answer.id}}">
-          {{answer.answerText}}
-        </label>
+          {{#radio-button
+            value=answer.id
+            changed="selectAnswerChoice"
+            name="answer-choice-radio"}}
+            {{answer.answerText}}
+            {{/radio-button}}
       </div>
       {{/each}}
     </form>

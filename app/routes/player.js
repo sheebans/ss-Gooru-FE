@@ -29,21 +29,21 @@ export default Ember.Route.extend({
           "id": (resourceId || "068caf89-317a-44fe-a12a-bfa3abcd4d20"),
           "answers": [
             {
-              "answerId": 10252843,
+              "id": 10252843,
               "answerText": "An aquifer ",
               "answerType": "text",
               "isCorrect": true,
               "sequence": 1
             },
             {
-              "answerId": 10252844,
+              "id": 10252844,
               "answerText": "A well",
               "answerType": "text",
               "isCorrect": false,
               "sequence": 2
             },
             {
-              "answerId": 10252845,
+              "id": 10252845,
               "answerText": "A pump",
               "answerType": "text",
               "isCorrect": false,
