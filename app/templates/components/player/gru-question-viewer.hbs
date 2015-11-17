@@ -11,7 +11,11 @@
       {{#if question.isMultipleChoice}}
         {{player.questions.gru-multiple-choice question=question}}
       {{else}}
-        Question not implemented
+        {{#if question.isTrueFalse}}
+          {{player.questions.gru-true-false question=question}}
+        {{else}}
+            Question not implemented
+        {{/if}}
       {{/if}}
     </div>
   </div>
