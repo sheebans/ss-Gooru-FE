@@ -3,7 +3,7 @@
     <button class="btn btn-link hamburger-icon">{{fa-icon icon="fa-bars"}}</button>
   </div>
   <div class="right">
-    <button class="btn btn-link x-icon">{{fa-icon icon="fa-times"}}</button>
+    <button class="btn btn-link x-icon" {{action 'closePlayer'}}>{{fa-icon icon="fa-times"}}</button>
   </div>
   <div class="center">
     {{gru-emotion-picker onChangeEmotion="changeEmotion"}}

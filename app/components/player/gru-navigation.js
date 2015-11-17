@@ -35,8 +35,8 @@ export default Ember.Component.extend({
     /**
      * Action triggered when the user close the content player
      */
-    closeContentPlayer:function(){
-      this.sendAction("onCloseContentPlayer");
+    closePlayer:function(){
+      this.sendAction("onClosePlayer");
     }
   },
 
@@ -50,7 +50,7 @@ export default Ember.Component.extend({
   /**
    * @property {string} on content player action
    */
-  onCloseContentPlayer: "onCloseContentPlayer"
+  onClosePlayer: "onClosePlayer"
 
   // -------------------------------------------------------------------------
   // Observers

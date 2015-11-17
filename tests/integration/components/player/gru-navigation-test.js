@@ -19,8 +19,8 @@ test('Navigation', function(assert) {
   var $component = this.$(); //component dom element
   const $navigation = $component.find(".gru-navigation");
   T.exists(assert, $navigation, "Missing navigation section");
-  T.exists(assert, $navigation.find("span.hamburger-icon"), "Missing hamburger icon");
-  T.exists(assert, $navigation.find("span.x-icon"), "Missing close icon");
+  T.exists(assert, $navigation.find("button.hamburger-icon"), "Missing hamburger icon");
+  T.exists(assert, $navigation.find("button.x-icon"), "Missing close icon");
 });
 
 test('Close player', function(assert) {
@@ -30,9 +30,9 @@ test('Close player', function(assert) {
     assert.ok(true, 'external Action was called!');
   });
 
-  this.render(hbs`{{player/gru-navigation onCloseContentPlayer='parentAction'}}`);
+  this.render(hbs`{{player/gru-navigation onClosePlayer='parentAction'}}`);
   var $component = this.$(); //component dom element
-  var $closeButton = $component.find(".gru-navigation span.x-icon");
+  var $closeButton = $component.find(".gru-navigation button.x-icon");
   $closeButton.click();
 });
 

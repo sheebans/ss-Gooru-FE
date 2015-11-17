@@ -49,7 +49,7 @@ test('Multiple answer question layout', function (assert) {
 
   var $component = this.$(); //component dom element
   T.exists(assert, $component.find(".instructions"), "Missing instructions");
-  assert.equal($component.find(".answer-choices tr").length, 3, "Missing answer choices");
+  assert.equal($component.find(".answer-choices tbody tr").length, 3, "Missing answer choices");
   assert.equal($component.find(".answer-choices tr input[type=radio]").length, 6, "Missing answer choices radio inputs");
 
 });
@@ -103,8 +103,8 @@ test('Multiple answer question events', function (assert) {
   var $component = this.$(); //component dom element
 
   //select a radio button
-  $component.find(".answer-choices tr:eq(0) input[type=radio]:eq(0)").click(); //Yes
-  $component.find(".answer-choices tr:eq(1) input[type=radio]:eq(0)").click(); //Yes
-  $component.find(".answer-choices tr:eq(2) input[type=radio]:eq(0)").click(); //Yes
+  $component.find(".answer-choices tbody tr:eq(0) input[type=radio]:eq(0)").click(); //Yes
+  $component.find(".answer-choices tbody tr:eq(1) input[type=radio]:eq(0)").click(); //Yes
+  $component.find(".answer-choices tbody tr:eq(2) input[type=radio]:eq(0)").click(); //Yes
 
 });
