@@ -13,7 +13,7 @@ moduleForComponent('player/questions/gru-multiple-choice', 'Integration | Compon
 
 test('Multiple choice question layout', function (assert) {
 
-  assert.expect(5);
+  assert.expect(7);
 
   const question = Ember.Object.create(
     {
@@ -45,13 +45,20 @@ test('Multiple choice question layout', function (assert) {
     });
 
   this.set('question', question);
-  this.on('myOnQuestionChanged', function(question, answerId) {
+  this.on('myOnAnswerChanged', function(question, answerId) {
     //todo check for selected answer
     assert.equal(question.get("id"), 10, "Wrong question id");
     assert.equal(answerId, 2, "Wrong answer id");
   });
 
-  this.render(hbs`{{player/questions/gru-multiple-choice question=question onQuestionChanged="myOnQuestionChanged"}}`);
+  this.on('myOnAnswerCompleted', function(question, answerId) {
+    //todo check for selected answer
+    assert.equal(question.get("id"), 10, "Wrong question id");
+    assert.equal(answerId, 2, "Wrong answer id");
+  });
+
+  this.render(hbs`{{player/questions/gru-multiple-choice question=question
+        onAnswerChanged="myOnAnswerChanged" onAnswerCompleted="myOnAnswerCompleted"}}`);
 
   var $component = this.$(); //component dom element
   T.exists(assert, $component.find(".instructions"), "Missing instructions");
