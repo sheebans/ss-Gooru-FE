@@ -1,21 +1,21 @@
-<div>
-  <p class="instructions">
-    {{t "gru-multiple-choice.instructions"}}
-  </p>
 
-  <div class="answer-choices">
-    <form class="form-horizontal">
-      {{#each question.answers as |answer|}}
-      <div class="radio">
-          {{#radio-button
-            value=answer.id
-            changed="selectAnswerChoice"
-            name="answer-choice-radio"}}
-            {{answer.answerText}}
-            {{/radio-button}}
-      </div>
-      {{/each}}
-    </form>
-  </div>
+<p class="instructions">
+  {{t "gru-multiple-choice.instructions"}}
+</p>
+
+<div class="answer-choices">
+  <form class="form-horizontal">
+    {{#each question.answers as |answer|}}
+    <div class="radio">
+        {{#radio-button
+          value=answer.id
+          changed="selectAnswerChoice"
+          name="answer-choice-radio"}}
+          {{answer.answerText}}
+          {{/radio-button}}
+    </div>
+    {{/each}}
+  </form>
 </div>
+
 
