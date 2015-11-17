@@ -1,0 +1,76 @@
+.player .gru-question-viewer {
+  position:relative;
+  padding: 15px 10px;
+  overflow: hidden;
+
+  h3 {
+    margin: 5px 0;
+    font-size: 24px;
+    color: $color-gray-primary;
+  }
+
+  .question-panel {
+    width: 100%;
+
+    .question {
+      margin-bottom: 25px;
+      margin-top: 10px;
+
+      span {
+        display: block;
+        padding-bottom: 10px;
+      }
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        margin-top: 5px;
+      }
+    }
+
+    .information {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+
+      button {
+        min-width: 8em;
+
+        &:first-child {
+          margin-right: 3%;
+        }
+        &:last-child {
+          margin-left: 3%;
+        }
+      }
+
+      @media (min-width: $screen-sm) {
+        position: relative;
+        bottom: auto;
+        left: auto;
+      }
+    }
+
+    @media (min-width: $screen-sm) {
+      padding-left: 4%;
+      width: 46%;
+      float: left;
+    }
+  }
+  .answers-panel {
+    width: 100%;
+    padding-bottom: 60px;
+
+    .actions {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    @media (min-width: $screen-sm) {
+      padding-left: 4%;
+      width: 46%;
+      float: left;
+    }
+  }
+}
