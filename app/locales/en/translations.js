@@ -2,6 +2,8 @@ export default {
 
   "common": {
     "close": "Close",
+    "explanations": "Explanations",
+    "hints": "Hints",
     "logout": "Logout",
     "create": "Create",
     "signUp": "Sign Up",

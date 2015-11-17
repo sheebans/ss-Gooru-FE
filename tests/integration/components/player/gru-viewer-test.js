@@ -31,8 +31,8 @@ test('Narration', function (assert) {
   this.render(hbs`{{player/gru-viewer resource=resource}}`);
 
   var $component = this.$(); //component dom element
-  const $narration = $component.find(".gru-viewer");
-  T.exists(assert, $narration, "Missing narration section");
-  T.exists(assert, $narration.find(".avatar-container img.author"), "Missing autor image");
-  T.exists(assert, $narration.find(".message"), "Missing narration");
+  const $gruViewer = $component.find(".gru-viewer");
+  T.exists(assert, $gruViewer, "Missing narration section");
+  T.exists(assert, $gruViewer.find(".narration img.avatar"), "Missing autor image");
+  T.exists(assert, $gruViewer.find(".narration .message"), "Missing narration");
 });
