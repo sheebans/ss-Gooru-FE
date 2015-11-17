@@ -13,7 +13,7 @@
       position: absolute;
       content: '';
       top: 10px;
-      left: 18px;
+      left: 24px;
       width: 5px;
       height: 90%;
       background-color: $color-gray-lighter-9;
@@ -25,73 +25,50 @@
       border: 0;
       border-top: 1px solid $color-gray-lighter-10;
       background-color: $color-gray-lighter-6;
-      min-height: 50px;
+      min-height: 65px;
       overflow: hidden;
       padding: 0 0 0 5px;
-      display: table;
+      display: block;
       width: 100%;
       cursor: pointer;
 
       .resources-info {
-//        display: table-cell;
-//        vertical-align: middle;
         position: relative;
         .bubble-type {
           border-radius: 50px;
-          box-shadow: 0 0 0 2px $color-gray-lighter-9;
-          background: #FFF url("gooru/resource-type-icons.png") no-repeat scroll 0 0;
+          box-shadow: 0 0 0 1px $color-gray-lighter-9;
+          background: #FFF url("gooru/resource-collection-icons.png") no-repeat scroll 0 0;
+          background-size: 300px 228px;
           float: left;
-          height: 30px;
-          width: 30px;
+          height: 40px;
+          width: 40px;
           z-index: 2;
-          margin: 8px 0 0 0;
+          margin: 10px 0 0 0;
           position: absolute;
-//          &:after {
-//            display: block;
-//            position: absolute;
-//            top: 32px;
-//            content: '';
-//            margin-left: 13px;
-//            width: 5px;
-//            height: 100%;
-//            background-color: $color-gray-lighter-9;
-//            z-index: 0;
-//          }
-//          &:before {
-//             display: block;
-//             position: absolute;
-//             top: 0;
-//             content: '';
-//             margin-left: 13px;
-//             width: 5px;
-//             height: 100%;
-//             background-color: $color-gray-lighter-9;
-//             z-index: 0;
-//           }
         }
         .video {
-          background-position: 2px 5px;
+          background-position: 5px 5px;
         }
         .webpage {
-          background-position: 2px -219px;
+          background-position: -40px 4px;
         }
         .interactive {
-          background-position: 2px -23px;
+          background-position: 85px 5px;
         }
         .question {
-          background-position: 2px -135px;
+          background-position: -129px 5px;
         }
         .image {
-          background-position: 2px -247px;
+          background-position: -174px 5px;
         }
         .text {
-          background-position: 2px -50px;
+          background-position: -218px 5px;
         }
         .audio {
-          background-position: 2px -273px;
+          background-position: -263px 5px;
         }
         .title {
-          padding: 18px 10px 10px;
+          padding: 25px 20px 10px;
           float: right;
           font-size: 12px;
           height: 100%;
