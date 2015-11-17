@@ -50,7 +50,7 @@ export default Ember.Component.extend({
   /**
    * @property {string} on content player action
    */
-  onCloseContentPlayer: "onCloseContentPlayer",
+  onCloseContentPlayer: "onCloseContentPlayer"
 
   // -------------------------------------------------------------------------
   // Observers
