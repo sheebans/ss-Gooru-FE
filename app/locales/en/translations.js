@@ -2,6 +2,8 @@ export default {
 
   "common": {
     "close": "Close",
+    "explanations": "Explanations",
+    "hints": "Hints",
     "logout": "Logout",
     "create": "Create",
     "signUp": "Sign Up",
@@ -15,7 +17,9 @@ export default {
     "forgotPassword": "Forgot Password",
     "if_questions": "If you have any questions,",
     "please_contact": "Please contact",
-    "email_support": "support@gooru.org"
+    "email_support": "support@gooru.org",
+    "yes": "Yes",
+    "no": "No"
   },
 
   "gru-category-panel": {
@@ -255,6 +259,9 @@ export default {
     "instructions" : "Please select the correct answer, and click \"Submit\"."
   },
   "gru-true-false": {
+    "instructions" : "Please select the correct answer, and click \"Submit\"."
+  },
+  "gru-multiple-answer": {
     "instructions" : "Please select the correct answer, and click \"Submit\"."
   }
 };

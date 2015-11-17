@@ -10,14 +10,30 @@
   z-index: 10;
 
   .content {
+    .left {
+      float: left;
+      margin-left: 1%;
+    }
+    .center {
+      display: block;
+      text-align: center;
+    }
+    .right {
+      float: right;
+      text-align: right;
+      margin-right: 1%;
+    }
+
     @media (min-width: $screen-md) {
       margin-left: $player-navigator-width;
+      overflow: hidden;
     }
-  }
-  .hamburger-icon,.x-icon{
-    font-size: 33px;
-     i{
-       color:$color-white;
-     }
+
+    .hamburger-icon,.x-icon{
+      font-size: 33px;
+      i{
+        color:$color-white;
+      }
+    }
   }
 }

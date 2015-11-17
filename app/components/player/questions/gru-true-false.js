@@ -1,16 +1,14 @@
-import Ember from 'ember';
+import QuestionComponent from './gru-question';
 /**
  * True or false Question
- *
  * Component responsible for controlling the logic and appearance of a true
  * or false question inside of the {@link player/gru-question-viewer.js}
- *
  * @module
  * @see controllers/player.js
  * @see components/player/gru-question-viewer.js
  * @augments ember/Component
  */
-export default Ember.Component.extend({
+export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -29,8 +27,10 @@ export default Ember.Component.extend({
      * @param {number} answerId
      */
     selectAnswerChoice: function(answerId){
+      const component = this;
       //todo mark the answer as selected
-      this.sendAction('onQuestionChanged', this.get("question"), answerId);
+      component.notifyAnswerChanged(answerId);
+      component.notifyAnswerCompleted(answerId);
     }
   },
 

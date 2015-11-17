@@ -71,48 +71,17 @@ export default Ember.Route.extend({
           "title": "Question 1",
 
           "isQuestion": true,
-          "isMultipleChoice": true
+          "isMultipleAnswer": true
         }
       ),
-      resourceMockB = Ember.Object.create(
-        {
-          "id": (resourceId || "068caf89-317a-44fe-a12a-bfa3abcd4d20"),
-          "answers": [
-            {
-              "id": 10252843,
-              "answerText": "(A) True",
-              "answerType": "text",
-              "isCorrect": true,
-              "sequence": 1
-            },
-            {
-              "id": 10252844,
-              "answerText": "(B) False",
-              "answerType": "text",
-              "isCorrect": false,
-              "sequence": 2
-            }
-          ],
-          "order": 2,
-          "text": "An underground layer of water-bearing rock or materials that clean drinking water can be extracted from is called...",
-          "hints": [],
-          "explanation": "",
-          "type": "TF",
-          "narration": narration,
-          "title": "Question 2",
-
-          "isQuestion": true,
-          "isTrueFalse": true
-        }
-      ),
-      resourceMockC = Ember.Object.create({
+      resourceMockB = Ember.Object.create({
         id: '10',
         title: 'Resource #1',
         resourceType: 'url',
         "isQuestion": false
       }),
 
-      resourceMockD = Ember.Object.create({
+      resourceMockC = Ember.Object.create({
         id: '9',
         title: 'Resource #2',
         resourceType: 'video',
@@ -125,15 +94,14 @@ export default Ember.Route.extend({
       collectionItems: Ember.A([
         resourceMockA,
         resourceMockB,
-        resourceMockC,
-        resourceMockD
+        resourceMockC
       ]),
       lastVisitedResource: resourceMockB
     });
 
     return Ember.RSVP.hash({
       collection: collectionMock,
-      resource: (resourceId) ? resourceMockD : null
+      resource: (resourceId) ? resourceMockA : null
     });
   },
 

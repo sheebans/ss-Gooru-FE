@@ -1,9 +1,11 @@
+import Ember from 'ember';
 import QuestionComponent from './gru-question';
+
 /**
- * Multiple Choice Question
+ * Multiple Answer Question
  *
  * Component responsible for controlling the logic and appearance of a multiple
- * choice question inside of the {@link player/gru-question-viewer.js}
+ * answer question inside of the {@link player/gru-question-viewer.js}
  *
  * @module
  * @see controllers/player.js
@@ -19,7 +21,7 @@ export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-multiple-choice'],
+  classNames:['gru-multiple-answer'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -33,9 +35,12 @@ export default QuestionComponent.extend({
       const component = this;
       //todo mark the answer as selected
       component.notifyAnswerChanged(answerId);
-      component.notifyAnswerCompleted(answerId);
+
+      if (component.isAnswerCompleted()){
+        component.notifyAnswerCompleted(answerId);
+      }
     }
-  }
+  },
 
   // -------------------------------------------------------------------------
   // Events
@@ -44,11 +49,22 @@ export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Properties
 
+
   // -------------------------------------------------------------------------
   // Observers
 
 
   // -------------------------------------------------------------------------
   // Methods
+  /**
+   * Indicates when the answer is completed
+   * @return {bool}
+   */
+  isAnswerCompleted: function(){
+    const component = this,
+      element = Ember.$(component.element),
+      totalAnswerChoices = component.get("question.answers.length");
+    return element.find("input[type=radio]:checked").length === totalAnswerChoices;
+  }
 
 });
