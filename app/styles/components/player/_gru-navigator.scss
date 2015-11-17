@@ -3,19 +3,40 @@
   overflow-x: hidden;
   height: 100%;
   width: $player-navigator-width;
+  h2 {
+    padding: 0 5px;
+  }
   .resources {
     padding: 0;
+    position: relative;
+    .bgd-line {
+      display: block;
+      position: absolute;
+      content: '';
+      top: 10px;
+      left: 18px;
+      width: 5px;
+      height: 90%;
+      background-color: $color-gray-lighter-9;
+      z-index: 1;
+    }
     li {
       list-style: none;
-      border-top: 1px solid $color-gray-lighter-9;
-      height: 50px;
+      border-radius: 0;
+      border: 0;
+      border-top: 1px solid $color-gray-lighter-10;
+      background-color: $color-gray-lighter-6;
+      min-height: 50px;
       overflow: hidden;
       padding: 0 0 0 5px;
       display: table;
       width: 100%;
+      cursor: pointer;
+
       .resources-info {
-        display: table-cell;
-        vertical-align: middle;
+//        display: table-cell;
+//        vertical-align: middle;
+        position: relative;
         .bubble-type {
           border-radius: 50px;
           box-shadow: 0 0 0 2px $color-gray-lighter-9;
@@ -23,6 +44,31 @@
           float: left;
           height: 30px;
           width: 30px;
+          z-index: 2;
+          margin: 8px 0 0 0;
+          position: absolute;
+//          &:after {
+//            display: block;
+//            position: absolute;
+//            top: 32px;
+//            content: '';
+//            margin-left: 13px;
+//            width: 5px;
+//            height: 100%;
+//            background-color: $color-gray-lighter-9;
+//            z-index: 0;
+//          }
+//          &:before {
+//             display: block;
+//             position: absolute;
+//             top: 0;
+//             content: '';
+//             margin-left: 13px;
+//             width: 5px;
+//             height: 100%;
+//             background-color: $color-gray-lighter-9;
+//             z-index: 0;
+//           }
         }
         .video {
           background-position: 2px 5px;
@@ -46,9 +92,11 @@
           background-position: 2px -273px;
         }
         .title {
-          padding: 10px;
-          float: left;
+          padding: 18px 10px 10px;
+          float: right;
           font-size: 12px;
+          height: 100%;
+          width: 90%;
         }
       }
     }

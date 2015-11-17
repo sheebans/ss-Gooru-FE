@@ -1,47 +1,12 @@
-<h1>{{collection.title}}</h1>
+<h2>{{collection.title}}</h2>
 
-<ul class="list-group">
+<ul class="list-group resources">
+  <div class="bgd-line"></div>
   {{#each collection.collectionItems as |item|}}
-    <li class="list-group-item" {{action 'selectItem' item}}>{{item.title}}</li>
+    <li class="list-group-item" {{action 'selectItem' item}}>
+      <div class="resources-info">
+        <span class="bubble-type {{item.resourceType}}"></span><span class="title">{{item.title}}</span>
+      </div>
+    </li>
   {{/each}}
 </ul>
-<h2>Content Player Title</h2>
-<div>
-  <ul class="resources">
-    <li>
-      <div class="resources-info">
-        <span class="bubble-type interactive"></span><span class="title">Resource Title</span>
-      </div>
-    </li>
-    <li>
-      <div class="resources-info">
-        <span class="bubble-type video"></span><span class="title">Resource Title</span>
-      </div>
-    </li>
-    <li>
-      <div class="resources-info">
-        <span class="bubble-type webpage"></span><span class="title">Resource Title</span>
-      </div>
-    </li>
-    <li>
-      <div class="resources-info">
-        <span class="bubble-type question"></span><span class="title">Resource Title</span>
-      </div>
-    </li>
-    <li>
-      <div class="resources-info">
-        <span class="bubble-type image"></span><span class="title">Resource Title</span>
-      </div>
-    </li>
-    <li>
-      <div class="resources-info">
-        <span class="bubble-type audio"></span><span class="title">Resource Title</span>
-      </div>
-    </li>
-    <li>
-      <div class="resources-info">
-        <span class="bubble-type text"></span><span class="title">Resource Title</span>
-      </div>
-    </li>
-  </ul>
-</div>
