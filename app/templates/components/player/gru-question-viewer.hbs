@@ -24,6 +24,10 @@
       {{player.questions.gru-multiple-answer question=question}}
     {{/if}}
 
+    {{#if question.isOpenEnded}}
+      {{player.questions.gru-open-ended question=question}}
+    {{/if}}
+
     <div class="actions">
       <button type="submit" class="save btn btn-lg btn-primary">{{t "common.submit"}}</button>
     </div>

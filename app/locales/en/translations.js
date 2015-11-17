@@ -261,6 +261,11 @@ export default {
 
   "gru-multiple-answer": {
     "instructions" : "Please select the correct answer, and click \"Submit\"."
+  },
+
+  "gru-open-ended": {
+    "instructions" : "Please type your answer in the field below, and click the \"Submit\" button to save your response when you're done.",
+    "characterLimit": "Character Limit"
   }
 
 };
