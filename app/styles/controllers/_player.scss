@@ -16,7 +16,7 @@
       // temporary for GG-92
       background: #EEEEEE;
 
-      @include translate-hide(-$player-navigator-width);
+      @include translate-hide(-100%);
       @include position(absolute, 0, null, 0, 0);
       z-index: 20;
       width: $player-navigator-width;

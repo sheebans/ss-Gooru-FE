@@ -1,11 +1,11 @@
-<div class="content row pa-xs-left-10">
-    <div class="col-md-2 col-sm-2 col-xs-2 visible-xs-block visible-sm-block">
-        <span class="hamburger-icon">{{fa-icon icon="fa-bars"}}</span>
-    </div>
-    <div class="col-md-offset-4 col-sm-offset-2 col-md-5 col-sm-5 col-xs-8 pa-xs-left-15 pa-xs-right-15 pa-md-top-2 pa-md-bottom-2 pa-sm-top-2 pa-sm-bottom-2 pa-xs-top-2 pa-xs-bottom-2">
-        {{gru-emotion-picker onChangeEmotion="changeEmotion"}}
-    </div>
-    <div class="col-md-offset-2 col-sm-offset-2 col-md-1 col-sm-1 col-xs-1">
-        <span class="x-icon">{{fa-icon icon="fa-times"}}</span>
-    </div>
+<div class="content">
+  <div class="left">
+    <button class="btn btn-link hamburger-icon">{{fa-icon icon="fa-bars"}}</button>
+  </div>
+  <div class="right">
+    <button class="btn btn-link x-icon" {{action 'closePlayer'}}>{{fa-icon icon="fa-times"}}</button>
+  </div>
+  <div class="center">
+      {{gru-emotion-picker onChangeEmotion="changeEmotion"}}
+  </div>
 </div>
