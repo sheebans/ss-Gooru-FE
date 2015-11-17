@@ -15,6 +15,10 @@
       {{#if question.isMultipleAnswer}}
         {{player.questions.gru-multiple-answer question=question}}
       {{/if}}
+
+      {{#if question.isOpenEnded}}
+        {{player.questions.gru-open-ended question=question}}
+      {{/if}}
     </div>
   </div>
 </div>
