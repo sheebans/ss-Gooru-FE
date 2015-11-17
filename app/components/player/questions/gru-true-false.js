@@ -41,17 +41,6 @@ export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Properties
 
-  /**
-   * @property {String|Function} onQuestionChanged - event handler for when the question is changed
-   */
-  onQuestionChanged: null,
-
-  /**
-   * Question information
-   * @property {Question} question
-   */
-  question: null
-
   // -------------------------------------------------------------------------
   // Observers
 
