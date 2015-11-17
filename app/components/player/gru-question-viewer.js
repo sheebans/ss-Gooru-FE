@@ -24,7 +24,36 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
+  actions: {
+    /**
+     * When the question answer has been changed
+     * @param {Question} question the question
+     */
+    changeAnswer: function(question){
+      //todo track analytics
+      this.set("question", question);
+    },
 
+    /**
+     * When the question answer has been completed
+     * @param {Question} question the question
+     */
+    completeAnswer: function(question){
+      //todo track analytics
+      this.set("question", question);
+      this.set("answerCompleted", true);
+    },
+
+    /**
+     * When the question answer has been cleared
+     * @param {Question} question the question
+     */
+    clearAnswer: function(question){
+      //todo track analytics
+      this.set("question", question);
+      this.set("answerCompleted", false);
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Events
@@ -36,7 +65,17 @@ export default Ember.Component.extend({
    * The question
    * @property {Question} question
    */
-  question: null
+  question: null,
+
+  /**
+   * @property {bool} indicates when the answer is completed
+   */
+  answerCompleted: false,
+
+  /**
+   * @property {bool} indicates when the submit functionality is enabled
+   */
+  isSubmitDisabled: Ember.computed.not("answerCompleted")
 
 
   // -------------------------------------------------------------------------

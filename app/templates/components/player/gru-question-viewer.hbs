@@ -2,8 +2,10 @@
   <h3>{{t "gru-question-viewer.question"}}</h3>
 
   <div class="question">
-    <span>Praesent quis vulputate quam. Ut et odio nec dolor blandit porttitor. Vestibulum imperdiet facilisis metus, quis commodo justo sollicitudin id. Ut in ipsum tincidunt, gravida dolor id, laoreet ipsum. Vestibulum elementum odio eget augue scelerisque aliquet. Duis blandit sapien in vestibulum lobortis.</span>
-    <img src="http://cdn.goorulearning.org/prod1//f000/2623/5407/aaa5a112-1206-4ff0-8a50-e04fa8f2c702.png"/>
+    <span>{{{question.text}}}</span>
+    {{#if question.media}}
+      <img src="{{question.media}}"/>
+    {{/if}}
   </div>
   <div class="information">
     <button class="hint btn btn-default">{{t "common.hints"}}</button>
@@ -17,19 +19,38 @@
   <form {{action "changeQuestion" on="submit"}}>
 
     {{#if question.isMultipleChoice}}
-      {{player.questions.gru-multiple-choice question=question}}
+      {{player.questions.gru-multiple-choice
+      question=question
+      onAnswerChanged="changeAnswer"
+      onAnswerCleared="clearAnswer"
+      onAnswerCompleted="completeAnswer"
+      }}
     {{/if}}
 
     {{#if question.isMultipleAnswer}}
-      {{player.questions.gru-multiple-answer question=question}}
+      {{player.questions.gru-multiple-answer
+      question=question
+      onAnswerChanged="changeAnswer"
+      onAnswerCleared="clearAnswer"
+      onAnswerCompleted="completeAnswer"
+      }}
     {{/if}}
 
     {{#if question.isOpenEnded}}
-      {{player.questions.gru-open-ended question=question}}
+      {{player.questions.gru-open-ended
+      question=question
+      onAnswerChanged="changeAnswer"
+      onAnswerCleared="clearAnswer"
+      onAnswerCompleted="completeAnswer"
+      }}
     {{/if}}
 
     <div class="actions">
-      <button type="submit" class="save btn btn-lg btn-primary">{{t "common.submit"}}</button>
+      {{#if isSubmitDisabled}}
+        <button type="submit" class="save btn btn-lg btn-primary" disabled>{{t "common.submit"}}</button>
+      {{else}}
+        <button type="submit" class="save btn btn-lg btn-primary">{{t "common.submit"}}</button>
+      {{/if}}
     </div>
   </form>
 </div>
