@@ -1,3 +1,4 @@
+import Ember from "ember";
 import QuestionComponent from './gru-question';
 
 /**
@@ -59,7 +60,7 @@ export default QuestionComponent.extend({
     //todo set the answer
     component.notifyAnswerChanged(answer);
 
-    if (component.isAnswerCompleted()){
+    if (component.get("isAnswerCompleted")){
       component.notifyAnswerCompleted(answer);
     }
     else{
@@ -74,9 +75,6 @@ export default QuestionComponent.extend({
    * Indicates when the answer is completed
    * @return {bool}
    */
-  isAnswerCompleted: function(){
-    const component = this;
-    return component.get("charactersLeft") < component.get("maxLength");
-  }
+  isAnswerCompleted: Ember.computed.bool("answer.length")
 
 });

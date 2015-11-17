@@ -1,13 +1,13 @@
-<div>
-  <p class="instructions">
-    {{t "gru-open-ended.instructions"}}
-  </p>
+<p class="instructions">
+  {{t "gru-open-ended.instructions"}}
+</p>
 
-  <div class="answer-panel">
-    <form class="form-horizontal">
-      <p class="character-limit help-block text-right">{{t "gru-open-ended.characterLimit"}}: <span>{{charactersLeft}}</span></p>
-      {{textarea value=answer class="form-control" rows="5" maxlength=maxLength}}
-    </form>
-  </div>
+<div class="answer-panel">
+  <form class="form-horizontal">
+    <p class="character-limit help-block text-right">{{t "gru-open-ended.characterLimit"}}:
+      <span>{{charactersLeft}}</span></p>
+    {{textarea value=answer class="form-control" rows="5" maxlength=maxLength}}
+  </form>
 </div>
+
 
