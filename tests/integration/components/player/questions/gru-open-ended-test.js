@@ -71,7 +71,7 @@ test('Open ended enter response', function (assert) {
 
 test('Open ended clear response', function (assert) {
 
-  assert.expect(5);
+  assert.expect(7);
 
   const question = Ember.Object.create(
     {
