@@ -1,6 +1,5 @@
 <div class="question-panel">
   <h3>{{t "gru-question-viewer.question"}}</h3>
-
   <div class="question">
     <span>{{{question.text}}}</span>
     {{#if question.media}}
@@ -35,7 +34,9 @@
       onAnswerCompleted="completeAnswer"
       }}
     {{/if}}
-
+    {{#if question.isTrueFalse}}
+       {{player.questions.gru-true-false question=question}}
+    {{/if}}
     {{#if question.isOpenEnded}}
       {{player.questions.gru-open-ended
       question=question
@@ -44,7 +45,6 @@
       onAnswerCompleted="completeAnswer"
       }}
     {{/if}}
-
     <div class="actions">
       {{#if isSubmitDisabled}}
         <button type="submit" class="save btn btn-lg btn-primary" disabled>{{t "common.submit"}}</button>
