@@ -74,7 +74,6 @@ export default Ember.Route.extend({
           "isOpenEnded": true
         }
       ),
-
       resourceMockB = Ember.Object.create({
         id: '10',
         title: 'Resource #1',
