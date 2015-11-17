@@ -71,7 +71,7 @@ export default Ember.Route.extend({
           "title": "Question 1",
 
           "isQuestion": true,
-          "isMultipleAnswer": true
+          "isOpenEnded": true
         }
       ),
       resourceMockB = Ember.Object.create({
