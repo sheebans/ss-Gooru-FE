@@ -6,7 +6,7 @@ export default Ember.Service.extend(StoreMixin, SessionMixin, {
 
   /**
    * Find a collection by identifier
-   * @param {string} collectionId it corresponds to gooruOid
+   * @param {string} collectionId
    * @returns {Collection|Promise}
    */
   findById: function(collectionId) {
