@@ -28,6 +28,17 @@ export default Ember.Controller.extend({
     },
 
     /**
+     * Handle onSubmitQuestion event from gru-question-viewer
+     * @see components/player/gru-question-viewer.js
+     * @param {Question} question
+     */
+    submitQuestion: function(question){
+      console.debug(question);
+      //todo save
+      //todo move to next question
+    },
+
+    /**
      * Triggered when a navigator item is selected
      * @param {Resource} item
      */

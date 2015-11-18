@@ -15,7 +15,7 @@
 <div class="answers-panel">
   <h3>{{t "gru-question-viewer.answer"}}</h3>
 
-  <form {{action "changeQuestion" on="submit"}}>
+  <form {{action "submitQuestion" on="submit"}}>
 
     {{#if question.isMultipleChoice}}
       {{player.questions.gru-multiple-choice

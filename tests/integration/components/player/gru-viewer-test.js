@@ -10,6 +10,38 @@ moduleForComponent('player/gru-viewer', 'Integration | Component | player/gru vi
   }
 });
 
+test('On question submit', function (assert) {
+  assert.expect(3);
+
+  const resource = Ember.Object.create(
+    {
+      "id": 10,
+      "order": 2,
+      "text": "Dummy resource text",
+      "media": "test.jpg",
+      "isQuestion": true,
+      "isOpenEnded": true
+    });
+
+  this.set('resource', resource);
+  this.on("mySubmitQuestion", function(question){
+    assert.equal(question.get("id"), 10, "Wrong id");
+  });
+  this.render(hbs`{{player/gru-viewer resource=resource onSubmitQuestion="mySubmitQuestion"}}`);
+
+  var $component = this.$(); //component dom element
+
+  var $answerPanel = $component.find(".answers-panel");
+  assert.ok($answerPanel.find(".actions button.save").attr("disabled"), "Button should be disabled");
+  var $openEndedComponent = $answerPanel.find(".gru-open-ended");
+  $openEndedComponent.find("textarea").val("test");
+  $openEndedComponent.find("textarea").change();
+
+  assert.ok(!$answerPanel.find(".actions button.save").attr("disabled"), "Button should not be disabled");
+
+  $answerPanel.find(".actions button.save").click();
+});
+
 test('Narration', function (assert) {
 
 

@@ -25,6 +25,13 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+
+    /**
+     * When the question is submitted
+     */
+    submitQuestion: function () {
+      this.sendAction("onSubmitQuestion", this.get("question"));
+    },
     /**
      * When the question answer has been changed
      * @param {Question} question the question
@@ -61,6 +68,11 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * @property {string} on submit question action
+   */
+  onSubmitQuestion: 'submitQuestion',
+
   /**
    * The question
    * @property {Question} question
