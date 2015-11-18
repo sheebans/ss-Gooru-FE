@@ -21,6 +21,13 @@ export default Ember.Controller.extend({
   actions: {
 
     /**
+     * Action triggered when the user close the content player
+     */
+    closePlayer:function(){
+      window.history.back();
+    },
+
+    /**
      * Triggered when a navigator item is selected
      * @param {Resource} item
      */
