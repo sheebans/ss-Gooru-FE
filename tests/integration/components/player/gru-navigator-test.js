@@ -40,7 +40,11 @@ test('Player Navigator', function(assert) {
 
   this.set('collection', collectionMock);
 
-  this.render(hbs`{{player.gru-navigator collection=collection selectedResourceId='1'}}`);
+  this.on('itemSelected', function(item) {
+    assert.equal(item.id, '1', "Incorrect selected resource item id");
+  });
+
+  this.render(hbs`{{player.gru-navigator collection=collection selectedResourceId='1' onItemSelected='itemSelected'}}`);
 
   var $component = this.$(); //component dom element
   const $navigator = $component.find(".gru-navigator");
