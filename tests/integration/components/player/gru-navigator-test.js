@@ -31,7 +31,7 @@ test('Player Navigator', function(assert) {
   const collectionMock = Ember.Object.create({
     id: '490ffa82-aa15-4101-81e7-e148002f90af',
     title: 'Test collection',
-    collectionItems: Ember.A([
+    resources: Ember.A([
       resourceMockA,
       resourceMockB
     ]),
