@@ -51,8 +51,16 @@
         left: auto;
       }
     }
-    .hint-explanation-text{
+    .hints-description{
       padding:20px;
+      p{
+        color: $color-green-primary;
+      }
+    }
+
+    .explanation-description{
+      padding:20px;
+      border-top: 1px solid #ddd;
     }
 
     @media (min-width: $screen-sm) {

@@ -6,11 +6,18 @@
       <img src="http://cdn.goorulearning.org/prod1//f000/2623/5407/aaa5a112-1206-4ff0-8a50-e04fa8f2c702.png"/>
     </div>
     <div class="information">
-      <button class="hint btn btn-default" disabled={{disableHint}} {{action 'showHint'}}>{{t "common.hints"}} ({{availableHints}})</button>
+      <button class="hint btn btn-default" disabled={{disableHint}} {{action 'showHint'}}>{{t "common.hints"}} ({{availableHints}} {{t "gru-question-viewer.hint-description"}})</button>
       <button class="explanation btn btn-default"disabled={{disableExplanation}} {{action 'showExplanation'}}>{{t "common.explanations"}}</button>
-    </div>
-    <div class="text-center hint-explanation-text">
-      {{hintExplanationText}}
+        <div class="text-center hints-description">
+          {{#each hintsToDisplay as |hint|}}
+              <p>{{hint}}</p>
+          {{/each}}
+        </div>
+      {{#if explanation}}
+          <div class="text-center explanation-description">
+              <p>{{explanation}}</p>
+          </div>
+      {{/if}}
     </div>
 </div>
 

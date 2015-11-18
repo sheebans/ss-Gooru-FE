@@ -30,14 +30,14 @@ export default Ember.Component.extend({
      */
     showHint:function(){
       var actualHint = Math.round(this.get('actualHint'));
-      this.set('hintExplanationText',this.get('question').hints[actualHint]);
+      this.get('hintsToDisplay').pushObject(this.get('question').hints[actualHint]);
       this.set('actualHint',this.get('actualHint')+1);
-      if(this.get('actualHint') == this.get('question').hints.length){
+      if(this.get('actualHint') === this.get('question').hints.length){
         this.set('disableHint',true);
       }
     },
     showExplanation:function(){
-      this.set('hintExplanationText',this.get('question').explanation);
+      this.set('explanation',this.get('question').explanation);
       this.set('disableExplanation',true);
     },
   },
@@ -60,10 +60,19 @@ export default Ember.Component.extend({
   actualHint:0,
 
   /**
-   * Text of a hint
-   * @property {String} hintText
+   * Hints to display
+   * @property {Array} hintsToDisplay
    */
-  hintExplanationText:null,
+  hintsToDisplay:Ember.ArrayProxy.create({
+    content: [
+    ]
+  }),
+
+  /**
+   * Explanation to display
+   * @property {String} explanation
+   */
+  explanation:null,
 
   /**
    * Show if the button Explanation is disable
@@ -75,7 +84,7 @@ export default Ember.Component.extend({
    * Hits available for a question
    * @property {Number} availableHints
    */
-  availableHints: Ember.computed('actualHint',function() {
+  availableHints: Ember.computed('actualHint','question',function() {
     var actualHint = Math.round(this.get('actualHint'));
     var questionHints = this.get('question').hints.length-actualHint;
     return questionHints;
