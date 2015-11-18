@@ -66,6 +66,10 @@ export default Ember.Component.extend({
    */
   onItemSelected: null,
 
+  /**
+   * @property {String} selectedResourceId - resource Id selected
+   */
+
   selectedResourceId:null,
 
   // -------------------------------------------------------------------------
@@ -76,6 +80,9 @@ export default Ember.Component.extend({
 
   // Methods
 
+  /**
+   * Triggered when a resource item is selected
+   */
   selectItem: function(itemId) {
     var itemElement = "#"+itemId;
     Ember.$( ".list-group-item" ).removeClass( "selected" );
