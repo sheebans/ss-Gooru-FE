@@ -76,5 +76,9 @@
         }
       }
     }
+    li.selected {
+      background-color: $color-blue-primary;
+      color: $color-gray-primary;
+    }
   }
 }

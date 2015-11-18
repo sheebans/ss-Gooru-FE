@@ -12,7 +12,7 @@ moduleForComponent('player/gru-navigator', 'Integration | Component | player/gru
 
 test('Player Navigator', function(assert) {
 
-  assert.expect(7);
+  assert.expect(8);
 
   const resourceMockA = Ember.Object.create({
     id: '1',
@@ -40,7 +40,7 @@ test('Player Navigator', function(assert) {
 
   this.set('collection', collectionMock);
 
-  this.render(hbs`{{player.gru-navigator collection=collection}}`);
+  this.render(hbs`{{player.gru-navigator collection=collection selectedResourceId='1'}}`);
 
   var $component = this.$(); //component dom element
   const $navigator = $component.find(".gru-navigator");
@@ -56,5 +56,9 @@ test('Player Navigator', function(assert) {
   T.exists(assert, $firstResourceItem.find(".resources-info"), "Missing resources info");
   T.exists(assert, $firstResourceItem.find(".resources-info .bubble-type.question"), "Missing question class type");
   assert.equal(T.text($firstResourceItem.find(".resources-info .title")), "Resource #1", "Wrong item text");
+
+  //$resourceItem Selected
+  T.exists(assert, $collectionResources.find("li#1.selected"), "Missing selected resource item");
+
 
 });

@@ -25,7 +25,6 @@ export default Ember.Controller.extend({
      * @param {Resource} item
      */
     selectNavigatorItem: function(item){
-      console.log("e ", item);
       this.set("resourceId", item.get("id"));
       this.set("resource", item);
     }

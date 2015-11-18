@@ -38,7 +38,7 @@ export default Ember.Route.extend({
     const
       resourceMockA = Ember.Object.create(
         {
-          "id": (resourceId || "068caf89-317a-44fe-a12a-bfa3abcd4d20"),
+          "id": ("068caf89-317a-44fe-a12a-bfa3abcd4d20"),
           "answers": [
             {
               "id": 10252843,

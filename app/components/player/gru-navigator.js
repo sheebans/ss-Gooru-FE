@@ -34,6 +34,7 @@ export default Ember.Component.extend({
      */
     selectItem: function(item){
       if (this.get("onItemSelected")){
+        this.selectItem(item.id);
         this.sendAction("onItemSelected", item);
       }
     }
@@ -41,6 +42,16 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Events
+
+  /**
+   * DidInsertElement ember event
+   */
+  didInsertElement: function() {
+    var resourceId = this.get("selectedResourceId");
+    if(resourceId){
+      this.selectItem(resourceId);
+    }
+  },
 
 
   // -------------------------------------------------------------------------
@@ -53,14 +64,21 @@ export default Ember.Component.extend({
   /**
    * @property {String|Function} onItemSelected - event handler for when an item is selected
    */
-  onItemSelected: null
+  onItemSelected: null,
 
+  selectedResourceId:null,
 
   // -------------------------------------------------------------------------
   // Observers
 
 
   // -------------------------------------------------------------------------
+
   // Methods
 
+  selectItem: function(itemId) {
+    var itemElement = "#"+itemId;
+    Ember.$( ".list-group-item" ).removeClass( "selected" );
+    Ember.$(itemElement).addClass( "selected" );
+  }
 });
