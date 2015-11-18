@@ -29,9 +29,6 @@ export default DS.JSONAPISerializer.extend({
 
     this.normalizeResources(payload.collectionItems, collectionModel.data.relationships.resources.data, collectionModel);
 
-    console.log('Collection model...');
-    console.log(collectionModel);
-
     return collectionModel;
   },
 
