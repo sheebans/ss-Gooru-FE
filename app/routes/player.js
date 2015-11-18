@@ -2,19 +2,16 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
-
   // -------------------------------------------------------------------------
-  // Actions
-
-  actions: {
-    /**
-     * Action triggered when the user close the content player
-     */
-    closeContentPlayer:function(){
-      window.history.back();
+  // Dependencies
+  queryParams: {
+    'resourceId' : {
+      replace: true
     }
   },
 
+  // -------------------------------------------------------------------------
+  // Actions
   /**
    * @property {Ember.Service} Service to retrieve a Collection
    */
@@ -64,6 +61,7 @@ export default Ember.Route.extend({
           ],
           "order": 2,
           "text": "An underground layer of water-bearing rock or materials that clean drinking water can be extracted from is called...",
+          "media": "http://cdn.goorulearning.org/prod1//f000/2623/5407/aaa5a112-1206-4ff0-8a50-e04fa8f2c702.png",
           "hints": [],
           "explanation": "",
           "type": "MC",
@@ -74,7 +72,6 @@ export default Ember.Route.extend({
           "isOpenEnded": true
         }
       ),
-
       resourceMockB = Ember.Object.create({
         id: '10',
         title: 'Resource #1',
