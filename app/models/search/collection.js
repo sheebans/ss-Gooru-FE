@@ -67,12 +67,7 @@ export default DS.Model.extend({
   /**
    * @property {Array} List of resources associated to the collection
    */
-  resources: DS.hasMany('search/resource'),
-
-  /**
-   * @property {boolean} hasResources
-   */
-  hasResources: Ember.computed.bool("resources.length"),
+  resources: DS.hasMany('resource/resource'),
 
   /**
    * @property {Array} List of standards associated to the collection
@@ -80,10 +75,15 @@ export default DS.Model.extend({
   standards: DS.hasMany('search/standard'),
 
   /**
+   * @property {boolean} hasResources
+   */
+  hasResources: Ember.computed.bool("resources.length"),
+
+  /**
    * Returns the last visited resource
    * @property {Resource} lastVisitedResource
    */
-  lastVisitedResource: function(){
+  lastVisitedResource: function() {
     //@todo implement logic to return the last visited, for returns the first one
     return this.get("hasResources") ? this.get("resources.fistObject") : null;
   }.property()

@@ -94,7 +94,7 @@ export default Ember.Route.extend({
   actions: {
     /**
      * Action triggered to open the content player
-     * @param {string} gooruOid collection identifier
+     * @param {string} collectionIdgooruOid collection identifier
      */
     onOpenContentPlayer: function(collectionId) {
       this.transitionTo('player', collectionId);

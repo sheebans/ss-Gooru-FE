@@ -23,8 +23,8 @@ export default Ember.Route.extend({
   model(params) {
     const
       collectionId = params.collectionId,
-      resourceId = params.resourceId;
-      //collection = this.get("collectionService").findById(collectionId);
+      resourceId = params.resourceId,
+      collection = this.get("collectionService").findById(collectionId);
 
     //@todo replace mock for sdk calls
     const narration = Ember.Object.create({
@@ -71,7 +71,9 @@ export default Ember.Route.extend({
           "isQuestion": true,
           "isOpenEnded": true
         }
-      ),
+      );
+
+      /*
       resourceMockB = Ember.Object.create({
         id: '10',
         title: 'Resource #1',
@@ -84,21 +86,26 @@ export default Ember.Route.extend({
         title: 'Resource #2',
         resourceType: 'video',
         "isQuestion": false
+
       });
 
     const collectionMock = Ember.Object.create({
       id: collectionId,
       title: 'Test collection',
-      collectionItems: Ember.A([
+      resources: Ember.A([
         resourceMockA,
         resourceMockB,
         resourceMockC
       ]),
       lastVisitedResource: resourceMockB
     });
+    */
+
 
     return Ember.RSVP.hash({
-      collection: collectionMock,
+      //collection: collectionMock,
+      collection: collection,
+      resourceId: resourceId,
       resource: (resourceId) ? resourceMockA : null
     });
   },
@@ -111,13 +118,21 @@ export default Ember.Route.extend({
     this._super(controller, model);
 
     const collection = model.collection;
-    var resource = model.resource;
-    controller.set("collection", collection);
+    const resourceArray = collection.get('resources').toArray();
 
-    if (!resource){
-      resource = collection.get("lastVisitedResource");
+    var resource = resourceArray[0];
+    if (model.resourceId) {
+      resourceArray.map(function(resourceItem) {
+        if (resourceItem.id === model.resourceId) {
+          resource = resourceItem;
+        }
+      });
     }
-    controller.set("resource", resource);
 
+    controller.set("collection", collection);
+    //if (!resource){
+    //  resource = collection.get("lastVisitedResource");
+    //}
+    controller.set("resource", resource);
   }
 });

@@ -1,7 +1,7 @@
 <h1>{{collection.title}}</h1>
 
 <ul class="list-group">
-  {{#each collection.collectionItems as |item|}}
-    <li class="list-group-item" {{action 'selectItem' item}}>{{item.title}}</li>
+  {{#each collection.resources as |resource|}}
+    <li class="list-group-item" {{action 'selectItem' resource}}>{{resource.title}}</li>
   {{/each}}
 </ul>
