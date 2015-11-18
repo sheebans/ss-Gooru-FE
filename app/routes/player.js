@@ -35,7 +35,7 @@ export default Ember.Route.extend({
     const
       resourceMockA = Ember.Object.create(
         {
-          "id": (resourceId || "068caf89-317a-44fe-a12a-bfa3abcd4d20"),
+          "id": ("068caf89-317a-44fe-a12a-bfa3abcd4d20"),
           "answers": [
             {
               "id": 10252843,
@@ -67,7 +67,7 @@ export default Ember.Route.extend({
           "type": "MC",
           "narration": narration,
           "title": "Question 1",
-
+           resourceType: 'question',
           "isQuestion": true,
           "isOpenEnded": true
         }
@@ -75,7 +75,7 @@ export default Ember.Route.extend({
       resourceMockB = Ember.Object.create({
         id: '10',
         title: 'Resource #1',
-        resourceType: 'url',
+        resourceType: 'webpage',
         "isQuestion": false
       }),
 
@@ -83,6 +83,24 @@ export default Ember.Route.extend({
         id: '9',
         title: 'Resource #2',
         resourceType: 'video',
+        "isQuestion": false
+      }),
+      resourceMockD = Ember.Object.create({
+        id: '8',
+        title: 'Resource #3',
+        resourceType: 'image',
+        "isQuestion": false
+      }),
+      resourceMockE = Ember.Object.create({
+        id: '7',
+        title: 'Resource #4',
+        resourceType: 'text',
+        "isQuestion": false
+      }),
+      resourceMockF = Ember.Object.create({
+        id: '6',
+        title: 'Resource #5',
+        resourceType: 'audio',
         "isQuestion": false
       });
 
@@ -92,7 +110,10 @@ export default Ember.Route.extend({
       collectionItems: Ember.A([
         resourceMockA,
         resourceMockB,
-        resourceMockC
+        resourceMockC,
+        resourceMockD,
+        resourceMockE,
+        resourceMockF
       ]),
       lastVisitedResource: resourceMockB
     });

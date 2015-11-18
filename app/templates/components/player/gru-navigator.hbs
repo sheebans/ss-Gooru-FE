@@ -1,7 +1,12 @@
-<h1>{{collection.title}}</h1>
+<h2>{{collection.title}}</h2>
 
-<ul class="list-group">
+<ul class="list-group resources">
+  <div class="bgd-line"></div>
   {{#each collection.collectionItems as |item|}}
-    <li class="list-group-item" {{action 'selectItem' item}}>{{item.title}}</li>
+    <li class="list-group-item" id= "{{item.id}}"{{action 'selectItem' item}}>
+      <div class="resources-info">
+        <span class="bubble-type {{item.resourceType}}"></span><span class="title">{{item.title}}</span>
+      </div>
+    </li>
   {{/each}}
 </ul>
