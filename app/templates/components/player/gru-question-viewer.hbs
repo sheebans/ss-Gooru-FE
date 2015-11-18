@@ -1,14 +1,17 @@
 <div class="question-panel">
   <h3>{{t "gru-question-viewer.question"}}</h3>
 
-  <div class="question">
-    <span>Praesent quis vulputate quam. Ut et odio nec dolor blandit porttitor. Vestibulum imperdiet facilisis metus, quis commodo justo sollicitudin id. Ut in ipsum tincidunt, gravida dolor id, laoreet ipsum. Vestibulum elementum odio eget augue scelerisque aliquet. Duis blandit sapien in vestibulum lobortis.</span>
-    <img src="http://cdn.goorulearning.org/prod1//f000/2623/5407/aaa5a112-1206-4ff0-8a50-e04fa8f2c702.png"/>
-  </div>
-  <div class="information">
-    <button class="hint btn btn-default">{{t "common.hints"}} {{question.hints.length}}</button>
-    <button class="explanation btn btn-default">{{t "common.explanations"}}</button>
-  </div>
+    <div class="question">
+      <span>Praesent quis vulputate quam. Ut et odio nec dolor blandit porttitor. Vestibulum imperdiet facilisis metus, quis commodo justo sollicitudin id. Ut in ipsum tincidunt, gravida dolor id, laoreet ipsum. Vestibulum elementum odio eget augue scelerisque aliquet. Duis blandit sapien in vestibulum lobortis.</span>
+      <img src="http://cdn.goorulearning.org/prod1//f000/2623/5407/aaa5a112-1206-4ff0-8a50-e04fa8f2c702.png"/>
+    </div>
+    <div class="information">
+      <button class="hint btn btn-default" disabled={{disableHint}} {{action 'showHint'}}>{{t "common.hints"}} ({{availableHints}})</button>
+      <button class="explanation btn btn-default"disabled={{disableExplanation}} {{action 'showExplanation'}}>{{t "common.explanations"}}</button>
+    </div>
+    <div class="text-center hint-explanation-text">
+      {{hintExplanationText}}
+    </div>
 </div>
 
 <div class="answers-panel">

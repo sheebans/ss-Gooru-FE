@@ -51,6 +51,9 @@
         left: auto;
       }
     }
+    .hint-explanation-text{
+      padding:20px;
+    }
 
     @media (min-width: $screen-sm) {
       padding-left: 4%;

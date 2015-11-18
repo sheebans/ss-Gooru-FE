@@ -65,7 +65,7 @@ export default Ember.Route.extend({
           "order": 2,
           "text": "An underground layer of water-bearing rock or materials that clean drinking water can be extracted from is called...",
           "hints": ["hints test 1","hints test 2"],
-          "explanation": "",
+          "explanation": "This is a explanation for test",
           "type": "MC",
           "narration": narration,
           "title": "Question 1",
