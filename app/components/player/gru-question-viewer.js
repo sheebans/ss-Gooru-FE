@@ -25,6 +25,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+
     /**
      * Action triggered when the user see a hint
      */
@@ -40,13 +41,55 @@ export default Ember.Component.extend({
       this.set('explanation',this.get('question').explanation);
       this.set('disableExplanation',true);
     },
+
+    /**
+     * When the question is submitted
+     */
+    submitQuestion: function () {
+      this.sendAction("onSubmitQuestion", this.get("question"));
+    },
+    /**
+     * When the question answer has been changed
+     * @param {Question} question the question
+     */
+    changeAnswer: function(question){
+      //todo track analytics
+      this.set("question", question);
+    },
+
+    /**
+     * When the question answer has been completed
+     * @param {Question} question the question
+     */
+    completeAnswer: function(question){
+      //todo track analytics
+      this.set("question", question);
+      this.set("answerCompleted", true);
+    },
+
+    /**
+     * When the question answer has been cleared
+     * @param {Question} question the question
+     */
+    clearAnswer: function(question){
+      //todo track analytics
+      this.set("question", question);
+      this.set("answerCompleted", false);
+    }
   },
+
+
   // -------------------------------------------------------------------------
   // Events
 
 
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * @property {string} on submit question action
+   */
+  onSubmitQuestion: 'submitQuestion',
+
   /**
    * The question
    * @property {Question} question
@@ -86,14 +129,29 @@ export default Ember.Component.extend({
    */
   availableHints: Ember.computed('actualHint','question',function() {
     var actualHint = Math.round(this.get('actualHint'));
-    var questionHints = this.get('question').hints.length-actualHint;
-    return questionHints;
+    return this.get('question.hints.length') - actualHint;
   }),
+
+  /**
+   * @property {bool} indicates when the answer is completed
+   */
+  answerCompleted: false,
+
+  /**
+   * @property {bool} indicates when the submit functionality is enabled
+   */
+  isSubmitDisabled: Ember.computed.not("answerCompleted"),
 
 
   // -------------------------------------------------------------------------
   // Observers
-
+  /**
+   * Observes for the question itself
+   * When it is changed some data should be reloaded
+   */
+  reloadQuestion: function(){
+    this.set("answerCompleted", false);
+  }.observes("question")
 
   // -------------------------------------------------------------------------
   // Methods

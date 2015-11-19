@@ -3,17 +3,16 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 
-moduleForComponent('player/questions/gru-multiple-choice', 'Integration | Component | player/questions/gru multiple choice', {
+moduleForComponent('player/questions/gru-true-false', 'Integration | Component | player/questions/gru true false', {
   integration: true,
   beforeEach: function () {
     this.container.lookup('service:i18n').set("locale", "en");
   }
-
 });
 
-test('Multiple choice question layout', function (assert) {
+test('True or false question layout', function (assert) {
 
-  assert.expect(10);
+  assert.expect(9);
 
   const question = Ember.Object.create(
     {
@@ -21,24 +20,17 @@ test('Multiple choice question layout', function (assert) {
       "answers": [
         {
           "id": 1,
-          "text": "<p>An aquifer</p>",
+          "text": "<p>(A) True</p>",
           "answerType": "text",
           "isCorrect": true,
           "sequence": 1
         },
         {
           "id": 2,
-          "text": "<p>A well</p>",
+          "text": "<p>(B) False</p>",
           "answerType": "text",
           "isCorrect": false,
           "sequence": 2
-        },
-        {
-          "aid": 3,
-          "text": "<p>A pump</p>",
-          "answerType": "text",
-          "isCorrect": false,
-          "sequence": 3
         }
       ],
       "order": 2
@@ -57,16 +49,15 @@ test('Multiple choice question layout', function (assert) {
     assert.equal(answerId, 2, "Wrong answer id");
   });
 
-  this.render(hbs`{{player/questions/gru-multiple-choice question=question
+  this.render(hbs`{{player/questions/gru-true-false question=question
         onAnswerChanged="myOnAnswerChanged" onAnswerCompleted="myOnAnswerCompleted"}}`);
 
   var $component = this.$(); //component dom element
   T.exists(assert, $component.find(".instructions"), "Missing instructions");
-  assert.equal($component.find(".answer-choices .radio").length, 3, "Missing answer choices");
-  assert.equal($component.find(".answer-choices .radio input[type=radio]").length, 3, "Missing answer choices radio inputs");
-  assert.equal(T.text($component.find(".answer-choices .radio:eq(0)")), "An aquifer", "Incorrect Message");
-  assert.equal(T.text($component.find(".answer-choices .radio:eq(1)")), "A well", "Incorrect Message");
-  assert.equal(T.text($component.find(".answer-choices .radio:eq(2)")), "A pump", "Incorrect Message");
+  assert.equal($component.find(".answer-choices .radio").length, 2, "Missing answer choices");
+  assert.equal($component.find(".answer-choices .radio input[type=radio]").length, 2, "Missing answer choices radio inputs");
+  assert.equal(T.text($component.find(".answer-choices .radio:eq(0)")), "(A) True", "Incorrect Message");
+  assert.equal(T.text($component.find(".answer-choices .radio:eq(1)")), "(B) False", "Incorrect Message");
   //select a radio button
   $component.find(".answer-choices .radio input[type=radio]:eq(1)").click();
 

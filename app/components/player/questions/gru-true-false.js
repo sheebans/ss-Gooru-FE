@@ -1,17 +1,14 @@
-import Ember from "ember";
-
+import QuestionComponent from './gru-question';
 /**
- * Player viewer
- *
- * Component responsible for showing the appropriate content viewer per content type
- * (i.e. question, pdf file, video, etc.).
- *
+ * True or false Question
+ * Component responsible for controlling the logic and appearance of a true
+ * or false question inside of the {@link player/gru-question-viewer.js}
  * @module
  * @see controllers/player.js
+ * @see components/player/gru-question-viewer.js
  * @augments ember/Component
  */
-export default Ember.Component.extend({
-
+export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -19,21 +16,23 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-viewer'],
+  classNames:['gru-true-false'],
 
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-    /***
-     * When the user submits the question
-     * @param {Question} question
-     * @returns {boolean}
-     */
-    submitQuestion: function(question){
-      this.sendAction("onSubmitQuestion", question);
-    }
-  },
 
+    /**
+     * When the user changes the answer choice selection
+     * @param {number} answerId
+     */
+    selectAnswerChoice: function(answerId){
+      const component = this;
+      //todo mark the answer as selected
+      component.notifyAnswerChanged(answerId);
+      component.notifyAnswerCompleted(answerId);
+    }
+  }
 
   // -------------------------------------------------------------------------
   // Events
@@ -41,21 +40,11 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
-  /**
-   * The resource playing
-   * @property {Resource} resource
-   */
-  resource: null,
 
-  /**
-   * @property {string} on submit question action
-   */
-  onSubmitQuestion: "submitQuestion"
   // -------------------------------------------------------------------------
   // Observers
 
 
   // -------------------------------------------------------------------------
   // Methods
-
 });

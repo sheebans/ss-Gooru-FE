@@ -20,7 +20,20 @@ module.exports = function(defaults) {
   // along with the exports of each module as its value.
 
   // Bootstrap
-  app.import('bower_components/bootstrap-sass/assets/javascripts/bootstrap.js');
+  app.import({
+    development: 'bower_components/bootstrap-sass/assets/javascripts/bootstrap.js',
+    production:  'bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js'
+  });
+
+  app.import({
+    development: 'bower_components/jquery-ui/jquery-ui.js',
+    production:  'bower_components/jquery-ui/jquery-ui.min.js'
+  });
+
+  app.import({
+    development: 'bower_components/jqueryui-touch-punch/jquery.ui.touch-punch.js',
+    production:  'bower_components/jqueryui-touch-punch/jquery.ui.touch-punch.min.js'
+  });
 
   return app.toTree();
 };

@@ -34,6 +34,7 @@ export default Ember.Component.extend({
      */
     selectItem: function(item){
       if (this.get("onItemSelected")){
+        this.selectItem(item.id);
         this.sendAction("onItemSelected", item);
       }
     }
@@ -41,6 +42,14 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Events
+
+  /**
+   * DidInsertElement ember event
+   */
+  didInsertElement: function() {
+    var resourceId = this.get("selectedResourceId");
+    this.selectItem(resourceId);
+  },
 
 
   // -------------------------------------------------------------------------
@@ -53,14 +62,38 @@ export default Ember.Component.extend({
   /**
    * @property {String|Function} onItemSelected - event handler for when an item is selected
    */
-  onItemSelected: null
+  onItemSelected: null,
 
+  /**
+   * @property {String} selectedResourceId - resource Id selected
+   */
+
+  selectedResourceId:null,
 
   // -------------------------------------------------------------------------
   // Observers
+  /**
+   * Refreshes the left navigation with the selected resource id
+   */
+  refreshSelectedResource: function() {
+    var resourceId = this.get("selectedResourceId");
+    this.selectItem(resourceId);
+  }.observes("selectedResourceId"),
 
 
   // -------------------------------------------------------------------------
+
   // Methods
 
+  /**
+   * Triggered when a resource item is selected
+   * @param {string} itemId
+   */
+  selectItem: function(itemId) {
+    if (itemId){
+      var itemElement = "#item_"+itemId;
+      this.$( ".list-group-item" ).removeClass( "selected" );
+      this.$(itemElement).addClass( "selected" );
+    }
+  }
 });
