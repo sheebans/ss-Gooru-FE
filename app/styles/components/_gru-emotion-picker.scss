@@ -1,47 +1,50 @@
 .gru-emotion-picker{
   .emotion{
-    background: url('gooru/emotics.png') no-repeat 0 0;
+    background: url('gooru/resource-collection-icons.png') no-repeat 0 0;
     width: 32px;
     height: 32px;
+    border-radius: 50%;
+    background-color: $color-white;
+    background-size: 348px 250px;
   }
 
   .need-help{
-    background-position: -188px -6px;
+    background-position: -231px -178px;
 
     &.active {
-      background-position: -224px -54px;
+      background-position: -231px -218px;
     }
   }
 
   .do-not-understand{
-    background-position: -144px -6px;
+    background-position: -189px -178px;
 
     &.active {
-      background-position: -144px -54px;
+      background-position: -189px -218px;
     }
   }
 
   .meh{
-    background-position: -99px -6px;
+    background-position: -148px -178px;
 
     &.active {
-      background-position: -233px -6px;
+      background-position: -148px -218px;
     }
   }
 
   .understand{
-    background-position: -55px -6px;
+    background-position: -106px -178px;
 
     &.active {
-      background-position: -184px -54px;
+      background-position: -106px -218px;
     }
   }
 
   .can-explain{
-    background-position: -10px -6px;
+    background-position: -66px -178px;
 
     &.active {
-      background-position: -268px -5px;
+      background-position: -66px -218px;
     }
   }
 
