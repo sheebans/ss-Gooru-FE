@@ -1,15 +1,25 @@
 <div class="question-panel">
   <h3>{{t "gru-question-viewer.question"}}</h3>
-  <div class="question">
-    <span>{{{question.text}}}</span>
-    {{#if question.media}}
-      <img src="{{question.media}}"/>
-    {{/if}}
-  </div>
-  <div class="information">
-    <button class="hint btn btn-default">{{t "common.hints"}}</button>
-    <button class="explanation btn btn-default">{{t "common.explanations"}}</button>
-  </div>
+    <div class="question">
+      <span>{{{question.text}}}</span>
+      {{#if question.media}}
+        <img src="{{question.media}}"/>
+      {{/if}}
+    </div>
+    <div class="information">
+      <button class="hint btn btn-default" disabled={{disableHint}} {{action 'showHint'}}>{{t "common.hints"}} ({{availableHints}} {{t "gru-question-viewer.hint-description"}})</button>
+      <button class="explanation btn btn-default"disabled={{disableExplanation}} {{action 'showExplanation'}}>{{t "common.explanations"}}</button>
+        <div class="text-center hints-description">
+          {{#each hintsToDisplay as |hint|}}
+              <p>{{hint}}</p>
+          {{/each}}
+        </div>
+      {{#if explanation}}
+          <div class="text-center explanation-description">
+              <p>{{explanation}}</p>
+          </div>
+      {{/if}}
+    </div>
 </div>
 
 <div class="answers-panel">

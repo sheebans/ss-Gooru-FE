@@ -252,7 +252,9 @@ export default {
 
   "gru-question-viewer": {
     "answer": "Answer",
-    "question": "Question"
+    "question": "Question",
+    "hint-description":"Left"
+
   },
 
   "gru-multiple-choice": {

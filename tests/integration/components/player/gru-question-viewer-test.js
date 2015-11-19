@@ -21,7 +21,8 @@ test('Question viewer layout', function (assert) {
       "order": 2,
       "text": "Dummy question text",
       "media": "test.jpg",
-      "isOpenEnded": true
+      "isOpenEnded": true,
+      "hints": []
     });
 
   this.set('question', question);
@@ -76,3 +77,4 @@ test('Question viewer submit button', function (assert) {
 
   $answerPanel.find(".actions button.save").click();
 });
+

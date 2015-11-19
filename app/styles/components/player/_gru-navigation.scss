@@ -25,11 +25,15 @@
     }
 
     @media (min-width: $screen-md) {
-      margin-left: $player-navigator-width;
+      margin-left: $player-navigator-width-md;
       overflow: hidden;
+
+      .hamburger-icon {
+        display: none;
+      }
     }
 
-    .hamburger-icon,.x-icon{
+    .hamburger-icon, .x-icon{
       font-size: 33px;
       i{
         color:$color-white;
