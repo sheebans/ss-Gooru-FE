@@ -63,7 +63,10 @@
     padding-bottom: 60px;
 
     .gru-multiple-answer,
-    .gru-multiple-choice {
+    .gru-multiple-choice,
+    .gru-open-ended,
+    .gru-true-false,
+    .gru-reorder {
       .instructions {
         font-style: italic;
         color: $color-gray-lighter-3;

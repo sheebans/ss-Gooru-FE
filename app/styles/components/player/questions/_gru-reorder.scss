@@ -17,9 +17,14 @@
       color: $color-gray-lighter-2;
     }
 
-    span {
+    div {
       display: block;
       padding: 15px 10px 15px 40px;
+
+      p {
+        margin: 0;
+        padding: 0;
+      }
     }
   }
 

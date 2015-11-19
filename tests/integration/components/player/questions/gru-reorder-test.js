@@ -17,21 +17,21 @@ test('Reorder question layout', function (assert) {
       "answers": [
         {
           "id": 1,
-          "answerText": "An aquifer",
+          "text": "An aquifer",
           "answerType": "text",
           "isCorrect": true,
           "sequence": 1
         },
         {
           "id": 2,
-          "answerText": "A well",
+          "text": "A well",
           "answerType": "text",
           "isCorrect": false,
           "sequence": 2
         },
         {
           "id": 3,
-          "answerText": "A pump",
+          "text": "A pump",
           "answerType": "text",
           "isCorrect": false,
           "sequence": 3
@@ -64,21 +64,21 @@ test('Notifications works after reordering questions', function (assert) {
       "answers": [
         {
           "id": 1,
-          "answerText": "An aquifer",
+          "text": "An aquifer",
           "answerType": "text",
           "isCorrect": true,
           "sequence": 1
         },
         {
           "id": 2,
-          "answerText": "A well",
+          "text": "A well",
           "answerType": "text",
           "isCorrect": false,
           "sequence": 2
         },
         {
           "id": 3,
-          "answerText": "A pump",
+          "text": "A pump",
           "answerType": "text",
           "isCorrect": false,
           "sequence": 3

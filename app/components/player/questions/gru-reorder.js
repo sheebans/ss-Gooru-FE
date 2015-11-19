@@ -45,7 +45,11 @@ export default QuestionComponent.extend({
       component.notifyAnswerCompleted(answers);
     });
 
-  }.on('didInsertElement')
+  }.on('didInsertElement'),
+
+  removeSubscriptions: function() {
+    this.$('.sortable').off('sortupdate');
+  }.on('willDestroy')
 
   // -------------------------------------------------------------------------
   // Properties

@@ -8,7 +8,7 @@
     {{#each question.answers as |answer|}}
       <li data-id="{{answer.id}}">
         {{fa-icon icon="drag-icon fa-bars"}}
-        <span>{{answer.answerText}}</span>
+        <div>{{{answer.text}}}</div>
       </li>
     {{/each}}
   </ul>
