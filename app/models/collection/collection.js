@@ -103,6 +103,22 @@ export default DS.Model.extend({
       next = resources.objectAt(index + 1);
     }
     return next;
+  },
+
+  /**
+   * Gets the resource by id
+   * @param {string }resourceId
+   * @returns {Resource|undefined}
+   */
+  getResourceById: function(resourceId){
+    var resource;
+    if (this.get("hasResources")){
+      const resources = this.get("resources").filterBy("id", resourceId);
+      if (resources.get("length")){
+        resource = resources.get("firstObject");
+      }
+    }
+    return resource;
   }
 
 });

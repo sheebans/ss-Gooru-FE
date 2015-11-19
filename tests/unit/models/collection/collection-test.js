@@ -109,3 +109,39 @@ test('nextResource', function (assert) {
   nextResource = model.nextResource(resourceB);
   assert.ok(!nextResource, "Resource should not be found");
 });
+
+test('getResourceById without resources', function (assert) {
+  assert.expect(1);
+
+  let model = this.subject({
+    resources: Ember.A()
+  });
+
+  var nextResource = model.getResourceById(1);
+  assert.ok(!nextResource, "Resource should not be found");
+});
+
+
+test('getResourceById', function (assert) {
+  assert.expect(2);
+  let store = this.store();
+
+  var resources = Ember.A(),
+    resourceA = null,
+    resourceB = null;
+
+  Ember.run(function () {
+    resourceA = store.createRecord("resource/resource", {id: 1});
+    resourceB = store.createRecord("resource/resource", {id: 2});
+
+    resources.pushObject(resourceA);
+    resources.pushObject(resourceB);
+  });
+  let model = this.subject({
+    resources: resources
+  });
+
+  var resource = model.getResourceById(resourceA.get("id"));
+  assert.ok(resource, "Resource should be found");
+  assert.equal(resource.get("id"), 1, "Wrong resource id");
+});
