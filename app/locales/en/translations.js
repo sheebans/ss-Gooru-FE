@@ -258,11 +258,12 @@ export default {
   "gru-multiple-choice": {
     "instructions" : "Please select the correct answer, and click \"Submit\"."
   },
-
+  "gru-true-false": {
+    "instructions" : "Please select the correct answer, and click \"Submit\"."
+  },
   "gru-multiple-answer": {
     "instructions" : "Please select the correct answer, and click \"Submit\"."
   },
-
   "gru-open-ended": {
     "instructions" : "Please type your answer in the field below, and click the \"Submit\" button to save your response when you're done.",
     "characterLimit": "Character Limit"
@@ -271,5 +272,4 @@ export default {
   "player.gru-reorder": {
     "instructions" : "Please reorder the answers in correct order, and click \"Submit\"."
   }
-
 };

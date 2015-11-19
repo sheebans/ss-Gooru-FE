@@ -20,9 +20,9 @@ test('Layout using defaults', function (assert) {
   subjects.addObject(Ember.Object.create({ libraryId: 3, library:"library", label: "History", subjectCode: "10003" }));
   subjects.addObject(Ember.Object.create({ libraryId: 4, library:"library", label: "Language", subjectCode: "10004" }));
 
-  this.set('subjects', subjects);
+  this.set('testSubjects', subjects);
 
-  this.render(hbs`{{subject-dropdown subjects=subjects}}`);
+  this.render(hbs`{{subject-dropdown subjects=testSubjects}}`);
 
   const $component = this.$(),
     $dropdown = $component.find(".subject-dropdown");

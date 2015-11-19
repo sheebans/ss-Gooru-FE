@@ -1,0 +1,18 @@
+<p class="instructions">
+  {{t "gru-true-false.instructions"}}
+</p>
+
+<div class="answer-choices">
+  <form class="form-horizontal">
+    {{#each question.answers as |answer|}}
+      <div class="radio">
+        {{#radio-button
+        value=answer.id
+        changed="selectAnswerChoice"
+        name="answer-choice-radio"}}
+          {{answer.text}}
+        {{/radio-button}}
+      </div>
+    {{/each}}
+  </form>
+</div>
