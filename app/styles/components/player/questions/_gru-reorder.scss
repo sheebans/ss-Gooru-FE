@@ -1,0 +1,29 @@
+.player .gru-reorder {
+  .sortable {
+    list-style: none;
+    padding: 0;
+  }
+
+  .ui-sortable-handle {
+    position:relative;
+    border: 1px dashed $color-gray-lighter-2;
+    margin-top: 10px;
+
+    i {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      margin-top: -8px;
+      color: $color-gray-lighter-2;
+    }
+
+    span {
+      display: block;
+      padding: 15px 10px 15px 40px;
+    }
+  }
+
+  .ui-sortable-helper {
+    background-color: $color-gray-lighter-1;
+  }
+}

@@ -14,7 +14,9 @@
     "loader.js": "ember-cli/loader.js#3.2.1",
     "qunit": "~1.18.0",
     "bootstrap-datepicker": "~1.4.1",
-    "font-awesome": "~4.4.0"
+    "font-awesome": "~4.4.0",
+    "jquery-ui": "1.11.4",
+    "jqueryui-touch-punch": "*"
   },
   "resolutions": {
     "ember": "~2.1.0"
