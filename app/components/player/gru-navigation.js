@@ -42,8 +42,9 @@ export default Ember.Component.extend({
      * Action triggered when the user open de navigator panel
      */
     openNavigator:function(){
-
-      //Ember.$( ".app-container" ).toggleClass( "navigator-on" );
+      Ember.$( ".app-container" ).toggleClass( "navigator-on" );
+      Ember.$( ".gru-navigation .hamburger-icon" ).addClass( "hidden" );
+      Ember.$( ".gru-navigation .content" ).toggleClass( "margin-navigator" );
     }
   },
 

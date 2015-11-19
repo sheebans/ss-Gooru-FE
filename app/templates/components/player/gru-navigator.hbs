@@ -1,4 +1,9 @@
-<h2>{{collection.title}}</h2>
+<div class="navigator-header">
+  <h2>{{collection.title}}</h2>
+  <div class="left close-navigator">
+    <button class="btn btn-link hamburger-icon" {{action 'closeNavigator'}}>{{fa-icon icon="fa-bars"}}</button>
+  </div>
+</div>
 
 <ul class="list-group resources">
   <div class="bgd-line"></div>

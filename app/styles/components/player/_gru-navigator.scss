@@ -73,6 +73,9 @@
           font-size: 12px;
           height: 100%;
           width: 90%;
+          @media (max-width: $screen-md) {
+            padding: 25px 20px 10px 35px;
+          }
         }
       }
     }
