@@ -47,7 +47,7 @@ test('Question viewer layout', function (assert) {
 });
 
 test('Question viewer submit button', function (assert) {
-  assert.expect(2);
+  assert.expect(3);
 
   const question = Ember.Object.create(
     {
@@ -59,7 +59,10 @@ test('Question viewer submit button', function (assert) {
     });
 
   this.set('question', question);
-  this.render(hbs`{{player/gru-question-viewer question=question}}`);
+  this.on("mySubmitQuestion", function(question){
+    assert.equal(question.get("id"), 10, "Wrong id");
+  });
+  this.render(hbs`{{player/gru-question-viewer question=question onSubmitQuestion="mySubmitQuestion"}}`);
 
   var $component = this.$(); //component dom element
 
@@ -70,4 +73,6 @@ test('Question viewer submit button', function (assert) {
   $openEndedComponent.find("textarea").change();
 
   assert.ok(!$answerPanel.find(".actions button.save").attr("disabled"), "Button should not be disabled");
+
+  $answerPanel.find(".actions button.save").click();
 });

@@ -12,7 +12,7 @@ moduleForComponent('player/questions/gru-multiple-answer', 'Integration | Compon
 
 test('Multiple answer question layout', function (assert) {
 
-  assert.expect(3);
+  assert.expect(6);
 
   const question = Ember.Object.create(
     {
@@ -20,21 +20,21 @@ test('Multiple answer question layout', function (assert) {
       "answers": [
         {
           "id": 1,
-          "answerText": "An aquifer",
+          "text": "<p>An aquifer</p>",
           "answerType": "text",
           "isCorrect": true,
           "sequence": 1
         },
         {
           "id": 2,
-          "answerText": "A well",
+          "text": "<p>A well</p>",
           "answerType": "text",
           "isCorrect": false,
           "sequence": 2
         },
         {
-          "aid": 3,
-          "answerText": "A pump",
+          "id": 3,
+          "text": "<p>A pump</p>",
           "answerType": "text",
           "isCorrect": false,
           "sequence": 3
@@ -51,7 +51,9 @@ test('Multiple answer question layout', function (assert) {
   T.exists(assert, $component.find(".instructions"), "Missing instructions");
   assert.equal($component.find(".answer-choices tbody tr").length, 3, "Missing answer choices");
   assert.equal($component.find(".answer-choices tr input[type=radio]").length, 6, "Missing answer choices radio inputs");
-
+  assert.equal(T.text($component.find(".answer-choices tbody tr:eq(0) td:eq(2) p")), "An aquifer", "Incorrect Message");
+  assert.equal(T.text($component.find(".answer-choices tbody tr:eq(1) td:eq(2) p")), "A well", "Incorrect Message");
+  assert.equal(T.text($component.find(".answer-choices tbody tr:eq(2) td:eq(2) p")), "A pump", "Incorrect Message");
 });
 
 

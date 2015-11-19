@@ -16,7 +16,7 @@ test('Player Navigator', function(assert) {
 
   const resourceMockA = Ember.Object.create({
     id: '1',
-    title: 'Resource #1',
+    title: '<p>Resource #1</p>',
     resourceType: 'question',
     "isQuestion": true
   });
@@ -31,7 +31,7 @@ test('Player Navigator', function(assert) {
   const collectionMock = Ember.Object.create({
     id: '490ffa82-aa15-4101-81e7-e148002f90af',
     title: 'Test collection',
-    collectionItems: Ember.A([
+    resources: Ember.A([
       resourceMockA,
       resourceMockB
     ]),
@@ -62,7 +62,7 @@ test('Player Navigator', function(assert) {
   assert.equal(T.text($firstResourceItem.find(".resources-info .title")), "Resource #1", "Wrong item text");
 
   //$resourceItem Selected
-  T.exists(assert, $collectionResources.find("li#1.selected"), "Missing selected resource item");
+  T.exists(assert, $collectionResources.find("li#item_1.selected"), "Missing selected resource item");
 
 
 });
