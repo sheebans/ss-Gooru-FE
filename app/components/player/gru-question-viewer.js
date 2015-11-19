@@ -25,6 +25,13 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+
+    /**
+     * When the question is submitted
+     */
+    submitQuestion: function () {
+      this.sendAction("onSubmitQuestion", this.get("question"));
+    },
     /**
      * When the question answer has been changed
      * @param {Question} question the question
@@ -62,6 +69,11 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Properties
   /**
+   * @property {string} on submit question action
+   */
+  onSubmitQuestion: 'submitQuestion',
+
+  /**
    * The question
    * @property {Question} question
    */
@@ -75,12 +87,18 @@ export default Ember.Component.extend({
   /**
    * @property {bool} indicates when the submit functionality is enabled
    */
-  isSubmitDisabled: Ember.computed.not("answerCompleted")
+  isSubmitDisabled: Ember.computed.not("answerCompleted"),
 
 
   // -------------------------------------------------------------------------
   // Observers
-
+  /**
+   * Observes for the question itself
+   * When it is changed some data should be reloaded
+   */
+  reloadQuestion: function(){
+    this.set("answerCompleted", false);
+  }.observes("question")
 
   // -------------------------------------------------------------------------
   // Methods
