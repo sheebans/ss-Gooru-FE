@@ -32,10 +32,13 @@ export default DS.JSONAPISerializer.extend({
     return collectionModel;
   },
 
-  normalizeResources: function(resources, resourceRelationships, collectionModel) {
-    for(var i = 0; i < resources.length; i++) {
-      const resourceSerializer = ResourceSerializer.create();
-      var resource = resourceSerializer.normalizeResource(resources[i]);
+  normalizeResources: function(collectionItems, resourceRelationships, collectionModel) {
+    console.log('Calling normalizeResources()...');
+    console.log(collectionItems);
+    const resourceSerializer = ResourceSerializer.create();
+    for(var i = 0; i < collectionItems.length; i++) {
+      var collectionItem = collectionItems[i];
+      var resource = resourceSerializer.normalizeResource(collectionItem);
       collectionModel.included.push(resource);
 
       var resourceRelationship = {
@@ -44,7 +47,9 @@ export default DS.JSONAPISerializer.extend({
       };
       resourceRelationships.push(resourceRelationship);
 
-      resourceSerializer.normalizeQuestionAnswers(resources[i].answers, resource, collectionModel);
+      if (collectionItem.resourceFormat.value === 'question') {
+        resourceSerializer.normalizeQuestionAnswers(collectionItem.answers, resource, collectionModel);
+      }
 
     }
   }

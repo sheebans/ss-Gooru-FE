@@ -15,13 +15,13 @@ export default DS.JSONAPISerializer.extend({
     } else {
       var resourceModel = this.getBaseResourceModel();
       resourceModel.id = payload.gooruOid;
-      resourceModel.attributes.resourceType = payload.resourceType.name;
+      resourceModel.attributes.resourceType = payload.resourceFormat.value;
       resourceModel.attributes.title = payload.title;
       resourceModel.attributes.description = payload.description;
       resourceModel.attributes.imageUrl = null;
       resourceModel.attributes.order = payload.itemSequence;
 
-      if (payload.resourceType.name === 'assessment-question') {
+      if (payload.resourceFormat.value === 'question') {
         resourceModel.attributes.questionType = payload.typeName;
         resourceModel.attributes.text = payload.questionText;
         resourceModel.attributes.hints = [];
@@ -35,7 +35,7 @@ export default DS.JSONAPISerializer.extend({
   normalizeResourceForSearch: function(payload) {
     var resourceModel = this.getBaseResourceModel();
     resourceModel.id = payload.collectionItemId;
-    resourceModel.attributes.resourceType = payload.resource.resourceType.name;
+    resourceModel.attributes.resourceType = payload.resource.resourceFormat.value;
     resourceModel.attributes.title = payload.resource.title;
     resourceModel.attributes.description = payload.resource.title;
     resourceModel.attributes.imageUrl = this.getResourceImageUrl(payload.resource);

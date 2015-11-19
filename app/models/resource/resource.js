@@ -10,7 +10,7 @@ export default DS.Model.extend({
   imageUrl: DS.attr('string'),
   order: DS.attr('number'),
 
-  isQuestion: Ember.computed.equal('resourceType', 'assessment-question'),
+  isQuestion: Ember.computed.equal('resourceType', 'question'),
 
   // Question Fields
   questionType: DS.attr('string'),
