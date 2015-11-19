@@ -3,7 +3,7 @@
 <ul class="list-group resources">
   <div class="bgd-line"></div>
   {{#each collection.resources as |resource|}}
-    <li class="list-group-item" id= "{{resource.id}}"{{action 'selectItem' resource}}>
+    <li class="list-group-item" id= "item_{{resource.id}}"{{action 'selectItem' resource}}>
       <div class="resources-info">
         <span class="bubble-type {{resource.resourceType}}"></span><span class="title">{{resource.title}}</span>
       </div>
