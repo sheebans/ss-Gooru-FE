@@ -33,8 +33,6 @@ export default DS.JSONAPISerializer.extend({
   },
 
   normalizeResources: function(collectionItems, resourceRelationships, collectionModel) {
-    console.log('Calling normalizeResources()...');
-    console.log(collectionItems);
     const resourceSerializer = ResourceSerializer.create();
     for(var i = 0; i < collectionItems.length; i++) {
       var collectionItem = collectionItems[i];
