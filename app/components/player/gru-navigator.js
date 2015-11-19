@@ -48,9 +48,7 @@ export default Ember.Component.extend({
    */
   didInsertElement: function() {
     var resourceId = this.get("selectedResourceId");
-    if(resourceId){
-      this.selectItem(resourceId);
-    }
+    this.selectItem(resourceId);
   },
 
 
@@ -74,6 +72,13 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Observers
+  /**
+   * Refreshes the left navigation with the selected resource id
+   */
+  refreshSelectedResource: function() {
+    var resourceId = this.get("selectedResourceId");
+    this.selectItem(resourceId);
+  }.observes("selectedResourceId"),
 
 
   // -------------------------------------------------------------------------
@@ -82,10 +87,13 @@ export default Ember.Component.extend({
 
   /**
    * Triggered when a resource item is selected
+   * @param {string} itemId
    */
   selectItem: function(itemId) {
-    var itemElement = "#"+itemId;
-    Ember.$( ".list-group-item" ).removeClass( "selected" );
-    Ember.$(itemElement).addClass( "selected" );
+    if (itemId){
+      var itemElement = "#item_"+itemId;
+      Ember.$( ".list-group-item" ).removeClass( "selected" );
+      Ember.$(itemElement).addClass( "selected" );
+    }
   }
 });

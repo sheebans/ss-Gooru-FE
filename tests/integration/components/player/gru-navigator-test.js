@@ -62,7 +62,7 @@ test('Player Navigator', function(assert) {
   assert.equal(T.text($firstResourceItem.find(".resources-info .title")), "Resource #1", "Wrong item text");
 
   //$resourceItem Selected
-  T.exists(assert, $collectionResources.find("li#1.selected"), "Missing selected resource item");
+  T.exists(assert, $collectionResources.find("li#item_1.selected"), "Missing selected resource item");
 
 
 });
