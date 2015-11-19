@@ -34,9 +34,16 @@
       onAnswerCompleted="completeAnswer"
       }}
     {{/if}}
+
     {{#if question.isTrueFalse}}
-       {{player.questions.gru-true-false question=question}}
+       {{player.questions.gru-true-false
+       question=question
+       onAnswerChanged="changeAnswer"
+       onAnswerCleared="clearAnswer"
+       onAnswerCompleted="completeAnswer"
+       }}
     {{/if}}
+
     {{#if question.isOpenEnded}}
       {{player.questions.gru-open-ended
       question=question

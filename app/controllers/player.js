@@ -30,12 +30,17 @@ export default Ember.Controller.extend({
     /**
      * Handle onSubmitQuestion event from gru-question-viewer
      * @see components/player/gru-question-viewer.js
-     * @param {Question} question
+     * @param {Resource} question
      */
     submitQuestion: function(question){
-      console.debug(question);
       //todo save
       //todo move to next question
+      const controller = this,
+        next = controller.get("collection").nextResource(question);
+      if (next){
+        controller.moveToResource(next);
+      }
+      //todo: else what if there are no more resources
     },
 
     /**
@@ -43,8 +48,8 @@ export default Ember.Controller.extend({
      * @param {Resource} item
      */
     selectNavigatorItem: function(item){
-      this.set("resourceId", item.get("id"));
-      this.set("resource", item);
+      const controller = this;
+      controller.moveToResource(item);
     }
   },
 
@@ -70,7 +75,7 @@ export default Ember.Controller.extend({
    * The resource playing
    * @property {Resource} resource
    */
-  resource: null
+  resource: null,
 
   // -------------------------------------------------------------------------
   // Observers
@@ -78,6 +83,14 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+  /**
+   * Moves to resource
+   * @param {Resource} resource
+   */
+  moveToResource: function(resource){
+    this.set("resourceId", resource.get("id"));
+    this.set("resource", resource);
+  }
 
 
 });

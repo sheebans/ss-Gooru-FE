@@ -32,7 +32,7 @@ export default QuestionComponent.extend({
       component.notifyAnswerChanged(answerId);
       component.notifyAnswerCompleted(answerId);
     }
-  },
+  }
 
   // -------------------------------------------------------------------------
   // Events
