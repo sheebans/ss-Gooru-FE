@@ -92,8 +92,8 @@ export default Ember.Component.extend({
   selectItem: function(itemId) {
     if (itemId){
       var itemElement = "#item_"+itemId;
-      Ember.$( ".list-group-item" ).removeClass( "selected" );
-      Ember.$(itemElement).addClass( "selected" );
+      this.$( ".list-group-item" ).removeClass( "selected" );
+      this.$(itemElement).addClass( "selected" );
     }
   }
 });
