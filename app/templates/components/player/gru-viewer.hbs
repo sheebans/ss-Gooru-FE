@@ -9,7 +9,7 @@
   {{/if}}
 
   {{#if resource.isQuestion}}
-    {{player.gru-question-viewer question=resource}}
+    {{player.gru-question-viewer question=resource onSubmitQuestion="submitQuestion"}}
   {{else}}
     Viewer not implemented
   {{/if}}
