@@ -1,47 +1,57 @@
 .gru-emotion-picker{
   .emotion{
-    background: url('gooru/emotics.png') no-repeat 0 0;
-    width: 32px;
-    height: 32px;
+    background: url('gooru/resource-collection-icons.png') no-repeat 0 0;
+    background-size: 385px 293px;
+    background-color: $color-white;
+    width: 36px;
+    height: 37px;
+    border-radius: 50%;
+    border: 1px solid $color-gray-lighter-11;
+    cursor: pointer;
   }
 
   .need-help{
-    background-position: -188px -6px;
+    background-position: -256px -257px;
 
     &.active {
-      background-position: -224px -54px;
+      background-position: -256px -209px;
+      border-color: $color-pink;
     }
   }
 
   .do-not-understand{
-    background-position: -144px -6px;
+    background-position: -210px -257px;
 
     &.active {
-      background-position: -144px -54px;
+      background-position: -210px -209px;
+      border-color: $color-orange;
     }
   }
 
   .meh{
-    background-position: -99px -6px;
+    background-position: -165px -257px;
 
     &.active {
-      background-position: -233px -6px;
+      background-position: -165px -209px;
+      border-color: $color-yellow;
     }
   }
 
   .understand{
-    background-position: -55px -6px;
+    background-position: -119px -257px;
 
     &.active {
-      background-position: -184px -54px;
+      background-position: -119px -209px;
+      border-color: $color-light-green;
     }
   }
 
   .can-explain{
-    background-position: -10px -6px;
+    background-position: -73px -257px;
 
     &.active {
-      background-position: -268px -5px;
+      background-position: -73px -209px;
+      border-color: $color-green;
     }
   }
 

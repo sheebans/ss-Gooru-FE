@@ -37,6 +37,13 @@ export default Ember.Component.extend({
      */
     closePlayer:function(){
       this.sendAction("onClosePlayer");
+    },
+    /**
+     * Action triggered when the user open de navigator panel
+     */
+    openNavigator:function(){
+
+      //Ember.$( ".app-container" ).toggleClass( "navigator-on" );
     }
   },
 
