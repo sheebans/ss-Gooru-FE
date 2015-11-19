@@ -13,7 +13,7 @@ moduleForComponent('player/questions/gru-multiple-choice', 'Integration | Compon
 
 test('Multiple choice question layout', function (assert) {
 
-  assert.expect(7);
+  assert.expect(10);
 
   const question = Ember.Object.create(
     {
@@ -21,21 +21,21 @@ test('Multiple choice question layout', function (assert) {
       "answers": [
         {
           "id": 1,
-          "answerText": "An aquifer",
+          "text": "<p>An aquifer</p>",
           "answerType": "text",
           "isCorrect": true,
           "sequence": 1
         },
         {
           "id": 2,
-          "answerText": "A well",
+          "text": "<p>A well</p>",
           "answerType": "text",
           "isCorrect": false,
           "sequence": 2
         },
         {
           "aid": 3,
-          "answerText": "A pump",
+          "text": "<p>A pump</p>",
           "answerType": "text",
           "isCorrect": false,
           "sequence": 3
@@ -64,7 +64,9 @@ test('Multiple choice question layout', function (assert) {
   T.exists(assert, $component.find(".instructions"), "Missing instructions");
   assert.equal($component.find(".answer-choices .radio").length, 3, "Missing answer choices");
   assert.equal($component.find(".answer-choices .radio input[type=radio]").length, 3, "Missing answer choices radio inputs");
-
+  assert.equal(T.text($component.find(".answer-choices .radio:eq(0)")), "An aquifer", "Incorrect Message");
+  assert.equal(T.text($component.find(".answer-choices .radio:eq(1)")), "A well", "Incorrect Message");
+  assert.equal(T.text($component.find(".answer-choices .radio:eq(2)")), "A pump", "Incorrect Message");
   //select a radio button
   $component.find(".answer-choices .radio input[type=radio]:eq(1)").click();
 
