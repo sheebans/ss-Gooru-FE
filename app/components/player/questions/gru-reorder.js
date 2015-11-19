@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import QuestionComponent from './gru-question';
 
 /**
@@ -30,16 +29,20 @@ export default QuestionComponent.extend({
   // Events
   initSortableList: function() {
     const component = this;
+    const sortable = this.$('.sortable');
 
-    // jQuery subscriptions on sortable
-    this.$('.sortable').sortable({
-      stop: function() {
-        const $items = component.$('.sortable').find('li');
-        const answers = $items.map(function(idx, item) {
-          return $(item).data('id');
-        });
-        component.notifyAnswerChanged(answers);
-      }
+    sortable.sortable();
+
+    // Manually add subscriptions to sortable element -makes it easier to test
+    sortable.on('sortupdate', function() {
+
+      const $items = component.$('.sortable').find('li');
+      const answers = $items.map(function(idx, item) {
+        return $(item).data('id');
+      }).toArray();
+
+      component.notifyAnswerChanged(answers);
+      component.notifyAnswerCompleted(answers);
     });
 
   }.on('didInsertElement')

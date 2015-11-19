@@ -4,16 +4,12 @@
 </p>
 
 <div class="answer-choices">
-  <form>
-
-    <ul class="sortable">
-      {{#each question.answers as |answer|}}
-        <li data-id="{{answer.id}}">
-          {{fa-icon icon="drag-icon fa-bars"}}
-          <span>{{answer.answerText}}</span>
-        </li>
-      {{/each}}
-    </ul>
-
-  </form>
+  <ul class="sortable">
+    {{#each question.answers as |answer|}}
+      <li data-id="{{answer.id}}">
+        {{fa-icon icon="drag-icon fa-bars"}}
+        <span>{{answer.answerText}}</span>
+      </li>
+    {{/each}}
+  </ul>
 </div>
