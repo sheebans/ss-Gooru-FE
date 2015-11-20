@@ -11,7 +11,7 @@ moduleForComponent('player/gru-question-viewer', 'Integration | Component | play
 
 });
 
-test('Question viewer layout', function (assert) {
+test('Layout', function (assert) {
 
   assert.expect(11);
 
@@ -22,7 +22,7 @@ test('Question viewer layout', function (assert) {
       "text": "Dummy question text",
       "mediaUrl": "test.jpg",
       "isOpenEnded": true,
-      hasMedia: true,
+      "hasMedia": true,
       "hints": []
     });
 
@@ -36,8 +36,6 @@ test('Question viewer layout', function (assert) {
   T.exists(assert, $questionPanel.find("h3"), "Missing question header");
   T.exists(assert, $questionPanel.find(".question span"), "Missing question text");
   T.exists(assert, $questionPanel.find(".question img"), "Missing question media");
-  T.exists(assert, $questionPanel.find(".information button.hint"), "Missing hint button");
-  T.exists(assert, $questionPanel.find(".information button.explanation"), "Missing explanation button");
 
   var $answerPanel = $component.find(".answers-panel");
   T.exists(assert, $answerPanel, "Missing answer panel");
@@ -46,9 +44,13 @@ test('Question viewer layout', function (assert) {
   T.exists(assert, $answerPanel.find(".actions button.save"), "Missing submit button");
   assert.ok($answerPanel.find(".actions button.save").attr("disabled"), "Button should be disabled");
 
+  var $infoPanel = $component.find(".information");
+  assert.ok($infoPanel.find("button.hint"), "Missing hint button");
+  assert.ok($infoPanel.find("button.explanation"), "Missing explanation button");
+
 });
 
-test('Question viewer submit button', function (assert) {
+test('Submit button should become enabled and call action on submit', function (assert) {
   assert.expect(3);
 
   const question = Ember.Object.create(
@@ -58,7 +60,7 @@ test('Question viewer submit button', function (assert) {
       "text": "Dummy question text",
       "mediaUrl": "test.jpg",
       "isOpenEnded": true,
-      hasMedia: true
+      "hasMedia": true
     });
 
   this.set('question', question);
@@ -78,5 +80,70 @@ test('Question viewer submit button', function (assert) {
   assert.ok(!$answerPanel.find(".actions button.save").attr("disabled"), "Button should not be disabled");
 
   $answerPanel.find(".actions button.save").click();
+});
+
+test('Clicking on the "Hints" button should display a certain number of hints and then become disabled', function(assert) {
+
+  const question = Ember.Object.create({
+      "id": 10,
+      "order": 2,
+      "text": "Dummy question text",
+      "isOpenEnded": true,
+      "hasMedia": false,
+      "hints": [
+        {
+          hintId: 790,
+          hintText: "Hints text 1",
+          sequence: 1
+        },
+        {
+          hintId: 791,
+          hintText: "Hints text 2",
+          sequence: 2
+        }
+      ]
+    });
+
+  this.set('question', question);
+  this.render(hbs`{{player/gru-question-viewer question=question}}`);
+
+  var $infoSection = this.$(".information");
+  assert.ok($infoSection.find(".hints"), "Missing hints section");
+  assert.equal($infoSection.find(".hints li").length, 0, "No hints should be visible");
+
+  $infoSection.find(".actions .hint").click();
+  assert.equal($infoSection.find(".hints li").length, 1, "Hint should be displayed");
+  assert.equal($infoSection.find(".hints li:first-child").text().trim(), "Hints text 1", "Hint's content is incorrect");
+  assert.ok(!$infoSection.find(".actions .hint").attr('disabled'), 'Hint button should not be disabled');
+
+  $infoSection.find(".actions .hint").click();
+  assert.equal($infoSection.find(".hints li").length, 2, "Hints should be displayed");
+  assert.equal($infoSection.find(".hints li:last-child").text().trim(), "Hints text 2", "Hint's content is incorrect");
+  assert.ok($infoSection.find(".actions .hint").attr('disabled'), 'Hint button should be disabled');
+});
+
+test('Clicking on the "Explanation" button should display an explanation and then it should become disabled', function(assert) {
+
+  const question = Ember.Object.create({
+    "id": 11,
+    "order": 2,
+    "text": "Dummy question text",
+    "isOpenEnded": true,
+    "hasMedia": false,
+    "hints": [],
+    "explanation": "<p>This is a test explanation</p>"
+  });
+
+  this.set('question', question);
+  this.render(hbs`{{player/gru-question-viewer question=question}}`);
+
+  var $infoSection = this.$(".information");
+  assert.ok(!$infoSection.find(".actions .explanation").attr('disabled'), 'Explanation button should be enabled');
+  assert.ok(!$infoSection.find(" > .explanation").length, "Explanation section should not be visible");
+
+  $infoSection.find(".actions .explanation").click();
+  assert.ok($infoSection.find("> .explanation").length, 1, "Explanation should be displayed");
+  assert.equal($infoSection.find("> .explanation").text().trim(), "This is a test explanation", "Explanation does not display the right content");
+  assert.ok($infoSection.find(".actions .explanation").attr('disabled'), 'Explanation button should be disabled');
 });
 
