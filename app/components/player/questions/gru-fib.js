@@ -8,30 +8,21 @@ export default QuestionComponent.extend({
 
   // -------------------------------------------------------------------------
   // Attributes
-  classNames:['gru-fib'],
+  classNames: ['gru-fib'],
 
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
-    fillAnswer:function(){
-
-    }
-  },
-
 
   // -------------------------------------------------------------------------
   // Events
-  fillAnswers: function() {
-    const answers =[];
+  initInputEvents: function () {
+    const answers = [];
     const component = this;
-      const inputs = this.$().find(".fib-answers input[type=text]");
-      inputs.each(function(input){
-        answers.push(input.val());
-      });
-
-      component.notifyAnswerChanged(answers);
-      component.notifyAnswerCompleted(answers);
-  }.on('keyPress'),
+    const inputs = component.$(".fib-answers input[type=text]");
+    inputs.on("keyup", function () {
+      component.notifyInputAnswers();
+    })
+  }.on('didInsertElement'),
 
   // -------------------------------------------------------------------------
   // Properties
@@ -40,7 +31,7 @@ export default QuestionComponent.extend({
    * @param question
    *
    */
-  answers: Ember.computed('question.text', function() {
+  answers: Ember.computed('question.text', function () {
     const component = this;
     var answers = component.get("question.text");
     return answers.replace(/_______/g, "<input type=\"text\" value=\"\"/>");
@@ -51,4 +42,23 @@ export default QuestionComponent.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+  /**
+   * Notify input answers
+   */
+  notifyInputAnswers: function () {
+    const component = this,
+      inputs = component.$(".fib-answers input[type=text]"),
+      answers = inputs.map(function (index, input) {
+        return Ember.$(input).val();
+      }),
+      answerCompleted = answers.toArray().join("").length > 0;
+    component.notifyAnswerChanged(answers);
+    if (answerCompleted){
+      component.notifyAnswerCompleted(answers);
+    }
+    else{
+      component.notifyAnswerCleared(answers);
+    }
+
+  }
 });
