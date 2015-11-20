@@ -109,7 +109,7 @@ export default Ember.Component.extend({
    * Hints to display
    * @property {Array} hintsToDisplay
    */
-  hintsToDisplay: Ember.ArrayProxy.create({ content: [] }),
+  hintsToDisplay: Ember.A(),
 
   /**
    * Explanation to display
