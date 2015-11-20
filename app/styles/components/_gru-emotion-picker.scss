@@ -15,7 +15,7 @@
 
     &.active {
       background-position: -256px -209px;
-      border-color: $color-pink;
+      border-color: $emoticon-need-help;
     }
   }
 
@@ -24,7 +24,7 @@
 
     &.active {
       background-position: -210px -209px;
-      border-color: $color-orange;
+      border-color: $emoticon-do-not-understand;
     }
   }
 
@@ -33,7 +33,7 @@
 
     &.active {
       background-position: -165px -209px;
-      border-color: $color-yellow;
+      border-color: $emoticon-meh;
     }
   }
 
@@ -42,7 +42,7 @@
 
     &.active {
       background-position: -119px -209px;
-      border-color: $color-light-green;
+      border-color: $emoticon-understand;
     }
   }
 
@@ -51,7 +51,7 @@
 
     &.active {
       background-position: -73px -209px;
-      border-color: $color-green;
+      border-color: $emoticon-can-explain;
     }
   }
 
