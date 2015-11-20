@@ -42,8 +42,6 @@ export default Ember.Component.extend({
      * Action triggered when the user open de navigator panel
      */
     openNavigator:function(){
-      this.$( ".hamburger-icon" ).addClass( "hidden" );
-      this.$( ".content" ).addClass( "margin-navigator" );
       this.sendAction("onOpenNavigator");
     }
   },
@@ -58,21 +56,8 @@ export default Ember.Component.extend({
   /**
    * @property {string} on content player action
    */
-  onClosePlayer: "onClosePlayer",
+  onClosePlayer: "onClosePlayer"
 
-  /**
-   * @property {bool} is the navigator open or closed for small or x-small devices?
-   */
-  isNavigatorOpen: null,
-
-  // -------------------------------------------------------------------------
-  // Observers
-  navigatorStatusChanged: Ember.observer('isNavigatorOpen', function() {
-    if (this.get('isNavigatorOpen')){
-      this.$( ".hamburger-icon" ).addClass( "hidden" );
-      this.$( ".content" ).addClass( "margin-navigator" );
-    }
-  })
 
   // -------------------------------------------------------------------------
   // Methods

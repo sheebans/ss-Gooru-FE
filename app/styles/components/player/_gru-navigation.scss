@@ -41,14 +41,4 @@
       }
     }
   }
-  .content.margin-navigator {
-
-    @media (min-width: $screen-sm) {
-      margin-left: $player-navigator-width-sm;
-    }
-
-    @media (min-width: $screen-md) {
-      margin-left: $player-navigator-width-md;
-    }
-  }
 }
