@@ -22,8 +22,13 @@ export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Events
   fillAnswers: function() {
+    const answers =[];
     const component = this;
-      const answers = this.$(".gru-fib").find(".inputs input[type=text]");
+      const inputs = this.$().find(".fib-answers input[type=text]");
+      inputs.each(function(input){
+        answers.push(input.val());
+      });
+
       component.notifyAnswerChanged(answers);
       component.notifyAnswerCompleted(answers);
   }.on('keyPress'),
@@ -35,10 +40,10 @@ export default QuestionComponent.extend({
    * @param question
    *
    */
-  answers: Ember.computed('question', function() {
+  answers: Ember.computed('question.text', function() {
     const component = this;
     var answers = component.get("question.text");
-    return answers.replace(/_______/g, "<input type=\"text\"/>");
+    return answers.replace(/_______/g, "<input type=\"text\" value=\"\"/>");
   }),
   // -------------------------------------------------------------------------
   // Observers
