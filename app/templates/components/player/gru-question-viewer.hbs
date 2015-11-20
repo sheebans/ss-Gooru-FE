@@ -1,25 +1,11 @@
 <div class="question-panel">
   <h3>{{t "gru-question-viewer.question"}}</h3>
-    <div class="question">
-      <span>{{{question.text}}}</span>
-      {{#if question.media}}
-        <img src="{{question.media}}"/>
-      {{/if}}
-    </div>
-    <div class="information">
-      <button class="hint btn btn-default" disabled={{disableHint}} {{action 'showHint'}}>{{t "common.hints"}} ({{availableHints}} {{t "gru-question-viewer.hint-description"}})</button>
-      <button class="explanation btn btn-default"disabled={{disableExplanation}} {{action 'showExplanation'}}>{{t "common.explanations"}}</button>
-        <div class="text-center hints-description">
-          {{#each hintsToDisplay as |hint|}}
-              <p>{{hint}}</p>
-          {{/each}}
-        </div>
-      {{#if explanation}}
-          <div class="text-center explanation-description">
-              <p>{{explanation}}</p>
-          </div>
-      {{/if}}
-    </div>
+  <div class="question">
+    <span>{{{question.text}}}</span>
+    {{#if question.hasMedia}}
+      <img src="{{question.mediaUrl}}"/>
+    {{/if}}
+  </div>
 </div>
 
 <div class="answers-panel">
@@ -46,12 +32,12 @@
     {{/if}}
 
     {{#if question.isTrueFalse}}
-       {{player.questions.gru-true-false
-       question=question
-       onAnswerChanged="changeAnswer"
-       onAnswerCleared="clearAnswer"
-       onAnswerCompleted="completeAnswer"
-       }}
+      {{player.questions.gru-true-false
+      question=question
+      onAnswerChanged="changeAnswer"
+      onAnswerCleared="clearAnswer"
+      onAnswerCompleted="completeAnswer"
+      }}
     {{/if}}
 
     {{#if question.isOpenEnded}}
@@ -63,21 +49,38 @@
       }}
     {{/if}}
 
-    {{#if question.isReorder}}
+    {{#if question.isHotTextReoder}}
       {{player.questions.gru-reorder
       question=question
       onAnswerChanged="changeAnswer"
       onAnswerCleared="clearAnswer"
       onAnswerCompleted="completeAnswer"
       }}
-{{/if}}
+    {{/if}}
 
     <div class="actions">
-      {{#if isSubmitDisabled}}
-        <button type="submit" class="save btn btn-lg btn-primary" disabled>{{t "common.submit"}}</button>
-      {{else}}
-        <button type="submit" class="save btn btn-lg btn-primary">{{t "common.submit"}}</button>
-      {{/if}}
+      <button type="submit" class="save btn btn-lg btn-primary" disabled={{isSubmitDisabled}}>{{t "common.submit"}}</button>
     </div>
   </form>
+</div>
+
+<div class="information">
+  <div class="actions">
+    <button class="hint btn btn-default" disabled={{isHintButtonDisabled}} {{action 'showHint'}}>{{t "common.hints"}}
+      ({{t "common.remaining" number=availableHints}})
+    </button>
+    <button class="explanation btn btn-default"
+            disabled={{isExplanationButtonDisabled}} {{action 'showExplanation'}}>{{t "common.explanation"}}</button>
+  </div>
+
+  <ol class="hints">
+    {{#each hintsToDisplay as |hint|}}
+      <li>{{{hint.hintText}}}</li>
+    {{/each}}
+  </ol>
+
+  {{#if isExplanationShown}}
+    <p class="explanation">{{{question.explanation}}}</p>
+  {{/if}}
+
 </div>

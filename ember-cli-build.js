@@ -19,17 +19,19 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
-  // Bootstrap
-  app.import({
-    development: 'bower_components/bootstrap-sass/assets/javascripts/bootstrap.js',
-    production:  'bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js'
-  });
-
+  // NOTE: jquery UI must go before bootstrap; otherwise, tooltips will stop
+  // working and other strange things may happen
   app.import({
     development: 'bower_components/jquery-ui/jquery-ui.js',
     production:  'bower_components/jquery-ui/jquery-ui.min.js'
   });
 
+  app.import({
+    development: 'bower_components/bootstrap-sass/assets/javascripts/bootstrap.js',
+    production:  'bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js'
+  });
+
+  // Add touch events to jquery UI: https://github.com/furf/jquery-ui-touch-punch
   app.import({
     development: 'bower_components/jqueryui-touch-punch/jquery.ui.touch-punch.js',
     production:  'bower_components/jqueryui-touch-punch/jquery.ui.touch-punch.min.js'
