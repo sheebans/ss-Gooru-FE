@@ -259,7 +259,9 @@ export default {
     "instructions" : "Please select the correct answer, and click \"Submit\"."
   },
   "gru-true-false": {
-    "instructions" : "Please select the correct answer, and click \"Submit\"."
+    "instructions" : "Please select the correct answer, and click \"Submit\".",
+    "true":"True",
+    "false":"False"
   },
   "gru-multiple-answer": {
     "instructions" : "Please select the correct answer, and click \"Submit\"."

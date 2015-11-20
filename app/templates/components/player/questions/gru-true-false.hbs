@@ -4,15 +4,21 @@
 
 <div class="answer-choices">
   <form class="form-horizontal">
-    {{#each question.answers as |answer|}}
       <div class="radio">
         {{#radio-button
-        value=answer.id
+        value=true
         changed="selectAnswerChoice"
         name="answer-choice-radio"}}
-          {{{answer.text}}}
+          {{t "gru-true-false.true"}}
         {{/radio-button}}
       </div>
-    {{/each}}
+      <div class="radio">
+        {{#radio-button
+        value=false
+        changed="selectAnswerChoice"
+        name="answer-choice-radio"}}
+          {{t "gru-true-false.false"}}
+        {{/radio-button}}
+      </div>
   </form>
 </div>
