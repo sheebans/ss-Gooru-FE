@@ -133,7 +133,7 @@
       align-self: auto;
 
       .hints li,
-      .explanation {
+      > .explanation {
         padding-right: 0;
       }
     }

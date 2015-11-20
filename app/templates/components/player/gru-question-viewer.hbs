@@ -66,11 +66,11 @@
 
 <div class="information">
   <div class="actions">
-    <button class="hint btn btn-default" disabled={{disableHint}} {{action 'showHint'}}>{{t "common.hints"}}
+    <button class="hint btn btn-default" disabled={{isHintButtonDisabled}} {{action 'showHint'}}>{{t "common.hints"}}
       ({{t "common.remaining" number=availableHints}})
     </button>
     <button class="explanation btn btn-default"
-            disabled={{disableExplanation}} {{action 'showExplanation'}}>{{t "common.explanation"}}</button>
+            disabled={{isExplanationButtonDisabled}} {{action 'showExplanation'}}>{{t "common.explanation"}}</button>
   </div>
 
   <ol class="hints">
@@ -79,8 +79,8 @@
     {{/each}}
   </ol>
 
-  {{#if explanation}}
-    <p class="explanation">{{{explanation}}}</p>
+  {{#if isExplanationShown}}
+    <p class="explanation">{{{question.explanation}}}</p>
   {{/if}}
 
 </div>
