@@ -2,24 +2,25 @@ export default {
 
   "common": {
     "close": "Close",
-    "explanations": "Explanations",
-    "hints": "Hints",
-    "logout": "Logout",
     "create": "Create",
-    "signUp": "Sign Up",
-    "search": "Search",
+    "email_support": "support@gooru.org",
+    "explanation": "Explanation",
+    "forgotPassword": "Forgot Password",
+    "hints": "Hints",
+    "if_questions": "If you have any questions,",
+    "libraries": "Libraries",
+    "login": "Log in",
+    "logout": "Logout",
     "myClasses": "My Classes",
     "myContent": "My Content",
-    "login": "Log in",
-    "libraries": "Libraries",
+    "no": "No",
+    "please_contact": "Please contact",
+    "remaining": "{{number}} Left",
+    "search": "Search",
+    "signUp": "Sign Up",
     "standards": "Standards",
     "submit": "Submit",
-    "forgotPassword": "Forgot Password",
-    "if_questions": "If you have any questions,",
-    "please_contact": "Please contact",
-    "email_support": "support@gooru.org",
-    "yes": "Yes",
-    "no": "No"
+    "yes": "Yes"
   },
 
   "gru-category-panel": {
@@ -252,9 +253,7 @@ export default {
 
   "gru-question-viewer": {
     "answer": "Answer",
-    "question": "Question",
-    "hint-description":"Left"
-
+    "question": "Question"
   },
 
   "gru-multiple-choice": {
