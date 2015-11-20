@@ -37,6 +37,12 @@ export default Ember.Component.extend({
         this.selectItem(item.id);
         this.sendAction("onItemSelected", item);
       }
+    },
+    /**
+     * Action triggered when the user close de navigator panel
+     */
+    closeNavigator:function(){
+      this.sendAction("onCloseNavigator");
     }
   },
 

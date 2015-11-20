@@ -1,8 +1,8 @@
 <div class="main" role="main">
-  {{player.gru-navigation onClosePlayer="closePlayer"}}
+  {{player.gru-navigation onClosePlayer="closePlayer" onOpenNavigator="openNavigator"}}
   {{player.gru-viewer resource=resource onSubmitQuestion="submitQuestion"}}
 </div>
 <div class="aside">
-  {{player.gru-navigator collection=collection selectedResourceId=resourceId onItemSelected="selectNavigatorItem"}}
+  {{player.gru-navigator collection=collection selectedResourceId=resourceId onItemSelected="selectNavigatorItem" onCloseNavigator="closeNavigator"}}
 </div>
 

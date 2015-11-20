@@ -36,3 +36,18 @@ test('Close player', function(assert) {
   $closeButton.click();
 });
 
+test('Open Left Navigator', function(assert) {
+  assert.expect(2);
+
+  this.on('parentAction', function(){
+    assert.ok(true, 'external Action was called!');
+  });
+
+  this.render(hbs`{{player/gru-navigation onOpenNavigator='parentAction'}}`);
+  var $component = this.$(); //component dom element
+  var $openButton = $component.find(".hamburger-icon");
+  T.exists(assert, $openButton, "Missing hamburger icon button");
+  $openButton.click();
+
+});
+

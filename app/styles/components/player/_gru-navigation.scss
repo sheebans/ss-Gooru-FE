@@ -35,12 +35,20 @@
 
     .hamburger-icon, .x-icon{
       font-size: 33px;
+      cursor: pointer;
       i{
         color:$color-white;
       }
     }
   }
   .content.margin-navigator {
-    margin-left: $player-navigator-width;
+
+    @media (min-width: $screen-sm) {
+      margin-left: $player-navigator-width-sm;
+    }
+
+    @media (min-width: $screen-md) {
+      margin-left: $player-navigator-width-md;
+    }
   }
 }
