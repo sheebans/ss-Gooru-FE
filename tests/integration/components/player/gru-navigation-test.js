@@ -9,7 +9,7 @@ moduleForComponent('player/gru-navigation', 'Integration | Component | player/gr
   }
 });
 
-test('Navigation', function(assert) {
+test('Layout', function(assert) {
 
 
   assert.expect(3);
@@ -36,18 +36,20 @@ test('Close player', function(assert) {
   $closeButton.click();
 });
 
-test('Open Left Navigator', function(assert) {
-  assert.expect(3);
+test('Layout when navigator is opened', function(assert) {
+  assert.expect(5);
 
   this.on('parentAction', function(){
     assert.ok(true, 'external Action was called!');
   });
 
-  this.render(hbs`{{player/gru-navigation onOpenNavigator='parentAction' isNavigatorOpen=true}}`);
+  this.render(hbs`{{player/gru-navigation onOpenNavigator='parentAction' isNavigatorOpen=false}}`);
   var $component = this.$(); //component dom element
-  var $openButton = $component.find(".hamburger-icon");
-  T.exists(assert, $openButton, "Missing hamburger icon button");
-  $openButton.click();
- // assert.ok($component.find(".hamburguer-icon").hasClass('hidden'), "Missing hidden hamburger icon button in the navigator panel");
+  var $menuButton = $component.find(".hamburger-icon");
+  assert.ok($menuButton, "Navigation menu button is missing");
+  assert.ok(!$menuButton.hasClass('hidden'), "Navigation menu button should be visible");
+
+  $menuButton.click();
+  assert.ok($component.find(".hamburger-icon").hasClass('hidden'), "Navigation menu button should hide after clicking on it");
   T.exists(assert, $component.find(".content.margin-navigator"), "Missing margin-left class in the content panel");
 });

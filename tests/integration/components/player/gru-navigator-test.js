@@ -67,7 +67,7 @@ test('Player Navigator', function(assert) {
 
 });
 
-test('Close Left Navigator', function(assert) {
+test('Layout when opened/closed', function(assert) {
   assert.expect(2);
 
   this.on('parentAction', function(){
@@ -76,9 +76,12 @@ test('Close Left Navigator', function(assert) {
 
   this.render(hbs`{{player/gru-navigator onCloseNavigator='parentAction' isNavigatorOpen=false}}`);
   var $component = this.$(); //component dom element
-  var $openButton = $component.find(".hamburger-icon");
-  T.exists(assert, $openButton, "Missing hamburger icon button");
-  $openButton.click();
+  var $menuButton = $component.find(".hamburger-icon");
+
+  assert.ok($menuButton, "Missing menu button");
+  //assert.ok(!$menuButton.hasClass('hidden'), "Navigation menu should be visible");
+  $menuButton.click();
+
   //T.exists(assert, $component.find(".hamburger-icon.hidden"), "Missing hidden hamburger icon button in the navigator panel");
   //T.exists(assert, $component.find(".content.margin-navigator"), "Missing margin-left class in the content panel");
 
