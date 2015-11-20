@@ -2,6 +2,26 @@ import DS from 'ember-data';
 
 export default DS.JSONAPISerializer.extend({
 
+  getBaseResourceModel: function() {
+    var resourceModel = {
+      type: 'resource/question',
+      id: null,
+      attributes: {},
+      relationships: {
+        answers: { data: [] }
+      }
+    };
+    return resourceModel;
+  },
+
+  getExtendedResourceModel: function() {
+    var resourceModel = {
+      data: this.getBaseResourceModel(),
+      included: []
+    };
+    return resourceModel;
+  },
+
   normalizeSingleResponse: function(store, primaryModelClass, payload) {
     var resourceModel = this.getExtendedResourceModel();
     resourceModel.data.id = payload.gooruOid;
@@ -10,37 +30,57 @@ export default DS.JSONAPISerializer.extend({
 
   normalizeResource: function(payload) {
     // If payload contains a resource element then it corresponds to a Search resource
-    if (payload.resource) {
+    if (this.isSearchResultResource(payload)) {
       return this.normalizeResourceForSearch(payload);
     } else {
-      var resourceModel = this.getBaseResourceModel();
-      resourceModel.id = payload.gooruOid;
-      resourceModel.attributes.resourceType = payload.resourceFormat.value;
-      resourceModel.attributes.title = payload.title;
-      resourceModel.attributes.description = payload.description;
-      resourceModel.attributes.imageUrl = null;
-      resourceModel.attributes.order = payload.itemSequence;
+      var model = this.normalizeDefaultResource(payload);
 
-      if (payload.resourceFormat.value === 'question') {
-        resourceModel.attributes.questionType = payload.typeName;
-        resourceModel.attributes.text = payload.questionText;
-        resourceModel.attributes.hints = [];
-        resourceModel.attributes.explanation = payload.explanation;
+      if (this.isQuestionResource(payload)) {
+        model = this.normalizeQuestionResource(payload, model);
       }
 
-      return resourceModel;
+      return model;
     }
   },
 
+  normalizeDefaultResource: function(payload) {
+    var model = this.getBaseResourceModel();
+    model.id = payload.gooruOid;
+    model.attributes.resourceType = payload.resourceFormat.value;
+    model.attributes.title = payload.title;
+    model.attributes.description = payload.description;
+    model.attributes.thumbnail = null;
+    model.attributes.mediaUrl = (payload.thumbnails ? payload.thumbnails.url : null);
+    model.attributes.narration = payload.narration;
+    model.attributes.order = payload.itemSequence;
+    model.attributes.owner =  {
+      username: payload.user.username,
+      userId: payload.user.gooruUId,
+      avatarUrl: payload.user.profileImageUrl
+    };
+    return model;
+  },
+
   normalizeResourceForSearch: function(payload) {
-    var resourceModel = this.getBaseResourceModel();
-    resourceModel.id = payload.collectionItemId;
-    resourceModel.attributes.resourceType = payload.resource.resourceFormat.value;
-    resourceModel.attributes.title = payload.resource.title;
-    resourceModel.attributes.description = payload.resource.title;
-    resourceModel.attributes.imageUrl = this.getResourceImageUrl(payload.resource);
-    resourceModel.attributes.order = 0;
-    return resourceModel;
+    var model = this.getBaseResourceModel();
+    model.id = payload.collectionItemId;
+    model.attributes.resourceType = payload.resource.resourceFormat.value;
+    model.attributes.title = payload.resource.title;
+    model.attributes.description = payload.resource.title;
+    model.attributes.thumbnail = (payload.resource.thumbnails ? payload.resource.thumbnails.url : null);
+    model.attributes.mediaUrl = null;
+    model.attributes.narration = null;
+    model.attributes.order = 0;
+    model.attributes.owner = null;
+    return model;
+  },
+
+  normalizeQuestionResource: function(payload, model) {
+    model.attributes.questionType = payload.typeName;
+    model.attributes.text = payload.questionText;
+    model.attributes.hints = [];
+    model.attributes.explanation = payload.explanation;
+    return model;
   },
 
   normalizeQuestionAnswers: function(answerItems, resource, model) {
@@ -67,36 +107,11 @@ export default DS.JSONAPISerializer.extend({
     }
   },
 
-  getBaseResourceModel: function() {
-    var resourceModel = {
-      type: 'resource/question',
-      id: null,
-      attributes: {},
-      relationships: {
-        answers: { data: [] }
-      }
-    };
-    return resourceModel;
+  isSearchResultResource: function(payload) {
+    return (payload.resource);
   },
 
-  getExtendedResourceModel: function() {
-    var resourceModel = {
-      data: this.getBaseResourceModel(),
-      included: []
-    };
-    return resourceModel;
-  },
-
-  getResourceImageUrl: function(resource) {
-    if (resource.thumbnails) {
-      return resource.thumbnails.url;
-    } else {
-      return this.getDefaultResourceImageUrl(resource.resourceFormat.value);
-    }
-  },
-
-  getDefaultResourceImageUrl: function(type) {
-    return '/assets/gooru/default-' + type + '.png';
+  isQuestionResource: function(payload) {
+    return (payload.resourceFormat && payload.resourceFormat.value === 'question');
   }
-
 });

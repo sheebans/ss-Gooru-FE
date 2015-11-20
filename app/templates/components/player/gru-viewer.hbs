@@ -1,19 +1,19 @@
 <div class="content">
-  {{#if resource.narration}}
-    <div class="narration">
-      <img class="avatar" src="{{ resource.narration.image-url }}">
-      <span class="message">
-        {{resource.narration.message}}
-      </span>
-    </div>
-  {{/if}}
-
   {{#if resource.isQuestion}}
     {{player.gru-question-viewer question=resource onSubmitQuestion="submitQuestion"}}
   {{else}}
+    {{#if resource.hasNarration}}
+      <div class="narration">
+        {{#if resource.hasOwner}}
+          <img class="avatar" src="{{ resource.owner.avatarUrl }}">
+        {{/if}}
+        <span class="message">
+          {{resource.narration}}
+        </span>
+      </div>
+    {{/if}}
     Viewer not implemented
   {{/if}}
-
 </div>
 
 

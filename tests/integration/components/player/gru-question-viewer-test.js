@@ -20,8 +20,9 @@ test('Question viewer layout', function (assert) {
       "id": 10,
       "order": 2,
       "text": "Dummy question text",
-      "media": "test.jpg",
-      "isOpenEnded": true
+      "mediaUrl": "test.jpg",
+      "isOpenEnded": true,
+      hasMedia: true
     });
 
   this.set('question', question);
@@ -54,8 +55,9 @@ test('Question viewer submit button', function (assert) {
       "id": 10,
       "order": 2,
       "text": "Dummy question text",
-      "media": "test.jpg",
-      "isOpenEnded": true
+      "mediaUrl": "test.jpg",
+      "isOpenEnded": true,
+      hasMedia: true
     });
 
   this.set('question', question);
