@@ -2,7 +2,6 @@ import DS from "ember-data";
 import { validator, buildValidations } from "ember-cp-validations";
 
 const UserValidations = buildValidations({
-
   firstName: [
     validator('presence', true)
   ],
@@ -20,12 +19,11 @@ const UserValidations = buildValidations({
         max: 20
       }),
       validator('format', {
-        regex: /\\w+/,
+        regex: /^\w+$/,
         message: '{description} cannot use special characters'
       })
     ]
   },
-
   password: [
     validator('presence', true),
     validator('length', {
@@ -33,11 +31,25 @@ const UserValidations = buildValidations({
       max: 14
     }),
     validator('format', {
-      regex: /\\w+/,
+      regex: /^\w+$/,
       message: '{description} cannot use special characters'
     })
   ],
+  rePassword:[
+    validator('presence', true),
+    validator('length', {
+      min: 5,
+      max: 14
+    }),
+    validator('format', {
+      regex: /^\w+$/,
+      message: '{description} cannot use special characters'
+    }),
 
+    validator(function(value,options,model/* ,attribute*/) {
+      return value !== model.get('password') ? `Passwords don't match` : true ;
+    })
+  ],
   email: [
     validator('presence', true),
     validator('format', {
@@ -45,16 +57,13 @@ const UserValidations = buildValidations({
       message: 'Not a valid email'
     })
   ],
-
   dateOfBirth: [
     validator('presence', true)
   ],
-
   role: [
     validator('presence', true)
   ]
 });
-
 /**
  * Model to represent the Users obtained from the end-point
  */

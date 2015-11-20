@@ -1,7 +1,9 @@
 import Ember from 'ember';
 const {
   computed,
-  defineProperty
+  observer,
+  defineProperty,
+  run
   } = Ember;
 
 
@@ -34,12 +36,11 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-
+  /**
+   * Update user birth date
+   * @param {String} dateValue - birth date as a string
+   */
   actions:{
-    /**
-     * Update value of attached model.
-     * @param {String} value - value as string
-     */
     setValue:function(value){
       this.set("model."+this.valuePath, value);
     }
@@ -74,10 +75,17 @@ export default Ember.Component.extend({
 
   isInvalid: computed.oneWay('attributeValidation.isInvalid'),
 
+  inputValueChange: observer('rawInputValue', function() {
+    run.debounce(this, this.setValue, 1000, false);
+  }),
+
   showMessage: computed('attributeValidation.isDirty', 'isInvalid', 'didValidate', function() {
     return (this.get('attributeValidation.isDirty') || this.get('didValidate')) && this.get('isInvalid');
   }),
 
+  setValue() {
+    this.set('value', this.get('rawInputValue'));
+  },
 
   init() {
     this._super(...arguments);
