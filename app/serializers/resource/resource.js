@@ -1,9 +1,10 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 export default DS.JSONAPISerializer.extend({
 
   getBaseResourceModel: function() {
-    var resourceModel = {
+    return {
       type: 'resource/question',
       id: null,
       attributes: {},
@@ -11,15 +12,13 @@ export default DS.JSONAPISerializer.extend({
         answers: { data: [] }
       }
     };
-    return resourceModel;
   },
 
   getExtendedResourceModel: function() {
-    var resourceModel = {
+    return {
       data: this.getBaseResourceModel(),
       included: []
     };
-    return resourceModel;
   },
 
   normalizeSingleResponse: function(store, primaryModelClass, payload) {
@@ -78,7 +77,7 @@ export default DS.JSONAPISerializer.extend({
   normalizeQuestionResource: function(payload, model) {
     model.attributes.questionType = payload.typeName;
     model.attributes.text = payload.questionText;
-    model.attributes.hints = [];
+    model.attributes.hints = Ember.copy(payload.hints, true);
     model.attributes.explanation = payload.explanation;
     return model;
   },
