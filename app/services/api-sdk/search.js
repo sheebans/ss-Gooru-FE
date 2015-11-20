@@ -9,7 +9,7 @@ export default Ember.Service.extend(StoreMixin, {
         category: 'All',
         'flt.collectionType': (params.collectionType)?params.collectionType:'collection',
         includeCIMetaData: true,
-        length: 8,
+        length: 20,
         q: params.term,
         start: 1
       });

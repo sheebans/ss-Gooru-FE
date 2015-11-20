@@ -2,8 +2,8 @@
   <h3>{{t "gru-question-viewer.question"}}</h3>
     <div class="question">
       <span>{{{question.text}}}</span>
-      {{#if question.media}}
-        <img src="{{question.media}}"/>
+      {{#if question.hasMedia}}
+        <img src="{{question.mediaUrl}}"/>
       {{/if}}
     </div>
     <div class="information">
@@ -63,7 +63,7 @@
       }}
     {{/if}}
 
-    {{#if question.isReorder}}
+    {{#if question.isHotTextReoder}}
       {{player.questions.gru-reorder
       question=question
       onAnswerChanged="changeAnswer"
