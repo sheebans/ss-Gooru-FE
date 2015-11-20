@@ -25,6 +25,7 @@ export default DS.Model.extend({
   isOpenEnded: Ember.computed.equal('questionType', 'OE'),
   isHotText: Ember.computed.equal('questionType', 'HS_TXT'),
   isHotImage: Ember.computed.equal('questionType', 'HS_IMG'),
-  isReorder: Ember.computed.equal('questionType', 'HT_RO')
+  isReorder: Ember.computed.equal('questionType', 'HT_RO'),
+  isFIB: Ember.computed.equal('questionType', 'FIB')
 
 });

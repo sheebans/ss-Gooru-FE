@@ -60,7 +60,16 @@
       onAnswerCleared="clearAnswer"
       onAnswerCompleted="completeAnswer"
       }}
-{{/if}}
+    {{/if}}
+
+   {{#if question.isFIB}}
+    {{player.questions.gru-fib
+      question=question
+      onAnswerChanged="changeAnswer"
+      onAnswerCleared="clearAnswer"
+      onAnswerCompleted="completeAnswer"
+    }}
+    {{/if}}
 
     <div class="actions">
       {{#if isSubmitDisabled}}
