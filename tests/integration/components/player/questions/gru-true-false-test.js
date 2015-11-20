@@ -21,16 +21,16 @@ test('True or false question layout', function (assert) {
     });
 
   this.set('question', question);
-  this.on('myOnAnswerChanged', function(question, answerId) {
+  this.on('myOnAnswerChanged', function(question, answerValue) {
     //todo check for selected answer
     assert.equal(question.get("id"), 10, "Wrong question id");
-    assert.equal(answerId, false, "Wrong answer id");
+    assert.equal(answerValue, false, "Wrong answer value");
   });
 
-  this.on('myOnAnswerCompleted', function(question, answerId) {
+  this.on('myOnAnswerCompleted', function(question, answerValue) {
     //todo check for selected answer
     assert.equal(question.get("id"), 10, "Wrong question id");
-    assert.equal(answerId, false, "Wrong answer id");
+    assert.equal(answerValue, false, "Wrong answer value");
   });
 
   this.render(hbs`{{player/questions/gru-true-false question=question
