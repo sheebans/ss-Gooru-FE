@@ -16,12 +16,8 @@
     {{#each resources as |resource|}}
         <div class="resource-image col-md-4 col-sm-4">
             <a data-toggle="tooltip" data-html ="true" data-placement="bottom" title="<strong>{{unbound resource.name }}</strong><p>{{unbound resource.type }}</p>">
-                {{#if resource.imageUrl }}
-                  <img class="gwt-image" src="{{ resource.imageUrl }}">
-                {{else}}
-                  <img class="gwt-image" src="/assets/gooru/default-{{unbound resource.type }}.png">
-                {{/if}}
-                <div class="resource-image-type {{unbound resource.type }}-icon"> </div>
+                <img class="gwt-image" src="{{ resource.thumbnailUrl }}">
+                <div class="resource-image-type {{unbound resource.resourceType }}-icon"> </div>
             </a>
         </div>
     {{/each}}
