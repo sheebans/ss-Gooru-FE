@@ -23,10 +23,7 @@ export default Ember.Component.extend({
    */
   didInsertElement: function() {
       var component = this;
-      component.$('[data-toggle="tooltip"]').tooltip({
-        trigger: 'hover',
-        placement: 'bottom',
-        html: true});
+      component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
   },
   actions:{
 

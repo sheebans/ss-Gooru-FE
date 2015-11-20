@@ -28,7 +28,7 @@ export default DS.Model.extend({
   isMultipleChoice: Ember.computed.equal('questionType', 'MC'),
   isMultipleAnswer: Ember.computed.equal('questionType', 'MA'),
   isTrueFalse: Ember.computed.equal('questionType', 'T/F'),
-  isOpenEnded: Ember.computed.equal('questionType', '?'),
+  isOpenEnded: Ember.computed.equal('questionType', 'OE'),
   isHotSpotText: Ember.computed.equal('questionType', 'HS_TXT'),
   isHotSpotImage: Ember.computed.equal('questionType', 'HS_IMG'),
   isHotTextReoder: Ember.computed.equal('questionType', 'HT_RO'),
