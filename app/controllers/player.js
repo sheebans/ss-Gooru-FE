@@ -57,8 +57,7 @@ export default Ember.Controller.extend({
      */
     openNavigator:function(){
       Ember.$( ".app-container" ).addClass( "navigator-on" );
-      Ember.$( ".gru-navigation .hamburger-icon" ).addClass( "hidden" );
-      Ember.$( ".gru-navigation .content" ).addClass( "margin-navigator" );
+      this.set('isNavigatorOpen', true);
     },
 
     /**
@@ -66,8 +65,7 @@ export default Ember.Controller.extend({
      */
     closeNavigator:function(){
       Ember.$( ".app-container" ).removeClass( "navigator-on" );
-      Ember.$( ".gru-navigation .hamburger-icon" ).removeClass( "hidden" );
-      Ember.$( ".gru-navigation .content" ).removeClass( "margin-navigator" );
+      this.set('isNavigatorOpen', false);
     }
   },
 
@@ -94,6 +92,11 @@ export default Ember.Controller.extend({
    * @property {Resource} resource
    */
   resource: null,
+
+  /**
+   * @property {bool} is the navigator open or closed for small or x-small devices?
+   */
+  isNavigatorOpen: false,
 
   // -------------------------------------------------------------------------
   // Observers
