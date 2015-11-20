@@ -9,11 +9,11 @@
     h2 {
       margin-top: 10px;
       padding: 0 5px;
-      width: 100%;
+      width: 80%;
       float: left;
 
-      @media (max-width: $screen-sm) {
-        width: 80%;
+      @media (min-width: $screen-md) {
+        width: 100%;
       }
     }
     .hamburger-icon {

@@ -74,10 +74,12 @@ test('Close Left Navigator', function(assert) {
     assert.ok(true, 'external Action was called!');
   });
 
-  this.render(hbs`{{player/gru-navigator onCloseNavigator='parentAction'}}`);
+  this.render(hbs`{{player/gru-navigator onCloseNavigator='parentAction' isNavigatorOpen=false}}`);
   var $component = this.$(); //component dom element
   var $openButton = $component.find(".hamburger-icon");
   T.exists(assert, $openButton, "Missing hamburger icon button");
   $openButton.click();
+  //T.exists(assert, $component.find(".hamburger-icon.hidden"), "Missing hidden hamburger icon button in the navigator panel");
+  //T.exists(assert, $component.find(".content.margin-navigator"), "Missing margin-left class in the content panel");
 
 });

@@ -68,8 +68,10 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Observers
   updateNavigatorStatus: Ember.observer('isNavigatorOpen', function() {
-    this.$( ".hamburger-icon" ).removeClass( "hidden" );
-    this.$( ".content" ).removeClass( "margin-navigator" );
+    if (this.get('isNavigatorOpen')){
+      Ember.$( ".gru-navigation .hamburger-icon" ).addClass( "hidden" );
+      Ember.$( ".gru-navigation .content" ).addClass( "margin-navigator" );
+    }
   })
 
   // -------------------------------------------------------------------------

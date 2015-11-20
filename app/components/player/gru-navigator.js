@@ -76,6 +76,20 @@ export default Ember.Component.extend({
 
   selectedResourceId:null,
 
+  /**
+   * @property {bool} is the navigator open or closed for small or x-small devices?
+   */
+  isNavigatorOpen: null,
+
+  // -------------------------------------------------------------------------
+  // Observers
+  updateNavigatorStatus: Ember.observer('isNavigatorOpen', function() {
+    if (!this.get('isNavigatorOpen')){
+      Ember.$( ".gru-navigation .hamburger-icon" ).removeClass( "hidden" );
+      Ember.$( ".gru-navigation .content" ).removeClass( "margin-navigator" );
+    }
+  }),
+
   // -------------------------------------------------------------------------
   // Observers
   /**
