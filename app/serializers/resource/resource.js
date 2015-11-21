@@ -45,11 +45,15 @@ export default DS.JSONAPISerializer.extend({
   normalizeDefaultResource: function(payload) {
     var model = this.getBaseResourceModel();
     model.id = payload.gooruOid;
-    model.attributes.resourceType = payload.resourceFormat.value;
+    model.attributes.resourceType = payload.resourceType.name;
+    model.attributes.resourceFormat = payload.resourceFormat.value;
     model.attributes.title = payload.title;
     model.attributes.description = payload.description;
     model.attributes.thumbnail = null;
+    model.attributes.assetUri = payload.assetURI;
+    model.attributes.folder = payload.folder;
     model.attributes.mediaUrl = (payload.thumbnails ? payload.thumbnails.url : null);
+    model.attributes.url = payload.url;
     model.attributes.narration = payload.narration;
     model.attributes.order = payload.itemSequence;
     model.attributes.owner =  {
@@ -63,10 +67,14 @@ export default DS.JSONAPISerializer.extend({
   normalizeResourceForSearch: function(payload) {
     var model = this.getBaseResourceModel();
     model.id = payload.collectionItemId;
-    model.attributes.resourceType = payload.resource.resourceFormat.value;
+    model.attributes.resourceType = payload.resource.resourceType.name;
+    model.attributes.resourceFormat = payload.resource.resourceFormat.value;
     model.attributes.title = payload.resource.title;
     model.attributes.description = payload.resource.title;
     model.attributes.thumbnail = (payload.resource.thumbnails ? payload.resource.thumbnails.url : null);
+    model.attributes.assetUri = payload.resource.assetURI;
+    model.attributes.folder = payload.resource.folder;
+    model.attributes.url = payload.resource.url;
     model.attributes.mediaUrl = null;
     model.attributes.narration = null;
     model.attributes.order = 0;
