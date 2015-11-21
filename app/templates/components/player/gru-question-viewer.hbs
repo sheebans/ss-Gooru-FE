@@ -58,6 +58,15 @@
       }}
     {{/if}}
 
+   {{#if question.isFIB}}
+    {{player.questions.gru-fib
+      question=question
+      onAnswerChanged="changeAnswer"
+      onAnswerCleared="clearAnswer"
+      onAnswerCompleted="completeAnswer"
+    }}
+    {{/if}}
+
     <div class="actions">
       <button type="submit" class="save btn btn-lg btn-primary" disabled={{isSubmitDisabled}}>{{t "common.submit"}}</button>
     </div>
