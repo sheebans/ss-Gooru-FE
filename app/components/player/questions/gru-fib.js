@@ -16,12 +16,11 @@ export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Events
   initInputEvents: function () {
-    const answers = [];
     const component = this;
     const inputs = component.$(".fib-answers input[type=text]");
     inputs.on("keyup", function () {
       component.notifyInputAnswers();
-    })
+    });
   }.on('didInsertElement'),
 
   // -------------------------------------------------------------------------

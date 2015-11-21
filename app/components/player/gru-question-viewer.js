@@ -27,6 +27,20 @@ export default Ember.Component.extend({
   actions: {
 
     /**
+     * Action triggered when the user see a hint
+     */
+    showHint: function(){
+      var actualHint = this.get('actualHint');
+
+      this.get('hintsToDisplay').pushObject(this.get('question.hints').objectAt(actualHint));
+      this.set('actualHint', ++actualHint);
+    },
+
+    showExplanation: function(){
+      this.set('isExplanationShown', true);
+    },
+
+    /**
      * When the question is submitted
      */
     submitQuestion: function () {
@@ -62,12 +76,64 @@ export default Ember.Component.extend({
     }
   },
 
+
   // -------------------------------------------------------------------------
   // Events
 
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * Hits available for a question
+   * @property {Number} availableHints
+   */
+  actualHint: 0,
+
+  /**
+   * @property {bool} indicates when the answer is completed
+   */
+  answerCompleted: false,
+
+  /**
+   * Hits available for a question
+   * @property {Number} availableHints
+   */
+  availableHints: Ember.computed('actualHint', 'question', function() {
+    return this.get('question.hints.length') - this.get('actualHint');
+  }),
+
+  doesNotHaveExplanation: Ember.computed.not('question.explanation'),
+
+  /**
+   * Hints to display
+   * @property {Array} hintsToDisplay
+   */
+  hintsToDisplay: Ember.A(),
+
+  /**
+   * Is the explanation shown?
+   * @property {Boolean} disableExplanation
+   */
+  isExplanationShown: false,
+
+  /**
+   * Is the explanation button disabled?
+   * @property {Boolean} disableHint
+   */
+  isExplanationButtonDisabled: Ember.computed.or('isExplanationShown', 'doesNotHaveExplanation'),
+
+  /**
+   * Is the hints button disabled?
+   * @property {Boolean} disableHint
+   */
+  isHintButtonDisabled: Ember.computed.not('availableHints'),
+
+  /**
+   * @property {bool} indicates when the submit functionality is enabled
+   */
+  isSubmitDisabled: Ember.computed.not("answerCompleted"),
+
   /**
    * @property {string} on submit question action
    */
@@ -79,25 +145,19 @@ export default Ember.Component.extend({
    */
   question: null,
 
-  /**
-   * @property {bool} indicates when the answer is completed
-   */
-  answerCompleted: false,
-
-  /**
-   * @property {bool} indicates when the submit functionality is enabled
-   */
-  isSubmitDisabled: Ember.computed.not("answerCompleted"),
-
-
   // -------------------------------------------------------------------------
   // Observers
   /**
    * Observes for the question itself
    * When it is changed some data should be reloaded
    */
-  reloadQuestion: function(){
-    this.set("answerCompleted", false);
+  reloadQuestion: function() {
+    this.setProperties({
+      actualHint: 0,
+      answerCompleted: false,
+      hintsToDisplay: Ember.A(),
+      isExplanationShown: false
+    });
   }.observes("question")
 
   // -------------------------------------------------------------------------
