@@ -1,50 +1,57 @@
 .gru-emotion-picker{
   .emotion{
     background: url('gooru/resource-collection-icons.png') no-repeat 0 0;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+    background-size: 385px 293px;
     background-color: $color-white;
-    background-size: 348px 250px;
+    width: 36px;
+    height: 37px;
+    border-radius: 50%;
+    border: 1px solid $color-gray-lighter-11;
+    cursor: pointer;
   }
 
   .need-help{
-    background-position: -231px -178px;
+    background-position: -256px -257px;
 
     &.active {
-      background-position: -231px -218px;
+      background-position: -256px -209px;
+      border-color: $emoticon-need-help;
     }
   }
 
   .do-not-understand{
-    background-position: -189px -178px;
+    background-position: -210px -257px;
 
     &.active {
-      background-position: -189px -218px;
+      background-position: -210px -209px;
+      border-color: $emoticon-do-not-understand;
     }
   }
 
   .meh{
-    background-position: -148px -178px;
+    background-position: -165px -257px;
 
     &.active {
-      background-position: -148px -218px;
+      background-position: -165px -209px;
+      border-color: $emoticon-meh;
     }
   }
 
   .understand{
-    background-position: -106px -178px;
+    background-position: -119px -257px;
 
     &.active {
-      background-position: -106px -218px;
+      background-position: -119px -209px;
+      border-color: $emoticon-understand;
     }
   }
 
   .can-explain{
-    background-position: -66px -178px;
+    background-position: -73px -257px;
 
     &.active {
-      background-position: -66px -218px;
+      background-position: -73px -209px;
+      border-color: $emoticon-can-explain;
     }
   }
 
@@ -55,7 +62,10 @@
 
     li {
       display: inline-block;
-      padding: 0 2%;
+      padding: 0;
+      @media (min-width: $screen-sm) {
+        padding: 0 2%;
+      }
     }
   }
 }

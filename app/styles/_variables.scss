@@ -35,6 +35,8 @@ $color-gray-lighter-8:#999;
 $color-gray-lighter-9:#D8D8D8;
 /* i.e apply to the border of the resources list  */
 $color-gray-lighter-10:#a4a4a4;
+/* i.e apply to the border of the emotics icons  */
+$color-gray-lighter-11:#bec0c1;
 
 /* i.e apply to collection results titles */
 $color-blue-dark: #0c74be;
@@ -62,12 +64,19 @@ $color-green-primary: #4e9746;
 
 $gru-category-panel-bg: #dcddde;
 
+/*colors for the active emoticon icons of the player*/
+$emoticon-need-help: #E28688;
+$emoticon-do-not-understand: #FDD888;
+$emoticon-meh: #E9EA75;
+$emoticon-understand: #A5D27F;
+$emoticon-can-explain: #5DBF8C;
+
 /* === DIMENSIONS === */
-$player-navigator-width-xs: 75%;
+$player-navigator-width-xs: 80%;
 $player-navigator-width-sm: 40%;
 $player-navigator-width-md: 24%;
 
-$player-navigation-height: 50px;
+$player-navigation-height: 55px;
 
 $narration-avatar-width:40px;
 
