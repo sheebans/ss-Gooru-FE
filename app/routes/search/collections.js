@@ -7,29 +7,6 @@ import { checkStandards } from '../../utils/utils';
 export default Ember.Route.extend({
 
   /**
-   * @property {[]} query params supported
-   */
-  queryParams: {
-    term: {
-      refreshModel: true
-    },
-    gradeIds: 'gradeIds',
-    subjectIds: 'subjectIds',
-    collectionType: {
-      refreshModel: true
-    }
-  },
-
-  /**
-   * @property {string} term filter
-   */
-  term: null,
-
-  /**
-   * @property {string} collections filter
-   */
-  collections: null,
-  /**
    * @property {Ember.Service} Service to retrieve grades
    */
   gradeService: Ember.inject.service("api-sdk/grade"),
@@ -65,8 +42,7 @@ export default Ember.Route.extend({
       grades: grades,
       standards: standards,
       profile: profile,
-      collectionResults: collectionResults,
-      collectionType: params.collectionType
+      collectionResults: collectionResults
     });
   },
   /**
@@ -88,26 +64,17 @@ export default Ember.Route.extend({
 
     controller.set("standards", model.standards);
     controller.set('collectionResults', model.collectionResults);
-    controller.set('selectedCollectionType', model.collectionType);
   },
 
+  // -------------------------------------------------------------------------
+  // Actions - only transition actions should be placed at the route
   actions: {
     /**
      * Action triggered to open the content player
-     * @param {string} collectionIdgooruOid collection identifier
+     * @param {string} collectionId gooruOid collection identifier
      */
     onOpenContentPlayer: function(collectionId) {
       this.transitionTo('player', collectionId);
-    },
-
-    /**
-     * Action triggered to filter by type in collections page
-     */
-    filterType: function(term, collectionType) {
-      var termParam = '?term=' + term;
-      var collectionTypeParam = '&collectionType=' + collectionType;
-      this.transitionTo('/search/collections' + termParam + collectionTypeParam);
     }
   }
-
 });
