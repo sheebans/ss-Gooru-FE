@@ -37,6 +37,12 @@ export default Ember.Component.extend({
      */
     closePlayer:function(){
       this.sendAction("onClosePlayer");
+    },
+    /**
+     * Action triggered when the user open de navigator panel
+     */
+    openNavigator:function(){
+      this.sendAction("onOpenNavigator");
     }
   },
 
@@ -51,9 +57,6 @@ export default Ember.Component.extend({
    * @property {string} on content player action
    */
   onClosePlayer: "onClosePlayer"
-
-  // -------------------------------------------------------------------------
-  // Observers
 
 
   // -------------------------------------------------------------------------

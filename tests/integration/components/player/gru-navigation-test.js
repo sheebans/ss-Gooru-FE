@@ -9,7 +9,7 @@ moduleForComponent('player/gru-navigation', 'Integration | Component | player/gr
   }
 });
 
-test('Navigation', function(assert) {
+test('Layout', function(assert) {
 
 
   assert.expect(3);
@@ -36,3 +36,17 @@ test('Close player', function(assert) {
   $closeButton.click();
 });
 
+test('Layout when navigator is opened', function(assert) {
+  assert.expect(2);
+
+  this.on('parentAction', function(){
+    assert.ok(true, 'external Action was called!');
+  });
+
+  this.render(hbs`{{player/gru-navigation onOpenNavigator='parentAction'}}`);
+  var $component = this.$(); //component dom element
+  var $menuButton = $component.find(".hamburger-icon");
+
+  assert.ok($menuButton, "Missing menu button");
+  $menuButton.click();
+});

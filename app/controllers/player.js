@@ -50,6 +50,20 @@ export default Ember.Controller.extend({
     selectNavigatorItem: function(item){
       const controller = this;
       controller.moveToResource(item);
+    },
+
+    /**
+     * Action triggered when the user open de navigator panel
+     */
+    openNavigator:function(){
+      Ember.$( ".app-container" ).addClass( "navigator-on" );
+    },
+
+    /**
+     * Action triggered when the user close de navigator panel
+     */
+    closeNavigator:function(){
+      Ember.$( ".app-container" ).removeClass( "navigator-on" );
     }
   },
 
