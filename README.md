@@ -166,9 +166,18 @@ Testem is configured to proxy ajax request to the stubby server, make sure your 
 You can also execute the test using grunt tasks
 
 ### Running Tests with grunt tasks
- * `grunt test` which start the stubby and run the test by using `ember test`
- * `grunt test:server` which start the stubby and run the test by using `ember test --server`
+ * `grunt test` which starts the stubby and run the test by using `ember test`
+ * `grunt test --server` which starts the stubby and run the test by using `ember test --server`
+ * `grunt test --filter=collection-test` to run an specific pattern
+ * `grunt test --no-stubby` to disable stubby   
  * `grunt test:cli` which start the stubby and run the test by using `ember test --silent --reporter xunit`
+
+ Examples
+ * `grunt test` run all tests (single run) with stubby server
+ * `grunt test --server` run all tests with stubby server, it keeps the tests running and watching for changes
+ * `grunt test --filter=collection --no-stubby` run tests matching 'collection' with no stubby
+ * `grunt test --filter=collection --server` run tests matching 'collection', it keeps the tests running and watching for changes
+ * `grunt test --filter=model --no-stubby --server` run tests matching 'model' (all model tests), with no stubby and it keeps the tests running and watching for changes
  
 
 ### Code Coverage

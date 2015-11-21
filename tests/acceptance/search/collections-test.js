@@ -12,7 +12,7 @@ module('Acceptance | search/collections', {
   }
 });
 
-test('visiting /search/collections', function(assert) {
+test('Search collections layout', function(assert) {
 
   andThen(function() {
     assert.expect(2);

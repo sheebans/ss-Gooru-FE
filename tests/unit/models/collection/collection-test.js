@@ -10,9 +10,20 @@ moduleForModel('collection/collection', 'Unit | Model | collection/collection', 
   ]
 });
 
+test('isAssessment', function (assert) {
+  assert.expect(1);
+  let model = this.subject({
+    collectionType: "assessment",
+    resources: Ember.A()
+  });
+
+  assert.ok(model.get("isAssessment"), "Should return true");
+});
+
 test('hasResources empty', function (assert) {
   assert.expect(1);
   let model = this.subject({
+
     resources: Ember.A()
   });
   // let store = this.store();

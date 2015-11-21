@@ -22,6 +22,10 @@ export default DS.Model.extend({
   resourceFormat: DS.attr('string'),
   title: DS.attr('string'),
   description: DS.attr('string'),
+
+  /**
+   * @property {string} resource thumbnail
+   */
   thumbnail: DS.attr('string'),
   /**
    * @property {string} asset URI
@@ -52,20 +56,71 @@ export default DS.Model.extend({
   explanation: DS.attr('string'),
   answers: DS.hasMany('resource/answer'),
 
+  /**
+   * @property {string} thumbnail url
+   */
   thumbnailUrl: Ember.computed('thumbnail', function() {
-    return (this.get('thumbnail') ? this.get('thumbnail') : '/assets/gooru/default-' + this.get('resourceType') + '.png');
+    const defaultThumbnailUrl = '/assets/gooru/default-' + this.get('resourceFormat') + '.png';
+    return (this.get('thumbnail') ? this.get('thumbnail') : defaultThumbnailUrl);
   }),
 
+  /**
+   * @property {bool} indicates if the resource is a question
+   */
   isQuestion: Ember.computed.equal('resourceFormat', 'question'),
+
+  /**
+   * @property {bool} indicates if the question is multiple choice type
+   * @see components/player/gru-multiple-choice.js
+   */
   isMultipleChoice: Ember.computed.equal('questionType', 'MC'),
+
+  /**
+   * @property {bool} indicates if the question is multiple answer type
+   * @see components/player/gru-multiple-answer.js
+   */
   isMultipleAnswer: Ember.computed.equal('questionType', 'MA'),
+
+  /**
+   * @property {bool} indicates if the question is true false type
+   * @see components/player/gru-true-false.js
+   */
   isTrueFalse: Ember.computed.equal('questionType', 'T/F'),
+
+  /**
+   * @property {bool} indicates if the question is open ended type
+   * @see components/player/gru-open-ended.js
+   */
   isOpenEnded: Ember.computed.equal('questionType', 'OE'),
+
+  /**
+   * @property {bool} indicates if the question is fill in the blank type
+   * @see components/player/gru-fib.js
+   */
   isFIB: Ember.computed.equal('questionType', 'FIB'),
 
+  /**
+   * @property {bool} indicates if the question is hot spot text type
+   * @see components/player/gru-hot-spot-text.js
+   */
   isHotSpotText: Ember.computed.equal('questionType', 'HS_TXT'),
+
+  /**
+   * @property {bool} indicates if the question is hot spot image type
+   * @see components/player/gru-hot-spot-image.js
+   */
   isHotSpotImage: Ember.computed.equal('questionType', 'HS_IMG'),
-  isHotTextReoder: Ember.computed.equal('questionType', 'HT_RO'),
+
+  /**
+   * @property {bool} indicates if the question is reorder
+   * @see components/player/gru-reorder.js
+   */
+  isHotTextReorder: Ember.computed.equal('questionType', 'HT_RO'),
+
+  /**
+   * @property {bool} indicates if the question is hot spot text
+   * @see components/player/gru-hot-text-highlight.js
+   */
   isHotTextHighlight: Ember.computed.equal('questionType', 'HT_HL'),
 
   hasMedia: Ember.computed.bool('mediaUrl'),
@@ -74,10 +129,11 @@ export default DS.Model.extend({
 
   /**
    * Indicates if it is an image resource
+   * @property {bool}
    */
   isImageResource: Ember.computed("resourceType", function(){
     var resourceType = this.get("resourceType");
-    return resourceType || resourceType.indexOf("image") >= 0;
+    return resourceType && resourceType.indexOf("image") >= 0;
   })
 
 
