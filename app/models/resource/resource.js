@@ -61,6 +61,8 @@ export default DS.Model.extend({
   isMultipleAnswer: Ember.computed.equal('questionType', 'MA'),
   isTrueFalse: Ember.computed.equal('questionType', 'T/F'),
   isOpenEnded: Ember.computed.equal('questionType', 'OE'),
+  isFIB: Ember.computed.equal('questionType', 'FIB'),
+
   isHotSpotText: Ember.computed.equal('questionType', 'HS_TXT'),
   isHotSpotImage: Ember.computed.equal('questionType', 'HS_IMG'),
   isHotTextReoder: Ember.computed.equal('questionType', 'HT_RO'),
@@ -77,6 +79,7 @@ export default DS.Model.extend({
     var resourceType = this.get("resourceType");
     return resourceType || resourceType.indexOf("image") >= 0;
   })
+
 
 
 });
