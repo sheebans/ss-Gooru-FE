@@ -66,3 +66,19 @@ test('Player Navigator', function(assert) {
 
 
 });
+
+test('Layout when navigator is closed', function(assert) {
+  assert.expect(2);
+
+  this.on('parentAction', function(){
+    assert.ok(true, 'external Action was called!');
+  });
+
+  this.render(hbs`{{player/gru-navigator onCloseNavigator='parentAction'}}`);
+  var $component = this.$(); //component dom element
+  var $menuButton = $component.find(".hamburger-icon");
+
+  assert.ok($menuButton, "Missing menu button");
+  $menuButton.click();
+
+});

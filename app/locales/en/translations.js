@@ -271,7 +271,9 @@ export default {
     "instructions" : "Please type your answer in the field below, and click the \"Submit\" button to save your response when you're done.",
     "characterLimit": "Character Limit"
   },
-
+  "gru-fib": {
+    "instructions" : "Please type your answer(s) in the blank(s) provided, and click \"Save and Next\"."
+  },
   "player.gru-reorder": {
     "instructions" : "Please reorder the answers in correct order, and click \"Submit\"."
   }
