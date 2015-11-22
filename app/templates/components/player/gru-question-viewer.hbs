@@ -13,13 +13,12 @@
 
   <form {{action "submitQuestion" on="submit"}}>
 
-    {{#if question.isMultipleChoice}}
-      {{player.questions.gru-multiple-choice
-      question=question
-      onAnswerChanged="changeAnswer"
-      onAnswerCleared="clearAnswer"
-      onAnswerCompleted="completeAnswer"
-      }}
+    {{#if questionComponentSelected}}
+      {{component questionComponentSelected
+        question=question
+        onAnswerChanged="changeAnswer"
+        onAnswerCleared="clearAnswer"
+        onAnswerCompleted="completeAnswer"}}
     {{/if}}
 
     {{#if question.isMultipleAnswer}}
@@ -49,7 +48,7 @@
       }}
     {{/if}}
 
-    {{#if question.isHotTextReorder}}
+    {{#if question.isHotTextReoder}}
       {{player.questions.gru-reorder
       question=question
       onAnswerChanged="changeAnswer"
@@ -68,7 +67,7 @@
     {{/if}}
 
     <div class="actions">
-      <button type="submit" class="save btn btn-lg btn-primary" disabled={{isSubmitDisabled}}>{{t "common.submit"}}</button>
+      <button type="submit" class="save btn btn-lg btn-primary" disabled="{{if isSubmitDisabled true null}}">{{t "common.submit"}}</button>
     </div>
   </form>
 </div>

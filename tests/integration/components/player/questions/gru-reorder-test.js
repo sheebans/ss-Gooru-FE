@@ -13,31 +13,20 @@ test('Reorder question layout', function (assert) {
 
   const question = Ember.Object.create(
     {
-      "id": 10,
       "answers": [
         {
           "id": 1,
-          "text": "An aquifer",
-          "answerType": "text",
-          "isCorrect": true,
-          "sequence": 1
+          "text": "An aquifer"
         },
         {
           "id": 2,
-          "text": "A well",
-          "answerType": "text",
-          "isCorrect": false,
-          "sequence": 2
+          "text": "A well"
         },
         {
           "id": 3,
-          "text": "A pump",
-          "answerType": "text",
-          "isCorrect": false,
-          "sequence": 3
+          "text": "A pump"
         }
-      ],
-      "order": 2
+      ]
     });
 
   this.set('question', question);
@@ -55,36 +44,25 @@ test('Reorder question layout', function (assert) {
   assert.equal($component.find(".sortable li:last-child").data('id'), 3, "Last answer choice, data-id value is incorrect");
 });
 
-test('Notifications works after reordering questions', function (assert) {
+test('Notifications work after reordering questions', function (assert) {
 
   var answerOrder = null;
   const question = Ember.Object.create(
     {
-      "id": 10,
       "answers": [
         {
           "id": 1,
-          "text": "An aquifer",
-          "answerType": "text",
-          "isCorrect": true,
-          "sequence": 1
+          "text": "An aquifer"
         },
         {
           "id": 2,
-          "text": "A well",
-          "answerType": "text",
-          "isCorrect": false,
-          "sequence": 2
+          "text": "A well"
         },
         {
           "id": 3,
-          "text": "A pump",
-          "answerType": "text",
-          "isCorrect": false,
-          "sequence": 3
+          "text": "A pump"
         }
-      ],
-      "order": 2
+      ]
     });
 
   this.set('question', question);
