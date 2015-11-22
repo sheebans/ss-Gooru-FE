@@ -20,7 +20,7 @@ test('On question submit', function (assert) {
       "text": "Dummy resource text",
       "media": "test.jpg",
       "isQuestion": true,
-      "isOpenEnded": true
+      "questionType": 'OE'
     });
 
   this.set('resource', resource);

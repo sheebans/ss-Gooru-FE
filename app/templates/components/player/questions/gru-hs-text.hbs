@@ -1,0 +1,16 @@
+
+<p class="instructions">
+  {{t "gru-multiple-choice.instructions"}}
+</p>
+
+<div class="answer-choices">
+
+  <ul>
+    {{#each question.answers as |answer|}}
+      <li data-id="{{answer.id}}" class="answer">{{{answer.text}}}</li>
+    {{/each}}
+  </ul>
+
+</div>
+
+

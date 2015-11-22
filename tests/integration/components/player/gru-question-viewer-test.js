@@ -21,7 +21,7 @@ test('Layout', function (assert) {
       "order": 2,
       "text": "Dummy question text",
       "mediaUrl": "test.jpg",
-      "isOpenEnded": true,
+      "questionType": 'OE',
       "hasMedia": true,
       "hints": []
     });
@@ -59,7 +59,7 @@ test('Submit button should become enabled and call action on submit', function (
       "order": 2,
       "text": "Dummy question text",
       "mediaUrl": "test.jpg",
-      "isOpenEnded": true,
+      "questionType": 'OE',
       "hasMedia": true
     });
 
