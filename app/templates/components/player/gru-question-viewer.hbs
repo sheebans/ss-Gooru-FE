@@ -21,15 +21,6 @@
         onAnswerCompleted="completeAnswer"}}
     {{/if}}
 
-   {{#if question.isFIB}}
-    {{player.questions.gru-fib
-      question=question
-      onAnswerChanged="changeAnswer"
-      onAnswerCleared="clearAnswer"
-      onAnswerCompleted="completeAnswer"
-    }}
-    {{/if}}
-
     <div class="actions">
       <button type="submit" class="save btn btn-lg btn-primary" disabled="{{if isSubmitDisabled true null}}">{{t "common.submit"}}</button>
     </div>
