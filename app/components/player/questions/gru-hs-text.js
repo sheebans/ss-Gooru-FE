@@ -42,14 +42,14 @@ export default QuestionComponent.extend({
 
       if (idx === -1) {
         selected.push(answerId);
+        component.notifyAnswerChanged(selected);
+        component.notifyAnswerCompleted(selected);
       } else {
         selected.splice(idx, 1);
         if (!selected.length) {
           component.notifyAnswerCleared(selected);
         }
       }
-      component.notifyAnswerChanged(selected);
-      component.notifyAnswerCompleted(selected);
     });
   }),
 

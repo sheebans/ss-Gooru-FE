@@ -31,7 +31,11 @@
     {{/if}}
 
     <div class="actions">
-      <button type="submit" class="save btn btn-lg btn-primary" disabled={{isSubmitDisabled}}>{{t "common.submit"}}</button>
+      {{#if isSubmitDisabled}}
+        <button type="submit" class="save btn btn-lg btn-primary" disabled>{{t "common.submit"}}</button>
+      {{else}}
+        <button type="submit" class="save btn btn-lg btn-primary">{{t "common.submit"}}</button>
+      {{/if}}
     </div>
   </form>
 </div>

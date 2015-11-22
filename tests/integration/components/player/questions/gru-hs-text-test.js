@@ -126,9 +126,14 @@ test('Notifications work after selecting questions', function (assert) {
     assert.deepEqual(answerArray, answers, "Answer completed, but the answers are not correct");
   });
 
+  this.on('clearAnswer', function(question, answerArray) {
+    assert.deepEqual(answerArray, [], "Answer cleared, but the answers are not correct");
+  });
+
   this.render(hbs`{{player/questions/gru-hs-text question=question
                     onAnswerChanged="changeAnswer"
-                    onAnswerCompleted="completeAnswer"}}`);
+                    onAnswerCompleted="completeAnswer"
+                    onAnswerCleared="clearAnswer" }}`);
 
   const $answers = this.$('li.answer');
 
@@ -139,6 +144,17 @@ test('Notifications work after selecting questions', function (assert) {
   answers = [1, 3];
   $answers.eq(2).click();
 
+  // Three answers selected
   answers = [1, 3, 4];
+  $answers.eq(3).click();
+
+  // Now, test deselecting all answers
+  answers = [1, 4];
+  $answers.eq(2).click();
+
+  answers = [4];
+  $answers.eq(0).click();
+
+  // Send onAnswerCleared notification
   $answers.eq(3).click();
 });
