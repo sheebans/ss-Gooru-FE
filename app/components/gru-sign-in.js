@@ -26,8 +26,8 @@ export default Ember.Component.extend(ModalMixin, {
     authenticate: function() {
       var component = this;
 
-      this.get("sessionService")
-        .signInWithUser(this.get("credentials"))
+      component.get("sessionService")
+        .signInWithUser(component.get("credentials"))
         .then(function() {
           // Close the modal
           component.triggerAction({

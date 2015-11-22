@@ -2,15 +2,8 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     exec: {
-      "ember-test": {
-        cmd: function(server, filter){
-          var command = 'ember test';
-          if (server === "true"){
-            command += " --server";
-          }
-          if (filter){
-            command += (" --filter " + filter);
-          }
+      "run": {
+        cmd: function(command){
           return command;
         }
       },
@@ -48,13 +41,22 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', function () {
     var noStubby = grunt.option("no-stubby"),
-      server = grunt.option("server"),
-      filter = grunt.option("filter");
+      server = grunt.option("server") || grunt.option("s"),
+      filter = grunt.option("filter") || grunt.option("f"),
+      module = grunt.option("module") || grunt.option("m");
 
-    var testExecTask = 'exec:ember-test:' + ((server) ? "true" : "false");
-    if (filter){ //when filtering tests
-      testExecTask += ":" + filter;
-    }
+      var command = 'ember test';
+      if (server){
+        command += " --server";
+      }
+      if (filter){
+        command += (" --filter=\"" + filter + "\"");
+      }
+      if (module){
+        command += (" --module=\"" + module + "\"");
+      }
+
+    var testExecTask = 'exec:run:' + command;
 
     var tasks = noStubby ? [testExecTask] : [ 'stubby:test', testExecTask ];
     grunt.task.run(tasks);

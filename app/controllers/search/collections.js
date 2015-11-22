@@ -27,6 +27,7 @@ export default Ember.Controller.extend({
      * Action triggered to filter by type in collections page
      */
     filterType: function (term, collectionType) {
+      //TODO: create a search criteria object instead of passing that many parameters
       const
         controller = this,
         searchService = controller.get('searchService'),
