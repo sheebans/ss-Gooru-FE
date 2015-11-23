@@ -12,7 +12,11 @@
         </span>
       </div>
     {{/if}}
-    Viewer not implemented
+
+    {{#if resource.isImageResource}}
+      {{player.resources.gru-image resource=resource}}
+    {{/if}}
+
   {{/if}}
 </div>
 

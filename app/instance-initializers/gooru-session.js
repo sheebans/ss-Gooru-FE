@@ -9,16 +9,11 @@ export function initialize(application) {
      * Restores the session, if the session does not exist then creates a new session for an anonymous user
      * @returns {Ember.RSVP.Promise}
      */
-    restore: function() {
+    restore: function () {
       return new Ember.RSVP.Promise((resolve, reject) => {
-        this._super().then(function() {
-          resolve();
-        }, function () {
-          sessionService.authenticateAsAnonymous().then(function() {
-            resolve();
-          }, function() {
-            reject();
-          });
+        this._super().then(resolve,
+          function () {
+            sessionService.authenticateAsAnonymous().then(resolve, reject);
         });
       });
     }

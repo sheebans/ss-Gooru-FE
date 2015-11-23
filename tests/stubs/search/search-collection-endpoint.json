@@ -1,10 +1,12 @@
 [
   {
+    "description": "Search for assessments any term",
     "request": {
       "url": "^/gooru-search/rest/v2/search/scollection$",
       "query": {
         "sessionToken": "(.+)",
-        "q": "europe"
+        "q": "(.*)",
+        "flt.collectionType": "assessment"
       },
       "method": "GET"
     },
@@ -14,15 +16,17 @@
         "Content-Type": "application/json"
       },
       "body": "File not found!",
-      "file": "search-collection-term-europe-200-response.json"
+      "file": "search-assessments-any-term-200-response.json"
     }
   },
   {
+    "description": "Search for collections, any term",
     "request": {
       "url": "^/gooru-search/rest/v2/search/scollection$",
       "query": {
         "sessionToken": "(.+)",
-        "q": "(.*)"
+        "q": "(.*)",
+        "flt.collectionType": "collection"
       },
       "method": "GET"
     },
@@ -32,7 +36,7 @@
         "Content-Type": "application/json"
       },
       "body": "File not found!",
-      "file": "search-collection-term-any-200-response.json"
+      "file": "search-collections-any-term-200-response.json"
     }
   }
 ]

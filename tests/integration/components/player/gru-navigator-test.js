@@ -17,14 +17,14 @@ test('Player Navigator', function(assert) {
   const resourceMockA = Ember.Object.create({
     id: '1',
     title: '<p>Resource #1</p>',
-    resourceType: 'question',
+    resourceFormat: 'question',
     "isQuestion": true
   });
 
   const resourceMockB = Ember.Object.create({
     id: '2',
     title: 'Resource #2',
-    resourceType: 'webpage',
+    resourceFormat: 'webpage',
     "isQuestion": false
   });
 
