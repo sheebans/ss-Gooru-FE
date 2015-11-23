@@ -21,51 +21,6 @@
         onAnswerCompleted="completeAnswer"}}
     {{/if}}
 
-    {{#if question.isMultipleAnswer}}
-      {{player.questions.gru-multiple-answer
-      question=question
-      onAnswerChanged="changeAnswer"
-      onAnswerCleared="clearAnswer"
-      onAnswerCompleted="completeAnswer"
-      }}
-    {{/if}}
-
-    {{#if question.isTrueFalse}}
-      {{player.questions.gru-true-false
-      question=question
-      onAnswerChanged="changeAnswer"
-      onAnswerCleared="clearAnswer"
-      onAnswerCompleted="completeAnswer"
-      }}
-    {{/if}}
-
-    {{#if question.isOpenEnded}}
-      {{player.questions.gru-open-ended
-      question=question
-      onAnswerChanged="changeAnswer"
-      onAnswerCleared="clearAnswer"
-      onAnswerCompleted="completeAnswer"
-      }}
-    {{/if}}
-
-    {{#if question.isHotTextReoder}}
-      {{player.questions.gru-reorder
-      question=question
-      onAnswerChanged="changeAnswer"
-      onAnswerCleared="clearAnswer"
-      onAnswerCompleted="completeAnswer"
-      }}
-    {{/if}}
-
-   {{#if question.isFIB}}
-    {{player.questions.gru-fib
-      question=question
-      onAnswerChanged="changeAnswer"
-      onAnswerCleared="clearAnswer"
-      onAnswerCompleted="completeAnswer"
-    }}
-    {{/if}}
-
     <div class="actions">
       <button type="submit" class="save btn btn-lg btn-primary" disabled="{{if isSubmitDisabled true null}}">{{t "common.submit"}}</button>
     </div>

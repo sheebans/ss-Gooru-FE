@@ -7,9 +7,8 @@ module.exports = function (grunt) {
           return command;
         }
       },
-      "ember-test-cli": 'ember test --silent --reporter xunit',
       "ember-server-stubby": 'ember server --proxy http://localhost:8882',
-      "ember-server-qa": 'ember server --proxy http://qa.gooru.org',
+      "ember-server-qa": 'ember server --proxy http://qa.gooru.org'
     },
 
     stubby: {
@@ -39,7 +38,14 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-stubby');
   grunt.loadNpmTasks('grunt-exec');
 
-  grunt.registerTask('test', function () {
+
+  grunt.registerTask('test', function (target) {
+    if (target === "cli"){ //for bamboo
+      grunt.task.run(['stubby:test', 'exec:run:ember test --silent --reporter xunit']);
+      return;
+    }
+
+    //for development
     var noStubby = grunt.option("no-stubby"),
       server = grunt.option("server") || grunt.option("s"),
       filter = grunt.option("filter") || grunt.option("f"),
