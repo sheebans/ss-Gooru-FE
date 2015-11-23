@@ -55,11 +55,3 @@ test('openNavigator: When opening the navigator', function(assert) {
   });
 });
 
-test('closeNavigator: When closing navigator', function(assert) {
-  assert.expect(0);
-  visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
-  andThen(function() {
-
-  });
-});
-
