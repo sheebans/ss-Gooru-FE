@@ -2,6 +2,9 @@
 
   .narration {
     background-color: hsla(0, 0%, 20%, 1);
+    display: table;
+    width: 100%;
+    overflow: hidden;
   }
 
   .content {
@@ -33,6 +36,8 @@
       min-height: 70px;
       margin-left: 70px;
       padding: 10px 15px 10px 0;
+      display: table-cell;
+      vertical-align: middle;
     }
 
     @media (min-width: $screen-md) {
