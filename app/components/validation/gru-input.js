@@ -25,12 +25,12 @@ export default Ember.Component.extend({
   // Attributes
 
   classNames: ['gru-input'],
-  classNameBindings: ['showErrorClass:has-error', 'isValid:has-success'],
+  classNameBindings: ['showErrorClass:has-error', 'isValid:has-success','valuePath'],
 
   /**
    * @type {?string} string of classes (separated by a space) specific to the component instance
    */
-  classes: null,
+  classes: 'test',
 
   // -------------------------------------------------------------------------
   // Actions
@@ -44,6 +44,13 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
+  init() {
+    this._super(...arguments);
+    var valuePath = this.get('valuePath');
+    defineProperty(this, 'attributeValidation', computed.oneWay(`model.validations.attrs.${valuePath}`));
+    this.set('rawInputValue', this.get(`model.${valuePath}`));
+    defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
+  },
 
   // -------------------------------------------------------------------------
   // Properties
@@ -71,16 +78,7 @@ export default Ember.Component.extend({
 
   showMessage: computed('attributeValidation.isDirty', 'isInvalid', 'didValidate', function() {
     return (this.get('attributeValidation.isDirty') || this.get('didValidate')) && this.get('isInvalid');
-  }),
-
-  init() {
-    this._super(...arguments);
-    var valuePath = this.get('valuePath');
-    defineProperty(this, 'attributeValidation', computed.oneWay(`model.validations.attrs.${valuePath}`));
-    this.set('rawInputValue', this.get(`model.${valuePath}`));
-    defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
-
-  }
+  })
 
   // -------------------------------------------------------------------------
   // Observers

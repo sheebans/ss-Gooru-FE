@@ -27,7 +27,7 @@ export default Ember.Component.extend(ModalMixin,{
 
   classNames:['gru-user-sign-up'],
 
-  classNameBindings: ['component-class'],
+  classNameBindings: ['component-class', 'valuePath'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -45,13 +45,17 @@ export default Ember.Component.extend(ModalMixin,{
         model, validations
         }) => {
         if (validations.get('isValid')) {
+
           component.get("userService")
             .create(model)
             .then(function() {
               this.triggerAction({
                 action: 'closeModal'
               });
-            });
+            }.bind(this),
+              function() {
+                Ember.Logger.error('Error signing up user');
+              });
           this.setProperties({
             showAlert: false,
             isRegistered: true,
@@ -100,5 +104,6 @@ export default Ember.Component.extend(ModalMixin,{
    * @private
    */
   target: null
+
 
 });

@@ -26,7 +26,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['gru-datepicker'],
+  classNames: ['gru-radio'],
   classNameBindings: ['showErrorClass:has-error', 'isValid:has-success'],
 
   /**
