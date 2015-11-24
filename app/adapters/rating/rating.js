@@ -22,7 +22,7 @@ export default ApplicationAdapter.extend({
 
     if (requestType === 'createRecord') {
       url = this.get('namespace') + '/rating';
-    } else if (requestType == 'findRecord') {
+    } else if (requestType === 'findRecord') {
       url = this.get('namespace') + '/content/' + id + '/rating/star';
     } else {
       url = this._super(modelName, id, snapshot, requestType, query);

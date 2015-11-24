@@ -32,7 +32,7 @@ export default Ember.Component.extend({
      * @returns {undefined}
      */
     setEmotion: function(newEmotion, score) {
-      if (this.get('selectedEmotion') && this.get('selectedEmotion') == newEmotion) {
+      if (this.get('selectedEmotion') && this.get('selectedEmotion') === newEmotion) {
         // Do nothing in this case
       } else {
         this.set('ratingScore', score);
