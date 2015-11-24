@@ -125,5 +125,13 @@ test('isImageResource', function(assert) {
   assert.ok(model.get("isImageResource"), "It should be image resource type");
 });
 
+test('isYoutubeResource', function(assert) {
+  assert.expect(1);
+  let model = this.subject({
+    "resourceType": "video/youtube"
+  });
+
+  assert.ok(model.get("isYoutubeResource"), "It should be youtube resource type");
+});
 
 

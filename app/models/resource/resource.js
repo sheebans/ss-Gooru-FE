@@ -49,6 +49,17 @@ export default DS.Model.extend({
   order: DS.attr('number'),
   owner: DS.attr(),
 
+  /**
+   * The start time for video/youtube
+   * @property {string} start
+   */
+  start: DS.attr('string'),
+  /**
+   * The end time for video/youtube
+   * @property {string} start
+   */
+  stop: DS.attr('string'),
+
   // Question Fields
   questionType: DS.attr('string'),
   text: DS.attr('string'),
@@ -134,8 +145,15 @@ export default DS.Model.extend({
   isImageResource: Ember.computed("resourceType", function(){
     var resourceType = this.get("resourceType");
     return resourceType && resourceType.indexOf("image") >= 0;
+  }),
+
+  /**
+   * Indicates if it is an youtube resource
+   * @property {bool}
+   */
+  isYoutubeResource: Ember.computed("resourceType", function(){
+    var resourceType = this.get("resourceType");
+    return resourceType && resourceType.indexOf("video/youtube") >= 0;
   })
-
-
 
 });
