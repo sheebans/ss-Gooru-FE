@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
@@ -40,11 +41,11 @@ test('markItem', function(assert) {
     });
 
   this.set("question", question);
-  this.on('myOnAnswerChanged', function(question, answer) {
+  this.on('myOnAnswerChanged', function() {
     assert.ok(true, "This should be called 4 times");
   });
 
-  this.on('myOnAnswerCompleted', function(question, answer) {
+  this.on('myOnAnswerCompleted', function() {
     assert.ok(true, "This should be called 3 times");
   });
 

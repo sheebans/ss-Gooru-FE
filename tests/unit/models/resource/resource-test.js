@@ -151,8 +151,16 @@ test('isHotTextHighlightSentence', function(assert) {
 
 test('hasAnswers', function(assert) {
   assert.expect(1);
+
+  let store = this.store();
+
+  var answers = Ember.A();
+  Ember.run(function () {
+    answers.pushObject(store.createRecord("resource/answer", {id: 1}));
+  });
+
   let model = this.subject({
-    "answers": Ember.A([1])
+    answers: answers
   });
 
   assert.ok(model.get("hasAnswers"), "It should have answers");
