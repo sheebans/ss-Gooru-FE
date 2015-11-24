@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import { moduleForModel, test } from 'ember-qunit';
 
 moduleForModel('resource/resource', 'Unit | Model | resource/resource', {
@@ -123,6 +124,38 @@ test('isImageResource', function(assert) {
   });
 
   assert.ok(model.get("isImageResource"), "It should be image resource type");
+});
+
+
+test('isHotTextHighlightWord', function(assert) {
+  assert.expect(1);
+  let model = this.subject({
+    "options": {
+      hotTextType: "word"
+    }
+  });
+
+  assert.ok(model.get("isHotTextHighlightWord"), "It should be hot text word");
+});
+
+test('isHotTextHighlightSentence', function(assert) {
+  assert.expect(1);
+  let model = this.subject({
+    "options": {
+      hotTextType: "sentence"
+    }
+  });
+
+  assert.ok(model.get("isHotTextHighlightSentence"), "It should be hot text sentence");
+});
+
+test('hasAnswers', function(assert) {
+  assert.expect(1);
+  let model = this.subject({
+    "answers": Ember.A([1])
+  });
+
+  assert.ok(model.get("hasAnswers"), "It should have answers");
 });
 
 

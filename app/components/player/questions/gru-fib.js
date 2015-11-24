@@ -1,6 +1,17 @@
 import Ember from 'ember';
 import QuestionComponent from './gru-question';
 
+/**
+ * Hot Spot Text
+ *
+ * Component responsible for controlling the logic and appearance of a fill in the blank
+ * question inside of the {@link player/gru-question-viewer.js}
+ *
+ * @module
+ * @see controllers/player.js
+ * @see components/player/gru-question-viewer.js
+ * @augments Ember/Component
+ */
 export default QuestionComponent.extend({
 // -------------------------------------------------------------------------
   // Dependencies

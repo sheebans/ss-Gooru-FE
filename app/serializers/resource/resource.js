@@ -61,6 +61,10 @@ export default DS.JSONAPISerializer.extend({
       userId: payload.user.gooruUId,
       avatarUrl: payload.user.profileImageUrl
     };
+    //some extra resource options here
+    model.attributes.options = {
+      hotTextType: payload.hlType
+    };
     return model;
   },
 
@@ -79,6 +83,10 @@ export default DS.JSONAPISerializer.extend({
     model.attributes.narration = null;
     model.attributes.order = 0;
     model.attributes.owner = null;
+    //some extra resource options here
+    model.attributes.options = {
+      hotTextType: payload.hlType
+    };
     return model;
   },
 

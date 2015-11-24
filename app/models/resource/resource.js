@@ -54,7 +54,22 @@ export default DS.Model.extend({
   text: DS.attr('string'),
   hints: DS.attr(),
   explanation: DS.attr('string'),
+
+  /**
+   * @property {Answer[]}
+   */
   answers: DS.hasMany('resource/answer'),
+
+  /**
+   * Indicates if the question has answers
+   * @property {bool}
+   */
+  hasAnswers: Ember.computed.bool("answers.length"),
+
+  /**
+   * @property {*} resource options
+   */
+  options: DS.attr(),
 
   /**
    * @property {string} thumbnail url
@@ -122,6 +137,16 @@ export default DS.Model.extend({
    * @see components/player/gru-hot-text-highlight.js
    */
   isHotTextHighlight: Ember.computed.equal('questionType', 'HT_HL'),
+
+  /**
+   * @property {bool} indicates if the question is hot text word type
+   */
+  isHotTextHighlightWord: Ember.computed.equal('options.hotTextType', 'word'),
+
+  /**
+   * @property {bool} indicates if the question is hot text word type
+   */
+  isHotTextHighlightSentence: Ember.computed.equal('options.hotTextType', 'sentence'),
 
   hasMedia: Ember.computed.bool('mediaUrl'),
   hasNarration: Ember.computed.bool('narration'),

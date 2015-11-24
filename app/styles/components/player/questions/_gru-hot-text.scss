@@ -1,0 +1,14 @@
+.player .gru-hot-text {
+  span.item {
+    margin-right: 4px;
+    &.selected {
+      border: 1px solid $color-blue-primary;
+      background-color: $color-blue-lighter-2;
+    }
+    &:hover {
+      border: 1px solid $color-blue-primary;
+      background-color: $color-blue-lighter-4;
+    }
+  }
+
+}
