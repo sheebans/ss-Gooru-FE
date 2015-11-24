@@ -25,6 +25,9 @@
       {{player.resources.gru-image resource=resource}}
     {{/if}}
 
+    {{#if resource.isYoutubeResource}}
+      {{player.resources.gru-youtube-player resource=resource}}
+    {{/if}}
   {{/if}}
 </div>
 

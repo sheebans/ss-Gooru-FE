@@ -134,6 +134,15 @@ export default DS.Model.extend({
   isImageResource: Ember.computed("resourceType", function(){
     var resourceType = this.get("resourceType");
     return resourceType && resourceType.indexOf("image") >= 0;
+  }),
+
+  /**
+   * Indicates if it is an youtube resource
+   * @property {bool}
+   */
+  isYoutubeResource: Ember.computed("resourceType", function(){
+    var resourceType = this.get("resourceType");
+    return resourceType && resourceType.indexOf("video/youtube") >= 0;
   })
 
 
