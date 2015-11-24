@@ -93,3 +93,28 @@
     }
   }
 }
+
+@mixin position($type,$left,$right,$top,$bottom) {
+  position: $type;
+  left: $left;
+  right: $right;
+  top: $top;
+  bottom: $bottom;
+}
+
+@mixin translateX($value) {
+  -webkit-transform: translateX($value);
+  -ms-transform: translateX($value);
+  -o-transform: translateX($value);
+  transform: translateX($value);
+}
+
+@mixin translate-show() {
+  @include translateX(0);
+  transition: transform 0.6s ease-out 0.5s;
+}
+
+@mixin translate-hide($value) {
+  @include translateX($value);
+  transition: transform 0.5s ease-in 0s;
+}

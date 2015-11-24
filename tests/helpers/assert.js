@@ -41,7 +41,16 @@ Assert.reopenClass({
    */
   text : function(element){
     return element.text().trim();
+  },
+
+  /**
+   * Returns a mock for the i18n service
+   * @returns {{t: Function}}
+   */
+  i18nServiceMock: {
+      t: function (key) { return key; }
   }
+
 
 });
 

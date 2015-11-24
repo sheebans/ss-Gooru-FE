@@ -6,6 +6,8 @@ export default Ember.Route.extend({
     return this.store.createRecord('sign-up');
   },
 
+  // -------------------------------------------------------------------------
+  // Actions - only transition actions should be placed at the route
   actions: {
     signUp: function() {
       var self = this;

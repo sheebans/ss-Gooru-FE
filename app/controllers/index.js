@@ -18,6 +18,12 @@ export default Ember.Controller.extend({
   selectedSubjects: null,
 
   /**
+   * Selected standard item
+   * @property {Standard}
+   */
+  selectedStandard: null,
+
+  /**
    * Error message displayed when click Browse Content button
    * @property {}
    */
@@ -67,23 +73,20 @@ export default Ember.Controller.extend({
      * @param {DropdownItem} item
      */
     onStandardSelected: function(item){
-      console.debug(item);
-
+      this.set("selectedStandard", item);
     },
 
     /**
      * Triggered when grade selection changes
-     * @param {DropdownItem} item
+     * @param {DropdownItem[]} items
      */
-
     onGradeSelected: function(items){
       this.set("selectedGrades",items);
     },
     /**
      * Triggered when click browseContent button
-     * @param {}
      */
-    onbrowseContentClick:function(){
+    onBrowseContentClick:function(){
       const controller = this;
       const i18n = this.get('i18n');
 

@@ -1,0 +1,42 @@
+[
+  {
+    "description": "Search for assessments any term",
+    "request": {
+      "url": "^/gooru-search/rest/v2/search/scollection$",
+      "query": {
+        "sessionToken": "(.+)",
+        "q": "(.*)",
+        "flt.collectionType": "assessment"
+      },
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "search-assessments-any-term-200-response.json"
+    }
+  },
+  {
+    "description": "Search for collections, any term",
+    "request": {
+      "url": "^/gooru-search/rest/v2/search/scollection$",
+      "query": {
+        "sessionToken": "(.+)",
+        "q": "(.*)",
+        "flt.collectionType": "collection"
+      },
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "search-collections-any-term-200-response.json"
+    }
+  }
+]

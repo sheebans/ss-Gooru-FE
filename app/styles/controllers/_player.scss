@@ -1,0 +1,38 @@
+.player {
+  overflow: hidden;
+
+  .gru-header,
+  .gru-footer
+  {
+    display: none;
+  }
+
+  .app-container {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+
+    .aside {
+      // temporary for GG-92
+      background: #EEEEEE;
+
+      @include translate-hide(-100%);
+      @include position(absolute, 0, null, 0, 0);
+      z-index: 20;
+      width: $player-navigator-width-xs;
+
+      @media (min-width: $screen-sm) {
+        width: $player-navigator-width-sm;
+      }
+
+      @media (min-width: $screen-md) {
+        width: $player-navigator-width-md;
+        @include translate-show();
+      }
+    }
+
+    &.navigator-on .aside {
+      @include translate-show();
+    }
+  }
+}

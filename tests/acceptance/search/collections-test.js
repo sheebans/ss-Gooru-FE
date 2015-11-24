@@ -2,9 +2,12 @@ import Ember from 'ember';
 import { module, test } from 'qunit';
 import startApp from 'gooru-web/tests/helpers/start-app';
 import T from 'gooru-web/tests/helpers/assert';
+import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
+
 module('Acceptance | search/collections', {
   beforeEach: function() {
     this.application = startApp();
+    authenticateSession(this.application, { isAnonymous: true });
   },
 
   afterEach: function() {
@@ -12,24 +15,39 @@ module('Acceptance | search/collections', {
   }
 });
 
-test('visiting /search/collections', function(assert) {
-
+test('Layout', function(assert) {
+  assert.expect(3); //making sure all asserts are called
+  visit('/search/collections?term=any');
   andThen(function() {
-    assert.expect(2);
-    visit('/');
+    assert.equal(currentURL(), '/search/collections?term=any');
+    T.exists(assert, find(".search-filter"), "Missing search filters");
+    T.exists(assert, find(".collection-results"), "Missing collection results");
+    //there is not need to test more layout since each component has it own layout test
+  });
+});
 
+test('onOpenContentPlayer: When opening a collection', function(assert) {
+  assert.expect(2);
+  visit('/search/collections?term=any');
+  andThen(function() {
+    const $firstCollectionLink = find(".collection-card:eq(0) .collection-desc a");
+    T.exists(assert, $firstCollectionLink, "Missing collection link");
+    click($firstCollectionLink); //clicking first collection title
     andThen(function() {
-      const $searchButton = find('.search-button');
-      const $searchInput = find('.search-input');
+      assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=46d4a6d4-991b-4c51-a656-f694e037dd68');
+    });
+  });
+});
 
-      fillIn($searchInput, 'europe');
-      click($searchButton);
-
-      andThen(function(){
-        assert.equal(currentURL(), '/search/collections?term=europe');
-        const $filterSection = find('.search-filter');
-        T.exists(assert, $filterSection, "Missing filter section");
-      });
+test('filterType: When filtering by assessments', function(assert) {
+  assert.expect(2);
+  visit('/search/collections?term=any');
+  andThen(function() {
+    const $assessmentButton = find(".search-filter-options button.assessments");
+    T.exists(assert, $assessmentButton, "Missing assessment filter button");
+    click($assessmentButton); //clicking first collection title
+    andThen(function() {
+      assert.equal(currentURL(), '/search/collections?collectionType=assessment&term=any');
     });
   });
 });

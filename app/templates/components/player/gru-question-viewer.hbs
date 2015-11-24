@@ -1,0 +1,38 @@
+<div class="question-panel">
+  <h3>{{t "gru-question-viewer.question"}}</h3>
+  <div class="question">
+    <span>{{{question.text}}}</span>
+    {{#if question.hasMedia}}
+      <img src="{{question.mediaUrl}}"/>
+    {{/if}}
+  </div>
+
+  {{!-- visible to all screen widths except xs --}}
+  <div class="hidden-xs">
+    {{partial 'components/player/gru-question-information'}}
+  </div>
+</div>
+
+<div class="answers-panel">
+  <h3>{{t "gru-question-viewer.answer"}}</h3>
+
+  <form {{action "submitQuestion" on="submit"}}>
+
+    {{#if questionComponentSelected}}
+      {{component questionComponentSelected
+        question=question
+        onAnswerChanged="changeAnswer"
+        onAnswerCleared="clearAnswer"
+        onAnswerCompleted="completeAnswer"}}
+    {{/if}}
+
+    <div class="actions">
+      <button type="submit" class="save btn btn-lg btn-primary" disabled="{{if isSubmitDisabled true null}}">{{t "common.submit"}}</button>
+    </div>
+  </form>
+</div>
+
+{{!-- visible only to xs screens --}}
+<div class="hidden-sm hidden-md hidden-lg">
+  {{partial 'components/player/gru-question-information'}}
+</div>

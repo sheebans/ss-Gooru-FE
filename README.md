@@ -117,12 +117,16 @@ Useful commands [Vagrant CLI](https://docs.vagrantup.com/v2/cli/index.html)
 * `npm install`
 * `bower install`
 
-### Running the app
+### Running the app with ember
 * `ember server --proxy http://localhost:8882` to run it using the stubby server
-* `grunt run` to run it using the stubby server, this task starts up stubby server and proxy ember to it
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+* Visit your app at [http://localhost:4200](http://localhost:4200). 
+* Or visit your app at [http://192.168.33.10:4200/](http://192.168.33.10:4200/) when using vagrant
 
 * `vagrant fsnotify` this is necessary so file changes (at host) are notified (to guest) while running the app 
+
+### Running the app with grunt tasks
+* `grunt run` to run it using the stubby server, this task starts up stubby server and proxy ember to it
+* `grunt run:qa` to run it proxying to the qa server.
 
 ### Coding standards
 This application follows [Ember CLI standards and conventions](http://www.ember-cli.com/user-guide/#naming-conventions) and it also uses JSHint (http://jshint.com/) _"JSHint is a program that flags suspicious usage in programs written in JavaScript."_
@@ -159,10 +163,23 @@ See
 * `ember test --filter your_pattern` to execute some tests only
 
 Testem is configured to proxy ajax request to the stubby server, make sure your stubby server is running
-Other option is to use
- * `grunt test` which start the stubby and run the test by using `ember test`
- * `grunt test:server` which start the stubby and run the test by using `ember test --server`
+You can also execute the test using grunt tasks
+
+### Running Tests with grunt tasks
+ * `grunt test` which starts the stubby and run the test by using `ember test`
+ * `grunt test --server` which starts the stubby and run the test by using `ember test --server`
+ * `grunt test --filter="collection-test"` to run an specific pattern, it matches test description
+ * `grunt test --module="Acceptance | search/collection"` to run an specific module
+ * `grunt test --no-stubby` to disable stubby   
  * `grunt test:cli` which start the stubby and run the test by using `ember test --silent --reporter xunit`
+
+ Examples
+ * `grunt test` run all tests (single run) with stubby server
+ * `grunt test --server` run all tests with stubby server, it keeps the tests running and watching for changes
+ * `grunt test --filter="Test Layout" --no-stubby --server` run tests with description matching 'Test Layout' (all model tests), with no stubby and it keeps the tests running and watching for changes
+ * `grunt test --module="Acceptance | search/collection"` run tests in acceptance module search/collections
+ 
+ 
  
 
 ### Code Coverage

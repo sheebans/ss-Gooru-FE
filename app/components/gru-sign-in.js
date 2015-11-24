@@ -24,23 +24,23 @@ export default Ember.Component.extend(ModalMixin, {
   actions: {
 
     authenticate: function() {
-      var _this = this;
+      var component = this;
 
-      this.get("sessionService")
-        .signInWithUser(this.get("credentials"))
+      component.get("sessionService")
+        .signInWithUser(component.get("credentials"))
         .then(function() {
           // Close the modal
-          _this.triggerAction({
+          component.triggerAction({
             action: 'closeModal'
           });
           // Trigger action in parent
-          _this.triggerAction({
+          component.triggerAction({
             action: 'signIn',
-            target: _this.get('target')
+            target: component.get('target')
           });
         })
         .catch((reason) => {
-          _this.set("errorMessage", reason.error);
+          component.set("errorMessage", reason.error);
         });
     }
 

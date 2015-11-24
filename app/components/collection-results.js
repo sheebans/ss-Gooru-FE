@@ -13,11 +13,26 @@ export default Ember.Component.extend({
   term: '',
 
   /**
+   * @property {string} on content player action
+   */
+  onOpenContentPlayer: "onOpenContentPlayer",
+
+
+  /**
    * DidInsertElement ember event
    */
   didInsertElement: function() {
       var component = this;
       component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
-  }
+  },
+  actions:{
 
+    /**
+     * Action triggered to open the content player
+     * @param {string} collectionId collection identifier
+     */
+    openContentPlayer: function(collectionId) {
+      this.sendAction("onOpenContentPlayer", collectionId);
+    }
+  }
 });

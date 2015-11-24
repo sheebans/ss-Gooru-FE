@@ -1,8 +1,6 @@
 import Ember from "ember";
 import ModalMixin from '../mixins/modal';
 
-
-
 /**
  * User sign up
  *
@@ -69,7 +67,6 @@ export default Ember.Component.extend(ModalMixin,{
 
       });
     }
-
   },
 
   // -------------------------------------------------------------------------

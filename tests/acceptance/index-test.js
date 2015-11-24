@@ -2,10 +2,12 @@ import Ember from 'ember';
 import { module, test } from 'qunit';
 import startApp from 'gooru-web/tests/helpers/start-app';
 import T from 'gooru-web/tests/helpers/assert';
+import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 
 module('Acceptance | index', {
   beforeEach: function() {
     this.application = startApp();
+    authenticateSession(this.application, { isAnonymous: true });
   },
 
   afterEach: function() {
@@ -13,7 +15,7 @@ module('Acceptance | index', {
   }
 });
 
-test('Page Layout', function(assert) {
+test('load: Layout', function(assert) {
   visit('/');
 
   andThen(function() {
@@ -104,29 +106,7 @@ test('Page Layout', function(assert) {
 });
 
 
-test('Search box navigation', function(assert) {
-  visit('/');
-
-  andThen(function() {
-    assert.expect(2); //making sure all asserts are called
-
-    assert.equal(currentURL(), '/');
-
-    //hero
-    const $appHeader = find('.app-header');
-    const $searchButton = $appHeader.find(".search-button");
-    const $searchInput = $appHeader.find(".search-input");
-
-    fillIn($searchInput, 'europe');
-    click($searchButton);
-
-    andThen(function(){
-      assert.equal(currentURL(), '/search/collections?term=europe');
-    });
-  });
-});
-
-test('Browse content', function(assert) {
+test('onBrowseContentClick: Browse content', function(assert) {
   visit('/');
 
   andThen(function() {

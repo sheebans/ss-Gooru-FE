@@ -2,20 +2,25 @@ export default {
 
   "common": {
     "close": "Close",
-    "logout": "Logout",
     "create": "Create",
-    "signUp": "Sign Up",
-    "search": "Search",
+    "email_support": "support@gooru.org",
+    "explanation": "Explanation",
+    "forgotPassword": "Forgot Password",
+    "hints": "Hints",
+    "if_questions": "If you have any questions,",
+    "libraries": "Libraries",
+    "login": "Log in",
+    "logout": "Logout",
     "myClasses": "My Classes",
     "myContent": "My Content",
-    "login": "Log in",
-    "libraries": "Libraries",
+    "no": "No",
+    "please_contact": "Please contact",
+    "remaining": "{{number}} Left",
+    "search": "Search",
+    "signUp": "Sign Up",
     "standards": "Standards",
     "submit": "Submit",
-    "forgotPassword": "Forgot Password",
-    "if_questions": "If you have any questions,",
-    "please_contact": "Please contact",
-    "email_support": "support@gooru.org"
+    "yes": "Yes"
   },
 
   "gru-category-panel": {
@@ -232,5 +237,44 @@ export default {
     "questions": "questions",
     "in-this-collection": "in this collection",
     "search-results-for": "Search Results for"
+  },
+
+  "gru-emotion-picker":{
+    "need-help":"I need help",
+    "do-not-understand":"I don't understand",
+    "meh":"Meh...",
+    "understand":"I understand",
+    "can-explain":"I can explain"
+  },
+
+  "loading": {
+    "text": "Loading..."
+  },
+
+  "gru-question-viewer": {
+    "answer": "Answer",
+    "question": "Question"
+  },
+
+  "gru-multiple-choice": {
+    "instructions" : "Please select the correct answer, and click \"Submit\"."
+  },
+  "gru-true-false": {
+    "instructions" : "Please select the correct answer, and click \"Submit\".",
+    "true":"True",
+    "false":"False"
+  },
+  "gru-multiple-answer": {
+    "instructions" : "Please select the correct answer, and click \"Submit\"."
+  },
+  "gru-open-ended": {
+    "instructions" : "Please type your answer in the field below, and click the \"Submit\" button to save your response when you're done.",
+    "characterLimit": "Character Limit"
+  },
+  "gru-fib": {
+    "instructions" : "Please type your answer(s) in the blank(s) provided, and click \"Save and Next\"."
+  },
+  "player.gru-reorder": {
+    "instructions" : "Please reorder the answers in correct order, and click \"Submit\"."
   }
 };
