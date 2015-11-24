@@ -61,8 +61,8 @@ export default DS.JSONAPISerializer.extend({
       userId: payload.user.gooruUId,
       avatarUrl: payload.user.profileImageUrl
     };
-    model.attributes.start = payload.start;
-    model.attributes.stop = payload.stop;
+    model.attributes.start = (payload.start ? payload.start : '00:00:00');
+    model.attributes.stop = (payload.stop ? payload.stop : '00:00:00');
     return model;
   },
 
