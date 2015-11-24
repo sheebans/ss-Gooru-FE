@@ -60,6 +60,8 @@ export default DS.JSONAPISerializer.extend(SessionMixin, {
   normalizeFindRecordResponse: function(store, primaryModelClass, payload, id) {
     var ratingScore = 0;
     var sessionUserId = this.get('session.userId');
+    // TODO: This is a very expensive solution. We should have an endpoint that returns only one record for the
+    // resource and the user that has rated it
     var ratingPayload = payload.searchResults.filterBy('creator.gooruUId', sessionUserId);
     if (ratingPayload.length > 0) {
       ratingScore = ratingPayload[0].score;
