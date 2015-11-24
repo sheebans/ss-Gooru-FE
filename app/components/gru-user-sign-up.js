@@ -1,5 +1,6 @@
 import Ember from "ember";
 import ModalMixin from '../mixins/modal';
+import StoreMixin from '../mixins/store';
 
 /**
  * User sign up
@@ -10,7 +11,7 @@ import ModalMixin from '../mixins/modal';
  * @module
  * @augments ember/Component
  */
-export default Ember.Component.extend(ModalMixin,{
+export default Ember.Component.extend(ModalMixin, StoreMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -63,7 +64,8 @@ export default Ember.Component.extend(ModalMixin,{
           this.set('showAlert', true);
         }
         this.set('didValidate', true);
-      }, (errors) => {
+      }, () => {
+
 
       });
     }
@@ -78,9 +80,7 @@ export default Ember.Component.extend(ModalMixin,{
   },
 
   setupUserModel: function() {
-    // TODO: Remove once user is available from the session
-    var store = GooruWeb.__container__.lookup('service:store');
-    var user = store.createRecord('user', {});
+    var user = this.get('store').createRecord('user', {});
 
     this.set('user', user);
   }.on('init'),

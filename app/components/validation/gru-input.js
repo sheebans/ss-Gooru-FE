@@ -37,7 +37,6 @@ export default Ember.Component.extend({
   actions:{
     inputValueChange: function() {
       this.set('value', this.get('rawInputValue'));
-      console.log(this);
     }
   },
 
