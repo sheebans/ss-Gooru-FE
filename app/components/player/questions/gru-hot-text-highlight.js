@@ -77,7 +77,8 @@ export default QuestionComponent.extend({
   },
 
   /**
-   * Correct items
+   * Correct items from the text, correct items are wrapped by []
+   * i.e La casa es de [colo] pero el [teco] es azul
    * @param {string} text
    * @returns {{id: number, text: string, selected: bool}} items
    */
@@ -96,7 +97,9 @@ export default QuestionComponent.extend({
   },
 
   /**
-   * Gets items based on text format
+   * Gets items based on text format.
+   * This methods creates an item for each word in the text, it removes []
+   * i.e La casa es de [colo] pero el [teco] es azul
    * @param {string} text
    * @returns {{id: number, text: string, selected: bool}} items
    */
@@ -111,7 +114,7 @@ export default QuestionComponent.extend({
   /**
    * Gets items based on text format
    * Each text before, after and in between [] are considered sentences
-   * @param {string} text i.e La casa es de [colo] pero el [teco] es azul
+   * @param {string} text i.e Sentence 1 [Sentence 2] Sentence 3 with any text here [Sentence 4] Sentence 5
    *
    * @returns {{id: number, text: string, selected: bool}} items
    */
@@ -128,7 +131,7 @@ export default QuestionComponent.extend({
   },
 
   /**
-   * Transforms a list of string into item objects
+   * Transforms a list of string into item objects, it trims the texts and removes []
    * @param {string[]} textList
    *
    * @returns {{id: number, text: string, selected: bool}} items
@@ -148,7 +151,8 @@ export default QuestionComponent.extend({
   },
 
   /**
-   * Generate phrase items
+   * Generate phrase items from the first question answer text
+   * It handle word and sentence variants, and it sets the 'items' component property accordingly
    */
   generateItems: function(){
     const component = this,
@@ -172,6 +176,7 @@ export default QuestionComponent.extend({
   },
 
   /**
+   * Returns those items selected by the user
    * @returns {{id: number, text: string, selected: bool}[]} selected items
    */
   getSelectedItems: function(){
