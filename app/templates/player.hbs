@@ -1,10 +1,13 @@
 <div class="main" role="main">
   {{player.gru-navigation
+    ratingScore=ratingScore
     onClosePlayer="closePlayer"
-    onOpenNavigator="openNavigator"}}
+    onOpenNavigator="openNavigator"
+    onChangeEmotion="changeEmotion"}}
 
   {{player.gru-viewer
     resource=resource
+    collection=collection
     onSubmitQuestion="submitQuestion"}}
 </div>
 <div class="aside">

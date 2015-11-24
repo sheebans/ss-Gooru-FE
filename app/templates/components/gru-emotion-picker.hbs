@@ -4,7 +4,7 @@
       <li>
         <div title="{{t (concat 'gru-emotion-picker.' emotion.icon-class) }}" data-toggle="tooltip"
              data-placement="bottom"
-             class="emotion {{emotion.icon-class}}" {{action 'setEmotion' emotion.emotion}}></div>
+             class="emotion {{emotion.icon-class}}" {{action 'setEmotion' emotion.emotion emotion.score}}></div>
       </li>
     {{/each}}
   </ul>
