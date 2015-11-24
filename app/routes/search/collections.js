@@ -7,26 +7,6 @@ import { checkStandards } from '../../utils/utils';
 export default Ember.Route.extend({
 
   /**
-   * @property {[]} query params supported
-   */
-  queryParams: {
-    term: {
-      refreshModel: true
-    },
-    gradeIds: 'gradeIds',
-    subjectIds: 'subjectIds'
-  },
-
-  /**
-   * @property {string} term filter
-   */
-  term: null,
-
-  /**
-   * @property {string} collections filter
-   */
-  collections: null,
-  /**
    * @property {Ember.Service} Service to retrieve grades
    */
   gradeService: Ember.inject.service("api-sdk/grade"),
@@ -86,13 +66,15 @@ export default Ember.Route.extend({
     controller.set('collectionResults', model.collectionResults);
   },
 
+  // -------------------------------------------------------------------------
+  // Actions - only transition actions should be placed at the route
   actions: {
     /**
      * Action triggered to open the content player
+     * @param {string} collectionId gooruOid collection identifier
      */
-    onOpenContentPlayer: function() {
-      this.transitionTo('/player');
+    onOpenContentPlayer: function(collectionId) {
+      this.transitionTo('player', collectionId);
     }
   }
-
 });

@@ -1,11 +1,10 @@
 <div class="form-group">
-  {{input type=type value=rawInputValue placeholder=placeholder class="form-control" name=valuePath}}
-
-  <div class="error">
+  {{input type=type value=rawInputValue placeholder=placeholder class="form-control" name=valuePath focus-out="inputValueChange"}}
+  <div class="error-messages">
     {{#if showMessage}}
-      <div class="error">
+      <span class="error">
         {{v-get model valuePath 'message'}}
-      </div>
+      </span>
     {{/if}}
   </div>
 </div>

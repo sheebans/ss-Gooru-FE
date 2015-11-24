@@ -1,0 +1,105 @@
+.player .gru-navigator {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100%;
+  .navigator-header {
+    height: auto;
+    display: table;
+    width: 100%;
+    h2 {
+      margin-top: 10px;
+      padding: 0 5px;
+      width: 80%;
+      float: left;
+
+      @media (min-width: $screen-md) {
+        width: 100%;
+      }
+    }
+    .hamburger-icon {
+      font-size: 40px;
+      cursor: pointer;
+      margin: 0 10px 0 0;
+    }
+  }
+
+  .resources {
+    padding: 0;
+    position: relative;
+    .bgd-line {
+      display: block;
+      position: absolute;
+      content: '';
+      top: 10px;
+      left: 24px;
+      width: 5px;
+      height: 90%;
+      background-color: $color-gray-lighter-9;
+      z-index: 1;
+    }
+    li {
+      list-style: none;
+      border-radius: 0;
+      border: 0;
+      border-top: 1px solid $color-gray-lighter-10;
+      background-color: $color-gray-lighter-6;
+      min-height: 65px;
+      overflow: hidden;
+      padding: 0 0 0 5px;
+      display: block;
+      width: 100%;
+      cursor: pointer;
+
+      .resources-info {
+        position: relative;
+        .bubble-type {
+          border-radius: 50px;
+          box-shadow: 0 0 0 1px $color-gray-lighter-9;
+          background: #FFF url("gooru/resource-collection-icons.png") no-repeat scroll 0 0;
+          background-size: 300px 228px;
+          float: left;
+          height: 40px;
+          width: 40px;
+          z-index: 2;
+          margin: 10px 0 0 0;
+          position: absolute;
+        }
+        .video {
+          background-position: 5px 5px;
+        }
+        .webpage {
+          background-position: -40px 4px;
+        }
+        .interactive {
+          background-position: -85px 5px;
+        }
+        .question {
+          background-position: -129px 5px;
+        }
+        .image {
+          background-position: -174px 5px;
+        }
+        .text {
+          background-position: -218px 5px;
+        }
+        .audio {
+          background-position: -263px 5px;
+        }
+        .title {
+          padding: 25px 20px 10px;
+          float: right;
+          font-size: 12px;
+          height: 100%;
+          width: 90%;
+          @media (max-width: $screen-md) {
+            padding: 25px 20px 10px 35px;
+          }
+        }
+      }
+    }
+    li.selected {
+      background-color: $color-blue-primary;
+      color: $color-gray-primary;
+    }
+  }
+}

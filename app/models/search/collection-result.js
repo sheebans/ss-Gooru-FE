@@ -1,5 +1,8 @@
 import DS from 'ember-data';
 
+/**
+ * @typedef {Object} CollectionResult
+ */
 export default DS.Model.extend({
 
   /**
@@ -9,6 +12,6 @@ export default DS.Model.extend({
   /**
    * @property {array} Search's result of collections
    */
-  collections: DS.hasMany("search/collection")
+  collections: DS.hasMany("collection/collection")
 
 });

@@ -1,28 +1,40 @@
 @import '../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap';
 
+@import 'variables';
 @import 'mixins';
 @import 'style-guide';
 @import 'common';
 
-@import 'components/gru-sign-in';
-@import 'components/app-header';
-@import 'components/app-footer';
-@import 'components/app-dropdown';
-@import 'components/gru-category-panel';
-@import 'components/grade-dropdown';
-@import 'components/standard-dropdown';
 @import 'controllers/index';
-@import 'components/gru-user-sign-up';
-@import 'components/gru-user-registration';
+@import 'controllers/player';
+
+// TODO: update these components so they follow the naming conventions
+@import 'components/app-dropdown';
+@import 'components/standard-dropdown';
 @import 'components/role-radio-button';
 @import 'components/datepicker-field';
-@import 'components/collection-results';
 @import 'components/search-filter';
 @import 'components/rating-stars';
-@import 'components/gru-standards-popup';
+@import 'components/collection-results';
 @import 'components/resource-options';
+@import 'components/grade-dropdown';
+
+@import 'components/gru-sign-in';
+@import 'components/gru-header';
+@import 'components/gru-footer';
+@import 'components/gru-category-panel';
+@import 'components/gru-user-sign-up';
+@import 'components/gru-user-registration';
+@import 'components/gru-standards-popup';
 @import 'components/gru-forgot-password-popup';
 @import 'components/gru-user-sign-up-cancel';
 @import 'components/gru-emotion-picker';
 
-
+@import 'components/player/gru-navigation';
+@import 'components/player/gru-navigator';
+@import 'components/player/gru-viewer';
+@import 'components/player/gru-question-viewer';
+@import 'components/player/questions/gru-multiple-choice';
+@import 'components/player/questions/gru-reorder';
+@import 'components/player/questions/gru-hs-text';
+@import 'components/player/questions/gru-fib';

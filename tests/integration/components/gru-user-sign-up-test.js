@@ -20,12 +20,12 @@ test('it renders', function(assert) {
 
   var $form = $component.find("form");
   T.exists(assert, $form, "Missing sign up form");
-  T.exists(assert, $form.find("#username"), "Missing username field");
-  T.exists(assert, $form.find("#firstName"), "Missing firstName field");
-  T.exists(assert, $form.find("#lastName"), "Missing lastName field");
-  T.exists(assert, $form.find("#email"), "Missing email field");
-  T.exists(assert, $form.find("#password"), "Missing password field");
-  T.exists(assert, $form.find("#rePassword"), "Missing confirm password field");
+  T.exists(assert, $form.find(".username"), "Missing username field");
+  T.exists(assert, $form.find(".firstName"), "Missing firstName field");
+  T.exists(assert, $form.find(".lastName"), "Missing lastName field");
+  T.exists(assert, $form.find(".email"), "Missing email field");
+  T.exists(assert, $form.find(".password"), "Missing password field");
+  T.exists(assert, $form.find(".rePassword"), "Missing confirm password field");
   T.exists(assert, $form.find("button.btn-sign-up"), "Missing sign up button");
   T.exists(assert, $form.find(".img-question"), "Missing image question");
 

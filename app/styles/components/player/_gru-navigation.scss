@@ -1,0 +1,44 @@
+.player .gru-navigation {
+  // temporary for GG-92
+  background-color: $color-blue-primary;
+  height: $player-navigation-height;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+
+  .content {
+    .left {
+      float: left;
+      margin-left: 1%;
+    }
+    .center {
+      display: block;
+      text-align: center;
+    }
+    .right {
+      float: right;
+      text-align: right;
+      margin-right: 1%;
+    }
+
+    @media (min-width: $screen-md) {
+      margin-left: $player-navigator-width-md;
+      overflow: hidden;
+
+      .hamburger-icon {
+        display: none;
+      }
+    }
+
+    .hamburger-icon, .x-icon{
+      font-size: 33px;
+      cursor: pointer;
+      i{
+        color:$color-white;
+      }
+    }
+  }
+}

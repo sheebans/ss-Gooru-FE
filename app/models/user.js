@@ -1,24 +1,76 @@
 import DS from "ember-data";
 import { validator, buildValidations } from "ember-cp-validations";
 
-const Validations = buildValidations({
+const UserValidations = buildValidations({
+  firstName: [
+    validator('presence', true)
+  ],
+
+  lastName: [
+    validator('presence', true)
+  ],
+
   username: {
-      description: 'Username',
-      validators: [
-        validator('presence', true),
-        validator('username', {
-          showSuggestions: true
-        })
+    description: 'Username',
+    validators: [
+      validator('presence', true),
+      validator('length', {
+        min: 4,
+        max: 20
+      }),
+      validator('format', {
+        regex: /^\w+$/,
+        message: '{description} cannot use special characters'
+      }),
+      validator('username', {
+        showSuggestions: true
+      })
     ]
-  }
+  },
+  password: [
+    validator('presence', true),
+    validator('length', {
+      min: 5,
+      max: 14
+    }),
+    validator('format', {
+      regex: /^\w+$/,
+      message: '{description} cannot use special characters'
+    })
+  ],
+  rePassword:[
+    validator('presence', true),
+    validator('length', {
+      min: 5,
+      max: 14
+    }),
+    validator('format', {
+      regex: /^\w+$/,
+      message: '{description} cannot use special characters'
+    }),
+
+    validator(function(value,options,model/* ,attribute*/) {
+      return value !== model.get('password') ? `Passwords don't match` : true ;
+    })
+  ],
+  email: [
+    validator('presence', true),
+    validator('format', {
+      type: 'email',
+      message: 'Not a valid email'
+    })
+  ],
+  dateOfBirth: [
+    validator('presence', true)
+  ],
+  role: [
+    validator('presence', true)
+  ]
 });
-
-
-
 /**
  * Model to represent the Users obtained from the end-point
  */
-export default DS.Model.extend(Validations, {
+export default DS.Model.extend(UserValidations, {
 
   // Values used to capture and to read data to/from SignUp end-point
   /**

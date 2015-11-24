@@ -1,4 +1,9 @@
 import Ember from 'ember';
+const {
+  computed,
+  defineProperty
+  } = Ember;
+
 
 /**
  * Text field with validation
@@ -7,10 +12,10 @@ import Ember from 'ember';
  * It provides feedback based on certain validation criteria.
  *
  * @module
- * @augments ember/TextField
+ * @augments ember/Component
  * @see ember-cp-validations
  */
-export default Ember.TextField.extend({
+export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -19,22 +24,32 @@ export default Ember.TextField.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-textfield'],
-
-  classNameBindings: ['classes'],
+  classNames: ['gru-input'],
+  classNameBindings: ['showErrorClass:has-error', 'isValid:has-success','valuePath'],
 
   /**
    * @type {?string} string of classes (separated by a space) specific to the component instance
    */
-  classes: null,
+  classes: 'test',
 
   // -------------------------------------------------------------------------
   // Actions
-
+  actions:{
+    inputValueChange: function() {
+      this.set('value', this.get('rawInputValue'));
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Events
 
+  init() {
+    this._super(...arguments);
+    var valuePath = this.get('valuePath');
+    defineProperty(this, 'attributeValidation', computed.oneWay(`model.validations.attrs.${valuePath}`));
+    this.set('rawInputValue', this.get(`model.${valuePath}`));
+    defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
+  },
 
   // -------------------------------------------------------------------------
   // Properties
@@ -60,27 +75,9 @@ export default Ember.TextField.extend({
 
   isInvalid: computed.oneWay('attributeValidation.isInvalid'),
 
-  inputValueChange: observer('rawInputValue', function() {
-    this.set('isTyping', true);
-    run.debounce(this, this.setValue, 500, false);
-  }),
-
   showMessage: computed('attributeValidation.isDirty', 'isInvalid', 'didValidate', function() {
     return (this.get('attributeValidation.isDirty') || this.get('didValidate')) && this.get('isInvalid');
-  }),
-
-  setValue() {
-    this.set('value', this.get('rawInputValue'));
-    this.set('isTyping', false);
-  },
-
-  init() {
-    this._super(...arguments);
-    var valuePath = this.get('valuePath');
-    defineProperty(this, 'attributeValidation', computed.oneWay(`model.validations.attrs.${valuePath}`));
-    this.set('rawInputValue', this.get(`model.${valuePath}`));
-    defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
-  }
+  })
 
   // -------------------------------------------------------------------------
   // Observers

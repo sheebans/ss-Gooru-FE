@@ -11,7 +11,8 @@ Router.map(function() {
   this.route('search', function() {
     this.route('collections');
   });
-  this.route('player',{path: '/player'});
+
+  this.route('player', { path: '/player/:collectionId'});
 });
 
 export default Router;

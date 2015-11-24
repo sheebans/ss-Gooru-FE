@@ -1,0 +1,10 @@
+<div class="form-group">
+  {{role-radio-button onCheck=(action "setValue")}}
+    <div class="error-messages">
+      {{#if showMessage}}
+          <span class="error">
+            {{v-get model valuePath 'message'}}
+          </span>
+      {{/if}}
+    </div>
+</div>

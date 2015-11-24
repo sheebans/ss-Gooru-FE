@@ -1,0 +1,48 @@
+.player .gru-viewer {
+
+  .narration {
+    background-color: hsla(0, 0%, 20%, 1);
+    display: table;
+    width: 100%;
+  }
+
+  .content {
+    overflow-y: auto;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: $player-navigation-height;
+
+    @media (min-width: $screen-md) {
+      margin-left: $player-navigator-width-md;
+      width: 100% - $player-navigator-width-md;
+    }
+    span{
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    img.avatar {
+      width: $narration-avatar-width;
+      height: $narration-avatar-height;
+      border-radius: 50px;
+      box-shadow: 0 0 0 2px #87badd;
+      margin: 15px;
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .message {
+      color:$color-white;
+      display: block;
+      min-height: 70px;
+      padding: 10px 15px 10px 0;
+    }
+
+    @media (min-width: $screen-md) {
+      margin-left: $player-navigator-width-md;
+    }
+  }
+}

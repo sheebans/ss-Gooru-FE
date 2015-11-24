@@ -1,2 +1,21 @@
-<h1>Content Player</h1>
-{{gru-emotion-picker setEmotion="changeEmotion"}}
+<div class="main" role="main">
+  {{player.gru-navigation
+    ratingScore=ratingScore
+    onClosePlayer="closePlayer"
+    onOpenNavigator="openNavigator"
+    onChangeEmotion="changeEmotion"}}
+
+  {{player.gru-viewer
+    resource=resource
+    collection=collection
+    onSubmitQuestion="submitQuestion"}}
+</div>
+<div class="aside">
+  {{player.gru-navigator
+    collection=collection
+    selectedResourceId=resourceId
+    onItemSelected="selectNavigatorItem"
+    onCloseNavigator="closeNavigator"
+  }}
+</div>
+

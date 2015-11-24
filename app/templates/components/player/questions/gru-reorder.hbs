@@ -1,0 +1,15 @@
+
+<p class="instructions">
+  {{t "player.gru-reorder.instructions"}}
+</p>
+
+<div class="answer-choices">
+  <ul class="sortable">
+    {{#each question.answers as |answer|}}
+      <li data-id="{{answer.id}}">
+        {{fa-icon icon="drag-icon fa-bars"}}
+        <div>{{{answer.text}}}</div>
+      </li>
+    {{/each}}
+  </ul>
+</div>

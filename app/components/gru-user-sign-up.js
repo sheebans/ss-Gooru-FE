@@ -1,5 +1,6 @@
 import Ember from "ember";
 import ModalMixin from '../mixins/modal';
+import StoreMixin from '../mixins/store';
 
 /**
  * User sign up
@@ -10,7 +11,7 @@ import ModalMixin from '../mixins/modal';
  * @module
  * @augments ember/Component
  */
-export default Ember.Component.extend(ModalMixin,{
+export default Ember.Component.extend(ModalMixin, StoreMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -25,7 +26,7 @@ export default Ember.Component.extend(ModalMixin,{
 
   classNames:['gru-user-sign-up'],
 
-  classNameBindings: ['component-class'],
+  classNameBindings: ['component-class', 'valuePath'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -38,52 +39,35 @@ export default Ember.Component.extend(ModalMixin,{
     signUp: function() {
       const component = this;
 
-      this.get('user')
-        .validate({
-          on: [
-            'firstName',
-            'lastName',
-            'username',
-            'password',
-            'email',
-            'dateOfBirth',
-            'role'
-          ]
-        })
-        .then(({ user, validations }) => {
+      var model = this.get('user');
+      model.validate().then(({
+        model, validations
+        }) => {
+        if (validations.get('isValid')) {
 
-          if (validations.get('isValid')) {
-            //component.get("userService")
-            //  .create(user)
-            //  .then(function() {
-            //    this.triggerAction({
-            //      action: 'closeModal'
-            //    });
-            //  })
-            console.log('Form is valid!');
-          }
-        })
-        .catch((err) => {
-          Ember.Logger.error('Error signing up user: ', err);
-        });
-    },
+          component.get("userService")
+            .create(model)
+            .then(function() {
+              this.triggerAction({
+                action: 'closeModal'
+              });
+            }.bind(this),
+              function() {
+                Ember.Logger.error('Error signing up user');
+              });
+          this.setProperties({
+            showAlert: false,
+            isRegistered: true,
+            showCode: false
+          });
+        } else {
+          this.set('showAlert', true);
+        }
+        this.set('didValidate', true);
+      }, () => {
 
-    /**
-     * Update user birth date
-     * @param {String} dateValue - birth date as a string
-     */
-    setBirthDate: function(dateValue) {
-      this.set("user.dateOfBirth", dateValue);
-    },
 
-    /**
-     * Update user role
-     * @param {String} role
-     * @example
-     * "teacher", "student", "parent"
-     */
-    setRoleValue: function(role) {
-      this.set("user.role", role);
+      });
     }
   },
 
@@ -95,10 +79,8 @@ export default Ember.Component.extend(ModalMixin,{
     component.$("[data-toggle='tooltip']").tooltip({trigger: "hover"});
   },
 
-  setupModel: function() {
-    // TODO: Remove once user is available from the session
-    var store = GooruWeb.__container__.lookup('service:store');
-    var user = store.createRecord('user', {});
+  setupUserModel: function() {
+    var user = this.get('store').createRecord('user', {});
 
     this.set('user', user);
   }.on('init'),
@@ -118,12 +100,7 @@ export default Ember.Component.extend(ModalMixin,{
    * @type {Ember.Component}
    * @private
    */
-  target: null,
+  target: null
 
-  /**
-   * User model instance to use for validation
-   * TODO: Remove once user is available from the session
-   * @property {Ember.Model}
-   */
-  user: null
+
 });

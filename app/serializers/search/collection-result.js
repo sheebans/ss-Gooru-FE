@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import ResourceSerializer from '../resource/resource';
 
 export default DS.JSONAPISerializer.extend({
 
@@ -28,15 +29,16 @@ function normalizeCollections(searchResults, relationshipItems, collectionModel)
   for(var i = 0; i < searchResults.length; i++) {
     var result = searchResults[i];
     var collectionRelationship = {
-      type: 'search/collection',
+      type: 'collection/collection',
       id: result.id
     };
     relationshipItems.push(collectionRelationship);
 
     var collection =  {
-      type: 'search/collection',
+      type: 'collection/collection',
       id: result.id,
       attributes: {
+        collectionType: result.collectionType,
         title: result.title,
         remixes: (result.scollectionRemixCount ? result.scollectionRemixCount : 0),
         views: (result.viewCount ? result.viewCount : 0),
@@ -65,22 +67,13 @@ function normalizeCollections(searchResults, relationshipItems, collectionModel)
 function normalizeCollectionResources(collectionItems, relationshipItems, collectionModel) {
   for(var i = 0; i < collectionItems.length; i++) {
     var collectionItem = collectionItems[i];
+    var resource = ResourceSerializer.create().normalizeResource(collectionItem);
+    collectionModel.included.push(resource);
     var resourceRelationship = {
-      type: 'search/resource',
-      id: collectionItem.collectionItemId
+      type: resource.type,
+      id: resource.id
     };
     relationshipItems.push(resourceRelationship);
-
-    var resource = {
-      type: 'search/resource',
-      id: collectionItem.collectionItemId,
-      attributes: {
-        name: collectionItem.resource.title,
-        imageUrl: getResourceImageUrl(collectionItem),
-        type: collectionItem.resource.resourceFormat.value
-      }
-    };
-    collectionModel.included.push(resource);
   }
 }
 
@@ -88,12 +81,6 @@ function normalizeCollectionStandards(taxonomyDataSet, relationshipItems, collec
   for(var i = 0; i < taxonomyDataSet.curriculum.curriculumCode.length; i++) {
     var standardCode = taxonomyDataSet.curriculum.curriculumCode[i];
     var standardDesc = taxonomyDataSet.curriculum.curriculumDesc[i];
-    var standardRelationship = {
-      type: 'search/standard',
-      id: standardCode
-    };
-    relationshipItems.push(standardRelationship);
-
     var standard = {
       type: 'search/standard',
       id: standardCode,
@@ -103,19 +90,12 @@ function normalizeCollectionStandards(taxonomyDataSet, relationshipItems, collec
       }
     };
     collectionModel.included.push(standard);
+    var standardRelationship = {
+      type: standard.type,
+      id: standard.id
+    };
+    relationshipItems.push(standardRelationship);
   }
-}
-
-function getResourceImageUrl(collectionItem) {
-  if (collectionItem.resource.thumbnails) {
-    return collectionItem.resource.thumbnails.url;
-  } else {
-    return getDefaultResourceImageUrl(collectionItem.resource.resourceFormat.value);
-  }
-}
-
-function getDefaultResourceImageUrl(type) {
-  return '/assets/gooru/default-' + type + '.png';
 }
 
 function getLibraries(libraryNames) {

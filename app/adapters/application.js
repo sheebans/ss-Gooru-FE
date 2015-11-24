@@ -22,14 +22,14 @@ export default DS.RESTAdapter.extend(SessionMixin, {
    * @returns {string}
    */
   buildURL: function(modelName, id, snapshot, requestType, query) {
-    var sessionTokenParam = 'sessionToken=' + this.get('session.token');
-    return this._super(modelName, id, snapshot, requestType, query) + '?' + sessionTokenParam;
+    var sessionTokenParam = '?sessionToken=' + this.get('session.token');
+    return this._super(modelName, id, snapshot, requestType, query) + sessionTokenParam;
   },
 
   /**
    * This custom implementation removes the default pluralization of the type
    */
-  pathForType() {
+  pathForType: function() {
     return '';
   },
 
