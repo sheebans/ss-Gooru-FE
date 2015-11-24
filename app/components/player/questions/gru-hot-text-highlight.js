@@ -2,7 +2,7 @@ import Ember from 'ember';
 import QuestionComponent from './gru-question';
 
 /**
- * Hot Text
+ * Hot Text Highlight
  *
  * Component responsible for controlling the logic and appearance of a hot
  * text question inside of the {@link player/gru-question-viewer.js}

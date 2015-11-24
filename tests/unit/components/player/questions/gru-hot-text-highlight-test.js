@@ -1,11 +1,11 @@
 import Ember from "ember";
 import { moduleForComponent, test } from 'ember-qunit';
 
-moduleForComponent('player/questions/gru-hot-text', 'Unit | Component | player/questions/gru hot text', {
+moduleForComponent('player/questions/gru-hot-text-highlight', 'Unit | Component | player/questions/gru hot text highlight', {
   integration: false
 });
 
-test('getWordItems', function(assert) {
+test('getWordItems', function (assert) {
   assert.expect(5);
 
   var component = this.subject();
@@ -25,7 +25,7 @@ test('getWordItems', function(assert) {
   assert.equal(wordItems.length, 8, "Wrong number of items");
 });
 
-test('getSentenceItems', function(assert) {
+test('getSentenceItems', function (assert) {
   assert.expect(16);
 
   var component = this.subject();
@@ -60,7 +60,7 @@ test('getSentenceItems', function(assert) {
 
 });
 
-test('getCorrectItems', function(assert) {
+test('getCorrectItems', function (assert) {
   assert.expect(6);
 
   var component = this.subject();
@@ -81,13 +81,12 @@ test('getCorrectItems', function(assert) {
   assert.equal(correctItems[1].get("text"), "another .", "Wrong correct item");
 });
 
-test('toItems', function(assert) {
+test('toItems', function (assert) {
   assert.expect(6);
 
   var component = this.subject();
   var items = Ember.A(["  ", "", "Item 1", " Item 2 ", "[Item 3]"]);
 
-  //with no correct items
   var convertedItems = component.toItems(items).toArray();
   assert.equal(convertedItems.length, 3, "Should have 3 items, empty items are excluded");
   assert.equal(convertedItems[0].get("id"), 2, "Invalid id, it should have the original index id");
@@ -96,3 +95,52 @@ test('toItems', function(assert) {
   assert.equal(convertedItems[1].get("text"), "Item 2", "Wrong item text, text should be trimmed");
   assert.equal(convertedItems[2].get("text"), "Item 3", "Wrong item text, [] should be suppressed");
 });
+
+test('generateItems isHotTextHighlightWord', function (assert) {
+  assert.expect(5);
+  var answers = Ember.A([ Ember.Object.create({ text: "Many [correct] items in this sentence [another]" }) ]),
+    question = Ember.Object.create({
+      answers: answers,
+      hasAnswers: true,
+      isHotTextHighlightWord: true
+    });
+
+  var component = this.subject({
+    question: question
+  });
+
+  component.generateItems();
+
+  var items = component.get("items").toArray();
+
+  assert.equal(items.length, 7, "Missing items");
+  assert.equal(items[0].get("id"), 0, "Invalid id");
+  assert.equal(items[0].get("text"), "Many", "Wrong item text");
+  assert.equal(items[0].get("selected"), false, "Wrong item selected value");
+  assert.equal(items[1].get("text"), "correct", "Wrong item text");
+});
+
+test('generateItems isHotTextHighlightSentence', function (assert) {
+  assert.expect(5);
+  var answers = Ember.A([ Ember.Object.create({ text: "Sentence 1 [Sentence 2.] Sentence 3 [Sentence 4.] Sentence 5" }) ]),
+    question = Ember.Object.create({
+      answers: answers,
+      hasAnswers: true,
+      isHotTextHighlightWord: false
+    });
+
+  var component = this.subject({
+    question: question
+  });
+
+  component.generateItems();
+
+  var items = component.get("items").toArray();
+
+  assert.equal(items.length, 5, "Missing items");
+  assert.equal(items[0].get("id"), 0, "Invalid id");
+  assert.equal(items[0].get("text"), "Sentence 1", "Wrong item text");
+  assert.equal(items[0].get("selected"), false, "Wrong item selected value");
+  assert.equal(items[1].get("text"), "Sentence 2.", "Wrong item text");
+});
+

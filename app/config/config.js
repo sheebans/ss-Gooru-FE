@@ -7,5 +7,5 @@ export const QUESTION_COMPONENT_MAP = {
   'HS_TXT': 'player.questions.gru-hs-text',
   'HS_IMG': 'player.questions.gru-hs-image',
   'HT_RO' : 'player.questions.gru-reorder',
-  'HT_HL' : 'player.questions.gru-hot-text'
+  'HT_HL' : 'player.questions.gru-hot-text-highlight'
 };
