@@ -8,9 +8,9 @@ const {
 
 
 /**
- * Text field with validation
+ * Input radio button from datepicker-field component with validation
  *
- * Text field with support for ember-cp-validations.
+ * Input radio button with support for ember-cp-validations.
  * It provides feedback based on certain validation criteria.
  *
  * @module
@@ -50,14 +50,33 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
-
+  setup: Ember.on('init', function(){
+    var valuePath = this.get('valuePath');
+    defineProperty(this, 'attributeValidation', computed.oneWay(`model.validations.attrs.${valuePath}`));
+    this.set('rawInputValue', this.get(`model.${valuePath}`));
+    defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
+  }),
   // -------------------------------------------------------------------------
   // Properties
-
+  /**
+   * @param {Object} model - Model that will be attached to the component
+   */
   model: null,
+  /**
+   * @param {String} value - formatted value of the input field.
+   */
   value: null,
+  /**
+   * @param {String} rawInputValue - unformatted value of the input field
+   */
   rawInputValue: null,
-  type: 'text',
+  /**
+   * @param {String} type - type of the input field.
+   */
+  type: 'radio',
+  /**
+   * @param {String} dateValue - birth date as a string
+   */
   valuePath: '',
   placeholder: '',
   attributeValidation: null,
@@ -85,17 +104,7 @@ export default Ember.Component.extend({
 
   setValue() {
     this.set('value', this.get('rawInputValue'));
-  },
-
-  init() {
-    this._super(...arguments);
-    var valuePath = this.get('valuePath');
-    defineProperty(this, 'attributeValidation', computed.oneWay(`model.validations.attrs.${valuePath}`));
-    this.set('rawInputValue', this.get(`model.${valuePath}`));
-    defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
-
   }
-
   // -------------------------------------------------------------------------
   // Observers
 

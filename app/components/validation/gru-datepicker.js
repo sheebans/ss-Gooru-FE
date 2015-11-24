@@ -48,7 +48,12 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Events
-
+  setup: Ember.on('init', function(){
+    var valuePath = this.get('valuePath');
+    defineProperty(this, 'attributeValidation', computed.oneWay(`model.validations.attrs.${valuePath}`));
+    this.set('rawInputValue', this.get(`model.${valuePath}`));
+    defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
+  }),
 
   // -------------------------------------------------------------------------
   // Properties
@@ -76,17 +81,8 @@ export default Ember.Component.extend({
 
   showMessage: computed('attributeValidation.isDirty', 'isInvalid', 'didValidate', function() {
     return (this.get('attributeValidation.isDirty') || this.get('didValidate')) && this.get('isInvalid');
-  }),
+  })
 
-
-  init() {
-    this._super(...arguments);
-    var valuePath = this.get('valuePath');
-    defineProperty(this, 'attributeValidation', computed.oneWay(`model.validations.attrs.${valuePath}`));
-    this.set('rawInputValue', this.get(`model.${valuePath}`));
-    defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
-
-  }
 
   // -------------------------------------------------------------------------
   // Observers

@@ -43,14 +43,12 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
-  init() {
-    this._super(...arguments);
+  setup: Ember.on('init', function(){
     var valuePath = this.get('valuePath');
     defineProperty(this, 'attributeValidation', computed.oneWay(`model.validations.attrs.${valuePath}`));
     this.set('rawInputValue', this.get(`model.${valuePath}`));
     defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
-  },
-
+  }),
   // -------------------------------------------------------------------------
   // Properties
 
