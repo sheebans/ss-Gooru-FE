@@ -5,7 +5,7 @@ export default DS.JSONAPISerializer.extend({
 
   getBaseResourceModel: function() {
     return {
-      type: 'resource/question',
+      type: 'resource/resource',
       id: null,
       attributes: {},
       relationships: {
@@ -63,7 +63,9 @@ export default DS.JSONAPISerializer.extend({
     };
     //some extra resource options here
     model.attributes.options = {
-      hotTextType: payload.hlType
+      hotTextType: payload.hlType,
+      start: (payload.start ? payload.start : '00:00:00'),
+      stop: (payload.stop ? payload.stop : '00:00:00')
     };
     return model;
   },
@@ -85,7 +87,9 @@ export default DS.JSONAPISerializer.extend({
     model.attributes.owner = null;
     //some extra resource options here
     model.attributes.options = {
-      hotTextType: payload.hlType
+      hotTextType: payload.resource.hlType,
+      start: (payload.resource.start ? payload.resource.start : '00:00:00'),
+      stop: (payload.resource.stop ? payload.resource.stop : '00:00:00')
     };
     return model;
   },

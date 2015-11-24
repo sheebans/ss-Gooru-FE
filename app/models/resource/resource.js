@@ -148,6 +148,17 @@ export default DS.Model.extend({
    */
   isHotTextHighlightSentence: Ember.computed.equal('options.hotTextType', 'sentence'),
 
+  /**
+   * The start time for video/youtube
+   * @property {string} start
+   */
+  start: Ember.computed.alias("options.start"),
+  /**
+   * The end time for video/youtube
+   * @property {string} start
+   */
+  stop: Ember.computed.alias("options.stop"),
+
   hasMedia: Ember.computed.bool('mediaUrl'),
   hasNarration: Ember.computed.bool('narration'),
   hasOwner: Ember.computed.bool('owner'),
@@ -159,8 +170,15 @@ export default DS.Model.extend({
   isImageResource: Ember.computed("resourceType", function(){
     var resourceType = this.get("resourceType");
     return resourceType && resourceType.indexOf("image") >= 0;
+  }),
+
+  /**
+   * Indicates if it is an youtube resource
+   * @property {bool}
+   */
+  isYoutubeResource: Ember.computed("resourceType", function(){
+    var resourceType = this.get("resourceType");
+    return resourceType && resourceType.indexOf("video/youtube") >= 0;
   })
-
-
 
 });

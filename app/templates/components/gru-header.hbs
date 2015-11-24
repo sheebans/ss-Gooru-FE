@@ -1,13 +1,13 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12 col-sm-12 col-center-block pa-sm-left-0 pa-sm-right-0">
-      <nav class="navbar navbar-default">
-        <div class="navbar-header col-md-2 col-sm-2">
+    <div class="col-md-12 col-sm-12 col-xs-12 col-center-block pa-sm-left-0 pa-xs-left-0 pa-sm-right-0">
+      <nav class="navbar navbar-default col-xs-12">
+        <div class="navbar-header col-md-2 col-sm-2 col-xs-3">
             {{#link-to 'index' class="navbar-brand home-link"}}  {{/link-to}}
         </div>
-        <div class="search-navbar-form col-md-3 col-sm-3 pa-top-4">
+        <div class="search-navbar-form col-md-3 col-sm-3 col-xs-3 pa-top-4 pa-xs-0">
           <form {{action "searchTerm" on="submit"}} class="form-inline">
-            <div class="form-group col-md-8 col-sm-6 pa-right-2 pa-left-0">
+            <div class="form-group col-md-8 col-sm-6 col-xs-6 pa-right-2 pa-left-0">
               <div class="input-group">
                   {{input type="text" class="form-control search-input"
                   value=term
@@ -20,7 +20,7 @@
             </button>
           </form>
         </div>
-        <div class="collapse navbar-collapse col-md-7 col-sm-7 pull-right">
+        <div class="collapse navbar-collapse col-md-7 col-sm-7 col-xs-0 pull-right">
           <ul class="nav navbar-nav pull-right menu-navbar">
             <li class="navbar-nav-list border-right">
               <a href="#" class="navbar-link libraries-link">{{t "common.libraries"}}</a>

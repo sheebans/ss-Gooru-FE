@@ -29,7 +29,7 @@ export default DS.RESTAdapter.extend(SessionMixin, {
   /**
    * This custom implementation removes the default pluralization of the type
    */
-  pathForType() {
+  pathForType: function() {
     return '';
   },
 
