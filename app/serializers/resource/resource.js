@@ -5,7 +5,7 @@ export default DS.JSONAPISerializer.extend({
 
   getBaseResourceModel: function() {
     return {
-      type: 'resource/question',
+      type: 'resource/resource',
       id: null,
       attributes: {},
       relationships: {

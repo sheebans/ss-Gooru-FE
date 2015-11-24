@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 
 /**
  * Player navigation
@@ -28,9 +28,8 @@ export default Ember.Component.extend({
      * Action triggered when the user change the emotion
      * @see gru-emotion-picker
      */
-    changeEmotion: function(emotion) {
-      //TODO remove when implement the content player
-      console.log(emotion);
+    changeEmotion: function(emotionScore) {
+      this.sendAction('onChangeEmotion', emotionScore);
     },
     /**
      * Action triggered when the user close the content player
@@ -56,8 +55,17 @@ export default Ember.Component.extend({
   /**
    * @property {string} on content player action
    */
-  onClosePlayer: "onClosePlayer"
+  onClosePlayer: 'onClosePlayer',
 
+  /**
+   * @property {string} on change emotion action
+   */
+  onChangeEmotion: 'onChangeEmotion',
+
+  /**
+   * @property {number} The rating score for the current resource
+   */
+  ratingScore: 0
 
   // -------------------------------------------------------------------------
   // Methods

@@ -5,10 +5,18 @@
     {{#if resource.hasNarration}}
       <div class="narration">
         {{#if resource.hasOwner}}
-          <img class="avatar" src="{{ resource.owner.avatarUrl }}">
+          {{#if collection.avatarUrl }}
+            <span>
+                <img class="avatar" src="{{ collection.avatarUrl }}">
+            </span>
+          {{else}}
+              <span>
+                  <img class="avatar" src="assets/gooru/profile.png">
+              </span>
+          {{/if}}
         {{/if}}
         <span class="message">
-          {{resource.narration}}
+          {{{resource.narration}}}
         </span>
       </div>
     {{/if}}
