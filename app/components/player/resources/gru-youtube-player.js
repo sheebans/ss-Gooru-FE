@@ -35,7 +35,7 @@ export default Ember.Component.extend({
   resource: null,
 
   /**
-   * @property {string} full resource image url
+   * @property {string} full resource youtube url
    */
   youtubeUrl: Ember.computed("resource.url", function(){
     return this.get("resource.url").replace(/watch\?v=/g, "embed/")+"?start="+this.get('start')+"&end="+this.get('stop');
