@@ -12,10 +12,45 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Actions
+  actions:{
+    /**
+     * When closing the player
+     */
+    closePlayer: function(){
+      const previousTransition = this.get("previousTransition");
+      if (previousTransition.sequence){ //if has a previous transition
+        window.history.back();
+      }
+      else{
+        this.transitionTo("index");
+      }
+    }
+  },
+
+
+
+
+  // -------------------------------------------------------------------------
+  // Properties
   /**
    * @property {Ember.Service} Service to retrieve a Collection
    */
   collectionService: Ember.inject.service("api-sdk/collection"),
+
+  /**
+   * @property {Transition} previous transition
+   */
+  previousTransition: null,
+
+  // -------------------------------------------------------------------------
+  // Methods
+  /**
+   * Before accesing the player
+   * @param transition
+   */
+  beforeModel: function(transition) {
+      this.set('previousTransition', transition);
+  },
 
   /**
    * @property {Ember.Service} Service to rate a resource

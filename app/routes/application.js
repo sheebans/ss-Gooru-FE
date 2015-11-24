@@ -15,6 +15,8 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     });
   },
 
+  // -------------------------------------------------------------------------
+  // Actions - only transition actions should be placed at the route
   actions: {
     /**
      * Action triggered when submitting the login form

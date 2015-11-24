@@ -48,6 +48,12 @@ export default Ember.Component.extend({
   resource: null,
 
   /**
+   * The collection playing
+   * @property {Collection} collection
+   */
+  collection: null,
+
+  /**
    * @property {string} on submit question action
    */
   onSubmitQuestion: "submitQuestion"

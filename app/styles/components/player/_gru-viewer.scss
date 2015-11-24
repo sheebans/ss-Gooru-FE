@@ -2,6 +2,8 @@
 
   .narration {
     background-color: hsla(0, 0%, 20%, 1);
+    display: table;
+    width: 100%;
   }
 
   .content {
@@ -17,21 +19,25 @@
       margin-left: $player-navigator-width-md;
       width: 100% - $player-navigator-width-md;
     }
+    span{
+      display: table-cell;
+      vertical-align: middle;
+    }
 
     img.avatar {
       width: $narration-avatar-width;
       height: $narration-avatar-height;
       border-radius: 50px;
       box-shadow: 0 0 0 2px #87badd;
-      float: left;
       margin: 15px;
+      display: table-cell;
+      vertical-align: middle;
     }
 
     .message {
       color:$color-white;
       display: block;
       min-height: 70px;
-      margin-left: 70px;
       padding: 10px 15px 10px 0;
     }
 

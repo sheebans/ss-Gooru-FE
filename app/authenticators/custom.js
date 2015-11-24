@@ -10,11 +10,11 @@ const Config = Env['simple-auth-custom'] || {};
  */
 export default BaseAuthenticator.extend({
 
-  restore: function(data) {
+  restore: function (data) {
     return Ember.RSVP.resolve(data);
   },
 
-  authenticate: function(options) {
+  authenticate: function (options) {
     if (options.anonymous) {
       return authenticateAsAnonymous(Config.anonymousEndpoint, Config.apiKey);
     } else {
@@ -26,49 +26,41 @@ export default BaseAuthenticator.extend({
 
 function authenticateWithCredentials(endpoint, apiKey, username, password) {
   var url = endpoint + '?apiKey=' + apiKey;
-  return new Ember.RSVP.Promise((resolve, reject) => {
-    Ember.$.ajax({
-      url: url,
-      type: 'POST',
-      data: JSON.stringify({
-        username: username,
-        password: password
-      }),
-      contentType: 'application/json;charset=utf-8',
-      dataType: 'json'
-    }).then(function (response) {
+  return Ember.$.ajax({
+    url: url,
+    type: 'POST',
+    data: JSON.stringify({
+      username: username,
+      password: password
+    }),
+    contentType: 'application/json;charset=utf-8',
+    dataType: 'json'
+  }).then(
+    function (response) {
       response.isAnonymous = false;
-      Ember.run(function () {
-        resolve(response);
-      });
-    }, function (error) {
-      Ember.run(function () {
-        var response = error.responseText;
-        reject(response);
-      });
+      return response;
+    },
+    function (error) {
+      return error.responseText;
     });
-  });
 }
 
 function authenticateAsAnonymous(endpoint, apiKey) {
   var url = endpoint + '?apiKey=' + apiKey;
-  return new Ember.RSVP.Promise((resolve, reject) => {
-    Ember.$.ajax({
-      url: url,
-      type: 'POST',
-      data: {},
-      contentType: 'application/json;charset=utf-8',
-      dataType: 'json'
-    }).then(function(response) {
-      Ember.run(function () {
-        response.isAnonymous = true;
-        resolve(response);
-      });
-    }, function (error) {
-      Ember.run(function () {
-        var response = error.responseText;
-        reject(response);
-      });
+  return Ember.$.ajax({
+    url: url,
+    type: 'POST',
+    data: {},
+    contentType: 'application/json;charset=utf-8',
+    dataType: 'json'
+  }).then(
+    function (response) {
+      response.isAnonymous = true;
+      return response;
+    },
+    function (error) {
+      return error.responseText;
     });
-  });
 }
+
+

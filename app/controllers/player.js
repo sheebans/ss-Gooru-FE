@@ -26,13 +26,6 @@ export default Ember.Controller.extend({
   actions: {
 
     /**
-     * Action triggered when the user close the content player
-     */
-    closePlayer:function(){
-      window.history.back();
-    },
-
-    /**
      * Handle onSubmitQuestion event from gru-question-viewer
      * @see components/player/gru-question-viewer.js
      * @param {Resource} question

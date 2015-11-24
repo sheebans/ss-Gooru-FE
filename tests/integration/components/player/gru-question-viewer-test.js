@@ -21,7 +21,7 @@ test('Layout', function (assert) {
       "order": 2,
       "text": "Dummy question text",
       "mediaUrl": "test.jpg",
-      "isOpenEnded": true,
+      "questionType": 'OE',
       "hasMedia": true,
       "hints": []
     });
@@ -44,7 +44,9 @@ test('Layout', function (assert) {
   T.exists(assert, $answerPanel.find(".actions button.save"), "Missing submit button");
   assert.ok($answerPanel.find(".actions button.save").attr("disabled"), "Button should be disabled");
 
-  var $infoPanel = $component.find(".information");
+  // There will be two question information sections in the page; however, only one will be
+  // visible depending on a screen width breakpoint
+  var $infoPanel = $component.find(".question-information").eq(0);
   assert.ok($infoPanel.find("button.hint"), "Missing hint button");
   assert.ok($infoPanel.find("button.explanation"), "Missing explanation button");
 
@@ -59,7 +61,7 @@ test('Submit button should become enabled and call action on submit', function (
       "order": 2,
       "text": "Dummy question text",
       "mediaUrl": "test.jpg",
-      "isOpenEnded": true,
+      "questionType": 'OE',
       "hasMedia": true
     });
 
@@ -88,7 +90,7 @@ test('Clicking on the "Hints" button should display a certain number of hints an
       "id": 10,
       "order": 2,
       "text": "Dummy question text",
-      "isOpenEnded": true,
+      "questionType": 'OE',
       "hasMedia": false,
       "hints": [
         {
@@ -107,7 +109,7 @@ test('Clicking on the "Hints" button should display a certain number of hints an
   this.set('question', question);
   this.render(hbs`{{player/gru-question-viewer question=question}}`);
 
-  var $infoSection = this.$(".information");
+  var $infoSection = this.$(".question-information").eq(0);
   assert.ok($infoSection.find(".hints"), "Missing hints section");
   assert.equal($infoSection.find(".hints li").length, 0, "No hints should be visible");
 
@@ -128,7 +130,7 @@ test('Clicking on the "Explanation" button should display an explanation and the
     "id": 11,
     "order": 2,
     "text": "Dummy question text",
-    "isOpenEnded": true,
+    "questionType": 'OE',
     "hasMedia": false,
     "hints": [],
     "explanation": "<p>This is a test explanation</p>"
@@ -137,7 +139,7 @@ test('Clicking on the "Explanation" button should display an explanation and the
   this.set('question', question);
   this.render(hbs`{{player/gru-question-viewer question=question}}`);
 
-  var $infoSection = this.$(".information");
+  var $infoSection = this.$(".question-information").eq(0);
   assert.ok(!$infoSection.find(".actions .explanation").attr('disabled'), 'Explanation button should be enabled');
   assert.ok(!$infoSection.find(" > .explanation").length, "Explanation section should not be visible");
 

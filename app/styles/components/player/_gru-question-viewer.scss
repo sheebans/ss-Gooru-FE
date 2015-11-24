@@ -4,30 +4,17 @@
 
   @media (min-width: $screen-sm) {
     padding: 0;
-
-    display: -ms-flexbox;
-    display: flex;
-
-    -ms-flex-direction: row;
-    flex-direction: row;
-
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-
-    -ms-flex-pack: start;
-    justify-content: flex-start;
-
-    -ms-flex-line-pack: start;
-    align-content: flex-start;
-
-    -ms-flex-align: start;
-    align-items: flex-start;
   }
 
-  h3 {
-    margin: 5px 0;
+  .question-panel > h3,
+  .answers-panel > h3 {
+    margin: 15px 0 5px 0;
     font-size: 24px;
     color: $color-gray-primary;
+
+    @media (min-width: $screen-sm) {
+      margin-top: 25px;
+    }
   }
 
   p {
@@ -53,11 +40,9 @@
     }
 
     @media (min-width: $screen-sm) {
-      padding: 15px 3% 0 3%;
-      -ms-flex: 1 1 50%;
-      flex: 1 1 50%;
-      -ms-flex-item-align: auto;
-      align-self: auto;
+      padding-left: 4%;
+      width: 46%;
+      float: left;
     }
   }
 
@@ -82,16 +67,13 @@
     }
 
     @media (min-width: $screen-sm) {
-      padding: 15px 3% 0 3%;
-      -ms-flex: 1 1 50%;
-      flex: 1 1 50%;
-      -ms-flex-item-align: auto;
-      align-self: auto;
-      margin-bottom: 0;
+      padding-left: 4%;
+      width: 46%;
+      float: left;
     }
   }
 
-  .information {
+  .question-information {
 
     .actions {
       text-align: center;
@@ -120,22 +102,9 @@
     }
     > .explanation {
       border-top: 1px solid $color-gray-lighter-9;
-      color: $color-green-primary;
+      color: $branding-primary-1;
       padding: 15px 30px;
       margin-top: 15px;
-    }
-
-    @media (min-width: $screen-sm) {
-      padding: 0 3% 20px 3%;
-      -ms-flex: 0 1 50%;
-      flex: 0 1 50%;
-      -ms-flex-item-align: auto;
-      align-self: auto;
-
-      .hints li,
-      > .explanation {
-        padding-right: 0;
-      }
     }
   }
 }

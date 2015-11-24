@@ -6,6 +6,11 @@
       <img src="{{question.mediaUrl}}"/>
     {{/if}}
   </div>
+
+  {{!-- visible to all screen widths except xs --}}
+  <div class="hidden-xs">
+    {{partial 'components/player/gru-question-information'}}
+  </div>
 </div>
 
 <div class="answers-panel">
@@ -13,83 +18,21 @@
 
   <form {{action "submitQuestion" on="submit"}}>
 
-    {{#if question.isMultipleChoice}}
-      {{player.questions.gru-multiple-choice
-      question=question
-      onAnswerChanged="changeAnswer"
-      onAnswerCleared="clearAnswer"
-      onAnswerCompleted="completeAnswer"
-      }}
-    {{/if}}
-
-    {{#if question.isMultipleAnswer}}
-      {{player.questions.gru-multiple-answer
-      question=question
-      onAnswerChanged="changeAnswer"
-      onAnswerCleared="clearAnswer"
-      onAnswerCompleted="completeAnswer"
-      }}
-    {{/if}}
-
-    {{#if question.isTrueFalse}}
-      {{player.questions.gru-true-false
-      question=question
-      onAnswerChanged="changeAnswer"
-      onAnswerCleared="clearAnswer"
-      onAnswerCompleted="completeAnswer"
-      }}
-    {{/if}}
-
-    {{#if question.isOpenEnded}}
-      {{player.questions.gru-open-ended
-      question=question
-      onAnswerChanged="changeAnswer"
-      onAnswerCleared="clearAnswer"
-      onAnswerCompleted="completeAnswer"
-      }}
-    {{/if}}
-
-    {{#if question.isHotTextReoder}}
-      {{player.questions.gru-reorder
-      question=question
-      onAnswerChanged="changeAnswer"
-      onAnswerCleared="clearAnswer"
-      onAnswerCompleted="completeAnswer"
-      }}
-    {{/if}}
-
-   {{#if question.isFIB}}
-    {{player.questions.gru-fib
-      question=question
-      onAnswerChanged="changeAnswer"
-      onAnswerCleared="clearAnswer"
-      onAnswerCompleted="completeAnswer"
-    }}
+    {{#if questionComponentSelected}}
+      {{component questionComponentSelected
+        question=question
+        onAnswerChanged="changeAnswer"
+        onAnswerCleared="clearAnswer"
+        onAnswerCompleted="completeAnswer"}}
     {{/if}}
 
     <div class="actions">
-      <button type="submit" class="save btn btn-lg btn-primary" disabled={{isSubmitDisabled}}>{{t "common.submit"}}</button>
+      <button type="submit" class="save btn btn-lg btn-primary" disabled="{{if isSubmitDisabled true null}}">{{t "common.submit"}}</button>
     </div>
   </form>
 </div>
 
-<div class="information">
-  <div class="actions">
-    <button class="hint btn btn-default" disabled={{isHintButtonDisabled}} {{action 'showHint'}}>{{t "common.hints"}}
-      ({{t "common.remaining" number=availableHints}})
-    </button>
-    <button class="explanation btn btn-default"
-            disabled={{isExplanationButtonDisabled}} {{action 'showExplanation'}}>{{t "common.explanation"}}</button>
-  </div>
-
-  <ol class="hints">
-    {{#each hintsToDisplay as |hint|}}
-      <li>{{{hint.hintText}}}</li>
-    {{/each}}
-  </ol>
-
-  {{#if isExplanationShown}}
-    <p class="explanation">{{{question.explanation}}}</p>
-  {{/if}}
-
+{{!-- visible only to xs screens --}}
+<div class="hidden-sm hidden-md hidden-lg">
+  {{partial 'components/player/gru-question-information'}}
 </div>
