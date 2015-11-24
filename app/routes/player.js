@@ -18,18 +18,24 @@ export default Ember.Route.extend({
   collectionService: Ember.inject.service("api-sdk/collection"),
 
   /**
+   * @property {Ember.Service} Service to rate a resource
+   */
+  ratingService: Ember.inject.service("api-sdk/rating"),
+
+  /**
    * @param {{ collectionId: string, resourceId: string }} params
    */
   model(params) {
     const
       collectionId = params.collectionId,
       resourceId = params.resourceId,
-      collection = this.get("collectionService").findById(collectionId);
+      collection = this.get("collectionService").findById(collectionId),
+      rating = (resourceId ? this.get('ratingService').findRatingForResource(resourceId) : null);
 
     return Ember.RSVP.hash({
-      //collection: collectionMock,
       collection: collection,
-      resourceId: resourceId
+      resourceId: resourceId,
+      rating: rating
     });
   },
 
@@ -47,8 +53,15 @@ export default Ember.Route.extend({
       resource = collection.getResourceById(model.resourceId);
     }
 
+    const rating = model.rating;
+    var ratingScore = 0;
+    if (rating) {
+      ratingScore = rating.get('score');
+    }
+
     controller.set("collection", collection);
     controller.set("resource", resource);
     controller.set("resourceId", resource.get("id"));
+    controller.set('ratingScore', ratingScore);
   }
 });

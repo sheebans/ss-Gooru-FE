@@ -12,6 +12,11 @@ export default Ember.Controller.extend({
   // Dependencies
   queryParams: ['resourceId'],
 
+  /**
+   * @dependency {Ember.Service} Service to rate a resource
+   */
+  ratingService: Ember.inject.service("api-sdk/rating"),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -64,6 +69,14 @@ export default Ember.Controller.extend({
      */
     closeNavigator:function(){
       Ember.$( ".app-container" ).removeClass( "navigator-on" );
+    },
+
+    /**
+     * Triggered when an resource emotion is selected
+     * @param {string} emotionScore
+     */
+    changeEmotion: function(emotionScore) {
+      this.get('ratingService').rateResource(this.get('resourceId'), emotionScore);
     }
   },
 
@@ -91,6 +104,12 @@ export default Ember.Controller.extend({
    */
   resource: null,
 
+  /**
+   * The rating score for the resource
+   * @property {number} ratingScore
+   */
+  ratingScore: 0,
+
   // -------------------------------------------------------------------------
   // Observers
 
@@ -102,8 +121,15 @@ export default Ember.Controller.extend({
    * @param {Resource} resource
    */
   moveToResource: function(resource){
-    this.set("resourceId", resource.get("id"));
-    this.set("resource", resource);
+    var controller = this;
+    controller.set("resourceId", resource.get("id"));
+    controller.set("resource", resource);
+    controller.set('ratingScore', 0);
+
+    this.get('ratingService').findRatingForResource(resource.get("id"))
+      .then(function (ratingModel) {
+        controller.set('ratingScore', ratingModel.get('score'));
+      });
   }
 
 

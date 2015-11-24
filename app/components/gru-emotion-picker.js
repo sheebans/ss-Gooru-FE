@@ -31,15 +31,13 @@ export default Ember.Component.extend({
      * @param {string} newEmotion - newly selected emotion
      * @returns {undefined}
      */
-    setEmotion: function(newEmotion) {
-      this.$("." + newEmotion).parent().siblings().find(".active").removeClass("active");
-      this.$("." + newEmotion).toggleClass("active");
-      if(!this.get('selectedEmotion') || this.get('selectedEmotion') !== newEmotion){
-        this.set('selectedEmotion', newEmotion);
-      }else{
-        this.set('selectedEmotion', null);
+    setEmotion: function(newEmotion, score) {
+      if (this.get('selectedEmotion') && this.get('selectedEmotion') == newEmotion) {
+        // Do nothing in this case
+      } else {
+        this.set('ratingScore', score);
+        this.sendAction("onChangeEmotion", this.get('selectedEmotionScore'));
       }
-      this.sendAction("onChangeEmotion", this.get('selectedEmotion'));
     }
   },
 
@@ -47,12 +45,16 @@ export default Ember.Component.extend({
   // Events
 
   /**
-   * Add tooltip to UI elements (elements with attribute 'data-toggle')
+   * Overwrites didInsertElement hook.
    */
-  addTooltip: function() {
+  didInsertElement: function() {
     var component = this;
+    // Adds tooltip to UI elements (elements with attribute 'data-toggle')
     component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
-  }.on('didInsertElement'),
+
+    // Sets the emotion icon if there is a score for this resource
+    this.ratingScoreChanged();
+  },
 
   // -------------------------------------------------------------------------
   // Properties
@@ -65,23 +67,28 @@ export default Ember.Component.extend({
   emotionsList: [
     {
       'emotion': 'need-help',
-      'icon-class': 'need-help'
+      'icon-class': 'need-help',
+      'score': '1'
     },
     {
       'emotion': 'do-not-understand',
-      'icon-class': 'do-not-understand'
+      'icon-class': 'do-not-understand',
+      'score': '2'
     },
     {
       'emotion': 'meh',
-      'icon-class': 'meh'
+      'icon-class': 'meh',
+      'score': '3'
     },
     {
       'emotion': 'understand',
-      'icon-class': 'understand'
+      'icon-class': 'understand',
+      'score': '4'
     },
     {
       'emotion': 'can-explain',
-      'icon-class': 'can-explain'
+      'icon-class': 'can-explain',
+      'score': '5'
     }],
 
   /**
@@ -92,13 +99,43 @@ export default Ember.Component.extend({
   /**
    * @property {?string} selectedEmotion - selected emotion
    */
-  selectedEmotion: null
+  selectedEmotion: null,
+
+  /**
+   * @property {?string} selectedEmotionScore - selected emotion score
+   */
+  selectedEmotionScore: null,
+
+  /**
+   * @property {number} The emotion score that will be selected
+   */
+  ratingScore: 0,
 
   // -------------------------------------------------------------------------
   // Observers
 
+  ratingScoreChanged: function() {
+    this.cleanupEmotions();
+    var score = this.get('ratingScore');
+    if (score > 0) {
+      var emotion = this.get('emotionsList')[score - 1].emotion;
+      this.selectEmotion(emotion, score);
+    }
+  }.observes("ratingScore"),
 
   // -------------------------------------------------------------------------
   // Methods
+
+  cleanupEmotions: function() {
+    this.$(".emotions-list li").find(".active").removeClass("active");
+    this.set('selectedEmotion', null);
+    this.set('selectedEmotionScore', 0);
+  },
+
+  selectEmotion: function(emotion, score) {
+    this.set('selectedEmotion', emotion);
+    this.set('selectedEmotionScore', score);
+    this.$("." + emotion).toggleClass("active");
+  }
 
 });
