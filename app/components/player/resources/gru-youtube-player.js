@@ -38,22 +38,23 @@ export default Ember.Component.extend({
    * @property {string} full resource image url
    */
   youtubeUrl: Ember.computed("resource.url", function(){
-    return this.get("resource.url").replace(/watch\?v=/g, "embed/");
+    return this.get("resource.url").replace(/watch\?v=/g, "embed/")+"?start="+this.get('start')+"&end="+this.get('stop');
   }),
-
   /**
    * @property {string}Begin playing the video at the given number of seconds from the start of the video
    */
   start: Ember.computed("resource.start", function(){
-    return this.get("resource.start");
+    const component = this;
+    return component.convertToSeconds(this.get("resource.start"));
   }),
 
   /**
    * @property {string}The time, measured in seconds from the start of the video, when the player should stop playing the video
    */
   stop: Ember.computed("resource.stop", function(){
-    return this.get("resource.stop");
-  })
+    const component = this;
+    return component.convertToSeconds(this.get("resource.stop"));
+  }),
   // -------------------------------------------------------------------------
   // Observers
 
@@ -61,4 +62,12 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Methods
 
+  /**
+   * Convert the time in this format 00:00:00 to seconds
+   */
+  convertToSeconds:function(time) {
+    var sections = time.split(":");
+    var seconds = Math.round(sections[0] * 3600) + Math.round(sections[1] * 60) + Math.round(sections[2]);
+    return seconds;
+  }
 });
