@@ -49,6 +49,17 @@ export default DS.Model.extend({
   order: DS.attr('number'),
   owner: DS.attr(),
 
+  /**
+   * The start time for video/youtube
+   * @property {string} start
+   */
+  start: DS.attr('string'),
+  /**
+   * The end time for video/youtube
+   * @property {string} start
+   */
+  stop: DS.attr('string'),
+
   // Question Fields
   questionType: DS.attr('string'),
   text: DS.attr('string'),
@@ -144,7 +155,5 @@ export default DS.Model.extend({
     var resourceType = this.get("resourceType");
     return resourceType && resourceType.indexOf("video/youtube") >= 0;
   })
-
-
 
 });
