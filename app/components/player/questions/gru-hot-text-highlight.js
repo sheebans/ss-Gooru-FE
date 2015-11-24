@@ -19,7 +19,7 @@ export default QuestionComponent.extend({
 
   // -------------------------------------------------------------------------
   // Attributes
-  classNames: ['gru-hot-text'],
+  classNames: ['gru-hot-text-highlight'],
 
   // -------------------------------------------------------------------------
   // Actions
