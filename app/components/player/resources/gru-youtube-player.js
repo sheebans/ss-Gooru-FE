@@ -18,7 +18,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-youtube-resource'],
+  classNames:['gru-youtube-player'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -67,7 +67,7 @@ export default Ember.Component.extend({
    */
   convertToSeconds:function(time) {
     var sections = time.split(":");
-    var seconds = Math.round(sections[0] * 3600) + Math.round(sections[1] * 60) + Math.round(sections[2]);
+    var seconds = parseInt(sections[0] * 3600) + parseInt(sections[1] * 60) + parseInt(sections[2]);
     return seconds;
   }
 });
