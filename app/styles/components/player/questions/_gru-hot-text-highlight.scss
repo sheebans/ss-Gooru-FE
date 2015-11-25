@@ -1,5 +1,6 @@
 .player .gru-hot-text-highlight {
   span.item {
+    cursor:pointer;
     margin-right: 4px;
     &.selected {
       border: 1px solid $color-blue-primary;
