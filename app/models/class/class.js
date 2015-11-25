@@ -16,6 +16,26 @@ export default DS.Model.extend({
   code: DS.attr('string'),
 
   /**
+   * @property {string} Greetings message
+   */
+  greetings: DS.attr('string'),
+
+  /**
+   * @property {string} Long description about the class
+   */
+  description: DS.attr('string'),
+
+  /**
+   * @property {string} Class start date
+   */
+  startDate: DS.attr('string'),
+
+  /**
+   * @property {string} Class end date
+   */
+  endDate: DS.attr('string'),
+
+  /**
    * @property {string} Grades values separated by commas, e.g. 'K,1,2,3'
    */
   grades: DS.attr('string'),
@@ -31,8 +51,8 @@ export default DS.Model.extend({
   totalMembers: DS.attr('number'),
 
   /**
-   * @property {Object} Basic teacher information (id, username, avatarUrl)
+   * @property {Object[]} An array of teachers with very basic teacher information [{id, username, avatarUrl}]
    */
-  teacher: DS.attr()
+  teachers: DS.attr()
 
 });
