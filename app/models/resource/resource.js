@@ -187,7 +187,6 @@ export default DS.Model.extend({
    */
   isUrlResource: Ember.computed("resourceType", function(){
     var resourceType = this.get("resourceType");
-    console.log("resourceType", resourceType);
     return resourceType && resourceType.indexOf("resource/url") >= 0;
   })
 
