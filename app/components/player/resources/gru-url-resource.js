@@ -18,7 +18,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-url-player'],
+  classNames:['gru-url-resource'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -32,14 +32,8 @@ export default Ember.Component.extend({
   /**
    * @property {Resource} the resource
    */
-  resource: null,
+  resource: null
 
-  /**
-   * @property {string} full resource url
-   */
-  urlResource: Ember.computed("resource.url", function(){
-    return this.get("resource.url");
-  })
 
   // -------------------------------------------------------------------------
   // Observers

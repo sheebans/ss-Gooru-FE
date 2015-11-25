@@ -4,11 +4,11 @@ import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 
 
-moduleForComponent('player/resources/gru-url-player', 'Integration | Component | player/resources/gru url player', {
+moduleForComponent('player/resources/gru-url-resource', 'Integration | Component | player/resources/gru url resource', {
   integration: true
 });
 
-test('Url player layout', function (assert) {
+test('Url resource layout', function (assert) {
 
   assert.expect(2);
 
@@ -22,11 +22,11 @@ test('Url player layout', function (assert) {
     });
 
   this.set('resource', resource);
-  this.render(hbs`{{player/resources/gru-url-player resource=resource}}`);
+  this.render(hbs`{{player/resources/gru-url-resource resource=resource}}`);
 
   var $component = this.$(); //component dom element
 
-  T.exists(assert, $component.find(".gru-url-player iframe"), "Missing url player element");
+  T.exists(assert, $component.find(".gru-url-resource iframe"), "Missing url resource element");
   assert.equal($component.find("iframe").attr("src"), "http://www.water4all.org/us/", "Wrong url");
 });
 
