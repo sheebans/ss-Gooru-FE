@@ -67,14 +67,17 @@ test('Sign up test', function(assert) {
 
          fillIn($usernameInput, 'gooruTest$');
          $usernameInput.trigger('blur');
+         $errorSpan = $signUpForm.find('.username span.error');
          assert.ok($errorSpan, "Username accepted a symbol");
 
          fillIn($usernameInput, 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit');
          $usernameInput.trigger('blur');
+         $errorSpan = $signUpForm.find('.username span.error');
          assert.ok($errorSpan, "Username accepted too many characters");
 
          fillIn($usernameInput, 'go');
          $usernameInput.trigger('blur');
+         $errorSpan = $signUpForm.find('.username span.error');
          assert.ok($errorSpan, "Username accepted less than 4 characters");
 
          // Datepicker date of birth field
@@ -89,6 +92,7 @@ test('Sign up test', function(assert) {
 
          fillIn($emailInput, 'notAnEmail.com'); // invalid format
          $emailInput.trigger('blur');
+         $errorSpan = $signUpForm.find('.email span.error');
          assert.ok($errorSpan, "Email accepted an invalid format");
 
          // Password field
@@ -98,10 +102,12 @@ test('Sign up test', function(assert) {
 
          fillIn($passwordInput, '1234'); // less than 4
          $passwordInput.trigger('blur');
+         $errorSpan = $signUpForm.find('.password span.error');
          assert.ok($errorSpan, "Password is accepting less than 4 characters");
 
          fillIn($passwordInput, '123456789012345678901');// more than 20
          $passwordInput.trigger('blur');
+         $errorSpan = $signUpForm.find('.password span.error');
          assert.ok($errorSpan, "Password is accepting more than 20 characters");
 
          // Re-Password field
@@ -111,14 +117,17 @@ test('Sign up test', function(assert) {
 
          fillIn($rePasswordInput, '1234'); // less than 4
          $rePasswordInput.trigger('blur');
+         $errorSpan = $signUpForm.find('.rePassword span.error');
          assert.ok($errorSpan, "RePassword error message is not showing");
 
          fillIn($rePasswordInput, '123456789012345678901');//more than 20
          $rePasswordInput.trigger('blur');
+         $errorSpan = $signUpForm.find('.rePassword span.error');
          assert.ok($errorSpan, "RePassword error message is not showing");
 
          fillIn($rePasswordInput, 'notTheSame');//passwords dont match
          $rePasswordInput.trigger('blur');
+         $errorSpan = $signUpForm.find('.rePassword span.error');
          assert.ok($errorSpan, "RePassword error message is not showing");
 
 
