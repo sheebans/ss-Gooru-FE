@@ -49,23 +49,27 @@ export default DS.Model.extend({
   order: DS.attr('number'),
   owner: DS.attr(),
 
-  /**
-   * The start time for video/youtube
-   * @property {string} start
-   */
-  start: DS.attr('string'),
-  /**
-   * The end time for video/youtube
-   * @property {string} start
-   */
-  stop: DS.attr('string'),
-
   // Question Fields
   questionType: DS.attr('string'),
   text: DS.attr('string'),
   hints: DS.attr(),
   explanation: DS.attr('string'),
+
+  /**
+   * @property {Answer[]}
+   */
   answers: DS.hasMany('resource/answer'),
+
+  /**
+   * Indicates if the question has answers
+   * @property {bool}
+   */
+  hasAnswers: Ember.computed.bool("answers.length"),
+
+  /**
+   * @property {*} resource options
+   */
+  options: DS.attr(),
 
   /**
    * @property {string} thumbnail url
@@ -133,6 +137,27 @@ export default DS.Model.extend({
    * @see components/player/gru-hot-text-highlight.js
    */
   isHotTextHighlight: Ember.computed.equal('questionType', 'HT_HL'),
+
+  /**
+   * @property {bool} indicates if the question is hot text word type
+   */
+  isHotTextHighlightWord: Ember.computed.equal('options.hotTextType', 'word'),
+
+  /**
+   * @property {bool} indicates if the question is hot text word type
+   */
+  isHotTextHighlightSentence: Ember.computed.equal('options.hotTextType', 'sentence'),
+
+  /**
+   * The start time for video/youtube
+   * @property {string} start
+   */
+  start: Ember.computed.alias("options.start"),
+  /**
+   * The end time for video/youtube
+   * @property {string} start
+   */
+  stop: Ember.computed.alias("options.stop"),
 
   hasMedia: Ember.computed.bool('mediaUrl'),
   hasNarration: Ember.computed.bool('narration'),

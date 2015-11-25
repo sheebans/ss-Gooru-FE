@@ -61,8 +61,12 @@ export default DS.JSONAPISerializer.extend({
       userId: payload.user.gooruUId,
       avatarUrl: payload.user.profileImageUrl
     };
-    model.attributes.start = (payload.start ? payload.start : '00:00:00');
-    model.attributes.stop = (payload.stop ? payload.stop : '00:00:00');
+    //some extra resource options here
+    model.attributes.options = {
+      hotTextType: payload.hlType,
+      start: (payload.start ? payload.start : '00:00:00'),
+      stop: (payload.stop ? payload.stop : '00:00:00')
+    };
     return model;
   },
 
@@ -81,6 +85,12 @@ export default DS.JSONAPISerializer.extend({
     model.attributes.narration = null;
     model.attributes.order = 0;
     model.attributes.owner = null;
+    //some extra resource options here
+    model.attributes.options = {
+      hotTextType: payload.resource.hlType,
+      start: (payload.resource.start ? payload.resource.start : '00:00:00'),
+      stop: (payload.resource.stop ? payload.resource.stop : '00:00:00')
+    };
     return model;
   },
 
