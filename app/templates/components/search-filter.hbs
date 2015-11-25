@@ -35,17 +35,17 @@
                   </div>
                </li>
                <li class="ma-md-left-1 ma-sm-left-1 author-label">
-                   <p class="pa-md-4 pa-sm-4">{{t "search-filter.author.title"}}</p>
+                   <p class="pa-md-4 pa-sm-4 pa-xs-top-5">{{t "search-filter.author.title"}}</p>
                </li>
                <li>
                  {{input
                      id="author"
-                     class="author pa-md-2 pa-sm-2"
+                     class="author pa-md-2 pa-sm-2 ma-xs-top-3"
                      placeholder=(t "search-filter.author.placeholder")
                  }}
                </li>
                <li class="ma-md-2 ma-sm-2">
-                   <div class="img-question" data-toggle="tooltip" data-placement="bottom" title={{t "search-filter.author.questionToolTip"}}></div>
+                   <div class="img-question ma-xs-top-5" data-toggle="tooltip" data-placement="bottom" title={{t "search-filter.author.questionToolTip"}}></div>
                </li>
               {{/if}}
              {{#if resourceSelected}}
@@ -56,7 +56,7 @@
            </ul>
        </div>
     </div>
-    <div class="row bg-gray-light subfilters pa-left-30">
+    <div class="row bg-gray-light subfilters pa-md-left-30 pa-sm-left-30 pa-xs-left-2">
       <ul class="search-filter-options">
           <li class="subfilters-dropdowns pa-right-10 pa-top-5 pa-bottom-5 grade">
             {{grade-dropdown
