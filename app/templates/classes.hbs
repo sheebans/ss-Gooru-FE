@@ -1,0 +1,53 @@
+<div class="controller classes">
+  <div class="joined">
+    <h1>{{t "classes.classesJoined"}}</h1>
+    <ul class="clearfix">
+      {{#each classesJoined as |class|}}
+        <li>
+          <div>
+            {{#link-to 'class' class.id}}
+              {{{class.name}}}
+            {{/link-to}}
+
+            <ul class="teachers">
+              {{#each class.teachers as |teacher|}}
+                <li class="small-profile">
+                  {{!-- <img src="{{teacher.avatarUrl}}" /> --}}
+                  <span>{{teacher.username}}</span>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+        </li>
+      {{else}}
+        {{t "classes.noClassesJoined"}}
+      {{/each}}
+    </ul>
+  </div>
+
+  <div class="taught">
+    <h1>{{t "classes.classesTaught"}}</h1>
+    <ul class="clearfix">
+      {{#each classesTaught as |class|}}
+        <li>
+          <div>
+            {{#link-to 'class' class.id}}
+              {{{class.name}}}
+            {{/link-to}}
+
+            <ul class="teachers">
+              {{#each class.teachers as |teacher|}}
+                <li class="small-profile">
+                  {{!-- <img src="{{teacher.avatarUrl}}" /> --}}
+                  <span>{{teacher.username}}</span>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+        </li>
+      {{else}}
+        {{t "classes.noClassesTaught"}}
+      {{/each}}
+    </ul>
+  </div>
+</div>
