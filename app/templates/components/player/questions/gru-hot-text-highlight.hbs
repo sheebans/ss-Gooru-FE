@@ -3,10 +3,10 @@
   {{t "gru-hot-text.instructions"}}
 </p>
 
-<div class="phrases">
+<p class="phrases">
     {{#each items as |item|}}
-      <span {{action 'markItem' item}} class="item {{if item.selected 'selected'}}">{{{item.text}}}</span>&nbsp;
+      <span {{action 'markItem' item}} class="item {{if item.selected 'selected'}}">{{{item.text}}}</span>
     {{/each}}
-</div>
+</p>
 
 

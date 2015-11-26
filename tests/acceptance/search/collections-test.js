@@ -40,7 +40,7 @@ test('onOpenContentPlayer: When opening a collection', function(assert) {
 });
 
 test('filterType: When filtering by assessments', function(assert) {
-  assert.expect(2);
+  assert.expect(3);
   visit('/search/collections?term=any');
   andThen(function() {
     const $assessmentButton = find(".search-filter-options button.assessments");
@@ -48,6 +48,25 @@ test('filterType: When filtering by assessments', function(assert) {
     click($assessmentButton); //clicking first collection title
     andThen(function() {
       assert.equal(currentURL(), '/search/collections?collectionType=assessment&term=any');
+      assert.equal(find(".collection-card").length, 9, "Search should return only 9 assessments");
     });
   });
 });
+
+test('searchTerm: Search by term when user is already at the results page', function(assert) {
+  assert.expect(2); //making sure all asserts are called
+  visit('/search/collections?term=any');
+  andThen(function() {
+    const $appHeader = find('.gru-header');
+    const $searchButton = $appHeader.find(".search-button");
+    const $searchInput = $appHeader.find(".search-input");
+
+    fillIn($searchInput, 'europe');
+    click($searchButton);
+    andThen(function(){
+      assert.equal(currentURL(), '/search/collections?term=europe');
+      assert.equal(find(".collection-card").length, 1, "Europe search should return 1 collection");
+    });
+  });
+});
+

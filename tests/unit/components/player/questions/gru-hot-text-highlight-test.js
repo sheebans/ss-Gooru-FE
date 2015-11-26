@@ -144,3 +144,24 @@ test('generateItems isHotTextHighlightSentence', function (assert) {
   assert.equal(items[1].get("text"), "Sentence 2.", "Wrong item text");
 });
 
+test('transformText', function (assert) {
+  assert.expect(4);
+  var component = this.subject();
+
+  //removing wrapping <p> tag for a normal text
+  var text = component.transformText("<p> This is a test [for] the transform text </p>");
+  assert.equal(text, "This is a test [for] the transform text", "Wrong text");
+
+  //removing wrapping <p> tag for a text having more html tag inside
+  text = component.transformText("<p> This is a test [<p>for</p>] <b>the</b> transform text </p>");
+  assert.equal(text, "This is a test [<p>for</p>] <b>the</b> transform text");
+
+  //ignoring a text not having a wrapping <p> tag, but <p> tags inside
+  text = component.transformText("This is a test [<p>for</p>] <b>the</b> transform text");
+  assert.equal(text, "This is a test [<p>for</p>] <b>the</b> transform text");
+
+  //ignoring a text a starting <p> tag which, but not wrapping the whole text
+  text = component.transformText("<p>This is a test</p> [<p>for</p>] <b>the</b> transform text");
+  assert.equal(text, "<p>This is a test</p> [<p>for</p>] <b>the</b> transform text");
+});
+

@@ -1,9 +1,9 @@
 .datepicker {
 
-  padding: 0px 0px 4px 0px;
+  padding: 0;
 
   .btn-default {
-    border: 0px solid transparent;
+    border: 0 solid transparent;
   }
 
   .input-group .form-control:first-child {
@@ -18,7 +18,7 @@
   .input-group-btn {
     position: absolute;
     padding: 7px 17px;
-    right: 0px;
+    right: 0;
   }
 
   .datepicker-field {
