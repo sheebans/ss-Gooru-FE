@@ -135,6 +135,15 @@ test('isYoutubeResource', function(assert) {
   assert.ok(model.get("isYoutubeResource"), "It should be youtube resource type");
 });
 
+test('isPDFResource', function(assert) {
+  assert.expect(1);
+  let model = this.subject({
+    "resourceType": "handouts"
+  });
+
+  assert.ok(model.get("isPDFResource"), "It should be pdf resource type");
+});
+
 test('isHotTextHighlightWord', function(assert) {
   assert.expect(1);
   let model = this.subject({
@@ -172,6 +181,17 @@ test('hasAnswers', function(assert) {
   });
 
   assert.ok(model.get("hasAnswers"), "It should have answers");
+});
+
+test('assetUrl', function(assert) {
+  assert.expect(1);
+  let model = this.subject({
+    assetUri:"uri-",
+    folder:"folder-",
+    url:"url",
+  });
+
+  assert.equal(model.get("assetUrl"), "uri-folder-url", "Wrong url");
 });
 
 test('isUrlResource', function(assert) {

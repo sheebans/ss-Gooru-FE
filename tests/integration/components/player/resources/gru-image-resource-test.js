@@ -1,9 +1,10 @@
+
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 
-moduleForComponent('player/resources/gru-image', 'Integration | Component | player/resources/gru image', {
+moduleForComponent('player/resources/gru-image-resource', 'Integration | Component | player/resources/gru image resource', {
   integration: true
 });
 
@@ -18,13 +19,11 @@ test('True or false question layout', function (assert) {
       "order": 2,
       "resourceType": "image/png",
       "resourceFormat": "image",
-      "assetUri": "test",
-      "folder": "/images/",
-      "url": "icon.png"
+      "assetUrl": "test/images/icon.png"
     });
 
   this.set('resource', resource);
-  this.render(hbs`{{player/resources/gru-image resource=resource}}`);
+  this.render(hbs`{{player/resources/gru-image-resource resource=resource}}`);
 
   var $component = this.$(); //component dom element
   T.exists(assert, $component.find("img"), "Missing image element");

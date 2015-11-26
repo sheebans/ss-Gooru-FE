@@ -1,36 +1,37 @@
 import Ember from "ember";
-import i18nMixin from "../../mixins/i18n";
 
-export default Ember.Service.extend(i18nMixin, {
+export default Ember.Service.extend({
+
+  i18n: Ember.inject.service(),
 
   /**
    * Returns all the fixed grades with i18n content
    * @returns {*[]}
    */
   readAll: function() {
-    var service = this;
+    var i18n = this.get('i18n');
     return [
-      Ember.Object.create({ id: 1, name: service.t("grade-dropdown.pre-k"), levels: [] }),
-      Ember.Object.create({ id: 2, name: service.t("grade-dropdown.elementary"),
+      Ember.Object.create({ id: 1, name: i18n.t("grade-dropdown.pre-k"), levels: [] }),
+      Ember.Object.create({ id: 2, name: i18n.t("grade-dropdown.elementary"),
         levels: [
-          service.t("grade-dropdown.k"),
-          service.t("grade-dropdown.first"),
-          service.t("grade-dropdown.second"),
-          service.t("grade-dropdown.third"),
-          service.t("grade-dropdown.fourth"),
-          service.t("grade-dropdown.fifth")] }),
-      Ember.Object.create({ id: 3, name: service.t("grade-dropdown.middle-school"),
+          i18n.t("grade-dropdown.k"),
+          i18n.t("grade-dropdown.first"),
+          i18n.t("grade-dropdown.second"),
+          i18n.t("grade-dropdown.third"),
+          i18n.t("grade-dropdown.fourth"),
+          i18n.t("grade-dropdown.fifth")] }),
+      Ember.Object.create({ id: 3, name: i18n.t("grade-dropdown.middle-school"),
         levels: [
-          service.t("grade-dropdown.sixth"),
-          service.t("grade-dropdown.seventh"),
-          service.t("grade-dropdown.eighth")] }),
-      Ember.Object.create({ id: 4, name: service.t("grade-dropdown.high-school"),
+          i18n.t("grade-dropdown.sixth"),
+          i18n.t("grade-dropdown.seventh"),
+          i18n.t("grade-dropdown.eighth")] }),
+      Ember.Object.create({ id: 4, name: i18n.t("grade-dropdown.high-school"),
         levels: [
-          service.t("grade-dropdown.ninth"),
-          service.t("grade-dropdown.tenth"),
-          service.t("grade-dropdown.eleventh"),
-          service.t("grade-dropdown.twelfth")] }),
-      Ember.Object.create({ id: 5, name: service.t("grade-dropdown.higher-ed"), levels: [] })
+          i18n.t("grade-dropdown.ninth"),
+          i18n.t("grade-dropdown.tenth"),
+          i18n.t("grade-dropdown.eleventh"),
+          i18n.t("grade-dropdown.twelfth")] }),
+      Ember.Object.create({ id: 5, name: i18n.t("grade-dropdown.higher-ed"), levels: [] })
     ];
   }
 

@@ -1,5 +1,8 @@
 export default {
 
+  /*
+   * COMMON: Translations used globally in the app or shared between components
+   */
   "common": {
     "close": "Close",
     "create": "Create",
@@ -9,6 +12,7 @@ export default {
     "hints": "Hints",
     "if_questions": "If you have any questions,",
     "libraries": "Libraries",
+    "loading": "Loading ...",
     "login": "Log in",
     "logout": "Logout",
     "myClasses": "My Classes",
@@ -17,12 +21,75 @@ export default {
     "please_contact": "Please contact",
     "remaining": "{{number}} Left",
     "search": "Search",
+    "searchForTopic": "Search for a topic",
     "signUp": "Sign Up",
     "standards": "Standards",
     "submit": "Submit",
     "yes": "Yes"
   },
 
+  /*
+   * CONTROLLERS: Translations used in a specific controller
+   */
+  "index": {
+    "joinUs": "Join Us to <br/> Honor the Human Right to <br/> Education",
+    "browseContent": {
+      "title": "Hi there! What are you looking for?",
+      "description_1": "I am looking for",
+      "description_2": "learning materials in",
+      "description_3": "or",
+      "button": "Browse Content",
+      "footer": {
+        "description_1": "Already have an account? ",
+        "description_2": " here.",
+        "login": "Login"
+      },
+      "grades_missing_message": "Please select Grade and Subject.",
+      "subjects_missing_message": "Please select Subject."
+    },
+    "gettingStarted": {
+      "title": "Getting Started with Gooru",
+      "toolkit": {
+        "title": "Getting Started Toolkit",
+        "description": "Welcome to Gooru! Check out these resources to learn what you can do with Gooru and get started quickly."
+      },
+      "classroom": {
+        "title": "Stories from the Classroom",
+        "description": "Learn by example through stories of teachers who say Gooru has made a difference in their classroom."
+      },
+      "events": {
+        "title": "Check Out our Events!",
+        "description": "We offer free webinars and trainings to help you get started with Gooru."
+      }
+    },
+    "empowerStudents": {
+      "title": "Empower Students to Learn Their Way",
+      "find": "Find",
+      "remix": "Remix",
+      "share": "Share",
+      "monitor": "Monitor"
+    },
+    "findDescription": "Browse thousands of K-12 collections made by teachers, or search over 16M resources",
+    "remixDescription": "Remix collections and customize content to meet your students' needs.",
+    "shareDescription": "Share collections with students via My Classes. Login is not required to access.",
+    "monitorDescription": "Measure your students' engagement and progress to intervene in real-time.",
+    "freeAndOpen": {
+      "title": "Free and Open.<br/>Always.",
+      "description": "We believe education is a human right. Gooru will always be free of cost and ads for educators and students worldwide.",
+      "button": "Learn More about Our Approach"
+    }
+  },
+
+  "classes": {
+    "classesJoined": "Classes I've Joined",
+    "classesTaught": "Classes I Teach",
+    "noClassesJoined": "You have not joined any classes",
+    "noClassesTaught": "You do not have any created classes"
+  },
+
+  /*
+   * COMPONENTS: Translations used in a specific component
+   */
   "gru-category-panel": {
     "teacher": {
       "title": "For Teachers",
@@ -82,59 +149,6 @@ export default {
     "registration_incomplete": "Your registration is not complete.",
     "leave": "Leave Registration",
     "continue": "Continue with Registration"
-  },
-
-  "header": {
-    "searchForTopic": "Search for a topic"
-  },
-
-  "index": {
-    "joinUs": "Join Us to <br/> Honor the Human Right to <br/> Education",
-    "browseContent": {
-      "title": "Hi there! What are you looking for?",
-      "description_1": "I am looking for",
-      "description_2": "learning materials in",
-      "description_3": "or",
-      "button": "Browse Content",
-      "footer": {
-        "description_1": "Already have an account? ",
-        "description_2": " here.",
-        "login": "Login"
-      },
-      "grades_missing_message": "Please select Grade and Subject.",
-      "subjects_missing_message": "Please select Subject."
-    },
-    "gettingStarted": {
-      "title": "Getting Started with Gooru",
-      "toolkit": {
-        "title": "Getting Started Toolkit",
-        "description": "Welcome to Gooru! Check out these resources to learn what you can do with Gooru and get started quickly."
-      },
-      "classroom": {
-        "title": "Stories from the Classroom",
-        "description": "Learn by example through stories of teachers who say Gooru has made a difference in their classroom."
-      },
-      "events": {
-        "title": "Check Out our Events!",
-        "description": "We offer free webinars and trainings to help you get started with Gooru."
-      }
-    },
-    "empowerStudents": {
-      "title": "Empower Students to Learn Their Way",
-      "find": "Find",
-      "remix": "Remix",
-      "share": "Share",
-      "monitor": "Monitor"
-    },
-    "findDescription": "Browse thousands of K-12 collections made by teachers, or search over 16M resources",
-    "remixDescription": "Remix collections and customize content to meet your students' needs.",
-    "shareDescription": "Share collections with students via My Classes. Login is not required to access.",
-    "monitorDescription": "Measure your students' engagement and progress to intervene in real-time.",
-    "freeAndOpen": {
-      "title": "Free and Open.<br/>Always.",
-      "description": "We believe education is a human right. Gooru will always be free of cost and ads for educators and students worldwide.",
-      "button": "Learn More about Our Approach"
-    }
   },
 
   "login": {
@@ -229,6 +243,7 @@ export default {
     "footer":"If you have any questions,<br/> Please contact",
     "mail":"support@goorulearning.org"
   },
+
   "search-result": {
     "resource": "resource",
     "resources": "resources",
@@ -245,10 +260,6 @@ export default {
     "meh":"Meh...",
     "understand":"I understand",
     "can-explain":"I can explain"
-  },
-
-  "loading": {
-    "text": "Loading..."
   },
 
   "gru-question-viewer": {

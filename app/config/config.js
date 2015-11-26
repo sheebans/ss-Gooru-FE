@@ -9,3 +9,10 @@ export const QUESTION_COMPONENT_MAP = {
   'HT_RO' : 'player.questions.gru-reorder',
   'HT_HL' : 'player.questions.gru-hot-text-highlight'
 };
+
+export const RESOURCE_COMPONENT_MAP = {
+  'video/youtube'    : 'player.resources.gru-youtube-resource',
+  'resource/url'    : 'player.resources.gru-url-resource',
+  'handouts'   : 'player.resources.gru-pdf-resource',
+  'image'    : 'player.resources.gru-image-resource'
+};

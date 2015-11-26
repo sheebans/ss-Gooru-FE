@@ -1,0 +1,32 @@
+[
+  {
+    "description": "Gets all classes for any teacher",
+    "request": {
+      "url": "^/gooruapi/rest/v3/class/teach$",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "teach-classes-200-response.json"
+    }
+  },
+  {
+    "description": "Gets all classes for any student",
+    "request": {
+      "url": "^/gooruapi/rest/v3/class/study",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "study-classes-200-response.json"
+    }
+  }
+]

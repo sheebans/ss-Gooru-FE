@@ -1,17 +1,11 @@
-import Ember from 'ember';
-import { module, test } from 'qunit';
-import startApp from 'gooru-web/tests/helpers/start-app';
+import { test } from 'qunit';
+import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import T from 'gooru-web/tests/helpers/assert';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 
-module('Acceptance | index', {
+moduleForAcceptance('Acceptance | index', {
   beforeEach: function() {
-    this.application = startApp();
     authenticateSession(this.application, { isAnonymous: true });
-  },
-
-  afterEach: function() {
-    Ember.run(this.application, 'destroy');
   }
 });
 

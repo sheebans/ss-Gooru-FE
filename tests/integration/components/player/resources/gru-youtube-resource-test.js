@@ -4,7 +4,7 @@ import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 
 
-moduleForComponent('player/resources/gru-youtube-player', 'Integration | Component | player/resources/gru youtube player', {
+moduleForComponent('player/resources/gru-youtube-resource', 'Integration | Component | player/resources/gru youtube resource', {
   integration: true
 });
 
@@ -24,11 +24,11 @@ test('Youtube player layout', function (assert) {
     });
 
   this.set('resource', resource);
-  this.render(hbs`{{player/resources/gru-youtube-player resource=resource}}`);
+  this.render(hbs`{{player/resources/gru-youtube-resource resource=resource}}`);
 
   var $component = this.$(); //component dom element
 
-  T.exists(assert, $component.find(".gru-youtube-player iframe"), "Missing youtube player element");
+  T.exists(assert, $component.find(".gru-youtube-resource iframe"), "Missing youtube element");
   assert.equal($component.find("iframe").attr("src"), "https://www.youtube.com/embed/aBSH3IoFZsc?start=190&end=200", "Wrong url");
 });
 

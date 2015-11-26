@@ -7,6 +7,8 @@
 
 @import 'controllers/index';
 @import 'controllers/player';
+@import 'controllers/classes';
+@import 'controllers/class';
 
 // TODO: update these components so they follow the naming conventions
 @import 'components/app-dropdown';
@@ -39,7 +41,6 @@
 @import 'components/player/questions/gru-hs-text';
 @import 'components/player/questions/gru-hot-text-highlight';
 @import 'components/player/questions/gru-fib';
-@import 'components/player/resources/gru-youtube-player';
+@import 'components/player/resources/gru-youtube-resource';
 @import 'components/player/resources/gru-url-resource';
-
-@import 'components/class/gru-class-navigation';
+@import 'components/player/resources/gru-pdf-resource';

@@ -18,7 +18,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-image'],
+  classNames:['gru-image-resource'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -32,16 +32,7 @@ export default Ember.Component.extend({
   /**
    * @property {Resource} the resource
    */
-  resource: null,
-
-  /**
-   * @property {string} full resource image url
-   */
-  imageUrl: Ember.computed("resource.url", function(){
-    return this.get("resource.assetUri") +
-      this.get("resource.folder") +
-      this.get("resource.url");
-  })
+  resource: null
 
   // -------------------------------------------------------------------------
   // Observers

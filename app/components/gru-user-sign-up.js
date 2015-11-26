@@ -39,14 +39,14 @@ export default Ember.Component.extend(ModalMixin, StoreMixin, {
     signUp: function() {
       const component = this;
 
-      var model = this.get('user');
-      model.validate().then(({
+      var userModel = this.get('user');
+      userModel.validate().then(({
         model, validations
         }) => {
         if (validations.get('isValid')) {
 
           component.get("userService")
-            .create(model)
+            .save(model)
             .then(function() {
               this.triggerAction({
                 action: 'closeModal'
@@ -80,9 +80,8 @@ export default Ember.Component.extend(ModalMixin, StoreMixin, {
   },
 
   setupUserModel: function() {
-    var user = this.get('store').createRecord('user', {});
-
-    this.set('user', user);
+    var userModel = this.get("userService").newUser();
+    this.set('user', userModel);
   }.on('init'),
 
   // -------------------------------------------------------------------------
