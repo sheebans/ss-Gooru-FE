@@ -27,7 +27,7 @@ export default Ember.Component.extend(Env,{
   resource: null,
 
   pdfURL:Ember.computed('resource.assetUrl',function(){
-    return Env['player'].pdfViewerUrl+"&oid="+this.get("resource.gooruOid")+"&appKey=beta"+"&url="+this.get("resource.assetUrl");
+    return Env['player'].pdfViewerUrl+"?startPage=1&endPage=&signedFlag=0"+"&oid="+this.get("resource.gooruOid")+"&appKey=beta"+"&url="+this.get("resource.assetUrl");
   }),
 
   // -------------------------------------------------------------------------

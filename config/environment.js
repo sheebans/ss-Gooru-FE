@@ -29,7 +29,7 @@ module.exports = function (environment) {
   };
 
   ENV['player'] = {
-    pdfViewerUrl: 'http://qa.gooru.org/doc/a/view?startPage=1&endPage=&signedFlag=0'
+    pdfViewerUrl: 'http://qa.gooru.org/doc/a/view'
   };
 
   ENV['simple-auth-custom'] = {
