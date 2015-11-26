@@ -21,7 +21,7 @@ export default Ember.Route.extend(SessionMixin, {
   // -------------------------------------------------------------------------
   // Methods
 
-  beforeModel: function(transition) {
+  beforeModel: function() {
     // TODO: authenticate session with ember-simple-auth, if not send to log in
   },
 
