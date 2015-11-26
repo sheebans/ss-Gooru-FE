@@ -26,17 +26,22 @@ export default Ember.Route.extend({
    */
   profileService: Ember.inject.service("api-sdk/profile"),
 
+  //classService: Ember.inject.service('api-sdk/class'),
+
   model: function() {
     var subjects = this.get("subjectService").readAll();
     var grades = this.get("gradeService").readAll();
     var standards = this.get("standardService").readAll();
     var profile = this.get("profileService").findByCurrentUser();
 
+    //var classes = this.get('classService').findClassesITeach();
+
     return Ember.RSVP.hash({
       subjects: subjects,
       grades: grades,
       standards: standards,
-      profile: profile
+      profile: profile,
+      //classes: classes
     });
   },
 
@@ -58,5 +63,7 @@ export default Ember.Route.extend({
     }
 
     controller.set("standards", model.standards);
+
+    //console.log(model.classes[0].get('teachers'));
   }
 });
