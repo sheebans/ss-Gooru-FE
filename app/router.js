@@ -16,7 +16,10 @@ Router.map(function() {
 
   this.route('classes');
 
-  this.route('class', { path: '/class/:classId'});
+  this.route('class', function(){
+    this.route('index', { path: '/:classId'});
+    this.route('overview', { path: '/:classId/overview'});
+  });
 });
 
 export default Router;
