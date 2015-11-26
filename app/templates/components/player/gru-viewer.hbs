@@ -21,19 +21,10 @@
       </div>
     {{/if}}
 
-    {{#if resource.isImageResource}}
-      {{player.resources.gru-image resource=resource}}
-    {{/if}}
-
-    {{#if resource.isYoutubeResource}}
-      {{player.resources.gru-youtube-player resource=resource}}
-    {{/if}}
-    {{#if resource.isUrlResource}}
-      {{player.resources.gru-url-resource resource=resource}}
-    {{/if}}
-
-    {{#if resource.isPDFResource}}
-      {{player.resources.gru-pdf-player resource=resource}}
+    {{#if resourceComponentSelected}}
+      {{component resourceComponentSelected resource=resource}}
+    {{else}}
+      Not implemented
     {{/if}}
   {{/if}}
 </div>
