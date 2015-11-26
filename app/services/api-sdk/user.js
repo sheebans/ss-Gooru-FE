@@ -1,16 +1,23 @@
-import Ember from "ember";
-import StoreMixin from "../../mixins/store";
+import Ember from 'ember';
+import StoreMixin from '../../mixins/store';
 
 export default Ember.Service.extend(StoreMixin, {
 
   /**
-   * Creates a new user with the specified properties
-   * @param user user properties
-   * @returns {*|Ember.RSVP.Promise}
+   * Creates a new empty user model
+   * @returns {User}
    */
-  create: function(user) {
-    var model = this.get("store").createRecord('sign-up', user);
-    return model.save();
+  newUser: function() {
+    return this.get('store').createRecord('user');
+  },
+
+  /**
+   * Save the user model remotely (using gooru endpoint)
+   * @param userModel
+   * @returns {Promise}
+   */
+  save: function(userModel) {
+    return userModel.save();
   }
 
 });

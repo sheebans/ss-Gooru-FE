@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import i18nMixin from '../mixins/i18n';
 
-export default Ember.Component.extend(i18nMixin, {
+export default Ember.Component.extend({
 
   /**
    * Selected grades items
@@ -63,7 +62,7 @@ export default Ember.Component.extend(i18nMixin, {
 
     /**
      * Triggered when grade selection changes
-     * @param {DropdownItem} item
+     * @param {DropdownItem} items
      */
     onGradeSelected: function (items) {
       this.set("selectedGrades", items);

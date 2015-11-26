@@ -1,7 +1,6 @@
 import Ember from "ember";
-import i18nMixin from "../../mixins/i18n";
 
-export default Ember.Service.extend(i18nMixin, {
+export default Ember.Service.extend({
 
   readAll: function() {
     return Ember.A([

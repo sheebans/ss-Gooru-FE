@@ -79,8 +79,6 @@ export default Ember.Route.extend({
    * @param {Collection} model
    */
   setupController(controller, model) {
-    this._super(controller, model);
-
     const collection = model.collection;
 
     var resource = collection.get("lastVisitedResource");

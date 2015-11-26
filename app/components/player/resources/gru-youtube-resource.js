@@ -18,7 +18,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-youtube-player'],
+  classNames:['gru-youtube-resource'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -38,8 +38,11 @@ export default Ember.Component.extend({
    * @property {string} full resource youtube url
    */
   youtubeUrl: Ember.computed("resource.url", function(){
-    return this.get("resource.url").replace(/watch\?v=/g, "embed/")+"?start="+this.get('start')+"&end="+this.get('stop');
+    return this.get("resource.url").replace(/watch\?v=/g, "embed/")+
+        "?start="+this.get('start')+
+        "&end="+this.get('stop');
   }),
+
   /**
    * @property {string}Begin playing the video at the given number of seconds from the start of the video
    */
@@ -67,7 +70,6 @@ export default Ember.Component.extend({
    */
   convertToSeconds:function(time) {
     var sections = time.split(":");
-    var seconds = parseInt(sections[0] * 3600) + parseInt(sections[1] * 60) + parseInt(sections[2]);
-    return seconds;
+    return parseInt(sections[0] * 3600) + parseInt(sections[1] * 60) + parseInt(sections[2]);
   }
 });
