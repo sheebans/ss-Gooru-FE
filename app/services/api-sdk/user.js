@@ -8,7 +8,7 @@ export default Ember.Service.extend(StoreMixin, {
    * @returns {User}
    */
   newUser: function() {
-    return this.get('store').createRecord('user');
+    return this.get('store').createRecord('user/user');
   },
 
   /**
@@ -20,18 +20,28 @@ export default Ember.Service.extend(StoreMixin, {
     return userModel.save();
   },
 
-  checkUsernameAvailability:function(username){
-      return this.get('store').queryRecord('user/availability', {
-        keyword: username
-      });
+  /**
+   * Checks if the username was already taken
+   * @param username
+   * @returns {*}
+   */
+  checkUsernameAvailability: function(username){
+  	return this.get('store').queryRecord('user/availability', {
+      keyword: username,
+      isUsername: true
+    });
   },
 
+  /**
+   * Checks if the email was already taken
+   * @param email
+   * @returns {*}
+   */
   checkEmailAvailability:function(email){
-    console.log('checkEmailAvailability', email);
-    return new Promise(function(resolve, reject) {});;
-    /*return this.get('store').queryRecord('user/availability', {
-      keyword: email
-    });*/
+    return this.get('store').queryRecord('user/availability', {
+      keyword: email,
+      isUsername: false
+    });
   }
 
 });

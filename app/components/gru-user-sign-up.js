@@ -1,6 +1,5 @@
 import Ember from "ember";
 import ModalMixin from '../mixins/modal';
-import StoreMixin from '../mixins/store';
 
 /**
  * User sign up
@@ -11,7 +10,7 @@ import StoreMixin from '../mixins/store';
  * @module
  * @augments ember/Component
  */
-export default Ember.Component.extend(ModalMixin, StoreMixin, {
+export default Ember.Component.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
