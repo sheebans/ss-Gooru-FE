@@ -1,5 +1,23 @@
 [
   {
+    "description": "Search for a specific term - europe",
+    "request": {
+      "url": "^/gooru-search/rest/v2/search/scollection$",
+      "query": {
+        "q": "europe"
+      },
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "search-europe-term-200-response.json"
+    }
+  },
+  {
     "description": "Search for assessments any term",
     "request": {
       "url": "^/gooru-search/rest/v2/search/scollection$",
