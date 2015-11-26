@@ -15,7 +15,7 @@ test('Vimeo resource layout', function (assert) {
     {
       "id": 10,
       "order": 2,
-      "resourceType": "video/youtube",
+      "resourceType": "vimeo/video",
       "resourceFormat": "video",
       "url": "https://vimeo.com/11590751"
     });

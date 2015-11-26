@@ -38,6 +38,28 @@ export default Ember.Component.extend(Env,{
    * @property {string} full resource vimeo url
    */
   vimeoUrl: Ember.computed("resource.url", function(){
-    return Env['player'].vimeoPlayerUrl+this.get("resource.url").replace('https://vimeo.com/','');
+    const component = this;
+    var vimeoPlayerUrl = Env['player'].vimeoPlayerUrl;
+
+    return vimeoPlayerUrl+ component.getVimeoID(this.get("resource.url"));
   }),
+
+  // -------------------------------------------------------------------------
+  // Methods
+
+  /**
+   * Get Video ID from a URL
+   * @param {string} text
+   * @returns {{id: number}} id
+   */
+  getVimeoID: function (text) {
+      const regex = /([^/.]+)$/gm;
+
+    var match = regex.exec(text);
+    var id ="";
+    if (match != null) {
+     id = match[0];
+    }
+    return id;
+  },
 });
