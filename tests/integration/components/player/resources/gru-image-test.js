@@ -18,9 +18,7 @@ test('True or false question layout', function (assert) {
       "order": 2,
       "resourceType": "image/png",
       "resourceFormat": "image",
-      "assetUri": "test",
-      "folder": "/images/",
-      "url": "icon.png"
+      "assetUrl": "test/images/icon.png"
     });
 
   this.set('resource', resource);

@@ -31,6 +31,10 @@
     {{#if resource.isUrlResource}}
       {{player.resources.gru-url-resource resource=resource}}
     {{/if}}
+
+    {{#if resource.isPDFResource}}
+      {{player.resources.gru-pdf-player resource=resource}}
+    {{/if}}
   {{/if}}
 </div>
 

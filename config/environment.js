@@ -28,6 +28,10 @@ module.exports = function (environment) {
     baseURL: '/'
   };
 
+  ENV['player'] = {
+    pdfViewerUrl: 'http://qa.gooru.org/doc/a/view'
+  };
+
   ENV['simple-auth-custom'] = {
     apiKey: 'ASERTYUIOMNHBGFDXSDWERT123RTGHYT',
     serverTokenEndpoint: '/gooruapi/rest/v2/account/login',

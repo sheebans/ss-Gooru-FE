@@ -164,6 +164,15 @@ export default DS.Model.extend({
   hasOwner: Ember.computed.bool('owner'),
 
   /**
+   * @property {string} full resource asset url
+   */
+  assetUrl: Ember.computed("url", function(){
+    return this.get("assetUri") +
+      this.get("folder") +
+      this.get("url");
+  }),
+
+  /**
    * Indicates if it is an image resource
    * @property {bool}
    */
@@ -180,6 +189,14 @@ export default DS.Model.extend({
     var resourceType = this.get("resourceType");
     return resourceType && resourceType.indexOf("video/youtube") >= 0;
   }),
+  /**
+   * Indicates if it is an pdf resource
+   * @property {bool}
+   */
+  isPDFResource: Ember.computed("resourceType", function(){
+    var resourceType = this.get("resourceType");
+    return resourceType && resourceType.indexOf("handouts") >= 0;
+  }),
 
   /**
    * Indicates if it is an url resource
@@ -189,5 +206,4 @@ export default DS.Model.extend({
     var resourceType = this.get("resourceType");
     return resourceType && resourceType.indexOf("resource/url") >= 0;
   })
-
 });
