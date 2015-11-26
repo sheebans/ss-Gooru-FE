@@ -1,5 +1,5 @@
 import Ember from "ember";
-
+import { RESOURCE_COMPONENT_MAP } from "../../config/config";
 /**
  * Player viewer
  *
@@ -19,7 +19,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-viewer'],
+  classNames: ['gru-viewer'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -29,7 +29,7 @@ export default Ember.Component.extend({
      * @param {Question} question
      * @returns {boolean}
      */
-    submitQuestion: function(question){
+    submitQuestion: function (question) {
       this.sendAction("onSubmitQuestion", question);
     }
   },
@@ -56,7 +56,23 @@ export default Ember.Component.extend({
   /**
    * @property {string} on submit question action
    */
-  onSubmitQuestion: "submitQuestion"
+  onSubmitQuestion: "submitQuestion",
+
+  /**
+   * The resource component selected
+   * @property {string}
+   */
+  resourceComponentSelected: Ember.computed('resource.id', function () {
+    const resourceType = (this.get("resource.isImageResource") ? 'image' : this.get('resource.resourceType'));
+    var component = RESOURCE_COMPONENT_MAP[resourceType];
+
+    if (!component) {
+      Ember.Logger.error('Resources of type ' + resourceType + ' are currently not supported');
+    } else {
+      Ember.Logger.debug('Resources component selected: ', component);
+      return component;
+    }
+  })
   // -------------------------------------------------------------------------
   // Observers
 

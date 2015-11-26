@@ -185,25 +185,17 @@ export default DS.Model.extend({
    * Indicates if it is an youtube resource
    * @property {bool}
    */
-  isYoutubeResource: Ember.computed("resourceType", function(){
-    var resourceType = this.get("resourceType");
-    return resourceType && resourceType.indexOf("video/youtube") >= 0;
-  }),
+  isYoutubeResource: Ember.computed.equal("resourceType", "video/youtube"),
+
   /**
    * Indicates if it is an pdf resource
    * @property {bool}
    */
-  isPDFResource: Ember.computed("resourceType", function(){
-    var resourceType = this.get("resourceType");
-    return resourceType && resourceType.indexOf("handouts") >= 0;
-  }),
+  isPDFResource: Ember.computed.equal("resourceType", "handouts"),
 
   /**
    * Indicates if it is an url resource
    * @property {bool}
    */
-  isUrlResource: Ember.computed("resourceType", function(){
-    var resourceType = this.get("resourceType");
-    return resourceType && resourceType.indexOf("resource/url") >= 0;
-  })
+  isUrlResource: Ember.computed.equal("resourceType", "resource/url")
 });
