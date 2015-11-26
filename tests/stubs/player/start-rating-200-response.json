@@ -1,0 +1,131 @@
+{
+  "searchResults": [
+    {
+      "assocGooruOid": "bb04e754-1484-4f79-8207-db9875b8468c",
+      "category": {
+        "value": "rating"
+      },
+      "createdDate": 1448079742000,
+      "creator": {
+        "firstName": "parameswari",
+        "gooruUId": "cc6aca61-d7d9-4ea8-b22c-fbdf1e75ac49",
+        "lastName": "v",
+        "username": "param"
+      },
+      "gooruOid": "90930ded-5e42-47b3-b7b5-cb4ed88e1cd8",
+      "score": 3,
+      "target": {
+        "value": "content"
+      },
+      "type": {
+        "value": "star"
+      }
+    },
+    {
+      "assocGooruOid": "bb04e754-1484-4f79-8207-db9875b8468c",
+      "category": {
+        "value": "rating"
+      },
+      "createdDate": 1378455597000,
+      "creator": {
+        "firstName": "Carmen",
+        "gooruUId": "b094670a-ae23-4007-86d9-90862ec17e68",
+        "lastName": "Plata",
+        "username": "biologiamencia"
+      },
+      "gooruOid": "db799950-e28f-11e3-a253-12313f070480",
+      "score": 5,
+      "target": {
+        "value": "content"
+      },
+      "type": {
+        "value": "star"
+      }
+    },
+    {
+      "assocGooruOid": "bb04e754-1484-4f79-8207-db9875b8468c",
+      "category": {
+        "value": "rating"
+      },
+      "createdDate": 1378325498000,
+      "creator": {
+        "firstName": "Jane",
+        "gooruUId": "16857c40-ae9f-4710-9623-04b4d48e4b6f",
+        "lastName": "Finette",
+        "username": "JaneF"
+      },
+      "gooruOid": "e7833ba2-e28f-11e3-a253-12313f070480",
+      "score": 5,
+      "target": {
+        "value": "content"
+      },
+      "type": {
+        "value": "star"
+      }
+    },
+    {
+      "assocGooruOid": "bb04e754-1484-4f79-8207-db9875b8468c",
+      "category": {
+        "value": "rating"
+      },
+      "createdDate": 1366697119000,
+      "creator": {
+        "firstName": "w2",
+        "gooruUId": "87b0a3be-31a5-4eeb-a444-dcd0f22b9dd7",
+        "lastName": "testibg11",
+        "username": "w2testing11"
+      },
+      "gooruOid": "e64ccc62-e28f-11e3-a253-12313f070480",
+      "score": 5,
+      "target": {
+        "value": "content"
+      },
+      "type": {
+        "value": "star"
+      }
+    },
+    {
+      "assocGooruOid": "bb04e754-1484-4f79-8207-db9875b8468c",
+      "category": {
+        "value": "rating"
+      },
+      "createdDate": 1345073201000,
+      "creator": {
+        "firstName": "Prasad",
+        "gooruUId": "ce78eeee-4e8e-440a-aec4-c9e973f94071",
+        "lastName": "Ram",
+        "username": "Pram"
+      },
+      "gooruOid": "e4e2dbd2-e28f-11e3-a253-12313f070480",
+      "score": 5,
+      "target": {
+        "value": "content"
+      },
+      "type": {
+        "value": "star"
+      }
+    },
+    {
+      "assocGooruOid": "bb04e754-1484-4f79-8207-db9875b8468c",
+      "category": {
+        "value": "rating"
+      },
+      "createdDate": 1336174159000,
+      "creator": {
+        "firstName": "Karol",
+        "gooruUId": "f87d7d52-4509-4575-90f4-b1c905e58dad",
+        "lastName": "Baer",
+        "username": "karolbaer"
+      },
+      "gooruOid": "e878ac9a-e28f-11e3-a253-12313f070480",
+      "score": 5,
+      "target": {
+        "value": "content"
+      },
+      "type": {
+        "value": "star"
+      }
+    }
+  ],
+  "totalHitCount": 6
+}

@@ -46,6 +46,32 @@
       list-style: none;
       li{
         float:left;
+        @media (max-width: $screen-sm) {
+          margin: 0 0 10px 3px;
+        }
+        .border-gray {
+          @media (max-width: $screen-sm) {
+            border: none;
+          }
+        }
+      }
+    }
+    .dropdown-toggle {
+      @media (max-width: $screen-sm) {
+        width: 85px;
+        padding: 6px 0;
+      }
+    }
+    button.collections {
+      @media (max-width: $screen-sm) {
+        width: 105px;
+        padding: 6px 0;
+      }
+    }
+    button.assessments {
+      @media (max-width: $screen-sm) {
+        width: 120px;
+        padding: 6px 0;
       }
     }
   }

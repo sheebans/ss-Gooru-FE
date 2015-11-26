@@ -1,16 +1,14 @@
 import Ember from 'ember';
 const {
   computed,
-  observer,
-  defineProperty,
-  run
+  defineProperty
   } = Ember;
 
 
 /**
- * Text field with validation
+ * Input radio button from role-radio-button component with validation
  *
- * Text field with support for ember-cp-validations.
+ * Input radio button with support for ember-cp-validations.
  * It provides feedback based on certain validation criteria.
  *
  * @module
@@ -26,7 +24,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['gru-radio'],
+  classNames: ['gru-radio', 'validation'],
   classNameBindings: ['showErrorClass:has-error', 'isValid:has-success'],
 
   /**
@@ -50,52 +48,70 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
-
-  // -------------------------------------------------------------------------
-  // Properties
-
-  model: null,
-  value: null,
-  rawInputValue: null,
-  type: 'text',
-  valuePath: '',
-  placeholder: '',
-  attributeValidation: null,
-
-
-  didValidate: computed.oneWay('targetObject.didValidate'),
-
-  showErrorClass: computed('isTyping', 'showMessage', 'hasContent', 'attributeValidation', function() {
-    return this.get('attributeValidation') && !this.get('isTyping') && this.get('showMessage') && this.get('hasContent');
-  }),
-
-  hasContent: computed.notEmpty('rawInputValue'),
-
-  isValid: computed.and('hasContent', 'attributeValidation.isValid'),
-
-  isInvalid: computed.oneWay('attributeValidation.isInvalid'),
-
-  inputValueChange: observer('rawInputValue', function() {
-    run.debounce(this, this.setValue, 1000, false);
-  }),
-
-  showMessage: computed('attributeValidation.isDirty', 'isInvalid', 'didValidate', function() {
-    return (this.get('attributeValidation.isDirty') || this.get('didValidate')) && this.get('isInvalid');
-  }),
-
-  setValue() {
-    this.set('value', this.get('rawInputValue'));
-  },
-
   init() {
     this._super(...arguments);
     var valuePath = this.get('valuePath');
     defineProperty(this, 'attributeValidation', computed.oneWay(`model.validations.attrs.${valuePath}`));
     this.set('rawInputValue', this.get(`model.${valuePath}`));
     defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
+  },
+  // -------------------------------------------------------------------------
+  // Properties
+  /**
+   * @param {Object} model - Model that will be attached to the component
+   */
+  model: null,
+  /**
+   * @param {String} value - formatted value of the input field.
+   */
+  value: null,
+  /**
+   * @param {String} rawInputValue - unformatted value of the input field
+   */
+  rawInputValue: null,
+  /**
+   * @param {String} type - type of the input field.
+   */
+  type: 'radio',
+  /**
+   * @param {String} valuePath - value used to set the rawInputValue
+   */
+  valuePath: '',
+  /**
+   * @param {Boolean} attributeValidation - value used to set the rawInputValue
+   */
+  attributeValidation: null,
 
-  }
 
+  /**
+   * @param {Computed } didValidate - value used to check if input has been validated or not
+   */
+  didValidate: computed.oneWay('targetObject.didValidate'),
+
+  /**
+   * @param {Computed } showErrorClass - computed property that defines the
+   */
+  showErrorClass: computed('isTyping', 'showMessage', 'hasContent', 'attributeValidation', function() {
+    return this.get('attributeValidation') && !this.get('isTyping') && this.get('showMessage') && this.get('hasContent');
+  }),
+  /**
+   * @param {Computed } hasContent - computed property that defines whether the rawInputValue is null or not.
+   */
+  hasContent: computed.notEmpty('rawInputValue'),
+  /**
+   * @param {Computed } isValid -  A computed property that says whether the value is valid
+   */
+  isValid: computed.and('hasContent', 'attributeValidation.isValid'),
+  /**
+   * @param {Computed } isInvalid - A computed property that says whether the value is invalid
+   */
+  isInvalid: computed.oneWay('attributeValidation.isInvalid'),
+  /**
+   * @param {Computed } hasContent - computed property that defines what message to show
+   */
+  showMessage: computed('attributeValidation.isDirty', 'isInvalid', 'didValidate', function() {
+    return (this.get('attributeValidation.isDirty') || this.get('didValidate')) && this.get('isInvalid');
+  })
   // -------------------------------------------------------------------------
   // Observers
 

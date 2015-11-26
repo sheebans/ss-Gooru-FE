@@ -1,0 +1,12 @@
+
+<p class="instructions">
+  {{t "gru-hot-text.instructions"}}
+</p>
+
+<p class="phrases">
+    {{#each items as |item|}}
+      <span {{action 'markItem' item}} class="item {{if item.selected 'selected'}}">{{{item.text}}}</span>
+    {{/each}}
+</p>
+
+

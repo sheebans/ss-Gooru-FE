@@ -18,7 +18,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-image-resource'],
+  classNames:['gru-image'],
 
   // -------------------------------------------------------------------------
   // Actions
