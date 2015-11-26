@@ -52,7 +52,17 @@ test('resourceComponentSelected for youtube resource type', function (assert) {
 
   assert.equal(component.get("resourceComponentSelected"), "player.resources.gru-youtube-resource", "Wrong component name");
 });
+test('resourceComponentSelected for vimeo resource type', function (assert) {
+  assert.expect(1);
 
+  var component = this.subject({
+    resource: Ember.Object.create({
+      resourceType: "vimeo/video"
+    })
+  });
+
+  assert.equal(component.get("resourceComponentSelected"), "player.resources.gru-vimeo-resource", "Wrong component name");
+});
 test('resourceComponentSelected for youtube resource type', function (assert) {
   assert.expect(1);
 

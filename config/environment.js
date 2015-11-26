@@ -29,7 +29,8 @@ module.exports = function (environment) {
   };
 
   ENV['player'] = {
-    pdfViewerUrl: 'http://qa.gooru.org/doc/a/view'
+    pdfViewerUrl: 'http://qa.gooru.org/doc/a/view',
+    vimeoPlayerUrl:'//player.vimeo.com/video/'
   };
 
   ENV['simple-auth-custom'] = {
