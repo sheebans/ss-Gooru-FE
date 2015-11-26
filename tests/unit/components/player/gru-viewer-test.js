@@ -26,7 +26,7 @@ test('resourceComponentSelected for image resource type', function (assert) {
     })
   });
 
-  assert.equal(component.get("resourceComponentSelected"), "player.resources.gru-image", "Wrong component name");
+  assert.equal(component.get("resourceComponentSelected"), "player.resources.gru-image-resource", "Wrong component name");
 });
 
 test('resourceComponentSelected for text/pdf resource type', function (assert) {
@@ -38,7 +38,7 @@ test('resourceComponentSelected for text/pdf resource type', function (assert) {
     })
   });
 
-  assert.equal(component.get("resourceComponentSelected"), "player.resources.gru-pdf-player", "Wrong component name");
+  assert.equal(component.get("resourceComponentSelected"), "player.resources.gru-pdf-resource", "Wrong component name");
 });
 
 test('resourceComponentSelected for youtube resource type', function (assert) {
@@ -50,7 +50,7 @@ test('resourceComponentSelected for youtube resource type', function (assert) {
     })
   });
 
-  assert.equal(component.get("resourceComponentSelected"), "player.resources.gru-youtube-player", "Wrong component name");
+  assert.equal(component.get("resourceComponentSelected"), "player.resources.gru-youtube-resource", "Wrong component name");
 });
 
 test('resourceComponentSelected for youtube resource type', function (assert) {
