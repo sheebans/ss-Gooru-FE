@@ -5,7 +5,7 @@
       {{#each classesJoined as |class|}}
         <li>
           <div>
-            {{#link-to 'class' class.id}}
+            {{#link-to 'class.info' class.id}}
               {{{class.name}}}
             {{/link-to}}
 
@@ -31,7 +31,7 @@
       {{#each classesTaught as |class|}}
         <li>
           <div>
-            {{#link-to 'class' class.id}}
+            {{#link-to 'class.info' class.id}}
               {{{class.name}}}
             {{/link-to}}
 
