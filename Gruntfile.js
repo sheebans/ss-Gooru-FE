@@ -70,10 +70,9 @@ module.exports = function (grunt) {
 
   grunt.registerTask('run', function (target) {
     target = target || 'stubby';
-
-    var stubbyTask = target === 'stubby',
+    var noStubby = grunt.option("no-stubby"),
         serverExecTask = 'exec:ember-server-' + (target),
-        tasks = (stubbyTask) ? ['stubby:test', serverExecTask] : [serverExecTask];
+        tasks = (noStubby) ? [serverExecTask] : ['stubby:test', serverExecTask];
 
     grunt.task.run(tasks);
   });

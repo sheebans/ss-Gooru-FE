@@ -1,0 +1,214 @@
+{
+  "executionTime":1394,
+  "query":{
+    "rewrittenQueryString":"europe",
+    "userQueryString":"europe"
+  },
+  "resultCount":20,
+  "searchCount":0,
+  "searchResults":[
+    {
+      "addDate":"2013-05-02T11:45:42.000Z",
+      "assetURI":"http://qacdn.gooru.org/qalive/",
+      "batchId":"QUESTSCOLLACOPSTOPROD",
+      "category":"someQuestion",
+      "collaboratorCount":0,
+      "collaborators":"",
+      "collectionItemCount":6,
+      "collectionItems":[
+        {
+          "collectionItemId":"883a73c6-843f-11e3-a253-12313f070480",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Interactive",
+            "folder":"0001/9202/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"webpage"
+            },
+            "resourceType":{
+              "name":"resource/url"
+            },
+            "taxonomySet":[
+
+            ],
+            "thumbnail":"bb04e754-1484-4f79-8207-db9875b8468c.png",
+            "thumbnails":{
+              "defaultImage":false,
+              "dimensions":"80x60,160x120",
+              "resourceUrl":"http://www.epa.gov/safewater/kids/flash/flash_watercycle.html",
+              "thumbnailAssetURI":"http://qacdn.gooru.org/qalive/",
+              "thumbnailFolder":"0001/9202/",
+              "thumbnailName":"bb04e754-1484-4f79-8207-db9875b8468c.png",
+              "thumbnailResourceType":{
+                "name":"resource/url"
+              },
+              "url":"http://qacdn.gooru.org/qalive/0001/9202/bb04e754-1484-4f79-8207-db9875b8468c.png"
+            },
+            "title":"Thirstins Water Cycle",
+            "url":"http://www.epa.gov/safewater/kids/flash/flash_watercycle.html",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"883a7538-843f-11e3-a253-12313f070480",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Video",
+            "folder":"f000/0240/7341/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"video"
+            },
+            "resourceType":{
+              "name":"video/youtube"
+            },
+            "taxonomySet":[
+
+            ],
+            "thumbnail":"http://i1.ytimg.com/vi/F9Yi4dAzHsc/maxresdefault.jpg",
+            "thumbnails":{
+              "defaultImage":false,
+              "dimensions":"80x60,160x120",
+              "resourceUrl":"http://www.youtube.com/watch?v=F9Yi4dAzHsc&feature=endscreen",
+              "thumbnailAssetURI":"http://qacdn.gooru.org/qalive/",
+              "thumbnailFolder":"f000/0240/7341/",
+              "thumbnailName":"http://i1.ytimg.com/vi/F9Yi4dAzHsc/maxresdefault.jpg",
+              "thumbnailResourceType":{
+                "name":"video/youtube"
+              },
+              "url":"http://qacdn.gooru.org/qalive/f000/0240/7341/http://i1.ytimg.com/vi/F9Yi4dAzHsc/maxresdefault.jpg"
+            },
+            "title":"The Water Cycle Rap",
+            "url":"http://www.youtube.com/watch?v=F9Yi4dAzHsc&feature=endscreen",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"883a768c-843f-11e3-a253-12313f070480",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Textbook",
+            "folder":"0004/9024/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"webpage"
+            },
+            "resourceType":{
+              "name":"textbook/scribd"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"HS Earth's Fresh Water",
+            "url":"CK-12 Earth Science - Honors - Middle School_Chapter 13.pdf",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"883a77fe-843f-11e3-a253-12313f070480",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Video",
+            "folder":"0004/4890/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"video"
+            },
+            "resourceType":{
+              "name":"video/youtube"
+            },
+            "taxonomySet":[
+
+            ],
+            "thumbnail":"https://i1.ytimg.com/vi/0_c0ZzZfC8c/maxresdefault.jpg",
+            "thumbnails":{
+              "defaultImage":false,
+              "dimensions":"80x60,160x120",
+              "resourceUrl":"https://www.youtube.com/watch?v=0_c0ZzZfC8c&feature=player_embedded",
+              "thumbnailAssetURI":"http://qacdn.gooru.org/qalive/",
+              "thumbnailFolder":"0004/4890/",
+              "thumbnailName":"https://i1.ytimg.com/vi/0_c0ZzZfC8c/maxresdefault.jpg",
+              "thumbnailResourceType":{
+                "name":"video/youtube"
+              },
+              "url":"http://qacdn.gooru.org/qalive/0004/4890/https://i1.ytimg.com/vi/0_c0ZzZfC8c/maxresdefault.jpg"
+            },
+            "title":"Nasa: The Water Cycle [720P]",
+            "url":"https://www.youtube.com/watch?v=0_c0ZzZfC8c&feature=player_embedded",
+            "views":0
+          }
+        }
+      ],
+      "collectionType":"collection",
+      "contentId":11667186,
+      "contentOrganizationCode":"gooru",
+      "contentOrganizationName":"Gooru",
+      "contentOrganizationUid":"4261739e-ccae-11e1-adfb-5404a609bd14",
+      "creatorFirstname":"Amira",
+      "creatorId":"bdae48b7-a351-4f15-90ff-71741f4d1e49",
+      "creatorLastname":"Anuar",
+      "creatornameDisplay":"amira",
+      "description":"Students will understand that water vapor in the air moves from one place to another and can form clouds or fog or ice and can fall to the earth as rain, hail, sleet or snow.",
+      "distinguish":0,
+      "folder":"f000/1166/7186/",
+      "goals":"Students will understand that water vapor in the air moves from one place to another and can form clouds or fog or ice and can fall to the earth as rain, hail, sleet or snow.",
+      "gooruUId":"44fe3a66-125b-4ede-8470-a056373e1639",
+      "grade":"5",
+      "id":"76cb53df-1f6a-41f2-a31d-c75876c6bcf9",
+      "lastModified":"2015-06-19T14:12:52.000Z",
+      "lesson":"Water Cycle",
+      "libraryNames":[
+
+      ],
+      "license":{
+        "code":"",
+        "definition":"",
+        "icon":"",
+        "name":"Other",
+        "tag":"",
+        "url":" "
+      },
+      "network":"Gooru",
+      "numberOfResources":6,
+      "profileUserVisibility":true,
+      "questionCount":"2",
+      "ratings":{
+        "count":0.0,
+        "average":0
+      },
+      "resourceCount":"4",
+      "scollectionRemixCount":9,
+      "sharing":"public",
+      "skills":[
+
+      ],
+      "subject":"Science,Science",
+      "tags":[
+
+      ],
+      "taxonomyDataSet":"{\"course\":[\"Integrated Science \"],\"topic\":[\"Earth's Water\"],\"unit\":[\"Earth Sciences\"],\"lesson\":[\"Water Cycle\"],\"subject\":[\"Science\"],\"curriculum\":{\"curriculumName\":[\"California State Standards - Science K-5\"],\"curriculumCode\":[\"CA.SCI.5.ES.3c\"],\"curriculumDesc\":[\"Students know water vapor in the air moves from one place to another and can form fog or clouds, which are tiny droplets of water or ice, and can fall to Earth as rain, hail, sleet, or snow.\"]}}",
+      "taxonomyLesson":"Water Cycle",
+      "taxonomySkills":"",
+      "thumbnail":"f000/1166/7186/03bfd74b-3171-48b1-8ff4-3a4b870a4424.png",
+      "thumbnails":{
+        "defaultImage":false,
+        "dimensions":"80x60,160x120",
+        "url":"http://qacdn.gooru.org/qalive/f000/1166/7186/03bfd74b-3171-48b1-8ff4-3a4b870a4424.png"
+      },
+      "title":"Water on Earth",
+      "topic":"Earth's Water",
+      "type":"collection",
+      "unit":"Earth Sciences",
+      "userFirstName":"Cecily",
+      "userLastName":"Gardner",
+      "usernameDisplay":"cecilygardner",
+      "viewCount":5
+    }
+  ],
+  "stats":{
+    "totalHitCount":1,
+    "pageSize":20
+  },
+  "totalHitCount":1
+}
