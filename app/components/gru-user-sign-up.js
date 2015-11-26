@@ -40,11 +40,12 @@ export default Ember.Component.extend(ModalMixin, StoreMixin, {
       const component = this;
 
       var model = this.get('user');
+
       model.validate().then(({
         model, validations
         }) => {
         if (validations.get('isValid')) {
-
+          console.log(model.get('username'));
           component.get("userService")
             .create(model)
             .then(function() {
@@ -81,7 +82,6 @@ export default Ember.Component.extend(ModalMixin, StoreMixin, {
 
   setupUserModel: function() {
     var user = this.get('store').createRecord('user', {});
-
     this.set('user', user);
   }.on('init'),
 

@@ -22,9 +22,7 @@ const UserValidations = buildValidations({
         regex: /^\w+$/,
         message: '{description} cannot use special characters'
       }),
-      validator('username', {
-        showSuggestions: true
-      })
+      validator('username')
     ]
   },
   password: [
@@ -58,7 +56,8 @@ const UserValidations = buildValidations({
     validator('format', {
       type: 'email',
       message: 'Not a valid email'
-    })
+    }),
+    validator('email')
   ],
   dateOfBirth: [
     validator('presence', true)
