@@ -16,7 +16,8 @@
     "font-awesome": "~4.4.0",
     "jquery-ui": "1.11.4",
     "jqueryui-touch-punch": "*",
-    "bootstrap-sass": "bootstrap-sass-official#~3.3.5"
+    "bootstrap-sass": "bootstrap-sass-official#~3.3.5",
+    "pretender": "^0.10.0"
   },
   "resolutions": {
     "ember": "~2.2.0",

@@ -131,6 +131,18 @@ export default QuestionComponent.extend({
   },
 
   /**
+   * Transforms the text so it is compliant with hot text highlight question.
+   * It removes the initial/wrapping <p> tag if available
+   * @param {string} text
+   * @returns {string}
+   */
+  transformText: function(text){
+    const regex = /^<p>(.*)<\/p>$/gm,
+      match = regex.exec(text);
+    return (match) ? match[1].trim() : text;
+  },
+
+  /**
    * Transforms a list of string into item objects, it trims the texts and removes []
    * @param {string[]} textList
    *
@@ -162,7 +174,7 @@ export default QuestionComponent.extend({
     var items = Ember.A();
     if (question.get("hasAnswers")) {
       const answer = answers.get("firstObject"),
-        text = answer.get("text");
+        text = component.transformText(answer.get("text"));
 
       if (question.get("isHotTextHighlightWord")) {
         items = component.getWordItems(text);

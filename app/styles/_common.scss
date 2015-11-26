@@ -12,6 +12,13 @@ button.btn-link {
   padding: 0;
 }
 
+.validation span.error {
+  font-size: 12px;
+  color: $feedback-error;
+  display: inline-block;
+  margin-top: 4px;
+}
+
 /* Tooltip styles */
 .tooltip.in,
 .tooltip {

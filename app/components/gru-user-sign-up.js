@@ -1,5 +1,6 @@
 import Ember from "ember";
 import ModalMixin from '../mixins/modal';
+import StoreMixin from '../mixins/store';
 
 /**
  * User sign up
@@ -10,7 +11,7 @@ import ModalMixin from '../mixins/modal';
  * @module
  * @augments ember/Component
  */
-export default Ember.Component.extend(ModalMixin, {
+export default Ember.Component.extend(ModalMixin, StoreMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -25,7 +26,7 @@ export default Ember.Component.extend(ModalMixin, {
 
   classNames:['gru-user-sign-up'],
 
-  classNameBindings: ['component-class'],
+  classNameBindings: ['component-class', 'valuePath'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -36,35 +37,37 @@ export default Ember.Component.extend(ModalMixin, {
      * Sign up user
      */
     signUp: function() {
-      this.get("userService")
-        .create(this.get('user'))
-        .then(function() {
-          this.triggerAction({
-            action: 'closeModal'
+      const component = this;
+
+      var model = this.get('user');
+      model.validate().then(({
+        model, validations
+        }) => {
+        if (validations.get('isValid')) {
+
+          component.get("userService")
+            .create(model)
+            .then(function() {
+              this.triggerAction({
+                action: 'closeModal'
+              });
+            }.bind(this),
+              function() {
+                Ember.Logger.error('Error signing up user');
+              });
+          this.setProperties({
+            showAlert: false,
+            isRegistered: true,
+            showCode: false
           });
-        }.bind(this),
-        function() {
-          Ember.Logger.error('Error signing up user');
+        } else {
+          this.set('showAlert', true);
         }
-      );
-    },
+        this.set('didValidate', true);
+      }, () => {
 
-    /**
-     * Update user birth date
-     * @param {String} dateValue - birth date as a string
-     */
-    setBirthDate: function(dateValue) {
-      this.set("user.dateOfBirth", dateValue);
-    },
 
-    /**
-     * Update user role
-     * @param {String} role
-     * @example
-     * "teacher", "student", "parent"
-     */
-    setRoleValue: function(role) {
-      this.set("user.role", role);
+      });
     }
   },
 
@@ -75,6 +78,12 @@ export default Ember.Component.extend(ModalMixin, {
     var component = this;
     component.$("[data-toggle='tooltip']").tooltip({trigger: "hover"});
   },
+
+  setupUserModel: function() {
+    var user = this.get('store').createRecord('user', {});
+
+    this.set('user', user);
+  }.on('init'),
 
   // -------------------------------------------------------------------------
   // Properties
@@ -91,22 +100,7 @@ export default Ember.Component.extend(ModalMixin, {
    * @type {Ember.Component}
    * @private
    */
-  target: null,
+  target: null
 
-  /**
-   * User object with all attributes for sign-up
-   *
-   * @type {Ember.Object}
-   */
-  user: {
-    username: null,
-    firstName: null,
-    lastName: null,
-    email: null,
-    dateOfBirth: null,
-    role: null,
-    password: null,
-    confirmedPassword: null
-  }
 
 });

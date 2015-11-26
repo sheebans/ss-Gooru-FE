@@ -196,5 +196,14 @@ export default DS.Model.extend({
   isPDFResource: Ember.computed("resourceType", function(){
     var resourceType = this.get("resourceType");
     return resourceType && resourceType.indexOf("handouts") >= 0;
+  }),
+
+  /**
+   * Indicates if it is an url resource
+   * @property {bool}
+   */
+  isUrlResource: Ember.computed("resourceType", function(){
+    var resourceType = this.get("resourceType");
+    return resourceType && resourceType.indexOf("resource/url") >= 0;
   })
 });

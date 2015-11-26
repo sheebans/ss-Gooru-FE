@@ -194,5 +194,14 @@ test('assetUrl', function(assert) {
   assert.equal(model.get("assetUrl"), "uri-folder-url", "Wrong url");
 });
 
+test('isUrlResource', function(assert) {
+  assert.expect(1);
+  let model = this.subject({
+    "resourceType": "resource/url"
+  });
+
+  assert.ok(model.get("isUrlResource"), "It should be url resource type");
+});
+
 
 
