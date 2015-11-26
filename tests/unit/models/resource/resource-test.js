@@ -174,5 +174,14 @@ test('hasAnswers', function(assert) {
   assert.ok(model.get("hasAnswers"), "It should have answers");
 });
 
+test('isUrlResource', function(assert) {
+  assert.expect(1);
+  let model = this.subject({
+    "resourceType": "resource/url"
+  });
+
+  assert.ok(model.get("isUrlResource"), "It should be url resource type");
+});
+
 
 
