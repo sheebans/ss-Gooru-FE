@@ -19,6 +19,7 @@ Router.map(function() {
   this.route('class', function(){
     this.route('index', { path: '/:classId'});
     this.route('overview', { path: '/:classId/overview'});
+    this.route('info', { path: '/:classId/info'});
   });
 });
 
