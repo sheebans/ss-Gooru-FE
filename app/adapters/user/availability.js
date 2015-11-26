@@ -22,7 +22,7 @@ export default ApplicationAdapter.extend({
 
     if (requestType === 'queryRecord') {
       url = this.get('namespace') + (query.isUsername ? 'username' : 'emailId') + '/availability';
-      if (query.isUsername != undefined) {
+      if (query.isUsername !== undefined) {
         delete query.isUsername;
       }
     } else {
