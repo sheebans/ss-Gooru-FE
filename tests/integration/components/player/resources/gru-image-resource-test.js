@@ -1,9 +1,10 @@
+
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 
-moduleForComponent('player/resources/gru-image', 'Integration | Component | player/resources/gru image', {
+moduleForComponent('player/resources/gru-image-resource', 'Integration | Component | player/resources/gru image resource', {
   integration: true
 });
 
