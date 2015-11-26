@@ -21,9 +21,17 @@ export default Ember.Service.extend(StoreMixin, {
   },
 
   checkUsernameAvailability:function(username){
-  	return this.get('store').queryRecord('user/availability', {
+      return this.get('store').queryRecord('user/availability', {
         keyword: username
-    });
+      });
+  },
+
+  checkEmailAvailability:function(email){
+    console.log('checkEmailAvailability', email);
+    return new Promise(function(resolve, reject) {});;
+    /*return this.get('store').queryRecord('user/availability', {
+      keyword: email
+    });*/
   }
 
 });
