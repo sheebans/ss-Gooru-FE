@@ -23,7 +23,7 @@ export default Ember.Controller.extend({
     /**
      * Action triggered when the user searches for collections
      * @see application.hbs
-     * @see app-header.js
+     * @see gru-header.js
      */
     searchTerm: function() {
       return true;

@@ -28,11 +28,23 @@ test('Click emotion', function(assert) {
   assert.expect(1);
 
   this.on('parentAction', function(emotion){
-    assert.equal('need-help', emotion);
+    assert.equal('1', emotion);
   });
 
-  this.render(hbs`{{gru-emotion-picker openContentPlayer='parentAction'}}`);
+  this.render(hbs`{{gru-emotion-picker onChangeEmotion='parentAction'}}`);
   var $component = this.$(); //component dom element
   var $emotionPicker = $component.find("div.emotion-picker");
   $emotionPicker.find(".emotions-list li:first-child .emotion").click();
+});
+
+test('Verify selected emotion', function(assert) {
+  assert.expect(1);
+
+  this.set('ratingScore', 3);
+
+  this.render(hbs`{{gru-emotion-picker ratingScore=ratingScore}}`);
+  var $component = this.$(); //component dom element
+  var $emotionPicker = $component.find("div.emotion-picker");
+  var $selectedEmotion = $emotionPicker.find(".emotions-list li:eq(2) .emotion");
+  assert.ok($selectedEmotion.hasClass('active'));
 });

@@ -1,4 +1,7 @@
 .search-filter{
+  p {
+    font-size: 13px;
+  }
   .search-filter-options{
     padding-left: 0px;
   }
@@ -21,19 +24,54 @@
     border-radius: 4px;
     border: 2px solid $color-white;
     background-color: $color-white;
+    font-size: 13px;
     &:hover {
       border-color: $color-blue-secondary;
-      background-color: $color-white;
+      opacity:.75;
     }
-    &:active {
+    &:active, &:focus {
       border-color: $color-blue-secondary;
+      outline: 0;
     }
+    span {
+      vertical-align: middle;
+      display: inline-block;
+    }
+  }
+  .btn-search-filter.selected {
+    border-color: $color-blue-secondary;
   }
   .buttons-filter{
     ul{
       list-style: none;
       li{
         float:left;
+        @media (max-width: $screen-sm) {
+          margin: 0 0 10px 3px;
+        }
+        .border-gray {
+          @media (max-width: $screen-sm) {
+            border: none;
+          }
+        }
+      }
+    }
+    .dropdown-toggle {
+      @media (max-width: $screen-sm) {
+        width: 85px;
+        padding: 6px 0;
+      }
+    }
+    button.collections {
+      @media (max-width: $screen-sm) {
+        width: 105px;
+        padding: 6px 0;
+      }
+    }
+    button.assessments {
+      @media (max-width: $screen-sm) {
+        width: 120px;
+        padding: 6px 0;
       }
     }
   }

@@ -106,3 +106,77 @@ test('search-filter-onResourceClick', function(assert) {
   const $ratingStars = $component.find(".rating-stars");
   T.exists(assert, $ratingStars, "Missing rating stars section");
 });
+
+test('search-filter-onCollectionFilterClick', function(assert) {
+  assert.expect(1); //making sure all asserts are called
+  const subjects = Ember.A();
+  subjects.addObject(Ember.Object.create({ libraryId: 1, library:"library", label: "Math", subjectCode: "10001" }));
+  subjects.addObject(Ember.Object.create({ libraryId: 2, library:"library", label: "Science", subjectCode: "10002" }));
+  subjects.addObject(Ember.Object.create({ libraryId: 3, library:"library", label: "History", subjectCode: "10003" }));
+  subjects.addObject(Ember.Object.create({ libraryId: 4, library:"library", label: "Language", subjectCode: "10004" }));
+
+  const  grades = Ember.A();
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "Pre-K", levels: [] }));
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "Elementary", levels: ["K", "1", "2", "3", "4", "5"] }));
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "Middle School", levels: ["6", "7", "8"] }));
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "High School", levels: ["9", "10", "11", "12"] }));
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "Higher Ed", levels: [] }));
+
+  const standards = Ember.A();
+  standards.addObject(Ember.Object.create({ libraryId: 1, name: "CCSS", title: "Common Core State Standard"}));
+  standards.addObject(Ember.Object.create({ libraryId: 2, name: "CA SS", title: "California State Standard"}));
+  standards.addObject(Ember.Object.create({ libraryId: 2, name: "NGSS", title: "Next Generation State Standard"}));
+
+  this.set('subjects', subjects);
+  this.set('grades', grades);
+  this.set('standards', standards);
+
+  this.on('filterType', function(term, collectionType) {
+    assert.equal(collectionType, 'collection', "Incorrect assessment filter type");
+  });
+
+  this.render(hbs`{{search-filter subjects=subjects grades=grades standards=standards onFilterType='filterType' selectedCollectionType='collection'}}`);
+
+  var $component = this.$(); //component dom element
+
+  const $collectionsFilterSelected = $component.find(".collections.btn-search-filter.selected");
+  T.exists(assert, $collectionsFilterSelected, "Missing collection filter selected");
+});
+
+test('search-filter-onAssessmentFilterClick', function(assert) {
+  assert.expect(1); //making sure all asserts are called
+  const subjects = Ember.A();
+  subjects.addObject(Ember.Object.create({ libraryId: 1, library:"library", label: "Math", subjectCode: "10001" }));
+  subjects.addObject(Ember.Object.create({ libraryId: 2, library:"library", label: "Science", subjectCode: "10002" }));
+  subjects.addObject(Ember.Object.create({ libraryId: 3, library:"library", label: "History", subjectCode: "10003" }));
+  subjects.addObject(Ember.Object.create({ libraryId: 4, library:"library", label: "Language", subjectCode: "10004" }));
+
+  const  grades = Ember.A();
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "Pre-K", levels: [] }));
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "Elementary", levels: ["K", "1", "2", "3", "4", "5"] }));
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "Middle School", levels: ["6", "7", "8"] }));
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "High School", levels: ["9", "10", "11", "12"] }));
+  grades.addObject(Ember.Object.create({ libraryId: 1, name: "Higher Ed", levels: [] }));
+
+  const standards = Ember.A();
+  standards.addObject(Ember.Object.create({ libraryId: 1, name: "CCSS", title: "Common Core State Standard"}));
+  standards.addObject(Ember.Object.create({ libraryId: 2, name: "CA SS", title: "California State Standard"}));
+  standards.addObject(Ember.Object.create({ libraryId: 2, name: "NGSS", title: "Next Generation State Standard"}));
+
+  this.set('subjects', subjects);
+  this.set('grades', grades);
+  this.set('standards', standards);
+
+  this.on('onFilterType', function(term, collectionType) {
+    assert.equal(collectionType, 'assessment', "Incorrect assessment filter type");
+  });
+
+  this.render(hbs`{{search-filter subjects=subjects grades=grades standards=standards onFilterType='filterType' selectedCollectionType='assessment'}}`);
+
+  var $component = this.$(); //component dom element
+
+  const $assessmentsFilterSelected = $component.find(".assessments.btn-search-filter.selected");
+  T.exists(assert, $assessmentsFilterSelected, "Missing assessment filter selected");
+
+});
+

@@ -1,0 +1,1191 @@
+{
+  "executionTime":1465,
+  "query":{
+    "rewrittenQueryString":"water",
+    "userQueryString":"water"
+  },
+  "resultCount":5,
+  "searchCount":0,
+  "searchResults":[
+    {
+      "addDate":"2013-07-06T02:04:51.000Z",
+      "assetURI":"http://qacdn.gooru.org/qalive/",
+      "category":"onlyQuestion",
+      "collaboratorCount":0,
+      "collaborators":"",
+      "collectionItemCount":3,
+      "collectionItems":[
+        {
+          "collectionItemId":"aa762c92-b5ab-4632-b7cf-b52208c62e4a",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1164/5091/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"An underground layer of water-bearing rock or materials that clean drinking water can be extracted from is called...",
+            "url":"",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"b7a721d3-c29d-49d3-867b-9de9e07b36ad",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1164/5090/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"Desalination is adding salt to the water.",
+            "url":"",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"d0e5ad24-b859-4553-8def-c36619212fe9",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1164/5092/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"Nearly 300 million people in Africa struggle to find clean drinking water everyday.",
+            "url":"",
+            "views":0
+          }
+        }
+      ],
+      "collectionType":"assessment",
+      "contentId":11645085,
+      "contentOrganizationCode":"gooru",
+      "contentOrganizationName":"Gooru",
+      "contentOrganizationUid":"4261739e-ccae-11e1-adfb-5404a609bd14",
+      "creatorFirstname":"Emily",
+      "creatorId":"840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "creatorLastname":"Liebtag",
+      "creatornameDisplay":"emily.liebtag",
+      "description":"Students will be able to understand that countries in the region have modified their environments to meet people's needs for water for drinking and irrigation.",
+      "distinguish":0,
+      "folder":"f000/1164/5085/",
+      "goals":"Students will be able to understand that countries in the region have modified their environments to meet people's needs for water for drinking and irrigation.",
+      "gooruUId":"840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "grade":"5",
+      "id":"522f6827-f7dd-486f-8631-eba497e2d425",
+      "lastModified":"2015-06-19T14:13:55.000Z",
+      "lastModifiedBy":"840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "lesson":"",
+      "libraryNames":[
+
+      ],
+      "license":{
+
+      },
+      "numberOfResources":3,
+      "profileUserVisibility":false,
+      "questionCount":"3",
+      "ratings":{
+        "count":0.0,
+        "average":0
+      },
+      "resourceCount":"0",
+      "scollectionRemixCount":1,
+      "sharing":"public",
+      "skills":[
+
+      ],
+      "subject":"",
+      "tags":[
+
+      ],
+      "taxonomyDataSet":"{\"course\":[],\"topic\":[],\"unit\":[],\"lesson\":[],\"subject\":[],\"curriculum\":{\"curriculumName\":[],\"curriculumCode\":[],\"curriculumDesc\":[]}}",
+      "taxonomyLesson":"",
+      "taxonomySkills":"",
+      "thumbnail":"f000/1164/5085/522f6827-f7dd-486f-8631-eba497e2d425_505a3378-d52f-4afe-a1bb-7203acfcbec9.png",
+      "thumbnails":{
+        "defaultImage":false,
+        "dimensions":"80x60,160x120",
+        "url":"http://qacdn.gooru.org/qalive/f000/1164/5085/522f6827-f7dd-486f-8631-eba497e2d425_505a3378-d52f-4afe-a1bb-7203acfcbec9.png"
+      },
+      "title":"The Need for Water Quiz",
+      "topic":"",
+      "type":"assessment",
+      "unit":"",
+      "userFirstName":"Emily",
+      "userLastName":"Liebtag",
+      "usernameDisplay":"emily.liebtag",
+      "viewCount":10
+    },
+    {
+      "addDate":"2013-07-16T20:29:31.000Z",
+      "assetURI":"http://qacdn.gooru.org/qalive/",
+      "category":"onlyQuestion",
+      "collaboratorCount":0,
+      "collaborators":"",
+      "collectionItemCount":3,
+      "collectionItems":[
+        {
+          "collectionItemId":"5d344455-80e5-4af9-91ad-52754ec57455",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1164/8252/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"<p>In general, the climate in Europe is</p>",
+            "url":"",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"85710b23-6e0d-4012-ab79-317c1825b1af",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1164/8254/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"<p>There is only 1 season in Europe.</p>",
+            "url":"",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"9b17ccd5-bde2-4302-8ec4-0171120304f3",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1164/8253/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"<p>The warm currents from the Atlantic Ocean are part of the reason Europe has mild and moderate weather.</p>",
+            "url":"",
+            "views":0
+          }
+        }
+      ],
+      "collectionType":"assessment",
+      "contentId":11648244,
+      "contentOrganizationCode":"gooru",
+      "contentOrganizationName":"Gooru",
+      "contentOrganizationUid":"4261739e-ccae-11e1-adfb-5404a609bd14",
+      "creatorFirstname":"Emily",
+      "creatorId":"840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "creatorLastname":"Liebtag",
+      "creatornameDisplay":"emily.liebtag",
+      "description":"Students will be able to understand that warm ocean currents give much of Europe a milder climate than other areas with similar latitudes.",
+      "distinguish":0,
+      "folder":"f000/1164/8244/",
+      "goals":"Students will be able to understand that warm ocean currents give much of Europe a milder climate than other areas with similar latitudes.",
+      "gooruUId":"840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "grade":"5",
+      "id":"22c1afd1-9cba-492f-abdb-403b7759609e",
+      "lastModified":"2015-06-19T14:13:55.000Z",
+      "lastModifiedBy":"840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "lesson":"",
+      "libraryNames":[
+
+      ],
+      "license":{
+
+      },
+      "numberOfResources":3,
+      "profileUserVisibility":false,
+      "questionCount":"3",
+      "ratings":{
+        "count":0.0,
+        "average":0
+      },
+      "resourceCount":"0",
+      "scollectionRemixCount":0,
+      "sharing":"public",
+      "skills":[
+
+      ],
+      "subject":"",
+      "tags":[
+
+      ],
+      "taxonomyDataSet":"{\"course\":[],\"topic\":[],\"unit\":[],\"lesson\":[],\"subject\":[],\"curriculum\":{\"curriculumName\":[],\"curriculumCode\":[],\"curriculumDesc\":[]}}",
+      "taxonomyLesson":"",
+      "taxonomySkills":"",
+      "thumbnail":"f000/1164/8244/22c1afd1-9cba-492f-abdb-403b7759609e_ac36c2c2-10e5-4fa5-8194-ff386c124ab2.png",
+      "thumbnails":{
+        "defaultImage":false,
+        "dimensions":"80x60,160x120",
+        "url":"http://qacdn.gooru.org/qalive/f000/1164/8244/22c1afd1-9cba-492f-abdb-403b7759609e_ac36c2c2-10e5-4fa5-8194-ff386c124ab2.png"
+      },
+      "title":"Water and Land Quiz",
+      "topic":"",
+      "type":"assessment",
+      "unit":"",
+      "userFirstName":"Emily",
+      "userLastName":"Liebtag",
+      "usernameDisplay":"emily.liebtag",
+      "viewCount":0
+    },
+    {
+      "addDate":"2013-06-23T16:05:56.000Z",
+      "assetURI":"http://qacdn.gooru.org/qalive/",
+      "category":"onlyQuestion",
+      "collaboratorCount":0,
+      "collaborators":"",
+      "collectionItemCount":3,
+      "collectionItems":[
+        {
+          "collectionItemId":"5b8c6d00-7496-4b1e-8089-aa2fb6cc391b",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1164/1252/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"As currents move from the ocean onto land...",
+            "url":"",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"f34e83cd-3d62-42b4-ac8d-aa244a75a63b",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1164/1251/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"A climate is affected by the ocean, because the ocean s are a huge part of our water cycle, which results in how much rain a region receives.",
+            "url":"",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"f9ced97d-b00d-42b1-8e1a-410d8cfb1f29",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1164/1250/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"The ocean absorbs a lot of heat from the atmosphere.",
+            "url":"",
+            "views":0
+          }
+        }
+      ],
+      "collectionType":"assessment",
+      "contentId":11641241,
+      "contentOrganizationCode":"gooru",
+      "contentOrganizationName":"Gooru",
+      "contentOrganizationUid":"4261739e-ccae-11e1-adfb-5404a609bd14",
+      "creatorFirstname":"Emily",
+      "creatorId":"840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "creatorLastname":"Liebtag",
+      "creatornameDisplay":"emily.liebtag",
+      "description":"Students will be able to examine maps, photos, and diagrams in order to understand how bodies of water shape the climate of a place.",
+      "distinguish":0,
+      "folder":"f000/1164/1241/",
+      "goals":"Students will be able to examine maps, photos, and diagrams in order to understand how bodies of water shape the climate of a place.",
+      "gooruUId":"840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "grade":"5",
+      "id":"45a57345-c5f7-40e8-bc2e-c6f27a7ee24d",
+      "lastModified":"2015-06-19T14:13:55.000Z",
+      "lastModifiedBy":"840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "lesson":"",
+      "libraryNames":[
+
+      ],
+      "license":{
+
+      },
+      "numberOfResources":3,
+      "profileUserVisibility":false,
+      "questionCount":"3",
+      "ratings":{
+        "count":0.0,
+        "average":0
+      },
+      "resourceCount":"0",
+      "scollectionRemixCount":0,
+      "sharing":"public",
+      "skills":[
+
+      ],
+      "subject":"",
+      "tags":[
+
+      ],
+      "taxonomyDataSet":"{\"course\":[],\"topic\":[],\"unit\":[],\"lesson\":[],\"subject\":[],\"curriculum\":{\"curriculumName\":[],\"curriculumCode\":[],\"curriculumDesc\":[]}}",
+      "taxonomyLesson":"",
+      "taxonomySkills":"",
+      "thumbnail":"f000/1164/1241/45a57345-c5f7-40e8-bc2e-c6f27a7ee24d_95457738-10f3-4893-b921-7b03a178d66b.png",
+      "thumbnails":{
+        "defaultImage":false,
+        "dimensions":"80x60,160x120",
+        "url":"http://qacdn.gooru.org/qalive/f000/1164/1241/45a57345-c5f7-40e8-bc2e-c6f27a7ee24d_95457738-10f3-4893-b921-7b03a178d66b.png"
+      },
+      "title":"Bodies of Water Quiz",
+      "topic":"",
+      "type":"assessment",
+      "unit":"",
+      "userFirstName":"Emily",
+      "userLastName":"Liebtag",
+      "usernameDisplay":"emily.liebtag",
+      "viewCount":0
+    },
+    {
+      "addDate":"2013-12-24T06:40:28.000Z",
+      "assetURI":"http://qacdn.gooru.org/qalive/",
+      "category":"onlyQuestion",
+      "collaboratorCount":0,
+      "collaborators":"",
+      "collectionItemCount":3,
+      "collectionItems":[
+        {
+          "collectionItemId":"5f883d64-6c66-11e3-a253-12313f070480",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1878/8439/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"What type of weathering is liquid water?",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"70c0fbe8-6c66-11e3-a253-12313f070480",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1878/8444/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"When water cools, it contracts like other matter. But just before it freezes, it expands a little bit. Say a small amount of water enters a tiny crack in the rock. When the water freezes, it expands, making the crack a little wider. More water enters the crack, freezes, and widens the crack even more. \n\nThe above passage describes which of the following types of physical weathering?",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"82131232-6c66-11e3-a253-12313f070480",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1878/8449/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"The flowing of water can carry sediment, which can weather against rocks and other structures.",
+            "views":0
+          }
+        }
+      ],
+      "collectionType":"assessment",
+      "contentId":18788437,
+      "contentOrganizationCode":"gooru",
+      "contentOrganizationName":"Gooru",
+      "contentOrganizationUid":"4261739e-ccae-11e1-adfb-5404a609bd14",
+      "creatorFirstname":"Benjamin",
+      "creatorId":"6101ea52-0459-431b-914a-94af5ac8b6c0",
+      "creatorLastname":"Lynch",
+      "creatornameDisplay":"benjamin",
+      "description":"Student will learn about how repeated freezing and thawing of water can cause weathering by breaking rocks apart.",
+      "distinguish":0,
+      "folder":"f000/1878/8437/",
+      "goals":"Student will learn about how repeated freezing and thawing of water can cause weathering by breaking rocks apart.",
+      "gooruUId":"6101ea52-0459-431b-914a-94af5ac8b6c0",
+      "grade":"4",
+      "id":"68b1f5eb-2b3a-4a9d-9aba-0369b3d4f0a1",
+      "lastModified":"2015-06-19T14:13:55.000Z",
+      "lesson":"",
+      "libraryNames":[
+
+      ],
+      "license":{
+
+      },
+      "numberOfResources":3,
+      "profileUserVisibility":true,
+      "questionCount":"3",
+      "ratings":{
+        "count":0.0,
+        "average":0
+      },
+      "resourceCount":"0",
+      "scollectionRemixCount":0,
+      "sharing":"public",
+      "skills":[
+
+      ],
+      "subject":"Science",
+      "tags":[
+
+      ],
+      "taxonomyDataSet":"{\"course\":[\"Science 4\"],\"topic\":[],\"unit\":[],\"lesson\":[],\"subject\":[\"Science\"],\"curriculum\":{\"curriculumName\":[],\"curriculumCode\":[],\"curriculumDesc\":[]}}",
+      "taxonomyLesson":"",
+      "taxonomySkills":"",
+      "thumbnail":"f000/1878/8437/68b1f5eb-2b3a-4a9d-9aba-0369b3d4f0a1_a9745708-ea25-4a6c-a59f-6c4dd515291d.png",
+      "thumbnails":{
+        "defaultImage":false,
+        "dimensions":"80x60,160x120",
+        "url":"http://qacdn.gooru.org/qalive/f000/1878/8437/68b1f5eb-2b3a-4a9d-9aba-0369b3d4f0a1_a9745708-ea25-4a6c-a59f-6c4dd515291d.png"
+      },
+      "title":"Water as a Cause of Weathering Quiz",
+      "topic":"",
+      "type":"assessment",
+      "unit":"",
+      "userFirstName":"Benjamin",
+      "userLastName":"Lynch",
+      "usernameDisplay":"benjamin",
+      "viewCount":2
+    },
+    {
+      "addDate":"2013-07-04T16:42:21.000Z",
+      "assetURI":"http://qacdn.gooru.org/qalive/",
+      "category":"onlyQuestion",
+      "collaboratorCount":0,
+      "collaborators":"",
+      "collectionItemCount":3,
+      "collectionItems":[
+        {
+          "collectionItemId":"3d086d8d-3de3-4eb5-96c0-a5df302e2168",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1164/3985/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"There are more than 3 other deserts others than the Sahara on the African continent.",
+            "url":"",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"5ec36402-af47-43cc-b675-852245a0f767",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1164/3983/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"Why is water a precious resource in the African deserts?",
+            "url":"",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"cf6c8631-ace5-4f4f-a7b8-63f830048066",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1164/3984/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"The Sahara desert is the largest on the African continent.",
+            "url":"",
+            "views":0
+          }
+        }
+      ],
+      "collectionType":"assessment",
+      "contentId":11643974,
+      "contentOrganizationCode":"gooru",
+      "contentOrganizationName":"Gooru",
+      "contentOrganizationUid":"4261739e-ccae-11e1-adfb-5404a609bd14",
+      "creatorFirstname":"Emily",
+      "creatorId":"840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "creatorLastname":"Liebtag",
+      "creatornameDisplay":"emily.liebtag",
+      "description":"Students will be able to understand that most areas of this region receive little rainfall, and that the two dry climate zones are desert and steppe. Students will be able to understand that the steppe grasslands may turn into desert.",
+      "distinguish":0,
+      "folder":"f000/1164/3974/",
+      "goals":"Students will be able to understand that most areas of this region receive little rainfall, and that the two dry climate zones are desert and steppe. Students will be able to understand that the steppe grasslands may turn into desert.",
+      "gooruUId":"840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "grade":"5",
+      "id":"d042a6f8-79c2-47f8-acd5-f827bab3849c",
+      "lastModified":"2015-06-19T14:13:55.000Z",
+      "lastModifiedBy":"840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "lesson":"",
+      "libraryNames":[
+
+      ],
+      "license":{
+
+      },
+      "numberOfResources":3,
+      "profileUserVisibility":false,
+      "questionCount":"3",
+      "ratings":{
+        "count":0.0,
+        "average":0
+      },
+      "resourceCount":"0",
+      "scollectionRemixCount":0,
+      "sharing":"public",
+      "skills":[
+
+      ],
+      "subject":"",
+      "tags":[
+
+      ],
+      "taxonomyDataSet":"{\"course\":[],\"topic\":[],\"unit\":[],\"lesson\":[],\"subject\":[],\"curriculum\":{\"curriculumName\":[],\"curriculumCode\":[],\"curriculumDesc\":[]}}",
+      "taxonomyLesson":"",
+      "taxonomySkills":"",
+      "thumbnail":"f000/1164/3974/d042a6f8-79c2-47f8-acd5-f827bab3849c_c73f5a66-e8e5-43dc-80c1-8061d13e3b5d.png",
+      "thumbnails":{
+        "defaultImage":false,
+        "dimensions":"80x60,160x120",
+        "url":"http://qacdn.gooru.org/qalive/f000/1164/3974/d042a6f8-79c2-47f8-acd5-f827bab3849c_c73f5a66-e8e5-43dc-80c1-8061d13e3b5d.png"
+      },
+      "title":"Water: A Precious Resource Quiz",
+      "topic":"",
+      "type":"assessment",
+      "unit":"",
+      "userFirstName":"Emily",
+      "userLastName":"Liebtag",
+      "usernameDisplay":"emily.liebtag",
+      "viewCount":1
+    },
+    {
+      "addDate":"2013-12-24T07:30:39.000Z",
+      "assetURI":"http://qacdn.gooru.org/qalive/",
+      "category":"onlyQuestion",
+      "collaboratorCount":0,
+      "collaborators":"",
+      "collectionItemCount":3,
+      "collectionItems":[
+        {
+          "collectionItemId":"62c72b8c-6c6d-11e3-a253-12313f070480",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1878/8790/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"Why does Pedro marry Rosaura?",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"7441e71c-6c6d-11e3-a253-12313f070480",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1878/8793/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"What does the scene depicted in the movie clip tell the viewer?",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"85dfc35e-6c6d-11e3-a253-12313f070480",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1878/8796/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"What is the name for the literary genre that blends mundane reality with supernatural fantasy?",
+            "views":0
+          }
+        }
+      ],
+      "collectionType":"assessment",
+      "contentId":18788787,
+      "contentOrganizationCode":"gooru",
+      "contentOrganizationName":"Gooru",
+      "contentOrganizationUid":"4261739e-ccae-11e1-adfb-5404a609bd14",
+      "creatorFirstname":"DaniA",
+      "creatorId":"e6f39b7f-82bf-44d8-83f8-c41d8c1cdc8f",
+      "creatorLastname":"A",
+      "creatornameDisplay":"DaniA",
+      "distinguish":0,
+      "folder":"f000/1878/8787/",
+      "gooruUId":"ce897a20-5d3e-4ed5-80da-c49a53d4c537",
+      "grade":"9,10,11,12",
+      "id":"5bb31a3e-dbad-4c64-a518-73dd59221a3c",
+      "lastModified":"2015-06-19T14:13:55.000Z",
+      "lesson":"",
+      "libraryNames":[
+
+      ],
+      "license":{
+        "code":"",
+        "definition":"",
+        "icon":"",
+        "name":"Other",
+        "tag":"",
+        "url":" "
+      },
+      "numberOfResources":3,
+      "profileUserVisibility":false,
+      "questionCount":"3",
+      "ratings":{
+        "count":0.0,
+        "average":0
+      },
+      "resourceCount":"0",
+      "scollectionRemixCount":0,
+      "sharing":"public",
+      "skills":[
+
+      ],
+      "subject":" Language Arts  ",
+      "tags":[
+
+      ],
+      "taxonomyDataSet":"{\"course\":[\"Literature and Composition\"],\"topic\":[],\"unit\":[],\"lesson\":[],\"subject\":[\" Language Arts  \"],\"curriculum\":{\"curriculumName\":[],\"curriculumCode\":[],\"curriculumDesc\":[]}}",
+      "taxonomyLesson":"",
+      "taxonomySkills":"",
+      "thumbnail":"f000/1878/8787/5bb31a3e-dbad-4c64-a518-73dd59221a3c_77386d23-3f5a-4ba8-a6f1-3142c0785923.png",
+      "thumbnails":{
+        "defaultImage":false,
+        "dimensions":"80x60,160x120",
+        "url":"http://qacdn.gooru.org/qalive/f000/1878/8787/5bb31a3e-dbad-4c64-a518-73dd59221a3c_77386d23-3f5a-4ba8-a6f1-3142c0785923.png"
+      },
+      "title":"Like Water For Chocolate by Laura Esquivel Quiz",
+      "topic":"",
+      "type":"assessment",
+      "unit":"",
+      "userFirstName":"Miriam",
+      "userLastName":"Kaufman",
+      "usernameDisplay":"miriamK",
+      "viewCount":1
+    },
+    {
+      "addDate":"2013-12-23T17:30:44.000Z",
+      "assetURI":"http://qacdn.gooru.org/qalive/",
+      "category":"onlyQuestion",
+      "collaboratorCount":0,
+      "collaborators":"",
+      "collectionItemCount":3,
+      "collectionItems":[
+        {
+          "collectionItemId":"0c6621a0-6bf8-11e3-a253-12313f070480",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1878/6996/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"Without plant roots holding the ground together, dirt and sand would wash away. What is this process called?",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"1d9dcd88-6bf8-11e3-a253-12313f070480",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1878/6998/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"Erosion is just something that happens using water.",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"2f7fc6d2-6bf8-11e3-a253-12313f070480",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1878/7000/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"Which of the following is NOT a reason why costal erosion is bad?",
+            "views":0
+          }
+        }
+      ],
+      "collectionType":"assessment",
+      "contentId":18786994,
+      "contentOrganizationCode":"gooru",
+      "contentOrganizationName":"Gooru",
+      "contentOrganizationUid":"4261739e-ccae-11e1-adfb-5404a609bd14",
+      "creatorFirstname":"Benjamin",
+      "creatorId":"6101ea52-0459-431b-914a-94af5ac8b6c0",
+      "creatorLastname":"Lynch",
+      "creatornameDisplay":"benjamin",
+      "description":"Students will understand that erosion is the transport of weathered rock and is caused by flowing water and wind.",
+      "distinguish":0,
+      "folder":"f000/1878/6994/",
+      "goals":"Students will understand that erosion is the transport of weathered rock and is caused by flowing water and wind.",
+      "gooruUId":"6101ea52-0459-431b-914a-94af5ac8b6c0",
+      "grade":"4",
+      "id":"7a48e8e8-7366-4e5b-b4a3-bbf4d135fa88",
+      "lastModified":"2015-06-19T14:13:55.000Z",
+      "lesson":"",
+      "libraryNames":[
+
+      ],
+      "license":{
+
+      },
+      "numberOfResources":3,
+      "profileUserVisibility":true,
+      "questionCount":"3",
+      "ratings":{
+        "count":0.0,
+        "average":0
+      },
+      "resourceCount":"0",
+      "scollectionRemixCount":0,
+      "sharing":"public",
+      "skills":[
+
+      ],
+      "subject":"Science",
+      "tags":[
+
+      ],
+      "taxonomyDataSet":"{\"course\":[\"Science 4\"],\"topic\":[],\"unit\":[],\"lesson\":[],\"subject\":[\"Science\"],\"curriculum\":{\"curriculumName\":[],\"curriculumCode\":[],\"curriculumDesc\":[]}}",
+      "taxonomyLesson":"",
+      "taxonomySkills":"",
+      "thumbnail":"f000/1878/6994/7a48e8e8-7366-4e5b-b4a3-bbf4d135fa88_2f0ac54f-5c1d-45dd-b1e6-1016486313c2.png",
+      "thumbnails":{
+        "defaultImage":false,
+        "dimensions":"80x60,160x120",
+        "url":"http://qacdn.gooru.org/qalive/f000/1878/6994/7a48e8e8-7366-4e5b-b4a3-bbf4d135fa88_2f0ac54f-5c1d-45dd-b1e6-1016486313c2.png"
+      },
+      "title":"Erosion Quiz",
+      "topic":"",
+      "type":"assessment",
+      "unit":"",
+      "userFirstName":"Benjamin",
+      "userLastName":"Lynch",
+      "usernameDisplay":"benjamin",
+      "viewCount":2
+    },
+    {
+      "addDate":"2013-12-24T05:37:24.000Z",
+      "assetURI":"http://qacdn.gooru.org/qalive/",
+      "category":"onlyQuestion",
+      "collaboratorCount":0,
+      "collaborators":"",
+      "collectionItemCount":3,
+      "collectionItems":[
+        {
+          "collectionItemId":"9010bf6e-6c5d-11e3-a253-12313f070480",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1878/7883/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"What is a renewable resource?",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"a1556b76-6c5d-11e3-a253-12313f070480",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1878/7887/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"Which of the following are inexhaustible resources?",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"b27caa68-6c5d-11e3-a253-12313f070480",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1878/7891/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"What type of power is obtained from the energy in plants and plant-derived materials, such as food crops, grassy and woody plants, residues from agriculture or forestry, and the organic component of municipal and industrial waste?",
+            "views":0
+          }
+        }
+      ],
+      "collectionType":"assessment",
+      "contentId":18787879,
+      "contentOrganizationCode":"gooru",
+      "contentOrganizationName":"Gooru",
+      "contentOrganizationUid":"4261739e-ccae-11e1-adfb-5404a609bd14",
+      "creatorFirstname":"Benjamin",
+      "creatorId":"6101ea52-0459-431b-914a-94af5ac8b6c0",
+      "creatorLastname":"Lynch",
+      "creatornameDisplay":"benjamin",
+      "description":"Students will be able to identify renewable energy resources such as wind, water, and sunlight.",
+      "distinguish":0,
+      "folder":"f000/1878/7879/",
+      "goals":"Students will be able to identify renewable energy resources such as wind, water, and sunlight.",
+      "gooruUId":"6101ea52-0459-431b-914a-94af5ac8b6c0",
+      "grade":"4",
+      "id":"e128802f-cb87-4616-833d-3712b1f5e46d",
+      "lastModified":"2015-06-19T14:13:55.000Z",
+      "lesson":"",
+      "libraryNames":[
+
+      ],
+      "license":{
+
+      },
+      "numberOfResources":3,
+      "profileUserVisibility":true,
+      "questionCount":"3",
+      "ratings":{
+        "count":0.0,
+        "average":0
+      },
+      "resourceCount":"0",
+      "scollectionRemixCount":0,
+      "sharing":"public",
+      "skills":[
+
+      ],
+      "subject":"Science",
+      "tags":[
+
+      ],
+      "taxonomyDataSet":"{\"course\":[\"Science 4\"],\"topic\":[],\"unit\":[],\"lesson\":[],\"subject\":[\"Science\"],\"curriculum\":{\"curriculumName\":[],\"curriculumCode\":[],\"curriculumDesc\":[]}}",
+      "taxonomyLesson":"",
+      "taxonomySkills":"",
+      "thumbnail":"f000/1878/7879/e128802f-cb87-4616-833d-3712b1f5e46d_e3fae051-43b9-4786-bdf3-218429fdb2fc.png",
+      "thumbnails":{
+        "defaultImage":false,
+        "dimensions":"80x60,160x120",
+        "url":"http://qacdn.gooru.org/qalive/f000/1878/7879/e128802f-cb87-4616-833d-3712b1f5e46d_e3fae051-43b9-4786-bdf3-218429fdb2fc.png"
+      },
+      "title":"Renewable Resources Quiz",
+      "topic":"",
+      "type":"assessment",
+      "unit":"",
+      "userFirstName":"Benjamin",
+      "userLastName":"Lynch",
+      "usernameDisplay":"benjamin",
+      "viewCount":0
+    },
+    {
+      "addDate":"2013-07-02T15:55:09.000Z",
+      "assetURI":"http://qacdn.gooru.org/qalive/",
+      "category":"onlyQuestion",
+      "collaboratorCount":0,
+      "collaborators":"",
+      "collectionItemCount":3,
+      "collectionItems":[
+        {
+          "collectionItemId":"2507bed1-6cc1-4f0f-a599-555f0417c61d",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1164/3635/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"What is one of the causes of the air pollution in Indonesia?",
+            "url":"",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"b5934559-b624-4d72-b644-00b7dda86816",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1164/3634/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"Some of the worst air pollution is in Asia.",
+            "url":"",
+            "views":0
+          }
+        },
+        {
+          "collectionItemId":"c3ef4627-0ade-4253-9483-bef5b33df656",
+          "resource":{
+            "assetURI":"http://qacdn.gooru.org/qalive/",
+            "category":"Question",
+            "folder":"f000/1164/3636/",
+            "isDeleted":0,
+            "resourceFormat":{
+              "value":"question"
+            },
+            "resourceType":{
+              "name":"assessment-question"
+            },
+            "taxonomySet":[
+
+            ],
+            "title":"The air pollution is not yet causing breathing problems for the population of countries in Asia.",
+            "url":"",
+            "views":0
+          }
+        }
+      ],
+      "collectionType":"assessment",
+      "contentId":11643381,
+      "contentOrganizationCode":"gooru",
+      "contentOrganizationName":"Gooru",
+      "contentOrganizationUid":"4261739e-ccae-11e1-adfb-5404a609bd14",
+      "creatorFirstname":"Emily",
+      "creatorId":"840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "creatorLastname":"Liebtag",
+      "creatornameDisplay":"emily.liebtag",
+      "description":"Students will be able to understand that industrialization and economic development often result in the pollution of air, land, and water.",
+      "distinguish":0,
+      "folder":"f000/1164/3381/",
+      "goals":"Students will be able to understand that industrialization and economic development often result in the pollution of air, land, and water.",
+      "gooruUId":"840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "grade":"5",
+      "id":"d5070215-178e-42ee-be8a-c6ec9d28eadc",
+      "lastModified":"2015-06-19T14:13:55.000Z",
+      "lastModifiedBy":"840aa14d-3a96-40eb-9325-30f65766fbbd",
+      "lesson":"",
+      "libraryNames":[
+
+      ],
+      "license":{
+
+      },
+      "numberOfResources":3,
+      "profileUserVisibility":false,
+      "questionCount":"3",
+      "ratings":{
+        "count":0.0,
+        "average":0
+      },
+      "resourceCount":"0",
+      "scollectionRemixCount":0,
+      "sharing":"public",
+      "skills":[
+
+      ],
+      "subject":"",
+      "tags":[
+
+      ],
+      "taxonomyDataSet":"{\"course\":[],\"topic\":[],\"unit\":[],\"lesson\":[],\"subject\":[],\"curriculum\":{\"curriculumName\":[],\"curriculumCode\":[],\"curriculumDesc\":[]}}",
+      "taxonomyLesson":"",
+      "taxonomySkills":"",
+      "thumbnail":"f000/1164/3381/d5070215-178e-42ee-be8a-c6ec9d28eadc_e2d117b5-a251-48d7-9fbf-5646641bde46.png",
+      "thumbnails":{
+        "defaultImage":false,
+        "dimensions":"80x60,160x120",
+        "url":"http://qacdn.gooru.org/qalive/f000/1164/3381/d5070215-178e-42ee-be8a-c6ec9d28eadc_e2d117b5-a251-48d7-9fbf-5646641bde46.png"
+      },
+      "title":"Environmental Pollution Quiz",
+      "topic":"",
+      "type":"assessment",
+      "unit":"",
+      "userFirstName":"Emily",
+      "userLastName":"Liebtag",
+      "usernameDisplay":"emily.liebtag",
+      "viewCount":12
+    }
+  ],
+  "stats":{
+    "totalHitCount":42,
+    "pageSize":20
+  },
+  "totalHitCount":42
+}
