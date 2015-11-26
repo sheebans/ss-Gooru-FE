@@ -28,6 +28,10 @@
     {{#if resource.isYoutubeResource}}
       {{player.resources.gru-youtube-player resource=resource}}
     {{/if}}
+
+    {{#if resource.isPDFResource}}
+      {{player.resources.gru-pdf-player resource=resource}}
+    {{/if}}
   {{/if}}
 </div>
 

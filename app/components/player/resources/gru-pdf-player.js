@@ -1,16 +1,8 @@
 import Ember from 'ember';
 
-/**
- * Image resource component
- *
- * Component responsible for controlling the logic and appearance of the image resource type
- *
- * @module
- * @see controllers/player.js
- * @see components/player/gru-viewer.js
- * @augments Ember/Component
- */
-export default Ember.Component.extend({
+import Env from '../../../config/environment';
+
+export default Ember.Component.extend(Env,{
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -18,7 +10,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-image'],
+  classNames:['gru-pdf-player'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -32,7 +24,11 @@ export default Ember.Component.extend({
   /**
    * @property {Resource} the resource
    */
-  resource: null
+  resource: null,
+
+  pdfURL:Ember.computed('resource.assetUrl',function(){
+    return Env['player'].pdfViewerUrl+"&oid="+this.get("resource.gooruOid")+"&appKey=beta"+"&url="+this.get("resource.assetUrl");
+  }),
 
   // -------------------------------------------------------------------------
   // Observers
