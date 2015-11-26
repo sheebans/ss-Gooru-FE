@@ -4,7 +4,7 @@ moduleForComponent('player/resources/gru-vimeo-resource', 'Unit | Component | pl
   integration: false
 });
 
-test('getVimeoID https://vimeo.com/11590751', function (assert) {
+test('getVimeoID default url', function (assert) {
   assert.expect(1);
 
   var component = this.subject();
@@ -13,7 +13,7 @@ test('getVimeoID https://vimeo.com/11590751', function (assert) {
   assert.equal(id, 11590751, "Incorrect ID");
 
 });
-test('getVimeoID http://vimeo.com/11590751', function (assert) {
+test('getVimeoID non default vimeo url', function (assert) {
   assert.expect(1);
 
   var component = this.subject();
@@ -22,7 +22,7 @@ test('getVimeoID http://vimeo.com/11590751', function (assert) {
   assert.equal(id, 11590751, "Incorrect ID");
 
 });
-test('getVimeoID http://12vimeo.com/11590751', function (assert) {
+test('getVimeoID vimeo url with numbers', function (assert) {
   assert.expect(1);
 
   var component = this.subject();
@@ -31,7 +31,7 @@ test('getVimeoID http://12vimeo.com/11590751', function (assert) {
   assert.equal(id, 11590751, "Incorrect ID");
 
 });
-test('getVimeoID http://12vimeo.com/11590751', function (assert) {
+test('getVimeoID when no id provided', function (assert) {
   assert.expect(1);
 
   var component = this.subject();
