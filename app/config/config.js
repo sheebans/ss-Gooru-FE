@@ -14,5 +14,6 @@ export const RESOURCE_COMPONENT_MAP = {
   'video/youtube'    : 'player.resources.gru-youtube-player',
   'resource/url'    : 'player.resources.gru-url-resource',
   'handouts'   : 'player.resources.gru-pdf-player',
-  'image'    : 'player.resources.gru-image'
+  'image'    : 'player.resources.gru-image',
+  'vimeo/video'    : 'player.resources.gru-vimeo-resource'
 };
