@@ -13,6 +13,10 @@ Router.map(function() {
   });
 
   this.route('player', { path: '/player/:collectionId'});
+
+  this.route('classes');
+
+  this.route('class', { path: '/class/:classId'});
 });
 
 export default Router;

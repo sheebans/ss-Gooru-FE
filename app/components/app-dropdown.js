@@ -1,10 +1,9 @@
 import Ember from 'ember';
-import i18nMixin from '../mixins/i18n';
 
 /**
  * @typedef {object} AppDropdown
  */
-export default Ember.Component.extend(i18nMixin, {
+export default Ember.Component.extend({
 
   /**
    * @property {DropdownItem[]} dropdown items
