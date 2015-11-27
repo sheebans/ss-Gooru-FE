@@ -40,7 +40,9 @@ export default Ember.Component.extend({
   youtubeUrl: Ember.computed("resource.url", function(){
     return this.get("resource.url").replace(/watch\?v=/g, "embed/")+
         "?start="+this.get('start')+
-        "&end="+this.get('stop');
+        "&end="+this.get('stop')+
+        "&rel=0";
+
   }),
 
   /**
