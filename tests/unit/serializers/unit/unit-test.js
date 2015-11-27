@@ -1,10 +1,9 @@
-import UnitSerializer from '../../../../serializers/unit/unit';
-import { module, test } from 'qunit';
+import { moduleFor, test } from 'ember-qunit';
 
-module('Unit | Serializer | unit unit');
+moduleFor('serializer:unit/unit', 'Unit | Serializer | unit/unit');
 
 test('normalizeQueryRecordResponse', function (assert) {
-  const serializer = UnitSerializer.create();
+  const serializer = this.subject();
 
   const
     payload = [
