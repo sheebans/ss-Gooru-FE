@@ -23,11 +23,11 @@ export default Ember.Service.extend(StoreMixin, {
    * @returns {Promise.<Unit[]>} returns an array of units
 
    */
-  findByClassAndCourse: function(classId, courseId, options) {
-    options = options || {};
+  findByClassAndCourse: function(classId, courseId, options = {}) {
     return this.get('store').queryRecord('unit/unit', {
       classId: classId,
-      courseId: courseId
+      courseId: courseId,
+      options: options
     });
   }
 

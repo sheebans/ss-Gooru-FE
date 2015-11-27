@@ -15,10 +15,15 @@ export default ApplicationAdapter.extend({
   buildURL: function(modelName, id, snapshot, requestType, query) {
     const adapter = this,
       token = adapter.get('session.token'),
-      namespace = adapter.get('namespace');
+      namespace = adapter.get('namespace'),
+      classId = query.classId,
+      courseId = query.courseId;
+
+    delete query.classId;
+    delete query.courseId;
 
     if (requestType === 'queryRecord') {
-      return '%@/%@/course/%@/unit?sessionToken=%@'.fmt(namespace, query.classId, query.courseId, token);
+      return '%@/%@/course/%@/unit?sessionToken=%@'.fmt(namespace, classId, courseId, token);
     }
     return false;
   }
