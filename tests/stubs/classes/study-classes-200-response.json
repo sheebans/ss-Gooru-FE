@@ -1,0 +1,32 @@
+{
+  "searchResult": [
+    {
+      "classUid": "11111-7383-4164-8068-5415621b7a34",
+      "visibility": true,
+      "name": "Class A1",
+      "classCode": "JR48FMF",
+      "courseGooruOid": "75366215-f9d5-424c-8a90-2cabdfeb3ffa",
+      "grades": "K,6,6,7,7,8,8",
+      "user": {
+        "username": "JeffreyTeacher01",
+        "gooruUId": "88638002-deb6-4f8d-b319-4a7ae18d0efe",
+        "profileImageUrl": "http://profile-qa.s3.amazonaws.com/88638002-deb6-4f8d-b319-4a7ae18d0efe.png"
+      },
+      "memberCount": 0
+    },
+    {
+      "classUid": "11111-5d0d-4673-a85d-f93aa0cbddf2",
+      "visibility": true,
+      "name": "Class A2",
+      "classCode": "2WZ8IJA",
+      "grades": "K",
+      "user": {
+        "username": "JeffreyTeacher01",
+        "gooruUId": "88638002-deb6-4f8d-b319-4a7ae18d0efe",
+        "profileImageUrl": "http://profile-qa.s3.amazonaws.com/88638002-deb6-4f8d-b319-4a7ae18d0efe.png"
+      },
+      "memberCount": 1
+    }
+  ],
+  "totalHitCount": 2
+}

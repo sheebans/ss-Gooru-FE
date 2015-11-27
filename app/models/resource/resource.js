@@ -197,5 +197,11 @@ export default DS.Model.extend({
    * Indicates if it is an url resource
    * @property {bool}
    */
-  isUrlResource: Ember.computed.equal("resourceType", "resource/url")
+  isUrlResource: Ember.computed.equal("resourceType", "resource/url"),
+
+  /**
+   * Indicates if it is an vimeo resource
+   * @property {bool}
+   */
+  isVimeoResource: Ember.computed.equal("resourceType", "vimeo/video")
 });

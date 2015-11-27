@@ -8,6 +8,7 @@
 @import 'controllers/index';
 @import 'controllers/player';
 @import 'controllers/classes';
+@import 'controllers/class';
 
 // TODO: update these components so they follow the naming conventions
 @import 'components/app-dropdown';
@@ -43,3 +44,5 @@
 @import 'components/player/resources/gru-youtube-resource';
 @import 'components/player/resources/gru-url-resource';
 @import 'components/player/resources/gru-pdf-resource';
+@import 'components/player/resources/gru-vimeo-resource';
+

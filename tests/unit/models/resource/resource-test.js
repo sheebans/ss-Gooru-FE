@@ -143,6 +143,14 @@ test('isPDFResource', function(assert) {
 
   assert.ok(model.get("isPDFResource"), "It should be pdf resource type");
 });
+test('isVimeoResource', function(assert) {
+  assert.expect(1);
+  let model = this.subject({
+    "resourceType": "vimeo/video"
+  });
+
+  assert.ok(model.get("isVimeoResource"), "It should be vimeo resource type");
+});
 
 test('isHotTextHighlightWord', function(assert) {
   assert.expect(1);
