@@ -17,6 +17,10 @@
         &.selected {
           border-color: $branding-primary-1;
         }
+
+        &:hover {
+          border-color: $branding-primary-1;
+        }
       }
     }
   }
