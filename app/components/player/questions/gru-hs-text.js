@@ -59,7 +59,30 @@ export default QuestionComponent.extend({
 
   // -------------------------------------------------------------------------
   // Properties
-  selectedAnswers: []
+
+  /*
+   * @prop {Array} selectedAnswers - Array of ids for each one of the answers selected by the user
+   */
+  selectedAnswers: [],
+
+  /*
+   * @prop {String} instructions - Question instructions
+   */
+  instructions: Ember.computed(function() {
+    return this.get('i18n').t('gru-hs-text.instructions')
+  }),
+
+  /*
+   * @typedef answers
+   * @prop {String} id - answer id
+   * @prop {String} content - markup string containing the answer text
+   */
+  answers: Ember.computed.map('question.answers', function(answer) {
+    return {
+      id: answer.get('id'),
+      content: answer.get('text')
+    }
+  })
 
   // -------------------------------------------------------------------------
   // Observers
