@@ -35,5 +35,5 @@ test('buildURL querying for username availability', function (assert) {
     },
     url = adapter.buildURL("user/availability", "any id", "any snapshot", "queryRecord", query);
 
-  assert.equal(url, "/gooruapi/rest/v2/user/username/availability?sessionToken=abc-123", "Wrong url"+url);
+  assert.equal(url, "/gooruapi/rest/v2/user/username/availability?sessionToken=abc-123", "Wrong url");
 });
