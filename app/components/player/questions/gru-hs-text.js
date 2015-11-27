@@ -15,7 +15,7 @@ export default QuestionComponent.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
-
+  i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -69,7 +69,7 @@ export default QuestionComponent.extend({
    * @prop {String} instructions - Question instructions
    */
   instructions: Ember.computed(function() {
-    return this.get('i18n').t('gru-hs-text.instructions')
+    return this.get('i18n').t('gru-hs-text.instructions');
   }),
 
   /*
@@ -81,7 +81,7 @@ export default QuestionComponent.extend({
     return {
       id: answer.get('id'),
       content: answer.get('text')
-    }
+    };
   })
 
   // -------------------------------------------------------------------------

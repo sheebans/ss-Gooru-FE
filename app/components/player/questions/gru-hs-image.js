@@ -16,7 +16,7 @@ export default GruHSTextComponent.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
-
+  i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -37,7 +37,7 @@ export default GruHSTextComponent.extend({
    * @prop {String} instructions - Question instructions
    */
   instructions: Ember.computed(function() {
-    return this.get('i18n').t('gru-hs-image.instructions')
+    return this.get('i18n').t('gru-hs-image.instructions');
   }),
 
   /*
@@ -49,7 +49,7 @@ export default GruHSTextComponent.extend({
     return {
       id: answer.get('id'),
       content: this.get('question.assetBasePath') + answer.get('text')
-    }
+    };
   })
 
 
