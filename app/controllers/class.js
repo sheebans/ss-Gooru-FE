@@ -16,10 +16,10 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Properties
   /**
-   * The class presented to the user
-   * @property {Class}
+   * The user to show
+   * @property {user}
    */
-  "class": null
+  "user": null
 
   // -------------------------------------------------------------------------
   // Observers

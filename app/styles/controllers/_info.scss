@@ -1,0 +1,34 @@
+.info{
+  padding: 15px;
+  ul{
+    padding-left: 0px;
+    list-style: none;
+    li{
+      float:left;
+      padding:10px;
+    }
+  }
+  .profile-card{
+    div{
+      border: 1px solid $color-gray-4;
+    }
+  }
+  .subject,.grade,.code,.description{
+    p{
+      float:left;
+      padding:5px;
+    }
+  }
+  .title{
+    font-weight: bold;
+  }
+  .code {
+      border: 1px solid $color-gray-4;
+      padding:10px;
+      width: 197px;
+      height: 50px;
+    p{
+       margin:0px;
+    }
+  }
+}
