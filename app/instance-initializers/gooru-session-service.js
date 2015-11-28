@@ -7,8 +7,8 @@ export function initialize(application) {
     /**
      * @property {string} Session token
      */
-    token: Ember.computed('data', function() {
-      return this.get('data.authenticated')['token'];
+    token: Ember.computed('data.authenticated.token', function() {
+      return this.get('data.authenticated.token');
     }),
 
     /**

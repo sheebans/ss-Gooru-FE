@@ -8,7 +8,7 @@ export default ApplicationAdapter.extend({
   namespace: 'gooruapi/rest/v3/collection',
 
   buildURL: function(modelName, id, snapshot, requestType, query) {
-    var includeItemParam = '&includeItems=true';
+    var includeItemParam = '?includeItems=true';
     var includeLastModifiedUserParam = '&includeLastModifiedUser=true';
     return this._super(modelName, id, snapshot, requestType, query) + includeItemParam + includeLastModifiedUserParam;
   }
