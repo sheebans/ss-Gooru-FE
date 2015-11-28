@@ -66,7 +66,7 @@ test('Navigate to all resources types', function (assert) {
 });
 
 test('Navigate to all question types', function (assert) {
-  assert.expect(15);
+  assert.expect(18);
   visit('/player/522f6827-f7dd-486f-8631-eba497e2d425'); //visit all question types collection
 
   andThen(function () {
