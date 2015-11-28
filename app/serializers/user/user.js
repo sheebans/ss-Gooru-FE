@@ -27,7 +27,7 @@ export default DS.JSONAPISerializer.extend({
     var userModel =  {
       data: {
         id: payload.gooruUId,
-        type: "user",
+        type: "user/user",
         attributes: {
           accountCreatedType: payload.accountCreatedType,
           accountTypeId: payload.accountTypeId,
