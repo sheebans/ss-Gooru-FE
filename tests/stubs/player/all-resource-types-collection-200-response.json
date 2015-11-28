@@ -18,40 +18,6 @@
   "collectionItems":[
     {
       "parentGooruOid":"76cb53df-1f6a-41f2-a31d-c75876c6bcf9",
-      "answers":[
-
-      ],
-      "itemSequence":1,
-      "type":6,
-      "title":"<p>Describa el ciclo del agua</p>",
-      "sharing":"public",
-      "description":"<p>Describa el ciclo del agua</p>",
-      "questionText":"<p>Describa el ciclo del agua</p>",
-      "collectionItemId":"730344cb-8fb7-411f-b40c-01d7cdff3783",
-      "hints":[
-
-      ],
-      "explanation":"",
-      "assetURI":"http://qacdn.gooru.org/qalive/",
-      "resourceType":{
-        "name":"assessment-question"
-      },
-      "folder":"f000/2441/3262/",
-      "typeName":"OE",
-      "gooruOid":"46d4a6d4-991b-4c51-a656-f694e037dd68",
-      "resourceFormat":{
-        "value":"question",
-        "displayName":"Question"
-      },
-      "views":2,
-      "user":{
-        "username":"perezedify",
-        "gooruUId":"ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
-        "profileImageUrl":"http://profile-qa.s3.amazonaws.com/ff90e7e2-7788-48fb-9ce2-7b6d7a828840.png"
-      }
-    },
-    {
-      "parentGooruOid":"76cb53df-1f6a-41f2-a31d-c75876c6bcf9",
       "itemSequence":2,
       "mediaType":"iPad_friendly",
       "title":"Water Cycle",
