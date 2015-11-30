@@ -7,19 +7,12 @@ export default ApplicationAdapter.extend({
    */
   namespace: '/gooruapi/rest/v3/class',
 
-  buildURL: function(modelName, id, snapshot, requestType, query) {
-    var sessionTokenParam = '?sessionToken=' + this.get('session.token');
-    var url = '';
+  urlForQueryRecord: function(query) {
+    const type = query.isStudent ? '/study' : '/teach';
 
-    if (requestType === 'queryRecord') {
-      url = this.get('namespace') + (query.isStudent ? '/study' : '/teach');
-    } else {
-      url = this._super(modelName, id, snapshot, requestType, query);
-    }
-    return url + sessionTokenParam;
+    delete query.isStudent;
+
+    return this.get('namespace') + type;
   }
 
 });
-
-
-

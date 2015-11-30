@@ -7,16 +7,12 @@ export function initialize(application) {
     /**
      * @property {string} Session token
      */
-    token: Ember.computed('data', function() {
-      return this.get('data.authenticated')['token'];
-    }),
+    token: Ember.computed.alias('data.authenticated.token'),
 
     /**
      * @property {string} Session user data
      */
-    userData: Ember.computed('data.authenticated.user', function() {
-      return this.get('data.authenticated.user');
-    }),
+    userData: Ember.computed.alias('data.authenticated.user'),
 
     /**
      * @property {string} Session user id

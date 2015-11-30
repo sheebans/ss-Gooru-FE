@@ -16,10 +16,9 @@ Router.map(function() {
 
   this.route('classes');
 
-  this.route('class', function(){
-    this.route('index', { path: '/:classId'});
-    this.route('overview', { path: '/:classId/overview'});
-    this.route('info', { path: '/:classId/info'});
+  this.route('class', { path: '/class/:classId' }, function() {
+    this.route('overview', { path: '/overview'});
+    this.route('info', { path: '/info'});
   });
 });
 

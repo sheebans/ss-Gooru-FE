@@ -4,7 +4,10 @@ import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 
 moduleForAcceptance('Acceptance | player', {
   beforeEach: function() {
-    authenticateSession(this.application, { isAnonymous: true });
+    authenticateSession(this.application, {
+      isAnonymous: true,
+      token: 'token-value'
+    });
   }
 });
 

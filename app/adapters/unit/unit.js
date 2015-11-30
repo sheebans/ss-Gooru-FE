@@ -12,9 +12,9 @@ export default ApplicationAdapter.extend({
    */
   namespace: '/gooruapi/rest/v3/class',
 
-  buildURL: function(modelName, id, snapshot, requestType, query) {
-    const adapter = this,
-      token = adapter.get('session.token'),
+  urlForQueryRecord: function(query) {
+    const
+      adapter = this,
       namespace = adapter.get('namespace'),
       classId = query.classId,
       courseId = query.courseId;
@@ -22,13 +22,7 @@ export default ApplicationAdapter.extend({
     delete query.classId;
     delete query.courseId;
 
-    if (requestType === 'queryRecord') {
-      return '%@/%@/course/%@/unit?sessionToken=%@'.fmt(namespace, classId, courseId, token);
-    }
-    return false;
+    return '%@/%@/course/%@/unit'.fmt(namespace, classId, courseId);
   }
 
 });
-
-
-
