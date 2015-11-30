@@ -41,7 +41,7 @@ test('normalizeQueryRecordResponse', function (assert) {
       },
       {
         "id": "aaac5d15-8434-43ff-8f8b-78cf0b6fd032",
-        "type": "unit/unit",
+        "type": "lesson/lesson",
         "attributes": {
           "title": "Method naming convention",
           "collection": 24413350,
@@ -50,7 +50,7 @@ test('normalizeQueryRecordResponse', function (assert) {
       },
       {
         "id": "cc2bc04c-05ab-4407-9d76-b7021d6138e3",
-        "type": "unit/unit",
+        "type": "lesson/lesson",
         "attributes": {
           "title": "Class naming conventions",
           "collection": 24413351,
@@ -60,6 +60,6 @@ test('normalizeQueryRecordResponse', function (assert) {
     ]
   };
 
-  assert.deepEqual(response, expected, "Wrong response");
+  assert.deepEqual(response, expected, "Wrong response \n response:"+JSON.stringify(response)+'\n expected:'+JSON.stringify(expected));
 
 });
