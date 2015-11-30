@@ -2,11 +2,11 @@
   {
     "request": {
       "url": "^/gooruapi/rest/v2/user$",
-      "query": {
-        "sessionToken": "(.+)"
-      },
       "post": "{\"user\":{\"firstName\":([^,]+),\"lastName\":([^,]+),\"username\":([^,]+),\"emailId\":([^,]+),\"organization\":{\"organizationCode\":([^}]+)}},\"gender\":\"male\",\"dateOfBirth\":([^,]+),\"role\":([^,]+),\"password\":([^,]+)}",
-      "method": "POST"
+      "method": "POST",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
     },
     "response": {
       "status": 200,
