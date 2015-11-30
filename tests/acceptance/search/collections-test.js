@@ -7,7 +7,10 @@ moduleForAcceptance('Acceptance | search/collections', {
   beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: true,
-      token: 'token-value'
+      token: 'collections-token',
+      user: {
+        gooruUId: 'collections-token-user-id'
+      }
     });
   }
 });
@@ -31,7 +34,7 @@ test('onOpenContentPlayer: When opening a collection', function(assert) {
     T.exists(assert, $firstCollectionLink, "Missing collection link");
     click($firstCollectionLink); //clicking first collection title
     andThen(function() {
-      assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=46d4a6d4-991b-4c51-a656-f694e037dd68');
+      assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
     });
   });
 });
