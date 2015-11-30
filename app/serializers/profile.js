@@ -15,14 +15,14 @@ export default DS.JSONAPISerializer.extend({
         relationships: {
           user: {
             data: {
-              type: "user",
+              type: "user/user",
               id: payload.user.gooruUId
             }
           }
         }
       },
       included: [{
-        type: "user",
+        type: "user/user",
         id: payload.user.gooruUId,
         attributes: {
           firstName: payload.user.firstName,

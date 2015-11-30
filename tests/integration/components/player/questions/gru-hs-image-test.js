@@ -2,78 +2,78 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('player/questions/gru-hs-text', 'Integration | Component | player/questions/gru hs text', {
+moduleForComponent('player/questions/gru-hs-image', 'Integration | Component | player/questions/gru hs image', {
   integration: true,
   beforeEach: function () {
     this.container.lookup('service:i18n').set("locale", "en");
   }
 });
 
+
 test('Layout', function (assert) {
 
   const question = Ember.Object.create(
     {
+      "assetBasePath": "http://test-base-path/",
+      "isHotSpotImage": true,
       "answers": [
         Ember.Object.create(
           {
             "id": 1,
-            "text": "Banana"
+            "text": "test-1.png"
           }),
         Ember.Object.create(
           {
             "id": 2,
-            "text": "Orange"
+            "text": "test-2.png"
           }),
         Ember.Object.create(
           {
             "id": 3,
-            "text": "Apple"
-          }),
-        Ember.Object.create(
-          {
-            "id": 4,
-            "text": "Watermelon"
+            "text": "test-3.png"
           })
       ]
     });
 
   this.set('question', question);
 
-  this.render(hbs`{{player/questions/gru-hs-text question=question}}`);
+  this.render(hbs`{{player/questions/gru-hs-image question=question}}`);
 
   const $component = this.$(); //component dom element
   const $answersContainer = $component.find('.answer-choices');
 
   assert.ok($component.find(".instructions"), "Missing instructions");
-  assert.equal($answersContainer.find("li.answer").length, 4, "Incorrect number of answer choices");
+  assert.equal($answersContainer.find("li.answer").length, 3, "Incorrect number of answer choices");
 
   assert.equal($answersContainer.find("li.answer:first-child").data('id'), 1, "First answer choice, data-id value is incorrect");
-  assert.equal($answersContainer.find("li.answer:first-child").text().trim(), "Banana", "First answer choice does not have the right text");
-  assert.equal($answersContainer.find("li.answer:last-child").data('id'), 4, "Last answer choice, data-id value is incorrect");
-  assert.equal($answersContainer.find("li.answer:last-child").text().trim(), "Watermelon", "Last answer choice does not have the right text");
+  assert.equal($answersContainer.find("li.answer:first-child img").prop('src'), "http://test-base-path/test-1.png", "First image path is not set correctly");
+  assert.equal($answersContainer.find("li.answer:last-child").data('id'), 3, "Last answer choice, data-id value is incorrect");
+  assert.equal($answersContainer.find("li.answer:last-child img").prop('src'), "http://test-base-path/test-3.png", "Last image path is not set correctly");
 });
 
 test('Selecting answers', function (assert) {
 
   const question = Ember.Object.create(
     {
+      "assetBasePath": "",
+      "isHotSpotImage": true,
       "answers": [
         Ember.Object.create(
           {
             "id": 1,
-            "text": "Banana"
+            "text": "test-1.png"
           }),
         Ember.Object.create(
           {
             "id": 2,
-            "text": "Orange"
+            "text": "test-2.png"
           })
       ]
     });
 
   this.set('question', question);
 
-  this.render(hbs`{{player/questions/gru-hs-text question=question}}`);
+  this.render(hbs`{{player/questions/gru-hs-image question=question}}`);
 
   const $answers = this.$('li.answer');
   const $firstAnswer = $answers.eq(0);
@@ -102,26 +102,28 @@ test('Notifications work after selecting questions', function (assert) {
   var answers = [];
   const question = Ember.Object.create(
     {
+      "assetBasePath": "",
+      "isHotSpotImage": true,
       "answers": [
         Ember.Object.create(
           {
             "id": 1,
-            "text": "Banana"
+            "text": "test-1.png"
           }),
         Ember.Object.create(
           {
             "id": 2,
-            "text": "Orange"
+            "text": "test-2.png"
           }),
         Ember.Object.create(
           {
             "id": 3,
-            "text": "Apple"
+            "text": "test-3.png"
           }),
         Ember.Object.create(
           {
             "id": 4,
-            "text": "Watermelon"
+            "text": "test-4.png"
           })
       ]
     });
@@ -140,7 +142,7 @@ test('Notifications work after selecting questions', function (assert) {
     assert.deepEqual(answerArray, [], "Answer cleared, but the answers are not correct");
   });
 
-  this.render(hbs`{{player/questions/gru-hs-text question=question
+  this.render(hbs`{{player/questions/gru-hs-image question=question
                     onAnswerChanged="changeAnswer"
                     onAnswerCompleted="completeAnswer"
                     onAnswerCleared="clearAnswer" }}`);
