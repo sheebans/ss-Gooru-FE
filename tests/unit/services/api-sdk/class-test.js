@@ -152,3 +152,42 @@ test('findById', function (assert) {
     });
   });
 });
+
+test('findStudentsByClass', function (assert) {
+  const service = this.subject();
+
+  const
+    response = {
+      'searchResult': [{
+        'associationDate': 1448412441000,
+        'lastname': 'Bermudez',
+        'emailId': 'jeffreystudent02@test.com',
+        'username': 'JeffreyStudent02',
+        'firstname': 'Jeffrey',
+        'gooruUId': '7c74a27d-3748-49bd-83b4-4a3523ff370a'
+      }],
+      'totalHitCount': 1
+    },
+    routes = function () {
+      this.get('/gooruapi/rest/v3/class/67a96ec1-7383-4164-8068-5415621b7a34/member', function () {
+        return [200, {'Content-Type': 'application/json'}, JSON.stringify(response)];
+      }, 0);
+    };
+
+  this.pretender.map(routes);
+
+  //var done = assert.async();
+  //Ember.run(function () {
+    const students = service.findStudentsByClass('67a96ec1-7383-4164-8068-5415621b7a34');
+    //promise.then(function (students) {
+      assert.equal(students.get('length'), 2, 'Missing students');
+      const student = students.get('firstObject');
+      assert.equal(student.get('id'), '7c74a27d-3748-49bd-83b4-4a3523ff370a', 'Wrong id');
+      assert.equal(student.get('username'), 'JeffreyStudent02', 'Wrong username');
+      assert.equal(student.get('firstname'), 'Jeffrey', 'Wrong firstname');
+      assert.equal(student.get('lastname'), 'Bermudez', 'Wrong lastname');
+      assert.equal(student.get('email'), 'jeffreystudent02@test.com', 'Wrong email');
+      //done();
+    //});
+  //});
+});
