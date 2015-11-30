@@ -16,11 +16,6 @@ export default Ember.Service.extend(StoreMixin, {
       isStudent: true,
       limit: (options.limit ? options.limit : 10),
       offset: (options.offset ? options.offset : 0)
-    }).then(function (response) {
-      return response;
-    }, function (error) {
-      Ember.Logger.error('Error querying Classes I Joined: %s', error.message);
-      return '[]';
     });
   },
 
@@ -34,11 +29,6 @@ export default Ember.Service.extend(StoreMixin, {
       limit: (options.limit ? options.limit : 10),
       offset: (options.offset ? options.offset : 0),
       'flt.exclude.empty.course': (options['flt.exclude.empty.course'] ? options['flt.exclude.empty.course'] : false)
-    }).then(function (response) {
-      return response;
-    }, function (error) {
-      Ember.Logger.error('Error querying Classes I Teach: %s', error.message);
-      return '[]';
     });
   },
 
@@ -48,13 +38,7 @@ export default Ember.Service.extend(StoreMixin, {
    * @returns {Promise.<Class>}
    */
   findById: function (id) {
-    return this.get('store').findRecord('class/class', id)
-      .then(function (response) {
-        return response;
-      }, function (error) {
-        Ember.Logger.error('Error finding Class by Id: %s', error.message);
-        return '{}';
-      });
+    return this.get('store').findRecord('class/class', id);
   }
 
 });
