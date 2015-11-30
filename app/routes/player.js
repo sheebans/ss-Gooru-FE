@@ -12,8 +12,8 @@ export default Ember.Route.extend({
      * When closing the player
      */
     closePlayer: function(){
-      const fromUrl = this.get("controller.fromUrl") || "/";
-      this.transitionTo(fromUrl);
+      var route = !this.get('history.lastRoute') ? 'index' : this.get('history.lastRoute');
+      this.transitionTo(route);
     }
   },
 

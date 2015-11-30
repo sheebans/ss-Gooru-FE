@@ -139,19 +139,41 @@ test('closePlayer: When closing the player without history', function (assert) {
   });
 });
 
-test('closePlayer: When closing the player comming from search', function (assert) {
-  assert.expect(3);
-  visit('/search/collections?term=any');
-  andThen(function () {
-    const $firstCollectionLink = find(".collection-card:eq(0) .collection-desc a");
-    T.exists(assert, $firstCollectionLink, "Missing collection link");
-    click($firstCollectionLink); //clicking first collection title
-    andThen(function () {
-      const $playerContainer = find(".controller.player");
-      T.exists(assert, $playerContainer, "Missing player");
-      click($playerContainer.find(".gru-navigation .x-icon"));
-      andThen(function () {
-        assert.equal(currentURL(), '/search/collections?term=any');
+test('closePlayer: If navigating directly to the player, closing the player should return the user to the home page', function(assert) {
+  visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
+  andThen(function() {
+
+    const playerCloseButton = $('.gru-navigation .right .x-icon');
+    assert.equal(currentRouteName(), 'player', 'Incorrect route name');
+    click(playerCloseButton);
+    andThen(function() {
+
+      assert.equal(currentURL(), '/', 'Redirected to an incorrect url');
+    });
+  });
+});
+
+test('closePlayer: Return to search after closing the player', function(assert) {
+  visit('/search/collections?term=water');
+  andThen(function() {
+
+    const collectionCardLink = find(".collection-card:eq(0) .collection-desc a");
+    click(collectionCardLink);
+    andThen(function() {
+
+      const secondResource = $('.list-group-item').eq(1);
+      assert.equal(currentRouteName(), 'player', 'Incorrect route name');
+      click(secondResource);
+      andThen(function() {
+
+        // Second resource (with iframe) should have been selected
+        const playerCloseButton = $('.gru-navigation .right .x-icon');
+        click(playerCloseButton);
+        andThen(function() {
+
+          const url = currentURL();
+          assert.equal('/search/collections?term=water', url, 'Redirected to an incorrect url');
+        });
       });
     });
   });

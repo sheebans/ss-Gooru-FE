@@ -103,12 +103,6 @@ export default Ember.Controller.extend({
    */
   ratingScore: 0,
 
-  /**
-   * Indicates the application url before the player was opened
-   * @property {string} from url
-   */
-  fromUrl: null,
-
   // -------------------------------------------------------------------------
   // Observers
 
