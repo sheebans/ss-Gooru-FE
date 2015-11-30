@@ -3,10 +3,10 @@
     "description": "Gets a collection with all resource types",
     "request": {
       "url": "^/gooruapi/rest/v3/collection/76cb53df-1f6a-41f2-a31d-c75876c6bcf9$",
-      "query": {
-        "sessionToken": "(.+)"
-      },
-      "method": "GET"
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
     },
     "response": {
       "status": 200,
@@ -21,10 +21,10 @@
     "description": "Gets an assessment with all question types",
     "request": {
       "url": "^/gooruapi/rest/v3/collection/522f6827-f7dd-486f-8631-eba497e2d425$",
-      "query": {
-        "sessionToken": "(.+)"
-      },
-      "method": "GET"
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
     },
     "response": {
       "status": 200,
@@ -39,10 +39,10 @@
     "description": "Gets the rating for any resource type",
     "request": {
       "url": "^/gooruapi/rest/v2/content/(.*)/rating/star$",
-      "query": {
-        "sessionToken": "(.+)"
-      },
-      "method": "GET"
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
     },
     "response": {
       "status": 200,

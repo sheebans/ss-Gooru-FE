@@ -2,9 +2,9 @@ import Ember from 'ember';
 import DS from 'ember-data';
 
 /**
- * Unit serializer for Unit model
+ * Lesson serializer for Lesson model
  *
- * @typedef {Object} UnitSerializer
+ * @typedef {Object} LessonSerializer
  */
 export default DS.JSONAPISerializer.extend({
 
@@ -13,26 +13,26 @@ export default DS.JSONAPISerializer.extend({
    * @param store
    * @param primaryModelClass
    * @param payload
-   * @returns {{data: Array}} returns a response following the ember data lesson model
+   * @returns {{data: Array}} returns a response following the ember data unit model
    */
   normalizeQueryRecordResponse: function(store, primaryModelClass, payload) {
-    var unitModel = { data: [] },
+    var lessonModel = { data: [] },
       results = payload,
       hasResults = results && results.length > 0;
     if (hasResults) {
       Ember.$.each(results, function(index, result){
-        var classItem = {
+        var lessonItem = {
           id: result.gooruOid,
-          type: "unit/unit",
+          type: "lesson/lesson",
           attributes: {
             title: result.title,
             collection: result.collectionId,
             visibility: result.visibility
           }
         };
-        unitModel.data.push(classItem);
+        lessonModel.data.push(lessonItem);
       });
     }
-    return unitModel;
+    return lessonModel;
   }
 });

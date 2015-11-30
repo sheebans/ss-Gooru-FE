@@ -3,10 +3,12 @@
     "request": {
       "url": "^/gooruapi/rest/v2/user/username/availability$",
       "query": {
-        "sessionToken": "(.+)",
         "keyword": "^gooru$"
       },
-      "method": "GET"
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
     },
     "response": {
       "status": 200,
@@ -21,10 +23,12 @@
     "request": {
       "url": "^/gooruapi/rest/v2/user/username/availability$",
       "query": {
-        "sessionToken": "(.+)",
         "keyword": "(.+)"
       },
-      "method": "GET"
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
     },
     "response": {
       "status": 200,

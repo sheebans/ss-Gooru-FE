@@ -1,9 +1,9 @@
 import ApplicationAdapter from '../application';
 
 /**
- * Unit model adapter
+ * Lesson model adapter
  *
- * @typedef {Object} UnitAdapter
+ * @typedef {Object} LessonAdapter
  */
 export default ApplicationAdapter.extend({
 
@@ -17,12 +17,14 @@ export default ApplicationAdapter.extend({
       adapter = this,
       namespace = adapter.get('namespace'),
       classId = query.classId,
-      courseId = query.courseId;
+      courseId = query.courseId,
+      unitId= query.unitId;
 
     delete query.classId;
     delete query.courseId;
+    delete query.unitId;
 
-    return '%@/%@/course/%@/unit'.fmt(namespace, classId, courseId);
+    return '%@/%@/course/%@/unit/%@/lesson'.fmt(namespace, classId, courseId, unitId);
   }
 
 });

@@ -6,7 +6,10 @@
       "query": {
         "q": "europe"
       },
-      "method": "GET"
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
     },
     "response": {
       "status": 200,
@@ -22,11 +25,13 @@
     "request": {
       "url": "^/gooru-search/rest/v2/search/scollection$",
       "query": {
-        "sessionToken": "(.+)",
         "q": "(.*)",
         "flt.collectionType": "assessment"
       },
-      "method": "GET"
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
     },
     "response": {
       "status": 200,
@@ -42,11 +47,13 @@
     "request": {
       "url": "^/gooru-search/rest/v2/search/scollection$",
       "query": {
-        "sessionToken": "(.+)",
         "q": "(.*)",
         "flt.collectionType": "collection"
       },
-      "method": "GET"
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
     },
     "response": {
       "status": 200,
