@@ -21,7 +21,7 @@ export default Ember.Service.extend(StoreMixin, {
    * @param {string} courseId course identifier
    * @param {string} unitId course identifier
    * @param {Object} options request options, like pagination, sort, etc
-   * @returns {Promise.<Unit[]>} returns an array of units
+   * @returns {Promise.<Lesson[]>} returns an array of lessons
 
    */
   findByClassCourseAndUnit: function(classId, courseId, unitId, options = {}) {

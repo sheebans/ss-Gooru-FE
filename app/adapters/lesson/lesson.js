@@ -3,7 +3,7 @@ import ApplicationAdapter from '../application';
 /**
  * Lesson model adapter
  *
- * @typedef {Object} UnitAdapter
+ * @typedef {Object} LessonAdapter
  */
 export default ApplicationAdapter.extend({
 

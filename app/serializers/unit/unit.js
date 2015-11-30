@@ -13,7 +13,7 @@ export default DS.JSONAPISerializer.extend({
    * @param store
    * @param primaryModelClass
    * @param payload
-   * @returns {{data: Array}} returns a response following the ember data unit model
+   * @returns {{data: Array}} returns a response following the ember data lesson model
    */
   normalizeQueryRecordResponse: function(store, primaryModelClass, payload) {
     var unitModel = { data: [] },
