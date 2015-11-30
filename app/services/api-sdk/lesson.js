@@ -24,7 +24,7 @@ export default Ember.Service.extend(StoreMixin, {
    * @returns {Promise.<Lesson[]>} returns an array of lessons
 
    */
-  findByClassCourseAndUnit: function(classId, courseId, unitId, options = {}) {
+  findByClassAndCourseAndUnit: function(classId, courseId, unitId, options = {}) {
     return this.get('store').queryRecord('lesson/lesson', {
       classId: classId,
       courseId: courseId,

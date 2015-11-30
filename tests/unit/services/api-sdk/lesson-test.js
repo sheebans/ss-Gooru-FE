@@ -37,7 +37,7 @@ test('findByClassCourseAndUnit', function (assert) {
   this.pretender.map(routes);
 
   var done = assert.async();
-  const promise = service.findByClassCourseAndUnit("10", "11","12");
+  const promise = service.findByClassAndCourseAndUnit("10", "11","12");
   promise.then(function(lessons){
     assert.equal(lessons.get("length"), 3, "Missing units");
     const lesson = lessons.get("firstObject");
