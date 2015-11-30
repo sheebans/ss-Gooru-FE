@@ -1,17 +1,17 @@
 <div class="md-design visible-md visible-lg">
   <div class="class-info">
     <h3>{{class.name}}</h3>
-    <div class="active-dates ma-bottom-5">Active: {{class.startDate}} - {{class.endDate}}</div>
-    <div class="members ma-bottom-5">{{class.totalMembers}} Members</div>
-    <div class="greetings">Greetings</div>
+    <div class="active-dates ma-bottom-5">{{t "gru-class-navigation.active"}} {{class.startDate}} - {{class.endDate}}</div>
+    <div class="members ma-bottom-5">{{class.totalMembers}} {{t "gru-class-navigation.members"}}</div>
+    <div class="greetings">{{t "gru-class-navigation.greetings"}}</div>
     <div class="greetings-description">{{class.greetings}}</div>
   </div>
   <div class="class-menu">
     <ul class="list-group">
-      <li class="list-group-item overview" {{action 'selectItem' 'overview'}}>Overview</li>
-      <li class="list-group-item analytics" {{action 'selectItem' 'analytics'}}>Analytics</li>
-      <li class="list-group-item suggestions" {{action 'selectItem' 'suggestions'}}>Suggestions</li>
-      <li class="list-group-item information" {{action 'selectItem' 'information'}}>Class Information</li>
+      <li class="list-group-item overview" {{action 'selectItem' 'overview'}}>{{t "gru-class-navigation.overview"}}</li>
+      <li class="list-group-item analytics" {{action 'selectItem' 'analytics'}}>{{t "gru-class-navigation.analytics"}}</li>
+      <li class="list-group-item suggestions" {{action 'selectItem' 'suggestions'}}>{{t "gru-class-navigation.suggestions"}}</li>
+      <li class="list-group-item information" {{action 'selectItem' 'information'}}>{{t "gru-class-navigation.information"}}</li>
     </ul>
   </div>
 </div>
@@ -19,7 +19,7 @@
 <div class="sm-design visible-sm">
   <div class="class-info col-sm-12">
     <h3>{{class.name}}</h3>
-    <div class="active-dates ma-bottom-5">Active: {{class.startDate}} - {{class.endDate}}</div>
+    <div class="active-dates ma-bottom-5">{{t "gru-class-navigation.active"}} {{class.startDate}} - {{class.endDate}}</div>
     <div class="members ma-bottom-5"><i class="fa fa-user"></i>{{class.totalMembers}}</div>
     <div class="greetings" data-toggle="tooltip" data-html ="true" data-placement="bottom" title="hola"><i class="fa fa-comment"></i></div>
     <div class="btn-group drop-menu">
@@ -49,7 +49,7 @@
     </div>
   </div>
   <div class="class-info col-sm-12">
-    <div class="active-dates ma-bottom-5">Active: {{class.startDate}} - {{class.endDate}}</div>
+    <div class="active-dates ma-bottom-5">{{t "gru-class-navigation.active"}} {{class.startDate}} - {{class.endDate}}</div>
     <div class="members ma-bottom-5"><i class="fa fa-user"></i>{{class.totalMembers}}</div>
   </div>
 </div>
