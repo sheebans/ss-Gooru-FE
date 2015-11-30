@@ -1,0 +1,21 @@
+<p class="instructions">
+  {{instructions}}
+</p>
+
+<div class="answer-choices clearfix">
+
+  <ul>
+    {{#each answers as |answer|}}
+      <li data-id="{{answer.id}}" class="answer">
+
+        {{#if question.isHotSpotImage}}
+          <img src="{{answer.content}}" />
+        {{else}}
+          {{{answer.content}}}
+        {{/if}}
+
+      </li>
+    {{/each}}
+  </ul>
+
+</div>

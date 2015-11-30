@@ -9,27 +9,31 @@ moduleForComponent('player/questions/gru-hs-text', 'Integration | Component | pl
   }
 });
 
-test('Layout', function(assert) {
+test('Layout', function (assert) {
 
   const question = Ember.Object.create(
     {
       "answers": [
-        {
-          "id": 1,
-          "text": "Banana"
-        },
-        {
-          "id": 2,
-          "text": "Orange"
-        },
-        {
-          "id": 3,
-          "text": "Apple"
-        },
-        {
-          "id": 4,
-          "text": "Watermelon"
-        }
+        Ember.Object.create(
+          {
+            "id": 1,
+            "text": "Banana"
+          }),
+        Ember.Object.create(
+          {
+            "id": 2,
+            "text": "Orange"
+          }),
+        Ember.Object.create(
+          {
+            "id": 3,
+            "text": "Apple"
+          }),
+        Ember.Object.create(
+          {
+            "id": 4,
+            "text": "Watermelon"
+          })
       ]
     });
 
@@ -49,19 +53,21 @@ test('Layout', function(assert) {
   assert.equal($answersContainer.find("li.answer:last-child").text().trim(), "Watermelon", "Last answer choice does not have the right text");
 });
 
-test('Selecting answers', function(assert) {
+test('Selecting answers', function (assert) {
 
   const question = Ember.Object.create(
     {
       "answers": [
-        {
-          "id": 1,
-          "text": "Banana"
-        },
-        {
-          "id": 2,
-          "text": "Orange"
-        }
+        Ember.Object.create(
+          {
+            "id": 1,
+            "text": "Banana"
+          }),
+        Ember.Object.create(
+          {
+            "id": 2,
+            "text": "Orange"
+          })
       ]
     });
 
@@ -97,36 +103,40 @@ test('Notifications work after selecting questions', function (assert) {
   const question = Ember.Object.create(
     {
       "answers": [
-        {
-          "id": 1,
-          "answerText": "Banana"
-        },
-        {
-          "id": 2,
-          "text": "Orange"
-        },
-        {
-          "id": 3,
-          "text": "Apple"
-        },
-        {
-          "id": 4,
-          "text": "Watermelon"
-        }
+        Ember.Object.create(
+          {
+            "id": 1,
+            "text": "Banana"
+          }),
+        Ember.Object.create(
+          {
+            "id": 2,
+            "text": "Orange"
+          }),
+        Ember.Object.create(
+          {
+            "id": 3,
+            "text": "Apple"
+          }),
+        Ember.Object.create(
+          {
+            "id": 4,
+            "text": "Watermelon"
+          })
       ]
     });
 
   this.set('question', question);
 
-  this.on('changeAnswer', function(question, answerArray) {
+  this.on('changeAnswer', function (question, answerArray) {
     assert.deepEqual(answerArray, answers, "Answer changed, but the answers are not correct");
   });
 
-  this.on('completeAnswer', function(question, answerArray) {
+  this.on('completeAnswer', function (question, answerArray) {
     assert.deepEqual(answerArray, answers, "Answer completed, but the answers are not correct");
   });
 
-  this.on('clearAnswer', function(question, answerArray) {
+  this.on('clearAnswer', function (question, answerArray) {
     assert.deepEqual(answerArray, [], "Answer cleared, but the answers are not correct");
   });
 

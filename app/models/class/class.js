@@ -2,6 +2,7 @@ import DS from 'ember-data';
 
 /**
  * Model that contains the class information
+ * @typedef {Object} Class
  */
 export default DS.Model.extend({
 

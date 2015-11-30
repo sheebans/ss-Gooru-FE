@@ -29,6 +29,6 @@ test('Youtube player layout', function (assert) {
   var $component = this.$(); //component dom element
 
   T.exists(assert, $component.find(".gru-youtube-resource iframe"), "Missing youtube element");
-  assert.equal($component.find("iframe").attr("src"), "https://www.youtube.com/embed/aBSH3IoFZsc?start=190&end=200", "Wrong url");
+  assert.equal($component.find("iframe").attr("src"), "https://www.youtube.com/embed/aBSH3IoFZsc?start=190&end=200&rel=0", "Wrong url");
 });
 

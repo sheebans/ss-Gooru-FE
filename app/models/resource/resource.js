@@ -9,6 +9,17 @@ import DS from 'ember-data';
 export default DS.Model.extend({
 
   // Common Fields
+  assetBasePath: Ember.computed('assetUri', 'folder', function() {
+    return this.get('assetUri') + this.get('folder');
+  }),
+
+  /**
+   * @property {string} full resource asset url
+   */
+  assetUrl: Ember.computed('assetBasePath', 'url', function() {
+    return this.get('assetBasePath') + this.get('url');
+  }),
+
   /**
    * Indicates the resoruce type. i.e video/youtube, assessment-question, image/png
    * @property {string} resource type
@@ -164,15 +175,6 @@ export default DS.Model.extend({
   hasOwner: Ember.computed.bool('owner'),
 
   /**
-   * @property {string} full resource asset url
-   */
-  assetUrl: Ember.computed("url", function(){
-    return this.get("assetUri") +
-      this.get("folder") +
-      this.get("url");
-  }),
-
-  /**
    * Indicates if it is an image resource
    * @property {bool}
    */
@@ -197,5 +199,11 @@ export default DS.Model.extend({
    * Indicates if it is an url resource
    * @property {bool}
    */
-  isUrlResource: Ember.computed.equal("resourceType", "resource/url")
+  isUrlResource: Ember.computed.equal("resourceType", "resource/url"),
+
+  /**
+   * Indicates if it is an vimeo resource
+   * @property {bool}
+   */
+  isVimeoResource: Ember.computed.equal("resourceType", "vimeo/video")
 });

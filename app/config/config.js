@@ -11,8 +11,9 @@ export const QUESTION_COMPONENT_MAP = {
 };
 
 export const RESOURCE_COMPONENT_MAP = {
-  'video/youtube'    : 'player.resources.gru-youtube-resource',
-  'resource/url'    : 'player.resources.gru-url-resource',
-  'handouts'   : 'player.resources.gru-pdf-resource',
-  'image'    : 'player.resources.gru-image-resource'
+  'video/youtube' : 'player.resources.gru-youtube-resource',
+  'resource/url'  : 'player.resources.gru-url-resource',
+  'handouts'      : 'player.resources.gru-pdf-resource',
+  'image'         : 'player.resources.gru-image-resource',
+  'vimeo/video'   : 'player.resources.gru-vimeo-resource'
 };
