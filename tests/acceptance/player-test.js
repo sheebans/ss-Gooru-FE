@@ -126,19 +126,6 @@ test('Navigate to all question types', function (assert) {
   });
 });
 
-test('closePlayer: When closing the player without history', function (assert) {
-  assert.expect(2);
-  visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
-  andThen(function () {
-    const $playerContainer = find(".controller.player");
-    T.exists(assert, $playerContainer, "Missing player");
-    click($playerContainer.find(".gru-navigation .x-icon"));
-    andThen(function () {
-      assert.equal(currentURL(), '/');
-    });
-  });
-});
-
 test('closePlayer: If navigating directly to the player, closing the player should return the user to the home page', function(assert) {
   visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
   andThen(function() {
