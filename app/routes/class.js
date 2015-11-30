@@ -5,6 +5,12 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
+  queryParams: {
+    'menuItem' : {
+      replace: true
+    }
+  },
+
   /**
    * @type {ClassService} Service to retrieve class information
    */
@@ -22,7 +28,14 @@ export default Ember.Route.extend({
    * Get model for the controller
    */
   model: function(params) {
-    return this.get("classService").findById(params.classId);
+    const
+      menuItem = params.menuItem,
+      selectedClass = this.get("classService").findById(params.classId);
+
+    return Ember.RSVP.hash({
+      class: selectedClass,
+      menuItem: menuItem
+    });
   },
 
   /**
@@ -31,7 +44,11 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
-    controller.set("class", model);
-  }
+    const
+      selectedClass = model.class,
+      menuItem = (model.menuItem)? model.menuItem: 'information';
 
+    controller.set("class", selectedClass);
+    controller.set("menuItem", menuItem);
+  }
 });

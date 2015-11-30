@@ -1,6 +1,10 @@
 <div class="controller class row">
   <div class="navigation col-md-3 col-xs-12 col-sm-12">
-    {{class.name}}
+    {{class.gru-class-navigation
+      class=class
+      onItemSelected="selectMenuItem"
+      selectedMenuItem=menuItem
+    }}
   </div>
   <div class="content col-md-9 col-xs-12 col-sm-12">
     {{outlet}}

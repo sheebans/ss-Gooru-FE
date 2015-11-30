@@ -3,13 +3,10 @@ import Ember from "ember";
 /**
  * Class navigation
  *
- * Component responsible for enabling more flexible navigation options for the player.
- * For example, where {@link player/gru-navigation.js}} allows selecting only
- * the previous or the next content item, the navigator allows navigation to
- * any of the content items available.
- *
+ * Component responsible for enabling more flexible navigation options for the class.
+ * For example, where {@link class/gru-class-navigation.js}} allows access the class information and navigate through the menu options.
  * @module
- * @see controllers/player.js
+ * @see controllers/class.js
  * @augments ember/Component
  */
 export default Ember.Component.extend({
@@ -29,14 +26,14 @@ export default Ember.Component.extend({
 
     /**
      *
-     * Triggered when an item is selected
+     * Triggered when an menu item is selected
      * @param item
      */
     selectItem: function(item){
-      //if (this.get("onItemSelected")){
-      //  this.selectItem(item.id);
-      //  this.sendAction("onItemSelected", item);
-      //}
+      if (this.get("onItemSelected")){
+        this.selectItem(item);
+        this.sendAction("onItemSelected", item);
+      }
     }
   },
 
@@ -47,38 +44,38 @@ export default Ember.Component.extend({
    * DidInsertElement ember event
    */
   didInsertElement: function() {
-    var resourceId = this.get("selectedResourceId");
-    this.selectItem(resourceId);
+    var item = this.get("selectedMenuItem");
+    this.selectItem(item);
   },
 
 
   // -------------------------------------------------------------------------
   // Properties
   /**
-   * @property {Collection} collection
+   * @property {Class} class
    */
-  collection: null,
+  class: null,
 
   /**
-   * @property {String|Function} onItemSelected - event handler for when an item is selected
+   * @property {String|Function} onItemSelected - event handler for when an menu item is selected
    */
   onItemSelected: null,
 
   /**
-   * @property {String} selectedResourceId - resource Id selected
+   * @property {String} selectedMenuItem - menu Item selected
    */
 
-  selectedResourceId:null,
+  selectedMenuItem:null,
 
   // -------------------------------------------------------------------------
   // Observers
   /**
-   * Refreshes the left navigation with the selected resource id
+   * Refreshes the left navigation with the selected menu item
    */
-  refreshSelectedResource: function() {
-    var resourceId = this.get("selectedResourceId");
-    this.selectItem(resourceId);
-  }.observes("selectedResourceId"),
+  refreshSelectedMenuItem: function() {
+    var item = this.get("selectedMenuItem");
+    this.selectItem(item);
+  }.observes("selectedMenuItem"),
 
 
   // -------------------------------------------------------------------------
@@ -86,12 +83,12 @@ export default Ember.Component.extend({
   // Methods
 
   /**
-   * Triggered when a resource item is selected
-   * @param {string} itemId
+   * Triggered when a menu item is selected
+   * @param {string} item
    */
-  selectItem: function(itemId) {
-    if (itemId){
-      var itemElement = "#item_"+itemId;
+  selectItem: function(item) {
+    if (item){
+      var itemElement = "."+item;
       this.$( ".list-group-item" ).removeClass( "selected" );
       this.$(itemElement).addClass( "selected" );
     }

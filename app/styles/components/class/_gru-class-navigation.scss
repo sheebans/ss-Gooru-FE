@@ -1,3 +1,104 @@
 .gru-class-navigation {
+  .md-design,
+  .sm-design,
+  .xs-design {
+    display: none;
+  }
+  .class-info {
+    padding: 0 15px;
+    h3 {
+      color: $color-gray-secondary;
+    }
+    .greetings-description {
+      font-size: 12px;
+      margin: 0 0 0 15px;
+    }
+  }
+  .class-menu {
+    margin: 30px 0 0 0;
+    border-top: solid 1px $color-gray-lighter-3;
+    li {
+      border: none;
+      text-align: center;
+      cursor: pointer;
+    }
+    li.selected {
+      background-color: $color-gray-lighter-6;
+    }
+  }
 
+  .sm-design,
+  .xs-design
+  {
+    .class-info {
+      padding-right: 0;
+      height: 43px;
+      h3, div {
+        float: left;
+        margin: 0;
+        padding: 13px 10px 0 0;
+      }
+      i {
+        padding: 0 5px 0 0;
+      }
+      .drop-menu {
+        float: right;
+        padding: 0;
+        .btn {
+          border-radius: inherit;
+          background-color: $color-gray-lighter-6;
+          padding: 6px 10px 6px 6px;
+          height: 43px;
+          font-size: 18px;
+        }
+        .dropdown-toggle {
+          padding-left: 0;
+        }
+      }
+    }
+  }
+
+  .sm-design {
+    h3 {
+      width: 55%;
+      padding: 11px 10px 0 0;
+    }
+    .active-dates {
+      font-size: 12px;
+      width: 23%;
+    }
+    .active-dates {
+      font-size: 12px;
+      width: 23%;
+    }
+    .members {
+      width: 7%;
+    }
+    .greetings {
+      width: 4%;
+    }
+  }
+
+  .xs-design {
+    .class-info {
+      border-bottom: 1px solid $color-gray-lighter-3;
+      h3 {
+        width: 71%;
+        padding: 11px 10px 0 0;
+      }
+      .active-dates {
+        font-size: 12px;
+        width: 85%;
+      }
+      .members {
+        width: 15%;
+        float: right;
+        text-align: right;
+      }
+      .greetings {
+        width: 10%;
+        text-align: right;
+      }
+    }
+  }
 }

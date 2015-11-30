@@ -1,17 +1,55 @@
-<div class="col-md-3 col-sm-12 col-xs-12">
+<div class="md-design visible-md visible-lg">
   <div class="class-info">
-    <div class="name">Class Name</div>
-    <div class="active-dates">Active: 9.2.2015 - 12.15.2015</div>
-    <div class="members">23 members</div>
+    <h3>{{class.name}}</h3>
+    <div class="active-dates ma-bottom-5">Active: {{class.startDate}} - {{class.endDate}}</div>
+    <div class="members ma-bottom-5">{{class.totalMembers}} Members</div>
     <div class="greetings">Greetings</div>
-    <div class="greetings-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+    <div class="greetings-description">{{class.greetings}}</div>
   </div>
   <div class="class-menu">
     <ul class="list-group">
-      <li class="list-group-item">Overview</li>
-      <li class="list-group-item">Analytics</li>
-      <li class="list-group-item">Suggestions</li>
-      <li class="list-group-item">Class Information</li>
+      <li class="list-group-item overview" {{action 'selectItem' 'overview'}}>Overview</li>
+      <li class="list-group-item analytics" {{action 'selectItem' 'analytics'}}>Analytics</li>
+      <li class="list-group-item suggestions" {{action 'selectItem' 'suggestions'}}>Suggestions</li>
+      <li class="list-group-item information" {{action 'selectItem' 'information'}}>Class Information</li>
     </ul>
+  </div>
+</div>
+
+<div class="sm-design visible-sm">
+  <div class="class-info col-sm-12">
+    <h3>{{class.name}}</h3>
+    <div class="active-dates ma-bottom-5">Active: {{class.startDate}} - {{class.endDate}}</div>
+    <div class="members ma-bottom-5"><i class="fa fa-user"></i>{{class.totalMembers}}</div>
+    <div class="greetings" data-toggle="tooltip" data-html ="true" data-placement="bottom" title="hola"><i class="fa fa-comment"></i></div>
+    <div class="btn-group drop-menu">
+      <button class="btn"><i class="fa fa-graduation-cap"></i></button>
+      <button class="btn dropdown-toggle" data-toggle="dropdown">
+        <i class="fa fa-angle-down"></i>
+      </button>
+      <ul class="dropdown-menu">
+        <!-- dropdown menu links -->
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="xs-design visible-xs">
+  <div class="class-info col-sm-12">
+    <h3>{{class.name}}</h3>
+    <div class="greetings"><i class="fa fa-comment"></i></div>
+    <div class="btn-group drop-menu">
+      <button class="btn"><i class="fa fa-info"></i></button>
+      <button class="btn dropdown-toggle" data-toggle="dropdown">
+        <i class="fa fa-angle-down"></i>
+      </button>
+      <ul class="dropdown-menu">
+        <!-- dropdown menu links -->
+      </ul>
+    </div>
+  </div>
+  <div class="class-info col-sm-12">
+    <div class="active-dates ma-bottom-5">Active: {{class.startDate}} - {{class.endDate}}</div>
+    <div class="members ma-bottom-5"><i class="fa fa-user"></i>{{class.totalMembers}}</div>
   </div>
 </div>
