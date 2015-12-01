@@ -28,6 +28,10 @@ export default QuestionComponent.extend({
 
   // -------------------------------------------------------------------------
   // Events
+  setupInstanceProperties: Ember.on('init', function() {
+    this.set('selectedAnswers', []);
+  }),
+
   setupSubscriptions: Ember.on('didInsertElement', function() {
     const component = this;
 
@@ -53,7 +57,7 @@ export default QuestionComponent.extend({
     });
   }),
 
-  removeSubscriptions: Ember.on('willDestroy', function() {
+  removeSubscriptions: Ember.on('willDestroyElement', function() {
     this.$('li.answer').off('click');
   }),
 
@@ -63,7 +67,7 @@ export default QuestionComponent.extend({
   /*
    * @prop {Array} selectedAnswers - Array of ids for each one of the answers selected by the user
    */
-  selectedAnswers: [],
+  selectedAnswers: null,
 
   /*
    * @prop {String} instructions - Question instructions

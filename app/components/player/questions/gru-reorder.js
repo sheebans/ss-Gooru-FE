@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import QuestionComponent from './gru-question';
 
 /**
@@ -27,7 +28,7 @@ export default QuestionComponent.extend({
 
   // -------------------------------------------------------------------------
   // Events
-  initSortableList: function() {
+  initSortableList: Ember.on('didInsertElement', function() {
     const component = this;
     const sortable = this.$('.sortable');
 
@@ -45,11 +46,11 @@ export default QuestionComponent.extend({
       component.notifyAnswerCompleted(answers);
     });
 
-  }.on('didInsertElement'),
+  }),
 
-  removeSubscriptions: function() {
+  removeSubscriptions: Ember.on('willDestroyElement', function() {
     this.$('.sortable').off('sortupdate');
-  }.on('willDestroy')
+  })
 
   // -------------------------------------------------------------------------
   // Properties
