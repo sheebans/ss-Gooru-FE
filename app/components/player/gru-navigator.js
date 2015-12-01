@@ -84,7 +84,7 @@ export default Ember.Component.extend({
   refreshSelectedResource: function() {
     var resourceId = this.get("selectedResourceId");
     this.selectItem(resourceId);
-  }.observes("selectedResourceId"),
+  }.observes("selectedResourceId", "collection"),
 
 
   // -------------------------------------------------------------------------

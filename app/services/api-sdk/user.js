@@ -42,6 +42,18 @@ export default Ember.Service.extend(StoreMixin, {
       keyword: email,
       isUsername: false
     });
+  },
+
+  /**
+   * Returns a list of members enrolled in a class
+   * @param classId the class Id
+   * @returns {*}
+   */
+  findMembersByClass: function (classId) {
+    return this.get('store').queryRecord('user/user', {
+      isMembersByClass: true,
+      classId: classId
+    });
   }
 
 });
