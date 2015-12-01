@@ -7,10 +7,28 @@ export default ApplicationAdapter.extend({
    */
   namespace: 'gooruapi/rest/v3/collection',
 
-  buildURL: function(modelName, id, snapshot, requestType, query) {
-    var includeItemParam = '?includeItems=true';
-    var includeLastModifiedUserParam = '&includeLastModifiedUser=true';
-    return this._super(modelName, id, snapshot, requestType, query) + includeItemParam + includeLastModifiedUserParam;
+  urlForFindRecord: function(query){
+    let namespace = this.get('namespace');
+    let includeItemParam = 'includeItems=true';
+    let includeLastModifiedUserParam = 'includeLastModifiedUser=true';
+
+    return `${namespace}?${includeItemParam}&${includeLastModifiedUserParam}`;
+  },
+  urlForQueryRecord: function(query) {
+
+    let namespace = 'gooruapi/rest/v3/';
+    let classId = query.classId;
+    let courseId = query.courseId;
+    let unitId = query.unitId;
+    let lessonId = query.lessonId;
+
+    delete query.classId;
+    delete query.courseId;
+    delete query.unitId;
+    delete query.lessonId;
+
+    return `${namespace}class/${classId}/course/${courseId}/unit/${unitId}/lesson/${lessonId}`;
+
   }
 
 });

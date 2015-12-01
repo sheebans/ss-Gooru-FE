@@ -8,11 +8,12 @@ export default ApplicationAdapter.extend({
   namespace: '/gooruapi/rest/v3/class',
 
   urlForQueryRecord: function(query) {
-    const type = query.isStudent ? '/study' : '/teach';
+    let namespace =this.get('namespace');
+    const type = query.isStudent ? 'study' : 'teach';
 
     delete query.isStudent;
 
-    return this.get('namespace') + type;
+    return `${namespace}/${type}`;
   }
 
 });
