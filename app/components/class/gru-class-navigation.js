@@ -42,7 +42,7 @@ export default Ember.Component.extend({
      * @param item
      */
     showDescription: function(){
-      Ember.$( ".description" ).toggleClass( "hidden" );
+      this.$( ".description" ).toggleClass( "hidden" );
     }
   },
 

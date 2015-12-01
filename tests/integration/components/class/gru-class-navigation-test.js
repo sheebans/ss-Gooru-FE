@@ -52,3 +52,19 @@ test('Class Navigation', function(assert) {
   T.exists(assert, $classMenu.find(".info.selected"), "Missing selected info item");
 
 });
+
+test('Layout when a menu Item is selected', function(assert) {
+  assert.expect(1);
+
+  this.on('itemSelected', function(){
+    assert.ok(true, 'external Action was called!');
+  });
+
+  this.render(hbs`{{player/gru-navigation onItemSelected='itemSelected'}}`);
+  var $navigation = this.$(); //component dom element
+  const $infoMenuItem = $navigation.find(".class-menu .info");
+
+  assert.ok($infoMenuItem, "Missing info item in the class menu");
+  $infoMenuItem.click();
+
+});

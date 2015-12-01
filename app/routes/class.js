@@ -47,9 +47,8 @@ export default Ember.Route.extend({
      * @param {string} item
      */
     selectMenuItem: function(item){
-      const
-        route = this,
-        currentMenuItem = route.get("controller.menuItem");
+      const route = this;
+      const currentMenuItem = route.get("controller.menuItem");
 
       route.set("controller.menuItem", item);
       if (currentMenuItem !== item) {
