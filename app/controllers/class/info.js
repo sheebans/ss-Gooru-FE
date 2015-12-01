@@ -32,8 +32,7 @@ export default Ember.Controller.extend({
    * @see controllers/selectedMenuItem.js
    * @property {String}
    */
-  "selectedMenuItem": Ember.computed.alias('classController.menuItem')
-
+  "selectedMenuItem": Ember.computed.alias('classController.menuItem'),
 
   students:null
   // -------------------------------------------------------------------------
