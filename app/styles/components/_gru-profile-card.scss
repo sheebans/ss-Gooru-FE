@@ -3,7 +3,7 @@
   span{
     display: table-cell;
     vertical-align: middle;
-    padding:10px;
+    padding:5px;
 
     img.avatar {
       width: $narration-avatar-width;
@@ -14,5 +14,11 @@
       display: table-cell;
       vertical-align: middle;
     }
+  }
+  .truncate{
+    width: 64px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

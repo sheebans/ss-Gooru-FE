@@ -5,9 +5,9 @@ export default Ember.Route.extend({
   // Dependencies
 
   /**
-   * @type {ClassService} Service to retrieve class information
+   * @type {UserService} Service to retrieve user information
    */
-  classService: Ember.inject.service("api-sdk/class"),
+  userService: Ember.inject.service("api-sdk/user"),
 
 
   // -------------------------------------------------------------------------
@@ -19,8 +19,9 @@ export default Ember.Route.extend({
   /**
    * Get model for the controller
    */
-  model: function(params) {
-      return  this.get("classService").findStudentsByClass(params.classId);
+  model: function() {
+    var id= this.paramsFor('class').classId;
+    return  this.get("userService").findMembersByClass(id);
   },
 
   /**
