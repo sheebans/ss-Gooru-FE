@@ -37,6 +37,7 @@
         float: left;
         margin: 0;
         padding: 13px 10px 0 0;
+        z-index: 2;
       }
       i {
         padding: 0 5px 0 0;
@@ -55,6 +56,29 @@
           padding-left: 0;
         }
       }
+    }
+    .description {
+      display: inline-block;
+      position: relative;
+      background: $color-gray-lighter-8;
+      color: $color-white;
+      text-decoration: none;
+      padding: 20px;
+      font-size: 14px;
+    }
+    .description:after {
+      content: '';
+      display: block;
+      position: absolute;
+      right: 12%;
+      bottom: 100%;
+      width: 0;
+      height: 0;
+      border-bottom: 8px solid $color-gray-lighter-8;
+      border-top: 8px solid transparent;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      z-index: 0;
     }
   }
 
@@ -81,6 +105,7 @@
 
   .xs-design {
     .class-info {
+      height: 44px;
       border-bottom: 1px solid $color-gray-lighter-3;
       h3 {
         width: 71%;
@@ -99,6 +124,9 @@
         width: 10%;
         text-align: right;
       }
+    }
+    .description:after {
+      right: 20%;
     }
   }
 }

@@ -27,3 +27,37 @@ test('Layout', function(assert) {
     T.exists(assert, $classContainer.find(".content"), "Missing class content");
   });
 });
+
+test('When info page is selected', function(assert) {
+  visit('/class/class-10');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-10');
+
+    const $overviewMenuItem = find(".navigation .class-menu .info");
+
+    click($overviewMenuItem);
+
+    andThen(function() {
+      assert.equal(currentURL(), '/class/class-10/info');
+
+    });
+   });
+});
+
+test('When overview page is selected', function(assert) {
+  visit('/class/class-10');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-10');
+
+    const $overviewMenuItem = find(".navigation .class-menu .overview");
+
+    click($overviewMenuItem);
+
+    andThen(function() {
+      assert.equal(currentURL(), '/class/class-10/overview');
+
+    });
+  });
+});

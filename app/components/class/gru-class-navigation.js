@@ -34,6 +34,15 @@ export default Ember.Component.extend({
         this.selectItem(item);
         this.sendAction("onItemSelected", item);
       }
+    },
+
+    /**
+     *
+     * Triggered when the Info icon is selected for sm and xs
+     * @param item
+     */
+    showDescription: function(){
+      Ember.$( ".description" ).toggleClass( "hidden" );
     }
   },
 

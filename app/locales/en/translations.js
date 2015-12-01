@@ -295,12 +295,12 @@ export default {
     "instructions" : "Please reorder the answers in correct order, and click \"Submit\"."
   },
   "class.gru-class-navigation": {
-    "active" : "Active:", 
-    "members" : "Members", 
+    "active" : "Active:",
+    "members" : "Members",
     "greetings" : "Greetings",
-     "overview" : "Overview", 
-    "analytics" : "Analytics", 
-    "suggestions" : "Suggestions", 
+    "overview" : "Overview",
+    "analytics" : "Analytics",
+    "suggestions" : "Suggestions",
     "information" : "Class Information"
   }
 };

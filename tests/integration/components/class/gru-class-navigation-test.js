@@ -11,7 +11,7 @@ moduleForComponent('class/gru-class-navigation', 'Integration | Component | clas
 });
 
 test('Class Navigation', function(assert) {
-  assert.expect(2);
+  assert.expect(12);
 
   const classMock = Ember.Object.create({
     id: '1',
@@ -26,14 +26,29 @@ test('Class Navigation', function(assert) {
   this.set('class', classMock);
 
   this.on('itemSelected', function(item) {
-    assert.equal(item, 'information', "Incorrect selected menu class item");
+    assert.equal(item, 'info', "Incorrect selected menu class item");
   });
 
-  this.render(hbs`{{class.gru-class-navigation class=class selectedMenuItem='information' onItemSelected='itemSelected'}}`);
+  this.render(hbs`{{class.gru-class-navigation class=class selectedMenuItem='info' onItemSelected='itemSelected'}}`);
 
   var $component = this.$(); //component dom element
   const $navigation = $component.find(".gru-class-navigation");
   T.exists(assert, $navigation, "Missing class navigation section");
   T.exists(assert, $navigation.find("h3"), "Missing class title");
+  T.exists(assert, $navigation.find(".active-dates"), "Missing class active-dates");
+  T.exists(assert, $navigation.find(".members"), "Missing class members");
+  T.exists(assert, $navigation.find(".greetings"), "Missing class greetings");
+  T.exists(assert, $navigation.find(".greetings-description"), "Missing class greetings-description");
+
+  //$class menu list
+  const $classMenu = $navigation.find(".class-menu");
+  T.exists(assert, $classMenu, "Missing class menu");
+  T.exists(assert, $classMenu.find(".overview"), "Missing overview item in the class menu");
+  T.exists(assert, $classMenu.find(".analytics"), "Missing analytics item in the class menu");
+  T.exists(assert, $classMenu.find(".suggestions"), "Missing suggestions item in the class menu");
+  T.exists(assert, $classMenu.find(".info"), "Missing info item in the class menu");
+
+  //$menu item Selected
+  T.exists(assert, $classMenu.find(".info.selected"), "Missing selected info item");
 
 });
