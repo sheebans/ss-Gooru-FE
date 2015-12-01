@@ -22,12 +22,26 @@ export default DS.JSONAPISerializer.extend({
     return data;
   },
 
+  /**
+   * Normalizes a single user object returned by the endpoint.
+   * @param store
+   * @param primaryModelClass
+   * @param payload
+   * @returns {Object}
+   */
   normalizeSingleResponse: function(store, primaryModelClass, payload) {
     return  {
       data: this.normalizeUser(payload)
     };
   },
 
+  /**
+   * Normalizes the response for an array of users.
+   * @param store
+   * @param primaryModelClass
+   * @param payload
+   * @returns {Object}
+   */
   normalizeQueryRecordResponse: function(store, primaryModelClass, payload) {
     var serializer = this;
     var classModel = { data: [] };
@@ -42,6 +56,11 @@ export default DS.JSONAPISerializer.extend({
     return classModel;
   },
 
+  /**
+   * Normalizes the info of a user passed as payload.
+   * @param payload
+   * @returns {Object}
+   */
   normalizeUser: function(payload) {
     return {
       id: payload.gooruUId,
