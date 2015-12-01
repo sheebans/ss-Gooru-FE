@@ -301,5 +301,14 @@ export default {
     "grade":"Grade",
     "code":"Class Code",
     "description":"Description"
+  },
+  "class.gru-class-navigation": {
+    "active" : "Active:",
+    "members" : "Members",
+    "greetings" : "Greetings",
+    "overview" : "Overview",
+    "analytics" : "Analytics",
+    "suggestions" : "Suggestions",
+    "information" : "Class Information"
   }
 };

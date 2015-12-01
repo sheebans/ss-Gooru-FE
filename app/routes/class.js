@@ -22,7 +22,11 @@ export default Ember.Route.extend({
    * Get model for the controller
    */
   model: function(params) {
-    return this.get("classService").findById(params.classId);
+    const selectedClass = this.get("classService").findById(params.classId);
+
+    return Ember.RSVP.hash({
+      class: selectedClass
+    });
   },
 
   /**
@@ -31,7 +35,25 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
-    controller.set("class", model);
-  }
+    const selectedClass = model.class;
+    controller.set("class", selectedClass);
+  },
 
+  // Actions
+
+  actions: {
+    /**
+     * Triggered when a class menu item is selected
+     * @param {string} item
+     */
+    selectMenuItem: function(item){
+      const route = this;
+      const currentMenuItem = route.get("controller.menuItem");
+
+      route.set("controller.menuItem", item);
+      if (currentMenuItem !== item) {
+        route.transitionTo('class.' + item);
+      }
+    }
+  }
 });

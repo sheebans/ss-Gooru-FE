@@ -31,5 +31,6 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
     controller.set("students", model);
+    this.send("selectMenuItem", 'info');
   }
 });

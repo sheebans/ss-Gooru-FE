@@ -27,8 +27,14 @@ export default Ember.Controller.extend({
    */
   "class": Ember.computed.reads('classController.class'),
 
+  /**
+   * A link to the parent menuItem property
+   * @see controllers/selectedMenuItem.js
+   * @property {String}
+   */
+  "selectedMenuItem": Ember.computed.alias('classController.menuItem'),
 
-  students:null,
+  students:null
   // -------------------------------------------------------------------------
   // Observers
 

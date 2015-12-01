@@ -16,6 +16,18 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Properties
   /**
+   * The class presented to the user
+   * @property {Class}
+   */
+  "class": null,
+
+   /**
+   * The menuItem selected
+   * @property {String}
+   */
+   menuItem: null,
+
+  /**
    * The user to show
    * @property {user}
    */
