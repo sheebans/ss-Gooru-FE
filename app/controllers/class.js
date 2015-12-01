@@ -25,7 +25,13 @@ export default Ember.Controller.extend({
    * The menuItem selected
    * @property {String}
    */
-   menuItem: null
+   menuItem: null,
+
+  /**
+   * The user to show
+   * @property {user}
+   */
+  "user": null
 
   // -------------------------------------------------------------------------
   // Observers

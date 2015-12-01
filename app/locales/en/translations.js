@@ -294,6 +294,14 @@ export default {
   "player.gru-reorder": {
     "instructions" : "Please reorder the answers in correct order, and click \"Submit\"."
   },
+  "class.info":{
+    "teachers":"Teachers",
+    "students":"Students",
+    "subject":"Subject",
+    "grade":"Grade",
+    "code":"Class Code",
+    "description":"Description"
+  },
   "class.gru-class-navigation": {
     "active" : "Active:",
     "members" : "Members",

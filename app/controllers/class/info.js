@@ -34,6 +34,8 @@ export default Ember.Controller.extend({
    */
   "selectedMenuItem": Ember.computed.alias('classController.menuItem')
 
+
+  students:null
   // -------------------------------------------------------------------------
   // Observers
 
