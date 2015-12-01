@@ -54,13 +54,13 @@ test('Class Navigation', function(assert) {
 });
 
 test('Layout when a menu Item is selected', function(assert) {
-  assert.expect(1);
+  assert.expect(2);
 
   this.on('itemSelected', function(){
     assert.ok(true, 'external Action was called!');
   });
 
-  this.render(hbs`{{player/gru-navigation onItemSelected='itemSelected'}}`);
+  this.render(hbs`{{class.gru-class-navigation onItemSelected='itemSelected'}}`);
   var $navigation = this.$(); //component dom element
   const $infoMenuItem = $navigation.find(".class-menu .info");
 
