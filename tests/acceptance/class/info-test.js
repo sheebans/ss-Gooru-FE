@@ -16,7 +16,7 @@ moduleForAcceptance('Acceptance | class/info', {
 });
 
 test('Layout', function(assert) {
-  visit('/class/11111-5d0d-4673-a85d-f93aa0cbddf2/info'); 
+  visit('/class/11111-5d0d-4673-a85d-f93aa0cbddf2/info');
 
   andThen(function() {
     assert.equal(currentURL(), '/class/11111-5d0d-4673-a85d-f93aa0cbddf2/info');
