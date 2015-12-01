@@ -43,7 +43,6 @@ export default Ember.Service.extend(StoreMixin, {
 
   // TODO: This is a mocked implementation, we need to replace this by results returned by the endpoint
   findStudentsByClass: function (classId) {
-    console.log(classId);
     return Ember.A([
       Ember.Object.create({
         id: '7c74a27d-3748-49bd-83b4-4a3523ff370a',
