@@ -1,3 +1,51 @@
 <div class="controller info">
-  Class Info for {{class.name}}
+   <div class="row">
+       <div class="col-md-9 col-sm-9 col-xs-12">
+           <div class="row">
+              <div class="subject col-md-5 col-sm-5 col-xs-6">
+                <p class="title">{{t "class.info.subject"}}:</p>
+                <p>{{class.subject}}</p>
+              </div>
+               <div class="grade col-md-5 col-sm-5 col-xs-6">
+                   <p class="title">{{t "class.info.grade"}}:</p>
+                   <p>{{class.grades}}</p>
+               </div>
+           </div>
+           <div class="row description">
+               <div class="col-md-12 col-sm-12 col-xs-12">
+                   <p>
+                       <span class="title">{{t "class.info.description"}}:</span>
+                       {{class.description}}
+                   </p>
+               </div>
+           </div>
+       </div>
+       <div class="col-md-3 col-sm-3 col-xs-9 col-xs-push-2 col-md-push-0 col-sm-push-0">
+              <div class="code">
+                  <p>{{t "class.info.code"}}: {{class.code}}</p>
+              </div>
+       </div>
+   </div>
+    <div class="row">
+       <div class="teachers-section col-md-12 col-sm-12 col-xs-12">
+           <h3>{{t "class.info.teachers"}}</h3>
+           <ul class="teachers">
+             {{#each class.teachers as |teacher|}}
+                 <li class="profile-card">
+                   {{gru-profile-card user=teacher}}
+                 </li>
+             {{/each}}
+           </ul>
+       </div>
+       <div class="students-section col-md-12 col-sm-12 col-xs-12">
+           <h3>{{t "class.info.students"}}</h3>
+           <ul class="students">
+             {{#each students as |student|}}
+                 <li class="profile-card">
+                   {{gru-profile-card user=student}}
+                 </li>
+             {{/each}}
+           </ul>
+       </div>
+   </div>
 </div>
