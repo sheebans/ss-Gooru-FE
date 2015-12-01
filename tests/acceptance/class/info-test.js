@@ -16,13 +16,39 @@ moduleForAcceptance('Acceptance | class/info', {
 });
 
 test('Layout', function(assert) {
-  visit('/class/class-10/info'); //@todo create stubs
+  visit('/class/11111-5d0d-4673-a85d-f93aa0cbddf2/info'); 
 
   andThen(function() {
-    assert.equal(currentURL(), '/class/class-10/info');
+    assert.equal(currentURL(), '/class/11111-5d0d-4673-a85d-f93aa0cbddf2/info');
 
     const $overviewContainer = find(".controller.class .controller.info");
     T.exists(assert, $overviewContainer, "Missing overview container");
-    //@todo add more validations as it is implemented
+
+    const $subject =$overviewContainer.find(".subject");
+    T.exists(assert, $subject.find("p.title"), "Missing Subject Title");
+    assert.equal(T.text($subject.find("p")), "Subject:Math", "Incorrect subject");
+
+    const $grade =$overviewContainer.find(".grade");
+    T.exists(assert, $grade.find("p.title"), "Missing Grade Title");
+    assert.equal(T.text($grade.find("p")), "Grade:K", "Incorrect grade");
+
+    const $description =$overviewContainer.find(".description");
+    T.exists(assert, $description.find("span.title"), "Missing Description Title");
+    assert.equal(T.text($description.find("span.title")), "Description:", "Incorrect Description");
+
+    const $classCode =$overviewContainer.find(".code");
+    T.exists(assert, $classCode, "Missing Class Code Box");
+    assert.equal(T.text($classCode.find("p")), "Class Code: 2WZ8IJA", "Incorrect Class Code");
+
+    const $teachers =$overviewContainer.find(".teachers-section");
+    T.exists(assert, $teachers.find("h3"), "Missing teachers section");
+    T.exists(assert, $teachers.find(".teachers"), "Missing teachers list");
+    T.exists(assert, $teachers.find("li.profile-card"), "Missing profile cards for teachers");
+
+    const $students =$overviewContainer.find(".students-section");
+    T.exists(assert, $students.find("h3"), "Missing students section");
+    T.exists(assert, $students.find(".students"), "Missing students list");
+    T.exists(assert, $students.find("li.profile-card"), "Missing profile cards for students");
+
   });
 });

@@ -27,7 +27,7 @@
        </div>
    </div>
     <div class="row">
-       <div class="col-md-12 col-sm-12 col-xs-12">
+       <div class="teachers-section col-md-12 col-sm-12 col-xs-12">
            <h3>{{t "class.info.teachers"}}</h3>
            <ul class="teachers">
              {{#each class.teachers as |teacher|}}
@@ -37,10 +37,10 @@
              {{/each}}
            </ul>
        </div>
-       <div class="col-md-12 col-sm-12 col-xs-12">
+       <div class="students-section col-md-12 col-sm-12 col-xs-12">
            <h3>{{t "class.info.students"}}</h3>
            <ul class="students">
-             {{#each class.students as |student|}}
+             {{#each students as |student|}}
                  <li class="profile-card">
                    {{gru-profile-card user=student}}
                  </li>

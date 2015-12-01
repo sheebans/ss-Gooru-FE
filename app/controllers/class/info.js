@@ -25,8 +25,10 @@ export default Ember.Controller.extend({
    * @see controllers/class.js
    * @property {Class}
    */
-  "class": Ember.computed.reads('classController.class')
+  "class": Ember.computed.reads('classController.class'),
 
+
+  "students":Ember.computed.reads('classController.students'),
   // -------------------------------------------------------------------------
   // Observers
 

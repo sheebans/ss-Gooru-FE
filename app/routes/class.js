@@ -22,7 +22,15 @@ export default Ember.Route.extend({
    * Get model for the controller
    */
   model: function(params) {
-    return this.get("classService").findById(params.classId);
+    const
+      classInfo = this.get("classService").findById(params.classId),
+     students =  this.get("classService").findStudentsByClass(params.classId);
+
+
+    return Ember.RSVP.hash({
+      classInfo: classInfo,
+      students: students
+    });
   },
 
   /**
@@ -31,7 +39,8 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
-    controller.set("class", model);
+    controller.set("class", model.classInfo);
+    controller.set("students", model.students);
   }
 
 });
