@@ -19,38 +19,52 @@ export default DS.JSONAPISerializer.extend({
       role: signUpObject.role,
       password : signUpObject.password
     };
-
     return data;
   },
 
   normalizeSingleResponse: function(store, primaryModelClass, payload) {
-    var userModel =  {
-      data: {
-        id: payload.gooruUId,
-        type: "user/user",
-        attributes: {
-          accountCreatedType: payload.accountCreatedType,
-          accountTypeId: payload.accountTypeId,
-          active: payload.active,
-          confirmStatus: payload.confirmStatus,
-          createdOn: payload.createdOn,
-          email: payload.emailId,
-          firstName: payload.firstName,
-          gooruUId: payload.gooruUId,
-          lastName: payload.lastName,
-          organizationName: payload.organizationName,
-          partyUid: payload.partyUid,
-          profileImageUrl: payload.profileImageUrl,
-          userRoleSetString: payload.userRoleSetString,
-          username: payload.username,
-          usernameDisplay: payload.usernameDisplay,
-          viewFlag: payload.viewFlag
-        }
+    return  {
+      data: this.normalizeUser(payload)
+    };
+  },
+
+  normalizeQueryRecordResponse: function(store, primaryModelClass, payload) {
+    var serializer = this;
+    var classModel = { data: [] };
+    var results = payload.searchResult;
+    var hasResults = results && results.length > 0;
+
+    if (hasResults) {
+      results.forEach(function(result) {
+        this.push(serializer.normalizeUser(result));
+      }, classModel.data);
+    }
+    return classModel;
+  },
+
+  normalizeUser: function(payload) {
+    return {
+      id: payload.gooruUId,
+      type: "user/user",
+      attributes: {
+        accountCreatedType: payload.accountCreatedType,
+        accountTypeId: payload.accountTypeId,
+        active: payload.active,
+        confirmStatus: payload.confirmStatus,
+        createdOn: payload.createdOn,
+        email: payload.emailId,
+        firstName: payload.firstName ? payload.firstName : payload.firstname,
+        gooruUId: payload.gooruUId,
+        lastName: payload.lastName ? payload.lastName : payload.lastname,
+        organizationName: payload.organizationName,
+        partyUid: payload.partyUid,
+        profileImageUrl: payload.profileImageUrl,
+        userRoleSetString: payload.userRoleSetString,
+        username: payload.username,
+        usernameDisplay: payload.usernameDisplay,
+        viewFlag: payload.viewFlag
       }
     };
-    store.push(userModel);
-
-    return userModel;
   }
 
 });
