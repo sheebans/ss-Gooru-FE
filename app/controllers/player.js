@@ -33,8 +33,9 @@ export default Ember.Controller.extend({
     submitQuestion: function(question){
       //todo save
       //todo move to next question
-      const controller = this,
-        next = controller.get("collection").nextResource(question);
+      const controller = this;
+      const next = controller.get("collection").nextResource(question);
+
       if (next){
         controller.moveToResource(next);
       }

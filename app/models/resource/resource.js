@@ -9,6 +9,17 @@ import DS from 'ember-data';
 export default DS.Model.extend({
 
   // Common Fields
+  assetBasePath: Ember.computed('assetUri', 'folder', function() {
+    return this.get('assetUri') + this.get('folder');
+  }),
+
+  /**
+   * @property {string} full resource asset url
+   */
+  assetUrl: Ember.computed('assetBasePath', 'url', function() {
+    return this.get('assetBasePath') + this.get('url');
+  }),
+
   /**
    * Indicates the resoruce type. i.e video/youtube, assessment-question, image/png
    * @property {string} resource type
@@ -162,15 +173,6 @@ export default DS.Model.extend({
   hasMedia: Ember.computed.bool('mediaUrl'),
   hasNarration: Ember.computed.bool('narration'),
   hasOwner: Ember.computed.bool('owner'),
-
-  /**
-   * @property {string} full resource asset url
-   */
-  assetUrl: Ember.computed("url", function(){
-    return this.get("assetUri") +
-      this.get("folder") +
-      this.get("url");
-  }),
 
   /**
    * Indicates if it is an image resource

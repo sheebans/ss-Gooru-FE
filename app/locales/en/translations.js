@@ -278,8 +278,11 @@ export default {
   "gru-multiple-answer": {
     "instructions" : "Please select the correct answer, and click \"Submit\"."
   },
-  "gru-hot-text": {
-    "instructions" : "Please select the correct answer, and click \"Submit\"."
+  "gru-hs-text": {
+    "instructions" : "Please select the correct answer(s), and click \"Submit\"."
+  },
+  "gru-hs-image": {
+    "instructions" : "Please select the correct image(s), and click \"Submit\"."
   },
   "gru-open-ended": {
     "instructions" : "Please type your answer in the field below, and click the \"Submit\" button to save your response when you're done.",
@@ -290,5 +293,22 @@ export default {
   },
   "player.gru-reorder": {
     "instructions" : "Please reorder the answers in correct order, and click \"Submit\"."
+  },
+  "class.info":{
+    "teachers":"Teachers",
+    "students":"Students",
+    "subject":"Subject",
+    "grade":"Grade",
+    "code":"Class Code",
+    "description":"Description"
+  },
+  "class.gru-class-navigation": {
+    "active" : "Active:",
+    "members" : "Members",
+    "greetings" : "Greetings",
+    "overview" : "Overview",
+    "analytics" : "Analytics",
+    "suggestions" : "Suggestions",
+    "information" : "Class Information"
   }
 };

@@ -191,15 +191,22 @@ test('hasAnswers', function(assert) {
   assert.ok(model.get("hasAnswers"), "It should have answers");
 });
 
-test('assetUrl', function(assert) {
-  assert.expect(1);
+test('assetBasePath', function(assert) {
   let model = this.subject({
-    assetUri:"uri-",
-    folder:"folder-",
-    url:"url",
+    assetUri:"uri/",
+    folder:"folder"
   });
 
-  assert.equal(model.get("assetUrl"), "uri-folder-url", "Wrong url");
+  assert.equal(model.get("assetBasePath"), "uri/folder", "Wrong value for assetBasePath");
+});
+
+test('assetUrl', function(assert) {
+  let model = this.subject({
+    assetBasePath:"basePath/",
+    url:"url"
+  });
+
+  assert.equal(model.get("assetUrl"), "basePath/url", "Wrong value for assetUrl");
 });
 
 test('isUrlResource', function(assert) {
