@@ -54,6 +54,11 @@ export default DS.Model.extend({
   /**
    * @property {Object[]} An array of teachers with very basic teacher information [{id, username, avatarUrl}]
    */
-  teachers: DS.attr()
+  teachers: DS.attr(),
+
+  /**
+   * @property {string} Subject of the class
+   */
+  subject: DS.attr('string'),
 
 });

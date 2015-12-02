@@ -12,6 +12,7 @@ test('normalizeQueryRecordResponse', function(assert) {
         'classUid': '67a96ec1-7383-4164-8068-5415621b7a34',
         'visibility': true,
         'name': 'Class A2',
+        'subject':'Math',
         'classCode': 'JR48FMF',
         'courseGooruOid': '75366215-f9d5-424c-8a90-2cabdfeb3ffa',
         'grades': 'K,6,7,8',
@@ -25,6 +26,7 @@ test('normalizeQueryRecordResponse', function(assert) {
         'classUid': '90d82226-5d0d-4673-a85d-f93aa0cbddf2',
         'visibility': true,
         'name': 'Class A1',
+        'subject':'Math',
         'classCode': '2WZ8IJA',
         'grades': 'K',
         'user': {
@@ -43,6 +45,7 @@ test('normalizeQueryRecordResponse', function(assert) {
         'type': 'class/class',
         'attributes': {
           'name': 'Class A2',
+          'subject':'Math',
           'code': 'JR48FMF',
           'greetings': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
           'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
@@ -62,6 +65,7 @@ test('normalizeQueryRecordResponse', function(assert) {
         'type': 'class/class',
         'attributes': {
           'name': 'Class A1',
+          'subject':'Math',
           'code': '2WZ8IJA',
           'greetings': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
           'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
@@ -95,6 +99,7 @@ test('normalizeFindRecordResponse', function(assert) {
       'name': 'Class A2',
       'classCode': 'JR48FMF',
       'grades': 'K,6,7,8',
+      'subject':'Math',
       'user': {
         'username': 'JeffreyTeacher01',
         'gooruUId': '88638002-deb6-4f8d-b319-4a7ae18d0efe',
@@ -115,6 +120,7 @@ test('normalizeFindRecordResponse', function(assert) {
         'startDate': '9.2.2015',
         'endDate': '12.15.2015',
         'grades': 'K,6,7,8',
+        'subject':'Math',
         'visibility': true,
         'totalMembers': 0,
         'teachers': [{
@@ -142,6 +148,7 @@ test('normalizeClass', function(assert) {
       'name': 'Class A2',
       'classCode': 'JR48FMF',
       'grades': 'K,6,7,8',
+      'subject':'Math',
       'user': {
         'username': 'JeffreyTeacher01',
         'gooruUId': '88638002-deb6-4f8d-b319-4a7ae18d0efe',
@@ -161,6 +168,7 @@ test('normalizeClass', function(assert) {
       'startDate': '9.2.2015',
       'endDate': '12.15.2015',
       'grades': 'K,6,7,8',
+      'subject':'Math',
       'visibility': true,
       'totalMembers': 0,
       'teachers': [{
