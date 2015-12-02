@@ -39,7 +39,7 @@
               {{#each class.teachers as |teacher|}}
                 <li class="small-profile">
                   {{!-- <img src="{{teacher.avatarUrl}}" /> --}}
-                  <span>{{teacher.username}}</span>
+                  <span>{{teacher.username}} ({{class.totalMembers}} {{t "class.gru-class-navigation.members"}})</span>
                 </li>
               {{/each}}
             </ul>
