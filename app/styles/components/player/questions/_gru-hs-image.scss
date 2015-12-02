@@ -5,12 +5,14 @@
     ul {
 
       li.answer {
-        border: 0 none;
+        border-radius: 4px;
         float: left;
         padding: 0;
         margin: 20px;
+        cursor: pointer;
 
         img {
+          border: 0 none;
           width: auto;
           height: auto;
           max-width: 90px;
