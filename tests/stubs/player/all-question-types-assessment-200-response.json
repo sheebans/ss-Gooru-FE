@@ -395,6 +395,24 @@
           "answerType":"image",
           "sequence":3,
           "isCorrect":false
+        },
+        {
+          "answerText":"9f2b2f70-545f-43f2-a67d-27efe7ed6a57.png",
+          "answerType":"image",
+          "sequence":4,
+          "isCorrect":true
+        },
+        {
+          "answerText":"b7d104b8-16fb-4d1b-a189-7c7b6816c897.png",
+          "answerType":"image",
+          "sequence":5,
+          "isCorrect":true
+        },
+        {
+          "answerText":"331bbc3f-eeb8-4c4d-867f-73e121ac39ad.png",
+          "answerType":"image",
+          "sequence":6,
+          "isCorrect":false
         }
       ],
       "itemSequence":7,
