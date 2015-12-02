@@ -5,30 +5,21 @@ export default ApplicationAdapter.extend({
   /**
    * @property {string} End-point URI
    */
-  namespace: '/gooruapi/rest/v2/user/',
+  namespace: '/gooruapi/rest/v2/user',
 
   /**
-   * Builds the end-point URL using the sessionToken as a query string param
-   * @param modelName
-   * @param id
-   * @param snapshot
-   * @param requestType
+   * Builds the end-point URL for the queryRecord queryParam
    * @param query
    * @returns {string}
    */
-  buildURL: function(modelName, id, snapshot, requestType, query) {
-    var sessionTokenParam = '?sessionToken=' + this.get('session.token');
-    var url = '';
 
-    if (requestType === 'queryRecord') {
-      url = this.get('namespace') + (query.isUsername ? 'username' : 'emailId') + '/availability';
-      if (query.isUsername !== undefined) {
-        delete query.isUsername;
-      }
-    } else {
-      url = this._super(modelName, id, snapshot, requestType, query);
+  urlForQueryRecord: function(query) {
+    let namespace = this.get('namespace');
+    var type = query.isUsername ? 'username' : 'emailId';
+    if (query.isUsername !== undefined) {
+      delete query.isUsername;
     }
-    return url + sessionTokenParam;
+    return `${namespace}/${type}/availability`;
   }
 
 });

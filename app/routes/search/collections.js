@@ -9,8 +9,8 @@ export default Ember.Route.extend({
   queryParams: {
     term: {
       /**
-        Only 'term' query param should refresh the entire model, since the event is handle by
-        the application route. Other query params are handle by the collection controller
+        Only 'term' query param should refresh the entire model, since the event is handled by
+        the application route. Other query params are handled by the collection controller
 
         @see routes/application.js#searchTerm
        */

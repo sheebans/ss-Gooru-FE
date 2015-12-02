@@ -7,9 +7,14 @@ export default ApplicationAdapter.extend({
    */
   namespace: '/gooruapi/rest/v3/class',
 
+  /**
+   * Builds the end-point URL for the queryRecord queryParam
+   * @param query
+   * @returns {string}
+   */
   urlForQueryRecord: function(query) {
-    let namespace =this.get('namespace');
-    const type = query.isStudent ? 'study' : 'teach';
+    let namespace = this.get('namespace');
+    let type = query.isStudent ? 'study' : 'teach';
 
     delete query.isStudent;
 
