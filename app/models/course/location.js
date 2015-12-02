@@ -1,4 +1,4 @@
-import DS from "ember-data";
+import DS from 'ember-data';
 
 /**
  * Model to represent the course's users location in a specific unit, lesson and collection (assessments or collections).
@@ -18,10 +18,8 @@ export default DS.Model.extend({
    */
   collection: DS.string('string'),
   /**
-   * @property {User[]} users list of users in this location
+   * @property {User[]} locationUsers list of users in the location
    */
-  users: DS.hasMany('user/user')
+  locationUsers: DS.hasMany('course/location-user')
 
 });
-
-
