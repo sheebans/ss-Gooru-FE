@@ -3,115 +3,145 @@
   top:0;
   width:100%;
   z-index:98;
-  height:50px;
+  height:100px;
   background:-webkit-linear-gradient(top,$color-gray-secondary,$color-gray-primary);
   background:-moz-linear-gradient(top,$color-gray-secondary,$color-gray-primary);
   background:-ms-linear-gradient(top,$color-gray-secondary,$color-gray-primary);
   background:-o-linear-gradient(top,$color-gray-secondary,$color-gray-primary);
-  .navbar-default {
-    background-color: inherit;
-    border: none;
-    border-radius: 0;
-    margin: 0;
-    .navbar-header {
-      .navbar-brand {
-        background: url("gooru/landing-page-sprite.png") -8px -207px transparent;
-        width: 108px;
-        height: 30px;
-        margin: 10px 5px 10px 0;
+  @media (min-width: $screen-sm) {
+    height:50px;
+  }
+  .container {
+    @media (max-width: $screen-sm) {
+      padding: 0;
+    }
+    .navbar-default {
+      background-color: inherit;
+      border: none;
+      border-radius: 0;
+      margin: 0;
+      @media (max-width: $screen-sm) {
+        padding: 0 5px;
       }
-    }
-
-    .search-navbar-form {
-      input {
-        font-size: 12px;
-      }
-    }
-
-    .dropdown-toggle,
-    .navbar-link,
-    .navbar-text,
-    button,
-    a {
-      color: $color-white;
-      font-family: Arial, sans-serif;
-      font-size: 12px;
-    }
-
-    .dropdown-toggle:hover,
-    .navbar-link:hover {
-      color: #ffff00;
-    }
-
-    .menu-navbar {
-      .navbar-link {
-        padding-left: 0;
-        padding-right: 0;
-        &:hover,
-        &:active,
-        &:visited{
-          color: $color-white;
+      .navbar-header {
+        .navbar-brand {
+          background: url("gooru/landing-page-sprite.png") -8px -207px transparent;
+          width: 108px;
+          height: 30px;
+          margin: 10px 5px 10px 0;
         }
-        span {
+      }
+
+      .search-navbar-form {
+        input {
           font-size: 12px;
         }
       }
 
-      .navbar-nav-list {
-        color: $color-white;
-        cursor: pointer;
-        padding: 0 10px;
-        &:hover,
-        &:active {
-          background-color: $color-gray-primary-hover;
-          color: $color-white;
-        }
-      }
-
-      .border-right {
-        border-right: 1px solid $color-gray-4;
-      }
-
-      .no-hover {
-        &:hover,
-        &:active {
-          background-color: inherit;
-        }
-      }
-
-      .libraries-link {
-        padding-right: 5px;
-      }
-
-      .sign-up-button{
-        margin-left: 30px;
-      }
-
-      .profile {
-        .icon {
-          background: url("gooru/profile.png") no-repeat;
-          -webkit-background-size: contain;
-          background-size: contain;
-          border-radius: 50px;
-          box-shadow: 0 0 0 2px $color-blue-lighter-2;
-          width: 30px;
-          height: 30px;
-          display: block;
-          margin-top: -4px;
-        }
-        .username {
-          margin-left: 10px;
-        }
-      }
-
-      .settings {
+      .navbar-collapse {
         padding: 0;
-        .icon {
-          background: url("gooru/settings.png") no-repeat;
-          width: 30px;
-          height: 30px;
-          display: block;
-          margin-top: 10px;
+        @media (min-width: $screen-sm) {
+          float: right;
+        }
+      }
+
+      .dropdown-toggle,
+      .navbar-link,
+      .navbar-text,
+      button,
+      a {
+        color: $color-white;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+      }
+
+      .menu-navbar {
+        padding: 0;
+        display: table-cell;
+        @media (min-width: $screen-sm) {
+          float: right;
+        }
+        .navbar-link {
+          padding-left: 0;
+          padding-right: 0;
+          &:hover,
+          &:active,
+          &:visited{
+            color: $color-white;
+          }
+          span {
+            font-size: 12px;
+          }
+        }
+
+        .navbar-nav-list {
+          color: $color-white;
+          cursor: pointer;
+          padding: 0 10px;
+          max-height: 45px;
+          overflow: hidden;
+          &:hover,
+          &:active {
+            background-color: $color-gray-primary-hover;
+            color: $color-white;
+          }
+          @media (max-width: $screen-sm) {
+            float: left;
+            padding: 0 5px;
+          }
+        }
+
+        .border-right {
+          border-right: 1px solid $color-gray-4;
+        }
+
+        .no-hover {
+          &:hover,
+          &:active {
+            background-color: inherit;
+          }
+        }
+
+        .libraries-link {
+          padding-right: 5px;
+        }
+
+        .sign-up-button{
+          margin-left: 30px;
+        }
+
+        .profile {
+          .icon {
+            background: url("gooru/profile.png") no-repeat;
+            -webkit-background-size: contain;
+            background-size: contain;
+            border-radius: 50px;
+            box-shadow: 0 0 0 2px $color-blue-lighter-2;
+            width: 30px;
+            height: 30px;
+            display: block;
+            margin-top: -4px;
+          }
+          .username {
+            margin-left: 10px;
+            max-width: 105px;
+            max-height: 20px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            padding: 0 0 0 5px;
+          }
+        }
+
+        .settings {
+          padding: 0;
+          .icon {
+            background: url("gooru/settings.png") no-repeat;
+            width: 30px;
+            height: 30px;
+            display: block;
+            margin-top: 10px;
+          }
         }
       }
     }
