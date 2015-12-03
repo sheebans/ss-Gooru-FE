@@ -10,7 +10,7 @@ export default BaseValidator.extend({
       return this.get('userService').checkUsernameAvailability(value)
         .then(function (availability) {
           if (availability.get('availability')) {
-            return 'The username \'' + value + '\' already exists.';
+            return 'This Username is taken.';
           } else {
             return true;
           }

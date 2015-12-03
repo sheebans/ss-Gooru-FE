@@ -1,13 +1,28 @@
 .player .gru-hs-image {
+  $image-side: 90px;
 
   .answer-choices {
+    max-width: 400px;
 
     ul {
 
       li.answer {
+        border-radius: 4px;
         float: left;
-        padding: 10px;
-        margin-right: 15px;
+        padding: 0;
+        margin: 20px;
+        cursor: pointer;
+        width: $image-side + 2px;
+        height: $image-side + 2px;
+        text-align: center;
+
+        img {
+          border: 0 none;
+          width: auto;
+          height: auto;
+          max-width: $image-side;
+          max-height: $image-side;
+        }
       }
     }
   }

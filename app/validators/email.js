@@ -10,7 +10,7 @@ export default BaseValidator.extend({
       return this.get('userService').checkEmailAvailability(value)
         .then(function (availability) {
           if (availability.get('availability')) {
-            return 'The email \'' + value + '\' already exists.';
+            return 'This Email id is already registered.';
           } else {
             return true;
           }

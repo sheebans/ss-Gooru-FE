@@ -8,5 +8,7 @@
 
   .content{
     height: 100%;
+    border-left: 1px solid $color-gray-lighter-3;
+    margin-left: -1px;
   }
 }
