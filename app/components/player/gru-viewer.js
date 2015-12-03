@@ -37,7 +37,14 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Events
-
+  /**
+   * DidInsertElement ember event
+   */
+  didInsertElement: function() {
+    if (this.get('resource.isUrlResource')){
+      this.calculateResourceContentHeight();
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Properties
@@ -58,6 +65,13 @@ export default Ember.Component.extend({
    */
   onSubmitQuestion: "submitQuestion",
 
+  /* Calculated height designated for the content area of a resource
+  * @see components/player/resources/gru-url-resource.js
+  * The height of the content area needs to be calculated because the height of the narration varies and may cause a scroll bar to appear
+  * @property {Number}
+  */
+  calculatedResourceContentHeight: 0,
+
   /**
    * The resource component selected
    * @property {string}
@@ -72,12 +86,21 @@ export default Ember.Component.extend({
       Ember.Logger.debug('Resources component selected: ', component);
       return component;
     }
-  })
+  }),
   // -------------------------------------------------------------------------
   // Observers
 
 
   // -------------------------------------------------------------------------
   // Methods
+  /**
+   * Calculates the height of the component resource url
+   */
+  calculateResourceContentHeight: function() {
 
+    var narrationHeight = this.$(".narration").innerHeight();
+    var windowHeight = this.$('.content').height();
+
+    this.set('calculatedResourceContentHeight', windowHeight-narrationHeight);
+  }
 });

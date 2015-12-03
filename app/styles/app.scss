@@ -10,6 +10,7 @@
 @import 'controllers/classes';
 @import 'controllers/class';
 @import 'controllers/info';
+@import 'controllers/overview';
 
 // TODO: update these components so they follow the naming conventions
 @import 'components/app-dropdown';
@@ -34,6 +35,7 @@
 @import 'components/gru-user-sign-up-cancel';
 @import 'components/gru-emotion-picker';
 @import 'components/gru-profile-card';
+@import 'components/gru-unit-tree';
 
 
 @import 'components/player/gru-navigation';

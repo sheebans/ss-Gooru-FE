@@ -61,4 +61,9 @@ export default DS.Model.extend({
    */
   subject: DS.attr('string'),
 
+  /**
+   * @property {string} Course of the class
+   */
+  course: DS.attr('string')
+
 });

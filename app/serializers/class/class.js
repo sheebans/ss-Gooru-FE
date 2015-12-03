@@ -55,6 +55,7 @@ export default DS.JSONAPISerializer.extend({
         endDate: '12.15.2015',
         grades: payload.grades,
         visibility: payload.visibility,
+        course: payload.courseGooruOid,
         totalMembers: payload.memberCount,
         teachers: this.normalizeTeachers(Ember.A([payload.user]))
       }

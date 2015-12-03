@@ -23,6 +23,11 @@ test('Layout', function(assert) {
 
     const $overviewContainer = find(".controller.class .controller.overview");
     T.exists(assert, $overviewContainer, "Missing overview container");
-    //@todo add more validations as it is implemented
+    T.exists(assert, $overviewContainer.find(".overview-header"), "Missing overview header");
+    T.exists(assert, $overviewContainer.find(".overview-header h5"), "Missing title");
+    T.exists(assert, $overviewContainer.find(".locate-me"), "Missing locate me button");
+    T.exists(assert, $overviewContainer.find(".units ul li"), "Missing unit section");
+
+
   });
 });

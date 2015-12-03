@@ -314,5 +314,9 @@ export default {
     "analytics" : "Analytics",
     "suggestions" : "Suggestions",
     "information" : "Class Information"
+  },
+  "class.overview":{
+    "title":"Course map",
+    "locate":"Locate Me"
   }
 };

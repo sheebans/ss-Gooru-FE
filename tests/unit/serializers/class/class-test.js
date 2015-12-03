@@ -11,6 +11,7 @@ test('normalizeQueryRecordResponse', function(assert) {
       'searchResult': [{
         'classUid': '67a96ec1-7383-4164-8068-5415621b7a34',
         'visibility': true,
+        'course':"75366215-f9d5-424c-8a90-2cabdfeb3ffa",
         'name': 'Class A2',
         'subject':'Math',
         'classCode': 'JR48FMF',
@@ -25,6 +26,7 @@ test('normalizeQueryRecordResponse', function(assert) {
       }, {
         'classUid': '90d82226-5d0d-4673-a85d-f93aa0cbddf2',
         'visibility': true,
+        'courseGooruOid': '75366215-f9d5-424c-8a90-2cabdfeb3ffa',
         'name': 'Class A1',
         'subject':'Math',
         'classCode': '2WZ8IJA',
@@ -53,6 +55,7 @@ test('normalizeQueryRecordResponse', function(assert) {
           'endDate': '12.15.2015',
           'grades': 'K,6,7,8',
           'visibility': true,
+          'course': "75366215-f9d5-424c-8a90-2cabdfeb3ffa",
           'totalMembers': 0,
           'teachers': [{
             'id': '88638002-deb6-4f8d-b319-4a7ae18d0efe',
@@ -73,6 +76,7 @@ test('normalizeQueryRecordResponse', function(assert) {
           'endDate': '12.15.2015',
           'grades': 'K',
           'visibility': true,
+          'course': "75366215-f9d5-424c-8a90-2cabdfeb3ffa",
           'totalMembers': 1,
           'teachers': [{
             'id': '88638002-deb6-4f8d-b319-4a7ae18d0efe',
@@ -93,6 +97,7 @@ test('normalizeFindRecordResponse', function(assert) {
     payload = {
       'status': 'not-invited',
       'visibility': true,
+      'course':"75366215-f9d5-424c-8a90-2cabdfeb3ffa",
       'courseGooruOid': '75366215-f9d5-424c-8a90-2cabdfeb3ffa',
       'memberCount': 0,
       'classUid': '67a96ec1-7383-4164-8068-5415621b7a34',
@@ -122,6 +127,7 @@ test('normalizeFindRecordResponse', function(assert) {
         'grades': 'K,6,7,8',
         'subject':'Math',
         'visibility': true,
+        'course': "75366215-f9d5-424c-8a90-2cabdfeb3ffa",
         'totalMembers': 0,
         'teachers': [{
           'id': '88638002-deb6-4f8d-b319-4a7ae18d0efe',
@@ -169,6 +175,7 @@ test('normalizeClass', function(assert) {
       'endDate': '12.15.2015',
       'grades': 'K,6,7,8',
       'subject':'Math',
+      'course': '75366215-f9d5-424c-8a90-2cabdfeb3ffa',
       'visibility': true,
       'totalMembers': 0,
       'teachers': [{
