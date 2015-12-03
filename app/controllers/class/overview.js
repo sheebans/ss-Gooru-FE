@@ -32,7 +32,21 @@ export default Ember.Controller.extend({
    * @see controllers/selectedMenuItem.js
    * @property {String}
    */
-  "selectedMenuItem": Ember.computed.alias('classController.menuItem')
+  "selectedMenuItem": Ember.computed.alias('classController.menuItem'),
+
+  /**
+   * All units by class and course
+   * @property {Unit[]}
+   */
+  units:null,
+
+  /**
+   * All visible units
+   * @property {Unit[]}
+   */
+  visibleUnits:Ember.computed('units',function(){
+    return  this.get('units').filterBy("visibility",true);
+  }),
 
   // -------------------------------------------------------------------------
   // Observers

@@ -1,3 +1,23 @@
 <div class="controller overview">
-  Overview for {{class.name}}
+    <div class="fixed">
+      <div class="overview-header">
+          <div>
+             <h5>{{t "class.overview.title"}}</h5>
+          </div>
+          <div class="locate-me">
+              <button class="btn btn-default">
+                {{t "class.overview.locate"}}
+              </button>
+          </div>
+      </div>
+    </div>
+    <div class="row units">
+      <ul>
+        {{#each visibleUnits as |unit|}}
+            <li>
+              {{gru-unit-tree unit=unit}}
+            </li>
+        {{/each}}
+      </ul>
+    </div>
 </div>

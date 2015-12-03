@@ -79,12 +79,23 @@ test('normalizeQueryRecordResponse', function(assert) {
         'firstName': 'Jeffrey',
         'gooruUId': '7c74a27d-3748-49bd-83b4-4a3523ff370a',
         'lastName': 'Bermudez',
-        'username': 'JeffreyStudent02'
+        'username': 'JeffreyStudent02',
+        accountCreatedType: undefined,
+        accountTypeId: undefined,
+        active: undefined,
+        confirmStatus: undefined,
+        createdOn: undefined,
+        organizationName: undefined,
+        partyUid: undefined,
+        profileImageUrl: undefined,
+        userRoleSetString: undefined,
+        usernameDisplay: undefined,
+        viewFlag: undefined
       }
     }]
   };
 
-  assert.equal(JSON.stringify(response), JSON.stringify(expected), 'Wrong response');
+  assert.deepEqual(response, expected, 'Wrong response');
 });
 
 
