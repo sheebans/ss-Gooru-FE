@@ -3,6 +3,9 @@
   $class-container-sm: 50%;
   $class-container-md: 33%;
 
+  position: relative;
+  padding-bottom: 300px;
+
   .joined, .taught {
     clear: both;
     margin-top: 25px;
