@@ -51,7 +51,7 @@ module.exports = function (environment) {
       'font-src': "'self' https://fonts.gstatic.com",
       'connect-src': "'self' http://localhost:8882 http://qa.gooru.org",
       'img-src': "'self' http://qacdn.gooru.org http://profile-images.goorulearning.org.s3.amazonaws.com",
-      'style-src': "'self' https://fonts.googleapis.com",
+      'style-src': "'self' 'unsafe-inline' https://fonts.googleapis.com",
       'media-src': "'self'"
     }
 
