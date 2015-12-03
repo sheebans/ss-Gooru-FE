@@ -35,13 +35,17 @@ export default Ember.Component.extend({
    */
   resource: null,
 
-  calculatedResourceHeight: null,
+  /**
+   * @property {Number} the calculated resource content height
+   */
+
+  calculatedResourceContentHeight: null,
 
   /**
    * @property {string} bind the height css style for the component
    */
-  resourceHeight: Ember.computed("calculatedResourceHeight", function(){
-    var height = this.get('calculatedResourceHeight');
+  resourceHeight: Ember.computed("calculatedResourceContentHeight", function(){
+    var height = this.get('calculatedResourceContentHeight');
     return 'height: '+height+'px';
   })
   // -------------------------------------------------------------------------
