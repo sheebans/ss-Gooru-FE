@@ -36,13 +36,13 @@ export default Ember.Controller.extend({
 
   /**
    * All units by class and course
-   * @property {Array}
+   * @property {Unit[]}
    */
   units:null,
 
   /**
    * All visible units
-   * @property {Array}
+   * @property {Unit[]}
    */
   visibleUnits:Ember.computed('units',function(){
     return  this.get('units').filterBy("visibility",true);

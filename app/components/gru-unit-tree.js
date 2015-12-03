@@ -9,7 +9,7 @@ export default Ember.Component.extend({
   // Properties
   /**
    * The unit presented
-   * @property {units}
+   * @property {Unit}
    */
   "unit": null
 });
