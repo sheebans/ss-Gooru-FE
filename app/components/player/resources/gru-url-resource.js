@@ -19,6 +19,7 @@ export default Ember.Component.extend({
   // Attributes
 
   classNames:['gru-url-resource'],
+  attributeBindings: ['resourceHeight:style'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -32,9 +33,17 @@ export default Ember.Component.extend({
   /**
    * @property {Resource} the resource
    */
-  resource: null
+  resource: null,
 
+  calculatedResourceHeight: null,
 
+  /**
+   * @property {string} bind the height css style for the component
+   */
+  resourceHeight: Ember.computed("calculatedResourceHeight", function(){
+    var height = this.get('calculatedResourceHeight');
+    return 'height: '+height+'px';
+  })
   // -------------------------------------------------------------------------
   // Observers
 

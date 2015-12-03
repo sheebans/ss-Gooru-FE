@@ -1,5 +1,14 @@
 .gru-url-resource {
-  height: 100%;
+
+  // scroll- iframes for ios
+  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
+
+  // hide innecesary scroll for desktop
+  @media (min-width: $screen-lg) {
+    overflow-y: hidden;
+  }
+
   iframe{
     width: 100%;
     height: 100%;

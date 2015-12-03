@@ -37,7 +37,14 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Events
-
+  /**
+   * DidInsertElement ember event
+   */
+  didInsertElement: function() {
+    if (this.get('resource.resourceType') === 'resource/url'){
+      this.resourceUrlHeightCalculation();
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Properties
@@ -59,6 +66,12 @@ export default Ember.Component.extend({
   onSubmitQuestion: "submitQuestion",
 
   /**
+   * Height of the Resource Url Component
+   * @property {Number}
+   */
+  calculatedResourceHeight: 0,
+
+  /**
    * The resource component selected
    * @property {string}
    */
@@ -72,12 +85,22 @@ export default Ember.Component.extend({
       Ember.Logger.debug('Resources component selected: ', component);
       return component;
     }
-  })
+  }),
   // -------------------------------------------------------------------------
   // Observers
 
 
   // -------------------------------------------------------------------------
   // Methods
+  /**
+   * Calculates the height of the component resource url
+   */
+  resourceUrlHeightCalculation: function() {
 
+    var narrationHeight = this.$(".narration").innerHeight();
+    var windowHeight = this.$(window).height();
+    var emotionPickerHeight = 55;
+
+    this.set('calculatedResourceHeight', windowHeight-narrationHeight-emotionPickerHeight);
+  }
 });
