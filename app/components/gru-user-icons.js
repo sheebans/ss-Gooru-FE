@@ -130,7 +130,6 @@ export default Ember.Component.extend({
   setupTooltip: function() {
     const component = this;
     const $anchor = this.$('a.first-view');
-    var showCalled = false;
 
     if (this.get('showMoreUsers')) {
 
