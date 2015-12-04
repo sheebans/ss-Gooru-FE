@@ -32,32 +32,10 @@ export default Ember.Service.extend(StoreMixin, {
    * @returns {Location[]}
    */
   findByCourse: function(course) {
-    Ember.Logger.debug(course);
     return Ember.A([
       Ember.Object.create({
         unit: 'unit-1',
-        locationUsers: Ember.A([
-          Ember.Object.create({
-            isActive: true,
-            user: Ember.Object.create({
-              id: 'id-1',
-              firstName: 'firstname-1',
-              lastName: 'lastname-1',
-              email: 'user_1@test.com',
-              username: 'username-1'
-            })
-          }),
-          Ember.Object.create({
-            isActive: false,
-            user: Ember.Object.create({
-              id: 'id-2',
-              firstName: 'firstname-2',
-              lastName: 'lastname-2',
-              email: 'user_2@test.com',
-              username: 'username-2'
-            })
-          })
-        ])
+        locationUsers: this.createStudents(course)
       }),
       Ember.Object.create({
         unit: 'unit-2',
@@ -119,33 +97,11 @@ export default Ember.Service.extend(StoreMixin, {
    * @returns {Location[]}
    */
   findByCourseAndUnit: function(course, unit) {
-    Ember.Logger.debug(course);
     return Ember.A([
       Ember.Object.create({
         unit: unit,
         lesson: 'lesson-1',
-        locationUsers: Ember.A([
-          Ember.Object.create({
-            isActive: true,
-            user: Ember.Object.create({
-              id: 'id-1',
-              firstName: 'firstname-1',
-              lastName: 'lastname-1',
-              email: 'user_1@test.com',
-              username: 'username-1'
-            })
-          }),
-          Ember.Object.create({
-            isActive: false,
-            user: Ember.Object.create({
-              id: 'id-2',
-              firstName: 'firstname-2',
-              lastName: 'lastname-2',
-              email: 'user_2@test.com',
-              username: 'username-2'
-            })
-          })
-        ])
+        locationUsers: this.createStudents(course)
       }),
       Ember.Object.create({
         unit: unit,
@@ -210,34 +166,12 @@ export default Ember.Service.extend(StoreMixin, {
    * @returns {UserLocation[]}
    */
   findByCourseAndUnitAndLesson: function(course, unit, lesson) {
-    Ember.Logger.debug(course);
     return Ember.A([
       Ember.Object.create({
         unit: unit,
         lesson: lesson,
         collection: 'collection-1',
-        locationUsers: Ember.A([
-          Ember.Object.create({
-            isActive: true,
-            user: Ember.Object.create({
-              id: 'id-1',
-              firstName: 'firstname-1',
-              lastName: 'lastname-1',
-              email: 'user_1@test.com',
-              username: 'username-1'
-            })
-          }),
-          Ember.Object.create({
-            isActive: false,
-            user: Ember.Object.create({
-              id: 'id-2',
-              firstName: 'firstname-2',
-              lastName: 'lastname-2',
-              email: 'user_2@test.com',
-              username: 'username-2'
-            })
-          })
-        ])
+        locationUsers: this.createStudents(course)
       }),
       Ember.Object.create({
         unit: unit,
@@ -294,6 +228,63 @@ export default Ember.Service.extend(StoreMixin, {
         ])
       })
     ]);
+  },
+
+  // TODO: remove this method that is only a temporal helper
+  createStudents: function(course) {
+    var totalUsers = 0;
+
+    if (course === 'course-with-1-user') {
+      totalUsers = 1;
+    } else if (course === 'course-with-3-users') {
+      totalUsers = 3;
+    } else if (course === 'course-with-4-users') {
+      totalUsers = 4;
+    } else if (course === 'course-with-30-users') {
+      totalUsers = 30;
+    } else if (course === 'course-with-45-users') {
+      totalUsers = 45;
+    }
+
+    if (totalUsers > 0) {
+      var students = Ember.A();
+      for (var i = 1; i <= totalUsers; i++) {
+        students.push(Ember.Object.create({
+          isActive: true,
+          user: Ember.Object.create({
+            id: 'id-' + i,
+            firstName: 'firstname-' + i,
+            lastName: 'lastname-' + i,
+            email: 'user_' + i + '@test.com',
+            username: 'username-' + i
+          })
+        }));
+      }
+      return students;
+    } else {
+      return Ember.A([
+        Ember.Object.create({
+          isActive: true,
+          user: Ember.Object.create({
+            id: 'id-1',
+            firstName: 'firstname-1',
+            lastName: 'lastname-1',
+            email: 'user_1@test.com',
+            username: 'username-1'
+          })
+        }),
+        Ember.Object.create({
+          isActive: false,
+          user: Ember.Object.create({
+            id: 'id-2',
+            firstName: 'firstname-2',
+            lastName: 'lastname-2',
+            email: 'user_2@test.com',
+            username: 'username-2'
+          })
+        })
+      ]);
+    }
   }
 
 });
