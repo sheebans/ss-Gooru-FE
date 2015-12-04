@@ -5,35 +5,28 @@ moduleFor('adapter:user/availability', 'Unit | Adapter | user/availability', {
   // needs: ['serializer:foo']
 });
 
+test('urlForQueryRecord querying email availability', function (assert) {
+  let adapter = this.subject();
 
-test('buildURL querying for email availability', function (assert) {
-  let adapter = this.subject({
-      "session": {
-        "token": 'abc-123'
-      }
-    }
-  );
-  const query = {
+  const
+    query = {
       keyword: '123@test.com',
       isUsername: false
     },
-    url = adapter.buildURL("user/availability", "any id", "any snapshot", "queryRecord", query);
+    url = adapter.urlForQueryRecord(query);
 
-  assert.equal(url, "/gooruapi/rest/v2/user/emailId/availability?sessionToken=abc-123", "Wrong url");
+  assert.equal(url, "/gooruapi/rest/v2/user/emailId/availability", "Wrong url");
 });
 
-test('buildURL querying for username availability', function (assert) {
-  let adapter = this.subject({
-      "session": {
-        "token": 'abc-123'
-      }
-    }
-  );
-  const query = {
-      keyword: 'test',
+test('urlForQueryRecord querying username availability', function (assert) {
+  let adapter = this.subject();
+
+  const
+    query = {
+      keyword: 'abc-123',
       isUsername: true
     },
-    url = adapter.buildURL("user/availability", "any id", "any snapshot", "queryRecord", query);
+    url = adapter.urlForQueryRecord(query);
 
-  assert.equal(url, "/gooruapi/rest/v2/user/username/availability?sessionToken=abc-123", "Wrong url");
+  assert.equal(url, "/gooruapi/rest/v2/user/username/availability", "Wrong url");
 });

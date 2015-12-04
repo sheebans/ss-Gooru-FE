@@ -5,7 +5,7 @@ moduleForService('service:api-sdk/lesson', 'Unit | Service | api-sdk/lesson', {
   needs: ['serializer:lesson/lesson', 'model:lesson/lesson', 'adapter:lesson/lesson']
 });
 
-test('findByClassCourseAndUnit', function (assert) {
+test('findByClassAndCourseAndUnit', function (assert) {
   const service = this.subject();
 
   const response = [
