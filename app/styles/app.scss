@@ -5,11 +5,14 @@
 @import 'style-guide';
 @import 'common';
 
+@import 'controllers/application';
 @import 'controllers/index';
 @import 'controllers/player';
 @import 'controllers/classes';
 @import 'controllers/class';
-@import 'controllers/info';
+@import 'controllers/class/info';
+@import 'controllers/class/overview';
+@import 'controllers/class/analytics/performance/student';
 
 // TODO: update these components so they follow the naming conventions
 @import 'components/app-dropdown';
@@ -33,6 +36,7 @@
 @import 'components/gru-user-sign-up-cancel';
 @import 'components/gru-emotion-picker';
 @import 'components/gru-profile-card';
+@import 'components/gru-unit-tree';
 
 
 @import 'components/player/gru-navigation';

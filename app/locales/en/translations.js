@@ -310,5 +310,18 @@ export default {
     "analytics" : "Analytics",
     "suggestions" : "Suggestions",
     "information" : "Class Information"
+  },
+  "class.overview":{
+    "title":"Course map",
+    "locate":"Locate Me",
+    "content-not-available": "Content not available"
+  },
+  "class.analytics": {
+    "performance": {
+      "title": "Performance"
+    },
+    "mastery": {
+      "title": "Mastery"
+    }
   }
 };

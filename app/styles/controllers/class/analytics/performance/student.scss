@@ -1,0 +1,37 @@
+.controller.analytics-performance-student {
+  .navigation {
+    text-align: center;
+    .performance {
+      min-height: 50px;
+    }
+    .mastery {
+      border: 1px solid $color-gray-primary;
+      min-height: 50px;
+    }
+  }
+
+  .controls {
+    .gru-breadcrumb {
+      min-height: 50px;
+      background-color: darkgray;
+    }
+    .gru-actions {
+      background-color: lightgrey;
+      min-height: 50px;
+    }
+  }
+
+  .snapshot {
+    background-color: slategray;
+    min-height: 134px;
+    @media (min-width: $screen-sm-min) { /* same for sm and md */
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .gru-content {
+    background-color: darkgray;
+    min-height: 400px; /* This is temporal for layout */
+  }
+}

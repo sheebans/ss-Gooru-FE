@@ -37,7 +37,12 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Events
-
+  /**
+   * DidInsertElement ember event
+   */
+  didInsertElement: function() {
+    this.calculateResourceContentHeight();
+  },
 
   // -------------------------------------------------------------------------
   // Properties
@@ -58,6 +63,13 @@ export default Ember.Component.extend({
    */
   onSubmitQuestion: "submitQuestion",
 
+  /* Calculated height designated for the content area of a resource
+  * @see components/player/resources/gru-url-resource.js
+  * The height of the content area needs to be calculated because the height of the narration varies and may cause a scroll bar to appear
+  * @property {Number}
+  */
+  calculatedResourceContentHeight: 0,
+
   /**
    * The resource component selected
    * @property {string}
@@ -72,12 +84,30 @@ export default Ember.Component.extend({
       Ember.Logger.debug('Resources component selected: ', component);
       return component;
     }
-  })
+  }),
   // -------------------------------------------------------------------------
   // Observers
-
+  /**
+   * Observes for the resource change
+   */
+  resourceObserver: function(){
+    this.calculateResourceContentHeight();
+  }.observes("resource.id"),
 
   // -------------------------------------------------------------------------
   // Methods
+  /**
+   * Calculates the height of the content area (it will change depending on height
+   * of the narration -if there is one)
+   */
+  calculateResourceContentHeight: function() {
+    if (this.get('resource.isUrlResource')) {
+      var narrationHeight = this.$(".narration").innerHeight();
+      var contentHeight = this.$('.content').height();
 
+      // The 4 pixels subtracted are to make sure no scroll bar will appear for the content
+      // (Users should rely on the iframe scroll bar instead)
+      this.set('calculatedResourceContentHeight', contentHeight - narrationHeight - 4);
+    }
+  }
 });

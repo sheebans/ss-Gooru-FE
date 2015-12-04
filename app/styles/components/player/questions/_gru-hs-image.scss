@@ -1,6 +1,8 @@
 .player .gru-hs-image {
+  $image-side: 90px;
 
   .answer-choices {
+    max-width: 400px;
 
     ul {
 
@@ -10,13 +12,16 @@
         padding: 0;
         margin: 20px;
         cursor: pointer;
+        width: $image-side + 2px;
+        height: $image-side + 2px;
+        text-align: center;
 
         img {
           border: 0 none;
           width: auto;
           height: auto;
-          max-width: 90px;
-          max-height: 90px;
+          max-width: $image-side;
+          max-height: $image-side;
         }
       }
     }
