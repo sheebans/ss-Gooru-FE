@@ -3,10 +3,9 @@ import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
 
 moduleForService('service:api-sdk/collection', 'Unit | Service | api-sdk/collection', {
-  needs: ['serializer:collection/collection', 'model:collection/collection', 'adapter:collection/collection']
+  needs: ['serializer:collection/collection', 'model:collection/collection',
+    'model:resource/resource', 'adapter:collection/collection']
 });
-
-
 
 test('findByClassAndCourseAndUnitAndLesson', function (assert) {
   const service = this.subject();
@@ -41,14 +40,14 @@ test('findByClassAndCourseAndUnitAndLesson', function (assert) {
     assert.equal(collections.get('length'), 2, 'Missing classes');
     const firstCollection = collections.get('firstObject');
     assert.equal(firstCollection.get('id'), '5028ac7f-82da-4f09-998b-ecf480d4b984', 'Wrong id');
-    assert.equal(firstCollection.get('collectionType'), 'assesment', 'Wrong collection type');
+    assert.equal(firstCollection.get('collectionType'), 'assessment', 'Wrong collection type');
     assert.equal(firstCollection.get('title'), 'Creating properties assessment', 'Wrong title');
-    assert.equal(firstCollection.get('visibility'), 'false', 'Wrong visibility');
+    assert.equal(firstCollection.get('visibility'), false, 'Wrong visibility');
     const otherCollection = collections.objectAt(1);
     assert.equal(otherCollection.get('id'), '363d3cc2-f2ac-490d-a870-42167f204c97', 'Wrong id');
     assert.equal(otherCollection.get('collectionType'), 'collection', 'Wrong collection type');
     assert.equal(otherCollection.get('title'), 'Properties resource collection', 'Wrong title');
-    assert.equal(otherCollection.get('visibility'), 'false', 'Wrong visibility');
+    assert.equal(otherCollection.get('visibility'), false, 'Wrong visibility');
     done();
   });
 });
@@ -95,7 +94,7 @@ test('findById', function (assert) {
       }
     },
     routes = function () {
-      this.get('/gooruapi/rest/v3/collection/123?includeItems=true&includeLastModifiedUser=true', function () {
+      this.get('/gooruapi/rest/v3/collection/123', function () {
         return [200, {'Content-Type': 'application/json'}, JSON.stringify(response)];
       }, 0);
     };
