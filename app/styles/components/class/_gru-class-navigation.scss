@@ -38,9 +38,13 @@
         margin: 0;
         padding: 13px 10px 0 0;
         z-index: 2;
+        line-height: 14px;
       }
       i {
         padding: 0 5px 0 0;
+      }
+      .greetings {
+        cursor: pointer;
       }
       .drop-menu {
         float: right;
@@ -51,9 +55,44 @@
           padding: 6px 10px 6px 6px;
           height: 43px;
           font-size: 18px;
+          width: 35px;
         }
         .dropdown-toggle {
           padding-left: 0;
+          background: url("gooru/landingpageSprite.png") no-repeat $color-gray-lighter-6;
+          background-position: -95px -23px;
+          background-size: 185px;
+        }
+        .dropdown-menu {
+          border: none;
+          border-radius: inherit;
+          background-color: $color-gray-lighter-6;
+          margin: 0;
+          right: 0;
+          left: inherit;
+          font-size: 18px;
+          padding: 10px 0;
+          min-width: 175px;
+          li {
+            padding: 5px;
+            margin: 0 10px;
+            font-size: 12px;
+            cursor: pointer;
+            i {
+              padding-right: 10px;
+              width: 35px;
+              text-align: center;
+            }
+          }
+          li.selected {
+            background-color: $color-gray-lighter-9;
+          }
+        }
+      }
+      .drop-menu.open {
+        .dropdown-toggle {
+          box-shadow: none;
+          background-position: -135px -23px;
         }
       }
     }
@@ -108,7 +147,7 @@
       height: 44px;
       border-bottom: 1px solid $color-gray-lighter-3;
       h3 {
-        width: 71%;
+        width: 70%;
         padding: 11px 10px 0 0;
       }
       .active-dates {
@@ -121,7 +160,8 @@
         text-align: right;
       }
       .greetings {
-        width: 10%;
+        width: 7%;
+        padding-right: 0;
         text-align: right;
       }
     }
