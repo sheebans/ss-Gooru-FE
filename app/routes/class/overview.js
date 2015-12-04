@@ -11,6 +11,9 @@ export default Ember.Route.extend({
   unitService: Ember.inject.service("api-sdk/unit"),
 
   // -------------------------------------------------------------------------
+  // Actions
+
+  // -------------------------------------------------------------------------
   // Methods
 
   beforeModel: function() {
@@ -32,6 +35,6 @@ export default Ember.Route.extend({
    */
   setupController: function(controller,model) {
     controller.set("units",model);
-    this.send("selectMenuItem", 'overview');
+    this.send("selectMenuItem", 'overview', false);
   }
 });

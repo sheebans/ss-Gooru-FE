@@ -1,12 +1,15 @@
-import Ember from "ember";
+import Ember from 'ember';
 
 /**
- * Class Information controller
+ * Student Analytics Performance Controller
  *
- * Controller responsible of the logic for the class information page
+ * Controller responsible of the logic for the student performance
+ *
+ * @module
+ * @see routes/analytics/performance/student.js
+ * @augments ember/Controller
  */
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
   classController: Ember.inject.controller('class'),
@@ -27,16 +30,11 @@ export default Ember.Controller.extend({
    */
   "class": Ember.computed.reads('classController.class'),
 
-  /**
-   * @property {User[]} class students
-   */
-  students:null
   // -------------------------------------------------------------------------
   // Observers
 
 
   // -------------------------------------------------------------------------
   // Methods
-
 
 });

@@ -6,6 +6,9 @@ import { checkStandards } from '../utils/utils';
  */
 export default Ember.Route.extend({
 
+  // -------------------------------------------------------------------------
+  // Dependencies
+
   /**
    * @property {Ember.Service} Service to retrieve subjects
    */
@@ -25,6 +28,12 @@ export default Ember.Route.extend({
    * @property {Ember.Service} Service to retrieve profiles
    */
   profileService: Ember.inject.service("api-sdk/profile"),
+
+  // -------------------------------------------------------------------------
+  // Actions
+
+  // -------------------------------------------------------------------------
+  // Methods
 
   model: function() {
     var subjects = this.get("subjectService").readAll();

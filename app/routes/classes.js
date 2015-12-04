@@ -17,6 +17,8 @@ export default Ember.Route.extend(SessionMixin, {
    */
   classService: Ember.inject.service("api-sdk/class"),
 
+  // -------------------------------------------------------------------------
+  // Actions
 
   // -------------------------------------------------------------------------
   // Methods
