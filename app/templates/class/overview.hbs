@@ -12,12 +12,14 @@
       </div>
     </div>
     <div class="row units">
-      <ul>
-        {{#each visibleUnits as |unit|}}
-            <li>
+        <ul>
+          {{#each visibleUnits as |unit|}}
+              <li>
               {{gru-unit-tree unit=unit}}
-            </li>
-        {{/each}}
-      </ul>
+              </li>
+          {{else}}
+            {{t "class.overview.content-not-available"}}
+          {{/each}}
+        </ul>
     </div>
 </div>
