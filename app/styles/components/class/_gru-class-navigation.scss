@@ -33,6 +33,7 @@
     .class-info {
       padding-right: 0;
       height: 43px;
+      border-bottom: 1px solid $color-gray-lighter-3;
       h3, div {
         float: left;
         margin: 0;
@@ -106,7 +107,6 @@
   .xs-design {
     .class-info {
       height: 44px;
-      border-bottom: 1px solid $color-gray-lighter-3;
       h3 {
         width: 71%;
         padding: 11px 10px 0 0;
