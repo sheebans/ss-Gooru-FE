@@ -10,8 +10,9 @@
 @import 'controllers/player';
 @import 'controllers/classes';
 @import 'controllers/class';
-@import 'controllers/info';
-@import 'controllers/overview';
+@import 'controllers/class/info';
+@import 'controllers/class/overview';
+@import 'controllers/class/analytics/performance/student';
 
 // TODO: update these components so they follow the naming conventions
 @import 'components/app-dropdown';

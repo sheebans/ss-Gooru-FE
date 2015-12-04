@@ -1,0 +1,41 @@
+.controller.analytics-performance-student {
+  .navigation {
+    text-align: center;
+    .performance-tab {
+      min-height: 50px;
+    }
+    .mastery-tab {
+      border: 1px solid $color-gray-primary;
+      min-height: 50px;
+    }
+  }
+
+  .controls {
+    .performance-breadcrumb {
+      min-height: 50px;
+      background-color: darkgray;
+    }
+    .performance-actions {
+      background-color: lightgrey;
+      min-height: 50px;
+    }
+  }
+
+  .snapshot {
+    background-color: slategray;
+    min-height: 134px;
+    @media (min-width: $screen-md-min) {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    @media (min-width: $screen-sm-min) {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .performance-content {
+    background-color: darkgray;
+    min-height: 400px; /* This is temporal for layout */
+  }
+}

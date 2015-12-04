@@ -314,5 +314,13 @@ export default {
   "class.overview":{
     "title":"Course map",
     "locate":"Locate Me"
+  },
+  "class.analytics": {
+    "performance": {
+      "title": "Performance"
+    },
+    "mastery": {
+      "title": "Mastery"
+    }
   }
 };

@@ -3,7 +3,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
     exec: {
       "run": {
-        cmd: function(command){
+        cmd: function (command) {
           return command;
         }
       },
@@ -40,39 +40,30 @@ module.exports = function (grunt) {
 
 
   grunt.registerTask('test', function (target) {
-    if (target === "cli"){ //for bamboo
+    if (target === "cli") { //for bamboo
       grunt.task.run(['stubby:test', 'exec:run:ember test --silent --reporter xunit']);
       return;
     }
 
     //for development
-    var noStubby = grunt.option("no-stubby"),
-      server = grunt.option("server") || grunt.option("s"),
-      filter = grunt.option("filter") || grunt.option("f"),
-      module = grunt.option("module") || grunt.option("m");
+    var noStubby = grunt.option("no-stubby") || grunt.option("ns"),
+      server = grunt.option("server") || grunt.option("s");
 
-      var command = 'ember test';
-      if (server){
-        command += " --server";
-      }
-      if (filter){
-        command += (" --filter=\"" + filter + "\"");
-      }
-      if (module){
-        command += (" --module=\"" + module + "\"");
-      }
-
+    var command = 'ember test';
+    if (server) {
+      command += " --server";
+    }
     var testExecTask = 'exec:run:' + command;
 
-    var tasks = noStubby ? [testExecTask] : [ 'stubby:test', testExecTask ];
+    var tasks = noStubby ? [testExecTask] : ['stubby:test', testExecTask];
     grunt.task.run(tasks);
   });
 
   grunt.registerTask('run', function (target) {
     target = target || 'stubby';
     var noStubby = grunt.option("no-stubby") || grunt.option("ns"),
-        serverExecTask = 'exec:ember-server-' + (target),
-        tasks = (noStubby) ? [serverExecTask] : ['stubby:test', serverExecTask];
+      serverExecTask = 'exec:ember-server-' + (target),
+      tasks = (noStubby) ? [serverExecTask] : ['stubby:test', serverExecTask];
 
     grunt.task.run(tasks);
   });

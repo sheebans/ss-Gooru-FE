@@ -6,6 +6,9 @@ import ApplicationRouteMixin from "ember-simple-auth/mixins/application-route-mi
  */
 export default Ember.Route.extend(ApplicationRouteMixin, {
 
+  // -------------------------------------------------------------------------
+  // Methods
+
   model: function() {
     var route = this;
     var currentSession = route.get("session.data.authenticated");
