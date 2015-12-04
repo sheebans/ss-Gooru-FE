@@ -313,6 +313,7 @@ export default {
   },
   "class.overview":{
     "title":"Course map",
-    "locate":"Locate Me"
+    "locate":"Locate Me",
+    "content-not-available": "Content not available"
   }
 };
