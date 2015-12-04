@@ -24,12 +24,12 @@ test('Layout', function(assert) {
     const $performanceContainer = find(".controller.class .controller.analytics-performance-student");
     T.exists(assert, $performanceContainer, "Missing performance container");
 
-    T.exists(assert, $performanceContainer.find(".navigation .performance-tab"), "Missing performance navigation tab");
-    T.exists(assert, $performanceContainer.find(".navigation .mastery-tab"), "Missing mastery navigation tab");
-    T.exists(assert, $performanceContainer.find(".controls .performance-breadcrumb"), "Missing performance breadcrumb");
-    T.exists(assert, $performanceContainer.find(".controls .performance-actions"), "Missing performance actions");
+    T.exists(assert, $performanceContainer.find(".navigation .performance"), "Missing performance navigation tab");
+    T.exists(assert, $performanceContainer.find(".navigation .mastery"), "Missing mastery navigation tab");
+    T.exists(assert, $performanceContainer.find(".controls .gru-breadcrumb"), "Missing performance breadcrumb");
+    T.exists(assert, $performanceContainer.find(".controls .gru-actions"), "Missing performance actions");
     T.exists(assert, $performanceContainer.find(".snapshot"), "Missing performance snapshot");
-    T.exists(assert, $performanceContainer.find(".performance-content"), "Missing performance content");
+    T.exists(assert, $performanceContainer.find(".gru-content"), "Missing performance content");
 
     const $classMenu = find(".controller.class .gru-class-navigation .class-menu");
     T.exists(assert, $classMenu.find(".analytics.selected"), "Missing selected analytics item");

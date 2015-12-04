@@ -1,21 +1,21 @@
 .controller.analytics-performance-student {
   .navigation {
     text-align: center;
-    .performance-tab {
+    .performance {
       min-height: 50px;
     }
-    .mastery-tab {
+    .mastery {
       border: 1px solid $color-gray-primary;
       min-height: 50px;
     }
   }
 
   .controls {
-    .performance-breadcrumb {
+    .gru-breadcrumb {
       min-height: 50px;
       background-color: darkgray;
     }
-    .performance-actions {
+    .gru-actions {
       background-color: lightgrey;
       min-height: 50px;
     }
@@ -24,17 +24,13 @@
   .snapshot {
     background-color: slategray;
     min-height: 134px;
-    @media (min-width: $screen-md-min) {
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
-    @media (min-width: $screen-sm-min) {
+    @media (min-width: $screen-sm-min) { /* same for sm and md */
       margin-top: 20px;
       margin-bottom: 20px;
     }
   }
 
-  .performance-content {
+  .gru-content {
     background-color: darkgray;
     min-height: 400px; /* This is temporal for layout */
   }
