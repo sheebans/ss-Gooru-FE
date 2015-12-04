@@ -236,13 +236,13 @@ export default Ember.Service.extend(StoreMixin, {
 
     if (course === 'course-with-1-user') {
       totalUsers = 1;
-    } else if (course === 'course-width-3-users') {
+    } else if (course === 'course-with-3-users') {
       totalUsers = 3;
-    } else if (course === 'course-width-4-users') {
+    } else if (course === 'course-with-4-users') {
       totalUsers = 4;
-    } else if (course === 'course-width-30-users') {
+    } else if (course === 'course-with-30-users') {
       totalUsers = 30;
-    } else if (course === 'course-width-45-users') {
+    } else if (course === 'course-with-45-users') {
       totalUsers = 45;
     }
 
