@@ -54,7 +54,6 @@
           border-radius: inherit;
           background-color: $color-gray-lighter-6;
           padding: 6px 10px 6px 6px;
-          height: 43px;
           font-size: 18px;
           width: 35px;
         }
@@ -141,6 +140,11 @@
     .greetings {
       width: 4%;
     }
+    .drop-menu {
+      .btn {
+        height: 42px;
+      }
+    }
   }
 
   .xs-design {
@@ -163,6 +167,11 @@
         width: 7%;
         padding-right: 0;
         text-align: right;
+      }
+      .drop-menu {
+        .btn {
+          height: 43px;
+        }
       }
     }
     .description:after {
