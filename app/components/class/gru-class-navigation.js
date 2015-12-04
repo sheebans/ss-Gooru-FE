@@ -76,6 +76,12 @@ export default Ember.Component.extend({
 
   selectedMenuItem:null,
 
+  /**
+   * @property {String} iconClassMenuItem - shows the class for the icon of the menu item selected (for the XS and SM dropdown menu)
+   */
+
+  iconClassMenuItem:null,
+
   // -------------------------------------------------------------------------
   // Observers
   /**
@@ -92,14 +98,27 @@ export default Ember.Component.extend({
   // Methods
 
   /**
-   * Triggered when a menu item is selected
+   * Triggered when a menu item is selected. Set the class icon for the item selected showing in the mobiles dropdown menu.
    * @param {string} item
    */
   selectItem: function(item) {
+    var classIconItem = 'fa-info';
     if (item){
       var itemElement = "."+item;
-      this.$( ".list-group-item" ).removeClass( "selected" );
+      this.$( ".class-menu-item" ).removeClass( "selected" );
       this.$(itemElement).addClass( "selected" );
     }
+    switch (item){
+      case 'overview':
+        classIconItem = 'fa-graduation-cap';
+        break;
+      case 'analytics.performance':
+        classIconItem = 'fa-signal';
+        break;
+      case 'suggestions':
+        classIconItem = 'fa-rocket';
+        break;
+    }
+    this.set('iconClassMenuItem',classIconItem );
   }
 });
