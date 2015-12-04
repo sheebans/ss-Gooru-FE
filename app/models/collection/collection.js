@@ -56,7 +56,10 @@ export default DS.Model.extend({
    * @property {boolean} It says if collection's owner has a team
    */
   hasTeam: DS.attr('boolean'),
-
+  /**
+   * @property {boolean} It says if collection's is visible or not
+   */
+  visibility: DS.attr('boolean'),
   /**
    * @property {Array} List of libraries
    */

@@ -5,7 +5,7 @@ export default ApplicationAdapter.extend({
   /**
    * @property {string} End-point URI
    */
-  namespace: 'gooruapi/rest/v2/user',
+  namespace: '/gooruapi/rest/v2/user',
   /**
    * Builds the end-point URL for the queryRecord queryParam
    * @param query

@@ -5,7 +5,7 @@ export default ApplicationAdapter.extend({
   /**
    * @property {string} End-point URI
    */
-  namespace: 'gooruapi/rest/v2',
+  namespace: '/gooruapi/rest/v2',
 
   /**
    * Builds the end-point URL for the findRecord queryParam, params are optional
