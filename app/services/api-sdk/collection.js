@@ -11,6 +11,13 @@ export default Ember.Service.extend(StoreMixin, SessionMixin, {
    */
   findById: function(collectionId) {
     return this.get('store').findRecord('collection/collection', collectionId, { reload: true });
+  },
+  findByClassAndCourseAndUnitAndLesson: function(classId, courseId, unitId, lessonId){
+    return this.get('store').queryRecord('collection/collection',{
+      classId : classId,
+      courseId : courseId,
+      unitId : unitId,
+      lessonId : lessonId
+    });
   }
-
 });

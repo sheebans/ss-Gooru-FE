@@ -11,18 +11,20 @@ export default ApplicationAdapter.extend({
    * @property {string} End-point URI
    */
   namespace: '/gooruapi/rest/v3/class',
-
+  /**
+   * Builds the end-point URL for the queryRecord queryParam
+   * @param query
+   * @returns {string}
+   */
   urlForQueryRecord: function(query) {
-    const
-      adapter = this,
-      namespace = adapter.get('namespace'),
-      classId = query.classId,
-      courseId = query.courseId;
+    let namespace = this.get('namespace');
+    let classId = query.classId;
+    let courseId = query.courseId;
 
     delete query.classId;
     delete query.courseId;
 
-    return '%@/%@/course/%@/unit'.fmt(namespace, classId, courseId);
+    return `${namespace}/${classId}/course/${courseId}/unit`;
   }
 
 });

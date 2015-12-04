@@ -5,6 +5,6 @@ export default ApplicationAdapter.extend({
   /**
    * @property {string} End-point URI
    */
-  namespace: 'gooru-search/rest/v2/search/scollection'
+  namespace: '/gooru-search/rest/v2/search/scollection'
 
 });
