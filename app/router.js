@@ -19,6 +19,12 @@ Router.map(function() {
   this.route('class', { path: '/class/:classId' }, function() {
     this.route('overview', { path: '/overview'});
     this.route('info', { path: '/info'});
+
+    this.route('analytics', function() {
+      this.route('performance', function() {
+        this.route('student');
+      });
+    });
   });
 });
 
