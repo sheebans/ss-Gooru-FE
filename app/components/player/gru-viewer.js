@@ -41,9 +41,7 @@ export default Ember.Component.extend({
    * DidInsertElement ember event
    */
   didInsertElement: function() {
-    if (this.get('resource.isUrlResource')){
-      this.calculateResourceContentHeight();
-    }
+    this.calculateResourceContentHeight();
   },
 
   // -------------------------------------------------------------------------
@@ -89,7 +87,12 @@ export default Ember.Component.extend({
   }),
   // -------------------------------------------------------------------------
   // Observers
-
+  /**
+   * Observes for the resource change
+   */
+  resourceObserver: function(){
+    this.calculateResourceContentHeight();
+  }.observes("resource.id"),
 
   // -------------------------------------------------------------------------
   // Methods
@@ -98,12 +101,13 @@ export default Ember.Component.extend({
    * of the narration -if there is one)
    */
   calculateResourceContentHeight: function() {
+    if (this.get('resource.isUrlResource')) {
+      var narrationHeight = this.$(".narration").innerHeight();
+      var contentHeight = this.$('.content').height();
 
-    var narrationHeight = this.$(".narration").innerHeight();
-    var contentHeight = this.$('.content').height();
-
-    // The 4 pixels subtracted are to make sure no scroll bar will appear for the content
-    // (Users should rely on the iframe scroll bar instead)
-    this.set('calculatedResourceContentHeight', contentHeight - narrationHeight - 4);
+      // The 4 pixels subtracted are to make sure no scroll bar will appear for the content
+      // (Users should rely on the iframe scroll bar instead)
+      this.set('calculatedResourceContentHeight', contentHeight - narrationHeight - 4);
+    }
   }
 });

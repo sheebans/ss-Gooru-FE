@@ -1,5 +1,5 @@
 .controller.info{
-  padding: 15px;
+  padding: 10px;
   ul{
     padding-left: 0px;
     list-style: none;
@@ -15,24 +15,32 @@
       height: 92px;
     }
   }
-  .subject,.grade,.code,.description{
-    p{
-      float:left;
-      padding:5px;
+  .class-details {
+    border-bottom: 1px solid $color-gray-4;
+    .subject,.grade,.code,.description{
+      p{
+        float:left;
+        padding:5px;
+      }
     }
-  }
-  .title{
-    font-weight: bold;
-  }
-  .code {
+    .title{
+      font-weight: bold;
+    }
+    .code {
       border: 1px solid $color-gray-4;
       width: 179px;
       min-height: 50px;
       display: flex;
       justify-content: center;
       align-items: center;
-    p{
-       margin:0px;
+      margin: 0 auto;
+      p{
+        margin:0px;
+      }
+      @media (max-width: $screen-xs-max) { /* only for phone */
+        margin-bottom: 10px;
+      }
+
     }
   }
 }
