@@ -9,6 +9,8 @@ export default Ember.Route.extend({
    */
   userService: Ember.inject.service("api-sdk/user"),
 
+  // -------------------------------------------------------------------------
+  // Actions
 
   // -------------------------------------------------------------------------
   // Methods
@@ -31,6 +33,6 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
     controller.set("students", model);
-    this.send("selectMenuItem", 'info');
+    this.send("selectMenuItem", 'info', false);
   }
 });

@@ -11,6 +11,9 @@ export default Ember.Route.extend({
   unitService: Ember.inject.service("api-sdk/unit"),
 
   // -------------------------------------------------------------------------
+  // Actions
+
+  // -------------------------------------------------------------------------
   // Methods
 
   beforeModel: function() {
@@ -23,7 +26,7 @@ export default Ember.Route.extend({
     var aClass = this.modelFor('class').class;
     var classId = aClass.get("id");
     var courseId = aClass.get("course");
-    return  this.get("unitService").findByClassAndCourse(classId,courseId);
+    return  courseId ? this.get("unitService").findByClassAndCourse(classId,courseId): Ember.A();
   },
   /**
    * Set all controller properties from the model
@@ -32,6 +35,6 @@ export default Ember.Route.extend({
    */
   setupController: function(controller,model) {
     controller.set("units",model);
-    this.send("selectMenuItem", 'overview');
+    this.send("selectMenuItem", 'overview', false);
   }
 });

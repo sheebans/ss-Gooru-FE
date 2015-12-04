@@ -24,11 +24,11 @@ test('findOneByUser', function (assert) {
 
 test('findByCourse', function (assert) {
   const service = this.subject();
-  const courseLocations = service.findByCourse('course-1');
+  const courseLocations = service.findByCourse('course-with-45-users');
   assert.equal(courseLocations.get('length'), 3, 'Missing course locations');
   const courseLocation = courseLocations.get('firstObject');
   assert.equal(courseLocation.get('unit'), 'unit-1', 'Wrong unit');
-  assert.equal(courseLocation.get('locationUsers.length'), 2, 'Missing users');
+  assert.equal(courseLocation.get('locationUsers.length'), 45, 'Missing users');
   const locationUser = courseLocation.get('locationUsers.firstObject');
   assert.equal(locationUser.get('isActive'), true, 'Wrong active status');
   assert.equal(locationUser.get('user.id'), 'id-1', 'Wrong user id');
@@ -40,12 +40,12 @@ test('findByCourse', function (assert) {
 
 test('findByCourseAndUnit', function (assert) {
   const service = this.subject();
-  const courseLocations = service.findByCourseAndUnit('course-1', 'unit-1');
+  const courseLocations = service.findByCourseAndUnit('course-with-30-users', 'unit-1');
   assert.equal(courseLocations.get('length'), 3, 'Missing course locations');
   const courseLocation = courseLocations.get('firstObject');
   assert.equal(courseLocation.get('unit'), 'unit-1', 'Wrong unit');
   assert.equal(courseLocation.get('lesson'), 'lesson-1', 'Wrong lesson');
-  assert.equal(courseLocation.get('locationUsers.length'), 2, 'Missing users');
+  assert.equal(courseLocation.get('locationUsers.length'), 30, 'Missing users');
   const locationUser = courseLocation.get('locationUsers.firstObject');
   assert.equal(locationUser.get('isActive'), true, 'Wrong active status');
   assert.equal(locationUser.get('user.id'), 'id-1', 'Wrong user id');
@@ -57,13 +57,13 @@ test('findByCourseAndUnit', function (assert) {
 
 test('findByCourseAndUnitAndLesson', function (assert) {
   const service = this.subject();
-  const courseLocations = service.findByCourseAndUnitAndLesson('course-1', 'unit-1', 'lesson-1');
+  const courseLocations = service.findByCourseAndUnitAndLesson('course-with-3-users', 'unit-1', 'lesson-1');
   assert.equal(courseLocations.get('length'), 3, 'Missing course locations');
   const courseLocation = courseLocations.get('firstObject');
   assert.equal(courseLocation.get('unit'), 'unit-1', 'Wrong unit');
   assert.equal(courseLocation.get('lesson'), 'lesson-1', 'Wrong lesson');
   assert.equal(courseLocation.get('collection'), 'collection-1', 'Wrong collection');
-  assert.equal(courseLocation.get('locationUsers.length'), 2, 'Missing users');
+  assert.equal(courseLocation.get('locationUsers.length'), 3, 'Missing users');
   const locationUser = courseLocation.get('locationUsers.firstObject');
   assert.equal(locationUser.get('isActive'), true, 'Wrong active status');
   assert.equal(locationUser.get('user.id'), 'id-1', 'Wrong user id');

@@ -2,9 +2,6 @@
   {
     "request": {
       "url": "^/gooruapi/rest/v2/user/param-123$",
-      "query": {
-        "sessionToken": "(.+)"
-      },
       "method": "GET"
     },
     "response": {
