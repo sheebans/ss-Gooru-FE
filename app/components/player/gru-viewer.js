@@ -94,13 +94,16 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Methods
   /**
-   * Calculates the height of the component resource url
+   * Calculates the height of the content area (it will change depending on height
+   * of the narration -if there is one)
    */
   calculateResourceContentHeight: function() {
 
     var narrationHeight = this.$(".narration").innerHeight();
-    var windowHeight = this.$('.content').height();
+    var contentHeight = this.$('.content').height();
 
-    this.set('calculatedResourceContentHeight', windowHeight-narrationHeight);
+    // The 4 pixels subtracted are to make sure no scroll bar will appear for the content
+    // (Users should rely on the iframe scroll bar instead)
+    this.set('calculatedResourceContentHeight', contentHeight - narrationHeight - 4);
   }
 });
