@@ -112,7 +112,7 @@ export default Ember.Component.extend({
       case 'overview':
         classIconItem = 'fa-graduation-cap';
         break;
-      case 'analytics':
+      case 'analytics.performance':
         classIconItem = 'fa-signal';
         break;
       case 'suggestions':
