@@ -8,10 +8,10 @@
   </div>
   <div class="class-menu">
     <ul class="list-group">
-      <li class="list-group-item overview" {{action 'selectItem' 'overview'}}>{{t "class.gru-class-navigation.overview"}}</li>
-      <li class="list-group-item analytics performance" {{action 'selectItem' 'analytics.performance'}}>{{t "class.gru-class-navigation.analytics"}}</li>
-      <li class="list-group-item suggestions" {{action 'selectItem' 'suggestions'}}>{{t "class.gru-class-navigation.suggestions"}}</li>
-      <li class="list-group-item info" {{action 'selectItem' 'info'}}>{{t "class.gru-class-navigation.information"}}</li>
+      <li class="list-group-item class-menu-item overview" {{action 'selectItem' 'overview'}}>{{t "class.gru-class-navigation.overview"}}</li>
+      <li class="list-group-item class-menu-item analytics performance" {{action 'selectItem' 'analytics.performance'}}>{{t "class.gru-class-navigation.analytics"}}</li>
+      <li class="list-group-item class-menu-item suggestions" {{action 'selectItem' 'suggestions'}}>{{t "class.gru-class-navigation.suggestions"}}</li>
+      <li class="list-group-item class-menu-item info" {{action 'selectItem' 'info'}}>{{t "class.gru-class-navigation.information"}}</li>
     </ul>
   </div>
 </div>
@@ -23,12 +23,13 @@
     <div class="members ma-bottom-5"><i class="fa fa-user"></i>{{class.totalMembers}}</div>
     <div class="greetings" {{action 'showDescription'}}><i class="fa fa-comment"></i></div>
     <div class="btn-group drop-menu">
-      <button class="btn"><i class="fa fa-graduation-cap"></i></button>
-      <button class="btn dropdown-toggle" data-toggle="dropdown">
-        <i class="fa fa-angle-down"></i>
-      </button>
+      <button class="btn"><i class="fa {{iconClassMenuItem}}"></i></button>
+      <button class="btn dropdown-toggle" data-toggle="dropdown"></button>
       <ul class="dropdown-menu">
-        <!-- dropdown menu links -->
+        <li class="class-menu-item overview" {{action 'selectItem' 'overview'}}><i class="fa fa-graduation-cap"></i>{{t "class.gru-class-navigation.overview"}}</li>
+        <li class="class-menu-item analytics performance" {{action 'selectItem' 'analytics.performance'}}><i class="fa fa-signal"></i>{{t "class.gru-class-navigation.analytics"}}</li>
+        <li class="class-menu-item suggestions" {{action 'selectItem' 'suggestions'}}><i class="fa fa-rocket"></i>{{t "class.gru-class-navigation.suggestions"}}</li>
+        <li class="class-menu-item info" {{action 'selectItem' 'info'}}><i class="fa fa-info"></i>{{t "class.gru-class-navigation.information"}}</li>
       </ul>
     </div>
   </div>
@@ -40,12 +41,15 @@
     <h3>{{class.name}}</h3>
     <div class="greetings" {{action 'showDescription'}}><i class="fa fa-comment"></i></div>
     <div class="btn-group drop-menu">
-      <button class="btn"><i class="fa fa-info"></i></button>
+      <button class="btn"><i class="fa {{iconClassMenuItem}}"></i></button>
       <button class="btn dropdown-toggle" data-toggle="dropdown">
-        <i class="fa fa-angle-down"></i>
+
       </button>
       <ul class="dropdown-menu">
-        <!-- dropdown menu links -->
+        <li class="class-menu-item overview" {{action 'selectItem' 'overview'}}><i class="fa fa-graduation-cap"></i>{{t "class.gru-class-navigation.overview"}}</li>
+        <li class="class-menu-item analytics performance" {{action 'selectItem' 'analytics.performance'}}><i class="fa fa-signal"></i>{{t "class.gru-class-navigation.analytics"}}</li>
+        <li class="class-menu-item suggestions" {{action 'selectItem' 'suggestions'}}><i class="fa fa-rocket"></i>{{t "class.gru-class-navigation.suggestions"}}</li>
+        <li class="class-menu-item info" {{action 'selectItem' 'info'}}><i class="fa fa-info"></i>{{t "class.gru-class-navigation.information"}}</li>
       </ul>
     </div>
   </div>
