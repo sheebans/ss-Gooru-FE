@@ -5,7 +5,7 @@ moduleForComponent('player/resources/gru-youtube-resource', 'Unit | Component | 
 });
 
 test('getYoutubeIdFromUrl', function (assert) {
-  assert.expect(1);
+  assert.expect(2);
 
   var component = this.subject();
 
