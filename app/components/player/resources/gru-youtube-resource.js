@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import Env from '../../../config/environment';
+
 /**
  * Youtube resource component
  *
@@ -38,9 +40,12 @@ export default Ember.Component.extend({
    * @property {string} full resource youtube url
    */
   youtubeUrl: Ember.computed("resource.url", function(){
-    return this.get("resource.url").replace(/watch\?v=/g, "embed/")+
-        "?start="+this.get('start')+
-        "&end="+this.get('stop')+
+    const url = this.get("resource.url");
+    const youtubeId = this.getYoutubeIdFromUrl(url);
+    const player = Env['player'].youtubePlayerUrl;
+    return player + youtubeId +
+        "?start="+this.get('start') +
+        "&end="+this.get('stop') +
         "&rel=0";
 
   }),
@@ -66,6 +71,18 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+  /**
+   * Retrieves the youtube id from a url
+   * @param url
+   * @returns {*}
+   */
+  getYoutubeIdFromUrl: function(url){
+    const regexp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    var match = url.match(regexp);
+    if (match && match[2].length === 11){
+      return match[2];
+    }
+  },
 
   /**
    * Convert the time in this format 00:00:00 to seconds
