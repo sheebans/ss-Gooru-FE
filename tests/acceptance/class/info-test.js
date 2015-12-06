@@ -38,7 +38,7 @@ test('Layout', function(assert) {
 
     const $classCode =$overviewContainer.find(".code");
     T.exists(assert, $classCode, "Missing Class Code Box");
-    assert.equal(T.text($classCode.find("p")), "Class Code: 2WZ8IJA", "Incorrect Class Code");
+    assert.equal(T.text($classCode.find("p")), "2WZ8IJA", "Incorrect Class Code");
 
     const $teachers =$overviewContainer.find(".teachers-section");
     T.exists(assert, $teachers.find("h3"), "Missing teachers section");
