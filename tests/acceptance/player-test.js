@@ -192,13 +192,15 @@ test('submitQuestion: When submitting the question', function (assert) {
 });
 
 test('selectNavigatorItem: When moving to another resource', function (assert) {
-  assert.expect(2);
+  assert.expect(3);
   visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
   andThen(function () {
     const $playerContainer = find(".controller.player");
+    const $appContainer = find(".app-container");
     T.exists(assert, $playerContainer, "Missing player");
     click($playerContainer.find(".gru-navigator .list-group-item:eq(3)"));
     andThen(function () {
+      assert.ok(!$appContainer.hasClass("navigator-on"), "Shouldn't have navigator-on class");
       //it navigates to specific resource
       assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=c058d02d-c5bf-44e2-af70-62ea1c9dfed1');
     });

@@ -62,7 +62,9 @@ export default Ember.Controller.extend({
      * Action triggered when the user close de navigator panel
      */
     closeNavigator:function(){
-      Ember.$( ".app-container" ).removeClass( "navigator-on" );
+      if (Ember.$( ".app-container" ).hasClass( "navigator-on" )){
+        Ember.$( ".app-container" ).removeClass( "navigator-on" );
+      }
     },
 
     /**
