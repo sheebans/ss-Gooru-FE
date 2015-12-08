@@ -12,7 +12,7 @@ import Ember from 'ember';
 export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
-
+  session: Ember.inject.service("session"),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -22,8 +22,13 @@ export default Ember.Route.extend({
 
   beforeModel: function() {
     // TODO: authenticate session with ember-simple-auth, if not send to log in
-    //TODO check if it is a teacher so it transitions to class.analytics.performance.teacher
-    this.transitionTo('class.analytics.performance.student');
+    const aClass = this.modelFor('class').class;
+    if (aClass.isTeacher(this.get("session.userId"))){
+      this.transitionTo('class.analytics.performance.teacher');
+    }
+    else {
+      this.transitionTo('class.analytics.performance.student');
+    }
   },
 
   setupController: function(){
