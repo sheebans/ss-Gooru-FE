@@ -299,7 +299,6 @@ export default {
     "students":"Students",
     "subject":"Subject",
     "grade":"Grade",
-    "code":"Class Code",
     "description":"Description"
   },
   "class.gru-class-navigation": {

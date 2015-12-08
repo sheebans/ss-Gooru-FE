@@ -125,6 +125,9 @@
     h3 {
       width: 55%;
       padding: 11px 10px 0 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .active-dates {
       font-size: 12px;
@@ -153,6 +156,9 @@
       h3 {
         width: 70%;
         padding: 11px 10px 0 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .active-dates {
         font-size: 12px;
