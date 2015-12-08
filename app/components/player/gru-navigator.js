@@ -99,16 +99,20 @@ export default Ember.Component.extend({
    * @param {Event object} event
    */
   navigateOnKeyUp: function(e) {
-    if (e.which===39){
+    const KEY_RIGHT=39;
+    const KEY_LEFT=37;
+    if (e.which===KEY_RIGHT){
       e.preventDefault();
       const component = e.data._self;
-      const resource = component.get("collection").getResourceById(component.get('selectedResourceId'));
-      component.selectItem(component.get("collection").nextResource(resource));
-    }else if (e.which===37){
+      const collection = component.get("collection");
+      const resource = collection.getResourceById(component.get('selectedResourceId'));
+      component.selectItem(collection.nextResource(resource));
+    }else if (e.which===KEY_LEFT){
       e.preventDefault();
       const component = e.data._self;
-      const resource = component.get("collection").getResourceById(component.get('selectedResourceId'));
-      component.selectItem(component.get("collection").prevResource(resource));
+      const collection = component.get("collection");
+      const resource = collection.getResourceById(component.get('selectedResourceId'));
+      component.selectItem(collection.prevResource(resource));
     }
     return false;
   },
