@@ -26,6 +26,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+
     /**
      *
      * Triggered when an item is selected
@@ -133,6 +134,7 @@ export default Ember.Component.extend({
         this.sendAction("onItemSelected", item);
       }
       this.setItemAsSelected(itemId);
+      this.sendAction("onCloseNavigator");
     }
   }
 });
