@@ -14,7 +14,7 @@ export default Ember.Service.extend(StoreMixin, {
   findClassesIJoined: function (options = {}) {
     return this.get('store').queryRecord('class/class', {
       isStudent: true,
-      limit: (options.limit ? options.limit : 100),
+      limit: (options.limit ? options.limit : -1),
       offset: (options.offset ? options.offset : 0)
     });
   },
@@ -26,7 +26,7 @@ export default Ember.Service.extend(StoreMixin, {
    */
   findClassesITeach: function (options = {}) {
     return this.get('store').queryRecord('class/class', {
-      limit: (options.limit ? options.limit : 100),
+      limit: (options.limit ? options.limit : -1),
       offset: (options.offset ? options.offset : 0),
       'flt.exclude.empty.course': (options['flt.exclude.empty.course'] ? options['flt.exclude.empty.course'] : false)
     });
