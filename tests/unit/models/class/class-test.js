@@ -1,3 +1,4 @@
+import Ember from "ember";
 import { moduleForModel, test } from 'ember-qunit';
 
 moduleForModel('class/class', 'Unit | Model | class/class', {
