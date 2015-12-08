@@ -205,6 +205,35 @@ test('selectNavigatorItem: When moving to another resource', function (assert) {
   });
 });
 
+test('selectNavigatorItem & closeNavigator: When moving to another resource the navigator should be closed', function (assert) {
+  assert.expect(7);
+  visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
+  andThen(function () {
+    const $playerContainer = find(".controller.player");
+    const $appContainer = find(".app-container");
+
+    T.exists(assert, $playerContainer, "Missing player");
+    T.exists(assert, $appContainer, "Missing app container");
+
+    assert.ok(!$appContainer.hasClass("navigator-on"), "Shouldn't have navigator-on class");
+    T.exists(assert, $playerContainer.find(".gru-navigation .hamburger-icon"), "Missing navigation hamburger icon");
+
+    click($playerContainer.find(".gru-navigation .hamburger-icon"));
+
+    andThen(function () {
+      assert.ok($appContainer.hasClass("navigator-on"), "Should have navigator-on class");
+      click($playerContainer.find(".gru-navigator .list-group-item:eq(3)"));
+      andThen(function () {
+        //it navigates to specific resource
+        assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=c058d02d-c5bf-44e2-af70-62ea1c9dfed1');
+        andThen(function () {
+          assert.ok(!$appContainer.hasClass("navigator-on"), "Shouldn't have navigator-on class");
+        });
+      });
+    });
+  });
+});
+
 test('openNavigator & closeNavigator: When opening and closing the navigator', function (assert) {
   assert.expect(6);
   visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
