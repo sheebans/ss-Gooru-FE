@@ -35,7 +35,12 @@ test('Player Navigator', function(assert) {
       resourceMockA,
       resourceMockB
     ]),
-    lastVisitedResource: resourceMockB
+    lastVisitedResource: resourceMockB,
+    getResourceById: function(id){
+      if(id === '1'){
+        return resourceMockA;
+      }else if (id ==='2'){ return resourceMockB;}
+    }
   });
 
   this.set('collection', collectionMock);
@@ -82,3 +87,63 @@ test('Layout when navigator is closed', function(assert) {
   $menuButton.click();
 
 });
+
+test('Player Navigator keyup', function(assert) {
+
+  //assert.expect(8);
+
+  const resourceMockA = Ember.Object.create({
+    id: '1',
+    title: '<p>Resource #1</p>',
+    resourceFormat: 'question',
+    "isQuestion": true
+  });
+
+  const resourceMockB = Ember.Object.create({
+    id: '2',
+    title: 'Resource #2',
+    resourceFormat: 'webpage',
+    "isQuestion": false
+  });
+
+  const collectionMock = Ember.Object.create({
+    id: '490ffa82-aa15-4101-81e7-e148002f90af',
+    title: 'Test collection',
+    resources: Ember.A([
+      resourceMockA,
+      resourceMockB
+    ]),
+    lastVisitedResource: resourceMockB,
+    getResourceById: function(id){
+      if(id === '1'){
+        return resourceMockA;
+      }else if (id ==='2'){ return resourceMockB;}
+    },
+    nextResource(resource){
+      if(resource.id==='1'){
+        return resourceMockB;
+      }
+    }
+  });
+
+  this.set('collection', collectionMock);
+
+
+
+  this.render(hbs`{{player.gru-navigator collection=collection selectedResourceId='1'}}`);
+
+  let $component = this.$(); //component dom element
+
+  const $navigator = $component.find(".gru-navigator");
+  let $selected = $navigator.find(".selected");
+  assert.equal($selected.attr('id'), 'item_1', "Incorrect selected resource item id , selectedId: "+$selected.attr('id'));
+  let e = $.Event('keyup');
+
+  e.which = 39; //Right arrow Character
+  $navigator.trigger(e);
+  $selected = $navigator.find(".selected");
+  assert.equal($selected.attr('id'), 'item_2', "Incorrect selected resource item id , selectedId: "+$selected.attr('id'));
+
+
+});
+
