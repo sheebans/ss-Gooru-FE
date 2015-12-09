@@ -6,7 +6,6 @@
       "method": "GET"
     },
     "response": {
-      "latency": 1500,
       "status": 200,
       "headers": {
         "Content-Type": "application/json"
