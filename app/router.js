@@ -23,6 +23,7 @@ Router.map(function() {
     this.route('analytics', function() {
       this.route('performance', function() {
         this.route('student');
+        this.route('teacher');
       });
     });
   });

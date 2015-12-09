@@ -100,6 +100,7 @@ export default Ember.Component.extend({
       var itemElement = "#item_"+itemId;
       this.$( ".list-group-item" ).removeClass( "selected" );
       this.$(itemElement).addClass( "selected" );
+      this.sendAction("onCloseNavigator");
     }
   }
 });
