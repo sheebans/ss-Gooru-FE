@@ -18,9 +18,9 @@ export default Ember.Controller.extend({
   // Actions
   actions:{
 
-    changePerformance:function(performance){
+    optionsChange:function(options){
       //TO DO
-     console.log(performance);
+      console.log(options);
     }
   },
   // -------------------------------------------------------------------------

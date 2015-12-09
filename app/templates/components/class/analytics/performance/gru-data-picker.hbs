@@ -1,9 +1,9 @@
-<div class="performance-picker">
-    <ul class="performance-list">
+<div class="option-picker">
+    <ul class="option-list">
       {{#each options as |option|}}
-          <li {{action 'setPerformance' option}}>
+          <li {{action 'setOption' option}}>
               <span class="{{option.value}} {{if option.selected 'active'}}">{{fa-icon icon="fa-circle"}}</span>
-              <span>{{t (concat 'gru-performance-data-picker.' option.value) }}</span>
+              <span>{{t (concat 'gru-data-picker.' option.value) }}</span>
           </li>
       {{/each}}
     </ul>

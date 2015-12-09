@@ -323,7 +323,7 @@ export default {
       "title": "Mastery"
     }
   },
-  "gru-performance-data-picker":{
+  "gru-data-picker":{
     "score": "Score",
     "completion":"Completion",
     "time":"Time",

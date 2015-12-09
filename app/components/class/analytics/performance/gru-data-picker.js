@@ -1,9 +1,10 @@
 import Ember from 'ember';
 /**
- *Performance Data Picker
+ *Data Picker
  *
  *  Component responsible for letting the user select and update a performance option
  *  from a predefined list of options to display different analytic data.
+ *
  * @module
  * @augments ember/Component
  */
@@ -22,19 +23,19 @@ export default Ember.Component.extend({
   actions: {
 
     /**
-     * Set a new performance as selected and update the component appearance accordingly
+     * Set a new option as selected and update the component appearance accordingly
      *
-     * @function actions:setPerformance
-     * @param {string} newPerformance - newly selected performance
+     * @function actions:setOption
+     * @param {string} newOption - newly selected option
      * @returns {undefined}
      */
-    setPerformance: function(newPerformance) {
-      if (newPerformance.selected===true) {
-          this.cleanupOption(newPerformance);
+    setOption: function(newOption) {
+      if (newOption.selected===true) {
+          this.cleanupOption(newOption);
       } else {
-        this.selectOption(newPerformance);
+        this.selectOption(newOption);
       }
-      this.sendAction("onChangePerformance", this.get('selectedOptions'));
+      this.sendAction("onOptionsChange", this.get('selectedOptions'));
     }
   },
   // -------------------------------------------------------------------------
@@ -44,7 +45,7 @@ export default Ember.Component.extend({
 // Properties
 
   /**
-   * List of performance options to be displayed by the component
+   * List of  options to be displayed by the component
    *
    * @constant {Array}
    */
@@ -66,9 +67,9 @@ export default Ember.Component.extend({
   })]),
 
   /**
-   * @property {String|Function} onChangePerformance - event handler for when the selected performance is changed
+   * @property {String|Function} onOptionsChange - event handler for when the selected option is changed
    */
-  onChangePerformance: null,
+  onOptionsChange: null,
 
   /**
    * Min options for select
@@ -85,7 +86,7 @@ export default Ember.Component.extend({
     max:1,
 
   /**
-   *Computed property to calculate if the length of selectedPerformance is less than the max value accepted
+   *Computed property to calculate if the length of selectedOptions is less than the max value accepted
    *
    * @property
    */
@@ -93,7 +94,7 @@ export default Ember.Component.extend({
       return (this.get('selectedOptions.length') < this.get('max'));
   }),
   /**
-   *Computed property to calculate if the length of selectedPerformance is grater than the min value accepted
+   *Computed property to calculate if the length of selectedOptions is grater than the min value accepted
    *
    * @property
    */
@@ -101,7 +102,7 @@ export default Ember.Component.extend({
       return (this.get('selectedOptions.length') > this.get('min'));
   }),
   /**
-   *Computed property to calculate if the max length of selectedPerformance is equal than the min value accepted
+   *Computed property to calculate if the max length of selectedOptions is equal than the min value accepted
    *
    * @property
    */
@@ -121,37 +122,41 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Methods
   /**
-   *When unselected a performance option
+   *When unselected  option
    *
    */
-  cleanupOption: function(performance) {
+  cleanupOption: function(option) {
     if(this.get('isGreaterThanMinValue')){
-      performance.set('selected', false);
+      option.set('selected', false);
     }
   },
 
   /**
-   *When select a performance option
+   *When select a option
    *
    */
-  selectOption: function(performanceOption) {
+  selectOption: function(option) {
     if(this.get('areSingleSelected')){
       this.cleanSelectedOptions(this.get('selectedOptions'));
-      this.addOption(performanceOption);
+      this.addOption(option);
     }else{
       if(this.get('isLessThanMaxValue')){
-       this.addOption(performanceOption);
+       this.addOption(option);
       }
     }
   },
 
   /**
-   *Add option in SelectedPerformance array
+   * Selected a option.
    *
    */
-  addOption:function(performanceOption){
-    performanceOption.set('selected', true);
+  addOption:function(option){
+    option.set('selected', true);
   },
+  /**
+   * Unselected a option.
+   *
+   */
   cleanSelectedOptions:function(selectedOptions){
     selectedOptions.forEach(function(option){
       option.set("selected", false);
