@@ -20,7 +20,7 @@ export default Ember.Controller.extend({
    * @property theme style tag
    */
   themeStyleTag: function(){
-    const themeStylesUrl = this.get("theme.stylesUrl")
+    const themeStylesUrl = this.get("theme.stylesUrl");
     return themeStylesUrl  ? `<link rel="stylesheet" type="text/css" href="${themeStylesUrl}">` : '';
   }.property("theme.stylesUrl"),
 
