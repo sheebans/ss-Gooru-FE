@@ -65,10 +65,12 @@ button.btn-link {
   -webkit-align-items: center;
 }
 .row-eq-height {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display:         flex;
+  @media (min-width: $screen-sm-min) {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+  }
 }
 .align-cols-vertically {
   display: flex;

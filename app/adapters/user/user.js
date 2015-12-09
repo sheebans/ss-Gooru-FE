@@ -17,6 +17,7 @@ export default ApplicationAdapter.extend({
 
       delete query.isMembersByClass;
       delete query.classId;
+
       return `/gooruapi/rest/v3/class/${classId}/member`;
     } else {
       return this._super(query, modelName);
