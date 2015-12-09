@@ -16,7 +16,13 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Actions
+  actions:{
 
+    changePerformance:function(performance){
+      this.set('selectPerformanceOptions',performance);
+      console.log(performance);
+    }
+  },
   // -------------------------------------------------------------------------
   // Events
 
@@ -28,7 +34,8 @@ export default Ember.Controller.extend({
    * @see controllers/class.js
    * @property {Class}
    */
-  "class": Ember.computed.reads('classController.class'),
+  "class": Ember.computed.reads('classController.class')
+
 
   // -------------------------------------------------------------------------
   // Observers
