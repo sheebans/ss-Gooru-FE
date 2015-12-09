@@ -88,7 +88,7 @@ test('Layout when navigator is closed', function(assert) {
 
 });
 
-test('Player Navigator keyup', function(assert) {
+test('Player Navigator keyup on left', function(assert) {
 
   //assert.expect(8);
 
@@ -123,6 +123,76 @@ test('Player Navigator keyup', function(assert) {
       if(resource.id==='1'){
         return resourceMockB;
       }
+    },
+    prevResource(resource){
+      if(resource.id==='2'){
+        return resourceMockA;
+      }
+    }
+  });
+
+  this.set('collection', collectionMock);
+
+
+
+  this.render(hbs`{{player.gru-navigator collection=collection selectedResourceId='2'}}`);
+
+  let $component = this.$(); //component dom element
+
+  const $navigator = $component.find(".gru-navigator");
+  let $selected = $navigator.find(".selected");
+  assert.equal($selected.attr('id'), 'item_2', "Incorrect selected resource item id 1");
+  let e = $.Event('keyup');
+
+  e.which = 37; //Right arrow Character
+  $navigator.trigger(e);
+  $selected = $navigator.find(".selected");
+  assert.equal($selected.attr('id'), 'item_1', "Incorrect selected resource item id 2");
+
+
+});
+
+
+test('Player Navigator keyup on right', function(assert) {
+
+  //assert.expect(8);
+
+  const resourceMockA = Ember.Object.create({
+    id: '1',
+    title: '<p>Resource #1</p>',
+    resourceFormat: 'question',
+    "isQuestion": true
+  });
+
+  const resourceMockB = Ember.Object.create({
+    id: '2',
+    title: 'Resource #2',
+    resourceFormat: 'webpage',
+    "isQuestion": false
+  });
+
+  const collectionMock = Ember.Object.create({
+    id: '490ffa82-aa15-4101-81e7-e148002f90af',
+    title: 'Test collection',
+    resources: Ember.A([
+      resourceMockA,
+      resourceMockB
+    ]),
+    lastVisitedResource: resourceMockB,
+    getResourceById: function(id){
+      if(id === '1'){
+        return resourceMockA;
+      }else if (id ==='2'){ return resourceMockB;}
+    },
+    nextResource(resource){
+      if(resource.id==='1'){
+        return resourceMockB;
+      }
+    },
+    prevResource(resource){
+      if(resource.id==='2'){
+        return resourceMockA;
+      }
     }
   });
 
@@ -136,13 +206,13 @@ test('Player Navigator keyup', function(assert) {
 
   const $navigator = $component.find(".gru-navigator");
   let $selected = $navigator.find(".selected");
-  assert.equal($selected.attr('id'), 'item_1', "Incorrect selected resource item id , selectedId: "+$selected.attr('id'));
+  assert.equal($selected.attr('id'), 'item_1', "Incorrect selected resource item id 1");
   let e = $.Event('keyup');
 
   e.which = 39; //Right arrow Character
   $navigator.trigger(e);
   $selected = $navigator.find(".selected");
-  assert.equal($selected.attr('id'), 'item_2', "Incorrect selected resource item id , selectedId: "+$selected.attr('id'));
+  assert.equal($selected.attr('id'), 'item_2', "Incorrect selected resource item id 2");
 
 
 });

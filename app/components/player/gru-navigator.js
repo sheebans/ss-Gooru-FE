@@ -94,27 +94,29 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
 
   // Methods
+
+
+  navigateTo: function(directionMethod) {
+    const collection = this.get("collection");
+    const resource = collection.getResourceById(this.get('selectedResourceId'));
+    this.selectItem(collection[directionMethod](resource));
+  },
   /**
    * Triggered when a key is released from press
    * @param {Event object} event
    */
   navigateOnKeyUp: function(e) {
-    const KEY_RIGHT=39;
-    const KEY_LEFT=37;
-    if (e.which===KEY_RIGHT){
+    if (e.which === 37 || e.which === 39){
       e.preventDefault();
-      const component = e.data._self;
-      const collection = component.get("collection");
-      const resource = collection.getResourceById(component.get('selectedResourceId'));
-      component.selectItem(collection.nextResource(resource));
-    }else if (e.which===KEY_LEFT){
-      e.preventDefault();
-      const component = e.data._self;
-      const collection = component.get("collection");
-      const resource = collection.getResourceById(component.get('selectedResourceId'));
-      component.selectItem(collection.prevResource(resource));
+      const KEY_RIGHT=39;
+      const KEY_LEFT=37;
+      if (e.which===KEY_RIGHT){
+        e.data._self.navigateTo('nextResource');
+      }else if (e.which===KEY_LEFT){
+        e.data._self.navigateTo('prevResource');
+      }
+      return false;
     }
-    return false;
   },
 
   /**
@@ -132,8 +134,8 @@ export default Ember.Component.extend({
    * @param {Resource} item
    */
   selectItem: function(item) {
-    const itemId = item.id;
-    if (itemId){
+    if (item){
+      const itemId = item.id;
       if (this.get("onItemSelected")){
         this.sendAction("onItemSelected", item);
       }

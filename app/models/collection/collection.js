@@ -121,7 +121,7 @@ export default DS.Model.extend({
       next = resources.objectAt(index - 1);
     }
     return next;
-  },
+},
 
   /**
    * Gets the resource by id
