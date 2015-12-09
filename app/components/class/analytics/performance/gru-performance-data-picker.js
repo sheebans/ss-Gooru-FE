@@ -85,7 +85,7 @@ export default Ember.Component.extend({
   /**
    * Max options for select
    *
-   * @constant {Number}
+   * @property {Number}
    */
     max:1,
 
