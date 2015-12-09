@@ -2,14 +2,27 @@ import Ember from "ember";
 
 export default Ember.Controller.extend({
 
-  queryParams: ['theme'],
+  queryParams: ['themeId'],
 
   session: Ember.inject.service("session"),
 
   /**
    * @property {string} application theme
    */
+  themeId: null,
+
+  /**
+   * @property {GruTheme} application theme
+   */
   theme: null,
+
+  /**
+   * @property theme style tag
+   */
+  themeStyleTag: function(){
+    const themeStylesUrl = this.get("theme.stylesUrl")
+    return themeStylesUrl  ? `<link rel="stylesheet" type="text/css" href="${themeStylesUrl}">` : '';
+  }.property("theme.stylesUrl"),
 
 
   actions: {

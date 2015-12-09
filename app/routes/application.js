@@ -21,7 +21,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     const route = this;
     const currentSession = route.get("session.data.authenticated");
     const themeConfig = Env['themes'] || {};
-    const themeId = params.theme || Env['themes'].default;
+    const themeId = params.themeId || Env['themes'].default;
 
     var theme = null;
     if (themeId && themeConfig[themeId]){
@@ -31,25 +31,24 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     return Ember.RSVP.hash({
       currentSession: currentSession,
       theme: theme,
-      translations: theme ? theme.get("translations") : null
+      translations: theme ? theme.loadTranslations() : null
     });
   },
 
   setupController: function(controller, model){
     const theme = model.theme;
     if (theme){
-      this.setupTheme(theme, model.translations);
+      controller.set("theme", theme);
+      this.setupTheme(theme);
     }
   },
 
   /**
    * Setups the application theme
    * @param {GruTheme} theme
-   * @param {{}} translations theme translations
    */
-  setupTheme: function(theme, translations){
-    this.setupThemeTranslations(theme.get("locale"), translations);
-    //TODO setupThemeStyles
+  setupTheme: function(theme){
+    this.setupThemeTranslations(theme.get("locale"), theme.get("translations"));
   },
 
   /**

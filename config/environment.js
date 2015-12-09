@@ -37,7 +37,7 @@ module.exports = function (environment) {
       'id': 'edify',
       'locale': 'en-edify', /* this way it fallback to 'en' */
       'translationsUrl': 'assets/themes/edify/translations.json',
-      'stylesUrl': 'assets/themes/edify/edify.css'
+      'stylesUrl': 'assets/themes/edify/styles.css'
     }
   };
 

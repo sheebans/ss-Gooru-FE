@@ -26,9 +26,61 @@ export default Ember.Object.extend({
   stylesUrl: null,
 
   /**
+   * Loaded styles
+   * @property {string} styles
+   */
+  styles: '',
+
+  /**
    * @property {string} path to a javascript translation file complaint with ember-i18n
    */
   translationsUrl: null,
+
+  /**
+   * Loaded translations
+   * @property {[]} translations
+   * @private
+   */
+  translations: Ember.A(),
+
+  // -------------------------------------------------------------------------
+  // Methods
+  /**
+   * Returns theme translations
+   *
+   * {
+   *   "en" : {
+   *      "common" : {
+   *        "search": "Search"
+   *      }
+   *    }
+   * }
+   *
+   */
+  loadTranslations: function(){
+    const theme = this;
+    const url = theme.get("translationsUrl");
+    if (url){
+      return theme._loadTranslations(url).then(function(translations){
+          theme.set("translations", translations);
+          return translations;
+        });
+    }
+    return Ember.A();
+  },
+
+  /**
+   * Loads translations from a url
+   * @param {string} url
+   * @returns {Promise}
+   * @private
+   */
+  _loadTranslations: function(url){
+    return new Ember.RSVP.Promise(function(resolve) {
+      Ember.$.get(url, null, resolve);
+    });
+  },
+
 
   /**
    * Returns theme translations
@@ -42,27 +94,27 @@ export default Ember.Object.extend({
    * }
    *
    */
-  translations: function(){
+  loadStyles: function(){
     const theme = this;
-    const url = theme.get("translationsUrl");
-    return url ? theme.loadTranslations(url) : Ember.A();
-  }.property(),
+    const url = theme.get("stylesUrl");
+    if (url){
+      return theme._loadStyles(url).then(function(styles){
+        theme.set("styles", styles);
+        return styles;
+      });
+    }
+    return '';
+  },
 
   /**
-   * @property {[]} translations
-   * @private
-   */
-  _translations: Ember.A(),
-
-  // -------------------------------------------------------------------------
-  // Methods
-  /**
-   * Loads translations from a url
+   * Loads Styles from a url
    * @param {string} url
    * @returns {Promise}
    */
-  loadTranslations: function(url){
-    return Ember.$.get(url)
+  _loadStyles: function(url){
+    return new Ember.RSVP.Promise(function(resolve) {
+      Ember.$.get(url, null, resolve);
+    });
   }
 
 
