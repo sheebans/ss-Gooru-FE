@@ -88,11 +88,7 @@ export default Ember.Component.extend({
    * @property
    */
   isLessThanMaxValue: Ember.computed('max','selectedPerformance.length', function() {
-      if(this.selectedPerformance.length < this.max){
-        return true;
-      }else{
-        return false;
-      }
+      return (this.selectedPerformance.length < this.max);
   }),
   /**
    *Computed property to calculate if the length of selectedPerformance is grater than the min value accepted
@@ -100,11 +96,7 @@ export default Ember.Component.extend({
    * @property
    */
   isGreaterThanMinValue:  Ember.computed('min','selectedPerformance.length', function() {
-      if(this.selectedPerformance.length > this.min){
-        return true;
-      }else{
-        return false;
-      }
+      return (this.selectedPerformance.length > this.min);
   }),
   /**
    *Computed property to calculate if the max length of selectedPerformance is equal than the min value accepted
@@ -112,11 +104,7 @@ export default Ember.Component.extend({
    * @property
    */
   areEqualValues:Ember.computed('min','max', function() {
-    if(this.min === this.max){
-      return true;
-    }else{
-      return false;
-    }
+    return (this.min === this.max);
   }),
 
 
