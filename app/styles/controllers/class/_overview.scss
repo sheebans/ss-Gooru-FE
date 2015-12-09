@@ -27,22 +27,18 @@
     }
   }
 
-  .locate-me{
+  .locate-me {
     float: right;
   }
 
-  ul{
-    list-style: none;
-    padding-left: 15px;
-
-    li{
-      padding: 10px;
-    }
-  }
   .gru-accordion-course {
     padding:20px;
     @media (min-width: $screen-md) {
       padding-top: $overview-header;
+    }
+
+    .gru-accordion-unit {
+      
     }
   }
 }
