@@ -2,11 +2,7 @@
     <ul class="performance-list">
       {{#each options as |option|}}
           <li {{action 'setPerformance' option}}>
-              {{#if option.selected}}
-                  <span class="{{option.value}} active">{{fa-icon icon="fa-circle"}}</span>
-              {{else}}
-                  <span class="{{option.value}}">{{fa-icon icon="fa-circle"}}</span>
-              {{/if}}
+              <span class="{{option.value}} {{if option.selected 'active'}}">{{fa-icon icon="fa-circle"}}</span>
               <span>{{t (concat 'gru-performance-data-picker.' option.value) }}</span>
           </li>
       {{/each}}

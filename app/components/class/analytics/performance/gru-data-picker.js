@@ -14,7 +14,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['gru-performance-data-picker'],
+  classNames: ['gru-data-picker'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -29,12 +29,12 @@ export default Ember.Component.extend({
      * @returns {undefined}
      */
     setPerformance: function(newPerformance) {
-      if (this.get('selectedPerformance').contains(newPerformance.value)) {
-          this.cleanupPerformance(newPerformance);
+      if (newPerformance.selected===true) {
+          this.cleanupOption(newPerformance);
       } else {
-        this.selectPerformanceOption(newPerformance);
+        this.selectOption(newPerformance);
       }
-      this.sendAction("onChangePerformance", this.get('selectedPerformance'));
+      this.sendAction("onChangePerformance", this.get('selectedOptions'));
     }
   },
   // -------------------------------------------------------------------------
@@ -48,32 +48,27 @@ export default Ember.Component.extend({
    *
    * @constant {Array}
    */
-  options: Ember.A([{
+  options: Ember.A([Ember.Object.create({
     'value': 'score',
     'selected':true
-  },{
+  }),Ember.Object.create({
     'value': 'completion',
     'selected':false
-  },{
+  }),Ember.Object.create({
     'value': 'time',
     'selected':false
-  },{
+  }),Ember.Object.create({
     'value': 'reaction',
     'selected':false
-  },{
+  }),Ember.Object.create({
     'value': 'attempt',
     'selected':false
-  }]),
+  })]),
 
   /**
    * @property {String|Function} onChangePerformance - event handler for when the selected performance is changed
    */
   onChangePerformance: null,
-
-  /**
-   * @property {[]} selectedPerformance - selected performance
-   */
-  selectedPerformance: Ember.A(['score']),
 
   /**
    * Min options for select
@@ -94,24 +89,32 @@ export default Ember.Component.extend({
    *
    * @property
    */
-  isLessThanMaxValue: Ember.computed('max','selectedPerformance.length', function() {
-      return (this.selectedPerformance.length < this.max);
+  isLessThanMaxValue: Ember.computed('max','selectedOptions.length', function() {
+      return (this.get('selectedOptions.length') < this.get('max'));
   }),
   /**
    *Computed property to calculate if the length of selectedPerformance is grater than the min value accepted
    *
    * @property
    */
-  isGreaterThanMinValue:  Ember.computed('min','selectedPerformance.length', function() {
-      return (this.selectedPerformance.length > this.min);
+  isGreaterThanMinValue:  Ember.computed('min','selectedOptions.length', function() {
+      return (this.get('selectedOptions.length') > this.get('min'));
   }),
   /**
    *Computed property to calculate if the max length of selectedPerformance is equal than the min value accepted
    *
    * @property
    */
-  areEqualValues:Ember.computed('min','max', function() {
-    return (this.min === this.max);
+  areSingleSelected:Ember.computed('min','max', function() {
+    return (this.get('min') === this.get('max'));
+  }),
+  /**
+   *Computed property that return all options selected
+   *
+   * @property
+   */
+  selectedOptions :Ember.computed('options.@each.selected',function(){
+    return this.get('options').filterBy('selected',true);
   }),
 
 
@@ -121,10 +124,9 @@ export default Ember.Component.extend({
    *When unselected a performance option
    *
    */
-  cleanupPerformance: function(performance) {
+  cleanupOption: function(performance) {
     if(this.get('isGreaterThanMinValue')){
-      Ember.set(performance,'selected',!performance.selected);
-      this.get('selectedPerformance').removeObject(performance.value);
+      performance.set('selected', false);
     }
   },
 
@@ -132,10 +134,9 @@ export default Ember.Component.extend({
    *When select a performance option
    *
    */
-  selectPerformanceOption: function(performanceOption) {
-    if(this.get('areEqualValues')){
-      this.get('selectedPerformance').pop();
-      Ember.set(this.get('options').findBy('selected',true),'selected',false);
+  selectOption: function(performanceOption) {
+    if(this.get('areSingleSelected')){
+      this.cleanSelectedOptions(this.get('selectedOptions'));
       this.addOption(performanceOption);
     }else{
       if(this.get('isLessThanMaxValue')){
@@ -149,8 +150,12 @@ export default Ember.Component.extend({
    *
    */
   addOption:function(performanceOption){
-    Ember.set(performanceOption,'selected',!performanceOption.selected);
-    this.get('selectedPerformance').addObject(performanceOption.value);
+    performanceOption.set('selected', true);
+  },
+  cleanSelectedOptions:function(selectedOptions){
+    selectedOptions.forEach(function(option){
+      option.set("selected", false);
+    });
   }
 });
 

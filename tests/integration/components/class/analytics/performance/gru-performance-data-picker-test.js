@@ -3,7 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 import Ember from 'ember';
 
-moduleForComponent('class/analytics/performance/gru-performance-data-picker', 'Integration | Component | class/analytics/performance/gru performance data picker', {
+moduleForComponent('class/analytics/performance/gru-data-picker', 'Integration | Component | class/analytics/performance/gru performance data picker', {
   integration: true,
   beforeEach: function () {
     this.container.lookup('service:i18n').set("locale","en");
@@ -15,10 +15,10 @@ test('Performance Data Picker Layout', function(assert) {
   const valueDefault = Ember.A["Score"];
 
   this.set('valueDefault', valueDefault);
-  this.render(hbs`{{class/analytics/performance/gru-performance-data-picker selectedPerformance=valueDefault}}`);
+  this.render(hbs`{{class/analytics/performance/gru-data-picker selectedPerformance=valueDefault}}`);
 
   const $component = this.$(); //component dom element
-  const $performanceDataPicker = $component.find(".gru-performance-data-picker");
+  const $performanceDataPicker = $component.find(".gru-data-picker");
 
   T.exists(assert, $performanceDataPicker, 'Missing performance data picker');
 
@@ -44,7 +44,7 @@ test('Performance Data Picker Layout', function(assert) {
 test('Performance Data Picker Default', function(assert) {
   assert.expect(2);
 
-  this.render(hbs`{{class/analytics/performance/gru-performance-data-picker}}`);
+  this.render(hbs`{{class/analytics/performance/gru-data-picker}}`);
 
   const $component = this.$(); //component dom element
 
@@ -60,48 +60,48 @@ test('Select performance', function(assert) {
   assert.expect(1);
 
   this.on('parentAction', function(performance){
-    assert.equal('score', performance);
+    assert.equal('score', performance[0].get('value'));
   });
 
-  this.render(hbs`{{class/analytics/performance/gru-performance-data-picker onChangePerformance='parentAction'}}`);
+  this.render(hbs`{{class/analytics/performance/gru-data-picker onChangePerformance='parentAction'}}`);
   var $component = this.$(); //component dom element
   var $performanceDataPicker = $component.find("ul.performance-list");
   $performanceDataPicker.find("li:first-child").click();
 });
 
 test('Verify selected performance with specific max value', function(assert) {
-  assert.expect(1);
+  assert.expect(4);
 
   const max = 3;
-  const valueDefault = ["score","time","attempt"];
   this.on('parentAction', function(performance){
-    assert.equal('score,time,attempt', performance);
+    assert.ok(performance.get("length") <= 3, "Selected options should be less than max"); //this is called 4 times
   });
 
-  this.set('valueDefault', valueDefault);
   this.set('max', max);
 
 
-  this.render(hbs`{{class/analytics/performance/gru-performance-data-picker selectedPerformance=valueDefault max=max onChangePerformance='parentAction'}}`);
+  this.render(hbs`{{class/analytics/performance/gru-data-picker max=max onChangePerformance='parentAction'}}`);
   var $component = this.$(); //component dom element
   var $performanceDataPicker = $component.find("ul.performance-list");
   $performanceDataPicker.find("li:eq(1)").click();//try select completion option
-
+  $performanceDataPicker.find("li:eq(0)").click();
+  $performanceDataPicker.find("li:eq(2)").click();
+  $performanceDataPicker.find("li:eq(3)").click();
 });
 
 test('Verify that there is at least one selected', function(assert) {
-  assert.expect(1);
-  const valueDefault = ["score"];
-  this.on('parentAction', function(performance){
-    assert.equal('score', performance);
+  assert.expect(2);
+
+  this.on('parentAction', function(selectedOptions){
+    assert.ok(selectedOptions.get("length") === 1, "Selected options should be equal than min");
   });
 
-  this.set('valueDefault', valueDefault);
 
-
-  this.render(hbs`{{class/analytics/performance/gru-performance-data-picker selectedPerformance=valueDefault onChangePerformance='parentAction'}}`);
+  this.render(hbs`{{class/analytics/performance/gru-data-picker onChangePerformance='parentAction'}}`);
   var $component = this.$(); //component dom element
   var $performanceDataPicker = $component.find("ul.performance-list");
   $performanceDataPicker.find("li:eq(0)").click();//try unselected score
+  $performanceDataPicker.find("li:eq(1)").click();//change option
+
 
 });
