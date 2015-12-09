@@ -1,0 +1,50 @@
+.controller.analytics-performance-teacher {
+  .navigation {
+    text-align: center;
+    .performance {
+      min-height: 50px;
+    }
+    .mastery {
+      border: 1px solid $color-gray-primary;
+      min-height: 50px;
+    }
+  }
+
+  .controls {
+    .gru-breadcrumb {
+      min-height: 50px;
+      background-color: darkgray;
+    }
+    .gru-actions {
+      background-color: lightgrey;
+      min-height: 50px;
+    }
+  }
+
+  .controls {
+    .gru-breadcrumb {
+      min-height: 50px;
+      background-color: darkgray;
+    }
+    .gru-actions {
+      background-color: lightgrey;
+      min-height: 50px;
+    }
+  }
+
+  .gru-filters {
+    .data-picker {
+      min-height: 50px;
+      background-color: #448dae;
+    }
+    .performance-scale {
+      background-color: cornflowerblue;
+      min-height: 50px;
+    }
+  }
+
+  .gru-content {
+    background-color: darkgray;
+    min-height: 400px; /* This is temporal for layout */
+  }
+}

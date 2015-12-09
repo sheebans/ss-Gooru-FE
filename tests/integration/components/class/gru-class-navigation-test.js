@@ -54,7 +54,7 @@ test('Class Navigation', function(assert) {
 });
 
 test('Layout when a menu Item is selected', function(assert) {
-  assert.expect(2);
+  assert.expect(5);
 
   this.on('itemSelected', function(){
     assert.ok(true, 'external Action was called!');
@@ -63,8 +63,11 @@ test('Layout when a menu Item is selected', function(assert) {
   this.render(hbs`{{class.gru-class-navigation onItemSelected='itemSelected'}}`);
   var $navigation = this.$(); //component dom element
   const $infoMenuItem = $navigation.find(".class-menu .info");
+  const $overviewMenuItem = $navigation.find(".class-menu .overview");
 
   assert.ok($infoMenuItem, "Missing info item in the class menu");
+  assert.ok($overviewMenuItem, "Missing overview item in the class menu");
   $infoMenuItem.click();
-
+  $overviewMenuItem.click();
+  assert.equal($navigation.find(".class-menu .class-menu-item.selected").length, 1, "The class menu menu should have only one item selected");
 });
