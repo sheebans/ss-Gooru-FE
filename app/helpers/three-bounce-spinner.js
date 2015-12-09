@@ -1,0 +1,12 @@
+import Ember from 'ember';
+
+export function threeBounceSpinner() {
+  const html = '<div class="three-bounce-spinner"> \
+                  <div class="bounce1"></div> \
+                  <div class="bounce2"></div> \
+                  <div class="bounce3"></div> \
+                </div>';
+  return new Ember.Handlebars.SafeString(html);
+}
+
+export default Ember.Helper.helper(threeBounceSpinner);

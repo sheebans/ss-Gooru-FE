@@ -23,7 +23,7 @@
     <ol class="panel-group" id="{{accordionId}}" role="tablist" aria-multiselectable="true">
 
     {{#if items.isPending}}
-      <li>{{t "common.loading"}}</li>
+      {{three-bounce-spinner}}
     {{else}}
 
       {{#each visibleItems as |item index|}}

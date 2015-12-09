@@ -23,7 +23,7 @@
     <ol>
 
     {{#if items.isPending}}
-      <li>{{t "common.loading"}}</li>
+      {{three-bounce-spinner}}
     {{else}}
 
       {{#each visibleItems as |item index|}}
