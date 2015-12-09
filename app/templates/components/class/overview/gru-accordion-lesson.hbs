@@ -1,4 +1,5 @@
 <div class="panel-heading" role="tab" id="{{elementId}}-heading">
+  <img class="img-circle" src="/assets/gooru/profile.png" alt="{{model.title}}" />
   <strong class="panel-title">
     <a class="collapsed"
        role="button"
@@ -20,14 +21,19 @@
      aria-labelledby="{{elementId}}-heading">
 
   <div class="panel-body">
-    <ol>
+    <ol class="collections">
 
     {{#if items.isPending}}
       {{three-bounce-spinner}}
     {{else}}
 
       {{#each visibleItems as |item index|}}
-        <li>{{t "common.collectionInitial"}}{{plus-one index}}&colon; {{item.title}}</li>
+        <li class="panel">
+          <div class="panel-heading">
+            <img src="/assets/gooru/profile.png" alt="{{model.title}}" />
+            <span class="panel-title">{{t "common.collectionInitial"}}{{plus-one index}}&colon; {{item.title}}</span>
+          </div>
+        </li>
       {{else}}
         <li>{{t "common.content_unavailable"}}</li>
       {{/each}}

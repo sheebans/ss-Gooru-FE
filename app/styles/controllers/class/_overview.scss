@@ -1,8 +1,7 @@
-.controller.overview{
+.controller.overview {
 
 
   .fixed {
-
 
     @media (min-width: $screen-md) {
       position: fixed;
@@ -38,7 +37,49 @@
     }
 
     .gru-accordion-unit {
-      
+
+      .gru-accordion-lesson {
+
+        .panel-heading {
+          position: relative;
+
+          .img-circle {
+            position: absolute;
+            top: 5px;
+            left: 0;
+            height: 35px;
+            width: 35px;
+            border: 1px solid $gray-light;
+          }
+
+          .panel-title {
+            display: block;
+            border-bottom: 1px solid $gray-light;
+            margin-left: 25px;
+            padding-left: 25px;
+          }
+        }
+
+        .collections {
+
+          .panel-heading {
+
+            img {
+              position: absolute;
+              top: 5px;
+              left: 50px;
+              height: 28px;
+              width: 36px;
+              border: 1px solid $gray-light;
+            }
+
+            .panel-title {
+              padding-left: 38px;
+              margin-left: 60px;
+            }
+          }
+        }
+      }
     }
   }
 }
