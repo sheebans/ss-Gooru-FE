@@ -1,0 +1,45 @@
+<div class="panel-heading" role="tab" id="{{elementId}}-heading">
+  <strong class="panel-title">
+    <a class="collapsed"
+       role="button"
+       data-toggle="collapse"
+       data-parent="#{{belongsTo}}"
+       href="#{{elementId}}-content"
+       aria-expanded="false"
+       aria-controls="{{elementId}}-content"
+       {{action "loadData"}}>
+        {{model.title}}
+    </a>
+  </strong>
+</div>
+
+<div id="{{elementId}}-content"
+     data-index="{{componentIndex}}"
+     class="panel-collapse collapse"
+     role="tabpanel"
+     aria-labelledby="{{elementId}}-heading">
+
+  <div class="panel-body">
+    <ol class="panel-group" id="{{accordionId}}" role="tablist" aria-multiselectable="true">
+
+    {{#if items.isPending}}
+      <li>{{t "common.loading"}}</li>
+    {{else}}
+
+      {{#each visibleItems as |item index|}}
+
+        {{class.overview.gru-accordion-lesson
+          currentClass=currentClass
+          unitId=model.id
+          model=item
+          belongsTo=accordionId }}
+
+      {{else}}
+        <li>{{t "common.content_unavailable"}}</li>
+      {{/each}}
+
+    {{/if}}
+    </ol>
+
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<ol class="panel-group" id="{{accordionId}}" role="tablist" aria-multiselectable="true">
+  {{#if items.isPending}}
+    <li>{{t "common.loading"}}</li>
+  {{else}}
+
+    {{#each visibleItems as |item|}}
+
+      {{class.overview.gru-accordion-unit
+          currentClass=currentClass
+          model=item
+          belongsTo=accordionId }}
+
+    {{else}}
+      <li>{{t "common.content_unavailable"}}</li>
+    {{/each}}
+
+  {{/if}}
+</ol>
+

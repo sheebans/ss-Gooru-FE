@@ -5,6 +5,7 @@ export default {
    */
   "common": {
     "close": "Close",
+    "content_unavailable": "Content not available",
     "create": "Create",
     "email_support": "support@gooru.org",
     "explanation": "Explanation",
@@ -313,8 +314,7 @@ export default {
   },
   "class.overview":{
     "title":"Course map",
-    "locate":"Locate Me",
-    "content-not-available": "Content not available"
+    "locate":"Locate Me"
   },
   "class.analytics": {
     "performance": {

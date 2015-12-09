@@ -2,16 +2,17 @@
   {
     "description": "Gets lessons for any class or course",
     "request": {
-      "url": "^/gooruapi/rest/v3/class/(.*)/course/(.*)/unit/(.*)/lesson/(.*)",
+      "url": "^/gooruapi/rest/v3/class/(.*)/course/(.*)/unit/(.*)/lesson",
       "method": "GET"
     },
     "response": {
+      "latency": 1500,
       "status": 200,
       "headers": {
         "Content-Type": "application/json"
       },
       "body": "File not found!",
-      "file": "any-lesson-collections-200-response.json"
+      "file": "any-unit-lessons-200-response.json"
     }
   }
 ]
