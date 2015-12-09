@@ -28,6 +28,17 @@ module.exports = function (environment) {
     baseURL: '/'
   };
 
+  /**
+   * Application themes configuration
+   */
+  ENV['themes'] = {
+    'edify' : {
+      'locale': 'en-edify', /* this way it fallback to 'en' */
+      'translationsUrl': 'assets/themes/edify/translations.json',
+      'stylesUrl': 'assets/themes/edify/edify.css'
+    }
+  };
+
   ENV['player'] = {
     pdfViewerUrl: 'http://qa.gooru.org/doc/a/view',
     vimeoPlayerUrl:'//player.vimeo.com/video/',

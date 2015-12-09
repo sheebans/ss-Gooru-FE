@@ -1,4 +1,6 @@
 import Ember from "ember";
+import GruTheme from '../utils/gru-theme';
+import Env from '../config/environment';
 import ApplicationRouteMixin from "ember-simple-auth/mixins/application-route-mixin";
 
 /**
@@ -7,14 +9,64 @@ import ApplicationRouteMixin from "ember-simple-auth/mixins/application-route-mi
 export default Ember.Route.extend(ApplicationRouteMixin, {
 
   // -------------------------------------------------------------------------
+  // Properties
+
+  i18n: Ember.inject.service(),
+
+
+  // -------------------------------------------------------------------------
   // Methods
 
-  model: function() {
-    var route = this;
-    var currentSession = route.get("session.data.authenticated");
+  model: function(params) {
+    const route = this;
+    const currentSession = route.get("session.data.authenticated");
+    const themeConfig = Env['themes'] || {};
+    const themeId = params.theme;
+    var theme = null;
+    var translations = null;
+    if (themeId && themeConfig[themeId]){
+      theme = GruTheme.create(themeConfig[themeId]);
+      translations = theme.get("translations");
+    }
 
     return Ember.RSVP.hash({
-      currentSession: currentSession
+      currentSession: currentSession,
+      theme: theme,
+      translations: translations
+    });
+  },
+
+  setupController: function(controller, model){
+
+    const theme = model.theme;
+    if (theme){
+      this.setupTheme(theme, model.translations);
+    }
+  },
+
+  /**
+   * Setups the application theme
+   * @param {GruTheme} theme
+   * @param {{}} translations theme translations
+   */
+  setupTheme: function(theme, translations){
+    this.setupThemeTranslations(theme.get("locale"), translations);
+    //TODO setupThemeStyles
+  },
+
+  /**
+   * Setups theme translations
+   * @param {string} locale theme locale
+   * @param {{}} translations theme translations
+   */
+  setupThemeTranslations: function(locale, translations){
+    const i18n = this.get("i18n");
+    //sets the theme locale
+    i18n.set("locale", locale);
+
+    //Add the translations
+    Object.keys(translations).forEach((locale) => {
+      i18n.addTranslations(locale, translations[locale]);
     });
   },
 
