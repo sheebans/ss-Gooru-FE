@@ -1,5 +1,12 @@
 import Ember from 'ember';
-
+/**
+ *Performance Data Picker
+ *
+ *  Component responsible for letting the user select and update a performance option
+ *  from a predefined list of options to display different analytic data.
+ * @module
+ * @augments ember/Component
+ */
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
