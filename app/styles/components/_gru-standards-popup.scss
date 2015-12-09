@@ -15,15 +15,13 @@
       background-color: $color-gray-secondary;
       border-radius: 4px;
       display:inline-block;
-      font-size: 10px;
-
+      font-size: $font-size-xsmall;
       span {
-        font-size: inherit;
         color:$color-white;
       }
     }
     .standard-description p {
-      font-size: 12px;
+      font-size: $font-size-small;
     }
   }
 }
