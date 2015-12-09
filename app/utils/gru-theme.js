@@ -43,12 +43,27 @@ export default Ember.Object.extend({
    *
    */
   translations: function(){
-    return this.get("translationsUrl") ? Ember.$.get(this.get("translationsUrl")) : Ember.A();
-  }.property()
+    const theme = this;
+    const url = theme.get("translationsUrl");
+    return url ? theme.loadTranslations(url) : Ember.A();
+  }.property(),
+
+  /**
+   * @property {[]} translations
+   * @private
+   */
+  _translations: Ember.A(),
 
   // -------------------------------------------------------------------------
   // Methods
-
+  /**
+   * Loads translations from a url
+   * @param {string} url
+   * @returns {Promise}
+   */
+  loadTranslations: function(url){
+    return Ember.$.get(url)
+  }
 
 
 });

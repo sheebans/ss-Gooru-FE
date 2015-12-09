@@ -32,7 +32,9 @@ module.exports = function (environment) {
    * Application themes configuration
    */
   ENV['themes'] = {
+    'default': null, /* when present it is not necessary to pass a query param */
     'edify' : {
+      'id': 'edify',
       'locale': 'en-edify', /* this way it fallback to 'en' */
       'translationsUrl': 'assets/themes/edify/translations.json',
       'stylesUrl': 'assets/themes/edify/edify.css'

@@ -21,23 +21,21 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     const route = this;
     const currentSession = route.get("session.data.authenticated");
     const themeConfig = Env['themes'] || {};
-    const themeId = params.theme;
+    const themeId = params.theme || Env['themes'].default;
+
     var theme = null;
-    var translations = null;
     if (themeId && themeConfig[themeId]){
       theme = GruTheme.create(themeConfig[themeId]);
-      translations = theme.get("translations");
     }
 
     return Ember.RSVP.hash({
       currentSession: currentSession,
       theme: theme,
-      translations: translations
+      translations: theme ? theme.get("translations") : null
     });
   },
 
   setupController: function(controller, model){
-
     const theme = model.theme;
     if (theme){
       this.setupTheme(theme, model.translations);
