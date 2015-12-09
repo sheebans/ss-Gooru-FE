@@ -3,11 +3,12 @@
     <li>{{t "common.loading"}}</li>
   {{else}}
 
-    {{#each visibleItems as |item|}}
+    {{#each visibleItems as |item index|}}
 
       {{class.overview.gru-accordion-unit
           currentClass=currentClass
           model=item
+          index=index
           belongsTo=accordionId }}
 
     {{else}}

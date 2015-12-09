@@ -8,7 +8,7 @@
        aria-expanded="false"
        aria-controls="{{elementId}}-content"
        {{action "loadData"}}>
-        {{model.title}}
+        {{t "common.lessonInitial"}}{{plus-one index}}&colon; {{model.title}}
     </a>
   </strong>
 </div>
@@ -26,8 +26,8 @@
       <li>{{t "common.loading"}}</li>
     {{else}}
 
-      {{#each visibleItems as |item|}}
-        <li>{{item.title}}</li>
+      {{#each visibleItems as |item index|}}
+        <li>{{t "common.collectionInitial"}}{{plus-one index}}&colon; {{item.title}}</li>
       {{else}}
         <li>{{t "common.content_unavailable"}}</li>
       {{/each}}

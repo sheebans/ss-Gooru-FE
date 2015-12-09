@@ -8,7 +8,7 @@
        aria-expanded="false"
        aria-controls="{{elementId}}-content"
        {{action "loadData"}}>
-        {{model.title}}
+        {{t "common.unitInitial"}}{{plus-one index}}&colon; {{model.title}}
     </a>
   </strong>
 </div>
@@ -32,6 +32,7 @@
           currentClass=currentClass
           unitId=model.id
           model=item
+          index=index
           belongsTo=accordionId }}
 
       {{else}}

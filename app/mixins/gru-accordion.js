@@ -34,6 +34,11 @@ export default Ember.Mixin.create({
   currentClass: null,
 
   /**
+   * @prop {Number} index - position of the item in the visibleItems list
+   */
+  index: null,
+
+  /**
    * @prop {Ember.RSVP.Promise} items - children of the accordion
    * Will resolve to {Unit[] | Lesson[] | Collection[]}
    */
