@@ -1,0 +1,109 @@
+.gru-user-icons {
+  $profile-image-width: 40px;
+  $profile-image-height: 40px;
+  $item-border: #757575;
+  $item-background: #EBEBEB;
+  $modal-height: 360px;
+  $tooltip-width: 290px;
+
+  position: absolute;
+  text-align: right;
+  width: $tooltip-width;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .item {
+    position: relative;
+    display: inline-block;
+    height: $profile-image-height;
+    width: $profile-image-width;
+    border: 1px solid $item-border;
+    border-radius: 50%;
+    vertical-align: middle;
+
+    img {
+      height: $profile-image-height - 2px;
+      width: $profile-image-width - 2px;
+    }
+
+    &.num-left {
+      text-align: center;
+      line-height: $profile-image-height - 2px;
+      background-color: $item-background;
+    }
+
+    &.active {
+      border-color: $branding-primary-1;
+    }
+  }
+
+  .first-view {
+    display: inline-block;
+    cursor: default;
+
+    &.clickable {
+      cursor: pointer;
+    }
+  }
+
+  .modal {
+    text-align: left;
+
+    .item {
+      margin: 6px 4px;
+    }
+
+    .modal-dialog {
+      margin: 30px auto;
+      max-width: 290px;
+
+      .modal-header {
+        padding-top: 10px;
+        padding-bottom: 5px;
+
+        .close > span {
+          font-size: 28px;
+          vertical-align: middle;
+        }
+      }
+
+      .modal-body {
+        max-height: $modal-height;
+        overflow: scroll;
+      }
+    }
+
+    @media (min-width: $screen-md) {
+      .modal-dialog {
+        width: 550px;
+        max-width: none;
+      }
+    }
+  }
+
+  // Override default bootstrap styles for placing the tooltip
+  .popover {
+    max-width: $tooltip-width !important;
+    left: auto !important;
+    right: 0 !important;
+
+    .arrow {
+      left: auto !important;
+      right: 5% !important;
+    }
+
+    .popover-content {
+      width: inherit;
+      max-height: $modal-height;
+      overflow: scroll;
+
+      .item {
+        margin: 6px 4px;
+      }
+    }
+  }
+}

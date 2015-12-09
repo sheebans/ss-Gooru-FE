@@ -19,6 +19,10 @@ export default {
     "myClasses": "My Classes",
     "myContent": "My Content",
     "no": "No",
+    "numberStudents": {
+      one: "{{count}} Student",
+      other: "{{count}} Students"
+    },
     "please_contact": "Please contact",
     "remaining": "{{number}} Left",
     "search": "Search",
