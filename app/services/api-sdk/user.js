@@ -49,8 +49,9 @@ export default Ember.Service.extend(StoreMixin, {
    * @param classId the class Id
    * @returns {*}
    */
-  findMembersByClass: function (classId) {
+  findMembersByClass: function (classId, options = {}) {
     return this.get('store').queryRecord('user/user', {
+      limit: options.limit ? options.limit : -1,
       isMembersByClass: true,
       classId: classId
     });
