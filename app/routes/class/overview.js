@@ -14,7 +14,7 @@ export default Ember.Route.extend({
    * @param controller
    * @param model
    */
-  setupController: function(controller,model) {
+  setupController: function(/* controller, model */) {
     this.send("selectMenuItem", 'overview', false);
   }
 });

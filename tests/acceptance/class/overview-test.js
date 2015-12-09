@@ -26,8 +26,5 @@ test('Layout', function(assert) {
     T.exists(assert, $overviewContainer.find(".overview-header"), "Missing overview header");
     T.exists(assert, $overviewContainer.find(".overview-header h5"), "Missing title");
     T.exists(assert, $overviewContainer.find(".locate-me"), "Missing locate me button");
-    T.exists(assert, $overviewContainer.find(".units ul li"), "Missing unit section");
-
-
   });
 });
