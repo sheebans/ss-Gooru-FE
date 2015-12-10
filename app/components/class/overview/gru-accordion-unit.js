@@ -25,6 +25,8 @@ export default Ember.Component.extend(AccordionMixin, {
 
   classNames:['gru-accordion-unit', 'panel', 'panel-default'],
 
+  classNameBindings: ['expanded'],
+
   tagName: 'li',
 
   // -------------------------------------------------------------------------
@@ -34,13 +36,15 @@ export default Ember.Component.extend(AccordionMixin, {
     /**
      * Load the lessons for the unit
      *
-     * @function actions:loadData
+     * @function actions:toggleState
      * @returns {undefined}
      */
-    loadData: function() {
-      if (!this.get('items')) {
-        var itemsPromise = this.getLessons();
-        this.set('items', itemsPromise);
+    toggleState: function() {
+      this.set('expanded', !this.get('expanded'));
+
+      if (this.get('expanded')) {
+        // Loading of data should only happen once
+        this.loadData();
       }
     }
 
@@ -60,6 +64,20 @@ export default Ember.Component.extend(AccordionMixin, {
 
   // -------------------------------------------------------------------------
   // Methods
+  /**
+   * Load the lessons for the unit
+   *
+   * @function
+   * @returns {undefined}
+   */
+  loadData: function() {
+    // Loading of data will only happen if 'items' has not previously been set
+    if (!this.get('items')) {
+      var itemsPromise = this.getLessons();
+      this.set('items', itemsPromise);
+    }
+  },
+
   /**
    * Get all the lessons for the unit
    *

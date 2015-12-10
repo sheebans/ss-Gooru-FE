@@ -40,6 +40,10 @@
 
     .gru-accordion-unit {
 
+      &.expanded {
+        .user-icons { display: none; }
+      }
+
       .gru-accordion-lesson {
 
         .panel-heading {
