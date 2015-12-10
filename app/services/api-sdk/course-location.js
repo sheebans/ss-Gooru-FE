@@ -20,7 +20,8 @@ export default Ember.Service.extend(StoreMixin, {
           firstName: 'firstname-1',
           lastName: 'lastname-1',
           email: 'user_1@test.com',
-          username: 'username-1'
+          username: 'username-1',
+          profileImageUrl: '/assets/gooru/profile.png'
         })
       })])
     });
@@ -47,7 +48,8 @@ export default Ember.Service.extend(StoreMixin, {
               firstName: 'firstname-3',
               lastName: 'lastname-3',
               email: 'user_3@test.com',
-              username: 'username-3'
+              username: 'username-3',
+              profileImageUrl: '/assets/gooru/profile.png'
             })
           }),
           Ember.Object.create({
@@ -57,7 +59,8 @@ export default Ember.Service.extend(StoreMixin, {
               firstName: 'firstname-4',
               lastName: 'lastname-4',
               email: 'user_4@test.com',
-              username: 'username-4'
+              username: 'username-4',
+              profileImageUrl: '/assets/gooru/profile.png'
             })
           })
         ])
@@ -72,7 +75,8 @@ export default Ember.Service.extend(StoreMixin, {
               firstName: 'firstname-5',
               lastName: 'lastname-5',
               email: 'user_5@test.com',
-              username: 'username-5'
+              username: 'username-5',
+              profileImageUrl: '/assets/gooru/profile.png'
             })
           }),
           Ember.Object.create({
@@ -82,7 +86,8 @@ export default Ember.Service.extend(StoreMixin, {
               firstName: 'firstname-6',
               lastName: 'lastname-6',
               email: 'user_6@test.com',
-              username: 'username-6'
+              username: 'username-6',
+              profileImageUrl: '/assets/gooru/profile.png'
             })
           })
         ])
@@ -114,7 +119,8 @@ export default Ember.Service.extend(StoreMixin, {
               firstName: 'firstname-3',
               lastName: 'lastname-3',
               email: 'user_3@test.com',
-              username: 'username-3'
+              username: 'username-3',
+              profileImageUrl: '/assets/gooru/profile.png'
             })
           }),
           Ember.Object.create({
@@ -124,7 +130,8 @@ export default Ember.Service.extend(StoreMixin, {
               firstName: 'firstname-4',
               lastName: 'lastname-4',
               email: 'user_4@test.com',
-              username: 'username-4'
+              username: 'username-4',
+              profileImageUrl: '/assets/gooru/profile.png'
             })
           })
         ])
@@ -140,7 +147,8 @@ export default Ember.Service.extend(StoreMixin, {
               firstName: 'firstname-5',
               lastName: 'lastname-5',
               email: 'user_5@test.com',
-              username: 'username-5'
+              username: 'username-5',
+              profileImageUrl: '/assets/gooru/profile.png'
             })
           }),
           Ember.Object.create({
@@ -150,7 +158,8 @@ export default Ember.Service.extend(StoreMixin, {
               firstName: 'firstname-6',
               lastName: 'lastname-6',
               email: 'user_6@test.com',
-              username: 'username-6'
+              username: 'username-6',
+              profileImageUrl: '/assets/gooru/profile.png'
             })
           })
         ])
@@ -185,7 +194,8 @@ export default Ember.Service.extend(StoreMixin, {
               firstName: 'firstname-3',
               lastName: 'lastname-3',
               email: 'user_3@test.com',
-              username: 'username-3'
+              username: 'username-3',
+              profileImageUrl: '/assets/gooru/profile.png'
             })
           }),
           Ember.Object.create({
@@ -195,7 +205,8 @@ export default Ember.Service.extend(StoreMixin, {
               firstName: 'firstname-4',
               lastName: 'lastname-4',
               email: 'user_4@test.com',
-              username: 'username-4'
+              username: 'username-4',
+              profileImageUrl: '/assets/gooru/profile.png'
             })
           })
         ])
@@ -212,7 +223,8 @@ export default Ember.Service.extend(StoreMixin, {
               firstName: 'firstname-5',
               lastName: 'lastname-5',
               email: 'user_5@test.com',
-              username: 'username-5'
+              username: 'username-5',
+              profileImageUrl: '/assets/gooru/profile.png'
             })
           }),
           Ember.Object.create({
@@ -222,7 +234,8 @@ export default Ember.Service.extend(StoreMixin, {
               firstName: 'firstname-6',
               lastName: 'lastname-6',
               email: 'user_6@test.com',
-              username: 'username-6'
+              username: 'username-6',
+              profileImageUrl: '/assets/gooru/profile.png'
             })
           })
         ])
@@ -256,7 +269,8 @@ export default Ember.Service.extend(StoreMixin, {
             firstName: 'firstname-' + i,
             lastName: 'lastname-' + i,
             email: 'user_' + i + '@test.com',
-            username: 'username-' + i
+            username: 'username-' + i,
+            profileImageUrl: '/assets/gooru/profile.png'
           })
         }));
       }
@@ -270,7 +284,8 @@ export default Ember.Service.extend(StoreMixin, {
             firstName: 'firstname-1',
             lastName: 'lastname-1',
             email: 'user_1@test.com',
-            username: 'username-1'
+            username: 'username-1',
+            profileImageUrl: '/assets/gooru/profile.png'
           })
         }),
         Ember.Object.create({
@@ -280,7 +295,8 @@ export default Ember.Service.extend(StoreMixin, {
             firstName: 'firstname-2',
             lastName: 'lastname-2',
             email: 'user_2@test.com',
-            username: 'username-2'
+            username: 'username-2',
+            profileImageUrl: '/assets/gooru/profile.png'
           })
         })
       ]);

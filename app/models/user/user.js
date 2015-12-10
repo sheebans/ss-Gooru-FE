@@ -1,6 +1,9 @@
 import DS from "ember-data";
 import { validator, buildValidations } from "ember-cp-validations";
 
+// constants
+import DEFAULT_USER_PROFILE_IMAGE from "../../config/config";
+
 const UserValidations = buildValidations({
   firstName: [
     validator('presence', true)
@@ -105,7 +108,7 @@ export default DS.Model.extend(UserValidations, {
   /**
    * @property {string} profileImageUrl
    */
-  profileImageUrl: DS.attr("string"),
+  profileImageUrl: DS.attr("string", { defaultValue: DEFAULT_USER_PROFILE_IMAGE }),
   /**
    * @property {string} userRoleSetString
    */
