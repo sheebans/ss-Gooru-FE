@@ -88,10 +88,12 @@ export default Ember.Component.extend({
    * @prop {Ember.Array} users - List of users to be displayed by the component
    */
   usersSorted: Ember.computed.sort('users', function(a, b) {
-    var firstStatus = a.get('active');
-    var firstName = a.get('name');
-    var secondStatus = b.get('active');
-    var secondName = b.get('name');
+    // Sort first by status (i.e. active before inactive) and then alphabetically
+    // in ascending order by last name
+    var firstStatus = a.get('isActive');
+    var firstName = a.get('user.lastName');
+    var secondStatus = b.get('isActive');
+    var secondName = b.get('user.lastName');
 
     return (firstStatus > secondStatus) ? -1 :
       (firstStatus < secondStatus) ? 1 :

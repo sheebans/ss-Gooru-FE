@@ -1,9 +1,9 @@
 <a class="first-view">
 
   <ul>
-    {{#each firstUsers as |user index|}}
-      <li class="item user {{if user.active 'active' ''}}">
-        <img class="img-circle name-{{index}}" src="{{user.avatar}}" title="{{user.name}}" />
+    {{#each firstUsers as |entity index|}}
+      <li class="item user {{if entity.isActive 'active' ''}}">
+        <img class="img-circle name-{{index}}" src="{{entity.user.profileImageUrl}}" title="{{entity.user.fullName}}" />
       </li>
     {{/each}}
 
@@ -12,9 +12,9 @@
         <span>{{remainingUsersNumber}}</span>
       </li>
     {{else}}
-      {{#each remainingUsers as |user|}}
-        <li class="item user {{if user.active 'active' ''}}">
-          <img class="img-circle" src="{{user.avatar}}" title="{{user.name}}" />
+      {{#each remainingUsers as |entity|}}
+        <li class="item user {{if entity.isActive 'active' ''}}">
+          <img class="img-circle" src="{{entity.user.profileImageUrl}}" title="{{entity.user.fullName}}" />
         </li>
       {{/each}}
     {{/if}}
@@ -32,9 +32,9 @@
         </div>
         <div class="modal-body">
           <ul>
-            {{#each remainingUsers as |user|}}
-              <li class="item user {{if user.active 'active' ''}}">
-                <img class="img-circle" src="{{user.avatar}}" title="{{user.name}}" />
+            {{#each remainingUsers as |entity|}}
+              <li class="item user {{if entity.isActive 'active' ''}}">
+                <img class="img-circle" src="{{entity.user.profileImageUrl}}" title="{{entity.user.fullName}}" />
               </li>
             {{/each}}
           </ul>

@@ -10,8 +10,11 @@ test('it renders all users when the number of users is less than the view thresh
 
   const users = [
     Ember.Object.create({
-      id: 1,
-      name: "Bobby Fisher"
+      user: Ember.Object.create({
+        id: 1,
+        firstName: "Bobby",
+        lastName: "Fisher"
+      })
     })
   ];
 
@@ -32,12 +35,18 @@ test('it renders all users when the number of users is equal to the view thresho
 
   const users = [
     Ember.Object.create({
-      id: 1,
-      name: "Bobby Fisher"
+      user: Ember.Object.create({
+        id: 1,
+        firstName: "Bobby",
+        lastName: "Fisher"
+      })
     }),
     Ember.Object.create({
-      id: 2,
-      name: "John Doe"
+      user: Ember.Object.create({
+        id: 2,
+        firstName: "John",
+        lastName: "Doe"
+      })
     })
   ];
 
@@ -59,20 +68,32 @@ test('it renders all users when the number of users is greater than the view thr
 
   const users = [
     Ember.Object.create({
-      id: 1,
-      name: "Bobby Fisher"
+      user: Ember.Object.create({
+        id: 1,
+        firstName: "Bobby",
+        lastName: "Fisher"
+      })
     }),
     Ember.Object.create({
-      id: 2,
-      name: "John Doe"
+      user: Ember.Object.create({
+        id: 2,
+        firstName: "John",
+        lastName: "Doe"
+      })
     }),
     Ember.Object.create({
-      id: 3,
-      name: "Martha Stewart"
+      user: Ember.Object.create({
+        id: 3,
+        firstName: "Martha",
+        lastName: "Stewart"
+      })
     }),
     Ember.Object.create({
-      id: 4,
-      name: "John Fitzgerald"
+      user: Ember.Object.create({
+        id: 4,
+        firstName: "John",
+        lastName: "Fitzgerald"
+      })
     })
   ];
 
@@ -86,38 +107,62 @@ test('it renders all users when the number of users is greater than the view thr
   assert.equal($component.find('.remaining .user').length, 2);
 });
 
-test('users are sorted first by state (active first), then ascending alphabetically by name', function(assert) {
+test('users are sorted first by state (active first), then ascending alphabetically by last name', function(assert) {
 
   const users = [
     Ember.Object.create({
-      id: 1,
-      name: "John Fitzgerald",
-      active: false
+      isActive: false,
+      user: Ember.Object.create({
+        id: 1,
+        firstName: "John",
+        lastName: "Fitzgerald",
+        fullName: "Fitzgerald, John"
+      })
     }),
     Ember.Object.create({
-      id: 2,
-      name: "Bobby Fisher",
-      active: false
+      isActive: false,
+      user: Ember.Object.create({
+        id: 2,
+        firstName: "Bobby",
+        lastName: "Fisher",
+        fullName: "Fisher, Bobby"
+      })
     }),
     Ember.Object.create({
-      id: 3,
-      name: "John Doe",
-      active: true
+      isActive: true,
+      user: Ember.Object.create({
+        id: 3,
+        firstName: "John",
+        lastName: "Doe",
+        fullName: "Doe, John"
+      })
     }),
     Ember.Object.create({
-      id: 4,
-      name: "Martha Stewart",
-      active: false
+      isActive: false,
+      user: Ember.Object.create({
+        id: 4,
+        firstName: "Martha",
+        lastName: "Stewart",
+        fullName: "Stewart, Martha"
+      })
     }),
     Ember.Object.create({
-      id: 5,
-      name: "Bennie King",
-      active: true
+      isActive: true,
+      user: Ember.Object.create({
+        id: 5,
+        firstName: "Bennie",
+        lastName: "King",
+        fullName: "King, Bennie"
+      })
     }),
     Ember.Object.create({
-      id: 8,
-      name: "Kennie Wong",
-      active: true
+      isActive: true,
+      user: Ember.Object.create({
+        id: 6,
+        firstName: "Kennie",
+        lastName: "Wong",
+        fullName: "Wong, Kennie"
+      })
     })
   ];
 
@@ -130,33 +175,45 @@ test('users are sorted first by state (active first), then ascending alphabetica
   const $remainingSection = $component.find('.remaining');
 
   assert.equal($firstViewSection.find('.user').length, 2);
-  assert.equal($firstViewSection.find('.user:eq(0) img').prop('title'), 'Bennie King', 'First name does not coincide');
-  assert.equal($firstViewSection.find('.user:eq(1) img').prop('title'), 'John Doe', 'Second name does not coincide');
+  assert.equal($firstViewSection.find('.user:eq(0) img').prop('title'), 'Doe, John', 'First name does not coincide');
+  assert.equal($firstViewSection.find('.user:eq(1) img').prop('title'), 'King, Bennie', 'Second name does not coincide');
 
-  assert.equal($remainingSection.find('.user:eq(0) img').prop('title'), 'Kennie Wong', 'Third name does not coincide');
-  assert.equal($remainingSection.find('.user:eq(1) img').prop('title'), 'Bobby Fisher', 'Fourth name does not coincide');
-  assert.equal($remainingSection.find('.user:eq(2) img').prop('title'), 'John Fitzgerald', 'Fifth name does not coincide');
-  assert.equal($remainingSection.find('.user:eq(3) img').prop('title'), 'Martha Stewart', 'Sixth name does not coincide');
+  assert.equal($remainingSection.find('.user:eq(0) img').prop('title'), 'Wong, Kennie', 'Third name does not coincide');
+  assert.equal($remainingSection.find('.user:eq(1) img').prop('title'), 'Fisher, Bobby', 'Fourth name does not coincide');
+  assert.equal($remainingSection.find('.user:eq(2) img').prop('title'), 'Fitzgerald, John', 'Fifth name does not coincide');
+  assert.equal($remainingSection.find('.user:eq(3) img').prop('title'), 'Stewart, Martha', 'Sixth name does not coincide');
 });
 
 test('it opens/closes a tooltip to view more users when the number of users exceeds the view threshold', function(assert) {
 
   const users = [
     Ember.Object.create({
-      id: 1,
-      name: "Bobby Fisher"
+      user: Ember.Object.create({
+        id: 1,
+        firstName: "Bobby",
+        lastName: "Fisher"
+      })
     }),
     Ember.Object.create({
-      id: 2,
-      name: "John Doe"
+      user: Ember.Object.create({
+        id: 2,
+        firstName: "John",
+        lastName: "Doe"
+      })
     }),
     Ember.Object.create({
-      id: 3,
-      name: "Martha Stewart"
+      user: Ember.Object.create({
+        id: 3,
+        firstName: "Martha",
+        lastName: "Stewart"
+      })
     }),
     Ember.Object.create({
-      id: 4,
-      name: "John Fitzgerald"
+      user: Ember.Object.create({
+        id: 4,
+        firstName: "John",
+        lastName: "Fitzgerald"
+      })
     })
   ];
 
@@ -187,20 +244,32 @@ test('it opens/closes a modal to view more users when the number of users exceed
 
   const users = [
     Ember.Object.create({
-      id: 1,
-      name: "Bobby Fisher"
+      user: Ember.Object.create({
+        id: 1,
+        firstName: "Bobby",
+        lastName: "Fisher"
+      })
     }),
     Ember.Object.create({
-      id: 2,
-      name: "John Doe"
+      user: Ember.Object.create({
+        id: 2,
+        firstName: "John",
+        lastName: "Doe"
+      })
     }),
     Ember.Object.create({
-      id: 3,
-      name: "Martha Stewart"
+      user: Ember.Object.create({
+        id: 3,
+        firstName: "Martha",
+        lastName: "Stewart"
+      })
     }),
     Ember.Object.create({
-      id: 4,
-      name: "John Fitzgerald"
+      user: Ember.Object.create({
+        id: 4,
+        firstName: "John",
+        lastName: "Fitzgerald"
+      })
     })
   ];
 
