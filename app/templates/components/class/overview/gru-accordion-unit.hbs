@@ -11,6 +11,14 @@
         {{t "common.unitInitial"}}{{plus-one index}}&colon; {{model.title}}
     </a>
   </strong>
+  {{!-- Show only for xs --}}
+  <div class="user-icons visible-xs">
+    <span></span>
+  </div>
+  {{!-- Show for all other screen sizes --}}
+  <div class="user-icons hidden-xs">
+    <span></span>
+  </div>
 </div>
 
 <div id="{{elementId}}-content"
