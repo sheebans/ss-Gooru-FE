@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import SessionMixin from '../../mixins/session';
 
-export default Ember.Route.extend(SessionMixin, {
+export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -10,8 +9,6 @@ export default Ember.Route.extend(SessionMixin, {
    * @type {UserService} Service to retrieve user information
    */
   unitService: Ember.inject.service("api-sdk/unit"),
-
-  performanceService: Ember.inject.service('api-sdk/performance'),
 
   // -------------------------------------------------------------------------
   // Actions
