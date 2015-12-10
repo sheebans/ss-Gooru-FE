@@ -35,7 +35,24 @@ test('searchTerm: Search box navigation', function(assert) {
   });
 });
 
-test('Theme support', function(assert) {
+test('Theme support - no theme', function(assert) {
+  visit('/');
+
+  andThen(function() {
+    assert.expect(4); //making sure all asserts are called
+
+    assert.equal(currentURL(), '/');
+
+    assert.ok(!Ember.$("html").attr("id"), "Html element should have no id");
+
+    const $styleLink = Ember.$("#theme-style-link");
+    T.notExists(assert, $styleLink, "Link element should not be added");
+
+    assert.equal(T.text(find(".gru-header .search-button")), 'Search', "Wrong title for search button when no theme is selected");
+  });
+});
+
+test('Theme support - Having translations and styles url', function(assert) {
   visit('/?themeId=edify');
 
   andThen(function() {
@@ -49,6 +66,6 @@ test('Theme support', function(assert) {
     T.exists(assert, $styleLink, "Missing link element having theme style");
     assert.equal($styleLink.attr("href"), "assets/themes/edify/styles.css", "Wrong style url");
 
-    assert.equal(T.text(find("#edify .gru-header .search-button")), 'Buscar', "Wrong title for search button");
+    assert.equal(T.text(Ember.$("#edify .gru-header .search-button")), 'Buscar', "Wrong title for search button");
   });
 });
