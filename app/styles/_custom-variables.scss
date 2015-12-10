@@ -1,3 +1,20 @@
+// ==== BOOTSTRAP OVERRIDES ===
+
+/* Typography */
+$font-family-sans-serif:  Arial, sans-serif !default;
+$font-family-base:        $font-family-sans-serif !default;
+
+$font-size-base:          14px !default;
+
+$font-size-h1:            floor(($font-size-base * 2.15)) !default;  // ~30px
+$font-size-h2:            floor(($font-size-base * 1.71))  !default;  // ~24px
+$font-size-h3:            ceil(($font-size-base  * 1.42)) !default;  // ~20px
+
+// ==== END OF BOOTSTRAP OVERRIDES ===
+
+/* === other fonts === */
+$font-size-xsmall:        ceil(($font-size-base * 0.71)) !default; // ~10px
+
 /* === COLORS === */
 
 $branding-primary-1: #4e9746;
@@ -84,27 +101,4 @@ $narration-avatar-width:40px;
 $narration-avatar-height:40px;
 
 $overview-header:75px;
-
-
-/* === Custom Bootstrap Typography === */
-
-$font-family-sans-serif:  Arial, sans-serif !default;
-$font-family-base:        $font-family-sans-serif !default;
-
-$font-size-base:          14px !default;
-
-$font-size-h1:            floor(($font-size-base * 2.15)) !default;  // ~30px
-$font-size-h2:            floor(($font-size-base * 1.71))  !default;  // ~24px
-$font-size-h3:            ceil(($font-size-base  * 1.42)) !default;  // ~20px
-
-$font-size-xsmall:        ceil(($font-size-base * 0.71)) !default; // ~10px
-
-
-/* === font icons === */
-
-$font-gru-collection-results-icon: 22px;
-$font-gru-rating-stars-icon: 25px;
-$font-gru-modal-icon: 34px;
-$font-gru-navigator-hamburguer-icon: 40px;
-
 

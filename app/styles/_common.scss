@@ -1,4 +1,31 @@
 /* General styles */
+html {
+  font-size: $font-size-base;
+}
+
+body {
+  color: $color-gray-secondary;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+  font-size: $font-size-h1;
+  color: $color-blue-lighter-1;
+  -webkit-font-smoothing: antialiased;
+}
+
+h2 {
+  font-size: $font-size-h2;
+  color: $color-gray-secondary;
+  -webkit-font-smoothing: antialiased;
+}
+
+h3 {
+  font-size: $font-size-h3;
+  color: $color-blue-primary;
+  -webkit-font-smoothing: antialiased;
+}
+
 a, button.btn-link {
   cursor: pointer;
   color: $color-blue-dark-2;
@@ -19,6 +46,31 @@ button.btn-link {
   color: $feedback-error;
   display: inline-block;
   margin-top: 4px;
+}
+
+/* includes of mixins*/
+@include make-padding(30, xs, 2px);
+@include make-padding(30, null, 2px);
+@include make-margin(30, null, 2px);
+@media (min-width: $screen-sm-min) {
+  @include make-padding(30, sm, 2px);
+}
+@media (min-width: $screen-md-min) {
+  @include make-padding(30, md, 2px);
+}
+@media (min-width: $screen-lg-min) {
+  @include make-padding(30, lg, 2px);
+}
+
+@include make-margin(30, xs, 2px);
+@media (min-width: $screen-sm-min) {
+  @include make-margin(30, sm, 2px);
+}
+@media (min-width: $screen-md-min) {
+  @include make-margin(30, md, 2px);
+}
+@media (min-width: $screen-lg-min) {
+  @include make-margin(30, lg, 2px);
 }
 
 /* Tooltip styles */
@@ -132,6 +184,7 @@ button.btn-link {
   border-right: 1px solid $color-gray-lighter-3;
 }
 
+/*gru-modal component*/
 .gru-modal {
 
   .gru-user-registration,
@@ -155,7 +208,7 @@ button.btn-link {
 
           span {
             color: $color-white;
-            font-size: $font-gru-modal-icon;
+            font-size: 2.2rem;
             font-weight: normal;
           }
           &:hover {
