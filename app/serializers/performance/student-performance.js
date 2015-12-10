@@ -2,14 +2,14 @@ import Ember from 'ember';
 import DS from 'ember-data';
 
 /**
- * Lesson serializer for StudentUnitPerformance model
+ * Lesson serializer for StudentPerformance model
  *
- * @typedef {Object} StudentUnitPerformanceSerializer
+ * @typedef {Object} StudentPerformanceSerializer
  */
 export default DS.JSONAPISerializer.extend({
 
   /**
-   * Normalize a queryRecord response
+   * Normalizes a queryRecord response
    * @param store
    * @param primaryModelClass
    * @param payload
@@ -27,12 +27,12 @@ export default DS.JSONAPISerializer.extend({
           type: "performance/student-performance",
           attributes: {
             title: result.title,
-            performanceType: result.type,
+            type: result.type,
             score: result.scoreInPercentage,
-            completionDone:  result.completionDone ? result.completionDone : 0,
-            completionTotal: result.completionTotal ? result.completionTotal : 1,
-            timeSpent: result.totalStudyTime ? result.totalStudyTime : result.timeSpent,
-            ratingScore: result.rating ? result.rating : 1,
+            completionDone:  0,
+            completionTotal: 1,
+            timeSpent: result.totalStudyTime,
+            ratingScore: 0,
             attempts: result.assessmentsAttempted
           }
         };

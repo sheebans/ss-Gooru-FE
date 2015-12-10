@@ -30,11 +30,6 @@ export default Ember.Route.extend(SessionMixin, {
     var classId = aClass.get("id");
     var courseId = aClass.get("course");
 
-    // === TODO: Remove this
-    var userPerformance = this.get('performanceService')
-      .findStudentPerformanceByClassAndCourse(this.get('session.userId'), classId, courseId);
-    // ====
-
     return  courseId ? this.get("unitService").findByClassAndCourse(classId,courseId): Ember.A();
   },
   /**
@@ -43,16 +38,6 @@ export default Ember.Route.extend(SessionMixin, {
    * @param model
    */
   setupController: function(controller,model) {
-    // === TODO: Remove this ===
-    var aClass = this.modelFor('class').class;
-    var classId = aClass.get("id");
-    var courseId = aClass.get("course");
-
-    var unit = model.get('firstObject');
-    this.get('performanceService')
-      .findStudentPerformanceByClassAndCourseAndUnit(this.get('session.userId'), classId, courseId, unit.get('id'));
-    // =====
-
     controller.set("units",model);
     this.send("selectMenuItem", 'overview', false);
   }

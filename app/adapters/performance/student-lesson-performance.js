@@ -16,11 +16,13 @@ export default ApplicationAdapter.extend({
     var namespace = this.get('namespace');
     var classId = query.classId;
     var courseId = query.courseId;
+    var unitId = query.unitId;
 
     delete query.classId;
     delete query.courseId;
+    delete query.unitId;
 
-    return `${namespace}/class/${classId}/course/${courseId}/progress`;
+    return `${namespace}/class/${classId}/course/${courseId}/unit/${unitId}/progress`;
   }
 
 });
