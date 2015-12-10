@@ -36,10 +36,10 @@ module.exports = function (environment) {
     'edify' : {
       'translations': {
         'locale': 'en-edify', /* this way it fallback to 'en' */
-        'url': 'assets/themes/edify/translations.json'
+        'url': 'themes/edify/translations.json'
       },
       'styles': {
-        'url': 'assets/themes/edify/styles.css'
+        'url': 'themes/edify/styles.css'
       }
     }
   };
