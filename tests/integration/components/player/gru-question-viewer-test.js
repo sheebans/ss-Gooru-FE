@@ -33,13 +33,13 @@ test('Layout', function (assert) {
 
   var $questionPanel = $component.find(".question-panel");
   T.exists(assert, $questionPanel, "Missing question panel");
-  T.exists(assert, $questionPanel.find("h3"), "Missing question header");
+  T.exists(assert, $questionPanel.find("h2"), "Missing question header");
   T.exists(assert, $questionPanel.find(".question span"), "Missing question text");
   T.exists(assert, $questionPanel.find(".question img"), "Missing question media");
 
   var $answerPanel = $component.find(".answers-panel");
   T.exists(assert, $answerPanel, "Missing answer panel");
-  T.exists(assert, $answerPanel.find("h3"), "Missing answer header");
+  T.exists(assert, $answerPanel.find("h2"), "Missing answer header");
   T.exists(assert, $answerPanel.find(".gru-open-ended"), "Missing open ended question component");
   T.exists(assert, $answerPanel.find(".actions button.save"), "Missing submit button");
   assert.ok($answerPanel.find(".actions button.save").attr("disabled"), "Button should be disabled");

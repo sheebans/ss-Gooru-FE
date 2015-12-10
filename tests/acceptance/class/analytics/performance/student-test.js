@@ -9,6 +9,7 @@ moduleForAcceptance('Acceptance | class/analytics/performance/student', {
       isAnonymous: false,
       token: 'class-analytics-performance-student-token',
       user: {
+        /* Using a non teacher id, so it is treated as student */
         gooruUId: 'class-analytics-performance-student-token-user-id'
       }
     });
@@ -33,5 +34,22 @@ test('Layout', function(assert) {
 
     const $classMenu = find(".controller.class .gru-class-navigation .class-menu");
     T.exists(assert, $classMenu.find(".analytics.selected"), "Missing selected analytics item");
+  });
+});
+
+test('Navigating from class navigation', function(assert) {
+  visit('/class/class-10');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-10');
+
+    const $overviewMenuItem = find(".navigation .class-menu .analytics");
+
+    click($overviewMenuItem);
+    andThen(function() {
+      //making sure it goes to the teacher view
+      assert.equal(currentURL(), '/class/class-10/analytics/performance/student');
+
+    });
   });
 });

@@ -10,7 +10,7 @@
       color: $color-gray-secondary;
     }
     .greetings-description {
-      font-size: 12px;
+      font-size: $font-size-small;
       margin: 0 0 0 15px;
     }
   }
@@ -54,7 +54,7 @@
           border-radius: inherit;
           background-color: $color-gray-lighter-6;
           padding: 6px 10px 6px 6px;
-          font-size: 18px;
+          font-size: $font-size-large;
           width: 35px;
         }
         .dropdown-toggle {
@@ -70,13 +70,13 @@
           margin: 0;
           right: 0;
           left: inherit;
-          font-size: 18px;
+          font-size: $font-size-large;
           padding: 10px 0;
           min-width: 175px;
           li {
             padding: 5px;
             margin: 0 10px;
-            font-size: 12px;
+            font-size: $font-size-small;
             cursor: pointer;
             i {
               padding-right: 10px;
@@ -103,7 +103,6 @@
       color: $color-white;
       text-decoration: none;
       padding: 20px;
-      font-size: 14px;
     }
     .description:after {
       content: '';
@@ -130,11 +129,7 @@
       text-overflow: ellipsis;
     }
     .active-dates {
-      font-size: 12px;
-      width: 23%;
-    }
-    .active-dates {
-      font-size: 12px;
+      font-size: $font-size-small;
       width: 23%;
     }
     .members {
@@ -161,7 +156,7 @@
         text-overflow: ellipsis;
       }
       .active-dates {
-        font-size: 12px;
+        font-size: $font-size-small;
         width: 85%;
       }
       .members {

@@ -52,7 +52,7 @@ export default DS.Model.extend({
   totalMembers: DS.attr('number'),
 
   /**
-   * @property {Object[]} An array of teachers with very basic teacher information [{id, username, avatarUrl}]
+   * @property {{ id: string, username: string, avatarUrl: string}[]} An array of teachers with very basic teacher information
    */
   teachers: DS.attr(),
 
@@ -64,6 +64,24 @@ export default DS.Model.extend({
   /**
    * @property {string} Course of the class
    */
-  course: DS.attr('string')
+  course: DS.attr('string'),
+
+  /**
+   * Indicates if a user is a teacher of this class
+   * @param {string} userId user identifier
+   * @returns {bool}
+   */
+  isTeacher: function(userId){
+    return this.get("teachers").filterBy("id", userId).get("length");
+  },
+
+  /**
+   * Indicates if a user is a student of this class
+   * @param {string} userId user identifier
+   * @returns {bool}
+   */
+  isStudent: function(userId){
+    return !this.isTeacher(userId);
+  }
 
 });

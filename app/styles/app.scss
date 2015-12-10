@@ -1,8 +1,7 @@
+@import "custom-variables";
 @import '../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap';
 
-@import 'variables';
 @import 'mixins';
-@import 'style-guide';
 @import 'common';
 
 @import 'controllers/application';
@@ -13,6 +12,7 @@
 @import 'controllers/class/info';
 @import 'controllers/class/overview';
 @import 'controllers/class/analytics/performance/student';
+@import 'controllers/class/analytics/performance/teacher';
 
 // TODO: update these components so they follow the naming conventions
 @import 'components/app-dropdown';

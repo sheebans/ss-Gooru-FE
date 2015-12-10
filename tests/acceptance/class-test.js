@@ -61,21 +61,3 @@ test('When overview page is selected', function(assert) {
     });
   });
 });
-
-test('When analytics page is selected', function(assert) {
-  visit('/class/class-10');
-
-  andThen(function() {
-    assert.equal(currentURL(), '/class/class-10');
-
-    const $overviewMenuItem = find(".navigation .class-menu .analytics");
-
-    click($overviewMenuItem);
-
-    andThen(function() {
-      /* At this point it goes to the student performance per default, later it would depend of the user role */
-      assert.equal(currentURL(), '/class/class-10/analytics/performance/student');
-
-    });
-  });
-});

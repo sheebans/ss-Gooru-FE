@@ -1,7 +1,6 @@
 .collection-results {
   .tooltip {
     background-color: $color-white;
-    font-size: 12px;
     color: $color-gray-5;
     opacity: 1;
     border-radius: 3px;
@@ -19,15 +18,10 @@
       border: solid 1px #fff;
       max-width: 250px;
       padding: 2px 5px;
-      font-size: 12px;
       text-align: left;
-      p {
-        font-size: 12px;
-      }
     }
   }
   .search-results {
-    font-size: 14px;
     height: 35px;
   }
   .panel {
@@ -45,10 +39,9 @@
         display: table;
         i {
           color: $color-gray-lighter-3;
-          font-size: 22px;
+          font-size: 1.4rem;
         }
         span {
-          font-size: 12px;
           padding: 0 8px 0 0;
           display: table-cell;
           vertical-align: middle;
@@ -76,7 +69,7 @@
       }
       .collection-desc {
         .title {
-          font-size: 17px;
+          font-size: $font-size-large;
           font-weight: 400;
           color: $color-blue-dark;
           overflow: hidden;
@@ -103,15 +96,13 @@
             }
           }
           .author-name-link, .author-name-team {
-            font-size: 13px;
             font-weight: 600;
             display: inline-block;
             vertical-align: middle;
           }
         }
         .description {
-          font-size: 12px;
-          max-height: 50px;
+          max-height: 55px;
           overflow: hidden;
         }
       }
@@ -121,7 +112,7 @@
         box-sizing: content-box;
         .collection-results-standards {
           border-radius: 3px;
-          font-size: 10px;
+          font-size: $font-size-xsmall;
           display: inline-block;
           margin: 7px 0;
           width: 100%;
@@ -129,12 +120,11 @@
             background-color: $color-gray-secondary;
             border-radius: 3px;
             color: $color-white;
-            font-size: 10px;
             float: left;
             margin-right: 5px;
             margin-top: 1px;
             .label button.btn-link {
-              font-size: 10px;
+              font-size: $font-size-xsmall;
               font-weight: normal;
               color: $color-white;
             }
@@ -149,7 +139,7 @@
             position: relative;
             padding: 0 ;
             button.btn-link {
-              font-size: 10px;
+              font-size: $font-size-xsmall;
               &:hover {
                 text-decoration: none;
               }
@@ -160,9 +150,6 @@
       .collection-results-resources {
         padding: 8px 8px;
         height: auto;
-        p {
-          font-size: 12px;
-        }
         .resource-image {
           display: inline-block;
           height: 60px;
@@ -179,7 +166,6 @@
           }
           .resource-image-type {
             color: #fff;
-            font-size: 12px;
             height: 61px;
             position: absolute;
             text-align: center;
