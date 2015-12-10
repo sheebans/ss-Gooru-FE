@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
@@ -38,15 +39,15 @@ test('Theme support', function(assert) {
   visit('/?themeId=edify');
 
   andThen(function() {
-    assert.expect(2); //making sure all asserts are called
+    assert.expect(5); //making sure all asserts are called
 
     assert.equal(currentURL(), '/?themeId=edify');
 
-    T.exists(assert, find("#edify"), "Missing html element having theme id");
+    T.exists(assert, Ember.$("#edify"), "Missing html element having theme id");
 
-    const $styleLink = find("#theme-style-link");
+    const $styleLink = Ember.$("h#theme-style-link");
     T.exists(assert, $styleLink, "Missing link element having theme style");
-    assert.equal($styleLink.attr("src"), "assets/themes/edify/styles.css", "Wrong style url");
+    assert.equal($styleLink.attr("href"), "assets/themes/edify/styles.css", "Wrong style url");
 
     assert.equal(T.text(find("#edify .gru-header .search-button")), 'Buscar', "Wrong title for search button");
   });
