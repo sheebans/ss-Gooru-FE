@@ -53,6 +53,42 @@
   }
   },
   {
+    "description": "Get a specific class where pochita is a teacher",
+    "request": {
+      "url": "^/gooruapi/rest/v3/class/class-for-pochita-as-teacher$",
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "class-for-pochita-as-teacher-200-response.json"
+    }
+  },
+  {
+    "description": "Get a specific class where pochita is a student",
+    "request": {
+      "url": "^/gooruapi/rest/v3/class/class-for-pochita-as-student$",
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "class-for-pochita-as-student-200-response.json"
+    }
+  },
+  {
     "description": "Get a specific class info",
     "request": {
       "url": "^/gooruapi/rest/v3/class/(.+)$",
