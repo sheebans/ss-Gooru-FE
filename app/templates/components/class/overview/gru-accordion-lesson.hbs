@@ -1,6 +1,6 @@
 <div class="panel-heading" role="tab" id="{{elementId}}-heading">
   <img class="img-circle" src="/assets/gooru/profile.png" alt="{{model.title}}" />
-  <strong class="panel-title">
+  <span class="panel-title">
     <a class="collapsed"
        role="button"
        data-toggle="collapse"
@@ -11,7 +11,7 @@
        {{action "loadData"}}>
         {{t "common.lessonInitial"}}{{plus-one index}}&colon; {{model.title}}
     </a>
-  </strong>
+  </span>
 </div>
 
 <div id="{{elementId}}-content"
