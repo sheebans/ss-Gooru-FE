@@ -19,6 +19,7 @@ export default Ember.Service.extend(StoreMixin, {
           id: user,
           firstName: 'firstname-1',
           lastName: 'lastname-1',
+          fullName: 'lastname-1, firstname-1',
           email: 'user_1@test.com',
           username: 'username-1',
           profileImageUrl: '/assets/gooru/profile.png'
@@ -47,6 +48,7 @@ export default Ember.Service.extend(StoreMixin, {
               id: 'id-3',
               firstName: 'firstname-3',
               lastName: 'lastname-3',
+              fullName: 'lastname-3, firstname-3',
               email: 'user_3@test.com',
               username: 'username-3',
               profileImageUrl: '/assets/gooru/profile.png'
@@ -58,6 +60,7 @@ export default Ember.Service.extend(StoreMixin, {
               id: 'id-4',
               firstName: 'firstname-4',
               lastName: 'lastname-4',
+              fullName: 'lastname-4, firstname-4',
               email: 'user_4@test.com',
               username: 'username-4',
               profileImageUrl: '/assets/gooru/profile.png'
@@ -74,6 +77,7 @@ export default Ember.Service.extend(StoreMixin, {
               id: 'id-5',
               firstName: 'firstname-5',
               lastName: 'lastname-5',
+              fullName: 'lastname-5, firstname-5',
               email: 'user_5@test.com',
               username: 'username-5',
               profileImageUrl: '/assets/gooru/profile.png'
@@ -85,6 +89,7 @@ export default Ember.Service.extend(StoreMixin, {
               id: 'id-6',
               firstName: 'firstname-6',
               lastName: 'lastname-6',
+              fullName: 'lastname-6, firstname-6',
               email: 'user_6@test.com',
               username: 'username-6',
               profileImageUrl: '/assets/gooru/profile.png'
@@ -118,6 +123,7 @@ export default Ember.Service.extend(StoreMixin, {
               id: 'id-3',
               firstName: 'firstname-3',
               lastName: 'lastname-3',
+              fullName: 'lastname-3, firstname-3',
               email: 'user_3@test.com',
               username: 'username-3',
               profileImageUrl: '/assets/gooru/profile.png'
@@ -129,6 +135,7 @@ export default Ember.Service.extend(StoreMixin, {
               id: 'id-4',
               firstName: 'firstname-4',
               lastName: 'lastname-4',
+              fullName: 'lastname-4, firstname-4',
               email: 'user_4@test.com',
               username: 'username-4',
               profileImageUrl: '/assets/gooru/profile.png'
@@ -146,6 +153,7 @@ export default Ember.Service.extend(StoreMixin, {
               id: 'id-5',
               firstName: 'firstname-5',
               lastName: 'lastname-5',
+              fullName: 'lastname-5, firstname-5',
               email: 'user_5@test.com',
               username: 'username-5',
               profileImageUrl: '/assets/gooru/profile.png'
@@ -157,6 +165,7 @@ export default Ember.Service.extend(StoreMixin, {
               id: 'id-6',
               firstName: 'firstname-6',
               lastName: 'lastname-6',
+              fullName: 'lastname-6, firstname-6',
               email: 'user_6@test.com',
               username: 'username-6',
               profileImageUrl: '/assets/gooru/profile.png'
@@ -193,6 +202,7 @@ export default Ember.Service.extend(StoreMixin, {
               id: 'id-3',
               firstName: 'firstname-3',
               lastName: 'lastname-3',
+              fullName: 'lastname-3, firstname-3',
               email: 'user_3@test.com',
               username: 'username-3',
               profileImageUrl: '/assets/gooru/profile.png'
@@ -204,6 +214,7 @@ export default Ember.Service.extend(StoreMixin, {
               id: 'id-4',
               firstName: 'firstname-4',
               lastName: 'lastname-4',
+              fullName: 'lastname-4, firstname-4',
               email: 'user_4@test.com',
               username: 'username-4',
               profileImageUrl: '/assets/gooru/profile.png'
@@ -222,6 +233,7 @@ export default Ember.Service.extend(StoreMixin, {
               id: 'id-5',
               firstName: 'firstname-5',
               lastName: 'lastname-5',
+              fullName: 'lastname-5, firstname-5',
               email: 'user_5@test.com',
               username: 'username-5',
               profileImageUrl: '/assets/gooru/profile.png'
@@ -233,6 +245,7 @@ export default Ember.Service.extend(StoreMixin, {
               id: 'id-6',
               firstName: 'firstname-6',
               lastName: 'lastname-6',
+              fullName: 'lastname-6, firstname-6',
               email: 'user_6@test.com',
               username: 'username-6',
               profileImageUrl: '/assets/gooru/profile.png'
@@ -268,6 +281,7 @@ export default Ember.Service.extend(StoreMixin, {
             id: 'id-' + i,
             firstName: 'firstname-' + i,
             lastName: 'lastname-' + i,
+            fullName: 'lastname-' + i + ', ' + 'firstname-' + i,
             email: 'user_' + i + '@test.com',
             username: 'username-' + i,
             profileImageUrl: '/assets/gooru/profile.png'
@@ -283,6 +297,7 @@ export default Ember.Service.extend(StoreMixin, {
             id: 'id-1',
             firstName: 'firstname-1',
             lastName: 'lastname-1',
+            fullName: 'lastname-1, firstname-1',
             email: 'user_1@test.com',
             username: 'username-1',
             profileImageUrl: '/assets/gooru/profile.png'
@@ -294,6 +309,7 @@ export default Ember.Service.extend(StoreMixin, {
             id: 'id-2',
             firstName: 'firstname-2',
             lastName: 'lastname-2',
+            fullName: 'lastname-2, firstname-2',
             email: 'user_2@test.com',
             username: 'username-2',
             profileImageUrl: '/assets/gooru/profile.png'

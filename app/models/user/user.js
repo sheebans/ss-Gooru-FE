@@ -162,6 +162,10 @@ export default DS.Model.extend(UserValidations, {
   /**
    * @property {Meta} metadata
    */
-  metadata: DS.belongsTo("meta", { async: true })
+  metadata: DS.belongsTo("meta", { async: true }),
+
+  fullName: Ember.computed('firstName', 'lastName', function() {
+    return this.get('lastName') + ', ' + this.get('firstName');
+  })
 
 });
