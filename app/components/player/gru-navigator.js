@@ -33,10 +33,7 @@ export default Ember.Component.extend({
      * @param item
      */
     selectItem: function(item){
-      if (this.get("onItemSelected")){
-        this.selectItem(item.id);
-        this.sendAction("onItemSelected", item);
-      }
+        this.selectItem(item);
     },
     /**
      * Action triggered when the user close de navigator panel
@@ -52,11 +49,18 @@ export default Ember.Component.extend({
   /**
    * DidInsertElement ember event
    */
-  didInsertElement: function() {
-    var resourceId = this.get("selectedResourceId");
-    this.selectItem(resourceId);
-  },
+  setupSubscriptions: Ember.on('didInsertElement', function() {
+    const component = this;
+    let resourceId = component.get("selectedResourceId");
 
+    component.setItemAsSelected(resourceId);
+
+    Ember.$(document).on('keyup', { _self: this }, this.navigateOnKeyUp);
+  }),
+
+  removeSubscriptions: Ember.on('willDestroyElement', function() {
+    Ember.$(document).off('keyup');
+  }),
 
   // -------------------------------------------------------------------------
   // Properties
@@ -83,7 +87,7 @@ export default Ember.Component.extend({
    */
   refreshSelectedResource: function() {
     var resourceId = this.get("selectedResourceId");
-    this.selectItem(resourceId);
+    this.setItemAsSelected(resourceId);
   }.observes("selectedResourceId", "collection"),
 
 
@@ -91,15 +95,51 @@ export default Ember.Component.extend({
 
   // Methods
 
+
+  navigateTo: function(directionMethod) {
+    const collection = this.get("collection");
+    const resource = collection.getResourceById(this.get('selectedResourceId'));
+    this.selectItem(collection[directionMethod](resource));
+  },
+  /**
+   * Triggered when a key is released from press
+   * @param {Event object} event
+   */
+  navigateOnKeyUp: function(e) {
+    if (e.which === 37 || e.which === 39){
+      e.preventDefault();
+      const KEY_RIGHT=39;
+      const KEY_LEFT=37;
+      if (e.which===KEY_RIGHT){
+        e.data._self.navigateTo('nextResource');
+      }else if (e.which===KEY_LEFT){
+        e.data._self.navigateTo('prevResource');
+      }
+      return false;
+    }
+  },
+
+  /**
+   * Triggered when a resource item is highlighted visually
+   * @param {String} itemId
+   */
+  setItemAsSelected: function(itemId){
+    var itemElement = "#item_"+itemId;
+    Ember.$( ".list-group-item" ).removeClass( "selected" );
+    Ember.$(itemElement).addClass( "selected" );
+  },
+
   /**
    * Triggered when a resource item is selected
-   * @param {string} itemId
+   * @param {Resource} item
    */
-  selectItem: function(itemId) {
-    if (itemId){
-      var itemElement = "#item_"+itemId;
-      this.$( ".list-group-item" ).removeClass( "selected" );
-      this.$(itemElement).addClass( "selected" );
+  selectItem: function(item) {
+    if (item){
+      const itemId = item.id;
+      if (this.get("onItemSelected")){
+        this.sendAction("onItemSelected", item);
+      }
+      this.setItemAsSelected(itemId);
       this.sendAction("onCloseNavigator");
     }
   }

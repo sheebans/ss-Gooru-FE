@@ -76,6 +76,52 @@ test('lastVisitedResource not empty', function (assert) {
   assert.equal(lastVisitedResource.get("id"), 1, "Wrong resource id");
 });
 
+
+test('prevResource without resources', function (assert) {
+  assert.expect(1);
+  let store = this.store();
+
+  var resource = null;
+  Ember.run(function () {
+    resource = store.createRecord("resource/resource", {id: 1});
+  });
+
+  let model = this.subject({
+    resources: Ember.A()
+  });
+
+  var prevResource = model.prevResource(resource);
+  assert.ok(!prevResource, "Resource should not be found");
+});
+
+
+test('prevResource', function (assert) {
+  assert.expect(3);
+  let store = this.store();
+
+  var resources = Ember.A(),
+    resourceA = null,
+    resourceB = null;
+
+  Ember.run(function () {
+    resourceA = store.createRecord("resource/resource", {id: 1});
+    resourceB = store.createRecord("resource/resource", {id: 2});
+
+    resources.pushObject(resourceA);
+    resources.pushObject(resourceB);
+  });
+  let model = this.subject({
+    resources: resources
+  });
+
+  var prevResource = model.prevResource(resourceB);
+  assert.ok(prevResource, "Resource should be found");
+  assert.equal(prevResource.get("id"), 1, "Wrong resource id");
+
+  prevResource = model.prevResource(resourceA);
+  assert.ok(!prevResource, "Resource should not be found");
+});
+
 test('nextResource without resources', function (assert) {
   assert.expect(1);
   let store = this.store();
