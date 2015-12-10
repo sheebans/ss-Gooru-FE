@@ -109,6 +109,21 @@ export default DS.Model.extend({
   },
 
   /**
+   * Gets the previous resource based on the resource provided
+   * @param {Resource} resource
+   * @returns {Resource|undefined} previous resource
+   */
+  prevResource: function(resource){
+    var next;
+    if (this.get("hasResources")){
+      const resources = this.get("resources"),
+        index = resources.indexOf(resource);
+      next = resources.objectAt(index - 1);
+    }
+    return next;
+},
+
+  /**
    * Gets the resource by id
    * @param {string }resourceId
    * @returns {Resource|undefined}

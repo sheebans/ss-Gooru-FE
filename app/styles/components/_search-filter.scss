@@ -1,7 +1,4 @@
 .search-filter{
-  p {
-    font-size: 13px;
-  }
   .search-filter-options{
     padding-left: 0px;
   }
@@ -24,7 +21,6 @@
     border-radius: 4px;
     border: 2px solid $color-white;
     background-color: $color-white;
-    font-size: 13px;
     &:hover {
       border-color: $color-blue-secondary;
       opacity:.75;

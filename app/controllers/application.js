@@ -2,7 +2,19 @@ import Ember from "ember";
 
 export default Ember.Controller.extend({
 
+  queryParams: ['themeId'],
+
   session: Ember.inject.service("session"),
+
+  /**
+   * @property {string} application theme
+   */
+  themeId: null,
+
+  /**
+   * @property {GruTheme} application theme
+   */
+  theme: null,
 
   actions: {
     /**

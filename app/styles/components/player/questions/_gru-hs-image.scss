@@ -19,9 +19,7 @@
         img {
           border: 0 none;
           width: auto;
-          height: auto;
-          max-width: $image-side;
-          max-height: $image-side;
+          max-height: 100%;
         }
       }
     }

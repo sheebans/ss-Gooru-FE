@@ -6,15 +6,9 @@
     padding: 0;
   }
 
-  .question-panel > h3,
-  .answers-panel > h3 {
-    margin: 15px 0 5px 0;
-    font-size: 24px;
+  .question-panel > h2,
+  .answers-panel > h2 {
     color: $color-gray-primary;
-
-    @media (min-width: $screen-sm) {
-      margin-top: 25px;
-    }
   }
 
   p {
