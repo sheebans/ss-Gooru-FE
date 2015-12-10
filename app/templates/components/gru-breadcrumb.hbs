@@ -1,0 +1,10 @@
+<ul class="clearfix">
+  {{#each items as |item|}}
+    <li class="{{itemClassName}} breadcrumb-item" {{action 'selectItem' item}}>
+      <i class="fa fa-angle-right"></i>
+      <span>
+        {{{item.label}}}
+      </span>
+    </li>
+  {{/each}}
+</ul>
