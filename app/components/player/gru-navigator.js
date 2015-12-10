@@ -52,14 +52,19 @@ export default Ember.Component.extend({
   setupSubscriptions: Ember.on('didInsertElement', function() {
     const component = this;
     let resourceId = component.get("selectedResourceId");
-
     component.setItemAsSelected(resourceId);
+    /*TODO: Try to reduce the scope of this method binding
 
-    Ember.$(document).on('keyup', { _self: this }, this.navigateOnKeyUp);
+     Ember uses a technique called event delegation. This allows the framework to set up a global, shared event listener instead of requiring each view to do it manually. For example, instead of each view registering its own mousedown listener on its associated element, Ember sets up a mousedown listener on the body.
+
+     If a mousedown event occurs, Ember will look at the target of the event and start walking up the DOM node tree, finding corresponding views and invoking their mouseDown method as it goes.
+     */
+    console.log(this.$('gru-navigator'));
+    this.$(document).on('keyup', { _self: this }, this.navigateOnKeyUp);
   }),
 
   removeSubscriptions: Ember.on('willDestroyElement', function() {
-    Ember.$(document).off('keyup');
+    this.$(document).off('keyup');
   }),
 
   // -------------------------------------------------------------------------
