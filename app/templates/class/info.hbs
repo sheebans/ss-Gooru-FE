@@ -21,11 +21,11 @@
            </div>
        </div>
        <div class="info-btns col-md-3 col-sm-3 col-xs-12">
-                <div class="edit-share-section col-center-block {{if isStudent 'hide'}}">
-                    <button class="btn btn-default">
+                <div class="edit-share-section col-center-block {{if isStudent 'hide' 'show'}}">
+                    <button class="edit-btn btn btn-default">
                         Edit Class
                     </button>
-                    <button class="btn btn-default">
+                    <button class="share-btn btn btn-default">
                         Share Class
                     </button>
                 </div>
@@ -40,7 +40,7 @@
               <div class="col-md-6 col-sm-6 col-xs-6">
                   <h3>{{t "class.info.teachers"}}</h3>
               </div>
-              <div class="col-md-6 col-sm-6 col-xs-6 {{if isStudent 'hide'}}">
+              <div class="invite-collaborator col-md-6 col-sm-6 col-xs-6 {{if isStudent 'hide' 'show'}}">
                   <button class="btn btn-default btn-teacher">
                       Invite Colaborator
                   </button>
@@ -63,7 +63,7 @@
                <div class="col-md-6 col-sm-6 col-xs-6">
                    <h3>{{t "class.info.students"}}</h3>
                </div>
-               <div class="col-md-6 col-sm-6 col-xs-6 {{if isStudent 'hide'}}">
+               <div class="invite-student col-md-6 col-sm-6 col-xs-6 {{if isStudent 'hide' 'show'}} ">
                    <button class="btn btn-default btn-teacher">
                        Invite Student
                    </button>

@@ -34,23 +34,6 @@
       "body": "File not found!",
       "file": "study-classes-200-response.json"
     }
-  },{
-  "description": "Get a class i teach",
-  "request": {
-    "url": "^/gooruapi/rest/v3/class/(.+)$",
-    "method": "GET",
-    "headers": {
-      "gooru-session-token": "(.+)"
-    }
-  },
-  "response": {
-    "status": 200,
-    "headers": {
-      "Content-Type": "application/json"
-    },
-    "body": "File not found!",
-    "file": "any-class-info-200-response.json"
-  }
   },
   {
     "description": "Get a specific class where pochita is a teacher",
