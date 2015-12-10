@@ -28,6 +28,22 @@ module.exports = function (environment) {
     baseURL: '/'
   };
 
+  /**
+   * Application themes configuration
+   */
+  ENV['themes'] = {
+    'default': null, /* when present it is not necessary to pass a query param */
+    'edify' : {
+      'translations': {
+        'locale': 'en-edify', /* this way it fallback to 'en' */
+        'url': 'themes/edify/translations.json'
+      },
+      'styles': {
+        'url': 'themes/edify/styles.css'
+      }
+    }
+  };
+
   ENV['player'] = {
     pdfViewerUrl: 'http://qa.gooru.org/doc/a/view',
     vimeoPlayerUrl:'//player.vimeo.com/video/',

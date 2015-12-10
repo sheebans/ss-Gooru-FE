@@ -26,7 +26,7 @@ test('footer layout', function(assert) {
 
   var $company = $component.find(".company");
   T.exists(assert, $company, "Missing company section");
-  T.exists(assert,$company.find("h4"), "Missing company title");
+  T.exists(assert,$company.find("h5"), "Missing company title");
   T.exists(assert,$company.find('.about'), "Missing about link");
   T.exists(assert,$company.find('.careers'), "Missing careers link");
   T.exists(assert,$company.find('.supportCenter'), "Missing supportCenter link");
@@ -34,7 +34,7 @@ test('footer layout', function(assert) {
 
   var $community = $component.find(".community");
   T.exists(assert, $community, "Missing community section");
-  T.exists(assert,$community.find("h4"), "Missing community title");
+  T.exists(assert,$community.find("h5"), "Missing community title");
   T.exists(assert,$community.find('.districts'), "Missing districts link");
   T.exists(assert,$community.find('.partners'), "Missing partners link");
   T.exists(assert,$community.find('.coaches'), "Missing coaches link");
@@ -42,14 +42,14 @@ test('footer layout', function(assert) {
 
   var $legal = $component.find(".legal");
   T.exists(assert, $legal, "Missing legal section");
-  T.exists(assert,$legal.find("h4"), "Missing legal title");
+  T.exists(assert,$legal.find("h5"), "Missing legal title");
   T.exists(assert,$legal.find('.terms'), "Missing terms link");
   T.exists(assert,$legal.find('.privacy'), "Missing privacy link");
   T.exists(assert,$legal.find('.copyright'), "Missing copyright link");
 
   var $connect = $component.find(".connect");
   T.exists(assert, $connect, "Missing connect section");
-  T.exists(assert,$connect.find("h4"), "Missing connect title");
+  T.exists(assert,$connect.find("h5"), "Missing connect title");
   T.exists(assert,$connect.find('.facebook'), "Missing facebook link");
   T.exists(assert,$connect.find('.twitter'), "Missing twitter link");
   T.exists(assert,$connect.find('.youtube'), "Missing youtube link");
