@@ -45,7 +45,7 @@ test('Theme support', function(assert) {
 
     T.exists(assert, Ember.$("#edify"), "Missing html element having theme id");
 
-    const $styleLink = Ember.$("h#theme-style-link");
+    const $styleLink = Ember.$("#theme-style-link");
     T.exists(assert, $styleLink, "Missing link element having theme style");
     assert.equal($styleLink.attr("href"), "assets/themes/edify/styles.css", "Wrong style url");
 
