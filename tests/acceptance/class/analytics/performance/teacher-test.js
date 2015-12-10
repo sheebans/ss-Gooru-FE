@@ -9,18 +9,18 @@ moduleForAcceptance('Acceptance | class/analytics/performance/teacher', {
       isAnonymous: false,
       token: 'class-analytics-performance-teacher-token',
       user: {
-        /* using a teacher id, @see classes/any-class-info-200-response.js */
-        gooruUId: 'teacher-123'
+        /* using a pochita, @see classes/class-for-pochita-as-teacher-200-response.js */
+        gooruUId: 'pochita'
       }
     });
   }
 });
 
 test('Layout', function(assert) {
-  visit('/class/class-10/analytics/performance/teacher');
+  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher');
 
   andThen(function() {
-    assert.equal(currentURL(), '/class/class-10/analytics/performance/teacher');
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher');
 
     const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher");
     T.exists(assert, $performanceContainer, "Missing performance container");
@@ -39,17 +39,17 @@ test('Layout', function(assert) {
 });
 
 test('Navigating from class navigation', function(assert) {
-  visit('/class/class-10');
+  visit('/class/class-for-pochita-as-teacher');
 
   andThen(function() {
-    assert.equal(currentURL(), '/class/class-10');
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher');
 
     const $overviewMenuItem = find(".navigation .class-menu .analytics");
 
     click($overviewMenuItem);
     andThen(function() {
       //making sure it goes to the teacher view
-      assert.equal(currentURL(), '/class/class-10/analytics/performance/teacher');
+      assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher');
     });
   });
 });

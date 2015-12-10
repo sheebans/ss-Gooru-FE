@@ -1,0 +1,38 @@
+[
+  {
+    "request": {
+      "url": "^/gooruapi/rest/v2/account/login$",
+      "query": {
+        "apiKey": "ASERTYUIOMNHBGFDXSDWERT123RTGHYT"
+      },
+      "post": "(.+)\"username\":\"param\"(.+)",
+      "method": "POST"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "param-sign-in-ok-response.json"
+    }
+  },
+  {
+    "request": {
+      "url": "^/gooruapi/rest/v2/account/login$",
+      "query": {
+        "apiKey": "ASERTYUIOMNHBGFDXSDWERT123RTGHYT"
+      },
+      "post": "(.+)\"username\":\"pochita\"(.+)",
+      "method": "POST"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "pochita-sign-in-ok-response.json"
+    }
+  }
+]

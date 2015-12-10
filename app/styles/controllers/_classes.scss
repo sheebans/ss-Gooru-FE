@@ -28,6 +28,11 @@
           a {
             line-height: 4;
             font-size: $font-size-base;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 90%;
+            margin: 0 auto;
           }
 
           span {
