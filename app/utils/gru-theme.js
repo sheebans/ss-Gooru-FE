@@ -16,32 +16,20 @@ export default Ember.Object.extend({
   id: null,
 
   /**
-   * @property {string} default application locale for this theme
-   */
-  locale: 'en',
-
-  /**
-   * @property {string} path to the style/css file for this theme
-   */
-  stylesUrl: null,
-
-  /**
    * Loaded styles
-   * @property {string} styles
+   * @property {{url: string}} styles
    */
-  styles: '',
+  styles: {
+    url: null
+  },
 
   /**
-   * @property {string} path to a javascript translation file complaint with ember-i18n
+   * @property {{ url: string, locale: string }} path to a javascript translation file complaint with ember-i18n
    */
-  translationsUrl: null,
-
-  /**
-   * Loaded translations
-   * @property {[]} translations
-   * @private
-   */
-  translations: Ember.A(),
+  translations: {
+    url: null,
+    locale: 'en'
+  },
 
   // -------------------------------------------------------------------------
   // Methods
@@ -59,14 +47,8 @@ export default Ember.Object.extend({
    */
   loadTranslations: function(){
     const theme = this;
-    const url = theme.get("translationsUrl");
-    if (url){
-      return theme._loadTranslations(url).then(function(translations){
-          theme.set("translations", translations);
-          return translations;
-        });
-    }
-    return Ember.A();
+    const url = theme.get("translations.url");
+    return (url) ? theme._loadTranslations(url) : Ember.A();
   },
 
   /**
@@ -79,44 +61,7 @@ export default Ember.Object.extend({
     return new Ember.RSVP.Promise(function(resolve) {
       Ember.$.get(url, null, resolve);
     });
-  },
-
-
-  /**
-   * Returns theme translations
-   *
-   * {
-   *   "en" : {
-   *      "common" : {
-   *        "search": "Search"
-   *      }
-   *    }
-   * }
-   *
-   */
-  loadStyles: function(){
-    const theme = this;
-    const url = theme.get("stylesUrl");
-    if (url){
-      return theme._loadStyles(url).then(function(styles){
-        theme.set("styles", styles);
-        return styles;
-      });
-    }
-    return '';
-  },
-
-  /**
-   * Loads Styles from a url
-   * @param {string} url
-   * @returns {Promise}
-   */
-  _loadStyles: function(url){
-    return new Ember.RSVP.Promise(function(resolve) {
-      Ember.$.get(url, null, resolve);
-    });
   }
-
 
 });
 

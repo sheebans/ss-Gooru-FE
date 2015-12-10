@@ -16,15 +16,6 @@ export default Ember.Controller.extend({
    */
   theme: null,
 
-  /**
-   * @property theme style tag
-   */
-  themeStyleTag: function(){
-    const themeStylesUrl = this.get("theme.stylesUrl");
-    return themeStylesUrl  ? `<link rel="stylesheet" type="text/css" href="${themeStylesUrl}">` : '';
-  }.property("theme.stylesUrl"),
-
-
   actions: {
     /**
      * Action triggered after a user has signed in

@@ -26,6 +26,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     var theme = null;
     if (themeId && themeConfig[themeId]){
       theme = GruTheme.create(themeConfig[themeId]);
+      theme.set("id", themeId);
     }
 
     return Ember.RSVP.hash({
@@ -39,16 +40,18 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     const theme = model.theme;
     if (theme){
       controller.set("theme", theme);
-      this.setupTheme(theme);
+      this.setupTheme(theme, model.translations);
     }
   },
 
   /**
    * Setups the application theme
    * @param {GruTheme} theme
+   * @param {*} translations
    */
-  setupTheme: function(theme){
-    this.setupThemeTranslations(theme.get("locale"), theme.get("translations"));
+  setupTheme: function(theme, translations){
+    this.setupThemeStyles(theme);
+    this.setupThemeTranslations(theme.get("translations.locale"), translations);
   },
 
   /**
@@ -65,6 +68,20 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     Object.keys(translations).forEach((locale) => {
       i18n.addTranslations(locale, translations[locale]);
     });
+  },
+
+  /**
+   * Sets the theme styles if available
+   * @param {GruTheme} theme
+   */
+  setupThemeStyles: function(theme){
+    //setting theme id at html tag
+    Ember.$('html').attr("id", theme.get("id"));
+    //adding theme styles to head tag
+    const themeStylesUrl = theme.get("styles.url");
+    if (themeStylesUrl){
+      Ember.$('head').append(`<link id="theme-style-link" rel="stylesheet" type="text/css" href="${themeStylesUrl}">`);
+    }
   },
 
   // -------------------------------------------------------------------------
