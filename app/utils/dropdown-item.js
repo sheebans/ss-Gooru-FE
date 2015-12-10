@@ -3,7 +3,7 @@ import Ember from 'ember';
 /**
  * @typedef {object} DropdownItem
  */
-export default Ember.Component.extend({
+export default Ember.Object.extend({
 
   /**
    * @property {string} identifier
