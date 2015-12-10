@@ -82,6 +82,8 @@ test('it renders', function(assert) {
 
   const $component = this.$('.gru-accordion-unit');
   assert.ok($component.length, 'Component does not have the component class');
+  assert.ok($component.hasClass('panel'), 'Component should have the class "panel"');
+  assert.ok($component.hasClass('panel-default'), 'Component should have the class "panel-default"');
 
   const $unitHeading = $component.find('> .panel-heading');
   assert.ok($unitHeading.length, 'Panel heading element is missing');
@@ -220,7 +222,7 @@ test('it loads lessons and renders them correctly after clicking on the unit nam
 });
 
 test('it only loads lessons once after clicking on the unit name', function(assert) {
-  assert.expect(7);
+  assert.expect(5);
 
   const context = this;
 
@@ -249,11 +251,9 @@ test('it only loads lessons once after clicking on the unit name', function(asse
   const $unitTitleAnchor = $component.find('> .panel-heading a');
 
   const $collapsePanel = $component.find('> .panel-collapse');
-  assert.ok(!$collapsePanel.hasClass('in'), 'Panel should not be visible');
 
   // Click on the unit name
   $unitTitleAnchor.click();
-  assert.ok($collapsePanel.hasClass('in'), 'Panel should be visible');
 
   return wait().then(function() {
 
