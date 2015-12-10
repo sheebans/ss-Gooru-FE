@@ -30,7 +30,14 @@ export default Ember.Controller.extend({
   /**
    * @property {User[]} class students
    */
-  students:null
+  students:null,
+
+  /**
+   * A link to the computed property isStudent in class controller
+   * @see controllers/class.js
+   * @property {isStudent}
+   */
+  "isStudent": Ember.computed.reads('classController.isStudent')
   // -------------------------------------------------------------------------
   // Observers
 

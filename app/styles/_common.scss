@@ -35,7 +35,9 @@ a, button.btn-link {
     color: $color-blue-lighter-2;
   }
 }
-
+.btn {
+  font-size: $font-size-small;
+}
 button.btn-link {
   padding: 0;
 }
