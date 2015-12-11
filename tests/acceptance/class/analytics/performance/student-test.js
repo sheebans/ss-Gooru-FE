@@ -27,7 +27,7 @@ test('Layout', function(assert) {
 
     T.exists(assert, $performanceContainer.find(".navigation .performance"), "Missing performance navigation tab");
     T.exists(assert, $performanceContainer.find(".navigation .mastery"), "Missing mastery navigation tab");
-    T.exists(assert, $performanceContainer.find(".controls .student-breadcrumb"), "Missing performance breadcrumb");
+    T.exists(assert, $performanceContainer.find(".controls .student-breadcrumb .gru-breadcrumb"), "Missing performance breadcrumb");
     T.exists(assert, $performanceContainer.find(".controls .student-actions"), "Missing performance actions");
     T.exists(assert, $performanceContainer.find(".snapshot"), "Missing performance snapshot");
     T.exists(assert, $performanceContainer.find(".gru-content"), "Missing performance content");
