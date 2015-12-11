@@ -16,7 +16,13 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Actions
+  actions:{
 
+    optionsChange:function(options){
+      //TO DO
+      console.log(options);
+    }
+  },
   // -------------------------------------------------------------------------
   // Events
 
@@ -48,7 +54,6 @@ export default Ember.Controller.extend({
       label: 'Collection one with a long name'
     }
   ])
-
   // -------------------------------------------------------------------------
   // Observers
 

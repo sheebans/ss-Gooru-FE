@@ -307,7 +307,11 @@ export default {
     "students":"Students",
     "subject":"Subject",
     "grade":"Grade",
-    "description":"Description"
+    "description":"Description",
+    "edit-class":"Edit Class",
+    "share-class":"Shate Class",
+    "invite-collaborator":"Invite Collaborator",
+    "invite-student":"Invite Student"
   },
   "class.gru-class-navigation": {
     "active" : "Active:",
@@ -324,10 +328,17 @@ export default {
   },
   "class.analytics": {
     "performance": {
-      "title": "Performance"
+      "title": "Performance",
     },
     "mastery": {
       "title": "Mastery"
     }
+  },
+  "gru-data-picker":{
+    "score": "Score",
+    "completion":"Completion",
+    "time":"Time",
+    "reaction":"Reaction",
+    "attempt":"Attempt"
   }
 };

@@ -17,6 +17,9 @@
     },
     "/gooru-search": {
       "target": "http://localhost:8882"
+    },
+    "/insights": {
+      "target": "http://localhost:8882"
     }
   }
 }

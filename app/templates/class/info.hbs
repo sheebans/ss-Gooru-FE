@@ -20,7 +20,15 @@
                </div>
            </div>
        </div>
-       <div class="col-md-3 col-sm-3 col-xs-12">
+       <div class="info-btns col-md-3 col-sm-3 col-xs-12">
+                <div class="edit-share-section col-center-block {{if isStudent 'hide' 'show'}}">
+                    <button class="edit-btn btn btn-default">
+                      {{t "class.info.edit-class"}}
+                    </button>
+                    <button class="share-btn btn btn-default">
+                      {{t "class.info.share-class"}}
+                    </button>
+                </div>
               <div class="code">
                   <p>{{class.code}}</p>
               </div>
@@ -28,24 +36,50 @@
    </div>
     <div class="row">
        <div class="teachers-section col-md-12 col-sm-12 col-xs-12">
-           <h3>{{t "class.info.teachers"}}</h3>
-           <ul class="teachers">
-             {{#each class.teachers as |teacher|}}
-                 <li class="profile-card">
-                   {{gru-profile-card user=teacher}}
-                 </li>
-             {{/each}}
-           </ul>
+          <div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-6">
+                  <h3>{{t "class.info.teachers"}}</h3>
+              </div>
+              <div class="invite-collaborator col-md-6 col-sm-6 col-xs-6 {{if isStudent 'hide' 'show'}}">
+                  <button class="btn btn-default btn-teacher">
+                    {{t "class.info.invite-collaborator"}}
+                  </button>
+              </div>
+          </div>
+           <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                  <ul class="teachers">
+                   {{#each class.teachers as |teacher|}}
+                     <li class="profile-card">
+                        {{gru-profile-card user=teacher}}
+                     </li>
+                   {{/each}}
+                  </ul>
+              </div>
+           </div>
        </div>
        <div class="students-section col-md-12 col-sm-12 col-xs-12">
-           <h3>{{t "class.info.students"}}</h3>
-           <ul class="students">
-             {{#each students as |student|}}
-                 <li class="profile-card">
-                   {{gru-profile-card user=student}}
-                 </li>
-             {{/each}}
-           </ul>
+           <div class="row">
+               <div class="col-md-6 col-sm-6 col-xs-6">
+                   <h3>{{t "class.info.students"}}</h3>
+               </div>
+               <div class="invite-student col-md-6 col-sm-6 col-xs-6 {{if isStudent 'hide' 'show'}} ">
+                   <button class="btn btn-default btn-teacher">
+                     {{t "class.info.invite-student"}}
+                   </button>
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-md-12 col-sm-12 col-xs-12">
+                  <ul class="students">
+                    {{#each students as |student|}}
+                        <li class="profile-card">
+                          {{gru-profile-card user=student}}
+                        </li>
+                    {{/each}}
+                  </ul>
+               </div>
+           </div>
        </div>
    </div>
 </div>

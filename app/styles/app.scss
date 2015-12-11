@@ -3,6 +3,7 @@
 
 @import 'mixins';
 @import 'common';
+
 @import 'helpers/three-bounce-spinner';
 @import 'mixins/gru-accordion';
 
@@ -58,4 +59,4 @@
 @import 'components/player/resources/gru-vimeo-resource';
 
 @import 'components/class/gru-class-navigation';
-
+@import 'components/class/analytics/performance/gru-data-picker';
