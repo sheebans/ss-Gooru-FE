@@ -317,7 +317,15 @@ export default {
   },
   "class.analytics": {
     "performance": {
-      "title": "Performance"
+      "title": "Performance",
+      "actions": {
+        "share": "Share",
+        "download": "Download",
+        "fullScreen": "View Full Screen",
+        "assessment": "View Assessment",
+        "collection": "View Collection",
+        "both": "View Both"
+      }
     },
     "mastery": {
       "title": "Mastery"

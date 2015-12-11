@@ -29,6 +29,7 @@ test('Layout', function(assert) {
     T.exists(assert, $performanceContainer.find(".navigation .mastery"), "Missing mastery navigation tab");
     T.exists(assert, $performanceContainer.find(".controls .gru-breadcrumb"), "Missing performance breadcrumb");
     T.exists(assert, $performanceContainer.find(".controls .gru-actions"), "Missing performance actions");
+    T.exists(assert, $performanceContainer.find(".controls .gru-actions .gru-actions-bar"), "Missing performance actions component");
     T.exists(assert, $performanceContainer.find(".snapshot"), "Missing performance snapshot");
     T.exists(assert, $performanceContainer.find(".gru-content"), "Missing performance content");
 
@@ -53,3 +54,22 @@ test('Navigating from class navigation', function(assert) {
     });
   });
 });
+
+test('When view by collection option is selected', function(assert) {
+  visit('/class/class-10');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-10');
+
+    const $performanceContainer = find(".controller.class .controller.analytics-performance-student");
+    const $collectionViewOption = $performanceContainer.find(".controls .gru-actions-bar .dropdown-menu .collection");
+
+    click($collectionViewOption);
+
+    andThen(function() {
+      assert.equal(currentURL(), '/class/class-10/analytics/performance/student?filterBy=collection');
+
+    });
+  });
+});
+
