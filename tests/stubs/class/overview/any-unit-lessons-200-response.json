@@ -3,7 +3,7 @@
     "title": "Property name conventions",
     "gooruOid": "fbd76aed-1b8d-4c2c-a9c6-c7603eef347c",
     "collectionId": 24413346,
-    "visibility": false
+    "visibility": true
   },
   {
     "title": "Method naming convention",
@@ -15,6 +15,6 @@
     "title": "Class naming conventions",
     "gooruOid": "cc2bc04c-05ab-4407-9d76-b7021d6138e3",
     "collectionId": 24413351,
-    "visibility": false
+    "visibility": true
   }
 ]

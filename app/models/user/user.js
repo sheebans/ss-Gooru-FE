@@ -1,5 +1,9 @@
+import Ember from "ember";
 import DS from "ember-data";
 import { validator, buildValidations } from "ember-cp-validations";
+
+// constants
+import DEFAULT_IMAGES from "../../config/config";
 
 const UserValidations = buildValidations({
   firstName: [
@@ -105,7 +109,7 @@ export default DS.Model.extend(UserValidations, {
   /**
    * @property {string} profileImageUrl
    */
-  profileImageUrl: DS.attr("string"),
+  profileImageUrl: DS.attr("string", { defaultValue: DEFAULT_IMAGES.USER_PROFILE }),
   /**
    * @property {string} userRoleSetString
    */
@@ -159,6 +163,10 @@ export default DS.Model.extend(UserValidations, {
   /**
    * @property {Meta} metadata
    */
-  metadata: DS.belongsTo("meta", { async: true })
+  metadata: DS.belongsTo("meta", { async: true }),
+
+  fullName: Ember.computed('firstName', 'lastName', function() {
+    return this.get('lastName') + ', ' + this.get('firstName');
+  })
 
 });
