@@ -1,5 +1,5 @@
 import Ember from 'ember';
-
+import {download} from 'gooru-web/utils/csv'
 /**
  * Student Analytics Performance Controller
  *
@@ -20,8 +20,23 @@ export default Ember.Controller.extend({
 
     optionsChange:function(options){
       //TO DO
-      console.log(options);
+      Ember.log(options);
+    },
+
+    /**
+     * When clicking at the download button
+     */
+    download: function(){
+      download('test', {
+        fields: ['First Name', "Last Name"],
+        data: [
+          ['Javier', 'P'],
+          ['David', 'P']
+        ]
+      });
     }
+
+
   },
   // -------------------------------------------------------------------------
   // Events
