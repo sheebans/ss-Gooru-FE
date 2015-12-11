@@ -1,0 +1,54 @@
+<div class="panel-heading" role="tab" id="{{elementId}}-heading">
+  <strong class="panel-title">
+    <a class="collapsed"
+       role="button"
+       data-toggle="collapse"
+       data-parent="#{{belongsTo}}"
+       href="#{{elementId}}-content"
+       aria-expanded="false"
+       aria-controls="{{elementId}}-content"
+       {{action "toggleState"}}>
+        {{t "common.unitInitial"}}{{plus-one index}}&colon; {{model.title}}
+    </a>
+  </strong>
+  {{!-- Show only for xs --}}
+  <div class="user-icons visible-xs">
+    <span></span>
+  </div>
+  {{!-- Show for all other screen sizes --}}
+  <div class="user-icons hidden-xs">
+    <span></span>
+  </div>
+</div>
+
+<div id="{{elementId}}-content"
+     data-index="{{componentIndex}}"
+     class="panel-collapse collapse"
+     role="tabpanel"
+     aria-labelledby="{{elementId}}-heading">
+
+  <div class="panel-body">
+    <ol class="panel-group" id="{{accordionId}}" role="tablist" aria-multiselectable="true">
+
+    {{#if items.isPending}}
+      {{three-bounce-spinner}}
+    {{else}}
+
+      {{#each visibleItems as |item index|}}
+
+        {{class.overview.gru-accordion-lesson
+          currentClass=currentClass
+          unitId=model.id
+          model=item
+          index=index
+          belongsTo=accordionId }}
+
+      {{else}}
+        <li>{{t "common.contentUnavailable"}}</li>
+      {{/each}}
+
+    {{/if}}
+    </ol>
+
+  </div>
+</div>

@@ -4,6 +4,9 @@
 @import 'mixins';
 @import 'common';
 
+@import 'helpers/three-bounce-spinner';
+@import 'mixins/gru-accordion';
+
 @import 'controllers/application';
 @import 'controllers/index';
 @import 'controllers/player';
@@ -13,7 +16,6 @@
 @import 'controllers/class/overview';
 @import 'controllers/class/analytics/performance/student';
 @import 'controllers/class/analytics/performance/teacher';
-
 
 // TODO: update these components so they follow the naming conventions
 @import 'components/app-dropdown';
@@ -30,6 +32,7 @@
 @import 'components/gru-header';
 @import 'components/gru-footer';
 @import 'components/gru-category-panel';
+@import 'components/gru-user-icons';
 @import 'components/gru-user-sign-up';
 @import 'components/gru-user-registration';
 @import 'components/gru-standards-popup';
@@ -57,5 +60,3 @@
 
 @import 'components/class/gru-class-navigation';
 @import 'components/class/analytics/performance/gru-data-picker';
-
-

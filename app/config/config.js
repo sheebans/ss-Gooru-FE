@@ -17,3 +17,7 @@ export const RESOURCE_COMPONENT_MAP = {
   'image'         : 'player.resources.gru-image-resource',
   'vimeo/video'   : 'player.resources.gru-vimeo-resource'
 };
+
+export const DEFAULT_IMAGES = {
+  USER_PROFILE: '/assets/gooru/profile.png'
+};
