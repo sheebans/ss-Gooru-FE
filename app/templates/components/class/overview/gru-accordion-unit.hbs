@@ -12,13 +12,17 @@
     </a>
   </strong>
   {{!-- Show only for xs --}}
-  <div class="user-icons visible-xs">
-    <span></span>
-  </div>
+  {{gru-user-icons
+    class="visible-xs"
+    users=model.users
+    viewThreshold=2
+    viewMoreIn='tooltip' }}
+
   {{!-- Show for all other screen sizes --}}
-  <div class="user-icons hidden-xs">
-    <span></span>
-  </div>
+  {{gru-user-icons
+    class="hidden-xs"
+    users=model.users
+    viewThreshold=3 }}
 </div>
 
 <div id="{{elementId}}-content"

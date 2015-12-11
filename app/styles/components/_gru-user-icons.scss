@@ -46,6 +46,7 @@
     cursor: default;
 
     &.clickable {
+      color: $gray;
       cursor: pointer;
     }
   }

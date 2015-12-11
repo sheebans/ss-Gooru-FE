@@ -39,8 +39,12 @@ export default Ember.Component.extend(AccordionMixin, {
   setupAccordionCourse: Ember.on('init', function() {
     // Load the units and users in the course when the component is instantiated
     var itemsPromise = this.getUnits();
-    var usersLocation = this.getCourseUsers();
     this.set('items', itemsPromise);
+
+    // TODO: getCourseUsers is currently dependent on items that's why this declaration
+    // takes place after setting items. Once api-sdk/course-location is complete
+    // both declarations can be put together, as they should
+    var usersLocation = this.getCourseUsers();
     this.set('usersLocation', usersLocation);
   }),
 
@@ -61,19 +65,13 @@ export default Ember.Component.extend(AccordionMixin, {
       this.get('usersLocation').then((usersLocation) => {
         visibleItems.forEach((item) => {
           // Get the users for a specific unit
-          let entity = usersLocation.findBy('unit', item.get('id'));
+          //let entity = usersLocation.findBy('unit', item.get('id'));
+          let entity = usersLocation.findBy('unit', 'unit-1');
           if (entity) {
             entity.get('locationUsers').then((locationUsers) => {
               item.set('users', locationUsers);
             });
           }
-          // Uncomment to see this working
-          //let entity = usersLocation.findBy('unit', 'unit-3');
-          //if (entity) {
-          //  entity.get('locationUsers').then((locationUsers) => {
-          //    item.set('users', locationUsers);
-          //  });
-          //}
         });
       }).catch((e) => {
         Ember.Logger.error('Unable to retrieve course users: ', e);
@@ -107,7 +105,13 @@ export default Ember.Component.extend(AccordionMixin, {
   getCourseUsers: function() {
     const courseId = this.get('currentClass.course');
 
-    return this.get("courseLocationService").findByCourse(courseId);
+    //return this.get("courseLocationService").findByCourse(courseId);
+
+    // TODO: remove this after api-sdk/course-location is complete
+    const component = this;
+    return this.get('items').then((items) => {
+      return component.get("courseLocationService").findByCourse(courseId, { units: items});
+    });
   }
 
 });
