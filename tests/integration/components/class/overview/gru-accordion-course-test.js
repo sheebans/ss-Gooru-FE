@@ -83,7 +83,7 @@ test('it renders correctly when there are no units', function(assert) {
 
     const $items = $panelGroup.find('.gru-accordion-unit');
     assert.equal($items.length, 0, 'Incorrect number of lessons listed');
-    assert.equal($panelGroup.text().trim(), context.get('i18n').t('common.content_unavailable').string, 'Wrong text output');
+    assert.equal($panelGroup.text().trim(), context.get('i18n').t('common.contentUnavailable').string, 'Wrong text output');
   });
 
 });

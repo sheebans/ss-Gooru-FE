@@ -114,7 +114,7 @@ test('it renders', function(assert) {
   assert.ok($collectionsContainer.length, 'Container for collections and assessments is missing');
 
   // Content for collections/assessments is not available because the call to get data has not been made yet
-  assert.equal($collectionsContainer.text().trim(), context.get('i18n').t('common.content_unavailable').string, 'Content for collections/assessments should not be available');
+  assert.equal($collectionsContainer.text().trim(), context.get('i18n').t('common.contentUnavailable').string, 'Content for collections/assessments should not be available');
 });
 
 test('it renders correctly when there are no collections/assessments to load after clicking on the lesson name', function(assert) {
@@ -154,7 +154,7 @@ test('it renders correctly when there are no collections/assessments to load aft
   const $collectionsContainer = $collapsePanel.find('.collections');
 
   // Content for lessons is not available because the call to get data has not been made yet
-  assert.equal($collectionsContainer.text().trim(), context.get('i18n').t('common.content_unavailable').string, 'Content for collections/assessments should not be available');
+  assert.equal($collectionsContainer.text().trim(), context.get('i18n').t('common.contentUnavailable').string, 'Content for collections/assessments should not be available');
 
   // Click on the lesson name
   $lessonTitleAnchor.click();
@@ -169,7 +169,7 @@ test('it renders correctly when there are no collections/assessments to load aft
 
     const $items = $collapsePanel.find('.collections .panel');
     assert.equal($items.length, 0, 'Incorrect number of collections listed');
-    assert.equal($collectionsContainer.text().trim(), context.get('i18n').t('common.content_unavailable').string, 'Incorrect message when there are no collections to load');
+    assert.equal($collectionsContainer.text().trim(), context.get('i18n').t('common.contentUnavailable').string, 'Incorrect message when there are no collections to load');
   });
 });
 
@@ -210,7 +210,7 @@ test('it loads collections/assessments and renders them correctly after clicking
   const $collectionsContainer = $collapsePanel.find('.collections');
 
   // Content for lessons is not available because the call to get data has not been made yet
-  assert.equal($collectionsContainer.text().trim(), context.get('i18n').t('common.content_unavailable').string, 'Content for collections/assessments should not be available');
+  assert.equal($collectionsContainer.text().trim(), context.get('i18n').t('common.contentUnavailable').string, 'Content for collections/assessments should not be available');
 
   // Click on the unit name
   $lessonTitleAnchor.click();

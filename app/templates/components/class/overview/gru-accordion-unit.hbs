@@ -8,7 +8,7 @@
        aria-expanded="false"
        aria-controls="{{elementId}}-content"
        {{action "toggleState"}}>
-        {{t "common.unit_initial"}}{{plus-one index}}&colon; {{model.title}}
+        {{t "common.unitInitial"}}{{plus-one index}}&colon; {{model.title}}
     </a>
   </strong>
   {{!-- Show only for xs --}}
@@ -44,7 +44,7 @@
           belongsTo=accordionId }}
 
       {{else}}
-        <li>{{t "common.content_unavailable"}}</li>
+        <li>{{t "common.contentUnavailable"}}</li>
       {{/each}}
 
     {{/if}}

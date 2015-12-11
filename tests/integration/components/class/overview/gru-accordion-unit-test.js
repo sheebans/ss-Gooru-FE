@@ -109,7 +109,7 @@ test('it renders', function(assert) {
   assert.ok($panelGroup.length, 'Panel group element for lessons is missing');
 
   // Content for lessons is not available because the call to get data has not been made yet
-  assert.equal($panelGroup.text().trim(), context.get('i18n').t('common.content_unavailable').string, 'Content for lessons should not be available');
+  assert.equal($panelGroup.text().trim(), context.get('i18n').t('common.contentUnavailable').string, 'Content for lessons should not be available');
 });
 
 test('it renders correctly when there are no lessons to load after clicking on the unit name', function(assert) {
@@ -147,7 +147,7 @@ test('it renders correctly when there are no lessons to load after clicking on t
   const $panelGroup = $collapsePanel.find('.panel-group');
 
   // Content for lessons is not available because the call to get data has not been made yet
-  assert.equal($panelGroup.text().trim(), context.get('i18n').t('common.content_unavailable').string, 'Content for lessons should not be available');
+  assert.equal($panelGroup.text().trim(), context.get('i18n').t('common.contentUnavailable').string, 'Content for lessons should not be available');
 
   // Click on the unit name
   $unitTitleAnchor.click();
@@ -162,7 +162,7 @@ test('it renders correctly when there are no lessons to load after clicking on t
 
     const $items = $panelGroup.find('.gru-accordion-lesson');
     assert.equal($items.length, 0, 'Incorrect number of lessons listed');
-    assert.equal($panelGroup.text().trim(), context.get('i18n').t('common.content_unavailable').string, 'Incorrect message when there are no lessons to load');
+    assert.equal($panelGroup.text().trim(), context.get('i18n').t('common.contentUnavailable').string, 'Incorrect message when there are no lessons to load');
   });
 });
 
@@ -201,7 +201,7 @@ test('it loads lessons and renders them correctly after clicking on the unit nam
   const $panelGroup = $collapsePanel.find('.panel-group');
 
   // Content for lessons is not available because the call to get data has not been made yet
-  assert.equal($panelGroup.text().trim(), context.get('i18n').t('common.content_unavailable').string, 'Content for lessons should not be available');
+  assert.equal($panelGroup.text().trim(), context.get('i18n').t('common.contentUnavailable').string, 'Content for lessons should not be available');
 
   // Click on the unit name
   $unitTitleAnchor.click();
