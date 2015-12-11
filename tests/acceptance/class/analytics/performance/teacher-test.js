@@ -35,6 +35,11 @@ test('Layout', function(assert) {
 
     const $classMenu = find(".controller.class .gru-class-navigation .class-menu");
     T.exists(assert, $classMenu.find(".analytics.selected"), "Missing selected analytics item");
+
+    const $betterExperience = find("div.better-experience.visible-xs");
+    T.exists(assert, $betterExperience, "Missing better experience alert");
+    T.exists(assert, $betterExperience.find("button.close"), "Missing close button");
+    assert.equal(T.text($betterExperience.find("span.better-experience-message")), "For a better Gooru experience, view full Class Analytics in tablet or desktop", "Incorrect message");
   });
 });
 
