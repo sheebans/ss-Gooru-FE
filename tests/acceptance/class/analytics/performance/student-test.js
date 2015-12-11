@@ -56,10 +56,10 @@ test('Navigating from class navigation', function(assert) {
 });
 
 test('When view by collection option is selected', function(assert) {
-  visit('/class/class-10');
+  visit('/class/class-for-pochita-as-student');
 
   andThen(function() {
-    assert.equal(currentURL(), '/class/class-10');
+    assert.equal(currentURL(), '/class/class-for-pochita-as-student');
 
     const $performanceContainer = find(".controller.class .controller.analytics-performance-student");
     const $collectionViewOption = $performanceContainer.find(".controls .gru-actions-bar .dropdown-menu .collection");
@@ -67,7 +67,7 @@ test('When view by collection option is selected', function(assert) {
     click($collectionViewOption);
 
     andThen(function() {
-      assert.equal(currentURL(), '/class/class-10/analytics/performance/student?filterBy=collection');
+      assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?filterBy=collection');
 
     });
   });

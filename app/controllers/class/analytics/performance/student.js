@@ -18,17 +18,13 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions:{
-
-  actions: {
-
     /**
     * Triggered when a filter option is selected
     * @param {string} option
     */
     selectFilterBy: function(option){
       this.set("filterBy", option);
-    }
-  },
+    },
 
     optionsChange:function(options){
       //TO DO
