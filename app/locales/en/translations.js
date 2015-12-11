@@ -317,10 +317,17 @@ export default {
   },
   "class.analytics": {
     "performance": {
-      "title": "Performance"
+      "title": "Performance",
     },
     "mastery": {
       "title": "Mastery"
     }
+  },
+  "gru-data-picker":{
+    "score": "Score",
+    "completion":"Completion",
+    "time":"Time",
+    "reaction":"Reaction",
+    "attempt":"Attempt"
   }
 };
