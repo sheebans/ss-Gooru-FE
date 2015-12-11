@@ -25,8 +25,6 @@ export default Ember.Component.extend(AccordionMixin, {
 
   classNames:['gru-accordion-unit', 'panel', 'panel-default'],
 
-  classNameBindings: ['expanded'],
-
   tagName: 'li',
 
   // -------------------------------------------------------------------------
@@ -34,25 +32,39 @@ export default Ember.Component.extend(AccordionMixin, {
   actions: {
 
     /**
-     * Load the lessons for the unit
+     * Load data for the unit
      *
-     * @function actions:toggleState
+     * @function actions:loadData
      * @returns {undefined}
      */
-    toggleState: function() {
-      this.set('expanded', !this.get('expanded'));
-
-      if (this.get('expanded')) {
-        // Loading of data should only happen once
-        this.loadData();
+    loadData: function() {
+      // Loading of data will only happen if 'items' has not previously been set
+      if (!this.get('items')) {
+        var itemsPromise = this.getLessons();
+        this.set('items', itemsPromise);
       }
     }
-
   },
 
   // -------------------------------------------------------------------------
   // Events
+  setupSubscriptions: Ember.on('didInsertElement', function() {
 
+    this.$().on('hide.bs.collapse', function(e) {
+      e.stopPropagation();
+      $(this).removeClass('expanded');
+    });
+
+    this.$().on('show.bs.collapse', function(e) {
+      e.stopPropagation();
+      $(this).addClass('expanded');
+    });
+  }),
+
+  removeSubscriptions: Ember.on('willDestroyElement', function() {
+    this.$().off('hide.bs.collapse');
+    this.$().off('show.bs.collapse');
+  }),
 
   // -------------------------------------------------------------------------
   // Properties
@@ -64,19 +76,6 @@ export default Ember.Component.extend(AccordionMixin, {
 
   // -------------------------------------------------------------------------
   // Methods
-  /**
-   * Load the lessons for the unit
-   *
-   * @function
-   * @returns {undefined}
-   */
-  loadData: function() {
-    // Loading of data will only happen if 'items' has not previously been set
-    if (!this.get('items')) {
-      var itemsPromise = this.getLessons();
-      this.set('items', itemsPromise);
-    }
-  },
 
   /**
    * Get all the lessons for the unit

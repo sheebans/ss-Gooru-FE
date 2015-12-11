@@ -48,7 +48,23 @@ export default Ember.Component.extend(AccordionMixin, {
 
   // -------------------------------------------------------------------------
   // Events
+  setupSubscriptions: Ember.on('didInsertElement', function() {
 
+    this.$().on('hide.bs.collapse', function(e) {
+      e.stopPropagation();
+      $(this).removeClass('expanded');
+    });
+
+    this.$().on('show.bs.collapse', function(e) {
+      e.stopPropagation();
+      $(this).addClass('expanded');
+    });
+  }),
+
+  removeSubscriptions: Ember.on('willDestroyElement', function() {
+    this.$().off('hide.bs.collapse');
+    this.$().off('show.bs.collapse');
+  }),
 
   // -------------------------------------------------------------------------
   // Properties
