@@ -309,7 +309,7 @@ export default {
     "grade":"Grade",
     "description":"Description",
     "edit-class":"Edit Class",
-    "share-class":"Shate Class",
+    "share-class":"Share Class",
     "invite-collaborator":"Invite Collaborator",
     "invite-student":"Invite Student"
   },
@@ -329,6 +329,7 @@ export default {
   "class.analytics": {
     "performance": {
       "title": "Performance",
+      "better-experience-message":"For a better Gooru experience, view full Class Analytics in tablet or desktop"
     },
     "mastery": {
       "title": "Mastery"
