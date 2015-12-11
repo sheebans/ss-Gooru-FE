@@ -4,7 +4,7 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
-
+  session: Ember.inject.service("session"),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -28,10 +28,24 @@ export default Ember.Controller.extend({
    menuItem: null,
 
   /**
-   * The user to show
-   * @property {user}
+   * Indicates if a user is a teacher of this class
+   * @property {isTeacher}
+   * @see {Class} class
+   * @returns {bool}
    */
-  "user": null
+  isTeacher: Ember.computed('class', function() {
+    return this.get('class').isTeacher(this.get("session.userId"));
+  }),
+
+  /**
+   * Indicates if a user is a student of this class
+   * @property {isStudent}
+   * @see {Class} class
+   * @returns {bool}
+   */
+  isStudent: Ember.computed('class', function() {
+    return this.get('class').isStudent(this.get("session.userId"));
+  }),
 
   // -------------------------------------------------------------------------
   // Observers

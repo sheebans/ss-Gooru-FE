@@ -299,7 +299,11 @@ export default {
     "students":"Students",
     "subject":"Subject",
     "grade":"Grade",
-    "description":"Description"
+    "description":"Description",
+    "edit-class":"Edit Class",
+    "share-class":"Shate Class",
+    "invite-collaborator":"Invite Collaborator",
+    "invite-student":"Invite Student"
   },
   "class.gru-class-navigation": {
     "active" : "Active:",

@@ -9,17 +9,17 @@ moduleForAcceptance('Acceptance | class/info', {
       isAnonymous: false,
       token: 'class-info-token',
       user: {
-        gooruUId: 'class-info-token-user-id'
+        gooruUId: 'pochita'
       }
     });
   }
 });
 
-test('Layout', function(assert) {
-  visit('/class/11111-5d0d-4673-a85d-f93aa0cbddf2/info');
+test('Student Layout', function(assert) {
+  visit('/class/class-for-pochita-as-student/info');
 
   andThen(function() {
-    assert.equal(currentURL(), '/class/11111-5d0d-4673-a85d-f93aa0cbddf2/info');
+    assert.equal(currentURL(), '/class/class-for-pochita-as-student/info');
 
     const $overviewContainer = find(".controller.class .controller.info");
     T.exists(assert, $overviewContainer, "Missing overview container");
@@ -30,7 +30,7 @@ test('Layout', function(assert) {
 
     const $grade =$overviewContainer.find(".grade");
     T.exists(assert, $grade.find("p.title"), "Missing Grade Title");
-    assert.equal(T.text($grade.find("p")), "Grade:K", "Incorrect grade");
+    assert.equal(T.text($grade.find("p")), "Grade:K,6,6,7,7,8,8", "Incorrect grade");
 
     const $description =$overviewContainer.find(".description");
     T.exists(assert, $description.find("span.title"), "Missing Description Title");
@@ -38,17 +38,45 @@ test('Layout', function(assert) {
 
     const $classCode =$overviewContainer.find(".code");
     T.exists(assert, $classCode, "Missing Class Code Box");
-    assert.equal(T.text($classCode.find("p")), "2WZ8IJA", "Incorrect Class Code");
+    assert.equal(T.text($classCode.find("p")), "JR48FMF", "Incorrect Class Code");
 
     const $teachers =$overviewContainer.find(".teachers-section");
     T.exists(assert, $teachers.find("h3"), "Missing teachers section");
     T.exists(assert, $teachers.find(".teachers"), "Missing teachers list");
     T.exists(assert, $teachers.find("li.profile-card"), "Missing profile cards for teachers");
+    T.exists(assert, $teachers.find("div.invite-collaborator.hide"), "Should be hide");
 
     const $students =$overviewContainer.find(".students-section");
     T.exists(assert, $students.find("h3"), "Missing students section");
     T.exists(assert, $students.find(".students"), "Missing students list");
     T.exists(assert, $students.find("li.profile-card"), "Missing profile cards for students");
+    T.exists(assert, $students.find("div.invite-student.hide"), "Should be hide");
 
+    const $infoButtons =$overviewContainer.find(".info-btns");
+    T.exists(assert, $infoButtons.find("div.edit-share-section.hide"), "Edit and Share buttons should be hide");
+
+  });
+});
+test('Teacher Layout', function(assert) {
+  visit('/class/class-for-pochita-as-teacher/info');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/info');
+
+    const $overviewContainer = find(".controller.class .controller.info");
+    T.exists(assert, $overviewContainer, "Missing overview container");
+
+    const $teachers =$overviewContainer.find(".teachers-section");
+    T.exists(assert, $teachers.find("div.invite-collaborator.show"), "Should be visible");
+    T.exists(assert, $teachers.find("div.invite-collaborator.show button"), "Missing invite collaborator button");
+
+    const $students =$overviewContainer.find(".students-section");
+    T.exists(assert, $students.find("div.invite-student.show"), "Should be visible");
+    T.exists(assert, $students.find("div.invite-student.show button"), "Missing invite student button");
+
+    const $infoButtons =$overviewContainer.find(".info-btns");
+    T.exists(assert, $infoButtons.find("div.edit-share-section.show"), "Edit and Share buttons should be visible");
+    T.exists(assert, $infoButtons.find(".edit-btn"), "Missing Edit Button");
+    T.exists(assert, $infoButtons.find(".share-btn"), "Missing Share Button");
   });
 });

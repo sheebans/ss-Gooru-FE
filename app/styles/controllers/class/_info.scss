@@ -28,7 +28,7 @@
     }
     .code {
       border: 1px solid $color-gray-4;
-      width: 179px;
+      width: 100%;
       min-height: 50px;
       display: flex;
       justify-content: center;
@@ -39,8 +39,26 @@
       }
       @media (max-width: $screen-xs-max) { /* only for phone */
         margin-bottom: 10px;
+        width: 220px;
       }
 
     }
+    .edit-share-section{
+      button{
+        width: 48%;
+      }
+      margin-bottom: 10px;
+      @media (max-width: $screen-xs-max) { /* only for phone */
+        width: 220px;
+      }
+    }
+    .info-btns{
+      padding:0px;
+    }
+  }
+  .btn-teacher{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    float: right;
   }
 }
