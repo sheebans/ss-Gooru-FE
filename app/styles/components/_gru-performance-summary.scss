@@ -1,0 +1,57 @@
+ul.gru-performance-summary{
+  list-style: none;
+  li{
+    float:left;
+    display: inline-block;
+    border:1px solid;
+    width: 100px;
+    height: 70px;
+    text-align:center;
+    .description{
+      width: 60%;
+      height: 20px;
+      background-color:red;
+      display: block;
+      margin: 0 auto;
+      *{
+        float:left;
+        margin: 0;
+      }
+    }
+  }
+  .radial-progress {
+    $circle-size: 20px;
+    $circle-background: #ffffff;
+    $circle-color: #1076bb;
+    border: 1px solid $circle-color;
+    width: $circle-size;
+    height: $circle-size;
+    background-color: $circle-background;
+    border-radius: 100%;
+    .circle {
+      .fill, .mask.full {
+        -webkit-transform: rotate(126deg);
+        transform: rotate(126deg);
+      }
+      .fill.fix {
+        -webkit-transform: rotate(152deg);
+        transform: rotate(152deg);
+      }
+      .mask, .fill {
+        width: $circle-size;
+        height: $circle-size;
+        position: absolute;
+
+        border-radius: 50%;
+        -webkit-backface-visibility: hidden;
+      }
+      .mask {
+        clip: rect(0px, $circle-size, $circle-size, $circle-size/2);
+        .fill {
+          clip: rect(0px, $circle-size/2, $circle-size, 0px);
+          background-color: $circle-color;
+        }
+      }
+    }
+  }
+}
