@@ -1,32 +1,48 @@
 {
   "searchResult": [
     {
-      "classUid": "22222-7383-4164-8068-5415621b7a34",
+      "classUid": "class-b1-for-pochita",
       "visibility": true,
       "name": "Class B1",
       "classCode": "JR48FMF",
       "courseGooruOid": "75366215-f9d5-424c-8a90-2cabdfeb3ffa",
       "grades": "K,6,6,7,7,8,8",
       "user": {
-        "username": "Mr. John Smith",
-        "gooruUId": "teacher-123",
+        "username": "Niña Pochita",
+        "gooruUId": "pochita",
         "profileImageUrl": "http://profile-qa.s3.amazonaws.com/88638002-deb6-4f8d-b319-4a7ae18d0efe.png"
       },
       "memberCount": 0
     },
     {
-      "classUid": "22222-5d0d-4673-a85d-f93aa0cbddf2",
+      "classUid": "class-b2-for-pochita",
       "visibility": true,
       "name": "Class B2",
       "classCode": "2WZ8IJA",
       "grades": "K",
       "user": {
-        "username": "Mr. John Smith",
-        "gooruUId": "teacher-123",
+        "username": "Niña Pochita",
+        "gooruUId": "pochita",
         "profileImageUrl": "http://profile-qa.s3.amazonaws.com/88638002-deb6-4f8d-b319-4a7ae18d0efe.png"
       },
       "memberCount": 1
+    },
+    {
+      "status": "not-invited",
+      "visibility": true,
+      "courseGooruOid": "75366215-f9d5-424c-8a90-2cabdfeb3ffa",
+      "memberCount": 1,
+      "classUid": "class-b3-for-pochita",
+      "name": "Class B3",
+      "classCode": "2WZ8IJA",
+      "grades": "K",
+      "user": {
+        "username": "Niña Pochita",
+        "gooruUId": "pochita",
+        "profileImageUrl": "http://profile-qa.s3.amazonaws.com/88638002-deb6-4f8d-b319-4a7ae18d0efe.png"
+      }
     }
+
   ],
   "totalHitCount": 2
 }

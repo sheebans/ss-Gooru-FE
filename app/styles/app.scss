@@ -1,8 +1,7 @@
+@import "custom-variables";
 @import '../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap';
 
-@import 'variables';
 @import 'mixins';
-@import 'style-guide';
 @import 'common';
 
 @import 'controllers/application';
@@ -39,7 +38,7 @@
 @import 'components/gru-emotion-picker';
 @import 'components/gru-profile-card';
 @import 'components/gru-unit-tree';
-
+@import 'components/gru-breadcrumb';
 
 @import 'components/player/gru-navigation';
 @import 'components/player/gru-navigator';
