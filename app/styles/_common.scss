@@ -1,29 +1,83 @@
 /* General styles */
+html {
+  font-size: $font-size-base;
+}
+
+body {
+  color: $color-gray-secondary;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+  font-size: $font-size-h1;
+  color: $color-blue-lighter-1;
+  -webkit-font-smoothing: antialiased;
+}
+
+h2 {
+  font-size: $font-size-h2;
+  color: $color-gray-secondary;
+  -webkit-font-smoothing: antialiased;
+}
+
+h3 {
+  font-size: $font-size-h3;
+  color: $color-blue-primary;
+  -webkit-font-smoothing: antialiased;
+}
+
 a, button.btn-link {
+  cursor: pointer;
   color: $color-blue-dark-2;
   &:hover,
   &:visited {
     text-decoration: none;
-    color: $color-blue-lighter-2;
+    color: $color-blue-dark-2;
   }
 }
-
+.btn {
+  font-size: $font-size-small;
+}
 button.btn-link {
   padding: 0;
 }
 
 .validation span.error {
-  font-size: 12px;
+  font-size: $font-size-small;
   color: $feedback-error;
   display: inline-block;
   margin-top: 4px;
+}
+
+/* includes of mixins*/
+@include make-padding(30, xs, 2px);
+@include make-padding(30, null, 2px);
+@include make-margin(30, null, 2px);
+@media (min-width: $screen-sm-min) {
+  @include make-padding(30, sm, 2px);
+}
+@media (min-width: $screen-md-min) {
+  @include make-padding(30, md, 2px);
+}
+@media (min-width: $screen-lg-min) {
+  @include make-padding(30, lg, 2px);
+}
+
+@include make-margin(30, xs, 2px);
+@media (min-width: $screen-sm-min) {
+  @include make-margin(30, sm, 2px);
+}
+@media (min-width: $screen-md-min) {
+  @include make-margin(30, md, 2px);
+}
+@media (min-width: $screen-lg-min) {
+  @include make-margin(30, lg, 2px);
 }
 
 /* Tooltip styles */
 .tooltip.in,
 .tooltip {
   background-color: $color-white;
-  font-size: 12px;
   color: $color-gray-5;
   opacity: 1;
   border-radius: 3px;
@@ -35,11 +89,7 @@ button.btn-link {
     border: solid 1px $color-white;
     max-width: 250px;
     padding: 2px 5px;
-    font-size: 12px;
     text-align: left;
-    p {
-      font-size: 12px;
-    }
   }
 }
 
@@ -135,6 +185,7 @@ button.btn-link {
   border-right: 1px solid $color-gray-lighter-3;
 }
 
+/*gru-modal component*/
 .gru-modal {
 
   .gru-user-registration,
@@ -150,8 +201,6 @@ button.btn-link {
 
       .modal-header {
         padding: 10px 15px;
-        font-size: 16px;
-
         button.close {
           text-shadow: none;
           opacity: 1;
@@ -160,7 +209,7 @@ button.btn-link {
 
           span {
             color: $color-white;
-            font-size: 34px;
+            font-size: 2.2rem;
             font-weight: normal;
           }
           &:hover {
@@ -181,7 +230,7 @@ button.btn-link {
           margin: 0 auto;
           position: relative;
           font-family: arial, sans-serif;
-          font-size: 12px;
+          font-size: $font-size-small;
           border-radius: 0;
           padding: 3px 3px;
         }
@@ -207,7 +256,6 @@ button.btn-link {
 /* Loading styles */
 .loading-text {
   text-align: center;
-  font-size: 23px;
   width: 100%;
   clear: both;
 }
