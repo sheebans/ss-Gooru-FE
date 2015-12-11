@@ -37,11 +37,11 @@
                   placeholder=(t "login.password")
                   class="form-control text-box sign-in-password"}}
               </div>
-              <div class="form-group text-left">
-                <button class="btn btn-link" alt="{{t "login.forgotPassword"}}"
-                   title="{{t "login.forgotPassword"}}" {{action "showModal" "gru-forgot-password-popup"}}>{{t "login.forgotPassword"}}</button>
+              <div class="forgot-password form-group text-left">
+                <a class="btn btn-link" alt="{{t "login.forgotPassword"}}"
+                   title="{{t "login.forgotPassword"}}" {{action "showModal" "gru-forgot-password-popup"}}>{{t "login.forgotPassword"}}</a>
               </div>
-              <div class="form-group text-center">
+              <div class="sign-in-button-section form-group text-center">
                 <button class="btn btn-primary submit-sign-in" {{action "authenticate"}}>{{t "common.login"}}</button>
               </div>
               {{#if errorMessage}}

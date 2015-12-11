@@ -10,7 +10,7 @@ moduleForComponent('gru-sign-in', 'Integration | Component | gru sign in', {
 });
 
 test('sign in form renders', function(assert) {
-  assert.expect(8);
+  assert.expect(11);
 
   this.render(hbs`{{gru-sign-in}}`);
 
@@ -29,4 +29,8 @@ test('sign in form renders', function(assert) {
   T.exists(assert, $form, "Missing sign in form");
   T.exists(assert, $form.find("#signin_username"), "Missing username field");
   T.exists(assert, $form.find("#signin_password"), "Missing password field");
+  T.exists(assert, $form.find("div.forgot-password a"), "Missing forgot password link");
+  T.exists(assert, $form.find("div.sign-in-button-section button"), "Missing sign un button");
+
+  T.exists(assert, $component.find("span.sign-up-here button"), "Missing sign up here link");
 });
