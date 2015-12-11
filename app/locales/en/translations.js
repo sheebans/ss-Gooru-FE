@@ -5,7 +5,7 @@ export default {
    */
   "common": {
     "close": "Close",
-    "collectionInitial": "C",
+    "collection_initial": "C",
     "content_unavailable": "Content not available",
     "create": "Create",
     "email_support": "support@gooru.org",
@@ -13,7 +13,7 @@ export default {
     "forgotPassword": "Forgot Password",
     "hints": "Hints",
     "if_questions": "If you have any questions,",
-    "lessonInitial": "L",
+    "lesson_initial": "L",
     "libraries": "Libraries",
     "loading": "Loading ...",
     "login": "Log in",
@@ -32,7 +32,7 @@ export default {
     "signUp": "Sign Up",
     "standards": "Standards",
     "submit": "Submit",
-    "unitInitial": "U",
+    "unit_initial": "U",
     "yes": "Yes"
   },
 
