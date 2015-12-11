@@ -17,6 +17,7 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Actions
+  actions:{
 
   actions: {
 
@@ -29,6 +30,11 @@ export default Ember.Controller.extend({
     }
   },
 
+    optionsChange:function(options){
+      //TO DO
+      console.log(options);
+    }
+  },
   // -------------------------------------------------------------------------
   // Events
 
@@ -46,8 +52,26 @@ export default Ember.Controller.extend({
    * The filterBy selected
    * @property {String}
    */
-  filterBy: 'assessment'
+  filterBy: 'assessment',
 
+  breadcrumb: Ember.A([
+    {
+      value: '111',
+      label: 'Course Name'
+    },
+    {
+      value: '222',
+      label: 'Unit number one'
+    },
+    {
+      value: '333',
+      label: 'Lesson number one'
+    },
+    {
+      value: '444',
+      label: 'Collection one with a long name'
+    }
+  ])
   // -------------------------------------------------------------------------
   // Observers
 

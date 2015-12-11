@@ -32,14 +32,12 @@ a, button.btn-link {
   &:hover,
   &:visited {
     text-decoration: none;
-    color: $color-blue-lighter-2;
+    color: $color-blue-dark-2;
   }
 }
-
 .btn {
   font-size: $font-size-small;
 }
-
 button.btn-link {
   padding: 0;
 }

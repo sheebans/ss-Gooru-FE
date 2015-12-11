@@ -25,21 +25,7 @@ export default Ember.Controller.extend({
    * @see controllers/class.js
    * @property {Class}
    */
-  "class": Ember.computed.reads('classController.class'),
-
-  /**
-   * All units by class and course
-   * @property {Unit[]}
-   */
-  units:null,
-
-  /**
-   * All visible units
-   * @property {Unit[]}
-   */
-  visibleUnits:Ember.computed('units',function(){
-    return  this.get('units').filterBy("visibility",true);
-  })
+  "class": Ember.computed.reads('classController.class')
 
   // -------------------------------------------------------------------------
   // Observers

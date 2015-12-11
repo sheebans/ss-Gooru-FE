@@ -1,8 +1,7 @@
-.controller.overview{
+.controller.overview {
 
 
   .fixed {
-
 
     @media (min-width: $screen-md) {
       position: fixed;
@@ -10,6 +9,7 @@
       left: 0;
       top: 50px;
       padding-left: 25%;
+      z-index: 1;
     }
 
     .overview-header{
@@ -27,22 +27,85 @@
     }
   }
 
-  .locate-me{
+  .locate-me {
     float: right;
   }
 
-  ul{
-    list-style: none;
-    padding-left: 15px;
+  .gru-accordion-course {
+    padding: 0 20px 50px 20px;
 
-    li{
-      padding: 10px;
-    }
-  }
-  .units{
-    padding:20px;
     @media (min-width: $screen-md) {
       padding-top: $overview-header;
+    }
+
+    .gru-accordion-unit {
+
+      &.expanded {
+        .user-icons { display: none; }
+      }
+
+      .gru-accordion-lesson {
+
+        .panel-heading {
+          position: relative;
+
+          .img-circle {
+            position: absolute;
+            top: 8px;
+            left: 0;
+            height: 2.714rem;
+            width: 2.714rem;
+            border: 1px solid $gray-light;
+
+            //TODO Remove this background if an image is put in place
+            background-color: #FFFFFF;
+          }
+
+          .panel-title {
+            display: block;
+            border-bottom: 1px solid $gray-light;
+            margin-left: 25px;
+            padding-left: 25px;
+          }
+        }
+
+        .collections {
+
+          .panel-heading {
+
+            img {
+              position: absolute;
+              top: 8px;
+              left: 25px;
+              height: 30px;
+              width: 42px;
+              border: 1px solid $gray-light;
+
+              @media (min-width: $screen-md) {
+                left: 50px;
+              }
+            }
+
+            .panel-title {
+              padding-left: 30px;
+              margin-left: 50px;
+
+              @media (min-width: $screen-md) {
+                padding-left: 45px;
+                margin-left: 60px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .user-icons {
+      // TODO: Remove this after the component is integrated
+      float: right;
+      min-width: 70px;
+      min-height: 30px;
+      border: 1px solid darkgray;
     }
   }
 }

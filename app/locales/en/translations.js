@@ -5,12 +5,15 @@ export default {
    */
   "common": {
     "close": "Close",
+    "collectionInitial": "C",
+    "contentUnavailable": "Content not available",
     "create": "Create",
     "email_support": "support@gooru.org",
     "explanation": "Explanation",
     "forgotPassword": "Forgot Password",
     "hints": "Hints",
     "if_questions": "If you have any questions,",
+    "lessonInitial": "L",
     "libraries": "Libraries",
     "loading": "Loading ...",
     "login": "Log in",
@@ -18,6 +21,10 @@ export default {
     "myClasses": "My Classes",
     "myContent": "My Content",
     "no": "No",
+    "numberStudents": {
+      one: "{{count}} Student",
+      other: "{{count}} Students"
+    },
     "please_contact": "Please contact",
     "remaining": "{{number}} Left",
     "search": "Search",
@@ -25,6 +32,7 @@ export default {
     "signUp": "Sign Up",
     "standards": "Standards",
     "submit": "Submit",
+    "unitInitial": "U",
     "yes": "Yes"
   },
 
@@ -299,7 +307,11 @@ export default {
     "students":"Students",
     "subject":"Subject",
     "grade":"Grade",
-    "description":"Description"
+    "description":"Description",
+    "edit-class":"Edit Class",
+    "share-class":"Share Class",
+    "invite-collaborator":"Invite Collaborator",
+    "invite-student":"Invite Student"
   },
   "class.gru-class-navigation": {
     "active" : "Active:",
@@ -312,12 +324,12 @@ export default {
   },
   "class.overview":{
     "title":"Course map",
-    "locate":"Locate Me",
-    "content-not-available": "Content not available"
+    "locate":"Locate Me"
   },
   "class.analytics": {
     "performance": {
       "title": "Performance",
+      "better-experience-message":"For a better Gooru experience, view full Class Analytics in tablet or desktop",
       "actions": {
         "share": "Share",
         "download": "Download",
@@ -330,5 +342,12 @@ export default {
     "mastery": {
       "title": "Mastery"
     }
+  },
+  "gru-data-picker":{
+    "score": "Score",
+    "completion":"Completion",
+    "time":"Time",
+    "reaction":"Reaction",
+    "attempt":"Attempt"
   }
 };

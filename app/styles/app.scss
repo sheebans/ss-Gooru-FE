@@ -4,6 +4,9 @@
 @import 'mixins';
 @import 'common';
 
+@import 'helpers/three-bounce-spinner';
+@import 'mixins/gru-accordion';
+
 @import 'controllers/application';
 @import 'controllers/index';
 @import 'controllers/player';
@@ -29,6 +32,7 @@
 @import 'components/gru-header';
 @import 'components/gru-footer';
 @import 'components/gru-category-panel';
+@import 'components/gru-user-icons';
 @import 'components/gru-user-sign-up';
 @import 'components/gru-user-registration';
 @import 'components/gru-standards-popup';
@@ -37,7 +41,7 @@
 @import 'components/gru-emotion-picker';
 @import 'components/gru-profile-card';
 @import 'components/gru-unit-tree';
-
+@import 'components/gru-breadcrumb';
 
 @import 'components/player/gru-navigation';
 @import 'components/player/gru-navigator';
@@ -56,4 +60,5 @@
 
 @import 'components/class/gru-class-navigation';
 @import 'components/class/analytics/performance/gru-actions-bar';
+@import 'components/class/analytics/performance/gru-data-picker';
 
