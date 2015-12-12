@@ -12,8 +12,10 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
-  classController: Ember.inject.controller('class'),
+
   queryParams: ['filterBy'],
+
+  classController: Ember.inject.controller('class'),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -28,7 +30,15 @@ export default Ember.Controller.extend({
 
     optionsChange:function(options){
       //TO DO
-      console.log(options);
+      Ember.log(options);
+    },
+
+    /**
+     * Triggered when the breadcrumb item is selected
+     * @param {*} item
+     */
+    selectBreadcrumbItem: function(item){
+      Ember.log(item);
     }
   },
   // -------------------------------------------------------------------------
@@ -48,7 +58,7 @@ export default Ember.Controller.extend({
    * The filterBy selected
    * @property {String}
    */
-  filterBy: 'assessment',
+  filterBy: null,
 
   breadcrumb: Ember.A([
     {
