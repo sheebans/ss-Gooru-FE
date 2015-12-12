@@ -329,7 +329,15 @@ export default {
   "class.analytics": {
     "performance": {
       "title": "Performance",
-      "better-experience-message":"For a better Gooru experience, view full Class Analytics in tablet or desktop"
+      "better-experience-message":"For a better Gooru experience, view full Class Analytics in tablet or desktop",
+      "actions": {
+        "share": "Share",
+        "download": "Download",
+        "fullScreen": "View Full Screen",
+        "assessment": "View Assessment",
+        "collection": "View Collection",
+        "both": "View Both"
+      }
     },
     "mastery": {
       "title": "Mastery"
