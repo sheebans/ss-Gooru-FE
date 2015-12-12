@@ -71,3 +71,16 @@ test('When view by collection option is selected', function(assert) {
     });
   });
 });
+
+test('When filtering by collection is  pre-selected', function(assert) {
+  visit('/class/class-for-pochita-as-student/analytics/performance/student?filterBy=collection');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?filterBy=collection');
+
+    const $performanceContainer = find(".controller.class .controller.analytics-performance-student");
+    const $menu = $performanceContainer.find(".controls .gru-actions-bar .drop-menu");
+    assert.equal(T.text($menu.find(".selected-filter")), 'View Collection', 'Wrong text selected');
+  });
+});
+
