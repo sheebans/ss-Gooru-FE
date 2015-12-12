@@ -1,0 +1,14 @@
+<button class="btn btn-default share" {{action 'onShare'}}>{{t "class.analytics.performance.actions.share"}}</button>
+<button class="btn btn-default download" {{action 'onDownload'}}>{{t "class.analytics.performance.actions.download"}}</button>
+<button class="btn btn-default full-screen hidden-xs" {{action 'onFullScreen'}}>{{t "class.analytics.performance.actions.fullScreen"}}</button>
+
+<div class="btn-group drop-menu">
+  <button class="selected-filter btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+    {{t dropdownFilterText}}<span class="arrow"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li class="dropdown-menu-item assessment {{if isFilterByAssessment 'selected' }}" {{action 'onFilter' 'assessment'}}>{{t "class.analytics.performance.actions.assessment"}}</li>
+    <li class="dropdown-menu-item collection {{if isFilterByCollection 'selected' }}" {{action 'onFilter' 'collection'}}>{{t "class.analytics.performance.actions.collection"}}</li>
+    <li class="dropdown-menu-item both {{if isFilterByBoth 'selected' }}" {{action 'onFilter' 'both'}}>{{t "class.analytics.performance.actions.both"}}</li>
+  </ul>
+</div>
