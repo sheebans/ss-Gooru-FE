@@ -50,23 +50,24 @@ const courseLocationStub = Ember.Service.extend({
 
   findByCourse(courseId) {
     var response;
+    const users = [
+      Ember.Object.create({
+        isActive: false,
+        user: Ember.Object.create({
+          id: 1,
+          firstName: "John",
+          lastName: "Fitzgerald",
+          fullName: "Fitzgerald, John"
+        })
+      })
+    ];
 
     if (courseId === '222-444-666') {
       response = [
         Ember.Object.create({
           unit: 'unit-1',
           locationUsers: DS.PromiseArray.create({
-            promise: new Ember.RSVP.resolve([
-              Ember.Object.create({
-                isActive: false,
-                user: Ember.Object.create({
-                  id: 1,
-                  firstName: "John",
-                  lastName: "Fitzgerald",
-                  fullName: "Fitzgerald, John"
-                })
-              })
-            ])
+            promise: new Ember.RSVP.resolve(users)
           })
         })
       ];
