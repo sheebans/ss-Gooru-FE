@@ -10,7 +10,7 @@ moduleForComponent('class/analytics/performance/gru-actions-bar', 'Integration |
 });
 
 test('Class Performance Actions Bar', function(assert) {
-  assert.expect(9);
+  assert.expect(10);
 
   this.on('selectFilterBy', function(item) {
     assert.equal(item, 'collection', "Incorrect selected menu class item");
@@ -34,4 +34,5 @@ test('Class Performance Actions Bar', function(assert) {
 
   //drop down menu item Selected
   T.exists(assert, $dropMenu.find(".collection.selected"), "Missing selected collection item");
+  assert.equal(T.text($dropMenu.find(".selected-filter")), 'View Collection', 'Wrong text selected');
 });

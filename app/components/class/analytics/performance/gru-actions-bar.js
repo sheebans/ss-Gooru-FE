@@ -17,7 +17,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-actions-bar'],
+  classNames: ['gru-actions-bar'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -26,28 +26,28 @@ export default Ember.Component.extend({
     /**
      * Action triggered when the user selects the Download option
      */
-    onDownload: function() {
-      console.log("onDownload");
+    onDownload: function () {
+      Ember.log("onDownload");
     },
     /**
      * Action triggered when the user selects the Share option
      */
-    onShare:function(){
-      console.log("onShare");
+    onShare: function () {
+      Ember.log("onShare");
     },
     /**
      * Action triggered when the user selects the Full Screen option
      */
-    onFullScreen:function(){
-      console.log("onFullScreen");
+    onFullScreen: function () {
+      Ember.log("onFullScreen");
     },
 
     /**
      * Action triggered when the user selects the view filter option
      * @param {string} filterBy - view filter option
      */
-    onFilter:function(filterBy){
-       if (this.get("onFilterSelected")){
+    onFilter: function (filterBy) {
+      if (this.get("onFilterSelected")) {
         this.sendAction("onFilterSelected", filterBy);
       }
     }
@@ -72,7 +72,7 @@ export default Ember.Component.extend({
   /**
    * @property {String} selectedFilterBy - shows the filter option selected in the view dropdown.
    */
-  selectedFilterBy:null,
+  selectedFilterBy: null,
 
   /**
    * @property {String} isFilterByAssessment - shows if the filter option selected is by Assessment.
@@ -93,9 +93,8 @@ export default Ember.Component.extend({
    * @property {String} dropdownFilterText - shows the text for the filter option selected in the view dropdown.
    */
   dropdownFilterText: Ember.computed('selectedFilterBy', function () {
-    const selectedFilter = this.get('selectedFilterBy');
-
-    return 'class.analytics.performance.actions.'+selectedFilter;
+    const selectedFilter = this.get('selectedFilterBy') || 'assessment';
+    return `class.analytics.performance.actions.${selectedFilter}`;
   })
 
   // -------------------------------------------------------------------------

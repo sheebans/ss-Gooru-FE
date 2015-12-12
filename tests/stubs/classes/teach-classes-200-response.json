@@ -41,8 +41,23 @@
         "gooruUId": "pochita",
         "profileImageUrl": "http://profile-qa.s3.amazonaws.com/88638002-deb6-4f8d-b319-4a7ae18d0efe.png"
       }
+    },
+    {
+      "status": "not-invited",
+      "visibility": true,
+      "courseGooruOid": "75366215-f9d5-424c-8a90-2cabdfeb3ffa",
+      "memberCount": 1,
+      "classUid": "class-for-pochita-as-teacher",
+      "name": "Class for pochita as a teacher",
+      "classCode": "2WZ8IJA",
+      "grades": "K",
+      "user": {
+        "username": "Niña Pochita",
+        "gooruUId": "pochita",
+        "profileImageUrl": "http://profile-qa.s3.amazonaws.com/88638002-deb6-4f8d-b319-4a7ae18d0efe.png"
+      }
     }
 
   ],
-  "totalHitCount": 2
+  "totalHitCount": 4
 }
