@@ -66,6 +66,12 @@ export default Ember.Component.extend({
   class: null,
 
   /**
+   * The user using the navigation
+   * @property {User} user
+   */
+  user: null,
+
+  /**
    * @property {String|Function} onItemSelected - event handler for when an menu item is selected
    */
   onItemSelected: null,
