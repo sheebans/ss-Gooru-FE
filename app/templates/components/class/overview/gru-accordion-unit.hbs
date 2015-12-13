@@ -16,13 +16,14 @@
     class="visible-xs"
     users=model.users
     viewThreshold=2
-    viewMoreIn='tooltip' }}
+    viewMoreIn='modal' }}
 
   {{!-- Show for all other screen sizes --}}
   {{gru-user-icons
     class="hidden-xs"
     users=model.users
-    viewThreshold=3 }}
+    viewThreshold=3
+    isTooltipHidden=isExpanded }}
 </div>
 
 <div id="{{elementId}}-content"

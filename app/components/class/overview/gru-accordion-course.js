@@ -28,7 +28,7 @@ export default Ember.Component.extend(AccordionMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-accordion gru-accordion-course'],
+  classNames:['gru-accordion', 'gru-accordion-course'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -50,6 +50,7 @@ export default Ember.Component.extend(AccordionMixin, {
 
   // -------------------------------------------------------------------------
   // Properties
+
   /**
    * @prop {Ember.RSVP.Promise} usersLocation - Users enrolled in the course
    * Will resolve to {Location[]}
@@ -58,7 +59,13 @@ export default Ember.Component.extend(AccordionMixin, {
 
   // -------------------------------------------------------------------------
   // Observers
-  addUsersToUnits: Ember.observer('items.isFulfilled', function() {
+
+  /**
+   * Observe when the 'items' promise has resolved and proceed to add the
+   * corresponding users information (coming from a separate service) to each
+   * one of the items so they are resolved in one single loop in the template.
+   */
+  addUsersToItems: Ember.observer('items.isFulfilled', function() {
     if (this.get('items.isFulfilled')) {
       let visibleItems = this.get('visibleItems');
 
@@ -66,7 +73,6 @@ export default Ember.Component.extend(AccordionMixin, {
         visibleItems.forEach((item) => {
           // Get the users for a specific unit
           let entity = usersLocation.findBy('unit', item.get('id'));
-          //let entity = usersLocation.findBy('unit', 'unit-2');
           if (entity) {
             entity.get('locationUsers').then((locationUsers) => {
               item.set('users', locationUsers);
