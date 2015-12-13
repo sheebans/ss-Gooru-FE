@@ -88,13 +88,13 @@ export default Ember.Service.extend(StoreMixin, {
     var totalUsers = 0;
 
     if (index === 1) {
-      totalUsers = 3;
+      totalUsers = 2;
     } else if (index === 2) {
-      totalUsers = 4;
+      totalUsers = 3;
     } else if (index === 3) {
-      totalUsers = 30;
+      totalUsers = 10;
     } else if (index === 4) {
-      totalUsers = 45;
+      totalUsers = 30;
     } else {
       totalUsers = 1;
     }
