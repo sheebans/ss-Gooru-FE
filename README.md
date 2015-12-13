@@ -122,7 +122,8 @@ Useful commands [Vagrant CLI](https://docs.vagrantup.com/v2/cli/index.html)
 * Visit your app at [http://localhost:4200](http://localhost:4200). 
 * Or visit your app at [http://192.168.33.10:4200/](http://192.168.33.10:4200/) when using vagrant
 
-* `vagrant fsnotify` this is necessary so file changes (at host) are notified (to guest) while running the app 
+* `vagrant fsnotify` this is necessary so file changes (at host) are notified (to guest) while running the app
+* Executing `grunt notify` from vagrant can be also used to notify the watcher for changes 
 
 ### Running the app with grunt tasks
 * `grunt run` to run it using the stubby server, this task starts up stubby server and proxy ember to it
