@@ -44,7 +44,8 @@
         <li class="panel {{item.collectionType}}">
           <div class="panel-heading">
             <img src="" />
-            <span class="panel-title">{{t "common.collectionInitial"}}{{plus-one index}}&colon; {{item.title}}</span>
+            <span class="panel-title">
+              {{t (itemInitial item.collectionType)}}{{plus-one index}}&colon; {{item.title}}</span>
             {{!-- Show only for xs --}}
             {{gru-user-icons
               class="visible-xs"

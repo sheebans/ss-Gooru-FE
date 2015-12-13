@@ -4,6 +4,7 @@ export default {
    * COMMON: Translations used globally in the app or shared between components
    */
   "common": {
+    "assessmentInitial": "A",
     "close": "Close",
     "collectionInitial": "C",
     "contentUnavailable": "Content not available",
