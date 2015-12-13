@@ -129,7 +129,7 @@ test('it renders correctly when there are no units', function(assert) {
 });
 
 test('it renders correctly when there are units', function(assert) {
-  assert.expect(9);
+  assert.expect(11);
 
   // Class with units per stub
   const currentClass = Ember.Object.create({
