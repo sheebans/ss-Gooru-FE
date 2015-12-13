@@ -43,7 +43,6 @@ const unitServiceStub = Ember.Service.extend({
       promise: promiseResponse
     });
   }
-
 });
 
 const courseLocationStub = Ember.Service.extend({
@@ -79,7 +78,6 @@ const courseLocationStub = Ember.Service.extend({
       promise: new Ember.RSVP.resolve(response)
     });
   }
-
 });
 
 moduleForComponent('class/overview/gru-accordion-course', 'Integration | Component | class/overview/gru accordion course', {
@@ -160,6 +158,9 @@ test('it renders correctly when there are units', function(assert) {
     assert.equal($items.length, 2, 'Incorrect number of lessons listed');
     assert.equal($items.first().find('.panel-title').text().trim(), 'U1: Unit 1', 'Incorrect first unit title');
     assert.equal($items.last().find('.panel-title').text().trim(), 'U2: Unit 2', 'Incorrect last unit title');
+
+    assert.equal($items.first().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first unit for mobile');
+    assert.equal($items.last().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last unit for mobile');
 
     assert.equal($items.first().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first unit');
     assert.equal($items.last().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last unit');

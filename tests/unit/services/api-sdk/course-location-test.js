@@ -87,7 +87,7 @@ test('findByCourseAndUnit', function (assert) {
       const courseLocationLast = courseLocations.get('lastObject');
       assert.equal(courseLocationLast.get('unit'), 'unit-1', 'Wrong unit');
       assert.equal(courseLocationLast.get('lesson'), 'lesson-5', 'Wrong lesson');
-      assert.equal(courseLocationLast.get('locationUsers.length'), 45, 'Missing users');
+      assert.equal(courseLocationLast.get('locationUsers.length'), 30, 'Missing users');
       const locationUserLast = courseLocationLast.get('locationUsers.lastObject');
       assert.equal(locationUserLast.get('isActive'), true, 'Wrong active status');
       assert.equal(locationUserLast.get('user.id'), 'id-45', 'Wrong user id');
@@ -130,7 +130,7 @@ test('findByCourseAndUnitAndLesson', function (assert) {
       assert.equal(courseLocationLast.get('unit'), 'unit-1', 'Wrong unit');
       assert.equal(courseLocationLast.get('lesson'), 'lesson-1', 'Wrong lesson');
       assert.equal(courseLocationLast.get('collection'), 'collection-4', 'Wrong collection');
-      assert.equal(courseLocationLast.get('locationUsers.length'), 30, 'Missing users');
+      assert.equal(courseLocationLast.get('locationUsers.length'), 10, 'Missing users');
       const locationUserLast = courseLocationLast.get('locationUsers.lastObject');
       assert.equal(locationUserLast.get('isActive'), true, 'Wrong active status');
       assert.equal(locationUserLast.get('user.id'), 'id-30', 'Wrong user id');
