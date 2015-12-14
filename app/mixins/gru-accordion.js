@@ -50,11 +50,6 @@ export default Ember.Mixin.create({
   model: null,
 
   /**
-   * @prop {Bool} expanded - is the accordion expanded or collapsed?
-   */
-  expanded: false,
-
-  /**
    * @prop {Unit[] | Lesson[] | Collection[]} visibleItems - Items set to be visible
    */
   visibleItems: Ember.computed.filterBy('items.content', 'visibility', true)

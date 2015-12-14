@@ -3,7 +3,7 @@
   $profile-image-height: 40px;
   $item-border: #757575;
   $item-background: #EBEBEB;
-  $modal-height: 360px;
+  $modal-height: 270px;
   $tooltip-width: 290px;
 
   position: absolute;
@@ -46,6 +46,7 @@
     cursor: default;
 
     &.clickable {
+      color: $gray;
       cursor: pointer;
     }
   }

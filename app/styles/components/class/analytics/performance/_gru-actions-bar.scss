@@ -9,12 +9,11 @@
       .arrow {
         padding-left: 0;
         background: url("gooru/landingpageSprite.png") no-repeat;
-        background-position: -95px -35px;
+        background-position: -95px -32px;
         background-size: 185px;
         width: 25px;
         height: 15px;
-        display: block;
-        float: right;
+        display: inline-block;
       }
     }
     .dropdown-menu {
@@ -36,7 +35,7 @@
     .dropdown-toggle {
       box-shadow: none;
       .arrow {
-        background-position: -135px -35px;
+        background-position: -135px -32px;
       }
     }
   }
