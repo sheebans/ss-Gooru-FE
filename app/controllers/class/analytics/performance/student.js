@@ -58,7 +58,7 @@ export default Ember.Controller.extend({
    * The filterBy selected
    * @property {String}
    */
-  filterBy: null,
+  filterBy: 'assessment',
 
   breadcrumb: Ember.A([
     {
