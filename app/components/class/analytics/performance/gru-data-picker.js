@@ -30,14 +30,14 @@ export default Ember.Component.extend({
      * @returns {undefined}
      */
     setOption: function(newOption) {
-      if(newOption.readOnly===false){
-        if (newOption.selected===true) {
+      if(!newOption.readOnly){
+        if (newOption.selected) {
           this.cleanupOption(newOption);
         } else {
           this.selectOption(newOption);
         }
+        this.sendAction("onOptionsChange", this.get('selectedOptions'));
       }
-      this.sendAction("onOptionsChange", this.get('selectedOptions'));
     }
   },
   // -------------------------------------------------------------------------
@@ -97,11 +97,16 @@ export default Ember.Component.extend({
   *
   * @property {String}
   */
-  icon :'fa-circle',
+  "icon-default" :"fa-circle",
 
-  isTeacherDataPicker: Ember.computed('icon', function() {
-    return (this.get('icon') === 'fa-square-o');
-  }),
+  /**
+   * Icon selected
+   *
+   * @property {String}
+   */
+  "icon-selected" :"fa-circle",
+
+
   /**
    *Computed property to calculate if the length of selectedOptions is less than the max value accepted
    *

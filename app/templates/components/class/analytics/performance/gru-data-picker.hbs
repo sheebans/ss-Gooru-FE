@@ -1,14 +1,16 @@
 <div class="option-picker">
     <ul class="option-list">
       {{#each options as |option|}}
-          <li {{action 'setOption' option}}>
-              <span class="{{option.value}} {{if option.selected 'active'}}">
-                  {{#if isTeacherDataPicker }}
-                    {{#if option.selected}}{{fa-icon icon="fa-check-square-o"}}{{else}}{{fa-icon icon=icon}}{{/if}}
+          <li>
+              <a {{action 'setOption' option}}>
+                  <span class="{{option.value}} {{if option.selected 'active'}}">
+                  {{#if option.selected }}
+                   {{fa-icon icon=icon-selected}}
                   {{else}}
-                  {{fa-icon icon=icon}}
+                    {{fa-icon icon=icon-default}}
                   {{/if}}
-              </span>
+                  </span>
+              </a>
               <span>{{t (concat 'gru-data-picker.' option.value) }}</span>
           </li>
       {{/each}}

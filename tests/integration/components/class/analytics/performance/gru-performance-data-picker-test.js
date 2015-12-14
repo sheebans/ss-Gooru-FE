@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
+import Ember from "ember";
 
 moduleForComponent('class/analytics/performance/gru-data-picker', 'Integration | Component | class/analytics/performance/gru performance data picker', {
   integration: true,
@@ -63,7 +64,7 @@ test('Select option', function(assert) {
   this.render(hbs`{{class/analytics/performance/gru-data-picker onOptionsChange='parentAction'}}`);
   var $component = this.$(); //component dom element
   var $dataPicker = $component.find("ul.option-list");
-  $dataPicker.find("li:first-child").click();
+  $dataPicker.find("li:first-child a").click();
 });
 
 test('Verify selected option with specific max value', function(assert) {
@@ -80,10 +81,10 @@ test('Verify selected option with specific max value', function(assert) {
   this.render(hbs`{{class/analytics/performance/gru-data-picker max=max onOptionsChange='parentAction'}}`);
   var $component = this.$(); //component dom element
   var $dataPicker = $component.find("ul.option-list");
-  $dataPicker.find("li:eq(1)").click();//try select completion option
-  $dataPicker.find("li:eq(0)").click();
-  $dataPicker.find("li:eq(2)").click();
-  $dataPicker.find("li:eq(3)").click();
+  $dataPicker.find("li:eq(1) a").click();//try select completion option
+  $dataPicker.find("li:eq(0) a").click();
+  $dataPicker.find("li:eq(2) a").click();
+  $dataPicker.find("li:eq(3) a").click();
 });
 
 test('Verify that there is at least one selected', function(assert) {
@@ -97,8 +98,45 @@ test('Verify that there is at least one selected', function(assert) {
   this.render(hbs`{{class/analytics/performance/gru-data-picker onOptionsChange='parentAction'}}`);
   var $component = this.$(); //component dom element
   var $dataPicker = $component.find("ul.option-list");
-  $dataPicker.find("li:eq(0)").click();//try unselected score
-  $dataPicker.find("li:eq(1)").click();//change option
+  $dataPicker.find("li:eq(0) a").click();//try unselected score
+  $dataPicker.find("li:eq(1) a").click();//change option
 
 
+});
+test('Verify the option can not be unselected when is readOnly', function(assert) {
+  assert.expect(1);
+
+  const options= Ember.A([Ember.Object.create({
+    'value': 'score',
+    'selected':true,
+    'readOnly':true
+  }),Ember.Object.create({
+    'value': 'completion',
+    'selected':true,
+    'readOnly':false
+  }),Ember.Object.create({
+    'value': 'study-time',
+    'selected':true,
+    'readOnly':false
+  }),Ember.Object.create({
+    'value': 'reaction',
+    'selected':false,
+    'readOnly':false
+  }),Ember.Object.create({
+    'value': 'attempt',
+    'selected':false,
+    'readOnly':false
+  })
+    ]);
+  const max =3;
+  this.set('options', options);
+  this.set('max', max);
+
+  this.render(hbs`{{class/analytics/performance/gru-data-picker  options=options max=max}}`);
+  var $component = this.$(); //component dom element
+  var $dataPicker = $component.find("ul.option-list");
+  $dataPicker.find("li:eq(1) a").click();//Select completion
+  $dataPicker.find("li:eq(0) a").click();//try unselected score
+  const $optionScore = $component.find(".option-list li .score");
+  assert.ok($optionScore.hasClass('active'));
 });
