@@ -26,8 +26,8 @@ export default Ember.Component.extend({
     /**
      * Action triggered when the user selects the Download option
      */
-    onDownload: function () {
-      Ember.log("onDownload");
+    download: function () {
+      this.sendAction("onDownload");
     },
     /**
      * Action triggered when the user selects the Share option
@@ -68,6 +68,11 @@ export default Ember.Component.extend({
    * @property {String|Function} onFilterSelected - event handler when a  filter option is selected in the view dropdown.
    */
   onFilterSelected: null,
+
+  /**
+   * @property {String|Function} onDownload - event handler when the download option is clicked
+   */
+  onDownload: null,
 
   /**
    * @property {String} selectedFilterBy - shows the filter option selected in the view dropdown.
