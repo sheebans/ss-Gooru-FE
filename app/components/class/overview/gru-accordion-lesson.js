@@ -113,7 +113,7 @@ export default Ember.Component.extend(AccordionMixin, {
 
       this.get('usersLocation').then((usersLocation) => {
         visibleItems.forEach((item) => {
-          // Get the users for a specific unit
+          // Get the users for a specific collection
           let entity = usersLocation.findBy('collection', item.get('id'));
           if (entity) {
             entity.get('locationUsers').then((locationUsers) => {
