@@ -3,7 +3,7 @@ import DS from "ember-data";
 import { validator, buildValidations } from "ember-cp-validations";
 
 // constants
-import DEFAULT_IMAGES from "../../config/config";
+import { DEFAULT_IMAGES } from "../../config/config";
 
 const UserValidations = buildValidations({
   firstName: [

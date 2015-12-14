@@ -15,6 +15,24 @@
     "title": "Design Patterns",
     "gooruOid": "21654d76-45e7-45e9-97ab-5f96a14da135",
     "collectionId": 24413352,
+    "visibility": true
+  },
+  {
+    "title": "Learning Methods",
+    "gooruOid": "21654d76-45e7-45e9-97ab-5f96a14da136",
+    "collectionId": 24413356,
+    "visibility": true
+  },
+  {
+    "title": "Group Methodologies",
+    "gooruOid": "21654d76-45e7-45e9-97ab-5f96a14da137",
+    "collectionId": 24413357,
+    "visibility": true
+  },
+  {
+    "title": "Integration testing",
+    "gooruOid": "21654d76-45e7-45e9-97ab-5f96a14da138",
+    "collectionId": 24413358,
     "visibility": false
   }
 ]
