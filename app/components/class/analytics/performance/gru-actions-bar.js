@@ -32,21 +32,28 @@ export default Ember.Component.extend({
     /**
      * Action triggered when the user selects the Share option
      */
-    onShare: function () {
-      Ember.log("onShare");
+    share: function () {
+      Ember.Logger.log("share");
     },
     /**
      * Action triggered when the user selects the Full Screen option
      */
-    onFullScreen: function () {
-      Ember.log("onFullScreen");
+    fullScreen: function () {
+      Ember.Logger.log("fullScreen");
+    },
+
+    /**
+     * Action triggered when the user selects the Edit Content option
+     */
+    editContent: function () {
+      Ember.Logger.log("editContent");
     },
 
     /**
      * Action triggered when the user selects the view filter option
      * @param {string} filterBy - view filter option
      */
-    onFilter: function (filterBy) {
+    filter: function (filterBy) {
       if (this.get("onFilterSelected")) {
         this.sendAction("onFilterSelected", filterBy);
       }
@@ -63,6 +70,12 @@ export default Ember.Component.extend({
    * @property {string} for mode: student or teacher
    */
   mode: null,
+
+  /**
+   * @property {String} isStudent - shows if the is student mode.
+   */
+  isStudent: Ember.computed.equal("mode", "student"),
+
 
   /**
    * @property {String|Function} onFilterSelected - event handler when a  filter option is selected in the view dropdown.
@@ -98,7 +111,7 @@ export default Ember.Component.extend({
    * @property {String} dropdownFilterText - shows the text for the filter option selected in the view dropdown.
    */
   dropdownFilterText: Ember.computed('selectedFilterBy', function () {
-    const selectedFilter = this.get('selectedFilterBy') || 'assessment';
+    const selectedFilter = this.get('selectedFilterBy');
     return `class.analytics.performance.actions.${selectedFilter}`;
   })
 

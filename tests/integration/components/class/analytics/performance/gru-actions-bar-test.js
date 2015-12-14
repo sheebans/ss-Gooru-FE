@@ -9,8 +9,8 @@ moduleForComponent('class/analytics/performance/gru-actions-bar', 'Integration |
   }
 });
 
-test('Class Performance Actions Bar', function(assert) {
-  assert.expect(10);
+test('Class Performance Actions Bar with student mode', function(assert) {
+  assert.expect(11);
 
   this.on('selectFilterBy', function(item) {
     assert.equal(item, 'collection', "Incorrect selected menu class item");
@@ -22,6 +22,37 @@ test('Class Performance Actions Bar', function(assert) {
   const $actions = $component.find(".gru-actions-bar");
   T.exists(assert, $actions, "Missing actions bar section");
   T.exists(assert, $actions.find(".share"), "Missing share button");
+  T.notExists(assert, $actions.find(".edit"), "Edit button shouldn't be visible for student mode");
+  T.exists(assert, $actions.find(".download"), "Missing download button");
+  T.exists(assert, $actions.find(".full-screen"), "Missing full-screen button");
+
+  //drop down menu list
+  const $dropMenu = $actions.find(".drop-menu");
+  T.exists(assert, $dropMenu, "Missing view drop down menu");
+  T.exists(assert, $dropMenu.find(".assessment"), "Missing assessment item in the view drop down menu");
+  T.exists(assert, $dropMenu.find(".collection"), "Missing collection item in the view drop down menu");
+  T.exists(assert, $dropMenu.find(".both"), "Missing both item in the view drop down menu");
+
+  //drop down menu item Selected
+  T.exists(assert, $dropMenu.find(".collection.selected"), "Missing selected collection item");
+  assert.equal(T.text($dropMenu.find(".selected-filter")), 'View Collection', 'Wrong text selected');
+});
+
+
+test('Class Performance Actions Bar with teacher mode', function(assert) {
+  assert.expect(11);
+
+  this.on('selectFilterBy', function(item) {
+    assert.equal(item, 'collection', "Incorrect selected menu class item");
+  });
+
+  this.render(hbs`{{class.analytics.performance.gru-actions-bar mode='teacher' selectedFilterBy='collection' onFilterSelected='selectFilterBy'}}`);
+
+  var $component = this.$(); //component dom element
+  const $actions = $component.find(".gru-actions-bar");
+  T.exists(assert, $actions, "Missing actions bar section");
+  T.exists(assert, $actions.find(".edit"), "Missing edit button");
+  T.notExists(assert, $actions.find(".share"), "Share button shouldn't be visible for student mode");
   T.exists(assert, $actions.find(".download"), "Missing download button");
   T.exists(assert, $actions.find(".full-screen"), "Missing full-screen button");
 

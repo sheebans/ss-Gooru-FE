@@ -333,6 +333,7 @@ export default {
       "better-experience-message":"For a better Gooru experience, view full Class Analytics in tablet or desktop",
       "actions": {
         "share": "Share",
+        "edit": "Edit Content",
         "download": "Download",
         "fullScreen": "View Full Screen",
         "assessment": "View Assessment",

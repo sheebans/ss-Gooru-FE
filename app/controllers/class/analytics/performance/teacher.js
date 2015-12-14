@@ -12,10 +12,23 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
+
+  queryParams: ['filterBy'],
+
   classController: Ember.inject.controller('class'),
 
   // -------------------------------------------------------------------------
   // Actions
+
+  actions:{
+    /**
+     * Triggered when a filter option is selected
+     * @param {string} option
+     */
+    selectFilterBy: function(option){
+      this.set("filterBy", option);
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Events
@@ -29,6 +42,12 @@ export default Ember.Controller.extend({
    * @property {Class}
    */
   "class": Ember.computed.reads('classController.class'),
+
+  /**
+   * The filterBy selected
+   * @property {String}
+   */
+  filterBy: 'assessment',
 
   breadcrumb: Ember.A([
     {
