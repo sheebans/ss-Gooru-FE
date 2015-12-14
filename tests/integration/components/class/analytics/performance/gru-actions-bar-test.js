@@ -67,3 +67,19 @@ test('Class Performance Actions Bar with teacher mode', function(assert) {
   T.exists(assert, $dropMenu.find(".collection.selected"), "Missing selected collection item");
   assert.equal(T.text($dropMenu.find(".selected-filter")), 'View Collection', 'Wrong text selected');
 });
+
+
+test('Download action', function(assert) {
+  assert.expect(2);
+
+  this.on('myDownload', function() {
+    assert.ok(true, "This should be called once");
+  });
+
+  this.render(hbs`{{class.analytics.performance.gru-actions-bar onDownload='myDownload'}}`);
+
+  var $component = this.$(); //component dom element
+  const $button = $component.find(".gru-actions-bar .download");
+  T.exists(assert, $button, "Missing download button");
+  $button.click();
+});

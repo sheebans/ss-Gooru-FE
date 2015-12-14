@@ -9,7 +9,7 @@
       left: 0;
       top: 50px;
       padding-left: 25%;
-      z-index: 1;
+      z-index: 10;
     }
 
     .overview-header{
@@ -38,18 +38,36 @@
       padding-top: $overview-header;
     }
 
+    .panel-heading {
+      position: relative;
+    }
+
+    .gru-user-icons {
+      top: 0;
+      right: 0;
+    }
+
     .gru-accordion-unit {
+      margin-bottom: 20px;
 
       &.expanded {
-        .user-icons { display: none; }
+        > .panel-heading .gru-user-icons { display: none !important; }
       }
 
       .gru-accordion-lesson {
 
-        .panel-heading {
-          position: relative;
+        &.expanded {
+          > .panel-heading {
+            background-color: $gray-lighter;
 
-          .img-circle {
+            .panel-title { border: 0 none;}
+            .gru-user-icons { display: none !important; }
+          }
+        }
+
+        .panel-heading {
+
+          > .img-circle {
             position: absolute;
             top: 8px;
             left: 0;
@@ -66,14 +84,30 @@
             border-bottom: 1px solid $gray-light;
             margin-left: 25px;
             padding-left: 25px;
+            margin-right: 20px
+          }
+
+          .gru-user-icons {
+            top: 8px;
           }
         }
 
         .collections {
 
+          .assessment {
+            .panel-heading > img {
+              border: 1px solid orange;
+            }
+          }
+          .collection {
+            .panel-heading > img {
+              border: 1px solid blue;
+            }
+          }
+
           .panel-heading {
 
-            img {
+            > img {
               position: absolute;
               top: 8px;
               left: 25px;
@@ -98,14 +132,6 @@
           }
         }
       }
-    }
-
-    .user-icons {
-      // TODO: Remove this after the component is integrated
-      float: right;
-      min-width: 70px;
-      min-height: 30px;
-      border: 1px solid darkgray;
     }
   }
 }

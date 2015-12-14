@@ -15,18 +15,21 @@ const lessonServiceStub = Ember.Service.extend({
           courseId === '222-444-666' &&
             unitId === '777-999') {
       response = [
-        {
-          "title": "Lesson 1",
-          "visibility": true
-        },
-        {
-          "title": "Lesson 2",
-          "visibility": false
-        },
-        {
-          "title": "Lesson 3",
-          "visibility": true
-        }
+        Ember.Object.create({
+          id: "lesson-1",
+          title: "Lesson 1",
+          visibility: true
+        }),
+        Ember.Object.create({
+          id: "lesson-2",
+          title: "Lesson 2",
+          visibility: false
+        }),
+        Ember.Object.create({
+          id: "lesson-3",
+          title: "Lesson 3",
+          visibility: true
+        })
       ];
     } else {
       response = [];
@@ -46,12 +49,52 @@ const lessonServiceStub = Ember.Service.extend({
 
 });
 
+const courseLocationStub = Ember.Service.extend({
+
+  findByCourseAndUnit(courseId, unitId) {
+    var response;
+    const users = [
+      Ember.Object.create({
+        isActive: false,
+        user: Ember.Object.create({
+          id: 1,
+          firstName: "John",
+          lastName: "Fitzgerald",
+          fullName: "Fitzgerald, John"
+        })
+      })
+    ];
+
+    if (courseId === '222-444-666' && unitId === '777-999') {
+      response = [
+        Ember.Object.create({
+          unit: '777-999',
+          lesson: 'lesson-1',
+          locationUsers: DS.PromiseArray.create({
+            promise: new Ember.RSVP.resolve(users)
+          })
+        })
+      ];
+    } else {
+      response = Ember.A();
+    }
+
+    return DS.PromiseArray.create({
+      promise: new Ember.RSVP.resolve(response)
+    });
+  }
+});
+
 moduleForComponent('class/overview/gru-accordion-unit', 'Integration | Component | class/overview/gru accordion unit', {
   integration: true,
 
   beforeEach: function() {
     this.register('service:api-sdk/lesson', lessonServiceStub);
     this.inject.service('api-sdk/lesson', { as: 'lessonService' });
+
+    this.register('service:api-sdk/course-location', courseLocationStub);
+    this.inject.service('api-sdk/course-location', { as: 'courseLocationService' });
+
     this.inject.service('i18n');
   }
 });
@@ -150,7 +193,10 @@ test('it renders correctly when there are no lessons to load after clicking on t
   assert.equal($panelGroup.text().trim(), context.get('i18n').t('common.contentUnavailable').string, 'Content for lessons should not be available');
 
   // Click on the unit name
-  $unitTitleAnchor.click();
+  Ember.run(() => {
+    $unitTitleAnchor.click();
+  });
+
   assert.ok($collapsePanel.hasClass('in'), 'Panel should be visible');
 
   var $loadingSpinner = $panelGroup.find('.three-bounce-spinner');
@@ -167,7 +213,7 @@ test('it renders correctly when there are no lessons to load after clicking on t
 });
 
 test('it loads lessons and renders them correctly after clicking on the unit name', function(assert) {
-  assert.expect(8);
+  assert.expect(12);
 
   const context = this;
 
@@ -204,7 +250,10 @@ test('it loads lessons and renders them correctly after clicking on the unit nam
   assert.equal($panelGroup.text().trim(), context.get('i18n').t('common.contentUnavailable').string, 'Content for lessons should not be available');
 
   // Click on the unit name
-  $unitTitleAnchor.click();
+  Ember.run(() => {
+    $unitTitleAnchor.click();
+  });
+
   assert.ok($collapsePanel.hasClass('in'), 'Panel should be visible');
 
   var $loadingSpinner = $panelGroup.find('.three-bounce-spinner');
@@ -218,6 +267,12 @@ test('it loads lessons and renders them correctly after clicking on the unit nam
     assert.equal($items.length, 2, 'Incorrect number of lessons listed');
     assert.equal($items.first().find('.panel-title').text().trim(), 'L1: Lesson 1', 'Incorrect first lesson title');
     assert.equal($items.last().find('.panel-title').text().trim(), 'L2: Lesson 3', 'Incorrect last lesson title');
+
+    assert.equal($items.first().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first lesson for mobile');
+    assert.equal($items.last().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last lesson for mobile');
+
+    assert.equal($items.first().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first lesson');
+    assert.equal($items.last().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last lesson');
   });
 });
 
@@ -253,7 +308,9 @@ test('it only loads lessons once after clicking on the unit name', function(asse
   const $collapsePanel = $component.find('> .panel-collapse');
 
   // Click on the unit name
-  $unitTitleAnchor.click();
+  Ember.run(() => {
+    $unitTitleAnchor.click();
+  });
 
   return wait().then(function() {
 
