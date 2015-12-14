@@ -12,7 +12,12 @@
       {{gru-breadcrumb items=breadcrumb onSelectedItem=selectBreadcrumbItem}}
     </div>
     <div class="student-actions col-md-6 col-sm-6 col-xs-12">
-      <button {{action 'download'}}> Download </button>
+      {{class.analytics.performance.gru-actions-bar
+        mode='student'
+        onFilterSelected="selectFilterBy"
+        selectedFilterBy=filterBy
+        onDownload="download"
+      }}
     </div>
   </div>
   <div class="row snapshot">

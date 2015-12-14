@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import {download} from 'gooru-web/utils/csv'
+import {download} from 'gooru-web/utils/csv';
+
 /**
  * Student Analytics Performance Controller
  *
@@ -12,11 +13,21 @@ import {download} from 'gooru-web/utils/csv'
 export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
+
+  queryParams: ['filterBy'],
+
   classController: Ember.inject.controller('class'),
 
   // -------------------------------------------------------------------------
   // Actions
   actions:{
+    /**
+    * Triggered when a filter option is selected
+    * @param {string} option
+    */
+    selectFilterBy: function(option){
+      this.set("filterBy", option);
+    },
 
     optionsChange:function(options){
       //TO DO
@@ -24,19 +35,28 @@ export default Ember.Controller.extend({
     },
 
     /**
+     * Triggered when the breadcrumb item is selected
+     * @param {*} item
+     */
+    selectBreadcrumbItem: function(item){
+      Ember.log(item);
+    },
+
+    /**
      * When clicking at the download button
      */
     download: function(){
-      download('test', {
+      const data = {
         fields: ['First Name', "Last Name"],
         data: [
           ['Javier', 'P'],
           ['David', 'P']
         ]
-      });
+      };
+      const fileName = "student-performance";
+      //Data and File name are examples at this point
+      download(fileName, data);
     }
-
-
   },
   // -------------------------------------------------------------------------
   // Events
@@ -51,6 +71,12 @@ export default Ember.Controller.extend({
    */
   "class": Ember.computed.reads('classController.class'),
 
+  /**
+   * The filterBy selected
+   * @property {String}
+   */
+  filterBy: null,
+
   breadcrumb: Ember.A([
     {
       value: '111',
@@ -58,15 +84,15 @@ export default Ember.Controller.extend({
     },
     {
       value: '222',
-      label: 'Unit number one'
+      label: 'U1: Unit number one'
     },
     {
       value: '333',
-      label: 'Lesson number one'
+      label: 'L1: Lesson number one'
     },
     {
       value: '444',
-      label: 'Collection one with a long name'
+      label: 'C3: Collection one with a long name'
     }
   ])
   // -------------------------------------------------------------------------

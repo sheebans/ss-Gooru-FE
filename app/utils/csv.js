@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import PapaParse from 'papaparse';
 
 /**
@@ -37,7 +38,7 @@ export function download(fileName, data){
 
     $container.append(`<a id="gru-cvs-download" href="${uri}" download="${fileName}.csv" style="visibility:hidden">Download</a>`);
     const $link = $container.find("#gru-cvs-download");
-    $link.click();
-    //$link.remove();
+    $link[0].click();
+    $link.remove();
   }
 }

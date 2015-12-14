@@ -11,20 +11,14 @@
   }
 
   .controls {
-    .gru-breadcrumb {
+    .teacher-breadcrumb {
+      @media (min-width: $screen-sm-min) { /* same for sm and md */
+        padding: 0;
+      }
       min-height: 50px;
-      background-color: darkgray;
-    }
-    .gru-actions {
-      background-color: lightgrey;
-      min-height: 50px;
-    }
-  }
-
-  .controls {
-    .gru-breadcrumb {
-      min-height: 50px;
-      background-color: darkgray;
+      .gru-breadcrumb {
+        margin-top: 3%;
+      }
     }
     .gru-actions {
       background-color: lightgrey;
