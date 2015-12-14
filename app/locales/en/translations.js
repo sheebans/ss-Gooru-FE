@@ -347,6 +347,7 @@ export default {
     "score": "Score",
     "completion":"Completion",
     "time":"Time",
+    "study-time":"Study-Time",
     "reaction":"Reaction",
     "attempt":"Attempt"
   }

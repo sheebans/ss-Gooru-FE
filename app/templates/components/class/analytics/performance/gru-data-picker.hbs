@@ -2,7 +2,13 @@
     <ul class="option-list">
       {{#each options as |option|}}
           <li {{action 'setOption' option}}>
-              <span class="{{option.value}} {{if option.selected 'active'}}">{{fa-icon icon="fa-circle"}}</span>
+              <span class="{{option.value}} {{if option.selected 'active'}}">
+                  {{#if isTeacherDataPicker }}
+                    {{#if option.selected}}{{fa-icon icon="fa-check-square-o"}}{{else}}{{fa-icon icon=icon}}{{/if}}
+                  {{else}}
+                  {{fa-icon icon=icon}}
+                  {{/if}}
+              </span>
               <span>{{t (concat 'gru-data-picker.' option.value) }}</span>
           </li>
       {{/each}}

@@ -30,9 +30,11 @@ test('Layout', function(assert) {
     T.exists(assert, $performanceContainer.find(".controls .gru-breadcrumb"), "Missing performance breadcrumb");
     T.exists(assert, $performanceContainer.find(".controls .gru-actions"), "Missing performance actions");
     T.exists(assert, $performanceContainer.find(".gru-filters .data-picker"), "Missing data picker");
+    T.exists(assert, $performanceContainer.find(".gru-filters .data-picker .gru-data-picker"), "Missing data picker");
     T.exists(assert, $performanceContainer.find(".gru-filters .performance-scale"), "Missing performance scale area");
     T.exists(assert, $performanceContainer.find(".gru-content"), "Missing performance content");
     T.exists(assert, $performanceContainer.find(".controls .teacher-breadcrumb .gru-breadcrumb"), "Missing performance breadcrumb");
+
 
     const $classMenu = find(".controller.class .gru-class-navigation .class-menu");
     T.exists(assert, $classMenu.find(".analytics.selected"), "Missing selected analytics item");

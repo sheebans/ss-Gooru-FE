@@ -30,10 +30,12 @@ export default Ember.Component.extend({
      * @returns {undefined}
      */
     setOption: function(newOption) {
-      if (newOption.selected===true) {
+      if(newOption.readOnly===false){
+        if (newOption.selected===true) {
           this.cleanupOption(newOption);
-      } else {
-        this.selectOption(newOption);
+        } else {
+          this.selectOption(newOption);
+        }
       }
       this.sendAction("onOptionsChange", this.get('selectedOptions'));
     }
@@ -51,19 +53,24 @@ export default Ember.Component.extend({
    */
   options: Ember.A([Ember.Object.create({
     'value': 'score',
-    'selected':true
+    'selected':true,
+    'readOnly':false
   }),Ember.Object.create({
     'value': 'completion',
-    'selected':false
+    'selected':false,
+    'readOnly':false
   }),Ember.Object.create({
     'value': 'time',
-    'selected':false
+    'selected':false,
+    'readOnly':false
   }),Ember.Object.create({
     'value': 'reaction',
-    'selected':false
+    'selected':false,
+    'readOnly':false
   }),Ember.Object.create({
     'value': 'attempt',
-    'selected':false
+    'selected':false,
+    'readOnly':false
   })]),
 
   /**
@@ -85,6 +92,16 @@ export default Ember.Component.extend({
    */
     max:1,
 
+  /**
+  * Icon displayed
+  *
+  * @property {String}
+  */
+  icon :'fa-circle',
+
+  isTeacherDataPicker: Ember.computed('icon', function() {
+    return (this.get('icon') === 'fa-square-o');
+  }),
   /**
    *Computed property to calculate if the length of selectedOptions is less than the max value accepted
    *
