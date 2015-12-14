@@ -1,5 +1,6 @@
 ul.gru-performance-summary{
   list-style: none;
+  font-size:$font-size-base;
   li{
     float:left;
     display: inline-block;
@@ -10,16 +11,15 @@ ul.gru-performance-summary{
     .description{
       width: 60%;
       height: 20px;
-      background-color:red;
       display: block;
       margin: 0 auto;
       *{
-        float:left;
-        margin: 0;
+        margin: 0 auto;
       }
     }
   }
   .radial-progress {
+    float:left;
     $circle-size: 20px;
     $circle-background: #ffffff;
     $circle-color: #1076bb;
