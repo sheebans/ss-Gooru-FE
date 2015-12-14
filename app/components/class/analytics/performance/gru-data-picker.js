@@ -30,8 +30,8 @@ export default Ember.Component.extend({
      * @returns {undefined}
      */
     setOption: function(newOption) {
-      if(!newOption.readOnly){
-        if (newOption.selected) {
+      if(!newOption.get("readOnly")){
+        if (newOption.get("selected")) {
           this.cleanupOption(newOption);
         } else {
           this.selectOption(newOption);

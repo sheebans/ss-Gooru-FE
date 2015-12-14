@@ -3,7 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 import Ember from "ember";
 
-moduleForComponent('class/analytics/performance/gru-data-picker', 'Integration | Component | class/analytics/performance/gru performance data picker', {
+moduleForComponent('class/analytics/performance/gru-data-picker', 'Integration | Component | class/analytics/performance/gru data picker', {
   integration: true,
   beforeEach: function () {
     this.container.lookup('service:i18n').set("locale","en");
@@ -52,6 +52,21 @@ test('Data Picker Default', function(assert) {
   const $optionScore = $component.find(".option-list li .score");
   assert.ok($optionScore.hasClass('active'));
 
+});
+test('Verify the icons', function(assert) {
+  assert.expect(2);
+  const iconDefault = "fa-square-o";
+  const iconSelected = "fa-check-square-o";
+  this.set('iconDefault', iconDefault);
+  this.set('iconSelected', iconSelected);
+
+  this.render(hbs`{{class/analytics/performance/gru-data-picker  icon-default=iconDefault icon-selected=iconSelected}}`);
+  var $component = this.$(); //component dom element
+  var $dataPicker = $component.find("ul.option-list");
+  var $scoreOption =  $dataPicker.find("span.score i.fa"); //Score is selected by default
+  assert.ok($scoreOption.hasClass('fa-check-square-o'));
+  var $completionOption =  $dataPicker.find("span.completion i.fa"); // Completion is unselected by default
+  assert.ok($completionOption.hasClass('fa-square-o'));
 });
 
 test('Select option', function(assert) {
@@ -140,3 +155,4 @@ test('Verify the option can not be unselected when is readOnly', function(assert
   const $optionScore = $component.find(".option-list li .score");
   assert.ok($optionScore.hasClass('active'));
 });
+
