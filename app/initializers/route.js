@@ -3,13 +3,27 @@ import Ember from 'ember';
 export function initialize(app) {
 
   var historyCache = Ember.Object.extend({
-    lastRoute: null
+    /**
+     * @property {string} the last route
+     */
+    lastRoute: null,
+
+    /**
+     * @property {string} the current route
+     */
+    currentRoute: null,
+    /**
+     * @property {bool} indicates if there is history
+     */
+    empty: Ember.computed.not("currentRoute")
   });
 
   Ember.Route.reopen({
 
     addRouteSpecificClass: function() {
-      Ember.$('body').attr('class', this.routeName.replace(/\./g, '_'));
+      var currentRoute = this.routeName;
+      this.get('history').set('currentRoute', currentRoute);
+      Ember.$('body').attr('class', currentRoute.replace(/\./g, '_'));
     }.on('activate'),
 
     saveRoute: function() {

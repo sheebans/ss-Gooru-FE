@@ -22,12 +22,27 @@ export default Ember.Route.extend({
 
   beforeModel: function() {
     // TODO: authenticate session with ember-simple-auth, if not send to log in
+    /*
+     It is necessary to pass the query params again on the transitionTo so it doesn't fail at refresh
+
+     There is an ember problem when refreshing a child route using query params...
+     At refresh it will enter first at the performance route before model (parent route),
+     then base on the user role, we would do a transition to the child route (again) stopping
+     the original child route initiated when refreshing, ember throws this error
+     TypeError: Cannot read property 'name' of undefined
+       at _emberRuntimeSystemObject.default.extend.actions.finalizeQueryParamChange (ember.debug.js:25264)
+       at Object.triggerEvent (ember.debug.js:27476)
+
+     */
     const aClass = this.modelFor('class').class;
+    const route = this;
     if (aClass.isTeacher(this.get("session.userId"))){
-      this.transitionTo('class.analytics.performance.teacher');
+      route.transitionTo('class.analytics.performance.teacher',
+        { queryParams: route.paramsFor("class.analytics.performance.teacher")});
     }
     else {
-      this.transitionTo('class.analytics.performance.student');
+      route.transitionTo('class.analytics.performance.student',
+        { queryParams: route.paramsFor("class.analytics.performance.student")});
     }
   },
 
