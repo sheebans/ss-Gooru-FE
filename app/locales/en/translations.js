@@ -330,7 +330,7 @@ export default {
   "class.analytics": {
     "performance": {
       "title": "Performance",
-      "better-experience-message":"For a better Gooru experience, view full Class Analytics in tablet or desktop",
+      "better-experience-message":"For a better Gooru experience, view full Class Analytics in tablet or desktop.",
       "actions": {
         "share": "Share",
         "download": "Download",
@@ -348,6 +348,7 @@ export default {
     "score": "Score",
     "completion":"Completion",
     "time":"Time",
+    "study-time":"Study-Time",
     "reaction":"Reaction",
     "attempt":"Attempt"
   }

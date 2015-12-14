@@ -40,7 +40,7 @@ test('Layout', function(assert) {
     const $betterExperience = find("div.better-experience.visible-xs");
     T.exists(assert, $betterExperience, "Missing better experience alert");
     T.exists(assert, $betterExperience.find("button.close"), "Missing close button");
-    assert.equal(T.text($betterExperience.find("span.better-experience-message")), "For a better Gooru experience, view full Class Analytics in tablet or desktop", "Incorrect message");
+    assert.equal(T.text($betterExperience.find("span.better-experience-message")), "For a better Gooru experience, view full Class Analytics in tablet or desktop.", "Incorrect message");
 
   });
 });
