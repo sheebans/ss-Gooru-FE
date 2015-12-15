@@ -80,3 +80,39 @@ test('When view by both option is selected', function(assert) {
     });
   });
 });
+
+test('View Full Screen and Exit Full Screen', function(assert) {
+  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher');
+
+    const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher");
+    const $viewFullScreen = $performanceContainer.find(".controls .gru-actions-bar .full-screen");
+
+    assert.equal(T.text($viewFullScreen), 'View Full Screen', 'The text should be View Full Screen');
+
+    click($viewFullScreen);
+
+    andThen(function() {
+      T.exists(assert, $performanceContainer.find("div.navigation.hide"), "Navigation should be hide");
+      assert.equal(T.text($viewFullScreen), 'Exit Full Screen', 'The text should be Exit Full Screen');
+
+      const $navigation = find(".controller div.navigation.hide");
+
+      T.exists(assert, $navigation, "Navigation Menu should be hide");
+
+      click($viewFullScreen);
+
+      andThen(function() {
+        T.exists(assert, $performanceContainer.find("div.navigation.show"), "Navigation should be hide");
+        assert.equal(T.text($viewFullScreen), 'View Full Screen', 'The text should be Exit Full Screen');
+
+        const $navigation = find(".controller div.navigation.show");
+
+        T.exists(assert, $navigation, "Navigation Menu should be hide");
+        
+      });
+    });
+  });
+});

@@ -42,6 +42,15 @@ export default Ember.Controller.extend({
      */
     selectFilterBy: function(option){
       this.set("filterBy", option);
+    },
+    /**
+     * Triggered when the user select full screen
+     * @param {Boolean} option
+     */
+    fullScreen: function(option){
+
+      this.set("isFullScreen", option);
+      return true; //Capture for class route
     }
   },
 
@@ -63,6 +72,13 @@ export default Ember.Controller.extend({
    * @property {String}
    */
   filterBy: 'assessment',
+
+  /**
+   * If analytics is fullscreen
+   * @property {Boolean}
+   */
+  isFullScreen: false,
+
 
   breadcrumb: Ember.A([
     {

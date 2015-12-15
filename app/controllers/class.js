@@ -9,6 +9,7 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Actions
 
+
   // -------------------------------------------------------------------------
   // Events
 
@@ -26,6 +27,12 @@ export default Ember.Controller.extend({
    * @property {String}
    */
    menuItem: null,
+
+  /**
+   * If analytics is fullscreen
+   * @property {Boolean}
+   */
+  isFullScreen: false,
 
   /**
    * Indicates if a user is a teacher of this class
