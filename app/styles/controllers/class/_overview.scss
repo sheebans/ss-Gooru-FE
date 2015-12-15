@@ -9,8 +9,6 @@
 .controller.overview {
 
   .fixed {
-    border-bottom: 1px solid $gray-light;
-
     @media (min-width: $screen-md) {
       position: fixed;
       width: 75%;
@@ -21,15 +19,15 @@
     }
 
     .overview-header{
-
       background-color: $color-white;
+      border-bottom: 1px solid $gray-light;
 
       div {
         display: inline-block;
         padding:15px 20px;
       }
       @media (min-width: $screen-md) {
-        padding: 0 15px;
+        margin: 0 15px;
       }
     }
   }
