@@ -42,4 +42,15 @@
     background-color: darkgray;
     min-height: 400px; /* This is temporal for layout */
   }
+  .gru-data-picker{
+    .option-picker{
+      .option-list{
+        .active{
+          i{
+            color:$branding-primary-1;
+          }
+        }
+      }
+    }
+  }
 }
