@@ -1,12 +1,12 @@
 import Ember from 'ember';
 
 /**
- * Class actions bar
+ * Teacher Scale Indicator
  *
- * Component responsible for showing the action bar in my class analytics page.
+ * Component responsible for showing the Performance Scale Indicator in the teacher page.
  *
  * @module
- * @see controllers/class.js
+ * @see controllers/teacher.js
  * @augments ember/Component
  */
 export default Ember.Component.extend({
