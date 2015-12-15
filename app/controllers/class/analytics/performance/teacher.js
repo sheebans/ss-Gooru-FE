@@ -12,10 +12,23 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
+
+  queryParams: ['filterBy'],
+
   classController: Ember.inject.controller('class'),
 
   // -------------------------------------------------------------------------
   // Actions
+
+  actions:{
+    /**
+     * Triggered when a filter option is selected
+     * @param {string} option
+     */
+    selectFilterBy: function(option){
+      this.set("filterBy", option);
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Events
@@ -30,22 +43,28 @@ export default Ember.Controller.extend({
    */
   "class": Ember.computed.reads('classController.class'),
 
+  /**
+   * The filterBy selected
+   * @property {String}
+   */
+  filterBy: 'assessment',
+
   breadcrumb: Ember.A([
     {
       value: '111',
-      label: 'Course Name'
+      label: 'C1: Course Name'
     },
     {
       value: '222',
-      label: 'Unit number one'
+      label: 'U1: Unit number one'
     },
     {
       value: '333',
-      label: 'Lesson number one'
+      label: 'L1: Lesson number one'
     },
     {
       value: '444',
-      label: 'Collection one with a long name'
+      label: 'C1: Collection one with a long name'
     }
   ])
 
