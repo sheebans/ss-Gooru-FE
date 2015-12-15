@@ -11,7 +11,13 @@
 
     li {
       display: inline-block;
-      padding: 10px;
+      padding: 6px;
+      a {
+        color:$color-gray-secondary;
+        &:hover{
+          color:$color-gray-secondary;
+        }
+      }
       span{
         display: flex;
         justify-content: center;
@@ -19,12 +25,6 @@
       }
       i{
         color:$color-gray-lighter-3;
-      }
-    }
-
-    .active{
-      i{
-        color:$branding-primary-1;
       }
     }
   }
