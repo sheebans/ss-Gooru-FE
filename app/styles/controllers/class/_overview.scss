@@ -40,6 +40,16 @@
 
     .panel-heading {
       position: relative;
+
+      .panel-title {
+        > a {
+          display: inline-block;
+          max-width: 75%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
     }
 
     .gru-user-icons {
