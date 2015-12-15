@@ -9,7 +9,8 @@
           currentClass=currentClass
           model=item
           index=index
-          belongsTo=accordionId }}
+          belongsTo=accordionId
+          onSelectItem=(action 'selectItem') }}
 
     {{else}}
       <li>{{t "common.contentUnavailable"}}</li>
