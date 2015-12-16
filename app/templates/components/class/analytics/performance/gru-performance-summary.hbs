@@ -1,0 +1,56 @@
+    <li class='scoreSummary'>
+      {{#if model.score}}
+          <div class="description">
+              <div class="radial-progress">
+                  <div class="circle">
+                      <div class="mask full">
+                          <div class="fill"></div>
+                      </div>
+                      <div class="mask half">
+                          <div class="fill"></div>
+                          <div class="fill fix"></div>
+                      </div>
+                  </div>
+              </div>
+              <p>{{model.score}}%</p>
+          </div>
+      {{else}}
+          <p>N/A</p>
+      {{/if}}
+
+    </li>
+    <li class="completionSummary">
+      {{#if model.isNotCompleted}}
+          <div class="description">
+              <div class="radial-progress">
+                  <div class="circle">
+                      <div class="mask full">
+                          <div class="fill"></div>
+                      </div>
+                      <div class="mask half">
+                          <div class="fill"></div>
+                          <div class="fill fix"></div>
+                      </div>
+                  </div>
+              </div>
+              <p>{{model.completionDone}}/{{model.completionTotal}}</p>
+          </div>
+      {{else}}
+          <span class="performanceCheckmark"><i class="fa fa-check"></i></span>
+      {{/if}}
+
+    </li>
+    <li class="timeSpentSummary">
+        <p><span>{{model.timeSpent}}</span>h</p>
+    </li>
+    <li class="reactionSummary">
+      {{#if model.reaction}}
+          <span class="reactionSummary"></span>
+      {{else}}
+          <p>–</p>
+      {{/if}}
+
+    </li>
+    <li class="attemptSummary">
+        <p>{{model.attempts}}</p>
+    </li>

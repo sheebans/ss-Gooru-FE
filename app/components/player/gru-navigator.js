@@ -59,7 +59,6 @@ export default Ember.Component.extend({
 
      If a mousedown event occurs, Ember will look at the target of the event and start walking up the DOM node tree, finding corresponding views and invoking their mouseDown method as it goes.
      */
-    console.log(this.$('gru-navigator'));
     this.$(document).on('keyup', { _self: this }, this.navigateOnKeyUp);
   }),
 

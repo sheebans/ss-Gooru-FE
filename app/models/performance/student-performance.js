@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 /**
  * Model that contains the student performance information
@@ -37,6 +38,12 @@ export default DS.Model.extend({
   /**
    *  @property {Number} The number of attempts registered for the unit, class or collection/assessment
    */
-  attempts: DS.attr('number')
+  attempts: DS.attr('number'),
+  /**
+   *  @property {boolean} Whether the unit is completed or not.
+   */
+  isNotCompleted: Ember.computed('completionDone', 'completionTotal', function() {
+    return (this.get('completionDone') !== this.get('completionTotal'));
+  })
 
 });

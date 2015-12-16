@@ -22,18 +22,30 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
 
   beforeModel: function() {
     // TODO: authenticate session with ember-simple-auth, if not send to log in
-    
-    
+
+
   },
-  model: function(params) {
+  model: function() {
     const route = this;
     const userId = route.get("session.userId");
-    const courseId = this.modelFor('class').class.get("course");
     const classId= this.paramsFor('class').classId;
+    const courseId = this.modelFor('class').class.get("course");
+    const units = this.get("performanceService").findStudentPerformanceByClassAndCourse(userId,classId,courseId);
 
+    return Ember.RSVP.hash({
+      units: units
+    });
 
-    console.log(this.get("performanceService").findStudentPerformanceByClassAndCourse(userId,classId,courseId));
-    return this.get("performanceService").findStudentPerformanceByClassAndCourse(userId,classId,courseId);
+  },
+  /**
+   * Set all controller properties from the model
+   * @param controller
+   * @param model
+   */
+  setupController: function(controller, model) {
+    var units = model.units.length > 0 ? model.units : undefined;
+    controller.set("units", units);
+    console.log(units.get('firstObject').get("currentState"));
 
   }
 
