@@ -56,19 +56,7 @@ export default Ember.Route.extend({
       if (currentMenuItem !== item && transition) {
         route.transitionTo('class.' + item);
       }
-    },
-    /**
-     * Triggered when the user select full screen
-     * @param {Boolean} isFullScreen
-     */
-    fullScreen: function(isFullScreen){
-      const route = this;
-     const controller= route.get("controller");
-      if(isFullScreen){
-        controller.activateFullScreen();
-      }else{
-        controller.deactivateFullScreen();
-      }
     }
+
   }
 });

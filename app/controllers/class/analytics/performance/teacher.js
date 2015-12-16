@@ -44,10 +44,11 @@ export default Ember.Controller.extend({
       this.set("filterBy", option);
     },
     /**
-     * Triggered when the user select full screen
+     * Triggered when the user toggles between normal and full screen mode
      */
-    fullScreen: function(){
-      return true; //Capture for class route
+    toggleFullScreen: function () {
+      var isFullScreen = this.get('classController.isFullScreen');
+      this.set('classController.isFullScreen', !isFullScreen);
     }
   },
 

@@ -55,28 +55,25 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Observers
 
+  setupSubscriptions: Ember.on('init', function () {
+    var controller = this;
+
+    Ember.$(window).on('keyup.exitFullScreen', function (e) {
+
+      if (e.keyCode === 27 && controller.get('isFullScreen')) {
+        // Exit full screen mode
+        controller.set('isFullScreen', false);
+      }
+    });
+
+  }),
+
+  removeSubscriptions: Ember.on('willDestroy', function () {
+    Ember.$(window).off('keyup.exitFullScreen');
+  })
 
   // -------------------------------------------------------------------------
   // Methods
 
-  /**
-   * Activate Full Screen
-   */
-  activateFullScreen: function(){
-    this.set("isFullScreen",true);
-    const controller = this;
-    Ember.$(window).on('keyup', function(e) {
-      if (e.keyCode === 27) {
-       controller.deactivateFullScreen();
-      }
-    });
-  },
-  /**
-   * Deactivate Full Screen
-   */
-  deactivateFullScreen:function(){
-    this.set("isFullScreen",false);
-    Ember.$(window).off('keyup');
-  }
 
 });

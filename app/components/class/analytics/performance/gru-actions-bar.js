@@ -38,9 +38,8 @@ export default Ember.Component.extend({
     /**
      * Action triggered when the user selects the Full Screen option
      */
-    fullScreen: function () {
-      this.set("isFullScreen", !this.get("isFullScreen"));
-      this.sendAction("onViewFullScreen", this.get("isFullScreen"));
+    toggleFullScreen: function () {
+      this.get("onToggleFullScreen")();
     },
 
     /**
@@ -84,24 +83,15 @@ export default Ember.Component.extend({
   onFilterSelected: null,
 
   /**
-   * @property {Boolean|Function} onViewFullScreen - event handler when a  full screen option is selected.
+   * @property {Boolean|Function} onToggleFullScreen - event handler when a  full screen option is selected.
    */
-  onViewFullScreen: null,
+  onToggleFullScreen: null,
 
   /**
    * If analytics is fullscreen
    * @property {Boolean}
    */
   isFullScreen: null,
-
-  /**
-   * Return if is full screen
-   * @param isFullScreen
-   * @return {Boolean}
-   */
-  activateFullScreen:  Ember.computed('isFullScreen', function () {
-    return this.get("isFullScreen");
-  }),
 
   /**
    * @property {String|Function} onDownload - event handler when the download option is clicked

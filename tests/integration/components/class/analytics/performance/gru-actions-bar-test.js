@@ -84,22 +84,20 @@ test('Download action', function(assert) {
   $button.click();
 });
 
-test('View Full Screen and Exit Full Screen', function(assert) {
-  assert.expect(3);
+test('Calling external action when pressing the full screen button', function (assert) {
+  assert.expect(2);
 
-  var isFullScreen = true;
-
-  this.on('fullScreen', function(option) {
-    assert.equal(option, isFullScreen, "Should be"+isFullScreen);
-    isFullScreen = !isFullScreen;
+  this.on('externalAction', function () {
+    assert.ok(true);
   });
 
-  this.render(hbs`{{class.analytics.performance.gru-actions-bar onViewFullScreen='fullScreen'}}`);
+  this.set('isFullScreenMode', true);
+
+  this.render(hbs`{{class.analytics.performance.gru-actions-bar onToggleFullScreen=(action 'externalAction')}}`);
 
   var $component = this.$(); //component dom element
   const $button = $component.find(".gru-actions-bar .full-screen");
+
   T.exists(assert, $button, "Missing view full screen button");
   $button.click();
-  $button.click();
 });
-
