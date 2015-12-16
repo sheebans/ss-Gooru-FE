@@ -11,19 +11,18 @@ moduleForComponent('class/analytics/performance/gru-performance-summary', 'Integ
 });
 
 test('Test for performance summary on unit', function(assert) {
-  const unit = Ember.A(
+  const unit = Ember.Object.create(
      {
         title: "Quiz :: Indian History",
         type: "performance/student-performance",
-        score:25,
+        score:75,
         completionDone: 0,
         completionTotal: 1,
         timeSpent: 3,
         ratingScore: 0,
         attempts: 0
-      }
-  );
-  console.log(JSON.parse(JSON.stringify(unit)));
+      });
+
   this.set('unit', unit);
 
 
@@ -38,10 +37,12 @@ test('Test for performance summary on unit', function(assert) {
   const $scoreSummary = $component.find(".scoreSummary .description");
   T.exists(assert, $scoreSummary, 'Missing Score summary');
 
-  console.log('Aqui->>>>',$scoreSummary);
 
   const $completionSummary = $component.find(".completionSummary .description");
+  console.debug($component.html());
+
   T.exists(assert, $completionSummary, 'Missing Completion summary');
+
 
   const $reactionSummary = $component.find(".reactionSummary p");
   T.exists(assert, $reactionSummary, 'Missing Reaction summary ');
