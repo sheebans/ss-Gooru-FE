@@ -55,6 +55,14 @@ export default Ember.Component.extend(AccordionMixin, {
         var usersLocation = this.getLessonUsers();
         this.set('usersLocation', usersLocation);
       }
+    },
+
+    /**
+     * @function actions:selectItem
+     * @param {string} collectionId - Identifier for a collection or assessment
+     */
+    selectItem: function(collectionId) {
+      this.get('onSelectItem')(collectionId);
     }
 
   },

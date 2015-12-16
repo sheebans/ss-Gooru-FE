@@ -8,7 +8,10 @@
 
   position: absolute;
   text-align: right;
-  width: $tooltip-width;
+
+  @media (min-width: $screen-sm) {
+    min-width: $tooltip-width;
+  }
 
   ul {
     list-style: none;

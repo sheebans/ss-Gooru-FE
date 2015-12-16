@@ -1,28 +1,33 @@
+.class_overview {
+  .controller.class .content {
+    @media (max-width: $screen-sm-max) {
+      padding: 0;
+    }
+  }
+}
+
 .controller.overview {
 
-
   .fixed {
-
     @media (min-width: $screen-md) {
       position: fixed;
-      width: 100%;
+      width: 75%;
       left: 0;
       top: 50px;
-      padding-left: 25%;
+      margin-left: 25%;
       z-index: 10;
     }
 
     .overview-header{
-
       background-color: $color-white;
-      min-height:$overview-header;
+      border-bottom: 1px solid $gray-light;
 
-      div{
+      div {
         display: inline-block;
-        padding:20px;
+        padding:15px 20px;
       }
       @media (min-width: $screen-md) {
-        padding: 0 15px;
+        margin: 0 15px;
       }
     }
   }
@@ -32,23 +37,37 @@
   }
 
   .gru-accordion-course {
-    padding: 0 20px 50px 20px;
+    padding: 15px 20px 50px 20px;
 
     @media (min-width: $screen-md) {
-      padding-top: $overview-header;
+      padding-top: $overview-header + 5px;
+    }
+
+    .panel + .panel {
+      margin-top: 25px;
     }
 
     .panel-heading {
       position: relative;
+
+      .panel-title {
+        > a {
+          display: inline-block;
+          max-width: 75%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          vertical-align: bottom;
+        }
+      }
     }
 
     .gru-user-icons {
-      top: 0;
+      top: 6px;
       right: 0;
     }
 
     .gru-accordion-unit {
-      margin-bottom: 20px;
 
       &.expanded {
         > .panel-heading .gru-user-icons { display: none !important; }
@@ -66,10 +85,12 @@
         }
 
         .panel-heading {
+          padding-top: 0;
+          margin-top: 10px;
 
           > .img-circle {
             position: absolute;
-            top: 8px;
+            top: -4px;
             left: 0;
             height: 2.714rem;
             width: 2.714rem;
@@ -83,12 +104,13 @@
             display: block;
             border-bottom: 1px solid $gray-light;
             margin-left: 25px;
+            margin-right: 20px;
+            padding-top: 5px;
             padding-left: 25px;
-            margin-right: 20px
           }
 
           .gru-user-icons {
-            top: 8px;
+            top: -4px;
           }
         }
 
@@ -109,7 +131,7 @@
 
             > img {
               position: absolute;
-              top: 8px;
+              top: -2px;
               left: 25px;
               height: 30px;
               width: 42px;
