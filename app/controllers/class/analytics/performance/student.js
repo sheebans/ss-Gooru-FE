@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {download} from 'gooru-web/utils/csv';
 
 /**
  * Student Analytics Performance Controller
@@ -39,6 +40,22 @@ export default Ember.Controller.extend({
      */
     selectBreadcrumbItem: function(item){
       Ember.log(item);
+    },
+
+    /**
+     * When clicking at the download button
+     */
+    download: function(){
+      const data = {
+        fields: ['First Name', "Last Name"],
+        data: [
+          ['Javier', 'P'],
+          ['David', 'P']
+        ]
+      };
+      const fileName = "student-performance";
+      //Data and File name are examples at this point
+      download(fileName, data);
     }
   },
   // -------------------------------------------------------------------------
@@ -64,7 +81,7 @@ export default Ember.Controller.extend({
    * The filterBy selected
    * @property {String}
    */
-  filterBy: null,
+  filterBy: 'assessment',
 
   breadcrumb: Ember.A([
     {
@@ -73,15 +90,15 @@ export default Ember.Controller.extend({
     },
     {
       value: '222',
-      label: 'Unit number one'
+      label: 'U1: Unit number one'
     },
     {
       value: '333',
-      label: 'Lesson number one'
+      label: 'L1: Lesson number one'
     },
     {
       value: '444',
-      label: 'Collection one with a long name'
+      label: 'C3: Collection one with a long name'
     }
   ])
   // -------------------------------------------------------------------------

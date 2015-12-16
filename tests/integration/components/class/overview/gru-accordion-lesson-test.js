@@ -15,18 +15,24 @@ const collectionServiceStub = Ember.Service.extend({
           courseId === '222-444-666' &&
             unitId === '777-999' && lessonId === '888-000') {
       response = [
-        {
-          "title": "Collection 1",
-          "visibility": true
-        },
-        {
-          "title": "Collection 2",
-          "visibility": false
-        },
-        {
-          "title": "Collection 3",
-          "visibility": true
-        }
+        Ember.Object.create({
+          id: "item-1",
+          collectionType: "collection",
+          title: "Collection 1",
+          visibility: true
+        }),
+        Ember.Object.create({
+          id: "item-2",
+          collectionType: "collection",
+          title: "Collection 2",
+          visibility: false
+        }),
+        Ember.Object.create({
+          id: "item-3",
+          collectionType: "assessment",
+          title: "Assessment 1",
+          visibility: true
+        })
       ];
     } else {
       response = [];
@@ -43,7 +49,43 @@ const collectionServiceStub = Ember.Service.extend({
       promise: promiseResponse
     });
   }
+});
 
+const courseLocationStub = Ember.Service.extend({
+
+  findByCourseAndUnitAndLesson(courseId, unitId, lessonId) {
+    var response;
+    const users = [
+      Ember.Object.create({
+        isActive: false,
+        user: Ember.Object.create({
+          id: 1,
+          firstName: "John",
+          lastName: "Fitzgerald",
+          fullName: "Fitzgerald, John"
+        })
+      })
+    ];
+
+    if (courseId === '222-444-666' && unitId === '777-999' && lessonId === '888-000') {
+      response = [
+        Ember.Object.create({
+          unit: '777-999',
+          lesson: '888-000',
+          collection: 'item-1',
+          locationUsers: DS.PromiseArray.create({
+            promise: new Ember.RSVP.resolve(users)
+          })
+        })
+      ];
+    } else {
+      response = Ember.A();
+    }
+
+    return DS.PromiseArray.create({
+      promise: new Ember.RSVP.resolve(response)
+    });
+  }
 });
 
 moduleForComponent('class/overview/gru-accordion-lesson', 'Integration | Component | class/overview/gru accordion lesson', {
@@ -52,6 +94,10 @@ moduleForComponent('class/overview/gru-accordion-lesson', 'Integration | Compone
   beforeEach: function() {
     this.register('service:api-sdk/collection', collectionServiceStub);
     this.inject.service('api-sdk/collection', { as: 'collectionService' });
+
+    this.register('service:api-sdk/course-location', courseLocationStub);
+    this.inject.service('api-sdk/course-location', { as: 'courseLocationService' });
+
     this.inject.service('i18n');
   }
 });
@@ -157,7 +203,10 @@ test('it renders correctly when there are no collections/assessments to load aft
   assert.equal($collectionsContainer.text().trim(), context.get('i18n').t('common.contentUnavailable').string, 'Content for collections/assessments should not be available');
 
   // Click on the lesson name
-  $lessonTitleAnchor.click();
+  Ember.run(() => {
+    $lessonTitleAnchor.click();
+  });
+
   assert.ok($collapsePanel.hasClass('in'), 'Panel should be visible');
 
   var $loadingSpinner = $collapsePanel.find('.three-bounce-spinner');
@@ -174,7 +223,7 @@ test('it renders correctly when there are no collections/assessments to load aft
 });
 
 test('it loads collections/assessments and renders them correctly after clicking on the lesson name', function(assert) {
-  assert.expect(11);
+  assert.expect(17);
 
   const context = this;
 
@@ -213,7 +262,10 @@ test('it loads collections/assessments and renders them correctly after clicking
   assert.equal($collectionsContainer.text().trim(), context.get('i18n').t('common.contentUnavailable').string, 'Content for collections/assessments should not be available');
 
   // Click on the unit name
-  $lessonTitleAnchor.click();
+  Ember.run(() => {
+    $lessonTitleAnchor.click();
+  });
+
   assert.ok($collapsePanel.hasClass('in'), 'Panel should be visible');
 
   var $loadingSpinner = $collectionsContainer.find('.three-bounce-spinner');
@@ -228,16 +280,25 @@ test('it loads collections/assessments and renders them correctly after clicking
 
     const $firstCollection = $items.first();
     const $collectionHeading = $firstCollection.find('> .panel-heading');
-    assert.ok($collectionHeading.length, 'Collection is missing the panel heading element');
+    assert.ok($collectionHeading.length, 'Item is missing the panel heading element');
 
     const $collectionImage = $collectionHeading.find('> img');
-    assert.ok($collectionImage.length, 'Collection is missing the image element');
+    assert.ok($collectionImage.length, 'Item is missing the image element');
 
     const $collectionName = $collectionHeading.find('> .panel-title');
-    assert.ok($collectionName.length, 'Element for the collection name is missing');
+    assert.ok($collectionName.length, 'Element for the item name is missing');
 
-    assert.equal($items.first().find('.panel-title').text().trim(), 'C1: Collection 1', 'Incorrect first lesson title');
-    assert.equal($items.last().find('.panel-title').text().trim(), 'C2: Collection 3', 'Incorrect last lesson title');
+    assert.ok($items.first().hasClass('collection'), 'First item should have the class "collection"');
+    assert.ok($items.last().hasClass('assessment'), 'First item should have the class "assessment"');
+
+    assert.equal($items.first().find('.panel-title').text().trim(), 'C1: Collection 1', 'Incorrect first item title');
+    assert.equal($items.last().find('.panel-title').text().trim(), 'A2: Assessment 1', 'Incorrect last item title');
+
+    assert.equal($items.first().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first item for mobile');
+    assert.equal($items.last().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last item for mobile');
+
+    assert.equal($items.first().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first item');
+    assert.equal($items.last().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last item');
   });
 });
 
@@ -276,7 +337,9 @@ test('it only loads collections/assessments once after clicking on the unit name
   const $collapsePanel = $component.find('> .panel-collapse');
 
   // Click on the unit name
-  $lessonTitleAnchor.click();
+  Ember.run(() => {
+    $lessonTitleAnchor.click();
+  });
 
   return wait().then(function() {
 

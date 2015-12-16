@@ -12,19 +12,24 @@
     </div>
     </div>
     <div class="row controls">
-    <div class="teacher-breadcrumb col-md-6 col-sm-6 col-xs-12">
-      {{gru-breadcrumb items=breadcrumb onSelectedItem=selectBreadcrumbItem}}
-    </div>
-    <div class="gru-actions col-md-6 col-sm-6 col-xs-12">
-      Actions place holder
-    </div>
+      <div class="teacher-breadcrumb col-md-6 col-sm-6 col-xs-12">
+        {{gru-breadcrumb items=breadcrumb onSelectedItem=selectBreadcrumbItem}}
+      </div>
+      <div class="teacher-actions col-md-6 col-sm-6 col-xs-12">
+        {{class.analytics.performance.gru-actions-bar
+          mode='teacher'
+          onFilterSelected="selectFilterBy"
+          selectedFilterBy=filterBy
+        }}
+      </div>
    </div>
-   <div class="row gru-filters">
-    <div class="data-picker col-md-6 col-sm-6 col-xs-12">
-      Data picker place holder
+   <div class="row gru-filters row-eq-height">
+    <div class="data-picker col-md-6 col-sm-6 col-xs-12 hidden-xs">
+      {{class.analytics.performance.gru-data-picker
+      onOptionsChange="optionsChange" options=optionsTeacher max=3 icon-default="fa-square-o" icon-selected="fa-check-square-o"}}
     </div>
     <div class="performance-scale col-md-6 col-sm-6 col-xs-12">
-      Performance scale place holder
+      {{class.analytics.performance.gru-scale-indicator}}
     </div>
     </div>
     <div class="row gru-content">

@@ -48,5 +48,4 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
     console.log(units.get('firstObject').get("currentState"));
 
   }
-
 });

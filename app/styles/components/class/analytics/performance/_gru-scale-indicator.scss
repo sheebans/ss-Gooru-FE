@@ -1,0 +1,45 @@
+.gru-scale-indicator {
+  $gru-scale-indicator-bad: #E08282;
+  $gru-scale-indicator-regular: #FEC956;
+  $gru-scale-indicator-good: #EDF167;
+  $gru-scale-indicator-very-good: #A2DE81;
+  $gru-scale-indicator-excellent: #3FC380;
+
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  .indicator-list {
+    font-size: $font-size-small;
+    margin: 0;
+    padding: 0;
+    li {
+      display: inline-block;
+      list-style: none;
+      margin: 0 4px 0 0;
+      @media (min-width: $screen-sm) {
+        margin: 0 10px 0 0;
+      }
+      .indicator {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin: 0 5px 0 0;
+      }
+      .bad {
+        background-color: $gru-scale-indicator-bad;
+      }
+      .regular {
+        background-color: $gru-scale-indicator-regular;
+      }
+      .good {
+        background-color: $gru-scale-indicator-good;
+      }
+      .very-good {
+        background-color: $gru-scale-indicator-very-good;
+      }
+      .excellent {
+        background-color: $gru-scale-indicator-excellent;
+      }
+    }
+  }
+}

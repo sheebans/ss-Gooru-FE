@@ -30,12 +30,14 @@ export default Ember.Component.extend({
      * @returns {undefined}
      */
     setOption: function(newOption) {
-      if (newOption.selected===true) {
+      if(!newOption.get("readOnly")){
+        if (newOption.get("selected")) {
           this.cleanupOption(newOption);
-      } else {
-        this.selectOption(newOption);
+        } else {
+          this.selectOption(newOption);
+        }
+        this.sendAction("onOptionsChange", this.get('selectedOptions'));
       }
-      this.sendAction("onOptionsChange", this.get('selectedOptions'));
     }
   },
   // -------------------------------------------------------------------------
@@ -51,19 +53,24 @@ export default Ember.Component.extend({
    */
   options: Ember.A([Ember.Object.create({
     'value': 'score',
-    'selected':true
+    'selected':true,
+    'readOnly':false
   }),Ember.Object.create({
     'value': 'completion',
-    'selected':false
+    'selected':false,
+    'readOnly':false
   }),Ember.Object.create({
     'value': 'time',
-    'selected':false
+    'selected':false,
+    'readOnly':false
   }),Ember.Object.create({
     'value': 'reaction',
-    'selected':false
+    'selected':false,
+    'readOnly':false
   }),Ember.Object.create({
     'value': 'attempt',
-    'selected':false
+    'selected':false,
+    'readOnly':false
   })]),
 
   /**
@@ -84,6 +91,21 @@ export default Ember.Component.extend({
    * @property {Number}
    */
     max:1,
+
+  /**
+  * Icon displayed
+  *
+  * @property {String}
+  */
+  "icon-default" :"fa-circle",
+
+  /**
+   * Icon selected
+   *
+   * @property {String}
+   */
+  "icon-selected" :"fa-circle",
+
 
   /**
    *Computed property to calculate if the length of selectedOptions is less than the max value accepted

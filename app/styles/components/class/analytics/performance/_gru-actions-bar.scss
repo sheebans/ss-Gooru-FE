@@ -2,19 +2,18 @@
   padding: 10px 0 0 0;
   text-align: center;
   .btn {
-    padding: 6px;
+    padding: 4px;
   }
   .drop-menu {
     .dropdown-toggle {
       .arrow {
         padding-left: 0;
         background: url("gooru/landingpageSprite.png") no-repeat;
-        background-position: -95px -35px;
+        background-position: -95px -37px;
         background-size: 185px;
         width: 25px;
-        height: 15px;
-        display: block;
-        float: right;
+        height: 10px;
+        display: inline-block;
       }
     }
     .dropdown-menu {
@@ -36,7 +35,7 @@
     .dropdown-toggle {
       box-shadow: none;
       .arrow {
-        background-position: -135px -35px;
+        background-position: -135px -37px;
       }
     }
   }

@@ -21,3 +21,8 @@ export const RESOURCE_COMPONENT_MAP = {
 export const DEFAULT_IMAGES = {
   USER_PROFILE: '/assets/gooru/profile.png'
 };
+
+export const CONTENT_TYPES = {
+  COLLECTION: 'collection',
+  ASSESSMENT: 'assessment'
+};

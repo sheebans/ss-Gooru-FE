@@ -12,6 +12,19 @@
         {{t "common.lessonInitial"}}{{plus-one index}}&colon; {{model.title}}
     </a>
   </span>
+  {{!-- Show only for xs --}}
+  {{gru-user-icons
+    class="visible-xs"
+    users=model.users
+    viewThreshold=2
+    viewMoreIn='modal' }}
+
+  {{!-- Show for all other screen sizes --}}
+  {{gru-user-icons
+    class="hidden-xs"
+    users=model.users
+    viewThreshold=3
+    viewMoreIn='modal' }}
 </div>
 
 <div id="{{elementId}}-content"
@@ -28,10 +41,27 @@
     {{else}}
 
       {{#each visibleItems as |item index|}}
-        <li class="panel">
+        <li class="panel {{item.collectionType}}">
           <div class="panel-heading">
             <img src="" />
-            <span class="panel-title">{{t "common.collectionInitial"}}{{plus-one index}}&colon; {{item.title}}</span>
+            <span class="panel-title">
+              <a {{action "selectItem" item.id}}>
+                  {{t (itemInitial item.collectionType)}}{{plus-one index}}&colon; {{item.title}}
+              </a>
+            </span>
+            {{!-- Show only for xs --}}
+            {{gru-user-icons
+              class="visible-xs"
+              users=item.users
+              viewThreshold=2
+              viewMoreIn='modal' }}
+
+            {{!-- Show for all other screen sizes --}}
+            {{gru-user-icons
+              class="hidden-xs"
+              users=item.users
+              viewThreshold=3
+              viewMoreIn='modal' }}
           </div>
         </li>
       {{else}}
