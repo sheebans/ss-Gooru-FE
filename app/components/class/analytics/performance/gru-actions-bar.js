@@ -94,6 +94,11 @@ export default Ember.Component.extend({
    */
   isFullScreen: null,
 
+  /**
+   * Return if is full screen
+   * @param isFullScreen
+   * @return {Boolean}
+   */
   activateFullScreen:  Ember.computed('isFullScreen', function () {
     return this.get("isFullScreen");
   }),

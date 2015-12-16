@@ -105,16 +105,30 @@ test('View Full Screen and Exit Full Screen', function(assert) {
       click($viewFullScreen);
 
       andThen(function() {
-        T.exists(assert, $performanceContainer.find("div.navigation.show"), "Navigation should be hide");
-        assert.equal(T.text($viewFullScreen), 'View Full Screen', 'The text should be Exit Full Screen');
+        T.exists(assert, $performanceContainer.find("div.navigation.show"), "Navigation should be show");
+        assert.equal(T.text($viewFullScreen), 'View Full Screen', 'The text should be View Full Screen');
 
         const $navigation = find(".controller div.navigation.show");
 
-        T.exists(assert, $navigation, "Navigation Menu should be hide");
+        T.exists(assert, $navigation, "Navigation Menu should be show");
 
         click($viewFullScreen);
         andThen(function() {
-
+          assert.equal(T.text($viewFullScreen), 'Exit Full Screen', 'The text should be Exit Full Screen');
+          click($navigation);
+          andThen(function() {
+            let e = $.Event('keyup');
+            e.keyCode = 27; //Esc key code
+            $performanceContainer.trigger(e);
+            andThen(function() {
+              //T.exists(assert, $performanceContainer.find("div.navigation.show"), "Navigation should be show");
+              //assert.equal(T.text($viewFullScreen), 'View Full Screen', 'The text should be View Full Screen');
+              //
+              //const $navigation = find(".controller div.navigation.show");
+              //
+              //T.exists(assert, $navigation, "Navigation Menu should be show");
+            });
+          });
         });
       });
     });
