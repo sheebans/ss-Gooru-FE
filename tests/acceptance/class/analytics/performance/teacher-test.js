@@ -111,7 +111,11 @@ test('View Full Screen and Exit Full Screen', function(assert) {
         const $navigation = find(".controller div.navigation.show");
 
         T.exists(assert, $navigation, "Navigation Menu should be hide");
-        
+
+        click($viewFullScreen);
+        andThen(function() {
+
+        });
       });
     });
   });

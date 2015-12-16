@@ -48,15 +48,12 @@ export default Ember.Controller.extend({
      * @param {Boolean} option
      */
     fullScreen: function(option){
-
-      this.set("isFullScreen", option);
       return true; //Capture for class route
     }
   },
 
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -77,7 +74,7 @@ export default Ember.Controller.extend({
    * If analytics is fullscreen
    * @property {Boolean}
    */
-  isFullScreen: false,
+  isFullScreen:  Ember.computed.reads('classController.isFullScreen'),
 
 
   breadcrumb: Ember.A([
@@ -133,5 +130,4 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-
 });

@@ -61,9 +61,15 @@ export default Ember.Route.extend({
      * Triggered when the user select full screen
      * @param {Boolean} option
      */
-    fullScreen: function(option){
+    fullScreen: function(isFullScreen){
       const route = this;
-      route.set("controller.isFullScreen", option);
+     // route.set("controller.isFullScreen", option);
+     const controller= route.get("controller");
+      if(isFullScreen){
+        controller.activateFullScreen();
+      }else{
+        controller.deactivateFullScreen();
+      }
     }
   }
 });

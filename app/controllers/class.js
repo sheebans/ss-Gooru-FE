@@ -9,10 +9,8 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -29,7 +27,7 @@ export default Ember.Controller.extend({
    menuItem: null,
 
   /**
-   * If analytics is fullscreen
+   * If analytics is fullScreen
    * @property {Boolean}
    */
   isFullScreen: false,
@@ -60,6 +58,19 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+  activateFullScreen: function(){
+    this.set("isFullScreen",true);
+    const controller = this;
+    Ember.$(window).on('keyup', function(e) {
+      if (e.keyCode === 27) {
+       controller.deactivateFullScreen();
+      }
+    });
+  },
 
+  deactivateFullScreen:function(){
+    this.set("isFullScreen",false);
+    Ember.$(window).off('keyup');
+  }
 
 });
