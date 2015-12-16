@@ -32,7 +32,7 @@ export default Ember.Controller.extend({
    */
   isFullScreen: false,
 
-  /**
+ /**
    * Indicates if a user is a teacher of this class
    * @property {isTeacher}
    * @see {Class} class
@@ -58,6 +58,10 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+
+  /**
+   * Activate Full Screen
+   */
   activateFullScreen: function(){
     this.set("isFullScreen",true);
     const controller = this;
@@ -67,7 +71,9 @@ export default Ember.Controller.extend({
       }
     });
   },
-
+  /**
+   * Deactivate Full Screen
+   */
   deactivateFullScreen:function(){
     this.set("isFullScreen",false);
     Ember.$(window).off('keyup');
