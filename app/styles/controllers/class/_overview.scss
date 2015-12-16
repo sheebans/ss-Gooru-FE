@@ -43,6 +43,10 @@
       padding-top: $overview-header + 5px;
     }
 
+    .panel + .panel {
+      margin-top: 25px;
+    }
+
     .panel-heading {
       position: relative;
 
@@ -53,6 +57,7 @@
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+          vertical-align: bottom;
         }
       }
     }
@@ -63,7 +68,6 @@
     }
 
     .gru-accordion-unit {
-      margin-bottom: 20px;
 
       &.expanded {
         > .panel-heading .gru-user-icons { display: none !important; }
@@ -81,10 +85,12 @@
         }
 
         .panel-heading {
+          padding-top: 0;
+          margin-top: 10px;
 
           > .img-circle {
             position: absolute;
-            top: 12px;
+            top: -4px;
             left: 0;
             height: 2.714rem;
             width: 2.714rem;
@@ -98,12 +104,13 @@
             display: block;
             border-bottom: 1px solid $gray-light;
             margin-left: 25px;
+            margin-right: 20px;
+            padding-top: 5px;
             padding-left: 25px;
-            margin-right: 20px
           }
 
           .gru-user-icons {
-            top: 12px;
+            top: -4px;
           }
         }
 
@@ -124,7 +131,7 @@
 
             > img {
               position: absolute;
-              top: 14px;
+              top: -2px;
               left: 25px;
               height: 30px;
               width: 42px;
