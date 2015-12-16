@@ -11,7 +11,7 @@
     border-left: 1px solid $color-gray-lighter-3;
     margin-left: -1px;
     @media (max-width: $screen-xs-max) { /* only for phone */
-      padding: 0px;
+      padding: 0;
     }
 
   }
