@@ -72,10 +72,10 @@ export default Ember.Controller.extend({
   "class": Ember.computed.reads('classController.class'),
 
   /**
-   * The units that will be shown to the user
+   * The performances for the units that will be shown to the user
    * @property {Class}
    */
-  "units": null,
+  "performances": null,
 
   /**
    * The filterBy selected
