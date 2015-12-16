@@ -10,8 +10,8 @@ moduleForComponent('class/analytics/performance/gru-performance-summary', 'Integ
   }
 });
 
-test('Test for performance summary on unit', function(assert) {
-  const unit = Ember.Object.create(
+test('Test for performance summary on valid unit values', function(assert) {
+  const performance = Ember.Object.create(
      {
         title: "Quiz :: Indian History",
         type: "performance/student-performance",
@@ -20,13 +20,14 @@ test('Test for performance summary on unit', function(assert) {
         completionTotal: 1,
         timeSpent: 3,
         ratingScore: 0,
-        attempts: 0
+        attempts: 2,
+       isNotCompleted: true
       });
 
-  this.set('unit', unit);
+  this.set('performance', performance);
 
 
-  this.render(hbs`{{class.analytics.performance.gru-performance-summary model=unit}}`);
+  this.render(hbs`{{class.analytics.performance.gru-performance-summary performance=performance}}`);
 
   const $component = this.$(); //component dom element
 
@@ -39,17 +40,47 @@ test('Test for performance summary on unit', function(assert) {
 
 
   const $completionSummary = $component.find(".completionSummary .description");
-  console.debug($component.html());
-
   T.exists(assert, $completionSummary, 'Missing Completion summary');
 
 
   const $reactionSummary = $component.find(".reactionSummary p");
   T.exists(assert, $reactionSummary, 'Missing Reaction summary ');
 
-  const $timeSpentSummary = $component.find(".timeSpentSummary p span");
-  T.exists(assert, $timeSpentSummary, 'Missing Reaction summary ');
+  const $timeSpentSummary = $component.find(".timeSpentSummary p");
+  assert.equal(T.text($timeSpentSummary), "3h", "Wrong time spent text");
+
+  const $attemptSummary = $component.find(".attemptSummary p");
+  assert.equal(T.text($attemptSummary), "2", "Wrong attempts text");
+});
+
+test('Test for performance summary on invalid unit values', function(assert) {
+  const performance = Ember.Object.create(
+    {
+      title: "Quiz :: Indian History",
+      type: "performance/student-performance",
+      completionTotal: 1,
+      ratingScore: 0,
+      isNotCompleted: false
+    });
+
+  this.set('performance', performance);
 
 
+  this.render(hbs`{{class.analytics.performance.gru-performance-summary performance=performance}}`);
+
+  const $component = this.$(); //component dom element
+
+
+  const $scoreSummary = $component.find(".scoreSummary p");
+  assert.equal(T.text($scoreSummary), "N/A", "Wrong score text");
+
+  const $completionSummary = $component.find(".completionSummary span");
+  T.exists(assert, $completionSummary, 'Missing Completion summary checkmark');
+
+  const $timeSpentSummary = $component.find(".timeSpentSummary p");
+  assert.equal(T.text($timeSpentSummary), "h", "Wrong time spent text");
+
+  const $attemptSummary = $component.find(".attemptSummary p");
+  assert.equal(T.text($attemptSummary), "", "Wrong attempt summary text");
 });
 

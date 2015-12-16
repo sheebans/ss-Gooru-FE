@@ -30,10 +30,10 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
     const userId = route.get("session.userId");
     const classId= this.paramsFor('class').classId;
     const courseId = this.modelFor('class').class.get("course");
-    const units = this.get("performanceService").findStudentPerformanceByClassAndCourse(userId,classId,courseId);
+    const performances = this.get("performanceService").findStudentPerformanceByClassAndCourse(userId,classId,courseId);
 
     return Ember.RSVP.hash({
-      units: units
+      performances: performances
     });
 
   },
@@ -43,9 +43,7 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
    * @param model
    */
   setupController: function(controller, model) {
-    var units = model.units.length > 0 ? model.units : undefined;
-    controller.set("units", units);
-    console.log(units.get('firstObject').get("currentState"));
-
+    var performances = model.performances.length > 0 ? model.performances : undefined;
+    controller.set("performances", performances);
   }
 });

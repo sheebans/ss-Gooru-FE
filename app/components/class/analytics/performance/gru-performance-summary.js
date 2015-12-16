@@ -19,11 +19,11 @@ export default Ember.Component.extend({
 
   didInsertElement: function(){
     const element = this.$();
-    const completionValue = this.get('model').get('completionDone') *100 / this.get('model').get('completionTotal');
+    const completionValue = this.get('performance').get('completionDone') *100 / this.get('performance').get('completionTotal');
     const transform_styles = ['-webkit-transform',
       '-ms-transform',
       'transform'];
-    const scoreRotation = Math.floor(this.get('model').get('score')*180/100);
+    const scoreRotation = Math.floor(this.get('performance').get('score')*180/100);
     const scoreFixRotation = scoreRotation*2;
 
     const completionRotation = Math.floor(completionValue*180/100);

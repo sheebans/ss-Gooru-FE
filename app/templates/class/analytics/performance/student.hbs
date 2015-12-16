@@ -34,11 +34,11 @@
     </div>
   <div class="row gru-content">
     <div class="col-xs-12 performance-content">
-  {{#if units}}
-    {{#each units as | unit index | }}
+  {{#if performance}}
+    {{#each performances as | performance index | }}
         <ul class="row">
             <li class="col-xs-3">
-                <p>U{{plus-one index}}: {{unit.title}}</p>
+                <p>U{{plus-one index}}: {{performance.title}}</p>
             </li>
             <li class="col-xs-9">
                 <ul class="row performance-headers">
@@ -48,7 +48,7 @@
                     <li><p>Reactions</p></li>
                     <li><p>Attempts</p></li>
                 </ul>
-              {{class.analytics.performance.gru-performance-summary model=unit}}
+              {{class.analytics.performance.gru-performance-summary performance=performance}}
             </li>
         </ul>
     {{/each}}

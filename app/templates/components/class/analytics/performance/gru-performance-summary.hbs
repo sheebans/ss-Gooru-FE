@@ -1,5 +1,5 @@
     <li class='scoreSummary'>
-      {{#if model.score}}
+      {{#if performance.score}}
           <div class="description">
               <div class="radial-progress">
                   <div class="circle">
@@ -12,7 +12,7 @@
                       </div>
                   </div>
               </div>
-              <p>{{model.score}}%</p>
+              <p>{{performance.score}}%</p>
           </div>
       {{else}}
           <p>N/A</p>
@@ -20,7 +20,7 @@
 
     </li>
     <li class="completionSummary">
-      {{#if model.isNotCompleted}}
+      {{#if performance.isNotCompleted}}
           <div class="description">
               <div class="radial-progress">
                   <div class="circle">
@@ -33,7 +33,7 @@
                       </div>
                   </div>
               </div>
-              <p>{{model.completionDone}}/{{model.completionTotal}}</p>
+              <p>{{performance.completionDone}}/{{performance.completionTotal}}</p>
           </div>
       {{else}}
           <span class="performanceCheckmark"><i class="fa fa-check"></i></span>
@@ -41,10 +41,10 @@
 
     </li>
     <li class="timeSpentSummary">
-        <p><span>{{model.timeSpent}}</span>h</p>
+        <p>{{performance.timeSpent}}h</p>
     </li>
     <li class="reactionSummary">
-      {{#if model.reaction}}
+      {{#if performance.reaction}}
           <span class="reactionSummary"></span>
       {{else}}
           <p>–</p>
@@ -52,5 +52,5 @@
 
     </li>
     <li class="attemptSummary">
-        <p>{{model.attempts}}</p>
+        <p>{{performance.attempts}}</p>
     </li>
