@@ -45,10 +45,8 @@ export default Ember.Controller.extend({
     },
     /**
      * Triggered when the user select full screen
-     * @param {Boolean} isFullScreen
      */
-    fullScreen: function(isFullScreen){
-      Ember.Logger.log('IsFullScreen:', isFullScreen);
+    fullScreen: function(){
       return true; //Capture for class route
     }
   },
