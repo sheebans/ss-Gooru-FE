@@ -44,6 +44,9 @@
   }
   .gru-data-picker{
     .option-picker{
+        display: flex;
+        justify-content: center;
+        align-items: center;
       .option-list{
         .active{
           i{
