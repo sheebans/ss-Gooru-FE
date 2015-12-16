@@ -101,14 +101,6 @@ export default Ember.Controller.extend({
     'value': 'study-time',
     'selected':true,
     'readOnly':false
-  }),Ember.Object.create({
-    'value': 'reaction',
-    'selected':false,
-    'readOnly':false
-  }),Ember.Object.create({
-    'value': 'attempt',
-    'selected':false,
-    'readOnly':false
   })])
 
   // -------------------------------------------------------------------------
