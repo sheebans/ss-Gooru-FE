@@ -95,11 +95,11 @@ export default Ember.Controller.extend({
     'readOnly':true
   }),Ember.Object.create({
     'value': 'completion',
-    'selected':true,
+    'selected':false,
     'readOnly':false
   }),Ember.Object.create({
     'value': 'study-time',
-    'selected':true,
+    'selected':false,
     'readOnly':false
   })])
 
