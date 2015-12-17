@@ -80,3 +80,56 @@ test('When view by both option is selected', function(assert) {
     });
   });
 });
+
+test('View Full Screen and Exit Full Screen', function(assert) {
+  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher');
+
+    const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher");
+    const $viewFullScreen = $performanceContainer.find(".controls .gru-actions-bar .full-screen");
+
+    T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.view-full-screen"), "Button should be on view full screen mode");
+
+    click($viewFullScreen);
+
+    andThen(function() {
+      T.exists(assert, $performanceContainer.find("div.navigation.hide"), "Navigation should be hide");
+
+      T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.exit-full-screen"), "Button should be on exit full screen mode");
+
+      const $navigation = find(".controller div.navigation.hide");
+
+      T.exists(assert, $navigation, "Navigation Menu should be hide");
+
+      click($viewFullScreen);
+
+      andThen(function() {
+        T.exists(assert, $performanceContainer.find("div.navigation.show"), "Navigation should be show");
+        T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.view-full-screen"), "Button should be on view full screen mode");
+
+        const $navigation = find(".controller div.navigation.show");
+
+        T.exists(assert, $navigation, "Navigation Menu should be show");
+
+        click($viewFullScreen);
+        andThen(function() {
+          T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.exit-full-screen"), "Button should be on exit full screen mode");
+          click($navigation);
+          andThen(function() {
+            keyEvent($performanceContainer, 'keyup', 27);
+            andThen(function() {
+              T.exists(assert, $performanceContainer.find("div.navigation.show"), "Navigation should be show");
+              T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.view-full-screen"), "Button should be on view full screen mode");
+
+              const $navigation = find(".controller div.navigation.show");
+
+              T.exists(assert, $navigation, "Navigation Menu should be show");
+            });
+          });
+        });
+      });
+    });
+  });
+});

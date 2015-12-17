@@ -42,12 +42,18 @@ export default Ember.Controller.extend({
      */
     selectFilterBy: function(option){
       this.set("filterBy", option);
+    },
+    /**
+     * Triggered when the user toggles between normal and full screen mode
+     */
+    toggleFullScreen: function () {
+      var isFullScreen = this.get('classController.isFullScreen');
+      this.set('classController.isFullScreen', !isFullScreen);
     }
   },
 
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -63,6 +69,13 @@ export default Ember.Controller.extend({
    * @property {String}
    */
   filterBy: 'assessment',
+
+  /**
+   * If analytics is fullscreen
+   * @property {Boolean}
+   */
+  isFullScreen:  Ember.computed.alias('classController.isFullScreen'),
+
 
   breadcrumb: Ember.A([
     {
@@ -109,5 +122,4 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-
 });
