@@ -57,5 +57,6 @@ export default Ember.Route.extend({
         route.transitionTo('class.' + item);
       }
     }
+
   }
 });

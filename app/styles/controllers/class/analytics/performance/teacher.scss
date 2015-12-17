@@ -32,6 +32,7 @@
     margin: 0;
     border-top: 1px solid $color-gray-lighter-3;
     .data-picker {
+      padding: 0;
       min-height: 50px;
     }
     .performance-scale {
@@ -46,5 +47,17 @@
   }
   .better-experience{
     margin-bottom:0px;
+  }
+  .gru-data-picker{
+    .option-picker{
+      .option-list{
+        li{
+          span{
+            float:left;
+            padding: 1px;
+          }
+        }
+      }
+    }
   }
 }

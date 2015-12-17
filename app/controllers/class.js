@@ -12,7 +12,6 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Events
 
-
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -28,6 +27,12 @@ export default Ember.Controller.extend({
    menuItem: null,
 
   /**
+   * If analytics is fullScreen
+   * @property {Boolean}
+   */
+  isFullScreen: false,
+
+ /**
    * Indicates if a user is a teacher of this class
    * @property {isTeacher}
    * @see {Class} class
@@ -50,6 +55,22 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Observers
 
+  setupSubscriptions: Ember.on('init', function () {
+    var controller = this;
+
+    Ember.$(window).on('keyup.exitFullScreen', function (e) {
+
+      if (e.keyCode === 27 && controller.get('isFullScreen')) {
+        // Exit full screen mode
+        controller.set('isFullScreen', false);
+      }
+    });
+
+  }),
+
+  removeSubscriptions: Ember.on('willDestroy', function () {
+    Ember.$(window).off('keyup.exitFullScreen');
+  })
 
   // -------------------------------------------------------------------------
   // Methods
