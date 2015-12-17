@@ -90,13 +90,14 @@ test('View Full Screen and Exit Full Screen', function(assert) {
     const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher");
     const $viewFullScreen = $performanceContainer.find(".controls .gru-actions-bar .full-screen");
 
-    assert.equal(T.text($viewFullScreen), this.get('i18n').t('class.analytics.performance.actions.fullScreen').string, 'The text should be View Full Screen');
+    T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.view-full-screen"), "Button should be on view full screen mode");
 
     click($viewFullScreen);
 
     andThen(function() {
       T.exists(assert, $performanceContainer.find("div.navigation.hide"), "Navigation should be hide");
-      assert.equal(T.text($viewFullScreen),  this.get('i18n').t('class.analytics.performance.actions.exitFullScreen').string, 'The text should be Exit Full Screen');
+
+      T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.exit-full-screen"), "Button should be on exit full screen mode");
 
       const $navigation = find(".controller div.navigation.hide");
 
@@ -106,7 +107,7 @@ test('View Full Screen and Exit Full Screen', function(assert) {
 
       andThen(function() {
         T.exists(assert, $performanceContainer.find("div.navigation.show"), "Navigation should be show");
-        assert.equal(T.text($viewFullScreen), this.get('i18n').t('class.analytics.performance.actions.fullScreen').string, 'The text should be View Full Screen');
+        T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.view-full-screen"), "Button should be on view full screen mode");
 
         const $navigation = find(".controller div.navigation.show");
 
@@ -114,13 +115,13 @@ test('View Full Screen and Exit Full Screen', function(assert) {
 
         click($viewFullScreen);
         andThen(function() {
-          assert.equal(T.text($viewFullScreen), this.get('i18n').t('class.analytics.performance.actions.exitFullScreen').string, 'The text should be Exit Full Screen');
+          T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.exit-full-screen"), "Button should be on exit full screen mode");
           click($navigation);
           andThen(function() {
             keyEvent($performanceContainer, 'keyup', 27);
             andThen(function() {
               T.exists(assert, $performanceContainer.find("div.navigation.show"), "Navigation should be show");
-              assert.equal(T.text($viewFullScreen), this.get('i18n').t('class.analytics.performance.actions.fullScreen').string, 'The text should be View Full Screen');
+              T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.view-full-screen"), "Button should be on view full screen mode");
 
               const $navigation = find(".controller div.navigation.show");
 

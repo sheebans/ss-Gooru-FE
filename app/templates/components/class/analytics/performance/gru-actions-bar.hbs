@@ -4,7 +4,7 @@
   <button class="btn btn-default edit" {{action 'editContent'}}>{{t "class.analytics.performance.actions.edit"}}</button>
 {{/if}}
 <button class="btn btn-default download" {{action 'download'}}>{{t "class.analytics.performance.actions.download"}}</button>
-<button class="btn btn-default full-screen hidden-sm hidden-xs" {{action 'toggleFullScreen'}}>
+<button class="btn btn-default full-screen hidden-sm hidden-xs {{if isFullScreen 'exit-full-screen' 'view-full-screen'}}" {{action 'toggleFullScreen'}}>
   {{#if isFullScreen}}
     {{t "class.analytics.performance.actions.exitFullScreen"}}
   {{else}}
