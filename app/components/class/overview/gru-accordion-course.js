@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import AccordionMixin from '../../../mixins/gru-accordion';
 
+var startLocation;
+
 /**
  * Accordion Course
  *
@@ -63,6 +65,57 @@ export default Ember.Component.extend(AccordionMixin, {
 
   // -------------------------------------------------------------------------
   // Properties
+
+  currentResource: Ember.computed('userLocation', function () {
+    const userLocation = this.get('userLocation');
+    var parsedLocation = userLocation.split('+');
+    var currentResource = null;
+
+    if (parsedLocation.length === 3) {
+      currentResource = parsedLocation[2];
+    } else {
+      Ember.Logger.warn('The user location does not specify a current resource');
+    }
+    return currentResource;
+  }),
+
+  /**
+   * @prop {String} location - Current location that the user has navigated to
+   * Combination of unit, lesson and/or resource (collection or assessment) separated by a plus sign
+   * @example
+   * 'uId001+lId002+cId003'
+   */
+  location: null,
+
+  /**
+   * @prop {String} openLocation - Location the accordions should be open to
+   * @param {String} location - Should be bound to the URL query param
+   * @see module:app/controllers/controllers/class/overview#location
+   * @param {String} userLocation
+   *
+   * If there's no recollection of a previous location, the return value will
+   * be 'location' if it's not empty; otherwise, it returns 'userLocation'.
+   * If a previous location has been set, it will return 'location'
+   * if 'location' is equal to 'userLocation', otherwise, it will return
+   * an empty string.
+   * @return {String}
+   */
+  openLocation: Ember.computed('location', 'userLocation', function () {
+    var location;
+
+    if (!startLocation) {
+      location = (this.get('location')) ? this.get('location') : this.get('userLocation');
+      startLocation = location;
+    } else {
+      location = (this.get('location') === this.get('userLocation')) ? this.get('userLocation') : '';
+    }
+    return location;
+  }),
+
+  /**
+   * @prop {String} userLocation - Location of a user in a course
+   */
+  userLocation: null,
 
   /**
    * @prop {Ember.RSVP.Promise} usersLocation - Users enrolled in the course

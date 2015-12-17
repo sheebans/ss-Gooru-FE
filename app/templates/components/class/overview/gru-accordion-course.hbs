@@ -10,7 +10,9 @@
           model=item
           index=index
           belongsTo=accordionId
-          onSelectItem=(action 'selectItem') }}
+      onSelectItem=(action 'selectItem')
+      currentResource=currentResource
+      openLocation=openLocation }}
 
     {{else}}
       <li>{{t "common.contentUnavailable"}}</li>

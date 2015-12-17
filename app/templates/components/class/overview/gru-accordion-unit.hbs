@@ -47,7 +47,9 @@
           model=item
           index=index
           belongsTo=accordionId
-          onSelectItem=(action 'selectItem') }}
+        onSelectItem=(action 'selectItem')
+        currentResource=currentResource
+        openLocation=openLocationReduced }}
 
       {{else}}
         <li>{{t "common.contentUnavailable"}}</li>

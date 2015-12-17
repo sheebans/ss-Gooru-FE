@@ -45,7 +45,7 @@ export default Ember.Controller.extend({
    */
   isStudent: Ember.computed('class', function() {
     return this.get('class').isStudent(this.get("session.userId"));
-  }),
+  })
 
   // -------------------------------------------------------------------------
   // Observers

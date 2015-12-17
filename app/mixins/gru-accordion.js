@@ -39,6 +39,11 @@ export default Ember.Mixin.create({
   index: null,
 
   /**
+   * @prop {Bool} expanded - is the accordion expanded or collapsed?
+   */
+  isExpanded: false,
+
+  /**
    * @prop {Ember.RSVP.Promise} items - children of the accordion
    * Will resolve to {Unit[] | Lesson[] | Collection[]}
    */
@@ -52,10 +57,31 @@ export default Ember.Mixin.create({
   /**
    * @prop {Unit[] | Lesson[] | Collection[]} visibleItems - Items set to be visible
    */
-  visibleItems: Ember.computed.filterBy('items.content', 'visibility', true)
+  visibleItems: Ember.computed.filterBy('items.content', 'visibility', true),
 
 
   // -------------------------------------------------------------------------
   // Methods
 
+  /*
+   * If 'accordionId' coincides with this accordion's id, it means this accordion
+   * should be open; otherwise, it should be closed.
+   *
+   * @function
+   * @param {String} accordionId
+   * @return undefined
+   */
+  updateAccordionById: function (accordionId) {
+    if (accordionId === this.get('model.id')) {
+
+      // Open the accordion by simulating a click on the anchor in the heading
+      this.$('#' + this.get('elementId') + '-heading > .panel-title a').click();
+    } else {
+      if (this.get('isExpanded')) {
+
+        // If expanded, close the accordion by simulating a click on the anchor in the heading
+        this.$('#' + this.get('elementId') + '-heading > .panel-title a').click();
+      }
+    }
+  }
 });

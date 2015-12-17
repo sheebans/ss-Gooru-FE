@@ -69,7 +69,7 @@ export default Ember.Component.extend(AccordionMixin, {
 
   // -------------------------------------------------------------------------
   // Events
-  setupSubscriptions: Ember.on('didInsertElement', function() {
+  setupComponent: Ember.on('didInsertElement', function () {
     const component = this;
 
     this.$().on('hide.bs.collapse', function(e) {
@@ -81,6 +81,8 @@ export default Ember.Component.extend(AccordionMixin, {
       e.stopPropagation();
       component.set('isExpanded', true);
     });
+
+    Ember.run.scheduleOnce('afterRender', this, this.openLocationChanged);
   }),
 
   removeSubscriptions: Ember.on('willDestroyElement', function() {
@@ -92,9 +94,10 @@ export default Ember.Component.extend(AccordionMixin, {
   // Properties
 
   /**
-   * @prop {Bool} expanded - is the accordion expanded or collapsed?
+   * @prop {String} openLocation - Location the accordion should be opened to
+   * Combination of lesson and/or resource (collection or assessment) separated by a plus sign
    */
-  isExpanded: false,
+  openLocation: '',
 
   /**
    * @prop {String} - Id of the unit this lesson belongs to
@@ -132,6 +135,18 @@ export default Ember.Component.extend(AccordionMixin, {
       }).catch((e) => {
         Ember.Logger.error('Unable to retrieve course users: ', e);
       });
+    }
+  }),
+
+  openLocationChanged: Ember.observer('openLocation', function () {
+    const openLocation = this.get('openLocation');
+
+    // If location is an empty string, nothing should happen
+    if (openLocation) {
+      let parsedLocation = openLocation.split('+');
+      let lessonId = parsedLocation[0];
+
+      this.updateAccordionById(lessonId);
     }
   }),
 
