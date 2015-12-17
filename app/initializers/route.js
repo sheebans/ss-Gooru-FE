@@ -26,6 +26,14 @@ export function initialize(app) {
       Ember.$('body').attr('class', currentRoute.replace(/\./g, '_'));
     }.on('activate'),
 
+    /**
+     * Resetting the scroll to the top of the page when browsing to a new page
+     */
+    restoreScroll: function() {
+      this._super();
+      window.scrollTo(0,0);
+    }.on('activate'),
+
     saveRoute: function() {
       var savedRoute = this.get('history.lastRoute');
       var currentRoute = this.routeName;
