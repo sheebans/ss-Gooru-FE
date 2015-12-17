@@ -41,9 +41,9 @@ export default Ember.Component.extend(AccordionMixin, {
      * @param {string} collectionId - Identifier for a collection or assessment
      * @see components/class/overview/gru-accordion-lesson
      */
-    selectItem: function(collectionId) {
+    selectResource: function (collectionId) {
       // Send the action so that it bubbles up to the route
-      this.sendAction('onSelectItem', collectionId);
+      this.sendAction('onSelectResource', collectionId);
     }
 
   },

@@ -61,8 +61,8 @@ export default Ember.Component.extend(AccordionMixin, {
      * @function actions:selectItem
      * @param {string} collectionId - Identifier for a collection or assessment
      */
-    selectItem: function(collectionId) {
-      this.get('onSelectItem')(collectionId);
+    selectResource: function (collectionId) {
+      this.get('onSelectResource')(collectionId);
     }
 
   },

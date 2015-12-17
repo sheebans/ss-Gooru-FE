@@ -27,7 +27,7 @@ export default Ember.Route.extend({
      * @function actions:playItem
      * @param {string} collectionId - Identifier for a collection or assessment
      */
-    playItem: function(collectionId){
+    playResource: function (collectionId) {
       this.transitionTo('player', collectionId);
     }
   },

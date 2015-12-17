@@ -16,7 +16,7 @@ test('findOneByUser', function (assert) {
     promise.then(function(courseLocation) {
       assert.equal(courseLocation.get('unit'), 'unit-1', 'Wrong unit');
       assert.equal(courseLocation.get('lesson'), 'lesson-1', 'Wrong lesson');
-      assert.equal(courseLocation.get('collection'), 'collection-1', 'Wrong collection');
+      assert.equal(courseLocation.get('collection'), '5028ac7f-82da-4f09-998b-ecf480d4b985', 'Wrong collection');
       assert.equal(courseLocation.get('locationUsers.length'), 1, 'Missing users');
       const locationUser = courseLocation.get('locationUsers.firstObject');
       assert.equal(locationUser.get('isActive'), true, 'Wrong active status');
