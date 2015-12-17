@@ -41,7 +41,13 @@
     {{else}}
 
       {{#each visibleItems as |item index|}}
-        <li class="panel {{item.collectionType}}">
+        <li class="panel {{item.collectionType}} {{set-if-equal "selected" item.id currentResource}}">
+
+          <div class="location-marker">
+            <div class="circle"></div>
+            <div class="arrow-right"></div>
+          </div>
+
           <div class="panel-heading">
             <img src="" />
             <span class="panel-title">

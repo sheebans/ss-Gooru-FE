@@ -1,5 +1,9 @@
 .gru-accordion {
 
+  ol .panel {
+    position: relative;
+  }
+
   ol, .panel-group {
     list-style: none;
     margin: 0;
@@ -11,6 +15,12 @@
 
       & + .panel {
         margin-top: 0;
+      }
+
+      &.selected {
+        .location-marker {
+          display: block;
+        }
       }
 
       .panel-heading {
@@ -33,6 +43,37 @@
           padding: 0;
         }
       }
+    }
+  }
+
+  .location-marker {
+    display: none;
+    position: absolute;
+    width: 1.8rem;
+    height: 1.6rem;
+    left: 0;
+    top: 4px;
+
+    @media (min-width: $screen-md) {
+      left: 0.6rem;
+    }
+
+    > .circle {
+      width: 84%;
+      height: 90%;
+      background: $branding-primary-1;
+      border-radius: 50%;
+    }
+
+    > .arrow-right {
+      width: 0;
+      height: 0;
+      border-top: 0.5rem solid transparent;
+      border-bottom: 0.5rem solid transparent;
+      border-left: 0.5rem solid $branding-primary-1;
+      position: absolute;
+      right: 0;
+      top: 15%;
     }
   }
 }
