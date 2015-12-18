@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import AccordionMixin from '../../../mixins/gru-accordion';
 
-// Whenever the observer 'openLocationChanged' is running, this flag is set so
+// Whenever the observer 'parsedLocationChanged' is running, this flag is set so
 // clicking on the lessons should not update the location
 var isUpdatingLocation = false;
 
@@ -83,7 +83,7 @@ export default Ember.Component.extend(AccordionMixin, {
       component.set('isExpanded', true);
     });
 
-    Ember.run.scheduleOnce('afterRender', this, this.openLocationChanged);
+    Ember.run.scheduleOnce('afterRender', this, this.parsedLocationChanged);
   }),
 
   removeSubscriptions: Ember.on('willDestroyElement', function() {
@@ -95,10 +95,12 @@ export default Ember.Component.extend(AccordionMixin, {
   // Properties
 
   /**
-   * @prop {String} openLocation - Location the accordion should be opened to
-   * String of the form 'unitId[+lessonId[+resourceId]]'
+   * @prop {String[]} parsedLocation - Location the user has navigated to
+   * parsedLocation[0] - unitId
+   * parsedLocation[1] - lessonId
+   * parsedLocation[2] - resourceId
    */
-  openLocation: '',
+  parsedLocation: [],
 
   /**
    * @prop {String} - Id of the unit this lesson belongs to
@@ -140,18 +142,16 @@ export default Ember.Component.extend(AccordionMixin, {
   }),
 
   /**
-   * Observe changes to 'openLocation' to update the accordion's status
+   * Observe changes to 'parsedLocation' to update the accordion's status
    * (expanded/collapsed).
    */
-  openLocationChanged: Ember.observer('openLocation', function () {
-    const openLocation = this.get('openLocation');
+  parsedLocationChanged: Ember.observer('parsedLocation.[]', function () {
+    const parsedLocation = this.get('parsedLocation');
 
-    if (openLocation) {
+    if (parsedLocation) {
       isUpdatingLocation = true;
 
-      let parsedLocation = openLocation.split('+');
       let lessonId = parsedLocation[1];
-
       this.updateAccordionById(lessonId);
 
       isUpdatingLocation = false;

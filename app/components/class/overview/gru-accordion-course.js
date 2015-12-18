@@ -111,6 +111,16 @@ export default Ember.Component.extend(AccordionMixin, {
   onLocationUpdate: null,
 
   /**
+   * @prop {String[]} parsedLocation - Location the user has navigated to
+   * parsedLocation[0] - unitId
+   * parsedLocation[1] - lessonId
+   * parsedLocation[2] - resourceId
+   */
+  parsedLocation: Ember.computed('location', function () {
+    return this.get('location') ? this.get('location').split('+') : [];
+  }),
+
+  /**
    * @prop {String} userLocation - Location of a user in a course
    */
   userLocation: null,

@@ -448,7 +448,7 @@ test('it triggers event handlers', function (assert) {
   });
 });
 
-test('it can start expanded (via "openLocation") and be collapsed manually', function (assert) {
+test('it can start expanded (via "parsedLocation") and be collapsed manually', function (assert) {
   assert.expect(2);
 
   // Class with lessons per stub
@@ -469,14 +469,14 @@ test('it can start expanded (via "openLocation") and be collapsed manually', fun
   this.set('currentClass', currentClass);
   this.set('unitId', '777-999');
   this.set('lesson', lesson);
-  this.set('userLocation', '777-999+888-000+item-3');
+  this.set('locationArray', ['777-999', '888-000', 'item-3']);
 
   this.render(hbs`{{class/overview/gru-accordion-lesson
                     currentClass=currentClass
                     unitId=unitId
                     model=lesson
                     onSelectLesson=(action 'externalAction')
-                    openLocation=userLocation }}`);
+                    parsedLocation=locationArray }}`);
 
   const $component = this.$('.gru-accordion-lesson');
   const $lessonTitleAnchor = $component.find('> .panel-heading a');
@@ -494,7 +494,7 @@ test('it can start expanded (via "openLocation") and be collapsed manually', fun
   });
 });
 
-test('it can be expanded manually and collapsed by changing the "openLocation" value', function (assert) {
+test('it can be expanded manually and collapsed by changing the "parsedLocation" value', function (assert) {
   assert.expect(3);
 
   const context = this;
@@ -517,7 +517,7 @@ test('it can be expanded manually and collapsed by changing the "openLocation" v
   this.set('currentClass', currentClass);
   this.set('unitId', '777-999');
   this.set('lesson', lesson);
-  this.set('userLocation', '');
+  this.set('locationArray', []);
 
 
   this.render(hbs`{{class/overview/gru-accordion-lesson
@@ -525,7 +525,7 @@ test('it can be expanded manually and collapsed by changing the "openLocation" v
                     unitId=unitId
                     model=lesson
                     onSelectLesson=(action 'externalAction')
-                    openLocation=userLocation }}`);
+                    parsedLocation=locationArray }}`);
 
   const $component = this.$('.gru-accordion-lesson');
   const $lessonTitleAnchor = $component.find('> .panel-heading a');
@@ -541,7 +541,7 @@ test('it can be expanded manually and collapsed by changing the "openLocation" v
   return wait().then(function () {
     assert.ok($collapsePanel.hasClass('in'), 'Panel should be visible');
 
-    context.set('userLocation', '111-111');
+    context.set('locationArray', ['111-111']);
     assert.ok(!$collapsePanel.hasClass('in'), 'Panel should have been hidden');
   });
 });
