@@ -14,18 +14,10 @@ export default Ember.Mixin.create({
 
   // -------------------------------------------------------------------------
   // Events
-  setupAccordion: Ember.on('init', function() {
-    this.set('accordionId', this.get('elementId') + 'Accordion');
-  }),
+
 
   // -------------------------------------------------------------------------
   // Properties
-  /**
-   * @prop {String} accordionId - element id of the accordion element. This is
-   * necessary to tie things up in the DOM (all open/close interactions will be
-   * handled by Bootstrap)
-   */
-  accordionId: '',
 
   /**
    * @prop {Class} currentClass - class to use as context for the retrieval
@@ -73,12 +65,12 @@ export default Ember.Mixin.create({
    */
   updateAccordionById: function (accordionId) {
     if (accordionId === this.get('model.id')) {
-
-      // Open the accordion by simulating a click on the anchor in the heading
-      this.$('#' + this.get('elementId') + '-heading > .panel-title a').click();
+      if (!this.get('isExpanded')) {
+        // If not expanded, open the accordion by simulating a click on the anchor in the heading
+        this.$('#' + this.get('elementId') + '-heading > .panel-title a').click();
+      }
     } else {
       if (this.get('isExpanded')) {
-
         // If expanded, close the accordion by simulating a click on the anchor in the heading
         this.$('#' + this.get('elementId') + '-heading > .panel-title a').click();
       }

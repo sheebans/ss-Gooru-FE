@@ -53,7 +53,8 @@ export default Ember.Component.extend(AccordionMixin, {
       this.loadData();
 
       if (!isUpdatingLocation) {
-        this.get('onSelectLesson')(lessonId);
+        let updateValue = this.get('isExpanded') ? '' : lessonId;
+        this.get('onSelectLesson')(updateValue);
       }
     },
 
@@ -141,19 +142,18 @@ export default Ember.Component.extend(AccordionMixin, {
   /**
    * Observe changes to 'openLocation' to update the accordion's status
    * (expanded/collapsed).
-   *
-   * @see module:app/components/class/overview/gru-accordion-unit#openLocationChanged
    */
   openLocationChanged: Ember.observer('openLocation', function () {
     const openLocation = this.get('openLocation');
 
-    // If location is an empty string, nothing should happen
     if (openLocation) {
       isUpdatingLocation = true;
+
       let parsedLocation = openLocation.split('+');
-      let lessonId = parsedLocation[0];
+      let lessonId = parsedLocation[1];
 
       this.updateAccordionById(lessonId);
+
       isUpdatingLocation = false;
     }
   }),

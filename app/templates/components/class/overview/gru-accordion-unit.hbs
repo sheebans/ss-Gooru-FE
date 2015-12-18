@@ -3,7 +3,6 @@
     <a class="collapsed"
        role="button"
        data-toggle="collapse"
-       data-parent="#{{belongsTo}}"
        href="#{{elementId}}-content"
        aria-expanded="false"
        aria-controls="{{elementId}}-content"
@@ -33,7 +32,7 @@
      aria-labelledby="{{elementId}}-heading">
 
   <div class="panel-body">
-    <ol class="panel-group" id="{{accordionId}}" role="tablist" aria-multiselectable="true">
+    <ol class="panel-group" role="tablist" aria-multiselectable="true">
 
     {{#if items.isPending}}
       {{three-bounce-spinner}}
@@ -46,11 +45,10 @@
           unitId=model.id
           model=item
           index=index
-          belongsTo=accordionId
         onSelectResource=(action 'selectResource')
         onSelectLesson=(action 'updateLesson')
         currentResource=currentResource
-        openLocation=openLocationReduced }}
+        openLocation=openLocation }}
 
       {{else}}
         <li>{{t "common.contentUnavailable"}}</li>

@@ -1,8 +1,6 @@
 import Ember from 'ember';
 import AccordionMixin from '../../../mixins/gru-accordion';
 
-var startLocation;
-
 /**
  * Accordion Course
  *
@@ -70,6 +68,11 @@ export default Ember.Component.extend(AccordionMixin, {
     // both declarations can be put together, as they should
     var usersLocation = this.getCourseUsers();
     this.set('usersLocation', usersLocation);
+
+    var userLocation = this.get('userLocation');
+    if (!this.get('location') && userLocation) {
+      this.set('location', userLocation);
+    }
   }),
 
   // -------------------------------------------------------------------------
@@ -101,31 +104,6 @@ export default Ember.Component.extend(AccordionMixin, {
    * 'uId001+lId002+cId003'
    */
   location: null,
-
-  /**
-   * @prop {String} openLocation - Location the accordions should be open to
-   * @param {String} location - Should be bound to the URL query param
-   * @see module:app/controllers/controllers/class/overview#location
-   * @param {String} userLocation
-   *
-   * If there's no recollection of a previous location, the return value will
-   * be 'location' if it's not empty; otherwise, it returns 'userLocation'.
-   * If a previous location has been set, it will return 'location'
-   * if 'location' is equal to 'userLocation', otherwise, it will return
-   * an empty string.
-   * @return {String}
-   */
-  openLocation: Ember.computed('location', 'userLocation', function () {
-    var location;
-
-    if (!startLocation) {
-      location = (this.get('location')) ? this.get('location') : this.get('userLocation');
-      startLocation = location;
-    } else {
-      location = (this.get('location') === this.get('userLocation')) ? this.get('userLocation') : '';
-    }
-    return location;
-  }),
 
   /**
    * @prop {Function} onLocationUpdate - Event handler

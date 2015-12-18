@@ -37,7 +37,8 @@ export default Ember.Controller.extend({
      * @returns {undefined}
      */
     updateLocation: function (newLocation) {
-      this.set('location', newLocation);
+      var location = !newLocation ? null : newLocation;
+      this.set('location', location);
     }
   },
 

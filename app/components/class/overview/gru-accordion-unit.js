@@ -48,11 +48,11 @@ export default Ember.Component.extend(AccordionMixin, {
      *
      * @function actions:selectUnit
      */
-    selectUnit: function () {
+    selectUnit: function (unitId) {
       this.loadData();
 
       if (!isUpdatingLocation) {
-        let newLocation = this.get('model.id');
+        let newLocation = this.get('isExpanded') ? '' : unitId;
         this.get('onLocationUpdate')(newLocation);
       }
     },
@@ -72,7 +72,7 @@ export default Ember.Component.extend(AccordionMixin, {
      * @function actions:updateLesson
      */
     updateLesson: function (lessonId) {
-      const newLocation = this.get('model.id') + '+' + lessonId;
+      const newLocation = lessonId ? this.get('model.id') + '+' + lessonId : this.get('model.id');
       this.get('onLocationUpdate')(newLocation);
     }
   },
@@ -156,11 +156,7 @@ export default Ember.Component.extend(AccordionMixin, {
 
   /**
    * Observe changes to 'openLocation' to update the accordion's status
-   * (expanded/collapsed). 'openLocationReduced' will also be updated to
-   * notify location changes to the accordion's children
-   *
-   * If 'openLocation' === '', nothing should happen
-   * If 'openLocation' === '0+0+0', all accordions should be closed'
+   * (expanded/collapsed).
    */
   openLocationChanged: Ember.observer('openLocation', function () {
     const openLocation = this.get('openLocation');
@@ -170,18 +166,9 @@ export default Ember.Component.extend(AccordionMixin, {
 
       let parsedLocation = openLocation.split('+');
       let unitId = parsedLocation[0];
-      let openLocationReduced = '';
 
       this.updateAccordionById(unitId);
 
-      // Set the remainder of the location for the children
-      if (parsedLocation.length > 1) {
-        openLocationReduced = (parsedLocation.length === 2) ?
-          parsedLocation[1] :
-        parsedLocation[1] + '+' + parsedLocation[2];
-      }
-
-      this.set('openLocationReduced', openLocationReduced);
       isUpdatingLocation = false;
     }
   }),
