@@ -39,13 +39,22 @@ export default Ember.Component.extend(AccordionMixin, {
     /**
      * @function actions:selectItem
      * @param {string} collectionId - Identifier for a collection or assessment
-     * @see components/class/overview/gru-accordion-lesson
+     * @see module:app/components/class/overview/gru-accordion-lesson
      */
     selectResource: function (collectionId) {
       // Send the action so that it bubbles up to the route
       this.sendAction('onSelectResource', collectionId);
-    }
+    },
 
+    /**
+     * Trigger the 'onLocationUpdate' event handler
+     *
+     * @function actions:updateLocation
+     * @param {string} newLocation - String of the form 'unitId[+lessonId[+resourceId]]'
+     */
+    updateLocation: function (newLocation) {
+      this.get('onLocationUpdate')(newLocation);
+    }
   },
 
 
@@ -111,6 +120,11 @@ export default Ember.Component.extend(AccordionMixin, {
     }
     return location;
   }),
+
+  /**
+   * @prop {Function} onLocationUpdate - Event handler
+   */
+  onLocationUpdate: null,
 
   /**
    * @prop {String} userLocation - Location of a user in a course

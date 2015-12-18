@@ -8,7 +8,7 @@
        href="#{{elementId}}-content"
        aria-expanded="false"
        aria-controls="{{elementId}}-content"
-       {{action "loadData"}}>
+      {{action "selectLesson" model.id}}>
         {{t "common.lessonInitial"}}{{plus-one index}}&colon; {{model.title}}
     </a>
   </span>

@@ -1,6 +1,10 @@
 import Ember from 'ember';
 import AccordionMixin from '../../../mixins/gru-accordion';
 
+// Whenever the observer 'openLocationChanged' is running, this flag is set so
+// clicking on the units should not update the location
+var isUpdatingLocation = false;
+
 /**
  * Accordion Unit
  *
@@ -39,22 +43,17 @@ export default Ember.Component.extend(AccordionMixin, {
   actions: {
 
     /**
-     * Load data for the unit
+     * Load the data for this unit (data should only be loaded once) and trigger
+     * the 'onLocationUpdate' event handler with the unit information
      *
-     * @function actions:loadData
-     * @returns {undefined}
+     * @function actions:selectUnit
      */
-    loadData: function() {
-      // Loading of data will only happen if 'items' has not previously been set
-      if (!this.get('items')) {
-        var itemsPromise = this.getLessons();
-        this.set('items', itemsPromise);
+    selectUnit: function () {
+      this.loadData();
 
-        // TODO: getUnitUsers is currently dependent on items that's why this declaration
-        // takes place after setting items. Once api-sdk/course-location is complete
-        // both declarations can be put together, as they should
-        var usersLocation = this.getUnitUsers();
-        this.set('usersLocation', usersLocation);
+      if (!isUpdatingLocation) {
+        let newLocation = this.get('model.id');
+        this.get('onLocationUpdate')(newLocation);
       }
     },
 
@@ -65,6 +64,16 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     selectResource: function (collectionId) {
       this.get('onSelectResource')(collectionId);
+    },
+
+    /**
+     * Trigger the 'onLocationUpdate' event handler with the unit and lesson information
+     *
+     * @function actions:updateLesson
+     */
+    updateLesson: function (lessonId) {
+      const newLocation = this.get('model.id') + '+' + lessonId;
+      this.get('onLocationUpdate')(newLocation);
     }
   },
 
@@ -95,14 +104,19 @@ export default Ember.Component.extend(AccordionMixin, {
   // Properties
 
   /**
+   * @prop {Function} onLocationUpdate - Event handler
+   */
+  onLocationUpdate: null,
+
+  /**
    * @prop {String} openLocation - Location the accordion should be opened to
-   * Combination of unit, lesson and/or resource (collection or assessment) separated by a plus sign
+   * String of the form 'unitId[+lessonId[+resourceId]]'
    */
   openLocation: '',
 
   /**
    * @prop {String} openLocationReduced - Location the children accordion should be opened to
-   * Combination of lesson and/or resource (collection or assessment) separated by a plus sign
+   * String of the form 'lessonId[+resourceId]]'
    */
   openLocationReduced: null,
 
@@ -140,11 +154,20 @@ export default Ember.Component.extend(AccordionMixin, {
     }
   }),
 
+  /**
+   * Observe changes to 'openLocation' to update the accordion's status
+   * (expanded/collapsed). 'openLocationReduced' will also be updated to
+   * notify location changes to the accordion's children
+   *
+   * If 'openLocation' === '', nothing should happen
+   * If 'openLocation' === '0+0+0', all accordions should be closed'
+   */
   openLocationChanged: Ember.observer('openLocation', function () {
     const openLocation = this.get('openLocation');
 
-    // If location is an empty string, nothing should happen
     if (openLocation) {
+      isUpdatingLocation = true;
+
       let parsedLocation = openLocation.split('+');
       let unitId = parsedLocation[0];
       let openLocationReduced = '';
@@ -159,12 +182,33 @@ export default Ember.Component.extend(AccordionMixin, {
       }
 
       this.set('openLocationReduced', openLocationReduced);
+      isUpdatingLocation = false;
     }
   }),
 
 
   // -------------------------------------------------------------------------
   // Methods
+
+  /**
+   * Load data for the unit
+   *
+   * @function actions:loadData
+   * @returns {undefined}
+   */
+  loadData: function () {
+    // Loading of data will only happen if 'items' has not previously been set
+    if (!this.get('items')) {
+      var itemsPromise = this.getLessons();
+      this.set('items', itemsPromise);
+
+      // TODO: getUnitUsers is currently dependent on items that's why this declaration
+      // takes place after setting items. Once api-sdk/course-location is complete
+      // both declarations can be put together, as they should
+      var usersLocation = this.getUnitUsers();
+      this.set('usersLocation', usersLocation);
+    }
+  },
 
   /**
    * Get all the lessons for the unit

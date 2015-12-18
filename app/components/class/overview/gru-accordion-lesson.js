@@ -1,6 +1,10 @@
 import Ember from 'ember';
 import AccordionMixin from '../../../mixins/gru-accordion';
 
+// Whenever the observer 'openLocationChanged' is running, this flag is set so
+// clicking on the lessons should not update the location
+var isUpdatingLocation = false;
+
 /**
  * Accordion Lesson
  *
@@ -39,27 +43,23 @@ export default Ember.Component.extend(AccordionMixin, {
   actions: {
 
     /**
-     * Load the collections for the lesson
+     * Load the data for this lesson (data should only be loaded once) and trigger
+     * the 'onLessonUpdate' event handler
      *
-     * @function actions:loadData
+     * @function actions:selectLesson
      * @returns {undefined}
      */
-    loadData: function() {
-      if (!this.get('items')) {
-        var itemsPromise = this.getCollections();
-        this.set('items', itemsPromise);
+    selectLesson: function (lessonId) {
+      this.loadData();
 
-        // TODO: getLessonUsers is currently dependent on items that's why this declaration
-        // takes place after setting items. Once api-sdk/course-location is complete
-        // both declarations can be put together, as they should
-        var usersLocation = this.getLessonUsers();
-        this.set('usersLocation', usersLocation);
+      if (!isUpdatingLocation) {
+        this.get('onLessonUpdate')(lessonId)
       }
     },
 
     /**
-     * @function actions:selectItem
-     * @param {string} collectionId - Identifier for a collection or assessment
+     * @function actions:selectResource
+     * @param {string} collectionId - Identifier for a resource (collection/assessment)
      */
     selectResource: function (collectionId) {
       this.get('onSelectResource')(collectionId);
@@ -95,7 +95,7 @@ export default Ember.Component.extend(AccordionMixin, {
 
   /**
    * @prop {String} openLocation - Location the accordion should be opened to
-   * Combination of lesson and/or resource (collection or assessment) separated by a plus sign
+   * String of the form 'unitId[+lessonId[+resourceId]]'
    */
   openLocation: '',
 
@@ -138,21 +138,49 @@ export default Ember.Component.extend(AccordionMixin, {
     }
   }),
 
+  /**
+   * Observe changes to 'openLocation' to update the accordion's status
+   * (expanded/collapsed).
+   *
+   * @see module:app/components/class/overview/gru-accordion-unit#openLocationChanged
+   */
   openLocationChanged: Ember.observer('openLocation', function () {
     const openLocation = this.get('openLocation');
 
     // If location is an empty string, nothing should happen
     if (openLocation) {
+      isUpdatingLocation = true;
       let parsedLocation = openLocation.split('+');
       let lessonId = parsedLocation[0];
 
       this.updateAccordionById(lessonId);
+      isUpdatingLocation = false;
     }
   }),
 
 
   // -------------------------------------------------------------------------
   // Methods
+
+  /**
+   * Load the collections for the lesson
+   *
+   * @function
+   * @returns {undefined}
+   */
+  loadData: function () {
+    if (!this.get('items')) {
+      var itemsPromise = this.getCollections();
+      this.set('items', itemsPromise);
+
+      // TODO: getLessonUsers is currently dependent on items that's why this declaration
+      // takes place after setting items. Once api-sdk/course-location is complete
+      // both declarations can be put together, as they should
+      var usersLocation = this.getLessonUsers();
+      this.set('usersLocation', usersLocation);
+    }
+  },
+
   /**
    * Get all the collections for the lesson
    *

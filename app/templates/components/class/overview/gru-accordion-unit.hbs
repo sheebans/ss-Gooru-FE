@@ -7,7 +7,7 @@
        href="#{{elementId}}-content"
        aria-expanded="false"
        aria-controls="{{elementId}}-content"
-       {{action "loadData"}}>
+      {{action "selectUnit" model.id}}>
         {{t "common.unitInitial"}}{{plus-one index}}&colon; {{model.title}}
     </a>
   </strong>
@@ -48,6 +48,7 @@
           index=index
           belongsTo=accordionId
         onSelectResource=(action 'selectResource')
+        onLessonUpdate=(action 'updateLesson')
         currentResource=currentResource
         openLocation=openLocationReduced }}
 

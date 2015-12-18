@@ -5,7 +5,7 @@
         <h5>{{t "class.overview.title"}}</h5>
       </div>
       {{#if classController.isStudent}}
-        <button class="btn btn-default locate">
+        <button {{action "updateLocation" userLocation}} class="btn btn-default locate">
           {{t "class.overview.locate"}}
         </button>
       {{/if}}
@@ -15,6 +15,7 @@
   {{class.overview.gru-accordion-course
     currentClass=class
   onSelectResource="playResource"
+  onLocationUpdate=(action 'updateLocation')
   userLocation=userLocation
   location=location }}
 

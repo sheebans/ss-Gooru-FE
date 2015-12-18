@@ -27,6 +27,19 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Actions
+  actions: {
+
+    /**
+     * Update 'location' (bound query param)
+     *
+     * @function
+     * @param {String} newLocation - String of the form 'unitId[+lessonId[+resourceId]]'
+     * @returns {undefined}
+     */
+    updateLocation: function (newLocation) {
+      this.set('location', newLocation);
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Events
@@ -34,6 +47,12 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * @prop {String} userLocation - Location of a user in a course
+   * String of the form 'unitId[+lessonId[+resourceId]]'
+   */
+  userLocation: null,
 
   /**
    * A link to the parent class controller
