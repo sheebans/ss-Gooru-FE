@@ -56,13 +56,6 @@ export default Ember.Route.extend({
       if (currentMenuItem !== item && transition) {
         route.transitionTo('class.' + item);
       }
-    },
-
-    /**
-     * Triggered when the user toggles between normal and full screen mode
-     */
-    toggleFullScreen: function () {
-      this.toggleFullScreen();
     }
   },
 
