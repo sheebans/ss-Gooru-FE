@@ -48,56 +48,7 @@ test('Layout as a student', function (assert) {
   });
 });
 
-test('Opening the accordions with the Locate button', function (assert) {
-  visit('/class/class-for-pochita-as-student/overview');
-  andThen(function () {
-
-    var $overviewContainer = find(".controller.class .controller.overview");
-    assert.ok($overviewContainer.length, 'Missing overview container');
-
-    const $overviewHeader = find(".overview-header", $overviewContainer);
-    const $lastUnit = $overviewContainer.find(".gru-accordion-unit").last();
-    assert.ok(!$lastUnit.hasClass('expanded'), 'Last unit should be collapsed');
-
-    // Open the last unit
-    click($lastUnit.find('.panel-title a'));
-    andThen(function () {
-      assert.ok($lastUnit.hasClass('expanded'), 'Last unit should have expanded');
-
-      const $lastLesson = $lastUnit.find(".gru-accordion-lesson").last();
-      assert.ok(!$lastLesson.hasClass('expanded'), 'Last lesson should be collapsed');
-
-      // Open the last lesson in the last unit
-      click($lastLesson.find('.panel-title a'));
-      andThen(function () {
-        assert.ok($lastLesson.hasClass('expanded'), 'Last lesson should have expanded');
-
-        // Click "Locate" button
-        click($overviewHeader.find("button.locate"));
-        andThen(function () {
-
-          // The course map should be expanded all the way to the resource of the user's current location
-          // Per /app/services/api-sdk/course-location#findOneByUser,
-          // the user current location is: second unit, first lesson, second resource
-          const $expandedUnits = find(".gru-accordion-unit.expanded", $overviewContainer);
-          assert.equal($expandedUnits.length, 1, 'Wrong number of unit accordions expanded');
-
-          const $expandedLessons = find(".gru-accordion-lesson.expanded", $overviewContainer);
-          assert.equal($expandedLessons.length, 1, 'Wrong number of lesson accordions expanded');
-
-          var $accordion = find(".gru-accordion-unit:eq(1)", $overviewContainer);
-          assert.ok($accordion.hasClass('expanded'), 'Second unit should be expanded');
-
-          $accordion = find(".gru-accordion-lesson:eq(0)", $accordion);
-          assert.ok($accordion.hasClass('expanded'), 'First lesson in the second unit should be expanded');
-
-          var $resource = find(".collections .panel:eq(1)", $accordion);
-          assert.ok($resource.hasClass('selected'), 'Second resource should be marked as selected');
-        });
-      });
-    });
-  });
-});
+// TODO: Test opening the accordions using the Locate button
 
 test('Layout as a teacher', function (assert) {
   visit('/class/class-for-pochita-as-teacher/overview');

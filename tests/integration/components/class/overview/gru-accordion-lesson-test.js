@@ -469,7 +469,7 @@ test('it can start expanded (via "openLocation") and be collapsed manually', fun
   this.set('currentClass', currentClass);
   this.set('unitId', '777-999');
   this.set('lesson', lesson);
-  this.set('userLocation', '888-000+item-3');
+  this.set('userLocation', '777-999+888-000+item-3');
 
   this.render(hbs`{{class/overview/gru-accordion-lesson
                     currentClass=currentClass
