@@ -20,20 +20,26 @@ export function initialize(app) {
 
   Ember.Route.reopen({
 
+    /**
+     * This event handlers sets an specific class to the body everytime a route is activated
+     */
     addRouteSpecificClass: function() {
       var currentRoute = this.routeName;
-      this.get('history').set('currentRoute', currentRoute);
       Ember.$('body').attr('class', currentRoute.replace(/\./g, '_'));
     }.on('activate'),
 
     /**
-     * Resetting the scroll to the top of the page when browsing to a new page
+     * This event handlers saves the current route when it is activated
      */
-    restoreScroll: function() {
-      window.scrollTo(0,0);
+    saveCurrentRoute: function() {
+      var currentRoute = this.routeName;
+      this.get('history').set('currentRoute', currentRoute);
     }.on('activate'),
 
-    saveRoute: function() {
+    /**
+     * When leaving a route this handler save the previous route so it can be accessed from history
+     */
+    saveLastRoute: function() {
       var savedRoute = this.get('history.lastRoute');
       var currentRoute = this.routeName;
       var parentRouteIdx = savedRoute && savedRoute.indexOf(currentRoute);
@@ -45,7 +51,14 @@ export function initialize(app) {
         // will not be saved
         this.get('history').set('lastRoute', currentRoute);
       }
-    }.on('deactivate')
+    }.on('deactivate'),
+
+    /**
+     * Resetting the scroll to the top of the page when browsing to a new page
+     */
+    restoreScroll: function() {
+      window.scrollTo(0,0);
+    }.on('activate')
 
   });
 
