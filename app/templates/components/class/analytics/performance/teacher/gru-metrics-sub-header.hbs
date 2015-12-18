@@ -1,8 +1,16 @@
 {{#each metrics as |metric|}}
   <th>
-      <a>
-      <span> {{metric.value}}</span>
-      <span>{{fa-icon icon=icon-default}}</span>
+      <a {{action 'sort' metric}}>
+        {{metric.value}}
+        {{#if metric.isSort}}
+          {{#if metric.asc}}
+              <span>{{fa-icon icon='sort-asc'}}</span>
+          {{else}}
+              <span>{{fa-icon icon='sort-desc'}}</span>
+          {{/if}}
+        {{else}}
+            <span>{{fa-icon icon='sort'}}</span>
+        {{/if}}
       </a>
   </th>
 {{/each}}
