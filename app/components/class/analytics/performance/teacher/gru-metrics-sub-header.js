@@ -7,6 +7,7 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Attributes
+  tagName: '',
 
   classNames: ['gru-metrics-sub-header'],
 
