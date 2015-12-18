@@ -1,4 +1,5 @@
 import Ember from "ember";
+import {KEY_CODES} from "gooru-web/config/config";
 
 export default Ember.Controller.extend({
 
@@ -57,10 +58,9 @@ export default Ember.Controller.extend({
 
   setupSubscriptions: Ember.on('init', function () {
     var controller = this;
-
     Ember.$(window).on('keyup.exitFullScreen', function (e) {
 
-      if (e.keyCode === 27 && controller.get('isFullScreen')) {
+      if (e.keyCode === KEY_CODES.ESCAPE && controller.get('isFullScreen')) {
         // Exit full screen mode
         controller.set('isFullScreen', false);
       }
@@ -70,10 +70,25 @@ export default Ember.Controller.extend({
 
   removeSubscriptions: Ember.on('willDestroy', function () {
     Ember.$(window).off('keyup.exitFullScreen');
-  })
+  }),
 
   // -------------------------------------------------------------------------
   // Methods
+  /**
+   * Toggles the full screen mode for all class children pages
+   */
+  toggleFullScreen: function(){
+    var isFullScreen = this.get('isFullScreen');
+    this.set('isFullScreen', !isFullScreen);
+  },
+
+  /**
+   * Exits the full screen mode for all class children pages
+   */
+  exitFullScreen: function(){
+    this.set('isFullScreen', false);
+  },
+
 
 
 });
