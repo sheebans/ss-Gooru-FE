@@ -37,13 +37,22 @@ export default Ember.Component.extend(AccordionMixin, {
     /**
      * @function actions:selectItem
      * @param {string} collectionId - Identifier for a collection or assessment
-     * @see components/class/overview/gru-accordion-lesson
+     * @see module:app/components/class/overview/gru-accordion-lesson
      */
-    selectItem: function(collectionId) {
+    selectResource: function (collectionId) {
       // Send the action so that it bubbles up to the route
-      this.sendAction('onSelectItem', collectionId);
-    }
+      this.sendAction('onSelectResource', collectionId);
+    },
 
+    /**
+     * Trigger the 'onLocationUpdate' event handler
+     *
+     * @function actions:updateLocation
+     * @param {string} newLocation - String of the form 'unitId[+lessonId[+resourceId]]'
+     */
+    updateLocation: function (newLocation) {
+      this.get('onLocationUpdate')(newLocation);
+    }
   },
 
 
@@ -59,10 +68,62 @@ export default Ember.Component.extend(AccordionMixin, {
     // both declarations can be put together, as they should
     var usersLocation = this.getCourseUsers();
     this.set('usersLocation', usersLocation);
+
+    var userLocation = this.get('userLocation');
+    if (!this.get('location') && userLocation) {
+      this.set('location', userLocation);
+    }
   }),
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * @prop {String} currentResource - Id of the resource in 'userLocation'
+   * This value is not expected to change while on the page so it is put into its own
+   * property and sent down to the child accordions. This way, each child accordion is
+   * not responsible for extracting the value from 'userLocation'.
+   */
+  currentResource: Ember.computed('userLocation', function () {
+    const userLocation = this.get('userLocation');
+    var parsedLocation = userLocation.split('+');
+    var currentResource = null;
+
+    if (parsedLocation.length === 3) {
+      currentResource = parsedLocation[2];
+    } else {
+      Ember.Logger.warn('The user location does not specify a current resource');
+    }
+    return currentResource;
+  }),
+
+  /**
+   * @prop {String} location - Current location that the user has navigated to
+   * Combination of unit, lesson and/or resource (collection or assessment) separated by a plus sign
+   * @example
+   * 'uId001+lId002+cId003'
+   */
+  location: null,
+
+  /**
+   * @prop {Function} onLocationUpdate - Event handler
+   */
+  onLocationUpdate: null,
+
+  /**
+   * @prop {String[]} parsedLocation - Location the user has navigated to
+   * parsedLocation[0] - unitId
+   * parsedLocation[1] - lessonId
+   * parsedLocation[2] - resourceId
+   */
+  parsedLocation: Ember.computed('location', function () {
+    return this.get('location') ? this.get('location').split('+') : [];
+  }),
+
+  /**
+   * @prop {String} userLocation - Location of a user in a course
+   */
+  userLocation: null,
 
   /**
    * @prop {Ember.RSVP.Promise} usersLocation - Users enrolled in the course

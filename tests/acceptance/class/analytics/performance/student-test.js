@@ -2,6 +2,7 @@ import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 import T from 'gooru-web/tests/helpers/assert';
+import {KEY_CODES} from "gooru-web/config/config";
 
 moduleForAcceptance('Acceptance | class/analytics/performance/student', {
   beforeEach: function() {
@@ -83,4 +84,59 @@ test('When filtering by collection is  pre-selected', function(assert) {
     assert.equal(T.text($menu.find(".selected-filter")), 'View Collection', 'Wrong text selected');
   });
 });
+
+test('View Full Screen and Exit Full Screen', function(assert) {
+  visit('/class/class-for-pochita-as-student/analytics/performance/student');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student');
+
+    const $performanceContainer = find(".controller.class .controller.analytics-performance-student");
+    const $viewFullScreen = $performanceContainer.find(".controls .gru-actions-bar .full-screen");
+
+    T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.view-full-screen"), "Button should be on view full screen mode");
+
+    click($viewFullScreen); //enter full screen mode
+    andThen(function() {
+      const $navigation = find(".controller div.navigation.hide");
+
+      T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.exit-full-screen"), "Button should be on exit full screen mode");
+      T.exists(assert, $navigation, "Navigation Menu should be hidden");
+
+      click($viewFullScreen); //exit full screen mode
+      andThen(function() {
+        const $navigation = find(".controller div.navigation.show");
+        T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.view-full-screen"), "Button should be on view full screen mode");
+        T.exists(assert, $navigation, "Navigation Menu should be visible");
+      });
+    });
+  });
+});
+
+test('Exit Full Screen by pressing Esc', function(assert) {
+  visit('/class/class-for-pochita-as-student/analytics/performance/student');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student');
+
+    const $performanceContainer = find(".controller.class .controller.analytics-performance-student");
+    const $viewFullScreen = $performanceContainer.find(".controls .gru-actions-bar .full-screen");
+
+    click($viewFullScreen); //enter full screen mode
+    andThen(function() {
+      var $navigation = find(".controller div.navigation.hide");
+
+      T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.exit-full-screen"), "Button should be on exit full screen mode");
+      T.exists(assert, $navigation, "Navigation Menu should be hidden");
+
+      keyEvent($performanceContainer, 'keyup', KEY_CODES.ESCAPE); //exit full screen by pressing ESC
+      andThen(function() {
+        $navigation = find(".controller div.navigation.show");
+        T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.view-full-screen"), "Button should be on view full screen mode");
+        T.exists(assert, $navigation, "Navigation Menu should be show");
+      });
+    });
+  });
+});
+
 

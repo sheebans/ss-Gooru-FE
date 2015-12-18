@@ -1,0 +1,17 @@
+[
+  {
+    "request": {
+      "url": "^/insights/api/v1/class/(.+)/course/(.+)/progress$",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "student-performance-ok-response.json"
+    }
+  }
+]
+
