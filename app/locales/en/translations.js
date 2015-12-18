@@ -352,5 +352,12 @@ export default {
     "study-time":"Study Time",
     "reaction":"Reaction",
     "attempt":"Attempt"
+  },
+  "gru-performance-summary":{
+    "scores": "Scores",
+    "completion":"Completion",
+    "time-spent":"Time Spent",
+    "reactions":"Reactions",
+    "attempts":"Attempts"
   }
 };

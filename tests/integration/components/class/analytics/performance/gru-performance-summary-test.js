@@ -43,9 +43,6 @@ test('Test for performance summary on valid unit values', function(assert) {
   T.exists(assert, $completionSummary, 'Missing Completion summary');
 
 
-  const $reactionSummary = $component.find(".reactionSummary p");
-  T.exists(assert, $reactionSummary, 'Missing Reaction summary ');
-
   const $timeSpentSummary = $component.find(".timeSpentSummary p");
   assert.equal(T.text($timeSpentSummary), "3h", "Wrong time spent text");
 
@@ -70,17 +67,21 @@ test('Test for performance summary on invalid unit values', function(assert) {
 
   const $component = this.$(); //component dom element
 
-
   const $scoreSummary = $component.find(".scoreSummary p");
+  console.dir($scoreSummary);
   assert.equal(T.text($scoreSummary), "N/A", "Wrong score text");
 
   const $completionSummary = $component.find(".completionSummary span");
   T.exists(assert, $completionSummary, 'Missing Completion summary checkmark');
 
+  const $reactionSummary = $component.find(".reactionSummary p");
+  assert.equal(T.text($reactionSummary), "–", "Wrong reaction summary text");
+
   const $timeSpentSummary = $component.find(".timeSpentSummary p");
   assert.equal(T.text($timeSpentSummary), "h", "Wrong time spent text");
 
   const $attemptSummary = $component.find(".attemptSummary p");
-  assert.equal(T.text($attemptSummary), "", "Wrong attempt summary text");
+  assert.equal(T.text($attemptSummary), "–", "Wrong attempt summary text");
+
 });
 

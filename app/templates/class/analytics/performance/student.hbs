@@ -34,28 +34,32 @@
     </div>
   <div class="row gru-content">
     <div class="col-xs-12 performance-content">
-  {{#if performance}}
     {{#each performances as | performance index | }}
         <ul class="row">
             <li class="col-xs-3">
                 <p>U{{plus-one index}}: {{performance.title}}</p>
             </li>
             <li class="col-xs-9">
-                <ul class="row performance-headers">
-                    <li><p>Scores</p></li>
-                    <li><p>Completion</p></li>
-                    <li><p>Time spent</p></li>
-                    <li><p>Reactions</p></li>
-                    <li><p>Attempts</p></li>
-                </ul>
-              {{class.analytics.performance.gru-performance-summary performance=performance}}
+                {{#if performance.hasStarted}}
+                    <ul class="row performance-headers">
+                        <li><p>{{t "gru-performance-summary.scores"}}</p></li>
+                        <li><p>{{t "gru-performance-summary.completion"}}</p></li>
+                        <li><p>{{t "gru-performance-summary.time-spent"}}</p></li>
+                        <li><p>{{t "gru-performance-summary.reactions"}}</p></li>
+                        <li><p>{{t "gru-performance-summary.attempts"}}</p></li>
+                    </ul>
+                  {{class.analytics.performance.gru-performance-summary performance=performance}}
+                {{else}}
+                  <h3>Not started yet</h3>
+                {{/if}}
+
             </li>
         </ul>
+    {{else}}
+        <h3>No content available</h3>
     {{/each}}
-  {{else}}
-    <h3></h3>
 
-  {{/if}}
+
 
     </div>
   </div>

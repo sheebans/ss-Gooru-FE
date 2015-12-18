@@ -43,7 +43,7 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
    * @param model
    */
   setupController: function(controller, model) {
-    var performances = model.performances.length > 0 ? model.performances : undefined;
-    controller.set("performances", performances);
+    //var performances = model.performances.length > 0 ? model.performances : undefined;
+    controller.set("performances", model.performances);
   }
 });

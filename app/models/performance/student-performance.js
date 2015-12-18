@@ -44,6 +44,13 @@ export default DS.Model.extend({
    */
   isNotCompleted: Ember.computed('completionDone', 'completionTotal', function() {
     return (this.get('completionDone') !== this.get('completionTotal'));
+  }),
+  completionValue: Ember.computed('completionDone', 'completionTotal', function() {
+    return (this.get('completionDone') * 100 / this.get('completionTotal'));
+  }),
+  hasStarted: Ember.computed('timeSpent', function () {
+    return (this.get('timeSpent')>0);
   })
+
 
 });

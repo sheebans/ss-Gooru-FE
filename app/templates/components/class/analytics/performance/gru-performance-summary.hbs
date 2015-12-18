@@ -52,5 +52,9 @@
 
     </li>
     <li class="attemptSummary">
-        <p>{{performance.attempts}}</p>
+      {{#if performance.attempts}}
+          <p>{{performance.attempts}}</p>
+      {{else}}
+          <p>–</p>
+      {{/if}}
     </li>
