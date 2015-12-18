@@ -447,3 +447,101 @@ test('it triggers event handlers', function (assert) {
     $resourceNameAnchor.click();
   });
 });
+
+test('it can start expanded (via "openLocation") and be collapsed manually', function (assert) {
+  assert.expect(2);
+
+  // Class with lessons per stub
+  var currentClass = Ember.Object.create({
+    id: "111-333-555",
+    course: "222-444-666"
+  });
+
+  // Lesson model
+  const lesson = Ember.Object.create({
+    id: "888-000",
+    title: 'Lesson Title'
+  });
+
+  this.on('externalAction', function () {
+  });
+
+  this.set('currentClass', currentClass);
+  this.set('unitId', '777-999');
+  this.set('lesson', lesson);
+  this.set('userLocation', '888-000+item-3');
+
+  this.render(hbs`{{class/overview/gru-accordion-lesson
+                    currentClass=currentClass
+                    unitId=unitId
+                    model=lesson
+                    onSelectLesson=(action 'externalAction')
+                    openLocation=userLocation }}`);
+
+  const $component = this.$('.gru-accordion-lesson');
+  const $lessonTitleAnchor = $component.find('> .panel-heading a');
+  const $collapsePanel = $component.find('> .panel-collapse');
+
+  assert.ok($collapsePanel.hasClass('in'), 'Panel should be visible');
+
+  // Click on the lesson name
+  Ember.run(() => {
+    $lessonTitleAnchor.click();
+  });
+
+  return wait().then(function () {
+    assert.ok(!$collapsePanel.hasClass('in'), 'Panel should have been hidden');
+  });
+});
+
+test('it can be expanded manually and collapsed by changing the "openLocation" value', function (assert) {
+  assert.expect(3);
+
+  const context = this;
+
+  // Class with lessons per stub
+  var currentClass = Ember.Object.create({
+    id: "111-333-555",
+    course: "222-444-666"
+  });
+
+  // Lesson model
+  const lesson = Ember.Object.create({
+    id: "888-000",
+    title: 'Lesson Title'
+  });
+
+  this.on('externalAction', function () {
+  });
+
+  this.set('currentClass', currentClass);
+  this.set('unitId', '777-999');
+  this.set('lesson', lesson);
+  this.set('userLocation', '');
+
+
+  this.render(hbs`{{class/overview/gru-accordion-lesson
+                    currentClass=currentClass
+                    unitId=unitId
+                    model=lesson
+                    onSelectLesson=(action 'externalAction')
+                    openLocation=userLocation }}`);
+
+  const $component = this.$('.gru-accordion-lesson');
+  const $lessonTitleAnchor = $component.find('> .panel-heading a');
+  const $collapsePanel = $component.find('> .panel-collapse');
+
+  assert.ok(!$collapsePanel.hasClass('in'), 'Panel should not be visible');
+
+  // Click on the lesson name
+  Ember.run(() => {
+    $lessonTitleAnchor.click();
+  });
+
+  return wait().then(function () {
+    assert.ok($collapsePanel.hasClass('in'), 'Panel should be visible');
+
+    context.set('userLocation', '111-111');
+    assert.ok(!$collapsePanel.hasClass('in'), 'Panel should have been hidden');
+  });
+});

@@ -172,6 +172,9 @@ test('it renders correctly when there are no lessons to load after clicking on t
     title: 'Unit Title'
   });
 
+  this.on('externalAction', function () {
+  });
+
   this.set('currentClass', currentClass);
   this.set('unit', unit);
   this.set('index', 0);
@@ -179,7 +182,8 @@ test('it renders correctly when there are no lessons to load after clicking on t
   this.render(hbs`{{class/overview/gru-accordion-unit
                     currentClass=currentClass
                     model=unit
-                    index=index }}`);
+                    index=index
+                    onLocationUpdate=(action 'externalAction') }}`);
 
   const $component = this.$('.gru-accordion-unit');
   const $unitTitleAnchor = $component.find('> .panel-heading a');
@@ -229,6 +233,9 @@ test('it loads lessons and renders them correctly after clicking on the unit nam
     title: 'Unit Title'
   });
 
+  this.on('externalAction', function () {
+  });
+
   this.set('currentClass', currentClass);
   this.set('unit', unit);
   this.set('index', 0);
@@ -236,7 +243,8 @@ test('it loads lessons and renders them correctly after clicking on the unit nam
   this.render(hbs`{{class/overview/gru-accordion-unit
                     currentClass=currentClass
                     model=unit
-                    index=index }}`);
+                    index=index
+                    onLocationUpdate=(action 'externalAction') }}`);
 
   const $component = this.$('.gru-accordion-unit');
   const $unitTitleAnchor = $component.find('> .panel-heading a');
@@ -293,6 +301,9 @@ test('it only loads lessons once after clicking on the unit name', function(asse
     title: 'Unit Title'
   });
 
+  this.on('externalAction', function () {
+  });
+
   this.set('currentClass', currentClass);
   this.set('unit', unit);
   this.set('index', 0);
@@ -300,7 +311,8 @@ test('it only loads lessons once after clicking on the unit name', function(asse
   this.render(hbs`{{class/overview/gru-accordion-unit
                     currentClass=currentClass
                     model=unit
-                    index=index }}`);
+                    index=index
+                    onLocationUpdate=(action 'externalAction') }}`);
 
   const $component = this.$('.gru-accordion-unit');
   const $unitTitleAnchor = $component.find('> .panel-heading a');
@@ -345,5 +357,137 @@ test('it only loads lessons once after clicking on the unit name', function(asse
       assert.equal($items.length, 2, 'Number of lessons listed should not have changed');
       assert.equal($unitTitleAnchor.text().trim(), 'U3: Unit Title', 'Index in the title text should have changed');
     });
+  });
+});
+
+test('it triggers an event when the unit name is clicked on', function (assert) {
+  assert.expect(1);
+
+  // Class with lessons per stub
+  var currentClass = Ember.Object.create({
+    id: "111-333-555",
+    course: "222-444-666"
+  });
+
+  // Unit model
+  const unit = Ember.Object.create({
+    id: "777-999",
+    title: 'Unit Title'
+  });
+
+  this.on('externalAction', function (newLocation) {
+    assert.equal('777-999', newLocation);
+  });
+
+  this.set('currentClass', currentClass);
+  this.set('unit', unit);
+
+  this.render(hbs`{{class/overview/gru-accordion-unit
+                    currentClass=currentClass
+                    model=unit
+                    onLocationUpdate=(action 'externalAction') }}`);
+
+  const $component = this.$('.gru-accordion-unit');
+  const $unitTitleAnchor = $component.find('> .panel-heading a');
+
+  // Click on the unit name
+  Ember.run(() => {
+    $unitTitleAnchor.click();
+  });
+
+});
+
+test('it can start expanded (via "openLocation") and be collapsed manually', function (assert) {
+  assert.expect(2);
+
+  // Class with lessons per stub
+  var currentClass = Ember.Object.create({
+    id: "111-333-555",
+    course: "222-444-666"
+  });
+
+  // Unit model
+  const unit = Ember.Object.create({
+    id: "777-999",
+    title: 'Unit Title'
+  });
+
+  this.on('externalAction', function () {
+  });
+
+  this.set('currentClass', currentClass);
+  this.set('unit', unit);
+
+  // Sample string made up of unit id, lesson id and resource id
+  this.set('userLocation', '777-999+111-111+222-222');
+
+  this.render(hbs`{{class/overview/gru-accordion-unit
+                    currentClass=currentClass
+                    model=unit
+                    onLocationUpdate=(action 'externalAction')
+                    openLocation=userLocation }}`);
+
+  const $component = this.$('.gru-accordion-unit');
+  const $unitTitleAnchor = $component.find('> .panel-heading a');
+  const $collapsePanel = $component.find('> .panel-collapse');
+
+  assert.ok($collapsePanel.hasClass('in'), 'Panel should be visible');
+
+  // Click on the unit name
+  Ember.run(() => {
+    $unitTitleAnchor.click();
+  });
+
+  return wait().then(function () {
+    assert.ok(!$collapsePanel.hasClass('in'), 'Panel should have been hidden');
+  });
+});
+
+test('it can be expanded manually and collapsed by changing the "openLocation" value', function (assert) {
+  assert.expect(3);
+
+  const context = this;
+
+  // Class with lessons per stub
+  var currentClass = Ember.Object.create({
+    id: "111-333-555",
+    course: "222-444-666"
+  });
+
+  // Unit model
+  const unit = Ember.Object.create({
+    id: "777-999",
+    title: 'Unit Title'
+  });
+
+  this.on('externalAction', function () {
+  });
+
+  this.set('currentClass', currentClass);
+  this.set('unit', unit);
+  this.set('userLocation', '');
+
+  this.render(hbs`{{class/overview/gru-accordion-unit
+                    currentClass=currentClass
+                    model=unit
+                    onLocationUpdate=(action 'externalAction')
+                    openLocation=userLocation }}`);
+
+  const $component = this.$('.gru-accordion-unit');
+  const $unitTitleAnchor = $component.find('> .panel-heading a');
+  const $collapsePanel = $component.find('> .panel-collapse');
+
+  assert.ok(!$collapsePanel.hasClass('in'), 'Panel should not be visible');
+
+  // Click on the unit name
+  Ember.run(() => {
+    $unitTitleAnchor.click();
+  });
+
+  return wait().then(function () {
+    assert.ok($collapsePanel.hasClass('in'), 'Panel should be visible');
+
+    context.set('userLocation', '000-000');
+    assert.ok(!$collapsePanel.hasClass('in'), 'Panel should have been hidden');
   });
 });

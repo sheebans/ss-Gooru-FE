@@ -75,6 +75,12 @@ export default Ember.Component.extend(AccordionMixin, {
   // -------------------------------------------------------------------------
   // Properties
 
+  /**
+   * @prop {String} currentResource - Id of the resource in 'userLocation'
+   * This value is not expected to change while on the page so it is put into its own
+   * property and sent down to the child accordions. This way, each child accordion is
+   * not responsible for extracting the value from 'userLocation'.
+   */
   currentResource: Ember.computed('userLocation', function () {
     const userLocation = this.get('userLocation');
     var parsedLocation = userLocation.split('+');
