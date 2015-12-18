@@ -56,6 +56,13 @@ export default Ember.Controller.extend({
       const fileName = "student-performance";
       //Data and File name are examples at this point
       download(fileName, data);
+    },
+
+    /**
+     * Triggered when the user toggles between normal and full screen mode
+     */
+    toggleFullScreen: function () {
+      return this.get("classController").toggleFullScreen();
     }
   },
   // -------------------------------------------------------------------------
@@ -72,10 +79,22 @@ export default Ember.Controller.extend({
   "class": Ember.computed.reads('classController.class'),
 
   /**
+   * The performances for the units that will be shown to the user
+   * @property {Class}
+   */
+  "performances": null,
+
+  /**
    * The filterBy selected
    * @property {String}
    */
   filterBy: 'assessment',
+
+  /**
+   * If analytics is fullscreen
+   * @property {Boolean}
+   */
+  isFullScreen:  Ember.computed.alias('classController.isFullScreen'),
 
   breadcrumb: Ember.A([
     {

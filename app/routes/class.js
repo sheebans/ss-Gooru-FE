@@ -57,6 +57,15 @@ export default Ember.Route.extend({
         route.transitionTo('class.' + item);
       }
     }
+  },
 
-  }
+  // -------------------------------------------------------------------------
+  // Events
+  /**
+   * This event handlers reset some class properties when leaving the route
+   */
+  handleDeactivate: function() {
+    this.get("controller").exitFullScreen();
+  }.on('deactivate')
+
 });
