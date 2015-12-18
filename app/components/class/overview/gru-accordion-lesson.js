@@ -53,7 +53,7 @@ export default Ember.Component.extend(AccordionMixin, {
       this.loadData();
 
       if (!isUpdatingLocation) {
-        this.get('onLessonUpdate')(lessonId)
+        this.get('onSelectLesson')(lessonId);
       }
     },
 
