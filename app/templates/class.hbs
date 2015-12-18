@@ -1,12 +1,12 @@
 <div class="controller class row">
-  <div class="navigation col-md-3 col-xs-12 col-sm-12">
+  <div class="navigation col-md-3 col-xs-12 col-sm-12 {{if isFullScreen 'hide' 'show'}}">
     {{class.gru-class-navigation
       class=class
       onItemSelected="selectMenuItem"
       selectedMenuItem=menuItem
     }}
   </div>
-  <div class="content col-md-9 col-xs-12 col-sm-12">
+  <div class="content {{if isFullScreen 'col-md-12' 'col-md-9'}} col-xs-12 col-sm-12">
     {{outlet}}
   </div>
 </div>

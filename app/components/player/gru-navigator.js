@@ -1,4 +1,5 @@
 import Ember from "ember";
+import {KEY_CODES} from "../../config/config";
 
 /**
  * Player navigator
@@ -110,13 +111,11 @@ export default Ember.Component.extend({
    * @param {Event object} event
    */
   navigateOnKeyUp: function(e) {
-    if (e.which === 37 || e.which === 39){
+    if (e.which === KEY_CODES.RIGHT || e.which === KEY_CODES.LEFT){
       e.preventDefault();
-      const KEY_RIGHT=39;
-      const KEY_LEFT=37;
-      if (e.which===KEY_RIGHT){
+      if (e.which === KEY_CODES.RIGHT){
         e.data._self.navigateTo('nextResource');
-      }else if (e.which===KEY_LEFT){
+      }else if (e.which === KEY_CODES.LEFT){
         e.data._self.navigateTo('prevResource');
       }
       return false;

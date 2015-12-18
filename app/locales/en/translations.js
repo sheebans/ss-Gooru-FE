@@ -336,6 +336,7 @@ export default {
         "edit": "Edit Content",
         "download": "Download",
         "fullScreen": "View Full Screen",
+        "exitFullScreen": "Exit Full Screen",
         "assessment": "View Assessment",
         "collection": "View Collection",
         "both": "View Both"

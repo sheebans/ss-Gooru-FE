@@ -1,4 +1,5 @@
 import Ember from "ember";
+import {KEY_CODES} from "gooru-web/config/config";
 
 export default Ember.Controller.extend({
 
@@ -11,7 +12,6 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -28,6 +28,12 @@ export default Ember.Controller.extend({
    menuItem: null,
 
   /**
+   * If analytics is fullScreen
+   * @property {Boolean}
+   */
+  isFullScreen: false,
+
+ /**
    * Indicates if a user is a teacher of this class
    * @property {isTeacher}
    * @see {Class} class
@@ -50,9 +56,39 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Observers
 
+  setupSubscriptions: Ember.on('init', function () {
+    var controller = this;
+    Ember.$(window).on('keyup.exitFullScreen', function (e) {
+
+      if (e.keyCode === KEY_CODES.ESCAPE && controller.get('isFullScreen')) {
+        // Exit full screen mode
+        controller.set('isFullScreen', false);
+      }
+    });
+
+  }),
+
+  removeSubscriptions: Ember.on('willDestroy', function () {
+    Ember.$(window).off('keyup.exitFullScreen');
+  }),
 
   // -------------------------------------------------------------------------
   // Methods
+  /**
+   * Toggles the full screen mode for all class children pages
+   */
+  toggleFullScreen: function(){
+    var isFullScreen = this.get('isFullScreen');
+    this.set('isFullScreen', !isFullScreen);
+  },
+
+  /**
+   * Exits the full screen mode for all class children pages
+   */
+  exitFullScreen: function(){
+    this.set('isFullScreen', false);
+  },
+
 
 
 });
