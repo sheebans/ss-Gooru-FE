@@ -1,6 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('serializer:performance/student-lesson-performance', 'Unit | Serializer | performance/student-lesson-performance');
+moduleFor('serializer:performance/lesson-performance', 'Unit | Serializer | performance/lesson-performance');
 
 test('normalizeQueryRecordResponse', function(assert) {
   const serializer = this.subject();
@@ -59,7 +59,7 @@ test('normalizeQueryRecordResponse', function(assert) {
     "data": [
       {
         "id": "2cd0cb03-91f6-4a8f-b799-2f04039e02c5",
-        "type": "performance/student-lesson-performance",
+        "type": "performance/lesson-performance",
         "attributes": {
           "title": "Buddisum",
           "type": "lesson",
@@ -75,15 +75,15 @@ test('normalizeQueryRecordResponse', function(assert) {
             "data": [
               {
                 "id": "0c5cd8aa-d023-4672-9598-f4f527df4760",
-                "type": "performance/student-performance"
+                "type": "performance/performance"
               },
               {
                 "id": "792c05b3-2214-4627-acef-22f8d5ed394a",
-                "type": "performance/student-performance"
+                "type": "performance/performance"
               },
               {
                 "id": "bc116a9b-7252-45e0-96df-2f786d6a5da3",
-                "type": "performance/student-performance"
+                "type": "performance/performance"
               }
             ]
           }
@@ -93,7 +93,7 @@ test('normalizeQueryRecordResponse', function(assert) {
     "included": [
       {
         "id": "0c5cd8aa-d023-4672-9598-f4f527df4760",
-        "type": "performance/student-performance",
+        "type": "performance/performance",
         "attributes": {
           "title": "General Knowledge Indian History",
           "type": "collection",
@@ -107,7 +107,7 @@ test('normalizeQueryRecordResponse', function(assert) {
       },
       {
         "id": "792c05b3-2214-4627-acef-22f8d5ed394a",
-        "type": "performance/student-performance",
+        "type": "performance/performance",
         "attributes": {
           "title": "Quiz 2 : GK",
           "type": "assessment",
@@ -121,7 +121,7 @@ test('normalizeQueryRecordResponse', function(assert) {
       },
       {
         "id": "bc116a9b-7252-45e0-96df-2f786d6a5da3",
-        "type": "performance/student-performance",
+        "type": "performance/performance",
         "attributes": {
           "title": "Quiz : GK",
           "type": "assessment",
@@ -135,7 +135,7 @@ test('normalizeQueryRecordResponse', function(assert) {
       }
     ]
   };
-  const response = serializer.normalizeQueryRecordResponse('any store', 'performance/student-lesson-performance', payload);
+  const response = serializer.normalizeQueryRecordResponse('any store', 'performance/lesson-performance', payload);
 
   assert.deepEqual(response, expected, 'Wrong response');
 });
@@ -211,22 +211,22 @@ test('normalizeCollections', function(assert) {
   ];
   const expectedPerformanceItem = {
     "id": "1",
-    "type": "performance/student-lesson-performance",
+    "type": "performance/lesson-performance",
     "attributes": {},
     "relationships": {
       "collections": {
         "data": [
           {
             "id": "0c5cd8aa-d023-4672-9598-f4f527df4760",
-            "type": "performance/student-performance"
+            "type": "performance/performance"
           },
           {
             "id": "792c05b3-2214-4627-acef-22f8d5ed394a",
-            "type": "performance/student-performance"
+            "type": "performance/performance"
           },
           {
             "id": "bc116a9b-7252-45e0-96df-2f786d6a5da3",
-            "type": "performance/student-performance"
+            "type": "performance/performance"
           }
         ]
       }
@@ -237,7 +237,7 @@ test('normalizeCollections', function(assert) {
     "included": [
       {
         "id": "0c5cd8aa-d023-4672-9598-f4f527df4760",
-        "type": "performance/student-performance",
+        "type": "performance/performance",
         "attributes": {
           "title": "General Knowledge Indian History",
           "type": "collection",
@@ -251,7 +251,7 @@ test('normalizeCollections', function(assert) {
       },
       {
         "id": "792c05b3-2214-4627-acef-22f8d5ed394a",
-        "type": "performance/student-performance",
+        "type": "performance/performance",
         "attributes": {
           "title": "Quiz 2 : GK",
           "type": "assessment",
@@ -265,7 +265,7 @@ test('normalizeCollections', function(assert) {
       },
       {
         "id": "bc116a9b-7252-45e0-96df-2f786d6a5da3",
-        "type": "performance/student-performance",
+        "type": "performance/performance",
         "attributes": {
           "title": "Quiz : GK",
           "type": "assessment",
@@ -281,7 +281,7 @@ test('normalizeCollections', function(assert) {
   };
   var performanceItem = {
     id: '1',
-    type: "performance/student-lesson-performance",
+    type: "performance/lesson-performance",
     attributes: {},
     relationships: {
       collections: { data: [] }

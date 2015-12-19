@@ -1,17 +1,18 @@
 import Ember from 'ember';
+import DS from 'ember-data';
 import StoreMixin from '../../mixins/store';
 
 export default Ember.Service.extend(StoreMixin, {
 
   /**
-   * Gets the student units performance data for a specific class and course.
+   * Gets the performance data for each unit of a specific user, class and course.
    * @param userId user id
    * @param classId class id
    * @param courseId course id
    * @returns {*}
    */
-  findStudentPerformanceByClassAndCourse: function(userId, classId, courseId) {
-    return this.get('store').queryRecord('performance/student-performance', {
+  findUnitPerformanceByClassAndCourse: function(userId, classId, courseId) {
+    return this.get('store').queryRecord('performance/performance', {
       userUid: userId,
       classId: classId,
       courseId: courseId
@@ -19,20 +20,109 @@ export default Ember.Service.extend(StoreMixin, {
   },
 
   /**
-   * Get the student lessons and collections/assessments data for a specific class, course and unit.
+   * Gets the lessons performance and collections|assessments performance data for
+   * each lesson of a specific user, class, course and unit.
    * @param userId user id
    * @param classId class id
    * @param courseId course id
    * @param unitId unit id
    * @returns {*}
    */
-  findStudentPerformanceByClassAndCourseAndUnit: function(userId, classId, courseId, unitId) {
-    return this.get('store').queryRecord('performance/student-lesson-performance', {
+  findLessonPerformanceByClassAndCourseAndUnit: function(userId, classId, courseId, unitId) {
+    return this.get('store').queryRecord('performance/lesson-performance', {
       userUid: userId,
       classId: classId,
       courseId: courseId,
       unitId: unitId
     });
+  },
+
+  findStudentPerformanceByClassAndCourse: function(userId, classId, courseId, options={}) {
+    const service = this;
+    var user = service.createUserObject(userId, 'username-' + userId, 'FirstName-' + userId, 'LastName-' + userId);
+    var performanceData = service.createPerformanceData('unit', userId, options.units);
+    var response = service.createStudentPerformanceObject(user, performanceData);
+
+    return DS.PromiseObject.create({
+      promise: Ember.RSVP.resolve(response)
+    });
+  },
+
+  findClassPerformanceByCourse: function(classId, courseId, options={}) {
+    const service = this;
+    var studentPerformanceData = service.createStudentPerformanceData('unit', options.users);
+    var response = service.createClassPerformanceObject(studentPerformanceData);
+
+    return DS.PromiseObject.create({
+      promise: Ember.RSVP.resolve(response)
+    });
+  },
+
+  createUserObject: function(id, username, firstName, lastName) {
+   return this.get('store').createRecord('user/user', {
+      id: id,
+      username: username,
+      firstName: firstName,
+      lastName: lastName
+    });
+  },
+
+  createPerformanceData: function(type, userId, ids = []) {
+    const service = this;
+    var response = Ember.A([]);
+
+    Ember.$.each(ids, function(index, id) {
+      // TODO: This is just a temporal solution (hack)
+      // This ID value is composed to avoid the Ember Store exception about repeated IDs. This ID should be
+      // split to get the real ID value.
+      response.push(service.createPerformanceObject(id, userId, type));
+    });
+
+    return response;
+  },
+
+  createStudentPerformanceData: function(type, users = []) {
+    const service = this;
+    var response = Ember.A([]);
+
+    Ember.$.each(users, function(index, user) {
+      var userData = service.createUserObject(user.id, 'username-' + user.id, 'FirstName-' + user.id, 'LastName-' + user.id);
+      var performanceData = service.createPerformanceData(type, user.id, user.units);
+      response.push(service.createStudentPerformanceObject(userData, performanceData));
+    });
+
+    return response;
+  },
+
+  createPerformanceObject: function(id, user, type) {
+    return this.get('store').createRecord('performance/performance', {
+      id: user + '@' + id,
+      title: 'Title for - ' + id,
+      type: type,
+      score: this.createRandomValue(0, 100),
+      completionDone: this.createRandomValue(1, 20),
+      completionTotal: 20,
+      timeSpent: this.createRandomValue(0, 1500),
+      ratingScore: this.createRandomValue(1, 5),
+      attempts: this.createRandomValue(1, 10)
+    });
+  },
+
+  createStudentPerformanceObject: function(user, performance) {
+    return this.get('store').createRecord('performance/student-performance', {
+      user: user,
+      performanceData: performance
+    });
+  },
+
+  createClassPerformanceObject: function(performanceData) {
+    return this.get('store').createRecord('performance/class-performance', {
+      studentPerformanceData: performanceData
+    });
+  },
+
+  createRandomValue: function(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
 });

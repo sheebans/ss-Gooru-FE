@@ -1,42 +1,46 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 
 /**
- * Model that contains the student performance information
+ * Model that contains the student performance data by unit, lesson or collection|assessment.
  * @typedef {Object} StudentPerformance
  */
 export default DS.Model.extend({
 
   /**
-   * @property {String} Title for the student performance
+   * @property {Meta} metadata
    */
-  title: DS.attr('string'),
+  user: DS.belongsTo("user/user", {async: true}),
+
   /**
-   * @property {String} Student performance type (e.g. unit, lesson, collection, assessment)
+   * @property {Performance[]} List of Performance items
    */
-  type: DS.attr('string'),
-  /**
-   * @property {Number} The performance score (in percentages e.g. 80%, 100%, 95%, etc)
-   */
-  score: DS.attr('number'),
-  /**
-   * @property {Number} The completion done in the unit, class or collection/assessment, e.g. It is the top number of the fraction 5/10
-   */
-  completionDone:  DS.attr('number'),
-  /**
-   * @property {Number} The total of completionin the unit, class or collection/assessment, e.g. It is the bottom number of the fraction 5/10
-   */
-  completionTotal: DS.attr('number'),
-  /**
-   * @property {Number} The registered time spent in the unit, class or collection/assessment
-   */
-  timeSpent: DS.attr('number'),
-  /**
-   *  @property {Number} The average rating score set for set for the unit, class or collection/assessment
-   */
-  ratingScore: DS.attr('number'),
-  /**
-   *  @property {Number} The number of attempts registered for the unit, class or collection/assessment
-   */
-  attempts: DS.attr('number')
+  performanceData: DS.hasMany('performance/performance', {async: true}),
+
+
+  averageScore: Ember.computed('performanceData', function() {
+    return this.calculateAverage('score');
+  }),
+
+  averageCompletionDone: Ember.computed('performanceData', function() {
+    return this.calculateAverage('completionDone');
+  }),
+
+  averageTimeSpent: Ember.computed('performanceData', function() {
+    return this.calculateAverage('timeSpent');
+  }),
+
+  calculateAverage: function(fieldName) {
+    var sumValue = 0;
+    const performanceData = this.get('performanceData');
+    if (performanceData.get('length') > 0) {
+      performanceData.forEach(function (performanceItem) {
+        sumValue += performanceItem.get(fieldName);
+      });
+      return sumValue / performanceData.get('length');
+    } else {
+      return sumValue;
+    }
+  }
 
 });
