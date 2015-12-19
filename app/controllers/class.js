@@ -89,6 +89,13 @@ export default Ember.Controller.extend({
     this.set('isFullScreen', false);
   },
 
+  /**
+   * Selected the menu item
+   * @param {string} item
+   */
+  selectMenuItem: function(item){
+    this.set("menuItem", item);
+  }
 
 
 });
