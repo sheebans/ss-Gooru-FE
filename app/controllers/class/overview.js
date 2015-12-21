@@ -39,7 +39,15 @@ export default Ember.Controller.extend({
     updateLocation: function (newLocation) {
       var location = !newLocation ? null : newLocation;
       this.set('location', location);
-    }
+    },
+
+    /**
+     * Action triggered when the user as teacher selects the Edit Content option
+     */
+    editContent:function(){
+      //TO DO
+      Ember.Logger.log("edit content");
+    },
   },
 
   // -------------------------------------------------------------------------

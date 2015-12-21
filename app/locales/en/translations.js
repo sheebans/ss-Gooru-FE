@@ -325,7 +325,8 @@ export default {
   },
   "class.overview":{
     "title":"Course map",
-    "locate":"Locate Me"
+    "locate":"Locate Me",
+    "editContent":"Edit Content"
   },
   "class.analytics": {
     "performance": {
