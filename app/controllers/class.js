@@ -87,7 +87,7 @@ export default Ember.Controller.extend({
    */
   exitFullScreen: function(){
     this.set('isFullScreen', false);
-  }
+  },
 
   /**
    * Selected the menu item
