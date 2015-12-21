@@ -46,7 +46,7 @@ test('Test for performance summary on valid unit values', function(assert) {
 
   const $timeSpentSummary = $component.find(".timeSpent p");
 
-  assert.equal(T.text($timeSpentSummary), "1.35h", "Wrong time spent text "+$timeSpentSummary.text());
+  assert.equal(T.text($timeSpentSummary), "1.35h", "Wrong time spent text ");
 
   const $attemptSummary = $component.find(".attempts p");
   assert.equal(T.text($attemptSummary), "2", "Wrong attempts text");
