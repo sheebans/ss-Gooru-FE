@@ -27,6 +27,7 @@ test('Layout as a student', function (assert) {
 
     assert.ok($overviewHeader.find("h5").length, 'Missing title');
     assert.ok($overviewHeader.find("button.locate").length, 'Missing locate button');
+    assert.ok(!$overviewHeader.find("button.edit-content").length, 'Edit Content button should not be present');
 
     // The course map should be expanded all the way to the resource of the user's current location
     // Per /app/services/api-sdk/course-location#findOneByUser,
@@ -62,6 +63,7 @@ test('Layout as a teacher', function (assert) {
     assert.ok($overviewHeader.length, 'Missing overview header');
 
     assert.ok($overviewHeader.find("h5").length, 'Missing title');
+    assert.ok($overviewHeader.find("button.edit-content").length, 'Missing edit content button');
     assert.ok(!$overviewHeader.find("button.locate").length, 'Locate button should not be present');
 
     const $expandedUnits = find(".gru-accordion-unit.expanded", $overviewContainer);
