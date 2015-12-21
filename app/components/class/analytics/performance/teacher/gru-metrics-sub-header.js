@@ -35,17 +35,25 @@ export default Ember.Component.extend({
    * @constant {Array}
    */
   metrics: Ember.A([Ember.Object.create({
+    'value': 'name',
+    'sorted':false,
+    'isAsc':false,
+    'visible': true
+  }),Ember.Object.create({
     'value': 'score',
-    'isSort':false,
-    'asc':null
+    'sorted':false,
+    'isAsc':false,
+    'visible': true
   }),Ember.Object.create({
     'value': 'completion',
-    'isSort':false,
-    'asc':null
+    'sorted':false,
+    'isAsc':false,
+    'visible': true
   }),Ember.Object.create({
-    'value': 'time',
-    'isSort':false,
-    'asc':null
+    'value': 'study-time',
+    'sorted':false,
+    'isAsc':false,
+    'visible': true
   })]),
 
   // -------------------------------------------------------------------------
@@ -60,12 +68,12 @@ export default Ember.Component.extend({
     var component =this;
     var metrics = component.get("metrics");
     metrics.forEach(function(option){
-      if (option.get("value") == metric.get("value")){
-        metric.set("isSort", true);
+      if (option.get("value") === metric.get("value")){
+        metric.set("sorted", true);
         component.changeTypeSort(metric);
       }else{
-        option.set("asc", null);
-        option.set("isSort", false);
+        option.set("isAsc", null);
+        option.set("sorted", false);
       }
     });
   },
@@ -75,15 +83,6 @@ export default Ember.Component.extend({
    *
    */
   changeTypeSort(metric){
-    if(metric.get("asc")==false){
-      metric.set("asc", null);
-      metric.set("isSort", false);
-    }else{
-      if(metric.asc==null){
-        metric.set("asc", true);
-      }else{
-        metric.set("asc",false);
-      }
-    }
+    metric.set("isAsc",!metric.get("isAsc"));
   }
 });
