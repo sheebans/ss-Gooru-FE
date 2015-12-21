@@ -1,6 +1,10 @@
 import Ember from 'ember';
 import AccordionMixin from '../../../mixins/gru-accordion';
 
+// Whenever the observer 'parsedLocationChanged' is running, this flag is set so
+// clicking on the lessons should not update the location
+var isUpdatingLocation = false;
+
 /**
  * Accordion Lesson
  *
@@ -39,37 +43,34 @@ export default Ember.Component.extend(AccordionMixin, {
   actions: {
 
     /**
-     * Load the collections for the lesson
+     * Load the data for this lesson (data should only be loaded once) and trigger
+     * the 'onLessonUpdate' event handler
      *
-     * @function actions:loadData
+     * @function actions:selectLesson
      * @returns {undefined}
      */
-    loadData: function() {
-      if (!this.get('items')) {
-        var itemsPromise = this.getCollections();
-        this.set('items', itemsPromise);
+    selectLesson: function (lessonId) {
+      this.loadData();
 
-        // TODO: getLessonUsers is currently dependent on items that's why this declaration
-        // takes place after setting items. Once api-sdk/course-location is complete
-        // both declarations can be put together, as they should
-        var usersLocation = this.getLessonUsers();
-        this.set('usersLocation', usersLocation);
+      if (!isUpdatingLocation) {
+        let updateValue = this.get('isExpanded') ? '' : lessonId;
+        this.get('onSelectLesson')(updateValue);
       }
     },
 
     /**
-     * @function actions:selectItem
-     * @param {string} collectionId - Identifier for a collection or assessment
+     * @function actions:selectResource
+     * @param {string} collectionId - Identifier for a resource (collection/assessment)
      */
-    selectItem: function(collectionId) {
-      this.get('onSelectItem')(collectionId);
+    selectResource: function (collectionId) {
+      this.get('onSelectResource')(collectionId);
     }
 
   },
 
   // -------------------------------------------------------------------------
   // Events
-  setupSubscriptions: Ember.on('didInsertElement', function() {
+  setupComponent: Ember.on('didInsertElement', function () {
     const component = this;
 
     this.$().on('hide.bs.collapse', function(e) {
@@ -81,6 +82,8 @@ export default Ember.Component.extend(AccordionMixin, {
       e.stopPropagation();
       component.set('isExpanded', true);
     });
+
+    Ember.run.scheduleOnce('afterRender', this, this.parsedLocationChanged);
   }),
 
   removeSubscriptions: Ember.on('willDestroyElement', function() {
@@ -92,9 +95,12 @@ export default Ember.Component.extend(AccordionMixin, {
   // Properties
 
   /**
-   * @prop {Bool} expanded - is the accordion expanded or collapsed?
+   * @prop {String[]} parsedLocation - Location the user has navigated to
+   * parsedLocation[0] - unitId
+   * parsedLocation[1] - lessonId
+   * parsedLocation[2] - resourceId
    */
-  isExpanded: false,
+  parsedLocation: [],
 
   /**
    * @prop {String} - Id of the unit this lesson belongs to
@@ -135,9 +141,46 @@ export default Ember.Component.extend(AccordionMixin, {
     }
   }),
 
+  /**
+   * Observe changes to 'parsedLocation' to update the accordion's status
+   * (expanded/collapsed).
+   */
+  parsedLocationChanged: Ember.observer('parsedLocation.[]', function () {
+    const parsedLocation = this.get('parsedLocation');
+
+    if (parsedLocation) {
+      isUpdatingLocation = true;
+
+      let lessonId = parsedLocation[1];
+      this.updateAccordionById(lessonId);
+
+      isUpdatingLocation = false;
+    }
+  }),
+
 
   // -------------------------------------------------------------------------
   // Methods
+
+  /**
+   * Load the collections for the lesson
+   *
+   * @function
+   * @returns {undefined}
+   */
+  loadData: function () {
+    if (!this.get('items')) {
+      var itemsPromise = this.getCollections();
+      this.set('items', itemsPromise);
+
+      // TODO: getLessonUsers is currently dependent on items that's why this declaration
+      // takes place after setting items. Once api-sdk/course-location is complete
+      // both declarations can be put together, as they should
+      var usersLocation = this.getLessonUsers();
+      this.set('usersLocation', usersLocation);
+    }
+  },
+
   /**
    * Get all the collections for the lesson
    *

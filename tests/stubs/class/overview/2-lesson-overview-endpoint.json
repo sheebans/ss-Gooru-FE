@@ -1,5 +1,35 @@
 [
   {
+    "description": "Gets the lessons for the first unit per any-class-units-200-response.json",
+    "request": {
+      "url": "^/gooruapi/rest/v3/class/(.*)/course/(.*)/unit/31886eac-f998-493c-aa42-016f53e9fa88/lesson",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "first-unit-lessons-200-response.json"
+    }
+  },
+  {
+    "description": "Gets the lessons for the second unit per any-class-units-200-response.json",
+    "request": {
+      "url": "^/gooruapi/rest/v3/class/(.*)/course/(.*)/unit/7deebd55-1976-40a2-8e46-3b8ec5b6d388/lesson",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "second-unit-lessons-200-response.json"
+    }
+  },
+  {
     "description": "Gets lessons for any class or course",
     "request": {
       "url": "^/gooruapi/rest/v3/class/(.*)/course/(.*)/unit/(.*)/lesson",

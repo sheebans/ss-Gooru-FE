@@ -20,6 +20,10 @@ export default Ember.Route.extend({
 
   beforeModel: function() {
     // TODO: authenticate session with ember-simple-auth, if not send to log in
+  },
+
+  setupController: function(controller){
+    controller.get('classController').selectMenuItem('analytics.performance');
   }
 
 });

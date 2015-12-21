@@ -46,14 +46,14 @@ export default Ember.Route.extend({
     /**
      * Triggered when a class menu item is selected
      * @param {string} item
-     * @param {boolean} transition indicates if it is necessary to transition
      */
-    selectMenuItem: function(item, transition = true){
+    selectMenuItem: function(item){
       const route = this;
-      const currentMenuItem = route.get("controller.menuItem");
+      const controller = route.get("controller");
+      const currentMenuItem = controller.get("menuItem");
+      controller.selectMenuItem(item);
 
-      route.set("controller.menuItem", item);
-      if (currentMenuItem !== item && transition) {
+      if (currentMenuItem !== item) {
         route.transitionTo('class.' + item);
       }
     }

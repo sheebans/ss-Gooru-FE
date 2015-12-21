@@ -36,6 +36,24 @@
     }
   },
   {
+    "description": "Any assessment",
+    "request": {
+      "url": "^/gooruapi/rest/v3/collection/(.+)",
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "all-resource-types-collection-200-response.json"
+    }
+  },
+  {
     "description": "Gets the rating for any resource type",
     "request": {
       "url": "^/gooruapi/rest/v2/content/(.*)/rating/star$",
