@@ -18,10 +18,11 @@ test('Test for performance summary on valid unit values', function(assert) {
         score:75,
         completionDone: 0,
         completionTotal: 1,
-        timeSpent: 3,
+        timeSpent: 4852359,
         ratingScore: 0,
         attempts: 2,
-       isNotCompleted: true
+        isNotCompleted: true,
+        displayableTimeSpent: "1.35h"
       });
 
   this.set('performance', performance);
@@ -35,18 +36,19 @@ test('Test for performance summary on valid unit values', function(assert) {
 
   T.exists(assert, $performanceSummary, 'Missing performance summary');
 
-  const $scoreSummary = $component.find(".scoreSummary .description");
+  const $scoreSummary = $component.find(".score .description");
   T.exists(assert, $scoreSummary, 'Missing Score summary');
 
 
-  const $completionSummary = $component.find(".completionSummary .description");
+  const $completionSummary = $component.find(".completion .description");
   T.exists(assert, $completionSummary, 'Missing Completion summary');
 
 
-  const $timeSpentSummary = $component.find(".timeSpentSummary p");
-  assert.equal(T.text($timeSpentSummary), "3h", "Wrong time spent text");
+  const $timeSpentSummary = $component.find(".timeSpent p");
 
-  const $attemptSummary = $component.find(".attemptSummary p");
+  assert.equal(T.text($timeSpentSummary), "1.35h", "Wrong time spent text "+$timeSpentSummary.text());
+
+  const $attemptSummary = $component.find(".attempts p");
   assert.equal(T.text($attemptSummary), "2", "Wrong attempts text");
 });
 
@@ -63,25 +65,46 @@ test('Test for performance summary on invalid unit values', function(assert) {
   this.set('performance', performance);
 
 
-  this.render(hbs`{{class.analytics.performance.gru-performance-summary performance=performance}}`);
+  this.render(hbs`{{class.analytics.performance.gru-performance-summary performance=performance selectedOption='scores'}}`);
 
   const $component = this.$(); //component dom element
 
-  const $scoreSummary = $component.find(".scoreSummary p");
-  console.dir($scoreSummary);
+  const $scoreSummary = $component.find(".score p");
   assert.equal(T.text($scoreSummary), "N/A", "Wrong score text");
 
-  const $completionSummary = $component.find(".completionSummary span");
+  const $completionSummary = $component.find(".completion span");
   T.exists(assert, $completionSummary, 'Missing Completion summary checkmark');
 
-  const $reactionSummary = $component.find(".reactionSummary p");
+  const $reactionSummary = $component.find(".reaction p");
   assert.equal(T.text($reactionSummary), "–", "Wrong reaction summary text");
 
-  const $timeSpentSummary = $component.find(".timeSpentSummary p");
-  assert.equal(T.text($timeSpentSummary), "h", "Wrong time spent text");
+  const $timeSpentSummary = $component.find(".timeSpent p");
+  assert.equal(T.text($timeSpentSummary), "", "Wrong time spent text");
 
-  const $attemptSummary = $component.find(".attemptSummary p");
+  const $attemptSummary = $component.find(".attempts p");
   assert.equal(T.text($attemptSummary), "–", "Wrong attempt summary text");
 
 });
 
+test('Test for performance summary on invalid unit values', function(assert) {
+  const performance = Ember.Object.create(
+    {
+      title: "Quiz :: Indian History",
+      type: "performance/student-performance",
+      completionTotal: 1,
+      ratingScore: 0,
+      isNotCompleted: false
+    });
+
+  this.set('performance', performance);
+
+
+  this.render(hbs`{{class.analytics.performance.gru-performance-summary performance=performance selectedOption='reaction'}}`);
+
+  const $component = this.$(); //component dom element
+
+  const $reactionSummary = $component.find(".reaction.selected");
+  T.exists(assert, $reactionSummary, 'Missing Completion summary checkmark');
+
+
+});

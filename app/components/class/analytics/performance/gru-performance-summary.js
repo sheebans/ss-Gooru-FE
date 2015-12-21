@@ -7,8 +7,9 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
   tagName: 'ul',
-  classNames:['gru-performance-summary', 'row'],
-
+  classNames:['gru-performance-summary'],
+  selectedOption: null,
+  performance:null,
   // -------------------------------------------------------------------------
   // Actions
 
@@ -28,26 +29,31 @@ export default Ember.Component.extend({
 
     for(let i=transform_styles.length;i>0;i--) {
 
-      element.find('.scoreSummary .circle .fill, .scoreSummary .circle .mask.full').css(transform_styles[i-1],
+      element.find('.score .circle .fill, .scoreSummary .circle .mask.full').css(transform_styles[i-1],
         'rotate(' + rotations.scoreRotation + 'deg)');
-      element.find('.scoreSummary .circle .fill.fix').css(transform_styles[i-1],
+      element.find('.score .circle .fill.fix').css(transform_styles[i-1],
         'rotate(' + rotations.scoreFixRotation + 'deg)');
 
-      element.find('.completionSummary .circle .fill, .completionSummary .circle .mask.full').css(transform_styles[i-1],
+      element.find('.completion .circle .fill, .completion .circle .mask.full').css(transform_styles[i-1],
         'rotate(' + rotations.completionRotation + 'deg)');
-      element.find('.completionSummary .circle .fill.fix').css(transform_styles[i-1],
+      element.find('.completion .circle .fill.fix').css(transform_styles[i-1],
         'rotate(' + rotations.completionFixRotation + 'deg)');
     }
-
-
+    this.$().find('.'+this.get('selectedOption')).addClass('selected');
   },
   // -------------------------------------------------------------------------
   // Properties
 
   // -------------------------------------------------------------------------
   // Observers
+  /**
+   * Triggered when we change the selectedOption attribute
+   */
 
-
+  selectedOptionChanged: Ember.observer('selectedOption', function() {
+    this.$().find('.selected').removeClass('selected');
+    this.$().find('.'+this.get('selectedOption')).addClass('selected');
+  }),
   // -------------------------------------------------------------------------
   // Methods
   /**

@@ -16,7 +16,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['gru-scale-indicator'],
+  classNames: ['gru-scale-indicator']
 
   // -------------------------------------------------------------------------
   // Actions

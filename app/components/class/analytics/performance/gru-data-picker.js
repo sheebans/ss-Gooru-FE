@@ -60,7 +60,7 @@ export default Ember.Component.extend({
     'selected':false,
     'readOnly':false
   }),Ember.Object.create({
-    'value': 'time',
+    'value': 'timeSpent',
     'selected':false,
     'readOnly':false
   }),Ember.Object.create({

@@ -6,7 +6,7 @@
     "collectionsViewed": 0,
     "type": "unit",
     "url": null,
-    "totalStudyTime": 5,
+    "totalStudyTime": 4852359,
     "title": "Quiz :: Indian History",
     "thumbnail": null,
     "sequence": 1,
@@ -20,7 +20,7 @@
     "collectionsViewed": 0,
     "type": "unit",
     "url": null,
-    "totalStudyTime": 20,
+    "totalStudyTime": 12312,
     "title": "Quiz :: Indian History 2",
     "thumbnail": null,
     "sequence": 2,
@@ -28,21 +28,21 @@
     "questionType": null,
     "assessmentsAttempted": 0
   },
-    {
-      "collectionCount": 0,
-      "gooruOId": "2619777a-45fa-4bfe-b800-40b2ab158c7b",
-      "assessmentCount": 0,
-      "collectionsViewed": 0,
-      "type": "unit",
-      "url": null,
-      "totalStudyTime": 0,
-      "title": "Quiz :: Indian History 3",
-      "thumbnail": null,
-      "sequence": 2,
-      "scoreInPercentage": 25,
-      "questionType": null,
-      "assessmentsAttempted": 0
-    }
+  {
+    "collectionCount": 0,
+    "gooruOId": "2619777a-45fa-4bfe-b800-40b2ab158c7b",
+    "assessmentCount": 0,
+    "collectionsViewed": 0,
+    "type": "unit",
+    "url": null,
+    "totalStudyTime": 0,
+    "title": "Quiz :: Indian History 3",
+    "thumbnail": null,
+    "sequence": 2,
+    "scoreInPercentage": 25,
+    "questionType": null,
+    "assessmentsAttempted": 0
+  }
   ],
   "message": null,
   "paginate": null

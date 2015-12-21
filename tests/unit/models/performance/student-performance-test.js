@@ -72,3 +72,36 @@ test('hasStarted test on false', function(assert) {
   assert.equal(model.get('hasStarted'), false);
 
 });
+test('displayableTimeSpent test on more than 1h', function(assert) {
+  assert.expect(1);
+
+  let model = this.subject();
+
+  Ember.run(function(){
+    model.set('timeSpent', 23452351);
+  });
+  assert.equal(model.get('displayableTimeSpent'), '6.51h');
+
+});
+test('displayableTimeSpent test on less than 1h', function(assert) {
+  assert.expect(1);
+
+  let model = this.subject();
+
+  Ember.run(function(){
+    model.set('timeSpent', 2345235);
+  });
+  assert.equal(model.get('displayableTimeSpent'), '39m');
+
+});
+test('displayableTimeSpent test on less than 1m', function(assert) {
+  assert.expect(1);
+
+  let model = this.subject();
+
+  Ember.run(function(){
+    model.set('timeSpent', 23452);
+  });
+  assert.equal(model.get('displayableTimeSpent'), '23s');
+
+});

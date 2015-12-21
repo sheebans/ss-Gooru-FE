@@ -1,4 +1,4 @@
-    <li class='scoreSummary'>
+    <li class='score'>
       {{#if performance.score}}
           <div class="description">
               <div class="radial-progress">
@@ -19,7 +19,7 @@
       {{/if}}
 
     </li>
-    <li class="completionSummary">
+    <li class="completion">
       {{#if performance.isNotCompleted}}
           <div class="description">
               <div class="radial-progress">
@@ -40,10 +40,12 @@
       {{/if}}
 
     </li>
-    <li class="timeSpentSummary">
-        <p>{{performance.timeSpent}}h</p>
+    <li class="timeSpent">
+        <p>
+          {{performance.displayableTimeSpent}}
+        </p>
     </li>
-    <li class="reactionSummary">
+    <li class="reaction">
       {{#if performance.reaction}}
           <span class="reactionSummary"></span>
       {{else}}
@@ -51,7 +53,7 @@
       {{/if}}
 
     </li>
-    <li class="attemptSummary">
+    <li class="attempts">
       {{#if performance.attempts}}
           <p>{{performance.attempts}}</p>
       {{else}}

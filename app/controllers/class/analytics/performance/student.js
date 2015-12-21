@@ -30,8 +30,7 @@ export default Ember.Controller.extend({
     },
 
     optionsChange:function(options){
-      //TO DO
-      Ember.log(options);
+      this.set('selectedOption',options[0].get("value"));
     },
 
     /**
@@ -83,6 +82,12 @@ export default Ember.Controller.extend({
    * @property {Class}
    */
   "performances": null,
+
+  /**
+   * The selected option from the data picker.
+   * @property {Class}
+   */
+  selectedOption: 'score',
 
   /**
    * The filterBy selected
