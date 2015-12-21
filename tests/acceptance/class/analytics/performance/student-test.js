@@ -98,14 +98,16 @@ test('View Full Screen and Exit Full Screen', function(assert) {
 
     click($viewFullScreen); //enter full screen mode
     andThen(function() {
-      const $navigation = find(".controller div.navigation.hide");
+      T.exists(assert, $performanceContainer.find("div.navigation.hide"), "Navigation should be hide");
+      const $navigation = find(".analytics-performance-student div.navigation.hide");
 
       T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.exit-full-screen"), "Button should be on exit full screen mode");
       T.exists(assert, $navigation, "Navigation Menu should be hidden");
 
       click($viewFullScreen); //exit full screen mode
       andThen(function() {
-        const $navigation = find(".controller div.navigation.show");
+        T.exists(assert, $performanceContainer.find("div.navigation.show"), "Navigation should be show");
+        const $navigation = find(".analytics-performance-student div.navigation.show");
         T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.view-full-screen"), "Button should be on view full screen mode");
         T.exists(assert, $navigation, "Navigation Menu should be visible");
       });
@@ -124,14 +126,16 @@ test('Exit Full Screen by pressing Esc', function(assert) {
 
     click($viewFullScreen); //enter full screen mode
     andThen(function() {
-      var $navigation = find(".controller div.navigation.hide");
+      T.exists(assert, $performanceContainer.find("div.navigation.hide"), "Navigation should be hide");
+      var $navigation = find(".analytics-performance-student div.navigation.hide");
 
       T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.exit-full-screen"), "Button should be on exit full screen mode");
       T.exists(assert, $navigation, "Navigation Menu should be hidden");
 
       keyEvent($performanceContainer, 'keyup', KEY_CODES.ESCAPE); //exit full screen by pressing ESC
       andThen(function() {
-        $navigation = find(".controller div.navigation.show");
+        T.exists(assert, $performanceContainer.find("div.navigation.show"), "Navigation should be show");
+        $navigation = find(".analytics-performance-student div.navigation.show");
         T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.view-full-screen"), "Button should be on view full screen mode");
         T.exists(assert, $navigation, "Navigation Menu should be show");
       });
