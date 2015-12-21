@@ -31,7 +31,8 @@ export default Ember.Component.extend({
   onSortChange: null,
   /**
    * List of  metrics to be displayed by the component
-   * @sortType {int} 1 asc, -1 desc, 0 not sort
+   * @sorted {Boolean}
+   * @isAsc {Boolean}
    * @constant {Array}
    */
   metrics: Ember.A([Ember.Object.create({
