@@ -44,10 +44,5 @@ export default Ember.Route.extend({
       route.transitionTo('class.analytics.performance.student',
         { queryParams: route.paramsFor("class.analytics.performance.student")});
     }
-  },
-
-  setupController: function(){
-    this.send("selectMenuItem", 'analytics.performance', false);
   }
-
 });

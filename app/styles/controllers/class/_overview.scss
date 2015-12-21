@@ -30,10 +30,12 @@
         margin: 0 15px;
       }
     }
-  }
 
-  .locate-me {
-    float: right;
+    .locate,
+    .edit-content {
+      float: right;
+      margin: 15px 20px;
+    }
   }
 
   .gru-accordion-course {
@@ -132,7 +134,7 @@
             > img {
               position: absolute;
               top: -2px;
-              left: 25px;
+              left: 35px;
               height: 30px;
               width: 42px;
               border: 1px solid $gray-light;
@@ -144,7 +146,7 @@
 
             .panel-title {
               padding-left: 30px;
-              margin-left: 50px;
+              margin-left: 60px;
 
               @media (min-width: $screen-md) {
                 padding-left: 45px;
