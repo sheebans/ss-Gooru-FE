@@ -341,6 +341,11 @@ export default {
         "assessment": "View Assessment",
         "collection": "View Collection",
         "both": "View Both"
+      },
+      "teacher": {
+        "metrics-table": {
+          "average": "Average"
+        }
       }
     },
     "mastery": {
@@ -361,5 +366,11 @@ export default {
     "time-spent":"Time Spent",
     "reactions":"Reactions",
     "attempts":"Attempts"
+  },
+  "gru-metrics-sub-header":{
+    "name":"Name",
+    "score": "Score",
+    "completion":"Completion",
+    "study-time":"Study Time",
   }
 };
