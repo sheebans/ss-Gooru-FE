@@ -100,7 +100,7 @@ test('View Full Screen and Exit Full Screen', function(assert) {
 
       T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.exit-full-screen"), "Button should be on exit full screen mode");
 
-      const $navigation = find(".controller div.navigation.hide");
+      const $navigation = find(".analytics-performance-teacher div.navigation.hide");
 
       T.exists(assert, $navigation, "Navigation Menu should be hide");
 
@@ -110,7 +110,7 @@ test('View Full Screen and Exit Full Screen', function(assert) {
         T.exists(assert, $performanceContainer.find("div.navigation.show"), "Navigation should be show");
         T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.view-full-screen"), "Button should be on view full screen mode");
 
-        const $navigation = find(".controller div.navigation.show");
+        const $navigation = find(".analytics-performance-teacher div.navigation.show");
 
         T.exists(assert, $navigation, "Navigation Menu should be show");
 
@@ -124,7 +124,7 @@ test('View Full Screen and Exit Full Screen', function(assert) {
               T.exists(assert, $performanceContainer.find("div.navigation.show"), "Navigation should be show");
               T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.view-full-screen"), "Button should be on view full screen mode");
 
-              const $navigation = find(".controller div.navigation.show");
+              const $navigation = find(".analytics-performance-teacher div.navigation.show");
 
               T.exists(assert, $navigation, "Navigation Menu should be show");
             });

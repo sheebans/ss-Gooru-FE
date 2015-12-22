@@ -355,7 +355,7 @@ export default {
   "gru-data-picker":{
     "score": "Score",
     "completion":"Completion",
-    "time":"Time",
+    "timeSpent":"Time",
     "study-time":"Study Time",
     "reaction":"Reaction",
     "attempt":"Attempt"

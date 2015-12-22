@@ -75,11 +75,10 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
     const performanceData = this.createDataMatrix(model.headers, model.classPerformanceData);
-    console.log('p ', performanceData);
-    console.log('headers ', model.headers);
     controller.set("performanceData", performanceData);
     controller.set("headers", model.headers);
-   },
+    controller.get('classController').selectMenuItem('analytics.performance');
+  },
 
   /**
    * Return data matrix by user
