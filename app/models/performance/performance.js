@@ -41,6 +41,21 @@ export default DS.Model.extend({
   attempts: DS.attr('number'),
 
   /**
+   *  @property {boolean} Whether the unit is completed or not.
+   */
+  isNotCompleted: Ember.computed('completionDone', 'completionTotal', function() {
+    return (this.get('completionDone') !== this.get('completionTotal'));
+  }),
+
+  completionValue: Ember.computed('completionDone', 'completionTotal', function() {
+    return (this.get('completionDone') * 100 / this.get('completionTotal'));
+  }),
+
+  hasStarted: Ember.computed('timeSpent', function () {
+    return (this.get('timeSpent')>0);
+  }),
+
+  /**
    * TODO: This is a temporal computed property. This will be removed soon.
    *  @property {String} Removes the dash from the id property in case it has one.
    */
