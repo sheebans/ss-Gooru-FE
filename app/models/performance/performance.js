@@ -55,6 +55,21 @@ export default DS.Model.extend({
     return (this.get('timeSpent')>0);
   }),
 
+  displayableTimeSpent: Ember.computed('timeSpent',function(){
+    let timeSpentSecs = Math.round(this.get('timeSpent')/(1000)%60);
+    let timeSpentMins = Math.round(this.get('timeSpent')/(1000*60)%60);
+    let timeSpentHours = (this.get('timeSpent')/(1000*60*60)%24).toFixed(2);
+    if(timeSpentHours<1){
+      if(timeSpentMins<1){
+        return timeSpentSecs+'s';
+      }else{
+        return timeSpentMins+'m';
+      }
+    }else{
+      return timeSpentHours+'h';
+    }
+  }),
+
   /**
    * TODO: This is a temporal computed property. This will be removed soon.
    *  @property {String} Removes the dash from the id property in case it has one.

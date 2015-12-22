@@ -48,7 +48,6 @@ export default Ember.Service.extend(StoreMixin, {
     const service = this;
     var studentPerformanceData = service.createStudentPerformanceData('unit', options.users);
     var response = service.createClassPerformanceObject(studentPerformanceData);
-
     return DS.PromiseObject.create({
       promise: Ember.RSVP.resolve(response)
     });
@@ -66,27 +65,23 @@ export default Ember.Service.extend(StoreMixin, {
   createPerformanceData: function(type, userId, ids = []) {
     const service = this;
     var response = Ember.A([]);
-
     Ember.$.each(ids, function(index, id) {
       // TODO: This is just a temporal solution (hack)
       // This ID value is composed to avoid the Ember Store exception about repeated IDs. This ID should be
       // split to get the real ID value.
       response.push(service.createPerformanceObject(id, userId, type));
     });
-
     return response;
   },
 
   createStudentPerformanceData: function(type, users = []) {
     const service = this;
     var response = Ember.A([]);
-
     Ember.$.each(users, function(index, user) {
       var userData = service.createUserObject(user.id, 'username-' + user.id, 'FirstName-' + user.id, 'LastName-' + user.id);
       var performanceData = service.createPerformanceData(type, user.id, user.units);
       response.push(service.createStudentPerformanceObject(userData, performanceData));
     });
-
     return response;
   },
 
