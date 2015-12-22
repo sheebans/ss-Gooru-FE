@@ -139,7 +139,10 @@ test('it renders correctly when there are units', function(assert) {
 
   this.set('currentClass', currentClass);
 
-  this.render(hbs`{{class/overview/gru-accordion-course currentClass=currentClass}}`);
+  this.render(
+    hbs`{{class/overview/gru-accordion-course
+          currentClass=currentClass
+          userLocation=''}}`);
 
   const $component = this.$('.gru-accordion-course');
   assert.ok($component.length, 'Component does not have the component class');

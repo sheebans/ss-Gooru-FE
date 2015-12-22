@@ -1,4 +1,4 @@
-<ol class="panel-group" id="{{accordionId}}" role="tablist" aria-multiselectable="true">
+<ol class="panel-group" role="tablist" aria-multiselectable="true">
   {{#if items.isPending}}
     {{three-bounce-spinner}}
   {{else}}
@@ -9,8 +9,10 @@
           currentClass=currentClass
           model=item
           index=index
-          belongsTo=accordionId
-          onSelectItem=(action 'selectItem') }}
+      onSelectResource=(action 'selectResource')
+      onLocationUpdate=(action 'updateLocation')
+      currentResource=currentResource
+      parsedLocation=parsedLocation }}
 
     {{else}}
       <li>{{t "common.contentUnavailable"}}</li>

@@ -29,7 +29,7 @@ test('Data Picker Layout', function(assert) {
   const $optionCompletion = $component.find(".option-list li span.completion");
   T.exists(assert, $optionCompletion, 'Missing Completion option');
 
-  const $optionTime = $component.find(".option-list li span.time");
+  const $optionTime = $component.find(".option-list li span.timeSpent");
   T.exists(assert, $optionTime, 'Missing Time option');
 
   const $optionReaction = $component.find(".option-list li span.reaction");

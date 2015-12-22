@@ -29,12 +29,16 @@
   }
 
   .gru-filters {
+    margin: 0;
+    border-top: 1px solid $color-gray-lighter-3;
     .data-picker {
+      padding: 0;
       min-height: 50px;
     }
     .performance-scale {
-      background-color: cornflowerblue;
-      min-height: 50px;
+      height: 50px;
+      display: table;
+      padding: 0;
     }
   }
 
@@ -44,5 +48,17 @@
   }
   .better-experience{
     margin-bottom:0px;
+  }
+  .gru-data-picker{
+    .option-picker{
+      .option-list{
+        li{
+          span{
+            float:left;
+            padding: 1px;
+          }
+        }
+      }
+    }
   }
 }

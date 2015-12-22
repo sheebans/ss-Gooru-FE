@@ -1,0 +1,124 @@
+$circle-size: 20px;
+$circle-background: #DEDEDE;
+$circle-color: #1076bb;
+.performance-content {
+  >ul {
+    border:1px solid;
+    height: 105px;
+    padding: 20px 0;
+    margin: 10px;
+    @include respond-to(xs) {
+      padding: 0;
+    }
+  }
+  ul{
+    list-style: none;
+    li{
+      float:left;
+      display:inline-block;
+      height: 100%;
+      padding: 0;
+      &.performanceUnitTitle{
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        -webkit-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-align-content: stretch;
+        align-content: stretch;
+        display: -webkit-flex;
+        display: flex;
+      }
+      p{
+        margin: 0;
+      }
+    }
+  }
+}
+  ul.gru-performance-summary, ul.performance-headers{
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-align-content: stretch;
+    align-content: stretch;
+    display: -webkit-flex;
+    display: flex;
+    padding: 0;
+    text-align: center;
+    height: 50%;
+    @include respond-to(xs) {
+      height: 100%;
+    }
+    li{
+      width: 19%;
+      -webkit-order: 0;
+      order: 0;
+      -webkit-flex-grow: 1;
+      flex-grow: 1;
+      -webkit-flex-shrink: 1;
+      flex-shrink: 1;
+      -webkit-flex-basis: auto;
+      flex-basis: auto;
+      -webkit-align-self: auto;
+      align-self: auto;
+      display: inline-block;
+    }
+  }
+  ul.gru-performance-summary{
+    @include respond-to(xs){
+      border-left: 1px solid;
+    }
+    li{
+      height: $circle-size;
+      @include respond-to(xs){
+        display: none;
+      }
+      &.selected{
+        @include respond-to(xs){
+          display: inline-block;
+        }
+      }
+      .description{
+        height: $circle-size;
+        display: inline-block;
+        margin: 0 auto;
+        p{
+          display: inline-block;
+          margin-left: 10px;
+        }
+        .radial-progress {
+          float:left;
+          width: $circle-size;
+          height: $circle-size;
+          background-color: $circle-background;
+          border-radius: 100%;
+          .circle {
+            .mask, .fill {
+              width: $circle-size;
+              height: $circle-size;
+              position: absolute;
+              border-radius: 50%;
+              -webkit-backface-visibility: hidden;
+            }
+            .mask {
+              clip: rect(0px, $circle-size, $circle-size, $circle-size/2);
+              .fill {
+                clip: rect(0px, $circle-size/2, $circle-size, 0px);
+                background-color: $circle-color;
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+}

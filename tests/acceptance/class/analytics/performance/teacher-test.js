@@ -32,10 +32,10 @@ test('Layout', function(assert) {
     T.exists(assert, $performanceContainer.find(".gru-filters .data-picker"), "Missing data picker");
     T.exists(assert, $performanceContainer.find(".gru-filters .data-picker .gru-data-picker"), "Missing data picker");
     T.exists(assert, $performanceContainer.find(".gru-filters .performance-scale"), "Missing performance scale area");
+    T.exists(assert, $performanceContainer.find(".gru-filters .performance-scale .gru-scale-indicator"), "Missing performance scale indicator component");
     T.exists(assert, $performanceContainer.find(".gru-content"), "Missing performance content");
     T.exists(assert, $performanceContainer.find(".controls .teacher-breadcrumb .gru-breadcrumb"), "Missing performance breadcrumb component");
     T.exists(assert, $performanceContainer.find(".controls .teacher-actions .gru-actions-bar"), "Missing performance actions component");
-
 
     const $classMenu = find(".controller.class .gru-class-navigation .class-menu");
     T.exists(assert, $classMenu.find(".analytics.selected"), "Missing selected analytics item");
@@ -77,6 +77,59 @@ test('When view by both option is selected', function(assert) {
     andThen(function() {
       assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher?filterBy=both');
 
+    });
+  });
+});
+
+test('View Full Screen and Exit Full Screen', function(assert) {
+  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher');
+
+    const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher");
+    const $viewFullScreen = $performanceContainer.find(".controls .gru-actions-bar .full-screen");
+
+    T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.view-full-screen"), "Button should be on view full screen mode");
+
+    click($viewFullScreen);
+
+    andThen(function() {
+      T.exists(assert, $performanceContainer.find("div.navigation.hide"), "Navigation should be hide");
+
+      T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.exit-full-screen"), "Button should be on exit full screen mode");
+
+      const $navigation = find(".analytics-performance-teacher div.navigation.hide");
+
+      T.exists(assert, $navigation, "Navigation Menu should be hide");
+
+      click($viewFullScreen);
+
+      andThen(function() {
+        T.exists(assert, $performanceContainer.find("div.navigation.show"), "Navigation should be show");
+        T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.view-full-screen"), "Button should be on view full screen mode");
+
+        const $navigation = find(".analytics-performance-teacher div.navigation.show");
+
+        T.exists(assert, $navigation, "Navigation Menu should be show");
+
+        click($viewFullScreen);
+        andThen(function() {
+          T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.exit-full-screen"), "Button should be on exit full screen mode");
+          click($navigation);
+          andThen(function() {
+            keyEvent($performanceContainer, 'keyup', 27);
+            andThen(function() {
+              T.exists(assert, $performanceContainer.find("div.navigation.show"), "Navigation should be show");
+              T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.view-full-screen"), "Button should be on view full screen mode");
+
+              const $navigation = find(".analytics-performance-teacher div.navigation.show");
+
+              T.exists(assert, $navigation, "Navigation Menu should be show");
+            });
+          });
+        });
+      });
     });
   });
 });

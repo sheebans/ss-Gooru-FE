@@ -325,7 +325,8 @@ export default {
   },
   "class.overview":{
     "title":"Course map",
-    "locate":"Locate Me"
+    "locate":"Locate Me",
+    "editContent":"Edit Content"
   },
   "class.analytics": {
     "performance": {
@@ -336,6 +337,7 @@ export default {
         "edit": "Edit Content",
         "download": "Download",
         "fullScreen": "View Full Screen",
+        "exitFullScreen": "Exit Full Screen",
         "assessment": "View Assessment",
         "collection": "View Collection",
         "both": "View Both"
@@ -348,9 +350,16 @@ export default {
   "gru-data-picker":{
     "score": "Score",
     "completion":"Completion",
-    "time":"Time",
+    "timeSpent":"Time",
     "study-time":"Study Time",
     "reaction":"Reaction",
     "attempt":"Attempt"
+  },
+  "gru-performance-summary":{
+    "scores": "Scores",
+    "completion":"Completion",
+    "time-spent":"Time Spent",
+    "reactions":"Reactions",
+    "attempts":"Attempts"
   }
 };
