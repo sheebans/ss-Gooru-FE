@@ -4,18 +4,12 @@ export function initialize(app) {
 
   var historyCache = Ember.Object.extend({
     /**
-     * @property {string} the last route
+     * @property {*} the last route
      */
-    lastRoute: null,
-
-    /**
-     * @property {string} the current route
-     */
-    currentRoute: null,
-    /**
-     * @property {bool} indicates if there is history
-     */
-    empty: Ember.computed.not("currentRoute")
+    lastRoute: Ember.Object.create({
+      url: null,
+      name: null
+    })
   });
 
   Ember.Route.reopen({
@@ -24,32 +18,32 @@ export function initialize(app) {
      * This event handlers sets an specific class to the body everytime a route is activated
      */
     addRouteSpecificClass: function() {
-      var currentRoute = this.routeName;
-      Ember.$('body').attr('class', currentRoute.replace(/\./g, '_'));
-    }.on('activate'),
-
-    /**
-     * This event handlers saves the current route when it is activated
-     */
-    saveCurrentRoute: function() {
-      var currentRoute = this.routeName;
-      this.get('history').set('currentRoute', currentRoute);
+      const route = this;
+      const currentRouteName = route.routeName;
+      Ember.$('body').attr('class', currentRouteName.replace(/\./g, '_'));
     }.on('activate'),
 
     /**
      * When leaving a route this handler save the previous route so it can be accessed from history
      */
     saveLastRoute: function() {
-      var savedRoute = this.get('history.lastRoute');
-      var currentRoute = this.routeName;
-      var parentRouteIdx = savedRoute && savedRoute.indexOf(currentRoute);
+      const route = this;
+      const currentRouteName = route.routeName;
+      const currentRouteUrl = route.router.get("url");
 
-      if (!currentRoute.match(/\.loading/) &&
-        (!savedRoute || parentRouteIdx === -1)) {
+      const lastRoute = this.get("history.lastRoute");
+
+      const savedRouteName = lastRoute.get('name');
+      const parentRouteIdx = savedRouteName && savedRouteName.indexOf(currentRouteName);
+
+      if (!currentRouteName.match(/\.loading/) &&
+        (!savedRouteName || parentRouteIdx === -1)) {
         // On deactivate, save the "child-most" route
         // For example: on deactive save the route "search.collection", but "search" (the parent route)
         // will not be saved
-        this.get('history').set('lastRoute', currentRoute);
+        lastRoute.set('name', currentRouteName);
+        lastRoute.set('url', currentRouteUrl);
+        this.get('history').set('lastRoute', lastRoute);
       }
     }.on('deactivate'),
 

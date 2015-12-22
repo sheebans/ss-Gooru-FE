@@ -325,7 +325,8 @@ export default {
   },
   "class.overview":{
     "title":"Course map",
-    "locate":"Locate Me"
+    "locate":"Locate Me",
+    "editContent":"Edit Content"
   },
   "class.analytics": {
     "performance": {
@@ -342,7 +343,7 @@ export default {
         "both": "View Both"
       },
       "teacher": {
-        "metrics-table": {
+        "metricsTable": {
           "average": "Average"
         }
       }
@@ -354,7 +355,7 @@ export default {
   "gru-data-picker":{
     "score": "Score",
     "completion":"Completion",
-    "time":"Time",
+    "timeSpent":"Time",
     "study-time":"Study Time",
     "reaction":"Reaction",
     "attempt":"Attempt"

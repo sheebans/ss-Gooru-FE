@@ -68,6 +68,6 @@ export default Ember.Route.extend({
 
     controller.set('userLocation', userLocation);
 
-    this.send('selectMenuItem', 'overview', false);
+    controller.get('classController').selectMenuItem('info');
   }
 });

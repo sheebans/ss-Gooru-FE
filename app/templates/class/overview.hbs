@@ -8,6 +8,10 @@
         <button {{action "updateLocation" userLocation}} class="btn btn-default locate">
           {{t "class.overview.locate"}}
         </button>
+      {{else}}
+        <button {{action "editContent"}} class="btn btn-default edit-content">
+          {{t "class.overview.editContent"}}
+        </button>
       {{/if}}
     </div>
   </div>
