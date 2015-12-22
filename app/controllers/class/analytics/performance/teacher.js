@@ -65,6 +65,19 @@ export default Ember.Controller.extend({
   "class": Ember.computed.reads('classController.class'),
 
   /**
+   * The header titles
+   * @property {Headers[]}
+   */
+  headers: null,
+
+  /**
+   * The performanceData by user
+   * @property {performanceData[]}
+   */
+
+  performanceData: null,
+
+  /**
    * The filterBy selected
    * @property {String}
    */
