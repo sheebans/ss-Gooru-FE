@@ -24,7 +24,7 @@ export default Ember.Component.extend({
       sortChange:function(option){
         console.log(option);
       }
-    }
+    },
   // -------------------------------------------------------------------------
   // Events
 
