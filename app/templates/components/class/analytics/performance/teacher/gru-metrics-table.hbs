@@ -1,0 +1,84 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <td></td>
+      <th class="header" colspan="3" scope="col">
+        {{t "class.analytics.performance.teacher.metricsTable.average"}}
+      </th>
+      {{#each headers as |header|}}
+        <th id="{{{header.id}}}" colspan="3" class="header" scope="col">
+          {{{header.title}}}
+        </th>
+      {{/each}}
+    </tr>
+    <tr>
+      <th class="header" scope="row">
+        {{t "class.analytics.performance.teacher.metricsTable.average"}}
+      </th>
+      <th class="good" scope="col">
+        70%
+      </th>
+      <th class="bad" scope="col">
+        10%
+      </th>
+      <th class="very-good" scope="col">
+        80%
+      </th>
+      <th class="very-good" scope="col">
+        90%
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="sub-header hidden-xs">
+      <th>
+        Name <span class="fa fa-sort-down"></span>
+      </th>
+      <th>
+        Name <span class="fa fa-sort-down"></span>
+      </th>
+      <th>
+        Name <span class="fa fa-sort-down"></span>
+      </th>
+      <th>
+        Name <span class="fa fa-sort-down"></span>
+      </th>
+      <th>
+        Name <span class="fa fa-sort-down"></span>
+      </th>
+    </tr>
+    {{#each performanceData as |userPerformance|}}
+      <tr>
+        <th class="header user-info" scope="row">
+          {{{userPerformance.user}}}
+        </th>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        {{#each userPerformance.performanceData as |data|}}
+          {{#if data}}
+            <td class="good">
+              {{{data.score}}}%
+            </td>
+            <td>
+              {{{data.completionDone}}}/{{{data.completionTotal}}}
+            </td>
+            <td>
+              {{{data.timeSpent}}}
+            </td>
+          {{else}}
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+          {{/if}}
+        {{/each}}
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

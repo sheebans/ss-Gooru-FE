@@ -341,6 +341,11 @@ export default {
         "assessment": "View Assessment",
         "collection": "View Collection",
         "both": "View Both"
+      },
+      "teacher": {
+        "metricsTable": {
+          "average": "Average"
+        }
       }
     },
     "mastery": {
