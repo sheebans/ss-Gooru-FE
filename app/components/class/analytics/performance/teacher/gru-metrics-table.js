@@ -27,6 +27,19 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Properties
 
+  /**
+   * The header titles
+   * @property {Headers[]}
+   */
+
+  headers: null,
+
+  /**
+   * The performanceData by user
+   * @property {performanceData[]}
+   */
+
+  performanceData: null
   // -------------------------------------------------------------------------
 
   // Methods
