@@ -11,34 +11,56 @@ export default DS.Model.extend({
    */
   studentPerformanceData: DS.hasMany('performance/student-performance', { async: true }),
 
-  calculateUnitAverageScore: function(unit) {
-    return this.calculateUnitAverage(unit, 'score');
+  calculateClassAverageScore: Ember.computed('studentPerformanceData', function() {
+    return this.calculateClassAverage('averageScore');
+  }),
+
+  calculateClassAverageCompletionDone: Ember.computed('studentPerformanceData', function() {
+    return this.calculateClassAverage('averageCompletionDone');
+  }),
+
+  calculateClassAverageTimeSpent: Ember.computed('studentPerformanceData', function() {
+    return this.calculateClassAverage('averageTimeSpent');
+  }),
+
+  calculateAverageScoreByItem: function(itemId) {
+    return this.calculateAverageByField(itemId, 'score');
   },
 
-  calculateUnitAverageCompletionDone: function(unit) {
-    return this.calculateUnitAverage(unit, 'completionDone');
+  calculateAverageCompletionDoneByItem: function(itemId) {
+    return this.calculateAverageByField(itemId, 'completionDone');
   },
 
-  calculateUnitAverageTimeSpent: function(unit) {
-    return this.calculateUnitAverage(unit, 'timeSpent');
+  calculateAverageTimeSpentByItem: function(itemId) {
+    return this.calculateAverageByField(itemId, 'timeSpent');
   },
 
-  calculateUnitAverage: function(unit, fieldName) {
+  calculateAverageByField: function(itemId, fieldName) {
     var sumValue = 0;
     var counter = 0;
-
     const studentPerformanceData = this.get('studentPerformanceData');
     if (studentPerformanceData.get('length') > 0) {
       studentPerformanceData.forEach(function (studentPerformanceItem) {
-        var performanceData = studentPerformanceItem.get('performanceData').findBy('realId', unit);
+        var performanceData = studentPerformanceItem.get('performanceData').findBy('realId', itemId);
         if (performanceData) {
           counter++;
           sumValue += performanceData.get(fieldName);
         }
       });
     }
-
     return counter > 0 ? sumValue / counter : sumValue;
+  },
+
+  calculateClassAverage: function(averageType) {
+    const studentPerformanceData = this.get('studentPerformanceData');
+    if (studentPerformanceData.get('length') > 0) {
+      var sumValue = 0;
+      studentPerformanceData.forEach(function(studentPerformanceItem) {
+        sumValue += studentPerformanceItem[averageType];
+      });
+      return sumValue / studentPerformanceData.get('length');
+    }
+    return 0;
   }
 
 });

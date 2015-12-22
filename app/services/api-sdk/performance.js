@@ -37,18 +37,14 @@ export default Ember.Service.extend(StoreMixin, {
     });
   },
 
-  findStudentPerformanceByClassAndCourse: function(userId, classId, courseId, options={}) {
-    const service = this;
-    var user = service.createUserObject(userId, 'username-' + userId, 'FirstName-' + userId, 'LastName-' + userId);
-    var performanceData = service.createPerformanceData('unit', userId, options.units);
-    var response = service.createStudentPerformanceObject(user, performanceData);
-
-    return DS.PromiseObject.create({
-      promise: Ember.RSVP.resolve(response)
-    });
-  },
-
-  findClassPerformanceByCourse: function(classId, courseId, options={}) {
+  /**
+   * Gets the class performance data for all students and units of the specific class and course.
+   * @param classId
+   * @param courseId
+   * @param options This is a temporal parameter that will be removed soon
+   * @returns {Object}
+   */
+  findClassPerformanceByClassAndCourse: function(classId, courseId, options={}) {
     const service = this;
     var studentPerformanceData = service.createStudentPerformanceData('unit', options.users);
     var response = service.createClassPerformanceObject(studentPerformanceData);

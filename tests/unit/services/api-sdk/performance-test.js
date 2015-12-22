@@ -149,39 +149,11 @@ test('findLessonPerformanceByClassAndCourseAndUnit', function (assert) {
   });
 });
 
-test('findStudentPerformanceByClassAndCourse', function (assert) {
-  const service = this.subject();
-
-  var done = assert.async();
-  Ember.run(function () {
-    const promise = service.findStudentPerformanceByClassAndCourse('the-user-id', 'the-class-id', 'the-course-id', {
-      units: ['unit-id-1', 'unit-id-2', 'unit-id-3', 'unit-id-4']
-    });
-    promise.then(function (studentPerformance) {
-      assert.ok(studentPerformance.get('averageScore') > 0, 'Wrong average score');
-      assert.ok(studentPerformance.get('averageCompletionDone') > 0, 'Wrong average completion done');
-      assert.ok(studentPerformance.get('averageTimeSpent') > 0, 'Wrong average time spent');
-      const user = studentPerformance.get('user');
-      assert.equal(user.get('id'), 'the-user-id', 'Wrong id');
-      assert.equal(user.get('username'), 'username-the-user-id', 'Wrong username');
-      assert.equal(user.get('firstName'), 'FirstName-the-user-id', 'Wrong firstName');
-      assert.equal(user.get('lastName'), 'LastName-the-user-id', 'Wrong lastName');
-      const performanceData = studentPerformance.get('performanceData');
-      assert.equal(performanceData.get('length'), 4, 'Missing student performance data');
-      const performance = performanceData.get('firstObject');
-      assert.equal(performance.get('realId'), 'unit-id-1', 'Wrong performance id');
-      assert.equal(performance.get('title'), 'Title for - unit-id-1', 'Wrong performance title');
-      assert.equal(performance.get('type'), 'unit', 'Wrong performance type');
-      done();
-    });
-  });
-});
-
-test('findClassPerformanceByCourse', function (assert) {
+test('findClassPerformanceByClassAndCourse', function (assert) {
   const service = this.subject();
   var done = assert.async();
   Ember.run(function () {
-    const promise = service.findClassPerformanceByCourse('the-class-id', 'the-course-id', {
+    const promise = service.findClassPerformanceByClassAndCourse('the-class-id', 'the-course-id', {
       users: [
         {
           id: 'user-id-1',
@@ -198,12 +170,12 @@ test('findClassPerformanceByCourse', function (assert) {
       ]
     });
     promise.then(function (classPerformance) {
-      assert.ok(classPerformance.calculateUnitAverageScore('unit-id-1') > 0, 'Wrong average score existing unit');
-      assert.ok(classPerformance.calculateUnitAverageScore('unit-id-5') === 0, 'Wrong average score non-existing unit');
-      assert.ok(classPerformance.calculateUnitAverageCompletionDone('unit-id-1') > 0, 'Wrong average completion done existing unit');
-      assert.ok(classPerformance.calculateUnitAverageCompletionDone('unit-id-5') === 0, 'Wrong average completion done non-existing unit');
-      assert.ok(classPerformance.calculateUnitAverageTimeSpent('unit-id-1') > 0, 'Wrong average time spent existing unit');
-      assert.ok(classPerformance.calculateUnitAverageTimeSpent('unit-id-5') === 0, 'Wrong average time spent non-existing unit');
+      assert.ok(classPerformance.calculateAverageScoreByItem('unit-id-1') > 0, 'Wrong average score existing unit');
+      assert.ok(classPerformance.calculateAverageScoreByItem('unit-id-5') === 0, 'Wrong average score non-existing unit');
+      assert.ok(classPerformance.calculateAverageCompletionDoneByItem('unit-id-1') > 0, 'Wrong average completion done existing unit');
+      assert.ok(classPerformance.calculateAverageCompletionDoneByItem('unit-id-5') === 0, 'Wrong average completion done non-existing unit');
+      assert.ok(classPerformance.calculateAverageTimeSpentByItem('unit-id-1') > 0, 'Wrong average time spent existing unit');
+      assert.ok(classPerformance.calculateAverageTimeSpentByItem('unit-id-5') === 0, 'Wrong average time spent non-existing unit');
       const studentPerformanceData = classPerformance.get('studentPerformanceData');
       assert.equal(studentPerformanceData.get('length'), 3, 'Missing student performance data');
       const studentPerformance = studentPerformanceData.get('firstObject');
