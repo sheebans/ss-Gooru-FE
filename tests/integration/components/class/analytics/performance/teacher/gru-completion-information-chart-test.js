@@ -1,25 +1,35 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import T from 'gooru-web/tests/helpers/assert';
 
 moduleForComponent('class/analytics/performance/teacher/gru-completion-information-chart', 'Integration | Component | class/analytics/performance/teacher/gru completion information chart', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.container.lookup('service:i18n').set("locale","en");
+  }
 });
 
-test('it renders', function(assert) {
-  
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });" + EOL + EOL +
+test('Information Chart Layout', function(assert) {
 
-  this.render(hbs`{{class/analytics/performance/teacher/gru-completion-information-chart}}`);
+  assert.expect(3);
+  const identifier =2;
+  this.set('identifier', identifier);
 
-  assert.equal(this.$().text().trim(), '');
+  this.render(hbs`{{class/analytics/performance/teacher/gru-completion-information-chart identifier=identifier}}`);
 
-  // Template block usage:" + EOL +
-  this.render(hbs`
-    {{#class/analytics/performance/teacher/gru-completion-information-chart}}
-      template block text
-    {{/class/analytics/performance/teacher/gru-completion-information-chart}}
-  `);
+  const $component = this.$(); //component dom element
+  const $completionInformationChart = $component.find(".gru-completion-information-chart");
 
-  assert.equal(this.$().text().trim(), 'template block text');
+  T.exists(assert, $completionInformationChart, 'Missing completion information chart component');
+
+  const $idChart = $completionInformationChart.find("#information-chart-"+identifier);
+
+  T.exists(assert, $idChart, 'Incorrect ID');
+
+  const $graph = $idChart.find('svg');
+
+  T.exists(assert, $graph, 'Missing Chart');
+
+
+
 });
