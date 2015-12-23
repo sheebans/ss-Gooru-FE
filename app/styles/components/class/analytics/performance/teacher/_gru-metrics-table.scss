@@ -1,15 +1,41 @@
 .gru-metrics-table {
+  //margin: 10px 0 10px 80px;
   margin: 10px 0;
+  overflow-x: scroll;
+  overflow-y: visible;
+
+  table tbody, table thead
+  {
+    display: block;
+  }
+
+  table tbody
+  {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 135px;
+  }
+
+  //.sticky-col {
+  //  left: 25px;
+  //  position: absolute;
+  //}
+
   .table {
     border: 0 !important;
-    width: auto;
+    margin: 0;
     td, th {
       width: 80px;
+      min-width: 80px;
+      max-width: 80px;
       height: 70px;
       text-align: center;
       vertical-align: middle;
       font-weight: normal;
       font-size: $font-size-small;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     thead > tr:first-child > th {
       border-top: 1px solid $color-gray-lighter-2 ;
@@ -48,7 +74,6 @@
       background-color: $gru-scale-indicator-excellent;
       color: $color-white;
     }
-
   }
 }
 
