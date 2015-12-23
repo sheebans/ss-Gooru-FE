@@ -33,6 +33,7 @@ export default {
     "signUp": "Sign Up",
     "standards": "Standards",
     "submit": "Submit",
+    "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
     "unitInitial": "U",
     "yes": "Yes"
   },
