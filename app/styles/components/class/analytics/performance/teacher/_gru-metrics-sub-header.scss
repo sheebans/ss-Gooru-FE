@@ -1,0 +1,13 @@
+.gru-metrics-table{
+  .sub-header{
+    a{
+      cursor: pointer;
+      color:$color-gray-secondary;
+      &:hover,
+      &:visited {
+        text-decoration: none;
+        color:$color-gray-secondary;
+      }
+    }
+  }
+}

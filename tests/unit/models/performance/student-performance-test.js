@@ -1,107 +1,45 @@
-import { moduleForModel, test } from 'ember-qunit';
 import Ember from 'ember';
+import { moduleForModel, test } from 'ember-qunit';
+
 
 moduleForModel('performance/student-performance', 'Unit | Model | performance/student-performance', {
   // Specify the other units that are required for this test.
-  needs: []
+  needs: ['model:performance/performance', 'model:user/user', 'model:meta', 'model:taxonomy-preference']
 });
 
-
-
-test('isNotCompleted test', function(assert) {
-  assert.expect(1);
-
-  let model = this.subject();
-
-  Ember.run(function(){
-    model.set('completionDone', 5);
-    model.set('completionTotal', 10);
+test('Student average calculations for existing units', function(assert) {
+  var store = this.store();
+  var user;
+  var performanceData = Ember.A();
+  Ember.run(function () {
+    user = store.createRecord("user/user", {id: 'user-id-1', firstName: 'FirstName', lastName: 'LastName'});
+    performanceData.pushObject(store.createRecord("performance/performance", { id: '1', score: 50, completionDone: 5, timeSpent: 1000 }));
+    performanceData.pushObject(store.createRecord("performance/performance", { id: '2', score: 75, completionDone: 10, timeSpent: 500 }));
+    performanceData.pushObject(store.createRecord("performance/performance", { id: '3', score: 100, completionDone: 15, timeSpent: 1500 }));
+  });
+  var model = this.subject({
+    user: user,
+    performanceData: performanceData
   });
 
-  assert.equal(model.get('isNotCompleted'), true);
-
+  assert.equal(model.get('averageScore'), 75);
+  assert.equal(model.get('averageCompletionDone'), 10);
+  assert.equal(model.get('averageTimeSpent'), 1000);
 });
 
-test('isNotCompleted test on Completed unit', function(assert) {
-  assert.expect(1);
-
-  let model = this.subject();
-
-  Ember.run(function(){
-    model.set('completionDone', 10);
-    model.set('completionTotal', 10);
+test('Student average calculations for non existing units', function(assert) {
+  var store = this.store();
+  var user;
+  var performanceData = Ember.A();
+  Ember.run(function () {
+    user = store.createRecord("user/user", {id: 'user-id-1', firstName: 'FirstName', lastName: 'LastName'});
+  });
+  var model = this.subject({
+    user: user,
+    performanceData: performanceData
   });
 
-  assert.equal(model.get('isNotCompleted'), false);
-
-});
-
-test('completionValue test', function(assert) {
-  assert.expect(1);
-
-  let model = this.subject();
-
-  Ember.run(function(){
-    model.set('completionDone', 5);
-    model.set('completionTotal', 10);
-  });
-  assert.equal(model.get('completionValue'), 50);
-
-});
-
-test('hasStarted test', function(assert) {
-  assert.expect(1);
-
-  let model = this.subject();
-
-  Ember.run(function(){
-    model.set('timeSpent', 12);
-  });
-  assert.equal(model.get('hasStarted'), true);
-
-});
-
-test('hasStarted test on false', function(assert) {
-  assert.expect(1);
-
-  let model = this.subject();
-
-  Ember.run(function(){
-    model.set('timeSpent', 0);
-  });
-  assert.equal(model.get('hasStarted'), false);
-
-});
-test('displayableTimeSpent test on more than 1h', function(assert) {
-  assert.expect(1);
-
-  let model = this.subject();
-
-  Ember.run(function(){
-    model.set('timeSpent', 23452351);
-  });
-  assert.equal(model.get('displayableTimeSpent'), '6.51h');
-
-});
-test('displayableTimeSpent test on less than 1h', function(assert) {
-  assert.expect(1);
-
-  let model = this.subject();
-
-  Ember.run(function(){
-    model.set('timeSpent', 2345235);
-  });
-  assert.equal(model.get('displayableTimeSpent'), '39m');
-
-});
-test('displayableTimeSpent test on less than 1m', function(assert) {
-  assert.expect(1);
-
-  let model = this.subject();
-
-  Ember.run(function(){
-    model.set('timeSpent', 23452);
-  });
-  assert.equal(model.get('displayableTimeSpent'), '23s');
-
+  assert.equal(model.get('averageScore'), 0);
+  assert.equal(model.get('averageCompletionDone'), 0);
+  assert.equal(model.get('averageTimeSpent'), 0);
 });

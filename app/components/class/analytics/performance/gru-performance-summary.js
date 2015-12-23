@@ -29,7 +29,7 @@ export default Ember.Component.extend({
 
     for(let i=transform_styles.length;i>0;i--) {
 
-      element.find('.score .circle .fill, .scoreSummary .circle .mask.full').css(transform_styles[i-1],
+      element.find('.score .circle .fill, .score .circle .mask.full').css(transform_styles[i-1],
         'rotate(' + rotations.scoreRotation + 'deg)');
       element.find('.score .circle .fill.fix').css(transform_styles[i-1],
         'rotate(' + rotations.scoreFixRotation + 'deg)');

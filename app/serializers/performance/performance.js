@@ -2,9 +2,9 @@ import Ember from 'ember';
 import DS from 'ember-data';
 
 /**
- * Lesson serializer for StudentPerformance model
+ * Lesson serializer for Performance model
  *
- * @typedef {Object} StudentPerformanceSerializer
+ * @typedef {Object} PerformanceSerializer
  */
 export default DS.JSONAPISerializer.extend({
 
@@ -24,7 +24,7 @@ export default DS.JSONAPISerializer.extend({
       Ember.$.each(results, function(index, result){
         var item = {
           id: result.gooruOId,
-          type: "performance/student-performance",
+          type: "performance/performance",
           attributes: {
             title: result.title,
             type: result.type,
