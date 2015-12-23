@@ -24,13 +24,26 @@ export default Ember.Component.extend({
       sortChange:function(option){
         console.log(option);
       }
-    }
+    },
   // -------------------------------------------------------------------------
   // Events
 
   // -------------------------------------------------------------------------
   // Properties
 
+  /**
+   * The header titles
+   * @property {Headers[]}
+   */
+
+  headers: null,
+
+  /**
+   * The performanceData by user
+   * @property {performanceData[]}
+   */
+
+  performanceData: null
   // -------------------------------------------------------------------------
 
   // Methods

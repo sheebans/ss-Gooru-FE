@@ -343,7 +343,7 @@ export default {
         "both": "View Both"
       },
       "teacher": {
-        "metrics-table": {
+        "metricsTable": {
           "average": "Average"
         }
       }

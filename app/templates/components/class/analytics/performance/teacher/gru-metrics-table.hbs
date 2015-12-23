@@ -2,25 +2,18 @@
   <thead>
     <tr>
       <td></td>
-      <th class="header" scope="col">
-        {{t "class.analytics.performance.teacher.metrics-table.average"}}
+      <th class="header" colspan="3" scope="col">
+        {{t "class.analytics.performance.teacher.metricsTable.average"}}
       </th>
-      <th id="u1" class="header" scope="col">
-        U1 Name
-      </th>
-      <th id="u2" class="header" scope="col">
-        L2 Name
-      </th>
-      <th id="u2" class="header" scope="col">
-        A3 Name
-      </th>
-      <th id="u2" class="header" scope="col">
-        C3 Name
-      </th>
+      {{#each headers as |header|}}
+        <th id="{{{header.id}}}" colspan="3" class="header" scope="col">
+          {{{header.title}}}
+        </th>
+      {{/each}}
     </tr>
     <tr>
       <th class="header" scope="row">
-        {{t "class.analytics.performance.teacher.metrics-table.average"}}
+        {{t "class.analytics.performance.teacher.metricsTable.average"}}
       </th>
       <th class="good" scope="col">
         70%
@@ -34,53 +27,50 @@
       <th class="very-good" scope="col">
         90%
       </th>
-      <th class="regular" scope="col">
-      </th>
     </tr>
   </thead>
   <tbody>
-    <tr class="sub-header">
+    <tr class="sub-header hidden-xs">
       {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange'}}
     </tr>
-    <tr>
-      <th class="header" scope="row">
-        Last, First
-      </th>
-      <td>
-        50%
-      </td>
-      <td>
-        100%
-      </td>
-      <td>
-        {{class.analytics.performance.teacher.gru-completion-information-chart
-        identifier=1
-        text="13/50"
-        completePercent=13
-        minValue=0
-        maxValue=50}}
-      </td>
-      <td>
-      </td>
-      <td>
-      </td>
-    </tr>
-    <tr>
-      <th class="header" scope="row">
-        Last, First
-      </th>
-      <td>
-        50%
-      </td>
-      <td>
-        100%
-      </td>
-      <td>
-      </td>
-      <td>
-      </td>
-      <td>
-      </td>
-    </tr>
+    {{#each performanceData as |userPerformance|}}
+      <tr>
+        <th class="header user-info" scope="row">
+          {{{userPerformance.user}}}
+        </th>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        {{#each userPerformance.performanceData as |data|}}
+          {{#if data}}
+            <td class="good">
+              {{{data.score}}}%
+            </td>
+            <td>
+              {{{data.completionDone}}}/{{{data.completionTotal}}}
+            </td>
+            <td>
+              {{{data.timeSpent}}}
+            </td>
+          {{else}}
+            <td>
+              {{class.analytics.performance.teacher.gru-completion-information-chart
+              identifier=1
+              text="13/50"
+              completePercent=13
+              minValue=0
+              maxValue=50}}
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+          {{/if}}
+        {{/each}}
+      </tr>
+    {{/each}}
   </tbody>
 </table>

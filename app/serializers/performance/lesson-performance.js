@@ -2,9 +2,9 @@ import Ember from 'ember';
 import DS from 'ember-data';
 
 /**
- * Lesson serializer for StudentLessonPerformance model
+ * Lesson serializer for LessonPerformance model
  *
- * @typedef {Object} StudentUnitPerformanceSerializer
+ * @typedef {Object} LessonPerformanceSerializer
  */
 export default DS.JSONAPISerializer.extend({
 
@@ -29,7 +29,7 @@ export default DS.JSONAPISerializer.extend({
       Ember.$.each(results, function(index, result){
         var performanceItem = {
           id: result.gooruOId,
-          type: "performance/student-lesson-performance",
+          type: "performance/lesson-performance",
           attributes: serializer.getNormalizedPerformanceAttributes(result),
           relationships: {
             collections: { data: [] }
@@ -62,7 +62,7 @@ export default DS.JSONAPISerializer.extend({
 
   /**
    * Normalizes the collection items for a lesson.
-   * @param collections list of collections/assessments
+   * @param collections list of collections|assessments
    * @param performanceItem current performance item
    * @param model
    */
@@ -74,11 +74,11 @@ export default DS.JSONAPISerializer.extend({
       Ember.$.each(collections, function (index, collection) {
         performanceItem.relationships.collections.data.push({
           id: collection.gooruOId,
-          type: "performance/student-performance"
+          type: "performance/performance"
         });
         model.included.push({
           id: collection.gooruOId,
-          type: "performance/student-performance",
+          type: "performance/performance",
           attributes: serializer.getNormalizedPerformanceAttributes(collection)
         });
       });

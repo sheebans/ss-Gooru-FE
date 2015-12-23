@@ -1,0 +1,86 @@
+import Ember from 'ember';
+import DS from 'ember-data';
+
+/**
+ * Model that contains the performance information
+ * @typedef {Object} Performance
+ */
+export default DS.Model.extend({
+
+  /**
+   * @property {String} Title for the student performance
+   */
+  title: DS.attr('string'),
+  /**
+   * @property {String} Student performance type (e.g. unit, lesson, collection, assessment)
+   */
+  type: DS.attr('string'),
+  /**
+   * @property {Number} The performance score (in percentages e.g. 80%, 100%, 95%, etc)
+   */
+  score: DS.attr('number'),
+  /**
+   * @property {Number} The completion done in the unit, class or collection/assessment, e.g. It is the top number of the fraction 5/10
+   */
+  completionDone:  DS.attr('number'),
+  /**
+   * @property {Number} The total of completionin the unit, class or collection/assessment, e.g. It is the bottom number of the fraction 5/10
+   */
+  completionTotal: DS.attr('number'),
+  /**
+   * @property {Number} The registered time spent in the unit, class or collection/assessment
+   */
+  timeSpent: DS.attr('number'),
+  /**
+   *  @property {Number} The average rating score set for set for the unit, class or collection/assessment
+   */
+  ratingScore: DS.attr('number'),
+  /**
+   *  @property {Number} The number of attempts registered for the unit, class or collection/assessment
+   */
+  attempts: DS.attr('number'),
+
+  /**
+   *  @property {boolean} Whether the unit is completed or not.
+   */
+  isNotCompleted: Ember.computed('completionDone', 'completionTotal', function() {
+    return (this.get('completionDone') !== this.get('completionTotal'));
+  }),
+
+  completionValue: Ember.computed('completionDone', 'completionTotal', function() {
+    return (this.get('completionDone') * 100 / this.get('completionTotal'));
+  }),
+
+  hasStarted: Ember.computed('timeSpent', function () {
+    return (this.get('timeSpent')>0);
+  }),
+
+  displayableTimeSpent: Ember.computed('timeSpent',function(){
+    let timeSpentSecs = Math.round(this.get('timeSpent')/(1000)%60);
+    let timeSpentMins = Math.round(this.get('timeSpent')/(1000*60)%60);
+    let timeSpentHours = (this.get('timeSpent')/(1000*60*60)%24).toFixed(2);
+    if(timeSpentHours<1){
+      if(timeSpentMins<1){
+        return timeSpentSecs+'s';
+      }else{
+        return timeSpentMins+'m';
+      }
+    }else{
+      return timeSpentHours+'h';
+    }
+  }),
+
+  /**
+   * TODO: This is a temporal computed property. This will be removed soon.
+   *  @property {String} Removes the dash from the id property in case it has one.
+   */
+  realId: Ember.computed('id', function() {
+    var id = this.get('id');
+    if (id.indexOf('@') > 0) {
+      return id.split('@')[1];
+    } else {
+      return id;
+    }
+  })
+
+});
