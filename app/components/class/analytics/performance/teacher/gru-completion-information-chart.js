@@ -7,7 +7,7 @@
  * @augments ember/Component
  */
 import Ember from 'ember';
-import {radialProgress} from '../../../../../utils/d3/radial-progress';
+import {radialProgress} from 'gooru-web/utils/d3/radial-progress';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -19,7 +19,7 @@ export default Ember.Component.extend({
 
 
   didInsertElement: function(){
-     radialProgress(document.getElementById('information-chart-'+this.get("identifier")))
+    radialProgress(this.element)
        .diameter(80)
        .value(this.get("completePercent"))
        .__textDisplay(this.get("text"))
@@ -52,12 +52,5 @@ export default Ember.Component.extend({
    * @property {Number} maxValue to create the graph
    */
   maxValue: null,
-
-  /**
-   * @property {Number} identifier to the graph
-   *
-   */
-  identifier: null,
-
 
 });

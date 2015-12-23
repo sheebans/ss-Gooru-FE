@@ -22,8 +22,19 @@
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import d3 from 'd3';
 
+
+/**
+ * Radial Progress chart taken from d3.org
+ * @see http://www.brightpointinc.com/download/radial-progress-source-code/
+ *
+ * @param parent
+ * @returns {component}
+ *
+ * New Methods by Gooru Team: __width,__height,__textDisplay.
+ */
 export function radialProgress(parent) {
   var _duration= 1000,
     _selection,
@@ -282,7 +293,10 @@ export function radialProgress(parent) {
       return component;
     }
   };
- //Add to modify the width of the chart
+
+  /** Added by Gooru Team to overwrite the with of the chart
+   * @_ {Number} __width
+   */
   component.__width = function(_) {
     if (!arguments.length) {
       return __width;
@@ -293,7 +307,9 @@ export function radialProgress(parent) {
     }
   };
 
-  //Add to modify the height of the chart
+  /** Added by Gooru Team to overwrite the height of the chart
+   * @_ {Number} __height
+   */
   component.__height = function(_) {
     if (!arguments.length){
       return __height;
@@ -302,7 +318,10 @@ export function radialProgress(parent) {
       return component;
     }
   };
-  //Text to display different values
+
+  /** Added by Gooru Team to overwrite the label displayed in the chart
+   * @_ {String} __textDisplay
+   */
   component.__textDisplay = function(_) {
     if (!arguments.length){
       return __textDisplay;

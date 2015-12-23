@@ -3,7 +3,6 @@
 
 @import 'mixins';
 @import 'common';
-@import 'radial-progress';
 
 @import 'helpers/three-bounce-spinner';
 @import 'mixins/gru-accordion';
@@ -66,4 +65,5 @@
 @import 'components/class/analytics/performance/gru-scale-indicator';
 @import 'components/class/analytics/performance/teacher/gru-metrics-table';
 @import 'components/class/analytics/performance/teacher/gru-metrics-sub-header';
+@import 'components/class/analytics/performance/teacher/gru-completion-information-chart';
 

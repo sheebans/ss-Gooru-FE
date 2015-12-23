@@ -22,40 +22,42 @@
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  OTHER DEALINGS IN THE SOFTWARE.
  */
+.gru-completion-information-chart{
+  .background {
+    fill: #FFFFFF;
+    fill-opacity: 0.01;
+  }
 
-.background {
-  fill: #FFFFFF;
-  fill-opacity: 0.01;
-}
+  .component {
+    fill: #e1e1e1;
+  }
 
-.component {
-  fill: #e1e1e1;
-}
+  .component .label {
+    font-family: Myriad, "Helvetic Neue", Helvetica, Arial;
+    text-anchor: middle;
+    fill: #0000FF;
+  }
 
-.component .label {
-  font-family: Myriad, "Helvetic Neue", Helvetica, Arial;
-  text-anchor: middle;
-  fill: #0000FF;
-}
-
-.arc {
-  stroke-weight:0.1;
-  fill: #4e8fff;
-}
-
-
-.arc2 {
-  stroke-weight:0.1;
-  fill: #3660b0;
-}
+  .arc {
+    stroke-weight:0.1;
+    fill: #4e8fff;
+  }
 
 
-.label {
-  font-family:  Myriad, "Helvetic Neue", Helvetica, Arial;
-  text-anchor: middle;
-}
+  .arc2 {
+    stroke-weight:0.1;
+    fill: #3660b0;
+  }
 
-.radial-svg {
-  display: block;
-  margin: 0 auto;
+
+  .label {
+    font-family:  Myriad, "Helvetic Neue", Helvetica, Arial;
+    text-anchor: middle;
+  }
+
+  .radial-svg {
+    display: block;
+    margin: 0 auto;
+  }
+
 }
