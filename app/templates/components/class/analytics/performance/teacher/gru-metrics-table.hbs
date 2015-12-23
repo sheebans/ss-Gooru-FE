@@ -31,21 +31,7 @@
   </thead>
   <tbody>
     <tr class="sub-header hidden-xs">
-      <th>
-        Name <span class="fa fa-sort-down"></span>
-      </th>
-      <th>
-        Name <span class="fa fa-sort-down"></span>
-      </th>
-      <th>
-        Name <span class="fa fa-sort-down"></span>
-      </th>
-      <th>
-        Name <span class="fa fa-sort-down"></span>
-      </th>
-      <th>
-        Name <span class="fa fa-sort-down"></span>
-      </th>
+      {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange'}}
     </tr>
     {{#each performanceData as |userPerformance|}}
       <tr>

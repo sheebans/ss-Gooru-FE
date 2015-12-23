@@ -366,5 +366,11 @@ export default {
     "time-spent":"Time Spent",
     "reactions":"Reactions",
     "attempts":"Attempts"
+  },
+  "gru-metrics-sub-header":{
+    "name":"Name",
+    "score": "Score",
+    "completion":"Completion",
+    "study-time":"Study Time",
   }
 };
