@@ -61,7 +61,7 @@ export default Ember.Component.extend({
    */
   getLessons: function(unitId) {
     const controller = this.get('targetObject');
-    return this.get("performanceService").findStudentPerformanceByClassAndCourseAndUnit(controller.userId, controller.classId, controller.courseId, unitId);
+    return this.get("performanceService").findLessonPerformanceByClassAndCourseAndUnit(controller.userId, controller.classId, controller.courseId, unitId);
 
   },
 
