@@ -1,0 +1,41 @@
+{{#each performances as | performance index | }}
+    <div class="unit-container"id="{{performance.id}}">
+        <ul class="row">
+            <li class="col-xs-8 col-sm-3 performance-unit-title">
+                <a data-toggle="collapse" href="#lesson-container-{{plus-one index}}" aria-expanded="false" aria-controls="lesson-container-{{plus-one index}}" {{action "selectUnit" performance.id on="click"}}>
+                    U{{plus-one index}}: {{performance.title}}
+                </a>
+            </li>
+            <li class="col-xs-4 col-sm-9">
+              {{#if performance.hasStarted}}
+                  <ul class="hidden-xs performance-headers">
+                      <li class="score-header"><p>{{t "gru-performance-summary.scores"}}</p></li>
+                      <li class="completion-header"><p>{{t "gru-performance-summary.completion"}}</p></li>
+                      <li class="timeSpent-header"><p>{{t "gru-performance-summary.time-spent"}}</p></li>
+                      <li class="reactions-header"><p>{{t "gru-performance-summary.reactions"}}</p></li>
+                      <li class="attempts-header"><p>{{t "gru-performance-summary.attempts"}}</p></li>
+                  </ul>
+                {{class.analytics.performance.gru-performance-summary
+                performance=performance
+                selectedOption=selectedOption}}
+              {{else}}
+                  <h3>Not started yet</h3>
+              {{/if}}
+
+            </li>
+        </ul>
+        <div class="lessons-container collapse row" id="lesson-container-{{plus-one index}}">
+            <!-- each del componete de performance summary con el performance de cada lesson-->
+          {{#each lessons as |item index|}}
+          <p>
+              item.id
+          </p>
+          {{else}}
+            <h3>no content available</h3>
+          {{/each}}
+        </div>
+    </div>
+
+{{else}}
+    <h3>No content available</h3>
+{{/each}}

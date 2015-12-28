@@ -89,6 +89,10 @@ export default Ember.Controller.extend({
    */
   selectedOption: 'score',
 
+  courseId:'',
+  classId:'',
+  userId:'',
+
   /**
    * The filterBy selected
    * @property {String}

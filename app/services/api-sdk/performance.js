@@ -27,6 +27,15 @@ export default Ember.Service.extend(StoreMixin, {
    * @returns {*}
    */
   findStudentPerformanceByClassAndCourseAndUnit: function(userId, classId, courseId, unitId) {
+    this.get('store').queryRecord('performance/student-lesson-performance', {
+      userUid: userId,
+      classId: classId,
+      courseId: courseId,
+      unitId: unitId
+    }).then(function(temp){
+      console.log(temp);
+    });
+
     return this.get('store').queryRecord('performance/student-lesson-performance', {
       userUid: userId,
       classId: classId,

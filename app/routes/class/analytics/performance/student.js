@@ -33,6 +33,9 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
     const performances = this.get("performanceService").findStudentPerformanceByClassAndCourse(userId,classId,courseId);
 
     return Ember.RSVP.hash({
+      courseId:courseId,
+      userId:userId,
+      classId:classId,
       performances: performances
     });
 
@@ -44,6 +47,9 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
    */
   setupController: function(controller, model) {
     controller.set("performances", model.performances);
+    controller.set("courseId", model.courseId);
+    controller.set("userId", model.userId);
+    controller.set("classId", model.classId);
     controller.get('classController').selectMenuItem('analytics.performance');
   }
 });
