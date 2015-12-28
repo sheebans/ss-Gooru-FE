@@ -78,7 +78,7 @@ export default Ember.Service.extend(StoreMixin, {
     const service = this;
     var response = Ember.A([]);
     Ember.$.each(users, function(index, user) {
-      var userData = service.createUserObject(user.id, 'username-' + user.id, 'FirstName-' + user.id, 'LastName-' + user.id);
+      var userData = service.createUserObject(user.id, user.username, user.firstName, user.lastName);
       var performanceData = service.createPerformanceData(type, user.id, user.units);
       response.push(service.createStudentPerformanceObject(userData, performanceData));
     });
