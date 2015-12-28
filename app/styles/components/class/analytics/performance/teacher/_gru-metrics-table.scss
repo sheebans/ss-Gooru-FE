@@ -1,33 +1,31 @@
 .gru-metrics-table {
-  //margin: 10px 0 10px 80px;
   margin: 10px 0;
-  overflow-x: scroll;
-  overflow-y: visible;
-
-  table tbody, table thead
-  {
-    display: block;
-  }
-
-  table tbody
-  {
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 135px;
-  }
-
-  //.sticky-col {
-  //  left: 25px;
-  //  position: absolute;
-  //}
+  width: inherit;
+  overflow-x: auto;
+  overflow-y: hidden;
 
   .table {
     border: 0 !important;
     margin: 0;
+    thead, tbody
+    {
+      display: block;
+    }
+    tbody
+    {
+      overflow-y: auto;
+      overflow-x: hidden;
+      height: 615px;
+    }
+    thead > tr:first-child > th {
+      border-top: 1px solid $color-gray-lighter-2 ;
+    }
+    thead > tr:first-child > td {
+      border: 0;
+    }
     td, th {
       width: 80px;
       min-width: 80px;
-      max-width: 80px;
       height: 70px;
       text-align: center;
       vertical-align: middle;
@@ -36,12 +34,21 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      padding: 0;
+      div:last-child {
+        border: 0;
+      }
     }
-    thead > tr:first-child > th {
-      border-top: 1px solid $color-gray-lighter-2 ;
+    .table-cell {
+      width: 80px;
+      min-width: 80px;
+      height: 68px;
+      display: inherit;
+      vertical-align: middle;
+      border-right: 1px solid $color-gray-lighter-2 ;
     }
-    thead > tr:first-child > td {
-      border: 0;
+    .fixed {
+      max-width: 80px;
     }
     th.header {
       background-color: $color-gray-lighter-7;
@@ -49,9 +56,12 @@
     }
     .sub-header {
       th {
-        height: 15px;
+        height: 30px;
         font-size: $font-size-xsmall;
         color: $color-gray-secondary;
+        .table-cell {
+          height: 30px;
+         }
       }
     }
     .bad {

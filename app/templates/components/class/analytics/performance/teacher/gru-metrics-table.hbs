@@ -1,12 +1,12 @@
 <table class="table table-bordered">
   <thead>
     <tr>
-      <td class="scroll"></td>
-      <th class="header sticky-col" colspan="3" scope="col">
+      <td></td>
+      <th class="header" scope="col">
         {{t "class.analytics.performance.teacher.metricsTable.average"}}
       </th>
       {{#each headers as |header|}}
-        <th id="{{{header.id}}}" colspan="3" class="header scroll" scope="col">
+        <th id="{{{header.id}}}" class="header" scope="col">
           {{{header.title}}}
         </th>
       {{/each}}
@@ -15,67 +15,86 @@
       <th class="header" scope="row">
         {{t "class.analytics.performance.teacher.metricsTable.average"}}
       </th>
-      <th class="good " scope="col">
-        70%
+      <th scope="col">
+        <div class="good table-cell">70%</div>
+        <div class="bad table-cell">10%</div>
+        <div class="very-good table-cell">80%</div>
       </th>
-      <th class="bad " scope="col">
-        10%
+      <th scope="col">
+        <div class="good table-cell">70%</div>
+        <div class="bad table-cell">10%</div>
+        <div class="very-good table-cell">80%</div>
       </th>
-      <th class="very-good " scope="col">
-        80%
+      <th scope="col">
+        <div class="good table-cell">70%</div>
+        <div class="bad table-cell">10%</div>
+        <div class="very-good table-cell">80%</div>
       </th>
-      <th class="very-good scroll" scope="col">
-        90%
+      <th scope="col">
+        <div class="good table-cell">70%</div>
+        <div class="bad table-cell">10%</div>
+        <div class="very-good table-cell">80%</div>
+      </th>
+      <th scope="col">
+        <div class="good table-cell">70%</div>
+        <div class="bad table-cell">10%</div>
+        <div class="very-good table-cell">80%</div>
+      </th>
+      <th scope="col">
+        <div class="good table-cell">70%</div>
+        <div class="bad table-cell">10%</div>
+        <div class="very-good table-cell">80%</div>
       </th>
     </tr>
     <tr class="sub-header hidden-xs">
-      <th class="sticky-col">
-        Name <span class="fa fa-sort-down"></span>
+      <th>
+        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
       </th>
       <th>
-        Name <span class="fa fa-sort-down"></span>
+        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
+        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
+        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
       </th>
       <th>
-        Name <span class="fa fa-sort-down"></span>
+        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
+        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
+        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
       </th>
       <th>
-        Name <span class="fa fa-sort-down"></span>
+        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
+        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
+        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
       </th>
-      <th class="scroll">
-        Name <span class="fa fa-sort-down"></span>
+      <th>
+        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
+        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
+        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
       </th>
     </tr>
   </thead>
   <tbody>
-
     {{#each performanceData as |userPerformance|}}
       <tr>
-        <th class="header user-info sticky-col" scope="row">
+        <th class="header user-info fixed" scope="row">
           {{{userPerformance.user}}}
         </th>
         <td>
-        </td>
-        <td>
-        </td>
-        <td>
+          <div class="table-cell"></div>
+          <div class="table-cell"></div>
+          <div class="table-cell"></div>
         </td>
         {{#each userPerformance.performanceData as |data|}}
           {{#if data}}
-            <td class="good scroll">
-              {{{data.score}}}%
-            </td>
-            <td class="scroll">
-              {{{data.completionDone}}}/{{{data.completionTotal}}}
-            </td>
-            <td class="scroll">
-              {{{data.timeSpent}}}
+            <td>
+              <div class="good table-cell">{{{data.score}}}%</div>
+              <div class="table-cell">{{{data.completionDone}}}/{{{data.completionTotal}}}</div>
+              <div class="table-cell">{{{data.timeSpent}}}</div>
             </td>
           {{else}}
-            <td class="scroll">
-            </td>
-            <td class="scroll">
-            </td>
-            <td class="scroll">
+            <td>
+              <div class="table-cell"></div>
+              <div class="table-cell"></div>
+              <div class="table-cell"></div>
             </td>
           {{/if}}
         {{/each}}
