@@ -61,6 +61,11 @@ export default Ember.Component.extend({
    */
   getLessons: function(unitId) {
     const controller = this.get('targetObject');
+    this.get("performanceService").findLessonPerformanceByClassAndCourseAndUnit(controller.userId, controller.classId, controller.courseId, unitId)
+    .then(function(performanceData) {
+        console.log(performanceData.get('length'));
+        console.log(performanceData[0].get('collections.length'));
+      });
     return this.get("performanceService").findLessonPerformanceByClassAndCourseAndUnit(controller.userId, controller.classId, controller.courseId, unitId);
 
   },
@@ -75,9 +80,9 @@ export default Ember.Component.extend({
    */
   addLessonsToUnit: Ember.observer('lessons.isFulfilled', function() {
     if (this.get('lessons.isFulfilled')) {
-      let visibleLessons = this.get('lessons').get('content');
-      console.log(visibleLessons[0]);
-
+      //let visibleLessons = this.get('lessons').get('content');
+      //console.log(visibleLessons[0]);
+      console.log(this.get('lessons.length'));
     }
   })
 });
