@@ -47,29 +47,7 @@
       </th>
     </tr>
     <tr class="sub-header hidden-xs">
-      <th>
-        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
-      </th>
-      <th>
-        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
-        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
-        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
-      </th>
-      <th>
-        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
-        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
-        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
-      </th>
-      <th>
-        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
-        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
-        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
-      </th>
-      <th>
-        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
-        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
-        <div class="table-cell">Name <span class="fa fa-sort-down"></span></div>
-      </th>
+      {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange'}}
     </tr>
   </thead>
   <tbody>
@@ -92,9 +70,11 @@
             </td>
           {{else}}
             <td>
-              <div class="table-cell"></div>
-              <div class="table-cell"></div>
-              <div class="table-cell"></div>
+              {{class.analytics.performance.teacher.gru-completion-information-chart
+              text="13/50"
+              completePercent=13
+              minValue=0
+              maxValue=50}}
             </td>
           {{/if}}
         {{/each}}

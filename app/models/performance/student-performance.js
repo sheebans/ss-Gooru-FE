@@ -1,69 +1,59 @@
-import DS from 'ember-data';
 import Ember from 'ember';
+import DS from 'ember-data';
 
 /**
- * Model that contains the student performance information
+ * Model that contains the student performance data by unit, lesson or collection|assessment.
  * @typedef {Object} StudentPerformance
  */
 export default DS.Model.extend({
 
   /**
-   * @property {String} Title for the student performance
+   * @property {Meta} metadata
    */
-  title: DS.attr('string'),
+  user: DS.belongsTo("user/user", {async: true}),
+
   /**
-   * @property {String} Student performance type (e.g. unit, lesson, collection, assessment)
+   * @property {Performance[]} List of Performance items.
    */
-  type: DS.attr('string'),
+  performanceData: DS.hasMany('performance/performance', { async: true }),
+
   /**
-   * @property {Number} The performance score (in percentages e.g. 80%, 100%, 95%, etc)
+   * @property {Number} Computed property with the average score of all the units.
    */
-  score: DS.attr('number'),
-  /**
-   * @property {Number} The completion done in the unit, class or collection/assessment, e.g. It is the top number of the fraction 5/10
-   */
-  completionDone:  DS.attr('number'),
-  /**
-   * @property {Number} The total of completionin the unit, class or collection/assessment, e.g. It is the bottom number of the fraction 5/10
-   */
-  completionTotal: DS.attr('number'),
-  /**
-   * @property {Number} The registered time spent in the unit, class or collection/assessment
-   */
-  timeSpent: DS.attr('number'),
-  /**
-   *  @property {Number} The average rating score set for set for the unit, class or collection/assessment
-   */
-  ratingScore: DS.attr('number'),
-  /**
-   *  @property {Number} The number of attempts registered for the unit, class or collection/assessment
-   */
-  attempts: DS.attr('number'),
-  /**
-   *  @property {boolean} Whether the unit is completed or not.
-   */
-  isNotCompleted: Ember.computed('completionDone', 'completionTotal', function() {
-    return (this.get('completionDone') !== this.get('completionTotal'));
+  averageScore: Ember.computed('performanceData', function() {
+    return this.calculateAverage('score');
   }),
-  completionValue: Ember.computed('completionDone', 'completionTotal', function() {
-    return (this.get('completionDone') * 100 / this.get('completionTotal'));
+
+  /**
+   * @property {Number} Computed property with the average completion done of all the units.
+   */
+  averageCompletionDone: Ember.computed('performanceData', function() {
+    return this.calculateAverage('completionDone');
   }),
-  hasStarted: Ember.computed('timeSpent', function () {
-    return (this.get('timeSpent')>0);
+
+  /**
+   * @property {Number} Computed property with the average time spent of all the units.
+   */
+  averageTimeSpent: Ember.computed('performanceData', function() {
+    return this.calculateAverage('timeSpent');
   }),
-  displayableTimeSpent: Ember.computed('timeSpent',function(){
-    let timeSpentSecs = Math.round(this.get('timeSpent')/(1000)%60);
-    let timeSpentMins = Math.round(this.get('timeSpent')/(1000*60)%60);
-    let timeSpentHours = (this.get('timeSpent')/(1000*60*60)%24).toFixed(2);
-    if(timeSpentHours<1){
-      if(timeSpentMins<1){
-        return timeSpentSecs+'s';
-      }else{
-        return timeSpentMins+'m';
-      }
-    }else{
-      return timeSpentHours+'h';
+
+  /**
+   * Helper function to calculate the average value of a specific field.
+   * @param fieldName the field to calculate
+   * @returns {number} the average value
+   */
+  calculateAverage: function(fieldName) {
+    var sumValue = 0;
+    const performanceData = this.get('performanceData');
+    if (performanceData.get('length') > 0) {
+      performanceData.forEach(function (performanceItem) {
+        sumValue += performanceItem.get(fieldName);
+      });
+      return sumValue / performanceData.get('length');
+    } else {
+      return sumValue;
     }
-  })
+  }
 
 });

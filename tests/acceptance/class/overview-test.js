@@ -22,6 +22,9 @@ test('Layout as a student', function (assert) {
     const $overviewContainer = find(".controller.class .controller.overview");
     assert.ok($overviewContainer.length, 'Missing overview container');
 
+    const $overviewOption = find(".class-menu");
+    assert.ok($overviewOption.find(".list-group .list-group-item.class-menu-item.overview.selected"), 'Overview option should be selected');
+
     const $overviewHeader = find(".overview-header", $overviewContainer);
     assert.ok($overviewHeader.length, 'Missing overview header');
 
