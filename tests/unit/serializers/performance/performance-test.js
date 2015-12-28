@@ -1,6 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('serializer:performance/student-performance', 'Unit | Serializer | performance/student-performance');
+moduleFor('serializer:performance/performance', 'Unit | Serializer | performance/performance');
 
 test('normalizeQueryRecordResponse', function(assert) {
   const serializer = this.subject();
@@ -26,7 +26,7 @@ test('normalizeQueryRecordResponse', function(assert) {
   const expected = {
     "data": [{
       "id": "0619777a-45fa-4bfe-b800-40b2ab158c7a",
-      "type": "performance/student-performance",
+      "type": "performance/performance",
       "attributes": {
         "title": "Quiz :: Indian History",
         "type": "unit",
@@ -39,7 +39,7 @@ test('normalizeQueryRecordResponse', function(assert) {
       }
     }]
   };
-  const response = serializer.normalizeQueryRecordResponse('any store', 'performance/student-performance', payload);
+  const response = serializer.normalizeQueryRecordResponse('any store', 'performance/performance', payload);
 
   assert.deepEqual(response, expected, 'Wrong response');
 });

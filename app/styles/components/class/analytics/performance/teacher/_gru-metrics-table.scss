@@ -1,0 +1,54 @@
+.gru-metrics-table {
+  margin: 10px 0;
+  .table {
+    border: 0 !important;
+    width: auto;
+    td, th {
+      width: 80px;
+      height: 70px;
+      text-align: center;
+      vertical-align: middle;
+      font-weight: normal;
+      font-size: $font-size-small;
+    }
+    thead > tr:first-child > th {
+      border-top: 1px solid $color-gray-lighter-2 ;
+    }
+    thead > tr:first-child > td {
+      border: 0;
+    }
+    th.header {
+      background-color: $color-gray-lighter-7;
+      border-top: 1px solid $color-gray-lighter-2 ;
+    }
+    .sub-header {
+      th {
+        height: 15px;
+        font-size: $font-size-xsmall;
+        color: $color-gray-secondary;
+      }
+    }
+    .bad {
+      background-color: $gru-scale-indicator-bad;
+      color: $color-white;
+    }
+    .regular {
+      background-color: $gru-scale-indicator-regular;
+      color: $color-white;
+    }
+    .good {
+      background-color: $gru-scale-indicator-good;
+      color: $color-white;
+    }
+    .very-good {
+      background-color: $gru-scale-indicator-very-good;
+      color: $color-white;
+    }
+    .excellent {
+      background-color: $gru-scale-indicator-excellent;
+      color: $color-white;
+    }
+
+  }
+}
+

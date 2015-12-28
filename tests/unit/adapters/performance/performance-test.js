@@ -1,11 +1,11 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('adapter:performance/student-performance', 'Unit | Adapter | performance/student-performance', {
+moduleFor('adapter:performance/performance', 'Unit | Adapter | performance/performance', {
   // Specify the other units that are required for this test.
   // needs: ['serializer:foo']
 });
 
-test('urlForQueryRecord querying student-performance for units', function (assert) {
+test('urlForQueryRecord querying performance for units', function (assert) {
   const adapter = this.subject();
   const query = {
     classId: 'the-class-id',
