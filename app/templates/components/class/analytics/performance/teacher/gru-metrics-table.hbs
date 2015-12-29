@@ -58,10 +58,10 @@
             <td>
               <div class="good table-cell">{{{data.score}}}%</div>
               {{class.analytics.performance.teacher.gru-completion-information-chart
-              text="13/50"
-              completePercent=13
+              text=(concat data.completionDone '/' data.completionTotal)
+              completePercent=data.completionDone
               minValue=0
-              maxValue=50}}
+              maxValue=data.completionTotal}}
               <div class="table-cell">{{{data.timeSpent}}}</div>
             </td>
           {{else}}
