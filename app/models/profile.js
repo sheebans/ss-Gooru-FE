@@ -2,6 +2,8 @@ import DS from 'ember-data';
 
 /**
  * Model to represent the Profiles objects with the User information
+ *
+ * @typedef {Object} Profile
  */
 export default DS.Model.extend({
 
