@@ -20,34 +20,26 @@
         <div class="bad table-cell">10%</div>
         <div class="very-good table-cell">80%</div>
       </th>
-      <th scope="col">
-        <div class="good table-cell">70%</div>
-        <div class="bad table-cell">10%</div>
-        <div class="very-good table-cell">80%</div>
-      </th>
-      <th scope="col">
-        <div class="good table-cell">70%</div>
-        <div class="bad table-cell">10%</div>
-        <div class="very-good table-cell">80%</div>
-      </th>
-      <th scope="col">
-        <div class="good table-cell">70%</div>
-        <div class="bad table-cell">10%</div>
-        <div class="very-good table-cell">80%</div>
-      </th>
-      <th scope="col">
-        <div class="good table-cell">70%</div>
-        <div class="bad table-cell">10%</div>
-        <div class="very-good table-cell">80%</div>
-      </th>
-      <th scope="col">
-        <div class="good table-cell">70%</div>
-        <div class="bad table-cell">10%</div>
-        <div class="very-good table-cell">80%</div>
-      </th>
+      {{#each headers as |header|}}
+        <th scope="col">
+          <div class="good table-cell">70%</div>
+          <div class="bad table-cell">10%</div>
+          <div class="very-good table-cell">80%</div>
+        </th>
+      {{/each}}
     </tr>
     <tr class="sub-header hidden-xs">
-      {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange'}}
+      <th>
+        {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' metrics=averageMetrics}}
+      </th>
+      <th>
+        {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange'}}
+      </th>
+      {{#each headers as |header|}}
+        <th>
+          {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange'}}
+        </th>
+      {{/each}}
     </tr>
   </thead>
   <tbody>
@@ -65,16 +57,18 @@
           {{#if data}}
             <td>
               <div class="good table-cell">{{{data.score}}}%</div>
-              <div class="table-cell">{{{data.completionDone}}}/{{{data.completionTotal}}}</div>
-              <div class="table-cell">{{{data.timeSpent}}}</div>
-            </td>
-          {{else}}
-            <td>
               {{class.analytics.performance.teacher.gru-completion-information-chart
               text="13/50"
               completePercent=13
               minValue=0
               maxValue=50}}
+              <div class="table-cell">{{{data.timeSpent}}}</div>
+            </td>
+          {{else}}
+            <td>
+              <div class="table-cell"></div>
+              <div class="table-cell"></div>
+              <div class="table-cell"></div>
             </td>
           {{/if}}
         {{/each}}

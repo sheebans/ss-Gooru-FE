@@ -7,6 +7,7 @@
   .table {
     border: 0 !important;
     margin: 0;
+    width: auto;
     thead, tbody
     {
       display: block;
@@ -15,7 +16,7 @@
     {
       overflow-y: auto;
       overflow-x: hidden;
-      height: 615px;
+      max-height: 545px;
     }
     thead > tr:first-child > th {
       border-top: 1px solid $color-gray-lighter-2 ;
@@ -48,7 +49,7 @@
       border-right: 1px solid $color-gray-lighter-2 ;
     }
     .fixed {
-      max-width: 80px;
+      max-width: 81px;
     }
     th.header {
       background-color: $color-gray-lighter-7;
@@ -62,6 +63,9 @@
         .table-cell {
           height: 30px;
          }
+      }
+      th:first-child{
+        border-left: 2px solid $color-gray-lighter-2 ;
       }
     }
     .bad {
