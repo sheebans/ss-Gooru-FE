@@ -1,7 +1,6 @@
 .gru-user-teaser{
-  display: table;
   span{
-    display: table-cell;
+    display: inline-block;
     vertical-align: middle;
     padding:5px;
     img.avatar {
@@ -10,7 +9,7 @@
       border-radius: 50px;
       box-shadow: 0 0 0 2px #87badd;
       margin: 5px;
-      display: table-cell;
+      display: inline-block;
       vertical-align: middle;
     }
     p{

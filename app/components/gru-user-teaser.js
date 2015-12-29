@@ -55,7 +55,7 @@ export default Ember.Component.extend({
    * Get the first user from the users list
    * @property {Ember.Object}
    */
-  firstUser: Ember.computed('users', function(){
+  firstUser: Ember.computed('users.[]', function(){
     const firstUser = this.get("users")[0];
     return firstUser;
   }),
@@ -64,13 +64,8 @@ export default Ember.Component.extend({
    * Get the first user from the users list
    * @property {Ember.Object}
    */
-  usersLeft: Ember.computed('users', function(){
-    const users = this.get("users").length - 1;
-    if (users === 0){
-      return null;
-    }else{
-      return users;
-    }
+  usersLeft: Ember.computed('users.[]', function(){
+    return this.get('users.length') - 1;
   })
 
 
