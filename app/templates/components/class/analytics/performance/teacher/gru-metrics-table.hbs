@@ -2,11 +2,11 @@
   <thead>
     <tr>
       <td></td>
-      <th class="header" colspan="3" scope="col">
+      <th class="header" scope="col">
         {{t "class.analytics.performance.teacher.metricsTable.average"}}
       </th>
       {{#each headers as |header|}}
-        <th id="{{{header.id}}}" colspan="3" class="header" scope="col">
+        <th id="{{{header.id}}}" class="header" scope="col">
           {{{header.title}}}
         </th>
       {{/each}}
@@ -15,57 +15,60 @@
       <th class="header" scope="row">
         {{t "class.analytics.performance.teacher.metricsTable.average"}}
       </th>
-      <th class="good" scope="col">
-        70%
+      <th scope="col">
+        <div class="good table-cell">70%</div>
+        <div class="bad table-cell">10%</div>
+        <div class="very-good table-cell">80%</div>
       </th>
-      <th class="bad" scope="col">
-        10%
+      {{#each headers as |header|}}
+        <th scope="col">
+          <div class="good table-cell">70%</div>
+          <div class="bad table-cell">10%</div>
+          <div class="very-good table-cell">80%</div>
+        </th>
+      {{/each}}
+    </tr>
+    <tr class="sub-header hidden-xs">
+      <th>
+        {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' metrics=averageMetrics}}
       </th>
-      <th class="very-good" scope="col">
-        80%
+      <th>
+        {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange'}}
       </th>
-      <th class="very-good" scope="col">
-        90%
-      </th>
+      {{#each headers as |header|}}
+        <th>
+          {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange'}}
+        </th>
+      {{/each}}
     </tr>
   </thead>
   <tbody>
-    <tr class="sub-header hidden-xs">
-      {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange'}}
-    </tr>
     {{#each performanceData as |userPerformance|}}
       <tr>
-        <th class="header user-info" scope="row">
+        <th class="header user-info fixed" scope="row">
           {{{userPerformance.user}}}
         </th>
         <td>
-        </td>
-        <td>
-        </td>
-        <td>
+          <div class="table-cell"></div>
+          <div class="table-cell"></div>
+          <div class="table-cell"></div>
         </td>
         {{#each userPerformance.performanceData as |data|}}
           {{#if data}}
-            <td class="good">
-              {{{data.score}}}%
-            </td>
             <td>
-              {{{data.completionDone}}}/{{{data.completionTotal}}}
-            </td>
-            <td>
-              {{{data.timeSpent}}}
+              <div class="good table-cell">{{{data.score}}}%</div>
+              {{class.analytics.performance.teacher.gru-completion-information-chart
+              text=(concat data.completionDone '/' data.completionTotal)
+              completePercent=data.completionDone
+              minValue=0
+              maxValue=data.completionTotal}}
+              <div class="table-cell">{{{data.timeSpent}}}</div>
             </td>
           {{else}}
             <td>
-              {{class.analytics.performance.teacher.gru-completion-information-chart
-              text="13/50"
-              completePercent=13
-              minValue=0
-              maxValue=50}}
-            </td>
-            <td>
-            </td>
-            <td>
+              <div class="table-cell"></div>
+              <div class="table-cell"></div>
+              <div class="table-cell"></div>
             </td>
           {{/if}}
         {{/each}}
