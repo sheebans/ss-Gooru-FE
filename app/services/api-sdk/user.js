@@ -1,6 +1,9 @@
 import Ember from 'ember';
 import StoreMixin from '../../mixins/store';
 
+/**
+ * @typedef {Object} UserService
+ */
 export default Ember.Service.extend(StoreMixin, {
 
   /**
@@ -55,6 +58,10 @@ export default Ember.Service.extend(StoreMixin, {
       isMembersByClass: true,
       classId: classId
     });
+  },
+
+  findById: function(userId){
+    return
   }
 
 });
