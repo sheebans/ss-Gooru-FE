@@ -1,0 +1,11 @@
+<span>
+    <img class="avatar" src="{{firstUser.profileImageUrl}}">
+</span>
+<span class="user-full-name">
+  <a {{action 'selectUser'}}>{{firstUser.fullName}}</a>
+</span>
+{{#if usersLeft}}
+    <span class="total-users-left">
+    <p>+{{usersLeft}}</p>
+  </span>
+{{/if}}
