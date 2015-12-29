@@ -17,15 +17,17 @@ export default Ember.Component.extend({
      * @function actions:selectUnit
      */
     selectUnit: function (unit) {
-      this.loadData(unit.get('id'));
-
-      let element =$('#'+this.get('elementId')) ;
+      const component = this;
+      component.loadData(unit.get('id'));
+      console.debug("A"); //remove this
+      let element =$('#'+ component.get('elementId')) ;
       if(element.hasClass('selected')){
         element.removeClass('selected');
-        this.get('setUnitBreadcrumb')();
-      }else{
+        //component.get('setUnitBreadcrumb')();
+      }
+      else{
         $('.gru-unit-performance-container.selected').removeClass('selected');
-        this.get('setUnitBreadcrumb')(unit, this.get('index'));
+        component.get('setUnitBreadcrumb')(unit, component.get('index'));
         element.addClass('selected');
       }
     }

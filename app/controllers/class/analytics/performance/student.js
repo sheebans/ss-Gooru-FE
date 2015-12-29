@@ -40,24 +40,16 @@ export default Ember.Controller.extend({
     selectBreadcrumbItem: function(item){
       Ember.log(item);
     },
-    setUnitBreadcrumb: function(unit, unitIndex){
-      if(unit && unitIndex !== undefined){
-        let breadcrumb=this.get('breadcrumb');
-        breadcrumb.splice(1, breadcrumb.length-1);
-        unitIndex++;
-        const unitBreadcrumb =
-        {
-          value: unit,
-          label: 'U'+unitIndex+' '+unit.get('title')
-        };
-        breadcrumb.pushObject(unitBreadcrumb);
-        this.set('breadcrumb',breadcrumb);
-      }else{
-        let temp =this.breadcrumb.splice(0,1);
 
-        this.breadcrumb.removeObjects(temp.toArray());
-        console.log(this.breadcrumb);
-      }
+    /**
+     * Triggered when selecting a unit
+     * @param {Unit} unit
+     * @param {number} index
+     */
+    setUnitBreadcrumb: function(unit, index){
+      const controller = this;
+      let breadcrumb = controller.get('breadcrumb');
+      controller.updateBreadcrumbToUnit(breadcrumb, unit, ++index);
     },
 
     /**
@@ -129,12 +121,33 @@ export default Ember.Controller.extend({
       value: '111',
       label: 'Course Name'
     }
-  ])
+  ]),
   // -------------------------------------------------------------------------
   // Observers
 
 
   // -------------------------------------------------------------------------
   // Methods
+  /**
+   * Updates the breadcrumb based on the provided unit
+   * @param {[]} breadcrumb
+   * @param {Unit} unit
+   * @param {number} index
+   */
+  updateBreadcrumbToUnit: function(breadcrumb, unit, index){
+    //removes all items after the course
+    const toRemove = breadcrumb.slice(1, breadcrumb.get("length"));
+    breadcrumb.removeObjects(toRemove.toArray());
 
+    if(unit){
+      //adds the new unit item
+      const title = unit.get("title");
+      breadcrumb.pushObject(Ember.Object.create({
+        value: unit,
+        label: `U${index} ${title}`
+      }));
+    }
+
+    return breadcrumb;
+  }
 });

@@ -1,6 +1,10 @@
   <ul class="row">
       <li class="col-xs-8 col-sm-3 performance-unit-title">
-          <a id="lesson-header-{{plus-one index}}" class="lesson-header" role="button" data-toggle="collapse" data-parent=".gru-student-performance-container" href="#lesson-container-{{plus-one index}}" aria-expanded="true" aria-controls="lesson-container-{{plus-one index}}" {{action "selectUnit" performance on="click"}}>
+          <a id="lesson-header-{{plus-one index}}" class="lesson-header"
+             role="button" data-toggle="collapse" data-parent=".gru-student-performance-container"
+             href="#lesson-container-{{plus-one index}}" aria-expanded="true"
+             aria-controls="lesson-container-{{plus-one index}}"
+            {{action "selectUnit" performance}}>
               U{{plus-one index}}: {{performance.title}}
           </a>
       </li>
