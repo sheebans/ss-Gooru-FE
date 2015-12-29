@@ -22,6 +22,7 @@ export default Ember.Service.extend(StoreMixin, SessionMixin, {
    */
   findByUser: function(userId) {
     //TODO implement, for now it returns the current user
+    Ember.Logger.log(userId);
     return this.findByCurrentUser();
   },
 

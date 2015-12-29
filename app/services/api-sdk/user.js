@@ -58,10 +58,5 @@ export default Ember.Service.extend(StoreMixin, {
       isMembersByClass: true,
       classId: classId
     });
-  },
-
-  findById: function(userId){
-    return
   }
-
 });
