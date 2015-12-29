@@ -27,6 +27,15 @@ Router.map(function() {
       });
     });
   });
+
+  this.route('profile', { path: '/profile/:userId' }, function() {
+    this.route('about');
+
+    this.route('content', function() {
+      this.route('course');
+    });
+  });
+
 });
 
 export default Router;

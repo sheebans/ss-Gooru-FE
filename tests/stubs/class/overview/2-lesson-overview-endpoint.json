@@ -30,6 +30,34 @@
     }
   },
   {
+    "description": "Simulate a client-side error when getting the lessons for the third unit per any-class-units-200-response.json",
+    "request": {
+      "url": "^/gooruapi/rest/v3/class/(.*)/course/(.*)/unit/21654d76-45e7-45e9-97ab-5f96a14da135/lesson",
+      "method": "GET"
+    },
+    "response": {
+      "status": 400,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "Simulation of a client-side error; see /tests/stubs/class/overview/2-lesson-overview-endpoint.json"
+    }
+  },
+  {
+    "description": "Simulate a server-side error when getting the lessons for the fourth unit per any-class-units-200-response.json",
+    "request": {
+      "url": "^/gooruapi/rest/v3/class/(.*)/course/(.*)/unit/21654d76-45e7-45e9-97ab-5f96a14da136/lesson",
+      "method": "GET"
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "Simulation of a server-side error; see /tests/stubs/class/overview/2-lesson-overview-endpoint.json"
+    }
+  },
+  {
     "description": "Gets lessons for any class or course",
     "request": {
       "url": "^/gooruapi/rest/v3/class/(.*)/course/(.*)/unit/(.*)/lesson",

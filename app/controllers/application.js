@@ -2,19 +2,48 @@ import Ember from "ember";
 
 export default Ember.Controller.extend({
 
-  queryParams: ['themeId'],
+  // -------------------------------------------------------------------------
+  // Dependencies
 
+  /**
+   * @requires service:session
+   */
   session: Ember.inject.service("session"),
+
+  /**
+   * @requires service:notifications
+   */
+  notifications: Ember.inject.service(),
+
+  /**
+   * @requires service:api-sdk/log
+   */
+  logService: Ember.inject.service("api-sdk/log"),
+
+  setupGlobalErrorHandling: Ember.on('init', function () {
+    const controller = this;
+
+    // Ultimately all server and javascript errors will be caught by this handler
+    Ember.onerror = function (error) {
+      const errorMessage = controller.get('i18n').t('common.unexpectedError').string;
+      controller.get('notifications').error(errorMessage);
+      controller.get('logService').logError(error);
+    };
+
+  }),
+
+  // -------------------------------------------------------------------------
+  // Attributes
+
+  queryParams: ['themeId'],
 
   /**
    * @property {string} application theme
    */
   themeId: null,
 
-  /**
-   * @property {GruTheme} application theme
-   */
-  theme: null,
+  // -------------------------------------------------------------------------
+  // Actions
 
   actions: {
     /**
@@ -40,7 +69,14 @@ export default Ember.Controller.extend({
     searchTerm: function() {
       return true;
     }
-  }
+  },
 
+  // -------------------------------------------------------------------------
+  // Properties
+
+  /**
+   * @property {GruTheme} application theme
+   */
+  theme: null
 
 });
