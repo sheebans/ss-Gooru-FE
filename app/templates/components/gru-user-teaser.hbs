@@ -4,8 +4,8 @@
 <span class="user-full-name">
   <a {{action 'selectUser'}}>{{firstUser.fullName}}</a>
 </span>
-<span class="total-users-left">
-  {{#if usersLeft}}
-      <p>+{{usersLeft}}</p>
-  {{/if}}
-</span>
+{{#if usersLeft}}
+    <span class="total-users-left">
+    <p>+{{usersLeft}}</p>
+  </span>
+{{/if}}
