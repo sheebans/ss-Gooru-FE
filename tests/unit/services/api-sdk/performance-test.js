@@ -157,14 +157,23 @@ test('findClassPerformanceByClassAndCourse', function (assert) {
       users: [
         {
           id: 'user-id-1',
+          username: 'username-user-id-1',
+          firstName: 'FirstName-user-id-1',
+          lastName: 'LastName-user-id-1',
           units: ['unit-id-1', 'unit-id-2', 'unit-id-3', 'unit-id-4']
         },
         {
           id: 'user-id-2',
+          username: 'username-user-id-2',
+          firstName: 'FirstName-user-id-2',
+          lastName: 'LastName-user-id-2',
           units: ['unit-id-1', 'unit-id-2', 'unit-id-3']
         },
         {
           id: 'user-id-3',
+          username: 'username-user-id-3',
+          firstName: 'FirstName-user-id-3',
+          lastName: 'LastName-user-id-3',
           units: ['unit-id-1']
         }
       ]
