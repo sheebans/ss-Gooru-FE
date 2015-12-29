@@ -50,10 +50,13 @@ export default DS.Model.extend({
       performanceData.forEach(function (performanceItem) {
         sumValue += performanceItem.get(fieldName);
       });
-      return sumValue / performanceData.get('length');
+      return this.roundFloat(sumValue / performanceData.get('length'));
     } else {
       return sumValue;
     }
-  }
+  },
 
+  roundFloat: function(n, decimals=0) {
+    return (Math.round(n * 10) / 10).toFixed(decimals);
+  }
 });

@@ -80,6 +80,7 @@ export default Ember.Route.extend({
    */
 
   createDataMatrix: function (headers, classPerformanceData){
+    const route = this;
     const studentPerformanceData = classPerformanceData.get('studentPerformanceData');
     const dataMatrix = Ember.A([]);
 
@@ -90,24 +91,42 @@ export default Ember.Route.extend({
         user: user.get('fullName'),
         performanceData: Ember.A([])
       });
+      var completionTotal = 1;
+
       headers.forEach(function(unit) {
         const performance = performanceData.findBy('id', user.get('id') + '@' + unit.get('id'));
         if (performance) {
-          const performanceValues = Ember.Object.create({
-            score: performance.get('score'),
-            completionDone: performance.get('completionDone'),
-            completionTotal: performance.get('completionTotal'),
-            timeSpent: performance.get('timeSpent')
-          });
-          userData.get('performanceData').push(performanceValues);
+          userData.get('performanceData').push(route.createPerformanceObject(performance));
+          completionTotal = performance.get('completionTotal');
         }
         else {
           userData.get('performanceData').push(undefined);
         }
       });
+      // Inserts User averages at position 0 of the current row of performance elements.
+      userData.get('performanceData').insertAt(0, route.createUserAverageObject(studentPerformance, completionTotal));
+      // Pushes User data in the matrix.
       dataMatrix.push(userData);
     });
     return dataMatrix;
+  },
+
+  createPerformanceObject: function(performance) {
+    return Ember.Object.create({
+      score: performance.get('score'),
+      completionDone: performance.get('completionDone'),
+      completionTotal: performance.get('completionTotal'),
+      timeSpent: performance.get('timeSpent')
+    });
+  },
+
+  createUserAverageObject: function(studentPerformance, completionTotal) {
+    return Ember.Object.create({
+      score: studentPerformance.get('averageScore'),
+      completionDone: studentPerformance.get('averageCompletionDone'),
+      completionTotal: completionTotal,
+      timeSpent: studentPerformance.get('averageTimeSpent')
+    });
   }
 
 });
