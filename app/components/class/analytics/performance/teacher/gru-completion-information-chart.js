@@ -13,7 +13,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['gru-completion-information-chart'],
+  classNames: ['gru-completion-information-chart', 'table-cell'],
   // -------------------------------------------------------------------------
   // Events
 
