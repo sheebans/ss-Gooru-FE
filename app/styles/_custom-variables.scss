@@ -58,6 +58,12 @@ $color-gray-lighter-10:#a4a4a4;
 /* i.e apply to the border of the emotics icons  */
 $color-gray-lighter-11:#bec0c1;
 
+$color-gray-lighter-12:#D4D4D4;
+
+$color-gray-dark-2:#797878;
+
+
+
 /* i.e apply to collection results titles */
 $color-blue-dark: #0c74be;
 /* i.e apply to links */
@@ -96,6 +102,9 @@ $gru-scale-indicator-good: #EDF167;
 $gru-scale-indicator-very-good: #A2DE81;
 $gru-scale-indicator-excellent: #3FC380;
 
+/*colors for the performance score and completion circle*/
+$performance-circle-background-color: #DEDEDE;
+
 /* === DIMENSIONS === */
 $player-navigator-width-xs: 80%;
 $player-navigator-width-sm: 40%;
@@ -108,4 +117,6 @@ $narration-avatar-width:40px;
 $narration-avatar-height:40px;
 
 $overview-header:75px;
+
+$performance-circle-size: 20px;
 

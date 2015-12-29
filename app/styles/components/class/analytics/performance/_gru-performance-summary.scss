@@ -1,14 +1,16 @@
-$circle-size: 20px;
-$circle-background: #DEDEDE;
-$circle-color: #1076bb;
-.gru-performance-container{
+.gru-student-performance-container{
   padding: 0;
-  .unit-container {
+  .gru-unit-performance-container {
+    margin: 15px 0;
+    border:1px solid $color-gray-lighter-12;
+    border-radius: 0;
+    &.selected >ul{
+      background-color:$color-gray-lighter-6;
+    }
     >ul {
-      border:1px solid;
       height: 105px;
-      padding: 20px 0;
-      margin: 10px 0;
+      padding: 20px;
+      margin: 0;
       @include respond-to(xs) {
         padding: 0;
       }
@@ -20,7 +22,7 @@ $circle-color: #1076bb;
         display:inline-block;
         height: 100%;
         padding: 0;
-        &.performanceUnitTitle{
+        &.performance-unit-title{
           -webkit-flex-direction: row;
           flex-direction: row;
           -webkit-flex-wrap: nowrap;
@@ -33,14 +35,26 @@ $circle-color: #1076bb;
           align-content: stretch;
           display: -webkit-flex;
           display: flex;
+          a{
+            font-family:$font-family-base;
+            font-weight: bold;
+            color:$color-gray-dark-2;
+          }
         }
-        p{
-          margin: 0;
+        span i{
+          margin-right: 10px;
         }
       }
     }
     .lessons-container{
-      margin: -10px 10px;
+      margin: 0;
+      >ul{
+        display: inline-block;
+        width:100%;
+        height: 70px;
+        border-top:1px solid $color-gray-lighter-12;
+        padding: 20px;
+      }
     }
   }
 
@@ -85,7 +99,7 @@ $circle-color: #1076bb;
       border-left: 1px solid;
     }
     li{
-      height: $circle-size;
+      height: $performance-circle-size;
       @include respond-to(xs){
         display: none;
       }
@@ -95,7 +109,7 @@ $circle-color: #1076bb;
         }
       }
       .description{
-        height: $circle-size;
+        height: $performance-circle-size;
         display: inline-block;
         margin: 0 auto;
         p{
@@ -104,23 +118,23 @@ $circle-color: #1076bb;
         }
         .radial-progress {
           float:left;
-          width: $circle-size;
-          height: $circle-size;
-          background-color: $circle-background;
+          width: $performance-circle-size;
+          height: $performance-circle-size;
+          background-color: $performance-circle-background-color;
           border-radius: 100%;
           .circle {
             .mask, .fill {
-              width: $circle-size;
-              height: $circle-size;
+              width: $performance-circle-size;
+              height: $performance-circle-size;
               position: absolute;
               border-radius: 50%;
               -webkit-backface-visibility: hidden;
             }
             .mask {
-              clip: rect(0px, $circle-size, $circle-size, $circle-size/2);
+              clip: rect(0px, $performance-circle-size, $performance-circle-size, $performance-circle-size/2);
               .fill {
-                clip: rect(0px, $circle-size/2, $circle-size, 0px);
-                background-color: $circle-color;
+                clip: rect(0px, $performance-circle-size/2, $performance-circle-size, 0px);
+                background-color: $color-blue-primary;
               }
             }
           }

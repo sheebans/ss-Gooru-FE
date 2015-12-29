@@ -40,6 +40,25 @@ export default Ember.Controller.extend({
     selectBreadcrumbItem: function(item){
       Ember.log(item);
     },
+    setUnitBreadcrumb: function(unit, unitIndex){
+      if(unit && unitIndex !== undefined){
+        let breadcrumb=this.get('breadcrumb');
+        breadcrumb.splice(1, breadcrumb.length-1);
+        unitIndex++;
+        const unitBreadcrumb =
+        {
+          value: unit,
+          label: 'U'+unitIndex+' '+unit.get('title')
+        };
+        breadcrumb.pushObject(unitBreadcrumb);
+        this.set('breadcrumb',breadcrumb);
+      }else{
+        let temp =this.breadcrumb.splice(0,1);
+
+        this.breadcrumb.removeObjects(temp.toArray());
+        console.log(this.breadcrumb);
+      }
+    },
 
     /**
      * When clicking at the download button
@@ -109,18 +128,6 @@ export default Ember.Controller.extend({
     {
       value: '111',
       label: 'Course Name'
-    },
-    {
-      value: '222',
-      label: 'U1: Unit number one'
-    },
-    {
-      value: '333',
-      label: 'L1: Lesson number one'
-    },
-    {
-      value: '444',
-      label: 'C3: Collection one with a long name'
     }
   ])
   // -------------------------------------------------------------------------

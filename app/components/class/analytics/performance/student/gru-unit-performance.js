@@ -1,20 +1,14 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  // -------------------------------------------------------------------------
-  // Dependencies
   performanceService: Ember.inject.service("api-sdk/performance"),
-  // -------------------------------------------------------------------------
-  // Attributes
-  tagName: 'ul',
-  classNames:['gru-performance-container'],
+  tagName: 'div',
+  classNames:['gru-unit-performance-container', 'panel'],
   selectedOption: null,
-  performances:null,
   lessons:null,
-  visibleLessons:Ember.computed.filterBy('lessons.content', 'visibility', true),
-  // -------------------------------------------------------------------------
-  // Actions
-
+  visibleLessons:null,
+  index:'',
+  setUnitBreadcrumb:null,
   actions: {
     /**
      * Load the data for this unit (data should only be loaded once) and trigger
@@ -22,13 +16,27 @@ export default Ember.Component.extend({
      *
      * @function actions:selectUnit
      */
-    selectUnit: function (unitId) {
-      this.loadData(unitId);
+    selectUnit: function (unit) {
+      this.loadData(unit.get('id'));
+
+      let element =$('#'+this.get('elementId')) ;
+      if(element.hasClass('selected')){
+        element.removeClass('selected');
+        this.get('setUnitBreadcrumb')();
+      }else{
+        $('.gru-unit-performance-container.selected').removeClass('selected');
+        this.get('setUnitBreadcrumb')(unit, this.get('index'));
+        element.addClass('selected');
+      }
     }
   },
   // -------------------------------------------------------------------------
   // Events
 
+  mouseDown: function(event) {
+    event.stopPropagation();
+    $("#lesson-header-"+(this.index+1))[0].click();
+  },
   // -------------------------------------------------------------------------
   // Methods
 
@@ -43,12 +51,6 @@ export default Ember.Component.extend({
     if (!this.get('lessons')) {
       var lessonsPromise = this.getLessons(unitId);
       this.set('lessons', lessonsPromise);
-
-      // TODO: getUnitUsers is currently dependent on items that's why this declaration
-      // takes place after setting items. Once api-sdk/course-location is complete
-      // both declarations can be put together, as they should
-      //var usersLocation = this.getUnitUsers();
-      //this.set('usersLocation', usersLocation);
     }
   },
 
@@ -61,13 +63,7 @@ export default Ember.Component.extend({
    */
   getLessons: function(unitId) {
     const controller = this.get('targetObject');
-    this.get("performanceService").findLessonPerformanceByClassAndCourseAndUnit(controller.userId, controller.classId, controller.courseId, unitId)
-    .then(function(performanceData) {
-        console.log(performanceData.get('length'));
-        console.log(performanceData[0].get('collections.length'));
-      });
     return this.get("performanceService").findLessonPerformanceByClassAndCourseAndUnit(controller.userId, controller.classId, controller.courseId, unitId);
-
   },
 
   // -------------------------------------------------------------------------
@@ -80,9 +76,8 @@ export default Ember.Component.extend({
    */
   addLessonsToUnit: Ember.observer('lessons.isFulfilled', function() {
     if (this.get('lessons.isFulfilled')) {
-      //let visibleLessons = this.get('lessons').get('content');
-      //console.log(visibleLessons[0]);
-      console.log(this.get('lessons.length'));
+      let temp = this.get('lessons').get('content');
+      this.set('visibleLessons',this.get('lessons').get('content'));
     }
   })
 });

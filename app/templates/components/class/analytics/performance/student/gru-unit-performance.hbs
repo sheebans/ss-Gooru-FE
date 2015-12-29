@@ -1,0 +1,42 @@
+  <ul class="row">
+      <li class="col-xs-8 col-sm-3 performance-unit-title">
+          <a id="lesson-header-{{plus-one index}}" class="lesson-header" role="button" data-toggle="collapse" data-parent=".gru-student-performance-container" href="#lesson-container-{{plus-one index}}" aria-expanded="true" aria-controls="lesson-container-{{plus-one index}}" {{action "selectUnit" performance on="click"}}>
+              U{{plus-one index}}: {{performance.title}}
+          </a>
+      </li>
+      <li class="col-xs-4 col-sm-9">
+        {{#if performance.hasStarted}}
+            <ul class="hidden-xs performance-headers">
+                <li class="score-header"><p>{{t "gru-performance-summary.scores"}}</p></li>
+                <li class="completion-header"><p>{{t "gru-performance-summary.completion"}}</p></li>
+                <li class="timeSpent-header"><p>{{t "gru-performance-summary.time-spent"}}</p></li>
+                <li class="reactions-header"><p>{{t "gru-performance-summary.reactions"}}</p></li>
+                <li class="attempts-header"><p>{{t "gru-performance-summary.attempts"}}</p></li>
+            </ul>
+          {{class.analytics.performance.gru-performance-summary
+          performance=performance
+          selectedOption=selectedOption}}
+        {{else}}
+            <h3>Not started yet</h3>
+        {{/if}}
+
+      </li>
+  </ul>
+  <div class="lessons-container collapse row" id="lesson-container-{{plus-one index}}">
+      <!-- each del componete de performance summary con el performance de cada lesson-->
+    {{#each visibleLessons as |lesson index|}}
+        <ul>
+            <li class="col-xs-8 col-sm-3 performance-lesson-title">
+                <span >
+                    <i class="fa fa-chevron-down"></i><span> L{{plus-one index}}: {{lesson.title}}</span>
+                </span>
+            </li>
+            <li class="col-xs-4 col-sm-9">
+                <!-- Aqui va el performance data -->
+            </li>
+
+        </ul>
+    {{else}}
+        <h3>no content available</h3>
+    {{/each}}
+  </div>
