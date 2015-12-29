@@ -7,7 +7,7 @@ moduleForAcceptance('Acceptance | profile about', {
   beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: false,
-      token: 'course-content-token',
+      token: 'about-token',
       user: {
         gooruUId: 'pochita'
       }
