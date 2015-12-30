@@ -19,32 +19,57 @@ test('Metrics Table Layout', function(assert) {
   })]);
 
   const classPerformanceDataMock = Ember.A([
-      Ember.Object.create({
-        user: 'Jennifer Ajoy',
-        performanceData:  Ember.A([Ember.Object.create({
+    Ember.Object.create({
+      performanceData: Ember.Object.create({
+        score : 10,
+        completionDone: 13,
+        completionTotal: 50,
+        timeSpent: 3600
+      })
+    }),
+    Ember.Object.create({
+      user: 'Jennifer Ajoy',
+      performanceData:  Ember.A([
+        Ember.Object.create({
+        score : 10,
+        completionDone: 13,
+        completionTotal: 50,
+        timeSpent: 3600
+        }),
+        Ember.Object.create({
           id: '82168746-a4af-48aa-9975-01f6434cd806',
           score : 10,
           completionDone: 13,
           completionTotal: 50,
           timeSpent: 3600
-        })])
-      }),
-      Ember.Object.create({
-        user: 'Jeffrey Bermudez',
-        performanceData:  Ember.A([Ember.Object.create({
+        })
+      ])
+    }),
+    Ember.Object.create({
+      user: 'Jeffrey Bermudez',
+      performanceData:  Ember.A([
+        Ember.Object.create({
           id: '82168746-a4af-48aa-9975-01f6434cd806',
           score : 50,
           completionDone: 11,
           completionTotal: 40,
           timeSpent: 2600
-        })])
-      })
-    ]);
+        }),
+        Ember.Object.create({
+          id: '82168746-a4af-48aa-9975-01f6434cd806',
+          score : 50,
+          completionDone: 11,
+          completionTotal: 40,
+          timeSpent: 2600
+        })
+      ])
+    })
+  ]);
 
   this.set('headers', headersMock);
-  this.set('performanceData', classPerformanceDataMock);
+  this.set('performanceDataMatrix', classPerformanceDataMock);
 
-  this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-table headers=headers performanceData=performanceData}}`);
+  this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-table headers=headers performanceDataMatrix=performanceDataMatrix}}`);
 
   const $component = this.$(); //component dom element
   const $metricsTable = $component.find(".gru-metrics-table");
@@ -60,7 +85,7 @@ test('Metrics Table Layout', function(assert) {
   const $tbody = $table.find("tbody");
   T.exists(assert, $tbody, 'Missing tbody of the table');
 
-  const $subheader = $table.find(".sub-header");
+  const $subheader = $thead.find(".sub-header");
   T.exists(assert, $subheader, 'Missing filters sub-header');
 
   assert.equal($thead.find("tr:first-child th").length, 2, "The thead should have only 2 headers");

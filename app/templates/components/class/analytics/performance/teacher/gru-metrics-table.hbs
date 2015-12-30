@@ -15,17 +15,24 @@
       <th class="header" scope="row">
         {{t "class.analytics.performance.teacher.metricsTable.average"}}
       </th>
-      <th scope="col">
-        <div class="good table-cell">70%</div>
-        <div class="bad table-cell">10%</div>
-        <div class="very-good table-cell">80%</div>
-      </th>
-      {{#each headers as |header|}}
-        <th scope="col">
-          <div class="good table-cell">70%</div>
-          <div class="bad table-cell">10%</div>
-          <div class="very-good table-cell">80%</div>
-        </th>
+      {{#each averageHeaders.performanceData as |average|}}
+        {{#if average}}
+          <th>
+            <div class="good table-cell">{{{average.score}}}%</div>
+            {{class.analytics.performance.teacher.gru-completion-information-chart
+            text=(concat average.completionDone '/' average.completionTotal)
+            completePercent=average.completionDone
+            minValue=0
+            maxValue=average.completionTotal}}
+            <div class="table-cell">{{{average.timeSpent}}}</div>
+          </th>
+        {{else}}
+          <th>
+            <div class="table-cell"></div>
+            <div class="table-cell"></div>
+            <div class="table-cell"></div>
+          </th>
+        {{/if}}
       {{/each}}
     </tr>
     <tr class="sub-header hidden-xs">
