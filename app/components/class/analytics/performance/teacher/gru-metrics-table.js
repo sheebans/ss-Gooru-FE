@@ -43,7 +43,21 @@ export default Ember.Component.extend({
    * @property {performanceData[]}
    */
 
-  performanceData: null
+  performanceData: null,
+
+  /**
+   * List of  metrics to be displayed by the sub-header component for the average
+   * @sorted {Boolean}
+   * @isAsc {Boolean}
+   * @constant {Array}
+   */
+  averageMetrics: Ember.A([Ember.Object.create({
+    'value': 'name',
+    'sorted':false,
+    'isAsc':false,
+    'visible': true
+  })]),
+
   // -------------------------------------------------------------------------
 
   // Methods

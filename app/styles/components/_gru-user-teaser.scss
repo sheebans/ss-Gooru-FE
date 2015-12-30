@@ -1,0 +1,19 @@
+.gru-user-teaser{
+  span{
+    display: inline-block;
+    vertical-align: middle;
+    padding:5px;
+    img.avatar {
+      width: 20px;
+      height: 20px;
+      border-radius: 50px;
+      box-shadow: 0 0 0 2px #87badd;
+      margin: 5px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    p{
+      margin:0px;
+    }
+  }
+}
