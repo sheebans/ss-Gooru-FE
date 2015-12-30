@@ -5,8 +5,11 @@
              href="#lesson-container-{{plus-one index}}" aria-expanded="true"
              aria-controls="lesson-container-{{plus-one index}}"
             {{action "selectUnit" performance}}>
-              U{{plus-one index}}: {{performance.title}}
           </a>
+          <span>
+              U{{plus-one index}}: {{performance.title}}
+          </span>
+
       </li>
       <li class="col-xs-4 col-sm-9">
         {{#if performance.hasStarted}}

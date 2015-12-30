@@ -100,8 +100,15 @@ export default Ember.Controller.extend({
    */
   selectedOption: 'score',
 
-  courseId:'',
-  classId:'',
+  /**
+   * The current selected class model for the student
+   * @property {Class}
+   */
+  "classModel":null,
+  /**
+   * The userId for the student
+   * @property {Class}
+   */
   userId:'',
 
   /**
@@ -138,16 +145,18 @@ export default Ember.Controller.extend({
     //removes all items after the course
     const toRemove = breadcrumb.slice(1, breadcrumb.get("length"));
     breadcrumb.removeObjects(toRemove.toArray());
-
-    if(unit){
+    if(unit && index !== undefined){
       //adds the new unit item
       const title = unit.get("title");
       breadcrumb.pushObject(Ember.Object.create({
         value: unit,
         label: `U${index} ${title}`
       }));
+      return breadcrumb;
+    }else {
+      for (var i = this.breadcrumb.length-1; i >= 1; i--) {
+        this.breadcrumb.removeAt(i);
+      }
     }
-
-    return breadcrumb;
   }
 });

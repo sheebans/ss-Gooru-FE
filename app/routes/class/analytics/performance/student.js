@@ -27,15 +27,15 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
   },
   model: function() {
     const route = this;
+    const classModel = this.modelFor('class').class;
     const userId = route.get("session.userId");
-    const classId= this.paramsFor('class').classId;
-    const courseId = this.modelFor('class').class.get("course");
+    const classId= classModel.get("id");
+    const courseId = classModel.get("course");
     const performances = this.get("performanceService").findUnitPerformanceByClassAndCourse(userId,classId,courseId);
 
     return Ember.RSVP.hash({
-      courseId:courseId,
       userId:userId,
-      classId:classId,
+      classModel:classModel,
       performances: performances
     });
 
@@ -47,9 +47,8 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
    */
   setupController: function(controller, model) {
     controller.set("performances", model.performances);
-    controller.set("courseId", model.courseId);
     controller.set("userId", model.userId);
-    controller.set("classId", model.classId);
+    controller.set("classModel", model.classModel);
     controller.get('classController').selectMenuItem('analytics.performance');
   }
 });

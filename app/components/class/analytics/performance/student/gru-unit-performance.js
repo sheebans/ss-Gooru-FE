@@ -7,7 +7,9 @@ export default Ember.Component.extend({
   selectedOption: null,
   lessons:null,
   visibleLessons:null,
-  index:'',
+  index:null,
+  classModel:null,
+  userId:'',
   setUnitBreadcrumb:null,
   actions: {
     /**
@@ -19,11 +21,10 @@ export default Ember.Component.extend({
     selectUnit: function (unit) {
       const component = this;
       component.loadData(unit.get('id'));
-      console.debug("A"); //remove this
       let element =$('#'+ component.get('elementId')) ;
       if(element.hasClass('selected')){
         element.removeClass('selected');
-        //component.get('setUnitBreadcrumb')();
+        component.get('setUnitBreadcrumb')();
       }
       else{
         $('.gru-unit-performance-container.selected').removeClass('selected');
@@ -64,8 +65,7 @@ export default Ember.Component.extend({
    * @returns {Ember.RSVP.Promise}
    */
   getLessons: function(unitId) {
-    const controller = this.get('targetObject');
-    return this.get("performanceService").findLessonPerformanceByClassAndCourseAndUnit(controller.userId, controller.classId, controller.courseId, unitId);
+    return this.get("performanceService").findLessonPerformanceByClassAndCourseAndUnit(this.get('userId'), this.get('classModel').id, this.get('classModel').course, unitId);
   },
 
   // -------------------------------------------------------------------------
@@ -78,7 +78,6 @@ export default Ember.Component.extend({
    */
   addLessonsToUnit: Ember.observer('lessons.isFulfilled', function() {
     if (this.get('lessons.isFulfilled')) {
-      let temp = this.get('lessons').get('content');
       this.set('visibleLessons',this.get('lessons').get('content'));
     }
   })

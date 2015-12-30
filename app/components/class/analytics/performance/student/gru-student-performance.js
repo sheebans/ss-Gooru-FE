@@ -14,6 +14,8 @@ export default Ember.Component.extend({
   selectedOption: null,
   setUnitBreadcrumb:null,
   performances:null,
+  classModel:null,
+  userId:'',
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -23,8 +25,6 @@ export default Ember.Component.extend({
       }else{
         this.get('setUnitBreadcrumb')();
       }
-
     }
   }
-
 });
