@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   performanceService: Ember.inject.service("api-sdk/performance"),
-  tagName: 'div',
   classNames:['gru-unit-performance-container', 'panel'],
   selectedOption: null,
   lessons:null,
@@ -11,6 +10,7 @@ export default Ember.Component.extend({
   classModel:null,
   userId:'',
   setUnitBreadcrumb:null,
+
   actions: {
     /**
      * Load the data for this unit (data should only be loaded once) and trigger
@@ -36,16 +36,12 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
-  mouseDown: function(event) {
-    event.stopPropagation();
-    $("#lesson-header-"+(this.index+1))[0].click();
-  },
+
   // -------------------------------------------------------------------------
   // Methods
 
   /**
    * Load data for the unit
-   *
    * @function actions:loadData
    * @returns {undefined}
    */

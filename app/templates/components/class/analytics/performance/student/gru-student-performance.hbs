@@ -1,4 +1,5 @@
 {{#each performances as | performance index | }}
+
   {{class.analytics.performance.student.gru-unit-performance
     performance=performance
     selectedOption=selectedOption
@@ -7,6 +8,9 @@
     userId=userId
     setUnitBreadcrumb= (action 'setUnitBreadcrumb')
   }}
+
 {{else}}
+
     <h3>No content available</h3>
+
 {{/each}}

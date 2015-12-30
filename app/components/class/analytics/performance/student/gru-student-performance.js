@@ -3,7 +3,6 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
-
   // -------------------------------------------------------------------------
   // Attributes
   tagName: 'ol',
@@ -16,6 +15,7 @@ export default Ember.Component.extend({
   performances:null,
   classModel:null,
   userId:'',
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {

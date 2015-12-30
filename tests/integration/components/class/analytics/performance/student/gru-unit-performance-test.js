@@ -2,6 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 import Ember from 'ember';
+import wait from 'ember-test-helpers/wait';
 
 // Stub performance service
 const performanceServiceStub = Ember.Service.extend({
@@ -10,7 +11,7 @@ const performanceServiceStub = Ember.Service.extend({
     var response;
     var promiseResponse;
 
-    if (userId === 'any-user-id' && classId === '111-333-555' && courseId === '222-444-666', unitId === '333-555-777') {
+    if (userId === 'any-user-id' && classId === '111-333-555' && courseId === '222-444-666' && unitId === '333-555-777') {
       response = [
         Ember.A([
           Ember.Object.create({
@@ -59,36 +60,50 @@ test('Test for unit performance', function(assert) {
       isNotCompleted: true,
       displayableTimeSpent: "1.35h"
     });
-  const classObj = Ember.Object.create({
+  const classModel = Ember.Object.create({
     id:'111-333-555',
     course:'222-444-666'
   });
+  const setUnitBreadcrumb = function(){
+    return 'a';
+  };
+
+  const visibleLessons = Ember.A([Ember.Object.create({title:'Budissum'})]);
+  this.set('setUnitBreadcrumb',setUnitBreadcrumb);
   this.set('userId', "any-user-id");
-  this.set('classObj', classObj);
+  this.set('classModel', classModel);
   this.set('performance', performance);
   this.set('index',0);
-
+  this.set('visibleLessons',visibleLessons);
   this.render(hbs`{{class.analytics.performance.student.gru-unit-performance
     performance=performance
-    classObj=classObj
+    classModel=classModel
+    setUnitBreadcrumb=setUnitBreadcrumb
     userId=userId
     index=index
   }}`);
+  const $component = this.$();
+  const $clickableDiv= $component.find(".gru-unit-performance-container div:first-child"); //component dom element
 
-  const $component = this.$(); //component dom element
+  //const $unitContainer = $component.find();
 
-  const $unitContainer = $component.find(".gru-unit-performance-container");
-
-  T.exists(assert, $unitContainer, 'Missing Unit Container');
+  T.exists(assert, $component, 'Missing Unit Container');
 
   const $titleSpan = $component.find(".performance-unit-title span");
 
   assert.equal(T.text($titleSpan), "U1: Quiz :: Indian History", "Wrong title");
 
+
   Ember.run(() => {
-    $component.click();
+    $clickableDiv.click();
   });
 
-  const $lessonTitleSpan = $component.find(".performance-lesson-title span span");
-  assert.equal(T.text($lessonTitleSpan), "L1: Buddisum", "Wrong title");
+  return wait().then(function() {
+    console.log(this.get('visibleLessons'));
+    const $lessonTitleSpan = $component.find(".lessons-container");
+    T.exists(assert, $lessonTitleSpan, 'Missing Lesson Container');
+    assert.equal(T.text($lessonTitleSpan), "L1: Buddisum", "Wrong title");
+  });
+
+
 });
