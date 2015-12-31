@@ -68,13 +68,11 @@ test('Test for unit performance', function(assert) {
     return 'a';
   };
 
-  const visibleLessons = Ember.A([Ember.Object.create({title:'Budissum'})]);
   this.set('setUnitBreadcrumb',setUnitBreadcrumb);
   this.set('userId', "any-user-id");
   this.set('classModel', classModel);
   this.set('performance', performance);
   this.set('index',0);
-  this.set('visibleLessons',visibleLessons);
   this.render(hbs`{{class.analytics.performance.student.gru-unit-performance
     performance=performance
     classModel=classModel
@@ -99,7 +97,6 @@ test('Test for unit performance', function(assert) {
   });
 
   return wait().then(function() {
-    console.log(this.get('visibleLessons'));
     const $lessonTitleSpan = $component.find(".lessons-container");
     T.exists(assert, $lessonTitleSpan, 'Missing Lesson Container');
     assert.equal(T.text($lessonTitleSpan), "L1: Buddisum", "Wrong title");

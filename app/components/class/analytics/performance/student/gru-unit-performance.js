@@ -68,9 +68,9 @@ export default Ember.Component.extend({
   // Observers
 
   /**
-   * Observe when the 'items' promise has resolved and proceed to add the
+   * Observe when the 'lessons' promise has resolved and proceed to add the
    * corresponding users information (coming from a separate service) to each
-   * one of the items so they are resolved in one single loop in the template.
+   * one of the lessons so they are resolved in one single loop in the template.
    */
   addLessonsToUnit: Ember.observer('lessons.isFulfilled', function() {
     if (this.get('lessons.isFulfilled')) {
