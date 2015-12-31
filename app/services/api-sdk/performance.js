@@ -44,9 +44,38 @@ export default Ember.Service.extend(StoreMixin, {
    * @param options This is a temporal parameter that will be removed soon
    * @returns {Object}
    */
-  findClassPerformanceByClassAndCourse: function(classId, courseId, options={}) {
+  findClassPerformance: function(classId, courseId, options={}) {
+    return this.createClassPerformanceResponse('unit', options);
+  },
+
+  /**
+   * Gets the class performance data for all students and lessons of the specific class and course and unit.
+   * @param classId
+   * @param courseId
+   * @param unit
+   * @param options This is a temporal parameter that will be removed soon
+   * @returns {Object}
+   */
+  findClassPerformanceByUnit: function(classId, courseId, unit, options={}) {
+    return this.createClassPerformanceResponse('lesson', options);
+  },
+
+  /**
+   * Gets the class performance data for all students and collections|assessments of the specific class and course and unit and lesson.
+   * @param classId
+   * @param courseId
+   * @param unit
+   * @param lesson
+   * @param options This is a temporal parameter that will be removed soon
+   * @returns {Object}
+   */
+  findClassPerformanceByUnitAndLesson: function(classId, courseId, unit, lesson, options={}) {
+    return this.createClassPerformanceResponse('collection', options);
+  },
+
+  createClassPerformanceResponse: function(type, options) {
     const service = this;
-    var studentPerformanceData = service.createStudentPerformanceData('unit', options.users);
+    var studentPerformanceData = service.createStudentPerformanceData(type, options.users);
     var response = service.createClassPerformanceObject(studentPerformanceData);
     return DS.PromiseObject.create({
       promise: Ember.RSVP.resolve(response)

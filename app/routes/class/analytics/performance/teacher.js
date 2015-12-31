@@ -55,7 +55,7 @@ export default Ember.Route.extend({
       Ember.Object.create({id: '9', username: 'laurengutierrez', firstName: 'Lauren', lastName: 'Gutierrez', units: unitIds})
     ]);
 
-    const classPerformanceData = this.get('performanceService').findClassPerformanceByClassAndCourse(classId, courseId, { users: users });
+    const classPerformanceData = this.get('performanceService').findClassPerformance(classId, courseId, { users: users });
 
     return Ember.RSVP.hash({
       headers: headers,
@@ -93,20 +93,18 @@ export default Ember.Route.extend({
         user: user.get('fullName'),
         performanceData: Ember.A([])
       });
-      var completionTotal = 1;
 
       headers.forEach(function(headerItem) {
         const performance = performanceData.findBy('id', user.get('id') + '@' + headerItem.get('id'));
         if (performance) {
           userData.get('performanceData').push(route.createPerformanceObject(performance));
-          completionTotal = performance.get('completionTotal');
         }
         else {
           userData.get('performanceData').push(undefined);
         }
       });
       // Inserts User averages at position 0 of the current row of performance elements.
-      userData.get('performanceData').insertAt(0, route.createUserAverageObject(studentPerformance, completionTotal));
+      userData.get('performanceData').insertAt(0, route.createUserAverageObject(studentPerformance));
       // Pushes User data in the matrix.
       dataMatrix.push(userData);
     });
@@ -116,10 +114,10 @@ export default Ember.Route.extend({
       performanceData: Ember.A([])
     });
     headers.forEach(function(headerItem) {
-      const itemPerformanceAverage = route.createItemAverageObject(classPerformanceData, headerItem.get('id'), 1);
+      const itemPerformanceAverage = route.createItemAverageObject(classPerformanceData, headerItem.get('id'));
       itemPerformanceAverageData.get('performanceData').push(itemPerformanceAverage);
     });
-    itemPerformanceAverageData.get('performanceData').insertAt(0, route.createClassAverageObject(classPerformanceData, 1));
+    itemPerformanceAverageData.get('performanceData').insertAt(0, route.createClassAverageObject(classPerformanceData));
     dataMatrix.insertAt(0, itemPerformanceAverageData);
 
     return dataMatrix;
@@ -128,36 +126,36 @@ export default Ember.Route.extend({
   createPerformanceObject: function(performance) {
     return Ember.Object.create({
       score: performance.get('score'),
+      timeSpent: performance.get('timeSpent'),
       completionDone: performance.get('completionDone'),
-      completionTotal: performance.get('completionTotal'),
-      timeSpent: performance.get('timeSpent')
+      completionTotal: performance.get('completionTotal')
     });
   },
 
-  createUserAverageObject: function(studentPerformance, completionTotal) {
+  createUserAverageObject: function(studentPerformance) {
     return Ember.Object.create({
       score: roundFloat(studentPerformance.get('averageScore')),
-      completionDone: roundFloat(studentPerformance.get('averageCompletionDone')),
-      completionTotal: completionTotal,
-      timeSpent: roundFloat(studentPerformance.get('averageTimeSpent'))
+      timeSpent: roundFloat(studentPerformance.get('averageTimeSpent')),
+      completionDone: studentPerformance.get('sumCompletionDone'),
+      completionTotal: studentPerformance.get('sumCompletionTotal')
     });
   },
 
-  createItemAverageObject: function(classPerformanceData, itemId, completionTotal) {
+  createItemAverageObject: function(classPerformanceData, itemId) {
     return Ember.Object.create({
       score: roundFloat(classPerformanceData.calculateAverageScoreByItem(itemId)),
-      completionDone: roundFloat(classPerformanceData.calculateAverageCompletionDoneByItem(itemId)),
-      completionTotal: completionTotal,
-      timeSpent: roundFloat(classPerformanceData.calculateAverageTimeSpentByItem(itemId))
+      timeSpent: roundFloat(classPerformanceData.calculateAverageTimeSpentByItem(itemId)),
+      completionDone: classPerformanceData.calculateSumCompletionDoneByItem(itemId),
+      completionTotal: classPerformanceData.calculateSumCompletionTotalByItem(itemId)
     });
   },
 
-  createClassAverageObject: function(classPerformanceData, completionTotal) {
+  createClassAverageObject: function(classPerformanceData) {
     return Ember.Object.create({
       score: roundFloat(classPerformanceData.get('classAverageScore')),
-      completionDone: roundFloat(classPerformanceData.get('classAverageCompletionDone')),
-      completionTotal: completionTotal,
-      timeSpent: roundFloat(classPerformanceData.get('classAverageTimeSpent'))
+      timeSpent: roundFloat(classPerformanceData.get('classAverageTimeSpent')),
+      completionDone: classPerformanceData.get('classSumCompletionDone'),
+      completionTotal: classPerformanceData.get('classSumCompletionTotal')
     });
   }
 

@@ -8,7 +8,7 @@ import DS from 'ember-data';
 export default DS.Model.extend({
 
   /**
-   * @property {Meta} metadata
+   * @property {User} user
    */
   user: DS.belongsTo("user/user", {async: true}),
 
@@ -18,24 +18,31 @@ export default DS.Model.extend({
   performanceData: DS.hasMany('performance/performance', { async: true }),
 
   /**
-   * @property {Number} Computed property with the average score of all the units.
+   * @property {Number} Computed property with the average score for all student data.
    */
   averageScore: Ember.computed('performanceData', function() {
     return this.calculateAverage('score');
   }),
 
   /**
-   * @property {Number} Computed property with the average completion done of all the units.
-   */
-  averageCompletionDone: Ember.computed('performanceData', function() {
-    return this.calculateAverage('completionDone');
-  }),
-
-  /**
-   * @property {Number} Computed property with the average time spent of all the units.
+   * @property {Number} Computed property with the average time spent for all student data.
    */
   averageTimeSpent: Ember.computed('performanceData', function() {
     return this.calculateAverage('timeSpent');
+  }),
+
+  /**
+   * @property {Number} Computed property with the summatory of completion done for all student data.
+   */
+  sumCompletionDone: Ember.computed('performanceData', function() {
+    return this.calculateSum('completionDone');
+  }),
+
+  /**
+   * @property {Number} Computed property with the summatory of completion total for all student data.
+   */
+  sumCompletionTotal: Ember.computed('performanceData', function() {
+    return this.calculateSum('completionTotal');
   }),
 
   /**
@@ -44,16 +51,28 @@ export default DS.Model.extend({
    * @returns {number} the average value
    */
   calculateAverage: function(fieldName) {
+    const counter = this.get('performanceData.length');
+    if (counter > 0) {
+      return this.calculateSum(fieldName) / counter;
+    } else {
+      return 0;
+    }
+  },
+
+  /**
+   * Helper function to calculate the summatory value of a specific field.
+   * @param fieldName the field to calculate
+   * @returns {number} the summatory value
+   */
+  calculateSum: function(fieldName) {
     var sumValue = 0;
     const performanceData = this.get('performanceData');
     if (performanceData.get('length') > 0) {
       performanceData.forEach(function (performanceItem) {
         sumValue += performanceItem.get(fieldName);
       });
-      return sumValue / performanceData.get('length');
-    } else {
-      return sumValue;
     }
+    return sumValue;
   }
 
 });

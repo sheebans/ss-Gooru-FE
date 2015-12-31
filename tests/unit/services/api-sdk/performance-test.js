@@ -149,11 +149,11 @@ test('findLessonPerformanceByClassAndCourseAndUnit', function (assert) {
   });
 });
 
-test('findClassPerformanceByClassAndCourse', function (assert) {
+test('findClassPerformance', function (assert) {
   const service = this.subject();
   var done = assert.async();
   Ember.run(function () {
-    const promise = service.findClassPerformanceByClassAndCourse('the-class-id', 'the-course-id', {
+    const promise = service.findClassPerformance('the-class-id', 'the-course-id', {
       users: [
         {
           id: 'user-id-1',
@@ -181,16 +181,19 @@ test('findClassPerformanceByClassAndCourse', function (assert) {
     promise.then(function (classPerformance) {
       assert.ok(classPerformance.calculateAverageScoreByItem('unit-id-1') > 0, 'Wrong average score existing unit');
       assert.ok(classPerformance.calculateAverageScoreByItem('unit-id-5') === 0, 'Wrong average score non-existing unit');
-      assert.ok(classPerformance.calculateAverageCompletionDoneByItem('unit-id-1') > 0, 'Wrong average completion done existing unit');
-      assert.ok(classPerformance.calculateAverageCompletionDoneByItem('unit-id-5') === 0, 'Wrong average completion done non-existing unit');
       assert.ok(classPerformance.calculateAverageTimeSpentByItem('unit-id-1') > 0, 'Wrong average time spent existing unit');
       assert.ok(classPerformance.calculateAverageTimeSpentByItem('unit-id-5') === 0, 'Wrong average time spent non-existing unit');
+      assert.ok(classPerformance.calculateSumCompletionDoneByItem('unit-id-1') > 0, 'Wrong sum completion done existing unit');
+      assert.ok(classPerformance.calculateSumCompletionDoneByItem('unit-id-5') === 0, 'Wrong sum completion done non-existing unit');
+      assert.ok(classPerformance.calculateSumCompletionTotalByItem('unit-id-1') > 0, 'Wrong sum completion done existing unit');
+      assert.ok(classPerformance.calculateSumCompletionTotalByItem('unit-id-5') === 0, 'Wrong sum completion done non-existing unit');
       const studentPerformanceData = classPerformance.get('studentPerformanceData');
       assert.equal(studentPerformanceData.get('length'), 3, 'Missing student performance data');
       const studentPerformance = studentPerformanceData.get('firstObject');
       assert.ok(studentPerformance.get('averageScore') > 0, 'Wrong student average score');
-      assert.ok(studentPerformance.get('averageCompletionDone') > 0, 'Wrong student average completion done');
       assert.ok(studentPerformance.get('averageTimeSpent') > 0, 'Wrong student average time spent');
+      assert.ok(studentPerformance.get('sumCompletionDone') > 0, 'Wrong student sum completion done');
+      assert.ok(studentPerformance.get('sumCompletionTotal') > 0, 'Wrong student sum completion total');
       const user = studentPerformance.get('user');
       assert.equal(user.get('id'), 'user-id-1', 'Wrong user id');
       assert.equal(user.get('username'), 'username-user-id-1', 'Wrong username');
