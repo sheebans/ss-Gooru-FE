@@ -16,6 +16,18 @@ export default DS.Model.extend({
    */
   type: DS.attr('string'),
   /**
+   * @property {Boolean} Value that tells whether the performance data belongs to an assessment
+   */
+  isAssessmentOrCollection : Ember.computed('type', function() {
+    return (this.get('type') ==='assessment' || this.get('type') ==='collection');
+  }),
+  /**
+   * @property {Boolean} Value that tells whether the performance data belongs to an assessment
+   */
+  isLesson : Ember.computed('type', function() {
+    return (this.get('type') ==='assessment' || this.get('type') ==='collection');
+  }),
+  /**
    * @property {Number} The performance score (in percentages e.g. 80%, 100%, 95%, etc)
    */
   score: DS.attr('number'),
@@ -43,8 +55,8 @@ export default DS.Model.extend({
   /**
    *  @property {boolean} Whether the unit is completed or not.
    */
-  isNotCompleted: Ember.computed('completionDone', 'completionTotal', function() {
-    return (this.get('completionDone') !== this.get('completionTotal'));
+  isCompleted: Ember.computed('completionDone', 'completionTotal', function() {
+    return (this.get('completionDone') === this.get('completionTotal'));
   }),
 
   completionValue: Ember.computed('completionDone', 'completionTotal', function() {

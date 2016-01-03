@@ -1,47 +1,37 @@
 import Ember from 'ember';
-
+/**
+ * Teacher Scale Indicator
+ *
+ * Component responsible for showing the Performance Scale Indicator in the teacher page.
+ *
+ * @module
+ * @augments ember/Component
+ */
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
   // -------------------------------------------------------------------------
   // Attributes
-  tagName: 'ol',
-  classNames:['gru-student-performance-container','panel-group'],
-  attributeBindings: ['role','aria-multiselectable'],
-  role: 'tablist',
-  'aria-multiselectable':'true',
-
-
+  selectedOption: null,
+  lesson:null,
+  index:null,
+  userId:'',
   // -------------------------------------------------------------------------
   // Actions
-  actions: {
-    setUnitBreadcrumb: function(unit, unitIndex){
-      if(unit){
-        this.get('setUnitBreadcrumb')(unit, unitIndex);
-      }else{
-        this.get('setUnitBreadcrumb')();
-      }
-    }
-  },
+
   // -------------------------------------------------------------------------
   // Events
 
   // -------------------------------------------------------------------------
   // Properties
-  selectedOption: null,
-  setUnitBreadcrumb:null,
-  performances:null,
-  classModel:null,
-  userId:''
+
+  tagName:'ul',
 
   // -------------------------------------------------------------------------
 
   // Methods
 
 
-
-
-
-
+  setLessonBreadcrumb:null
 });

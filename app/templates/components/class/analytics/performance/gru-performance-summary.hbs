@@ -20,7 +20,15 @@
 
     </li>
     <li class="completion">
-      {{#if performance.isNotCompleted}}
+      {{#if performance.isAssessmentOrCollection}}
+        {{#if performance.isCompleted}}
+            <span class="performanceCheckmark isCompleted"> Redo</span>
+        {{else if performance.hasStarted}}
+            <span class="performanceCheckmark isNotCompleted"> Resume</span>
+        {{else}}
+            <span class="performanceCheckmark isNotCompleted"> Redo</span>
+        {{/if}}
+      {{else}}
           <div class="description">
               <div class="radial-progress">
                   <div class="circle">
@@ -35,9 +43,8 @@
               </div>
               <p>{{performance.completionDone}}/{{performance.completionTotal}}</p>
           </div>
-      {{else}}
-          <span class="performanceCheckmark"><i class="fa fa-check"></i></span>
       {{/if}}
+
 
     </li>
     <li class="timeSpent">

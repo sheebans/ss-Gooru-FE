@@ -1,25 +1,25 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  // -------------------------------------------------------------------------
+  // Dependencies
   performanceService: Ember.inject.service("api-sdk/performance"),
+  // -------------------------------------------------------------------------
+  // Attributes
   classNames:['gru-unit-performance-container', 'panel'],
-  selectedOption: null,
-  lessons:null,
-  visibleLessons:null,
-  index:null,
-  classModel:null,
-  userId:'',
-  setUnitBreadcrumb:null,
 
+  // -------------------------------------------------------------------------
+  // Actions
   actions: {
     /**
-     * Load the data for this unit (data should only be loaded once) and trigger
+     * Load the data for this unit and trigger
      * the 'onLocationUpdate' event handler with the unit information
      *
      * @function actions:selectUnit
      */
     selectUnit: function (unit) {
       const component = this;
+
       component.loadData(unit.get('id'));
       let element =$('#'+ component.get('elementId')) ;
       if(element.hasClass('selected')){
@@ -36,9 +36,57 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
-
   // -------------------------------------------------------------------------
+  // Properties
+  /**
+   * Selected option to show when on extra small
+   *
+   * @property {String}
+   */
+  selectedOption: null,
+  /**
+   * Promise that will resolve the visible lessons for this unit
+   *
+   * @property {Ember.Promise}
+   */
+  lessonsPromise:null,
+  /**
+   * Collection that contains the
+   *
+   * @property {Ember.Array}
+   */
+  lessons:null,
+  /**
+   * Number of the index of this unit
+   *
+   * @property {Number}
+   */
+  index:null,
+  /**
+   * Model of the class this unit belongs to
+   *
+   * @property {Class}
+   */
+  classModel:null,
+  /**
+   * UserID this user belongs to
+   *
+   * @property {String}
+   */
+  userId:'',
+  // -------------------------------------------------------------------------
+
   // Methods
+
+
+
+  /**
+   * Function received as parameter to set the unit as
+   * @function actions:loadData
+   * @returns {undefined}
+   */
+  setUnitBreadcrumb:null,
+
 
   /**
    * Load data for the unit
@@ -46,10 +94,10 @@ export default Ember.Component.extend({
    * @returns {undefined}
    */
   loadData: function (unitId) {
-    // Loading of data will only happen if 'items' has not previously been set
-    if (!this.get('lessons')) {
+    // Loading of data will only happen if the promise for the 'lessons' has not previously been set
+    if (!this.get('lessonsPromise')) {
       var lessonsPromise = this.getLessons(unitId);
-      this.set('lessons', lessonsPromise);
+      this.set('lessonsPromise', lessonsPromise);
     }
   },
 
@@ -64,17 +112,15 @@ export default Ember.Component.extend({
     return this.get("performanceService").findLessonPerformanceByClassAndCourseAndUnit(this.get('userId'), this.get('classModel').id, this.get('classModel').course, unitId);
   },
 
-  // -------------------------------------------------------------------------
-  // Observers
 
   /**
    * Observe when the 'lessons' promise has resolved and proceed to add the
    * corresponding users information (coming from a separate service) to each
    * one of the lessons so they are resolved in one single loop in the template.
    */
-  addLessonsToUnit: Ember.observer('lessons.isFulfilled', function() {
-    if (this.get('lessons.isFulfilled')) {
-      this.set('visibleLessons',this.get('lessons').get('content'));
+  addLessonsToUnit: Ember.observer('lessonsPromise.isFulfilled', function() {
+    if (this.get('lessonsPromise.isFulfilled')) {
+      this.set('lessons',this.get('lessonsPromise').get('content'));
     }
   })
 });

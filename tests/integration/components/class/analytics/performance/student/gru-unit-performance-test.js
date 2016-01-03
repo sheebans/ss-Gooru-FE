@@ -12,14 +12,13 @@ const performanceServiceStub = Ember.Service.extend({
     var promiseResponse;
 
     if (userId === 'any-user-id' && classId === '111-333-555' && courseId === '222-444-666' && unitId === '333-555-777') {
-      response = [
+      response =
         Ember.A([
           Ember.Object.create({
-          id: "lesson-1",
           title: "lesson-title"
           })
         ])
-      ];
+      ;
     } else {
       response = [];
     }
@@ -97,9 +96,9 @@ test('Test for unit performance', function(assert) {
   });
 
   return wait().then(function() {
-    const $lessonTitleSpan = $component.find(".lessons-container");
+    const $lessonTitleSpan = $component.find(".lessons-container .performance-lesson-title span span");
     T.exists(assert, $lessonTitleSpan, 'Missing Lesson Container');
-    assert.equal(T.text($lessonTitleSpan), "L1: Buddisum", "Wrong title");
+    assert.equal(T.text($lessonTitleSpan), "L1: lesson-title", "Wrong title");
   });
 
 

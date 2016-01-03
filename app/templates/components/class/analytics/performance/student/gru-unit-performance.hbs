@@ -27,19 +27,11 @@
 </div>
 <div class="lessons-container collapse row" id="lesson-container-{{plus-one index}}">
     <!-- each del componete de performance summary con el performance de cada lesson-->
-  {{#each visibleLessons as |lesson index|}}
-      <ul>
-          <li class="col-xs-8 col-sm-3 performance-lesson-title">
-              <span >
-                  <i class="fa fa-chevron-down"></i>
-                  <span>L{{plus-one index}}: {{lesson.title}}</span>
-              </span>
-          </li>
-          <li class="col-xs-4 col-sm-9">
-              <!-- Aqui va el performance data -->
-          </li>
-
-      </ul>
+  {{#each lessons as |lesson index|}}
+    {{class.analytics.performance.student.gru-lesson-performance
+    lesson = lesson
+    index = index
+    selectedOption = selectedOption}}
   {{else}}
       <h3>No content available</h3>
   {{/each}}
