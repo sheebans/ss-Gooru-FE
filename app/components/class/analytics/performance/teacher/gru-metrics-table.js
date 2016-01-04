@@ -58,6 +58,12 @@ export default Ember.Component.extend({
     'visible': true
   })]),
 
+  /**
+   * List of selected options from the data picker.
+   * @property {Array}
+   */
+  selectedOptions: Ember.A(["score"])
+
   // -------------------------------------------------------------------------
 
   // Methods
