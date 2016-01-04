@@ -17,17 +17,22 @@
       {{else}}
           <p>N/A</p>
       {{/if}}
-
     </li>
     <li class="completion">
-      {{#if performance.isAssessmentOrCollection}}
-        {{#if performance.isCompleted}}
-            <span class="performanceCheckmark isCompleted"> Redo</span>
-        {{else if performance.hasStarted}}
-            <span class="performanceCheckmark isNotCompleted"> Resume</span>
-        {{else}}
-            <span class="performanceCheckmark isNotCompleted"> Redo</span>
-        {{/if}}
+    {{#if performance.isAssessmentOrCollection}}
+      {{#if performance.isCompleted}}
+          <span class="performanceCheckmark isCompleted"></span>
+          <span class="visible-xs">Redo</span>
+      {{else if performance.hasStarted}}
+          <span class="performanceCheckmark isNotCompleted"></span>
+          <span class="visible-xs">Resume</span>
+      {{else}}
+          <span class="performanceCheckmark isNotCompleted"></span>
+          <span class="visible-xs">Study</span>
+      {{/if}}
+    {{else}}
+      {{#if performance.isCompleted}}
+          <span class="performanceCheckmark isCompleted"></span>
       {{else}}
           <div class="description">
               <div class="radial-progress">
@@ -44,8 +49,7 @@
               <p>{{performance.completionDone}}/{{performance.completionTotal}}</p>
           </div>
       {{/if}}
-
-
+    {{/if}}
     </li>
     <li class="timeSpent">
         <p>

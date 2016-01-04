@@ -18,7 +18,7 @@ test('isNotCompleted test', function(assert) {
     model.set('completionTotal', 10);
   });
 
-  assert.equal(model.get('isNotCompleted'), true);
+  assert.equal(model.get('isCompleted'), false);
 
 });
 
@@ -32,7 +32,7 @@ test('isNotCompleted test on Completed unit', function(assert) {
     model.set('completionTotal', 10);
   });
 
-  assert.equal(model.get('isNotCompleted'), false);
+  assert.equal(model.get('isCompleted'), true);
 
 });
 
