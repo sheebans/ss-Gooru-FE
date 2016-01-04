@@ -13,10 +13,19 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Attributes
-  selectedOption: null,
-  lesson:null,
-  index:null,
-  userId:'',
+  /**
+   * Array that computes the elements class names to the specified strings in the array.
+   *
+   * @attribute {Array}
+   */
+  classNames:['gru-lesson-performance-container'],
+  /**
+   * Attribute that computes the element to the specified string.
+   *
+   * @attribute {String}
+   */
+  tagName:'ul',
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -25,13 +34,39 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
-
-  tagName:'ul',
+  /**
+   * Selected option to show when on extra small
+   *
+   * @property {String}
+   */
+  selectedOption: null,
+  /**
+   *  Performance models for this lesson, unit, class, course and student
+   *
+   * @property {performance/performance}
+   */
+  lesson:null,
+  /**
+   * Number of the index of this lesson
+   *
+   * @property {Number}
+   */
+  index:null,
+  /**
+   * UserID this user belongs to
+   *
+   * @property {String}
+   */
+  userId:'',
 
   // -------------------------------------------------------------------------
 
   // Methods
-
+  /**
+   * Function received as parameter to set the unit as a breadcrumb
+   * @function setUnitBreadcrumb
+   * @returns {undefined}
+   */
 
   setLessonBreadcrumb:null
 });

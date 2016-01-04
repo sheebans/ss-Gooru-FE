@@ -51,7 +51,7 @@ export default Ember.Component.extend({
    */
   lessonsPromise:null,
   /**
-   * Collection that contains the
+   * Collection that contains the lesson performance models for this unit
    *
    * @property {Ember.Array}
    */
@@ -74,15 +74,19 @@ export default Ember.Component.extend({
    * @property {String}
    */
   userId:'',
+  /**
+   * Performance model for the unit
+   *
+   * @property {performance/performance}
+   */
+  performance:null,
   // -------------------------------------------------------------------------
 
   // Methods
 
-
-
   /**
-   * Function received as parameter to set the unit as
-   * @function actions:loadData
+   * Function received as parameter to set the unit as a breadcrumb
+   * @function setUnitBreadcrumb
    * @returns {undefined}
    */
   setUnitBreadcrumb:null,
@@ -111,7 +115,6 @@ export default Ember.Component.extend({
   getLessons: function(unitId) {
     return this.get("performanceService").findLessonPerformanceByClassAndCourseAndUnit(this.get('userId'), this.get('classModel').id, this.get('classModel').course, unitId);
   },
-
 
   /**
    * Observe when the 'lessons' promise has resolved and proceed to add the

@@ -16,6 +16,9 @@ const performanceServiceStub = Ember.Service.extend({
         Ember.A([
           Ember.Object.create({
           title: "lesson-title"
+          }),
+          Ember.Object.create({
+            title: "lesson-2-title"
           })
         ])
       ;
@@ -96,10 +99,25 @@ test('Test for unit performance', function(assert) {
   });
 
   return wait().then(function() {
-    const $lessonTitleSpan = $component.find(".lessons-container .performance-lesson-title span span");
+    const $lessonsContainer = $component.find(".lessons-container");
+    assert.equal($lessonsContainer.hasClass('in'), true, "Lessons container did not open");
+
+    const $lessonTitleSpan = $component.find(".lessons-container ul:first-child .lesson-performance-title span");
     T.exists(assert, $lessonTitleSpan, 'Missing Lesson Container');
     assert.equal(T.text($lessonTitleSpan), "L1: lesson-title", "Wrong title");
+
+    Ember.run(() => {
+      $clickableDiv.click();
+    });
+
+    return wait().then(function() {
+
+      const $lessonsContainer = $component.find(".lessons-container");
+      assert.equal($lessonsContainer.hasClass('in'), false, "Lessons container did not open");
+
+    });
   });
+
 
 
 });

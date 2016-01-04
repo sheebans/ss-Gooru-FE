@@ -6,18 +6,22 @@
           </span>
 
       </li>
-      <li class="col-xs-4 col-sm-9">
+      <li class="col-xs-4 col-sm-9 performance-unit-content">
         {{#if performance.hasStarted}}
-            <ul class="hidden-xs performance-headers">
-                <li class="score-header"><p>{{t "gru-performance-summary.scores"}}</p></li>
-                <li class="completion-header"><p>{{t "gru-performance-summary.completion"}}</p></li>
-                <li class="timeSpent-header"><p>{{t "gru-performance-summary.time-spent"}}</p></li>
-                <li class="reactions-header"><p>{{t "gru-performance-summary.reactions"}}</p></li>
-                <li class="attempts-header"><p>{{t "gru-performance-summary.attempts"}}</p></li>
-            </ul>
-          {{class.analytics.performance.gru-performance-summary
-          performance=performance
-          selectedOption=selectedOption}}
+          <div>
+              <ul class="hidden-xs performance-headers">
+                  <li class="score-header"><p>{{t "gru-performance-summary.scores"}}</p></li>
+                  <li class="completion-header"><p>{{t "gru-performance-summary.completion"}}</p></li>
+                  <li class="timeSpent-header"><p>{{t "gru-performance-summary.time-spent"}}</p></li>
+                  <li class="reactions-header"><p>{{t "gru-performance-summary.reactions"}}</p></li>
+                  <li class="attempts-header"><p>{{t "gru-performance-summary.attempts"}}</p></li>
+              </ul>
+          </div>
+          <div>
+            {{class.analytics.performance.gru-performance-summary
+            performance=performance
+            selectedOption=selectedOption}}
+          </div>
         {{else}}
             <h3>Not started yet</h3>
         {{/if}}
