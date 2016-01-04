@@ -22,7 +22,7 @@ test('Test for performance summary on valid unit values', function(assert) {
         ratingScore: 0,
         attempts: 2,
         isNotCompleted: true,
-        displayableTimeSpent: "1.35h"
+        displayableTimeSpent: "1h 30m"
       });
 
   this.set('performance', performance);
@@ -46,7 +46,7 @@ test('Test for performance summary on valid unit values', function(assert) {
 
   const $timeSpentSummary = $component.find(".timeSpent p");
 
-  assert.equal(T.text($timeSpentSummary), "1.35h", "Wrong time spent text ");
+  assert.equal(T.text($timeSpentSummary), "1h 30m", "Wrong time spent text ");
 
   const $attemptSummary = $component.find(".attempts p");
   assert.equal(T.text($attemptSummary), "2", "Wrong attempts text");

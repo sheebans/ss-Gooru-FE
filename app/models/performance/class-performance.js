@@ -20,17 +20,24 @@ export default DS.Model.extend({
   }),
 
   /**
-   * @property {Number} Computed property with the average completion done of the whole class.
-   */
-  classAverageCompletionDone: Ember.computed('studentPerformanceData', function() {
-    return this.calculateClassAverage('averageCompletionDone');
-  }),
-
-  /**
    * @property {Number} Computed property with the average time spent of the whole class.
    */
   classAverageTimeSpent: Ember.computed('studentPerformanceData', function() {
     return this.calculateClassAverage('averageTimeSpent');
+  }),
+
+  /**
+   * @property {Number} Computed property with the summatory of completion done for the whole class.
+   */
+  classSumCompletionDone: Ember.computed('studentPerformanceData', function() {
+    return this.calculateClassSum('sumCompletionDone');
+  }),
+
+  /**
+   * @property {Number} Computed property with the summatory of completion total for the whole class.
+   */
+  classSumCompletionTotal: Ember.computed('studentPerformanceData', function() {
+    return this.calculateClassSum('sumCompletionTotal');
   }),
 
   /**
@@ -43,21 +50,30 @@ export default DS.Model.extend({
   },
 
   /**
-   * Function to calculate the average completion done of a unit, lesson or collection|statement
-   * @param itemId
-   * @returns {Number} the average completion done
-   */
-  calculateAverageCompletionDoneByItem: function(itemId) {
-    return this.calculateAverageByField(itemId, 'completionDone');
-  },
-
-  /**
    * Function to calculate the average time spent of a unit, lesson or collection|statement
    * @param itemId
    * @returns {Number} the average time spent
    */
   calculateAverageTimeSpentByItem: function(itemId) {
     return this.calculateAverageByField(itemId, 'timeSpent');
+  },
+
+  /**
+   * Function to calculate the summatory of completion done for a unit or lesson or collection|statement
+   * @param itemId
+   * @returns {Number} The summatory of completion done
+   */
+  calculateSumCompletionDoneByItem: function(itemId) {
+    return this.calculateSumByField(itemId, 'completionDone');
+  },
+
+  /**
+   * Function to calculate the summatory of completion total for a unit or lesson or collection|statement
+   * @param itemId
+   * @returns {Number} The summatory of completion total
+   */
+  calculateSumCompletionTotalByItem: function(itemId) {
+    return this.calculateSumByField(itemId, 'completionTotal');
   },
 
   /**
@@ -83,20 +99,53 @@ export default DS.Model.extend({
   },
 
   /**
-   * Helper function to calculate the specified class average type.
-   * @param averageType the type score, completionDone or timeSpent
-   * @returns {number} the average value
+   * Helper function to calculate the summatory of a specific field and unit, lesson or collection|statement.
+   * @param itemId the item id
+   * @param fieldName the field to calculate
+   * @returns {number} the summatory value
    */
-  calculateClassAverage: function(averageType) {
+  calculateSumByField: function(itemId, fieldName) {
+    var sumValue = 0;
     const studentPerformanceData = this.get('studentPerformanceData');
     if (studentPerformanceData.get('length') > 0) {
-      var sumValue = 0;
-      studentPerformanceData.forEach(function(studentPerformanceItem) {
-        sumValue += studentPerformanceItem.get(averageType);
+      studentPerformanceData.forEach(function (studentPerformanceItem) {
+        var performanceData = studentPerformanceItem.get('performanceData').findBy('realId', itemId);
+        if (performanceData) {
+          sumValue += performanceData.get(fieldName);
+        }
       });
-      return sumValue / studentPerformanceData.get('length');
     }
-    return 0;
+    return sumValue;
+  },
+
+  /**
+   * Helper function to calculate the average of a specified field.
+   * @param fieldName required values are score or timeSpent
+   * @returns {Number} the average value
+   */
+  calculateClassAverage: function(fieldName) {
+    const counter = this.get('studentPerformanceData.length');
+    if (counter > 0) {
+      return this.calculateClassSum(fieldName) / counter;
+    } else {
+      return 0;
+    }
+  },
+
+  /**
+   * Helper function to calculate the summatory of a specified field.
+   * @param fieldName required values are completionDone or completionTotal
+   * @returns {Number} the average value
+   */
+  calculateClassSum: function(fieldName) {
+    var sumValue = 0;
+    const studentPerformanceData = this.get('studentPerformanceData');
+    if (studentPerformanceData.get('length') > 0) {
+      studentPerformanceData.forEach(function(studentPerformanceItem) {
+        sumValue += studentPerformanceItem.get(fieldName);
+      });
+    }
+    return sumValue;
   }
 
 });
