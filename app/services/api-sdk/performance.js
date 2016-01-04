@@ -122,7 +122,7 @@ export default Ember.Service.extend(StoreMixin, {
       score: this.createRandomValue(0, 100),
       completionDone: this.createRandomValue(1, 20),
       completionTotal: 20,
-      timeSpent: this.createRandomValue(0, 1500),
+      timeSpent: this.createRandomValue(0,10800000),
       ratingScore: this.createRandomValue(1, 5),
       attempts: this.createRandomValue(1, 10)
     });

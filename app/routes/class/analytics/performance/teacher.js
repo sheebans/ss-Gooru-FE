@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 import { roundFloat } from '../../../../utils/math';
+import { formatTime } from '../../../../utils/utils';
 
 /**
  * Teacher Analytics Performance Route
@@ -38,9 +39,8 @@ export default Ember.Route.extend({
       '31886eac-f998-493c-aa42-016f53e9fa88',
       '7deebd55-1976-40a2-8e46-3b8ec5b6d388',
       '21654d76-45e7-45e9-97ab-5f96a14da135',
-      '21654d76-45e7-45e9-97ab-5f96a14da136',
-      '21654d76-45e7-45e9-97ab-5f96a14da137',
-      '21654d76-45e7-45e9-97ab-5f96a14da138'
+      'c1f810a2-c87f-48f5-a899-0d9753383042',
+      'dfc99db4-d331-4733-ac06-35358cee5c64'
     ]);
     // TODO: Remove this temporal variable once it is not required
     const users = Ember.A([
@@ -126,7 +126,7 @@ export default Ember.Route.extend({
   createPerformanceObject: function(performance) {
     return Ember.Object.create({
       score: performance.get('score'),
-      timeSpent: performance.get('timeSpent'),
+      timeSpent: formatTime(performance.get('timeSpent')),
       completionDone: performance.get('completionDone'),
       completionTotal: performance.get('completionTotal')
     });
@@ -135,7 +135,7 @@ export default Ember.Route.extend({
   createUserAverageObject: function(studentPerformance) {
     return Ember.Object.create({
       score: roundFloat(studentPerformance.get('averageScore')),
-      timeSpent: roundFloat(studentPerformance.get('averageTimeSpent')),
+      timeSpent: formatTime(roundFloat(studentPerformance.get('averageTimeSpent'))),
       completionDone: studentPerformance.get('sumCompletionDone'),
       completionTotal: studentPerformance.get('sumCompletionTotal')
     });
@@ -144,7 +144,7 @@ export default Ember.Route.extend({
   createItemAverageObject: function(classPerformanceData, itemId) {
     return Ember.Object.create({
       score: roundFloat(classPerformanceData.calculateAverageScoreByItem(itemId)),
-      timeSpent: roundFloat(classPerformanceData.calculateAverageTimeSpentByItem(itemId)),
+      timeSpent: formatTime(roundFloat(classPerformanceData.calculateAverageTimeSpentByItem(itemId))),
       completionDone: classPerformanceData.calculateSumCompletionDoneByItem(itemId),
       completionTotal: classPerformanceData.calculateSumCompletionTotalByItem(itemId)
     });
@@ -153,7 +153,7 @@ export default Ember.Route.extend({
   createClassAverageObject: function(classPerformanceData) {
     return Ember.Object.create({
       score: roundFloat(classPerformanceData.get('classAverageScore')),
-      timeSpent: roundFloat(classPerformanceData.get('classAverageTimeSpent')),
+      timeSpent: formatTime(roundFloat(classPerformanceData.get('classAverageTimeSpent'))),
       completionDone: classPerformanceData.get('classSumCompletionDone'),
       completionTotal: classPerformanceData.get('classSumCompletionTotal')
     });
