@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import DS from 'ember-data';
+import { formatTime } from '../../utils/utils';
 
 /**
  * Model that contains the performance information
@@ -55,19 +56,8 @@ export default DS.Model.extend({
     return (this.get('timeSpent')>0);
   }),
 
-  displayableTimeSpent: Ember.computed('timeSpent',function(){
-    let timeSpentSecs = Math.round(this.get('timeSpent')/(1000)%60);
-    let timeSpentMins = Math.round(this.get('timeSpent')/(1000*60)%60);
-    let timeSpentHours = (this.get('timeSpent')/(1000*60*60)%24).toFixed(2);
-    if(timeSpentHours<1){
-      if(timeSpentMins<1){
-        return timeSpentSecs+'s';
-      }else{
-        return timeSpentMins+'m';
-      }
-    }else{
-      return timeSpentHours+'h';
-    }
+  displayableTimeSpent: Ember.computed('timeSpent', function() {
+    return formatTime(this.get('timeSpent'));
   }),
 
   /**

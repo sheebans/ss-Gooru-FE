@@ -73,11 +73,11 @@ export default Ember.Controller.extend({
   headers: null,
 
   /**
-   * The performanceData by user
+   * The performanceDataMatrix
    * @property {performanceData[]}
    */
 
-  performanceData: null,
+  performanceDataMatrix: null,
 
   /**
    * The filterBy selected

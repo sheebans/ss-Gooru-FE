@@ -39,11 +39,29 @@ export default Ember.Component.extend({
   headers: null,
 
   /**
-   * The performanceData by user
-   * @property {performanceData[]}
+   * The performanceDataMatrix
+   * @property {performanceDataMatrix[]}
    */
 
-  performanceData: null,
+  performanceDataMatrix: null,
+
+  /**
+   * The average headers of the Data Matrix
+   * @property {averageHeaders[]}
+   */
+  averageHeaders: Ember.computed('performanceDataMatrix.length', function() {
+    const averageHeaders = this.get('performanceDataMatrix').objectAt(0);
+    return averageHeaders;
+  }),
+
+  /**
+   * The user performanceData
+   * @property {performanceData[]}
+   */
+  performanceData: Ember.computed('performanceDataMatrix.length', function() {
+    const performanceData = this.get('performanceDataMatrix').slice(1);
+    return performanceData;
+  }),
 
   /**
    * List of  metrics to be displayed by the sub-header component for the average
@@ -56,7 +74,7 @@ export default Ember.Component.extend({
     'sorted':false,
     'isAsc':false,
     'visible': true
-  })]),
+  })])
 
   /**
    * List of selected options from the data picker.
