@@ -1,0 +1,19 @@
+.controller.profile{
+  .navigation{
+    background-color: grey;
+    border-right: 1px solid $color-gray-lighter-3;
+    height: 100%;
+    padding: 0;
+  }
+
+  .content{
+    background-color: $color-gray-lighter-2;
+    height: 100%;
+    border-left: 1px solid $color-gray-lighter-3;
+    margin-left: -1px;
+    @media (max-width: $screen-xs-max) { /* only for phone */
+      padding: 0;
+    }
+
+  }
+}

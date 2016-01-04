@@ -19,6 +19,7 @@
     "bootstrap-sass": "bootstrap-sass-official#~3.3.5",
     "pretender": "^0.10.0",
     "papaparse": "~4.1.2",
+    "toastr": "~2.1.2",
     "d3": "~3.5.12"
   },
   "resolutions": {

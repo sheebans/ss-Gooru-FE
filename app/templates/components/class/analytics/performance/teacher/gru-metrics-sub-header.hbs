@@ -1,5 +1,5 @@
 {{#each metrics as |metric|}}
-  <th class="metrics-sub-header">
+  <div class="metrics-sub-header table-cell">
       <a class="metric-sub-header {{metric.value}}" {{action 'sort' metric}}>
         {{t (concat 'gru-metrics-sub-header.' metric.value) }}
         {{#if metric.sorted}}
@@ -12,5 +12,5 @@
             <span>{{fa-icon icon='sort'}}</span>
         {{/if}}
       </a>
-  </th>
+  </div>
 {{/each}}

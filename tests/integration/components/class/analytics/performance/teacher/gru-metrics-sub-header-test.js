@@ -38,7 +38,7 @@ test('Verify that there is sub header selected', function(assert) {
 
   this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-sub-header onSortChange='parentAction'}}`);
   var $component = this.$(); //component dom element
-  var $subHeader = $component.find("th.metrics-sub-header");
+  var $subHeader = $component.find(".metrics-sub-header");
   $subHeader.find(".score").click(); //select score
 
 

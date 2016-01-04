@@ -36,11 +36,6 @@ export default Ember.Component.extend({
    * @constant {Array}
    */
   metrics: Ember.A([Ember.Object.create({
-    'value': 'name',
-    'sorted':false,
-    'isAsc':false,
-    'visible': true
-  }),Ember.Object.create({
     'value': 'score',
     'sorted':false,
     'isAsc':false,

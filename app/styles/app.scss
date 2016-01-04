@@ -16,6 +16,7 @@
 @import 'controllers/class/overview';
 @import 'controllers/class/analytics/performance/student';
 @import 'controllers/class/analytics/performance/teacher';
+@import 'controllers/profile';
 
 // TODO: update these components so they follow the naming conventions
 @import 'components/app-dropdown';
@@ -42,6 +43,7 @@
 @import 'components/gru-profile-card';
 @import 'components/gru-unit-tree';
 @import 'components/gru-breadcrumb';
+@import 'components/gru-user-teaser';
 
 @import 'components/player/gru-navigation';
 @import 'components/player/gru-navigator';

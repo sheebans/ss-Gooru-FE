@@ -23,14 +23,24 @@ module.exports = function(defaults) {
 
   // NOTE: jquery UI must go before bootstrap; otherwise, tooltips will stop
   // working and other strange things may happen
-  // NOTE-2: Only import jqueryUI components we are using, currently the datepicker component causes conflicts with the bootstrap datepicker.
 
+  // NOTE-2: Only import jqueryUI components we are using, currently the
+  // datepicker component causes conflicts with the bootstrap datepicker.
+
+  app.import({
+    development: 'bower_components/toastr/toastr.js',
+    production:  'bower_components/toastr/toastr.min.js'
+  });
+
+  app.import({
+    development: 'bower_components/toastr/toastr.css',
+    production:  'bower_components/toastr/toastr.min.css'
+  });
 
   app.import({
     development: 'bower_components/jquery-ui/ui/core.js',
     production:  'bower_components/jquery-ui/ui/minified/core.min.js'
   });
-
 
   app.import({
     development: 'bower_components/jquery-ui/ui/widget.js',
@@ -46,7 +56,6 @@ module.exports = function(defaults) {
     development: 'bower_components/jquery-ui/ui/sortable.js',
     production:  'bower_components/jquery-ui/ui/minified/sortable.min.js'
   });
-
 
   app.import({
     development: 'bower_components/bootstrap-sass/assets/javascripts/bootstrap.js',
