@@ -22,13 +22,13 @@
     {{#if performance.isAssessmentOrCollection}}
       {{#if performance.isCompleted}}
           <span class="performanceCheckmark isCompleted"></span>
-          <span class="visible-xs">Redo</span>
+          <span class="visible-xs">{{t "gru-performance-summary.redo"}}</span>
       {{else if performance.hasStarted}}
           <span class="performanceCheckmark isNotCompleted"></span>
-          <span class="visible-xs">Resume</span>
+          <span class="visible-xs">{{t "gru-performance-summary.summary"}}</span>
       {{else}}
           <span class="performanceCheckmark isNotCompleted"></span>
-          <span class="visible-xs">Study</span>
+          <span class="visible-xs">{{t "gru-performance-summary.study"}}</span>
       {{/if}}
     {{else}}
       {{#if performance.isCompleted}}

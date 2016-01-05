@@ -366,12 +366,15 @@ export default {
     "completion":"Completion",
     "time-spent":"Time Spent",
     "reactions":"Reactions",
-    "attempts":"Attempts"
+    "attempts":"Attempts",
+    "redo":"Redo",
+    "resume":"Resume",
+    "study":"Study"
   },
   "gru-metrics-sub-header":{
     "name":"Name",
     "score": "Score",
     "completion":"Completion",
-    "study-time":"Study Time",
+    "study-time":"Study Time"
   }
 };
