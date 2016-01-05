@@ -36,6 +36,45 @@ test('isNotCompleted test on Completed unit', function(assert) {
 
 });
 
+test('isAssessmentOrCollection test on collection performance', function(assert) {
+  assert.expect(1);
+
+  let model = this.subject();
+
+  Ember.run(function(){
+    model.set('type', 'collection');
+  });
+
+  assert.equal(model.get('isAssessmentOrCollection'), true);
+
+});
+
+test('isAssessmentOrCollection test on assesment performance', function(assert) {
+  assert.expect(1);
+
+  let model = this.subject();
+
+  Ember.run(function(){
+    model.set('type', 'assesment');
+  });
+
+  assert.equal(model.get('isAssessmentOrCollection'), true);
+
+});
+
+test('isLesson test on lesson performance', function(assert) {
+  assert.expect(1);
+
+  let model = this.subject();
+
+  Ember.run(function(){
+    model.set('type', 'lesson');
+  });
+
+  assert.equal(model.get('isLesson'), true);
+
+});
+
 test('completionValue test', function(assert) {
   assert.expect(1);
 

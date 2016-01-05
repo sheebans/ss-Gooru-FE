@@ -22,10 +22,10 @@ export default DS.Model.extend({
     return (this.get('type') ==='assessment' || this.get('type') ==='collection');
   }),
   /**
-   * @property {Boolean} Value that tells whether the performance data belongs to an assessment
+   * @property {Boolean} Value that tells whether the performance data belongs to a lesson
    */
   isLesson : Ember.computed('type', function() {
-    return (this.get('type') ==='assessment' || this.get('type') ==='collection');
+    return (this.get('type') ==='lesson');
   }),
   /**
    * @property {Number} The performance score (in percentages e.g. 80%, 100%, 95%, etc)
