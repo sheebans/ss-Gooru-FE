@@ -42,6 +42,17 @@ export default Ember.Controller.extend({
     },
 
     /**
+     * Triggered when selecting a unit
+     * @param {Unit} unit
+     * @param {number} index
+     */
+    setUnitBreadcrumb: function(unit, index){
+      const controller = this;
+      let breadcrumb = controller.get('breadcrumb');
+      controller.updateBreadcrumbToUnit(breadcrumb, unit, ++index);
+    },
+
+    /**
      * When clicking at the download button
      */
     download: function(){
@@ -90,6 +101,17 @@ export default Ember.Controller.extend({
   selectedOption: 'score',
 
   /**
+   * The current selected class model for the student
+   * @property {Class}
+   */
+  "classModel":null,
+  /**
+   * The userId for the student
+   * @property {Class}
+   */
+  userId:'',
+
+  /**
    * The filterBy selected
    * @property {String}
    */
@@ -105,25 +127,36 @@ export default Ember.Controller.extend({
     {
       value: '111',
       label: 'Course Name'
-    },
-    {
-      value: '222',
-      label: 'U1: Unit number one'
-    },
-    {
-      value: '333',
-      label: 'L1: Lesson number one'
-    },
-    {
-      value: '444',
-      label: 'C3: Collection one with a long name'
     }
-  ])
+  ]),
   // -------------------------------------------------------------------------
   // Observers
 
 
   // -------------------------------------------------------------------------
   // Methods
-
+  /**
+   * Updates the breadcrumb based on the provided unit
+   * @param {[]} breadcrumb
+   * @param {Unit} unit
+   * @param {number} index
+   */
+  updateBreadcrumbToUnit: function(breadcrumb, unit, index){
+    //removes all items after the course
+    const toRemove = breadcrumb.slice(1, breadcrumb.get("length"));
+    breadcrumb.removeObjects(toRemove.toArray());
+    if(unit && index !== undefined){
+      //adds the new unit item
+      const title = unit.get("title");
+      breadcrumb.pushObject(Ember.Object.create({
+        value: unit,
+        label: `U${index} ${title}`
+      }));
+      return breadcrumb;
+    }else {
+      for (var i = this.breadcrumb.length-1; i >= 1; i--) {
+        this.breadcrumb.removeAt(i);
+      }
+    }
+  }
 });

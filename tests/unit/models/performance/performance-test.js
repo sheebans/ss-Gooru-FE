@@ -8,7 +8,7 @@ moduleForModel('performance/performance', 'Unit | Model | performance/performanc
 
 
 
-test('isNotCompleted test', function(assert) {
+test('isCompleted test', function(assert) {
   assert.expect(1);
 
   let model = this.subject();
@@ -18,11 +18,11 @@ test('isNotCompleted test', function(assert) {
     model.set('completionTotal', 10);
   });
 
-  assert.equal(model.get('isNotCompleted'), true);
+  assert.equal(model.get('isCompleted'), false);
 
 });
 
-test('isNotCompleted test on Completed unit', function(assert) {
+test('isCompleted test on Completed unit', function(assert) {
   assert.expect(1);
 
   let model = this.subject();
@@ -32,7 +32,46 @@ test('isNotCompleted test on Completed unit', function(assert) {
     model.set('completionTotal', 10);
   });
 
-  assert.equal(model.get('isNotCompleted'), false);
+  assert.equal(model.get('isCompleted'), true);
+
+});
+
+test('isAssessmentOrCollection test on collection performance', function(assert) {
+  assert.expect(1);
+
+  let model = this.subject();
+
+  Ember.run(function(){
+    model.set('type', 'collection');
+  });
+
+  assert.equal(model.get('isAssessmentOrCollection'), true);
+
+});
+
+test('isAssessmentOrCollection test on assesment performance', function(assert) {
+  assert.expect(1);
+
+  let model = this.subject();
+
+  Ember.run(function(){
+    model.set('type', 'assessment');
+  });
+
+  assert.equal(model.get('isAssessmentOrCollection'), true);
+
+});
+
+test('isLesson test on lesson performance', function(assert) {
+  assert.expect(1);
+
+  let model = this.subject();
+
+  Ember.run(function(){
+    model.set('type', 'lesson');
+  });
+
+  assert.equal(model.get('isLesson'), true);
 
 });
 

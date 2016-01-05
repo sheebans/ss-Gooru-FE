@@ -1,0 +1,34 @@
+[
+  {
+    "description": "Gets the lesson performance data by student and unit",
+    "request": {
+      "url": "^/insights/api/v1/class/(.+)/course/(.+)/unit/(.+)/progress$",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "lesson-performance-ok-response.json"
+    }
+  },
+  {
+    "description": "Gets the student performance data by student",
+    "request": {
+      "url": "^/insights/api/v1/class/(.+)/course/(.+)/progress$",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "student-performance-ok-response.json"
+    }
+  }
+]
+
+
