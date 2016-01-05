@@ -32,17 +32,7 @@
       display: inline-block;
     }
   }
-
   ul.gru-performance-summary{
-    @include respond-to(xs){
-      &:before{
-        content:'';
-        width:1px;
-        border-left:1px solid;
-        height:100%;
-      }
-
-    }
     li{
       height: $performance-circle-size;
       @include respond-to(xs){

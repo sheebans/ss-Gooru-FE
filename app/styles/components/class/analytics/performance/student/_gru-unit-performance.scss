@@ -77,7 +77,9 @@
         align-content: center;
         display: -webkit-flex;
         display: flex;
-        border-left: 1px solid;
+        @include respond-to(xs){
+          border-left: 1px solid;
+        }
         >*{
           width: 100%;
           -webkit-order: 0;

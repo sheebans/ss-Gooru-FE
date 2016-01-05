@@ -8,7 +8,7 @@ moduleForModel('performance/performance', 'Unit | Model | performance/performanc
 
 
 
-test('isNotCompleted test', function(assert) {
+test('isCompleted test', function(assert) {
   assert.expect(1);
 
   let model = this.subject();
@@ -22,7 +22,7 @@ test('isNotCompleted test', function(assert) {
 
 });
 
-test('isNotCompleted test on Completed unit', function(assert) {
+test('isCompleted test on Completed unit', function(assert) {
   assert.expect(1);
 
   let model = this.subject();
