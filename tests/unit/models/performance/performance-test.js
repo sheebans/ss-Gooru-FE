@@ -55,7 +55,7 @@ test('isAssessmentOrCollection test on assesment performance', function(assert) 
   let model = this.subject();
 
   Ember.run(function(){
-    model.set('type', 'assesment');
+    model.set('type', 'assessment');
   });
 
   assert.equal(model.get('isAssessmentOrCollection'), true);
