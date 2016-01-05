@@ -17,10 +17,23 @@
       {{else}}
           <p>N/A</p>
       {{/if}}
-
     </li>
     <li class="completion">
-      {{#if performance.isNotCompleted}}
+    {{#if performance.isAssessmentOrCollection}}
+      {{#if performance.isCompleted}}
+          <span class="performanceCheckmark isCompleted"></span>
+          <span class="visible-xs">{{t "gru-performance-summary.redo"}}</span>
+      {{else if performance.hasStarted}}
+          <span class="performanceCheckmark isNotCompleted"></span>
+          <span class="visible-xs">{{t "gru-performance-summary.summary"}}</span>
+      {{else}}
+          <span class="performanceCheckmark isNotCompleted"></span>
+          <span class="visible-xs">{{t "gru-performance-summary.study"}}</span>
+      {{/if}}
+    {{else}}
+      {{#if performance.isCompleted}}
+          <span class="performanceCheckmark isCompleted"></span>
+      {{else}}
           <div class="description">
               <div class="radial-progress">
                   <div class="circle">
@@ -35,10 +48,8 @@
               </div>
               <p>{{performance.completionDone}}/{{performance.completionTotal}}</p>
           </div>
-      {{else}}
-          <span class="performance-checkmark"><i class="fa fa-check"></i></span>
       {{/if}}
-
+    {{/if}}
     </li>
     <li class="timeSpent">
         <p>
@@ -47,7 +58,7 @@
     </li>
     <li class="reaction">
       {{#if performance.reaction}}
-          <span class="reaction-summary"></span>
+          <span class="reactionSummary"></span>
       {{else}}
           <p>–</p>
       {{/if}}
