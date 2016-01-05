@@ -371,6 +371,10 @@ export default {
     "resume":"Resume",
     "study":"Study"
   },
+  "gru-unit-performance":{
+    "notStarted": "Scores",
+    "noContent":"Completion"
+  },
   "gru-metrics-sub-header":{
     "name":"Name",
     "score": "Score",
