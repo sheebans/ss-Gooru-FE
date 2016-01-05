@@ -373,5 +373,10 @@ export default {
     "score": "Score",
     "completion":"Completion",
     "study-time":"Study Time",
+  },
+  "gru-course-card":{
+    "units":"Units",
+    "remixed-by":"Remixed by",
+    "remix":"Remix"
   }
 };
