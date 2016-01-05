@@ -19,6 +19,24 @@ export default Ember.Component.extend({
   classNames:['gru-course-card'],
 
   // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+
+    /**
+     *Action triggered when click the course title or image
+     */
+    selectCourse: function() {
+      this.sendAction("onSelectCourse");
+    },
+    /**
+     *Action triggered when select remix the course
+     */
+    remixCourse:function(){
+      this.sendAction("onRemixCourse");
+    }
+  },
+  // -------------------------------------------------------------------------
   // Properties
   /**
    * @property {Course} course

@@ -1,6 +1,25 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+// -------------------------------------------------------------------------
+  // Actions
+  actions: {
+    /**
+     * Handle onSelectCourse event from gru-course-card
+     *
+     */
+    selectCourse: function(){
+      console.log("Select Course");
+    },
+    /**
+     * Handle onRemixCourse event from gru-course-card
+     *
+     */
+    remixCourse: function(){
+      console.log("Remix Course");
+    },
+
+  },
 
   // -------------------------------------------------------------------------
   // Properties
