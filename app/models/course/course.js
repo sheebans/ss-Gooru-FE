@@ -29,7 +29,7 @@ export default DS.Model.extend({
   /**
    * @property {Array} list of users who have remix the course
    */
-  remixedBy: DS.hasMany(''),
+  remixedBy: DS.hasMany('user/user'),
 
 
 });
