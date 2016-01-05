@@ -27,7 +27,7 @@ export default Ember.Component.extend({
      *Action triggered when click the course title or image
      */
     selectCourse: function() {
-      this.sendAction("onSelectCourse");
+      this.sendAction("onSelectCourse", this.get("course"));
     },
     /**
      *Action triggered when select remix the course
@@ -46,7 +46,9 @@ export default Ember.Component.extend({
   /**
    * @property {Array} users
    */
-  users: null,
+  users:Ember.computed('course', function() {
+    return this.get("course.remixedBy");
+  }),
 
 
 

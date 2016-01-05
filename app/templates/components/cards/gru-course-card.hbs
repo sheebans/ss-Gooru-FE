@@ -1,13 +1,14 @@
 <div class="thumbnail" {{action 'selectCourse'}}>
+    <img src="{{course.imageUrl}}"/>
 </div>
 <div class="card-info">
     <div class="header">
-        <h3 class="course-title" {{action 'selectCourse'}}>Course Title</h3>
+        <h3 class="course-title" {{action 'selectCourse'}}>{{course.title}}</h3>
         <span class="icon">{{fa-icon icon="globe"}}</span>
     </div>
    <div class="card-content">
-       <p class="total-units">5 {{t "gru-course-card.units"}}</p>
-       <p class="subject">Math 6</p>
+       <p class="total-units">{{course.totalUnits}} {{t "gru-course-card.units"}}</p>
+       <p class="subject">{{course.subject}}</p>
    </div>
     <div class="remixed-users">
         <p class="remixed">{{t "gru-course-card.remixed-by"}}</p>

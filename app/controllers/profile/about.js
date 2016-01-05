@@ -8,8 +8,8 @@ export default Ember.Controller.extend({
      * Handle onSelectCourse event from gru-course-card
      *
      */
-    selectCourse: function(){
-      console.log("Select Course");
+    selectCourse: function(course){
+      console.log("Select Course",course);
     },
     /**
      * Handle onRemixCourse event from gru-course-card
@@ -23,49 +23,64 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+
+
   /**
-   * List of users to show in gru-user-teaser
+   * Course to show in gru-user-teaser
    * Example1
-   * @property {Array}
+   * @property {Course}
    */
-  "users-example1":  Ember.A([Ember.Object.create({
-    'email': 'user_1@test.com',
-    'firstName': 'firstname-1',
-    'fullName': 'lastname-1 firstname-1',
-    'id': 'id-1',
-    'lastName': 'lastname-1',
-    'profileImageUrl': '/assets/gooru/profile.png',
-    'username': 'username-1'
-  }),Ember.Object.create({
-    'email': 'user_2@test.com',
-    'firstName': 'firstname-2',
-    'fullName': 'lastname-2 firstname-2',
-    'id': 'id-2',
-    'lastName': 'lastname-2',
-    'profileImageUrl': '/assets/gooru/profile.png',
-    'username': 'username-2'
-  }),Ember.Object.create({
-    'email': 'user_1@test.com',
-    'firstName': 'firstname-3',
-    'fullName': 'lastname-3 firstname-3',
-    'id': 'id-1',
-    'lastName': 'lastname-3',
-    'profileImageUrl': '/assets/gooru/profile.png',
-    'username': 'username-3'
-  })]),
+  "course-1":Ember.Object.create({
+    'title': 'Water cycle',
+    'totalUnits': 8,
+    'subject': 'Science',
+    'imageUrl': '/assets/gooru/profile.png',
+    'remixedBy':  Ember.A([Ember.Object.create({
+      'email': 'user_1@test.com',
+      'firstName': 'firstname-1',
+      'fullName': 'lastname-1 firstname-1',
+      'id': 'id-1',
+      'lastName': 'lastname-1',
+      'profileImageUrl': '/assets/gooru/profile.png',
+      'username': 'username-1'
+    }),Ember.Object.create({
+      'email': 'user_2@test.com',
+      'firstName': 'firstname-2',
+      'fullName': 'lastname-2 firstname-2',
+      'id': 'id-2',
+      'lastName': 'lastname-2',
+      'profileImageUrl': '/assets/gooru/profile.png',
+      'username': 'username-2'
+    }),Ember.Object.create({
+      'email': 'user_1@test.com',
+      'firstName': 'firstname-3',
+      'fullName': 'lastname-3 firstname-3',
+      'id': 'id-1',
+      'lastName': 'lastname-3',
+      'profileImageUrl': '/assets/gooru/profile.png',
+      'username': 'username-3'
+    })])
+  }),
   /**
-   * List of users to show in gru-user-teaser
+   * Course to show in gru-user-teaser
    * Example2
-   * @property {Array}
+   * @property {Course}
    */
-  "users-example2":  Ember.A([Ember.Object.create({
-    'email': 'user_1@test.com',
-    'firstName': 'firstname-1',
-    'fullName': 'lastname-1 firstname-1',
-    'id': 'id-1',
-    'lastName': 'lastname-1',
-    'profileImageUrl': '/assets/gooru/profile.png',
-    'username': 'username-1'
-  })]),
+  "course-2":Ember.Object.create({
+    'title': 'Earths Water',
+    'totalUnits': 3,
+    'subject': 'Science',
+    'imageUrl': '/assets/gooru/profile.png',
+    'remixedBy': Ember.A([Ember.Object.create({
+      'email': 'user_1@test.com',
+      'firstName': 'firstname-1',
+      'fullName': 'lastname-1 firstname-1',
+      'id': 'id-1',
+      'lastName': 'lastname-1',
+      'profileImageUrl': '/assets/gooru/profile.png',
+      'username': 'username-1'
+    })])
+  })
 
 });
