@@ -21,7 +21,7 @@ test('Test for performance summary on valid unit values', function(assert) {
         timeSpent: 4852359,
         ratingScore: 0,
         attempts: 2,
-        isNotCompleted: true,
+        isCompleted: false,
         displayableTimeSpent: "1h 30m"
       });
 
