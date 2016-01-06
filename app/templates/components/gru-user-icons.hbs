@@ -3,7 +3,7 @@
   <ul>
     {{#each firstUsers as |entity index|}}
       <li class="item user {{if entity.isActive 'active' ''}}">
-        <img class="img-circle name-{{index}}" src="{{entity.user.profileImageUrl}}" title="{{entity.user.fullName}}" />
+        <img class="img-circle name-{{index}}" src="{{entity.user.avatarUrl}}" title="{{entity.user.fullName}}" />
       </li>
     {{/each}}
 
@@ -14,7 +14,7 @@
     {{else}}
       {{#each remainingUsers as |entity|}}
         <li class="item user {{if entity.isActive 'active' ''}}">
-          <img class="img-circle" src="{{entity.user.profileImageUrl}}" title="{{entity.user.fullName}}" />
+          <img class="img-circle" src="{{entity.user.avatarUrl}}" title="{{entity.user.fullName}}" />
         </li>
       {{/each}}
     {{/if}}
