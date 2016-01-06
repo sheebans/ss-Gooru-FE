@@ -23,7 +23,7 @@ export default Ember.Component.extend({
   actions: {
 
     /**
-     * Set a new visualization as selected and update the component appearance accordingly
+     * Set a new visualization as selected and update the component appearance
      * @function actions:setLayout
      * @param {string} newLayout
      */
@@ -64,7 +64,9 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-
+  /**
+   * Remove the actual visuatization
+   */
   cleanup: function() {
     const component = this;
     component.get("viewLayouts").forEach(function(option){
@@ -72,7 +74,9 @@ export default Ember.Component.extend({
       component.set("selectedView",null);
     });
   },
-
+  /**
+   * Set a new visualization
+   */
   selectLayout: function(layout) {
     layout.set('isActive', true);
     this.set("selectedView",layout.view);
