@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {VIEW_LAYOUT_PICKER_OPTIONS} from "../config/config";
 
 /**
  * View Layout Picker
@@ -34,7 +35,7 @@ export default Ember.Component.extend({
         this.cleanup();
         this.selectLayout(newLayout);
       }
-      this.sendAction("onViewLayoutChange", newLayout);
+      this.sendAction("onViewLayoutChange", this.get("selectedView"));
     }
 
   },
@@ -46,11 +47,11 @@ export default Ember.Component.extend({
    * @constant {Array}
    */
   viewLayouts: Ember.A([Ember.Object.create({
-  'view': 'thumbnails',
+  'view': VIEW_LAYOUT_PICKER_OPTIONS.THUMBNAILS,
   'isActive': false,
   'icon':'th-large'
   }),Ember.Object.create({
-  'view': 'list',
+  'view': VIEW_LAYOUT_PICKER_OPTIONS.LIST,
   'isActive': false,
   'icon':'bars'
   })]),

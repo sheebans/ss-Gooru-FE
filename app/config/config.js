@@ -36,3 +36,7 @@ export const KEY_CODES = {
   SPACE: 32,
   UP: 38
 };
+export const VIEW_LAYOUT_PICKER_OPTIONS = {
+  LIST:'list',
+  THUMBNAILS:'thumbnails'
+};

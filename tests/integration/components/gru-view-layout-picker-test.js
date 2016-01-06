@@ -24,10 +24,10 @@ test('View-Layout-Picker Layout', function(assert) {
 });
 
 test('Select option', function(assert) {
-  assert.expect(2);
+  assert.expect(3);
 
   this.on('parentAction', function(option){
-    assert.equal(true, option.get('isActive'));
+    assert.equal("thumbnails", option);
   });
 
   this.render(hbs`{{gru-view-layout-picker onViewLayoutChange='parentAction'}}`);
@@ -35,4 +35,27 @@ test('Select option', function(assert) {
   var $viewLayoutPicker = $component.find(".view-layout-list");
   $viewLayoutPicker.find("div:first-child a").click();
   assert.ok($viewLayoutPicker.find("div:first-child").hasClass('active'));
+  T.notExists(assert,$viewLayoutPicker.find("div.list.active"),"List option should not be active");
+});
+
+test('Select option again', function(assert) {
+  assert.expect(1);
+  this.render(hbs`{{gru-view-layout-picker}}`);
+  var $component = this.$(); //component dom element
+  var $viewLayoutPicker = $component.find(".view-layout-list");
+  $viewLayoutPicker.find("div.thumbnails a").click();
+  T.notExists(assert,$viewLayoutPicker.find("div.thumbnails.active"),"Thumbnails option should not be active");
+});
+
+test('Select another option', function(assert) {
+  assert.expect(3);
+
+  this.render(hbs`{{gru-view-layout-picker }}`);
+  var $component = this.$(); //component dom element
+  var $viewLayoutPicker = $component.find(".view-layout-list");
+  $viewLayoutPicker.find("div:first-child a").click();
+  assert.ok($viewLayoutPicker.find("div.thumbnails").hasClass('active'));
+  $viewLayoutPicker.find("div:last-child a").click();
+  T.notExists(assert,$viewLayoutPicker.find("div.thumbnails.active"),"Thumbnails option should not be active");
+  assert.ok($viewLayoutPicker.find("div.list").hasClass('active'));
 });
