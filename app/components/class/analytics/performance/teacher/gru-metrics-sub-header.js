@@ -7,7 +7,6 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Attributes
-  tagName: '',
 
   classNames: ['gru-metrics-sub-header'],
 
@@ -30,9 +29,10 @@ export default Ember.Component.extend({
    */
   onSortChange: null,
   /**
-   * List of  metrics to be displayed by the component
+   * Default list of  metrics to be displayed by the component
    * @sorted {Boolean}
    * @isAsc {Boolean}
+   * @visible {Boolean}
    * @constant {Array}
    */
   metrics: Ember.A([Ember.Object.create({
@@ -44,13 +44,48 @@ export default Ember.Component.extend({
     'value': 'completion',
     'sorted':false,
     'isAsc':false,
-    'visible': true
+    'visible': false
   }),Ember.Object.create({
     'value': 'study-time',
     'sorted':false,
     'isAsc':false,
-    'visible': true
+    'visible': false
   })]),
+
+  /**
+   * List of selected options from the data picker.
+   * @property {Array}
+   */
+  dataPickerOptions: Ember.A(["score"]),
+
+  /**
+   * List of  visible metrics to be displayed
+   * @property {Array}
+   */
+  visibleMetrics: Ember.computed('dataPickerOptions.[]', function() {
+    var dataPickerOptions = this.get('dataPickerOptions');
+
+    var metrics = this.get("metrics");
+
+    // Reset the visibility of metrics, except the first element which is always visible
+    metrics.forEach(function(metric, index) {
+      if(index>0){
+        metric.set('visible', false);
+      }
+    });
+
+    dataPickerOptions.forEach(function(option) {
+      var metric = metrics.findBy('value', option);
+      if (metric) {
+        metric.set('visible', true);
+      } else {
+        Ember.Logger.warn('Option in data picker: ' + option + ' does not appear to be a valid metric');
+      }
+    });
+
+    return this.get('metrics');
+
+  }),
 
   // -------------------------------------------------------------------------
 
@@ -73,6 +108,7 @@ export default Ember.Component.extend({
       }
     });
   },
+
   /**
    * Change the type of sort
    * @metric {Ember Object}
