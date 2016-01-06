@@ -1,0 +1,16 @@
+{{#each performances as | performance index | }}
+
+  {{class.analytics.performance.student.gru-unit-performance
+    performance=performance
+    selectedOption=selectedOption
+    index=index
+    classModel=classModel
+    userId=userId
+    setUnitBreadcrumb= (action 'setUnitBreadcrumb')
+  }}
+
+{{else}}
+
+    <h3>No content available</h3>
+
+{{/each}}

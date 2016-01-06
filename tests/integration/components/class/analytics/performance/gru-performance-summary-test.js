@@ -14,14 +14,14 @@ test('Test for performance summary on valid unit values', function(assert) {
   const performance = Ember.Object.create(
      {
         title: "Quiz :: Indian History",
-        type: "performance/student-performance",
+        type: "performance/performance",
         score:75,
         completionDone: 0,
         completionTotal: 1,
         timeSpent: 4852359,
         ratingScore: 0,
         attempts: 2,
-        isNotCompleted: true,
+        isCompleted: false,
         displayableTimeSpent: "1h 30m"
       });
 
@@ -56,8 +56,9 @@ test('Test for performance summary on invalid unit values', function(assert) {
   const performance = Ember.Object.create(
     {
       title: "Quiz :: Indian History",
-      type: "performance/student-performance",
-      completionTotal: 1,
+      type: "performance/performance",
+      completionTotal: 2,
+      completionDone: 1,
       ratingScore: 0,
       isNotCompleted: false
     });
@@ -72,8 +73,8 @@ test('Test for performance summary on invalid unit values', function(assert) {
   const $scoreSummary = $component.find(".score p");
   assert.equal(T.text($scoreSummary), "N/A", "Wrong score text");
 
-  const $completionSummary = $component.find(".completion span");
-  T.exists(assert, $completionSummary, 'Missing Completion summary checkmark');
+  const $completionSummary = $component.find(".completion .description");
+  T.exists(assert, $completionSummary, 'Missing Completion summary');
 
   const $reactionSummary = $component.find(".reaction p");
   assert.equal(T.text($reactionSummary), "–", "Wrong reaction summary text");
