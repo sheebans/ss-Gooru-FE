@@ -7,7 +7,6 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Attributes
-  tagName: '',
 
   classNames: ['gru-metrics-sub-header'],
 
@@ -63,7 +62,7 @@ export default Ember.Component.extend({
    * List of  visible metrics to be displayed
    * @property {Array}
    */
-  visibleMetrics: Ember.computed('dataPickerOptions', function() {
+  visibleMetrics: Ember.computed('dataPickerOptions.[]', function() {
     var dataPickerOptions = this.get('dataPickerOptions');
 
     this.showMetric('completion', dataPickerOptions.contains('completion'));

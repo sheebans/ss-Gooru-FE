@@ -88,11 +88,11 @@ test('Metrics Table Layout', function(assert) {
   const $tbody = $table.find("tbody");
   T.exists(assert, $tbody, 'Missing tbody of the table');
 
-  const $subheader = $thead.find(".sub-header");
-  T.exists(assert, $subheader, 'Missing filters sub-header');
+  const $subheader = $thead.find(".gru-metrics-sub-header");
+  T.exists(assert, $subheader, 'Missing sub-header component');
 
-  const $performanceInformation = $metricsTable.find(".performance-information");
-  T.exists(assert, $performanceInformation, 'Missing performance information');
+  const $performanceInformation = $metricsTable.find(".gru-metrics-performance-information");
+  T.exists(assert, $performanceInformation, 'Missing performance information component');
 
   assert.equal($thead.find("tr:first-child th").length, 2, "The thead should have only 2 headers");
 
