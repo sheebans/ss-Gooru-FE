@@ -65,8 +65,23 @@ export default Ember.Component.extend({
   visibleMetrics: Ember.computed('dataPickerOptions.[]', function() {
     var dataPickerOptions = this.get('dataPickerOptions');
 
-    this.showMetric('completion', dataPickerOptions.contains('completion'));
-    this.showMetric('study-time', dataPickerOptions.contains('study-time'));
+    var metrics = this.get("metrics");
+
+    // Reset the visibility of metrics, except the first element which is always visible
+    metrics.forEach(function(metric, index) {
+      if(index>0){
+        metric.set('visible', false);
+      }
+    });
+
+    dataPickerOptions.forEach(function(option) {
+      var metric = metrics.findBy('value', option);
+      if (metric) {
+        metric.set('visible', true);
+      } else {
+        Ember.Logger.warn('Option in data picker: ' + option + ' does not appear to be a valid metric');
+      }
+    });
 
     return this.get('metrics');
 
@@ -92,22 +107,6 @@ export default Ember.Component.extend({
         option.set("sorted", false);
       }
     });
-  },
-
-  /**
-   * show/hide metric by specific data picker selected option
-   * @metric {Ember Object}
-   *
-   */
-  showMetric(metric, show){
-    var component =this;
-    var metrics = component.get("metrics");
-    metrics.forEach(function(option){
-      if (option.get("value") === metric){
-        option.set("visible", show);
-      }
-    });
-    component.set("metrics", metrics);
   },
 
   /**

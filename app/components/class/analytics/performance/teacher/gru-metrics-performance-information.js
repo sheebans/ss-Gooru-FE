@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {SCORES} from "../../../../../config/config";
+import {SCORES} from "gooru-web/config/config";
 
 export default Ember.Component.extend({
 
