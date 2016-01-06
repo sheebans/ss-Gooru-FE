@@ -40,6 +40,13 @@
         border: 0;
       }
     }
+    .header-title {
+      margin: 0 auto;
+      overflow: hidden;
+      word-wrap: break-word;
+      max-width: 75px;
+      text-overflow: ellipsis;
+    }
     .table-cell {
       width: 80px;
       min-width: 80px;

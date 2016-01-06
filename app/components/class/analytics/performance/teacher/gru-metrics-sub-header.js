@@ -30,9 +30,10 @@ export default Ember.Component.extend({
    */
   onSortChange: null,
   /**
-   * List of  metrics to be displayed by the component
+   * Default list of  metrics to be displayed by the component
    * @sorted {Boolean}
    * @isAsc {Boolean}
+   * @visible {Boolean}
    * @constant {Array}
    */
   metrics: Ember.A([Ember.Object.create({
@@ -44,13 +45,33 @@ export default Ember.Component.extend({
     'value': 'completion',
     'sorted':false,
     'isAsc':false,
-    'visible': true
+    'visible': false
   }),Ember.Object.create({
     'value': 'study-time',
     'sorted':false,
     'isAsc':false,
-    'visible': true
+    'visible': false
   })]),
+
+  /**
+   * List of selected options from the data picker.
+   * @property {Array}
+   */
+  dataPickerOptions: Ember.A(["score"]),
+
+  /**
+   * List of  visible metrics to be displayed
+   * @property {Array}
+   */
+  visibleMetrics: Ember.computed('dataPickerOptions', function() {
+    var dataPickerOptions = this.get('dataPickerOptions');
+
+    this.showMetric('completion', dataPickerOptions.contains('completion'));
+    this.showMetric('study-time', dataPickerOptions.contains('study-time'));
+
+    return this.get('metrics');
+
+  }),
 
   // -------------------------------------------------------------------------
 
@@ -73,6 +94,23 @@ export default Ember.Component.extend({
       }
     });
   },
+
+  /**
+   * show/hide metric by specific data picker selected option
+   * @metric {Ember Object}
+   *
+   */
+  showMetric(metric, show){
+    var component =this;
+    var metrics = component.get("metrics");
+    metrics.forEach(function(option){
+      if (option.get("value") === metric){
+        option.set("visible", show);
+      }
+    });
+    component.set("metrics", metrics);
+  },
+
   /**
    * Change the type of sort
    * @metric {Ember Object}
