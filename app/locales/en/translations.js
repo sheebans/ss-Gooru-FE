@@ -10,6 +10,7 @@ export default {
     "collectionInitial": "C",
     "contentUnavailable": "Content not available",
     "create": "Create",
+    "edit": "Edit",
     "email_support": "support@gooru.org",
     "explanation": "Explanation",
     "forgotPassword": "Forgot Password",
@@ -364,6 +365,19 @@ export default {
       "title": "Mastery"
     }
   },
+
+  "profile.gru-navigation": {
+    "about": "About",
+    "activity": "Activity",
+    "analytics": "Analytics",
+    "content": "Content",
+    "followers": "Followers",
+    "followings": "Followings",
+    "imageFor": "Profile image for",
+    "network": "Network",
+    "viewAs": "View as"
+  },
+
   "gru-data-picker":{
     "score": "Score",
     "completion":"Completion",
@@ -390,7 +404,7 @@ export default {
     "name":"Name",
     "score": "Score",
     "completion":"Completion",
-    "study-time":"Study Time",
+    "study-time": "Study Time"
   },
   "gru-course-card":{
     "units":"Units",

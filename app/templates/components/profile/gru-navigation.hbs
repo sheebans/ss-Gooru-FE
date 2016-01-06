@@ -1,0 +1,37 @@
+<div class="profile-info">
+  <a class="main" {{action "selectUser" profile.user.id}}>
+    <img class="img-circle" src="{{profile.user.profileImageUrl}}"
+         alt="{{t "profile.gru-navigation.imageFor"}} {{profile.user.fullNameInformal}}"/>
+    <strong>{{profile.user.fullNameInformal}}</strong>
+  </a>
+
+  <div class="social">
+		<span class="followers">
+      <em>{{profile.followers}}</em> {{t "profile.gru-navigation.followers"}}
+    </span>
+		<span class="following">
+      <em>{{profile.followings}}</em> {{t "profile.gru-navigation.followings"}}
+    </span>
+  </div>
+  <div class="actions">
+    <button class="edit btn btn-default">{{t "common.edit"}}</button>
+    <div class="dropdown impersonate">
+      <button class="btn btn-default dropdown-toggle" type="button"
+              data-toggle="dropdown">{{t "profile.gru-navigation.viewAs"}}
+        <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        {{!-- TODO: Replace with real values --}}
+        <li><a href="#">User 1</a></li>
+        <li><a href="#">User 2</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<ul class="profile-menu">
+  <li class="menu-option about" {{action 'selectItem' 'overview'}}>{{t "profile.gru-navigation.about"}}</li>
+  <li class="menu-option activity" {{action 'selectItem' 'activity'}}>{{t "profile.gru-navigation.activity"}}</li>
+  <li class="menu-option content" {{action 'selectItem' 'content'}}>{{t "profile.gru-navigation.content"}}</li>
+  <li class="menu-option network" {{action 'selectItem' 'network'}}>{{t "profile.gru-navigation.network"}}</li>
+  <li class="menu-option analytics" {{action 'selectItem' 'analytics'}}>{{t "profile.gru-navigation.analytics"}}</li>
+</ul>

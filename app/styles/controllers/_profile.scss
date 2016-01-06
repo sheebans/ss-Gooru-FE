@@ -1,9 +1,84 @@
 .controller.profile{
   .navigation{
-    background-color: grey;
     border-right: 1px solid $color-gray-lighter-3;
     height: 100%;
     padding: 0;
+
+    .profile-info {
+      $button-min-width: 10rem;
+
+      text-align: center;
+      padding: 15px 0;
+
+      > .main {
+        > strong {
+          color: $text-color;
+          display: block;
+          font-size: 1.5rem;
+          font-weight: normal;
+          margin-bottom: 15px;
+          padding: 0 20px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        > .img-circle {
+          display: block;
+          height: 10rem;
+          width: 10rem;
+          margin: 10px auto;
+          border: 1px solid $gray-lighter;
+        }
+      }
+
+      > .social {
+        margin-bottom: 20px;
+
+        > span {
+          display: inline-block;
+          padding: 0 25px;
+          font-size: $font-size-small;
+
+          > em {
+            display: block;
+            font-size: 1rem;
+            font-style: normal;
+            line-height: 1em;
+          }
+
+          &:last-child {
+            border-left: 2px solid $gray-lighter;
+          }
+        }
+      }
+      > .actions {
+        > button, > .dropdown {
+          margin-bottom: 10px;
+        }
+
+        button {
+          min-width: $button-min-width;
+        }
+
+        .dropdown-menu {
+          left: 50%;
+          margin-left: -($button-min-width / 2);
+        }
+      }
+    }
+
+    .profile-menu {
+      border-top: 1px solid $color-gray-lighter-3;
+      list-style: none;
+      margin: 0;
+      padding: 0 0 40px 0;
+
+      .menu-option {
+        text-align: center;
+        display: block;
+        padding: 10px 15px;
+      }
+    }
   }
 
   .content{

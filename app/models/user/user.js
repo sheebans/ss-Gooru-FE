@@ -167,6 +167,10 @@ export default DS.Model.extend(UserValidations, {
 
   fullName: Ember.computed('firstName', 'lastName', function() {
     return this.get('lastName') + ', ' + this.get('firstName');
+  }),
+
+  fullNameInformal: Ember.computed('firstName', 'lastName', function () {
+    return this.get('firstName') + ' ' + this.get('lastName');
   })
 
 });
