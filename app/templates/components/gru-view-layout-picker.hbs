@@ -1,7 +1,7 @@
-<ul class="view-layout-list">
+<div class="view-layout-list">
   {{#each viewLayouts as |viewLayout|}}
-      <li class="view-option {{if viewLayout.isActive 'active' ''}}">
-        <span>{{fa-icon icon=viewLayout.icon}}</span>
-      </li>
+      <div class="view-option {{viewLayout.view}} {{if viewLayout.isActive 'active' ''}}">
+        <a {{action 'setLayout' viewLayout}}><span>{{fa-icon icon=viewLayout.icon}}</span></a>
+      </div>
   {{/each}}
-</ul>
+</div>

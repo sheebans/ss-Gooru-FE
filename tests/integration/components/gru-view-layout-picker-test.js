@@ -1,25 +1,38 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import T from 'gooru-web/tests/helpers/assert';
 
 moduleForComponent('gru-view-layout-picker', 'Integration | Component | gru view layout picker', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.container.lookup('service:i18n').set("locale","en");
+  }
 });
 
-test('it renders', function(assert) {
-  
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });" + EOL + EOL +
+test('View-Layout-Picker Layout', function(assert) {
+  assert.expect(4);
 
   this.render(hbs`{{gru-view-layout-picker}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  const $component = this.$(); //component dom element
+  const $viewLayoutPicker = $component.find(".gru-view-layout-picker");
 
-  // Template block usage:" + EOL +
-  this.render(hbs`
-    {{#gru-view-layout-picker}}
-      template block text
-    {{/gru-view-layout-picker}}
-  `);
+  T.exists(assert, $viewLayoutPicker, 'Missing view layout picker');
+  T.exists(assert, $viewLayoutPicker.find(".view-layout-list"), 'Missing view layout picker options');
+  T.exists(assert, $viewLayoutPicker.find(".fa-th-large"), 'Missing thumbnails icon');
+  T.exists(assert, $viewLayoutPicker.find(".fa-bars"), 'Missing list icon');
+});
 
-  assert.equal(this.$().text().trim(), 'template block text');
+test('Select option', function(assert) {
+  assert.expect(2);
+
+  this.on('parentAction', function(option){
+    assert.equal(true, option.get('isActive'));
+  });
+
+  this.render(hbs`{{gru-view-layout-picker onViewLayoutChange='parentAction'}}`);
+  var $component = this.$(); //component dom element
+  var $viewLayoutPicker = $component.find(".view-layout-list");
+  $viewLayoutPicker.find("div:first-child a").click();
+  assert.ok($viewLayoutPicker.find("div:first-child").hasClass('active'));
 });
