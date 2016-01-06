@@ -74,7 +74,13 @@ export default Ember.Component.extend({
     'sorted':false,
     'isAsc':false,
     'visible': true
-  })])
+  })]),
+
+  /**
+   * List of selected options from the data picker.
+   * @property {Array}
+   */
+  dataPickerOptions: Ember.A(["score"])
 
   // -------------------------------------------------------------------------
 

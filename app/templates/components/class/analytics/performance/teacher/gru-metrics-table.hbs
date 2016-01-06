@@ -7,7 +7,9 @@
       </th>
       {{#each headers as |header|}}
         <th id="{{{header.id}}}" class="header" scope="col">
-          {{{header.title}}}
+          <div class="header-title">
+            {{{header.title}}}
+          </div>
         </th>
       {{/each}}
     </tr>
@@ -16,23 +18,9 @@
         {{t "class.analytics.performance.teacher.metricsTable.average"}}
       </th>
       {{#each averageHeaders.performanceData as |average|}}
-        {{#if average}}
-          <th>
-            <div class="good table-cell">{{{average.score}}}%</div>
-            {{class.analytics.performance.teacher.gru-completion-information-chart
-            text=(concat average.completionDone '/' average.completionTotal)
-            completePercent=average.completionDone
-            minValue=0
-            maxValue=average.completionTotal}}
-            <div class="table-cell">{{{average.timeSpent}}}</div>
-          </th>
-        {{else}}
-          <th>
-            <div class="table-cell"></div>
-            <div class="table-cell"></div>
-            <div class="table-cell"></div>
-          </th>
-        {{/if}}
+        <th class="performance-information">
+          {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions}}
+        </th>
       {{/each}}
     </tr>
     <tr class="sub-header hidden-xs">
@@ -40,11 +28,11 @@
         {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' metrics=averageMetrics}}
       </th>
       <th>
-        {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange'}}
+        {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' dataPickerOptions=dataPickerOptions}}
       </th>
       {{#each headers as |header|}}
         <th>
-          {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange'}}
+          {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' dataPickerOptions=dataPickerOptions}}
         </th>
       {{/each}}
     </tr>
@@ -56,23 +44,9 @@
           {{{userPerformance.user}}}
         </th>
         {{#each userPerformance.performanceData as |data|}}
-          {{#if data}}
-            <td>
-              <div class="good table-cell">{{{data.score}}}%</div>
-              {{class.analytics.performance.teacher.gru-completion-information-chart
-              text=(concat data.completionDone '/' data.completionTotal)
-              completePercent=data.completionDone
-              minValue=0
-              maxValue=data.completionTotal}}
-              <div class="table-cell">{{{data.timeSpent}}}</div>
-            </td>
-          {{else}}
-            <td>
-              <div class="table-cell"></div>
-              <div class="table-cell"></div>
-              <div class="table-cell"></div>
-            </td>
-          {{/if}}
+          <td class="performance-information">
+            {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=data dataPickerOptions=dataPickerOptions}}
+          </td>
         {{/each}}
       </tr>
     {{/each}}
