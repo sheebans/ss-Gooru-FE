@@ -4,7 +4,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-profile-card'],
+  classNames: ['gru-user-card'],
   // -------------------------------------------------------------------------
   // Properties
   /**
