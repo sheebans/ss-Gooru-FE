@@ -97,25 +97,12 @@ export default Ember.Controller.extend({
    */
   isFullScreen:  Ember.computed.alias('classController.isFullScreen'),
 
+  /**
+   * List of breadcrumbs.
+   * @property {Array}
+   */
+  breadcrumb: Ember.A(),
 
-  breadcrumb: Ember.A([
-    {
-      value: '111',
-      label: 'C1: Course Name'
-    },
-    {
-      value: '222',
-      label: 'U1: Unit number one'
-    },
-    {
-      value: '333',
-      label: 'L1: Lesson number one'
-    },
-    {
-      value: '444',
-      label: 'C1: Collection one with a long name'
-    }
-  ]),
   /**
    * List of  options specific to teacher to be displayed by the component Data picker
    *
