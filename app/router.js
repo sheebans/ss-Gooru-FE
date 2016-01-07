@@ -40,6 +40,7 @@ Router.map(function() {
     this.route('network');
   });
 
+  this.route('framework');
 });
 
 export default Router;

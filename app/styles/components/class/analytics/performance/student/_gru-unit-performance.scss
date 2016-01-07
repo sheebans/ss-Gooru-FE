@@ -2,10 +2,11 @@
   margin: 15px 0;
   border:1px solid $color-gray-lighter-12;
   border-radius: 0;
-  &.selected >ul{
+  &.selected >a{
     background-color:$color-gray-lighter-6;
   }
-  >div:first-child{
+  >a{
+    color:$color-gray-dark-2;
     height:105px;
     -webkit-flex-direction: row;
     flex-direction: row;
@@ -33,12 +34,13 @@
       -webkit-align-self: auto;
       align-self: auto;
       height:100%;
-      >li{
-      }
     }
   }
   ul{
     list-style: none;
+    padding: 0;
+    text-align: center;
+    height: 100%;
     li{
       &.performance-unit-title{
         -webkit-flex-direction: row;
@@ -65,10 +67,10 @@
       }
       &.performance-unit-content{
         height:100%;
-        -webkit-flex-direction: row;
-        flex-direction: row;
-        -webkit-flex-wrap: wrap;
-        flex-wrap: wrap;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        -webkit-flex-wrap: nowrap;
+        flex-wrap: nowrap;
         -webkit-justify-content: center;
         justify-content: center;
         -webkit-align-items: center;
@@ -84,14 +86,42 @@
           width: 100%;
           -webkit-order: 0;
           order: 0;
-          -webkit-flex-grow: 1;
-          flex-grow: 1;
+          -webkit-flex-grow: 0;
+          flex-grow: 0;
           -webkit-flex-shrink: 1;
           flex-shrink: 1;
           -webkit-flex-basis: auto;
           flex-basis: auto;
           -webkit-align-self: auto;
           align-self: auto;
+        }
+        .performance-headers{
+          -webkit-flex-direction: row;
+          flex-direction: row;
+          -webkit-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+          -webkit-justify-content: center;
+          justify-content: center;
+          -webkit-align-items: center;
+          align-items: center;
+          -webkit-align-content: center;
+          align-content: center;
+          display: -webkit-flex;
+          display: flex;
+          width: 100%;
+          >*{
+            -webkit-order: 0;
+            order: 0;
+            -webkit-flex-grow: 0;
+            flex-grow: 0;
+            -webkit-flex-shrink: 1;
+            flex-shrink: 1;
+            -webkit-flex-basis: auto;
+            flex-basis: auto;
+            -webkit-align-self: auto;
+            align-self: auto;
+            width: 100%;
+          }
         }
       }
       span i{

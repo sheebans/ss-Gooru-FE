@@ -1,38 +1,36 @@
  ul.gru-performance-summary, ul.performance-headers{
-    -webkit-flex-direction: row;
-    flex-direction: row;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -webkit-justify-content: space-between;
-    justify-content: space-between;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-align-content: stretch;
-    align-content: stretch;
-    display: -webkit-flex;
-    display: flex;
-    padding: 0;
-    text-align: center;
-    height: 50%;
+
     @include respond-to(xs) {
       height: 100%;
     }
-    li{
-      width: 19%;
+  }
+  ul.gru-performance-summary{
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-align-content: center;
+    align-content: center;
+    display: -webkit-flex;
+    display: flex;
+    width: 100%;
+    >*{
+      width: 100%;
       -webkit-order: 0;
       order: 0;
-      -webkit-flex-grow: 1;
-      flex-grow: 1;
+      -webkit-flex-grow: 0;
+      flex-grow: 0;
       -webkit-flex-shrink: 1;
       flex-shrink: 1;
       -webkit-flex-basis: auto;
       flex-basis: auto;
       -webkit-align-self: auto;
       align-self: auto;
-      display: inline-block;
     }
-  }
-  ul.gru-performance-summary{
     li{
       height: $performance-circle-size;
       @include respond-to(xs){

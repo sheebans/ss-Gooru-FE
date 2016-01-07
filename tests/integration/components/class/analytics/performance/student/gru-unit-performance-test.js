@@ -65,11 +65,7 @@ test('Test for unit performance', function(assert) {
     id:'111-333-555',
     course:'222-444-666'
   });
-  const setUnitBreadcrumb = function(){
-    return 'a';
-  };
 
-  this.set('setUnitBreadcrumb',setUnitBreadcrumb);
   this.set('userId', "any-user-id");
   this.set('classModel', classModel);
   this.set('performance', performance);
@@ -77,12 +73,11 @@ test('Test for unit performance', function(assert) {
   this.render(hbs`{{class.analytics.performance.student.gru-unit-performance
     performance=performance
     classModel=classModel
-    setUnitBreadcrumb=setUnitBreadcrumb
     userId=userId
     index=index
   }}`);
   const $component = this.$();
-  const $clickableDiv= $component.find(".gru-unit-performance-container div:first-child"); //component dom element
+  const $clickableDiv= $component.find(".gru-unit-performance-container >a"); //component dom element
 
   //const $unitContainer = $component.find();
 
