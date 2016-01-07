@@ -57,16 +57,9 @@ export default Ember.Component.extend({
    *
    * @property {String}
    */
-  userId:'',
+  userId:''
 
   // -------------------------------------------------------------------------
 
   // Methods
-  /**
-   * Function received as parameter to set the unit as a breadcrumb
-   * @function setUnitBreadcrumb
-   * @returns {undefined}
-   */
-
-  setLessonBreadcrumb:null
 });

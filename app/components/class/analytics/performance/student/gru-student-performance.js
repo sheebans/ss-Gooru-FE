@@ -40,21 +40,6 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-  actions: {
-    /**
-     * Call the passed setUnitBreadcrumb function with or without parameters.
-     *
-     *
-     * @function actions:setUnitBreadcrumb
-     */
-    setUnitBreadcrumb: function(unit, unitIndex){
-      if(unit){
-        this.get('setUnitBreadcrumb')(unit, unitIndex);
-      }else{
-        this.get('setUnitBreadcrumb')();
-      }
-    }
-  },
   // -------------------------------------------------------------------------
   // Events
 

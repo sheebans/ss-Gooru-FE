@@ -19,16 +19,13 @@ export default Ember.Component.extend({
      */
     selectUnit: function (unit) {
       const component = this;
-
       component.loadData(unit.get('id'));
       let element =$('#'+ component.get('elementId')) ;
       if(element.hasClass('selected')){
         element.removeClass('selected');
-        component.get('setUnitBreadcrumb')();
       }
       else{
         $('.gru-unit-performance-container.selected').removeClass('selected');
-        component.get('setUnitBreadcrumb')(unit, component.get('index'));
         element.addClass('selected');
       }
     }
@@ -85,14 +82,6 @@ export default Ember.Component.extend({
   // Methods
 
   /**
-   * Function received as parameter to set the unit as a breadcrumb
-   * @function setUnitBreadcrumb
-   * @returns {undefined}
-   */
-  setUnitBreadcrumb:null,
-
-
-  /**
    * Load data for the unit
    * @function actions:loadData
    * @returns {undefined}
@@ -125,5 +114,9 @@ export default Ember.Component.extend({
     if (this.get('lessonsPromise.isFulfilled')) {
       this.set('lessons',this.get('lessonsPromise').get('content'));
     }
+  }),
+  isLoading: Ember.computed('lessonsPromise', function() {
+    return this.get('lessonsPromise') !==null && !this.get('lessonsPromise.isFulfilled');
   })
+
 });
