@@ -20,12 +20,12 @@ export default DS.Model.extend({
   /**
    * @property {Number} followers - Number of followers that the user has
    */
-  followers: DS.attr('string'),
+  followers: DS.attr('number'),
 
   /**
    * @property {Number} followings - Number of people that the user is following
    */
-  followings: DS.attr('string'),
+  followings: DS.attr('number'),
 
   /**
    * @property {User} user

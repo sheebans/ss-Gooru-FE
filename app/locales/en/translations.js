@@ -5,6 +5,7 @@ export default {
    */
   "common": {
     "assessmentInitial": "A",
+    "avatarFor": "Avatar for",
     "cancel": "Cancel",
     "close": "Close",
     "collectionInitial": "C",
@@ -316,6 +317,12 @@ export default {
   "player.gru-reorder": {
     "instructions" : "Please reorder the answers in correct order, and click \"Submit\"."
   },
+
+  "cards.gru-profile-card": {
+    "followers": "Followers",
+    "followings": "Followings"
+  },
+
   "class.info":{
     "teachers":"Teachers",
     "students":"Students",
@@ -371,9 +378,6 @@ export default {
     "activity": "Activity",
     "analytics": "Analytics",
     "content": "Content",
-    "followers": "Followers",
-    "followings": "Followings",
-    "imageFor": "Profile image for",
     "network": "Network",
     "viewAs": "View as"
   },

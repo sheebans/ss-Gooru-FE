@@ -1,18 +1,8 @@
 <div class="profile-info">
-  <a class="main" {{action "selectUser" profile.user.id}}>
-    <img class="img-circle" src="{{profile.user.avatarUrl}}"
-         alt="{{t "profile.gru-navigation.imageFor"}} {{profile.user.fullNameInformal}}"/>
-    <strong>{{profile.user.fullNameInformal}}</strong>
-  </a>
+  {{cards.gru-profile-card
+  profile=profile
+  onProfileSelect=(action 'selectUserProfile')}}
 
-  <div class="social">
-		<span class="followers">
-      <em>{{profile.followers}}</em> {{t "profile.gru-navigation.followers"}}
-    </span>
-		<span class="following">
-      <em>{{profile.followings}}</em> {{t "profile.gru-navigation.followings"}}
-    </span>
-  </div>
   <div class="actions">
     <button class="edit btn btn-default">{{t "common.edit"}}</button>
     <div class="dropdown impersonate">
