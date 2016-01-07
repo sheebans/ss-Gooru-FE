@@ -25,8 +25,10 @@ export default Ember.Controller.extend({
      * @param {string} option
      */
     optionsChange:function(options){
-      //TO DO
-      Ember.log(options);
+      this.set('selectedOptions', options.map(function(option){
+        return option.get("value");
+
+      }));
     },
 
     /**
@@ -82,6 +84,12 @@ export default Ember.Controller.extend({
    * @property {String}
    */
   filterBy: 'assessment',
+
+  /**
+   * List of selected options from the data picker.
+   * @property {Array}
+   */
+  selectedOptions: Ember.A(["score"]),
 
   /**
    * If analytics is fullscreen

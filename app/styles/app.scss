@@ -31,6 +31,7 @@
 
 @import 'components/gru-sign-in';
 @import 'components/gru-header';
+@import 'components/gru-image-picker';
 @import 'components/gru-footer';
 @import 'components/gru-category-panel';
 @import 'components/gru-user-icons';
@@ -44,6 +45,7 @@
 @import 'components/gru-unit-tree';
 @import 'components/gru-breadcrumb';
 @import 'components/gru-user-teaser';
+@import 'components/gru-view-layout-picker';
 
 @import 'components/player/gru-navigation';
 @import 'components/player/gru-navigator';
@@ -59,6 +61,8 @@
 @import 'components/player/resources/gru-url-resource';
 @import 'components/player/resources/gru-pdf-resource';
 @import 'components/player/resources/gru-vimeo-resource';
+
+@import 'components/cards/gru-course-card';
 
 @import 'components/class/gru-class-navigation';
 @import 'components/class/analytics/performance/gru-actions-bar';

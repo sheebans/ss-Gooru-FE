@@ -5,6 +5,7 @@ export default {
    */
   "common": {
     "assessmentInitial": "A",
+    "cancel": "Cancel",
     "close": "Close",
     "collectionInitial": "C",
     "contentUnavailable": "Content not available",
@@ -272,6 +273,16 @@ export default {
     "can-explain":"I can explain"
   },
 
+  "gru-image-picker": {
+    "chooseFile": "Choose a file ...",
+    "errors": {
+      "maxSize": "Only files of size smaller than 5MB are supported"
+    },
+    "instruction": "Upload an image from a file on your computer.",
+    "restriction": "*The image must be a JPG, GIF or PNG file smaller than 5 MB.",
+    "submit": "Use Image"
+  },
+
   "gru-question-viewer": {
     "answer": "Answer",
     "question": "Question"
@@ -380,6 +391,11 @@ export default {
     "name":"Name",
     "score": "Score",
     "completion":"Completion",
-    "study-time":"Study Time"
+    "study-time":"Study Time",
+  },
+  "gru-course-card":{
+    "units":"Units",
+    "remixed-by":"Remixed by",
+    "remix":"Remix"
   }
 };
