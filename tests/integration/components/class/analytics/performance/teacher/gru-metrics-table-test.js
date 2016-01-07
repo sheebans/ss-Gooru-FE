@@ -11,12 +11,14 @@ moduleForComponent('/class/analytics/performance/teacher/gru-metrics-table', 'In
 });
 
 test('Metrics Table Layout', function(assert) {
-  assert.expect(7);
+  assert.expect(8);
 
   const headersMock = Ember.A([Ember.Object.create({
     id: '82168746-a4af-48aa-9975-01f6434cd806',
     title: 'Unit A1'
   })]);
+
+  const dataPickerOptionsMock= Ember.A(["score","completion"]);
 
   const classPerformanceDataMock = Ember.A([
     Ember.Object.create({
@@ -68,8 +70,9 @@ test('Metrics Table Layout', function(assert) {
 
   this.set('headers', headersMock);
   this.set('performanceDataMatrix', classPerformanceDataMock);
+  this.set('selectedOptions', dataPickerOptionsMock);
 
-  this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-table headers=headers performanceDataMatrix=performanceDataMatrix}}`);
+  this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-table headers=headers performanceDataMatrix=performanceDataMatrix dataPickerOptions=selectedOptions}}`);
 
   const $component = this.$(); //component dom element
   const $metricsTable = $component.find(".gru-metrics-table");
@@ -85,8 +88,11 @@ test('Metrics Table Layout', function(assert) {
   const $tbody = $table.find("tbody");
   T.exists(assert, $tbody, 'Missing tbody of the table');
 
-  const $subheader = $thead.find(".sub-header");
-  T.exists(assert, $subheader, 'Missing filters sub-header');
+  const $subheader = $thead.find(".gru-metrics-sub-header");
+  T.exists(assert, $subheader, 'Missing sub-header component');
+
+  const $performanceInformation = $metricsTable.find(".gru-metrics-performance-information");
+  T.exists(assert, $performanceInformation, 'Missing performance information component');
 
   assert.equal($thead.find("tr:first-child th").length, 2, "The thead should have only 2 headers");
 

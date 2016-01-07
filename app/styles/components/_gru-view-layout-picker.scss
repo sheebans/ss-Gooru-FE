@@ -1,0 +1,26 @@
+.gru-view-layout-picker{
+  .view-layout-list{
+    display:inline-block;
+    border: 1px solid $color-gray-lighter-3;
+    border-radius: 4px;
+    div{
+      cursor:pointer;
+      display:block;
+      float:left;
+      padding-left: 5px;
+      padding-right: 5px;
+      span{
+        font-size: 25px;
+      }
+    }
+    div:first-child{
+      border-right: 1px solid $color-gray-lighter-3;
+    }
+    a{
+      color:$color-gray-lighter-3;
+    }
+    div.active a{
+      color: $branding-primary-1;
+    }
+  }
+}

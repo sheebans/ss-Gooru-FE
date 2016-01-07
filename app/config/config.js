@@ -36,3 +36,15 @@ export const KEY_CODES = {
   SPACE: 32,
   UP: 38
 };
+export const VIEW_LAYOUT_PICKER_OPTIONS = {
+  LIST:'list',
+  THUMBNAILS:'thumbnails'
+};
+
+export const SCORES = {
+  REGULAR: 60,
+  GOOD: 70,
+  VERY_GOOD: 80,
+  EXCELLENT: 90
+
+};

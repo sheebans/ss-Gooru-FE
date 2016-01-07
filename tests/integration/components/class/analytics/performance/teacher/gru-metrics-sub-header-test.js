@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
+import Ember from "ember";
 
 moduleForComponent('/class/analytics/performance/teacher/gru-metrics-sub-header', 'Integration | Component | /class/analytics/performance/teacher/gru-metrics-sub-header', {
   integration: true,
@@ -9,7 +10,7 @@ moduleForComponent('/class/analytics/performance/teacher/gru-metrics-sub-header'
   }
 });
 test('Metrics Sub Header Layout', function(assert) {
-  assert.expect(4);
+  assert.expect(1);
 
   this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-sub-header }}`);
 
@@ -18,16 +19,8 @@ test('Metrics Sub Header Layout', function(assert) {
 
   T.exists(assert, $subHeader, 'Missing sub header section');
 
-  const $score = $subHeader.find(".score");
-  T.exists(assert, $score, 'Missing score sub header');
-
-  const $completion = $subHeader.find(".completion");
-  T.exists(assert, $completion, 'Missing completion sub header');
-
-  const $time = $subHeader.find(".study-time");
-  T.exists(assert, $time, 'Missing study time sub header');
-
 });
+
 test('Verify that there is sub header selected', function(assert) {
   assert.expect(1);
 
@@ -40,6 +33,26 @@ test('Verify that there is sub header selected', function(assert) {
   var $component = this.$(); //component dom element
   var $subHeader = $component.find(".metrics-sub-header");
   $subHeader.find(".score").click(); //select score
+});
 
+test('Verify the data picker options selected are in the component', function(assert) {
+  assert.expect(3);
 
+  const dataPickerOptionsMock= Ember.A(["score","completion"]);
+
+  this.set('dataPickerOptions', dataPickerOptionsMock);
+
+  this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-sub-header dataPickerOptions=dataPickerOptions}}`);
+
+  var $component = this.$(); //component dom element
+  var $subHeader = $component.find(".metrics-sub-header");
+
+  var $score = $subHeader.find(".score");
+  T.exists(assert, $score, 'Missing score sub header');
+
+  var $completion = $subHeader.find(".completion");
+  T.exists(assert, $completion, 'Missing completion sub header');
+
+  var $studyTime = $subHeader.find(".study-time");
+  T.notExists(assert, $studyTime, "study time sub header shouldn't be visible");
 });
