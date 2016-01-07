@@ -36,6 +36,7 @@ Router.map(function() {
     });
   });
 
+  this.route('framework');
 });
 
 export default Router;

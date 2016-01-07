@@ -42,17 +42,6 @@ export default Ember.Controller.extend({
     },
 
     /**
-     * Triggered when selecting a unit
-     * @param {Unit} unit
-     * @param {number} index
-     */
-    setUnitBreadcrumb: function(unit, index){
-      const controller = this;
-      let breadcrumb = controller.get('breadcrumb');
-      controller.updateBreadcrumbToUnit(breadcrumb, unit, ++index);
-    },
-
-    /**
      * When clicking at the download button
      */
     download: function(){
@@ -128,35 +117,12 @@ export default Ember.Controller.extend({
       value: '111',
       label: 'Course Name'
     }
-  ]),
+  ])
   // -------------------------------------------------------------------------
   // Observers
 
 
   // -------------------------------------------------------------------------
   // Methods
-  /**
-   * Updates the breadcrumb based on the provided unit
-   * @param {[]} breadcrumb
-   * @param {Unit} unit
-   * @param {number} index
-   */
-  updateBreadcrumbToUnit: function(breadcrumb, unit, index){
-    //removes all items after the course
-    const toRemove = breadcrumb.slice(1, breadcrumb.get("length"));
-    breadcrumb.removeObjects(toRemove.toArray());
-    if(unit && index !== undefined){
-      //adds the new unit item
-      const title = unit.get("title");
-      breadcrumb.pushObject(Ember.Object.create({
-        value: unit,
-        label: `U${index} ${title}`
-      }));
-      return breadcrumb;
-    }else {
-      for (var i = this.breadcrumb.length-1; i >= 1; i--) {
-        this.breadcrumb.removeAt(i);
-      }
-    }
-  }
+
 });

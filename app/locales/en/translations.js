@@ -383,14 +383,14 @@ export default {
     "study":"Study"
   },
   "gru-unit-performance":{
-    "notStarted": "Scores",
-    "noContent":"Completion"
+    "notStarted": "Not started yet",
+    "noContent" : "No content available"
   },
   "gru-metrics-sub-header":{
     "name":"Name",
     "score": "Score",
     "completion":"Completion",
-    "study-time":"Study Time",
+    "study-time":"Study Time"
   },
   "gru-course-card":{
     "units":"Units",
