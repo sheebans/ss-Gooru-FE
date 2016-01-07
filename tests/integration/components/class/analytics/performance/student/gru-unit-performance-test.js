@@ -82,7 +82,7 @@ test('Test for unit performance', function(assert) {
     index=index
   }}`);
   const $component = this.$();
-  const $clickableDiv= $component.find(".gru-unit-performance-container div:first-child"); //component dom element
+  const $clickableDiv= $component.find(".gru-unit-performance-container >a"); //component dom element
 
   //const $unitContainer = $component.find();
 
