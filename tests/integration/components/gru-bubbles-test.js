@@ -52,7 +52,7 @@ test('Bubbles Layout', function(assert) {
 
   T.exists(assert, $bubbles, 'Missing bubbles component');
   T.exists(assert, $bubbles.find(".bubble.correct"), 'Missing correct bubble');
-  assert.equal($bubbles.find(".bubble.incorrect").length,2, "Incorrect number of incorrect");
+  assert.equal($bubbles.find(".bubble.incorrect").length,2, "Incorrect number of incorrect bubbles");
 
 });
 test('Select bubble', function(assert) {
