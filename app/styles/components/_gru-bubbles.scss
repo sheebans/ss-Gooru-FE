@@ -1,0 +1,31 @@
+.gru-bubbles{
+  .bubble{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid $color-gray-lighter-11;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 27px;
+  }
+  .incorrect{
+    border-color: $gru-scale-indicator-bad;
+  }
+  .correct{
+    border-color: $gru-scale-indicator-excellent;
+  }
+  .bubbles-list{
+    list-style: none;
+    padding: 10px 0 0 0;
+    margin: 0;
+    display: inline-block;
+    li {
+      display: inline-block;
+      padding: 0;
+    }
+    a{
+      color:$color-black;
+    }
+  }
+}
