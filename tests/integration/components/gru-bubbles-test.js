@@ -15,33 +15,15 @@ test('Bubbles Layout', function(assert) {
   const bubbleOptions = Ember.A([Ember.Object.create({
     'label': "1",
     'status': 'correct',
-    'value': Ember.Object.create({
-      'questionType': "True/False",
-      'text': "Practica usted ejercicio regularmente",
-      'hints': null,
-      'explanation': null,
-      'answers': false
-    })
+    'value': 'some-value-1'
   }), Ember.Object.create({
     'label': "2",
     'status': 'incorrect',
-    'value': Ember.Object.create({
-      'questionType': "fill in the blanks",
-      'text': "El _______ es amarillo. La luna es_______",
-      'hints': null,
-      'explanation': null,
-      'answers': ['sol', 'gris']
-    }),
+    'value': 'some-value-2',
   }), Ember.Object.create({
     'label': "3",
     'status': 'incorrect',
-    'value': Ember.Object.create({
-      'questionType': "True/False",
-      'text': "Es el 15 de setiembre la fecha de independecia de Costa Rica?",
-      'hints': null,
-      'explanation': null,
-      'answers': true
-    })
+    'value': 'some-value-3'
   })]);
 
   this.set('bubbleOptions', bubbleOptions);
@@ -65,37 +47,19 @@ test('Select bubble', function(assert) {
   const bubbleOptions = Ember.A([Ember.Object.create({
     'label': "1",
     'status': "correct",
-    'value': Ember.Object.create({
-      'questionType': "True/False",
-      'text': "Practica usted ejercicio regularmente",
-      'hints': null,
-      'explanation': null,
-      'answers': false
-    })
+    'value': 'some-value-1'
   }), Ember.Object.create({
     'label': "2",
     'status': "incorrect",
-    'value': Ember.Object.create({
-      'questionType': "fill in the blanks",
-      'text': "El _______ es amarillo. La luna es_______",
-      'hints': null,
-      'explanation': null,
-      'answers': ["sol", "gris"]
-    }),
+    'value': 'some-value-2',
   }), Ember.Object.create({
     'label': "3",
     'status': "incorrect",
-    'value': Ember.Object.create({
-      'questionType': "True/False",
-      'text': "Es el 15 de setiembre la fecha de independecia de Costa Rica?",
-      'hints': null,
-      'explanation': null,
-      'answers': true
-    })
+    'value': 'some-value-3'
   })]);
 
   this.set('bubbleOptions', bubbleOptions);
-  this.render(hbs`{{gru-bubbles bubbleOptions=bubbleOptions onbubbleOptionSelect='parentAction'}}`);
+  this.render(hbs`{{gru-bubbles bubbleOptions=bubbleOptions onBubbleSelect='parentAction'}}`);
   var $component = this.$(); //component dom element
   var $bubbles = $component.find(".bubbles-list");
   $bubbles.find("li:first-child a").click();

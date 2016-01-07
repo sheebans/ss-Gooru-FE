@@ -27,7 +27,7 @@ export default Ember.Component.extend({
      * @param {Ember.Object} option
      */
     selectBubbleOption: function(option) {
-      this.sendAction("onbubbleOptionSelect", option);
+      this.sendAction("onBubbleSelect", option);
     }
 
   },
