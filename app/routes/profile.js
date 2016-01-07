@@ -48,13 +48,12 @@ export default Ember.Route.extend({
     selectMenuItem: function(item){
       const route = this;
       const controller = route.get("controller");
-      //const currentMenuItem = controller.get("menuItem");
+      const currentMenuItem = controller.get("menuItem");
       controller.selectMenuItem(item);
 
-      // TODO: Implement transitions
-      //if (currentMenuItem !== item) {
-      //  route.transitionTo('profile.' + item);
-      //}
+      if (currentMenuItem !== item) {
+        route.transitionTo('profile.' + item);
+      }
     }
 
   }

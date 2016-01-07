@@ -1,9 +1,11 @@
 <div class="controller profile row">
     <div class="navigation col-md-3 col-xs-12 col-sm-12">
+
       {{ profile.gru-navigation
       profile=profile
       onItemSelected="selectMenuItem"
       selectedMenuItem=menuItem }}
+
     </div>
     <div class="content col-xs-12 col-sm-12 col-md-9">
       {{outlet}}

@@ -38,6 +38,7 @@ export default Ember.Component.extend({
      * @param item
      */
     selectItem: function (item) {
+      this.highlightMenuItem(item);
       if (this.get("onItemSelected")) {
         this.sendAction("onItemSelected", item);
       }
@@ -53,7 +54,7 @@ export default Ember.Component.extend({
    */
   didInsertElement: function () {
     var item = this.get("selectedMenuItem");
-    this.actions.selectItem.call(this, item);
+    this.highlightMenuItem(item);
   },
 
 
@@ -79,12 +80,16 @@ export default Ember.Component.extend({
    */
   refreshSelectedMenuItem: function () {
     var item = this.get("selectedMenuItem");
-    this.selectItem(item);
-  }.observes("selectedMenuItem")
+    this.highlightMenuItem(item);
+  }.observes("selectedMenuItem"),
 
 
   // -------------------------------------------------------------------------
   // Methods
 
+  highlightMenuItem: function (item) {
+    this.$(".menu-option").removeClass("selected");
+    this.$(".menu-option." + item).addClass("selected");
+  }
 
 });
