@@ -77,6 +77,14 @@ export default Ember.Component.extend({
    * @property {performance/performance}
    */
   performance:null,
+
+  /**
+   * @prop {Boolean}
+   * Property that determines whether we are waiting for a promise to get fulfilled.
+   */
+  isLoading: Ember.computed('lessonsPromise', function() {
+    return this.get('lessonsPromise') !==null && !this.get('lessonsPromise.isFulfilled');
+  }),
   // -------------------------------------------------------------------------
 
   // Methods
@@ -114,9 +122,6 @@ export default Ember.Component.extend({
     if (this.get('lessonsPromise.isFulfilled')) {
       this.set('lessons',this.get('lessonsPromise').get('content'));
     }
-  }),
-  isLoading: Ember.computed('lessonsPromise', function() {
-    return this.get('lessonsPromise') !==null && !this.get('lessonsPromise.isFulfilled');
   })
 
 });

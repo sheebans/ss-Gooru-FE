@@ -42,17 +42,6 @@ export default Ember.Controller.extend({
     },
 
     /**
-     * Triggered when selecting a unit
-     * @param {Unit} unit
-     * @param {number} index
-     */
-    setUnitBreadcrumb: function(unit, index){
-      const controller = this;
-      let breadcrumb = controller.get('breadcrumb');
-      controller.updateBreadcrumbToUnit(breadcrumb, unit, ++index);
-    },
-
-    /**
      * When clicking at the download button
      */
     download: function(){
