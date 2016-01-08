@@ -28,9 +28,9 @@ export default Ember.Component.extend({
      */
     selectOption: function () {
       if(this.isChecked()){
-        this.sendAction("onOptionSwitchChange", this.get("optionB"));
+        this.sendAction("onOptionSwitch", this.get("optionB"));
       }else{
-        this.sendAction("onOptionSwitchChange", this.get("optionA"));
+        this.sendAction("onOptionSwitch", this.get("optionA"));
       }
     }
 
@@ -47,7 +47,7 @@ export default Ember.Component.extend({
       color: '#f0f0f0',
       secondaryColor: '#f0f0f0',
       jackColor: '#DEDEDE',
-      jackSecondaryColor: '##DEDEDE',
+      jackSecondaryColor: '#DEDEDE',
       size:'small'
     });
   },

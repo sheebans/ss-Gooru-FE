@@ -48,7 +48,7 @@ test('Switch', function(assert) {
     'value': 'some-value'
   })]);
   this.set('switchOptions', switchOptions);
-  this.render(hbs`{{gru-switch switchOptions=switchOptions onOptionSwitchChange='parentAction'}}`);
+  this.render(hbs`{{gru-switch switchOptions=switchOptions onOptionSwitch='parentAction'}}`);
 
   var $component = this.$(); //component dom element
   var $switch = $component.find(".switch");

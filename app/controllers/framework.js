@@ -12,7 +12,7 @@ export default Ember.Controller.extend({
     bubbleOptionSelected: function(option) {
       console.log(option);
     },
-    optionSwitchChange:function(option){
+    optionSwitch:function(option){
       console.log(option);
     }
 
