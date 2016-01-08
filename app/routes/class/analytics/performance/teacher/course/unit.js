@@ -4,9 +4,9 @@ import { roundFloat } from 'gooru-web/utils/math';
 import { formatTime } from 'gooru-web/utils/utils';
 
 /**
- * Teacher Analytics Performance Route - Course Level
+ * Teacher Analytics Performance Route - Course/Unit Level
  *
- * Route responsible of the transitions and loading the model/data for the teacher class performance at course level
+ * Route responsible of the transitions and loading the model/data for the teacher class performance at course/unit level
  *
  * @module
  * @augments ember/Controller
@@ -22,20 +22,8 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-  actions: {
-
-    /**
-     * unitsNavigation
-    */
-    unitsNavigation: function(){
-      console.log('route course');
-    }
-
-  },
-
   // -------------------------------------------------------------------------
   // Methods
-
 
   beforeModel: function() {
     // TODO: authenticate session with ember-simple-auth, if not send to log in

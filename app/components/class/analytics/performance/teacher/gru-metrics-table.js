@@ -23,6 +23,11 @@ export default Ember.Component.extend({
     actions:{
       sortChange:function(option){
         console.log(option);
+      },
+
+      navigation:function(){
+        console.log('navigation');
+        this.sendAction('onNavigation');
       }
     },
   // -------------------------------------------------------------------------
