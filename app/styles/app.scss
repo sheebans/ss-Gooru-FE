@@ -16,6 +16,7 @@
 @import 'controllers/class/overview';
 @import 'controllers/class/analytics/performance/student';
 @import 'controllers/class/analytics/performance/teacher';
+@import 'controllers/framework/assessment';
 @import 'controllers/profile';
 
 // TODO: update these components so they follow the naming conventions
@@ -49,6 +50,19 @@
 @import 'components/gru-view-layout-picker';
 @import 'components/gru-bubbles';
 
+@import 'components/cards/gru-course-card';
+
+@import 'components/class/gru-class-navigation';
+@import 'components/class/analytics/performance/gru-actions-bar';
+@import 'components/class/analytics/performance/gru-data-picker';
+@import 'components/class/analytics/performance/gru-scale-indicator';
+@import 'components/class/analytics/performance/gru-performance-summary';
+@import 'components/class/analytics/performance/student/gru-student-performance';
+@import 'components/class/analytics/performance/student/gru-unit-performance';
+@import 'components/class/analytics/performance/student/gru-lesson-performance';
+@import 'components/class/analytics/performance/teacher/gru-metrics-table';
+@import 'components/class/analytics/performance/teacher/gru-metrics-sub-header';
+@import 'components/class/analytics/performance/teacher/gru-completion-information-chart';
 @import 'components/player/gru-navigation';
 @import 'components/player/gru-navigator';
 @import 'components/player/gru-viewer';
@@ -63,18 +77,6 @@
 @import 'components/player/resources/gru-url-resource';
 @import 'components/player/resources/gru-pdf-resource';
 @import 'components/player/resources/gru-vimeo-resource';
-
-@import 'components/cards/gru-course-card';
-
-@import 'components/class/gru-class-navigation';
-@import 'components/class/analytics/performance/gru-actions-bar';
-@import 'components/class/analytics/performance/gru-data-picker';
-@import 'components/class/analytics/performance/gru-scale-indicator';
-@import 'components/class/analytics/performance/gru-performance-summary';
-@import 'components/class/analytics/performance/student/gru-student-performance';
-@import 'components/class/analytics/performance/student/gru-unit-performance';
-@import 'components/class/analytics/performance/student/gru-lesson-performance';
-@import 'components/class/analytics/performance/teacher/gru-metrics-table';
-@import 'components/class/analytics/performance/teacher/gru-metrics-sub-header';
-@import 'components/class/analytics/performance/teacher/gru-completion-information-chart';
-
+@import 'components/reports/assessment/gru-mastery';
+@import 'components/reports/assessment/gru-questions';
+@import 'components/reports/assessment/gru-summary';
