@@ -34,10 +34,16 @@ test('Switch Layout', function(assert) {
 });
 
 test('Switch', function(assert) {
-  assert.expect(1);
+  assert.expect(2);
+  var counter = 0;
 
   this.on('parentAction', function(option){
-    assert.equal("Option B", option.label);
+    if (counter === 0) {
+      assert.equal("Option B", option.label);
+    } else {
+      assert.equal("Option A", option.label);
+    }
+    counter++;
   });
 
   const switchOptions = Ember.A([Ember.Object.create({
@@ -52,5 +58,6 @@ test('Switch', function(assert) {
 
   var $component = this.$(); //component dom element
   var $switch = $component.find(".switch");
+  $switch.find("a").click();
   $switch.find("a").click();
 });

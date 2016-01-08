@@ -1,4 +1,5 @@
 import DS from "ember-data";
+import { DEFAULT_IMAGES } from "gooru-web/config/config";
 
 export default DS.JSONAPISerializer.extend({
 
@@ -77,7 +78,7 @@ export default DS.JSONAPISerializer.extend({
         lastName: payload.lastName ? payload.lastName : payload.lastname,
         organizationName: payload.organizationName,
         partyUid: payload.partyUid,
-        profileImageUrl: payload.profileImageUrl,
+        avatarUrl: payload.profileImageUrl ? payload.profileImageUrl : DEFAULT_IMAGES.USER_PROFILE,
         userRoleSetString: payload.userRoleSetString,
         username: payload.username,
         usernameDisplay: payload.usernameDisplay,
