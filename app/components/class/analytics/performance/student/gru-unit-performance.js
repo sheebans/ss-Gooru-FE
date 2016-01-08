@@ -19,9 +19,7 @@ export default Ember.Component.extend({
      */
     selectUnit: function (unit) {
       const component = this;
-      console.log(this.get('totalLessons.size'));
       if(!this.get('totalLessons').has(unit.get('id'))){
-        console.log('entro');
         component.loadLessons(unit.get('id'));
         this.get('totalLessons').set(unit.get('id'),this.get('lessons'));
       }
