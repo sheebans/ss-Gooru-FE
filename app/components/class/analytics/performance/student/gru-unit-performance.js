@@ -51,9 +51,9 @@ export default Ember.Component.extend({
    */
   lessonsPromise:null,
   /**
-   * Collection that contains the lesson performance models for this unit
+   * Map that contains the lesson performance models for all units
    *
-   * @property {Ember.Array}
+   * @property {Ember.Map}
    */
   totalLessons:Ember.Map.create(),
   /**
