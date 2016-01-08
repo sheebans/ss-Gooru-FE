@@ -19,7 +19,12 @@ export default Ember.Component.extend({
      */
     selectUnit: function (unit) {
       const component = this;
-      component.loadLessons(unit.get('id'));
+      console.log(this.get('totalLessons.size'));
+      if(!this.get('totalLessons').has(unit.get('id'))){
+        console.log('entro');
+        component.loadLessons(unit.get('id'));
+        this.get('totalLessons').set(unit.get('id'),this.get('lessons'));
+      }
       let element =$('#'+ component.get('elementId')) ;
       if(element.hasClass('selected')){
         element.removeClass('selected');
@@ -47,6 +52,12 @@ export default Ember.Component.extend({
    * @property {Ember.Promise}
    */
   lessonsPromise:null,
+  /**
+   * Collection that contains the lesson performance models for this unit
+   *
+   * @property {Ember.Array}
+   */
+  totalLessons:Ember.Map.create(),
   /**
    * Collection that contains the lesson performance models for this unit
    *
