@@ -12,6 +12,6 @@ test('it renders', function (assert) {
 
   this.render(hbs`{{reports/assessment/gru-questions}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  assert.expect(0);
 
 });
