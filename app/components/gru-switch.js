@@ -77,14 +77,11 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-
+  /**
+   * Checks the input has been checked
+   */
   isChecked: function() {
-    var clickCheckbox = document.querySelector('.js-switch');
-    if(clickCheckbox.checked){
-      return true;
-    }else{
-      return false;
-    }
+    return document.querySelector('.js-switch').checked;
   },
 
 });
