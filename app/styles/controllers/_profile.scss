@@ -33,9 +33,14 @@
       padding: 0 0 40px 0;
 
       .menu-option {
-        text-align: center;
         display: block;
-        padding: 10px 15px;
+
+        a {
+          color: $text-color;
+          display: block;
+          text-align: center;
+          padding: 10px 15px;
+        }
 
         &.selected {
           background-color: $color-gray-lighter-6;

@@ -19,9 +19,19 @@
 </div>
 
 <ul class="profile-menu">
-  <li class="menu-option about" {{action 'selectItem' 'about'}}>{{t "profile.gru-navigation.about"}}</li>
-  <li class="menu-option activity" {{action 'selectItem' 'activity'}}>{{t "profile.gru-navigation.activity"}}</li>
-  <li class="menu-option content" {{action 'selectItem' 'content'}}>{{t "profile.gru-navigation.content"}}</li>
-  <li class="menu-option network" {{action 'selectItem' 'network'}}>{{t "profile.gru-navigation.network"}}</li>
-  <li class="menu-option analytics" {{action 'selectItem' 'analytics'}}>{{t "profile.gru-navigation.analytics"}}</li>
+  <li class="menu-option about">
+    <a {{action 'selectItem' 'about'}}>{{t "profile.gru-navigation.about"}}</a>
+  </li>
+  <li class="menu-option activity">
+    <a {{action 'selectItem' 'activity'}}>{{t "profile.gru-navigation.activity"}}</a>
+  </li>
+  <li class="menu-option content">
+    <a {{action 'selectItem' 'content'}}>{{t "profile.gru-navigation.content"}}</a>
+  </li>
+  <li class="menu-option network">
+    <a {{action 'selectItem' 'network'}}>{{t "profile.gru-navigation.network"}}</a>
+  </li>
+  <li class="menu-option analytics">
+    <a {{action 'selectItem' 'analytics'}}>{{t "profile.gru-navigation.analytics"}}</a>
+  </li>
 </ul>
