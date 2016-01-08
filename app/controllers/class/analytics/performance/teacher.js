@@ -67,19 +67,6 @@ export default Ember.Controller.extend({
   "class": Ember.computed.reads('classController.class'),
 
   /**
-   * The header titles
-   * @property {Headers[]}
-   */
-  headers: null,
-
-  /**
-   * The performanceDataMatrix
-   * @property {performanceData[]}
-   */
-
-  performanceDataMatrix: null,
-
-  /**
    * The filterBy selected
    * @property {String}
    */
@@ -122,7 +109,7 @@ export default Ember.Controller.extend({
     'value': 'study-time',
     'selected':false,
     'readOnly':false
-  })])
+  })]),
 
   // -------------------------------------------------------------------------
   // Observers
@@ -130,4 +117,8 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+  addToBreadCrumb: function(item){
+    const breadcrumb = this.get("breadcrumb");
+    breadcrumb.pushObject(item);
+  }
 });

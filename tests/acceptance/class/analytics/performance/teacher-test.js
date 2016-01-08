@@ -36,7 +36,6 @@ test('Layout', function(assert) {
     T.exists(assert, $performanceContainer.find(".gru-content"), "Missing performance content");
     T.exists(assert, $performanceContainer.find(".controls .teacher-breadcrumb .gru-breadcrumb"), "Missing performance breadcrumb component");
     T.exists(assert, $performanceContainer.find(".controls .teacher-actions .gru-actions-bar"), "Missing performance actions component");
-    T.exists(assert, $performanceContainer.find(".gru-content .gru-metrics-table"), "Missing metrics table component");
 
     const $classMenu = find(".controller.class .gru-class-navigation .class-menu");
     T.exists(assert, $classMenu.find(".analytics.selected"), "Missing selected analytics item");
