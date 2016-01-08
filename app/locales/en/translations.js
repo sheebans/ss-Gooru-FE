@@ -370,7 +370,7 @@ export default {
     "timeSpent":"Time",
     "study-time":"Study Time",
     "reaction":"Reaction",
-    "attempt":"Attempt"
+    "attempts":"Attempt"
   },
   "gru-performance-summary":{
     "scores": "Scores",

@@ -12,10 +12,10 @@
       flex-direction: row;
       -webkit-flex-wrap: nowrap;
       flex-wrap: nowrap;
-      -webkit-justify-content: center;
-      justify-content: center;
+      -webkit-justify-content: flex-start;
+      justify-content: flex-start;
       -webkit-align-items: flex-start;
-      align-items: center;
+      align-items: flex-start;
       -webkit-align-content: stretch;
       align-content: stretch;
       display: -webkit-flex;
@@ -27,9 +27,6 @@
         }
       }
       .lesson-performance-title{
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
         -webkit-flex-direction: row;
         flex-direction: row;
         -webkit-flex-wrap: nowrap;
@@ -43,8 +40,12 @@
         display: -webkit-flex;
         display: flex;
         height: 100%;
+        padding-left: 15px;
         span{
           padding-left: 15px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
       .lesson-performance-content{

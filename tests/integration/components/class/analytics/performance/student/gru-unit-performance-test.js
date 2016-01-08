@@ -52,7 +52,7 @@ test('Test for unit performance', function(assert) {
     {
       id:'333-555-777',
       title: "Quiz :: Indian History",
-      type: "performance/student-performance",
+      type: "performance/performance",
       score:75,
       completionDone: 0,
       completionTotal: 1,

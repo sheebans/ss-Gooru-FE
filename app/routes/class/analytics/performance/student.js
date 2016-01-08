@@ -40,6 +40,15 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
     });
 
   },
+  actions: {
+    loading(transition) {
+      let controller = this.controllerFor('class');
+      controller.set('currentlyLoading', true);
+      transition.promise.finally(function() {
+        controller.set('currentlyLoading', false);
+      });
+    }
+  },
   /**
    * Set all controller properties from the model
    * @param controller
