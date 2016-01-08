@@ -19,10 +19,7 @@ export default Ember.Component.extend({
      */
     selectUnit: function (unit) {
       const component = this;
-      if(!this.get('totalLessons').has(unit.get('id'))){
-        component.loadLessons(unit.get('id'));
-        this.get('totalLessons').set(unit.get('id'),this.get('lessons'));
-      }
+      component.loadLessons(unit.get('id'));
       let element =$('#'+ component.get('elementId')) ;
       if(element.hasClass('selected')){
         element.removeClass('selected');
@@ -35,6 +32,10 @@ export default Ember.Component.extend({
   },
   // -------------------------------------------------------------------------
   // Events
+  init(){
+    this._super(...arguments);
+    this.set('lessons',Ember.A());
+  },
 
   // -------------------------------------------------------------------------
   // Properties
@@ -45,17 +46,11 @@ export default Ember.Component.extend({
    */
   selectedOption: null,
   /**
-   * Map that contains the lesson performance models for all units
-   *
-   * @property {Ember.Map}
-   */
-  totalLessons:Ember.Map.create(),
-  /**
    * Collection that contains the lesson performance models for this unit
    *
    * @property {Ember.Array}
    */
-  lessons:Ember.A(),
+  lessons:null,
   /**
    * Number of the index of this unit
    *
@@ -101,14 +96,12 @@ export default Ember.Component.extend({
   loadLessons: function(unitId) {
     const component = this;
     component.set('isLoading',true);
-    component.get("performanceService").findLessonPerformanceByClassAndCourseAndUnit(component.get('userId'), component.get('classModel').id, component.get('classModel').course, unitId).then(function(result){
-      component.get('lessons').clear();
-      component.get('lessons').pushObjects(result.toArray());
-      component.set('isLoading',false);
-    });
+    if(component.get('lessons.firstObject')==undefined){
+      component.get("performanceService").findLessonPerformanceByClassAndCourseAndUnit(component.get('userId'), component.get('classModel').id, component.get('classModel').course, unitId).then(function(result){
+        component.get('lessons').clear();
+        component.get('lessons').pushObjects(result.toArray());
+        component.set('isLoading',false);
+      });
+    }
   }
-
-
-
-
 });
