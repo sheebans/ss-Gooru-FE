@@ -45,12 +45,6 @@ export default Ember.Component.extend({
    */
   selectedOption: null,
   /**
-   * Promise that will resolve the visible lessons for this unit
-   *
-   * @property {Ember.Promise}
-   */
-  lessonsPromise:null,
-  /**
    * Map that contains the lesson performance models for all units
    *
    * @property {Ember.Map}
