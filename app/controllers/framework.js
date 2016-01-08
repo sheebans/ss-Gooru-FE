@@ -11,6 +11,9 @@ export default Ember.Controller.extend({
      */
     bubbleOptionSelected: function(option) {
       console.log(option);
+    },
+    optionSwitchChange:function(option){
+      console.log(option);
     }
 
   },
@@ -34,4 +37,16 @@ export default Ember.Controller.extend({
     'status': 'incorrect',
     'value':'some-value-3',
   })]),
+  /**
+   * List of layouts to be displayed by the component
+   *
+   * @constant {Array}
+   */
+  switchOptions: Ember.A([Ember.Object.create({
+    label: "Show Correct Answer",
+    value: "some-value"
+  }),Ember.Object.create({
+    label: "Show Performance",
+    value: "some-value"
+  })])
 });

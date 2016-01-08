@@ -1,9 +1,10 @@
 import Ember from 'ember';
 /**
  * Switch component
- *
  * Component responsible for show two options to switch
- *
+ * Use Switchery component that helps
+ * you turn your default HTML checkbox inputs into beautiful iOS 7 style
+ * @see http://abpetkov.github.io/switchery/
  * @module
  * @augments ember/Component
  */
@@ -24,12 +25,31 @@ export default Ember.Component.extend({
     /**
      * Select a option
      * @function actions:selectOption
-     * @param {Ember.Object} option
      */
-    selectOption: function (option) {
-      this.sendAction("onOptionChange", option);
+    selectOption: function () {
+      if(this.isChecked()){
+        this.sendAction("onOptionSwitchChange", this.get("optionB"));
+      }else{
+        this.sendAction("onOptionSwitchChange", this.get("optionA"));
+      }
     }
 
+  },
+  // -------------------------------------------------------------------------
+  // Events
+
+  /**
+   * Overwrites didInsertElement hook.
+   */
+  didInsertElement: function() {
+    var elem = document.querySelector('.js-switch');
+    new Switchery(elem, {
+      color: '#f0f0f0',
+      secondaryColor: '#f0f0f0',
+      jackColor: '#DEDEDE',
+      jackSecondaryColor: '##DEDEDE',
+      size:'small'
+    });
   },
 // -------------------------------------------------------------------------
 // Properties
@@ -39,6 +59,34 @@ export default Ember.Component.extend({
    * @property {Array}
    */
   switchOptions: null,
+
+  /**
+   * Option in the left side of the switch
+   * @property {Array} Option A
+   */
+  optionA:Ember.computed('switchOptions.[]', function() {
+    return this.get("switchOptions")[0];
+  }),
+  /**
+   * Option in the right side of the switch
+   * @property {Array} Option B
+   */
+  optionB:Ember.computed('switchOptions.[]', function() {
+    return this.get("switchOptions")[1];
+  }),
+
+  // -------------------------------------------------------------------------
+  // Methods
+
+  isChecked: function() {
+    var clickCheckbox = document.querySelector('.js-switch');
+    if(clickCheckbox.checked){
+      return true;
+    }else{
+      return false;
+    }
+  },
+
 });
 
 
