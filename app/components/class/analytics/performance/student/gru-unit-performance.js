@@ -88,8 +88,6 @@ export default Ember.Component.extend({
 
   // Methods
 
-
-
   /**
    * Get all the lessons for the unit
    *
@@ -101,6 +99,7 @@ export default Ember.Component.extend({
     const component = this;
     component.set('isLoading',true);
     component.get("performanceService").findLessonPerformanceByClassAndCourseAndUnit(component.get('userId'), component.get('classModel').id, component.get('classModel').course, unitId).then(function(result){
+      component.get('lessons').clear();
       component.get('lessons').pushObjects(result.toArray());
       component.set('isLoading',false);
     });
