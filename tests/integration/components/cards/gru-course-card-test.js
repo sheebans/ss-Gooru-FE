@@ -22,7 +22,7 @@ test('Course Card Layout', function(assert) {
       'fullName': 'lastname-1 firstname-1',
       'id': 'id-1',
       'lastName': 'lastname-1',
-      'profileImageUrl': '/assets/gooru/profile.png',
+      'avatarUrl': '/assets/gooru/profile.png',
       'username': 'username-1'
     }),Ember.Object.create({
       'email': 'user_2@test.com',
@@ -30,7 +30,7 @@ test('Course Card Layout', function(assert) {
       'fullName': 'lastname-2 firstname-2',
       'id': 'id-2',
       'lastName': 'lastname-2',
-      'profileImageUrl': '/assets/gooru/profile.png',
+      'avatarUrl': '/assets/gooru/profile.png',
       'username': 'username-2'
     }),Ember.Object.create({
       'email': 'user_1@test.com',
@@ -38,7 +38,7 @@ test('Course Card Layout', function(assert) {
       'fullName': 'lastname-3 firstname-3',
       'id': 'id-1',
       'lastName': 'lastname-3',
-      'profileImageUrl': '/assets/gooru/profile.png',
+      'avatarUrl': '/assets/gooru/profile.png',
       'username': 'username-3'
     })])
   });
@@ -70,7 +70,7 @@ test('Click Title and Image', function(assert) {
       'fullName': 'lastname-1 firstname-1',
       'id': 'id-1',
       'lastName': 'lastname-1',
-      'profileImageUrl': '/assets/gooru/profile.png',
+      'avatarUrl': '/assets/gooru/profile.png',
       'username': 'username-1'
     }),Ember.Object.create({
       'email': 'user_2@test.com',
@@ -78,7 +78,7 @@ test('Click Title and Image', function(assert) {
       'fullName': 'lastname-2 firstname-2',
       'id': 'id-2',
       'lastName': 'lastname-2',
-      'profileImageUrl': '/assets/gooru/profile.png',
+      'avatarUrl': '/assets/gooru/profile.png',
       'username': 'username-2'
     }),Ember.Object.create({
       'email': 'user_1@test.com',
@@ -86,7 +86,7 @@ test('Click Title and Image', function(assert) {
       'fullName': 'lastname-3 firstname-3',
       'id': 'id-1',
       'lastName': 'lastname-3',
-      'profileImageUrl': '/assets/gooru/profile.png',
+      'avatarUrl': '/assets/gooru/profile.png',
       'username': 'username-3'
     })])
   });
@@ -117,7 +117,7 @@ test('Click Remix', function(assert) {
       'fullName': 'lastname-1 firstname-1',
       'id': 'id-1',
       'lastName': 'lastname-1',
-      'profileImageUrl': '/assets/gooru/profile.png',
+      'avatarUrl': '/assets/gooru/profile.png',
       'username': 'username-1'
     }),Ember.Object.create({
       'email': 'user_2@test.com',
@@ -125,7 +125,7 @@ test('Click Remix', function(assert) {
       'fullName': 'lastname-2 firstname-2',
       'id': 'id-2',
       'lastName': 'lastname-2',
-      'profileImageUrl': '/assets/gooru/profile.png',
+      'avatarUrl': '/assets/gooru/profile.png',
       'username': 'username-2'
     }),Ember.Object.create({
       'email': 'user_1@test.com',
@@ -133,7 +133,7 @@ test('Click Remix', function(assert) {
       'fullName': 'lastname-3 firstname-3',
       'id': 'id-1',
       'lastName': 'lastname-3',
-      'profileImageUrl': '/assets/gooru/profile.png',
+      'avatarUrl': '/assets/gooru/profile.png',
       'username': 'username-3'
     })])
   });

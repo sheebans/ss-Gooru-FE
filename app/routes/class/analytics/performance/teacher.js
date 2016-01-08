@@ -15,8 +15,8 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
   unitService: Ember.inject.service('api-sdk/unit'),
-
   performanceService: Ember.inject.service('api-sdk/performance'),
+  courseService: Ember.inject.service('api-sdk/course'),
 
 
   // -------------------------------------------------------------------------
@@ -56,10 +56,12 @@ export default Ember.Route.extend({
     ]);
 
     const classPerformanceData = this.get('performanceService').findClassPerformance(classId, courseId, { users: users });
+    const courseData = this.get('courseService').findById(courseId);
 
     return Ember.RSVP.hash({
       headers: headers,
-      classPerformanceData: classPerformanceData
+      classPerformanceData: classPerformanceData,
+      courseData: courseData
     });
 
   },
@@ -70,9 +72,15 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
     const performanceData = this.createDataMatrix(model.headers, model.classPerformanceData);
+    const courseData = model.courseData;
+    const breadcrumb = Ember.A([
+      Ember.Object.create({value: courseData.get('id'), label: courseData.get('title')})
+    ]);
+
     controller.set('performanceDataMatrix', performanceData);
     controller.set('headers', model.headers);
     controller.get('classController').selectMenuItem('analytics.performance');
+    controller.set('breadcrumb', breadcrumb);
   },
 
   /**

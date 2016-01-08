@@ -1,0 +1,37 @@
+<div class="profile-info">
+  {{cards.gru-profile-card
+  profile=profile
+  onProfileSelect=(action 'selectUserProfile')}}
+
+  <div class="actions">
+    <button class="edit btn btn-default">{{t "common.edit"}}</button>
+    <div class="dropdown impersonate">
+      <button class="btn btn-default dropdown-toggle" type="button"
+              data-toggle="dropdown">{{t "profile.gru-navigation.viewAs"}}
+        <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        {{!-- TODO: Replace with real values --}}
+        <li><a href="#">User 1</a></li>
+        <li><a href="#">User 2</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<ul class="profile-menu">
+  <li class="menu-option about">
+    <a {{action 'selectItem' 'about'}}>{{t "profile.gru-navigation.about"}}</a>
+  </li>
+  <li class="menu-option activity">
+    <a {{action 'selectItem' 'activity'}}>{{t "profile.gru-navigation.activity"}}</a>
+  </li>
+  <li class="menu-option content">
+    <a {{action 'selectItem' 'content'}}>{{t "profile.gru-navigation.content"}}</a>
+  </li>
+  <li class="menu-option network">
+    <a {{action 'selectItem' 'network'}}>{{t "profile.gru-navigation.network"}}</a>
+  </li>
+  <li class="menu-option analytics">
+    <a {{action 'selectItem' 'analytics'}}>{{t "profile.gru-navigation.analytics"}}</a>
+  </li>
+</ul>

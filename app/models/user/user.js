@@ -107,9 +107,9 @@ export default DS.Model.extend(UserValidations, {
    */
   usernameDisplay: DS.attr("string"),
   /**
-   * @property {string} profileImageUrl
+   * @property {string} avatarUrl
    */
-  profileImageUrl: DS.attr("string", { defaultValue: DEFAULT_IMAGES.USER_PROFILE }),
+  avatarUrl: DS.attr("string", { defaultValue: DEFAULT_IMAGES.USER_PROFILE }),
   /**
    * @property {string} userRoleSetString
    */
@@ -167,6 +167,10 @@ export default DS.Model.extend(UserValidations, {
 
   fullName: Ember.computed('firstName', 'lastName', function() {
     return this.get('lastName') + ', ' + this.get('firstName');
+  }),
+
+  fullNameInformal: Ember.computed('firstName', 'lastName', function () {
+    return this.get('firstName') + ' ' + this.get('lastName');
   })
 
 });

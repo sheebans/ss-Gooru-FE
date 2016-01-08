@@ -17,8 +17,8 @@ Router.map(function() {
   this.route('classes');
 
   this.route('class', { path: '/class/:classId' }, function() {
-    this.route('overview', { path: '/overview'});
-    this.route('info', { path: '/info'});
+    this.route('overview');
+    this.route('info');
 
     this.route('analytics', function() {
       this.route('performance', function() {
@@ -30,12 +30,17 @@ Router.map(function() {
 
   this.route('profile', { path: '/profile/:userId' }, function() {
     this.route('about');
+    this.route('activity');
+    this.route('analytics');
 
     this.route('content', function() {
       this.route('course');
     });
+
+    this.route('network');
   });
 
+  this.route('framework');
 });
 
 export default Router;
