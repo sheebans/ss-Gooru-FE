@@ -32,10 +32,6 @@ export default Ember.Component.extend({
   },
   // -------------------------------------------------------------------------
   // Events
-  init(){
-    this._super(...arguments);
-    this.set('lessons',Ember.A());
-  },
 
   // -------------------------------------------------------------------------
   // Properties
@@ -96,10 +92,9 @@ export default Ember.Component.extend({
   loadLessons: function(unitId) {
     const component = this;
     component.set('isLoading',true);
-    if(component.get('lessons.firstObject')==undefined){
+    if(!component.get('lessons')){
       component.get("performanceService").findLessonPerformanceByClassAndCourseAndUnit(component.get('userId'), component.get('classModel').id, component.get('classModel').course, unitId).then(function(result){
-        component.get('lessons').clear();
-        component.get('lessons').pushObjects(result.toArray());
+        component.set('lessons',result.toArray());
         component.set('isLoading',false);
       });
     }
