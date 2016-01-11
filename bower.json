@@ -20,7 +20,8 @@
     "pretender": "^0.10.0",
     "papaparse": "~4.1.2",
     "toastr": "~2.1.2",
-    "d3": "~3.5.12"
+    "d3": "~3.5.12",
+    "switchery": "~0.8.1"
   },
   "resolutions": {
     "ember": "~2.2.0",
