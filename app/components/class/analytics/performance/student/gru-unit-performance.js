@@ -42,17 +42,11 @@ export default Ember.Component.extend({
    */
   selectedOption: null,
   /**
-   * Promise that will resolve the visible lessons for this unit
-   *
-   * @property {Ember.Promise}
-   */
-  lessonsPromise:null,
-  /**
    * Collection that contains the lesson performance models for this unit
    *
    * @property {Ember.Array}
    */
-  lessons:Ember.A(),
+  lessons:null,
   /**
    * Number of the index of this unit
    *
@@ -98,14 +92,11 @@ export default Ember.Component.extend({
   loadLessons: function(unitId) {
     const component = this;
     component.set('isLoading',true);
-    component.get("performanceService").findLessonPerformanceByClassAndCourseAndUnit(component.get('userId'), component.get('classModel').id, component.get('classModel').course, unitId).then(function(result){
-      component.get('lessons').clear();
-      component.get('lessons').pushObjects(result.toArray());
-      component.set('isLoading',false);
-    });
+    if(!component.get('lessons')){
+      component.get("performanceService").findLessonPerformanceByClassAndCourseAndUnit(component.get('userId'), component.get('classModel').id, component.get('classModel').course, unitId).then(function(result){
+        component.set('lessons',result.toArray());
+        component.set('isLoading',false);
+      });
+    }
   }
-
-
-
-
 });
