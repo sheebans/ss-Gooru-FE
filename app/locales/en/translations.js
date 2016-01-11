@@ -38,7 +38,9 @@ export default {
     "submit": "Submit",
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
     "unitInitial": "U",
-    "yes": "Yes"
+    "yes": "Yes",
+    "mastery":"Mastery",
+    "questions": "Questions"
   },
 
   /*
@@ -415,7 +417,12 @@ export default {
     "remixed-by":"Remixed by",
     "remix":"Remix"
   },
-  "gru-mastery":{
-    "mastery":"Mastery"
+  "gru-questions":{
+    "no":"No.",
+    "question":"Question",
+    "answer":"Your Answer",
+    "score":"Score",
+    "time-spent":"Time Spent",
+    "reaction":"Reaction"
   }
 };

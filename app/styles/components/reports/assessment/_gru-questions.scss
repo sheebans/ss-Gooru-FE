@@ -1,11 +1,24 @@
 .reports.assessment.gru-questions {
-  // TODO: background-color and height is only temporary (to make the placeholder visible)
-  background-color: #d3d3d3;
-  height: 100px;
-
   margin-top: 20px;
 
   h2 {
     margin-top: 0;
+  }
+  .title, .switch-section{
+    display: inline-block;
+  }
+  .switch-section{
+    float: right;
+  }
+  .header{
+    text-align: center;
+  }
+  table{
+    width: 100%;
+    td, th {
+      border: 1px solid #DDD;
+      height: 30px;
+    }
+
   }
 }

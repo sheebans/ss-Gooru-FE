@@ -1,1 +1,58 @@
-<h2>Questions</h2>
+<div class="title">
+    <h2>{{t "common.questions"}}</h2>
+</div>
+<div class="switch-section">
+  {{gru-switch switchOptions=switchOptions}}
+</div>
+<table>
+    <thead>
+    <tr>
+        <th class="header">
+          {{t "gru-questions.no"}}
+        </th>
+        <th class="header">
+          {{t "gru-questions.question"}}
+        </th>
+        <th class="header">
+          {{t "gru-questions.answer"}}
+        </th>
+        <th class="header">
+          {{t "gru-questions.score"}}
+            <span>{{fa-icon icon='sort-desc'}}</span>
+        </th>
+        <th class="header">
+          {{t "gru-questions.time-spent"}}
+            <span>{{fa-icon icon='sort-desc'}}</span>
+        </th>
+        <th class="header">
+          {{t "gru-questions.reaction"}}
+            <span>{{fa-icon icon='sort-desc'}}</span>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each questions as question}}
+      <tr>
+          <td>
+              {{question.order}}
+          </td>
+          <td>
+            {{question.question.text}}
+          </td>
+          <td>
+
+          </td>
+          <td>
+            {{question.correct}}
+          </td>
+          <td>
+            {{question.timeSpent}}
+          </td>
+          <td>
+            {{question.reaction}}
+          </td>
+      </tr>
+    {{/each}}
+    </tbody>
+</table>
+

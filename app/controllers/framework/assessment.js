@@ -16,4 +16,29 @@ export default Ember.Controller.extend({
     'label': "3",
     'value':'some-value-3'
   })]),
+
+  /**
+   * List of question to be displayed by the question component
+   *
+   * @constant {Array}
+   */
+  questions: Ember.A([Ember.Object.create({
+    question: Ember.Object.create({
+      text:"This is a question 1"
+    }),
+    correct: true,
+    timeSpent: 10, //seconds
+    reaction: 1,
+    order: 1,
+    answer: "answer" // json object representing each question type answer
+  }),Ember.Object.create({
+    question: Ember.Object.create({
+      text:"This is a question 2"
+    }),
+    correct: false,
+    timeSpent: 25, //seconds
+    reaction: 2,
+    order: 1,
+    answer: "answer" // json object representing each question type answer
+  })])
 });
