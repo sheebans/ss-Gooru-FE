@@ -1,18 +1,38 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import T from 'gooru-web/tests/helpers/assert';
+import Ember from 'ember';
 
 moduleForComponent('reports/assessment/gru-mastery', 'Integration | Component | reports/assessment/gru mastery', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.container.lookup('service:i18n').set("locale","en");
+  }
 });
 
-test('it renders', function (assert) {
+test('Mastery Layout', function (assert) {
+  assert.expect(5);
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });" + EOL + EOL +
+  const learningTargets = Ember.A([Ember.Object.create({
+    'label': "Option A",
+    'value': 'some-value'
+  }), Ember.Object.create({
+    'label': "Option B",
+    'value': 'some-value'
+  })]);
 
-  this.render(hbs`{{reports/assessment/gru-mastery}}`);
+  this.set('learningTargets', learningTargets);
 
-  assert.expect(0);
+  this.render(hbs`{{reports/assessment/gru-mastery learningTargets=learningTargets}}`);
+
+  const $component = this.$(); //component dom element
+  const $mastery = $component.find(".gru-mastery");
+
+  T.exists(assert, $mastery, 'Missing mastery component');
+  T.exists(assert, $mastery.find('.title h2'), 'Missing mastery title');
+  T.exists(assert, $mastery.find('.scale-indicator'), 'Missing scale indicator');
+  T.exists(assert, $mastery.find('.learning-target'), 'Missing learning target');
+  assert.equal($mastery.find('.learning-target').length,2, "Incorrect number of learning targets");
 
 });
 
