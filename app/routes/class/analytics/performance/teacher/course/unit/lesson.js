@@ -23,11 +23,11 @@ export default Ember.Route.extend({
   // Actions
 
   /**
-   * unitsNavigation
+   * lessonsNavigation
    */
-  unitsNavigation: function(lessonId){
+  lessonsNavigation: function(lessonId){
     console.log('lessonId', lessonId);
-    this.transitionTo('class.analytics.performance.teacher.course.unit.lesson', lessonId);
+    this.transitionTo('class.analytics.performance.teacher.course.lesson', lessonId);
   },
 
   // -------------------------------------------------------------------------
@@ -43,7 +43,11 @@ export default Ember.Route.extend({
     const classId= this.paramsFor('class').classId;
     const courseId = this.modelFor('class').class.get('course');
 
+    console.log('unitId', unitId);
+    console.log('classId', classId);
+    console.log('courseId', courseId);
     const headers = this.get('lessonService').findByClassAndCourseAndUnit(classId, courseId, unitId);
+    console.log('headers', headers)
 
     // TODO: Remove this temporal variable once it is not required
     const unitIds = Ember.A([

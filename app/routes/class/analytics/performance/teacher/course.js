@@ -14,31 +14,25 @@ import { formatTime } from 'gooru-web/utils/utils';
 export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
+
   unitService: Ember.inject.service('api-sdk/unit'),
   performanceService: Ember.inject.service('api-sdk/performance'),
   courseService: Ember.inject.service('api-sdk/course'),
-
 
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
     /**
      * unitsNavigation
     */
     unitsNavigation: function(unitId){
-      console.log('route course', unitId);
-      //const unitId = unit.get("id");
       this.transitionTo('class.analytics.performance.teacher.course.unit', unitId);
-
     }
-
   },
 
   // -------------------------------------------------------------------------
   // Methods
-
 
   beforeModel: function() {
     // TODO: authenticate session with ember-simple-auth, if not send to log in

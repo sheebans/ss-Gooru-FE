@@ -25,8 +25,10 @@ export default Ember.Component.extend({
         console.log(option);
       },
 
+      /**
+       * navigate to units/lessons
+       */
       navigate:function(headerId){
-        console.log('navigate');
         this.sendAction('onNavigation', headerId);
       }
     },
