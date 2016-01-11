@@ -117,7 +117,12 @@ export default Ember.Controller.extend({
       value: '111',
       label: 'Course Name'
     }
-  ])
+  ]),
+  /**
+   * Boolean that determines whether the route model has not finished loading.
+   * @property {Boolean}
+   */
+  currentlyLoading:null
   // -------------------------------------------------------------------------
   // Observers
 

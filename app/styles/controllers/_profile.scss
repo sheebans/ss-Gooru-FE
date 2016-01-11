@@ -1,19 +1,60 @@
 .controller.profile{
   .navigation{
-    background-color: grey;
     border-right: 1px solid $color-gray-lighter-3;
     height: 100%;
     padding: 0;
+
+    .profile-info {
+      $button-min-width: 10rem;
+
+      text-align: center;
+      padding: 15px 0;
+
+      > .actions {
+        > button, > .dropdown {
+          margin-bottom: 10px;
+        }
+
+        button {
+          min-width: $button-min-width;
+        }
+
+        .dropdown-menu {
+          left: 50%;
+          margin-left: -($button-min-width / 2);
+        }
+      }
+    }
+
+    .profile-menu {
+      border-top: 1px solid $color-gray-lighter-3;
+      list-style: none;
+      margin: 0;
+      padding: 0 0 40px 0;
+
+      .menu-option {
+        display: block;
+
+        a {
+          color: $text-color;
+          display: block;
+          text-align: center;
+          padding: 10px 15px;
+        }
+
+        &.selected {
+          background-color: $color-gray-lighter-6;
+        }
+      }
+    }
   }
 
-  .content{
-    background-color: $color-gray-lighter-2;
+  > .content {
     height: 100%;
     border-left: 1px solid $color-gray-lighter-3;
     margin-left: -1px;
     @media (max-width: $screen-xs-max) { /* only for phone */
       padding: 0;
     }
-
   }
 }

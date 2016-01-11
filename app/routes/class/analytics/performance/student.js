@@ -40,6 +40,19 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
     });
 
   },
+  actions: {
+    /**
+     * Action thrown on the model hook when it detects a promise.
+     * @param transition - it is the transition promise.
+     */
+    loading(transition) {
+      let controller = this.controllerFor('class');
+      controller.set('currentlyLoading', true);
+      transition.promise.finally(function() {
+        controller.set('currentlyLoading', false);
+      });
+    }
+  },
   /**
    * Set all controller properties from the model
    * @param controller

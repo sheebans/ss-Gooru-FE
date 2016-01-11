@@ -68,7 +68,7 @@ export default Ember.Component.extend({
     'selected':false,
     'readOnly':false
   }),Ember.Object.create({
-    'value': 'attempt',
+    'value': 'attempts',
     'selected':false,
     'readOnly':false
   })]),

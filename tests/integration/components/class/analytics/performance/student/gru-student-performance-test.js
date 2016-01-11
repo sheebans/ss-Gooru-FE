@@ -15,7 +15,7 @@ test('Test for student performance', function(assert) {
     {
       id:'cualquierId',
       title: "Quiz :: Indian History",
-      type: "performance/student-performance",
+      type: "performance/performance",
       score:75,
       completionDone: 0,
       completionTotal: 1,
@@ -27,7 +27,7 @@ test('Test for student performance', function(assert) {
     {
       id:'cualquierId2',
       title: "Quiz :: Indian History 2",
-      type: "performance/student-performance",
+      type: "performance/performance",
       score:75,
       completionDone: 0,
       completionTotal: 1,
