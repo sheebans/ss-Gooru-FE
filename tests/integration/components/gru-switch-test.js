@@ -35,9 +35,9 @@ test('Switch Layout', function(assert) {
 
 test('Switch', function(assert) {
   assert.expect(2);
-  var counter = 0;
 
   this.on('parentAction', function(option){
+    var counter = 0;
     if (counter === 0) {
       assert.equal("Option B", option.label);
     } else {
