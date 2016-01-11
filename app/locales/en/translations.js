@@ -414,5 +414,8 @@ export default {
     "units":"Units",
     "remixed-by":"Remixed by",
     "remix":"Remix"
+  },
+  "gru-mastery":{
+    "mastery":"Mastery"
   }
 };
