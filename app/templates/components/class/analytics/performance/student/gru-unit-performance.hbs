@@ -1,5 +1,5 @@
 <a href="#lesson-container-{{plus-one index}}" data-parent=".gru-student-performance-container" data-toggle="collapse" data-target="#lesson-container-{{plus-one index}}" aria-expanded="true" aria-controls="lesson-container-{{plus-one index}}" {{action "selectUnit" performance}}>
-<ul class="row">
+  <ul class="row">
       <li class="col-xs-8 col-sm-3 performance-unit-title">
           <span>
               U{{plus-one index}}: {{performance.title}}
@@ -29,7 +29,7 @@
       </li>
   </ul>
 </a>
-<div class="lessons-container collapse row" id="lesson-container-{{plus-one index}}">
+<div class="lessons-container collapse panel-group" id="lesson-container-{{plus-one index}}" role="tablist" aria-multiselectable="true">
     <!-- each del componete de performance summary con el performance de cada lesson-->
   {{#each lessons as |lesson index|}}
     {{class.analytics.performance.student.gru-lesson-performance

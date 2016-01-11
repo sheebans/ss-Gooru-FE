@@ -18,13 +18,13 @@ export default Ember.Component.extend({
    *
    * @attribute {Array}
    */
-  classNames:['gru-lesson-performance-container'],
+  classNames:['gru-lesson-performance-container', 'panel'],
   /**
    * Attribute that computes the element to the specified string.
    *
    * @attribute {String}
    */
-  tagName:'ul',
+  tagName:'div',
 
   // -------------------------------------------------------------------------
   // Actions
