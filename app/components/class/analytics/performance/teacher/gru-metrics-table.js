@@ -25,9 +25,9 @@ export default Ember.Component.extend({
         console.log(option);
       },
 
-      navigation:function(){
-        console.log('navigation');
-        this.sendAction('onNavigation');
+      navigate:function(headerId){
+        console.log('navigate');
+        this.sendAction('onNavigation', headerId);
       }
     },
   // -------------------------------------------------------------------------

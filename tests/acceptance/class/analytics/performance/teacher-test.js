@@ -3,7 +3,7 @@ import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 import T from 'gooru-web/tests/helpers/assert';
 
-moduleForAcceptance('Acceptance | class/analytics/performance/teacher', {
+moduleForAcceptance('Acceptance | class/analytics/performance/teacher/course', {
   beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: false,
@@ -17,10 +17,10 @@ moduleForAcceptance('Acceptance | class/analytics/performance/teacher', {
 });
 
 test('Layout', function(assert) {
-  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher');
+  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
 
   andThen(function() {
-    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher');
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
 
     const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher");
     T.exists(assert, $performanceContainer, "Missing performance container");
@@ -59,33 +59,33 @@ test('Navigating from class navigation', function(assert) {
     click($overviewMenuItem);
     andThen(function() {
       //making sure it goes to the teacher view
-      assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher');
+      assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
     });
   });
 });
 
 test('When view by both option is selected', function(assert) {
-  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher');
+  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
 
   andThen(function() {
-    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher');
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
 
     const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher");
     const $bothViewOption = $performanceContainer.find(".controls .gru-actions-bar .dropdown-menu .both");
 
     click($bothViewOption);
     andThen(function() {
-      assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher?filterBy=both');
+      assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/course?filterBy=both');
 
     });
   });
 });
 
 test('View Full Screen and Exit Full Screen', function(assert) {
-  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher');
+  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
 
   andThen(function() {
-    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher');
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
 
     const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher");
     const $viewFullScreen = $performanceContainer.find(".controls .gru-actions-bar .full-screen");

@@ -25,7 +25,7 @@ Router.map(function() {
         this.route('student');
         this.route('teacher', function() {
           this.route('course', function() {
-            this.route('unit');
+            this.route('unit', { path: '/unit/:unitId'});
           });
         });
       });

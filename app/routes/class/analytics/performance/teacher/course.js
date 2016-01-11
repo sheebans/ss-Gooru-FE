@@ -27,8 +27,11 @@ export default Ember.Route.extend({
     /**
      * unitsNavigation
     */
-    unitsNavigation: function(){
-      console.log('route course');
+    unitsNavigation: function(unitId){
+      console.log('route course', unitId);
+      //const unitId = unit.get("id");
+      this.transitionTo('class.analytics.performance.teacher.course.unit', unitId);
+
     }
 
   },
