@@ -4,6 +4,7 @@ export default {
    * COMMON: Translations used globally in the app or shared between components
    */
   "common": {
+    "answer":"Your Answer",
     "assessmentInitial": "A",
     "attempts": "Attempts",
     "avatarFor": "Avatar for",
@@ -11,6 +12,7 @@ export default {
     "close": "Close",
     "collectionInitial": "C",
     "contentUnavailable": "Content not available",
+    "correct-answer":"Show Correct Answer",
     "create": "Create",
     "edit": "Edit",
     "email_support": "support@gooru.org",
@@ -25,14 +27,20 @@ export default {
     "logout": "Logout",
     "myClasses": "My Classes",
     "myContent": "My Content",
+    "mastery":"Mastery",
     "no": "No",
+    "number":"No.",
     "numberStudents": {
       one: "{{count}} Student",
       other: "{{count}} Students"
     },
+    "performance":"Show Performance",
     "please_contact": "Please contact",
+    "question":"Question",
+    "questions": "Questions",
     "reaction": "Reaction",
     "remaining": "{{number}} Left",
+    "score":"Score",
     "search": "Search",
     "searchForTopic": "Search for a topic",
     "signUp": "Sign Up",
@@ -42,8 +50,6 @@ export default {
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
     "unitInitial": "U",
     "yes": "Yes",
-    "mastery":"Mastery",
-    "questions": "Questions"
   },
 
   /*
@@ -420,14 +426,4 @@ export default {
     "remixed-by":"Remixed by",
     "remix":"Remix"
   },
-  "gru-questions":{
-    "no":"No.",
-    "question":"Question",
-    "answer":"Your Answer",
-    "score":"Score",
-    "time-spent":"Time Spent",
-    "reaction":"Reaction",
-    "correct-answer":"Show Correct Answer",
-    "performance":"Show Performance"
-  }
 };

@@ -34,7 +34,7 @@ test('Questions Layout', function (assert) {
   })]);
 
   this.set('questions', questions);
-  this.render(hbs`{{reports/assessment/gru-questions questions=questions}}`);
+  this.render(hbs`{{reports/assessment/gru-questions results=questions}}`);
   const $component = this.$(); //component dom element
   const $question = $component.find(".gru-questions");
 

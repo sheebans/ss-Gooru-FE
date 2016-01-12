@@ -31,10 +31,10 @@ export default Ember.Component.extend({
   switchOptions: Ember.computed(function(){
     var component =this;
     return Ember.A([Ember.Object.create({
-      label: component.get('i18n').t('gru-questions.correct-answer'),
+      label: component.get('i18n').t('common.correct-answer'),
       value: "some-value"
     }),Ember.Object.create({
-      label: component.get('i18n').t('gru-questions.performance'),
+      label: component.get('i18n').t('common.performance'),
       value: "some-value"
     })]);
   }),
