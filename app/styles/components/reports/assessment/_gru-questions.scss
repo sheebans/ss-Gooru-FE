@@ -20,6 +20,12 @@
     .question-score span{
       font-size:37px;
     }
+    .question-score span.correct{
+      color:$emoticon-can-explain;
+    }
+    .question-score span.incorrect{
+      color:$emoticon-need-help;
+    }
     .question-reaction div{
       margin: 10px auto;
     }

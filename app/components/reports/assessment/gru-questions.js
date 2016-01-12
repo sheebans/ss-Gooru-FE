@@ -22,7 +22,7 @@ export default Ember.Component.extend({
    *
    * @constant {Array}
    */
-  questions: null,
+  results: null,
   /**
    * List of layouts to be displayed by the switch component
    *
