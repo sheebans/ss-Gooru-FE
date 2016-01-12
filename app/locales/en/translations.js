@@ -423,6 +423,8 @@ export default {
     "answer":"Your Answer",
     "score":"Score",
     "time-spent":"Time Spent",
-    "reaction":"Reaction"
+    "reaction":"Reaction",
+    "correct-answer":"Show Correct Answer",
+    "performance":"Show Performance"
   }
 };

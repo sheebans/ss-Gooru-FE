@@ -1,6 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  // -------------------------------------------------------------------------
+  // Dependencies
+
+  /**
+   * @requires service:i18n
+   */
+  i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -15,17 +22,21 @@ export default Ember.Component.extend({
    *
    * @constant {Array}
    */
-  questions:null,
+  questions: null,
   /**
    * List of layouts to be displayed by the switch component
    *
    * @constant {Array}
    */
-  switchOptions: Ember.A([Ember.Object.create({
-    label: "Show Correct Answer",
-    value: "some-value"
-  }),Ember.Object.create({
-    label: "Show Performance",
-    value: "some-value"
-  })])
+  switchOptions: Ember.computed(function(){
+    var component =this;
+    return Ember.A([Ember.Object.create({
+      label: component.get('i18n').t('gru-questions.correct-answer'),
+      value: "some-value"
+    }),Ember.Object.create({
+      label: component.get('i18n').t('gru-questions.performance'),
+      value: "some-value"
+    })]);
+  }),
+
 });
