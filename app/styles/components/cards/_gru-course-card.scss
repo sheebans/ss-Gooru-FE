@@ -1,18 +1,22 @@
 .gru-course-card{
   display: inline-block;
   border: 1px solid $color-black;
-  padding: 10px;
+  padding: 5px;
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
+  font-size: 11px;
   .thumbnail,.card-info{
     vertical-align: middle;
-    margin-right: 10px;
+    margin-right: 5px;
   }
   .thumbnail{
-    width: 121px;
-    height: 121px;
+    width: 125px;
+    height: 125px;
     border: 1px solid $color-black;
+  }
+  .card-info{
+    width: 196px;
   }
   .header,.card-content,.remixed-users,.remix-button{
     display: block;
