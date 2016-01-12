@@ -2,7 +2,7 @@
   {
     "description": "Gets the lesson performance data by student and unit",
     "request": {
-      "url": "^/insights/api/v1/class/(.+)/course/(.+)/unit/(.+)/progress$",
+      "url": "^/insights/api/v1/class/(.+)/course/(.+)/unit/1619777a-45fa-4bfe-b800-40b2ab158c7b/progress$",
       "method": "GET"
     },
     "response": {
@@ -12,6 +12,21 @@
       },
       "body": "File not found!",
       "file": "lesson-performance-ok-response.json"
+    }
+  },
+  {
+    "description": "Gets the lesson performance data by student and unit",
+    "request": {
+      "url": "^/insights/api/v1/class/(.+)/course/(.+)/unit/(.+)/progress$",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "lesson-performance-second-ok-response.json"
     }
   },
   {

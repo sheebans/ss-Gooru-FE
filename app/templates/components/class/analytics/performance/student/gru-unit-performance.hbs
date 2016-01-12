@@ -1,8 +1,8 @@
-<a href="#lesson-container-{{plus-one index}}" data-parent=".gru-student-performance-container" data-toggle="collapse" data-target="#lesson-container-{{plus-one index}}" aria-expanded="true" aria-controls="lesson-container-{{plus-one index}}" {{action "selectUnit" performance}}>
+<a href="#lesson-container-{{plus-one localIndex}}" data-parent=".gru-student-performance-container" data-toggle="collapse" data-target="#lesson-container-{{plus-one localIndex}}" aria-expanded="true" aria-controls="lesson-container-{{plus-one localIndex}}" {{action "selectUnit" performance}}>
   <ul class="row">
       <li class="col-xs-8 col-sm-3 performance-unit-title">
           <span>
-              U{{plus-one index}}: {{performance.title}}
+              U{{plus-one localIndex}}: {{performance.title}}
           </span>
 
       </li>
@@ -29,19 +29,24 @@
       </li>
   </ul>
 </a>
-<div class="lessons-container collapse panel-group" id="lesson-container-{{plus-one index}}" role="tablist" aria-multiselectable="true">
+<div class="lessons-container collapse" id="lesson-container-{{plus-one localIndex}}">
     <!-- each del componete de performance summary con el performance de cada lesson-->
-  {{#each lessons as |lesson index|}}
-    {{class.analytics.performance.student.gru-lesson-performance
-    lesson = lesson
-    index = index
-    selectedOption = selectedOption}}
-  {{else}}
-    {{#if isLoading}}
-      {{three-bounce-spinner}}
+  <div id="collection-data-parent-{{plus-one localIndex}}">
+    {{#each lessons as |lesson index|}}
+      {{lesson}}
+      {{class.analytics.performance.student.gru-lesson-performance
+      lesson = lesson
+      localIndex = index
+      index = localIndex
+      selectedOption = selectedOption}}
     {{else}}
-        <h3>{{t "gru-unit-performance.noContent"}}</h3>
-    {{/if}}
+      {{#if isLoading}}
+        {{three-bounce-spinner}}
+      {{else}}
+          <h3>{{t "gru-unit-performance.noContent"}}</h3>
+      {{/if}}
 
-  {{/each}}
+    {{/each}}
+
+  </div>
 </div>

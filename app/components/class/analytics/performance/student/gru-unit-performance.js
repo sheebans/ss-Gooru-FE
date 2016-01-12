@@ -19,7 +19,9 @@ export default Ember.Component.extend({
      */
     selectUnit: function (unit) {
       const component = this;
+
       component.loadLessons(unit.get('id'));
+
       let element =$('#'+ component.get('elementId')) ;
       if(element.hasClass('selected')){
         element.removeClass('selected');
@@ -32,7 +34,9 @@ export default Ember.Component.extend({
   },
   // -------------------------------------------------------------------------
   // Events
+  didInsertElement:function(){
 
+  },
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -52,7 +56,7 @@ export default Ember.Component.extend({
    *
    * @property {Number}
    */
-  index:null,
+  localIndex:null,
   /**
    * Model of the class this unit belongs to
    *
@@ -93,10 +97,14 @@ export default Ember.Component.extend({
     const component = this;
     component.set('isLoading',true);
     if(!component.get('lessons')){
-      component.get("performanceService").findLessonPerformanceByClassAndCourseAndUnit(component.get('userId'), component.get('classModel').id, component.get('classModel').course, unitId).then(function(result){
-        component.set('lessons',result.toArray());
-        component.set('isLoading',false);
-      });
+      component.get("performanceService").findLessonPerformanceByClassAndCourseAndUnit(
+        component.get('userId'),
+        component.get('classModel').id,
+        component.get('classModel').course,
+        unitId).then(function(result){
+          component.set('lessons',result);
+          component.set('isLoading',false);
+        });
     }
   }
 });

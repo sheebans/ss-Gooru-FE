@@ -18,7 +18,7 @@ export default Ember.Component.extend({
    *
    * @attribute {Array}
    */
-  classNames:['gru-lesson-performance-container', 'panel'],
+  classNames:['gru-lesson-performance-container'],
   /**
    * Attribute that computes the element to the specified string.
    *
@@ -28,10 +28,13 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-
+  didInsertElement:function(){
+    console.log(this.get('lesson.collections'),'El log de Jeff');
+    this.set('collections',this.get('lesson.collections'));
+    console.log(this.get('collections.firstObject.title'));
+  },
   // -------------------------------------------------------------------------
   // Events
-
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -51,13 +54,21 @@ export default Ember.Component.extend({
    *
    * @property {Number}
    */
+  localIndex:null,
+  /**
+   * Number of the index of this lessons data parent.
+   *
+   * @property {Number}
+   */
   index:null,
   /**
    * UserID this user belongs to
    *
    * @property {String}
    */
-  userId:''
+  userId:'',
+
+  collections:null
 
   // -------------------------------------------------------------------------
 

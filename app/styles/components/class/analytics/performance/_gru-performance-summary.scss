@@ -41,6 +41,16 @@
           display: inline-block;
         }
       }
+      &.completion {
+        span {
+          &.isCompleted i{
+            color:$color-blue-primary;
+          }
+          i{
+            color:$color-gray-lighter-12;
+          }
+        }
+      }
       .description{
         height: $performance-circle-size;
         display: inline-block;

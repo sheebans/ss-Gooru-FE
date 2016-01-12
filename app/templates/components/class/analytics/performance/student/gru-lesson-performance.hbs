@@ -1,34 +1,61 @@
-<a href="#collection-container-{{plus-one index}}" data-parent=".lessons-container" data-toggle="collapse" data-target="#collection-container-{{plus-one index}}" aria-expanded="true" aria-controls="collection-container-{{plus-one index}}" {{action "selectLesson" lesson}} >
+
+<a href="#collection-container-{{lesson.id}}"
+   data-toggle="collapse"
+   aria-expanded="false"
+   aria-controls="collection-container-{{lesson.id}}"
+   id="collection-collapse"
+   onclick="event.preventDefault()">
     <ul class="row">
-        <li class="col-xs-8 col-sm-3 ">
-            <div class="lesson-performance-title">
-                <i class="fa fa-chevron-down hidden-xs"></i>
-                <span>L{{plus-one index}}: {{lesson.title}}</span>
-            </div>
+        <li class="col-xs-8 col-sm-3 lesson-performance-title">
+            <span><i class="fa fa-chevron-down hidden-xs"></i> L{{plus-one localIndex}}: {{lesson.title}}</span>
         </li>
-        <li class="col-xs-4 col-sm-9">
-          {{class.analytics.performance.gru-performance-summary
-          performance=lesson
-          selectedOption=selectedOption}}
+        <li class="col-xs-4 col-sm-9 lesson-performance-content">
+          {{#if lesson.hasStarted}}
+            {{class.analytics.performance.gru-performance-summary
+            performance=lesson
+            selectedOption=selectedOption}}
+          {{else}}
+              <h3>{{t "gru-unit-performance.notStarted"}}</h3>
+          {{/if}}
         </li>
     </ul>
 </a>
-<div class="collections-container collapse" id="collection-container-{{plus-one index}}">
-    <ul class="row">
-        <li class="col-xs-8 col-sm-3 "><p>asdf</p></li>
-        <li class="col-xs-4 col-sm-9"><p>asdf2</p></li>
-    </ul>
-  {{!--#each lessons as |lesson index|}}
-    {{class.analytics.performance.student.gru-lesson-performance
-    lesson = lesson
-    index = index
-    selectedOption = selectedOption}}
-  {{else}}
-    {{#if isLoading}}
-      {{three-bounce-spinner}}
-    {{else}}
-        <h3>{{t "gru-unit-performance.noContent"}}</h3>
-    {{/if}}
+<div class="collections-container collapse col-xs-12" id="collection-container-{{lesson.id}}">
+  {{#each lesson.collections as |collection index|}}
+      <div class="collection-performance row">
+          <ul class="">
+            <li class="col-xs-8 col-sm-3 collection-performance-title">
+              <span class="row">
+                  {{#if collection.isCollection}}
+                    C{{plus-one index}}:
+                  {{else if collection.isAssessment}}
+                    A{{plus-one index}}:
+                  {{/if}}{{collection.title}}
+              </span>
+              <div class="row hidden-xs">
+                {{#if collection.isCompleted}}
+                    <button >Redo</button>
+                {{else}}
+                    <button>Study</button>
+                    <button>View Report</button>
+                {{/if}}
 
-  {{/each--}}
+              </div>
+
+            </li>
+            <li class="col-xs-4 col-sm-9 collection-performance-content">
+              {{#if collection.hasStarted}}
+                {{class.analytics.performance.gru-performance-summary
+                performance=collection
+                selectedOption=selectedOption}}
+              {{else }}
+                <h3>{{t "gru-unit-performance.notStarted"}}</h3>
+              {{/if}}
+            </li>
+          </ul>
+      </div>
+
+  {{else}}
+      <h3>{{t "gru-unit-performance.noContent"}}</h3>
+  {{/each}}
 </div>

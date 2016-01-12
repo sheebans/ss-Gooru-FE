@@ -116,6 +116,10 @@ export default Ember.Controller.extend({
     {
       value: '111',
       label: 'Course Name'
+    },
+    {
+      value: '222',
+      label: 'Course Name 2'
     }
   ]),
   /**
