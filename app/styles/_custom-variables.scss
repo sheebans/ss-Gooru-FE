@@ -102,6 +102,7 @@ $gru-scale-indicator-good: #EDF167;
 $gru-scale-indicator-very-good: #A2DE81;
 $gru-scale-indicator-excellent: #3FC380;
 
+/* === SCORES === */
 /* The number of score brackets in the app is determined by @see app/config/config.js#SCORE_BRACKETS */
 $score-bracket-0: #E08282;
 $score-bracket-1: #FEC956;
@@ -109,11 +110,24 @@ $score-bracket-2: #EDF167;
 $score-bracket-3: #A2DE81;
 $score-bracket-4: #3FC380;
 
-$bg-pos-emotion-1: -256px -257px;
-$bg-pos-emotion-2: -210px -257px;
-$bg-pos-emotion-3: -165px -257px;
-$bg-pos-emotion-4: -119px -257px;
-$bg-pos-emotion-5: -73px -257px;
+/* === EMOTIONS === */
+$emotion-1-bg-pos: -256px -257px;
+$emotion-2-bg-pos: -210px -257px;
+$emotion-3-bg-pos: -165px -257px;
+$emotion-4-bg-pos: -119px -257px;
+$emotion-5-bg-pos: -73px -257px;
+
+$emotion-1-bg-pos-active: -256px -209px;
+$emotion-2-bg-pos-active: -210px -209px;
+$emotion-3-bg-pos-active: -165px -209px;
+$emotion-4-bg-pos-active: -119px -209px;
+$emotion-5-bg-pos-active: -73px -209px;
+
+$emotion-1-border: #E28688;
+$emotion-2-border: #FDD888;
+$emotion-3-border: #E9EA75;
+$emotion-4-border: #A5D27F;
+$emotion-5-border: #5DBF8C;
 
 /*colors for the performance score and completion circle*/
 $performance-circle-background-color: #DEDEDE;

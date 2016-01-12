@@ -20,8 +20,8 @@ test('Emotion Picker', function(assert) {
   const $emotions = $component.find(".emotion");
   assert.equal($emotions.length, 5, "Incorrect number of emotions displayed");
 
-  assert.ok($emotions.first().hasClass('need-help'));
-  assert.ok($emotions.last().hasClass('can-explain'));
+  assert.ok($emotions.first().hasClass('emotion-1'));
+  assert.ok($emotions.last().hasClass('emotion-5'));
 });
 
 test('Click emotion', function(assert) {
@@ -40,9 +40,9 @@ test('Click emotion', function(assert) {
 test('Verify selected emotion', function(assert) {
   assert.expect(1);
 
-  this.set('ratingScore', 3);
+  this.set('emotionValue', 3);
 
-  this.render(hbs`{{gru-emotion-picker ratingScore=ratingScore}}`);
+  this.render(hbs`{{gru-emotion-picker startEmotion=emotionValue}}`);
   var $component = this.$(); //component dom element
   var $emotionPicker = $component.find("div.emotion-picker");
   var $selectedEmotion = $emotionPicker.find(".emotions-list li:eq(2) .emotion");

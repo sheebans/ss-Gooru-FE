@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { EMOTION_VALUES } from "gooru-web/config/config";
 
 /**
  * Emotion picker
@@ -28,15 +29,13 @@ export default Ember.Component.extend({
      * Set a new emotion as selected and update the component appearance accordingly
      *
      * @function actions:setEmotion
-     * @param {string} newEmotion - newly selected emotion
+     * @param {string} newEmotionValue - newly selected emotion
      * @returns {undefined}
      */
-    setEmotion: function(newEmotion, score) {
-      if (this.get('selectedEmotion') && this.get('selectedEmotion') === newEmotion) {
-        // Do nothing in this case
-      } else {
-        this.set('ratingScore', score);
-        this.sendAction("onChangeEmotion", this.get('selectedEmotionScore'));
+    setEmotion: function (newEmotionValue) {
+      if (!this.get('selectedEmotion') || this.get('selectedEmotion') !== newEmotionValue) {
+        this.selectEmotion(newEmotionValue);
+        this.sendAction("onChangeEmotion", this.get('selectedEmotion'));
       }
     }
   },
@@ -48,12 +47,18 @@ export default Ember.Component.extend({
    * Overwrites didInsertElement hook.
    */
   didInsertElement: function() {
-    var component = this;
+    const component = this;
+    const startEmotion = this.get('startEmotion');
+
     // Adds tooltip to UI elements (elements with attribute 'data-toggle')
     component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
 
     // Sets the emotion icon if there is a score for this resource
-    this.ratingScoreChanged();
+    if (startEmotion) {
+      Ember.run.scheduleOnce('afterRender', this, function () {
+        this.selectEmotion(startEmotion);
+      });
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -64,32 +69,7 @@ export default Ember.Component.extend({
    *
    * @constant {Array}
    */
-  emotionsList: [
-    {
-      'emotion': 'need-help',
-      'icon-class': 'need-help',
-      'score': '1'
-    },
-    {
-      'emotion': 'do-not-understand',
-      'icon-class': 'do-not-understand',
-      'score': '2'
-    },
-    {
-      'emotion': 'meh',
-      'icon-class': 'meh',
-      'score': '3'
-    },
-    {
-      'emotion': 'understand',
-      'icon-class': 'understand',
-      'score': '4'
-    },
-    {
-      'emotion': 'can-explain',
-      'icon-class': 'can-explain',
-      'score': '5'
-    }],
+  emotionValues: EMOTION_VALUES,
 
   /**
    * @property {String|Function} onChangeEmotion - event handler for when the selected emotion is changed
@@ -99,43 +79,21 @@ export default Ember.Component.extend({
   /**
    * @property {?string} selectedEmotion - selected emotion
    */
-  selectedEmotion: null,
+  selectedEmotion: 0,
 
   /**
-   * @property {?string} selectedEmotionScore - selected emotion score
+   * @property {number} Initial emotion value
    */
-  selectedEmotionScore: null,
-
-  /**
-   * @property {number} The emotion score that will be selected
-   */
-  ratingScore: 0,
-
-  // -------------------------------------------------------------------------
-  // Observers
-
-  ratingScoreChanged: function() {
-    this.cleanupEmotions();
-    var score = this.get('ratingScore');
-    if (score > 0) {
-      var emotion = this.get('emotionsList')[score - 1].emotion;
-      this.selectEmotion(emotion, score);
-    }
-  }.observes("ratingScore"),
+  startEmotion: 0,
 
   // -------------------------------------------------------------------------
   // Methods
-
-  cleanupEmotions: function() {
+  selectEmotion: function (emotionValue) {
     this.$(".emotions-list li").find(".active").removeClass("active");
-    this.set('selectedEmotion', null);
-    this.set('selectedEmotionScore', 0);
-  },
+    this.set('selectedEmotion', 0);
 
-  selectEmotion: function(emotion, score) {
-    this.set('selectedEmotion', emotion);
-    this.set('selectedEmotionScore', score);
-    this.$("." + emotion).toggleClass("active");
+    this.set('selectedEmotion', emotionValue);
+    this.$(".emotion-" + emotionValue).toggleClass("active");
   }
 
 });

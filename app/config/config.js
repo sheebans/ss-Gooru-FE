@@ -41,6 +41,8 @@ export const VIEW_LAYOUT_PICKER_OPTIONS = {
   THUMBNAILS:'thumbnails'
 };
 
+export const EMOTION_VALUES = [1, 2, 3, 4, 5];
+
 export const SCORES = {
   REGULAR: 60,
   GOOD: 70,
