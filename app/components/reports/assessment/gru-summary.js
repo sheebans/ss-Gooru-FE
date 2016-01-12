@@ -5,6 +5,12 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['reports', 'assessment', 'gru-summary']
+  classNames: ['reports', 'assessment', 'gru-summary'],
+
+
+  // -------------------------------------------------------------------------
+  // Properties
+
+  model: null
 
 });
