@@ -15,3 +15,4 @@ test('it renders', function (assert) {
   assert.expect(0);
 
 });
+
