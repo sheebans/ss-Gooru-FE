@@ -1,4 +1,4 @@
-<div class="score bg-score-bracket-{{model.scoreBracketNumber}}">
+<div class="score bg-grade-bracket-{{gradeBracket model.correctPercentage}}">
   <span class="percentage">{{model.correctPercentage}}%</span>
   <span class="attempts">{{model.correctAnswers}} / {{model.totalQuestions}} Correct</span>
 </div>
@@ -30,7 +30,7 @@
 
     <div class="time">
       <strong>{{t "common.timeSpent"}}</strong>
-      <span>5min 2s</span>
+      <span>{{formatTime model.timeSpent}}</span>
     </div>
 
     <div class="reaction">

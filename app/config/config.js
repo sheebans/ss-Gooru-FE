@@ -50,3 +50,11 @@ export const SCORES = {
   EXCELLENT: 90
 
 };
+
+export const GRADE_BRACKETS = [
+  {UPPER_LIMIT: 60},
+  {UPPER_LIMIT: 70},
+  {UPPER_LIMIT: 80},
+  {UPPER_LIMIT: 90},
+  {UPPER_LIMIT: 101}
+];

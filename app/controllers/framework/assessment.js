@@ -19,7 +19,7 @@ export default Ember.Controller.extend({
      * Total number of seconds spent completing the current attempt
      * @prop {Number}
      */
-    timeSpent: 106969,
+    timeSpent: 1695,
 
     /**
      * Percentage of correct answers vs. the total number of questions for the current
@@ -33,12 +33,6 @@ export default Ember.Controller.extend({
      * @prop {Number}
      */
     correctAnswers: 3,
-
-    /**
-     * Index of score bracket (@see /app/config/config~SCORE_BRACKETS)
-     * @prop {Number}
-     */
-    scoreBracketNumber: 2,
 
     /**
      * Total number of attempts made by the user for this assessment
