@@ -191,6 +191,38 @@ button.btn-link {
   background-color: $score-bracket-4;
 }
 
+.emotion {
+  display: inline-block;
+  background: url('gooru/resource-collection-icons.png') no-repeat 0 0;
+  background-size: 385px 293px;
+  background-color: $color-white;
+  width: 36px;
+  height: 37px;
+  border-radius: 50%;
+  border: 1px solid $color-gray-lighter-11;
+  cursor: pointer;
+}
+
+.emotion-1 {
+  background-position: $bg-pos-emotion-1;
+}
+
+.emotion-2 {
+  background-position: $bg-pos-emotion-2;
+}
+
+.emotion-3 {
+  background-position: $bg-pos-emotion-3;
+}
+
+.emotion-4 {
+  background-position: $bg-pos-emotion-4;
+}
+
+.emotion-5 {
+  background-position: $bg-pos-emotion-5;
+}
+
 .ellipsis {
   white-space: nowrap;
   overflow: hidden;
