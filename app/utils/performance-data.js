@@ -15,14 +15,14 @@ export function createDataMatrix(headers, classPerformanceData) {
     headers.forEach(function(headerItem) {
       const performance = performanceData.findBy('id', user.get('id') + '@' + headerItem.get('id'));
       if (performance) {
-        userData.get('performanceData').push(route.createPerformanceObject(performance));
+        userData.get('performanceData').push(createPerformanceObject(performance));
       }
       else {
         userData.get('performanceData').push(undefined);
       }
     });
     // Inserts User averages at position 0 of the current row of performance elements.
-    userData.get('performanceData').insertAt(0, route.createUserAverageObject(studentPerformance));
+    userData.get('performanceData').insertAt(0, createUserAverageObject(studentPerformance));
     // Pushes User data in the matrix.
     dataMatrix.push(userData);
   });
@@ -32,10 +32,10 @@ export function createDataMatrix(headers, classPerformanceData) {
     performanceData: Ember.A([])
   });
   headers.forEach(function(headerItem) {
-    const itemPerformanceAverage = route.createItemAverageObject(classPerformanceData, headerItem.get('id'));
+    const itemPerformanceAverage = createItemAverageObject(classPerformanceData, headerItem.get('id'));
     itemPerformanceAverageData.get('performanceData').push(itemPerformanceAverage);
   });
-  itemPerformanceAverageData.get('performanceData').insertAt(0, route.createClassAverageObject(classPerformanceData));
+  itemPerformanceAverageData.get('performanceData').insertAt(0, createClassAverageObject(classPerformanceData));
   dataMatrix.insertAt(0, itemPerformanceAverageData);
 
   return dataMatrix;
