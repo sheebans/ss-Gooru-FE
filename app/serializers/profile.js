@@ -30,7 +30,8 @@ export default DS.JSONAPISerializer.extend({
         id: payload.user.gooruUId,
         attributes: {
           firstName: payload.user.firstName,
-          lastName: payload.user.lastName
+          lastName: payload.user.lastName,
+          avatarUrl: payload.user.profileImageUrl
         },
         relationships: {
           metadata: {
