@@ -5,6 +5,7 @@ export default {
    */
   "common": {
     "assessmentInitial": "A",
+    "attempts": "Attempts",
     "avatarFor": "Avatar for",
     "cancel": "Cancel",
     "close": "Close",
@@ -30,12 +31,14 @@ export default {
       other: "{{count}} Students"
     },
     "please_contact": "Please contact",
+    "reaction": "Reaction",
     "remaining": "{{number}} Left",
     "search": "Search",
     "searchForTopic": "Search for a topic",
     "signUp": "Sign Up",
     "standards": "Standards",
     "submit": "Submit",
+    "timeSpent": "Time Spent",
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
     "unitInitial": "U",
     "yes": "Yes"

@@ -102,6 +102,13 @@ $gru-scale-indicator-good: #EDF167;
 $gru-scale-indicator-very-good: #A2DE81;
 $gru-scale-indicator-excellent: #3FC380;
 
+/* The number of score brackets in the app is determined by @see app/config/config.js#SCORE_BRACKETS */
+$score-bracket-0: #E08282;
+$score-bracket-1: #FEC956;
+$score-bracket-2: #EDF167;
+$score-bracket-3: #A2DE81;
+$score-bracket-4: #3FC380;
+
 /*colors for the performance score and completion circle*/
 $performance-circle-background-color: #DEDEDE;
 
