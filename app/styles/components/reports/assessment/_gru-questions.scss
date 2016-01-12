@@ -22,12 +22,6 @@
     }
     .question-reaction div{
       margin: 10px auto;
-      background: url('gooru/resource-collection-icons.png') no-repeat 0 0;
-      background-size: 385px 293px;
-      width: 36px;
-      height: 37px;
-      border-radius: 50%;
-      border: 1px solid $color-gray-lighter-11;
     }
     .question-reaction.emotion-1 div{
       background-position: $bg-pos-emotion-1;
