@@ -17,9 +17,9 @@ export default DS.Model.extend({
   totalUnits: DS.attr("number"),
 
   /**
-   * @property {string} subject
+   * @property {String[]} Array with the subjects
    */
-  subject: DS.attr('string'),
+  subjects: DS.attr(),
 
   /**
    * @property {string} Course image url
@@ -27,9 +27,13 @@ export default DS.Model.extend({
   imageUrl: DS.attr('string'),
 
   /**
-   * @property {Array} list of users who have remix the course
+   * @property {Boolean} Indicates if the course is public
    */
-  remixedBy: DS.hasMany('user/user'),
+  isPublic: DS.attr('boolean'),
 
+  /**
+   * @property {Array} List of users who have remixed the course
+   */
+  remixedBy: DS.hasMany('user/user')
 
 });

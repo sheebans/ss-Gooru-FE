@@ -3,7 +3,7 @@ import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
 
 moduleForService('service:api-sdk/course', 'Unit | Service | api-sdk/course', {
-  needs: ['serializer:course/course', 'model:course/course', 'adapter:course/course']
+  needs: ['serializer:course/course', 'model:course/course', 'model:user/user', 'adapter:course/course']
 });
 
 test('findById', function (assert) {
@@ -42,6 +42,11 @@ test('findById', function (assert) {
     promise.then(function (course) {
       assert.equal(course.get('id'), 'ab925bd9-bb9d-497c-a604-03b43b9d13d6', 'Wrong id');
       assert.equal(course.get('title'), 'Indian History', 'Wrong title');
+      assert.equal(course.get('totalUnits'), 1, 'Wrong total units');
+      assert.equal(course.get('imageUrl'), '/assets/gooru/profile.png', 'Wrong imageUrl value');
+      assert.equal(course.get('isPublic'), false, 'Wrong isPublic value');
+      assert.equal(course.get('subjects.length'), 1, 'Wrong subjects');
+      assert.equal(course.get('remixedBy.length'), 1, 'Wrong remixedBy');
       done();
     });
   });
