@@ -1,0 +1,46 @@
+<div class="score bg-score-bracket-{{model.scoreBracketNumber}}">
+  <span class="percentage">{{model.correctPercentage}}%</span>
+  <span class="attempts">{{model.correctAnswers}} / {{model.totalQuestions}} Correct</span>
+</div>
+<div class="overview">
+  <h1>{{model.assessmentName}}</h1>
+
+  <div class="information">
+    <div class="attempt">
+      <strong>{{t "common.attempts"}}</strong>
+
+      <div class="content">
+        <div class="attempt-selector">
+          <div class="dropdown current-attempt">
+            <button class="btn btn-default dropdown-toggle" type="button"
+                    data-toggle="dropdown">{{model.currentAttempt}}<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              {{#each model.attemptsList as |attempt index|}}
+                <li><a href="#{{attempt}}">{{plus-one index}}</a></li>
+              {{/each}}
+            </ul>
+          </div>
+          <span>/</span>
+          <span class="total-attempts">{{model.totalAttempts}}</span>
+        </div>
+
+        <span class="date">{{model.submittedOn}}</span>
+      </div>
+    </div>
+
+    <div class="time">
+      <strong>{{t "common.timeSpent"}}</strong>
+      <span>5min 2s</span>
+    </div>
+
+    <div class="reaction">
+      <strong>{{t "common.reaction"}}</strong>
+      <i class="emotion emotion-{{model.reaction}}"></i>
+    </div>
+  </div>
+  <div class="questions">
+      {{gru-bubbles bubbleOptions=model.results}}
+  </div>
+
+</div>
+

@@ -67,5 +67,14 @@ module.exports = function(defaults) {
     development: 'bower_components/jqueryui-touch-punch/jquery.ui.touch-punch.js',
     production:  'bower_components/jqueryui-touch-punch/jquery.ui.touch-punch.min.js'
   });
+
+  app.import({
+    development: 'bower_components/switchery/dist/switchery.css',
+    production:  'bower_components/switchery/dist/switchery.min.css'
+  });
+  app.import({
+    development: 'bower_components/switchery/dist/switchery.js',
+    production:  'bower_components/switchery/dist/switchery.min.js'
+  });
   return app.toTree();
 };
