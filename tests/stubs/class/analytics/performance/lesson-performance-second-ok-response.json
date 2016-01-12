@@ -10,7 +10,7 @@
       "item": [{
         "title": "Stuff",
         "thumbnail": "http:////qacdn.gooru.org/qalive//f000/2429/2304//",
-        "gooruOId": "0c5cd8aa-d023-4672-9598-f4f527df4760",
+        "gooruOId": "lesson-3-item-1",
         "views": 0,
         "sequence": 2,
         "scoreInPercentage": 0,
@@ -21,7 +21,7 @@
       }, {
         "title": "Stuff 2",
         "thumbnail": "http:////qacdn.gooru.org/qalive//f000/2429/7049//",
-        "gooruOId": "792c05b3-2214-4627-acef-22f8d5ed394a",
+        "gooruOId": "lesson-3-item-2",
         "views": 0,
         "sequence": 3,
         "scoreInPercentage": 0,
@@ -32,7 +32,7 @@
       }, {
         "title": "Stuff 3",
         "thumbnail": "http:////qacdn.gooru.org/qalive//f000/2429/2561//",
-        "gooruOId": "bc116a9b-7252-45e0-96df-2f786d6a5da3",
+        "gooruOId": "lesson-3-item-3",
         "views": 0,
         "sequence": 1,
         "scoreInPercentage": 0,
@@ -57,7 +57,7 @@
       "item": [{
         "title": "General Knowledge Indian History",
         "thumbnail": "http:////qacdn.gooru.org/qalive//f000/2429/2304//",
-        "gooruOId": "0c5cd8aa-d023-4672-9598-f4f527df4760",
+        "gooruOId": "lesson-4-item-1",
         "views": 0,
         "sequence": 2,
         "scoreInPercentage": 0,
@@ -68,7 +68,7 @@
       }, {
         "title": "Quiz 2 : GK",
         "thumbnail": "http:////qacdn.gooru.org/qalive//f000/2429/7049//",
-        "gooruOId": "792c05b3-2214-4627-acef-22f8d5ed394a",
+        "gooruOId": "lesson-4-item-2",
         "views": 0,
         "sequence": 3,
         "scoreInPercentage": 0,
@@ -79,7 +79,7 @@
       }, {
         "title": "Quiz : GK",
         "thumbnail": "http:////qacdn.gooru.org/qalive//f000/2429/2561//",
-        "gooruOId": "bc116a9b-7252-45e0-96df-2f786d6a5da3",
+        "gooruOId": "lesson-4-item-3",
         "views": 0,
         "sequence": 1,
         "scoreInPercentage": 0,
