@@ -16,7 +16,6 @@
 @import 'controllers/class/overview';
 @import 'controllers/class/analytics/performance/student';
 @import 'controllers/class/analytics/performance/teacher';
-@import 'controllers/framework/assessment';
 @import 'controllers/profile';
 
 // TODO: update these components so they follow the naming conventions
@@ -78,6 +77,7 @@
 @import 'components/player/resources/gru-url-resource';
 @import 'components/player/resources/gru-pdf-resource';
 @import 'components/player/resources/gru-vimeo-resource';
+@import 'components/reports/gru-assessment-report';
 @import 'components/reports/assessment/gru-mastery';
 @import 'components/reports/assessment/gru-questions';
 @import 'components/reports/assessment/gru-summary';
