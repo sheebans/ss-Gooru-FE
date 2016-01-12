@@ -28,7 +28,7 @@ export default Ember.Controller.extend({
     }),
     correct: true,
     timeSpent: 10, //seconds
-    reaction: 1,
+    reaction: 5,
     order: 1,
     answer: "answer" // json object representing each question type answer
   }),Ember.Object.create({
@@ -38,7 +38,7 @@ export default Ember.Controller.extend({
     correct: false,
     timeSpent: 25, //seconds
     reaction: 2,
-    order: 1,
+    order: 2,
     answer: "answer" // json object representing each question type answer
   })])
 });

@@ -7,49 +7,54 @@
 <table>
     <thead>
     <tr>
-        <th class="header">
+        <th class="header number">
           {{t "gru-questions.no"}}
         </th>
-        <th class="header">
+        <th class="header question">
           {{t "gru-questions.question"}}
         </th>
-        <th class="header">
+        <th class="header answer">
           {{t "gru-questions.answer"}}
         </th>
-        <th class="header">
+        <th class="header score">
           {{t "gru-questions.score"}}
             <span>{{fa-icon icon='sort-desc'}}</span>
         </th>
-        <th class="header">
+        <th class="header time-spent">
           {{t "gru-questions.time-spent"}}
             <span>{{fa-icon icon='sort-desc'}}</span>
         </th>
-        <th class="header">
+        <th class="header reaction">
           {{t "gru-questions.reaction"}}
             <span>{{fa-icon icon='sort-desc'}}</span>
         </th>
     </tr>
     </thead>
     <tbody>
-    {{#each questions as question}}
+    {{#each questions as |question|}}
       <tr>
-          <td>
+          <td class="number-question">
               {{question.order}}
           </td>
-          <td>
+          <td class="question-text">
             {{question.question.text}}
           </td>
-          <td>
+          <td class="question-answer">
 
           </td>
-          <td>
-            {{question.correct}}
+          <td class="question-score">
+            {{#if question.correct}}
+                <span>{{fa-icon icon='check-circle-o'}}</span>
+            {{else}}
+                <span>{{fa-icon icon='times-circle-o'}}</span>
+            {{/if}}
           </td>
-          <td>
+          <td class="question-time">
             {{question.timeSpent}}
           </td>
-          <td>
-            {{question.reaction}}
+          <td class="question-reaction {{reaction question.reaction}}">
+              <div>
+              </div>
           </td>
       </tr>
     {{/each}}

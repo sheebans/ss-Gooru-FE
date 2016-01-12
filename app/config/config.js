@@ -48,3 +48,31 @@ export const SCORES = {
   EXCELLENT: 90
 
 };
+export const EMOTIONS ={
+  emotionsList: [
+    {
+      'emotion': 'need-help',
+      'icon-class': 'need-help',
+      'score': '1'
+    },
+    {
+      'emotion': 'do-not-understand',
+      'icon-class': 'do-not-understand',
+      'score': '2'
+    },
+    {
+      'emotion': 'meh',
+      'icon-class': 'meh',
+      'score': '3'
+    },
+    {
+      'emotion': 'understand',
+      'icon-class': 'understand',
+      'score': '4'
+    },
+    {
+      'emotion': 'can-explain',
+      'icon-class': 'can-explain',
+      'score': '5'
+    }]
+};

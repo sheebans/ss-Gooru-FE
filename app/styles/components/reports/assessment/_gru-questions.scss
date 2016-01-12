@@ -10,15 +10,43 @@
   .switch-section{
     float: right;
   }
-  .header{
-    text-align: center;
-  }
   table{
     width: 100%;
     td, th {
-      border: 1px solid #DDD;
+      border: 1px solid $color-gray-lighter-11;
       height: 30px;
+      text-align: center;
+    }
+    .question-score span{
+      font-size:37px;
+    }
+    .question-reaction div{
+      margin: 10px auto;
+      background: url('gooru/resource-collection-icons.png') no-repeat 0 0;
+      background-size: 385px 293px;
+      width: 36px;
+      height: 37px;
+      border-radius: 50%;
+      border: 1px solid $color-gray-lighter-11;
+    }
+    .question-reaction.need-help div{
+      background-position: -256px -257px;
     }
 
+    .question-reaction.do-not-understand div{
+      background-position: -210px -257px;
+    }
+
+    .question-reaction.meh div{
+      background-position: -165px -257px;
+    }
+
+    .question-reaction.understand div{
+      background-position: -119px -257px;
+    }
+
+    .question-reaction.can-explain div{
+      background-position: -73px -257px;
+    }
   }
 }
