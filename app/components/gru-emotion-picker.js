@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import {EMOTIONS} from "../config/config";
 
 /**
  * Emotion picker
@@ -65,7 +64,32 @@ export default Ember.Component.extend({
    *
    * @constant {Array}
    */
-  emotionsList: EMOTIONS.emotionsList,
+  emotionsList: [
+    {
+      'emotion': 'need-help',
+      'icon-class': 'need-help',
+      'score': '1'
+    },
+    {
+      'emotion': 'do-not-understand',
+      'icon-class': 'do-not-understand',
+      'score': '2'
+    },
+    {
+      'emotion': 'meh',
+      'icon-class': 'meh',
+      'score': '3'
+    },
+    {
+      'emotion': 'understand',
+      'icon-class': 'understand',
+      'score': '4'
+    },
+    {
+      'emotion': 'can-explain',
+      'icon-class': 'can-explain',
+      'score': '5'
+    }],
 
   /**
    * @property {String|Function} onChangeEmotion - event handler for when the selected emotion is changed

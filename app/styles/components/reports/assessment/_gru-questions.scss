@@ -29,24 +29,24 @@
       border-radius: 50%;
       border: 1px solid $color-gray-lighter-11;
     }
-    .question-reaction.need-help div{
-      background-position: -256px -257px;
+    .question-reaction.emotion-1 div{
+      background-position: $bg-pos-emotion-1;
     }
 
-    .question-reaction.do-not-understand div{
-      background-position: -210px -257px;
+    .question-reaction.emotion-2 div{
+      background-position: $bg-pos-emotion-2;
     }
 
-    .question-reaction.meh div{
-      background-position: -165px -257px;
+    .question-reaction.emotion-3 div{
+      background-position: $bg-pos-emotion-3;
     }
 
-    .question-reaction.understand div{
-      background-position: -119px -257px;
+    .question-reaction.emotion-4 div{
+      background-position: $bg-pos-emotion-4;
     }
 
-    .question-reaction.can-explain div{
-      background-position: -73px -257px;
+    .question-reaction.emotion-5 div{
+      background-position: $bg-pos-emotion-5;
     }
   }
 }
