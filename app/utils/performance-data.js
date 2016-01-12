@@ -1,6 +1,12 @@
+import { roundFloat } from './math';
+import { formatTime } from './utils';
 
+/**
+ * Create a matrix with random data to be used to fill the teacher analytics data by student.
+ * @param headers the table header
+ * @param classPerformanceData the base performance data
+ */
 export function createDataMatrix(headers, classPerformanceData) {
-  const route = this;
   const studentPerformanceData = classPerformanceData.get('studentPerformanceData');
   const dataMatrix = Ember.A([]);
 
