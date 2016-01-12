@@ -55,4 +55,48 @@ test('Questions Layout', function (assert) {
   T.exists(assert, $question.find('table tbody td.question-reaction'), 'Missing reaction column');
   assert.equal($question.find('table tbody tr').length,2, "Incorrect number of rows");
 });
+test('Switch Options', function (assert) {
+  assert.expect(12);
+
+  const questions = Ember.A([Ember.Object.create({
+    question: Ember.Object.create({
+      text:"This is a question 1"
+    }),
+    correct: true,
+    timeSpent: 10, //seconds
+    reaction: 5,
+    order: 1,
+    answer: "answer"
+  }), Ember.Object.create({
+    question: Ember.Object.create({
+      text:"This is a question 2"
+    }),
+    correct: false,
+    timeSpent: 25, //seconds
+    reaction: 2,
+    order: 2,
+    answer: "answer"
+  })]);
+
+  this.set('questions', questions);
+  this.render(hbs`{{reports/assessment/gru-questions results=questions}}`);
+  const $component = this.$(); //component dom element
+  const $question = $component.find(".gru-questions");
+  const $switch = $question.find('.switch-section a');
+  $switch.click();//Show correct answer
+  T.exists(assert, $question.find('table th.header.score.hide'), 'Score header should be hide');
+  T.exists(assert, $question.find('table th.header.time-spent.hide'), 'Time spent header should be hide');
+  T.exists(assert, $question.find('table thead th.header.reaction.hide'), 'Reaction header should be hide');
+  T.exists(assert, $question.find('table tbody td.question-score.hide'), 'Score column should be hide');
+  T.exists(assert, $question.find('table tbody td.question-time.hide'), 'Time spent column should be hide');
+  T.exists(assert, $question.find('table tbody td.question-reaction.hide'), 'Reaction column should be hide');
+
+  $switch.click();//Show performance
+  T.exists(assert, $question.find('table th.header.score.visible'), 'Score header should be visible');
+  T.exists(assert, $question.find('table th.header.time-spent.visible'), 'Time spent header should be visible');
+  T.exists(assert, $question.find('table thead th.header.reaction.visible'), 'Reaction header should be visible');
+  T.exists(assert, $question.find('table tbody td.question-score.visible'), 'Score column should be visible');
+  T.exists(assert, $question.find('table tbody td.question-time.visible'), 'Time spent column should be visible');
+  T.exists(assert, $question.find('table tbody td.question-reaction.visible'), 'Reaction column should be visible');
+});
 
