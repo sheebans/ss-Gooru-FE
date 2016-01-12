@@ -93,22 +93,25 @@ export default Ember.Controller.extend({
      * Evaluation results for the current attempt for each one of the questions that
      * make up the assessment
      */
-    results: [
-      Ember.Object.create({
-        'label': "1",
-        'status': 'correct',
-        'value': 'some-value-1'
+    results: Ember.A([Ember.Object.create({
+      question: Ember.Object.create({
+        text:"This is a question 1"
       }),
-      Ember.Object.create({
-        'label': "2",
-        'status': 'incorrect',
-        'value': 'some-value-2'
+      correct: true,
+      timeSpent: 10, //seconds
+      reaction: 5,
+      order: 1,
+      answer: "answer" // json object representing each question type answer
+    }),Ember.Object.create({
+      question: Ember.Object.create({
+        text:"This is a question 2"
       }),
-      Ember.Object.create({
-        'label': "3",
-        'status': 'incorrect',
-        'value': 'some-value-3'
-      })]
+      correct: false,
+      timeSpent: 25, //seconds
+      reaction: 2,
+      order: 2,
+      answer: "answer" // json object representing each question type answer
+    })])
 
   })
 
