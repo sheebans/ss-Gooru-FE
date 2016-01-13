@@ -32,13 +32,6 @@ export default Ember.Controller.extend({
     },
 
     /**
-     * Triggered when the breadcrumb item is selected
-     * @param {*} item
-     */
-    selectBreadcrumbItem: function(item){
-      Ember.log(item);
-    },
-    /**
      * Triggered when a filter option is selected
      * @param {string} option
      */
@@ -117,8 +110,37 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-  addToBreadCrumb: function(item){
-    const breadcrumb = this.get("breadcrumb");
-    breadcrumb.pushObject(item);
+
+  /**
+   * Updates the breadcrumb based on the provided item
+   * @param {[]} breadcrumb
+   * @param {item} item
+   * @param {type} course, unit, lesson, assessment
+   */
+  updateBreadcrumb: function(item, type){
+    const controller = this;
+    let breadcrumb = controller.get('breadcrumb');
+
+    if(item) {
+      var title = item.get("title");
+      var id = item.get("id");
+      var value = Ember.Object.create({id: id, type: type});
+      var breadcrumbObject = Ember.Object.create({
+        label: title,
+        value: value
+      });
+      //removes all items
+      var toRemove = breadcrumb;
+
+      if (type != 'course'){
+        //removes all items after the course
+        toRemove = breadcrumb.slice(1, breadcrumb.get("length"));
+      }
+
+      breadcrumb.removeObjects(toRemove.toArray());
+      //add new breadcrumb item
+      breadcrumb.pushObject(breadcrumbObject);
+      return breadcrumb;
+    }
   }
 });

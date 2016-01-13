@@ -12,9 +12,27 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-
   // -------------------------------------------------------------------------
   // Actions
+  actions: {
+    /**
+     * Triggered when the breadcrumb item is selected
+     * @param {*} item
+     */
+    selectBreadcrumbItem: function(item){
+      const type = item.get('value').type;
+      const itemId = item.get('value').id;
+      const breadcrumbLink = 'class.analytics.performance.teacher.' + type;
+
+      if (type == 'course') {
+        this.transitionTo(breadcrumbLink);
+      }
+      else {
+        this.transitionTo(breadcrumbLink, itemId);
+      }
+      console.log('f teacher',type);
+    },
+  },
 
   // -------------------------------------------------------------------------
   // Methods

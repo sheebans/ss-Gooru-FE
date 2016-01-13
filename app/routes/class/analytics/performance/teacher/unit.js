@@ -22,12 +22,14 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-  /**
-   * lessonsNavigation
-   */
-  lessonsNavigation: function(lessonId){
-    console.log('lessonId', lessonId);
-    this.transitionTo('class.analytics.performance.teacher.course.lesson', lessonId);
+  actions: {
+
+    /**
+     * navigateToLessons
+     */
+    navigateToLessons: function (lessonId) {
+      this.transitionTo('class.analytics.performance.teacher.lesson', lessonId);
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -43,11 +45,7 @@ export default Ember.Route.extend({
     const classId= this.paramsFor('class').classId;
     const courseId = this.modelFor('class').class.get('course');
 
-    console.log('unitId', unitId);
-    console.log('classId', classId);
-    console.log('courseId', courseId);
     const headers = this.get('lessonService').findByClassAndCourseAndUnit(classId, courseId, unitId);
-    console.log('headers', headers)
 
     // TODO: Remove this temporal variable once it is not required
     const unitIds = Ember.A([
@@ -70,13 +68,13 @@ export default Ember.Route.extend({
       Ember.Object.create({id: '9', username: 'laurengutierrez', firstName: 'Lauren', lastName: 'Gutierrez', units: unitIds})
     ]);
 
-    const classPerformanceData = this.get('performanceService').findClassPerformance(classId, courseId, { users: users });
-    const courseData = this.get('courseService').findById(courseId);
+    const classPerformanceData = this.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, { users: users });
+    const unitData = Ember.Object.create({id: unitId, title: 'unit 1'});
 
     return Ember.RSVP.hash({
       headers: headers,
       classPerformanceData: classPerformanceData,
-      courseData: courseData
+      unitData: unitData
     });
 
   },
@@ -87,9 +85,8 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
     const performanceData = this.createDataMatrix(model.headers, model.classPerformanceData);
-    const courseData = model.courseData;
-    const item = Ember.Object.create({value: courseData.get('id'), label: courseData.get('title')});
-    controller.get("teacherController").addToBreadCrumb(item);
+
+    controller.get("teacherController").updateBreadcrumb(model.unitData, 'unit');
     controller.set('performanceDataMatrix', performanceData);
     controller.set('headers', model.headers);
   },

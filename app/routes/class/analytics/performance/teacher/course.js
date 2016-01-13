@@ -24,10 +24,10 @@ export default Ember.Route.extend({
 
   actions: {
     /**
-     * unitsNavigation
+     * navigateToUnits
     */
-    unitsNavigation: function(unitId){
-      this.transitionTo('class.analytics.performance.teacher.course.unit', unitId);
+    navigateToUnits: function(unitId){
+      this.transitionTo('class.analytics.performance.teacher.unit', unitId);
     }
   },
 
@@ -82,8 +82,7 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     const performanceData = this.createDataMatrix(model.headers, model.classPerformanceData);
     const courseData = model.courseData;
-    const item = Ember.Object.create({value: courseData.get('id'), label: courseData.get('title')});
-    controller.get("teacherController").addToBreadCrumb(item);
+    controller.get("teacherController").updateBreadcrumb(courseData, "course");
     controller.set('performanceDataMatrix', performanceData);
     controller.set('headers', model.headers);
   },

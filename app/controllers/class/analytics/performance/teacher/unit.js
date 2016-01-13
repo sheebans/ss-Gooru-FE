@@ -22,9 +22,6 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
-
-  },
 
   // -------------------------------------------------------------------------
   // Events
@@ -61,13 +58,7 @@ export default Ember.Controller.extend({
    * List of selected options from the data picker.
    * @property {Array}
    */
-  selectedOptions: Ember.computed.alias('teacherController.selectedOptions'),
-
-  /**
-   * @property {*} options selected
-   */
-  optionsTeacher: Ember.computed.alias('teacherController.optionsTeacher')
-
+  selectedOptions: Ember.computed.alias('teacherController.selectedOptions')
   // -------------------------------------------------------------------------
   // Observers
 

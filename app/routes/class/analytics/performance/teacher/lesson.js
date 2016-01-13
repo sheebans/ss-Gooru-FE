@@ -14,20 +14,21 @@ import { formatTime } from 'gooru-web/utils/utils';
 export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
-  lessonService: Ember.inject.service('api-sdk/lesson'),
+  unitService: Ember.inject.service('api-sdk/unit'),
   performanceService: Ember.inject.service('api-sdk/performance'),
   courseService: Ember.inject.service('api-sdk/course'),
 
 
   // -------------------------------------------------------------------------
   // Actions
+  actions: {
 
-  /**
-   * unitsNavigation
-   */
-  unitsNavigation: function(lessonId){
-    console.log('lessonId', lessonId);
-    this.transitionTo('class.analytics.performance.teacher.course.unit.lesson', lessonId);
+    /**
+     * navigateToAssessments
+     */
+    navigateToAssessments: function (assessmentId) {
+      //this.transitionTo('class.analytics.performance.teacher.course.assessments', assessmentId);
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -39,11 +40,15 @@ export default Ember.Route.extend({
 
   model: function(params) {
 
-    const unitId = params.unitId;
+    const lessonId = params.lessonId;
     const classId= this.paramsFor('class').classId;
     const courseId = this.modelFor('class').class.get('course');
 
-    const headers = this.get('lessonService').findByClassAndCourseAndUnit(classId, courseId, unitId);
+    console.log('lessonId', lessonId);
+    console.log('classId', classId);
+    console.log('courseId', courseId);
+    const headers = this.get('unitService').findByClassAndCourse(classId, courseId);
+    console.log('headers', headers)
 
     // TODO: Remove this temporal variable once it is not required
     const unitIds = Ember.A([
@@ -67,12 +72,12 @@ export default Ember.Route.extend({
     ]);
 
     const classPerformanceData = this.get('performanceService').findClassPerformance(classId, courseId, { users: users });
-    const courseData = this.get('courseService').findById(courseId);
+    const lessonData = Ember.Object.create({id: lessonId, title: 'lesson 1'});
 
     return Ember.RSVP.hash({
       headers: headers,
       classPerformanceData: classPerformanceData,
-      courseData: courseData
+      lessonData: lessonData
     });
 
   },
@@ -83,9 +88,8 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
     const performanceData = this.createDataMatrix(model.headers, model.classPerformanceData);
-    const courseData = model.courseData;
-    const item = Ember.Object.create({value: courseData.get('id'), label: courseData.get('title')});
-    controller.get("teacherController").addToBreadCrumb(item);
+
+    //controller.get("teacherController").updateBreadcrumb(model.lessonData, 'lesson');
     controller.set('performanceDataMatrix', performanceData);
     controller.set('headers', model.headers);
   },

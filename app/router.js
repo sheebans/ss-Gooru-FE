@@ -24,11 +24,9 @@ Router.map(function() {
       this.route('performance', function() {
         this.route('student');
         this.route('teacher', function() {
-          this.route('course', function() {
-            this.route('unit', { path: '/unit/:unitId'}, function() {
-              this.route('lesson', { path: '/lesson/:lessonId'});
-            });
-          });
+          this.route('course');
+          this.route('unit', { path: '/unit/:unitId'});
+          this.route('lesson', { path: '/lesson/:lessonId'});
         });
       });
     });
