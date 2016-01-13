@@ -4,6 +4,8 @@ export default DS.JSONAPISerializer.extend({
 
 
   normalizeSingleResponse: function(store, primaryModelClass, payload) {
+
+    // TODO: Remove static values from followers and followings
     var profileModel = {
       data: {
         type: "profile",
@@ -11,6 +13,8 @@ export default DS.JSONAPISerializer.extend({
         attributes: {
           profileId: payload.profileId,
           aboutMe: payload.aboutMe,
+          followers: 736,
+          followings: 566
         },
         relationships: {
           user: {
@@ -26,7 +30,8 @@ export default DS.JSONAPISerializer.extend({
         id: payload.user.gooruUId,
         attributes: {
           firstName: payload.user.firstName,
-          lastName: payload.user.lastName
+          lastName: payload.user.lastName,
+          avatarUrl: payload.user.profileImageUrl
         },
         relationships: {
           metadata: {

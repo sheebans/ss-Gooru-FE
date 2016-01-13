@@ -1,15 +1,19 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-profile-card'],
+  classNames: ['reports', 'assessment', 'gru-mastery'],
+
   // -------------------------------------------------------------------------
   // Properties
+
   /**
-   * The class presented to the user
-   * @property {Class}
+   * List of learning targets to be displayed by the component
+   *
+   * @constant {Array}
    */
-  "user": null
+  learningTargets:null
 });

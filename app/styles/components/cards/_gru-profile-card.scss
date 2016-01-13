@@ -1,0 +1,44 @@
+.cards.gru-profile-card {
+
+  > a {
+    > strong {
+      color: $text-color;
+      display: block;
+      font-size: 1.5rem;
+      font-weight: normal;
+      margin-bottom: 15px;
+      padding: 0 20px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    > .img-circle {
+      display: block;
+      height: 10rem;
+      width: 10rem;
+      margin: 10px auto;
+      border: 1px solid $gray-lighter;
+    }
+  }
+
+  > .social {
+    margin-bottom: 20px;
+
+    > span {
+      display: inline-block;
+      padding: 0 25px;
+      font-size: $font-size-small;
+
+      > em {
+        display: block;
+        font-size: 1rem;
+        font-style: normal;
+        line-height: 1em;
+      }
+
+      &:last-child {
+        border-left: 2px solid $gray-lighter;
+      }
+    }
+  }
+}

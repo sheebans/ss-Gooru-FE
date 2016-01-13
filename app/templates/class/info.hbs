@@ -51,7 +51,7 @@
                   <ul class="teachers">
                    {{#each class.teachers as |teacher|}}
                      <li class="profile-card">
-                        {{gru-profile-card user=teacher}}
+                       {{cards.gru-user-card user=teacher}}
                      </li>
                    {{/each}}
                   </ul>
@@ -74,7 +74,7 @@
                   <ul class="students">
                     {{#each students as |student|}}
                         <li class="profile-card">
-                          {{gru-profile-card user=student}}
+                          {{cards.gru-user-card user=student}}
                         </li>
                     {{/each}}
                   </ul>

@@ -35,8 +35,8 @@ test('Data Picker Layout', function(assert) {
   const $optionReaction = $component.find(".option-list li span.reaction");
   T.exists(assert, $optionReaction, 'Missing Reaction option');
 
-  const $optionAttempt = $component.find(".option-list li span.attempt");
-  T.exists(assert, $optionAttempt, 'Missing Attempt option');
+  const $optionAttempt = $component.find(".option-list li span.attempts");
+  T.exists(assert, $optionAttempt, 'Missing Attempts option');
 });
 
 test('Data Picker Default', function(assert) {
