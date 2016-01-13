@@ -12,6 +12,7 @@ export default {
     "close": "Close",
     "collectionInitial": "C",
     "contentUnavailable": "Content not available",
+    "correct": "Correct",
     "correct-answer":"Correct Answer",
     "create": "Create",
     "edit": "Edit",

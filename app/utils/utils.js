@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import { roundFloat, isNumeric } from './math';
 import { GRADE_BRACKETS } from 'gooru-web/config/config';
 
