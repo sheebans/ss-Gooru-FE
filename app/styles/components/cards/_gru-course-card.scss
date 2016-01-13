@@ -3,7 +3,6 @@
   border: 1px solid $color-black;
   padding: 5px;
   margin:5px;
-  font-size: 11px;
   h3,.thumbnail{
     cursor: pointer;
   }
@@ -17,10 +16,6 @@
     margin-bottom:0px;
     border: 1px solid $color-black;
   }
-  .card-info{
-    width: 206px;
-    height:148px;
-  }
   .remixed,.users-teaser,.course-title,.icon,.total-units,.subject,.thumbnail,.card-info{
     display: inline-block;
   }
@@ -32,10 +27,7 @@
      margin-top:5px;
    }
   h3.truncate{
-    width:  187px;
-  }
-  .remix-button button{
-    font-size: 11px;
+    width: 93%;
   }
   .truncate {
     white-space: nowrap;
@@ -43,7 +35,7 @@
     text-overflow: ellipsis;
   }
   p.subject.truncate{
-    width: 196px;
+    width: 90%;
     margin-bottom: 0px;
   }
 }
