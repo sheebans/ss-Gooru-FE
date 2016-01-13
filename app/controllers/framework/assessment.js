@@ -39,7 +39,7 @@ export default Ember.Controller.extend({
      * Computed property (map) of 'results'
      * @prop {Object[]}
      */
-    questionLinks: [
+    resourceLinks: [
       Ember.Object.create({
         'label': "1",
         'status': 'correct',
