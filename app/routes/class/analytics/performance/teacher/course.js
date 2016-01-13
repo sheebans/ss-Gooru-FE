@@ -40,6 +40,10 @@ export default Ember.Route.extend({
   model: function() {
     const classId= this.paramsFor('class').classId;
     const courseId = this.modelFor('class').class.get('course');
+
+    // Remove this
+    // this.get('unitService').findById(courseId, '31886eac-f998-493c-aa42-016f53e9fa88');
+
     const headers = this.get('unitService').findByClassAndCourse(classId, courseId);
 
     // TODO: Remove this temporal variable once it is not required
