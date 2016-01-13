@@ -8,3 +8,13 @@
 export function roundFloat(n, decimals = 0) {
   return (Math.round(n * 10) / 10).toFixed(decimals);
 }
+
+/**
+ * Determines if a parameter is of type numeric
+ * @see http://stackoverflow.com/questions/18082/validate-decimal-numbers-in-javascript-isnumeric
+ * @param n
+ * @returns {bool}
+ */
+export function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}

@@ -49,6 +49,17 @@ export default Ember.Component.extend({
   users:Ember.computed('course', function() {
     return this.get("course.remixedBy");
   }),
+  /**
+   * @property {String} subjects
+   */
+  subjects:Ember.computed('course', function() {
+    var subjectsList = this.get("course.subjects");
+    var subjects = "";
+    subjectsList.forEach(function(object){
+      subjects+= object+"|";
+    });
+    return subjects.substr(0, subjects.length-1);
+  }),
 
 
 

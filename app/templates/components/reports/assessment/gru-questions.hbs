@@ -2,7 +2,7 @@
     <h2>{{t "common.questions"}}</h2>
 </div>
 <div class="switch-section">
-  {{gru-switch switchOptions=switchOptions}}
+  {{gru-switch switchOptions=switchOptions onOptionSwitch='optionSwitch'}}
 </div>
 <table>
     <thead>
@@ -16,17 +16,20 @@
         <th class="header answer">
           {{t "common.answer"}}
         </th>
-        <th class="header score">
+        <th class="header score {{if showPerformance 'visible' 'hide'}}">
           {{t "common.score"}}
             <span>{{fa-icon icon='sort-desc'}}</span>
         </th>
-        <th class="header time-spent">
+        <th class="header time-spent {{if showPerformance 'visible' 'hide'}}">
           {{t "common.timeSpent"}}
             <span>{{fa-icon icon='sort-desc'}}</span>
         </th>
-        <th class="header reaction">
+        <th class="header reaction {{if showPerformance 'visible' 'hide'}}">
           {{t "common.reaction"}}
             <span>{{fa-icon icon='sort-desc'}}</span>
+        </th>
+        <th class="header correct-answer {{if showPerformance 'hide' 'visible'}}">
+          {{t "common.correct-answer"}}
         </th>
     </tr>
     </thead>
@@ -42,19 +45,22 @@
           <td class="question-answer">
 
           </td>
-          <td class="question-score">
+          <td class="question-score {{if showPerformance 'visible' 'hide'}}">
             {{#if result.correct}}
                 <span class="correct">{{fa-icon icon='check-circle-o'}}</span>
             {{else}}
                 <span class="incorrect">{{fa-icon icon='times-circle-o'}}</span>
             {{/if}}
           </td>
-          <td class="question-time">
+          <td class="question-time {{if showPerformance 'visible' 'hide'}}">
             {{result.timeSpent}}
           </td>
-          <td class="question-reaction">
+          <td class="question-reaction {{if showPerformance 'visible' 'hide'}}">
               <div class="emotion emotion-{{result.reaction}}">
               </div>
+          </td>
+          <td class="correct-answer {{if showPerformance 'hide' 'visible'}}">
+
           </td>
       </tr>
     {{/each}}

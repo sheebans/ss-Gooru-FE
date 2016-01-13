@@ -41,6 +41,8 @@ export const VIEW_LAYOUT_PICKER_OPTIONS = {
   THUMBNAILS:'thumbnails'
 };
 
+export const EMOTION_VALUES = [1, 2, 3, 4, 5];
+
 export const SCORES = {
   REGULAR: 60,
   GOOD: 70,
@@ -48,3 +50,11 @@ export const SCORES = {
   EXCELLENT: 90
 
 };
+
+export const GRADING_SCALE = [
+  {UPPER_LIMIT: 60},
+  {UPPER_LIMIT: 70},
+  {UPPER_LIMIT: 80},
+  {UPPER_LIMIT: 90},
+  {UPPER_LIMIT: 101}
+];

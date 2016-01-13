@@ -171,24 +171,24 @@ button.btn-link {
   font-style: italic;
 }
 
-.bg-score-bracket-0 {
-  background-color: $score-bracket-0;
+.bg-grade-bracket-0 {
+  background-color: $grade-bracket-0;
 }
 
-.bg-score-bracket-1 {
-  background-color: $score-bracket-1;
+.bg-grade-bracket-1 {
+  background-color: $grade-bracket-1;
 }
 
-.bg-score-bracket-2 {
-  background-color: $score-bracket-2;
+.bg-grade-bracket-2 {
+  background-color: $grade-bracket-2;
 }
 
-.bg-score-bracket-3 {
-  background-color: $score-bracket-3;
+.bg-grade-bracket-3 {
+  background-color: $grade-bracket-3;
 }
 
-.bg-score-bracket-4 {
-  background-color: $score-bracket-4;
+.bg-grade-bracket-4 {
+  background-color: $grade-bracket-4;
 }
 
 .emotion {
@@ -204,23 +204,48 @@ button.btn-link {
 }
 
 .emotion-1 {
-  background-position: $bg-pos-emotion-1;
+  background-position: $emotion-1-bg-pos;
+
+  &.active {
+    background-position: $emotion-1-bg-pos-active;
+    border-color: $emotion-1-border;
+  }
 }
 
 .emotion-2 {
-  background-position: $bg-pos-emotion-2;
+  background-position: $emotion-2-bg-pos;
+
+  &.active {
+    background-position: $emotion-2-bg-pos-active;
+    border-color: $emotion-2-border;
+  }
 }
 
 .emotion-3 {
-  background-position: $bg-pos-emotion-3;
+  background-position: $emotion-3-bg-pos;
+
+  &.active {
+    background-position: $emotion-3-bg-pos-active;
+    border-color: $emotion-3-border;
+  }
 }
 
 .emotion-4 {
-  background-position: $bg-pos-emotion-4;
+  background-position: $emotion-4-bg-pos;
+
+  &.active {
+    background-position: $emotion-4-bg-pos-active;
+    border-color: $emotion-4-border;
+  }
 }
 
 .emotion-5 {
-  background-position: $bg-pos-emotion-5;
+  background-position: $emotion-5-bg-pos;
+
+  &.active {
+    background-position: $emotion-5-bg-pos-active;
+    border-color: $emotion-5-border;
+  }
 }
 
 .ellipsis {

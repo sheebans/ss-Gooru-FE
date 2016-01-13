@@ -1,6 +1,6 @@
-<div class="score bg-score-bracket-{{model.scoreBracketNumber}}">
+<div class="grade bg-grade-bracket-{{gradeBracket model.correctPercentage}}">
   <span class="percentage">{{model.correctPercentage}}%</span>
-  <span class="attempts">{{model.correctAnswers}} / {{model.totalQuestions}} Correct</span>
+  <span class="attempts">{{model.correctAnswers}} / {{model.totalQuestions}} {{t 'common.correct'}}</span>
 </div>
 <div class="overview">
   <h1>{{model.assessmentName}}</h1>
@@ -30,7 +30,7 @@
 
     <div class="time">
       <strong>{{t "common.timeSpent"}}</strong>
-      <span>5min 2s</span>
+      <span>{{formatTime model.timeSpent}}</span>
     </div>
 
     <div class="reaction">
@@ -38,9 +38,8 @@
       <i class="emotion emotion-{{model.reaction}}"></i>
     </div>
   </div>
-  <div class="questions">
-      {{gru-bubbles bubbleOptions=model.results}}
-  </div>
+
+  {{gru-bubbles bubbleOptions=model.resourceLinks}}
 
 </div>
 
