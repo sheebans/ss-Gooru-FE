@@ -5,13 +5,22 @@ import SessionMixin from '../../mixins/session';
 export default Ember.Service.extend(StoreMixin, SessionMixin, {
 
   /**
-   * Find a collection by identifier
+   * Gets a specific collection|assessment by ID
    * @param {string} collectionId
-   * @returns {Collection|Promise}
+   * @returns {Collection}
    */
   findById: function(collectionId) {
     return this.get('store').findRecord('collection/collection', collectionId, { reload: true });
   },
+
+  /**
+   * Gets all collections|assessments for an specific unit and lesson.
+   * @param classId
+   * @param courseId
+   * @param unitId
+   * @param lessonId
+   * @returns {Collection[]}
+   */
   findByClassAndCourseAndUnitAndLesson: function(classId, courseId, unitId, lessonId){
     return this.get('store').queryRecord('collection/collection',{
       classId : classId,
