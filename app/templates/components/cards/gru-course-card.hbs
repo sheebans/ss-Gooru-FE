@@ -3,12 +3,18 @@
 </div>
 <div class="card-info">
     <div class="header">
-        <h4 class="course-title" {{action 'selectCourse'}}>{{course.title}}</h4>
-        <span class="icon">{{fa-icon icon="globe"}}</span>
+        <h3 class="course-title truncate" {{action 'selectCourse'}}>{{course.title}}</h3>
+        {{#if course.isPublic}}
+            <span class="icon">{{fa-icon icon="globe"}}</span>
+        {{/if}}
     </div>
    <div class="card-content">
-       <p class="total-units">{{course.totalUnits}} {{t "gru-course-card.units"}}</p>
-       <p class="subject">{{course.subject}}</p>
+       <p class="subject truncate">
+           <span>
+               <p class="total-units">{{course.totalUnits}} {{t "gru-course-card.units"}}</p>
+           </span>
+         {{subjects}}
+       </p>
    </div>
     <div class="remixed-users">
         <p class="remixed">{{t "gru-course-card.remixed-by"}}</p>

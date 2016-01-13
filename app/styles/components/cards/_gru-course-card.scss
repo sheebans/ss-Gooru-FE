@@ -4,6 +4,9 @@
   padding: 5px;
   margin:5px;
   font-size: 11px;
+  h3,.thumbnail{
+    cursor: pointer;
+  }
   .thumbnail,.card-info{
     vertical-align: middle;
     margin-right: 5px;
@@ -18,9 +21,6 @@
     width: 206px;
     height:148px;
   }
-  .header,.card-content,.remixed-users,.remix-button{
-    display: block;
-  }
   .remixed,.users-teaser,.course-title,.icon,.total-units,.subject,.thumbnail,.card-info{
     display: inline-block;
   }
@@ -31,10 +31,19 @@
    h3{
      margin-top:5px;
    }
-  h3,.thumbnail{
-    cursor: pointer;
+  h3.truncate{
+    width:  187px;
   }
   .remix-button button{
     font-size: 11px;
+  }
+  .truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  p.subject.truncate{
+    width: 196px;
+    margin-bottom: 0px;
   }
 }
