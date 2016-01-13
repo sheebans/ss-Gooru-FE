@@ -13,26 +13,34 @@ export default DS.JSONAPISerializer.extend({
    * @param store
    * @param primaryModelClass
    * @param payload
-   * @returns {{data: Array}} returns a response following the ember data unit model
+   * @returns {Lesson|Lesson[]} Returns a Lesson or a Lesson array
    */
   normalizeQueryRecordResponse: function(store, primaryModelClass, payload) {
-    var lessonModel = { data: [] },
-      results = payload,
-      hasResults = results && results.length > 0;
-    if (hasResults) {
-      Ember.$.each(results, function(index, result){
-        var lessonItem = {
-          id: result.gooruOid,
-          type: "lesson/lesson",
-          attributes: {
-            title: result.title,
-            collection: result.collectionId,
-            visibility: result.visibility
-          }
-        };
-        lessonModel.data.push(lessonItem);
+    const serializer = this;
+    const  isMultipleResult = Ember.isArray(payload);
+    if (isMultipleResult) {
+      var model = { data: [] };
+      Ember.$.each(payload, function(index, result){
+        model.data.push(serializer.normalizeLesson(result));
       });
+      return model;
+    } else {
+      return {
+        data: this.normalizeLesson(payload)
+      };
     }
-    return lessonModel;
+  },
+
+  normalizeLesson: function(payload) {
+    return {
+      id: payload.gooruOid,
+      type: 'lesson/lesson',
+      attributes: {
+        title: payload.title,
+        collection: payload.collectionId,
+        visibility: payload.visibility ? payload.visibility : false
+      }
+    }
   }
+
 });

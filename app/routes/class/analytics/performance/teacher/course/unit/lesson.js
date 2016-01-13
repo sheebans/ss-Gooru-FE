@@ -47,7 +47,7 @@ export default Ember.Route.extend({
     console.log('classId', classId);
     console.log('courseId', courseId);
     const headers = this.get('lessonService').findByClassAndCourseAndUnit(classId, courseId, unitId);
-    console.log('headers', headers)
+    console.log('headers', headers);
 
     // TODO: Remove this temporal variable once it is not required
     const unitIds = Ember.A([

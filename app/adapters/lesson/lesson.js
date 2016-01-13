@@ -10,24 +10,32 @@ export default ApplicationAdapter.extend({
   /**
    * @property {string} End-point URI
    */
-  namespace: '/gooruapi/rest/v3/class',
+  namespace: '/gooruapi/rest',
 
   /**
-   * Builds the end-point URL for the queryRecord queryParam
+   * Builds the end-point URL for the queryRecord method
    * @param query
-   * @returns {string}
+   * @returns {String}
    */
   urlForQueryRecord: function(query) {
-    let namespace = this.get('namespace');
-    let classId = query.classId;
-    let courseId = query.courseId;
-    let unitId= query.unitId;
+    const namespace = this.get('namespace');
+    const classId = query.classId;
+    const courseId = query.courseId;
+    const unitId= query.unitId;
+    const lessonId = query.lessonId;
+    const options = query.options;
 
     delete query.classId;
     delete query.courseId;
     delete query.unitId;
+    delete query.lessonId;
+    delete query.options;
 
-    return `${namespace}/${classId}/course/${courseId}/unit/${unitId}/lesson`;
+    if (options.queryType === 'byId') {
+      return `${namespace}/v1/course/${courseId}/unit/${unitId}/lesson/${lessonId}`;
+    } else {
+      return `${namespace}/v3/class/${classId}/course/${courseId}/unit/${unitId}/lesson`;
+    }
   }
 
 });
