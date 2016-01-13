@@ -63,7 +63,7 @@ export default Ember.Controller.extend({
   /**
    * @property {Unit} unit
    */
-  unit: null,
+  unit: null
   // -------------------------------------------------------------------------
   // Observers
 

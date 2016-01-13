@@ -71,12 +71,12 @@ export default Ember.Route.extend({
     ]);
 
     const classPerformanceData = this.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, { users: users });
-    const unitData = Ember.Object.create({id: unitId, title: 'unit 1'});
+    const unit = Ember.Object.create({id: unitId, title: 'unit 1'});
 
     return Ember.RSVP.hash({
       headers: headers,
       classPerformanceData: classPerformanceData,
-      unitData: unitData
+      unit: unit
     });
 
   },
@@ -88,10 +88,10 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     const performanceData = createDataMatrix(model.headers, model.classPerformanceData);
 
-    controller.get("teacherController").updateBreadcrumb(model.unitData, 'unit');
+    controller.get("teacherController").updateBreadcrumb(model.unit, 'unit');
     controller.set('performanceDataMatrix', performanceData);
     controller.set('headers', model.headers);
-    controller.set('unit', model.unitData);
+    controller.set('unit', model.unit);
 
   }
 });
