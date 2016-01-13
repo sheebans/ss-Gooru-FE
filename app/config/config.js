@@ -51,7 +51,7 @@ export const SCORES = {
 
 };
 
-export const GRADE_BRACKETS = [
+export const GRADE_SCALE = [
   {UPPER_LIMIT: 60},
   {UPPER_LIMIT: 70},
   {UPPER_LIMIT: 80},
