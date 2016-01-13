@@ -4,7 +4,7 @@
    aria-expanded="false"
    aria-controls="collection-container-{{lesson.id}}"
    id="collection-collapse"
-   onclick="event.preventDefault()">
+  {{action "selectLesson" lesson}}>
     <ul class="row">
         <li class="col-xs-8 col-sm-3 lesson-performance-title">
             <span><i class="fa fa-chevron-down hidden-xs"></i> L{{plus-one localIndex}}: {{lesson.title}}</span>
@@ -15,7 +15,7 @@
             performance=lesson
             selectedOption=selectedOption}}
           {{else}}
-              <h3>{{t "gru-unit-performance.notStarted"}}</h3>
+              <span class="notStarted">{{t "gru-unit-performance.notStarted"}}</span>
           {{/if}}
         </li>
     </ul>
@@ -26,11 +26,7 @@
           <ul class="">
             <li class="col-xs-8 col-sm-3 collection-performance-title">
               <span class="row">
-                  {{#if collection.isCollection}}
-                    C{{plus-one index}}:
-                  {{else if collection.isAssessment}}
-                    A{{plus-one index}}:
-                  {{/if}}{{collection.title}}
+                {{if collection.isCollection "C" (if collection.isAssessment "A")}}{{plus-one index}}: {{collection.title}}
               </span>
               <div class="row hidden-xs">
                 {{#if collection.isCompleted}}
@@ -49,13 +45,13 @@
                 performance=collection
                 selectedOption=selectedOption}}
               {{else }}
-                <h3>{{t "gru-unit-performance.notStarted"}}</h3>
+                <span class="notStarted">{{t "gru-unit-performance.notStarted"}}</span>
               {{/if}}
             </li>
           </ul>
       </div>
 
   {{else}}
-      <h3>{{t "gru-unit-performance.noContent"}}</h3>
+      <span class="noContent">{{t "gru-unit-performance.noContent"}}</span>
   {{/each}}
 </div>

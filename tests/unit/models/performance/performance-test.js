@@ -36,7 +36,7 @@ test('isCompleted test on Completed unit', function(assert) {
 
 });
 
-test('isAssessmentOrCollection test on collection performance', function(assert) {
+test('isCollection test on collection performance', function(assert) {
   assert.expect(1);
 
   let model = this.subject();
@@ -45,11 +45,11 @@ test('isAssessmentOrCollection test on collection performance', function(assert)
     model.set('type', 'collection');
   });
 
-  assert.equal(model.get('isAssessmentOrCollection'), true);
+  assert.equal(model.get('isCollection'), true);
 
 });
 
-test('isAssessmentOrCollection test on assesment performance', function(assert) {
+test('isAssessment test on assesment performance', function(assert) {
   assert.expect(1);
 
   let model = this.subject();
@@ -58,7 +58,7 @@ test('isAssessmentOrCollection test on assesment performance', function(assert) 
     model.set('type', 'assessment');
   });
 
-  assert.equal(model.get('isAssessmentOrCollection'), true);
+  assert.equal(model.get('isAssessment'), true);
 
 });
 

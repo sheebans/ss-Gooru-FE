@@ -28,11 +28,27 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-  didInsertElement:function(){
-    console.log(this.get('lesson.collections'),'El log de Jeff');
-    this.set('collections',this.get('lesson.collections'));
-    console.log(this.get('collections.firstObject.title'));
+  actions: {
+    /**
+     *
+     * Change the arrow's direction
+     *
+     * @function actions:selectUnit
+     */
+    selectLesson: function (lesson) {
+      const component = this;
+      let element =$('#'+ component.get('elementId')+' i.fa') ;
+      if(element.hasClass('fa-chevron-down')){
+        element.addClass('fa-chevron-up');
+        element.removeClass('fa-chevron-down');
+      }
+      else{
+        element.addClass('fa-chevron-down');
+        element.removeClass('fa-chevron-up');
+      }
+    }
   },
+
   // -------------------------------------------------------------------------
   // Events
   // -------------------------------------------------------------------------
@@ -66,9 +82,8 @@ export default Ember.Component.extend({
    *
    * @property {String}
    */
-  userId:'',
+  userId:''
 
-  collections:null
 
   // -------------------------------------------------------------------------
 

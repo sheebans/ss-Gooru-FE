@@ -74,7 +74,7 @@ test('Test for unit performance', function(assert) {
     performance=performance
     classModel=classModel
     userId=userId
-    index=index
+    localIndex=index
   }}`);
   const $component = this.$();
   const $clickableDiv= $component.find(".gru-unit-performance-container >a"); //component dom element
@@ -96,8 +96,10 @@ test('Test for unit performance', function(assert) {
     const $lessonsContainer = $component.find(".lessons-container");
     assert.equal($lessonsContainer.hasClass('in'), true, "Lessons container did not open");
 
-    const $lessonTitleSpan = $component.find(".lessons-container ul:first-child .lesson-performance-title span");
+    const $lessonTitleSpan = $component.find(".lessons-container div div:first-child .lesson-performance-title span");
+
     T.exists(assert, $lessonTitleSpan, 'Missing Lesson Container');
+
     assert.equal(T.text($lessonTitleSpan), "L1: lesson-title", "Wrong title");
 
     Ember.run(() => {

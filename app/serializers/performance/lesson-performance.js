@@ -48,7 +48,6 @@ export default DS.JSONAPISerializer.extend({
    * @returns {Object}
    */
   getNormalizedPerformanceAttributes: function(payload) {
-    console.log(payload.timeSpent, payload.title);
     return {
       title: payload.title,
       type: payload.type,

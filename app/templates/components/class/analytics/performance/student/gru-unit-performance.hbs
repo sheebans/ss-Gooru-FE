@@ -23,7 +23,7 @@
             selectedOption=selectedOption}}
           </div>
         {{else }}
-            <h3>{{t "gru-unit-performance.notStarted"}}</h3>
+            <span class="notStarted">{{t "gru-unit-performance.notStarted"}}</span>
         {{/if}}
 
       </li>
@@ -33,7 +33,6 @@
     <!-- each del componete de performance summary con el performance de cada lesson-->
   <div id="collection-data-parent-{{plus-one localIndex}}">
     {{#each lessons as |lesson index|}}
-      {{lesson}}
       {{class.analytics.performance.student.gru-lesson-performance
       lesson = lesson
       localIndex = index
@@ -43,7 +42,7 @@
       {{#if isLoading}}
         {{three-bounce-spinner}}
       {{else}}
-          <h3>{{t "gru-unit-performance.noContent"}}</h3>
+          <span class="noContent">{{t "gru-unit-performance.noContent"}}</span>
       {{/if}}
 
     {{/each}}
