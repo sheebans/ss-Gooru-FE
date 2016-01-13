@@ -26,7 +26,7 @@ Router.map(function() {
         this.route('teacher', function() {
           this.route('course');
           this.route('unit', { path: '/unit/:unitId'});
-          this.route('lesson', { path: '/lesson/:lessonId'});
+          this.route('lesson', { path: '/unit/:unitId/lesson/:lessonId'});
         });
       });
     });

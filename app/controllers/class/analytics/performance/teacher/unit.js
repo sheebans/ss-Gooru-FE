@@ -58,7 +58,12 @@ export default Ember.Controller.extend({
    * List of selected options from the data picker.
    * @property {Array}
    */
-  selectedOptions: Ember.computed.alias('teacherController.selectedOptions')
+  selectedOptions: Ember.computed.alias('teacherController.selectedOptions'),
+
+  /**
+   * @property {Unit} unit
+   */
+  unit: null,
   // -------------------------------------------------------------------------
   // Observers
 

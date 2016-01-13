@@ -59,14 +59,14 @@ export default Ember.Route.extend({
       const isTeacher = aClass.isTeacher(this.get("session.userId"));
       controller.selectMenuItem(item);
 
-      if (currentMenuItem !== item) {
+      //if (currentMenuItem !== item) {
         if ((item === "analytics.performance") && isTeacher){
           route.transitionTo('class.analytics.performance.teacher.course');
         }
         else {
           route.transitionTo('class.' + item);
         }
-      }
+      //}
     }
   },
 

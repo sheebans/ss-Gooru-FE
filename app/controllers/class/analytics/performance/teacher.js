@@ -121,26 +121,20 @@ export default Ember.Controller.extend({
     const controller = this;
     let breadcrumb = controller.get('breadcrumb');
 
-    if(item) {
-      var title = item.get("title");
-      var id = item.get("id");
-      var value = Ember.Object.create({id: id, type: type});
-      var breadcrumbObject = Ember.Object.create({
-        label: title,
-        value: value
-      });
-      //removes all items
-      var toRemove = breadcrumb;
+    const value = Ember.Object.create({id: item.get("id"), type: type});
+    const breadcrumbObject = Ember.Object.create({
+      label: item.get("title"),
+      value: value
+    });
 
-      if (type != 'course'){
-        //removes all items after the course
-        toRemove = breadcrumb.slice(1, breadcrumb.get("length"));
-      }
+    //removes all items
+    const levels = ["course", "unit", "lesson"];
+    const index = levels.indexOf(type);
+    const toRemove = breadcrumb.slice(index, breadcrumb.get("length"));
+    breadcrumb.removeObjects(toRemove.toArray());
 
-      breadcrumb.removeObjects(toRemove.toArray());
-      //add new breadcrumb item
-      breadcrumb.pushObject(breadcrumbObject);
-      return breadcrumb;
-    }
+    //add new breadcrumb item
+    breadcrumb.pushObject(breadcrumbObject);
+    return breadcrumb;
   }
 });
