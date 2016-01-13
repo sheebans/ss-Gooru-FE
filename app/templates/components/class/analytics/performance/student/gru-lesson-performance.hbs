@@ -1,11 +1,53 @@
-<li class="col-xs-8 col-sm-3 ">
-    <div class="lesson-performance-title">
-        <i class="fa fa-chevron-down hidden-xs"></i>
-        <span>L{{plus-one index}}: {{lesson.title}}</span>
-    </div>
-</li>
-<li class="col-xs-4 col-sm-9">
-        {{class.analytics.performance.gru-performance-summary
-        performance=lesson
-        selectedOption=selectedOption}}
-</li>
+<a href="#collection-container-{{lesson.id}}"
+   data-toggle="collapse"
+   aria-expanded="false"
+   aria-controls="collection-container-{{lesson.id}}"
+   id="collection-collapse"
+  {{action "selectLesson"}}>
+    <ul class="row">
+        <li class="col-xs-8 col-sm-3 lesson-performance-title">
+            <span><i class="fa fa-chevron-down hidden-xs"></i> L{{plus-one localIndex}}: {{lesson.title}}</span>
+        </li>
+        <li class="col-xs-4 col-sm-9 lesson-performance-content">
+          {{#if lesson.hasStarted}}
+            {{class.analytics.performance.gru-performance-summary
+            performance=lesson
+            selectedOption=selectedOption}}
+          {{else}}
+              <span class="notStarted">{{t "gru-unit-performance.notStarted"}}</span>
+          {{/if}}
+        </li>
+    </ul>
+</a>
+<div class="collections-container collapse col-xs-12" id="collection-container-{{lesson.id}}">
+  {{#each lesson.collections as |collection index|}}
+      <div class="collection-performance row">
+          <ul class="">
+            <li class="col-xs-8 col-sm-3 collection-performance-title">
+              <span class="row">
+                {{if collection.isCollection "C" (if collection.isAssessment "A")}}{{plus-one index}}: {{collection.title}}
+              </span>
+              <div class="row hidden-xs">
+                {{#if collection.isCompleted}}
+                    <button >{{t "gru-performance-summary.redo"}}</button>
+                {{else}}
+                    <button>{{t "gru-performance-summary.study"}}</button>
+                    <button>{{t "gru-performance-summary.view-report"}}</button>
+                {{/if}}
+              </div>
+            </li>
+            <li class="col-xs-4 col-sm-9 collection-performance-content">
+              {{#if collection.hasStarted}}
+                {{class.analytics.performance.gru-performance-summary
+                performance=collection
+                selectedOption=selectedOption}}
+              {{else }}
+                <span class="notStarted">{{t "gru-unit-performance.notStarted"}}</span>
+              {{/if}}
+            </li>
+          </ul>
+      </div>
+  {{else}}
+      <span class="noContent">{{t "gru-unit-performance.noContent"}}</span>
+  {{/each}}
+</div>

@@ -1,9 +1,9 @@
 .gru-unit-performance-container {
   margin: 15px 0;
   border:1px solid $color-gray-lighter-12;
-  border-radius: 0;
+  border-radius: 0!important;
   &.selected >a{
-    background-color:$color-gray-lighter-6;
+    background-color:$color-gray-lighter-13;
   }
   >a{
     color:$color-gray-dark-2;
@@ -20,6 +20,9 @@
     align-content: center;
     display: -webkit-flex;
     display: flex;
+    @include respond-to(xs){
+      height:50px;
+    }
     >ul{
       margin: 0;
       padding: 0;
@@ -40,7 +43,6 @@
     list-style: none;
     padding: 0;
     text-align: center;
-    height: 100%;
     li{
       &.performance-unit-title{
         -webkit-flex-direction: row;
@@ -80,7 +82,7 @@
         display: -webkit-flex;
         display: flex;
         @include respond-to(xs){
-          border-left: 1px solid;
+          border-left: 1px solid $color-gray-lighter-12;
         }
         >*{
           width: 100%;

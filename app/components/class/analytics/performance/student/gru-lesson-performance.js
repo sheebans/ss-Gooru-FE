@@ -24,14 +24,33 @@ export default Ember.Component.extend({
    *
    * @attribute {String}
    */
-  tagName:'ul',
+  tagName:'div',
 
   // -------------------------------------------------------------------------
   // Actions
+  actions: {
+    /**
+     *
+     * Change the arrow's direction
+     *
+     * @function actions:selectUnit
+     */
+    selectLesson: function () {
+      const component = this;
+      let element =$('#'+ component.get('elementId')+' i.fa') ;
+      if(element.hasClass('fa-chevron-down')){
+        element.addClass('fa-chevron-up');
+        element.removeClass('fa-chevron-down');
+      }
+      else{
+        element.addClass('fa-chevron-down');
+        element.removeClass('fa-chevron-up');
+      }
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Events
-
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -51,6 +70,12 @@ export default Ember.Component.extend({
    *
    * @property {Number}
    */
+  localIndex:null,
+  /**
+   * Number of the index of this lessons data parent.
+   *
+   * @property {Number}
+   */
   index:null,
   /**
    * UserID this user belongs to
@@ -58,6 +83,7 @@ export default Ember.Component.extend({
    * @property {String}
    */
   userId:''
+
 
   // -------------------------------------------------------------------------
 
