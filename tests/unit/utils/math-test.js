@@ -47,7 +47,7 @@ test('isNumeric with non-numeric values', function (assert) {
   assert.ok(!isNumeric(Number.POSITIVE_INFINITY), "Positive Infinity");
   assert.ok(!isNumeric(Number.NEGATIVE_INFINITY), "Negative Infinity");
   assert.ok(!isNumeric(new Date(2009, 1, 1)), "Date object");
-  assert.ok(!isNumeric(new Object()), "Empty object");
+  assert.ok(!isNumeric({}), "Empty object");
   assert.ok(!isNumeric(function () {
   }), "Instance of a function");
 

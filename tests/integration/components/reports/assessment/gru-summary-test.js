@@ -28,7 +28,7 @@ test('it renders', function (assert) {
     correctAnswers: 1,
     currentAttempt: 3,
 
-    questionLinks: [
+    resourceLinks: [
       Ember.Object.create({
         'label': "1",
         'status': 'correct',
