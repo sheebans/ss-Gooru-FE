@@ -1,4 +1,3 @@
-
 <a href="#collection-container-{{lesson.id}}"
    data-toggle="collapse"
    aria-expanded="false"
@@ -30,14 +29,12 @@
               </span>
               <div class="row hidden-xs">
                 {{#if collection.isCompleted}}
-                    <button >Redo</button>
+                    <button >{{t "gru-performance-summary.redo"}}</button>
                 {{else}}
-                    <button>Study</button>
-                    <button>View Report</button>
+                    <button>{{t "gru-performance-summary.study"}}</button>
+                    <button>{{t "gru-performance-summary.view-report"}}</button>
                 {{/if}}
-
               </div>
-
             </li>
             <li class="col-xs-4 col-sm-9 collection-performance-content">
               {{#if collection.hasStarted}}
@@ -50,7 +47,6 @@
             </li>
           </ul>
       </div>
-
   {{else}}
       <span class="noContent">{{t "gru-unit-performance.noContent"}}</span>
   {{/each}}

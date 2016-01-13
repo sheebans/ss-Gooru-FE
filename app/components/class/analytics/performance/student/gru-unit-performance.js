@@ -96,8 +96,8 @@ export default Ember.Component.extend({
     if(!component.get('lessons')){
       component.get("performanceService").findLessonPerformanceByClassAndCourseAndUnit(
         component.get('userId'),
-        component.get('classModel').id,
-        component.get('classModel').course,
+        component.get('classModel.id'),
+        component.get('classModel.course'),
         unitId).then(function(result){
           component.set('lessons',result);
           component.set('isLoading',false);

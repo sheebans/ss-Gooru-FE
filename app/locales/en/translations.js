@@ -410,7 +410,8 @@ export default {
     "attempts":"Attempts",
     "redo":"Redo",
     "resume":"Resume",
-    "study":"Study"
+    "study":"Study",
+    "view-report":"View Report"
   },
   "gru-unit-performance":{
     "notStarted": "Not started yet",
@@ -426,5 +427,5 @@ export default {
     "units":"Units",
     "remixed-by":"Remixed by",
     "remix":"Remix"
-  },
+  }
 };
