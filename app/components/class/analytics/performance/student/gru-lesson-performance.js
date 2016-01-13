@@ -35,7 +35,7 @@ export default Ember.Component.extend({
      *
      * @function actions:selectUnit
      */
-    selectLesson: function (lesson) {
+    selectLesson: function () {
       const component = this;
       let element =$('#'+ component.get('elementId')+' i.fa') ;
       if(element.hasClass('fa-chevron-down')){
