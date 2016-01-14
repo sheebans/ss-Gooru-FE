@@ -12,14 +12,14 @@ import d3 from 'd3';
 export default Ember.Component.extend({
   // Attributes
 
-  classNames: ['gru-pie-chart'],
+  classNames: ['gru-pie-chart','charts'],
   // -------------------------------------------------------------------------
   // Events
 
 
   didInsertElement: function(){
     if(!this.validValues()){
-      console.log("The values up 100");
+      Ember.Logger.warn('Invalid values to graph');
     }
     this.graphPie();
   },
@@ -55,33 +55,27 @@ export default Ember.Component.extend({
    * @property {Array} data
    * Data to graphic
    */
-  data : Ember.computed('pie', function() {
-    var values = [];
-    var pieData = this.get('pie');
-    pieData.forEach(function(option){
-       values.push({'value':option.value});
+  values : Ember.computed('pieData', function() {
+    return this.get('pieData').map(function(obj) {
+      return {value:obj.value};
     });
-    return values;
   }),
 
   /**
    * @property {Array} colors
    * List of color to graphic
    */
-  colors:Ember.computed('pie',function(){
-    var values = [];
-    var pieData = this.get('pie');
-    pieData.forEach(function(option){
-      values.push(option.color);
+  colors:Ember.computed('pieData',function(){
+    return this.get('pieData').map(function(obj) {
+      return obj.color;
     });
-    return values;
   }),
 
   /**
    * @property {Array} data
    * Data to graphic
    */
-  pie :null,
+  pieData :null,
 
 
   // -------------------------------------------------------------------------
@@ -92,7 +86,7 @@ export default Ember.Component.extend({
    */
   graphPie: function () {
     var color =  this.get('colorScale');
-    var vis = d3.select("#"+this.elementId+" .chart").append("svg:svg").data([this.get("data")]).attr("width", this.get("width")).attr("height", this.get("height")).append("svg:g").attr("transform", "translate(" + this.get("radius") + "," + this.get("radius")+ ")");
+    var vis = d3.select("#"+this.elementId).append("svg:svg").data([this.get("values")]).attr("width", this.get("width")).attr("height", this.get("height")).append("svg:g").attr("transform", "translate(" + this.get("radius") + "," + this.get("radius")+ ")");
     var pie = d3.layout.pie().value(function(d){return d.value;});
 
     //Declare an arc generator function
@@ -112,12 +106,12 @@ export default Ember.Component.extend({
    * Check if the values are up 100%
    */
   validValues:function(){
-    var values = this.get("data");
+    var values = this.get("values");
     var sum=0;
     values.forEach(function(value){
       sum+=parseInt(value.value);
     });
-    return (sum <= 100) ? true : false;
+    return (sum === 100) ? true : false;
   }
 
 });

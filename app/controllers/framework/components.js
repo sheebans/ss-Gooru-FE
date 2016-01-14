@@ -53,20 +53,19 @@ export default Ember.Controller.extend({
     value: "some-value"
   })]),
 
-  pie:[{
+  pieData:Ember.A([Ember.Object.create({
     color: "#00e100",
     value: "20"
-  },{
+  }),Ember.Object.create({
     color: "#ff5a5a",
     value: "35"
-   },
-    {
+   }),Ember.Object.create({
     color: "#885aff",
     value: "20"
-    },{
+    }),Ember.Object.create({
     color: "#ff860a",
     value: "30"
-  }],
+  })]),
 });
 
 

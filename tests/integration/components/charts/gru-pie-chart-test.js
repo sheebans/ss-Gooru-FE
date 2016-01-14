@@ -10,7 +10,7 @@ moduleForComponent('charts/gru-pie-chart', 'Integration | Component | charts/gru
 });
 
 test('Pie Chart Layout', function(assert) {
-  assert.expect(2);
+  assert.expect(1);
 
   const width =100;
   this.set('width', width);
@@ -34,11 +34,10 @@ test('Pie Chart Layout', function(assert) {
     }];
   this.set('pie', pie);
 
-  this.render(hbs`{{charts/gru-pie-chart pie=pie width=width height=height}}`);
+  this.render(hbs`{{charts/gru-pie-chart pieData=pie width=width height=height}}`);
   const $component = this.$(); //component dom element
   const $pieChart = $component.find(".gru-pie-chart");
 
   T.exists(assert, $pieChart, 'Missing pie chart component');
-  T.exists(assert, $pieChart.find('.chart'), 'Missing pie chart');
 
 });
