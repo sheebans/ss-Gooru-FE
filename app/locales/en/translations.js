@@ -12,10 +12,18 @@ export default {
     "close": "Close",
     "collectionInitial": "C",
     "contentUnavailable": "Content not available",
+    "correct": "Correct",
     "correct-answer":"Correct Answer",
     "create": "Create",
     "edit": "Edit",
     "email_support": "support@gooru.org",
+    "emotions": {
+      "emotion-1": "I need help",
+      "emotion-2": "I don't understand",
+      "emotion-3": "Meh...",
+      "emotion-4": "I understand",
+      "emotion-5": "I can explain"
+    },
     "explanation": "Explanation",
     "forgotPassword": "Forgot Password",
     "hints": "Hints",
@@ -279,14 +287,6 @@ export default {
     "search-results-for": "Search Results for"
   },
 
-  "gru-emotion-picker":{
-    "need-help":"I need help",
-    "do-not-understand":"I don't understand",
-    "meh":"Meh...",
-    "understand":"I understand",
-    "can-explain":"I can explain"
-  },
-
   "gru-image-picker": {
     "chooseFile": "Choose a file ...",
     "errors": {
@@ -410,7 +410,8 @@ export default {
     "attempts":"Attempts",
     "redo":"Redo",
     "resume":"Resume",
-    "study":"Study"
+    "study":"Study",
+    "view-report":"View Report"
   },
   "gru-unit-performance":{
     "notStarted": "Not started yet",
@@ -426,5 +427,5 @@ export default {
     "units":"Units",
     "remixed-by":"Remixed by",
     "remix":"Remix"
-  },
+  }
 };

@@ -1,6 +1,6 @@
-
-import { roundFloat } from './math';
-
+import Ember from 'ember';
+import { roundFloat, isNumeric } from './math';
+import { GRADING_SCALE } from 'gooru-web/config/config';
 
 /**
  * Check the standards that are checkable against the codes (provided by user)
@@ -40,4 +40,29 @@ export function formatTime(timeInMillis) {
   }
 
   return result;
+}
+
+/**
+ * Find the number of the grade bracket that the grade belongs to
+ * @see gooru-web/config/config#GRADING_SCALE
+ * @param grade
+ * @returns {number}
+ */
+export function getGradeBracket(grade) {
+  var bracket = 0;
+
+  var totalBrackets = GRADING_SCALE.length;
+
+  if (isNumeric(grade)) {
+
+    for (; bracket < totalBrackets; bracket++) {
+      if (grade < GRADING_SCALE[bracket].UPPER_LIMIT) {
+        break;
+      }
+    }
+
+  } else {
+    Ember.Logger.error('Grade value: ' + grade + ' is not a numeric value');
+  }
+  return bracket;
 }

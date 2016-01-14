@@ -1,21 +1,20 @@
 .gru-course-card{
   display: inline-block;
   border: 1px solid $color-black;
-  padding: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
+  padding: 5px;
+  margin:5px;
+  h3,.thumbnail{
+    cursor: pointer;
+  }
   .thumbnail,.card-info{
     vertical-align: middle;
-    margin-right: 10px;
+    margin-right: 5px;
   }
   .thumbnail{
-    width: 121px;
-    height: 121px;
+    width: 125px;
+    height: 125px;
+    margin-bottom:0px;
     border: 1px solid $color-black;
-  }
-  .header,.card-content,.remixed-users,.remix-button{
-    display: block;
   }
   .remixed,.users-teaser,.course-title,.icon,.total-units,.subject,.thumbnail,.card-info{
     display: inline-block;
@@ -27,7 +26,16 @@
    h3{
      margin-top:5px;
    }
-  h3,.thumbnail{
-    cursor: pointer;
+  h3.truncate{
+    width: 93%;
+  }
+  .truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  p.subject.truncate{
+    width: 90%;
+    margin-bottom: 0px;
   }
 }

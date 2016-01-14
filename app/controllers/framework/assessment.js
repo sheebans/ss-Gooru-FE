@@ -19,7 +19,7 @@ export default Ember.Controller.extend({
      * Total number of seconds spent completing the current attempt
      * @prop {Number}
      */
-    timeSpent: 106969,
+    timeSpent: 1695,
 
     /**
      * Percentage of correct answers vs. the total number of questions for the current
@@ -35,10 +35,21 @@ export default Ember.Controller.extend({
     correctAnswers: 3,
 
     /**
-     * Index of score bracket (@see /app/config/config~SCORE_BRACKETS)
-     * @prop {Number}
+     * Concise model to be used by the gru-bubbles component
+     * Computed property (map) of 'results'
+     * @prop {Object[]}
      */
-    scoreBracketNumber: 2,
+    resourceLinks: [
+      Ember.Object.create({
+        'label': "1",
+        'status': 'correct',
+        'value': 890
+      }),
+      Ember.Object.create({
+        'label': "2",
+        'status': 'incorrect',
+        'value': 891
+      })],
 
     /**
      * Total number of attempts made by the user for this assessment
@@ -100,6 +111,7 @@ export default Ember.Controller.extend({
      * make up the assessment
      */
     results: Ember.A([Ember.Object.create({
+      id: 890,
       question: Ember.Object.create({
         text:"This is a question 1"
       }),
@@ -108,7 +120,8 @@ export default Ember.Controller.extend({
       reaction: 5,
       order: 1,
       answer: "answer" // json object representing each question type answer
-    }),Ember.Object.create({
+    }), Ember.Object.create({
+      id: 891,
       question: Ember.Object.create({
         text:"This is a question 2"
       }),

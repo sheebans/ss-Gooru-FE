@@ -7,6 +7,14 @@ export default Ember.Component.extend({
 
   classNames: ['reports', 'gru-assessment-report'],
 
-  model: null,
+
+  // -------------------------------------------------------------------------
+  // Properties
+
+  /**
+   * Result of an attempt made by the user for an assessment
+   * @prop { AsessmentResult }
+   */
+  model: null
 
 });

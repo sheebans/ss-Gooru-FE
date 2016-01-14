@@ -29,8 +29,10 @@ export default Ember.Component.extend({
     selectOption: function () {
       if(this.isChecked()){
         this.sendAction("onOptionSwitch", this.get("optionB"));
+        this.activeOption("optionB");
       }else{
         this.sendAction("onOptionSwitch", this.get("optionA"));
+        this.activeOption("optionA");
       }
     }
 
@@ -83,7 +85,13 @@ export default Ember.Component.extend({
   isChecked: function() {
     return document.querySelector('.js-switch').checked;
   },
-
+  /**
+   * Highlight the active label
+   */
+  activeOption: function(option) {
+    this.$().find(".active").removeClass("active");
+    this.$("."+option).addClass("active");
+  }
 });
 
 
