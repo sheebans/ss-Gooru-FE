@@ -56,7 +56,7 @@ export default Ember.Component.extend({
     var subjectsList = this.get("course.subjects");
     var subjects = "";
     subjectsList.forEach(function(object){
-      subjects+= object+"|";
+      subjects+=" "+object+" |";
     });
     return subjects.substr(0, subjects.length-1);
   }),
