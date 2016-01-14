@@ -83,12 +83,14 @@ export default Ember.Service.extend(StoreMixin, {
   },
 
   createUserObject: function(id, username, firstName, lastName) {
-   return this.get('store').createRecord('user/user', {
+    var userRecord = this.get('store').createRecord('user/user', {
       id: id,
       username: username,
       firstName: firstName,
       lastName: lastName
     });
+    this.get('store').deleteRecord(userRecord);
+    return userRecord;
   },
 
   createPerformanceData: function(type, userId, ids = []) {
@@ -115,7 +117,7 @@ export default Ember.Service.extend(StoreMixin, {
   },
 
   createPerformanceObject: function(id, user, type) {
-    return this.get('store').createRecord('performance/performance', {
+    var performanceRecord = this.get('store').createRecord('performance/performance', {
       id: user + '@' + id,
       title: 'Title for - ' + id,
       type: type,
@@ -126,6 +128,8 @@ export default Ember.Service.extend(StoreMixin, {
       ratingScore: this.createRandomValue(1, 5),
       attempts: this.createRandomValue(1, 10)
     });
+    this.get('store').deleteRecord(performanceRecord);
+    return performanceRecord;
   },
 
   createStudentPerformanceObject: function(user, performance) {
