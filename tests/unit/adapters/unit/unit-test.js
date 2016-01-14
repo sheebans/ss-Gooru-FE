@@ -6,15 +6,26 @@ moduleFor('adapter:unit/unit', 'Unit | Adapter | unit/unit', {
 });
 
 
-test('urlForQueryRecord querying for class and course units', function (assert) {
-  let adapter = this.subject();
+test('UrlForQueryRecord for one specific unit', function(assert) {
+  const adapter = this.subject();
+  const query = {
+    courseId: 'course-id-1',
+    unitId: 'unit-id-1',
+    options: { queryType: 'byId' }
+  };
+  const url = adapter.urlForQueryRecord(query);
 
-  const
-    query = {
-      classId: '123',
-      courseId: '321'
-    },
-    url = adapter.urlForQueryRecord(query);
+  assert.equal(url, "/gooruapi/rest/v1/course/course-id-1/unit/unit-id-1", "Wrong url");
+});
 
-  assert.equal(url, "/gooruapi/rest/v3/class/123/course/321/unit", "Wrong url");
+test('UrlForQueryRecord for one many units', function(assert) {
+  const adapter = this.subject();
+  const query = {
+    classId: 'class-id-1',
+    courseId: 'course-id-1',
+    options: {}
+  };
+  const url = adapter.urlForQueryRecord(query);
+
+  assert.equal(url, "/gooruapi/rest/v3/class/class-id-1/course/course-id-1/unit", "Wrong url");
 });

@@ -40,7 +40,7 @@ export default DS.JSONAPISerializer.extend({
         collection: payload.collectionId,
         visibility: payload.visibility ? payload.visibility : false
       }
-    }
+    };
   }
 
 });

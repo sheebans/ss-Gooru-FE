@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 import { roundFloat } from './math';
 import { formatTime } from './utils';
 
