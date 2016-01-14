@@ -50,17 +50,10 @@ test('Test for started lesson performance', function(assert) {
           timeSpent: 442359,
           ratingScore: 0,
           isCompleted: false,
-          isAssesment: true
+          isAssessment: true
         })
       ])
     });
-  const classModel = Ember.Object.create({
-    id:'111-333-555',
-    course:'222-444-666'
-  });
-
-  this.set('userId', "any-user-id");
-  this.set('classModel', classModel);
   this.set('lesson', lesson);
   this.set('index',0);
   this.render(hbs`{{class.analytics.performance.student.gru-lesson-performance
@@ -139,17 +132,11 @@ test('Test for not started lesson performance', function(assert) {
           ratingScore: 0,
           isCompleted: true,
           hasStarted:false,
-          isAssesment: true
+          isAssessment: true
         })
       ])
     });
-  const classModel = Ember.Object.create({
-    id:'111-333-555',
-    course:'222-444-666'
-  });
 
-  this.set('userId', "any-user-id");
-  this.set('classModel', classModel);
   this.set('lesson', lesson);
   this.set('index',0);
   this.render(hbs`{{class.analytics.performance.student.gru-lesson-performance
@@ -184,8 +171,6 @@ test('Test for not started lesson performance', function(assert) {
   assert.ok($chevronIcon.hasClass("fa-chevron-up"), "Missing upwards chevron");
 
   return wait().then(function() {
-    const $collectionsContainer = $component.find(".collections-container");
-    assert.equal($collectionsContainer.hasClass('in'), true, "Collections container did not open");
 
     const $firstCollection = $component.find("div.collections-container div.collection-performance:nth-child(2)");
     T.exists(assert, $firstCollection, 'Missing Second collection');
@@ -203,10 +188,58 @@ test('Test for not started lesson performance', function(assert) {
     assert.equal($collectionStudyButton.hasClass('collection-study-button'), true, "Study class from first button missing");
     assert.equal($collectionViewReportButton.hasClass('collection-view-report-button'), true, "View report class from second button missing");
 
-    const $collectionNotStartedSpan = $component.find(".collections-container div:first-child .collection-performance-content span");
+    const $collectionNotStartedSpan = $component.find(".collections-container div:nth-child(2) .collection-performance-content span");
     T.exists(assert, $collectionNotStartedSpan, 'Missing not started message span');
     assert.equal(T.text($collectionNotStartedSpan), "Not started yet", "Wrong not started message");
 
-
   });
+
+
+});
+test('Test lesson performance with no collections', function(assert) {
+  const lesson = Ember.Object.create(
+    {
+      id:'333-555-777',
+      title: "Quiz :: Indian History",
+      type: "lesson",
+      score:75,
+      completionDone: 0,
+      completionTotal: 1,
+      timeSpent: 4852359,
+      ratingScore: 0,
+      hasStarted: false,
+      collections:Ember.A()
+    });
+
+  this.set('lesson', lesson);
+  this.set('index',0);
+  this.render(hbs`{{class.analytics.performance.student.gru-lesson-performance
+    lesson=lesson
+    localIndex=index
+    index=index
+  }}`);
+  const $component = this.$();
+
+  T.exists(assert, $component, 'Missing Lesson Container');
+
+  const $clickableAnchor= $component.find(".gru-lesson-performance-container a"); //component dom element
+  T.exists(assert, $clickableAnchor, 'Missing Clickable Anchor');
+
+
+  Ember.run(() => {
+    $clickableAnchor.click();
+  });
+
+  return wait().then(function() {
+    const $collectionsContainer = $component.find(".collections-container");
+    assert.equal($collectionsContainer.hasClass('in'), true, "Collections container did not open");
+
+    const $collectionNoContentSpan = $component.find(".collections-container span");
+
+    T.exists(assert, $collectionNoContentSpan, 'Missing no content message span');
+    assert.equal(T.text($collectionNoContentSpan), "No content available", "Wrong no content message");
+  });
+
+
+
 });
