@@ -42,6 +42,7 @@ Router.map(function() {
 
   this.route('framework', function () {
     this.route('assessment');
+    this.route('class-assessment');
     this.route('components');
   });
 });
