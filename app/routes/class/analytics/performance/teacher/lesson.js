@@ -18,7 +18,7 @@ export default Ember.Route.extend({
   // Dependencies
   collectionService: Ember.inject.service('api-sdk/collection'),
   performanceService: Ember.inject.service('api-sdk/performance'),
-  courseService: Ember.inject.service('api-sdk/course'),
+  lessonService: Ember.inject.service('api-sdk/lesson'),
 
 
   // -------------------------------------------------------------------------
@@ -71,14 +71,12 @@ export default Ember.Route.extend({
     ]);
 
     const classPerformanceData = this.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, { users: users });
-    const lesson = Ember.Object.create({id: lessonId, title: 'lesson 1'});
-    const unit = Ember.Object.create({id: unitId, title: 'unit 1'});
+    const lesson = this.get('lessonService').findById(courseId, unitId, lessonId);
 
     return Ember.RSVP.hash({
       headers: headers,
       classPerformanceData: classPerformanceData,
-      lesson: lesson,
-      unit: unit
+      lesson: lesson
     });
 
   },
@@ -91,11 +89,10 @@ export default Ember.Route.extend({
 
     const performanceData = createDataMatrix(model.headers, model.classPerformanceData);
 
-    controller.get("teacherController").updateBreadcrumb(model.lessonData, 'lesson');
+    controller.get("teacherController").updateBreadcrumb(model.lesson, 'lesson');
     controller.set('performanceDataMatrix', performanceData);
     controller.set('headers', model.headers);
     controller.set('lesson', model.lesson);
-    controller.set('unit', model.unit);
   }
 
 });

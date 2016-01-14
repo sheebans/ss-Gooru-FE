@@ -64,11 +64,6 @@ export default Ember.Controller.extend({
   selectedOptions: Ember.computed.alias('teacherController.selectedOptions'),
 
   /**
-   * @property {Unit} unit
-   */
-  unit: null,
-
-  /**
    * @property {Lesson} lesson
    */
   lesson: null

@@ -15,7 +15,7 @@ export default Ember.Route.extend({
   // Dependencies
   lessonService: Ember.inject.service('api-sdk/lesson'),
   performanceService: Ember.inject.service('api-sdk/performance'),
-  courseService: Ember.inject.service('api-sdk/course'),
+  unitService: Ember.inject.service('api-sdk/unit'),
 
   //controllerName: 'unit',
 
@@ -29,7 +29,9 @@ export default Ember.Route.extend({
      * navigateToLessons
      */
     navigateToLessons: function (lessonId) {
-      const unitId = this.get("controller.unit.id");
+
+      const unitId = this.get("controller.unitId").get('id');
+
       this.transitionTo('class.analytics.performance.teacher.lesson', unitId, lessonId);
     }
   },
@@ -71,7 +73,7 @@ export default Ember.Route.extend({
     ]);
 
     const classPerformanceData = this.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, { users: users });
-    const unit = Ember.Object.create({id: unitId, title: 'unit 1'});
+    const unit = this.get('unitService').findById(courseId, unitId);
 
     return Ember.RSVP.hash({
       headers: headers,
@@ -91,7 +93,7 @@ export default Ember.Route.extend({
     controller.get("teacherController").updateBreadcrumb(model.unit, 'unit');
     controller.set('performanceDataMatrix', performanceData);
     controller.set('headers', model.headers);
-    controller.set('unit', model.unit);
+    controller.set('unitId', model.unit);
 
   }
 });
