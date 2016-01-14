@@ -23,6 +23,13 @@ export default Ember.Component.extend({
     actions:{
       sortChange:function(option){
         console.log(option);
+      },
+
+      /**
+       * navigate to units/lessons
+       */
+      navigate:function(headerId){
+        this.sendAction('onNavigation', headerId);
       }
     },
   // -------------------------------------------------------------------------

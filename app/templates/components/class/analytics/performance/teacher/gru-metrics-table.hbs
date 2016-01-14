@@ -6,7 +6,7 @@
         {{t "class.analytics.performance.teacher.metricsTable.average"}}
       </th>
       {{#each headers as |header|}}
-        <th id="{{{header.id}}}" class="header" scope="col">
+        <th id="{{{header.id}}}" class="header pointer" scope="col" {{action 'navigate' header.id}}>
           <div class="header-title">
             {{{header.title}}}
           </div>

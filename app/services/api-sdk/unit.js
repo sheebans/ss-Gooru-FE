@@ -16,6 +16,20 @@ import StoreMixin from '../../mixins/store';
 export default Ember.Service.extend(StoreMixin, {
 
   /**
+   * Gets a specific unit by ID
+   * @param {string} collectionId
+   * @returns {Unit}
+   */
+  findById: function(courseId, unitId, options = {}) {
+    options.queryType = 'byId';
+    return this.get('store').queryRecord('unit/unit', {
+      courseId: courseId,
+      unitId: unitId,
+      options: options
+    });
+  },
+
+  /**
    * Find all units by class and course allowed for the current user
    * @param {string} classId class identifier
    * @param {string} courseId course identifier
