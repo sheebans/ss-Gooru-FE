@@ -37,7 +37,7 @@ export default Ember.Component.extend({
      */
     selectLesson: function () {
       const component = this;
-      let element =$('#'+ component.get('elementId')+' i.fa') ;
+      let element =$('#'+ component.get('elementId')+' .lesson-performance-title span >i.fa') ;
       if(element.hasClass('fa-chevron-down')){
         element.addClass('fa-chevron-up');
         element.removeClass('fa-chevron-down');
