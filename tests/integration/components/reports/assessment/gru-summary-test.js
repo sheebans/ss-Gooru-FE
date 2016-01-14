@@ -54,7 +54,6 @@ test('it renders', function (assert) {
 
   var $gradeContainer = $component.find('> .grade');
   assert.ok($gradeContainer.length, "Grade container is missing");
-  assert.ok($gradeContainer.hasClass('bg-grade-bracket-0'), "Grade container should be colored per color for grade bracket 0");
 
   var $percentage = $gradeContainer.find('.percentage');
   assert.ok($percentage.length, "Percentage container is missing");
