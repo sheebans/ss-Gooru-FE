@@ -2,9 +2,6 @@ import Ember from 'ember';
 
 import { createDataMatrix } from 'gooru-web/utils/performance-data';
 
-import { roundFloat } from 'gooru-web/utils/math';
-import { formatTime } from 'gooru-web/utils/utils';
-
 /**
  * Teacher Analytics Performance Route - Course/Unit Level
  *
@@ -29,6 +26,7 @@ export default Ember.Route.extend({
      * navigateToAssessments
      */
     navigateToAssessments: function (assessmentId) {
+      console.log(assessmentId);
       //this.transitionTo('class.analytics.performance.teacher.course.assessments', assessmentId);
     }
   },

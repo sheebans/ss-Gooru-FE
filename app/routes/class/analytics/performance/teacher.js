@@ -25,13 +25,12 @@ export default Ember.Route.extend({
       const itemId = item.get('value').id;
       const breadcrumbLink = 'class.analytics.performance.teacher.' + type;
 
-      if (type == 'course') {
+      if (type === 'course') {
         this.transitionTo(breadcrumbLink);
       }
       else {
         this.transitionTo(breadcrumbLink, itemId);
       }
-      console.log('f teacher',type);
     },
   },
 
