@@ -18,7 +18,10 @@ export default Ember.Component.extend({
 
 
   didInsertElement: function(){
-
+    if(!this.validValues()){
+      console.log("The values up 100");
+    }
+    this.graphPie();
   },
 
   // -------------------------------------------------------------------------
@@ -37,27 +40,59 @@ export default Ember.Component.extend({
   /**
    * @property {Number} radius
    */
-  radius :(Math.min(this.get("width"), this.get("heigh")) / 2),
+  radius : Ember.computed('width','heigh', function() {
+    return(Math.min(this.get("width"), this.get("height")) / 2);
+  }),
 
   /**
    * @property {D3.Object} color
    */
-  color : d3.scale.ordinal()
-    .range(["#98abc5", "#8a89a6", "#7b6888"]),
+  colorScale : Ember.computed('colors', function() {
+    return d3.scale.ordinal().range(this.get("colors"));
+  }),
 
   /**
    * @property {Array} data
    * Data to graphic
    */
-  data :[{"label":"Category A", "value":20},
-    {"label":"Category B", "value":50},
-    {"label":"Category C", "value":30}],
+  data : Ember.computed('pie', function() {
+    var values = [];
+    var pieData = this.get('pie');
+    pieData.forEach(function(option){
+       values.push({'value':option.value});
+    });
+    return values;
+  }),
+
+  /**
+   * @property {Array} colors
+   * List of color to graphic
+   */
+  colors:Ember.computed('pie',function(){
+    var values = [];
+    var pieData = this.get('pie');
+    pieData.forEach(function(option){
+      values.push(option.color);
+    });
+    return values;
+  }),
+
+  /**
+   * @property {Array} data
+   * Data to graphic
+   */
+  pie :null,
+
 
   // -------------------------------------------------------------------------
   // Methods
 
+  /**
+   * Graphic a pie chart with d3 library
+   */
   graphPie: function () {
-    var vis = d3.select('#chart').append("svg:svg").data([data]).attr("width", this.get("width")).attr("height", this.get("height")).append("svg:g").attr("transform", "translate(" + this.get("radius") + "," + this.get("radius")+ ")");
+    var color =  this.get('colorScale');
+    var vis = d3.select("#"+this.elementId+" .chart").append("svg:svg").data([this.get("data")]).attr("width", this.get("width")).attr("height", this.get("height")).append("svg:g").attr("transform", "translate(" + this.get("radius") + "," + this.get("radius")+ ")");
     var pie = d3.layout.pie().value(function(d){return d.value;});
 
     //Declare an arc generator function
@@ -70,10 +105,19 @@ export default Ember.Component.extend({
         return color(i);
       })
       .attr("d", function (d) {
-        //Log the result of the arc generator to show how cool it is :)
-        console.log(arc(d));
         return arc(d);
       });
+  },
+  /**
+   * Check if the values are up 100%
+   */
+  validValues:function(){
+    var values = this.get("data");
+    var sum=0;
+    values.forEach(function(value){
+      sum+=parseInt(value.value);
+    });
+    return (sum <= 100) ? true : false;
   }
 
 });

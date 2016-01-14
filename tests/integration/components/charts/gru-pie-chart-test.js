@@ -1,25 +1,44 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import T from 'gooru-web/tests/helpers/assert';
 
 moduleForComponent('charts/gru-pie-chart', 'Integration | Component | charts/gru pie chart', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.container.lookup('service:i18n').set("locale","en");
+  }
 });
 
-test('it renders', function(assert) {
-  
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });" + EOL + EOL +
+test('Pie Chart Layout', function(assert) {
+  assert.expect(2);
 
-  this.render(hbs`{{charts/gru-pie-chart}}`);
+  const width =100;
+  this.set('width', width);
 
-  assert.equal(this.$().text().trim(), '');
+  const height =100;
+  this.set('height', height);
 
-  // Template block usage:" + EOL +
-  this.render(hbs`
-    {{#charts/gru-pie-chart}}
-      template block text
-    {{/charts/gru-pie-chart}}
-  `);
+  const pie =[{
+    color: "#00e100",
+    value: "20"
+  },{
+    color: "#ff5a5a",
+    value: "35"
+  },
+    {
+      color: "#885aff",
+      value: "20"
+    },{
+      color: "#ff860a",
+      value: "30"
+    }];
+  this.set('pie', pie);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+  this.render(hbs`{{charts/gru-pie-chart pie=pie width=width height=height}}`);
+  const $component = this.$(); //component dom element
+  const $pieChart = $component.find(".gru-pie-chart");
+
+  T.exists(assert, $pieChart, 'Missing pie chart component');
+  T.exists(assert, $pieChart.find('.chart'), 'Missing pie chart');
+
 });

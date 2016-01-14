@@ -51,6 +51,22 @@ export default Ember.Controller.extend({
   }),Ember.Object.create({
     label: "Show Performance",
     value: "some-value"
-  })])
+  })]),
 
+  pie:[{
+    color: "#00e100",
+    value: "20"
+  },{
+    color: "#ff5a5a",
+    value: "35"
+   },
+    {
+    color: "#885aff",
+    value: "20"
+    },{
+    color: "#ff860a",
+    value: "30"
+  }],
 });
+
+
