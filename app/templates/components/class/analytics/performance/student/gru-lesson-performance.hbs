@@ -14,7 +14,7 @@
             performance=lesson
             selectedOption=selectedOption}}
           {{else}}
-              <span class="notStarted">{{t "gru-unit-performance.notStarted"}}</span>
+            <span class="notStarted">{{t "gru-performance.notStarted"}}</span>
           {{/if}}
         </li>
     </ul>
@@ -22,17 +22,17 @@
 <div class="collections-container collapse col-xs-12" id="collection-container-{{lesson.id}}">
   {{#each lesson.collections as |collection index|}}
       <div class="collection-performance row">
-          <ul class="">
+          <ul>
             <li class="col-xs-8 col-sm-3 collection-performance-title">
               <span class="row">
                 {{if collection.isCollection "C" (if collection.isAssessment "A")}}{{plus-one index}}: {{collection.title}}
               </span>
               <div class="row hidden-xs">
                 {{#if collection.isCompleted}}
-                    <button >{{t "gru-performance-summary.redo"}}</button>
+                    <button class="collection-redo-button">{{t "gru-performance-summary.redo"}}</button>
                 {{else}}
-                    <button>{{t "gru-performance-summary.study"}}</button>
-                    <button>{{t "gru-performance-summary.view-report"}}</button>
+                    <button class="collection-study-button">{{t "gru-performance-summary.study"}}</button>
+                    <button class="collection-view-report-button">{{t "gru-performance-summary.view-report"}}</button>
                 {{/if}}
               </div>
             </li>
@@ -42,12 +42,12 @@
                 performance=collection
                 selectedOption=selectedOption}}
               {{else }}
-                <span class="notStarted">{{t "gru-unit-performance.notStarted"}}</span>
+                <span class="notStarted">{{t "gru-performance.notStarted"}}</span>
               {{/if}}
             </li>
           </ul>
       </div>
   {{else}}
-      <span class="noContent">{{t "gru-unit-performance.noContent"}}</span>
+      <span class="noContent">{{t "gru-performance.noContent"}}</span>
   {{/each}}
 </div>
