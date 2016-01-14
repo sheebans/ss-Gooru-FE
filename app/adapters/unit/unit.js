@@ -15,7 +15,7 @@ export default ApplicationAdapter.extend({
   /**
    * Builds the end-point URL for the queryRecord method.
    * @param query
-   * @returns {string}
+   * @returns {String}
    */
   urlForQueryRecord: function(query) {
     const namespace = this.get('namespace');

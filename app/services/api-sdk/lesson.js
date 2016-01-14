@@ -16,7 +16,24 @@ import StoreMixin from '../../mixins/store';
 export default Ember.Service.extend(StoreMixin, {
 
   /**
-   * Find all lessons by class, course and unit allowed for the current user
+   * Gets a Lesson by ID that belongs to a course and unit.
+   * @param courseId
+   * @param unitId
+   * @param options
+   * @returns {Lesson}
+   */
+  findById: function(courseId, unitId, lessonId, options = {}) {
+    options.queryType = 'byId';
+    return this.get('store').queryRecord('lesson/lesson', {
+      courseId: courseId,
+      unitId: unitId,
+      lessonId: lessonId,
+      options: options
+    });
+  },
+
+  /**
+   * Gets all lessons by specific class, course and unit allowed for the current user
    * @param {string} classId class identifier
    * @param {string} courseId course identifier
    * @param {string} unitId course identifier
