@@ -32,13 +32,6 @@ export default Ember.Controller.extend({
     },
 
     /**
-     * Triggered when the breadcrumb item is selected
-     * @param {*} item
-     */
-    selectBreadcrumbItem: function(item){
-      Ember.log(item);
-    },
-    /**
      * Triggered when a filter option is selected
      * @param {string} option
      */
@@ -65,19 +58,6 @@ export default Ember.Controller.extend({
    * @property {Class}
    */
   "class": Ember.computed.reads('classController.class'),
-
-  /**
-   * The header titles
-   * @property {Headers[]}
-   */
-  headers: null,
-
-  /**
-   * The performanceDataMatrix
-   * @property {performanceData[]}
-   */
-
-  performanceDataMatrix: null,
 
   /**
    * The filterBy selected
@@ -122,7 +102,7 @@ export default Ember.Controller.extend({
     'value': 'study-time',
     'selected':false,
     'readOnly':false
-  })])
+  })]),
 
   // -------------------------------------------------------------------------
   // Observers
@@ -130,4 +110,31 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+
+  /**
+   * Updates the breadcrumb based on the provided item
+   * @param {[]} breadcrumb
+   * @param {item} item
+   * @param {type} course, unit, lesson, assessment
+   */
+  updateBreadcrumb: function(item, type){
+    const controller = this;
+    let breadcrumb = controller.get('breadcrumb');
+
+    const value = Ember.Object.create({id: item.get("id"), type: type});
+    const breadcrumbObject = Ember.Object.create({
+      label: item.get("title"),
+      value: value
+    });
+
+    //removes all items
+    const levels = ["course", "unit", "lesson"];
+    const index = levels.indexOf(type);
+    const toRemove = breadcrumb.slice(index, breadcrumb.get("length"));
+    breadcrumb.removeObjects(toRemove.toArray());
+
+    //add new breadcrumb item
+    breadcrumb.pushObject(breadcrumbObject);
+    return breadcrumb;
+  }
 });

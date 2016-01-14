@@ -4,6 +4,10 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+  /**
+   * @property {Session} current session
+   */
+  session: Ember.inject.service("session"),
 
   /**
    * @type {ClassService} Service to retrieve class information
@@ -50,10 +54,14 @@ export default Ember.Route.extend({
     selectMenuItem: function(item){
       const route = this;
       const controller = route.get("controller");
-      const currentMenuItem = controller.get("menuItem");
+      const aClass = controller.get('class');
+      const isTeacher = aClass.isTeacher(this.get("session.userId"));
       controller.selectMenuItem(item);
 
-      if (currentMenuItem !== item) {
+      if ((item === "analytics.performance") && isTeacher){
+        route.transitionTo('class.analytics.performance.teacher.course');
+      }
+      else {
         route.transitionTo('class.' + item);
       }
     }
