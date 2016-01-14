@@ -10,16 +10,17 @@ import Ember from 'ember';
 import d3 from 'd3';
 
 export default Ember.Component.extend({
+  // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['gru-pie-chart','charts'],
+  classNames: ['charts','gru-pie-chart'],
   // -------------------------------------------------------------------------
   // Events
 
 
   didInsertElement: function(){
     if(!this.validValues()){
-      Ember.Logger.warn('Invalid values to graph');
+      Ember.Logger.warn('Graph values do not add up to 100');
     }
     this.graphPie();
   },
@@ -106,12 +107,11 @@ export default Ember.Component.extend({
    * Check if the values are up 100%
    */
   validValues:function(){
-    var values = this.get("values");
-    var sum=0;
-    values.forEach(function(value){
-      sum+=parseInt(value.value);
-    });
-    return (sum === 100) ? true : false;
+    var sum = this.get("values").reduce(function(previousValue, value){
+      return previousValue + parseInt(value.value);
+    }, 0);
+    return (sum === 100);
   }
+
 
 });
