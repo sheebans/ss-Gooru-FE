@@ -63,22 +63,33 @@ test('Test data picker options selected', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
 
-    const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher-course");
-    const $metricTable = $performanceContainer.find(".gru-metrics-table");
     const $dataPicker = find(".controller.class .gru-data-picker");
-
-    click($dataPicker.find("ul.option-list a.completion"));
-    click($metricTable.find("thead tr:eq(0) th:eq(1)"));
+    click($dataPicker.find("ul.option-list a:eq(1)")); //click on completion
     andThen(function(){
-      assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/31886eac-f998-493c-aa42-016f53e9fa88');
+      const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher-course");
+      const $metricTable = $performanceContainer.find(".gru-metrics-table");
+      const $performanceInformation = $metricTable.find(".gru-metrics-performance-information");
+
+      //data picker score item is selected by default
+      T.exists(assert, $performanceInformation.find(".score"), "Missing data picker score information at course level");
+      T.exists(assert, $performanceInformation.find(".gru-completion-information-chart"), "Missing  data picker completion information at course level");
+      T.notExists(assert, $performanceInformation.find(".study-time"), "Study time item shouldn't be selected at course level");
+
+      click($metricTable.find("thead tr:eq(0) th:eq(1)"));
+      andThen(function(){
+        assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/31886eac-f998-493c-aa42-016f53e9fa88');
+
+        const $unitPerformanceContainer = find(".controller.class .controller.analytics-performance-teacher-unit");
+        const $unitMetricTable = $unitPerformanceContainer.find(".gru-metrics-table");
+        const $unitPerformanceInformation = $unitMetricTable.find(".gru-metrics-performance-information");
+
+        //data picker score item is selected by default
+        T.exists(assert, $unitPerformanceInformation.find(".score"), "Missing  data picker score information at unit level");
+
+        T.exists(assert, $unitPerformanceInformation.find(".completion"), "Missing  data picker completion information at unit level");
+        T.notExists(assert, $unitPerformanceInformation.find(".study-time"), "Study time item shouldn't be selected at unit level");
+
+      });
     });
-
-    const $performanceInformation = $metricTable.find(".gru-metrics-performance-information");
-
-    //datapicker score item is selected by default
-    T.exists(assert, $performanceInformation.find(".score"), "Missing  datapicker score information");
-
-    T.exists(assert, $performanceInformation.find(".gru-completion-information-chart"), "Missing  datapicker completion information");
-    T.notExists(assert, $performanceInformation.find(".study-time"), "Study time item shouldn't be selected");
   });
 });

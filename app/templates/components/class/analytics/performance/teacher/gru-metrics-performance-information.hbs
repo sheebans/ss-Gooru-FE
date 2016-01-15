@@ -3,21 +3,25 @@
     <div class="{{{scoreClass}}} table-cell score">{{{performanceData.score}}}%</div>
   {{/if}}
   {{#if showCompletion}}
-    {{class.analytics.performance.teacher.gru-completion-information-chart
-    text=(concat performanceData.completionDone '/' performanceData.completionTotal)
-    completePercent=performanceData.completionDone
-    minValue=0
-    maxValue=performanceData.completionTotal}}
+      <div class="table-cell completion">
+        {{class.analytics.performance.teacher.gru-completion-information-chart
+        text=(concat performanceData.completionDone '/' performanceData.completionTotal)
+        completePercent=performanceData.completionDone
+        minValue=0
+        maxValue=performanceData.completionTotal}}
+      </div>
   {{/if}}
   {{#if showStudyTime}}
     <div class="table-cell study-time">{{{performanceData.timeSpent}}}</div>
   {{/if}}
 {{else}}
-  <div class="table-cell"></div>
+  {{#if showScore}}
+      <div class="table-cell score"></div>
+  {{/if}}
   {{#if showCompletion}}
-    <div class="table-cell"></div>
+    <div class="table-cell completion"></div>
   {{/if}}
   {{#if showStudyTime}}
-    <div class="table-cell"></div>
+    <div class="table-cell study-time"></div>
   {{/if}}
 {{/if}}
