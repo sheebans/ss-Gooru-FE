@@ -82,6 +82,7 @@
         display: -webkit-flex;
         display: flex;
         @include respond-to(xs){
+
           border-left: 1px solid $color-gray-lighter-12;
         }
         >*{
