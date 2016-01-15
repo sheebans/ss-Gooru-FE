@@ -5,7 +5,6 @@ moduleFor('adapter:unit/unit', 'Unit | Adapter | unit/unit', {
   // needs: ['serializer:foo']
 });
 
-
 test('UrlForQueryRecord for one specific unit', function(assert) {
   const adapter = this.subject();
   const query = {
@@ -15,10 +14,10 @@ test('UrlForQueryRecord for one specific unit', function(assert) {
   };
   const url = adapter.urlForQueryRecord(query);
 
-  assert.equal(url, "/gooruapi/rest/v1/course/course-id-1/unit/unit-id-1", "Wrong url");
+  assert.equal(url, '/gooruapi/rest/v1/course/course-id-1/unit/unit-id-1', 'Wrong url');
 });
 
-test('UrlForQueryRecord for one many units', function(assert) {
+test('UrlForQueryRecord for many units', function(assert) {
   const adapter = this.subject();
   const query = {
     classId: 'class-id-1',
@@ -27,5 +26,5 @@ test('UrlForQueryRecord for one many units', function(assert) {
   };
   const url = adapter.urlForQueryRecord(query);
 
-  assert.equal(url, "/gooruapi/rest/v3/class/class-id-1/course/course-id-1/unit", "Wrong url");
+  assert.equal(url, '/gooruapi/rest/v3/class/class-id-1/course/course-id-1/unit', 'Wrong url');
 });

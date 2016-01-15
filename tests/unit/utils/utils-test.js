@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { checkStandards, formatTime, getGradeBracket } from '../../../utils/utils';
+import { checkStandards, formatTime, getGradeColor } from '../../../utils/utils';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | utils');
@@ -31,25 +31,25 @@ test('Check formatTime', function(assert) {
   assert.equal('1m 1s', formatTime(oneMin + oneSec));
 });
 
-test('getGradeBracket', function (assert) {
+test('getGradeColor', function (assert) {
 
-  assert.equal(getGradeBracket(0), 0, 'Grade bracket 0 -lowest value');
-  assert.equal(getGradeBracket(30), 0, 'Grade bracket 0 -value in the middle');
-  assert.equal(getGradeBracket(59), 0, 'Grade bracket 0 -highest value');
+  assert.equal(getGradeColor(0), '#E08282', 'First bracket color -lowest value');
+  assert.equal(getGradeColor(30), '#E08282', 'First bracket color -value in the middle');
+  assert.equal(getGradeColor(59), '#E08282', 'First bracket color -highest value');
 
-  assert.equal(getGradeBracket(60), 1, 'Grade bracket 1 -lowest value');
-  assert.equal(getGradeBracket(65), 1, 'Grade bracket 1 -value in the middle');
-  assert.equal(getGradeBracket(69), 1, 'Grade bracket 1 -highest value');
+  assert.equal(getGradeColor(60), '#FEC956', 'Second bracket color -lowest value');
+  assert.equal(getGradeColor(65), '#FEC956', 'Second bracket color -value in the middle');
+  assert.equal(getGradeColor(69), '#FEC956', 'Second bracket color -highest value');
 
-  assert.equal(getGradeBracket(70), 2, 'Grade bracket 2 -lowest value');
-  assert.equal(getGradeBracket(75), 2, 'Grade bracket 2 -value in the middle');
-  assert.equal(getGradeBracket(79), 2, 'Grade bracket 2 -highest value');
+  assert.equal(getGradeColor(70), '#EDF167', 'Third bracket color -lowest value');
+  assert.equal(getGradeColor(75), '#EDF167', 'Third bracket color -value in the middle');
+  assert.equal(getGradeColor(79), '#EDF167', 'Third bracket color -highest value');
 
-  assert.equal(getGradeBracket(80), 3, 'Grade bracket 3 -lowest value');
-  assert.equal(getGradeBracket(85), 3, 'Grade bracket 3 -value in the middle');
-  assert.equal(getGradeBracket(89), 3, 'Grade bracket 3 -highest value');
+  assert.equal(getGradeColor(80), '#A2DE81', 'Fourth bracket color -lowest value');
+  assert.equal(getGradeColor(85), '#A2DE81', 'Fourth bracket color -value in the middle');
+  assert.equal(getGradeColor(89), '#A2DE81', 'Fourth bracket color -highest value');
 
-  assert.equal(getGradeBracket(90), 4, 'Grade bracket 4 -lowest value');
-  assert.equal(getGradeBracket(95), 4, 'Grade bracket 4 -value in the middle');
-  assert.equal(getGradeBracket(100), 4, 'Grade bracket 4 -highest value');
+  assert.equal(getGradeColor(90), '#3FC380', 'Fifth bracket color -lowest value');
+  assert.equal(getGradeColor(95), '#3FC380', 'Fifth bracket color -value in the middle');
+  assert.equal(getGradeColor(100), '#3FC380', 'Fifth bracket color -highest value');
 });

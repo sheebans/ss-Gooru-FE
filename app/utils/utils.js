@@ -48,15 +48,15 @@ export function formatTime(timeInMillis) {
  * @param grade
  * @returns {number}
  */
-export function getGradeBracket(grade) {
-  var bracket = 0;
-
-  var totalBrackets = GRADING_SCALE.length;
+export function getGradeColor(grade) {
+  var bracket = GRADING_SCALE.length - 1;
+  var color = '#999999';  // Default color
 
   if (isNumeric(grade)) {
 
-    for (; bracket < totalBrackets; bracket++) {
-      if (grade < GRADING_SCALE[bracket].UPPER_LIMIT) {
+    for (; bracket >= 0; bracket--) {
+      if (grade >= GRADING_SCALE[bracket].LOWER_LIMIT) {
+        color = GRADING_SCALE[bracket].COLOR;
         break;
       }
     }
@@ -64,5 +64,5 @@ export function getGradeBracket(grade) {
   } else {
     Ember.Logger.error('Grade value: ' + grade + ' is not a numeric value');
   }
-  return bracket;
+  return color;
 }
