@@ -11,7 +11,7 @@ moduleForComponent('charts/gru-stacked-horizontal-bar-chart', 'Integration | Com
 });
 
 test('Stacked horizontal bar chart layout', function(assert) {
-  //assert.expect(5);
+  assert.expect(3);
 
   var data= Ember.A([Ember.Object.create({
     color: "#00e100",
