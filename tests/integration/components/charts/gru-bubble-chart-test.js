@@ -18,13 +18,13 @@ test('Bubble Chart Layout', function(assert) {
 
   const $component = this.$(); //component dom element
   const $completionBubbleChart = $component.find(".gru-bubble-chart");
-  T.exists(assert, $completionBubbleChart, 'Bubble chart component exits');
+  T.exists(assert, $completionBubbleChart, 'Missing Bubble chart component');
 
   const $completionCircle = $component.find(".bubble-circle");
-  T.exists(assert, $completionCircle, 'Circle exits');
+  T.exists(assert, $completionCircle, 'Missing circle');
 
   const $contentTest = $component.find(".bubble-circle span");
-  assert.equal($contentTest.text().trim(), "80%", "Correct content");
+  assert.equal($contentTest.text().trim(), "80%", "Content incorrect");
 
 });
 
