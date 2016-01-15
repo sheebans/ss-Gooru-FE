@@ -46,7 +46,7 @@ test('Navigate to lesson', function(assert) {
     const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher-unit");
     const $metricTable = $performanceContainer.find(".gru-metrics-table");
 
-    click($metricTable.find("thead tr:eq(0) th:eq(1)")); //navigate to lesson
+    click($metricTable.find("thead tr:eq(0) th:eq(1)"));
     andThen(function(){
       assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/d0b56322-d3ca-40f5-85b3-2f38ef910ac1/lesson/fbd76aed-1b8d-4c2c-abc6-c7603eef567q');
     });
@@ -75,7 +75,7 @@ test('Test data picker options selected', function(assert) {
       T.exists(assert, $performanceInformation.find(".completion"), "Missing  data picker completion information at unit level");
       T.notExists(assert, $performanceInformation.find(".study-time"), "Study time item shouldn't be selected at unit level");
 
-      click($metricTable.find("thead tr:eq(0) th:eq(1)")); //navigate to lesson
+      click($metricTable.find("thead tr:eq(0) th:eq(1)"));
       andThen(function(){
         assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/d0b56322-d3ca-40f5-85b3-2f38ef910ac1/lesson/fbd76aed-1b8d-4c2c-abc6-c7603eef567q');
 
