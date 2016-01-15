@@ -13,26 +13,34 @@ export default DS.JSONAPISerializer.extend({
    * @param store
    * @param primaryModelClass
    * @param payload
-   * @returns {{data: Array}} returns a response following the ember data lesson model
+   * @returns {Unit|Unit[]} Returns a Units or arrays of Units
    */
   normalizeQueryRecordResponse: function(store, primaryModelClass, payload) {
-    var unitModel = { data: [] },
-      results = payload,
-      hasResults = results && results.length > 0;
-    if (hasResults) {
-      Ember.$.each(results, function(index, result){
-        var classItem = {
-          id: result.gooruOid,
-          type: "unit/unit",
-          attributes: {
-            title: result.title,
-            collection: result.collectionId,
-            visibility: result.visibility
-          }
-        };
-        unitModel.data.push(classItem);
+    const serializer = this;
+    const  isMultipleResult = Ember.isArray(payload);
+    if (isMultipleResult) {
+      var model = { data: [] };
+      Ember.$.each(payload, function(index, result){
+        model.data.push(serializer.normalizeUnit(result));
       });
+      return model;
+    } else {
+      return {
+        data: this.normalizeUnit(payload)
+      };
     }
-    return unitModel;
+  },
+
+  normalizeUnit: function(payload) {
+    return {
+      id: payload.gooruOid,
+      type: 'unit/unit',
+      attributes: {
+        title: payload.title,
+        collection: payload.collectionId,
+        visibility: payload.visibility ? payload.visibility : false
+      }
+    };
   }
+
 });

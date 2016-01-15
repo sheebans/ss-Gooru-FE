@@ -61,7 +61,42 @@ test('isAssessment test on assesment performance', function(assert) {
   assert.equal(model.get('isAssessment'), true);
 
 });
+test('isCollectionOrAssessment test on collection performance', function(assert) {
+  assert.expect(1);
 
+  let model = this.subject();
+
+  Ember.run(function(){
+    model.set('type', 'collection');
+  });
+
+  assert.equal(model.get('isCollectionOrAssessment'), true);
+
+});
+test('isCollectionOrAssessment test on assessment performance', function(assert) {
+  assert.expect(1);
+
+  let model = this.subject();
+
+  Ember.run(function(){
+    model.set('type', 'assessment');
+  });
+
+  assert.equal(model.get('isCollectionOrAssessment'), true);
+
+});
+test('isCollectionOrAssessment test on non collection or assessment performance', function(assert) {
+  assert.expect(1);
+
+  let model = this.subject();
+
+  Ember.run(function(){
+    model.set('type', 'lesson');
+  });
+
+  assert.equal(model.get('isCollectionOrAssessment'), false);
+
+});
 test('isLesson test on lesson performance', function(assert) {
   assert.expect(1);
 

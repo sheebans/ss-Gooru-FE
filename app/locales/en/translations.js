@@ -413,7 +413,7 @@ export default {
     "study":"Study",
     "view-report":"View Report"
   },
-  "gru-unit-performance":{
+  "gru-performance":{
     "notStarted": "Not started yet",
     "noContent" : "No content available"
   },

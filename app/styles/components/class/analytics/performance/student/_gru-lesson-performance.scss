@@ -45,8 +45,6 @@
           height:50px;
         }
         >*{
-          margin: 0;
-          padding: 0;
           -webkit-order: 0;
           order: 0;
           -webkit-flex-grow: 1;
@@ -58,9 +56,10 @@
           -webkit-align-self: auto;
           align-self: auto;
           height: 100%;
+          width:100%;
+          margin:0;
         }
         >ul{
-          margin:0;
           >li{
             &.lesson-performance-title {
               -webkit-flex-direction: row;
@@ -76,6 +75,7 @@
               display: -webkit-flex;
               display: flex;
               height:100%;
+              text-align: left;
               > span {
                 padding-left: 15px;
                 white-space: nowrap;
@@ -91,6 +91,7 @@
                 flex-basis: auto;
                 -webkit-align-self: auto;
                 align-self: auto;
+
               }
             }
             &.lesson-performance-content{
@@ -198,13 +199,14 @@
                 display: -webkit-flex;
                 display: flex;
                 height: 100%;
+                text-align: left;
                 >span{
                   white-space: nowrap;
                   overflow: hidden;
                   text-overflow: ellipsis;
                 }
                 > * {
-                  padding-left: 40px;
+                  padding-left: 55px;
                   -webkit-order: 0;
                   order: 0;
                   -webkit-flex-grow: 0;
@@ -217,6 +219,9 @@
                   align-self: auto;
                   width: 100%;
                   text-align: start;
+                  @include respond-to(xs){
+                    padding-left:30px;
+                  }
                 }
               }
               &.collection-performance-content{

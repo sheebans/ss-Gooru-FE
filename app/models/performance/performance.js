@@ -9,7 +9,7 @@ import { formatTime } from '../../utils/utils';
 export default DS.Model.extend({
 
   /**
-   * @property {String} Title for the student performance
+   * @property {String} Title for the performance
    */
   title: DS.attr('string'),
   /**
@@ -24,6 +24,10 @@ export default DS.Model.extend({
    * @property {Boolean} Value that tells whether the performance data belongs to a collection
    */
   isCollection : Ember.computed.equal('type', 'collection'),
+  /**
+   * @property {Boolean} Value that tells whether the performance data belongs to a collection
+   */
+  isCollectionOrAssessment: Ember.computed.or('isCollection','isAssessment'),
   /**
    * @property {Boolean} Value that tells whether the performance data belongs to a lesson
    */
@@ -54,7 +58,7 @@ export default DS.Model.extend({
   attempts: DS.attr('number'),
 
   /**
-   *  @property {boolean} Whether the unit is completed or not.
+   *  @property {boolean} Whether the performance is completed or not.
    */
   isCompleted: Ember.computed('completionDone', 'completionTotal', function() {
     return (this.get('completionDone') === this.get('completionTotal'));

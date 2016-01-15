@@ -19,29 +19,16 @@
       {{/if}}
     </li>
     <li class="completion">
-    {{#if performance.isAssessment}}
-      <div class="assessment-completion">
+    {{#if performance.isCollectionOrAssessment}}
+      <div class="collection-or-assessment">
         {{#if performance.isCompleted}}
-            <span class="isCompleted"><i class="fa fa-2x fa-check-circle-o"></i></span>
+            <span class="collection-or-assessment-is-completed"><i class="fa fa-2x fa-check-circle-o"></i></span>
             <span class="visible-xs">{{t "gru-performance-summary.redo"}}</span>
         {{else if performance.hasStarted}}
-            <span class="isNotCompleted"><i class="fa fa-2x fa-check-circle-o"></i></span>
+            <span class="collection-or-assessment-has-started"><i class="fa fa-2x fa-check-circle-o"></i></span>
             <span class="visible-xs">{{t "gru-performance-summary.resume"}}</span>
         {{else}}
-            <span class="isNotCompleted"><i class="fa fa-2x fa-check-circle-o"></i></span>
-            <span class="visible-xs">{{t "gru-performance-summary.study"}}</span>
-        {{/if}}
-      </div>
-    {{else if performance.isCollection}}
-      <div class="collection-completion">
-        {{#if performance.isCompleted}}
-            <span class="isCompleted"><i class="fa fa-2x fa-check-circle-o"></i></span>
-            <span class="visible-xs">{{t "gru-performance-summary.redo"}}</span>
-        {{else if performance.hasStarted}}
-            <span class="isNotCompleted"><i class="fa fa-2x fa-check-circle-o"></i></span>
-            <span class="visible-xs">{{t "gru-performance-summary.resume"}}</span>
-        {{else}}
-            <span class="isNotCompleted"><i class="fa fa-2x fa-check-circle-o"></i></span>
+            <span class="collection-or-assessment-not-started"><i class="fa fa-2x fa-check-circle-o"></i></span>
             <span class="visible-xs">{{t "gru-performance-summary.study"}}</span>
         {{/if}}
       </div>

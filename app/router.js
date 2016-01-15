@@ -23,7 +23,11 @@ Router.map(function() {
     this.route('analytics', function() {
       this.route('performance', function() {
         this.route('student');
-        this.route('teacher');
+        this.route('teacher', function() {
+          this.route('course');
+          this.route('unit', { path: '/unit/:unitId'});
+          this.route('lesson', { path: '/unit/:unitId/lesson/:lessonId'});
+        });
       });
     });
   });

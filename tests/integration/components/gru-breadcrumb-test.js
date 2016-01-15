@@ -8,30 +8,30 @@ moduleForComponent('gru-breadcrumb', 'Integration | Component | gru breadcrumb',
 });
 
 test('Layout and click', function(assert) {
-  assert.expect(4);
+  assert.expect(3);
 
   const breadcrumb = Ember.A([
     {
-      value: '111',
+      value: { id: '111', type: 'course'},
       label: 'Course Name'
     },
     {
-      value: '222',
+      value: { id: '222', type: 'unit'},
       label: 'Unit number one'
     },
     {
-      value: '333',
+      value: { id: '333', type: 'lesson'},
       label: 'Lesson number one'
     },
     {
-      value: '444',
+      value: { id: '444', type: 'collection'},
       label: 'Collection one'
     }
   ]);
 
   this.set('breadcrumb', breadcrumb);
   this.on('mySelectItem', function(item) {
-    assert.equal(item.value, '111', "Wrong value");
+    assert.equal(item.value.id, '111', "Wrong id");
   });
 
   this.render(hbs`{{gru-breadcrumb items=breadcrumb onItemSelected='mySelectItem'}}`);
