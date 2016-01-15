@@ -43,7 +43,7 @@
       }
       &.completion {
         div{
-          &.assessment-completion, &.collection-completion{
+          &.collection-or-assessment{
             -webkit-flex-direction: row;
             flex-direction: row;
             -webkit-flex-wrap: nowrap;
@@ -56,6 +56,11 @@
             align-content: stretch;
             display: -webkit-flex;
             display: flex;
+            @include respond-to(xs){
+              -webkit-justify-content: flex-start;
+              justify-content: flex-start;
+              padding-left: 30%;
+            }
             >*{
               -webkit-order: 0;
               order: 0;
@@ -74,7 +79,7 @@
             &:last-child{
               font-size:$font-size-small;
             }
-            &.isCompleted i{
+            &.collection-is-completed i{
               color:$color-blue-primary;
             }
             i{

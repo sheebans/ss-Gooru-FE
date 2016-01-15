@@ -14,7 +14,7 @@
             performance=lesson
             selectedOption=selectedOption}}
           {{else}}
-            <span class="notStarted">{{t "gru-performance.notStarted"}}</span>
+            <span class="not-started">{{t "gru-performance.notStarted"}}</span>
           {{/if}}
         </li>
     </ul>
@@ -37,17 +37,13 @@
               </div>
             </li>
             <li class="col-xs-4 col-sm-8 collection-performance-content">
-              {{#if collection.hasStarted}}
                 {{class.analytics.performance.gru-performance-summary
                 performance=collection
                 selectedOption=selectedOption}}
-              {{else }}
-                <span class="notStarted">{{t "gru-performance.notStarted"}}</span>
-              {{/if}}
             </li>
           </ul>
       </div>
   {{else}}
-      <span class="noContent">{{t "gru-performance.noContent"}}</span>
+      <span class="no-content">{{t "gru-performance.noContent"}}</span>
   {{/each}}
 </div>

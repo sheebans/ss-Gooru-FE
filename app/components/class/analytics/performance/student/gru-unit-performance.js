@@ -99,6 +99,12 @@ export default Ember.Component.extend({
         component.get('classModel.id'),
         component.get('classModel.course'),
         unitId).then(function(result){
+          //TODO: Remove setting the completion values here, this is for testing the completion possible values on an assesment or collection.
+          if(result[0].get('collections.firstObject')){
+            result[0].get('collections.firstObject').set('completionTotal',10);
+            result[0].get('collections.firstObject').set('completionDone',10);
+          }
+
           component.set('lessons',result);
           component.set('isLoading',false);
         });
