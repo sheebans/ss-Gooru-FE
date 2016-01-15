@@ -72,7 +72,7 @@ test('Test data picker options selected', function(assert) {
 
       //data picker score item is selected by default
       T.exists(assert, $performanceInformation.find(".score"), "Missing data picker score information at course level");
-      T.exists(assert, $performanceInformation.find(".gru-completion-information-chart"), "Missing  data picker completion information at course level");
+      T.exists(assert, $performanceInformation.find(".completion"), "Missing  data picker completion information at course level");
       T.notExists(assert, $performanceInformation.find(".study-time"), "Study time item shouldn't be selected at course level");
 
       click($metricTable.find("thead tr:eq(0) th:eq(1)"));
