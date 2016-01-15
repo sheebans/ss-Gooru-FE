@@ -1,25 +1,31 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import T from 'gooru-web/tests/helpers/assert';
 
 moduleForComponent('charts/gru-bubble-chart', 'Integration | Component | charts/gru bubble chart', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.container.lookup('service:i18n').set("locale","en");
+  }
 });
 
-test('it renders', function(assert) {
-  
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });" + EOL + EOL +
+test('Bubble Chart Layout', function(assert) {
+  assert.expect(2);
 
-  this.render(hbs`{{charts/gru-bubble-chart}}`);
+  const scorePercentage = '80%';
+  this.set('scorePercentage', scorePercentage);
 
-  assert.equal(this.$().text().trim(), '');
+  const backgroundColor = '#00e100';
+  this.set('backgroundColor', backgroundColor);
 
-  // Template block usage:" + EOL +
-  this.render(hbs`
-    {{#charts/gru-bubble-chart}}
-      template block text
-    {{/charts/gru-bubble-chart}}
-  `);
+  this.render(hbs`{{charts.gru-bubble-chart scorePercentage=scorePercentage backgroundColor=backgroundColor}}`);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+  const $component = this.$(); //component dom element
+  const $completionBubbleChart = $component.find(".gru-bubble-chart");
+  T.exists(assert, $completionInformationChart, 'Missing bubble chart component');
+
+  const $completionCircle = $component.find(".bubble-circle");
+  T.exists(assert, $completionCircle, 'Missing circle');
+
 });
+
