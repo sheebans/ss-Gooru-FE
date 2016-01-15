@@ -33,7 +33,7 @@
             <span class="collection-or-assessment-has-started"><i class="fa fa-2x fa-check-circle-o"></i></span>
             <a class="visible-xs " {{action "selectResource" performance.id}}>{{t "gru-performance-summary.resume"}}</a>
         {{else}}
-            <span class="collection-or-assessment-not-started"><i class="fa fa-2x fa-check-circle-o"></i></span>
+            <span class="visible-xs collection-or-assessment-not-started"><i class="fa fa-2x fa-check-circle-o"></i></span>
             <a class="visible-xs" {{action "selectResource" performance.id}}>{{t "gru-performance-summary.study"}}</a>
         {{/if}}
       </div>
