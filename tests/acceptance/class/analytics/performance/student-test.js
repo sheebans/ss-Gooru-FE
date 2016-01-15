@@ -143,4 +143,29 @@ test('Exit Full Screen by pressing Esc', function(assert) {
   });
 });
 
+test('Transition from a collection in student performance', function(assert) {
+  visit('/class/class-for-pochita-as-student/analytics/performance/student');
 
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student');
+
+    const $performanceContainer = find(".controller.class .controller.analytics-performance-student");
+
+    click($viewFullScreen); //enter full screen mode
+    andThen(function() {
+      T.exists(assert, $performanceContainer.find("div.navigation.hide"), "Navigation should be hide");
+      var $navigation = find(".analytics-performance-student div.navigation.hide");
+
+      T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.exit-full-screen"), "Button should be on exit full screen mode");
+      T.exists(assert, $navigation, "Navigation Menu should be hidden");
+
+      keyEvent($performanceContainer, 'keyup', KEY_CODES.ESCAPE); //exit full screen by pressing ESC
+      andThen(function() {
+        T.exists(assert, $performanceContainer.find("div.navigation.show"), "Navigation should be show");
+        $navigation = find(".analytics-performance-student div.navigation.show");
+        T.exists(assert, $performanceContainer.find(".controls .gru-actions-bar button.full-screen.view-full-screen"), "Button should be on view full screen mode");
+        T.exists(assert, $navigation, "Navigation Menu should be show");
+      });
+    });
+  });
+});

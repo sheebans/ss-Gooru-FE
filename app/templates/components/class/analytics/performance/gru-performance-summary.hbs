@@ -1,21 +1,28 @@
+
     <li class='score'>
-      {{#if performance.score}}
-          <div class="description">
-              <div class="radial-progress">
-                  <div class="circle">
-                      <div class="mask full">
-                          <div class="fill"></div>
-                      </div>
-                      <div class="mask half">
-                          <div class="fill"></div>
-                          <div class="fill fix"></div>
-                      </div>
-                  </div>
-              </div>
-              <p>{{performance.score}}%</p>
-          </div>
+      {{#if performance.hasStarted}}
+        {{#if performance.score}}
+            <div class="description">
+                <div class="radial-progress">
+                    <div class="circle">
+                        <div class="mask full">
+                            <div class="fill"></div>
+                        </div>
+                        <div class="mask half">
+                            <div class="fill"></div>
+                            <div class="fill fix"></div>
+                        </div>
+                    </div>
+                </div>
+                <p>{{performance.score}}%</p>
+            </div>
+        {{else}}
+            <p>N/A</p>
+        {{/if}}
       {{else}}
-          <p>N/A</p>
+        {{#if performance.isCollectionOrAssessment}}
+            <span class="not-started">{{t "gru-performance.notStarted"}}</span>
+        {{/if}}
       {{/if}}
     </li>
     <li class="completion">
@@ -62,7 +69,7 @@
       {{#if performance.reaction}}
           <span class="reactionSummary"></span>
       {{else}}
-          <p>–</p>
+          <p>{{if performance.isUnitOrLesson '–'}}</p>
       {{/if}}
 
     </li>
@@ -70,6 +77,6 @@
       {{#if performance.attempts}}
           <p>{{performance.attempts}}</p>
       {{else}}
-          <p>–</p>
+          <p>{{if performance.isUnitOrLesson '–'}}</p>
       {{/if}}
     </li>
