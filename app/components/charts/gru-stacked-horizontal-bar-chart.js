@@ -34,10 +34,10 @@ export default Ember.Component.extend({
   * Check if the values are up 100%
   */
   validValues:function(){
-  var sum = this.get("stackedBarData").reduce(function(previousValue, value){
-    return previousValue + parseInt(value.percentage);
-  }, 0);
-  return (sum <= 100);
-}
+    var sum = this.get("stackedBarData").reduce(function(previousValue, value){
+      return previousValue + parseInt(value.percentage);
+    }, 0);
+    return (sum <= 100);
+  }
 
 });
