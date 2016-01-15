@@ -30,8 +30,8 @@ test('Metrics performance information Layout', function(assert) {
   var $score = $component.find(".score");
   T.exists(assert, $score, 'Missing score cell');
 
-  var $completion = $component.find(".gru-completion-information-chart");
-  T.exists(assert, $completion, 'Missing gru-completion-information-chart component');
+  var $completion = $component.find(".completion");
+  T.exists(assert, $completion, 'Missing completion cell');
 
   var $studyTime = $component.find(".study-time");
   T.notExists(assert, $studyTime, "study time cell shouldn't be visible");
