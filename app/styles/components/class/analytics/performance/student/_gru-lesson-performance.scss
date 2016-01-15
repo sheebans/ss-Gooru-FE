@@ -204,6 +204,9 @@
                   white-space: nowrap;
                   overflow: hidden;
                   text-overflow: ellipsis;
+                  &.has-action{
+                    cursor: pointer;
+                  }
                 }
                 > * {
                   padding-left: 55px;
@@ -217,7 +220,7 @@
                   flex-basis: auto;
                   -webkit-align-self: auto;
                   align-self: auto;
-                  width: 100%;
+                  max-width: 100%;
                   text-align: start;
                   @include respond-to(xs){
                     padding-left:30px;

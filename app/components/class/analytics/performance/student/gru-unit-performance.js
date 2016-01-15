@@ -30,6 +30,14 @@ export default Ember.Component.extend({
         $('.gru-unit-performance-container.selected').removeClass('selected');
         element.addClass('selected');
       }
+    },
+    /**
+     * @function actions:selectResource
+     * @param {string} collectionId - Identifier for a resource (collection/assessment)
+     */
+    selectResource: function (collectionId) {
+      console.log('entro a unit performance');
+      this.get('onSelectResource')(collectionId);
     }
   },
   // -------------------------------------------------------------------------

@@ -37,7 +37,8 @@
       lesson = lesson
       localIndex = index
       index = localIndex
-      selectedOption = selectedOption}}
+      selectedOption = selectedOption
+      onSelectResource=(action 'selectResource')}}
     {{else}}
       {{#if isLoading}}
         {{three-bounce-spinner}}

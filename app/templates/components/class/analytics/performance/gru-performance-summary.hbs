@@ -26,10 +26,10 @@
             <span class="visible-xs">{{t "gru-performance-summary.redo"}}</span>
         {{else if performance.hasStarted}}
             <span class="collection-or-assessment-has-started"><i class="fa fa-2x fa-check-circle-o"></i></span>
-            <span class="visible-xs">{{t "gru-performance-summary.resume"}}</span>
+            <a class="visible-xs " {{action "selectResource" performance.id}}>{{t "gru-performance-summary.resume"}}</a>
         {{else}}
             <span class="collection-or-assessment-not-started"><i class="fa fa-2x fa-check-circle-o"></i></span>
-            <span class="visible-xs">{{t "gru-performance-summary.study"}}</span>
+            <a class="visible-xs" {{action "selectResource" performance.id}}>{{t "gru-performance-summary.study"}}</a>
         {{/if}}
       </div>
     {{else}}
