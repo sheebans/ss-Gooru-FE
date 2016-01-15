@@ -4,10 +4,7 @@ import T from 'gooru-web/tests/helpers/assert';
 import Ember from 'ember';
 
 moduleForComponent('charts/gru-stacked-horizontal-bar-chart', 'Integration | Component | charts/gru stacked horizontal bar chart', {
-  integration: true,
-  beforeEach: function () {
-    this.container.lookup('service:i18n').set("locale","en");
-  }
+  integration: true
 });
 
 test('Stacked horizontal bar chart layout', function(assert) {
