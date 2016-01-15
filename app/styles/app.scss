@@ -52,6 +52,7 @@
 
 @import 'components/cards/gru-course-card';
 
+
 @import 'components/charts/gru-stacked-horizontal-bar-chart';
 @import 'components/charts/gru-radial-chart';
 
@@ -65,7 +66,7 @@
 @import 'components/class/analytics/performance/student/gru-lesson-performance';
 @import 'components/class/analytics/performance/teacher/gru-metrics-table';
 @import 'components/class/analytics/performance/teacher/gru-metrics-sub-header';
-@import 'components/charts/gru-radial-chart';
+
 @import 'components/player/gru-navigation';
 @import 'components/player/gru-navigator';
 @import 'components/player/gru-viewer';
@@ -84,3 +85,7 @@
 @import 'components/reports/assessment/gru-mastery';
 @import 'components/reports/assessment/gru-questions';
 @import 'components/reports/assessment/gru-summary';
+@import 'components/reports/gru-class-assessment-report';
+@import 'components/reports/class-assessment/gru-student-view';
+@import 'components/reports/class-assessment/gru-summary';
+@import 'components/reports/class-assessment/gru-table-view';
