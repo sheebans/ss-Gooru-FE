@@ -63,7 +63,7 @@ test('Test data picker options selected', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
 
-    const $dataPicker = find(".controller.class .gru-data-picker");
+    const $dataPicker = find(".controller.class .gru-data-picker:eq(0)"); //click the desktop version of the data picker
     click($dataPicker.find("ul.option-list a:eq(1)")); //click on completion
     andThen(function(){
       const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher-course");
