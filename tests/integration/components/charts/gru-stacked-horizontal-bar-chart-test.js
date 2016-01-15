@@ -15,14 +15,14 @@ test('Stacked horizontal bar chart layout', function(assert) {
 
   var data= Ember.A([Ember.Object.create({
     color: "#00e100",
-    percentage: "20",
+    percentage: "20"
   }),Ember.Object.create({
     color: "#ff5a5a",
     percentage: "35"
   })]);
 
   this.set('data', data);
-  this.render(hbs`{{charts/gru-stacked-horizontal-bar-chart stackedBarData=data}}`);
+  this.render(hbs`{{charts/gru-stacked-horizontal-bar-chart data=data}}`);
   const $component = this.$(); //component dom element
   const $horizontalBarChart = $component.find(".gru-stacked-horizontal-bar-chart");
 

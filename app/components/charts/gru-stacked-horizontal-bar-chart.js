@@ -18,7 +18,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Properties
 
-  stackedBarData:null,
+  data:null,
 
   // -------------------------------------------------------------------------
   // Events
@@ -34,7 +34,7 @@ export default Ember.Component.extend({
   * Check if the values are up 100%
   */
   validValues:function(){
-    var sum = this.get("stackedBarData").reduce(function(previousValue, value){
+    var sum = this.get("data").reduce(function(previousValue, value){
       return previousValue + parseInt(value.percentage);
     }, 0);
     return (sum <= 100);
