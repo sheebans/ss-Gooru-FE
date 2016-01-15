@@ -1,1 +1,21 @@
-Class Assessment Report
+{{ reports.class-assessment.gru-summary }}
+
+<div class="view-container">
+
+  <div class="view-selector">
+    <button class="table-view {{if isTableView 'active' ''}}" {{action 'changeView' true}}>
+      {{fa-icon icon="fa-th-large"}}
+    </button>
+    <button class="student-view {{if isTableView '' 'active'}}" {{action 'changeView' false}}>
+      {{fa-icon icon="fa-bars"}}
+    </button>
+  </div>
+
+  {{#if isTableView}}
+    {{ reports.class-assessment.gru-table-view }}
+  {{else}}
+    {{ reports.class-assessment.gru-student-view }}
+  {{/if}}
+
+</div>
+

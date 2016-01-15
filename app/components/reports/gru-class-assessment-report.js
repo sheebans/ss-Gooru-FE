@@ -7,6 +7,27 @@ export default Ember.Component.extend({
 
   classNames: ['reports', 'gru-class-assessment-report'],
 
+  // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+
+    /**
+     * Set a new emotion as selected and update the component appearance accordingly
+     *
+     * @function actions:changeView
+     * @param {bool} selectTableView
+     * @returns {undefined}
+     */
+    changeView: function (selectTableView) {
+      const isTableViewSelected = this.get('isTableView');
+
+      if (selectTableView !== isTableViewSelected) {
+        this.set('isTableView', selectTableView);
+      }
+    }
+  },
+
 
   // -------------------------------------------------------------------------
   // Properties
@@ -16,6 +37,12 @@ export default Ember.Component.extend({
    * @prop { Collection }
    */
   collection: null,
+
+  /**
+   * Is the table view currently selected?
+   * @prop { bool }
+   */
+  isTableView: true,
 
   /**
    * Group of students taking an assessment
