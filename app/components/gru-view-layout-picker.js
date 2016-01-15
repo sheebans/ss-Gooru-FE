@@ -29,9 +29,7 @@ export default Ember.Component.extend({
      * @param {string} newLayout
      */
     setLayout: function(newLayout) {
-      if (newLayout.get("isActive")) {
-        this.cleanup();
-      } else {
+      if (!newLayout.get("isActive")) {
         this.cleanup();
         this.selectLayout(newLayout);
       }

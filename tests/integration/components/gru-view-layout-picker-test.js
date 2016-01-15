@@ -44,7 +44,7 @@ test('Select option again', function(assert) {
   var $component = this.$(); //component dom element
   var $viewLayoutPicker = $component.find(".view-layout-list");
   $viewLayoutPicker.find("div.thumbnails a").click();
-  T.notExists(assert,$viewLayoutPicker.find("div.thumbnails.active"),"Thumbnails option should not be active");
+  assert.ok($viewLayoutPicker.find("div.thumbnails").hasClass('active'));
 });
 
 test('Select another option', function(assert) {
