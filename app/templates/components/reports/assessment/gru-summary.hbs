@@ -1,4 +1,4 @@
-<div class="grade bg-grade-bracket-{{gradeBracket model.correctPercentage}}">
+<div class="grade" style="background-color: {{gradeColor model.correctPercentage}}">
   <span class="percentage">{{model.correctPercentage}}%</span>
   <span class="attempts">{{model.correctAnswers}} / {{model.totalQuestions}} {{t 'common.correct'}}</span>
 </div>

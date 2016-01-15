@@ -25,6 +25,10 @@ export default DS.Model.extend({
    */
   isCollection : Ember.computed.equal('type', 'collection'),
   /**
+   * @property {Boolean} Value that tells whether the performance data belongs to a collection
+   */
+  isCollectionOrAssessment: Ember.computed.or('isCollection','isAssessment'),
+  /**
    * @property {Boolean} Value that tells whether the performance data belongs to a lesson
    */
   isLesson : Ember.computed.equal('type', 'lesson'),

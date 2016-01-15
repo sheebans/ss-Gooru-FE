@@ -3,13 +3,13 @@
     <div class="{{{scoreClass}}} table-cell score">{{{performanceData.score}}}%</div>
   {{/if}}
   {{#if showCompletion}}
-      <div class="table-cell completion">
-        {{class.analytics.performance.teacher.gru-completion-information-chart
-        text=(concat performanceData.completionDone '/' performanceData.completionTotal)
-        completePercent=performanceData.completionDone
-        minValue=0
-        maxValue=performanceData.completionTotal}}
-      </div>
+    <div class="table-cell completion">
+      {{charts.gru-radial-chart
+      text=(concat performanceData.completionDone '/' performanceData.completionTotal)
+      completePercent=performanceData.completionDone
+      minValue=0
+      maxValue=performanceData.completionTotal}}
+   </div>
   {{/if}}
   {{#if showStudyTime}}
     <div class="table-cell study-time">{{{performanceData.timeSpent}}}</div>

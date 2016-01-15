@@ -1,12 +1,12 @@
 <a href="#lesson-container-{{plus-one localIndex}}" data-parent=".gru-student-performance-container" data-toggle="collapse" data-target="#lesson-container-{{plus-one localIndex}}" aria-expanded="true" aria-controls="lesson-container-{{plus-one localIndex}}" {{action "selectUnit" performance}}>
   <ul class="row">
-      <li class="col-xs-8 col-sm-3 performance-unit-title">
+      <li class="col-xs-8 col-sm-4 performance-unit-title">
           <span>
               U{{plus-one localIndex}}: {{performance.title}}
           </span>
 
       </li>
-      <li class="col-xs-4 col-sm-9 performance-unit-content">
+      <li class="col-xs-4 col-sm-8 performance-unit-content">
         {{#if performance.hasStarted}}
           <div>
               <ul class="hidden-xs performance-headers">
@@ -23,7 +23,7 @@
             selectedOption=selectedOption}}
           </div>
         {{else }}
-            <span class="notStarted">{{t "gru-performance.notStarted"}}</span>
+            <span class="not-started">{{t "gru-performance.notStarted"}}</span>
         {{/if}}
 
       </li>
@@ -42,7 +42,7 @@
       {{#if isLoading}}
         {{three-bounce-spinner}}
       {{else}}
-          <span class="noContent">{{t "gru-performance.noContent"}}</span>
+          <span class="no-content">{{t "gru-performance.noContent"}}</span>
       {{/if}}
 
     {{/each}}

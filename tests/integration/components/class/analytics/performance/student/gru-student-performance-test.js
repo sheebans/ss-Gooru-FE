@@ -22,7 +22,7 @@ test('Test for student performance', function(assert) {
       timeSpent: 4852359,
       ratingScore: 0,
       attempts: 2,
-      isNotCompleted: true
+      isCompleted: true
     },
     {
       id:'cualquierId2',
@@ -34,7 +34,7 @@ test('Test for student performance', function(assert) {
       timeSpent: 4852359,
       ratingScore: 0,
       attempts: 2,
-      isNotCompleted: true
+      isCompleted: true
     });
   const classObj = Ember.Object.create({
     id:'111-333-555',

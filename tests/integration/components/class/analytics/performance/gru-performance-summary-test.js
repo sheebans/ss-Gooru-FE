@@ -60,7 +60,7 @@ test('Test for performance summary on invalid unit values', function(assert) {
       completionTotal: 2,
       completionDone: 1,
       ratingScore: 0,
-      isNotCompleted: false
+      isCompleted: false
     });
 
   this.set('performance', performance);
@@ -94,7 +94,7 @@ test('Test for performance summary on invalid unit values', function(assert) {
       type: "performance/student-performance",
       completionTotal: 1,
       ratingScore: 0,
-      isNotCompleted: false
+      isCompleted: false
     });
 
   this.set('performance', performance);
@@ -106,6 +106,76 @@ test('Test for performance summary on invalid unit values', function(assert) {
 
   const $reactionSummary = $component.find(".reaction.selected");
   T.exists(assert, $reactionSummary, 'Missing Completion summary checkmark');
+
+
+});
+
+
+test('Test for the performance summary components completion tab on collection or assessment with a completed performance', function(assert) {
+  const performance = Ember.Object.create(
+    {
+      title: "Quiz :: Indian History",
+      type: "assessment",
+      isCollectionOrAssessment:true,
+      isCompleted: true
+
+    });
+
+  this.set('performance', performance);
+
+
+  this.render(hbs`{{class.analytics.performance.gru-performance-summary performance=performance}}`);
+
+  const $component = this.$(); //component dom element
+
+  const $completionSpanIcon = $component.find(".completion span.collection-or-assessment-is-completed i");
+  T.exists(assert, $completionSpanIcon, 'Missing Completion completed checkmark');
+
+
+});
+
+test('Test for the performance summary components completion tab on collection or assessment with a completed performance', function(assert) {
+  const performance = Ember.Object.create(
+    {
+      title: "Quiz :: Indian History",
+      type: "assessment",
+      isCollectionOrAssessment:true,
+      isCompleted:false,
+      hasStarted: true
+    });
+
+  this.set('performance', performance);
+
+
+  this.render(hbs`{{class.analytics.performance.gru-performance-summary performance=performance}}`);
+
+  const $component = this.$(); //component dom element
+
+  const $completionSpanIcon = $component.find(".completion span.collection-or-assessment-has-started i");
+  T.exists(assert, $completionSpanIcon, 'Missing Completion hasStarted checkmark');
+
+
+});
+
+test('Test for the performance summary components completion tab on collection or assessment with a completed performance', function(assert) {
+  const performance = Ember.Object.create(
+    {
+      title: "Quiz :: Indian History",
+      type: "assessment",
+      isCollectionOrAssessment:true,
+      isCompleted:false,
+      hasStarted: false
+    });
+
+  this.set('performance', performance);
+
+
+  this.render(hbs`{{class.analytics.performance.gru-performance-summary performance=performance}}`);
+
+  const $component = this.$(); //component dom element
+
+  const $completionSpanIcon = $component.find(".completion span.collection-or-assessment-not-started i");
+  T.exists(assert, $completionSpanIcon, 'Missing Completion notStarted checkmark');
 
 
 });

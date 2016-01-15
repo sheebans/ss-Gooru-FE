@@ -16,7 +16,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-footer'],
+  classNames: ['gru-footer', 'hidden'],
 
   tagName: 'footer'
 

@@ -1,7 +1,7 @@
 .performance-content{
   color:$color-gray-dark-2;
   margin-bottom:15px;
-  span.notStarted, span.noContent{
+  span.not-started, span.no-content{
     margin: 0 auto;
     text-align: start;
     white-space: nowrap;
@@ -9,7 +9,7 @@
     text-overflow: ellipsis;
     width:100%;
   }
-  div.collections-container span.noContent{
+  div.collections-container span.no-content{
     padding-left: 50px;
   }
   .gru-student-performance-container{

@@ -126,9 +126,22 @@ test('Test for not started lesson performance', function(assert) {
           title: "Indian History Assessment",
           type: "assessment",
           score:75,
+          completionDone: 5,
+          completionTotal: 5,
+          timeSpent: 442359,
+          ratingScore: 0,
+          isCompleted: true,
+          hasStarted:false,
+          isAssessment: true
+        }),
+        Ember.Object.create({
+          id:'third-collection-id',
+          title: "Indian History Assessment",
+          type: "assessment",
+          score:75,
           completionDone: 0,
           completionTotal: 1,
-          timeSpent: 442359,
+          timeSpent: 0,
           ratingScore: 0,
           isCompleted: true,
           hasStarted:false,
@@ -156,7 +169,8 @@ test('Test for not started lesson performance', function(assert) {
 
   const $notStartedSpan = $component.find(".lesson-performance-content span");
   T.exists(assert, $notStartedSpan, 'Missing not started message span');
-  assert.equal(T.text($notStartedSpan), "Not started yet", "Wrong not started message");
+
+  assert.equal(T.text($notStartedSpan), "Not started yet", "Wrong not started message For the Lesson");
 
   const $clickableAnchor= $component.find(".gru-lesson-performance-container a"); //component dom element
   T.exists(assert, $clickableAnchor, 'Missing Clickable Anchor');
@@ -188,9 +202,6 @@ test('Test for not started lesson performance', function(assert) {
     assert.equal($collectionStudyButton.hasClass('collection-study-button'), true, "Study class from first button missing");
     assert.equal($collectionViewReportButton.hasClass('collection-view-report-button'), true, "View report class from second button missing");
 
-    const $collectionNotStartedSpan = $component.find(".collections-container div:nth-child(2) .collection-performance-content span");
-    T.exists(assert, $collectionNotStartedSpan, 'Missing not started message span');
-    assert.equal(T.text($collectionNotStartedSpan), "Not started yet", "Wrong not started message");
 
   });
 
