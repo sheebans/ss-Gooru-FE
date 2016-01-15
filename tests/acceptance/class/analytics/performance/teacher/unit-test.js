@@ -79,15 +79,15 @@ test('Test data picker options selected', function(assert) {
       andThen(function(){
         assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/d0b56322-d3ca-40f5-85b3-2f38ef910ac1/lesson/fbd76aed-1b8d-4c2c-abc6-c7603eef567q');
 
-        const $unitPerformanceContainer = find(".controller.class .controller.analytics-performance-teacher-unit");
+        const $unitPerformanceContainer = find(".controller.class .controller.analytics-performance-teacher-lesson");
         const $unitMetricTable = $unitPerformanceContainer.find(".gru-metrics-table");
         const $unitPerformanceInformation = $unitMetricTable.find(".gru-metrics-performance-information");
 
         //data picker score item is selected by default
-        T.exists(assert, $unitPerformanceInformation.find(".score"), "Missing  data picker score information at unit level");
+        T.exists(assert, $unitPerformanceInformation.find(".score"), "Missing  data picker score information at lesson level");
 
-        T.exists(assert, $unitPerformanceInformation.find(".completion"), "Missing  data picker completion information at unit level");
-        T.notExists(assert, $unitPerformanceInformation.find(".study-time"), "Study time item shouldn't be selected at unit level");
+        T.exists(assert, $unitPerformanceInformation.find(".completion"), "Missing  data picker completion information at lesson level");
+        T.notExists(assert, $unitPerformanceInformation.find(".study-time"), "Study time item shouldn't be selected at lesson level");
 
       });
     });
