@@ -16,11 +16,15 @@
                 <p>{{performance.score}}%</p>
             </div>
         {{else}}
+          {{#if performance.hasStarted}}
+            <p>N/A</p>
+          {{else}}
             {{#if performance.isCollectionOrAssessment}}
                 <span class="not-started">{{t "gru-performance.notStarted"}}</span>
             {{else}}
-                <p>N/A</p>
+              <p>N/A</p>
             {{/if}}
+          {{/if}}
         {{/if}}
     </li>
     <li class="completion">
