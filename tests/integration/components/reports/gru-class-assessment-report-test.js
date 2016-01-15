@@ -7,19 +7,13 @@ moduleForComponent('reports/gru-class-assessment-report', 'Integration | Compone
 
 test('it renders', function (assert) {
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });" + EOL + EOL +
-
   this.render(hbs`{{reports/gru-class-assessment-report}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  var $component = this.$('.reports.gru-class-assessment-report');
 
-  // Template block usage:" + EOL +
-  this.render(hbs`
-    {{#reports/gru-class-assessment-report}}
-      template block text
-    {{/reports/gru-class-assessment-report}}
-  `);
+  assert.ok($component.length, "Component does not have the component classes");
 
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.ok($component.find(".gru-summary"), "Summary component is missing");
+  assert.ok($component.find(".gru-table-view"), "Table view component is missing");
+  assert.ok($component.find(".gru-student-view"), "Student view component is missing");
 });
