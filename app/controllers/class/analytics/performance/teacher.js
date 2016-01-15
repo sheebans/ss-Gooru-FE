@@ -104,6 +104,24 @@ export default Ember.Controller.extend({
     'readOnly':false
   })]),
 
+  /**
+   * List of  options specific to teacher to be displayed by the component Data picker for mobiles
+   * @constant {Array}
+   */
+  mobileOptionsTeacher: Ember.A([Ember.Object.create({
+    'value': 'score',
+    'selected':true,
+    'readOnly':false
+  }),Ember.Object.create({
+    'value': 'completion',
+    'selected':false,
+    'readOnly':false
+  }),Ember.Object.create({
+    'value': 'study-time',
+    'selected':false,
+    'readOnly':false
+  })]),
+
   // -------------------------------------------------------------------------
   // Observers
 

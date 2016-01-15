@@ -56,3 +56,29 @@ test('Navigate to unit', function(assert) {
     T.exists(assert, $classMenu.find(".analytics.selected"), "Missing selected analytics item");
   });
 });
+
+test('Test data picker options selected', function(assert) {
+  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
+
+    const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher-course");
+    const $metricTable = $performanceContainer.find(".gru-metrics-table");
+    const $dataPicker = find(".controller.class .gru-data-picker");
+
+    click($dataPicker.find("ul.option-list a.completion"));
+    click($metricTable.find("thead tr:eq(0) th:eq(1)"));
+    andThen(function(){
+      assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/31886eac-f998-493c-aa42-016f53e9fa88');
+    });
+
+    const $performanceInformation = $metricTable.find(".gru-metrics-performance-information");
+
+    //datapicker score item is selected by default
+    T.exists(assert, $performanceInformation.find(".score"), "Missing  datapicker score information");
+
+    T.exists(assert, $performanceInformation.find(".gru-completion-information-chart"), "Missing  datapicker completion information");
+    T.notExists(assert, $performanceInformation.find(".study-time"), "Study time item shouldn't be selected");
+  });
+});

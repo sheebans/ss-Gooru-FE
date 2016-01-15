@@ -1,5 +1,7 @@
 {{#if performanceData}}
-  <div class="{{{scoreClass}}} table-cell score">{{{performanceData.score}}}%</div>
+  {{#if showScore}}
+    <div class="{{{scoreClass}}} table-cell score">{{{performanceData.score}}}%</div>
+  {{/if}}
   {{#if showCompletion}}
     {{class.analytics.performance.teacher.gru-completion-information-chart
     text=(concat performanceData.completionDone '/' performanceData.completionTotal)
