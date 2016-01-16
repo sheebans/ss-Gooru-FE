@@ -109,6 +109,84 @@ test('isLesson test on lesson performance', function(assert) {
   assert.equal(model.get('isLesson'), true);
 
 });
+test('isLesson test on non lesson performance', function(assert) {
+  assert.expect(1);
+
+  let model = this.subject();
+
+  Ember.run(function(){
+    model.set('type', 'unit');
+  });
+
+  assert.equal(model.get('isLesson'), false);
+
+});
+
+test('isUnit test on unit performance', function(assert) {
+  assert.expect(1);
+
+  let model = this.subject();
+
+  Ember.run(function(){
+    model.set('type', 'unit');
+  });
+
+  assert.equal(model.get('isUnit'), true);
+
+});
+
+test('isUnit test on non unit performance', function(assert) {
+  assert.expect(1);
+
+  let model = this.subject();
+
+  Ember.run(function(){
+    model.set('type', 'lesson');
+  });
+
+  assert.equal(model.get('isUnit'), false);
+
+});
+
+
+test('isUnitOrLesson test on lesson performance', function(assert) {
+  assert.expect(1);
+
+  let model = this.subject();
+
+  Ember.run(function(){
+    model.set('type', 'lesson');
+  });
+
+  assert.equal(model.get('isUnitOrLesson'), true);
+
+});
+
+test('isUnitOrLesson test on lesson performance', function(assert) {
+  assert.expect(1);
+
+  let model = this.subject();
+
+  Ember.run(function(){
+    model.set('type', 'lesson');
+  });
+
+  assert.equal(model.get('isUnitOrLesson'), true);
+
+});
+
+test('isUnitOrLesson test on non lesson or unit performance', function(assert) {
+  assert.expect(1);
+
+  let model = this.subject();
+
+  Ember.run(function(){
+    model.set('type', 'collection');
+  });
+
+  assert.equal(model.get('isUnitOrLesson'), false);
+
+});
 
 test('completionValue test', function(assert) {
   assert.expect(1);

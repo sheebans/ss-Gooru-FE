@@ -26,7 +26,7 @@
       @include respond-to(xs) {
         min-height:50px;
       }
-      a{
+      >a{
         color:$color-gray-dark-2;
         height: 70px;
         -webkit-flex-direction: row;
@@ -108,6 +108,10 @@
               display: -webkit-flex;
               display: flex;
               height:100%;
+              @include respond-to(xs){
+                -webkit-justify-content: center;
+                justify-content: center;
+              }
               >*{
                 -webkit-order: 0;
                 order: 0;
@@ -204,6 +208,9 @@
                   white-space: nowrap;
                   overflow: hidden;
                   text-overflow: ellipsis;
+                  &.has-action{
+                    cursor: pointer;
+                  }
                 }
                 > * {
                   padding-left: 55px;
@@ -217,7 +224,7 @@
                   flex-basis: auto;
                   -webkit-align-self: auto;
                   align-self: auto;
-                  width: 100%;
+                  max-width: 100%;
                   text-align: start;
                   @include respond-to(xs){
                     padding-left:30px;
