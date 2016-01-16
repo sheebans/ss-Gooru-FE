@@ -143,3 +143,44 @@ test('Exit Full Screen by pressing Esc', function(assert) {
   });
 });
 
+test('Transition to a collection or assessment', function(assert) {
+  visit('/class/class-for-pochita-as-student/analytics/performance/student');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student');
+
+    const $performanceContainer = find(".performance-content");
+    T.exists(assert, $performanceContainer, "No unit anchor to display lessons");
+
+    const $firstUnitContainer = $performanceContainer.find("div.gru-unit-performance-container:first-child");
+    T.exists(assert, $firstUnitContainer, "No first unit container");
+
+    const $viewFirstUnitLessons = $firstUnitContainer.find("a");
+    T.exists(assert, $viewFirstUnitLessons, "No unit anchor to display lessons");
+
+    click($viewFirstUnitLessons);
+    andThen(function() {
+      T.exists(assert, $firstUnitContainer.find(".in"), "Lessons container should be open");
+
+      const $firstLessonContainer = $firstUnitContainer.find(".gru-lesson-performance-container:first-child");
+
+      const $viewFirstLessonCollections = $firstLessonContainer.find("a");
+
+      click($viewFirstLessonCollections);
+      andThen(function() {
+        T.exists(assert, $firstLessonContainer.find(".in"), "Collections for the first lesson should be showing");
+
+        const $viewCollectionInPlayer = $firstLessonContainer.find(" div.collections-container div:nth-child(2) button.collection-study-button");
+
+        T.exists(assert, $viewCollectionInPlayer, "study button should show");
+
+        click($viewCollectionInPlayer);
+
+        andThen(function() {
+          assert.equal(currentURL(), '/player/bc116a9b-7252-45e0-96df-2f786d6a5da3?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
+        });
+      });
+    });
+  });
+});
+
