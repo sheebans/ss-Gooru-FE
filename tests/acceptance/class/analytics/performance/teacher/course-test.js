@@ -49,11 +49,11 @@ test('Navigate to unit', function(assert) {
     click($metricTable.find("thead tr:eq(0) th:eq(1)"));
     andThen(function(){
       assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/31886eac-f998-493c-aa42-016f53e9fa88');
+      //menu is still selected
+      const $classMenu = find(".controller.class .gru-class-navigation .class-menu");
+      T.exists(assert, $classMenu.find(".analytics.selected"), "Missing selected analytics item");
     });
 
-    //menu is still selected
-    const $classMenu = find(".controller.class .gru-class-navigation .class-menu");
-    T.exists(assert, $classMenu.find(".analytics.selected"), "Missing selected analytics item");
   });
 });
 
