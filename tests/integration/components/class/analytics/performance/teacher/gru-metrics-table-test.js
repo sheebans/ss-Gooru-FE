@@ -11,7 +11,7 @@ moduleForComponent('/class/analytics/performance/teacher/gru-metrics-table', 'In
 });
 
 test('Metrics Table Layout', function(assert) {
-  assert.expect(8);
+  assert.expect(9);
 
   const headersMock = Ember.A([Ember.Object.create({
     id: '82168746-a4af-48aa-9975-01f6434cd806',
@@ -97,6 +97,10 @@ test('Metrics Table Layout', function(assert) {
   assert.equal($thead.find("tr:first-child th").length, 2, "The thead should have only 2 headers");
 
   assert.equal($tbody.find("th.user-info").length, 2, "The tbody should have only 2 user headers");
+
+  //no-content text shouln't be visible because the table has data
+  const $noContentText = $metricsTable.find(".no-content");
+  T.notExists(assert, $noContentText, "The no-content text shouln't be visible");
 
 });
 
