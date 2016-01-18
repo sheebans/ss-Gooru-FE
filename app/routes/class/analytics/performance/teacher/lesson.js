@@ -13,9 +13,22 @@ import { createDataMatrix } from 'gooru-web/utils/performance-data';
 export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
+  /**
+   * @type CollectionService
+   */
   collectionService: Ember.inject.service('api-sdk/collection'),
+  /**
+   * @type PerformanceService
+   */
   performanceService: Ember.inject.service('api-sdk/performance'),
+  /**
+   * @type LessonService
+   */
   lessonService: Ember.inject.service('api-sdk/lesson'),
+  /**
+   * @type UnitService
+   */
+  unitService: Ember.inject.service('api-sdk/unit'),
 
 
   // -------------------------------------------------------------------------
@@ -66,12 +79,14 @@ export default Ember.Route.extend({
     ]);
 
     const classPerformanceData = this.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, { users: users });
+    const unit = this.get('unitService').findById(courseId, unitId);
     const lesson = this.get('lessonService').findById(courseId, unitId, lessonId);
 
     return Ember.RSVP.hash({
       headers: headers,
       classPerformanceData: classPerformanceData,
-      lesson: lesson
+      lesson: lesson,
+      unit: unit
     });
 
   },
@@ -83,11 +98,14 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
 
     const performanceData = createDataMatrix(model.headers, model.classPerformanceData);
-
-    controller.get("teacherController").updateBreadcrumb(model.lesson, 'lesson');
     controller.set('performanceDataMatrix', performanceData);
     controller.set('headers', model.headers);
     controller.set('lesson', model.lesson);
+
+    //updating the breadcrumb with the unit, useful when refreshing the page
+    controller.get("teacherController").updateBreadcrumb(model.unit, 'unit');
+    //updating the breadcrumb with the lesson
+    controller.get("teacherController").updateBreadcrumb(model.lesson, 'lesson');
   }
 
 });

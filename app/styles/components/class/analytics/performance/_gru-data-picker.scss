@@ -1,9 +1,15 @@
 .gru-data-picker{
+  @media (max-width: $screen-xs) {
+    background-color: $color-gray-lighter-13;
+    margin: 0 auto;
+  }
   .option-list{
     list-style: none;
-    padding: 10px 0 0 0;
-    margin: 0;
+    margin: 0 auto;
     display: inline-block;
+    @media (min-width: $screen-xs) {
+      padding: 10px 0 0 0;
+    }
     li {
       display: inline-block;
       padding: 5px;
@@ -16,9 +22,20 @@
       span{
         display: table;
         margin: 0 auto;
+        @media (min-width: $screen-xs) {
+          float:left;
+          padding: 1px;
+        }
       }
       i{
         color:$color-gray-lighter-3;
+      }
+      @media (max-width: $screen-xs) {
+        .active {
+          i {
+            color: $branding-primary-1;
+          }
+        }
       }
     }
   }
