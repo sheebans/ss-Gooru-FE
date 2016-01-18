@@ -87,7 +87,7 @@ test('collections layout', function(assert) {
     var $imgCollection =$component.find('.collection-img a img');
     T.exists(assert, $imgCollection, "Missing image collection");
 
-    var $collectionDescription =$component.find('.collection-desc:eq(0)');
+    var $collectionDescription =$component.find('.collection-desc:eq(0)');  
     T.exists(assert, $collectionDescription, "Missing collection description");
 
     var $collectionDescriptionTitle = $collectionDescription.find(".title:eq(0)");
