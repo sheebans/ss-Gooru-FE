@@ -60,6 +60,13 @@ export default Ember.Controller.extend({
   "class": Ember.computed.reads('classController.class'),
 
   /**
+   * A link to the parent class controller
+   * @see controllers/class.js
+   * @property {Course}
+   */
+  course: Ember.computed.alias('classController.course'),
+
+  /**
    * The filterBy selected
    * @property {String}
    */
@@ -90,19 +97,13 @@ export default Ember.Controller.extend({
    *
    * @constant {Array}
    */
-  optionsTeacher: Ember.A([Ember.Object.create({
-    'value': 'score',
-    'selected':true,
-    'readOnly':true
-  }),Ember.Object.create({
-    'value': 'completion',
-    'selected':false,
-    'readOnly':false
-  }),Ember.Object.create({
-    'value': 'study-time',
-    'selected':false,
-    'readOnly':false
-  })]),
+  optionsTeacher: Ember.A([]),
+
+  /**
+   * List of  options specific to teacher to be displayed by the component Data picker for mobiles
+   * @constant {Array}
+   */
+  mobileOptionsTeacher: Ember.A([]),
 
   // -------------------------------------------------------------------------
   // Observers

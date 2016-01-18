@@ -50,6 +50,47 @@ export default Ember.Route.extend({
    * @param controller
    */
   setupController: function(controller) {
+    controller.updateBreadcrumb(controller.get("course"), "course");
     controller.get('classController').selectMenuItem('analytics.performance');
+    this.setupDataPickerOptions(controller);
+  },
+
+  /**
+   * Setups data picker options
+   * @param controller
+   */
+  setupDataPickerOptions: function(controller){
+    //setting data picker configuration for desktop
+    const optionsTeacher = Ember.A([Ember.Object.create({
+      'value': 'score',
+      'selected':true,
+      'readOnly':true
+    }),Ember.Object.create({
+      'value': 'completion',
+      'selected':false,
+      'readOnly':false
+    }),Ember.Object.create({
+      'value': 'study-time',
+      'selected':false,
+      'readOnly':false
+    })]);
+    controller.set("optionsTeacher", optionsTeacher);
+
+    //setting data picker configuration for mobile
+    const mobileOptionsTeacher = Ember.A([Ember.Object.create({
+      'value': 'score',
+      'selected':true,
+      'readOnly':false
+    }),Ember.Object.create({
+      'value': 'completion',
+      'selected':false,
+      'readOnly':false
+    }),Ember.Object.create({
+      'value': 'study-time',
+      'selected':false,
+      'readOnly':false
+    })]);
+    controller.set("mobileOptionsTeacher", mobileOptionsTeacher);
+
   }
 });
