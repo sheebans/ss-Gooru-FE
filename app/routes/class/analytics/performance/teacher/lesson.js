@@ -13,9 +13,22 @@ import { createDataMatrix } from 'gooru-web/utils/performance-data';
 export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
+  /**
+   * @type CollectionService
+   */
   collectionService: Ember.inject.service('api-sdk/collection'),
+  /**
+   * @type PerformanceService
+   */
   performanceService: Ember.inject.service('api-sdk/performance'),
+  /**
+   * @type LessonService
+   */
   lessonService: Ember.inject.service('api-sdk/lesson'),
+  /**
+   * @type UnitService
+   */
+  unitService: Ember.inject.service('api-sdk/unit'),
 
 
   // -------------------------------------------------------------------------
@@ -48,33 +61,32 @@ export default Ember.Route.extend({
     const headers = this.get('collectionService').findByClassAndCourseAndUnitAndLesson(classId, courseId, unitId, lessonId);
 
     // TODO: Remove this temporal variable once it is not required
-    const unitIds = Ember.A([
-      '31886eac-f998-493c-aa42-016f53e9fa88',
-      '7deebd55-1976-40a2-8e46-3b8ec5b6d388',
-      '21654d76-45e7-45e9-97ab-5f96a14da135',
-      'c1f810a2-c87f-48f5-a899-0d9753383042',
-      'dfc99db4-d331-4733-ac06-35358cee5c64'
+    const collectionIds = Ember.A([
+      '5028ac7f-82da-4f09-998b-ecf480d4b984',
+      '363d3cc2-f2ac-490d-a870-42167f204c97'
     ]);
     // TODO: Remove this temporal variable once it is not required
     const users = Ember.A([
-      Ember.Object.create({id: '1', username: 'jenniferajoy', firstName: 'Jennifer', lastName: 'Ajoy', units: unitIds}),
-      Ember.Object.create({id: '2', username: 'jeffreybermudez', firstName: 'Jeffrey', lastName: 'Bermudez', units: unitIds}),
-      Ember.Object.create({id: '3', username: 'javierperez', firstName: 'Javier', lastName: 'Perez', units: unitIds}),
-      Ember.Object.create({id: '4', username: 'melanydelagado', firstName: 'Melany', lastName: 'Delgado', units: unitIds}),
-      Ember.Object.create({id: '5', username: 'diegoarias', firstName: 'Diego', lastName: 'Arias', units: unitIds}),
-      Ember.Object.create({id: '6', username: 'davidquiros', firstName: 'David', lastName: 'Quiros', units: unitIds}),
-      Ember.Object.create({id: '7', username: 'adrianporras', firstName: 'Adrian', lastName: 'Porras', units: unitIds}),
-      Ember.Object.create({id: '8', username: 'fabianperez', firstName: 'Fabian', lastName: 'Perez', units: unitIds}),
-      Ember.Object.create({id: '9', username: 'laurengutierrez', firstName: 'Lauren', lastName: 'Gutierrez', units: unitIds})
+      Ember.Object.create({id: '1', username: 'jenniferajoy', firstName: 'Jennifer', lastName: 'Ajoy', units: collectionIds}),
+      Ember.Object.create({id: '2', username: 'jeffreybermudez', firstName: 'Jeffrey', lastName: 'Bermudez', units: collectionIds}),
+      Ember.Object.create({id: '3', username: 'javierperez', firstName: 'Javier', lastName: 'Perez', units: collectionIds}),
+      Ember.Object.create({id: '4', username: 'melanydelagado', firstName: 'Melany', lastName: 'Delgado', units: collectionIds}),
+      Ember.Object.create({id: '5', username: 'diegoarias', firstName: 'Diego', lastName: 'Arias', units: collectionIds}),
+      Ember.Object.create({id: '6', username: 'davidquiros', firstName: 'David', lastName: 'Quiros', units: collectionIds}),
+      Ember.Object.create({id: '7', username: 'adrianporras', firstName: 'Adrian', lastName: 'Porras', units: collectionIds}),
+      Ember.Object.create({id: '8', username: 'fabianperez', firstName: 'Fabian', lastName: 'Perez', units: collectionIds}),
+      Ember.Object.create({id: '9', username: 'laurengutierrez', firstName: 'Lauren', lastName: 'Gutierrez', units: collectionIds})
     ]);
 
     const classPerformanceData = this.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, { users: users });
+    const unit = this.get('unitService').findById(courseId, unitId);
     const lesson = this.get('lessonService').findById(courseId, unitId, lessonId);
 
     return Ember.RSVP.hash({
       headers: headers,
       classPerformanceData: classPerformanceData,
-      lesson: lesson
+      lesson: lesson,
+      unit: unit
     });
 
   },
@@ -86,11 +98,14 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
 
     const performanceData = createDataMatrix(model.headers, model.classPerformanceData);
-
-    controller.get("teacherController").updateBreadcrumb(model.lesson, 'lesson');
     controller.set('performanceDataMatrix', performanceData);
     controller.set('headers', model.headers);
     controller.set('lesson', model.lesson);
+
+    //updating the breadcrumb with the unit, useful when refreshing the page
+    controller.get("teacherController").updateBreadcrumb(model.unit, 'unit');
+    //updating the breadcrumb with the lesson
+    controller.get("teacherController").updateBreadcrumb(model.lesson, 'lesson');
   }
 
 });

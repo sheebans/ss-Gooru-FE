@@ -2,12 +2,17 @@
   color:$color-gray-dark-2;
   margin-bottom:15px;
   span.not-started, span.no-content{
-    margin: 0 auto;
     text-align: start;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width:100%;
+    max-width:100%;
+    padding-left:5%;
+
+    @include respond-to(xs){
+      text-align: center;
+      padding: 0;
+    }
   }
   div.collections-container span.no-content{
     padding-left: 50px;

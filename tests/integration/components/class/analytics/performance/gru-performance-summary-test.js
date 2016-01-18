@@ -14,7 +14,7 @@ test('Test for performance summary on valid unit values', function(assert) {
   const performance = Ember.Object.create(
      {
         title: "Quiz :: Indian History",
-        type: "performance/performance",
+        type: "unit",
         score:75,
         completionDone: 0,
         completionTotal: 1,
@@ -56,11 +56,13 @@ test('Test for performance summary on invalid unit values', function(assert) {
   const performance = Ember.Object.create(
     {
       title: "Quiz :: Indian History",
-      type: "performance/performance",
+      type: "unit",
       completionTotal: 2,
       completionDone: 1,
       ratingScore: 0,
-      isCompleted: false
+      isCompleted: false,
+      isUnitOrLesson:true,
+      isCollectionOrAssessment:false
     });
 
   this.set('performance', performance);
@@ -87,14 +89,16 @@ test('Test for performance summary on invalid unit values', function(assert) {
 
 });
 
-test('Test for performance summary on invalid unit values', function(assert) {
+test('Test for performance summary on selected reaction', function(assert) {
   const performance = Ember.Object.create(
     {
       title: "Quiz :: Indian History",
-      type: "performance/student-performance",
+      type: "unit",
       completionTotal: 1,
       ratingScore: 0,
-      isCompleted: false
+      isCompleted: false,
+      isUnitOrLesson:true,
+      isCollectionOrAssessment:false
     });
 
   this.set('performance', performance);

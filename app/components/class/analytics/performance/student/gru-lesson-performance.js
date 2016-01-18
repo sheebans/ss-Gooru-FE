@@ -46,6 +46,13 @@ export default Ember.Component.extend({
         element.addClass('fa-chevron-down');
         element.removeClass('fa-chevron-up');
       }
+    },
+    /**
+     * @function actions:selectResource
+     * @param {string} collectionId - Identifier for a resource (collection/assessment)
+     */
+    selectResource: function (collectionId) {
+      this.get('onSelectResource')(collectionId);
     }
   },
 

@@ -13,10 +13,15 @@ import { createDataMatrix } from 'gooru-web/utils/performance-data';
 export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
-
+  /**
+   * @type {UnitService}
+   */
   unitService: Ember.inject.service('api-sdk/unit'),
+
+  /**
+   * @type {PerformanceService}
+   */
   performanceService: Ember.inject.service('api-sdk/performance'),
-  courseService: Ember.inject.service('api-sdk/course'),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -39,7 +44,7 @@ export default Ember.Route.extend({
 
   model: function() {
     const classId= this.paramsFor('class').classId;
-    const courseId = this.modelFor('class').class.get('course');
+    const courseId = this.modelFor('class').course.get("id");
 
     // Remove this
     // this.get('unitService').findById(courseId, '31886eac-f998-493c-aa42-016f53e9fa88');
@@ -68,12 +73,10 @@ export default Ember.Route.extend({
     ]);
 
     const classPerformanceData = this.get('performanceService').findClassPerformance(classId, courseId, { users: users });
-    const courseData = this.get('courseService').findById(courseId);
 
     return Ember.RSVP.hash({
       headers: headers,
-      classPerformanceData: classPerformanceData,
-      courseData: courseData
+      classPerformanceData: classPerformanceData
     });
 
   },
@@ -84,10 +87,10 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
     const performanceData = createDataMatrix(model.headers, model.classPerformanceData);
-    const courseData = model.courseData;
-    controller.get("teacherController").updateBreadcrumb(courseData, "course");
     controller.set('performanceDataMatrix', performanceData);
     controller.set('headers', model.headers);
+    //updating breadcrumb when navigating back to course
+    controller.get("teacherController").updateBreadcrumb(controller.get("course"), "course");
   }
 
 });

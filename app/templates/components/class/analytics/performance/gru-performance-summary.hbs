@@ -1,22 +1,31 @@
+
     <li class='score'>
-      {{#if performance.score}}
-          <div class="description">
-              <div class="radial-progress">
-                  <div class="circle">
-                      <div class="mask full">
-                          <div class="fill"></div>
-                      </div>
-                      <div class="mask half">
-                          <div class="fill"></div>
-                          <div class="fill fix"></div>
-                      </div>
-                  </div>
-              </div>
-              <p>{{performance.score}}%</p>
-          </div>
-      {{else}}
-          <p>N/A</p>
-      {{/if}}
+        {{#if performance.score}}
+            <div class="description">
+                <div class="radial-progress">
+                    <div class="circle">
+                        <div class="mask full">
+                            <div class="fill"></div>
+                        </div>
+                        <div class="mask half">
+                            <div class="fill"></div>
+                            <div class="fill fix"></div>
+                        </div>
+                    </div>
+                </div>
+                <p>{{performance.score}}%</p>
+            </div>
+        {{else}}
+          {{#if performance.hasStarted}}
+            <p>N/A</p>
+          {{else}}
+            {{#if performance.isCollectionOrAssessment}}
+                <span class="not-started">{{t "gru-performance.notStarted"}}</span>
+            {{else}}
+              <p>N/A</p>
+            {{/if}}
+          {{/if}}
+        {{/if}}
     </li>
     <li class="completion">
     {{#if performance.isCollectionOrAssessment}}
@@ -26,10 +35,10 @@
             <span class="visible-xs">{{t "gru-performance-summary.redo"}}</span>
         {{else if performance.hasStarted}}
             <span class="collection-or-assessment-has-started"><i class="fa fa-2x fa-check-circle-o"></i></span>
-            <span class="visible-xs">{{t "gru-performance-summary.resume"}}</span>
+            <a class="visible-xs " {{action "selectResource" performance.id}}>{{t "gru-performance-summary.resume"}}</a>
         {{else}}
-            <span class="collection-or-assessment-not-started"><i class="fa fa-2x fa-check-circle-o"></i></span>
-            <span class="visible-xs">{{t "gru-performance-summary.study"}}</span>
+            <span class="visible-xs collection-or-assessment-not-started"><i class="fa fa-2x fa-check-circle-o"></i></span>
+            <a class="visible-xs" {{action "selectResource" performance.id}}>{{t "gru-performance-summary.study"}}</a>
         {{/if}}
       </div>
     {{else}}
@@ -62,7 +71,7 @@
       {{#if performance.reaction}}
           <span class="reactionSummary"></span>
       {{else}}
-          <p>–</p>
+          <p>{{if performance.isUnitOrLesson '–'}}</p>
       {{/if}}
 
     </li>
@@ -70,6 +79,6 @@
       {{#if performance.attempts}}
           <p>{{performance.attempts}}</p>
       {{else}}
-          <p>–</p>
+          <p>{{if performance.isUnitOrLesson '–'}}</p>
       {{/if}}
     </li>

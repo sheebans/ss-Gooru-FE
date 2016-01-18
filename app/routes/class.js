@@ -14,6 +14,10 @@ export default Ember.Route.extend({
    */
   classService: Ember.inject.service("api-sdk/class"),
 
+  /**
+   * @type {CourseService} Service to retrieve course information
+   */
+  courseService: Ember.inject.service('api-sdk/course'),
 
   // -------------------------------------------------------------------------
   // Methods
@@ -26,10 +30,17 @@ export default Ember.Route.extend({
    * Get model for the controller
    */
   model: function(params) {
-    const selectedClass = this.get("classService").findById(params.classId);
+    const route = this;
+    const classPromise = route.get("classService").findById(params.classId);
 
-    return Ember.RSVP.hash({
-      class: selectedClass
+    return classPromise.then(function(aClass){
+      const courseId = aClass.get('course');
+      return route.get('courseService').findById(courseId).then(function(course){
+        return {
+          "class": aClass,
+          "course": course
+        };
+      });
     });
   },
 
@@ -39,8 +50,8 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
-    const selectedClass = model.class;
-    controller.set("class", selectedClass);
+    controller.set("class", model.class);
+    controller.set("course", model.course);
   },
 
   // -------------------------------------------------------------------------

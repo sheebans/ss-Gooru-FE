@@ -15,10 +15,10 @@ test('UrlForQueryRecord for one specific lesson', function(assert) {
   };
   const url = adapter.urlForQueryRecord(query);
 
-  assert.equal(url, "/gooruapi/rest/v1/course/course-id-1/unit/unit-id-1/lesson/lesson-id-1", "Wrong url");
+  assert.equal(url, '/gooruapi/rest/v1/course/course-id-1/unit/unit-id-1/lesson/lesson-id-1', 'Wrong url');
 });
 
-test('UrlForQueryRecord for one many lessons', function(assert) {
+test('UrlForQueryRecord for many lessons', function(assert) {
   const adapter = this.subject();
   const query = {
     classId: 'class-id-1',
@@ -28,5 +28,5 @@ test('UrlForQueryRecord for one many lessons', function(assert) {
   };
   const url = adapter.urlForQueryRecord(query);
 
-  assert.equal(url, "/gooruapi/rest/v3/class/class-id-1/course/course-id-1/unit/unit-id-1/lesson", "Wrong url");
+  assert.equal(url, '/gooruapi/rest/v3/class/class-id-1/course/course-id-1/unit/unit-id-1/lesson', 'Wrong url');
 });

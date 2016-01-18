@@ -40,6 +40,18 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
+
+  actions: {
+    /**
+     * @function actions:selectResource
+     * @param {string} collectionId - Identifier for a resource (collection/assessment)
+     */
+    selectResource: function (collectionId) {
+      // Send the action so that it bubbles up to the route
+      this.sendAction('onSelectResource', collectionId);
+    }
+  },
+
   // -------------------------------------------------------------------------
   // Events
 
