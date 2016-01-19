@@ -1,5 +1,8 @@
 import Ember from 'ember';
-import {MultipleChoiceUtil, MultipleAnswerUtil, TrueFalseUtil, FillInTheBlankUtil, ReorderUtil, HotSpotImageUtil} from '../../../utils/questions';
+import {
+  MultipleChoiceUtil, MultipleAnswerUtil, TrueFalseUtil,
+  FillInTheBlankUtil, ReorderUtil, HotSpotImageUtil, HotSpotTextUtil
+} from '../../../utils/questions';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | questions');
@@ -307,6 +310,67 @@ test('Hot Spot Image - isCorrect', function (assert) {
 
   let question = Ember.Object.create({answers: answers});
   let questionUtil = HotSpotImageUtil.create({question: question});
+
+  let correctAnswer = Ember.A([2, 3]);
+  assert.ok(questionUtil.isCorrect(correctAnswer), "Answer should be correct");
+
+  let correctDifferentOrder = Ember.A([3, 2]);
+  assert.ok(questionUtil.isCorrect(correctDifferentOrder), "Answer should be correct, even it is not in the same order");
+
+  let incorrectAnswer = Ember.A([ 1, 3 ]);
+  assert.ok(!questionUtil.isCorrect(incorrectAnswer), "Answer should not be correct");
+
+  let incorrectLessOptions = Ember.A([ 1 ]);
+  assert.ok(!questionUtil.isCorrect(incorrectLessOptions), "Answer should not be correct, it has less options");
+});
+
+// --------------- Hot Spot Text tests
+test('Hot Spot Text - getCorrectAnswer empty array', function (assert) {
+  let question = Ember.Object.create({answers: Ember.A([])});
+  let questionUtil = HotSpotTextUtil.create({question: question});
+  let correctAnswer = questionUtil.getCorrectAnswer();
+  assert.ok(!correctAnswer.get("length"), "Correct answer should be an empty array");
+});
+
+test('Hot Spot Text - getCorrectAnswer', function (assert) {
+  let answers = Ember.A([
+    Ember.Object.create({id: 1, isCorrect: false}),
+    Ember.Object.create({id: 2, isCorrect: true}),
+    Ember.Object.create({id: 3, isCorrect: true})
+  ]);
+
+  let question = Ember.Object.create({answers: answers});
+  let questionUtil = HotSpotTextUtil.create({question: question});
+
+  let correctAnswer = questionUtil.getCorrectAnswer().toArray();
+  assert.equal(correctAnswer.get("length"), 2, "Missing items");
+  assert.deepEqual(correctAnswer[0], 2, "Incorrect answer at 0");
+  assert.deepEqual(correctAnswer[1], 3, "Incorrect answer at 1");
+});
+
+test('Hot Spot Text - isAnswerChoiceCorrect', function (assert) {
+  let answers = Ember.A([
+    Ember.Object.create({id: 1, isCorrect: false}),
+    Ember.Object.create({id: 2, isCorrect: true}),
+    Ember.Object.create({id: 3, isCorrect: true})
+  ]);
+
+  let question = Ember.Object.create({answers: answers});
+  let questionUtil = HotSpotTextUtil.create({question: question});
+
+  assert.ok(questionUtil.isAnswerChoiceCorrect(2), "Answer should be correct");
+  assert.ok(!questionUtil.isAnswerChoiceCorrect(1), "Answer should not be correct");
+});
+
+test('Hot Spot Text - isCorrect', function (assert) {
+  let answers = Ember.A([
+    Ember.Object.create({id: 1, isCorrect: false}),
+    Ember.Object.create({id: 2, isCorrect: true}),
+    Ember.Object.create({id: 3, isCorrect: true})
+  ]);
+
+  let question = Ember.Object.create({answers: answers});
+  let questionUtil = HotSpotTextUtil.create({question: question});
 
   let correctAnswer = Ember.A([2, 3]);
   assert.ok(questionUtil.isCorrect(correctAnswer), "Answer should be correct");
