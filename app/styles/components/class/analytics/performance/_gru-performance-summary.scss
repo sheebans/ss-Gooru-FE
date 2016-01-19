@@ -29,6 +29,7 @@
       flex-basis: auto;
       -webkit-align-self: auto;
       align-self: auto;
+
     }
     li{
       height: $performance-circle-size;
@@ -39,6 +40,11 @@
         @include respond-to(xs){
           display: inline-block;
         }
+      }
+      &.score{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       &.completion {
         div{
