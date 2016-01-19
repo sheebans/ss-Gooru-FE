@@ -13,18 +13,23 @@ import Ember from 'ember';
  * @param trype {String} "unit","lesson","collection" and "assessment"
  * @returns {String}
  */
-export function courseSectionsPrefix(params,{ title, index,type }) {
-  var prefix;
-  if(type==='unit'){
-    prefix = "U"+index+" "+title;
-  }else if(type==='lesson'){
-    prefix = "L"+index+" "+title;
-  }else if (type==='collection'){
-    prefix = "C"+index+" "+title;
-  }else if(type==='assessment'){
-    prefix = "A"+index+" "+title;
-  }
-  return prefix;
-}
+export default Ember.Helper.extend({
+  i18n: Ember.inject.service('i18n'),
 
-export default Ember.Helper.helper(courseSectionsPrefix);
+  compute(params,{ title, index,type }) {
+    let i18n = this.get('i18n');
+    var prefix;
+
+    if(type==='unit'){
+      prefix = i18n.t('common.unitInitial')+index+" "+title;
+    }else if(type==='lesson'){
+      prefix = i18n.t('common.lessonInitial')+index+" "+title;
+    }else if (type==='collection'){
+      prefix = i18n.t('common.collectionInitial')+index+" "+title;
+    }else if(type==='assessment'){
+      prefix = i18n.t('common.assessmentInitial')+index+" "+title;
+    }
+    return prefix;
+  }
+
+});
