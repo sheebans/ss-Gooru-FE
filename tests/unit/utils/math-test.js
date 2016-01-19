@@ -12,7 +12,7 @@ test('isNumeric with integer literals', function (assert) {
   assert.ok(isNumeric(0), "Zero integer number");
   assert.ok(isNumeric(32), "Positive integer number");
   assert.ok(isNumeric("040"), "Octal integer literal string");
-  assert.ok(isNumeric(0144), "Octal integer literal");
+  assert.ok(isNumeric(0o144), "Octal integer literal");
   assert.ok(isNumeric("0xFF"), "Hexadecimal integer literal string");
   assert.ok(isNumeric(0xFFF), "Hexadecimal integer literal");
 
