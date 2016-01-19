@@ -13,7 +13,9 @@ export default DS.Model.extend({
 
   reaction: DS.attr('number'),
 
-  timeSpent: DS.attr('number')
+  timeSpent: DS.attr('number'),
+
+  order: DS.attr('number')
 
 });
 
