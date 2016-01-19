@@ -15,7 +15,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-open-ended'],
+  classNames: ['reports', 'assessment', 'questions','gru-open-ended'],
 
   // -------------------------------------------------------------------------
   // Actions
