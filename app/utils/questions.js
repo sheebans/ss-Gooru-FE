@@ -139,4 +139,21 @@ const MultipleAnswerUtil = QuestionUtil.extend({
 
 });
 
-export { QuestionUtil, MultipleChoiceUtil, MultipleAnswerUtil };
+/**
+ * It contains convenience methods for grading and retrieving useful information
+ * from this question type
+ *
+ * @typedef {Object} TrueFalseUtil
+ */
+const TrueFalseUtil = MultipleChoiceUtil.extend({
+
+  // -------------------------------------------------------------------------
+  // Observers
+
+
+  // -------------------------------------------------------------------------
+  // Methods
+
+});
+
+export { QuestionUtil, MultipleChoiceUtil, MultipleAnswerUtil, TrueFalseUtil };

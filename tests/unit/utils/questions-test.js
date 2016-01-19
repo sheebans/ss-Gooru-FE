@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {MultipleChoiceUtil, MultipleAnswerUtil} from '../../../utils/questions';
+import {MultipleChoiceUtil, MultipleAnswerUtil, TrueFalseUtil} from '../../../utils/questions';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | questions');
@@ -106,4 +106,30 @@ test('Multiple Answer - isCorrect', function(assert) {
   let incorrectLessOptions = Ember.A([ {id: 1, selection: false}, {id: 2, selection: true} ]);
   assert.ok(!questionUtil.isCorrect(incorrectLessOptions), "Answer should not be correct, it has less options");
 });
+
+// --------------- True False tests
+test('True/False - getCorrectAnswer when correct answer is provided', function(assert) {
+  let answers = Ember.A([
+    Ember.Object.create({ id: 1, isCorrect: false }),
+    Ember.Object.create({ id: 2, isCorrect: true })
+  ]);
+
+  let question = Ember.Object.create({ answers: answers });
+  let questionUtil = TrueFalseUtil.create({ question: question });
+  assert.equal(questionUtil.getCorrectAnswer(), 2, "Incorrect answer id");
+});
+
+test('True/False - isCorrect', function(assert) {
+  let answers = Ember.A([
+    Ember.Object.create({ id: 1, isCorrect: false }),
+    Ember.Object.create({ id: 2, isCorrect: true })
+  ]);
+
+  let question = Ember.Object.create({ answers: answers });
+  let questionUtil = TrueFalseUtil.create({ question: question });
+
+  assert.ok(!questionUtil.isCorrect(1), "Option one is not correct");
+  assert.ok(questionUtil.isCorrect(2), "Option two should be correct");
+});
+
 
