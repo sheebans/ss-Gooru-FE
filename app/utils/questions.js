@@ -25,12 +25,29 @@ const QuestionUtil = Ember.Object.extend({
   // -------------------------------------------------------------------------
   // Methods
   /**
-   * This method should be implemented at different question types
+   * Indicates if the answer is correct
+   * Default implementation, it check if all answer choices are correct
    *
-   * @param {*} answer user answer
+   * @param {Array} answer user answer
+   * @return {boolean}
    */
   isCorrect: function(answer){
-    Ember.Logger.warning("The method isCorrect is not implemented", answer);
+    let utility = this;
+    let correctAnswer = this.getCorrectAnswer();
+    let correct = answer.get("length") === correctAnswer.get("length");
+    answer.forEach(function(answerChoice, index){
+      correct = correct && utility.isAnswerChoiceCorrect(answerChoice, index)
+    });
+
+    return correct;
+  },
+
+  /**
+   * Indicates if the answer choice is correct
+   * @param { * } answerChoice
+   */
+  isAnswerChoiceCorrect: function(answerChoice){
+    Ember.Logger.warning("The method getCorrectAnswer is not implemented");
   },
 
   /**
@@ -61,12 +78,21 @@ const MultipleChoiceUtil = QuestionUtil.extend({
   // Methods
   /**
    * Indicates if the answer is correct
+   * It overrides the default implementation
    *
-   * @param {*} answer user answer
+   * @param {string} answer user answer
    * @return {boolean}
    */
   isCorrect: function(answer){
-    return this.getCorrectAnswer() === answer;
+    return this.isAnswerChoiceCorrect(answer);
+  },
+
+  /**
+   * Indicates if the answer choice is correct
+   * @param { * } answerChoice
+   */
+  isAnswerChoiceCorrect: function(answerChoice){
+    return this.getCorrectAnswer() === answerChoice;
   },
 
   /**
@@ -97,23 +123,6 @@ const MultipleAnswerUtil = QuestionUtil.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-  /**
-   * Indicates if the answer is correct
-   *
-   * @param {Array} answer user answer
-   * @return {boolean}
-   */
-  isCorrect: function(answer){
-    let utility = this;
-    let correctAnswer = this.getCorrectAnswer();
-    let correct = answer.get("length") === correctAnswer.get("length");
-    answer.forEach(function(answerChoice){
-      correct = correct && utility.isAnswerChoiceCorrect(answerChoice)
-    });
-
-    return correct;
-  },
-
   /**
    * Indicates if the answer choice is correct
    * @param { { id: number, selection: boolean } } answerChoice
@@ -172,23 +181,6 @@ const FillInTheBlankUtil = QuestionUtil.extend({
   // -------------------------------------------------------------------------
   // Methods
   /**
-   * Indicates if the answer is correct
-   *
-   * @param {Array} answer user answer
-   * @return {boolean}
-   */
-  isCorrect: function(answer){
-    let utility = this;
-    let correctAnswer = this.getCorrectAnswer();
-    let correct = answer.get("length") === correctAnswer.get("length");
-    answer.forEach(function(answerChoice, index){
-      correct = correct && utility.isAnswerChoiceCorrect(answerChoice, index)
-    });
-
-    return correct;
-  },
-
-  /**
    * Indicates if the answer choice is correct
    * @param { string } answerChoice
    * @param { number } index position of the answer
@@ -213,4 +205,43 @@ const FillInTheBlankUtil = QuestionUtil.extend({
 
 });
 
-export { QuestionUtil, MultipleChoiceUtil, MultipleAnswerUtil, TrueFalseUtil, FillInTheBlankUtil };
+/**
+ * It contains convenience methods for grading and retrieving useful information
+ * from this question type
+ *
+ * @typedef {Object} ReorderUtil
+ */
+const ReorderUtil = QuestionUtil.extend({
+
+  // -------------------------------------------------------------------------
+  // Observers
+
+
+  // -------------------------------------------------------------------------
+  // Methods
+  /**
+   * Indicates if the answer choice is correct
+   * @param { string } answerChoice
+   * @param { number } index position of the answer
+   */
+  isAnswerChoiceCorrect: function(answerChoice, index){
+    let correctAnswer = this.getCorrectAnswer();
+    return correctAnswer.contains(answerChoice) &&
+      correctAnswer.indexOf(answerChoice) === index;
+  },
+
+  /**
+   * Gets the correct answer
+   * @return {string[]} returns the correct order for answer choice ids
+   */
+  getCorrectAnswer: function(){
+    const answers = this.get("question.answers").sortBy("order");
+    return answers.map(function(answer){
+      return answer.get("id");
+    });
+  }
+
+
+});
+
+export { QuestionUtil, MultipleChoiceUtil, MultipleAnswerUtil, TrueFalseUtil, FillInTheBlankUtil, ReorderUtil };

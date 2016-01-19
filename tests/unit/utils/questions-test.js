@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {MultipleChoiceUtil, MultipleAnswerUtil, TrueFalseUtil, FillInTheBlankUtil} from '../../../utils/questions';
+import {MultipleChoiceUtil, MultipleAnswerUtil, TrueFalseUtil, FillInTheBlankUtil, ReorderUtil} from '../../../utils/questions';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | questions');
@@ -193,6 +193,70 @@ test('FIB - isCorrect', function(assert) {
   assert.ok(!questionUtil.isCorrect(incorrectAnswer), "Answer should not be correct, optionD is not valid");
 
   let incorrectLessOptions = Ember.A([ 'optionA', 'optionB' ]);
+  assert.ok(!questionUtil.isCorrect(incorrectLessOptions), "Answer should not be correct, it has less options");
+});
+
+// --------------- Reorder tests
+test('Reorder - getCorrectAnswer empty array', function(assert) {
+  let question = Ember.Object.create({ answers: Ember.A([]) });
+  let questionUtil = ReorderUtil.create({ question: question });
+  let correctAnswer = questionUtil.getCorrectAnswer();
+  assert.ok(!correctAnswer.get("length"), "Correct answer should be an empty array");
+});
+
+test('Reorder - getCorrectAnswer', function(assert) {
+  let answers = Ember.A([
+    Ember.Object.create({ id: 'choice-1' }),
+    Ember.Object.create({ id: 'choice-2' }),
+    Ember.Object.create({ id: 'choice-3' })
+  ]);
+
+  let question = Ember.Object.create({ answers: answers });
+  let questionUtil = ReorderUtil.create({ question: question });
+
+  let correctAnswer = questionUtil.getCorrectAnswer().toArray();
+  assert.equal(correctAnswer.get("length"), 3, "Missing items");
+  assert.equal(correctAnswer[0], 'choice-1', "Incorrect answer at 0");
+  assert.equal(correctAnswer[1], 'choice-2', "Incorrect answer at 1");
+  assert.equal(correctAnswer[2], 'choice-3', "Incorrect answer at 2");
+
+});
+
+test('Reorder - isAnswerChoiceCorrect', function(assert) {
+  let answers = Ember.A([
+    Ember.Object.create({ id: 'choice-1' }),
+    Ember.Object.create({ id: 'choice-2' }),
+    Ember.Object.create({ id: 'choice-3' })
+  ]);
+
+  let question = Ember.Object.create({ answers: answers });
+  let questionUtil = ReorderUtil.create({ question: question });
+
+  assert.ok(questionUtil.isAnswerChoiceCorrect('choice-1', 0), "Answer should be correct");
+  assert.ok(!questionUtil.isAnswerChoiceCorrect('choice-3', 1), "Answer should not be correct, choice-3 is at index 2");
+  assert.ok(!questionUtil.isAnswerChoiceCorrect('choice-4', 1), "Answer should not be correct, choice-4 is not valid");
+});
+
+test('Reorder - isCorrect', function(assert) {
+  let answers = Ember.A([
+    Ember.Object.create({ id: 'choice-1' }),
+    Ember.Object.create({ id: 'choice-2' }),
+    Ember.Object.create({ id: 'choice-3' })
+  ]);
+
+  let question = Ember.Object.create({ answers: answers });
+  let questionUtil = ReorderUtil.create({ question: question });
+
+  let correctAnswer = Ember.A([ 'choice-1', 'choice-2', 'choice-3' ]);
+  assert.ok(questionUtil.isCorrect(correctAnswer), "Answer should be correct");
+
+  let correctDifferentOrder = Ember.A([ 'choice-3', 'choice-1', 'choice-2' ]);
+  assert.ok(!questionUtil.isCorrect(correctDifferentOrder), "Answer should not be correct, it has different order");
+
+  let incorrectAnswer = Ember.A([ 'choice-1', 'choice-2', 'choice-4' ]);
+  assert.ok(!questionUtil.isCorrect(incorrectAnswer), "Answer should not be correct, optionD is not valid");
+
+  let incorrectLessOptions = Ember.A([ 'choice-1', 'choice-2']);
   assert.ok(!questionUtil.isCorrect(incorrectLessOptions), "Answer should not be correct, it has less options");
 });
 
