@@ -1,6 +1,15 @@
 import Ember from 'ember';
 import {MultipleChoiceUtil} from 'gooru-web/utils/questions';
 
+/**
+ * Multiple choice
+ *
+ * Component responsible for show the multiple choice answer, what option are selected
+ * and the correct option.
+ *
+ * @module
+ * @augments ember/Component
+ */
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
@@ -43,8 +52,8 @@ export default Ember.Component.extend({
         text: answer.get("text"),
         selected: answer.get("id") === userAnswer,
         correct: userAnswerCorrect
-      }
-    })
+      };
+    });
   })
 
 });
