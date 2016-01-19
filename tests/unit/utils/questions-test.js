@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {MultipleChoiceUtil, MultipleAnswerUtil, TrueFalseUtil} from '../../../utils/questions';
+import {MultipleChoiceUtil, MultipleAnswerUtil, TrueFalseUtil, FillInTheBlankUtil} from '../../../utils/questions';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | questions');
@@ -132,4 +132,67 @@ test('True/False - isCorrect', function(assert) {
   assert.ok(questionUtil.isCorrect(2), "Option two should be correct");
 });
 
+// --------------- FIB tests
+test('FIB - getCorrectAnswer empty array', function(assert) {
+  let question = Ember.Object.create({ answers: Ember.A([]) });
+  let questionUtil = FillInTheBlankUtil.create({ question: question });
+  let correctAnswer = questionUtil.getCorrectAnswer();
+  assert.ok(!correctAnswer.get("length"), "Correct answer should be an empty array");
+});
+
+test('FIB - getCorrectAnswer', function(assert) {
+  let answers = Ember.A([
+    Ember.Object.create({ id: 1, text: 'optionA' }),
+    Ember.Object.create({ id: 2, text: 'optionB' }),
+    Ember.Object.create({ id: 3, text: 'optionC' })
+  ]);
+
+  let question = Ember.Object.create({ answers: answers });
+  let questionUtil = FillInTheBlankUtil.create({ question: question });
+
+  let correctAnswer = questionUtil.getCorrectAnswer().toArray();
+  assert.equal(correctAnswer.get("length"), 3, "Missing items");
+  assert.equal(correctAnswer[0], 'optionA', "Incorrect answer at 0");
+  assert.equal(correctAnswer[1], 'optionB', "Incorrect answer at 1");
+  assert.equal(correctAnswer[2], 'optionC', "Incorrect answer at 2");
+
+});
+
+test('FIB - isAnswerChoiceCorrect', function(assert) {
+  let answers = Ember.A([
+    Ember.Object.create({ id: 1, text: 'optionA' }),
+    Ember.Object.create({ id: 2, text: 'optionB' }),
+    Ember.Object.create({ id: 3, text: 'optionC' })
+  ]);
+
+  let question = Ember.Object.create({ answers: answers });
+  let questionUtil = FillInTheBlankUtil.create({ question: question });
+
+  assert.ok(questionUtil.isAnswerChoiceCorrect("optionA", 0), "Answer should be correct");
+  assert.ok(!questionUtil.isAnswerChoiceCorrect("optionC", 1), "Answer should not be correct, optionC is at index 2");
+  assert.ok(!questionUtil.isAnswerChoiceCorrect("optionD", 1), "Answer should not be correct, optionD is not valid");
+});
+
+test('FIB - isCorrect', function(assert) {
+  let answers = Ember.A([
+    Ember.Object.create({ id: 1, text: 'optionA' }),
+    Ember.Object.create({ id: 2, text: 'optionB' }),
+    Ember.Object.create({ id: 3, text: 'optionC' })
+  ]);
+
+  let question = Ember.Object.create({ answers: answers });
+  let questionUtil = FillInTheBlankUtil.create({ question: question });
+
+  let correctAnswer = Ember.A([ 'optionA', 'optionB', 'optionC' ]);
+  assert.ok(questionUtil.isCorrect(correctAnswer), "Answer should be correct");
+
+  let correctDifferentOrder = Ember.A([ 'optionA', 'optionC', 'optionB' ]);
+  assert.ok(!questionUtil.isCorrect(correctDifferentOrder), "Answer should not be correct, it has different order");
+
+  let incorrectAnswer = Ember.A([ 'optionD', 'optionC', 'optionB' ]);
+  assert.ok(!questionUtil.isCorrect(incorrectAnswer), "Answer should not be correct, optionD is not valid");
+
+  let incorrectLessOptions = Ember.A([ 'optionA', 'optionB' ]);
+  assert.ok(!questionUtil.isCorrect(incorrectLessOptions), "Answer should not be correct, it has less options");
+});
 

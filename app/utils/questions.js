@@ -156,4 +156,61 @@ const TrueFalseUtil = MultipleChoiceUtil.extend({
 
 });
 
-export { QuestionUtil, MultipleChoiceUtil, MultipleAnswerUtil, TrueFalseUtil };
+
+/**
+ * It contains convenience methods for grading and retrieving useful information
+ * from this question type
+ *
+ * @typedef {Object} FillInTheBlankUtil
+ */
+const FillInTheBlankUtil = QuestionUtil.extend({
+
+  // -------------------------------------------------------------------------
+  // Observers
+
+
+  // -------------------------------------------------------------------------
+  // Methods
+  /**
+   * Indicates if the answer is correct
+   *
+   * @param {Array} answer user answer
+   * @return {boolean}
+   */
+  isCorrect: function(answer){
+    let utility = this;
+    let correctAnswer = this.getCorrectAnswer();
+    let correct = answer.get("length") === correctAnswer.get("length");
+    answer.forEach(function(answerChoice, index){
+      correct = correct && utility.isAnswerChoiceCorrect(answerChoice, index)
+    });
+
+    return correct;
+  },
+
+  /**
+   * Indicates if the answer choice is correct
+   * @param { string } answerChoice
+   * @param { number } index position of the answer
+   */
+  isAnswerChoiceCorrect: function(answerChoice, index){
+    let correctAnswer = this.getCorrectAnswer();
+    return correctAnswer.contains(answerChoice) &&
+      correctAnswer.indexOf(answerChoice) === index;
+  },
+
+  /**
+   * Gets the correct answer
+   * @return {string[]} the correct answer for this question type
+   */
+  getCorrectAnswer: function(){
+    const answers = this.get("question.answers");
+    return answers.map(function(answer){
+      return answer.get("text");
+    });
+  }
+
+
+});
+
+export { QuestionUtil, MultipleChoiceUtil, MultipleAnswerUtil, TrueFalseUtil, FillInTheBlankUtil };
