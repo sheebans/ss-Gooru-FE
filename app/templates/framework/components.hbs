@@ -21,4 +21,17 @@
 <span>{{course-sections-prefix title="My Unit" type="unit" index=1}}</span>
 <span>{{course-sections-prefix title="My Assessment" type="assessment" index=2}}</span>
 
-{{reports.assessment.questions.gru-multiple-choice question=question}}
+<table>
+    <tr>
+        <td>
+          {{reports.assessment.questions.gru-multiple-choice question=question userAnswer="1"}}
+        </td>
+        <td>
+          {{reports.assessment.questions.gru-multiple-choice question=question userAnswer="3"}}
+        </td>
+        <td>
+          {{reports.assessment.questions.gru-multiple-choice question=question showCorrect=true}}
+        </td>
+    </tr>
+</table>
+

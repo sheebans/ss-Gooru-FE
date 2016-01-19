@@ -1,5 +1,16 @@
 <ul class="multiple-choices">
-  {{#each question.answers as |answer|}}
-      <li>{{{answer.text}}}</li>
+  {{#each answers as |answer|}}
+      <li>
+        {{#if answer.selected}}
+          {{#if answer.correct}}
+              <span class="correct">{{fa-icon icon='check-circle-o'}}</span>
+          {{else}}
+              <span class="incorrect">{{fa-icon icon='times-circle-o'}}</span>
+          {{/if}}
+        {{else}}
+          <span></span>
+        {{/if}}
+        {{{answer.text}}}
+      </li>
   {{/each}}
 </ul>

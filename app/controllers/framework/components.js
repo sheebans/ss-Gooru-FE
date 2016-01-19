@@ -80,11 +80,13 @@ export default Ember.Controller.extend({
 
 
 
-  question : Ember.Object.create({ answers: Ember.A([
-    Ember.Object.create({ id: 1, isCorrect: false,text:"Answer 1" }),
-    Ember.Object.create({ id: 2, isCorrect: true,text:"Answer 2" }),
-    Ember.Object.create({ id: 2, isCorrect: true,text:"Answer 3" })
-  ])}),
+  question : Ember.Object.create({
+    answers: Ember.A([
+      Ember.Object.create({ id: "1", isCorrect: false,text:"Answer 1" }),
+      Ember.Object.create({ id: "2", isCorrect: false,text:"Answer 2" }),
+      Ember.Object.create({ id: "3", isCorrect: true,text:"Answer 3" })
+    ])
+  }),
 });
 
 
