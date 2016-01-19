@@ -47,7 +47,7 @@ const QuestionUtil = Ember.Object.extend({
    * @param { * } answerChoice
    */
   isAnswerChoiceCorrect: function(answerChoice){
-    Ember.Logger.warning("The method getCorrectAnswer is not implemented");
+    Ember.Logger.warning("The method getCorrectAnswer is not implemented", answerChoice);
   },
 
   /**
@@ -244,4 +244,64 @@ const ReorderUtil = QuestionUtil.extend({
 
 });
 
-export { QuestionUtil, MultipleChoiceUtil, MultipleAnswerUtil, TrueFalseUtil, FillInTheBlankUtil, ReorderUtil };
+/**
+ * It contains convenience methods for grading and retrieving useful information
+ * from this question type
+ *
+ * @typedef {Object} HotSpotImageUtil
+ */
+const HotSpotImageUtil = MultipleAnswerUtil.extend({
+
+  // -------------------------------------------------------------------------
+  // Observers
+
+
+  // -------------------------------------------------------------------------
+  // Methods
+  /**
+   * Indicates if the answer choice is correct
+   * @param { string } answerChoice
+   */
+  isAnswerChoiceCorrect: function(answerChoice){
+    let correctAnswer = this.getCorrectAnswer();
+    return correctAnswer.contains(answerChoice);
+  },
+
+  /**
+   * Gets the correct answer
+   * @return {string[]} returns the correct answer choice ids
+   */
+  getCorrectAnswer: function(){
+    let answers = this.get("question.answers");
+    let correctAnswers = answers.filterBy("isCorrect", true);
+    return correctAnswers.map(function(answer){
+      return answer.get("id");
+    });
+  }
+
+});
+
+
+/**
+ * It contains convenience methods for grading and retrieving useful information
+ * from this question type
+ *
+ * @typedef {Object} HotSpotTextUtil
+ */
+const HotSpotTextUtil = HotSpotImageUtil.extend({
+
+  // -------------------------------------------------------------------------
+  // Observers
+
+
+  // -------------------------------------------------------------------------
+  // Methods
+
+});
+
+
+export {
+  QuestionUtil, MultipleChoiceUtil, MultipleAnswerUtil,
+  TrueFalseUtil, FillInTheBlankUtil, ReorderUtil,
+  HotSpotImageUtil, HotSpotTextUtil
+};
