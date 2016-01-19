@@ -36,7 +36,7 @@ const QuestionUtil = Ember.Object.extend({
     let correctAnswer = this.getCorrectAnswer();
     let correct = answer.get("length") === correctAnswer.get("length");
     answer.forEach(function(answerChoice, index){
-      correct = correct && utility.isAnswerChoiceCorrect(answerChoice, index)
+      correct = correct && utility.isAnswerChoiceCorrect(answerChoice, index);
     });
 
     return correct;
