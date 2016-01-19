@@ -2,7 +2,60 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
-  // TODO: Get this object dynamically from the route
+  // TODO: The idea is that this will be an instance of the model result/assessment
+  asmtResult: {
+    id: 501,
+    attempts: [
+      1104,
+      1103,
+      1102,
+      1101
+    ],
+    user: 901,
+    title: 'Test Assessment Name'
+  },
+
+  attemptResult: {
+    id: 1104,
+    assessmentResult: 501,
+    mastery: [],
+    questionResults: [
+      {
+        attempt: 1104,
+        question: {
+          id: 201,
+          questionType: 'MC',
+          text: 'Sample Question MC',
+          hints: [],
+          explanation: 'Sample explanation text',
+          order: 1
+        },
+        user: 901,
+        correct: false,
+        reaction: 2,
+        timeSpent: 28,
+        answer: []
+      },
+      {
+        attempt: 1104,
+        question: {
+          id: 202,
+          questionType: 'MA',
+          text: 'Sample Question MA',
+          hints: [],
+          explanation: 'Sample explanation text',
+          order: 1
+        },
+        user: 901,
+        correct: true,
+        reaction: 3,
+        timeSpent: 14,
+        answer: []
+      }
+    ],
+    submittedOn: 'Friday, January 15, 2016 6:02 AM',
+    user: 901
+  },
 
   assessmentResult: Ember.Object.create({
 
