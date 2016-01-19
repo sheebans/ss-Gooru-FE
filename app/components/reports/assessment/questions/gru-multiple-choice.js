@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {MultipleChoiceUtil} from 'gooru-web/utils/questions';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
