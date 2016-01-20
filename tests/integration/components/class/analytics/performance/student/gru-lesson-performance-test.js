@@ -164,16 +164,9 @@ test('Test for not started lesson performance', function(assert) {
 
   T.exists(assert, $component, 'Missing Lesson Container');
 
-
-
   const $lessonTitle = $component.find(".lesson-performance-title span");
 
   assert.equal(T.text($lessonTitle), "L1: Quiz :: Indian History", "Wrong title");
-
-  const $notStartedSpan = $component.find(".lesson-performance-content span");
-  T.exists(assert, $notStartedSpan, 'Missing not started message span');
-
-  assert.equal(T.text($notStartedSpan), "Not started yet", "Wrong not started message For the Lesson");
 
   const $clickableAnchor= $component.find(".gru-lesson-performance-container a"); //component dom element
   T.exists(assert, $clickableAnchor, 'Missing Clickable Anchor');
