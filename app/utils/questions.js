@@ -8,7 +8,7 @@ import Ember from 'ember';
  *
  * @typedef {Object} QuestionUtil
  */
-const QuestionUtil = Ember.Object.extend({
+export const QuestionUtil = Ember.Object.extend({
 
   // -------------------------------------------------------------------------
   // Properties
@@ -68,7 +68,7 @@ const QuestionUtil = Ember.Object.extend({
  *
  * @typedef {Object} MultipleChoiceUtil
  */
-const MultipleChoiceUtil = QuestionUtil.extend({
+export const MultipleChoiceUtil = QuestionUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -115,7 +115,7 @@ const MultipleChoiceUtil = QuestionUtil.extend({
  *
  * @typedef {Object} MultipleAnswerUtil
  */
-const MultipleAnswerUtil = QuestionUtil.extend({
+export const MultipleAnswerUtil = QuestionUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -154,7 +154,7 @@ const MultipleAnswerUtil = QuestionUtil.extend({
  *
  * @typedef {Object} TrueFalseUtil
  */
-const TrueFalseUtil = MultipleChoiceUtil.extend({
+export const TrueFalseUtil = MultipleChoiceUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -172,7 +172,7 @@ const TrueFalseUtil = MultipleChoiceUtil.extend({
  *
  * @typedef {Object} FillInTheBlankUtil
  */
-const FillInTheBlankUtil = QuestionUtil.extend({
+export const FillInTheBlankUtil = QuestionUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -211,7 +211,7 @@ const FillInTheBlankUtil = QuestionUtil.extend({
  *
  * @typedef {Object} ReorderUtil
  */
-const ReorderUtil = QuestionUtil.extend({
+export const ReorderUtil = QuestionUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -250,7 +250,7 @@ const ReorderUtil = QuestionUtil.extend({
  *
  * @typedef {Object} HotSpotImageUtil
  */
-const HotSpotImageUtil = MultipleAnswerUtil.extend({
+export const HotSpotImageUtil = MultipleAnswerUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -288,7 +288,7 @@ const HotSpotImageUtil = MultipleAnswerUtil.extend({
  *
  * @typedef {Object} HotSpotTextUtil
  */
-const HotSpotTextUtil = HotSpotImageUtil.extend({
+export const HotSpotTextUtil = HotSpotImageUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -298,10 +298,3 @@ const HotSpotTextUtil = HotSpotImageUtil.extend({
   // Methods
 
 });
-
-
-export {
-  QuestionUtil, MultipleChoiceUtil, MultipleAnswerUtil,
-  TrueFalseUtil, FillInTheBlankUtil, ReorderUtil,
-  HotSpotImageUtil, HotSpotTextUtil
-};
