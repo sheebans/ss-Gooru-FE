@@ -113,7 +113,7 @@ export default Ember.Controller.extend({
     results: Ember.A([Ember.Object.create({
       id: 890,
       question: Ember.Object.create({
-        text:"This is a question 1",
+        text:"This is a open ended",
         isOpenEnded: true
       }),
       correct: true,
@@ -124,13 +124,19 @@ export default Ember.Controller.extend({
     }), Ember.Object.create({
       id: 891,
       question: Ember.Object.create({
-        text:"This is a question 2"
+        text:"This is a multiple choice question",
+        isMultipleChoice: true,
+        answers: Ember.A([
+          Ember.Object.create({ id: "1", isCorrect: false,text:"Answer 1" }),
+          Ember.Object.create({ id: "2", isCorrect: false,text:"Answer 2" }),
+          Ember.Object.create({ id: "3", isCorrect: true,text:"Answer 3" })
+        ])
       }),
       correct: false,
       timeSpent: 25, //seconds
       reaction: 2,
       order: 2,
-      answer: "answer" // json object representing each question type answer
+      answer: "1" // json object representing each question type answer
     })])
 
   })
