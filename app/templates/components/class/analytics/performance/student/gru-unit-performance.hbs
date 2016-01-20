@@ -7,7 +7,6 @@
 
       </li>
       <li class="col-xs-4 col-sm-8 performance-unit-content">
-        {{#if performance.hasStarted}}
           <div>
               <ul class="hidden-xs performance-headers">
                   <li class="score-header"><p>{{t "gru-performance-summary.scores"}}</p></li>
@@ -22,10 +21,6 @@
             performance=performance
             selectedOption=selectedOption}}
           </div>
-        {{else }}
-            <span class="not-started">{{t "gru-performance.notStarted"}}</span>
-        {{/if}}
-
       </li>
   </ul>
 </a>
