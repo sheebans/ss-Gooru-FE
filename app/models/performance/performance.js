@@ -29,9 +29,17 @@ export default DS.Model.extend({
    */
   isCollectionOrAssessment: Ember.computed.or('isCollection','isAssessment'),
   /**
-   * @property {Boolean} Value that tells whether the performance data belongs to a lesson
+   * @property {Boolean} Value that tells whether the performance data belongs to an Unit
+   */
+  isUnit : Ember.computed.equal('type', 'unit'),
+  /**
+   * @property {Boolean} Value that tells whether the performance data belongs to a Lesson
    */
   isLesson : Ember.computed.equal('type', 'lesson'),
+  /**
+   * @property {Boolean} Value that tells whether the performance data belongs to a unit or a lesson
+   */
+  isUnitOrLesson : Ember.computed.or('isUnit','isLesson'),
   /**
    * @property {Number} The performance score (in percentages e.g. 80%, 100%, 95%, etc)
    */
@@ -61,15 +69,15 @@ export default DS.Model.extend({
    *  @property {boolean} Whether the performance is completed or not.
    */
   isCompleted: Ember.computed('completionDone', 'completionTotal', function() {
-    return (this.get('completionDone') === this.get('completionTotal'));
+    return (this.get('completionTotal') >0 && this.get('completionDone') === this.get('completionTotal'));
   }),
 
   completionValue: Ember.computed('completionDone', 'completionTotal', function() {
-    return (this.get('completionDone') * 100 / this.get('completionTotal'));
+    return ( this.get('completionTotal') > 0 && (this.get('completionDone') * 100 / this.get('completionTotal')));
   }),
 
   hasStarted: Ember.computed('timeSpent', function () {
-    return (this.get('timeSpent')>0);
+    return (Math.floor(this.get('timeSpent')) >0);
   }),
 
   displayableTimeSpent: Ember.computed('timeSpent', function() {

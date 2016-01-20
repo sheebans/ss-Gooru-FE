@@ -51,6 +51,15 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
       transition.promise.finally(function() {
         controller.set('currentlyLoading', false);
       });
+    },
+    /**
+     * Open the player with the specific collection/assessment
+     *
+     * @function actions:playItem
+     * @param {string} collectionId - Identifier for a collection or assessment
+     */
+    playResource: function (collectionId) {
+      this.transitionTo('player', collectionId);
     }
   },
   /**

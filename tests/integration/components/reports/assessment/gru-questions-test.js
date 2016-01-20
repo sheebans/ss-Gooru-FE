@@ -11,11 +11,12 @@ moduleForComponent('reports/assessment/gru-questions', 'Integration | Component 
 });
 
 test('Questions Layout', function (assert) {
-  assert.expect(16);
+  assert.expect(17);
 
   const questions = Ember.A([Ember.Object.create({
     question: Ember.Object.create({
-      text:"This is a question 1"
+      text:"This is a question 1",
+      isOpenEnded: true
     }),
     correct: true,
     timeSpent: 10, //seconds
@@ -50,17 +51,19 @@ test('Questions Layout', function (assert) {
   T.exists(assert, $question.find('table tbody td.number-question'), 'Missing number column');
   T.exists(assert, $question.find('table tbody td.question-text'), 'Missing text column');
   T.exists(assert, $question.find('table tbody td.question-answer'), 'Missing answer column');
+  T.exists(assert, $question.find('table tbody td.question-answer:eq(0) .gru-open-ended'), 'Missing gru-open-ended component');
   T.exists(assert, $question.find('table tbody td.question-score'), 'Missing score column');
   T.exists(assert, $question.find('table tbody td.question-time'), 'Missing time spent column');
   T.exists(assert, $question.find('table tbody td.question-reaction'), 'Missing reaction column');
   assert.equal($question.find('table tbody tr').length,2, "Incorrect number of rows");
 });
 test('Switch Options', function (assert) {
-  assert.expect(12);
+  assert.expect(15);
 
   const questions = Ember.A([Ember.Object.create({
     question: Ember.Object.create({
-      text:"This is a question 1"
+      text:"This is a question 1",
+      isOpenEnded: true
     }),
     correct: true,
     timeSpent: 10, //seconds
@@ -84,12 +87,15 @@ test('Switch Options', function (assert) {
   const $question = $component.find(".gru-questions");
   const $switch = $question.find('.switch-section a');
   $switch.click();//Show correct answer
-  T.exists(assert, $question.find('table th.header.score.hide'), 'Score header should be hide');
-  T.exists(assert, $question.find('table th.header.time-spent.hide'), 'Time spent header should be hide');
+  T.exists(assert, $question.find('table thead th.header.score.hide'), 'Score header should be hide');
+  T.exists(assert, $question.find('table thead th.header.time-spent.hide'), 'Time spent header should be hide');
   T.exists(assert, $question.find('table thead th.header.reaction.hide'), 'Reaction header should be hide');
+  T.exists(assert, $question.find('table thead th.header.correct-answer.visible'), 'Correct answer header should be visible');
   T.exists(assert, $question.find('table tbody td.question-score.hide'), 'Score column should be hide');
   T.exists(assert, $question.find('table tbody td.question-time.hide'), 'Time spent column should be hide');
   T.exists(assert, $question.find('table tbody td.question-reaction.hide'), 'Reaction column should be hide');
+  T.exists(assert, $question.find('table tbody td.correct-answer.visible'), 'Correct answer column should be visible');
+  T.exists(assert, $question.find('table tbody td.correct-answer.visible:eq(0) .gru-open-ended'), 'Correct answer column should be visible');
 
   $switch.click();//Show performance
   T.exists(assert, $question.find('table th.header.score.visible'), 'Score header should be visible');

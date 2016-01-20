@@ -85,12 +85,15 @@ test('Test for started lesson performance', function(assert) {
 
     const $collectionTitle = $component.find(".collections-container div:first-child .collection-performance-title span");
     T.exists(assert, $collectionTitle, 'Missing collection Title');
-
     assert.equal(T.text($collectionTitle), "C1: Indian History Collection", "Wrong title");
 
     const $collectionRedoButton = $component.find(".collections-container div:first-child .collection-performance-title div button");
     T.exists(assert, $collectionRedoButton, 'Missing collection redo button');
     assert.equal($collectionRedoButton.hasClass('collection-redo-button'), true, "Redo class from button missing");
+
+    const $collectionViewReportButton = $component.find(".collections-container div:first-child .collection-performance-title div button:nth-child(2)");
+    T.exists(assert, $collectionViewReportButton, 'Missing collection view report button');
+    assert.equal($collectionViewReportButton.hasClass('collection-view-report-button'), true, "View report class from second button missing");
 
   });
 });
@@ -195,12 +198,12 @@ test('Test for not started lesson performance', function(assert) {
     assert.equal(T.text($collectionTitle), "A2: Indian History Assessment", "Wrong title");
 
     const $collectionStudyButton = $component.find(".collections-container div:first-child .collection-performance-title div button:first-child");
-    const $collectionViewReportButton = $component.find(".collections-container div:first-child .collection-performance-title div button:nth-child(2)");
+
     T.exists(assert, $collectionStudyButton, 'Missing collection study button');
-    T.exists(assert, $collectionViewReportButton, 'Missing collection view report button');
+
 
     assert.equal($collectionStudyButton.hasClass('collection-study-button'), true, "Study class from first button missing");
-    assert.equal($collectionViewReportButton.hasClass('collection-view-report-button'), true, "View report class from second button missing");
+
 
 
   });

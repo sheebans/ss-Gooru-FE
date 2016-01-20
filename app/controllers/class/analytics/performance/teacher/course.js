@@ -39,6 +39,13 @@ export default Ember.Controller.extend({
   "class": Ember.computed.reads('classController.class'),
 
   /**
+   * A link to the parent class controller
+   * @see controllers/class.js
+   * @property {Course}
+   */
+  course: Ember.computed.alias('classController.course'),
+
+  /**
    * The header titles
    * @property {Headers[]}
    */

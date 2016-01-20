@@ -2,6 +2,9 @@ import Ember from 'ember';
 import DS from 'ember-data';
 import StoreMixin from '../../mixins/store';
 
+/**
+ * @typedef {Object} PerformanceService
+ */
 export default Ember.Service.extend(StoreMixin, {
 
   /**

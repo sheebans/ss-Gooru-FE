@@ -65,17 +65,18 @@ export default Ember.Controller.extend({
         attempt: 1104,
         question: {
           id: 202,
-          questionType: 'MA',
-          text: 'Sample Question MA',
+          questionType: 'OE',
+          text: 'This is question 1',
           hints: [],
           explanation: 'Sample explanation text',
-          order: 2
+          order: 2,
+          isOpenEnded: true
         },
         user: 901,
         correct: true,
         reaction: 3,
         timeSpent: 56,
-        answer: []
+        answer: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
       })
     ],
     submittedOn: 'Friday, January 15, 2016 6:02 AM',

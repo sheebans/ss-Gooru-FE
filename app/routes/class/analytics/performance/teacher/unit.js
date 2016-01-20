@@ -52,24 +52,22 @@ export default Ember.Route.extend({
     const headers = this.get('lessonService').findByClassAndCourseAndUnit(classId, courseId, unitId);
 
     // TODO: Remove this temporal variable once it is not required
-    const unitIds = Ember.A([
-      '31886eac-f998-493c-aa42-016f53e9fa88',
-      '7deebd55-1976-40a2-8e46-3b8ec5b6d388',
-      '21654d76-45e7-45e9-97ab-5f96a14da135',
-      'c1f810a2-c87f-48f5-a899-0d9753383042',
-      'dfc99db4-d331-4733-ac06-35358cee5c64'
+    const lessonIds = Ember.A([
+      'fbd76aed-1b8d-4c2c-a9c6-c7603eef347c',
+      'aaac5d15-8434-43ff-8f8b-78cf0b6fd032',
+      'cc2bc04c-05ab-4407-9d76-b7021d6138e3'
     ]);
     // TODO: Remove this temporal variable once it is not required
     const users = Ember.A([
-      Ember.Object.create({id: '1', username: 'jenniferajoy', firstName: 'Jennifer', lastName: 'Ajoy', units: unitIds}),
-      Ember.Object.create({id: '2', username: 'jeffreybermudez', firstName: 'Jeffrey', lastName: 'Bermudez', units: unitIds}),
-      Ember.Object.create({id: '3', username: 'javierperez', firstName: 'Javier', lastName: 'Perez', units: unitIds}),
-      Ember.Object.create({id: '4', username: 'melanydelagado', firstName: 'Melany', lastName: 'Delgado', units: unitIds}),
-      Ember.Object.create({id: '5', username: 'diegoarias', firstName: 'Diego', lastName: 'Arias', units: unitIds}),
-      Ember.Object.create({id: '6', username: 'davidquiros', firstName: 'David', lastName: 'Quiros', units: unitIds}),
-      Ember.Object.create({id: '7', username: 'adrianporras', firstName: 'Adrian', lastName: 'Porras', units: unitIds}),
-      Ember.Object.create({id: '8', username: 'fabianperez', firstName: 'Fabian', lastName: 'Perez', units: unitIds}),
-      Ember.Object.create({id: '9', username: 'laurengutierrez', firstName: 'Lauren', lastName: 'Gutierrez', units: unitIds})
+      Ember.Object.create({id: '1', username: 'jenniferajoy', firstName: 'Jennifer', lastName: 'Ajoy', units: lessonIds}),
+      Ember.Object.create({id: '2', username: 'jeffreybermudez', firstName: 'Jeffrey', lastName: 'Bermudez', units: lessonIds}),
+      Ember.Object.create({id: '3', username: 'javierperez', firstName: 'Javier', lastName: 'Perez', units: lessonIds}),
+      Ember.Object.create({id: '4', username: 'melanydelagado', firstName: 'Melany', lastName: 'Delgado', units: lessonIds}),
+      Ember.Object.create({id: '5', username: 'diegoarias', firstName: 'Diego', lastName: 'Arias', units: lessonIds}),
+      Ember.Object.create({id: '6', username: 'davidquiros', firstName: 'David', lastName: 'Quiros', units: lessonIds}),
+      Ember.Object.create({id: '7', username: 'adrianporras', firstName: 'Adrian', lastName: 'Porras', units: lessonIds}),
+      Ember.Object.create({id: '8', username: 'fabianperez', firstName: 'Fabian', lastName: 'Perez', units: lessonIds}),
+      Ember.Object.create({id: '9', username: 'laurengutierrez', firstName: 'Lauren', lastName: 'Gutierrez', units: lessonIds})
     ]);
 
     const classPerformanceData = this.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, { users: users });

@@ -1,54 +1,58 @@
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <td></td>
-      <th class="header" scope="col">
-        {{t "class.analytics.performance.teacher.metricsTable.average"}}
-      </th>
-      {{#each headers as |header|}}
-        <th id="{{{header.id}}}" class="header pointer" scope="col" {{action 'navigate' header.id}}>
-          <div class="header-title">
-            {{{header.title}}}
-          </div>
+{{#if headers}}
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <td></td>
+        <th class="header" scope="col">
+          {{t "class.analytics.performance.teacher.metricsTable.average"}}
         </th>
-      {{/each}}
-    </tr>
-    <tr>
-      <th class="header" scope="row">
-        {{t "class.analytics.performance.teacher.metricsTable.average"}}
-      </th>
-      {{#each averageHeaders.performanceData as |average|}}
-        <th class="performance-information">
-          {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions}}
+        {{#each headers as |header|}}
+          <th id="{{{header.id}}}" class="header pointer" scope="col" {{action 'navigate' header.id}}>
+            <div class="header-title">
+              {{{header.title}}}
+            </div>
+          </th>
+        {{/each}}
+      </tr>
+      <tr>
+        <th class="header" scope="row">
+          {{t "class.analytics.performance.teacher.metricsTable.average"}}
         </th>
-      {{/each}}
-    </tr>
-    <tr class="sub-header hidden-xs">
-      <th>
-        {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' metrics=averageMetrics}}
-      </th>
-      <th>
-        {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' dataPickerOptions=dataPickerOptions}}
-      </th>
-      {{#each headers as |header|}}
+        {{#each averageHeaders.performanceData as |average|}}
+          <th class="performance-information">
+            {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions}}
+          </th>
+        {{/each}}
+      </tr>
+      <tr class="sub-header hidden-xs">
+        <th>
+          {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' metrics=averageMetrics}}
+        </th>
         <th>
           {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' dataPickerOptions=dataPickerOptions}}
         </th>
-      {{/each}}
-    </tr>
-  </thead>
-  <tbody>
-    {{#each performanceData as |userPerformance|}}
-      <tr>
-        <th class="header user-info fixed" scope="row">
-          {{{userPerformance.user}}}
-        </th>
-        {{#each userPerformance.performanceData as |data|}}
-          <td class="performance-information">
-            {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=data dataPickerOptions=dataPickerOptions}}
-          </td>
+        {{#each headers as |header|}}
+          <th>
+            {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' dataPickerOptions=dataPickerOptions}}
+          </th>
         {{/each}}
       </tr>
-    {{/each}}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {{#each performanceData as |userPerformance|}}
+        <tr>
+          <th class="header user-info fixed" scope="row">
+            {{{userPerformance.user}}}
+          </th>
+          {{#each userPerformance.performanceData as |data|}}
+            <td class="performance-information">
+              {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=data dataPickerOptions=dataPickerOptions}}
+            </td>
+          {{/each}}
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{else}}
+  <span class="no-content">{{t "common.no-content"}}</span>
+{{/if}}

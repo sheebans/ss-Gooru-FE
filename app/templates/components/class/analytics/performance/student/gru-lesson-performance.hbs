@@ -24,22 +24,29 @@
       <div class="collection-performance row">
           <ul>
             <li class="col-xs-8 col-sm-4 collection-performance-title">
-              <span class="row">
-                {{if collection.isCollection "C" (if collection.isAssessment "A")}}{{plus-one index}}: {{collection.title}}
-              </span>
+              {{#if collection.isCompleted}}
+                <span class="row" >
+                  {{if collection.isCollection "C" (if collection.isAssessment "A")}}{{plus-one index}}: {{collection.title}}
+                </span>
+              {{else}}
+                  <span class="row has-action" {{action "selectResource" collection.id}}>
+                  {{if collection.isCollection "C" (if collection.isAssessment "A")}}{{plus-one index}}: {{collection.title}}
+                </span>
+              {{/if}}
               <div class="row hidden-xs">
                 {{#if collection.isCompleted}}
-                    <button class="btn btn-sm btn-default collection-redo-button">{{t "gru-performance-summary.redo"}}</button>
+                  <button class="btn btn-sm btn-default collection-redo-button">{{t "gru-performance-summary.redo"}}</button>
+                  <button class="btn btn-sm btn-default collection-view-report-button">{{t "gru-performance-summary.view-report"}}</button>
                 {{else}}
-                    <button class="btn btn-sm btn-default collection-study-button">{{t "gru-performance-summary.study"}}</button>
-                    <button class="btn btn-sm btn-default collection-view-report-button">{{t "gru-performance-summary.view-report"}}</button>
+                  <button class="btn btn-sm btn-default collection-study-button" {{action "selectResource" collection.id}}>{{t "gru-performance-summary.study"}}</button>
                 {{/if}}
               </div>
             </li>
             <li class="col-xs-4 col-sm-8 collection-performance-content">
                 {{class.analytics.performance.gru-performance-summary
                 performance=collection
-                selectedOption=selectedOption}}
+                selectedOption=selectedOption
+                onSelectResource=(action 'selectResource')}}
             </li>
           </ul>
       </div>

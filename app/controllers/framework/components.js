@@ -66,6 +66,17 @@ export default Ember.Controller.extend({
     color: "#ff860a",
     value: "30"
   })]),
+
+  stackedHorizontalBarData: Ember.A([Ember.Object.create({
+    color: "#00e100",
+    percentage: "20",
+  }),Ember.Object.create({
+    color: "#ff5a5a",
+    percentage: "35"
+  }),Ember.Object.create({
+    color: "#885aff",
+    percentage: "20"
+  })]),
 });
 
 
