@@ -11,7 +11,7 @@ moduleForComponent('/class/analytics/performance/teacher/gru-metrics-table', 'In
 });
 
 test('Metrics Table Layout', function(assert) {
-  assert.expect(9);
+  assert.expect(10);
 
   const headersMock = Ember.A([Ember.Object.create({
     id: '82168746-a4af-48aa-9975-01f6434cd806',
@@ -71,8 +71,9 @@ test('Metrics Table Layout', function(assert) {
   this.set('headers', headersMock);
   this.set('performanceDataMatrix', classPerformanceDataMock);
   this.set('selectedOptions', dataPickerOptionsMock);
+  this.set('headerType', 'unit');
 
-  this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-table headers=headers performanceDataMatrix=performanceDataMatrix dataPickerOptions=selectedOptions}}`);
+  this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-table headers=headers performanceDataMatrix=performanceDataMatrix dataPickerOptions=selectedOptions headerType=headerType}}`);
 
   const $component = this.$(); //component dom element
   const $metricsTable = $component.find(".gru-metrics-table");
@@ -95,7 +96,7 @@ test('Metrics Table Layout', function(assert) {
   T.exists(assert, $performanceInformation, 'Missing performance information component');
 
   assert.equal($thead.find("tr:first-child th").length, 2, "The thead should have only 2 headers");
-
+  assert.equal(T.text($thead.find("tr:first-child th:eq(1) .prefix")), "U1", "Wrong prefix header");
   assert.equal($tbody.find("th.user-info").length, 2, "The tbody should have only 2 user headers");
 
   //no-content text shouln't be visible because the table has data

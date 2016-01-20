@@ -6,10 +6,10 @@
         <th class="header" scope="col">
           {{t "class.analytics.performance.teacher.metricsTable.average"}}
         </th>
-        {{#each headers as |header|}}
+        {{#each headers as |header index|}}
           <th id="{{{header.id}}}" class="header pointer" scope="col" {{action 'navigate' header.id}}>
             <div class="header-title">
-              {{{header.title}}}
+               <span class="prefix">{{{course-sections-prefix index=index type=headerType}}}</span><br/>{{{header.title}}}
             </div>
           </th>
         {{/each}}
