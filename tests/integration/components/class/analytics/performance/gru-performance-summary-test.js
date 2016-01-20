@@ -22,6 +22,7 @@ test('Test for performance summary on valid unit values', function(assert) {
         ratingScore: 0,
         attempts: 2,
         isCompleted: false,
+        hasStarted: true,
         displayableTimeSpent: "1h 30m"
       });
 
@@ -61,6 +62,7 @@ test('Test for performance summary on invalid unit values', function(assert) {
       completionDone: 1,
       ratingScore: 0,
       isCompleted: false,
+      hasStarted: true,
       isUnitOrLesson:true,
       isCollectionOrAssessment:false
     });
@@ -97,6 +99,7 @@ test('Test for performance summary on selected reaction', function(assert) {
       completionTotal: 1,
       ratingScore: 0,
       isCompleted: false,
+      hasStarted: true,
       isUnitOrLesson:true,
       isCollectionOrAssessment:false
     });
@@ -121,7 +124,8 @@ test('Test for the performance summary components completion tab on collection o
       title: "Quiz :: Indian History",
       type: "assessment",
       isCollectionOrAssessment:true,
-      isCompleted: true
+      isCompleted: true,
+      hasStarted:true
 
     });
 
