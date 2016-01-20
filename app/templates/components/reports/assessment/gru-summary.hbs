@@ -1,9 +1,9 @@
-<div class="grade" style="background-color: {{gradeColor model.correctPercentage}}">
-  <span class="percentage">{{model.correctPercentage}}%</span>
-  <span class="attempts">{{model.correctAnswers}} / {{model.totalQuestions}} {{t 'common.correct'}}</span>
+<div class="grade" style="background-color: {{gradeColor attempt.correctPercentage}}">
+  <span class="percentage">{{attempt.correctPercentage}}%</span>
+  <span class="attempts">{{attempt.correctAnswers}} / {{attempt.questionResults.length}} {{t 'common.correct'}}</span>
 </div>
 <div class="overview">
-  <h1>{{model.assessmentName}}</h1>
+  <h1>{{assessment.title}}</h1>
 
   <div class="information">
     <div class="attempt">
@@ -13,33 +13,33 @@
         <div class="attempt-selector">
           <div class="dropdown current-attempt">
             <button class="btn btn-default dropdown-toggle" type="button"
-                    data-toggle="dropdown">{{model.currentAttempt}}<span class="caret"></span></button>
+                    data-toggle="dropdown">{{selectedAttempt}}<span class="caret"></span></button>
             <ul class="dropdown-menu">
-              {{#each model.attemptsList as |attempt index|}}
+              {{#each assessment.attempts as |attempt index|}}
                 <li><a href="#{{attempt}}">{{plus-one index}}</a></li>
               {{/each}}
             </ul>
           </div>
           <span>/</span>
-          <span class="total-attempts">{{model.totalAttempts}}</span>
+          <span class="total-attempts">{{assessment.attempts.length}}</span>
         </div>
 
-        <span class="date">{{model.submittedOn}}</span>
+        <span class="date">{{attempt.submittedOn}}</span>
       </div>
     </div>
 
     <div class="time">
       <strong>{{t "common.timeSpent"}}</strong>
-      <span>{{formatTime model.timeSpent}}</span>
+      <span>{{formatTime attempt.totalTimeSpent}}</span>
     </div>
 
     <div class="reaction">
       <strong>{{t "common.reaction"}}</strong>
-      <i class="emotion emotion-{{model.reaction}}"></i>
+      <i class="emotion emotion-{{attempt.averageReaction}}"></i>
     </div>
   </div>
 
-  {{gru-bubbles bubbleOptions=model.resourceLinks}}
+  {{gru-bubbles bubbleOptions=resourceLinks}}
 
 </div>
 

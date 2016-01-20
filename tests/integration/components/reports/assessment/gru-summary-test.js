@@ -12,42 +12,56 @@ moduleForComponent('reports/assessment/gru-summary', 'Integration | Component | 
 
 test('it renders', function (assert) {
 
-  const model = Ember.Object.create({
-
-    attemptsList: [
-      100,
-      101,
-      102,
-      103
+  const assessmentResult = Ember.Object.create({
+    id: 501,
+    attempts: [
+      1101,
+      1102,
+      1103,
+      1104
     ],
-
-    assessmentName: 'Sample Assessment Name',
-    reaction: 2,
-    timeSpent: 1695,
-    correctPercentage: 50,
-    correctAnswers: 1,
-    currentAttempt: 3,
-
-    resourceLinks: [
-      Ember.Object.create({
-        'label': "1",
-        'status': 'correct',
-        'value': 10
-      }),
-      Ember.Object.create({
-        'label': "2",
-        'status': 'incorrect',
-        'value': 11
-      })],
-
-    submittedOn: 'Friday, January 15, 2016 6:02 AM',
-    totalAttempts: 4,
-    totalQuestions: 2
+    title: 'Test Assessment Name'
   });
 
-  this.set('model', model);
+  const attemptResult = Ember.Object.create({
+    id: 1103,
 
-  this.render(hbs`{{reports/assessment/gru-summary model=model}}`);
+    averageReaction: 2,
+    totalTimeSpent: 1695,
+    correctPercentage: 67,
+    correctAnswers: 2,
+
+    questionResults: [
+      {
+        id: 601,
+        question: {
+          order: 1
+        },
+        correct: false
+      },
+      {
+        id: 603,
+        question: {
+          order: 3
+        },
+        correct: true
+      },
+      {
+        id: 602,
+        question: {
+          order: 2
+        },
+        correct: true
+      }
+    ],
+
+    submittedOn: 'Friday, January 15, 2016 6:02 AM'
+  });
+
+  this.set('assessment', assessmentResult);
+  this.set('attempt', attemptResult);
+
+  this.render(hbs`{{reports/assessment/gru-summary assessment=assessment attempt=attempt}}`);
 
   var $component = this.$('.reports.assessment.gru-summary');  //component dom element
   assert.ok($component.length, "Component does not have the component classes");
@@ -57,15 +71,15 @@ test('it renders', function (assert) {
 
   var $percentage = $gradeContainer.find('.percentage');
   assert.ok($percentage.length, "Percentage container is missing");
-  assert.equal($percentage.text().trim(), "50%", "Incorrect percentage text");
+  assert.equal($percentage.text().trim(), "67%", "Incorrect percentage text");
 
   var $attempts = $gradeContainer.find('.attempts');
-  assert.equal($attempts.text().trim(), "1 / 2 " + this.get('i18n').t('common.correct').string, "Incorrect attempts text");
+  assert.equal($attempts.text().trim(), "2 / 3 " + this.get('i18n').t('common.correct').string, "Incorrect attempts text");
 
   var $overviewContainer = $component.find('> .overview');
   assert.ok($overviewContainer.length, "Overview container is missing");
   assert.ok($overviewContainer.find('h1').length, "Header element is missing");
-  assert.equal($overviewContainer.find('h1').text().trim(), 'Sample Assessment Name', "Incorrect header text");
+  assert.equal($overviewContainer.find('h1').text().trim(), 'Test Assessment Name', "Incorrect header text");
 
   // Attempt
   var $overviewSection = $overviewContainer.find('.information .attempt');
@@ -87,6 +101,6 @@ test('it renders', function (assert) {
 
   // Reaction
   var $questionLinks = $overviewContainer.find('.gru-bubbles');
-  assert.equal($questionLinks.find('li').length, 2, "Incorrect number of question links");
+  assert.equal($questionLinks.find('li').length, 3, "Incorrect number of question links");
 });
 

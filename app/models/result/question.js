@@ -1,4 +1,5 @@
-import DS from "ember-data";
+//import DS from "ember-data";
+import Ember from "ember";
 
 /**
  * Model for a question that has been answered. This question result is one of many
@@ -7,12 +8,14 @@ import DS from "ember-data";
  * @typedef {Object} QuestionResult
  *
  */
-export default DS.Model.extend({
+
+// TODO: Extend from DS.Model
+export default Ember.Object.extend({  // DS.Model.extend({
 
   /**
    * @property {number} attempt - ID of the attempt this question result belongs to
    */
-  attempt: DS.attr('number'),
+  attempt: null,            // DS.attr('number'),
 
   /**
    * @property {Object} question - Question that this question result refers to
@@ -25,32 +28,32 @@ export default DS.Model.extend({
    * explanation: DS.attr('string'),
    * order: DS.attr('number'),
    */
-  question: DS.attr(),
+  question: {},             // DS.attr(),
 
   /**
    * @property {number} user - ID of the author that committed this question result
    */
-  user: DS.attr('number'),
+  user: null,               // DS.attr('number'),
 
   /**
    * @property {boolean} correct - Was the answer provided by the user correct?
    */
-  correct: DS.attr('boolean'),
+  correct: false,           // DS.attr('boolean'),
 
   /**
    * @property {number} reaction - Value of the reaction the user had towards the question
    */
-  reaction: DS.attr('number'),
+  reaction: 0,              // DS.attr('number'),
 
   /**
    * @property {number} timeSpent - Time in seconds that it took the user to answer the question
    */
-  timeSpent: DS.attr('number'),
+  timeSpent: 0,             // DS.attr('number'),
 
   /**
    * @property {Object} answer - Answer provided by the user
    */
-  answer: DS.attr()
+  answer: null              // DS.attr()
 
 });
 

@@ -1,4 +1,4 @@
-import { isNumeric } from '../../../utils/math';
+import { isNumeric, average } from '../../../utils/math';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | math');
@@ -51,4 +51,19 @@ test('isNumeric with non-numeric values', function (assert) {
   assert.ok(!isNumeric(function () {
   }), "Instance of a function");
 
+});
+
+test('Average on array of values', function (assert) {
+  assert.equal(average([2]), 2, 'Array with one number');
+  assert.equal(average([2, 4]), 3, 'Array with two numbers');
+  assert.equal(average([3, 4]), 3.5, 'Array with two numbers -decimal point');
+  assert.equal(average([1, 2, 3, 4, 5]), 3, 'Array with more than two numbers');
+});
+
+test('Average on non-valid values', function (assert) {
+  assert.ok(!average('Test'), 'String');
+  assert.ok(!average(5), 'Number');
+  assert.ok(!average({}), 'Empty object');
+  assert.ok(!average({a: 1, b: 2}), 'Object');
+  assert.ok(!average([]), 'Empty array');
 });
