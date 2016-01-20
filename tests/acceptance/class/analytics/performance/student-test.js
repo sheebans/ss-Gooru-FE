@@ -198,14 +198,16 @@ test('Transition to a collection or assessment direclty', function(assert) {
     const $firstUnitContainer = $performanceContainer.find("div.gru-unit-performance-container:first-child");
     T.exists(assert, $firstUnitContainer, "No first unit container");
 
-    const $firstUnitLessonsContainer = $firstUnitContainer.find(".lessons-container.in");
+    const $firstUnitLessonsContainer = $firstUnitContainer.find("#0619777a-45fa-4bfe-b800-40b2ab158c7a");
     T.exists(assert, $firstUnitLessonsContainer, "No first unit lessons container");
+    assert.ok($firstUnitLessonsContainer.hasClass("in"), "Missing in class.");
 
     const $firstLesson = $firstUnitLessonsContainer.find(".gru-lesson-performance-container:first-child");
     T.exists(assert, $firstLesson, "No first lesson container");
 
-    const $firstLessonCollectionsContainer = $firstLesson.find(".collections-container.in");
-    T.exists(assert, $firstLessonCollectionsContainer, "No first lesson collections container");
+    const $firstLessonCollectionsContainer = $performanceContainer.find("#2cd0cb03-91f6-4a8f-b799-2f04039e02c5");
+    T.exists(assert, $firstLessonCollectionsContainer, "No first lesson collections container"+$firstLessonCollectionsContainer.html());
+    assert.ok($firstLessonCollectionsContainer.hasClass("in"), "Missing in class.");
 
   });
 });
