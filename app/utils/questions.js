@@ -8,7 +8,7 @@ import Ember from 'ember';
  *
  * @typedef {Object} QuestionUtil
  */
-const QuestionUtil = Ember.Object.extend({
+export const QuestionUtil = Ember.Object.extend({
 
   // -------------------------------------------------------------------------
   // Properties
@@ -59,7 +59,7 @@ const QuestionUtil = Ember.Object.extend({
     Ember.Logger.warning("The method getCorrectAnswer is not implemented");
   }
 
-});
+}),
 
 
 /**
@@ -68,7 +68,7 @@ const QuestionUtil = Ember.Object.extend({
  *
  * @typedef {Object} MultipleChoiceUtil
  */
-const MultipleChoiceUtil = QuestionUtil.extend({
+MultipleChoiceUtil = QuestionUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -107,7 +107,7 @@ const MultipleChoiceUtil = QuestionUtil.extend({
   }
 
 
-});
+}),
 
 /**
  * It contains convenience methods for grading and retrieving useful information
@@ -115,7 +115,7 @@ const MultipleChoiceUtil = QuestionUtil.extend({
  *
  * @typedef {Object} MultipleAnswerUtil
  */
-const MultipleAnswerUtil = QuestionUtil.extend({
+MultipleAnswerUtil = QuestionUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -146,7 +146,7 @@ const MultipleAnswerUtil = QuestionUtil.extend({
   }
 
 
-});
+}),
 
 /**
  * It contains convenience methods for grading and retrieving useful information
@@ -154,7 +154,7 @@ const MultipleAnswerUtil = QuestionUtil.extend({
  *
  * @typedef {Object} TrueFalseUtil
  */
-const TrueFalseUtil = MultipleChoiceUtil.extend({
+TrueFalseUtil = MultipleChoiceUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -163,7 +163,7 @@ const TrueFalseUtil = MultipleChoiceUtil.extend({
   // -------------------------------------------------------------------------
   // Methods
 
-});
+}),
 
 
 /**
@@ -172,7 +172,7 @@ const TrueFalseUtil = MultipleChoiceUtil.extend({
  *
  * @typedef {Object} FillInTheBlankUtil
  */
-const FillInTheBlankUtil = QuestionUtil.extend({
+FillInTheBlankUtil = QuestionUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -203,7 +203,7 @@ const FillInTheBlankUtil = QuestionUtil.extend({
   }
 
 
-});
+}),
 
 /**
  * It contains convenience methods for grading and retrieving useful information
@@ -211,7 +211,7 @@ const FillInTheBlankUtil = QuestionUtil.extend({
  *
  * @typedef {Object} ReorderUtil
  */
-const ReorderUtil = QuestionUtil.extend({
+ReorderUtil = QuestionUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -242,7 +242,7 @@ const ReorderUtil = QuestionUtil.extend({
   }
 
 
-});
+}),
 
 /**
  * It contains convenience methods for grading and retrieving useful information
@@ -250,7 +250,7 @@ const ReorderUtil = QuestionUtil.extend({
  *
  * @typedef {Object} HotSpotImageUtil
  */
-const HotSpotImageUtil = MultipleAnswerUtil.extend({
+HotSpotImageUtil = MultipleAnswerUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -279,7 +279,7 @@ const HotSpotImageUtil = MultipleAnswerUtil.extend({
     });
   }
 
-});
+}),
 
 
 /**
@@ -288,7 +288,7 @@ const HotSpotImageUtil = MultipleAnswerUtil.extend({
  *
  * @typedef {Object} HotSpotTextUtil
  */
-const HotSpotTextUtil = HotSpotImageUtil.extend({
+HotSpotTextUtil = HotSpotImageUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -298,10 +298,3 @@ const HotSpotTextUtil = HotSpotImageUtil.extend({
   // Methods
 
 });
-
-
-export {
-  QuestionUtil, MultipleChoiceUtil, MultipleAnswerUtil,
-  TrueFalseUtil, FillInTheBlankUtil, ReorderUtil,
-  HotSpotImageUtil, HotSpotTextUtil
-};
