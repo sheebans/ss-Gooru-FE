@@ -70,8 +70,8 @@ export default Ember.Component.extend({
 
 
   didInsertElement:function(){
-    if(this.get('performance.id')===this.get('selectedUnitId')){
-      this.loadSelectedItems(this.get('performance'));
+    if(this.get('unit.id')===this.get('selectedUnitId')){
+      this.loadSelectedItems(this.get('unit'));
     }
   },
   // -------------------------------------------------------------------------
@@ -106,7 +106,17 @@ export default Ember.Component.extend({
    * @property {String}
    */
   userId:'',
+  /**
+   * Currently selected unit Id
+   *
+   * @property {String}
+   */
   selectedUnitId:null,
+  /**
+   * Currently selected lesson Id
+   *
+   * @property {String}
+   */
   selectedLessonId:null,
   /**
    * Performance model for the unit

@@ -46,14 +46,10 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
      * @param transition - it is the transition promise.
      */
     loading(transition) {
-      let route = this;
-      let unitId;
-
-      let classController = route.controllerFor('class');
-      classController.set('currentlyLoading', true);
+      let controller = this.controllerFor('class');
+      controller.set('currentlyLoading', true);
       transition.promise.finally(function() {
-        classController.set('currentlyLoading', false);
-        unitId=route.controller.get('unitId');
+        controller.set('currentlyLoading', false);
       });
     },
     /**
