@@ -61,6 +61,14 @@ export default Ember.Component.extend({
   }),
 
   /**
+   * If score option is selected
+   * @property {Boolean}
+   */
+  showScore: Ember.computed('dataPickerOptions.[]', function() {
+    const dataPickerOptions = this.get('dataPickerOptions');
+    return dataPickerOptions.contains('score');
+  }),
+  /**
    * If completion option is selected
    * @property {Boolean}
    */

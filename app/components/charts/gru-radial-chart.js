@@ -13,7 +13,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['gru-radial-chart', 'table-cell'],
+  classNames: ['gru-radial-chart'],
   // -------------------------------------------------------------------------
   // Events
 

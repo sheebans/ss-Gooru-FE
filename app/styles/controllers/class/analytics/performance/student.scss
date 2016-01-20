@@ -39,19 +39,6 @@
   }
 
   .gru-content {
-
     min-height: 400px; /* This is temporal for layout */
-  }
-  .gru-data-picker{
-    .option-picker{
-      text-align: center;
-      .option-list{
-        .active{
-          i{
-            color:$branding-primary-1;
-          }
-        }
-      }
-    }
   }
 }

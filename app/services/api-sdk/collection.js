@@ -2,6 +2,9 @@ import Ember from 'ember';
 import StoreMixin from '../../mixins/store';
 import SessionMixin from '../../mixins/session';
 
+/**
+ * @typedef {Object} CollectionService
+ */
 export default Ember.Service.extend(StoreMixin, SessionMixin, {
 
   /**

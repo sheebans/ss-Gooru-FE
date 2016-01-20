@@ -113,13 +113,14 @@ export default Ember.Controller.extend({
     results: Ember.A([Ember.Object.create({
       id: 890,
       question: Ember.Object.create({
-        text:"This is a question 1"
+        text:"This is a question 1",
+        isOpenEnded: true
       }),
       correct: true,
       timeSpent: 10, //seconds
       reaction: 5,
       order: 1,
-      answer: "answer" // json object representing each question type answer
+      answer: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua." // json object representing each question type answer
     }), Ember.Object.create({
       id: 891,
       question: Ember.Object.create({
