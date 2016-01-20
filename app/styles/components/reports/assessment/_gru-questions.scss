@@ -17,6 +17,27 @@
       height: 30px;
       text-align: center;
     }
+    th.number {
+      width: 3%;
+    }
+    th.question {
+      width: 25%;
+    }
+    th.answer {
+      width: 36%;
+    }
+    th.score {
+      width: 12%;
+    }
+    th.time-spent {
+      width: 12%;
+    }
+    th.reaction {
+      width: 12%;
+    }
+    th.correct-answer {
+      width: 36%;
+    }
     .question-score span{
       font-size:37px;
     }
@@ -28,6 +49,11 @@
     }
     .question-reaction div{
       margin: 10px auto;
+    }
+    .top-left {
+      text-align: left;
+      vertical-align: top;
+      padding: 10px 15px;
     }
   }
 }
