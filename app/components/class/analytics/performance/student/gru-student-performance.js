@@ -49,6 +49,17 @@ export default Ember.Component.extend({
     selectResource: function (collectionId) {
       // Send the action so that it bubbles up to the route
       this.sendAction('onSelectResource', collectionId);
+    },
+
+    /**
+     * Trigger the 'onLocationUpdate' event handler
+     *
+     * @function actions:updateLocation
+     * @param {string} newLocation - String that contains the id of the change
+     * @param {string} type - String that says whether its a unit or a lesson
+     */
+    updateLocation: function (newLocation,type) {
+      this.get('onLocationUpdate')(newLocation,type);
     }
   },
 
@@ -81,7 +92,9 @@ export default Ember.Component.extend({
    *
    * @property {String}
    */
-  userId:''
+  userId:'',
+  selectedUnitId:'',
+  selectedLessonId:''
 
   // -------------------------------------------------------------------------
 

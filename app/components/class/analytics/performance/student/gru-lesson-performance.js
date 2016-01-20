@@ -35,17 +35,20 @@ export default Ember.Component.extend({
      *
      * @function actions:selectUnit
      */
-    selectLesson: function () {
+    selectLesson: function (lesson) {
       const component = this;
       let element =$('#'+ component.get('elementId')+' .lesson-performance-title span >i.fa') ;
       if(element.hasClass('fa-chevron-down')){
         element.addClass('fa-chevron-up');
         element.removeClass('fa-chevron-down');
+        this.get('onSelectLesson')(lesson.get('id'));
       }
       else{
         element.addClass('fa-chevron-down');
         element.removeClass('fa-chevron-up');
+        this.get('onSelectLesson')();
       }
+      this.set('selectedLessonId',lesson.get('id'));
     },
     /**
      * @function actions:selectResource
@@ -58,6 +61,12 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Events
+
+  didInsertElement:function(){
+    if(this.get('lesson.id')===this.get('selectedLessonId')){
+      this.$('#lesson-'+this.get('selectedLessonId')).click();
+    }
+  },
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -89,7 +98,8 @@ export default Ember.Component.extend({
    *
    * @property {String}
    */
-  userId:''
+  userId:'',
+  selectedLessonId:''
 
 
   // -------------------------------------------------------------------------

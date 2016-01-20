@@ -1,5 +1,6 @@
     <li class='score'>
-        {{#if performance.score}}
+        {{#if performance.hasStarted}}
+          {{#if performance.score}}
             <div class="description">
                 <div class="radial-progress">
                     <div class="circle">
@@ -14,12 +15,11 @@
                 </div>
                 <p>{{performance.score}}%</p>
             </div>
-        {{else}}
-          {{#if performance.hasStarted}}
-            <p>N/A</p>
           {{else}}
-              <span class="not-started">{{t "gru-performance.notStarted"}}</span>
+            <p>N/A</p>
           {{/if}}
+        {{else}}
+          <span class="not-started">{{t "gru-performance.notStarted"}}</span>
         {{/if}}
     </li>
     <li class="completion">

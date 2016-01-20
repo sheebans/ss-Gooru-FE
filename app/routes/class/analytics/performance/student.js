@@ -46,10 +46,15 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
      * @param transition - it is the transition promise.
      */
     loading(transition) {
-      let controller = this.controllerFor('class');
-      controller.set('currentlyLoading', true);
+      let route = this;
+      let unitId;
+      let lessonId;
+
+      let classController = route.controllerFor('class');
+      classController.set('currentlyLoading', true);
       transition.promise.finally(function() {
-        controller.set('currentlyLoading', false);
+        classController.set('currentlyLoading', false);
+        unitId=route.controller.get('unitId');
       });
     },
     /**
@@ -72,5 +77,6 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
     controller.set("userId", model.userId);
     controller.set("classModel", model.classModel);
     controller.get('classController').selectMenuItem('analytics.performance');
+
   }
 });

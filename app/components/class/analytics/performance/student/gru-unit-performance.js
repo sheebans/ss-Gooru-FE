@@ -23,13 +23,30 @@ export default Ember.Component.extend({
       component.loadLessons(unit.get('id'));
 
       let element =$('#'+ component.get('elementId')) ;
+
+      let hasLessonsOpen = element.find('#'+unit.get('id')+' .gru-lesson-performance-container .collections-container.in');
+
       if(element.hasClass('selected')){
         element.removeClass('selected');
+        this.get('onLocationUpdate')('', 'unit');
       }
       else{
         $('.gru-unit-performance-container.selected').removeClass('selected');
         element.addClass('selected');
+
+        this.get('onLocationUpdate')(unit.get('id'), 'unit');
+
+        this.get('onLocationUpdate')('','lesson');
+
+        if(hasLessonsOpen.length>0){
+          this.get('onLocationUpdate')(hasLessonsOpen.attr('id'),'lesson');
+        }
+        else{
+          this.get('onLocationUpdate')('','lesson');
+        }
       }
+      this.set('selectedUnitId',unit.get('id'));
+
     },
     /**
      * @function actions:selectResource
@@ -37,10 +54,26 @@ export default Ember.Component.extend({
      */
     selectResource: function (collectionId) {
       this.get('onSelectResource')(collectionId);
+    },
+    /**
+     * Trigger the 'onLocationUpdate' event handler with the unit and lesson information
+     *
+     * @function actions:updateLesson
+     */
+    updateSelectedLesson: function (lessonId) {
+      this.get('onLocationUpdate')(lessonId, 'lesson');
+      this.set('selectedLessonId',lessonId);
     }
   },
   // -------------------------------------------------------------------------
   // Events
+
+
+  didInsertElement:function(){
+    if(this.get('performance.id')===this.get('selectedUnitId')){
+      this.loadSelectedItems(this.get('performance'));
+    }
+  },
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -73,12 +106,14 @@ export default Ember.Component.extend({
    * @property {String}
    */
   userId:'',
+  selectedUnitId:null,
+  selectedLessonId:null,
   /**
    * Performance model for the unit
    *
    * @property {performance/performance}
    */
-  performance:null,
+  unit:null,
 
   /**
    * @prop {Boolean}
@@ -116,5 +151,20 @@ export default Ember.Component.extend({
           component.set('isLoading',false);
         });
     }
+  },
+  loadSelectedItems: function(unit){
+    const component = this;
+    if(component.get('selectedUnitId') !== unit.get('id')){
+      this.get('onLocationUpdate')(unit.get('id'), 'unit');
+      this.get('onLocationUpdate')('','lesson');
+    }
+    component.loadLessons(unit.get('id'));
+    let element =$('#'+ component.get('elementId'));
+    let collapsibleElement=$('#'+unit.get('id'));
+    element.addClass('selected');
+
+    collapsibleElement.collapse({toggle:true,parent:'.gru-student-performance-container'});
+
   }
+
 });
