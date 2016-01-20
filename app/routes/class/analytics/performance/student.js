@@ -48,7 +48,6 @@ export default Ember.Route.extend(ApplicationRouteMixin,{
     loading(transition) {
       let route = this;
       let unitId;
-      let lessonId;
 
       let classController = route.controllerFor('class');
       classController.set('currentlyLoading', true);

@@ -64,7 +64,7 @@ export default Ember.Component.extend({
 
   didInsertElement:function(){
     if(this.get('lesson.id')===this.get('selectedLessonId')){
-      this.$('#lesson-'+this.get('selectedLessonId')).click();
+      this.loadSelectedItems(this.get('lesson'));
     }
   },
   // -------------------------------------------------------------------------
@@ -99,7 +99,31 @@ export default Ember.Component.extend({
    * @property {String}
    */
   userId:'',
-  selectedLessonId:''
+  selectedLessonId:'',
+
+  loadSelectedItems: function(lesson){
+    const component = this;
+    if(component.get('selectedLessonId') !== lesson.get('id')){
+      this.get('onLocationUpdate')(lesson.get('id'), 'lesson');
+    }
+    let element =$('#'+ component.get('elementId')+' .lesson-performance-title span >i.fa') ;
+    if(element.hasClass('fa-chevron-down')){
+      element.addClass('fa-chevron-up');
+      element.removeClass('fa-chevron-down');
+      this.get('onSelectLesson')(lesson.get('id'));
+    }
+    else{
+      element.addClass('fa-chevron-down');
+      element.removeClass('fa-chevron-up');
+      this.get('onSelectLesson')();
+    }
+
+    let collapsibleElement=$('#'+lesson.get('id'));
+    collapsibleElement.collapse('toggle');
+
+  }
+
+
 
 
   // -------------------------------------------------------------------------
