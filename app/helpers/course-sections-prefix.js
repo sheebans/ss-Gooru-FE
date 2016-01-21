@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { courseSectionsPrefix } from 'gooru-web/utils/utils';
 
 /**Show the Unit, Lesson, Assessment and Collection label correctly,
  *  this is showing the letter and number prior the name.
@@ -18,12 +19,7 @@ export default Ember.Helper.extend({
 
   compute(params,{index, type}) {
     let i18n = this.get('i18n');
-    var prefixIndex = ++index;
-
-    const i18nKey = `common.${type}Initial`;
-    const letter = i18n.t(i18nKey);
-
-    return `${letter}${prefixIndex}`;
+    return courseSectionsPrefix(index,type,i18n);
   }
 
 });

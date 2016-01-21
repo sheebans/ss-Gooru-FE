@@ -82,7 +82,7 @@ test('Test for unit performance', function(assert) {
 
   });
 
-  assert.expect(10);
+  assert.expect(12);
 
   this.render(hbs`{{class.analytics.performance.student.gru-unit-performance
     unit=unit
