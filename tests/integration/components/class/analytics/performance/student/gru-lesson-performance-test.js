@@ -60,7 +60,7 @@ test('Test for started lesson performance', function(assert) {
   this.set('onSelectLesson', function(){
     assert.ok(true, "This should be called 1 time");
   });
-  assert.expect(11);
+  assert.expect(12);
   this.render(hbs`{{class.analytics.performance.student.gru-lesson-performance
     lesson=lesson
     localIndex=index
