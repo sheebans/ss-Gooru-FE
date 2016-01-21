@@ -66,3 +66,11 @@ export function getGradeColor(grade) {
   }
   return color;
 }
+/**
+ * Convert a number into Upper Letter
+ * @param number
+ * @returns {string}
+ */
+export function getLetter(number){
+  return String.fromCharCode(65 + number);
+}
