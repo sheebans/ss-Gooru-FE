@@ -49,9 +49,9 @@ test('it renders', function (assert) {
     totalQuestions: 2
   });
 
-  this.set('model', model);
+  this.set('assessmentResult', model);
 
-  this.render(hbs`{{reports/assessment/gru-summary model=model}}`);
+  this.render(hbs`{{reports/assessment/gru-summary assessmentResult=assessmentResult}}`);
 
   var $component = this.$('.reports.assessment.gru-summary');  //component dom element
   assert.ok($component.length, "Component does not have the component classes");
