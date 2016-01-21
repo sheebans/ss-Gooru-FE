@@ -1,7 +1,8 @@
 <div class="grade" style="background-color: {{gradeColor assessment.correctPercentage}}">
   <span class="percentage">{{assessment.correctPercentage}}%</span>
-  <span class="attempts">{{assessment.correctAnswers}}
-    / {{assessment.questionsResults.length}} {{t 'common.correct'}}</span>
+  <span class="attempts">
+    {{assessment.correctAnswers}} / {{assessment.questionsResults.length}} {{t 'common.correct'}}
+  </span>
 </div>
 <div class="overview">
   <h1>{{assessment.title}}</h1>
