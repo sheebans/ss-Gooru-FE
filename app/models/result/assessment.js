@@ -10,11 +10,6 @@ import { average } from "gooru-web/utils/math";
 export default Ember.Object.extend({
 
   /**
-   * @property {number} selectedAttempt - Attempt to which the data in questionsResults correspond
-   */
-  selectedAttempt: 0,
-
-  /**
    * @property {QuestionResultDetails[]} questionsResults
    */
   questionsResults: [],
@@ -29,7 +24,12 @@ export default Ember.Object.extend({
    * relatedQuestions: DS.attr()        // array of question result ids; these correspond to the ids in questionsResults
    * suggestedResources: DS.attr()      // array of resource cards
    */
-  mastery: [],              // DS.attr(),
+  mastery: [],
+
+  /**
+   * @property {number} selectedAttempt - Attempt to which the data in questionsResults correspond
+   */
+  selectedAttempt: 0,
 
   /**
    * @property {date} submittedOn - Date in which the attempt was submitted

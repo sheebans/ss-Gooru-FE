@@ -14,24 +14,12 @@ test('it renders', function (assert) {
 
   const assessmentResult = Ember.Object.create({
     id: 501,
-    attempts: [
-      1101,
-      1102,
-      1103,
-      1104
-    ],
-    title: 'Test Assessment Name'
-  });
-
-  const attemptResult = Ember.Object.create({
-    id: 1103,
-
     averageReaction: 2,
     totalTimeSpent: 1695,
     correctPercentage: 67,
     correctAnswers: 2,
 
-    questionResults: [
+    questionsResults: [
       {
         id: 601,
         question: {
@@ -54,14 +42,15 @@ test('it renders', function (assert) {
         correct: true
       }
     ],
-
-    submittedOn: 'Friday, January 15, 2016 6:02 AM'
+    selectedAttempt: 3,
+    submittedOn: 'Friday, January 15, 2016 6:02 AM',
+    title: 'Test Assessment Name',
+    totalAttempts: 4
   });
 
   this.set('assessment', assessmentResult);
-  this.set('attempt', attemptResult);
 
-  this.render(hbs`{{reports/assessment/gru-summary assessment=assessment attempt=attempt}}`);
+  this.render(hbs`{{reports/assessment/gru-summary assessment=assessment}}`);
 
   var $component = this.$('.reports.assessment.gru-summary');  //component dom element
   assert.ok($component.length, "Component does not have the component classes");

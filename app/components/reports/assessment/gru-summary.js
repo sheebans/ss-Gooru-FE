@@ -12,15 +12,15 @@ export default Ember.Component.extend({
   init: function () {
     this._super(...arguments);
 
-    var selectedAttempt = this.get('assessment.attempts').indexOf(this.get('attempt.id')) + 1;
-    var resourceLinks = this.getResourceLinks(this.get('attempt.questionResults'));
+    var resourceLinks = this.getResourceLinks(this.get('assessment.questionsResults'));
+    var attemptList = this.getAttemptList();
 
     // Sort resource links per the question order number (i.e. label)
     resourceLinks.sort(function (a, b) {
       return a.label - b.label;
     });
 
-    this.set('selectedAttempt', selectedAttempt);
+    this.set('attempts', attemptList);
     this.set('resourceLinks', resourceLinks);
   },
 
@@ -33,16 +33,6 @@ export default Ember.Component.extend({
   assessment: null,
 
   /**
-   * @property {AttemptResult} attempt
-   */
-  attempt: null,
-
-  /**
-   * @property {number} selectedAttempt - Index of selected attempt from a list of attempt IDs
-   */
-  selectedAttempt: 0,
-
-  /**
    * Concise model to be used by the gru-bubbles component
    * @prop {Object[]}
    */
@@ -51,6 +41,19 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+  getAttemptList: function () {
+    var attempts = [];
+    var totalAttempts = this.get('assessment.totalAttempts');
+
+    for (; totalAttempts > 0; totalAttempts--) {
+      attempts.push({
+        label: totalAttempts,
+        value: totalAttempts
+      });
+    }
+    return attempts;
+  },
+
   getResourceLinks: function (questionResults) {
     return questionResults.map(function (questionResult) {
       return {
