@@ -48,7 +48,7 @@ moduleForComponent('class/analytics/performance/student/gru-unit-performance', '
 });
 
 test('Test for unit performance', function(assert) {
-  const performance = Ember.Object.create(
+  const unit = Ember.Object.create(
     {
       id:'333-555-777',
       title: "Quiz :: Indian History",
@@ -68,25 +68,40 @@ test('Test for unit performance', function(assert) {
 
   this.set('userId', "any-user-id");
   this.set('classModel', classModel);
-  this.set('performance', performance);
+  this.set('unit', unit);
   this.set('index',0);
+  this.set('selectedLessonId', 'not-my-id-2');
+  this.set('selectedUnitId', 'not-my-id');
+  this.set('i',0);
+  this.set('onLocationUpdate', function(){
+    assert.ok(true, "This should be called 1 time per click");
+
+  });
+  this.set('updateSelectedLesson', function(){
+    assert.ok(true, "This should be called 1 time per click");
+
+  });
+
+  assert.expect(10);
+
   this.render(hbs`{{class.analytics.performance.student.gru-unit-performance
-    performance=performance
+    unit=unit
     classModel=classModel
     userId=userId
     localIndex=index
-  }}`);
+    selectedLessonId=selectedLessonId
+    selectedUnitId=selectedUnitId
+    onLocationUpdate=onLocationUpdate
+    updateSelectedLesson=updateSelectedLesson
+  }}`);//
   const $component = this.$();
   const $clickableDiv= $component.find(".gru-unit-performance-container >a"); //component dom element
-
-  //const $unitContainer = $component.find();
 
   T.exists(assert, $component, 'Missing Unit Container');
 
   const $titleSpan = $component.find(".performance-unit-title span");
 
   assert.equal(T.text($titleSpan), "U1: Quiz :: Indian History", "Wrong title");
-
 
   Ember.run(() => {
     $clickableDiv.click();
@@ -109,7 +124,7 @@ test('Test for unit performance', function(assert) {
     return wait().then(function() {
 
       const $lessonsContainer = $component.find(".lessons-container");
-      assert.equal($lessonsContainer.hasClass('in'), false, "Lessons container did not open");
+      assert.equal($lessonsContainer.hasClass('in'), false, "Lessons container did not close");
 
     });
   });

@@ -1,11 +1,14 @@
-{{#each performances as | performance index | }}
+{{#each performances as | unit index | }}
   {{class.analytics.performance.student.gru-unit-performance
-    performance=performance
+    unit=unit
     selectedOption=selectedOption
     localIndex=index
     classModel=classModel
     userId=userId
     onSelectResource=(action 'selectResource')
+    onLocationUpdate=(action 'updateLocation')
+    selectedUnitId=selectedUnitId
+    selectedLessonId=selectedLessonId
   }}
 {{else}}
   <span class="no-content">{{t "common.no-content"}}</span>
