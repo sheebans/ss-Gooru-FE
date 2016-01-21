@@ -150,7 +150,7 @@ test('Transition to a collection or assessment', function(assert) {
     assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student');
 
     const $performanceContainer = find(".performance-content");
-    T.exists(assert, $performanceContainer, "No unit anchor to display lessons");
+    T.exists(assert, $performanceContainer, "No performance container");
 
     const $firstUnitContainer = $performanceContainer.find("div.gru-unit-performance-container:first-child");
     T.exists(assert, $firstUnitContainer, "No first unit container");
@@ -160,6 +160,7 @@ test('Transition to a collection or assessment', function(assert) {
 
     click($viewFirstUnitLessons);
     andThen(function() {
+      assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?unitId=0619777a-45fa-4bfe-b800-40b2ab158c7a');
       T.exists(assert, $firstUnitContainer.find(".in"), "Lessons container should be open");
 
       const $firstLessonContainer = $firstUnitContainer.find(".gru-lesson-performance-container:first-child");
@@ -168,6 +169,7 @@ test('Transition to a collection or assessment', function(assert) {
 
       click($viewFirstLessonCollections);
       andThen(function() {
+        assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?lessonId=2cd0cb03-91f6-4a8f-b799-2f04039e02c5&unitId=0619777a-45fa-4bfe-b800-40b2ab158c7a');
         T.exists(assert, $firstLessonContainer.find(".in"), "Collections for the first lesson should be showing");
 
         const $viewCollectionInPlayer = $firstLessonContainer.find(" div.collections-container div:nth-child(2) button.collection-study-button");
@@ -181,6 +183,33 @@ test('Transition to a collection or assessment', function(assert) {
         });
       });
     });
+  });
+});
+
+test('Transition to a collection or assessment directly', function(assert) {
+  visit('/class/class-for-pochita-as-student/analytics/performance/student?lessonId=2cd0cb03-91f6-4a8f-b799-2f04039e02c5&unitId=0619777a-45fa-4bfe-b800-40b2ab158c7a');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?lessonId=2cd0cb03-91f6-4a8f-b799-2f04039e02c5&unitId=0619777a-45fa-4bfe-b800-40b2ab158c7a');
+
+    const $performanceContainer = find(".performance-content");
+    T.exists(assert, $performanceContainer, "No performance container");
+
+    const $firstUnitContainer = $performanceContainer.find("div.gru-unit-performance-container:first-child");
+    T.exists(assert, $firstUnitContainer, "No first unit container");
+
+    const $firstUnitLessonsContainer = $firstUnitContainer.find("#0619777a-45fa-4bfe-b800-40b2ab158c7a");
+    T.exists(assert, $firstUnitLessonsContainer, "No first unit lessons container")
+    ;
+    assert.ok($firstUnitLessonsContainer.hasClass("in"), "Missing in class.");
+
+    const $firstLesson = $firstUnitLessonsContainer.find(".gru-lesson-performance-container:first-child");
+    T.exists(assert, $firstLesson, "No first lesson container");
+
+    const $firstLessonCollectionsContainer = $performanceContainer.find("#2cd0cb03-91f6-4a8f-b799-2f04039e02c5");
+    T.exists(assert, $firstLessonCollectionsContainer, "No first lesson collections container");
+    assert.ok($firstLessonCollectionsContainer.hasClass('in'), "Missing in class.");
+
   });
 });
 

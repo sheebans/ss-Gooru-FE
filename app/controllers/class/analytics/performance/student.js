@@ -14,7 +14,7 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  queryParams: ['filterBy'],
+  queryParams: ['filterBy','unitId','lessonId'],
 
   classController: Ember.inject.controller('class'),
 
@@ -33,6 +33,14 @@ export default Ember.Controller.extend({
       this.set('selectedOption',options[0].get("value"));
     },
 
+    updateLocation:function(newLocation, type){
+      const location = !newLocation ? undefined : newLocation;
+      if(type==='lesson'){
+        this.set('lessonId',location);
+      }else if(type==='unit'){
+        this.set('unitId',location);
+      }
+    },
     /**
      * Triggered when the breadcrumb item is selected
      * @param {*} item
@@ -79,13 +87,13 @@ export default Ember.Controller.extend({
 
   /**
    * The performances for the units that will be shown to the user
-   * @property {Class}
+   * @property {Ember.Array}
    */
   "performances": null,
 
   /**
    * The selected option from the data picker.
-   * @property {Class}
+   * @property {String}
    */
   selectedOption: 'score',
 
@@ -96,9 +104,20 @@ export default Ember.Controller.extend({
   "classModel":null,
   /**
    * The userId for the student
-   * @property {Class}
+   * @property {String}
    */
   userId:'',
+  /**
+   * The unitId for the current unit
+   * @property {String}
+   *
+  unitId:'',
+
+  /**
+   * The lessonId for the current lesson
+   * @property {String}
+   *
+  lessonId:'',
 
   /**
    * The filterBy selected
