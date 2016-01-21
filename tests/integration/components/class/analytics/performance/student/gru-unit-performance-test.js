@@ -97,7 +97,7 @@ test('Test for unit performance', function(assert) {
   const $component = this.$();
   const $clickableDiv= $component.find(".gru-unit-performance-container >a"); //component dom element
 
-  T.exists(assert, $component, 'Missing Unit Container');w
+  T.exists(assert, $component, 'Missing Unit Container');
 
   const $titleSpan = $component.find(".performance-unit-title span");
 
