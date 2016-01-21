@@ -160,7 +160,7 @@ export default Ember.Component.extend({
    * The text for the submit button
    * @property {string}
    */
-  buttonText: Ember.computed('collection',function(){
+  buttonText: Ember.computed('collection','question.id',function(){
     let i18nKey = "common.save-next";
     if (this.get('collection').isLastResource(this.get('question'))){
       i18nKey = (this.get('collection').get('isAssessment')) ? 'common.save-submit' : 'common.save-finish';
