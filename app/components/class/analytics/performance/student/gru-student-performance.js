@@ -93,7 +93,17 @@ export default Ember.Component.extend({
    * @property {String}
    */
   userId:'',
+  /**
+   * Selected UnitId the selected unit's id belongs to
+   *
+   * @property {String}
+   */
   selectedUnitId:'',
+  /**
+   * Selected LessonId the selected lesson's id belongs to
+   *
+   * @property {String}
+   */
   selectedLessonId:''
 
   // -------------------------------------------------------------------------
