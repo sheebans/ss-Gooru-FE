@@ -202,3 +202,29 @@ test('getResourceById', function (assert) {
   assert.ok(resource, "Resource should be found");
   assert.equal(resource.get("id"), 1, "Wrong resource id");
 });
+
+test('isLastResource', function (assert) {
+  assert.expect(2);
+  let store = this.store();
+
+  var resources = Ember.A(),
+    resourceA = null,
+    resourceB = null;
+
+  Ember.run(function () {
+    resourceA = store.createRecord("resource/resource", {id: 1});
+    resourceB = store.createRecord("resource/resource", {id: 2});
+
+    resources.pushObject(resourceA);
+    resources.pushObject(resourceB);
+  });
+  let model = this.subject({
+    resources: resources
+  });
+
+  var lastResource = model.isLastResource(resourceB);
+  assert.ok(lastResource, "It is not the last resource");
+
+  lastResource = model.isLastResource(resourceA);
+  assert.ok(!lastResource, "It is the last resource");
+});

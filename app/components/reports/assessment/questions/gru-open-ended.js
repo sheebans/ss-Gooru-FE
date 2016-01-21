@@ -29,7 +29,7 @@ export default Ember.Component.extend({
   /**
    * @property {string} the user answer, "N/A" is the default.
    */
-  answer: "N/A"
+  userAnswer: "N/A"
 
   // -------------------------------------------------------------------------
   // Observers

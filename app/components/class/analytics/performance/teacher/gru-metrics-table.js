@@ -46,6 +46,12 @@ export default Ember.Component.extend({
   headers: null,
 
   /**
+   * The headerType titles
+   * @property {String}
+   */
+  headerType: null,
+
+  /**
    * The performanceDataMatrix
    * @property {performanceDataMatrix[]}
    */

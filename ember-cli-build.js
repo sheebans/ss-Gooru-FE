@@ -76,5 +76,10 @@ module.exports = function(defaults) {
     development: 'bower_components/switchery/dist/switchery.js',
     production:  'bower_components/switchery/dist/switchery.min.js'
   });
+
+  app.import({
+    development: 'bower_components/moment/moment.js',
+    production:  'bower_components/moment/min/moment.min.js'
+  });
   return app.toTree();
 };

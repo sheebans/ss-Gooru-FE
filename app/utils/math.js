@@ -1,3 +1,4 @@
+import Ember from "ember";
 
 /**
  * Rounds a float number and fixes the decimals to a specified number of digits.
@@ -17,4 +18,23 @@ export function roundFloat(n, decimals = 0) {
  */
 export function isNumeric(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+/**
+ * Computes the average value from a set of values
+ * @param {number[]} values - array of numbers
+ * @returns {number}
+ */
+export function average(values) {
+  var result = null;
+
+  if (typeof values.reduce === 'function' && values.length) {
+    let sum = values.reduce(function (a, b) {
+      return a + b;
+    });
+    result = sum / values.length;
+  } else {
+    Ember.Logger.error('Unable to compute average on param: ', values);
+  }
+  return result;
 }
