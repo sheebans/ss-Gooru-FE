@@ -23,12 +23,30 @@ export default Ember.Component.extend({
       component.loadLessons(unit.get('id'));
 
       let element =$('#'+ component.get('elementId')) ;
+
+      let hasLessonsOpen = element.find('#'+unit.get('id')+' .gru-lesson-performance-container .collections-container.in');
+
       if(element.hasClass('selected')){
         element.removeClass('selected');
+        //When clicking on a unit to close it, remove the unit and lesson query params
+        this.get('onLocationUpdate')('', 'unit');
+        this.set('selectedUnitId', undefined);
+        this.updateSelectedLesson('');
       }
       else{
         $('.gru-unit-performance-container.selected').removeClass('selected');
         element.addClass('selected');
+        //When clicking on a unit to open it set the unit query param and the selectedUnitId attribute
+        this.get('onLocationUpdate')(unit.get('id'), 'unit');
+        this.set('selectedUnitId',unit.get('id'));
+
+        if(hasLessonsOpen.length>0){
+          //If the unit has lessons open, set its first lesson as the lesson query params and set the selectedLessonId property
+          this.updateSelectedLesson(hasLessonsOpen.attr('id'));
+        }else{
+          //Remove the query params if the unit does not have any.
+          this.updateSelectedLesson('');
+        }
       }
     },
     /**
@@ -37,10 +55,31 @@ export default Ember.Component.extend({
      */
     selectResource: function (collectionId) {
       this.get('onSelectResource')(collectionId);
+    },
+    /**
+     * Trigger the 'onLocationUpdate' event handler with the lesson information
+     *
+     * @function actions:updateLesson
+     */
+    updateSelectedLesson: function (lessonId) {
+      if(lessonId){
+        this.set('selectedLessonId',lessonId);
+      }else{
+        this.set('selectedLessonId',undefined);
+      }
+      this.get('onLocationUpdate')(lessonId, 'lesson');
+
     }
   },
   // -------------------------------------------------------------------------
   // Events
+
+
+  didInsertElement:function(){
+    if(this.get('unit.id')===this.get('selectedUnitId')){
+      this.loadSelectedItems(this.get('unit'));
+    }
+  },
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -74,11 +113,23 @@ export default Ember.Component.extend({
    */
   userId:'',
   /**
+   * Currently selected unit Id
+   *
+   * @property {String}
+   */
+  selectedUnitId:undefined,
+  /**
+   * Currently selected lesson Id
+   *
+   * @property {String}
+   */
+  selectedLessonId:undefined,
+  /**
    * Performance model for the unit
    *
    * @property {performance/performance}
    */
-  performance:null,
+  unit:null,
 
   /**
    * @prop {Boolean}
@@ -116,5 +167,13 @@ export default Ember.Component.extend({
           component.set('isLoading',false);
         });
     }
+  },
+  loadSelectedItems: function(unit){
+    const component = this;
+    component.loadLessons(unit.get('id'));
+    let element =$('#'+ component.get('elementId'));
+    let collapsibleElement=$('#'+unit.get('id'));
+    element.addClass('selected');
+    collapsibleElement.collapse({toggle:true,parent:'.gru-student-performance-container'});
   }
 });

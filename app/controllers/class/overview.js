@@ -47,7 +47,7 @@ export default Ember.Controller.extend({
     editContent:function(){
       //TO DO
       Ember.Logger.log("edit content");
-    },
+    }
   },
 
   // -------------------------------------------------------------------------

@@ -1,9 +1,9 @@
-<a href="#collection-container-{{lesson.id}}"
+<a href="#{{lesson.id}}"
    data-toggle="collapse"
    aria-expanded="false"
-   aria-controls="collection-container-{{lesson.id}}"
-   id="collection-collapse"
-  {{action "selectLesson"}}>
+   aria-controls="{{lesson.id}}"
+   id="lesson-{{lesson.id}}"
+  {{action "selectLesson" lesson}}>
     <ul class="row">
         <li class="col-xs-8 col-sm-4 lesson-performance-title">
             <span><i class="fa fa-chevron-down hidden-xs"></i>
@@ -16,7 +16,7 @@
         </li>
     </ul>
 </a>
-<div class="collections-container collapse col-xs-12" id="collection-container-{{lesson.id}}">
+<div class="collections-container collapse col-xs-12" id="{{lesson.id}}">
   {{#each lesson.collections as |collection index|}}
       <div class="collection-performance row">
           <ul>
@@ -48,6 +48,6 @@
           </ul>
       </div>
   {{else}}
-      <span class="no-content">{{t "gru-performance.noContent"}}</span>
+      <span class="no-content">{{t "gru-performance.no-content"}}</span>
   {{/each}}
 </div>

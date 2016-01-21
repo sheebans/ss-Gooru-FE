@@ -13,46 +13,58 @@ export default Ember.Controller.extend({
         id: 601,
         question: {
           questionType: 'MC',
+          isMultipleChoice: true,
           text: 'Sample Question MC',
           hints: [],
           explanation: 'Sample explanation text',
-          answers: [],
+          answers:  Ember.A([
+            Ember.Object.create({ id: "1", isCorrect: false,text:"Answer 1" }),
+            Ember.Object.create({ id: "2", isCorrect: false,text:"Answer 2" }),
+            Ember.Object.create({ id: "3", isCorrect: true,text:"Answer 3" })
+          ]),
           order: 1
         },
         correct: false,
         score: 10,
         reaction: 2,
         timeSpent: 28,
-        userAnswer: []
+        userAnswer: "1"
       }),
 
       QuestionResultDetails.create({
         id: 603,
         question: {
           questionType: 'MC',
+          isMultipleChoice: true,
           text: 'Sample Question MC',
           hints: [],
           explanation: 'Sample explanation text',
-          answers: [],
-          order: 3
+          answers:  Ember.A([
+            Ember.Object.create({ id: "1", isCorrect: false,text:"Answer 1" }),
+            Ember.Object.create({ id: "2", isCorrect: false,text:"Answer 2" }),
+            Ember.Object.create({ id: "3", isCorrect: true,text:"Answer 3" })
+          ]),
+          order: 2
         },
         correct: true,
         score: 10,
         reaction: 4,
         timeSpent: 28,
-        userAnswer: []
+        userAnswer: "3"
       }),
+
 
       QuestionResultDetails.create({
         id: 602,
         attempt: 1104,
         question: {
           questionType: 'OE',
-          text: 'This is question 1',
+          text: 'Sample Question OE',
           hints: [],
           explanation: 'Sample explanation text',
           answers: [],
-          order: 2
+          order: 3,
+          isOpenEnded: true
         },
         correct: true,
         score: 10,
