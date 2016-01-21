@@ -269,6 +269,8 @@ HotTextHighlightUtil = QuestionUtil.extend({
 
   /**
    * Gets the correct answer
+   * The question text contains the information for the correct answer, correct items are wrapped by []
+   * i.e La casa es de [colo] pero el [teco] es azul
    * @return {string[]} returns the correct answer choice ids
    */
   getCorrectAnswer: function(){
