@@ -26,7 +26,7 @@ export default QuestionComponent.extend({
   actions: {
     /**
      * Select or unselect an item
-     * @param {{id: number, text: string, selected: bool}} item
+     * @param {{id: number, text: string, selected: boolean}} item
      */
     markItem: function (item) {
       const component = this;
@@ -63,7 +63,7 @@ export default QuestionComponent.extend({
   // Methods
   /**
    * Notifies events based on selected items
-   * @param {{id: number, text: string, selected: bool}} selectedItems
+   * @param {{id: number, text: string, selected: boolean}} selectedItems
    */
   notifyEvents: function (selectedItems) {
     const component = this;
@@ -77,31 +77,11 @@ export default QuestionComponent.extend({
   },
 
   /**
-   * Correct items from the text, correct items are wrapped by []
-   * i.e La casa es de [colo] pero el [teco] es azul
-   * @param {string} text
-   * @returns {{id: number, text: string, selected: bool}} items
-   */
-  getCorrectItems: function (text) {
-    const component = this,
-      regex = /(\[.*?])/gm;
-
-    var items = Ember.A();
-    var match = regex.exec(text);
-    while (match != null) {
-      items.pushObject(match[0]);
-      match = regex.exec(text);
-    }
-
-    return component.toItems(items);
-  },
-
-  /**
    * Gets items based on text format.
    * This methods creates an item for each word in the text, it removes []
    * i.e La casa es de [colo] pero el [teco] es azul
    * @param {string} text
-   * @returns {{id: number, text: string, selected: bool}} items
+   * @returns {{id: number, text: string, selected: boolean}} items
    */
   getWordItems: function (text) {
     const component = this,
@@ -116,7 +96,7 @@ export default QuestionComponent.extend({
    * Each text before, after and in between [] are considered sentences
    * @param {string} text i.e Sentence 1 [Sentence 2] Sentence 3 with any text here [Sentence 4] Sentence 5
    *
-   * @returns {{id: number, text: string, selected: bool}} items
+   * @returns {{id: number, text: string, selected: boolean}} items
    */
   getSentenceItems: function (text) {
     const component = this,
@@ -146,7 +126,7 @@ export default QuestionComponent.extend({
    * Transforms a list of string into item objects, it trims the texts and removes []
    * @param {string[]} textList
    *
-   * @returns {{id: number, text: string, selected: bool}} items
+   * @returns {{id: number, text: string, selected: booleanean}} items
    */
   toItems: function (textList) {
     const items = textList.map(function (text, index) {
@@ -155,11 +135,11 @@ export default QuestionComponent.extend({
           text: text.replace("[", "").replace("]", "").trim(),
           selected: false
         });
-      }),
-      result = items.filter(function (item) {
-        return item.text || item.length;
       });
-    return result;
+
+    return items.filter(function (item) {
+      return item.text || item.length;
+    });
   },
 
   /**
@@ -189,7 +169,7 @@ export default QuestionComponent.extend({
 
   /**
    * Returns those items selected by the user
-   * @returns {{id: number, text: string, selected: bool}[]} selected items
+   * @returns {{id: number, text: string, selected: boolean}[]} selected items
    */
   getSelectedItems: function(){
       return this.get("items").filterBy("selected", true);
