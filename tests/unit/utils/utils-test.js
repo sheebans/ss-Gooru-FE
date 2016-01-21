@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { checkStandards, formatTime, getGradeColor } from '../../../utils/utils';
+import { checkStandards, formatTime, getGradeColor , getLetter} from '../../../utils/utils';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | utils');
@@ -52,4 +52,8 @@ test('getGradeColor', function (assert) {
   assert.equal(getGradeColor(90), '#3FC380', 'Fifth bracket color -lowest value');
   assert.equal(getGradeColor(95), '#3FC380', 'Fifth bracket color -value in the middle');
   assert.equal(getGradeColor(100), '#3FC380', 'Fifth bracket color -highest value');
+});
+
+test('getLetter', function (assert) {
+  assert.equal(getLetter(3), 'D', 'The letter should be D');
 });
