@@ -29,23 +29,23 @@ export default Ember.Component.extend({
       if(element.hasClass('selected')){
         element.removeClass('selected');
         //When clicking on a unit to close it, remove the unit and lesson query params
-        this.get('onLocationUpdate')('', 'unit');
-        this.set('selectedUnitId', undefined);
-        this.updateSelectedLesson('');
+        component.get('onLocationUpdate')('', 'unit');
+        component.set('selectedUnitId', undefined);
+        component.notifySelectedLesson('');
       }
       else{
         $('.gru-unit-performance-container.selected').removeClass('selected');
         element.addClass('selected');
         //When clicking on a unit to open it set the unit query param and the selectedUnitId attribute
-        this.get('onLocationUpdate')(unit.get('id'), 'unit');
-        this.set('selectedUnitId',unit.get('id'));
+        component.get('onLocationUpdate')(unit.get('id'), 'unit');
+        component.set('selectedUnitId',unit.get('id'));
 
         if(hasLessonsOpen.length>0){
           //If the unit has lessons open, set its first lesson as the lesson query params and set the selectedLessonId property
-          this.updateSelectedLesson(hasLessonsOpen.attr('id'));
+          component.notifySelectedLesson(hasLessonsOpen.attr('id'));
         }else{
           //Remove the query params if the unit does not have any.
-          this.updateSelectedLesson('');
+          component.notifySelectedLesson('');
         }
       }
     },
@@ -56,19 +56,14 @@ export default Ember.Component.extend({
     selectResource: function (collectionId) {
       this.get('onSelectResource')(collectionId);
     },
+
     /**
-     * Trigger the 'onLocationUpdate' event handler with the lesson information
-     *
-     * @function actions:updateLesson
+     * Update selected lesson action
+     * @param {string} lessonId
      */
     updateSelectedLesson: function (lessonId) {
-      if(lessonId){
-        this.set('selectedLessonId',lessonId);
-      }else{
-        this.set('selectedLessonId',undefined);
-      }
-      this.get('onLocationUpdate')(lessonId, 'lesson');
-
+      const component = this;
+      component.notifySelectedLesson(lessonId);
     }
   },
   // -------------------------------------------------------------------------
@@ -175,5 +170,21 @@ export default Ember.Component.extend({
     let collapsibleElement=$('#'+unit.get('id'));
     element.addClass('selected');
     collapsibleElement.collapse({toggle:true,parent:'.gru-student-performance-container'});
+  },
+
+  /**
+   * Trigger the 'onLocationUpdate' event handler with the lesson information
+   *
+   * @function actions:updateLesson
+   */
+  notifySelectedLesson: function (lessonId) {
+    const component = this;
+    if(lessonId){
+      component.set('selectedLessonId',lessonId);
+    }else{
+      component.set('selectedLessonId',undefined);
+    }
+    component.get('onLocationUpdate')(lessonId, 'lesson');
   }
+
 });
