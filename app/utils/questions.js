@@ -59,7 +59,7 @@ export const QuestionUtil = Ember.Object.extend({
     Ember.Logger.warning("The method getCorrectAnswer is not implemented");
   }
 
-});
+}),
 
 
 /**
@@ -68,7 +68,7 @@ export const QuestionUtil = Ember.Object.extend({
  *
  * @typedef {Object} MultipleChoiceUtil
  */
-export const MultipleChoiceUtil = QuestionUtil.extend({
+MultipleChoiceUtil = QuestionUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -107,7 +107,7 @@ export const MultipleChoiceUtil = QuestionUtil.extend({
   }
 
 
-});
+}),
 
 /**
  * It contains convenience methods for grading and retrieving useful information
@@ -115,7 +115,7 @@ export const MultipleChoiceUtil = QuestionUtil.extend({
  *
  * @typedef {Object} MultipleAnswerUtil
  */
-export const MultipleAnswerUtil = QuestionUtil.extend({
+MultipleAnswerUtil = QuestionUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -146,7 +146,7 @@ export const MultipleAnswerUtil = QuestionUtil.extend({
   }
 
 
-});
+}),
 
 /**
  * It contains convenience methods for grading and retrieving useful information
@@ -154,7 +154,7 @@ export const MultipleAnswerUtil = QuestionUtil.extend({
  *
  * @typedef {Object} TrueFalseUtil
  */
-export const TrueFalseUtil = MultipleChoiceUtil.extend({
+TrueFalseUtil = MultipleChoiceUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -163,7 +163,7 @@ export const TrueFalseUtil = MultipleChoiceUtil.extend({
   // -------------------------------------------------------------------------
   // Methods
 
-});
+}),
 
 
 /**
@@ -172,7 +172,7 @@ export const TrueFalseUtil = MultipleChoiceUtil.extend({
  *
  * @typedef {Object} FillInTheBlankUtil
  */
-export const FillInTheBlankUtil = QuestionUtil.extend({
+FillInTheBlankUtil = QuestionUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -203,7 +203,7 @@ export const FillInTheBlankUtil = QuestionUtil.extend({
   }
 
 
-});
+}),
 
 /**
  * It contains convenience methods for grading and retrieving useful information
@@ -211,7 +211,7 @@ export const FillInTheBlankUtil = QuestionUtil.extend({
  *
  * @typedef {Object} ReorderUtil
  */
-export const ReorderUtil = QuestionUtil.extend({
+ReorderUtil = QuestionUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -242,7 +242,7 @@ export const ReorderUtil = QuestionUtil.extend({
   }
 
 
-});
+}),
 
 /**
  * It contains convenience methods for grading and retrieving useful information
@@ -250,7 +250,7 @@ export const ReorderUtil = QuestionUtil.extend({
  *
  * @typedef {Object} HotSpotImageUtil
  */
-export const HotSpotImageUtil = MultipleAnswerUtil.extend({
+HotSpotImageUtil = MultipleAnswerUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -279,7 +279,7 @@ export const HotSpotImageUtil = MultipleAnswerUtil.extend({
     });
   }
 
-});
+}),
 
 
 /**
@@ -288,7 +288,7 @@ export const HotSpotImageUtil = MultipleAnswerUtil.extend({
  *
  * @typedef {Object} HotSpotTextUtil
  */
-export const HotSpotTextUtil = HotSpotImageUtil.extend({
+HotSpotTextUtil = HotSpotImageUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers

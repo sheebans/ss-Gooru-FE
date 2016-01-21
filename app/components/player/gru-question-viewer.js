@@ -16,6 +16,10 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+  /**
+   * @requires service:i18n
+   */
+  i18n: Ember.inject.service(),
 
 
   // -------------------------------------------------------------------------
@@ -97,6 +101,12 @@ export default Ember.Component.extend({
   answerCompleted: false,
 
   /**
+   * The collection
+   * @property {Collection}
+   */
+  collection: null,
+
+  /**
    * Hits available for a question
    * @property {Number} availableHints
    */
@@ -145,6 +155,18 @@ export default Ember.Component.extend({
    * @property {Question} question
    */
   question: null,
+
+  /**
+   * The text for the submit button
+   * @property {string}
+   */
+  buttonText: Ember.computed('collection',function(){
+    let i18nKey = "common.save-next";
+    if (this.get('collection').isLastResource(this.get('question'))){
+      i18nKey = (this.get('collection').get('isAssessment')) ? 'common.save-submit' : 'common.save-finish';
+    }
+    return this.get('i18n').t(i18nKey);
+  }),
 
   // -------------------------------------------------------------------------
   // Observers
