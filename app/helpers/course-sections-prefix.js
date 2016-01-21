@@ -16,20 +16,14 @@ import Ember from 'ember';
 export default Ember.Helper.extend({
   i18n: Ember.inject.service('i18n'),
 
-  compute(params,{ title, index,type }) {
+  compute(params,{index, type}) {
     let i18n = this.get('i18n');
-    var prefix;
+    var prefixIndex = ++index;
 
-    if(type==='unit'){
-      prefix = i18n.t('common.unitInitial')+index+" "+title;
-    }else if(type==='lesson'){
-      prefix = i18n.t('common.lessonInitial')+index+" "+title;
-    }else if (type==='collection'){
-      prefix = i18n.t('common.collectionInitial')+index+" "+title;
-    }else if(type==='assessment'){
-      prefix = i18n.t('common.assessmentInitial')+index+" "+title;
-    }
-    return prefix;
+    const i18nKey = `common.${type}Initial`;
+    const letter = i18n.t(i18nKey);
+
+    return `${letter}${prefixIndex}`;
   }
 
 });
