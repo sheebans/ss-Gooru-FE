@@ -143,7 +143,7 @@ test('Exit Full Screen by pressing Esc', function(assert) {
   });
 });
 
-/*test('Transition to a collection or assessment', function(assert) {
+test('Transition to a collection or assessment', function(assert) {
   visit('/class/class-for-pochita-as-student/analytics/performance/student');
 
   andThen(function() {
@@ -211,5 +211,5 @@ test('Transition to a collection or assessment directly', function(assert) {
     assert.ok($firstLessonCollectionsContainer.hasClass('in'), "Missing in class.");
 
   });
-});*/
+});
 
