@@ -85,7 +85,11 @@ test('Check Course Sections Prefix', function (assert) {
       }
       return letter; }
   });
+
   assert.equal(courseSectionsPrefix(1,'unit',i18n), 'U2', 'The prefix should be U2');
+  assert.equal(courseSectionsPrefix(1,'lesson',i18n), 'L2', 'The prefix should be L2');
+  assert.equal(courseSectionsPrefix(1,'collection',i18n), 'C2', 'The prefix should be C2');
+  assert.equal(courseSectionsPrefix(1,'assessment',i18n), 'A2', 'The prefix should be A2');
 });
 
 

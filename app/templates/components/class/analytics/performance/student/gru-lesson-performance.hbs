@@ -23,11 +23,11 @@
             <li class="col-xs-8 col-sm-4 collection-performance-title">
               {{#if collection.isCompleted}}
                 <span class="row" >
-                  {{if collection.isCollection (course-sections-prefix  index=index type='collection')(if collection.isAssessment (course-sections-prefix  index=index type='assessment'))}}&colon; {{collection.title}}
+                  {{course-sections-prefix  index=index type=(if collection.isCollection 'collection' 'assessment')}}&colon; {{collection.title}}
                 </span>
               {{else}}
-                  <span class="row has-action" {{action "selectResource" collection.id}}>
-                 {{if collection.isCollection (course-sections-prefix  index=index type='collection')(if collection.isAssessment (course-sections-prefix  index=index type='assessment'))}}&colon; {{collection.title}}
+                <span class="row has-action" {{action "selectResource" collection.id}}>
+                  {{course-sections-prefix  index=index type=(if collection.isCollection 'collection' 'assessment')}}&colon; {{collection.title}}
                 </span>
               {{/if}}
               <div class="row hidden-xs">
