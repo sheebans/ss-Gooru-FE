@@ -31,7 +31,8 @@ export default Ember.Component.extend({
         //When clicking on a unit to close it, remove the unit and lesson query params
         this.get('onLocationUpdate')('', 'unit');
         this.set('selectedUnitId', undefined);
-        this.updateSelectedLesson('');
+        this.get('onLocationUpdate')('', 'lesson');
+        this.set('selectedLessonId', undefined);
       }
       else{
         $('.gru-unit-performance-container.selected').removeClass('selected');
@@ -42,10 +43,11 @@ export default Ember.Component.extend({
 
         if(hasLessonsOpen.length>0){
           //If the unit has lessons open, set its first lesson as the lesson query params and set the selectedLessonId property
-          this.updateSelectedLesson(hasLessonsOpen.attr('id'));
+          this.get('updateSelectedLesson')(hasLessonsOpen.attr('id'));
         }else{
           //Remove the query params if the unit does not have any.
-          this.updateSelectedLesson('');
+          this.get('onLocationUpdate')('', 'lesson');
+          this.set('selectedLessonId', undefined);
         }
       }
     },
