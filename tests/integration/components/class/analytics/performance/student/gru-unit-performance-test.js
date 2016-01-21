@@ -48,7 +48,7 @@ moduleForComponent('class/analytics/performance/student/gru-unit-performance', '
 });
 
 test('Test for unit performance', function(assert) {
-  const performance = Ember.Object.create(
+  const unit = Ember.Object.create(
     {
       id:'333-555-777',
       title: "Quiz :: Indian History",
@@ -68,13 +68,21 @@ test('Test for unit performance', function(assert) {
 
   this.set('userId', "any-user-id");
   this.set('classModel', classModel);
-  this.set('performance', performance);
+  this.set('unit', unit);
   this.set('index',0);
+  this.set('selectedLessonId', 'not-my-id-2');
+  this.set('selectedUnitId', 'not-my-id');
+  this.set('onLocationUpdate', function(){
+
+  });
   this.render(hbs`{{class.analytics.performance.student.gru-unit-performance
-    performance=performance
+    unit=unit
     classModel=classModel
     userId=userId
     localIndex=index
+    selectedLessonId=selectedLessonId
+    selectedUnitId=selectedUnitId
+    onLocationUpdate=onLocationUpdate
   }}`);
   const $component = this.$();
   const $clickableDiv= $component.find(".gru-unit-performance-container >a"); //component dom element
