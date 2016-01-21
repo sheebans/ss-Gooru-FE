@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { checkStandards, formatTime, getGradeColor } from '../../../utils/utils';
+import { checkStandards, formatTime, getGradeColor, formatDate } from '../../../utils/utils';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | utils');
@@ -52,4 +52,16 @@ test('getGradeColor', function (assert) {
   assert.equal(getGradeColor(90), '#3FC380', 'Fifth bracket color -lowest value');
   assert.equal(getGradeColor(95), '#3FC380', 'Fifth bracket color -value in the middle');
   assert.equal(getGradeColor(100), '#3FC380', 'Fifth bracket color -highest value');
+});
+
+test('Check formatDate', function(assert) {
+  let date = new Date(2010, 1, 20);
+  date.setSeconds(10);
+  date.setMinutes(15);
+  date.setHours(11);
+  //trying default format
+  assert.equal('February, 20th 2010, 11:15:10 AM', formatDate(date));
+
+  //trying custom format
+  assert.equal('Feb 20th 10', formatDate(date, "MMM Do YY"));
 });

@@ -10,7 +10,9 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
-
-  model: null
+  /**
+   * @property {AssessmentResult}
+   */
+  assessmentResult: null
 
 });

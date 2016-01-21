@@ -66,3 +66,13 @@ export function getGradeColor(grade) {
   }
   return color;
 }
+
+/**
+ * Formats a date into a string
+ * @param {Date} date
+ * @param {string} format
+ */
+export function formatDate(date, format) {
+  format = format || 'MMMM, Do YYYY, h:mm:ss A';
+  return moment(date).format(format);
+}

@@ -86,7 +86,7 @@ export default Ember.Controller.extend({
     /**
      * Date in which the current attempt was submitted
      */
-    submittedOn: 'Friday, January 15, 2016 6:02 AM',
+    submittedOn: new Date(),
 
     /**
      * Evaluation results for the current attempt for each one of the learning targets

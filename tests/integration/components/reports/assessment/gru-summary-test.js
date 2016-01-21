@@ -11,6 +11,10 @@ moduleForComponent('reports/assessment/gru-summary', 'Integration | Component | 
 });
 
 test('it renders', function (assert) {
+  const date = new Date(2010, 1, 20);
+  date.setSeconds(10);
+  date.setMinutes(15);
+  date.setHours(11);
 
   const model = Ember.Object.create({
 
@@ -40,7 +44,7 @@ test('it renders', function (assert) {
         'value': 11
       })],
 
-    submittedOn: 'Friday, January 15, 2016 6:02 AM',
+    submittedOn: date,
     totalAttempts: 4,
     totalQuestions: 2
   });
@@ -73,7 +77,7 @@ test('it renders', function (assert) {
   assert.equal($overviewSection.find('.dropdown button').text().trim(), '3', 'Current attempt value is incorrect');
   assert.equal($overviewSection.find('.dropdown-menu li').length, 4, 'Incorrect number of attempts in dropdown menu');
   assert.equal($overviewSection.find('.total-attempts').text().trim(), '4', 'Incorrect number of total attempts');
-  assert.equal($overviewSection.find('.date').text().trim(), 'Friday, January 15, 2016 6:02 AM', 'Incorrect attempt date value');
+  assert.equal($overviewSection.find('.date').text().trim(), 'February, 20th 2010, 11:15:10 AM', 'Incorrect attempt date value');
 
   // Time
   $overviewSection = $overviewContainer.find('.information .time');
