@@ -1,6 +1,10 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 
+/**
+ * @typedef {Object} Collection
+ */
+
 export default DS.Model.extend({
 
   /**
@@ -137,6 +141,18 @@ export default DS.Model.extend({
       }
     }
     return resource;
+  },
+
+  /**
+   * Returns true if it's the last resource of the collection
+   * @param {Resource}resource
+   * @returns {Resource|undefined}
+   */
+  isLastResource: function(resource) {
+    const resources = this.get("resources");
+    var index = resources.indexOf(resource);
+    var collectionLength = resources.get('length');
+    return ((index + 1) === collectionLength);
   }
 
 });
