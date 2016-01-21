@@ -97,34 +97,34 @@ test('Test for unit performance', function(assert) {
   const $component = this.$();
   const $clickableDiv= $component.find(".gru-unit-performance-container >a"); //component dom element
 
-  T.exists(assert, $component, 'Missing Unit Container');//1
+  T.exists(assert, $component, 'Missing Unit Container');w
 
   const $titleSpan = $component.find(".performance-unit-title span");
 
-  assert.equal(T.text($titleSpan), "U1: Quiz :: Indian History", "Wrong title"); //2
+  assert.equal(T.text($titleSpan), "U1: Quiz :: Indian History", "Wrong title");
 
   Ember.run(() => {
-    $clickableDiv.click();//4
+    $clickableDiv.click();
   });
 
   return wait().then(function() {
     const $lessonsContainer = $component.find(".lessons-container");
-    assert.equal($lessonsContainer.hasClass('in'), true, "Lessons container did not open");//5
+    assert.equal($lessonsContainer.hasClass('in'), true, "Lessons container did not open");
 
     const $lessonTitleSpan = $component.find(".lessons-container div div:first-child .lesson-performance-title span");
 
-    T.exists(assert, $lessonTitleSpan, 'Missing Lesson Container');//6
+    T.exists(assert, $lessonTitleSpan, 'Missing Lesson Container');
 
-    assert.equal(T.text($lessonTitleSpan), "L1: lesson-title", "Wrong title");//7
+    assert.equal(T.text($lessonTitleSpan), "L1: lesson-title", "Wrong title");
 
     Ember.run(() => {
-      $clickableDiv.click();//9
+      $clickableDiv.click();
     });
 
     return wait().then(function() {
 
       const $lessonsContainer = $component.find(".lessons-container");
-      assert.equal($lessonsContainer.hasClass('in'), false, "Lessons container did not close");//10
+      assert.equal($lessonsContainer.hasClass('in'), false, "Lessons container did not close");
 
     });
   });

@@ -412,11 +412,12 @@ export default {
     "redo":"Redo",
     "resume":"Resume",
     "study":"Study",
-    "view-report":"View Report"
+    "view-report":"View Report",
+    "not-applicable":"N/A"
   },
   "gru-performance":{
-    "notStarted": "Not started yet",
-    "noContent" : "No content available"
+    "not-started": "Not started yet",
+    "no-content" : "No content available"
   },
   "gru-metrics-sub-header":{
     "name":"Name",

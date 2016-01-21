@@ -110,13 +110,13 @@ export default Ember.Controller.extend({
   /**
    * The unitId for the current unit
    * @property {String}
-   *u
+   *
   unitId:'',
 
   /**
    * The lessonId for the current lesson
    * @property {String}
-   *l
+   *
   lessonId:'',
 
   /**

@@ -62,7 +62,7 @@ export default Ember.Component.extend({
      * @function actions:updateLesson
      */
     updateSelectedLesson: function (lessonId) {
-      if(lessonId!==''){
+      if(lessonId){
         this.set('selectedLessonId',lessonId);
       }else{
         this.set('selectedLessonId',undefined);

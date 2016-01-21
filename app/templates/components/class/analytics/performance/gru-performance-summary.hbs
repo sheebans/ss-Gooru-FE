@@ -16,10 +16,10 @@
                 <p>{{performance.score}}%</p>
             </div>
           {{else}}
-            <p>N/A</p>
+            <p>{{t "gru-performance.not-applicable"}}</p>
           {{/if}}
         {{else}}
-          <span class="not-started">{{t "gru-performance.notStarted"}}</span>
+          <span class="not-started">{{t "gru-performance.not-started"}}</span>
         {{/if}}
     </li>
     <li class="completion">
