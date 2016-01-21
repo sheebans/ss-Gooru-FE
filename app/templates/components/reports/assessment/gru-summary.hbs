@@ -1,9 +1,11 @@
 <div class="grade" style="background-color: {{gradeColor assessmentResult.correctPercentage}}">
   <span class="percentage">{{assessmentResult.correctPercentage}}%</span>
-  <span class="attempts">{{assessmentResult.correctAnswers}} / {{assessmentResult.totalQuestions}} {{t 'common.correct'}}</span>
+  <span class="attempts">
+    {{assessmentResult.correctAnswers}} / {{assessmentResult.questionsResults.length}} {{t 'common.correct'}}
+  </span>
 </div>
 <div class="overview">
-  <h1>{{assessmentResult.assessmentName}}</h1>
+  <h1>{{assessmentResult.title}}</h1>
 
   <div class="information">
     <div class="attempt">
@@ -13,10 +15,10 @@
         <div class="attempt-selector">
           <div class="dropdown current-attempt">
             <button class="btn btn-default dropdown-toggle" type="button"
-                    data-toggle="dropdown">{{assessmentResult.currentAttempt}}<span class="caret"></span></button>
+                    data-toggle="dropdown">{{assessmentResult.selectedAttempt}}<span class="caret"></span></button>
             <ul class="dropdown-menu">
-              {{#each assessmentResult.attemptsList as |attempt index|}}
-                <li><a href="#{{attempt}}">{{plus-one index}}</a></li>
+              {{#each attempts as |attempt|}}
+                <li><a href="#{{attempt.value}}">{{attempt.label}}</a></li>
               {{/each}}
             </ul>
           </div>
@@ -30,16 +32,16 @@
 
     <div class="time">
       <strong>{{t "common.timeSpent"}}</strong>
-      <span>{{formatTime assessmentResult.timeSpent}}</span>
+      <span>{{formatTime assessmentResult.totalTimeSpent}}</span>
     </div>
 
     <div class="reaction">
       <strong>{{t "common.reaction"}}</strong>
-      <i class="emotion emotion-{{assessmentResult.reaction}}"></i>
+      <i class="emotion emotion-{{assessmentResult.averageReaction}}"></i>
     </div>
   </div>
 
-  {{gru-bubbles bubbleOptions=assessmentResult.resourceLinks}}
+  {{gru-bubbles bubbleOptions=resourceLinks}}
 
 </div>
 

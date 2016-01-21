@@ -16,21 +16,21 @@ test('Questions Layout', function (assert) {
   const questions = Ember.A([Ember.Object.create({
     question: Ember.Object.create({
       text:"This is a question 1",
-      isOpenEnded: true
+      isOpenEnded: true,
+      order: 1,
     }),
     correct: true,
     timeSpent: 10, //seconds
     reaction: 5,
-    order: 1,
     answer: "answer"
   }), Ember.Object.create({
     question: Ember.Object.create({
-      text:"This is a question 2"
+      text:"This is a question 2",
+      order: 2
     }),
     correct: false,
     timeSpent: 25, //seconds
     reaction: 2,
-    order: 2,
     answer: "answer"
   })]);
 
@@ -57,27 +57,28 @@ test('Questions Layout', function (assert) {
   T.exists(assert, $question.find('table tbody td.question-reaction'), 'Missing reaction column');
   assert.equal($question.find('table tbody tr').length,2, "Incorrect number of rows");
 });
+
 test('Switch Options', function (assert) {
   assert.expect(15);
 
   const questions = Ember.A([Ember.Object.create({
     question: Ember.Object.create({
       text:"This is a question 1",
-      isOpenEnded: true
+      isOpenEnded: true,
+      order: 1,
     }),
     correct: true,
     timeSpent: 10, //seconds
     reaction: 5,
-    order: 1,
     answer: "answer"
   }), Ember.Object.create({
     question: Ember.Object.create({
-      text:"This is a question 2"
+      text:"This is a question 2",
+      order: 2
     }),
     correct: false,
     timeSpent: 25, //seconds
     reaction: 2,
-    order: 2,
     answer: "answer"
   })]);
 

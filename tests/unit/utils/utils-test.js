@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { checkStandards, formatTime, getGradeColor, formatDate } from '../../../utils/utils';
+import { checkStandards, formatTime, getGradeColor , getLetter, formatDate} from '../../../utils/utils';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | utils');
@@ -60,8 +60,13 @@ test('Check formatDate', function(assert) {
   date.setMinutes(15);
   date.setHours(11);
   //trying default format
-  assert.equal('February, 20th 2010, 11:15:10 AM', formatDate(date));
+  assert.equal(formatDate(date), 'Saturday, February 20th, 2010 11:15 AM', "Wrong date format");
 
   //trying custom format
   assert.equal('Feb 20th 10', formatDate(date, "MMM Do YY"));
 });
+
+test('getLetter', function (assert) {
+  assert.equal(getLetter(3), 'D', 'The letter should be D');
+});
+

@@ -1,138 +1,72 @@
 import Ember from 'ember';
+import AssessmentResult from 'gooru-web/models/result/assessment';
+import QuestionResultDetails from 'gooru-web/models/result/question-details';
 
 export default Ember.Controller.extend({
 
-  // TODO: Get this object dynamically from the route
+  assessmentResult: AssessmentResult.create({
+    id: 501,
 
-  assessmentResult: Ember.Object.create({
+    questionsResults: [
 
-    assessmentName: 'Sample Assessment Name',
-
-    // --- COMPUTED PROPERTIES --- //
-    /**
-     * Average user reaction to the questions in the assessment
-     * @prop {Number}
-     */
-    reaction: 4,
-
-    /**
-     * Total number of seconds spent completing the current attempt
-     * @prop {Number}
-     */
-    timeSpent: 1695,
-
-    /**
-     * Percentage of correct answers vs. the total number of questions for the current
-     * assessment attempt
-     * @prop {Number}
-     */
-    correctPercentage: 75,
-
-    /**
-     * Number of questions correctly answered in the current assessment attempt
-     * @prop {Number}
-     */
-    correctAnswers: 3,
-
-    /**
-     * Concise model to be used by the gru-bubbles component
-     * Computed property (map) of 'results'
-     * @prop {Object[]}
-     */
-    resourceLinks: [
-      Ember.Object.create({
-        'label': "1",
-        'status': 'correct',
-        'value': 890
+      QuestionResultDetails.create({
+        id: 601,
+        question: {
+          questionType: 'MC',
+          text: 'Sample Question MC',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers: [],
+          order: 1
+        },
+        correct: false,
+        score: 10,
+        reaction: 2,
+        timeSpent: 28,
+        userAnswer: []
       }),
-      Ember.Object.create({
-        'label': "2",
-        'status': 'incorrect',
-        'value': 891
-      })],
 
-    /**
-     * Total number of attempts made by the user for this assessment
-     * 1-indexed
-     * @prop {Number}
-     */
-    totalAttempts: 4,
+      QuestionResultDetails.create({
+        id: 603,
+        question: {
+          questionType: 'MC',
+          text: 'Sample Question MC',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers: [],
+          order: 3
+        },
+        correct: true,
+        score: 10,
+        reaction: 4,
+        timeSpent: 28,
+        userAnswer: []
+      }),
 
-    /**
-     * Total number of questions in the assessment
-     * @prop {Number}
-     */
-    totalQuestions: 4,
-
-    // --- END OF COMPUTED PROPERTIES --- //
-
-    /**
-     * List of IDs of all the attempts made by a user for an assessment
-     * @prop {Number[]}
-     */
-    attemptsList: [
-      100,
-      101,
-      102,
-      103
+      QuestionResultDetails.create({
+        id: 602,
+        attempt: 1104,
+        question: {
+          questionType: 'OE',
+          text: 'This is question 1',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers: [],
+          order: 2
+        },
+        correct: true,
+        score: 10,
+        reaction: 3,
+        timeSpent: 56,
+        userAnswer: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+      })
     ],
 
-    /**
-     * Current attempt to which the {@link results} results and {@link learningTargets} make reference
-     * 1-indexed
-     */
-    currentAttempt: 4,
-
-    /**
-     * Date in which the current attempt was submitted
-     */
+    mastery: [],
+    selectedAttempt: 2,
     submittedOn: new Date(),
-
-    /**
-     * Evaluation results for the current attempt for each one of the learning targets
-     * that make up the assessment
-     */
-    learningTargets: [
-      Ember.Object.create({
-        'label': "1",
-        'value': 'some-value-1'
-      }),
-      Ember.Object.create({
-        'label': "2",
-        'value': 'some-value-2'
-      }),
-      Ember.Object.create({
-        'label': "3",
-        'value': 'some-value-3'
-      })],
-
-    /**
-     * Evaluation results for the current attempt for each one of the questions that
-     * make up the assessment
-     */
-    results: Ember.A([Ember.Object.create({
-      id: 890,
-      question: Ember.Object.create({
-        text:"This is a question 1",
-        isOpenEnded: true
-      }),
-      correct: true,
-      timeSpent: 10, //seconds
-      reaction: 5,
-      order: 1,
-      answer: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua." // json object representing each question type answer
-    }), Ember.Object.create({
-      id: 891,
-      question: Ember.Object.create({
-        text:"This is a question 2"
-      }),
-      correct: false,
-      timeSpent: 25, //seconds
-      reaction: 2,
-      order: 2,
-      answer: "answer" // json object representing each question type answer
-    })])
-
+    title: 'Test Assessment Name',
+    totalAttempts: 2
   })
 
 });

@@ -66,6 +66,14 @@ export function getGradeColor(grade) {
   }
   return color;
 }
+/**
+ * Convert a number into Upper Letter
+ * @param number
+ * @returns {string}
+ */
+export function getLetter(number){
+  return String.fromCharCode(65 + number);
+}
 
 /**
  * Formats a date into a string
@@ -73,6 +81,6 @@ export function getGradeColor(grade) {
  * @param {string} format
  */
 export function formatDate(date, format) {
-  format = format || 'MMMM, Do YYYY, h:mm:ss A';
+  format = format || 'dddd, MMMM Do, YYYY h:mm A';
   return moment(date).format(format);
 }

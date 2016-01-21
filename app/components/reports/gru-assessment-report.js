@@ -12,8 +12,7 @@ export default Ember.Component.extend({
   // Properties
 
   /**
-   * Result of an attempt made by the user for an assessment
-   * @property { AssessmentResult }
+   * @property {AssessmentResult} assessment
    */
   assessmentResult: null
 
