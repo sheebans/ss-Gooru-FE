@@ -23,11 +23,21 @@ test('On question submit', function (assert) {
       "questionType": 'OE'
     });
 
+  const collection = Ember.Object.create({
+    collectionType: "assessment",
+    resources: Ember.A([resource]),
+    isLastResource: function(){
+      return true;
+    }
+  });
+
   this.set('resource', resource);
+  this.set('collection',collection);
+
   this.on("mySubmitQuestion", function(question){
     assert.equal(question.get("id"), 10, "Wrong id");
   });
-  this.render(hbs`{{player/gru-viewer resource=resource onSubmitQuestion="mySubmitQuestion"}}`);
+  this.render(hbs`{{player/gru-viewer resource=resource collection=collection onSubmitQuestion="mySubmitQuestion"}}`);
 
   var $component = this.$(); //component dom element
 
