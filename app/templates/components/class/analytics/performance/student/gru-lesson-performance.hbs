@@ -6,7 +6,8 @@
   {{action "selectLesson"}}>
     <ul class="row">
         <li class="col-xs-8 col-sm-4 lesson-performance-title">
-            <span><i class="fa fa-chevron-down hidden-xs"></i> L{{plus-one localIndex}}: {{lesson.title}}</span>
+            <span><i class="fa fa-chevron-down hidden-xs"></i>
+                {{course-sections-prefix  index=localIndex type='lesson'}}&colon; {{lesson.title}}</span>
         </li>
         <li class="col-xs-4 col-sm-8 lesson-performance-content">
             {{class.analytics.performance.gru-performance-summary
@@ -22,11 +23,11 @@
             <li class="col-xs-8 col-sm-4 collection-performance-title">
               {{#if collection.isCompleted}}
                 <span class="row" >
-                  {{if collection.isCollection "C" (if collection.isAssessment "A")}}{{plus-one index}}: {{collection.title}}
+                  {{if collection.isCollection (course-sections-prefix  index=index type='collection')(if collection.isAssessment (course-sections-prefix  index=index type='assessment'))}}&colon; {{collection.title}}
                 </span>
               {{else}}
                   <span class="row has-action" {{action "selectResource" collection.id}}>
-                  {{if collection.isCollection "C" (if collection.isAssessment "A")}}{{plus-one index}}: {{collection.title}}
+                 {{if collection.isCollection (course-sections-prefix  index=index type='collection')(if collection.isAssessment (course-sections-prefix  index=index type='assessment'))}}&colon; {{collection.title}}
                 </span>
               {{/if}}
               <div class="row hidden-xs">
