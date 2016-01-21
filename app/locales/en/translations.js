@@ -413,10 +413,10 @@ export default {
     "resume":"Resume",
     "study":"Study",
     "view-report":"View Report",
-    "not-applicable":"N/A"
+    "not-applicable":"N/A",
+    "not-started": "Not started yet"
   },
   "gru-performance":{
-    "not-started": "Not started yet",
     "no-content" : "No content available"
   },
   "gru-metrics-sub-header":{
