@@ -12,7 +12,7 @@ export default Ember.Component.extend({
   init: function () {
     this._super(...arguments);
 
-    var resourceLinks = this.getResourceLinks(this.get('assessment.questionsResults'));
+    var resourceLinks = this.getResourceLinks(this.get('assessmentResult.questionsResults'));
     var attemptList = this.getAttemptList();
 
     // Sort resource links per the question order number (i.e. label)
@@ -30,7 +30,7 @@ export default Ember.Component.extend({
   /**
    * @property {AssessmentResult} assessment
    */
-  assessment: null,
+  assessmentResult: null,
 
   /**
    * Concise model to be used by the gru-bubbles component
@@ -43,7 +43,7 @@ export default Ember.Component.extend({
   // Methods
   getAttemptList: function () {
     var attempts = [];
-    var totalAttempts = this.get('assessment.totalAttempts');
+    var totalAttempts = this.get('assessmentResult.totalAttempts');
 
     for (; totalAttempts > 0; totalAttempts--) {
       attempts.push({

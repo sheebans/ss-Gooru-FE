@@ -14,6 +14,6 @@ export default Ember.Component.extend({
   /**
    * @property {AssessmentResult} assessment
    */
-  assessment: null
+  assessmentResult: null
 
 });

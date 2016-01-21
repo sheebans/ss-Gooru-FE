@@ -3,7 +3,8 @@
     "document",
     "window",
     "-Promise",
-    "Switchery"
+    "Switchery",
+    "moment"
   ],
   "browser": true,
   "jquery": true,

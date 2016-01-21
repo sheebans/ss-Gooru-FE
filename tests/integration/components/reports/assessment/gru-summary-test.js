@@ -11,6 +11,10 @@ moduleForComponent('reports/assessment/gru-summary', 'Integration | Component | 
 });
 
 test('it renders', function (assert) {
+  const date = new Date(2010, 1, 20);
+  date.setSeconds(10);
+  date.setMinutes(15);
+  date.setHours(11);
 
   const assessmentResult = Ember.Object.create({
     id: 501,
@@ -43,14 +47,14 @@ test('it renders', function (assert) {
       }
     ],
     selectedAttempt: 3,
-    submittedOn: 'Friday, January 15, 2016 6:02 AM',
+    submittedOn: date,
     title: 'Test Assessment Name',
     totalAttempts: 4
   });
 
-  this.set('assessment', assessmentResult);
+  this.set('assessmentResult', assessmentResult);
 
-  this.render(hbs`{{reports/assessment/gru-summary assessment=assessment}}`);
+  this.render(hbs`{{reports/assessment/gru-summary assessmentResult=assessmentResult}}`);
 
   var $component = this.$('.reports.assessment.gru-summary');  //component dom element
   assert.ok($component.length, "Component does not have the component classes");
@@ -76,7 +80,7 @@ test('it renders', function (assert) {
   assert.equal($overviewSection.find('.dropdown button').text().trim(), '3', 'Current attempt value is incorrect');
   assert.equal($overviewSection.find('.dropdown-menu li').length, 4, 'Incorrect number of attempts in dropdown menu');
   assert.equal($overviewSection.find('.total-attempts').text().trim(), '4', 'Incorrect number of total attempts');
-  assert.equal($overviewSection.find('.date').text().trim(), 'Friday, January 15, 2016 6:02 AM', 'Incorrect attempt date value');
+  assert.equal($overviewSection.find('.date').text().trim(), 'Saturday, February 20th, 2010 11:15 AM', 'Incorrect attempt date value');
 
   // Time
   $overviewSection = $overviewContainer.find('.information .time');
