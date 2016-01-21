@@ -251,24 +251,24 @@ test('Test lesson performance with no collections', function(assert) {
   }}`);
   const $component = this.$();
 
-  T.exists(assert, $component, 'Missing Lesson Container'); //1
+  T.exists(assert, $component, 'Missing Lesson Container');
 
   const $clickableAnchor= $component.find(".gru-lesson-performance-container a"); //component dom element
-  T.exists(assert, $clickableAnchor, 'Missing Clickable Anchor'); //2
+  T.exists(assert, $clickableAnchor, 'Missing Clickable Anchor');
 
 
   Ember.run(() => {
-    $clickableAnchor.click();//3
+    $clickableAnchor.click();
   });
 
   return wait().then(function() {
     const $collectionsContainer = $component.find(".collections-container");
-    assert.equal($collectionsContainer.hasClass('in'), true, "Collections container did not open");//4
+    assert.equal($collectionsContainer.hasClass('in'), true, "Collections container did not open");
 
     const $collectionNoContentSpan = $component.find(".collections-container span");
 
-    T.exists(assert, $collectionNoContentSpan, 'Missing no content message span');//5
-    assert.equal(T.text($collectionNoContentSpan), "No content available", "Wrong no content message");//6
+    T.exists(assert, $collectionNoContentSpan, 'Missing no content message span');
+    assert.equal(T.text($collectionNoContentSpan), "No content available", "Wrong no content message");
   });
 
 
