@@ -44,7 +44,7 @@
           </td>
           <td class="question-answer top-left">
             {{#if result.question.isOpenEnded}}
-              {{reports.assessment.questions.gru-open-ended answer=result.answer}}
+              {{reports.assessment.questions.gru-open-ended userAnswer=result.answer}}
             {{/if}}
             {{#if result.question.isMultipleChoice}}
               {{reports.assessment.questions.gru-multiple-choice question=result.question userAnswer=result.answer}}

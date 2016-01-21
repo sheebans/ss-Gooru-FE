@@ -42,10 +42,10 @@
       font-size:37px;
     }
     .question-score span.correct{
-      color:$emoticon-can-explain;
+      color:$color-answer-correct;
     }
     .question-score span.incorrect{
-      color:$emoticon-need-help;
+      color:$color-answer-incorrect;
     }
     .question-reaction div{
       margin: 10px auto;

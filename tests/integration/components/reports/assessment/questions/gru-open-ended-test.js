@@ -16,7 +16,7 @@ test('Open ended Layout', function (assert) {
 
   this.set('answer', answer);
 
-  this.render(hbs`{{reports/assessment/questions/gru-open-ended answer=answer}}`);
+  this.render(hbs`{{reports/assessment/questions/gru-open-ended userAnswer=answer}}`);
 
   const $component = this.$(); //component dom element
   const $answer = $component.find(".answer");

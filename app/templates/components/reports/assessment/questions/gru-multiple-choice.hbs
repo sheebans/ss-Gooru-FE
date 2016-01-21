@@ -1,5 +1,5 @@
 <ul class="multiple-choices">
-  {{#each answers as |answer|}}
+  {{#each answers as |answer index|}}
       <li>
         {{#if answer.selected}}
           {{#if answer.correct}}
@@ -8,7 +8,7 @@
             <span class="incorrect">{{fa-icon icon='times-circle-o'}}</span>
           {{/if}}
         {{/if}}
-          <span class="answer-text">{{{answer.text}}}</span>
+          <span class="answer-text">({{answer-letter index}}) {{{answer.text}}}</span>
       </li>
   {{/each}}
 </ul>

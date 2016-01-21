@@ -7,10 +7,10 @@
       position:relative;
 
       span.correct{
-        color:$emoticon-can-explain;
+        color:$color-answer-correct;
       }
       span.incorrect{
-        color:$emoticon-need-help;
+        color:$color-answer-incorrect;
       }
     }
     li span.answer-text{
