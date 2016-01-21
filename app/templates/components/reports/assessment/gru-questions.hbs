@@ -37,17 +37,17 @@
     {{#each results as |result|}}
       <tr>
           <td class="number-question">
-              {{result.order}}
+              {{result.question.order}}
           </td>
           <td class="question-text top-left">
             {{result.question.text}}
           </td>
           <td class="question-answer top-left">
             {{#if result.question.isOpenEnded}}
-              {{reports.assessment.questions.gru-open-ended userAnswer=result.answer}}
+              {{reports.assessment.questions.gru-open-ended userAnswer=result.userAnswer}}
             {{/if}}
             {{#if result.question.isMultipleChoice}}
-              {{reports.assessment.questions.gru-multiple-choice question=result.question userAnswer=result.answer}}
+              {{reports.assessment.questions.gru-multiple-choice question=result.question userAnswer=result.userAnswer}}
             {{/if}}
           </td>
           <td class="question-score {{if showPerformance 'visible' 'hide'}}">

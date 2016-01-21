@@ -46,7 +46,7 @@ export default Ember.Component.extend({
     }
 
     let userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(userAnswer);
-    let answers = question.get("answers");
+    let answers = question.answers;
     return answers.map(function(answer){
       return {
         text: answer.get("text"),
