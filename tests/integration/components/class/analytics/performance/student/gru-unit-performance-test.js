@@ -72,9 +72,18 @@ test('Test for unit performance', function(assert) {
   this.set('index',0);
   this.set('selectedLessonId', 'not-my-id-2');
   this.set('selectedUnitId', 'not-my-id');
+  this.set('i',0);
   this.set('onLocationUpdate', function(){
+    assert.ok(true, "This should be called 1 time per click");
 
   });
+  this.set('updateSelectedLesson', function(){
+    assert.ok(true, "This should be called 1 time per click");
+
+  });
+
+  assert.expect(10);
+
   this.render(hbs`{{class.analytics.performance.student.gru-unit-performance
     unit=unit
     classModel=classModel
@@ -83,41 +92,39 @@ test('Test for unit performance', function(assert) {
     selectedLessonId=selectedLessonId
     selectedUnitId=selectedUnitId
     onLocationUpdate=onLocationUpdate
-  }}`);
+    updateSelectedLesson=updateSelectedLesson
+  }}`);//
   const $component = this.$();
   const $clickableDiv= $component.find(".gru-unit-performance-container >a"); //component dom element
 
-  //const $unitContainer = $component.find();
-
-  T.exists(assert, $component, 'Missing Unit Container');
+  T.exists(assert, $component, 'Missing Unit Container');//1
 
   const $titleSpan = $component.find(".performance-unit-title span");
 
-  assert.equal(T.text($titleSpan), "U1: Quiz :: Indian History", "Wrong title");
-
+  assert.equal(T.text($titleSpan), "U1: Quiz :: Indian History", "Wrong title"); //2
 
   Ember.run(() => {
-    $clickableDiv.click();
+    $clickableDiv.click();//4
   });
 
   return wait().then(function() {
     const $lessonsContainer = $component.find(".lessons-container");
-    assert.equal($lessonsContainer.hasClass('in'), true, "Lessons container did not open");
+    assert.equal($lessonsContainer.hasClass('in'), true, "Lessons container did not open");//5
 
     const $lessonTitleSpan = $component.find(".lessons-container div div:first-child .lesson-performance-title span");
 
-    T.exists(assert, $lessonTitleSpan, 'Missing Lesson Container');
+    T.exists(assert, $lessonTitleSpan, 'Missing Lesson Container');//6
 
-    assert.equal(T.text($lessonTitleSpan), "L1: lesson-title", "Wrong title");
+    assert.equal(T.text($lessonTitleSpan), "L1: lesson-title", "Wrong title");//7
 
     Ember.run(() => {
-      $clickableDiv.click();
+      $clickableDiv.click();//9
     });
 
     return wait().then(function() {
 
       const $lessonsContainer = $component.find(".lessons-container");
-      assert.equal($lessonsContainer.hasClass('in'), false, "Lessons container did not open");
+      assert.equal($lessonsContainer.hasClass('in'), false, "Lessons container did not close");//10
 
     });
   });

@@ -163,8 +163,11 @@ test('Test for not started lesson performance', function(assert) {
   this.set('index',0);
   this.set('selectedLessonId', 'not-my-id');
   this.set('onSelectLesson', function(){
-
+    assert.ok(true, "This should be called 1 time");
   });
+
+  assert.expect(11);
+
   this.render(hbs`{{class.analytics.performance.student.gru-lesson-performance
     lesson=lesson
     localIndex=index
@@ -174,40 +177,40 @@ test('Test for not started lesson performance', function(assert) {
   }}`);
   const $component = this.$();
 
-  T.exists(assert, $component, 'Missing Lesson Container');
+  T.exists(assert, $component, 'Missing Lesson Container'); //1
 
   const $lessonTitle = $component.find(".lesson-performance-title span");
 
-  assert.equal(T.text($lessonTitle), "L1: Quiz :: Indian History", "Wrong title");
+  assert.equal(T.text($lessonTitle), "L1: Quiz :: Indian History", "Wrong title"); //2
 
   const $clickableAnchor= $component.find(".gru-lesson-performance-container a"); //component dom element
-  T.exists(assert, $clickableAnchor, 'Missing Clickable Anchor');
+  T.exists(assert, $clickableAnchor, 'Missing Clickable Anchor'); //3
 
   const $chevronIcon = $component.find(".lesson-performance-title span i.fa");
-  assert.ok($chevronIcon.hasClass("fa-chevron-down"), "Missing downwards chevron");
+  assert.ok($chevronIcon.hasClass("fa-chevron-down"), "Missing downwards chevron"); //4
 
   Ember.run(() => {
-    $clickableAnchor.click();
+    $clickableAnchor.click();//5
   });
 
-  assert.ok($chevronIcon.hasClass("fa-chevron-up"), "Missing upwards chevron");
+  assert.ok($chevronIcon.hasClass("fa-chevron-up"), "Missing upwards chevron"); //6
 
   return wait().then(function() {
 
     const $firstCollection = $component.find("div.collections-container div.collection-performance:nth-child(2)");
-    T.exists(assert, $firstCollection, 'Missing Second collection');
+    T.exists(assert, $firstCollection, 'Missing Second collection'); //7
 
     const $collectionTitle = $component.find(".collections-container div:nth-child(2) .collection-performance-title span");
-    T.exists(assert, $collectionTitle, 'Missing collection Title');
+    T.exists(assert, $collectionTitle, 'Missing collection Title'); //8
 
-    assert.equal(T.text($collectionTitle), "A2: Indian History Assessment", "Wrong title");
+    assert.equal(T.text($collectionTitle), "A2: Indian History Assessment", "Wrong title"); //9
 
     const $collectionStudyButton = $component.find(".collections-container div:first-child .collection-performance-title div button:first-child");
 
-    T.exists(assert, $collectionStudyButton, 'Missing collection study button');
+    T.exists(assert, $collectionStudyButton, 'Missing collection study button');//10
 
 
-    assert.equal($collectionStudyButton.hasClass('collection-study-button'), true, "Study class from first button missing");
+    assert.equal($collectionStudyButton.hasClass('collection-study-button'), true, "Study class from first button missing"); //11
 
 
 
@@ -234,8 +237,10 @@ test('Test lesson performance with no collections', function(assert) {
   this.set('index',0);
   this.set('selectedLessonId', 'not-my-id');
   this.set('onSelectLesson', function(){
-
+    assert.ok(true, "This should be called 1 time each click");
   });
+
+  assert.expect(6);
   this.render(hbs`{{class.analytics.performance.student.gru-lesson-performance
     lesson=lesson
     localIndex=index
@@ -245,24 +250,24 @@ test('Test lesson performance with no collections', function(assert) {
   }}`);
   const $component = this.$();
 
-  T.exists(assert, $component, 'Missing Lesson Container');
+  T.exists(assert, $component, 'Missing Lesson Container'); //1
 
   const $clickableAnchor= $component.find(".gru-lesson-performance-container a"); //component dom element
-  T.exists(assert, $clickableAnchor, 'Missing Clickable Anchor');
+  T.exists(assert, $clickableAnchor, 'Missing Clickable Anchor'); //2
 
 
   Ember.run(() => {
-    $clickableAnchor.click();
+    $clickableAnchor.click();//3
   });
 
   return wait().then(function() {
     const $collectionsContainer = $component.find(".collections-container");
-    assert.equal($collectionsContainer.hasClass('in'), true, "Collections container did not open");
+    assert.equal($collectionsContainer.hasClass('in'), true, "Collections container did not open");//4
 
     const $collectionNoContentSpan = $component.find(".collections-container span");
 
-    T.exists(assert, $collectionNoContentSpan, 'Missing no content message span');
-    assert.equal(T.text($collectionNoContentSpan), "No content available", "Wrong no content message");
+    T.exists(assert, $collectionNoContentSpan, 'Missing no content message span');//5
+    assert.equal(T.text($collectionNoContentSpan), "No content available", "Wrong no content message");//6
   });
 
 

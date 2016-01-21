@@ -99,7 +99,12 @@ export default Ember.Component.extend({
    * @property {String}
    */
   userId:'',
-  selectedLessonId:'',
+  /**
+   * SelectedLessonId the currently selected lesson ID(Query Param)
+   *
+   * @property {String}
+   */
+  selectedLessonId:undefined,
 
   loadSelectedItems: function(lesson){
     const component = this;
@@ -123,11 +128,6 @@ export default Ember.Component.extend({
     collapsibleElement.collapse({toggle:true});
 
   }
-
-
-
-
   // -------------------------------------------------------------------------
-
   // Methods
 });
