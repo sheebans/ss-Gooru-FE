@@ -43,7 +43,8 @@ export default Ember.Component.extend({
 
         if(hasLessonsOpen.length>0){
           //If the unit has lessons open, set its first lesson as the lesson query params and set the selectedLessonId property
-          this.get('updateSelectedLesson')(hasLessonsOpen.attr('id'));
+          this.get('onLocationUpdate')(hasLessonsOpen.attr('id'), 'lesson');
+          this.set('selectedLessonId', hasLessonsOpen.attr('id'));
         }else{
           //Remove the query params if the unit does not have any.
           this.get('onLocationUpdate')('', 'lesson');
