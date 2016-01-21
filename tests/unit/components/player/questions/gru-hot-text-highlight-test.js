@@ -60,27 +60,6 @@ test('getSentenceItems', function (assert) {
 
 });
 
-test('getCorrectItems', function (assert) {
-  assert.expect(6);
-
-  var component = this.subject();
-
-  //with no correct items
-  var correctItems = component.getCorrectItems("No correct answer in text").toArray();
-  assert.equal(correctItems.length, 0, "Wrong number of items");
-
-  //with 1 correct item
-  correctItems = component.getCorrectItems("One correct answer in text [this]").toArray();
-  assert.equal(correctItems.length, 1, "Wrong number of items");
-  assert.equal(correctItems[0].get("text"), "this", "Wrong correct item");
-
-  //with many correct items
-  correctItems = component.getCorrectItems("Many [correct] items in this sentence [another .]").toArray();
-  assert.equal(correctItems.length, 2, "Wrong number of items");
-  assert.equal(correctItems[0].get("text"), "correct", "Wrong correct item");
-  assert.equal(correctItems[1].get("text"), "another .", "Wrong correct item");
-});
-
 test('toItems', function (assert) {
   assert.expect(6);
 
