@@ -51,7 +51,6 @@ export default Ember.Controller.extend({
         userAnswer: "3"
       }),
 
-
       QuestionResultDetails.create({
         id: 602,
         attempt: 1104,
@@ -106,7 +105,7 @@ export default Ember.Controller.extend({
         score: 10,
         reaction: 2,
         timeSpent: 28,
-        userAnswer: Ember.A(['yellow','white']),
+        userAnswer: Ember.A(['yellow','white'])
       }),
 
       QuestionResultDetails.create({
@@ -126,7 +125,7 @@ export default Ember.Controller.extend({
         score: 0,
         reaction: 2,
         timeSpent: 28,
-        userAnswer: Ember.A(['yellow','white']),
+        userAnswer: Ember.A(['yellow','white'])
       })
     ],
 

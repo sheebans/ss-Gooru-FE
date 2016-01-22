@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import {FillInTheBlankUtil} from 'gooru-web/utils/questions';
+import QuestionMixin from 'gooru-web/mixins/reports/assessment/questions/question';
 
 /**
  * Multiple choice
@@ -10,7 +11,7 @@ import {FillInTheBlankUtil} from 'gooru-web/utils/questions';
  * @module
  * @augments ember/Component
  */
-export default Ember.Component.extend({
+export default Ember.Component.extend(QuestionMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -19,26 +20,10 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Properties
 
-  /**
-   * Question information
-   * @property {Resource} question
-   */
-  question: null,
-
-  /**
-   * @property {Array} user answer
-   */
-  userAnswer: null,
-
-  /**
-   * @property {boolean} indicates if it should display the correct question answer
-   */
-  showCorrect: false,
-
   answer: Ember.computed("question", function () {
     let component = this;
     let question = component.get("question");
-    let questionUtil = FillInTheBlankUtil.create({question: question});
+    let questionUtil = this.getQuestionUtil(question);
     let questionText = question.text;
     let questionTextParts = questionText.split("_______");
     let userAnswers = component.get("userAnswer");
@@ -67,6 +52,14 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+
+  /**
+   * Returns the question util for the question
+   * @param question
+   */
+  getQuestionUtil: function(question){
+    return FillInTheBlankUtil.create({question: question});
+  },
 
   /**
    * Merge sentences and answers arrays
