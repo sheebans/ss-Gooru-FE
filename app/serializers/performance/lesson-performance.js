@@ -20,8 +20,8 @@ export default DS.JSONAPISerializer.extend({
           type: "performance/lesson-performance",
           attributes: {
             score: result.scoreInPercentage,
-            completionDone:  result.completed,
-            completionTotal: result.itemCount,
+            completionDone:  result.completionCount,
+            completionTotal: result.totalCount,
             timeSpent: result.timeSpent,
             ratingScore: 0,
             attempts: result.attempts

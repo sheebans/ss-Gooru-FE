@@ -6,20 +6,20 @@
       "userUid": "6f337b1c-0b0d-49b3-8314-e279181aeddf",
       "usageData":[
         {
-          "completed": 0,
+          "completionCount": 0,
           "collectionId": "96c69ddf-4ebe-407f-a394-046e7df0bd37",
           "scoreInPercentage": 0,
           "timeSpent": 30339,
           "views": 18,
-          "itemCount": 0
+          "totalCount": 0
         },
         {
-          "completed": 0,
+          "completionCount": 0,
           "collectionId": "d26f086a-01d5-4b27-b140-cf8b8e0aee78",
           "scoreInPercentage": 0,
           "timeSpent": 0,
           "views": 12,
-          "itemCount": 0
+          "totalCount": 0
         }
       ]
     }
@@ -28,24 +28,5 @@
   "paginate": null
 }
 
-//collectionType=assessment:
 
-//{
-//  "content":[
-//    {
-//      "userUid": "6f337b1c-0b0d-49b3-8314-e279181aeddf",
-//      "usageData":[
-//        {
-//          "completed": 0,
-//          "assessmentId": "1313c31d-994b-42dd-8f6a-0382e31812f5",
-//          "scoreInPercentage": 0,
-//          "timeSpent": 215122,
-//          "attempts": 7,
-//          "itemCount": 0
-//        }
-//      ]
-//    }
-//  ],
-//  "message": null,
-//  "paginate": null
-//}
+
