@@ -35,17 +35,20 @@ export default Ember.Component.extend({
      *
      * @function actions:selectUnit
      */
-    selectLesson: function () {
+    selectLesson: function (lesson) {
       const component = this;
       let element =$('#'+ component.get('elementId')+' .lesson-performance-title span >i.fa') ;
       if(element.hasClass('fa-chevron-down')){
         element.addClass('fa-chevron-up');
         element.removeClass('fa-chevron-down');
+        this.get('onSelectLesson')(lesson.get('id'));
       }
       else{
         element.addClass('fa-chevron-down');
         element.removeClass('fa-chevron-up');
+        this.get('onSelectLesson')();
       }
+      this.set('selectedLessonId',lesson.get('id'));
     },
     /**
      * @function actions:selectResource
@@ -58,6 +61,12 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Events
+
+  didInsertElement:function(){
+    if(this.get('lesson.id')===this.get('selectedLessonId')){
+      this.loadSelectedItems(this.get('lesson'));
+    }
+  },
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -89,10 +98,36 @@ export default Ember.Component.extend({
    *
    * @property {String}
    */
-  userId:''
+  userId:'',
+  /**
+   * SelectedLessonId the currently selected lesson ID(Query Param)
+   *
+   * @property {String}
+   */
+  selectedLessonId:undefined,
 
+  loadSelectedItems: function(lesson){
+    const component = this;
+    if(component.get('selectedLessonId') !== lesson.get('id')){
+      component.get('onLocationUpdate')(lesson.get('id'), 'lesson');
+    }
+    let element =$('#'+ component.get('elementId')+' .lesson-performance-title span >i.fa') ;
 
+    if(element.hasClass('fa-chevron-down')){
+      element.addClass('fa-chevron-up');
+      element.removeClass('fa-chevron-down');
+      component.get('onSelectLesson')(lesson.get('id'));
+    }
+    else{
+      element.addClass('fa-chevron-down');
+      element.removeClass('fa-chevron-up');
+      component.get('onSelectLesson')();
+    }
+
+    let collapsibleElement=$('#'+lesson.get('id'));
+    collapsibleElement.collapse({toggle:true});
+
+  }
   // -------------------------------------------------------------------------
-
   // Methods
 });

@@ -7,7 +7,7 @@
        aria-expanded="false"
        aria-controls="{{elementId}}-content"
       {{action "selectUnit" model.id}}>
-        {{t "common.unitInitial"}}{{plus-one index}}&colon; {{model.title}}
+        {{course-sections-prefix  index=index type='unit'}}&colon; {{model.title}}
     </a>
   </strong>
   {{!-- Show only for xs --}}

@@ -13,7 +13,6 @@ export default Ember.Controller.extend({
         id: 601,
         question: {
           questionType: 'MC',
-          isMultipleChoice: true,
           text: 'Sample Question MC',
           hints: [],
           explanation: 'Sample explanation text',
@@ -35,7 +34,6 @@ export default Ember.Controller.extend({
         id: 603,
         question: {
           questionType: 'MC',
-          isMultipleChoice: true,
           text: 'Sample Question MC',
           hints: [],
           explanation: 'Sample explanation text',
@@ -63,8 +61,7 @@ export default Ember.Controller.extend({
           hints: [],
           explanation: 'Sample explanation text',
           answers: [],
-          order: 3,
-          isOpenEnded: true
+          order: 3
         },
         correct: true,
         score: 10,
@@ -74,10 +71,28 @@ export default Ember.Controller.extend({
       }),
 
       QuestionResultDetails.create({
+        id: 603,
+        question: {
+          questionType: 'T/F',
+          text: 'True False Question',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers:  Ember.A([
+            Ember.Object.create({ id: "1", isCorrect: false,text:"True" }),
+            Ember.Object.create({ id: "2", isCorrect: true,text:"False" }),
+          ]),
+          order: 4
+        },
+        correct: true,
+        score: 10,
+        reaction: 4,
+        timeSpent: 28,
+        userAnswer: "1"
+      }),
+      QuestionResultDetails.create({
         id: 604,
         question: {
           questionType: 'FIB',
-          isFIB: true,
           text: 'The sun is _______ and the moon _______',
           hints: [],
           explanation: 'Sample explanation text',
@@ -92,13 +107,12 @@ export default Ember.Controller.extend({
         reaction: 2,
         timeSpent: 28,
         userAnswer: Ember.A(['yellow','white']),
-       }),
+      }),
 
       QuestionResultDetails.create({
         id: 605,
         question: {
           questionType: 'FIB',
-          isFIB: true,
           text: 'The mountain is _______ and the sky _______',
           hints: [],
           explanation: 'Sample explanation text',

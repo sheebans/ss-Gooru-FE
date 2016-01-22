@@ -43,15 +43,7 @@
             {{result.question.text}}
           </td>
           <td class="question-answer top-left">
-            {{#if result.question.isOpenEnded}}
-              {{reports.assessment.questions.gru-open-ended userAnswer=result.userAnswer}}
-            {{/if}}
-            {{#if result.question.isMultipleChoice}}
-              {{reports.assessment.questions.gru-multiple-choice question=result.question userAnswer=result.userAnswer}}
-            {{/if}}
-            {{#if result.question.isFIB}}
-              {{reports.assessment.questions.gru-fib question=result.question userAnswer=result.userAnswer}}
-            {{/if}}
+            {{component (questionConfig result.question.questionType 'component.report') question=result.question userAnswer=result.userAnswer}}
           </td>
           <td class="question-score {{if showPerformance 'visible' 'hide'}}">
             {{#if result.correct}}
@@ -68,15 +60,7 @@
               </div>
           </td>
           <td class="correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
-            {{#if result.question.isOpenEnded}}
-              {{reports.assessment.questions.gru-open-ended}}
-            {{/if}}
-            {{#if result.question.isMultipleChoice}}
-              {{reports.assessment.questions.gru-multiple-choice question=result.question showCorrect=true}}
-            {{/if}}
-            {{#if result.question.isFIB}}
-              {{reports.assessment.questions.gru-fib question=result.question userAnswer=result.userAnswer showCorrect=true}}
-            {{/if}}
+            {{component (questionConfig result.question.questionType 'component.report') question=result.question showCorrect=true}}
           </td>
       </tr>
     {{/each}}

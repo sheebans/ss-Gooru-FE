@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import {MultipleChoiceUtil} from 'gooru-web/utils/questions';
+import QuestionMixin from 'gooru-web/mixins/reports/assessment/questions/question';
 
 /**
  * Multiple choice
@@ -10,36 +11,25 @@ import {MultipleChoiceUtil} from 'gooru-web/utils/questions';
  * @module
  * @augments ember/Component
  */
-export default Ember.Component.extend({
+export default Ember.Component.extend(QuestionMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['reports', 'assessment', 'questions', 'gru-multiple-choice'],
 
   // -------------------------------------------------------------------------
+  // Actions
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  // -------------------------------------------------------------------------
   // Properties
-
-  /**
-   * Question information
-   * @property {Resource} question
-   */
-  question: null,
-
-  /**
-   * @property {string} selected user answer, it is the answer choice id
-   */
-  userAnswer: null,
-
-  /**
-   * @property {boolean} indicates if it should display the correct question answer
-   */
-  showCorrect: false,
-
 
   answers: Ember.computed("question", function () {
     let component = this;
     let question = component.get("question");
-    let questionUtil = MultipleChoiceUtil.create({question: question});
+    let questionUtil = component.getQuestionUtil(question);
     let userAnswer = component.get("userAnswer");
     if (component.get("showCorrect")){
       userAnswer = questionUtil.getCorrectAnswer();
@@ -54,6 +44,20 @@ export default Ember.Component.extend({
         correct: userAnswerCorrect
       };
     });
-  })
+  }),
+
+  // -------------------------------------------------------------------------
+  // Observers
+
+  // -------------------------------------------------------------------------
+  // Methods
+  /**
+   * Returns the question util for the question
+   * @param question
+   */
+  getQuestionUtil: function(question){
+    return MultipleChoiceUtil.create({question: question});
+  }
+
 
 });

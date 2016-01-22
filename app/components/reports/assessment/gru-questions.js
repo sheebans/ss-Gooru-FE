@@ -57,6 +57,5 @@ export default Ember.Component.extend({
       label: component.get('i18n').t('common.performance'),
       value: "some-value"
     })]);
-  }),
-
+  })
 });

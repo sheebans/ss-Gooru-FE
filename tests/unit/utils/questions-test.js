@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import {
   MultipleChoiceUtil, MultipleAnswerUtil, TrueFalseUtil,
-  FillInTheBlankUtil, ReorderUtil, HotSpotImageUtil, HotSpotTextUtil
+  FillInTheBlankUtil, ReorderUtil, HotSpotImageUtil, HotSpotTextUtil, HotTextHighlightUtil
 } from '../../../utils/questions';
 import { module, test } from 'qunit';
 
@@ -382,6 +382,63 @@ test('Hot Spot Text - isCorrect', function (assert) {
   assert.ok(!questionUtil.isCorrect(incorrectAnswer), "Answer should not be correct");
 
   let incorrectLessOptions = Ember.A([ 1 ]);
+  assert.ok(!questionUtil.isCorrect(incorrectLessOptions), "Answer should not be correct, it has less options");
+});
+
+// --------------- Hot Text Highlight tests
+test('Hot Text Highlight - getCorrectAnswer empty array', function (assert) {
+  let question = Ember.Object.create({ text: "" });
+  let questionUtil = HotTextHighlightUtil.create({question: question});
+  let correctAnswer = questionUtil.getCorrectAnswer();
+  assert.ok(!correctAnswer.get("length"), "Correct answer should be an empty array");
+});
+
+test('Hot Text Highlight - getCorrectAnswer', function (assert) {
+
+  //with no correct items
+  let question = Ember.Object.create({ text: "No correct answer in text" });
+  let questionUtil = HotTextHighlightUtil.create({question: question});
+  let correctAnswer = questionUtil.getCorrectAnswer();
+  assert.ok(!correctAnswer.get("length"), "It shoould have not correct items");
+
+  //with 1 correct item
+  question = Ember.Object.create({ text: "One correct answer in text [this]" });
+  questionUtil = HotTextHighlightUtil.create({question: question});
+  correctAnswer = questionUtil.getCorrectAnswer().toArray();
+  assert.equal(correctAnswer.length, 1, "Wrong number of items");
+  assert.equal(correctAnswer[0], "this", "Wrong correct item");
+
+  //with many correct items
+  question = Ember.Object.create({ text: "Many [correct] items in this sentence [another .]" });
+  questionUtil = HotTextHighlightUtil.create({question: question});
+  correctAnswer = questionUtil.getCorrectAnswer().toArray();
+  assert.equal(correctAnswer.length, 2, "Wrong number of items");
+  assert.equal(correctAnswer[0], "correct", "Wrong correct item");
+  assert.equal(correctAnswer[1], "another .", "Wrong correct item");
+});
+
+test('Hot Text Highlight - isAnswerChoiceCorrect', function (assert) {
+  let question = Ember.Object.create({ text: "Many [correct] items in this sentence [another .]" });
+  let questionUtil = HotTextHighlightUtil.create({question: question});
+
+  assert.ok(questionUtil.isAnswerChoiceCorrect("correct"), "Answer should be correct");
+  assert.ok(!questionUtil.isAnswerChoiceCorrect("invalid answer"), "Answer should not be correct");
+});
+
+test('Hot Text Highlight - isCorrect', function (assert) {
+  let question = Ember.Object.create({ text: "Many [correct] items in this sentence [another .]" });
+  let questionUtil = HotTextHighlightUtil.create({question: question});
+
+  let correctAnswer = Ember.A(["correct", "another ."]);
+  assert.ok(questionUtil.isCorrect(correctAnswer), "Answer should be correct");
+
+  let correctDifferentOrder = Ember.A(["another .", "correct"]);
+  assert.ok(questionUtil.isCorrect(correctDifferentOrder), "Answer should be correct, even it is not in the same order");
+
+  let incorrectAnswer = Ember.A(["no", "correct"]);
+  assert.ok(!questionUtil.isCorrect(incorrectAnswer), "Answer should not be correct");
+
+  let incorrectLessOptions = Ember.A(["correct"]);
   assert.ok(!questionUtil.isCorrect(incorrectLessOptions), "Answer should not be correct, it has less options");
 });
 
