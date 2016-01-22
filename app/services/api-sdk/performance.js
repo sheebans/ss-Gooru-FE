@@ -7,6 +7,26 @@ import StoreMixin from '../../mixins/store';
  */
 export default Ember.Service.extend(StoreMixin, {
 
+
+  findStudentPerformanceByCourse(userId, classId, courseId, options = { collectionType: 'assessment' }) {
+    return this.get('store').queryRecord('performance/unit-performance', {
+      userUid: userId,
+      collectionType: options.collectionType,
+      classId: classId,
+      courseId: courseId
+    });
+  },
+
+  findStudentPerformanceByUnit(userId, classId, courseId, unitId, options = { collectionType: 'assessment' }) {
+    return this.get('store').queryRecord('performance/lesson-performance', {
+      userUid: userId,
+      collectionType: options.collectionType,
+      classId: classId,
+      courseId: courseId,
+      unitId: unitId
+    });
+  },
+
   /**
    * Gets the performance data for each unit of a specific user, class and course.
    * @param userId user id

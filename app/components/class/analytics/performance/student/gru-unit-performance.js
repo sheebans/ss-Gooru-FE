@@ -3,13 +3,19 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
-  performanceService: Ember.inject.service("api-sdk/performance"),
+
+  performanceService: Ember.inject.service('api-sdk/performance'),
+
+  lessonService: Ember.inject.service('api-sdk/lesson'),
+
   // -------------------------------------------------------------------------
   // Attributes
+
   classNames:['gru-unit-performance-container', 'panel'],
 
   // -------------------------------------------------------------------------
   // Actions
+
   actions: {
     /**
      * Load the data for this unit and trigger
@@ -83,12 +89,13 @@ export default Ember.Component.extend({
    * @property {String}
    */
   selectedOption: null,
+
   /**
    * Collection that contains the lesson performance models for this unit
    *
    * @property {Ember.Array}
    */
-  lessons:null,
+  lessons: null,
   /**
    * Number of the index of this unit
    *
@@ -145,22 +152,21 @@ export default Ember.Component.extend({
    */
   loadLessons: function(unitId) {
     const component = this;
-    component.set('isLoading',true);
-    if(!component.get('lessons')){
-      component.get("performanceService").findLessonPerformanceByClassAndCourseAndUnit(
-        component.get('userId'),
-        component.get('classModel.id'),
-        component.get('classModel.course'),
-        unitId).then(function(result){
-          //TODO: Remove setting the completion values here, this is for testing the completion possible values on an assesment or collection.
-          if(result.length && result[0].get('collections.firstObject')){
-            result[0].get('collections.firstObject').set('completionTotal',10);
-            result[0].get('collections.firstObject').set('completionDone',10);
-          }
+    const classId = this.get('classModel.id');
+    const courseId = this.get('classModel.course');
+    const userId = this.get('userId');
+    const hasNoLessons = !this.get('lessons');
 
-          component.set('lessons',result);
-          component.set('isLoading',false);
-        });
+    if(hasNoLessons) {
+      const lessonsPromise = this.get('lessonService').findByClassAndCourseAndUnit(classId, courseId, unitId);
+      lessonsPromise.then(function (lessons) {
+        component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId)
+          .then(function(lessonPerformances) {
+            const matchedLessonPerformances = component.matchPerformanceAndLessons(lessonPerformances, lessons);
+            component.set('lessons', matchedLessonPerformances);
+            component.set('isLoading', false);
+          });
+      });
     }
   },
   loadSelectedItems: function(unit){
@@ -185,6 +191,14 @@ export default Ember.Component.extend({
       component.set('selectedLessonId',undefined);
     }
     component.get('onLocationUpdate')(lessonId, 'lesson');
-  }
+  },
+
+  matchPerformanceAndLessons: function(lessonPerformances, lessons) {
+    return lessonPerformances.map(function(lessonPerformance) {
+      var lesson = lessons.findBy('id', lessonPerformance.get('id'));
+      lessonPerformance.set('lesson', lesson);
+      return lessonPerformance;
+    });
+  },
 
 });

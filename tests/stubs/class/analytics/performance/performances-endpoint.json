@@ -43,7 +43,54 @@
       "body": "File not found!",
       "file": "student-performance-ok-response.json"
     }
+  },
+
+  {
+    "description": "API 3.0: Returns student's performance data for a specific unit in a class and course",
+    "request": {
+      "url": "^/insights/api/v2/class/(.+)/course/(.+)/unit/(.+)/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "student-performance-unit-200-response.json"
+    }
+  },
+
+  {
+    "description": "API 3.0: Returns student's performance data for all the Units in a class and course",
+    "request": {
+      "url": "^/insights/api/v2/class/(.+)/course/(.+)/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "student-course-performance-200-response.json"
+    }
   }
+
 ]
 
 

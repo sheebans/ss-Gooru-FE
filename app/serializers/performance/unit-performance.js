@@ -2,12 +2,19 @@ import Ember from 'ember';
 import DS from 'ember-data';
 
 /**
- * Lesson serializer for LessonPerformance model
+ * Serializer for Unit-Performance model
  *
- * @typedef {Object} LessonPerformanceSerializer
+ * @typedef {Object} UnitPerformanceSerializer
  */
 export default DS.JSONAPISerializer.extend({
 
+  /**
+   * Normalizes a queryRecord response
+   * @param store
+   * @param primaryModelClass
+   * @param payload
+   * @returns {UnitPerformance[]} returns a UnitPerformance array
+   */
   normalizeQueryRecordResponse: function(store, primaryModelClass, payload) {
     const hasResults = payload.content.length > 0;
     var model = { data: [] };
@@ -16,8 +23,8 @@ export default DS.JSONAPISerializer.extend({
       var results = payload.content[0].usageData;
       Ember.$.each(results, function(index, result){
         var item = {
-          id: result.lessonId,
-          type: "performance/lesson-performance",
+          id: result.unitId,
+          type: "performance/unit-performance",
           attributes: {
             score: result.scoreInPercentage,
             completionDone:  result.completed,

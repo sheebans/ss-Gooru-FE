@@ -8,7 +8,7 @@ export default ApplicationAdapter.extend({
   namespace: '/mocked-api/insights/api/v2',
 
   /**
-   * Builds the end-point URL for the queryRecord queryParam
+   * Builds the end-point URL for queryRecord method
    * @param query
    * @returns {string}
    */

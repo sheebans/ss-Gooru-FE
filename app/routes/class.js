@@ -19,6 +19,8 @@ export default Ember.Route.extend({
    */
   courseService: Ember.inject.service('api-sdk/course'),
 
+  unitService: Ember.inject.service('api-sdk/unit'),
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -31,16 +33,18 @@ export default Ember.Route.extend({
    */
   model: function(params) {
     const route = this;
-    const classPromise = route.get("classService").findById(params.classId);
+    const classPromise = this.get("classService").findById(params.classId);
+    const coursePromise = classPromise.then(function(classObj) {
+      return route.get('courseService').findById(classObj.get('course'))
+    });
+    const unitsPromise = classPromise.then(function(classObj) {
+      return route.get('unitService').findByClassAndCourse(params.classId, classObj.get('course'));
+    });
 
-    return classPromise.then(function(aClass){
-      const courseId = aClass.get('course');
-      return route.get('courseService').findById(courseId).then(function(course){
-        return {
-          "class": aClass,
-          "course": course
-        };
-      });
+    return Ember.RSVP.hash({
+      class: classPromise,
+      course: coursePromise,
+      units: unitsPromise
     });
   },
 

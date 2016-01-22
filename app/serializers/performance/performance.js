@@ -2,7 +2,7 @@ import Ember from 'ember';
 import DS from 'ember-data';
 
 /**
- * Lesson serializer for Performance model
+ * Serializer for Performance model
  *
  * @typedef {Object} PerformanceSerializer
  */
@@ -13,32 +13,64 @@ export default DS.JSONAPISerializer.extend({
    * @param store
    * @param primaryModelClass
    * @param payload
-   * @returns {{data: Array}} returns a response following the ember data unit model
+   * @returns {Performance[]} returns a Performance array
    */
   normalizeQueryRecordResponse: function(store, primaryModelClass, payload) {
+    const serializer = this;
+    const hasResults = payload.content.length > 0;
+
     var model = { data: [] };
-    var results = payload.content;
-    var hasResults = results && results.length > 0;
 
     if (hasResults) {
+      var results = payload.content[0].usageData;
       Ember.$.each(results, function(index, result){
         var item = {
-          id: result.gooruOId,
+          id: serializer.getObjectId(result),
           type: "performance/performance",
           attributes: {
             title: result.title,
-            type: result.type,
+            type: serializer.getObjectType(result),
             score: result.scoreInPercentage,
-            completionDone:  0,
+            completionDone:  result.completed,
             completionTotal: 1,
-            timeSpent: result.totalStudyTime,
+            timeSpent: result.timeSpent,
             ratingScore: 0,
-            attempts: result.assessmentsAttempted
+            attempts: result.attempts
           }
         };
         model.data.push(item);
       });
     }
+    console.log('Model:', model);
     return model;
+  },
+
+  getObjectId: function(payload) {
+    if (payload.unitId) {
+      return payload.unitId;
+    } else if (payload.lessonId) {
+      return payload.lessonId;
+    } else if (payload.collectionId) {
+      return payload.collectionId;
+    } else if (payload.assessmentId) {
+      return payload.assessmentId;
+    } else {
+      return null;
+    }
+  },
+
+  getObjectType: function(payload) {
+    if (payload.unitId) {
+      return 'unit';
+    } else if (payload.lessonId) {
+      return 'lesson';
+    } else if (payload.collectionId) {
+      return 'collection';
+    } else if (payload.assessmentId) {
+      return 'assessment';
+    } else {
+      return null;
+    }
   }
+
 });
