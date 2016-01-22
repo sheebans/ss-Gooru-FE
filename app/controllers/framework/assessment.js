@@ -16,14 +16,18 @@ export default Ember.Controller.extend({
           text: 'Sample Question MC',
           hints: [],
           explanation: 'Sample explanation text',
-          answers: [],
+          answers:  Ember.A([
+            Ember.Object.create({ id: "1", isCorrect: false,text:"Answer 1" }),
+            Ember.Object.create({ id: "2", isCorrect: false,text:"Answer 2" }),
+            Ember.Object.create({ id: "3", isCorrect: true,text:"Answer 3" })
+          ]),
           order: 1
         },
         correct: false,
         score: 10,
         reaction: 2,
         timeSpent: 28,
-        userAnswer: []
+        userAnswer: "1"
       }),
 
       QuestionResultDetails.create({
@@ -33,38 +37,64 @@ export default Ember.Controller.extend({
           text: 'Sample Question MC',
           hints: [],
           explanation: 'Sample explanation text',
-          answers: [],
-          order: 3
+          answers:  Ember.A([
+            Ember.Object.create({ id: "1", isCorrect: false,text:"Answer 1" }),
+            Ember.Object.create({ id: "2", isCorrect: false,text:"Answer 2" }),
+            Ember.Object.create({ id: "3", isCorrect: true,text:"Answer 3" })
+          ]),
+          order: 2
         },
         correct: true,
         score: 10,
         reaction: 4,
         timeSpent: 28,
-        userAnswer: []
+        userAnswer: "3"
       }),
+
 
       QuestionResultDetails.create({
         id: 602,
         attempt: 1104,
         question: {
           questionType: 'OE',
-          text: 'This is question 1',
+          text: 'Sample Question OE',
           hints: [],
           explanation: 'Sample explanation text',
           answers: [],
-          order: 2
+          order: 3
         },
         correct: true,
         score: 10,
         reaction: 3,
         timeSpent: 56,
         userAnswer: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+      }),
+
+      QuestionResultDetails.create({
+        id: 603,
+        question: {
+          questionType: 'T/F',
+          text: 'True False Question',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers:  Ember.A([
+            Ember.Object.create({ id: "1", isCorrect: false,text:"True" }),
+            Ember.Object.create({ id: "2", isCorrect: true,text:"False" }),
+          ]),
+          order: 4
+        },
+        correct: true,
+        score: 10,
+        reaction: 4,
+        timeSpent: 28,
+        userAnswer: "1"
       })
+
     ],
 
     mastery: [],
     selectedAttempt: 2,
-    submittedOn: 'Friday, January 15, 2016 6:02 AM',
+    submittedOn: new Date(),
     title: 'Test Assessment Name',
     totalAttempts: 2
   })

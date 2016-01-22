@@ -74,3 +74,27 @@ export function getGradeColor(grade) {
 export function getLetter(number){
   return String.fromCharCode(65 + number);
 }
+
+/**
+ * Formats a date into a string
+ * @param {Date} date
+ * @param {string} format
+ */
+export function formatDate(date, format) {
+  format = format || 'dddd, MMMM Do, YYYY h:mm A';
+  return moment(date).format(format);
+}
+/**
+ * Formats the  Unit, Lesson, Assessment and Collection label
+ * @param {number} index
+ * @param {string} type
+ * @param {service} i18n
+ */
+export function courseSectionsPrefix(index,type,i18n){
+  var prefixIndex = ++index;
+
+  const i18nKey = `common.${type}Initial`;
+  const letter = i18n.t(i18nKey);
+
+  return `${letter}${prefixIndex}`;
+}

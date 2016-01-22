@@ -1,5 +1,4 @@
 import Ember from "ember";
-import { QUESTION_COMPONENT_MAP } from "../../config/config";
 
 /**
  * Player question viewer
@@ -170,19 +169,6 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Observers
-  questionComponentSelected: Ember.on('init', Ember.computed('question', function() {
-    const questionType = this.get('question.questionType');
-    var component = QUESTION_COMPONENT_MAP[questionType];
-
-      if (!component) {
-        Ember.Logger.error('Questions of type ' + questionType + ' are currently not supported');
-      } else {
-        Ember.Logger.debug('Question component selected: ', component);
-        return component;
-      }
-    })
-  ),
-
   /**
    * Observes for the question itself
    * When it is changed some data should be reloaded

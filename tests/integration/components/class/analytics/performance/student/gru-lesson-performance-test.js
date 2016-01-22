@@ -56,10 +56,17 @@ test('Test for started lesson performance', function(assert) {
     });
   this.set('lesson', lesson);
   this.set('index',0);
+  this.set('selectedLessonId', 'not-my-id');
+  this.set('onSelectLesson', function(){
+    assert.ok(true, "This should be called 1 time");
+  });
+  assert.expect(12);
   this.render(hbs`{{class.analytics.performance.student.gru-lesson-performance
     lesson=lesson
     localIndex=index
     index=index
+    onSelectLesson=onSelectLesson
+    selectedLessonId=selectedLessonId
   }}`);
   const $component = this.$();
 
@@ -155,10 +162,19 @@ test('Test for not started lesson performance', function(assert) {
 
   this.set('lesson', lesson);
   this.set('index',0);
+  this.set('selectedLessonId', 'not-my-id');
+  this.set('onSelectLesson', function(){
+    assert.ok(true, "This should be called 1 time");
+  });
+
+  assert.expect(11);
+
   this.render(hbs`{{class.analytics.performance.student.gru-lesson-performance
     lesson=lesson
     localIndex=index
     index=index
+    selectedLessonId=selectedLessonId
+    onSelectLesson=onSelectLesson
   }}`);
   const $component = this.$();
 
@@ -220,10 +236,18 @@ test('Test lesson performance with no collections', function(assert) {
 
   this.set('lesson', lesson);
   this.set('index',0);
+  this.set('selectedLessonId', 'not-my-id');
+  this.set('onSelectLesson', function(){
+    assert.ok(true, "This should be called 1 time each click");
+  });
+
+  assert.expect(6);
   this.render(hbs`{{class.analytics.performance.student.gru-lesson-performance
     lesson=lesson
     localIndex=index
     index=index
+    selectedLessonId=selectedLessonId
+    onSelectLesson=onSelectLesson
   }}`);
   const $component = this.$();
 

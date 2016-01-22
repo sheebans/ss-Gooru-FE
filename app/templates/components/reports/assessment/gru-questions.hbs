@@ -37,15 +37,13 @@
     {{#each results as |result|}}
       <tr>
           <td class="number-question">
-              {{result.order}}
+              {{result.question.order}}
           </td>
           <td class="question-text top-left">
             {{result.question.text}}
           </td>
           <td class="question-answer top-left">
-            {{#if result.question.isOpenEnded}}
-              {{reports.assessment.questions.gru-open-ended answer=result.answer}}
-            {{/if}}
+            {{component (questionConfig result.question.questionType 'component.report') question=result.question userAnswer=result.userAnswer}}
           </td>
           <td class="question-score {{if showPerformance 'visible' 'hide'}}">
             {{#if result.correct}}
@@ -62,9 +60,7 @@
               </div>
           </td>
           <td class="correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
-            {{#if result.question.isOpenEnded}}
-              {{reports.assessment.questions.gru-open-ended}}
-            {{/if}}
+            {{component (questionConfig result.question.questionType 'component.report') question=result.question showCorrect=true}}
           </td>
       </tr>
     {{/each}}
