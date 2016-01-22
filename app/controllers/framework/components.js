@@ -69,7 +69,7 @@ export default Ember.Controller.extend({
 
   stackedHorizontalBarData: Ember.A([Ember.Object.create({
     color: "#00e100",
-    percentage: "20",
+    percentage: "20"
   }),Ember.Object.create({
     color: "#ff5a5a",
     percentage: "35"
@@ -87,6 +87,27 @@ export default Ember.Controller.extend({
       Ember.Object.create({ id: "3", isCorrect: true,text:"Answer 3" })
     ])
   }),
+
+  resource:Ember.Object.create({
+    resourceType:"Some type",
+    isQuestion:false,
+    title:"Some Title"
+  }),
+  resourceResult: Ember.Object.create({
+    reaction: 2,
+    timeSpent: 28
+  }),
+  resourceQuestion:Ember.Object.create({
+    resourceType:"Question type",
+    questionType:"Some Question type",
+    isQuestion:true,
+    title:"Some Title",
+    description:"Some Description"
+  }),
+  resourceQuestionResult: Ember.Object.create({
+    reaction: 2,
+    timeSpent: 28
+  })
 });
 
 
