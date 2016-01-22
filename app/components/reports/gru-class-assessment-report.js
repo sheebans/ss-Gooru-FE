@@ -1,100 +1,101 @@
 import Ember from 'ember';
 
 // TODO: Remove once the service that returns the user results is implemented
-var usersResults = [
-  {
-    "user": "56983a9060a68052c1ed934c",
-    "questionsResults": [
-      {
-        "correct": false,
-        "questionId": "56a120483b6e7b090501d3e7",
-        "reaction": 3,
-        "timeSpent": 1216
-      },
-      {
-        "correct": true,
-        "questionId": "56a1204886b2e565e1b2c230",
-        "reaction": 5,
-        "timeSpent": 2458
-      },
-      {
-        "correct": true,
-        "questionId": "56a12048ddee2022a741356a",
-        "reaction": 5,
-        "timeSpent": 1433
-      }
-    ]
-  },
-  {
-    "user": "56983a90fb01fecc328e2388",
-    "questionsResults": [
-      {
-        "correct": false,
-        "questionId": "56a120483b6e7b090501d3e7",
-        "reaction": 3,
-        "timeSpent": 1216
-      },
-      {
-        "correct": true,
-        "questionId": "56a1204886b2e565e1b2c230",
-        "reaction": 5,
-        "timeSpent": 2458
-      },
-      {
-        "correct": true,
-        "questionId": "56a12048ddee2022a741356a",
-        "reaction": 5,
-        "timeSpent": 1433
-      }
-    ]
-  },
-  {
-    "user": "56983a906596902edadedc7c",
-    "questionsResults": [
-      {
-        "correct": false,
-        "questionId": "56a120483b6e7b090501d3e7",
-        "reaction": 3,
-        "timeSpent": 1216
-      },
-      {
-        "correct": true,
-        "questionId": "56a1204886b2e565e1b2c230",
-        "reaction": 5,
-        "timeSpent": 2458
-      },
-      {
-        "correct": true,
-        "questionId": "56a12048ddee2022a741356a",
-        "reaction": 5,
-        "timeSpent": 1433
-      }
-    ]
-  },
-  {
-    "user": "56983a9082f705e65f2fe607",
-    "questionsResults": [
-      {
-        "correct": false,
-        "questionId": "56a120483b6e7b090501d3e7",
-        "reaction": 3,
-        "timeSpent": 1216
-      },
-      {
-        "correct": true,
-        "questionId": "56a1204886b2e565e1b2c230",
-        "reaction": 5,
-        "timeSpent": 2458
-      },
-      {
-        "correct": true,
-        "questionId": "56a12048ddee2022a741356a",
-        "reaction": 5,
-        "timeSpent": 1433
-      }
-    ]
-  }
-];
+// Mock data
+//var usersResults = [
+//  {
+//    "user": "56983a9060a68052c1ed934c",
+//    "questionsResults": [
+//      {
+//        "correct": false,
+//        "questionId": "56a120483b6e7b090501d3e7",
+//        "reaction": 3,
+//        "timeSpent": 1216
+//      },
+//      {
+//        "correct": true,
+//        "questionId": "56a1204886b2e565e1b2c230",
+//        "reaction": 5,
+//        "timeSpent": 2458
+//      },
+//      {
+//        "correct": true,
+//        "questionId": "56a12048ddee2022a741356a",
+//        "reaction": 5,
+//        "timeSpent": 1433
+//      }
+//    ]
+//  },
+//  {
+//    "user": "56983a90fb01fecc328e2388",
+//    "questionsResults": [
+//      {
+//        "correct": false,
+//        "questionId": "56a120483b6e7b090501d3e7",
+//        "reaction": 3,
+//        "timeSpent": 1216
+//      },
+//      {
+//        "correct": true,
+//        "questionId": "56a1204886b2e565e1b2c230",
+//        "reaction": 5,
+//        "timeSpent": 2458
+//      },
+//      {
+//        "correct": true,
+//        "questionId": "56a12048ddee2022a741356a",
+//        "reaction": 5,
+//        "timeSpent": 1433
+//      }
+//    ]
+//  },
+//  {
+//    "user": "56983a906596902edadedc7c",
+//    "questionsResults": [
+//      {
+//        "correct": false,
+//        "questionId": "56a120483b6e7b090501d3e7",
+//        "reaction": 3,
+//        "timeSpent": 1216
+//      },
+//      {
+//        "correct": true,
+//        "questionId": "56a1204886b2e565e1b2c230",
+//        "reaction": 5,
+//        "timeSpent": 2458
+//      },
+//      {
+//        "correct": true,
+//        "questionId": "56a12048ddee2022a741356a",
+//        "reaction": 5,
+//        "timeSpent": 1433
+//      }
+//    ]
+//  },
+//  {
+//    "user": "56983a9082f705e65f2fe607",
+//    "questionsResults": [
+//      {
+//        "correct": false,
+//        "questionId": "56a120483b6e7b090501d3e7",
+//        "reaction": 3,
+//        "timeSpent": 1216
+//      },
+//      {
+//        "correct": true,
+//        "questionId": "56a1204886b2e565e1b2c230",
+//        "reaction": 5,
+//        "timeSpent": 2458
+//      },
+//      {
+//        "correct": true,
+//        "questionId": "56a12048ddee2022a741356a",
+//        "reaction": 5,
+//        "timeSpent": 1433
+//      }
+//    ]
+//  }
+//];
 
 export default Ember.Component.extend({
 

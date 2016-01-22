@@ -127,7 +127,7 @@ export default Ember.Component.extend({
         value: question.id,
         order: question.order,
         label: labelPrefix + question.order
-      }
+      };
     });
     // Add column used for showing totals
     questions.push({
@@ -208,7 +208,7 @@ export default Ember.Component.extend({
       return {
         id: student.id,
         header: student.fullName
-      }
+      };
     });
 
     for (; totalRowValues > 0; totalRowValues--) {
