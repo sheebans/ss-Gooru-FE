@@ -71,6 +71,48 @@ export default Ember.Controller.extend({
         reaction: 3,
         timeSpent: 56,
         userAnswer: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+      }),
+
+      QuestionResultDetails.create({
+        id: 604,
+        question: {
+          questionType: 'FIB',
+          isFIB: true,
+          text: 'The sun is _______ and the moon _______',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers: Ember.A([
+            Ember.Object.create({id: 1, text: 'yellow'}),
+            Ember.Object.create({id: 2, text: 'white'})
+          ]),
+          order: 1
+        },
+        correct: true,
+        score: 10,
+        reaction: 2,
+        timeSpent: 28,
+        userAnswer: Ember.A(['yellow','white']),
+       }),
+
+      QuestionResultDetails.create({
+        id: 605,
+        question: {
+          questionType: 'FIB',
+          isFIB: true,
+          text: 'The mountain is _______ and the sky _______',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers: Ember.A([
+            Ember.Object.create({id: 1, text: 'green'}),
+            Ember.Object.create({id: 2, text: 'blue'})
+          ]),
+          order: 1
+        },
+        correct: false,
+        score: 0,
+        reaction: 2,
+        timeSpent: 28,
+        userAnswer: Ember.A(['yellow','white']),
       })
     ],
 
