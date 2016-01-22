@@ -1,5 +1,28 @@
 [
   {
+    "description": "Returns student's performance data for all the Units in a class, course, unit and lesson",
+    "request": {
+      "url": "^/insights/api/v2/class/(.+)/course/(.+)/unit/(.+)/lesson/(.+)/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "student-performance-lesson-200-response.json"
+    }
+  },
+
+  {
     "description": "Gets the lesson performance data by student and unit",
     "request": {
       "url": "^/insights/api/v1/class/(.+)/course/(.+)/unit/0619777a-45fa-4bfe-b800-40b2ab158c7a/progress$",
