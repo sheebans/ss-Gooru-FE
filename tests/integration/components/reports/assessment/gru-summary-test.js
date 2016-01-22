@@ -80,7 +80,7 @@ test('it renders', function (assert) {
   assert.equal($overviewSection.find('.dropdown button').text().trim(), '3', 'Current attempt value is incorrect');
   assert.equal($overviewSection.find('.dropdown-menu li').length, 4, 'Incorrect number of attempts in dropdown menu');
   assert.equal($overviewSection.find('.total-attempts').text().trim(), '4', 'Incorrect number of total attempts');
-  assert.equal($overviewSection.find('.date').text().trim(), 'Saturday, February 20th, 2010 11:15 AM', 'Incorrect attempt date value');
+  assert.equal($overviewSection.find('.date').text().trim(), '11:15 am Feb. 20th, 2010', 'Incorrect attempt date value');
 
   // Time
   $overviewSection = $overviewContainer.find('.information .time');
