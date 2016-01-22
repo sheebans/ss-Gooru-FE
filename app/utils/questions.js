@@ -248,6 +248,52 @@ ReorderUtil = QuestionUtil.extend({
  * It contains convenience methods for grading and retrieving useful information
  * from this question type
  *
+ * @typedef {Object} HotTextHighlightUtil
+ */
+HotTextHighlightUtil = QuestionUtil.extend({
+
+  // -------------------------------------------------------------------------
+  // Observers
+
+
+  // -------------------------------------------------------------------------
+  // Methods
+  /**
+   * Indicates if the answer choice is correct
+   * @param { string } answerChoice
+   */
+  isAnswerChoiceCorrect: function(answerChoice){
+    let correctAnswer = this.getCorrectAnswer();
+    return correctAnswer.contains(answerChoice);
+  },
+
+  /**
+   * Gets the correct answer
+   * The question text contains the information for the correct answer, correct items are wrapped by []
+   * i.e La casa es de [colo] pero el [teco] es azul
+   * @return {string[]} returns the correct answer choice ids
+   */
+  getCorrectAnswer: function(){
+    const text = this.get("question.text");
+    const regex = /(\[.*?])/gm;
+
+    let items = Ember.A();
+    let match = regex.exec(text);
+    while (match != null) {
+      let correctValue = match[0].replace("[", "").replace("]", ""); //replacing [ ]
+      items.pushObject(correctValue);
+      match = regex.exec(text);
+    }
+
+    return items;
+  }
+
+}),
+
+/**
+ * It contains convenience methods for grading and retrieving useful information
+ * from this question type
+ *
  * @typedef {Object} HotSpotImageUtil
  */
 HotSpotImageUtil = MultipleAnswerUtil.extend({

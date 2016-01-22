@@ -8,7 +8,7 @@
        aria-expanded="false"
        aria-controls="{{elementId}}-content"
       {{action "selectLesson" model.id}}>
-        {{t "common.lessonInitial"}}{{plus-one index}}&colon; {{model.title}}
+      {{course-sections-prefix  index=index type='lesson'}}&colon; {{model.title}}
     </a>
   </span>
   {{!-- Show only for xs --}}
@@ -51,7 +51,7 @@
             <img src="" />
             <span class="panel-title">
               <a {{action "selectResource" item.id}}>
-                  {{t (itemInitial item.collectionType)}}{{plus-one index}}&colon; {{item.title}}
+                {{course-sections-prefix  index=index type=item.collectionType}}&colon; {{item.title}}
               </a>
             </span>
             {{!-- Show only for xs --}}
