@@ -1,4 +1,5 @@
 import Ember from "ember";
+import QuestionMixin from 'gooru-web/mixins/reports/assessment/questions/question';
 
 /**
  * Open Ended Question
@@ -7,7 +8,7 @@ import Ember from "ember";
  * ended question inside of the assessment report
  *
  */
-export default Ember.Component.extend({
+export default Ember.Component.extend(QuestionMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -26,10 +27,9 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Properties
 
-  /**
-   * @property {string} the user answer, "N/A" is the default.
-   */
-  userAnswer: "N/A"
+  answer: Ember.computed("question", "showCorrect", function () {
+    return (this.get("showCorrect")) ? "N/A" : this.get("userAnswer");
+  })
 
   // -------------------------------------------------------------------------
   // Observers

@@ -9,35 +9,49 @@ moduleForComponent('reports/assessment/questions/gru-open-ended', 'Integration |
   }
 });
 
-test('Open ended Layout', function (assert) {
+test('Open ended Layout showing correct answer', function (assert) {
   assert.expect(2);
 
-  const answer = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.";
+  var showCorrect = true;
+  this.set("question", "fake");
+  this.set('showCorrect', showCorrect);
 
-  this.set('answer', answer);
-
-  this.render(hbs`{{reports/assessment/questions/gru-open-ended userAnswer=answer}}`);
+  this.render(hbs`{{reports/assessment/questions/gru-open-ended showCorrect=showCorrect question=question}}`);
 
   const $component = this.$(); //component dom element
   const $answer = $component.find(".answer");
 
   T.exists(assert, $answer, 'Missing answer');
-
-  assert.equal(T.text($answer), 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.', 'Wrong answer text');
-
+  assert.equal(T.text($answer), 'N/A', 'It should show N/A when showing the correct answer');
 });
 
-test('Open ended Layout with out answer', function (assert) {
+
+
+test('Open ended Layout showing user answer', function (assert) {
   assert.expect(2);
 
-  this.render(hbs`{{reports/assessment/questions/gru-open-ended}}`);
+  this.set("question", "fake");
+  this.set('answer', "My Answer");
+
+  this.render(hbs`{{reports/assessment/questions/gru-open-ended question=question userAnswer=answer}}`);
 
   const $component = this.$(); //component dom element
   const $answer = $component.find(".answer");
 
   T.exists(assert, $answer, 'Missing answer');
-
-  assert.equal(T.text($answer), 'N/A', 'Wrong answer text');
-
+  assert.equal(T.text($answer), 'My Answer', 'Wrong answer text');
 });
 
+test('Open ended Layout when no answer provided', function (assert) {
+  assert.expect(2);
+
+  this.set("question", "fake");
+
+  this.render(hbs`{{reports/assessment/questions/gru-open-ended question=question userAnswer=answer}}`);
+
+  const $component = this.$(); //component dom element
+  const $answer = $component.find(".answer");
+
+  T.exists(assert, $answer, 'Missing answer');
+  assert.equal(T.text($answer), '', 'Wrong answer text');
+});
