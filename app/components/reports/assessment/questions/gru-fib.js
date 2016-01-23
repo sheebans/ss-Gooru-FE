@@ -3,7 +3,7 @@ import {FillInTheBlankUtil} from 'gooru-web/utils/questions';
 import QuestionMixin from 'gooru-web/mixins/reports/assessment/questions/question';
 
 /**
- * Multiple choice
+ * Fill in the blank
  *
  * Component responsible for controlling the logic and appearance of a fill in the blank
  * question inside of the assessment report.
