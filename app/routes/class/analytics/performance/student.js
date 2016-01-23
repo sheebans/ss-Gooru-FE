@@ -25,19 +25,18 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   },
 
   model: function() {
-    const route = this;
     const classModel = this.modelFor('class').class;
     const units = this.modelFor('class').units;
-    const userId = route.get('session.userId');
+    const userId = this.get('session.userId');
     const classId= classModel.get('id');
     const courseId = classModel.get('course');
-    const unitPerformanceList = this.get('performanceService').findStudentPerformanceByCourse(userId, classId, courseId);
+    const unitPerformances = this.get('performanceService').findStudentPerformanceByCourse(userId, classId, courseId, units);
 
     return Ember.RSVP.hash({
       userId:userId,
       classModel:classModel,
       units: units,
-      unitPerformanceList: unitPerformanceList
+      unitPerformances: unitPerformances
     });
   },
 
@@ -47,19 +46,10 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
    * @param model
    */
   setupController: function(controller, model) {
-    var matchedUnitPerformanceList = this.matchPerformanceAndUnits(model.unitPerformanceList, model.units);
-    controller.set('performances', matchedUnitPerformanceList);
+    controller.set('performances', model.unitPerformances);
     controller.set('userId', model.userId);
     controller.set('classModel', model.classModel);
     controller.get('classController').selectMenuItem('analytics.performance');
-  },
-
-  matchPerformanceAndUnits: function(unitPerformanceList, units) {
-    return unitPerformanceList.map(function(unitPerformance) {
-      var unit = units.findBy('id', unitPerformance.get('id'));
-      unitPerformance.set('unit', unit);
-      return unitPerformance;
-    });
   },
 
   // -------------------------------------------------------------------------

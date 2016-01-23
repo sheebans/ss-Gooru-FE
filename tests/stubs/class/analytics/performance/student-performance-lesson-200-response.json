@@ -1,17 +1,15 @@
-//collectionType=collection:
-
 {
   "content":[
     {
       "userUid": "6f337b1c-0b0d-49b3-8314-e279181aeddf",
       "usageData":[
         {
-          "completionCount": 0,
-          "collectionId": "96c69ddf-4ebe-407f-a394-046e7df0bd37",
-          "scoreInPercentage": 0,
-          "timeSpent": 30339,
+          "completionCount": 10,
+          "collectionId": "88c8c296-9b25-4ca2-80f8-949076a48f99",
+          "scoreInPercentage": 90,
+          "timeSpent": 130339,
           "views": 18,
-          "totalCount": 0
+          "totalCount": 20
         },
         {
           "completionCount": 0,

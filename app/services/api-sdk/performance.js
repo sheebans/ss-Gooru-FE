@@ -8,24 +8,56 @@ import StoreMixin from '../../mixins/store';
 export default Ember.Service.extend(StoreMixin, {
 
 
-  findStudentPerformanceByCourse(userId, classId, courseId, options = { collectionType: 'assessment' }) {
+  findStudentPerformanceByCourse(userId, classId, courseId, units, options = { collectionType: 'assessment' }) {
+    const service = this;
     return this.get('store').queryRecord('performance/unit-performance', {
       userUid: userId,
       collectionType: options.collectionType,
       classId: classId,
       courseId: courseId
+    }).then(function(unitPerformances) {
+      return service.matchTitlesWithPerformances(units, unitPerformances);
     });
   },
 
-  findStudentPerformanceByUnit(userId, classId, courseId, unitId, options = { collectionType: 'assessment' }) {
+  findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons, options = { collectionType: 'assessment' }) {
+    const service = this;
     return this.get('store').queryRecord('performance/lesson-performance', {
       userUid: userId,
       collectionType: options.collectionType,
       classId: classId,
       courseId: courseId,
       unitId: unitId
+    }).then(function(lessonPerformances) {
+      return service.matchTitlesWithPerformances(lessons, lessonPerformances);
     });
   },
+
+  findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections, options = { collectionType: 'assessment' }) {
+    const service = this;
+    return this.get('store').queryRecord('performance/collection-performance', {
+      userUid: userId,
+      collectionType: options.collectionType,
+      classId: classId,
+      courseId: courseId,
+      unitId: unitId,
+      lessonId: lessonId
+    }).then(function(collectionPerformances) {
+      return service.matchTitlesWithPerformances(collections, collectionPerformances);
+    });
+  },
+
+  matchTitlesWithPerformances: function(objectsWithTitle, performances) {
+    return performances.map(function(performance) {
+      const objectWithTitle = objectsWithTitle.findBy('id', performance.get('id'));
+      if (objectWithTitle) {
+        performance.set('title', objectWithTitle.get('title'));
+      }
+      return performance;
+    });
+  },
+
+
 
   /**
    * Gets the performance data for each unit of a specific user, class and course.

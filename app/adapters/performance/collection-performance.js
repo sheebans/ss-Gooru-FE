@@ -25,7 +25,7 @@ export default ApplicationAdapter.extend({
     delete query.unitId;
     delete query.lessonId;
 
-    return `${namespace}/class/${classId}/course/${courseId}/unit/${unitId}/lesson/${unitId}/performance`;
+    return `${namespace}/class/${classId}/course/${courseId}/unit/${unitId}/lesson/${lessonId}/performance`;
   }
 
 });

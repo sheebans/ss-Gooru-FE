@@ -5,35 +5,35 @@
       "usageData": [
         {
           "lessonId": "27f0bc24-c2b5-40d8-bb8f-e6ec939ad553",
-          "completed": 5,
+          "completionCount": 5,
           "scoreInPercentage": 65,
           "timeSpent": 89141,
           "attempts": 12,
-          "itemCount": 10
+          "totalCount": 10
         },
         {
           "lessonId": "40fe7ec4-261f-43aa-882b-e678fc754256",
-          "completed": 0,
+          "completionCount": 0,
           "scoreInPercentage": 0,
           "timeSpent": 32366,
           "attempts": 4,
-          "itemCount": 0
+          "totalCount": 0
         },
         {
           "lessonId": "5c9e8048-493a-489c-89e1-80be13c4bed0",
-          "completed": 0,
+          "completionCount": 0,
           "scoreInPercentage": 0,
           "timeSpent": 32366,
           "attempts": 4,
-          "itemCount": 0
+          "totalCount": 0
         },
         {
           "lessonId": "7cf4a8ec-adec-4b27-815b-6fa4bea9fd97",
-          "completed": 0,
+          "completionCount": 0,
           "scoreInPercentage": 0,
           "timeSpent": 32366,
           "attempts": 4,
-          "itemCount": 0
+          "totalCount": 0
         }
       ]
     }

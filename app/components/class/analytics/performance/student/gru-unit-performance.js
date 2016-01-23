@@ -8,6 +8,8 @@ export default Ember.Component.extend({
 
   lessonService: Ember.inject.service('api-sdk/lesson'),
 
+  collectionService: Ember.inject.service('api-sdk/collection'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -140,7 +142,6 @@ export default Ember.Component.extend({
   isLoading:false,
 
   // -------------------------------------------------------------------------
-
   // Methods
 
   /**
@@ -158,17 +159,28 @@ export default Ember.Component.extend({
     const hasNoLessons = !this.get('lessons');
 
     if(hasNoLessons) {
-      const lessonsPromise = this.get('lessonService').findByClassAndCourseAndUnit(classId, courseId, unitId);
-      lessonsPromise.then(function (lessons) {
-        component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId)
-          .then(function(lessonPerformances) {
-            const matchedLessonPerformances = component.matchPerformanceAndLessons(lessonPerformances, lessons);
-            component.set('lessons', matchedLessonPerformances);
-            component.set('isLoading', false);
-          });
+      component.set('isLoading', true);
+      this.get('lessonService').findByClassAndCourseAndUnit(classId, courseId, unitId)
+        .then(function(lessons) {
+          component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons)
+            .then(function(lessonPerformances) {
+              lessonPerformances.forEach(function(lessonPerformance) {
+                const lessonId = lessonPerformance.get('id');
+                component.get('collectionService').findByClassAndCourseAndUnitAndLesson(classId, courseId, unitId, lessonId)
+                  .then(function(collections) {
+                    component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections)
+                      .then(function(collectionPerformances) {
+                        lessonPerformance.set('collections', collectionPerformances);
+                      });
+                  });
+              });
+              component.set('lessons', lessonPerformances);
+              component.set('isLoading', false);
+            });
       });
     }
   },
+
   loadSelectedItems: function(unit){
     const component = this;
     component.loadLessons(unit.get('id'));
@@ -191,14 +203,6 @@ export default Ember.Component.extend({
       component.set('selectedLessonId',undefined);
     }
     component.get('onLocationUpdate')(lessonId, 'lesson');
-  },
-
-  matchPerformanceAndLessons: function(lessonPerformances, lessons) {
-    return lessonPerformances.map(function(lessonPerformance) {
-      var lesson = lessons.findBy('id', lessonPerformance.get('id'));
-      lessonPerformance.set('lesson', lesson);
-      return lessonPerformance;
-    });
-  },
+  }
 
 });

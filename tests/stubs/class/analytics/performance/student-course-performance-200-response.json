@@ -5,43 +5,43 @@
       "usageData": [
         {
           "unitId": "31886eac-f998-493c-aa42-016f53e9fa88",
-          "completed": 5,
+          "completionCount": 5,
           "scoreInPercentage": 80,
           "timeSpent": 121507,
           "attempts": 16,
-          "itemCount": 10
+          "totalCount": 10
         },
         {
           "unitId": "7deebd55-1976-40a2-8e46-3b8ec5b6d388",
-          "completed": 3,
+          "completionCount": 3,
           "scoreInPercentage": 55,
           "timeSpent": 215122,
           "attempts": 7,
-          "itemCount": 10
+          "totalCount": 10
         },
         {
           "unitId": "21654d76-45e7-45e9-97ab-5f96a14da135",
-          "completed": 3,
+          "completionCount": 3,
           "scoreInPercentage": 55,
           "timeSpent": 215122,
           "attempts": 7,
-          "itemCount": 10
+          "totalCount": 10
         },
         {
           "unitId": "c1f810a2-c87f-48f5-a899-0d9753383042",
-          "completed": 3,
+          "completionCount": 3,
           "scoreInPercentage": 55,
           "timeSpent": 215122,
           "attempts": 7,
-          "itemCount": 10
+          "totalCount": 10
         },
         {
           "unitId": "dfc99db4-d331-4733-ac06-35358cee5c64",
-          "completed": 3,
+          "completionCount": 3,
           "scoreInPercentage": 55,
           "timeSpent": 215122,
           "attempts": 7,
-          "itemCount": 10
+          "totalCount": 10
         }
       ]
     }
