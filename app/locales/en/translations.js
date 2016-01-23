@@ -432,5 +432,10 @@ export default {
     "units":"Units",
     "remixed-by":"Remixed by",
     "remix":"Remix"
+  },
+
+  "reports.gru-table-view": {
+    "first-tier-header-prefix": "Q",
+    "totals": "Total Scores"
   }
 };

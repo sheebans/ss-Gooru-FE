@@ -1,11 +1,11 @@
 import Ember from 'ember';
-import {MultipleChoiceUtil} from 'gooru-web/utils/questions';
+import {ReorderUtil} from 'gooru-web/utils/questions';
 import QuestionMixin from 'gooru-web/mixins/reports/assessment/questions/question';
 
 /**
  * Multiple choice
  *
- * Component responsible for show the multiple choice answer, what option are selected
+ * Component responsible for show the reorder, what option are selected
  * and the correct option.
  *
  * @module
@@ -15,7 +15,7 @@ export default Ember.Component.extend(QuestionMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['reports', 'assessment', 'questions', 'gru-multiple-choice'],
+  classNames: ['reports', 'assessment', 'questions', 'gru-reorder'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -30,18 +30,21 @@ export default Ember.Component.extend(QuestionMixin, {
     let component = this;
     let question = component.get("question");
     let questionUtil = component.getQuestionUtil(question);
-    let userAnswer = component.get("userAnswer");
+    let userAnswers = component.get("userAnswer");
+    let correctAnswers = questionUtil.getCorrectAnswer();
     if (component.get("showCorrect")){
-      userAnswer = questionUtil.getCorrectAnswer();
+      userAnswers = correctAnswers;
     }
 
-    let userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(userAnswer);
-    let answers = question.get("answers");
-    return answers.map(function(answer){
+    //answer in the correct order
+    let answers = question.get("answers").sortBy("order");
+    return answers.map(function(answer, index){
+      let userAnswerAtIndex = userAnswers.objectAt(index);
+      let correctAnswerAtIndex = correctAnswers.objectAt(index);
       return {
+        selectedOrder: userAnswers.indexOf(correctAnswerAtIndex) + 1,
         text: answer.get("text"),
-        selected: answer.get("id") === userAnswer,
-        correct: userAnswerCorrect
+        correct: questionUtil.isAnswerChoiceCorrect(userAnswerAtIndex, index)
       };
     });
   }),
@@ -56,7 +59,7 @@ export default Ember.Component.extend(QuestionMixin, {
    * @param question
    */
   getQuestionUtil: function(question){
-    return MultipleChoiceUtil.create({question: question});
+    return ReorderUtil.create({question: question});
   }
 
 
