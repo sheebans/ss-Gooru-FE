@@ -51,7 +51,6 @@ export default Ember.Controller.extend({
         userAnswer: "3"
       }),
 
-
       QuestionResultDetails.create({
         id: 602,
         attempt: 1104,
@@ -110,6 +109,46 @@ export default Ember.Controller.extend({
         reaction: 4,
         timeSpent: 28,
         userAnswer: ["chi", "crc", "bra", "pan"]
+      }),
+
+      QuestionResultDetails.create({
+        id: 604,
+        question: Ember.Object.create({
+          questionType: 'FIB',
+          text: 'The sun is _______ and the moon _______',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers: Ember.A([
+            Ember.Object.create({id: 1, text: 'yellow'}),
+            Ember.Object.create({id: 2, text: 'white'})
+          ]),
+          order: 1
+        }),
+        correct: true,
+        score: 10,
+        reaction: 2,
+        timeSpent: 28,
+        userAnswer: Ember.A(['yellow','white'])
+      }),
+
+      QuestionResultDetails.create({
+        id: 605,
+        question: Ember.Object.create({
+          questionType: 'FIB',
+          text: 'The mountain is _______ and the sky _______',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers: Ember.A([
+            Ember.Object.create({id: 1, text: 'green'}),
+            Ember.Object.create({id: 2, text: 'blue'})
+          ]),
+          order: 1
+        }),
+        correct: false,
+        score: 0,
+        reaction: 2,
+        timeSpent: 28,
+        userAnswer: Ember.A(['yellow','white'])
       })
     ],
 
