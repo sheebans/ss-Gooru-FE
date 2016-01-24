@@ -123,37 +123,33 @@ export default Ember.Component.extend({
   updateColumnVisibility: Ember.observer('secondTierHeaders.@each.visible', function () {
     const secondTierHeaders = this.get('secondTierHeaders');
     const secondTierHeadersLen = secondTierHeaders.length;
-
-    var headers = secondTierHeaders.filterBy('visible', true);
-    var newVisibleHeadersLen = headers.length;
-    var removeColumns = headers.length < currentVisibleHeadersLen;
+    const secondTierHeadersVisible = secondTierHeaders.filterBy('visible', true).length;
+    const removeColumns = secondTierHeadersVisible < currentVisibleHeadersLen;
     var selectors = [];
     var cssSelector;
+
+    secondTierHeaders.forEach(function (header, index) {
+      if ((removeColumns && !header.visible) || (!removeColumns && header.visible)) {
+        let offset = index - 1;
+        let offsetStr = (offset < 0) ? offset : '+' + offset;
+
+        selectors.push('table tr.second-tier th.' + header.value);
+        selectors.push('table tr.data td:nth-child(' + secondTierHeadersLen + 'n' + offsetStr + ')');
+      }
+    });
+    cssSelector = selectors.join(',');
 
     if (removeColumns) {
       // There are less second tier headers visible now so the class 'hidden'
       // will be added to the second tier headers that are no longer visible.
       // Otherwise, if there are more second tier headers visible now, the
       // class 'hidden' will be removed from them.
-      headers = secondTierHeaders.filterBy('visible', false);
-    }
-
-    headers.forEach(function (header, index) {
-      var offset = index - 1;
-      var offsetStr = (offset < 0) ? offset : '+' + offset;
-
-      selectors.push('table tr.second-tier th.' + header.value);
-      selectors.push('table tr.data td:nth-child(' + secondTierHeadersLen + 'n' + offsetStr + ')');
-    });
-    cssSelector = selectors.join(',');
-
-    if (removeColumns) {
       this.$(cssSelector).addClass('hidden');
     } else {
       this.$(cssSelector).removeClass('hidden');
     }
 
-    currentVisibleHeadersLen = newVisibleHeadersLen;
+    currentVisibleHeadersLen = secondTierHeadersVisible;
   })
 
 });
