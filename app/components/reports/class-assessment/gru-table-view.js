@@ -61,6 +61,8 @@ export default Ember.Component.extend({
       return student.id;
     });
 
+    this.set('questionProperties', this.initQuestionProperties());
+    this.set('studentsHeader', this.initStudentsHeader());
     this.set('tableData', this.initTableData());
   },
 
@@ -94,10 +96,7 @@ export default Ember.Component.extend({
   /**
    * @prop { String? } studentsHeader - Header for the students names
    */
-  studentsHeader: {
-    label: 'Name',
-    value: 'fullName'
-  },
+  studentsHeader: null,
 
   /**
    * @prop { Object[] } tableData - Ordered data to use as content for the table component
@@ -149,50 +148,53 @@ export default Ember.Component.extend({
    * - value: internal header identifier
    * - visible: should the property be visible or not?
    */
-  questionProperties: [
-    Ember.Object.create({
-      filter: {
-        label: 'Scores',
-        disabled: true
-      },
-      label: 'Score',
-      value: 'correct',
-      visible: true
-    }),
-    Ember.Object.create({
-      filter: {
-        label: 'Study Time'
-      },
-      label: 'Time Spent',
-      value: 'time'
-    }),
-    Ember.Object.create({
-      filter: {
-        label: 'Reactions'
-      },
-      label: 'Reaction',
-      value: 'reaction'
-    })
-  ],
+  questionProperties: null,
 
 
   // -------------------------------------------------------------------------
   // Methods
 
   /**
-   * Update the visibility of a property in the questionProperties model
-   * @return {undefined}
+   * Initialize the question properties array with values -including i18n labels
+   * @return {Object[]}
    */
-  updatePropertyVisibility: function (e) {
-    var $elem = $(e.target);
-    var index = $elem.data('idx');
-    var questionProperty = this.get('questionProperties')[index];
+  initQuestionProperties: function () {
+    return [
+      Ember.Object.create({
+        filter: {
+          label: this.get('i18n').t('reports.gru-table-view.scores').string,
+          disabled: true
+        },
+        label: this.get('i18n').t('reports.gru-table-view.score').string,
+        value: 'correct',
+        visible: true
+      }),
+      Ember.Object.create({
+        filter: {
+          label: this.get('i18n').t('reports.gru-table-view.study-time').string
+        },
+        label: this.get('i18n').t('reports.gru-table-view.time-spent').string,
+        value: 'time'
+      }),
+      Ember.Object.create({
+        filter: {
+          label: this.get('i18n').t('reports.gru-table-view.reactions').string
+        },
+        label: this.get('i18n').t('reports.gru-table-view.reaction').string,
+        value: 'reaction'
+      })
+    ];
+  },
 
-    if ($elem.prop('checked')) {
-      questionProperty.set('visible', true);
-    } else {
-      questionProperty.set('visible', false);
-    }
+  /**
+   * Initialize the students header object with values including an i18n label
+   * @return {Object[]}
+   */
+  initStudentsHeader: function () {
+    return {
+      label: this.get('i18n').t('reports.gru-table-view.name').string,
+      value: 'fullName'
+    };
   },
 
   /**
@@ -222,6 +224,22 @@ export default Ember.Component.extend({
     });
 
     return data;
+  },
+
+  /**
+   * Update the visibility of a property in the questionProperties model
+   * @return {undefined}
+   */
+  updatePropertyVisibility: function (e) {
+    var $elem = $(e.target);
+    var index = $elem.data('idx');
+    var questionProperty = this.get('questionProperties')[index];
+
+    if ($elem.prop('checked')) {
+      questionProperty.set('visible', true);
+    } else {
+      questionProperty.set('visible', false);
+    }
   }
 
 });

@@ -67,10 +67,19 @@ export default Ember.Component.extend({
    */
   firstTierHeaders: null,
 
+  /**
+   * @prop { Function } onSelectFirstTierHeader - Event handler triggered when clicking on a first tier header
+   */
   onSelectFirstTierHeader: null,
 
+  /**
+   * @prop { Function } onSelectSecondTierHeader - Event handler triggered when clicking on a second tier header
+   */
   onSelectSecondTierHeader: null,
 
+  /**
+   * @prop { Function } onSelectRowHeader - Event handler triggered when clicking on a row header
+   */
   onSelectRowHeader: null,
 
   /**
