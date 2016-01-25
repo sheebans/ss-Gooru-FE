@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { formatTimeInSeconds } from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend({
 
@@ -123,6 +124,7 @@ export default Ember.Component.extend({
    * - label: visual representation of the header
    * - value: internal header identifier
    * - visible: should the property be visible or not?
+   * - renderFunction: function to process values of this property for output
    */
   questionProperties: null,
 
@@ -173,6 +175,7 @@ export default Ember.Component.extend({
     const studentsIdsLen = studentsIds.length;
     const questionsIds = this.get('assessmentQuestionsIds');
     const questionsIdsLen = questionsIds.length;
+    const questionProperties = this.get('questionProperties');
     const questionPropertiesIds = this.get('questionPropertiesIds');
     const questionPropertiesIdsLen = questionPropertiesIds.length;
     const rawData = this.get('rawData');
@@ -198,9 +201,10 @@ export default Ember.Component.extend({
           continue;
         }
         for (let k = 0; k < questionPropertiesIdsLen; k++) {
+          let renderFunction = questionProperties[k].renderFunction;
           let value = rawData[studentsIds[i]][questionsIds[j]][questionPropertiesIds[k]];
           totals[k] += (value) ? value : 0;
-          data[i].content[j * questionPropertiesIdsLen + k] = value;
+          data[i].content[j * questionPropertiesIdsLen + k] = (!renderFunction) ? value : renderFunction(value);
         }
       }
 
@@ -250,7 +254,8 @@ export default Ember.Component.extend({
           label: this.get('i18n').t('reports.gru-table-view.study-time').string
         },
         label: this.get('i18n').t('reports.gru-table-view.time-spent').string,
-        value: 'timeSpent'
+        value: 'timeSpent',
+        renderFunction: formatTimeInSeconds
       }),
       Ember.Object.create({
         filter: {

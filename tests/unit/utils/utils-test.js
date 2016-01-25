@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { checkStandards, formatTime, getGradeColor , getLetter, formatDate,courseSectionsPrefix} from '../../../utils/utils';
+import { checkStandards, formatTime, formatTimeInSeconds, getGradeColor , getLetter, formatDate,courseSectionsPrefix} from '../../../utils/utils';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | utils');
@@ -26,9 +26,18 @@ test('Check formatTime', function(assert) {
   const oneMin = 60 * 1000;
   assert.equal('1m ', formatTime(oneMin));
   const oneSec = 1 * 1000;
+
   assert.equal('1s', formatTime(oneSec));
   assert.equal('1h 1m', formatTime(oneHour + oneMin));
   assert.equal('1m 1s', formatTime(oneMin + oneSec));
+  assert.equal('&mdash;', formatTime(null));
+});
+
+test('Check formatTimeInSeconds', function (assert) {
+  assert.equal(formatTimeInSeconds(1), '1s');
+  assert.equal(formatTimeInSeconds(3600 + 60), '1h 1m');
+  assert.equal(formatTimeInSeconds(60 + 1), '1m 1s');
+  assert.equal(formatTimeInSeconds(null), '&mdash;');
 });
 
 test('getGradeColor', function (assert) {

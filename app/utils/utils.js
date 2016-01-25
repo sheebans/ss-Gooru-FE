@@ -17,36 +17,60 @@ export function checkStandards(standards, checkableStandards, codes) {
   });
 }
 
+/**
+ * Format a certain number of milliseconds to a string of the form
+ * '<hours>h <min>m or <min>m <sec>s'. If the value is falsey, a string
+ * with the value '--' is returned
+ * @param timeInMillis - time value in milliseconds
+ * @returns {String}
+ */
 export function formatTime(timeInMillis) {
   var result = '';
-  var secs = timeInMillis / 1000;
-  const hours = secs / 3600;
-  secs = secs % 3600;
-  const mins = secs / 60;
-  secs = secs % 60;
+  var secs;
 
-  if (hours >= 1) {
-    result = roundFloat(hours) + 'h ';
-    if (mins >= 1) {
-      result += roundFloat(mins) + 'm';
+  if (timeInMillis) {
+    secs = timeInMillis / 1000;
+    const hours = secs / 3600;
+    secs = secs % 3600;
+    const mins = secs / 60;
+    secs = secs % 60;
+
+    if (hours >= 1) {
+      result = roundFloat(hours) + 'h ';
+      if (mins >= 1) {
+        result += roundFloat(mins) + 'm';
+      }
+    } else {
+      if (mins >= 1) {
+        result = roundFloat(mins) + 'm ';
+      }
+      if (secs >= 1) {
+        result += roundFloat(secs) + 's';
+      }
     }
   } else {
-    if (mins >= 1) {
-      result = roundFloat(mins) + 'm ';
-    }
-    if (secs >= 1) {
-      result += roundFloat(secs) + 's';
-    }
+    result = '&mdash;';
   }
 
   return result;
 }
 
 /**
- * Find the number of the grade bracket that the grade belongs to
+ * Format a certain number of seconds to a string of the form
+ * '<hours>h <min>m or <min>m <sec>s'. If the value is falsey, a string
+ * with the value '--' is returned
+ * @param timeInSeconds - time value in seconds
+ * @returns {String}
+ */
+export function formatTimeInSeconds(timeInSeconds) {
+  return formatTime(timeInSeconds * 1000);
+}
+
+/**
+ * Find the color corresponding to the grade bracket that a specific grade belongs to
  * @see gooru-web/config/config#GRADING_SCALE
  * @param grade
- * @returns {number}
+ * @returns {String} - Hex color value
  */
 export function getGradeColor(grade) {
   var bracket = GRADING_SCALE.length - 1;

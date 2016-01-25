@@ -41,7 +41,7 @@
         {{action "selectRowHeader" row.id}}>{{row.header}}</th>
 
       {{#each row.content as |value|}}
-        <td class="hidden">{{value}}</td>
+        <td class="hidden">{{{value}}}</td>
       {{/each}}
 
     </tr>
