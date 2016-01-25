@@ -432,5 +432,9 @@ export default {
     "units":"Units",
     "remixed-by":"Remixed by",
     "remix":"Remix"
+  },
+  "gru-resource-card":{
+    "skipped":"Skipped"
   }
+
 };

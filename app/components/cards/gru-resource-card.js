@@ -23,9 +23,13 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Properties
   /**
-   * @property {Course} course
+   * @property {Resource} resource information to be used in the card
    */
-  resource: null
+  resource: null,
+  /**
+   * @property {result} Optional resource result
+   */
+  result:null
 
 
 
