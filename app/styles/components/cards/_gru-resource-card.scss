@@ -1,5 +1,149 @@
+.test-components{
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-align-content: center;
+  align-content: center;
+  display: -webkit-flex;
+  display: flex;
+  >*{
+    width:25%;
+  }
+}
 .gru-resource-card{
   height: 80px;
   width: 137px;
   border: 1px solid;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-align-content: center;
+  align-content: center;
+  display: -webkit-flex;
+  display: flex;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  >*{
+    width: 100%;
+    &.resource-details{
+      height: 49px;
+      -webkit-flex-direction: row;
+      flex-direction: row;
+      -webkit-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+      -webkit-justify-content: flex-start;
+      justify-content: flex-start;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-align-content: flex-start;
+      align-content: flex-start;
+      display: -webkit-flex;
+      display: flex;
+      .resource-description{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+    &.result-details{
+      height: 29px;
+      border-top:1px solid;
+      -webkit-flex-direction: row;
+      flex-direction: row;
+      -webkit-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-align-content: center;
+      align-content: center;
+      display: -webkit-inline-flex;
+      display: inline-flex;
+      &.hasStarted{
+        >*{
+          width:100%;
+          height:100%;
+          -webkit-flex-direction: row;
+          flex-direction: row;
+          -webkit-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+          -webkit-justify-content: center;
+          justify-content: center;
+          -webkit-align-items: center;
+          align-items: center;
+          -webkit-align-content: center;
+          align-content: center;
+          display: -webkit-inline-flex;
+          display: inline-flex;
+          &:last-child{
+            border-left:1px solid;
+          }
+        }
+      }
+      .emotion {
+        background-size: 226px 165px;
+        width: 22px;
+        height:22px;
+        border:none;
+        border-radius:0;
+      }
+      .emotion-1 {
+        background-position: -42px -144px;
+      }
+      .emotion-2 {
+        background-position: -69px -144px;
+      }
+      .emotion-3 {
+        background-position: -95px -144px;
+      }
+      .emotion-4 {
+        background-position: -122px -144px;
+      }
+      .emotion-5 {
+        background-position: -149px -144px;
+      }
+    }
+    div.card-icon{
+      -webkit-flex-shrink: 0;
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      >i{
+        background: #FFF url("gooru/resource-collection-icons.png") no-repeat scroll 0 0;
+        background-size: 334px 245px;
+        height:31px;
+        width: 32px;
+        display: block;
+        margin: 0 auto;
+        &.resource-icon{
+          background-position: -52px -81px;
+        }
+        &.question-icon{
+          background-position: -150px -79px;
+        }
+      }
+    }
+  }
+  h3, p, span{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding:0;
+    margin:0;
+  }
+  span{
+    font-size:$font-size-small;
+  }
 }

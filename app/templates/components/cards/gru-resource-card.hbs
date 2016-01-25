@@ -1,19 +1,24 @@
-<div>
-    <div>
-        <i class="{{if resource.isQuestion "questionIcon" "resourceIcon"}}"></i>
+<div class="resource-details">
+    <div class="card-icon">
+        <i class="{{if resource.isQuestion "question-icon" "resource-icon"}}"></i>
     </div>
-    <div>
+    <div class="resource-description">
       <h3>{{resource.title}}</h3>
       <span>{{resource.resourceType}}</span>
     </div>
 </div>
-<div>
-  {{#if resource.wasViewed}}
-    <p>{{formatTime result.timeSpent}}</p>
-    {{#if result.hasReaction}}
-    <div class="emotion emotion-{{result.reaction}}"></div>
+<div class="result-details {{if result.timeSpent "hasStarted"}}">
+  {{#if result.timeSpent}}
+    <div>
+        <p>{{formatTime result.timeSpent}}</p>
+    </div>
+    {{#if result.reaction}}
+      <div>
+          <span class="emotion emotion-{{result.reaction}}"></span>
+      </div>
+
     {{/if}}
   {{else}}
-    <p>{{t "cards.gru-resource-card.skipped"}}</p>
+    <p>{{t "gru-resource-card.skipped"}}</p>
   {{/if}}
 </div>

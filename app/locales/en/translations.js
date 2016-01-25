@@ -436,5 +436,4 @@ export default {
   "gru-resource-card":{
     "skipped":"Skipped"
   }
-
 };

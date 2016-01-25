@@ -95,7 +95,7 @@ export default Ember.Controller.extend({
   }),
   resourceResult: Ember.Object.create({
     reaction: 2,
-    timeSpent: 28
+    timeSpent: 0
   }),
   resourceQuestion:Ember.Object.create({
     resourceType:"Question type",
