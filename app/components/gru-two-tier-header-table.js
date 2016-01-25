@@ -46,9 +46,8 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
-  didInsertElement: function () {
-    // All columns are hidden by default in the markup so the first step is to show the
-    // columns set to visible in the model
+  didRender() {
+    this._super(...arguments);
     this.updateColumnVisibility();
   },
 
@@ -99,7 +98,7 @@ export default Ember.Component.extend({
   rowHeadersHeader: null,
 
   /**
-   * Array of objects with the information for all of the table rows
+   * @prop { Object[] } data - Array of objects with the information for all of the table rows
    * Objects are of the form:
    * {
    *    id: <row_id>,
@@ -109,7 +108,7 @@ export default Ember.Component.extend({
    * ... where 'content' will consist of values for each one of the
    * second tier headers
    */
-  tableContent: null,
+  data: null,
 
   /**
    * @prop { Number } secondTierHeadersVisible - Total number of second tier headers
@@ -117,6 +116,15 @@ export default Ember.Component.extend({
    */
   secondTierHeadersVisible: Ember.computed('secondTierHeaders.@each.visible', function () {
     return this.get('secondTierHeaders').filterBy('visible', true).get('length');
+  }),
+
+  /**
+   * @prop { Object[] } sortedData - Ordered representation of 'data'
+   */
+  sortedData: Ember.computed('data', function () {
+    // TODO: Implement data sorting
+    var sortedData = this.get('data');
+    return sortedData;
   }),
 
 

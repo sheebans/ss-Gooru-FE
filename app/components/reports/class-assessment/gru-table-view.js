@@ -1,8 +1,5 @@
 import Ember from 'ember';
 
-// Private variables
-var studentIds;
-
 export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
@@ -57,13 +54,8 @@ export default Ember.Component.extend({
   init: function () {
     this._super(...arguments);
 
-    studentIds = this.get('students').map(function (student) {
-      return student.id;
-    });
-
     this.set('questionProperties', this.initQuestionProperties());
     this.set('studentsHeader', this.initStudentsHeader());
-    this.set('tableData', this.initTableData());
   },
 
   didInsertElement: function () {
@@ -82,31 +74,6 @@ export default Ember.Component.extend({
    * @prop { Collection } assessment
    */
   assessment: null,
-
-  /**
-   * @prop { Object{}{}{} } rawData - Unordered 3D matrix of data to use as content for the table component
-   */
-  rawData: null,
-
-  /**
-   * @prop { User[] } students - Students taking the assessment
-   */
-  students: null,
-
-  /**
-   * @prop { String? } studentsHeader - Header for the students names
-   */
-  studentsHeader: null,
-
-  /**
-   * @prop { Object[] } tableData - Ordered data to use as content for the table component
-   *
-   * Each object in the array will consist of:
-   * - id: row id
-   * - header: row header
-   * - content: an array of values making up the row content
-   */
-  tableData: null,
 
   /**
    * @prop { Object[] } assessmentQuestions - An array made up of all the questions in the assessment
@@ -140,6 +107,15 @@ export default Ember.Component.extend({
   }),
 
   /**
+   * @prop { String[] } assessmentQuestionsIds - An array with the ids of all the questions in the assessment
+   */
+  assessmentQuestionsIds: Ember.computed('assessmentQuestions.[]', function () {
+    return this.get('assessmentQuestions').map(function (question) {
+      return question.value;
+    });
+  }),
+
+  /**
    * @prop { Object[] } questionProperties - An array made up of question properties
    *
    * Each property object will consist of:
@@ -150,6 +126,106 @@ export default Ember.Component.extend({
    */
   questionProperties: null,
 
+  /**
+   * @prop { String[] } questionPropertiesIds - An array with the ids of all the question properties
+   */
+  questionPropertiesIds: Ember.computed('questionProperties', function () {
+    return this.get('questionProperties').map(function (questionProperty) {
+      return questionProperty.value;
+    });
+  }),
+
+  /**
+   * @prop { Object{}{}{} } rawData - Unordered 3D matrix of data to use as content for the table component
+   */
+  rawData: null,
+
+  /**
+   * @prop { User[] } students - Students taking the assessment
+   */
+  students: null,
+
+  /**
+   * @prop { String? } studentsHeader - Header for the students names
+   */
+  studentsHeader: null,
+
+  /**
+   * @prop { String[] } studentsIds - An array with the ids of all the students taking the assessment
+   */
+  studentsIds: Ember.computed('students.[]', function () {
+    return this.get('students').map(function (student) {
+      return student.id;
+    });
+  }),
+
+  /**
+   * @prop { Object[] } tableData - Ordered data to use as content for the table component
+   * It merges the existing table frame with the any updated table data.
+   *
+   * Each object in the array will consist of:
+   * - id: row id
+   * - header: row header
+   * - content: an array of values making up the row content
+   */
+  tableData: Ember.computed('tableFrame', 'rawData', function () {
+    const studentsIds = this.get('studentsIds');
+    const studentsIdsLen = studentsIds.length;
+    const questionsIds = this.get('assessmentQuestionsIds');
+    const questionsIdsLen = questionsIds.length;
+    const questionPropertiesIds = this.get('questionPropertiesIds');
+    const questionPropertiesIdsLen = questionPropertiesIds.length;
+    const rawData = this.get('rawData');
+
+    // Copy the table frame contents
+    var data = this.get('tableFrame').slice(0);
+    var totalIndex, totals;
+
+    // Get the value of each question property, for each question, for each student
+    for (let i = 0; i < studentsIdsLen; i++) {
+
+      // Array for adding up totals
+      totals = [];
+      for (let k = 0; k < questionPropertiesIdsLen; k++) {
+        // Initialize all values in the array to 0
+        totals[k] = 0;
+      }
+
+      for (let j = 0; j < questionsIdsLen; j++) {
+        if (questionsIds[j] === -1) {
+          // Save this position to fill it in last (cells with totals)
+          totalIndex = j;
+          continue;
+        }
+        for (let k = 0; k < questionPropertiesIdsLen; k++) {
+          let value = rawData[studentsIds[i]][questionsIds[j]][questionPropertiesIds[k]];
+          totals[k] += (value) ? value : 0;
+          data[i].content[j * questionPropertiesIdsLen + k] = value;
+        }
+      }
+
+      // Compute the totals
+      for (let k = 0; k < questionPropertiesIdsLen; k++) {
+        data[i].content[totalIndex * questionPropertiesIdsLen + k] = totals[k];
+      }
+    }
+
+    return data;
+  }),
+
+  /**
+   * @prop {Object[]} tableFrame - The table frame that encloses the table data
+   * @return {Object[]}
+   */
+  tableFrame: Ember.computed('students.[]', function () {
+    return this.get('students').map(function (student) {
+      return {
+        id: student.id,
+        header: student.fullName,
+        content: []
+      };
+    });
+  }),
 
   // -------------------------------------------------------------------------
   // Methods
@@ -174,7 +250,7 @@ export default Ember.Component.extend({
           label: this.get('i18n').t('reports.gru-table-view.study-time').string
         },
         label: this.get('i18n').t('reports.gru-table-view.time-spent').string,
-        value: 'time'
+        value: 'timeSpent'
       }),
       Ember.Object.create({
         filter: {
@@ -195,35 +271,6 @@ export default Ember.Component.extend({
       label: this.get('i18n').t('reports.gru-table-view.name').string,
       value: 'fullName'
     };
-  },
-
-  /**
-   * Initialize the table data
-   * @return {Object[]}
-   */
-  initTableData: function () {
-    var totalQuestions = this.get('assessmentQuestions').length;
-    var totalProperties = this.get('questionProperties').length;
-    var totalRowValues = totalQuestions * totalProperties;
-    var fillerValues = [];
-    var data = this.get('students').map(function (student) {
-      return {
-        id: student.id,
-        header: student.fullName
-      };
-    });
-
-    for (; totalRowValues > 0; totalRowValues--) {
-      // Push a null value into the array
-      fillerValues.push(null);
-    }
-
-    data.forEach(function (rowObject) {
-      // Create a copy of the array so arrays are independent of each other
-      rowObject.content = fillerValues.slice(0);
-    });
-
-    return data;
   },
 
   /**

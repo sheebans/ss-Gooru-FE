@@ -35,7 +35,7 @@
     {{/each}}
   </tr>
 
-  {{#each data as |row|}}
+  {{#each sortedData as |row|}}
     <tr class="data">
       <th scope="row"
         {{action "selectRowHeader" row.id}}>{{row.header}}</th>

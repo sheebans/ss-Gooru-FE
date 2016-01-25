@@ -1,101 +1,106 @@
 import Ember from 'ember';
 
+// Private variables
+
+/**
+ * @private { Object{}{}{} } cumulativeData
+ *
+ * Internal matrix that serves as a buffer and stores all changes made to the report data.
+ * Any changes made to 'contentFeed', update this matrix first. Then, this matrix is copied and
+ * served to 'reportData' (which guarantees that any observers or computed properties on
+ * 'reportData' are fired)
+ */
+var cumulativeData;
+
 // TODO: Remove once the service that returns the user results is implemented
-// Mock data
-//var usersResults = [
-//  {
-//    "user": "56983a9060a68052c1ed934c",
-//    "questionsResults": [
-//      {
-//        "correct": false,
-//        "questionId": "56a120483b6e7b090501d3e7",
-//        "reaction": 3,
-//        "timeSpent": 1216
-//      },
-//      {
-//        "correct": true,
-//        "questionId": "56a1204886b2e565e1b2c230",
-//        "reaction": 5,
-//        "timeSpent": 2458
-//      },
-//      {
-//        "correct": true,
-//        "questionId": "56a12048ddee2022a741356a",
-//        "reaction": 5,
-//        "timeSpent": 1433
-//      }
-//    ]
-//  },
-//  {
-//    "user": "56983a90fb01fecc328e2388",
-//    "questionsResults": [
-//      {
-//        "correct": false,
-//        "questionId": "56a120483b6e7b090501d3e7",
-//        "reaction": 3,
-//        "timeSpent": 1216
-//      },
-//      {
-//        "correct": true,
-//        "questionId": "56a1204886b2e565e1b2c230",
-//        "reaction": 5,
-//        "timeSpent": 2458
-//      },
-//      {
-//        "correct": true,
-//        "questionId": "56a12048ddee2022a741356a",
-//        "reaction": 5,
-//        "timeSpent": 1433
-//      }
-//    ]
-//  },
-//  {
-//    "user": "56983a906596902edadedc7c",
-//    "questionsResults": [
-//      {
-//        "correct": false,
-//        "questionId": "56a120483b6e7b090501d3e7",
-//        "reaction": 3,
-//        "timeSpent": 1216
-//      },
-//      {
-//        "correct": true,
-//        "questionId": "56a1204886b2e565e1b2c230",
-//        "reaction": 5,
-//        "timeSpent": 2458
-//      },
-//      {
-//        "correct": true,
-//        "questionId": "56a12048ddee2022a741356a",
-//        "reaction": 5,
-//        "timeSpent": 1433
-//      }
-//    ]
-//  },
-//  {
-//    "user": "56983a9082f705e65f2fe607",
-//    "questionsResults": [
-//      {
-//        "correct": false,
-//        "questionId": "56a120483b6e7b090501d3e7",
-//        "reaction": 3,
-//        "timeSpent": 1216
-//      },
-//      {
-//        "correct": true,
-//        "questionId": "56a1204886b2e565e1b2c230",
-//        "reaction": 5,
-//        "timeSpent": 2458
-//      },
-//      {
-//        "correct": true,
-//        "questionId": "56a12048ddee2022a741356a",
-//        "reaction": 5,
-//        "timeSpent": 1433
-//      }
-//    ]
-//  }
-//];
+var usersResults = [
+  {
+    "user": "56983a9060a68052c1ed934c",
+    "questionsResults": [
+      {
+        "correct": false,
+        "questionId": "56a120483b6e7b090501d3e7",
+        "reaction": 1,
+        "timeSpent": 1216
+      },
+      {
+        "correct": true,
+        "questionId": "56a1204886b2e565e1b2c230",
+        "reaction": 2,
+        "timeSpent": 2458
+      },
+      {
+        "correct": true,
+        "questionId": "56a12048ddee2022a741356a",
+        "reaction": 3,
+        "timeSpent": 1433
+      }
+    ]
+  },
+  {
+    "user": "56983a90fb01fecc328e2388",
+    "questionsResults": [
+      {
+        "correct": false,
+        "questionId": "56a120483b6e7b090501d3e7",
+        "reaction": 5,
+        "timeSpent": 1216
+      },
+      {
+        "correct": true,
+        "questionId": "56a12048ddee2022a741356a",
+        "reaction": 3,
+        "timeSpent": 1433
+      }
+    ]
+  },
+  {
+    "user": "56983a906596902edadedc7c",
+    "questionsResults": [
+      {
+        "correct": false,
+        "questionId": "56a120483b6e7b090501d3e7",
+        "reaction": 1,
+        "timeSpent": 1216
+      },
+      {
+        "correct": true,
+        "questionId": "56a1204886b2e565e1b2c230",
+        "reaction": 5,
+        "timeSpent": 2458
+      },
+      {
+        "correct": true,
+        "questionId": "56a12048ddee2022a741356a",
+        "reaction": 5,
+        "timeSpent": 1433
+      }
+    ]
+  },
+  {
+    "user": "56983a9082f705e65f2fe607",
+    "questionsResults": [
+      {
+        "correct": false,
+        "questionId": "56a120483b6e7b090501d3e7",
+        "reaction": 2,
+        "timeSpent": 1216
+      },
+      {
+        "correct": true,
+        "questionId": "56a1204886b2e565e1b2c230",
+        "reaction": 4,
+        "timeSpent": 2458
+      },
+      {
+        "correct": true,
+        "questionId": "56a12048ddee2022a741356a",
+        "reaction": 3,
+        "timeSpent": 1433
+      }
+    ]
+  }
+];
 
 export default Ember.Component.extend({
 
@@ -139,7 +144,12 @@ export default Ember.Component.extend({
     });
 
     // Initialize all users and resources in the report data to empty objects
-    this.set('reportData', this.getEmptyObjectMatrix(studentIds, resourceIds));
+    cumulativeData = this.getEmptyObjectMatrix(studentIds, resourceIds);
+
+    // TODO: Replace this with real calls to the service providing the content feeds
+    Ember.run.later(this, function () {
+      this.set('contentFeed', usersResults);
+    }, 3000);
   },
 
   // -------------------------------------------------------------------------
@@ -162,39 +172,37 @@ export default Ember.Component.extend({
 
   /**
    * @prop { Object{}{}{} } reportData - Representation of the data to show in the reports as a 3D matrix
+   * Any changes on the content feed will cause the report data to update
    */
-  reportData: null,
+  reportData: Ember.computed('contentFeed', function () {
+    var newUsersQuestions = this.get('contentFeed');
+
+    if (newUsersQuestions) {
+      newUsersQuestions.forEach(function (userQuestions) {
+        var user = userQuestions.user;
+        var questionsResults = userQuestions.questionsResults;
+
+        questionsResults.forEach(function (questionResult) {
+          var question = questionResult.questionId;
+
+          for (let key in questionResult) {
+            if (key !== 'questionId') {
+              cumulativeData[user][question][key] = questionResult[key];
+            }
+          }
+        });
+      });
+    }
+
+    // Clone the object so any computed properties on reportData are fired
+    return Object.assign({}, cumulativeData);
+  }),
 
   /**
    * @prop { User[] } students - Group of students taking an assessment
    */
   students: null,
 
-  // -------------------------------------------------------------------------
-  // Observers
-
-  /**
-   * Refreshes the left navigation with the selected resource id
-   */
-  updateReportData: Ember.observer('contentFeed', function () {
-    var newUsersQuestions = this.get('contentFeed');
-    var reportData = this.get('reportData');
-
-    newUsersQuestions.forEach(function (userQuestions) {
-      var user = userQuestions.user;
-      var questionsResults = userQuestions.questionsResults;
-
-      questionsResults.forEach(function (questionResult) {
-        var question = questionResult.questionId;
-
-        for (let key in questionResult) {
-          if (key !== 'questionId') {
-            reportData[user][question][key] = questionResult[key];
-          }
-        }
-      });
-    });
-  }),
 
   // -------------------------------------------------------------------------
   // Methods
