@@ -11,9 +11,8 @@ export default Ember.Controller.extend({
 
       QuestionResultDetails.create({
         id: 601,
-        question: {
+        question: Ember.Object.create({
           questionType: 'MC',
-          isMultipleChoice: true,
           text: 'Sample Question MC',
           hints: [],
           explanation: 'Sample explanation text',
@@ -23,7 +22,7 @@ export default Ember.Controller.extend({
             Ember.Object.create({ id: "3", isCorrect: true,text:"Answer 3" })
           ]),
           order: 1
-        },
+        }),
         correct: false,
         score: 10,
         reaction: 2,
@@ -33,9 +32,8 @@ export default Ember.Controller.extend({
 
       QuestionResultDetails.create({
         id: 603,
-        question: {
+        question: Ember.Object.create({
           questionType: 'MC',
-          isMultipleChoice: true,
           text: 'Sample Question MC',
           hints: [],
           explanation: 'Sample explanation text',
@@ -45,7 +43,7 @@ export default Ember.Controller.extend({
             Ember.Object.create({ id: "3", isCorrect: true,text:"Answer 3" })
           ]),
           order: 2
-        },
+        }),
         correct: true,
         score: 10,
         reaction: 4,
@@ -53,24 +51,104 @@ export default Ember.Controller.extend({
         userAnswer: "3"
       }),
 
-
       QuestionResultDetails.create({
         id: 602,
         attempt: 1104,
-        question: {
+        question: Ember.Object.create({
           questionType: 'OE',
           text: 'Sample Question OE',
           hints: [],
           explanation: 'Sample explanation text',
           answers: [],
-          order: 3,
-          isOpenEnded: true
-        },
+          order: 3
+        }),
         correct: true,
         score: 10,
         reaction: 3,
         timeSpent: 56,
         userAnswer: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+      }),
+
+      QuestionResultDetails.create({
+        id: 603,
+        question: Ember.Object.create({
+          questionType: 'T/F',
+          text: 'True False Question',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers:  Ember.A([
+            Ember.Object.create({ id: "1", isCorrect: false,text:"True" }),
+            Ember.Object.create({ id: "2", isCorrect: true,text:"False" }),
+          ]),
+          order: 4
+        }),
+        correct: true,
+        score: 10,
+        reaction: 4,
+        timeSpent: 28,
+        userAnswer: "1"
+      }),
+
+      QuestionResultDetails.create({
+        id: 603,
+        question: Ember.Object.create({
+          questionType: 'HT_RO',
+          text: 'Reorder Question',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers:  Ember.A([
+            Ember.Object.create({ id: "crc", text:"Costa Rica", order: 2 }),
+            Ember.Object.create({ id: "bra", text:"Brasil", order: 3 }),
+            Ember.Object.create({ id: "pan", text:"Panamá", order: 1 }),
+            Ember.Object.create({ id: "chi", text:"Chile", order: 4 })
+          ]),
+          order: 5
+        }),
+        correct: true,
+        score: 10,
+        reaction: 4,
+        timeSpent: 28,
+        userAnswer: ["chi", "crc", "bra", "pan"]
+      }),
+
+      QuestionResultDetails.create({
+        id: 604,
+        question: Ember.Object.create({
+          questionType: 'FIB',
+          text: 'The sun is _______ and the moon _______',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers: Ember.A([
+            Ember.Object.create({id: 1, text: 'yellow'}),
+            Ember.Object.create({id: 2, text: 'white'})
+          ]),
+          order: 1
+        }),
+        correct: true,
+        score: 10,
+        reaction: 2,
+        timeSpent: 28,
+        userAnswer: Ember.A(['yellow','white'])
+      }),
+
+      QuestionResultDetails.create({
+        id: 605,
+        question: Ember.Object.create({
+          questionType: 'FIB',
+          text: 'The mountain is _______ and the sky _______',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers: Ember.A([
+            Ember.Object.create({id: 1, text: 'green'}),
+            Ember.Object.create({id: 2, text: 'blue'})
+          ]),
+          order: 1
+        }),
+        correct: false,
+        score: 0,
+        reaction: 2,
+        timeSpent: 28,
+        userAnswer: Ember.A(['yellow','white'])
       })
     ],
 

@@ -72,14 +72,11 @@ test('Test for unit performance', function(assert) {
   this.set('index',0);
   this.set('selectedLessonId', 'not-my-id-2');
   this.set('selectedUnitId', 'not-my-id');
-  this.set('i',0);
   this.set('onLocationUpdate', function(){
-    assert.ok(true, "This should be called 1 time per click");
-
+    assert.ok(true, "This should be called 1 time per click when opening or closing unit, and 1 time per each lesson the unit has, when opening a unit");
   });
   this.set('updateSelectedLesson', function(){
-    assert.ok(true, "This should be called 1 time per click");
-
+    assert.ok(true, "This should be called 1 time per click when opening or closing a unit");
   });
 
   assert.expect(12);

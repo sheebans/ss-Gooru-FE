@@ -12,7 +12,11 @@
   </div>
 
   {{#if isTableView}}
-    {{ reports.class-assessment.gru-table-view }}
+    {{ reports.class-assessment.gru-table-view
+    assessment=assessment
+    students=students
+    rawData=reportData
+    }}
   {{else}}
     {{ reports.class-assessment.gru-student-view }}
   {{/if}}

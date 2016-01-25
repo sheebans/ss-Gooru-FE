@@ -16,8 +16,8 @@ test('Questions Layout', function (assert) {
   const questions = Ember.A([Ember.Object.create({
     question: Ember.Object.create({
       text:"This is a question 1",
-      isOpenEnded: true,
-      order: 1,
+      questionType: 'OE',
+      order: 1
     }),
     correct: true,
     timeSpent: 10, //seconds
@@ -26,6 +26,7 @@ test('Questions Layout', function (assert) {
   }), Ember.Object.create({
     question: Ember.Object.create({
       text:"This is a question 2",
+      questionType: 'OE',
       order: 2
     }),
     correct: false,
@@ -64,8 +65,8 @@ test('Switch Options', function (assert) {
   const questions = Ember.A([Ember.Object.create({
     question: Ember.Object.create({
       text:"This is a question 1",
-      isOpenEnded: true,
-      order: 1,
+      questionType: 'OE',
+      order: 1
     }),
     correct: true,
     timeSpent: 10, //seconds
@@ -74,7 +75,8 @@ test('Switch Options', function (assert) {
   }), Ember.Object.create({
     question: Ember.Object.create({
       text:"This is a question 2",
-      order: 2
+      order: 2,
+      questionType: 'OE'
     }),
     correct: false,
     timeSpent: 25, //seconds

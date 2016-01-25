@@ -1,0 +1,50 @@
+<table>
+  <col>
+
+  {{#each firstTierHeaders as |header|}}
+    <colgroup span="{{secondTierHeadersVisible}}"></colgroup>
+  {{/each}}
+
+  <tr class="first-tier">
+    {{#if rowHeadersHeader}}
+      <td></td>
+    {{else}}
+      <td rowspan="2"></td>
+    {{/if}}
+
+    {{#each firstTierHeaders as |header|}}
+      <th colspan="{{secondTierHeadersVisible}}"
+          scope="colgroup"
+        {{action "selectFirstTierColHeader" header.value}}>{{header.label}}</th>
+    {{/each}}
+  </tr>
+
+  <tr class="second-tier">
+    {{#if rowHeadersHeader}}
+      <th scope="col"
+          class="row-header"
+        {{action "selectSecondTierColHeader" rowHeadersHeader.value}}>{{rowHeadersHeader.label}}</th>
+    {{/if}}
+
+    {{#each firstTierHeaders as |firstTierHeader|}}
+      {{#each secondTierHeaders as |secondTierHeader|}}
+        <th scope="col"
+            class="{{secondTierHeader.value}} hidden"
+          {{action "selectSecondTierColHeader" firstTierHeader.value secondTierHeader.value}}>{{secondTierHeader.label}}</th>
+      {{/each}}
+    {{/each}}
+  </tr>
+
+  {{#each sortedData as |row|}}
+    <tr class="data">
+      <th scope="row"
+        {{action "selectRowHeader" row.id}}>{{row.header}}</th>
+
+      {{#each row.content as |value|}}
+        <td class="hidden">{{value}}</td>
+      {{/each}}
+
+    </tr>
+  {{/each}}
+
+</table>

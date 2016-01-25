@@ -435,5 +435,16 @@ export default {
   },
   "gru-resource-card":{
     "skipped":"Skipped"
+  },
+  "reports.gru-table-view": {
+    "first-tier-header-prefix": "Q",
+    "name": "Name",
+    "reaction": "Reaction",
+    "reactions": "Reactions",
+    "score": "Score",
+    "scores": "Scores",
+    "study-time": "Study Time",
+    "time-spent": "Time Spent",
+    "totals": "Total Scores"
   }
 };

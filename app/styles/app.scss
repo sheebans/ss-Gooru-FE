@@ -9,14 +9,14 @@
 @import 'mixins/gru-accordion';
 
 @import 'controllers/application';
-@import 'controllers/index';
-@import 'controllers/player';
 @import 'controllers/classes';
 @import 'controllers/class';
 @import 'controllers/class/info';
 @import 'controllers/class/overview';
 @import 'controllers/class/analytics/performance/student';
 @import 'controllers/class/analytics/performance/teacher';
+@import 'controllers/index';
+@import 'controllers/player';
 @import 'controllers/profile';
 
 // TODO: update these components so they follow the naming conventions
@@ -29,28 +29,29 @@
 @import 'components/collection-results';
 @import 'components/resource-options';
 @import 'components/grade-dropdown';
-
-@import 'components/gru-sign-in';
+@import 'components/gru-breadcrumb';
+@import 'components/gru-bubbles';
+@import 'components/gru-category-panel';
+@import 'components/gru-emotion-picker';
+@import 'components/gru-footer';
+@import 'components/gru-forgot-password-popup';
 @import 'components/gru-header';
 @import 'components/gru-image-picker';
-@import 'components/gru-footer';
-@import 'components/gru-category-panel';
-@import 'components/gru-user-icons';
-@import 'components/gru-user-sign-up';
-@import 'components/gru-user-registration';
+@import 'components/gru-sign-in';
 @import 'components/gru-standards-popup';
-@import 'components/gru-forgot-password-popup';
-@import 'components/gru-user-sign-up-cancel';
-@import 'components/gru-emotion-picker';
+@import 'components/gru-switch';
+@import 'components/gru-two-tier-header-table';
 @import 'components/gru-unit-tree';
-@import 'components/gru-breadcrumb';
+@import 'components/gru-user-icons';
+@import 'components/gru-user-registration';
+@import 'components/gru-user-sign-up';
+@import 'components/gru-user-sign-up-cancel';
 @import 'components/gru-user-teaser';
 @import 'components/gru-view-layout-picker';
-@import 'components/gru-bubbles';
-@import 'components/gru-switch';
+
+@import 'components/cards/gru-course-card';
 @import 'components/cards/gru-profile-card';
 @import 'components/cards/gru-user-card';
-@import 'components/cards/gru-course-card';
 @import 'components/cards/gru-resource-card';
 
 @import 'components/charts/gru-bubble-chart';
@@ -87,6 +88,9 @@
 @import 'components/reports/assessment/gru-questions';
 @import 'components/reports/assessment/gru-summary';
 @import 'components/reports/assessment/questions/gru-multiple-choice';
+@import 'components/reports/assessment/questions/gru-true-false';
+@import 'components/reports/assessment/questions/gru-reorder';
+@import 'components/reports/assessment/questions/gru-fib';
 @import 'components/reports/gru-class-assessment-report';
 @import 'components/reports/class-assessment/gru-student-view';
 @import 'components/reports/class-assessment/gru-summary';

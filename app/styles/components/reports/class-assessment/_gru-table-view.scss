@@ -1,5 +1,13 @@
 .reports.class-assessment.gru-table-view {
-  // TODO: remove background-color and fixed dimensions
-  background-color: #696969;
-  height: 800px;
+
+  > .filters {
+    list-style: none;
+    margin: 0 0 15px 0;
+    padding: 0;
+
+    li.checkbox {
+      display: inline-block;
+      margin: 0 15px 0 0;
+    }
+  }
 }
