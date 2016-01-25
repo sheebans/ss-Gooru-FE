@@ -1,0 +1,12 @@
+.reports.assessment.questions.gru-fib {
+  .answer {
+    border: 1px solid $color-gray-secondary;
+    padding: 5px;
+  }
+  .answer.correct {
+    color: $color-answer-correct;
+  }
+  .answer.incorrect {
+    color: $color-answer-incorrect;
+  }
+}
