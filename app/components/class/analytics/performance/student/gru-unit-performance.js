@@ -56,7 +56,6 @@ export default Ember.Component.extend({
     selectResource: function (collectionId) {
       this.get('onSelectResource')(collectionId);
     },
-
     /**
      * Update selected lesson action
      * @param {string} lessonId
@@ -186,5 +185,4 @@ export default Ember.Component.extend({
     }
     component.get('onLocationUpdate')(lessonId, 'lesson');
   }
-
 });

@@ -46,9 +46,8 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
-  didInsertElement: function () {
-    // All columns are hidden by default in the markup so the first step is to show the
-    // columns set to visible in the model
+  didRender() {
+    this._super(...arguments);
     this.updateColumnVisibility();
   },
 
@@ -67,10 +66,19 @@ export default Ember.Component.extend({
    */
   firstTierHeaders: null,
 
+  /**
+   * @prop { Function } onSelectFirstTierHeader - Event handler triggered when clicking on a first tier header
+   */
   onSelectFirstTierHeader: null,
 
+  /**
+   * @prop { Function } onSelectSecondTierHeader - Event handler triggered when clicking on a second tier header
+   */
   onSelectSecondTierHeader: null,
 
+  /**
+   * @prop { Function } onSelectRowHeader - Event handler triggered when clicking on a row header
+   */
   onSelectRowHeader: null,
 
   /**
@@ -90,7 +98,7 @@ export default Ember.Component.extend({
   rowHeadersHeader: null,
 
   /**
-   * Array of objects with the information for all of the table rows
+   * @prop { Object[] } data - Array of objects with the information for all of the table rows
    * Objects are of the form:
    * {
    *    id: <row_id>,
@@ -100,7 +108,7 @@ export default Ember.Component.extend({
    * ... where 'content' will consist of values for each one of the
    * second tier headers
    */
-  tableContent: null,
+  data: null,
 
   /**
    * @prop { Number } secondTierHeadersVisible - Total number of second tier headers
@@ -108,6 +116,15 @@ export default Ember.Component.extend({
    */
   secondTierHeadersVisible: Ember.computed('secondTierHeaders.@each.visible', function () {
     return this.get('secondTierHeaders').filterBy('visible', true).get('length');
+  }),
+
+  /**
+   * @prop { Object[] } sortedData - Ordered representation of 'data'
+   */
+  sortedData: Ember.computed('data', function () {
+    // TODO: Implement data sorting
+    var sortedData = this.get('data');
+    return sortedData;
   }),
 
 
@@ -123,37 +140,33 @@ export default Ember.Component.extend({
   updateColumnVisibility: Ember.observer('secondTierHeaders.@each.visible', function () {
     const secondTierHeaders = this.get('secondTierHeaders');
     const secondTierHeadersLen = secondTierHeaders.length;
-
-    var headers = secondTierHeaders.filterBy('visible', true);
-    var newVisibleHeadersLen = headers.length;
-    var removeColumns = headers.length < currentVisibleHeadersLen;
+    const secondTierHeadersVisible = secondTierHeaders.filterBy('visible', true).length;
+    const removeColumns = secondTierHeadersVisible < currentVisibleHeadersLen;
     var selectors = [];
     var cssSelector;
+
+    secondTierHeaders.forEach(function (header, index) {
+      if ((removeColumns && !header.visible) || (!removeColumns && header.visible)) {
+        let offset = index - 1;
+        let offsetStr = (offset < 0) ? offset : '+' + offset;
+
+        selectors.push('table tr.second-tier th.' + header.value);
+        selectors.push('table tr.data td:nth-child(' + secondTierHeadersLen + 'n' + offsetStr + ')');
+      }
+    });
+    cssSelector = selectors.join(',');
 
     if (removeColumns) {
       // There are less second tier headers visible now so the class 'hidden'
       // will be added to the second tier headers that are no longer visible.
       // Otherwise, if there are more second tier headers visible now, the
       // class 'hidden' will be removed from them.
-      headers = secondTierHeaders.filterBy('visible', false);
-    }
-
-    headers.forEach(function (header, index) {
-      var offset = index - 1;
-      var offsetStr = (offset < 0) ? offset : '+' + offset;
-
-      selectors.push('table tr.second-tier th.' + header.value);
-      selectors.push('table tr.data td:nth-child(' + secondTierHeadersLen + 'n' + offsetStr + ')');
-    });
-    cssSelector = selectors.join(',');
-
-    if (removeColumns) {
       this.$(cssSelector).addClass('hidden');
     } else {
       this.$(cssSelector).removeClass('hidden');
     }
 
-    currentVisibleHeadersLen = newVisibleHeadersLen;
+    currentVisibleHeadersLen = secondTierHeadersVisible;
   })
 
 });
