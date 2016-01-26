@@ -41,13 +41,15 @@
       }
     }
     .header-title {
-      margin: 0 auto;
-      overflow: hidden;
-      word-wrap: break-word;
-      max-width: 75px;
-      text-overflow: ellipsis;
       text-align: left;
-      padding: 0 5px;
+      padding: 0 0 0 5px;
+      margin: 0 auto;
+      .title {
+        overflow: hidden;
+        word-wrap: break-word;
+        max-width: 75px;
+        text-overflow: ellipsis;
+      }
     }
     .table-cell {
       width: 80px;

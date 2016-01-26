@@ -9,7 +9,8 @@
         {{#each headers as |header index|}}
           <th id="{{{header.id}}}" class="header pointer" scope="col" {{action 'navigate' header.id}}>
             <div class="header-title">
-               <span class="prefix">{{{course-sections-prefix index=index type=headerType}}}</span><br/>{{{header.title}}}
+              <div class="prefix">{{{course-sections-prefix index=index type=headerType}}}</div>
+              <div class="title">{{{header.title}}}</div>
             </div>
           </th>
         {{/each}}
