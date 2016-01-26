@@ -169,7 +169,7 @@ export default Ember.Controller.extend({
         score: 10,
         reaction: 4,
         timeSpent: 28,
-        userAnswer:  Ember.A([{id: 1, selection: false}, {id: 2, selection: false}, {id: 3, selection: true}])
+        userAnswer:  Ember.A([{id: "1", selection: false}, {id: "2", selection: false}, {id: "3", selection: true}])
       })
     ],
 

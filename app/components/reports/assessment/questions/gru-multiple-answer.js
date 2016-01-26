@@ -5,7 +5,7 @@ import QuestionMixin from 'gooru-web/mixins/reports/assessment/questions/questio
 /**
  * Multiple answer
  *
- * Component responsible for show the multiple answer, what option are selected
+ * Component responsible for show the multiple answer, which option is selected
  * and the correct option.
  *
  * @module
@@ -31,37 +31,22 @@ export default Ember.Component.extend(QuestionMixin, {
     let question = component.get("question");
     let questionUtil = component.getQuestionUtil(question);
     let userAnswers = component.get("userAnswer");
-   // console.log('userAnswer1', userAnswers);
+
     if (component.get("showCorrect")){
       userAnswers = questionUtil.getCorrectAnswer();
-      //console.log('userAnswer2', userAnswers);
     }
 
-     return userAnswers.map(function(userAnswer) {
-      //console.log('userAnswer', userAnswer);
-      let userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(userAnswer);
-      console.log('userAnswerCorrect', userAnswerCorrect);
+    let answers = question.get("answers");
+    return answers.map(function(answer){
+      let userAnswer = userAnswers.filterBy("id", answer.get("id"));
+      let userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(userAnswer.get("firstObject"));
+
       return {
-        text: 'sd',
-        selected: 's',
-        correct: userAnswerCorrect
+        text: answer.get("text"),
+        selected: userAnswer.get("firstObject.selection"),
+        class: (userAnswerCorrect)?'correct':'incorrect'
       };
-
     });
-
-    //return {
-    //        text: 'sd',
-    //        selected: 's',
-    //        correct: userAnswerCorrect
-    //      };
-    //return answers.map(function(answer){
-    //  let userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(userAnswer);
-    //  return {
-    //    text: answer.get("text"),
-    //    selected: answer.get("id") === userAnswer,
-    //    correct: userAnswerCorrect
-    //  };
-    //});
   }),
 
   // -------------------------------------------------------------------------
@@ -76,6 +61,4 @@ export default Ember.Component.extend(QuestionMixin, {
   getQuestionUtil: function(question){
     return MultipleAnswerUtil.create({question: question});
   }
-
-
 });

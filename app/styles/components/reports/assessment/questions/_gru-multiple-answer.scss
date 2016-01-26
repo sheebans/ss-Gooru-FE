@@ -22,6 +22,12 @@
       span.answer-text{
         margin-left: 1em;
       }
+      span.selected {
+        margin-right: 28px;
+      }
+      span.no-selected {
+        margin-left: 28px;
+      }
     }
   }
 }
