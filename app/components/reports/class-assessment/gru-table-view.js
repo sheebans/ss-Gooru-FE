@@ -1,5 +1,9 @@
 import Ember from 'ember';
-import { formatTimeInSeconds } from 'gooru-web/utils/utils';
+import {
+  formatTimeInSeconds,
+  getAnswerResultIcon,
+  getReactionIcon
+  } from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend({
 
@@ -247,13 +251,14 @@ export default Ember.Component.extend({
         },
         label: this.get('i18n').t('reports.gru-table-view.score').string,
         value: 'correct',
-        visible: true
+        visible: true,
+        renderFunction: getAnswerResultIcon
       }),
       Ember.Object.create({
         filter: {
           label: this.get('i18n').t('reports.gru-table-view.study-time').string
         },
-        label: this.get('i18n').t('reports.gru-table-view.time-spent').string,
+        label: this.get('i18n').t('reports.gru-table-view.study-time').string,
         value: 'timeSpent',
         renderFunction: formatTimeInSeconds
       }),
@@ -262,7 +267,8 @@ export default Ember.Component.extend({
           label: this.get('i18n').t('reports.gru-table-view.reactions').string
         },
         label: this.get('i18n').t('reports.gru-table-view.reaction').string,
-        value: 'reaction'
+        value: 'reaction',
+        renderFunction: getReactionIcon
       })
     ];
   },

@@ -49,7 +49,7 @@ export function formatTime(timeInMillis) {
       }
     }
   } else {
-    result = '&mdash;';
+    result = '';
   }
 
   return result;
@@ -64,6 +64,44 @@ export function formatTime(timeInMillis) {
  */
 export function formatTimeInSeconds(timeInSeconds) {
   return formatTime(timeInSeconds * 1000);
+}
+
+/**
+ * Get an icon depending on whether an answer was correct or not.
+ * @param {boolean} isCorrect - was the answer correct or not?
+ * @returns {String} - html string
+ */
+export function getAnswerResultIcon(isCorrect) {
+  var html;
+
+  if (isCorrect) {
+    html = '<i class="fa fa-check-circle-o answer-correct"></i>';
+  } else if (isCorrect === false) {
+    html = '<i class="fa fa-times-circle-o answer-incorrect"></i>';
+  } else {
+    // Null or any other falsy value
+    html = '';
+  }
+  return html;
+}
+
+/**
+ * Get an icon depending on a reaction value. If the reaction value is null,
+ * a dash is returned. For any other falsy value, an empty string is returned.
+ * @param {Number} reactionValue
+ * @returns {String} - html string
+ */
+export function getReactionIcon(reactionValue) {
+  var html;
+
+  if (reactionValue) {
+    html = '<i class="emotion emotion-' + reactionValue + '"></i>';
+  } else if (reactionValue === null) {
+    html = '&mdash;';
+  } else {
+    html = '';
+  }
+  return html;
 }
 
 /**

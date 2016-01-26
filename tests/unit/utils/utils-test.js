@@ -1,5 +1,16 @@
 import Ember from 'ember';
-import { checkStandards, formatTime, formatTimeInSeconds, getGradeColor , getLetter, formatDate,courseSectionsPrefix} from '../../../utils/utils';
+import {
+  checkStandards,
+  formatTime,
+  formatTimeInSeconds,
+  getAnswerResultIcon,
+  getReactionIcon,
+  getGradeColor ,
+  getLetter,
+  formatDate,
+  courseSectionsPrefix
+  } from '../../../utils/utils';
+
 import { module, test } from 'qunit';
 
 module('Unit | Utility | utils');
@@ -25,20 +36,41 @@ test('Check formatTime', function(assert) {
   assert.equal('1h ', formatTime(oneHour));
   const oneMin = 60 * 1000;
   assert.equal('1m ', formatTime(oneMin));
-  const oneSec = 1 * 1000;
+  const oneSec = 1000;
 
   assert.equal('1s', formatTime(oneSec));
   assert.equal('1h 1m', formatTime(oneHour + oneMin));
   assert.equal('1m 1s', formatTime(oneMin + oneSec));
-  assert.equal('&mdash;', formatTime(null));
+  assert.equal('', formatTime(null));
 });
 
 test('Check formatTimeInSeconds', function (assert) {
   assert.equal(formatTimeInSeconds(1), '1s');
   assert.equal(formatTimeInSeconds(3600 + 60), '1h 1m');
   assert.equal(formatTimeInSeconds(60 + 1), '1m 1s');
-  assert.equal(formatTimeInSeconds(null), '&mdash;');
+  assert.equal(formatTimeInSeconds(null), '');
 });
+
+test('Check getAnswerResultIcon', function (assert) {
+  assert.equal(getAnswerResultIcon(true), '<i class="fa fa-check-circle-o answer-correct"></i>');
+  assert.equal(getAnswerResultIcon(false), '<i class="fa fa-times-circle-o answer-incorrect"></i>');
+  assert.equal(getAnswerResultIcon(null), '');
+  assert.equal(getAnswerResultIcon(undefined), '');
+  assert.equal(getAnswerResultIcon(''), '');
+});
+
+test('Check getReactionIcon', function (assert) {
+  assert.equal(getReactionIcon(20), '<i class="emotion emotion-20"></i>');
+  assert.equal(getReactionIcon(10), '<i class="emotion emotion-10"></i>');
+  assert.equal(getReactionIcon(5), '<i class="emotion emotion-5"></i>');
+  assert.equal(getReactionIcon(2), '<i class="emotion emotion-2"></i>');
+  assert.equal(getReactionIcon(1), '<i class="emotion emotion-1"></i>');
+  assert.equal(getReactionIcon(null), '&mdash;');
+  assert.equal(getReactionIcon(undefined), '');
+  assert.equal(getReactionIcon(false), '');
+  assert.equal(getReactionIcon(''), '');
+});
+
 
 test('getGradeColor', function (assert) {
 

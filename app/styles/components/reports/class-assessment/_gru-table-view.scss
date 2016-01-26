@@ -10,4 +10,16 @@
       margin: 0 15px 0 0;
     }
   }
+
+  .gru-two-tier-header-table {
+    .answer-correct, .answer-incorrect {
+      font-size: 2.2rem;
+    }
+    .answer-correct {
+      color: $color-answer-correct;
+    }
+    .answer-incorrect {
+      color: $color-answer-incorrect;
+    }
+  }
 }
