@@ -36,16 +36,16 @@ export function formatTime(timeInMillis) {
     secs = secs % 60;
 
     if (hours >= 1) {
-      result = roundFloat(hours) + 'h ';
+      result = Math.floor(hours) + 'h ';
       if (mins >= 1) {
-        result += roundFloat(mins) + 'm';
+        result += Math.floor(mins) + 'm';
       }
     } else {
       if (mins >= 1) {
-        result = roundFloat(mins) + 'm ';
+        result = Math.floor(mins) + 'm ';
       }
       if (secs >= 1) {
-        result += roundFloat(secs) + 's';
+        result += Math.floor(secs) + 's';
       }
     }
   } else {

@@ -48,6 +48,9 @@ test('Check formatTimeInSeconds', function (assert) {
   assert.equal(formatTimeInSeconds(1), '1s');
   assert.equal(formatTimeInSeconds(3600 + 60), '1h 1m');
   assert.equal(formatTimeInSeconds(60 + 1), '1m 1s');
+  assert.equal(formatTimeInSeconds(87), '1m 27s');
+  assert.equal(formatTimeInSeconds(119), '1m 59s');
+  assert.equal(formatTimeInSeconds(1433), '23m 53s');
   assert.equal(formatTimeInSeconds(null), '');
 });
 
