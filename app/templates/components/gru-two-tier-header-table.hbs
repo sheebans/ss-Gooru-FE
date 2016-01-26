@@ -38,7 +38,9 @@
   {{#each sortedData as |row|}}
     <tr class="data">
       <th scope="row"
-        {{action "selectRowHeader" row.id}}>{{row.header}}</th>
+        {{action "selectRowHeader" row.id}}>
+        <span>{{row.header}}</span>
+      </th>
 
       {{#each row.content as |value|}}
         <td class="hidden">{{{value}}}</td>
