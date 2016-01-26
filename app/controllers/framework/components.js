@@ -89,25 +89,48 @@ export default Ember.Controller.extend({
   }),
 
   resource:Ember.Object.create({
-    resourceType:"Some type",
+    resourceType:"video/youtube",
     isQuestion:false,
-    title:"Some Title"
+    title:"Ember"
   }),
   resourceResult: Ember.Object.create({
-    reaction: 2,
     timeSpent: 0
   }),
-  resourceQuestion:Ember.Object.create({
-    resourceType:"Question type",
-    questionType:"Some Question type",
-    isQuestion:true,
-    title:"Some Title",
+
+  secondScenarioResource:Ember.Object.create({
+    resourceType:"video/youtube",
+    isQuestion:false,
+    title:"Learn the MEAN Stack",
     description:"Some Description"
   }),
-  resourceQuestionResult: Ember.Object.create({
+  secondScenarioResourceResult: Ember.Object.create({
+    reaction: 0,
+    timeSpent: 12345
+  }),
+
+  thirdScenarioResource:Ember.Object.create({
+    resourceType:"video/youtube",
+    isQuestion:false,
+    title:"Learn the MEAN Stack",
+    description:"Some Description"
+  }),
+  thirdScenarioResourceResult: Ember.Object.create({
     reaction: 2,
-    timeSpent: 28
+    timeSpent: 2841
+  }),
+
+  fourthScenarioResource:Ember.Object.create({
+    resourceType:"question",
+    questionType:'FIB',
+    isQuestion:true,
+    title:"Question with a very long name",
+    description:"Some Description"
+  }),
+  fourthScenarioResourceResult: Ember.Object.create({
+    reaction: 4,
+    timeSpent: 2341
   })
+
 });
 
 

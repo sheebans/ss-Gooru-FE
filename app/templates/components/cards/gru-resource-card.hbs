@@ -3,22 +3,29 @@
         <i class="{{if resource.isQuestion "question-icon" "resource-icon"}}"></i>
     </div>
     <div class="resource-description">
-      <h3>{{resource.title}}</h3>
-      <span>{{resource.resourceType}}</span>
+      <span class="title">{{resource.title}}</span>
+      <p class="type">
+        {{#if resource.isQuestion }}
+          {{t (concat 'question-type.' resource.questionType) }}
+        {{else}}
+          {{t (concat 'resource-type.' resource.resourceType) }}
+        {{/if}}
+      </p>
+
     </div>
 </div>
-<div class="result-details {{if result.timeSpent "hasStarted"}}">
+<div class="hidden-xs result-details {{if result.timeSpent "hasStarted"}}">
   {{#if result.timeSpent}}
-    <div>
+    <div class="time-spent">
         <p>{{formatTime result.timeSpent}}</p>
     </div>
     {{#if result.reaction}}
-      <div>
-          <span class="emotion emotion-{{result.reaction}}"></span>
+      <div class="resource-reaction">
+          <i class="emotion emotion-{{result.reaction}}"></i>
       </div>
 
     {{/if}}
   {{else}}
-    <p>{{t "gru-resource-card.skipped"}}</p>
+    <p class="status">{{t "gru-resource-card.skipped"}}</p>
   {{/if}}
 </div>

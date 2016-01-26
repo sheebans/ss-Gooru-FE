@@ -446,5 +446,30 @@ export default {
     "study-time": "Study Time",
     "time-spent": "Time Spent",
     "totals": "Total Scores"
+  },
+  "resource-type":{
+    "video/youtube" : "Youtube Video",
+    "handouts"      : "PDF Resource",
+    "resource/url"  : "URL Resource",
+    "vimeo/video"   : "Vimeo Video",
+    "webpage"       : "Webpage",
+    "interactive"   : "Interactive",
+    "question"      : "Question",
+    "image"         : "Image",
+    "text"          : "Text",
+    "audio"         : "Audio",
+    "oer"           : "OER"
+  },
+  "question-type":{
+    "SA"     : "Single Answer",
+    "MC"     : "Multiple Choice",
+    "FIB"    : "Fill In the Blank",
+    "T/F"    : "True or False",
+    "MA"     : "Multiple Answer",
+    "OE"     : "Open Ended",
+    "HS_TXT" : "Hot Spot Text",
+    "HS_IMG" : "Hot Spot Image",
+    "HT_TO"  : "Hot Text Reorder",
+    "HT_HL"  : "Hot Text Highlight"
   }
 };

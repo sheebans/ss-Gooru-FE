@@ -1,20 +1,3 @@
-.test-components{
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-align-content: center;
-  align-content: center;
-  display: -webkit-flex;
-  display: flex;
-  >*{
-    width:25%;
-  }
-}
 .gru-resource-card{
   height: 80px;
   width: 137px;
@@ -29,8 +12,8 @@
   align-items: center;
   -webkit-align-content: center;
   align-content: center;
-  display: -webkit-flex;
-  display: flex;
+  display: -webkit-inline-flex;
+  display: inline-flex;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -54,6 +37,14 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        span.title{
+          font-size:$font-size-small;//*1.25;
+          color: $color-blue-primary;
+          font-weight:bolder;
+        }
+        p.type{
+          font-size:$font-size-xsmall;//*1.25;
+        }
       }
     }
     &.result-details{
@@ -87,7 +78,7 @@
           align-content: center;
           display: -webkit-inline-flex;
           display: inline-flex;
-          &:last-child{
+          &.resource-reaction{
             border-left:1px solid;
           }
         }
@@ -119,12 +110,11 @@
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
       width: 40px;
-      height: 40px;
       >i{
         background: #FFF url("gooru/resource-collection-icons.png") no-repeat scroll 0 0;
         background-size: 334px 245px;
-        height:31px;
-        width: 32px;
+        height: 31px;
+        width : 32px;
         display: block;
         margin: 0 auto;
         &.resource-icon{
@@ -142,8 +132,5 @@
     text-overflow: ellipsis;
     padding:0;
     margin:0;
-  }
-  span{
-    font-size:$font-size-small;
   }
 }
