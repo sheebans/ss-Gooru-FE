@@ -1,0 +1,13 @@
+<ul class="multiple-answers">
+  <li>
+    <span class="column">Yes</span>
+    <span class="column">No</span>
+  </li>
+  {{#each answers as |answer index|}}
+    <li>
+        <span class="column correct">{{fa-icon icon='check-circle-o'}}</span>
+        <span class="column incorrect">{{fa-icon icon='times-circle-o'}}</span>
+      <span class="answer-text">({{answer-letter index}}) {{{answer.text}}}</span>
+    </li>
+  {{/each}}
+</ul>

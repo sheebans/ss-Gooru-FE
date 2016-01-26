@@ -129,7 +129,12 @@ MultipleAnswerUtil = QuestionUtil.extend({
    */
   isAnswerChoiceCorrect: function(answerChoice){
     let correctAnswer = this.getCorrectAnswer();
+    console.log("correctAnswer", correctAnswer);
     let found = correctAnswer.filterBy("id", answerChoice.id);
+    console.log("answerChoice", answerChoice);
+    console.log("found", found);
+    console.log("found.length", found.get("length"));
+    console.log("found.firstObject.selection", found.get("firstObject.selection"));
     return found.get("length") && found.get("firstObject.selection") === answerChoice.selection;
   },
 
