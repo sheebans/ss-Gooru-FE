@@ -20,6 +20,7 @@
 @import 'controllers/profile';
 
 // TODO: update these components so they follow the naming conventions
+@import 'components/framework/components';
 @import 'components/app-dropdown';
 @import 'components/standard-dropdown';
 @import 'components/role-radio-button';
@@ -52,6 +53,7 @@
 @import 'components/cards/gru-course-card';
 @import 'components/cards/gru-profile-card';
 @import 'components/cards/gru-user-card';
+@import 'components/cards/gru-resource-card';
 
 @import 'components/charts/gru-bubble-chart';
 @import 'components/charts/gru-radial-chart';

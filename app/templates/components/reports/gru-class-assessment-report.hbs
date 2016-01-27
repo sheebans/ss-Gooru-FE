@@ -1,25 +1,22 @@
 {{ reports.class-assessment.gru-summary }}
 
-<div class="view-container">
+<div class="view-container {{if isTableView 'table-view' 'student-view'}}">
 
   <div class="view-selector">
-    <button class="table-view {{if isTableView 'active' ''}}" {{action 'changeView' true}}>
+    <button class="table-view" {{action 'changeView' true}}>
       {{fa-icon icon="fa-th-large"}}
     </button>
-    <button class="student-view {{if isTableView '' 'active'}}" {{action 'changeView' false}}>
+    <button class="student-view" {{action 'changeView' false}}>
       {{fa-icon icon="fa-bars"}}
     </button>
   </div>
 
-  {{#if isTableView}}
-    {{ reports.class-assessment.gru-table-view
-    assessment=assessment
-    students=students
-    rawData=reportData
-    }}
-  {{else}}
-    {{ reports.class-assessment.gru-student-view }}
-  {{/if}}
+  {{ reports.class-assessment.gru-table-view
+  assessment=assessment
+  students=students
+  rawData=reportData }}
+
+  {{ reports.class-assessment.gru-student-view }}
 
 </div>
 

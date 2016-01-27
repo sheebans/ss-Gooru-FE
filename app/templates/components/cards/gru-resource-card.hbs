@@ -1,0 +1,31 @@
+<div class="resource-details">
+    <div class="card-icon">
+        <i class="{{if resource.isQuestion "question-icon" "resource-icon"}}"></i>
+    </div>
+    <div class="resource-description">
+      <span class="title">{{resource.title}}</span>
+      <p class="type">
+        {{#if resource.isQuestion }}
+          {{t (concat 'common.question-type.' resource.questionType) }}
+        {{else}}
+          {{t (concat 'common.resource-type.' resource.resourceType) }}
+        {{/if}}
+      </p>
+
+    </div>
+</div>
+<div class="hidden-xs result-details {{if result.timeSpent "hasStarted"}}">
+  {{#if result.timeSpent}}
+    <div class="time-spent">
+        <p>{{formatTime result.timeSpent}}</p>
+    </div>
+    {{#if result.reaction}}
+      <div class="resource-reaction">
+          <i class="emotion small emotion-{{result.reaction}}"></i>
+      </div>
+
+    {{/if}}
+  {{else}}
+    <p class="status">{{t "cards.gru-resource-card.skipped"}}</p>
+  {{/if}}
+</div>
