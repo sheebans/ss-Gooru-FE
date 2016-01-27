@@ -45,10 +45,8 @@
       padding: 0 0 0 5px;
       margin: 0 auto;
       .title {
-        overflow: hidden;
-        word-wrap: break-word;
         max-width: 75px;
-        text-overflow: ellipsis;
+        @include text-overflow();
       }
     }
     .table-cell {
