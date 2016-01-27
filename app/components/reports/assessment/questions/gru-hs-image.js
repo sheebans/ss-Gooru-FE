@@ -6,7 +6,7 @@ import QuestionMixin from 'gooru-web/mixins/reports/assessment/questions/questio
 import {DEFAULT_IMAGES} from 'gooru-web/config/config';
 
 /**
- * Multiple answer
+ * Hot spot image
  *
  * Component responsible for show the hot spot image, which option is selected
  * and the correct option.
