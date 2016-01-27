@@ -21,5 +21,14 @@
     .answer-incorrect {
       color: $color-answer-incorrect;
     }
+
+    table tr.data th {
+      max-width: 12rem;
+
+      span {
+        display: block;
+        @include text-overflow();
+      }
+    }
   }
 }

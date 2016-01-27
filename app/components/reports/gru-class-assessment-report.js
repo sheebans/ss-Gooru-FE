@@ -176,6 +176,7 @@ export default Ember.Component.extend({
    */
   reportData: Ember.computed('contentFeed', function () {
     var newUsersQuestions = this.get('contentFeed');
+    var reportData;
 
     if (newUsersQuestions) {
       newUsersQuestions.forEach(function (userQuestions) {
@@ -194,8 +195,17 @@ export default Ember.Component.extend({
       });
     }
 
-    // Clone the object so any computed properties on reportData are fired
-    return Object.assign({}, cumulativeData);
+    // Generate a new object so any computed properties listening on reportData are fired
+    if (Object.assign) {
+      // Preferred way to merge the contents of two objects:
+      // https://github.com/emberjs/ember.js/issues/12320
+      reportData = Object.assign({}, cumulativeData);
+    } else {
+      // Use Ember.merge as a fallback
+      reportData = Ember.merge({}, cumulativeData);
+    }
+
+    return reportData;
   }),
 
   /**
