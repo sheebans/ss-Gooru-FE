@@ -1,5 +1,7 @@
 import Ember from 'ember';
-import { numberSort } from 'gooru-web/utils/utils';
+
+// TODO: Remove comments to enable default sorting function
+//import { numberSort } from 'gooru-web/utils/utils';
 
 /* === Private variables === */
 // Default sort order for values in columns (1 = ascending; -1 = descending)
@@ -150,30 +152,31 @@ export default Ember.Component.extend({
     const data = this.get('data');
 
     if (sortCriteria) {
-      let secondTierHeaders = this.get('secondTierHeaders');
-      let secondTierIndex = sortCriteria.secondTierIndex;
-      let sortColumn = sortCriteria.firstTierIndex * secondTierHeaders.length + secondTierIndex;
+      // TODO: Remove comments to enable sorting
+      //let secondTierHeaders = this.get('secondTierHeaders');
+      //let secondTierIndex = sortCriteria.secondTierIndex;
+      //let sortColumn = sortCriteria.firstTierIndex * secondTierHeaders.length + secondTierIndex;
       let sortedData = Ember.copy(data, true);
-      let sortFunction;
-
-      if (sortColumn === -1) {
-        // Sort by row headers
-        let rowHeadersHeader = this.get('rowHeadersHeader');
-
-        sortFunction = rowHeadersHeader.sortFunction;
-        sortFunction = sortFunction ? sortFunction : numberSort;
-
-        sortedData.sort(function (a, b) {
-          return sortFunction(a.header, b.header) * sortCriteria.order;
-        });
-      } else if (sortColumn >= 0) {
-        sortFunction = secondTierHeaders[secondTierIndex].sortFunction;
-        sortFunction = sortFunction ? sortFunction : numberSort;
-
-        sortedData.sort(function (a, b) {
-          return sortFunction(a.content[sortColumn].value, b.content[sortColumn].value) * sortCriteria.order;
-        });
-      }
+      //let sortFunction;
+      //
+      //if (sortColumn === -1) {
+      //  // Sort by row headers
+      //  let rowHeadersHeader = this.get('rowHeadersHeader');
+      //
+      //  sortFunction = rowHeadersHeader.sortFunction;
+      //  sortFunction = sortFunction ? sortFunction : numberSort;
+      //
+      //  sortedData.sort(function (a, b) {
+      //    return sortFunction(a.header, b.header) * sortCriteria.order;
+      //  });
+      //} else if (sortColumn >= 0) {
+      //  sortFunction = secondTierHeaders[secondTierIndex].sortFunction;
+      //  sortFunction = sortFunction ? sortFunction : numberSort;
+      //
+      //  sortedData.sort(function (a, b) {
+      //    return sortFunction(a.content[sortColumn].value, b.content[sortColumn].value) * sortCriteria.order;
+      //  });
+      //}
       return sortedData;
 
     } else {

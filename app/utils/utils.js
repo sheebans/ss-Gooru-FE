@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { roundFloat, isNumeric } from './math';
+import { isNumeric } from './math';
 import { GRADING_SCALE } from 'gooru-web/config/config';
 
 /*
