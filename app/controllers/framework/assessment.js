@@ -170,6 +170,27 @@ export default Ember.Controller.extend({
         reaction: 4,
         timeSpent: 28,
         userAnswer:  Ember.A([{id: "1", selection: false}, {id: "2", selection: false}, {id: "3", selection: true}])
+      }),
+
+      QuestionResultDetails.create({
+        id: 607,
+        question: Ember.Object.create({
+          questionType: 'HS_IMG',
+          text: 'Sample Question HS_IMG',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers:  Ember.A([
+            Ember.Object.create({ id: "1", isCorrect: false, image:"Answer 1" }),
+            Ember.Object.create({ id: "2", isCorrect: true, image:"Answer 2" }),
+            Ember.Object.create({ id: "3", isCorrect: true, image:"Answer 3" })
+          ]),
+          order: 2
+        }),
+        correct: true,
+        score: 10,
+        reaction: 4,
+        timeSpent: 28,
+        userAnswer:  Ember.A([{id: "1", selection: false}, {id: "2", selection: false}, {id: "3", selection: true}])
       })
     ],
 

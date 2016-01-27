@@ -1,0 +1,34 @@
+.reports.assessment.questions.gru-hs-image {
+  ul{
+    display: inline-block;
+    padding-left: 0px;
+    li{
+      list-style: none;
+      position:relative;
+      span {
+        width: 25px;
+        height: 100px;
+        display: inline-block;
+        background-color: #c1c1c1;
+        i{
+          margin: 0 auto;
+        }
+      }
+      span.correct{
+        color:$color-answer-correct;
+      }
+      span.incorrect{
+        color:$color-answer-incorrect;
+      }
+      span.answer-text{
+        margin-left: 1em;
+      }
+      span.selected {
+        margin-right: 28px;
+      }
+      span.no-selected {
+        margin-left: 28px;
+      }
+    }
+  }
+}

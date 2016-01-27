@@ -1,0 +1,11 @@
+<ul class="multiple-answers">
+  {{#each answers as |answer index|}}
+    <li>
+      {{#if answer.selected}}
+        <span class="column selected {{{answer.class}}}">{{fa-icon icon='times-circle-o'}}</span>
+      {{else}}
+        <span class="column no-selected {{{answer.class}}}">{{fa-icon icon='times-circle-o'}}</span>
+      {{/if}}
+   </li>
+  {{/each}}
+</ul>
