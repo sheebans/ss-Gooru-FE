@@ -2,6 +2,9 @@ import Ember from 'ember';
 import {HotSpotImageUtil} from 'gooru-web/utils/questions';
 import QuestionMixin from 'gooru-web/mixins/reports/assessment/questions/question';
 
+// constants
+import {DEFAULT_IMAGES} from 'gooru-web/config/config';
+
 /**
  * Multiple answer
  *
@@ -38,13 +41,18 @@ export default Ember.Component.extend(QuestionMixin, {
 
     let answers = question.get("answers");
     return answers.map(function(answer){
-      let userAnswer = userAnswers.filterBy("id", answer.get("id"));
-      let userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(userAnswer.get("firstObject.id"));
+      let userAnswerCorrect = false;
+      let selected = false;
+      if (userAnswers.contains(answer.get("id"))){
+        userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(answer.get("id"));
+        selected = true;
+      }
+
       console.log('userAnswerCorrect',userAnswerCorrect);
 
       return {
-        image: answer.get("image"),
-        selected: userAnswer.get("firstObject.selection"),
+        image: answer.get('image') ? answer.get('image') : DEFAULT_IMAGES.QUESTION_PLACEHOLDER_IMAGE,
+        selected: selected,
         class: (userAnswerCorrect)?'correct':'incorrect'
       };
     });

@@ -1,33 +1,31 @@
 .reports.assessment.questions.gru-hs-image {
   ul{
-    display: inline-block;
     padding-left: 0px;
     li{
       list-style: none;
-      position:relative;
+      margin: 0 5px 0 0;
+      display: inline-block;
       span {
-        width: 25px;
-        height: 100px;
-        display: inline-block;
-        background-color: #c1c1c1;
-        i{
-          margin: 0 auto;
+        width: 43px;
+        height: 43px;
+        display: block;
+        img{
+          border: 1px solid $color-white;
+          width: 43px;
+          height:43px;
+          background-color: $color-gray-lighter-11;
         }
       }
-      span.correct{
-        color:$color-answer-correct;
-      }
-      span.incorrect{
-        color:$color-answer-incorrect;
-      }
-      span.answer-text{
-        margin-left: 1em;
-      }
       span.selected {
-        margin-right: 28px;
+        border: 1px solid;
+        width: 45px;
+        height: 45px;
       }
-      span.no-selected {
-        margin-left: 28px;
+      span.selected.correct{
+        border-color: $color-answer-correct;
+      }
+      span.selected.incorrect{
+        border-color: $color-answer-incorrect;
       }
     }
   }

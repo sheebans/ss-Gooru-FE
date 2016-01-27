@@ -1,10 +1,10 @@
-<ul class="multiple-answers">
+<ul class="hs-images">
   {{#each answers as |answer index|}}
     <li>
       {{#if answer.selected}}
-        <span class="column selected {{{answer.class}}}">{{fa-icon icon='times-circle-o'}}</span>
+        <span class="selected {{{answer.class}}}"><img src="{{{answer.image}}}"></span>
       {{else}}
-        <span class="column no-selected {{{answer.class}}}">{{fa-icon icon='times-circle-o'}}</span>
+        <span class="no-selected"><img src="{{{answer.image}}}"></span>
       {{/if}}
    </li>
   {{/each}}

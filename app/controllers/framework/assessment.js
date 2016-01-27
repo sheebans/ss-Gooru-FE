@@ -180,9 +180,9 @@ export default Ember.Controller.extend({
           hints: [],
           explanation: 'Sample explanation text',
           answers:  Ember.A([
-            Ember.Object.create({ id: "1", isCorrect: false, image:"Answer 1" }),
-            Ember.Object.create({ id: "2", isCorrect: true, image:"Answer 2" }),
-            Ember.Object.create({ id: "3", isCorrect: true, image:"Answer 3" })
+            Ember.Object.create({ id: "1", isCorrect: true, image:"http://qacdn.gooru.org/qalive/f000/2441/3272/4a12b833-9106-48ef-95b5-ac3ff73575ae.png" }),
+            Ember.Object.create({ id: "2", isCorrect: false, image:"" }),
+            Ember.Object.create({ id: "3", isCorrect: true, image:"" })
           ]),
           order: 2
         }),
@@ -190,7 +190,7 @@ export default Ember.Controller.extend({
         score: 10,
         reaction: 4,
         timeSpent: 28,
-        userAnswer:  Ember.A([{id: "1", selection: false}, {id: "2", selection: false}, {id: "3", selection: true}])
+        userAnswer:  Ember.A(["1", "2"])
       })
     ],
 
