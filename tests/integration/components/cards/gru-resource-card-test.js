@@ -40,13 +40,13 @@ test('Resource card that is not a question and it has not been started', functio
 
   const $resourceType = $detailsContainer.find('.resource-description p.type');
 
-  assert.equal(T.text($resourceType), this.get('i18n').t('resource-type.'+mockResource.resourceType).toString(), 'Wrong resource type text');
+  assert.equal(T.text($resourceType), this.get('i18n').t('common.resource-type.'+mockResource.resourceType).toString(), 'Wrong resource type text');
 
   const $resultContainer = $component.find('.result-details');
   assert.ok($resultContainer, 'Result container not found');
 
   const $resultStatus = $resultContainer.find('p.status');
-  assert.equal(T.text($resultStatus), this.get('i18n').t('gru-resource-card.skipped').toString(), 'Wrong result status text');
+  assert.equal(T.text($resultStatus), this.get('i18n').t('cards.gru-resource-card.skipped').toString(), 'Wrong result status text');
 
 
 });
@@ -142,5 +142,5 @@ test('Resource card that is not a question and it has been viewed but not reacte
   assert.ok($questionIcon, 'Icon not found');
 
   const $questionType = $detailsContainer.find('.resource-description p.type');
-  assert.equal(T.text($questionType), this.get('i18n').t('question-type.'+mockResource.questionType).toString(), 'Wrong question type text');
+  assert.equal(T.text($questionType), this.get('i18n').t('common.question-type.'+mockResource.questionType).toString(), 'Wrong question type text');
 });

@@ -1,5 +1,4 @@
-.gru-resource-card{
-  height: 80px;
+.cards.gru-resource-card{
   width: 137px;
   border: 1px solid;
   -webkit-flex-direction: column;
@@ -83,28 +82,6 @@
           }
         }
       }
-      .emotion {
-        background-size: 226px 165px;
-        width: 22px;
-        height:22px;
-        border:none;
-        border-radius:0;
-      }
-      .emotion-1 {
-        background-position: -42px -144px;
-      }
-      .emotion-2 {
-        background-position: -69px -144px;
-      }
-      .emotion-3 {
-        background-position: -95px -144px;
-      }
-      .emotion-4 {
-        background-position: -122px -144px;
-      }
-      .emotion-5 {
-        background-position: -149px -144px;
-      }
     }
     div.card-icon{
       -webkit-flex-shrink: 0;
@@ -126,10 +103,8 @@
       }
     }
   }
-  h3, p, span{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  p, span{
+    @include text-overflow();
     padding:0;
     margin:0;
   }
