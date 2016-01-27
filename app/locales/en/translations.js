@@ -4,31 +4,7 @@ export default {
    * COMMON: Translations used globally in the app or shared between components
    */
   "common": {
-    "resource-type":{
-      "video/youtube" : "Youtube Video",
-      "handouts"      : "PDF Resource",
-      "resource/url"  : "URL Resource",
-      "vimeo/video"   : "Vimeo Video",
-      "webpage"       : "Webpage",
-      "interactive"   : "Interactive",
-      "question"      : "Question",
-      "image"         : "Image",
-      "text"          : "Text",
-      "audio"         : "Audio",
-      "oer"           : "OER"
-    },
-    "question-type":{
-      "SA"     : "Single Answer",
-      "MC"     : "Multiple Choice",
-      "FIB"    : "Fill In the Blank",
-      "T/F"    : "True or False",
-      "MA"     : "Multiple Answer",
-      "OE"     : "Open Ended",
-      "HS_TXT" : "Hot Spot Text",
-      "HS_IMG" : "Hot Spot Image",
-      "HT_TO"  : "Hot Text Reorder",
-      "HT_HL"  : "Hot Text Highlight"
-    },
+
     "answer":"Your Answer",
     "assessmentInitial": "A",
     "attempts": "Attempts",
@@ -71,7 +47,32 @@ export default {
     "please_contact": "Please contact",
     "question":"Question",
     "questions": "Questions",
+    "question-type":{
+      "SA"     : "Single Answer",
+      "MC"     : "Multiple Choice",
+      "FIB"    : "Fill In the Blank",
+      "T/F"    : "True or False",
+      "MA"     : "Multiple Answer",
+      "OE"     : "Open Ended",
+      "HS_TXT" : "Hot Spot Text",
+      "HS_IMG" : "Hot Spot Image",
+      "HT_TO"  : "Hot Text Reorder",
+      "HT_HL"  : "Hot Text Highlight"
+    },
     "reaction": "Reaction",
+    "resource-type":{
+      "video/youtube" : "Youtube Video",
+      "handouts"      : "PDF Resource",
+      "resource/url"  : "URL Resource",
+      "vimeo/video"   : "Vimeo Video",
+      "webpage"       : "Webpage",
+      "interactive"   : "Interactive",
+      "question"      : "Question",
+      "image"         : "Image",
+      "text"          : "Text",
+      "audio"         : "Audio",
+      "oer"           : "OER"
+    },
     "remaining": "{{number}} Left",
     "score":"Score",
     "search": "Search",
