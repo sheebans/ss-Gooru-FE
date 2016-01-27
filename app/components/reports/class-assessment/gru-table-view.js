@@ -42,6 +42,7 @@ export default Ember.Component.extend({
     selectStudent: function (studentId) {
       Ember.Logger.debug('Student with ID: ' + studentId + ' was selected');
     }
+
   },
 
 
@@ -53,14 +54,6 @@ export default Ember.Component.extend({
 
     this.set('questionProperties', this.initQuestionProperties());
     this.set('studentsHeader', this.initStudentsHeader());
-  },
-
-  didInsertElement: function () {
-    this.$('.filters input[type=checkbox]').on('click', this.updatePropertyVisibility.bind(this));
-  },
-
-  willDestroyElement: function () {
-    this.$('.filters input[type=checkbox]').off('click');
   },
 
 
@@ -286,22 +279,6 @@ export default Ember.Component.extend({
       value: 'fullName',
       sortFunction: alphabeticalStringSort
     };
-  },
-
-  /**
-   * Update the visibility of a property in the questionProperties model
-   * @return {undefined}
-   */
-  updatePropertyVisibility: function (e) {
-    var $elem = $(e.target);
-    var index = $elem.data('idx');
-    var questionProperty = this.get('questionProperties')[index];
-
-    if ($elem.prop('checked')) {
-      questionProperty.set('visible', true);
-    } else {
-      questionProperty.set('visible', false);
-    }
   }
 
 });

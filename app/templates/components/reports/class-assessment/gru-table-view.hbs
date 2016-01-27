@@ -2,12 +2,9 @@
   {{#each questionProperties as |property index|}}
     <li class="checkbox">
       <label>
-        <input
-            type="checkbox"
-            checked={{if property.visible 'checked' null}}
-                disabled={{if property.filter.disabled 'disabled' null}}
-            value="{{property.value}}"
-            data-idx="{{index}}">
+        {{input type="checkbox"
+        checked=property.visible
+        disabled=property.filter.disabled }}
         {{property.filter.label}}
       </label>
     </li>
