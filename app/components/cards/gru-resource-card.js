@@ -16,7 +16,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-resource-card'],
+  classNames:['cards', 'gru-resource-card'],
 
   // -------------------------------------------------------------------------
   // Actions

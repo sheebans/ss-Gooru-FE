@@ -11,17 +11,17 @@
    <div class="card-content">
        <p class="subject truncate">
            <span>
-               <p class="total-units">{{course.totalUnits}} {{t "gru-course-card.units"}}</p>
+               <p class="total-units">{{course.totalUnits}} {{t "cards.gru-course-card.units"}}</p>
            </span>
          {{subjects}}
        </p>
    </div>
     <div class="remixed-users">
-        <p class="remixed">{{t "gru-course-card.remixed-by"}}</p>
+        <p class="remixed">{{t "cards.gru-course-card.remixed-by"}}</p>
         <span class="users-teaser">{{gru-user-teaser users=users}}</span>
     </div>
     <div class="remix-button">
-        <button class="btn btn-default" {{action 'remixCourse'}}>{{t "gru-course-card.remix"}}</button>
+        <button class="btn btn-default" {{action 'remixCourse'}}>{{t "cards.gru-course-card.remix"}}</button>
     </div>
 </div>
 

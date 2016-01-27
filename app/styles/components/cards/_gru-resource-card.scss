@@ -1,5 +1,4 @@
-.gru-resource-card{
-  height: 80px;
+.cards.gru-resource-card{
   width: 137px;
   border: 1px solid;
   -webkit-flex-direction: column;
@@ -126,10 +125,8 @@
       }
     }
   }
-  h3, p, span{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  p, span{
+    @include text-overflow();
     padding:0;
     margin:0;
   }

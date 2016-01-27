@@ -6,9 +6,9 @@
       <span class="title">{{resource.title}}</span>
       <p class="type">
         {{#if resource.isQuestion }}
-          {{t (concat 'question-type.' resource.questionType) }}
+          {{t (concat 'common.question-type.' resource.questionType) }}
         {{else}}
-          {{t (concat 'resource-type.' resource.resourceType) }}
+          {{t (concat 'common.resource-type.' resource.resourceType) }}
         {{/if}}
       </p>
 
@@ -26,6 +26,6 @@
 
     {{/if}}
   {{else}}
-    <p class="status">{{t "gru-resource-card.skipped"}}</p>
+    <p class="status">{{t "cards.gru-resource-card.skipped"}}</p>
   {{/if}}
 </div>
