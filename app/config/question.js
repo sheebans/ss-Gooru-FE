@@ -4,7 +4,8 @@ export const QUESTION_CONFIG = {
   'MC'    : Ember.Object.create({
     component: {
       player : 'player.questions.gru-multiple-choice',
-      report : 'reports.assessment.questions.gru-multiple-choice',
+      report : 'reports.assessment.questions.gru-multiple-choice'
+
     }
   }),
   'MA'    : Ember.Object.create({
@@ -63,6 +64,7 @@ export const QUESTION_CONFIG = {
  * @param {string} propertyPath a valid property path inside the question config object
  */
 export function getQuestionConfig(questionType, propertyPath){
+
   let config = QUESTION_CONFIG[questionType];
   if (!config) {
     Ember.Logger.error('Questions of type ' + questionType + ' are currently not supported');
