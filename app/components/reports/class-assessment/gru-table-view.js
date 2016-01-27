@@ -35,15 +35,6 @@ export default Ember.Component.extend({
     },
 
     /**
-     * @function actions:selectQuestionProperty
-     * @param {string} firstTierHeaderId
-     * @param {string} secondTierHeaderId
-     */
-    selectQuestionProperty: function (firstTierHeaderId, secondTierHeaderId) {
-      Ember.Logger.debug('Question property:' + secondTierHeaderId + ' for question: ' + firstTierHeaderId + ' was selected');
-    },
-
-    /**
      * @function actions:selectStudent
      * @param {string} studentId
      */

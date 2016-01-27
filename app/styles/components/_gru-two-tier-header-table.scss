@@ -1,5 +1,5 @@
 .gru-two-tier-header-table {
-  $table-cell-width: 80px;
+  $table-cell-width: 90px;
 
   table {
 
@@ -28,19 +28,50 @@
 
     > .second-tier {
       th {
-        width: $table-cell-width;
-        text-align: center;
         border-width: 2px 1px 3px 0;
+
+        > span {
+          display: block;
+          font-weight: normal;
+          font-size: $font-size-small;
+          text-align: center;
+          width: $table-cell-width;
+        }
+
+        i.fa-sort-asc, i.fa-sort-desc {
+          display: none;
+        }
 
         &.row-header {
           width: auto;
           text-align: left;
+
+          > span {
+            width: auto;
+          }
         }
         &:first-child {
           border-left-width: 1px;
         }
         &:hover {
           cursor: pointer;
+        }
+
+        &.ascending {
+          i.fa-sort-asc {
+            display: inline-block;
+          }
+          i.fa-sort, i.fa-sort-desc {
+            display: none;
+          }
+        }
+        &.descending {
+          i.fa-sort-desc {
+            display: inline-block;
+          }
+          i.fa-sort, i.fa-sort-asc {
+            display: none;
+          }
         }
       }
     }
