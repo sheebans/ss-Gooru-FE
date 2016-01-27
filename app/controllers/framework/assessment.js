@@ -149,6 +149,27 @@ export default Ember.Controller.extend({
         reaction: 2,
         timeSpent: 28,
         userAnswer: Ember.A(['yellow','white'])
+      }),
+
+      QuestionResultDetails.create({
+        id: 606,
+        question: Ember.Object.create({
+          questionType: 'MA',
+          text: 'Sample Question MA',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers:  Ember.A([
+            Ember.Object.create({ id: "1", isCorrect: false, text:"Answer 1" }),
+            Ember.Object.create({ id: "2", isCorrect: true, text:"Answer 2" }),
+            Ember.Object.create({ id: "3", isCorrect: true, text:"Answer 3" })
+          ]),
+          order: 2
+        }),
+        correct: true,
+        score: 10,
+        reaction: 4,
+        timeSpent: 28,
+        userAnswer:  Ember.A([{id: "1", selection: false}, {id: "2", selection: false}, {id: "3", selection: true}])
       })
     ],
 

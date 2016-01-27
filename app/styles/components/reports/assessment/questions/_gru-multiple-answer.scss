@@ -1,0 +1,33 @@
+.reports.assessment.questions.gru-multiple-answer {
+  ul{
+    display: inline-block;
+    padding-left: 0px;
+    li{
+      list-style: none;
+      position:relative;
+      span.column {
+        width: 25px;
+        display: inline-block;
+        text-align: center;
+        i{
+          margin: 0 auto;
+        }
+      }
+      span.correct{
+        color:$color-answer-correct;
+      }
+      span.incorrect{
+        color:$color-answer-incorrect;
+      }
+      span.answer-text{
+        margin-left: 1em;
+      }
+      span.selected {
+        margin-right: 28px;
+      }
+      span.no-selected {
+        margin-left: 28px;
+      }
+    }
+  }
+}
