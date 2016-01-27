@@ -1,7 +1,7 @@
 /**
  * Course card
  *
- * Component responsible for show the  course information in cards, so that most useful information is summarized there.
+ * Component responsible of showing the course information in cards, so that most useful information is summarized there.
  * @module
  * @see controllers/profile/about.js
  */
