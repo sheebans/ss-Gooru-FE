@@ -1,4 +1,10 @@
 import Ember from 'ember';
+import {
+  alphabeticalStringSort,
+  formatTimeInSeconds,
+  getAnswerResultIcon,
+  getReactionIcon
+  } from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend({
 
@@ -27,15 +33,6 @@ export default Ember.Component.extend({
      */
     selectQuestion: function (questionId) {
       Ember.Logger.debug('Question with ID: ' + questionId + ' was selected');
-    },
-
-    /**
-     * @function actions:selectQuestionProperty
-     * @param {string} firstTierHeaderId
-     * @param {string} secondTierHeaderId
-     */
-    selectQuestionProperty: function (firstTierHeaderId, secondTierHeaderId) {
-      Ember.Logger.debug('Question property:' + secondTierHeaderId + ' for question: ' + firstTierHeaderId + ' was selected');
     },
 
     /**
@@ -123,6 +120,8 @@ export default Ember.Component.extend({
    * - label: visual representation of the header
    * - value: internal header identifier
    * - visible: should the property be visible or not?
+   * - renderFunction: function to process values of this property for output
+   * - sortFunction: sort function for values of this property
    */
   questionProperties: null,
 
@@ -166,13 +165,17 @@ export default Ember.Component.extend({
    * Each object in the array will consist of:
    * - id: row id
    * - header: row header
-   * - content: an array of values making up the row content
+   * - content: an array of objects making up the row content where each object is made up of:
+   *   - value: table cell un-formatted content
+   *   - output: table cell content formatted for output (the formatting is done by
+   *             the question property's render function)
    */
   tableData: Ember.computed('tableFrame', 'rawData', function () {
     const studentsIds = this.get('studentsIds');
     const studentsIdsLen = studentsIds.length;
     const questionsIds = this.get('assessmentQuestionsIds');
     const questionsIdsLen = questionsIds.length;
+    const questionProperties = this.get('questionProperties');
     const questionPropertiesIds = this.get('questionPropertiesIds');
     const questionPropertiesIdsLen = questionPropertiesIds.length;
     const rawData = this.get('rawData');
@@ -198,15 +201,23 @@ export default Ember.Component.extend({
           continue;
         }
         for (let k = 0; k < questionPropertiesIdsLen; k++) {
+          let renderFunction = questionProperties[k].renderFunction;
           let value = rawData[studentsIds[i]][questionsIds[j]][questionPropertiesIds[k]];
+
+          data[i].content[j * questionPropertiesIdsLen + k] = {
+            value: value,
+            output: (!renderFunction) ? value : renderFunction(value)
+          };
           totals[k] += (value) ? value : 0;
-          data[i].content[j * questionPropertiesIdsLen + k] = value;
         }
       }
 
       // Compute the totals
       for (let k = 0; k < questionPropertiesIdsLen; k++) {
-        data[i].content[totalIndex * questionPropertiesIdsLen + k] = totals[k];
+        data[i].content[totalIndex * questionPropertiesIdsLen + k] = {
+          value: totals[k],
+          output: totals[k]
+        };
       }
     }
 
@@ -243,21 +254,24 @@ export default Ember.Component.extend({
         },
         label: this.get('i18n').t('reports.gru-table-view.score').string,
         value: 'correct',
-        visible: true
+        visible: true,
+        renderFunction: getAnswerResultIcon
       }),
       Ember.Object.create({
         filter: {
           label: this.get('i18n').t('reports.gru-table-view.study-time').string
         },
-        label: this.get('i18n').t('reports.gru-table-view.time-spent').string,
-        value: 'timeSpent'
+        label: this.get('i18n').t('reports.gru-table-view.study-time').string,
+        value: 'timeSpent',
+        renderFunction: formatTimeInSeconds
       }),
       Ember.Object.create({
         filter: {
           label: this.get('i18n').t('reports.gru-table-view.reactions').string
         },
         label: this.get('i18n').t('reports.gru-table-view.reaction').string,
-        value: 'reaction'
+        value: 'reaction',
+        renderFunction: getReactionIcon
       })
     ];
   },
@@ -269,7 +283,8 @@ export default Ember.Component.extend({
   initStudentsHeader: function () {
     return {
       label: this.get('i18n').t('reports.gru-table-view.name').string,
-      value: 'fullName'
+      value: 'fullName',
+      sortFunction: alphabeticalStringSort
     };
   },
 

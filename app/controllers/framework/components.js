@@ -69,7 +69,7 @@ export default Ember.Controller.extend({
 
   stackedHorizontalBarData: Ember.A([Ember.Object.create({
     color: "#00e100",
-    percentage: "20",
+    percentage: "20"
   }),Ember.Object.create({
     color: "#ff5a5a",
     percentage: "35"
@@ -87,6 +87,50 @@ export default Ember.Controller.extend({
       Ember.Object.create({ id: "3", isCorrect: true,text:"Answer 3" })
     ])
   }),
+
+  resource:Ember.Object.create({
+    resourceType:"video/youtube",
+    isQuestion:false,
+    title:"Ember"
+  }),
+  resourceResult: Ember.Object.create({
+    timeSpent: 0
+  }),
+
+  secondScenarioResource:Ember.Object.create({
+    resourceType:"video/youtube",
+    isQuestion:false,
+    title:"Learn the MEAN Stack",
+    description:"Some Description"
+  }),
+  secondScenarioResourceResult: Ember.Object.create({
+    reaction: 0,
+    timeSpent: 12345
+  }),
+
+  thirdScenarioResource:Ember.Object.create({
+    resourceType:"video/youtube",
+    isQuestion:false,
+    title:"Learn the MEAN Stack",
+    description:"Some Description"
+  }),
+  thirdScenarioResourceResult: Ember.Object.create({
+    reaction: 2,
+    timeSpent: 2841
+  }),
+
+  fourthScenarioResource:Ember.Object.create({
+    resourceType:"question",
+    questionType:'FIB',
+    isQuestion:true,
+    title:"Question with a very long name",
+    description:"Some Description"
+  }),
+  fourthScenarioResourceResult: Ember.Object.create({
+    reaction: 4,
+    timeSpent: 2341
+  })
+
 });
 
 
