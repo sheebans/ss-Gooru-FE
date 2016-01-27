@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import { numberSort } from 'gooru-web/utils/utils';
 
-// Private variables
+/* === Private variables === */
 // Default sort order for values in columns (1 = ascending; -1 = descending)
 const defaultSortOrder = 1;
 
@@ -48,8 +49,7 @@ export default Ember.Component.extend({
         secondTierIndex: secondTierIndex
       };
 
-      if (sortCriteria.firstTierIndex === firstTierIndex
-        && sortCriteria.secondTierIndex === secondTierIndex) {
+      if (sortCriteria.firstTierIndex === firstTierIndex && sortCriteria.secondTierIndex === secondTierIndex) {
 
         newSortCriteria.order = sortCriteria.order * -1;
         this.set('sortCriteria', newSortCriteria);
@@ -66,7 +66,10 @@ export default Ember.Component.extend({
 
   didInsertElement() {
     this._super(...arguments);
-    this.set('sortCriteria', this.initSortCriteria());
+
+    Ember.run.scheduleOnce('afterRender', this, function () {
+      this.set('sortCriteria', this.initSortCriteria());
+    });
   },
 
   didRender() {
@@ -119,7 +122,7 @@ export default Ember.Component.extend({
    * Each object will consist of:
    * - label: visual representation of the header
    * - value: internal header identifier
-   * - visible: controls the visibility of the header?
+   * - visible: controls the visibility of the header
    */
   secondTierHeaders: null,
 
@@ -143,9 +146,39 @@ export default Ember.Component.extend({
    * @prop { Object[] } sortedData - Ordered representation of 'data'
    */
   sortedData: Ember.computed('data', 'sortCriteria', function () {
-    // TODO: Implement data sorting
-    var sortedData = this.get('data');
-    return sortedData;
+    const sortCriteria = this.get('sortCriteria');
+    const data = this.get('data');
+
+    if (sortCriteria) {
+      let secondTierHeaders = this.get('secondTierHeaders');
+      let secondTierIndex = sortCriteria.secondTierIndex;
+      let sortColumn = sortCriteria.firstTierIndex * secondTierHeaders.length + secondTierIndex;
+      let sortedData = Ember.copy(data, true);
+      let sortFunction;
+
+      if (sortColumn === -1) {
+        // Sort by row headers
+        let rowHeadersHeader = this.get('rowHeadersHeader');
+
+        sortFunction = rowHeadersHeader.sortFunction;
+        sortFunction = sortFunction ? sortFunction : numberSort;
+
+        sortedData.sort(function (a, b) {
+          return sortFunction(a.header, b.header) * sortCriteria.order;
+        });
+      } else if (sortColumn >= 0) {
+        sortFunction = secondTierHeaders[secondTierIndex].sortFunction;
+        sortFunction = sortFunction ? sortFunction : numberSort;
+
+        sortedData.sort(function (a, b) {
+          return sortFunction(a.content[sortColumn].value, b.content[sortColumn].value) * sortCriteria.order;
+        });
+      }
+      return sortedData;
+
+    } else {
+      return data;
+    }
   }),
 
   /**
@@ -230,7 +263,7 @@ export default Ember.Component.extend({
       firstTierIndex: -1,
       secondTierIndex: 0,
       order: defaultSortOrder
-    }
+    };
   }
 
 });

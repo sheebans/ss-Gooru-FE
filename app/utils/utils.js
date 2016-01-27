@@ -2,6 +2,20 @@ import Ember from 'ember';
 import { roundFloat, isNumeric } from './math';
 import { GRADING_SCALE } from 'gooru-web/config/config';
 
+/*
+ * Function for sorting strings alphabetically in ascending order
+ * @param {string} a
+ * @param {string} b
+ * @returns {number} - -1 if 'a' should go before 'b'; 1 if 'b' should go before 'a'; or else, 0.
+ */
+export function alphabeticalStringSort(a, b) {
+  const lowerCaseA = a.toLowerCase();
+  const lowerCaseB = b.toLowerCase();
+
+  return (lowerCaseA < lowerCaseB) ? -1 :
+    (lowerCaseA > lowerCaseB) ? 1 : 0;
+}
+
 /**
  * Check the standards that are checkable against the codes (provided by user)
  * and disable those who are not in codes arrays.
@@ -15,6 +29,31 @@ export function checkStandards(standards, checkableStandards, codes) {
       standard.set("disabled", !codes.contains(standard.get("id")));
     }
   });
+}
+
+/**
+ * Formats the Unit, Lesson, Assessment and Collection label
+ * @param {number} index
+ * @param {string} type
+ * @param {service} i18n
+ */
+export function courseSectionsPrefix(index, type, i18n) {
+  var prefixIndex = ++index;
+
+  const i18nKey = `common.${type}Initial`;
+  const letter = i18n.t(i18nKey);
+
+  return `${letter}${prefixIndex}`;
+}
+
+/**
+ * Formats a date into a string
+ * @param {Date} date
+ * @param {string} format
+ */
+export function formatDate(date, format) {
+  format = format || 'dddd, MMMM Do, YYYY h:mm A';
+  return moment(date).format(format);
 }
 
 /**
@@ -137,26 +176,14 @@ export function getLetter(number){
   return String.fromCharCode(65 + number);
 }
 
-/**
- * Formats a date into a string
- * @param {Date} date
- * @param {string} format
+/*
+ * Function for sorting numbers in ascending order
+ * @param {number} a
+ * @param {number} b
+ * @returns {number} - -1 if 'a' should go before 'b'; 1 if 'b' should go before 'a'; or else, 0.
  */
-export function formatDate(date, format) {
-  format = format || 'dddd, MMMM Do, YYYY h:mm A';
-  return moment(date).format(format);
-}
-/**
- * Formats the  Unit, Lesson, Assessment and Collection label
- * @param {number} index
- * @param {string} type
- * @param {service} i18n
- */
-export function courseSectionsPrefix(index,type,i18n){
-  var prefixIndex = ++index;
-
-  const i18nKey = `common.${type}Initial`;
-  const letter = i18n.t(i18nKey);
-
-  return `${letter}${prefixIndex}`;
+export function numberSort(a, b) {
+  a = a ? a : !!a;
+  b = b ? b : !!b;
+  return a - b;
 }

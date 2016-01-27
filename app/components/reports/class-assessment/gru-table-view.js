@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import {
+  alphabeticalStringSort,
   formatTimeInSeconds,
   getAnswerResultIcon,
   getReactionIcon
@@ -120,6 +121,7 @@ export default Ember.Component.extend({
    * - value: internal header identifier
    * - visible: should the property be visible or not?
    * - renderFunction: function to process values of this property for output
+   * - sortFunction: sort function for values of this property
    */
   questionProperties: null,
 
@@ -163,7 +165,10 @@ export default Ember.Component.extend({
    * Each object in the array will consist of:
    * - id: row id
    * - header: row header
-   * - content: an array of values making up the row content
+   * - content: an array of objects making up the row content where each object is made up of:
+   *   - value: table cell un-formatted content
+   *   - output: table cell content formatted for output (the formatting is done by
+   *             the question property's render function)
    */
   tableData: Ember.computed('tableFrame', 'rawData', function () {
     const studentsIds = this.get('studentsIds');
@@ -198,14 +203,21 @@ export default Ember.Component.extend({
         for (let k = 0; k < questionPropertiesIdsLen; k++) {
           let renderFunction = questionProperties[k].renderFunction;
           let value = rawData[studentsIds[i]][questionsIds[j]][questionPropertiesIds[k]];
+
+          data[i].content[j * questionPropertiesIdsLen + k] = {
+            value: value,
+            output: (!renderFunction) ? value : renderFunction(value)
+          };
           totals[k] += (value) ? value : 0;
-          data[i].content[j * questionPropertiesIdsLen + k] = (!renderFunction) ? value : renderFunction(value);
         }
       }
 
       // Compute the totals
       for (let k = 0; k < questionPropertiesIdsLen; k++) {
-        data[i].content[totalIndex * questionPropertiesIdsLen + k] = totals[k];
+        data[i].content[totalIndex * questionPropertiesIdsLen + k] = {
+          value: totals[k],
+          output: totals[k]
+        };
       }
     }
 
@@ -271,7 +283,8 @@ export default Ember.Component.extend({
   initStudentsHeader: function () {
     return {
       label: this.get('i18n').t('reports.gru-table-view.name').string,
-      value: 'fullName'
+      value: 'fullName',
+      sortFunction: alphabeticalStringSort
     };
   },
 
