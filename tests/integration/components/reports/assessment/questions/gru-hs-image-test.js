@@ -2,6 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 import Ember from 'ember';
+import {DEFAULT_IMAGES} from 'gooru-web/config/config';
 
 moduleForComponent('reports/assessment/questions/gru-hs-image', 'Integration | Component | reports/assessment/questions/gru hs image', {
   integration: true
@@ -32,8 +33,9 @@ test('Hot Spot Image Correct Answer', function(assert) {
   T.exists(assert, $hsImage.find('li:eq(0) span.correct'), 'The first answer should be correct');
   assert.equal($hsImage.find('li:eq(0) span img').prop('src'), 'http://qacdn.gooru.org/qalive/f000/2441/3272/4a12b833-9106-48ef-95b5-ac3ff73575ae.png', 'First image src does not coincide');
   T.exists(assert, $hsImage.find('li:eq(2) span.correct'), 'The third answer should be correct');
+  assert.ok($hsImage.find('li:eq(2) span img').prop('src').indexOf(DEFAULT_IMAGES.QUESTION_PLACEHOLDER_IMAGE) >= 0, 'Image with empty image value should have a placeholder image');
   T.notExists(assert, $hsImage.find('li span.incorrect'), 'Should not be incorrect answers at all');
-});
+ });
 
 test('Hot Spot Image Your Answer Incorrect', function(assert) {
 

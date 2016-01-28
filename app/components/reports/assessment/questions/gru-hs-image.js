@@ -47,9 +47,6 @@ export default Ember.Component.extend(QuestionMixin, {
         userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(answer.get("id"));
         selected = true;
       }
-
-      console.log('userAnswerCorrect',userAnswerCorrect);
-
       return {
         image: answer.get('image') ? answer.get('image') : DEFAULT_IMAGES.QUESTION_PLACEHOLDER_IMAGE,
         selected: selected,

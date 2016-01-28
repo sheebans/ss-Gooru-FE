@@ -1,4 +1,5 @@
 .reports.assessment.questions.gru-hs-image {
+  $image-side: 43px;
   ul{
     padding-left: 0px;
     li{
@@ -6,20 +7,20 @@
       margin: 0 5px 5px 0;
       display: inline-block;
       span {
-        width: 43px;
-        height: 43px;
+        width: $image-side;
+        height: $image-side;
         display: block;
         img{
           border: 1px solid $color-white;
-          width: 43px;
-          height:43px;
+          width: auto;
+          max-height: 100%;
           background-color: $color-gray-lighter-11;
         }
       }
       span.selected {
         border: 1px solid;
-        width: 45px;
-        height: 45px;
+        width: $image-side + 2px;
+        height: $image-side + 2px;
       }
       span.selected.correct{
         border-color: $color-answer-correct;
