@@ -15,6 +15,7 @@ export default Ember.Controller.extend(SessionMixin, {
     bubbleOptionSelected: function (option) {
       console.log(option);
     },
+
     /**
      * Handle event triggered by gru-switch
      */
@@ -22,7 +23,29 @@ export default Ember.Controller.extend(SessionMixin, {
       console.log(option);
     },
 
-    saveEndpoint: function(){
+    /**
+     * Calls the API in order to start the question
+     * Question object is use to get the data
+     * Access SessionMixin to get some necessary info
+     */
+    startQuestion: function(){
+      var question = {
+        id: '46d4a6d4-991b-4c51-a656-f694e037dd68',
+        questionType: 'FIB'
+      };
+
+      startQuestion(question, this.get('session'));
+
+    },
+
+    /**
+     * Calls the API in order to stop the question
+     * Question object is use to get the data
+     * isAnswerCorrect is the result of the question
+     * Answer object is not define at all let's hardcoded in that way for now
+     * Access SessionMixin to get some necessary info
+     */
+    stopQuestion: function(){
       var question = {
         id: '46d4a6d4-991b-4c51-a656-f694e037dd68',
         questionType: 'FIB'
@@ -41,7 +64,6 @@ export default Ember.Controller.extend(SessionMixin, {
 
       var isAnswerCorrect = true;
 
-      startQuestion(question, this.get('session'));
       stopQuestion(question, isAnswerCorrect, answer, this.get('session'));
     }
 
