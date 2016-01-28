@@ -21,7 +21,7 @@ export default Ember.Component.extend(QuestionMixin, {
   // Properties
   answer: Ember.computed("question", function () {
     let component = this;
-    let spanClass='isCorrect';
+    let spanClass='is-correct';
     let question = component.get("question");
 
     let questionAnswer = question.answers;
@@ -46,9 +46,9 @@ export default Ember.Component.extend(QuestionMixin, {
       userAnswerTextParts.forEach(function(item, index){
         if(regExp.test(item)){
           if (item === correctAnswerTextParts[index]) {
-            spanClass = 'isCorrect';
+            spanClass = 'is-correct';
           }else{
-            spanClass= 'isIncorrect';
+            spanClass= 'is-incorrect';
           }
           item = item.replace('[','<span class='+spanClass+'>');
           item = item.replace(']','</span>');

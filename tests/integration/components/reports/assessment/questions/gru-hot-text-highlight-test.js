@@ -36,7 +36,7 @@ test('Hot Text Highlight User Answer', function(assert) {
   assert.equal(T.text($firstIncorrectAnswer), "pero", "Incorrect first incorrect answer");
 });
 
-test('Hot Text Highlight User Answer', function(assert) {
+test('Hot Text Highlight Correct Answer', function(assert) {
   var question= Ember.Object.create({
     questionType: 'HT_HL',
     text: '<p>Seleccione las palabras escritas incorrectamente</p>',
