@@ -10,34 +10,27 @@ moduleForComponent('charts/gru-pie-chart', 'Integration | Component | charts/gru
 });
 
 test('Pie Chart Layout', function(assert) {
-  assert.expect(1);
 
-  const width =100;
-  this.set('width', width);
-
-  const height =100;
-  this.set('height', height);
-
-  const pie =[{
+  const pieData = [{
     color: "#00e100",
     value: "20"
   },{
     color: "#ff5a5a",
     value: "35"
-  },
-    {
-      color: "#885aff",
-      value: "20"
-    },{
-      color: "#ff860a",
-      value: "30"
-    }];
-  this.set('pie', pie);
+  }, {
+    color: "#885aff",
+    value: "20"
+  }, {
+    color: "#ff860a",
+    value: "30"
+  }];
 
-  this.render(hbs`{{charts/gru-pie-chart pieData=pie width=width height=height}}`);
-  const $component = this.$(); //component dom element
-  const $pieChart = $component.find(".gru-pie-chart");
+  this.set('pieData', pieData);
 
-  T.exists(assert, $pieChart, 'Missing pie chart component');
+  this.render(hbs`{{charts/gru-pie-chart data=pieData}}`);
+
+  const $component = this.$(".charts.gru-pie-chart");
+
+  assert.ok($component.length, 'Component missing component classes');
 
 });
