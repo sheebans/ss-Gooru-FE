@@ -14,7 +14,7 @@ export default Ember.Component.extend({
      */
     bubbleSelect: function(bubbleOption) {
       const animationSpeed = 1000;  // milliseconds
-      const selector = $(".gru-questions table tr:nth-child(" + bubbleOption.label + ")");
+      const selector = $(".gru-questions table tbody tr:nth-child(" + bubbleOption.label + ")");
       const $el = $(selector);
 
       if ($el.length) {
