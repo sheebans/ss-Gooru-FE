@@ -179,7 +179,7 @@ export default Ember.Controller.extend({
           hints: [],
           explanation: 'Sample explanation text',
           answers:  Ember.A(["<p>[Le] casa es de [colo] rojo pero pero el [teco] es azul ajax</p>"]),
-          order: 2
+          order: 9
         }),
         correct: true,
         score: 10,
@@ -199,7 +199,7 @@ export default Ember.Controller.extend({
             Ember.Object.create({ id: "2", isCorrect: false, image:"" }),
             Ember.Object.create({ id: "3", isCorrect: true, image:"" })
           ]),
-          order: 2
+          order: 10
         }),
         correct: true,
         score: 10,
