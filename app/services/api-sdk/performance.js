@@ -7,8 +7,16 @@ import StoreMixin from '../../mixins/store';
  */
 export default Ember.Service.extend(StoreMixin, {
 
-
-  findStudentPerformanceByCourse(userId, classId, courseId, units, options = { collectionType: 'assessment' }) {
+  /**
+   * Gets the unit performance data for a specific user, class and course.
+   * @param userId
+   * @param classId
+   * @param courseId
+   * @param units
+   * @param options
+   * @returns {Promise.<UnitPerformance[]>}
+   */
+  findStudentPerformanceByCourse: function(userId, classId, courseId, units, options = { collectionType: 'assessment' }) {
     const service = this;
     return this.get('store').queryRecord('performance/unit-performance', {
       userUid: userId,
@@ -20,7 +28,17 @@ export default Ember.Service.extend(StoreMixin, {
     });
   },
 
-  findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons, options = { collectionType: 'assessment' }) {
+  /**
+   * Gets the lesson performance data for a specific user, class, course and unit.
+   * @param userId
+   * @param classId
+   * @param courseId
+   * @param unitId
+   * @param lessons
+   * @param options
+   * @returns {Promise.<LessonPerformance[]>}
+   */
+  findStudentPerformanceByUnit: function(userId, classId, courseId, unitId, lessons, options = { collectionType: 'assessment' }) {
     const service = this;
     return this.get('store').queryRecord('performance/lesson-performance', {
       userUid: userId,
@@ -33,7 +51,18 @@ export default Ember.Service.extend(StoreMixin, {
     });
   },
 
-  findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections, options = { collectionType: 'assessment' }) {
+  /**
+   * Gets the collection performance data for a specific user, class, course, unit and lesson.
+   * @param userId
+   * @param classId
+   * @param courseId
+   * @param unitId
+   * @param lessonId
+   * @param collections
+   * @param options
+   * @returns {Promise.<CollectionPerformance[]>}
+   */
+  findStudentPerformanceByLesson: function(userId, classId, courseId, unitId, lessonId, collections, options = { collectionType: 'assessment' }) {
     const service = this;
     return this.get('store').queryRecord('performance/collection-performance', {
       userUid: userId,
@@ -54,41 +83,6 @@ export default Ember.Service.extend(StoreMixin, {
         performance.set('title', objectWithTitle.get('title'));
       }
       return performance;
-    });
-  },
-
-
-
-  /**
-   * Gets the performance data for each unit of a specific user, class and course.
-   * @param userId user id
-   * @param classId class id
-   * @param courseId course id
-   * @returns {*}
-   */
-  findUnitPerformanceByClassAndCourse: function(userId, classId, courseId) {
-    return this.get('store').queryRecord('performance/performance', {
-      userUid: userId,
-      classId: classId,
-      courseId: courseId
-    });
-  },
-
-  /**
-   * Gets the lessons performance and collections|assessments performance data for
-   * each lesson of a specific user, class, course and unit.
-   * @param userId user id
-   * @param classId class id
-   * @param courseId course id
-   * @param unitId unit id
-   * @returns {*}
-   */
-  findLessonPerformanceByClassAndCourseAndUnit: function(userId, classId, courseId, unitId) {
-    return this.get('store').queryRecord('performance/lesson-performance', {
-      userUid: userId,
-      classId: classId,
-      courseId: courseId,
-      unitId: unitId
     });
   },
 

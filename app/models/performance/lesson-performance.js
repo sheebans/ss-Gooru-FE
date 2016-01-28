@@ -7,8 +7,6 @@ import PerformanceModel from './performance';
  */
 export default PerformanceModel.extend({
 
-  lesson: DS.belongsTo("lesson/lesson", { async: true }),
-
   /**
    * @property {Performance[]} List of Performance items for collections/assessments
    */

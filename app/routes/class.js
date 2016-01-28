@@ -35,7 +35,7 @@ export default Ember.Route.extend({
     const route = this;
     const classPromise = this.get("classService").findById(params.classId);
     const coursePromise = classPromise.then(function(classObj) {
-      return route.get('courseService').findById(classObj.get('course'))
+      return route.get('courseService').findById(classObj.get('course'));
     });
     const unitsPromise = classPromise.then(function(classObj) {
       return route.get('unitService').findByClassAndCourse(params.classId, classObj.get('course'));
