@@ -48,7 +48,7 @@ export default Ember.Component.extend(QuestionMixin, {
           if (item === correctAnswerTextParts[index]) {
             spanClass = 'isCorrect';
           }else{
-            spanClass= 'isIncorrect'
+            spanClass= 'isIncorrect';
           }
           item = item.replace('[','<span class='+spanClass+'>');
           item = item.replace(']','</span>');
