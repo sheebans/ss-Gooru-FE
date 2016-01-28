@@ -1,6 +1,12 @@
 import Ember from 'ember';
 
-// Private variables
+// TODO: Remove comments to enable default sorting function
+//import { numberSort } from 'gooru-web/utils/utils';
+
+/* === Private variables === */
+// Default sort order for values in columns (1 = ascending; -1 = descending)
+const defaultSortOrder = 1;
+
 // Stores the current number of second tier headers that are visible
 var currentVisibleHeadersLen = 0;
 
@@ -26,25 +32,47 @@ export default Ember.Component.extend({
     },
 
     /**
-     * @function actions:selectSecondTierColHeader
-     * @param {string} firstTierHeaderId
-     * @param {string} secondTierHeaderId
-     */
-    selectSecondTierColHeader: function (firstTierHeaderId, secondTierHeaderId) {
-      this.get('onSelectSecondTierHeader')(firstTierHeaderId, secondTierHeaderId);
-    },
-
-    /**
      * @function actions:selectRowHeader
      * @param {string} headerId
      */
     selectRowHeader: function (headerId) {
       this.get('onSelectRowHeader')(headerId);
+    },
+
+    /**
+     * @function actions:updateSortCriteria
+     * @param {number} firstTierIndex
+     * @param {number} secondTierIndex
+     */
+    updateSortCriteria: function (firstTierIndex, secondTierIndex) {
+      var sortCriteria = this.get('sortCriteria');
+      var newSortCriteria = {
+        firstTierIndex: firstTierIndex,
+        secondTierIndex: secondTierIndex
+      };
+
+      if (sortCriteria.firstTierIndex === firstTierIndex && sortCriteria.secondTierIndex === secondTierIndex) {
+
+        newSortCriteria.order = sortCriteria.order * -1;
+        this.set('sortCriteria', newSortCriteria);
+
+      } else {
+        newSortCriteria.order = defaultSortOrder;
+        this.set('sortCriteria', newSortCriteria);
+      }
     }
   },
 
   // -------------------------------------------------------------------------
   // Events
+
+  didInsertElement() {
+    this._super(...arguments);
+
+    Ember.run.scheduleOnce('afterRender', this, function () {
+      this.set('sortCriteria', this.initSortCriteria());
+    });
+  },
 
   didRender() {
     this._super(...arguments);
@@ -54,6 +82,19 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * @prop { Object[] } data - Array of objects with the information for all of the table rows
+   * Objects are of the form:
+   * {
+   *    id: <row_id>,
+   *    header: <row_label>,
+   *    content: String[]
+   * }
+   * ... where 'content' will consist of values for each one of the
+   * second tier headers
+   */
+  data: null,
 
   /**
    * @prop { Object[] } firstTierHeaders - Array of objects to use as the first tier
@@ -72,11 +113,6 @@ export default Ember.Component.extend({
   onSelectFirstTierHeader: null,
 
   /**
-   * @prop { Function } onSelectSecondTierHeader - Event handler triggered when clicking on a second tier header
-   */
-  onSelectSecondTierHeader: null,
-
-  /**
    * @prop { Function } onSelectRowHeader - Event handler triggered when clicking on a row header
    */
   onSelectRowHeader: null,
@@ -88,27 +124,9 @@ export default Ember.Component.extend({
    * Each object will consist of:
    * - label: visual representation of the header
    * - value: internal header identifier
-   * - visible: controls the visibility of the header?
+   * - visible: controls the visibility of the header
    */
   secondTierHeaders: null,
-
-  /**
-   * @prop { Object? } rowHeadersHeader - Header for the row headers
-   */
-  rowHeadersHeader: null,
-
-  /**
-   * @prop { Object[] } data - Array of objects with the information for all of the table rows
-   * Objects are of the form:
-   * {
-   *    id: <row_id>,
-   *    header: <row_label>,
-   *    content: String[]
-   * }
-   * ... where 'content' will consist of values for each one of the
-   * second tier headers
-   */
-  data: null,
 
   /**
    * @prop { Number } secondTierHeadersVisible - Total number of second tier headers
@@ -119,13 +137,57 @@ export default Ember.Component.extend({
   }),
 
   /**
+   * @prop { Object } sortCriteria - Object with information on how the data should be sorted
+   * - firstTierIndex: {number} - Index of the first tier header
+   * - secondTierIndex: {number} - Index of the second tier header
+   * - order: {number} - Ascending or descending order
+   */
+  sortCriteria: null,
+
+  /**
    * @prop { Object[] } sortedData - Ordered representation of 'data'
    */
-  sortedData: Ember.computed('data', function () {
-    // TODO: Implement data sorting
-    var sortedData = this.get('data');
-    return sortedData;
+  sortedData: Ember.computed('data', 'sortCriteria', function () {
+    const sortCriteria = this.get('sortCriteria');
+    const data = this.get('data');
+
+    if (sortCriteria) {
+      // TODO: Remove comments to enable sorting
+      //let secondTierHeaders = this.get('secondTierHeaders');
+      //let secondTierIndex = sortCriteria.secondTierIndex;
+      //let sortColumn = sortCriteria.firstTierIndex * secondTierHeaders.length + secondTierIndex;
+      let sortedData = Ember.copy(data, true);
+      //let sortFunction;
+      //
+      //if (sortColumn === -1) {
+      //  // Sort by row headers
+      //  let rowHeadersHeader = this.get('rowHeadersHeader');
+      //
+      //  sortFunction = rowHeadersHeader.sortFunction;
+      //  sortFunction = sortFunction ? sortFunction : numberSort;
+      //
+      //  sortedData.sort(function (a, b) {
+      //    return sortFunction(a.header, b.header) * sortCriteria.order;
+      //  });
+      //} else if (sortColumn >= 0) {
+      //  sortFunction = secondTierHeaders[secondTierIndex].sortFunction;
+      //  sortFunction = sortFunction ? sortFunction : numberSort;
+      //
+      //  sortedData.sort(function (a, b) {
+      //    return sortFunction(a.content[sortColumn].value, b.content[sortColumn].value) * sortCriteria.order;
+      //  });
+      //}
+      return sortedData;
+
+    } else {
+      return data;
+    }
   }),
+
+  /**
+   * @prop { Object? } rowHeadersHeader - Header for the row headers
+   */
+  rowHeadersHeader: null,
 
 
   // -------------------------------------------------------------------------
@@ -167,6 +229,44 @@ export default Ember.Component.extend({
     }
 
     currentVisibleHeadersLen = secondTierHeadersVisible;
-  })
+  }),
+
+  updateSortClasses: Ember.observer('sortCriteria', function () {
+    const sortCriteria = this.get('sortCriteria');
+    const totalSecondTierHeaders = this.get('secondTierHeaders').length;
+    const rowHeadersHeader = !!this.get('rowHeadersHeader');
+    const headers = this.$('.second-tier th');
+
+    var currentHeaderIndex = rowHeadersHeader +
+      (sortCriteria.firstTierIndex * totalSecondTierHeaders + sortCriteria.secondTierIndex);
+
+    headers.removeClass('ascending')
+      .removeClass('descending');
+
+    if (currentHeaderIndex >= 0) {
+      if (sortCriteria.order > 0) {
+        headers.eq(currentHeaderIndex).addClass('ascending');
+      } else {
+        headers.eq(currentHeaderIndex).addClass('descending');
+      }
+    }
+
+  }),
+
+  // -------------------------------------------------------------------------
+  // Methods
+
+  /**
+   * Initialize the table's sort criteria
+   * @return {Object}
+   */
+  initSortCriteria: function () {
+    // No columns will be sorted by default
+    return {
+      firstTierIndex: -1,
+      secondTierIndex: 0,
+      order: defaultSortOrder
+    };
+  }
 
 });

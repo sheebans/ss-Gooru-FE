@@ -217,7 +217,7 @@ export default Ember.Controller.extend({
     },
     {
       "id": "56983a906596902edadedc7c",
-      "fullName": "Robles, Guadalupe"
+      "fullName": "Robles, María Guadalupe de la Trinidad"
     },
     {
       "id": "56983a9082f705e65f2fe607",

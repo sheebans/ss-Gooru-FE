@@ -7,7 +7,8 @@ export const RESOURCE_COMPONENT_MAP = {
 };
 
 export const DEFAULT_IMAGES = {
-  USER_PROFILE: '/assets/gooru/profile.png'
+  USER_PROFILE: '/assets/gooru/profile.png',
+  QUESTION_PLACEHOLDER_IMAGE: '/assets/gooru/question-placeholder-image.png'
 };
 
 export const CONTENT_TYPES = {
