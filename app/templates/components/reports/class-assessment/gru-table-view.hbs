@@ -1,1 +1,20 @@
-gru-table-view is here!
+<ul class="filters">
+  {{#each questionProperties as |property index|}}
+    <li class="checkbox">
+      <label>
+        {{input type="checkbox"
+        checked=property.visible
+        disabled=property.filter.disabled }}
+        {{property.filter.label}}
+      </label>
+    </li>
+  {{/each}}
+</ul>
+
+{{ gru-two-tier-header-table
+firstTierHeaders=assessmentQuestions
+secondTierHeaders=questionProperties
+rowHeadersHeader=studentsHeader
+data=tableData
+onSelectFirstTierHeader=(action 'selectQuestion')
+onSelectRowHeader=(action 'selectStudent') }}

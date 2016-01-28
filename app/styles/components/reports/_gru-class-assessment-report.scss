@@ -1,3 +1,24 @@
 .reports.gru-class-assessment-report {
+  > .view-container {
+    position: relative;
+    padding-top: 10px;
 
+    > .view-selector {
+      position: absolute;
+      top: 10px;
+      right: 0;
+    }
+
+    &.table-view {
+      .gru-student-view {
+        display: none;
+      }
+    }
+
+    &.student-view {
+      .gru-table-view {
+        display: none;
+      }
+    }
+  }
 }

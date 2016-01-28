@@ -1,5 +1,34 @@
 .reports.class-assessment.gru-table-view {
-  // TODO: remove background-color and fixed dimensions
-  background-color: #696969;
-  height: 800px;
+
+  > .filters {
+    list-style: none;
+    margin: 0 0 15px 0;
+    padding: 0;
+
+    li.checkbox {
+      display: inline-block;
+      margin: 0 15px 0 0;
+    }
+  }
+
+  .gru-two-tier-header-table {
+    .answer-correct, .answer-incorrect {
+      font-size: 2.2rem;
+    }
+    .answer-correct {
+      color: $color-answer-correct;
+    }
+    .answer-incorrect {
+      color: $color-answer-incorrect;
+    }
+
+    table tr.data th {
+      max-width: 12rem;
+
+      span {
+        display: block;
+        @include text-overflow();
+      }
+    }
+  }
 }

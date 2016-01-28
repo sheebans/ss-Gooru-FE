@@ -1,0 +1,96 @@
+.gru-two-tier-header-table {
+  $table-cell-width: 90px;
+
+  table {
+
+    th, td {
+      border-color: $color-gray-lighter-2;
+      border-style: solid;
+      border-width: 0;
+      padding: 5px;
+    }
+
+    > .first-tier {
+      th {
+        text-align: center;
+        background-color: $color-gray-lighter-7;
+        border-width: 1px 1px 0 0;
+        height: 3.5em;
+
+        &:first-of-type {
+          border-width: 1px 1px 0 1px;
+        }
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    > .second-tier {
+      th {
+        border-width: 2px 1px 3px 0;
+
+        > span {
+          display: block;
+          font-weight: normal;
+          font-size: $font-size-small;
+          text-align: center;
+          width: $table-cell-width;
+        }
+
+        i.fa-sort-asc, i.fa-sort-desc {
+          display: none;
+        }
+
+        &.row-header {
+          width: auto;
+          text-align: left;
+
+          > span {
+            width: auto;
+          }
+        }
+        &:first-child {
+          border-left-width: 1px;
+        }
+        &:hover {
+          cursor: pointer;
+        }
+
+        &.ascending {
+          i.fa-sort-asc {
+            display: inline-block;
+          }
+          i.fa-sort, i.fa-sort-desc {
+            display: none;
+          }
+        }
+        &.descending {
+          i.fa-sort-desc {
+            display: inline-block;
+          }
+          i.fa-sort, i.fa-sort-asc {
+            display: none;
+          }
+        }
+      }
+    }
+
+    > .data {
+      th {
+        background-color: $color-gray-lighter-7;
+        height: 3.5em;
+        border-width: 0 1px 1px 1px;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      td {
+        border-width: 0 1px 1px 0;
+        text-align: center;
+        width: $table-cell-width;
+      }
+    }
+  }
+}

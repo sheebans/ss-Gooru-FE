@@ -4,6 +4,7 @@ export default {
    * COMMON: Translations used globally in the app or shared between components
    */
   "common": {
+
     "answer":"Your Answer",
     "assessmentInitial": "A",
     "attempts": "Attempts",
@@ -46,7 +47,32 @@ export default {
     "please_contact": "Please contact",
     "question":"Question",
     "questions": "Questions",
+    "question-type":{
+      "SA"     : "Single Answer",
+      "MC"     : "Multiple Choice",
+      "FIB"    : "Fill In the Blank",
+      "T/F"    : "True or False",
+      "MA"     : "Multiple Answer",
+      "OE"     : "Open Ended",
+      "HS_TXT" : "Hot Spot Text",
+      "HS_IMG" : "Hot Spot Image",
+      "HT_TO"  : "Hot Text Reorder",
+      "HT_HL"  : "Hot Text Highlight"
+    },
     "reaction": "Reaction",
+    "resource-type":{
+      "video/youtube" : "Youtube Video",
+      "handouts"      : "PDF Resource",
+      "resource/url"  : "URL Resource",
+      "vimeo/video"   : "Vimeo Video",
+      "webpage"       : "Webpage",
+      "interactive"   : "Interactive",
+      "question"      : "Question",
+      "image"         : "Image",
+      "text"          : "Text",
+      "audio"         : "Audio",
+      "oer"           : "OER"
+    },
     "remaining": "{{number}} Left",
     "score":"Score",
     "search": "Search",
@@ -334,10 +360,7 @@ export default {
     "instructions" : "Please reorder the answers in correct order, and click \"Submit\"."
   },
 
-  "cards.gru-profile-card": {
-    "followers": "Followers",
-    "followings": "Followings"
-  },
+
 
   "class.info":{
     "teachers":"Teachers",
@@ -428,9 +451,29 @@ export default {
     "completion":"Completion",
     "study-time": "Study Time"
   },
-  "gru-course-card":{
-    "units":"Units",
-    "remixed-by":"Remixed by",
-    "remix":"Remix"
+  "cards":{
+    "gru-course-card":{
+      "units":"Units",
+      "remixed-by":"Remixed by",
+      "remix":"Remix"
+    },
+    "gru-resource-card":{
+      "skipped":"Skipped"
+    },
+    "gru-profile-card": {
+      "followers": "Followers",
+      "followings": "Followings"
+    }
+  },
+  "reports.gru-table-view": {
+    "first-tier-header-prefix": "Q",
+    "name": "Name",
+    "reaction": "Reaction",
+    "reactions": "Reactions",
+    "score": "Score",
+    "scores": "Scores",
+    "study-time": "Study Time",
+    "time-spent": "Time Spent",
+    "totals": "Total Scores"
   }
 };

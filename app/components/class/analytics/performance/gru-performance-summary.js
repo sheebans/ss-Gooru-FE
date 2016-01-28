@@ -6,17 +6,44 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Attributes
+  /**
+   * Attribute that computes the element to the specified string.
+   *
+   * @attribute {String}
+   */
   tagName: 'ul',
+  /**
+   * Array that computes the elements class names to the specified strings in the array.
+   *
+   * @attribute {Array}
+   */
   classNames:['gru-performance-summary'],
+  /**
+   * Selected option to show when on extra small
+   *
+   * @property {String}
+   */
   selectedOption: null,
+  /**
+   *  Performance model
+   *
+   * @property {performance/performance}
+   */
   performance:null,
   // -------------------------------------------------------------------------
   // Actions
-
+  actions:{
+    /**
+     * @function actions:selectResource
+     * @param {string} collectionId - Identifier for a resource (collection/assessment)
+     */
+    selectResource: function (collectionId) {
+      this.get('onSelectResource')(collectionId);
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Events
-
 
   didInsertElement: function(){
     const element = this.$();

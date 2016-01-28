@@ -1,39 +1,58 @@
 <h1>Framework Components</h1>
+<div class="test-components">
+  {{gru-bubbles bubbleOptions=bubbleOptions onBubbleSelect='bubbleOptionSelected'}}
 
-{{gru-bubbles bubbleOptions=bubbleOptions onBubbleSelect='bubbleOptionSelected'}}
+  {{gru-switch switchOptions=switchOptions onOptionSwitch='optionSwitch'}}
 
-{{gru-switch switchOptions=switchOptions onOptionSwitch='optionSwitch'}}
+  {{charts.gru-pie-chart pieData=pieData width=100 height=100}}
 
-{{charts.gru-pie-chart pieData=pieData width=100 height=100}}
+    <div style="width: 145px;height: 20px">
+      {{charts.gru-stacked-horizontal-bar-chart data=stackedHorizontalBarData}}
+    </div>
 
-<div style="width: 145px;height: 20px">
-    {{charts.gru-stacked-horizontal-bar-chart data=stackedHorizontalBarData}}
-</div>
-
-<span class="fractional fraction">{{{fractional numerator=1 denominator=2}}}</span>
-<span class="fractional fraction">{{{fractional expression="1/3"}}}</span>
+    <span class="fractional fraction">{{{fractional numerator=1 denominator=2}}}</span>
+    <span class="fractional fraction">{{{fractional expression="1/3"}}}</span>
 
 
-<div style="width: 100px;height: 100px;font-size: 18px;">
-  {{charts.gru-bubble-chart content='80%' color='#00e100'}}
+    <div style="width: 100px;height: 100px;font-size: 18px;">
+      {{charts.gru-bubble-chart content='80%' color='#00e100'}}
+    </div>
+
+    <div>
+        <ul style="list-style: none;">
+            <li><span>{{course-sections-prefix type="unit" index=1}} My Unit</span></li>
+            <li><span>{{course-sections-prefix type="lesson" index=1}} My Lesson</span></li>
+            <li><span>{{course-sections-prefix type="collection" index=1}} My Collection</span></li>
+            <li><span>{{course-sections-prefix type="assessment" index=2}} My Assessment</span></li>
+        </ul>
+    </div>
+
+    <div style="display:inline-block;">
+
+        <ul style="list-style: none;">
+            <li><span>{{answer-letter 0}}. The car is red</span></li>
+            <li><span>{{answer-letter 1}}. The car is blue</span></li>
+            <li><span>{{answer-letter 2}}. The car is green</span></li>
+        </ul>
+    </div>
+
+    <div class="resource-cards">
+      {{cards.gru-resource-card resource=resource result = resourceResult}}
+      {{cards.gru-resource-card resource=secondScenarioResource result = secondScenarioResourceResult}}
+      {{cards.gru-resource-card resource=thirdScenarioResource result = thirdScenarioResourceResult}}
+      {{cards.gru-resource-card resource=fourthScenarioResource result = fourthScenarioResourceResult}}
+    </div>
+
+<div>
+    <p>Event: <b>startQuestion</b></p>
+    <p>Click the button to call the API, check startQuestion action in framework/components.js</p>
+    <button {{action "startQuestion"}}>startQuestion</button>
 </div>
 
 <div>
-    <ul style="list-style: none;">
-        <li><span>{{course-sections-prefix type="unit" index=1}} My Unit</span></li>
-        <li><span>{{course-sections-prefix type="lesson" index=1}} My Lesson</span></li>
-        <li><span>{{course-sections-prefix type="collection" index=1}} My Collection</span></li>
-        <li><span>{{course-sections-prefix type="assessment" index=2}} My Assessment</span></li>
-    </ul>
+    <p>Event: <b>stopQuestion</b></p>
+    <p>Click the button to call the API, check stopQuestion action in framework/components.js</p>
+    <button {{action "stopQuestion"}}>stopQuestion</button>
 </div>
 
-<div style="display:inline-block;">
-
-    <ul style="list-style: none;">
-        <li><span>{{answer-letter 0}}. The car is red</span></li>
-        <li><span>{{answer-letter 1}}. The car is blue</span></li>
-        <li><span>{{answer-letter 2}}. The car is green</span></li>
-    </ul>
 </div>
-
-
