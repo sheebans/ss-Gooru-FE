@@ -12,12 +12,19 @@ export default Ember.Component.extend({
      * Handle event triggered by gru-summary
      * Scroll to specific question
      */
-    bubbleSelect:function(bubbleOption) {
-      $('html, body').animate({
-        scrollTop: $(".gru-questions table tbody tr:nth-child("+bubbleOption.label+")").offset().top - HEADER_HEIGHT
-      }, 1000);
-    }
-  },
+    bubbleSelect: function(bubbleOption) {
+      const animationSpeed = 1000;  // milliseconds
+      const selector = $(".gru-questions table tr:nth-child(" + bubbleOption.label + ")");
+      const $el = $(selector);
+
+        if ($el) {
+          $('html, body').animate({
+          scrollTop: $(".gru-questions table tbody tr:nth-child("+bubbleOption.label+")").offset().top - HEADER_HEIGHT}, animationSpeed);
+        } else {
+        Ember.Logger.error("No element was found for selector: " + selector);
+        }
+      }
+    },
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -38,18 +45,8 @@ export default Ember.Component.extend({
    * @return {Ember.Array}
    */
   orderedQuestions: Ember.computed('assessmentResult.questionsResults[]', function() {
-    return this.sortQuestions(this.get('assessmentResult.questionsResults'));
-  }),
-
-  // -------------------------------------------------------------------------
-  // Methods
-
-  /**
-   * Sort questions array
-   */
-  sortQuestions: function (questionsArray) {
-   return questionsArray.sort(function(a, b){
+    return this.get('assessmentResult.questionsResults').sort(function(a, b){
       return a.question.order-b.question.order;
     });
-  }
+  }),
 });
