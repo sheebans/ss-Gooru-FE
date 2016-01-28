@@ -220,7 +220,7 @@ export default Ember.Controller.extend({
             Ember.Object.create({ id: "2", isCorrect: false, text:"Answer 2" }),
             Ember.Object.create({ id: "3", isCorrect: true, text:"Answer 3" })
           ]),
-          order: 2
+          order: 11
         }),
         correct: true,
         score: 10,
