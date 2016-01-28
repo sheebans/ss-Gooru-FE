@@ -50,6 +50,12 @@ module.exports = function (environment) {
     youtubePlayerUrl:'https://www.youtube.com/embed/'
   };
 
+  ENV['events'] = {
+    apiVersion: '3.0',
+    playerEventEndpoint: '/api/log/event',
+    eventAPIKey: '33b9ad34-1a0c-43ba-bb9c-4784abe07110'
+  };
+
   ENV['simple-auth-custom'] = {
     apiKey: 'ASERTYUIOMNHBGFDXSDWERT123RTGHYT',
     serverTokenEndpoint: '/gooruapi/rest/v2/account/login',
