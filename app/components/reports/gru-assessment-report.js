@@ -10,6 +10,7 @@ export default Ember.Component.extend({
 
     /**
      * Handle event triggered by gru-summary
+     * Scroll to specific question
      */
     bubbleSelect:function(bubbleOption) {
       $('html, body').animate({
