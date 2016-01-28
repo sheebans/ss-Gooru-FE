@@ -25,12 +25,12 @@ test('Hot Text Highlight User Answer', function(assert) {
   const $ht_hl = $component.find(".reports.assessment.questions.gru-hot-text-highlight");
 
   T.exists(assert, $ht_hl, 'Missing  component');
-  const $firstAnswer= $ht_hl.find('span.isCorrect:eq(0)');
+  const $firstAnswer= $ht_hl.find('span.is-correct:eq(0)');
   T.exists(assert,$firstAnswer , 'There are no correct answers, there should be 2');
 
   assert.equal(T.text($firstAnswer), "Le", "Incorrect first correct answer");
 
-  const $firstIncorrectAnswer= $ht_hl.find('span.isIncorrect:eq(0)');
+  const $firstIncorrectAnswer= $ht_hl.find('span.is-incorrect:eq(0)');
   T.exists(assert,$firstIncorrectAnswer , 'There are no correct answers, there should be 2');
 
   assert.equal(T.text($firstIncorrectAnswer), "pero", "Incorrect first incorrect answer");
@@ -53,15 +53,15 @@ test('Hot Text Highlight Correct Answer', function(assert) {
   const $ht_hl = $component.find(".reports.assessment.questions.gru-hot-text-highlight");
 
   T.exists(assert, $ht_hl, 'Missing  component');
-  const $firstAnswer= $ht_hl.find('span.isCorrect:eq(0)');
+  const $firstAnswer= $ht_hl.find('span.is-correct:eq(0)');
   T.exists(assert,$firstAnswer , 'There are no correct answers, there should be 2');
 
   assert.equal(T.text($firstAnswer), "colo", "Incorrect first correct answer");
 
-  const $firstIncorrectAnswer= $ht_hl.find('span.isCorrect:eq(1)');
+  const $firstIncorrectAnswer= $ht_hl.find('span.is-correct:eq(1)');
   T.exists(assert,$firstIncorrectAnswer , 'There are no correct answers, there should be 2');
 
   assert.equal(T.text($firstIncorrectAnswer), "teco", "Incorrect second correct answer");
 
-  T.notExists(assert, $ht_hl.find('span.isIncorrect'), 'There should not be incorrect answers at all');
+  T.notExists(assert, $ht_hl.find('span.is-incorrect'), 'There should not be incorrect answers at all');
 });
