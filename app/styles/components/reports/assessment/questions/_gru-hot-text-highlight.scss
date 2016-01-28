@@ -1,0 +1,12 @@
+.gru-hot-text-highlight p{
+  span{
+    padding: 5px;
+    &.isCorrect{
+      background-color:$color-answer-correct;
+    }
+    &.isIncorrect{
+      background-color:$color-answer-incorrect;
+    }
+  }
+
+}

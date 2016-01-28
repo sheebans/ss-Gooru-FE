@@ -106,17 +106,24 @@ $gru-scale-indicator-very-good: #A2DE81;
 $gru-scale-indicator-excellent: #3FC380;
 
 /* === EMOTIONS === */
-$emotion-1-bg-pos: -256px -255px;
-$emotion-2-bg-pos: -210px -255px;
-$emotion-3-bg-pos: -163px -255px;
-$emotion-4-bg-pos: -119px -255px;
-$emotion-5-bg-pos: -73px -255px;
+$emotion-1-bg-pos: -254px -255px;
+$emotion-2-bg-pos: -208px -255px;
+$emotion-3-bg-pos: -162px -255px;
+$emotion-4-bg-pos: -116px -255px;
+$emotion-5-bg-pos: -71px -255px;
 
-$emotion-1-bg-pos-active: -254px -209px;
-$emotion-2-bg-pos-active: -28px -209px;
-$emotion-3-bg-pos-active: -165px -209px;
-$emotion-4-bg-pos-active: -117px -209px;
-$emotion-5-bg-pos-active: -71px -209px;
+$emotion-1-bg-pos-active: -254px -208px;
+$emotion-2-bg-pos-active: -208px -208px;
+$emotion-3-bg-pos-active: -162px -208px;
+$emotion-4-bg-pos-active: -116px -208px;
+$emotion-5-bg-pos-active: -71px -208px;
+
+$emotion-1-bg-pos-small: -149px -144px;
+$emotion-2-bg-pos-small: -122px -144px;
+$emotion-3-bg-pos-small: -95px -144px;
+$emotion-4-bg-pos-small: -69px -144px;
+$emotion-5-bg-pos-small: -42px -144px;
+
 
 $emotion-1-border: #E28688;
 $emotion-2-border: #FDD888;

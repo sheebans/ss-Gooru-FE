@@ -190,7 +190,7 @@ button.btn-link {
 .emotion-1 {
   background-position: $emotion-1-bg-pos;
   &.small{
-    background-position: -42px -144px;
+    background-position:$emotion-1-bg-pos-small ;
   }
   &.active {
     background-position: $emotion-1-bg-pos-active;
@@ -201,7 +201,7 @@ button.btn-link {
 .emotion-2 {
   background-position: $emotion-2-bg-pos;
   &.small{
-    background-position: -69px -144px;
+    background-position: $emotion-2-bg-pos-small ;
   }
   &.active {
     background-position: $emotion-2-bg-pos-active;
@@ -212,7 +212,7 @@ button.btn-link {
 .emotion-3 {
   background-position: $emotion-3-bg-pos;
   &.small{
-    background-position: -95px -144px;
+    background-position: $emotion-3-bg-pos-small;
   }
   &.active {
     background-position: $emotion-3-bg-pos-active;
@@ -223,7 +223,7 @@ button.btn-link {
 .emotion-4 {
   background-position: $emotion-4-bg-pos;
   &.small{
-    background-position: -122px -144px;
+    background-position:$emotion-4-bg-pos-small ;
   }
   &.active {
     background-position: $emotion-4-bg-pos-active;
@@ -234,7 +234,7 @@ button.btn-link {
 .emotion-5 {
   background-position: $emotion-5-bg-pos;
   &.small{
-    background-position: -149px -144px;
+    background-position: $emotion-5-bg-pos-small;
   }
   &.active {
     background-position: $emotion-5-bg-pos-active;

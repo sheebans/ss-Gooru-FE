@@ -170,9 +170,24 @@ export default Ember.Controller.extend({
         reaction: 4,
         timeSpent: 28,
         userAnswer:  Ember.A([{id: "1", selection: false}, {id: "2", selection: false}, {id: "3", selection: true}])
+      }),
+      QuestionResultDetails.create({
+        id: 606,
+        question: Ember.Object.create({
+          questionType: 'HT_HL',
+          text: '<p>Seleccione las palabras escritas incorrectamente</p>',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers:  Ember.A(["<p>[Le] casa es de [colo] rojo pero pero el [teco] es azul ajax</p>"]),
+          order: 2
+        }),
+        correct: true,
+        score: 10,
+        reaction: 4,
+        timeSpent: 28,
+        userAnswer:  Ember.A(["<p>[Le] casa es de colo rojo pero [pero] el [teco] es azul [ajax]</p>"])
       })
     ],
-
     mastery: [],
     selectedAttempt: 2,
     submittedOn: new Date(),
