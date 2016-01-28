@@ -176,8 +176,10 @@ button.btn-link {
   background: url('gooru/resource-collection-icons.png') no-repeat 0 0;
   background-size: 385px 293px;
   background-color: $color-white;
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 37px;
+  border-radius: 50%;
+  border: 1px solid $color-gray-lighter-11;
   cursor: pointer;
   &.small{
     background-size: 226px 165px;
