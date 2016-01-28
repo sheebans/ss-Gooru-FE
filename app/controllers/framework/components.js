@@ -1,6 +1,9 @@
 import Ember from 'ember';
+import {startQuestion, stopQuestion} from '../../utils/events';
 
-export default Ember.Controller.extend({
+import SessionMixin from '../../mixins/session';
+
+export default Ember.Controller.extend(SessionMixin, {
   // -------------------------------------------------------------------------
   // Actions
 
@@ -17,7 +20,31 @@ export default Ember.Controller.extend({
      */
     optionSwitch:function(option){
       console.log(option);
+    },
+
+    saveEndpoint: function(){
+      var question = {
+        id: '46d4a6d4-991b-4c51-a656-f694e037dd68',
+        questionType: 'FIB'
+      };
+
+      var answer = [
+        {
+          "text": "Dwight Eisenhower",
+          "status": "0",
+          "order": "1",
+          "answerId": 10752617,
+          "timeStamp": 1450954902869,
+          "skip": false
+        }
+      ];
+
+      var isAnswerCorrect = true;
+
+      startQuestion(question, this.get('session'));
+      stopQuestion(question, isAnswerCorrect, answer, this.get('session'));
     }
+
 
   },
   // -------------------------------------------------------------------------

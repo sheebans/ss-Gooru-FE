@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { checkStandards, formatTime, getGradeColor , getLetter, formatDate,courseSectionsPrefix} from '../../../utils/utils';
+import { checkStandards, formatTime, getGradeColor , getLetter, formatDate,courseSectionsPrefix, generateUUID} from '../../../utils/utils';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | utils');
@@ -92,4 +92,8 @@ test('Check Course Sections Prefix', function (assert) {
   assert.equal(courseSectionsPrefix(1,'assessment',i18n), 'A2', 'The prefix should be A2');
 });
 
+test('Check Uuid format', function (assert) {
+  var uuid = generateUUID();
+  assert.ok(uuid.match(/([a-f\d]{8}(-[a-f\d]{4}){3}-[a-f\d]{12}?)/i), 'The uuid is not correct');
+});
 
