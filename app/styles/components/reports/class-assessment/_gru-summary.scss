@@ -1,4 +1,25 @@
 .reports.class-assessment.gru-summary {
   // TODO: remove background-color and fixed dimensions
   height: 200px;
+
+  .overview {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    > li {
+      position: relative;
+      display: inline-block;
+      height: 6em;
+      width: 30%;
+    }
+
+    .scores {
+      .gru-pie-chart {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
+  }
 }

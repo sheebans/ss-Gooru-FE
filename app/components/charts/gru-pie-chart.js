@@ -99,6 +99,10 @@ export default Ember.Component.extend({
     }
 
     var color =  this.get('colorScale');
+
+    // Remove a previous pie-chart, if there is one
+    this.$('svg').remove();
+
     var vis = d3.select("#" + this.elementId).append("svg:svg")
       .data([values])
       .attr("width", this.get("width"))
