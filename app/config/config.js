@@ -46,3 +46,5 @@ export const GRADING_SCALE = [
   {LOWER_LIMIT: 80, COLOR: '#A2DE81'},
   {LOWER_LIMIT: 90, COLOR: '#3FC380'}
 ];
+
+export const HEADER_HEIGHT = 50;

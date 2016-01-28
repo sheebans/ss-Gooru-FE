@@ -122,7 +122,7 @@ export default Ember.Controller.extend({
             Ember.Object.create({id: 1, text: 'yellow'}),
             Ember.Object.create({id: 2, text: 'white'})
           ]),
-          order: 1
+          order: 8
         }),
         correct: true,
         score: 10,
@@ -142,7 +142,7 @@ export default Ember.Controller.extend({
             Ember.Object.create({id: 1, text: 'green'}),
             Ember.Object.create({id: 2, text: 'blue'})
           ]),
-          order: 1
+          order: 7
         }),
         correct: false,
         score: 0,
@@ -163,7 +163,7 @@ export default Ember.Controller.extend({
             Ember.Object.create({ id: "2", isCorrect: true, text:"Answer 2" }),
             Ember.Object.create({ id: "3", isCorrect: true, text:"Answer 3" })
           ]),
-          order: 2
+          order: 6
         }),
         correct: true,
         score: 10,
