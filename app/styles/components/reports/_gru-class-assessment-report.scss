@@ -8,5 +8,17 @@
       top: 10px;
       right: 0;
     }
+
+    &.table-view {
+      .gru-student-view {
+        display: none;
+      }
+    }
+
+    &.student-view {
+      .gru-table-view {
+        display: none;
+      }
+    }
   }
 }

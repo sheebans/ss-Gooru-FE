@@ -1,0 +1,16 @@
+<ul class="multiple-answers">
+  <li>
+    <span class="column">Yes</span>
+    <span class="column">No</span>
+  </li>
+  {{#each answers as |answer index|}}
+    <li>
+      {{#if answer.selected}}
+        <span class="column selected {{{answer.class}}}">{{fa-icon icon='check-circle-o'}}</span>
+      {{else}}
+        <span class="column no-selected {{{answer.class}}}">{{fa-icon icon='times-circle-o'}}</span>
+      {{/if}}
+      <span class="answer-text">({{answer-letter index}}) {{{answer.text}}}</span>
+    </li>
+  {{/each}}
+</ul>
