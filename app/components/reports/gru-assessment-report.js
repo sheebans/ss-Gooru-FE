@@ -17,13 +17,14 @@ export default Ember.Component.extend({
       const selector = $(".gru-questions table tr:nth-child(" + bubbleOption.label + ")");
       const $el = $(selector);
 
-        if ($el) {
-          $('html, body').animate({
-          scrollTop: $(".gru-questions table tbody tr:nth-child("+bubbleOption.label+")").offset().top - HEADER_HEIGHT}, animationSpeed);
-        } else {
+      if ($el.length) {
+        $('html, body').animate({
+          scrollTop: $el.offset().top - HEADER_HEIGHT
+        }, animationSpeed);
+      } else {
         Ember.Logger.error("No element was found for selector: " + selector);
-        }
       }
+    }
     },
 
   // -------------------------------------------------------------------------
