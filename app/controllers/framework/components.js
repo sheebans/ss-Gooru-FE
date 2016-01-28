@@ -1,6 +1,9 @@
 import Ember from 'ember';
+import {startQuestion, stopQuestion} from '../../utils/events';
 
-export default Ember.Controller.extend({
+import SessionMixin from '../../mixins/session';
+
+export default Ember.Controller.extend(SessionMixin, {
   // -------------------------------------------------------------------------
   // Actions
 
@@ -12,12 +15,58 @@ export default Ember.Controller.extend({
     bubbleOptionSelected: function (option) {
       console.log(option);
     },
+
     /**
      * Handle event triggered by gru-switch
      */
     optionSwitch:function(option){
       console.log(option);
+    },
+
+    /**
+     * Calls the API in order to start the question
+     * Question object is use to get the data
+     * Access SessionMixin to get some necessary info
+     */
+    startQuestion: function(){
+      var question = {
+        id: '46d4a6d4-991b-4c51-a656-f694e037dd68',
+        questionType: 'FIB'
+      };
+
+      startQuestion(question, this.get('session'));
+
+    },
+
+    /**
+     * Calls the API in order to stop the question
+     * Question object is use to get the data
+     * isAnswerCorrect is the result of the question
+     * Answer object is not define at all let's hardcoded in that way for now
+     * Access SessionMixin to get some necessary info
+     */
+    stopQuestion: function(){
+      var question = {
+        id: '46d4a6d4-991b-4c51-a656-f694e037dd68',
+        questionType: 'FIB'
+      };
+
+      var answer = [
+        {
+          "text": "Dwight Eisenhower",
+          "status": "0",
+          "order": "1",
+          "answerId": 10752617,
+          "timeStamp": 1450954902869,
+          "skip": false
+        }
+      ];
+
+      var isAnswerCorrect = true;
+
+      stopQuestion(question, isAnswerCorrect, answer, this.get('session'));
     }
+
 
   },
   // -------------------------------------------------------------------------
