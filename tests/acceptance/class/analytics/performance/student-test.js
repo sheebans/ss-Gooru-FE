@@ -185,24 +185,26 @@ test('Transition to a collection or assessment', function(assert) {
     });
   });
 });
-test('Transition to a collection or assessment in the player  on xsmall', function(assert) {
-  visit('/class/class-for-pochita-as-student/analytics/performance/student?lessonId=5cd0cb03-91f6-4a8f-b799-2f04039e02c5&unitId=1619777a-45fa-4bfe-b800-40b2ab158c7b');
+
+test('Transition to a collection or assessment in the player on xsmall', function(assert) {
+  visit('/class/class-for-pochita-as-student/analytics/performance/student?lessonId=27f0bc24-c2b5-40d8-bb8f-e6ec939ad553&unitId=31886eac-f998-493c-aa42-016f53e9fa88');
 
   andThen(function() {
-    assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?lessonId=5cd0cb03-91f6-4a8f-b799-2f04039e02c5&unitId=1619777a-45fa-4bfe-b800-40b2ab158c7b');
+    assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?lessonId=27f0bc24-c2b5-40d8-bb8f-e6ec939ad553&unitId=31886eac-f998-493c-aa42-016f53e9fa88');
 
     const $performanceContainer = find(".performance-content");
     T.exists(assert, $performanceContainer, "No performance container");
 
-    const $studyAnchor = $performanceContainer.find("#5cd0cb03-91f6-4a8f-b799-2f04039e02c5 .collection-performance:nth-child(3) .completion a");
+    const $studyAnchor = $performanceContainer.find("#27f0bc24-c2b5-40d8-bb8f-e6ec939ad553 .collection-performance .collection-performance-title div button");
     T.exists(assert, $studyAnchor, "No anchor on completion column");
 
     click($studyAnchor);
     andThen(function() {
-      assert.equal(currentURL(), '/player/lesson-3-item-3?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
+      assert.equal(currentURL(), '/player/d26f086a-01d5-4b27-b140-cf8b8e0aee78?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
     });
   });
 });
+
 test('Transition to a collection or assessment directly', function(assert) {
   visit('/class/class-for-pochita-as-student/analytics/performance/student?lessonId=27f0bc24-c2b5-40d8-bb8f-e6ec939ad553&unitId=31886eac-f998-493c-aa42-016f53e9fa88');
 
@@ -245,7 +247,7 @@ test('Transition to a closed unit when a unit with lessons is opened', function(
 
     click($viewSecondUnitLessons);
     andThen(function() {
-      assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?unitId=1619777a-45fa-4bfe-b800-40b2ab158c7b');
+      assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?unitId=7deebd55-1976-40a2-8e46-3b8ec5b6d388');
     });
   });
 });
