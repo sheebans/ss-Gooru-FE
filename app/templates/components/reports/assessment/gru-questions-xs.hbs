@@ -1,0 +1,22 @@
+<div class="question-card">
+    <div class="number-question">
+      {{result.question.order}}
+      {{#if result.correct}}
+          <span class="correct">{{fa-icon icon='check-circle-o'}}</span>
+      {{else}}
+          <span class="incorrect">{{fa-icon icon='times-circle-o'}}</span>
+      {{/if}}
+    </div>
+    <div class="question-container">
+        <div class="question">
+            <span>{{t "common.question"}}</span>
+            <span>{{{result.question.text}}}</span>
+        </div>
+        <div class="answer">
+            <span>{{t "common.answer"}}</span>
+          <span>
+            {{{component (questionConfig result.question.questionType 'component.report') question=result.question userAnswer=result.userAnswer}}}
+          </span>
+        </div>
+    </div>
+</div>
