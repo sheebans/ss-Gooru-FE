@@ -14,7 +14,7 @@
       </tr>
       </thead>
       <tbody>
-      {{#each question.answers as |answer|}}
+      {{#each question.answers as |answer index|}}
         <tr>
           <td>
               {{radio-button
@@ -28,8 +28,9 @@
             changed="selectAnswerChoice"
             name=(concat "answer-choice-radio-" answer.id)}}
           </td>
-          <td>
-            {{{answer.text}}}
+          <td class="answer-text">
+              <p>({{answer-letter index}})</p>
+              {{{answer.text}}}
           </td>
         </tr>
       {{/each}}

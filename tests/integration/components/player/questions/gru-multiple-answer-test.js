@@ -51,9 +51,9 @@ test('Multiple answer question layout', function (assert) {
   T.exists(assert, $component.find(".instructions"), "Missing instructions");
   assert.equal($component.find(".answer-choices tbody tr").length, 3, "Missing answer choices");
   assert.equal($component.find(".answer-choices tr input[type=radio]").length, 6, "Missing answer choices radio inputs");
-  assert.equal(T.text($component.find(".answer-choices tbody tr:eq(0) td:eq(2) p")), "An aquifer", "Incorrect Message");
-  assert.equal(T.text($component.find(".answer-choices tbody tr:eq(1) td:eq(2) p")), "A well", "Incorrect Message");
-  assert.equal(T.text($component.find(".answer-choices tbody tr:eq(2) td:eq(2) p")), "A pump", "Incorrect Message");
+  assert.equal(T.text($component.find(".answer-choices tbody tr:eq(0) td:eq(2) p")), "(A)An aquifer", "Incorrect Message");
+  assert.equal(T.text($component.find(".answer-choices tbody tr:eq(1) td:eq(2) p")), "(B)A well", "Incorrect Message");
+  assert.equal(T.text($component.find(".answer-choices tbody tr:eq(2) td:eq(2) p")), "(C)A pump", "Incorrect Message");
 });
 
 

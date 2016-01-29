@@ -5,20 +5,22 @@
 <div class="answer-choices">
   <form class="form-horizontal">
       <div class="radio">
-        {{#radio-button
-        value=true
-        changed="selectAnswerChoice"
-        name="answer-choice-radio"}}
-          {{t "gru-true-false.true"}}
-        {{/radio-button}}
+          {{#radio-button
+            value=true
+            changed="selectAnswerChoice"
+            name="answer-choice-radio"}}
+            <span>({{answer-letter 0}})</span>
+            {{t "gru-true-false.true"}}
+          {{/radio-button}}
       </div>
       <div class="radio">
-        {{#radio-button
-        value=false
-        changed="selectAnswerChoice"
-        name="answer-choice-radio"}}
-          {{t "gru-true-false.false"}}
-        {{/radio-button}}
+          {{#radio-button
+            value=false
+            changed="selectAnswerChoice"
+            name="answer-choice-radio"}}
+            <span>({{answer-letter 1}})</span>
+            {{t "gru-true-false.false"}}
+          {{/radio-button}}
       </div>
   </form>
 </div>
