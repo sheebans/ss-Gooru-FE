@@ -1,11 +1,14 @@
 .reports.gru-class-assessment-report {
+  $space-top: 15px;
+
   > .view-container {
     position: relative;
-    padding-top: 10px;
+    padding-top: $space-top;
+    border-top: 1px solid $color-gray-lighter-2;
 
     > .view-selector {
       position: absolute;
-      top: 10px;
+      top: $space-top;
       right: 0;
     }
 

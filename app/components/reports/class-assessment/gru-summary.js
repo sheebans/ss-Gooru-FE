@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { getGradeColor } from 'gooru-web/utils/utils';
 import { GRADING_SCALE } from 'gooru-web/config/config';
+import { average } from 'gooru-web/utils/math';
 
 export default Ember.Component.extend({
 
@@ -12,6 +13,45 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * @prop { Object[] } answersData - Array that keeps track of all the correct and incorrect answers
+   * for each student taking an assessment
+   *
+   * Each object will consist of:
+   * - correct: number of questions that the student has answered correctly
+   * - incorrect: number of questions that the student has answered incorrectly
+   */
+  answersData: Ember.computed('rawData', function () {
+    const studentsIds = this.get('studentsIds');
+    const questionsIds = this.get('assessmentQuestionsIds');
+
+    var rawData = this.get('rawData');
+    var answers = [];
+
+    studentsIds.forEach(function (student) {
+      var answerCounter = {
+        correct: 0,
+        incorrect: 0
+      };
+      answers.push(answerCounter);
+
+      questionsIds.forEach(function (question) {
+        var isCorrect = rawData[student][question]['correct'];
+
+        if (isCorrect) {
+          answerCounter.correct++;
+        } else {
+          // Any value different than 'false' (i.e. null or undefined) will be ignored
+          if (isCorrect === false) {
+            answerCounter.incorrect++;
+          }
+        }
+      });
+    });
+
+    return answers;
+  }),
 
   /**
    * @prop { Collection } assessment
@@ -31,7 +71,9 @@ export default Ember.Component.extend({
   /**
    * @prop { number } averageScore - average score in the assessment (per scoresData)
    */
-  averageScore: 80,
+  averageScore: Ember.computed('scoresData', function () {
+    return Math.round(average(this.get('scoresData')));
+  }),
 
   /**
    * @prop { Object[] } classScores - Aggregate data of the scores in the assessment
@@ -44,35 +86,30 @@ export default Ember.Component.extend({
   classScores: Ember.computed('scoresData', function () {
     const scoresData = this.get('scoresData');
 
-    var scoresIdx = scoresData.length - 1;
-    var scoresColors = [];
-    var colors = GRADING_SCALE.map(function (item) {
+    const scoresColors = scoresData.map(function (score) {
+      // Map a score to its color
+      return getGradeColor(score);
+    });
+
+    const colors = GRADING_SCALE.map(function (item) {
       return item.COLOR;
     });
+
     var results = [];
-
-    for (; scoresIdx >= 0; scoresIdx--) {
-      let correct = scoresData[scoresIdx].correct;
-      let totalAnswered = correct + scoresData[scoresIdx].incorrect;
-
-      if (totalAnswered > 0) {
-        let score = Math.round(correct / totalAnswered * 100);
-        scoresColors.push(getGradeColor(score));
-      }
-    }
 
     if (scoresColors.length) {
       let scoreColorsLen = scoresColors.length;
 
       colors.forEach(function (color) {
-        var numColors = scoresColors.filter(function (scoreColor) {
+        // Count the number of appearances of a certain color
+        var numColor = scoresColors.filter(function (scoreColor) {
           return scoreColor === color;
         }).length;
 
-        if (numColors) {
+        if (numColor) {
           results.push({
             color: color,
-            value: Math.round(numColors / scoreColorsLen * 100)
+            value: Math.round(numColor / scoreColorsLen * 100)
           })
         }
       });
@@ -91,41 +128,25 @@ export default Ember.Component.extend({
   questionsData: null,
 
   /**
-   * @prop { Object[] } scoresData - State of the scores for each student taking an assessment
-   *
-   * Each object will consist of:
-   * - correct: number of questions that the student has answered correctly
-   * - incorrect: number of questions that the student has answered incorrectly
+   * @prop { Numer[] } scoresData - Array with all the scores in the assessment
    */
-  scoresData: Ember.computed('rawData', function () {
-    const studentsIds = this.get('studentsIds');
-    const questionsIds = this.get('assessmentQuestionsIds');
+  scoresData: Ember.computed('answersData', function () {
+    const answersData = this.get('answersData');
 
-    var rawData = this.get('rawData');
-    var scores = [];
+    var answerIdx = answersData.length - 1;
+    var results = [];
 
-    studentsIds.forEach(function (student) {
-      var scoreObj = {
-        correct: 0,
-        incorrect: 0
-      };
-      scores.push(scoreObj);
+    for (; answerIdx >= 0; answerIdx--) {
+      let correct = answersData[answerIdx].correct;
+      let totalAnswered = correct + answersData[answerIdx].incorrect;
 
-      questionsIds.forEach(function (question) {
-        var isCorrect = rawData[student][question]['correct'];
+      if (totalAnswered > 0) {
+        let score = Math.round(correct / totalAnswered * 100);
+        results.push(score);
+      }
+    }
 
-        if (isCorrect) {
-          scoreObj.correct++;
-        } else {
-          // Any value different than 'false' (i.e. null or undefined) will be ignored
-          if (isCorrect === false) {
-            scoreObj.incorrect++;
-          }
-        }
-      });
-    });
-
-    return scores;
+    return results;
   }),
 
   /**

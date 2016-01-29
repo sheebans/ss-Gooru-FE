@@ -5,11 +5,12 @@
   </li>
 
   <li class="average-score">
-    {{!-- {{charts.gru-bubble-chart content=(concat averageScore '%') color=(gradeColor averageScore)}} --}}
+    {{charts.gru-bubble-chart content=(concat averageScore '%') color=(gradeColor averageScore)}}
     <span>{{t "common.averageScore"}}</span>
   </li>
 
   <li class="completion">
+    <div>Empty</div>
     {{!-- {{charts.gru-radial-chart minValue=3 maxValue=students.length completePercent=40}} --}}
     <span>{{t "common.completed"}}</span>
   </li>

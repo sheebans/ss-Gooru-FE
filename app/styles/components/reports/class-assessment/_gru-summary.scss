@@ -1,25 +1,40 @@
 .reports.class-assessment.gru-summary {
-  // TODO: remove background-color and fixed dimensions
-  height: 200px;
+  $chart-diameter: 6rem;
+
+  @include clearfix;
+  padding: 20px 0;
 
   .overview {
     list-style: none;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+    float: left;
+    border-right: 1px solid $color-gray-lighter-2;
+    padding-right: 20px;
 
     > li {
-      position: relative;
-      display: inline-block;
-      height: 6em;
-      width: 30%;
-    }
+      width: $chart-diameter + 3rem;
+      text-align: center;
+      float: left;
 
-    .scores {
-      .gru-pie-chart {
-        position: absolute;
-        top: 0;
-        left: 0;
+      > div {
+        height: $chart-diameter;
+        width: $chart-diameter;
+        margin: 0 auto;
+      }
+
+      > span {
+        display: block;
+        margin-top: 10px;
       }
     }
+  }
+
+  .questions {
+    float: left;
+    width: 200px;
+    height: $chart-diameter;
+    background-color: blue;
   }
 }
