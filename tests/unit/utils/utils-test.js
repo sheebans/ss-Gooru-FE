@@ -1,4 +1,5 @@
 import Ember from 'ember';
+
 import {
   alphabeticalStringSort,
   checkStandards,
@@ -10,7 +11,8 @@ import {
   getReactionIcon,
   getGradeColor ,
   getLetter,
-  numberSort
+  numberSort,
+  generateUUID
   } from '../../../utils/utils';
 
 import { module, test } from 'qunit';
@@ -157,4 +159,10 @@ test('numberSort', function (assert) {
   assert.deepEqual([7, false, undefined, 3].sort(numberSort), [false, 3, 7, undefined]);
   assert.deepEqual([2, 5, 3].sort(numberSort), [2, 3, 5]);
 });
+
+test('Check Uuid format', function (assert) {
+  var uuid = generateUUID();
+  assert.ok(uuid.match(/([a-f\d]{8}(-[a-f\d]{4}){3}-[a-f\d]{12}?)/i), 'The uuid is not correct');
+});
+
 

@@ -18,9 +18,10 @@
 @import 'controllers/index';
 @import 'controllers/player';
 @import 'controllers/profile';
+@import 'controllers/framework/components';
 
 // TODO: update these components so they follow the naming conventions
-@import 'components/framework/components';
+
 @import 'components/app-dropdown';
 @import 'components/standard-dropdown';
 @import 'components/role-radio-button';
@@ -94,6 +95,9 @@
 @import 'components/reports/assessment/questions/gru-true-false';
 @import 'components/reports/assessment/questions/gru-reorder';
 @import 'components/reports/assessment/questions/gru-fib';
+@import 'components/reports/assessment/questions/gru-hot-text-highlight';
+@import 'components/reports/assessment/questions/gru-hs-image';
+@import 'components/reports/assessment/questions/gru-hs-text';
 @import 'components/reports/gru-class-assessment-report';
 @import 'components/reports/class-assessment/gru-student-view';
 @import 'components/reports/class-assessment/gru-summary';

@@ -7,7 +7,8 @@ export const RESOURCE_COMPONENT_MAP = {
 };
 
 export const DEFAULT_IMAGES = {
-  USER_PROFILE: '/assets/gooru/profile.png'
+  USER_PROFILE: '/assets/gooru/profile.png',
+  QUESTION_PLACEHOLDER_IMAGE: '/assets/gooru/question-placeholder-image.png'
 };
 
 export const CONTENT_TYPES = {
@@ -46,3 +47,5 @@ export const GRADING_SCALE = [
   {LOWER_LIMIT: 80, COLOR: '#A2DE81'},
   {LOWER_LIMIT: 90, COLOR: '#3FC380'}
 ];
+// Height of the application header in pixels
+export const HEADER_HEIGHT = 50;

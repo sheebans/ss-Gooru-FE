@@ -1,0 +1,17 @@
+.reports.assessment.questions.gru-hs-text {
+  ul{
+    padding-left: 0px;
+    li {
+      list-style: none;
+      margin: 0 5px 5px 0;
+      padding: 10px;
+      border: 4px solid $color-gray-lighter-2;
+    }
+    li.selected.correct {
+      border-color: $color-answer-correct;
+    }
+    li.selected.incorrect {
+      border-color: $color-answer-incorrect;
+    }
+  }
+}

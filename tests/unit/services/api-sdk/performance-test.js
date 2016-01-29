@@ -15,24 +15,26 @@ moduleForService('service:api-sdk/performance', 'Unit | Service | api-sdk/perfor
 test('findUnitPerformanceByClassAndCourse', function (assert) {
   const service = this.subject();
   const response = {
-      'content': [{
-        'collectionCount': 0,
-        'gooruOId': '0619777a-45fa-4bfe-b800-40b2ab158c7a',
-        'assessmentCount': 0,
-        'collectionsViewed': 0,
-        'type': 'unit',
-        'url': null,
-        'totalStudyTime': 0,
-        'title': 'Quiz :: Indian History',
-        'thumbnail': null,
-        'sequence': 1,
-        'scoreInPercentage': 0,
-        'questionType': null,
-        'assessmentsAttempted': 0
-      }],
-      'message': null,
-      'paginate': null
-    };
+    'content': [{
+      'collectionCount': 0,
+      'gooruOId': '0619777a-45fa-4bfe-b800-40b2ab158c7a',
+      'assessmentCount': 0,
+      'collectionsViewed': 0,
+      'type': 'unit',
+      'url': null,
+      'totalStudyTime': 0,
+      'title': 'Quiz :: Indian History',
+      'thumbnail': null,
+      'sequence': 1,
+      'scoreInPercentage': 0,
+      'questionType': null,
+      'assessmentsAttempted': 0
+    }],
+    'message': null,
+    'paginate': null
+  };
+
+
   const routes = function () {
     this.get('/insights/api/v1/class/the-class-id/course/the-course-id/progress', function () {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify(response)];

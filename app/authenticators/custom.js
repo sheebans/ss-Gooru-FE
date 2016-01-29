@@ -23,6 +23,7 @@ export default BaseAuthenticator.extend({
   },
 
   authenticateWithCredentials: function(endpoint, apiKey, username, password) {
+
     var url = endpoint + '?apiKey=' + apiKey;
     return Ember.$.ajax({
       url: url,

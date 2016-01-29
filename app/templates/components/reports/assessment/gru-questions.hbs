@@ -36,14 +36,14 @@
     <tbody>
     {{#each results as |result|}}
       <tr>
-          <td class="number-question">
+          <td class="number-question top-left">
               {{result.question.order}}
           </td>
           <td class="question-text top-left">
-            {{result.question.text}}
+            {{{result.question.text}}}
           </td>
           <td class="question-answer top-left">
-            {{component (questionConfig result.question.questionType 'component.report') question=result.question userAnswer=result.userAnswer}}
+            {{{component (questionConfig result.question.questionType 'component.report') question=result.question userAnswer=result.userAnswer}}}
           </td>
           <td class="question-score {{if showPerformance 'visible' 'hide'}}">
             {{#if result.correct}}
@@ -60,7 +60,7 @@
               </div>
           </td>
           <td class="correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
-            {{component (questionConfig result.question.questionType 'component.report') question=result.question showCorrect=true}}
+            {{{component (questionConfig result.question.questionType 'component.report') question=result.question showCorrect=true}}}
           </td>
       </tr>
     {{/each}}
