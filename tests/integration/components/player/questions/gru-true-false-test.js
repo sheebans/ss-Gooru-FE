@@ -40,8 +40,8 @@ test('True or false question layout', function (assert) {
   T.exists(assert, $component.find(".instructions"), "Missing instructions");
   assert.equal($component.find(".answer-choices .radio").length, 2, "Missing answer choices");
   assert.equal($component.find(".answer-choices .radio input[type=radio]").length, 2, "Missing answer choices radio inputs");
-  assert.equal(T.text($component.find(".answer-choices .radio:eq(0)")), "True", "Incorrect Message");
-  assert.equal(T.text($component.find(".answer-choices .radio:eq(1)")), "False", "Incorrect Message");
+  assert.equal($component.find(".answer-choices .radio:eq(0)").text().trim(), "(A)True", "Incorrect Message");
+  assert.equal($component.find(".answer-choices .radio:eq(1)").text().trim(), "(B)False", "Incorrect Message");
   //select a radio button
   $component.find(".answer-choices .radio input[type=radio]:eq(1)").click();
 

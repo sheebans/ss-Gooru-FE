@@ -3,6 +3,19 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+
+    /**
+     * Handle event triggered by gru-bubbles
+     */
+    bubbleSelect:function(bubbleOption) {
+      this.sendAction("onBubbleSelect", bubbleOption);
+    }
+  },
+
+  // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['reports', 'assessment', 'gru-summary'],

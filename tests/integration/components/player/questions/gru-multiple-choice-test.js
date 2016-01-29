@@ -64,9 +64,9 @@ test('Multiple choice question layout', function (assert) {
   T.exists(assert, $component.find(".instructions"), "Missing instructions");
   assert.equal($component.find(".answer-choices .radio").length, 3, "Missing answer choices");
   assert.equal($component.find(".answer-choices .radio input[type=radio]").length, 3, "Missing answer choices radio inputs");
-  assert.equal(T.text($component.find(".answer-choices .radio:eq(0)")), "An aquifer", "Incorrect Message");
-  assert.equal(T.text($component.find(".answer-choices .radio:eq(1)")), "A well", "Incorrect Message");
-  assert.equal(T.text($component.find(".answer-choices .radio:eq(2)")), "A pump", "Incorrect Message");
+  assert.equal($component.find(".answer-choices .radio:eq(0)").text().trim(), "(A)An aquifer", "Incorrect Message");
+  assert.equal($component.find(".answer-choices .radio:eq(1)").text().trim(), "(B)A well", "Incorrect Message");
+  assert.equal($component.find(".answer-choices .radio:eq(2)").text().trim(), "(C)A pump", "Incorrect Message");
   //select a radio button
   $component.find(".answer-choices .radio input[type=radio]:eq(1)").click();
 

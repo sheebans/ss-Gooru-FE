@@ -18,9 +18,10 @@
 @import 'controllers/index';
 @import 'controllers/player';
 @import 'controllers/profile';
+@import 'controllers/framework/components';
 
 // TODO: update these components so they follow the naming conventions
-@import 'components/framework/components';
+
 @import 'components/app-dropdown';
 @import 'components/standard-dropdown';
 @import 'components/role-radio-button';
@@ -74,7 +75,9 @@
 @import 'components/player/gru-navigator';
 @import 'components/player/gru-viewer';
 @import 'components/player/gru-question-viewer';
+@import 'components/player/questions/gru-multiple-answer';
 @import 'components/player/questions/gru-multiple-choice';
+@import 'components/player/questions/gru-true-false';
 @import 'components/player/questions/gru-reorder';
 @import 'components/player/questions/gru-hs-text';
 @import 'components/player/questions/gru-hs-image';
@@ -93,7 +96,9 @@
 @import 'components/reports/assessment/questions/gru-true-false';
 @import 'components/reports/assessment/questions/gru-reorder';
 @import 'components/reports/assessment/questions/gru-fib';
+@import 'components/reports/assessment/questions/gru-hot-text-highlight';
 @import 'components/reports/assessment/questions/gru-hs-image';
+@import 'components/reports/assessment/questions/gru-hs-text';
 @import 'components/reports/gru-class-assessment-report';
 @import 'components/reports/class-assessment/gru-student-view';
 @import 'components/reports/class-assessment/gru-summary';
