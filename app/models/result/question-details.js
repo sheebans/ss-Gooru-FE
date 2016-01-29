@@ -5,7 +5,7 @@ import Ember from "ember";
  * Model for the status of a question after it was answered by a user.
  * It includes the information of the question.
  *
- * @typedef {Object} QuestionResultDetails
+ * @typedef {Object} QuestionDetailsResult
  *
  */
 export default Ember.Object.extend({

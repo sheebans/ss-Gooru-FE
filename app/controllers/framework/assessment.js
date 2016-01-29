@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import AssessmentResult from 'gooru-web/models/result/assessment';
-import QuestionResultDetails from 'gooru-web/models/result/question-details';
+import QuestionDetailsResult from 'gooru-web/models/result/question-details';
 
 export default Ember.Controller.extend({
 
@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
 
     questionsResults: [
 
-      QuestionResultDetails.create({
+      QuestionDetailsResult.create({
         id: 601,
         question: Ember.Object.create({
           questionType: 'MC',
@@ -30,7 +30,7 @@ export default Ember.Controller.extend({
         userAnswer: "1"
       }),
 
-      QuestionResultDetails.create({
+      QuestionDetailsResult.create({
         id: 603,
         question: Ember.Object.create({
           questionType: 'MC',
@@ -51,7 +51,7 @@ export default Ember.Controller.extend({
         userAnswer: "3"
       }),
 
-      QuestionResultDetails.create({
+      QuestionDetailsResult.create({
         id: 602,
         attempt: 1104,
         question: Ember.Object.create({
@@ -69,7 +69,7 @@ export default Ember.Controller.extend({
         userAnswer: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
       }),
 
-      QuestionResultDetails.create({
+      QuestionDetailsResult.create({
         id: 603,
         question: Ember.Object.create({
           questionType: 'T/F',
@@ -89,7 +89,7 @@ export default Ember.Controller.extend({
         userAnswer: "1"
       }),
 
-      QuestionResultDetails.create({
+      QuestionDetailsResult.create({
         id: 603,
         question: Ember.Object.create({
           questionType: 'HT_RO',
@@ -111,7 +111,7 @@ export default Ember.Controller.extend({
         userAnswer: ["chi", "crc", "bra", "pan"]
       }),
 
-      QuestionResultDetails.create({
+      QuestionDetailsResult.create({
         id: 604,
         question: Ember.Object.create({
           questionType: 'FIB',
@@ -131,7 +131,7 @@ export default Ember.Controller.extend({
         userAnswer: Ember.A(['yellow','white'])
       }),
 
-      QuestionResultDetails.create({
+      QuestionDetailsResult.create({
         id: 605,
         question: Ember.Object.create({
           questionType: 'FIB',
@@ -151,7 +151,7 @@ export default Ember.Controller.extend({
         userAnswer: Ember.A(['yellow','white'])
       }),
 
-      QuestionResultDetails.create({
+      QuestionDetailsResult.create({
         id: 606,
         question: Ember.Object.create({
           questionType: 'MA',
@@ -171,7 +171,7 @@ export default Ember.Controller.extend({
         timeSpent: 28,
         userAnswer:  Ember.A([{id: "1", selection: false}, {id: "2", selection: false}, {id: "3", selection: true}])
       }),
-      QuestionResultDetails.create({
+      QuestionDetailsResult.create({
         id: 606,
         question: Ember.Object.create({
           questionType: 'HT_HL',
@@ -187,7 +187,7 @@ export default Ember.Controller.extend({
         timeSpent: 28,
         userAnswer:  Ember.A(["<p>[Le] casa es de colo rojo pero [pero] el [teco] es azul [ajax]</p>"])
       }),
-      QuestionResultDetails.create({
+      QuestionDetailsResult.create({
         id: 607,
         question: Ember.Object.create({
           questionType: 'HS_IMG',
@@ -208,7 +208,7 @@ export default Ember.Controller.extend({
         userAnswer:  Ember.A(["1", "2"])
       }),
 
-      QuestionResultDetails.create({
+      QuestionDetailsResult.create({
         id: 608,
         question: Ember.Object.create({
           questionType: 'HS_TXT',
