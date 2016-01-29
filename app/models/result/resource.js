@@ -10,9 +10,9 @@ import Ember from "ember";
 export default Ember.Object.extend({
 
   /**
-   * @property {string} title - Resource title
+   * @property {number} reaction - Value of the reaction the user had towards the question
    */
-  title: '',
+  reaction: 0,
 
   /**
    * Indicates the resource type. i.e video/youtube, assessment-question, image/png
@@ -21,13 +21,13 @@ export default Ember.Object.extend({
   resourceType: '',
 
   /**
-   * @property {number} reaction - Value of the reaction the user had towards the question
-   */
-  reaction: 0,
-
-  /**
    * @property {number} timeSpent - Time in seconds that it took the user to answer the question
    */
-  timeSpent: 0
+  timeSpent: 0,
+
+  /**
+   * @property {string} title - Resource title
+   */
+  title: ''
 
 });
