@@ -48,7 +48,7 @@
   {
     "description": "API 3.0: Returns student's performance data for all the lessons in a class, course, unit and lesson",
     "request": {
-      "url": "^/insights/api/v2/class/(.+)/course/(.+)/unit/(.+)/lesson/(.+)/performance",
+      "url": "^/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/(.+)/lesson/(.+)/performance",
       "query": {
         "userUid": "(.+)",
         "collectionType": "(.+)"
@@ -71,7 +71,7 @@
   {
     "description": "API 3.0: Returns student's performance data for a specific unit in a class and course",
     "request": {
-      "url": "^/insights/api/v2/class/(.+)/course/(.+)/unit/(.+)/performance",
+      "url": "^/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/(.+)/performance",
       "query": {
         "userUid": "(.+)",
         "collectionType": "(.+)"
@@ -94,7 +94,7 @@
   {
     "description": "API 3.0: Returns student's performance data for all the Units in a class and course",
     "request": {
-      "url": "^/insights/api/v2/class/(.+)/course/(.+)/performance",
+      "url": "^/insights-api-v1/rest/v2/class/(.+)/course/(.+)/performance",
       "query": {
         "userUid": "(.+)",
         "collectionType": "(.+)"

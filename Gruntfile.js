@@ -21,7 +21,8 @@ module.exports = function (grunt) {
         options: {
           relativeFilesPath: true,
           persistent: false,
-          mute: true
+          mute: true,
+          location: "0.0.0.0"
         },
         files: [{
           src: ['tests/stubs/**/*-endpoint.json']
@@ -31,7 +32,8 @@ module.exports = function (grunt) {
         options: {
           relativeFilesPath: true,
           persistent: true,
-          mute: false
+          mute: false,
+          location: "0.0.0.0"
         },
         files: [{
           src: ['tests/stubs/**/*-endpoint.json']
