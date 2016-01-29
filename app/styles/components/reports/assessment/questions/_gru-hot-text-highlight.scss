@@ -1,4 +1,5 @@
 .gru-hot-text-highlight p{
+  line-height:28px;
   span{
     padding: 5px;
     &.is-correct{
@@ -8,5 +9,4 @@
       background-color:$color-answer-incorrect;
     }
   }
-
 }
