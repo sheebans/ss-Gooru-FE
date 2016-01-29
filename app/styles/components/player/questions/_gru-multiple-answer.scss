@@ -1,8 +1,9 @@
 .gru-multiple-answer {
   .answer-choices {
-    .answer-text{
-      p{
+    .answer-text {
+      > * {
         display: inline-block;
+        margin-right:0.5em;
       }
     }
   }

@@ -1,10 +1,10 @@
 .gru-multiple-choice{
   .answer-choices{
-    .radio{
-      p{
-        display:inline-block;
-        margin-right:0.5em;
+    .radio label{
+        > * {
+          display: inline-block;
+          margin-right:0.5em;
+        }
       }
     }
-  }
 }
