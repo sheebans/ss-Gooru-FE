@@ -46,7 +46,7 @@ test('findStudentPerformanceByCourse', function (assert) {
     Ember.Object.create({ id: 'unit-id-2', title: 'Unit 2'})
   ]);
   const routes = function () {
-    this.get('/mocked-api/insights/api/v2/class/the-class-id/course/the-course-id/performance', function () {
+    this.get('/mocked-api/insights-api-v1/rest/v2/class/the-class-id/course/the-course-id/performance', function () {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify(response)];
     }, 0);
   };
@@ -105,7 +105,7 @@ test('findStudentPerformanceByUnit', function (assert) {
     Ember.Object.create({ id: 'lesson-id-2', title: 'Lesson 2'})
   ]);
   const routes = function () {
-    this.get('/mocked-api/insights/api/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/performance', function () {
+    this.get('/mocked-api/insights-api-v1/rest/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/performance', function () {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify(response)];
     }, 0);
   };
@@ -164,7 +164,7 @@ test('findStudentPerformanceByLesson', function (assert) {
     Ember.Object.create({ id: 'collection-id-2', title: 'Collection 2'})
   ]);
   const routes = function () {
-    this.get('/mocked-api/insights/api/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/lesson/the-lesson-id/performance', function () {
+    this.get('/mocked-api/insights-api-v1/rest/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/lesson/the-lesson-id/performance', function () {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify(response)];
     }, 0);
   };
