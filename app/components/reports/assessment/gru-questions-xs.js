@@ -15,4 +15,11 @@ export default Ember.Component.extend({
    */
   question: null,
 
+  /**
+   * Indicate if the table show the performance columns
+   *
+   * @constant {Boolean}
+   */
+  showPerformance: true,
+
 });

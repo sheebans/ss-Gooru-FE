@@ -18,5 +18,11 @@
             {{{component (questionConfig result.question.questionType 'component.report') question=result.question userAnswer=result.userAnswer}}}
           </span>
         </div>
+        <div class="correct-answer {{if showPerformance 'hide' 'visible'}}">
+            <span>{{t "common.correct-answer"}}</span>
+          <span>
+            {{{component (questionConfig result.question.questionType 'component.report') question=result.question showCorrect=true}}}
+          </span>
+        </div>
     </div>
 </div>
