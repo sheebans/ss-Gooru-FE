@@ -206,6 +206,27 @@ export default Ember.Controller.extend({
         reaction: 4,
         timeSpent: 28,
         userAnswer:  Ember.A(["1", "2"])
+      }),
+
+      QuestionResultDetails.create({
+        id: 608,
+        question: Ember.Object.create({
+          questionType: 'HS_TXT',
+          text: 'Sample Question HS_TXT',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers:  Ember.A([
+            Ember.Object.create({ id: "1", isCorrect: true, text:"Answer 1" }),
+            Ember.Object.create({ id: "2", isCorrect: false, text:"Answer 2" }),
+            Ember.Object.create({ id: "3", isCorrect: true, text:"Answer 3" })
+          ]),
+          order: 11
+        }),
+        correct: true,
+        score: 10,
+        reaction: 4,
+        timeSpent: 28,
+        userAnswer:  Ember.A(["1", "2"])
       })
     ],
 

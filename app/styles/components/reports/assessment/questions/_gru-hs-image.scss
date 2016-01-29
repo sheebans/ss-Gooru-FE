@@ -11,16 +11,16 @@
         height: $image-side;
         display: block;
         img{
-          border: 1px solid $color-white;
+          padding: 4px;
           width: auto;
           max-height: 100%;
-          background-color: $color-gray-lighter-11;
+          background-color: $color-white;
         }
       }
       span.selected {
-        border: 1px solid;
-        width: $image-side + 2px;
-        height: $image-side + 2px;
+        border: 4px solid;
+        width: $image-side + 4px;
+        height: $image-side + 4px;
       }
       span.selected.correct{
         border-color: $color-answer-correct;
