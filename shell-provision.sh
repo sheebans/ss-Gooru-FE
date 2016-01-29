@@ -23,6 +23,10 @@ sudo npm install -g stubby@0.2.13 -qq -y
 echo '-----> Installing grunt-cli'
 sudo npm install -g grunt-cli@0.1.13 -qq -y
 
+echo '-----> Installing nginx'
+sudo apt-get install nginx -qq -y
+sudo chmod 777 /usr/local/var/log/nginx/ -qq -y
+
 echo '-----> Done'
 
 
