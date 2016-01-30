@@ -10,8 +10,10 @@
   </li>
 
   <li class="completion">
-    <div>Empty</div>
-    {{!-- {{charts.gru-radial-chart minValue=3 maxValue=students.length completePercent=40}} --}}
+    {{charts.gru-radial-chart
+    value=totalCompleted
+    minValue=0
+    maxValue=students.length }}
     <span>{{t "common.completed"}}</span>
   </li>
 </ul>

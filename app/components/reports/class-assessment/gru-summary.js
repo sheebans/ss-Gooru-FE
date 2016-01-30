@@ -69,10 +69,14 @@ export default Ember.Component.extend({
   }),
 
   /**
-   * @prop { number } averageScore - average score in the assessment (per scoresData)
+   * @prop { number } averageScore - average score in the assessment
+   * for the entire group of students (per scoresData)
    */
   averageScore: Ember.computed('scoresData', function () {
-    return Math.round(average(this.get('scoresData')));
+    var scores = this.get('scoresData').map(function (result) {
+      return result.score;
+    });
+    return (scores.length) ? Math.round(average(scores)) : 0;
   }),
 
   /**
@@ -86,9 +90,9 @@ export default Ember.Component.extend({
   classScores: Ember.computed('scoresData', function () {
     const scoresData = this.get('scoresData');
 
-    const scoresColors = scoresData.map(function (score) {
+    const scoresColors = scoresData.map(function (result) {
       // Map a score to its color
-      return getGradeColor(score);
+      return getGradeColor(result.score);
     });
 
     const colors = GRADING_SCALE.map(function (item) {
@@ -128,10 +132,15 @@ export default Ember.Component.extend({
   questionsData: null,
 
   /**
-   * @prop { Numer[] } scoresData - Array with all the scores in the assessment
+   * @prop { Object[] } scoresData - Array with all the scores in the assessment
+   *
+   * Each object corresponds to an assessment result by a student and will consist of:
+   * - score: number of questions answered correctly vs. total number of questions
+   * - completed: have all the questions in the assessment been answered?
    */
   scoresData: Ember.computed('answersData', function () {
     const answersData = this.get('answersData');
+    const totalQuestions = this.get('assessmentQuestionsIds').length;
 
     var answerIdx = answersData.length - 1;
     var results = [];
@@ -142,7 +151,10 @@ export default Ember.Component.extend({
 
       if (totalAnswered > 0) {
         let score = Math.round(correct / totalAnswered * 100);
-        results.push(score);
+        results.push({
+          score: score,
+          completed: totalAnswered === totalQuestions
+        });
       }
     }
 
@@ -161,6 +173,24 @@ export default Ember.Component.extend({
     return this.get('students').map(function (student) {
       return student.id;
     });
+  }),
+
+  /**
+   * @prop { Number } totalCompleted - Number of students that have completed the assessment
+   */
+  totalCompleted: Ember.computed('scoresData.@each.completed', function () {
+    const scoresData = this.get('scoresData');
+    var total = 0;
+
+    if (scoresData.length) {
+      total = scoresData.map(function (result) {
+        return result.completed ? 1 : 0;
+      })
+        .reduce(function (a, b) {
+          return a + b;
+        });
+    }
+    return total;
   }),
 
   /**

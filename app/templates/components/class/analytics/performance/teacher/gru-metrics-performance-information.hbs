@@ -5,8 +5,7 @@
   {{#if showCompletion}}
     <div class="table-cell completion">
       {{charts.gru-radial-chart
-      text=(concat performanceData.completionDone '/' performanceData.completionTotal)
-      completePercent=performanceData.completionDone
+      value=performanceData.completionDone
       minValue=0
       maxValue=performanceData.completionTotal}}
    </div>
