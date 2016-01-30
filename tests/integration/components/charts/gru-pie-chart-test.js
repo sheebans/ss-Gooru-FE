@@ -1,6 +1,5 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import T from 'gooru-web/tests/helpers/assert';
 
 moduleForComponent('charts/gru-pie-chart', 'Integration | Component | charts/gru pie chart', {
   integration: true,

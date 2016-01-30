@@ -114,7 +114,7 @@ export default Ember.Component.extend({
           results.push({
             color: color,
             value: Math.round(numColor / scoreColorsLen * 100)
-          })
+          });
         }
       });
     }
