@@ -38,7 +38,8 @@ export function gradingScaleLegend(params, hash) {
 
   if (notStarted) {
     $legend.append('<li class="not-started"> \
-                      <i></i><span>' + notStarted + '</span>\
+                      <i></i> \
+                      <span>' + notStarted + '</span>\
                    </li>');
   }
 

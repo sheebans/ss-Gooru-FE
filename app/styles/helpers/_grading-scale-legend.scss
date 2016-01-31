@@ -15,5 +15,15 @@
       height: 0.9em;
       width: 0.9em;
     }
+
+    &.not-started {
+      i {
+        height: 1em;
+        width: 1em;
+        border: 1px solid $color-gray-lighter-2;
+        background-color: white;
+        vertical-align: bottom;
+      }
+    }
   }
 }
