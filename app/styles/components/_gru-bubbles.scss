@@ -10,10 +10,10 @@
     line-height: 27px;
   }
   .incorrect{
-    border-color: $gru-scale-indicator-bad;
+    border-color: $color-answer-incorrect;
   }
   .correct{
-    border-color: $gru-scale-indicator-excellent;
+    border-color: $color-answer-correct;
   }
   .bubbles-list{
     list-style: none;

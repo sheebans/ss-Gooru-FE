@@ -1,3 +1,4 @@
+/*jshint multistr: true */
 import Ember from 'ember';
 import { GRADING_SCALE } from 'gooru-web/config/config';
 
