@@ -9,7 +9,7 @@ module.exports = function (grunt) {
       },
       "ember-server-stubby": 'ember server --proxy http://localhost:8882',
       "ember-server-qa": 'ember server --proxy http://qa.gooru.org',
-      "ember-server-nginx": 'ember server --proxy http://localhost:8080',
+      "ember-server-nginx": 'ember server --proxy http://localhost:80',
 
       "nginx-start-server": 'sudo nginx -p ./ -c ./nginx.conf',
       'nginx-start-test-server': 'sudo nginx -p ./ -c ./nginx-test.conf',
@@ -47,11 +47,6 @@ module.exports = function (grunt) {
 
 
   grunt.registerTask('test', function (target) {
-    if (target === "cli") { //for bamboo
-      grunt.task.run(['stubby:test', 'exec:nginx-stop-server', 'exec:nginx-start-test-server', 'exec:run:ember test --silent --reporter xunit']);
-      return;
-    }
-
     //for development
     var noStubby = grunt.option("no-stubby") || grunt.option("ns"),
       server = grunt.option("server") || grunt.option("s");
@@ -67,23 +62,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('bamboo-test', function (target) {
-    if (target === "cli") { //for bamboo
-      grunt.task.run(['stubby:test', 'exec:run:ember test --silent --reporter xunit']);
-      return;
-    }
-
-    //for development
-    var noStubby = grunt.option("no-stubby") || grunt.option("ns"),
-      server = grunt.option("server") || grunt.option("s");
-
-    var command = 'ember test';
-    if (server) {
-      command += " --server";
-    }
-    var testExecTask = 'exec:run:' + command;
-
-    var tasks = noStubby ? [testExecTask] : ['stubby:test', testExecTask];
-    grunt.task.run(tasks);
+    grunt.task.run(['stubby:test', 'exec:run:ember test --silent --reporter xunit']);
   });
 
   grunt.registerTask('run', function (target) {
