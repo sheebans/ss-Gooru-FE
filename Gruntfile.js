@@ -67,10 +67,14 @@ module.exports = function (grunt) {
 
   grunt.registerTask('run', function (target) {
     target = target || 'nginx';
-    var noStubby = grunt.option("no-stubby") || grunt.option("ns"),
-      serverExecTask = 'exec:ember-server-' + (target),
-      tasks = (noStubby) ? ['exec:nginx-stop-server', 'exec:nginx-start-server', serverExecTask] : ['stubby:test', 'exec:nginx-stop-server', 'exec:nginx-start-server', serverExecTask];
+    var serverExecTask = 'exec:ember-server-' + (target);
 
+    var tasks = ['stubby:test'];
+    if (target === 'nginx'){
+      tasks.push('exec:nginx-stop-server');
+      tasks.push('exec:nginx-start-server');
+    }
+    tasks.push(serverExecTask);
     grunt.task.run(tasks);
   });
 
