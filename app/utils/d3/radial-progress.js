@@ -179,8 +179,7 @@ export function radialProgress(parent) {
 
     return function(t) {
       _currentValue = i(t);
-      //this.textContent = Math.round(i(t)) + "%";
-      this.textContent = __textDisplay;
+      this.textContent = __textDisplay || Math.round(i(t)) + "%";
     };
   }
 
@@ -290,31 +289,6 @@ export function radialProgress(parent) {
       return _mouseClick;
     }else{
       _mouseClick= _ ;
-      return component;
-    }
-  };
-
-  /** Added by Gooru Team to overwrite the with of the chart
-   * @_ {Number} __width
-   */
-  component.__width = function(_) {
-    if (!arguments.length) {
-      return __width;
-    }
-    else{
-      __width = _;
-      return component;
-    }
-  };
-
-  /** Added by Gooru Team to overwrite the height of the chart
-   * @_ {Number} __height
-   */
-  component.__height = function(_) {
-    if (!arguments.length){
-      return __height;
-    }else{
-      __height = _;
       return component;
     }
   };

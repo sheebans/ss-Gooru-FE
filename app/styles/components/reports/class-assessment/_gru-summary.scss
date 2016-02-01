@@ -1,5 +1,43 @@
 .reports.class-assessment.gru-summary {
-  // TODO: remove background-color and fixed dimensions
-  background-color: darkgray;
-  height: 200px;
+  $chart-diameter: 6rem;
+
+  padding: 20px 0;
+
+  .content {
+    margin-bottom: 20px;
+    @include clearfix;
+
+    .overview {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      float: left;
+      border-right: 1px solid $color-gray-lighter-2;
+      padding-right: 20px;
+
+      > li {
+        width: $chart-diameter + 3rem;
+        text-align: center;
+        float: left;
+
+        > div {
+          height: $chart-diameter;
+          width: $chart-diameter;
+          margin: 0 auto;
+        }
+
+        > span {
+          display: block;
+          margin-top: 10px;
+        }
+      }
+    }
+
+    .questions {
+      float: left;
+      width: 200px;
+      height: $chart-diameter;
+    }
+  }
 }

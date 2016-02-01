@@ -81,9 +81,9 @@ var usersResults = [
     "user": "56983a9082f705e65f2fe607",
     "questionsResults": [
       {
-        "correct": false,
+        "correct": true,
         "questionId": "56a120483b6e7b090501d3e7",
-        "reaction": 2,
+        "reaction": 4,
         "timeSpent": 1216
       },
       {
