@@ -1,18 +1,27 @@
 .reports.assessment.gru-mastery {
   margin-top: 20px;
-  h2 {
-    margin-top: 0;
+
+  .header {
+    h2 {
+      margin-top: 0;
+    }
+
+    @media (min-width: $screen-sm) {
+      h2 {
+        display: inline-block;
+      }
+      .grading-scale-legend {
+        float: right;
+        margin-top: 10px;
+      }
+      @include clearfix();
+    }
   }
-  .title,.scale-indicator{
-   display: inline-block;
-  }
+
   .learning-target{
     margin-top:10px;
     margin-bottom: 10px;
     background-color: $color-blue-lighter-2;
     height: 170px;
-  }
-  .scale-indicator{
-    float:right;
   }
 }

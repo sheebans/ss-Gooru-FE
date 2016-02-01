@@ -1,27 +1,27 @@
 <div class="resource-details">
     <div class="card-icon">
-        <i class="{{if resource.isQuestion "question-icon" "resource-icon"}}"></i>
+      <i class="{{if item.question "question-icon" "resource-icon"}}"></i>
     </div>
     <div class="resource-description">
-      <span class="title">{{resource.title}}</span>
-      <p class="type">
-        {{#if resource.isQuestion }}
-          {{t (concat 'common.question-type.' resource.questionType) }}
-        {{else}}
-          {{t (concat 'common.resource-type.' resource.resourceType) }}
-        {{/if}}
-      </p>
+      {{#if item.question }}
+        <span class="title">{{item.question.text}}</span>
 
+        <p class="type">{{t (concat 'common.question-type.' item.question.questionType) }}</p>
+      {{else}}
+        <span class="title">{{item.title}}</span>
+
+        <p class="type">{{t (concat 'common.resource-type.' item.resourceType) }}</p>
+      {{/if}}
     </div>
 </div>
-<div class="hidden-xs result-details {{if result.timeSpent "hasStarted"}}">
-  {{#if result.timeSpent}}
+<div class="hidden-xs result-details {{if item.timeSpent "hasStarted"}}">
+  {{#if item.timeSpent}}
     <div class="time-spent">
-        <p>{{formatTime result.timeSpent}}</p>
+      <p>{{formatTime item.timeSpent}}</p>
     </div>
-    {{#if result.reaction}}
+    {{#if item.reaction}}
       <div class="resource-reaction">
-          <i class="emotion small emotion-{{result.reaction}}"></i>
+        <i class="emotion small emotion-{{item.reaction}}"></i>
       </div>
 
     {{/if}}

@@ -10,7 +10,7 @@ import { average } from "gooru-web/utils/math";
 export default Ember.Object.extend({
 
   /**
-   * @property {QuestionResultDetails[]} questionsResults
+   * @property {QuestionDetailsResult[]} questionsResults
    */
   questionsResults: [],
 

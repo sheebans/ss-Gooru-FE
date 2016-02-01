@@ -153,7 +153,7 @@ export default Ember.Component.extend({
 
   /**
    * @prop { Object[] } tableData - Ordered data to use as content for the table component
-   * It merges the existing table frame with the any updated table data.
+   * It merges the existing table frame with any updated table data.
    *
    * Each object in the array will consist of:
    * - id: row id

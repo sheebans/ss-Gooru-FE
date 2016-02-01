@@ -3,7 +3,7 @@
 
 @import 'mixins';
 @import 'common';
-
+@import 'helpers/grading-scale-legend';
 @import 'helpers/three-bounce-spinner';
 @import 'helpers/fractional';
 @import 'mixins/gru-accordion';
@@ -57,6 +57,7 @@
 @import 'components/cards/gru-resource-card';
 
 @import 'components/charts/gru-bubble-chart';
+@import 'components/charts/gru-pie-chart';
 @import 'components/charts/gru-radial-chart';
 @import 'components/charts/gru-stacked-horizontal-bar-chart';
 

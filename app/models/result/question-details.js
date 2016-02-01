@@ -1,14 +1,14 @@
 //import DS from "ember-data";
-import Ember from "ember";
+import ResourceResult from 'gooru-web/models/result/resource';
 
 /**
  * Model for the status of a question after it was answered by a user.
  * It includes the information of the question.
  *
- * @typedef {Object} QuestionResultDetails
+ * @typedef {Object} QuestionDetailsResult
  *
  */
-export default Ember.Object.extend({
+export default ResourceResult.extend({
 
   /**
    * @property {boolean} correct - Was the answer provided by the user correct?
@@ -18,7 +18,6 @@ export default Ember.Object.extend({
   /**
    * @property {Object} question
    */
-
   question: {
 
     /**
@@ -56,19 +55,9 @@ export default Ember.Object.extend({
   },
 
   /**
-   * @property {number} reaction - Value of the reaction the user had towards the question
-   */
-  reaction: 0,
-
-  /**
    * @property {number} score - Question score
    */
   score: 0,
-
-  /**
-   * @property {number} timeSpent - Time in seconds that it took the user to answer the question
-   */
-  timeSpent: 0,
 
   /**
    * @property {Object} answer - Answer provided by the user

@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import {startQuestion, stopQuestion} from '../../utils/events';
+import ResourceResult from 'gooru-web/models/result/resource';
+import QuestionDetailsResult from 'gooru-web/models/result/question-details';
 
 import SessionMixin from '../../mixins/session';
 
@@ -137,45 +139,33 @@ export default Ember.Controller.extend(SessionMixin, {
     ])
   }),
 
-  resource:Ember.Object.create({
+  resource: ResourceResult.create({
     resourceType:"video/youtube",
-    isQuestion:false,
-    title:"Ember"
-  }),
-  resourceResult: Ember.Object.create({
+    title: "Ember",
     timeSpent: 0
   }),
 
-  secondScenarioResource:Ember.Object.create({
+  secondScenarioResource: ResourceResult.create({
     resourceType:"video/youtube",
-    isQuestion:false,
     title:"Learn the MEAN Stack",
-    description:"Some Description"
-  }),
-  secondScenarioResourceResult: Ember.Object.create({
     reaction: 0,
     timeSpent: 12345
   }),
 
-  thirdScenarioResource:Ember.Object.create({
+  thirdScenarioResource: ResourceResult.create({
     resourceType:"video/youtube",
-    isQuestion:false,
     title:"Learn the MEAN Stack",
-    description:"Some Description"
-  }),
-  thirdScenarioResourceResult: Ember.Object.create({
     reaction: 2,
     timeSpent: 2841
   }),
 
-  fourthScenarioResource:Ember.Object.create({
+  fourthScenarioResource: QuestionDetailsResult.create({
     resourceType:"question",
-    questionType:'FIB',
-    isQuestion:true,
-    title:"Question with a very long name",
-    description:"Some Description"
-  }),
-  fourthScenarioResourceResult: Ember.Object.create({
+    title: "Question with a very long name",
+    question: {
+      text: "Question with a very long name",
+      questionType: 'FIB'
+    },
     reaction: 4,
     timeSpent: 2341
   })

@@ -22,7 +22,10 @@
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  OTHER DEALINGS IN THE SOFTWARE.
  */
-.gru-radial-chart{
+.charts.gru-radial-chart {
+  height: inherit;
+  width: inherit;
+
   .background {
     fill: #FFFFFF;
     fill-opacity: 0.01;
