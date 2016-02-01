@@ -5,10 +5,10 @@ export default ApplicationAdapter.extend({
   /**
    * @property {string} End-point URI
    */
-  namespace: '/insights/api/v1',
+  namespace: '/mocked-api/insights-api-v1/rest/v2',
 
   /**
-   * Builds the end-point URL for the queryRecord queryParam
+   * Builds the end-point URL for queryRecord method
    * @param query
    * @returns {string}
    */
@@ -20,7 +20,7 @@ export default ApplicationAdapter.extend({
     delete query.classId;
     delete query.courseId;
 
-    return `${namespace}/class/${classId}/course/${courseId}/progress`;
+    return `${namespace}/class/${classId}/course/${courseId}/performance`;
   }
 
 });

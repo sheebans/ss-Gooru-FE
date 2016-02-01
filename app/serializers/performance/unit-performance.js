@@ -1,22 +1,22 @@
 import PerformanceSerializer from './performance';
 
 /**
- * Lesson serializer for LessonPerformance model
+ * Serializer for Unit-Performance model
  *
- * @typedef {Object} LessonPerformanceSerializer
+ * @typedef {Object} UnitPerformanceSerializer
  */
 export default PerformanceSerializer.extend({
 
   getModelId: function(payload) {
-    return payload.lessonId;
+    return payload.unitId;
   },
 
   getModelType: function() {
-    return 'performance/lesson-performance';
+    return 'performance/unit-performance';
   },
 
   getObjectType: function() {
-    return 'lesson';
+    return 'unit';
   }
 
 });

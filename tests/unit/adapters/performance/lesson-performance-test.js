@@ -1,11 +1,8 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('adapter:performance/lesson-performance', 'Unit | Adapter | performance/lesson-performance', {
-  // Specify the other units that are required for this test.
-  // needs: ['serializer:foo']
-});
+moduleFor('adapter:performance/lesson-performance', 'Unit | Adapter | performance/lesson-performance', {});
 
-test('urlForQueryRecord querying performance for lessons with collection|assessments', function (assert) {
+test('urlForQueryRecord method for lesson performance', function (assert) {
   const adapter = this.subject();
   const query = {
     classId: 'the-class-id',
@@ -14,5 +11,5 @@ test('urlForQueryRecord querying performance for lessons with collection|assessm
   };
   const url = adapter.urlForQueryRecord(query);
 
-  assert.equal(url, '/insights/api/v1/class/the-class-id/course/the-course-id/unit/the-unit-id/progress', 'Wrong url');
+  assert.equal(url, '/mocked-api/insights-api-v1/rest/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/performance', 'Wrong url');
 });

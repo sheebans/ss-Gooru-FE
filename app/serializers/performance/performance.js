@@ -2,38 +2,38 @@ import Ember from 'ember';
 import DS from 'ember-data';
 
 /**
- * Lesson serializer for Performance model
+ * Serializer for Performance model
  *
  * @typedef {Object} PerformanceSerializer
  */
 export default DS.JSONAPISerializer.extend({
 
   /**
-   * Normalizes a queryRecord response
+   * Normalizes the response for the QueryRecord method
    * @param store
    * @param primaryModelClass
    * @param payload
-   * @returns {{data: Array}} returns a response following the ember data unit model
+   * @returns {Performance|Performance[]} returns a Performance object or Performance array
    */
   normalizeQueryRecordResponse: function(store, primaryModelClass, payload) {
+    const serializer = this;
+    const hasResults = payload.content.length > 0;
     var model = { data: [] };
-    var results = payload.content;
-    var hasResults = results && results.length > 0;
 
     if (hasResults) {
+      var results = payload.content[0].usageData;
       Ember.$.each(results, function(index, result){
         var item = {
-          id: result.gooruOId,
-          type: "performance/performance",
+          id: serializer.getModelId(result),
+          type: serializer.getModelType(),
           attributes: {
-            title: result.title,
-            type: result.type,
+            type: serializer.getObjectType(result),
             score: result.scoreInPercentage,
-            completionDone:  0,
-            completionTotal: 1,
-            timeSpent: result.totalStudyTime,
-            ratingScore: 0,
-            attempts: result.assessmentsAttempted
+            completionDone:  result.completionCount,
+            completionTotal: result.totalCount,
+            timeSpent: result.timeSpent,
+            attempts: result.attempts,
+            ratingScore: 0
           }
         };
         model.data.push(item);
@@ -41,4 +41,5 @@ export default DS.JSONAPISerializer.extend({
     }
     return model;
   }
+
 });
