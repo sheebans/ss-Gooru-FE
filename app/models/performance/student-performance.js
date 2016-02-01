@@ -10,7 +10,7 @@ export default DS.Model.extend({
   /**
    * @property {User} user
    */
-  user: DS.belongsTo("user/user", {async: true}),
+  user: DS.belongsTo("user/user", { async: true }),
 
   /**
    * @property {Performance[]} List of Performance items.

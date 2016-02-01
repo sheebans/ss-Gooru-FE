@@ -5,295 +5,100 @@ moduleFor('serializer:performance/lesson-performance', 'Unit | Serializer | perf
 test('normalizeQueryRecordResponse', function(assert) {
   const serializer = this.subject();
   const payload = {
-    "content": [{
-      "title": "Buddisum",
-      "thumbnail": null,
-      "gooruOId": "2cd0cb03-91f6-4a8f-b799-2f04039e02c5",
-      "scoreStatus": "NotAttempted",
-      "views": 0,
-      "sequence": 1,
-      "item": [{
-        "title": "General Knowledge Indian History",
-        "thumbnail": "http:////qacdn.gooru.org/qalive//f000/2429/2304//",
-        "gooruOId": "0c5cd8aa-d023-4672-9598-f4f527df4760",
-        "views": 0,
-        "sequence": 2,
-        "scoreInPercentage": 0,
-        "questionType": null,
-        "timeSpent": 0,
-        "type": "collection",
-        "url": null
-      }, {
-        "title": "Quiz 2 : GK",
-        "thumbnail": "http:////qacdn.gooru.org/qalive//f000/2429/7049//",
-        "gooruOId": "792c05b3-2214-4627-acef-22f8d5ed394a",
-        "views": 0,
-        "sequence": 3,
-        "scoreInPercentage": 0,
-        "questionType": null,
-        "timeSpent": 0,
-        "type": "assessment",
-        "url": null
-      }, {
-        "title": "Quiz : GK",
-        "thumbnail": "http:////qacdn.gooru.org/qalive//f000/2429/2561//",
-        "gooruOId": "bc116a9b-7252-45e0-96df-2f786d6a5da3",
-        "views": 0,
-        "sequence": 1,
-        "scoreInPercentage": 0,
-        "questionType": null,
-        "timeSpent": 0,
-        "type": "assessment",
-        "url": null
-      }],
-      "scoreInPercentage": 0,
-      "questionType": null,
-      "timeSpent": 0,
-      "type": "lesson",
-      "url": null
-    }],
+    "content": [
+      {
+        "userUid": "6f337b1c-0b0d-49b3-8314-e279181aeddf",
+        "usageData": [
+          {
+            "lessonId": "27f0bc24-c2b5-40d8-bb8f-e6ec939ad553",
+            "completionCount": 5,
+            "scoreInPercentage": 65,
+            "timeSpent": 89141,
+            "attempts": 12,
+            "totalCount": 10
+          },
+          {
+            "lessonId": "40fe7ec4-261f-43aa-882b-e678fc754256",
+            "completionCount": 0,
+            "scoreInPercentage": 0,
+            "timeSpent": 32366,
+            "attempts": 4,
+            "totalCount": 0
+          },
+          {
+            "lessonId": "5c9e8048-493a-489c-89e1-80be13c4bed0",
+            "completionCount": 0,
+            "scoreInPercentage": 0,
+            "timeSpent": 32366,
+            "attempts": 4,
+            "totalCount": 0
+          },
+          {
+            "lessonId": "7cf4a8ec-adec-4b27-815b-6fa4bea9fd97",
+            "completionCount": 0,
+            "scoreInPercentage": 0,
+            "timeSpent": 32366,
+            "attempts": 4,
+            "totalCount": 0
+          }
+        ]
+      }
+    ],
     "message": null,
     "paginate": null
   };
   const expected = {
-    "data": [
-      {
-        "id": "2cd0cb03-91f6-4a8f-b799-2f04039e02c5",
-        "type": "performance/lesson-performance",
-        "attributes": {
-          "title": "Buddisum",
-          "type": "lesson",
-          "score": 0,
-          "completionDone": 0,
-          "completionTotal": 1,
-          "timeSpent": 0,
-          "ratingScore": 0,
-          "attempts": 0
-        },
-        "relationships": {
-          "collections": {
-            "data": [
-              {
-                "id": "0c5cd8aa-d023-4672-9598-f4f527df4760",
-                "type": "performance/performance"
-              },
-              {
-                "id": "792c05b3-2214-4627-acef-22f8d5ed394a",
-                "type": "performance/performance"
-              },
-              {
-                "id": "bc116a9b-7252-45e0-96df-2f786d6a5da3",
-                "type": "performance/performance"
-              }
-            ]
-          }
-        }
+    "data": [{
+      "id": "27f0bc24-c2b5-40d8-bb8f-e6ec939ad553",
+      "type": "performance/lesson-performance",
+      "attributes": {
+        "type": "lesson",
+        "score": 65,
+        "completionDone": 5,
+        "completionTotal": 10,
+        "timeSpent": 89141,
+        "attempts": 12,
+        "ratingScore": 0
       }
-    ],
-    "included": [
-      {
-        "id": "0c5cd8aa-d023-4672-9598-f4f527df4760",
-        "type": "performance/performance",
-        "attributes": {
-          "title": "General Knowledge Indian History",
-          "type": "collection",
-          "score": 0,
-          "completionDone": 0,
-          "completionTotal": 1,
-          "timeSpent": 0,
-          "ratingScore": 0,
-          "attempts": 0
-        }
-      },
-      {
-        "id": "792c05b3-2214-4627-acef-22f8d5ed394a",
-        "type": "performance/performance",
-        "attributes": {
-          "title": "Quiz 2 : GK",
-          "type": "assessment",
-          "score": 0,
-          "completionDone": 0,
-          "completionTotal": 1,
-          "timeSpent": 0,
-          "ratingScore": 0,
-          "attempts": 0
-        }
-      },
-      {
-        "id": "bc116a9b-7252-45e0-96df-2f786d6a5da3",
-        "type": "performance/performance",
-        "attributes": {
-          "title": "Quiz : GK",
-          "type": "assessment",
-          "score": 0,
-          "completionDone": 0,
-          "completionTotal": 1,
-          "timeSpent": 0,
-          "ratingScore": 0,
-          "attempts": 0
-        }
+    }, {
+      "id": "40fe7ec4-261f-43aa-882b-e678fc754256",
+      "type": "performance/lesson-performance",
+      "attributes": {
+        "type": "lesson",
+        "score": 0,
+        "completionDone": 0,
+        "completionTotal": 0,
+        "timeSpent": 32366,
+        "attempts": 4,
+        "ratingScore": 0
       }
-    ]
+    }, {
+      "id": "5c9e8048-493a-489c-89e1-80be13c4bed0",
+      "type": "performance/lesson-performance",
+      "attributes": {
+        "type": "lesson",
+        "score": 0,
+        "completionDone": 0,
+        "completionTotal": 0,
+        "timeSpent": 32366,
+        "attempts": 4,
+        "ratingScore": 0
+      }
+    }, {
+      "id": "7cf4a8ec-adec-4b27-815b-6fa4bea9fd97",
+      "type": "performance/lesson-performance",
+      "attributes": {
+        "type": "lesson",
+        "score": 0,
+        "completionDone": 0,
+        "completionTotal": 0,
+        "timeSpent": 32366,
+        "attempts": 4,
+        "ratingScore": 0
+      }
+    }]
   };
   const response = serializer.normalizeQueryRecordResponse('any store', 'performance/lesson-performance', payload);
 
   assert.deepEqual(response, expected, 'Wrong response');
 });
-
-test('getNormalizedPerformanceAttributes', function(assert) {
-  const serializer = this.subject();
-  const payload = {
-    "title": "General Knowledge Indian History",
-    "thumbnail": "http:////qacdn.gooru.org/qalive//f000/2429/2304//",
-    "gooruOId": "0c5cd8aa-d023-4672-9598-f4f527df4760",
-    "views": 0,
-    "sequence": 2,
-    "scoreInPercentage": 0,
-    "questionType": null,
-    "timeSpent": 0,
-    "type": "collection",
-    "url": null
-  };
-  const expected = {
-    "title": "General Knowledge Indian History",
-    "type": "collection",
-    "score": 0,
-    "completionDone": 0,
-    "completionTotal": 1,
-    "timeSpent": 0,
-    "ratingScore": 0,
-    "attempts": 0
-  };
-  const response = serializer.getNormalizedPerformanceAttributes(payload);
-
-  assert.deepEqual(response, expected, 'Wrong response');
-});
-
-test('normalizeCollections', function(assert) {
-  const serializer = this.subject();
-  const payload = [
-      {
-      "title": "General Knowledge Indian History",
-      "thumbnail": "http:////qacdn.gooru.org/qalive//f000/2429/2304//",
-      "gooruOId": "0c5cd8aa-d023-4672-9598-f4f527df4760",
-      "views": 0,
-      "sequence": 2,
-      "scoreInPercentage": 0,
-      "questionType": null,
-      "timeSpent": 0,
-      "type": "collection",
-      "url": null
-    },
-    {
-      "title": "Quiz 2 : GK",
-      "thumbnail": "http:////qacdn.gooru.org/qalive//f000/2429/7049//",
-      "gooruOId": "792c05b3-2214-4627-acef-22f8d5ed394a",
-      "views": 0,
-      "sequence": 3,
-      "scoreInPercentage": 0,
-      "questionType": null,
-      "timeSpent": 0,
-      "type": "assessment",
-      "url": null
-    },
-    {
-      "title": "Quiz : GK",
-      "thumbnail": "http:////qacdn.gooru.org/qalive//f000/2429/2561//",
-      "gooruOId": "bc116a9b-7252-45e0-96df-2f786d6a5da3",
-      "views": 0,
-      "sequence": 1,
-      "scoreInPercentage": 0,
-      "questionType": null,
-      "timeSpent": 0,
-      "type": "assessment",
-      "url": null
-    }
-  ];
-  const expectedPerformanceItem = {
-    "id": "1",
-    "type": "performance/lesson-performance",
-    "attributes": {},
-    "relationships": {
-      "collections": {
-        "data": [
-          {
-            "id": "0c5cd8aa-d023-4672-9598-f4f527df4760",
-            "type": "performance/performance"
-          },
-          {
-            "id": "792c05b3-2214-4627-acef-22f8d5ed394a",
-            "type": "performance/performance"
-          },
-          {
-            "id": "bc116a9b-7252-45e0-96df-2f786d6a5da3",
-            "type": "performance/performance"
-          }
-        ]
-      }
-    }
-  };
-  const expectedModel = {
-    "data": [],
-    "included": [
-      {
-        "id": "0c5cd8aa-d023-4672-9598-f4f527df4760",
-        "type": "performance/performance",
-        "attributes": {
-          "title": "General Knowledge Indian History",
-          "type": "collection",
-          "score": 0,
-          "completionDone": 0,
-          "completionTotal": 1,
-          "timeSpent": 0,
-          "ratingScore": 0,
-          "attempts": 0
-        }
-      },
-      {
-        "id": "792c05b3-2214-4627-acef-22f8d5ed394a",
-        "type": "performance/performance",
-        "attributes": {
-          "title": "Quiz 2 : GK",
-          "type": "assessment",
-          "score": 0,
-          "completionDone": 0,
-          "completionTotal": 1,
-          "timeSpent": 0,
-          "ratingScore": 0,
-          "attempts": 0
-        }
-      },
-      {
-        "id": "bc116a9b-7252-45e0-96df-2f786d6a5da3",
-        "type": "performance/performance",
-        "attributes": {
-          "title": "Quiz : GK",
-          "type": "assessment",
-          "score": 0,
-          "completionDone": 0,
-          "completionTotal": 1,
-          "timeSpent": 0,
-          "ratingScore": 0,
-          "attempts": 0
-        }
-      }
-    ]
-  };
-  var performanceItem = {
-    id: '1',
-    type: "performance/lesson-performance",
-    attributes: {},
-    relationships: {
-      collections: { data: [] }
-    }
-  };
-  var model = {
-    data: [],
-    included: []
-  };
-  serializer.normalizeCollections(payload, performanceItem, model);
-
-  assert.deepEqual(performanceItem, expectedPerformanceItem, 'Wrong porformance item response');
-  assert.deepEqual(model, expectedModel, 'Wrong model response');
-});
-
