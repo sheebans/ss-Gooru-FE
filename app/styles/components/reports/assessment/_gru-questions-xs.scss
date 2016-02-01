@@ -4,16 +4,16 @@
   width:100%;
   .number-question, .question-container{
     display: table-cell;
-    border: 1px solid #DDDDDD;
+    border: 1px solid $color-gray-lighter-2;
   }
   .question-card{
     display:table-row;
     width: 100%;
   }
   .question{
-    border-bottom: 1px solid #DDDDDD;
+    border-bottom: 1px solid $color-gray-lighter-2;
   }
-  .number-question, .question, .answer{
+  .number-question, .question, .answer, .correct-answer{
     > *{
       display:block;
     }
@@ -22,6 +22,15 @@
   .number-question {
     text-align: center;
     width:10%;
+    border-right: 0;
+
+    span{
+      font-size: 26px;
+    }
+
+    .score{
+      padding-top:10px;
+    }
   }
   span.correct{
     color:$color-answer-correct;
