@@ -16,7 +16,7 @@ test('Resource card that is not a question and it has not been started', functio
 
 
   const mockResource = Ember.Object.create({
-    resourceType: "video/youtube",
+    resourceFormat: "video",
     title:"Learn the MEAN Stack."
   });
 
@@ -37,9 +37,9 @@ test('Resource card that is not a question and it has not been started', functio
 
   assert.equal(T.text($resourceTitle), mockResource.title, "Incorrect title");
 
-  const $resourceType = $detailsContainer.find('.resource-description p.type');
+  const $resourceFormat = $detailsContainer.find('.resource-description p.format');
 
-  assert.equal(T.text($resourceType), this.get('i18n').t('common.resource-type.'+mockResource.resourceType).toString(), 'Wrong resource type text');
+  assert.equal(T.text($resourceFormat), this.get('i18n').t('common.resource-format.'+mockResource.resourceFormat).toString(), 'Wrong resource format text');
 
   const $resultContainer = $component.find('.result-details');
   assert.ok($resultContainer, 'Result container not found');
@@ -55,7 +55,7 @@ test('Resource card that is not a question and it has been viewed but not reacte
 
 
   const mockResource = Ember.Object.create({
-    resourceType: "video/youtube",
+    resourceFormat: "video",
     title: "Learn the MEAN Stack.",
     timeSpent: 12345
   });
@@ -82,7 +82,7 @@ test('Resource card that is not a question and it has been viewed but not reacte
 
 
   const mockResource = Ember.Object.create({
-    resourceType: "video/youtube",
+    resourceFormat: "video",
     isQuestion:false,
     title: "Learn the MEAN Stack.",
     timeSpent: 12345,
@@ -111,9 +111,9 @@ test('Resource card that is not a question and it has been viewed but not reacte
   assert.expect(4);
 
   const mockResource = Ember.Object.create({
-    resourceType: "question",
+    resourceFormat: "question",
     question: {
-      questionType: "FIB",
+      questionType: "FIB"
     },
     title:"Learn the MEAN Stack."
   });
@@ -131,6 +131,6 @@ test('Resource card that is not a question and it has been viewed but not reacte
   const $questionIcon = $detailsContainer.find('.card-icon i.question-icon');
   assert.ok($questionIcon, 'Icon not found');
 
-  const $questionType = $detailsContainer.find('.resource-description p.type');
+  const $questionType = $detailsContainer.find('.resource-description p.format');
   assert.equal(T.text($questionType), this.get('i18n').t('common.question-type.' + mockResource.question.questionType).toString(), 'Wrong question type text');
 });
