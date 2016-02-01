@@ -13,7 +13,7 @@
   .question{
     border-bottom: 1px solid $color-gray-lighter-2;
   }
-  .number-question, .question, .answer, .correct-answer{
+  .number-question, .question, .answer{
     > *{
       display:block;
     }
