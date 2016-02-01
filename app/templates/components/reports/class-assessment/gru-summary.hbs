@@ -1,1 +1,33 @@
-gru-summary is here!
+<div class="content">
+  <ul class="overview">
+    <li class="scores">
+      {{ charts.gru-pie-chart data=classScores }}
+      <span>{{t "common.classScores"}}</span>
+    </li>
+
+    <li class="average-score">
+      {{charts.gru-bubble-chart content=(concat averageScore '%') color=(gradeColor averageScore)}}
+      <span>{{t "common.averageScore"}}</span>
+    </li>
+
+    <li class="completion">
+      {{charts.gru-radial-chart
+      value=totalCompleted
+      minValue=0
+      maxValue=students.length }}
+      <span>{{t "common.completed"}}</span>
+    </li>
+  </ul>
+
+  <ol class="questions">
+    {{!--
+    {{#each questionsData as |questionData|}}
+      {{charts/gru-stacked-horizontal-bar-chart data=questionData}}
+    {{/each}}
+    --}}
+  </ol>
+</div>
+
+{{grading-scale-legend notStarted=(t "common.notStarted")}}
+
+

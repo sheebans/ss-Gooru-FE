@@ -1,9 +1,8 @@
-<div class="title">
-    <h2>{{t "common.mastery"}}</h2>
+<div class="header">
+  <h2>{{t "common.mastery"}}</h2>
+  {{grading-scale-legend}}
 </div>
-<div class="scale-indicator">
-  {{class.analytics.performance.gru-scale-indicator}}
-</div>
+
 {{#each learningTargets as learningTarget}}
     <div class="learning-target">
         <span>Learning Target</span>

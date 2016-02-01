@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import AssessmentResult from 'gooru-web/models/result/assessment';
-import QuestionResultDetails from 'gooru-web/models/result/question-details';
+import LearningTargetResult from 'gooru-web/models/result/learning-target';
+import QuestionDetailsResult from 'gooru-web/models/result/question-details';
+import ResourceResult from 'gooru-web/models/result/resource';
 
 export default Ember.Controller.extend({
 
@@ -9,7 +11,7 @@ export default Ember.Controller.extend({
 
     questionsResults: [
 
-      QuestionResultDetails.create({
+      QuestionDetailsResult.create({
         id: 601,
         question: Ember.Object.create({
           questionType: 'MC',
@@ -30,8 +32,8 @@ export default Ember.Controller.extend({
         userAnswer: "1"
       }),
 
-      QuestionResultDetails.create({
-        id: 603,
+      QuestionDetailsResult.create({
+        id: 602,
         question: Ember.Object.create({
           questionType: 'MC',
           text: 'Sample Question MC',
@@ -51,8 +53,8 @@ export default Ember.Controller.extend({
         userAnswer: "3"
       }),
 
-      QuestionResultDetails.create({
-        id: 602,
+      QuestionDetailsResult.create({
+        id: 603,
         attempt: 1104,
         question: Ember.Object.create({
           questionType: 'OE',
@@ -69,8 +71,8 @@ export default Ember.Controller.extend({
         userAnswer: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
       }),
 
-      QuestionResultDetails.create({
-        id: 603,
+      QuestionDetailsResult.create({
+        id: 604,
         question: Ember.Object.create({
           questionType: 'T/F',
           text: 'True False Question',
@@ -89,8 +91,8 @@ export default Ember.Controller.extend({
         userAnswer: "1"
       }),
 
-      QuestionResultDetails.create({
-        id: 603,
+      QuestionDetailsResult.create({
+        id: 605,
         question: Ember.Object.create({
           questionType: 'HT_RO',
           text: 'Reorder Question',
@@ -111,8 +113,8 @@ export default Ember.Controller.extend({
         userAnswer: ["chi", "crc", "bra", "pan"]
       }),
 
-      QuestionResultDetails.create({
-        id: 604,
+      QuestionDetailsResult.create({
+        id: 606,
         question: Ember.Object.create({
           questionType: 'FIB',
           text: 'The sun is _______ and the moon _______',
@@ -131,8 +133,8 @@ export default Ember.Controller.extend({
         userAnswer: Ember.A(['yellow','white'])
       }),
 
-      QuestionResultDetails.create({
-        id: 605,
+      QuestionDetailsResult.create({
+        id: 607,
         question: Ember.Object.create({
           questionType: 'FIB',
           text: 'The mountain is _______ and the sky _______',
@@ -151,8 +153,8 @@ export default Ember.Controller.extend({
         userAnswer: Ember.A(['yellow','white'])
       }),
 
-      QuestionResultDetails.create({
-        id: 606,
+      QuestionDetailsResult.create({
+        id: 608,
         question: Ember.Object.create({
           questionType: 'MA',
           text: 'Sample Question MA',
@@ -171,8 +173,9 @@ export default Ember.Controller.extend({
         timeSpent: 28,
         userAnswer:  Ember.A([{id: "1", selection: false}, {id: "2", selection: false}, {id: "3", selection: true}])
       }),
-      QuestionResultDetails.create({
-        id: 606,
+
+      QuestionDetailsResult.create({
+        id: 609,
         question: Ember.Object.create({
           questionType: 'HT_HL',
           text: '<p>Seleccione las palabras escritas incorrectamente</p>',
@@ -187,8 +190,9 @@ export default Ember.Controller.extend({
         timeSpent: 28,
         userAnswer:  Ember.A(["<p>[Le] casa es de colo rojo pero [pero] el [teco] es azul [ajax]</p>"])
       }),
-      QuestionResultDetails.create({
-        id: 607,
+
+      QuestionDetailsResult.create({
+        id: 610,
         question: Ember.Object.create({
           questionType: 'HS_IMG',
           text: 'Sample Question HS_IMG',
@@ -208,8 +212,8 @@ export default Ember.Controller.extend({
         userAnswer:  Ember.A(["1", "2"])
       }),
 
-      QuestionResultDetails.create({
-        id: 608,
+      QuestionDetailsResult.create({
+        id: 611,
         question: Ember.Object.create({
           questionType: 'HS_TXT',
           text: 'Sample Question HS_TXT',
@@ -230,7 +234,41 @@ export default Ember.Controller.extend({
       })
     ],
 
-    mastery: [],
+    mastery: [
+
+      LearningTargetResult.create({
+        description: '',
+        mastery: 50,
+        relatedQuestions: [606, 609],
+        standard: '3.MD.4',
+        suggestedResources: [
+
+          ResourceResult.create({
+            title: "Learn the MEAN Stack",
+            resourceType: "video/youtube",
+            reaction: 2,
+            timeSpent: 2841
+          })
+        ]
+      }),
+
+      LearningTargetResult.create({
+        description: '',
+        mastery: 75,
+        relatedQuestions: [601, 602, 605, 607],
+        standard: '3.MD.7',
+        suggestedResources: []
+      }),
+
+      LearningTargetResult.create({
+        description: '',
+        mastery: 80,
+        relatedQuestions: [603, 604, 608, 610, 611],
+        standard: '5.ME.2',
+        suggestedResources: []
+      })
+    ],
+
     selectedAttempt: 2,
     submittedOn: new Date(),
     title: 'Test Assessment Name',

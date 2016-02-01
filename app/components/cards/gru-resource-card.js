@@ -20,17 +20,13 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
+
   // -------------------------------------------------------------------------
   // Properties
-  /**
-   * @property {Resource} resource information to be used in the card
-   */
-  resource: null,
-  /**
-   * @property {result} Optional resource result
-   */
-  result:null
 
-
+  /**
+   * @property {ResourceResult | QuestionDetailsResult} item information to be used in the card
+   */
+  item: null
 
 });
