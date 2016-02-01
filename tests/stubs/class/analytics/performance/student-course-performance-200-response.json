@@ -14,7 +14,7 @@
         {
           "unitId": "7deebd55-1976-40a2-8e46-3b8ec5b6d388",
           "completionCount": 3,
-          "scoreInPercentage": 55,
+          "scoreInPercentage": 34,
           "timeSpent": 215122,
           "attempts": 7,
           "totalCount": 10
@@ -22,25 +22,25 @@
         {
           "unitId": "21654d76-45e7-45e9-97ab-5f96a14da135",
           "completionCount": 3,
-          "scoreInPercentage": 55,
+          "scoreInPercentage": 85,
           "timeSpent": 215122,
-          "attempts": 7,
+          "attempts": 3,
           "totalCount": 10
         },
         {
           "unitId": "c1f810a2-c87f-48f5-a899-0d9753383042",
           "completionCount": 3,
-          "scoreInPercentage": 55,
+          "scoreInPercentage": 34,
           "timeSpent": 215122,
-          "attempts": 7,
+          "attempts": 4,
           "totalCount": 10
         },
         {
           "unitId": "dfc99db4-d331-4733-ac06-35358cee5c64",
           "completionCount": 3,
-          "scoreInPercentage": 55,
+          "scoreInPercentage": 23,
           "timeSpent": 215122,
-          "attempts": 7,
+          "attempts": 5,
           "totalCount": 10
         }
       ]

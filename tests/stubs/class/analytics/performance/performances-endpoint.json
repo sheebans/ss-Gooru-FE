@@ -2,7 +2,7 @@
   {
     "description": "Gets the lesson performance data by student and unit",
     "request": {
-      "url": "^/insights/api/v1/class/(.+)/course/(.+)/unit/0619777a-45fa-4bfe-b800-40b2ab158c7a/progress$",
+      "url": "^/mocked-api/insights/api/v1/class/(.+)/course/(.+)/unit/0619777a-45fa-4bfe-b800-40b2ab158c7a/progress$",
       "method": "GET"
     },
     "response": {
@@ -17,7 +17,7 @@
   {
     "description": "Gets the lesson performance data by student and unit",
     "request": {
-      "url": "^/insights/api/v1/class/(.+)/course/(.+)/unit/1619777a-45fa-4bfe-b800-40b2ab158c7b/progress$",
+      "url": "^/mocked-api/insights/api/v1/class/(.+)/course/(.+)/unit/1619777a-45fa-4bfe-b800-40b2ab158c7b/progress$",
       "method": "GET"
     },
     "response": {
@@ -32,7 +32,7 @@
   {
     "description": "Gets the student performance data by student",
     "request": {
-      "url": "^/insights/api/v1/class/(.+)/course/(.+)/progress$",
+      "url": "^/mocked-api/insights/api/v1/class/(.+)/course/(.+)/progress$",
       "method": "GET"
     },
     "response": {
@@ -48,7 +48,214 @@
   {
     "description": "API 3.0: Returns student's performance data for all the lessons in a class, course, unit and lesson",
     "request": {
-      "url": "^/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/(.+)/lesson/(.+)/performance",
+      "url": "^/mocked-api/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/31886eac-f998-493c-aa42-016f53e9fa88/lesson/fbd76aed-1b8d-4c2c-a9c6-c7603eef347c/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "assessment-collections/conventions-1.json"
+    }
+  },
+
+  {
+    "description": "API 3.0: Returns student's performance data for all the lessons in a class, course, unit and lesson",
+    "request": {
+      "url": "^/mocked-api/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/31886eac-f998-493c-aa42-016f53e9fa88/lesson/(.+)/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "assessment-collections/no-response.json"
+    }
+  },
+
+  {
+    "description": "API 3.0: Returns student's performance data for all the lessons in a class, course, unit and lesson",
+    "request": {
+      "url": "^/mocked-api/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/7deebd55-1976-40a2-8e46-3b8ec5b6d388/lesson/(.+)/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "assessment-collections/no-response.json"
+    }
+  },
+
+  {
+    "description": "API 3.0: Returns student's performance data for all the lessons in a class, course, unit and lesson",
+    "request": {
+      "url": "^/mocked-api/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/21654d76-45e7-45e9-97ab-5f96a14da135/lesson/(.+)/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "assessment-collections/no-response.json"
+    }
+  },
+
+  {
+    "description": "API 3.0: Returns student's performance data for all the lessons in a class, course, unit and lesson",
+    "request": {
+      "url": "^/mocked-api/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/dfc99db4-d331-4733-ac06-35358cee5c64/lesson/(.+)/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "assessment-collections/system-testing.json"
+    }
+  },
+
+  {
+    "description": "API 3.0: Returns student's performance data for all the lessons in a class, course, unit and lesson",
+    "request": {
+      "url": "^/mocked-api/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/c1f810a2-c87f-48f5-a899-0d9753383042/lesson/27f0bc24-c2b5-40d8-bb8f-e6ec939ad553/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "assessment-collections/functional-1.json"
+    }
+  },
+
+  {
+    "description": "API 3.0: Returns student's performance data for all the lessons in a class, course, unit and lesson",
+    "request": {
+      "url": "^/mocked-api/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/c1f810a2-c87f-48f5-a899-0d9753383042/lesson/40fe7ec4-261f-43aa-882b-e678fc754256/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "assessment-collections/functional-2.json"
+    }
+  },
+
+  {
+    "description": "API 3.0: Returns student's performance data for all the lessons in a class, course, unit and lesson",
+    "request": {
+      "url": "^/mocked-api/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/c1f810a2-c87f-48f5-a899-0d9753383042/lesson/5c9e8048-493a-489c-89e1-80be13c4bed0/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "assessment-collections/functional-3.json"
+    }
+  },
+
+  {
+    "description": "API 3.0: Returns student's performance data for all the lessons in a class, course, unit and lesson",
+    "request": {
+      "url": "^/mocked-api/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/c1f810a2-c87f-48f5-a899-0d9753383042/lesson/7cf4a8ec-adec-4b27-815b-6fa4bea9fd97/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "assessment-collections/functional-4.json"
+    }
+  },
+
+  {
+    "description": "API 3.0: Returns student's performance data for all the lessons in a class, course, unit and lesson",
+    "request": {
+      "url": "^/mocked-api/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/(.+)/lesson/(.+)/performance",
       "query": {
         "userUid": "(.+)",
         "collectionType": "(.+)"
@@ -71,7 +278,122 @@
   {
     "description": "API 3.0: Returns student's performance data for a specific unit in a class and course",
     "request": {
-      "url": "^/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/(.+)/performance",
+      "url": "^/mocked-api/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/31886eac-f998-493c-aa42-016f53e9fa88/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "qa-student-performance/student-performance-unit-200-response-conventions.json"
+    }
+  },
+
+  {
+    "description": "API 3.0: Returns student's performance data for a specific unit in a class and course",
+    "request": {
+      "url": "^/mocked-api/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/7deebd55-1976-40a2-8e46-3b8ec5b6d388/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "qa-student-performance/student-performance-unit-200-response-unit-testing.json"
+    }
+  },
+
+  {
+    "description": "API 3.0: Returns student's performance data for a specific unit in a class and course",
+    "request": {
+      "url": "^/mocked-api/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/21654d76-45e7-45e9-97ab-5f96a14da135/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "qa-student-performance/student-performance-unit-200-response-design.json"
+    }
+  },
+
+  {
+    "description": "API 3.0: Returns student's performance data for a specific unit in a class and course",
+    "request": {
+      "url": "^/mocked-api/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/c1f810a2-c87f-48f5-a899-0d9753383042/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "qa-student-performance/student-performance-unit-200-response-functional.json"
+    }
+  },
+
+  {
+    "description": "API 3.0: Returns student's performance data for a specific unit in a class and course",
+    "request": {
+      "url": "^/mocked-api/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/dfc99db4-d331-4733-ac06-35358cee5c64/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "qa-student-performance/student-performance-unit-200-response-system-testing.json"
+    }
+  },
+
+  {
+    "description": "API 3.0: Returns student's performance data for a specific unit in a class and course",
+    "request": {
+      "url": "^/mocked-api/insights-api-v1/rest/v2/class/(.+)/course/(.+)/unit/(.+)/performance",
       "query": {
         "userUid": "(.+)",
         "collectionType": "(.+)"
@@ -94,7 +416,7 @@
   {
     "description": "API 3.0: Returns student's performance data for all the Units in a class and course",
     "request": {
-      "url": "^/insights-api-v1/rest/v2/class/(.+)/course/(.+)/performance",
+      "url": "^/mocked-api/insights-api-v1/rest/v2/class/(.+)/course/(.+)/performance",
       "query": {
         "userUid": "(.+)",
         "collectionType": "(.+)"
