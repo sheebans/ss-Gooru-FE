@@ -22,7 +22,7 @@
       "target": "http://localhost:8882"
     },
     "/mocked-api": {
-      "target": "http://localhost:8080"
+      "target": "http://localhost:80"
     }
   }
 }
