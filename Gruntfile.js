@@ -66,6 +66,26 @@ module.exports = function (grunt) {
     grunt.task.run(tasks);
   });
 
+  grunt.registerTask('bamboo-test', function (target) {
+    if (target === "cli") { //for bamboo
+      grunt.task.run(['stubby:test', 'exec:run:ember test --silent --reporter xunit']);
+      return;
+    }
+
+    //for development
+    var noStubby = grunt.option("no-stubby") || grunt.option("ns"),
+      server = grunt.option("server") || grunt.option("s");
+
+    var command = 'ember test';
+    if (server) {
+      command += " --server";
+    }
+    var testExecTask = 'exec:run:' + command;
+
+    var tasks = noStubby ? [testExecTask] : ['stubby:test', testExecTask];
+    grunt.task.run(tasks);
+  });
+
   grunt.registerTask('run', function (target) {
     target = target || 'nginx';
     var noStubby = grunt.option("no-stubby") || grunt.option("ns"),
