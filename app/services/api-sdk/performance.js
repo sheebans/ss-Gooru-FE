@@ -8,35 +8,81 @@ import StoreMixin from '../../mixins/store';
 export default Ember.Service.extend(StoreMixin, {
 
   /**
-   * Gets the performance data for each unit of a specific user, class and course.
-   * @param userId user id
-   * @param classId class id
-   * @param courseId course id
-   * @returns {*}
+   * Gets the unit performance data for a specific user, class and course.
+   * @param userId
+   * @param classId
+   * @param courseId
+   * @param units
+   * @param options
+   * @returns {Promise.<UnitPerformance[]>}
    */
-  findUnitPerformanceByClassAndCourse: function(userId, classId, courseId) {
-    return this.get('store').queryRecord('performance/performance', {
+  findStudentPerformanceByCourse: function(userId, classId, courseId, units, options = { collectionType: 'assessment' }) {
+    const service = this;
+    return this.get('store').queryRecord('performance/unit-performance', {
       userUid: userId,
+      collectionType: options.collectionType,
       classId: classId,
       courseId: courseId
+    }).then(function(unitPerformances) {
+      return service.matchTitlesWithPerformances(units, unitPerformances);
     });
   },
 
   /**
-   * Gets the lessons performance and collections|assessments performance data for
-   * each lesson of a specific user, class, course and unit.
-   * @param userId user id
-   * @param classId class id
-   * @param courseId course id
-   * @param unitId unit id
-   * @returns {*}
+   * Gets the lesson performance data for a specific user, class, course and unit.
+   * @param userId
+   * @param classId
+   * @param courseId
+   * @param unitId
+   * @param lessons
+   * @param options
+   * @returns {Promise.<LessonPerformance[]>}
    */
-  findLessonPerformanceByClassAndCourseAndUnit: function(userId, classId, courseId, unitId) {
+  findStudentPerformanceByUnit: function(userId, classId, courseId, unitId, lessons, options = { collectionType: 'assessment' }) {
+    const service = this;
     return this.get('store').queryRecord('performance/lesson-performance', {
       userUid: userId,
+      collectionType: options.collectionType,
       classId: classId,
       courseId: courseId,
       unitId: unitId
+    }).then(function(lessonPerformances) {
+      return service.matchTitlesWithPerformances(lessons, lessonPerformances);
+    });
+  },
+
+  /**
+   * Gets the collection performance data for a specific user, class, course, unit and lesson.
+   * @param userId
+   * @param classId
+   * @param courseId
+   * @param unitId
+   * @param lessonId
+   * @param collections
+   * @param options
+   * @returns {Promise.<CollectionPerformance[]>}
+   */
+  findStudentPerformanceByLesson: function(userId, classId, courseId, unitId, lessonId, collections, options = { collectionType: 'assessment' }) {
+    const service = this;
+    return this.get('store').queryRecord('performance/collection-performance', {
+      userUid: userId,
+      collectionType: options.collectionType,
+      classId: classId,
+      courseId: courseId,
+      unitId: unitId,
+      lessonId: lessonId
+    }).then(function(collectionPerformances) {
+      return service.matchTitlesWithPerformances(collections, collectionPerformances);
+    });
+  },
+
+  matchTitlesWithPerformances: function(objectsWithTitle, performances) {
+    return performances.map(function(performance) {
+      const objectWithTitle = objectsWithTitle.findBy('id', performance.get('id'));
+      if (objectWithTitle) {
+        performance.set('title', objectWithTitle.get('title'));
+      }
+      return performance;
     });
   },
 

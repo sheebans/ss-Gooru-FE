@@ -1,85 +1,46 @@
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
-import Ember from 'ember';
-import wait from 'ember-test-helpers/wait';
 
-// Stub performance service
-const performanceServiceStub = Ember.Service.extend({
-
-  findLessonPerformanceByClassAndCourseAndUnit(userId, classId, courseId, unitId) {
-    var response;
-    var promiseResponse;
-
-    if (userId === 'any-user-id' && classId === '111-333-555' && courseId === '222-444-666' && unitId === '333-555-777') {
-      response =
-        Ember.A([
-          Ember.Object.create({
-          title: "lesson-title"
-          }),
-          Ember.Object.create({
-            title: "lesson-2-title"
-          })
-        ])
-      ;
-    } else {
-      response = [];
+moduleForComponent(
+  'class/analytics/performance/student/gru-unit-performance',
+  'Integration | Component | class/analytics/performance/student/gru unit performance', {
+    integration: true,
+    beforeEach: function() {
+      this.container.lookup('service:i18n').set('locale','en');
     }
-
-    promiseResponse = new Ember.RSVP.Promise(function(resolve) {
-      Ember.run.next(this, function() {
-        resolve(response);
-      });
-    });
-
-    return DS.PromiseArray.create({
-      promise: promiseResponse
-    });
-  }
-});
-
-moduleForComponent('class/analytics/performance/student/gru-unit-performance', 'Integration | Component | class/analytics/performance/student/gru unit performance', {
-  integration: true,
-  beforeEach: function () {
-    this.container.lookup('service:i18n').set("locale","en");
-    this.register('service:api-sdk/performance', performanceServiceStub);
-    this.inject.service('api-sdk/performance', { as: 'performanceService' });
-  }
-});
+  });
 
 test('Test for unit performance', function(assert) {
-  const unit = Ember.Object.create(
-    {
-      id:'333-555-777',
-      title: "Quiz :: Indian History",
-      type: "performance/performance",
-      score:75,
-      completionDone: 0,
-      completionTotal: 1,
-      timeSpent: 4852359,
-      ratingScore: 0,
-      attempts: 2,
-      isCompleted: false
-    });
+  const unitPerformance = Ember.Object.create({
+    id:'unit-id-1',
+    title: 'Unit 1',
+    type: 'unit',
+    score: 75,
+    completionDone: 5,
+    completionTotal: 10,
+    timeSpent: 3600000,
+    ratingScore: null,
+    attempts: 2,
+    displayableTimeSpent: '1h',
+    isCompleted: false,
+    hasStarted: true,
+    isUnitOrLesson: true
+  });
   const classModel = Ember.Object.create({
-    id:'111-333-555',
-    course:'222-444-666'
+    id:'class-id-1',
+    course:'course-id-1'
   });
 
-  this.set('userId', "any-user-id");
+  this.set('userId', 'user-id-1');
   this.set('classModel', classModel);
-  this.set('unit', unit);
+  this.set('unit', unitPerformance);
   this.set('index',0);
-  this.set('selectedLessonId', 'not-my-id-2');
-  this.set('selectedUnitId', 'not-my-id');
-  this.set('onLocationUpdate', function(){
-    assert.ok(true, "This should be called 1 time per click when opening or closing unit, and 1 time per each lesson the unit has, when opening a unit");
-  });
-  this.set('updateSelectedLesson', function(){
-    assert.ok(true, "This should be called 1 time per click when opening or closing a unit");
-  });
+  this.set('selectedLessonId', 'non-selected-lesson');
+  this.set('selectedUnitId', 'non-selected-unit');
 
-  assert.expect(12);
+  assert.expect(7);
 
   this.render(hbs`{{class.analytics.performance.student.gru-unit-performance
     unit=unit
@@ -90,42 +51,27 @@ test('Test for unit performance', function(assert) {
     selectedUnitId=selectedUnitId
     onLocationUpdate=onLocationUpdate
     updateSelectedLesson=updateSelectedLesson
-  }}`);//
-  const $component = this.$();
-  const $clickableDiv= $component.find(".gru-unit-performance-container >a"); //component dom element
+  }}`);
 
+  const $component = this.$();
   T.exists(assert, $component, 'Missing Unit Container');
 
-  const $titleSpan = $component.find(".performance-unit-title span");
+  const $titleElement = $component.find('.performance-unit-title span');
+  assert.equal(T.text($titleElement), 'U1: Unit 1', 'Wrong unit title');
 
-  assert.equal(T.text($titleSpan), "U1: Quiz :: Indian History", "Wrong title");
+  const $scoreElement = $component.find('.gru-performance-summary .score div.description p');
+  assert.equal(T.text($scoreElement), '75%', 'Wrong unit score');
 
-  Ember.run(() => {
-    $clickableDiv.click();
-  });
+  const $completionElement = $component.find('.gru-performance-summary .completion div.description p');
+  assert.equal(T.text($completionElement), '5/10', 'Wrong unit completion');
 
-  return wait().then(function() {
-    const $lessonsContainer = $component.find(".lessons-container");
-    assert.equal($lessonsContainer.hasClass('in'), true, "Lessons container did not open");
+  const $timeSpentElement = $component.find('.gru-performance-summary .timeSpent p');
+  assert.equal(T.text($timeSpentElement), '1h', 'Wrong unit timeSpent');
 
-    const $lessonTitleSpan = $component.find(".lessons-container div div:first-child .lesson-performance-title span");
+  const $reactionElement = $component.find('.gru-performance-summary .reaction p');
+  assert.equal(T.text($reactionElement), '–', 'Wrong unit reaction');
 
-    T.exists(assert, $lessonTitleSpan, 'Missing Lesson Container');
-
-    assert.equal(T.text($lessonTitleSpan), "L1: lesson-title", "Wrong title");
-
-    Ember.run(() => {
-      $clickableDiv.click();
-    });
-
-    return wait().then(function() {
-
-      const $lessonsContainer = $component.find(".lessons-container");
-      assert.equal($lessonsContainer.hasClass('in'), false, "Lessons container did not close");
-
-    });
-  });
-
-
+  const $attemptsElement = $component.find('.gru-performance-summary .attempts p');
+  assert.equal(T.text($attemptsElement), '2', 'Wrong unit attempts');
 
 });

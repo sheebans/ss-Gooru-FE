@@ -10,6 +10,6 @@ export default PerformanceModel.extend({
   /**
    * @property {Performance[]} List of Performance items for collections/assessments
    */
-  collections: DS.hasMany('performance/performance')
+  collections: DS.hasMany('performance/collection-performance')
 
 });

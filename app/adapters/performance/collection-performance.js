@@ -13,16 +13,19 @@ export default ApplicationAdapter.extend({
    * @returns {string}
    */
   urlForQueryRecord: function(query) {
-    var namespace = this.get('namespace');
-    var classId = query.classId;
-    var courseId = query.courseId;
-    var unitId = query.unitId;
+    const namespace = this.get('namespace');
+    const classId = query.classId;
+    const courseId = query.courseId;
+    const unitId = query.unitId;
+    const lessonId = query.lessonId;
+
 
     delete query.classId;
     delete query.courseId;
     delete query.unitId;
+    delete query.lessonId;
 
-    return `${namespace}/class/${classId}/course/${courseId}/unit/${unitId}/performance`;
+    return `${namespace}/class/${classId}/course/${courseId}/unit/${unitId}/lesson/${lessonId}/performance`;
   }
 
 });
