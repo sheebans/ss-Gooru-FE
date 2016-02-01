@@ -1,4 +1,4 @@
-<div class="question-card">
+<div class="question-card {{if showPerformance 'show-performance' 'show-correct-answer'}}">
     <div class="number-question">
       {{result.question.order}}
       {{#if result.correct}}
@@ -12,17 +12,19 @@
             <span>{{t "common.question"}}</span>
             <span>{{{result.question.text}}}</span>
         </div>
-        <div class="answer {{if showPerformance 'visible' 'hide'}}">
-            <span>{{t "common.answer"}}</span>
-          <span>
-            {{{component (questionConfig result.question.questionType 'component.report') question=result.question userAnswer=result.userAnswer}}}
-          </span>
-        </div>
-        <div class="correct-answer {{if showPerformance 'hide' 'visible'}}">
-            <span>{{t "common.correct-answer"}}</span>
-          <span>
-            {{{component (questionConfig result.question.questionType 'component.report') question=result.question showCorrect=true}}}
-          </span>
+        <div class="answer">
+            <div class="your-answer">
+                <span>{{t "common.answer"}}</span>
+              <span>
+                {{{component (questionConfig result.question.questionType 'component.report') question=result.question userAnswer=result.userAnswer}}}
+              </span>
+            </div>
+            <div class="correct-answer">
+                <span>{{t "common.correct-answer"}}</span>
+                <span>
+                  {{{component (questionConfig result.question.questionType 'component.report') question=result.question showCorrect=true}}}
+                </span>
+            </div>
         </div>
     </div>
 </div>

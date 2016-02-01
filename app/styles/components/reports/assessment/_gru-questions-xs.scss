@@ -1,4 +1,4 @@
-.gru-questions-xs{
+.reports.assessment.gru-questions-xs{
   margin:5px;
   display: table;
   width:100%;
@@ -25,7 +25,7 @@
     border-right: 0;
 
     span{
-      font-size: 26px;
+      font-size: $font-size-large;
     }
 
     .score{
@@ -37,5 +37,15 @@
   }
   span.incorrect{
     color:$color-answer-incorrect;
+  }
+  .show-performance{
+    .correct-answer{
+      display:none;
+    }
+  }
+  .show-correct-answer{
+    .your-answer{
+      display:none;
+    }
   }
 }
