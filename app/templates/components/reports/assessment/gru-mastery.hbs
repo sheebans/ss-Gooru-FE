@@ -5,7 +5,7 @@
 
 {{#each learningTargets as |learningTarget|}}
     <div class="learning-target">
-        {{reports.assessment.gru-learning-target learningTarget=learningTarget assessmentResult=assessmentResult}}
+        {{reports.assessment.gru-learning-target learningTarget=learningTarget assessmentResult=assessmentResult onBubbleSelect='bubbleSelect'}}
     </div>
 {{/each}}
 
