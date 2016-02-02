@@ -11,6 +11,8 @@
 /bower_components
 
 # misc
+access.log
+error.log
 /.sass-cache
 /connect.lock
 /coverage/*
