@@ -4,7 +4,7 @@
 <div class="switch-section">
   {{gru-switch switchOptions=switchOptions onOptionSwitch='optionSwitch'}}
 </div>
-<table>
+<table class="hidden-xs">
     <thead>
     <tr>
         <th class="header number">
@@ -66,4 +66,13 @@
     {{/each}}
     </tbody>
 </table>
+<div class="question-cards visible-xs">
+    <ul class="question-cards-list">
+      {{#each results as |result|}}
+        <li>
+          {{reports.assessment.gru-questions-xs result=result showPerformance=showPerformance}}
+        </li>
+      {{/each}}
+    </ul>
+</div>
 
