@@ -19,6 +19,8 @@ npm-debug.log
 testem.log
 /.idea
 .vagrant
+access.log
+error.log
 
 #tests
 report-xunit.xml
