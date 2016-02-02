@@ -1,0 +1,42 @@
+.reports.assessment.gru-learning-target {
+  .header-content{
+    height: 68px;
+    border-bottom: 1px solid $color-gray-lighter-11;
+    .score, .standard, .learning-target-description, .questions{
+      float:left;
+      height: 100%;
+    }
+    .score {
+      div{
+        background-color: #0000FF;
+        width: 70px;
+        height: 100%;
+        padding:0;
+      }
+    }
+
+
+    .standard, .learning-target-description {
+      border-right:  1px solid $color-gray-lighter-11;
+      span{
+        padding-top: 10px;
+      }
+    }
+  }
+  .standard, .learning-target-description,.questions,.resource-cards-section{
+    padding: 5px 10px 5px 10px ;
+    > *{
+      display: block;
+    }
+    strong{
+      font-size: $font-size-small;
+      font-weight: normal;
+      color: #777777;
+    }
+  }
+  .resource-cards-section{
+    > *{
+      padding:10px;
+    }
+  }
+}

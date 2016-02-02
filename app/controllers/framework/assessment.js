@@ -237,10 +237,50 @@ export default Ember.Controller.extend({
     mastery: [
 
       LearningTargetResult.create({
-        description: '',
+        description:'I will understand how to create a ruler and with 1 inch, 1/2 inch, 1/4 inch intervals and generate' +
+          'measurement data',
         mastery: 50,
         relatedQuestions: [606, 609],
         standard: '3.MD.4',
+        suggestedResources: [
+
+          ResourceResult.create({
+            title: "Learn the MEAN Stack",
+            resourceType: "video/youtube",
+            reaction: 2,
+            timeSpent: 2841
+          }),
+          ResourceResult.create({
+            resourceType:"video/youtube",
+            title:"Learn the MEAN Stack",
+            reaction: 0,
+            timeSpent: 12345
+          }),
+          ResourceResult.create({
+            resourceType:"video/youtube",
+            title:"Learn the MEAN Stack",
+            reaction: 2,
+            timeSpent: 2841
+          }),
+          QuestionDetailsResult.create({
+            resourceType:"question",
+            title: "Question with a very long name",
+            question: {
+              text: "Question with a very long name",
+              questionType: 'FIB'
+            },
+            reaction: 4,
+            timeSpent: 2341
+          })
+        ]
+      }),
+
+      LearningTargetResult.create({
+        description: 'I will understand how to create a ruler and with 1 inch, 1/2 inch, 1/4 inch intervals and generate' +
+        'measurement data',
+        mastery: 75,
+        relatedQuestions: [601, 602, 605, 607],
+        standard: '3.MD.7',
         suggestedResources: [
 
           ResourceResult.create({
@@ -253,19 +293,20 @@ export default Ember.Controller.extend({
       }),
 
       LearningTargetResult.create({
-        description: '',
-        mastery: 75,
-        relatedQuestions: [601, 602, 605, 607],
-        standard: '3.MD.7',
-        suggestedResources: []
-      }),
-
-      LearningTargetResult.create({
-        description: '',
+        description: 'I will understand how to create a ruler and with 1 inch, 1/2 inch, 1/4 inch intervals and generate' +
+        'measurement data',
         mastery: 80,
         relatedQuestions: [603, 604, 608, 610, 611],
         standard: '5.ME.2',
-        suggestedResources: []
+        suggestedResources: [
+
+          ResourceResult.create({
+            title: "Learn the MEAN Stack",
+            resourceType: "video/youtube",
+            reaction: 2,
+            timeSpent: 2841
+          })
+        ]
       })
     ],
 

@@ -1,0 +1,25 @@
+<div class="header-content">
+    <div class="score">
+         <div></div>
+    </div>
+    <div class="standard">
+        <strong>Standard</strong>
+        <span>{{learningTarget.standard}}</span>
+    </div>
+    <div class="learning-target-description">
+        <strong>Learning Target</strong>
+        <span>{{learningTarget.description}}</span>
+    </div>
+    <div class="questions">
+        <strong>Questions</strong>
+        {{gru-bubbles bubbleOptions=questions onBubbleSelect='bubbleSelect'}}
+    </div>
+</div>
+<div class="resource-cards-section">
+    <strong>Suggested Resources</strong>
+  <div class="resource-card-list">
+    {{#each learningTarget.suggestedResources as |resource|}}
+      {{cards.gru-resource-card item=resource }}
+    {{/each}}
+  </div>
+</div>
