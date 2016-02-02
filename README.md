@@ -126,8 +126,8 @@ Useful commands [Vagrant CLI](https://docs.vagrantup.com/v2/cli/index.html)
 * Executing `grunt notify` from vagrant can be also used to notify the watcher for changes 
 
 ### Running the app with grunt tasks
-* `grunt run` to run it using the stubby server, this task starts up stubby server and proxy ember to it
-* `grunt run:qa` to run it proxying to the qa server.
+* `grunt run:stubby` to run it using the stubby server, this task starts up stubby server and proxy ember to it
+* `grunt run` or `grunt run:nginx` to run it proxying to the nginx server.
 
 ### Coding standards
 This application follows [Ember CLI standards and conventions](http://www.ember-cli.com/user-guide/#naming-conventions) and it also uses JSHint (http://jshint.com/) _"JSHint is a program that flags suspicious usage in programs written in JavaScript."_
