@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 import Env from '../../../config/environment';
 
-export default Ember.Component.extend(Env,{
+export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 

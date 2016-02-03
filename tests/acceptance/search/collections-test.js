@@ -58,11 +58,14 @@ test('searchTerm: Search by term when user is already at the results page', func
   visit('/search/collections?term=any');
   andThen(function() {
     const $appHeader = find('.gru-header');
-    const $searchButton = $appHeader.find(".search-button");
     const $searchInput = $appHeader.find(".search-input");
 
     fillIn($searchInput, 'europe');
-    click($searchButton);
+    $searchInput.val('europe');
+    $searchInput.change();
+
+    $appHeader.find('form').submit();
+
     andThen(function(){
       assert.equal(currentURL(), '/search/collections?term=europe');
       assert.equal(find(".collection-card").length, 1, "Europe search should return 1 collection");
