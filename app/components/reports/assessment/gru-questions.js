@@ -40,7 +40,7 @@ export default Ember.Component.extend({
   /**
    * Indicate if the table show the performance columns
    *
-   * @constant {Boolean}
+   * @property {Boolean}
    */
   showPerformance: true,
   /**

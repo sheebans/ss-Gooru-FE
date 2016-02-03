@@ -11,7 +11,7 @@ moduleForComponent('reports/assessment/gru-questions', 'Integration | Component 
 });
 
 test('Questions Layout', function (assert) {
-  assert.expect(17);
+  assert.expect(18);
 
   const questions = Ember.A([Ember.Object.create({
     question: Ember.Object.create({
@@ -56,6 +56,7 @@ test('Questions Layout', function (assert) {
   T.exists(assert, $question.find('table tbody td.question-score'), 'Missing score column');
   T.exists(assert, $question.find('table tbody td.question-time'), 'Missing time spent column');
   T.exists(assert, $question.find('table tbody td.question-reaction'), 'Missing reaction column');
+  T.exists(assert, $question.find('.question-cards.visible-xs'), 'Missing mobile question cards');
   assert.equal($question.find('table tbody tr').length,2, "Incorrect number of rows");
 });
 
