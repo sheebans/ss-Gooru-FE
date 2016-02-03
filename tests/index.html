@@ -24,6 +24,15 @@
     <script src="assets/vendor.js"></script>
     <script src="assets/test-support.js"></script>
     <script>
+      // If PhantomJS doesn't support bind ...
+      // Per https://github.com/ariya/phantomjs/issues/10522
+      Function.prototype.bind = Function.prototype.bind || function (thisp) {
+        var fn = this;
+        return function () {
+          return fn.apply(thisp, arguments);
+        };
+      };
+
       $(function () {
         // Disable bootstrap transitions during testing (@see bootstrap/js/transitions.js)
         $.support.transition = false;

@@ -39,6 +39,7 @@ export default Ember.Component.extend({
      */
     selectQuestion: function (questionId) {
       Ember.Logger.debug('Question with ID: ' + questionId + ' was selected');
+      this.get('onSelectQuestion')(questionId);
     }
 
   },
@@ -56,7 +57,7 @@ export default Ember.Component.extend({
     $(window).resize(function () {
       clearTimeout(timer);
       // The resize callback won't be processed until the resizing has stopped
-      timer = setTimeout(this.updateWidth.bind(this), delay);
+      timer = setTimeout(this.updateWidth, delay);
     }.bind(this));
   },
 
@@ -71,12 +72,19 @@ export default Ember.Component.extend({
   }),
 
   /**
+   * @prop { Object[] } data - Array with data objects for each one of the charts
+   */
+  data: null,
+
+  /**
    * @property {boolean} isExpanded - Should all the charts be visible or not?
    */
   isExpanded: false,
 
   /**
    * @property {Number} itemsPerColumn - Maximum number of items per column
+   * This value *must* match the value of the css variable $questions-per-column
+   * @see /app/styles/components/reports/class-assessment/_gru-questions-summary.scss
    */
   itemsPerColumn: 5,
 
@@ -86,9 +94,9 @@ export default Ember.Component.extend({
   itemMinWidth: 200,
 
   /**
-   * @prop { Object[] } data - Array with data objects for each one of the charts
+   * @property {Function} onSelectQuestion - Event handler called when an item in a column is selected
    */
-  data: null,
+  onSelectItem: null,
 
   /**
    * @prop { Object[] } processedData - Transform the data objects in 'data' into objects that can be consumed
@@ -144,6 +152,12 @@ export default Ember.Component.extend({
     return this.get('isExpanded') ? this.get('allColumns') :
       Math.floor(this.get('width') / this.get('itemMinWidth'));
   }),
+
+  /**
+   * @property {Number} width - Component width
+   * This value will be read from the css and will be updated on any window.resize events
+   */
+  width: 0,
 
 
   // -------------------------------------------------------------------------
