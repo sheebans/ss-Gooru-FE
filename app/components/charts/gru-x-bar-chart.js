@@ -20,6 +20,12 @@ export default Ember.Component.extend({
 
   data: null,
 
+  styles: Ember.computed('data', function () {
+    return this.get('data').map(function (questionData) {
+      return Ember.String.htmlSafe('background-color: ' + questionData.color + '; width: ' + questionData.percentage + '%;');
+    });
+  }),
+
   // -------------------------------------------------------------------------
   // Events
 
