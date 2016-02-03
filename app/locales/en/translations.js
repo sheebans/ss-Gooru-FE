@@ -68,7 +68,7 @@ export default {
       "image"       : "Image",
       "text"        : "Text",
       "video"       : "Video",
-      "interaction" : "Interactive",
+      "interactive" : "Interactive",
       "webpage"     : "Webpage",
       "audio"       : "Audio"
     },
