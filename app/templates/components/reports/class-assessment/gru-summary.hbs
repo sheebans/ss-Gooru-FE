@@ -19,13 +19,7 @@
     </li>
   </ul>
 
-  <ol class="questions">
-    {{!--
-    {{#each questionsData as |questionData|}}
-      {{charts/gru-x-bar-chart data=questionData}}
-    {{/each}}
-    --}}
-  </ol>
+  {{ reports.class-assessment.gru-questions-summary data=questionsData }}
 </div>
 
 {{grading-scale-legend notStarted=(t "common.notStarted")}}

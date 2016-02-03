@@ -25,8 +25,8 @@ export default Ember.Component.extend({
   answersData: Ember.computed('rawData', function () {
     const studentsIds = this.get('studentsIds');
     const questionsIds = this.get('assessmentQuestionsIds');
+    const rawData = this.get('rawData');
 
-    var rawData = this.get('rawData');
     var answers = [];
 
     studentsIds.forEach(function (student) {
@@ -60,10 +60,23 @@ export default Ember.Component.extend({
 
   /**
    * @prop { String[] } assessmentQuestionsIds - An array with the ids of all the questions in the assessment
+   * ordered in ascending order per each question's order value.
    */
   assessmentQuestionsIds: Ember.computed('assessment.resources.[]', function () {
 
-    return this.get('assessment.resources').map(function (question) {
+    var questions = this.get('assessment.resources').map(function (question) {
+      // Copy only the most important properties of the resources array
+      return {
+        id: question.id,
+        order: question.order
+      };
+    });
+
+    return questions.sort(function (a, b) {
+      // Sort by order value
+      return a.order - b.order;
+    }).map(function (question) {
+      // Return an array with only the question ids
       return question.id;
     });
   }),
@@ -123,13 +136,48 @@ export default Ember.Component.extend({
   }),
 
   /**
-   * @prop { Object[] } questionsData - Aggregate data of the completion of each question in the assessment
+   * @prop { Object[] } questionsData - Array that keeps track of all the correct/incorrect answers
+   * for each question in the assessment
    *
-   * Each object corresponds to a question and will consist of:
-   * - status: status related to the completion of the question (i.e. 'correct', 'incorrect', 'pending')
-   * - percentage: percentage of students in the class that have achieved said status
+   * For each question, there will be a counter object with the following properties:
+   * - id: question id
+   * - correct: number of students that have answered the question correctly
+   * - incorrect: number of students that did not answer the question correctly
+   * - total: total number of students
    */
-  questionsData: null,
+  questionsData: Ember.computed('rawData', function () {
+    const studentsIds = this.get('studentsIds');
+    const totalStudents = studentsIds.length;
+    const questionsIds = this.get('assessmentQuestionsIds');
+    const rawData = this.get('rawData');
+
+    var questions = [];
+
+    questionsIds.forEach(function (question) {
+      var questionCounter = {
+        id: question,
+        correct: 0,
+        incorrect: 0,
+        total: totalStudents
+      };
+      questions.push(questionCounter);
+
+      studentsIds.forEach(function (student) {
+        var isCorrect = rawData[student][question]['correct'];
+
+        if (isCorrect) {
+          questionCounter.correct++;
+        } else {
+          // Any value different than 'false' (i.e. null or undefined) will be ignored
+          if (isCorrect === false) {
+            questionCounter.incorrect++;
+          }
+        }
+      });
+    });
+
+    return questions;
+  }),
 
   /**
    * @prop { Object[] } scoresData - Array with all the scores in the assessment
