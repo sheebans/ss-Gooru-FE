@@ -1,7 +1,7 @@
 .grade-dropdown {
   > .btn-group {
     .caret {
-      color: $color-white;
+      color: $white;
     }
 
     .selected-text {
@@ -12,7 +12,7 @@
   .dropdown-menu {
     padding: 0;
     width: 350px;
-    background-color: $color-white;
+    background-color: $white;
     .dropdown-header {
       padding: 10px 10px 10px 10px;
     }
@@ -27,15 +27,15 @@
 
     li.dropdown-item {
       padding: 7px 10px 7px 10px;
-      background-color: $color-gray-lighter-2;
+      background-color: $gray-lighter;
 
       span {
         height: 21px;
         line-height: 1.5;
         float: left;
         margin-left: 5px;
-        background-color: $color-blue-lighter-2;
-        color: $color-white;
+        background-color: $brand-primary;
+        color: $white;
         text-align: center;
         cursor: pointer;
 
@@ -47,7 +47,7 @@
 
         &.selected,
         &:hover {
-          background-color: $color-blue-primary;
+          background-color: $brand-primary;
         }
 
         &.level {

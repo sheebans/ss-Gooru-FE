@@ -1,7 +1,7 @@
 .app-dropdown {
   > .btn-group {
     .caret {
-      color: $color-white;
+      color: $white;
     }
 
     .selected-text{
@@ -12,10 +12,10 @@
   .dropdown-menu {
     li:not(.disabled) {
       &.selected {
-        background-color: $color-blue-lighter-2;
+        background-color: $brand-primary;
         a, a:hover {
-          background-color: $color-blue-lighter-2;
-          color: $color-white;
+          background-color: $brand-primary;
+          color: $white;
         }
       }
     }

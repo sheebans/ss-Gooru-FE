@@ -5,13 +5,13 @@
       min-height: 50px;
     }
     .mastery {
-      border: 1px solid $color-gray-primary;
+      border: 1px solid $gray-dark;
       min-height: 50px;
     }
   }
 
   .controls {
-    border-bottom: 1px solid $color-gray-primary;
+    border-bottom: 1px solid $gray-dark;
     .student-breadcrumb {
       @media (min-width: $screen-sm-min) { /* same for sm and md */
         padding: 0;

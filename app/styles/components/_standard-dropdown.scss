@@ -2,7 +2,7 @@
   .app-dropdown {
     > .btn-group {
       .caret {
-        color: $color-white;
+        color: $white;
       }
 
       .selected-text{
@@ -14,7 +14,7 @@
       li:not(.disabled) {
         &.selected {
           p {
-            color: $color-white;
+            color: $white;
           }
         }
       }

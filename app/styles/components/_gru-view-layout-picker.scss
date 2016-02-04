@@ -1,7 +1,7 @@
 .gru-view-layout-picker{
   .view-layout-list{
     display:inline-block;
-    border: 1px solid $color-gray-lighter-3;
+    border: 1px solid  $gray-light;
     border-radius: 4px;
     div{
       cursor:pointer;
@@ -14,13 +14,13 @@
       }
     }
     div:first-child{
-      border-right: 1px solid $color-gray-lighter-3;
+      border-right: 1px solid  $gray-light;
     }
     a{
-      color:$color-gray-lighter-3;
+      color: $gray-light;
     }
     div.active a{
-      color: $branding-primary-1;
+      color: $brand-primary;
     }
   }
 }

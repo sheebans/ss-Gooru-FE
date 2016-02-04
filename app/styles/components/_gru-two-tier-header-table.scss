@@ -4,7 +4,7 @@
   table {
 
     th, td {
-      border-color: $color-gray-lighter-2;
+      border-color: $gray-lighter;
       border-style: solid;
       border-width: 0;
       padding: 5px;
@@ -13,7 +13,7 @@
     > .first-tier {
       th {
         text-align: center;
-        background-color: $color-gray-lighter-7;
+        background-color: $gray-lighter;
         border-width: 1px 1px 0 0;
         height: 3.5em;
 
@@ -78,7 +78,7 @@
 
     > .data {
       th {
-        background-color: $color-gray-lighter-7;
+        background-color: $gray-lighter;
         height: 3.5em;
         border-width: 0 1px 1px 1px;
 
