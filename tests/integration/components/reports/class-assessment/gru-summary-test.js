@@ -62,13 +62,15 @@ test('it renders', function (assert) {
   this.setProperties({
     assessment: assessment,
     students: students,
-    reportData: reportData
+    reportData: reportData,
+    showAllQuestions: true
   });
 
   this.render(hbs`{{ reports/class-assessment/gru-summary
     assessment=assessment
     students=students
-    rawData=reportData }}`);
+    rawData=reportData
+    isQuestionView=showAllQuestions }}`);
 
   const $component = this.$('.reports.class-assessment.gru-summary');
   assert.ok($component.length, 'Component has component classes');
