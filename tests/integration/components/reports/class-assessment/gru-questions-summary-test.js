@@ -6,7 +6,7 @@ moduleForComponent('reports/class-assessment/gru-questions-summary', 'Integratio
   integration: true
 });
 
-test('it renders all charts', function (assert) {
+test('it renders all questions', function (assert) {
 
   var questionsData = [
     {
@@ -35,66 +35,12 @@ test('it renders all charts', function (assert) {
 
   const $component = this.$('.reports.class-assessment.gru-questions-summary');
   assert.ok($component.length, 'Component has component classes');
-  assert.equal($component.find('ol li').length, 3, 'Component shows all charts');
-  assert.ok(!$component.find('> a').length, 'Button to view more charts is not visible');
+  assert.equal($component.find('ol li').length, 3, 'Component shows all questions');
+  assert.ok(!$component.find('> a').length, 'Button to view more questions is not visible');
 
 });
 
-test('\'view more\' button works when only some of the charts are visible', function (assert) {
-
-  var questionsData = [
-    {
-      id: 1,
-      correct: 3,
-      incorrect: 4,
-      total: 12
-    },
-    {
-      id: 2,
-      correct: 6,
-      incorrect: 2,
-      total: 12
-    },
-    {
-      id: 3,
-      correct: 4,
-      incorrect: 5,
-      total: 12
-    }
-  ];
-
-  this.set('questionsData', questionsData);
-
-  // The minimum width of the items will be that of the container which means that
-  // only one column will be shown
-  this.set('itemMinWidth', $('#ember-testing').css('width').split('px')[0]);
-
-  // Show 2 items per column
-  this.set('numItems', 2);
-
-  this.render(hbs`{{reports/class-assessment/gru-questions-summary
-    data=questionsData
-    itemsPerColumn=numItems
-    itemMinWidth=itemMinWidth }}`);
-
-  const $component = this.$('.reports.class-assessment.gru-questions-summary');
-  assert.equal($component.find('ol li').length, 2, 'Component shows the correct number of items');
-
-  const $viewMoreButton = $component.find('> a');
-  assert.ok($viewMoreButton.length, 'Button to view more charts is visible');
-  assert.ok($viewMoreButton.hasClass('expand'), 'Button has the class to expand');
-
-  $viewMoreButton.click();
-  assert.equal($component.find('ol li').length, 3, 'Component shows all columns');
-  assert.ok($viewMoreButton.hasClass('collapse'), 'Button has the class to collapse');
-
-  // Clicking on the button again, restores to the original state
-  $viewMoreButton.click();
-  assert.equal($component.find('ol li').length, 2, 'Component correctly reduces the number of items visible');
-  assert.ok($viewMoreButton.hasClass('expand'), 'Button has the class to expand again');
-});
-
-test('it renders the charts correctly', function (assert) {
+test('it renders the question charts correctly', function (assert) {
 
   var questionsData = [
     {
@@ -131,4 +77,161 @@ test('it renders the charts correctly', function (assert) {
   const $ratio = $lastItem.find('.ratio');
   assert.equal($ratio.find('em:first').text(), '9', 'Wrong number of students that have completed the question');
   assert.equal($ratio.find('em:last').text(), '10', 'Wrong number of total students');
+});
+
+test('it renders some of the questions and a \'view more\' button if the container is not wide enough to show all questions', function (assert) {
+  assert.expect(4);
+
+  var questionsData = [
+    {
+      id: 1,
+      correct: 3,
+      incorrect: 4,
+      total: 12
+    },
+    {
+      id: 2,
+      correct: 6,
+      incorrect: 2,
+      total: 12
+    },
+    {
+      id: 3,
+      correct: 4,
+      incorrect: 5,
+      total: 12
+    }
+  ];
+
+  this.set('questionsData', questionsData);
+
+  // The minimum width of the items will be that of the container which means that
+  // only one column will be shown
+  this.set('itemMinWidth', $('#ember-testing').css('width').split('px')[0]);
+
+  // Show 2 items per column
+  this.set('numItems', 2);
+
+  this.on('externalAction', function () {
+    assert.ok(true, 'Component calls an external action when the view more button is clicked');
+  });
+
+  this.render(hbs`{{reports/class-assessment/gru-questions-summary
+    data=questionsData
+    itemsPerColumn=numItems
+    itemMinWidth=itemMinWidth
+    onToggleView=(action 'externalAction') }}`);
+
+  const $component = this.$('.reports.class-assessment.gru-questions-summary');
+  assert.equal($component.find('ol li').length, 2, 'Component shows the correct number of items');
+
+  const $viewMoreButton = $component.find('> a');
+  assert.ok($viewMoreButton.length, 'Button to view more questions is visible');
+  assert.ok($viewMoreButton.hasClass('expand'), 'Button should indicate that more questions can be viewed');
+
+  $viewMoreButton.click();
+});
+
+test('it can be forced to show all questions even if the container is not wide enough to show all of them', function (assert) {
+
+  var questionsData = [
+    {
+      id: 1,
+      correct: 3,
+      incorrect: 4,
+      total: 12
+    },
+    {
+      id: 2,
+      correct: 6,
+      incorrect: 2,
+      total: 12
+    },
+    {
+      id: 3,
+      correct: 4,
+      incorrect: 5,
+      total: 12
+    }
+  ];
+
+  this.set('questionsData', questionsData);
+
+  // The minimum width of the items will be that of the container which means that
+  // only one column will be shown
+  this.set('itemMinWidth', $('#ember-testing').css('width').split('px')[0]);
+
+  // Show 2 items per column
+  this.set('numItems', 2);
+
+  // Control whether all questions should be visible or not
+  this.set('viewAllQuestions', false);
+
+  this.render(hbs`{{reports/class-assessment/gru-questions-summary
+    data=questionsData
+    itemsPerColumn=numItems
+    itemMinWidth=itemMinWidth
+    isExpanded=viewAllQuestions }}`);
+
+  const $component = this.$('.reports.class-assessment.gru-questions-summary');
+  assert.equal($component.find('ol li').length, 2, 'Component shows the correct number of items');
+
+  const $viewMoreButton = $component.find('> a');
+  assert.ok($viewMoreButton.length, 'Button to view more questions is visible');
+  assert.ok($viewMoreButton.hasClass('expand'), 'Button should indicate that more questions can be viewed');
+
+  this.set('viewAllQuestions', true);
+  assert.equal($component.find('ol li').length, 3, 'Component shows all the items');
+  assert.ok($viewMoreButton.hasClass('collapse'), 'Button should indicate that less questions can be viewed');
+
+  // Setting the variable back to false should restore back to the original state
+  this.set('viewAllQuestions', false);
+  assert.equal($component.find('ol li').length, 2, 'Component correctly reduces the number of items visible');
+  assert.ok($viewMoreButton.hasClass('expand'), 'Button should indicate again that more questions can be viewed');
+});
+
+test('it calls an external action when any of the questions is clicked', function (assert) {
+  assert.expect(2);
+
+  var numClicks = 1;
+
+  var questionsData = [
+    {
+      id: 1,
+      correct: 3,
+      incorrect: 4,
+      total: 12
+    },
+    {
+      id: 2,
+      correct: 6,
+      incorrect: 2,
+      total: 12
+    },
+    {
+      id: 3,
+      correct: 4,
+      incorrect: 5,
+      total: 12
+    }
+  ];
+
+  this.set('questionsData', questionsData);
+
+  this.on('externalAction', function (itemId) {
+    if (numClicks === 1) {
+      assert.equal(itemId, '3', 'First click: correct item id is sent');
+      numClicks++;
+    } else {
+      assert.equal(itemId, '1', 'Second click: correct item id is sent');
+    }
+  });
+
+  this.render(hbs`{{reports/class-assessment/gru-questions-summary
+    data=questionsData
+    onSelectQuestion=(action 'externalAction') }}`);
+
+  const $component = this.$('.reports.class-assessment.gru-questions-summary');
+  $component.find('li:last > a').click();
+  $component.find('li:first > a').click();
 });

@@ -24,6 +24,6 @@ test('Stacked horizontal bar chart layout', function (assert) {
   const $horizontalBarChart = $component.find(".gru-x-bar-chart");
 
   T.exists(assert, $horizontalBarChart, 'Missing stacked horizontal bar chart component');
-  assert.equal($horizontalBarChart.find('.segment:nth-child(1)').attr("style"), "background-color: " + data[0].color + ";width: " + data[0].percentage + "%;", "Incorrect width and color for the first segment");
-  assert.equal($horizontalBarChart.find('.segment:nth-child(2)').attr("style"), "background-color: " + data[1].color + ";width: " + data[1].percentage + "%;", "Incorrect width and color for the second segment");
+  assert.equal($horizontalBarChart.find('.segment:nth-child(1)').attr("style"), "background-color: " + data[0].color + "; width: " + data[0].percentage + "%;", "Incorrect width and color for the first segment");
+  assert.equal($horizontalBarChart.find('.segment:nth-child(2)').attr("style"), "background-color: " + data[1].color + "; width: " + data[1].percentage + "%;", "Incorrect width and color for the second segment");
 });
