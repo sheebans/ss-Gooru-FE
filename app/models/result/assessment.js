@@ -1,5 +1,6 @@
 import Ember from "ember";
-import { average } from "gooru-web/utils/math";
+
+import { averageReaction,correctAnswers,correctPercentage,totalTimeSpent } from 'gooru-web/utils/question-details-result';
 
 /**
  * Model for a group of questions that were answered by a user during one attempt to complete an assessment.
@@ -54,63 +55,33 @@ export default Ember.Object.extend({
    * Average user reaction to the questions in the assessment
    * @prop {Number} averageReaction
    */
-  averageReaction: Ember.computed('questionsResults.[]', function () {
-    var reactions = this.get('questionsResults').map(function (questionResult) {
-      return questionResult.reaction;
-    });
-    return Math.round(average(reactions));
+  averageReaction: Ember.computed(function(){
+      return averageReaction(this.get('questionsResults'));
   }),
 
   /**
    * Number of questions answered correctly in this attempt
    * @prop {Number}
    */
-  correctAnswers: Ember.computed('questionsResults.[]', function () {
-    var results = this.get('questionsResults');
-    var correct = 0;
-
-    if (results.length) {
-      correct = results.map(function (questionResult) {
-        return questionResult.correct ? 1 : 0;
-      })
-        .reduce(function (a, b) {
-          return a + b;
-        });
-    }
-    return correct;
+  correctAnswers:Ember.computed(function(){
+    return correctAnswers(this.get('questionsResults'));
   }),
+
 
   /**
    * Percentage of correct answers vs. the total number of questions
    * @prop {Number}
    */
-  correctPercentage: Ember.computed('questionsResults.[]', function () {
-    var totalQuestions = this.get('questionsResults').length;
-    var percentage = 0;
-
-    if (totalQuestions) {
-      percentage = Math.round(this.get('correctAnswers') / totalQuestions * 100);
-    }
-    return percentage;
+  correctPercentage:Ember.computed(function(){
+    return correctPercentage(this.get('questionsResults'),this.get('correctAnswers'));
   }),
 
   /**
    * Total number of seconds spent completing the current attempt
    * @prop {Number}
    */
-  totalTimeSpent: Ember.computed('questionsResults.[]', function () {
-    var results = this.get('questionsResults');
-    var time = 0;
-
-    if (results.length) {
-      time = results.map(function (questionResult) {
-        return questionResult.timeSpent;
-      })
-        .reduce(function (a, b) {
-          return a + b;
-        });
-    }
-    return time;
-  })
+  totalTimeSpent:Ember.computed(function(){
+    return totalTimeSpent(this.get('questionsResults'));
+  }),
 
 });

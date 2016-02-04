@@ -13,7 +13,7 @@ export default Ember.Controller.extend({
 
       QuestionDetailsResult.create({
         id: 601,
-        question: Ember.Object.create({
+        resource: Ember.Object.create({
           questionType: 'MC',
           text: 'Sample Question MC',
           hints: [],
@@ -34,7 +34,7 @@ export default Ember.Controller.extend({
 
       QuestionDetailsResult.create({
         id: 602,
-        question: Ember.Object.create({
+        resource: Ember.Object.create({
           questionType: 'MC',
           text: 'Sample Question MC',
           hints: [],
@@ -56,7 +56,7 @@ export default Ember.Controller.extend({
       QuestionDetailsResult.create({
         id: 603,
         attempt: 1104,
-        question: Ember.Object.create({
+        resource: Ember.Object.create({
           questionType: 'OE',
           text: 'Sample Question OE',
           hints: [],
@@ -73,7 +73,7 @@ export default Ember.Controller.extend({
 
       QuestionDetailsResult.create({
         id: 604,
-        question: Ember.Object.create({
+        resource: Ember.Object.create({
           questionType: 'T/F',
           text: 'True False Question',
           hints: [],
@@ -93,7 +93,7 @@ export default Ember.Controller.extend({
 
       QuestionDetailsResult.create({
         id: 605,
-        question: Ember.Object.create({
+        resource: Ember.Object.create({
           questionType: 'HT_RO',
           text: 'Reorder Question',
           hints: [],
@@ -115,7 +115,7 @@ export default Ember.Controller.extend({
 
       QuestionDetailsResult.create({
         id: 606,
-        question: Ember.Object.create({
+        resource: Ember.Object.create({
           questionType: 'FIB',
           text: 'The sun is _______ and the moon _______',
           hints: [],
@@ -176,7 +176,7 @@ export default Ember.Controller.extend({
 
       QuestionDetailsResult.create({
         id: 609,
-        question: Ember.Object.create({
+        resource: Ember.Object.create({
           questionType: 'HT_HL',
           text: '<p>Seleccione las palabras escritas incorrectamente</p>',
           hints: [],
@@ -193,7 +193,7 @@ export default Ember.Controller.extend({
 
       QuestionDetailsResult.create({
         id: 610,
-        question: Ember.Object.create({
+        resource: Ember.Object.create({
           questionType: 'HS_IMG',
           text: 'Sample Question HS_IMG',
           hints: [],
@@ -214,7 +214,7 @@ export default Ember.Controller.extend({
 
       QuestionDetailsResult.create({
         id: 611,
-        question: Ember.Object.create({
+        resource: Ember.Object.create({
           questionType: 'HS_TXT',
           text: 'Sample Question HS_TXT',
           hints: [],
@@ -245,30 +245,35 @@ export default Ember.Controller.extend({
         suggestedResources: [
 
           ResourceResult.create({
-            title: "Learn the MEAN Stack",
-            resourceType: "video/youtube",
-            reaction: 2,
+            resource:{
+              title: "Learn the MEAN Stack",
+              resourceType: "video/youtube"
+            },
+            reaction: 4,
             timeSpent: 2841
           }),
           ResourceResult.create({
-            resourceType:"video/youtube",
-            title:"Learn the MEAN Stack",
+            resource:{
+              resourceType:"video/youtube",
+              title:"Learn the MEAN Stack"
+            },
             reaction: 0,
             timeSpent: 12345
           }),
           ResourceResult.create({
-            resourceType:"video/youtube",
-            title:"Learn the MEAN Stack",
-            reaction: 2,
+            resource:{
+              resourceType:"video/youtube",
+              title:"Learn the MEAN Stack"
+            },
+            reaction: 4,
             timeSpent: 2841
           }),
           QuestionDetailsResult.create({
-            resourceType:"question",
-            title: "Question with a very long name",
-            question: {
+            resource:{
+              resourceType:"question",
+              title: "Question with a very long name",
               text: "Question with a very long name",
-              questionType: 'FIB'
-            },
+              questionType: 'FIB'},
             reaction: 4,
             timeSpent: 2341
           })
@@ -284,8 +289,10 @@ export default Ember.Controller.extend({
         suggestedResources: [
 
           ResourceResult.create({
-            title: "Learn the MEAN Stack",
-            resourceType: "video/youtube",
+            resource:{
+              title: "Learn the MEAN Stack",
+              resourceType: "video/youtube"
+            },
             reaction: 2,
             timeSpent: 2841
           })
@@ -301,9 +308,11 @@ export default Ember.Controller.extend({
         suggestedResources: [
 
           ResourceResult.create({
-            title: "Learn the MEAN Stack",
-            resourceType: "video/youtube",
-            reaction: 2,
+            resource:{
+              title: "Learn the MEAN Stack",
+              resourceType: "video/youtube"
+            },
+            reaction: 4,
             timeSpent: 2841
           })
         ]

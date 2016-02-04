@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+import { correctAnswers,correctPercentage } from 'gooru-web/utils/question-details-result';
+
 /**
  * Learning Target Component
  *
@@ -48,34 +50,61 @@ export default Ember.Component.extend({
    * Concise model to be used by the gru-bubbles component
    * @prop {Object[]}
    */
-    questions:Ember.computed('learningTarget', function() {
-      return this.getQuestions(this.get("assessmentResult.questionsResults"));
+    bubbleQuestions:Ember.computed('learningTarget.relatedQuestions.[]', 'assessmentResult.questionsResults.[]', function() {
+      return this.getBubblesQuestions(this.get("assessmentResult.questionsResults"));
     }),
+  /**
+   * List of questions
+   * @prop {Ember.Array}
+   */
+    questionsList:Ember.computed(function(){
+       return this.getQuestions(this.get("assessmentResult.questionsResults"));
+    }),
+  /**
+   * Number of questions answered correctly in this attempt
+   * @prop {Number}
+   */
+  correctAnswers:Ember.computed(function(){
+    return correctAnswers(this.get('questionsList'));
+  }),
+
+
+  /**
+   * Percentage of correct answers vs. the total number of questions
+   * @prop {Number}
+   */
+  correctPercentage:Ember.computed(function(){
+    return correctPercentage(this.get('questionsList'),this.get('correctAnswers'));
+  }),
+
 
   // -------------------------------------------------------------------------
   // Methods
 
   /**
    * Return a list of questions associated a specific learning target to be used by the gru-bubbles component
-   * @prop {Object[]}
+   * @param QuestionDetailsResult[]
    */
-  getQuestions: function (questionResults) {
-    var questions = [];
-    let relatedQuestions=this.get('learningTarget.relatedQuestions');
+  getBubblesQuestions: function (questionResults) {
 
-    relatedQuestions.forEach(function(questionId){
-      let question=questionResults.findBy('id',questionId);
-      if(question!=null){
-        questions.push(question);
-      }
-    });
-    return questions.map(function (questionResult) {
+    let results = this.getQuestions(questionResults);
+
+    return results.map(function (questionResult) {
       return {
-        label: questionResult.question.order,
+        label: questionResult.get('question.order'),
         status: questionResult.correct ? 'correct' : 'incorrect',
         value: questionResult.id
       };
     });
+  },
+
+  getQuestions:function(questionResults){
+    let relatedQuestions= this.get('learningTarget.relatedQuestions');
+
+    let questions = questionResults.filter(function(questionResult){
+      return relatedQuestions.contains(questionResult.get("id"));
+    });
+    return questions;
   }
 
 });

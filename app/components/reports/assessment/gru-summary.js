@@ -70,7 +70,7 @@ export default Ember.Component.extend({
   getResourceLinks: function (questionResults) {
     return questionResults.map(function (questionResult) {
       return {
-        label: questionResult.question.order,
+        label: questionResult.get('question.order'),
         status: questionResult.correct ? 'correct' : 'incorrect',
         value: questionResult.id
       };

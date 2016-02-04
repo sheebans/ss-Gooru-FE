@@ -1,17 +1,32 @@
 .reports.assessment.gru-learning-target {
   .header-content{
-    height: 68px;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
     border-bottom: 1px solid $color-gray-lighter-11;
-    .score, .standard, .learning-target-description, .questions{
-      float:left;
-      height: 100%;
+    .standard{
+      width:10%;
+      min-width: 75px;
+    }
+    .questions{
+      width:26%;
+      min-width: 110px;
+    }
+    .learning-target-description{
+      flex:1;
     }
     .score {
+      width: 5em;
+      position: relative;
       div{
-        background-color: #0000FF;
-        width: 70px;
-        height: 100%;
         padding:0;
+        text-align: center;
+        font-weight: bold;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        margin-top: -0.5em;
       }
     }
 
@@ -19,8 +34,11 @@
     .standard, .learning-target-description {
       border-right:  1px solid $color-gray-lighter-11;
       span{
-        padding-top: 10px;
+        padding: 10px 0 10px 0;
       }
+    }
+    .learning-target-description{
+      width: 60%;
     }
   }
   .standard, .learning-target-description,.questions,.resource-cards-section{
@@ -31,7 +49,6 @@
     strong{
       font-size: $font-size-small;
       font-weight: normal;
-      color: #777777;
     }
   }
   .resource-cards-section{

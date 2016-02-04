@@ -1,6 +1,6 @@
 <div class="header-content">
-    <div class="score">
-         <div></div>
+    <div class="score"  style="background-color: {{gradeColor correctPercentage}}">
+         <div><span>{{correctPercentage}}%</span></div>
     </div>
     <div class="standard">
         <strong>Standard</strong>
@@ -12,7 +12,7 @@
     </div>
     <div class="questions">
         <strong>Questions</strong>
-        {{gru-bubbles bubbleOptions=questions onBubbleSelect='bubbleSelect'}}
+        {{gru-bubbles bubbleOptions=bubbleQuestions onBubbleSelect='bubbleSelect'}}
     </div>
 </div>
 <div class="resource-cards-section">
