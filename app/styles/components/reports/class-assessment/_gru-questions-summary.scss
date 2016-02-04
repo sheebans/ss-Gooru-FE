@@ -77,12 +77,12 @@
 
     &.expand {
       border-width: $view-more-button-width 0 $view-more-button-width ($view-more-button-width - 1em);
-      border-color: transparent transparent transparent $color-gray-lighter-11;
+      border-color: transparent transparent transparent $gray-lighter;
     }
 
     &.collapse {
       border-width: $view-more-button-width ($view-more-button-width - 1em) $view-more-button-width 0;
-      border-color: transparent $color-gray-lighter-11 transparent transparent;
+      border-color: transparent $gray-lighter transparent transparent;
       display: block;
     }
   }
