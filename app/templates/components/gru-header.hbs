@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12">
-      <nav class="navbar navbar-default">
+      <nav class="navbar navbar-default row">
         <div class="navbar-header">
             {{#link-to 'index' class="navbar-brand home-link"}}  {{/link-to}}
         </div>
@@ -21,9 +21,9 @@
           <ul class="nav navbar-nav menu-navbar">
             {{#if session.isAnonymous}}
               <li class="navbar-nav-list">
-                <a href="#" class="navbar-link login-link login-modal" {{action "showModal" "gru-sign-in"}}>
+                <button class="btn btn-info navbar-btn login-link login-modal" {{action "showModal" "gru-sign-in"}}>
                   {{t "common.login"}}
-                </a>
+                </button>
               </li>
               <li class="hidden-sm navbar-nav-list no-hover">
                 <button
@@ -41,6 +41,9 @@
                     <span class="username">{{session.userData.username}}</span>
                 {{/link-to}}
               </li>
+                <li class="navbar-nav-list">
+                    <a class="navbar-link" {{action "logout"}}> {{t "common.logout"}}</a>
+                </li>
             {{/if}}
           </ul>
         </div>

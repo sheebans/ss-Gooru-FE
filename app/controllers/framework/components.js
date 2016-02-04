@@ -140,7 +140,7 @@ export default Ember.Controller.extend(SessionMixin, {
   }),
 
   resource: ResourceResult.create({
-    resourceFormat:"interaction",
+    resourceFormat:"interactive",
     title: "Ember",
     timeSpent: 0
   }),
