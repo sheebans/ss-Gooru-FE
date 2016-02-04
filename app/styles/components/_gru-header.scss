@@ -88,7 +88,7 @@
           float: right;
         }
         .navbar-nav-list {
-          color: $color-white;
+          color: $white;
           cursor: pointer;
           padding: 0 10px;
           max-height: 45px;
@@ -115,7 +115,7 @@
             -webkit-background-size: contain;
             background-size: contain;
             border-radius: 50px;
-            box-shadow: 0 0 0 2px $color-blue-lighter-2;
+            box-shadow: 0 0 0 2px $brand-primary;
             width: 30px;
             height: 30px;
             display: block;

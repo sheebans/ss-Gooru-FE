@@ -2,15 +2,14 @@
   > strong {
     padding: 15px 10px;
     text-align: center;
-    font-family: "Arvo", serif !important;
-    border-bottom: 4px solid $color-white;
+    border-bottom: 4px solid $white;
     font-size: $font-size-large;
     font-weight: 600;
-    color: $color-white;
+    color: $white;
     display: block;
   }
   > div {
-    color: $color-gray-secondary;
+    color: $gray;
     background: $gru-category-panel-bg;
     padding: 15px 15px;
     min-height: 190px;
@@ -25,7 +24,7 @@
 
       a {
         width: 100%;
-        color: $color-white;
+        color: $white;
       }
     }
   }

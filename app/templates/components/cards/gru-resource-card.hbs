@@ -1,22 +1,18 @@
 <div class="resource-details">
     <div class="card-icon">
-      {{#if item.question }}
+      {{#if item.resource.isQuestion }}
           <i class="question-icon"></i>
-
       {{else}}
-          <i class="{{item.resourceFormat}}-icon"></i>
+          <i class="{{item.resource.resourceFormat}}-icon"></i>
       {{/if}}
-
     </div>
     <div class="resource-description">
-      {{#if item.question }}
-        <span class="title">{{item.question.text}}</span>
-
-        <p class="format">{{t (concat 'common.question-type.' item.question.questionType) }}</p>
+      {{#if item.resource.isQuestion }}
+        <span class="title">{{item.resource.text}}</span>
+        <p class="format">{{t (concat 'common.question-type.' item.resource.questionType) }}</p>
       {{else}}
-        <span class="title">{{item.title}}</span>
-
-        <p class="format">{{t (concat 'common.resource-format.' item.resourceFormat) }}</p>
+        <span class="title">{{item.resource.title}}</span>
+        <p class="format">{{t (concat 'common.resource-format.' item.resource.resourceFormat) }}</p>
       {{/if}}
     </div>
 </div>

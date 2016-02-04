@@ -1,0 +1,25 @@
+<div class="header-content">
+    <div class="score"  style="background-color: {{gradeColor correctPercentage}}">
+         <div><span>{{correctPercentage}}%</span></div>
+    </div>
+    <div class="standard">
+        <strong>{{t "common.standard"}}</strong>
+        <span>{{learningTarget.standard}}</span>
+    </div>
+    <div class="learning-target-description">
+        <strong>{{t "common.learning-target"}}</strong>
+        <span>{{learningTarget.description}}</span>
+    </div>
+    <div class="questions">
+        <strong>{{t "common.questions"}}</strong>
+        {{gru-bubbles bubbleOptions=bubbleQuestions onBubbleSelect='bubbleSelect'}}
+    </div>
+</div>
+<div class="resource-cards-section">
+    <strong>{{t "common.suggested-resources"}}</strong>
+  <div class="resource-card-list">
+    {{#each learningTarget.suggestedResources as |resource|}}
+      {{cards.gru-resource-card item=resource }}
+    {{/each}}
+  </div>
+</div>

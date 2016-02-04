@@ -18,7 +18,7 @@
     }
     .hamburger-icon {
       font-size: 2.45rem;
-      color: $color-gray-secondary;
+      color: $gray;
       cursor: pointer;
       margin: 0 10px 0 0;
     }
@@ -35,15 +35,15 @@
       left: 24px;
       width: 5px;
       height: 90%;
-      background-color: $color-gray-lighter-9;
+      background-color: $gray-lighter;
       z-index: 1;
     }
     li {
       list-style: none;
       border-radius: 0;
       border: 0;
-      border-top: 1px solid $color-gray-lighter-10;
-      background-color: $color-gray-lighter-6;
+      border-top: 1px solid $gray-lighter;
+      background-color: $gray-lighter;
       min-height: 65px;
       overflow: hidden;
       padding: 0 0 0 5px;
@@ -55,7 +55,7 @@
         position: relative;
         .bubble-type {
           border-radius: 50px;
-          box-shadow: 0 0 0 1px $color-gray-lighter-9;
+          box-shadow: 0 0 0 1px $gray-lighter;
           background: #FFF url("gooru/resource-collection-icons.png") no-repeat scroll 0 0;
           background-size: 300px 228px;
           float: left;
@@ -98,8 +98,8 @@
       }
     }
     li.selected {
-      background-color: $color-blue-primary;
-      color: $color-gray-primary;
+      background-color: $brand-primary;
+      color: $gray-dark;
     }
   }
 }

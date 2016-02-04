@@ -1,7 +1,4 @@
 .index {
-   h2 {
-    font-family: "Arvo";
-  }
 
   .hero {
     background: url('gooru/hero.png') no-repeat;
@@ -11,7 +8,7 @@
 
   .browse-content{
     border-radius:4px;
-    border: 1px solid $color-blue-lighter-4;
+    border: 1px solid $brand-primary;
     margin-top: -247px;
     @media (min-width: $screen-md-min)
     {
@@ -30,7 +27,7 @@
 
     .title{
       div{
-        border:1px solid $color-gray-lighter-2;
+        border:1px solid $gray-lighter;
         border-top-left-radius:4px;
         border-top-right-radius:4px;
       }
@@ -41,30 +38,15 @@
     padding-bottom: 50px;
   }
 
-  h1 {
-    color: $color-white;
-    font-weight: bolder;
-    text-align: center;
-    font-size: 45px;
-    font-family: "Arvo";
-    @media (min-width: $screen-md-min)
-    {
-      font-size: 61px;
-    }
-  }
   .free_and_open{
     background: url('gooru/free-to-open-banner.png') no-repeat;
     height: 385px;
-    h1{
-      font-size: 44px;
-    }
     .free_and_open_descrip{
-      background: $color-white;
+      background: $white;
       border-radius: 4px 4px;
       opacity: .75;
       p{
-        color: $color-black;
-        font-family: "Arvo";
+        color: $gray-base;
       }
     }
     .free_and_open_button{
@@ -73,18 +55,8 @@
       }
     }
   }
-  .empowerStudents{
-    h2,p,h3{
-      font-family: "Arvo";
-    }
-    h2,h3{
-      font-weight: bold;
-      margin-bottom: 0px
-    }
-    h3{
-      color:$color-gray-secondary;
-    }
-    .empowerSprite{
+  .empowerStudents {
+    .empowerSprite {
       min-height: 158px;
       width: 187px;
       display: inline-block;
@@ -113,7 +85,7 @@
 
     p{
       font-size: 15px;
-      color: $color-gray-secondary;
+      color: $gray;
     }
     .events{
       position:absolute;

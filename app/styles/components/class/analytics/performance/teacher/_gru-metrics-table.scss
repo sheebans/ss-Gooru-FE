@@ -19,7 +19,7 @@
       max-height: 545px;
     }
     thead > tr:first-child > th {
-      border-top: 1px solid $color-gray-lighter-2 ;
+      border-top: 1px solid $gray-lighter ;
     }
     thead > tr:first-child > td {
       border: 0;
@@ -55,7 +55,7 @@
       height: 68px;
       display: table-cell;
       vertical-align: middle;
-      border-right: 1px solid $color-gray-lighter-2 ;
+      border-right: 1px solid $gray-lighter ;
 
       &.completion .gru-radial-chart {
         width: 50px;
@@ -67,41 +67,41 @@
       max-width: 81px;
     }
     th.header {
-      background-color: $color-gray-lighter-7;
-      border-top: 1px solid $color-gray-lighter-2 ;
+      background-color: $gray-lighter;
+      border-top: 1px solid $gray-lighter ;
     }
     .sub-header {
       th {
         height: 30px;
         font-size: $font-size-xsmall;
-        color: $color-gray-secondary;
+        color: $gray;
         .table-cell {
           height: 30px;
          }
       }
       th:first-child{
-        border-left: 2px solid $color-gray-lighter-2 ;
+        border-left: 2px solid $gray-lighter ;
       }
     }
     .bad {
       background-color: $gru-scale-indicator-bad;
-      color: $color-white;
+      color: $white;
     }
     .regular {
       background-color: $gru-scale-indicator-regular;
-      color: $color-white;
+      color: $white;
     }
     .good {
       background-color: $gru-scale-indicator-good;
-      color: $color-white;
+      color: $white;
     }
     .very-good {
       background-color: $gru-scale-indicator-very-good;
-      color: $color-white;
+      color: $white;
     }
     .excellent {
       background-color: $gru-scale-indicator-excellent;
-      color: $color-white;
+      color: $white;
     }
   }
 }

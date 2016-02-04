@@ -15,19 +15,22 @@ export default Ember.Object.extend({
   reaction: 0,
 
   /**
-   * Indicates the resource type. i.e video/youtube, assessment-question, image/png
-   * @property {string} resource type
-   */
-  resourceType: '',
-
-  /**
    * @property {number} timeSpent - Time in seconds that it took the user to answer the question
    */
   timeSpent: 0,
 
-  /**
-   * @property {string} title - Resource title
-   */
-  title: ''
+
+  resource:{
+    /**
+     * Indicates the resource type. i.e video/youtube, assessment-question, image/png
+     * @property {string} resource type
+     */
+    resourceType: '',
+
+    /**
+     * @property {string} title - Resource title
+     */
+    title: ''
+  }
 
 });

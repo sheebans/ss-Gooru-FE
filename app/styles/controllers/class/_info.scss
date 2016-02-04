@@ -10,13 +10,13 @@
   }
   .profile-card{
     div{
-      border: 1px solid $color-gray-4;
+      border: 1px solid $gray;
       width:137px;
       height: 92px;
     }
   }
   .class-details {
-    border-bottom: 1px solid $color-gray-4;
+    border-bottom: 1px solid $gray;
     .subject,.grade,.code,.description{
       p{
         float:left;
@@ -27,7 +27,7 @@
       font-weight: bold;
     }
     .code {
-      border: 1px solid $color-gray-4;
+      border: 1px solid $gray;
       width: 100%;
       min-height: 50px;
       display: flex;

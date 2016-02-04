@@ -14,7 +14,7 @@
           padding: 4px;
           width: auto;
           max-height: 100%;
-          background-color: $color-white;
+          background-color: $white;
         }
       }
       span.selected {
@@ -23,10 +23,10 @@
         height: $image-side + 4px;
       }
       span.selected.correct{
-        border-color: $color-answer-correct;
+        border-color: $brand-success;
       }
       span.selected.incorrect{
-        border-color: $color-answer-incorrect;
+        border-color: $brand-incorrect;
       }
     }
   }

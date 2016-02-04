@@ -15,7 +15,9 @@
       list-style: none;
       margin: 0;
       padding: 0;
-      border-right: 1px solid $color-gray-lighter-2;
+      overflow: hidden;
+      float: left;
+      border-right: 1px solid $gray-lighter;
       padding-right: 20px;
 
       > li {

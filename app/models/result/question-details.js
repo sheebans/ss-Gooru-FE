@@ -1,4 +1,4 @@
-//import DS from "ember-data";
+import Ember from 'ember';
 import ResourceResult from 'gooru-web/models/result/resource';
 
 /**
@@ -18,41 +18,7 @@ export default ResourceResult.extend({
   /**
    * @property {Object} question
    */
-  question: {
-
-    /**
-     * @property {string} questionType
-     * @example
-     * 'MC', 'MA'
-     */
-    questionType: null,
-
-    /**
-     * @property {string} text - Question text
-     */
-    text: '',
-
-    /**
-     * @property {string[]} hints - Hints for the question
-     */
-    hints: [],
-
-    /**
-     * @property {string} explanation - Explanation for the question
-     */
-    explanation: '',
-
-    /**
-     * @property {Object[]} answers - Answer choices for the question
-     */
-    answers: [],
-
-    /**
-     * @property {boolean} order - What is the position of the question in the assessment?
-     */
-    order: 0
-
-  },
+  question: Ember.computed.alias('resource'),
 
   /**
    * @property {number} score - Question score
