@@ -7,10 +7,10 @@
       position:relative;
 
       span.correct{
-        color:$color-answer-correct;
+        color:$brand-success;
       }
       span.incorrect{
-        color:$color-answer-incorrect;
+        color:$brand-incorrect;
       }
     }
     li span.answer-text{

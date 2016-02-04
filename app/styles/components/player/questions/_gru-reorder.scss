@@ -6,7 +6,7 @@
 
   .ui-sortable-handle {
     position:relative;
-    border: 1px dashed $color-gray-lighter-2;
+    border: 1px dashed $gray-lighter;
     margin-top: 10px;
 
     i {
@@ -14,7 +14,7 @@
       top: 50%;
       left: 12px;
       margin-top: -8px;
-      color: $color-gray-lighter-2;
+      color: $gray-lighter;
     }
 
     div {
@@ -29,6 +29,6 @@
   }
 
   .ui-sortable-helper {
-    background-color: $color-gray-lighter-1;
+    background-color: $gray-lighter;
   }
 }

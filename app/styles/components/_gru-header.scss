@@ -4,10 +4,10 @@
   width:100%;
   z-index:98;
   height:100px;
-  background:-webkit-linear-gradient(top,$color-gray-secondary,$color-gray-primary);
-  background:-moz-linear-gradient(top,$color-gray-secondary,$color-gray-primary);
-  background:-ms-linear-gradient(top,$color-gray-secondary,$color-gray-primary);
-  background:-o-linear-gradient(top,$color-gray-secondary,$color-gray-primary);
+  background:-webkit-linear-gradient(top,$gray,$gray-dark);
+  background:-moz-linear-gradient(top,$gray,$gray-dark);
+  background:-ms-linear-gradient(top,$gray,$gray-dark);
+  background:-o-linear-gradient(top,$gray,$gray-dark);
   @media (min-width: $screen-sm) {
     height:50px;
   }
@@ -50,7 +50,7 @@
       .navbar-text,
       button,
       a {
-        color: $color-white;
+        color: $white;
       }
 
       .menu-navbar {
@@ -65,20 +65,20 @@
           &:hover,
           &:active,
           &:visited{
-            color: $color-white;
+            color: $white;
           }
         }
 
         .navbar-nav-list {
-          color: $color-white;
+          color: $white;
           cursor: pointer;
           padding: 0 10px;
           max-height: 45px;
           overflow: hidden;
           &:hover,
           &:active {
-            background-color: $color-gray-primary-hover;
-            color: $color-white;
+            background-color: $gray-darker;
+            color: $white;
           }
           @media (max-width: $screen-sm) {
             float: left;
@@ -87,7 +87,7 @@
         }
 
         .border-right {
-          border-right: 1px solid $color-gray-4;
+          border-right: 1px solid $gray;
         }
 
         .no-hover {
@@ -111,7 +111,7 @@
             -webkit-background-size: contain;
             background-size: contain;
             border-radius: 50px;
-            box-shadow: 0 0 0 2px $color-blue-lighter-2;
+            box-shadow: 0 0 0 2px $brand-primary;
             width: 30px;
             height: 30px;
             display: block;

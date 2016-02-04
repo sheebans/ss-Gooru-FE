@@ -76,10 +76,10 @@
           }
           span {
             &.collection-or-assessment-is-completed i{
-              color:$color-blue-primary;
+              color:$brand-primary;
             }
             i{
-              color:$color-gray-lighter-12;
+              color:$gray-lighter;
             }
           }
 
@@ -112,14 +112,14 @@
               clip: rect(0px, $performance-circle-size, $performance-circle-size, $performance-circle-size/2);
               .fill {
                 clip: rect(0px, $performance-circle-size/2, $performance-circle-size, 0px);
-                background-color: $color-blue-primary;
+                background-color: $brand-primary;
               }
             }
           }
         }
       }
       span, a{
-        color:$color-gray-6;
+        color:$gray-light;
       }
     }
 
