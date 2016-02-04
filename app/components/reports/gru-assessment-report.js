@@ -47,7 +47,7 @@ export default Ember.Component.extend({
    */
   orderedQuestions: Ember.computed('assessmentResult.questionsResults[]', function() {
     return this.get('assessmentResult.questionsResults').sort(function(a, b){
-      return a.resource.order-b.resource.order;
+      return a.get('question.order')-b.get('question.order');
     });
   }),
 });
