@@ -73,7 +73,7 @@ export default Ember.Component.extend({
    * Percentage of correct answers vs. the total number of questions
    * @prop {Number}
    */
-  correctPercentage:Ember.computed('questionsList.[]','correctAnswer.[]',function(){
+  correctPercentage:Ember.computed('questionsList.[]','correctAnswers.[]',function(){
     return correctPercentage(this.get('questionsList'),this.get('correctAnswers'));
   }),
 
