@@ -93,7 +93,7 @@ export default Ember.Component.extend({
       return {
         label: questionResult.get('question.order'),
         status: questionResult.get('correct') ? 'correct' : 'incorrect',
-        value: questionResult.id
+        value: questionResult.get('id')
       };
     });
   },
