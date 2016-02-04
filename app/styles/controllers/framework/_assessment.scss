@@ -1,0 +1,7 @@
+.controller.assessment{
+  width: 62%;
+  margin: 0 auto;
+  @media (max-width: $screen-xs-max) { /* only for phone */
+    width: 100%;
+  }
+}
