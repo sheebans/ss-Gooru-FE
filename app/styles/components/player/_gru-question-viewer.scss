@@ -8,7 +8,7 @@
 
   .question-panel > h2,
   .answers-panel > h2 {
-    color: $color-gray-primary;
+    color: $gray-dark;
   }
 
   p {
@@ -51,7 +51,7 @@
     .gru-reorder {
       .instructions {
         font-style: italic;
-        color: $color-gray-lighter-3;
+        color:  $gray-light;
       }
     }
 
@@ -95,8 +95,8 @@
       }
     }
     > .explanation {
-      border-top: 1px solid $color-gray-lighter-9;
-      color: $branding-primary-1;
+      border-top: 1px solid $gray-lighter;
+      color: $brand-primary;
       padding: 15px 30px;
       margin-top: 15px;
     }

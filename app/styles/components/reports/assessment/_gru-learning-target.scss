@@ -3,7 +3,7 @@
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
-    border-bottom: 1px solid $color-gray-lighter-11;
+    border-bottom: 1px solid $gray-lighter;
     .standard{
       width:10%;
       min-width: 75px;
@@ -32,7 +32,7 @@
 
 
     .standard, .learning-target-description {
-      border-right:  1px solid $color-gray-lighter-11;
+      border-right:  1px solid $gray-lighter;
       span{
         padding: 10px 0 10px 0;
       }

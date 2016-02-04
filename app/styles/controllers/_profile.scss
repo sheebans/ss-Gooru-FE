@@ -1,6 +1,6 @@
 .controller.profile{
   .navigation{
-    border-right: 1px solid $color-gray-lighter-3;
+    border-right: 1px solid  $gray-light;
     height: 100%;
     padding: 0;
 
@@ -27,7 +27,7 @@
     }
 
     .profile-menu {
-      border-top: 1px solid $color-gray-lighter-3;
+      border-top: 1px solid  $gray-light;
       list-style: none;
       margin: 0;
       padding: 0 0 40px 0;
@@ -43,7 +43,7 @@
         }
 
         &.selected {
-          background-color: $color-gray-lighter-6;
+          background-color: $gray-lighter;
         }
       }
     }
@@ -51,7 +51,7 @@
 
   > .content {
     height: 100%;
-    border-left: 1px solid $color-gray-lighter-3;
+    border-left: 1px solid  $gray-light;
     margin-left: -1px;
     @media (max-width: $screen-xs-max) { /* only for phone */
       padding: 0;

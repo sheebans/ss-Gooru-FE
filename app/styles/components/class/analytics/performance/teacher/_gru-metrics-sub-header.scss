@@ -2,11 +2,11 @@
   .sub-header{
     a{
       cursor: pointer;
-      color:$color-gray-secondary;
+      color:$gray;
       &:hover,
       &:visited {
         text-decoration: none;
-        color:$color-gray-secondary;
+        color:$gray;
       }
     }
   }

@@ -4,35 +4,30 @@ html {
 }
 
 body {
-  color: $color-gray-secondary;
+  color: $text-color;
   -webkit-font-smoothing: antialiased;
 }
 
 h1 {
   font-size: $font-size-h1;
-  color: $color-blue-lighter-1;
   -webkit-font-smoothing: antialiased;
 }
 
 h2 {
   font-size: $font-size-h2;
-  color: $color-gray-secondary;
   -webkit-font-smoothing: antialiased;
 }
 
 h3 {
   font-size: $font-size-h3;
-  color: $color-blue-primary;
   -webkit-font-smoothing: antialiased;
 }
 
 a, button.btn-link {
   cursor: pointer;
-  color: $color-blue-dark-2;
   &:hover,
   &:visited {
     text-decoration: none;
-    color: $color-blue-dark-2;
   }
 }
 .btn {
@@ -44,7 +39,7 @@ button.btn-link {
 
 .validation span.error {
   font-size: $font-size-small;
-  color: $feedback-error;
+  color: $brand-danger;
   display: inline-block;
   margin-top: 4px;
 }
@@ -77,16 +72,16 @@ button.btn-link {
 /* Tooltip styles */
 .tooltip.in,
 .tooltip {
-  background-color: $color-white;
-  color: $color-gray-5;
+  background-color: $white;
+  color: $text-color;
   opacity: 1;
   border-radius: 3px;
-  border: solid 1px $color-gray-lighter-2;
+  border: solid 1px $gray-lighter;
   max-width: 250px;
   .tooltip-inner {
-    color: $color-gray-5;
-    background: $color-white;
-    border: solid 1px $color-white;
+    color: $gray;
+    background: $white;
+    border: solid 1px $gray-lighter;
     max-width: 250px;
     padding: 2px 5px;
     text-align: left;
@@ -96,13 +91,13 @@ button.btn-link {
 .tooltip.bottom .tooltip-arrow {
   border-width: 0 10px 8px;
   top: -7px;
-  border-bottom-color: $color-white;
+  border-bottom-color: $white;
   background-color: transparent;
 }
 
 .tooltip.left .tooltip-arrow {
   right: -5px;
-  border-left-color: $color-white;
+  border-left-color: $white;
 }
 
 /* Bootstrap specific rules */
@@ -135,10 +130,6 @@ button.btn-link {
   padding-left: 0;
 }
 
-.btn-primary, .btn-primary.active {
-  background: -webkit-linear-gradient(top, $color-blue-lighter-1, $color-blue-primary);
-}
-
 .app-container {
   min-height: 400px;
   @media (min-width: $screen-md-min) {
@@ -147,25 +138,25 @@ button.btn-link {
 }
 
 .text-white {
-  color: $color-white;
+  color: $white;
 }
 .bg-gray{
-  background-color:$color-gray-lighter-4;
+  background-color: $gray
 }
 .bg-gray-light{
-  background-color: $color-gray-lighter-5;
+  background-color: $gray-light;
 }
 .bg-gray-light-2{
-  background-color: $color-gray-lighter-7;
+  background-color: $gray-lighter;
 }
 .bg-blue {
-  background-color: $color-blue-lighter-3;
+  background-color: $brand-primary;
 }
 .bg-white{
-  background-color: $color-white;
+  background-color: $white;
 }
 .text-blue{
-  color:$color-blue-primary;
+  color:$brand-primary;
 }
 .italic{
   font-style: italic;
@@ -175,11 +166,11 @@ button.btn-link {
   display: inline-block;
   background: url('gooru/resource-collection-icons.png') no-repeat 0 0;
   background-size: 385px 293px;
-  background-color: $color-white;
+  background-color: $white;
   width: 39px;
   height: 39px;
   border-radius: 50%;
-  border: 1px solid $color-gray-lighter-11;
+  border: 1px solid $gray-lighter;
   cursor: pointer;
   &.small{
     background-size: 226px 165px;
@@ -255,7 +246,7 @@ button.btn-link {
   background: url('gooru/questionmark.png') no-repeat;
 }
 .border-gray{
-  border-right: 1px solid $color-gray-lighter-3;
+  border-right: 1px solid $gray;
 }
 .pointer {
   cursor: pointer;
@@ -272,7 +263,7 @@ button.btn-link {
   .gru-standards-popup {
 
     &.modal-content {
-      border: 2px solid $color-white;
+      border: 2px solid $white;
       border-radius: 0;
 
       .modal-header {
@@ -284,7 +275,7 @@ button.btn-link {
           margin: -5px;
 
           span {
-            color: $color-white;
+            color: $white;
             font-size: 2.2rem;
             font-weight: normal;
           }
@@ -293,12 +284,12 @@ button.btn-link {
           }
         }
         .modal-title {
-          color: $color-white;
+          color: $white;
         }
       }
 
       .modal-body {
-        border: 1px solid $color-gray-lighter-1;
+        border: 1px solid $gray-lighter;
 
         .wrapper {
           width: 520px;
@@ -321,7 +312,7 @@ button.btn-link {
   .gru-forgot-password-popup {
 
     .modal-header {
-      background-color: $branding-primary-1;
+      background-color: $brand-primary;
     }
     .modal-body {
       background: url(//cdn.goorulearning.org/webapp/release-2.0.6-PRL01/images/login/registration-bg.png) no-repeat -50px 30px;

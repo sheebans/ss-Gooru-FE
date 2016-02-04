@@ -1,6 +1,6 @@
 .gru-course-card{
   display: inline-block;
-  border: 1px solid $color-black;
+  border: 1px solid $gray-base;
   padding: 5px;
   margin:5px;
   h3,.thumbnail{
@@ -14,7 +14,7 @@
     width: 125px;
     height: 125px;
     margin-bottom:0px;
-    border: 1px solid $color-black;
+    border: 1px solid $gray-base;
   }
   .remixed,.users-teaser,.course-title,.icon,.total-units,.subject,.thumbnail,.card-info{
     display: inline-block;
