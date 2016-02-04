@@ -10,7 +10,7 @@ import Env from '../../../config/environment';
  * @see components/player/gru-viewer.js
  * @augments Ember/Component
  **/
-export default Ember.Component.extend(Env,{
+export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 

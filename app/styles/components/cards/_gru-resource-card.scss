@@ -41,7 +41,7 @@
           color: $color-blue-primary;
           font-weight:bolder;
         }
-        p.type{
+        p.format{
           font-size:$font-size-xsmall;//*1.25;
         }
       }
@@ -90,16 +90,39 @@
       >i{
         background: #FFF url("gooru/resource-collection-icons.png") no-repeat scroll 0 0;
         background-size: 334px 245px;
-        height: 31px;
-        width : 32px;
+        height: 36px;
+        width : 28px;
         display: block;
         margin: 0 auto;
-        &.resource-icon{
+        &.video-icon{
+          background-position: 0px -81px;
+          width: 33px;
+        }
+        &.webpage-icon{
           background-position: -52px -81px;
+          width : 29px;
+        }
+        &.interaction-icon{
+          background-position: -98px -79px;
+          width: 36px;
         }
         &.question-icon{
           background-position: -150px -79px;
+          width: 32px;
         }
+        &.image-icon{
+          background-position: -202px -79px;
+          width: 32px;
+        }
+        &.text-icon{
+          background-position: -251px -79px;
+          width: 32px;
+        }
+        &.audio-icon{
+          background-position: -296px -79px;
+          width: 39px;
+        }
+
       }
     }
   }

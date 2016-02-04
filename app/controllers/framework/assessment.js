@@ -247,14 +247,14 @@ export default Ember.Controller.extend({
           ResourceResult.create({
             resource:{
               title: "Learn the MEAN Stack",
-              resourceType: "video/youtube"
+              resourceFormat: "video"
             },
             reaction: 4,
             timeSpent: 2841
           }),
           ResourceResult.create({
             resource:{
-              resourceType:"video/youtube",
+              resourceFormat: "video",
               title:"Learn the MEAN Stack"
             },
             reaction: 0,
@@ -262,7 +262,15 @@ export default Ember.Controller.extend({
           }),
           ResourceResult.create({
             resource:{
-              resourceType:"video/youtube",
+              resourceFormat: "video",
+              title:"Learn the MEAN Stack"
+            },
+            reaction: 4,
+            timeSpent: 2841
+          }),
+          ResourceResult.create({
+            resource:{
+              resourceFormat: "video",
               title:"Learn the MEAN Stack"
             },
             reaction: 4,
@@ -270,10 +278,11 @@ export default Ember.Controller.extend({
           }),
           QuestionDetailsResult.create({
             resource:{
-              resourceType:"question",
+              resourceFormat:"question",
               title: "Question with a very long name",
               text: "Question with a very long name",
-              questionType: 'FIB'},
+              questionType: 'FIB',
+              isQuestion: true},
             reaction: 4,
             timeSpent: 2341
           })
@@ -291,7 +300,7 @@ export default Ember.Controller.extend({
           ResourceResult.create({
             resource:{
               title: "Learn the MEAN Stack",
-              resourceType: "video/youtube"
+              resourceFormat: "video"
             },
             reaction: 2,
             timeSpent: 2841
@@ -310,7 +319,7 @@ export default Ember.Controller.extend({
           ResourceResult.create({
             resource:{
               title: "Learn the MEAN Stack",
-              resourceType: "video/youtube"
+              resourceFormat: "video"
             },
             reaction: 4,
             timeSpent: 2841

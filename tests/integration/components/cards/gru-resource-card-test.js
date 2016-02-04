@@ -14,10 +14,9 @@ moduleForComponent('cards/gru-resource-card', 'Integration | Component | cards/g
 test('Resource card that is not a question and it has not been started', function (assert) {
   assert.expect(7);
 
-
   const mockResourceResult = Ember.Object.create({
     resource: {
-      resourceType: "video/youtube",
+      resourceFormat: "video",
       title:"Learn the MEAN Stack."
     }
   });
@@ -39,9 +38,9 @@ test('Resource card that is not a question and it has not been started', functio
 
   assert.equal(T.text($resourceTitle), 'Learn the MEAN Stack.', "Incorrect title");
 
-  const $resourceType = $detailsContainer.find('.resource-description p.type');
+  const $resourceFormat = $detailsContainer.find('.resource-description p.format');
 
-  assert.equal(T.text($resourceType), this.get('i18n').t('common.resource-type.' + mockResourceResult.resource.resourceType).toString(), 'Wrong resource type text');
+  assert.equal(T.text($resourceFormat), this.get('i18n').t('common.resource-format.' + mockResourceResult.resource.resourceFormat).toString(), 'Wrong resource type text');
 
   const $resultContainer = $component.find('.result-details');
   assert.ok($resultContainer, 'Result container not found');
@@ -55,11 +54,10 @@ test('Resource card that is not a question and it has not been started', functio
 test('Resource card that is not a question and it has been viewed but not reacted to', function (assert) {
   assert.expect(3);
 
-
   const mockResourceResult = Ember.Object.create({
     timeSpent: 12345,
     resource: {
-      resourceType: "video/youtube",
+      resourceFormat: "video",
       title: "Learn the MEAN Stack."
     }
   });
@@ -83,13 +81,11 @@ test('Resource card that is not a question and it has been viewed but not reacte
 
 test('Resource card that is not a question and it has been viewed but reacted to', function (assert) {
   assert.expect(4);
-
-
   const mockResourceResult = Ember.Object.create({
     timeSpent: 12345,
     reaction: 3,
     resource: {
-      resourceType: "video/youtube",
+    resourceFormat: "video",
       title: "Learn the MEAN Stack."
     }
   });
@@ -114,10 +110,9 @@ test('Resource card that is not a question and it has been viewed but reacted to
 
 test('Resource card that is a question', function (assert) {
   assert.expect(4);
-
   const mockQuestionResult = Ember.Object.create({
     resource: {
-      resourceType: "question",
+      resourceFormat: "question",
       title:"Learn the MEAN Stack.",
       questionType: "FIB",
       isQuestion: true
@@ -137,6 +132,6 @@ test('Resource card that is a question', function (assert) {
   const $questionIcon = $detailsContainer.find('.card-icon i.question-icon');
   assert.ok($questionIcon, 'Icon not found');
 
-  const $questionType = $detailsContainer.find('.resource-description p.type');
+  const $questionType = $detailsContainer.find('.resource-description p.format');
   assert.equal(T.text($questionType), this.get('i18n').t('common.question-type.' + mockQuestionResult.resource.questionType).toString(), 'Wrong question type text');
 });

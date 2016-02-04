@@ -1,26 +1,23 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12 col-center-block pa-sm-left-0 pa-sm-right-0">
-      <nav class="navbar navbar-default col-xs-12">
-        <div class="navbar-header col-md-2 col-sm-2 col-xs-6">
+    <div class="col-xs-12">
+      <nav class="navbar navbar-default">
+        <div class="navbar-header">
             {{#link-to 'index' class="navbar-brand home-link"}}  {{/link-to}}
         </div>
-        <div class="search-navbar-form col-md-3 col-sm-3 col-xs-6 pa-top-4 pa-xs-0">
+        <div class="search-navbar-form">
           <form {{action "searchTerm" on="submit"}} class="form-inline">
-            <div class="form-group col-md-8 col-sm-6 col-xs-6 pa-right-2 pa-left-0">
+            <div class="form-group">
+              {{material-design-icon name='search'}}
               <div class="input-group">
-                  {{input type="text" class="form-control search-input"
+                {{input type="text" class="form-control search-input"
                   value=term
                   placeholder=(t "common.searchForTopic") spellcheck="true"}}
               </div>
             </div>
-            <button type="submit" class="btn btn-primary search-button" title="{{t "common.search"}}"
-                    disabled={{isIncorrectTermSize}}>
-              {{t "common.search"}}
-            </button>
           </form>
         </div>
-        <div class="navbar-collapse col-md-7 col-sm-7 col-xs-12">
+        <div class="navbar-collapse">
           <ul class="nav navbar-nav menu-navbar">
             {{#if session.isAnonymous}}
               <li class="navbar-nav-list">
@@ -38,19 +35,11 @@
               <li class="navbar-nav-list">
                 {{#link-to 'classes' class="navbar-link my-classes-link"}} {{t "common.myClasses"}} {{/link-to}}
               </li>
-              <li class="navbar-nav-list border-right">
+              <li class="navbar-nav-list">
                 {{#link-to 'profile.about' session.userData.gooruUId class="profile navbar-link"}}
                     <i class="icon pull-left">&nbsp;</i>
-                    <span class="username text-white">{{session.userData.username}}</span>
+                    <span class="username">{{session.userData.username}}</span>
                 {{/link-to}}
-              </li>
-              <li class="navbar-nav-list">
-                <a href="#" class="navbar-link settings">
-                  <span class="icon"></span>
-                </a>
-              </li>
-              <li class="navbar-nav-list">
-                <a class="navbar-link" {{action "logout"}}> {{t "common.logout"}}</a>
               </li>
             {{/if}}
           </ul>
