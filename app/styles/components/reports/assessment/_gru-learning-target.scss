@@ -81,9 +81,9 @@
         @media (min-width: $screen-sm-min) {
           display: inline-flex;
         }
-      }
-      div.gru-resource-card:nth-child(1), div.gru-resource-card:nth-child(2) {
-        display: inline-flex;
+        &:nth-child(1), &:nth-child(2) {
+          display: inline-flex;
+        }
       }
     }
   }
