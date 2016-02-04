@@ -57,14 +57,14 @@ export default Ember.Component.extend({
    * List of questions
    * @prop {Ember.Array}
    */
-    questionsList:Ember.computed(function(){
+    questionsList:Ember.computed('assessmentResult.questionsResults.[]',function(){
        return this.getQuestions(this.get("assessmentResult.questionsResults"));
     }),
   /**
    * Number of questions answered correctly in this attempt
    * @prop {Number}
    */
-  correctAnswers:Ember.computed(function(){
+  correctAnswers:Ember.computed('questionsList.[]',function(){
     return correctAnswers(this.get('questionsList'));
   }),
 
@@ -73,7 +73,7 @@ export default Ember.Component.extend({
    * Percentage of correct answers vs. the total number of questions
    * @prop {Number}
    */
-  correctPercentage:Ember.computed(function(){
+  correctPercentage:Ember.computed('questionsList.[]','correctAnswer.[]',function(){
     return correctPercentage(this.get('questionsList'),this.get('correctAnswers'));
   }),
 
@@ -92,7 +92,7 @@ export default Ember.Component.extend({
     return results.map(function (questionResult) {
       return {
         label: questionResult.get('question.order'),
-        status: questionResult.correct ? 'correct' : 'incorrect',
+        status: questionResult.get('correct') ? 'correct' : 'incorrect',
         value: questionResult.id
       };
     });

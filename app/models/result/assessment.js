@@ -55,7 +55,7 @@ export default Ember.Object.extend({
    * Average user reaction to the questions in the assessment
    * @prop {Number} averageReaction
    */
-  averageReaction: Ember.computed(function(){
+  averageReaction: Ember.computed('questionsResults.[]',function(){
       return averageReaction(this.get('questionsResults'));
   }),
 
@@ -63,7 +63,7 @@ export default Ember.Object.extend({
    * Number of questions answered correctly in this attempt
    * @prop {Number}
    */
-  correctAnswers:Ember.computed(function(){
+  correctAnswers:Ember.computed('questionsResults.[]',function(){
     return correctAnswers(this.get('questionsResults'));
   }),
 
@@ -72,7 +72,7 @@ export default Ember.Object.extend({
    * Percentage of correct answers vs. the total number of questions
    * @prop {Number}
    */
-  correctPercentage:Ember.computed(function(){
+  correctPercentage:Ember.computed('questionsResults.[]','correctAnswers.[]',function(){
     return correctPercentage(this.get('questionsResults'),this.get('correctAnswers'));
   }),
 
@@ -80,7 +80,7 @@ export default Ember.Object.extend({
    * Total number of seconds spent completing the current attempt
    * @prop {Number}
    */
-  totalTimeSpent:Ember.computed(function(){
+  totalTimeSpent:Ember.computed('questionsResults.[]',function(){
     return totalTimeSpent(this.get('questionsResults'));
   }),
 
