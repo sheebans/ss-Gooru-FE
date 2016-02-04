@@ -64,18 +64,13 @@ export default {
       "HT_HL"  : "Hot Text Highlight"
     },
     "reaction": "Reaction",
-    "resource-type":{
-      "video/youtube" : "Youtube Video",
-      "handouts"      : "PDF Resource",
-      "resource/url"  : "URL Resource",
-      "vimeo/video"   : "Vimeo Video",
-      "webpage"       : "Webpage",
-      "interactive"   : "Interactive",
-      "question"      : "Question",
-      "image"         : "Image",
-      "text"          : "Text",
-      "audio"         : "Audio",
-      "oer"           : "OER"
+    "resource-format":{
+      "image"       : "Image",
+      "text"        : "Text",
+      "video"       : "Video",
+      "interactive" : "Interactive",
+      "webpage"     : "Webpage",
+      "audio"       : "Audio"
     },
     "remaining": "{{number}} Left",
     "score":"Score",

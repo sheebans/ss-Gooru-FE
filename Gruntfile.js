@@ -62,7 +62,12 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('bamboo-test', function (target) {
-    grunt.task.run(['stubby:test', 'exec:run:ember test --silent --reporter xunit']);
+    /*
+      An issue generating the report was found when upgrading ember cli to 1.13.13
+      We should give it a try when a new version become available
+      grunt.task.run(['stubby:test', 'exec:run:ember test --silent --reporter xunit']);
+     */
+    grunt.task.run(['stubby:test', 'exec:run:ember test']);
   });
 
   grunt.registerTask('run', function (target) {
