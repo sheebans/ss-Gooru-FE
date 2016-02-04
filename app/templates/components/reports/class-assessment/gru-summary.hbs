@@ -1,4 +1,5 @@
-<div class="content">
+<div class="content {{if isQuestionView 'all-questions'}}">
+
   <ul class="overview">
     <li class="scores">
       {{ charts.gru-pie-chart data=classScores }}
@@ -19,7 +20,28 @@
     </li>
   </ul>
 
-  {{ reports.class-assessment.gru-questions-summary data=questionsData }}
+  <ul class="overview small">
+    <li class="scores">
+      {{ charts.gru-pie-chart data=classScores }}
+    </li>
+
+    <li class="average-score">
+      {{charts.gru-bubble-chart content=(concat averageScore '%') color=(gradeColor averageScore)}}
+    </li>
+
+    <li class="completion">
+      {{charts.gru-radial-chart
+      value=totalCompleted
+      minValue=0
+      maxValue=students.length }}
+    </li>
+  </ul>
+
+  {{ reports.class-assessment.gru-questions-summary
+  data=questionsData
+  isExpanded=isQuestionView
+  onSelectQuestion=(action 'selectQuestion')
+  onToggleView=(action 'toggleView')}}
 </div>
 
 {{grading-scale-legend notStarted=(t "common.notStarted")}}

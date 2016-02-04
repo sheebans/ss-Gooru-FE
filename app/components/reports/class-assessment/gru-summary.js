@@ -10,6 +10,29 @@ export default Ember.Component.extend({
 
   classNames: ['reports', 'class-assessment', 'gru-summary'],
 
+  // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+
+    /**
+     * @function actions:toggleView
+     * @param {boolean} isQuestionView - Should all the questions be visible or not?
+     */
+    toggleView: function (isQuestionView) {
+      this.set('isQuestionView', isQuestionView);
+    },
+
+    /**
+     * @function actions:selectQuestion
+     * @param {Number} questionId
+     */
+    selectQuestion: function (questionId) {
+      Ember.Logger.debug('Question with ID: ' + questionId + ' was selected');
+    }
+
+  },
+
 
   // -------------------------------------------------------------------------
   // Properties
@@ -134,6 +157,11 @@ export default Ember.Component.extend({
 
     return results;
   }),
+
+  /**
+   * @prop { boolean } isQuestionView - Should all the questions be visible or not?
+   */
+  isQuestionView: false,
 
   /**
    * @prop { Object[] } questionsData - Array that keeps track of all the correct/incorrect answers

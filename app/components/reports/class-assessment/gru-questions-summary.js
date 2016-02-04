@@ -26,11 +26,11 @@ export default Ember.Component.extend({
   actions: {
 
     /**
-     * @function actions:expand
+     * @function actions:toggleView
      */
     toggleView: function () {
-      var isExpanded = this.get('isExpanded');
-      this.set('isExpanded', !isExpanded);
+      var newExpandedValue = !this.get('isExpanded');
+      this.get('onToggleView')(newExpandedValue);
     },
 
     /**
@@ -38,7 +38,6 @@ export default Ember.Component.extend({
      * @param {Number} questionId
      */
     selectQuestion: function (questionId) {
-      Ember.Logger.debug('Question with ID: ' + questionId + ' was selected');
       this.get('onSelectQuestion')(questionId);
     }
 
@@ -57,7 +56,7 @@ export default Ember.Component.extend({
     $(window).resize(function () {
       clearTimeout(timer);
       // The resize callback won't be processed until the resizing has stopped
-      timer = setTimeout(this.updateWidth, delay);
+      timer = setTimeout(this.updateWidth.bind(this), delay);
     }.bind(this));
   },
 
@@ -94,9 +93,9 @@ export default Ember.Component.extend({
   itemMinWidth: 200,
 
   /**
-   * @property {Function} onSelectQuestion - Event handler called when an item in a column is selected
+   * @property {Function} onSelectQuestion - Event handler called when a question in a column is selected
    */
-  onSelectItem: null,
+  onSelectQuestion: null,
 
   /**
    * @prop { Object[] } processedData - Transform the data objects in 'data' into objects that can be consumed

@@ -1,9 +1,12 @@
 .reports.class-assessment.gru-questions-summary {
   $max-question-width: 350px;
-  $question-height: 1.6rem;
+  $question-height: 1.8em;
   $questions-per-column: 5;
+  $view-more-button-width: 2.5em;
 
   font-size: $font-size-small;
+  padding-right: $view-more-button-width;
+  position: relative;
 
   > ol {
     list-style: none;
@@ -68,15 +71,17 @@
     width: 0;
     height: 0;
     border-style: solid;
-    margin: auto;
+    position: absolute;
+    top: ($question-height * $questions-per-column / 2) - $view-more-button-width;
+    right: 0;
 
     &.expand {
-      border-width: 30px 0 30px 20px;
+      border-width: $view-more-button-width 0 $view-more-button-width ($view-more-button-width - 1em);
       border-color: transparent transparent transparent $color-gray-lighter-11;
     }
 
     &.collapse {
-      border-width: 30px 20px 30px 0;
+      border-width: $view-more-button-width ($view-more-button-width - 1em) $view-more-button-width 0;
       border-color: transparent $color-gray-lighter-11 transparent transparent;
       display: block;
     }

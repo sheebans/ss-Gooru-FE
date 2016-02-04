@@ -1,5 +1,6 @@
 .reports.class-assessment.gru-summary {
   $chart-diameter: 6rem;
+  $small-chart-diameter: 4rem;
 
   padding: 20px 0;
 
@@ -33,11 +34,49 @@
           margin-top: 10px;
         }
       }
+
+      &.small {
+        display: none;
+        padding-right: 10px;
+
+        > li {
+          width: $small-chart-diameter;
+          float: left;
+          display: block;
+
+          &:first-child {
+            margin-right: 10px;
+          }
+
+          &:last-child {
+            clear: both;
+            float: none;
+            margin: 0 auto;
+          }
+
+          > div {
+            height: $small-chart-diameter;
+            width: $small-chart-diameter;
+          }
+        }
+      }
     }
 
     .gru-questions-summary {
       z-index: 1;
       flex: 1;
+    }
+
+    &.all-questions {
+
+      .overview {
+        display: none;
+        padding-right: 15px;
+
+        &.small {
+          display: block;
+        }
+      }
     }
   }
 }
