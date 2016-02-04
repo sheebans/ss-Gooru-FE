@@ -9,7 +9,7 @@ moduleForComponent('reports/assessment/gru-learning-target', 'Integration | Comp
 
 test('Learning Target Layout', function(assert) {
 
-  assert.expect(8);
+  assert.expect(10);
 
   const learningTarget = Ember.Object.create({
     description: 'I will understand how to create a ruler and with 1 inch, 1/2 inch, 1/4 inch intervals and generate' +
@@ -78,6 +78,8 @@ test('Learning Target Layout', function(assert) {
   T.exists(assert, $learningTarget.find('.score'), 'Missing score box');
   T.exists(assert, $learningTarget.find('.standard'), 'Missing standard');
   T.exists(assert, $learningTarget.find('.learning-target-description'), 'Missing learning target');
+  T.exists(assert, $learningTarget.find('.learning-target-description .sm-title'), 'Missing learning target title for small devices');
+  T.exists(assert, $learningTarget.find('.learning-target-description .xs-title'), 'Missing learning target title for xsmall devices');
   T.exists(assert, $learningTarget.find('.questions'), 'Missing questions');
   T.exists(assert, $learningTarget.find('.resource-cards-section'), 'Missing resource card section');
   T.exists(assert, $learningTarget.find('.resource-cards-section .resource-card-list'), 'Missing standard');
