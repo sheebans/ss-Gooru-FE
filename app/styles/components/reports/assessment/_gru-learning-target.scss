@@ -23,14 +23,14 @@
     }
     .learning-target-description{
       flex:1;
-      .sm-header{
+      .sm-title{
         display:none;
       }
       @media (min-width: $screen-sm-min) {
-        .sm-header{
+        .sm-title{
           display:block;
         }
-        .xs-header{
+        .xs-title{
           display:none;
         }
       }
