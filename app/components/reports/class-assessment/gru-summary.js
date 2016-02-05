@@ -28,7 +28,7 @@ export default Ember.Component.extend({
      * @param {Number} questionId
      */
     selectQuestion: function (questionId) {
-      Ember.Logger.debug('Question with ID: ' + questionId + ' was selected');
+      this.get('onSelectQuestion')(questionId);
     }
 
   },
