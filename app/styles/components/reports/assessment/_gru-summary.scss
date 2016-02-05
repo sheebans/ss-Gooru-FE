@@ -5,11 +5,6 @@
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
-
-    -webkit-align-content: stretch;
-    -ms-flex-line-pack: stretch;
-    align-content: stretch;
-
     .grade {
       min-width: 100px;
       padding-top: 20px;
