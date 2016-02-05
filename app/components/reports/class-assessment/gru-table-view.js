@@ -29,10 +29,10 @@ export default Ember.Component.extend({
 
     /**
      * @function actions:selectQuestion
-     * @param {string} questionId
+     * @param {Number} questionId
      */
     selectQuestion: function (questionId) {
-      Ember.Logger.debug('Question with ID: ' + questionId + ' was selected');
+      this.get('onSelectQuestion')(questionId);
     },
 
     /**

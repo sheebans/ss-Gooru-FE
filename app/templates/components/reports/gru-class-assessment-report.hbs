@@ -1,7 +1,8 @@
 {{ reports.class-assessment.gru-summary
 assessment=assessment
 students=students
-rawData=reportData }}
+rawData=reportData
+onSelectQuestion=(action 'viewQuestionDetail') }}
 
 <div class="view-container {{if isTableView 'table-view' 'student-view'}}">
 
@@ -17,7 +18,8 @@ rawData=reportData }}
   {{ reports.class-assessment.gru-table-view
   assessment=assessment
   students=students
-  rawData=reportData }}
+  rawData=reportData
+  onSelectQuestion=(action 'viewQuestionDetail') }}
 
   {{ reports.class-assessment.gru-student-view }}
 
