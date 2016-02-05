@@ -1,28 +1,88 @@
-$bootstrap-sass-asset-helper: false !default;
 // Based on Bootswatch Paper 3.3.6
 // Variables
 // --------------------------------------------------
 
-
 //== Colors
 //
+//## Gooru Palette
+//** Green
+$green-100:             #D1E2CE !default;
+$green-200:             #A3CA9F !default;
+$green-300:             #76B072 !default;
+$green-400:             #4B9741 !default;
+$green-500:             #00793E !default;
+//** Blue
+$blue-100:              #C1DBEE !default;
+$blue-200:              #84B7DD !default;
+$blue-300:              #4795CC !default;
+$blue-400:              #0072BC !default;
+$blue-500:              #0051A3 !default;
+//** Dark
+$dark-100:              #949A9F !default;
+$dark-200:              #67727B !default;
+$dark-300:              #535E67 !default;
+$dark-400:              #37424B !default;
+$dark-500:              #29323A !default;
+//** Light
+$light-100:             #F1F3F7 !default;
+$light-200:             #E3E5EA !default;
+$light-300:             #CDD2D6 !default;
+$light-400:             #B8BFC4 !default;
+$light-500:             #959A9E !default;
+//** Teal
+$teal-100:              #BBE1DD !default;
+$teal-200:              #91CDC7 !default;
+$teal-300:              #57B2A9 !default;
+$teal-400:              #159488 !default;
+$teal-500:              #0E8075 !default;
+//** Sky
+$sky-100:               #BDDEED !default;
+$sky-200:               #92CBE4 !default;
+$sky-300:               #58BEEB !default;
+$sky-400:               #1AA9EB !default;
+$sky-500:               #0C8FCB !default;
+//** Yellow
+$yellow-100:            #ECE0CE !default;
+$yellow-200:            #EEC87D !default;
+$yellow-300:            #EBB958 !default;
+$yellow-400:            #F8BA41 !default;
+$yellow-500:            #EBA41A !default;
+//** Orange
+$orange-100:            #E4CEB9 !default;
+$orange-200:            #E9AD75 !default;
+$orange-300:            #E8A15F !default;
+$orange-400:            #ED8E36 !default;
+$orange-500:            #DE7A1D !default;
+//** Red
+$red-100:               #F0CCCB !default;
+$red-200:               #E28D8B !default;
+$red-300:               #E86F6D !default;
+$red-400:               #F46360 !default;
+$red-500:               #E05552 !default;
+//** Pink
+$pink-100:              #E5C1CF !default;
+$pink-200:              #E59CB9 !default;
+$pink-300:              #E577A3 !default;
+$pink-400:              #DA2A6F !default;
+$pink-500:              #BF1D5D !default;
+
 //## Gray and brand colors for use across Bootstrap.
 
-$gray-base:              #000 !default;
-$gray-darker:            lighten($gray-base, 13.5%) !default; // #222
-$gray-dark:              #212121 !default;
-$gray:                   #666 !default;
-$gray-light:             #bbb !default;
-$gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
-$white:                  #fff;
+$gray-base:             #000 !default;
+$gray-darker:           lighten($gray-base, 13.5%) !default; // #222
+$gray-dark:             #212121 !default;
+$gray:                  #666 !default;
+$gray-light:            #bbb !default;
+$gray-lighter:          lighten($gray-base, 93.5%) !default; // #eee
+$white:                 #fff;
 
-$brand-primary:         #007EC5 !default;
-$brand-success:         #54A14A !default;
-$brand-info:            #1CB2EE !default;
-$brand-warning:         #F2B450 !default;
-$brand-danger:          #DE2F7A !default;
-$brand-incorrect:       #F46360 !default;
-$brand-muted:           #A3A3A3 !default;
+$brand-primary:         $blue-400 !default;
+$brand-success:         $green-400 !default;
+$brand-info:            $dark-300 !default;
+$brand-warning:         $yellow-400 !default;
+$brand-danger:          $red-400 !default;
+$brand-incorrect:       $red-400 !default;
+$brand-muted:           $light-400 !default;
 
 //== Scaffolding
 //
@@ -36,7 +96,7 @@ $text-color:            $gray !default;
 //** Global textual link color.
 $link-color:            $brand-primary !default;
 //** Link hover color set via `darken()` function.
-$link-hover-color:      lighten($link-color, 15%) !default;
+$link-hover-color:      $sky-500 !default;
 //** Link hover decoration.
 $link-hover-decoration: underline !default;
 
@@ -73,19 +133,6 @@ $headings-font-family:    inherit !default;
 $headings-font-weight:    400 !default;
 $headings-line-height:    1.1 !default;
 $headings-color:          $gray-base;
-
-
-//== Iconography
-//
-//## Specify custom location and filename of the included Glyphicons icon font. Useful for those including Bootstrap via Bower.
-
-//** Load fonts from this directory.
-$icon-font-path: if($bootstrap-sass-asset-helper, "bootstrap/", "../fonts/bootstrap/") !default;
-//** File name for all font files.
-$icon-font-name:          "glyphicons-halflings-regular" !default;
-//** Element ID within SVG icon file.
-$icon-font-svg-id:        "glyphicons_halflingsregular" !default;
-
 
 //== Components
 //
@@ -150,6 +197,7 @@ $btn-font-weight:                normal !default;
 
 $btn-default-color:              #444 !default;
 $btn-default-bg:                 #fff !default;
+$btn-default-bg-hover:           $dark-300 !default;
 $btn-default-border:             transparent !default;
 
 $btn-primary-color:              #fff !default;
@@ -399,7 +447,7 @@ $navbar-inverse-bg:                         $brand-primary !default;
 $navbar-inverse-border:                     transparent !default;
 
 // Inverted navbar links
-$navbar-inverse-link-color:                 lighten($brand-primary, 30%) !default;
+$navbar-inverse-link-color:                 $sky-100 !default;
 $navbar-inverse-link-hover-color:           #fff !default;
 $navbar-inverse-link-hover-bg:              transparent !default;
 $navbar-inverse-link-active-color:          $navbar-inverse-link-hover-color !default;
@@ -501,19 +549,19 @@ $jumbotron-heading-font-size:    ceil(($font-size-base * 4.5)) !default;
 //## Define colors for form feedback states and, by default, alerts.
 
 $state-success-text:             $brand-success !default;
-$state-success-bg:               #dff0d8 !default;
+$state-success-bg:               $green-100 !default;
 $state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%) !default;
 
-$state-info-text:                $brand-info !default;
-$state-info-bg:                  #e1bee7 !default;
+$state-info-text:                $sky-400 !default;
+$state-info-bg:                  $sky-100 !default;
 $state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%) !default;
 
 $state-warning-text:             $brand-warning !default;
-$state-warning-bg:               #ffe0b2 !default;
+$state-warning-bg:               $yellow-100 !default;
 $state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%) !default;
 
 $state-danger-text:              $brand-danger !default;
-$state-danger-bg:                #f9bdbb !default;
+$state-danger-bg:                $red-100 !default;
 $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !default;
 
 
@@ -526,7 +574,7 @@ $tooltip-max-width:           200px !default;
 //** Tooltip text color
 $tooltip-color:               #fff !default;
 //** Tooltip background color
-$tooltip-bg:                  #727272 !default;
+$tooltip-bg:                  $light-500 !default;
 $tooltip-opacity:             .9 !default;
 
 //** Tooltip arrow width
@@ -650,7 +698,7 @@ $alert-danger-border:         $state-danger-border !default;
 //##
 
 //** Background color of the whole progress component
-$progress-bg:                 #f5f5f5 !default;
+$progress-bg:                 $light-200 !default;
 //** Progress bar text color
 $progress-bar-color:          #fff !default;
 //** Variable for setting rounded corners on progress bar.
@@ -665,7 +713,7 @@ $progress-bar-warning-bg:     $brand-warning !default;
 //** Danger progress bar color
 $progress-bar-danger-bg:      $brand-danger !default;
 //** Info progress bar color
-$progress-bar-info-bg:        $brand-info !default;
+$progress-bar-info-bg:        $sky-400 !default;
 
 
 //== List group
@@ -764,7 +812,7 @@ $thumbnail-caption-padding:   9px !default;
 //
 //##
 
-$well-bg:                     #f9f9f9 !default;
+$well-bg:                     $light-100 !default;
 $well-border:                 transparent !default;
 
 
@@ -871,3 +919,66 @@ $dl-horizontal-offset:        $component-offset-horizontal !default;
 $dl-horizontal-breakpoint:    $grid-float-breakpoint !default;
 //** Horizontal line color.
 $hr-border:                   $gray-lighter !default;
+
+
+//== Gooru specific
+/* === COLORS === */
+$gru-category-panel-bg: #dcddde;
+
+/*colors for the active emoticon icons of the player*/
+$emoticon-need-help: #E28688;
+$emoticon-do-not-understand: #FDD888;
+$emoticon-meh: #E9EA75;
+$emoticon-understand: #A5D27F;
+$emoticon-can-explain: #5DBF8C;
+
+/*colors for the performance scale indicator and metrics table*/
+$gru-scale-indicator-bad: #E08282;
+$gru-scale-indicator-regular: #FEC956;
+$gru-scale-indicator-good: #EDF167;
+$gru-scale-indicator-very-good: #A2DE81;
+$gru-scale-indicator-excellent: #3FC380;
+
+/* === EMOTIONS === */
+$emotion-1-bg-pos: -254px -256px;
+$emotion-2-bg-pos: -208px -256px;
+$emotion-3-bg-pos: -163px -256px;
+$emotion-4-bg-pos: -117px -256px;
+$emotion-5-bg-pos: -71px -256px;
+
+$emotion-1-bg-pos-active: -254px -208px;
+$emotion-2-bg-pos-active: -208px -208px;
+$emotion-3-bg-pos-active: -163px -208px;
+$emotion-4-bg-pos-active: -117px -208px;
+$emotion-5-bg-pos-active: -71px -208px;
+
+$emotion-1-bg-pos-small: -149px -144px;
+$emotion-2-bg-pos-small: -122px -144px;
+$emotion-3-bg-pos-small: -95px -144px;
+$emotion-4-bg-pos-small: -69px -144px;
+$emotion-5-bg-pos-small: -42px -144px;
+
+
+$emotion-1-border: #E28688;
+$emotion-2-border: #FDD888;
+$emotion-3-border: #E9EA75;
+$emotion-4-border: #A5D27F;
+$emotion-5-border: #5DBF8C;
+
+/*colors for the performance score and completion circle*/
+$performance-circle-background-color: #DEDEDE;
+
+/* === DIMENSIONS === */
+$player-navigator-width-xs: 80%;
+$player-navigator-width-sm: 40%;
+$player-navigator-width-md: 24%;
+
+$player-navigation-height: 55px;
+
+$narration-avatar-width:40px;
+
+$narration-avatar-height:40px;
+
+$overview-header:75px;
+
+$performance-circle-size: 20px;

@@ -33,6 +33,7 @@ export default {
     "hints": "Hints",
     "if_questions": "If you have any questions,",
     "learning-target":"Learning Target",
+    "learning-target-mobile":"Learning Target in Standard",
     "lessonInitial": "L",
     "libraries": "Libraries",
     "loading": "Loading ...",
