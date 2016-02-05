@@ -209,3 +209,5 @@ At this point develop branch is deployed by Bamboo to the configured QA servers
 *Production deployment*
 TBD
 
+### Design Color Palette
+![Color Palette](color-palette.png)

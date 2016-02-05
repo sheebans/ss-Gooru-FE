@@ -1,0 +1,89 @@
+.reports.class-assessment.gru-questions-summary {
+  $max-question-width: 350px;
+  $question-height: 1.8em;
+  $questions-per-column: 5;
+  $view-more-button-width: 2.5em;
+
+  font-size: $font-size-small;
+  padding-right: $view-more-button-width;
+  position: relative;
+
+  > ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+
+    height: $question-height * $questions-per-column;
+
+    li {
+      height: $question-height;
+      max-width: $max-question-width;
+
+      > a {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+
+        height: inherit;
+        color: $text-color;
+
+        > span {
+          vertical-align: 0.4em;
+
+          &.index {
+            width: 2em;
+            text-align: right;
+            padding-right: 0.4em;
+          }
+
+          &.ratio {
+            width: 3.2em;
+            padding-left: 0.3em;
+            text-align: center;
+          }
+        }
+
+        .gru-x-bar-chart {
+          flex: 1;
+          height: 85%;
+        }
+      }
+    }
+  }
+
+  > a {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    top: ($question-height * $questions-per-column / 2) - $view-more-button-width;
+    right: 0;
+
+    &.expand {
+      border-width: $view-more-button-width 0 $view-more-button-width ($view-more-button-width - 1em);
+      border-color: transparent transparent transparent $gray-lighter;
+    }
+
+    &.collapse {
+      border-width: $view-more-button-width ($view-more-button-width - 1em) $view-more-button-width 0;
+      border-color: transparent $gray-lighter transparent transparent;
+      display: block;
+    }
+  }
+}
