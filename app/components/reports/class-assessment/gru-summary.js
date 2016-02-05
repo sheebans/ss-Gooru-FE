@@ -2,9 +2,8 @@ import Ember from 'ember';
 import { getGradeColor } from 'gooru-web/utils/utils';
 import { GRADING_SCALE } from 'gooru-web/config/config';
 import { average } from 'gooru-web/utils/math';
-import ModalMixin from 'gooru-web/mixins/modal';
 
-export default Ember.Component.extend(ModalMixin,{
+export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Attributes
