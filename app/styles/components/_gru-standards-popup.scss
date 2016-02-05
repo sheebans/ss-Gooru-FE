@@ -1,6 +1,6 @@
 .gru-standards-popup {
   .modal-header {
-    background-color: $color-gray-secondary;
+    background-color: $gray;
   }
 
   .modal-body {
@@ -12,12 +12,12 @@
     ul { list-style: none; }
 
     .standard-title {
-      background-color: $color-gray-secondary;
+      background-color: $gray;
       border-radius: 4px;
       display:inline-block;
       font-size: $font-size-xsmall;
       span {
-        color:$color-white;
+        color:$white;
       }
     }
     .standard-description p {

@@ -3,9 +3,9 @@
   {{grading-scale-legend}}
 </div>
 
-{{#each learningTargets as learningTarget}}
+{{#each learningTargets as |learningTarget|}}
     <div class="learning-target">
-        <span>Learning Target</span>
+        {{reports.assessment.gru-learning-target learningTarget=learningTarget assessmentResult=assessmentResult onBubbleSelect='bubbleSelect'}}
     </div>
 {{/each}}
 

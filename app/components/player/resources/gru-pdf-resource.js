@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 import Env from '../../../config/environment';
 
-export default Ember.Component.extend(Env,{
+export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -28,7 +28,7 @@ export default Ember.Component.extend(Env,{
 
   pdfURL:Ember.computed('resource.assetUrl',function(){
     return Env['player'].pdfViewerUrl+"?startPage=1&endPage=&signedFlag=0"+"&oid="+this.get("resource.gooruOid")+"&appKey=beta"+"&url="+this.get("resource.assetUrl");
-  }),
+  })
 
   // -------------------------------------------------------------------------
   // Observers

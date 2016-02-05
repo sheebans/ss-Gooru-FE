@@ -7,7 +7,7 @@
   .class-info {
     padding: 0 15px;
     h3 {
-      color: $color-gray-secondary;
+      color: $gray;
     }
     .greetings-description {
       font-size: $font-size-small;
@@ -16,14 +16,14 @@
   }
   .class-menu {
     margin: 30px 0 0 0;
-    border-top: solid 1px $color-gray-lighter-3;
+    border-top: solid 1px  $gray-light;
     li {
       border: none;
       text-align: center;
       cursor: pointer;
     }
     li.selected {
-      background-color: $color-gray-lighter-6;
+      background-color: $gray-lighter;
     }
   }
 
@@ -33,7 +33,7 @@
     .class-info {
       padding-right: 0;
       height: 43px;
-      border-bottom: 1px solid $color-gray-lighter-3;
+      border-bottom: 1px solid  $gray-light;
       h3, div {
         float: left;
         margin: 0;
@@ -52,21 +52,21 @@
         padding: 0;
         .btn {
           border-radius: inherit;
-          background-color: $color-gray-lighter-6;
+          background-color: $gray-lighter;
           padding: 6px 10px 6px 6px;
           font-size: $font-size-large;
           width: 35px;
         }
         .dropdown-toggle {
           padding-left: 0;
-          background: url("gooru/landingpageSprite.png") no-repeat $color-gray-lighter-6;
+          background: url("gooru/landingpageSprite.png") no-repeat $gray-lighter;
           background-position: -95px -23px;
           background-size: 185px;
         }
         .dropdown-menu {
           border: none;
           border-radius: inherit;
-          background-color: $color-gray-lighter-6;
+          background-color: $gray-lighter;
           margin: 0;
           right: 0;
           left: inherit;
@@ -85,7 +85,7 @@
             }
           }
           li.selected {
-            background-color: $color-gray-lighter-9;
+            background-color: $gray-lighter;
           }
         }
       }
@@ -99,8 +99,8 @@
     .description {
       display: inline-block;
       position: relative;
-      background: $color-gray-lighter-8;
-      color: $color-white;
+      background: $gray-light;
+      color: $white;
       text-decoration: none;
       padding: 20px;
     }
@@ -112,7 +112,7 @@
       bottom: 100%;
       width: 0;
       height: 0;
-      border-bottom: 8px solid $color-gray-lighter-8;
+      border-bottom: 8px solid $gray-light;
       border-top: 8px solid transparent;
       border-left: 8px solid transparent;
       border-right: 8px solid transparent;

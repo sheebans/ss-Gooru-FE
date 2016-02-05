@@ -1,20 +1,20 @@
 .collection-results {
   .tooltip {
-    background-color: $color-white;
-    color: $color-gray-5;
+    background-color: $white;
+    color: $gray;
     opacity: 1;
     border-radius: 3px;
-    border: solid 1px $color-gray-lighter-2;
+    border: solid 1px $gray-lighter;
     max-width: 250px;
     .tooltip-arrow {
       border-width: 0 10px 8px;
       top: -7px;
-      border-bottom-color: $color-white;
+      border-bottom-color: $white;
       background-color: transparent;
     }
     .tooltip-inner {
-      color: $color-gray-5;
-      background: $color-white;
+      color: $gray;
+      background: $white;
       border: solid 1px #fff;
       max-width: 250px;
       padding: 2px 5px;
@@ -25,20 +25,20 @@
     height: 35px;
   }
   .panel {
-    border: 1px solid $color-gray-lighter-2;
+    border: 1px solid $gray-lighter;
     border-radius: 4px;
     box-shadow: none;
     .panel-heading {
       background: none;
-      border-bottom: 1px solid $color-gray-lighter-2;
+      border-bottom: 1px solid $gray-lighter;
       padding: 5px 10px;
       height: 45px;
       .view-container {
         margin: 7px 0 6px;
-        color: $color-gray-5;
+        color: $gray;
         display: table;
         i {
-          color: $color-gray-lighter-3;
+          color:  $gray-light;
           font-size: 1.4rem;
         }
         span {
@@ -57,7 +57,7 @@
       .collection-img {
         a{
           img {
-            border-left: 10px solid $color-blue-primary;
+            border-left: 10px solid $brand-primary;
             z-index: 9999;
             width: 100%;
             height: 120px;
@@ -71,7 +71,7 @@
         .title {
           font-size: $font-size-large;
           font-weight: 400;
-          color: $color-blue-dark;
+          color: $brand-primary;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -84,11 +84,11 @@
             width: 30px;
             height: 30px;
             border-radius: 50px;
-            box-shadow: 0 0 0 2px $color-blue-secondary;
+            box-shadow: 0 0 0 2px $brand-primary;
           }
           .author-name-link {
             a {
-              color: $color-blue-primary;
+              color: $brand-primary;
               cursor: pointer;
               &:hover {
                 text-decoration: none;
@@ -107,7 +107,7 @@
         }
       }
       .standard-container {
-        border-bottom: 1px solid $color-gray-lighter-2;
+        border-bottom: 1px solid $gray-lighter;
         height: 40px;
         box-sizing: content-box;
         .collection-results-standards {
@@ -117,22 +117,22 @@
           margin: 7px 0;
           width: 100%;
           .uc-search-standard {
-            background-color: $color-gray-secondary;
+            background-color: $gray;
             border-radius: 3px;
-            color: $color-white;
+            color: $white;
             float: left;
             margin-right: 5px;
             margin-top: 1px;
             .label button.btn-link {
               font-size: $font-size-xsmall;
               font-weight: normal;
-              color: $color-white;
+              color: $white;
             }
           }
           .blue-link {
             display: inline-block;
             float: left;
-            color: $color-blue-dark;
+            color: $brand-primary;
             width: 25px;
             height: 20px;
             vertical-align: middle;
@@ -199,6 +199,6 @@
   }
   .label a{
     text-decoration: none;
-    color:$color-white;
+    color:$white;
   }
 }

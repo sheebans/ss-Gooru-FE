@@ -140,27 +140,27 @@ export default Ember.Controller.extend(SessionMixin, {
   }),
 
   resource: ResourceResult.create({
-    resourceType:"video/youtube",
+    resourceFormat:"interactive",
     title: "Ember",
     timeSpent: 0
   }),
 
   secondScenarioResource: ResourceResult.create({
-    resourceType:"video/youtube",
+    resourceFormat:"webpage",
     title:"Learn the MEAN Stack",
     reaction: 0,
     timeSpent: 12345
   }),
 
   thirdScenarioResource: ResourceResult.create({
-    resourceType:"video/youtube",
+    resourceFormat:"video",
     title:"Learn the MEAN Stack",
     reaction: 2,
     timeSpent: 2841
   }),
 
   fourthScenarioResource: QuestionDetailsResult.create({
-    resourceType:"question",
+    resourceFormat:"question",
     title: "Question with a very long name",
     question: {
       text: "Question with a very long name",

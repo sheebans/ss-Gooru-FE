@@ -1,0 +1,51 @@
+.reports.assessment.gru-questions-xs{
+  margin:5px;
+  display: table;
+  width:100%;
+  .number-question, .question-container{
+    display: table-cell;
+    border: 1px solid $gray-lighter;
+  }
+  .question-card{
+    display:table-row;
+    width: 100%;
+  }
+  .question{
+    border-bottom: 1px solid $gray-lighter;
+  }
+  .number-question, .question, .answer{
+    > *{
+      display:block;
+    }
+    padding: 8px;
+  }
+  .number-question {
+    text-align: center;
+    width:10%;
+    border-right: 0;
+
+    span{
+      font-size: $font-size-large;
+    }
+
+    .score{
+      padding-top:10px;
+    }
+  }
+  span.correct{
+    color:$brand-success;
+  }
+  span.incorrect{
+    color:$brand-incorrect;
+  }
+  .show-performance{
+    .correct-answer{
+      display:none;
+    }
+  }
+  .show-correct-answer{
+    .your-answer{
+      display:none;
+    }
+  }
+}

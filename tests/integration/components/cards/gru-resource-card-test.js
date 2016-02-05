@@ -14,15 +14,16 @@ moduleForComponent('cards/gru-resource-card', 'Integration | Component | cards/g
 test('Resource card that is not a question and it has not been started', function (assert) {
   assert.expect(7);
 
-
-  const mockResource = Ember.Object.create({
-    resourceType: "video/youtube",
-    title:"Learn the MEAN Stack."
+  const mockResourceResult = Ember.Object.create({
+    resource: {
+      resourceFormat: "video",
+      title:"Learn the MEAN Stack."
+    }
   });
 
-  this.set('mockResource', mockResource);
+  this.set('mockResourceResult', mockResourceResult);
 
-  this.render(hbs`{{cards/gru-resource-card item=mockResource}}`);
+  this.render(hbs`{{cards/gru-resource-card item=mockResourceResult}}`);
 
   const $component = this.$('.gru-resource-card');
   assert.ok($component, 'Component does not have the component class');
@@ -35,11 +36,11 @@ test('Resource card that is not a question and it has not been started', functio
 
   const $resourceTitle = $detailsContainer.find('.resource-description span.title');
 
-  assert.equal(T.text($resourceTitle), mockResource.title, "Incorrect title");
+  assert.equal(T.text($resourceTitle), 'Learn the MEAN Stack.', "Incorrect title");
 
-  const $resourceType = $detailsContainer.find('.resource-description p.type');
+  const $resourceFormat = $detailsContainer.find('.resource-description p.format');
 
-  assert.equal(T.text($resourceType), this.get('i18n').t('common.resource-type.'+mockResource.resourceType).toString(), 'Wrong resource type text');
+  assert.equal(T.text($resourceFormat), this.get('i18n').t('common.resource-format.' + mockResourceResult.resource.resourceFormat).toString(), 'Wrong resource type text');
 
   const $resultContainer = $component.find('.result-details');
   assert.ok($resultContainer, 'Result container not found');
@@ -53,16 +54,17 @@ test('Resource card that is not a question and it has not been started', functio
 test('Resource card that is not a question and it has been viewed but not reacted to', function (assert) {
   assert.expect(3);
 
-
-  const mockResource = Ember.Object.create({
-    resourceType: "video/youtube",
-    title: "Learn the MEAN Stack.",
-    timeSpent: 12345
+  const mockResourceResult = Ember.Object.create({
+    timeSpent: 12345,
+    resource: {
+      resourceFormat: "video",
+      title: "Learn the MEAN Stack."
+    }
   });
 
-  this.set('mockResource', mockResource);
+  this.set('mockResourceResult', mockResourceResult);
 
-  this.render(hbs`{{cards/gru-resource-card item=mockResource}}`);
+  this.render(hbs`{{cards/gru-resource-card item=mockResourceResult}}`);
 
   const $component = this.$('.gru-resource-card');
   assert.ok($component, 'Component does not have the component class');
@@ -77,21 +79,20 @@ test('Resource card that is not a question and it has been viewed but not reacte
 
 });
 
-test('Resource card that is not a question and it has been viewed but not reacted to', function (assert) {
+test('Resource card that is not a question and it has been viewed but reacted to', function (assert) {
   assert.expect(4);
-
-
-  const mockResource = Ember.Object.create({
-    resourceType: "video/youtube",
-    isQuestion:false,
-    title: "Learn the MEAN Stack.",
+  const mockResourceResult = Ember.Object.create({
     timeSpent: 12345,
-    reaction: 3
+    reaction: 3,
+    resource: {
+    resourceFormat: "video",
+      title: "Learn the MEAN Stack."
+    }
   });
 
-  this.set('mockResource', mockResource);
+  this.set('mockResourceResult', mockResourceResult);
 
-  this.render(hbs`{{cards/gru-resource-card item=mockResource}}`);
+  this.render(hbs`{{cards/gru-resource-card item=mockResourceResult}}`);
 
   const $component = this.$('.gru-resource-card');
   assert.ok($component, 'Component does not have the component class');
@@ -107,20 +108,20 @@ test('Resource card that is not a question and it has been viewed but not reacte
 
 });
 
-test('Resource card that is not a question and it has been viewed but not reacted to', function (assert) {
+test('Resource card that is a question', function (assert) {
   assert.expect(4);
-
-  const mockResource = Ember.Object.create({
-    resourceType: "question",
-    question: {
+  const mockQuestionResult = Ember.Object.create({
+    resource: {
+      resourceFormat: "question",
+      title:"Learn the MEAN Stack.",
       questionType: "FIB",
-    },
-    title:"Learn the MEAN Stack."
+      isQuestion: true
+    }
   });
 
-  this.set('mockResource', mockResource);
+  this.set('mockQuestionResult', mockQuestionResult);
 
-  this.render(hbs`{{cards/gru-resource-card item=mockResource}}`);
+  this.render(hbs`{{cards/gru-resource-card item=mockQuestionResult}}`);
 
   const $component = this.$('.gru-resource-card');
   assert.ok($component, 'Component does not have the component class');
@@ -131,6 +132,6 @@ test('Resource card that is not a question and it has been viewed but not reacte
   const $questionIcon = $detailsContainer.find('.card-icon i.question-icon');
   assert.ok($questionIcon, 'Icon not found');
 
-  const $questionType = $detailsContainer.find('.resource-description p.type');
-  assert.equal(T.text($questionType), this.get('i18n').t('common.question-type.' + mockResource.question.questionType).toString(), 'Wrong question type text');
+  const $questionType = $detailsContainer.find('.resource-description p.format');
+  assert.equal(T.text($questionType), this.get('i18n').t('common.question-type.' + mockQuestionResult.resource.questionType).toString(), 'Wrong question type text');
 });

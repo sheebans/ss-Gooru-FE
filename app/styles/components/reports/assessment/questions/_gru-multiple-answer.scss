@@ -14,10 +14,10 @@
         }
       }
       span.correct{
-        color:$color-answer-correct;
+        color:$brand-success;
       }
       span.incorrect{
-        color:$color-answer-incorrect;
+        color:$brand-incorrect;
       }
       span.answer-text{
         margin-left: 1em;

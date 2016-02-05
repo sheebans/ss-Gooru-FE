@@ -4,6 +4,11 @@
       span{
         margin-right: 0.5em;
       }
+      @media (max-width: $screen-xs-max) { /* only for phone */
+        input {
+          margin-top: 3px;
+        }
+      }
     }
   }
 }

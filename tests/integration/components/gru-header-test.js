@@ -11,7 +11,7 @@ moduleForComponent('gru-header', 'Integration | Component | Header', {
 });
 
 test('header layout', function(assert) {
-  assert.expect(11); //making sure all asserts are called
+  assert.expect(10); //making sure all asserts are called
 
   this.set('session', Ember.Object.create({isAnonymous: true}));
 
@@ -33,7 +33,6 @@ test('header layout', function(assert) {
 
   var $navSearch = $component.find(".search-navbar-form");
   T.exists(assert, $navSearch, "Missing nav search form");
-  T.exists(assert, $navSearch.find(".search-button"), "Missing search button");
   T.exists(assert, $navSearch.find(".search-input"), "Missing search input");
 
   var $navMenu = $component.find(".menu-navbar");
@@ -45,7 +44,7 @@ test('header layout', function(assert) {
 });
 
 test('header layout with user', function(assert) {
-  assert.expect(4); //making sure all asserts are called
+  assert.expect(3); //making sure all asserts are called
 
   this.set('session', Ember.Object.create({
     isAnonymous: false,
@@ -62,12 +61,10 @@ test('header layout with user', function(assert) {
   T.exists(assert, $navMenu.find(".profile .username"), "User info should not be present");
   assert.equal(T.text($navMenu.find(".profile .username")), "jperez", "Wrong username");
 
-  T.exists(assert, $navMenu.find(".settings"), "Missing settings icon");
-
 });
 
 test('Do search by clicking search button', function(assert) {
-  assert.expect(4); //making sure all asserts are called
+  assert.expect(3); //making sure all asserts are called
 
   this.on('mySearchAction', function(term){
     assert.equal(term, "test", "onSearchAction should be called once");
@@ -79,15 +76,12 @@ test('Do search by clicking search button', function(assert) {
 
   const $navSearch = $component.find(".search-navbar-form");
   T.exists(assert, $navSearch, "Missing nav search form");
-  T.exists(assert, $navSearch.find(".search-button"), "Missing search button");
   T.exists(assert, $navSearch.find(".search-input"), "Missing search input");
 
   const $searchInput = $navSearch.find(".search-input");
   $searchInput.val("test");
   $searchInput.change();
-
-  const $searchButton = $navSearch.find(".search-button");
-  $searchButton.click();
+  this.$('form').submit();
 });
 
 
@@ -106,14 +100,4 @@ test('Do search by hitting Enter', function(assert) {
   $searchInput.val(ANY_TERM);
   $searchInput.change();
   this.$('form').submit();
-});
-
-test('Disabled Search Button', function(assert) {
-  this.render(hbs`{{gru-header}}`);
-  assert.equal($('.search-button').attr("disabled"),'disabled',"Button should be disabled");
-});
-
-test('Enable Search Button', function(assert) {
-  this.render(hbs`{{gru-header term='test'}}`);
-  assert.equal($('.search-button').attr("disabled"),null, "Button should be enable");
 });

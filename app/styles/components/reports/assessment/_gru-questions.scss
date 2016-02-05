@@ -13,7 +13,7 @@
   table{
     width: 100%;
     td, th {
-      border: 1px solid $color-gray-lighter-11;
+      border: 1px solid $gray-light;
       height: 30px;
       text-align: center;
     }
@@ -42,10 +42,10 @@
       font-size:37px;
     }
     .question-score span.correct{
-      color:$color-answer-correct;
+      color:$brand-success;
     }
     .question-score span.incorrect{
-      color:$color-answer-incorrect;
+      color:$brand-incorrect;
     }
     .question-reaction div{
       margin: 10px auto;
@@ -55,5 +55,9 @@
       vertical-align: top;
       padding: 10px 15px;
     }
+  }
+  ul{
+    padding-left:0;
+    list-style:none;
   }
 }
