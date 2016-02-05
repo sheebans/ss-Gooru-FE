@@ -3,17 +3,17 @@
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    border: 2px solid $color-gray-lighter-11;
+    border: 2px solid $gray-light;
     cursor: pointer;
     text-align: center;
     vertical-align: middle;
     line-height: 27px;
   }
   .incorrect{
-    border-color: $color-answer-incorrect;
+    border-color: $brand-incorrect;
   }
   .correct{
-    border-color: $color-answer-correct;
+    border-color: $brand-success;
   }
   .bubbles-list{
     list-style: none;
@@ -25,7 +25,7 @@
       padding: 0;
     }
     a{
-      color:$color-black;
+      color:$gray-base;
     }
   }
 }

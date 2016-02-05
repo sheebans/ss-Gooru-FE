@@ -1,12 +1,12 @@
 .gru-unit-performance-container {
   margin: 15px 0;
-  border:1px solid $color-gray-lighter-12;
+  border:1px solid $gray-lighter;
   border-radius: 0!important;
   &.selected >a{
-    background-color:$color-gray-lighter-13;
+    background-color:$gray-light;
   }
   >a{
-    color:$color-gray-dark-2;
+    color:$gray;
     height:105px;
     -webkit-flex-direction: row;
     flex-direction: row;
@@ -61,7 +61,7 @@
         span{
           font-family:$font-family-base;
           font-weight: bold;
-          color:$color-gray-dark-2;
+          color:$gray;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -83,7 +83,7 @@
         display: flex;
         @include respond-to(xs){
 
-          border-left: 1px solid $color-gray-lighter-12;
+          border-left: 1px solid $gray-lighter;
         }
         >*{
           width: 100%;

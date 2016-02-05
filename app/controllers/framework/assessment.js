@@ -13,7 +13,7 @@ export default Ember.Controller.extend({
 
       QuestionDetailsResult.create({
         id: 601,
-        question: Ember.Object.create({
+        resource: Ember.Object.create({
           questionType: 'MC',
           text: 'Sample Question MC',
           hints: [],
@@ -34,7 +34,7 @@ export default Ember.Controller.extend({
 
       QuestionDetailsResult.create({
         id: 602,
-        question: Ember.Object.create({
+        resource: Ember.Object.create({
           questionType: 'MC',
           text: 'Sample Question MC',
           hints: [],
@@ -56,7 +56,7 @@ export default Ember.Controller.extend({
       QuestionDetailsResult.create({
         id: 603,
         attempt: 1104,
-        question: Ember.Object.create({
+        resource: Ember.Object.create({
           questionType: 'OE',
           text: 'Sample Question OE',
           hints: [],
@@ -73,7 +73,7 @@ export default Ember.Controller.extend({
 
       QuestionDetailsResult.create({
         id: 604,
-        question: Ember.Object.create({
+        resource: Ember.Object.create({
           questionType: 'T/F',
           text: 'True False Question',
           hints: [],
@@ -93,7 +93,7 @@ export default Ember.Controller.extend({
 
       QuestionDetailsResult.create({
         id: 605,
-        question: Ember.Object.create({
+        resource: Ember.Object.create({
           questionType: 'HT_RO',
           text: 'Reorder Question',
           hints: [],
@@ -115,7 +115,7 @@ export default Ember.Controller.extend({
 
       QuestionDetailsResult.create({
         id: 606,
-        question: Ember.Object.create({
+        resource: Ember.Object.create({
           questionType: 'FIB',
           text: 'The sun is _______ and the moon _______',
           hints: [],
@@ -176,7 +176,7 @@ export default Ember.Controller.extend({
 
       QuestionDetailsResult.create({
         id: 609,
-        question: Ember.Object.create({
+        resource: Ember.Object.create({
           questionType: 'HT_HL',
           text: '<p>Seleccione las palabras escritas incorrectamente</p>',
           hints: [],
@@ -193,7 +193,7 @@ export default Ember.Controller.extend({
 
       QuestionDetailsResult.create({
         id: 610,
-        question: Ember.Object.create({
+        resource: Ember.Object.create({
           questionType: 'HS_IMG',
           text: 'Sample Question HS_IMG',
           hints: [],
@@ -214,7 +214,7 @@ export default Ember.Controller.extend({
 
       QuestionDetailsResult.create({
         id: 611,
-        question: Ember.Object.create({
+        resource: Ember.Object.create({
           questionType: 'HS_TXT',
           text: 'Sample Question HS_TXT',
           hints: [],
@@ -237,15 +237,71 @@ export default Ember.Controller.extend({
     mastery: [
 
       LearningTargetResult.create({
-        description: '',
+        description:'I will understand how to create a ruler and with 1 inch, 1/2 inch, 1/4 inch intervals and generate' +
+          'measurement data',
         mastery: 50,
         relatedQuestions: [606, 609],
         standard: '3.MD.4',
         suggestedResources: [
 
           ResourceResult.create({
-            title: "Learn the MEAN Stack",
-            resourceType: "video/youtube",
+            resource:{
+              title: "Learn the MEAN Stack",
+              resourceFormat: "video"
+            },
+            reaction: 4,
+            timeSpent: 2841
+          }),
+          ResourceResult.create({
+            resource:{
+              resourceFormat: "video",
+              title:"Learn the MEAN Stack"
+            },
+            reaction: 0,
+            timeSpent: 12345
+          }),
+          ResourceResult.create({
+            resource:{
+              resourceFormat: "video",
+              title:"Learn the MEAN Stack"
+            },
+            reaction: 4,
+            timeSpent: 2841
+          }),
+          ResourceResult.create({
+            resource:{
+              resourceFormat: "video",
+              title:"Learn the MEAN Stack"
+            },
+            reaction: 4,
+            timeSpent: 2841
+          }),
+          QuestionDetailsResult.create({
+            resource:{
+              resourceFormat:"question",
+              title: "Question with a very long name",
+              text: "Question with a very long name",
+              questionType: 'FIB',
+              isQuestion: true},
+            reaction: 4,
+            timeSpent: 2341
+          })
+        ]
+      }),
+
+      LearningTargetResult.create({
+        description: 'I will understand how to create a ruler and with 1 inch, 1/2 inch, 1/4 inch intervals and generate' +
+        'measurement data',
+        mastery: 75,
+        relatedQuestions: [601, 602, 605, 607],
+        standard: '3.MD.7',
+        suggestedResources: [
+
+          ResourceResult.create({
+            resource:{
+              title: "Learn the MEAN Stack",
+              resourceFormat: "video"
+            },
             reaction: 2,
             timeSpent: 2841
           })
@@ -253,19 +309,22 @@ export default Ember.Controller.extend({
       }),
 
       LearningTargetResult.create({
-        description: '',
-        mastery: 75,
-        relatedQuestions: [601, 602, 605, 607],
-        standard: '3.MD.7',
-        suggestedResources: []
-      }),
-
-      LearningTargetResult.create({
-        description: '',
+        description: 'I will understand how to create a ruler and with 1 inch, 1/2 inch, 1/4 inch intervals and generate' +
+        'measurement data',
         mastery: 80,
         relatedQuestions: [603, 604, 608, 610, 611],
         standard: '5.ME.2',
-        suggestedResources: []
+        suggestedResources: [
+
+          ResourceResult.create({
+            resource:{
+              title: "Learn the MEAN Stack",
+              resourceFormat: "video"
+            },
+            reaction: 4,
+            timeSpent: 2841
+          })
+        ]
       })
     ],
 

@@ -4,14 +4,14 @@
   width:100%;
   .number-question, .question-container{
     display: table-cell;
-    border: 1px solid $color-gray-lighter-2;
+    border: 1px solid $gray-lighter;
   }
   .question-card{
     display:table-row;
     width: 100%;
   }
   .question{
-    border-bottom: 1px solid $color-gray-lighter-2;
+    border-bottom: 1px solid $gray-lighter;
   }
   .number-question, .question, .answer{
     > *{
@@ -33,10 +33,10 @@
     }
   }
   span.correct{
-    color:$color-answer-correct;
+    color:$brand-success;
   }
   span.incorrect{
-    color:$color-answer-incorrect;
+    color:$brand-incorrect;
   }
   .show-performance{
     .correct-answer{

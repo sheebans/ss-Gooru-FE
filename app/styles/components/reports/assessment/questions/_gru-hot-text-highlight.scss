@@ -3,10 +3,10 @@
   span{
     padding: 5px;
     &.is-correct{
-      background-color:$color-answer-correct;
+      background-color:$brand-success;
     }
     &.is-incorrect{
-      background-color:$color-answer-incorrect;
+      background-color:$brand-incorrect;
     }
   }
 }

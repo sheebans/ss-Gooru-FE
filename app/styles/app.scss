@@ -1,5 +1,7 @@
+@import 'variables';
 @import "custom-variables";
 @import '../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap';
+@import 'gooru-theme';
 
 @import 'mixins';
 @import 'common';
@@ -18,6 +20,7 @@
 @import 'controllers/index';
 @import 'controllers/player';
 @import 'controllers/profile';
+@import 'controllers/framework/assessment';
 @import 'controllers/framework/components';
 
 // TODO: update these components so they follow the naming conventions
@@ -89,6 +92,7 @@
 @import 'components/player/resources/gru-pdf-resource';
 @import 'components/player/resources/gru-vimeo-resource';
 @import 'components/reports/gru-assessment-report';
+@import 'components/reports/assessment/gru-learning-target';
 @import 'components/reports/assessment/gru-mastery';
 @import 'components/reports/assessment/gru-questions';
 @import 'components/reports/assessment/gru-questions-xs';
