@@ -6,8 +6,18 @@
   }
   .class-info {
     padding: 0 15px;
-    h3 {
-      color: $gray;
+    color: $white;
+    h4 {
+      color: $white;
+      margin: 40px 0 20px;
+    }
+    .active-dates{
+      ul{
+        padding:0 17px;
+        li{
+          opacity:0.6;
+        }
+      }
     }
     .greetings-description {
       font-size: $font-size-small;
@@ -16,14 +26,13 @@
   }
   .class-menu {
     margin: 30px 0 0 0;
-    border-top: solid 1px  $gray-light;
     li {
       border: none;
-      text-align: center;
       cursor: pointer;
+      color:$white;
     }
     li.selected {
-      background-color: $gray-lighter;
+      background-color: rgba(255,255,255,0.1);
     }
   }
 
@@ -123,7 +132,6 @@
   .sm-design {
     h3 {
       width: 55%;
-      padding: 11px 10px 0 0;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -131,6 +139,7 @@
     .active-dates {
       font-size: $font-size-small;
       width: 23%;
+
     }
     .members {
       width: 7%;

@@ -1,10 +1,21 @@
 <div class="md-design visible-md visible-lg">
   <div class="class-info">
-    <h3>{{class.name}}</h3>
-    <div class="active-dates ma-bottom-5">{{t "class.gru-class-navigation.active"}} {{class.startDate}} - {{class.endDate}}</div>
-    <div class="members ma-bottom-5">{{class.totalMembers}} {{t "class.gru-class-navigation.members"}}</div>
-    <div class="greetings">{{t "class.gru-class-navigation.greetings"}}</div>
-    <div class="greetings-description">{{class.greetings}}</div>
+    <h4>{{class.name}}</h4>
+    <div class="active-dates ma-bottom-5">
+        <ul>
+            <li>{{formatDate class.startDate 'MMMM DD, YYYY'}}</li>
+            <li>{{formatDate class.endDate 'MMMM DD, YYYY'}}</li>
+        </ul>
+       </div>
+    <div class="members ma-bottom-5">
+      {{class.totalMembers}} {{t "class.gru-class-navigation.members"}}
+    </div>
+    <div class="greetings">
+      <span class="">{{t "class.gru-class-navigation.greetings"}}</span>
+    </div>
+    <div class="greetings-description">
+      <p>{{class.greetings}}</p>
+    </div>
   </div>
   <div class="class-menu">
     <ul class="list-group">
