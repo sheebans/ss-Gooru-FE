@@ -951,7 +951,7 @@ export default Ember.Component.extend(ModalMixin, {
       // TODO:
       // Get question model from questionId
       // Show modal with question information
-      //this.actions.showModal('gru-sign-in');
+      this.actions.showModal.call(this, 'gru-sign-in');
     }
   },
 
