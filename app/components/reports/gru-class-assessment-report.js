@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ModalMixin from 'gooru-web/mixins/modal';
 
 // Private variables
 
@@ -918,7 +919,7 @@ var usersResults = [
   }
 ];
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -943,6 +944,14 @@ export default Ember.Component.extend({
       if (selectTableView !== isTableViewSelected) {
         this.set('isTableView', selectTableView);
       }
+    },
+
+    viewQuestionDetail: function (questionId) {
+      Ember.Logger.debug('Class assessment report: question with ID ' + questionId + ' was selected');
+      // TODO:
+      // Get question model from questionId
+      // Show modal with question information
+      //this.actions.showModal('gru-sign-in');
     }
   },
 
