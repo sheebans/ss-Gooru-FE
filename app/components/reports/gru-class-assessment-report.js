@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import UserQuestionsResult from 'gooru-web/models/result/user-questions';
+import QuestionResult from 'gooru-web/models/result/question';
 
 // Private variables
 
@@ -14,92 +16,92 @@ var cumulativeData;
 
 // TODO: Remove once the service that returns the user results is implemented
 var usersResults = [
-  {
+  UserQuestionsResult.create({
     "user": "56983a9060a68052c1ed934c",
     "questionsResults": [
-      {
+      QuestionResult.create({
         "correct": false,
         "questionId": "56a120483b6e7b090501d3e7",
         "reaction": 1,
         "timeSpent": 1216
-      },
-      {
+      }),
+      QuestionResult.create({
         "correct": true,
         "questionId": "56a1204886b2e565e1b2c230",
         "reaction": 2,
         "timeSpent": 2458
-      },
-      {
+      }),
+      QuestionResult.create({
         "correct": true,
         "questionId": "56a12048ddee2022a741356a",
         "reaction": 3,
         "timeSpent": 1433
-      }
+      })
     ]
-  },
-  {
+  }),
+  UserQuestionsResult.create({
     "user": "56983a90fb01fecc328e2388",
     "questionsResults": [
-      {
+      QuestionResult.create({
         "correct": false,
         "questionId": "56a120483b6e7b090501d3e7",
         "reaction": 5,
         "timeSpent": 1216
-      },
-      {
+      }),
+      QuestionResult.create({
         "correct": true,
         "questionId": "56a12048ddee2022a741356a",
         "reaction": 3,
         "timeSpent": 1433
-      }
+      })
     ]
-  },
-  {
+  }),
+  UserQuestionsResult.create({
     "user": "56983a906596902edadedc7c",
     "questionsResults": [
-      {
+      QuestionResult.create({
         "correct": false,
         "questionId": "56a120483b6e7b090501d3e7",
         "reaction": 1,
         "timeSpent": 1216
-      },
-      {
+      }),
+      QuestionResult.create({
         "correct": true,
         "questionId": "56a1204886b2e565e1b2c230",
         "reaction": 5,
         "timeSpent": 2458
-      },
-      {
+      }),
+      QuestionResult.create({
         "correct": true,
         "questionId": "56a12048ddee2022a741356a",
         "reaction": 5,
         "timeSpent": 1433
-      }
+      })
     ]
-  },
-  {
+  }),
+  UserQuestionsResult.create({
     "user": "56983a9082f705e65f2fe607",
     "questionsResults": [
-      {
+      QuestionResult.create({
         "correct": true,
         "questionId": "56a120483b6e7b090501d3e7",
         "reaction": 4,
         "timeSpent": 1216
-      },
-      {
+      }),
+      QuestionResult.create({
         "correct": true,
         "questionId": "56a1204886b2e565e1b2c230",
         "reaction": 4,
         "timeSpent": 2458
-      },
-      {
+      }),
+      QuestionResult.create({
         "correct": true,
         "questionId": "56a12048ddee2022a741356a",
         "reaction": 3,
         "timeSpent": 1433
-      }
+      })
     ]
-  }
+  })
 ];
 
 export default Ember.Component.extend({
@@ -136,11 +138,11 @@ export default Ember.Component.extend({
     this._super(...arguments);
 
     var studentIds = this.get('students').map(function (student) {
-      return student.id;
+      return student.get("id");
     });
 
     var resourceIds = this.get('assessment.resources').map(function (resource) {
-      return resource.id;
+      return resource.get("id");
     });
 
     // Initialize all users and resources in the report data to empty objects
@@ -173,6 +175,22 @@ export default Ember.Component.extend({
   /**
    * @prop { Object{}{}{} } reportData - Representation of the data to show in the reports as a 3D matrix
    * Any changes on the content feed will cause the report data to update
+   *
+   * Sample structure
+   *
+   * The "question#" corresponds to the actual question id
+   *  {
+   *    user1 {
+   *      question1 : QuestionResult,
+   *      question2 : QuestionResult,
+   *      question3 : QuestionResult
+   *     },
+   *    user2 {
+   *      question1 : QuestionResult,
+   *      question2 : QuestionResult,
+   *      question3 : QuestionResult
+   *    }
+   *  }
    */
   reportData: Ember.computed('contentFeed', function () {
     var newUsersQuestions = this.get('contentFeed');
@@ -180,17 +198,19 @@ export default Ember.Component.extend({
 
     if (newUsersQuestions) {
       newUsersQuestions.forEach(function (userQuestions) {
-        var user = userQuestions.user;
-        var questionsResults = userQuestions.questionsResults;
+        var userId = userQuestions.get("user");
+        var questionsResults = userQuestions.get("questionsResults");
 
         questionsResults.forEach(function (questionResult) {
-          var question = questionResult.questionId;
-
+          var questionId = questionResult.get("questionId");
+          cumulativeData[userId][questionId] = questionResult;
+/*
           for (let key in questionResult) {
             if (key !== 'questionId') {
               cumulativeData[user][question][key] = questionResult[key];
             }
           }
+*/
         });
       });
     }

@@ -73,7 +73,7 @@ export default Ember.Object.extend({
    * @prop {Number}
    */
   correctPercentage:Ember.computed('questionsResults.[]','correctAnswers.[]',function(){
-    return correctPercentage(this.get('questionsResults'),this.get('correctAnswers'));
+    return correctPercentage(this.get('questionsResults'), this.get('correctAnswers'));
   }),
 
   /**

@@ -15,7 +15,7 @@ export default Ember.Controller.extend({
     questionCount: 3,
     visibility: true,
     resources: [
-      {
+      Ember.Object.create({
         "id": "56a120483b6e7b090501d3e7",
         "assetBasePath": "http://",
         "resourceType": "assessment-question",
@@ -76,8 +76,8 @@ export default Ember.Controller.extend({
         ],
         "hasAnswers": true,
         "hasNarration": true
-      },
-      {
+      }),
+      Ember.Object.create({
         "id": "56a1204886b2e565e1b2c230",
         "assetBasePath": "http://",
         "resourceType": "assessment-question",
@@ -138,8 +138,8 @@ export default Ember.Controller.extend({
         ],
         "hasAnswers": true,
         "hasNarration": true
-      },
-      {
+      }),
+      Ember.Object.create({
         "id": "56a12048ddee2022a741356a",
         "assetBasePath": "http://",
         "resourceType": "assessment-question",
@@ -200,29 +200,29 @@ export default Ember.Controller.extend({
         ],
         "hasAnswers": true,
         "hasNarration": true
-      }
+      })
     ],
     hasResources: true,
     isAssessment: true
   }),
 
   users: [
-    {
+    Ember.Object.create({
       "id": "56983a9060a68052c1ed934c",
       "fullName": "Rocha, Perez"
-    },
-    {
+    }),
+    Ember.Object.create({
       "id": "56983a90fb01fecc328e2388",
       "fullName": "Snyder, Mason"
-    },
-    {
+    }),
+    Ember.Object.create({
       "id": "56983a906596902edadedc7c",
       "fullName": "Robles, María Guadalupe de la Trinidad"
-    },
-    {
+    }),
+    Ember.Object.create({
       "id": "56983a9082f705e65f2fe607",
       "fullName": "Hutchinson, Blake"
-    }
+    })
   ]
 
 });

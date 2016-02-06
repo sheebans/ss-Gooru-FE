@@ -1,0 +1,23 @@
+.reports.class-assessment.gru-student-performance-box {
+  width: 18%;
+  margin-right: 2%;
+
+  .questions {
+    display: flex;
+    flex-wrap: wrap;
+    span {
+      width: 25px;
+      height: 25px;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      background-color: $gray-lighter;
+      border: 1px solid $gray-darker;
+      &.correct {
+        background-color: $brand-success;
+      }
+      &.incorrect {
+        background-color: $brand-incorrect;
+      }
+    }
+  }
+}
