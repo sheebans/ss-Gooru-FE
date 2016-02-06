@@ -228,7 +228,7 @@ export default Ember.Component.extend({
    * @return {Object[]}
    */
   tableFrame: Ember.computed('anonymous', 'students.[]', function () {
-    let anonymous = this.get("anonymous")
+    let anonymous = this.get("anonymous");
     return this.get('students').map(function (student) {
       return {
         id: student.get("id"),
