@@ -1,0 +1,18 @@
+.reports.class-assessment.gru-questions-detail {
+  height: 400px;
+  .row{
+    height: inherit;
+    .navigation {
+      background-color: $gray-darker;
+      height: 50px;
+    }
+    .question-info {
+      height: inherit;
+      background-color: $gray-light;
+    }
+    .question-metrics {
+      height: inherit;
+      background-color: $brand-info;
+    }
+  }
+}
