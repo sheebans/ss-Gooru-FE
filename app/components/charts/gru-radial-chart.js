@@ -13,14 +13,6 @@ import { radialProgress } from 'gooru-web/utils/d3/radial-progress';
  * @augments ember/Component
  */
 
-// -------------------------------------------------------------------------
-// Private Variables
-
-var radialChart,  // Radial chart instance
-  width,        // Width of the chart calculated from the css
-  height;       // Height of the chart calculated from the css
-
-
 export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
@@ -39,10 +31,10 @@ export default Ember.Component.extend({
     const value = this.get('value');
 
     // Get the component dimensions from the css
-    width = parseInt($component.css('width').split('px')[0]);
-    height = parseInt($component.css('height').split('px')[0]);
+    const width = parseInt($component.css('width').split('px')[0]);
+    const height = parseInt($component.css('height').split('px')[0]);
 
-    radialChart = radialProgress(this.element)
+    var radialChart = radialProgress(this.element)
       .margin({top: 0, right: 0, bottom: 0, left: 0})
       .diameter(Math.min(height, width))
       .value(value)
@@ -54,6 +46,8 @@ export default Ember.Component.extend({
     }
 
     radialChart.render();
+
+    this.set('radialChart', radialChart);
   },
 
   // -------------------------------------------------------------------------
@@ -68,6 +62,11 @@ export default Ember.Component.extend({
    * @property {Number} maxValue - Highest value for the graph
    */
   maxValue: 1,
+
+  /**
+   * @private {Object} radialChart - Radial chart instance
+   */
+  radialChart: null,
 
   /**
    * @property {boolean} showPercentageLabel - Show the percentage label
@@ -85,6 +84,7 @@ export default Ember.Component.extend({
   renderChart: Ember.observer('value', function () {
     const maxValue = this.get('maxValue');
     const value = this.get('value');
+    const radialChart = this.get('radialChart');
 
     radialChart.value(value);
 

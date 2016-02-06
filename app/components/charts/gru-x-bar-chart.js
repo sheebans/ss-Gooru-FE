@@ -12,29 +12,35 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['charts','gru-stacked-horizontal-bar-chart'],
+  classNames: ['charts', 'gru-x-bar-chart'],
 
 
   // -------------------------------------------------------------------------
   // Properties
 
-  data:null,
+  data: null,
+
+  styles: Ember.computed('data', function () {
+    return this.get('data').map(function (questionData) {
+      return Ember.String.htmlSafe('background-color: ' + questionData.color + '; width: ' + questionData.percentage + '%;');
+    });
+  }),
 
   // -------------------------------------------------------------------------
   // Events
 
 
-  didInsertElement: function(){
-    if(!this.validValues()){
+  didInsertElement: function () {
+    if (!this.validValues()) {
       Ember.Logger.warn('Graph values sum more than 100');
     }
   },
 
   /*
-  * Check if the values are up 100%
-  */
-  validValues:function(){
-    var sum = this.get("data").reduce(function(previousValue, value){
+   * Check if the values are up 100%
+   */
+  validValues: function () {
+    var sum = this.get("data").reduce(function (previousValue, value) {
       return previousValue + parseInt(value.percentage);
     }, 0);
     return (sum <= 100);

@@ -18,22 +18,94 @@ var usersResults = [
     "user": "56983a9060a68052c1ed934c",
     "questionsResults": [
       {
-        "correct": false,
-        "questionId": "56a120483b6e7b090501d3e7",
-        "reaction": 1,
-        "timeSpent": 1216
-      },
-      {
         "correct": true,
-        "questionId": "56a1204886b2e565e1b2c230",
+        "questionId": "569906aa20b7dfae1bcd5262",
         "reaction": 2,
-        "timeSpent": 2458
+        "timeSpent": 701
       },
       {
         "correct": true,
-        "questionId": "56a12048ddee2022a741356a",
+        "questionId": "569906aa3ec3bb39969acbe6",
+        "reaction": 4,
+        "timeSpent": 1333
+      },
+      {
+        "correct": null,
+        "questionId": "569906aadfa0072204f7c7c7",
+        "reaction": 5,
+        "timeSpent": 1305
+      },
+      {
+        "correct": false,
+        "questionId": "569906aacea8416665209d53",
+        "reaction": 1,
+        "timeSpent": 1013
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa77bebed003fa6eb1",
         "reaction": 3,
-        "timeSpent": 1433
+        "timeSpent": 2234
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa68f276ae7ea03c30",
+        "reaction": 2,
+        "timeSpent": 1830
+      },
+      {
+        "correct": null,
+        "questionId": "569906aa04f742731bd4e896",
+        "reaction": 2,
+        "timeSpent": 2081
+      },
+      {
+        "correct": null,
+        "questionId": "569906aabfcfc4cfc1b29b62",
+        "reaction": 4,
+        "timeSpent": 1668
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa7fe0695bfd409731",
+        "reaction": 4,
+        "timeSpent": 2096
+      },
+      {
+        "correct": true,
+        "questionId": "569906aae3191722d9b42f22",
+        "reaction": 5,
+        "timeSpent": 246
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa283a7b45e6777a52",
+        "reaction": 4,
+        "timeSpent": 1025
+      },
+      {
+        "correct": true,
+        "questionId": "569906aab4d366e4ada0c67d",
+        "reaction": 2,
+        "timeSpent": 127
+      },
+      {
+        "correct": false,
+        "questionId": "569906aa9fa514e9304c0549",
+        "reaction": 3,
+        "timeSpent": 660
+      },
+      {
+        "correct": false,
+        "questionId": "569906aa575aa6e617b38e16",
+        "reaction": 2,
+        "timeSpent": 257
+      },
+      {
+        "correct": null,
+        "questionId": "569906aa25189b0dc0a981ba",
+        "reaction": 4,
+        "timeSpent": 1409
       }
     ]
   },
@@ -41,16 +113,94 @@ var usersResults = [
     "user": "56983a90fb01fecc328e2388",
     "questionsResults": [
       {
-        "correct": false,
-        "questionId": "56a120483b6e7b090501d3e7",
-        "reaction": 5,
-        "timeSpent": 1216
+        "correct": true,
+        "questionId": "569906aa20b7dfae1bcd5262",
+        "reaction": 2,
+        "timeSpent": 701
       },
       {
         "correct": true,
-        "questionId": "56a12048ddee2022a741356a",
+        "questionId": "569906aa3ec3bb39969acbe6",
+        "reaction": 4,
+        "timeSpent": 1333
+      },
+      {
+        "correct": false,
+        "questionId": "569906aadfa0072204f7c7c7",
+        "reaction": 5,
+        "timeSpent": 1305
+      },
+      {
+        "correct": true,
+        "questionId": "569906aacea8416665209d53",
+        "reaction": 1,
+        "timeSpent": 1013
+      },
+      {
+        "correct": false,
+        "questionId": "569906aa77bebed003fa6eb1",
         "reaction": 3,
-        "timeSpent": 1433
+        "timeSpent": 2234
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa68f276ae7ea03c30",
+        "reaction": 2,
+        "timeSpent": 1830
+      },
+      {
+        "correct": null,
+        "questionId": "569906aa04f742731bd4e896",
+        "reaction": 2,
+        "timeSpent": 2081
+      },
+      {
+        "correct": null,
+        "questionId": "569906aabfcfc4cfc1b29b62",
+        "reaction": 4,
+        "timeSpent": 1668
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa7fe0695bfd409731",
+        "reaction": 4,
+        "timeSpent": 2096
+      },
+      {
+        "correct": false,
+        "questionId": "569906aae3191722d9b42f22",
+        "reaction": 5,
+        "timeSpent": 246
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa283a7b45e6777a52",
+        "reaction": 4,
+        "timeSpent": 1025
+      },
+      {
+        "correct": true,
+        "questionId": "569906aab4d366e4ada0c67d",
+        "reaction": 2,
+        "timeSpent": 127
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa9fa514e9304c0549",
+        "reaction": 3,
+        "timeSpent": 660
+      },
+      {
+        "correct": null,
+        "questionId": "569906aa575aa6e617b38e16",
+        "reaction": 2,
+        "timeSpent": 257
+      },
+      {
+        "correct": null,
+        "questionId": "569906aa25189b0dc0a981ba",
+        "reaction": 4,
+        "timeSpent": 1409
       }
     ]
   },
@@ -58,22 +208,189 @@ var usersResults = [
     "user": "56983a906596902edadedc7c",
     "questionsResults": [
       {
+        "correct": null,
+        "questionId": "569906aa20b7dfae1bcd5262",
+        "reaction": 2,
+        "timeSpent": 701
+      },
+      {
         "correct": false,
-        "questionId": "56a120483b6e7b090501d3e7",
+        "questionId": "569906aa3ec3bb39969acbe6",
+        "reaction": 4,
+        "timeSpent": 1333
+      },
+      {
+        "correct": true,
+        "questionId": "569906aadfa0072204f7c7c7",
+        "reaction": 5,
+        "timeSpent": 1305
+      },
+      {
+        "correct": false,
+        "questionId": "569906aacea8416665209d53",
         "reaction": 1,
-        "timeSpent": 1216
+        "timeSpent": 1013
+      },
+      {
+        "correct": false,
+        "questionId": "569906aa77bebed003fa6eb1",
+        "reaction": 3,
+        "timeSpent": 2234
       },
       {
         "correct": true,
-        "questionId": "56a1204886b2e565e1b2c230",
-        "reaction": 5,
-        "timeSpent": 2458
+        "questionId": "569906aa68f276ae7ea03c30",
+        "reaction": 2,
+        "timeSpent": 1830
       },
       {
         "correct": true,
-        "questionId": "56a12048ddee2022a741356a",
+        "questionId": "569906aa04f742731bd4e896",
+        "reaction": 2,
+        "timeSpent": 2081
+      },
+      {
+        "correct": true,
+        "questionId": "569906aabfcfc4cfc1b29b62",
+        "reaction": 4,
+        "timeSpent": 1668
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa7fe0695bfd409731",
+        "reaction": 4,
+        "timeSpent": 2096
+      },
+      {
+        "correct": false,
+        "questionId": "569906aae3191722d9b42f22",
         "reaction": 5,
-        "timeSpent": 1433
+        "timeSpent": 246
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa283a7b45e6777a52",
+        "reaction": 4,
+        "timeSpent": 1025
+      },
+      {
+        "correct": true,
+        "questionId": "569906aab4d366e4ada0c67d",
+        "reaction": 2,
+        "timeSpent": 127
+      },
+      {
+        "correct": false,
+        "questionId": "569906aa9fa514e9304c0549",
+        "reaction": 3,
+        "timeSpent": 660
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa575aa6e617b38e16",
+        "reaction": 2,
+        "timeSpent": 257
+      },
+      {
+        "correct": null,
+        "questionId": "569906aa25189b0dc0a981ba",
+        "reaction": 4,
+        "timeSpent": 1409
+      }
+    ]
+  },
+  {
+    "user": "56983a901bc3d60c88ac2fe2",
+    "questionsResults": [
+      {
+        "correct": true,
+        "questionId": "569906aa20b7dfae1bcd5262",
+        "reaction": 2,
+        "timeSpent": 701
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa3ec3bb39969acbe6",
+        "reaction": 4,
+        "timeSpent": 1333
+      },
+      {
+        "correct": true,
+        "questionId": "569906aadfa0072204f7c7c7",
+        "reaction": 5,
+        "timeSpent": 1305
+      },
+      {
+        "correct": false,
+        "questionId": "569906aacea8416665209d53",
+        "reaction": 1,
+        "timeSpent": 1013
+      },
+      {
+        "correct": false,
+        "questionId": "569906aa77bebed003fa6eb1",
+        "reaction": 3,
+        "timeSpent": 2234
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa68f276ae7ea03c30",
+        "reaction": 2,
+        "timeSpent": 1830
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa04f742731bd4e896",
+        "reaction": 2,
+        "timeSpent": 2081
+      },
+      {
+        "correct": true,
+        "questionId": "569906aabfcfc4cfc1b29b62",
+        "reaction": 4,
+        "timeSpent": 1668
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa7fe0695bfd409731",
+        "reaction": 4,
+        "timeSpent": 2096
+      },
+      {
+        "correct": false,
+        "questionId": "569906aae3191722d9b42f22",
+        "reaction": 5,
+        "timeSpent": 246
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa283a7b45e6777a52",
+        "reaction": 4,
+        "timeSpent": 1025
+      },
+      {
+        "correct": true,
+        "questionId": "569906aab4d366e4ada0c67d",
+        "reaction": 2,
+        "timeSpent": 127
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa9fa514e9304c0549",
+        "reaction": 3,
+        "timeSpent": 660
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa575aa6e617b38e16",
+        "reaction": 2,
+        "timeSpent": 257
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa25189b0dc0a981ba",
+        "reaction": 4,
+        "timeSpent": 1409
       }
     ]
   },
@@ -82,21 +399,520 @@ var usersResults = [
     "questionsResults": [
       {
         "correct": true,
-        "questionId": "56a120483b6e7b090501d3e7",
+        "questionId": "569906aa20b7dfae1bcd5262",
+        "reaction": 2,
+        "timeSpent": 701
+      },
+      {
+        "correct": false,
+        "questionId": "569906aa3ec3bb39969acbe6",
         "reaction": 4,
-        "timeSpent": 1216
+        "timeSpent": 1333
+      },
+      {
+        "correct": false,
+        "questionId": "569906aadfa0072204f7c7c7",
+        "reaction": 5,
+        "timeSpent": 1305
+      },
+      {
+        "correct": false,
+        "questionId": "569906aacea8416665209d53",
+        "reaction": 1,
+        "timeSpent": 1013
       },
       {
         "correct": true,
-        "questionId": "56a1204886b2e565e1b2c230",
-        "reaction": 4,
-        "timeSpent": 2458
-      },
-      {
-        "correct": true,
-        "questionId": "56a12048ddee2022a741356a",
+        "questionId": "569906aa77bebed003fa6eb1",
         "reaction": 3,
-        "timeSpent": 1433
+        "timeSpent": 2234
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa68f276ae7ea03c30",
+        "reaction": 2,
+        "timeSpent": 1830
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa04f742731bd4e896",
+        "reaction": 2,
+        "timeSpent": 2081
+      },
+      {
+        "correct": true,
+        "questionId": "569906aabfcfc4cfc1b29b62",
+        "reaction": 4,
+        "timeSpent": 1668
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa7fe0695bfd409731",
+        "reaction": 4,
+        "timeSpent": 2096
+      },
+      {
+        "correct": true,
+        "questionId": "569906aae3191722d9b42f22",
+        "reaction": 5,
+        "timeSpent": 246
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa283a7b45e6777a52",
+        "reaction": 4,
+        "timeSpent": 1025
+      },
+      {
+        "correct": false,
+        "questionId": "569906aab4d366e4ada0c67d",
+        "reaction": 2,
+        "timeSpent": 127
+      },
+      {
+        "correct": null,
+        "questionId": "569906aa9fa514e9304c0549",
+        "reaction": 3,
+        "timeSpent": 660
+      },
+      {
+        "correct": false,
+        "questionId": "569906aa575aa6e617b38e16",
+        "reaction": 2,
+        "timeSpent": 257
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa25189b0dc0a981ba",
+        "reaction": 4,
+        "timeSpent": 1409
+      }
+    ]
+  },
+  {
+    "user": "56983a905ed41a7863401287",
+    "questionsResults": [
+      {
+        "correct": true,
+        "questionId": "569906aa20b7dfae1bcd5262",
+        "reaction": 2,
+        "timeSpent": 701
+      },
+      {
+        "correct": false,
+        "questionId": "569906aa3ec3bb39969acbe6",
+        "reaction": 4,
+        "timeSpent": 1333
+      },
+      {
+        "correct": false,
+        "questionId": "569906aadfa0072204f7c7c7",
+        "reaction": 5,
+        "timeSpent": 1305
+      },
+      {
+        "correct": false,
+        "questionId": "569906aacea8416665209d53",
+        "reaction": 1,
+        "timeSpent": 1013
+      },
+      {
+        "correct": false,
+        "questionId": "569906aa77bebed003fa6eb1",
+        "reaction": 3,
+        "timeSpent": 2234
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa68f276ae7ea03c30",
+        "reaction": 2,
+        "timeSpent": 1830
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa04f742731bd4e896",
+        "reaction": 2,
+        "timeSpent": 2081
+      },
+      {
+        "correct": true,
+        "questionId": "569906aabfcfc4cfc1b29b62",
+        "reaction": 4,
+        "timeSpent": 1668
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa7fe0695bfd409731",
+        "reaction": 4,
+        "timeSpent": 2096
+      },
+      {
+        "correct": false,
+        "questionId": "569906aae3191722d9b42f22",
+        "reaction": 5,
+        "timeSpent": 246
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa283a7b45e6777a52",
+        "reaction": 4,
+        "timeSpent": 1025
+      },
+      {
+        "correct": true,
+        "questionId": "569906aab4d366e4ada0c67d",
+        "reaction": 2,
+        "timeSpent": 127
+      },
+      {
+        "correct": false,
+        "questionId": "569906aa9fa514e9304c0549",
+        "reaction": 3,
+        "timeSpent": 660
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa575aa6e617b38e16",
+        "reaction": 2,
+        "timeSpent": 257
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa25189b0dc0a981ba",
+        "reaction": 4,
+        "timeSpent": 1409
+      }
+    ]
+  },
+  {
+    "user": "56983a90297d42fd4ed7c1de",
+    "questionsResults": [
+      {
+        "correct": true,
+        "questionId": "569906aa20b7dfae1bcd5262",
+        "reaction": 2,
+        "timeSpent": 701
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa3ec3bb39969acbe6",
+        "reaction": 4,
+        "timeSpent": 1333
+      },
+      {
+        "correct": false,
+        "questionId": "569906aadfa0072204f7c7c7",
+        "reaction": 5,
+        "timeSpent": 1305
+      },
+      {
+        "correct": true,
+        "questionId": "569906aacea8416665209d53",
+        "reaction": 1,
+        "timeSpent": 1013
+      },
+      {
+        "correct": false,
+        "questionId": "569906aa77bebed003fa6eb1",
+        "reaction": 3,
+        "timeSpent": 2234
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa68f276ae7ea03c30",
+        "reaction": 2,
+        "timeSpent": 1830
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa04f742731bd4e896",
+        "reaction": 2,
+        "timeSpent": 2081
+      },
+      {
+        "correct": null,
+        "questionId": "569906aabfcfc4cfc1b29b62",
+        "reaction": 4,
+        "timeSpent": 1668
+      },
+      {
+        "correct": null,
+        "questionId": "569906aa7fe0695bfd409731",
+        "reaction": 4,
+        "timeSpent": 2096
+      },
+      {
+        "correct": false,
+        "questionId": "569906aae3191722d9b42f22",
+        "reaction": 5,
+        "timeSpent": 246
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa283a7b45e6777a52",
+        "reaction": 4,
+        "timeSpent": 1025
+      },
+      {
+        "correct": true,
+        "questionId": "569906aab4d366e4ada0c67d",
+        "reaction": 2,
+        "timeSpent": 127
+      },
+      {
+        "correct": false,
+        "questionId": "569906aa9fa514e9304c0549",
+        "reaction": 3,
+        "timeSpent": 660
+      },
+      {
+        "correct": false,
+        "questionId": "569906aa575aa6e617b38e16",
+        "reaction": 2,
+        "timeSpent": 257
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa25189b0dc0a981ba",
+        "reaction": 4,
+        "timeSpent": 1409
+      }
+    ]
+  },
+  {
+    "user": "56983a900f77bf820df2cb9c",
+    "questionsResults": [
+      {
+        "correct": true,
+        "questionId": "569906aa20b7dfae1bcd5262",
+        "reaction": 2,
+        "timeSpent": 701
+      },
+      {
+        "correct": false,
+        "questionId": "569906aa3ec3bb39969acbe6",
+        "reaction": 4,
+        "timeSpent": 1333
+      },
+      {
+        "correct": false,
+        "questionId": "569906aadfa0072204f7c7c7",
+        "reaction": 5,
+        "timeSpent": 1305
+      },
+      {
+        "correct": false,
+        "questionId": "569906aacea8416665209d53",
+        "reaction": 1,
+        "timeSpent": 1013
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa77bebed003fa6eb1",
+        "reaction": 3,
+        "timeSpent": 2234
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa68f276ae7ea03c30",
+        "reaction": 2,
+        "timeSpent": 1830
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa04f742731bd4e896",
+        "reaction": 2,
+        "timeSpent": 2081
+      },
+      {
+        "correct": true,
+        "questionId": "569906aabfcfc4cfc1b29b62",
+        "reaction": 4,
+        "timeSpent": 1668
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa7fe0695bfd409731",
+        "reaction": 4,
+        "timeSpent": 2096
+      },
+      {
+        "correct": true,
+        "questionId": "569906aae3191722d9b42f22",
+        "reaction": 5,
+        "timeSpent": 246
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa283a7b45e6777a52",
+        "reaction": 4,
+        "timeSpent": 1025
+      },
+      {
+        "correct": false,
+        "questionId": "569906aab4d366e4ada0c67d",
+        "reaction": 2,
+        "timeSpent": 127
+      },
+      {
+        "correct": null,
+        "questionId": "569906aa9fa514e9304c0549",
+        "reaction": 3,
+        "timeSpent": 660
+      },
+      {
+        "correct": null,
+        "questionId": "569906aa575aa6e617b38e16",
+        "reaction": 2,
+        "timeSpent": 257
+      }
+    ]
+  },
+  {
+    "user": "56983a90231a29de51a368d4",
+    "questionsResults": [
+      {
+        "correct": true,
+        "questionId": "569906aa20b7dfae1bcd5262",
+        "reaction": 2,
+        "timeSpent": 701
+      },
+      {
+        "correct": false,
+        "questionId": "569906aa3ec3bb39969acbe6",
+        "reaction": 4,
+        "timeSpent": 1333
+      },
+      {
+        "correct": true,
+        "questionId": "569906aadfa0072204f7c7c7",
+        "reaction": 5,
+        "timeSpent": 1305
+      },
+      {
+        "correct": false,
+        "questionId": "569906aacea8416665209d53",
+        "reaction": 1,
+        "timeSpent": 1013
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa77bebed003fa6eb1",
+        "reaction": 3,
+        "timeSpent": 2234
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa68f276ae7ea03c30",
+        "reaction": 2,
+        "timeSpent": 1830
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa04f742731bd4e896",
+        "reaction": 2,
+        "timeSpent": 2081
+      },
+      {
+        "correct": true,
+        "questionId": "569906aabfcfc4cfc1b29b62",
+        "reaction": 4,
+        "timeSpent": 1668
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa7fe0695bfd409731",
+        "reaction": 4,
+        "timeSpent": 2096
+      },
+      {
+        "correct": true,
+        "questionId": "569906aae3191722d9b42f22",
+        "reaction": 5,
+        "timeSpent": 246
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa283a7b45e6777a52",
+        "reaction": 4,
+        "timeSpent": 1025
+      },
+      {
+        "correct": false,
+        "questionId": "569906aab4d366e4ada0c67d",
+        "reaction": 2,
+        "timeSpent": 127
+      }
+    ]
+  },
+  {
+    "user": "56983a901ad65da6dac5b384",
+    "questionsResults": [
+      {
+        "correct": true,
+        "questionId": "569906aa20b7dfae1bcd5262",
+        "reaction": 2,
+        "timeSpent": 701
+      },
+      {
+        "correct": false,
+        "questionId": "569906aa3ec3bb39969acbe6",
+        "reaction": 4,
+        "timeSpent": 1333
+      },
+      {
+        "correct": true,
+        "questionId": "569906aadfa0072204f7c7c7",
+        "reaction": 5,
+        "timeSpent": 1305
+      },
+      {
+        "correct": false,
+        "questionId": "569906aacea8416665209d53",
+        "reaction": 1,
+        "timeSpent": 1013
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa77bebed003fa6eb1",
+        "reaction": 3,
+        "timeSpent": 2234
+      },
+      {
+        "correct": true,
+        "questionId": "569906aabfcfc4cfc1b29b62",
+        "reaction": 4,
+        "timeSpent": 1668
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa7fe0695bfd409731",
+        "reaction": 4,
+        "timeSpent": 2096
+      },
+      {
+        "correct": false,
+        "questionId": "569906aae3191722d9b42f22",
+        "reaction": 5,
+        "timeSpent": 246
+      },
+      {
+        "correct": true,
+        "questionId": "569906aa283a7b45e6777a52",
+        "reaction": 4,
+        "timeSpent": 1025
+      },
+      {
+        "correct": false,
+        "questionId": "569906aab4d366e4ada0c67d",
+        "reaction": 2,
+        "timeSpent": 127
+      },
+      {
+        "correct": false,
+        "questionId": "569906aa9fa514e9304c0549",
+        "reaction": 3,
+        "timeSpent": 660
       }
     ]
   }
