@@ -14,7 +14,7 @@ export default Ember.Object.extend({
   questionsResults: [],
 
   /**
-   * @property {number} user
+   * @property {string} user
    */
   user: null
 

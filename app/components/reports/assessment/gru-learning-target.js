@@ -55,7 +55,7 @@ export default Ember.Component.extend({
     }),
   /**
    * List of questions
-   * @prop {Ember.Array}
+   * @prop {QuestionDetailsResult[]}
    */
     questionsList:Ember.computed('assessmentResult.questionsResults.[]',function(){
        return this.getQuestions(this.get("assessmentResult.questionsResults"));

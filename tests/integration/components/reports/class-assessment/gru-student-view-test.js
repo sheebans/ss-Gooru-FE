@@ -1,13 +1,60 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Ember from 'ember';
 
 moduleForComponent('reports/class-assessment/gru-student-view', 'Integration | Component | reports/class assessment/gru student view', {
   integration: true
 });
 
-test('it renders', function (assert) {
+test('Layout', function (assert) {
 
-  this.render(hbs`{{reports/class-assessment/gru-student-view}}`);
+  var assessment = Ember.Object.create({
+    resources: [
+      Ember.Object.create({
+        "id": "56a120483b6e7b090501d3e7",
+        "order": 1
+      }),
+      Ember.Object.create({
+        "id": "56a1204886b2e565e1b2c230",
+        "order": 3
+      }),
+      Ember.Object.create({
+        "id": "56a12048ddee2022a741356a",
+        "order": 2
+      })
+    ]
+  });
 
-  assert.expect(0);
+  var students = Ember.A([
+    Ember.Object.create({"id": "56983a9060a68052c1ed934c"}),
+    Ember.Object.create({"id": "56983a90fb01fecc328e2388"}),
+    Ember.Object.create({"id": "56983a906596902edadedc7c"})
+  ]);
+
+  var reportData = { //all questions skipped
+    "56983a9060a68052c1ed934c": {
+      "56a120483b6e7b090501d3e7": {},
+      "56a1204886b2e565e1b2c230": {},
+      "56a12048ddee2022a741356a": {}
+    },
+    "56983a90fb01fecc328e2388": {
+      "56a120483b6e7b090501d3e7": {},
+      "56a1204886b2e565e1b2c230": {},
+      "56a12048ddee2022a741356a": {}
+    },
+    "56983a906596902edadedc7c": {
+      "56a120483b6e7b090501d3e7": {},
+      "56a1204886b2e565e1b2c230": {},
+      "56a12048ddee2022a741356a": {}
+    }
+  };
+
+  this.set("assessment", assessment);
+  this.set("students", students);
+  this.set("reportData", reportData);
+
+  this.render(hbs`{{reports/class-assessment/gru-student-view assessment=assessment students=students reportData=reportData}}`);
+
+  const $component = this.$();
+  assert.equal($component.find(".gru-student-performance-box").length, 3, "It should displayed 3 boxes");
 });
