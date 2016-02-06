@@ -27,11 +27,13 @@ test('Default Layout', function (assert) {
     resources: [
       Ember.Object.create({
         "id": "569906aa20b7dfae1bcd5262",
-        "order": 1
+        "order": 1,
+        "text": "Resource 1"
       }),
       Ember.Object.create({
         "id": "569906aa3ec3bb39969acbe6",
-        "order": 2
+        "order": 2,
+        "text": "Resource 2"
       })
     ],
     hasResources: true,
