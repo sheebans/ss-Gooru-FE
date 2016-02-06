@@ -133,6 +133,12 @@ export default Ember.Component.extend({
   rawData: null,
 
   /**
+   * Indicates if the report is displayed in anonymous mode
+   * @property {boolean} anonymous
+   */
+  anonymous: false,
+
+  /**
    * @prop { User[] } students - Students taking the assessment
    */
   students: null,
@@ -163,7 +169,7 @@ export default Ember.Component.extend({
    *   - output: table cell content formatted for output (the formatting is done by
    *             the question property's render function)
    */
-  tableData: Ember.computed('tableFrame', 'rawData', function () {
+  tableData: Ember.computed("anonymous", 'tableFrame', 'rawData', function () {
     const studentsIds = this.get('studentsIds');
     const studentsIdsLen = studentsIds.length;
     const questionsIds = this.get('assessmentQuestionsIds');
@@ -221,11 +227,12 @@ export default Ember.Component.extend({
    * @prop {Object[]} tableFrame - The table frame that encloses the table data
    * @return {Object[]}
    */
-  tableFrame: Ember.computed('students.[]', function () {
+  tableFrame: Ember.computed('anonymous', 'students.[]', function () {
+    let anonymous = this.get("anonymous")
     return this.get('students').map(function (student) {
       return {
-        id: student.id,
-        header: student.fullName,
+        id: student.get("id"),
+        header: anonymous ? student.get("code") : student.get("fullName"),
         content: []
       };
     });

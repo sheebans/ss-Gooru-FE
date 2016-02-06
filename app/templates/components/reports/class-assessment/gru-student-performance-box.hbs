@@ -1,5 +1,7 @@
 <div class="panel panel-default" {{action 'click'}}>
-    <div class="panel-heading" style="background-color: {{gradeColor score}}">{{student.fullName}} <span class="score">({{score}}%)</span></div>
+    <div class="panel-heading" style="background-color: {{gradeColor score}}">
+      {{ if anonymous student.code student.fullName }} <span class="score">({{score}}%)</span>
+    </div>
     <div class="panel-body questions">
         {{#each questions as |question|}}
           <span class="{{question.status}}"></span>

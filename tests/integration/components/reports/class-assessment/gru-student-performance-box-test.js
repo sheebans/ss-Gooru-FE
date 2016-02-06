@@ -14,7 +14,7 @@ test('Layout', function (assert) {
 
   const student = Ember.Object.create({
     "id": "56983a9060a68052c1ed934c",
-    "fullName": "Rocha, Perez"
+    "fullName": "Rocha, Perez",
   });
 
   const reportData = Ember.A([
@@ -74,4 +74,40 @@ test('Layout', function (assert) {
   assert.equal($questions.find("span.skipped").length, 1, "It should displayed 1 skipped question");
 
   $component.find(".panel").click();
+});
+
+test('Showing student code in anonymous mode', function (assert) {
+
+  assert.expect(4);
+
+  const student = Ember.Object.create({
+    "id": "56983a9060a68052c1ed934c",
+    "fullName": "Rocha, Perez",
+    "code": "abcde"
+  });
+
+  const reportData = Ember.A([
+    QuestionResult.create({
+      "correct": true,
+      "questionId": "569906aa20b7dfae1bcd5262",
+      "reaction": 2,
+      "timeSpent": 701
+    })
+  ]);
+
+  this.set("student", student);
+  this.set("reportData", reportData);
+
+  this.render(hbs`{{reports/class-assessment/gru-student-performance-box
+    student=student
+    reportData=reportData
+    anonymous=true }}`);
+
+  const $component = this.$();
+  T.exists(assert, $component.find(".panel"), "Missing student box panel");
+
+  const $header = $component.find(".panel .panel-heading");
+  T.exists(assert, $header, "Missing student box title");
+  T.exists(assert, $header.find(".score"), "Missing student box score");
+  assert.equal(T.text($header), 'abcde (100%)', "Wrong title, it should use students code");
 });

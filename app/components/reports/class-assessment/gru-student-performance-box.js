@@ -44,6 +44,13 @@ export default Ember.Component.extend({
   reportData: null,
 
   /**
+   * Indicates if the report is displayed in anonymous mode
+   * @property {boolean} anonymous
+   */
+  anonymous: false,
+
+
+  /**
    * Actual student question results, it excludes non started questions
    * @property {QuestionResult[]} questionResults
    */
