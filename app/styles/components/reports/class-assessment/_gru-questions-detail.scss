@@ -4,7 +4,16 @@
     height: inherit;
     .navigation {
       height: 80px;
-      border-bottom: 1 solid $gray-darker;
+      border-bottom: 1px solid $gray-darker;
+      .selected-question{
+        margin-top: 5px;
+      }
+      .gru-bubbles {
+        .bubble.selected {
+          background-color: $gray-light;
+          color: $white;
+        }
+      }
     }
     .question-info {
       height: inherit;

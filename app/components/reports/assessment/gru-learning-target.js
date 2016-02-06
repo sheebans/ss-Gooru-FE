@@ -90,11 +90,11 @@ export default Ember.Component.extend({
     let results = this.getQuestions(questionResults);
 
     return results.map(function (questionResult) {
-      return {
+      return Ember.Object.create({
         label: questionResult.get('question.order'),
         status: questionResult.get('correct') ? 'correct' : 'incorrect',
         value: questionResult.get('id')
-      };
+      });
     });
   },
 

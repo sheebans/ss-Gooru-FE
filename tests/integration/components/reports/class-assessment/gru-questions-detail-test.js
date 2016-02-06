@@ -73,7 +73,7 @@ test('Layout', function(assert) {
 
   T.exists(assert, $navigation.find(".selected-question"), "Missing navigation bubbles");
   assert.equal(T.text($navigation.find(".selected-question")), "Q1 Resource 1", "Wrong selected question text");
-  //TODO assert the bubble is selected
+  assert.ok($navigation.find(".gru-bubbles .bubble:eq(0)").hasClass("selected"), "First question should be selected");
 
   T.exists(assert, $component.find(".question-info"), "Missing question information panel");
   T.exists(assert, $component.find(".question-metrics"), "Missing question metrics panel");
