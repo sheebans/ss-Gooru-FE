@@ -1,4 +1,44 @@
-<div class="md-design visible-md visible-lg">
+<div class="col-xs-12 xs-design hidden-md hidden-lg">
+    <div class="class-info">
+        <div>
+            <h4>{{class.name}}</h4>
+        </div>
+        <div>
+            <div class="greetings" {{action 'showDescription'}}><i class="fa fa-comment"></i></div>
+            <div class="btn-group drop-menu">
+                <button class="btn"><i class="fa {{iconClassMenuItem}}"></i></button>
+                <button class="btn dropdown-toggle" data-toggle="dropdown"></button>
+                <ul class="dropdown-menu">
+                    <li class="class-menu-item overview" {{action 'selectItem' 'overview'}}>
+                        <h6>{{t "class.gru-class-navigation.overview"}}</h6>{{material-design-icon name='dashboard'}}
+                    </li>s
+                    <li class="class-menu-item analytics performance" {{action 'selectItem' 'analytics.performance'}}>
+                        <h6>{{t "class.gru-class-navigation.analytics"}}</h6>{{material-design-icon name='graphic-eq'}}
+                    </li>
+                    <li class="class-menu-item suggestions" {{action 'selectItem' 'suggestions'}}>
+                        <h6>{{t "class.gru-class-navigation.suggestions"}}</h6>{{material-design-icon name='chat'}}
+                    </li>
+                    <li class="class-menu-item info" {{action 'selectItem' 'info'}}>
+                        <h6>{{t "class.gru-class-navigation.information"}}</h6>{{material-design-icon name='group-work'}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="description hidden">
+      {{class.description}}
+    </div>
+    <div class="class-details">
+        <div class="active-dates ma-bottom-5">{{t "class.gru-class-navigation.active"}} {{formatDate class.startDate 'MMMM DD, YYYY'}} - {{formatDate class.endDate 'MMMM DD, YYYY'}}</div>
+        <div class="members ma-bottom-5"><i class="fa fa-user"></i>{{class.totalMembers}}</div>
+    </div>
+
+</div>
+
+<div class="md-design hidden-xs hidden-sm col-md-12">
   <div class="class-info">
     <h4>{{class.name}}</h4>
     <div class="active-dates ma-bottom-5">
@@ -8,10 +48,10 @@
         </ul>
        </div>
     <div class="members ma-bottom-5">
-      {{class.totalMembers}} {{t "class.gru-class-navigation.members"}}
+      <p class="lead">{{class.totalMembers}} {{t "class.gru-class-navigation.members"}}</p>
     </div>
     <div class="greetings">
-      <span class="">{{t "class.gru-class-navigation.greetings"}}</span>
+      <p class="lead">{{t "class.gru-class-navigation.greetings"}}</p>
     </div>
     <div class="greetings-description">
       <p>{{class.greetings}}</p>
@@ -19,35 +59,17 @@
   </div>
   <div class="class-menu">
     <ul class="list-group">
-      <li class="list-group-item class-menu-item overview" {{action 'selectItem' 'overview'}}>{{t "class.gru-class-navigation.overview"}}</li>
-      <li class="list-group-item class-menu-item analytics performance" {{action 'selectItem' 'analytics.performance'}}>{{t "class.gru-class-navigation.analytics"}}</li>
-      <li class="list-group-item class-menu-item suggestions" {{action 'selectItem' 'suggestions'}}>{{t "class.gru-class-navigation.suggestions"}}</li>
-      <li class="list-group-item class-menu-item info" {{action 'selectItem' 'info'}}>{{t "class.gru-class-navigation.information"}}</li>
+      <li class="list-group-item class-menu-item overview" {{action 'selectItem' 'overview'}}><h6>{{t "class.gru-class-navigation.overview"}}</h6>{{material-design-icon name='dashboard'}}</li>
+      <li class="list-group-item class-menu-item analytics performance" {{action 'selectItem' 'analytics.performance'}}><h6>{{t "class.gru-class-navigation.analytics"}}</h6>{{material-design-icon name='graphic-eq'}}</li>
+      <li class="list-group-item class-menu-item suggestions" {{action 'selectItem' 'suggestions'}}><h6>{{t "class.gru-class-navigation.suggestions"}}</h6>{{material-design-icon name='chat'}}</li>
+      <li class="list-group-item class-menu-item info" {{action 'selectItem' 'info'}}><h6>{{t "class.gru-class-navigation.information"}}</h6>{{material-design-icon name='group-work'}}</li>
     </ul>
   </div>
 </div>
 
-<div class="sm-design visible-sm">
-  <div class="class-info col-sm-12">
-    <h3>{{class.name}}</h3>
-    <div class="active-dates ma-bottom-5">{{t "class.gru-class-navigation.active"}} {{class.startDate}} - {{class.endDate}}</div>
-    <div class="members ma-bottom-5"><i class="fa fa-user"></i>{{class.totalMembers}}</div>
-    <div class="greetings" {{action 'showDescription'}}><i class="fa fa-comment"></i></div>
-    <div class="btn-group drop-menu">
-      <button class="btn"><i class="fa {{iconClassMenuItem}}"></i></button>
-      <button class="btn dropdown-toggle" data-toggle="dropdown"></button>
-      <ul class="dropdown-menu">
-        <li class="class-menu-item overview" {{action 'selectItem' 'overview'}}><i class="fa fa-graduation-cap"></i>{{t "class.gru-class-navigation.overview"}}</li>
-        <li class="class-menu-item analytics performance" {{action 'selectItem' 'analytics.performance'}}><i class="fa fa-signal"></i>{{t "class.gru-class-navigation.analytics"}}</li>
-        <li class="class-menu-item suggestions" {{action 'selectItem' 'suggestions'}}><i class="fa fa-rocket"></i>{{t "class.gru-class-navigation.suggestions"}}</li>
-        <li class="class-menu-item info" {{action 'selectItem' 'info'}}><i class="fa fa-info"></i>{{t "class.gru-class-navigation.information"}}</li>
-      </ul>
-    </div>
-  </div>
-  <div class="description col-sm-12 hidden">{{class.description}}</div>
-</div>
 
-<div class="xs-design visible-xs">
+
+{{!--<div class="xs-design visible-xs">
   <div class="class-info col-sm-12">
     <h3>{{class.name}}</h3>
     <div class="greetings" {{action 'showDescription'}}><i class="fa fa-comment"></i></div>
@@ -57,10 +79,18 @@
 
       </button>
       <ul class="dropdown-menu">
-        <li class="class-menu-item overview" {{action 'selectItem' 'overview'}}><i class="fa fa-graduation-cap"></i>{{t "class.gru-class-navigation.overview"}}</li>
-        <li class="class-menu-item analytics performance" {{action 'selectItem' 'analytics.performance'}}><i class="fa fa-signal"></i>{{t "class.gru-class-navigation.analytics"}}</li>
-        <li class="class-menu-item suggestions" {{action 'selectItem' 'suggestions'}}><i class="fa fa-rocket"></i>{{t "class.gru-class-navigation.suggestions"}}</li>
-        <li class="class-menu-item info" {{action 'selectItem' 'info'}}><i class="fa fa-info"></i>{{t "class.gru-class-navigation.information"}}</li>
+          <li class="class-menu-item overview" {{action 'selectItem' 'overview'}}>
+              <h6>{{t "class.gru-class-navigation.overview"}}</h6>{{material-design-icon name='dashboard'}}
+          </li>s
+          <li class="class-menu-item analytics performance" {{action 'selectItem' 'analytics.performance'}}>
+              <h6>{{t "class.gru-class-navigation.analytics"}}</h6>{{material-design-icon name='graphic-eq'}}
+          </li>
+          <li class="class-menu-item suggestions" {{action 'selectItem' 'suggestions'}}>
+              <h6>{{t "class.gru-class-navigation.suggestions"}}</h6>{{material-design-icon name='chat'}}
+          </li>
+          <li class="class-menu-item info" {{action 'selectItem' 'info'}}>
+              <h6>{{t "class.gru-class-navigation.information"}}</h6>{{material-design-icon name='group-work'}}
+          </li>
       </ul>
     </div>
   </div>
@@ -69,4 +99,4 @@
     <div class="active-dates ma-bottom-5">{{t "class.gru-class-navigation.active"}} {{class.startDate}} - {{class.endDate}}</div>
     <div class="members ma-bottom-5"><i class="fa fa-user"></i>{{class.totalMembers}}</div>
   </div>
-</div>
+</div>--}}
