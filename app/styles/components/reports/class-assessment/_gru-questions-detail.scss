@@ -3,8 +3,8 @@
   .row{
     height: inherit;
     .navigation {
-      background-color: $gray-darker;
-      height: 50px;
+      height: 80px;
+      border-bottom: 1 solid $gray-darker;
     }
     .question-info {
       height: inherit;

@@ -19,7 +19,15 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-
+  actions:{
+    /**
+     * When clicking at any navigation bubble
+     * @param bubbleOption
+     */
+    bubbleSelect: function(bubbleOption){
+      this.set("selectedQuestion", bubbleOption.get("value"));
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Events
@@ -65,9 +73,27 @@ export default Ember.Component.extend({
   /**
    * @prop { User[] } students - Group of students taking an assessment
    */
-  students: null
+  students: null,
 
+  /**
+   * Returns a convenience structure to display the question navigation bubbles
+   * @returns {Array}
+   */
+  questionsNavOptions: Ember.computed("assessment.resources.[]", function () {
+    let questions = this.get("assessment.resources");
+    return questions.map(function (question) {
+      return Ember.Object.create({
+        label: question.get('order'),
+        status: null, //no status needed
+        value: question
+      });
+    });
+  }),
 
+  /**
+   * @property {Resource} selected question
+   */
+  selectedQuestion: null
 
 
   // -------------------------------------------------------------------------
