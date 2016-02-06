@@ -5,14 +5,8 @@ rawData=reportData }}
 
 <div class="view-container {{if isTableView 'table-view' 'student-view'}}">
 
-  <div class="view-selector">
-    <button class="table-view" {{action 'changeView' true}}>
-      {{fa-icon icon="fa-th-large"}}
-    </button>
-    <button class="student-view" {{action 'changeView' false}}>
-      {{fa-icon icon="fa-bars"}}
-    </button>
-  </div>
+
+  {{gru-view-layout-picker onViewLayoutChange='changeView'}}
 
   {{ reports.class-assessment.gru-table-view
   assessment=assessment

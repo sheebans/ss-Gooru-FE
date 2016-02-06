@@ -14,7 +14,14 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
+    /**
+     * When the user clicks at the box
+     */
+    click: function(){
+      const component = this;
+      component.get('onClick')(component.get("student"));
+      Ember.Logger.debug('Clicking at student: ' + component.get("student.id"));
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -84,7 +91,9 @@ export default Ember.Component.extend({
   getQuestionStatus: function(questionResult){
     let status = 'not-started';
     if (!Ember.$.isEmptyObject(questionResult)){ //if available and non empty object
-      status = questionResult.get("correct") ? 'correct' : 'incorrect';
+      let skipped = questionResult.get("correct") === null;
+      let correct = questionResult.get("correct");
+      status = skipped ? 'skipped' : (correct ? 'correct' : 'incorrect');
     }
     return Ember.Object.create({
       status: status

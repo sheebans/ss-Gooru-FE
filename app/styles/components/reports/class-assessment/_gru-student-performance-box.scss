@@ -10,8 +10,10 @@
       height: 25px;
       margin-right: 5px;
       margin-bottom: 5px;
-      background-color: $gray-lighter;
       border: 1px solid $gray-darker;
+      &.skipped, &.not-stared {
+        background-color: $gray-lighter;       ;
+      }
       &.correct {
         background-color: $brand-success;
       }
