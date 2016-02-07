@@ -13,10 +13,14 @@ test('Hot Text Highlight User Answer', function(assert) {
     text: '<p>Seleccione las palabras escritas incorrectamente</p>',
     hints: [],
     explanation: 'Sample explanation text',
-    answers:  Ember.A(["<p>[Le] casa es de [colo] rojo pero pero el [teco] es azul ajax</p>"]),
+    answers:  Ember.A([
+      Ember.Object.create({ id: "1", text:"<p>[Le] casa es de [colo] rojo pero pero el [teco] es azul ajax</p>" })
+    ]),
+    hasAnswers: true,
+    isHotTextHighlightWord: true,
     order: 2
   });
-  var userAnswer = Ember.A(["<p>[Le] casa es de colo rojo pero [pero] el [teco] es azul [ajax]</p>"]);
+  var userAnswer = ["Le", "casa", "teco", "azul"];
   this.set('question', question);
   this.set('userAnswer', userAnswer);
 
@@ -25,15 +29,11 @@ test('Hot Text Highlight User Answer', function(assert) {
   const $ht_hl = $component.find(".reports.assessment.questions.gru-hot-text-highlight");
 
   T.exists(assert, $ht_hl, 'Missing  component');
-  const $firstAnswer= $ht_hl.find('span.is-correct:eq(0)');
-  T.exists(assert,$firstAnswer , 'There are no correct answers, there should be 2');
+  const $correctAnswers = $ht_hl.find('span.is-correct');
+  assert.equal($correctAnswers.length, 2, 'There are no correct answers, there should be 2');
 
-  assert.equal(T.text($firstAnswer), "Le", "Incorrect first correct answer");
-
-  const $firstIncorrectAnswer= $ht_hl.find('span.is-incorrect:eq(0)');
-  T.exists(assert,$firstIncorrectAnswer , 'There are no correct answers, there should be 2');
-
-  assert.equal(T.text($firstIncorrectAnswer), "pero", "Incorrect first incorrect answer");
+  const $incorrectAnswers = $ht_hl.find('span.is-incorrect');
+  assert.equal($incorrectAnswers.length, 2, 'There are no incorrect answers, there should be 2');
 });
 
 test('Hot Text Highlight Correct Answer', function(assert) {
@@ -42,26 +42,25 @@ test('Hot Text Highlight Correct Answer', function(assert) {
     text: '<p>Seleccione las palabras escritas incorrectamente</p>',
     hints: [],
     explanation: 'Sample explanation text',
-    answers:  Ember.A(["<p>La casa es de [colo] rojo pero el [teco] es azul </p>"]),
+    answers:  Ember.A([
+      Ember.Object.create({ id: "1", text:"<p>[Le] casa es de [colo] rojo pero pero el [teco] es azul ajax</p>" })
+    ]),
+    hasAnswers: true,
+    isHotTextHighlightWord: true,
     order: 2
   });
+  var userAnswer = ["Le", "casa", "teco", "azul"];
   this.set('question', question);
-  this.set('showCorrect', true);
+  this.set('userAnswer', userAnswer);
 
-  this.render(hbs`{{reports/assessment/questions/gru-hot-text-highlight question=question showCorrect=showCorrect}}`);
+  this.render(hbs`{{reports/assessment/questions/gru-hot-text-highlight question=question showCorrect=true}}`);
   const $component = this.$(); //component dom element
   const $ht_hl = $component.find(".reports.assessment.questions.gru-hot-text-highlight");
 
   T.exists(assert, $ht_hl, 'Missing  component');
-  const $firstAnswer= $ht_hl.find('span.is-correct:eq(0)');
-  T.exists(assert,$firstAnswer , 'There are no correct answers, there should be 2');
+  const $correctAnswers = $ht_hl.find('span.is-correct');
+  assert.equal($correctAnswers.length, 3, 'There are no correct answers, there should be 3');
 
-  assert.equal(T.text($firstAnswer), "colo", "Incorrect first correct answer");
-
-  const $firstIncorrectAnswer= $ht_hl.find('span.is-correct:eq(1)');
-  T.exists(assert,$firstIncorrectAnswer , 'There are no correct answers, there should be 2');
-
-  assert.equal(T.text($firstIncorrectAnswer), "teco", "Incorrect second correct answer");
-
-  T.notExists(assert, $ht_hl.find('span.is-incorrect'), 'There should not be incorrect answers at all');
+  const $incorrectAnswers = $ht_hl.find('span.is-incorrect');
+  assert.equal($incorrectAnswers.length, 0, 'There are incorrect answers, there should be 0');
 });
