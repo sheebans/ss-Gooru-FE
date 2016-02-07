@@ -1,6 +1,6 @@
 import Ember from "ember";
 
-import { averageReaction,correctAnswers,correctPercentage,totalTimeSpent } from 'gooru-web/utils/question-details-result';
+import { averageReaction,correctAnswers,correctPercentage,totalTimeSpent } from 'gooru-web/utils/question-result';
 
 /**
  * Model for a group of questions that were answered by a user during one attempt to complete an assessment.
@@ -11,7 +11,7 @@ import { averageReaction,correctAnswers,correctPercentage,totalTimeSpent } from 
 export default Ember.Object.extend({
 
   /**
-   * @property {QuestionDetailsResult[]} questionsResults
+   * @property {QuestionResult[]} questionsResults
    */
   questionsResults: [],
 

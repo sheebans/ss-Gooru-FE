@@ -1,12 +1,12 @@
 import { average } from "gooru-web/utils/math";
 
 /**
- * Utility methods to handle stats for QuestionResult and QuestionDetailsResult instances
+ * Utility methods to handle stats for QuestionResult instances
  */
 
 /**
  * Average user reaction to the questions in the assessment
- * @param {QuestionDetailsResult[]|QuestionResult[]} questionsResults
+ * @param {QuestionResult[]} questionsResults
  * @prop {Number} averageReaction
  */
 export function averageReaction(questionsResults) {
@@ -18,7 +18,7 @@ export function averageReaction(questionsResults) {
 
 /**
  * Number of questions answered correctly in this attempt
- * @param {QuestionDetailsResult[]|QuestionResult[]} questionsResults
+ * @param {QuestionResult[]} questionsResults
  * @prop {Number}
  */
 export function correctAnswers(questionsResults){
@@ -26,7 +26,7 @@ export function correctAnswers(questionsResults){
 }
 /**
  * Percentage of correct answers vs. the total number of questions
- * @param {QuestionDetailsResult[]|QuestionResult[]} questionsResults
+ * @param {QuestionResult[]} questionsResults
  * @param {number} correctAnswers
  * @prop {Number}
  */
@@ -41,7 +41,7 @@ export function correctPercentage(questionsResults, correctAnswers){
 }
 /**
  * Total number of seconds spent completing the current attempt
- * @param {QuestionDetailsResult[]|QuestionResult[]} questionsResults
+ * @param {QuestionResult[]} questionsResults
  * @prop {Number}
  */
 export function totalTimeSpent(questionsResults){

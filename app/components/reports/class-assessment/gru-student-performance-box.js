@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { correctPercentage, correctAnswers } from 'gooru-web/utils/question-details-result';
+import { correctPercentage, correctAnswers } from 'gooru-web/utils/question-result';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
