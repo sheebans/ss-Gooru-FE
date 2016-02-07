@@ -11,6 +11,10 @@
       Selected question here
   </div>
   <div class="col-xs-7 question-metrics">
-      Selected question metrics here
+    {{charts/gru-x-bar-chart data=selectedQuestionBarChartData.data}}
+    <span class="ratio">
+        <em>{{selectedQuestionBarChartData.completed}}</em>/<em>{{selectedQuestionBarChartData.total}}</em>
+    </span>
+
   </div>
 </div>
