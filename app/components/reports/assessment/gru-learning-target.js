@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-import { correctAnswers,correctPercentage } from 'gooru-web/utils/question-details-result';
+import { correctAnswers,correctPercentage } from 'gooru-web/utils/question-result';
 
 /**
  * Learning Target Component
@@ -55,7 +55,7 @@ export default Ember.Component.extend({
     }),
   /**
    * List of questions
-   * @prop {QuestionDetailsResult[]}
+   * @prop {QuestionResult[]}
    */
     questionsList:Ember.computed('assessmentResult.questionsResults.[]',function(){
        return this.getQuestions(this.get("assessmentResult.questionsResults"));
@@ -83,18 +83,18 @@ export default Ember.Component.extend({
 
   /**
    * Return a list of questions associated a specific learning target to be used by the gru-bubbles component
-   * @param QuestionDetailsResult[]
+   * @param QuestionResult[]
    */
   getBubblesQuestions: function (questionResults) {
 
     let results = this.getQuestions(questionResults);
 
     return results.map(function (questionResult) {
-      return {
+      return Ember.Object.create({
         label: questionResult.get('question.order'),
         status: questionResult.get('correct') ? 'correct' : 'incorrect',
         value: questionResult.get('id')
-      };
+      });
     });
   },
 

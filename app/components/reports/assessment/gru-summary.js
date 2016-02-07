@@ -69,11 +69,11 @@ export default Ember.Component.extend({
 
   getResourceLinks: function (questionResults) {
     return questionResults.map(function (questionResult) {
-      return {
+      return Ember.Object.create({
         label: questionResult.get('question.order'),
         status: questionResult.get('correct') ? 'correct' : 'incorrect',
         value: questionResult.get('id')
-      };
+      });
     });
   }
 
