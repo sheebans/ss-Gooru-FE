@@ -45,6 +45,12 @@ export default Ember.Component.extend({
   reportData: null,
 
   /**
+   * Indicates if the report is displayed in anonymous mode
+   * @property {boolean} anonymous
+   */
+  anonymous: false,
+
+  /**
    * Returns a convenience structure to display the student view
    *
    *

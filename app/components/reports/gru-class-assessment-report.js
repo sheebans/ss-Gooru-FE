@@ -59,6 +59,12 @@ export default Ember.Component.extend({
    */
   cumulativeData: null,
 
+  /**
+   * Indicates if the report is displayed in anonymous mode
+   * @property {boolean} anonymous
+   */
+  anonymous: false,
+
 
   /**
    * @prop { Object{}{}{} } reportData - Representation of the data to show in the reports as a 3D matrix
