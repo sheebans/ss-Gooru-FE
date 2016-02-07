@@ -21,7 +21,15 @@
     }
     .question-metrics {
       height: inherit;
-      background-color: $brand-info;
+      .chart {
+        margin-top: 20px;
+        height:25px;
+        width: 90%;
+        .ratio {
+          padding-left: 1.3em;
+          text-align: center;
+        }
+      }
     }
   }
 }
