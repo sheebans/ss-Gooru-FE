@@ -1,11 +1,6 @@
 .controller.class{
-  .navigation{
-    border-right: 1px solid $gray-lighter;
-    padding: 0;
-  }
   .content{
     height: 100%;
-    border-left: 1px solid $gray-lighter;
     margin-left: -1px;
     @media (max-width: $screen-xs-max) { /* only for phone */
       padding: 0;

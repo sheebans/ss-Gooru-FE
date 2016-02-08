@@ -1,7 +1,4 @@
 .gru-class-navigation {
-  >div{
-    padding:0;
-  }
   .class-info {
     color: $white;
     padding: 0 32px;
@@ -77,16 +74,33 @@
       flex-wrap: nowrap;
       -webkit-justify-content: space-between;
       justify-content: space-between;
-      -webkit-align-items: stretch;
-      align-items: stretch;
+      -webkit-align-items: center;
+      align-items: center;
       -webkit-align-content: center;
       align-content: center;
       display:-webkit-flex;
       display:flex;
-
-      h3 {
-        width: 70%;
-        padding: 11px 10px 0 0;
+      width: 100%;
+      height:60px;
+      padding: 0;
+      border: 1px solid rgba(255,255,255,0.17);
+      .navigation-active{
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        -webkit-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        -webkit-justify-content: flex-end;
+        justify-content: flex-end;
+        -webkit-align-items: stretch;
+        align-items: stretch;
+        -webkit-align-content: center;
+        align-content: center;
+        display:-webkit-flex;
+        display:flex;
+        height: 100%;
+      }
+      h4 {
+        margin:0 20px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -101,18 +115,98 @@
         text-align: right;
       }
       .greetings {
-        width: 7%;
-        padding-right: 0;
-        text-align: right;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        -webkit-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-align-content: center;
+        align-content: center;
+        display: flex;
+        &.in:after{
+          top: 167px;
+          border: solid transparent;
+          content: " ";
+          height: 0;
+          width: 0;
+          position: absolute;
+          pointer-events: none;
+          border-color: rgba(255, 255, 255, 0);
+          border-bottom-color: $light-100;
+          border-width: 10px;
+          margin-left: -23px;
+        }
+        button{
+          border: 0;
+          height: 21px;
+          padding: 0;
+          margin: 0;
+          overflow: hidden;
+        }
       }
       .drop-menu {
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        -webkit-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-align-content: center;
+        align-content: center;
+        display: flex;
         .btn {
-          height: 43px;
+          height: 22px;
+          padding: 0;
+          margin:0 15px;
+          i{
+            margin: 0 5px;
+          }
         }
       }
     }
-    .description:after {
-      right: 20%;
+    .description {
+      background-color: $light-100;
+      padding: 20px 25px;
+
+    }
+    .class-details{
+      -webkit-flex-direction: row;
+      flex-direction: row;
+      -webkit-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      -webkit-align-items: stretch;
+      align-items: stretch;
+      -webkit-align-content: center;
+      align-content: center;
+      display:-webkit-flex;
+      display:flex;
+      width: 100%;
+      height: 36px;
+      padding:0 20px;
+      color:$white;
+      >div{
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        -webkit-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        -webkit-justify-content: flex-start;
+        justify-content: flex-start;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-align-content: center;
+        align-content: center;
+        display:-webkit-flex;
+        display:flex;
+      }
     }
   }
+
+
 }
