@@ -159,12 +159,16 @@
         -webkit-align-content: center;
         align-content: center;
         display: flex;
+        background-color:rgba(0,0, 0, 0.15);
+        margin: 0 15px;
         .btn {
           height: 22px;
           padding: 0;
-          margin:0 15px;
           i{
-            margin: 0 5px;
+            &:first-child{
+              opacity:0.5;
+              margin:0 5px;
+            }
           }
         }
       }
