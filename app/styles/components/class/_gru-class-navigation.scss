@@ -126,18 +126,21 @@
         -webkit-align-content: center;
         align-content: center;
         display: flex;
-        &.in:after{
-          top: 167px;
-          border: solid transparent;
-          content: " ";
-          height: 0;
-          width: 0;
-          position: absolute;
-          pointer-events: none;
-          border-color: rgba(255, 255, 255, 0);
-          border-bottom-color: $light-100;
-          border-width: 10px;
-          margin-left: -23px;
+        &.in{
+          &:after{
+            top: 167px;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+            border-color: rgba(255, 255, 255, 0);
+            border-bottom-color: #00458A;
+            border-width: 10px;
+            margin-left: -23px;
+          }
+          button i{opacity:1;}
         }
         button{
           border: 0;
@@ -145,6 +148,9 @@
           padding: 0;
           margin: 0;
           overflow: hidden;
+          i{
+            opacity:0.5;
+          }
         }
       }
       .drop-menu {
@@ -175,9 +181,9 @@
       }
     }
     .description {
-      background-color: $light-100;
+      background-color:rgba(0,0, 0, 0.25);
       padding: 20px 25px;
-
+      color:white;
     }
     .class-details{
       -webkit-flex-direction: row;
