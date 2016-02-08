@@ -166,7 +166,9 @@ export default Ember.Component.extend({
    * Update the width value of the component per the css width value
    */
   updateWidth: function () {
-    var width = parseInt(this.$().css('width').split('px')[0]);
+    const component = this;
+    const $element = Ember.$(component.element);
+    const width = parseInt($element.css('width').split('px')[0]);
     this.set('width', width);
   }
 

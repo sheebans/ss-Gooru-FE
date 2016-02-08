@@ -2,7 +2,7 @@
   {{#each bubbleOptions as |bubbleOption|}}
       <li>
           <a {{action 'selectBubbleOption' bubbleOption}}>
-              <div class="bubble {{bubbleOption.status}}">{{bubbleOption.label}}</div>
+              <div class="bubble {{bubbleOption.status}} {{if bubbleOption.selected 'selected'}}">{{bubbleOption.label}}</div>
           </a>
       </li>
   {{/each}}

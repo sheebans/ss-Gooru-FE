@@ -11,11 +11,12 @@ moduleForComponent('gru-bubbles', 'Integration | Component | gru bubbles', {
 });
 
 test('Bubbles Layout', function(assert) {
-  assert.expect(3);
+  assert.expect(4);
   const bubbleOptions = Ember.A([Ember.Object.create({
     'label': "1",
     'status': 'correct',
-    'value': 'some-value-1'
+    'value': 'some-value-1',
+    'selected': true
   }), Ember.Object.create({
     'label': "2",
     'status': 'incorrect',
@@ -33,15 +34,17 @@ test('Bubbles Layout', function(assert) {
   const $bubbles = $component.find(".gru-bubbles");
 
   T.exists(assert, $bubbles, 'Missing bubbles component');
+  T.exists(assert, $bubbles.find(".bubble.selected"), 'Missing selected bubble');
   T.exists(assert, $bubbles.find(".bubble.correct"), 'Missing correct bubble');
   assert.equal($bubbles.find(".bubble.incorrect").length,2, "Incorrect number of incorrect bubbles");
 
 });
 test('Select bubble', function(assert) {
-  assert.expect(1);
+  assert.expect(4);
 
   this.on('parentAction', function(option){
-    assert.equal(1, option.label);
+    assert.equal(1, option.label, "Wrong label");
+    assert.ok(option.selected, "Option should be selected");
   });
 
   const bubbleOptions = Ember.A([Ember.Object.create({
@@ -62,6 +65,8 @@ test('Select bubble', function(assert) {
   this.render(hbs`{{gru-bubbles bubbleOptions=bubbleOptions onBubbleSelect='parentAction'}}`);
   var $component = this.$(); //component dom element
   var $bubbles = $component.find(".bubbles-list");
+  T.notExists(assert, $bubbles.find(".bubble.selected"), 'No bubbles should be selected');
   $bubbles.find("li:first-child a").click();
+  T.exists(assert, $bubbles.find(".bubble.selected"), 'Missing selected bubble');
 });
 

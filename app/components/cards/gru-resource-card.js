@@ -25,7 +25,7 @@ export default Ember.Component.extend({
   // Properties
 
   /**
-   * @property {ResourceResult | QuestionDetailsResult} item information to be used in the card
+   * @property {ResourceResult | QuestionResult} item information to be used in the card
    */
   item: null
 
