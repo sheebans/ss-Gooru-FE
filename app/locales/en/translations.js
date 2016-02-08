@@ -380,8 +380,8 @@ export default {
     "active" : "Active:",
     "members" : "Members",
     "greetings" : "Greetings",
-    "overview" : "Overview",
-    "analytics" : "Analytics",
+    "overview" : "Course Map",
+    "analytics" : "Data",
     "suggestions" : "Suggestions",
     "information" : "Class Information"
   },
