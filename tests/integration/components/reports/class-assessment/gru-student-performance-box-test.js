@@ -36,7 +36,9 @@ test('Layout', function (assert) {
       "reaction": 5,
       "timeSpent": 1305
     }),
-    {}, //not started, this could happen at real time only
+    QuestionResult.create({
+      "notStarted": true //not started, this could happen at real time only
+    }),
     QuestionResult.create({
       "correct": false,
       "questionId": "569906aacea8416665209d53",

@@ -30,7 +30,13 @@ export const VIEW_LAYOUT_PICKER_OPTIONS = {
   THUMBNAILS:'thumbnails'
 };
 
-export const EMOTION_VALUES = [1, 2, 3, 4, 5];
+export const EMOTION_VALUES = [
+  {value: 1, unicode: '1f625'},
+  {value: 2, unicode: '1f641'},
+  {value: 3, unicode: '1f610'},
+  {value: 4, unicode: '1f642'},
+  {value: 5, unicode: '1f601'}
+];
 
 export const SCORES = {
   REGULAR: 60,

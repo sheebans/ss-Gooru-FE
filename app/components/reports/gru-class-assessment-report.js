@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 import {VIEW_LAYOUT_PICKER_OPTIONS} from "gooru-web/config/config";
+import QuestionResult from 'gooru-web/models/result/question';
 // Private variables
 
 
@@ -156,7 +157,7 @@ export default Ember.Component.extend(ModalMixin, {
       matrix[idsX[i]] = {};
 
       for (let j = 0; j < yLen; j++) {
-        matrix[idsX[i]][idsY[j]] = {};
+        matrix[idsX[i]][idsY[j]] = QuestionResult.create({ notStarted: true });
       }
     }
     return matrix;
