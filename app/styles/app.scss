@@ -1,5 +1,4 @@
 @import 'variables';
-@import "custom-variables";
 @import '../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap';
 @import 'gooru-theme';
 
@@ -62,7 +61,7 @@
 @import 'components/charts/gru-bubble-chart';
 @import 'components/charts/gru-pie-chart';
 @import 'components/charts/gru-radial-chart';
-@import 'components/charts/gru-stacked-horizontal-bar-chart';
+@import 'components/charts/gru-x-bar-chart';
 
 @import 'components/class/gru-class-navigation';
 @import 'components/class/analytics/performance/gru-actions-bar';
@@ -91,6 +90,7 @@
 @import 'components/player/resources/gru-url-resource';
 @import 'components/player/resources/gru-pdf-resource';
 @import 'components/player/resources/gru-vimeo-resource';
+
 @import 'components/reports/gru-assessment-report';
 @import 'components/reports/assessment/gru-learning-target';
 @import 'components/reports/assessment/gru-mastery';
@@ -106,6 +106,9 @@
 @import 'components/reports/assessment/questions/gru-hs-image';
 @import 'components/reports/assessment/questions/gru-hs-text';
 @import 'components/reports/gru-class-assessment-report';
+@import 'components/reports/class-assessment/gru-questions-detail';
+@import 'components/reports/class-assessment/gru-questions-summary';
+@import 'components/reports/class-assessment/gru-student-performance-box';
 @import 'components/reports/class-assessment/gru-student-view';
 @import 'components/reports/class-assessment/gru-summary';
 @import 'components/reports/class-assessment/gru-table-view';

@@ -19,18 +19,9 @@ export default Ember.Object.extend({
    */
   timeSpent: 0,
 
-
-  resource:{
-    /**
-     * Indicates the resource type. i.e video/youtube, assessment-question, image/png
-     * @property {string} resource type
-     */
-    resourceType: '',
-
-    /**
-     * @property {string} title - Resource title
-     */
-    title: ''
-  }
+  /**
+   * @property {Resource} resource
+   */
+  resource: null
 
 });

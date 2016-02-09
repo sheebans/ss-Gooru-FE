@@ -7,14 +7,14 @@ sudo apt-get upgrade -qq -y
 echo '-----> Installing nodejs 4.x'
 sudo apt-get install nodejs -y -qq
 
-  echo '-----> Installing ember-cli'
-  sudo npm install -g ember-cli@1.13.13 -qq
+echo '-----> Installing ember-cli'
+sudo npm install -g ember-cli@1.13.13 -qq
 
-  echo '-----> Installing bower'
-  sudo npm install -g bower@1.7.2 -qq
+echo '-----> Installing bower'
+sudo npm install -g bower@1.7.7 -qq
 
 echo '-----> Installing phantomjs'
-sudo npm install -g phantomjs@1.9.8 -qq
+sudo npm install -g phantomjs-prebuilt@2.1.3 -qq
 sudo apt-get install libfontconfig -qq -y
 
 echo '-----> Installing stubby'

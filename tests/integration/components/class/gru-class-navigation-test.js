@@ -34,7 +34,7 @@ test('Class Navigation', function(assert) {
   var $component = this.$(); //component dom element
   const $navigation = $component.find(".gru-class-navigation");
   T.exists(assert, $navigation, "Missing class navigation section");
-  T.exists(assert, $navigation.find("h3"), "Missing class title");
+  T.exists(assert, $navigation.find(".class-info h4"), "Missing class title");
   T.exists(assert, $navigation.find(".active-dates"), "Missing class active-dates");
   T.exists(assert, $navigation.find(".members"), "Missing class members");
   T.exists(assert, $navigation.find(".greetings"), "Missing class greetings");

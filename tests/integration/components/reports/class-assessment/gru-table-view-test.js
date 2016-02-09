@@ -8,6 +8,6 @@ moduleForComponent('reports/class-assessment/gru-table-view', 'Integration | Com
 test('it renders', function (assert) {
 
   // this.render(hbs`{{reports/class-assessment/gru-table-view}}`);
-
+  //TODO missing tests!!!!
   assert.expect(0);
 });

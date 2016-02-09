@@ -1,0 +1,27 @@
+.reports.class-assessment.gru-questions-detail {
+  height: 400px;
+  .row{
+    height: inherit;
+    .navigation {
+      height: 80px;
+      border-bottom: 1px solid $gray-darker;
+      .selected-question{
+        margin-top: 5px;
+      }
+      .gru-bubbles {
+        .bubble.selected {
+          background-color: $gray-light;
+          color: $white;
+        }
+      }
+    }
+    .question-info {
+      height: inherit;
+      background-color: $gray-light;
+    }
+    .question-metrics {
+      height: inherit;
+      background-color: $brand-info;
+    }
+  }
+}

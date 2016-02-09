@@ -45,13 +45,13 @@ export default Ember.Component.extend({
    * @constant {Array}
    */
   viewLayouts: Ember.A([Ember.Object.create({
-  'view': VIEW_LAYOUT_PICKER_OPTIONS.THUMBNAILS,
-  'isActive': false,
-  'icon':'th-large'
-  }),Ember.Object.create({
-  'view': VIEW_LAYOUT_PICKER_OPTIONS.LIST,
-  'isActive': false,
-  'icon':'bars'
+    'view': VIEW_LAYOUT_PICKER_OPTIONS.THUMBNAILS,
+    'isActive': false,
+    'icon': 'th-large'
+  }), Ember.Object.create({
+    'view': VIEW_LAYOUT_PICKER_OPTIONS.LIST,
+    'isActive': true,
+    'icon': 'bars'
   })]),
 
   /**
