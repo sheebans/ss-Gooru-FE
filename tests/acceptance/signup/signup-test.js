@@ -1,6 +1,5 @@
 import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
-import T from 'gooru-web/tests/helpers/assert';
 
 moduleForAcceptance('Acceptance | SignUp');
 
@@ -14,7 +13,7 @@ test('Sign up test', function(assert) {
     var $signUpLink = find('.sign-up-button');
     var $modal = find(".gru-modal");
 
-    T.notExists(assert,$modal.find("gru-user-registration"), "Modal should not be visible");
+    assert.ok(!$modal.hasClass('in'), "Modal should not be visible");
 
     click($signUpLink);
 
@@ -22,7 +21,7 @@ test('Sign up test', function(assert) {
 
       $modal = find(".gru-modal");
 
-      assert.ok($modal.find("gru-user-registration"), "Modal should be visible");
+      assert.ok($modal.hasClass('in'), "Modal should be visible");
 
       $signUpLink = find('.email-sign-up button.btn');
 
