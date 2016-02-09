@@ -37,11 +37,11 @@
               </li>
               <li class="navbar-nav-list  visible-md visible-lg">
                 <div class="dropdown">
-                    <a id="dLabel" class="profile" data-target="#temp" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <a class="profile" data-target="#profile-dropdown" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <i class="icon pull-left">&nbsp;</i>
                         <span class="username">{{session.userData.username}}</span>
                     </a>
-                    <ul class="dropdown-menu " id="temp" aria-labelledby="dLabel">
+                    <ul class="dropdown-menu " id="profile-dropdown">
                         <li class="navbar-nav-list">
                           {{#link-to 'profile.about' session.userData.gooruUId class="navbar-link"}}
                               <span class="username">{{session.userData.username}}</span>
@@ -61,9 +61,9 @@
                             {{#link-to 'classes' class="navbar-link my-classes-link"}} {{t "common.myClasses"}} {{/link-to}}
                           </li>
                           <li class="navbar-nav-list">
-                            {{#link-to 'profile.about' session.userData.gooruUId class="profile navbar-link"}}
+                            {{#link-to 'profile.about' session.userData.gooruUId class="navbar-link"}}
                                 <i class="icon pull-left">&nbsp;</i>
-                                <span class="username">{{session.userData.username}}</span>
+                                <span class="">{{session.userData.username}}</span>
                             {{/link-to}}
                           </li>
                           <li class="navbar-nav-list">
