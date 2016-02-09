@@ -32,18 +32,38 @@
                 </button>
               </li>
             {{else}}
-              <li class="navbar-nav-list">
+              <li class="navbar-nav-list visible-md visible-lg">
                 {{#link-to 'classes' class="navbar-link my-classes-link"}} {{t "common.myClasses"}} {{/link-to}}
               </li>
-              <li class="navbar-nav-list">
+              <li class="navbar-nav-list  visible-md visible-lg">
                 {{#link-to 'profile.about' session.userData.gooruUId class="profile navbar-link"}}
                     <i class="icon pull-left">&nbsp;</i>
                     <span class="username">{{session.userData.username}}</span>
                 {{/link-to}}
               </li>
-                <li class="navbar-nav-list">
+                <li class="navbar-nav-list visible-md visible-lg">
                     <a class="navbar-link" {{action "logout"}}> {{t "common.logout"}}</a>
                 </li>
+
+              <li class="navbar-nav-list hidden-md hidden-lg">
+                  <div class="btn-group drop-menu">
+                      <button class="btn dropdown-toggle" data-toggle="dropdown">{{material-design-icon name='group-work'}}</button>
+                      <ul class="dropdown-menu">
+                          <li class="navbar-nav-list">
+                            {{#link-to 'classes' class="navbar-link my-classes-link"}} {{t "common.myClasses"}} {{/link-to}}
+                          </li>
+                          <li class="navbar-nav-list">
+                            {{#link-to 'profile.about' session.userData.gooruUId class="profile navbar-link"}}
+                                <i class="icon pull-left">&nbsp;</i>
+                                <span class="username">{{session.userData.username}}</span>
+                            {{/link-to}}
+                          </li>
+                          <li class="navbar-nav-list">
+                              <a class="navbar-link" {{action "logout"}}> {{t "common.logout"}}</a>
+                          </li>
+                      </ul>
+                  </div>
+              </li>
             {{/if}}
           </ul>
         </div>
