@@ -54,17 +54,17 @@ test('Layout', function(assert) {
       "56a12048ddee2022a741356a": QuestionResult.create( { notStarted: true })
     }
   };
+  var model =Ember.Object.create({
+    selectedQuestion,
+    assessment,
+    students,
+    reportData
+  });
 
-  this.set("assessment", assessment);
-  this.set("students", students);
-  this.set("reportData", reportData);
-  this.set("selectedQuestion", selectedQuestion);
+  this.set("model", model);
 
-  this.render(hbs`{{reports/class-assessment/gru-questions-detail
-    assessment=assessment
-    students=students
-    reportData=reportData
-    selectedQuestion=selectedQuestion }}`);
+
+  this.render(hbs`{{reports/class-assessment/gru-questions-detail model=model }}`);
 
   const $component = this.$();
   const $navigation = $component.find(".navigation");
@@ -79,3 +79,4 @@ test('Layout', function(assert) {
   T.exists(assert, $component.find(".question-info"), "Missing question information panel");
   T.exists(assert, $component.find(".question-metrics"), "Missing question metrics panel");
 });
+

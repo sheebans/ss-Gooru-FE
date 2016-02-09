@@ -1,4 +1,10 @@
 <div class="row">
+    <div class="modal-header">
+        <button type="button" class="close" aria-label="{{t 'common.close'}}" data-dismiss="modal">
+            <span aria-hidden="true">×</span>
+        </button>
+
+    </div>
   <div class="col-xs-12 navigation">
     {{gru-bubbles bubbleOptions=questionsNavOptions onBubbleSelect='bubbleSelect'}}
     {{#if selectedQuestion}}

@@ -241,6 +241,12 @@ button.btn-link {
       background: url(//cdn.goorulearning.org/webapp/release-2.0.6-PRL01/images/login/registration-bg.png) no-repeat -50px 30px;
     }
   }
+  &.gru-questions-detail-modal{
+    .modal-dialog {
+      width: 80%;
+      background-color: $body-bg;
+    }
+  }
 }
 
 /* Loading styles */
