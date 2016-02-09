@@ -42,7 +42,7 @@ export default Ember.Component.extend({
      * @param item
      */
     showDescription: function(){
-      this.$( ".description" ).toggleClass( "hidden" );
+      this.$( ".greetings" ).toggleClass( "in" );
     }
   },
 
@@ -76,11 +76,6 @@ export default Ember.Component.extend({
 
   selectedMenuItem:null,
 
-  /**
-   * @property {String} iconClassMenuItem - shows the class for the icon of the menu item selected (for the XS and SM dropdown menu)
-   */
-
-  iconClassMenuItem:null,
 
   // -------------------------------------------------------------------------
   // Observers
