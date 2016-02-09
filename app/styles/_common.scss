@@ -133,12 +133,12 @@ button.btn-link {
 
 .emotion {
   display: inline-block;
-  width: 39px;
-  height: 39px;
+  width: $emotion-icon-size;
+  height: $emotion-icon-size;
   cursor: pointer;
   &.small{
-    width: 22px;
-    height:22px;
+    width: $emotion-icon-size-small;
+    height:$emotion-icon-size-small;
   }
   svg {
     width: 100%;

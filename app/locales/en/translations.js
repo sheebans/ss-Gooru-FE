@@ -478,5 +478,8 @@ export default {
     "study-time": "Study Time",
     "time-spent": "Time Spent",
     "totals": "Total Scores"
+  },
+  "gru-emotion-picker": {
+    "react-to-resource": "React to this resource"
   }
 };
