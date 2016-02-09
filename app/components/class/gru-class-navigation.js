@@ -105,13 +105,16 @@ export default Ember.Component.extend({
     }
     switch (item){
       case 'overview':
-        classIconItem = 'fa-graduation-cap';
+        classIconItem = 'dashboard';
         break;
       case 'analytics.performance':
-        classIconItem = 'fa-signal';
+        classIconItem = 'graphic-eq';
         break;
       case 'suggestions':
-        classIconItem = 'fa-rocket';
+        classIconItem = 'chat';
+        break;
+      case 'info':
+        classIconItem = 'group-work';
         break;
     }
     this.set('iconClassMenuItem',classIconItem );

@@ -28,10 +28,10 @@
       @media (min-width: $screen-sm) {
         width: 20%;
       }
-      background: #0050A2; /* Old browsers */
-      background: -moz-linear-gradient(left, #0050A2 0%, #005EBE 100%); /* FF3.6-15 */
-      background: -webkit-linear-gradient(left, #0050A2 0%,#005EBE 100%); /* Chrome10-25,Safari5.1-6 */
-      background: linear-gradient(-90deg, #0050A2 0%, #005EBE 100%);
+      background: $blue-500; /* Old browsers */
+      background: -moz-linear-gradient(left, $blue-500 0%, $blue-400 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(left, $blue-500 0%,$blue-400 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(-90deg, $blue-500 0%, $blue-400 100%);
       box-shadow: inset 0px 1px 3px 0px rgba(0,0,0,0.50);
       *{
         background-color:transparent;
