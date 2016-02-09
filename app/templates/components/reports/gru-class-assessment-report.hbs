@@ -1,11 +1,3 @@
-{{! reports.class-assessment.gru-questions-detail
-    anonymous=anonymous
-    assessment=assessment
-    students=students
-    selectedQuestion=assessment.resources.firstObject
-    reportData=reportData }}
-
-
 {{ reports.class-assessment.gru-summary
     assessment=assessment
     students=students
@@ -28,7 +20,8 @@
   {{ reports.class-assessment.gru-student-view assessment=assessment
       anonymous=anonymous
       students=students
-      reportData=reportData}}
+      reportData=reportData
+      onSelectQuestion=(action 'viewQuestionDetail')}}
 
 </div>
 

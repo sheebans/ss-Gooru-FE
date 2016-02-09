@@ -33,7 +33,16 @@ export default Ember.Component.extend(ModalMixin, {
       // TODO:
       // Get question model from questionId
       // Show modal with question information
-      this.actions.showModal.call(this, 'reports.class-assessment.gru-question-performance-details');
+      let question = this.get("assessment.resources").findBy("id", questionId).get("firstObject");
+      let modalModel = {
+        anonymous: this.get("anonymous"),
+        assessment: this.get("assessment"),
+        students: this.get("students"),
+        selectedQuestion: question,
+        reportData: this.get("reportData")
+      };
+      this.actions.showModal.call(this,
+        'reports.class-assessment.gru-questions-detail', modalModel, null, null, 'gru-questions-detail-modal');
     }
   },
 

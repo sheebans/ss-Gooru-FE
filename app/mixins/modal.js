@@ -7,17 +7,19 @@ export default Ember.Mixin.create({
     name: null,
     model: null,
     target: null,
-    activeChannel: null
+    activeChannel: null,
+    'component-class':null
   }),
 
   actions: {
-    showModal: function(componentName, componentModel, actionsTarget, activeChannel) {
+    showModal: function(componentName, componentModel, actionsTarget, activeChannel, componentClass) {
       this.get('modal').setProperties({
           isVisible: true,
           name: componentName,
           model: componentModel,
           target: actionsTarget,
-          activeChannel: activeChannel
+          activeChannel: activeChannel,
+          'component-class': componentClass
       });
     }
   }

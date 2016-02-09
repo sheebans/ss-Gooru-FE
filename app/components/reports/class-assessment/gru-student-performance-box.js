@@ -21,7 +21,14 @@ export default Ember.Component.extend({
       const component = this;
       component.get('onClick')(component.get("student"));
       Ember.Logger.debug('Clicking at student: ' + component.get("student.id"));
-    }
+    },
+    /**
+     * @function actions:selectQuestion
+     * @param {Number} questionId
+     */
+    selectQuestion: function (questionId) {
+      this.get('onSelectQuestion')(questionId);
+    },
   },
 
   // -------------------------------------------------------------------------
@@ -87,6 +94,10 @@ export default Ember.Component.extend({
   correctAnswers:Ember.computed('questionResults.[]',function(){
     return correctAnswers(this.get('questionResults'));
   }),
+  /**
+   * @property {Function} onSelectQuestion - Event handler called when a question in a column is selected
+   */
+  onSelectQuestion: null,
 
   // -------------------------------------------------------------------------
   // Methods
@@ -97,14 +108,18 @@ export default Ember.Component.extend({
    */
   getQuestionStatus: function(questionResult){
     let status = 'not-started';
+    let questionId;
     if (!Ember.$.isEmptyObject(questionResult)){ //if available and non empty object
       let skipped = questionResult.get("correct") === null;
       let correct = questionResult.get("correct");
       status = skipped ? 'skipped' : (correct ? 'correct' : 'incorrect');
+      questionId = questionResult.get('questionId');
     }
     return Ember.Object.create({
-      status: status
+      status: status,
+      id:questionId
     });
-  }
+  },
+
 
 });
