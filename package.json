@@ -42,7 +42,6 @@
     "ember-cp-validations": "2.1.0",
     "ember-i18n": "4.1.4",
     "ember-simple-auth": "^1.0.0",
-    "ember-svg-sprite-sheet": "0.0.1",
     "grunt": "^0.4.5",
     "grunt-stubby": "^0.1.4"
   },

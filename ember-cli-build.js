@@ -11,9 +11,6 @@ module.exports = function(defaults) {
         sourceDirs: ['vendor/emoji-one'],
         outputFile: '/assets/emoji-one/emoji.svg'
       }
-    },
-    'ember-svg-sprite-sheet': {
-      path: 'dist/assets/emoji-one/emoji.svg'
     }
   });
 

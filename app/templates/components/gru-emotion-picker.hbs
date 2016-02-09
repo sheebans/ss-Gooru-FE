@@ -7,9 +7,10 @@
              data-toggle="tooltip"
              data-placement="bottom"
              class="emotion" {{action 'setEmotion' emotion.value}}>
-             {{svg-sprite sprite=(concat '#' emotion.unicode)}}
+             <svg>
+               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#{{emotion.unicode}}"></use>
+             </svg>
         </div>
-             
       </li>
     {{/each}}
   </ul>
