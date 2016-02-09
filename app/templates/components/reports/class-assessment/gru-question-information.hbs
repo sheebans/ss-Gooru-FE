@@ -1,0 +1,32 @@
+<div class="panel panel-default narration {{if question.hasNarration 'show' 'hidden'}}">
+    <div class="panel-body">
+      <span>{{{question.narration}}}</span>
+    </div>
+</div>
+<div class="panel panel-default question">
+    <div class="panel-body">
+    <h3>{{t "common.question"}}</h3>
+      <span>{{question.text}}</span>
+      {{#if question.hasMedia}}
+          <img class="img-responsive" src="{{question.mediaUrl}}"/>
+      {{/if}}
+    </div>
+</div>
+<div class="panel panel-primary hints {{if hints 'show' 'hidden'}}">
+    <div class="panel-heading">
+      {{t "common.hints"}}
+    </div>
+    <div class="panel-body">
+      {{#each hints as |hint|}}
+         <span>{{{hint.hintText}}}</span>
+        {{/each}}
+    </div>
+</div>
+<div class="panel panel-primary explanation {{if explanation 'show' 'hidden'}}">
+    <div class="panel-heading">
+      {{t "common.explanation"}}
+    </div>
+    <div class="panel-body">
+      <span>{{{explanation}}}</span>
+    </div>
+</div>
