@@ -7,7 +7,8 @@ export default {
 
     "answer":"Your Answer",
     "assessmentInitial": "A",
-    "attempts": "Attempts",
+    "attempt": "Attempt number",
+    "of": "of",
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
     "cancel": "Cancel",

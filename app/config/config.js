@@ -41,11 +41,11 @@ export const SCORES = {
 };
 
 export const GRADING_SCALE = [
-  {LOWER_LIMIT: 0, COLOR: '#E08282'},
-  {LOWER_LIMIT: 60, COLOR: '#FEC956'},
-  {LOWER_LIMIT: 70, COLOR: '#EDF167'},
-  {LOWER_LIMIT: 80, COLOR: '#A2DE81'},
-  {LOWER_LIMIT: 90, COLOR: '#3FC380'}
+  {LOWER_LIMIT: 0, COLOR: '#F6625D'},
+  {LOWER_LIMIT: 60, COLOR: '#EF8F27'},
+  {LOWER_LIMIT: 70, COLOR: '#FABC31'},
+  {LOWER_LIMIT: 80, COLOR: '#97B223'},
+  {LOWER_LIMIT: 90, COLOR: '#48983C'}
 ];
 // Height of the application header in pixels
 export const HEADER_HEIGHT = 50;

@@ -1,19 +1,21 @@
 .gru-bubbles{
   .bubble{
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+    width: 23px;
+    height: 23px;
+    border-radius: 3px;
     border: 2px solid $gray-light;
     cursor: pointer;
     text-align: center;
     vertical-align: middle;
-    line-height: 27px;
+    line-height: 21px;
   }
   .incorrect{
     border-color: $brand-incorrect;
+    background-color: $brand-incorrect;
   }
   .correct{
     border-color: $brand-success;
+    background-color: $brand-success;
   }
   .bubbles-list{
     list-style: none;
@@ -25,7 +27,7 @@
       padding: 0;
     }
     a{
-      color:$gray-base;
+      color:$white;
     }
   }
 }
