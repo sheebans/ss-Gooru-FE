@@ -24,10 +24,13 @@ export default Ember.Component.extend({
     /**
      * Select a option in the bubble list
      * @function actions:selectBubbleOption
-     * @param {Ember.Object} option
+     * @param {Ember.Object} option i.e { label: string, status: string, value: Object, selected: boolean }
      */
     selectBubbleOption: function(option) {
-      this.sendAction("onBubbleSelect", option);
+      let component = this;
+      component.clearSelection();
+      option.set("selected", true);
+      component.sendAction("onBubbleSelect", option);
     }
 
   },
@@ -36,7 +39,22 @@ export default Ember.Component.extend({
   /**
    * List of options to show in bubbles
    *
-   * @property {Array}
+   * @property {Ember.Object[]} { label: string, status: string, value: Object, selected: boolean }
+
    */
     bubbleOptions: null,
+
+  // -------------------------------------------------------------------------
+  // Methods
+  /**
+   * Clears current selection
+   */
+  clearSelection: function(){
+    const options = this.get("bubbleOptions");
+    options.forEach(function(option){
+      option.set("selected", false);
+    });
+  }
+
+
 });

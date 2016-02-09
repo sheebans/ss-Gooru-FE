@@ -1,4 +1,5 @@
 import Ember from "ember";
+import ResourceResult from 'gooru-web/models/result/resource';
 
 /**
  * Model for a brief summary of the status of a question after it was answered by a user.
@@ -6,22 +7,25 @@ import Ember from "ember";
  * @typedef {Object} QuestionResult
  *
  */
-export default Ember.Object.extend({
+export default ResourceResult.extend({
 
   /**
    * @property {boolean} correct - Was the answer provided for this question correct?
    */
-  correct: false,
+  correct: null,
 
   /**
+   * @property {Object} question
+   */
+  question: Ember.computed.alias('resource'),
+
+  /**
+   * Sometimes the question is not resolved and only the id is provided
+   * This is used mostly by the real time
+   * TODO once the SDK is integrated we could analyze if is possible to use only 'question'
    * @property {number} questionId - ID of the question graded
    */
   questionId: null,
-
-  /**
-   * @property {number} reaction - Value of the reaction the user had towards the question
-   */
-  reaction: 0,
 
   /**
    * @property {number} score - Question score
@@ -29,9 +33,30 @@ export default Ember.Object.extend({
   score: 0,
 
   /**
-   * @property {number} timeSpent - Time in seconds that it took the user to answer the question
+   * @property {Object} answer - Answer provided by the user
    */
-  timeSpent: 0
+  userAnswer: null,
+
+  /**
+   * Indicates if the question was skipped
+   * @property {boolean}
+   */
+  skipped: Ember.computed("correct", "notStarted", function(){
+    let started = !this.get("notStarted");
+    return started && this.get("correct") === null;
+  }),
+
+  /**
+   * Indicates if the question is incorrect
+   * @property {boolean}
+   */
+  incorrect: Ember.computed.equal("correct", false),
+
+  /**
+   * @property {boolean} indicates when it has not been started
+   */
+  notStarted: false
+
 
 });
 

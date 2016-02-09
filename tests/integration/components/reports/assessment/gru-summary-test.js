@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import QuestionDetailsResult from 'gooru-web/models/result/question-details';
+import QuestionResult from 'gooru-web/models/result/question';
 
 moduleForComponent('reports/assessment/gru-summary', 'Integration | Component | reports/assessment/gru summary', {
   integration: true,
@@ -25,21 +25,21 @@ test('it renders', function (assert) {
     correctAnswers: 2,
 
     questionsResults: [
-      QuestionDetailsResult.create({
+      QuestionResult.create({
         id: 601,
         resource: {
           order: 1
         },
         correct: false
       }),
-      QuestionDetailsResult.create({
+      QuestionResult.create({
         id: 603,
         resource: {
           order: 3
         },
         correct: true
       }),
-      QuestionDetailsResult.create({
+      QuestionResult.create({
         id: 602,
         resource: {
           order: 2
@@ -60,7 +60,7 @@ test('it renders', function (assert) {
   var $component = this.$('.reports.assessment.gru-summary');  //component dom element
   assert.ok($component.length, "Component does not have the component classes");
 
-  var $gradeContainer = $component.find('> .grade[style~="background-color:"]');
+  var $gradeContainer = $component.find('.summary-container .grade[style~="background-color:"]');
   assert.ok($gradeContainer.length, "Grade container is missing");
 
   var $percentage = $gradeContainer.find('.percentage');
@@ -70,7 +70,7 @@ test('it renders', function (assert) {
   var $attempts = $gradeContainer.find('.attempts');
   assert.equal($attempts.text().trim(), "2 / 3 " + this.get('i18n').t('common.correct').string, "Incorrect attempts text");
 
-  var $overviewContainer = $component.find('> .overview');
+  var $overviewContainer = $component.find('.summary-container .overview');
   assert.ok($overviewContainer.length, "Overview container is missing");
   assert.ok($overviewContainer.find('h1').length, "Header element is missing");
   assert.equal($overviewContainer.find('h1').text().trim(), 'Test Assessment Name', "Incorrect header text");

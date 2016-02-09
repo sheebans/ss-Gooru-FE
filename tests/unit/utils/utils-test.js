@@ -13,7 +13,7 @@ import {
   getLetter,
   numberSort,
   generateUUID
-  } from '../../../utils/utils';
+  } from 'gooru-web/utils/utils';
 
 import { module, test } from 'qunit';
 
@@ -111,11 +111,14 @@ test('getAnswerResultIcon', function (assert) {
 });
 
 test('getReactionIcon', function (assert) {
-  assert.equal(getReactionIcon(20), '<i class="emotion emotion-20"></i>');
-  assert.equal(getReactionIcon(10), '<i class="emotion emotion-10"></i>');
-  assert.equal(getReactionIcon(5), '<i class="emotion emotion-5"></i>');
-  assert.equal(getReactionIcon(2), '<i class="emotion emotion-2"></i>');
-  assert.equal(getReactionIcon(1), '<i class="emotion emotion-1"></i>');
+  var startsWith = function(value, fragment) {
+    return getReactionIcon(value).indexOf(fragment) >= 0;
+  };
+  assert.equal(startsWith(5, '<div class="emotion emotion-5'), true);
+  assert.equal(startsWith(4, '<div class="emotion emotion-4'), true);
+  assert.equal(startsWith(3, '<div class="emotion emotion-3'), true);
+  assert.equal(startsWith(2, '<div class="emotion emotion-2'), true);
+  assert.equal(startsWith(1, '<div class="emotion emotion-1'), true);
   assert.equal(getReactionIcon(null), '&mdash;');
   assert.equal(getReactionIcon(undefined), '');
   assert.equal(getReactionIcon(false), '');
@@ -164,5 +167,4 @@ test('Check Uuid format', function (assert) {
   var uuid = generateUUID();
   assert.ok(uuid.match(/([a-f\d]{8}(-[a-f\d]{4}){3}-[a-f\d]{12}?)/i), 'The uuid is not correct');
 });
-
 

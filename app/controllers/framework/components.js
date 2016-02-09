@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import {startQuestion, stopQuestion} from '../../utils/events';
 import ResourceResult from 'gooru-web/models/result/resource';
-import QuestionDetailsResult from 'gooru-web/models/result/question-details';
+import QuestionResult from 'gooru-web/models/result/question';
 
 import SessionMixin from '../../mixins/session';
 
@@ -159,7 +159,7 @@ export default Ember.Controller.extend(SessionMixin, {
     timeSpent: 2841
   }),
 
-  fourthScenarioResource: QuestionDetailsResult.create({
+  fourthScenarioResource: QuestionResult.create({
     resourceFormat:"question",
     title: "Question with a very long name",
     question: {

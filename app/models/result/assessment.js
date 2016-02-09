@@ -1,6 +1,6 @@
 import Ember from "ember";
 
-import { averageReaction,correctAnswers,correctPercentage,totalTimeSpent } from 'gooru-web/utils/question-details-result';
+import { averageReaction, correctPercentage, totalTimeSpent } from 'gooru-web/utils/question-result';
 
 /**
  * Model for a group of questions that were answered by a user during one attempt to complete an assessment.
@@ -11,7 +11,7 @@ import { averageReaction,correctAnswers,correctPercentage,totalTimeSpent } from 
 export default Ember.Object.extend({
 
   /**
-   * @property {QuestionDetailsResult[]} questionsResults
+   * @property {QuestionResult[]} questionsResults
    */
   questionsResults: [],
 
@@ -60,20 +60,11 @@ export default Ember.Object.extend({
   }),
 
   /**
-   * Number of questions answered correctly in this attempt
-   * @prop {Number}
-   */
-  correctAnswers:Ember.computed('questionsResults.[]',function(){
-    return correctAnswers(this.get('questionsResults'));
-  }),
-
-
-  /**
    * Percentage of correct answers vs. the total number of questions
    * @prop {Number}
    */
-  correctPercentage:Ember.computed('questionsResults.[]','correctAnswers.[]',function(){
-    return correctPercentage(this.get('questionsResults'),this.get('correctAnswers'));
+  correctPercentage:Ember.computed('questionsResults.[]',function(){
+    return correctPercentage(this.get('questionsResults'));
   }),
 
   /**

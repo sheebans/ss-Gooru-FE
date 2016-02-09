@@ -1,11 +1,12 @@
 .gru-hot-text-highlight p{
   line-height:28px;
   span{
-    padding: 5px;
     &.is-correct{
+      padding: 5px;
       background-color:$brand-success;
     }
     &.is-incorrect{
+      padding: 5px;
       background-color:$brand-incorrect;
     }
   }
