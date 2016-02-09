@@ -1,1 +1,9 @@
-<p>{{answer}}</p>
+<p>
+  {{#each items as |item|}}
+    {{#if item.selected}}
+      <span class="{{if item.correct 'is-correct' 'is-incorrect'}}">{{{item.text}}}</span>
+    {{else}}
+      <span>{{{item.text}}}</span>
+    {{/if}}
+  {{/each}}
+</p>

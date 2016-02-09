@@ -568,7 +568,10 @@ test('Hot Spot Text - answerKey', function (assert) {
 
 // --------------- Hot Text Highlight tests
 test('Hot Text Highlight - getCorrectAnswer empty array', function (assert) {
-  let question = Ember.Object.create({ text: "" });
+  let question = Ember.Object.create({
+    answers: [],
+    hasAnswers: false
+  });
   let questionUtil = HotTextHighlightUtil.create({question: question});
   let correctAnswer = questionUtil.getCorrectAnswer();
   assert.ok(!correctAnswer.get("length"), "Correct answer should be an empty array");
@@ -577,20 +580,23 @@ test('Hot Text Highlight - getCorrectAnswer empty array', function (assert) {
 test('Hot Text Highlight - getCorrectAnswer', function (assert) {
 
   //with no correct items
-  let question = Ember.Object.create({ text: "No correct answer in text" });
+  let question = Ember.Object.create({
+    answers: Ember.A([ { text: "<p>No correct answers in text</p>" }] ),
+    hasAnswers: true
+  });
   let questionUtil = HotTextHighlightUtil.create({question: question});
   let correctAnswer = questionUtil.getCorrectAnswer();
   assert.ok(!correctAnswer.get("length"), "It shoould have not correct items");
 
   //with 1 correct item
-  question = Ember.Object.create({ text: "One correct answer in text [this]" });
+  question = Ember.Object.create({ answers: Ember.A([ { text: "One correct answer in text [this]"} ]), hasAnswers:true });
   questionUtil = HotTextHighlightUtil.create({question: question});
   correctAnswer = questionUtil.getCorrectAnswer().toArray();
   assert.equal(correctAnswer.length, 1, "Wrong number of items");
   assert.equal(correctAnswer[0], "this", "Wrong correct item");
 
   //with many correct items
-  question = Ember.Object.create({ text: "Many [correct] items in this sentence [another .]" });
+  question = Ember.Object.create({ answers: Ember.A([ { text: "Many [correct] items in this sentence [another .]" } ]), hasAnswers:true });
   questionUtil = HotTextHighlightUtil.create({question: question});
   correctAnswer = questionUtil.getCorrectAnswer().toArray();
   assert.equal(correctAnswer.length, 2, "Wrong number of items");
@@ -599,7 +605,7 @@ test('Hot Text Highlight - getCorrectAnswer', function (assert) {
 });
 
 test('Hot Text Highlight - isAnswerChoiceCorrect', function (assert) {
-  let question = Ember.Object.create({ text: "Many [correct] items in this sentence [another .]" });
+  let question = Ember.Object.create({ answers: Ember.A([ { text: "Many [correct] items in this sentence [another .]"} ]), hasAnswers:true });
   let questionUtil = HotTextHighlightUtil.create({question: question});
 
   assert.ok(questionUtil.isAnswerChoiceCorrect("correct"), "Answer should be correct");
@@ -607,7 +613,7 @@ test('Hot Text Highlight - isAnswerChoiceCorrect', function (assert) {
 });
 
 test('Hot Text Highlight - isCorrect', function (assert) {
-  let question = Ember.Object.create({ text: "Many [correct] items in this sentence [another .]" });
+  let question = Ember.Object.create({ answers: Ember.A([ { text: "Many [correct] items in this sentence [another .]"} ]), hasAnswers:true });
   let questionUtil = HotTextHighlightUtil.create({question: question});
 
   let correctAnswer = ["correct", "another ."];
@@ -649,4 +655,136 @@ test('Hot Text Highlight - answerKey', function (assert) {
   let key = questionUtil.answerKey(["hello", "good bye", "see you later"]);
   assert.equal(key, 'good bye,hello,see you later', "Wrong key");
 });
+
+test('Hot Text Highlight - getWordItems', function (assert) {
+  assert.expect(5);
+
+  var questionUtil = HotTextHighlightUtil.create({question: 'FakeQuestion'});
+
+  //with no words
+  var wordItems = questionUtil.getWordItems("").toArray();
+  assert.equal(wordItems.length, 0, "Wrong number of items");
+
+  //with one word
+  wordItems = questionUtil.getWordItems("text").toArray();
+  assert.equal(wordItems.length, 1, "Wrong number of items");
+  assert.equal(wordItems[0].get("id"), 0, "Wrong id for first object");
+  assert.equal(wordItems[0].get("text"), "text", "Wrong text for first object");
+
+  //with many words
+  wordItems = questionUtil.getWordItems("  A  phrase with  many words and extra spaces   ").toArray();
+  assert.equal(wordItems.length, 8, "Wrong number of items");
+});
+
+test('Hot Text Highlight - getSentenceItems', function (assert) {
+  assert.expect(16);
+
+  var questionUtil = HotTextHighlightUtil.create({question: 'FakeQuestion'});
+
+  //with no text
+  var sentenceItems = questionUtil.getSentenceItems("").toArray();
+  assert.equal(sentenceItems.length, 0, "Wrong number of items");
+
+  //with no correct
+  sentenceItems = questionUtil.getSentenceItems("Sentence 1").toArray();
+  assert.equal(sentenceItems.length, 1, "Wrong number of items");
+  assert.equal(sentenceItems[0].get("id"), 0, "Wrong id for first object");
+  assert.equal(sentenceItems[0].get("text"), "Sentence 1", "Wrong text for first object");
+
+  //with many sentences, 1 correct
+  sentenceItems = questionUtil.getSentenceItems("Sentence 1 [Sentence 2.] Sentence 3").toArray();
+  assert.equal(sentenceItems.length, 3, "Wrong number of items");
+  assert.equal(sentenceItems[0].get("id"), 0, "Wrong id for first object");
+  assert.equal(sentenceItems[0].get("text"), "Sentence 1", "Wrong text for first object");
+  assert.equal(sentenceItems[1].get("text"), "Sentence 2.", "Wrong text for second object");
+  assert.equal(sentenceItems[2].get("text"), "Sentence 3", "Wrong text for third object");
+
+  //with many sentences, many correct
+  sentenceItems = questionUtil.getSentenceItems("Sentence 1 [Sentence 2.] Sentence 3 [Sentence 4.] Sentence 5");
+  assert.equal(sentenceItems.length, 5, "Wrong number of items");
+  assert.equal(sentenceItems[0].get("id"), 0, "Wrong id for first object");
+  assert.equal(sentenceItems[0].get("text"), "Sentence 1", "Wrong text for first object");
+  assert.equal(sentenceItems[1].get("text"), "Sentence 2.", "Wrong text for second object");
+  assert.equal(sentenceItems[2].get("text"), "Sentence 3", "Wrong text for third object");
+  assert.equal(sentenceItems[3].get("text"), "Sentence 4.", "Wrong text for fourth object");
+  assert.equal(sentenceItems[4].get("text"), "Sentence 5", "Wrong text for fifth object");
+
+});
+
+test('Hot Text Highlight - toItems', function (assert) {
+  assert.expect(6);
+
+  var questionUtil = HotTextHighlightUtil.create({question: 'FakeQuestion'});
+
+  var items = Ember.A(["  ", "", "Item 1", " Item 2 ", "[Item 3]"]);
+
+  var convertedItems = questionUtil.toItems(items).toArray();
+  assert.equal(convertedItems.length, 3, "Should have 3 items, empty items are excluded");
+  assert.equal(convertedItems[0].get("id"), 2, "Invalid id, it should have the original index id");
+  assert.equal(convertedItems[0].get("text"), "Item 1", "Wrong item text");
+  assert.equal(convertedItems[0].get("selected"), false, "Wrong item selected value");
+  assert.equal(convertedItems[1].get("text"), "Item 2", "Wrong item text, text should be trimmed");
+  assert.equal(convertedItems[2].get("text"), "Item 3", "Wrong item text, [] should be suppressed");
+});
+
+test('Hot Text Highlight - getItems isHotTextHighlightWord', function (assert) {
+  assert.expect(5);
+  var answers = Ember.A([ Ember.Object.create({ text: "Many [correct] items in this sentence [another]" }) ]),
+    question = Ember.Object.create({
+      answers: answers,
+      hasAnswers: true,
+      isHotTextHighlightWord: true
+    });
+
+  var questionUtil = HotTextHighlightUtil.create({question: question});
+  var items = questionUtil.getItems().toArray();
+
+  assert.equal(items.length, 7, "Missing items");
+  assert.equal(items[0].get("id"), 0, "Invalid id");
+  assert.equal(items[0].get("text"), "Many", "Wrong item text");
+  assert.equal(items[0].get("selected"), false, "Wrong item selected value");
+  assert.equal(items[1].get("text"), "correct", "Wrong item text");
+});
+
+test('Hot Text Highlight - getItems isHotTextHighlightSentence', function (assert) {
+  assert.expect(5);
+  var answers = Ember.A([ Ember.Object.create({ text: "Sentence 1 [Sentence 2.] Sentence 3 [Sentence 4.] Sentence 5" }) ]),
+    question = Ember.Object.create({
+      answers: answers,
+      hasAnswers: true,
+      isHotTextHighlightWord: false
+    });
+
+  var questionUtil = HotTextHighlightUtil.create({question: question});
+  var items = questionUtil.getItems().toArray();
+
+  assert.equal(items.length, 5, "Missing items");
+  assert.equal(items[0].get("id"), 0, "Invalid id");
+  assert.equal(items[0].get("text"), "Sentence 1", "Wrong item text");
+  assert.equal(items[0].get("selected"), false, "Wrong item selected value");
+  assert.equal(items[1].get("text"), "Sentence 2.", "Wrong item text");
+});
+
+test('Hot Text Highlight - transformText', function (assert) {
+  assert.expect(4);
+  var questionUtil = HotTextHighlightUtil.create({question: 'FakeQuestion'});
+
+  //removing wrapping <p> tag for a normal text
+  var text = questionUtil.transformText("<p> This is a test [for] the transform text </p>");
+  assert.equal(text, "This is a test [for] the transform text", "Wrong text");
+
+  //removing wrapping <p> tag for a text having more html tag inside
+  text = questionUtil.transformText("<p> This is a test [<p>for</p>] <b>the</b> transform text </p>");
+  assert.equal(text, "This is a test [<p>for</p>] <b>the</b> transform text");
+
+  //ignoring a text not having a wrapping <p> tag, but <p> tags inside
+  text = questionUtil.transformText("This is a test [<p>for</p>] <b>the</b> transform text");
+  assert.equal(text, "This is a test [<p>for</p>] <b>the</b> transform text");
+
+  //ignoring a text a starting <p> tag which, but not wrapping the whole text
+  text = questionUtil.transformText("<p>This is a test</p> [<p>for</p>] <b>the</b> transform text");
+  assert.equal(text, "<p>This is a test</p> [<p>for</p>] <b>the</b> transform text");
+});
+
+
 

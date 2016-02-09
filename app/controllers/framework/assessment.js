@@ -181,18 +181,43 @@ export default Ember.Controller.extend({
           text: '<p>Seleccione las palabras escritas incorrectamente</p>',
           hints: [],
           explanation: 'Sample explanation text',
-          answers:  Ember.A(["<p>[Le] casa es de [colo] rojo pero pero el [teco] es azul ajax</p>"]),
-          order: 9
+          answers:  Ember.A([
+            Ember.Object.create({ id: "1", text:"<p>[Le] casa es de [colo] rojo pero pero el [teco] es azul ajax</p>" })
+          ]),
+          order: 9,
+          hasAnswers: true,
+          isHotTextHighlightWord: true
         }),
-        correct: true,
+        correct: false,
         score: 10,
         reaction: 4,
         timeSpent: 28,
-        userAnswer:  Ember.A(["<p>[Le] casa es de colo rojo pero [pero] el [teco] es azul [ajax]</p>"])
+        userAnswer:  ["Le", "casa", "teco", "azul"]
       }),
 
       QuestionResult.create({
         id: 610,
+        resource: Ember.Object.create({
+          questionType: 'HT_HL',
+          text: '<p>Seleccione las palabras oraciones en ingles</p>',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers:  Ember.A([
+            Ember.Object.create({ id: "1", text:"<p>[The house is black.] Pero el techo es rojo. [The windows are little.] La casa está bonita</p>" })
+          ]),
+          order: 10,
+          hasAnswers: true,
+          isHotTextHighlightWord: false
+        }),
+        correct: false,
+        score: 10,
+        reaction: 4,
+        timeSpent: 28,
+        userAnswer:  ["The house is black.", "Pero el techo es rojo."]
+      }),
+
+      QuestionResult.create({
+        id: 611,
         resource: Ember.Object.create({
           questionType: 'HS_IMG',
           text: 'Sample Question HS_IMG',
@@ -203,7 +228,7 @@ export default Ember.Controller.extend({
             Ember.Object.create({ id: "2", isCorrect: false, image:"" }),
             Ember.Object.create({ id: "3", isCorrect: true, image:"" })
           ]),
-          order: 10
+          order: 11
         }),
         correct: true,
         score: 10,
@@ -213,7 +238,7 @@ export default Ember.Controller.extend({
       }),
 
       QuestionResult.create({
-        id: 611,
+        id: 612,
         resource: Ember.Object.create({
           questionType: 'HS_TXT',
           text: 'Sample Question HS_TXT',
@@ -224,7 +249,7 @@ export default Ember.Controller.extend({
             Ember.Object.create({ id: "2", isCorrect: false, text:"Answer 2" }),
             Ember.Object.create({ id: "3", isCorrect: true, text:"Answer 3" })
           ]),
-          order: 11
+          order: 12
         }),
         correct: true,
         score: 10,
