@@ -5,6 +5,15 @@ module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     fingerprint: {
       exclude: ['themes/edify'] //excluding test theme files
+    },
+    svgstore: {
+      files: {
+        sourceDirs: ['vendor/emoji-one'],
+        outputFile: '/assets/emoji-one/emoji.svg'
+      }
+    },
+    'ember-svg-sprite-sheet': {
+      path: 'dist/assets/emoji-one/emoji.svg'
     }
   });
 

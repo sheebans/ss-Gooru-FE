@@ -1,11 +1,14 @@
 <div class="emotion-picker">
   <ul class="emotions-list">
-    {{#each emotionValues as |value|}}
+    {{#each emotionValues as |emotion|}}
       <li>
-        <div title="{{t (concat 'common.emotions.emotion-' value) }}"
+        <div title="{{t (concat 'common.emotions.emotion-' emotion.value) }}"
              data-toggle="tooltip"
              data-placement="bottom"
-             class="emotion emotion-{{value}}" {{action 'setEmotion' value}}></div>
+             class="emotion" {{action 'setEmotion' emotion.value}}>
+             {{svg-sprite sprite=(concat '#' emotion.unicode)}}
+        </div>
+             
       </li>
     {{/each}}
   </ul>
