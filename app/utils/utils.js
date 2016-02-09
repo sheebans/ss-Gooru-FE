@@ -200,12 +200,3 @@ export function generateUUID() {
   });
   return uuid;
 }
-
-/**
- * Indicates if two arrays are equal
- * Returns true, if both the arrays are same even if the elements are in different order.
- * @return {boolean}
- */
-export function arraysEqual(arr1, arr2){
-  return Ember.$(arr1).not(arr2).length === 0 && Ember.$(arr2).not(arr1).length === 0;
-}

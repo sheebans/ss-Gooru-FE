@@ -12,8 +12,7 @@ import {
   getGradeColor ,
   getLetter,
   numberSort,
-  generateUUID,
-  arraysEqual
+  generateUUID
   } from 'gooru-web/utils/utils';
 
 import { module, test } from 'qunit';
@@ -165,12 +164,4 @@ test('Check Uuid format', function (assert) {
   var uuid = generateUUID();
   assert.ok(uuid.match(/([a-f\d]{8}(-[a-f\d]{4}){3}-[a-f\d]{12}?)/i), 'The uuid is not correct');
 });
-
-test('arraysEqual', function (assert) {
-  assert.ok(arraysEqual([1,2], [1,2]), 'Arrays should be equal');
-  assert.ok(arraysEqual([1,2], [2,1]), 'Arrays should be equal');
-  assert.ok(arraysEqual([1,2, 3], [2,1]), 'Arrays should not be equal');
-  assert.ok(arraysEqual([1,2], [3,4]), 'Arrays should not be equal');
-});
-
 
