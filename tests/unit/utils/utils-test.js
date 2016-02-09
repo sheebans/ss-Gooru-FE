@@ -13,7 +13,7 @@ import {
   getLetter,
   numberSort,
   generateUUID
-  } from '../../../utils/utils';
+  } from 'gooru-web/utils/utils';
 
 import { module, test } from 'qunit';
 
@@ -167,5 +167,4 @@ test('Check Uuid format', function (assert) {
   var uuid = generateUUID();
   assert.ok(uuid.match(/([a-f\d]{8}(-[a-f\d]{4}){3}-[a-f\d]{12}?)/i), 'The uuid is not correct');
 });
-
 
