@@ -139,8 +139,8 @@ export function getReactionIcon(reactionValue) {
     var reaction = EMOTION_VALUES.filter(function (emotion) {
       return emotion.value === reactionValue;
     })[0];
-    if (reaction && reaction.unicode) {
-      html = '<div class="emotion small">';
+    if (reaction && reaction.value && reaction.unicode) {
+      html = '<div class="emotion emotion-' + reaction.value + ' small">';
       html += '  <svg class="svg-sprite">';
       html += '    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#'+ reaction.unicode + '"></use>';
       html += ' </svg>';
