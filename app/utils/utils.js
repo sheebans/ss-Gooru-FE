@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import { isNumeric } from './math';
-import { GRADING_SCALE } from 'gooru-web/config/config';
+import { 
+  EMOTION_VALUES,
+  GRADING_SCALE } from 'gooru-web/config/config';
 
 /*
  * Function for sorting strings alphabetically in ascending order
@@ -134,7 +136,18 @@ export function getReactionIcon(reactionValue) {
   var html;
 
   if (reactionValue) {
-    html = '<i class="emotion emotion-' + reactionValue + '"></i>';
+    var reaction = EMOTION_VALUES.filter(function (emotion) {
+      return emotion.value === reactionValue;
+    })[0];
+    if (reaction && reaction.value && reaction.unicode) {
+      html = '<div class="emotion emotion-' + reaction.value + ' small">';
+      html += '  <svg class="svg-sprite">';
+      html += '    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#'+ reaction.unicode + '"></use>';
+      html += ' </svg>';
+      html += '</div>';
+    } else {
+      html = '&mdash;';
+    }
   } else if (reactionValue === null) {
     html = '&mdash;';
   } else {

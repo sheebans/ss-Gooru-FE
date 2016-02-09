@@ -5,11 +5,11 @@
   </li>
   {{#each answers as |answer index|}}
     <li>
-      {{#if answer.selected}}
-        <span class="column selected {{{answer.class}}}">{{fa-icon icon='check-circle-o'}}</span>
-      {{else}}
-        <span class="column no-selected {{{answer.class}}}">{{fa-icon icon='times-circle-o'}}</span>
-      {{/if}}
+      <span class="column
+        {{if answer.selected 'selected' 'no-selected'}}
+        {{if answer.correct 'correct' 'incorrect'}}">
+        {{fa-icon icon=(if answer.correct 'check-circle-o' 'times-circle-o')}}
+      </span>
       <span class="answer-text">({{answer-letter index}}) {{{answer.text}}}</span>
     </li>
   {{/each}}

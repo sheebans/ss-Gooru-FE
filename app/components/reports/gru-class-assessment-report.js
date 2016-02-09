@@ -1,9 +1,11 @@
 import Ember from 'ember';
+import ModalMixin from 'gooru-web/mixins/modal';
 import {VIEW_LAYOUT_PICKER_OPTIONS} from "gooru-web/config/config";
+import QuestionResult from 'gooru-web/models/result/question';
 // Private variables
 
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -25,6 +27,23 @@ export default Ember.Component.extend({
     changeView: function (layout) {
       const thumbnails = layout === VIEW_LAYOUT_PICKER_OPTIONS.THUMBNAILS;
       this.set('isTableView', !thumbnails);
+    },
+
+    viewQuestionDetail: function (questionId) {
+      Ember.Logger.debug('Class assessment report: question with ID ' + questionId + ' was selected');
+      // TODO:
+      // Get question model from questionId
+      // Show modal with question information
+      let question = this.get("assessment.resources").findBy("id", questionId).get("firstObject");
+      let modalModel = {
+        anonymous: this.get("anonymous"),
+        assessment: this.get("assessment"),
+        students: this.get("students"),
+        selectedQuestion: question,
+        reportData: this.get("reportData")
+      };
+      this.actions.showModal.call(this,
+        'reports.class-assessment.gru-questions-detail', modalModel, null, null, 'gru-questions-detail-modal');
     }
   },
 
@@ -138,7 +157,7 @@ export default Ember.Component.extend({
       matrix[idsX[i]] = {};
 
       for (let j = 0; j < yLen; j++) {
-        matrix[idsX[i]][idsY[j]] = {};
+        matrix[idsX[i]][idsY[j]] = QuestionResult.create({ notStarted: true });
       }
     }
     return matrix;
