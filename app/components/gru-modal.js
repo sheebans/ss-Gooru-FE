@@ -60,7 +60,7 @@ export default Ember.Component.extend(ModalMixin, {
    * Specific component class(es). Multiple classes are separated with spaces.
    * @type {?String}
    */
-  'component-class':null,
+  'component-class': Ember.computed.alias('modal.component-class'),
 
   /**
    * Component data

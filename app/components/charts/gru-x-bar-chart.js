@@ -17,7 +17,22 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
-
+  /**
+   *
+   * Sample
+   * [
+   *    {
+   *      color: failColor,
+   *      percentage: Math.round(dataObj.incorrect / dataObj.total * 100)
+   *    },
+   *    {
+   *      color: correctColor,
+   *      percentage: Math.round(dataObj.correct / dataObj.total * 100)
+   *    },
+   *    ...
+   *  ]
+   * @property {Array} options data
+   */
   data: null,
 
   styles: Ember.computed('data', function () {

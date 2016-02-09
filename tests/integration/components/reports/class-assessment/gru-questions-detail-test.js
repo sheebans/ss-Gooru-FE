@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
+import QuestionResult from 'gooru-web/models/result/question';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 
@@ -8,7 +9,7 @@ moduleForComponent('reports/class-assessment/gru-questions-detail', 'Integration
 });
 
 test('Layout', function(assert) {
-  const selectedQuestion =       Ember.Object.create({
+  const selectedQuestion = Ember.Object.create({
     "id": "56a120483b6e7b090501d3e7",
     "text": 'Resource 1',
     "order": 1
@@ -36,36 +37,40 @@ test('Layout', function(assert) {
     Ember.Object.create({"id": "56983a906596902edadedc7c"})
   ]);
 
-  var reportData = { //all questions skipped
+  var reportData = { //all questions not started
     "56983a9060a68052c1ed934c": {
-      "56a120483b6e7b090501d3e7": {},
-      "56a1204886b2e565e1b2c230": {},
-      "56a12048ddee2022a741356a": {}
+      "56a120483b6e7b090501d3e7": QuestionResult.create( { notStarted: true }),
+      "56a1204886b2e565e1b2c230": QuestionResult.create( { notStarted: true }),
+      "56a12048ddee2022a741356a": QuestionResult.create( { notStarted: true })
     },
     "56983a90fb01fecc328e2388": {
-      "56a120483b6e7b090501d3e7": {},
-      "56a1204886b2e565e1b2c230": {},
-      "56a12048ddee2022a741356a": {}
+      "56a120483b6e7b090501d3e7": QuestionResult.create( { notStarted: true }),
+      "56a1204886b2e565e1b2c230": QuestionResult.create( { notStarted: true }),
+      "56a12048ddee2022a741356a": QuestionResult.create( { notStarted: true })
     },
     "56983a906596902edadedc7c": {
-      "56a120483b6e7b090501d3e7": {},
-      "56a1204886b2e565e1b2c230": {},
-      "56a12048ddee2022a741356a": {}
+      "56a120483b6e7b090501d3e7": QuestionResult.create( { notStarted: true }),
+      "56a1204886b2e565e1b2c230": QuestionResult.create( { notStarted: true }),
+      "56a12048ddee2022a741356a": QuestionResult.create( { notStarted: true })
     }
   };
+  var model =Ember.Object.create({
+    selectedQuestion,
+    assessment,
+    students,
+    reportData
+  });
 
-  this.set("assessment", assessment);
-  this.set("students", students);
-  this.set("reportData", reportData);
-  this.set("selectedQuestion", selectedQuestion);
+  this.set("model", model);
 
-  this.render(hbs`{{reports/class-assessment/gru-questions-detail
-    assessment=assessment
-    students=students
-    reportData=reportData
-    selectedQuestion=selectedQuestion }}`);
+
+  this.render(hbs`{{reports/class-assessment/gru-questions-detail model=model }}`);
 
   const $component = this.$();
+  const $header = $component.find(".modal-header");
+  T.exists(assert, $header, "Missing header");
+  T.exists(assert, $header.find(".close"), "Missing close button");
+
   const $navigation = $component.find(".navigation");
   T.exists(assert, $navigation, "Missing navigation");
   T.exists(assert, $navigation.find(".gru-bubbles"), "Missing navigation bubbles");
@@ -75,6 +80,7 @@ test('Layout', function(assert) {
   assert.equal(T.text($navigation.find(".selected-question")), "Q1 Resource 1", "Wrong selected question text");
   assert.ok($navigation.find(".gru-bubbles .bubble:eq(0)").hasClass("selected"), "First question should be selected");
 
-  T.exists(assert, $component.find(".question-info"), "Missing question information panel");
-  T.exists(assert, $component.find(".question-metrics"), "Missing question metrics panel");
+  T.exists(assert, $component.find(".body .question-info"), "Missing question information panel");
+  T.exists(assert, $component.find(".body .question-metrics"), "Missing question metrics panel");
 });
+

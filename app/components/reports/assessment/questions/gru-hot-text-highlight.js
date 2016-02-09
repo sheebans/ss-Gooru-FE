@@ -3,9 +3,9 @@ import {HotTextHighlightUtil} from 'gooru-web/utils/questions';
 import QuestionMixin from 'gooru-web/mixins/reports/assessment/questions/question';
 
 /**
- * Fill in the blank
+ * Hot Text Highlight
  *
- * Component responsible for controlling the logic and appearance of a fill in the blank
+ * Component responsible for controlling the logic and appearance of an Hot Text Highlight
  * question inside of the assessment report.
  *
  * @module
@@ -19,44 +19,25 @@ export default Ember.Component.extend(QuestionMixin, {
 
   // -------------------------------------------------------------------------
   // Properties
-  answer: Ember.computed("question", function () {
+  items: Ember.computed("question", function () {
     let component = this;
-    let spanClass='is-correct';
     let question = component.get("question");
+    let questionUtil = component.getQuestionUtil(question);
+    let correctAnswers = questionUtil.getCorrectAnswer();
+    let showCorrect = component.get("showCorrect");
 
-    let questionAnswer = question.answers;
+    let userAnswer = showCorrect ? correctAnswers : component.get("userAnswer");
+    let items = questionUtil.getItems();
+    items.forEach(function(item){
+      let text = item.get("text");
+      let selected = userAnswer.contains(text);
+      let correct = selected && questionUtil.isAnswerChoiceCorrect(text);
 
-    let correctAnswerTextParts = questionAnswer[0].split(" ");
-    let regExp = new RegExp('\\[+\\w+\\]');
+      item.set("selected", selected);
+      item.set("correct", correct);
+    });
 
-    if(component.get('showCorrect')){
-
-      correctAnswerTextParts.forEach(function(item,index){
-        if(regExp.test(item)){
-          item = item.replace('[','<span class='+spanClass+'>');
-          item = item.replace(']','</span>');
-          correctAnswerTextParts[index]=item;
-        }
-      });
-      return Ember.String.htmlSafe(correctAnswerTextParts.join(" "));
-    }else{
-      let userAnswers = component.get("userAnswer");
-      let userAnswerTextParts= userAnswers[0].split(" ");
-
-      userAnswerTextParts.forEach(function(item, index){
-        if(regExp.test(item)){
-          if (item === correctAnswerTextParts[index]) {
-            spanClass = 'is-correct';
-          }else{
-            spanClass= 'is-incorrect';
-          }
-          item = item.replace('[','<span class='+spanClass+'>');
-          item = item.replace(']','</span>');
-          userAnswerTextParts[index]=item;
-        }
-      });
-      return Ember.String.htmlSafe(userAnswerTextParts.join(" "));
-    }
+    return items;
   }),
 
   // -------------------------------------------------------------------------

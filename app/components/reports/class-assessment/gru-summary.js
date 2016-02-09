@@ -28,7 +28,7 @@ export default Ember.Component.extend({
      * @param {Number} questionId
      */
     selectQuestion: function (questionId) {
-      Ember.Logger.debug('Question with ID: ' + questionId + ' was selected');
+      this.get('onSelectQuestion')(questionId);
     }
 
   },
@@ -60,16 +60,9 @@ export default Ember.Component.extend({
       answers.push(answerCounter);
 
       questionsIds.forEach(function (question) {
-        var isCorrect = rawData[student][question]['correct'];
-
-        if (isCorrect) {
-          answerCounter.correct++;
-        } else {
-          // Any value different than 'false' (i.e. null or undefined) will be ignored
-          if (isCorrect === false) {
-            answerCounter.incorrect++;
-          }
-        }
+        answerCounter.correct += rawData[student][question].get("correct") ? 1 : 0;
+        answerCounter.incorrect += rawData[student][question].get("incorrect") ? 1 : 0;
+        //TODO: it would be useful to move this to question-result util
       });
     });
 
@@ -191,16 +184,9 @@ export default Ember.Component.extend({
       questions.push(questionCounter);
 
       studentsIds.forEach(function (student) {
-        var isCorrect = rawData[student][question]['correct'];
-
-        if (isCorrect) {
-          questionCounter.correct++;
-        } else {
-          // Any value different than 'false' (i.e. null or undefined) will be ignored
-          if (isCorrect === false) {
-            questionCounter.incorrect++;
-          }
-        }
+        questionCounter.correct += rawData[student][question].get("correct") ? 1 : 0;
+        questionCounter.incorrect += rawData[student][question].get("incorrect") ? 1 : 0;
+        //TODO: it would be useful to move this to question-result util
       });
     });
 
@@ -260,8 +246,8 @@ export default Ember.Component.extend({
 
     if (scoresData.length) {
       total = scoresData.map(function (result) {
-        return result.completed ? 1 : 0;
-      })
+          return result.completed ? 1 : 0;
+        })
         .reduce(function (a, b) {
           return a + b;
         });
