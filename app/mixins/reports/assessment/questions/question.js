@@ -16,7 +16,7 @@ export default Ember.Mixin.create({
   question: null,
 
   /**
-   * @property {string} selected user answer, it is the answer choice id
+   * @property {*} selected user answer
    */
   userAnswer: null,
 
