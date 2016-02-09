@@ -6,6 +6,10 @@
     <button class="btn btn-link x-icon" {{action 'closePlayer'}}>{{fa-icon icon="fa-times"}}</button>
   </div>
   <div class="center">
-    {{gru-emotion-picker startEmotion=ratingScore onChangeEmotion="changeEmotion"}}
+    <div class="panel panel-default">
+      <div class="panel-body">
+        {{gru-emotion-picker startEmotion=ratingScore onChangeEmotion="changeEmotion"}}
+      </div>
+    </div>
   </div>
 </div>

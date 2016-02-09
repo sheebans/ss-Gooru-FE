@@ -15,5 +15,17 @@ export default Ember.Controller.extend({
   /**
    * @prop { UserQuestionsResult[] } userResults - Content feed to update the report data
    */
-  userResults: null
+  userResults: null,
+
+  /**
+   * @property {boolean}
+   */
+  anonymous: false,
+
+
+  actions: {
+    setAnonymous: function(){
+      this.set("anonymous", !this.get("anonymous"));
+    }
+  }
 });

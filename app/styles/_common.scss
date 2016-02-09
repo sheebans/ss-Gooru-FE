@@ -69,37 +69,6 @@ button.btn-link {
   @include make-margin(30, lg, 2px);
 }
 
-/* Tooltip styles */
-.tooltip.in,
-.tooltip {
-  background-color: $white;
-  color: $text-color;
-  opacity: 1;
-  border-radius: 3px;
-  border: solid 1px $gray-lighter;
-  max-width: 250px;
-  .tooltip-inner {
-    color: $gray;
-    background: $white;
-    border: solid 1px $gray-lighter;
-    max-width: 250px;
-    padding: 2px 5px;
-    text-align: left;
-  }
-}
-
-.tooltip.bottom .tooltip-arrow {
-  border-width: 0 10px 8px;
-  top: -7px;
-  border-bottom-color: $white;
-  background-color: transparent;
-}
-
-.tooltip.left .tooltip-arrow {
-  right: -5px;
-  border-left-color: $white;
-}
-
 /* Bootstrap specific rules */
 .col-center-block {
   float: none;
@@ -164,74 +133,28 @@ button.btn-link {
 
 .emotion {
   display: inline-block;
-  background: url('gooru/resource-collection-icons.png') no-repeat 0 0;
-  background-size: 385px 293px;
-  background-color: $white;
-  width: 39px;
-  height: 39px;
-  border-radius: 50%;
-  border: 1px solid $gray-lighter;
+  width: $emotion-icon-size;
+  height: $emotion-icon-size;
   cursor: pointer;
   &.small{
-    background-size: 226px 165px;
-    width: 22px;
-    height:22px;
-    border:none;
-    border-radius:0;
+    width: $emotion-icon-size-small;
+    height:$emotion-icon-size-small;
   }
-}
-.emotion-1 {
-  background-position: $emotion-1-bg-pos;
-  &.small{
-    background-position:$emotion-1-bg-pos-small ;
+  svg {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    @include transition(all 0.3s ease-out);
   }
-  &.active {
-    background-position: $emotion-1-bg-pos-active;
-    border-color: $emotion-1-border;
-  }
-}
-
-.emotion-2 {
-  background-position: $emotion-2-bg-pos;
-  &.small{
-    background-position: $emotion-2-bg-pos-small ;
+  &:hover {
+    svg {
+      @include scale(1.25);
+    }
   }
   &.active {
-    background-position: $emotion-2-bg-pos-active;
-    border-color: $emotion-2-border;
-  }
-}
-
-.emotion-3 {
-  background-position: $emotion-3-bg-pos;
-  &.small{
-    background-position: $emotion-3-bg-pos-small;
-  }
-  &.active {
-    background-position: $emotion-3-bg-pos-active;
-    border-color: $emotion-3-border;
-  }
-}
-
-.emotion-4 {
-  background-position: $emotion-4-bg-pos;
-  &.small{
-    background-position:$emotion-4-bg-pos-small ;
-  }
-  &.active {
-    background-position: $emotion-4-bg-pos-active;
-    border-color: $emotion-4-border;
-  }
-}
-
-.emotion-5 {
-  background-position: $emotion-5-bg-pos;
-  &.small{
-    background-position: $emotion-5-bg-pos-small;
-  }
-  &.active {
-    background-position: $emotion-5-bg-pos-active;
-    border-color: $emotion-5-border;
+    svg {
+      @include scale(1.4);
+    }
   }
 }
 

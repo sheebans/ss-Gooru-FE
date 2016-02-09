@@ -958,43 +958,54 @@ export default Ember.Route.extend({
     const students = Ember.A([
       Ember.Object.create({
         "id": "56983a9060a68052c1ed934c",
-        "fullName": "Rocha, Perez"
+        "fullName": "Rocha, Perez",
+        "code": 'd934c'
       }),
       Ember.Object.create({
         "id": "56983a90fb01fecc328e2388",
-        "fullName": "Snyder, Mason"
+        "fullName": "Snyder, Mason",
+        "code": 'e2388'
+
       }),
       Ember.Object.create({
         "id": "56983a906596902edadedc7c",
-        "fullName": "Robles, Guadalupe"
+        "fullName": "Robles, Guadalupe",
+        "code": 'edc7c'
       }),
       Ember.Object.create({
         "id": "56983a901bc3d60c88ac2fe2",
-        "fullName": "George, Mariana"
+        "fullName": "George, Mariana",
+        "code": 'ac2fe2'
       }),
       Ember.Object.create({
         "id": "56983a9082f705e65f2fe607",
-        "fullName": "Hutchinson, Blake"
+        "fullName": "Hutchinson, Blake",
+        "code": '2fe607'
       }),
       Ember.Object.create({
         "id": "56983a905ed41a7863401287",
-        "fullName": "Maddox, Vincent"
+        "fullName": "Maddox, Vincent",
+        "code": '01287'
       }),
       Ember.Object.create({
         "id": "56983a90297d42fd4ed7c1de",
-        "fullName": "Chase, Brandie"
+        "fullName": "Chase, Brandie",
+        "code": '7c1de'
       }),
       Ember.Object.create({
         "id": "56983a900f77bf820df2cb9c",
-        "fullName": "Higgins, Nellie"
+        "fullName": "Higgins, Nellie",
+        "code": '2cb9c'
       }),
       Ember.Object.create({
         "id": "56983a90231a29de51a368d4",
-        "fullName": "Pope, Adele"
+        "fullName": "Pope, Adele",
+        "code": '368d4'
       }),
       Ember.Object.create({
         "id": "56983a901ad65da6dac5b384",
-        "fullName": "Steele, Nadine"
+        "fullName": "Steele, Nadine",
+        "code": '5b384'
       })
     ]);
 

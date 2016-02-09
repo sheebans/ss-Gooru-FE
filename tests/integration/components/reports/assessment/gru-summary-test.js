@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import QuestionDetailsResult from 'gooru-web/models/result/question-details';
+import QuestionResult from 'gooru-web/models/result/question';
 
 moduleForComponent('reports/assessment/gru-summary', 'Integration | Component | reports/assessment/gru summary', {
   integration: true,
@@ -25,21 +25,21 @@ test('it renders', function (assert) {
     correctAnswers: 2,
 
     questionsResults: [
-      QuestionDetailsResult.create({
+      QuestionResult.create({
         id: 601,
         resource: {
           order: 1
         },
         correct: false
       }),
-      QuestionDetailsResult.create({
+      QuestionResult.create({
         id: 603,
         resource: {
           order: 3
         },
         correct: true
       }),
-      QuestionDetailsResult.create({
+      QuestionResult.create({
         id: 602,
         resource: {
           order: 2

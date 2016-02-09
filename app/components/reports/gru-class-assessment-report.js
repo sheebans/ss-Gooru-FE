@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import {VIEW_LAYOUT_PICKER_OPTIONS} from "gooru-web/config/config";
+import QuestionResult from 'gooru-web/models/result/question';
 // Private variables
 
 
@@ -58,6 +59,12 @@ export default Ember.Component.extend({
    * 'reportData' are fired)
    */
   cumulativeData: null,
+
+  /**
+   * Indicates if the report is displayed in anonymous mode
+   * @property {boolean} anonymous
+   */
+  anonymous: false,
 
 
   /**
@@ -132,7 +139,7 @@ export default Ember.Component.extend({
       matrix[idsX[i]] = {};
 
       for (let j = 0; j < yLen; j++) {
-        matrix[idsX[i]][idsY[j]] = {};
+        matrix[idsX[i]][idsY[j]] = QuestionResult.create({ notStarted: true });
       }
     }
     return matrix;

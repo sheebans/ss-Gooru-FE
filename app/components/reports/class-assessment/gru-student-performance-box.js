@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { correctPercentage, correctAnswers } from 'gooru-web/utils/question-details-result';
+import { correctPercentage } from 'gooru-web/utils/question-result';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -44,13 +44,20 @@ export default Ember.Component.extend({
   reportData: null,
 
   /**
+   * Indicates if the report is displayed in anonymous mode
+   * @property {boolean} anonymous
+   */
+  anonymous: false,
+
+
+  /**
    * Actual student question results, it excludes non started questions
    * @property {QuestionResult[]} questionResults
    */
   questionResults: Ember.computed("reportData.[]", function(){
     const reportData = this.get("reportData") || [];
     return Ember.A(reportData).filter(function(item){
-      return !Ember.$.isEmptyObject(item); // it doesn't return empty objects
+      return !item.get("notStarted"); //only started question results
     });
   }),
 
@@ -70,15 +77,7 @@ export default Ember.Component.extend({
    * @property {number} user assessment score
    */
   score: Ember.computed("questionResults.[]", function(){
-    return correctPercentage(this.get('questionResults'), this.get('correctAnswers'));
-  }),
-
-  /**
-   * Number of questions answered correctly in this attempt
-   * @prop {Number}
-   */
-  correctAnswers:Ember.computed('questionResults.[]',function(){
-    return correctAnswers(this.get('questionResults'));
+    return correctPercentage(this.get('questionResults'));
   }),
 
   // -------------------------------------------------------------------------
@@ -90,8 +89,8 @@ export default Ember.Component.extend({
    */
   getQuestionStatus: function(questionResult){
     let status = 'not-started';
-    if (!Ember.$.isEmptyObject(questionResult)){ //if available and non empty object
-      let skipped = questionResult.get("correct") === null;
+    if (!questionResult.get("notStarted")){ //if it has been started
+      let skipped = questionResult.get("skipped");
       let correct = questionResult.get("correct");
       status = skipped ? 'skipped' : (correct ? 'correct' : 'incorrect');
     }

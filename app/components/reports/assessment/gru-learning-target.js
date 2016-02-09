@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-import { correctAnswers,correctPercentage } from 'gooru-web/utils/question-details-result';
+import { correctPercentage } from 'gooru-web/utils/question-result';
 
 /**
  * Learning Target Component
@@ -20,61 +20,52 @@ export default Ember.Component.extend({
     /**
      * Handle event triggered by gru-bubbles
      */
-    bubbleSelect:function(bubbleOption) {
+    bubbleSelect: function (bubbleOption) {
       this.sendAction("onBubbleSelect", bubbleOption);
     }
   },
 
-    // -------------------------------------------------------------------------
-    // Attributes
+  // -------------------------------------------------------------------------
+  // Attributes
 
-    classNames: ['reports', 'assessment', 'gru-learning-target'],
+  classNames: ['reports', 'assessment', 'gru-learning-target'],
 
-    // -------------------------------------------------------------------------
-    // Properties
+  // -------------------------------------------------------------------------
+  // Properties
 
-    /**
-     * Learning target to be displayed by the component
-     *
-     * @property {Ember.Object}
-     */
-    learningTarget:null,
+  /**
+   * Learning target to be displayed by the component
+   *
+   * @property {Ember.Object}
+   */
+  learningTarget: null,
 
 
   /**
    * @property {AssessmentResult} assessment
    */
-    assessmentResult:null,
+  assessmentResult: null,
 
   /**
    * Concise model to be used by the gru-bubbles component
    * @prop {Object[]}
    */
-    bubbleQuestions:Ember.computed('learningTarget.relatedQuestions.[]', 'assessmentResult.questionsResults.[]', function() {
-      return this.getBubblesQuestions(this.get("assessmentResult.questionsResults"));
-    }),
+  bubbleQuestions: Ember.computed('learningTarget.relatedQuestions.[]', 'assessmentResult.questionsResults.[]', function () {
+    return this.getBubblesQuestions(this.get("assessmentResult.questionsResults"));
+  }),
   /**
    * List of questions
-   * @prop {QuestionDetailsResult[]}
+   * @prop {QuestionResult[]}
    */
-    questionsList:Ember.computed('assessmentResult.questionsResults.[]',function(){
-       return this.getQuestions(this.get("assessmentResult.questionsResults"));
-    }),
-  /**
-   * Number of questions answered correctly in this attempt
-   * @prop {Number}
-   */
-  correctAnswers:Ember.computed('questionsList.[]',function(){
-    return correctAnswers(this.get('questionsList'));
+  questionsList: Ember.computed('assessmentResult.questionsResults.[]', function () {
+    return this.getQuestions(this.get("assessmentResult.questionsResults"));
   }),
-
-
   /**
    * Percentage of correct answers vs. the total number of questions
    * @prop {Number}
    */
-  correctPercentage:Ember.computed('questionsList.[]','correctAnswers.[]',function(){
-    return correctPercentage(this.get('questionsList'),this.get('correctAnswers'));
+  correctPercentage: Ember.computed('questionsList.[]', function () {
+    return correctPercentage(this.get('questionsList'));
   }),
 
 
@@ -83,25 +74,25 @@ export default Ember.Component.extend({
 
   /**
    * Return a list of questions associated a specific learning target to be used by the gru-bubbles component
-   * @param QuestionDetailsResult[]
+   * @param QuestionResult[]
    */
   getBubblesQuestions: function (questionResults) {
 
     let results = this.getQuestions(questionResults);
 
     return results.map(function (questionResult) {
-      return {
+      return Ember.Object.create({
         label: questionResult.get('question.order'),
         status: questionResult.get('correct') ? 'correct' : 'incorrect',
         value: questionResult.get('id')
-      };
+      });
     });
   },
 
-  getQuestions:function(questionResults){
-    let relatedQuestions= this.get('learningTarget.relatedQuestions');
+  getQuestions: function (questionResults) {
+    let relatedQuestions = this.get('learningTarget.relatedQuestions');
 
-    let questions = questionResults.filter(function(questionResult){
+    let questions = questionResults.filter(function (questionResult) {
       return relatedQuestions.contains(questionResult.get("id"));
     });
     return questions;

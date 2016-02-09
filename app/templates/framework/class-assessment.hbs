@@ -1,7 +1,10 @@
+<br/>
+<input type="button" value="{{if anonymous 'Stop Anonymous' 'Launch Anonymous'}}" {{action 'setAnonymous'}}/>
 <div class="controller class-assessment">
     {{ reports.gru-class-assessment-report
       assessment=assessment
       students=students
       userResults=userResults
+      anonymous = anonymous
     }}
 </div>

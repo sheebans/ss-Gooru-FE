@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import AssessmentResult from 'gooru-web/models/result/assessment';
 import LearningTargetResult from 'gooru-web/models/result/learning-target';
-import QuestionDetailsResult from 'gooru-web/models/result/question-details';
+import QuestionResult from 'gooru-web/models/result/question';
 import ResourceResult from 'gooru-web/models/result/resource';
 
 export default Ember.Controller.extend({
@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
 
     questionsResults: [
 
-      QuestionDetailsResult.create({
+      QuestionResult.create({
         id: 601,
         resource: Ember.Object.create({
           questionType: 'MC',
@@ -32,7 +32,7 @@ export default Ember.Controller.extend({
         userAnswer: "1"
       }),
 
-      QuestionDetailsResult.create({
+      QuestionResult.create({
         id: 602,
         resource: Ember.Object.create({
           questionType: 'MC',
@@ -53,7 +53,7 @@ export default Ember.Controller.extend({
         userAnswer: "3"
       }),
 
-      QuestionDetailsResult.create({
+      QuestionResult.create({
         id: 603,
         attempt: 1104,
         resource: Ember.Object.create({
@@ -71,7 +71,7 @@ export default Ember.Controller.extend({
         userAnswer: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
       }),
 
-      QuestionDetailsResult.create({
+      QuestionResult.create({
         id: 604,
         resource: Ember.Object.create({
           questionType: 'T/F',
@@ -91,7 +91,7 @@ export default Ember.Controller.extend({
         userAnswer: "1"
       }),
 
-      QuestionDetailsResult.create({
+      QuestionResult.create({
         id: 605,
         resource: Ember.Object.create({
           questionType: 'HT_RO',
@@ -113,7 +113,7 @@ export default Ember.Controller.extend({
         userAnswer: ["chi", "crc", "bra", "pan"]
       }),
 
-      QuestionDetailsResult.create({
+      QuestionResult.create({
         id: 606,
         resource: Ember.Object.create({
           questionType: 'FIB',
@@ -133,7 +133,7 @@ export default Ember.Controller.extend({
         userAnswer: Ember.A(['yellow','white'])
       }),
 
-      QuestionDetailsResult.create({
+      QuestionResult.create({
         id: 607,
         question: Ember.Object.create({
           questionType: 'FIB',
@@ -153,7 +153,7 @@ export default Ember.Controller.extend({
         userAnswer: Ember.A(['yellow','white'])
       }),
 
-      QuestionDetailsResult.create({
+      QuestionResult.create({
         id: 608,
         question: Ember.Object.create({
           questionType: 'MA',
@@ -174,7 +174,7 @@ export default Ember.Controller.extend({
         userAnswer:  Ember.A([{id: "1", selection: false}, {id: "2", selection: false}, {id: "3", selection: true}])
       }),
 
-      QuestionDetailsResult.create({
+      QuestionResult.create({
         id: 609,
         resource: Ember.Object.create({
           questionType: 'HT_HL',
@@ -195,7 +195,7 @@ export default Ember.Controller.extend({
         userAnswer:  ["Le", "casa", "teco", "azul"]
       }),
 
-      QuestionDetailsResult.create({
+      QuestionResult.create({
         id: 610,
         resource: Ember.Object.create({
           questionType: 'HT_HL',
@@ -216,7 +216,7 @@ export default Ember.Controller.extend({
         userAnswer:  ["The house is black.", "Pero el techo es rojo."]
       }),
 
-      QuestionDetailsResult.create({
+      QuestionResult.create({
         id: 611,
         resource: Ember.Object.create({
           questionType: 'HS_IMG',
@@ -237,7 +237,7 @@ export default Ember.Controller.extend({
         userAnswer:  Ember.A(["1", "2"])
       }),
 
-      QuestionDetailsResult.create({
+      QuestionResult.create({
         id: 612,
         resource: Ember.Object.create({
           questionType: 'HS_TXT',
@@ -301,7 +301,7 @@ export default Ember.Controller.extend({
             reaction: 4,
             timeSpent: 2841
           }),
-          QuestionDetailsResult.create({
+          QuestionResult.create({
             resource:{
               resourceFormat:"question",
               title: "Question with a very long name",

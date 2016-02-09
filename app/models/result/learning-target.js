@@ -19,7 +19,7 @@ export default Ember.Object.extend({
   mastery: 0,
 
   /*
-   * @property {Number[]} relatedQuestions - Array of QuestionDetailsResult ids
+   * @property {Number[]} relatedQuestions - Array of QuestionResult ids
    */
   relatedQuestions: [],
 
