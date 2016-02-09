@@ -67,6 +67,10 @@ test('Layout', function(assert) {
   this.render(hbs`{{reports/class-assessment/gru-questions-detail model=model }}`);
 
   const $component = this.$();
+  const $header = $component.find(".modal-header");
+  T.exists(assert, $header, "Missing header");
+  T.exists(assert, $header.find(".close"), "Missing close button");
+
   const $navigation = $component.find(".navigation");
   T.exists(assert, $navigation, "Missing navigation");
   T.exists(assert, $navigation.find(".gru-bubbles"), "Missing navigation bubbles");
@@ -76,7 +80,7 @@ test('Layout', function(assert) {
   assert.equal(T.text($navigation.find(".selected-question")), "Q1 Resource 1", "Wrong selected question text");
   assert.ok($navigation.find(".gru-bubbles .bubble:eq(0)").hasClass("selected"), "First question should be selected");
 
-  T.exists(assert, $component.find(".question-info"), "Missing question information panel");
-  T.exists(assert, $component.find(".question-metrics"), "Missing question metrics panel");
+  T.exists(assert, $component.find(".body .question-info"), "Missing question information panel");
+  T.exists(assert, $component.find(".body .question-metrics"), "Missing question metrics panel");
 });
 

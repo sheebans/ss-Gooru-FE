@@ -34,7 +34,7 @@ export default Ember.Component.extend(ModalMixin, {
       // TODO:
       // Get question model from questionId
       // Show modal with question information
-      let question = this.get("assessment.resources").findBy("id", questionId).get("firstObject");
+      let question = this.get("assessment.resources").findBy("id", questionId);
       let modalModel = {
         anonymous: this.get("anonymous"),
         assessment: this.get("assessment"),
