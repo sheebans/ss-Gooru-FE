@@ -125,8 +125,10 @@
           }
           button{
             margin:0;
-            background-color: transparent;
-
+            &.dropdown-toggle{
+              background-color: transparent;
+              box-shadow: none;
+            }
             i{
               color:$dark-500;
               font-size: $font-size-h3;
@@ -134,10 +136,6 @@
           }
           a{
             padding: 0;
-          }
-          @media (max-width: $screen-sm) {
-            float: left;
-            padding: 0 5px;
           }
         }
         .no-hover {
