@@ -157,7 +157,7 @@ export default Ember.Component.extend(ModalMixin, {
       matrix[idsX[i]] = {};
 
       for (let j = 0; j < yLen; j++) {
-        matrix[idsX[i]][idsY[j]] = QuestionResult.create({ notStarted: true });
+        matrix[idsX[i]][idsY[j]] = QuestionResult.create();
       }
     }
     return matrix;
