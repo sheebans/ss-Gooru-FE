@@ -23,5 +23,15 @@
         display: none;
       }
     }
+
+  }
+}
+
+.gru-modal {
+  &.gru-questions-detail-modal{
+    .modal-dialog {
+      width: 80%;
+      height: 100%;
+    }
   }
 }

@@ -1,15 +1,10 @@
-{{! reports.class-assessment.gru-questions-detail
-    anonymous=anonymous
-    assessment=assessment
-    students=students
-    selectedQuestion=assessment.resources.firstObject
-    reportData=reportData }}
-
 
 {{ reports.class-assessment.gru-summary
     assessment=assessment
     students=students
-    rawData=reportData }}
+    rawData=reportData
+    onSelectQuestion=(action 'viewQuestionDetail')
+}}
 
 <div class="view-container {{if isTableView 'table-view' 'student-view'}}">
 
@@ -17,15 +12,17 @@
   {{gru-view-layout-picker onViewLayoutChange='changeView'}}
 
   {{ reports.class-assessment.gru-table-view
-      anonymous=anonymous
-      assessment=assessment
-      students=students
-      rawData=reportData }}
+  assessment=assessment
+  students=students
+  rawData=reportData
+  onSelectQuestion=(action 'viewQuestionDetail')
+  anonymous=anonymous}}
 
   {{ reports.class-assessment.gru-student-view assessment=assessment
       anonymous=anonymous
       students=students
-      reportData=reportData}}
+      reportData=reportData
+      onSelectQuestion=(action 'viewQuestionDetail')}}
 
 </div>
 

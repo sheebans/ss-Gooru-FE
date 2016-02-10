@@ -39,12 +39,12 @@ export default Ember.Component.extend(QuestionMixin, {
     let answers = question.get("answers");
     return answers.map(function(answer){
       let userAnswer = userAnswers.filterBy("id", answer.get("id"));
-      let userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(userAnswer.get("firstObject"));
+      let correct = questionUtil.isAnswerChoiceCorrect(userAnswer.get("firstObject"));
 
       return {
         text: answer.get("text"),
         selected: userAnswer.get("firstObject.selection"),
-        class: (userAnswerCorrect)?'correct':'incorrect'
+        correct: correct
       };
     });
   }),

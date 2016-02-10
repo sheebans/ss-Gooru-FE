@@ -2,6 +2,7 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { GRADING_SCALE } from 'gooru-web/config/config';
+import QuestionResult from 'gooru-web/models/result/question';
 
 moduleForComponent('reports/class-assessment/gru-summary', 'Integration | Component | reports/class assessment/gru summary', {
   integration: true,
@@ -38,24 +39,24 @@ test('it renders', function (assert) {
 
   var reportData = {
     "56983a9060a68052c1ed934c": {
-      "56a120483b6e7b090501d3e7": {"correct": false, "reaction": 1, "timeSpent": 1216},
-      "56a1204886b2e565e1b2c230": {"correct": true, "reaction": 2, "timeSpent": 2458},
-      "56a12048ddee2022a741356a": {"correct": true, "reaction": 3, "timeSpent": 1433}
+      "56a120483b6e7b090501d3e7": QuestionResult.create({"correct": false, "reaction": 1, "timeSpent": 1216}),
+      "56a1204886b2e565e1b2c230": QuestionResult.create({"correct": true, "reaction": 2, "timeSpent": 2458}),
+      "56a12048ddee2022a741356a": QuestionResult.create({"correct": true, "reaction": 3, "timeSpent": 1433})
     },
     "56983a90fb01fecc328e2388": {
-      "56a120483b6e7b090501d3e7": {"correct": false, "reaction": 5, "timeSpent": 1216},
-      "56a1204886b2e565e1b2c230": {},
-      "56a12048ddee2022a741356a": {"correct": true, "reaction": 3, "timeSpent": 1433}
+      "56a120483b6e7b090501d3e7": QuestionResult.create({"correct": false, "reaction": 5, "timeSpent": 1216}),
+      "56a1204886b2e565e1b2c230": QuestionResult.create({ "notStarted": true}),
+      "56a12048ddee2022a741356a": QuestionResult.create({"correct": true, "reaction": 3, "timeSpent": 1433})
     },
     "56983a906596902edadedc7c": {
-      "56a120483b6e7b090501d3e7": {"correct": false, "reaction": 1, "timeSpent": 1216},
-      "56a1204886b2e565e1b2c230": {"correct": true, "reaction": 5, "timeSpent": 2458},
-      "56a12048ddee2022a741356a": {"correct": true, "reaction": 5, "timeSpent": 1433}
+      "56a120483b6e7b090501d3e7": QuestionResult.create({"correct": false, "reaction": 1, "timeSpent": 1216}),
+      "56a1204886b2e565e1b2c230": QuestionResult.create({"correct": true, "reaction": 5, "timeSpent": 2458}),
+      "56a12048ddee2022a741356a": QuestionResult.create({"correct": true, "reaction": 5, "timeSpent": 1433})
     },
     "56983a9082f705e65f2fe607": {
-      "56a120483b6e7b090501d3e7": {"correct": true, "reaction": 4, "timeSpent": 1216},
-      "56a1204886b2e565e1b2c230": {"correct": true, "reaction": 4, "timeSpent": 2458},
-      "56a12048ddee2022a741356a": {"correct": true, "reaction": 3, "timeSpent": 1433}
+      "56a120483b6e7b090501d3e7": QuestionResult.create({"correct": true, "reaction": 4, "timeSpent": 1216}),
+      "56a1204886b2e565e1b2c230": QuestionResult.create({"correct": true, "reaction": 4, "timeSpent": 2458}),
+      "56a12048ddee2022a741356a": QuestionResult.create({"correct": true, "reaction": 3, "timeSpent": 1433})
     }
   };
 

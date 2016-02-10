@@ -25,6 +25,7 @@ export default Ember.Route.extend({
           "assetBasePath": "http://",
           "resourceType": "assessment-question",
           "resourceFormat": "question",
+          "mediaUrl":"http://qacdn.gooru.org/qalive//f000/2441/3253/9b5b8543-c8af-4f01-a76f-fa3a7e749636.JPG",
           "narration": "Id eu mollit sunt Lorem voluptate ut officia ut. Non non nulla exercitation eu duis laboris Lorem id deserunt ullamco laborum aliqua nostrud. Dolor consequat dolor consequat labore officia cillum ad nulla proident. Veniam consequat sint Lorem nulla reprehenderit occaecat dolore excepteur eiusmod.",
           "order": 1,
           "questionType": "MA",
@@ -80,7 +81,8 @@ export default Ember.Route.extend({
             }
           ],
           "hasAnswers": true,
-          "hasNarration": true
+          "hasNarration": true,
+          "hasMedia": true
         }),
         Ember.Object.create({
           "id": "569906aa3ec3bb39969acbe6",
@@ -142,7 +144,8 @@ export default Ember.Route.extend({
             }
           ],
           "hasAnswers": true,
-          "hasNarration": true
+          "hasNarration": true,
+          "hasMedia": false
         }),
         Ember.Object.create({
           "id": "569906aadfa0072204f7c7c7",
@@ -204,7 +207,8 @@ export default Ember.Route.extend({
             }
           ],
           "hasAnswers": true,
-          "hasNarration": true
+          "hasNarration": true,
+          "hasMedia": false
         }),
         Ember.Object.create({
           "id": "569906aacea8416665209d53",
@@ -266,7 +270,8 @@ export default Ember.Route.extend({
             }
           ],
           "hasAnswers": true,
-          "hasNarration": true
+          "hasNarration": true,
+          "hasMedia": false
         }),
         Ember.Object.create({
           "id": "569906aa77bebed003fa6eb1",
@@ -328,7 +333,8 @@ export default Ember.Route.extend({
             }
           ],
           "hasAnswers": true,
-          "hasNarration": true
+          "hasNarration": true,
+          "hasMedia": false
         }),
         Ember.Object.create({
           "id": "569906aa68f276ae7ea03c30",
@@ -390,7 +396,8 @@ export default Ember.Route.extend({
             }
           ],
           "hasAnswers": true,
-          "hasNarration": true
+          "hasNarration": true,
+          "hasMedia": false
         }),
         Ember.Object.create({
           "id": "569906aa04f742731bd4e896",
@@ -452,7 +459,8 @@ export default Ember.Route.extend({
             }
           ],
           "hasAnswers": true,
-          "hasNarration": true
+          "hasNarration": true,
+          "hasMedia": false
         }),
         Ember.Object.create({
           "id": "569906aabfcfc4cfc1b29b62",
@@ -514,7 +522,8 @@ export default Ember.Route.extend({
             }
           ],
           "hasAnswers": true,
-          "hasNarration": true
+          "hasNarration": true,
+          "hasMedia": false
         }),
         Ember.Object.create({
           "id": "569906aa7fe0695bfd409731",
@@ -576,7 +585,8 @@ export default Ember.Route.extend({
             }
           ],
           "hasAnswers": true,
-          "hasNarration": true
+          "hasNarration": true,
+          "hasMedia": false
         }),
         Ember.Object.create({
           "id": "569906aae3191722d9b42f22",
@@ -638,7 +648,8 @@ export default Ember.Route.extend({
             }
           ],
           "hasAnswers": true,
-          "hasNarration": true
+          "hasNarration": true,
+          "hasMedia": false
         }),
         Ember.Object.create({
           "id": "569906aa283a7b45e6777a52",
@@ -700,7 +711,8 @@ export default Ember.Route.extend({
             }
           ],
           "hasAnswers": true,
-          "hasNarration": true
+          "hasNarration": true,
+          "hasMedia": false
         }),
         Ember.Object.create({
           "id": "569906aab4d366e4ada0c67d",
@@ -762,7 +774,8 @@ export default Ember.Route.extend({
             }
           ],
           "hasAnswers": true,
-          "hasNarration": true
+          "hasNarration": true,
+          "hasMedia": false
         }),
         Ember.Object.create({
           "id": "569906aa9fa514e9304c0549",
@@ -824,7 +837,8 @@ export default Ember.Route.extend({
             }
           ],
           "hasAnswers": true,
-          "hasNarration": true
+          "hasNarration": true,
+          "hasMedia": false
         }),
         Ember.Object.create({
           "id": "569906aa575aa6e617b38e16",
@@ -886,7 +900,8 @@ export default Ember.Route.extend({
             }
           ],
           "hasAnswers": true,
-          "hasNarration": true
+          "hasNarration": true,
+          "hasMedia": false
         }),
         Ember.Object.create({
           "id": "569906aa25189b0dc0a981ba",
@@ -948,7 +963,8 @@ export default Ember.Route.extend({
             }
           ],
           "hasAnswers": true,
-          "hasNarration": true
+          "hasNarration": true,
+          "hasMedia": false
         })
       ],
       hasResources: true,

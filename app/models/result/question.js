@@ -12,7 +12,7 @@ export default ResourceResult.extend({
   /**
    * @property {boolean} correct - Was the answer provided for this question correct?
    */
-  correct: false,
+  correct: null,
 
   /**
    * @property {Object} question
@@ -22,6 +22,7 @@ export default ResourceResult.extend({
   /**
    * Sometimes the question is not resolved and only the id is provided
    * This is used mostly by the real time
+   * TODO once the SDK is integrated we could analyze if is possible to use only 'question'
    * @property {number} questionId - ID of the question graded
    */
   questionId: null,
@@ -34,7 +35,27 @@ export default ResourceResult.extend({
   /**
    * @property {Object} answer - Answer provided by the user
    */
-  userAnswer: null
+  userAnswer: null,
+
+  /**
+   * Indicates if the question was skipped
+   * @property {boolean}
+   */
+  skipped: Ember.computed("correct", "notStarted", function(){
+    let started = !this.get("notStarted");
+    return started && this.get("correct") === null;
+  }),
+
+  /**
+   * Indicates if the question is incorrect
+   * @property {boolean}
+   */
+  incorrect: Ember.computed.equal("correct", false),
+
+  /**
+   * @property {boolean} indicates when it has not been started
+   */
+  notStarted: false
 
 
 });

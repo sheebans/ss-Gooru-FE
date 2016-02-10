@@ -57,6 +57,41 @@ export const QuestionUtil = Ember.Object.extend({
    */
   getCorrectAnswer: function(){
     Ember.Logger.warning("The method getCorrectAnswer is not implemented");
+  },
+
+  /**
+   * This returns the answers distribution
+   * @param { [] } userAnswers, i.e [2,1,3,2,1]
+   * @return { [] } i.e [ { answer: 2, count: 2}, { answer: 1, count: 2}, { answer: 3, count: 1}]
+   */
+  distribution: function(userAnswers){
+    const util = this;
+    const distributionMap = {};
+    const distribution = Ember.A([]);
+    userAnswers.forEach(function(userAnswer){
+      let answerKey = util.answerKey(userAnswer);
+      let answerDistribution = distributionMap[answerKey];
+      let count = 0;
+      if (!answerDistribution){
+        answerDistribution = Ember.Object.create({ answer: userAnswer, count: count, key: answerKey });
+        distribution.addObject(answerDistribution);
+        distributionMap[answerKey] = answerDistribution;
+      }
+      else{
+        count = answerDistribution.get("count");
+      }
+      answerDistribution.set("count", ++count);
+    });
+    return distribution;
+  },
+
+  /**
+   * Returns a unique key representing the answer
+   * @param answer
+   * @returns {{}}
+   */
+  answerKey: function(answer){
+    return answer;
   }
 
 }),
@@ -104,8 +139,17 @@ MultipleChoiceUtil = QuestionUtil.extend({
     const answers = this.get("question.answers");
     const correctAnswer = answers.filterBy("isCorrect", true);
     return correctAnswer.get("length") ? correctAnswer.get("firstObject.id") : undefined;
-  }
+  },
 
+  /**
+   * Returns a unique key representing the answer
+   * For multiple choice the answer id is already unique
+   * @param {number} answer i.e 1
+   * @returns {number} i.e 1
+   */
+  answerKey: function(answer){
+    return answer;
+  }
 
 }),
 
@@ -143,6 +187,19 @@ MultipleAnswerUtil = QuestionUtil.extend({
     return answers.map(function(answer){
       return { id: answer.get("id"), selection: answer.get("isCorrect") };
     });
+  },
+
+  /**
+   * Returns a unique key representing the answer
+   * For multiple answer the answer is an array of { id: number, selection: boolean }
+   * @param { { id: number, selection: boolean }[] } answer
+   * @returns {string} i.e id_true,id_false,id_true
+   */
+  answerKey: function(answer){
+    let keys = Ember.A(answer).sortBy('id').map(function(item){
+      return item.id + "_" + item.selection;
+    });
+    return keys.toArray().join();
   }
 
 
@@ -200,8 +257,17 @@ FillInTheBlankUtil = QuestionUtil.extend({
     return answers.map(function(answer){
       return answer.get("text");
     });
-  }
+  },
 
+  /**
+   * Returns a unique key representing the answer
+   * For FIB the answer is an array of strings
+   * @param { string[] } answer i.e ['black', 'white', 'blue']
+   * @returns { string }
+   */
+  answerKey: function(answer){
+    return answer.join();
+  }
 
 }),
 
@@ -234,13 +300,22 @@ ReorderUtil = QuestionUtil.extend({
    * Gets the correct answer
    * @return {string[]} returns the correct order for answer choice ids
    */
-  getCorrectAnswer: function(){
+  getCorrectAnswer: function() {
     const answers = this.get("question.answers").sortBy("order");
     return answers.map(function(answer){
       return answer.get("id");
     });
-  }
+  },
 
+  /**
+   * Returns a unique key representing the answer
+   * For FIB the answer is an array of strings
+   * @param { string[] } answer i.e ['black', 'white', 'blue']
+   * @returns { string }
+   */
+  answerKey: function(answer){
+    return answer.join();
+  }
 
 }),
 
@@ -274,7 +349,7 @@ HotTextHighlightUtil = QuestionUtil.extend({
    * @return {string[]} returns the correct answer choice ids
    */
   getCorrectAnswer: function(){
-    const text = this.get("question.text");
+    const text = this.get("question.answers.firstObject.text");
     const regex = /(\[.*?])/gm;
 
     let items = Ember.A();
@@ -286,7 +361,110 @@ HotTextHighlightUtil = QuestionUtil.extend({
     }
 
     return items;
+  },
+
+  /**
+   * Gets items based on text format.
+   * This methods creates an item for each word in the text, it removes []
+   * i.e La casa es de [colo] pero el [teco] es azul
+   * @param {string} text
+   * @returns {{id: number, text: string, selected: boolean}} items
+   */
+  getWordItems: function (text) {
+    const util = this,
+      words = Ember.A(text.split(" "));
+
+    return util.toItems(words);
+  },
+
+  /**
+   * Gets items based on text format
+   * Each text before, after and in between [] are considered sentences
+   * @param {string} text i.e Sentence 1 [Sentence 2] Sentence 3 with any text here [Sentence 4] Sentence 5
+   *
+   * @returns {{id: number, text: string, selected: boolean}} items
+   */
+  getSentenceItems: function (text) {
+    const util = this,
+      textBlocks = Ember.A(text.split("[")); //split by [
+
+    var items = Ember.A();
+    textBlocks.forEach(function(textBlock){
+      items.pushObjects(textBlock.split("]")); //now split by ]
+    });
+
+    return util.toItems(items);
+  },
+
+  /**
+   * Transforms the text so it is compliant with hot text highlight question.
+   * It removes the initial/wrapping <p> tag if available
+   * @param {string} text
+   * @returns {string}
+   */
+  transformText: function(text){
+    const regex = /^<p>(.*)<\/p>$/gm,
+      match = regex.exec(text);
+    return (match) ? match[1].trim() : text;
+  },
+
+  /**
+   * Transforms a list of string into item objects, it trims the texts and removes []
+   * @param {string[]} textList
+   *
+   * @returns {{id: number, text: string, selected: boolean, correct: boolean}} items
+   */
+  toItems: function (textList) {
+    const items = textList.map(function (text, index) {
+      return Ember.Object.create({
+        id: index,
+        text: text.replace("[", "").replace("]", "").trim(),
+        selected: false,
+        correct: false
+      });
+    });
+
+    return items.filter(function (item) {
+      return item.text || item.length;
+    });
+  },
+
+  /**
+   * Generate phrase items from the first question answer text
+   * It handle word and sentence variants, and it sets the 'items' component property accordingly
+   */
+  getItems: function(){
+    const util = this,
+      question = util.get("question"),
+      answers = question.get("answers");
+
+    var items = Ember.A();
+    if (question.get("hasAnswers")) {
+      const answer = answers.get("firstObject"),
+        text = util.transformText(answer.get("text"));
+
+      if (question.get("isHotTextHighlightWord")) {
+        items = util.getWordItems(text);
+      }
+      else {
+        items = util.getSentenceItems(text);
+      }
+    }
+
+    return items;
+  },
+
+  /**
+   * Returns a unique key representing the answer
+   * For hot text the answer is an array of string
+   * @param { string[] } answer
+   * @returns {string} i.e text1,text2,text3
+   */
+  answerKey: function(answer){
+    return answer.sort().join();
   }
+
+
 
 }),
 
@@ -323,7 +501,18 @@ HotSpotImageUtil = MultipleAnswerUtil.extend({
     return correctAnswers.map(function(answer){
       return answer.get("id");
     });
+  },
+
+  /**
+   * Returns a unique key representing the answer
+   * For hot spot image the answer is an array of ids
+   * @param { string[] } answer
+   * @returns {string} i.e id1,id2,id3
+   */
+  answerKey: function(answer){
+    return answer.sort().join();
   }
+
 
 }),
 

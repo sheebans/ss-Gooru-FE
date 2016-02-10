@@ -7,6 +7,16 @@ export default Ember.Component.extend({
 
   classNames: ['reports', 'class-assessment', 'gru-student-view'],
 
+  actions:{
+    /**
+     * @function actions:selectQuestion
+     * @param {Number} questionId
+     */
+    selectQuestion: function (questionId) {
+      this.get('onSelectQuestion')(questionId);
+    },
+  },
+
 
   // -------------------------------------------------------------------------
   // Properties

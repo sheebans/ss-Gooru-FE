@@ -10,7 +10,7 @@ moduleForComponent('reports/class-assessment/gru-student-performance-box', 'Inte
 
 test('Layout', function (assert) {
 
-  assert.expect(10);
+  assert.expect(9);
 
   const student = Ember.Object.create({
     "id": "56983a9060a68052c1ed934c",
@@ -36,7 +36,9 @@ test('Layout', function (assert) {
       "reaction": 5,
       "timeSpent": 1305
     }),
-    {}, //not started, this could happen at real time only
+    QuestionResult.create({
+      "notStarted": true //not started, this could happen at real time only
+    }),
     QuestionResult.create({
       "correct": false,
       "questionId": "569906aacea8416665209d53",

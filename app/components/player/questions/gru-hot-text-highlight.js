@@ -1,5 +1,5 @@
-import Ember from 'ember';
 import QuestionComponent from './gru-question';
+import {HotTextHighlightUtil} from 'gooru-web/utils/questions';
 
 /**
  * Hot Text Highlight
@@ -77,94 +77,14 @@ export default QuestionComponent.extend({
   },
 
   /**
-   * Gets items based on text format.
-   * This methods creates an item for each word in the text, it removes []
-   * i.e La casa es de [colo] pero el [teco] es azul
-   * @param {string} text
-   * @returns {{id: number, text: string, selected: boolean}} items
-   */
-  getWordItems: function (text) {
-    const component = this,
-      words = Ember.A(text.split(" ")),
-      items = component.toItems(words);
-
-    return items;
-  },
-
-  /**
-   * Gets items based on text format
-   * Each text before, after and in between [] are considered sentences
-   * @param {string} text i.e Sentence 1 [Sentence 2] Sentence 3 with any text here [Sentence 4] Sentence 5
-   *
-   * @returns {{id: number, text: string, selected: boolean}} items
-   */
-  getSentenceItems: function (text) {
-    const component = this,
-      textBlocks = Ember.A(text.split("[")); //split by [
-
-    var items = Ember.A();
-    textBlocks.forEach(function(textBlock){
-      items.pushObjects(textBlock.split("]")); //now split by ]
-    });
-
-    return component.toItems(items);
-  },
-
-  /**
-   * Transforms the text so it is compliant with hot text highlight question.
-   * It removes the initial/wrapping <p> tag if available
-   * @param {string} text
-   * @returns {string}
-   */
-  transformText: function(text){
-    const regex = /^<p>(.*)<\/p>$/gm,
-      match = regex.exec(text);
-    return (match) ? match[1].trim() : text;
-  },
-
-  /**
-   * Transforms a list of string into item objects, it trims the texts and removes []
-   * @param {string[]} textList
-   *
-   * @returns {{id: number, text: string, selected: booleanean}} items
-   */
-  toItems: function (textList) {
-    const items = textList.map(function (text, index) {
-        return Ember.Object.create({
-          id: index,
-          text: text.replace("[", "").replace("]", "").trim(),
-          selected: false
-        });
-      });
-
-    return items.filter(function (item) {
-      return item.text || item.length;
-    });
-  },
-
-  /**
    * Generate phrase items from the first question answer text
    * It handle word and sentence variants, and it sets the 'items' component property accordingly
    */
   generateItems: function(){
-    const component = this,
-      question = component.get("question"),
-      answers = question.get("answers");
-
-    var items = Ember.A();
-    if (question.get("hasAnswers")) {
-      const answer = answers.get("firstObject"),
-        text = component.transformText(answer.get("text"));
-
-      if (question.get("isHotTextHighlightWord")) {
-        items = component.getWordItems(text);
-      }
-      else {
-        items = component.getSentenceItems(text);
-      }
-    }
-
-    component.set("items", items);
+    const component = this;
+    const question = component.get("question");
+    const util = HotTextHighlightUtil.create({question: question});
+    component.set("items", util.getItems());
   },
 
   /**

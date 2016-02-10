@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { correctPercentage, correctAnswers } from 'gooru-web/utils/question-result';
+import { correctPercentage } from 'gooru-web/utils/question-result';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -21,7 +21,14 @@ export default Ember.Component.extend({
       const component = this;
       component.get('onClick')(component.get("student"));
       Ember.Logger.debug('Clicking at student: ' + component.get("student.id"));
-    }
+    },
+    /**
+     * @function actions:selectQuestion
+     * @param {Number} questionId
+     */
+    selectQuestion: function (questionId) {
+      this.get('onSelectQuestion')(questionId);
+    },
   },
 
   // -------------------------------------------------------------------------
@@ -57,7 +64,7 @@ export default Ember.Component.extend({
   questionResults: Ember.computed("reportData.[]", function(){
     const reportData = this.get("reportData") || [];
     return Ember.A(reportData).filter(function(item){
-      return !Ember.$.isEmptyObject(item); // it doesn't return empty objects
+      return !item.get("notStarted"); //only started question results
     });
   }),
 
@@ -77,16 +84,12 @@ export default Ember.Component.extend({
    * @property {number} user assessment score
    */
   score: Ember.computed("questionResults.[]", function(){
-    return correctPercentage(this.get('questionResults'), this.get('correctAnswers'));
+    return correctPercentage(this.get('questionResults'));
   }),
-
   /**
-   * Number of questions answered correctly in this attempt
-   * @prop {Number}
+   * @property {Function} onSelectQuestion - Event handler called when a question in a column is selected
    */
-  correctAnswers:Ember.computed('questionResults.[]',function(){
-    return correctAnswers(this.get('questionResults'));
-  }),
+  onSelectQuestion: null,
 
   // -------------------------------------------------------------------------
   // Methods
@@ -97,14 +100,18 @@ export default Ember.Component.extend({
    */
   getQuestionStatus: function(questionResult){
     let status = 'not-started';
-    if (!Ember.$.isEmptyObject(questionResult)){ //if available and non empty object
-      let skipped = questionResult.get("correct") === null;
+    let questionId;
+    if (!questionResult.get("notStarted")){ //if it has been started
+      let skipped = questionResult.get("skipped");
       let correct = questionResult.get("correct");
       status = skipped ? 'skipped' : (correct ? 'correct' : 'incorrect');
+      questionId = questionResult.get('questionId');
     }
     return Ember.Object.create({
-      status: status
+      status: status,
+      id:questionId
     });
-  }
+  },
+
 
 });
