@@ -3,6 +3,15 @@ import { getGradeColor } from 'gooru-web/utils/utils';
 import { GRADING_SCALE } from 'gooru-web/config/config';
 import { average } from 'gooru-web/utils/math';
 
+/**
+ * Class assessment summary
+ *
+ * Component responsible for aggregating the class assessment data
+ * and presenting it in a summarized manner to the user
+ *
+ * @module
+ * @augments ember/Component
+ */
 export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------

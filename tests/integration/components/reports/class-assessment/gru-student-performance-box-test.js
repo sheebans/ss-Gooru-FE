@@ -14,7 +14,7 @@ test('Layout', function (assert) {
 
   const student = Ember.Object.create({
     "id": "56983a9060a68052c1ed934c",
-    "fullName": "Rocha, Perez",
+    "fullName": "Rocha, Perez"
   });
 
   const reportData = Ember.A([
@@ -36,9 +36,7 @@ test('Layout', function (assert) {
       "reaction": 5,
       "timeSpent": 1305
     }),
-    QuestionResult.create({
-      "notStarted": true //not started, this could happen at real time only
-    }),
+    QuestionResult.create(),
     QuestionResult.create({
       "correct": false,
       "questionId": "569906aacea8416665209d53",
@@ -65,7 +63,7 @@ test('Layout', function (assert) {
   const $header = $component.find(".panel .panel-heading");
   T.exists(assert, $header, "Missing student box title");
   T.exists(assert, $header.find(".score"), "Missing student box score");
-  assert.equal(T.text($header), 'Rocha, Perez (50%)', "Wrong title");
+  assert.equal(T.text($header), 'Rocha, Perez (67%)', "Wrong title");
 
   const $questions = $component.find(".panel .questions");
   T.exists(assert, $questions, "Missing questions area");

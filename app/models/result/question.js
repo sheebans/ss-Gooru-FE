@@ -41,8 +41,8 @@ export default ResourceResult.extend({
    * Indicates if the question was skipped
    * @property {boolean}
    */
-  skipped: Ember.computed("correct", "notStarted", function(){
-    let started = !this.get("notStarted");
+  skipped: Ember.computed("correct", "started", function () {
+    let started = this.get("started");
     return started && this.get("correct") === null;
   }),
 
@@ -55,7 +55,7 @@ export default ResourceResult.extend({
   /**
    * @property {boolean} indicates when it has not been started
    */
-  notStarted: false
+  started: Ember.computed.bool('timeSpent')
 
 
 });
