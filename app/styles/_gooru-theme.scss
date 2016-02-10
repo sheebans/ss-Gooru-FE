@@ -27,6 +27,12 @@
     }
   }
 }
+.navbar-nav .open .dropdown-menu{
+  @media (max-width: $screen-sm) {
+    position: absolute;
+    background-color: $white;
+  }
+}
 
 // Buttons ====================================================================
 

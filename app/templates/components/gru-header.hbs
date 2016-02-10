@@ -25,7 +25,7 @@
                   {{t "common.login"}}
                 </button>
               </li>
-              <li class="hidden-sm navbar-nav-list no-hover">
+              <li class="navbar-nav-list no-hover">
                 <button
                     class="btn btn-primary navbar-btn sign-up-button" {{action "showModal" "gru-user-registration"}}>
                   {{t "common.signUp"}}
@@ -56,7 +56,7 @@
               <li class="navbar-nav-list hidden-md hidden-lg">
                   <div class="btn-group drop-menu">
                       <button class="btn dropdown-toggle" data-toggle="dropdown">{{material-design-icon name='menu'}}</button>
-                      <ul class="dropdown-menu">
+                      <ul class="dropdown-menu dropdown-menu-right">
                           <li class="navbar-nav-list">
                             {{#link-to 'classes' class="navbar-link my-classes-link"}} {{t "common.myClasses"}} {{/link-to}}
                           </li>
