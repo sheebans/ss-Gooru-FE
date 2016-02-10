@@ -1,8 +1,10 @@
-<div class="panel panel-default narration {{if question.hasNarration 'show' 'hidden'}}">
+{{#if question.hasNarration}}
+<div class="panel panel-default narration">
     <div class="panel-body">
       <span>{{{question.narration}}}</span>
     </div>
 </div>
+{{/if}}
 <div class="panel panel-default question">
     <div class="panel-body">
     <h3>{{t "common.question"}}</h3>
@@ -12,7 +14,8 @@
       {{/if}}
     </div>
 </div>
-<div class="panel panel-primary hints {{if hints 'show' 'hidden'}}">
+{{#if hints}}
+<div class="panel panel-primary hints">
     <div class="panel-heading">
       {{t "common.hints"}}
     </div>
@@ -22,7 +25,9 @@
         {{/each}}
     </div>
 </div>
-<div class="panel panel-primary explanation {{if explanation 'show' 'hidden'}}">
+{{/if}}
+{{#if explanation}}
+<div class="panel panel-primary explanation ">
     <div class="panel-heading">
       {{t "common.explanation"}}
     </div>
@@ -30,3 +35,4 @@
       <span>{{{explanation}}}</span>
     </div>
 </div>
+{{/if}}

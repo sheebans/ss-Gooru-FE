@@ -36,16 +36,16 @@ test('Question Information With Narration Hints Explanation Media', function(ass
   const $component = this.$();
   const $questionInformation = $component.find(".gru-question-information");
   T.exists(assert, $questionInformation, "Missing question information component");
-  T.exists(assert, $questionInformation.find(".narration.show"), "Narration should be visible");
-  T.exists(assert, $questionInformation.find(".narration.show span"), "Missing narration");
+  T.exists(assert, $questionInformation.find(".narration"), "Narration should be visible");
+  T.exists(assert, $questionInformation.find(".narration span"), "Missing narration");
   T.exists(assert, $questionInformation.find(".question"), "Question should be visible");
   T.exists(assert, $questionInformation.find(".question h3"), "Missing Question Title");
   T.exists(assert, $questionInformation.find(".question span"), "Missing Question Text");
   T.exists(assert, $questionInformation.find(".question img"), "Missing Question Image");
-  T.exists(assert, $questionInformation.find(".hints.show"), "Hints should be visible");
-  assert.equal($questionInformation.find(".hints.show span").length,question.hints.length, "Incorrect number of hints");
-  T.exists(assert, $questionInformation.find(".explanation.show"), "Explanation should be visible");
-  T.exists(assert, $questionInformation.find(".explanation.show span"), "Missing explanation");
+  T.exists(assert, $questionInformation.find(".hints"), "Hints should be visible");
+  assert.equal($questionInformation.find(".hints span").length,question.hints.length, "Incorrect number of hints");
+  T.exists(assert, $questionInformation.find(".explanation"), "Explanation should be visible");
+  T.exists(assert, $questionInformation.find(".explanation span"), "Missing explanation");
 });
 
 test('Question Information Without Narration Hints Explanation Media', function(assert) {
@@ -62,8 +62,8 @@ test('Question Information Without Narration Hints Explanation Media', function(
 
   const $component = this.$();
   const $questionInformation = $component.find(".gru-question-information");
-  T.exists(assert, $questionInformation.find(".narration.hidden"), "Narration should be hidden");
+  T.notExists(assert, $questionInformation.find(".narration"), "Narration should be hidden");
   T.notExists(assert, $questionInformation.find(".question img"), "Missing Question Image");
-  T.exists(assert, $questionInformation.find(".hints.hidden"), "Hints should be hidden");
-  T.exists(assert, $questionInformation.find(".explanation.hidden"), "Explanation should be hidden");
+  T.notExists(assert, $questionInformation.find(".hints"), "Hints should be hidden");
+  T.notExists(assert, $questionInformation.find(".explanation"), "Explanation should be hidden");
 });
