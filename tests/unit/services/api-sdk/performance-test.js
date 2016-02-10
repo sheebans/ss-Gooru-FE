@@ -192,66 +192,6 @@ test('findStudentPerformanceByLesson', function (assert) {
   });
 });
 
-//test('findClassPerformance', function (assert) {
-//  const service = this.subject();
-//  var done = assert.async();
-//  Ember.run(function () {
-//    const users = [
-//      {
-//        id: 'user-id-1',
-//        username: 'username-user-id-1',
-//        firstName: 'FirstName-user-id-1',
-//        lastName: 'LastName-user-id-1',
-//        units: ['unit-id-1', 'unit-id-2', 'unit-id-3', 'unit-id-4']
-//      },
-//      {
-//        id: 'user-id-2',
-//        username: 'username-user-id-2',
-//        firstName: 'FirstName-user-id-2',
-//        lastName: 'LastName-user-id-2',
-//        units: ['unit-id-1', 'unit-id-2', 'unit-id-3']
-//      },
-//      {
-//        id: 'user-id-3',
-//        username: 'username-user-id-3',
-//        firstName: 'FirstName-user-id-3',
-//        lastName: 'LastName-user-id-3',
-//        units: ['unit-id-1']
-//      }
-//    ];
-//    const promise = service.findClassPerformance('the-class-id', 'the-course-id', users);
-//    promise.then(function (classPerformance) {
-//      assert.ok(classPerformance.calculateAverageScoreByItem('unit-id-1') > 0, 'Wrong average score existing unit');
-//      assert.ok(classPerformance.calculateAverageScoreByItem('unit-id-5') === 0, 'Wrong average score non-existing unit');
-//      assert.ok(classPerformance.calculateAverageTimeSpentByItem('unit-id-1') > 0, 'Wrong average time spent existing unit');
-//      assert.ok(classPerformance.calculateAverageTimeSpentByItem('unit-id-5') === 0, 'Wrong average time spent non-existing unit');
-//      assert.ok(classPerformance.calculateSumCompletionDoneByItem('unit-id-1') > 0, 'Wrong sum completion done existing unit');
-//      assert.ok(classPerformance.calculateSumCompletionDoneByItem('unit-id-5') === 0, 'Wrong sum completion done non-existing unit');
-//      assert.ok(classPerformance.calculateSumCompletionTotalByItem('unit-id-1') > 0, 'Wrong sum completion done existing unit');
-//      assert.ok(classPerformance.calculateSumCompletionTotalByItem('unit-id-5') === 0, 'Wrong sum completion done non-existing unit');
-//      const studentPerformanceData = classPerformance.get('studentPerformanceData');
-//      assert.equal(studentPerformanceData.get('length'), 3, 'Missing student performance data');
-//      const studentPerformance = studentPerformanceData.get('firstObject');
-//      assert.ok(studentPerformance.get('averageScore') > 0, 'Wrong student average score');
-//      assert.ok(studentPerformance.get('averageTimeSpent') > 0, 'Wrong student average time spent');
-//      assert.ok(studentPerformance.get('sumCompletionDone') > 0, 'Wrong student sum completion done');
-//      assert.ok(studentPerformance.get('sumCompletionTotal') > 0, 'Wrong student sum completion total');
-//      const user = studentPerformance.get('user');
-//      assert.equal(user.get('id'), 'user-id-1', 'Wrong user id');
-//      assert.equal(user.get('username'), 'username-user-id-1', 'Wrong username');
-//      assert.equal(user.get('firstName'), 'FirstName-user-id-1', 'Wrong firstName');
-//      assert.equal(user.get('lastName'), 'LastName-user-id-1', 'Wrong lastName');
-//      const performanceData = studentPerformance.get('performanceData');
-//      assert.equal(performanceData.get('length'), 4, 'Missing student performance data');
-//      const performance = performanceData.get('firstObject');
-//      assert.equal(performance.get('realId'), 'unit-id-1', 'Wrong performance id');
-//      assert.equal(performance.get('title'), 'Title for - unit-id-1', 'Wrong performance title');
-//      assert.equal(performance.get('type'), 'unit', 'Wrong performance type');
-//      done();
-//    });
-//  });
-//});
-
 test('findClassPerformance', function (assert) {
   const service = this.subject();
   const response = {
