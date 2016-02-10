@@ -69,12 +69,19 @@ export const QuestionUtil = Ember.Object.extend({
     const util = this;
     const distributionMap = {};
     const distribution = Ember.A([]);
+    const total = userAnswers.length;
     userAnswers.forEach(function(userAnswer){
       let answerKey = util.answerKey(userAnswer);
       let answerDistribution = distributionMap[answerKey];
       let count = 0;
+      let percentage = 0;
       if (!answerDistribution){
-        answerDistribution = Ember.Object.create({ answer: userAnswer, count: count, key: answerKey });
+        answerDistribution = Ember.Object.create({
+          answer: userAnswer,
+          count: count,
+          percentage: percentage,
+          key: answerKey
+        });
         distribution.addObject(answerDistribution);
         distributionMap[answerKey] = answerDistribution;
       }
@@ -82,6 +89,7 @@ export const QuestionUtil = Ember.Object.extend({
         count = answerDistribution.get("count");
       }
       answerDistribution.set("count", ++count);
+      answerDistribution.set("percentage", Math.round(count / total * 100));
     });
     return distribution;
   },

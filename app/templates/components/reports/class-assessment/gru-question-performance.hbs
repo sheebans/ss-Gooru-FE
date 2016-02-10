@@ -7,19 +7,27 @@
 {{#each answersData as |answerData|}}
     <div class="panel {{if answerData.correct 'panel-success' 'panel-danger'}}">
         <div class="panel-heading text-right">
-          {{answerData.percentage}}%
+            {{#unless anonymous}}
+              {{answerData.percentage}}%
+            {{/unless}}
         </div>
         <div class="panel-body">
-            <div class="answers-wrapper">
-                <div class="answer">
-                  {{{component (questionConfig question.questionType 'component.answer')
-                  question=question
-                  userAnswer=answerData.userAnswer}}}
+            {{#if anonymous}}
+              <div class="percentage">
+                {{answerData.percentage}}%
+              </div>
+            {{else}}
+                <div class="answers-wrapper">
+                    <div class="answer">
+                      {{{component (questionConfig question.questionType 'component.answer')
+                      question=question
+                      userAnswer=answerData.userAnswer}}}
+                    </div>
+                    <div class="students">
+                        Students
+                    </div>
                 </div>
-                <div class="students">
-                    Students
-                </div>
-            </div>
+            {{/if}}
         </div>
     </div>
 {{/each}}

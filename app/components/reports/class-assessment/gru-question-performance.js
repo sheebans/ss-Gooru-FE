@@ -155,7 +155,7 @@ export default Ember.Component.extend({
       answersData.addObject(Ember.Object.create({
         correct: questionUtil.isCorrect(userAnswer),
         userAnswer: userAnswer,
-        percentage: answerDistribution ? answerDistribution.get("count") : 0,
+        percentage: answerDistribution ? answerDistribution.get("percentage") : 0,
         students: Ember.A([])
       }));
     });
