@@ -45,32 +45,14 @@ export default Ember.Route.extend({
 
   model: function(params) {
 
+    const classModel = this.modelFor('class');
     const unitId = params.unitId;
     const classId= this.paramsFor('class').classId;
-    const courseId = this.modelFor('class').class.get('course');
+    const courseId = classModel.class.get('course');
+    const users = classModel.members;
 
     const headers = this.get('lessonService').findByClassAndCourseAndUnit(classId, courseId, unitId);
-
-    // TODO: Remove this temporal variable once it is not required
-    const lessonIds = Ember.A([
-      'fbd76aed-1b8d-4c2c-a9c6-c7603eef347c',
-      'aaac5d15-8434-43ff-8f8b-78cf0b6fd032',
-      'cc2bc04c-05ab-4407-9d76-b7021d6138e3'
-    ]);
-    // TODO: Remove this temporal variable once it is not required
-    const users = Ember.A([
-      Ember.Object.create({id: '1', username: 'jenniferajoy', firstName: 'Jennifer', lastName: 'Ajoy', units: lessonIds}),
-      Ember.Object.create({id: '2', username: 'jeffreybermudez', firstName: 'Jeffrey', lastName: 'Bermudez', units: lessonIds}),
-      Ember.Object.create({id: '3', username: 'javierperez', firstName: 'Javier', lastName: 'Perez', units: lessonIds}),
-      Ember.Object.create({id: '4', username: 'melanydelagado', firstName: 'Melany', lastName: 'Delgado', units: lessonIds}),
-      Ember.Object.create({id: '5', username: 'diegoarias', firstName: 'Diego', lastName: 'Arias', units: lessonIds}),
-      Ember.Object.create({id: '6', username: 'davidquiros', firstName: 'David', lastName: 'Quiros', units: lessonIds}),
-      Ember.Object.create({id: '7', username: 'adrianporras', firstName: 'Adrian', lastName: 'Porras', units: lessonIds}),
-      Ember.Object.create({id: '8', username: 'fabianperez', firstName: 'Fabian', lastName: 'Perez', units: lessonIds}),
-      Ember.Object.create({id: '9', username: 'laurengutierrez', firstName: 'Lauren', lastName: 'Gutierrez', units: lessonIds})
-    ]);
-
-    const classPerformanceData = this.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, { users: users });
+    const classPerformanceData = this.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, users);
     const unit = this.get('unitService').findById(courseId, unitId);
 
     return Ember.RSVP.hash({
@@ -87,7 +69,6 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
     const performanceData = createDataMatrix(model.headers, model.classPerformanceData);
-
     controller.get("teacherController").updateBreadcrumb(model.unit, 'unit');
     controller.set('performanceDataMatrix', performanceData);
     controller.set('headers', model.headers);

@@ -5,8 +5,11 @@ import moduleForService from 'gooru-web/tests/helpers/module-for-service';
 moduleForService('service:api-sdk/performance', 'Unit | Service | api-sdk/performance', {
   needs: [
     'adapter:performance/unit-performance', 'adapter:performance/lesson-performance', 'adapter:performance/collection-performance',
+    'adapter:performance/class-collection-performance','adapter:performance/class-lesson-performance','adapter:performance/class-unit-performance',
     'serializer:performance/unit-performance', 'serializer:performance/lesson-performance', 'serializer:performance/collection-performance',
+    'serializer:performance/class-unit-performance','serializer:performance/class-lesson-performance','serializer:performance/class-collection-performance',
     'model:performance/unit-performance', 'model:performance/lesson-performance', 'model:performance/collection-performance',
+    'model:performance/class-unit-performance', 'model:performance/class-lesson-performance', 'model:performance/class-collection-performance',
     'model:performance/student-performance', 'model:user/user',
     'model:meta', 'model:taxonomy-preference', 'model:performance/class-performance', 'model:performance/performance'
   ]
@@ -189,63 +192,263 @@ test('findStudentPerformanceByLesson', function (assert) {
   });
 });
 
+//test('findClassPerformance', function (assert) {
+//  const service = this.subject();
+//  var done = assert.async();
+//  Ember.run(function () {
+//    const users = [
+//      {
+//        id: 'user-id-1',
+//        username: 'username-user-id-1',
+//        firstName: 'FirstName-user-id-1',
+//        lastName: 'LastName-user-id-1',
+//        units: ['unit-id-1', 'unit-id-2', 'unit-id-3', 'unit-id-4']
+//      },
+//      {
+//        id: 'user-id-2',
+//        username: 'username-user-id-2',
+//        firstName: 'FirstName-user-id-2',
+//        lastName: 'LastName-user-id-2',
+//        units: ['unit-id-1', 'unit-id-2', 'unit-id-3']
+//      },
+//      {
+//        id: 'user-id-3',
+//        username: 'username-user-id-3',
+//        firstName: 'FirstName-user-id-3',
+//        lastName: 'LastName-user-id-3',
+//        units: ['unit-id-1']
+//      }
+//    ];
+//    const promise = service.findClassPerformance('the-class-id', 'the-course-id', users);
+//    promise.then(function (classPerformance) {
+//      assert.ok(classPerformance.calculateAverageScoreByItem('unit-id-1') > 0, 'Wrong average score existing unit');
+//      assert.ok(classPerformance.calculateAverageScoreByItem('unit-id-5') === 0, 'Wrong average score non-existing unit');
+//      assert.ok(classPerformance.calculateAverageTimeSpentByItem('unit-id-1') > 0, 'Wrong average time spent existing unit');
+//      assert.ok(classPerformance.calculateAverageTimeSpentByItem('unit-id-5') === 0, 'Wrong average time spent non-existing unit');
+//      assert.ok(classPerformance.calculateSumCompletionDoneByItem('unit-id-1') > 0, 'Wrong sum completion done existing unit');
+//      assert.ok(classPerformance.calculateSumCompletionDoneByItem('unit-id-5') === 0, 'Wrong sum completion done non-existing unit');
+//      assert.ok(classPerformance.calculateSumCompletionTotalByItem('unit-id-1') > 0, 'Wrong sum completion done existing unit');
+//      assert.ok(classPerformance.calculateSumCompletionTotalByItem('unit-id-5') === 0, 'Wrong sum completion done non-existing unit');
+//      const studentPerformanceData = classPerformance.get('studentPerformanceData');
+//      assert.equal(studentPerformanceData.get('length'), 3, 'Missing student performance data');
+//      const studentPerformance = studentPerformanceData.get('firstObject');
+//      assert.ok(studentPerformance.get('averageScore') > 0, 'Wrong student average score');
+//      assert.ok(studentPerformance.get('averageTimeSpent') > 0, 'Wrong student average time spent');
+//      assert.ok(studentPerformance.get('sumCompletionDone') > 0, 'Wrong student sum completion done');
+//      assert.ok(studentPerformance.get('sumCompletionTotal') > 0, 'Wrong student sum completion total');
+//      const user = studentPerformance.get('user');
+//      assert.equal(user.get('id'), 'user-id-1', 'Wrong user id');
+//      assert.equal(user.get('username'), 'username-user-id-1', 'Wrong username');
+//      assert.equal(user.get('firstName'), 'FirstName-user-id-1', 'Wrong firstName');
+//      assert.equal(user.get('lastName'), 'LastName-user-id-1', 'Wrong lastName');
+//      const performanceData = studentPerformance.get('performanceData');
+//      assert.equal(performanceData.get('length'), 4, 'Missing student performance data');
+//      const performance = performanceData.get('firstObject');
+//      assert.equal(performance.get('realId'), 'unit-id-1', 'Wrong performance id');
+//      assert.equal(performance.get('title'), 'Title for - unit-id-1', 'Wrong performance title');
+//      assert.equal(performance.get('type'), 'unit', 'Wrong performance type');
+//      done();
+//    });
+//  });
+//});
+
 test('findClassPerformance', function (assert) {
   const service = this.subject();
+  const response = {
+    "content": [
+      {
+        "usageData": [
+          {
+            "completionCount": 10,
+            "totalCount": 10,
+            "unitId":"unit-id-1",
+            "scoreInPercentage": 100,
+            "timeSpent": 2349605,
+            "attempts": 1
+          }
+        ],
+        "userUid": "user-id-1"
+      }
+    ],
+    "message": null,
+    "paginate": null
+  };
+
+  const unitIds = Ember.A([
+    'unit-id-1'
+  ]);
+
+  const users = Ember.A([
+    Ember.Object.create({id: 'user-id-1', username: 'username', firstName: 'first', lastName: 'last', units: unitIds})
+  ]);
+
+  const routes = function () {
+    this.get('/mocked-api/insights/api/v2/class/the-class-id/course/the-course-id/performance', function () {
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify(response)];
+    }, 0);
+  };
+
+  this.pretender.map(routes);
+
   var done = assert.async();
-  Ember.run(function () {
-    const promise = service.findClassPerformance('the-class-id', 'the-course-id', {
-      users: [
-        {
-          id: 'user-id-1',
-          username: 'username-user-id-1',
-          firstName: 'FirstName-user-id-1',
-          lastName: 'LastName-user-id-1',
-          units: ['unit-id-1', 'unit-id-2', 'unit-id-3', 'unit-id-4']
-        },
-        {
-          id: 'user-id-2',
-          username: 'username-user-id-2',
-          firstName: 'FirstName-user-id-2',
-          lastName: 'LastName-user-id-2',
-          units: ['unit-id-1', 'unit-id-2', 'unit-id-3']
-        },
-        {
-          id: 'user-id-3',
-          username: 'username-user-id-3',
-          firstName: 'FirstName-user-id-3',
-          lastName: 'LastName-user-id-3',
-          units: ['unit-id-1']
-        }
-      ]
-    });
-    promise.then(function (classPerformance) {
-      assert.ok(classPerformance.calculateAverageScoreByItem('unit-id-1') > 0, 'Wrong average score existing unit');
-      assert.ok(classPerformance.calculateAverageScoreByItem('unit-id-5') === 0, 'Wrong average score non-existing unit');
-      assert.ok(classPerformance.calculateAverageTimeSpentByItem('unit-id-1') > 0, 'Wrong average time spent existing unit');
-      assert.ok(classPerformance.calculateAverageTimeSpentByItem('unit-id-5') === 0, 'Wrong average time spent non-existing unit');
-      assert.ok(classPerformance.calculateSumCompletionDoneByItem('unit-id-1') > 0, 'Wrong sum completion done existing unit');
-      assert.ok(classPerformance.calculateSumCompletionDoneByItem('unit-id-5') === 0, 'Wrong sum completion done non-existing unit');
-      assert.ok(classPerformance.calculateSumCompletionTotalByItem('unit-id-1') > 0, 'Wrong sum completion done existing unit');
-      assert.ok(classPerformance.calculateSumCompletionTotalByItem('unit-id-5') === 0, 'Wrong sum completion done non-existing unit');
-      const studentPerformanceData = classPerformance.get('studentPerformanceData');
-      assert.equal(studentPerformanceData.get('length'), 3, 'Missing student performance data');
-      const studentPerformance = studentPerformanceData.get('firstObject');
-      assert.ok(studentPerformance.get('averageScore') > 0, 'Wrong student average score');
-      assert.ok(studentPerformance.get('averageTimeSpent') > 0, 'Wrong student average time spent');
-      assert.ok(studentPerformance.get('sumCompletionDone') > 0, 'Wrong student sum completion done');
-      assert.ok(studentPerformance.get('sumCompletionTotal') > 0, 'Wrong student sum completion total');
-      const user = studentPerformance.get('user');
-      assert.equal(user.get('id'), 'user-id-1', 'Wrong user id');
-      assert.equal(user.get('username'), 'username-user-id-1', 'Wrong username');
-      assert.equal(user.get('firstName'), 'FirstName-user-id-1', 'Wrong firstName');
-      assert.equal(user.get('lastName'), 'LastName-user-id-1', 'Wrong lastName');
-      const performanceData = studentPerformance.get('performanceData');
-      assert.equal(performanceData.get('length'), 4, 'Missing student performance data');
-      const performance = performanceData.get('firstObject');
-      assert.equal(performance.get('realId'), 'unit-id-1', 'Wrong performance id');
-      assert.equal(performance.get('title'), 'Title for - unit-id-1', 'Wrong performance title');
-      assert.equal(performance.get('type'), 'unit', 'Wrong performance type');
-      done();
-    });
+  const promise = service.findClassPerformance('the-class-id', 'the-course-id', users);
+  promise.then(function(classPerformanceData){
+
+    const studentPerformance = classPerformanceData.get('studentPerformanceData');
+    assert.equal(studentPerformance.get('length'), 1, 'Missing student performances');
+
+    const performanceObject = studentPerformance.get('firstObject');
+    const performanceData = performanceObject.get('performanceData');
+
+    const user = performanceObject.get('user');
+    assert.equal(user.get('id'), 'user-id-1', 'Wrong id');
+    assert.equal(user.get('username'), 'username', 'Wrong username');
+    assert.equal(user.get('firstName'), 'first', 'Wrong first name');
+    assert.equal(user.get('lastName'), 'last', 'Wrong last name');
+
+    assert.equal(performanceData.get('length'), 1, 'Missing performances');
+    const performance = performanceData.get('firstObject');
+    assert.equal(performance.get('attempts'), 1, 'Wrong attempts');
+    assert.equal(performance.get('completionDone'), 10, 'Wrong completion done');
+    assert.equal(performance.get('completionTotal'), 10, 'Wrong completion total');
+    assert.equal(performance.get('score'), 100, 'Wrong score');
+    assert.equal(performance.get('ratingScore'), 0, 'Wrong rating score');
+    assert.equal(performance.get('timeSpent'), 2349605, 'Wrong time spent');
+    assert.equal(performance.get('type'), 'unit', 'Wrong type');
+    done();
+  });
+});
+
+test('findClassPerformanceByUnit', function (assert) {
+  const service = this.subject();
+  const response = {
+    "content": [
+      {
+        "usageData": [
+          {
+            "completionCount": 10,
+            "totalCount": 10,
+            "lessonId": "lesson-id-1",
+            "scoreInPercentage": 100,
+            "timeSpent": 2349605,
+            "attempts": 1
+          }
+        ],
+        "userUid": "user-id-1"
+      }
+    ],
+    "message": null,
+    "paginate": null
+  };
+
+  const collectionIds = Ember.A([
+    'lesson-id-1'
+  ]);
+
+  const users = Ember.A([
+    Ember.Object.create({id: 'user-id-1', username: 'username', firstName: 'first', lastName: 'last', units: collectionIds})
+  ]);
+
+  const routes = function () {
+    this.get('/mocked-api/insights/api/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/performance', function () {
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify(response)];
+    }, 0);
+  };
+
+  this.pretender.map(routes);
+
+  var done = assert.async();
+  const promise = service.findClassPerformanceByUnit('the-class-id', 'the-course-id', 'the-unit-id', users);
+  promise.then(function(classPerformanceData){
+
+    const studentPerformance = classPerformanceData.get('studentPerformanceData');
+    assert.equal(studentPerformance.get('length'), 1, 'Missing student performances');
+
+    const performanceObject = studentPerformance.get('firstObject');
+    const performanceData = performanceObject.get('performanceData');
+
+    const user = performanceObject.get('user');
+    assert.equal(user.get('id'), 'user-id-1', 'Wrong id');
+    assert.equal(user.get('username'), 'username', 'Wrong username');
+    assert.equal(user.get('firstName'), 'first', 'Wrong first name');
+    assert.equal(user.get('lastName'), 'last', 'Wrong last name');
+
+    assert.equal(performanceData.get('length'), 1, 'Missing performances');
+    const performance = performanceData.get('firstObject');
+    assert.equal(performance.get('attempts'), 1, 'Wrong attempts');
+    assert.equal(performance.get('completionDone'), 10, 'Wrong completion done');
+    assert.equal(performance.get('completionTotal'), 10, 'Wrong completion total');
+    assert.equal(performance.get('score'), 100, 'Wrong score');
+    assert.equal(performance.get('ratingScore'), 0, 'Wrong rating score');
+    assert.equal(performance.get('timeSpent'), 2349605, 'Wrong time spent');
+    assert.equal(performance.get('type'), 'lesson', 'Wrong type');
+    done();
+  });
+});
+
+test('findClassPerformanceByUnitAndLesson', function (assert) {
+  const service = this.subject();
+  const response = {
+    "content": [
+      {
+        "usageData": [
+          {
+            "completionCount": 10,
+            "totalCount": 10,
+            "assessmentId": "collection-id-1",
+            "scoreInPercentage": 100,
+            "timeSpent": 2349605,
+            "attempts": 1
+          }
+        ],
+        "userUid": "user-id-1"
+      }
+    ],
+    "message": null,
+    "paginate": null
+  };
+
+  const collectionIds = Ember.A([
+    'collection-id-1'
+  ]);
+
+  const users = Ember.A([
+    Ember.Object.create({id: 'user-id-1', username: 'username', firstName: 'first', lastName: 'last', units: collectionIds})
+  ]);
+
+  const routes = function () {
+    this.get('/mocked-api/insights/api/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/lesson/the-lesson-id/performance', function () {
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify(response)];
+    }, 0);
+  };
+
+  this.pretender.map(routes);
+
+  var done = assert.async();
+  const promise = service.findClassPerformanceByUnitAndLesson('the-class-id', 'the-course-id', 'the-unit-id', 'the-lesson-id', users);
+  promise.then(function(classPerformanceData){
+
+    const studentPerformance = classPerformanceData.get('studentPerformanceData');
+    assert.equal(studentPerformance.get('length'), 1, 'Missing student performances');
+
+    const performanceObject = studentPerformance.get('firstObject');
+    const performanceData = performanceObject.get('performanceData');
+
+    const user = performanceObject.get('user');
+    assert.equal(user.get('id'), 'user-id-1', 'Wrong id');
+    assert.equal(user.get('username'), 'username', 'Wrong username');
+    assert.equal(user.get('firstName'), 'first', 'Wrong first name');
+    assert.equal(user.get('lastName'), 'last', 'Wrong last name');
+
+    assert.equal(performanceData.get('length'), 1, 'Missing performances');
+    const performance = performanceData.get('firstObject');
+    assert.equal(performance.get('attempts'), 1, 'Wrong attempts');
+    assert.equal(performance.get('completionDone'), 10, 'Wrong completion done');
+    assert.equal(performance.get('completionTotal'), 10, 'Wrong completion total');
+    assert.equal(performance.get('score'), 100, 'Wrong score');
+    assert.equal(performance.get('ratingScore'), 0, 'Wrong rating score');
+    assert.equal(performance.get('timeSpent'), 2349605, 'Wrong time spent');
+    assert.equal(performance.get('type'), 'assessment', 'Wrong type');
+    done();
   });
 });
