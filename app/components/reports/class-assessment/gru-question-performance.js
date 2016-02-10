@@ -19,7 +19,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['reports', 'class-assessment', 'gru-questions-performance'],
+  classNames: ['reports', 'class-assessment', 'gru-question-performance'],
 
   // -------------------------------------------------------------------------
   // Properties

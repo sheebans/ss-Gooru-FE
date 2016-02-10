@@ -325,7 +325,7 @@ export default Ember.Route.extend({
       })
     ]);
 
-  // TODO: Remove once the service that returns the user results is implemented
+    // TODO: Remove once the service that returns the user results is implemented
     var userResults = [
       UserQuestionsResult.create({
         "user": "56983a9060a68052c1ed934c",
