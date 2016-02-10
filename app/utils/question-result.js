@@ -50,32 +50,35 @@ export function totalTimeSpent(questionsResults){
  * @returns {{ total: number, correct: number, incorrect: number, skipped: number, notStarted: number}}
  */
 export function stats(questionResults){
-  let total = 0;
+  let total = questionResults.length;
   let correct = 0;
   let incorrect = 0;
   let skipped = 0;
-  let notStarted = 0;
+  let started = 0;
   let timeSpent = 0;
   let reactions = [];
 
   questionResults.forEach(function(item){
-    total++;
     correct += item.get("correct") ? 1 : 0;
     incorrect += item.get("incorrect") ? 1 : 0;
     skipped += item.get("skipped") ? 1 : 0;
-    notStarted += item.get("notStarted") ? 1 : 0;
+    started += item.get("started") ? 1 : 0;
     timeSpent += item.get("timeSpent");
-    reactions.push(item.get("reaction") ? item.get("reaction") : 0);
+
+    if (item.get('reaction')) {
+      reactions.push(item.get("reaction"));
+    }
   });
 
-  let completed = total - skipped - notStarted;
+  let notStarted = total - started;
+  let completed = correct + incorrect;
 
   return Ember.Object.create({
     total: total,
     totalCorrect: correct,
-    correctPercentage: Math.round(correct / total * 100),
+    correctPercentage: Math.round(correct / completed * 100),
     totalIncorrect: incorrect,
-    incorrectPercentage: Math.round(incorrect / total * 100),
+    incorrectPercentage: Math.round(incorrect / completed * 100),
     totalSkipped: skipped,
     skippedPercentage: Math.round(skipped / total * 100),
     totalNotStarted: notStarted,

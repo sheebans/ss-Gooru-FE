@@ -9,21 +9,13 @@ module('Unit | Utility | question-result');
 test('Average Reaction', function (assert) {
   const questions = Ember.A([
     QuestionResult.create({
-      question: QuestionResult.create({
-        text: "This is a question 1",
-        questionType: 'OE',
-        order: 1
-      }),
+      question: {},
       correct: true,
       timeSpent: 10, //seconds
       reaction: 5
     }),
     QuestionResult.create({
-      question: QuestionResult.create({
-        text: "This is a question 2",
-        questionType: 'OE',
-        order: 2
-      }),
+      question: {},
       correct: false,
       timeSpent: 25, //seconds
       reaction: 2
@@ -35,21 +27,13 @@ test('Average Reaction', function (assert) {
 test('Correct Answers', function (assert) {
   const questions = Ember.A([
     QuestionResult.create({
-      question: QuestionResult.create({
-        text: "This is a question 1",
-        questionType: 'OE',
-        order: 1
-      }),
+      question: {},
       correct: true,
       timeSpent: 10, //seconds
       reaction: 5
     }),
     QuestionResult.create({
-      question: QuestionResult.create({
-        text: "This is a question 2",
-        questionType: 'OE',
-        order: 2
-      }),
+      question: {},
       correct: false,
       timeSpent: 25, //seconds
       reaction: 2
@@ -61,21 +45,13 @@ test('Correct Answers', function (assert) {
 test('Correct Percentage', function (assert) {
   const questions = Ember.A([
     QuestionResult.create({
-      question: QuestionResult.create({
-        text: "This is a question 1",
-        questionType: 'OE',
-        order: 1
-      }),
+      question: {},
       correct: true,
       timeSpent: 10, //seconds
       reaction: 5
     }),
     QuestionResult.create({
-      question: QuestionResult.create({
-        text: "This is a question 2",
-        questionType: 'OE',
-        order: 2
-      }),
+      question: {},
       correct: false,
       timeSpent: 25, //seconds
       reaction: 2
@@ -87,21 +63,13 @@ test('Correct Percentage', function (assert) {
 test('Total Time Spent', function (assert) {
   const questions = Ember.A([
     QuestionResult.create({
-      question: QuestionResult.create({
-        text: "This is a question 1",
-        questionType: 'OE',
-        order: 1
-      }),
+      question: {},
       correct: true,
       timeSpent: 10, //seconds
       reaction: 5
     }),
     QuestionResult.create({
-      question: QuestionResult.create({
-        text: "This is a question 2",
-        questionType: 'OE',
-        order: 2
-      }),
+      question: {},
       correct: false,
       timeSpent: 25, //seconds
       reaction: 2
@@ -113,59 +81,39 @@ test('Total Time Spent', function (assert) {
 test('Stats', function (assert) {
   const questions = Ember.A([
     QuestionResult.create({
-      question: QuestionResult.create({
-        text: "This is a question 1",
-        questionType: 'OE',
-        order: 1
-      }),
+      question: {},
       correct: true,
       timeSpent: 10, //seconds
       reaction: 5
     }),
     QuestionResult.create({
-      question: QuestionResult.create({
-        text: "This is a question 2",
-        questionType: 'OE',
-        order: 2
-      }),
+      question: {},
       correct: false,
       timeSpent: 25, //seconds
       reaction: 4
     }),
     QuestionResult.create({
-      question: QuestionResult.create({
-        text: "This is a question 3",
-        questionType: 'OE',
-        order: 2
-      }),
+      question: {},
       correct: false,
       timeSpent: 25, //seconds
       reaction: 4
     }),
     QuestionResult.create({
-      question: QuestionResult.create({
-        text: "This is a question 4",
-        questionType: 'OE',
-        order: 2
-      }),
+      question: {},
       correct: null, //skipped
       timeSpent: 25, //seconds
       reaction: 5
     }),
-    QuestionResult.create({
-      notStarted: true
-    }),
-    QuestionResult.create({
-      notStarted: true
-    })
+    QuestionResult.create(),
+    QuestionResult.create()
   ]);
   let totals = stats(questions);
 
   assert.equal(totals.get("total"), 6, 'Wrong total');
   assert.equal(totals.get("totalCorrect"), 1, 'Wrong correct');
-  assert.equal(totals.get("correctPercentage"), 17, 'Wrong correct percentage');
+  assert.equal(totals.get("correctPercentage"), 33, 'Wrong correct percentage');
   assert.equal(totals.get("totalIncorrect"), 2, 'Wrong incorrect');
-  assert.equal(totals.get("incorrectPercentage"), 33, 'Wrong incorrect percentage');
+  assert.equal(totals.get("incorrectPercentage"), 67, 'Wrong incorrect percentage');
   assert.equal(totals.get("totalSkipped"), 1, 'Wrong skipped');
   assert.equal(totals.get("skippedPercentage"), 17, 'Wrong skipped percentage');
   assert.equal(totals.get("totalNotStarted"), 2, 'Wrong not started');
@@ -173,5 +121,5 @@ test('Stats', function (assert) {
   assert.equal(totals.get("totalCompleted"), 3, 'Wrong not started');
   assert.equal(totals.get("completedPercentage"), 50, 'Wrong not completed percentage');
   assert.equal(totals.get("totalTimeSpent"), 85, 'Wrong total time spent');
-  assert.equal(totals.get("averageReaction"), 3, 'Wrong average reaction');
+  assert.equal(totals.get("averageReaction"), 5, 'Wrong average reaction');
 });
