@@ -95,19 +95,19 @@ test('Layout', function(assert) {
 
   var reportData = { //all questions not started
     "56983a9060a68052c1ed934c": {
-      "56a120483b6e7b090501d3e7": QuestionResult.create( { notStarted: true }),
-      "56a1204886b2e565e1b2c230": QuestionResult.create( { notStarted: true }),
-      "56a12048ddee2022a741356a": QuestionResult.create( { notStarted: true })
+      "56a120483b6e7b090501d3e7": QuestionResult.create(),
+      "56a1204886b2e565e1b2c230": QuestionResult.create(),
+      "56a12048ddee2022a741356a": QuestionResult.create()
     },
     "56983a90fb01fecc328e2388": {
-      "56a120483b6e7b090501d3e7": QuestionResult.create( { notStarted: true }),
-      "56a1204886b2e565e1b2c230": QuestionResult.create( { notStarted: true }),
-      "56a12048ddee2022a741356a": QuestionResult.create( { notStarted: true })
+      "56a120483b6e7b090501d3e7": QuestionResult.create(),
+      "56a1204886b2e565e1b2c230": QuestionResult.create(),
+      "56a12048ddee2022a741356a": QuestionResult.create()
     },
     "56983a906596902edadedc7c": {
-      "56a120483b6e7b090501d3e7": QuestionResult.create( { notStarted: true }),
-      "56a1204886b2e565e1b2c230": QuestionResult.create( { notStarted: true }),
-      "56a12048ddee2022a741356a": QuestionResult.create( { notStarted: true })
+      "56a120483b6e7b090501d3e7": QuestionResult.create(),
+      "56a1204886b2e565e1b2c230": QuestionResult.create(),
+      "56a12048ddee2022a741356a": QuestionResult.create()
     }
   };
   var model =Ember.Object.create({

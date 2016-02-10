@@ -31,9 +31,7 @@ export default Ember.Component.extend(ModalMixin, {
 
     viewQuestionDetail: function (questionId) {
       Ember.Logger.debug('Class assessment report: question with ID ' + questionId + ' was selected');
-      // TODO:
-      // Get question model from questionId
-      // Show modal with question information
+
       let question = this.get("assessment.resources").findBy("id", questionId);
       let modalModel = {
         anonymous: this.get("anonymous"),
@@ -49,6 +47,20 @@ export default Ember.Component.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Events
+  init: function () {
+    this._super(...arguments);
+
+    var studentIds = this.get('students').map(function (student) {
+      return student.get("id");
+    });
+
+    var resourceIds = this.get('assessment.resources').map(function (resource) {
+      return resource.get("id");
+    });
+
+    var emptyMatrix = this.getEmptyObjectMatrix(studentIds, resourceIds);
+    this.set('cumulativeData', emptyMatrix);
+  },
 
   // -------------------------------------------------------------------------
   // Properties
@@ -106,7 +118,6 @@ export default Ember.Component.extend(ModalMixin, {
    *  }
    */
   reportData: Ember.computed('userResults.[]', function () {
-    this.initDataIfNecessary();
     var userResults = this.get('userResults');
     let cumulativeData = this.get("cumulativeData");
 
@@ -157,30 +168,10 @@ export default Ember.Component.extend(ModalMixin, {
       matrix[idsX[i]] = {};
 
       for (let j = 0; j < yLen; j++) {
-        matrix[idsX[i]][idsY[j]] = QuestionResult.create({ notStarted: true });
+        matrix[idsX[i]][idsY[j]] = QuestionResult.create();
       }
     }
     return matrix;
-  },
-
-  /**
-   * Initializes the report data if it has not being initialized already
-   */
-  initDataIfNecessary: function() {
-    let cumulativeData = this.get("cumulativeData");
-
-    if (!cumulativeData) {
-      var studentIds = this.get('students').map(function (student) {
-        return student.get("id");
-      });
-
-      var resourceIds = this.get('assessment.resources').map(function (resource) {
-        return resource.get("id");
-      });
-
-      // Initialize all users and resources in the report data to empty objects
-      this.set("cumulativeData", this.getEmptyObjectMatrix(studentIds, resourceIds));
-    }
   },
 
   /**

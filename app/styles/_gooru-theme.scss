@@ -27,6 +27,12 @@
     }
   }
 }
+.navbar-nav .open .dropdown-menu{
+  @media (max-width: $screen-sm) {
+    position: absolute;
+    background-color: $white;
+  }
+}
 
 // Buttons ====================================================================
 
@@ -617,3 +623,4 @@ input[type="checkbox"],
     opacity: 0.93;
   }
 }
+
