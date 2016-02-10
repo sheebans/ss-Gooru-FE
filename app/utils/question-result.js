@@ -20,7 +20,7 @@ export function averageReaction(questionsResults) {
  * @param {QuestionResult[]} questionsResults
  * @prop {Number}
  */
-export function correctAnswers(questionsResults){
+export function correctAnswers(questionsResults) {
   let totals = stats(questionsResults);
   return totals.get("totalCorrect");
 }
@@ -30,7 +30,7 @@ export function correctAnswers(questionsResults){
  * @param {QuestionResult[]} questionsResults
  * @prop {Number}
  */
-export function correctPercentage(questionsResults){
+export function correctPercentage(questionsResults) {
   let totals = stats(questionsResults);
   return totals.get("correctPercentage");
 }
@@ -39,7 +39,7 @@ export function correctPercentage(questionsResults){
  * @param {QuestionResult[]} questionsResults
  * @prop {Number}
  */
-export function totalTimeSpent(questionsResults){
+export function totalTimeSpent(questionsResults) {
   let totals = stats(questionsResults);
   return totals.get("totalTimeSpent");
 }
@@ -49,7 +49,7 @@ export function totalTimeSpent(questionsResults){
  * @param {QuestionResult[]} questionResults
  * @returns {{ total: number, correct: number, incorrect: number, skipped: number, notStarted: number}}
  */
-export function stats(questionResults){
+export function stats(questionResults) {
   let total = 0;
   let correct = 0;
   let incorrect = 0;
@@ -58,7 +58,7 @@ export function stats(questionResults){
   let timeSpent = 0;
   let reactions = [];
 
-  questionResults.forEach(function(item){
+  questionResults.forEach(function (item) {
     total++;
     correct += item.get("correct") ? 1 : 0;
     incorrect += item.get("incorrect") ? 1 : 0;
@@ -86,6 +86,28 @@ export function stats(questionResults){
     totalTimeSpent: timeSpent
   });
 }
+
+/**
+ * Returns only completed results
+ * @param {QuestionResult[]} questionsResults
+ * @prop {QuestionResult[]}
+ */
+export function completedResults(questionsResults) {
+  return questionsResults
+    .filter(function (questionResult) {
+      return !questionResult.get("skipped") && !questionResult.get("notStarted");
+    });
+}
+
+/**
+ * Sort results by submittedAt field, ascending
+ * @param {QuestionResult[]} questionsResults
+ * @prop {QuestionResult[]}
+ */
+export function sortResults(questionsResults) {
+  return questionsResults.sortBy("submittedAt");
+}
+
 
 
 

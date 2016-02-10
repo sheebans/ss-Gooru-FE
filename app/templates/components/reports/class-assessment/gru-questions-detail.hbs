@@ -24,11 +24,10 @@
         </p>
     </div>
     <div class="question-metrics">
-        <div class="chart">
-          {{charts/gru-x-bar-chart data=selectedQuestionBarChartData.data}}
-            <span class="ratio">
-        <em>{{selectedQuestionBarChartData.completed}}</em>/<em>{{selectedQuestionBarChartData.total}}</em>
-      </span>
-        </div>
+        {{reports.class-assessment.gru-question-performance
+          question=selectedQuestion
+          reportData=reportData
+          anonymous=anonymous
+          students=students}}
     </div>
 </div>

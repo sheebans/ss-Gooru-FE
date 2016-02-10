@@ -61,8 +61,9 @@ export const QuestionUtil = Ember.Object.extend({
 
   /**
    * This returns the answers distribution
+   *
    * @param { [] } userAnswers, i.e [2,1,3,2,1]
-   * @return { [] } i.e [ { answer: 2, count: 2}, { answer: 1, count: 2}, { answer: 3, count: 1}]
+   * @return { { answer: *, count: number, key: string }[] }
    */
   distribution: function(userAnswers){
     const util = this;
@@ -532,4 +533,51 @@ HotSpotTextUtil = HotSpotImageUtil.extend({
   // -------------------------------------------------------------------------
   // Methods
 
+}),
+
+/**
+ * It contains convenience methods for grading and retrieving useful information
+ * from this question type
+ *
+ * @typedef {Object} OpenEndedUtil
+ */
+OpenEndedUtil = QuestionUtil.extend({
+
+  // -------------------------------------------------------------------------
+  // Observers
+
+
+  // -------------------------------------------------------------------------
+  // Methods
+  /**
+   * Indicates if the answer is correct
+   * It overrides the default implementation
+   *
+   * @param {string} answer user answer
+   * @return {boolean}
+   */
+  isCorrect: function (answer) {
+    return !!answer; //if answer exists, OE is not graded right now
+  },
+
+  /**
+   * Gets the correct answer
+   *
+   * @return {boolean} the correct answer choice id
+   */
+  getCorrectAnswer: function () {
+    return false; //there is no correct answer for OE
+  },
+
+  /**
+   * Returns a unique key representing the answer
+   * For multiple choice the answer id is already unique
+   * @param {string} answer
+   * @returns {string}
+   */
+  answerKey: function (answer) {
+    return answer;
+  }
+
 });
+

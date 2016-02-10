@@ -1,0 +1,17 @@
+{{#each answersData as |answerData|}}
+    <div class="panel {{if answerData.correct 'panel-success' 'panel-danger'}}">
+        <div class="panel-heading text-right">
+          {{answerData.percentage}}%
+        </div>
+        <div class="panel-body questions">
+            <div class="answer">
+              {{{component (questionConfig question.questionType 'component.answer')
+              question=question
+              userAnswer=answerData.userAnswer}}}
+            </div>
+            <div>
+                Students
+            </div>
+        </div>
+    </div>
+{{/each}}

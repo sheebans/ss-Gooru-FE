@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import { averageReaction, correctAnswers, correctPercentage, totalTimeSpent, stats } from 'gooru-web/utils/question-result';
+import { averageReaction, correctAnswers, correctPercentage, totalTimeSpent, stats , completedResults, sortResults}
+  from 'gooru-web/utils/question-result';
 import QuestionResult from 'gooru-web/models/result/question';
 import { module, test } from 'qunit';
 
@@ -174,4 +175,128 @@ test('Stats', function (assert) {
   assert.equal(totals.get("completedPercentage"), 50, 'Wrong not completed percentage');
   assert.equal(totals.get("totalTimeSpent"), 85, 'Wrong total time spent');
   assert.equal(totals.get("averageReaction"), 3, 'Wrong average reaction');
+});
+
+test('completedResults', function (assert) {
+  const questions = Ember.A([
+    QuestionResult.create({
+      question: QuestionResult.create({
+        text: "This is a question 1",
+        questionType: 'OE',
+        order: 1
+      }),
+      correct: true,
+      timeSpent: 10, //seconds
+      reaction: 5
+    }),
+    QuestionResult.create({
+      question: QuestionResult.create({
+        text: "This is a question 2",
+        questionType: 'OE',
+        order: 2
+      }),
+      correct: false,
+      timeSpent: 25, //seconds
+      reaction: 4
+    }),
+    QuestionResult.create({
+      question: QuestionResult.create({
+        text: "This is a question 3",
+        questionType: 'OE',
+        order: 2
+      }),
+      correct: false,
+      timeSpent: 25, //seconds
+      reaction: 4
+    }),
+    QuestionResult.create({
+      question: QuestionResult.create({
+        text: "This is a question 4",
+        questionType: 'OE',
+        order: 2
+      }),
+      correct: null, //skipped
+      timeSpent: 25, //seconds
+      reaction: 5
+    }),
+    QuestionResult.create({
+      notStarted: true
+    }),
+    QuestionResult.create({
+      notStarted: true
+    })
+  ]);
+  let completed = completedResults(questions);
+
+  assert.equal(completed.get("length"), 3, 'Wrong total');
+});
+
+
+
+test('sortResults', function (assert) {
+  const questions = Ember.A([
+    QuestionResult.create({
+      question: QuestionResult.create({
+        text: "This is a question 1",
+        questionType: 'OE',
+        order: 1
+      }),
+      correct: true,
+      timeSpent: 10, //seconds
+      reaction: 5,
+      submittedAt: new Date("October 13, 2014 11:40:00")
+    }),
+    QuestionResult.create({
+      question: QuestionResult.create({
+        text: "This is a question 2",
+        questionType: 'OE',
+        order: 2
+      }),
+      correct: false,
+      timeSpent: 25, //seconds
+      reaction: 4,
+      submittedAt: new Date("October 13, 2014 11:20:00")
+    }),
+    QuestionResult.create({
+      question: QuestionResult.create({
+        text: "This is a question 3",
+        questionType: 'OE',
+        order: 2
+      }),
+      correct: false,
+      timeSpent: 25, //seconds
+      reaction: 4,
+      submittedAt: new Date("October 13, 2014 11:10:00")
+    }),
+    QuestionResult.create({
+      question: QuestionResult.create({
+        text: "This is a question 4",
+        questionType: 'OE',
+        order: 2
+      }),
+      correct: null, //skipped
+      timeSpent: 25, //seconds
+      reaction: 5,
+      submittedAt: new Date("October 13, 2014 11:50:00")
+    }),
+    QuestionResult.create({
+      notStarted: true
+    }),
+    QuestionResult.create({
+      notStarted: true
+    })
+  ]);
+  let sorted = sortResults(questions);
+  let dates = sorted.map(function(questionResult){
+    return questionResult.get("submittedAt");
+  });
+
+  assert.deepEqual(dates, [
+    null,
+    null,
+    new Date("October 13, 2014 11:10:00"),
+    new Date("October 13, 2014 11:20:00"),
+    new Date("October 13, 2014 11:40:00"),
+    new Date("October 13, 2014 11:50:00")
+  ], 'Wrong dates');
 });
