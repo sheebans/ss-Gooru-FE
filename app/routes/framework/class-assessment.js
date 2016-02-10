@@ -172,375 +172,99 @@ export default Ember.Route.extend({
         }),
         Ember.Object.create({
           "id": "569906aae3191722d9b42f22",
-          "assetBasePath": "http://",
+          questionType: 'MA',
+          text: 'Sample Question MA',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers:  Ember.A([ // [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
+            Ember.Object.create({ id: "1", isCorrect: false, text:"Answer 1" }),
+            Ember.Object.create({ id: "2", isCorrect: true, text:"Answer 2" }),
+            Ember.Object.create({ id: "3", isCorrect: true, text:"Answer 3" })
+          ]),
           "resourceType": "assessment-question",
           "resourceFormat": "question",
-          "narration": "Amet officia nulla mollit fugiat dolore do culpa voluptate qui minim. Commodo non ipsum dolore reprehenderit anim dolor elit aliquip. Labore eu et ea voluptate mollit irure reprehenderit labore sit. Mollit fugiat eu officia laborum. Sint enim eu ex est culpa eu ad duis velit.",
           "order": 10,
-          "questionType": "MA",
-          "text": "Cupidatat cupidatat aliqua non Lorem officia officia exercitation. Est occaecat sit eiusmod consectetur irure. Reprehenderit labore commodo aute occaecat.",
-          "hints": [
-            {
-              "hintId": "98cdadb3-5ef4-4fad-92c5-3c09403ce5e6",
-              "hintText": "<p>Deserunt voluptate labore est sit nostrud ex et quis aliqua veniam deserunt ullamco.</p>",
-              "sequence": 1
-            },
-            {
-              "hintId": "21e07610-a788-4549-a57c-b79ab32b8909",
-              "hintText": "<p>Pariatur est excepteur est cupidatat.</p>",
-              "sequence": 2
-            }
-          ],
-          "explanation": "<p>Eiusmod nisi reprehenderit magna nisi aute nostrud commodo aute voluptate. Voluptate minim ad id occaecat eiusmod laborum labore ipsum consectetur.</p>",
-          "answers": [
-            {
-              "answerId": "68698250-0330-4d6c-b65e-b065ac9cdbc5",
-              "answerText": "<p>officia elit</p>",
-              "answerType": "text",
-              "isCorrect": true,
-              "sequence": 1
-            },
-            {
-              "answerId": "fc51cdd9-8477-47b0-89fc-b3e2a2a9fa59",
-              "answerText": "<p>nisi laboris</p>",
-              "answerType": "text",
-              "isCorrect": false,
-              "sequence": 2
-            },
-            {
-              "answerId": "46c0450b-c9ef-4211-8e7e-1c697811f126",
-              "answerText": "<p>incididunt eu</p>",
-              "answerType": "text",
-              "isCorrect": false,
-              "sequence": 3
-            },
-            {
-              "answerId": "595220c1-b410-4439-a300-faa15e1244e5",
-              "answerText": "<p>eiusmod incididunt</p>",
-              "answerType": "text",
-              "isCorrect": false,
-              "sequence": 4
-            },
-            {
-              "answerId": "254f5f8a-0523-4fa3-868c-58328d2a380b",
-              "answerText": "<p>aute aliqua</p>",
-              "answerType": "text",
-              "isCorrect": true,
-              "sequence": 5
-            }
-          ],
-          "hasAnswers": true,
-          "hasNarration": true
+          "hasAnswers": true
         }),
         Ember.Object.create({
           "id": "569906aa283a7b45e6777a52",
-          "assetBasePath": "http://",
+          questionType: 'MA',
+          text: 'Sample Question MA',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers:  Ember.A([ // [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
+            Ember.Object.create({ id: "1", isCorrect: false, text:"Answer 1" }),
+            Ember.Object.create({ id: "2", isCorrect: true, text:"Answer 2" }),
+            Ember.Object.create({ id: "3", isCorrect: true, text:"Answer 3" })
+          ]),
           "resourceType": "assessment-question",
           "resourceFormat": "question",
-          "narration": "Anim dolor aute irure nisi officia irure nulla sint deserunt officia aliquip. Commodo anim amet proident irure labore cillum eiusmod aliquip fugiat dolore eu. Lorem velit dolore nulla laborum quis laboris quis ut. Do exercitation do dolor voluptate officia exercitation nulla duis esse aliqua elit.",
           "order": 11,
-          "questionType": "MA",
-          "text": "Sunt sunt proident consequat consectetur cupidatat. Eu pariatur do sunt ea nostrud esse ipsum. Ad laborum Lorem duis sit anim reprehenderit minim et non dolor. Cupidatat tempor cupidatat sit occaecat incididunt sint officia irure dolor laboris veniam commodo.",
-          "hints": [
-            {
-              "hintId": "98cdadb3-5ef4-4fad-92c5-3c09403ce5e6",
-              "hintText": "<p>Deserunt voluptate labore est sit nostrud ex et quis aliqua veniam deserunt ullamco.</p>",
-              "sequence": 1
-            },
-            {
-              "hintId": "21e07610-a788-4549-a57c-b79ab32b8909",
-              "hintText": "<p>Pariatur est excepteur est cupidatat.</p>",
-              "sequence": 2
-            }
-          ],
-          "explanation": "<p>Est ea duis laboris labore adipisicing tempor sunt consectetur consectetur enim tempor veniam qui commodo. Ea cillum reprehenderit aliqua labore consectetur tempor nisi dolore.</p>",
-          "answers": [
-            {
-              "answerId": "68698250-0330-4d6c-b65e-b065ac9cdbc5",
-              "answerText": "<p>officia elit</p>",
-              "answerType": "text",
-              "isCorrect": true,
-              "sequence": 1
-            },
-            {
-              "answerId": "fc51cdd9-8477-47b0-89fc-b3e2a2a9fa59",
-              "answerText": "<p>nisi laboris</p>",
-              "answerType": "text",
-              "isCorrect": false,
-              "sequence": 2
-            },
-            {
-              "answerId": "46c0450b-c9ef-4211-8e7e-1c697811f126",
-              "answerText": "<p>incididunt eu</p>",
-              "answerType": "text",
-              "isCorrect": false,
-              "sequence": 3
-            },
-            {
-              "answerId": "595220c1-b410-4439-a300-faa15e1244e5",
-              "answerText": "<p>eiusmod incididunt</p>",
-              "answerType": "text",
-              "isCorrect": false,
-              "sequence": 4
-            },
-            {
-              "answerId": "254f5f8a-0523-4fa3-868c-58328d2a380b",
-              "answerText": "<p>aute aliqua</p>",
-              "answerType": "text",
-              "isCorrect": true,
-              "sequence": 5
-            }
-          ],
-          "hasAnswers": true,
-          "hasNarration": true
+          "hasAnswers": true
         }),
         Ember.Object.create({
           "id": "569906aab4d366e4ada0c67d",
-          "assetBasePath": "http://",
+          questionType: 'MA',
+          text: 'Sample Question MA',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers:  Ember.A([ // [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
+            Ember.Object.create({ id: "1", isCorrect: false, text:"Answer 1" }),
+            Ember.Object.create({ id: "2", isCorrect: true, text:"Answer 2" }),
+            Ember.Object.create({ id: "3", isCorrect: true, text:"Answer 3" })
+          ]),
           "resourceType": "assessment-question",
           "resourceFormat": "question",
-          "narration": "Dolor qui cupidatat sunt proident elit. Aliqua esse do consequat nostrud dolor excepteur commodo et exercitation do ex. Incididunt non occaecat qui fugiat aliqua ea laborum non incididunt. Sunt aliquip eiusmod reprehenderit ad qui quis quis aliquip laboris duis officia aliqua. Ullamco cupidatat id consequat ea officia aute consequat nostrud. Ullamco do ipsum dolore enim ex voluptate ex consequat voluptate.",
           "order": 12,
-          "questionType": "MA",
-          "text": "Ad nisi ea ad ea minim occaecat fugiat in fugiat velit. Exercitation non est et amet velit proident mollit veniam nisi minim. Eiusmod eu sunt proident proident elit eu sint et sint culpa. Ea velit dolor consectetur non sunt aliqua ipsum anim pariatur. Esse aliquip fugiat ullamco nisi.",
-          "hints": [
-            {
-              "hintId": "98cdadb3-5ef4-4fad-92c5-3c09403ce5e6",
-              "hintText": "<p>Deserunt voluptate labore est sit nostrud ex et quis aliqua veniam deserunt ullamco.</p>",
-              "sequence": 1
-            },
-            {
-              "hintId": "21e07610-a788-4549-a57c-b79ab32b8909",
-              "hintText": "<p>Pariatur est excepteur est cupidatat.</p>",
-              "sequence": 2
-            }
-          ],
-          "explanation": "<p>Veniam ad in id veniam irure adipisicing voluptate anim duis laboris labore consequat cillum. Sunt eu nostrud consectetur aute aliqua commodo aute consequat elit excepteur.</p>",
-          "answers": [
-            {
-              "answerId": "68698250-0330-4d6c-b65e-b065ac9cdbc5",
-              "answerText": "<p>officia elit</p>",
-              "answerType": "text",
-              "isCorrect": true,
-              "sequence": 1
-            },
-            {
-              "answerId": "fc51cdd9-8477-47b0-89fc-b3e2a2a9fa59",
-              "answerText": "<p>nisi laboris</p>",
-              "answerType": "text",
-              "isCorrect": false,
-              "sequence": 2
-            },
-            {
-              "answerId": "46c0450b-c9ef-4211-8e7e-1c697811f126",
-              "answerText": "<p>incididunt eu</p>",
-              "answerType": "text",
-              "isCorrect": false,
-              "sequence": 3
-            },
-            {
-              "answerId": "595220c1-b410-4439-a300-faa15e1244e5",
-              "answerText": "<p>eiusmod incididunt</p>",
-              "answerType": "text",
-              "isCorrect": false,
-              "sequence": 4
-            },
-            {
-              "answerId": "254f5f8a-0523-4fa3-868c-58328d2a380b",
-              "answerText": "<p>aute aliqua</p>",
-              "answerType": "text",
-              "isCorrect": true,
-              "sequence": 5
-            }
-          ],
-          "hasAnswers": true,
-          "hasNarration": true
+          "hasAnswers": true
         }),
         Ember.Object.create({
           "id": "569906aa9fa514e9304c0549",
-          "assetBasePath": "http://",
+          questionType: 'MA',
+          text: 'Sample Question MA',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers:  Ember.A([ // [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
+            Ember.Object.create({ id: "1", isCorrect: false, text:"Answer 1" }),
+            Ember.Object.create({ id: "2", isCorrect: true, text:"Answer 2" }),
+            Ember.Object.create({ id: "3", isCorrect: true, text:"Answer 3" })
+          ]),
           "resourceType": "assessment-question",
           "resourceFormat": "question",
-          "narration": "Amet id nulla ad sit proident sunt occaecat sint enim aliquip exercitation ullamco commodo culpa. Officia eu aute sit minim fugiat dolor in id veniam deserunt non. Exercitation exercitation ea in ipsum voluptate. Voluptate amet voluptate sunt esse cupidatat laboris excepteur sit. Nostrud labore officia aliqua in.",
           "order": 13,
-          "questionType": "MA",
-          "text": "Consequat aute esse id deserunt qui quis ullamco quis. Irure esse Lorem est quis eiusmod nisi enim sint aliqua laborum aliquip exercitation nulla pariatur. Est aliquip ut ex dolor dolore magna sint aute est et ullamco exercitation ea. Dolor excepteur exercitation veniam pariatur aute. Consequat proident duis ex pariatur eiusmod irure aute consequat cillum ut reprehenderit in. Esse Lorem occaecat ipsum pariatur aute esse cupidatat nisi ut.",
-          "hints": [
-            {
-              "hintId": "98cdadb3-5ef4-4fad-92c5-3c09403ce5e6",
-              "hintText": "<p>Deserunt voluptate labore est sit nostrud ex et quis aliqua veniam deserunt ullamco.</p>",
-              "sequence": 1
-            },
-            {
-              "hintId": "21e07610-a788-4549-a57c-b79ab32b8909",
-              "hintText": "<p>Pariatur est excepteur est cupidatat.</p>",
-              "sequence": 2
-            }
-          ],
-          "explanation": "<p>Occaecat fugiat quis eu consequat id sint ipsum aliquip tempor incididunt magna eu minim. Fugiat incididunt occaecat aliquip qui laboris ipsum sit ad ex ut et.</p>",
-          "answers": [
-            {
-              "answerId": "68698250-0330-4d6c-b65e-b065ac9cdbc5",
-              "answerText": "<p>officia elit</p>",
-              "answerType": "text",
-              "isCorrect": true,
-              "sequence": 1
-            },
-            {
-              "answerId": "fc51cdd9-8477-47b0-89fc-b3e2a2a9fa59",
-              "answerText": "<p>nisi laboris</p>",
-              "answerType": "text",
-              "isCorrect": false,
-              "sequence": 2
-            },
-            {
-              "answerId": "46c0450b-c9ef-4211-8e7e-1c697811f126",
-              "answerText": "<p>incididunt eu</p>",
-              "answerType": "text",
-              "isCorrect": false,
-              "sequence": 3
-            },
-            {
-              "answerId": "595220c1-b410-4439-a300-faa15e1244e5",
-              "answerText": "<p>eiusmod incididunt</p>",
-              "answerType": "text",
-              "isCorrect": false,
-              "sequence": 4
-            },
-            {
-              "answerId": "254f5f8a-0523-4fa3-868c-58328d2a380b",
-              "answerText": "<p>aute aliqua</p>",
-              "answerType": "text",
-              "isCorrect": true,
-              "sequence": 5
-            }
-          ],
-          "hasAnswers": true,
-          "hasNarration": true
+          "hasAnswers": true
         }),
         Ember.Object.create({
           "id": "569906aa575aa6e617b38e16",
-          "assetBasePath": "http://",
+          questionType: 'MA',
+          text: 'Sample Question MA',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers:  Ember.A([ // [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
+            Ember.Object.create({ id: "1", isCorrect: false, text:"Answer 1" }),
+            Ember.Object.create({ id: "2", isCorrect: true, text:"Answer 2" }),
+            Ember.Object.create({ id: "3", isCorrect: true, text:"Answer 3" })
+          ]),
           "resourceType": "assessment-question",
           "resourceFormat": "question",
-          "narration": "Non elit sunt sit nulla sint commodo dolor anim aute. Cillum consequat anim ullamco amet ex minim. Duis pariatur ut et duis ea excepteur culpa reprehenderit. Veniam officia anim eu proident enim enim dolor qui tempor labore elit commodo. Ad elit labore eu ullamco sint dolore voluptate elit Lorem consequat ipsum.",
           "order": 14,
-          "questionType": "MA",
-          "text": "Duis anim consectetur deserunt enim Lorem occaecat in est aute adipisicing labore irure amet. Duis minim sunt eu fugiat occaecat incididunt nostrud. Excepteur laboris do enim deserunt. Officia duis exercitation deserunt officia ipsum ullamco magna adipisicing. Id aliqua id officia ipsum et occaecat voluptate dolore tempor sint cillum esse officia. Incididunt dolor ut reprehenderit reprehenderit ea esse mollit ad tempor nostrud et cillum sint ullamco.",
-          "hints": [
-            {
-              "hintId": "98cdadb3-5ef4-4fad-92c5-3c09403ce5e6",
-              "hintText": "<p>Deserunt voluptate labore est sit nostrud ex et quis aliqua veniam deserunt ullamco.</p>",
-              "sequence": 1
-            },
-            {
-              "hintId": "21e07610-a788-4549-a57c-b79ab32b8909",
-              "hintText": "<p>Pariatur est excepteur est cupidatat.</p>",
-              "sequence": 2
-            }
-          ],
-          "explanation": "<p>Veniam incididunt consectetur Lorem aliqua laboris aute tempor nulla mollit aliqua ex proident. Enim aliqua ut elit reprehenderit nisi amet est occaecat laborum ad sit et ex quis.</p>",
-          "answers": [
-            {
-              "answerId": "68698250-0330-4d6c-b65e-b065ac9cdbc5",
-              "answerText": "<p>officia elit</p>",
-              "answerType": "text",
-              "isCorrect": true,
-              "sequence": 1
-            },
-            {
-              "answerId": "fc51cdd9-8477-47b0-89fc-b3e2a2a9fa59",
-              "answerText": "<p>nisi laboris</p>",
-              "answerType": "text",
-              "isCorrect": false,
-              "sequence": 2
-            },
-            {
-              "answerId": "46c0450b-c9ef-4211-8e7e-1c697811f126",
-              "answerText": "<p>incididunt eu</p>",
-              "answerType": "text",
-              "isCorrect": false,
-              "sequence": 3
-            },
-            {
-              "answerId": "595220c1-b410-4439-a300-faa15e1244e5",
-              "answerText": "<p>eiusmod incididunt</p>",
-              "answerType": "text",
-              "isCorrect": false,
-              "sequence": 4
-            },
-            {
-              "answerId": "254f5f8a-0523-4fa3-868c-58328d2a380b",
-              "answerText": "<p>aute aliqua</p>",
-              "answerType": "text",
-              "isCorrect": true,
-              "sequence": 5
-            }
-          ],
-          "hasAnswers": true,
-          "hasNarration": true
+          "hasAnswers": true
         }),
         Ember.Object.create({
           "id": "569906aa25189b0dc0a981ba",
-          "assetBasePath": "http://",
+          questionType: 'MA',
+          text: 'Sample Question MA',
+          hints: [],
+          explanation: 'Sample explanation text',
+          answers:  Ember.A([ // [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
+            Ember.Object.create({ id: "1", isCorrect: false, text:"Answer 1" }),
+            Ember.Object.create({ id: "2", isCorrect: true, text:"Answer 2" }),
+            Ember.Object.create({ id: "3", isCorrect: true, text:"Answer 3" })
+          ]),
           "resourceType": "assessment-question",
           "resourceFormat": "question",
-          "narration": "Laborum Lorem cillum minim consequat ullamco. Aute minim fugiat velit nulla laboris commodo deserunt ex id dolore et aliquip labore. Aliqua laboris occaecat et cillum sint nisi Lorem amet minim.",
           "order": 15,
-          "questionType": "MA",
-          "text": "Occaecat ex minim officia duis amet. Irure amet veniam nisi ad officia. Elit in laboris sunt ex ut magna. Dolore velit aliqua fugiat exercitation aute et quis sint occaecat consequat.",
-          "hints": [
-            {
-              "hintId": "98cdadb3-5ef4-4fad-92c5-3c09403ce5e6",
-              "hintText": "<p>Deserunt voluptate labore est sit nostrud ex et quis aliqua veniam deserunt ullamco.</p>",
-              "sequence": 1
-            },
-            {
-              "hintId": "21e07610-a788-4549-a57c-b79ab32b8909",
-              "hintText": "<p>Pariatur est excepteur est cupidatat.</p>",
-              "sequence": 2
-            }
-          ],
-          "explanation": "<p>Proident velit ipsum officia reprehenderit ullamco tempor exercitation anim cupidatat anim ad id. In esse aliquip ex quis.</p>",
-          "answers": [
-            {
-              "answerId": "68698250-0330-4d6c-b65e-b065ac9cdbc5",
-              "answerText": "<p>officia elit</p>",
-              "answerType": "text",
-              "isCorrect": true,
-              "sequence": 1
-            },
-            {
-              "answerId": "fc51cdd9-8477-47b0-89fc-b3e2a2a9fa59",
-              "answerText": "<p>nisi laboris</p>",
-              "answerType": "text",
-              "isCorrect": false,
-              "sequence": 2
-            },
-            {
-              "answerId": "46c0450b-c9ef-4211-8e7e-1c697811f126",
-              "answerText": "<p>incididunt eu</p>",
-              "answerType": "text",
-              "isCorrect": false,
-              "sequence": 3
-            },
-            {
-              "answerId": "595220c1-b410-4439-a300-faa15e1244e5",
-              "answerText": "<p>eiusmod incididunt</p>",
-              "answerType": "text",
-              "isCorrect": false,
-              "sequence": 4
-            },
-            {
-              "answerId": "254f5f8a-0523-4fa3-868c-58328d2a380b",
-              "answerText": "<p>aute aliqua</p>",
-              "answerType": "text",
-              "isCorrect": true,
-              "sequence": 5
-            }
-          ],
-          "hasAnswers": true,
-          "hasNarration": true
+          "hasAnswers": true
         })
       ],
       hasResources: true,
@@ -670,31 +394,36 @@ export default Ember.Route.extend({
             "correct": true,
             "questionId": "569906aae3191722d9b42f22",
             "reaction": 5,
-            "timeSpent": 246
+            "timeSpent": 246,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aa283a7b45e6777a52",
             "reaction": 4,
-            "timeSpent": 1025
+            "timeSpent": 1025,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aab4d366e4ada0c67d",
             "reaction": 2,
-            "timeSpent": 127
+            "timeSpent": 127,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": false,
             "questionId": "569906aa9fa514e9304c0549",
             "reaction": 3,
-            "timeSpent": 660
+            "timeSpent": 660,
+            "userAnswer": [{id: "1", selection: true}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": false,
             "questionId": "569906aa575aa6e617b38e16",
             "reaction": 2,
-            "timeSpent": 257
+            "timeSpent": 257,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": null,
@@ -772,25 +501,29 @@ export default Ember.Route.extend({
             "correct": false,
             "questionId": "569906aae3191722d9b42f22",
             "reaction": 5,
-            "timeSpent": 246
+            "timeSpent": 246,
+            "userAnswer": [{id: "1", selection: true}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aa283a7b45e6777a52",
             "reaction": 4,
-            "timeSpent": 1025
+            "timeSpent": 1025,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aab4d366e4ada0c67d",
             "reaction": 2,
-            "timeSpent": 127
+            "timeSpent": 127,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aa9fa514e9304c0549",
             "reaction": 3,
-            "timeSpent": 660
+            "timeSpent": 660,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": null,
@@ -875,31 +608,36 @@ export default Ember.Route.extend({
             "correct": false,
             "questionId": "569906aae3191722d9b42f22",
             "reaction": 5,
-            "timeSpent": 246
+            "timeSpent": 246,
+            "userAnswer": [{id: "1", selection: true}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aa283a7b45e6777a52",
             "reaction": 4,
-            "timeSpent": 1025
+            "timeSpent": 1025,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aab4d366e4ada0c67d",
             "reaction": 2,
-            "timeSpent": 127
+            "timeSpent": 127,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": false,
             "questionId": "569906aa9fa514e9304c0549",
             "reaction": 3,
-            "timeSpent": 660
+            "timeSpent": 660,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: false}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aa575aa6e617b38e16",
             "reaction": 2,
-            "timeSpent": 257
+            "timeSpent": 257,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": null,
@@ -979,37 +717,43 @@ export default Ember.Route.extend({
             "correct": false,
             "questionId": "569906aae3191722d9b42f22",
             "reaction": 5,
-            "timeSpent": 246
+            "timeSpent": 246,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: false}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aa283a7b45e6777a52",
             "reaction": 4,
-            "timeSpent": 1025
+            "timeSpent": 1025,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aab4d366e4ada0c67d",
             "reaction": 2,
-            "timeSpent": 127
+            "timeSpent": 127,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aa9fa514e9304c0549",
             "reaction": 3,
-            "timeSpent": 660
+            "timeSpent": 660,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aa575aa6e617b38e16",
             "reaction": 2,
-            "timeSpent": 257
+            "timeSpent": 257,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aa25189b0dc0a981ba",
             "reaction": 4,
-            "timeSpent": 1409
+            "timeSpent": 1409,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           })
         ]
       }),
@@ -1083,19 +827,22 @@ export default Ember.Route.extend({
             "correct": true,
             "questionId": "569906aae3191722d9b42f22",
             "reaction": 5,
-            "timeSpent": 246
+            "timeSpent": 246,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aa283a7b45e6777a52",
             "reaction": 4,
-            "timeSpent": 1025
+            "timeSpent": 1025,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": false,
             "questionId": "569906aab4d366e4ada0c67d",
             "reaction": 2,
-            "timeSpent": 127
+            "timeSpent": 127,
+            "userAnswer": [{id: "1", selection: true}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": null,
@@ -1107,13 +854,15 @@ export default Ember.Route.extend({
             "correct": false,
             "questionId": "569906aa575aa6e617b38e16",
             "reaction": 2,
-            "timeSpent": 257
+            "timeSpent": 257,
+            "userAnswer": [{id: "1", selection: true}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aa25189b0dc0a981ba",
             "reaction": 4,
-            "timeSpent": 1409
+            "timeSpent": 1409,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           })
         ]
       }),
@@ -1187,37 +936,43 @@ export default Ember.Route.extend({
             "correct": false,
             "questionId": "569906aae3191722d9b42f22",
             "reaction": 5,
-            "timeSpent": 246
+            "timeSpent": 246,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: false}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aa283a7b45e6777a52",
             "reaction": 4,
-            "timeSpent": 1025
+            "timeSpent": 1025,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aab4d366e4ada0c67d",
             "reaction": 2,
-            "timeSpent": 127
+            "timeSpent": 127,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: false}]
           }),
           QuestionResult.create({
             "correct": false,
             "questionId": "569906aa9fa514e9304c0549",
             "reaction": 3,
-            "timeSpent": 660
+            "timeSpent": 660,
+            "userAnswer": [{id: "1", selection: true}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aa575aa6e617b38e16",
             "reaction": 2,
-            "timeSpent": 257
+            "timeSpent": 257,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aa25189b0dc0a981ba",
             "reaction": 4,
-            "timeSpent": 1409
+            "timeSpent": 1409,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           })
         ]
       }),
@@ -1290,37 +1045,43 @@ export default Ember.Route.extend({
             "correct": false,
             "questionId": "569906aae3191722d9b42f22",
             "reaction": 5,
-            "timeSpent": 246
+            "timeSpent": 246,
+            "userAnswer": [{id: "1", selection: true}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aa283a7b45e6777a52",
             "reaction": 4,
-            "timeSpent": 1025
+            "timeSpent": 1025,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aab4d366e4ada0c67d",
             "reaction": 2,
-            "timeSpent": 127
+            "timeSpent": 127,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": false,
             "questionId": "569906aa9fa514e9304c0549",
             "reaction": 3,
-            "timeSpent": 660
+            "timeSpent": 660,
+            "userAnswer": [{id: "1", selection: true}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": false,
             "questionId": "569906aa575aa6e617b38e16",
             "reaction": 2,
-            "timeSpent": 257
+            "timeSpent": 257,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: false}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aa25189b0dc0a981ba",
             "reaction": 4,
-            "timeSpent": 1409
+            "timeSpent": 1409,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           })
         ]
       }),
@@ -1394,19 +1155,22 @@ export default Ember.Route.extend({
             "correct": true,
             "questionId": "569906aae3191722d9b42f22",
             "reaction": 5,
-            "timeSpent": 246
+            "timeSpent": 246,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aa283a7b45e6777a52",
             "reaction": 4,
-            "timeSpent": 1025
+            "timeSpent": 1025,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": false,
             "questionId": "569906aab4d366e4ada0c67d",
             "reaction": 2,
-            "timeSpent": 127
+            "timeSpent": 127,
+            "userAnswer": [{id: "1", selection: true}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": null,
@@ -1492,19 +1256,22 @@ export default Ember.Route.extend({
             "correct": true,
             "questionId": "569906aae3191722d9b42f22",
             "reaction": 5,
-            "timeSpent": 246
+            "timeSpent": 246,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aa283a7b45e6777a52",
             "reaction": 4,
-            "timeSpent": 1025
+            "timeSpent": 1025,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": false,
             "questionId": "569906aab4d366e4ada0c67d",
             "reaction": 2,
-            "timeSpent": 127
+            "timeSpent": 127,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: false}, {id: "3", selection: true}]
           })
         ]
       }),
@@ -1564,25 +1331,29 @@ export default Ember.Route.extend({
             "correct": false,
             "questionId": "569906aae3191722d9b42f22",
             "reaction": 5,
-            "timeSpent": 246
+            "timeSpent": 246,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: false}]
           }),
           QuestionResult.create({
             "correct": true,
             "questionId": "569906aa283a7b45e6777a52",
             "reaction": 4,
-            "timeSpent": 1025
+            "timeSpent": 1025,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": false,
             "questionId": "569906aab4d366e4ada0c67d",
             "reaction": 2,
-            "timeSpent": 127
+            "timeSpent": 127,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: false}]
           }),
           QuestionResult.create({
             "correct": false,
             "questionId": "569906aa9fa514e9304c0549",
             "reaction": 3,
-            "timeSpent": 660
+            "timeSpent": 660,
+            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: false}]
           })
         ]
       })
