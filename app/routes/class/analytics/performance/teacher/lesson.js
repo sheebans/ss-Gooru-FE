@@ -53,32 +53,15 @@ export default Ember.Route.extend({
 
   model: function(params) {
 
+    const classModel = this.modelFor('class');
     const lessonId = params.lessonId;
     const unitId = params.unitId;
     const classId= this.paramsFor('class').classId;
-    const courseId = this.modelFor('class').class.get('course');
+    const courseId = classModel.class.get('course');
+    const users = classModel.members;
 
     const headers = this.get('collectionService').findByClassAndCourseAndUnitAndLesson(classId, courseId, unitId, lessonId);
-
-    // TODO: Remove this temporal variable once it is not required
-    const collectionIds = Ember.A([
-      '5028ac7f-82da-4f09-998b-ecf480d4b984',
-      '363d3cc2-f2ac-490d-a870-42167f204c97'
-    ]);
-    // TODO: Remove this temporal variable once it is not required
-    const users = Ember.A([
-      Ember.Object.create({id: '1', username: 'jenniferajoy', firstName: 'Jennifer', lastName: 'Ajoy', units: collectionIds}),
-      Ember.Object.create({id: '2', username: 'jeffreybermudez', firstName: 'Jeffrey', lastName: 'Bermudez', units: collectionIds}),
-      Ember.Object.create({id: '3', username: 'javierperez', firstName: 'Javier', lastName: 'Perez', units: collectionIds}),
-      Ember.Object.create({id: '4', username: 'melanydelagado', firstName: 'Melany', lastName: 'Delgado', units: collectionIds}),
-      Ember.Object.create({id: '5', username: 'diegoarias', firstName: 'Diego', lastName: 'Arias', units: collectionIds}),
-      Ember.Object.create({id: '6', username: 'davidquiros', firstName: 'David', lastName: 'Quiros', units: collectionIds}),
-      Ember.Object.create({id: '7', username: 'adrianporras', firstName: 'Adrian', lastName: 'Porras', units: collectionIds}),
-      Ember.Object.create({id: '8', username: 'fabianperez', firstName: 'Fabian', lastName: 'Perez', units: collectionIds}),
-      Ember.Object.create({id: '9', username: 'laurengutierrez', firstName: 'Lauren', lastName: 'Gutierrez', units: collectionIds})
-    ]);
-
-    const classPerformanceData = this.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, { users: users });
+    const classPerformanceData = this.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, users);
     const unit = this.get('unitService').findById(courseId, unitId);
     const lesson = this.get('lessonService').findById(courseId, unitId, lessonId);
 
