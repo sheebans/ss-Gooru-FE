@@ -1,22 +1,26 @@
-<div class="row">
-  <div class="col-xs-12 navigation">
-    {{gru-bubbles bubbleOptions=questionsNavOptions onBubbleSelect='bubbleSelect'}}
-    {{#if selectedQuestion}}
-        <div class="selected-question">
-            Q{{selectedQuestion.order}} {{truncate text=selectedQuestion.text type='medium'}}
-        </div>
-    {{/if}}
-  </div>
-  <div class="col-xs-5 question-info">
-      Selected question here
-  </div>
-  <div class="col-xs-7 question-metrics">
-      <div class="chart">
-        {{charts/gru-x-bar-chart data=selectedQuestionBarChartData.data}}
-        <span class="ratio">
-          <em>{{selectedQuestionBarChartData.completed}}</em>/<em>{{selectedQuestionBarChartData.total}}</em>
-        </span>
+<div class="modal-header">
+    <button type="button" class="close" aria-label="{{t 'common.close'}}" data-dismiss="modal">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
+<div class="navigation">
+  {{gru-bubbles bubbleOptions=questionsNavOptions onBubbleSelect='bubbleSelect'}}
+  {{#if selectedQuestion}}
+      <div class="selected-question">
+          Q{{selectedQuestion.order}} {{truncate text=selectedQuestion.text type='medium'}}
       </div>
-
-  </div>
+  {{/if}}
+</div>
+<div class="body">
+    <div class="question-info">
+       {{reports.class-assessment.gru-question-information question=selectedQuestion}}
+    </div>
+    <div class="question-metrics">
+        <div class="chart">
+          {{charts/gru-x-bar-chart data=selectedQuestionBarChartData.data}}
+            <span class="ratio">
+        <em>{{selectedQuestionBarChartData.completed}}</em>/<em>{{selectedQuestionBarChartData.total}}</em>
+      </span>
+        </div>
+    </div>
 </div>

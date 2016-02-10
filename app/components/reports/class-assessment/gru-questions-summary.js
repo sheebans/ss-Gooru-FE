@@ -26,19 +26,19 @@ export default Ember.Component.extend({
   actions: {
 
     /**
-     * @function actions:toggleView
-     */
-    toggleView: function () {
-      var newExpandedValue = !this.get('isExpanded');
-      this.get('onToggleView')(newExpandedValue);
-    },
-
-    /**
      * @function actions:selectQuestion
      * @param {Number} questionId
      */
     selectQuestion: function (questionId) {
       this.get('onSelectQuestion')(questionId);
+    },
+
+    /**
+     * @function actions:toggleView
+     */
+    toggleView: function () {
+      var newExpandedValue = !this.get('isExpanded');
+      this.get('onToggleView')(newExpandedValue);
     }
 
   },

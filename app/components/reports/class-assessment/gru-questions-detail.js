@@ -38,9 +38,16 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Properties
   /**
+   * Component model, this was necessary because this component is rendered in a modal
+   * @see gru-modal.js
+   */
+  model: null,
+
+
+  /**
    * @property {Collection} assessment
    */
-  assessment: null,
+  assessment: Ember.computed.alias("model.assessment"),
 
   /**
    * @prop { Object{}{}{} } reportData - Representation of the data to show in the reports as a 3D matrix
@@ -64,18 +71,18 @@ export default Ember.Component.extend({
    *    }
    *  }
    */
-  reportData: null,
+  reportData: Ember.computed.alias("model.reportData"),
 
   /**
    * Indicates if the report is displayed in anonymous mode
    * @property {boolean} anonymous
    */
-  anonymous: false,
+  anonymous: Ember.computed.alias("model.anonymous"),
 
   /**
    * @prop { User[] } students - Group of students taking an assessment
    */
-  students: null,
+  students: Ember.computed.alias("model.students"),
 
   /**
    * Returns a convenience structure to display the question navigation bubbles
@@ -94,10 +101,6 @@ export default Ember.Component.extend({
     });
   }),
 
-  /**
-   * @property {Resource} selected question
-   */
-  selectedQuestion: null,
 
   /**
    * A convenient structure to display the selected question results
@@ -164,9 +167,12 @@ export default Ember.Component.extend({
       completed: totals.get("totalCompleted"),
       total: total
     });
-  })
+  }),
+  /**
+   * @property {Resource} selected question
+   */
 
-
+  selectedQuestion: Ember.computed.alias("model.selectedQuestion")
 
 
   // -------------------------------------------------------------------------
