@@ -145,9 +145,9 @@ export default Ember.Component.extend({
   }),
 
   /**
-   * @prop { Object{}{}{} } rawData - Unordered 3D matrix of data to use as content for the table component
+   * @prop { ReportData } reportData - Unordered 3D matrix of data to use as content for the table component
    */
-  rawData: null,
+  reportData: null,
 
   /**
    * Indicates if the report is displayed in anonymous mode
@@ -186,7 +186,7 @@ export default Ember.Component.extend({
    *   - output: table cell content formatted for output (the formatting is done by
    *             the question property's render function)
    */
-  tableData: Ember.computed("anonymous", 'tableFrame', 'rawData', function () {
+  tableData: Ember.computed("anonymous", 'tableFrame', 'reportData.data', function () {
     const studentsIds = this.get('studentsIds');
     const studentsIdsLen = studentsIds.length;
     const questionsIds = this.get('assessmentQuestionsIds');
@@ -194,7 +194,7 @@ export default Ember.Component.extend({
     const questionProperties = this.get('questionProperties');
     const questionPropertiesIds = this.get('questionPropertiesIds');
     const questionPropertiesIdsLen = questionPropertiesIds.length;
-    const rawData = this.get('rawData');
+    const reportData = this.get('reportData.data');
 
     // Copy the table frame contents
     var data = this.get('tableFrame').slice(0);
@@ -219,7 +219,7 @@ export default Ember.Component.extend({
         }
         for (let k = 0; k < questionPropertiesIdsLen; k++) {
           let renderFunction = questionProperties[k].renderFunction;
-          let questionResult = rawData[studentsIds[i]][questionsIds[j]];
+          let questionResult = reportData[studentsIds[i]][questionsIds[j]];
           let value = questionResult[questionPropertiesIds[k]];
 
           data[i].content[j * questionPropertiesIdsLen + k] = {

@@ -614,3 +614,13 @@ input[type="checkbox"],
 // Text emphasis =====================================================================
 
 @include text-emphasis-variant('.text-danger', $pink-400);
+
+// Modal =====================================================================
+
+.modal-backdrop{
+  background-color: $dark-500;
+  &.in{
+    opacity: 0.93;
+  }
+}
+

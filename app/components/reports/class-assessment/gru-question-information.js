@@ -36,5 +36,10 @@ export default Ember.Component.extend({
   explanation: Ember.computed('question.explanation',function(){
     return this.get('question.explanation');
   }),
+  /**
+   * Indicates if the report is displayed in anonymous mode
+   * @property {boolean} anonymous
+   */
+  anonymous: null,
 
 });

@@ -79,6 +79,7 @@ export default {
     "search": "Search",
     "searchForTopic": "Search for a topic",
     "show-correct-answer":"Show Correct Answer",
+    "show-results":"Show Results",
     "signUp": "Sign Up",
     "standard":"Standard",
     "standards": "Standards",

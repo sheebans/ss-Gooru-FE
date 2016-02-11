@@ -8,12 +8,13 @@
 <div class="panel panel-default question">
     <div class="panel-body">
     <h3>{{t "common.question"}}</h3>
-      <span>{{question.text}}</span>
+      <span>{{{question.text}}}</span>
       {{#if question.hasMedia}}
           <img class="img-responsive" src="{{question.mediaUrl}}"/>
       {{/if}}
     </div>
 </div>
+{{#unless anonymous}}
 {{#if hints}}
 <div class="panel panel-primary hints">
     <div class="panel-heading">
@@ -36,3 +37,4 @@
     </div>
 </div>
 {{/if}}
+{{/unless}}
