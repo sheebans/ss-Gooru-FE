@@ -102,9 +102,8 @@ export default Ember.Component.extend({
     let status = 'not-started';
     let questionId;
     if (questionResult.get("started")) { //if it has been started
-      let skipped = questionResult.get("skipped");
       let correct = questionResult.get("correct");
-      status = skipped ? 'skipped' : (correct ? 'correct' : 'incorrect');
+      status = (correct ? 'correct' : 'incorrect'); //skipped is displayed as incorrect
       questionId = questionResult.get('questionId');
     }
     return Ember.Object.create({

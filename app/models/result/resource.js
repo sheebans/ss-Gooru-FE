@@ -22,6 +22,12 @@ export default Ember.Object.extend({
   /**
    * @property {Resource} resource
    */
-  resource: null
+  resource: null,
+
+  /**
+   * Indicates when the result was submitted
+   * @property {Date}
+   */
+  submittedAt: null
 
 });

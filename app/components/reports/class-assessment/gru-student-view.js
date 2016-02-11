@@ -31,26 +31,7 @@ export default Ember.Component.extend({
   students: null,
 
   /**
-   * @prop { Object{}{}{} } reportData - Representation of the data to show in the reports as a 3D matrix
-   * Any changes on the content feed will cause the report data to update
-   *
-   * @see gooru-web/components/reports/class-assessment/gru-class-assessment-report.js
-   *
-   * Sample structure
-   *
-   * The "questionId#" corresponds to the actual question id
-   *  {
-   *    user1 {
-   *      questionId1 : QuestionResult,
-   *      questionId2 : QuestionResult,
-   *      questionId3 : QuestionResult
-   *     },
-   *    user2 {
-   *      questionId1 : QuestionResult,
-   *      questionId2 : QuestionResult,
-   *      questionId3 : QuestionResult
-   *    }
-   *  }
+   * @prop { ReportData } reportData
    */
   reportData: null,
 
@@ -88,10 +69,10 @@ export default Ember.Component.extend({
    *
    * @return [] students performance info
    */
-  studentPerformanceList: Ember.computed("students.[]", "reportData.[]", function(){
+  studentPerformanceList: Ember.computed("students.[]", "reportData.data", function(){
     const component = this;
     const students = component.get("students");
-    const reportData = component.get("reportData");
+    const reportData = component.get("reportData.data");
     return students.map(function(student){
       let studentReportData = reportData[student.get("id")] || {};
       return Ember.Object.create({

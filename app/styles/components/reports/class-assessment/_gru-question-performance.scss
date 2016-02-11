@@ -1,0 +1,28 @@
+.reports.class-assessment.gru-question-performance {
+  .chart {
+    height: 25px;
+    width: 88%;
+    margin-bottom: 20px;
+
+    .gru-x-bar-chart {
+      background-color: $body-bg;
+    }
+
+    .ratio {
+      background-color: transparent;
+      padding-left: 1.3em;
+      text-align: center;
+    }
+  }
+  .answers-wrapper {
+    display: flex;
+    padding: 10px;
+    .answer {
+      width: 50%;
+    }
+    .students {
+      margin-left: 5px;
+      width: 50%;
+    }
+  }
+}

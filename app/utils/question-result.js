@@ -20,7 +20,7 @@ export function averageReaction(questionsResults) {
  * @param {QuestionResult[]} questionsResults
  * @prop {Number}
  */
-export function correctAnswers(questionsResults){
+export function correctAnswers(questionsResults) {
   let totals = stats(questionsResults);
   return totals.get("totalCorrect");
 }
@@ -30,7 +30,7 @@ export function correctAnswers(questionsResults){
  * @param {QuestionResult[]} questionsResults
  * @prop {Number}
  */
-export function correctPercentage(questionsResults){
+export function correctPercentage(questionsResults) {
   let totals = stats(questionsResults);
   return totals.get("correctPercentage");
 }
@@ -39,7 +39,7 @@ export function correctPercentage(questionsResults){
  * @param {QuestionResult[]} questionsResults
  * @prop {Number}
  */
-export function totalTimeSpent(questionsResults){
+export function totalTimeSpent(questionsResults) {
   let totals = stats(questionsResults);
   return totals.get("totalTimeSpent");
 }
@@ -71,7 +71,7 @@ export function stats(questionResults){
   });
 
   let notStarted = total - started;
-  let completed = correct + incorrect;
+  let completed = correct + incorrect; //incorrect should include skipped ones
 
   return Ember.Object.create({
     total: total,
@@ -89,6 +89,38 @@ export function stats(questionResults){
     totalTimeSpent: timeSpent
   });
 }
+
+/**
+ * Returns only completed results
+ * @param {QuestionResult[]} questionsResults
+ * @prop {QuestionResult[]}
+ */
+export function completedResults(questionsResults) {
+  return questionsResults.filter(function (questionResult) {
+      return questionResult.get("completed");
+    });
+}
+
+/**
+ * Returns only answered results
+ * @param {QuestionResult[]} questionsResults
+ * @prop {QuestionResult[]}
+ */
+export function answeredResults(questionsResults) {
+  return questionsResults.filter(function (questionResult) {
+      return questionResult.get("answered");
+    });
+}
+
+/**
+ * Sort results by submittedAt field, ascending
+ * @param {QuestionResult[]} questionsResults
+ * @prop {QuestionResult[]}
+ */
+export function sortResults(questionsResults) {
+  return questionsResults.sortBy("submittedAt");
+}
+
 
 
 
