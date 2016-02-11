@@ -37,6 +37,16 @@ export default Ember.Object.extend({
    */
   data: null,
 
+  /**
+   * @property {string[]} student ids
+   */
+  studentIds: null,
+
+  /**
+   * @property {string[]} resource ids
+   */
+  resourceIds: null,
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -49,10 +59,12 @@ export default Ember.Object.extend({
     var studentIds = students.map(function (student) {
       return student.get("id");
     });
+    this.set("studentIds", studentIds);
 
     var resourceIds = resources.map(function (resource) {
       return resource.get("id");
     });
+    this.set("resourceIds", resourceIds);
 
     this.set("data", this.getEmptyMatrix(studentIds, resourceIds));
 
@@ -113,7 +125,75 @@ export default Ember.Object.extend({
     this.set("data", reportData);
 
     return this;
-  }
+  },
+
+  /**
+   * Retrieves all student results by question
+   *
+   * @param {string} questionId
+   * @returns { QuestionResult[] }
+   */
+  getResultsByQuestion: function(questionId){
+    const reportData = this.get("data");
+    const students = this.get("studentIds");
+    let questionResults = Ember.A([]);
+    students.forEach(function(studentId){
+      const userQuestionResults = reportData[studentId];
+      if (userQuestionResults){
+        const questionResult = userQuestionResults[questionId];
+        if (questionResult){
+          questionResults.addObject(questionResult);
+        }
+        else{
+          Ember.Logger.warning("Missing question data " + studentId + " question " + questionId);
+        }
+      }
+      else{
+        Ember.Logger.warning("Missing student data " + studentId);
+      }
+    });
+    return questionResults;
+  },
+
+  /**
+   * Retrieves all results by student
+   *
+   * @param {string} studentId
+   * @returns { QuestionResult[] }
+   */
+  getResultsByStudent: function(studentId){
+    const reportData = this.get("data");
+    let questionResults = Ember.A([]);
+
+    const userQuestionResults = reportData[studentId];
+    if (userQuestionResults){
+      for (let key in userQuestionResults){
+        if (userQuestionResults.hasOwnProperty(key)){
+          questionResults.addObject(userQuestionResults[key]);
+        }
+      }
+    }
+    else{
+      Ember.Logger.warning("Missing student data " + studentId);
+    }
+    return questionResults;
+  },
+
+  /**
+   * Retrieves all student results
+   *
+   * @returns { QuestionResult[] }
+   */
+  getAllResults: function(){
+    const self = this;
+    const students = this.get("studentIds");
+    let questionResults = Ember.A([]);
+    students.forEach(function(studentId){
+      let studentResults = self.getResultsByStudent(studentId);
+      questionResults.addObjects(studentResults.toArray());
+    });
+    return questionResults;
+  },
 
 
 });

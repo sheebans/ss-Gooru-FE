@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import { averageReaction, answeredResults, correctAnswers, correctPercentage, totalTimeSpent, stats , completedResults, sortResults}
+import { averageReaction, answeredResults, correctAnswers, correctPercentage,
+  totalTimeSpent, stats , completedResults, sortResults, userAnswers}
   from 'gooru-web/utils/question-result';
 import QuestionResult from 'gooru-web/models/result/question';
 import { module, test } from 'qunit';
@@ -316,4 +317,44 @@ test('sortResults', function (assert) {
     new Date("October 13, 2014 11:40:00"),
     new Date("October 13, 2014 11:50:00")
   ], 'Wrong dates');
+
+
+});
+
+test('userAnswers', function (assert) {
+  const results = Ember.A([
+    QuestionResult.create({
+      correct: true,
+      timeSpent: 10, //seconds
+      reaction: 5,
+      userAnswer: 1,
+      submittedAt: new Date("October 13, 2014 11:40:00")
+    }),
+    QuestionResult.create({
+      correct: false,
+      timeSpent: 25, //seconds
+      reaction: 4,
+      userAnswer: 2,
+      submittedAt: new Date("October 13, 2014 11:20:00")
+    }),
+    QuestionResult.create({
+      correct: false,
+      timeSpent: 25, //seconds
+      reaction: 4,
+      userAnswer: 3,
+      submittedAt: new Date("October 13, 2014 11:10:00")
+    }),
+    QuestionResult.create({
+      correct: true, //skipped
+      timeSpent: 0, //seconds
+      reaction: 0,
+      userAnswer: null,  //skipped
+      submittedAt: new Date("October 13, 2014 11:50:00")
+    }),
+    QuestionResult.create(),
+    QuestionResult.create()
+  ]);
+  let answers = userAnswers(results);
+  assert.equal(answers.length, 3, "Wrong total answers, 3 provided");
+  assert.deepEqual(answers, [3,2,1], 'Wrong answers');
 });

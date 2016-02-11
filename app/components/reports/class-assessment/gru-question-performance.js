@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import { getQuestionUtil } from 'gooru-web/config/question';
-import { stats, answeredResults, sortResults } from 'gooru-web/utils/question-result';
+import { stats, userAnswers } from 'gooru-web/utils/question-result';
 import { GRADING_SCALE } from 'gooru-web/config/config';
 
 /**
@@ -46,56 +46,19 @@ export default Ember.Component.extend({
   anonymous: null,
 
   /**
-   * A convenient structure to display the selected question results
+   * Question results for this question, all students
    *
-   * Sample
-   *  [
-   *    {
-   *      student: {User},
-   *      questionResult: {QuestionResult}
-   *    },
-   *    {
-   *      student: {User},
-   *      questionResult: {QuestionResult}
-   *    },
-   *    ...
-   *  ]
-   *
-   * @property {Array}
+   * @property {QuestionResult[]}
    */
-  studentsResults: Ember.computed("question", "reportData.data", "students.[]", function(){
-    const reportData = this.get("reportData.data");
-    const students = this.get("students");
-    const questionId = this.get("question.id");
-    let questionResults = Ember.A([]);
-    students.forEach(function(student){
-      const userQuestionResults = reportData[student.get("id")];
-      if (userQuestionResults){ //adding student question result for the selected question if available
-        const questionResult = userQuestionResults[questionId];
-        if (questionResult){
-          questionResults.addObject(Ember.Object.create({
-            student: student,
-            questionResult: questionResult //at this point could be a QuestionResult or {} when not-started
-          }));
-        }
-      }
-    });
-    return questionResults;
-  }),
-
-  /**
-   * @property {QuestionResult[]} question results
-   */
-  questionResults: Ember.computed("studentsResults.[]", function(){
-    return this.get("studentsResults").map(function(studentResult){
-      return studentResult.get("questionResult");
-    });
+  questionResults: Ember.computed("question", "reportData.data", function(){
+    const reportData = this.get("reportData");
+    return reportData.getResultsByQuestion(this.get("question.id"));
   }),
 
   /**
    * Returns a convenient structure to display the x-bar-chart
    */
-  questionBarChartData: Ember.computed("studentsResults.[]", function(){
+  questionBarChartData: Ember.computed("questionResults.[]", function(){
     const questionResults = this.get("questionResults");
 
     const totals = stats(questionResults);
@@ -123,12 +86,12 @@ export default Ember.Component.extend({
    * Convenience structure to display the answers distribution
    * @property {*} answer distributions
    */
-  answersData: Ember.computed("studentsResults.[]", function(){
+  answersData: Ember.computed("questionResults.[]", function(){
     const component = this;
     const question = component.get("question");
     const questionUtil = getQuestionUtil(question.get("questionType")).create({ question: question });
 
-    const userAnswers = component.get("userAnswers");
+    const userAnswers = userAnswers(this.get("questionResults"));
     const distribution = questionUtil.distribution(userAnswers);
 
     const answersData = Ember.A([]);
@@ -143,20 +106,7 @@ export default Ember.Component.extend({
     });
 
     return answersData;
-  }),
-
-  /**
-   * Returns valid user answers
-   * @return {*} user answers
-   */
-  userAnswers: Ember.computed("questionResults.[]", function(){
-    let answered = answeredResults(this.get("questionResults"));
-    let sorted = sortResults(answered); //sort results by submitted at
-    return sorted.map(function(questionResult){
-      return questionResult.get("userAnswer");
-    });
   })
-
   // -------------------------------------------------------------------------
   // Methods
 

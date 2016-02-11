@@ -121,6 +121,19 @@ export function sortResults(questionsResults) {
   return questionsResults.sortBy("submittedAt");
 }
 
+/**
+ * Returns valid user answers
+ * @param {QuestionResult[]} questionResults
+ * @return {*} user answers
+ */
+export function userAnswers(questionResults){
+  let answered = answeredResults(questionResults);
+  let sorted = sortResults(answered); //sort results by submitted at
+  return sorted.map(function(questionResult){
+    return questionResult.get("userAnswer");
+  });
+}
+
 
 
 
