@@ -11,10 +11,15 @@
       margin-top: 5px;
     }
     .gru-bubbles {
+      display: inline-block;
       .bubble.selected {
         background-color: $gray-light;
         color: $white;
       }
+    }
+    .btn-results{
+      float: right;
+      margin-top: 10px;
     }
   }
   .body{
