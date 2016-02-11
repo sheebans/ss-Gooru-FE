@@ -73,6 +73,7 @@
       .search-navbar-form{
         -webkit-flex-basis: 40%;
         flex-basis: 40%;
+        min-width:40%;
         form div.form-group{
           -webkit-flex-direction: row;
           flex-direction: row;
@@ -91,6 +92,12 @@
           @media (min-width: $screen-md) {
             height: 64px;
           }
+          span{
+            height:24px;
+            min-width:24px;
+            i{color:black;}
+          }
+
           input {
             box-shadow:none;
             border:none;
@@ -101,6 +108,7 @@
       .navbar-collapse {
         -webkit-flex-basis: 40%;
         flex-basis: 40%;
+        padding:0;
       }
 
       .menu-navbar {
@@ -133,6 +141,7 @@
             &.dropdown-toggle{
               background-color: transparent;
               box-shadow: none;
+              padding: 0;
             }
             i{
               color:$dark-500;
