@@ -88,20 +88,22 @@ export default Ember.Component.extend({
    */
   answersData: Ember.computed("questionResults.[]", function(){
     const component = this;
+    const reportData = component.get("reportData");
     const question = component.get("question");
     const questionUtil = getQuestionUtil(question.get("questionType")).create({ question: question });
 
-    const userAnswers = userAnswers(this.get("questionResults"));
-    const distribution = questionUtil.distribution(userAnswers);
+    const answers = userAnswers(this.get("questionResults"));
+    const distribution = questionUtil.distribution(answers);
 
     const answersData = Ember.A([]);
     distribution.forEach(function(answerDistribution){
       let userAnswer = answerDistribution.get("answer");
+      let students = reportData.getStudentsByQuestionAndUserAnswer(question, userAnswer);
       answersData.addObject(Ember.Object.create({
         correct: questionUtil.isCorrect(userAnswer),
         userAnswer: userAnswer,
         percentage: answerDistribution ? answerDistribution.get("percentage") : 0,
-        students: Ember.A([])
+        students: students
       }));
     });
 

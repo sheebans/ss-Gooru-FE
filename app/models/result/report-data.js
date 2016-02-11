@@ -1,5 +1,6 @@
 import Ember from "ember";
 import QuestionResult from 'gooru-web/models/result/question';
+import { getQuestionUtil } from 'gooru-web/config/question';
 
 /**
  * Report data model for class assessment report
@@ -38,12 +39,12 @@ export default Ember.Object.extend({
   data: null,
 
   /**
-   * @property {string[]} student ids
+   * @property {User[]} student
    */
-  studentIds: null,
+  students: null,
 
   /**
-   * @property {string[]} resource ids
+   * @property {Resource[]} resource
    */
   resourceIds: null,
 
@@ -59,12 +60,12 @@ export default Ember.Object.extend({
     var studentIds = students.map(function (student) {
       return student.get("id");
     });
-    this.set("studentIds", studentIds);
+    this.set("students", students);
 
     var resourceIds = resources.map(function (resource) {
       return resource.get("id");
     });
-    this.set("resourceIds", resourceIds);
+    this.set("resources", resources);
 
     this.set("data", this.getEmptyMatrix(studentIds, resourceIds));
 
@@ -135,9 +136,10 @@ export default Ember.Object.extend({
    */
   getResultsByQuestion: function(questionId){
     const reportData = this.get("data");
-    const students = this.get("studentIds");
+    const students = this.get("students");
     let questionResults = Ember.A([]);
-    students.forEach(function(studentId){
+    students.forEach(function(student){
+      const studentId = student.get("id");
       const userQuestionResults = reportData[studentId];
       if (userQuestionResults){
         const questionResult = userQuestionResults[questionId];
@@ -186,14 +188,49 @@ export default Ember.Object.extend({
    */
   getAllResults: function(){
     const self = this;
-    const students = this.get("studentIds");
     let questionResults = Ember.A([]);
-    students.forEach(function(studentId){
+    const students = this.get("students");
+    students.forEach(function(student){
+      const studentId = student.get("id");
       let studentResults = self.getResultsByStudent(studentId);
       questionResults.addObjects(studentResults.toArray());
     });
     return questionResults;
   },
+
+  /**
+   * Return all the student who submitted the answer
+   * @param {Resource} question
+   * @param {*} answer user answer
+   * @returns {User[]}
+   */
+  getStudentsByQuestionAndUserAnswer: function(question, answer){
+    const reportData = this.get("data");
+    const students = this.get("students");
+    const questionId = question.get("id");
+    const util = getQuestionUtil(question.get("questionType")).create({ question: question });
+    const answerKey = util.answerKey(answer);
+    let found = Ember.A([]);
+
+    students.forEach(function(student){
+      const studentId = student.get("id");
+      const userQuestionResults = reportData[studentId];
+      if (userQuestionResults){
+        const questionResult = userQuestionResults[questionId];
+        const answered = questionResult && questionResult.get("answered");
+        if (answered){
+          const sameAnswer = util.sameAnswer(answerKey, questionResult.get("userAnswer"));
+          if (sameAnswer) {
+            found.addObject(student);
+          }
+        }
+      }
+      else{
+        Ember.Logger.warning("Missing student data " + studentId);
+      }
+    });
+    return found;
+  }
 
 
 });

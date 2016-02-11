@@ -15,14 +15,19 @@
     }
   }
   .answers-wrapper {
-    display: flex;
     padding: 10px;
     .answer {
-      width: 50%;
+      width: 100%;
     }
     .students {
-      margin-left: 5px;
-      width: 50%;
+      width: 100%;
+      .label{
+        background-color: $dark-500;
+        padding: 3px;
+        margin-left: 5px;
+        margin-bottom: 5px;
+        font-size: $font-size-base;
+      }
     }
   }
 }
