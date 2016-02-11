@@ -44,6 +44,27 @@ export default Ember.Component.extend({
    * @property {boolean} anonymous
    */
   anonymous: null,
+  /**
+   * Indicates when the report is display in anonymous mode if show all performance results
+   * @property {boolean} showResult
+   */
+  showResult: null,
+
+/**
+ * Indicates if is anonymous and show the performance Results
+ * @property {boolean} anonymousAndShowResult
+ */
+  anonymousAndShowResult : Ember.computed('anonymous','showResult',function(){
+    return this.get('anonymous')&&this.get('showResult')=== true ? true: false ;
+  }),
+
+  /**
+   * Indicates if is anonymous and show the performance Results
+   * @property {boolean} anonymousAndShowResult
+   */
+  anonymousAndHideResult : Ember.computed('anonymous','showResult',function(){
+    return this.get('anonymous')===true&& this.get('showResult')=== false ? true: false ;
+  }),
 
   /**
    * A convenient structure to display the selected question results
@@ -132,13 +153,20 @@ export default Ember.Component.extend({
     const distribution = questionUtil.distribution(userAnswers);
 
     const answersData = Ember.A([]);
+    const correctColor = GRADING_SCALE[GRADING_SCALE.length - 1].COLOR;
+    const failColor = GRADING_SCALE[0].COLOR;
+
     distribution.forEach(function(answerDistribution){
       let userAnswer = answerDistribution.get("answer");
       answersData.addObject(Ember.Object.create({
         correct: questionUtil.isCorrect(userAnswer),
         userAnswer: userAnswer,
         percentage: answerDistribution ? answerDistribution.get("percentage") : 0,
-        students: Ember.A([])
+        students: Ember.A([]),
+        charData: Ember.A([Ember.Object.create({
+          color: questionUtil.isCorrect(userAnswer) ? correctColor :failColor,
+          percentage:answerDistribution ? answerDistribution.get("percentage") : 0,
+        })])
       }));
     });
 

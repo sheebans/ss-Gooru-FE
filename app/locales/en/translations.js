@@ -31,6 +31,7 @@ export default {
     "explanation": "Explanation",
     "forgotPassword": "Forgot Password",
     "hints": "Hints",
+    "hide-results":"Hide Results",
     "if_questions": "If you have any questions,",
     "learning-target":"Learning Target",
     "learning-target-mobile":"Learning Target in Standard",

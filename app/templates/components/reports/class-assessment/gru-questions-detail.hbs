@@ -6,8 +6,12 @@
 <div class="navigation">
   {{gru-bubbles bubbleOptions=questionsNavOptions onBubbleSelect='bubbleSelect'}}
   {{#if anonymous}}
-    <button class="btn-results btn btn-default">
-      {{t "common.show-results"}}
+    <button class="btn-results btn btn-default" {{action 'showResult'}}>
+        {{#if showResult}}
+          {{t "common.hide-results"}}
+          {{else}}
+          {{t "common.show-results"}}
+        {{/if}}
     </button>
   {{/if}}
 </div>
@@ -20,6 +24,7 @@
           question=selectedQuestion
           reportData=reportData
           anonymous=anonymous
-          students=students}}
+          students=students
+          showResult=showResult}}
     </div>
 </div>
