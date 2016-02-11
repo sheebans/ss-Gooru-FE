@@ -1,31 +1,31 @@
 {{#unless anonymous}}
-<div class="chart">
-  {{charts/gru-x-bar-chart data=questionBarChartData.data}}
-    <span class="ratio">
+    <div class="chart">
+      {{charts/gru-x-bar-chart data=questionBarChartData.data}}
+        <span class="ratio">
       <em>{{questionBarChartData.completed}}</em>/<em>{{questionBarChartData.total}}</em>
     </span>
-</div>
+    </div>
 {{/unless}}
 {{#each answersData as |answerData|}}
     <div class="panel {{if answerData.correct 'panel-success' 'panel-danger'}}">
         <div class="panel-heading text-right">
-            {{#unless anonymous}}
-              {{answerData.percentage}}%
-            {{/unless}}
+          {{#unless anonymous}}
+              <span class="percentage">{{answerData.percentage}}%</span>
+          {{/unless}}
         </div>
         <div class="panel-body">
-                <div class="answers-wrapper">
-                    <div class="answer">
-                      {{{component (questionConfig question.questionType 'component.answer')
-                      question=question
-                      userAnswer=answerData.userAnswer}}}
-                    </div>
-                  {{#unless anonymous}}
-                    <div class="students">
-                        Students
-                    </div>
-                  {{/unless}}
+            <div class="answers-wrapper">
+                <div class="answer">
+                  {{{component (questionConfig question.questionType 'component.answer')
+                  question=question
+                  userAnswer=answerData.userAnswer}}}
                 </div>
+              {{#unless anonymous}}
+                  <div class="students">
+                      Students
+                  </div>
+              {{/unless}}
+            </div>
         </div>
     </div>
 {{/each}}
