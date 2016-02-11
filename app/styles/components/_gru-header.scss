@@ -30,8 +30,11 @@
         height: 64px;
       }
       .navbar-header {
-        -webkit-flex-basis: 20%;
-        flex-basis: 20%;
+        -webkit-flex-basis: 111px;
+        flex-basis: 111px;
+        min-width:111px;
+        -webkit-flex-grow: 1;
+        flex-grow: 1;
         -webkit-align-self: flex-start;
         align-self: flex-start;
         -webkit-flex-direction: row;
@@ -49,19 +52,21 @@
         height: 55px;
         @media (min-width: $screen-md) {
           height: 64px;
+          -webkit-flex-basis: 111px;
+          flex-basis: 111px;
+          min-width:111px;
         }
         .navbar-brand {
           background: url("gooru/images/gooru-logo.svg");
-          -webkit-background-size: 90px 30px;
-          background-size: 90px 30px;
-          width: 90px;
-          height: 28px;
+          -webkit-transform: scale(.80,.80);
+          transform: scale(.80,.80);
+          width: 111px;
+          height: 32px;
           padding:0;
           @media (min-width: $screen-sm) {
-            -webkit-background-size: auto;
-            background-size: auto;
-            width:111px;
-            height:32px;
+            -ms-transform: scale(1,1);
+            -webkit-transform: scale(1,1);
+            transform: scale(1,1);
           }
         }
       }

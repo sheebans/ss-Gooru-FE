@@ -1,4 +1,5 @@
 .gru-class-navigation {
+  .class-details .members i{margin-right:7px;}
   .class-info {
     color: $white;
     padding: 0 32px;
@@ -103,15 +104,6 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-      }
-      .active-dates {
-        font-size: $font-size-small;
-        width: 85%;
-      }
-      .members {
-        width: 15%;
-        float: right;
-        text-align: right;
       }
       .greetings {
         -webkit-flex-direction: row;
