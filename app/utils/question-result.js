@@ -71,7 +71,7 @@ export function stats(questionResults){
   });
 
   let notStarted = total - started;
-  let completed = correct + incorrect;
+  let completed = correct + incorrect; //incorrect should include skipped ones
 
   return Ember.Object.create({
     total: total,
@@ -96,9 +96,19 @@ export function stats(questionResults){
  * @prop {QuestionResult[]}
  */
 export function completedResults(questionsResults) {
-  return questionsResults
-    .filter(function (questionResult) {
-      return !questionResult.get("skipped") && !questionResult.get("notStarted");
+  return questionsResults.filter(function (questionResult) {
+      return questionResult.get("completed");
+    });
+}
+
+/**
+ * Returns only answered results
+ * @param {QuestionResult[]} questionsResults
+ * @prop {QuestionResult[]}
+ */
+export function answeredResults(questionsResults) {
+  return questionsResults.filter(function (questionResult) {
+      return questionResult.get("answered");
     });
 }
 

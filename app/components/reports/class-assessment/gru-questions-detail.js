@@ -48,26 +48,8 @@ export default Ember.Component.extend({
   assessment: Ember.computed.alias("model.assessment"),
 
   /**
-   * @prop { Object{}{}{} } reportData - Representation of the data to show in the reports as a 3D matrix
+   * @prop { ReportData } reportData - Representation of the data to show in the reports as a 3D matrix
    * Any changes on the content feed will cause the report data to update
-   *
-   * @see gooru-web/components/reports/class-assessment/gru-class-assessment-report.js
-   *
-   * Sample structure
-   *
-   * The "questionId#" corresponds to the actual question id
-   *  {
-   *    user1 {
-   *      questionId1 : QuestionResult,
-   *      questionId2 : QuestionResult,
-   *      questionId3 : QuestionResult
-   *     },
-   *    user2 {
-   *      questionId1 : QuestionResult,
-   *      questionId2 : QuestionResult,
-   *      questionId3 : QuestionResult
-   *    }
-   *  }
    */
   reportData: Ember.computed.alias("model.reportData"),
 

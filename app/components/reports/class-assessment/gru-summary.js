@@ -54,10 +54,10 @@ export default Ember.Component.extend({
    * - correct: number of questions that the student has answered correctly
    * - incorrect: number of questions that the student has answered incorrectly
    */
-  answersData: Ember.computed('rawData', function () {
+  answersData: Ember.computed('reportData.data', function () {
     const studentsIds = this.get('studentsIds');
     const questionsIds = this.get('assessmentQuestionsIds');
-    const rawData = this.get('rawData');
+    const reportData = this.get('reportData.data');
 
     var answers = [];
 
@@ -69,8 +69,8 @@ export default Ember.Component.extend({
       answers.push(answerCounter);
 
       questionsIds.forEach(function (question) {
-        answerCounter.correct += rawData[student][question].get("correct") ? 1 : 0;
-        answerCounter.incorrect += rawData[student][question].get("incorrect") ? 1 : 0;
+        answerCounter.correct += reportData[student][question].get("correct") ? 1 : 0;
+        answerCounter.incorrect += reportData[student][question].get("incorrect") ? 1 : 0;
         //TODO: it would be useful to move this to question-result util
       });
     });
@@ -175,11 +175,11 @@ export default Ember.Component.extend({
    * - incorrect: number of students that did not answer the question correctly
    * - total: total number of students
    */
-  questionsData: Ember.computed('rawData', function () {
+  questionsData: Ember.computed('reportData.data', function () {
     const studentsIds = this.get('studentsIds');
     const totalStudents = studentsIds.length;
     const questionsIds = this.get('assessmentQuestionsIds');
-    const rawData = this.get('rawData');
+    const reportData = this.get('reportData.data');
 
     var questions = [];
 
@@ -193,8 +193,8 @@ export default Ember.Component.extend({
       questions.push(questionCounter);
 
       studentsIds.forEach(function (student) {
-        questionCounter.correct += rawData[student][question].get("correct") ? 1 : 0;
-        questionCounter.incorrect += rawData[student][question].get("incorrect") ? 1 : 0;
+        questionCounter.correct += reportData[student][question].get("correct") ? 1 : 0;
+        questionCounter.incorrect += reportData[student][question].get("incorrect") ? 1 : 0;
         //TODO: it would be useful to move this to question-result util
       });
     });
@@ -265,8 +265,8 @@ export default Ember.Component.extend({
   }),
 
   /**
-   * @prop { Object{}{}{} } rawData - Unordered 3D matrix of student data with regards to the questions
+   * @prop { ReportData } reportData - Unordered 3D matrix of student data with regards to the questions
    */
-  rawData: null
+  reportData: null
 
 });

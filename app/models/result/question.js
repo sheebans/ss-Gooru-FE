@@ -43,26 +43,40 @@ export default ResourceResult.extend({
    * @property {boolean}
    */
   skipped: Ember.computed("correct", "userAnswer", function () {
-    return (this.get("correct") === false) && !this.get("userAnswer");
+    return (this.get("correct") === false) && !this.get("answered");
   }),
 
   /**
    * Indicates if the question is incorrect, a result is incorrect
    * if it has answer and correct === false
+   * Important! Skipped results are treated as incorrect as well
    * @property {boolean}
    */
-  incorrect: Ember.computed("correct", "userAnswer", function(){
-    return (this.get("correct") === false) && this.get("userAnswer");
+  incorrect: Ember.computed("correct", function(){
+    return (this.get("correct") === false);
   }),
 
   /**
    * A result is started when it has any value at the correct property
-   *
-   * A skipped result is a result with timestamp and user answer
-   *
+   * Not started results are only used by real time and they has not correct value
    * @property {boolean} indicates when it has been started
    */
-  started: Ember.computed.and('timestamp', 'userAnswer')
+  started: Ember.computed('correct', function(){
+    return this.get("correct") !== null;
+  }),
+
+  /**
+   * Indicates if it is completed
+   * All started question are treated as completed
+   * @return {boolean}
+   */
+  completed: Ember.computed.bool("started"),
+
+  /**
+   * Indicates if it is answered
+   * @return {boolean}
+   */
+  answered: Ember.computed.bool("userAnswer")
 
 
 });

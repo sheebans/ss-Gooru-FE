@@ -9,9 +9,9 @@ import Ember from "ember";
 export default Ember.Object.extend({
 
   /**
-   * @property {QuestionResult[]} questionsResults
+   * @property {QuestionResult[]} questionResults
    */
-  questionsResults: [],
+  questionResults: [],
 
   /**
    * @property {string} user

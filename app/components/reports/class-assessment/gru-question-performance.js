@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import { getQuestionUtil } from 'gooru-web/config/question';
-import { stats, completedResults, sortResults } from 'gooru-web/utils/question-result';
+import { stats, answeredResults, sortResults } from 'gooru-web/utils/question-result';
 import { GRADING_SCALE } from 'gooru-web/config/config';
 
 /**
@@ -29,26 +29,8 @@ export default Ember.Component.extend({
   students: null,
 
   /**
-   * @prop { Object{}{}{} } reportData - Representation of the data to show in the reports as a 3D matrix
+   * @prop { ReportData } reportData - Representation of the data to show in the reports as a 3D matrix
    * Any changes on the content feed will cause the report data to update
-   *
-   * @see gooru-web/components/reports/class-assessment/gru-class-assessment-report.js
-   *
-   * Sample structure
-   *
-   * The "questionId#" corresponds to the actual question id
-   *  {
-   *    user1 {
-   *      questionId1 : QuestionResult,
-   *      questionId2 : QuestionResult,
-   *      questionId3 : QuestionResult
-   *     },
-   *    user2 {
-   *      questionId1 : QuestionResult,
-   *      questionId2 : QuestionResult,
-   *      questionId3 : QuestionResult
-   *    }
-   *  }
    */
   reportData: null,
 
@@ -81,8 +63,8 @@ export default Ember.Component.extend({
    *
    * @property {Array}
    */
-  studentsResults: Ember.computed("question", "reportData", "students.[]", function(){
-    const reportData = this.get("reportData");
+  studentsResults: Ember.computed("question", "reportData.data", "students.[]", function(){
+    const reportData = this.get("reportData.data");
     const students = this.get("students");
     const questionId = this.get("question.id");
     let questionResults = Ember.A([]);
@@ -168,8 +150,8 @@ export default Ember.Component.extend({
    * @return {*} user answers
    */
   userAnswers: Ember.computed("questionResults.[]", function(){
-    let completed = completedResults(this.get("questionResults"));
-    let sorted = sortResults(completed);
+    let answered = answeredResults(this.get("questionResults"));
+    let sorted = sortResults(answered); //sort results by submitted at
     return sorted.map(function(questionResult){
       return questionResult.get("userAnswer");
     });
