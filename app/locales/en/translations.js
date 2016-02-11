@@ -78,7 +78,7 @@ export default {
     "remaining": "{{number}} Left",
     "score":"Score",
     "search": "Search",
-    "searchForTopic": "Search for a topic",
+    "search-placeholder": "Search...",
     "show-correct-answer":"Show Correct Answer",
     "show-results":"Show Results",
     "signUp": "Sign Up",
