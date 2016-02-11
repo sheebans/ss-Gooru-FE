@@ -155,7 +155,7 @@ test('Layout', function(assert) {
 
 test('Layout Anonymous', function(assert) {
   const selectedQuestion = Ember.Object.create({ //Multiple Choice
-    "id": "569906aa20b7dfae1bcd5262",
+    "id": "56a120483b6e7b090501d3e7",
     questionType: 'MC',
     text: 'Sample Question MC',
     answers:  Ember.A([
@@ -187,7 +187,7 @@ test('Layout Anonymous', function(assert) {
     resources: [
       selectedQuestion,
       Ember.Object.create({ //Multiple Choice
-        "id": "569906aa20b7dfae1bcd5262",
+        "id": "56a1204886b2e565e1b2c230",
         questionType: 'MC',
         text: 'Sample Question MC',
         answers:  Ember.A([
@@ -215,7 +215,7 @@ test('Layout Anonymous', function(assert) {
         "hasNarration": true
       }),
       Ember.Object.create({ //true false
-        "id": "569906aa3ec3bb39969acbe6",
+        "id": "56a12048ddee2022a741356a",
         questionType: 'T/F',
         text: 'True False Question',
         hints: [],
@@ -238,53 +238,48 @@ test('Layout Anonymous', function(assert) {
     Ember.Object.create({"id": "56983a906596902edadedc7c"})
   ]);
 
-  var reportData = { //all questions not started
-    "56983a9060a68052c1ed934c": {
-      "56a120483b6e7b090501d3e7": QuestionResult.create(),
-      "56a1204886b2e565e1b2c230": QuestionResult.create(),
-      "56a12048ddee2022a741356a": QuestionResult.create()
-    },
-    "56983a90fb01fecc328e2388": {
-      "56a120483b6e7b090501d3e7": QuestionResult.create(),
-      "56a1204886b2e565e1b2c230": QuestionResult.create(),
-      "56a12048ddee2022a741356a": QuestionResult.create()
-    },
-    "56983a906596902edadedc7c": {
-      "56a120483b6e7b090501d3e7": QuestionResult.create(),
-      "56a1204886b2e565e1b2c230": QuestionResult.create(),
-      "56a12048ddee2022a741356a": QuestionResult.create()
-    }
-  };
+  var reportData = ReportData.create().initReportData(students, assessment.get("resources"));
+  reportData.merge([
+    UserQuestionsResult.create({
+      user: "56983a9060a68052c1ed934c",
+      questionResult: Ember.A([
+        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7"}),
+        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230"}),
+        QuestionResult.create({questionId: "56a12048ddee2022a741356a"})
+      ])
+    }),
+    UserQuestionsResult.create({
+      user: "56983a90fb01fecc328e2388",
+      questionResult: Ember.A([
+        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7"}),
+        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230"}),
+        QuestionResult.create({questionId: "56a12048ddee2022a741356a"})
+      ])
+    }),
+    UserQuestionsResult.create({
+      user: "56983a906596902edadedc7c",
+      questionResult: Ember.A([
+        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7"}),
+        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230"}),
+        QuestionResult.create({questionId: "56a12048ddee2022a741356a"})
+      ])
+    })
+  ]);
+
   var model =Ember.Object.create({
-    selectedQuestion,
-    assessment,
-    students,
-    reportData
+    selectedQuestion: selectedQuestion,
+    assessment: assessment,
+    students: students,
+    reportData: reportData,
+    anonymous: true
   });
 
-  var anonymous =true;
-
   this.set("model", model);
-  this.set("anonymous", anonymous);
 
-
-  this.render(hbs`{{reports/class-assessment/gru-questions-detail model=model anonymous=anonymous}}`);
+  this.render(hbs`{{reports/class-assessment/gru-questions-detail model=model}}`);
 
   const $component = this.$();
-  const $header = $component.find(".modal-header");
-  T.exists(assert, $header, "Missing header");
-  T.exists(assert, $header.find(".close"), "Missing close button");
-
   const $navigation = $component.find(".navigation");
-  T.exists(assert, $navigation, "Missing navigation");
-  T.exists(assert, $navigation.find(".gru-bubbles"), "Missing navigation bubbles");
-  assert.equal($navigation.find(".gru-bubbles .bubble").length, 3, "Wrong number of questions");
-
-  T.exists(assert, $navigation.find(".selected-question"), "Missing navigation bubbles");
-  assert.ok($navigation.find(".gru-bubbles .bubble:eq(0)").hasClass("selected"), "First question should be selected");
   T.exists(assert, $navigation.find(".btn-results"), "Missing Show Results Button");
-
-  T.exists(assert, $component.find(".body .question-info"), "Missing question information panel");
-  T.exists(assert, $component.find(".body .question-metrics"), "Missing question metrics panel");
 });
 
