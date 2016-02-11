@@ -1,4 +1,4 @@
-{{#unless anonymous}}
+{{#unless anonymousAndHideResult}}
     <div class="chart">
       {{charts/gru-x-bar-chart data=questionBarChartData.data}}
         <span class="ratio">
@@ -25,6 +25,14 @@
                       Students
                   </div>
               {{/unless}}
+              <div class="answer-percentage">
+                {{#if anonymousAndShowResult}}
+                  {{answerData.percentage}}%
+                    <div class="answer-chart">
+                      {{charts/gru-x-bar-chart data=answerData.charData}}
+                    </div>
+                {{/if}}
+              </div>
             </div>
         </div>
     </div>
