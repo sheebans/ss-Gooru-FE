@@ -54,9 +54,8 @@ export default Ember.Component.extend({
  * Indicates if is anonymous and show the performance Results
  * @property {boolean} anonymousAndShowResult
  */
-  anonymousAndShowResult : Ember.computed('anonymous','showResult',function(){
-    return this.get('anonymous')&&this.get('showResult')=== true ? true: false ;
-  }),
+
+  anonymousAndShowResult : Ember.computed.and('anonymous','showResult'),
 
   /**
    * Indicates if is anonymous and show the performance Results

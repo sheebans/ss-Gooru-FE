@@ -27,6 +27,9 @@ export default Ember.Component.extend({
     bubbleSelect: function(bubbleOption){
       this.set("selectedQuestion", bubbleOption.get("value"));
     },
+    /**
+     * Show performance results
+     */
     showResult:function(){
       if(this.get("anonymous")){
         this.set("showResult",!this.get("showResult"));
