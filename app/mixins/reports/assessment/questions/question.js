@@ -25,6 +25,11 @@ export default Ember.Mixin.create({
    */
   showCorrect: null,
 
+  /**
+   * @property {boolean} indicates if it is in anonymous mode
+   */
+  anonymous: null,
+
   // -------------------------------------------------------------------------
   // Methods
   /**

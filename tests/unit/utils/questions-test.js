@@ -67,6 +67,12 @@ test('Multiple Choice - answerKey', function (assert) {
   assert.equal(key, 1, "Wrong key");
 });
 
+test('Multiple Choice - sameAnswer', function (assert) {
+  let questionUtil = MultipleChoiceUtil.create({question: null});
+  assert.ok(questionUtil.sameAnswer(1, 1), "Answer should be the same");
+  assert.ok(!questionUtil.sameAnswer(1, 2), "Answer should not be the same");
+});
+
 // --------------- Multiple Answer tests
 test('Multiple Answer - getCorrectAnswer empty array', function (assert) {
   let question = Ember.Object.create({answers: Ember.A([])});
@@ -140,6 +146,18 @@ test('Multiple Answer - answerKey', function (assert) {
   assert.equal(key, "1_false,2_true,3_true", "Wrong key for answerB");
 });
 
+test('Multiple Answer - sameAnswer', function (assert) {
+  let questionUtil = MultipleAnswerUtil.create({ question: null });
+
+  let answerA = [{id: 1, selection: false}, {id: 2, selection: true}, {id: 3, selection: true}];
+  let answerB = [{id: 1, selection: false}, {id: 3, selection: true}, {id: 2, selection: true}]; //same as 1, different order
+  let answerC = [{id: 1, selection: false}, {id: 3, selection: false}, {id: 2, selection: false}];
+
+  assert.ok(questionUtil.sameAnswer(answerA, answerB), "They should be the same even the order is different");
+  assert.ok(!questionUtil.sameAnswer(answerB, answerC), "They should not be the same");
+
+});
+
 test('Multiple Answer - distribution', function (assert) {
   let questionUtil = MultipleAnswerUtil.create({ question: null });
 
@@ -201,6 +219,12 @@ test('True/False - answerKey', function (assert) {
 
   let key = questionUtil.answerKey(1);
   assert.equal(key, 1, "Wrong key");
+});
+
+test('True/False - sameAnswer', function (assert) {
+  let questionUtil = TrueFalseUtil.create({question: null});
+  assert.ok(questionUtil.sameAnswer(1, 1), "Answers should be the same");
+  assert.ok(!questionUtil.sameAnswer(1, 2), "Answers should not be the same");
 });
 
 
@@ -293,6 +317,17 @@ test('FIB - answerKey', function (assert) {
 
   let key = questionUtil.answerKey(['black', 'white', 'blue']);
   assert.equal(key, "black,white,blue", "Wrong key");
+});
+
+test('FIB - sameAnswer', function (assert) {
+  let questionUtil = FillInTheBlankUtil.create({question: null});
+
+  let answerA = ['black', 'white', 'blue'];
+  let answerB = ['black', 'white', 'blue'];
+  let answerC = ['white', 'black', 'blue']; //different order
+
+  assert.ok(questionUtil.sameAnswer(answerA, answerB), "Answer should be the same");
+  assert.ok(!questionUtil.sameAnswer(answerA, answerC), "Answer should not be the same, they have different order");
 });
 
 // --------------- Reorder tests
@@ -389,6 +424,18 @@ test('Reorder - answerKey', function (assert) {
   assert.equal(key, "choice-1,choice-2,choice-3", "Wrong key");
 });
 
+test('Reorder - sameAnswer', function (assert) {
+  let questionUtil = ReorderUtil.create({question: null});
+
+  let answerA = ['choice-1', 'choice-2', 'choice-3'];
+  let answerB = ['choice-1', 'choice-2', 'choice-3'];
+  let answerC = ['choice-1', 'choice-3', 'choice-1']; //different order
+
+  assert.ok(questionUtil.sameAnswer(answerA, answerB), "Answer should be the same");
+  assert.ok(!questionUtil.sameAnswer(answerA, answerC), "Answer should not be the same, they have different order");
+
+});
+
 
 // --------------- Hot Spot Image tests
 test('Hot Spot Image - getCorrectAnswer empty array', function (assert) {
@@ -476,6 +523,20 @@ test('Hot Spot Image - answerKey', function (assert) {
 
   let key = questionUtil.answerKey([3,1,5,2]);
   assert.equal(key, '1,2,3,5', "Wrong key");
+});
+
+test('Hot Spot Image - sameAnswer', function (assert) {
+  let questionUtil = HotSpotImageUtil.create({question: null});
+
+  let answerA = [3,1,5,2];
+  let answerB = [3,2,5,1]; //same as 1, different order
+  let answerC = [3,1,5]; //less options
+  let answerD = [3,1,5,4]; //different option, 4
+
+  assert.ok(questionUtil.sameAnswer(answerA, answerB), "Answer should be the same even they have different order");
+  assert.ok(!questionUtil.sameAnswer(answerA, answerC), "Answer should not be the same, it has less options");
+  assert.ok(!questionUtil.sameAnswer(answerA, answerD), "Answer should not be the same, it has a different option");
+
 });
 
 // --------------- Hot Spot Text tests
@@ -566,6 +627,21 @@ test('Hot Spot Text - answerKey', function (assert) {
   assert.equal(key, '1,2,3,5', "Wrong key");
 });
 
+test('Hot Spot Text - sameAnswer', function (assert) {
+  let questionUtil = HotSpotImageUtil.create({question: null});
+
+  let answerA = [3,1,5,2];
+  let answerB = [3,2,5,1]; //same as 1, different order
+  let answerC = [3,1,5]; //less options
+  let answerD = [3,1,5,4]; //different option, 4
+
+  assert.ok(questionUtil.sameAnswer(answerA, answerB), "Answer should be the same even they have different order");
+  assert.ok(!questionUtil.sameAnswer(answerA, answerC), "Answer should not be the same, it has less options");
+  assert.ok(!questionUtil.sameAnswer(answerA, answerD), "Answer should not be the same, it has a different option");
+
+});
+
+
 // --------------- Hot Text Highlight tests
 test('Hot Text Highlight - getCorrectAnswer empty array', function (assert) {
   let question = Ember.Object.create({
@@ -654,6 +730,20 @@ test('Hot Text Highlight - answerKey', function (assert) {
 
   let key = questionUtil.answerKey(["hello", "good bye", "see you later"]);
   assert.equal(key, 'good bye,hello,see you later', "Wrong key");
+});
+
+test('Hot Text Highlight - sameAnswer', function (assert) {
+  let questionUtil = HotTextHighlightUtil.create({question: null});
+
+  let answerA = ["hello", "good bye", "see you later"];
+  let answerB = ["hello", "see you later", "good bye"]; //same as 1, different order
+  let answerC = ["hello", "good bye"]; //less options
+  let answerD = ["hello", "good bye", "see you"]; //different option, see you
+
+  assert.ok(questionUtil.sameAnswer(answerA, answerB), "Answer should be the same even they have different order");
+  assert.ok(!questionUtil.sameAnswer(answerA, answerC), "Answer should not be the same, it has less options");
+  assert.ok(!questionUtil.sameAnswer(answerA, answerD), "Answer should not be the same, it has a different option");
+
 });
 
 test('Hot Text Highlight - getWordItems', function (assert) {
