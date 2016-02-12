@@ -101,6 +101,16 @@ export const QuestionUtil = Ember.Object.extend({
    */
   answerKey: function(answer){
     return answer;
+  },
+
+    /**
+     * Indicates if two answers are the same
+     * @param answerA
+     * @param answerB
+     * @returns {boolean}
+     */
+  sameAnswer: function(answerA, answerB){
+    return this.answerKey(answerA) === this.answerKey(answerB);
   }
 
 }),

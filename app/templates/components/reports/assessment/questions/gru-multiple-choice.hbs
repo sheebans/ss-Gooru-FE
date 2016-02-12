@@ -2,11 +2,7 @@
   {{#each answers as |answer index|}}
       <li>
         {{#if answer.selected}}
-          {{#if answer.correct}}
-            <span class="correct">{{fa-icon icon='check-circle-o'}}</span>
-          {{else}}
-            <span class="incorrect">{{fa-icon icon='times-circle-o'}}</span>
-          {{/if}}
+            <span class="{{if answer.correct 'correct' 'incorrect'}} {{if anonymous 'anonymous'}}">{{fa-icon icon='dot-circle-o'}}</span>
         {{/if}}
           <span class="answer-text">({{answer-letter index}}) {{{answer.text}}}</span>
       </li>

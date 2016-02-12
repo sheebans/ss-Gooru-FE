@@ -12,6 +12,10 @@
       span.incorrect{
         color:$brand-incorrect;
       }
+      span.incorrect.anonymous,
+      span.correct.anonymous{
+        color:$brand-anonymous;
+      }
     }
     li span.answer-text{
       display: inline-block;

@@ -14,6 +14,7 @@ import Ember from 'ember';
  */
 export function truncate(params, hash) {
   let config = { //TODO product owner will provide max lengths, this will be moved to the configuration
+    "name": 20,
     "short": 10,
     "medium": 50,
     "large": 200
