@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import { isNumeric } from './math';
-import { 
+import {
   EMOTION_VALUES,
   GRADING_SCALE } from 'gooru-web/config/config';
 
@@ -140,7 +140,7 @@ export function getReactionIcon(reactionValue) {
       return emotion.value === reactionValue;
     })[0];
     if (reaction && reaction.value && reaction.unicode) {
-      html = '<div class="emotion emotion-' + reaction.value + ' small">';
+      html = '<div class="emotion emotion-' + reaction.value + '">';
       html += '  <svg class="svg-sprite">';
       html += '    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#'+ reaction.unicode + '"></use>';
       html += ' </svg>';

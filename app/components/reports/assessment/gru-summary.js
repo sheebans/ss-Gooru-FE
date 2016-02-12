@@ -67,6 +67,11 @@ export default Ember.Component.extend({
     return attempts;
   },
 
+  /**
+   * Convenience structure to render resource information
+   * @param questionResults
+   * @returns {Array}
+   */
   getResourceLinks: function (questionResults) {
     return questionResults.map(function (questionResult) {
       return Ember.Object.create({

@@ -1,6 +1,6 @@
 import Ember from "ember";
 
-import { averageReaction, correctPercentage, totalTimeSpent } from 'gooru-web/utils/question-result';
+import { averageReaction, correctPercentage, totalTimeSpent, correctAnswers } from 'gooru-web/utils/question-result';
 
 /**
  * Model for a group of questions that were answered by a user during one attempt to complete an assessment.
@@ -11,9 +11,14 @@ import { averageReaction, correctPercentage, totalTimeSpent } from 'gooru-web/ut
 export default Ember.Object.extend({
 
   /**
+   * @property {ResourceResult[]} resourceResults
+   */
+  resourceResults: [],
+
+  /**
    * @property {QuestionResult[]} questionsResults
    */
-  questionsResults: [],
+  questionsResults: Ember.computed.alias("resourceResults"),
 
   /**
    * TODO: TBD
@@ -47,13 +52,18 @@ export default Ember.Object.extend({
    */
   totalAttempts: 0,
 
+  /**
+   * @property {number}
+   */
+  totalResources: Ember.computed.alias("resourceResults.length"),
+
 
   // -------------------------------------------------------------------------
   // Computed Properties
 
   /**
    * Average user reaction to the questions in the assessment
-   * @prop {Number} averageReaction
+   * @prop {number} averageReaction
    */
   averageReaction: Ember.computed('questionsResults.[]',function(){
       return averageReaction(this.get('questionsResults'));
@@ -61,7 +71,7 @@ export default Ember.Object.extend({
 
   /**
    * Percentage of correct answers vs. the total number of questions
-   * @prop {Number}
+   * @prop {number}
    */
   correctPercentage:Ember.computed('questionsResults.[]',function(){
     return correctPercentage(this.get('questionsResults'));
@@ -69,10 +79,18 @@ export default Ember.Object.extend({
 
   /**
    * Total number of seconds spent completing the current attempt
-   * @prop {Number}
+   * @prop {number}
    */
   totalTimeSpent:Ember.computed('questionsResults.[]',function(){
     return totalTimeSpent(this.get('questionsResults'));
   }),
+
+  /**
+   * Total correct answers
+   * @prop {number}
+   */
+  correctAnswers:Ember.computed('questionsResults.[]',function(){
+    return correctAnswers(this.get('questionsResults'));
+  })
 
 });
