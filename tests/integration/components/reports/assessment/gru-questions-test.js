@@ -42,7 +42,7 @@ test('Questions Layout', function (assert) {
 
   T.exists(assert, $question, 'Missing questions component');
   T.exists(assert, $question.find('.title h4'), 'Missing questions title');
-  T.exists(assert, $question.find('.switch-section'), 'Missing switch section');
+  T.exists(assert, $question.find('.btn-group'), 'Missing btn-group section');
   T.exists(assert, $question.find('table th.header.number'), 'Missing number header');
   T.exists(assert, $question.find('table th.header.question'), 'Missing question header');
   T.exists(assert, $question.find('table th.header.answer'), 'Missing answer header');
