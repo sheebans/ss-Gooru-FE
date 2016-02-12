@@ -68,7 +68,6 @@ export default Ember.Component.extend({
       this.set("question", question);
       this.set("answerCompleted", true);
     },
-
     /**
      * When the question answer has been cleared
      * @param {Question} question the question

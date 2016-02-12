@@ -142,7 +142,7 @@ test('Clicking on the "Hints" button should display a certain number of hints an
 
   this.render(hbs`{{player/gru-question-viewer question=question collection=collection}}`);
 
-  var $infoSection = this.$(".question-information").eq(0);
+  var $infoSection = this.$(".question-panel").eq(0);
   assert.ok($infoSection.find(".hints"), "Missing hints section");
   assert.equal($infoSection.find(".hints li").length, 0, "No hints should be visible");
 
@@ -181,13 +181,13 @@ test('Clicking on the "Explanation" button should display an explanation and the
   this.set('collection', collection);
   this.render(hbs`{{player/gru-question-viewer question=question collection=collection}}`);
 
-  var $infoSection = this.$(".question-information").eq(0);
+  var $infoSection = this.$(".question-panel").eq(0);
   assert.ok(!$infoSection.find(".btn-group .explanation").attr('disabled'), 'Explanation button should be enabled');
   assert.ok(!$infoSection.find(" > .explanation").length, "Explanation section should not be visible");
 
   $infoSection.find(".btn-group .explanation").click();
   assert.ok($infoSection.find("> .explanation").length, 1, "Explanation should be displayed");
-  assert.equal($infoSection.find("> .explanation").text().trim(), "This is a test explanation", "Explanation does not display the right content");
+  assert.equal($infoSection.find(".panel.explanation .panel-body .explanation p").text().trim(), "This is a test explanation", "Explanation does not display the right content");
   assert.ok($infoSection.find(".btn-group .explanation").attr('disabled'), 'Explanation button should be disabled');
 });
 

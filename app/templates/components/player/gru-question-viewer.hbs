@@ -13,6 +13,36 @@
             </div>
         </div>
     </div>
+  {{#if hintsToDisplay}}
+      <div class="panel panel-primary hints">
+          <div class="panel-heading">
+            {{t "common.hints"}}
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-body">
+                  <ol class="hints">
+                    {{#each hintsToDisplay as |hint|}}
+                        <li>{{{hint.hintText}}}</li>
+                    {{/each}}
+                  </ol>
+              </div>
+          </div>
+      </div>
+  {{/if}}
+  {{#if isExplanationShown}}
+      <div class="panel panel-primary explanation">
+          <div class="panel-heading">
+            {{t "common.explanation"}}
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-body">
+                {{#if isExplanationShown}}
+                    <p class="explanation">{{{question.explanation}}}</p>
+                {{/if}}
+              </div>
+          </div>
+      </div>
+  {{/if}}
 </div>
 
 <div class="answers-panel">
@@ -27,7 +57,7 @@
           onAnswerCleared="clearAnswer"
           onAnswerCompleted="completeAnswer"}}
             <div class="actions">
-                <button type="submit" class="save btn btn-lg btn-success" disabled="{{if isSubmitDisabled true null}}">{{buttonText}}</button>
+                <button type="submit" class="save btn btn-success" disabled="{{if isSubmitDisabled true null}}">{{buttonText}}</button>
             </div>
         </form>
       </div>

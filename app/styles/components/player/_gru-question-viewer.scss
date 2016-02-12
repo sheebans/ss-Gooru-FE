@@ -35,6 +35,9 @@
       width: 45%;
       float: left;
     }
+    .hints, .explanation{
+      display: block;
+    }
   }
 
   .answers-panel {
@@ -78,9 +81,15 @@
       }
     }
     .btn-group{
-      .explanation{
+      button{
+        span i{
+          vertical-align: middle;
+        }
+      }
+      & .explanation{
         margin-left: 1px;
       }
+
     }
 
     > .hints {
