@@ -1,5 +1,6 @@
 import Ember from "ember";
 import QuestionResult from 'gooru-web/models/result/question';
+import { getQuestionUtil } from 'gooru-web/config/question';
 
 /**
  * Report data model for class assessment report
@@ -37,6 +38,16 @@ export default Ember.Object.extend({
    */
   data: null,
 
+  /**
+   * @property {User[]} student
+   */
+  students: null,
+
+  /**
+   * @property {Resource[]} resource
+   */
+  resources: null,
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -49,10 +60,12 @@ export default Ember.Object.extend({
     var studentIds = students.map(function (student) {
       return student.get("id");
     });
+    this.set("students", students);
 
     var resourceIds = resources.map(function (resource) {
       return resource.get("id");
     });
+    this.set("resources", resources);
 
     this.set("data", this.getEmptyMatrix(studentIds, resourceIds));
 
@@ -113,6 +126,109 @@ export default Ember.Object.extend({
     this.set("data", reportData);
 
     return this;
+  },
+
+  /**
+   * Retrieves all student results by question
+   *
+   * @param {string} questionId
+   * @returns { QuestionResult[] }
+   */
+  getResultsByQuestion: function(questionId){
+    const reportData = this.get("data");
+    const students = this.get("students");
+    let questionResults = Ember.A([]);
+    students.forEach(function(student){
+      const studentId = student.get("id");
+      const userQuestionResults = reportData[studentId];
+      if (userQuestionResults){
+        const questionResult = userQuestionResults[questionId];
+        if (questionResult){
+          questionResults.addObject(questionResult);
+        }
+        else{
+          Ember.Logger.warning("Missing question data " + studentId + " question " + questionId);
+        }
+      }
+      else{
+        Ember.Logger.warning("Missing student data " + studentId);
+      }
+    });
+    return questionResults;
+  },
+
+  /**
+   * Retrieves all results by student
+   *
+   * @param {string} studentId
+   * @returns { QuestionResult[] }
+   */
+  getResultsByStudent: function(studentId){
+    const reportData = this.get("data");
+    let questionResults = Ember.A([]);
+
+    const userQuestionResults = reportData[studentId];
+    if (userQuestionResults){
+      for (let key in userQuestionResults){
+        if (userQuestionResults.hasOwnProperty(key)){
+          questionResults.addObject(userQuestionResults[key]);
+        }
+      }
+    }
+    else{
+      Ember.Logger.warning("Missing student data " + studentId);
+    }
+    return questionResults;
+  },
+
+  /**
+   * Retrieves all student results
+   *
+   * @returns { QuestionResult[] }
+   */
+  getAllResults: function(){
+    const self = this;
+    let questionResults = Ember.A([]);
+    const students = this.get("students");
+    students.forEach(function(student){
+      const studentId = student.get("id");
+      let studentResults = self.getResultsByStudent(studentId);
+      questionResults.addObjects(studentResults.toArray());
+    });
+    return questionResults;
+  },
+
+  /**
+   * Return all the student who submitted the answer
+   * @param {Resource} question
+   * @param {*} answer user answer
+   * @returns {User[]}
+   */
+  getStudentsByQuestionAndUserAnswer: function(question, answer){
+    const reportData = this.get("data");
+    const students = this.get("students");
+    const questionId = question.get("id");
+    const util = getQuestionUtil(question.get("questionType")).create({ question: question });
+    let found = Ember.A([]);
+
+    students.forEach(function(student){
+      const studentId = student.get("id");
+      const userQuestionResults = reportData[studentId];
+      if (userQuestionResults){
+        const questionResult = userQuestionResults[questionId];
+        const answered = questionResult && questionResult.get("answered");
+        if (answered){
+          const sameAnswer = util.sameAnswer(answer, questionResult.get("userAnswer"));
+          if (sameAnswer) {
+            found.addObject(student);
+          }
+        }
+      }
+      else{
+        Ember.Logger.warning("Missing student data " + studentId);
+      }
+    });
+    return found;
   }
 
 
