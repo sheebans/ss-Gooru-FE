@@ -4,15 +4,16 @@
   height: 100%;
   background-color: $dark-400;
   .navigator-header {
-    height: auto;
-    display: table;
+    height: 81px;
     width: 100%;
-    h2 {
+    background-color: $dark-500;
+    span{
+      color:$white;
+    }
+    p {
       margin-top: 10px;
       padding: 0 5px;
-      width: 80%;
-      float: left;
-
+      color:$white;
       @media (min-width: $screen-md) {
         width: 100%;
       }
