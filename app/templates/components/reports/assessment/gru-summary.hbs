@@ -10,7 +10,7 @@
     <h5>{{assessmentResult.title}}</h5>
     <div class="information">
       <span class="attempt">
-        {{t "common.attempt"}}
+        <span class="title">{{t "common.attempt"}}</span>
         <span class="attempt-selector">
           <span class="dropdown current-attempt">
             <button class="btn btn-default dropdown-toggle" type="button"
@@ -25,15 +25,17 @@
           <span class="total-attempts">{{assessmentResult.totalAttempts}}</span>
         </span>
       </span>
-      <span class="date">{{formatDate assessmentResult.submittedOn 'h:mm a MMM. Do, YYYY'}}</span>
+      <span class="date">
+        {{material-design-icon name='event'}}<span>{{formatDate assessmentResult.submittedOn 'h:mm a MMM. Do, YYYY'}}</span>
+      </span>
       <span class="time">
-        <span>{{formatTime assessmentResult.totalTimeSpent}}</span>
+        {{material-design-icon name='av-timer'}}<span>{{formatTime assessmentResult.totalTimeSpent}}</span>
       </span>
       <span class="reaction">
-        <i class="emotion emotion-{{assessmentResult.averageReaction}}"></i>
+        {{reactionIcon assessmentResult.averageReaction}}
       </span>
     </div>
-    <div class="hidden-xs bubbles">
+    <div class="bubbles">
       {{gru-bubbles bubbleOptions=resourceLinks onBubbleSelect='bubbleSelect'}}
     </div>
   </div>

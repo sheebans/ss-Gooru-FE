@@ -1,26 +1,49 @@
 .reports.assessment.gru-mastery {
-  margin-top: 20px;
+  margin-top: 25px;
 
   .header {
-    h2 {
-      margin-top: 0;
+    @media (max-width: $screen-xs) {
+      border-bottom: 1px solid $light-300;
+      padding: 0 0 20px 0;
+    }
+    h4 {
+      display: table-cell;
+      vertical-align: middle;
+      width: 23%;
+      @media (min-width: $screen-lg-min) {
+        width: 40%;
+      }
+      @media (max-width: $screen-md-min) {
+        display: block;
+      }
+    }
+    h6 {
+      display: table-cell;
+      vertical-align: middle;
+      width: 20%;
+      @media (min-width: $screen-lg-min) {
+        width: 12%;
+      }
     }
 
     @media (min-width: $screen-sm) {
-      h2 {
-        display: inline-block;
-      }
       .grading-scale-legend {
-        float: right;
-        margin-top: 10px;
+        display: table-cell;
+        vertical-align: middle;
       }
       @include clearfix();
     }
   }
 
   .learning-target{
-    margin-top:10px;
-    margin-bottom: 10px;
-    border: 1px solid $gray-lighter;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.10);
+    border-radius: 5px;
+    background-color: $white;
+    padding: 25px 15px;
+    margin: 20px 0;
+    display: table;
+    @media (min-width: $screen-xs) {
+      padding: 25px 20px 25px 40px;
+    }
   }
 }
