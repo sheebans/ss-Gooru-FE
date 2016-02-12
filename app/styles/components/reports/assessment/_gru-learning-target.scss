@@ -50,8 +50,10 @@
   .resource-cards-section {
     .gru-resource-card {
       float: left;
-      margin-left:10px;
       margin-top:10px;
+      @media (min-width: $screen-xs) {
+        margin-left:10px;
+      }
     }
   }
 }
