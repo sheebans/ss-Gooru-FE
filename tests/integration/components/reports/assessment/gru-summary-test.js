@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import QuestionResult from 'gooru-web/models/result/question';
@@ -26,21 +25,27 @@ test('it renders', function (assert) {
         resource: {
           order: 1
         },
-        correct: false
+        correct: false,
+        timeSpent: 20,
+        reaction: 2,
       }),
       QuestionResult.create({
         id: 603,
         resource: {
           order: 3
         },
-        correct: true
+        correct: true,
+        timeSpent: 20,
+        reaction: 2
       }),
       QuestionResult.create({
         id: 602,
         resource: {
           order: 2
         },
-        correct: true
+        correct: true,
+        timeSpent: 20,
+        reaction: 2
       })
     ],
     selectedAttempt: 3,
@@ -88,7 +93,7 @@ test('it renders', function (assert) {
 
   // Time
   $overviewSection = $overviewContainer.find('.information .time');
-  assert.equal($overviewSection.find('span').text().trim(), '28m 15s', 'Incorrect time value');
+  assert.equal($overviewSection.find('span').text().trim(), '1m', 'Incorrect time value');
 
   // Reaction
   $overviewSection = $overviewContainer.find('.information .reaction');
