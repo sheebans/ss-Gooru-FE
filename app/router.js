@@ -29,6 +29,11 @@ Router.map(function() {
           this.route('lesson', { path: '/unit/:unitId/lesson/:lessonId'});
         });
       });
+
+      this.route('collection', {path: '/collection/:collectionId'}, function () {
+        this.route('index', {path: '/'});
+        this.route('student', {path: '/student/:userId'});
+      });
     });
   });
 
