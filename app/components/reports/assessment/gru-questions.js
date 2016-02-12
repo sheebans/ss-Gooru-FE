@@ -7,11 +7,11 @@ export default Ember.Component.extend({
   actions: {
 
     /**
-     * Handle event triggered by gru-switch
+     * Selects Performance Option or not
+     * @function actions:selectPerformanceOption
      */
-    optionSwitch:function() {
-      var showPerformance = this.get('showPerformance');
-      this.set('showPerformance', !showPerformance);
+    selectPerformanceOption:function(showPerformance) {
+      this.set('showPerformance', showPerformance);
     }
   },
   // -------------------------------------------------------------------------

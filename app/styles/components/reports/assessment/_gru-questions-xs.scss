@@ -1,51 +1,40 @@
-.reports.assessment.gru-questions-xs{
-  margin:5px;
+.reports.assessment.gru-questions-xs {
   display: table;
   width:100%;
-  .number-question, .question-container{
-    display: table-cell;
-    border: 1px solid $gray-lighter;
-  }
-  .question-card{
-    display:table-row;
+
+  .question-card {
+    display: table-row;
     width: 100%;
-  }
-  .question{
-    border-bottom: 1px solid $gray-lighter;
-  }
-  .number-question, .question, .answer{
-    > *{
-      display:block;
+    .question-container,
+    .question,
+    .answer {
+      display: block;
+      padding: 8px 0;
     }
-    padding: 8px;
+    .question-container {
+      border-bottom: 1px solid $gray-lighter;
+    }
+    span.correct {
+      color: $brand-success;
+    }
+    span.incorrect {
+      color: $brand-incorrect;
+    }
   }
-  .number-question {
-    text-align: center;
-    width:10%;
-    border-right: 0;
+  .show-performance {
+    .correct-answer {
+      display: none;
+    }
+  }
+  .show-correct-answer {
+    .your-answer {
+      display: none;
+    }
+  }
 
-    span{
-      font-size: $font-size-large;
-    }
+  .correct-answer,
+  .your-answer {
+    padding: 8px 0 8px 23%;
+  }
 
-    .score{
-      padding-top:10px;
-    }
-  }
-  span.correct{
-    color:$brand-success;
-  }
-  span.incorrect{
-    color:$brand-incorrect;
-  }
-  .show-performance{
-    .correct-answer{
-      display:none;
-    }
-  }
-  .show-correct-answer{
-    .your-answer{
-      display:none;
-    }
-  }
 }
