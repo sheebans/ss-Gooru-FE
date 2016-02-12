@@ -146,15 +146,15 @@ test('Clicking on the "Hints" button should display a certain number of hints an
   assert.ok($infoSection.find(".hints"), "Missing hints section");
   assert.equal($infoSection.find(".hints li").length, 0, "No hints should be visible");
 
-  $infoSection.find(".actions .hint").click();
+  $infoSection.find(".btn-group .hint").click();
   assert.equal($infoSection.find(".hints li").length, 1, "Hint should be displayed");
   assert.equal($infoSection.find(".hints li:first-child").text().trim(), "Hints text 1", "Hint's content is incorrect");
-  assert.ok(!$infoSection.find(".actions .hint").attr('disabled'), 'Hint button should not be disabled');
+  assert.ok(!$infoSection.find(".btn-group .hint").attr('disabled'), 'Hint button should not be disabled');
 
-  $infoSection.find(".actions .hint").click();
+  $infoSection.find(".btn-group .hint").click();
   assert.equal($infoSection.find(".hints li").length, 2, "Hints should be displayed");
   assert.equal($infoSection.find(".hints li:last-child").text().trim(), "Hints text 2", "Hint's content is incorrect");
-  assert.ok($infoSection.find(".actions .hint").attr('disabled'), 'Hint button should be disabled');
+  assert.ok($infoSection.find(".btn-group .hint").attr('disabled'), 'Hint button should be disabled');
 });
 
 test('Clicking on the "Explanation" button should display an explanation and then it should become disabled', function(assert) {
@@ -182,13 +182,13 @@ test('Clicking on the "Explanation" button should display an explanation and the
   this.render(hbs`{{player/gru-question-viewer question=question collection=collection}}`);
 
   var $infoSection = this.$(".question-information").eq(0);
-  assert.ok(!$infoSection.find(".actions .explanation").attr('disabled'), 'Explanation button should be enabled');
+  assert.ok(!$infoSection.find(".btn-group .explanation").attr('disabled'), 'Explanation button should be enabled');
   assert.ok(!$infoSection.find(" > .explanation").length, "Explanation section should not be visible");
 
-  $infoSection.find(".actions .explanation").click();
+  $infoSection.find(".btn-group .explanation").click();
   assert.ok($infoSection.find("> .explanation").length, 1, "Explanation should be displayed");
   assert.equal($infoSection.find("> .explanation").text().trim(), "This is a test explanation", "Explanation does not display the right content");
-  assert.ok($infoSection.find(".actions .explanation").attr('disabled'), 'Explanation button should be disabled');
+  assert.ok($infoSection.find(".btn-group .explanation").attr('disabled'), 'Explanation button should be disabled');
 });
 
 test('Save Button Text when assessment and not last resource', function (assert) {
