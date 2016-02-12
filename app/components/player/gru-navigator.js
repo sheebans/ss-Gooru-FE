@@ -37,6 +37,12 @@ export default Ember.Component.extend({
         this.selectItem(item);
     },
     /**
+     * Action triggered when the user close the content player
+     */
+    closePlayer:function(){
+      this.sendAction("onClosePlayer");
+    },
+    /**
      * Action triggered when the user close de navigator panel
      */
     closeNavigator:function(){
@@ -85,6 +91,11 @@ export default Ember.Component.extend({
    */
 
   selectedResourceId:null,
+
+  /**
+   * @property {string} on content player action
+   */
+  onClosePlayer: 'onClosePlayer',
 
   // -------------------------------------------------------------------------
   // Observers

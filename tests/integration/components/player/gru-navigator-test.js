@@ -216,4 +216,16 @@ test('Player Navigator keyup on right', function(assert) {
 
 
 });
+test('Close player', function(assert) {
+  assert.expect(1);
+
+  this.on('parentAction', function(){
+    assert.ok(true, 'external Action was called!');
+  });
+
+  this.render(hbs`{{player/gru-navigator onClosePlayer='parentAction'}}`);
+  var $component = this.$(); //component dom element
+  var $closeButton = $component.find(".gru-navigator #item_back");
+  $closeButton.click();
+});
 

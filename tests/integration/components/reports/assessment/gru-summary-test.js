@@ -1,7 +1,7 @@
-import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import QuestionResult from 'gooru-web/models/result/question';
+import AssessmentResult from 'gooru-web/models/result/assessment';
 
 moduleForComponent('reports/assessment/gru-summary', 'Integration | Component | reports/assessment/gru summary', {
   integration: true,
@@ -17,34 +17,35 @@ test('it renders', function (assert) {
   date.setMinutes(15);
   date.setHours(11);
 
-  const assessmentResult = Ember.Object.create({
+  const assessmentResult = AssessmentResult.create({
     id: 501,
-    averageReaction: 2,
-    totalTimeSpent: 1695,
-    correctPercentage: 67,
-    correctAnswers: 2,
-
-    questionsResults: [
+    resourceResults: [
       QuestionResult.create({
         id: 601,
         resource: {
           order: 1
         },
-        correct: false
+        correct: false,
+        timeSpent: 20,
+        reaction: 2,
       }),
       QuestionResult.create({
         id: 603,
         resource: {
           order: 3
         },
-        correct: true
+        correct: true,
+        timeSpent: 20,
+        reaction: 2
       }),
       QuestionResult.create({
         id: 602,
         resource: {
           order: 2
         },
-        correct: true
+        correct: true,
+        timeSpent: 20,
+        reaction: 2
       })
     ],
     selectedAttempt: 3,
@@ -68,29 +69,34 @@ test('it renders', function (assert) {
   assert.equal($percentage.text().trim(), "67%", "Incorrect percentage text");
 
   var $attempts = $gradeContainer.find('.attempts');
-  assert.equal($attempts.text().trim(), "2 / 3 " + this.get('i18n').t('common.correct').string, "Incorrect attempts text");
+  var $fractional = $attempts.find('.fractional');
+  assert.ok($fractional, 'Fractional not found');
+  assert.equal($fractional.find('.top').text().trim(), "2", "Incorrect fractional top text");
+  assert.equal($fractional.find('.bottom').text().trim(), "3", "Incorrect fractional bottom text");
+  assert.equal($attempts.find('.text').text().trim(), this.get('i18n').t('common.correct').string, "Incorrect attempts text");
 
   var $overviewContainer = $component.find('.summary-container .overview');
   assert.ok($overviewContainer.length, "Overview container is missing");
-  assert.ok($overviewContainer.find('h1').length, "Header element is missing");
-  assert.equal($overviewContainer.find('h1').text().trim(), 'Test Assessment Name', "Incorrect header text");
+  assert.ok($overviewContainer.find('h5').length, "Header element is missing");
+  assert.equal($overviewContainer.find('h5').text().trim(), 'Test Assessment Name', "Incorrect header text");
 
   // Attempt
   var $overviewSection = $overviewContainer.find('.information .attempt');
-  assert.ok($overviewSection.find('strong').length, "Header element for 'attempt' section in overview is missing");
+  assert.ok($overviewSection.find('title'), "Header element for 'attempt' section in overview is missing");
   assert.equal($overviewSection.find('.dropdown button').text().trim(), '3', 'Current attempt value is incorrect');
   assert.equal($overviewSection.find('.dropdown-menu li').length, 4, 'Incorrect number of attempts in dropdown menu');
   assert.equal($overviewSection.find('.total-attempts').text().trim(), '4', 'Incorrect number of total attempts');
-  assert.equal($overviewSection.find('.date').text().trim(), '11:15 am Feb. 20th, 2010', 'Incorrect attempt date value');
+
+  // Date
+  $overviewSection = $overviewContainer.find('.information .date');
+  assert.equal($overviewSection.find('span').text().trim(), '11:15 am Feb. 20th, 2010', 'Incorrect attempt date value');
 
   // Time
   $overviewSection = $overviewContainer.find('.information .time');
-  assert.ok($overviewSection.find('strong').length, "Header element for 'time' section in overview is missing");
-  assert.equal($overviewSection.find('span').text().trim(), '28m 15s', 'Incorrect time value');
+  assert.equal($overviewSection.find('span').text().trim(), '1m', 'Incorrect time value');
 
   // Reaction
   $overviewSection = $overviewContainer.find('.information .reaction');
-  assert.ok($overviewSection.find('strong').length, "Header element for 'reaction' section in overview is missing");
   assert.ok($overviewSection.find('.emotion').hasClass('emotion-2'), "Emotion icon should have the class 'emotion-2'");
 
   // Reaction

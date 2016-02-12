@@ -2,14 +2,19 @@
     <span class="lead"> {{material-design-icon name='keyboard-arrow-left'}}Lesson 1.</span>
     <p>{{collection.title}}</p>
   <div class="pull-right close-navigator hidden-md hidden-lg">
-    <button class="btn btn-link hamburger-icon" {{action 'closeNavigator'}}>{{fa-icon icon="fa-bars"}}</button>
+    <button class="btn btn-link hamburger-icon"{{action 'closeNavigator'}}>{{fa-icon icon="fa-bars"}}</button>
   </div>
 </div>
 
 <ul class="list-group resources">
   <div class="bgd-line"></div>
+    <li id="item_back"{{action 'closePlayer'}}>
+        <div class="resources-info">
+            <h6 class="title">&#60;Back</h6>
+        </div>
+    </li>
   {{#each collection.resources as |resource|}}
-    <li class="list-group-item" id= "item_{{resource.id}}"{{action 'selectItem' resource}}>
+      <li class="list-group-item" id= "item_{{resource.id}}"{{action 'selectItem' resource}}>
       <div class="resources-info">
         <span class="bubble-type {{resource.resourceFormat}}"></span>
         <h6 class="title">{{{resource.title}}}</h6>

@@ -32,12 +32,6 @@ export default Ember.Component.extend({
       this.sendAction('onChangeEmotion', emotionScore);
     },
     /**
-     * Action triggered when the user close the content player
-     */
-    closePlayer:function(){
-      this.sendAction("onClosePlayer");
-    },
-    /**
      * Action triggered when the user open de navigator panel
      */
     openNavigator:function(){
@@ -51,11 +45,6 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
-
-  /**
-   * @property {string} on content player action
-   */
-  onClosePlayer: 'onClosePlayer',
 
   /**
    * @property {string} on change emotion action
