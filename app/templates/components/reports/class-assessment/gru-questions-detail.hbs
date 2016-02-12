@@ -5,22 +5,22 @@
 </div>
 <div class="navigation">
   {{gru-bubbles bubbleOptions=questionsNavOptions onBubbleSelect='bubbleSelect'}}
-  {{#if selectedQuestion}}
-      <div class="selected-question">
-          Q{{selectedQuestion.order}} {{truncate text=selectedQuestion.text type='medium'}}
-      </div>
+  {{#if anonymous}}
+    <button class="btn-results btn btn-success" {{action 'showResult'}}>
+      {{t (if showResult 'common.hide-results' 'common.show-results')}}
+    </button>
   {{/if}}
 </div>
 <div class="body">
     <div class="question-info">
-       {{reports.class-assessment.gru-question-information question=selectedQuestion}}
+       {{reports.class-assessment.gru-question-information question=selectedQuestion anonymous=anonymous}}
     </div>
     <div class="question-metrics">
-        <div class="chart">
-          {{charts/gru-x-bar-chart data=selectedQuestionBarChartData.data}}
-            <span class="ratio">
-        <em>{{selectedQuestionBarChartData.completed}}</em>/<em>{{selectedQuestionBarChartData.total}}</em>
-      </span>
-        </div>
+        {{reports.class-assessment.gru-question-performance
+          question=selectedQuestion
+          reportData=reportData
+          anonymous=anonymous
+          students=students
+          showResult=showResult}}
     </div>
 </div>

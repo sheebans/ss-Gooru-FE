@@ -19,7 +19,6 @@ export function createDataMatrix(headers, classPerformanceData) {
       user: user.get('fullName'),
       performanceData: Ember.A([])
     });
-
     headers.forEach(function(headerItem) {
       const performance = performanceData.findBy('id', user.get('id') + '@' + headerItem.get('id'));
       if (performance) {

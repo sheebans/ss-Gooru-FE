@@ -31,11 +31,11 @@ export const VIEW_LAYOUT_PICKER_OPTIONS = {
 };
 
 export const EMOTION_VALUES = [
-  {value: 1, unicode: '1f625'},
-  {value: 2, unicode: '1f641'},
-  {value: 3, unicode: '1f610'},
+  {value: 5, unicode: '1f601'},
   {value: 4, unicode: '1f642'},
-  {value: 5, unicode: '1f601'}
+  {value: 3, unicode: '1f610'},
+  {value: 2, unicode: '1f641'},
+  {value: 1, unicode: '1f625'}
 ];
 
 export const SCORES = {
@@ -47,11 +47,20 @@ export const SCORES = {
 };
 
 export const GRADING_SCALE = [
-  {LOWER_LIMIT: 0, COLOR: '#E08282'},
-  {LOWER_LIMIT: 60, COLOR: '#FEC956'},
-  {LOWER_LIMIT: 70, COLOR: '#EDF167'},
-  {LOWER_LIMIT: 80, COLOR: '#A2DE81'},
-  {LOWER_LIMIT: 90, COLOR: '#3FC380'}
+  {LOWER_LIMIT: 0, COLOR: '#F46360'}, //red-400
+  {LOWER_LIMIT: 60, COLOR: '#ED8E36'}, //orange-400
+  {LOWER_LIMIT: 70, COLOR: '#F8BA41'}, //yellow-400
+  {LOWER_LIMIT: 80, COLOR: '#A3CA9F'}, //green-200
+  {LOWER_LIMIT: 90, COLOR: '#4B9741'} //green-400
 ];
+
+export const CORRECT_COLOR = GRADING_SCALE[GRADING_SCALE.length - 1].COLOR; //green-400
+
+export const INCORRECT_COLOR = GRADING_SCALE[0].COLOR;//red-400
+
+export const ANONYMOUS_COLOR = '#0072BC';//blue-400
+
+export const NO_ANSWER_COLOR = '#FFFFFF';//white
+
 // Height of the application header in pixels
 export const HEADER_HEIGHT = 50;
