@@ -8,11 +8,11 @@
         <div class="search-navbar-form">
           <form {{action "searchTerm" on="submit"}} class="form-inline">
             <div class="form-group">
-              {{material-design-icon name='search'}}
+              <span>{{material-design-icon name='search'}}</span>
               <div class="input-group">
                 {{input type="text" class="form-control search-input"
                   value=term
-                  placeholder=(t "common.searchForTopic") spellcheck="true"}}
+                  placeholder=(t "common.search-placeholder") spellcheck="true"}}
               </div>
             </div>
           </form>
