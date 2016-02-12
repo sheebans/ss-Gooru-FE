@@ -64,7 +64,7 @@ export default Ember.Component.extend({
   questionResults: Ember.computed("reportData.[]", function(){
     const reportData = this.get("reportData") || [];
     return Ember.A(reportData).filter(function(item){
-      return !item.get("notStarted"); //only started question results
+      return item.get("started"); //only started question results
     });
   }),
 
@@ -101,17 +101,16 @@ export default Ember.Component.extend({
   getQuestionStatus: function(questionResult){
     let status = 'not-started';
     let questionId;
-    if (!questionResult.get("notStarted")){ //if it has been started
-      let skipped = questionResult.get("skipped");
+    if (questionResult.get("started")) { //if it has been started
       let correct = questionResult.get("correct");
-      status = skipped ? 'skipped' : (correct ? 'correct' : 'incorrect');
+      status = (correct ? 'correct' : 'incorrect'); //skipped is displayed as incorrect
       questionId = questionResult.get('questionId');
     }
     return Ember.Object.create({
       status: status,
       id:questionId
     });
-  },
+  }
 
 
 });

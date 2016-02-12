@@ -1,6 +1,9 @@
 .reports.class-assessment.gru-questions-detail {
   height: 400px;
   padding: 12px;
+  .close{
+    color: $white;
+  }
   .navigation {
     height: 80px;
     border-bottom: 1px solid $gray-darker;
@@ -8,30 +11,26 @@
       margin-top: 5px;
     }
     .gru-bubbles {
+      display: inline-block;
       .bubble.selected {
         background-color: $gray-light;
         color: $white;
       }
+    }
+    .btn-results{
+      float: right;
+      margin-top: 10px;
     }
   }
   .body{
     display: flex;
     padding-top: 20px;
     .question-info {
-      background-color: $gray-light;
       width: 40%;
     }
     .question-metrics {
       width: 60%;
       padding-left: 10px;
-      .chart {
-        height:25px;
-        width: 88%;
-        .ratio {
-          padding-left: 1.3em;
-          text-align: center;
-        }
-      }
     }
   }
 }

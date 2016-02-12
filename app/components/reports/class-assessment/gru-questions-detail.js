@@ -1,6 +1,4 @@
 import Ember from 'ember';
-import { GRADING_SCALE } from 'gooru-web/config/config';
-import { stats } from 'gooru-web/utils/question-result';
 
 /**
  * Questions summary component
@@ -28,6 +26,14 @@ export default Ember.Component.extend({
      */
     bubbleSelect: function(bubbleOption){
       this.set("selectedQuestion", bubbleOption.get("value"));
+    },
+    /**
+     * Show performance results
+     */
+    showResult:function(){
+      if(this.get("anonymous")){
+        this.set("showResult",!this.get("showResult"));
+      }
     }
   },
 
@@ -50,26 +56,8 @@ export default Ember.Component.extend({
   assessment: Ember.computed.alias("model.assessment"),
 
   /**
-   * @prop { Object{}{}{} } reportData - Representation of the data to show in the reports as a 3D matrix
+   * @prop { ReportData } reportData - Representation of the data to show in the reports as a 3D matrix
    * Any changes on the content feed will cause the report data to update
-   *
-   * @see gooru-web/components/reports/class-assessment/gru-class-assessment-report.js
-   *
-   * Sample structure
-   *
-   * The "questionId#" corresponds to the actual question id
-   *  {
-   *    user1 {
-   *      questionId1 : QuestionResult,
-   *      questionId2 : QuestionResult,
-   *      questionId3 : QuestionResult
-   *     },
-   *    user2 {
-   *      questionId1 : QuestionResult,
-   *      questionId2 : QuestionResult,
-   *      questionId3 : QuestionResult
-   *    }
-   *  }
    */
   reportData: Ember.computed.alias("model.reportData"),
 
@@ -78,7 +66,11 @@ export default Ember.Component.extend({
    * @property {boolean} anonymous
    */
   anonymous: Ember.computed.alias("model.anonymous"),
-
+  /**
+   * Indicates when the report is display in anonymous mode if show all performance results
+   * @property {boolean} showResult
+   */
+  showResult: false,
   /**
    * @prop { User[] } students - Group of students taking an assessment
    */
@@ -101,73 +93,6 @@ export default Ember.Component.extend({
     });
   }),
 
-
-  /**
-   * A convenient structure to display the selected question results
-   *
-   * Sample
-   *  [
-   *    {
-   *      student: {User},
-   *      questionResult: {QuestionResult}
-   *    },
-   *    {
-   *      student: {User},
-   *      questionResult: {QuestionResult}
-   *    },
-   *    ...
-   *  ]
-   *
-   * @property {Array}
-   */
-  selectedQuestionResults: Ember.computed("selectedQuestion.id", "reportData", "students.[]", function(){
-    const reportData = this.get("reportData");
-    const students = this.get("students");
-    const questionId = this.get("selectedQuestion.id");
-    let questionResults = Ember.A([]);
-    students.forEach(function(student){
-      const userQuestionResults = reportData[student.get("id")];
-      if (userQuestionResults){ //adding student question result for the selected question if available
-        const questionResult = userQuestionResults[questionId];
-        if (questionResult){
-          questionResults.addObject(Ember.Object.create({
-            student: student,
-            questionResult: questionResult //at this point could be a QuestionResult or {} when not-started
-          }));
-        }
-      }
-    });
-    return questionResults;
-  }),
-
-  /**
-   * Returns a convenient structure to display the x-bar-chart
-   */
-  selectedQuestionBarChartData: Ember.computed("selectedQuestionResults.[]", function(){
-    const questionResults = this.get("selectedQuestionResults").map(function(item){
-      return item.get("questionResult");
-    });
-
-    const totals = stats(questionResults);
-    const total = totals.get("total");
-
-    const correctColor = GRADING_SCALE[GRADING_SCALE.length - 1].COLOR;
-    const failColor = GRADING_SCALE[0].COLOR;
-    return Ember.Object.create({
-      data: [
-        {
-          color: failColor,
-          percentage: totals.get("incorrectPercentage")
-        },
-        {
-          color: correctColor,
-          percentage: totals.get("correctPercentage")
-        }
-      ],
-      completed: totals.get("totalCompleted"),
-      total: total
-    });
-  }),
   /**
    * @property {Resource} selected question
    */

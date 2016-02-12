@@ -8,11 +8,11 @@
         <div class="search-navbar-form">
           <form {{action "searchTerm" on="submit"}} class="form-inline">
             <div class="form-group">
-              {{material-design-icon name='search'}}
+              <span>{{material-design-icon name='search'}}</span>
               <div class="input-group">
                 {{input type="text" class="form-control search-input"
                   value=term
-                  placeholder=(t "common.searchForTopic") spellcheck="true"}}
+                  placeholder=(t "common.search-placeholder") spellcheck="true"}}
               </div>
             </div>
           </form>
@@ -25,25 +25,53 @@
                   {{t "common.login"}}
                 </button>
               </li>
-              <li class="hidden-sm navbar-nav-list no-hover">
+              <li class="navbar-nav-list no-hover">
                 <button
                     class="btn btn-primary navbar-btn sign-up-button" {{action "showModal" "gru-user-registration"}}>
                   {{t "common.signUp"}}
                 </button>
               </li>
             {{else}}
-              <li class="navbar-nav-list">
+              <li class="navbar-nav-list visible-md visible-lg">
                 {{#link-to 'classes' class="navbar-link my-classes-link"}} {{t "common.myClasses"}} {{/link-to}}
               </li>
-              <li class="navbar-nav-list">
-                {{#link-to 'profile.about' session.userData.gooruUId class="profile navbar-link"}}
-                    <i class="icon pull-left">&nbsp;</i>
-                    <span class="username">{{session.userData.username}}</span>
-                {{/link-to}}
+              <li class="navbar-nav-list  visible-md visible-lg">
+                <div class="dropdown">
+                    <a class="profile" data-target="#profile-dropdown" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="icon pull-left">&nbsp;</i>
+                        <span class="username">{{session.userData.username}}</span>
+                    </a>
+                    <ul class="dropdown-menu " id="profile-dropdown">
+                        <li class="navbar-nav-list">
+                          {{#link-to 'profile.about' session.userData.gooruUId class="navbar-link"}}
+                              <span class="username">{{session.userData.username}}</span>
+                          {{/link-to}}
+                        </li>
+                        <li class="navbar-nav-list">
+                            <a class="navbar-link" {{action "logout"}}> {{t "common.logout"}}</a>
+                        </li>
+                    </ul>
+                </div>
               </li>
-                <li class="navbar-nav-list">
-                    <a class="navbar-link" {{action "logout"}}> {{t "common.logout"}}</a>
-                </li>
+              <li class="navbar-nav-list hidden-md hidden-lg">
+                  <div class="btn-group drop-menu">
+                      <button class="btn dropdown-toggle" data-toggle="dropdown">{{material-design-icon name='menu'}}</button>
+                      <ul class="dropdown-menu dropdown-menu-right">
+                          <li class="navbar-nav-list">
+                            {{#link-to 'classes' class="navbar-link my-classes-link"}} {{t "common.myClasses"}} {{/link-to}}
+                          </li>
+                          <li class="navbar-nav-list">
+                            {{#link-to 'profile.about' session.userData.gooruUId class="navbar-link"}}
+                                <i class="icon pull-left">&nbsp;</i>
+                                <span class="">{{session.userData.username}}</span>
+                            {{/link-to}}
+                          </li>
+                          <li class="navbar-nav-list">
+                              <a class="navbar-link" {{action "logout"}}> {{t "common.logout"}}</a>
+                          </li>
+                      </ul>
+                  </div>
+              </li>
             {{/if}}
           </ul>
         </div>

@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import DS from 'ember-data';
 import StoreMixin from '../../mixins/store';
 
 /**
@@ -76,6 +75,12 @@ export default Ember.Service.extend(StoreMixin, {
     });
   },
 
+  /**
+   * Gets the data for al the performances in class.
+   * @param objectsWithTitle
+   * @param performances
+   * @returns {Promise.<CollectionPerformance[]>}
+   */
   matchTitlesWithPerformances: function(objectsWithTitle, performances) {
     return performances.map(function(performance) {
       const objectWithTitle = objectsWithTitle.findBy('id', performance.get('id'));
@@ -86,116 +91,80 @@ export default Ember.Service.extend(StoreMixin, {
     });
   },
 
-  /**
-   * Gets the class performance data for all students and units of the specific class and course.
-   * @param classId
-   * @param courseId
-   * @param options This is a temporal parameter that will be removed soon
-   * @returns {Object}
-   */
-  findClassPerformance: function(classId, courseId, options={}) {
-    return this.createClassPerformanceResponse('unit', options);
-  },
-
-  /**
-   * Gets the class performance data for all students and lessons of the specific class and course and unit.
-   * @param classId
-   * @param courseId
-   * @param unit
-   * @param options This is a temporal parameter that will be removed soon
-   * @returns {Object}
-   */
-  findClassPerformanceByUnit: function(classId, courseId, unit, options={}) {
-    return this.createClassPerformanceResponse('lesson', options);
+  matchStudentsWithPerformances: function(objectsWithTitle, performances) {
+    performances.get('studentPerformanceData').forEach(function(studentPerformance) {
+      var objectWithTitle = objectsWithTitle.findBy('id', studentPerformance.get('id'));
+      if (objectWithTitle) {
+        var user = studentPerformance.get('user');
+        user.set('firstName', objectWithTitle.get('firstName'));
+        user.set('lastName', objectWithTitle.get('lastName'));
+        user.set('username', objectWithTitle.get('username'));
+      }
+    });
+    return performances;
   },
 
   /**
-   * Gets the class performance data for all students and collections|assessments of the specific class and course and unit and lesson.
+   * Gets the unit teacher performance data for a specific class and course.
    * @param classId
    * @param courseId
-   * @param unit
-   * @param lesson
-   * @param options This is a temporal parameter that will be removed soon
-   * @returns {Object}
+   * @param students
+   * @param options
+   * @returns {Promise.<UnitPerformance[]>}
    */
-  findClassPerformanceByUnitAndLesson: function(classId, courseId, unit, lesson, options={}) {
-    return this.createClassPerformanceResponse('collection', options);
-  },
-
-  createClassPerformanceResponse: function(type, options) {
+  findClassPerformance: function(classId, courseId, students, options = { collectionType: 'assessment' }) {
     const service = this;
-    var studentPerformanceData = service.createStudentPerformanceData(type, options.users);
-    var response = service.createClassPerformanceObject(studentPerformanceData);
-    return DS.PromiseObject.create({
-      promise: Ember.RSVP.resolve(response)
+    return this.get('store').queryRecord('performance/class-unit-performance', {
+      collectionType: options.collectionType,
+      classId: classId,
+      courseId: courseId
+    }).then(function(unitPerformances) {
+      return service.matchStudentsWithPerformances(students, unitPerformances);
     });
   },
 
-  createUserObject: function(id, username, firstName, lastName) {
-    var userRecord = this.get('store').createRecord('user/user', {
-      id: id,
-      username: username,
-      firstName: firstName,
-      lastName: lastName
-    });
-    this.get('store').deleteRecord(userRecord);
-    return userRecord;
-  },
-
-  createPerformanceData: function(type, userId, ids = []) {
+  /**
+   * Gets the lesson teacher performance data for a specific class, course and unit.
+   * @param classId
+   * @param courseId
+   * @param unitId
+   * @param students
+   * @param options
+   * @returns {Promise.<LessonPerformance[]>}
+   */
+  findClassPerformanceByUnit: function(classId, courseId, unitId, students, options = { collectionType: 'assessment' }) {
     const service = this;
-    var response = Ember.A([]);
-    Ember.$.each(ids, function(index, id) {
-      // TODO: This is just a temporal solution (hack)
-      // This ID value is composed to avoid the Ember Store exception about repeated IDs. This ID should be
-      // split to get the real ID value.
-      response.push(service.createPerformanceObject(id, userId, type));
+    return this.get('store').queryRecord('performance/class-lesson-performance', {
+      collectionType: options.collectionType,
+      classId: classId,
+      courseId: courseId,
+      unitId: unitId
+    }).then(function(lessonPerformances) {
+      return service.matchStudentsWithPerformances(students, lessonPerformances);
     });
-    return response;
   },
 
-  createStudentPerformanceData: function(type, users = []) {
+  /**
+   * Gets the collection teacher performance data for a specific class, course, unit and lesson.
+   * @param classId
+   * @param courseId
+   * @param unitId
+   * @param lessonId
+   * @param students
+   * @param options
+   * @returns {Promise.<CollectionPerformance[]>}
+   */
+  findClassPerformanceByUnitAndLesson: function(classId, courseId, unitId, lessonId, students, options = { collectionType: 'assessment' }) {
     const service = this;
-    var response = Ember.A([]);
-    Ember.$.each(users, function(index, user) {
-      var userData = service.createUserObject(user.id, user.username, user.firstName, user.lastName);
-      var performanceData = service.createPerformanceData(type, user.id, user.units);
-      response.push(service.createStudentPerformanceObject(userData, performanceData));
+    return this.get('store').queryRecord('performance/class-collection-performance', {
+      collectionType: options.collectionType,
+      classId: classId,
+      courseId: courseId,
+      unitId: unitId,
+      lessonId: lessonId
+    }).then(function(collectionPerformances) {
+      return service.matchStudentsWithPerformances(students, collectionPerformances);
     });
-    return response;
-  },
-
-  createPerformanceObject: function(id, user, type) {
-    var performanceRecord = this.get('store').createRecord('performance/performance', {
-      id: user + '@' + id,
-      title: 'Title for - ' + id,
-      type: type,
-      score: this.createRandomValue(0, 100),
-      completionDone: this.createRandomValue(1, 20),
-      completionTotal: 20,
-      timeSpent: this.createRandomValue(0,10800000),
-      ratingScore: this.createRandomValue(1, 5),
-      attempts: this.createRandomValue(1, 10)
-    });
-    this.get('store').deleteRecord(performanceRecord);
-    return performanceRecord;
-  },
-
-  createStudentPerformanceObject: function(user, performance) {
-    return this.get('store').createRecord('performance/student-performance', {
-      user: user,
-      performanceData: performance
-    });
-  },
-
-  createClassPerformanceObject: function(performanceData) {
-    return this.get('store').createRecord('performance/class-performance', {
-      studentPerformanceData: performanceData
-    });
-  },
-
-  createRandomValue: function(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
 });

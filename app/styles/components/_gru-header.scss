@@ -9,9 +9,6 @@
     height: 64px;
   }
   .container-fluid {
-    @media (max-width: $screen-sm) {
-      padding: 0;
-    }
     .navbar-default {
       background-color: inherit;
       border: none;
@@ -27,9 +24,17 @@
       align-content: stretch;
       display: -webkit-flex;
       display: flex;
+      min-height:55px;
+      margin-bottom: 0;
+      @media (min-width: $screen-md) {
+        height: 64px;
+      }
       .navbar-header {
-        -webkit-flex-basis: 20%;
-        flex-basis: 20%;
+        -webkit-flex-basis: 111px;
+        flex-basis: 111px;
+        min-width:111px;
+        -webkit-flex-grow: 1;
+        flex-grow: 1;
         -webkit-align-self: flex-start;
         align-self: flex-start;
         -webkit-flex-direction: row;
@@ -38,25 +43,37 @@
         flex-wrap: nowrap;
         -webkit-justify-content: center;
         justify-content: center;
-        -webkit-align-items: flex-start;
-        align-items: flex-start;
+        -webkit-align-items: center;
+        align-items: center;
         -webkit-align-content: stretch;
         align-content: stretch;
-        display: inline-flex;
         display:-webkit-inline-flex;
-
+        display: inline-flex;
+        height: 55px;
+        @media (min-width: $screen-md) {
+          height: 64px;
+          -webkit-flex-basis: 111px;
+          flex-basis: 111px;
+          min-width:111px;
+        }
         .navbar-brand {
           background: url("gooru/images/gooru-logo.svg");
-          -webkit-background-size:111px 32px;
-          background-size:111px 32px;
-          width:111px;
-          height:32px;
-          margin-top: 21px;
+          -webkit-transform: scale(.80,.80);
+          transform: scale(.80,.80);
+          width: 111px;
+          height: 32px;
+          padding:0;
+          @media (min-width: $screen-sm) {
+            -ms-transform: scale(1,1);
+            -webkit-transform: scale(1,1);
+            transform: scale(1,1);
+          }
         }
       }
       .search-navbar-form{
         -webkit-flex-basis: 40%;
         flex-basis: 40%;
+        min-width:40%;
         form div.form-group{
           -webkit-flex-direction: row;
           flex-direction: row;
@@ -70,7 +87,17 @@
           align-content: stretch;
           display:inline-flex;
           display:-webkit-inline-flex;
-          height: 64px;
+          height: 55px;
+          margin-bottom: 0;
+          @media (min-width: $screen-md) {
+            height: 64px;
+          }
+          span{
+            height:24px;
+            min-width:24px;
+            i{color:black;}
+          }
+
           input {
             box-shadow:none;
             border:none;
@@ -81,12 +108,23 @@
       .navbar-collapse {
         -webkit-flex-basis: 40%;
         flex-basis: 40%;
-        padding: 0;
+        padding:0;
       }
 
       .menu-navbar {
-        padding: 0;
-        display: table-cell;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        -webkit-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        -webkit-justify-content: flex-end;
+        justify-content: flex-end;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-align-content: center;
+        align-content: center;
+        display: -webkit-flex;
+        display: flex;
+        margin:0;
         @media (min-width: $screen-sm) {
           float: right;
         }
@@ -95,10 +133,23 @@
           cursor: pointer;
           padding: 0 10px;
           max-height: 45px;
-          overflow: hidden;
-          @media (max-width: $screen-sm) {
-            float: left;
-            padding: 0 5px;
+          .dropdown .open{
+            display:block;
+          }
+          button{
+            margin:0;
+            &.dropdown-toggle{
+              background-color: transparent;
+              box-shadow: none;
+              padding: 0;
+            }
+            i{
+              color:$dark-500;
+              font-size: $font-size-h3;
+            }
+          }
+          a{
+            padding: 0;
           }
         }
         .no-hover {
@@ -113,6 +164,19 @@
         }
 
         .profile {
+          height: 39px;
+          -webkit-flex-direction: row;
+          flex-direction: row;
+          -webkit-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+          -webkit-justify-content: center;
+          justify-content: center;
+          -webkit-align-items: center;
+          align-items: center;
+          -webkit-align-content: center;
+          align-content: center;
+          display: -webkit-flex;
+          display: flex;
           .icon {
             background: url("gooru/profile.png") no-repeat;
             -webkit-background-size: contain;
@@ -127,11 +191,10 @@
           .username {
             margin-left: 10px;
             max-width: 105px;
-            max-height: 20px;
             overflow: hidden;
             text-overflow: ellipsis;
             display: block;
-            padding: 0 0 0 5px;
+            color:$text-color;
           }
         }
 

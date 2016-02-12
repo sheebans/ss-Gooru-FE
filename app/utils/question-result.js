@@ -20,7 +20,7 @@ export function averageReaction(questionsResults) {
  * @param {QuestionResult[]} questionsResults
  * @prop {Number}
  */
-export function correctAnswers(questionsResults){
+export function correctAnswers(questionsResults) {
   let totals = stats(questionsResults);
   return totals.get("totalCorrect");
 }
@@ -30,7 +30,7 @@ export function correctAnswers(questionsResults){
  * @param {QuestionResult[]} questionsResults
  * @prop {Number}
  */
-export function correctPercentage(questionsResults){
+export function correctPercentage(questionsResults) {
   let totals = stats(questionsResults);
   return totals.get("correctPercentage");
 }
@@ -39,7 +39,7 @@ export function correctPercentage(questionsResults){
  * @param {QuestionResult[]} questionsResults
  * @prop {Number}
  */
-export function totalTimeSpent(questionsResults){
+export function totalTimeSpent(questionsResults) {
   let totals = stats(questionsResults);
   return totals.get("totalTimeSpent");
 }
@@ -50,32 +50,35 @@ export function totalTimeSpent(questionsResults){
  * @returns {{ total: number, correct: number, incorrect: number, skipped: number, notStarted: number}}
  */
 export function stats(questionResults){
-  let total = 0;
+  let total = questionResults.length;
   let correct = 0;
   let incorrect = 0;
   let skipped = 0;
-  let notStarted = 0;
+  let started = 0;
   let timeSpent = 0;
   let reactions = [];
 
   questionResults.forEach(function(item){
-    total++;
     correct += item.get("correct") ? 1 : 0;
     incorrect += item.get("incorrect") ? 1 : 0;
     skipped += item.get("skipped") ? 1 : 0;
-    notStarted += item.get("notStarted") ? 1 : 0;
+    started += item.get("started") ? 1 : 0;
     timeSpent += item.get("timeSpent");
-    reactions.push(item.get("reaction") ? item.get("reaction") : 0);
+
+    if (item.get('reaction')) {
+      reactions.push(item.get("reaction"));
+    }
   });
 
-  let completed = total - skipped - notStarted;
+  let notStarted = total - started;
+  let completed = correct + incorrect; //incorrect should include skipped ones
 
   return Ember.Object.create({
     total: total,
     totalCorrect: correct,
-    correctPercentage: Math.round(correct / total * 100),
+    correctPercentage: Math.round(correct / completed * 100),
     totalIncorrect: incorrect,
-    incorrectPercentage: Math.round(incorrect / total * 100),
+    incorrectPercentage: Math.round(incorrect / completed * 100),
     totalSkipped: skipped,
     skippedPercentage: Math.round(skipped / total * 100),
     totalNotStarted: notStarted,
@@ -86,6 +89,38 @@ export function stats(questionResults){
     totalTimeSpent: timeSpent
   });
 }
+
+/**
+ * Returns only completed results
+ * @param {QuestionResult[]} questionsResults
+ * @prop {QuestionResult[]}
+ */
+export function completedResults(questionsResults) {
+  return questionsResults.filter(function (questionResult) {
+      return questionResult.get("completed");
+    });
+}
+
+/**
+ * Returns only answered results
+ * @param {QuestionResult[]} questionsResults
+ * @prop {QuestionResult[]}
+ */
+export function answeredResults(questionsResults) {
+  return questionsResults.filter(function (questionResult) {
+      return questionResult.get("answered");
+    });
+}
+
+/**
+ * Sort results by submittedAt field, ascending
+ * @param {QuestionResult[]} questionsResults
+ * @prop {QuestionResult[]}
+ */
+export function sortResults(questionsResults) {
+  return questionsResults.sortBy("submittedAt");
+}
+
 
 
 

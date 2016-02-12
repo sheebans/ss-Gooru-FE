@@ -16,13 +16,13 @@
             <div class="your-answer">
                 <span>{{t "common.answer"}}</span>
               <span>
-                {{{component (questionConfig result.question.questionType 'component.report') question=result.question userAnswer=result.userAnswer}}}
+                {{{component (questionConfig result.question.questionType 'component.answer') question=result.question userAnswer=result.userAnswer}}}
               </span>
             </div>
             <div class="correct-answer">
                 <span>{{t "common.correct-answer"}}</span>
                 <span>
-                  {{{component (questionConfig result.question.questionType 'component.report') question=result.question showCorrect=true}}}
+                  {{{component (questionConfig result.question.questionType 'component.answer') question=result.question showCorrect=true}}}
                 </span>
             </div>
         </div>
