@@ -97,7 +97,7 @@ export default Ember.Component.extend({
         {
           color: NO_ANSWER_COLOR,
           percentage: totals.get("notStartedPercentage")
-        },
+        }
       ],
       completed: totals.get("totalCompleted"),
       total: total
