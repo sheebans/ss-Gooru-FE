@@ -1,23 +1,24 @@
 .reports.class-assessment.gru-question-performance {
   .chart {
     height: 25px;
-    width: 88%;
-    margin-bottom: 20px;
-
+    width: 85%;
+    display: inline-block;
     .gru-x-bar-chart {
       background-color: $body-bg;
     }
+  }
 
-    .ratio {
-      background-color: transparent;
-      padding-left: 1.3em;
-      text-align: center;
+  .panel-answer {
+    .panel-heading-anonymous {
+      background-color: $blue-400;
     }
   }
+
   .answers-wrapper {
     padding: 10px;
     .answer {
       width: 100%;
+      margin-bottom:20px;
     }
     .students {
       width: 100%;
@@ -29,5 +30,15 @@
         font-size: $font-size-base;
       }
     }
+    .answer-chart{
+      height: 25px;
+      width: 85%;
+      display: inline-block;
+      .gru-x-bar-chart {
+        background-color: $body-bg;
+      }
+
+    }
   }
 }
+

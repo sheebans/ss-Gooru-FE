@@ -77,8 +77,10 @@ export function stats(questionResults){
     total: total,
     totalCorrect: correct,
     correctPercentage: Math.round(correct / completed * 100),
+    correctPercentageFromTotal: Math.round(correct / total * 100), //percentage including not started
     totalIncorrect: incorrect,
     incorrectPercentage: Math.round(incorrect / completed * 100),
+    incorrectPercentageFromTotal: Math.round(incorrect / total * 100), //percentage including not started
     totalSkipped: skipped,
     skippedPercentage: Math.round(skipped / total * 100),
     totalNotStarted: notStarted,

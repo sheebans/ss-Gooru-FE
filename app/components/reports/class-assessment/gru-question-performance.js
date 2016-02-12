@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import { getQuestionUtil } from 'gooru-web/config/question';
 import { stats, userAnswers } from 'gooru-web/utils/question-result';
-import { GRADING_SCALE } from 'gooru-web/config/config';
+import { CORRECT_COLOR, INCORRECT_COLOR, ANONYMOUS_COLOR, NO_ANSWER_COLOR } from 'gooru-web/config/config';
 
 /**
  * Question Performance Component
@@ -44,6 +44,25 @@ export default Ember.Component.extend({
    * @property {boolean} anonymous
    */
   anonymous: null,
+  /**
+   * Indicates when the report is display in anonymous mode if show all performance results
+   * @property {boolean} showResult
+   */
+  showResult: null,
+
+/**
+ * Indicates if is anonymous and show the performance Results
+ * @property {boolean} anonymousAndShowResult
+ */
+  anonymousAndShowResult : Ember.computed.and('anonymous','showResult'),
+
+/**
+ * Indicates if is anonymous and show the performance Results
+ * @property {boolean} anonymousAndShowResult
+ */
+  anonymousAndNotShowResult : Ember.computed('anonymous','showResult', function(){
+    return this.get("anonymous") && !this.get("showResult");
+  }),
 
   /**
    * Question results for this question, all students
@@ -58,24 +77,27 @@ export default Ember.Component.extend({
   /**
    * Returns a convenient structure to display the x-bar-chart
    */
-  questionBarChartData: Ember.computed("questionResults.[]", function(){
+  questionBarChartData: Ember.computed("questionResults.[]", "anonymousAndNotShowResult", function(){
     const questionResults = this.get("questionResults");
 
     const totals = stats(questionResults);
     const total = totals.get("total");
+    const anonymousAndNotShowResult = this.get("anonymousAndNotShowResult");
 
-    const correctColor = GRADING_SCALE[GRADING_SCALE.length - 1].COLOR;
-    const failColor = GRADING_SCALE[0].COLOR;
     return Ember.Object.create({
       data: [
         {
-          color: failColor,
-          percentage: totals.get("incorrectPercentage")
+          color: anonymousAndNotShowResult ? ANONYMOUS_COLOR : INCORRECT_COLOR,
+          percentage: totals.get("incorrectPercentageFromTotal")
         },
         {
-          color: correctColor,
-          percentage: totals.get("correctPercentage")
-        }
+          color: anonymousAndNotShowResult ? ANONYMOUS_COLOR : CORRECT_COLOR,
+          percentage: totals.get("correctPercentageFromTotal")
+        },
+        {
+          color: NO_ANSWER_COLOR,
+          percentage: totals.get("notStartedPercentage")
+        },
       ],
       completed: totals.get("totalCompleted"),
       total: total
@@ -99,11 +121,17 @@ export default Ember.Component.extend({
     distribution.forEach(function(answerDistribution){
       let userAnswer = answerDistribution.get("answer");
       let students = reportData.getStudentsByQuestionAndUserAnswer(question, userAnswer);
+      let correct = questionUtil.isCorrect(userAnswer);
+      let percentage = answerDistribution ? answerDistribution.get("percentage") : 0;
       answersData.addObject(Ember.Object.create({
-        correct: questionUtil.isCorrect(userAnswer),
+        correct: correct,
         userAnswer: userAnswer,
-        percentage: answerDistribution ? answerDistribution.get("percentage") : 0,
-        students: students
+        percentage: percentage,
+        students: students,
+        charData: Ember.A([Ember.Object.create({
+          color: correct ? CORRECT_COLOR : INCORRECT_COLOR,
+          percentage: percentage
+        })])
       }));
     });
 

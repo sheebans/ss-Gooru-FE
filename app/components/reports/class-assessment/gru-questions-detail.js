@@ -26,6 +26,14 @@ export default Ember.Component.extend({
      */
     bubbleSelect: function(bubbleOption){
       this.set("selectedQuestion", bubbleOption.get("value"));
+    },
+    /**
+     * Show performance results
+     */
+    showResult:function(){
+      if(this.get("anonymous")){
+        this.set("showResult",!this.get("showResult"));
+      }
     }
   },
 
@@ -58,7 +66,11 @@ export default Ember.Component.extend({
    * @property {boolean} anonymous
    */
   anonymous: Ember.computed.alias("model.anonymous"),
-
+  /**
+   * Indicates when the report is display in anonymous mode if show all performance results
+   * @property {boolean} showResult
+   */
+  showResult: false,
   /**
    * @prop { User[] } students - Group of students taking an assessment
    */

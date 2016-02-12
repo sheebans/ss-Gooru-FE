@@ -209,7 +209,6 @@ export default Ember.Object.extend({
     const students = this.get("students");
     const questionId = question.get("id");
     const util = getQuestionUtil(question.get("questionType")).create({ question: question });
-    const answerKey = util.answerKey(answer);
     let found = Ember.A([]);
 
     students.forEach(function(student){
@@ -219,7 +218,7 @@ export default Ember.Object.extend({
         const questionResult = userQuestionResults[questionId];
         const answered = questionResult && questionResult.get("answered");
         if (answered){
-          const sameAnswer = util.sameAnswer(answerKey, questionResult.get("userAnswer"));
+          const sameAnswer = util.sameAnswer(answer, questionResult.get("userAnswer"));
           if (sameAnswer) {
             found.addObject(student);
           }

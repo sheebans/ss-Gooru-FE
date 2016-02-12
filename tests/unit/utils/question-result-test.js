@@ -134,8 +134,10 @@ test('Stats having not started, not started should be ignored', function (assert
   assert.equal(totals.get("total"), 6, 'Wrong total');
   assert.equal(totals.get("totalCorrect"), 1, 'Wrong correct');
   assert.equal(totals.get("correctPercentage"), 25, 'Wrong correct percentage');
+  assert.equal(totals.get("correctPercentageFromTotal"), 17, 'Wrong correct percentage from total');
   assert.equal(totals.get("totalIncorrect"), 3, 'Wrong incorrect');
   assert.equal(totals.get("incorrectPercentage"), 75, 'Wrong incorrect percentage');
+  assert.equal(totals.get("incorrectPercentageFromTotal"), 50, 'Wrong incorrect percentage from total');
   assert.equal(totals.get("totalSkipped"), 0, 'Wrong skipped');
   assert.equal(totals.get("skippedPercentage"), 0, 'Wrong skipped percentage');
   assert.equal(totals.get("totalNotStarted"), 2, 'Wrong not started');
@@ -189,8 +191,10 @@ test('Stats when all completed', function (assert) {
   assert.equal(totals.get("total"), 5, 'Wrong total');
   assert.equal(totals.get("totalCorrect"), 1, 'Wrong correct');
   assert.equal(totals.get("correctPercentage"), 20, 'Wrong correct percentage');
+  assert.equal(totals.get("correctPercentageFromTotal"), 20, 'Wrong correct percentage from total');
   assert.equal(totals.get("totalIncorrect"), 4, 'Wrong incorrect, 2 incorrect + 2 skipped');
   assert.equal(totals.get("incorrectPercentage"), 80, 'Wrong incorrect percentage');
+  assert.equal(totals.get("incorrectPercentageFromTotal"), 80, 'Wrong incorrect percentage from total');
   assert.equal(totals.get("totalSkipped"), 2, 'Wrong skipped');
   assert.equal(totals.get("skippedPercentage"), 40, 'Wrong skipped percentage');
   assert.equal(totals.get("totalNotStarted"), 0, 'Wrong not started');

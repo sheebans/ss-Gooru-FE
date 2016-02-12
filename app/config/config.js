@@ -53,5 +53,14 @@ export const GRADING_SCALE = [
   {LOWER_LIMIT: 80, COLOR: '#A2DE81'},
   {LOWER_LIMIT: 90, COLOR: '#3FC380'}
 ];
+
+export const CORRECT_COLOR = '#4B9741'; //green-400
+
+export const INCORRECT_COLOR = '#F46360';//red-400
+
+export const ANONYMOUS_COLOR = '#0072BC';//blue-400
+
+export const NO_ANSWER_COLOR = '#FFFFFF';//white
+
 // Height of the application header in pixels
 export const HEADER_HEIGHT = 50;
