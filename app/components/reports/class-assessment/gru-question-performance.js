@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import { getQuestionUtil } from 'gooru-web/config/question';
 import { stats, userAnswers } from 'gooru-web/utils/question-result';
-import { CORRECT_COLOR, INCORRECT_COLOR, ANONYMOUS_COLOR, NO_ANSWER_COLOR } from 'gooru-web/config/config';
+import { CORRECT_COLOR, INCORRECT_COLOR, ANONYMOUS_COLOR } from 'gooru-web/config/config';
 
 /**
  * Question Performance Component
@@ -93,10 +93,6 @@ export default Ember.Component.extend({
         {
           color: anonymousAndNotShowResult ? ANONYMOUS_COLOR : CORRECT_COLOR,
           percentage: totals.get("correctPercentageFromTotal")
-        },
-        {
-          color: NO_ANSWER_COLOR,
-          percentage: totals.get("notStartedPercentage")
         }
       ],
       completed: totals.get("totalCompleted"),

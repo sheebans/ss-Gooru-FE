@@ -46,7 +46,7 @@ export default Ember.Object.extend({
   /**
    * @property {Resource[]} resource
    */
-  resourceIds: null,
+  resources: null,
 
   // -------------------------------------------------------------------------
   // Methods
