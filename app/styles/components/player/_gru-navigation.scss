@@ -21,8 +21,7 @@
     .right {
       float: right;
       text-align: right;
-      margin-right: 5%;
-      margin-top: 3%;
+      margin: 3% 5% 0 0;
     }
 
     @media (min-width: $screen-md) {

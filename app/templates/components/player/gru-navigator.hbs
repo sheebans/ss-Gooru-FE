@@ -7,13 +7,13 @@
 
 <ul class="list-group resources">
   <div class="bgd-line"></div>
-    <li  id= "item_back" {{action 'closePlayer'}}>
+    <li id="item_back"{{action 'closePlayer'}}>
         <div class="resources-info">
             <h6 class="title">&#60;Back</h6>
         </div>
     </li>
   {{#each collection.resources as |resource|}}
-    <li class="list-group-item" id= "item_{{resource.id}}"{{action 'selectItem' resource}}>
+      <li class="list-group-item" id= "item_{{resource.id}}"{{action 'selectItem' resource}}>
       <div class="resources-info">
         <span class="bubble-type {{resource.resourceFormat}}"></span>
         <h6 class="title">{{{resource.title}}}</h6>

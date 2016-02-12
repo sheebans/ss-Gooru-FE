@@ -1,10 +1,8 @@
 <div class="question-information">
-      <div class="btn-group">
-          <button class="hint btn {{if isHintButtonDisabled 'btn-info' 'btn-primary'}}" disabled={{isHintButtonDisabled}} {{action 'showHint'}}><span>{{material-design-icon name='directions'}}{{t "common.hints"}}</span>
-          ({{t "common.remaining" number=availableHints}})
-          </button>
-          <button class="explanation btn {{if isExplanationButtonDisabled 'btn-info' 'btn-primary'}}"
-            disabled={{isExplanationButtonDisabled}} {{action 'showExplanation'}}><span>{{material-design-icon name='directions'}} {{t "common.explanation"}}</span></button>
-      </div>
-
+    <div class="btn-group">
+        <button class="hint btn {{if isHintButtonDisabled 'btn-info' 'btn-primary'}}" disabled={{isHintButtonDisabled}} {{action 'showHint'}}><span>{{material-design-icon name='directions'}}{{t "common.hints"}}</span>
+            ({{t "common.remaining" number=availableHints}})
+        </button>
+        <button class="explanation btn {{if isExplanationButtonDisabled 'btn-info' 'btn-primary'}}" disabled={{isExplanationButtonDisabled}} {{action 'showExplanation'}}><span>{{material-design-icon name='directions'}} {{t "common.explanation"}}</span></button>
+    </div>
 </div>
