@@ -114,7 +114,7 @@ export default Ember.Component.extend({
         classIconItem = 'chat';
         break;
       case 'info':
-        classIconItem = 'group-work';
+        classIconItem = 'info';
         break;
     }
     this.set('iconClassMenuItem',classIconItem );
