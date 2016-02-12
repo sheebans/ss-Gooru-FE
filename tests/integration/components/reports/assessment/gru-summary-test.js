@@ -1,7 +1,7 @@
-import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import QuestionResult from 'gooru-web/models/result/question';
+import AssessmentResult from 'gooru-web/models/result/assessment';
 
 moduleForComponent('reports/assessment/gru-summary', 'Integration | Component | reports/assessment/gru summary', {
   integration: true,
@@ -17,34 +17,35 @@ test('it renders', function (assert) {
   date.setMinutes(15);
   date.setHours(11);
 
-  const assessmentResult = Ember.Object.create({
+  const assessmentResult = AssessmentResult.create({
     id: 501,
-    averageReaction: 2,
-    totalTimeSpent: 1695,
-    correctPercentage: 67,
-    correctAnswers: 2,
-
-    questionsResults: [
+    resourceResults: [
       QuestionResult.create({
         id: 601,
         resource: {
           order: 1
         },
-        correct: false
+        correct: false,
+        timeSpent: 20,
+        reaction: 2,
       }),
       QuestionResult.create({
         id: 603,
         resource: {
           order: 3
         },
-        correct: true
+        correct: true,
+        timeSpent: 20,
+        reaction: 2
       }),
       QuestionResult.create({
         id: 602,
         resource: {
           order: 2
         },
-        correct: true
+        correct: true,
+        timeSpent: 20,
+        reaction: 2
       })
     ],
     selectedAttempt: 3,
@@ -92,7 +93,7 @@ test('it renders', function (assert) {
 
   // Time
   $overviewSection = $overviewContainer.find('.information .time');
-  assert.equal($overviewSection.find('span').text().trim(), '28m 15s', 'Incorrect time value');
+  assert.equal($overviewSection.find('span').text().trim(), '1m', 'Incorrect time value');
 
   // Reaction
   $overviewSection = $overviewContainer.find('.information .reaction');

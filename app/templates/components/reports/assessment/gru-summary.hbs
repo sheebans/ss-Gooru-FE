@@ -2,7 +2,7 @@
   <div class="grade" style="background-color: {{gradeColor assessmentResult.correctPercentage}}">
     <span class="percentage">{{assessmentResult.correctPercentage}}%</span>
     <span class="attempts">
-      <span class="fractional fraction"> {{{fractional numerator=assessmentResult.correctAnswers denominator=assessmentResult.questionsResults.length}}}</span>
+      <span class="fractional fraction"> {{{fractional numerator=assessmentResult.correctAnswers denominator=assessmentResult.totalResources}}}</span>
       <span class="text">{{t 'common.correct'}}</span>
     </span>
   </div>

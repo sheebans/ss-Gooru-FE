@@ -1,14 +1,11 @@
 .gru-resource-card {
-  float: left;
-  margin: 0 15px 0 0;
-
+  width: 195px;
+  height: 128px;
   .panel {
     background: $light-100;
     border: 1px solid $light-200;
     border-radius: 5px;
     box-shadow: none;
-    width: 195px;
-    height: 128px;
     .panel-body {
       height: 88px;
       padding: 10px 5px;

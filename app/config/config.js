@@ -47,11 +47,11 @@ export const SCORES = {
 };
 
 export const GRADING_SCALE = [
-  {LOWER_LIMIT: 0, COLOR: '#F6625D'},
-  {LOWER_LIMIT: 60, COLOR: '#EF8F27'},
-  {LOWER_LIMIT: 70, COLOR: '#FABC31'},
-  {LOWER_LIMIT: 80, COLOR: '#97B223'},
-  {LOWER_LIMIT: 90, COLOR: '#48983C'}
+  {LOWER_LIMIT: 0, COLOR: '#F46360'}, //red-400
+  {LOWER_LIMIT: 60, COLOR: '#ED8E36'}, //orange-400
+  {LOWER_LIMIT: 70, COLOR: '#F8BA41'}, //yellow-400
+  {LOWER_LIMIT: 80, COLOR: '#A3CA9F'}, //green-200
+  {LOWER_LIMIT: 90, COLOR: '#4B9741'} //green-400
 ];
 
 export const CORRECT_COLOR = GRADING_SCALE[GRADING_SCALE.length - 1].COLOR; //green-400
