@@ -5,19 +5,21 @@
     li{
       list-style: none;
       position:relative;
+      display: flex;
       span.column {
         width: 25px;
         display: inline-block;
         text-align: center;
-        i{
-          margin: 0 auto;
-        }
+        margin-left: 2px;
       }
       span.correct{
         color:$brand-success;
       }
       span.incorrect{
         color:$brand-incorrect;
+      }
+      span.anonymous{
+        color:$brand-anonymous;
       }
       span.answer-text{
         margin-left: 1em;

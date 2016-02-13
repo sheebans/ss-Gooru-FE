@@ -5,10 +5,10 @@
   </li>
   {{#each answers as |answer index|}}
     <li>
-      <span class="column
-        {{if answer.selected 'selected' 'no-selected'}}
-        {{if answer.correct 'correct' 'incorrect'}}">
-        {{fa-icon icon=(if answer.correct 'check-circle-o' 'times-circle-o')}}
+      <span class="{{if answer.selected 'selected' 'no-selected'}}
+        {{if answer.correct 'correct' 'incorrect'}}
+        {{if anonymous 'anonymous'}}">
+        {{material-design-icon name='radio-button-checked'}}
       </span>
       <span class="answer-text">({{answer-letter index}}) {{{answer.text}}}</span>
     </li>
