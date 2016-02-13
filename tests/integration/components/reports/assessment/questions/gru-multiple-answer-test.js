@@ -29,10 +29,10 @@ test('Multiple Answer Correct Answer', function(assert) {
   const $component = this.$(); //component dom element
   const $multipleAnswer = $component.find(".reports.assessment.questions.gru-multiple-answer");
 
-  T.exists(assert, $multipleAnswer.find('li:eq(1) span.column.correct'), 'The first answer should be correct');
-  T.exists(assert, $multipleAnswer.find('li:eq(2) span.column.correct'), 'The second answer should be correct');
-  T.exists(assert, $multipleAnswer.find('li:eq(3) span.column.correct'), 'The third answer should be correct');
-  T.notExists(assert, $multipleAnswer.find('li span.column.incorrect'), 'Should not be incorrect answers at all');
+  T.exists(assert, $multipleAnswer.find('li:eq(1) span.correct'), 'The first answer should be correct');
+  T.exists(assert, $multipleAnswer.find('li:eq(2) span.correct'), 'The second answer should be correct');
+  T.exists(assert, $multipleAnswer.find('li:eq(3) span.correct'), 'The third answer should be correct');
+  T.notExists(assert, $multipleAnswer.find('li span.incorrect'), 'Should not be incorrect answers at all');
 });
 
 test('Multiple Answer Your Answer Incorrect', function(assert) {
@@ -59,9 +59,9 @@ test('Multiple Answer Your Answer Incorrect', function(assert) {
   const $component = this.$(); //component dom element
   const $multipleAnswer = $component.find(".reports.assessment.questions.gru-multiple-answer");
 
-  T.exists(assert, $multipleAnswer.find('li:eq(1) span.column.correct'), 'The first answer should be correct');
-  T.exists(assert, $multipleAnswer.find('li:eq(2) span.column.incorrect'), 'The second answer should be incorrect');
-  T.exists(assert, $multipleAnswer.find('li:eq(3) span.column.correct'), 'The third answer should be correct');
+  T.exists(assert, $multipleAnswer.find('li:eq(1) span.correct'), 'The first answer should be correct');
+  T.exists(assert, $multipleAnswer.find('li:eq(2) span.incorrect'), 'The second answer should be incorrect');
+  T.exists(assert, $multipleAnswer.find('li:eq(3) span.correct'), 'The third answer should be correct');
 });
 
 test('Multiple Answer Your Answer Correct', function(assert) {
@@ -88,10 +88,10 @@ test('Multiple Answer Your Answer Correct', function(assert) {
   const $component = this.$(); //component dom element
   const $multipleAnswer = $component.find(".reports.assessment.questions.gru-multiple-answer");
 
-  T.exists(assert, $multipleAnswer.find('li:eq(1) span.column.correct'), 'The first answer should be correct');
-  T.exists(assert, $multipleAnswer.find('li:eq(2) span.column.correct'), 'The second answer should be correct');
-  T.exists(assert, $multipleAnswer.find('li:eq(3) span.column.correct'), 'The third answer should be correct');
-  T.notExists(assert, $multipleAnswer.find('li span.column.incorrect'), 'Should not be incorrect answers at all');
+  T.exists(assert, $multipleAnswer.find('li:eq(1) span.correct'), 'The first answer should be correct');
+  T.exists(assert, $multipleAnswer.find('li:eq(2) span.correct'), 'The second answer should be correct');
+  T.exists(assert, $multipleAnswer.find('li:eq(3) span.correct'), 'The third answer should be correct');
+  T.notExists(assert, $multipleAnswer.find('li span.incorrect'), 'Should not be incorrect answers at all');
 });
 
 test('Multiple Answer anonymous', function(assert) {
@@ -118,7 +118,7 @@ test('Multiple Answer anonymous', function(assert) {
   const $component = this.$(); //component dom element
   const $multipleAnswer = $component.find(".reports.assessment.questions.gru-multiple-answer");
 
-  T.exists(assert, $multipleAnswer.find('li:eq(1) span.column.anonymous'), 'The first answer should be anonymous');
-  T.exists(assert, $multipleAnswer.find('li:eq(2) span.column.anonymous'), 'The second answer should be anonymous');
-  T.exists(assert, $multipleAnswer.find('li:eq(3) span.column.anonymous'), 'The third answer should be anonymous');
+  T.exists(assert, $multipleAnswer.find('li:eq(1) span.anonymous'), 'The first answer should be anonymous');
+  T.exists(assert, $multipleAnswer.find('li:eq(2) span.anonymous'), 'The second answer should be anonymous');
+  T.exists(assert, $multipleAnswer.find('li:eq(3) span.anonymous'), 'The third answer should be anonymous');
 });

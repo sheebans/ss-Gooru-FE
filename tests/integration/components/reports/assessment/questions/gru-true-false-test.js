@@ -74,7 +74,7 @@ test('True False anonymous', function (assert) {
   this.set('question', question);
   this.set('userAnswer', userAnswer);
 
-  this.render(hbs`{{reports/assessment/questions/gru-true-false question=question userAnswer=userAnswer}}`);
+  this.render(hbs`{{reports/assessment/questions/gru-true-false question=question userAnswer=userAnswer anonymous=true}}`);
   const $component = this.$(); //component dom element
   T.notExists(assert, $component.find('li:nth-child(1) span i'), 'The first answer should dont have selected icon');
   T.exists(assert, $component.find('li:nth-child(2) span.anonymous'), 'The second answer should be anonymous');

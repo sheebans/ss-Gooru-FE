@@ -31,7 +31,7 @@ export default Ember.Component.extend(QuestionMixin, {
     let question = component.get("question");
     let questionUtil = component.getQuestionUtil(question);
     let userAnswers = component.get("userAnswer");
-    let anonymous = component.get("anonymous")
+    let anonymous = component.get("anonymous");
     if (component.get("showCorrect")){
       userAnswers = questionUtil.getCorrectAnswer();
     }
