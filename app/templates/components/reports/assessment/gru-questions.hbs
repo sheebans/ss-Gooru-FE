@@ -49,11 +49,9 @@
         {{{component (questionConfig result.question.questionType 'component.answer') question=result.question userAnswer=result.userAnswer}}}
       </td>
       <td class="question-score {{if showPerformance 'visible' 'hide'}}">
-        {{#if result.correct}}
-            <span class="correct">{{fa-icon icon='check-circle-o'}}</span>
-        {{else}}
-            <span class="incorrect">{{fa-icon icon='times-circle-o'}}</span>
-        {{/if}}
+        <span class="{{if result.correct 'correct' 'incorrect'}}">
+          {{material-design-icon name='radio-button-checked'}}
+        </span>
       </td>
       <td class="question-time {{if showPerformance 'visible' 'hide'}}">
         {{formatTime result.timeSpent}}

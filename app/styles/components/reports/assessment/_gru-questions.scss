@@ -64,7 +64,9 @@
       width: 36%;
     }
     .question-score span{
-      font-size:37px;
+      .mdi {
+        font-size: $font-size-h3;
+      }
     }
     .question-score span.correct{
       color:$brand-success;
