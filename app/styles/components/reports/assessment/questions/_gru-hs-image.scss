@@ -1,5 +1,5 @@
 .reports.assessment.questions.gru-hs-image {
-  $image-side: 43px;
+  $image-side: 73px;
   ul{
     padding-left: 0px;
     li{
@@ -21,12 +21,16 @@
         border: 4px solid;
         width: $image-side + 4px;
         height: $image-side + 4px;
+        border-radius: 5px;
       }
       span.selected.correct{
         border-color: $brand-success;
       }
       span.selected.incorrect{
         border-color: $brand-incorrect;
+      }
+      span.selected.anonymous{
+        border-color: $brand-anonymous;
       }
     }
   }
