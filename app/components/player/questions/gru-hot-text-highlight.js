@@ -67,9 +67,11 @@ export default QuestionComponent.extend({
    */
   notifyEvents: function (selectedItems) {
     const component = this;
-    component.notifyAnswerChanged(selectedItems);
+    const questionUtil = component.get("questionUtil");
+    const correct = questionUtil.isCorrect(selectedItems);
+    component.notifyAnswerChanged(selectedItems, correct);
     if (selectedItems.get("length")) {
-      component.notifyAnswerCompleted(selectedItems);
+      component.notifyAnswerCompleted(selectedItems, correct);
     }
     else {
       component.notifyAnswerCleared(selectedItems);

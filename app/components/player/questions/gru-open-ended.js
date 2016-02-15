@@ -58,10 +58,10 @@ export default QuestionComponent.extend({
     const component = this,
       answer = component.get("answer");
     //todo set the answer
-    component.notifyAnswerChanged(answer);
+    component.notifyAnswerChanged(answer, true);
 
     if (component.get("isAnswerCompleted")){
-      component.notifyAnswerCompleted(answer);
+      component.notifyAnswerCompleted(answer, true);
     }
     else{
       component.notifyAnswerCleared(answer);

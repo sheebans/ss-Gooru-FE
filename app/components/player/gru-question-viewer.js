@@ -52,7 +52,7 @@ export default Ember.Component.extend({
     },
     /**
      * When the question answer has been changed
-     * @param {Question} question the question
+     * @param {Resource} question the question
      */
     changeAnswer: function(question){
       //todo track analytics
@@ -61,7 +61,7 @@ export default Ember.Component.extend({
 
     /**
      * When the question answer has been completed
-     * @param {Question} question the question
+     * @param {Resource} question the question
      */
     completeAnswer: function(question){
       //todo track analytics
@@ -70,7 +70,7 @@ export default Ember.Component.extend({
     },
     /**
      * When the question answer has been cleared
-     * @param {Question} question the question
+     * @param {Resource} question the question
      */
     clearAnswer: function(question){
       //todo track analytics
@@ -89,12 +89,12 @@ export default Ember.Component.extend({
 
   /**
    * Hits available for a question
-   * @property {Number} availableHints
+   * @property {number} availableHints
    */
   actualHint: 0,
 
   /**
-   * @property {bool} indicates when the answer is completed
+   * @property {boolean} indicates when the answer is completed
    */
   answerCompleted: false,
 
@@ -106,7 +106,7 @@ export default Ember.Component.extend({
 
   /**
    * Hits available for a question
-   * @property {Number} availableHints
+   * @property {number} availableHints
    */
   availableHints: Ember.computed('actualHint', 'question', function() {
     return this.get('question.hints.length') - this.get('actualHint');
@@ -122,24 +122,24 @@ export default Ember.Component.extend({
 
   /**
    * Is the explanation shown?
-   * @property {Boolean} disableExplanation
+   * @property {boolean} disableExplanation
    */
   isExplanationShown: false,
 
   /**
    * Is the explanation button disabled?
-   * @property {Boolean} disableHint
+   * @property {boolean} disableHint
    */
   isExplanationButtonDisabled: Ember.computed.or('isExplanationShown', 'doesNotHaveExplanation'),
 
   /**
    * Is the hints button disabled?
-   * @property {Boolean} disableHint
+   * @property {boolean} disableHint
    */
   isHintButtonDisabled: Ember.computed.not('availableHints'),
 
   /**
-   * @property {bool} indicates when the submit functionality is enabled
+   * @property {boolean} indicates when the submit functionality is enabled
    */
   isSubmitDisabled: Ember.computed.not("answerCompleted"),
 
@@ -150,9 +150,16 @@ export default Ember.Component.extend({
 
   /**
    * The question
-   * @property {Question} question
+   * @property {Resource} question
    */
   question: null,
+
+  /**
+   * Question result
+   * @property {QuestionResult}
+   */
+  questionResult: null,
+
 
   /**
    * The text for the submit button

@@ -38,6 +38,7 @@ export default QuestionComponent.extend({
     this.$('li.answer').on('click', function() {
       const $this = $(this);
       const answerId = $this.data('id');
+      const questionUtil = component.get("questionUtil");
 
       var selected = component.get('selectedAnswers');
       var idx = selected.indexOf(answerId);
@@ -46,8 +47,10 @@ export default QuestionComponent.extend({
 
       if (idx === -1) {
         selected.push(answerId);
-        component.notifyAnswerChanged(selected);
-        component.notifyAnswerCompleted(selected);
+        const correct = questionUtil.isCorrect(selected);
+
+        component.notifyAnswerChanged(selected, correct);
+        component.notifyAnswerCompleted(selected, correct);
       } else {
         selected.splice(idx, 1);
         if (!selected.length) {

@@ -60,11 +60,15 @@ export default QuestionComponent.extend({
       inputs = component.$(".fib-answers input[type=text]"),
       answers = inputs.map(function (index, input) {
         return Ember.$(input).val();
-      }),
-      answerCompleted = answers.toArray().join("").length > 0;
-    component.notifyAnswerChanged(answers);
+      }).toArray(),
+      answerCompleted = answers.join("").length > 0;
+
+    const questionUtil = component.get("questionUtil");
+    const correct = questionUtil.isCorrect(answers);
+
+    component.notifyAnswerChanged(answers, correct);
     if (answerCompleted){
-      component.notifyAnswerCompleted(answers);
+      component.notifyAnswerCompleted(answers, correct);
     }
     else{
       component.notifyAnswerCleared(answers);

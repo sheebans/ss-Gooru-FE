@@ -28,9 +28,11 @@ export default QuestionComponent.extend({
      */
     selectAnswerChoice: function(answerId){
       const component = this;
-      //todo mark the answer as selected
-      component.notifyAnswerChanged(answerId);
-      component.notifyAnswerCompleted(answerId);
+      const questionUtil = this.get("questionUtil");
+      const correct = questionUtil.isCorrect(answerId);
+
+      component.notifyAnswerChanged(answerId, correct);
+      component.notifyAnswerCompleted(answerId, correct);
     }
   }
 
