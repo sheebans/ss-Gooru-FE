@@ -34,7 +34,11 @@ test('Layout', function (assert) {
     Ember.Object.create({"id": "56983a906596902edadedc7c"})
   ]);
 
-  var reportData = ReportData.create().initReportData(students, assessment.get("resources"));
+  var reportData = ReportData.create({
+    students: students,
+    resources: assessment.get("resources")
+  });
+
   reportData.merge([
     UserQuestionsResult.create({
       user: "56983a9060a68052c1ed934c",

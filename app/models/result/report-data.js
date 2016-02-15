@@ -24,8 +24,12 @@ export default Ember.Object.extend({
       return resource.get("id");
     });
 
-    if (!studentIds.length) Ember.Logger.error('Report data cannot be initialized without a list of students');
-    if (!resourceIds.length) Ember.Logger.error('Report data cannot be initialized without a list of resources');
+    if (!studentIds.length) {
+      Ember.Logger.error('Report data cannot be initialized without a list of students');
+    }
+    if (!resourceIds.length) {
+      Ember.Logger.error('Report data cannot be initialized without a list of resources');
+    }
 
     this.set("data", this.getEmptyMatrix(studentIds, resourceIds));
   },
