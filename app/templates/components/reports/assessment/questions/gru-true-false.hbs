@@ -1,14 +1,14 @@
 <ul>
   {{#each answers as |answer index|}}
-      <li>
-        {{#if answer.selected}}
-          {{#if answer.correct}}
-              <span class="correct">{{fa-icon icon='check-circle-o'}}</span>
-          {{else}}
-              <span class="incorrect">{{fa-icon icon='times-circle-o'}}</span>
-          {{/if}}
-        {{/if}}
-          <span class="answer-text">({{answer-letter index}}) {{{answer.text}}}</span>
-      </li>
+    <li>
+      {{#if answer.selected}}
+        <span class="{{if answer.correct 'correct' 'incorrect'}} {{if anonymous 'anonymous'}}">
+          {{material-design-icon name='radio-button-checked'}}
+        </span>
+      {{else}}
+        <span class="column">{{material-design-icon name='radio-button-unchecked'}}</span>
+      {{/if}}
+        <span class="answer-text">({{answer-letter index}}) {{{answer.text}}}</span>
+    </li>
   {{/each}}
 </ul>

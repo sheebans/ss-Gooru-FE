@@ -91,3 +91,31 @@ test('Hot Spot Text Your Answer Correct', function(assert) {
   T.exists(assert, $hsText.find('li:eq(2).selected.correct'), 'The third answer should be correct');
   T.notExists(assert, $hsText.find('li.incorrect'), 'Should not be incorrect answers at all');
 });
+
+test('Hot Spot Text Anonymous', function(assert) {
+
+  var question = Ember.Object.create({
+    questionType: 'HS_TXT',
+    text: 'Sample Question HS_TXT',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers:  Ember.A([
+      Ember.Object.create({ id: "1", isCorrect: true, text:"Answer 1" }),
+      Ember.Object.create({ id: "2", isCorrect: false, text:"Answer 2" }),
+      Ember.Object.create({ id: "3", isCorrect: true, text:"Answer 3" })
+    ]),
+    order: 2
+  });
+
+  var userAnswer = Ember.A(["1", "3"]);
+
+  this.set('question', question);
+  this.set('userAnswer', userAnswer);
+
+  this.render(hbs`{{reports/assessment/questions/gru-hs-text question=question userAnswer=userAnswer anonymous=true}}`);
+  const $component = this.$(); //component dom element
+  const $hsText = $component.find(".reports.assessment.questions.gru-hs-text");
+
+  T.exists(assert, $hsText.find('li:eq(0).selected.anonymous'), 'The first answer should be anonymous');
+  T.exists(assert, $hsText.find('li:eq(2).selected.anonymous'), 'The third answer should be anonymous');
+});

@@ -29,10 +29,10 @@ test('Hot Text Highlight User Answer', function(assert) {
   const $ht_hl = $component.find(".reports.assessment.questions.gru-hot-text-highlight");
 
   T.exists(assert, $ht_hl, 'Missing  component');
-  const $correctAnswers = $ht_hl.find('span.is-correct');
+  const $correctAnswers = $ht_hl.find('span.correct');
   assert.equal($correctAnswers.length, 2, 'There are no correct answers, there should be 2');
 
-  const $incorrectAnswers = $ht_hl.find('span.is-incorrect');
+  const $incorrectAnswers = $ht_hl.find('span.incorrect');
   assert.equal($incorrectAnswers.length, 2, 'There are no incorrect answers, there should be 2');
 });
 
@@ -58,9 +58,34 @@ test('Hot Text Highlight Correct Answer', function(assert) {
   const $ht_hl = $component.find(".reports.assessment.questions.gru-hot-text-highlight");
 
   T.exists(assert, $ht_hl, 'Missing  component');
-  const $correctAnswers = $ht_hl.find('span.is-correct');
+  const $correctAnswers = $ht_hl.find('span.correct');
   assert.equal($correctAnswers.length, 3, 'There are no correct answers, there should be 3');
 
-  const $incorrectAnswers = $ht_hl.find('span.is-incorrect');
+  const $incorrectAnswers = $ht_hl.find('span.incorrect');
   assert.equal($incorrectAnswers.length, 0, 'There are incorrect answers, there should be 0');
+});
+
+test('Hot Text Highlight Anonymous', function(assert) {
+  var question= Ember.Object.create({
+    questionType: 'HT_HL',
+    text: '<p>Seleccione las palabras escritas incorrectamente</p>',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers:  Ember.A([
+      Ember.Object.create({ id: "1", text:"<p>[Le] casa es de [colo] rojo pero pero el [teco] es azul ajax</p>" })
+    ]),
+    hasAnswers: true,
+    isHotTextHighlightWord: true,
+    order: 2
+  });
+  var userAnswer = ["Le", "casa", "teco", "azul"];
+  this.set('question', question);
+  this.set('userAnswer', userAnswer);
+
+  this.render(hbs`{{reports/assessment/questions/gru-hot-text-highlight question=question showCorrect=true anonymous=true}}`);
+  const $component = this.$(); //component dom element
+  const $ht_hl = $component.find(".reports.assessment.questions.gru-hot-text-highlight");
+  const $correctAnswers = $ht_hl.find('span.anonymous');
+  assert.equal($correctAnswers.length, 3, 'There are no correct answers, there should be 3');
+
 });

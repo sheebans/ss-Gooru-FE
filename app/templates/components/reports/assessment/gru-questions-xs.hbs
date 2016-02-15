@@ -1,30 +1,22 @@
 <div class="question-card {{if showPerformance 'show-performance' 'show-correct-answer'}}">
-    <div class="number-question">
-      {{result.question.order}}
-      {{#if result.correct}}
-          <span class="score correct">{{fa-icon icon='check-circle-o'}}</span>
-      {{else}}
-          <span class="score incorrect">{{fa-icon icon='times-circle-o'}}</span>
-      {{/if}}
+  <div class="question-container">
+    <div class="question">
+      <span class="question-number">{{result.question.order}}</span>
+      <span class="question-text">{{{result.question.text}}}</span>
     </div>
-    <div class="question-container">
-        <div class="question">
-            <span>{{t "common.question"}}</span>
-            <span>{{{result.question.text}}}</span>
-        </div>
-        <div class="answer">
-            <div class="your-answer">
-                <span>{{t "common.answer"}}</span>
-              <span>
-                {{{component (questionConfig result.question.questionType 'component.answer') question=result.question userAnswer=result.userAnswer}}}
-              </span>
-            </div>
-            <div class="correct-answer">
-                <span>{{t "common.correct-answer"}}</span>
-                <span>
-                  {{{component (questionConfig result.question.questionType 'component.answer') question=result.question showCorrect=true}}}
-                </span>
-            </div>
+    <div class="answer">
+      <div class="your-answer">
+          <span>{{t "common.answer"}}</span>
+        <span>
+          {{{component (questionConfig result.question.questionType 'component.answer') question=result.question userAnswer=result.userAnswer}}}
+        </span>
+      </div>
+        <div class="correct-answer">
+          <span>{{t "common.correct-answer"}}</span>
+          <span>
+            {{{component (questionConfig result.question.questionType 'component.answer') question=result.question showCorrect=true}}}
+          </span>
         </div>
     </div>
+  </div>
 </div>

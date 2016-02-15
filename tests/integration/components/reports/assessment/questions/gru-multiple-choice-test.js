@@ -24,9 +24,9 @@ test('Multiple Choice Correct Answer', function(assert) {
   const $multipleChoice = $component.find(".reports.assessment.questions.gru-multiple-choice");
 
   T.exists(assert, $multipleChoice, 'Missing multiple choice component');
-  T.notExists(assert, $multipleChoice.find('li:nth-child(1) span i'), 'The first answer should dont have selected icon');
-  T.notExists(assert, $multipleChoice.find('li:nth-child(2) span i'), 'The second answer should dont have selected icon');
-  T.exists(assert, $multipleChoice.find('li:nth-child(3) span.correct'), 'The third answer should have selected icon');
+  T.exists(assert, $multipleChoice.find('li:nth-child(1) span i.mdi-radio-button-unchecked'), 'The first answer should be unchecked');
+  T.exists(assert, $multipleChoice.find('li:nth-child(2) span i.mdi-radio-button-unchecked'), 'The second answer should be unchecked');
+  T.exists(assert, $multipleChoice.find('li:nth-child(3) span.correct i.mdi-radio-button-checked'), 'The third answer should be checked and correct');
 });
 
 test('Multiple Choice Your Answer Incorrect', function(assert) {
@@ -46,9 +46,9 @@ test('Multiple Choice Your Answer Incorrect', function(assert) {
   const $component = this.$(); //component dom element
   const $multipleChoice = $component.find(".reports.assessment.questions.gru-multiple-choice");
   T.exists(assert, $multipleChoice, 'Missing multiple choice component');
-  T.exists(assert, $multipleChoice.find('li:nth-child(1) span.incorrect'), 'The first answer should have the incorrect icon');
-  T.notExists(assert, $multipleChoice.find('li:nth-child(2) span i'), 'The second answer should dont have selected icon');
-  T.notExists(assert, $multipleChoice.find('li:nth-child(3) span i'), 'The third answer should dont have selected icon');
+  T.exists(assert, $multipleChoice.find('li:nth-child(1) span.incorrect i.mdi-radio-button-checked'), 'The third answer should be checked and incorrect');
+  T.exists(assert, $multipleChoice.find('li:nth-child(2) span i.mdi-radio-button-unchecked'), 'The second answer should be unchecked');
+  T.exists(assert, $multipleChoice.find('li:nth-child(3) span i.mdi-radio-button-unchecked'), 'The third answer should be unchecked');
 });
 
 test('Multiple Choice Your Answer Correct', function(assert) {
@@ -68,9 +68,9 @@ test('Multiple Choice Your Answer Correct', function(assert) {
   const $component = this.$(); //component dom element
   const $multipleChoice = $component.find(".reports.assessment.questions.gru-multiple-choice");
   T.exists(assert, $multipleChoice, 'Missing multiple choice component');
-  T.notExists(assert, $multipleChoice.find('li:nth-child(1) span i'), 'The first answer should dont have selected icon');
-  T.notExists(assert, $multipleChoice.find('li:nth-child(2) span i'), 'The second answer should dont have selected icon');
-  T.exists(assert, $multipleChoice.find('li:nth-child(3) span.correct'), 'The third answer should have the correct icon');
+  T.exists(assert, $multipleChoice.find('li:nth-child(1) span i.mdi-radio-button-unchecked'), 'The first answer should be unchecked');
+  T.exists(assert, $multipleChoice.find('li:nth-child(2) span i.mdi-radio-button-unchecked'), 'The second answer should be unchecked');
+  T.exists(assert, $multipleChoice.find('li:nth-child(3) span.correct i.mdi-radio-button-checked'), 'The third answer should be checked and correct');
 });
 
 test('Multiple Choice anonymous', function(assert) {
