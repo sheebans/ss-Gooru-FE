@@ -22,8 +22,8 @@ test('True False Correct Answer', function (assert) {
   this.render(hbs`{{reports/assessment/questions/gru-true-false question=question showCorrect=showCorrect}}`);
 
   const $component = this.$(); //component dom element
-  T.notExists(assert, $component.find('li:nth-child(1) span i'), 'The first answer should dont have selected icon');
-  T.exists(assert, $component.find('li:nth-child(2) span.correct'), 'The third answer should have selected icon');
+  T.exists(assert, $component.find('li:nth-child(1) span i.mdi-radio-button-unchecked'), 'The first answer should be unchecked');
+  T.exists(assert, $component.find('li:nth-child(2) span.correct i.mdi-radio-button-checked'), 'The second answer should be checked and correct');
 });
 
 test('True False Your Answer Incorrect', function (assert) {
@@ -40,8 +40,8 @@ test('True False Your Answer Incorrect', function (assert) {
 
   this.render(hbs`{{reports/assessment/questions/gru-true-false question=question userAnswer=userAnswer}}`);
   const $component = this.$(); //component dom element
-  T.exists(assert, $component.find('li:nth-child(1) span.incorrect'), 'The first answer should have the incorrect icon');
-  T.notExists(assert, $component.find('li:nth-child(2) span i'), 'The second answer should dont have selected icon');
+  T.exists(assert, $component.find('li:nth-child(1) span.incorrect i.mdi-radio-button-checked'), 'The first answer should be checked and incorrect');
+  T.exists(assert, $component.find('li:nth-child(2) span i.mdi-radio-button-unchecked'), 'The second answer should be unchecked');
 });
 
 test('True False Your Answer Correct', function (assert) {
@@ -58,9 +58,9 @@ test('True False Your Answer Correct', function (assert) {
 
   this.render(hbs`{{reports/assessment/questions/gru-true-false question=question userAnswer=userAnswer}}`);
   const $component = this.$(); //component dom element
-  T.notExists(assert, $component.find('li:nth-child(1) span i'), 'The first answer should dont have selected icon');
-  T.exists(assert, $component.find('li:nth-child(2) span.correct'), 'The second answer should have the incorrect icon');
-});
+  T.exists(assert, $component.find('li:nth-child(1) span i.mdi-radio-button-unchecked'), 'The first answer should be unchecked');
+  T.exists(assert, $component.find('li:nth-child(2) span.correct i.mdi-radio-button-checked'), 'The second answer should be checked and correct');
+ });
 
 test('True False anonymous', function (assert) {
 
@@ -76,6 +76,6 @@ test('True False anonymous', function (assert) {
 
   this.render(hbs`{{reports/assessment/questions/gru-true-false question=question userAnswer=userAnswer anonymous=true}}`);
   const $component = this.$(); //component dom element
-  T.notExists(assert, $component.find('li:nth-child(1) span i'), 'The first answer should dont have selected icon');
+  T.exists(assert, $component.find('li:nth-child(1) span i.mdi-radio-button-unchecked'), 'The first answer should be unchecked');
   T.exists(assert, $component.find('li:nth-child(2) span.anonymous'), 'The second answer should be anonymous');
 });

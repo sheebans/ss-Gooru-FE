@@ -1,11 +1,11 @@
 .gru-hot-text-highlight p {
-  line-height: 28px;
+  line-height: 32px;
   span {
     &.correct,
     &.incorrect,
     &.anonymous {
-      padding: 5px;
-      border-radius: 5px;
+      padding: 6px;
+      border-radius: 4px;
       color: $white
     }
     &.correct {

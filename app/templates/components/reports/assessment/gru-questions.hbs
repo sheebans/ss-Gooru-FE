@@ -3,8 +3,8 @@
       <h4>{{t "common.questions"}}</h4>
   </div>
   <div class="btn-group" role="group">
-    <button type="button" {{action 'selectPerformanceOption' true}} class="btn {{if showPerformance 'btn-info' 'btn-primary'}}">{{t "common.performance"}}</button>
-    <button type="button" {{action 'selectPerformanceOption' false}} class="btn {{unless showPerformance 'btn-info' 'btn-primary'}}">{{t "common.show-correct-answer"}}</button>
+    <button type="button" {{action 'selectPerformanceOption' true}} class="performance btn {{if showPerformance 'btn-info' 'btn-primary'}}">{{t "common.performance"}}</button>
+    <button type="button" {{action 'selectPerformanceOption' false}} class="correct-answer btn {{unless showPerformance 'btn-info' 'btn-primary'}}">{{t "common.show-correct-answer"}}</button>
   </div>
 </div>
 <table class="hidden-xs">
