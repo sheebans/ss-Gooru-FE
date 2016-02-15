@@ -26,12 +26,12 @@ export default Ember.Component.extend(QuestionMixin, {
   // -------------------------------------------------------------------------
   // Properties
 
-  answers: Ember.computed("question", function () {
+  answers: Ember.computed("question", "anonymous", function () {
     let component = this;
     let question = component.get("question");
     let questionUtil = component.getQuestionUtil(question);
     let userAnswers = component.get("userAnswer");
-
+    let anonymous = component.get("anonymous");
     if (component.get("showCorrect")){
       userAnswers = questionUtil.getCorrectAnswer();
     }
@@ -45,10 +45,11 @@ export default Ember.Component.extend(QuestionMixin, {
         selected = true;
       }
 
+      let elementClass = (anonymous) ? 'anonymous' : ((userAnswerCorrect) ? 'correct' : 'incorrect');
       return {
         text: answer.get('text'),
         selected: selected,
-        class: (userAnswerCorrect)?'correct':'incorrect'
+        "class": elementClass
       };
     });
   }),

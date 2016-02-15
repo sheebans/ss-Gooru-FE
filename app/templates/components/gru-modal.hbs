@@ -1,3 +1,5 @@
 <div class="modal-dialog">
+  {{#if modal.isVisible}}
     {{component component-name model=component-model target=actions-target component-class="modal-content"}}
+  {{/if}}
 </div>

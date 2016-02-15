@@ -4,14 +4,18 @@
     li {
       list-style: none;
       margin: 0 5px 5px 0;
-      padding: 10px;
-      border: 4px solid $gray-lighter;
+      padding: 15px;
+      border: 2px solid $gray-lighter;
+      border-radius: 4px;
     }
     li.selected.correct {
       border-color: $brand-success;
     }
     li.selected.incorrect {
       border-color: $brand-incorrect;
+    }
+    li.selected.anonymous {
+      border-color: $brand-anonymous;
     }
   }
 }

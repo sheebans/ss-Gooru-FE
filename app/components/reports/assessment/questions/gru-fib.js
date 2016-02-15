@@ -20,30 +20,32 @@ export default Ember.Component.extend(QuestionMixin, {
   // -------------------------------------------------------------------------
   // Properties
 
-  answer: Ember.computed("question", function () {
+  answer: Ember.computed("question", "anonymous", function () {
     let component = this;
     let question = component.get("question");
     let questionUtil = this.getQuestionUtil(question);
     let questionText = question.text;
     let questionTextParts = questionText.split("_______");
     let userAnswers = component.get("userAnswer");
+    let anonymous = component.get("anonymous");
 
     if (component.get("showCorrect")){
       userAnswers = questionUtil.getCorrectAnswer();
     }
 
-    let answers= userAnswers.map(function(userAnswer, index){
+    let answers = userAnswers.map(function(userAnswer, index){
       let userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(userAnswer, index);
+      let elementClass = (anonymous) ? 'anonymous' : ((userAnswerCorrect) ?'correct':'incorrect');
       return {
         text: userAnswer,
-        class: (userAnswerCorrect)?'answer correct':'answer incorrect'
+        "class": 'answer ' + elementClass
       };
     });
 
     let sentences= questionTextParts.map(function(questionTextPart){
       return {
         text: questionTextPart,
-        class: 'sentence'
+        "class": 'sentence'
       };
     });
 
