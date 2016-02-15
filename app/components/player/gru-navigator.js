@@ -67,7 +67,6 @@ export default Ember.Component.extend({
      If a mousedown event occurs, Ember will look at the target of the event and start walking up the DOM node tree, finding corresponding views and invoking their mouseDown method as it goes.
      */
     this.$(document).on('keyup', { _self: this }, this.navigateOnKeyUp);
-    console.log(component);
   }),
 
   removeSubscriptions: Ember.on('willDestroyElement', function() {

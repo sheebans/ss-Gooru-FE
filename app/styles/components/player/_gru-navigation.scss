@@ -1,13 +1,14 @@
 .player .gru-navigation {
   // temporary for GG-92
   height: $player-navigation-height;
-
   position: fixed;
   top: 0;
-  left: 0;
+  right: 0;
   width: 100%;
   z-index: 10;
-
+  @media (min-width: $screen-md) {
+    width:80%;
+  }
   .content {
     .left {
       float: left;
@@ -23,16 +24,13 @@
       text-align: right;
       margin: 3% 5% 0 0;
     }
-
     @media (min-width: $screen-md) {
-      margin-left: $player-navigator-width-md;
       overflow: hidden;
 
       .hamburger-icon {
         display: none;
       }
     }
-
     .hamburger-icon, .x-icon{
       font-size: 2.2rem;
       cursor: pointer;
