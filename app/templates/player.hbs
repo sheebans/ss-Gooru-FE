@@ -2,7 +2,6 @@
   <div class="main" role="main">
     {{player.gru-navigation
     ratingScore=ratingScore
-    onClosePlayer="closePlayer"
     onOpenNavigator="openNavigator"
     onChangeEmotion="changeEmotion"}}
 
@@ -14,6 +13,7 @@
   <div class="aside">
     {{player.gru-navigator
     collection=collection
+    onClosePlayer="closePlayer"
     selectedResourceId=resourceId
     onItemSelected="selectNavigatorItem"
     onCloseNavigator="closeNavigator"

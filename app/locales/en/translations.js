@@ -86,6 +86,7 @@ export default {
     "standard":"Standard",
     "standards": "Standards",
     "submit": "Submit",
+    "submit-all":"Submit all",
     "save-next": "Save and Next",
     "save-submit": "Save and Submit All",
     "save-finish": "Save and Finish",

@@ -19,9 +19,6 @@
     width: 100%;
 
     .question {
-      margin-bottom: 25px;
-      margin-top: 10px;
-
       span {
         display: block;
         margin-bottom: 10px;
@@ -38,26 +35,24 @@
       width: 45%;
       float: left;
     }
+    .hints, .explanation{
+      display: block;
+    }
   }
 
   .answers-panel {
     width: 100%;
     margin-bottom: 30px;
 
-    .gru-multiple-answer,
-    .gru-multiple-choice,
-    .gru-open-ended,
-    .gru-true-false,
-    .gru-reorder {
-      .instructions {
-        font-style: italic;
-        color:  $gray-light;
-      }
-    }
 
     .actions {
       margin-top: 30px;
       text-align: center;
+      .save{
+        @media (min-width: $screen-sm) {
+          float:right;
+        }
+      }
     }
 
     @media (min-width: $screen-sm) {
@@ -68,6 +63,7 @@
   }
 
   .question-information {
+    margin-top: 24px;
 
     .actions {
       text-align: center;
@@ -83,6 +79,17 @@
           margin-left: 3%;
         }
       }
+    }
+    .btn-group{
+      button{
+        span i{
+          vertical-align: middle;
+        }
+      }
+      & .explanation{
+        margin-left: 1px;
+      }
+
     }
 
     > .hints {
