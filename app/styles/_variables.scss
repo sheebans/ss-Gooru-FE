@@ -91,7 +91,7 @@ $brand-muted:           $light-400 !default;
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-$body-bg:               #fff !default;
+$body-bg:               $light-100 !default;
 //** Global text color on `<body>`.
 $text-color:            $gray !default;
 
@@ -940,9 +940,9 @@ $performance-circle-background-color: #DEDEDE;
 /* === DIMENSIONS === */
 $player-navigation-height: 175px;
 
-$narration-avatar-width:40px;
+$narration-avatar-width:60px;
 
-$narration-avatar-height:40px;
+$narration-avatar-height:60px;
 
 $overview-header:75px;
 
