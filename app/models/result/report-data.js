@@ -10,6 +10,32 @@ import QuestionResult from 'gooru-web/models/result/question';
 export default Ember.Object.extend({
 
   // -------------------------------------------------------------------------
+  // Events
+
+  /**
+   *  Initializes the report data
+   */
+  init: function () {
+    var studentIds = this.get('students').map(function (student) {
+      return student.get("id");
+    });
+
+    var resourceIds = this.get('resources').map(function (resource) {
+      return resource.get("id");
+    });
+
+    if (!studentIds.length) Ember.Logger.error('Report data cannot be initialized without a list of students');
+    if (!resourceIds.length) Ember.Logger.error('Report data cannot be initialized without a list of resources');
+
+    this.set("data", this.getEmptyMatrix(studentIds, resourceIds));
+  },
+
+  willDestroy: function () {
+    this.set("data", null);
+  },
+
+
+  // -------------------------------------------------------------------------
   // Properties
   /**
    * { Object{}{}{} } cumulativeData
@@ -37,27 +63,19 @@ export default Ember.Object.extend({
    */
   data: null,
 
-  // -------------------------------------------------------------------------
-  // Methods
+  /**
+   * @property {User[]} student
+   */
+  students: null,
 
   /**
-   *  Initializes the report data
-   * @param {User} students
-   * @param {Resource} resources
+   * @property {Resource[]} resource
    */
-  initReportData: function(students, resources){
-    var studentIds = students.map(function (student) {
-      return student.get("id");
-    });
+  resources: null,
 
-    var resourceIds = resources.map(function (resource) {
-      return resource.get("id");
-    });
 
-    this.set("data", this.getEmptyMatrix(studentIds, resourceIds));
-
-    return this;
-  },
+  // -------------------------------------------------------------------------
+  // Methods
 
   /**
    * Create a matrix of empty objects from a couple of arrays

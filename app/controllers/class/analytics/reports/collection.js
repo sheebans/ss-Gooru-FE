@@ -24,10 +24,6 @@ export default Ember.Controller.extend({
   },
 
   // -------------------------------------------------------------------------
-  // Events
-
-
-  // -------------------------------------------------------------------------
   // Properties
 
   /**
@@ -48,7 +44,17 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean}
    */
-  anonymous: false
+  anonymous: false,
+
+  /**
+   * @property {boolean} isReportLive - Is the report getting live results or not?
+   */
+  isReportLive: null,
+
+  /**
+   * @property {ReportData} report data
+   */
+  reportData: null
 
 
   // -------------------------------------------------------------------------

@@ -30,9 +30,9 @@ Router.map(function() {
         });
       });
 
-      this.route('collection', {path: '/collection/:collectionId'}, function () {
-        this.route('index', {path: '/'});
-        this.route('student', {path: '/student/:userId'});
+      this.route('reports', function () {
+        this.route('collection', {path: '/collection/:collectionId'});
+        this.route('collection-student', {path: '/collection/:collectionId/student/:userId'});
       });
     });
   });
