@@ -51,8 +51,13 @@
     .gru-resource-card {
       float: left;
       margin-top:10px;
-      @media (min-width: $screen-xs) {
+      display:none;
+      @media (min-width: $screen-sm) {
         margin-left:10px;
+        display:block;
+      }
+      &:nth-child(1), &:nth-child(2){
+        display:block;
       }
     }
   }
