@@ -7,7 +7,8 @@ export default {
 
     "answer":"Your Answer",
     "assessmentInitial": "A",
-    "attempts": "Attempts",
+    "attempt": "Attempt number",
+    "of": "of",
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
     "cancel": "Cancel",
@@ -85,6 +86,7 @@ export default {
     "standard":"Standard",
     "standards": "Standards",
     "submit": "Submit",
+    "submit-all":"Submit all",
     "save-next": "Save and Next",
     "save-submit": "Save and Submit All",
     "save-finish": "Save and Finish",

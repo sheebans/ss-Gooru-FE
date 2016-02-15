@@ -130,7 +130,7 @@ test('closePlayer: If navigating directly to the player, closing the player shou
   visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
   andThen(function() {
 
-    const playerCloseButton = $('.gru-navigation .right .x-icon');
+    const playerCloseButton = $('.gru-navigator #item_back');
     assert.equal(currentRouteName(), 'player', 'Incorrect route name');
     click(playerCloseButton);
     andThen(function() {
@@ -154,7 +154,7 @@ test('closePlayer: Return to search after closing the player', function(assert) 
       andThen(function() {
 
         // Second resource (with iframe) should have been selected
-        const playerCloseButton = $('.gru-navigation .right .x-icon');
+        const playerCloseButton = $('.gru-navigator #item_back');
         click(playerCloseButton);
         andThen(function() {
 

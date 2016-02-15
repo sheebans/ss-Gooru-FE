@@ -1,34 +1,66 @@
 <div class="question-panel">
-  <h2>{{t "gru-question-viewer.question"}}</h2>
-  <div class="question">
-    <span>{{{question.text}}}</span>
-    {{#if question.hasMedia}}
-      <img src="{{question.mediaUrl}}"/>
-    {{/if}}
-  </div>
-
-  {{!-- visible to all screen widths except xs --}}
-  <div class="hidden-xs">
-    {{partial 'components/player/gru-question-information'}}
-  </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h2>{{t "gru-question-viewer.question"}}</h2>
+            <div class="question">
+                <span>{{{question.text}}}</span>
+              {{#if question.hasMedia}}
+                  <img src="{{question.mediaUrl}}"/>
+              {{/if}}
+            </div>
+            <div>
+              {{partial 'components/player/gru-question-information'}}
+            </div>
+        </div>
+    </div>
+  {{#if hintsToDisplay}}
+      <div class="panel panel-primary hints">
+          <div class="panel-heading">
+            {{t "common.hints"}}
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-body">
+                  <ol class="hints">
+                    {{#each hintsToDisplay as |hint|}}
+                        <li>{{{hint.hintText}}}</li>
+                    {{/each}}
+                  </ol>
+              </div>
+          </div>
+      </div>
+  {{/if}}
+  {{#if isExplanationShown}}
+      <div class="panel panel-primary explanation">
+          <div class="panel-heading">
+            {{t "common.explanation"}}
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-body">
+                {{#if isExplanationShown}}
+                    <p class="explanation">{{{question.explanation}}}</p>
+                {{/if}}
+              </div>
+          </div>
+      </div>
+  {{/if}}
 </div>
 
 <div class="answers-panel">
-  <h2>{{t "gru-question-viewer.answer"}}</h2>
+    <div class="panel panel-default">
+        <div class="panel-body">
+        <h2>{{t "gru-question-viewer.answer"}}</h2>
 
-  <form {{action "submitQuestion" on="submit"}}>
-      {{component (questionConfig question.questionType 'component.player')
-        question=question
-        onAnswerChanged="changeAnswer"
-        onAnswerCleared="clearAnswer"
-        onAnswerCompleted="completeAnswer"}}
-    <div class="actions">
-      <button type="submit" class="save btn btn-lg btn-primary" disabled="{{if isSubmitDisabled true null}}">{{buttonText}}</button>
+        <form {{action "submitQuestion" on="submit"}}>
+          {{component (questionConfig question.questionType 'component.player')
+          question=question
+          onAnswerChanged="changeAnswer"
+          onAnswerCleared="clearAnswer"
+          onAnswerCompleted="completeAnswer"}}
+            <div class="actions">
+                <button type="submit" class="save btn btn-success" disabled="{{if isSubmitDisabled true null}}">{{buttonText}}</button>
+            </div>
+        </form>
+      </div>
     </div>
-  </form>
 </div>
 
-{{!-- visible only to xs screens --}}
-<div class="hidden-sm hidden-md hidden-lg">
-  {{partial 'components/player/gru-question-information'}}
-</div>

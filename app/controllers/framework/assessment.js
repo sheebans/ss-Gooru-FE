@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
   assessmentResult: AssessmentResult.create({
     id: 501,
 
-    questionsResults: [
+    resourceResults: [
 
       QuestionResult.create({
         id: 601,

@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import { averageReaction, answeredResults, correctAnswers, correctPercentage, totalTimeSpent, stats , completedResults, sortResults}
+import { averageReaction, answeredResults, correctAnswers, correctPercentage,
+  totalTimeSpent, stats , completedResults, sortResults, userAnswers}
   from 'gooru-web/utils/question-result';
 import QuestionResult from 'gooru-web/models/result/question';
 import { module, test } from 'qunit';
@@ -133,8 +134,10 @@ test('Stats having not started, not started should be ignored', function (assert
   assert.equal(totals.get("total"), 6, 'Wrong total');
   assert.equal(totals.get("totalCorrect"), 1, 'Wrong correct');
   assert.equal(totals.get("correctPercentage"), 25, 'Wrong correct percentage');
+  assert.equal(totals.get("correctPercentageFromTotal"), 17, 'Wrong correct percentage from total');
   assert.equal(totals.get("totalIncorrect"), 3, 'Wrong incorrect');
   assert.equal(totals.get("incorrectPercentage"), 75, 'Wrong incorrect percentage');
+  assert.equal(totals.get("incorrectPercentageFromTotal"), 50, 'Wrong incorrect percentage from total');
   assert.equal(totals.get("totalSkipped"), 0, 'Wrong skipped');
   assert.equal(totals.get("skippedPercentage"), 0, 'Wrong skipped percentage');
   assert.equal(totals.get("totalNotStarted"), 2, 'Wrong not started');
@@ -188,8 +191,10 @@ test('Stats when all completed', function (assert) {
   assert.equal(totals.get("total"), 5, 'Wrong total');
   assert.equal(totals.get("totalCorrect"), 1, 'Wrong correct');
   assert.equal(totals.get("correctPercentage"), 20, 'Wrong correct percentage');
+  assert.equal(totals.get("correctPercentageFromTotal"), 20, 'Wrong correct percentage from total');
   assert.equal(totals.get("totalIncorrect"), 4, 'Wrong incorrect, 2 incorrect + 2 skipped');
   assert.equal(totals.get("incorrectPercentage"), 80, 'Wrong incorrect percentage');
+  assert.equal(totals.get("incorrectPercentageFromTotal"), 80, 'Wrong incorrect percentage from total');
   assert.equal(totals.get("totalSkipped"), 2, 'Wrong skipped');
   assert.equal(totals.get("skippedPercentage"), 40, 'Wrong skipped percentage');
   assert.equal(totals.get("totalNotStarted"), 0, 'Wrong not started');
@@ -316,4 +321,44 @@ test('sortResults', function (assert) {
     new Date("October 13, 2014 11:40:00"),
     new Date("October 13, 2014 11:50:00")
   ], 'Wrong dates');
+
+
+});
+
+test('userAnswers', function (assert) {
+  const results = Ember.A([
+    QuestionResult.create({
+      correct: true,
+      timeSpent: 10, //seconds
+      reaction: 5,
+      userAnswer: 1,
+      submittedAt: new Date("October 13, 2014 11:40:00")
+    }),
+    QuestionResult.create({
+      correct: false,
+      timeSpent: 25, //seconds
+      reaction: 4,
+      userAnswer: 2,
+      submittedAt: new Date("October 13, 2014 11:20:00")
+    }),
+    QuestionResult.create({
+      correct: false,
+      timeSpent: 25, //seconds
+      reaction: 4,
+      userAnswer: 3,
+      submittedAt: new Date("October 13, 2014 11:10:00")
+    }),
+    QuestionResult.create({
+      correct: true, //skipped
+      timeSpent: 0, //seconds
+      reaction: 0,
+      userAnswer: null,  //skipped
+      submittedAt: new Date("October 13, 2014 11:50:00")
+    }),
+    QuestionResult.create(),
+    QuestionResult.create()
+  ]);
+  let answers = userAnswers(results);
+  assert.equal(answers.length, 3, "Wrong total answers, 3 provided");
+  assert.deepEqual(answers, [3,2,1], 'Wrong answers');
 });
