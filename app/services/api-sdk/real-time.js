@@ -1061,9 +1061,14 @@ export default Ember.Service.extend({
     });
   },
 
+  /**
+   * Get the report status for a collection. It will include whether the
+   * report is live (on-air).
+   * @returns { Object }
+   */
   getReportStatus: function (collectionId) {
     const response = Ember.Object.create({
-      isLive: false
+      isLive: true
     });
 
     // TODO: Replace this with the correct server endpoint call

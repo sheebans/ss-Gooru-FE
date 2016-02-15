@@ -16,7 +16,9 @@ export default Ember.Route.extend({
 
   session: Ember.inject.service('session'),
 
-  analyticsService: Ember.inject.service('api-sdk/analytics'),
+  realTimeService: Ember.inject.service('api-sdk/real-time'),
+
+  // performanceService: Ember.inject.service('api-sdk/performance'),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -30,7 +32,15 @@ export default Ember.Route.extend({
 
   model: function (params) {
 
+    const controller = this;
+
+    //const classModel = this.modelFor('class');
+    //const courseId = classModel.class.get('course');
+    //const classId = this.paramsFor('class').classId;
+    //const unitId = params.unitId;
+    //const lessonId = params.lessonId;
     const collectionId = params.collectionId;
+    // const users = classModel.members;
 
     // TODO: Get this object by calling the corresponding service
     const assessment = Ember.Object.create({
@@ -354,14 +364,24 @@ export default Ember.Route.extend({
       })
     ]);
 
-    const userResults = this.get('analyticsService').getCollectionResults(collectionId);
-    const reportStatus = this.get('analyticsService').getReportStatus(collectionId);
+    return this.get('realTimeService').getReportStatus(collectionId).then(function (reportStatus) {
+      var userResults, isReportLive;
 
-    return Ember.RSVP.hash({
-      assessment: assessment,
-      students: students,
-      userResults: userResults,
-      reportStatus: reportStatus
+      isReportLive = reportStatus.get('isLive');
+
+      if (isReportLive) {
+        userResults = controller.get('realTimeService').getCollectionResults(collectionId);
+      } else {
+        // TODO: Define the service that will be providing the data from analytics
+        // userResults = controller.get('service').getCollectionResults(collectionId);
+      }
+
+      return Ember.RSVP.hash({
+        assessment: assessment,
+        students: students,
+        userResults: userResults,
+        isReportLive: isReportLive
+      });
     });
   },
 
@@ -377,7 +397,7 @@ export default Ember.Route.extend({
 
     controller.set('assessment', model.assessment);
     controller.set('students', model.students);
-    controller.set('isReportLive', model.reportStatus.get('isLive'));
+    controller.set('isReportLive', model.isReportLive);
     controller.set('reportData', reportData);
   }
 
