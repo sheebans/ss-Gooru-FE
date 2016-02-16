@@ -11,6 +11,36 @@ import { getQuestionUtil } from 'gooru-web/config/question';
 export default Ember.Object.extend({
 
   // -------------------------------------------------------------------------
+  // Events
+
+  /**
+   *  Initializes the report data
+   */
+  init: function () {
+    var studentIds = this.get('students').map(function (student) {
+      return student.get("id");
+    });
+
+    var resourceIds = this.get('resources').map(function (resource) {
+      return resource.get("id");
+    });
+
+    if (!studentIds.length) {
+      Ember.Logger.error('Report data cannot be initialized without a list of students');
+    }
+    if (!resourceIds.length) {
+      Ember.Logger.error('Report data cannot be initialized without a list of resources');
+    }
+
+    this.set("data", this.getEmptyMatrix(studentIds, resourceIds));
+  },
+
+  willDestroy: function () {
+    this.set("data", null);
+  },
+
+
+  // -------------------------------------------------------------------------
   // Properties
   /**
    * { Object{}{}{} } cumulativeData
@@ -48,29 +78,9 @@ export default Ember.Object.extend({
    */
   resources: null,
 
+
   // -------------------------------------------------------------------------
   // Methods
-
-  /**
-   *  Initializes the report data
-   * @param {User} students
-   * @param {Resource} resources
-   */
-  initReportData: function(students, resources){
-    var studentIds = students.map(function (student) {
-      return student.get("id");
-    });
-    this.set("students", students);
-
-    var resourceIds = resources.map(function (resource) {
-      return resource.get("id");
-    });
-    this.set("resources", resources);
-
-    this.set("data", this.getEmptyMatrix(studentIds, resourceIds));
-
-    return this;
-  },
 
   /**
    * Create a matrix of empty objects from a couple of arrays

@@ -12,7 +12,7 @@ moduleForComponent('player/gru-navigation', 'Integration | Component | player/gr
 test('Layout', function(assert) {
 
 
-  assert.expect(3);
+  assert.expect(2);
 
   this.render(hbs`{{player/gru-navigation}}`);
 
@@ -20,7 +20,7 @@ test('Layout', function(assert) {
   const $navigation = $component.find(".gru-navigation");
   T.exists(assert, $navigation, "Missing navigation section");
   T.exists(assert, $navigation.find(".navigation-bar span"), "Missing clickable span");
-  T.exists(assert, $navigation.find("button.submit-all"), "Missing submit all button");
+  //T.exists(assert, $navigation.find("button.submit-all"), "Missing submit all button");
 });
 
 

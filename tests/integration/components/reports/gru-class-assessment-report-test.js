@@ -4,6 +4,7 @@ import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 import UserQuestionsResult from 'gooru-web/models/result/user-questions';
 import QuestionResult from 'gooru-web/models/result/question';
+import ReportData from 'gooru-web/models/result/report-data';
 
 
 moduleForComponent('reports/gru-class-assessment-report', 'Integration | Component | reports/gru class assessment report', {
@@ -51,7 +52,12 @@ test('Default Layout', function (assert) {
     })
   ]);
 
-  var userResults = [
+  var reportData = ReportData.create({
+    students: students,
+    resources: collection.get('resources')
+  });
+
+  reportData.merge([
     UserQuestionsResult.create({
       "user": "56983a9060a68052c1ed934c",
       "questionsResults": [
@@ -86,17 +92,16 @@ test('Default Layout', function (assert) {
         })
       ]
     })
-  ];
-
+  ]);
 
   this.set("collection", collection);
   this.set("students", students);
-  this.set("userResults", userResults);
+  this.set("reportData", reportData);
 
   this.render(hbs`{{reports/gru-class-assessment-report
     assessment=collection
     students=students
-    userResults=userResults
+    reportData=reportData
   }}`);
 
   const $component = this.$();
