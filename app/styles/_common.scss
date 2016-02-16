@@ -136,6 +136,7 @@ button.btn-link {
   width: $emotion-icon-size;
   height: $emotion-icon-size;
   cursor: pointer;
+  @include transition(all 0.3s ease-out);
   &.small{
     width: $emotion-icon-size-small;
     height:$emotion-icon-size-small;
@@ -144,17 +145,12 @@ button.btn-link {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    @include transition(all 0.3s ease-out);
   }
   &:hover {
-    svg {
       @include scale(1.25);
-    }
   }
   &.active {
-    svg {
       @include scale(1.4);
-    }
   }
 }
 
