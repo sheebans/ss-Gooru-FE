@@ -8,6 +8,9 @@ import Ember from "ember";
  */
 export default Ember.Object.extend({
 
+
+  //
+  // Properties
   /**
    * @property {ResourceResult[]} questionResults
    */
@@ -26,6 +29,18 @@ export default Ember.Object.extend({
   /**
    * @property {string} user
    */
-  user: null
+  user: null,
+
+
+  //
+  // Methods
+  /**
+   * Gets the result by resource id
+   * @param {string} resourceId
+   * @returns {ResourceResult}
+   */
+  getResultByResourceId: function(resourceId){
+    return this.get("resourceResults").findBy("resourceId", resourceId);
+  }
 
 });

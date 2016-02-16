@@ -30,7 +30,10 @@ export default Ember.Component.extend({
    * On init set question properties
    */
   setQuestionProperties: Ember.on('init', function() {
-    this.set("questionUtil", getQuestionUtil(this.get("question.questionType")));
+    let question = this.get("question");
+    let type = question.get("questionType");
+    let questionUtil = getQuestionUtil(type).create({ question: question });
+    this.set("questionUtil", questionUtil);
   }),
 
   // -------------------------------------------------------------------------
@@ -98,8 +101,9 @@ export default Ember.Component.extend({
   /**
    * Notifies answer completion
    * @param {*} answer question answer
+   * @param {boolean} correct
    */
-  notifyAnswerChanged: function(answer){
+  notifyAnswerChanged: function(answer, correct){
     const question = this.get("question");
     this.sendAction('onAnswerChanged', question, {
       answer: answer,

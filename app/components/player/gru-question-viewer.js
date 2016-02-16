@@ -175,11 +175,11 @@ export default Ember.Component.extend({
 
   /**
    * Time spent on question
-   * @property {number} timeSpent
+   * @property {number} timeSpent in seconds
    */
   timeSpent: Ember.computed("startTimestamp", function(){
     let timestamp = new Date().getTime();
-    return timestamp - this.get("startTimestamp");
+    return Math.round((timestamp - this.get("startTimestamp")) / 1000);
   }),
 
 

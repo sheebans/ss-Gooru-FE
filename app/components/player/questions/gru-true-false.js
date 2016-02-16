@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import QuestionComponent from './gru-question';
 /**
  * True or false Question
@@ -34,7 +35,7 @@ export default QuestionComponent.extend({
       component.notifyAnswerChanged(answerId, correct);
       component.notifyAnswerCompleted(answerId, correct);
     }
-  }
+  },
 
   // -------------------------------------------------------------------------
   // Events
@@ -42,6 +43,24 @@ export default QuestionComponent.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * Returns the "true" answer id
+   */
+  trueAnswerId: Ember.computed("question.answers", function(){
+    let answers = this.get("question.answers");
+    let found = answers.filterBy("isCorrect", true);
+    return found ? found.get("firstObject.id") : "true"; //TODO, is this a data problem?
+  }),
+
+  /**
+   * Returns the "false" answer id
+   */
+  falseAnswerId: Ember.computed("question.answers", function(){
+    let answers = this.get("question.answers");
+    let found = answers.filterBy("isCorrect", false);
+    return found ? found.get("firstObject.id") : "true"; //TODO, is this a data problem?
+  })
+
 
   // -------------------------------------------------------------------------
   // Observers

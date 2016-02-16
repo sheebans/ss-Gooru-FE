@@ -62,8 +62,8 @@ export default Ember.Route.extend({
     const collection = model.collection;
     const userResourcesResult = model.userResourcesResult;
 
-    this.generateResourceResults(userResourcesResult);
-    this.set("userResourcesResult", userResourcesResult);
+    this.generateResourceResults(collection.get("resources"), userResourcesResult);
+    controller.set("userResourcesResult", userResourcesResult);
 
     var resource = collection.get("lastVisitedResource");
     if (model.resourceId) {
@@ -76,11 +76,11 @@ export default Ember.Route.extend({
 
   /**
    * Creates a result for each resource if it doesn't exist already
+   * @param {Resource[]} resources
    * @param {UserResourcesResult} userResourcesResult
    */
-  generateResourceResults: function(userResourcesResult){
+  generateResourceResults: function(resources, userResourcesResult){
     const resourceResults = userResourcesResult.get("resourceResults");
-    let resources = collection.get("resources");
     resources.forEach(function(resource){
       let resourceId = resource.get('id');
       let found = resourceResults.filterBy("resourceId", resourceId).get("length");

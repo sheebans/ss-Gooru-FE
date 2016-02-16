@@ -29,17 +29,20 @@ export default QuestionComponent.extend({
 
     /**
      * When the user changes the answer choice selection
-     * @param {number} answerId
+     * @param {string} answerId
      */
     selectAnswerChoice: function(answerId){
       const component = this;
       const questionUtil = component.get("questionUtil");
-      const correct = questionUtil.isCorrect(answerId);
+      component.setUserAnswerChoice(answerId);
 
-      component.notifyAnswerChanged(answerId, correct);
+      let userAnswer = this.get("userAnswer").toArray();
+      const correct = questionUtil.isCorrect(userAnswer);
+
+      component.notifyAnswerChanged(userAnswer, correct);
 
       if (component.isAnswerCompleted()){
-        component.notifyAnswerCompleted(answerId, correct);
+        component.notifyAnswerCompleted(userAnswer, correct);
       }
     }
   },
@@ -50,7 +53,10 @@ export default QuestionComponent.extend({
 
   // -------------------------------------------------------------------------
   // Properties
-
+  /**
+   * @property { { id: number, selection: boolean }[] } userAnswer
+   */
+  userAnswer: Ember.A([]),
 
   // -------------------------------------------------------------------------
   // Observers
@@ -60,13 +66,35 @@ export default QuestionComponent.extend({
   // Methods
   /**
    * Indicates when the answer is completed
-   * @return {bool}
+   * @return {boolean}
    */
   isAnswerCompleted: function(){
     const component = this,
-      element = Ember.$(component.element),
+      userAnswer = component.get("userAnswer"),
       totalAnswerChoices = component.get("question.answers.length");
-    return element.find("input[type=radio]:checked").length === totalAnswerChoices;
+    return userAnswer.get("length") === totalAnswerChoices;
+  },
+
+  /**
+   * Sets the user answer choice
+   * @param {string} answerChoice containing the user selection yes|120202 or no|20200392
+   */
+  setUserAnswerChoice: function(answerChoice){
+    let userAnswer = this.get("userAnswer");
+    let values = answerChoice.split("|");
+    let id = values[1];
+    let selection = values[0] === "yes";
+    let found = userAnswer.findBy("id", id);
+    if (found){
+      found.selection = selection;
+    }
+    else{
+      userAnswer.addObject({
+        id: id,
+        selection: selection
+      });
+    }
+
   }
 
 });

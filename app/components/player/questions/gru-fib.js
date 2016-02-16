@@ -61,7 +61,7 @@ export default QuestionComponent.extend({
       answers = inputs.map(function (index, input) {
         return Ember.$(input).val();
       }).toArray(),
-      answerCompleted = answers.join("").length > 0;
+      answerCompleted = answers.length > 0;
 
     const questionUtil = component.get("questionUtil");
     const correct = questionUtil.isCorrect(answers);

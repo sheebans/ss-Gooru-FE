@@ -128,6 +128,11 @@ export default Ember.Controller.extend({
    */
   userResourcesResult: null,
 
+  /**
+   * @property {boolean} indicates if the answer should be saved
+   */
+  saveEnabled: true,
+
   // -------------------------------------------------------------------------
   // Observers
 
@@ -144,7 +149,7 @@ export default Ember.Controller.extend({
     let resourceId = resource.get("id");
     controller.set("resourceId", resourceId);
     controller.set("resource", resource);
-    controller.set("resourceResult", userResourcesResult.findBy("resourceId", resourceId));
+    controller.set("resourceResult", userResourcesResult.getResultByResourceId(resourceId));
     controller.set('ratingScore', 0);
 
     this.get('ratingService').findRatingForResource(resource.get("id"))
