@@ -216,9 +216,9 @@ test('selectNavigatorItem & closeNavigator: When moving to another resource the 
     T.exists(assert, $appContainer, "Missing app container");
 
     assert.ok(!$appContainer.hasClass("navigator-on"), "Shouldn't have navigator-on class");
-    T.exists(assert, $playerContainer.find(".gru-navigation .hamburger-icon"), "Missing navigation hamburger icon");
+    T.exists(assert, $playerContainer.find(".gru-navigation .navigation-bar span"), "Missing navigation hamburger icon");
 
-    click($playerContainer.find(".gru-navigation .hamburger-icon"));
+    click($playerContainer.find(".gru-navigation .navigation-bar span"));
 
     andThen(function () {
       assert.ok($appContainer.hasClass("navigator-on"), "Should have navigator-on class");
@@ -245,8 +245,8 @@ test('openNavigator & closeNavigator: When opening and closing the navigator', f
     T.exists(assert, $playerContainer, "Missing player");
 
     //open navigator
-    T.exists(assert, $playerContainer.find(".gru-navigation .hamburger-icon"), "Missing navigation hamburger icon");
-    click($playerContainer.find(".gru-navigation .hamburger-icon"));
+    T.exists(assert, $playerContainer.find(".gru-navigation .navigation-bar span"), "Missing navigation hamburger icon");
+    click($playerContainer.find(".gru-navigation .navigation-bar span"));
     andThen(function () {
       assert.ok($appContainer.hasClass("navigator-on"), "Should have navigator-on class");
 

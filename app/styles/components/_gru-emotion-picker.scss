@@ -1,6 +1,11 @@
 .gru-emotion-picker {
+  padding:15px;
   @media (min-width: $screen-xs) {
     text-align: left;
+
+  }
+  @media (min-width: $screen-md) {
+    padding:0;
   }
   .legend {
     @media (min-width: $screen-xs) {

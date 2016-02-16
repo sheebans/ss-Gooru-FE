@@ -19,7 +19,7 @@ test('Layout', function(assert) {
   var $component = this.$(); //component dom element
   const $navigation = $component.find(".gru-navigation");
   T.exists(assert, $navigation, "Missing navigation section");
-  T.exists(assert, $navigation.find("button.hamburger-icon"), "Missing hamburger icon");
+  T.exists(assert, $navigation.find(".navigation-bar span"), "Missing clickable span");
   T.exists(assert, $navigation.find("button.submit-all"), "Missing submit all button");
 });
 
@@ -33,7 +33,7 @@ test('Layout when navigator is opened', function(assert) {
 
   this.render(hbs`{{player/gru-navigation onOpenNavigator='parentAction'}}`);
   var $component = this.$(); //component dom element
-  var $menuButton = $component.find(".hamburger-icon");
+  var $menuButton = $component.find(".navigation-bar span");
 
   assert.ok($menuButton, "Missing menu button");
   $menuButton.click();
