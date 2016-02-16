@@ -16,12 +16,15 @@
     .center {
       display: block;
       text-align: center;
-      padding: 15px;
+      padding: 20px;
+      .panel-body{
+        padding: 20px;
+      }
     }
     .right {
       float: right;
       text-align: right;
-      margin: 3% 5% 0 0;
+      margin: 4% 5% 0 0;
     }
 
     @media (min-width: $screen-md) {
