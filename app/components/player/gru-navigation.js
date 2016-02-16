@@ -29,7 +29,6 @@ export default Ember.Component.extend({
      * @see gru-emotion-picker
      */
     changeEmotion: function(emotionScore) {
-      console.log(emotionScore);
       this.sendAction('onChangeEmotion', emotionScore);
     },
     /**
