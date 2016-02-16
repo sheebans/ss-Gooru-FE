@@ -7,7 +7,7 @@
   <ul class="sortable">
     {{#each question.answers as |answer|}}
       <li data-id="{{answer.id}}">
-        {{fa-icon icon="drag-icon fa-bars"}}
+        {{gru-icon name='menu'}}
         <div>{{{answer.text}}}</div>
       </li>
     {{/each}}
