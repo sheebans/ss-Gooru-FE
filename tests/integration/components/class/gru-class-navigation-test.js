@@ -62,8 +62,8 @@ test('Layout when a menu Item is selected', function(assert) {
 
   this.render(hbs`{{class.gru-class-navigation onItemSelected='itemSelected'}}`);
   var $navigation = this.$(); //component dom element
-  const $infoMenuItem = $navigation.find(".class-menu .info");
-  const $overviewMenuItem = $navigation.find(".class-menu .overview");
+  const $infoMenuItem = $navigation.find(".class-menu .class-menu-item.info");
+  const $overviewMenuItem = $navigation.find(".class-menu .class-menu-item.overview");
 
   assert.ok($infoMenuItem, "Missing info item in the class menu");
   assert.ok($overviewMenuItem, "Missing overview item in the class menu");
