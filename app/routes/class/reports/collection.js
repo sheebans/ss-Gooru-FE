@@ -2,9 +2,10 @@ import Ember from 'ember';
 import ReportData from 'gooru-web/models/result/report-data';
 
 /**
+ * Route for collection/assessment report
  *
- * Analytics data for a class related to a collection of resources
- * Gathers and passes the initialization information to the controller
+ * Gathers and passes initialization data for class performance
+ * from analytics to the controller
  *
  * @module
  * @augments ember/Route
@@ -16,12 +17,8 @@ export default Ember.Route.extend({
 
   session: Ember.inject.service('session'),
 
-  realTimeService: Ember.inject.service('api-sdk/real-time'),
+  performanceService: Ember.inject.service('api-sdk/performance'),
 
-  // performanceService: Ember.inject.service('api-sdk/performance'),
-
-  // -------------------------------------------------------------------------
-  // Actions
 
   // -------------------------------------------------------------------------
   // Methods
@@ -31,8 +28,6 @@ export default Ember.Route.extend({
   },
 
   model: function (params) {
-
-    const controller = this;
     const classId = this.paramsFor('class').classId;
     const collectionId = params.collectionId;
 
@@ -194,7 +189,6 @@ export default Ember.Route.extend({
       })
     ]);
 
-    let extraResources = Ember.A([]);
     for (let i = 0; i < 16; i++) { //extra resources to control how many questions to display
       let extraResource = Ember.Object.create({
         "id": "569906aa20b7dfae1bcd5" + i,
@@ -211,9 +205,9 @@ export default Ember.Route.extend({
       });
 
       resources.addObject(extraResource);
-      extraResources.addObject(extraResource);
     }
 
+    // TODO: Get this object by calling the corresponding service
     const assessment = Ember.Object.create({
 
       collectionType: 'assessment',
@@ -240,7 +234,6 @@ export default Ember.Route.extend({
         "id": "56983a90fb01fecc328e2388",
         "fullName": "Snyder, Mason",
         "code": 'e2388'
-
       }),
       Ember.Object.create({
         "id": "56983a906596902edadedc7c",
@@ -284,40 +277,28 @@ export default Ember.Route.extend({
       })
     ]);
 
-    return this.get('realTimeService').getReportStatus(collectionId).then(function (reportStatus) {
-      var userResults, isReportLive;
+    const userResults = this.get('performanceService').findClassPerformanceByCollection(classId, collectionId);
 
-      isReportLive = reportStatus.get('isLive');
-
-      if (isReportLive) {
-        userResults = controller.get('realTimeService').getCollectionResults(collectionId);
-      } else {
-        // TODO: Define the service that will be providing the data from analytics
-        // userResults = controller.get('service').getCollectionResults(collectionId);
-      }
-
-      return Ember.RSVP.hash({
-        assessment: assessment,
-        students: students,
-        userResults: userResults,
-        isReportLive: isReportLive
-      });
+    return Ember.RSVP.hash({
+      assessment: assessment,
+      students: students,
+      userResults: userResults
     });
   },
 
   setupController: function (controller, model) {
+
     // Create an instance of report data to pass to the controller.
-    // If this is a live report, the controller will be responsible of getting/merging
-    // any subsequent data.
     var reportData = ReportData.create({
       students: model.students,
       resources: model.assessment.get('resources')
     });
+
+    // Merge any data from analytics into the report data.
     reportData.merge(model.userResults);
 
     controller.set('assessment', model.assessment);
     controller.set('students', model.students);
-    controller.set('isReportLive', model.isReportLive);
     controller.set('reportData', reportData);
   }
 
