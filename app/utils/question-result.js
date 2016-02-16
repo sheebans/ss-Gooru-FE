@@ -76,10 +76,10 @@ export function stats(questionResults){
   return Ember.Object.create({
     total: total,
     totalCorrect: correct,
-    correctPercentage: Math.round(correct / completed * 100),
+    correctPercentage: completed ? Math.round(correct / completed * 100) : null,
     correctPercentageFromTotal: Math.round(correct / total * 100), //percentage including not started
     totalIncorrect: incorrect,
-    incorrectPercentage: Math.round(incorrect / completed * 100),
+    incorrectPercentage: completed ? Math.round(incorrect / completed * 100) : null,
     incorrectPercentageFromTotal: Math.round(incorrect / total * 100), //percentage including not started
     totalSkipped: skipped,
     skippedPercentage: Math.round(skipped / total * 100),
@@ -87,7 +87,7 @@ export function stats(questionResults){
     notStartedPercentage: Math.round(notStarted / total * 100),
     totalCompleted: completed,
     completedPercentage: Math.round(completed / total * 100),
-    averageReaction: Math.round(average(reactions)),
+    averageReaction: reactions.length ? Math.round(average(reactions)) : null,
     totalTimeSpent: timeSpent
   });
 }

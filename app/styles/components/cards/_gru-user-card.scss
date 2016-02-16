@@ -1,22 +1,26 @@
 .gru-user-card {
   display: table;
-  span{
-    display: table-cell;
-    vertical-align: middle;
-    padding:5px;
-
+  > span {
+    display: table-row;
+    padding: 5px;
+    width: 100%;
+    text-align: center;
     img.avatar {
       width: $narration-avatar-width;
       height: $narration-avatar-height;
-      border-radius: 50px;
-      box-shadow: 0 0 0 2px #87badd;
-      margin: 5px;
-      display: table-cell;
-      vertical-align: middle;
+      border-radius: 60px;
+      margin: 10px;
+      display: inline-block;
+    }
+    &.user-name {
+      span {
+        display: block;
+        margin: 0 auto;
+      }
     }
   }
   .truncate{
-    width: 64px;
+    width: 120px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

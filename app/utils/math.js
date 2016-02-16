@@ -34,7 +34,7 @@ export function average(values) {
     });
     result = sum / values.length;
   } else {
-    Ember.Logger.error('Unable to compute average on param: ', values);
+    Ember.Logger.warn('Unable to compute average on param: ', values);
   }
   return result;
 }

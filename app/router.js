@@ -30,6 +30,11 @@ Router.map(function() {
         });
       });
     });
+
+    this.route('reports', function () {
+      this.route('collection', {path: '/collection/:collectionId'});
+      this.route('student-collection', {path: '/collection/:collectionId/student/:userId'});
+    });
   });
 
   this.route('profile', { path: '/profile/:userId' }, function() {

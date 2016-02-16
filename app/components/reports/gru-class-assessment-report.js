@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 import {VIEW_LAYOUT_PICKER_OPTIONS} from "gooru-web/config/config";
-import ReportData from 'gooru-web/models/result/report-data';
 // Private variables
 
 
@@ -47,29 +46,10 @@ export default Ember.Component.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Events
-  init: function () {
-    this._super(...arguments);
-    const reportData = ReportData.create().initReportData(this.get("students"), this.get("assessment.resources"));
-    this.set('_reportData', reportData);
-  },
+
 
   // -------------------------------------------------------------------------
   // Properties
-
-  /**
-   * @prop { Collection } assessment - Assessment taken by a group of students
-   */
-  assessment: null,
-
-  /**
-   * @prop { UserQuestionsResult[] } userResults - Content feed to update the report data
-   */
-  userResults: null,
-
-  /**
-   * @prop { boolean } isTableView - is the table view currently selected?
-   */
-  isTableView: true,
 
   /**
    * Indicates if the report is displayed in anonymous mode
@@ -78,36 +58,23 @@ export default Ember.Component.extend(ModalMixin, {
   anonymous: false,
 
   /**
-   * This is an internal variable to keep track of changes
-   * @private
-   * @property {ReportData} report data
+   * @prop { Collection } assessment - Assessment taken by a group of students
    */
-  _reportData: null,
+  assessment: null,
 
   /**
-   * @property {ReportData} report data
+   * @prop { boolean } isTableView - is the table view currently selected?
    */
-  reportData: Ember.computed('userResults.[]', function () {
-    let reportData = this.get("_reportData");
-    reportData.merge(this.get("userResults"));
-    return reportData;
-  }),
+  isTableView: true,
+
+  /**
+   * @property { ReportData } report data
+   */
+  reportData: null,
 
   /**
    * @prop { User[] } students - Group of students taking an assessment
    */
-  students: null,
-
-
-  // -------------------------------------------------------------------------
-  // Methods
-  /**
-   * willDestroyElement event
-   */
-  willDestroyElement: function(){
-    const component = this;
-    component.set("reportData", null);
-  }
-
+  students: null
 
 });

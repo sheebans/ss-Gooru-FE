@@ -1,5 +1,4 @@
 .player .gru-viewer {
-
   .narration {
     background-color: hsla(0, 0%, 20%, 1);
     display: table;
@@ -9,21 +8,15 @@
       vertical-align: middle;
     }
   }
-
   .content {
     overflow: auto;
     height: 100%;
     width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
+    float: right;
     padding-top: $player-navigation-height;
-
     @media (min-width: $screen-md) {
-      margin-left: $player-navigator-width-md;
-      width: 100% - $player-navigator-width-md;
+      width: 80%;
     }
-
     img.avatar {
       width: $narration-avatar-width;
       height: $narration-avatar-height;
@@ -33,15 +26,10 @@
       display: table-cell;
       vertical-align: middle;
     }
-
     .message {
       color:$white;
       min-height: 70px;
       padding: 10px 15px 10px 0;
-    }
-
-    @media (min-width: $screen-md) {
-      margin-left: $player-navigator-width-md;
     }
   }
 }

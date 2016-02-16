@@ -130,7 +130,7 @@ test('closePlayer: If navigating directly to the player, closing the player shou
   visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
   andThen(function() {
 
-    const playerCloseButton = $('.gru-navigator #item_back');
+    const playerCloseButton = $('.gru-navigator .navigator-header div:first-child');
     assert.equal(currentRouteName(), 'player', 'Incorrect route name');
     click(playerCloseButton);
     andThen(function() {
@@ -154,7 +154,7 @@ test('closePlayer: Return to search after closing the player', function(assert) 
       andThen(function() {
 
         // Second resource (with iframe) should have been selected
-        const playerCloseButton = $('.gru-navigator #item_back');
+        const playerCloseButton = $('.gru-navigator .navigator-header div:first-child');
         click(playerCloseButton);
         andThen(function() {
 
@@ -216,9 +216,9 @@ test('selectNavigatorItem & closeNavigator: When moving to another resource the 
     T.exists(assert, $appContainer, "Missing app container");
 
     assert.ok(!$appContainer.hasClass("navigator-on"), "Shouldn't have navigator-on class");
-    T.exists(assert, $playerContainer.find(".gru-navigation .hamburger-icon"), "Missing navigation hamburger icon");
+    T.exists(assert, $playerContainer.find(".gru-navigation .navigation-bar span"), "Missing navigation hamburger icon");
 
-    click($playerContainer.find(".gru-navigation .hamburger-icon"));
+    click($playerContainer.find(".gru-navigation .navigation-bar span"));
 
     andThen(function () {
       assert.ok($appContainer.hasClass("navigator-on"), "Should have navigator-on class");
@@ -245,8 +245,8 @@ test('openNavigator & closeNavigator: When opening and closing the navigator', f
     T.exists(assert, $playerContainer, "Missing player");
 
     //open navigator
-    T.exists(assert, $playerContainer.find(".gru-navigation .hamburger-icon"), "Missing navigation hamburger icon");
-    click($playerContainer.find(".gru-navigation .hamburger-icon"));
+    T.exists(assert, $playerContainer.find(".gru-navigation .navigation-bar span"), "Missing navigation hamburger icon");
+    click($playerContainer.find(".gru-navigation .navigation-bar span"));
     andThen(function () {
       assert.ok($appContainer.hasClass("navigator-on"), "Should have navigator-on class");
 

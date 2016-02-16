@@ -11,6 +11,7 @@ export default {
     "of": "of",
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
+    "back": "Back",
     "cancel": "Cancel",
     "classScores": "Class Scores",
     "close": "Close",
@@ -44,6 +45,7 @@ export default {
     "myClasses": "My Classes",
     "myContent": "My Content",
     "mastery":"Mastery",
+    "menu": "Menu",
     "no": "No",
     "notStarted": "Not started",
     "number":"No.",
@@ -370,15 +372,17 @@ export default {
 
 
   "class.info":{
+    "class-info": "Class Information",
     "teachers":"Teachers",
     "students":"Students",
     "subject":"Subject",
     "grade":"Grade",
     "description":"Description",
-    "edit-class":"Edit Class",
+    "edit-info":"Edit Information",
     "share-class":"Share Class",
     "invite-collaborator":"Invite Collaborator",
-    "invite-student":"Invite Student"
+    "invite-student":"Invite Student",
+    "class-code": "Class Code"
   },
   "class.gru-class-navigation": {
     "active" : "Active:",

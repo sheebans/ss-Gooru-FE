@@ -29,10 +29,10 @@ test('Multiple Answer Correct Answer', function(assert) {
   const $component = this.$(); //component dom element
   const $multipleAnswer = $component.find(".reports.assessment.questions.gru-multiple-answer");
 
-  T.exists(assert, $multipleAnswer.find('li:eq(1) span.no-selected.correct i.mdi-radio-button-checked'), 'The first answer should be checked as no-selected and is correct');
-  T.exists(assert, $multipleAnswer.find('li:eq(2) span.selected.correct i.mdi-radio-button-checked'), 'The second answer should be checked as selected and is correct');
-  T.exists(assert, $multipleAnswer.find('li:eq(3) span.selected.correct i.mdi-radio-button-checked'), 'The third answer should be checked as selected and is correct');
-  T.notExists(assert, $multipleAnswer.find('li span.incorrect i.mdi-radio-button-checked'), 'Should not be incorrect answers at all');
+  T.exists(assert, $multipleAnswer.find('li:eq(1) span.no-selected.correct i.radio_button_checked'), 'The first answer should be checked as no-selected and is correct');
+  T.exists(assert, $multipleAnswer.find('li:eq(2) span.selected.correct i.radio_button_checked'), 'The second answer should be checked as selected and is correct');
+  T.exists(assert, $multipleAnswer.find('li:eq(3) span.selected.correct i.radio_button_checked'), 'The third answer should be checked as selected and is correct');
+  T.notExists(assert, $multipleAnswer.find('li span.incorrect i.radio_button_checked'), 'Should not be incorrect answers at all');
 });
 
 test('Multiple Answer Your Answer Incorrect', function(assert) {
@@ -59,7 +59,7 @@ test('Multiple Answer Your Answer Incorrect', function(assert) {
   const $component = this.$(); //component dom element
   const $multipleAnswer = $component.find(".reports.assessment.questions.gru-multiple-answer");
 
-  T.exists(assert, $multipleAnswer.find('li:eq(1) span.no-selected.correct i.mdi-radio-button-checked'), 'The first answer should be checked as no-selected and is correct');
+  T.exists(assert, $multipleAnswer.find('li:eq(1) span.no-selected.correct i.radio_button_checked'), 'The first answer should be checked as no-selected and is correct');
   T.exists(assert, $multipleAnswer.find('li:eq(2) span.no-selected.incorrect'), 'The second answer should be checked as no-selected and is incorrect');
   T.exists(assert, $multipleAnswer.find('li:eq(3) span.selected.correct'), 'The third answer should be checked as selected and is correct');
 });
