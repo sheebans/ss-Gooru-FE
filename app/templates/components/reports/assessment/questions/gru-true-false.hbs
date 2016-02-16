@@ -3,10 +3,10 @@
     <li>
       {{#if answer.selected}}
         <span class="{{if answer.correct 'correct' 'incorrect'}} {{if anonymous 'anonymous'}}">
-          {{material-design-icon name='radio-button-checked'}}
+          {{gru-icon name='radio_button_checked'}}
         </span>
       {{else}}
-        <span class="column">{{material-design-icon name='radio-button-unchecked'}}</span>
+        <span class="column">{{gru-icon name='radio_button_unchecked'}}</span>
       {{/if}}
         <span class="answer-text">({{answer-letter index}}) {{{answer.text}}}</span>
     </li>

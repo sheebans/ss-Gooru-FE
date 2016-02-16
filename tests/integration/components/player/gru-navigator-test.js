@@ -54,7 +54,7 @@ test('Player Navigator', function(assert) {
   var $component = this.$(); //component dom element
   const $navigator = $component.find(".gru-navigator");
   T.exists(assert, $navigator, "Missing navigator section");
-  T.exists(assert, $navigator.find("h2"), "Missing collection title");
+  T.exists(assert, $navigator.find(".lead"), "Missing collection title");
 
   //$collectionResources list
   const $collectionResources = $navigator.find(".resources");
@@ -225,7 +225,7 @@ test('Close player', function(assert) {
 
   this.render(hbs`{{player/gru-navigator onClosePlayer='parentAction'}}`);
   var $component = this.$(); //component dom element
-  var $closeButton = $component.find(".gru-navigator #item_back");
+  var $closeButton = $component.find(".gru-navigator .navigator-header div:first-child");
   $closeButton.click();
 });
 

@@ -945,10 +945,11 @@ export default Ember.Route.extend({
     let reportData = ReportData.create({
       students: model.students,
       resources: model.assessment.get("resources")
-    })
+    });
 
     reportData.merge(model.userResults);
     controller.set('reportData', reportData);
+
   }
 
 });
