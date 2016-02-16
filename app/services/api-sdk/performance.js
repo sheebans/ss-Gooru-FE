@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import DS from 'ember-data';
 
 // TODO: Remove once findClassPerformanceByCollection is implemented
 import UserQuestionsResult from 'gooru-web/models/result/user-questions';
