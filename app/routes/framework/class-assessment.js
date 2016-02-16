@@ -7,7 +7,7 @@ export default Ember.Route.extend({
 
   model: function(){
     // 9 resources are hard code so we can represent all question types
-    let resources = Ember.A([ /
+    let resources = Ember.A([
       Ember.Object.create({ //Multiple Choice
         "id": "569906aa20b7dfae1bcd5262",
         questionType: 'MC',
@@ -160,7 +160,7 @@ export default Ember.Route.extend({
       })
     ]);
 
-    let extraResources = Ember.A([])
+    let extraResources = Ember.A([]);
     for(let i = 0; i < 16; i++){ //extra resources to control how many questions to display
       let extraResource = Ember.Object.create({
         "id": "569906aa20b7dfae1bcd5" + i,
@@ -916,8 +916,8 @@ export default Ember.Route.extend({
     extraResources.forEach(function(resource){ //adding extra resources responses as true for all students
       userResults.forEach(function(userResult){
         let random =  Math.round(Math.random() * 100);
-        let skipped = random % 10 == 0;
-        let incorrect = !skipped && random % 2 == 0;
+        let skipped = random % 10 === 0;
+        let incorrect = !skipped && random % 2 === 0;
         let questionResult = QuestionResult.create({
           "correct": !incorrect,
           "questionId": resource.get("id"),
@@ -927,7 +927,7 @@ export default Ember.Route.extend({
         });
 
         userResult.get("questionResults").addObject(questionResult);
-      })
+      });
     });
 
     return {
