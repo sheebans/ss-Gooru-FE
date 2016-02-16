@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import UserQuestionsResult from 'gooru-web/models/result/user-questions';
 import QuestionResult from 'gooru-web/models/result/question';
+import ReportData from 'gooru-web/models/result/report-data';
 
 
 export default Ember.Route.extend({
@@ -940,7 +941,15 @@ export default Ember.Route.extend({
   setupController: function(controller, model){
     controller.set("assessment", model.assessment);
     controller.set("students", model.students);
-    controller.set('userResults', model.userResults);
+
+    let reportData = ReportData.create({
+      students: model.students,
+      resources: model.assessment.get("resources")
+    });
+
+    reportData.merge(model.userResults);
+    controller.set('reportData', reportData);
+
   }
 
 });
