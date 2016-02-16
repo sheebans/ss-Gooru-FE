@@ -106,19 +106,19 @@ export default Ember.Object.extend({
 
   /**
    * Merges new data
-   * @param {UserQuestionsResult[]} userResults
+   * @param {UserResourcesResult[]} userResults
    * @returns {merge}
    */
   merge: function(userResults){
     let data = this.get("data");
 
-    userResults.forEach(function (userQuestions) {
-      var userId = userQuestions.get("user");
-      var questionsResults = userQuestions.get("questionResults");
+    userResults.forEach(function (userResult) {
+      var userId = userResult.get("user");
+      var resourceResults = userResult.get("resourceResults");
 
-      questionsResults.forEach(function (questionResult) {
-        var questionId = questionResult.get("questionId");
-        data[userId][questionId] = questionResult;
+      resourceResults.forEach(function (resourceResult) {
+        var questionId = resourceResult.get("resourceId");
+        data[userId][questionId] = resourceResult;
       });
     });
 

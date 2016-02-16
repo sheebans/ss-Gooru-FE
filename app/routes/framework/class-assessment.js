@@ -1,6 +1,7 @@
 import Ember from 'ember';
-import UserQuestionsResult from 'gooru-web/models/result/user-questions';
+import UserResourcesResult from 'gooru-web/models/result/user-resources';
 import QuestionResult from 'gooru-web/models/result/question';
+import ReportData from 'gooru-web/models/result/report-data';
 
 
 export default Ember.Route.extend({
@@ -252,659 +253,659 @@ export default Ember.Route.extend({
 
     // TODO: Remove once the service that returns the user results is implemented
     var userResults = [
-      UserQuestionsResult.create({
+      UserResourcesResult.create({
         "user": "56983a9060a68052c1ed934c",
-        "questionResults": [
+        "resourceResults": [
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa20b7dfae1bcd5262",
+            "resourceId": "569906aa20b7dfae1bcd5262",
             "reaction": 2,
             "timeSpent": 701,
             "userAnswer": 3
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa3ec3bb39969acbe6",
+            "resourceId": "569906aa3ec3bb39969acbe6",
             "reaction": 4,
             "timeSpent": 1333,
             "userAnswer": "1"
           }),
           QuestionResult.create({
             "correct": false, //skipped, because is missing user answer
-            "questionId": "569906aadfa0072204f7c7c7",
+            "resourceId": "569906aadfa0072204f7c7c7",
             "reaction": 5,
             "timeSpent": 1305
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aacea8416665209d53",
+            "resourceId": "569906aacea8416665209d53",
             "reaction": 1,
             "timeSpent": 1013,
             "userAnswer": ["red", "white"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa77bebed003fa6eb1",
+            "resourceId": "569906aa77bebed003fa6eb1",
             "reaction": 3,
             "timeSpent": 2234,
             "userAnswer":[{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa68f276ae7ea03c30",
+            "resourceId": "569906aa68f276ae7ea03c30",
             "reaction": 2,
             "timeSpent": 1830,
             "userAnswer": ["le", "colo", "teco"]
           }),
           QuestionResult.create({
             "correct": false, //skipped, because is missing user answer
-            "questionId": "569906aa04f742731bd4e896",
+            "resourceId": "569906aa04f742731bd4e896",
             "reaction": 2,
             "timeSpent": 2081
           }),
           QuestionResult.create({
             "correct": false, //skipped, because is missing user answer
-            "questionId": "569906aabfcfc4cfc1b29b62",
+            "resourceId": "569906aabfcfc4cfc1b29b62",
             "reaction": 4,
             "timeSpent": 1668
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa7fe0695bfd409731",
+            "resourceId": "569906aa7fe0695bfd409731",
             "reaction": 4,
             "timeSpent": 2096,
             "userAnswer": "Student Open Ended answer 1"
           }),
         ]
       }),
-      UserQuestionsResult.create({
+      UserResourcesResult.create({
         "user": "56983a90fb01fecc328e2388",
-        "questionResults": [
+        "resourceResults": [
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa20b7dfae1bcd5262",
+            "resourceId": "569906aa20b7dfae1bcd5262",
             "reaction": 2,
             "timeSpent": 701,
             "userAnswer": 3
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa3ec3bb39969acbe6",
+            "resourceId": "569906aa3ec3bb39969acbe6",
             "reaction": 4,
             "timeSpent": 1333,
             "userAnswer": "1"
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aadfa0072204f7c7c7",
+            "resourceId": "569906aadfa0072204f7c7c7",
             "reaction": 5,
             "timeSpent": 1305,
             "userAnswer": ["bra", "crc", "pan", "chi"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aacea8416665209d53",
+            "resourceId": "569906aacea8416665209d53",
             "reaction": 1,
             "timeSpent": 1013,
             "userAnswer": ["yellow", "white"]
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aa77bebed003fa6eb1",
+            "resourceId": "569906aa77bebed003fa6eb1",
             "reaction": 3,
             "timeSpent": 2234,
             "userAnswer":[{id: "1", selection: true}, {id: "2", selection: true}, {id: "3", selection: false}]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa68f276ae7ea03c30",
+            "resourceId": "569906aa68f276ae7ea03c30",
             "reaction": 2,
             "timeSpent": 1830,
             "userAnswer": ["le", "colo", "teco"]
           }),
           QuestionResult.create({
             "correct": false, //skipped, because is missing user answer
-            "questionId": "569906aa04f742731bd4e896",
+            "resourceId": "569906aa04f742731bd4e896",
             "reaction": 2,
             "timeSpent": 2081
           }),
           QuestionResult.create({
             "correct": false, //skipped, because is missing user answer
-            "questionId": "569906aabfcfc4cfc1b29b62",
+            "resourceId": "569906aabfcfc4cfc1b29b62",
             "reaction": 4,
             "timeSpent": 1668
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa7fe0695bfd409731",
+            "resourceId": "569906aa7fe0695bfd409731",
             "reaction": 4,
             "timeSpent": 2096,
             "userAnswer": "Student Open Ended answer 2"
           })
         ]
       }),
-      UserQuestionsResult.create({
+      UserResourcesResult.create({
         "user": "56983a906596902edadedc7c",
-        "questionResults": [
+        "resourceResults": [
           QuestionResult.create({
             "correct": false, //skipped, because is missing user answer
-            "questionId": "569906aa20b7dfae1bcd5262",
+            "resourceId": "569906aa20b7dfae1bcd5262",
             "reaction": 2,
             "timeSpent": 701
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aa3ec3bb39969acbe6",
+            "resourceId": "569906aa3ec3bb39969acbe6",
             "reaction": 4,
             "timeSpent": 1333,
             "userAnswer": "2"
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aadfa0072204f7c7c7",
+            "resourceId": "569906aadfa0072204f7c7c7",
             "reaction": 5,
             "timeSpent": 1305,
             "userAnswer": ["crc", "bra", "pan", "chi"]
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aacea8416665209d53",
+            "resourceId": "569906aacea8416665209d53",
             "reaction": 1,
             "timeSpent": 1013,
             "userAnswer": ["orange", "white"]
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aa77bebed003fa6eb1",
+            "resourceId": "569906aa77bebed003fa6eb1",
             "reaction": 3,
             "timeSpent": 2234,
             "userAnswer":[{id: "1", selection: true}, {id: "2", selection: true}, {id: "3", selection: false}]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa68f276ae7ea03c30",
+            "resourceId": "569906aa68f276ae7ea03c30",
             "reaction": 2,
             "timeSpent": 1830,
             "userAnswer": ["le", "colo", "teco"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa04f742731bd4e896",
+            "resourceId": "569906aa04f742731bd4e896",
             "reaction": 2,
             "timeSpent": 2081,
             "userAnswer": ["1", "3"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aabfcfc4cfc1b29b62",
+            "resourceId": "569906aabfcfc4cfc1b29b62",
             "reaction": 4,
             "timeSpent": 1668,
             "userAnswer": ["1", "3"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa7fe0695bfd409731",
+            "resourceId": "569906aa7fe0695bfd409731",
             "reaction": 4,
             "timeSpent": 2096,
             "userAnswer": "Student Open Ended answer 3"
           })
         ]
       }),
-      UserQuestionsResult.create({
+      UserResourcesResult.create({
         "user": "56983a901bc3d60c88ac2fe2",
-        "questionResults": [
+        "resourceResults": [
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa20b7dfae1bcd5262",
+            "resourceId": "569906aa20b7dfae1bcd5262",
             "reaction": 2,
             "timeSpent": 701,
             "userAnswer": 3
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa3ec3bb39969acbe6",
+            "resourceId": "569906aa3ec3bb39969acbe6",
             "reaction": 4,
             "timeSpent": 1333,
             "userAnswer": "1"
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aadfa0072204f7c7c7",
+            "resourceId": "569906aadfa0072204f7c7c7",
             "reaction": 5,
             "timeSpent": 1305,
             "userAnswer": ["crc", "bra", "pan", "chi"]
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aacea8416665209d53",
+            "resourceId": "569906aacea8416665209d53",
             "reaction": 1,
             "timeSpent": 1013,
             "userAnswer": ["red", "gray"]
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aa77bebed003fa6eb1",
+            "resourceId": "569906aa77bebed003fa6eb1",
             "reaction": 3,
             "timeSpent": 2234,
             "userAnswer":[{id: "1", selection: false}, {id: "2", selection: false}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa68f276ae7ea03c30",
+            "resourceId": "569906aa68f276ae7ea03c30",
             "reaction": 2,
             "timeSpent": 1830,
             "userAnswer": ["le", "colo", "teco"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa04f742731bd4e896",
+            "resourceId": "569906aa04f742731bd4e896",
             "reaction": 2,
             "timeSpent": 2081,
             "userAnswer": ["1", "3"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aabfcfc4cfc1b29b62",
+            "resourceId": "569906aabfcfc4cfc1b29b62",
             "reaction": 4,
             "timeSpent": 1668,
             "userAnswer": ["1", "3"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa7fe0695bfd409731",
+            "resourceId": "569906aa7fe0695bfd409731",
             "reaction": 4,
             "timeSpent": 2096,
             "userAnswer": "Student Open Ended answer 4"
           })
         ]
       }),
-      UserQuestionsResult.create({
+      UserResourcesResult.create({
         "user": "56983a9082f705e65f2fe607",
-        "questionResults": [
+        "resourceResults": [
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa20b7dfae1bcd5262",
+            "resourceId": "569906aa20b7dfae1bcd5262",
             "reaction": 2,
             "timeSpent": 701,
             "userAnswer": 3
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aa3ec3bb39969acbe6",
+            "resourceId": "569906aa3ec3bb39969acbe6",
             "reaction": 4,
             "timeSpent": 1333,
             "userAnswer": "2"
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aadfa0072204f7c7c7",
+            "resourceId": "569906aadfa0072204f7c7c7",
             "reaction": 5,
             "timeSpent": 1305,
             "userAnswer": ["bra", "crc", "pan", "chi"]
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aacea8416665209d53",
+            "resourceId": "569906aacea8416665209d53",
             "reaction": 1,
             "timeSpent": 1013,
             "userAnswer": ["orange", "white"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa77bebed003fa6eb1",
+            "resourceId": "569906aa77bebed003fa6eb1",
             "reaction": 3,
             "timeSpent": 2234,
             "userAnswer":[{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa68f276ae7ea03c30",
+            "resourceId": "569906aa68f276ae7ea03c30",
             "reaction": 2,
             "timeSpent": 1830,
             "userAnswer": ["le", "colo", "teco"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa04f742731bd4e896",
+            "resourceId": "569906aa04f742731bd4e896",
             "reaction": 2,
             "timeSpent": 2081,
             "userAnswer": ["1", "3"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aabfcfc4cfc1b29b62",
+            "resourceId": "569906aabfcfc4cfc1b29b62",
             "reaction": 4,
             "timeSpent": 1668,
             "userAnswer": ["1", "3"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa7fe0695bfd409731",
+            "resourceId": "569906aa7fe0695bfd409731",
             "reaction": 4,
             "timeSpent": 2096,
             "userAnswer": "Student Open Ended answer 5"
           })
         ]
       }),
-      UserQuestionsResult.create({
+      UserResourcesResult.create({
         "user": "56983a905ed41a7863401287",
-        "questionResults": [
+        "resourceResults": [
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa20b7dfae1bcd5262",
+            "resourceId": "569906aa20b7dfae1bcd5262",
             "reaction": 2,
             "timeSpent": 701,
             "userAnswer": 3
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aa3ec3bb39969acbe6",
+            "resourceId": "569906aa3ec3bb39969acbe6",
             "reaction": 4,
             "timeSpent": 1333,
             "userAnswer": "2"
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aadfa0072204f7c7c7",
+            "resourceId": "569906aadfa0072204f7c7c7",
             "reaction": 5,
             "timeSpent": 1305,
             "userAnswer": ["crc", "bra", "chi", "pan"]
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aacea8416665209d53",
+            "resourceId": "569906aacea8416665209d53",
             "reaction": 1,
             "timeSpent": 1013,
             "userAnswer": ["red", "white"]
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aa77bebed003fa6eb1",
+            "resourceId": "569906aa77bebed003fa6eb1",
             "reaction": 3,
             "timeSpent": 2234,
             "userAnswer":[{id: "1", selection: false}, {id: "2", selection: false}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa68f276ae7ea03c30",
+            "resourceId": "569906aa68f276ae7ea03c30",
             "reaction": 2,
             "timeSpent": 1830,
             "userAnswer": ["le", "colo", "teco"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa04f742731bd4e896",
+            "resourceId": "569906aa04f742731bd4e896",
             "reaction": 2,
             "timeSpent": 2081,
             "userAnswer": ["1", "3"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aabfcfc4cfc1b29b62",
+            "resourceId": "569906aabfcfc4cfc1b29b62",
             "reaction": 4,
             "timeSpent": 1668,
             "userAnswer": ["1", "3"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa7fe0695bfd409731",
+            "resourceId": "569906aa7fe0695bfd409731",
             "reaction": 4,
             "timeSpent": 2096,
             "userAnswer": "Student Open Ended answer 6"
           })
         ]
       }),
-      UserQuestionsResult.create({
+      UserResourcesResult.create({
         "user": "56983a90297d42fd4ed7c1de",
-        "questionResults": [
+        "resourceResults": [
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa20b7dfae1bcd5262",
+            "resourceId": "569906aa20b7dfae1bcd5262",
             "reaction": 2,
             "timeSpent": 701,
             "userAnswer": 3
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa3ec3bb39969acbe6",
+            "resourceId": "569906aa3ec3bb39969acbe6",
             "reaction": 4,
             "timeSpent": 1333,
             "userAnswer": "1"
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aadfa0072204f7c7c7",
+            "resourceId": "569906aadfa0072204f7c7c7",
             "reaction": 5,
             "timeSpent": 1305,
             "userAnswer": ["crc", "bra", "chi", "pan"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aacea8416665209d53",
+            "resourceId": "569906aacea8416665209d53",
             "reaction": 1,
             "timeSpent": 1013,
             "userAnswer": ["yellow", "white"]
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aa77bebed003fa6eb1",
+            "resourceId": "569906aa77bebed003fa6eb1",
             "reaction": 3,
             "timeSpent": 2234,
             "userAnswer":[{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: false}]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa68f276ae7ea03c30",
+            "resourceId": "569906aa68f276ae7ea03c30",
             "reaction": 2,
             "timeSpent": 1830,
             "userAnswer": ["le", "colo", "teco"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa04f742731bd4e896",
+            "resourceId": "569906aa04f742731bd4e896",
             "reaction": 2,
             "timeSpent": 2081,
             "userAnswer": ["1", "3"]
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aabfcfc4cfc1b29b62",
+            "resourceId": "569906aabfcfc4cfc1b29b62",
             "reaction": 4,
             "timeSpent": 1668,
             "userAnswer": ["2", "3"]
           }),
           QuestionResult.create({
             "correct": false, //skipped, because is missing user answer
-            "questionId": "569906aa7fe0695bfd409731",
+            "resourceId": "569906aa7fe0695bfd409731",
             "reaction": 4,
             "timeSpent": 2096
           })
         ]
       }),
-      UserQuestionsResult.create({
+      UserResourcesResult.create({
         "user": "56983a900f77bf820df2cb9c",
-        "questionResults": [
+        "resourceResults": [
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa20b7dfae1bcd5262",
+            "resourceId": "569906aa20b7dfae1bcd5262",
             "reaction": 2,
             "timeSpent": 701,
             "userAnswer": 3
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aa3ec3bb39969acbe6",
+            "resourceId": "569906aa3ec3bb39969acbe6",
             "reaction": 4,
             "timeSpent": 1333,
             "userAnswer": "2"
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aadfa0072204f7c7c7",
+            "resourceId": "569906aadfa0072204f7c7c7",
             "reaction": 5,
             "timeSpent": 1305,
             "userAnswer": ["bra", "crc", "pan", "chi"]
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aacea8416665209d53",
+            "resourceId": "569906aacea8416665209d53",
             "reaction": 1,
             "timeSpent": 1013,
             "userAnswer": ["yellow", "gray"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa77bebed003fa6eb1",
+            "resourceId": "569906aa77bebed003fa6eb1",
             "reaction": 3,
             "timeSpent": 2234,
             "userAnswer":[{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa68f276ae7ea03c30",
+            "resourceId": "569906aa68f276ae7ea03c30",
             "reaction": 2,
             "timeSpent": 1830,
             "userAnswer": ["le", "colo", "teco"]
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aa04f742731bd4e896",
+            "resourceId": "569906aa04f742731bd4e896",
             "reaction": 2,
             "timeSpent": 2081,
             "userAnswer": ["1", "2"]
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aabfcfc4cfc1b29b62",
+            "resourceId": "569906aabfcfc4cfc1b29b62",
             "reaction": 4,
             "timeSpent": 1668,
             "userAnswer": ["3"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa7fe0695bfd409731",
+            "resourceId": "569906aa7fe0695bfd409731",
             "reaction": 4,
             "timeSpent": 2096,
             "userAnswer": "Student Open Ended answer 7"
           })
         ]
       }),
-      UserQuestionsResult.create({
+      UserResourcesResult.create({
         "user": "56983a90231a29de51a368d4",
-        "questionResults": [
+        "resourceResults": [
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa20b7dfae1bcd5262",
+            "resourceId": "569906aa20b7dfae1bcd5262",
             "reaction": 2,
             "timeSpent": 701,
             "userAnswer": 3
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aa3ec3bb39969acbe6",
+            "resourceId": "569906aa3ec3bb39969acbe6",
             "reaction": 4,
             "timeSpent": 1333,
             "userAnswer": "2"
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aadfa0072204f7c7c7",
+            "resourceId": "569906aadfa0072204f7c7c7",
             "reaction": 5,
             "timeSpent": 1305,
             "userAnswer": ["crc", "bra", "pan", "chi"]
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aacea8416665209d53",
+            "resourceId": "569906aacea8416665209d53",
             "reaction": 1,
             "timeSpent": 1013,
             "userAnswer": ["red", "white"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa77bebed003fa6eb1",
+            "resourceId": "569906aa77bebed003fa6eb1",
             "reaction": 3,
             "timeSpent": 2234,
             "userAnswer":[{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aa68f276ae7ea03c30",
+            "resourceId": "569906aa68f276ae7ea03c30",
             "reaction": 2,
             "timeSpent": 1830,
             "userAnswer": ["casa", "rojo"]
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aa04f742731bd4e896",
+            "resourceId": "569906aa04f742731bd4e896",
             "reaction": 2,
             "timeSpent": 2081,
             "userAnswer": ["1"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aabfcfc4cfc1b29b62",
+            "resourceId": "569906aabfcfc4cfc1b29b62",
             "reaction": 4,
             "timeSpent": 1668,
             "userAnswer": ["1", "3"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa7fe0695bfd409731",
+            "resourceId": "569906aa7fe0695bfd409731",
             "reaction": 4,
             "timeSpent": 2096,
             "userAnswer": "Student Open Ended answer 8"
           })
         ]
       }),
-      UserQuestionsResult.create({
+      UserResourcesResult.create({
         "user": "56983a901ad65da6dac5b384",
-        "questionResults": [
+        "resourceResults": [
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aa20b7dfae1bcd5262",
+            "resourceId": "569906aa20b7dfae1bcd5262",
             "reaction": 2,
             "timeSpent": 701,
             "userAnswer": 2
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aa3ec3bb39969acbe6",
+            "resourceId": "569906aa3ec3bb39969acbe6",
             "reaction": 4,
             "timeSpent": 1333,
             "userAnswer": "2"
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aadfa0072204f7c7c7",
+            "resourceId": "569906aadfa0072204f7c7c7",
             "reaction": 5,
             "timeSpent": 1305,
             "userAnswer": ["crc", "bra", "pan", "chi"]
           }),
           QuestionResult.create({
             "correct": false,
-            "questionId": "569906aacea8416665209d53",
+            "resourceId": "569906aacea8416665209d53",
             "reaction": 1,
             "timeSpent": 1013,
             "userAnswer": ["red", "white"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa77bebed003fa6eb1",
+            "resourceId": "569906aa77bebed003fa6eb1",
             "reaction": 3,
             "timeSpent": 2234,
             "userAnswer":[{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aabfcfc4cfc1b29b62",
+            "resourceId": "569906aabfcfc4cfc1b29b62",
             "reaction": 4,
             "timeSpent": 1668,
             "userAnswer": ["1", "3"]
           }),
           QuestionResult.create({
             "correct": true,
-            "questionId": "569906aa7fe0695bfd409731",
+            "resourceId": "569906aa7fe0695bfd409731",
             "reaction": 4,
             "timeSpent": 2096,
             "userAnswer": "Student Open Ended answer 9"
@@ -920,13 +921,13 @@ export default Ember.Route.extend({
         let incorrect = !skipped && random % 2 === 0;
         let questionResult = QuestionResult.create({
           "correct": !incorrect,
-          "questionId": resource.get("id"),
+          "resourceId": resource.get("id"),
           "reaction": 2,
           "timeSpent": 701,
           "userAnswer": (skipped) ? undefined : ((incorrect) ? 3 : 1)
         });
 
-        userResult.get("questionResults").addObject(questionResult);
+        userResult.get("resourceResults").addObject(questionResult);
       });
     });
 
@@ -940,7 +941,14 @@ export default Ember.Route.extend({
   setupController: function(controller, model){
     controller.set("assessment", model.assessment);
     controller.set("students", model.students);
-    controller.set('userResults', model.userResults);
+
+    let reportData = ReportData.create({
+      students: model.students,
+      resources: model.assessment.get("resources")
+    })
+
+    reportData.merge(model.userResults);
+    controller.set('reportData', reportData);
   }
 
 });

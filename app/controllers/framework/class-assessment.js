@@ -13,9 +13,9 @@ export default Ember.Controller.extend({
   students: Ember.A([]),
 
   /**
-   * @prop { UserResourcesResult[] } userResults - Content feed to update the report data
+   * @prop { ReportData } reportData
    */
-  userResults: null,
+  reportData: null,
 
   /**
    * @property {boolean}
