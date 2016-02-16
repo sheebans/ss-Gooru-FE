@@ -29,7 +29,7 @@ export default Ember.Component.extend(QuestionMixin, {
   // -------------------------------------------------------------------------
   // Properties
 
-  answers: Ember.computed("question", function () {
+  answers: Ember.computed("question", "anonymous", function () {
     let component = this;
     let question = component.get("question");
     let questionUtil = component.getQuestionUtil(question);
@@ -40,17 +40,22 @@ export default Ember.Component.extend(QuestionMixin, {
     }
 
     let answers = question.get("answers");
+    let anonymous = this.get("anonymous");
     return answers.map(function(answer){
       let userAnswerCorrect = false;
       let selected = false;
+
       if (userAnswers.contains(answer.get("id"))){
         userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(answer.get("id"));
         selected = true;
       }
+
+      let elementClass = (anonymous) ? 'anonymous' :
+        ((userAnswerCorrect) ? 'correct' : 'incorrect');
       return {
         image: answer.get('image') ? answer.get('image') : DEFAULT_IMAGES.QUESTION_PLACEHOLDER_IMAGE,
         selected: selected,
-        class: (userAnswerCorrect)?'correct':'incorrect'
+        "class": elementClass
       };
     });
   }),

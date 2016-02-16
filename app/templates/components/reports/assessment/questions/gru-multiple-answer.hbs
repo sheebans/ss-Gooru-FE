@@ -1,15 +1,25 @@
 <ul class="multiple-answers">
-  <li>
+  <li class="header">
     <span class="column">Yes</span>
     <span class="column">No</span>
   </li>
   {{#each answers as |answer index|}}
     <li>
-      <span class="column
-        {{if answer.selected 'selected' 'no-selected'}}
-        {{if answer.correct 'correct' 'incorrect'}}">
-        {{fa-icon icon=(if answer.correct 'check-circle-o' 'times-circle-o')}}
-      </span>
+      {{#if answer.selected}}
+        <span class="column selected
+          {{if answer.correct 'correct' 'incorrect'}}
+          {{if anonymous 'anonymous'}}">
+          {{material-design-icon name='radio-button-checked'}}
+        </span>
+        <span class="column">{{material-design-icon name='radio-button-unchecked'}}</span>
+      {{else}}
+        <span class="column">{{material-design-icon name='radio-button-unchecked'}}</span>
+        <span class="column no-selected
+          {{if answer.correct 'correct' 'incorrect'}}
+          {{if anonymous 'anonymous'}}">
+          {{material-design-icon name='radio-button-checked'}}
+        </span>
+       {{/if}}
       <span class="answer-text">({{answer-letter index}}) {{{answer.text}}}</span>
     </li>
   {{/each}}

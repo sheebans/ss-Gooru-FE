@@ -5,13 +5,16 @@
     li{
       list-style: none;
       position:relative;
+      display: flex;
+      padding: 5px 0;
+      border-bottom: 1px solid #eeeeee;
+      &:last-child {
+        border: none;
+      }
       span.column {
-        width: 25px;
+        width: 35px;
         display: inline-block;
         text-align: center;
-        i{
-          margin: 0 auto;
-        }
       }
       span.correct{
         color:$brand-success;
@@ -19,14 +22,16 @@
       span.incorrect{
         color:$brand-incorrect;
       }
+      span.anonymous{
+        color:$brand-anonymous;
+      }
       span.answer-text{
-        margin-left: 1em;
+        margin-left: 0.5em;
       }
-      span.selected {
-        margin-right: 28px;
-      }
-      span.no-selected {
-        margin-left: 28px;
+      &.header {
+        .column {
+          color: $gray-base;
+        }
       }
     }
   }

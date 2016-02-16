@@ -132,8 +132,16 @@ export default Ember.Component.extend({
     });
 
     return answersData;
-  })
+  }),
   // -------------------------------------------------------------------------
   // Methods
+  /**
+   * willDestroyElement event
+   */
+  willDestroyElement: function(){
+    const component = this;
+    component.set("showResult", false);
+    component.set("anonymous", false);
+  }
 
 });
