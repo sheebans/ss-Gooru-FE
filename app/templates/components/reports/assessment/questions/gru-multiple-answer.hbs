@@ -9,15 +9,15 @@
         <span class="column selected
           {{if answer.correct 'correct' 'incorrect'}}
           {{if anonymous 'anonymous'}}">
-          {{material-design-icon name='radio-button-checked'}}
+          {{gru-icon name='radio_button_checked'}}
         </span>
-        <span class="column">{{material-design-icon name='radio-button-unchecked'}}</span>
+        <span class="column">{{gru-icon name='radio_button_unchecked'}}</span>
       {{else}}
-        <span class="column">{{material-design-icon name='radio-button-unchecked'}}</span>
+        <span class="column">{{gru-icon name='radio_button_unchecked'}}</span>
         <span class="column no-selected
           {{if answer.correct 'correct' 'incorrect'}}
           {{if anonymous 'anonymous'}}">
-          {{material-design-icon name='radio-button-checked'}}
+          {{gru-icon name='radio_button_checked'}}
         </span>
        {{/if}}
       <span class="answer-text">({{answer-letter index}}) {{{answer.text}}}</span>
