@@ -1,20 +1,10 @@
 .charts.gru-x-bar-chart {
   display: inline-block;
-  width: 100%;
-  height: inherit;
+  height: 0.6em;
+  width: 10.12em;
   background-color: $light-200;
-  border-radius: 5px;
   .segment {
     height: 100%;
     float: left;
-    &:first-child {
-      border-bottom-left-radius: 5px;
-      border-top-left-radius: 5px;
-    }
-    &:last-child {
-      border-bottom-right-radius: 5px;
-      border-top-right-radius: 5px;
-    }
   }
-
 }

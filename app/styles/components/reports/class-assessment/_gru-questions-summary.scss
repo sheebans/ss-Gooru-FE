@@ -49,19 +49,16 @@
           &.index {
             width: 2em;
             text-align: right;
-            padding-right: 0.4em;
+            padding-right: 1.4em;
           }
 
           &.ratio {
             width: 3.2em;
             padding-left: 0.3em;
             text-align: center;
+            color: $dark-100;
+            font-size: $font-size-small;
           }
-        }
-
-        .gru-x-bar-chart {
-          flex: 1;
-          height: 85%;
         }
       }
     }

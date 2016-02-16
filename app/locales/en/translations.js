@@ -45,7 +45,7 @@ export default {
     "myContent": "My Content",
     "mastery":"Mastery",
     "no": "No",
-    "notStarted": "not started",
+    "notStarted": "Not started",
     "number":"No.",
     "numberStudents": {
       one: "{{count}} Student",

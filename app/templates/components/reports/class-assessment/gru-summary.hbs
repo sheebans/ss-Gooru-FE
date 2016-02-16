@@ -43,7 +43,9 @@
   onSelectQuestion=(action 'selectQuestion')
   onToggleView=(action 'toggleView')}}
 </div>
-
-{{grading-scale-legend notStarted=(t "common.notStarted")}}
+<div class="grading-scale">
+  <span class="average">{{t "common.averageScore"}}</span>
+  {{grading-scale-legend notStarted=(t "common.notStarted")}}
+</div>
 
 
