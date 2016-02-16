@@ -1,19 +1,20 @@
-{{#if isStudent }}
-  <button class="btn btn-default share" {{action 'share'}}>{{t "class.analytics.performance.actions.share"}}</button>
-{{else}}
-  <button class="btn btn-default edit" {{action 'editContent'}}>{{t "class.analytics.performance.actions.edit"}}</button>
-{{/if}}
-<button class="btn btn-default download" {{action 'download'}}>{{t "class.analytics.performance.actions.download"}}</button>
-<button class="btn btn-default full-screen hidden-sm hidden-xs {{if isFullScreen 'exit-full-screen' 'view-full-screen'}}" {{action 'toggleFullScreen'}}>
-  {{#if isFullScreen}}
-    {{t "class.analytics.performance.actions.exitFullScreen"}}
-  {{else}}
-    {{t "class.analytics.performance.actions.fullScreen"}}
-  {{/if}}
-</button>
+
 
 <div class="btn-group drop-menu">
-  <button class="selected-filter btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+  {{#if isStudent }}
+    <button class="btn btn-info share" {{action 'share'}}>{{material-design-icon name='send'}}{{t "class.analytics.performance.actions.share"}}</button>
+  {{else}}
+    <button class="btn btn-info edit" {{action 'editContent'}}>{{t "class.analytics.performance.actions.edit"}}</button>
+  {{/if}}
+  <button class="btn btn-info download" {{action 'download'}}>{{t "class.analytics.performance.actions.download"}}</button>
+  <button class="btn btn-info full-screen hidden-sm hidden-xs {{if isFullScreen 'exit-full-screen' 'view-full-screen'}}" {{action 'toggleFullScreen'}}>
+    {{#if isFullScreen}}
+      {{t "class.analytics.performance.actions.exitFullScreen"}}
+    {{else}}
+      {{t "class.analytics.performance.actions.fullScreen"}}
+    {{/if}}
+  </button>
+  <button class="selected-filter btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">
     {{t dropdownFilterText}}<span class="arrow"></span>
   </button>
   <ul class="dropdown-menu">

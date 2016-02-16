@@ -1,6 +1,24 @@
 .controller.analytics-performance-student {
   .navigation {
-    text-align: center;
+    margin:49px 0 0 67px;
+    ul li{
+      width:235px;
+      text-align: center;
+      &.active{
+        text-align:left;
+      }
+      a {
+        padding:0 25px 10px 25px;
+        span{
+          opacity: 0.6;
+          color: black;
+          .active a &{
+            opacity:1;
+          }
+        }
+
+      }
+    }
     .performance {
       min-height: 50px;
     }
