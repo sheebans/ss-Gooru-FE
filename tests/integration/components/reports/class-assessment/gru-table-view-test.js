@@ -47,7 +47,11 @@ test('it renders', function (assert) {
     })
   ]);
 
-  var reportData = ReportData.create().initReportData(students, assessment.get("resources"));
+  var reportData = ReportData.create({
+    students: students,
+    resources: assessment.get("resources")
+  });
+
   reportData.merge([
     UserQuestionsResult.create({
       user: "56983a9060a68052c1ed934c",
@@ -143,7 +147,11 @@ test('it triggers event when clicking on questions', function (assert) {
     })
   ]);
 
-  var reportData = ReportData.create().initReportData(students, assessment.get("resources"));
+  var reportData = ReportData.create({
+    students: students,
+    resources: assessment.get("resources")
+  });
+
   reportData.merge([
     UserQuestionsResult.create({
       user: "56983a9060a68052c1ed934c",

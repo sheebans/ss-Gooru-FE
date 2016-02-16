@@ -31,12 +31,15 @@
     }
 
     @media (min-width: $screen-sm) {
-      margin-left: 4%;
-      width: 45%;
+      margin-left: 20px;
+      width: 47%;
       float: left;
     }
     .hints, .explanation{
       display: block;
+    }
+    .panel-body {
+      padding: 20px;
     }
   }
 
@@ -56,9 +59,12 @@
     }
 
     @media (min-width: $screen-sm) {
-      margin-left: 4%;
-      width: 45%;
+      margin-left: 20px;
+      width: 47%;
       float: left;
+    }
+    .panel-body {
+      padding: 20px;
     }
   }
 

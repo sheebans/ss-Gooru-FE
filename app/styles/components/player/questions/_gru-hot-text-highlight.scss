@@ -5,12 +5,18 @@
     display: inline-block;
     border: 1px solid transparent;
     &.selected {
-      border-color: $brand-primary;
-      background-color: $brand-primary;
+      color:$white;
+      font-weight: bold;
+      border-radius: 8%;
+      border-color: $blue-400;
+      background-color: $blue-400;
     }
     &:hover {
-      border-color: $brand-primary;
-      background-color: $brand-primary;
+      color:$white;
+      font-weight: bold;
+      border-radius: 8%;
+      border-color: $dark-300;
+      background-color: $dark-300;
     }
   }
 

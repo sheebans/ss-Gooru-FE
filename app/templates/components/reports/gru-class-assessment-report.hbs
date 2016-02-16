@@ -8,7 +8,6 @@
 
 <div class="view-container {{if isTableView 'table-view' 'student-view'}}">
 
-
   {{gru-view-layout-picker onViewLayoutChange='changeView'}}
 
   {{ reports.class-assessment.gru-table-view
@@ -16,9 +15,10 @@
   students=students
   reportData=reportData
   onSelectQuestion=(action 'viewQuestionDetail')
-  anonymous=anonymous}}
+  anonymous=anonymous }}
 
-  {{ reports.class-assessment.gru-student-view assessment=assessment
+  {{ reports.class-assessment.gru-student-view
+  assessment=assessment
       anonymous=anonymous
       students=students
       reportData=reportData

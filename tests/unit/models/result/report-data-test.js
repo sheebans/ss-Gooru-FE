@@ -21,7 +21,11 @@ test('getAllResults', function(assert) {
     Ember.Object.create({"id": "56983a906596902edadedc7c"})
   ]);
 
-  var reportData = ReportData.create().initReportData(students, resources);
+  var reportData = ReportData.create({
+    students: students,
+    resources: resources
+  });
+
   reportData.merge([
     UserQuestionsResult.create({
       user: "56983a9060a68052c1ed934c",
@@ -64,7 +68,11 @@ test('getResultsByStudent', function(assert) {
     Ember.Object.create({"id": "56983a906596902edadedc7c"})
   ]);
 
-  var reportData = ReportData.create().initReportData(students, resources);
+  var reportData = ReportData.create({
+    students: students,
+    resources: resources
+  });
+
   reportData.merge([
     UserQuestionsResult.create({
       user: "56983a9060a68052c1ed934c",
@@ -105,7 +113,11 @@ test('getResultsByQuestion', function(assert) {
     Ember.Object.create({"id": "56983a90fb01fecc328e2388"})
   ]);
 
-  var reportData = ReportData.create().initReportData(students, resources);
+  var reportData = ReportData.create({
+    students: students,
+    resources: resources
+  });
+
   reportData.merge([
     UserQuestionsResult.create({
       user: "56983a9060a68052c1ed934c",
@@ -139,7 +151,11 @@ test('getStudentsByQuestionAndUserAnswer', function(assert) {
     Ember.Object.create({"id": "56983a906596902edadedc7c"})
   ]);
 
-  var reportData = ReportData.create().initReportData(students, resources);
+  var reportData = ReportData.create({
+    students: students,
+    resources: resources
+  });
+
   reportData.merge([
     UserQuestionsResult.create({
       user: "56983a9060a68052c1ed934c",
