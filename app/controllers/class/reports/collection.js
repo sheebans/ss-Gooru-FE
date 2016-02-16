@@ -14,6 +14,8 @@ export default Ember.Controller.extend({
 
   classController: Ember.inject.controller('class'),
 
+  realTimeService: Ember.inject.service('api-sdk/real-time'),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -45,11 +47,6 @@ export default Ember.Controller.extend({
    * @property {boolean}
    */
   anonymous: false,
-
-  /**
-   * @property {boolean} isReportLive - Is the report getting live results or not?
-   */
-  isReportLive: null,
 
   /**
    * @property {ReportData} report data
