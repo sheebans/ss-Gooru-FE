@@ -1,6 +1,7 @@
 .gru-emotion-picker {
-  text-align: center;
-  width: 100%;
+  padding:15px;
+  text-align:center;
+  width:100%;
   .legend {
     line-height: $emotion-icon-size;
     float: left;
@@ -34,5 +35,8 @@
   }
   @media (min-width: $screen-sm) {
     text-align: left;
+  }
+  @media (min-width: $screen-md) {
+    padding:0;
   }
 }

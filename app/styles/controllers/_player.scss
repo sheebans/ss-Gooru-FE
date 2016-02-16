@@ -19,14 +19,10 @@
       @include translate-hide(-100%);
       @include position(absolute, 0, null, 0, 0);
       z-index: 20;
-      width: $player-navigator-width-xs;
-
-      @media (min-width: $screen-sm) {
-        width: $player-navigator-width-sm;
-      }
+      width: 80%;
 
       @media (min-width: $screen-md) {
-        width: $player-navigator-width-md;
+        width: 20%;
         @include translate-show();
       }
     }
