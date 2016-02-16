@@ -48,7 +48,10 @@ export default Ember.Component.extend({
      * When the question is submitted
      */
     submitQuestion: function () {
-      this.sendAction("onSubmitQuestion", this.get("question"));
+      let questionResult = this.get("questionResult");
+      questionResult.set("timeSpent", this.get("timeSpent"));
+      questionResult.set("submittedAt", new Date());
+      this.sendAction("onSubmitQuestion", this.get("question"), questionResult);
     },
     /**
      * When the question answer has been changed
@@ -62,9 +65,13 @@ export default Ember.Component.extend({
     /**
      * When the question answer has been completed
      * @param {Resource} question the question
+     * @param { { answer: Object, correct: boolean } } stats
      */
-    completeAnswer: function(question){
-      //todo track analytics
+    completeAnswer: function(question, stats){
+      let questionResult = this.get("questionResult");
+      questionResult.set("userAnswer", stats.answer);
+      questionResult.set("correct", stats.correct);
+
       this.set("question", question);
       this.set("answerCompleted", true);
     },
@@ -155,10 +162,25 @@ export default Ember.Component.extend({
   question: null,
 
   /**
-   * Question result
+   * Question result, it is passed as a parameter for this component
    * @property {QuestionResult}
    */
   questionResult: null,
+
+  /**
+   * Start timestamp in Milliseconds
+   * @property {number} start timestamp
+   */
+  startTimestamp: null,
+
+  /**
+   * Time spent on question
+   * @property {number} timeSpent
+   */
+  timeSpent: Ember.computed("startTimestamp", function(){
+    let timestamp = new Date().getTime();
+    return timestamp - this.get("startTimestamp");
+  }),
 
 
   /**
@@ -181,6 +203,7 @@ export default Ember.Component.extend({
    */
   reloadQuestion: function() {
     this.setProperties({
+      startTimestamp: (new Date().getTime()),
       actualHint: 0,
       answerCompleted: false,
       hintsToDisplay: Ember.A(),

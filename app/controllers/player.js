@@ -11,6 +11,7 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
   queryParams: ['resourceId'],
+  //TODO add courseId, unitId, lessonId
 
   /**
    * @dependency {Ember.Service} Service to rate a resource
@@ -29,17 +30,25 @@ export default Ember.Controller.extend({
      * Handle onSubmitQuestion event from gru-question-viewer
      * @see components/player/gru-question-viewer.js
      * @param {Resource} question
+     * @param {QuestionResult} questionResult
      */
-    submitQuestion: function(question){
-      //todo save
-      //todo move to next question
+    submitQuestion: function(question, questionResult){
+      let save = this.get("saveEnabled"); //TODO save only if courseId is provided
+      //TODO save
+      if (save){
+        console.debug(question);
+        console.debug(questionResult);
+      }
+
       const controller = this;
       const next = controller.get("collection").nextResource(question);
 
       if (next){
         controller.moveToResource(next);
       }
-      //todo: else what if there are no more resources
+      else{
+        //TODO: submit all
+      }
     },
 
     /**
@@ -102,10 +111,22 @@ export default Ember.Controller.extend({
   resource: null,
 
   /**
+   * The resource result playing
+   * @property {ResourceResult}
+   */
+  resourceResult: null,
+
+  /**
    * The rating score for the resource
    * @property {number} ratingScore
    */
   ratingScore: 0,
+
+  /**
+   * User resource results
+   * @property {UserResourceResult} userResourcesResult
+   */
+  userResourcesResult: null,
 
   // -------------------------------------------------------------------------
   // Observers
@@ -118,9 +139,12 @@ export default Ember.Controller.extend({
    * @param {Resource} resource
    */
   moveToResource: function(resource){
-    var controller = this;
-    controller.set("resourceId", resource.get("id"));
+    let controller = this;
+    let userResourcesResult = this.get("userResourcesResult");
+    let resourceId = resource.get("id");
+    controller.set("resourceId", resourceId);
     controller.set("resource", resource);
+    controller.set("resourceResult", userResourcesResult.findBy("resourceId", resourceId));
     controller.set('ratingScore', 0);
 
     this.get('ratingService').findRatingForResource(resource.get("id"))
