@@ -107,7 +107,7 @@ export default Ember.Route.extend({
         hints: [],
         explanation: 'Sample explanation text',
         answers:  Ember.A([ // ["le", "colo", "teco"]
-          Ember.Object.create({ id: "1", text:"<p>[Le] casa es de [colo] rojo pero pero el [teco] es azul ajax</p>" })
+          Ember.Object.create({ id: "1", text:"<p>[le] casa es de [colo] rojo pero pero el [teco] es azul ajax</p>" })
         ]),
         isHotTextHighlightWord: true,
         "resourceType": "assessment-question",
@@ -924,7 +924,7 @@ export default Ember.Route.extend({
           "questionId": resource.get("id"),
           "reaction": 2,
           "timeSpent": 701,
-          "userAnswer": (skipped) ? undefined : ((incorrect) ? 3 : 1)
+          "userAnswer": (skipped) ? undefined : ((incorrect) ? 1 : 3)
         });
 
         userResult.get("questionResults").addObject(questionResult);
