@@ -25,7 +25,7 @@ test('Open ended layout', function (assert) {
     "resourceType": "assessment-question",
     "resourceFormat": "question",
     "order": 9
-  })
+  });
 
 
   this.set('question', question);
@@ -53,7 +53,7 @@ test('Open ended enter response', function (assert) {
     "resourceType": "assessment-question",
     "resourceFormat": "question",
     "order": 9
-  })
+  });
 
   let answers = [];
 

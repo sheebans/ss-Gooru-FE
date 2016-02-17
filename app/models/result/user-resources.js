@@ -23,7 +23,7 @@ export default Ember.Object.extend({
     return this.get("resourceResults").filter(function(resourceResult){
       return resourceResult.get("questionId") || //if it has a question id
         resourceResult.get("resource.isQuestion"); // or the resource is a question
-    })
+    });
   }),
 
   /**
