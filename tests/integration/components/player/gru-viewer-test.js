@@ -2,6 +2,7 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import T from 'gooru-web/tests/helpers/assert';
 import hbs from 'htmlbars-inline-precompile';
+import QuestionResult from 'gooru-web/models/result/question';
 
 moduleForComponent('player/gru-viewer', 'Integration | Component | player/gru viewer', {
   integration: true,
@@ -31,13 +32,17 @@ test('On question submit', function (assert) {
     }
   });
 
+  const resourceResult = QuestionResult.create();
+
+  this.set('resourceResult', resourceResult);
   this.set('resource', resource);
   this.set('collection',collection);
 
   this.on("mySubmitQuestion", function(question){
     assert.equal(question.get("id"), 10, "Wrong id");
   });
-  this.render(hbs`{{player/gru-viewer resource=resource collection=collection onSubmitQuestion="mySubmitQuestion"}}`);
+  this.render(hbs`{{player/gru-viewer resource=resource resourceResult=resourceResult
+    collection=collection onSubmitQuestion="mySubmitQuestion"}}`);
 
   var $component = this.$(); //component dom element
 
@@ -69,9 +74,12 @@ test('Narration', function (assert) {
     hasOwner: true
   });
 
+  const resourceResult = QuestionResult.create();
+
+  this.set('resourceResult', resourceResult);
   this.set("resource", resourceMockA);
 
-  this.render(hbs`{{player/gru-viewer resource=resource}}`);
+  this.render(hbs`{{player/gru-viewer resource=resource resourceResult=resourceResult}}`);
 
   var $component = this.$(); //component dom element
   const $gruViewer = $component.find(".gru-viewer");

@@ -90,9 +90,9 @@ export default Ember.Component.extend({
    * Notifies answer completion
    * @param {*} answer question answer
    */
-  notifyAnswerCleared: function(){
+  notifyAnswerCleared: function(answer){
     const question = this.get("question");
-    this.sendAction('onAnswerCleared', {
+    this.sendAction('onAnswerCleared', question, {
       answer: answer,
       correct: false
     });

@@ -12,12 +12,22 @@ moduleForComponent('player/questions/gru-fib', 'Integration | Component | player
 
 test('Fill in the blanks layout', function(assert) {
   assert.expect(3);
-  const question = Ember.Object.create(
-    {
-      "id": 10,
-      "order": 2,
-      "text":"El _______ es amarillo. La luna es_______ "
-    });
+  const question = Ember.Object.create({
+    "id": "569906aacea8416665209d53",
+    questionType: 'FIB',
+    text: 'The sun is _______ and the moon _______',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({id: 1, text: 'yellow'}),
+      Ember.Object.create({id: 2, text: 'white'})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 4,
+    "hasAnswers": true
+  });
+
   this.set('question', question);
   this.render(hbs`{{player/questions/gru-fib question=question}}`);
 
@@ -29,13 +39,23 @@ test('Fill in the blanks layout', function(assert) {
 });
 
 test('Fill in the blanks', function(assert) {
-  assert.expect(6);
-  const question = Ember.Object.create(
-    {
-      "id": 10,
-      "order": 2,
-      "text":"El _______ es amarillo. La luna es_______ "
-    });
+  assert.expect(7);
+  const question = Ember.Object.create({
+    "id": "569906aacea8416665209d53",
+    questionType: 'FIB',
+    text: 'The sun is _______ and the moon _______',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({id: 1, text: 'yellow'}),
+      Ember.Object.create({id: 2, text: 'white'})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 4,
+    "hasAnswers": true
+  });
+
   this.set('question', question);
   this.on('myOnAnswerChanged', function() {
     assert.ok(true, "This should be called twice");
@@ -45,10 +65,13 @@ test('Fill in the blanks', function(assert) {
     assert.ok(true, "This should be called once");
   });
 
-  this.on('myOnAnswerCleared', function(question, answer) {
-    assert.equal(question.get("id"), 10, "Wrong question id for onAnswerCleared");
-    assert.equal(answer[0], "", "Wrong answer for onAnswerCleared");
-    assert.equal(answer[1], "", "Wrong answer for onAnswerCleared");
+  this.on('myOnAnswerCleared', function(question, stats) {
+    assert.equal(question.get("id"), "569906aacea8416665209d53", "Wrong question id for onAnswerCleared");
+    assert.ok(!stats.correct, "Correct should be false");
+
+    let answer = stats.answer;
+    assert.equal(answer[0], "", "Wrong answer 1 onAnswerCleared");
+    assert.equal(answer[1], "", "Wrong answer 2 onAnswerCleared");
   });
   this.render(hbs`{{player/questions/gru-fib question=question
         onAnswerChanged="myOnAnswerChanged"
