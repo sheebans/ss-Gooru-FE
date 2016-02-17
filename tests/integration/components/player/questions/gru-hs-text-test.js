@@ -48,9 +48,9 @@ test('Layout', function (assert) {
   assert.equal($answersContainer.find("li.answer").length, 4, "Incorrect number of answer choices");
 
   assert.equal($answersContainer.find("li.answer:first-child").data('id'), 1, "First answer choice, data-id value is incorrect");
-  assert.equal($answersContainer.find("li.answer:first-child").text().trim(), "Banana", "First answer choice does not have the right text");
+  assert.equal($answersContainer.find("li.answer:first-child span").text().trim(), "Banana", "First answer choice does not have the right text");
   assert.equal($answersContainer.find("li.answer:last-child").data('id'), 4, "Last answer choice, data-id value is incorrect");
-  assert.equal($answersContainer.find("li.answer:last-child").text().trim(), "Watermelon", "Last answer choice does not have the right text");
+  assert.equal($answersContainer.find("li.answer:last-child span").text().trim(), "Watermelon", "Last answer choice does not have the right text");
 });
 
 test('Selecting answers', function (assert) {
