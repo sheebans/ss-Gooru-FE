@@ -56,12 +56,12 @@ export default QuestionComponent.extend({
    */
   updateAnswerObserver: function(){
     const component = this,
-      answer = component.get("answer");
-    //todo set the answer
-    component.notifyAnswerChanged(answer, true);
+      answer = Ember.$.trim(component.get("answer"));
+    let correct = component.get("isAnswerCompleted");
+    component.notifyAnswerChanged(answer, correct);
 
     if (component.get("isAnswerCompleted")){
-      component.notifyAnswerCompleted(answer, true);
+      component.notifyAnswerCompleted(answer, correct);
     }
     else{
       component.notifyAnswerCleared(answer);

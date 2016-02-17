@@ -15,11 +15,18 @@ test('Open ended layout', function (assert) {
 
   assert.expect(4);
 
-  const question = Ember.Object.create(
-    {
-      "id": 10,
-      "order": 2
-    });
+  const question = Ember.Object.create({
+    "id": "569906aa7fe0695bfd409731",
+    questionType: 'OE',
+    text: 'Sample Question OE',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: [],
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 9
+  })
+
 
   this.set('question', question);
   this.render(hbs`{{player/questions/gru-open-ended question=question}}`);
@@ -34,27 +41,37 @@ test('Open ended layout', function (assert) {
 
 test('Open ended enter response', function (assert) {
 
-  assert.expect(5);
+  assert.expect(6);
 
-  const question = Ember.Object.create(
-    {
-      "id": 10,
-      "order": 2
-    });
+  const question = Ember.Object.create({
+    "id": "569906aa7fe0695bfd409731",
+    questionType: 'OE',
+    text: 'Sample Question OE',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: [],
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 9
+  })
+
+  let answers = [];
 
   this.set('question', question);
-  this.on('myOnAnswerChanged', function(question, answer) {
-    assert.equal(question.get("id"), 10, "Wrong question id for onAnswerCompleted");
-    assert.equal(answer, "test", "Wrong answer for onAnswerCompleted");
+  this.on('myOnAnswerChanged', function (question, stats) {
+    //called 2 times
+    assert.deepEqual(stats, answers, "Answer changed, but the answers are not correct");
   });
 
-  this.on('myOnAnswerCompleted', function(question, answer) {
-    assert.equal(question.get("id"), 10, "Wrong question id for onAnswerCompleted");
-    assert.equal(answer, "test", "Wrong answer for onAnswerCompleted");
+  this.on('myOnAnswerCompleted', function (question, stats) {
+    //called 1 time
+    assert.deepEqual(stats, answers, "Answer completed, but the answers are not correct");
   });
 
-  this.on('myOnAnswerCleared', function() {
-    assert.ok(false, "This shouldn't be called");
+  this.on('myOnAnswerCleared', function (question, stats) {
+    //called 1 time
+    assert.deepEqual(stats, answers, "Answer cleared, but the answers are not correct");
+
   });
 
   this.render(hbs`{{player/questions/gru-open-ended question=question
@@ -63,49 +80,17 @@ test('Open ended enter response', function (assert) {
         onAnswerCompleted="myOnAnswerCompleted"}}`);
 
   var $component = this.$(); //component dom element
+
   //enter response
-  $component.find("textarea").val("test");
-  $component.find("textarea").change();
-  assert.equal($component.find(".help-block span").text(), "996", "Character limit should be 996");
-});
-
-test('Open ended clear response', function (assert) {
-
-  assert.expect(7);
-
-  const question = Ember.Object.create(
-    {
-      "id": 10,
-      "order": 2
-    });
-
-  this.set('question', question);
-  this.on('myOnAnswerChanged', function() {
-    assert.ok(true, "This should be called twice");
-  });
-
-  this.on('myOnAnswerCompleted', function() {
-    assert.ok(true, "This should be called once");
-  });
-
-  this.on('myOnAnswerCleared', function(question, answer) {
-    assert.equal(question.get("id"), 10, "Wrong question id for onAnswerCleared");
-    assert.equal(answer, "", "Wrong answer for onAnswerCleared");
-  });
-
-  this.render(hbs`{{player/questions/gru-open-ended question=question
-        onAnswerChanged="myOnAnswerChanged"
-        onAnswerCleared="myOnAnswerCleared"
-        onAnswerCompleted="myOnAnswerCompleted"}}`);
-
-  var $component = this.$(); //component dom element
-  //enter response
+  answers = { answer: "test", correct: true };
   $component.find("textarea").val("test");
   $component.find("textarea").change();
   assert.equal($component.find(".help-block span").text(), "996", "Character limit should be 996");
 
   //clear response
+  answers = { answer: "", correct: false };
   $component.find("textarea").val("");
   $component.find("textarea").change();
   assert.equal($component.find(".help-block span").text(), "1000", "Character limit should be 1000");
+
 });
