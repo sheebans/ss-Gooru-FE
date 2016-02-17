@@ -5,7 +5,7 @@
         <span class="index">{{plus-one index}}</span>
         {{charts/gru-x-bar-chart data=questionData.data}}
         <span class="ratio">
-          <em>{{questionData.completed}}</em>/<em>{{questionData.total}}</em>
+          <span>{{questionData.completed}}</span>/<span>{{questionData.total}}</span>
         </span>
       </a>
     </li>
@@ -13,5 +13,7 @@
 </ol>
 
 {{#if showMore}}
-  <a {{action 'toggleView'}} class="{{if isExpanded 'collapse' 'expand'}}"></a>
+  <a {{action 'toggleView'}} class="show-more">
+      {{gru-icon name=(if isExpanded 'keyboard_arrow_left' 'keyboard_arrow_right')}}
+  </a>
 {{/if}}

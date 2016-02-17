@@ -47,7 +47,7 @@ export default {
     "mastery":"Mastery",
     "menu": "Menu",
     "no": "No",
-    "notStarted": "not started",
+    "notStarted": "Not started",
     "number":"No.",
     "numberStudents": {
       one: "{{count}} Student",
