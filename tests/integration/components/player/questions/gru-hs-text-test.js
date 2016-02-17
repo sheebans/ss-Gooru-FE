@@ -11,31 +11,23 @@ moduleForComponent('player/questions/gru-hs-text', 'Integration | Component | pl
 
 test('Layout', function (assert) {
 
-  const question = Ember.Object.create(
-    {
-      "answers": [
-        Ember.Object.create(
-          {
-            "id": 1,
-            "text": "Banana"
-          }),
-        Ember.Object.create(
-          {
-            "id": 2,
-            "text": "Orange"
-          }),
-        Ember.Object.create(
-          {
-            "id": 3,
-            "text": "Apple"
-          }),
-        Ember.Object.create(
-          {
-            "id": 4,
-            "text": "Watermelon"
-          })
-      ]
-    });
+  let question = Ember.Object.create({
+    "id": "569906aabfcfc4cfc1b29b62",
+    questionType: 'HS_TXT',
+    text: 'Sample Question HS_TXT',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({ "id": 1, "text": "Banana", isCorrect: true }),
+      Ember.Object.create({ "id": 2, "text": "Orange", isCorrect: true}),
+      Ember.Object.create({ "id": 3, "text": "Apple", isCorrect: false}),
+      Ember.Object.create({ "id": 4, "text": "Watermelon", isCorrect: false})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 8,
+    "hasAnswers": true
+  });
 
   this.set('question', question);
 
@@ -55,22 +47,21 @@ test('Layout', function (assert) {
 
 test('Selecting answers', function (assert) {
 
-  const question = Ember.Object.create(
-    {
-      "answers": [
-        Ember.Object.create(
-          {
-            "id": 1,
-            "text": "Banana"
-          }),
-        Ember.Object.create(
-          {
-            "id": 2,
-            "text": "Orange"
-          })
-      ]
-    });
-
+  let question = Ember.Object.create({
+    "id": "569906aabfcfc4cfc1b29b62",
+    questionType: 'HS_TXT',
+    text: 'Sample Question HS_TXT',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({ "id": 1, "text": "Banana", isCorrect: true }),
+      Ember.Object.create({ "id": 2, "text": "Orange", isCorrect: true})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 8,
+    "hasAnswers": true
+  });
   this.set('question', question);
 
   this.render(hbs`{{player/questions/gru-hs-text question=question}}`);
@@ -100,44 +91,36 @@ test('Selecting answers', function (assert) {
 test('Notifications work after selecting questions', function (assert) {
 
   var answers = [];
-  const question = Ember.Object.create(
-    {
-      "answers": [
-        Ember.Object.create(
-          {
-            "id": 1,
-            "text": "Banana"
-          }),
-        Ember.Object.create(
-          {
-            "id": 2,
-            "text": "Orange"
-          }),
-        Ember.Object.create(
-          {
-            "id": 3,
-            "text": "Apple"
-          }),
-        Ember.Object.create(
-          {
-            "id": 4,
-            "text": "Watermelon"
-          })
-      ]
-    });
+  let question = Ember.Object.create({
+    "id": "569906aabfcfc4cfc1b29b62",
+    questionType: 'HS_TXT',
+    text: 'Sample Question HS_TXT',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({ "id": 1, "text": "Banana", isCorrect: true }),
+      Ember.Object.create({ "id": 2, "text": "Orange", isCorrect: false}),
+      Ember.Object.create({ "id": 3, "text": "Apple", isCorrect: true}),
+      Ember.Object.create({ "id": 4, "text": "Watermelon", isCorrect: true})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 8,
+    "hasAnswers": true
+  });
 
   this.set('question', question);
 
-  this.on('changeAnswer', function (question, answerArray) {
-    assert.deepEqual(answerArray, answers, "Answer changed, but the answers are not correct");
+  this.on('changeAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, "Answer changed, but the answers are not correct");
   });
 
-  this.on('completeAnswer', function (question, answerArray) {
-    assert.deepEqual(answerArray, answers, "Answer completed, but the answers are not correct");
+  this.on('completeAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, "Answer completed, but the answers are not correct");
   });
 
-  this.on('clearAnswer', function (question, answerArray) {
-    assert.deepEqual(answerArray, [], "Answer cleared, but the answers are not correct");
+  this.on('clearAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, "Answer cleared, but the answers are not correct");
   });
 
   this.render(hbs`{{player/questions/gru-hs-text question=question
@@ -148,23 +131,24 @@ test('Notifications work after selecting questions', function (assert) {
   const $answers = this.$('li.answer');
 
   // Select first answer
-  answers = [1];
+  answers = { answer: [1], correct: false };
   $answers.eq(0).click();
 
-  answers = [1, 3];
+  answers = { answer: [1, 3], correct: false };
   $answers.eq(2).click();
 
   // Three answers selected
-  answers = [1, 3, 4];
+  answers = { answer: [1,3,4], correct: true };
   $answers.eq(3).click();
 
   // Now, test deselecting all answers
-  answers = [1, 4];
+  answers = { answer: [1,4], correct: false };
   $answers.eq(2).click();
 
-  answers = [4];
+  answers = { answer: [4], correct: false };
   $answers.eq(0).click();
 
   // Send onAnswerCleared notification
+  answers = { answer: [], correct: false };
   $answers.eq(3).click();
 });

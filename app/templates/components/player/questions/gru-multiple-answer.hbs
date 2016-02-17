@@ -18,13 +18,13 @@
         <tr>
           <td>
               {{radio-button
-              value=(concat "yes-" answer.id)
+              value=(concat "yes|" answer.id)
               changed="selectAnswerChoice"
               name=(concat "answer-choice-radio-" answer.id)}}
           </td>
           <td>
             {{radio-button
-            value=(concat "no-" answer.id)
+            value=(concat "no|" answer.id)
             changed="selectAnswerChoice"
             name=(concat "answer-choice-radio-" answer.id)}}
           </td>

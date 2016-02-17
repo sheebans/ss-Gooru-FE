@@ -11,23 +11,22 @@ moduleForComponent('player/questions/gru-reorder', 'Integration | Component | pl
 
 test('Reorder question layout', function (assert) {
 
-  const question = Ember.Object.create(
-    {
-      "answers": [
-        {
-          "id": 1,
-          "text": "An aquifer"
-        },
-        {
-          "id": 2,
-          "text": "A well"
-        },
-        {
-          "id": 3,
-          "text": "A pump"
-        }
-      ]
-    });
+  let question = Ember.Object.create({
+    "id": "569906aadfa0072204f7c7c7",
+    questionType: 'HT_RO',
+    text: 'Reorder Question',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([ // ["crc", "bra", "pan", "chi"]
+      Ember.Object.create({id: "1", text: "An aquifer", order: 1}),
+      Ember.Object.create({id: "2", text: "A well", order: 2}),
+      Ember.Object.create({id: "3", text: "A pump", order: 3})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 3,
+    "hasAnswers": true
+  });
 
   this.set('question', question);
 
@@ -46,33 +45,36 @@ test('Reorder question layout', function (assert) {
 
 test('Notifications work after reordering questions', function (assert) {
 
-  var answerOrder = null;
-  const question = Ember.Object.create(
-    {
-      "answers": [
-        {
-          "id": 1,
-          "text": "An aquifer"
-        },
-        {
-          "id": 2,
-          "text": "A well"
-        },
-        {
-          "id": 3,
-          "text": "A pump"
-        }
-      ]
-    });
+
+  let question = Ember.Object.create({
+    "id": "569906aadfa0072204f7c7c7",
+    questionType: 'HT_RO',
+    text: 'Reorder Question',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([ // ["crc", "bra", "pan", "chi"]
+      Ember.Object.create({id: "aquifer", text: "An aquifer", order: 3}),
+      Ember.Object.create({id: "well", text: "A well", order: 2}),
+      Ember.Object.create({id: "pump", text: "A pump", order: 1})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 3,
+    "hasAnswers": true
+  });
+
+  var answers = [];
 
   this.set('question', question);
 
-  this.on('changeAnswer', function(question, answerArray) {
-    assert.deepEqual(answerArray, answerOrder, "Answer changed, but the answers are not in the correct order");
+  this.on('changeAnswer', function (question, stats) {
+    //called 2 times
+    assert.deepEqual(stats, answers, "Answer changed, but the answers are not in the correct order");
   });
 
-  this.on('completeAnswer', function(question, answerArray) {
-    assert.deepEqual(answerArray, answerOrder, "Answer completed, but the answers are not in the correct order");
+  this.on('completeAnswer', function (question, stats) {
+    //called 2 times
+    assert.deepEqual(stats, answers, "Answer completed, but the answers are not in the correct order");
   });
 
   this.render(hbs`{{player/questions/gru-reorder question=question
@@ -81,19 +83,20 @@ test('Notifications work after reordering questions', function (assert) {
 
   var $component = this.$(); //component dom element
 
-  assert.equal($component.find(".sortable li:first-child").data('id'), 1, "First answer choice, data-id value is incorrect");
-  assert.equal($component.find(".sortable li:last-child").data('id'), 3, "Last answer choice, data-id value is incorrect");
+  assert.equal($component.find(".sortable li:first-child").data('id'), "aquifer", "First answer choice, data-id value is incorrect");
+  assert.equal($component.find(".sortable li:last-child").data('id'), "pump", "Last answer choice, data-id value is incorrect");
 
   // Move first item to be the last
   $component.find('.sortable li:first-child')
-            .insertAfter('.sortable li:last-child');
-  answerOrder = [2, 3, 1];
+    .insertAfter('.sortable li:last-child');
+
+  answers = { answer: ["well", "pump", "aquifer"], correct: false };
   $component.find('.sortable').trigger('sortupdate');
 
   // Move current first item to be the second one
   $component.find('.sortable li:first-child')
     .insertBefore('.sortable li:last-child');
-  answerOrder = [3, 2, 1];
+  answers = { answer: ["pump", "well", "aquifer"], correct: true };
   $component.find('.sortable').trigger('sortupdate');
 
 });

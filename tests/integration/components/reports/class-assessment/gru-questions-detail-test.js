@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import QuestionResult from 'gooru-web/models/result/question';
-import UserQuestionsResult from 'gooru-web/models/result/user-questions';
+import UserResourcesResult from 'gooru-web/models/result/user-resources';
 import ReportData from 'gooru-web/models/result/report-data';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
@@ -101,28 +101,28 @@ test('Layout', function(assert) {
   });
 
   reportData.merge([
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       user: "56983a9060a68052c1ed934c",
-      questionResult: Ember.A([
-        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7"}),
-        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230"}),
-        QuestionResult.create({questionId: "56a12048ddee2022a741356a"})
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7"}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230"}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a"})
       ])
     }),
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       user: "56983a90fb01fecc328e2388",
-      questionResult: Ember.A([
-        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7"}),
-        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230"}),
-        QuestionResult.create({questionId: "56a12048ddee2022a741356a"})
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7"}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230"}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a"})
       ])
     }),
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       user: "56983a906596902edadedc7c",
-      questionResult: Ember.A([
-        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7"}),
-        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230"}),
-        QuestionResult.create({questionId: "56a12048ddee2022a741356a"})
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7"}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230"}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a"})
       ])
     })
   ]);
@@ -248,28 +248,28 @@ test('Layout Anonymous', function(assert) {
   });
 
   reportData.merge([
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       user: "56983a9060a68052c1ed934c",
-      questionResult: Ember.A([
-        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7"}),
-        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230"}),
-        QuestionResult.create({questionId: "56a12048ddee2022a741356a"})
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7"}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230"}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a"})
       ])
     }),
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       user: "56983a90fb01fecc328e2388",
-      questionResult: Ember.A([
-        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7"}),
-        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230"}),
-        QuestionResult.create({questionId: "56a12048ddee2022a741356a"})
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7"}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230"}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a"})
       ])
     }),
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       user: "56983a906596902edadedc7c",
-      questionResult: Ember.A([
-        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7"}),
-        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230"}),
-        QuestionResult.create({questionId: "56a12048ddee2022a741356a"})
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7"}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230"}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a"})
       ])
     })
   ]);
@@ -353,28 +353,28 @@ test('Layout Anonymous and Show Results', function(assert) {
   });
 
   reportData.merge([
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       user: "56983a9060a68052c1ed934c",
-      questionResult: Ember.A([
-        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7"}),
-        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230"}),
-        QuestionResult.create({questionId: "56a12048ddee2022a741356a"})
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7"}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230"}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a"})
       ])
     }),
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       user: "56983a90fb01fecc328e2388",
-      questionResult: Ember.A([
-        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7"}),
-        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230"}),
-        QuestionResult.create({questionId: "56a12048ddee2022a741356a"})
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7"}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230"}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a"})
       ])
     }),
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       user: "56983a906596902edadedc7c",
-      questionResult: Ember.A([
-        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7"}),
-        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230"}),
-        QuestionResult.create({questionId: "56a12048ddee2022a741356a"})
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7"}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230"}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a"})
       ])
     })
   ]);

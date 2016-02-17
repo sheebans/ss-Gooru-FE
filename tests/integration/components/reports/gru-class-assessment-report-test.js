@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
-import UserQuestionsResult from 'gooru-web/models/result/user-questions';
+import UserResourcesResult from 'gooru-web/models/result/user-resources';
 import QuestionResult from 'gooru-web/models/result/question';
 import ReportData from 'gooru-web/models/result/report-data';
 
@@ -58,35 +58,35 @@ test('Default Layout', function (assert) {
   });
 
   reportData.merge([
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       "user": "56983a9060a68052c1ed934c",
-      "questionsResults": [
+      "resourceResults": [
         QuestionResult.create({
           "correct": true,
-          "questionId": "569906aa20b7dfae1bcd5262",
+          "resourceId": "569906aa20b7dfae1bcd5262",
           "reaction": 2,
           "timeSpent": 701
         }),
         QuestionResult.create({
           "correct": true,
-          "questionId": "569906aa3ec3bb39969acbe6",
+          "resourceId": "569906aa3ec3bb39969acbe6",
           "reaction": 4,
           "timeSpent": 1333
         })
       ]
     }),
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       "user": "56983a90fb01fecc328e2388",
-      "questionsResults": [
+      "resourceResults": [
         QuestionResult.create({
           "correct": true,
-          "questionId": "569906aa20b7dfae1bcd5262",
+          "resourceId": "569906aa20b7dfae1bcd5262",
           "reaction": 2,
           "timeSpent": 701
         }),
         QuestionResult.create({
           "correct": true,
-          "questionId": "569906aa3ec3bb39969acbe6",
+          "resourceId": "569906aa3ec3bb39969acbe6",
           "reaction": 4,
           "timeSpent": 1333
         })

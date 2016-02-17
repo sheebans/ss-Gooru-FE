@@ -12,28 +12,26 @@ moduleForComponent('player/questions/gru-hs-image', 'Integration | Component | p
 
 test('Layout', function (assert) {
 
-  const question = Ember.Object.create(
-    {
-      "assetBasePath": "http://test-base-path/",
-      "isHotSpotImage": true,
-      "answers": [
-        Ember.Object.create(
-          {
-            "id": 1,
-            "text": "test-1.png"
-          }),
-        Ember.Object.create(
-          {
-            "id": 2,
-            "text": "test-2.png"
-          }),
-        Ember.Object.create(
-          {
-            "id": 3,
-            "text": "test-3.png"
-          })
-      ]
-    });
+  let question = Ember.Object.create({
+    "id": "569906aa04f742731bd4e896",
+    isHotSpotImage: true,
+    "assetBasePath": "http://test-base-path/",
+    questionType: 'HS_IMG',
+    text: 'Sample Question HS_IMG',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([ // ["1", "3"]
+      Ember.Object.create({"id": 1, "text": "test-1.png", isCorrect: true}),
+      Ember.Object.create({"id": 2, "text": "test-2.png", isCorrect: false}),
+      Ember.Object.create({"id": 3, "text": "test-3.png", isCorrect: true})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "narration": "Deserunt occaecat ullamco cillum in incididunt anim sit consequat consequat sit. Ipsum duis irure do quis amet cupidatat tempor qui nulla commodo nisi veniam. Culpa Lorem consequat ad officia. Consectetur minim pariatur id laborum tempor voluptate dolor quis laboris et quis commodo.",
+    "order": 7,
+    "hasAnswers": true
+  });
+
 
   this.set('question', question);
 
@@ -53,23 +51,24 @@ test('Layout', function (assert) {
 
 test('Selecting answers', function (assert) {
 
-  const question = Ember.Object.create(
-    {
-      "assetBasePath": "",
-      "isHotSpotImage": true,
-      "answers": [
-        Ember.Object.create(
-          {
-            "id": 1,
-            "text": "test-1.png"
-          }),
-        Ember.Object.create(
-          {
-            "id": 2,
-            "text": "test-2.png"
-          })
-      ]
-    });
+  let question = Ember.Object.create({
+    "id": "569906aa04f742731bd4e896",
+    isHotSpotImage: true,
+    "assetBasePath": "http://test-base-path/",
+    questionType: 'HS_IMG',
+    text: 'Sample Question HS_IMG',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([ // ["1", "3"]
+      Ember.Object.create({"id": 1, "text": "test-1.png", isCorrect: true}),
+      Ember.Object.create({"id": 2, "text": "test-2.png", isCorrect: false})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "narration": "Deserunt occaecat ullamco cillum in incididunt anim sit consequat consequat sit. Ipsum duis irure do quis amet cupidatat tempor qui nulla commodo nisi veniam. Culpa Lorem consequat ad officia. Consectetur minim pariatur id laborum tempor voluptate dolor quis laboris et quis commodo.",
+    "order": 7,
+    "hasAnswers": true
+  });
 
   this.set('question', question);
 
@@ -98,48 +97,42 @@ test('Selecting answers', function (assert) {
 });
 
 test('Notifications work after selecting questions', function (assert) {
+  assert.expect(12);
+  let answers = [];
+  let question = Ember.Object.create({
+    "id": "569906aa04f742731bd4e896",
+    isHotSpotImage: true,
+    "assetBasePath": "http://test-base-path/",
+    questionType: 'HS_IMG',
+    text: 'Sample Question HS_IMG',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([ // ["1", "3"]
+      Ember.Object.create({"id": 1, "text": "test-1.png", isCorrect: true}),
+      Ember.Object.create({"id": 2, "text": "test-2.png", isCorrect: false}),
+      Ember.Object.create({"id": 3, "text": "test-3.png", isCorrect: true}),
+      Ember.Object.create({"id": 4, "text": "test-4.png", isCorrect: true})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "narration": "Deserunt occaecat ullamco cillum in incididunt anim sit consequat consequat sit. Ipsum duis irure do quis amet cupidatat tempor qui nulla commodo nisi veniam. Culpa Lorem consequat ad officia. Consectetur minim pariatur id laborum tempor voluptate dolor quis laboris et quis commodo.",
+    "order": 7,
+    "hasAnswers": true
+  });
 
-  var answers = [];
-  const question = Ember.Object.create(
-    {
-      "assetBasePath": "",
-      "isHotSpotImage": true,
-      "answers": [
-        Ember.Object.create(
-          {
-            "id": 1,
-            "text": "test-1.png"
-          }),
-        Ember.Object.create(
-          {
-            "id": 2,
-            "text": "test-2.png"
-          }),
-        Ember.Object.create(
-          {
-            "id": 3,
-            "text": "test-3.png"
-          }),
-        Ember.Object.create(
-          {
-            "id": 4,
-            "text": "test-4.png"
-          })
-      ]
-    });
 
   this.set('question', question);
 
-  this.on('changeAnswer', function (question, answerArray) {
-    assert.deepEqual(answerArray, answers, "Answer changed, but the answers are not correct");
+  this.on('changeAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, "Answer changed, but the answers are not correct");
   });
 
-  this.on('completeAnswer', function (question, answerArray) {
-    assert.deepEqual(answerArray, answers, "Answer completed, but the answers are not correct");
+  this.on('completeAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, "Answer completed, but the answers are not correct");
   });
 
-  this.on('clearAnswer', function (question, answerArray) {
-    assert.deepEqual(answerArray, [], "Answer cleared, but the answers are not correct");
+  this.on('clearAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, "Answer cleared, but the answers are not correct");
   });
 
   this.render(hbs`{{player/questions/gru-hs-image question=question
@@ -150,23 +143,24 @@ test('Notifications work after selecting questions', function (assert) {
   const $answers = this.$('li.answer');
 
   // Select first answer
-  answers = [1];
+  answers = { answer: [1], correct: false };
   $answers.eq(0).click();
 
-  answers = [1, 3];
+  answers = { answer: [1, 3], correct: false };
   $answers.eq(2).click();
 
   // Three answers selected
-  answers = [1, 3, 4];
+  answers = { answer: [1, 3, 4], correct: true };
   $answers.eq(3).click();
 
   // Now, test deselecting all answers
-  answers = [1, 4];
+  answers = { answer: [1, 4], correct: false };
   $answers.eq(2).click();
 
-  answers = [4];
+  answers = { answer: [4], correct: false };
   $answers.eq(0).click();
 
   // Send onAnswerCleared notification
+  answers = { answer: [], correct: false };
   $answers.eq(3).click();
 });
