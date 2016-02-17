@@ -20,13 +20,10 @@
     </li>
   </ul>
 
-  <ul class="overview small">
+  <ul class="overview small {{if isFullScreen 'visible'}}">
     <li class="scores">
       {{ charts.gru-pie-chart data=classScores }}
-    </li>
-
-    <li class="average-score">
-      {{charts.gru-bubble-chart content=(concat averageScore '%') color=(gradeColor averageScore)}}
+      <span>{{t "common.classScores"}}</span>
     </li>
 
     <li class="completion">
@@ -34,6 +31,12 @@
       value=totalCompleted
       minValue=0
       maxValue=students.length }}
+      <span>{{t "common.completed"}}</span>
+    </li>
+
+    <li class="average-score">
+      {{charts.gru-bubble-chart content=(concat averageScore '%') color=(gradeColor averageScore)}}
+      <span>{{t "common.averageScore"}}</span>
     </li>
   </ul>
 

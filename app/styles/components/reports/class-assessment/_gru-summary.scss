@@ -46,28 +46,6 @@
 
       &.small {
         display: none;
-        padding-right: 10px;
-
-        > li {
-          width: $small-chart-diameter;
-          float: left;
-          display: block;
-
-          &:first-child {
-            margin-right: 10px;
-          }
-
-          &:last-child {
-            clear: both;
-            float: none;
-            margin: 0 auto;
-          }
-
-          > div {
-            height: $small-chart-diameter;
-            width: $small-chart-diameter;
-          }
-        }
       }
     }
 
@@ -84,10 +62,51 @@
 
       .overview {
         display: none;
-        padding-right: 15px;
+        padding: 0;
+        margin: 0 15px 0 0;
+        width: 268px;
 
-        &.small {
+        &.small.visible {
           display: block;
+          background: $white;
+          box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.07);
+          border-radius: 5px;
+          font-size: inherit;
+
+          > li {
+            float: left;
+            display: block;
+            box-shadow: none;
+            border-radius: inherit;
+            height: auto;
+            width: auto;
+            margin: 0 12px 0 10px;
+
+            > div {
+              margin: 8px auto 0;
+            }
+            > span {
+              margin: 0;
+            }
+
+            &:last-child {
+              float: none;
+              margin: 40px auto 0;
+            }
+          }
+          .completion {
+            float: right;
+          }
+        }
+      }
+      .gru-questions-summary {
+        font-size: inherit;
+        padding: 15px 28px;
+        > li {
+          margin: 0 23px 0 0;
+        }
+        .charts.gru-x-bar-chart {
+          width: 6.12em;
         }
       }
     }
