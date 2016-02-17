@@ -26,11 +26,12 @@ export default Ember.Component.extend({
   actions: {
     /***
      * When the user submits the question
-     * @param {Question} question
+     * @param {Resource} question
+     * @param {QuestionResult} questionResult
      * @returns {boolean}
      */
-    submitQuestion: function (question) {
-      this.sendAction("onSubmitQuestion", question);
+    submitQuestion: function (question, questionResult) {
+      this.sendAction("onSubmitQuestion", question, questionResult);
     }
   },
 
@@ -51,6 +52,13 @@ export default Ember.Component.extend({
    * @property {Resource} resource
    */
   resource: null,
+
+  /**
+   * The resource or question result playing
+   * @property {ResourceResult}
+   */
+  resourceResult: null,
+
 
   /**
    * The collection playing

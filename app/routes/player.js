@@ -1,4 +1,7 @@
 import Ember from 'ember';
+import UserResourcesResult from 'gooru-web/models/result/user-resources';
+import QuestionResult from 'gooru-web/models/result/question';
+import ResourceResult from 'gooru-web/models/result/resource';
 
 export default Ember.Route.extend({
 
@@ -38,11 +41,16 @@ export default Ember.Route.extend({
     const
       collectionId = params.collectionId,
       resourceId = params.resourceId,
-      collection = this.get("collectionService").findById(collectionId);
+      collection = this.get("collectionService").findById(collectionId),
+      userResourcesResult = UserResourcesResult.create({
+        user: 1,
+        resourceResults: Ember.A([])
+      }); //TODO load UserQuestionsResult
 
     return Ember.RSVP.hash({
       collection: collection,
-      resourceId: resourceId
+      resourceId: resourceId,
+      userResourcesResult: userResourcesResult
     });
   },
 
@@ -52,6 +60,10 @@ export default Ember.Route.extend({
    */
   setupController(controller, model) {
     const collection = model.collection;
+    const userResourcesResult = model.userResourcesResult;
+
+    this.generateResourceResults(collection.get("resources"), userResourcesResult);
+    controller.set("userResourcesResult", userResourcesResult);
 
     var resource = collection.get("lastVisitedResource");
     if (model.resourceId) {
@@ -60,5 +72,24 @@ export default Ember.Route.extend({
 
     controller.set("collection", collection);
     controller.moveToResource(resource);
+  },
+
+  /**
+   * Creates a result for each resource if it doesn't exist already
+   * @param {Resource[]} resources
+   * @param {UserResourcesResult} userResourcesResult
+   */
+  generateResourceResults: function(resources, userResourcesResult){
+    const resourceResults = userResourcesResult.get("resourceResults");
+    resources.forEach(function(resource){
+      let resourceId = resource.get('id');
+      let found = resourceResults.filterBy("resourceId", resourceId).get("length");
+      if (!found){
+        let result = (resource.get("isQuestion")) ?
+          QuestionResult.create({ resourceId: resourceId, resource: resource }) :
+          ResourceResult.create({ resourceId: resourceId, resource: resource });
+        resourceResults.addObject(result);
+      }
+    });
   }
 });

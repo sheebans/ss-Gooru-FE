@@ -9,12 +9,21 @@ moduleForComponent('player/questions/gru-hot-text-highlight', 'Integration | Com
 test('Layout', function(assert) {
   assert.expect(4);
 
-  var answers = Ember.A([ Ember.Object.create({ text: "Sentence 1 [Sentence 2.] Sentence 3 [Sentence 4.] Sentence 5" }) ]),
-    question = Ember.Object.create({
-      answers: answers,
-      hasAnswers: true,
-      isHotTextHighlightWord: false
-    });
+  let question = Ember.Object.create({
+    "id": "569906aa68f276ae7ea03c30",
+    questionType: 'HT_HL',
+    text: '<p>Seleccione las palabras escritas incorrectamente</p>',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers:  Ember.A([
+      Ember.Object.create({ id: "1", text:"<p>Sentence 1 [Sentence 2.] Sentence 3 [Sentence 4.] Sentence 5</p>" })
+    ]),
+    isHotTextHighlightWord: false,
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 6,
+    "hasAnswers": true
+  });
 
   this.set("question", question);
 
@@ -32,25 +41,35 @@ test('Layout', function(assert) {
 test('markItem', function(assert) {
   assert.expect(14);
 
-  var answers = Ember.A([ Ember.Object.create({ text: "Sentence 1 [Sentence 2.] Sentence 3 [Sentence 4.] Sentence 5" }) ]),
-    question = Ember.Object.create({
-      id: 10,
-      answers: answers,
-      hasAnswers: true,
-      isHotTextHighlightWord: false
-    });
+  let question = Ember.Object.create({
+    "id": "569906aa68f276ae7ea03c30",
+    questionType: 'HT_HL',
+    text: '<p>Seleccione las palabras escritas incorrectamente</p>',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers:  Ember.A([ // ["le", "colo", "teco"]
+      Ember.Object.create({ id: "1", text:"<p>Sentence 1 [Sentence 2.] Sentence 3 [Sentence 4.] Sentence 5</p>" })
+    ]),
+    isHotTextHighlightWord: false,
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 6,
+    "hasAnswers": true
+  });
+
+  let answers = [];
 
   this.set("question", question);
-  this.on('myOnAnswerChanged', function() {
-    assert.ok(true, "This should be called 4 times");
+  this.on('myOnAnswerChanged', function(question, stats) {
+    assert.deepEqual(stats, answers, "Answer changed, but the answers are not correct");
   });
 
-  this.on('myOnAnswerCompleted', function() {
-    assert.ok(true, "This should be called 3 times");
+  this.on('myOnAnswerCompleted', function(question, stats) {
+    assert.deepEqual(stats, answers, "Answer completed, but the answers are not correct");
   });
 
-  this.on('myOnAnswerCleared', function() {
-    assert.ok(true, "This should be called 1 time");
+  this.on('myOnAnswerCleared', function(question, stats) {
+    assert.deepEqual(stats, answers, "Answer cleared, but the answers are not correct");
   });
 
   this.render(hbs`{{player/questions/gru-hot-text-highlight
@@ -61,22 +80,27 @@ test('markItem', function(assert) {
 
   var $component = this.$(), //component dom element
     $phrasesContainer = $component.find(".phrases"),
-    $item0 = $phrasesContainer.find("span.item:eq(0)"),
-    $item1 = $phrasesContainer.find("span.item:eq(1)");
+    $item1 = $phrasesContainer.find("span.item:eq(1)"),
+    $item3 = $phrasesContainer.find("span.item:eq(3)");
 
   //selecting items
-  $item0.click();
+  answers = { answer: ["Sentence 2."], correct: false };
   $item1.click();
-  assert.ok($item0.hasClass("selected"), "Item 0 should be selected");
   assert.ok($item1.hasClass("selected"), "Item 1 should be selected");
+
+  answers = { answer: ["Sentence 2.", "Sentence 4."], correct: true };
+  $item3.click();
+  assert.ok($item3.hasClass("selected"), "Item 3 should be selected");
 
   //deselecting items
-  $item0.click();
-  assert.ok(!$item0.hasClass("selected"), "Item 0 should not be selected");
-  assert.ok($item1.hasClass("selected"), "Item 1 should be selected");
-
+  answers = { answer: ["Sentence 4."], correct: false };
   $item1.click();
-  assert.ok(!$item0.hasClass("selected"), "Item 0 should not be selected");
   assert.ok(!$item1.hasClass("selected"), "Item 1 should not be selected");
+  assert.ok($item3.hasClass("selected"), "Item 3 should be selected");
+
+  answers = { answer: [], correct: false };
+  $item3.click();
+  assert.ok(!$item1.hasClass("selected"), "Item 1 should not be selected");
+  assert.ok(!$item3.hasClass("selected"), "Item 3 should not be selected");
 
 });

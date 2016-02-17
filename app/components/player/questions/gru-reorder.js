@@ -31,6 +31,7 @@ export default QuestionComponent.extend({
   initSortableList: Ember.on('didInsertElement', function() {
     const component = this;
     const sortable = this.$('.sortable');
+    const questionUtil = this.get("questionUtil");
 
     sortable.sortable();
 
@@ -42,8 +43,11 @@ export default QuestionComponent.extend({
         return $(item).data('id');
       }).toArray();
 
-      component.notifyAnswerChanged(answers);
-      component.notifyAnswerCompleted(answers);
+
+      const correct = questionUtil.isCorrect(answers);
+
+      component.notifyAnswerChanged(answers, correct);
+      component.notifyAnswerCompleted(answers, correct);
     });
 
   }),

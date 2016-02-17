@@ -39,7 +39,7 @@ export default Ember.Controller.extend({
   students: Ember.A([]),
 
   /**
-   * @prop { UserQuestionsResult[] } userResults - Content feed to update the report data
+   * @prop { UserResourcesResult[] } userResults - Content feed to update the report data
    */
   userResults: null,
 

@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import QuestionResult from 'gooru-web/models/result/question';
 import T from 'gooru-web/tests/helpers/assert';
 
 moduleForComponent('player/gru-question-viewer', 'Integration | Component | player/gru question viewer', {
@@ -35,10 +36,13 @@ test('Layout', function (assert) {
     }
   });
 
+  const questionResult = QuestionResult.create();
+
+  this.set('questionResult', questionResult);
   this.set('question', question);
   this.set('collection',collection);
 
-  this.render(hbs`{{player/gru-question-viewer question=question collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
 
   var $component = this.$(); //component dom element
 
@@ -86,13 +90,17 @@ test('Submit button should become enabled and call action on submit', function (
     }
   });
 
+  const questionResult = QuestionResult.create();
+
+  this.set('questionResult', questionResult);
   this.set('question', question);
   this.set('collection',collection);
 
   this.on("mySubmitQuestion", function(question){
     assert.equal(question.get("id"), 10, "Wrong id");
   });
-  this.render(hbs`{{player/gru-question-viewer question=question onSubmitQuestion="mySubmitQuestion" collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult
+      onSubmitQuestion="mySubmitQuestion" collection=collection}}`);
 
   var $component = this.$(); //component dom element
 
@@ -137,10 +145,13 @@ test('Clicking on the "Hints" button should display a certain number of hints an
     }
   });
 
+  const questionResult = QuestionResult.create();
+
+  this.set('questionResult', questionResult);
   this.set('question', question);
   this.set('collection',collection);
 
-  this.render(hbs`{{player/gru-question-viewer question=question collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
 
   var $infoSection = this.$(".question-panel").eq(0);
   assert.ok($infoSection.find(".hints"), "Missing hints section");
@@ -177,9 +188,12 @@ test('Clicking on the "Explanation" button should display an explanation and the
     }
   });
 
+  const questionResult = QuestionResult.create();
+
+  this.set('questionResult', questionResult);
   this.set('question', question);
   this.set('collection', collection);
-  this.render(hbs`{{player/gru-question-viewer question=question collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
 
   var $infoSection = this.$(".question-panel").eq(0);
   assert.ok(!$infoSection.find(".btn-group .explanation").attr('disabled'), 'Explanation button should be enabled');
@@ -215,10 +229,13 @@ test('Save Button Text when assessment and not last resource', function (assert)
     }
   });
 
+  const questionResult = QuestionResult.create();
+
+  this.set('questionResult', questionResult);
   this.set('question', question);
   this.set('collection',collection);
 
-  this.render(hbs`{{player/gru-question-viewer question=question collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
 
   var $component = this.$(); //component dom element
   var $answerPanel = $component.find(".answers-panel");
@@ -250,10 +267,13 @@ test('Save Button Text when assessment and last resource', function (assert) {
     }
   });
 
+  const questionResult = QuestionResult.create();
+
+  this.set('questionResult', questionResult);
   this.set('question', question);
   this.set('collection',collection);
 
-  this.render(hbs`{{player/gru-question-viewer question=question collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
 
   var $component = this.$(); //component dom element
   var $answerPanel = $component.find(".answers-panel");
@@ -285,10 +305,13 @@ test('Save Button Text when collection and not last resource', function (assert)
     }
   });
 
+  const questionResult = QuestionResult.create();
+
+  this.set('questionResult', questionResult);
   this.set('question', question);
   this.set('collection',collection);
 
-  this.render(hbs`{{player/gru-question-viewer question=question collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
 
   var $component = this.$(); //component dom element
   var $answerPanel = $component.find(".answers-panel");
@@ -320,10 +343,13 @@ test('Save Button Text when collection and last resource', function (assert) {
     }
   });
 
+  const questionResult = QuestionResult.create();
+
+  this.set('questionResult', questionResult);
   this.set('question', question);
   this.set('collection',collection);
 
-  this.render(hbs`{{player/gru-question-viewer question=question collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
 
   var $component = this.$(); //component dom element
   var $answerPanel = $component.find(".answers-panel");

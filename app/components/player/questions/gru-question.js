@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { getQuestionUtil } from  'gooru-web/config/question';
 
 /**
  * Gooru question base component
@@ -25,7 +26,15 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Events
-
+  /**
+   * On init set question properties
+   */
+  setQuestionProperties: Ember.on('init', function() {
+    let question = this.get("question");
+    let type = question.get("questionType");
+    let questionUtil = getQuestionUtil(type).create({ question: question });
+    this.set("questionUtil", questionUtil);
+  }),
 
   // -------------------------------------------------------------------------
   // Properties
@@ -47,9 +56,15 @@ export default Ember.Component.extend({
 
   /**
    * Question information
-   * @property {Question} question
+   * @property {Resource} question
    */
   question: null,
+
+  /**
+   * Question Util based on the question type
+   * @property {QuestionUtil}
+   */
+  questionUtil: null,
 
   // -------------------------------------------------------------------------
   // Observers
@@ -61,10 +76,14 @@ export default Ember.Component.extend({
   /**
    * Notifies answer completion
    * @param {*} answer question answer
+   * @param {boolean} correct
    */
-  notifyAnswerCompleted: function(answer){
+  notifyAnswerCompleted: function(answer, correct){
     const question = this.get("question");
-    this.sendAction('onAnswerCompleted', question, answer);
+    this.sendAction('onAnswerCompleted', question, {
+      answer: answer,
+      correct: correct
+    });
   },
 
   /**
@@ -73,16 +92,23 @@ export default Ember.Component.extend({
    */
   notifyAnswerCleared: function(answer){
     const question = this.get("question");
-    this.sendAction('onAnswerCleared', question, answer);
+    this.sendAction('onAnswerCleared', question, {
+      answer: answer,
+      correct: false
+    });
   },
 
   /**
    * Notifies answer completion
    * @param {*} answer question answer
+   * @param {boolean} correct
    */
-  notifyAnswerChanged: function(answer){
+  notifyAnswerChanged: function(answer, correct){
     const question = this.get("question");
-    this.sendAction('onAnswerChanged', question, answer);
+    this.sendAction('onAnswerChanged', question, {
+      answer: answer,
+      correct: correct
+    });
   }
 
 });
