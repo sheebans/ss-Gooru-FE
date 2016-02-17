@@ -8,8 +8,8 @@
 
     > .gru-view-layout-picker {
       position: absolute;
-      top: $space-top;
-      right: 0;
+      top: $space-top - 5;
+      left: 290px;
     }
 
     &.table-view {
