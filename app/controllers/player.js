@@ -33,14 +33,10 @@ export default Ember.Controller.extend({
      * @param {QuestionResult} questionResult
      */
     submitQuestion: function(question, questionResult){
-      let save = this.get("saveEnabled"); //TODO save only if courseId is provided
-      //TODO save
-      if (save){
-        console.debug(question);
-        console.debug(questionResult);
-      }
-
       const controller = this;
+
+      controller.submitQuestion(question);
+
       const next = controller.get("collection").nextResource(question);
 
       if (next){
@@ -133,6 +129,22 @@ export default Ember.Controller.extend({
    */
   saveEnabled: true,
 
+  /**
+   * Start timestamp in Milliseconds
+   * @property {number} start timestamp
+   */
+  startTimestamp: null,
+
+  /**
+   * Time spent on question
+   * @property {number} timeSpent in seconds
+   */
+  timeSpent: Ember.computed("startTimestamp", function(){
+    let timestamp = new Date().getTime();
+    return Math.round((timestamp - this.get("startTimestamp")) / 1000);
+  }),
+
+
   // -------------------------------------------------------------------------
   // Observers
 
@@ -156,6 +168,26 @@ export default Ember.Controller.extend({
       .then(function (ratingModel) {
         controller.set('ratingScore', ratingModel.get('score'));
       });
+  },
+
+  /**
+   * Submits a question
+   * @param {Resource} question
+   * @return Ember.RSVP.Promise
+   */
+  submitQuestion: function(question){
+    let controller = this;
+    //setting time spent and submitted at
+    questionResult.set("timeSpent", controller.get("timeSpent"));
+    questionResult.set("submittedAt", new Date());
+
+    let save = controller.get("saveEnabled"); //TODO save only if courseId is provided
+    if (save){
+      console.debug(question);
+      console.debug(questionResult);
+    }
+
+    return Ember.RSVP.resolve(true);
   }
 
 
