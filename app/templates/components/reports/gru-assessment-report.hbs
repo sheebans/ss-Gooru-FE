@@ -1,8 +1,5 @@
-<div class="navigation"></div>
-<div class="results xs-12">
-  {{reports.assessment.gru-summary assessmentResult=assessmentResult onBubbleSelect='bubbleSelect'}}
+{{reports.assessment.gru-summary assessmentResult=assessmentResult onBubbleSelect='bubbleSelect'}}
 
-  {{reports.assessment.gru-mastery learningTargets=assessmentResult.mastery assessmentResult=assessmentResult onBubbleSelect='bubbleSelect'}}
+{{reports.assessment.gru-mastery learningTargets=assessmentResult.mastery assessmentResult=assessmentResult onBubbleSelect='bubbleSelect'}}
 
-  {{reports.assessment.gru-questions results=orderedQuestions}}
-</div>
+{{reports.assessment.gru-questions results=orderedQuestions}}

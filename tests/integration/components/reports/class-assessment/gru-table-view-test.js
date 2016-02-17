@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import QuestionResult from 'gooru-web/models/result/question';
-import UserQuestionsResult from 'gooru-web/models/result/user-questions';
+import UserResourcesResult from 'gooru-web/models/result/user-resources';
 import ReportData from 'gooru-web/models/result/report-data';
 
 
@@ -53,28 +53,28 @@ test('it renders', function (assert) {
   });
 
   reportData.merge([
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       user: "56983a9060a68052c1ed934c",
-      questionResults: Ember.A([
-        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 1, "timeSpent": 1216}),
-        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230", "correct": true, "reaction": 2, "timeSpent": 2458}),
-        QuestionResult.create({questionId: "56a12048ddee2022a741356a", "correct": true, "reaction": 3, "timeSpent": 1433})
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 1, "timeSpent": 1216}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230", "correct": true, "reaction": 2, "timeSpent": 2458}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a", "correct": true, "reaction": 3, "timeSpent": 1433})
       ])
     }),
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       user: "56983a90fb01fecc328e2388",
-      questionResults: Ember.A([
-        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 5, "timeSpent": 1216}),
-        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230", "correct": true, "reaction": 3, "timeSpent": 1433}),
-        QuestionResult.create({questionId: "56a12048ddee2022a741356a"})
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 5, "timeSpent": 1216}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230", "correct": true, "reaction": 3, "timeSpent": 1433}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a"})
       ])
     }),
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       user: "56983a906596902edadedc7c",
-      questionResults: Ember.A([
-        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 1, "timeSpent": 1216}),
-        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230"}),
-        QuestionResult.create({questionId: "56a12048ddee2022a741356a"})
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 1, "timeSpent": 1216}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230"}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a"})
       ])
     })
   ]);
@@ -153,28 +153,28 @@ test('it triggers event when clicking on questions', function (assert) {
   });
 
   reportData.merge([
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       user: "56983a9060a68052c1ed934c",
-      questionResults: Ember.A([
-        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 1, "timeSpent": 1216}),
-        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230", "correct": true, "reaction": 2, "timeSpent": 2458}),
-        QuestionResult.create({questionId: "56a12048ddee2022a741356a", "correct": true, "reaction": 3, "timeSpent": 1433})
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 1, "timeSpent": 1216}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230", "correct": true, "reaction": 2, "timeSpent": 2458}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a", "correct": true, "reaction": 3, "timeSpent": 1433})
       ])
     }),
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       user: "56983a90fb01fecc328e2388",
-      questionResults: Ember.A([
-        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 5, "timeSpent": 1216}),
-        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230", "correct": true, "reaction": 3, "timeSpent": 1433}),
-        QuestionResult.create({questionId: "56a12048ddee2022a741356a"})
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 5, "timeSpent": 1216}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230", "correct": true, "reaction": 3, "timeSpent": 1433}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a"})
       ])
     }),
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       user: "56983a906596902edadedc7c",
-      questionResults: Ember.A([
-        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 1, "timeSpent": 1216}),
-        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230"}),
-        QuestionResult.create({questionId: "56a12048ddee2022a741356a"})
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 1, "timeSpent": 1216}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230"}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a"})
       ])
     })
   ]);

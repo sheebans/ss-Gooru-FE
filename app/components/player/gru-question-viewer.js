@@ -48,11 +48,14 @@ export default Ember.Component.extend({
      * When the question is submitted
      */
     submitQuestion: function () {
-      this.sendAction("onSubmitQuestion", this.get("question"));
+      let questionResult = this.get("questionResult");
+      questionResult.set("timeSpent", this.get("timeSpent"));
+      questionResult.set("submittedAt", new Date());
+      this.sendAction("onSubmitQuestion", this.get("question"), questionResult);
     },
     /**
      * When the question answer has been changed
-     * @param {Question} question the question
+     * @param {Resource} question the question
      */
     changeAnswer: function(question){
       //todo track analytics
@@ -61,16 +64,20 @@ export default Ember.Component.extend({
 
     /**
      * When the question answer has been completed
-     * @param {Question} question the question
+     * @param {Resource} question the question
+     * @param { { answer: Object, correct: boolean } } stats
      */
-    completeAnswer: function(question){
-      //todo track analytics
+    completeAnswer: function(question, stats){
+      let questionResult = this.get("questionResult");
+      questionResult.set("userAnswer", stats.answer);
+      questionResult.set("correct", stats.correct);
+
       this.set("question", question);
       this.set("answerCompleted", true);
     },
     /**
      * When the question answer has been cleared
-     * @param {Question} question the question
+     * @param {Resource} question the question
      */
     clearAnswer: function(question){
       //todo track analytics
@@ -89,12 +96,12 @@ export default Ember.Component.extend({
 
   /**
    * Hits available for a question
-   * @property {Number} availableHints
+   * @property {number} availableHints
    */
   actualHint: 0,
 
   /**
-   * @property {bool} indicates when the answer is completed
+   * @property {boolean} indicates when the answer is completed
    */
   answerCompleted: false,
 
@@ -106,7 +113,7 @@ export default Ember.Component.extend({
 
   /**
    * Hits available for a question
-   * @property {Number} availableHints
+   * @property {number} availableHints
    */
   availableHints: Ember.computed('actualHint', 'question', function() {
     return this.get('question.hints.length') - this.get('actualHint');
@@ -122,24 +129,24 @@ export default Ember.Component.extend({
 
   /**
    * Is the explanation shown?
-   * @property {Boolean} disableExplanation
+   * @property {boolean} disableExplanation
    */
   isExplanationShown: false,
 
   /**
    * Is the explanation button disabled?
-   * @property {Boolean} disableHint
+   * @property {boolean} disableHint
    */
   isExplanationButtonDisabled: Ember.computed.or('isExplanationShown', 'doesNotHaveExplanation'),
 
   /**
    * Is the hints button disabled?
-   * @property {Boolean} disableHint
+   * @property {boolean} disableHint
    */
   isHintButtonDisabled: Ember.computed.not('availableHints'),
 
   /**
-   * @property {bool} indicates when the submit functionality is enabled
+   * @property {boolean} indicates when the submit functionality is enabled
    */
   isSubmitDisabled: Ember.computed.not("answerCompleted"),
 
@@ -150,9 +157,31 @@ export default Ember.Component.extend({
 
   /**
    * The question
-   * @property {Question} question
+   * @property {Resource} question
    */
   question: null,
+
+  /**
+   * Question result, it is passed as a parameter for this component
+   * @property {QuestionResult}
+   */
+  questionResult: null,
+
+  /**
+   * Start timestamp in Milliseconds
+   * @property {number} start timestamp
+   */
+  startTimestamp: null,
+
+  /**
+   * Time spent on question
+   * @property {number} timeSpent in seconds
+   */
+  timeSpent: Ember.computed("startTimestamp", function(){
+    let timestamp = new Date().getTime();
+    return Math.round((timestamp - this.get("startTimestamp")) / 1000);
+  }),
+
 
   /**
    * The text for the submit button
@@ -174,6 +203,7 @@ export default Ember.Component.extend({
    */
   reloadQuestion: function() {
     this.setProperties({
+      startTimestamp: (new Date().getTime()),
       actualHint: 0,
       answerCompleted: false,
       hintsToDisplay: Ember.A(),

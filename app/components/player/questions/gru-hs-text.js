@@ -20,7 +20,7 @@ export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-hs-text'],
+  classNames: ['gru-hs-text'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -28,16 +28,17 @@ export default QuestionComponent.extend({
 
   // -------------------------------------------------------------------------
   // Events
-  setupInstanceProperties: Ember.on('init', function() {
+  setupInstanceProperties: Ember.on('init', function () {
     this.set('selectedAnswers', []);
   }),
 
-  setupSubscriptions: Ember.on('didInsertElement', function() {
+  setupSubscriptions: Ember.on('didInsertElement', function () {
     const component = this;
 
-    this.$('li.answer').on('click', function() {
+    this.$('li.answer').on('click', function () {
       const $this = $(this);
       const answerId = $this.data('id');
+      const questionUtil = component.get("questionUtil");
 
       var selected = component.get('selectedAnswers');
       var idx = selected.indexOf(answerId);
@@ -46,18 +47,25 @@ export default QuestionComponent.extend({
 
       if (idx === -1) {
         selected.push(answerId);
-        component.notifyAnswerChanged(selected);
-        component.notifyAnswerCompleted(selected);
       } else {
         selected.splice(idx, 1);
-        if (!selected.length) {
-          component.notifyAnswerCleared(selected);
-        }
       }
+
+      let cleared = !selected.length;
+      const correct = questionUtil.isCorrect(selected);
+
+      component.notifyAnswerChanged(selected, correct);
+      if (cleared) {
+        component.notifyAnswerCleared(selected);
+      }
+      else {
+        component.notifyAnswerCompleted(selected, correct);
+      }
+
     });
   }),
 
-  removeSubscriptions: Ember.on('willDestroyElement', function() {
+  removeSubscriptions: Ember.on('willDestroyElement', function () {
     this.$('li.answer').off('click');
   }),
 
@@ -72,7 +80,7 @@ export default QuestionComponent.extend({
   /*
    * @prop {String} instructions - Question instructions
    */
-  instructions: Ember.computed(function() {
+  instructions: Ember.computed(function () {
     return this.get('i18n').t('gru-hs-text.instructions');
   }),
 
@@ -81,7 +89,7 @@ export default QuestionComponent.extend({
    * @prop {String} id - answer id
    * @prop {String} content - markup string containing the answer text
    */
-  answers: Ember.computed.map('question.answers', function(answer) {
+  answers: Ember.computed.map('question.answers', function (answer) {
     return {
       id: answer.get('id'),
       content: answer.get('text')

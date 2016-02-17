@@ -3,7 +3,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { GRADING_SCALE } from 'gooru-web/config/config';
 import QuestionResult from 'gooru-web/models/result/question';
-import UserQuestionsResult from 'gooru-web/models/result/user-questions';
+import UserResourcesResult from 'gooru-web/models/result/user-resources';
 import ReportData from 'gooru-web/models/result/report-data';
 
 moduleForComponent('reports/class-assessment/gru-summary', 'Integration | Component | reports/class assessment/gru summary', {
@@ -45,36 +45,36 @@ test('it renders', function (assert) {
   });
 
   reportData.merge([
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       user: "56983a9060a68052c1ed934c",
-      questionResults: Ember.A([
-        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 1, "timeSpent": 1216, "userAnswer": 1}),
-        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230", "correct": true, "reaction": 2, "timeSpent": 2458, "userAnswer": 1}),
-        QuestionResult.create({questionId: "56a12048ddee2022a741356a", "correct": true, "reaction": 3, "timeSpent": 1433, "userAnswer": 1})
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 1, "timeSpent": 1216, "userAnswer": 1}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230", "correct": true, "reaction": 2, "timeSpent": 2458, "userAnswer": 1}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a", "correct": true, "reaction": 3, "timeSpent": 1433, "userAnswer": 1})
       ])
     }),
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       user: "56983a90fb01fecc328e2388",
-      questionResults: Ember.A([
-        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 5, "timeSpent": 1216, "userAnswer": 1}),
-        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230"}),
-        QuestionResult.create({questionId: "56a12048ddee2022a741356a", "correct": true, "reaction": 3, "timeSpent": 1433, "userAnswer": 1})
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 5, "timeSpent": 1216, "userAnswer": 1}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230"}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a", "correct": true, "reaction": 3, "timeSpent": 1433, "userAnswer": 1})
       ])
     }),
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       user: "56983a906596902edadedc7c",
-      questionResults: Ember.A([
-        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 1, "timeSpent": 1216, "userAnswer": 1}),
-        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230", "correct": true, "reaction": 5, "timeSpent": 2458, "userAnswer": 1}),
-        QuestionResult.create({questionId: "56a12048ddee2022a741356a", "correct": true, "reaction": 5, "timeSpent": 1433, "userAnswer": 1})
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 1, "timeSpent": 1216, "userAnswer": 1}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230", "correct": true, "reaction": 5, "timeSpent": 2458, "userAnswer": 1}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a", "correct": true, "reaction": 5, "timeSpent": 1433, "userAnswer": 1})
       ])
     }),
-    UserQuestionsResult.create({
+    UserResourcesResult.create({
       user: "56983a9082f705e65f2fe607",
-      questionResults: Ember.A([
-        QuestionResult.create({questionId: "56a120483b6e7b090501d3e7", "correct": true, "reaction": 4, "timeSpent": 1216, "userAnswer": 1}),
-        QuestionResult.create({questionId: "56a1204886b2e565e1b2c230", "correct": true, "reaction": 4, "timeSpent": 2458, "userAnswer": 1}),
-        QuestionResult.create({questionId: "56a12048ddee2022a741356a", "correct": true, "reaction": 3, "timeSpent": 1433, "userAnswer": 1})
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7", "correct": true, "reaction": 4, "timeSpent": 1216, "userAnswer": 1}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230", "correct": true, "reaction": 4, "timeSpent": 2458, "userAnswer": 1}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a", "correct": true, "reaction": 3, "timeSpent": 1433, "userAnswer": 1})
       ])
     })
   ]);
@@ -144,8 +144,8 @@ test('it renders', function (assert) {
   assert.ok($correctBar.attr('style').split(';')[1].indexOf('25%') > 0, 'First question -second segment, correct percentage');
 
   var $ratio = $firstQuestion.find('.ratio');
-  assert.equal($ratio.find('em:first').text(), '4', 'First question -correct number of students that have completed');
-  assert.equal($ratio.find('em:last').text(), '4', 'First question -correct number of total students');
+  assert.equal($ratio.find('span:first').text(), '4', 'First question -correct number of students that have completed');
+  assert.equal($ratio.find('span:last').text(), '4', 'First question -correct number of total students');
 
   // Layout of the last question
   const $lastQuestion = $questions.last();
@@ -157,8 +157,8 @@ test('it renders', function (assert) {
   assert.ok($correctBar.attr('style').split(';')[1].indexOf('75%') > 0, 'Second question -second segment, correct percentage');
 
   $ratio = $lastQuestion.find('.ratio');
-  assert.equal($ratio.find('em:first').text(), '3', 'Second question -correct number of students that have completed');
-  assert.equal($ratio.find('em:last').text(), '4', 'Second question -correct number of total students');
+  assert.equal($ratio.find('span:first').text(), '3', 'Second question -correct number of students that have completed');
+  assert.equal($ratio.find('span:last').text(), '4', 'Second question -correct number of total students');
 
   assert.ok($component.find('.grading-scale-legend').length, 'Component has a grading scale legend');
 });

@@ -1,5 +1,4 @@
 .player .gru-hs-image {
-  $image-side: 90px;
 
   .answer-choices {
     max-width: 400px;
@@ -7,19 +6,49 @@
     ul {
 
       li.answer {
-        border-radius: 4px;
         float: left;
         padding: 0;
-        margin: 20px;
-        cursor: pointer;
-        width: $image-side + 2px;
-        height: $image-side + 2px;
+        margin: 3px;
+        cursor: default;
+        width: 126px;
+        height: 126px;
         text-align: center;
+        border: 3px solid $white;
+        position: relative;
+        border-radius: 0px;
 
         img {
           border: 0 none;
           width: auto;
           max-height: 100%;
+        }
+        &:hover{
+          border-color:$dark-300;
+        }
+        &.selected{
+          border-color:$blue-400;
+          div{
+            display: block;
+          }
+        }
+        .img-thumbnail {
+          padding: 0px;
+          border-radius: 0px;
+        }
+        div{
+          display: none;
+          position: absolute;
+          top:35%;
+          left:35%;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background-color: $white;
+          i{
+            font-size: 42px;
+            margin: -5px 0px 0px -5px;
+            color: $dark-300;
+          }
         }
       }
     }

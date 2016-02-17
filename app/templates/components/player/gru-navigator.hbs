@@ -1,10 +1,10 @@
 <div class="navigator-header" >
   <div {{action 'closePlayer'}}>
-    <span class="lead"> {{material-design-icon name='keyboard-arrow-left'}}Back</span>
+    <span class="lead"> {{gru-icon name='keyboard_arrow_left'}} {{t 'common.back'}}</span>
     <p>{{collection.title}}</p>
   </div>
   <div class="pull-right close-navigator hidden-md hidden-lg">
-    <button class="btn btn-link hamburger-icon"{{action 'closeNavigator'}}>{{fa-icon icon="fa-bars"}}</button>
+    <button class="btn btn-link hamburger-icon"{{action 'closeNavigator'}}>{{gru-icon name='menu'}}</button>
   </div>
 </div>
 <ul class="list-group resources">

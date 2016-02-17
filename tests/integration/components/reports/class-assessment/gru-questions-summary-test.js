@@ -75,8 +75,8 @@ test('it renders the question charts correctly', function (assert) {
   assert.ok($correctBar.attr('style').split(';')[1].indexOf('60%') > 0, 'The correct segment in the chart shows the right percentage');
 
   const $ratio = $lastItem.find('.ratio');
-  assert.equal($ratio.find('em:first').text(), '9', 'Wrong number of students that have completed the question');
-  assert.equal($ratio.find('em:last').text(), '10', 'Wrong number of total students');
+  assert.equal($ratio.find('span:first').text(), '9', 'Wrong number of students that have completed the question');
+  assert.equal($ratio.find('span:last').text(), '10', 'Wrong number of total students');
 });
 
 test('it renders some of the questions and a \'view more\' button if the container is not wide enough to show all questions', function (assert) {
@@ -125,9 +125,9 @@ test('it renders some of the questions and a \'view more\' button if the contain
   const $component = this.$('.reports.class-assessment.gru-questions-summary');
   assert.equal($component.find('ol li').length, 2, 'Component shows the correct number of items');
 
-  const $viewMoreButton = $component.find('> a');
+  const $viewMoreButton = $component.find('> a.show-more i');
   assert.ok($viewMoreButton.length, 'Button to view more questions is visible');
-  assert.ok($viewMoreButton.hasClass('expand'), 'Button should indicate that more questions can be viewed');
+  assert.ok($viewMoreButton.hasClass('keyboard_arrow_right'), 'Button should indicate that more questions can be viewed');
 
   $viewMoreButton.click();
 });
@@ -176,18 +176,18 @@ test('it can be forced to show all questions even if the container is not wide e
   const $component = this.$('.reports.class-assessment.gru-questions-summary');
   assert.equal($component.find('ol li').length, 2, 'Component shows the correct number of items');
 
-  const $viewMoreButton = $component.find('> a');
+  const $viewMoreButton = $component.find('> a.show-more i');
   assert.ok($viewMoreButton.length, 'Button to view more questions is visible');
-  assert.ok($viewMoreButton.hasClass('expand'), 'Button should indicate that more questions can be viewed');
+  assert.ok($viewMoreButton.hasClass('keyboard_arrow_right'), 'Button should indicate that more questions can be viewed');
 
   this.set('viewAllQuestions', true);
   assert.equal($component.find('ol li').length, 3, 'Component shows all the items');
-  assert.ok($viewMoreButton.hasClass('collapse'), 'Button should indicate that less questions can be viewed');
+  assert.ok($viewMoreButton.hasClass('keyboard_arrow_left'), 'Button should indicate that less questions can be viewed');
 
   // Setting the variable back to false should restore back to the original state
   this.set('viewAllQuestions', false);
   assert.equal($component.find('ol li').length, 2, 'Component correctly reduces the number of items visible');
-  assert.ok($viewMoreButton.hasClass('expand'), 'Button should indicate again that more questions can be viewed');
+  assert.ok($viewMoreButton.hasClass('keyboard_arrow_right'), 'Button should indicate again that more questions can be viewed');
 });
 
 test('it calls an external action when any of the questions is clicked', function (assert) {

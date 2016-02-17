@@ -25,7 +25,7 @@ export default ResourceResult.extend({
    * TODO once the SDK is integrated we could analyze if is possible to use only 'question'
    * @property {number} questionId - ID of the question graded
    */
-  questionId: null,
+  questionId: Ember.computed.alias("resourceId"),
 
   /**
    * @property {number} score - Question score

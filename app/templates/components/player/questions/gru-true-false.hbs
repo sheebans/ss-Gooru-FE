@@ -6,7 +6,7 @@
   <form class="form-horizontal">
       <div class="radio">
           {{#radio-button
-            value=true
+            value=trueAnswerId
             changed="selectAnswerChoice"
             name="answer-choice-radio"}}
               <span>({{answer-letter 0}})</span>{{t "gru-true-false.true"}}
@@ -14,7 +14,7 @@
       </div>
       <div class="radio">
           {{#radio-button
-            value=false
+            value=falseAnswerId
             changed="selectAnswerChoice"
             name="answer-choice-radio"}}
             <span>({{answer-letter 1}})</span>{{t "gru-true-false.false"}}

@@ -9,9 +9,11 @@
       <li data-id="{{answer.id}}" class="answer">
 
         {{#if question.isHotSpotImage}}
-          <img class="img-thumbnail" src="{{answer.content}}" />
+            <img class="img-thumbnail" src="{{answer.content}}" />
+            <div>{{gru-icon name='check_circle'}}</div>
         {{else}}
-          {{{answer.content}}}
+            <span>{{{answer.content}}}</span>
+            <div>{{gru-icon name='done'}}</div>
         {{/if}}
 
       </li>

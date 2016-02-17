@@ -2,6 +2,11 @@
   <img class="avatar" src="{{user.avatarUrl}}">
 </span>
 <span class="user-name">
-  <p class="truncate">{{user.username}}</p>
+{{#if user.firstName}}
+  <span class="truncate">{{user.firstName}}</span>
+  <span class="truncate">{{user.lastName}}</span>
+{{else}}
+  <span class="truncate">{{user.username}}</span>
+{{/if}}
 </span>
 
