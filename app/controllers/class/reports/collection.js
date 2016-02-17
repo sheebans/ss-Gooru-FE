@@ -31,6 +31,8 @@ export default Ember.Controller.extend({
   // Events
 
   init: function () {
+    //var socket = new SockJS(Env['real-time'].webSocketUrl);
+    //this.set('webSocketClient', Stomp.over(socket));
     this.set('webSocketClient', Stomp.client(Env['real-time'].webSocketUrl));
   },
 
@@ -90,22 +92,19 @@ export default Ember.Controller.extend({
       // from the RT server (to avoid overriding data from live messages with init data)
       // After merging the init data with any previous report data (from analytics)
       // a subscription will be made to listen for and merge data from live messages.
-
-      controller.get('realTimeService').findClassPerformanceByCollection(classId, collectionId)
-        .then(function (userResourceResults) {
-          controller.get('reportData').merge(userResourceResults);
-        });
+      //controller.get('realTimeService').findClassPerformanceByCollection(classId, collectionId)
+      //  .then(function (userResourceResults) {
+      //    controller.get('reportData').merge(userResourceResults);
+      //  });
 
     }, function () {
       // The web socket connection could not be established so all there is to do is get
       // any initialization data from the RT server. There will be no subsequent data.
-
       controller.get('realTimeService').findClassPerformanceByCollection(classId, collectionId)
         .then(function (userResourceResults) {
           controller.get('reportData').merge(userResourceResults);
         });
     });
-
   })
 
 
