@@ -1,11 +1,9 @@
 .reports.class-assessment.gru-questions-summary {
-  $max-question-width: 350px;
-  $question-height: 1.8em;
+  $max-question-width: 150px;
+  $question-height: 2em;
   $questions-per-column: 5;
-  $view-more-button-width: 2.5em;
 
   font-size: $font-size-small;
-  padding-right: $view-more-button-width;
   position: relative;
 
   > ol {
@@ -30,11 +28,13 @@
     li {
       height: $question-height;
       max-width: $max-question-width;
+      display: table;
 
       > a {
         display: -ms-flexbox;
         display: -webkit-flex;
         display: flex;
+        max-width: $max-question-width;
 
         -webkit-align-items: center;
         -ms-flex-align: center;
@@ -49,41 +49,28 @@
           &.index {
             width: 2em;
             text-align: right;
-            padding-right: 0.4em;
+            padding-right: 1.4em;
           }
 
           &.ratio {
             width: 3.2em;
             padding-left: 0.3em;
             text-align: center;
+            color: $dark-100;
+            font-size: $font-size-small;
           }
-        }
-
-        .gru-x-bar-chart {
-          flex: 1;
-          height: 85%;
         }
       }
     }
   }
 
-  > a {
-    width: 0;
-    height: 0;
-    border-style: solid;
+  > a.show-more {
     position: absolute;
-    top: ($question-height * $questions-per-column / 2) - $view-more-button-width;
-    right: 0;
-
-    &.expand {
-      border-width: $view-more-button-width 0 $view-more-button-width ($view-more-button-width - 1em);
-      border-color: transparent transparent transparent $gray-lighter;
-    }
-
-    &.collapse {
-      border-width: $view-more-button-width ($view-more-button-width - 1em) $view-more-button-width 0;
-      border-color: transparent $gray-lighter transparent transparent;
-      display: block;
+    top: ($question-height * $questions-per-column / 2);
+    right: 10px;
+    color: $dark-100;
+    .material-icons {
+      font-size: $font-size-h3;
     }
   }
 }

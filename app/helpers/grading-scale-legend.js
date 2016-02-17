@@ -24,6 +24,13 @@ export function gradingScaleLegend(params, hash) {
 
   var gradingScaleLen = GRADING_SCALE.length;
 
+  if (notStarted) {
+    $legend.append('<li class="not-started"> \
+                      <i></i> \
+                      <span>' + notStarted + '</span>\
+                   </li>');
+  }
+
   for (let i = 0; i < gradingScaleLen; i++) {
     let bracket = GRADING_SCALE[i];
 
@@ -33,13 +40,6 @@ export function gradingScaleLegend(params, hash) {
     $legend.append('<li> \
                       <i style="background-color: ' + bracket.COLOR + ';"></i> \
                       <span>' + bracket.LOWER_LIMIT + ' - ' + upperLimit + '%</span>\
-                   </li>');
-  }
-
-  if (notStarted) {
-    $legend.append('<li class="not-started"> \
-                      <i></i> \
-                      <span>' + notStarted + '</span>\
                    </li>');
   }
 

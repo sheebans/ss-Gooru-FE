@@ -29,11 +29,8 @@
 
     &.not-started {
       i {
-        height: 1em;
-        width: 1em;
         border: 1px solid $gray-light;
-        background-color: white;
-        vertical-align: bottom;
+        background-color: $light-200;
       }
     }
   }

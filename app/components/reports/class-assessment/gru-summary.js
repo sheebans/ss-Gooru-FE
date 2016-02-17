@@ -267,6 +267,11 @@ export default Ember.Component.extend({
   /**
    * @prop { ReportData } reportData - Unordered 3D matrix of student data with regards to the questions
    */
-  reportData: null
+  reportData: null,
+
+  /**
+   * @prop { boolean } isFullScreen - Should the overview be visible or not?
+   */
+  isFullScreen: false
 
 });
