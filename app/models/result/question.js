@@ -25,7 +25,7 @@ export default ResourceResult.extend({
    * TODO once the SDK is integrated we could analyze if is possible to use only 'question'
    * @property {number} questionId - ID of the question graded
    */
-  questionId: null,
+  questionId: Ember.computed.alias("resourceId"),
 
   /**
    * @property {number} score - Question score
@@ -38,24 +38,45 @@ export default ResourceResult.extend({
   userAnswer: null,
 
   /**
-   * Indicates if the question was skipped
+   * Indicates if the question was skipped, a result is skipped
+   * if it has no answer and correct === false
    * @property {boolean}
    */
-  skipped: Ember.computed("correct", "notStarted", function(){
-    let started = !this.get("notStarted");
-    return started && this.get("correct") === null;
+  skipped: Ember.computed("correct", "userAnswer", function () {
+    return (this.get("correct") === false) && !this.get("answered");
   }),
 
   /**
-   * Indicates if the question is incorrect
+   * Indicates if the question is incorrect, a result is incorrect
+   * if it has answer and correct === false
+   * Important! Skipped results are treated as incorrect as well
    * @property {boolean}
    */
-  incorrect: Ember.computed.equal("correct", false),
+  incorrect: Ember.computed("correct", function(){
+    return (this.get("correct") === false);
+  }),
 
   /**
-   * @property {boolean} indicates when it has not been started
+   * A result is started when it has any value at the correct property
+   * Not started results are only used by real time and they has not correct value
+   * @property {boolean} indicates when it has been started
    */
-  notStarted: false
+  started: Ember.computed('correct', function(){
+    return this.get("correct") !== null;
+  }),
+
+  /**
+   * Indicates if it is completed
+   * All started question are treated as completed
+   * @return {boolean}
+   */
+  completed: Ember.computed.bool("started"),
+
+  /**
+   * Indicates if it is answered
+   * @return {boolean}
+   */
+  answered: Ember.computed.bool("userAnswer")
 
 
 });

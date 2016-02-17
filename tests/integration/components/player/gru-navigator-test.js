@@ -54,7 +54,7 @@ test('Player Navigator', function(assert) {
   var $component = this.$(); //component dom element
   const $navigator = $component.find(".gru-navigator");
   T.exists(assert, $navigator, "Missing navigator section");
-  T.exists(assert, $navigator.find("h2"), "Missing collection title");
+  T.exists(assert, $navigator.find(".lead"), "Missing collection title");
 
   //$collectionResources list
   const $collectionResources = $navigator.find(".resources");
@@ -215,5 +215,17 @@ test('Player Navigator keyup on right', function(assert) {
   assert.equal($selected.attr('id'), 'item_2', "Incorrect selected resource item id 2");
 
 
+});
+test('Close player', function(assert) {
+  assert.expect(1);
+
+  this.on('parentAction', function(){
+    assert.ok(true, 'external Action was called!');
+  });
+
+  this.render(hbs`{{player/gru-navigator onClosePlayer='parentAction'}}`);
+  var $component = this.$(); //component dom element
+  var $closeButton = $component.find(".gru-navigator .navigator-header div:first-child");
+  $closeButton.click();
 });
 

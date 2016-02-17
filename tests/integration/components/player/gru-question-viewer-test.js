@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import QuestionResult from 'gooru-web/models/result/question';
 import T from 'gooru-web/tests/helpers/assert';
 
 moduleForComponent('player/gru-question-viewer', 'Integration | Component | player/gru question viewer', {
@@ -35,10 +36,13 @@ test('Layout', function (assert) {
     }
   });
 
+  const questionResult = QuestionResult.create();
+
+  this.set('questionResult', questionResult);
   this.set('question', question);
   this.set('collection',collection);
 
-  this.render(hbs`{{player/gru-question-viewer question=question collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
 
   var $component = this.$(); //component dom element
 
@@ -86,13 +90,17 @@ test('Submit button should become enabled and call action on submit', function (
     }
   });
 
+  const questionResult = QuestionResult.create();
+
+  this.set('questionResult', questionResult);
   this.set('question', question);
   this.set('collection',collection);
 
   this.on("mySubmitQuestion", function(question){
     assert.equal(question.get("id"), 10, "Wrong id");
   });
-  this.render(hbs`{{player/gru-question-viewer question=question onSubmitQuestion="mySubmitQuestion" collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult
+      onSubmitQuestion="mySubmitQuestion" collection=collection}}`);
 
   var $component = this.$(); //component dom element
 
@@ -137,24 +145,27 @@ test('Clicking on the "Hints" button should display a certain number of hints an
     }
   });
 
+  const questionResult = QuestionResult.create();
+
+  this.set('questionResult', questionResult);
   this.set('question', question);
   this.set('collection',collection);
 
-  this.render(hbs`{{player/gru-question-viewer question=question collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
 
-  var $infoSection = this.$(".question-information").eq(0);
+  var $infoSection = this.$(".question-panel").eq(0);
   assert.ok($infoSection.find(".hints"), "Missing hints section");
   assert.equal($infoSection.find(".hints li").length, 0, "No hints should be visible");
 
-  $infoSection.find(".actions .hint").click();
+  $infoSection.find(".btn-group .hint").click();
   assert.equal($infoSection.find(".hints li").length, 1, "Hint should be displayed");
   assert.equal($infoSection.find(".hints li:first-child").text().trim(), "Hints text 1", "Hint's content is incorrect");
-  assert.ok(!$infoSection.find(".actions .hint").attr('disabled'), 'Hint button should not be disabled');
+  assert.ok(!$infoSection.find(".btn-group .hint").attr('disabled'), 'Hint button should not be disabled');
 
-  $infoSection.find(".actions .hint").click();
+  $infoSection.find(".btn-group .hint").click();
   assert.equal($infoSection.find(".hints li").length, 2, "Hints should be displayed");
   assert.equal($infoSection.find(".hints li:last-child").text().trim(), "Hints text 2", "Hint's content is incorrect");
-  assert.ok($infoSection.find(".actions .hint").attr('disabled'), 'Hint button should be disabled');
+  assert.ok($infoSection.find(".btn-group .hint").attr('disabled'), 'Hint button should be disabled');
 });
 
 test('Clicking on the "Explanation" button should display an explanation and then it should become disabled', function(assert) {
@@ -177,18 +188,21 @@ test('Clicking on the "Explanation" button should display an explanation and the
     }
   });
 
+  const questionResult = QuestionResult.create();
+
+  this.set('questionResult', questionResult);
   this.set('question', question);
   this.set('collection', collection);
-  this.render(hbs`{{player/gru-question-viewer question=question collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
 
-  var $infoSection = this.$(".question-information").eq(0);
-  assert.ok(!$infoSection.find(".actions .explanation").attr('disabled'), 'Explanation button should be enabled');
+  var $infoSection = this.$(".question-panel").eq(0);
+  assert.ok(!$infoSection.find(".btn-group .explanation").attr('disabled'), 'Explanation button should be enabled');
   assert.ok(!$infoSection.find(" > .explanation").length, "Explanation section should not be visible");
 
-  $infoSection.find(".actions .explanation").click();
+  $infoSection.find(".btn-group .explanation").click();
   assert.ok($infoSection.find("> .explanation").length, 1, "Explanation should be displayed");
-  assert.equal($infoSection.find("> .explanation").text().trim(), "This is a test explanation", "Explanation does not display the right content");
-  assert.ok($infoSection.find(".actions .explanation").attr('disabled'), 'Explanation button should be disabled');
+  assert.equal($infoSection.find(".panel.explanation .panel-body .explanation p").text().trim(), "This is a test explanation", "Explanation does not display the right content");
+  assert.ok($infoSection.find(".btn-group .explanation").attr('disabled'), 'Explanation button should be disabled');
 });
 
 test('Save Button Text when assessment and not last resource', function (assert) {
@@ -215,10 +229,13 @@ test('Save Button Text when assessment and not last resource', function (assert)
     }
   });
 
+  const questionResult = QuestionResult.create();
+
+  this.set('questionResult', questionResult);
   this.set('question', question);
   this.set('collection',collection);
 
-  this.render(hbs`{{player/gru-question-viewer question=question collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
 
   var $component = this.$(); //component dom element
   var $answerPanel = $component.find(".answers-panel");
@@ -250,10 +267,13 @@ test('Save Button Text when assessment and last resource', function (assert) {
     }
   });
 
+  const questionResult = QuestionResult.create();
+
+  this.set('questionResult', questionResult);
   this.set('question', question);
   this.set('collection',collection);
 
-  this.render(hbs`{{player/gru-question-viewer question=question collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
 
   var $component = this.$(); //component dom element
   var $answerPanel = $component.find(".answers-panel");
@@ -285,10 +305,13 @@ test('Save Button Text when collection and not last resource', function (assert)
     }
   });
 
+  const questionResult = QuestionResult.create();
+
+  this.set('questionResult', questionResult);
   this.set('question', question);
   this.set('collection',collection);
 
-  this.render(hbs`{{player/gru-question-viewer question=question collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
 
   var $component = this.$(); //component dom element
   var $answerPanel = $component.find(".answers-panel");
@@ -320,10 +343,13 @@ test('Save Button Text when collection and last resource', function (assert) {
     }
   });
 
+  const questionResult = QuestionResult.create();
+
+  this.set('questionResult', questionResult);
   this.set('question', question);
   this.set('collection',collection);
 
-  this.render(hbs`{{player/gru-question-viewer question=question collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
 
   var $component = this.$(); //component dom element
   var $answerPanel = $component.find(".answers-panel");

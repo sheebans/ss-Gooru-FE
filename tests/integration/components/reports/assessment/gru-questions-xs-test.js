@@ -38,8 +38,8 @@ test('Questions Details Mobile Layout', function(assert) {
   const $question = $component.find(".gru-questions-xs");
 
   T.exists(assert, $question, 'Missing questions-xs component');
-  T.exists(assert, $question.find('.number-question'), 'Missing number column question');
-  T.exists(assert, $question.find('.score'), 'Missing score icon');
+  T.exists(assert, $question.find('.question-number'), 'Missing question number column');
+  T.exists(assert, $question.find('.question-text'), 'Missing question text column');
   T.exists(assert, $question.find('.question-container'), 'Missing question container');
   T.exists(assert, $question.find('.question'), 'Missing question section');
   T.exists(assert, $question.find('.answer'), 'Missing answer section');

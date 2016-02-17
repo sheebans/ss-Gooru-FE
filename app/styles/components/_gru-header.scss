@@ -24,10 +24,17 @@
       align-content: stretch;
       display: -webkit-flex;
       display: flex;
+      min-height:55px;
       margin-bottom: 0;
+      @media (min-width: $screen-md) {
+        height: 64px;
+      }
       .navbar-header {
-        -webkit-flex-basis: 20%;
-        flex-basis: 20%;
+        -webkit-flex-basis: 111px;
+        flex-basis: 111px;
+        min-width:111px;
+        -webkit-flex-grow: 1;
+        flex-grow: 1;
         -webkit-align-self: flex-start;
         align-self: flex-start;
         -webkit-flex-direction: row;
@@ -45,25 +52,28 @@
         height: 55px;
         @media (min-width: $screen-md) {
           height: 64px;
+          -webkit-flex-basis: 111px;
+          flex-basis: 111px;
+          min-width:111px;
         }
         .navbar-brand {
           background: url("gooru/images/gooru-logo.svg");
-          -webkit-background-size: 90px 30px;
-          background-size: 90px 30px;
-          width: 90px;
-          height: 28px;
+          -webkit-transform: scale(.80,.80);
+          transform: scale(.80,.80);
+          width: 111px;
+          height: 32px;
           padding:0;
           @media (min-width: $screen-sm) {
-            -webkit-background-size: auto;
-            background-size: auto;
-            width:111px;
-            height:32px;
+            -ms-transform: scale(1,1);
+            -webkit-transform: scale(1,1);
+            transform: scale(1,1);
           }
         }
       }
       .search-navbar-form{
         -webkit-flex-basis: 40%;
         flex-basis: 40%;
+        min-width:40%;
         form div.form-group{
           -webkit-flex-direction: row;
           flex-direction: row;
@@ -78,9 +88,16 @@
           display:inline-flex;
           display:-webkit-inline-flex;
           height: 55px;
+          margin-bottom: 0;
           @media (min-width: $screen-md) {
             height: 64px;
           }
+          span{
+            height:24px;
+            min-width:24px;
+            i{color:black;}
+          }
+
           input {
             box-shadow:none;
             border:none;
@@ -91,10 +108,10 @@
       .navbar-collapse {
         -webkit-flex-basis: 40%;
         flex-basis: 40%;
+        padding:0;
       }
 
       .menu-navbar {
-        height: 64px;
         -webkit-flex-direction: row;
         flex-direction: row;
         -webkit-flex-wrap: nowrap;
@@ -107,6 +124,7 @@
         align-content: center;
         display: -webkit-flex;
         display: flex;
+        margin:0;
         @media (min-width: $screen-sm) {
           float: right;
         }
@@ -119,14 +137,19 @@
           }
           button{
             margin:0;
+            &.dropdown-toggle{
+              background-color: transparent;
+              box-shadow: none;
+              padding: 0;
+            }
+            i{
+              color:$dark-500;
+              font-size: $font-size-h3;
+            }
           }
           a{
             padding: 0;
             color: rgba(0,0,0,0.3);
-          }
-          @media (max-width: $screen-sm) {
-            float: left;
-            padding: 0 5px;
           }
         }
         .no-hover {

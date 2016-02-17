@@ -2,6 +2,8 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import QuestionResult from 'gooru-web/models/result/question';
+import UserResourcesResult from 'gooru-web/models/result/user-resources';
+import ReportData from 'gooru-web/models/result/report-data';
 
 moduleForComponent('reports/class-assessment/gru-student-view', 'Integration | Component | reports/class assessment/gru student view', {
   integration: true
@@ -32,23 +34,37 @@ test('Layout', function (assert) {
     Ember.Object.create({"id": "56983a906596902edadedc7c"})
   ]);
 
-  var reportData = { //all questions not started
-    "56983a9060a68052c1ed934c": {
-      "56a120483b6e7b090501d3e7": QuestionResult.create( { notStarted: true }),
-      "56a1204886b2e565e1b2c230": QuestionResult.create( { notStarted: true }),
-      "56a12048ddee2022a741356a": QuestionResult.create( { notStarted: true })
-    },
-    "56983a90fb01fecc328e2388": {
-      "56a120483b6e7b090501d3e7": QuestionResult.create( { notStarted: true }),
-      "56a1204886b2e565e1b2c230": QuestionResult.create( { notStarted: true }),
-      "56a12048ddee2022a741356a": QuestionResult.create( { notStarted: true })
-    },
-    "56983a906596902edadedc7c": {
-      "56a120483b6e7b090501d3e7": QuestionResult.create( { notStarted: true }),
-      "56a1204886b2e565e1b2c230": QuestionResult.create( { notStarted: true }),
-      "56a12048ddee2022a741356a": QuestionResult.create( { notStarted: true })
-    }
-  };
+  var reportData = ReportData.create({
+    students: students,
+    resources: assessment.get("resources")
+  });
+
+  reportData.merge([
+    UserResourcesResult.create({
+      user: "56983a9060a68052c1ed934c",
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7"}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230"}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a"}),
+      ])
+    }),
+    UserResourcesResult.create({
+      user: "56983a90fb01fecc328e2388",
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7"}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230"}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a"}),
+      ])
+    }),
+    UserResourcesResult.create({
+      user: "56983a906596902edadedc7c",
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7"}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230"}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a"}),
+      ])
+    })
+  ]);
 
   this.set("assessment", assessment);
   this.set("students", students);

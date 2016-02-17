@@ -1,78 +1,82 @@
-<div class="title">
-    <h2>{{t "common.questions"}}</h2>
-</div>
-<div class="switch-section">
-  {{gru-switch switchOptions=switchOptions onOptionSwitch='optionSwitch'}}
+<div class="questions-header">
+  <div class="title">
+      <h4>{{t "common.questions"}}</h4>
+  </div>
+  <div class="btn-group" role="group">
+    <button type="button" {{action 'selectPerformanceOption' true}} class="performance btn {{if showPerformance 'btn-info' 'btn-primary'}}">{{t "common.performance"}}</button>
+    <button type="button" {{action 'selectPerformanceOption' false}} class="correct-answer btn {{unless showPerformance 'btn-info' 'btn-primary'}}">{{t "common.show-correct-answer"}}</button>
+  </div>
 </div>
 <table class="hidden-xs">
-    <thead>
+  <thead>
+  <tr>
+    <th class="header number">
+      {{t "common.number"}}
+    </th>
+    <th class="header question top-left">
+      {{t "common.question"}}
+    </th>
+    <th class="header answer top-left">
+      {{t "common.answer"}}
+    </th>
+    <th class="header score {{if showPerformance 'visible' 'hide'}}">
+      {{t "common.score"}}
+        <span>{{fa-icon icon='sort-desc'}}</span>
+    </th>
+    <th class="header time-spent {{if showPerformance 'visible' 'hide'}}">
+      {{t "common.timeSpent"}}
+        <span>{{fa-icon icon='sort-desc'}}</span>
+    </th>
+    <th class="header reaction {{if showPerformance 'visible' 'hide'}}">
+      {{t "common.reaction"}}
+        <span>{{fa-icon icon='sort-desc'}}</span>
+    </th>
+    <th class="header correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
+      {{t "common.correct-answer"}}
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each results as |result|}}
     <tr>
-        <th class="header number">
-          {{t "common.number"}}
-        </th>
-        <th class="header question top-left">
-          {{t "common.question"}}
-        </th>
-        <th class="header answer top-left">
-          {{t "common.answer"}}
-        </th>
-        <th class="header score {{if showPerformance 'visible' 'hide'}}">
-          {{t "common.score"}}
-            <span>{{fa-icon icon='sort-desc'}}</span>
-        </th>
-        <th class="header time-spent {{if showPerformance 'visible' 'hide'}}">
-          {{t "common.timeSpent"}}
-            <span>{{fa-icon icon='sort-desc'}}</span>
-        </th>
-        <th class="header reaction {{if showPerformance 'visible' 'hide'}}">
-          {{t "common.reaction"}}
-            <span>{{fa-icon icon='sort-desc'}}</span>
-        </th>
-        <th class="header correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
-          {{t "common.correct-answer"}}
-        </th>
+      <td class="number-question top-left">
+          {{result.question.order}}
+      </td>
+      <td class="question-text top-left">
+        {{{result.question.text}}}
+      </td>
+      <td class="question-answer top-left">
+        {{{component (questionConfig result.question.questionType 'component.answer') question=result.question userAnswer=result.userAnswer}}}
+      </td>
+      <td class="question-score {{if showPerformance 'visible' 'hide'}}">
+        <span class="{{if result.correct 'correct' 'incorrect'}}">
+          {{gru-icon name='radio_button_checked'}}
+        </span>
+      </td>
+      <td class="question-time {{if showPerformance 'visible' 'hide'}}">
+        {{formatTime result.timeSpent}}
+      </td>
+      <td class="question-reaction {{if showPerformance 'visible' 'hide'}}">
+        {{reactionIcon result.reaction}}
+      </td>
+      <td class="correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
+        {{{component (questionConfig result.question.questionType 'component.answer') question=result.question showCorrect=true}}}
+      </td>
     </tr>
-    </thead>
-    <tbody>
-    {{#each results as |result|}}
-      <tr>
-          <td class="number-question top-left">
-              {{result.question.order}}
-          </td>
-          <td class="question-text top-left">
-            {{{result.question.text}}}
-          </td>
-          <td class="question-answer top-left">
-            {{{component (questionConfig result.question.questionType 'component.report') question=result.question userAnswer=result.userAnswer}}}
-          </td>
-          <td class="question-score {{if showPerformance 'visible' 'hide'}}">
-            {{#if result.correct}}
-                <span class="correct">{{fa-icon icon='check-circle-o'}}</span>
-            {{else}}
-                <span class="incorrect">{{fa-icon icon='times-circle-o'}}</span>
-            {{/if}}
-          </td>
-          <td class="question-time {{if showPerformance 'visible' 'hide'}}">
-            {{formatTime result.timeSpent}}
-          </td>
-          <td class="question-reaction {{if showPerformance 'visible' 'hide'}}">
-              <div class="emotion emotion-{{result.reaction}}">
-              </div>
-          </td>
-          <td class="correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
-            {{{component (questionConfig result.question.questionType 'component.report') question=result.question showCorrect=true}}}
-          </td>
-      </tr>
-    {{/each}}
-    </tbody>
+  {{/each}}
+  </tbody>
 </table>
 <div class="question-cards visible-xs">
-    <ul class="question-cards-list">
-      {{#each results as |result|}}
-        <li>
-          {{reports.assessment.gru-questions-xs result=result showPerformance=showPerformance}}
-        </li>
-      {{/each}}
-    </ul>
+  <div class="header">
+    <span class="question-number">{{t "common.number"}}</span>
+    <span class="question-text">{{t "common.question"}}</span>
+  </div>
+  <ul class="question-cards-list">
+    {{#each results as |result|}}
+      <li>
+        {{reports.assessment.gru-questions-xs result=result showPerformance=showPerformance}}
+      </li>
+    {{/each}}
+  </ul>
 </div>
 

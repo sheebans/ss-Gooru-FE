@@ -5,7 +5,20 @@ import {
   getAnswerResultIcon,
   getReactionIcon
   } from 'gooru-web/utils/utils';
+import {
+  averageReaction,
+  correctPercentage,
+  totalTimeSpent } from 'gooru-web/utils/question-result';
 
+/**
+ * Class assessment table view
+ *
+ * Component responsible for filtering and transforming the class assessment data
+ * into a format readily consumable by the gru-two-tier-header-table component.
+ *
+ * @module
+ * @augments ember/Component
+ */
 export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
@@ -114,6 +127,10 @@ export default Ember.Component.extend({
    * - value: internal header identifier
    * - visible: should the property be visible or not?
    * - renderFunction: function to process values of this property for output
+   * - aggregateFunction: if there's an aggregate column, this function will be
+   *   used to aggregate all the values for this property that are in the same row
+   * - aggregateRenderFunction: if there's an aggregate column, this function will
+   *   take the result of the aggregateFunction and process it for output
    * - sortFunction: sort function for values of this property
    */
   questionProperties: null,
@@ -128,9 +145,9 @@ export default Ember.Component.extend({
   }),
 
   /**
-   * @prop { Object{}{}{} } rawData - Unordered 3D matrix of data to use as content for the table component
+   * @prop { ReportData } reportData - Unordered 3D matrix of data to use as content for the table component
    */
-  rawData: null,
+  reportData: null,
 
   /**
    * Indicates if the report is displayed in anonymous mode
@@ -169,7 +186,7 @@ export default Ember.Component.extend({
    *   - output: table cell content formatted for output (the formatting is done by
    *             the question property's render function)
    */
-  tableData: Ember.computed("anonymous", 'tableFrame', 'rawData', function () {
+  tableData: Ember.computed("anonymous", 'tableFrame', 'reportData.data', function () {
     const studentsIds = this.get('studentsIds');
     const studentsIdsLen = studentsIds.length;
     const questionsIds = this.get('assessmentQuestionsIds');
@@ -177,45 +194,55 @@ export default Ember.Component.extend({
     const questionProperties = this.get('questionProperties');
     const questionPropertiesIds = this.get('questionPropertiesIds');
     const questionPropertiesIdsLen = questionPropertiesIds.length;
-    const rawData = this.get('rawData');
+    const reportData = this.get('reportData.data');
 
     // Copy the table frame contents
     var data = this.get('tableFrame').slice(0);
-    var totalIndex, totals;
+    var totalIndex, propertyValues;
 
     // Get the value of each question property, for each question, for each student
     for (let i = 0; i < studentsIdsLen; i++) {
 
-      // Array for adding up totals
-      totals = [];
+      // Array for storing all values of the same question property
+      propertyValues = [];
+
       for (let k = 0; k < questionPropertiesIdsLen; k++) {
-        // Initialize all values in the array to 0
-        totals[k] = 0;
+        // Put all values for the same property into an array
+        propertyValues[k] = [];
       }
 
       for (let j = 0; j < questionsIdsLen; j++) {
         if (questionsIds[j] === -1) {
-          // Save this position to fill it in last (cells with totals)
+          // Save this position to fill it in last (cells with propertyValues)
           totalIndex = j;
           continue;
         }
         for (let k = 0; k < questionPropertiesIdsLen; k++) {
           let renderFunction = questionProperties[k].renderFunction;
-          let value = rawData[studentsIds[i]][questionsIds[j]][questionPropertiesIds[k]];
+          let questionResult = reportData[studentsIds[i]][questionsIds[j]];
+          let value = questionResult[questionPropertiesIds[k]];
 
           data[i].content[j * questionPropertiesIdsLen + k] = {
             value: value,
             output: (!renderFunction) ? value : renderFunction(value)
           };
-          totals[k] += (value) ? value : 0;
+
+          propertyValues[k].push(questionResult);
         }
       }
 
-      // Compute the totals
+      // Compute the aggregate values
       for (let k = 0; k < questionPropertiesIdsLen; k++) {
+        // Set the value in the aggregate (totals) column;
+        let value = questionProperties[k].aggregateFunction(propertyValues[k]);
+        let aggregateRenderFunction = questionProperties[k].aggregateRenderFunction;
+
+        // For displaying the aggregate value, use the question property's aggregateRenderFunction.
+        // If there's no aggregateRenderFunction, use the property's renderFunction by default.
         data[i].content[totalIndex * questionPropertiesIdsLen + k] = {
-          value: totals[k],
-          output: totals[k]
+          value: value,
+          output: (aggregateRenderFunction) ? aggregateRenderFunction(value) :
+            questionProperties[k].renderFunction(value)
         };
       }
     }
@@ -246,6 +273,10 @@ export default Ember.Component.extend({
    * @return {Object[]}
    */
   initQuestionProperties: function () {
+    function scoreString(value) {
+      return value ? value + '%' : '';
+    }
+
     return [
       Ember.Object.create({
         filter: {
@@ -255,7 +286,9 @@ export default Ember.Component.extend({
         label: this.get('i18n').t('reports.gru-table-view.score').string,
         value: 'correct',
         visible: true,
-        renderFunction: getAnswerResultIcon
+        renderFunction: getAnswerResultIcon,
+        aggregateFunction: correctPercentage,
+        aggregateRenderFunction: scoreString
       }),
       Ember.Object.create({
         filter: {
@@ -263,7 +296,8 @@ export default Ember.Component.extend({
         },
         label: this.get('i18n').t('reports.gru-table-view.study-time').string,
         value: 'timeSpent',
-        renderFunction: formatTimeInSeconds
+        renderFunction: formatTimeInSeconds,
+        aggregateFunction: totalTimeSpent
       }),
       Ember.Object.create({
         filter: {
@@ -271,7 +305,8 @@ export default Ember.Component.extend({
         },
         label: this.get('i18n').t('reports.gru-table-view.reaction').string,
         value: 'reaction',
-        renderFunction: getReactionIcon
+        renderFunction: getReactionIcon,
+        aggregateFunction: averageReaction
       })
     ];
   },

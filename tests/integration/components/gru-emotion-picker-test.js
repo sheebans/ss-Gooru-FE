@@ -20,15 +20,15 @@ test('Emotion Picker', function(assert) {
   const $emotions = $component.find(".emotion");
   assert.equal($emotions.length, 5, "Incorrect number of emotions displayed");
 
-  assert.ok($emotions.first().hasClass('emotion-1'));
-  assert.ok($emotions.last().hasClass('emotion-5'));
+  assert.ok($emotions.first().hasClass('emotion-5'));
+  assert.ok($emotions.last().hasClass('emotion-1'));
 });
 
 test('Click emotion', function(assert) {
   assert.expect(1);
 
   this.on('parentAction', function(emotion){
-    assert.equal('1', emotion);
+    assert.equal('5', emotion);
   });
 
   this.render(hbs`{{gru-emotion-picker onChangeEmotion='parentAction'}}`);

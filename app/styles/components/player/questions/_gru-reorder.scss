@@ -6,15 +6,17 @@
 
   .ui-sortable-handle {
     position:relative;
-    border: 1px dashed $gray-lighter;
+    border: 1px dashed $light-300;
     margin-top: 10px;
+    border-radius: 3%;
 
     i {
       position: absolute;
-      top: 50%;
-      left: 12px;
+      top: 41%;
+      left: 7px;
       margin-top: -8px;
-      color: $gray-lighter;
+      color: $light-500;
+      font-size: 26px;
     }
 
     div {

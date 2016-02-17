@@ -97,7 +97,7 @@ export default Ember.Component.extend({
    * @param {string} item
    */
   selectItem: function(item) {
-    var classIconItem = 'fa-info';
+    var classIconItem = 'info';
     if (item){
       var itemElement = "."+item;
       this.$( ".class-menu-item" ).removeClass( "selected" );
@@ -108,13 +108,13 @@ export default Ember.Component.extend({
         classIconItem = 'dashboard';
         break;
       case 'analytics.performance':
-        classIconItem = 'graphic-eq';
+        classIconItem = 'graphic_eq';
         break;
       case 'suggestions':
         classIconItem = 'chat';
         break;
       case 'info':
-        classIconItem = 'group-work';
+        classIconItem = 'info';
         break;
     }
     this.set('iconClassMenuItem',classIconItem );

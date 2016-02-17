@@ -1,22 +1,24 @@
 <div class="controller player">
   <div class="main" role="main">
     {{player.gru-navigation
-    ratingScore=ratingScore
-    onClosePlayer="closePlayer"
-    onOpenNavigator="openNavigator"
-    onChangeEmotion="changeEmotion"}}
+      ratingScore=ratingScore
+      onOpenNavigator="openNavigator"
+      onChangeEmotion="changeEmotion"}}
 
     {{player.gru-viewer
-    resource=resource
-    collection=collection
-    onSubmitQuestion="submitQuestion"}}
+      resource=resource
+      resourceResult=resourceResult
+      collection=collection
+      onSubmitQuestion="submitQuestion"}}
   </div>
   <div class="aside">
     {{player.gru-navigator
-    collection=collection
-    selectedResourceId=resourceId
-    onItemSelected="selectNavigatorItem"
-    onCloseNavigator="closeNavigator"
+      resourceResult=resourceResult
+      collection=collection
+      onClosePlayer="closePlayer"
+      selectedResourceId=resourceId
+      onItemSelected="selectNavigatorItem"
+      onCloseNavigator="closeNavigator"
     }}
   </div>
 </div>

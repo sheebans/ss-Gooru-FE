@@ -1,15 +1,18 @@
 <div class="content">
-  <div class="left">
-    <button class="btn btn-link hamburger-icon" {{action 'openNavigator'}}>{{fa-icon icon="fa-bars"}}</button>
-  </div>
-  <div class="right">
-    <button class="btn btn-link x-icon" {{action 'closePlayer'}}>{{fa-icon icon="fa-times"}}</button>
-  </div>
-  <div class="center">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        {{gru-emotion-picker startEmotion=ratingScore onChangeEmotion="changeEmotion"}}
-      </div>
+    <div class="navigation-bar hidden-md hidden-lg">
+      <span {{action 'openNavigator'}}>
+        {{gru-icon name='keyboard_arrow_down'}} <h5>{{t  "common.menu"}}</h5>
+      </span>
     </div>
-  </div>
+   <div class="reaction-bar col-xs-12">
+     <div class="panel panel-default">
+         <div class="panel-body">
+           {{gru-emotion-picker startEmotion=ratingScore onChangeEmotion="changeEmotion"}}
+             {{!--<button class="btn btn-success submit-all"> {{t "common.submit-all"}}</button>--}}
+         </div>
+
+     </div>
+
+   </div>
+
 </div>

@@ -1,14 +1,16 @@
 import Ember from 'ember';
 
+/**
+ * Two-tier header table
+ *
+ * Component responsible for displaying and filtering a set of data
+ *
+ * @module
+ * @augments ember/Component
+ */
+
 // TODO: Remove comments to enable default sorting function
 //import { numberSort } from 'gooru-web/utils/utils';
-
-/* === Private variables === */
-// Default sort order for values in columns (1 = ascending; -1 = descending)
-const defaultSortOrder = 1;
-
-// Stores the current number of second tier headers that are visible
-var currentVisibleHeadersLen = 0;
 
 export default Ember.Component.extend({
 
@@ -57,7 +59,7 @@ export default Ember.Component.extend({
         this.set('sortCriteria', newSortCriteria);
 
       } else {
-        newSortCriteria.order = defaultSortOrder;
+        newSortCriteria.order = this.get('defaultSortOrder');
         this.set('sortCriteria', newSortCriteria);
       }
     }
@@ -83,6 +85,11 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Properties
 
+  /*
+   * @prop { Number } currentVisibleHeadersLen - Stores the current number of second tier headers that are visible
+   */
+  currentVisibleHeadersLen: 0,
+
   /**
    * @prop { Object[] } data - Array of objects with the information for all of the table rows
    * Objects are of the form:
@@ -95,6 +102,11 @@ export default Ember.Component.extend({
    * second tier headers
    */
   data: null,
+
+  /*
+   * @prop { Number } defaultSortOrder - Default sort order for values in columns (1 = ascending; -1 = descending)
+   */
+  defaultSortOrder: 1,
 
   /**
    * @prop { Object[] } firstTierHeaders - Array of objects to use as the first tier
@@ -203,7 +215,7 @@ export default Ember.Component.extend({
     const secondTierHeaders = this.get('secondTierHeaders');
     const secondTierHeadersLen = secondTierHeaders.length;
     const secondTierHeadersVisible = secondTierHeaders.filterBy('visible', true).length;
-    const removeColumns = secondTierHeadersVisible < currentVisibleHeadersLen;
+    const removeColumns = secondTierHeadersVisible < this.get('currentVisibleHeadersLen');
     var selectors = [];
     var cssSelector;
 
@@ -228,7 +240,7 @@ export default Ember.Component.extend({
       this.$(cssSelector).removeClass('hidden');
     }
 
-    currentVisibleHeadersLen = secondTierHeadersVisible;
+    this.set('currentVisibleHeadersLen', secondTierHeadersVisible);
   }),
 
   updateSortClasses: Ember.observer('sortCriteria', function () {
@@ -265,7 +277,7 @@ export default Ember.Component.extend({
     return {
       firstTierIndex: -1,
       secondTierIndex: 0,
-      order: defaultSortOrder
+      order: this.get('defaultSortOrder')
     };
   }
 

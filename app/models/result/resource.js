@@ -22,6 +22,27 @@ export default Ember.Object.extend({
   /**
    * @property {Resource} resource
    */
-  resource: null
+  resource: null,
+
+  /**
+   * Sometimes the resource is not resolved and only the id is provided
+   * This is used mostly by the real time
+   * TODO once the SDK is integrated we could analyze if is possible to use only 'resource'
+   * @property {number} resourceId - ID of the resource
+   */
+  resourceId: null,
+
+  /**
+   * Indicates when the result was submitted
+   * @property {Date}
+   */
+  submittedAt: null,
+
+  /**
+   * A result is started when it has time spent
+   * @property {boolean} indicates when it has been started
+   */
+  started: Ember.computed.bool("timeSpent")
+
 
 });

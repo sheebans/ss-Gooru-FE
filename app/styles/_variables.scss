@@ -83,6 +83,7 @@ $brand-info:            $dark-300 !default;
 $brand-warning:         $yellow-400 !default;
 $brand-danger:          $red-400 !default;
 $brand-incorrect:       $red-400 !default;
+$brand-anonymous:       $blue-400 !default;
 $brand-muted:           $light-400 !default;
 
 //== Scaffolding
@@ -90,7 +91,7 @@ $brand-muted:           $light-400 !default;
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-$body-bg:               #fff !default;
+$body-bg:               $light-100 !default;
 //** Global text color on `<body>`.
 $text-color:            $gray !default;
 
@@ -937,15 +938,11 @@ $gru-scale-indicator-excellent: #3FC380;
 $performance-circle-background-color: #DEDEDE;
 
 /* === DIMENSIONS === */
-$player-navigator-width-xs: 80%;
-$player-navigator-width-sm: 40%;
-$player-navigator-width-md: 24%;
+$player-navigation-height: 105px;
 
-$player-navigation-height: 116px;
+$narration-avatar-width:60px;
 
-$narration-avatar-width:40px;
-
-$narration-avatar-height:40px;
+$narration-avatar-height:60px;
 
 $overview-header:75px;
 

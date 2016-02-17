@@ -3,13 +3,17 @@
     line-height: 30px;
   }
   .answer {
-    border: 1px solid $gray;
+    border-bottom: 2px solid;
     padding: 5px;
   }
   .answer.correct {
-    color: $brand-success;
+    border-bottom-color: $brand-success;
   }
   .answer.incorrect {
-    color: $brand-incorrect;
+    border-bottom-color: $brand-incorrect;
+  }
+
+  .answer.anonymous {
+    border-bottom-color: $brand-anonymous;
   }
 }

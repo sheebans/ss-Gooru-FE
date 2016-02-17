@@ -12,29 +12,17 @@ moduleForComponent('player/gru-navigation', 'Integration | Component | player/gr
 test('Layout', function(assert) {
 
 
-  assert.expect(3);
+  assert.expect(2);
 
   this.render(hbs`{{player/gru-navigation}}`);
 
   var $component = this.$(); //component dom element
   const $navigation = $component.find(".gru-navigation");
   T.exists(assert, $navigation, "Missing navigation section");
-  T.exists(assert, $navigation.find("button.hamburger-icon"), "Missing hamburger icon");
-  T.exists(assert, $navigation.find("button.x-icon"), "Missing close icon");
+  T.exists(assert, $navigation.find(".navigation-bar span"), "Missing clickable span");
+  //T.exists(assert, $navigation.find("button.submit-all"), "Missing submit all button");
 });
 
-test('Close player', function(assert) {
-  assert.expect(1);
-
-  this.on('parentAction', function(){
-    assert.ok(true, 'external Action was called!');
-  });
-
-  this.render(hbs`{{player/gru-navigation onClosePlayer='parentAction'}}`);
-  var $component = this.$(); //component dom element
-  var $closeButton = $component.find(".gru-navigation button.x-icon");
-  $closeButton.click();
-});
 
 test('Layout when navigator is opened', function(assert) {
   assert.expect(2);
@@ -45,7 +33,7 @@ test('Layout when navigator is opened', function(assert) {
 
   this.render(hbs`{{player/gru-navigation onOpenNavigator='parentAction'}}`);
   var $component = this.$(); //component dom element
-  var $menuButton = $component.find(".hamburger-icon");
+  var $menuButton = $component.find(".navigation-bar span");
 
   assert.ok($menuButton, "Missing menu button");
   $menuButton.click();

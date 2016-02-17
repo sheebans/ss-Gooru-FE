@@ -3,6 +3,8 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { GRADING_SCALE } from 'gooru-web/config/config';
 import QuestionResult from 'gooru-web/models/result/question';
+import UserResourcesResult from 'gooru-web/models/result/user-resources';
+import ReportData from 'gooru-web/models/result/report-data';
 
 moduleForComponent('reports/class-assessment/gru-summary', 'Integration | Component | reports/class assessment/gru summary', {
   integration: true,
@@ -15,50 +17,67 @@ test('it renders', function (assert) {
 
   var assessment = Ember.Object.create({
     resources: [
-      {
+      Ember.Object.create({
         "id": "56a120483b6e7b090501d3e7",
         "order": 1
-      },
-      {
+      }),
+      Ember.Object.create({
         "id": "56a1204886b2e565e1b2c230",
         "order": 3
-      },
-      {
+      }),
+      Ember.Object.create({
         "id": "56a12048ddee2022a741356a",
         "order": 2
-      }
+      })
     ]
   });
 
   var students = Ember.A([
-    {"id": "56983a9060a68052c1ed934c"},
-    {"id": "56983a90fb01fecc328e2388"},
-    {"id": "56983a906596902edadedc7c"},
-    {"id": "56983a9082f705e65f2fe607"}
+    Ember.Object.create({"id": "56983a9060a68052c1ed934c"}),
+    Ember.Object.create({"id": "56983a90fb01fecc328e2388"}),
+    Ember.Object.create({"id": "56983a906596902edadedc7c"}),
+    Ember.Object.create({"id": "56983a9082f705e65f2fe607"})
   ]);
 
-  var reportData = {
-    "56983a9060a68052c1ed934c": {
-      "56a120483b6e7b090501d3e7": QuestionResult.create({"correct": false, "reaction": 1, "timeSpent": 1216}),
-      "56a1204886b2e565e1b2c230": QuestionResult.create({"correct": true, "reaction": 2, "timeSpent": 2458}),
-      "56a12048ddee2022a741356a": QuestionResult.create({"correct": true, "reaction": 3, "timeSpent": 1433})
-    },
-    "56983a90fb01fecc328e2388": {
-      "56a120483b6e7b090501d3e7": QuestionResult.create({"correct": false, "reaction": 5, "timeSpent": 1216}),
-      "56a1204886b2e565e1b2c230": QuestionResult.create({ "notStarted": true}),
-      "56a12048ddee2022a741356a": QuestionResult.create({"correct": true, "reaction": 3, "timeSpent": 1433})
-    },
-    "56983a906596902edadedc7c": {
-      "56a120483b6e7b090501d3e7": QuestionResult.create({"correct": false, "reaction": 1, "timeSpent": 1216}),
-      "56a1204886b2e565e1b2c230": QuestionResult.create({"correct": true, "reaction": 5, "timeSpent": 2458}),
-      "56a12048ddee2022a741356a": QuestionResult.create({"correct": true, "reaction": 5, "timeSpent": 1433})
-    },
-    "56983a9082f705e65f2fe607": {
-      "56a120483b6e7b090501d3e7": QuestionResult.create({"correct": true, "reaction": 4, "timeSpent": 1216}),
-      "56a1204886b2e565e1b2c230": QuestionResult.create({"correct": true, "reaction": 4, "timeSpent": 2458}),
-      "56a12048ddee2022a741356a": QuestionResult.create({"correct": true, "reaction": 3, "timeSpent": 1433})
-    }
-  };
+  var reportData = ReportData.create({
+    students: students,
+    resources: assessment.get("resources")
+  });
+
+  reportData.merge([
+    UserResourcesResult.create({
+      user: "56983a9060a68052c1ed934c",
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 1, "timeSpent": 1216, "userAnswer": 1}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230", "correct": true, "reaction": 2, "timeSpent": 2458, "userAnswer": 1}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a", "correct": true, "reaction": 3, "timeSpent": 1433, "userAnswer": 1})
+      ])
+    }),
+    UserResourcesResult.create({
+      user: "56983a90fb01fecc328e2388",
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 5, "timeSpent": 1216, "userAnswer": 1}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230"}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a", "correct": true, "reaction": 3, "timeSpent": 1433, "userAnswer": 1})
+      ])
+    }),
+    UserResourcesResult.create({
+      user: "56983a906596902edadedc7c",
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7", "correct": false, "reaction": 1, "timeSpent": 1216, "userAnswer": 1}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230", "correct": true, "reaction": 5, "timeSpent": 2458, "userAnswer": 1}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a", "correct": true, "reaction": 5, "timeSpent": 1433, "userAnswer": 1})
+      ])
+    }),
+    UserResourcesResult.create({
+      user: "56983a9082f705e65f2fe607",
+      resourceResults: Ember.A([
+        QuestionResult.create({resourceId: "56a120483b6e7b090501d3e7", "correct": true, "reaction": 4, "timeSpent": 1216, "userAnswer": 1}),
+        QuestionResult.create({resourceId: "56a1204886b2e565e1b2c230", "correct": true, "reaction": 4, "timeSpent": 2458, "userAnswer": 1}),
+        QuestionResult.create({resourceId: "56a12048ddee2022a741356a", "correct": true, "reaction": 3, "timeSpent": 1433, "userAnswer": 1})
+      ])
+    })
+  ]);
 
   this.setProperties({
     assessment: assessment,
@@ -70,7 +89,7 @@ test('it renders', function (assert) {
   this.render(hbs`{{ reports/class-assessment/gru-summary
     assessment=assessment
     students=students
-    rawData=reportData
+    reportData=reportData
     isQuestionView=showAllQuestions }}`);
 
   const $component = this.$('.reports.class-assessment.gru-summary');

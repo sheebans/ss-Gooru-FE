@@ -41,8 +41,8 @@ test('Questions Layout', function (assert) {
   const $question = $component.find(".gru-questions");
 
   T.exists(assert, $question, 'Missing questions component');
-  T.exists(assert, $question.find('.title h2'), 'Missing questions title');
-  T.exists(assert, $question.find('.switch-section'), 'Missing switch section');
+  T.exists(assert, $question.find('.title h4'), 'Missing questions title');
+  T.exists(assert, $question.find('.btn-group'), 'Missing btn-group section');
   T.exists(assert, $question.find('table th.header.number'), 'Missing number header');
   T.exists(assert, $question.find('table th.header.question'), 'Missing question header');
   T.exists(assert, $question.find('table th.header.answer'), 'Missing answer header');
@@ -60,7 +60,8 @@ test('Questions Layout', function (assert) {
   assert.equal($question.find('table tbody tr').length,2, "Incorrect number of rows");
 });
 
-test('Switch Options', function (assert) {
+
+test('Buttons Options', function (assert) {
   assert.expect(15);
 
   const questions = Ember.A([Ember.Object.create({
@@ -89,8 +90,9 @@ test('Switch Options', function (assert) {
   this.render(hbs`{{reports/assessment/gru-questions results=questions}}`);
   const $component = this.$(); //component dom element
   const $question = $component.find(".gru-questions");
-  const $switch = $question.find('.switch-section a');
-  $switch.click();//Show correct answer
+
+  const $correctAnswerButton = $question.find('.btn-group button.correct-answer');
+  $correctAnswerButton.click();//Show correct answer
   T.exists(assert, $question.find('table thead th.header.score.hide'), 'Score header should be hide');
   T.exists(assert, $question.find('table thead th.header.time-spent.hide'), 'Time spent header should be hide');
   T.exists(assert, $question.find('table thead th.header.reaction.hide'), 'Reaction header should be hide');
@@ -101,7 +103,8 @@ test('Switch Options', function (assert) {
   T.exists(assert, $question.find('table tbody td.correct-answer.visible'), 'Correct answer column should be visible');
   T.exists(assert, $question.find('table tbody td.correct-answer.visible:eq(0) .gru-open-ended'), 'Correct answer column should be visible');
 
-  $switch.click();//Show performance
+  const $performanceButton = $question.find('.btn-group button.performance');
+  $performanceButton.click();//Show performance
   T.exists(assert, $question.find('table th.header.score.visible'), 'Score header should be visible');
   T.exists(assert, $question.find('table th.header.time-spent.visible'), 'Time spent header should be visible');
   T.exists(assert, $question.find('table thead th.header.reaction.visible'), 'Reaction header should be visible');

@@ -3,87 +3,61 @@
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
-    border-bottom: 1px solid $gray-lighter;
-    .standard{
-      width:10%;
-      min-width: 75px;
-      display:none;
-      @media (min-width: $screen-sm-min) {
-        display: block;
+    font-size: $font-size-h6;
+    line-height: $font-size-h6;
+    width: 100%;
+    margin: 0 0 30px 0;
+    .score {
+      width: 61px;
+      height: 57px;
+      border-radius: 5px;
+      color: $white;
+      display: table;
+      div{
+        text-align: center;
+        vertical-align: middle;
+        display: table-cell;
       }
-
+    }
+    .learning-target-description{
+      .description {
+        margin: 12px 0 0 0;
+      }
+      @media (max-width: $screen-xs) {
+        padding: 0 5px 0 10px;
+        width: 90%;
+      }
     }
     .questions{
-      width:26%;
-      min-width: 110px;
+      min-width: 165px;
       display:none;
-      @media (min-width: $screen-sm-min) {
+      border-left: 1px solid $gray-lighter;
+      @media (min-width: $screen-xs) {
         display: block;
       }
     }
-    .learning-target-description{
-      flex:1;
-      .sm-title{
-        display:none;
-      }
-      @media (min-width: $screen-sm-min) {
-        .sm-title{
-          display:block;
-        }
-        .xs-title{
-          display:none;
-        }
-      }
-    }
-    .score {
-      width: 5em;
-      position: relative;
-      div{
-        padding:0;
-        text-align: center;
-        font-weight: bold;
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: 100%;
-        margin-top: -0.5em;
-      }
-    }
-
-
-    .standard, .learning-target-description {
-      border-right:  1px solid $gray-lighter;
-      span{
-        padding: 10px 0 10px 0;
-      }
-    }
-    .learning-target-description{
-      width: 60%;
+    .title {
+      color: $gray-base;
+      font-size: $font-size-h6;
     }
   }
-  .standard, .learning-target-description,.questions,.resource-cards-section{
-    padding: 5px 10px 5px 10px ;
-    > *{
-      display: block;
-    }
-    strong{
-      font-size: $font-size-small;
-      font-weight: normal;
-    }
+
+  .learning-target-description,
+  .questions {
+    padding: 0 10px 0 20px;
   }
-  .resource-cards-section{
-    > *{
-      padding:10px;
-    }
-    .resource-card-list{
-      div.gru-resource-card{
-        display:none;
-        @media (min-width: $screen-sm-min) {
-          display: inline-flex;
-        }
-        &:nth-child(1), &:nth-child(2) {
-          display: inline-flex;
-        }
+
+  .resource-cards-section {
+    .gru-resource-card {
+      float: left;
+      margin-top:10px;
+      display:none;
+      @media (min-width: $screen-sm) {
+        margin-left:10px;
+        display:block;
+      }
+      &:nth-child(1), &:nth-child(2){
+        display:block;
       }
     }
   }

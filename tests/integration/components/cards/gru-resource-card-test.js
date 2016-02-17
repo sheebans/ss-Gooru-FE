@@ -28,17 +28,17 @@ test('Resource card that is not a question and it has not been started', functio
   const $component = this.$('.gru-resource-card');
   assert.ok($component, 'Component does not have the component class');
 
-  const $detailsContainer = $component.find('.resource-details');
+  const $detailsContainer = $component.find('.panel');
   assert.ok($detailsContainer, 'Details container not found');
 
   const $resourceIcon = $detailsContainer.find('.card-icon i.resource-icon');
   assert.ok($resourceIcon, 'Icon not found');
 
-  const $resourceTitle = $detailsContainer.find('.resource-description span.title');
+  const $resourceTitle = $detailsContainer.find('.resource-description .title');
 
   assert.equal(T.text($resourceTitle), 'Learn the MEAN Stack.', "Incorrect title");
 
-  const $resourceFormat = $detailsContainer.find('.resource-description p.format');
+  const $resourceFormat = $detailsContainer.find('.resource-description .format');
 
   assert.equal(T.text($resourceFormat), this.get('i18n').t('common.resource-format.' + mockResourceResult.resource.resourceFormat).toString(), 'Wrong resource type text');
 
@@ -126,12 +126,12 @@ test('Resource card that is a question', function (assert) {
   const $component = this.$('.gru-resource-card');
   assert.ok($component, 'Component does not have the component class');
 
-  const $detailsContainer = $component.find('.resource-details');
+  const $detailsContainer = $component.find('.panel');
   assert.ok($detailsContainer, 'Details container not found');
 
   const $questionIcon = $detailsContainer.find('.card-icon i.question-icon');
   assert.ok($questionIcon, 'Icon not found');
 
-  const $questionType = $detailsContainer.find('.resource-description p.format');
+  const $questionType = $detailsContainer.find('.resource-description .format');
   assert.equal(T.text($questionType), this.get('i18n').t('common.question-type.' + mockQuestionResult.resource.questionType).toString(), 'Wrong question type text');
 });

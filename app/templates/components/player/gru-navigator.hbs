@@ -1,14 +1,15 @@
-<div class="navigator-header">
-  <h2>{{collection.title}}</h2>
+<div class="navigator-header" >
+  <div {{action 'closePlayer'}}>
+    <span class="lead"> {{gru-icon name='keyboard_arrow_left'}} {{t 'common.back'}}</span>
+    <p>{{collection.title}}</p>
+  </div>
   <div class="pull-right close-navigator hidden-md hidden-lg">
-    <button class="btn btn-link hamburger-icon" {{action 'closeNavigator'}}>{{fa-icon icon="fa-bars"}}</button>
+    <button class="btn btn-link hamburger-icon"{{action 'closeNavigator'}}>{{fa-icon icon="fa-bars"}}</button>
   </div>
 </div>
-
 <ul class="list-group resources">
-  <div class="bgd-line"></div>
   {{#each collection.resources as |resource|}}
-    <li class="list-group-item" id= "item_{{resource.id}}"{{action 'selectItem' resource}}>
+      <li class="list-group-item" id= "item_{{resource.id}}"{{action 'selectItem' resource}}>
       <div class="resources-info">
         <span class="bubble-type {{resource.resourceFormat}}"></span>
         <h6 class="title">{{{resource.title}}}</h6>

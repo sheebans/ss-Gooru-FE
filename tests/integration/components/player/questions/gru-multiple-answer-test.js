@@ -14,34 +14,41 @@ test('Multiple answer question layout', function (assert) {
 
   assert.expect(6);
 
-  const question = Ember.Object.create(
-    {
-      "id": 10,
-      "answers": [
-        {
-          "id": 1,
-          "text": "<p>An aquifer</p>",
-          "answerType": "text",
-          "isCorrect": true,
-          "sequence": 1
-        },
-        {
-          "id": 2,
-          "text": "<p>A well</p>",
-          "answerType": "text",
-          "isCorrect": false,
-          "sequence": 2
-        },
-        {
-          "id": 3,
-          "text": "<p>A pump</p>",
-          "answerType": "text",
-          "isCorrect": false,
-          "sequence": 3
-        }
-      ],
-      "order": 2
-    });
+  let question = Ember.Object.create({
+    "id": "569906aa77bebed003fa6eb1",
+    questionType: 'MA',
+    text: 'Sample Question MA',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({
+        "id": 1,
+        "text": "<p>An aquifer</p>",
+        "answerType": "text",
+        "isCorrect": true,
+        "sequence": 1
+      }),
+      Ember.Object.create({
+        "id": 2,
+        "text": "<p>A well</p>",
+        "answerType": "text",
+        "isCorrect": false,
+        "sequence": 2
+      }),
+      Ember.Object.create({
+        "id": 3,
+        "text": "<p>A pump</p>",
+        "answerType": "text",
+        "isCorrect": false,
+        "sequence": 3
+      })
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 5,
+    "hasAnswers": true
+  });
+
 
   this.set('question', question);
 
@@ -59,44 +66,54 @@ test('Multiple answer question layout', function (assert) {
 
 test('Multiple answer question events', function (assert) {
 
-  assert.expect(4);
+  assert.expect(6);
 
-  const question = Ember.Object.create(
-    {
-      "id": 10,
-      "answers": [
-        {
-          "id": 1,
-          "answerText": "An aquifer",
-          "answerType": "text",
-          "isCorrect": true,
-          "sequence": 1
-        },
-        {
-          "id": 2,
-          "answerText": "A well",
-          "answerType": "text",
-          "isCorrect": false,
-          "sequence": 2
-        },
-        {
-          "id": 3,
-          "answerText": "A pump",
-          "answerType": "text",
-          "isCorrect": false,
-          "sequence": 3
-        }
-      ],
-      "order": 2
-    });
-
-  this.set('question', question);
-  this.on('myOnAnswerChanged', function(question, answerId) {
-    assert.ok(answerId, "Missing answer id"); //this should be called 3 times
+  let question = Ember.Object.create({
+    "id": "569906aa77bebed003fa6eb1",
+    questionType: 'MA',
+    text: 'Sample Question MA',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({
+        "id": "1",
+        "text": "<p>An aquifer</p>",
+        "answerType": "text",
+        "isCorrect": true,
+        "sequence": 1
+      }),
+      Ember.Object.create({
+        "id": "2",
+        "text": "<p>A well</p>",
+        "answerType": "text",
+        "isCorrect": false,
+        "sequence": 2
+      }),
+      Ember.Object.create({
+        "id": "3",
+        "text": "<p>A pump</p>",
+        "answerType": "text",
+        "isCorrect": true,
+        "sequence": 3
+      })
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 5,
+    "hasAnswers": true
   });
 
-  this.on('myOnAnswerCompleted', function(question, answerId) {
-    assert.equal(answerId, 'yes-3', "Wrong answer id"); //the answer is completed by clicking on answer id 3
+  let answers = [];
+
+  this.set('question', question);
+  this.on('myOnAnswerChanged', function (question, stats) {
+    //called 4 times
+    assert.deepEqual(stats, answers, "Answer changed, but the answers are not correct");
+  });
+
+  this.on('myOnAnswerCompleted', function (question, stats) {
+    //called 2 times
+    assert.deepEqual(stats, answers, "Answer completed, but the answers are not correct");
   });
 
   this.render(hbs`{{player/questions/gru-multiple-answer question=question
@@ -105,8 +122,16 @@ test('Multiple answer question events', function (assert) {
   var $component = this.$(); //component dom element
 
   //select a radio button
+  answers = { answer: [{id:"1", selection: true}], correct: false };
   $component.find(".answer-choices tbody tr:eq(0) input[type=radio]:eq(0)").click(); //Yes
+
+  answers = { answer: [{id:"1", selection: true}, {id:"2", selection: true}], correct: false };
   $component.find(".answer-choices tbody tr:eq(1) input[type=radio]:eq(0)").click(); //Yes
+
+  answers = { answer: [{id:"1", selection: true}, {id:"2", selection: true}, {id:"3", selection: true}], correct: false };
   $component.find(".answer-choices tbody tr:eq(2) input[type=radio]:eq(0)").click(); //Yes
+
+  answers = { answer: [{id:"1", selection: true}, {id:"2", selection: false}, {id:"3", selection: true}], correct: true };
+  $component.find(".answer-choices tbody tr:eq(1) input[type=radio]:eq(1)").click(); //No
 
 });
