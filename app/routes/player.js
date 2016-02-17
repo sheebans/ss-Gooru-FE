@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import UserResourcesResult from 'gooru-web/models/result/user-resources'
-import QuestionResult from 'gooru-web/models/result/question'
-import ResourceResult from 'gooru-web/models/result/resource'
+import UserResourcesResult from 'gooru-web/models/result/user-resources';
+import QuestionResult from 'gooru-web/models/result/question';
+import ResourceResult from 'gooru-web/models/result/resource';
 
 export default Ember.Route.extend({
 
