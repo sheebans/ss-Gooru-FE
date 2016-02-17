@@ -39,7 +39,7 @@ export default {
     "loading": "Loading ...",
     "login": "Log in",
     "logout": "Logout",
-    "myClasses": "My Classes",
+    "classes": "Classes",
     "myContent": "My Content",
     "mastery":"Mastery",
     "no": "No",
