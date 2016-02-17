@@ -274,7 +274,7 @@ export default Ember.Component.extend({
    */
   initQuestionProperties: function () {
     function scoreString(value) {
-      return value ? value + '%' : '';
+      return (typeof value === "number") ? value + '%' : '';
     }
 
     return [
