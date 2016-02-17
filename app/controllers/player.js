@@ -34,17 +34,15 @@ export default Ember.Controller.extend({
      */
     submitQuestion: function(question, questionResult){
       const controller = this;
-
-      controller.submitQuestion(question);
-
-      const next = controller.get("collection").nextResource(question);
-
-      if (next){
-        controller.moveToResource(next);
-      }
-      else{
-        //TODO: submit all
-      }
+      controller.submitQuestion(question, questionResult).then(function(){
+        const next = controller.get("collection").nextResource(question);
+        if (next){
+          controller.moveToResource(next);
+        }
+        else{
+          controller.submitAll();
+        }
+      });
     },
 
     /**
@@ -90,6 +88,7 @@ export default Ember.Controller.extend({
   // Properties
 
   /**
+   * Query param
    * @property {string} resourceId
    */
   resourceId: null,
@@ -113,38 +112,14 @@ export default Ember.Controller.extend({
   resourceResult: null,
 
   /**
-   * The rating score for the resource
-   * @property {number} ratingScore
-   */
-  ratingScore: 0,
-
-  /**
-   * User resource results
-   * @property {UserResourceResult} userResourcesResult
-   */
-  userResourcesResult: null,
-
-  /**
    * @property {boolean} indicates if the answer should be saved
    */
   saveEnabled: true,
 
   /**
-   * Start timestamp in Milliseconds
-   * @property {number} start timestamp
+   * @property {AssessmentResult} assessmentResult
    */
-  startTimestamp: null,
-
-  /**
-   * Time spent on question
-   * @property {number} timeSpent in seconds
-   */
-  timeSpent: Ember.computed("startTimestamp", function(){
-    let timestamp = new Date().getTime();
-    return Math.round((timestamp - this.get("startTimestamp")) / 1000);
-  }),
-
-
+  assessmentResult: null,
   // -------------------------------------------------------------------------
   // Observers
 
@@ -157,36 +132,74 @@ export default Ember.Controller.extend({
    */
   moveToResource: function(resource){
     let controller = this;
-    let userResourcesResult = this.get("userResourcesResult");
+    let assessmentResult = this.get("assessmentResult");
     let resourceId = resource.get("id");
     controller.set("resourceId", resourceId);
     controller.set("resource", resource);
-    controller.set("resourceResult", userResourcesResult.getResultByResourceId(resourceId));
-    controller.set('ratingScore', 0);
 
-    this.get('ratingService').findRatingForResource(resource.get("id"))
-      .then(function (ratingModel) {
-        controller.set('ratingScore', ratingModel.get('score'));
-      });
+    let resourceResult = assessmentResult.getResultByResourceId(resourceId);
+    resourceResult.set("startedAt", new Date());
+    controller.saveResourceResult(resourceResult).then(function(){
+      controller.set("resourceResult", resourceResult);
+      controller.get('ratingService').findRatingForResource(resource.get("id"))
+        .then(function (ratingModel) { //TODO this could not be necessary if the reaction is loaded with the result
+          resourceResult.set("reaction", ratingModel.get('score'));
+        });
+    }); //saves the resource status
+
   },
 
   /**
    * Submits a question
    * @param {Resource} question
-   * @return Ember.RSVP.Promise
+   * @param {QuestionResult} questionResult
+   * @returns {Promise.<boolean>}
    */
-  submitQuestion: function(question){
+  submitQuestion: function(question, questionResult){
     let controller = this;
-    //setting time spent and submitted at
-    questionResult.set("timeSpent", controller.get("timeSpent"));
+    //setting submitted at, timeSpent is calculated
     questionResult.set("submittedAt", new Date());
 
-    let save = controller.get("saveEnabled"); //TODO save only if courseId is provided
+    let save = controller.get("saveEnabled");
     if (save){
-      console.debug(question);
-      console.debug(questionResult);
+      return controller.saveResourceResult(questionResult);
     }
 
+    return Ember.RSVP.resolve(true);
+  },
+
+  /**
+   * Saves the resource result
+   * @param resourceResult
+   * @returns {Promise.<boolean>}
+   */
+  saveResourceResult: function(resourceResult){
+    /*
+      TODO: implement
+      let onAir = this.get("onAir");
+      let submitted
+      return analyticsService.saveResourceResult(resourceResult).then(function(){
+          if (onAir){
+            return realTimeService.notifyResourceResult(resourceResult);
+          }
+      });
+     */
+    return Ember.RSVP.resolve(resourceResult);
+  },
+
+  /**
+   * Submits all questions
+   */
+  submitAll: function(){
+    /*
+     TODO: implement
+     let onAir = this.get("onAir");
+     return analyticsService.finishCollection(collection).then(function(){
+       if (onAir){
+         return realTimeService.notifyFinishCollection(collection);
+       }
+     });
+     */
     return Ember.RSVP.resolve(true);
   }
 

@@ -16,6 +16,8 @@ export default Ember.Object.extend({
 
   /**
    * @property {number} timeSpent - Time in seconds that it took the user to answer the question
+   *
+   * This value is also modify by @see submittedAt and @see startedAt property definition
    */
   timeSpent: 0,
 
@@ -33,16 +35,46 @@ export default Ember.Object.extend({
   resourceId: null,
 
   /**
+   * Indicates when the result was started
+   * @property {Date}
+   */
+
+  startedAt: Ember.computed({
+    set(key, value) {
+      Ember.Logger.debug("Updating key" + key);
+      this.set('submittedAt', null);
+      return value;
+    }
+  }),
+
+  /**
    * Indicates when the result was submitted
    * @property {Date}
    */
-  submittedAt: null,
+  submittedAt: Ember.computed({
+    set(key, value) {
+      Ember.Logger.debug("Updating key" + key);
+
+      let timeSpent = 0;
+      if (value){
+        let startedAt = this.get("startedAt");
+        if (startedAt){ //updating time spent when submitted at is changed
+          timeSpent = Math.round(value.getTime() - startedAt.getTime()) / 1000;
+        }
+      }
+
+      this.set('timeSpent', timeSpent);
+      return value;
+    }
+  }),
 
   /**
    * A result is started when it has time spent
    * @property {boolean} indicates when it has been started
    */
   started: Ember.computed.bool("timeSpent")
+
+
 
 
 });
