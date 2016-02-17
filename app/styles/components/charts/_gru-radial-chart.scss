@@ -38,24 +38,24 @@
   .component .label {
     font-family: Myriad, "Helvetic Neue", Helvetica, Arial;
     text-anchor: middle;
-    fill: #0000FF;
+    fill: $blue-400;
   }
 
   .arc {
     stroke-weight:0.1;
-    fill: #4e8fff;
+    fill: $blue-300;
   }
 
 
   .arc2 {
     stroke-weight:0.1;
-    fill: #3660b0;
+    fill: $blue-200;
   }
 
 
   .label {
-    font-family:  Myriad, "Helvetic Neue", Helvetica, Arial;
     text-anchor: middle;
+    color: $dark-100;
   }
 
   .radial-svg {
