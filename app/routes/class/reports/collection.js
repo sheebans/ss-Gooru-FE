@@ -277,9 +277,14 @@ export default Ember.Route.extend({
       })
     ]);
 
+    // Get initialization data from analytics
     const userResults = this.get('performanceService').findClassPerformanceByCollection(classId, collectionId);
 
     return Ember.RSVP.hash({
+      routeParams: Ember.Object.create({
+        classId: classId,
+        collectionId: collectionId
+      }),
       assessment: assessment,
       students: students,
       userResults: userResults
@@ -297,9 +302,20 @@ export default Ember.Route.extend({
     // Merge any data from analytics into the report data.
     reportData.merge(model.userResults);
 
+    controller.set('routeParams', model.routeParams);
     controller.set('assessment', model.assessment);
     controller.set('students', model.students);
     controller.set('reportData', reportData);
+  },
+
+  resetController: function (controller) {
+    // When exiting, reset the controller values
+    controller.setProperties({
+      routeParams: null,
+      assessment: null,
+      students: null,
+      reportData: null
+    });
   }
 
 });

@@ -679,7 +679,7 @@ export default Ember.Service.extend({
     }
 
     return DS.PromiseArray.create({
-      promise: callToServerEndPoint(collectionId)
+      promise: callToServerEndPoint(classId, collectionId)
     });
   }
 

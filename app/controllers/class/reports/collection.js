@@ -1,4 +1,5 @@
 import Ember from "ember";
+import Env from 'gooru-web/config/environment';
 
 /**
  *
@@ -25,23 +26,16 @@ export default Ember.Controller.extend({
     }
   },
 
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  init: function () {
+    this.set('webSocketClient', Stomp.client(Env['real-time'].webSocketUrl));
+  },
+
   // -------------------------------------------------------------------------
   // Properties
-
-  /**
-   * @property {Collection} assessment
-   */
-  assessment: null,
-
-  /**
-   * @property {User[]} students
-   */
-  students: Ember.A([]),
-
-  /**
-   * @prop { UserResourcesResult[] } userResults - Content feed to update the report data
-   */
-  userResults: null,
 
   /**
    * @property {boolean}
@@ -49,13 +43,70 @@ export default Ember.Controller.extend({
   anonymous: false,
 
   /**
+   * @property {Collection} assessment
+   */
+  assessment: null,
+
+  /**
    * @property {ReportData} report data
    */
-  reportData: null
+  reportData: null,
+
+  /**
+   * @property {Object} routeParams - URL dynamic route segments
+   */
+  routeParams: null,
+
+  /**
+   * @property {User[]} students
+   */
+  students: Ember.A([]),
+
+  /**
+   * @property { Object } webSocketClient - web socket client for getting live data
+   * from the Real Time server
+   */
+  webSocketClient: null,
 
 
   // -------------------------------------------------------------------------
   // Observers
+
+  /**
+   * Observe when the 'reportData' object has been set by the route.
+   * At this point, it is possible to proceed with the creation of the websocket
+   * to communicate with the real time server and safely merge any initialization
+   * data from the real time server as well
+   */
+  reportDataLoaded: Ember.observer('reportData', function () {
+    const webSocketClient = this.get('webSocketClient');
+    const controller = this;
+    const classId = this.get('routeParams.classId');
+    const collectionId = this.get('routeParams.collectionId');
+
+    webSocketClient.connect({}, function () {
+      // A web socket connection was made to the RT server. Before subscribing
+      // for live messages, a request will be made to fetch any initialization data
+      // from the RT server (to avoid overriding data from live messages with init data)
+      // After merging the init data with any previous report data (from analytics)
+      // a subscription will be made to listen for and merge data from live messages.
+
+      controller.get('realTimeService').findClassPerformanceByCollection(classId, collectionId)
+        .then(function (userResourceResults) {
+          controller.get('reportData').merge(userResourceResults);
+        });
+
+    }, function () {
+      // The web socket connection could not be established so all there is to do is get
+      // any initialization data from the RT server. There will be no subsequent data.
+
+      controller.get('realTimeService').findClassPerformanceByCollection(classId, collectionId)
+        .then(function (userResourceResults) {
+          controller.get('reportData').merge(userResourceResults);
+        });
+    });
+
+  })
 
 
   // -------------------------------------------------------------------------

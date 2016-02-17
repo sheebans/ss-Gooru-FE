@@ -4,6 +4,7 @@
     "window",
     "-Promise",
     "Switchery",
+    "Stomp",
     "moment"
   ],
   "browser": true,

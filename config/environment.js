@@ -62,6 +62,10 @@ module.exports = function (environment) {
     anonymousEndpoint: '/gooruapi/rest/v2/account/loginas/anonymous'
   };
 
+  ENV['real-time'] = {
+    webSocketUrl: 'ws://localhost:9090/'
+  };
+
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
@@ -72,7 +76,7 @@ module.exports = function (environment) {
       'default-src': "'none'",
       'script-src': "'self'",
       'font-src': "'self' https://fonts.gstatic.com",
-      'connect-src': "'self' http://localhost:8882 http://qa.gooru.org",
+      'connect-src': "'self' http://localhost:8882 http://qa.gooru.org ws://localhost:9090/",
       'img-src': "'self' data: http://qacdn.gooru.org http://profile-images.goorulearning.org.s3.amazonaws.com",
       'style-src': "'self' 'unsafe-inline' https://fonts.googleapis.com",
       'media-src': "'self'"
