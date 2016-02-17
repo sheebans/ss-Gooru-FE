@@ -372,15 +372,17 @@ export default {
 
 
   "class.info":{
+    "class-info": "Class Information",
     "teachers":"Teachers",
     "students":"Students",
     "subject":"Subject",
     "grade":"Grade",
     "description":"Description",
-    "edit-class":"Edit Class",
+    "edit-info":"Edit Information",
     "share-class":"Share Class",
     "invite-collaborator":"Invite Collaborator",
-    "invite-student":"Invite Student"
+    "invite-student":"Invite Student",
+    "class-code": "Class Code"
   },
   "class.gru-class-navigation": {
     "active" : "Active:",
