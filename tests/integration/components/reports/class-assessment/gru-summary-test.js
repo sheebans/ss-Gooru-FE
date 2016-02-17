@@ -144,8 +144,8 @@ test('it renders', function (assert) {
   assert.ok($correctBar.attr('style').split(';')[1].indexOf('25%') > 0, 'First question -second segment, correct percentage');
 
   var $ratio = $firstQuestion.find('.ratio');
-  assert.equal($ratio.find('em:first').text(), '4', 'First question -correct number of students that have completed');
-  assert.equal($ratio.find('em:last').text(), '4', 'First question -correct number of total students');
+  assert.equal($ratio.find('span:first').text(), '4', 'First question -correct number of students that have completed');
+  assert.equal($ratio.find('span:last').text(), '4', 'First question -correct number of total students');
 
   // Layout of the last question
   const $lastQuestion = $questions.last();
@@ -157,8 +157,8 @@ test('it renders', function (assert) {
   assert.ok($correctBar.attr('style').split(';')[1].indexOf('75%') > 0, 'Second question -second segment, correct percentage');
 
   $ratio = $lastQuestion.find('.ratio');
-  assert.equal($ratio.find('em:first').text(), '3', 'Second question -correct number of students that have completed');
-  assert.equal($ratio.find('em:last').text(), '4', 'Second question -correct number of total students');
+  assert.equal($ratio.find('span:first').text(), '3', 'Second question -correct number of students that have completed');
+  assert.equal($ratio.find('span:last').text(), '4', 'Second question -correct number of total students');
 
   assert.ok($component.find('.grading-scale-legend').length, 'Component has a grading scale legend');
 });
