@@ -13,7 +13,11 @@ module.exports = function (grunt) {
 
       "nginx-start-server": 'sudo nginx -p ./ -c ./nginx.conf',
       'nginx-start-test-server': 'sudo nginx -p ./ -c ./nginx-test.conf',
-      'nginx-stop-server': 'sudo nginx -s stop'
+      'nginx-stop-server': 'sudo nginx -s stop',
+
+      'build-dev': 'ember build',
+      'build-prod': 'ember build --environment=production',
+      'build-prod-bamboo': 'ember build --environment=production --output-path gooru-web'
     },
 
     stubby: {
@@ -39,11 +43,25 @@ module.exports = function (grunt) {
           src: ['tests/stubs/**/*-endpoint.json']
         }]
       }
+    },
+    svgstore: {
+      options: {
+        svg: {
+          xmlns: 'http://www.w3.org/2000/svg',
+          style: "display: none"
+        }
+      },
+      default : {
+        files: {
+          'public/assets/emoji-one/emoji.svg': ['vendor/emoji-one/*.svg'],
+        }
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-stubby');
   grunt.loadNpmTasks('grunt-exec');
+  grunt.loadNpmTasks('grunt-svgstore');
 
 
   grunt.registerTask('test', function (target) {
@@ -74,7 +92,7 @@ module.exports = function (grunt) {
     target = target || 'nginx';
     var serverExecTask = 'exec:ember-server-' + (target);
 
-    var tasks = ['stubby:test'];
+    var tasks = ['generateSVG', 'stubby:test'];
     if (target === 'nginx'){
       tasks.push('exec:nginx-stop-server');
       tasks.push('exec:nginx-start-server');
@@ -86,6 +104,14 @@ module.exports = function (grunt) {
   grunt.registerTask('notify', function (target) {
     //touches any file to notify the watcher rebuild the application
     grunt.task.run(['exec:run:touch -m app/app.js']);
+  });
+
+  grunt.registerTask('generateSVG', ['svgstore']);
+
+  // Wrapper for ember build, this runs generateSVG before the build
+  grunt.registerTask('build', function (target) {
+    var buildExecTask = 'exec:build-' + (target || 'dev');
+    grunt.task.run(['generateSVG', buildExecTask]);
   });
 
 };
