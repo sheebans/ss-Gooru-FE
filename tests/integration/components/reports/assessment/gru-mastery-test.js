@@ -12,7 +12,7 @@ moduleForComponent('reports/assessment/gru-mastery', 'Integration | Component | 
 });
 
 test('Mastery Layout', function (assert) {
-  assert.expect(5);
+  assert.expect(4);
 
   const learningTargets = Ember.A([LearningTargetResult.create({
     'label': "Option A",
@@ -58,8 +58,7 @@ test('Mastery Layout', function (assert) {
   T.exists(assert, $mastery, 'Missing mastery component');
   T.exists(assert, $mastery.find('h4'), 'Missing mastery title');
   T.exists(assert, $mastery.find('.grading-scale-legend'), 'Missing grading scale legend');
-  T.exists(assert, $mastery.find('.learning-target'), 'Missing learning target');
-  assert.equal($mastery.find('.learning-target').length,2, "Incorrect number of learning targets");
+  T.exists(assert, $mastery.find('.gru-learning-target'), 'Missing learning target component');
 
 });
 

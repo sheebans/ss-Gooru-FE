@@ -49,5 +49,5 @@ export default Ember.Component.extend({
     return this.get('assessmentResult.questionResults').sort(function(a, b){
       return a.get('question.order')-b.get('question.order');
     });
-  }),
+  })
 });
