@@ -15,6 +15,13 @@ export default Ember.Component.extend({
     selectQuestion: function (questionId) {
       this.get('onSelectQuestion')(questionId);
     },
+    /**
+     * Sort students view
+     * @function actions:sort
+     */
+    sortStudentView:function(sort) {
+      this.set('sortAverage', sort);
+    }
   },
 
 
@@ -81,6 +88,13 @@ export default Ember.Component.extend({
       });
     });
   }),
+
+  /**
+   * Indicate if the table sort by average
+   *
+   * @property {Boolean}
+   */
+  sortAverage:true,
 
   // -------------------------------------------------------------------------
   // Methods
