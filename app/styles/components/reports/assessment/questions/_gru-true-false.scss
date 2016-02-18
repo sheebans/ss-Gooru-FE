@@ -20,6 +20,11 @@
       display: inline-block;
       margin-left: 2.5em;
       margin-top: 0.4em;
+      p {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+      }
     }
   }
   li span i{

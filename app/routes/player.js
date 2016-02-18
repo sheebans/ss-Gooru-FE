@@ -55,15 +55,20 @@ export default Ember.Route.extend({
   setupController(controller, model) {
     const collection = model.collection;
     let assessmentResult = model.assessmentResult;
-    
+
     if (!assessmentResult){
-      assessmentResult = AssessmentResult.create();
+      assessmentResult = AssessmentResult.create({
+        totalAttempts: 1,
+        selectedAttempt: 1
+      });
       assessmentResult.initAssessmentResult(collection);
-      controller.startAssessment();
+
     }
 
     controller.set("assessmentResult", assessmentResult);
+    controller.set("showReport", assessmentResult.get("submitted"));
 
+    controller.startAssessment();
     var resource = collection.get("lastVisitedResource");
     if (model.resourceId) {
       resource = collection.getResourceById(model.resourceId);

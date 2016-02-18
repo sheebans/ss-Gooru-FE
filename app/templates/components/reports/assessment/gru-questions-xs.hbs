@@ -8,7 +8,9 @@
       <div class="your-answer">
           <span>{{t "common.answer"}}</span>
         <span>
-          {{{component (questionConfig result.question.questionType 'component.answer') question=result.question userAnswer=result.userAnswer}}}
+          {{#if result.answered}}
+            {{{component (questionConfig result.question.questionType 'component.answer') question=result.question userAnswer=result.userAnswer}}}
+          {{/if}}
         </span>
       </div>
         <div class="correct-answer">

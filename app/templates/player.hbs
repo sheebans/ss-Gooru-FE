@@ -1,15 +1,21 @@
 <div class="controller player">
   <div class="main" role="main">
     {{player.gru-navigation
+      submitted=assessmentResult.submitted
       ratingScore=resourceResult.reaction
       onOpenNavigator="openNavigator"
       onChangeEmotion="changeEmotion"}}
 
-    {{player.gru-viewer
-      resource=resource
-      resourceResult=resourceResult
-      collection=collection
-      onSubmitQuestion="submitQuestion"}}
+    {{#if showReport}}
+      {{reports.gru-assessment-report assessmentResult=assessmentResult }}
+    {{else}}
+      {{player.gru-viewer
+        submitted=assessmentResult.submitted
+        resource=resource
+        resourceResult=resourceResult
+        collection=collection
+        onSubmitQuestion="submitQuestion"}}
+    {{/if}}
   </div>
   <div class="aside">
     {{player.gru-navigator

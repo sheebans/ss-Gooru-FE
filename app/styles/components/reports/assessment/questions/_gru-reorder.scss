@@ -16,6 +16,11 @@
     li span.answer-text{
       display: inline-block;
       margin-left: 1.5em;
+      p {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+      }
     }
   }
 }
