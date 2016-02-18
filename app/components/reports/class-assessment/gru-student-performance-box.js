@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { correctPercentage, totalCompleted } from 'gooru-web/utils/question-result';
+import { correctPercentage, totalCompleted,totalNotStarted } from 'gooru-web/utils/question-result';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -93,6 +93,13 @@ export default Ember.Component.extend({
    */
   started: Ember.computed("questionResults.[]", function(){
     return totalCompleted(this.get('questionResults'));
+  }),
+  /**
+   * Indicates if the assessment has not started questions
+   * @property {number} notStarted
+   */
+  totalNotStarted:Ember.computed("questionResults.[]", function(){
+    return totalNotStarted(this.get('questionResults'));
   }),
   /**
    * @property {Function} onSelectQuestion - Event handler called when a question in a column is selected
