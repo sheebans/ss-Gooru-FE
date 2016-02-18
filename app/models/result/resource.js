@@ -19,16 +19,7 @@ export default Ember.Object.extend({
    *
    * This value is also modify by @see submittedAt and @see startedAt property definition
    */
-  timeSpent: Ember.computed.bool('startedAt', 'submittedAt', function () {
-    var timeSpent = 0;
-    var submittedAt = this.get('submittedAt');
-
-    if (submittedAt) {
-      let startedAt = this.get('startedAt');
-      timeSpent = Math.round(submittedAt.getTime() - startedAt.getTime()) / 1000;
-    }
-    return timeSpent;
-  }),
+  timeSpent: 0,
 
   /**
    * @property {Resource} resource
@@ -91,6 +82,23 @@ export default Ember.Object.extend({
    */
   onStartAtChange: Ember.observer("startedAt", function(){
     this.set('submittedAt', null);
+  }),
+
+  /**
+   * When the submitted at changes it resets some properties
+   */
+  onSubmittedAtChange: Ember.observer("submittedAt", function () {
+    let timeSpent = 0;
+    let submittedAt = this.get("submittedAt");
+    if (submittedAt) {
+      let startedAt = this.get("startedAt");
+      if (startedAt) { //updating time spent when submitted at is changed
+        timeSpent = Math.round(submittedAt.getTime() - startedAt.getTime()) / 1000;
+      }
+    }
+
+    this.set('timeSpent', timeSpent);
   })
+
 
 });
