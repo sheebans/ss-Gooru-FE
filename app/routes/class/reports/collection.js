@@ -32,7 +32,11 @@ export default Ember.Route.extend({
   },
 
   model: function (params) {
+    const classModel = this.modelFor('class');
+    const courseId = classModel.class.get('course');
     const classId = this.paramsFor('class').classId;
+    const unitId = params.unitId;
+    const lessonId = params.lessonId;
     const collectionId = params.collectionId;
 
     // 9 resources are hard code so we can represent all question types
@@ -286,6 +290,10 @@ export default Ember.Route.extend({
     const userResults = this.get('analyticsService').findResourcesByCollection(classId, 'course-id-1', 'unit-id-1', 'lesson-id-1', collectionId, 'assessment');
 
     return Ember.RSVP.hash({
+      routeParams: Ember.Object.create({
+        classId: classId,
+        collectionId: collectionId
+      }),
       assessment: assessment,
       students: students,
       userResults: userResults
@@ -303,9 +311,20 @@ export default Ember.Route.extend({
     // Merge any data from analytics into the report data.
     reportData.merge(model.userResults);
 
+    controller.set('routeParams', model.routeParams);
     controller.set('assessment', model.assessment);
     controller.set('students', model.students);
     controller.set('reportData', reportData);
+  },
+
+  resetController: function (controller) {
+    // When exiting, reset the controller values
+    controller.setProperties({
+      routeParams: null,
+      assessment: null,
+      students: null,
+      reportData: null
+    });
   }
 
 });

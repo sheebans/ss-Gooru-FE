@@ -17,19 +17,14 @@ export default Ember.Object.extend({
    *  Initializes the report data
    */
   init: function () {
-    var studentIds = this.get('students').map(function (student) {
-      return student.get("id");
-    });
-
-    var resourceIds = this.get('resources').map(function (resource) {
-      return resource.get("id");
-    });
+    const studentIds = this.get('studentIds');
+    const resourceIds = this.get('resourceIds');
 
     if (!studentIds.length) {
-      Ember.Logger.error('Report data cannot be initialized without a list of students');
+      Ember.Logger.error('Report data cannot be initialized without students');
     }
     if (!resourceIds.length) {
-      Ember.Logger.error('Report data cannot be initialized without a list of resources');
+      Ember.Logger.error('Report data cannot be initialized without resources');
     }
 
     this.set("data", this.getEmptyMatrix(studentIds, resourceIds));
@@ -74,9 +69,27 @@ export default Ember.Object.extend({
   students: null,
 
   /**
+   * @property {string[]} studentIds - List of student ids
+   */
+  studentIds: Ember.computed('students', function () {
+    return this.get('students').map(function (student) {
+      return student.get("id");
+    });
+  }),
+
+  /**
    * @property {Resource[]} resource
    */
   resources: null,
+
+  /**
+   * @property {string[]} studentIds - List of student ids
+   */
+  resourceIds: Ember.computed('resources', function () {
+    return this.get('resources').map(function (resource) {
+      return resource.get("id");
+    });
+  }),
 
 
   // -------------------------------------------------------------------------
@@ -84,24 +97,28 @@ export default Ember.Object.extend({
 
   /**
    * Create a matrix of empty objects from a couple of arrays
-   * @param {String[]} idsX - An array of ids used for the first dimension of the matrix
-   * @param {String[]} idsY - An array of ids used for the second dimension of the matrix
+   * @param {String[]} idsY - An array of ids used for the first dimension of the matrix
+   * @param {String[]} idsX - An array of ids used for the second dimension of the matrix
    * @return {Object}
    */
-  getEmptyMatrix: function (idsX, idsY) {
+  getEmptyMatrix: function (idsY, idsX) {
     var matrix = {};
-    var xLen = idsX.length;
     var yLen = idsY.length;
 
-    for (let i = 0; i < xLen; i++) {
-      matrix[idsX[i]] = {};
-
-      for (let j = 0; j < yLen; j++) {
-        matrix[idsX[i]][idsY[j]] = QuestionResult.create();
-      }
+    for (let i = 0; i < yLen; i++) {
+      matrix[idsY[i]] = this.getEmptyRow(idsY[i], idsX);
     }
-
     return matrix;
+  },
+
+  getEmptyRow: function (rowId, columnIds) {
+    var row = {};
+    var rowLen = columnIds.length;
+
+    for (let i = 0; i < rowLen; i++) {
+      row[columnIds[i]] = QuestionResult.create();
+    }
+    return row;
   },
 
   /**
@@ -110,17 +127,23 @@ export default Ember.Object.extend({
    * @returns {merge}
    */
   merge: function(userResults){
-    let data = this.get("data");
+    let data = this.get('data');
+    let resourceIds = this.get('resourceIds');
 
     userResults.forEach(function (userResult) {
       var userId = userResult.get("user");
+      var doResetResults = userResult.get("isAttemptStarted");
       var resourceResults = userResult.get("resourceResults");
+
+      if (doResetResults) {
+        data[userId] = this.getEmptyRow(userId, resourceIds);
+      }
 
       resourceResults.forEach(function (resourceResult) {
         var questionId = resourceResult.get("resourceId");
         data[userId][questionId] = resourceResult;
       });
-    });
+    }, this);
 
     // Generate a new object so any computed properties listening on reportData are fired
     let reportData;
@@ -146,24 +169,23 @@ export default Ember.Object.extend({
    */
   getResultsByQuestion: function(questionId){
     const reportData = this.get("data");
-    const students = this.get("students");
     let questionResults = Ember.A([]);
-    students.forEach(function(student){
-      const studentId = student.get("id");
+
+    this.get('studentIds').forEach(function (studentId) {
       const userQuestionResults = reportData[studentId];
-      if (userQuestionResults){
+      if (userQuestionResults) {
         const questionResult = userQuestionResults[questionId];
-        if (questionResult){
+
+        if (questionResult) {
           questionResults.addObject(questionResult);
+        } else {
+          Ember.Logger.warn("Missing question data " + studentId + " question " + questionId);
         }
-        else{
-          Ember.Logger.warning("Missing question data " + studentId + " question " + questionId);
-        }
-      }
-      else{
-        Ember.Logger.warning("Missing student data " + studentId);
+      } else {
+        Ember.Logger.warn("Missing student data " + studentId);
       }
     });
+
     return questionResults;
   },
 
@@ -184,8 +206,7 @@ export default Ember.Object.extend({
           questionResults.addObject(userQuestionResults[key]);
         }
       }
-    }
-    else{
+    } else {
       Ember.Logger.warning("Missing student data " + studentId);
     }
     return questionResults;
@@ -199,12 +220,12 @@ export default Ember.Object.extend({
   getAllResults: function(){
     const self = this;
     let questionResults = Ember.A([]);
-    const students = this.get("students");
-    students.forEach(function(student){
-      const studentId = student.get("id");
+
+    this.get('studentIds').forEach(function (studentId) {
       let studentResults = self.getResultsByStudent(studentId);
       questionResults.addObjects(studentResults.toArray());
     });
+
     return questionResults;
   },
 
@@ -216,12 +237,11 @@ export default Ember.Object.extend({
    */
   getStudentsByQuestionAndUserAnswer: function(question, answer){
     const reportData = this.get("data");
-    const students = this.get("students");
     const questionId = question.get("id");
     const util = getQuestionUtil(question.get("questionType")).create({ question: question });
     let found = Ember.A([]);
 
-    students.forEach(function(student){
+    this.get('students').forEach(function (student) {
       const studentId = student.get("id");
       const userQuestionResults = reportData[studentId];
       if (userQuestionResults){

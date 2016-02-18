@@ -245,48 +245,6 @@ export default Ember.Service.extend({
             "resourceId": "569906aa7fe0695bfd409731",
             "reaction": 4,
             "timeSpent": 2096
-          }),
-          QuestionResult.create({
-            "correct": false,
-            "resourceId": "569906aae3191722d9b42f22",
-            "reaction": 5,
-            "timeSpent": 246,
-            "userAnswer": [{id: "1", selection: true}, {id: "2", selection: true}, {id: "3", selection: true}]
-          }),
-          QuestionResult.create({
-            "correct": true,
-            "resourceId": "569906aa283a7b45e6777a52",
-            "reaction": 4,
-            "timeSpent": 1025,
-            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
-          }),
-          QuestionResult.create({
-            "correct": true,
-            "resourceId": "569906aab4d366e4ada0c67d",
-            "reaction": 2,
-            "timeSpent": 127,
-            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
-          }),
-          QuestionResult.create({
-            "correct": false,
-            "resourceId": "569906aa9fa514e9304c0549",
-            "reaction": 3,
-            "timeSpent": 660,
-            "userAnswer": [{id: "1", selection: true}, {id: "2", selection: true}, {id: "3", selection: true}]
-          }),
-          QuestionResult.create({
-            "correct": false,
-            "resourceId": "569906aa575aa6e617b38e16",
-            "reaction": 2,
-            "timeSpent": 257,
-            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: false}, {id: "3", selection: true}]
-          }),
-          QuestionResult.create({
-            "correct": true,
-            "resourceId": "569906aa25189b0dc0a981ba",
-            "reaction": 4,
-            "timeSpent": 1409,
-            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
           })
         ]
       }),
@@ -355,39 +313,6 @@ export default Ember.Service.extend({
             "reaction": 4,
             "timeSpent": 2096,
             "userAnswer": "Student Open Ended answer 7"
-          }),
-          QuestionResult.create({
-            "correct": true,
-            "resourceId": "569906aae3191722d9b42f22",
-            "reaction": 5,
-            "timeSpent": 246,
-            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
-          }),
-          QuestionResult.create({
-            "correct": true,
-            "resourceId": "569906aa283a7b45e6777a52",
-            "reaction": 4,
-            "timeSpent": 1025,
-            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
-          }),
-          QuestionResult.create({
-            "correct": false,
-            "resourceId": "569906aab4d366e4ada0c67d",
-            "reaction": 2,
-            "timeSpent": 127,
-            "userAnswer": [{id: "1", selection: true}, {id: "2", selection: true}, {id: "3", selection: true}]
-          }),
-          QuestionResult.create({
-            "correct": false, //skipped, because is missing user answer
-            "resourceId": "569906aa9fa514e9304c0549",
-            "reaction": 3,
-            "timeSpent": 660
-          }),
-          QuestionResult.create({
-            "correct": false, //skipped, because is missing user answer
-            "resourceId": "569906aa575aa6e617b38e16",
-            "reaction": 2,
-            "timeSpent": 257
           })
         ]
       }),
@@ -456,27 +381,6 @@ export default Ember.Service.extend({
             "reaction": 4,
             "timeSpent": 2096,
             "userAnswer": "Student Open Ended answer 8"
-          }),
-          QuestionResult.create({
-            "correct": true,
-            "resourceId": "569906aae3191722d9b42f22",
-            "reaction": 5,
-            "timeSpent": 246,
-            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
-          }),
-          QuestionResult.create({
-            "correct": true,
-            "resourceId": "569906aa283a7b45e6777a52",
-            "reaction": 4,
-            "timeSpent": 1025,
-            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
-          }),
-          QuestionResult.create({
-            "correct": false,
-            "resourceId": "569906aab4d366e4ada0c67d",
-            "reaction": 2,
-            "timeSpent": 127,
-            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: false}, {id: "3", selection: true}]
           })
         ]
       }),
@@ -531,34 +435,6 @@ export default Ember.Service.extend({
             "reaction": 4,
             "timeSpent": 2096,
             "userAnswer": "Student Open Ended answer 9"
-          }),
-          QuestionResult.create({
-            "correct": false,
-            "resourceId": "569906aae3191722d9b42f22",
-            "reaction": 5,
-            "timeSpent": 246,
-            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: false}]
-          }),
-          QuestionResult.create({
-            "correct": true,
-            "resourceId": "569906aa283a7b45e6777a52",
-            "reaction": 4,
-            "timeSpent": 1025,
-            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
-          }),
-          QuestionResult.create({
-            "correct": false,
-            "resourceId": "569906aab4d366e4ada0c67d",
-            "reaction": 2,
-            "timeSpent": 127,
-            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: false}]
-          }),
-          QuestionResult.create({
-            "correct": false,
-            "resourceId": "569906aa9fa514e9304c0549",
-            "reaction": 3,
-            "timeSpent": 660,
-            "userAnswer": [{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: false}]
           })
         ]
       })
