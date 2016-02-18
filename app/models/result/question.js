@@ -66,18 +66,11 @@ export default ResourceResult.extend({
   }),
 
   /**
-   * Indicates if it is completed
-   * All started question are treated as completed
-   * @return {boolean}
-   */
-  completed: Ember.computed.bool("started"),
-
-  /**
    * Indicates if it is answered
    * @return {boolean}
    */
-  answered: Ember.computed.bool("userAnswer")
-
-
+  answered: Ember.computed("userAnswer", function(){
+    return this.get("userAnswer") !== null && this.get("userAnswer") !== undefined;
+  })
 });
 

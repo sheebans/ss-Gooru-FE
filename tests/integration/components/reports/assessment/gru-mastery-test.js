@@ -29,7 +29,7 @@ test('Mastery Layout', function (assert) {
     correctPercentage: 67,
     correctAnswers: 2,
 
-    questionsResults: [
+    questionResults: [
       Ember.Object.create({
         id: 602,
         resource: Ember.Object.create({

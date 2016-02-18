@@ -24,7 +24,7 @@ export default Ember.Component.extend(QuestionMixin, {
     let component = this;
     let question = component.get("question");
     let questionUtil = this.getQuestionUtil(question);
-    let questionText = question.text;
+    let questionText = question.get("text");
     let questionTextParts = questionText.split("_______");
     let userAnswers = component.get("userAnswer");
     let anonymous = component.get("anonymous");

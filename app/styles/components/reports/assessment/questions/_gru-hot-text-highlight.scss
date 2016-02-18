@@ -1,6 +1,11 @@
 .gru-hot-text-highlight p {
   line-height: 32px;
   span {
+    p {
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+    }
     &.correct,
     &.incorrect,
     &.anonymous {
