@@ -867,7 +867,7 @@ export default Ember.Route.extend({
     extraResources.forEach(function(resource){ //adding extra resources responses as true for all students
       userResults.forEach(function(userResult){
 
-        if (userResult.get("user") != "56983a901ad65da6dac5b384"){ //this student 56983a901ad65da6dac5b384 has not started
+        if (userResult.get("user") !== "56983a901ad65da6dac5b384"){ //this student 56983a901ad65da6dac5b384 has not started
           let random =  Math.round(Math.random() * 100);
           let skipped = random % 10 === 0;
           let incorrect = !skipped && random % 2 === 0;

@@ -19,8 +19,8 @@ test('View-Layout-Picker Layout', function(assert) {
 
   T.exists(assert, $viewLayoutPicker, 'Missing view layout picker');
   T.exists(assert, $viewLayoutPicker.find(".view-layout-list"), 'Missing view layout picker options');
-  T.exists(assert, $viewLayoutPicker.find(".fa-th-large"), 'Missing thumbnails icon');
-  T.exists(assert, $viewLayoutPicker.find(".fa-bars"), 'Missing list icon');
+  T.exists(assert, $viewLayoutPicker.find(".view_module"), 'Missing thumbnails icon');
+  T.exists(assert, $viewLayoutPicker.find(".view_list"), 'Missing list icon');
 });
 
 test('Select option', function(assert) {
@@ -33,8 +33,8 @@ test('Select option', function(assert) {
   this.render(hbs`{{gru-view-layout-picker onViewLayoutChange='parentAction'}}`);
   var $component = this.$(); //component dom element
   var $viewLayoutPicker = $component.find(".view-layout-list");
-  $viewLayoutPicker.find("div:first-child a").click();
-  assert.ok($viewLayoutPicker.find("div:first-child").hasClass('active'));
+  $viewLayoutPicker.find("div:last-child a").click();
+  assert.ok($viewLayoutPicker.find("div:last-child").hasClass('active'));
   T.notExists(assert,$viewLayoutPicker.find("div.list.active"),"List option should not be active");
 });
 
@@ -53,9 +53,9 @@ test('Select another option', function(assert) {
   this.render(hbs`{{gru-view-layout-picker }}`);
   var $component = this.$(); //component dom element
   var $viewLayoutPicker = $component.find(".view-layout-list");
-  $viewLayoutPicker.find("div:first-child a").click();
-  assert.ok($viewLayoutPicker.find("div.thumbnails").hasClass('active'));
   $viewLayoutPicker.find("div:last-child a").click();
+  assert.ok($viewLayoutPicker.find("div.thumbnails").hasClass('active'));
+  $viewLayoutPicker.find("div:first-child a").click();
   T.notExists(assert,$viewLayoutPicker.find("div.thumbnails.active"),"Thumbnails option should not be active");
   assert.ok($viewLayoutPicker.find("div.list").hasClass('active'));
 });
