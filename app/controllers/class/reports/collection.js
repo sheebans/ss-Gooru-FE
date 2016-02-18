@@ -137,7 +137,7 @@ export default Ember.Controller.extend({
       "user": "56983a9060a68052c1ed934c",
       "resourceResults": [
         QuestionResult.create({
-          "correct": true,
+          "correct": false,
           "resourceId": "569906aa3ec3bb39969acbe6",
           "reaction": 3,
           "timeSpent": 2234,
@@ -147,10 +147,11 @@ export default Ember.Controller.extend({
     }),
     UserResourcesResult.create({
       "user": "56983a9060a68052c1ed934c",
+      "isAttemptStarted": true,
       "resourceResults": [
         QuestionResult.create({
           "correct": true,
-          "resourceId": "569906aadfa0072204f7c7c7",
+          "resourceId": "569906aa20b7dfae1bcd5262",
           "reaction": 2,
           "timeSpent": 1830,
           "userAnswer": ["le", "colo", "teco"]
