@@ -1,22 +1,19 @@
-<div class="controller analytics-performance-student col-xs-12">
+<div class="controller analytics-performance-student">
   <div class="navigation {{if isFullScreen 'hide' 'show'}}">
       <ul class="nav nav-tabs" role="tablist">
           <li role="presentation" class="active"><a href="#performance" aria-controls="performance" role="tab" data-toggle="tab"><span class="lead">{{t 'class.analytics.performance.navigation'}}</span></a></li>
           <li role="presentation"><a href="#mastery" aria-controls="mastery" role="tab" data-toggle="tab"><span class="lead">{{t 'class.analytics.mastery.navigation'}}</span></a></li>
       </ul>
   </div>
-  <div class="controls row">
-
-    <div class="student-actions col-md-6 col-sm-6 col-xs-12">
-      {{class.analytics.performance.gru-actions-bar
-        mode='student'
-        onFilterSelected="selectFilterBy"
-        selectedFilterBy=filterBy
-        onDownload="download"
-        onToggleFullScreen=(action 'toggleFullScreen')
-        isFullScreen=isFullScreen
-      }}
-    </div>
+  <div class="student-actions">
+    {{class.analytics.performance.gru-actions-bar
+      mode='student'
+      onFilterSelected="selectFilterBy"
+      selectedFilterBy=filterBy
+      onDownload="download"
+      onToggleFullScreen=(action 'toggleFullScreen')
+      isFullScreen=isFullScreen
+    }}
   </div>
   <div class="row performance-picker visible-xs">
       <div class="col-xs-12">
@@ -25,7 +22,7 @@
       </div>
   </div>
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="performance">
+        <div role="tabpanel" class="tab-pane performance-content active" id="performance">
           {{class.analytics.performance.student.gru-student-performance
           performances=performances
           classModel=classModel

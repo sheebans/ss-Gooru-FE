@@ -1,6 +1,7 @@
 .controller.analytics-performance-student {
+  padding:55px 7% 0 7%;
   .navigation {
-    margin:49px 0 0 67px;
+    padding-left: 5px;
     ul li{
       width:235px;
       text-align: center;
@@ -16,7 +17,6 @@
             opacity:1;
           }
         }
-
       }
     }
     .performance {
@@ -27,35 +27,6 @@
       min-height: 50px;
     }
   }
-
-  .controls {
-    border-bottom: 1px solid $gray-dark;
-    .student-breadcrumb {
-      @media (min-width: $screen-sm-min) { /* same for sm and md */
-        padding: 0;
-      }
-      min-height: 50px;
-      .gru-breadcrumb {
-        margin-top: 3%;
-      }
-    }
-    .student-actions {
-      @media (min-width: $screen-sm-min) { /* same for sm and md */
-        padding: 0;
-      }
-      min-height: 50px;
-    }
-  }
-
-  .snapshot {
-    background-color: slategray;
-    min-height: 134px;
-    @media (min-width: $screen-sm-min) { /* same for sm and md */
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
-  }
-
   .gru-content {
     min-height: 400px; /* This is temporal for layout */
   }

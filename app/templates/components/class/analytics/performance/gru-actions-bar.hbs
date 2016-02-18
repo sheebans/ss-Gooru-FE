@@ -2,20 +2,20 @@
 
 <div class="btn-group drop-menu">
   {{#if isStudent }}
-    <button class="btn btn-info share" {{action 'share'}}>{{material-design-icon name='send'}}{{t "class.analytics.performance.actions.share"}}</button>
+    <button class="btn btn-info share" {{action 'share'}}>{{gru-icon name='send'}}{{t "class.analytics.performance.actions.share"}}</button>
   {{else}}
     <button class="btn btn-info edit" {{action 'editContent'}}>{{t "class.analytics.performance.actions.edit"}}</button>
   {{/if}}
-  <button class="btn btn-info download" {{action 'download'}}>{{t "class.analytics.performance.actions.download"}}</button>
+  <button class="btn btn-info download" {{action 'download'}}>{{gru-icon name='file_download'}}{{t "class.analytics.performance.actions.download"}}</button>
   <button class="btn btn-info full-screen hidden-sm hidden-xs {{if isFullScreen 'exit-full-screen' 'view-full-screen'}}" {{action 'toggleFullScreen'}}>
     {{#if isFullScreen}}
-      {{t "class.analytics.performance.actions.exitFullScreen"}}
+      {{gru-icon name='exit_fullscreen'}}{{t "class.analytics.performance.actions.exitFullScreen"}}
     {{else}}
-      {{t "class.analytics.performance.actions.fullScreen"}}
+      {{gru-icon name='fullscreen'}}{{t "class.analytics.performance.actions.fullScreen"}}
     {{/if}}
   </button>
   <button class="selected-filter btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">
-    {{t dropdownFilterText}}<span class="arrow"></span>
+    {{gru-icon name='spellcheck'}}{{t dropdownFilterText}}
   </button>
   <ul class="dropdown-menu">
     <li class="dropdown-menu-item assessment {{if isFilterByAssessment 'selected' }}" {{action 'filter' 'assessment'}}>{{t "class.analytics.performance.actions.assessment"}}</li>
