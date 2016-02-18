@@ -17,7 +17,11 @@ export default Ember.Route.extend({
 
   session: Ember.inject.service('session'),
 
-  performanceService: Ember.inject.service('api-sdk/performance'),
+  //performanceService: Ember.inject.service('api-sdk/performance'),
+
+  analyticsService: Ember.inject.service('api-sdk/analytics'),
+
+  realTimeService: Ember.inject.service('api-sdk/real-time'),
 
 
   // -------------------------------------------------------------------------
@@ -277,7 +281,9 @@ export default Ember.Route.extend({
       })
     ]);
 
-    const userResults = this.get('performanceService').findClassPerformanceByCollection(classId, collectionId);
+    //const userResults = this.get('performanceService').findClassPerformanceByCollection(classId, collectionId);
+    //const userResults = this.get('realTimeService').findResourcesByCollection(classId, collectionId);
+    const userResults = this.get('analyticsService').findResourcesByCollection(classId, 'course-id-1', 'unit-id-1', 'lesson-id-1', collectionId, 'assessment');
 
     return Ember.RSVP.hash({
       assessment: assessment,

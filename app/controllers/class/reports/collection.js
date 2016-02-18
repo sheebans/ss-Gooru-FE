@@ -51,7 +51,7 @@ export default Ember.Controller.extend({
   /**
    * @property {ReportData} report data
    */
-  reportData: null
+  reportData: null,
 
 
   // -------------------------------------------------------------------------
@@ -60,5 +60,13 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+/*
+  init: function() {
+    const controller = this;
+    this.get('realTimeService').findResourcesByCollection('class-id-1', 'collection-id-1')
+      .then(function(results) {
+        controller.get('reportData').merge(results);
+      });
+  }*/
 
 });

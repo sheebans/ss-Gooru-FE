@@ -1,0 +1,42 @@
+{
+  "content": [
+    {
+      "userUId": "56983a9060a68052c1ed934c",
+      "usageData": [
+        {
+          "gooruOId": "569906aa20b7dfae1bcd5262",
+          "views": 1,
+          "score": 1,
+          "reaction": 1,
+          "totalTimespent": 3600000,
+          "type": "question",
+          "questionType": "MC",
+          "answerStatus": "correct",
+          "answerObject": {}
+        },
+        {
+          "gooruOId": "569906aa3ec3bb39969acbe6",
+          "views": 1,
+          "score": 1,
+          "reaction": 3,
+          "totalTimespent": 3600000,
+          "type": "question",
+          "questionType": "MC",
+          "answerStatus": "correct",
+          "answerObject": {}
+        },
+        {
+          "gooruOId": "569906aacea8416665209d53",
+          "views": 1,
+          "score": 1,
+          "reaction": 3,
+          "totalTimespent": 3600000,
+          "type": "question",
+          "questionType": "MC",
+          "answerStatus": "correct",
+          "answerObject": {}
+        }
+      ]
+    }
+  ]
+}

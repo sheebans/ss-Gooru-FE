@@ -1,9 +1,23 @@
-import Ember from "ember";
+import Ember from 'ember';
 import DS from 'ember-data';
 import UserResourcesResult from 'gooru-web/models/result/user-resources';
 import QuestionResult from 'gooru-web/models/result/question';
 
 export default Ember.Service.extend({
+
+  findResourcesByCollection: function(classId, collectionId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('realTimeAdapter').queryRecord({
+        classId: classId,
+        collectionId: collectionId
+      }).then(function(events) {
+        resolve(service.get('realTimeSerializer').normalizeResponse(events));
+      }, function(error) {
+        reject(error);
+      });
+    });
+  },
 
   /**
    * Returns all the results/answers that the students of a class have for the
@@ -666,17 +680,6 @@ export default Ember.Service.extend({
         ]
       })
     ];
-
-    // TODO: Replace this with the correct implementation
-    function callToServerEndPoint(classId, collectionId) {
-      return new Ember.RSVP.Promise(function (resolve, reject) {
-        if (classId && collectionId) {
-          resolve(response);
-        } else {
-          reject('findClassPerformanceByCollection: classId and collectionId must be defined');
-        }
-      });
-    }
 
     return DS.PromiseArray.create({
       promise: callToServerEndPoint(collectionId)
