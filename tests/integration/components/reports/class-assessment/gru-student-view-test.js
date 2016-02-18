@@ -4,6 +4,7 @@ import hbs from 'htmlbars-inline-precompile';
 import QuestionResult from 'gooru-web/models/result/question';
 import UserResourcesResult from 'gooru-web/models/result/user-resources';
 import ReportData from 'gooru-web/models/result/report-data';
+import T from 'gooru-web/tests/helpers/assert';
 
 moduleForComponent('reports/class-assessment/gru-student-view', 'Integration | Component | reports/class assessment/gru student view', {
   integration: true
@@ -73,5 +74,8 @@ test('Layout', function (assert) {
   this.render(hbs`{{reports/class-assessment/gru-student-view assessment=assessment students=students reportData=reportData}}`);
 
   const $component = this.$();
+  T.exists(assert, $component.find(".sort-section"), "Sort section missing");
+  T.exists(assert, $component.find(".sort-section button.sort-average"), "Missing sort by average");
+  T.exists(assert, $component.find(".sort-section button.sort-alphabetical"), "Missing sort alphabetically");
   assert.equal($component.find(".gru-student-performance-box").length, 3, "It should displayed 3 boxes");
 });

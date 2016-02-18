@@ -1,5 +1,15 @@
 .reports.class-assessment.gru-student-view {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 35px;
+  .sort-section{
+    margin-top: -5px;
+    
+    .btn-group button span i{
+      vertical-align: middle;
+      padding: 0 10px 0 0;
+    }
+  }
+  .student-performance-list{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 35px;
+  }
 }
