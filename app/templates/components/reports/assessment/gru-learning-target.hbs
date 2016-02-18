@@ -1,19 +1,21 @@
-<div class="header-content">
-  <div class="score"  style="background-color: {{gradeColor correctPercentage}}">
-    <div><span>{{correctPercentage}}%</span></div>
+<div class="learning-target" style="border-color:{{gradeColor correctPercentage}}">
+  <div class="header-content">
+    <div class="score"  style="background-color: {{gradeColor correctPercentage}}">
+      <div><span>{{correctPercentage}}%</span></div>
+    </div>
+    <div class="learning-target-description">
+      <span class="title">{{learningTarget.standard}} {{t "common.learning-target"}}</span>
+      <div class="description">{{learningTarget.description}}</div>
+    </div>
+    <div class="questions">
+      <span class="title">{{t "common.questions"}}</span>
+      {{gru-bubbles bubbleOptions=bubbleQuestions onBubbleSelect='bubbleSelect'}}
+    </div>
   </div>
-  <div class="learning-target-description">
-    <span class="title">{{learningTarget.standard}} {{t "common.learning-target"}}</span>
-    <div class="description">{{learningTarget.description}}</div>
-  </div>
-  <div class="questions">
-    <span class="title">{{t "common.questions"}}</span>
-    {{gru-bubbles bubbleOptions=bubbleQuestions onBubbleSelect='bubbleSelect'}}
-  </div>
-</div>
 
-<div class="resource-cards-section">
-  {{#each learningTarget.suggestedResources as |resource|}}
-    {{cards.gru-resource-card item=resource }}
-  {{/each}}
+  <div class="resource-cards-section">
+    {{#each learningTarget.suggestedResources as |resource|}}
+      {{cards.gru-resource-card item=resource }}
+    {{/each}}
+  </div>
 </div>
