@@ -184,6 +184,9 @@
         .title {
           margin:0 0 0 18px;
           color:$white;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
           p{
             margin: 0;
           }
