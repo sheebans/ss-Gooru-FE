@@ -79,3 +79,46 @@ test('Multiple choice question layout', function (assert) {
   $component.find(".answer-choices .radio input[type=radio]:eq(0)").click();
 
 });
+
+test('Multiple choice question layout - read only', function (assert) {
+
+  assert.expect(2);
+  let question = Ember.Object.create({
+    "id": "569906aa20b7dfae1bcd5",
+    questionType: 'MC',
+    text: 'Sample Question MC',
+    answers:  Ember.A([
+      Ember.Object.create({
+        "id": 1,
+        "text": "<p>An aquifer</p>",
+        "answerType": "text",
+        "isCorrect": true,
+        "sequence": 1
+      }),
+      Ember.Object.create({
+        "id": 2,
+        "text": "<p>A well</p>",
+        "answerType": "text",
+        "isCorrect": false,
+        "sequence": 2
+      }),
+      Ember.Object.create({
+        "aid": 3,
+        "text": "<p>A pump</p>",
+        "answerType": "text",
+        "isCorrect": false,
+        "sequence": 3
+      })
+    ]),
+    "order": 1,
+    "hasAnswers": true,
+    "hasNarration": true
+  });
+
+  this.set('question', question);
+  this.render(hbs`{{player/questions/gru-multiple-choice question=question readOnly=true}}`);
+
+  var $component = this.$(); //component dom element
+  assert.equal($component.find(".answer-choices .radio.disabled").length, 3, "Missing answer choices");
+  assert.equal($component.find(".answer-choices .radio input[disabled]").length, 3, "Missing answer choices radio inputs");
+});

@@ -31,11 +31,26 @@ export default Ember.Component.extend({
     changeEmotion: function(emotionScore) {
       this.sendAction('onChangeEmotion', emotionScore);
     },
+
     /**
      * Action triggered when the user open de navigator panel
      */
     openNavigator:function(){
       this.sendAction("onOpenNavigator");
+    },
+
+    /**
+     * Action triggered when the user wants to access the report
+     */
+    viewReport:function(){
+      this.sendAction("onViewReport");
+    },
+
+    /**
+     * Action triggered when the user wants to finish the collection
+     */
+    finishCollection:function(){
+      this.sendAction("onFinishCollection");
     }
   },
 
