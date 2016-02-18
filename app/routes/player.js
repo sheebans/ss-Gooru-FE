@@ -55,24 +55,21 @@ export default Ember.Route.extend({
   setupController(controller, model) {
     const collection = model.collection;
     let assessmentResult = model.assessmentResult;
-
-    let promise = Ember.RSVP.resolve(true);
+    
     if (!assessmentResult){
       assessmentResult = AssessmentResult.create();
       assessmentResult.initAssessmentResult(collection);
-      promise = controller.startAssessment();
+      controller.startAssessment();
     }
 
-    promise.then(function(){
-      controller.set("assessmentResult", assessmentResult);
+    controller.set("assessmentResult", assessmentResult);
 
-      var resource = collection.get("lastVisitedResource");
-      if (model.resourceId) {
-        resource = collection.getResourceById(model.resourceId);
-      }
+    var resource = collection.get("lastVisitedResource");
+    if (model.resourceId) {
+      resource = collection.getResourceById(model.resourceId);
+    }
 
-      controller.set("collection", collection);
-      controller.moveToResource(resource);
-    });
+    controller.set("collection", collection);
+    controller.moveToResource(resource);
   }
 });

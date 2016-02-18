@@ -1,5 +1,6 @@
 import Ember from "ember";
 import QuestionResult from './question';
+import ResourceResult from './resource';
 
 import { averageReaction, correctPercentage, totalTimeSpent, correctAnswers } from 'gooru-web/utils/question-result';
 
