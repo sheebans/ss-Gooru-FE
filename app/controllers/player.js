@@ -33,22 +33,17 @@ export default Ember.Controller.extend({
      * @param {QuestionResult} questionResult
      */
     submitQuestion: function(question, questionResult){
-      let save = this.get("saveEnabled"); //TODO save only if courseId is provided
-      //TODO save
-      if (save){
-        console.debug(question);
-        console.debug(questionResult);
-      }
-
       const controller = this;
-      const next = controller.get("collection").nextResource(question);
-
-      if (next){
-        controller.moveToResource(next);
-      }
-      else{
-        //TODO: submit all
-      }
+      controller.submitQuestionResult(questionResult).then(function(){
+        console.debug(questionResult);
+        const next = controller.get("collection").nextResource(question);
+        if (next){
+          controller.moveToResource(next);
+        }
+        else{
+          controller.finishAssessment();
+        }
+      });
     },
 
     /**
@@ -94,6 +89,7 @@ export default Ember.Controller.extend({
   // Properties
 
   /**
+   * Query param
    * @property {string} resourceId
    */
   resourceId: null,
@@ -117,22 +113,14 @@ export default Ember.Controller.extend({
   resourceResult: null,
 
   /**
-   * The rating score for the resource
-   * @property {number} ratingScore
-   */
-  ratingScore: 0,
-
-  /**
-   * User resource results
-   * @property {UserResourceResult} userResourcesResult
-   */
-  userResourcesResult: null,
-
-  /**
    * @property {boolean} indicates if the answer should be saved
    */
-  saveEnabled: true,
+  saveEnabled: true, //TODO save only when logged in
 
+  /**
+   * @property {AssessmentResult} assessmentResult
+   */
+  assessmentResult: null,
   // -------------------------------------------------------------------------
   // Observers
 
@@ -145,17 +133,124 @@ export default Ember.Controller.extend({
    */
   moveToResource: function(resource){
     let controller = this;
-    let userResourcesResult = this.get("userResourcesResult");
+    let assessmentResult = this.get("assessmentResult");
     let resourceId = resource.get("id");
     controller.set("resourceId", resourceId);
     controller.set("resource", resource);
-    controller.set("resourceResult", userResourcesResult.getResultByResourceId(resourceId));
-    controller.set('ratingScore', 0);
 
-    this.get('ratingService').findRatingForResource(resource.get("id"))
-      .then(function (ratingModel) {
-        controller.set('ratingScore', ratingModel.get('score'));
+    let resourceResult = assessmentResult.getResultByResourceId(resourceId);
+    controller.startResourceResult(resourceResult).then(function(){
+      controller.set("resourceResult", resourceResult);
+      controller.get('ratingService').findRatingForResource(resource.get("id"))
+        .then(function (ratingModel) { //TODO this could not be necessary if the reaction is loaded with the result
+          resourceResult.set("reaction", ratingModel.get('score'));
+        });
+    }); //saves the resource status
+
+  },
+
+  /**
+   * Submits a question
+   * @param {QuestionResult} questionResult
+   * @returns {Promise.<boolean>}
+   */
+  submitQuestionResult: function(questionResult){
+    let controller = this;
+    //setting submitted at, timeSpent is calculated
+    questionResult.set("submittedAt", new Date());
+
+    let save = controller.get("saveEnabled");
+    if (save){
+      return controller.saveResourceResult(questionResult);
+    }
+
+    return Ember.RSVP.resolve(true);
+  },
+
+  /**
+   * Starts a resource result
+   * @param {ResourceResult} resourceResult
+   * @returns {Promise.<boolean>}
+   */
+  startResourceResult: function(resourceResult){
+    let controller = this;
+    //sets startedAt
+    resourceResult.set("startedAt", new Date());
+
+    let save = controller.get("saveEnabled");
+    if (save){
+      return controller.saveResourceResult(resourceResult);
+    }
+
+    return Ember.RSVP.resolve(true);
+  },
+
+  /**
+   * Saves the resource result
+   * @param resourceResult
+   * @returns {Promise.<boolean>}
+   */
+  saveResourceResult: function(resourceResult){
+    /*
+      TODO: implement
+      let onAir = this.get("onAir");
+      let submitted
+      return analyticsService.saveResourceResult(resourceResult).then(function(){
+          if (onAir){
+            return realTimeService.notifyResourceResult(resourceResult);
+          }
       });
+     */
+    return Ember.RSVP.resolve(resourceResult);
+  },
+
+  /**
+   * Finishes the assessment
+   */
+  finishAssessment: function(){
+    return this.submitPendingQuestions().then(function(){
+      /*
+       TODO: implement
+       let onAir = this.get("onAir");
+       return analyticsService.finishCollection(collection).then(function(){
+       if (onAir){
+       return realTimeService.notifyFinishCollection(collection);
+       }
+       });
+       */
+      return Ember.RSVP.resolve(this.get("collection"));
+    });
+  },
+
+  /**
+   * Starts the assessment
+   */
+  startAssessment: function(){
+    /*
+     TODO: implement
+     let onAir = this.get("onAir");
+     return analyticsService.startCollection(collection).then(function(){
+     if (onAir){
+      return realTimeService.notifyStartCollection(collection);
+     }
+     });
+     */
+    return Ember.RSVP.resolve(this.get("collection"));
+  },
+
+
+
+  /**
+   * Submits pending question results
+   * @returns {Promise}
+   */
+  submitPendingQuestionResults: function(){
+    let controller = this;
+    let pendingQuestionResults = this.get("assessmentResult.pendingQuestionResults");
+    let promises = pendingQuestionResults.map(function(questionResult){
+      return controller.submitQuestionResult(questionResult);
+    });
+    return Ember.RSVP.all(promises);
   }
 
 

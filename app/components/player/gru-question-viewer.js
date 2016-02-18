@@ -49,8 +49,6 @@ export default Ember.Component.extend({
      */
     submitQuestion: function () {
       let questionResult = this.get("questionResult");
-      questionResult.set("timeSpent", this.get("timeSpent"));
-      questionResult.set("submittedAt", new Date());
       this.sendAction("onSubmitQuestion", this.get("question"), questionResult);
     },
     /**
@@ -168,22 +166,6 @@ export default Ember.Component.extend({
   questionResult: null,
 
   /**
-   * Start timestamp in Milliseconds
-   * @property {number} start timestamp
-   */
-  startTimestamp: null,
-
-  /**
-   * Time spent on question
-   * @property {number} timeSpent in seconds
-   */
-  timeSpent: Ember.computed("startTimestamp", function(){
-    let timestamp = new Date().getTime();
-    return Math.round((timestamp - this.get("startTimestamp")) / 1000);
-  }),
-
-
-  /**
    * The text for the submit button
    * @property {string}
    */
@@ -203,7 +185,6 @@ export default Ember.Component.extend({
    */
   reloadQuestion: function() {
     this.setProperties({
-      startTimestamp: (new Date().getTime()),
       actualHint: 0,
       answerCompleted: false,
       hintsToDisplay: Ember.A(),
