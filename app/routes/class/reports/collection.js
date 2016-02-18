@@ -28,7 +28,11 @@ export default Ember.Route.extend({
   },
 
   model: function (params) {
+    const classModel = this.modelFor('class');
+    const courseId = classModel.class.get('course');
     const classId = this.paramsFor('class').classId;
+    const unitId = params.unitId;
+    const lessonId = params.lessonId;
     const collectionId = params.collectionId;
 
     // 9 resources are hard code so we can represent all question types
