@@ -13,7 +13,7 @@
               <span>({{answer-letter 0}})</span>{{t "gru-true-false.true"}}
           {{/radio-button}}
       </div>
-      <div class="radio">
+      <div class="radio {{if readOnly 'disabled'}}">
           {{#radio-button
             disabled=readOnly
             value=falseAnswerId

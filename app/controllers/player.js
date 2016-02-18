@@ -52,7 +52,6 @@ export default Ember.Controller.extend({
     submitQuestion: function(question, questionResult){
       const controller = this;
       controller.submitQuestionResult(questionResult).then(function(){
-        console.debug(questionResult);
         const next = controller.get("collection").nextResource(question);
         if (next){
           controller.moveToResource(next);
