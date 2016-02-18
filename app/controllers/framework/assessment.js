@@ -354,7 +354,7 @@ export default Ember.Controller.extend({
     ],
 
     selectedAttempt: 2,
-    submittedOn: new Date(),
+    submittedAt: new Date(),
     title: 'Test Assessment Name',
     totalAttempts: 2
   })

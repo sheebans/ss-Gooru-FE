@@ -46,7 +46,9 @@
         {{{result.question.text}}}
       </td>
       <td class="question-answer top-left">
-        {{{component (questionConfig result.question.questionType 'component.answer') question=result.question userAnswer=result.userAnswer}}}
+        {{#if result.answered}}
+          {{{component (questionConfig result.question.questionType 'component.answer') question=result.question userAnswer=result.userAnswer}}}
+        {{/if}}
       </td>
       <td class="question-score {{if showPerformance 'visible' 'hide'}}">
         <span class="{{if result.correct 'correct' 'incorrect'}}">

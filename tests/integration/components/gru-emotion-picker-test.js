@@ -48,3 +48,17 @@ test('Verify selected emotion', function(assert) {
   var $selectedEmotion = $emotionPicker.find(".emotions-list li:eq(2) .emotion");
   assert.ok($selectedEmotion.hasClass('active'));
 });
+
+test('Click emotion in readOnly', function(assert) {
+  assert.expect(0);
+
+  this.on('parentAction', function(emotion){
+    assert.ok(false, "This should not be called: " + emotion);
+  });
+
+  this.render(hbs`{{gru-emotion-picker onChangeEmotion='parentAction' readOnly=true}}`);
+  var $component = this.$(); //component dom element
+  var $emotionPicker = $component.find("div.emotion-picker");
+  $emotionPicker.find(".emotions-list li:first-child .emotion").click();
+});
+
