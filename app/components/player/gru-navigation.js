@@ -54,7 +54,19 @@ export default Ember.Component.extend({
   /**
    * @property {number} The rating score for the current resource
    */
-  ratingScore: 0
+  ratingScore: 0,
+
+  /**
+   * Indicates when the collection is already submitted
+   * @property {boolean}
+   */
+  submitted: false,
+
+  /**
+   * Indicates if changes can be made
+   * @property {boolean} readOnly
+   */
+  readOnly: Ember.computed.alias("submitted")
 
   // -------------------------------------------------------------------------
   // Methods

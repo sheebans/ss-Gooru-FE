@@ -47,9 +47,14 @@ export default Ember.Object.extend({
   selectedAttempt: 0,
 
   /**
-   * @property {date} submittedOn - Date in which the attempt was submitted
+   * @property {Date} submittedAt - Date in which the attempt was submitted
    */
-  submittedOn: null,
+  submittedAt: null,
+
+  /**
+   * @property {Date} startedAt - Date in which the attempt was started
+   */
+  startedAt: null,
 
   /**
    * @property {string} title - Title of the assessment
@@ -65,6 +70,16 @@ export default Ember.Object.extend({
    * @property {number}
    */
   totalResources: Ember.computed.alias("resourceResults.length"),
+
+  /**
+   * @property {boolean} submitted
+   */
+  submitted: Ember.computed.bool("submittedAt"),
+
+  /**
+   * @property {boolean} started
+   */
+  started: Ember.computed.bool("startedAt"),
 
 
   // -------------------------------------------------------------------------
@@ -102,6 +117,16 @@ export default Ember.Object.extend({
     return correctAnswers(this.get('questionResults'));
   }),
 
+  /**
+   * Returns pending question results, those started results but not submitted
+   * @return {QuestionResult[]}
+   */
+  pendingQuestionResults: Ember.computed('questionResults.[]',function(){
+    let questionResults = this.get("questionResults");
+    return questionResults.filterBy("pending", true);
+  }),
+
+
   //
   // Methods
   /**
@@ -130,17 +155,7 @@ export default Ember.Object.extend({
    */
   getResultByResourceId: function(resourceId){
     return this.get("resourceResults").findBy("resourceId", resourceId);
-  },
-
-  /**
-   * Returns pending question results, those started results but not submitted
-   * @return {QuestionResult[]}
-   */
-  pendingQuestionResults: function(){
-    let questionResults = this.get("questionResults");
-    return questionResults.filterBy("pending", true);
   }
-
 
 
 

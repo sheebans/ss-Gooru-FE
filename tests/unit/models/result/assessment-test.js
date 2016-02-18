@@ -75,6 +75,30 @@ test('correctAnswers', function(assert) {
   assert.equal(assessmentResult.get("correctAnswers"), 1, "Wrong correctAnswers");
 });
 
+test('started', function(assert) {
+  let assessmentResult = AssessmentResult.create({
+    "startedAt": new Date()
+  });
+
+  assert.ok(assessmentResult.get("started"), "Assessment result should be started");
+
+  //when started at is not available
+  assessmentResult.set("startedAt", null);
+  assert.ok(!assessmentResult.get("started"), "Assessment result should not be started");
+});
+
+test('submitted', function(assert) {
+  let assessmentResult = AssessmentResult.create({
+    "submittedAt": new Date()
+  });
+
+  assert.ok(assessmentResult.get("submitted"), "Assessment result should be submitted");
+
+  //when submitted at is not available
+  assessmentResult.set("submittedAt", null);
+  assert.ok(!assessmentResult.get("submitted"), "Assessment result should not be submitted");
+});
+
 test('getResultByResourceId', function(assert) {
   let assessmentResult = AssessmentResult.create({
     "resourceResults": Ember.A([
@@ -104,6 +128,6 @@ test('pendingQuestionResults', function(assert) {
     ])
   });
 
-  assert.equal(assessmentResult.pendingQuestionResults().get("length"), 1, "Wrong pending results");
+  assert.equal(assessmentResult.get("pendingQuestionResults").get("length"), 1, "Wrong pending results");
 });
 

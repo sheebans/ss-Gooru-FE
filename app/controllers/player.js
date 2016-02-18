@@ -121,6 +121,12 @@ export default Ember.Controller.extend({
    * @property {AssessmentResult} assessmentResult
    */
   assessmentResult: null,
+
+  /**
+   * Indicates if the report should be displayed
+   * @property {boolean} showReport
+   */
+  showReport: false,
   // -------------------------------------------------------------------------
   // Observers
 
@@ -158,13 +164,7 @@ export default Ember.Controller.extend({
     let controller = this;
     //setting submitted at, timeSpent is calculated
     questionResult.set("submittedAt", new Date());
-
-    let save = controller.get("saveEnabled");
-    if (save){
-      return controller.saveResourceResult(questionResult);
-    }
-
-    return Ember.RSVP.resolve(true);
+    return controller.saveResourceResult(questionResult);
   },
 
   /**
@@ -175,14 +175,12 @@ export default Ember.Controller.extend({
   startResourceResult: function(resourceResult){
     let controller = this;
     //sets startedAt
-    resourceResult.set("startedAt", new Date());
-
-    let save = controller.get("saveEnabled");
-    if (save){
-      return controller.saveResourceResult(resourceResult);
+    if (!resourceResult.get("pending")){ //new attempt
+      //todo increase attempt
+      resourceResult.set("startedAt", new Date());
     }
 
-    return Ember.RSVP.resolve(true);
+    return controller.saveResourceResult(resourceResult);
   },
 
   /**
@@ -191,24 +189,32 @@ export default Ember.Controller.extend({
    * @returns {Promise.<boolean>}
    */
   saveResourceResult: function(resourceResult){
-    /*
-      TODO: implement
-      let onAir = this.get("onAir");
-      let submitted
-      return analyticsService.saveResourceResult(resourceResult).then(function(){
-          if (onAir){
-            return realTimeService.notifyResourceResult(resourceResult);
-          }
-      });
-     */
-    return Ember.RSVP.resolve(resourceResult);
+    let controller = this;
+    let promise = Ember.RSVP.resolve(resourceResult);
+    let save = controller.get("saveEnabled");
+    if (save){
+      /*
+       TODO: implement
+       let onAir = this.get("onAir");
+       let submitted
+       promise = analyticsService.saveResourceResult(resourceResult).then(function(){
+         if (onAir){
+         return realTimeService.notifyResourceResult(resourceResult);
+         }
+       });
+       */
+    }
+    return promise;
   },
 
   /**
    * Finishes the assessment
    */
   finishAssessment: function(){
-    return this.submitPendingQuestions().then(function(){
+    let controller = this;
+    let collection = controller.get("collection");
+    let assessmentResult = this.get("assessmentResult");
+    return controller.submitPendingQuestionResults().then(function(){
       /*
        TODO: implement
        let onAir = this.get("onAir");
@@ -218,7 +224,9 @@ export default Ember.Controller.extend({
        }
        });
        */
-      return Ember.RSVP.resolve(this.get("collection"));
+      assessmentResult.set("submittedAt", new Date());
+      controller.set("showReport", true);
+      return Ember.RSVP.resolve(collection);
     });
   },
 
@@ -226,16 +234,24 @@ export default Ember.Controller.extend({
    * Starts the assessment
    */
   startAssessment: function(){
-    /*
-     TODO: implement
-     let onAir = this.get("onAir");
-     return analyticsService.startCollection(collection).then(function(){
-     if (onAir){
-      return realTimeService.notifyStartCollection(collection);
-     }
-     });
-     */
-    return Ember.RSVP.resolve(this.get("collection"));
+    let controller = this;
+    let assessmentResult = controller.get("assessmentResult");
+    let promise = Ember.RSVP.resolve(controller.get("collection"));
+
+    if (!assessmentResult.get("started")){
+      /*
+       TODO: implement
+       let onAir = this.get("onAir");
+       promise = analyticsService.startCollection(collection).then(function(){
+       if (onAir){
+       return realTimeService.notifyStartCollection(collection);
+       }
+       });
+       */
+
+      assessmentResult.set("startedAt", new Date());
+    }
+    return promise;
   },
 
 
