@@ -89,7 +89,7 @@ export default Ember.Component.extend({
 
   /**
    * Indicates if the assessment has been started
-   * @property {number} notStarted
+   * @property {number} started
    */
   started: Ember.computed("questionResults.[]", function(){
     return totalCompleted(this.get('questionResults'));
