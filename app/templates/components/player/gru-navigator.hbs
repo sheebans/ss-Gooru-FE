@@ -11,7 +11,7 @@
   {{#each collection.resources as |resource|}}
       <li class="list-group-item" id= "item_{{resource.id}}"{{action 'selectItem' resource}}>
       <div class="resources-info">
-        <span class="bubble-type {{resource.resourceFormat}}"></span>
+        <i class="bubble-type {{resource.resourceFormat}}"></i>
         <h6 class="title">{{{resource.title}}}</h6>
       </div>
     </li>

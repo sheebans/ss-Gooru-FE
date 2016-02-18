@@ -17,6 +17,7 @@ export function truncate(params, hash) {
     "name": 20,
     "short": 10,
     "medium": 50,
+    "player-nav":100,
     "large": 200
   };
   let defaultType = "short";

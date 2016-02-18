@@ -72,7 +72,7 @@
       background: rgba(0,0,0,0.17);
       min-height: 65px;
       overflow: hidden;
-      padding: 0 0 0 5px;
+      padding:10px 5px;
       display: block;
       width: 100%;
       cursor: pointer;
@@ -112,7 +112,7 @@
         display: flex;
         width:100%;
         padding: 0 20px;
-        span{
+        i{
           -webkit-order: 0;
           order: 0;
           -webkit-flex-grow: 0;
@@ -184,8 +184,8 @@
         .title {
           margin:0 0 0 18px;
           color:$white;
-          @media (max-width: $screen-md) {
-            padding: 17px 20px 10px 35px;
+          p{
+            margin: 0;
           }
         }
       }
