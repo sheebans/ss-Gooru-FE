@@ -176,10 +176,14 @@ export default Ember.Service.extend({
   /**
    * Gets the performance of all students in a class for a specific collection
    * @param classId
+   * @param courseId
+   * @param unitId
+   * @param lessonId
    * @param collectionId
+   * @param collectionType
    * @returns {Promise.<UserResourcesResult[]>}
    */
-  findClassPerformanceByCollection: function (classId, collectionId) {
+  findClassPerformanceByUnitAndLessonAndCollection: function (classId, courseId, unitId, lessonId, collectionId, collectionType) {
     const response = [
       UserResourcesResult.create({
         "user": "56983a90297d42fd4ed7c1de",
@@ -441,18 +445,18 @@ export default Ember.Service.extend({
     ];
 
     // TODO: Replace this with the correct implementation
-    function callToServerEndPoint(classId, collectionId) {
+    function callToServerEndPoint(classId, courseId, unitId, lessonId, collectionId, collectionType) {
       return new Ember.RSVP.Promise(function (resolve, reject) {
-        if (classId && collectionId) {
+        if (classId && courseId && unitId && lessonId && collectionId && collectionType) {
           resolve(response);
         } else {
-          reject('findClassPerformanceByCollection: classId and collectionId must be defined');
+          reject('findClassPerformanceByCollection: missing parameters');
         }
       });
     }
 
     return DS.PromiseArray.create({
-      promise: callToServerEndPoint(classId, collectionId)
+      promise: callToServerEndPoint(classId, courseId, unitId, lessonId, collectionId, collectionType)
     });
   }
 
