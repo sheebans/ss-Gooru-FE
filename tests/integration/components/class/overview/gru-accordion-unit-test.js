@@ -49,6 +49,38 @@ const lessonServiceStub = Ember.Service.extend({
 
 });
 
+// Stub performance service
+const performanceServiceStub = Ember.Service.extend({
+
+  //We are missing the lesson id parameter but is not required at all because we are simulating the response
+  //which is the same for every lesson, the lessonId was removed due to is generating problems with JSHint
+  findCourseMapPerformanceByUnitAndLesson(classId, courseId, unitId) {
+    var response;
+    var promiseResponse;
+
+    //It does not matter the lesson id all the responses would be the same format
+    if (classId === '111-333-555' && courseId === '222-444-666' && unitId === '777-999'){
+      response = Ember.Object.create({
+          classAverageScore: 100
+        });
+    }else {
+      response = [];
+    }
+
+    promiseResponse = new Ember.RSVP.Promise(function(resolve) {
+      Ember.run.next(this, function() {
+        resolve(response);
+      });
+    });
+
+    //// Simulate async data returned by the service
+    return DS.PromiseObject.create({
+      promise: promiseResponse
+    });
+  }
+
+});
+
 const courseLocationStub = Ember.Service.extend({
 
   findByCourseAndUnit(courseId, unitId) {
@@ -91,6 +123,9 @@ moduleForComponent('class/overview/gru-accordion-unit', 'Integration | Component
   beforeEach: function() {
     this.register('service:api-sdk/lesson', lessonServiceStub);
     this.inject.service('api-sdk/lesson', { as: 'lessonService' });
+
+    this.register('service:api-sdk/performance', performanceServiceStub);
+    this.inject.service('api-sdk/performance', { as: 'performanceService' });
 
     this.register('service:api-sdk/course-location', courseLocationStub);
     this.inject.service('api-sdk/course-location', { as: 'courseLocationService' });
@@ -272,9 +307,9 @@ test('it loads lessons and renders them correctly after clicking on the unit nam
     assert.ok(!$loadingSpinner.length, 'Loading spinner should have been hidden');
 
     const $items = $panelGroup.find('.gru-accordion-lesson');
-    assert.equal($items.length, 2, 'Incorrect number of lessons listed');
+    assert.equal($items.length, 3, 'Incorrect number of lessons listed');
     assert.equal($items.first().find('.panel-title').text().trim(), 'L1: Lesson 1', 'Incorrect first lesson title');
-    assert.equal($items.last().find('.panel-title').text().trim(), 'L2: Lesson 3', 'Incorrect last lesson title');
+    assert.equal($items.last().find('.panel-title').text().trim(), 'L3: Lesson 3', 'Incorrect last lesson title');
 
     assert.equal($items.first().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first lesson for mobile');
     assert.equal($items.last().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last lesson for mobile');
@@ -328,7 +363,7 @@ test('it only loads lessons once after clicking on the unit name', function(asse
 
     // Assert that the data has been loaded
     const $items = $collapsePanel.find('.gru-accordion-lesson');
-    assert.equal($items.length, 2, 'Incorrect number of lessons listed');
+    assert.equal($items.length, 3, 'Incorrect number of lessons listed');
 
     // Click on the unit name to close the panel with the lessons
     $unitTitleAnchor.click();
@@ -354,7 +389,7 @@ test('it only loads lessons once after clicking on the unit name', function(asse
     return wait().then(function() {
 
       const $items = $collapsePanel.find('.gru-accordion-lesson');
-      assert.equal($items.length, 2, 'Number of lessons listed should not have changed');
+      assert.equal($items.length, 3, 'Number of lessons listed should not have changed');
       assert.equal($unitTitleAnchor.text().trim(), 'U3: Unit Title', 'Index in the title text should have changed');
     });
   });

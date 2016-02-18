@@ -88,12 +88,49 @@ const courseLocationStub = Ember.Service.extend({
   }
 });
 
+// Stub performance service
+const performanceServiceStub = Ember.Service.extend({
+
+  //We are missing the lesson id parameter but is not required at all because we are simulating the response
+  //which is the same for every lesson, the lessonId was removed due to is generating problems with JSHint
+  findCourseMapPerformanceByUnitAndLesson(classId, courseId, unitId) {
+    var response;
+    var promiseResponse;
+
+    //It does not matter the lesson id all the responses would be the same format
+    if (classId === '111-333-555' && courseId === '222-444-666' && unitId === '777-999'){
+      response = Ember.Object.create({
+        calculateAverageScoreByItem: function(){
+          return 100;
+        }
+      });
+    }else {
+      response = [];
+    }
+
+    promiseResponse = new Ember.RSVP.Promise(function(resolve) {
+      Ember.run.next(this, function() {
+        resolve(response);
+      });
+    });
+
+    //// Simulate async data returned by the service
+    return DS.PromiseObject.create({
+      promise: promiseResponse
+    });
+  }
+
+});
+
 moduleForComponent('class/overview/gru-accordion-lesson', 'Integration | Component | class/overview/gru accordion lesson', {
   integration: true,
 
   beforeEach: function() {
     this.register('service:api-sdk/collection', collectionServiceStub);
     this.inject.service('api-sdk/collection', { as: 'collectionService' });
+
+    this.register('service:api-sdk/performance', performanceServiceStub);
+    this.inject.service('api-sdk/performance', { as: 'performanceService' });
 
     this.register('service:api-sdk/course-location', courseLocationStub);
     this.inject.service('api-sdk/course-location', { as: 'courseLocationService' });
@@ -286,7 +323,7 @@ test('it loads collections/assessments and renders them correctly after clicking
     assert.ok(!$loadingSpinner.length, 'Loading spinner should have been hidden');
 
     const $items = $collapsePanel.find('.collections .panel');
-    assert.equal($items.length, 2, 'Incorrect number of resources listed');
+    assert.equal($items.length, 3, 'Incorrect number of resources listed');
 
     const $firstCollection = $items.first();
     const $collectionHeading = $firstCollection.find('> .panel-heading');
@@ -303,7 +340,7 @@ test('it loads collections/assessments and renders them correctly after clicking
     assert.ok($items.last().hasClass('selected'), 'Last resource should have the class "selected"');
 
     assert.equal($items.first().find('.panel-title').text().trim(), 'C1: Collection 1', 'Incorrect first resource title');
-    assert.equal($items.last().find('.panel-title').text().trim(), 'A2: Assessment 1', 'Incorrect last resource title');
+    assert.equal($items.last().find('.panel-title').text().trim(), 'A3: Assessment 1', 'Incorrect last resource title');
 
     assert.equal($items.first().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first resource for mobile');
     assert.equal($items.last().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last resource for mobile');
@@ -360,7 +397,7 @@ test('it only loads collections/assessments once after clicking on the lesson na
 
     // Assert that the data has been loaded
     const $items = $collapsePanel.find('.collections .panel');
-    assert.equal($items.length, 2, 'Incorrect number of collections listed');
+    assert.equal($items.length, 3, 'Incorrect number of collections listed');
 
     // Click on the unit name to close the panel with the collections
     $lessonTitleAnchor.click();
@@ -386,7 +423,7 @@ test('it only loads collections/assessments once after clicking on the lesson na
     return wait().then(function() {
 
       const $items = $collapsePanel.find('.collections .panel');
-      assert.equal($items.length, 2, 'Number of lessons listed should not have changed');
+      assert.equal($items.length, 3, 'Number of lessons listed should not have changed');
       assert.equal($lessonTitleAnchor.text().trim(), 'L3: Lesson Title', 'Index in the title text should have changed');
     });
   });
@@ -438,7 +475,7 @@ test('it triggers event handlers', function (assert) {
   return wait().then(function () {
 
     const $items = $collapsePanel.find('.collections .panel');
-    assert.equal($items.length, 2, 'Incorrect number of resources listed');
+    assert.equal($items.length, 3, 'Incorrect number of resources listed');
 
     const $firstResource = $items.first();
     const $resourceNameAnchor = $firstResource.find('> .panel-heading > .panel-title a');

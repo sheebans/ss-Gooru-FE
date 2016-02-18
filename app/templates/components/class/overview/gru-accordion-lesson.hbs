@@ -35,11 +35,11 @@
   <div class="panel-body">
     <ol class="collections">
 
-    {{#if items.isPending}}
+    {{#if loading}}
       {{three-bounce-spinner}}
     {{else}}
 
-      {{#each visibleItems as |item index|}}
+      {{#each items as |item index|}}
         <li class="panel {{item.collectionType}} {{set-if-equal "selected" item.id currentResource}}">
 
           <div class="location-marker">

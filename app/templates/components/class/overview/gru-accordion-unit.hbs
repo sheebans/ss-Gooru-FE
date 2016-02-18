@@ -34,11 +34,11 @@
   <div class="panel-body">
     <ol class="panel-group" role="tablist" aria-multiselectable="true">
 
-    {{#if items.isPending}}
+    {{#if loading}}
       {{three-bounce-spinner}}
     {{else}}
 
-      {{#each visibleItems as |item index|}}
+      {{#each items as |item index|}}
 
         {{class.overview.gru-accordion-lesson
           currentClass=currentClass
@@ -48,7 +48,8 @@
         onSelectResource=(action 'selectResource')
         onSelectLesson=(action 'updateLesson')
         currentResource=currentResource
-        parsedLocation=parsedLocation }}
+        parsedLocation=parsedLocation
+        isStudent = isStudent}}
 
       {{else}}
         <li>{{t "common.contentUnavailable"}}</li>
