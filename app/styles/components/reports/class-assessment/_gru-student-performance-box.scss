@@ -2,6 +2,12 @@
   width: 193px;
   margin-right: 2%;
 
+  .panel-heading{
+    color: $white;
+    &.not-started{
+      background-color: $blue-600;
+    }
+  }
   .questions {
     display: flex;
     flex-wrap: wrap;
