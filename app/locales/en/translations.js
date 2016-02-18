@@ -85,6 +85,8 @@ export default {
     "show-correct-answer":"Show Correct Answer",
     "show-results":"Show Results",
     "signUp": "Sign Up",
+    "sortAlphabetical":"Sort Alphabetically",
+    "sortAverage":"Sort by Average",
     "standard":"Standard",
     "standards": "Standards",
     "submit": "Submit",
