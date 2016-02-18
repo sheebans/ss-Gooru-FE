@@ -27,6 +27,11 @@
       }
       span.answer-text{
         margin-left: 0.5em;
+        p {
+          display: inline-block;
+          margin: 0;
+          padding: 0;
+        }
       }
       &.header {
         .column {

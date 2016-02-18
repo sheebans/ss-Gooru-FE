@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { correctPercentage } from 'gooru-web/utils/question-result';
+import { correctPercentage, totalCompleted } from 'gooru-web/utils/question-result';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -85,6 +85,14 @@ export default Ember.Component.extend({
    */
   score: Ember.computed("questionResults.[]", function(){
     return correctPercentage(this.get('questionResults'));
+  }),
+
+  /**
+   * Indicates if the assessment has been started
+   * @property {number} started
+   */
+  started: Ember.computed("questionResults.[]", function(){
+    return totalCompleted(this.get('questionResults'));
   }),
   /**
    * @property {Function} onSelectQuestion - Event handler called when a question in a column is selected

@@ -45,6 +45,16 @@ export function totalTimeSpent(questionsResults) {
 }
 
 /**
+ * Total number of results completed
+ * @param {QuestionResult[]} questionsResults
+ * @prop {number}
+ */
+export function totalCompleted(questionsResults) {
+  let totals = stats(questionsResults);
+  return totals.get("totalCompleted");
+}
+
+/**
  * Returns stats for a set of question results
  * @param {QuestionResult[]} questionResults
  * @returns {{ total: number, correct: number, incorrect: number, skipped: number, notStarted: number}}

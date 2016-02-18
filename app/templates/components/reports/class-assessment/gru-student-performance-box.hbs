@@ -1,11 +1,11 @@
 <div class="panel panel-default">
 
-  {{#if score}}
+  {{#if started}}
     <div class="panel-heading" style="background-color: {{gradeColor score}}" {{action 'click'}}>
       {{ if anonymous student.code student.fullName }} <span class="score">({{score}}%)</span>
     </div>
   {{else}}
-    <div class="panel-heading" {{action 'click'}}>
+    <div class="panel-heading not-started" {{action 'click'}}>
         {{ if anonymous student.code student.fullName }}
     </div>
   {{/if}}

@@ -25,7 +25,7 @@ export default Ember.Component.extend({
   init: function () {
     this._super(...arguments);
 
-    var resourceLinks = this.getResourceLinks(this.get('assessmentResult.questionsResults'));
+    var resourceLinks = this.getResourceLinks(this.get('assessmentResult.questionResults'));
     var attemptList = this.getAttemptList();
 
     // Sort resource links per the question order number (i.e. label)

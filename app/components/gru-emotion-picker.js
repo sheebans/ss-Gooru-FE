@@ -33,9 +33,12 @@ export default Ember.Component.extend({
      * @returns {undefined}
      */
     setEmotion: function (newEmotionValue) {
-      if (!this.get('selectedEmotion') || this.get('selectedEmotion') !== newEmotionValue) {
-        this.selectEmotion(newEmotionValue);
-        this.sendAction("onChangeEmotion", this.get('selectedEmotion'));
+      let component = this;
+      if (!component.get("readOnly")){
+        if (!component.get('selectedEmotion') || component.get('selectedEmotion') !== newEmotionValue) {
+          component.selectEmotion(newEmotionValue);
+          component.sendAction("onChangeEmotion", component.get('selectedEmotion'));
+        }
       }
     }
   },
@@ -85,6 +88,12 @@ export default Ember.Component.extend({
    * @property {number} Initial emotion value
    */
   startEmotion: 0,
+
+  /**
+   * Indicates if changes can be made
+   * @property {boolean}
+   */
+  readOnly: false,
 
   // -------------------------------------------------------------------------
   // Methods

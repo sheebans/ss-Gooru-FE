@@ -860,74 +860,27 @@ export default Ember.Route.extend({
       }),
       UserResourcesResult.create({
         "user": "56983a901ad65da6dac5b384",
-        "resourceResults": [
-          QuestionResult.create({
-            "correct": false,
-            "resourceId": "569906aa20b7dfae1bcd5262",
-            "reaction": 2,
-            "timeSpent": 701,
-            "userAnswer": 2
-          }),
-          QuestionResult.create({
-            "correct": false,
-            "resourceId": "569906aa3ec3bb39969acbe6",
-            "reaction": 4,
-            "timeSpent": 1333,
-            "userAnswer": "2"
-          }),
-          QuestionResult.create({
-            "correct": true,
-            "resourceId": "569906aadfa0072204f7c7c7",
-            "reaction": 5,
-            "timeSpent": 1305,
-            "userAnswer": ["crc", "bra", "pan", "chi"]
-          }),
-          QuestionResult.create({
-            "correct": false,
-            "resourceId": "569906aacea8416665209d53",
-            "reaction": 1,
-            "timeSpent": 1013,
-            "userAnswer": ["red", "white"]
-          }),
-          QuestionResult.create({
-            "correct": true,
-            "resourceId": "569906aa77bebed003fa6eb1",
-            "reaction": 3,
-            "timeSpent": 2234,
-            "userAnswer":[{id: "1", selection: false}, {id: "2", selection: true}, {id: "3", selection: true}]
-          }),
-          QuestionResult.create({
-            "correct": true,
-            "resourceId": "569906aabfcfc4cfc1b29b62",
-            "reaction": 4,
-            "timeSpent": 1668,
-            "userAnswer": ["1", "3"]
-          }),
-          QuestionResult.create({
-            "correct": true,
-            "resourceId": "569906aa7fe0695bfd409731",
-            "reaction": 4,
-            "timeSpent": 2096,
-            "userAnswer": "Student Open Ended answer 9"
-          })
-        ]
+        "resourceResults": []
       })
     ];
 
     extraResources.forEach(function(resource){ //adding extra resources responses as true for all students
       userResults.forEach(function(userResult){
-        let random =  Math.round(Math.random() * 100);
-        let skipped = random % 10 === 0;
-        let incorrect = !skipped && random % 2 === 0;
-        let questionResult = QuestionResult.create({
-          "correct": !incorrect,
-          "resourceId": resource.get("id"),
-          "reaction": 2,
-          "timeSpent": 701,
-          "userAnswer": (skipped) ? undefined : ((incorrect) ? 1 : 3)
-        });
 
-        userResult.get("resourceResults").addObject(questionResult);
+        if (userResult.get("user") !== "56983a901ad65da6dac5b384"){ //this student 56983a901ad65da6dac5b384 has not started
+          let random =  Math.round(Math.random() * 100);
+          let skipped = random % 10 === 0;
+          let incorrect = !skipped && random % 2 === 0;
+          let questionResult = QuestionResult.create({
+            "correct": !incorrect,
+            "resourceId": resource.get("id"),
+            "reaction": 2,
+            "timeSpent": 701,
+            "userAnswer": (skipped) ? undefined : ((incorrect) ? 1 : 3)
+          });
+          userResult.get("resourceResults").addObject(questionResult);
+        }
+
       });
     });
 

@@ -1,6 +1,7 @@
 <div class="content">
   {{#if resource.isQuestion}}
     {{player.gru-question-viewer
+    submitted=submitted
     question=resource
     questionResult=resourceResult
     onSubmitQuestion="submitQuestion"
