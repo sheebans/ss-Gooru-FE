@@ -70,7 +70,7 @@ test('Layout', function (assert) {
 });
 
 test('Submit button should become enabled and call action on submit', function (assert) {
-  assert.expect(3);
+  assert.expect(5);
 
   const question = Ember.Object.create(
     {
@@ -96,8 +96,10 @@ test('Submit button should become enabled and call action on submit', function (
   this.set('question', question);
   this.set('collection',collection);
 
-  this.on("mySubmitQuestion", function(question){
+  this.on("mySubmitQuestion", function(question, questionResult){
     assert.equal(question.get("id"), 10, "Wrong id");
+    assert.equal(questionResult.get("correct"), true, "Answer should be correct");
+    assert.equal(questionResult.get("userAnswer"), "test", "Wrong id");
   });
   this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult
       onSubmitQuestion="mySubmitQuestion" collection=collection}}`);
@@ -357,4 +359,39 @@ test('Save Button Text when collection and last resource', function (assert) {
   assert.equal(T.text($saveButton), this.i18n.t('common.save-finish').toString(), 'Wrong button text');
 });
 
+test('Submit button disabled when submitted', function (assert) {
+  assert.expect(1);
+
+  const question = Ember.Object.create(
+    {
+      "id": 10,
+      "order": 2,
+      "text": "Dummy question text",
+      "mediaUrl": "test.jpg",
+      "questionType": 'OE',
+      "hasMedia": true
+    });
+
+  const collection = Ember.Object.create({
+    collectionType: "assessment",
+    resources: Ember.A([question]),
+    isLastResource: function(){
+      return true;
+    }
+  });
+
+  const questionResult = QuestionResult.create();
+
+  this.set('questionResult', questionResult);
+  this.set('question', question);
+  this.set('collection',collection);
+
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult
+      submitted=true collection=collection}}`);
+
+  var $component = this.$(); //component dom element
+
+  var $answerPanel = $component.find(".answers-panel");
+  assert.ok($answerPanel.find(".actions button.save").attr("disabled"), "Button should be disabled");
+});
 
