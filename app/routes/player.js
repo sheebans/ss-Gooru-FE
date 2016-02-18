@@ -1,7 +1,5 @@
 import Ember from 'ember';
-import UserResourcesResult from 'gooru-web/models/result/user-resources';
-import QuestionResult from 'gooru-web/models/result/question';
-import ResourceResult from 'gooru-web/models/result/resource';
+import AssessmentResult from 'gooru-web/models/result/assessment';
 
 export default Ember.Route.extend({
 
@@ -41,16 +39,12 @@ export default Ember.Route.extend({
     const
       collectionId = params.collectionId,
       resourceId = params.resourceId,
-      collection = this.get("collectionService").findById(collectionId),
-      userResourcesResult = UserResourcesResult.create({
-        user: 1,
-        resourceResults: Ember.A([])
-      }); //TODO load UserQuestionsResult
+      collection = this.get("collectionService").findById(collectionId);
 
     return Ember.RSVP.hash({
       collection: collection,
       resourceId: resourceId,
-      userResourcesResult: userResourcesResult
+      assessmentResult: null //TODO load it from analytics so it can be resumed
     });
   },
 
@@ -60,11 +54,21 @@ export default Ember.Route.extend({
    */
   setupController(controller, model) {
     const collection = model.collection;
-    const userResourcesResult = model.userResourcesResult;
+    let assessmentResult = model.assessmentResult;
 
-    this.generateResourceResults(collection.get("resources"), userResourcesResult);
-    controller.set("userResourcesResult", userResourcesResult);
+    if (!assessmentResult){
+      assessmentResult = AssessmentResult.create({
+        totalAttempts: 1,
+        selectedAttempt: 1
+      });
+      assessmentResult.initAssessmentResult(collection);
 
+    }
+
+    controller.set("assessmentResult", assessmentResult);
+    controller.set("showReport", assessmentResult.get("submitted"));
+
+    controller.startAssessment();
     var resource = collection.get("lastVisitedResource");
     if (model.resourceId) {
       resource = collection.getResourceById(model.resourceId);
@@ -72,24 +76,5 @@ export default Ember.Route.extend({
 
     controller.set("collection", collection);
     controller.moveToResource(resource);
-  },
-
-  /**
-   * Creates a result for each resource if it doesn't exist already
-   * @param {Resource[]} resources
-   * @param {UserResourcesResult} userResourcesResult
-   */
-  generateResourceResults: function(resources, userResourcesResult){
-    const resourceResults = userResourcesResult.get("resourceResults");
-    resources.forEach(function(resource){
-      let resourceId = resource.get('id');
-      let found = resourceResults.filterBy("resourceId", resourceId).get("length");
-      if (!found){
-        let result = (resource.get("isQuestion")) ?
-          QuestionResult.create({ resourceId: resourceId, resource: resource }) :
-          ResourceResult.create({ resourceId: resourceId, resource: resource });
-        resourceResults.addObject(result);
-      }
-    });
   }
 });

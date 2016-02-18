@@ -37,7 +37,7 @@ test('Learning Target Layout', function(assert) {
     correctPercentage: 67,
     correctAnswers: 2,
 
-    questionsResults: [
+    questionResults: [
       Ember.Object.create({
         id: 601,
         resource: Ember.Object.create({

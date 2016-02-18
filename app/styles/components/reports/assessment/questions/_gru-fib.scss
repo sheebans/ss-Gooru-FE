@@ -2,6 +2,16 @@
   span {
     line-height: 30px;
   }
+
+  .answer,
+  .sentence{
+    p {
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
   .answer {
     border-bottom: 2px solid;
     padding: 5px;

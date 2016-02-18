@@ -48,18 +48,20 @@ export default Ember.Component.extend({
      * When the question is submitted
      */
     submitQuestion: function () {
-      let questionResult = this.get("questionResult");
-      questionResult.set("timeSpent", this.get("timeSpent"));
-      questionResult.set("submittedAt", new Date());
-      this.sendAction("onSubmitQuestion", this.get("question"), questionResult);
+      if (!this.get("submitted")){
+        let questionResult = this.get("questionResult");
+        this.sendAction("onSubmitQuestion", this.get("question"), questionResult);
+      }
     },
     /**
      * When the question answer has been changed
      * @param {Resource} question the question
      */
     changeAnswer: function(question){
-      //todo track analytics
-      this.set("question", question);
+      if (!this.get("submitted")) {
+        //todo track analytics
+        this.set("question", question);
+      }
     },
 
     /**
@@ -68,21 +70,25 @@ export default Ember.Component.extend({
      * @param { { answer: Object, correct: boolean } } stats
      */
     completeAnswer: function(question, stats){
-      let questionResult = this.get("questionResult");
-      questionResult.set("userAnswer", stats.answer);
-      questionResult.set("correct", stats.correct);
+      if (!this.get("submitted")) {
+        let questionResult = this.get("questionResult");
+        questionResult.set("userAnswer", stats.answer);
+        questionResult.set("correct", stats.correct);
 
-      this.set("question", question);
-      this.set("answerCompleted", true);
+        this.set("question", question);
+        this.set("answerCompleted", true);
+      }
     },
     /**
      * When the question answer has been cleared
      * @param {Resource} question the question
      */
     clearAnswer: function(question){
-      //todo track analytics
-      this.set("question", question);
-      this.set("answerCompleted", false);
+      if (!this.get("submitted")) {
+        //todo track analytics
+        this.set("question", question);
+        this.set("answerCompleted", false);
+      }
     }
   },
 
@@ -148,7 +154,9 @@ export default Ember.Component.extend({
   /**
    * @property {boolean} indicates when the submit functionality is enabled
    */
-  isSubmitDisabled: Ember.computed.not("answerCompleted"),
+  isSubmitDisabled: Ember.computed("answerCompleted", "submitted", function(){
+    return this.get("submitted") || !this.get("answerCompleted");
+  }),
 
   /**
    * @property {string} on submit question action
@@ -168,20 +176,10 @@ export default Ember.Component.extend({
   questionResult: null,
 
   /**
-   * Start timestamp in Milliseconds
-   * @property {number} start timestamp
+   * Indicates when the collection is already submitted
+   * @property {boolean}
    */
-  startTimestamp: null,
-
-  /**
-   * Time spent on question
-   * @property {number} timeSpent in seconds
-   */
-  timeSpent: Ember.computed("startTimestamp", function(){
-    let timestamp = new Date().getTime();
-    return Math.round((timestamp - this.get("startTimestamp")) / 1000);
-  }),
-
+  submitted: false,
 
   /**
    * The text for the submit button
@@ -203,7 +201,6 @@ export default Ember.Component.extend({
    */
   reloadQuestion: function() {
     this.setProperties({
-      startTimestamp: (new Date().getTime()),
       actualHint: 0,
       answerCompleted: false,
       hintsToDisplay: Ember.A(),

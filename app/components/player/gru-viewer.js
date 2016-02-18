@@ -79,6 +79,12 @@ export default Ember.Component.extend({
   calculatedResourceContentHeight: 0,
 
   /**
+   * Indicates when the collection is already submitted
+   * @property {boolean}
+   */
+  submitted: false,
+
+  /**
    * The resource component selected
    * @property {string}
    */

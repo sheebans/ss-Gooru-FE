@@ -1,42 +1,46 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
+import QuestionResult from 'gooru-web/models/result/question';
 import Ember from 'ember';
 
 moduleForComponent('reports/assessment/gru-questions', 'Integration | Component | reports/assessment/gru questions', {
   integration: true,
   beforeEach: function () {
-    this.container.lookup('service:i18n').set("locale","en");
+    this.container.lookup('service:i18n').set("locale", "en");
   }
 });
 
 test('Questions Layout', function (assert) {
   assert.expect(18);
 
-  const questions = Ember.A([Ember.Object.create({
-    question: Ember.Object.create({
-      text:"This is a question 1",
-      questionType: 'OE',
-      order: 1
+  const questionResults = Ember.A([
+    QuestionResult.create({
+      "correct": true,
+      "resource": Ember.Object.create({
+        text: "This is a question 1",
+        questionType: 'OE',
+        order: 1
+      }),
+      "reaction": 4,
+      "timeSpent": 2096,
+      "userAnswer": "Student Open Ended answer 1"
     }),
-    correct: true,
-    timeSpent: 10, //seconds
-    reaction: 5,
-    answer: "answer"
-  }), Ember.Object.create({
-    question: Ember.Object.create({
-      text:"This is a question 2",
-      questionType: 'OE',
-      order: 2
-    }),
-    correct: false,
-    timeSpent: 25, //seconds
-    reaction: 2,
-    answer: "answer"
-  })]);
+    QuestionResult.create({
+      "correct": true,
+      "resource": Ember.Object.create({
+        text: "This is a question 2",
+        questionType: 'OE',
+        order: 2
+      }),
+      "reaction": 4,
+      "timeSpent": 2096,
+      "userAnswer": "Student Open Ended answer 2"
+    })
+  ]);
 
-  this.set('questions', questions);
-  this.render(hbs`{{reports/assessment/gru-questions results=questions}}`);
+  this.set('questionResults', questionResults);
+  this.render(hbs`{{reports/assessment/gru-questions results=questionResults}}`);
   const $component = this.$(); //component dom element
   const $question = $component.find(".gru-questions");
 
@@ -57,37 +61,40 @@ test('Questions Layout', function (assert) {
   T.exists(assert, $question.find('table tbody td.question-time'), 'Missing time spent column');
   T.exists(assert, $question.find('table tbody td.question-reaction'), 'Missing reaction column');
   T.exists(assert, $question.find('.question-cards.visible-xs'), 'Missing mobile question cards');
-  assert.equal($question.find('table tbody tr').length,2, "Incorrect number of rows");
+  assert.equal($question.find('table tbody tr').length, 2, "Incorrect number of rows");
 });
 
 
 test('Buttons Options', function (assert) {
   assert.expect(15);
 
-  const questions = Ember.A([Ember.Object.create({
-    question: Ember.Object.create({
-      text:"This is a question 1",
-      questionType: 'OE',
-      order: 1
+  const questionResults = Ember.A([
+    QuestionResult.create({
+      "correct": true,
+      "resource": Ember.Object.create({
+        text: "This is a question 1",
+        questionType: 'OE',
+        order: 1
+      }),
+      "reaction": 4,
+      "timeSpent": 2096,
+      "userAnswer": "Student Open Ended answer 1"
     }),
-    correct: true,
-    timeSpent: 10, //seconds
-    reaction: 5,
-    answer: "answer"
-  }), Ember.Object.create({
-    question: Ember.Object.create({
-      text:"This is a question 2",
-      order: 2,
-      questionType: 'OE'
-    }),
-    correct: false,
-    timeSpent: 25, //seconds
-    reaction: 2,
-    answer: "answer"
-  })]);
+    QuestionResult.create({
+      "correct": true,
+      "resource": Ember.Object.create({
+        text: "This is a question 2",
+        questionType: 'OE',
+        order: 2
+      }),
+      "reaction": 4,
+      "timeSpent": 2096,
+      "userAnswer": "Student Open Ended answer 2"
+    })
+  ]);
 
-  this.set('questions', questions);
-  this.render(hbs`{{reports/assessment/gru-questions results=questions}}`);
+  this.set('questionResults', questionResults);
+  this.render(hbs`{{reports/assessment/gru-questions results=questionResults}}`);
   const $component = this.$(); //component dom element
   const $question = $component.find(".gru-questions");
 

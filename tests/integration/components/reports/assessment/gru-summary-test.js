@@ -49,7 +49,7 @@ test('it renders', function (assert) {
       })
     ],
     selectedAttempt: 3,
-    submittedOn: date,
+    submittedAt: date,
     title: 'Test Assessment Name',
     totalAttempts: 4
   });
