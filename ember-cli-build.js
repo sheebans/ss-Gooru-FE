@@ -6,11 +6,8 @@ module.exports = function(defaults) {
     fingerprint: {
       exclude: ['themes/edify'] //excluding test theme files
     },
-    svgstore: {
-      files: {
-        sourceDirs: ['vendor/emoji-one'],
-        outputFile: '/assets/emoji-one/emoji.svg'
-      }
+    inlineContent: {
+      'emojiOne': 'public/assets/emoji-one/emoji.svg'
     }
   });
 

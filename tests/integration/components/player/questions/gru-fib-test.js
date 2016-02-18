@@ -38,8 +38,8 @@ test('Fill in the blanks layout', function(assert) {
 
 });
 
-test('Fill in the blanks', function(assert) {
-  assert.expect(7);
+test('Fill in the blanks events', function(assert) {
+  assert.expect(8);
   const question = Ember.Object.create({
     "id": "569906aacea8416665209d53",
     questionType: 'FIB',
@@ -56,23 +56,25 @@ test('Fill in the blanks', function(assert) {
     "hasAnswers": true
   });
 
+  let answers = [];
+
   this.set('question', question);
-  this.on('myOnAnswerChanged', function() {
-    assert.ok(true, "This should be called twice");
+  this.on('myOnAnswerChanged', function(question, stats) {
+    //called 4 times
+    assert.deepEqual(stats, answers, "Answer changed, but the answers are not correct");
   });
 
-  this.on('myOnAnswerCompleted', function() {
-    assert.ok(true, "This should be called once");
+  this.on('myOnAnswerCompleted', function(question, stats) {
+    //called 3 times
+    assert.deepEqual(stats, answers, "Answer completed, but the answers are not correct");
   });
 
   this.on('myOnAnswerCleared', function(question, stats) {
-    assert.equal(question.get("id"), "569906aacea8416665209d53", "Wrong question id for onAnswerCleared");
-    assert.ok(!stats.correct, "Correct should be false");
-
-    let answer = stats.answer;
-    assert.equal(answer[0], "", "Wrong answer 1 onAnswerCleared");
-    assert.equal(answer[1], "", "Wrong answer 2 onAnswerCleared");
+    //called 1 time
+    assert.deepEqual(stats, answers, "Answer cleared, but the answers are not correct");
   });
+
+
   this.render(hbs`{{player/questions/gru-fib question=question
         onAnswerChanged="myOnAnswerChanged"
         onAnswerCleared="myOnAnswerCleared"
@@ -80,9 +82,22 @@ test('Fill in the blanks', function(assert) {
 
   var $component = this.$(); //component dom element
   //enter response
-  $component.find(".fib-answers input").first().val("test");
+  answers = { answer: ["yellow", ""], correct: false };
+  $component.find(".fib-answers input:eq(0)").first().val("yellow");
   $component.find(".fib-answers input").first().keyup();
+
+  //enter response
+  answers = { answer: ["yellow", "white"], correct: true };
+  $component.find(".fib-answers input:eq(1)").first().val("white");
+  $component.find(".fib-answers input").first().keyup();
+
   //clear response
-  $component.find(".fib-answers input").first().val("");
+  answers = { answer: ["", "white"], correct: false };
+  $component.find(".fib-answers input:eq(0)").first().val("");
+  $component.find(".fib-answers input").first().keyup();
+
+  //clear response
+  answers = { answer: ["", ""], correct: false };
+  $component.find(".fib-answers input:eq(1)").first().val("");
   $component.find(".fib-answers input").first().keyup();
 });

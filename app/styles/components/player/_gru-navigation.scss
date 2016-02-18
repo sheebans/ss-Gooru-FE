@@ -8,6 +8,7 @@
   z-index: 10;
   @media (min-width: $screen-md) {
     width:80%;
+    height: $player-navigation-md-height;
   }
   .content {
     -webkit-flex-direction: column;

@@ -10,7 +10,7 @@ import QuestionResult from 'gooru-web/models/result/question';
 export default Ember.Object.extend({
 
 
-  //
+  // -------------------------------------------------------------------------
   // Properties
   /**
    * @property {ResourceResult[]} questionResults
@@ -20,7 +20,7 @@ export default Ember.Object.extend({
   /**
    * @property {QuestionResult[]} questionResults
    */
-  questionResults: Ember.computed("resourceResults.[]", function(){
+  questionResults: Ember.computed("resourceResults.[]", function() {
     return this.get("resourceResults").filter(function (resourceResult) {
       return resourceResult instanceof QuestionResult;
     });
@@ -31,8 +31,8 @@ export default Ember.Object.extend({
    */
   user: null,
 
-
-  //
+  
+  // -------------------------------------------------------------------------
   // Methods
   /**
    * Gets the result by resource id

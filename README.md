@@ -87,8 +87,12 @@ Useful commands [Vagrant CLI](https://docs.vagrantup.com/v2/cli/index.html)
 * `npm install`
 * `bower install`
 
+### Generating SVG sprite sheets
+It's required to run a grunt task that builds the SVG Sprite Sheets that the application requires prior to the build process. In order to build them just run the grunt task `grunt generateSVG`
+
+
 ### Running the app with ember
-* `ember server --proxy http://localhost:8882` to run it using the stubby server
+* `grunt generateSVG && ember server --proxy http://localhost:8882` to run it using the stubby server
 * Visit your app at [http://localhost:4200](http://localhost:4200). 
 * Or visit your app at [http://192.168.33.10:4200/](http://192.168.33.10:4200/) when using vagrant
 
@@ -163,8 +167,8 @@ It is possible to proxy a server so you can connect to a different environment
 
 ### Building
 
-* `ember build` (development)
-* `ember build --environment production` (production)
+* `grunt build` (development)
+* `grunt build:prod` (production)
 
 ### Continuous Integration
 We have setup Bamboo as continuous integration server
