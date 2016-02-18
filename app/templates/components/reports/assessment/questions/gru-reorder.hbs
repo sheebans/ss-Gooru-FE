@@ -1,7 +1,7 @@
 <ul>
   {{#each answers as |answer index|}}
       <li>
-          <span class="{{if answer.correct 'correct' 'incorrect'}}">{{answer.selectedOrder}}</span>
+          <span class="{{if answer.correct 'correct' 'incorrect'}} {{if anonymous 'anonymous'}}">{{answer.selectedOrder}}</span>
           <span class="answer-text">{{{answer.text}}}</span>
       </li>
   {{/each}}
