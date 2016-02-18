@@ -38,43 +38,67 @@ export default Ember.Object.extend({
    * Indicates when the result was started
    * @property {Date}
    */
-
-  startedAt: Ember.computed({
-    set(key, value) {
-      Ember.Logger.debug("Updating key" + key);
-      this.set('submittedAt', null);
-      return value;
-    }
-  }),
+  startedAt: null,
 
   /**
    * Indicates when the result was submitted
    * @property {Date}
    */
-  submittedAt: Ember.computed({
-    set(key, value) {
-      Ember.Logger.debug("Updating key" + key);
-
-      let timeSpent = 0;
-      if (value){
-        let startedAt = this.get("startedAt");
-        if (startedAt){ //updating time spent when submitted at is changed
-          timeSpent = Math.round(value.getTime() - startedAt.getTime()) / 1000;
-        }
-      }
-
-      this.set('timeSpent', timeSpent);
-      return value;
-    }
-  }),
+  submittedAt: null,
 
   /**
    * A result is started when it has time spent
    * @property {boolean} indicates when it has been started
    */
-  started: Ember.computed.bool("timeSpent")
+  started: Ember.computed.bool("timeSpent"),
+
+  /**
+   * Indicates if it is submitted
+   * @return {boolean}
+   */
+  submitted: Ember.computed.bool("submittedAt"),
+
+  /**
+   * Indicates if the result is pending, it means it has started but not submitted
+   * @property {boolean}
+   */
+  pending: Ember.computed("startedAt", "submitted", function(){
+    return this.get("startedAt") && !this.get("submitted");
+  }),
+
+  /**
+   * Indicates if it is completed
+   * All started question are treated as completed
+   * @return {boolean}
+   */
+  completed: Ember.computed.bool("started"),
 
 
+  //
+  //Observer
+
+  /**
+   * When the start at changes it resets some properties
+   */
+  onStartAtChange: Ember.observer("startedAt", function(){
+    this.set('submittedAt', null);
+  }),
+
+  /**
+   * When the submitted at changes it resets some properties
+   */
+  onSubmittedAtChange: Ember.observer("submittedAt", function(){
+    let timeSpent = 0;
+    let submittedAt = this.get("submittedAt");
+    if (submittedAt){
+      let startedAt = this.get("startedAt");
+      if (startedAt){ //updating time spent when submitted at is changed
+        timeSpent = Math.round(submittedAt.getTime() - startedAt.getTime()) / 1000;
+      }
+    }
+
+    this.set('timeSpent', timeSpent);
+  })
 
 
 });

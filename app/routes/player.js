@@ -1,7 +1,4 @@
 import Ember from 'ember';
-import UserResourcesResult from 'gooru-web/models/result/user-resources';
-import QuestionResult from 'gooru-web/models/result/question';
-import ResourceResult from 'gooru-web/models/result/resource';
 import AssessmentResult from 'gooru-web/models/result/assessment';
 
 export default Ember.Route.extend({
@@ -58,19 +55,24 @@ export default Ember.Route.extend({
   setupController(controller, model) {
     const collection = model.collection;
     let assessmentResult = model.assessmentResult;
+
+    let promise = Ember.RSVP.resolve(true);
     if (!assessmentResult){
       assessmentResult = AssessmentResult.create();
       assessmentResult.initAssessmentResult(collection);
+      promise = controller.startAssessment();
     }
 
-    controller.set("assessmentResult", assessmentResult);
+    promise.then(function(){
+      controller.set("assessmentResult", assessmentResult);
 
-    var resource = collection.get("lastVisitedResource");
-    if (model.resourceId) {
-      resource = collection.getResourceById(model.resourceId);
-    }
+      var resource = collection.get("lastVisitedResource");
+      if (model.resourceId) {
+        resource = collection.getResourceById(model.resourceId);
+      }
 
-    controller.set("collection", collection);
-    controller.moveToResource(resource);
+      controller.set("collection", collection);
+      controller.moveToResource(resource);
+    });
   }
 });

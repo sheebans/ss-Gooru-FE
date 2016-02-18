@@ -70,7 +70,7 @@ test('Layout', function (assert) {
 });
 
 test('Submit button should become enabled and call action on submit', function (assert) {
-  assert.expect(3);
+  assert.expect(5);
 
   const question = Ember.Object.create(
     {
@@ -96,8 +96,10 @@ test('Submit button should become enabled and call action on submit', function (
   this.set('question', question);
   this.set('collection',collection);
 
-  this.on("mySubmitQuestion", function(question){
+  this.on("mySubmitQuestion", function(question, questionResult){
     assert.equal(question.get("id"), 10, "Wrong id");
+    assert.equal(questionResult.get("correct"), true, "Answer should be correct");
+    assert.equal(questionResult.get("userAnswer"), "test", "Wrong id");
   });
   this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult
       onSubmitQuestion="mySubmitQuestion" collection=collection}}`);
