@@ -4,8 +4,9 @@
 
 <div class="answer-choices">
   <form class="form-horizontal">
-      <div class="radio">
+      <div class="radio {{if readOnly 'disabled'}}">
           {{#radio-button
+            disabled=readOnly
             value=trueAnswerId
             changed="selectAnswerChoice"
             name="answer-choice-radio"}}
@@ -14,6 +15,7 @@
       </div>
       <div class="radio">
           {{#radio-button
+            disabled=readOnly
             value=falseAnswerId
             changed="selectAnswerChoice"
             name="answer-choice-radio"}}

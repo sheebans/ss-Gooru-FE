@@ -34,35 +34,38 @@ export default QuestionComponent.extend({
 
   setupSubscriptions: Ember.on('didInsertElement', function () {
     const component = this;
+    const readOnly = component.get("readOnly");
 
-    this.$('li.answer').on('click', function () {
-      const $this = $(this);
-      const answerId = $this.data('id');
-      const questionUtil = component.get("questionUtil");
+    if (!readOnly){
+      this.$('li.answer').on('click', function () {
+        const $this = $(this);
+        const answerId = $this.data('id');
+        const questionUtil = component.get("questionUtil");
 
-      var selected = component.get('selectedAnswers');
-      var idx = selected.indexOf(answerId);
+        var selected = component.get('selectedAnswers');
+        var idx = selected.indexOf(answerId);
 
-      $this.toggleClass('selected');
+        $this.toggleClass('selected');
 
-      if (idx === -1) {
-        selected.push(answerId);
-      } else {
-        selected.splice(idx, 1);
-      }
+        if (idx === -1) {
+          selected.push(answerId);
+        } else {
+          selected.splice(idx, 1);
+        }
 
-      let cleared = !selected.length;
-      const correct = questionUtil.isCorrect(selected);
+        let cleared = !selected.length;
+        const correct = questionUtil.isCorrect(selected);
 
-      component.notifyAnswerChanged(selected, correct);
-      if (cleared) {
-        component.notifyAnswerCleared(selected);
-      }
-      else {
-        component.notifyAnswerCompleted(selected, correct);
-      }
+        component.notifyAnswerChanged(selected, correct);
+        if (cleared) {
+          component.notifyAnswerCleared(selected);
+        }
+        else {
+          component.notifyAnswerCompleted(selected, correct);
+        }
+      });
+    }
 
-    });
   }),
 
   removeSubscriptions: Ember.on('willDestroyElement', function () {

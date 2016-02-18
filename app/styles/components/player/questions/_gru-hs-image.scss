@@ -22,7 +22,12 @@
           width: auto;
           max-height: 100%;
         }
-        &:hover{
+
+        &.disabled{
+          cursor: $cursor-disabled;
+        }
+
+        &:not(.disabled):hover{
           border-color:$dark-300;
         }
         &.selected{

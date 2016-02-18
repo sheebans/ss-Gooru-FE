@@ -60,3 +60,32 @@ test('True or false question layout', function (assert) {
   $component.find(".answer-choices .radio input[type=radio]:eq(0)").click();
 
 });
+
+test('True or false question layout - read only', function (assert) {
+
+  assert.expect(2);
+
+  let question = Ember.Object.create({ //true false
+    "id": "569906aa3ec3bb39969acbe6",
+    questionType: 'T/F',
+    text: 'True False Question',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({id: "1", isCorrect: true, text: "True"}),
+      Ember.Object.create({id: "2", isCorrect: false, text: "False"}),
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 2,
+    "hasAnswers": true
+  });
+
+  this.set('question', question);
+
+  this.render(hbs`{{player/questions/gru-true-false question=question readOnly=true}}`);
+
+  var $component = this.$(); //component dom element
+  assert.equal($component.find(".answer-choices .radio.disabled").length, 2, "Missing answer choices");
+  assert.equal($component.find(".answer-choices .radio input[disabled]").length, 2, "Missing answer choices radio inputs");
+});

@@ -27,6 +27,23 @@ export default Ember.Controller.extend({
   actions: {
 
     /**
+     * When clicking at submit all or end
+     */
+    finishCollection: function(){
+      let controller = this;
+      controller.finishAssessment();
+      //TODO finish collections
+    },
+
+    /**
+     * When clicking at view report
+     */
+    viewReport: function(){
+      let controller = this;
+      controller.set("showReport", true);
+    },
+
+    /**
      * Handle onSubmitQuestion event from gru-question-viewer
      * @see components/player/gru-question-viewer.js
      * @param {Resource} question
@@ -141,6 +158,8 @@ export default Ember.Controller.extend({
     let controller = this;
     let assessmentResult = this.get("assessmentResult");
     let resourceId = resource.get("id");
+
+    controller.set("showReport", false);
     controller.set("resourceId", resourceId);
     controller.set("resource", resource);
 

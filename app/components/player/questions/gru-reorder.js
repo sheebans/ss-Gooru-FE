@@ -32,8 +32,13 @@ export default QuestionComponent.extend({
     const component = this;
     const sortable = this.$('.sortable');
     const questionUtil = this.get("questionUtil");
+    const readOnly = component.get("readOnly");
 
     sortable.sortable();
+    if (readOnly){
+      sortable.sortable('disable');
+    }
+
 
     // Manually add subscriptions to sortable element -makes it easier to test
     sortable.on('sortupdate', function() {
