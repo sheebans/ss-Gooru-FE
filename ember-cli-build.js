@@ -5,9 +5,6 @@ module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     fingerprint: {
       exclude: ['themes/edify'] //excluding test theme files
-    },
-    inlineContent: {
-      'emojiOne': 'public/assets/emoji-one/emoji.svg'
     }
   });
 
