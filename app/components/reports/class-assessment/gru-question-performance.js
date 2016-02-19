@@ -128,7 +128,8 @@ export default Ember.Component.extend({
         charData: Ember.A([Ember.Object.create({
           color: correct ? CORRECT_COLOR : INCORRECT_COLOR,
           percentage: percentage
-        })])
+        })]),
+        allAnswered: (percentage===100)
       }));
     });
 
