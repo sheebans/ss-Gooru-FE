@@ -34,6 +34,8 @@ test('Layout', function(assert) {
     assert.equal($breadcrumbItems.length, 1, "Incorrect number of breadcrumb items");
     assert.equal(T.text($breadcrumb.find("ul li:last-child")), 'The Best Course Ever Made', "Wrong breadcrumb item label");
 
+    const $filters = find(".controller.class .gru-filters");
+    T.exists(assert, $filters, "Filters should be visible");
   });
 });
 
