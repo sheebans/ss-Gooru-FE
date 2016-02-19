@@ -29,12 +29,9 @@ export default Ember.Component.extend(QuestionMixin, {
     let userAnswer = showCorrect ? correctAnswers : component.get("userAnswer");
     let items = questionUtil.getItems();
     items.forEach(function(item){
-      let text = item.get("text");
-      let selected = userAnswer.contains(text);
-      let correct = selected && questionUtil.isAnswerChoiceCorrect(text);
-
+      let selected = userAnswer.findBy("index", item.get("index"));
       item.set("selected", selected);
-      item.set("correct", correct);
+      //getItems already return if it is correct or not
     });
 
     return items;

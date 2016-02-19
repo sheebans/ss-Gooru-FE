@@ -53,11 +53,15 @@ test('Multiple Choice - distribution', function (assert) {
 
   let distribution = questionUtil.distribution([1, 1, 2, 3, 4, 3, 2, 3]);
 
-  let answers = distribution.map(function(item) { return item.get("answer"); }).toArray();
-  let counts = distribution.map(function(item) { return item.get("count"); }).toArray();
+  let answers = distribution.map(function (item) {
+    return item.get("answer");
+  }).toArray();
+  let counts = distribution.map(function (item) {
+    return item.get("count");
+  }).toArray();
 
-  assert.deepEqual(answers, [1,2,3,4], "Wrong answers");
-  assert.deepEqual(counts, [2,2,3,1], "Wrong counts");
+  assert.deepEqual(answers, [1, 2, 3, 4], "Wrong answers");
+  assert.deepEqual(counts, [2, 2, 3, 1], "Wrong counts");
 });
 
 test('Multiple Choice - answerKey', function (assert) {
@@ -136,7 +140,7 @@ test('Multiple Answer - isCorrect', function (assert) {
 });
 
 test('Multiple Answer - answerKey', function (assert) {
-  let questionUtil = MultipleAnswerUtil.create({ question: null });
+  let questionUtil = MultipleAnswerUtil.create({question: null});
 
   let key = questionUtil.answerKey([{id: 1, selection: false}, {id: 2, selection: true}, {id: 3, selection: true}]);
   assert.equal(key, "1_false,2_true,3_true", "Wrong key for answerA");
@@ -147,7 +151,7 @@ test('Multiple Answer - answerKey', function (assert) {
 });
 
 test('Multiple Answer - sameAnswer', function (assert) {
-  let questionUtil = MultipleAnswerUtil.create({ question: null });
+  let questionUtil = MultipleAnswerUtil.create({question: null});
 
   let answerA = [{id: 1, selection: false}, {id: 2, selection: true}, {id: 3, selection: true}];
   let answerB = [{id: 1, selection: false}, {id: 3, selection: true}, {id: 2, selection: true}]; //same as 1, different order
@@ -159,7 +163,7 @@ test('Multiple Answer - sameAnswer', function (assert) {
 });
 
 test('Multiple Answer - distribution', function (assert) {
-  let questionUtil = MultipleAnswerUtil.create({ question: null });
+  let questionUtil = MultipleAnswerUtil.create({question: null});
 
   let distribution = questionUtil.distribution([
     [{id: 1, selection: false}, {id: 2, selection: false}, {id: 3, selection: false}],
@@ -169,12 +173,16 @@ test('Multiple Answer - distribution', function (assert) {
     [{id: 2, selection: true}, {id: 1, selection: false}, {id: 3, selection: true}] //sames as #3 different order
   ]);
 
-  let answerKeys = distribution.map(function(item) { return item.get("key"); }).toArray();
-  let counts = distribution.map(function(item) { return item.get("count"); }).toArray();
+  let answerKeys = distribution.map(function (item) {
+    return item.get("key");
+  }).toArray();
+  let counts = distribution.map(function (item) {
+    return item.get("count");
+  }).toArray();
 
-  let expectedKeys = [ '1_false,2_false,3_false', '1_false,2_true,3_true', '1_false,2_false,3_true' ];
+  let expectedKeys = ['1_false,2_false,3_false', '1_false,2_true,3_true', '1_false,2_false,3_true'];
   assert.deepEqual(answerKeys, expectedKeys, "Wrong answer keys");
-  assert.deepEqual(counts, [2,2,1], "Wrong counts");
+  assert.deepEqual(counts, [2, 2, 1], "Wrong counts");
 });
 
 // --------------- True False tests
@@ -207,11 +215,15 @@ test('True/False - distribution', function (assert) {
 
   let distribution = questionUtil.distribution([1, 1, 2, 2, 1, 2, 2, 2]);
 
-  let answers = distribution.map(function(item) { return item.get("answer"); }).toArray();
-  let counts = distribution.map(function(item) { return item.get("count"); }).toArray();
+  let answers = distribution.map(function (item) {
+    return item.get("answer");
+  }).toArray();
+  let counts = distribution.map(function (item) {
+    return item.get("count");
+  }).toArray();
 
-  assert.deepEqual(answers, [1,2], "Wrong answers");
-  assert.deepEqual(counts, [3,5], "Wrong counts");
+  assert.deepEqual(answers, [1, 2], "Wrong answers");
+  assert.deepEqual(counts, [3, 5], "Wrong counts");
 });
 
 test('True/False - answerKey', function (assert) {
@@ -304,12 +316,16 @@ test('FIB - distribution', function (assert) {
     ['black', 'white', 'blue'] //same as 1 and 2
   ]);
 
-  let answerKeys = distribution.map(function(item) { return item.get("key"); }).toArray();
-  let counts = distribution.map(function(item) { return item.get("count"); }).toArray();
+  let answerKeys = distribution.map(function (item) {
+    return item.get("key");
+  }).toArray();
+  let counts = distribution.map(function (item) {
+    return item.get("count");
+  }).toArray();
 
-  let expectedKeys = [ "black,white,blue", "blue,orange,red", "black,white,red" ];
+  let expectedKeys = ["black,white,blue", "blue,orange,red", "black,white,red"];
   assert.deepEqual(answerKeys, expectedKeys, "Wrong answer keys");
-  assert.deepEqual(counts, [3,2,1], "Wrong counts");
+  assert.deepEqual(counts, [3, 2, 1], "Wrong counts");
 });
 
 test('FIB - answerKey', function (assert) {
@@ -407,14 +423,18 @@ test('Reorder - distribution', function (assert) {
     ['choice-2', 'choice-3', 'choice-1', 'choice-4'] //same as 2
   ]);
 
-  let answerKeys = distribution.map(function(item) { return item.get("key"); }).toArray();
-  let counts = distribution.map(function(item) { return item.get("count"); }).toArray();
+  let answerKeys = distribution.map(function (item) {
+    return item.get("key");
+  }).toArray();
+  let counts = distribution.map(function (item) {
+    return item.get("count");
+  }).toArray();
 
   let expectedKeys = [
     "choice-1,choice-2,choice-3,choice-4", "choice-2,choice-3,choice-1,choice-4",
-    "choice-4,choice-2,choice-3,choice-1", "choice-3,choice-2,choice-4,choice-1" ];
+    "choice-4,choice-2,choice-3,choice-1", "choice-3,choice-2,choice-4,choice-1"];
   assert.deepEqual(answerKeys, expectedKeys, "Wrong answer keys");
-  assert.deepEqual(counts, [2,3,1,1], "Wrong counts");
+  assert.deepEqual(counts, [2, 3, 1, 1], "Wrong counts");
 });
 
 test('Reorder - answerKey', function (assert) {
@@ -491,10 +511,10 @@ test('Hot Spot Image - isCorrect', function (assert) {
   let correctDifferentOrder = [3, 2];
   assert.ok(questionUtil.isCorrect(correctDifferentOrder), "Answer should be correct, even it is not in the same order");
 
-  let incorrectAnswer = [ 1, 3 ];
+  let incorrectAnswer = [1, 3];
   assert.ok(!questionUtil.isCorrect(incorrectAnswer), "Answer should not be correct");
 
-  let incorrectLessOptions = [ 1 ];
+  let incorrectLessOptions = [1];
   assert.ok(!questionUtil.isCorrect(incorrectLessOptions), "Answer should not be correct, it has less options");
 });
 
@@ -502,36 +522,40 @@ test('Hot Spot Image - distribution', function (assert) {
   let questionUtil = HotSpotImageUtil.create({question: null});
 
   let distribution = questionUtil.distribution([
-    [1,2,3,5],
-    [3,1,5,2], //same as 1, different order
-    [1,4,3,6],
-    [6,2,1,3],
-    [4,1,6,3], //same as 3, different order
-    [1,2,3,5] //same as 1, different order
+    [1, 2, 3, 5],
+    [3, 1, 5, 2], //same as 1, different order
+    [1, 4, 3, 6],
+    [6, 2, 1, 3],
+    [4, 1, 6, 3], //same as 3, different order
+    [1, 2, 3, 5] //same as 1, different order
   ]);
 
-  let answerKeys = distribution.map(function(item) { return item.get("key"); }).toArray();
-  let counts = distribution.map(function(item) { return item.get("count"); }).toArray();
+  let answerKeys = distribution.map(function (item) {
+    return item.get("key");
+  }).toArray();
+  let counts = distribution.map(function (item) {
+    return item.get("count");
+  }).toArray();
 
-  let expectedKeys = ['1,2,3,5', '1,3,4,6','1,2,3,6'];
+  let expectedKeys = ['1,2,3,5', '1,3,4,6', '1,2,3,6'];
   assert.deepEqual(answerKeys, expectedKeys, "Wrong answer keys");
-  assert.deepEqual(counts, [3,2,1], "Wrong counts");
+  assert.deepEqual(counts, [3, 2, 1], "Wrong counts");
 });
 
 test('Hot Spot Image - answerKey', function (assert) {
   let questionUtil = HotSpotImageUtil.create({question: null});
 
-  let key = questionUtil.answerKey([3,1,5,2]);
+  let key = questionUtil.answerKey([3, 1, 5, 2]);
   assert.equal(key, '1,2,3,5', "Wrong key");
 });
 
 test('Hot Spot Image - sameAnswer', function (assert) {
   let questionUtil = HotSpotImageUtil.create({question: null});
 
-  let answerA = [3,1,5,2];
-  let answerB = [3,2,5,1]; //same as 1, different order
-  let answerC = [3,1,5]; //less options
-  let answerD = [3,1,5,4]; //different option, 4
+  let answerA = [3, 1, 5, 2];
+  let answerB = [3, 2, 5, 1]; //same as 1, different order
+  let answerC = [3, 1, 5]; //less options
+  let answerD = [3, 1, 5, 4]; //different option, 4
 
   assert.ok(questionUtil.sameAnswer(answerA, answerB), "Answer should be the same even they have different order");
   assert.ok(!questionUtil.sameAnswer(answerA, answerC), "Answer should not be the same, it has less options");
@@ -593,10 +617,10 @@ test('Hot Spot Text - isCorrect', function (assert) {
   let correctDifferentOrder = [3, 2];
   assert.ok(questionUtil.isCorrect(correctDifferentOrder), "Answer should be correct, even it is not in the same order");
 
-  let incorrectAnswer = [ 1, 3 ];
+  let incorrectAnswer = [1, 3];
   assert.ok(!questionUtil.isCorrect(incorrectAnswer), "Answer should not be correct");
 
-  let incorrectLessOptions = [ 1 ];
+  let incorrectLessOptions = [1];
   assert.ok(!questionUtil.isCorrect(incorrectLessOptions), "Answer should not be correct, it has less options");
 });
 
@@ -604,36 +628,40 @@ test('Hot Spot Text - distribution', function (assert) {
   let questionUtil = HotSpotTextUtil.create({question: null});
 
   let distribution = questionUtil.distribution([
-    [1,2,3,5],
-    [3,1,5,2], //same as 1, different order
-    [1,4,3,6],
-    [6,2,1,3],
-    [4,1,6,3], //same as 3, different order
-    [1,2,3,5] //same as 1, different order
+    [1, 2, 3, 5],
+    [3, 1, 5, 2], //same as 1, different order
+    [1, 4, 3, 6],
+    [6, 2, 1, 3],
+    [4, 1, 6, 3], //same as 3, different order
+    [1, 2, 3, 5] //same as 1, different order
   ]);
 
-  let answerKeys = distribution.map(function(item) { return item.get("key"); }).toArray();
-  let counts = distribution.map(function(item) { return item.get("count"); }).toArray();
+  let answerKeys = distribution.map(function (item) {
+    return item.get("key");
+  }).toArray();
+  let counts = distribution.map(function (item) {
+    return item.get("count");
+  }).toArray();
 
-  let expectedKeys = ['1,2,3,5', '1,3,4,6','1,2,3,6'];
+  let expectedKeys = ['1,2,3,5', '1,3,4,6', '1,2,3,6'];
   assert.deepEqual(answerKeys, expectedKeys, "Wrong answer keys");
-  assert.deepEqual(counts, [3,2,1], "Wrong counts");
+  assert.deepEqual(counts, [3, 2, 1], "Wrong counts");
 });
 
 test('Hot Spot Text - answerKey', function (assert) {
   let questionUtil = HotSpotTextUtil.create({question: null});
 
-  let key = questionUtil.answerKey([3,1,5,2]);
+  let key = questionUtil.answerKey([3, 1, 5, 2]);
   assert.equal(key, '1,2,3,5', "Wrong key");
 });
 
 test('Hot Spot Text - sameAnswer', function (assert) {
   let questionUtil = HotSpotImageUtil.create({question: null});
 
-  let answerA = [3,1,5,2];
-  let answerB = [3,2,5,1]; //same as 1, different order
-  let answerC = [3,1,5]; //less options
-  let answerD = [3,1,5,4]; //different option, 4
+  let answerA = [3, 1, 5, 2];
+  let answerB = [3, 2, 5, 1]; //same as 1, different order
+  let answerC = [3, 1, 5]; //less options
+  let answerD = [3, 1, 5, 4]; //different option, 4
 
   assert.ok(questionUtil.sameAnswer(answerA, answerB), "Answer should be the same even they have different order");
   assert.ok(!questionUtil.sameAnswer(answerA, answerC), "Answer should not be the same, it has less options");
@@ -657,51 +685,70 @@ test('Hot Text Highlight - getCorrectAnswer', function (assert) {
 
   //with no correct items
   let question = Ember.Object.create({
-    answers: Ember.A([ { text: "<p>No correct answers in text</p>" }] ),
+    answers: Ember.A([Ember.Object.create({text: "<p>No correct answers in text</p>"})]),
     hasAnswers: true
   });
   let questionUtil = HotTextHighlightUtil.create({question: question});
   let correctAnswer = questionUtil.getCorrectAnswer();
-  assert.ok(!correctAnswer.get("length"), "It shoould have not correct items");
+  assert.ok(!correctAnswer.get("length"), "It should have not correct items");
 
   //with 1 correct item
-  question = Ember.Object.create({ answers: Ember.A([ { text: "One correct answer in text [this]"} ]), hasAnswers:true });
+  question = Ember.Object.create({
+    answers: Ember.A([Ember.Object.create({text: "One correct answer in text [this]"})]),
+    hasAnswers: true,
+    isHotTextHighlightWord: true
+  });
   questionUtil = HotTextHighlightUtil.create({question: question});
   correctAnswer = questionUtil.getCorrectAnswer().toArray();
   assert.equal(correctAnswer.length, 1, "Wrong number of items");
-  assert.equal(correctAnswer[0], "this", "Wrong correct item");
+  assert.equal(correctAnswer[0].text, "this", "Wrong correct item text");
+  assert.equal(correctAnswer[0].index, 5, "Wrong correct item index");
 
   //with many correct items
-  question = Ember.Object.create({ answers: Ember.A([ { text: "Many [correct] items in this sentence [another .]" } ]), hasAnswers:true });
+  question = Ember.Object.create({
+    answers: Ember.A([Ember.Object.create({text: "Many [correct] items in this sentence [another]"})]),
+    hasAnswers: true,
+    isHotTextHighlightWord: true
+  });
   questionUtil = HotTextHighlightUtil.create({question: question});
   correctAnswer = questionUtil.getCorrectAnswer().toArray();
   assert.equal(correctAnswer.length, 2, "Wrong number of items");
-  assert.equal(correctAnswer[0], "correct", "Wrong correct item");
-  assert.equal(correctAnswer[1], "another .", "Wrong correct item");
+  assert.equal(correctAnswer[0].text, "correct", "Wrong correct item text");
+  assert.equal(correctAnswer[0].index, 1, "Wrong correct item index");
+  assert.equal(correctAnswer[1].text, "another", "Wrong correct item text");
+  assert.equal(correctAnswer[1].index, 6, "Wrong correct item index");
 });
 
 test('Hot Text Highlight - isAnswerChoiceCorrect', function (assert) {
-  let question = Ember.Object.create({ answers: Ember.A([ { text: "Many [correct] items in this sentence [another .]"} ]), hasAnswers:true });
+  let question = Ember.Object.create({
+    answers: Ember.A([Ember.Object.create({text: "Many [correct] items in this sentence [another.]"})]),
+    hasAnswers: true,
+    isHotTextHighlightWord: true
+  });
   let questionUtil = HotTextHighlightUtil.create({question: question});
 
-  assert.ok(questionUtil.isAnswerChoiceCorrect("correct"), "Answer should be correct");
-  assert.ok(!questionUtil.isAnswerChoiceCorrect("invalid answer"), "Answer should not be correct");
+  assert.ok(questionUtil.isAnswerChoiceCorrect({ index: 1, text: "correct"}), "Answer should be correct");
+  assert.ok(!questionUtil.isAnswerChoiceCorrect({ index: 0, text: "Many"}), "Answer should not be correct");
 });
 
 test('Hot Text Highlight - isCorrect', function (assert) {
-  let question = Ember.Object.create({ answers: Ember.A([ { text: "Many [correct] items in this sentence [another .]"} ]), hasAnswers:true });
+  let question = Ember.Object.create({
+    answers: Ember.A([Ember.Object.create({text: "Many [correct] items in this sentence [another.]"})]),
+    hasAnswers: true,
+    isHotTextHighlightWord: true
+  });
   let questionUtil = HotTextHighlightUtil.create({question: question});
 
-  let correctAnswer = ["correct", "another ."];
+  let correctAnswer = [{index: 1, text: "correct"}, {index: 6, text: "another."}];
   assert.ok(questionUtil.isCorrect(correctAnswer), "Answer should be correct");
 
-  let correctDifferentOrder = ["another .", "correct"];
+  let correctDifferentOrder = [ {index: 6, text: "another."}, {index: 1, text: "correct"}];
   assert.ok(questionUtil.isCorrect(correctDifferentOrder), "Answer should be correct, even it is not in the same order");
 
-  let incorrectAnswer = ["no", "correct"];
+  let incorrectAnswer = [ {index: 6, text: "another."}, {index: 2, text: "items"}];
   assert.ok(!questionUtil.isCorrect(incorrectAnswer), "Answer should not be correct");
 
-  let incorrectLessOptions = ["correct"];
+  let incorrectLessOptions = [{index: 6, text: "another."}];
   assert.ok(!questionUtil.isCorrect(incorrectLessOptions), "Answer should not be correct, it has less options");
 });
 
@@ -709,36 +756,87 @@ test('Hot Text Highlight - distribution', function (assert) {
   let questionUtil = HotTextHighlightUtil.create({question: null});
 
   let distribution = questionUtil.distribution([
-    ["hello", "good bye", "see you later"],
-    ["hello", "good bye", "see you later"], //same as 1
-    ["hello", "good bye", "good night"],
-    ["hello", "morning", "good night"],
-    ["hello", "good night", "good bye"], //same as 3, different order
-    ["see you later", "hello", "good bye"] //same as 1, different order
+    [
+      {index: 6, text: "another ."},
+      {index: 1, text: "correct"},
+      {index: 3, text: "item"}
+    ],
+    [
+      {index: 6, text: "another ."},
+      {index: 1, text: "correct"},
+      {index: 3, text: "item"}
+    ], //same as 1
+    [
+      {index: 6, text: "another ."},
+      {index: 2, text: "here"},
+      {index: 3, text: "item"}
+    ],
+    [
+      {index: 6, text: "another ."},
+      {index: 1, text: "correct"},
+      {index: 4, text: "then"}
+    ],
+    [
+      {index: 2, text: "here"},
+      {index: 3, text: "item"},
+      {index: 6, text: "another ."}
+    ], //same as 3, different order
+    [
+      {index: 1, text: "correct"},
+      {index: 3, text: "item"},
+      {index: 6, text: "another ."}
+    ] //same as 1, different order
   ]);
 
-  let answerKeys = distribution.map(function(item) { return item.get("key"); }).toArray();
-  let counts = distribution.map(function(item) { return item.get("count"); }).toArray();
+  let answerKeys = distribution.map(function (item) {
+    return item.get("key");
+  }).toArray();
+  let counts = distribution.map(function (item) {
+    return item.get("count");
+  }).toArray();
 
-  let expectedKeys = ['good bye,hello,see you later', 'good bye,good night,hello','good night,hello,morning'];
+  let expectedKeys = ['1,3,6', '2,3,6', '1,4,6'];
   assert.deepEqual(answerKeys, expectedKeys, "Wrong answer keys");
-  assert.deepEqual(counts, [3,2,1], "Wrong counts");
+  assert.deepEqual(counts, [3, 2, 1], "Wrong counts");
 });
 
 test('Hot Text Highlight - answerKey', function (assert) {
   let questionUtil = HotTextHighlightUtil.create({question: null});
 
-  let key = questionUtil.answerKey(["hello", "good bye", "see you later"]);
-  assert.equal(key, 'good bye,hello,see you later', "Wrong key");
+  let answer = [
+    {index: 6, text: "another."},
+    {index: 1, text: "correct"},
+    {index: 3, text: "item"}
+  ];
+  let key = questionUtil.answerKey(answer);
+  assert.equal(key, "1,3,6");
 });
 
 test('Hot Text Highlight - sameAnswer', function (assert) {
   let questionUtil = HotTextHighlightUtil.create({question: null});
 
-  let answerA = ["hello", "good bye", "see you later"];
-  let answerB = ["hello", "see you later", "good bye"]; //same as 1, different order
-  let answerC = ["hello", "good bye"]; //less options
-  let answerD = ["hello", "good bye", "see you"]; //different option, see you
+  let answerA = [
+    {index: 6, text: "another ."},
+    {index: 1, text: "correct"},
+    {index: 3, text: "item"}
+  ];
+
+  let answerB = [
+    {index: 1, text: "correct"},
+    {index: 3, text: "item"},
+    {index: 6, text: "another ."}
+  ]; //same as A
+
+  let answerC = [
+    {index: 3, text: "item"},
+    {index: 6, text: "another ."}
+  ]; //less options
+
+  let answerD = [
+    { index: 1, text: "correct" },
+    { index: 3, text: "item" },
+    { index: 5, text: "see you" }
+  ]; //different option, see you
 
   assert.ok(questionUtil.sameAnswer(answerA, answerB), "Answer should be the same even they have different order");
   assert.ok(!questionUtil.sameAnswer(answerA, answerC), "Answer should not be the same, it has less options");
@@ -758,7 +856,7 @@ test('Hot Text Highlight - getWordItems', function (assert) {
   //with one word
   wordItems = questionUtil.getWordItems("text").toArray();
   assert.equal(wordItems.length, 1, "Wrong number of items");
-  assert.equal(wordItems[0].get("id"), 0, "Wrong id for first object");
+  assert.equal(wordItems[0].get("index"), 0, "Wrong id for first object");
   assert.equal(wordItems[0].get("text"), "text", "Wrong text for first object");
 
   //with many words
@@ -778,13 +876,13 @@ test('Hot Text Highlight - getSentenceItems', function (assert) {
   //with no correct
   sentenceItems = questionUtil.getSentenceItems("Sentence 1").toArray();
   assert.equal(sentenceItems.length, 1, "Wrong number of items");
-  assert.equal(sentenceItems[0].get("id"), 0, "Wrong id for first object");
+  assert.equal(sentenceItems[0].get("index"), 0, "Wrong id for first object");
   assert.equal(sentenceItems[0].get("text"), "Sentence 1", "Wrong text for first object");
 
   //with many sentences, 1 correct
   sentenceItems = questionUtil.getSentenceItems("Sentence 1 [Sentence 2.] Sentence 3").toArray();
   assert.equal(sentenceItems.length, 3, "Wrong number of items");
-  assert.equal(sentenceItems[0].get("id"), 0, "Wrong id for first object");
+  assert.equal(sentenceItems[0].get("index"), 0, "Wrong id for first object");
   assert.equal(sentenceItems[0].get("text"), "Sentence 1", "Wrong text for first object");
   assert.equal(sentenceItems[1].get("text"), "Sentence 2.", "Wrong text for second object");
   assert.equal(sentenceItems[2].get("text"), "Sentence 3", "Wrong text for third object");
@@ -792,7 +890,7 @@ test('Hot Text Highlight - getSentenceItems', function (assert) {
   //with many sentences, many correct
   sentenceItems = questionUtil.getSentenceItems("Sentence 1 [Sentence 2.] Sentence 3 [Sentence 4.] Sentence 5");
   assert.equal(sentenceItems.length, 5, "Wrong number of items");
-  assert.equal(sentenceItems[0].get("id"), 0, "Wrong id for first object");
+  assert.equal(sentenceItems[0].get("index"), 0, "Wrong id for first object");
   assert.equal(sentenceItems[0].get("text"), "Sentence 1", "Wrong text for first object");
   assert.equal(sentenceItems[1].get("text"), "Sentence 2.", "Wrong text for second object");
   assert.equal(sentenceItems[2].get("text"), "Sentence 3", "Wrong text for third object");
@@ -802,7 +900,7 @@ test('Hot Text Highlight - getSentenceItems', function (assert) {
 });
 
 test('Hot Text Highlight - toItems', function (assert) {
-  assert.expect(6);
+  assert.expect(8);
 
   var questionUtil = HotTextHighlightUtil.create({question: 'FakeQuestion'});
 
@@ -810,16 +908,18 @@ test('Hot Text Highlight - toItems', function (assert) {
 
   var convertedItems = questionUtil.toItems(items).toArray();
   assert.equal(convertedItems.length, 3, "Should have 3 items, empty items are excluded");
-  assert.equal(convertedItems[0].get("id"), 2, "Invalid id, it should have the original index id");
+  assert.equal(convertedItems[0].get("index"), 0, "Invalid id, Item 1 should have index = 0, because other are empty");
   assert.equal(convertedItems[0].get("text"), "Item 1", "Wrong item text");
   assert.equal(convertedItems[0].get("selected"), false, "Wrong item selected value");
   assert.equal(convertedItems[1].get("text"), "Item 2", "Wrong item text, text should be trimmed");
+  assert.equal(convertedItems[2].get("index"), 2, "Wrong item index at 2");
   assert.equal(convertedItems[2].get("text"), "Item 3", "Wrong item text, [] should be suppressed");
+  assert.equal(convertedItems[2].get("correct"), true, "Item3 should be correct");
 });
 
 test('Hot Text Highlight - getItems isHotTextHighlightWord', function (assert) {
-  assert.expect(5);
-  var answers = Ember.A([ Ember.Object.create({ text: "Many [correct] items in this sentence [another]" }) ]),
+  assert.expect(6);
+  var answers = Ember.A([Ember.Object.create({text: "Many [correct] items in this sentence [another]"})]),
     question = Ember.Object.create({
       answers: answers,
       hasAnswers: true,
@@ -830,15 +930,16 @@ test('Hot Text Highlight - getItems isHotTextHighlightWord', function (assert) {
   var items = questionUtil.getItems().toArray();
 
   assert.equal(items.length, 7, "Missing items");
-  assert.equal(items[0].get("id"), 0, "Invalid id");
+  assert.equal(items[0].get("index"), 0, "Invalid id");
   assert.equal(items[0].get("text"), "Many", "Wrong item text");
   assert.equal(items[0].get("selected"), false, "Wrong item selected value");
-  assert.equal(items[1].get("text"), "correct", "Wrong item text");
+  assert.equal(items[1].get("text"), "correct", "Wrong item text at 1");
+  assert.equal(items[1].get("index"), 1, "Wrong item text at 1");
 });
 
 test('Hot Text Highlight - getItems isHotTextHighlightSentence', function (assert) {
-  assert.expect(5);
-  var answers = Ember.A([ Ember.Object.create({ text: "Sentence 1 [Sentence 2.] Sentence 3 [Sentence 4.] Sentence 5" }) ]),
+  assert.expect(6);
+  var answers = Ember.A([Ember.Object.create({text: "Sentence 1 [Sentence 2.] Sentence 3 [Sentence 4.] Sentence 5"})]),
     question = Ember.Object.create({
       answers: answers,
       hasAnswers: true,
@@ -849,9 +950,10 @@ test('Hot Text Highlight - getItems isHotTextHighlightSentence', function (asser
   var items = questionUtil.getItems().toArray();
 
   assert.equal(items.length, 5, "Missing items");
-  assert.equal(items[0].get("id"), 0, "Invalid id");
+  assert.equal(items[0].get("index"), 0, "Invalid id");
   assert.equal(items[0].get("text"), "Sentence 1", "Wrong item text");
   assert.equal(items[0].get("selected"), false, "Wrong item selected value");
+  assert.equal(items[1].get("index"), 1, "Sentence 2. Wrong item index ");
   assert.equal(items[1].get("text"), "Sentence 2.", "Wrong item text");
 });
 
@@ -896,11 +998,15 @@ test('Open Ended - distribution', function (assert) {
 
   let distribution = questionUtil.distribution(["text1", "text2", "text3"]);
 
-  let keys = distribution.map(function(item) { return item.get("key"); }).toArray();
-  let counts = distribution.map(function(item) { return item.get("count"); }).toArray();
+  let keys = distribution.map(function (item) {
+    return item.get("key");
+  }).toArray();
+  let counts = distribution.map(function (item) {
+    return item.get("count");
+  }).toArray();
 
-  assert.deepEqual(keys, ["text1","text2","text3"], "Wrong keys");
-  assert.deepEqual(counts, [1,1,1], "Wrong counts");
+  assert.deepEqual(keys, ["text1", "text2", "text3"], "Wrong keys");
+  assert.deepEqual(counts, [1, 1, 1], "Wrong counts");
 });
 
 test('Open Ended - answerKey', function (assert) {

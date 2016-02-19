@@ -354,32 +354,25 @@ HotTextHighlightUtil = QuestionUtil.extend({
   // Methods
   /**
    * Indicates if the answer choice is correct
-   * @param { string } answerChoice
+   * @param { { index: number, text: string } } answerChoice
    */
   isAnswerChoiceCorrect: function(answerChoice){
     let correctAnswer = this.getCorrectAnswer();
-    return correctAnswer.contains(answerChoice);
+    let found = correctAnswer.findBy("index", answerChoice.index);
+    return found !== null && found !== undefined; //if found
   },
 
   /**
    * Gets the correct answer
    * The question text contains the information for the correct answer, correct items are wrapped by []
    * i.e La casa es de [colo] pero el [teco] es azul
-   * @return {string[]} returns the correct answer choice ids
+   * @return {{index: number, text: string }[]} returns the correct answer items
    */
   getCorrectAnswer: function(){
-    const text = this.get("question.answers.firstObject.text");
-    const regex = /(\[.*?])/gm;
-
-    let items = Ember.A();
-    let match = regex.exec(text);
-    while (match != null) {
-      let correctValue = match[0].replace("[", "").replace("]", ""); //replacing [ ]
-      items.pushObject(correctValue);
-      match = regex.exec(text);
-    }
-
-    return items;
+    const items = this.getItems();
+    return items.filterBy("correct", true).map(function(item){
+      return { index: item.get("index"), text: item.get("text") };
+    });
   },
 
   /**
@@ -387,7 +380,7 @@ HotTextHighlightUtil = QuestionUtil.extend({
    * This methods creates an item for each word in the text, it removes []
    * i.e La casa es de [colo] pero el [teco] es azul
    * @param {string} text
-   * @returns {{id: number, text: string, selected: boolean}} items
+   * @returns {{index: number, text: string, selected: boolean}} items
    */
   getWordItems: function (text) {
     const util = this,
@@ -401,17 +394,11 @@ HotTextHighlightUtil = QuestionUtil.extend({
    * Each text before, after and in between [] are considered sentences
    * @param {string} text i.e Sentence 1 [Sentence 2] Sentence 3 with any text here [Sentence 4] Sentence 5
    *
-   * @returns {{id: number, text: string, selected: boolean}} items
+   * @returns {{index: number, text: string, selected: boolean}} items
    */
   getSentenceItems: function (text) {
     const util = this,
-      textBlocks = Ember.A(text.split("[")); //split by [
-
-    var items = Ember.A();
-    textBlocks.forEach(function(textBlock){
-      items.pushObjects(textBlock.split("]")); //now split by ]
-    });
-
+      items = text.split(/(\[.*?])/gm);
     return util.toItems(items);
   },
 
@@ -431,20 +418,22 @@ HotTextHighlightUtil = QuestionUtil.extend({
    * Transforms a list of string into item objects, it trims the texts and removes []
    * @param {string[]} textList
    *
-   * @returns {{id: number, text: string, selected: boolean, correct: boolean}} items
+   * @returns {{index: number, text: string, selected: boolean, correct: boolean}} items
    */
   toItems: function (textList) {
-    const items = textList.map(function (text, index) {
-      return Ember.Object.create({
-        id: index,
-        text: text.replace("[", "").replace("]", "").trim(),
-        selected: false,
-        correct: false
-      });
+    textList = textList.filter(function (text) {
+      let trimmed = text.trim();
+      return trimmed || trimmed.length;
     });
 
-    return items.filter(function (item) {
-      return item.text || item.length;
+    return textList.map(function (text, index) {
+      let correct = text.indexOf("[") >= 0 && text.indexOf("]") > 0;
+      return Ember.Object.create({
+        index: index,
+        text: text.replace("[", "").replace("]", "").trim(),
+        selected: false,
+        correct: correct
+      });
     });
   },
 
@@ -477,10 +466,13 @@ HotTextHighlightUtil = QuestionUtil.extend({
    * Returns a unique key representing the answer
    * For hot text the answer is an array of string
    * @param { string[] } answer
-   * @returns {string} i.e text1,text2,text3
+   * @returns {string} i.e 1,2,3
    */
   answerKey: function(answer){
-    return answer.sort().join();
+    let indexes = answer.map(function(item){
+      return item.index;
+    });
+    return indexes.sort().join();
   }
 
 

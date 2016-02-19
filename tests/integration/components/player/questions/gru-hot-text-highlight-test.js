@@ -84,16 +84,16 @@ test('markItem', function(assert) {
     $item3 = $phrasesContainer.find("span.item:eq(3)");
 
   //selecting items
-  answers = { answer: ["Sentence 2."], correct: false };
+  answers = { answer: [{index:1, text:"Sentence 2."}], correct: false };
   $item1.click();
   assert.ok($item1.hasClass("selected"), "Item 1 should be selected");
 
-  answers = { answer: ["Sentence 2.", "Sentence 4."], correct: true };
+  answers = { answer: [{index:1, text:"Sentence 2."}, {index:3, text:"Sentence 4."}], correct: true };
   $item3.click();
   assert.ok($item3.hasClass("selected"), "Item 3 should be selected");
 
   //deselecting items
-  answers = { answer: ["Sentence 4."], correct: false };
+  answers = { answer: [{index:3, text:"Sentence 4."}], correct: false };
   $item1.click();
   assert.ok(!$item1.hasClass("selected"), "Item 1 should not be selected");
   assert.ok($item3.hasClass("selected"), "Item 3 should be selected");
