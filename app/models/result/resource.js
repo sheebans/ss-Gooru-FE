@@ -74,8 +74,8 @@ export default Ember.Object.extend({
   completed: Ember.computed.bool("started"),
 
 
-  //
-  //Observer
+  // -------------------------------------------------------------------------
+  // Observer
 
   /**
    * When the start at changes it resets some properties
@@ -87,12 +87,12 @@ export default Ember.Object.extend({
   /**
    * When the submitted at changes it resets some properties
    */
-  onSubmittedAtChange: Ember.observer("submittedAt", function(){
+  onSubmittedAtChange: Ember.observer("submittedAt", function () {
     let timeSpent = 0;
     let submittedAt = this.get("submittedAt");
-    if (submittedAt){
+    if (submittedAt) {
       let startedAt = this.get("startedAt");
-      if (startedAt){ //updating time spent when submitted at is changed
+      if (startedAt) { //updating time spent when submitted at is changed
         timeSpent = Math.round(submittedAt.getTime() - startedAt.getTime()) / 1000;
       }
     }

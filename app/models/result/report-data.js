@@ -96,6 +96,25 @@ export default Ember.Object.extend({
   // Methods
 
   /**
+   * Takes a map of QuestionResults and for each one that doesn't have a boolean value
+   * (i.e. true or false) for "correct", sets its "correct" property to false.
+   *
+   * @param { Object } QuestionResultMap - A map of QuestionResults (i.e. object where each key is a
+   * resource id and the content is a QuestionResult instance)
+   * @param resourceIds - An array of resource IDs
+   * @return {Object}
+   */
+  autoCompleteRow: function (QuestionResultMap, resourceIds) {
+    resourceIds.forEach(function (resourceId) {
+      var questionResult = QuestionResultMap[resourceId];
+      if (typeof questionResult.get('correct') !== 'boolean') {
+        questionResult.set('correct', false);
+      }
+    });
+    return QuestionResultMap;
+  },
+
+  /**
    * Create a matrix of empty objects from a couple of arrays
    * @param {String[]} idsY - An array of ids used for the first dimension of the matrix
    * @param {String[]} idsX - An array of ids used for the second dimension of the matrix
@@ -106,12 +125,17 @@ export default Ember.Object.extend({
     var yLen = idsY.length;
 
     for (let i = 0; i < yLen; i++) {
-      matrix[idsY[i]] = this.getEmptyRow(idsY[i], idsX);
+      matrix[idsY[i]] = this.getEmptyRow(idsX);
     }
     return matrix;
   },
 
-  getEmptyRow: function (rowId, columnIds) {
+  /**
+   * Create an object full of empty results
+   * @param {String[]} columnIds - An array of ids of all the items in the row
+   * @return { QuestionResult[] }
+   */
+  getEmptyRow: function (columnIds) {
     var row = {};
     var rowLen = columnIds.length;
 
@@ -127,26 +151,31 @@ export default Ember.Object.extend({
    * @returns {merge}
    */
   merge: function(userResults){
+    let reportData;
     let data = this.get('data');
     let resourceIds = this.get('resourceIds');
 
     userResults.forEach(function (userResult) {
       var userId = userResult.get("user");
-      var doResetResults = userResult.get("isAttemptStarted");
+      var doReset = userResult.get("isAttemptStarted");
+      var doAutoComplete = userResult.get("isAttemptFinished");
       var resourceResults = userResult.get("resourceResults");
 
-      if (doResetResults) {
-        data[userId] = this.getEmptyRow(userId, resourceIds);
+      if (doReset) {
+        data[userId] = this.getEmptyRow(resourceIds);
       }
 
       resourceResults.forEach(function (resourceResult) {
         var questionId = resourceResult.get("resourceId");
         data[userId][questionId] = resourceResult;
       });
+
+      if (doAutoComplete) {
+        this.autoCompleteRow(data[userId], resourceIds);
+      }
     }, this);
 
     // Generate a new object so any computed properties listening on reportData are fired
-    let reportData;
     if (Object.assign) {
       // Preferred way to merge the contents of two objects:
       // https://github.com/emberjs/ember.js/issues/12320

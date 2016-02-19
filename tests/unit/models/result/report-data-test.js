@@ -6,6 +6,127 @@ import { module, test } from 'qunit';
 
 module('Unit | Model | result/report data');
 
+test('merge', function (assert) {
+  var resources = Ember.A([
+    Ember.Object.create({"id": "A"}),
+    Ember.Object.create({"id": "B"})
+  ]);
+
+  var students = Ember.A([
+    Ember.Object.create({"id": "1"}),
+    Ember.Object.create({"id": "2"})
+  ]);
+
+  var reportData = ReportData.create({
+    students: students,
+    resources: resources
+  });
+
+  var defaultQR = QuestionResult.create();
+  var QR1 = QuestionResult.create({resourceId: "A", "correct": false, "timeSpent": 10});
+  var QR2 = QuestionResult.create({resourceId: "B", "correct": false, "timeSpent": 10});
+  var QR3 = QuestionResult.create({resourceId: "A", "correct": true, "timeSpent": 20});
+  var QR4 = QuestionResult.create({resourceId: "B", "correct": true, "timeSpent": 20});
+  var QR5 = QuestionResult.create({resourceId: "A", "correct": true, "timeSpent": 10});
+
+  reportData.merge([
+    UserResourcesResult.create({
+      user: "1",
+      resourceResults: Ember.A([QR1, QR2])
+    })
+  ]);
+
+  assert.equal(reportData.data["1"]["A"], QR1, 'row 1 | column 1: -override default object');
+  assert.equal(reportData.data["1"]["B"], QR2, 'row 1 | column 2: -override default object');
+  assert.deepEqual(reportData.data["2"]["A"], defaultQR, 'row 2 | column 1: -default object');
+  assert.deepEqual(reportData.data["2"]["B"], defaultQR, 'row 2 | column 2: -default object');
+
+  reportData.merge([
+    UserResourcesResult.create({
+      user: "1",
+      resourceResults: Ember.A([QR3, QR4])
+    }),
+    UserResourcesResult.create({
+      user: "2",
+      resourceResults: Ember.A([QR5])
+    })
+  ]);
+
+  assert.equal(reportData.data["1"]["A"], QR3, 'row 1 | column 1: -override with new object');
+  assert.equal(reportData.data["1"]["B"], QR4, 'row 1 | column 2: -override with new object');
+  assert.equal(reportData.data["2"]["A"], QR5, 'row 2 | column 1: -override default object');
+});
+
+test('getEmptyRow', function (assert) {
+  var resources = Ember.A([
+    Ember.Object.create({"id": "A"}),
+    Ember.Object.create({"id": "B"})
+  ]);
+
+  var students = Ember.A([
+    Ember.Object.create({"id": "1"})
+  ]);
+
+  var reportData = ReportData.create({
+    students: students,
+    resources: resources
+  });
+
+  var defaultQR = QuestionResult.create();
+  var QR1 = QuestionResult.create({resourceId: "A", "correct": false, "timeSpent": 10});
+  var QR2 = QuestionResult.create({resourceId: "B", "correct": false, "timeSpent": 10});
+
+  reportData.merge([
+    UserResourcesResult.create({
+      user: "1",
+      resourceResults: Ember.A([QR1, QR2])
+    })
+  ]);
+
+  assert.equal(reportData.data["1"]["A"], QR1, 'row 1 | column 1: -override default object');
+  assert.equal(reportData.data["1"]["B"], QR2, 'row 1 | column 2: -override default object');
+
+  reportData.data["1"] = reportData.getEmptyRow(["A", "B"]);
+
+  assert.deepEqual(reportData.data["1"]["A"], defaultQR, 'row 1 | column 1: -default object');
+  assert.deepEqual(reportData.data["1"]["B"], defaultQR, 'row 1 | column 2: -default object');
+});
+
+test('autoCompleteRow', function (assert) {
+  var resources = Ember.A([
+    Ember.Object.create({"id": "A"}),
+    Ember.Object.create({"id": "B"}),
+    Ember.Object.create({"id": "C"})
+  ]);
+
+  var students = Ember.A([
+    Ember.Object.create({"id": "1"})
+  ]);
+
+  var reportData = ReportData.create({
+    students: students,
+    resources: resources
+  });
+
+  var QR = QuestionResult.create({resourceId: "C", "correct": true});
+
+  reportData.merge([
+    UserResourcesResult.create({
+      user: "1",
+      resourceResults: Ember.A([QR])
+    })
+  ]);
+
+  assert.equal(reportData.data["1"]["A"].get('correct'), null, 'row 1 | column 1: -correct not set');
+  assert.equal(reportData.data["1"]["B"].get('correct'), null, 'row 1 | column 2: -correct not set');
+  assert.equal(reportData.data["1"]["C"].get('correct'), true, 'row 1 | column 3: -correct set');
+
+  reportData.autoCompleteRow(reportData.data["1"], ["A", "B"]);
+
+  assert.equal(reportData.data["1"]["A"].get('correct'), false, 'row 1 | column 1: -correct value auto-completed');
+  assert.equal(reportData.data["1"]["B"].get('correct'), false, 'row 1 | column 2: -correct value auto-completed');
+  assert.equal(reportData.data["1"]["C"].get('correct'), true, 'row 1 | column 3: -correct value not changed');
+});
 
 test('getAllResults', function(assert) {
 
