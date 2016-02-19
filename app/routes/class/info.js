@@ -13,12 +13,6 @@ export default Ember.Route.extend({
   beforeModel: function() {
     // TODO: authenticate session with ember-simple-auth, if not send to log in
   },
-  /**
-   * Get model for the controller
-   */
-  model: function() {
-    return this.modelFor('class').members;
-  },
 
   /**
    * Set all controller properties from the model
@@ -26,7 +20,6 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
-    controller.set("students", model);
     controller.get('classController').selectMenuItem('info');
   }
 });

@@ -91,11 +91,12 @@ export default Ember.Component.extend({
   assessmentQuestions: Ember.computed('assessment.resources.[]', function () {
     const labelPrefix = this.get('i18n').t('reports.gru-table-view.first-tier-header-prefix').string;
 
-    var questions = this.get('assessment.resources').map(function (question) {
+    var questions = this.get('assessment.resources').map(function (question, index) {
       return {
-        value: question.id,
-        order: question.order,
-        label: labelPrefix + question.order
+        value: question.get("id"),
+        //order: question.get("order"),
+        order: index + 1,
+        label: labelPrefix + question.get("order")
       };
     });
     // Add column used for showing totals

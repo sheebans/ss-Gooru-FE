@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ReportData from 'gooru-web/models/result/report-data';
 
 /**
  * Teacher Analytics Performance Controller - Course Level
@@ -20,6 +21,12 @@ export default Ember.Controller.extend({
    */
   teacherController: Ember.inject.controller('class.analytics.performance.teacher'),
 
+  /**
+   * @type CollectionService
+   */
+  collectionService: Ember.inject.service('api-sdk/collection'),
+
+
   // -------------------------------------------------------------------------
   // Actions
   actions:{
@@ -39,10 +46,15 @@ export default Ember.Controller.extend({
   "class": Ember.computed.reads('classController.class'),
 
   /**
-   * The header titles
-   * @property {Headers[]}
+   * @property {User[]} class students
    */
-  headers: null,
+  students: Ember.computed.reads('classController.members'),
+
+  /**
+   * Lesson's collections
+   * @property {Collection[]}
+   */
+  collections: null,
 
   /**
    * The performanceDataMatrix
@@ -64,9 +76,31 @@ export default Ember.Controller.extend({
   selectedOptions: Ember.computed.alias('teacherController.selectedOptions'),
 
   /**
+   * @property {Unit} unit
+   */
+  unit: null,
+
+  /**
    * @property {Lesson} lesson
    */
-  lesson: null
+  lesson: null,
+
+  /**
+   * @property {Collection} the selected collection
+   */
+  collection: null,
+
+  /**
+   * @property {ReportData} the selected collection report data
+   */
+  reportData: null,
+
+  /**
+   * Indicates if the filters are visible
+   * @property {boolean}
+   */
+  showFilters: Ember.computed.alias("teacherController.showFilters"),
+
 
   // -------------------------------------------------------------------------
   // Observers

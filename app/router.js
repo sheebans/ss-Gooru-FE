@@ -27,6 +27,7 @@ Router.map(function() {
           this.route('course');
           this.route('unit', { path: '/unit/:unitId'});
           this.route('lesson', { path: '/unit/:unitId/lesson/:lessonId'});
+          this.route('collection', { path: '/unit/:unitId/lesson/:lessonId/collection/:collectionId'});
         });
       });
     });
