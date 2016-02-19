@@ -96,8 +96,7 @@ export default Ember.Component.extend({
         }
       ],
       completed: totals.get("totalCompleted"),
-      total: total,
-      allAnswered: (total===totals.get("totalCompleted"))
+      total: total
     });
   }),
 
@@ -128,8 +127,7 @@ export default Ember.Component.extend({
         charData: Ember.A([Ember.Object.create({
           color: correct ? CORRECT_COLOR : INCORRECT_COLOR,
           percentage: percentage
-        })]),
-        allAnswered: (percentage===100)
+        })])
       }));
     });
 
