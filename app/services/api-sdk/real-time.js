@@ -3,10 +3,29 @@ import DS from 'ember-data';
 
 export default Ember.Service.extend({
 
+  notifyResourceResult: function(classId, collectionId, userId, resourceResult) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      const eventContent = service.get('realTimeSerializer').serialize(resourceResult);
+      service.get('realTimeAdapter').postData({
+        body: eventContent,
+        query: {
+          classId: classId,
+          collectionId: collectionId,
+          userId: userId
+        }
+      }).then(function() {
+        resolve();
+      }, function(error) {
+        reject(error);
+      });
+    });
+  },
+
   findResourcesByCollection: function(classId, collectionId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('realTimeAdapter').queryRecord({
+      service.get('realTimeAdapter').getData({
         classId: classId,
         collectionId: collectionId
       }).then(function(events) {
