@@ -9,5 +9,6 @@ export default {
 
     application.inject('service:api-sdk/analytics', 'analyticsSerializer', 'serializer:analytics');
     application.inject('service:api-sdk/real-time', 'realTimeSerializer', 'serializer:real-time');
+    application.inject('controller:class/reports/collection', 'realTimeSerializer', 'serializer:real-time');
   }
 };

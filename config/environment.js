@@ -63,7 +63,7 @@ module.exports = function (environment) {
   };
 
   ENV['real-time'] = {
-    webSocketUrl: 'http://192.168.1.62:8080/realtime'
+    webSocketUrl: 'http://localhost:8080/realtime'
   };
 
   if (environment === 'development') {
