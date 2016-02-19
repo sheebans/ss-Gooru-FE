@@ -145,7 +145,7 @@ test('it renders', function(assert) {
   const $lessonTitleAnchor = $lessonTitle.find('> a');
   assert.ok($lessonTitleAnchor.length, 'Title anchor element is missing');
   assert.ok($lessonTitleAnchor.hasClass('collapsed'), 'Panel should be collapsed by default');
-  assert.equal($lessonTitleAnchor.text().trim(), 'L1: Lesson Title', 'Wrong title text');
+  assert.equal($lessonTitleAnchor.text().trim(), 'Lesson 1: Lesson Title', 'Wrong title text');
 
   const $collapsePanel = $component.find('> .panel-collapse');
   assert.ok($collapsePanel.length, 'Panel element is missing');
@@ -387,7 +387,7 @@ test('it only loads collections/assessments once after clicking on the lesson na
 
       const $items = $collapsePanel.find('.collections .panel');
       assert.equal($items.length, 2, 'Number of lessons listed should not have changed');
-      assert.equal($lessonTitleAnchor.text().trim(), 'L3: Lesson Title', 'Index in the title text should have changed');
+      assert.equal($lessonTitleAnchor.text().trim(), 'Lesson 3: Lesson Title', 'Index in the title text should have changed');
     });
   });
 });

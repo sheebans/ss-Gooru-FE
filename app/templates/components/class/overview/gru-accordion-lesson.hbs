@@ -10,22 +10,13 @@
       {{action "selectLesson" model.id}}>
       {{course-sections-prefix  index=index type='lesson' complete=true}}&colon; {{model.title}}
     </a>
-  </span>
-  {{!-- Show only for xs --}}
-  {{gru-user-icons
+    {{gru-user-icons
     showOnlyNumbers=true
-    class="visible-xs"
-    users=model.users
-    viewThreshold=2
-    viewMoreIn='modal' }}
-
-  {{!-- Show for all other screen sizes --}}
-  {{gru-user-icons
-    showOnlyNumbers=true
-    class="hidden-xs"
     users=model.users
     viewThreshold=3
     viewMoreIn='modal' }}
+  </span>
+
 </div>
 
 <div id="{{elementId}}-content"
@@ -55,21 +46,21 @@
               <a {{action "selectResource" item.id}}>
                 {{course-sections-prefix  index=index type=item.collectionType complete=false}}&colon; {{item.title}}
               </a>
-            </span>
-            {{!-- Show only for xs --}}
-            {{gru-user-icons
+              {{!-- Show only for xs --}}
+              {{gru-user-icons
               class="visible-xs"
               showOnlyNumbers=true
               users=item.users
               viewThreshold=2
               viewMoreIn='modal' }}
 
-            {{!-- Show for all other screen sizes --}}
-            {{gru-user-icons
+              {{!-- Show for all other screen sizes --}}
+              {{gru-user-icons
               class="hidden-xs"
               users=item.users
               viewThreshold=3
               viewMoreIn='modal' }}
+            </span>
           </div>
         </li>
       {{else}}

@@ -19,7 +19,6 @@
     }
 
     .overview-header{
-      background-color: $white;
       border-bottom: 1px solid $gray-light;
 
       div {
@@ -34,8 +33,9 @@
     .locate,
     .edit-content {
       float: right;
-      margin: 28px 61px;
-
+      @media (min-width: $screen-md) {
+        margin: 28px 61px;;
+      }
       span i{
         vertical-align: middle;
         padding: 0 5px 0 0;
@@ -70,8 +70,9 @@
     }
 
     .gru-user-icons {
-      top: 1px;
+      top: 8px;
       right: 0;
+
     }
 
     .gru-accordion-unit {
@@ -85,19 +86,18 @@
         &.expanded {
           > .panel-heading {
             background-color: $gray-lighter;
-
             .panel-title { border: 0 none;}
             .gru-user-icons { display: none !important; }
           }
         }
 
         .panel-heading {
-          padding-top: 0;
+          padding: 10px;
           margin-top: 10px;
 
           > .img-circle {
             position: absolute;
-            top: -4px;
+            padding: 10px;
             left: 0;
             height: 2.714rem;
             width: 2.714rem;
@@ -109,7 +109,6 @@
 
           .panel-title {
             display: block;
-            border-bottom: 1px solid $gray-light;
             margin-left: 25px;
             margin-right: 20px;
             padding-top: 5px;
@@ -117,7 +116,9 @@
           }
 
           .gru-user-icons {
-            top: -4px;
+            display: inline-block;
+            float:right;
+            margin: -10px 0 0 0;
           }
         }
 
@@ -159,9 +160,6 @@
                 margin-left: 60px;
               }
             }
-          }
-          .gru-user-icons {
-            top: -23px;
           }
         }
       }

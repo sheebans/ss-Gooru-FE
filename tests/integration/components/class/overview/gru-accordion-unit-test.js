@@ -137,7 +137,7 @@ test('it renders', function(assert) {
   const $unitTitleAnchor = $unitTitle.find('> a');
   assert.ok($unitTitleAnchor.length, 'Title anchor element is missing');
   assert.ok($unitTitleAnchor.hasClass('collapsed'), 'Panel should be collapsed by default');
-  assert.equal($unitTitleAnchor.text().trim(), 'U1: Unit Title', 'Wrong title text');
+  assert.equal($unitTitleAnchor.text().trim(), 'Unit 1: Unit Title', 'Wrong title text');
 
   const $collapsePanel = $component.find('> .panel-collapse');
   assert.ok($collapsePanel.length, 'Panel element is missing');
@@ -273,8 +273,8 @@ test('it loads lessons and renders them correctly after clicking on the unit nam
 
     const $items = $panelGroup.find('.gru-accordion-lesson');
     assert.equal($items.length, 2, 'Incorrect number of lessons listed');
-    assert.equal($items.first().find('.panel-title').text().trim(), 'L1: Lesson 1', 'Incorrect first lesson title');
-    assert.equal($items.last().find('.panel-title').text().trim(), 'L2: Lesson 3', 'Incorrect last lesson title');
+    assert.equal($items.first().find('.panel-title').text().trim(), 'Lesson 1: Lesson 1', 'Incorrect first lesson title');
+    assert.equal($items.last().find('.panel-title').text().trim(), 'Lesson 2: Lesson 3', 'Incorrect last lesson title');
 
     assert.equal($items.first().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first lesson for mobile');
     assert.equal($items.last().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the last lesson for mobile');
@@ -355,7 +355,7 @@ test('it only loads lessons once after clicking on the unit name', function(asse
 
       const $items = $collapsePanel.find('.gru-accordion-lesson');
       assert.equal($items.length, 2, 'Number of lessons listed should not have changed');
-      assert.equal($unitTitleAnchor.text().trim(), 'U3: Unit Title', 'Index in the title text should have changed');
+      assert.equal($unitTitleAnchor.text().trim(), 'Unit 3: Unit Title', 'Index in the title text should have changed');
     });
   });
 });

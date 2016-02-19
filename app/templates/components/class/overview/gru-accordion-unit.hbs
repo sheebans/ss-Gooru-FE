@@ -1,4 +1,4 @@
-<div class="panel-heading" role="tab" id="{{elementId}}-heading">
+<div class="" role="tab" id="{{elementId}}-heading">
   <strong class="panel-title">
     <a class="collapsed"
        role="button"
@@ -9,22 +9,12 @@
       {{action "selectUnit" model.id}}>
         {{course-sections-prefix  index=index type='unit' complete=true}}&colon; {{model.title}}
     </a>
-  </strong>
-  {{!-- Show only for xs --}}
-  {{gru-user-icons
-    class="visible-xs"
-    showOnlyNumbers=true
-    users=model.users
-    viewThreshold=2
-    viewMoreIn='modal' }}
-
-  {{!-- Show for all other screen sizes --}}
-  {{gru-user-icons
-    class="hidden-xs"
+    {{gru-user-icons
     showOnlyNumbers=true
     users=model.users
     viewThreshold=3
     viewMoreIn='modal' }}
+  </strong>
 </div>
 
 <div id="{{elementId}}-content"
