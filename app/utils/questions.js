@@ -111,6 +111,32 @@ export const QuestionUtil = Ember.Object.extend({
      */
   sameAnswer: function(answerA, answerB){
     return this.answerKey(answerA) === this.answerKey(answerB);
+  },
+
+  /**
+   * Converts the model user answer into an answerObject format
+   * @param {*} userAnswer
+   * @return {AnswerObject[]}
+   */
+  toAnswerObjects: function (userAnswer){
+    Ember.Logger.warning("The method toAnswerObject is not implemented");
+  },
+
+  /**
+   * Converts an answerObject format to model userAnswer
+   * @param {AnswerObject[]} answerObjects
+   */
+  toUserAnswer: function (answerObjects){
+    Ember.Logger.warning("The method toUserAnswer is not implemented");
+  },
+
+  /**
+   * Gets an Answer by id
+   * @param {string} answerId
+   * @returns {Answer}
+   */
+  getAnswerById: function(answerId){
+    return this.get("question.answers").findBy("id", answerId);
   }
 
 }),
@@ -168,7 +194,51 @@ MultipleChoiceUtil = QuestionUtil.extend({
    */
   answerKey: function(answer){
     return answer;
+  },
+
+  /**
+   * Converts the model user answer into an answerObject format
+   *
+   * For MC looks like
+   *
+   * [{"text":"Apple","status":"correct","order":1,"answerId":1234,"skip":false}]
+   *
+   * @param {string} userAnswer answer choice id
+   * @return {AnswerObject[]}
+   */
+  toAnswerObjects: function (userAnswer){
+    let util = this;
+    let answer = util.getAnswerById(userAnswer);
+    let answerObject = AnswerObject.create({
+      "text": answer.get("text"),
+      "correct": util.isCorrect(userAnswer),
+      "order": 1,
+      "answerId": userAnswer,
+      "skip": false
+    });
+    return Ember.A([answerObject]);
+  },
+
+  /**
+   * Converts an answerObject format to model userAnswer
+   *
+   * For MC looks like
+   *
+   * [{"text":"Apple","status":"correct","order":1,"answerId":1234,"skip":false}]
+   *
+   * @param {AnswerObject[]} answerObjects
+   * @return {string} answer id
+   */
+  toUserAnswer: function (answerObjects){
+    let userAnswer = null;
+    if (answerObjects.get("length")){
+      let answerObject = answerObjects.get("firstObject");
+      userAnswer = answerObject.get("answerId");
+    }
+
+    return userAnswer;
   }
+
 
 }),
 
@@ -238,7 +308,70 @@ TrueFalseUtil = MultipleChoiceUtil.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+  /**
+   * Converts the model user answer into an answerObject format
+   *
+   * For T/F looks like
+   *
+   * [{"text":"True","status":"correct","order":1,"answerId":1234,"skip":false}]
+   *
+   * The text could be True or False
+   * If not answerId is found it should be 0
+   *
+   * @param {string} userAnswer answer choice id
+   * @return {AnswerObject[]}
+   */
+  toAnswerObjects: function (userAnswer){
+    let util = this;
+    let answer = util.getAnswerById(userAnswer);
 
+    /*
+      When no answer is found the userAnswer brings true or false indicating the user selection
+     */
+    let text = answer ? answer.get("text") : ( (userAnswer) ? "True" : "False" );
+
+    /*
+      When no answer if found the answerId should be 0
+     */
+    let answerId = answer ? userAnswer : 0;
+
+    let answerObject = AnswerObject.create({
+      "text": text,
+      "correct": util.isCorrect(userAnswer),
+      "order": 1,
+      "answerId": answerId,
+      "skip": false
+    });
+    return Ember.A([answerObject]);
+  },
+
+  /**
+   * Converts an answerObject format to model userAnswer
+   *
+   * For MC looks like
+   *
+   * For T/F looks like
+   *
+   * [{"text":"True","status":"correct","order":1,"answerId":1234,"skip":false}]
+   *
+   * @param {AnswerObject[]} answerObjects
+   * @return {string} answer id
+   */
+  toUserAnswer: function (answerObjects){
+    let userAnswer = null;
+    if (answerObjects.get("length")){
+      let answerObject = answerObjects.get("firstObject");
+      let text = answerObject.get("text");
+      let answerId = answerObject.get("answerId");
+
+      /*
+        When answerId = 0, we need to use the text to know the answer selected
+       */
+      userAnswer = !answerId ? text === "True" : answerId;
+    }
+
+    return userAnswer;
+  }
 }),
 
 
@@ -588,6 +721,57 @@ OpenEndedUtil = QuestionUtil.extend({
   answerKey: function (answer) {
     return answer;
   }
+
+}),
+
+/**
+ * It defines the answer object structure that is send to BE
+ *
+ * @typedef {Object} AnswerObject
+ */
+AnswerObject = Ember.Object.extend({
+
+  /**
+   * Answer text
+   * @property {string}
+   */
+  text: null,
+
+  /**
+   * @property {boolean}
+   */
+  correct: Ember.computed("status", {
+    get(key) {
+      return this.get("status") === 'correct';
+    },
+    set(key, value) {
+      this.set('status', value ? 'correct' : 'incorrect');
+      return value;
+    }
+  }),
+
+  /**
+   * Answer status, correct or incorrect
+   * @property {string}
+   */
+  status: null,
+
+  /**
+   * Answer order
+   * @property {number}
+   */
+  order: null,
+  /**
+   * Answer id
+   * @property {string}
+   */
+  answerId: null,
+
+  /**
+   * Skipped?
+   * @property {boolean}
+   */
+  skip: null
 
 });
 
