@@ -1,8 +1,7 @@
 .gru-user-icons {
   $profile-image-width: 40px;
   $profile-image-height: 40px;
-  $item-border: #757575;
-  $item-background: #EBEBEB;
+  $item-background: $brand-primary;
   $modal-height: 270px;
   $tooltip-width: 290px;
 
@@ -22,11 +21,9 @@
   .item {
     position: relative;
     display: inline-block;
-    height: $profile-image-height;
-    width: $profile-image-width;
-    border: 1px solid $item-border;
-    border-radius: 50%;
+    margin: 0 5px 0 0;
     vertical-align: middle;
+    color:$gray;
 
     img {
       height: $profile-image-height - 2px;
@@ -34,13 +31,22 @@
     }
 
     &.num-left {
+      height: $profile-image-height;
+      width: $profile-image-width;
+      border-radius: 50%;
       text-align: center;
       line-height: $profile-image-height - 2px;
       background-color: $item-background;
+      color:$white;
+      margin-bottom: 21px;
     }
 
     &.active {
       border-color: $brand-primary;
+    }
+    >*{
+      display: block;
+      margin: 0 auto;
     }
   }
 

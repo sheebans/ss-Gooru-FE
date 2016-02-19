@@ -277,10 +277,10 @@ test('it loads lessons and renders them correctly after clicking on the unit nam
     assert.equal($items.last().find('.panel-title').text().trim(), 'L2: Lesson 3', 'Incorrect last lesson title');
 
     assert.equal($items.first().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first lesson for mobile');
-    assert.equal($items.last().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last lesson for mobile');
+    assert.equal($items.last().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the last lesson for mobile');
 
     assert.equal($items.first().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first lesson');
-    assert.equal($items.last().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last lesson');
+    assert.equal($items.last().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 1, 'Wrong number of user icons showing for the last lesson');
   });
 });
 
@@ -315,7 +315,7 @@ test('it only loads lessons once after clicking on the unit name', function(asse
                     onLocationUpdate=(action 'externalAction') }}`);
 
   const $component = this.$('.gru-accordion-unit');
-  const $unitTitleAnchor = $component.find('> .panel-heading a');
+  const $unitTitleAnchor = $component.find('> .panel-heading .panel-title a');
 
   const $collapsePanel = $component.find('> .panel-collapse');
 

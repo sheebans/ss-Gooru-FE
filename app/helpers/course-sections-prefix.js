@@ -6,7 +6,7 @@ import { courseSectionsPrefix } from 'gooru-web/utils/utils';
  *
  * @example
  *
- * <span>{{course-sections-prefix title="My Unit" type="unit" index=1}}</span>
+ * <span>{{course-sections-prefix title="My Unit" type="unit" index=1 complete=false}}</span>
  * @see /app/templates/components
  *
  * @param title {String}
@@ -17,9 +17,9 @@ import { courseSectionsPrefix } from 'gooru-web/utils/utils';
 export default Ember.Helper.extend({
   i18n: Ember.inject.service('i18n'),
 
-  compute(params,{index, type}) {
+  compute(params,{index, type,complete}) {
     let i18n = this.get('i18n');
-    return courseSectionsPrefix(index,type,i18n);
+    return courseSectionsPrefix(index,type,i18n,complete);
   }
 
 });

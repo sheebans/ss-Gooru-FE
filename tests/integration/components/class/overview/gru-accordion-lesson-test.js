@@ -306,7 +306,7 @@ test('it loads collections/assessments and renders them correctly after clicking
     assert.equal($items.last().find('.panel-title').text().trim(), 'A2: Assessment 1', 'Incorrect last resource title');
 
     assert.equal($items.first().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first resource for mobile');
-    assert.equal($items.last().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last resource for mobile');
+    assert.equal($items.last().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the last resource for mobile');
 
     assert.equal($items.first().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first resource');
     assert.equal($items.last().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last resource');
@@ -347,9 +347,9 @@ test('it only loads collections/assessments once after clicking on the lesson na
                     onSelectLesson=(action 'externalAction') }}`);
 
   const $component = this.$('.gru-accordion-lesson');
-  const $lessonTitleAnchor = $component.find('> .panel-heading a');
+  const $lessonTitleAnchor = $component.find('.panel-heading .panel-title a');
 
-  const $collapsePanel = $component.find('> .panel-collapse');
+  const $collapsePanel = $component.find('.panel-collapse');
 
   // Click on the unit name
   Ember.run(() => {

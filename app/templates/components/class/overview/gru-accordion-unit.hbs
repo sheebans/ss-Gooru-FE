@@ -7,12 +7,13 @@
        aria-expanded="false"
        aria-controls="{{elementId}}-content"
       {{action "selectUnit" model.id}}>
-        {{course-sections-prefix  index=index type='unit'}}&colon; {{model.title}}
+        {{course-sections-prefix  index=index type='unit' complete=true}}&colon; {{model.title}}
     </a>
   </strong>
   {{!-- Show only for xs --}}
   {{gru-user-icons
     class="visible-xs"
+    showOnlyNumbers=true
     users=model.users
     viewThreshold=2
     viewMoreIn='modal' }}
@@ -20,6 +21,7 @@
   {{!-- Show for all other screen sizes --}}
   {{gru-user-icons
     class="hidden-xs"
+    showOnlyNumbers=true
     users=model.users
     viewThreshold=3
     viewMoreIn='modal' }}

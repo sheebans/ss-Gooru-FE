@@ -8,11 +8,12 @@
        aria-expanded="false"
        aria-controls="{{elementId}}-content"
       {{action "selectLesson" model.id}}>
-      {{course-sections-prefix  index=index type='lesson'}}&colon; {{model.title}}
+      {{course-sections-prefix  index=index type='lesson' complete=true}}&colon; {{model.title}}
     </a>
   </span>
   {{!-- Show only for xs --}}
   {{gru-user-icons
+    showOnlyNumbers=true
     class="visible-xs"
     users=model.users
     viewThreshold=2
@@ -20,6 +21,7 @@
 
   {{!-- Show for all other screen sizes --}}
   {{gru-user-icons
+    showOnlyNumbers=true
     class="hidden-xs"
     users=model.users
     viewThreshold=3
@@ -51,12 +53,13 @@
             <img src="" />
             <span class="panel-title">
               <a {{action "selectResource" item.id}}>
-                {{course-sections-prefix  index=index type=item.collectionType}}&colon; {{item.title}}
+                {{course-sections-prefix  index=index type=item.collectionType complete=false}}&colon; {{item.title}}
               </a>
             </span>
             {{!-- Show only for xs --}}
             {{gru-user-icons
               class="visible-xs"
+              showOnlyNumbers=true
               users=item.users
               viewThreshold=2
               viewMoreIn='modal' }}
