@@ -1,9 +1,9 @@
-<div class="chart">
+<div class="chart  {{if questionBarChartData.allAnswered 'all-answered'}}">
   {{charts/gru-x-bar-chart data=questionBarChartData.data}}
 </div>
-<span class="overall-completion">
-  <em>{{questionBarChartData.completed}}</em>/<em>{{questionBarChartData.total}}</em>
-</span>
+<div class="overall-completion">
+  <span>{{questionBarChartData.completed}}</span>/<span>{{questionBarChartData.total}}</span>
+</div>
 
 {{#each answersData as |answerData|}}
     <div class="panel-answer panel
@@ -26,7 +26,9 @@
               {{#unless anonymous}}
                   <div class="students">
                     {{#each answerData.students as |student|}}
-                        <span class="label"> {{truncate text=student.fullName type='name'}} </span>
+                        <div class="label-box">
+                          <span class="label"> {{truncate text=student.fullName type='name'}} </span>
+                        </div>
                     {{/each}}
                   </div>
               {{/unless}}

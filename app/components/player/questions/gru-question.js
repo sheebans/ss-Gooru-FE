@@ -66,6 +66,12 @@ export default Ember.Component.extend({
    */
   questionUtil: null,
 
+  /**
+   * Indicates if the question is readOnly
+   * @property {boolean} readOnly
+   */
+  readOnly: null,
+
   // -------------------------------------------------------------------------
   // Observers
 

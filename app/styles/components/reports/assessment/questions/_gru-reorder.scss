@@ -12,10 +12,19 @@
       span.incorrect{
         color:$brand-incorrect;
       }
+      span.incorrect.anonymous,
+      span.correct.anonymous{
+        color:$brand-anonymous;
+      }
     }
     li span.answer-text{
       display: inline-block;
       margin-left: 1.5em;
+      p {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+      }
     }
   }
 }

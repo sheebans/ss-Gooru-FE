@@ -31,11 +31,26 @@ export default Ember.Component.extend({
     changeEmotion: function(emotionScore) {
       this.sendAction('onChangeEmotion', emotionScore);
     },
+
     /**
      * Action triggered when the user open de navigator panel
      */
     openNavigator:function(){
       this.sendAction("onOpenNavigator");
+    },
+
+    /**
+     * Action triggered when the user wants to access the report
+     */
+    viewReport:function(){
+      this.sendAction("onViewReport");
+    },
+
+    /**
+     * Action triggered when the user wants to finish the collection
+     */
+    finishCollection:function(){
+      this.sendAction("onFinishCollection");
     }
   },
 
@@ -54,7 +69,19 @@ export default Ember.Component.extend({
   /**
    * @property {number} The rating score for the current resource
    */
-  ratingScore: 0
+  ratingScore: 0,
+
+  /**
+   * Indicates when the collection is already submitted
+   * @property {boolean}
+   */
+  submitted: false,
+
+  /**
+   * Indicates if changes can be made
+   * @property {boolean} readOnly
+   */
+  readOnly: Ember.computed.alias("submitted")
 
   // -------------------------------------------------------------------------
   // Methods

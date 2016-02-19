@@ -93,9 +93,9 @@ export default Ember.Component.extend({
 
     var questions = this.get('assessment.resources').map(function (question) {
       return {
-        value: question.id,
-        order: question.order,
-        label: labelPrefix + question.order
+        value: question.get("id"),
+        order: question.get("order"), //TODO, some question collections don't start at 1
+        label: labelPrefix + question.get("order")
       };
     });
     // Add column used for showing totals

@@ -101,3 +101,30 @@ test('Fill in the blanks events', function(assert) {
   $component.find(".fib-answers input:eq(1)").first().val("");
   $component.find(".fib-answers input").first().keyup();
 });
+
+
+test('Fill in the blanks layout - read only', function(assert) {
+  assert.expect(1);
+  const question = Ember.Object.create({
+    "id": "569906aacea8416665209d53",
+    questionType: 'FIB',
+    text: 'The sun is _______ and the moon _______',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({id: 1, text: 'yellow'}),
+      Ember.Object.create({id: 2, text: 'white'})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 4,
+    "hasAnswers": true
+  });
+
+  this.set('question', question);
+  this.render(hbs`{{player/questions/gru-fib question=question readOnly=true}}`);
+
+  var $component = this.$(); //component dom element
+  assert.equal($component.find(".fib-answers input[disabled]").length,2, "Incorrect number of inputs");
+
+});

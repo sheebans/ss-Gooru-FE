@@ -38,9 +38,10 @@ export default Ember.Route.extend({
     /**
      * navigateToAssessments
      */
-    navigateToAssessments: function (assessmentId) {
-      console.log(assessmentId);
-      //this.transitionTo('class.analytics.performance.teacher.course.assessments', assessmentId);
+    navigateToCollection: function (collectionId) {
+      const unitId = this.get("controller.unit.id");
+      const lessonId = this.get("controller.lesson.id");
+      this.transitionTo('class.analytics.performance.teacher.collection', unitId, lessonId, collectionId);
     }
   },
 
@@ -60,13 +61,13 @@ export default Ember.Route.extend({
     const courseId = classModel.class.get('course');
     const users = classModel.members;
 
-    const headers = this.get('collectionService').findByClassAndCourseAndUnitAndLesson(classId, courseId, unitId, lessonId);
+    const collections = this.get('collectionService').findByClassAndCourseAndUnitAndLesson(classId, courseId, unitId, lessonId);
     const classPerformanceData = this.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, users);
     const unit = this.get('unitService').findById(courseId, unitId);
     const lesson = this.get('lessonService').findById(courseId, unitId, lessonId);
 
     return Ember.RSVP.hash({
-      headers: headers,
+      collections: collections,
       classPerformanceData: classPerformanceData,
       lesson: lesson,
       unit: unit
@@ -80,15 +81,19 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
 
-    const performanceData = createDataMatrix(model.headers, model.classPerformanceData);
+    const performanceData = createDataMatrix(model.collections, model.classPerformanceData);
     controller.set('performanceDataMatrix', performanceData);
-    controller.set('headers', model.headers);
+    controller.set('collections', model.collections);
+    controller.set('unit', model.unit);
     controller.set('lesson', model.lesson);
 
     //updating the breadcrumb with the unit, useful when refreshing the page
     controller.get("teacherController").updateBreadcrumb(model.unit, 'unit');
     //updating the breadcrumb with the lesson
     controller.get("teacherController").updateBreadcrumb(model.lesson, 'lesson');
+    //enabling filters
+    controller.set("teacherController.showFilters", true);
+
   }
 
 });

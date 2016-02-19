@@ -9,7 +9,7 @@ moduleForComponent('reports/assessment/gru-learning-target', 'Integration | Comp
 
 test('Learning Target Layout', function(assert) {
 
-  assert.expect(6);
+  assert.expect(7);
 
   const learningTarget = Ember.Object.create({
     description: 'I will understand how to create a ruler and with 1 inch, 1/2 inch, 1/4 inch intervals and generate' +
@@ -37,7 +37,7 @@ test('Learning Target Layout', function(assert) {
     correctPercentage: 67,
     correctAnswers: 2,
 
-    questionsResults: [
+    questionResults: [
       Ember.Object.create({
         id: 601,
         resource: Ember.Object.create({
@@ -74,6 +74,7 @@ test('Learning Target Layout', function(assert) {
   const $learningTarget = $component.find(".gru-learning-target");
 
   T.exists(assert, $learningTarget, 'Missing learning target component');
+  T.exists(assert, $learningTarget.find('.learning-target'), 'Missing learning target wrapper');
   T.exists(assert, $learningTarget.find('.header-content'), 'Missing learning target header');
   T.exists(assert, $learningTarget.find('.score'), 'Missing score box');
   T.exists(assert, $learningTarget.find('.learning-target-description'), 'Missing learning target');

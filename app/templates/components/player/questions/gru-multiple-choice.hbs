@@ -5,9 +5,10 @@
 <div class="answer-choices">
   <form class="form-horizontal">
     {{#each question.answers as |answer index|}}
-      <div class="radio">
+      <div class="radio {{if readOnly 'disabled'}}">
         {{#radio-button
             value=answer.id
+            disabled=readOnly
             changed="selectAnswerChoice"
             name="answer-choice-radio"}}
             <span>({{answer-letter index}})</span>{{{answer.text}}}

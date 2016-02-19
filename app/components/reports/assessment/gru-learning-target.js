@@ -50,15 +50,15 @@ export default Ember.Component.extend({
    * Concise model to be used by the gru-bubbles component
    * @prop {Object[]}
    */
-  bubbleQuestions: Ember.computed('learningTarget.relatedQuestions.[]', 'assessmentResult.questionsResults.[]', function () {
-    return this.getBubblesQuestions(this.get("assessmentResult.questionsResults"));
+  bubbleQuestions: Ember.computed('learningTarget.relatedQuestions.[]', 'assessmentResult.questionResults.[]', function () {
+    return this.getBubblesQuestions(this.get("assessmentResult.questionResults"));
   }),
   /**
    * List of questions
    * @prop {QuestionResult[]}
    */
-  questionsList: Ember.computed('assessmentResult.questionsResults.[]', function () {
-    return this.getQuestions(this.get("assessmentResult.questionsResults"));
+  questionsList: Ember.computed('assessmentResult.questionResults.[]', function () {
+    return this.getQuestions(this.get("assessmentResult.questionResults"));
   }),
   /**
    * Percentage of correct answers vs. the total number of questions
@@ -67,7 +67,6 @@ export default Ember.Component.extend({
   correctPercentage: Ember.computed('questionsList.[]', function () {
     return correctPercentage(this.get('questionsList'));
   }),
-
 
   // -------------------------------------------------------------------------
   // Methods
@@ -97,5 +96,4 @@ export default Ember.Component.extend({
     });
     return questions;
   }
-
 });

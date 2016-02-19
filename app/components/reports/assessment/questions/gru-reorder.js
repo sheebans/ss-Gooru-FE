@@ -61,6 +61,4 @@ export default Ember.Component.extend(QuestionMixin, {
   getQuestionUtil: function(question){
     return ReorderUtil.create({question: question});
   }
-
-
 });

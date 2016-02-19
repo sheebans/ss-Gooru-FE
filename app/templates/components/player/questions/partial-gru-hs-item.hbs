@@ -6,7 +6,7 @@
 
   <ul>
     {{#each answers as |answer|}}
-      <li data-id="{{answer.id}}" class="answer">
+      <li data-id="{{answer.id}}" class="answer {{if readOnly 'disabled'}}">
 
         {{#if question.isHotSpotImage}}
             <img class="img-thumbnail" src="{{answer.content}}" />
