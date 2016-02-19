@@ -4,7 +4,7 @@
       "userUid": "6f337b1c-0b0d-49b3-8314-e279181aeddf",
       "usageData": [
         {
-          "lessonId": "fbd76aed-1b8d-4c2c-a9c6-c7603eef347c",
+          "unitId": "fbd76aed-1b8d-4c2c-a9c6-c7603eef347c",
           "completionCount": 5,
           "scoreInPercentage": 65,
           "timeSpent": 89141,
@@ -12,7 +12,7 @@
           "totalCount": 10
         },
         {
-          "lessonId": "aaac5d15-8434-43ff-8f8b-78cf0b6fd032",
+          "unitId": "aaac5d15-8434-43ff-8f8b-78cf0b6fd032",
           "completionCount": 0,
           "scoreInPercentage": 10,
           "timeSpent": 32366,
@@ -20,7 +20,7 @@
           "totalCount": 0
         },
         {
-          "lessonId": "cc2bc04c-05ab-4407-9d76-b7021d6138e3",
+          "unitId": "cc2bc04c-05ab-4407-9d76-b7021d6138e3",
           "completionCount": 0,
           "scoreInPercentage": 30,
           "timeSpent": 32366,
