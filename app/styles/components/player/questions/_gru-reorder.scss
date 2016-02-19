@@ -2,6 +2,14 @@
   .sortable {
     list-style: none;
     padding: 0;
+    li{
+      cursor: move;
+    }
+    &.disabled{
+      li {
+        cursor: $cursor-disabled;
+      }
+    }
   }
 
   .ui-sortable-handle {

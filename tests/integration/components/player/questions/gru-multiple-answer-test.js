@@ -135,3 +135,53 @@ test('Multiple answer question events', function (assert) {
   $component.find(".answer-choices tbody tr:eq(1) input[type=radio]:eq(1)").click(); //No
 
 });
+
+test('Multiple answer question layout - read only', function (assert) {
+
+  assert.expect(2);
+
+  let question = Ember.Object.create({
+    "id": "569906aa77bebed003fa6eb1",
+    questionType: 'MA',
+    text: 'Sample Question MA',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({
+        "id": 1,
+        "text": "<p>An aquifer</p>",
+        "answerType": "text",
+        "isCorrect": true,
+        "sequence": 1
+      }),
+      Ember.Object.create({
+        "id": 2,
+        "text": "<p>A well</p>",
+        "answerType": "text",
+        "isCorrect": false,
+        "sequence": 2
+      }),
+      Ember.Object.create({
+        "id": 3,
+        "text": "<p>A pump</p>",
+        "answerType": "text",
+        "isCorrect": false,
+        "sequence": 3
+      })
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 5,
+    "hasAnswers": true
+  });
+
+
+  this.set('question', question);
+
+  this.render(hbs`{{player/questions/gru-multiple-answer question=question readOnly=true}}`);
+
+  var $component = this.$(); //component dom element
+  T.exists(assert, $component.find(".instructions"), "Missing instructions");
+  assert.equal($component.find(".answer-choices tr input[disabled]").length, 6, "Missing answer choices radio inputs");
+});
+

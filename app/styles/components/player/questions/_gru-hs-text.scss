@@ -22,8 +22,12 @@
           }
         }
 
-        &:hover {
-          border-color: $dark-300;
+        &.disabled{
+          cursor: $cursor-disabled;
+        }
+
+        &:not(.disabled):hover{
+          border-color:$dark-300;
         }
         >*{
           display: inline-block;

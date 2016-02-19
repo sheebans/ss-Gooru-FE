@@ -425,6 +425,12 @@ export default {
     }
   },
 
+  "player": {
+    "gru-navigation": {
+      "view-report": "View Report"
+    }
+  },
+
   "profile.gru-navigation": {
     "about": "About",
     "activity": "Activity",

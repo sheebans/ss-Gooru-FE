@@ -152,3 +152,34 @@ test('Notifications work after selecting questions', function (assert) {
   answers = { answer: [], correct: false };
   $answers.eq(3).click();
 });
+
+test('Layout - read only', function (assert) {
+
+  let question = Ember.Object.create({
+    "id": "569906aabfcfc4cfc1b29b62",
+    questionType: 'HS_TXT',
+    text: 'Sample Question HS_TXT',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({ "id": 1, "text": "Banana", isCorrect: true }),
+      Ember.Object.create({ "id": 2, "text": "Orange", isCorrect: true}),
+      Ember.Object.create({ "id": 3, "text": "Apple", isCorrect: false}),
+      Ember.Object.create({ "id": 4, "text": "Watermelon", isCorrect: false})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 8,
+    "hasAnswers": true
+  });
+
+  this.set('question', question);
+
+  this.render(hbs`{{player/questions/gru-hs-text question=question readOnly=true}}`);
+
+  const $component = this.$(); //component dom element
+  const $answersContainer = $component.find('.answer-choices');
+
+  assert.ok($component.find(".instructions"), "Missing instructions");
+  assert.equal($answersContainer.find("li.answer.disabled").length, 4, "Incorrect number of answer choices");
+});

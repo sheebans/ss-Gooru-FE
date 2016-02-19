@@ -158,6 +158,12 @@ label {
   font-weight: normal;
 }
 
+input[disabled],
+textarea[disabled]
+select[disabled] {
+  cursor: not-allowed !important;
+}
+
 textarea,
 textarea.form-control,
 input.form-control,
