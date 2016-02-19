@@ -18,12 +18,14 @@
         <tr>
           <td>
               {{radio-button
+                disabled=readOnly
               value=(concat "yes|" answer.id)
               changed="selectAnswerChoice"
               name=(concat "answer-choice-radio-" answer.id)}}
           </td>
           <td>
             {{radio-button
+            disabled=readOnly
             value=(concat "no|" answer.id)
             changed="selectAnswerChoice"
             name=(concat "answer-choice-radio-" answer.id)}}

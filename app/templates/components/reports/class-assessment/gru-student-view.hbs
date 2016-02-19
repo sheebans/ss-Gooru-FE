@@ -1,9 +1,20 @@
-{{#each studentPerformanceList as |studentPerformance|}}
-  {{ reports.class-assessment.gru-student-performance-box
+<div class="sort-section">
+    <div class="btn-group" role="group">
+        <button type="button" {{action 'sortStudentView' true}} class="sort-average btn {{if sortAverage 'btn-info' 'btn-primary'}}"><span>{{gru-icon name='format_list_numbered'}}{{t "common.sortAverage"}}</span></button>
+        <button type="button" {{action 'sortStudentView' false}}class="sort-alphabetical btn {{unless sortAverage 'btn-info' 'btn-primary'}}"><span>{{gru-icon name='sort_by_alpha'}}{{t "common.sortAlphabetical"}}</span></button>
+    </div>
+</div>
+<div class="student-performance-list">
+  {{#each studentPerformanceList as |studentPerformance|}}
+    {{ reports.class-assessment.gru-student-performance-box
     anonymous=anonymous
     student=studentPerformance.student
     reportData=studentPerformance.reportData
     onSelectQuestion=(action 'selectQuestion')
-  }}
-{{/each}}
+    }}
+  {{/each}}
+</div>
+
+
+
 

@@ -62,7 +62,6 @@ export default Ember.Route.extend({
         selectedAttempt: 1
       });
       assessmentResult.initAssessmentResult(collection);
-
     }
 
     controller.set("assessmentResult", assessmentResult);

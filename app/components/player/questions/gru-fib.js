@@ -43,8 +43,10 @@ export default QuestionComponent.extend({
    */
   answers: Ember.computed('question.text', function () {
     const component = this;
-    var answers = component.get("question.text");
-    return answers.replace(/_______/g, "<input type=\"text\" value=\"\"/>");
+    let answers = component.get("question.text");
+    let readOnly = component.get("readOnly");
+    let input = readOnly ? '<input type="text" value="" disabled/>' : '<input type="text" value=""/>';
+    return answers.replace(/_______/g, input);
   }),
   // -------------------------------------------------------------------------
   // Observers

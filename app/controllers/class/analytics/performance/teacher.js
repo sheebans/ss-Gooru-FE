@@ -105,6 +105,11 @@ export default Ember.Controller.extend({
    */
   mobileOptionsTeacher: Ember.A([]),
 
+  /**
+   * Indicates if the filters are visible
+   * @property {boolean}
+   */
+  showFilters: true,
   // -------------------------------------------------------------------------
   // Observers
 

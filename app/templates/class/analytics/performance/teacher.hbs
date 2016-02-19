@@ -25,22 +25,24 @@
         }}
       </div>
    </div>
-   <div class="row gru-filters row-eq-height">
-    <div class="data-picker col-md-6 col-sm-6 col-xs-12 hidden-xs">
-      {{class.analytics.performance.gru-data-picker
-      onOptionsChange="optionsChange" options=optionsTeacher max=3 icon-default="fa-square-o" icon-selected="fa-check-square-o"}}
-    </div>
-    <div class="data-picker col-md-6 col-sm-6 col-xs-12 visible-xs">
-      {{class.analytics.performance.gru-data-picker
-      onOptionsChange="optionsChange" options=mobileOptionsTeacher max=1 }}
-    </div>
-    <div class="performance-scale col-md-6 col-sm-6 col-xs-12">
-      {{class.analytics.performance.gru-scale-indicator}}
-    </div>
-    </div>
-    <div class="row gru-content">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-          {{outlet}}
+  {{#if showFilters}}
+    <div class="row gru-filters row-eq-height">
+      <div class="data-picker col-md-6 col-sm-6 col-xs-12 hidden-xs">
+        {{class.analytics.performance.gru-data-picker
+        onOptionsChange="optionsChange" options=optionsTeacher max=3 icon-default="fa-square-o" icon-selected="fa-check-square-o"}}
+      </div>
+      <div class="data-picker col-md-6 col-sm-6 col-xs-12 visible-xs">
+        {{class.analytics.performance.gru-data-picker
+        onOptionsChange="optionsChange" options=mobileOptionsTeacher max=1 }}
+      </div>
+      <div class="performance-scale col-md-6 col-sm-6 col-xs-12">
+        {{class.analytics.performance.gru-scale-indicator}}
       </div>
     </div>
+  {{/if}}
+  <div class="row gru-content">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      {{outlet}}
+    </div>
+  </div>
 </div>

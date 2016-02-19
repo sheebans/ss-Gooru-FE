@@ -49,11 +49,11 @@ export default Ember.Route.extend({
     const courseId = classModel.course.get("id");
     const users = classModel.members;
 
-    const headers = this.get('unitService').findByClassAndCourse(classId, courseId);
+    const units = this.get('unitService').findByClassAndCourse(classId, courseId);
     const classPerformanceData = this.get('performanceService').findClassPerformance(classId, courseId, users);
 
     return Ember.RSVP.hash({
-      headers: headers,
+      units: units,
       classPerformanceData: classPerformanceData
     });
 
@@ -64,11 +64,16 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
-    const performanceData = createDataMatrix(model.headers, model.classPerformanceData);
+    const performanceData = createDataMatrix(model.units, model.classPerformanceData);
     controller.set('performanceDataMatrix', performanceData);
-    controller.set('headers', model.headers);
+    controller.set('units', model.units);
+
     //updating breadcrumb when navigating back to course
     controller.get("teacherController").updateBreadcrumb(controller.get("course"), "course");
+
+    //enabling filters
+    controller.set("teacherController.showFilters", true);
+
   }
 
 });

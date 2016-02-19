@@ -34,9 +34,6 @@ export default Ember.Component.extend({
    *
    * @constant {Array}
    */
-  learningTargets:null,
-
-
-
+  learningTargets:null
 
 });

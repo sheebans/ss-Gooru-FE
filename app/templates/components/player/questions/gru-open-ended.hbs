@@ -6,7 +6,7 @@
   <form class="form-horizontal">
     <p class="character-limit help-block text-right">{{t "gru-open-ended.characterLimit"}}:
       <span>{{charactersLeft}}</span></p>
-    {{textarea value=answer class="form-control" rows="5" maxlength=maxLength}}
+    {{textarea value=answer class="form-control" rows="5" maxlength=maxLength disabled=readOnly}}
   </form>
 </div>
 
