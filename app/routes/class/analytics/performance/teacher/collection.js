@@ -1,14 +1,10 @@
 import Ember from 'ember';
-
-import { createDataMatrix } from 'gooru-web/utils/performance-data';
-
+import ReportData from 'gooru-web/models/result/report-data';
 /**
- * Teacher Analytics Performance Route - Course/Unit Level
- *
- * Route responsible of the transitions and loading the model/data for the teacher class performance at course/unit level
+ * Teacher Analytics Collection Report
  *
  * @module
- * @augments ember/Controller
+ * @augments ember/Route
  */
 export default Ember.Route.extend({
   // -------------------------------------------------------------------------
@@ -17,10 +13,7 @@ export default Ember.Route.extend({
    * @type CollectionService
    */
   collectionService: Ember.inject.service('api-sdk/collection'),
-  /**
-   * @type PerformanceService
-   */
-  performanceService: Ember.inject.service('api-sdk/performance'),
+
   /**
    * @type LessonService
    */
@@ -33,17 +26,6 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-  actions: {
-
-    /**
-     * navigateToAssessments
-     */
-    navigateToCollection: function (collectionId) {
-      const unitId = this.get("controller.unit.id");
-      const lessonId = this.get("controller.lesson.id");
-      this.transitionTo('class.analytics.performance.teacher.collection', unitId, lessonId, collectionId);
-    }
-  },
 
   // -------------------------------------------------------------------------
   // Methods
@@ -57,20 +39,19 @@ export default Ember.Route.extend({
     const classModel = this.modelFor('class');
     const lessonId = params.lessonId;
     const unitId = params.unitId;
-    const classId= this.paramsFor('class').classId;
+    const collectionId = params.collectionId;
     const courseId = classModel.class.get('course');
-    const users = classModel.members;
 
-    const collections = this.get('collectionService').findByClassAndCourseAndUnitAndLesson(classId, courseId, unitId, lessonId);
-    const classPerformanceData = this.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, users);
+    const collectionService = this.get("collectionService");
+    const collection = collectionService.findById(collectionId);
     const unit = this.get('unitService').findById(courseId, unitId);
     const lesson = this.get('lessonService').findById(courseId, unitId, lessonId);
 
     return Ember.RSVP.hash({
-      collections: collections,
-      classPerformanceData: classPerformanceData,
+      unit: unit,
       lesson: lesson,
-      unit: unit
+      collection: collection,
+      userResults: Ember.A([]) //todo integrate with BE
     });
 
   },
@@ -80,20 +61,24 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
+    let collection = model.collection;
+    let reportData = ReportData.create({
+      students: controller.get("students"),
+      resources: collection.get("resources")
+    });
+    reportData.merge(model.userResults);
 
-    const performanceData = createDataMatrix(model.collections, model.classPerformanceData);
-    controller.set('performanceDataMatrix', performanceData);
-    controller.set('collections', model.collections);
-    controller.set('unit', model.unit);
-    controller.set('lesson', model.lesson);
+    controller.set("collection", collection);
+    controller.set("reportData", reportData);
+    controller.set("showFilters", false);
 
     //updating the breadcrumb with the unit, useful when refreshing the page
     controller.get("teacherController").updateBreadcrumb(model.unit, 'unit');
     //updating the breadcrumb with the lesson
     controller.get("teacherController").updateBreadcrumb(model.lesson, 'lesson');
-    //enabling filters
-    controller.set("teacherController.showFilters", true);
 
+    //disabling filters
+    controller.set("teacherController.showFilters", false);
   }
 
 });
