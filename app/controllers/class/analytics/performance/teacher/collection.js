@@ -1,12 +1,10 @@
 import Ember from 'ember';
 
 /**
- * Teacher Analytics Performance Controller - Course Level
- *
- * Controller responsible of the logic for the teacher performance at course level
+ * Teacher Analytics Collection Report
  *
  * @module
- * @see routes/analytics/performance/teacher/course.js
+ * @see routes/analytics/performance/teacher/collection.js
  * @augments ember/Controller
  */
 export default Ember.Controller.extend({
@@ -36,34 +34,26 @@ export default Ember.Controller.extend({
   "class": Ember.computed.reads('classController.class'),
 
   /**
-   * Unit's lessons
-   * @property {Lesson[]}
+   * @property {User[]} class students
    */
-  lessons: null,
+  students: Ember.computed.reads('classController.members'),
 
   /**
-   * The performanceDataMatrix
-   * @property {performanceData[]}
+   * @property {Collection} the selected collection
    */
-
-  performanceDataMatrix: null,
+  collection: null,
 
   /**
-   * The filterBy selected
-   * @property {String}
+   * @property {ReportData} the selected collection report data
    */
-  filterBy: Ember.computed.alias('teacherController.filterBy'),
+  reportData: null,
 
   /**
-   * List of selected options from the data picker.
-   * @property {Array}
+   * Indicates if the report should be visible in anonymous
+   * @property {boolean} anonymous
    */
-  selectedOptions: Ember.computed.alias('teacherController.selectedOptions'),
+  anonymous: false
 
-  /**
-   * @property {Unit} unit
-   */
-  unit: null
   // -------------------------------------------------------------------------
   // Observers
 

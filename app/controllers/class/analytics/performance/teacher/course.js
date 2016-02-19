@@ -46,10 +46,10 @@ export default Ember.Controller.extend({
   course: Ember.computed.alias('classController.course'),
 
   /**
-   * The header titles
-   * @property {Headers[]}
+   * Course's units
+   * @property {Unit[]}
    */
-  headers: null,
+  units: null,
 
   /**
    * The performanceDataMatrix
