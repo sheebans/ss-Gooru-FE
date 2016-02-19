@@ -19,7 +19,7 @@ export default Ember.Route.extend({
    * @param controller
    * @param model
    */
-  setupController: function(controller, model) {
+  setupController: function(controller) {
     controller.get('classController').selectMenuItem('info');
   }
 });

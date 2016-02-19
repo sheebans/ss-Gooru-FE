@@ -91,11 +91,10 @@ export default Ember.Component.extend({
   assessmentQuestions: Ember.computed('assessment.resources.[]', function () {
     const labelPrefix = this.get('i18n').t('reports.gru-table-view.first-tier-header-prefix').string;
 
-    var questions = this.get('assessment.resources').map(function (question, index) {
+    var questions = this.get('assessment.resources').map(function (question) {
       return {
         value: question.get("id"),
-        //order: question.get("order"),
-        order: index + 1,
+        order: question.get("order"), //TODO, some question collections don't start at 1
         label: labelPrefix + question.get("order")
       };
     });
