@@ -1,10 +1,18 @@
 import Ember from 'ember';
 import AssessmentResult from 'gooru-web/models/result/assessment';
 
+/**
+ * @typedef { Ember.Route } PlayerRoute
+ *
+ * @module
+ * @augments ember/Route
+ */
 export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+
+  session: Ember.inject.service("session"),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -26,9 +34,14 @@ export default Ember.Route.extend({
   ratingService: Ember.inject.service("api-sdk/rating"),
 
   /**
-   * @property {Ember.Service} Service to retrieve a Collection
+   * @property {Ember.Service} Service to retrieve a collection
    */
   collectionService: Ember.inject.service("api-sdk/collection"),
+
+  /**
+   * @property {Ember.Service} Service to retrieve an assessment result
+   */
+  performanceService: Ember.inject.service("api-sdk/performance"),
 
   // -------------------------------------------------------------------------
   // Methods
@@ -36,15 +49,16 @@ export default Ember.Route.extend({
    * @param {{ collectionId: string, resourceId: string }} params
    */
   model(params) {
-    const
-      collectionId = params.collectionId,
-      resourceId = params.resourceId,
-      collection = this.get("collectionService").findById(collectionId);
+    const userId = this.get('session.userId');
+    const collectionId = params.collectionId;
+    const resourceId = params.resourceId;
+    const collection = this.get("collectionService").findById(collectionId);
+    const assessmentResult = this.get("performanceService").findAssessmentResultByCollectionAndStudent(collectionId, userId);
 
     return Ember.RSVP.hash({
       collection: collection,
       resourceId: resourceId,
-      assessmentResult: null //TODO load it from analytics so it can be resumed
+      assessmentResult: assessmentResult
     });
   },
 
