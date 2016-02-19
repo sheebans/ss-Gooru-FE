@@ -19,8 +19,7 @@ export default Ember.Route.extend({
 
   collectionService: Ember.inject.service('api-sdk/collection'),
 
-  performanceService: Ember.inject.service('api-sdk/performance'),
-
+  analyticsService: Ember.inject.service('api-sdk/analytics'),
 
   // -------------------------------------------------------------------------
   // Methods
@@ -43,26 +42,23 @@ export default Ember.Route.extend({
       .findById(collectionId)
       .then(function (collection) {
         var collectionType = collection.get('collectionType');
-
-        return model.get('performanceService')
-          .findClassPerformanceByUnitAndLessonAndCollection(classId, courseId, unitId, lessonId, collectionId, collectionType)
-          .then(function (UserResourcesResults) {
-
-            return Ember.RSVP.hash({
-              routeParams: Ember.Object.create({
-                classId: classId,
-                collectionId: collectionId
-              }),
-              collection: collection,
-              students: classModel.members,
-              userResults: UserResourcesResults
+        return model.get('analyticsService')
+          .findResourcesByCollection(classId, courseId, unitId, lessonId, collectionId, collectionType)
+          .then(function(userResourcesResults) {
+                return Ember.RSVP.hash({
+                  routeParams: Ember.Object.create({
+                    classId: classId,
+                    collectionId: collectionId
+                }),
+                collection: collection,
+                students: classModel.members,
+                userResults: userResourcesResults
             });
-          });
+        });
       });
   },
 
   setupController: function (controller, model) {
-
     // Create an instance of report data to pass to the controller.
     var reportData = ReportData.create({
       students: model.students,

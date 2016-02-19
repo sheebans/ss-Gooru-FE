@@ -1,0 +1,17 @@
+[
+  {
+    "description": "RealTime API: This endpoint returns all the events registered in the RealTime server for a specific collection in a specific class",
+    "request": {
+      "url": "^/mocked-api/nucleus/realtime/class/(.+)/collection/(.+)/events",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "collection-events-200-response.json"
+    }
+  }
+]
