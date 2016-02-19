@@ -13,12 +13,12 @@
   }
 
   .results {
-    width: 100%;
+    width: 80%;
     float: left;
-    padding: 0 20px;
+    padding: 0 5px;
     background-color: $light-100;
-    @media (min-width: $screen-xs) {
-      width: 80%;
+    @media (min-width: $screen-lg-min) {
+      width: 100%;
       padding: 0 50px;
     }
   }
