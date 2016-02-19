@@ -53,6 +53,7 @@
         <form {{action "submitQuestion" on="submit"}}>
           {{component (questionConfig question.questionType 'component.player')
           question=question
+          readOnly=submitted
           onAnswerChanged="changeAnswer"
           onAnswerCleared="clearAnswer"
           onAnswerCompleted="completeAnswer"}}

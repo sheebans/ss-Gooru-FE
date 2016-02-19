@@ -36,10 +36,10 @@ export default Ember.Controller.extend({
   "class": Ember.computed.reads('classController.class'),
 
   /**
-   * The header titles
-   * @property {Headers[]}
+   * Unit's lessons
+   * @property {Lesson[]}
    */
-  headers: null,
+  lessons: null,
 
   /**
    * The performanceDataMatrix

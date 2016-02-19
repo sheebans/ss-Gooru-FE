@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { correctPercentage, totalCompleted } from 'gooru-web/utils/question-result';
+import { correctPercentage, totalCompleted,totalNotStarted } from 'gooru-web/utils/question-result';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -58,17 +58,6 @@ export default Ember.Component.extend({
 
 
   /**
-   * Actual student question results, it excludes non started questions
-   * @property {QuestionResult[]} questionResults
-   */
-  questionResults: Ember.computed("reportData.[]", function(){
-    const reportData = this.get("reportData") || [];
-    return Ember.A(reportData).filter(function(item){
-      return item.get("started"); //only started question results
-    });
-  }),
-
-  /**
    * It returns an object representing the status for each question
    * @property {[]} questions
    */
@@ -83,16 +72,24 @@ export default Ember.Component.extend({
   /**
    * @property {number} user assessment score
    */
-  score: Ember.computed("questionResults.[]", function(){
-    return correctPercentage(this.get('questionResults'));
+  score: Ember.computed("reportData.[]", function(){
+    return correctPercentage(this.get('reportData'));
   }),
 
   /**
    * Indicates if the assessment has been started
    * @property {number} started
    */
-  started: Ember.computed("questionResults.[]", function(){
-    return totalCompleted(this.get('questionResults'));
+  started: Ember.computed("reportData.[]", function(){
+    return totalCompleted(this.get('reportData'));
+  }),
+
+  /**
+   * Indicates if the assessment has not started questions
+   * @property {number} notStarted
+   */
+  totalNotStarted:Ember.computed("reportData.[]", function(){
+    return totalNotStarted(this.get('reportData'));
   }),
   /**
    * @property {Function} onSelectQuestion - Event handler called when a question in a column is selected

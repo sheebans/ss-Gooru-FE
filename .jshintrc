@@ -3,6 +3,8 @@
     "document",
     "window",
     "-Promise",
+    "SockJS",
+    "Stomp",
     "Switchery",
     "moment"
   ],
@@ -24,7 +26,6 @@
   "nomen": false,
   "onevar": false,
   "plusplus": false,
-  "regexp": false,
   "undef": true,
   "sub": true,
   "strict": false,

@@ -42,6 +42,12 @@ export default Ember.Object.extend({
   mastery: [],
 
   /**
+   * Indicates if it has mastery
+   * @property {boolean} hasMastery
+   */
+  hasMastery: Ember.computed.bool("mastery.length"),
+
+  /**
    * @property {number} selectedAttempt - Attempt to which the data in questionResults correspond
    */
   selectedAttempt: 0,

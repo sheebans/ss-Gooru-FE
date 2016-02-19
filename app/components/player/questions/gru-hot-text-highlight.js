@@ -30,8 +30,10 @@ export default QuestionComponent.extend({
      */
     markItem: function (item) {
       const component = this;
-      item.set("selected", !item.get("selected"));
-      component.notifyEvents(component.getSelectedItems());
+      if (!component.get("readOnly")){
+        item.set("selected", !item.get("selected"));
+        component.notifyEvents(component.getSelectedItems());
+      }
     }
   },
 

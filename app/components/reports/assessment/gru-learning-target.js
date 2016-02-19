@@ -68,7 +68,6 @@ export default Ember.Component.extend({
     return correctPercentage(this.get('questionsList'));
   }),
 
-
   // -------------------------------------------------------------------------
   // Methods
 
@@ -97,5 +96,4 @@ export default Ember.Component.extend({
     });
     return questions;
   }
-
 });

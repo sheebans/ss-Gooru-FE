@@ -164,3 +164,36 @@ test('Notifications work after selecting questions', function (assert) {
   answers = { answer: [], correct: false };
   $answers.eq(3).click();
 });
+
+test('Layout - read only', function (assert) {
+
+  let question = Ember.Object.create({
+    "id": "569906aa04f742731bd4e896",
+    isHotSpotImage: true,
+    "assetBasePath": "http://test-base-path/",
+    questionType: 'HS_IMG',
+    text: 'Sample Question HS_IMG',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([ // ["1", "3"]
+      Ember.Object.create({"id": 1, "text": "test-1.png", isCorrect: true}),
+      Ember.Object.create({"id": 2, "text": "test-2.png", isCorrect: false}),
+      Ember.Object.create({"id": 3, "text": "test-3.png", isCorrect: true})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "narration": "Deserunt occaecat ullamco cillum in incididunt anim sit consequat consequat sit. Ipsum duis irure do quis amet cupidatat tempor qui nulla commodo nisi veniam. Culpa Lorem consequat ad officia. Consectetur minim pariatur id laborum tempor voluptate dolor quis laboris et quis commodo.",
+    "order": 7,
+    "hasAnswers": true
+  });
+
+
+  this.set('question', question);
+
+  this.render(hbs`{{player/questions/gru-hs-image question=question readOnly=true}}`);
+
+  const $component = this.$(); //component dom element
+  const $answersContainer = $component.find('.answer-choices');
+
+  assert.equal($answersContainer.find("li.answer.disabled").length, 3, "Incorrect number of answer choices");
+});

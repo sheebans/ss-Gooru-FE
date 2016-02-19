@@ -131,7 +131,7 @@ test('Layout having not started questions', function (assert) {
   const $header = $component.find(".panel .panel-heading");
   T.exists(assert, $header, "Missing student box title");
   T.exists(assert, $header.find(".score"), "Missing student box score");
-  assert.equal(T.text($header), 'Rocha, Perez (67%)', "Wrong title");
+  T.exists(assert, $header.find(".question-in-progress"), "Missing in progress icon");
 
   const $questions = $component.find(".panel .questions");
   T.exists(assert, $questions, "Missing questions area");

@@ -100,3 +100,30 @@ test('Notifications work after reordering questions', function (assert) {
   $component.find('.sortable').trigger('sortupdate');
 
 });
+
+test('Reorder question layout - read only', function (assert) {
+
+  let question = Ember.Object.create({
+    "id": "569906aadfa0072204f7c7c7",
+    questionType: 'HT_RO',
+    text: 'Reorder Question',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([ // ["crc", "bra", "pan", "chi"]
+      Ember.Object.create({id: "1", text: "An aquifer", order: 1}),
+      Ember.Object.create({id: "2", text: "A well", order: 2}),
+      Ember.Object.create({id: "3", text: "A pump", order: 3})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 3,
+    "hasAnswers": true
+  });
+
+  this.set('question', question);
+
+  this.render(hbs`{{player/questions/gru-reorder question=question readOnly=true}}`);
+
+  var $component = this.$(); //component dom element
+  assert.equal($component.find(".sortable.disabled").length, 1, "Sortable should be disabled");
+});
