@@ -119,7 +119,7 @@ export const QuestionUtil = Ember.Object.extend({
    * @return {AnswerObject[]}
    */
   toAnswerObjects: function (userAnswer){
-    Ember.Logger.warning("The method toAnswerObject is not implemented");
+    Ember.Logger.warning("The method toAnswerObject is not implemented", userAnswer);
   },
 
   /**
@@ -127,7 +127,7 @@ export const QuestionUtil = Ember.Object.extend({
    * @param {AnswerObject[]} answerObjects
    */
   toUserAnswer: function (answerObjects){
-    Ember.Logger.warning("The method toUserAnswer is not implemented");
+    Ember.Logger.warning("The method toUserAnswer is not implemented", answerObjects);
   },
 
   /**
@@ -137,6 +137,15 @@ export const QuestionUtil = Ember.Object.extend({
    */
   getAnswerById: function(answerId){
     return this.get("question.answers").findBy("id", answerId);
+  },
+
+  /**
+   * Gets an Answer by text
+   * @param {string} text
+   * @returns {Answer}
+   */
+  getAnswerByText: function(text){
+    return this.get("question.answers").findBy("text", text);
   }
 
 }),
@@ -289,6 +298,53 @@ MultipleAnswerUtil = QuestionUtil.extend({
       return item.id + "_" + item.selection;
     });
     return keys.toArray().join();
+  },
+
+  /**
+   * Converts the model user answer into an answerObject format
+   *
+   * For MA looks like
+   *
+   *  [{"text":"Yes","status":"correct","order":1,"answerId":1234,"skip":false},
+   *  {"text":"Yes","status":"incorrect","order":2,"answerId":1234,"skip":false},
+   *  {"text":"No","status":"incorrect","order":3,"answerId":"1234,"skip":false},
+   *  {"text":"No","status":"correct","order":4,"answerId":1235,"skip":false}]
+   *
+   * @param { { id: string, selection: boolean }[] } userAnswer
+   * @return {AnswerObject[]}
+   */
+  toAnswerObjects: function (userAnswer){
+    let util = this;
+    return userAnswer.map(function(item, index){
+      let answer = util.getAnswerById(item.id);
+      let text = item.selection ? "Yes" : "No";
+      return AnswerObject.create({
+        "text": text,
+        "correct": util.isAnswerChoiceCorrect(item),
+        "order": index + 1,
+        "answerId": answer.get("id"),
+        "skip": false
+      });
+    });
+  },
+
+  /**
+   * Converts an answerObject format to model userAnswer
+   *
+   * For MA looks like
+   *
+   *  [{"text":"Yes","status":"correct","order":1,"answerId":1234,"skip":false},
+   *  {"text":"Yes","status":"incorrect","order":2,"answerId":1234,"skip":false},
+   *  {"text":"No","status":"incorrect","order":3,"answerId":"1234,"skip":false},
+   *  {"text":"No","status":"correct","order":4,"answerId":1235,"skip":false}]
+   *
+   * @param {AnswerObject[]} answerObjects
+   * @return { { id: string, selection: boolean }[] } answer selections
+   */
+  toUserAnswer: function (answerObjects){
+    return answerObjects.map(function(answerObject){
+      return { id: answerObject.get("answerId"), selection: answerObject.get("text") === "Yes" };
+    });
   }
 
 
@@ -419,6 +475,49 @@ FillInTheBlankUtil = QuestionUtil.extend({
    */
   answerKey: function(answer){
     return answer.join();
+  },
+
+  /**
+   * Converts the model user answer into an answerObject format
+   *
+   * For FIB looks like
+   *
+   * [{"text":"actions","status":"incorrect","order":1,"answerId":1234,"skip":false},
+   *  {"text":"object","status":"incorrect","order":2,"answerId":1235,"skip":false}]
+   *
+   * @param { string[] } userAnswer i.e ['black', 'white', 'blue']
+   * @return {AnswerObject[]}
+   */
+  toAnswerObjects: function (userAnswer){
+    let util = this;
+    return userAnswer.map(function(text, index){
+      let answer = util.getAnswerByText(text);
+      return AnswerObject.create({
+        "text": text,
+        "correct": util.isAnswerChoiceCorrect(text, index),
+        "order": index + 1,
+        "answerId": answer ? answer.get("id") : 0,
+        "skip": false
+      });
+    });
+  },
+
+  /**
+   * Converts an answerObject format to model userAnswer
+   *
+   * For FIB looks like
+   *
+   * [{"text":"actions","status":"incorrect","order":1,"answerId":1234,"skip":false},
+   *  {"text":"object","status":"incorrect","order":2,"answerId":1235,"skip":false}]
+   *
+   * @param {AnswerObject[]} answerObjects
+   * @return {string[]} answer texts i.e ['black', 'white', 'blue']
+   */
+  toUserAnswer: function (answerObjects){
+    answerObjects = answerObjects.sortBy("order");
+    return answerObjects.map(function(answerObject){
+      return answerObject.get("text");
+    });
   }
 
 }),
@@ -741,7 +840,7 @@ AnswerObject = Ember.Object.extend({
    * @property {boolean}
    */
   correct: Ember.computed("status", {
-    get(key) {
+    get() {
       return this.get("status") === 'correct';
     },
     set(key, value) {

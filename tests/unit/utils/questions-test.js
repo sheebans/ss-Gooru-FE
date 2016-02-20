@@ -221,6 +221,59 @@ test('Multiple Answer - distribution', function (assert) {
   assert.deepEqual(counts, [2, 2, 1], "Wrong counts");
 });
 
+test('Multiple Answer - toAnswerObjects', function (assert) {
+  let answers = Ember.A([
+    Ember.Object.create({id: 1, isCorrect: false}),
+    Ember.Object.create({id: 2, isCorrect: true}),
+    Ember.Object.create({id: 3, isCorrect: true})
+  ]);
+
+  let question = Ember.Object.create({answers: answers});
+  let questionUtil = MultipleAnswerUtil.create({question: question});
+
+  let answerObjects = questionUtil.toAnswerObjects([{id: 2, selection: false}, {id: 1, selection: false}, {id: 3, selection: true}]).toArray();
+  assert.equal(answerObjects.length, 3, "Only 1 answer object should be found");
+
+  //first
+  assert.equal(answerObjects[0].get("answerId"), 2, "Wrong answerId");
+  assert.equal(answerObjects[0].get("skip"), false, "Wrong skipped");
+  assert.equal(answerObjects[0].get("order"), 1, "Wrong order");
+  assert.equal(answerObjects[0].get("status"), 'incorrect', "Wrong status");
+  assert.equal(answerObjects[0].get("text"), 'No', "Wrong text");
+  //second
+  assert.equal(answerObjects[1].get("answerId"), 1, "Wrong answerId");
+  assert.equal(answerObjects[1].get("skip"), false, "Wrong skipped");
+  assert.equal(answerObjects[1].get("order"), 2, "Wrong order");
+  assert.equal(answerObjects[1].get("status"), 'correct', "Wrong status");
+  assert.equal(answerObjects[1].get("text"), 'No', "Wrong text");
+  //third
+  assert.equal(answerObjects[2].get("answerId"), 3, "Wrong answerId");
+  assert.equal(answerObjects[2].get("skip"), false, "Wrong skipped");
+  assert.equal(answerObjects[2].get("order"), 3, "Wrong order");
+  assert.equal(answerObjects[2].get("status"), 'correct', "Wrong status");
+  assert.equal(answerObjects[2].get("text"), 'Yes', "Wrong text");
+});
+
+
+test('Multiple Answer - toUserAnswer', function (assert) {
+  let answers = Ember.A([
+    Ember.Object.create({id: 1, isCorrect: false}),
+    Ember.Object.create({id: 2, isCorrect: true}),
+    Ember.Object.create({id: 3, isCorrect: true})
+  ]);
+  let question = Ember.Object.create({answers: answers});
+  let questionUtil = MultipleAnswerUtil.create({question: question});
+
+  let answerObjects = Ember.A([
+    AnswerObject.create({text: 'No', answerId: 2}),
+    AnswerObject.create({text: 'No', answerId: 1}),
+    AnswerObject.create({text: 'Yes', answerId: 3})
+  ]);
+
+  let userAnswer = questionUtil.toUserAnswer(answerObjects);
+  assert.deepEqual(userAnswer, [{id: 2, selection: false}, {id: 1, selection: false}, {id: 3, selection: true}], "Wrong user answer");
+});
+
 // --------------- True False tests
 test('True/False - getCorrectAnswer when correct answer is provided', function (assert) {
   let answers = Ember.A([
@@ -314,32 +367,32 @@ test('True/False - toAnswerObjects with no answer id', function (assert) {
   assert.equal(answerObject.get("text"), 'False', "Wrong text");
 });
 
-test('Multiple Choice - toUserAnswer with answer id', function (assert) {
+test('True/False - toUserAnswer with answer id', function (assert) {
   let answers = Ember.A([
     Ember.Object.create({id: 1, isCorrect: false, text: "True"}),
     Ember.Object.create({id: 2, isCorrect: true, text: "False"})
   ]);
 
   let question = Ember.Object.create({answers: answers});
-  let questionUtil = MultipleChoiceUtil.create({question: question});
+  let questionUtil = TrueFalseUtil.create({question: question});
 
   let answerObject = AnswerObject.create({ answerId: 1 });
   let userAnswer = questionUtil.toUserAnswer(Ember.A([answerObject]));
   assert.equal(userAnswer, 1, "Wrong userAnswer");
 });
 
-test('Multiple Choice - toUserAnswer with no answer id', function (assert) {
+test('True/False - toUserAnswer with no answer id', function (assert) {
   let answers = Ember.A([
     Ember.Object.create({id: 1, isCorrect: false, text: "True"}),
     Ember.Object.create({id: 2, isCorrect: true, text: "False"})
   ]);
 
   let question = Ember.Object.create({answers: answers});
-  let questionUtil = MultipleChoiceUtil.create({question: question});
+  let questionUtil = TrueFalseUtil.create({question: question});
 
-  let answerObject = AnswerObject.create({ answerId: 0, text: "False" });
+  let answerObject = AnswerObject.create({ answerId: 0, text: "True" });
   let userAnswer = questionUtil.toUserAnswer(Ember.A([answerObject]));
-  assert.equal(userAnswer, false, "Wrong userAnswer");
+  assert.equal(userAnswer, true, "Wrong userAnswer");
 });
 
 // --------------- FIB tests
@@ -447,6 +500,93 @@ test('FIB - sameAnswer', function (assert) {
   assert.ok(questionUtil.sameAnswer(answerA, answerB), "Answer should be the same");
   assert.ok(!questionUtil.sameAnswer(answerA, answerC), "Answer should not be the same, they have different order");
 });
+
+test('FIB - toAnswerObjects when correct', function (assert) {
+  let answers = Ember.A([
+    Ember.Object.create({id: 1, text: 'optionA'}),
+    Ember.Object.create({id: 2, text: 'optionB'}),
+    Ember.Object.create({id: 3, text: 'optionC'})
+  ]);
+
+  let question = Ember.Object.create({answers: answers});
+  let questionUtil = FillInTheBlankUtil.create({question: question});
+
+  let answerObjects = questionUtil.toAnswerObjects(["optionA", "optionB", "optionC"]).toArray();
+  assert.equal(answerObjects.length, 3, "Only 1 answer object should be found");
+
+  //first
+  assert.equal(answerObjects[0].get("answerId"), 1, "Wrong answerId");
+  assert.equal(answerObjects[0].get("skip"), false, "Wrong skipped");
+  assert.equal(answerObjects[0].get("order"), 1, "Wrong order");
+  assert.equal(answerObjects[0].get("status"), 'correct', "Wrong status");
+  assert.equal(answerObjects[0].get("text"), 'optionA', "Wrong text");
+  //second
+  assert.equal(answerObjects[1].get("answerId"), 2, "Wrong answerId");
+  assert.equal(answerObjects[1].get("skip"), false, "Wrong skipped");
+  assert.equal(answerObjects[1].get("order"), 2, "Wrong order");
+  assert.equal(answerObjects[1].get("status"), 'correct', "Wrong status");
+  assert.equal(answerObjects[1].get("text"), 'optionB', "Wrong text");
+  //third
+  assert.equal(answerObjects[2].get("answerId"), 3, "Wrong answerId");
+  assert.equal(answerObjects[2].get("skip"), false, "Wrong skipped");
+  assert.equal(answerObjects[2].get("order"), 3, "Wrong order");
+  assert.equal(answerObjects[2].get("status"), 'correct', "Wrong status");
+  assert.equal(answerObjects[2].get("text"), 'optionC', "Wrong text");
+});
+
+test('FIB - toAnswerObjects when incorrect', function (assert) {
+  let answers = Ember.A([
+    Ember.Object.create({id: 1, text: 'optionA'}),
+    Ember.Object.create({id: 2, text: 'optionB'}),
+    Ember.Object.create({id: 3, text: 'optionC'})
+  ]);
+
+  let question = Ember.Object.create({answers: answers});
+  let questionUtil = FillInTheBlankUtil.create({question: question});
+
+  let answerObjects = questionUtil.toAnswerObjects(["optionD", "optionB", ""]).toArray();
+  assert.equal(answerObjects.length, 3, "Only 1 answer object should be found");
+
+  //first
+  assert.equal(answerObjects[0].get("answerId"), 0, "Wrong answerId");
+  assert.equal(answerObjects[0].get("skip"), false, "Wrong skipped");
+  assert.equal(answerObjects[0].get("order"), 1, "Wrong order");
+  assert.equal(answerObjects[0].get("status"), 'incorrect', "Wrong status");
+  assert.equal(answerObjects[0].get("text"), 'optionD', "Wrong text");
+  //second
+  assert.equal(answerObjects[1].get("answerId"), 2, "Wrong answerId");
+  assert.equal(answerObjects[1].get("skip"), false, "Wrong skipped");
+  assert.equal(answerObjects[1].get("order"), 2, "Wrong order");
+  assert.equal(answerObjects[1].get("status"), 'correct', "Wrong status");
+  assert.equal(answerObjects[1].get("text"), 'optionB', "Wrong text");
+  //third
+  assert.equal(answerObjects[2].get("answerId"), 0, "Wrong answerId");
+  assert.equal(answerObjects[2].get("skip"), false, "Wrong skipped");
+  assert.equal(answerObjects[2].get("order"), 3, "Wrong order");
+  assert.equal(answerObjects[2].get("status"), 'incorrect', "Wrong status");
+  assert.equal(answerObjects[2].get("text"), '', "Wrong text");
+});
+
+test('FIB - toUserAnswer', function (assert) {
+  let answers = Ember.A([
+    Ember.Object.create({id: 1, text: 'optionA'}),
+    Ember.Object.create({id: 2, text: 'optionB'}),
+    Ember.Object.create({id: 3, text: 'optionC'})
+  ]);
+
+  let question = Ember.Object.create({answers: answers});
+  let questionUtil = FillInTheBlankUtil.create({question: question});
+
+  let answerObjects = Ember.A([
+    AnswerObject.create({text: 'optionB', order: 2}),
+    AnswerObject.create({text: 'optionC', order: 3}),
+    AnswerObject.create({text: 'optionA', order: 1})
+  ])
+
+  let userAnswer = questionUtil.toUserAnswer(answerObjects);
+  assert.deepEqual(userAnswer, ["optionA", "optionB", "optionC"], "Wrong user answer");
+});
+
 
 // --------------- Reorder tests
 test('Reorder - getCorrectAnswer empty array', function (assert) {
