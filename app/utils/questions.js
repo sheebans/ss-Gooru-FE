@@ -845,7 +845,7 @@ export const AnswerObject = Ember.Object.extend({
      */
     toUserAnswer: function (answerObjects) {
       return answerObjects.map(function (answerObject) {
-        return { index: (answerObject.get("order") - 1), text: answerObject.get("text") }
+        return { index: (answerObject.get("order") - 1), text: answerObject.get("text") };
       });
     }
 
