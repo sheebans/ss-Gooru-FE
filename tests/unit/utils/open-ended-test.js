@@ -42,3 +42,27 @@ test('Open Ended - answerKey', function (assert) {
   let key = questionUtil.answerKey("any text");
   assert.equal(key, "any text", "Wrong key");
 });
+
+test('Open Ended - toAnswerObjects', function (assert) {
+  let question = Ember.Object.create();
+  let questionUtil = OpenEndedUtil.create({question: question});
+
+  let answerObjects = questionUtil.toAnswerObjects("Some there here");
+  assert.equal(answerObjects.length, 1, "Only 1 answer object should be found");
+
+  let answerObject = answerObjects.get("firstObject");
+  assert.equal(answerObject.get("answerId"), 0, "Wrong answerId");
+  assert.equal(answerObject.get("skip"), false, "Wrong skipped");
+  assert.equal(answerObject.get("order"), 0, "Wrong order");
+  assert.equal(answerObject.get("status"), null, "Wrong status");
+  assert.equal(answerObject.get("text"), 'Some text here', "Wrong status");
+});
+
+test('Open Ended - toUserAnswer', function (assert) {
+  let question = Ember.Object.create();
+  let questionUtil = OpenEndedUtil.create({question: question});
+
+  let answerObject = AnswerObject.create({ text: "Some text here" });
+  let userAnswer = questionUtil.toUserAnswer(Ember.A([answerObject]));
+  assert.equal(userAnswer, "Some text here", "Wrong userAnswer");
+});

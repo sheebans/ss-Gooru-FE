@@ -3,7 +3,26 @@ import QuestionUtil from './question';
 
 /**
  * It contains convenience methods for grading and retrieving useful information
- * from this question type
+ * for Fill in the bLank
+ *
+ * # Answer object (structure required by the BE)
+ *  It is an array containing a json object for each input in the question
+ *
+ *  text contains the text entered in the specific input
+ *  status could have correct or incorrect based on the text entered
+ *  order contains the input index, is starts at 1
+ *  answerId contains a reference to the question answer id
+ *  skip is always false
+ *
+ * [{"text":"actions","status":"incorrect","order":1,"answerId":1234,"skip":false},
+ *  {"text":"object","status":"incorrect","order":2,"answerId":1235,"skip":false}]
+ *
+ * # User answer (structure used by the FE)
+ *  It is an array containing all the text entered by the user,
+ *  If an input was left blank, it is still added to this array
+ *  The order of the texts in the array mean the input it was filled for
+ *
+ *  ['black', '', 'blue']
  *
  * @typedef {Object} FillInTheBlankUtil
  */
@@ -19,6 +38,8 @@ export default QuestionUtil.extend({
    * Indicates if the answer choice is correct
    * @param { string } answerChoice
    * @param { number } index position of the answer
+   *
+   * @see '# User Answer' section at class comment
    */
   isAnswerChoiceCorrect: function (answerChoice, index) {
     let correctAnswer = this.getCorrectAnswer();
@@ -39,9 +60,12 @@ export default QuestionUtil.extend({
 
   /**
    * Returns a unique key representing the answer
-   * For FIB the answer is an array of strings
-   * @param { string[] } answer i.e ['black', 'white', 'blue']
+
+   * @param { string[] } answer
    * @returns { string }
+   *
+   * @see '# User Answer' section at class comment
+   * @see '# Answer Object' section at class comment
    */
   answerKey: function (answer) {
     return answer.join();
@@ -49,14 +73,12 @@ export default QuestionUtil.extend({
 
   /**
    * Converts the model user answer into an answerObject format
-   *
-   * For FIB looks like
-   *
-   * [{"text":"actions","status":"incorrect","order":1,"answerId":1234,"skip":false},
-   *  {"text":"object","status":"incorrect","order":2,"answerId":1235,"skip":false}]
-   *
-   * @param { string[] } userAnswer i.e ['black', 'white', 'blue']
+   **
+   * @param { string[] } userAnswer
    * @return {AnswerObject[]}
+   *
+   * @see '# User Answer' section at class comment
+   * @see '# Answer Object' section at class comment
    */
   toAnswerObjects: function (userAnswer) {
     let util = this;
@@ -75,13 +97,11 @@ export default QuestionUtil.extend({
   /**
    * Converts an answerObject format to model userAnswer
    *
-   * For FIB looks like
-   *
-   * [{"text":"actions","status":"incorrect","order":1,"answerId":1234,"skip":false},
-   *  {"text":"object","status":"incorrect","order":2,"answerId":1235,"skip":false}]
-   *
    * @param {AnswerObject[]} answerObjects
-   * @return {string[]} answer texts i.e ['black', 'white', 'blue']
+   * @return {string[]} answer texts
+   *
+   * @see '# User Answer' section at class comment
+   * @see '# Answer Object' section at class comment
    */
   toUserAnswer: function (answerObjects) {
     answerObjects = answerObjects.sortBy("order");

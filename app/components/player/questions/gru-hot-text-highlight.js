@@ -89,7 +89,6 @@ export default QuestionComponent.extend({
    */
   generateItems: function(){
     const component = this;
-    const question = component.get("question");
     const util = component.get("questionUtil");
     component.set("items", util.getItems());
   },
