@@ -581,7 +581,7 @@ test('FIB - toUserAnswer', function (assert) {
     AnswerObject.create({text: 'optionB', order: 2}),
     AnswerObject.create({text: 'optionC', order: 3}),
     AnswerObject.create({text: 'optionA', order: 1})
-  ])
+  ]);
 
   let userAnswer = questionUtil.toUserAnswer(answerObjects);
   assert.deepEqual(userAnswer, ["optionA", "optionB", "optionC"], "Wrong user answer");
@@ -745,7 +745,7 @@ test('Reorder - toUserAnswer', function (assert) {
     AnswerObject.create({text: 'optionB', order: 3, answerId: 2}),
     AnswerObject.create({text: 'optionC', order: 1, answerId: 3}),
     AnswerObject.create({text: 'optionA', order: 2, answerId: 1})
-  ])
+  ]);
 
   let userAnswer = questionUtil.toUserAnswer(answerObjects);
   assert.deepEqual(userAnswer, [3, 1, 2], "Wrong user answer ids");
