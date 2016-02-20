@@ -698,7 +698,7 @@ test('Reorder - sameAnswer', function (assert) {
 
 });
 
-test('Reorder - toAnswerObjects when correct', function (assert) {
+test('Reorder - toAnswerObjects', function (assert) {
   let answers = Ember.A([
     Ember.Object.create({id: 1, text: 'choice-1', order:2}),
     Ember.Object.create({id: 2, text: 'choice-2', order: 3}),
@@ -1273,6 +1273,64 @@ test('Hot Text Highlight - transformText', function (assert) {
   text = questionUtil.transformText("<p>This is a test</p> [<p>for</p>] <b>the</b> transform text");
   assert.equal(text, "<p>This is a test</p> [<p>for</p>] <b>the</b> transform text");
 });
+
+test('Hot Text Highlight - toAnswerObjects', function (assert) {
+  let question = Ember.Object.create({
+    answers: Ember.A([Ember.Object.create({text: "Many [correct] items in this sentence [another.]"})]),
+    hasAnswers: true,
+    isHotTextHighlightWord: true
+  });
+  let questionUtil = HotTextHighlightUtil.create({question: question});
+
+  let answer = [
+    {index: 6, text: "another."},
+    {index: 1, text: "correct"},
+    {index: 3, text: "item"}
+  ];
+  let answerObjects = questionUtil.toAnswerObjects(answer).toArray();
+  assert.equal(answerObjects.length, 3, "Only 1 answer object should be found");
+
+  //first
+  assert.equal(answerObjects[0].get("answerId"), 0, "Wrong answerId");
+  assert.equal(answerObjects[0].get("skip"), false, "Wrong skipped");
+  assert.equal(answerObjects[0].get("order"), 7, "Wrong order");
+  assert.equal(answerObjects[0].get("status"), 'correct', "Wrong status");
+  assert.equal(answerObjects[0].get("text"), 'another.', "Wrong text");
+  //second
+  assert.equal(answerObjects[1].get("answerId"), 0, "Wrong answerId");
+  assert.equal(answerObjects[1].get("skip"), false, "Wrong skipped");
+  assert.equal(answerObjects[1].get("order"), 2, "Wrong order");
+  assert.equal(answerObjects[1].get("status"), 'correct', "Wrong status");
+  assert.equal(answerObjects[1].get("text"), 'correct', "Wrong text");
+  //third
+  assert.equal(answerObjects[2].get("answerId"), 0, "Wrong answerId");
+  assert.equal(answerObjects[2].get("skip"), false, "Wrong skipped");
+  assert.equal(answerObjects[2].get("order"), 4, "Wrong order");
+  assert.equal(answerObjects[2].get("status"), 'incorrect', "Wrong status");
+  assert.equal(answerObjects[2].get("text"), 'item', "Wrong text");
+});
+
+test('Hot Text Highlight - toUserAnswer', function (assert) {
+  let question = Ember.Object.create({
+    answers: Ember.A([Ember.Object.create({text: "Many [correct] items in this sentence [another.]"})]),
+    hasAnswers: true,
+    isHotTextHighlightWord: true
+  });
+  let questionUtil = HotTextHighlightUtil.create({question: question});
+
+  let answerObjects = Ember.A([
+    AnswerObject.create({text: 'another.', order: 7, answerId: 0}),
+    AnswerObject.create({text: 'correct', order: 2, answerId: 0}),
+    AnswerObject.create({text: 'item', order: 4, answerId: 0})
+  ]);
+
+  let userAnswer = questionUtil.toUserAnswer(answerObjects);
+
+  let answer = [ {index: 6, text: "another."}, {index: 1, text: "correct"}, {index: 3, text: "item"} ];
+
+  assert.deepEqual(userAnswer, answer, "Wrong user answer");
+});
+
 
 // --------------- Open Ended tests
 test('Open Ended - getCorrectAnswer no correct answer provided', function (assert) {

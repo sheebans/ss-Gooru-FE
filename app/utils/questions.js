@@ -795,7 +795,7 @@ export const AnswerObject = Ember.Object.extend({
     /**
      * Returns a unique key representing the answer
      * For hot text the answer is an array of string
-     * @param { string[] } answer
+     * @param { {index: number, text: string }[] } answer
      * @returns {string} i.e 1,2,3
      */
     answerKey: function (answer) {
@@ -803,8 +803,51 @@ export const AnswerObject = Ember.Object.extend({
         return item.index;
       });
       return indexes.sort().join();
-    }
+    },
 
+    /**
+     * Converts the model user answer into an answerObject format
+     *
+     * For HotTextHighlight looks like
+     *
+     * [{"text":"Tell","status":"incorrect","order":1,"answerId":0,"skip":false},
+     * {"text":"nos.","status":"correct","order":14,"answerId":0,"skip":false},
+     * {"text":"parens","status":"correct","order":31,"answerId":0,"skip":false}]
+     *
+     * @param { {index: number, text: string }[] } userAnswer answer ids in selected order
+     * @return {AnswerObject[]}
+     */
+    toAnswerObjects: function (userAnswer) {
+      let util = this;
+      return userAnswer.map(function (selection) {
+        let index = selection.index;
+        return AnswerObject.create({
+          "text": selection.text,
+          "correct": util.isAnswerChoiceCorrect(selection),
+          "order": index + 1,
+          "answerId": 0,
+          "skip": false
+        });
+      });
+    },
+
+    /**
+     * Converts an answerObject format to model userAnswer
+     *
+     * For HotTextHighlight looks like
+     *
+     * [{"text":"Tell","status":"incorrect","order":1,"answerId":0,"skip":false},
+     * {"text":"nos.","status":"correct","order":14,"answerId":0,"skip":false},
+     * {"text":"parens","status":"correct","order":31,"answerId":0,"skip":false}]
+     *
+     * @param {AnswerObject[]} answerObjects
+     * @return {{index: number, text: string }[]} answer ids in selected order
+     */
+    toUserAnswer: function (answerObjects) {
+      return answerObjects.map(function (answerObject) {
+        return { index: (answerObject.get("order") - 1), text: answerObject.get("text") }
+      });
+    }
 
   }),
 
