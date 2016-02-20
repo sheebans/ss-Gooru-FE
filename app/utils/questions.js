@@ -560,12 +560,57 @@ ReorderUtil = QuestionUtil.extend({
 
   /**
    * Returns a unique key representing the answer
-   * For FIB the answer is an array of strings
-   * @param { string[] } answer i.e ['black', 'white', 'blue']
+   * For Roerder the answer is an array of answer ids
+   * @param { string[] } answer i.e ['answerId_1', 'answerId_2', 'answerId_3']
    * @returns { string }
    */
   answerKey: function(answer){
     return answer.join();
+  },
+
+  /**
+   * Converts the model user answer into an answerObject format
+   *
+   * For Reorder looks like
+   *
+   * [{"text":"1","status":"correct","order":1,"answerId":1234,"skip":false},
+   * {"text":"2","status":"correct","order":3,"answerId":1234,"skip":false},
+   * {"text":"3","status":"correct","order":2,"answerId":1234,"skip":false}]
+   *
+   * @param { string[] } userAnswer answer ids in selected order
+   * @return {AnswerObject[]}
+   */
+  toAnswerObjects: function (userAnswer){
+    let util = this;
+    return userAnswer.map(function(answerId, index){
+      let answer = util.getAnswerById(answerId);
+      return AnswerObject.create({
+        "text": answer.get("text"),
+        "correct": util.isAnswerChoiceCorrect(answerId, index),
+        "order": index + 1,
+        "answerId": answerId
+        "skip": false
+      });
+    });
+  },
+
+  /**
+   * Converts an answerObject format to model userAnswer
+   *
+   * For Reorder looks like
+   *
+   * [{"text":"1","status":"correct","order":1,"answerId":1234,"skip":false},
+   * {"text":"2","status":"correct","order":3,"answerId":1234,"skip":false},
+   * {"text":"3","status":"correct","order":2,"answerId":1234,"skip":false}]
+   *
+   * @param {AnswerObject[]} answerObjects
+   * @return {string[]} answer ids in selected order
+   */
+  toUserAnswer: function (answerObjects){
+    answerObjects = answerObjects.sortBy("order");
+    return answerObjects.map(function(answerObject){
+      return answerObject.get("answerId");
+    });
   }
 
 }),

@@ -698,6 +698,60 @@ test('Reorder - sameAnswer', function (assert) {
 
 });
 
+test('Reorder - toAnswerObjects when correct', function (assert) {
+  let answers = Ember.A([
+    Ember.Object.create({id: 1, text: 'choice-1', order:2}),
+    Ember.Object.create({id: 2, text: 'choice-2', order: 3}),
+    Ember.Object.create({id: 3, text: 'choice-3', order: 1})
+  ]);
+
+  let question = Ember.Object.create({answers: answers});
+  let questionUtil = ReorderUtil.create({question: question});
+
+  let answerObjects = questionUtil.toAnswerObjects([3, 2, 1]).toArray();
+  assert.equal(answerObjects.length, 3, "Only 1 answer object should be found");
+
+  //first
+  assert.equal(answerObjects[0].get("answerId"), 3, "Wrong answerId");
+  assert.equal(answerObjects[0].get("skip"), false, "Wrong skipped");
+  assert.equal(answerObjects[0].get("order"), 1, "Wrong order");
+  assert.equal(answerObjects[0].get("status"), 'correct', "Wrong status");
+  assert.equal(answerObjects[0].get("text"), 'choice-3', "Wrong text");
+  //second
+  assert.equal(answerObjects[1].get("answerId"), 2, "Wrong answerId");
+  assert.equal(answerObjects[1].get("skip"), false, "Wrong skipped");
+  assert.equal(answerObjects[1].get("order"), 2, "Wrong order");
+  assert.equal(answerObjects[1].get("status"), 'incorrect', "Wrong status");
+  assert.equal(answerObjects[1].get("text"), 'choice-2', "Wrong text");
+  //third
+  assert.equal(answerObjects[2].get("answerId"), 1, "Wrong answerId");
+  assert.equal(answerObjects[2].get("skip"), false, "Wrong skipped");
+  assert.equal(answerObjects[2].get("order"), 3, "Wrong order");
+  assert.equal(answerObjects[2].get("status"), 'incorrect', "Wrong status");
+  assert.equal(answerObjects[2].get("text"), 'choice-1', "Wrong text");
+});
+
+test('Reorder - toUserAnswer', function (assert) {
+  let answers = Ember.A([
+    Ember.Object.create({id: 1, text: 'optionA'}),
+    Ember.Object.create({id: 2, text: 'optionB'}),
+    Ember.Object.create({id: 3, text: 'optionC'})
+  ]);
+
+  let question = Ember.Object.create({answers: answers});
+  let questionUtil = ReorderUtil.create({question: question});
+
+  let answerObjects = Ember.A([
+    AnswerObject.create({text: 'optionB', order: 3, answerId: 2}),
+    AnswerObject.create({text: 'optionC', order: 1, answerId: 3}),
+    AnswerObject.create({text: 'optionA', order: 2, answerId: 1})
+  ])
+
+  let userAnswer = questionUtil.toUserAnswer(answerObjects);
+  assert.deepEqual(userAnswer, [3, 1, 2], "Wrong user answer ids");
+});
+
+
 
 // --------------- Hot Spot Image tests
 test('Hot Spot Image - getCorrectAnswer empty array', function (assert) {
