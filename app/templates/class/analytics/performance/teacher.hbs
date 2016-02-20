@@ -1,15 +1,17 @@
-<div class="controller analytics-performance-teacher">
-    <div class="better-experience visible-xs alert alert-warning alert-dismissible" role="alert">
+<div class="controller analytics-performance-teacher container-fluid">
+    <div class="row">
+      <div class="better-experience visible-xs alert alert-warning alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <span class="better-experience-message">{{t 'class.analytics.performance.better-experience-message'}}</span>
+      </div>
     </div>
-    <div class="row navigation {{if isFullScreen 'hide' 'show'}}">
-      <div class="performance col-md-6 col-sm-6 col-xs-6">
-      <h4>{{t 'class.analytics.performance.title'}}</h4>
-     </div>
-    <div class="mastery col-md-6 col-sm-6 col-xs-6">
-      <h4>{{t 'class.analytics.mastery.title'}}</h4>
-    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <ul class="nav nav-tabs nav-tabs-lg {{if isFullScreen 'hide' 'show'}}">
+          <li role="presentation" class="active"><a href="#">{{t 'class.analytics.performance.title'}}</a></li>
+          <li role="presentation"><a href="#">{{t 'class.analytics.mastery.title'}}</a></li>
+        </ul>
+      </div>
     </div>
     <div class="row controls">
       <div class="teacher-breadcrumb col-md-6 col-sm-6 col-xs-12">

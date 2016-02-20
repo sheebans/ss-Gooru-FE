@@ -1,24 +1,25 @@
-{{#if isStudent }}
-  <button class="btn btn-default share" {{action 'share'}}>{{t "class.analytics.performance.actions.share"}}</button>
-{{else}}
-  <button class="btn btn-default edit" {{action 'editContent'}}>{{t "class.analytics.performance.actions.edit"}}</button>
-{{/if}}
-<button class="btn btn-default download" {{action 'download'}}>{{t "class.analytics.performance.actions.download"}}</button>
-<button class="btn btn-default full-screen hidden-sm hidden-xs {{if isFullScreen 'exit-full-screen' 'view-full-screen'}}" {{action 'toggleFullScreen'}}>
-  {{#if isFullScreen}}
-    {{t "class.analytics.performance.actions.exitFullScreen"}}
+<div class="btn-group" role="group">
+  {{#if isStudent }}
+    <button class="btn btn-info share" {{action 'share'}}>{{gru-icon name='send'}} {{t "class.analytics.performance.actions.share"}}</button>
   {{else}}
-    {{t "class.analytics.performance.actions.fullScreen"}}
+    <button class="btn btn-info edit" {{action 'editContent'}}>{{gru-icon name='mode_edit'}} {{t "class.analytics.performance.actions.edit"}}</button>
   {{/if}}
-</button>
-
+  <button class="btn btn-info download" {{action 'download'}}>{{gru-icon name='file_download'}} {{t "class.analytics.performance.actions.download"}}</button>
+  <button class="btn btn-info full-screen hidden-sm hidden-xs {{if isFullScreen 'exit-full-screen' 'view-full-screen'}}" {{action 'toggleFullScreen'}}>
+    {{#if isFullScreen}}
+      {{gru-icon name='fullscreen_exit'}} {{t "class.analytics.performance.actions.exitFullScreen"}}
+    {{else}}
+      {{gru-icon name='fullscreen'}} {{t "class.analytics.performance.actions.fullScreen"}}
+    {{/if}}
+  </button>
+</div>
 <div class="btn-group drop-menu">
-  <button class="selected-filter btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-    {{t dropdownFilterText}}<span class="arrow"></span>
+  <button class="selected-filter btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">
+    {{gru-icon name='spellcheck'}} {{t dropdownFilterText}} <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-    <li class="dropdown-menu-item assessment {{if isFilterByAssessment 'selected' }}" {{action 'filter' 'assessment'}}>{{t "class.analytics.performance.actions.assessment"}}</li>
-    <li class="dropdown-menu-item collection {{if isFilterByCollection 'selected' }}" {{action 'filter' 'collection'}}>{{t "class.analytics.performance.actions.collection"}}</li>
-    <li class="dropdown-menu-item both {{if isFilterByBoth 'selected' }}" {{action 'filter' 'both'}}>{{t "class.analytics.performance.actions.both"}}</li>
+    <li class="dropdown-menu-item assessment {{if isFilterByAssessment 'selected' }}"><a {{action 'filter' 'assessment'}}>{{t "class.analytics.performance.actions.assessment"}}</a></li>
+    <li class="dropdown-menu-item collection {{if isFilterByCollection 'selected' }}"><a {{action 'filter' 'collection'}}>{{t "class.analytics.performance.actions.collection"}}</a></li>
+    <li class="dropdown-menu-item both {{if isFilterByBoth 'selected' }}"><a {{action 'filter' 'both'}}>{{t "class.analytics.performance.actions.both"}}</a></li>
   </ul>
 </div>

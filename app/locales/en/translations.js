@@ -402,7 +402,7 @@ export default {
   },
   "class.analytics": {
     "performance": {
-      "title": "Performance",
+      "title": "View Performance",
       "better-experience-message":"For a better Gooru experience, view full Class Analytics in tablet or desktop.",
       "actions": {
         "share": "Share",
@@ -421,7 +421,7 @@ export default {
       }
     },
     "mastery": {
-      "title": "Mastery"
+      "title": "View Mastery"
     }
   },
 

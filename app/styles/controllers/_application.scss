@@ -41,6 +41,9 @@
       @media (min-width: $screen-sm) {
         width: 80%;
       }
+      &.full-screen {
+        width: 100%;
+      }
     }
   }
 }
