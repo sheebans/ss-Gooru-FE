@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import { TrueFalseUtil, AnswerObject } from 'gooru-web/utils/questions';
+import AnswerObject from 'gooru-web/utils/question/answer-object';
+import TrueFalseUtil from 'gooru-web/utils/question/true-false';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | true false');

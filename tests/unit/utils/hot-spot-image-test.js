@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import { HotSpotImageUtil } from 'gooru-web/utils/questions';
+//import AnswerObject from 'gooru-web/utils/question/answer-object';
+import HotSpotImageUtil from 'gooru-web/utils/question/hot-spot-image';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | hot spot image');

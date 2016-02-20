@@ -1,5 +1,4 @@
 import QuestionComponent from './gru-question';
-import {HotTextHighlightUtil} from 'gooru-web/utils/questions';
 
 /**
  * Hot Text Highlight
@@ -91,7 +90,7 @@ export default QuestionComponent.extend({
   generateItems: function(){
     const component = this;
     const question = component.get("question");
-    const util = HotTextHighlightUtil.create({question: question});
+    const util = component.get("questionUtil");
     component.set("items", util.getItems());
   },
 

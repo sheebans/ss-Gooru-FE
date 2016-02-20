@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import { HotSpotTextUtil } from 'gooru-web/utils/questions';
+//import AnswerObject from 'gooru-web/utils/question/answer-object';
+import HotSpotTextUtil from 'gooru-web/utils/question/hot-spot-text';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | hot spot text');

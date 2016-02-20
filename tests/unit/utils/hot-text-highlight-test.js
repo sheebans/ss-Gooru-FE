@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import { HotTextHighlightUtil, AnswerObject } from 'gooru-web/utils/questions';
+import AnswerObject from 'gooru-web/utils/question/answer-object';
+import HotTextHighlightUtil from 'gooru-web/utils/question/hot-text-highlight';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | hot text highlight');
