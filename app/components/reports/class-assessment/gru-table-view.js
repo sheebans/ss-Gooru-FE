@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import {
   alphabeticalStringSort,
-  formatTimeInSeconds,
+  formatTime,
   getAnswerResultIcon,
   getReactionIcon
   } from 'gooru-web/utils/utils';
@@ -83,7 +83,6 @@ export default Ember.Component.extend({
    *
    * Each question object will consist of:
    * - label: visual representation of the header
-   * - order: order of the header with respect to the others
    * - value: internal header identifier
    *
    * The questions will be ordered in the array in ascending order per the order value
@@ -91,22 +90,22 @@ export default Ember.Component.extend({
   assessmentQuestions: Ember.computed('assessment.resources.[]', function () {
     const labelPrefix = this.get('i18n').t('reports.gru-table-view.first-tier-header-prefix').string;
 
-    var questions = this.get('assessment.resources').map(function (question) {
-      return {
-        value: question.get("id"),
-        order: question.get("order"), //TODO, some question collections don't start at 1
-        label: labelPrefix + question.get("order")
-      };
-    });
-    // Add column used for showing totals
-    questions.push({
+    var questions = this.get('assessment.resources')
+      .sortBy('order')
+      .map(function (question, index) {
+        return {
+          value: question.get("id"),
+          label: labelPrefix + (index + 1)
+        };
+      });
+
+    // Add column used for showing totals at the beginning of the array
+    questions.unshift({
       value: -1,
-      order: -1,
       label: this.get('i18n').t('reports.gru-table-view.totals').string
     });
-    return questions.sort(function (a, b) {
-      return a.order - b.order;
-    });
+
+    return questions;
   }),
 
   /**
@@ -274,7 +273,7 @@ export default Ember.Component.extend({
    */
   initQuestionProperties: function () {
     function scoreString(value) {
-      return value ? value + '%' : '';
+      return (typeof value === "number") ? value + '%' : '';
     }
 
     return [
@@ -296,7 +295,7 @@ export default Ember.Component.extend({
         },
         label: this.get('i18n').t('reports.gru-table-view.study-time').string,
         value: 'timeSpent',
-        renderFunction: formatTimeInSeconds,
+        renderFunction: formatTime,
         aggregateFunction: totalTimeSpent
       }),
       Ember.Object.create({

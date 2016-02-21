@@ -38,6 +38,16 @@ module.exports = function(defaults) {
   });
 
   app.import({
+    development: 'bower_components/sockjs-client/dist/sockjs.js',
+    production: 'bower_components/sockjs-client/dist/sockjs.min.js'
+  });
+
+  app.import({
+    development: 'bower_components/stomp-websocket/lib/stomp.js',
+    production: 'bower_components/stomp-websocket/lib/stomp.min.js'
+  });
+
+  app.import({
     development: 'bower_components/jquery-ui/ui/core.js',
     production:  'bower_components/jquery-ui/ui/minified/core.min.js'
   });

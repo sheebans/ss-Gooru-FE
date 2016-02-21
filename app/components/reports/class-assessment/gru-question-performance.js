@@ -96,8 +96,7 @@ export default Ember.Component.extend({
         }
       ],
       completed: totals.get("totalCompleted"),
-      total: total,
-      allAnswered: (total===totals.get("totalCompleted"))
+      total: total
     });
   }),
 
