@@ -3,7 +3,25 @@ import MultipleChoiceUtil from './multiple-choice';
 import AnswerObject from 'gooru-web/utils/question/answer-object';
 /**
  * It contains convenience methods for grading and retrieving useful information
- * from this question type
+ * from True False questions
+ *
+ * # Answer object (structure required by the BE)
+ *
+ *   It is an array containing a single json object
+ *
+ *   text it contains True or False, based on user selection
+ *   status could be correct or incorrect based on the user selection
+ *   order is always 1
+ *   answerId correspond to the answer choice id selected or 0 when the answerId is not provided
+ *   skip is always false
+ *
+ * [{"text":"True","status":"correct","order":1,"answerId":1234,"skip":false}]
+ *
+ * # User answer (structure used by the FE)
+ *
+ *   It corresponds to the answerId selected by the user or false|true when the answerId is not provided
+ *
+ *  ie 123020
  *
  * @typedef {Object} TrueFalseUtil
  */
@@ -18,15 +36,11 @@ export default MultipleChoiceUtil.extend({
   /**
    * Converts the model user answer into an answerObject format
    *
-   * For T/F looks like
-   *
-   * [{"text":"True","status":"correct","order":1,"answerId":1234,"skip":false}]
-   *
-   * The text could be True or False
-   * If not answerId is found it should be 0
-   *
    * @param {string} userAnswer answer choice id
    * @return {AnswerObject[]}
+   *
+   * @see '# User Answer' section at class comment
+   * @see '# Answer Object' section at class comment
    */
   toAnswerObjects: function (userAnswer) {
     let util = this;
@@ -55,14 +69,11 @@ export default MultipleChoiceUtil.extend({
   /**
    * Converts an answerObject format to model userAnswer
    *
-   * For MC looks like
-   *
-   * For T/F looks like
-   *
-   * [{"text":"True","status":"correct","order":1,"answerId":1234,"skip":false}]
-   *
    * @param {AnswerObject[]} answerObjects
    * @return {string} answer id
+   *
+   * @see '# User Answer' section at class comment
+   * @see '# Answer Object' section at class comment
    */
   toUserAnswer: function (answerObjects) {
     let userAnswer = null;

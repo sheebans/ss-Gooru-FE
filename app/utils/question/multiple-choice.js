@@ -3,7 +3,25 @@ import QuestionUtil from './question';
 import AnswerObject from 'gooru-web/utils/question/answer-object';
 /**
  * It contains convenience methods for grading and retrieving useful information
- * from this question type
+ * for MC questions
+ *
+ * # Answer object (structure required by the BE)
+ *
+ *   It is an array containing a single json object
+ *
+ *   text contains the text entered by the user
+ *   status could be correct or incorrect based on the user selection
+ *   order is always 1
+ *   answerId corresponds to the answer choice id selected
+ *   skip is always false
+ *
+ * [{"text":"Apple","status":"correct","order":1,"answerId":1234,"skip":false}]
+ *
+ * # User answer (structure used by the FE)
+ *
+ *   It corresponds to the answerId selected by the user
+ *
+ *  ie 123020
  *
  * @typedef {Object} MultipleChoiceUtil
  */
@@ -21,6 +39,8 @@ export default QuestionUtil.extend({
    *
    * @param {string} answer user answer
    * @return {boolean}
+   *
+   * @see '# User Answer' section at class comment
    */
   isCorrect: function (answer) {
     return this.isAnswerChoiceCorrect(answer);
@@ -28,7 +48,7 @@ export default QuestionUtil.extend({
 
   /**
    * Indicates if the answer choice is correct
-   * @param { * } answerChoice
+   * @param { boolean } answerChoice
    */
   isAnswerChoiceCorrect: function (answerChoice) {
     return this.getCorrectAnswer() === answerChoice;
@@ -38,6 +58,8 @@ export default QuestionUtil.extend({
    * Gets the correct answer
    *
    * @return {string} the correct answer choice id
+   *
+   * @see '# User Answer' section at class comment
    */
   getCorrectAnswer: function () {
     const answers = this.get("question.answers");
@@ -50,6 +72,8 @@ export default QuestionUtil.extend({
    * For multiple choice the answer id is already unique
    * @param {number} answer i.e 1
    * @returns {number} i.e 1
+   *
+   * @see '# User Answer' section at class comment
    */
   answerKey: function (answer) {
     return answer;
@@ -58,12 +82,11 @@ export default QuestionUtil.extend({
   /**
    * Converts the model user answer into an answerObject format
    *
-   * For MC looks like
-   *
-   * [{"text":"Apple","status":"correct","order":1,"answerId":1234,"skip":false}]
-   *
    * @param {string} userAnswer answer choice id
    * @return {AnswerObject[]}
+   *
+   * @see '# User Answer' section at class comment
+   * @see '# Answer Object' section at class comment
    */
   toAnswerObjects: function (userAnswer) {
     let util = this;
@@ -81,12 +104,11 @@ export default QuestionUtil.extend({
   /**
    * Converts an answerObject format to model userAnswer
    *
-   * For MC looks like
-   *
-   * [{"text":"Apple","status":"correct","order":1,"answerId":1234,"skip":false}]
-   *
    * @param {AnswerObject[]} answerObjects
    * @return {string} answer id
+   *
+   * @see '# User Answer' section at class comment
+   * @see '# Answer Object' section at class comment
    */
   toUserAnswer: function (answerObjects) {
     let userAnswer = null;

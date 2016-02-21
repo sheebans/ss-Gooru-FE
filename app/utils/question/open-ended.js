@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import QuestionUtil from './question';
 import AnswerObject from 'gooru-web/utils/question/answer-object';
 /**

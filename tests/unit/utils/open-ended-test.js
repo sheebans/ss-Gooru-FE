@@ -1,5 +1,5 @@
 import Ember from 'ember';
-//import AnswerObject from 'gooru-web/utils/question/answer-object';
+import AnswerObject from 'gooru-web/utils/question/answer-object';
 import OpenEndedUtil from 'gooru-web/utils/question/open-ended';
 import { module, test } from 'qunit';
 
@@ -47,7 +47,7 @@ test('Open Ended - toAnswerObjects', function (assert) {
   let question = Ember.Object.create();
   let questionUtil = OpenEndedUtil.create({question: question});
 
-  let answerObjects = questionUtil.toAnswerObjects("Some there here");
+  let answerObjects = questionUtil.toAnswerObjects("Some text here");
   assert.equal(answerObjects.length, 1, "Only 1 answer object should be found");
 
   let answerObject = answerObjects.get("firstObject");

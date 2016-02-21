@@ -3,7 +3,31 @@ import QuestionUtil from './question';
 import AnswerObject from 'gooru-web/utils/question/answer-object';
 /**
  * It contains convenience methods for grading and retrieving useful information
- * from this question type
+ * for multple answer questions
+ *
+ * # Answer object (structure required by the BE)
+ *
+ *   It is an array containing a json object for each user selection
+ *
+ *   text contains Yes or No based on user selection
+ *   status could be correct or incorrect based on the user selection
+ *   order represents the order of this user selection
+ *   answerId corresponds to the answer choice id selected
+ *   skip is always false
+ *
+ *  [{"text":"Yes","status":"correct","order":1,"answerId":1234,"skip":false},
+ *  {"text":"Yes","status":"incorrect","order":2,"answerId":1234,"skip":false},
+ *  {"text":"No","status":"incorrect","order":3,"answerId":"1234,"skip":false},
+ *  {"text":"No","status":"correct","order":4,"answerId":1235,"skip":false}]
+ *
+ * # User answer (structure used by the FE)
+ *
+ *   It corresponds to an array representing the user selection
+ *
+ *   id represents the answerId selected
+ *   selection indicates if the user selected Yes=true or No=false
+ *
+ *   [ { id: string, selection: boolean }, ... ]
  *
  * @typedef {Object} MultipleAnswerUtil
  */
@@ -18,6 +42,8 @@ export default QuestionUtil.extend({
   /**
    * Indicates if the answer choice is correct
    * @param { { id: number, selection: boolean } } answerChoice
+   *
+   * @see '# User Answer' section at class comment
    */
   isAnswerChoiceCorrect: function (answerChoice) {
     let correctAnswer = this.getCorrectAnswer();
@@ -29,6 +55,8 @@ export default QuestionUtil.extend({
    * Gets the correct answer
    * It returns which is the correct selection (yes=true | no=false) for each answer choice
    * @return {Array} the correct answer for this question type [ { id: string, selection: boolean }, ... ]
+   *
+   * @see '# User Answer' section at class comment
    */
   getCorrectAnswer: function () {
     const answers = this.get("question.answers");

@@ -3,7 +3,30 @@ import QuestionUtil from './question';
 import AnswerObject from 'gooru-web/utils/question/answer-object';
 /**
  * It contains convenience methods for grading and retrieving useful information
- * from this question type
+ * for hot text highlight
+ *
+ * # Answer object (structure required by the BE)
+ *
+ *   It is an array containing a json object for each user selection
+ *
+ *   text the text entered by the user, it also include inputs left blank
+ *   status could be correct or incorrect based on the text entered
+ *   order represents the text index, starting at 1
+ *   answerId it is always 0
+ *   skip is always false
+ *
+ * [{"text":"Tell","status":"incorrect","order":1,"answerId":0,"skip":false},
+ * {"text":"nos.","status":"correct","order":14,"answerId":0,"skip":false},
+ * {"text":"parens","status":"correct","order":31,"answerId":0,"skip":false}]
+ *
+ * # User answer (structure used by the FE)
+ *
+ *   It corresponds to an array representing the texts entered by the user
+ *
+ *   index represents the index of the text in the question, starting 0
+ *   text the entered text
+ *
+ *   { {index: number, text: string }[] }
  *
  * @typedef {Object} HotTextHighlightUtil
  */
@@ -18,6 +41,8 @@ export default QuestionUtil.extend({
   /**
    * Indicates if the answer choice is correct
    * @param { { index: number, text: string } } answerChoice
+   *
+   * @see '# User Answer' section at class comment
    */
   isAnswerChoiceCorrect: function (answerChoice) {
     let correctAnswer = this.getCorrectAnswer();
@@ -30,6 +55,8 @@ export default QuestionUtil.extend({
    * The question text contains the information for the correct answer, correct items are wrapped by []
    * i.e La casa es de [colo] pero el [teco] es azul
    * @return {{index: number, text: string }[]} returns the correct answer items
+   *
+   * @see '# User Answer' section at class comment
    */
   getCorrectAnswer: function () {
     const items = this.getItems();
@@ -130,6 +157,8 @@ export default QuestionUtil.extend({
    * For hot text the answer is an array of string
    * @param { {index: number, text: string }[] } answer
    * @returns {string} i.e 1,2,3
+   *
+   * @see '# User Answer' section at class comment
    */
   answerKey: function (answer) {
     let indexes = answer.map(function (item) {
@@ -141,14 +170,11 @@ export default QuestionUtil.extend({
   /**
    * Converts the model user answer into an answerObject format
    *
-   * For HotTextHighlight looks like
-   *
-   * [{"text":"Tell","status":"incorrect","order":1,"answerId":0,"skip":false},
-   * {"text":"nos.","status":"correct","order":14,"answerId":0,"skip":false},
-   * {"text":"parens","status":"correct","order":31,"answerId":0,"skip":false}]
-   *
    * @param { {index: number, text: string }[] } userAnswer answer ids in selected order
    * @return {AnswerObject[]}
+   *
+   * @see '# User Answer' section at class comment
+   * @see '# Answer Object' section at class comment
    */
   toAnswerObjects: function (userAnswer) {
     let util = this;
@@ -167,14 +193,11 @@ export default QuestionUtil.extend({
   /**
    * Converts an answerObject format to model userAnswer
    *
-   * For HotTextHighlight looks like
-   *
-   * [{"text":"Tell","status":"incorrect","order":1,"answerId":0,"skip":false},
-   * {"text":"nos.","status":"correct","order":14,"answerId":0,"skip":false},
-   * {"text":"parens","status":"correct","order":31,"answerId":0,"skip":false}]
-   *
    * @param {AnswerObject[]} answerObjects
    * @return {{index: number, text: string }[]} answer ids in selected order
+   *
+   * @see '# User Answer' section at class comment
+   * @see '# Answer Object' section at class comment
    */
   toUserAnswer: function (answerObjects) {
     return answerObjects.map(function (answerObject) {
