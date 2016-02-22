@@ -45,7 +45,7 @@
       -webkit-align-content: flex-start;
       align-content: flex-start;
       display: -webkit-flex;
-      padding: 7px 32px;
+      padding: 7px 32px 7px 5px;
       h6{
         color:$white;
       }
@@ -98,6 +98,18 @@
         display:-webkit-flex;
         display:flex;
         height: 100%;
+
+        .arrow-up {
+          width: 0;
+          height: 0;
+          border-left: 10px solid transparent;
+          border-right: 10px solid transparent;
+          position: absolute;
+          margin-top: 50px;
+          left: 3px;
+          border-bottom: 10px solid $blue-600;
+          display:none;
+        }
       }
       h4 {
         margin:0 20px;
@@ -117,21 +129,12 @@
         -webkit-align-content: center;
         align-content: center;
         display: flex;
+        position:relative;
         &.in{
-          &:after{
-            top: 167px;
-            border: solid transparent;
-            content: " ";
-            height: 0;
-            width: 0;
-            position: absolute;
-            pointer-events: none;
-            border-color: rgba(255, 255, 255, 0);
-            border-bottom-color: $blue-600;
-            border-width: 10px;
-            margin-left: -23px;
-          }
           button i{opacity:1;}
+          .arrow-up{
+            display: block;
+          }
         }
         button{
           border: 0;
