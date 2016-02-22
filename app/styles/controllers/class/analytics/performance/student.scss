@@ -10,12 +10,13 @@
       }
       a {
         padding:0 25px 10px 25px;
+        .active & span{
+          opacity: 1;
+        }
         span{
           opacity: 0.6;
           color: black;
-          .active a &{
-            opacity:1;
-          }
+          font-weight: normal;
         }
       }
     }
@@ -30,4 +31,26 @@
   .gru-content {
     min-height: 400px; /* This is temporal for layout */
   }
+  .performance-content {
+    color: $gray;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    span.not-started, span.no-content {
+      text-align: start;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      padding-left: 5%;
+
+      @include respond-to(xs) {
+        text-align: center;
+        padding: 0;
+      }
+    }
+    div.collections-container span.no-content {
+      padding-left: 50px;
+    }
+  }
 }
+

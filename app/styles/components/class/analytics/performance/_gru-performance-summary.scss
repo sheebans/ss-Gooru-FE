@@ -17,19 +17,22 @@
     display: -webkit-flex;
     display: flex;
     width: 100%;
+    list-style:none;
     >*{
-      width: 100%;
       -webkit-order: 0;
       order: 0;
-      -webkit-flex-grow: 0;
-      flex-grow: 0;
+      -webkit-flex-grow: 1;
+      flex-grow: 1;
       -webkit-flex-shrink: 1;
       flex-shrink: 1;
-      -webkit-flex-basis: auto;
-      flex-basis: auto;
+      -webkit-flex-basis: 135px;
+      flex-basis: 135px;
       -webkit-align-self: auto;
       align-self: auto;
-
+      &.title{
+        -webkit-flex-grow: 4;
+        flex-grow: 4;
+      }
     }
     li{
       height: $performance-circle-size;
@@ -75,12 +78,7 @@
             }
           }
           span {
-            &.collection-or-assessment-is-completed i{
-              color:$brand-primary;
-            }
-            i{
-              color:$gray-lighter;
-            }
+            color:$gray-lighter;
           }
 
         }
@@ -117,9 +115,6 @@
             }
           }
         }
-      }
-      span, a{
-        color:$gray-light;
       }
     }
 

@@ -1,4 +1,9 @@
-    <li class='score'>
+<li class="title">
+    <span>
+      {{gru-icon name='keyboard_arrow_down'}}{{course-sections-prefix  index=index type='unit'}}&colon; {{performance.title}}
+    </span>
+</li>
+<li class='score'>
         {{#if performance.hasStarted}}
           {{#if performance.score}}
             <div class="description">

@@ -30,6 +30,12 @@ export default Ember.Component.extend({
    * @property {performance/performance}
    */
   performance:null,
+  /**
+   * Number of the index
+   *
+   * @property {Number}
+   */
+  index:null,
   // -------------------------------------------------------------------------
   // Actions
   actions:{
@@ -38,7 +44,9 @@ export default Ember.Component.extend({
      * @param {string} collectionId - Identifier for a resource (collection/assessment)
      */
     selectResource: function (collectionId) {
+      console.log('probando');
       this.get('onSelectResource')(collectionId);
+
     }
   },
 

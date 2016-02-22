@@ -442,6 +442,7 @@ export default {
     "attempts":"Attempt"
   },
   "gru-performance-summary":{
+    "name":"Name",
     "scores": "Scores",
     "completion":"Completion",
     "time-spent":"Time Spent",

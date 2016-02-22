@@ -7,25 +7,17 @@
   {{action "selectUnit" unit}}
   id="unit-{{unit.id}}">
   <ul class="row">
-      <li class="col-xs-8 col-sm-4 performance-unit-title">
+      {{!--<li class="col-xs-8 col-sm-4 performance-unit-title">
           <span>
               {{course-sections-prefix  index=localIndex type='unit'}}&colon; {{unit.title}}
           </span>
 
-      </li>
-      <li class="col-xs-4 col-sm-8 performance-unit-content">
-          <div>
-              <ul class="hidden-xs performance-headers">
-                  <li class="score-header"><p>{{t "gru-performance-summary.scores"}}</p></li>
-                  <li class="completion-header"><p>{{t "gru-performance-summary.completion"}}</p></li>
-                  <li class="timeSpent-header"><p>{{t "gru-performance-summary.time-spent"}}</p></li>
-                  <li class="reactions-header"><p>{{t "gru-performance-summary.reactions"}}</p></li>
-                  <li class="attempts-header"><p>{{t "gru-performance-summary.attempts"}}</p></li>
-              </ul>
-          </div>
+      </li>--}}
+      <li class="performance-unit-content">
           <div>
             {{class.analytics.performance.gru-performance-summary
             performance=unit
+              index=localIndex
             selectedOption=selectedOption}}
           </div>
       </li>
