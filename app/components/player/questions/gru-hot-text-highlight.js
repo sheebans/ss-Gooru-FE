@@ -1,5 +1,4 @@
 import QuestionComponent from './gru-question';
-import {HotTextHighlightUtil} from 'gooru-web/utils/questions';
 
 /**
  * Hot Text Highlight
@@ -26,7 +25,7 @@ export default QuestionComponent.extend({
   actions: {
     /**
      * Select or unselect an item
-     * @param {{id: number, text: string, selected: boolean}} item
+     * @param {{index: number, text: string, selected: boolean}} item
      */
     markItem: function (item) {
       const component = this;
@@ -49,7 +48,7 @@ export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Properties
   /**
-   * @property {{id: number, text: string}} items
+   * @property {{index: number, text: string}} items
    */
   items: null,
   // -------------------------------------------------------------------------
@@ -65,13 +64,13 @@ export default QuestionComponent.extend({
   // Methods
   /**
    * Notifies events based on selected items
-   * @param {{id: number, text: string, selected: boolean}} selectedItems
+   * @param {{index: number, text: string, selected: boolean}} selectedItems
    */
   notifyEvents: function (selectedItems) {
     const component = this;
     const questionUtil = component.get("questionUtil");
     const userAnswer = selectedItems.map(function(item){
-      return item.get("text");
+      return { index: item.get("index"), text: item.get("text") };
     });
 
     const correct = questionUtil.isCorrect(userAnswer);
@@ -90,14 +89,13 @@ export default QuestionComponent.extend({
    */
   generateItems: function(){
     const component = this;
-    const question = component.get("question");
-    const util = HotTextHighlightUtil.create({question: question});
+    const util = component.get("questionUtil");
     component.set("items", util.getItems());
   },
 
   /**
    * Returns those items selected by the user
-   * @returns {{id: number, text: string, selected: boolean}[]} selected items
+   * @returns {{index: number, text: string, selected: boolean}[]} selected items
    */
   getSelectedItems: function(){
       return this.get("items").filterBy("selected", true);

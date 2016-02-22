@@ -10,6 +10,7 @@ moduleForComponent('reports/assessment/questions/gru-multiple-choice', 'Integrat
 test('Multiple Choice Correct Answer', function(assert) {
 
   var question = Ember.Object.create({
+    questionType: "MC",
     answers: Ember.A([
       Ember.Object.create({ id: "1", isCorrect: false,text:"Answer 1" }),
       Ember.Object.create({ id: "2", isCorrect: false,text:"Answer 2" }),
@@ -32,6 +33,7 @@ test('Multiple Choice Correct Answer', function(assert) {
 test('Multiple Choice Your Answer Incorrect', function(assert) {
 
   var question = Ember.Object.create({
+    questionType: "MC",
     answers: Ember.A([
       Ember.Object.create({ id: "1", isCorrect: false,text:"Answer 1" }),
       Ember.Object.create({ id: "2", isCorrect: false,text:"Answer 2" }),
@@ -54,6 +56,7 @@ test('Multiple Choice Your Answer Incorrect', function(assert) {
 test('Multiple Choice Your Answer Correct', function(assert) {
 
   var question = Ember.Object.create({
+    questionType: "MC",
     answers: Ember.A([
       Ember.Object.create({ id: "1", isCorrect: false,text:"Answer 1" }),
       Ember.Object.create({ id: "2", isCorrect: false,text:"Answer 2" }),
@@ -76,6 +79,7 @@ test('Multiple Choice Your Answer Correct', function(assert) {
 test('Multiple Choice anonymous', function(assert) {
 
   var question = Ember.Object.create({
+    questionType: "MC",
     answers: Ember.A([
       Ember.Object.create({ id: "1", isCorrect: false,text:"Answer 1" }),
       Ember.Object.create({ id: "2", isCorrect: false,text:"Answer 2" }),
