@@ -1,20 +1,20 @@
-<div class="" role="tab" id="{{elementId}}-heading">
+<div class="unit" role="tab" id="{{elementId}}-heading">
   <strong class="panel-title">
-    <a class="collapsed"
+    <a class="collapsed title"
        role="button"
        data-toggle="collapse"
        href="#{{elementId}}-content"
        aria-expanded="false"
        aria-controls="{{elementId}}-content"
       {{action "selectUnit" model.id}}>
-        {{course-sections-prefix  index=index type='unit' complete=true}}&colon; {{model.title}}
+        <span class="title">{{course-sections-prefix  index=index type='unit' complete=true}}&colon; {{model.title}}</span>
     </a>
-    {{gru-user-icons
-    showOnlyNumbers=true
-    users=model.users
-    viewThreshold=3
-    viewMoreIn='modal' }}
   </strong>
+  {{gru-user-icons
+  showOnlyNumbers=true
+  users=model.users
+  viewThreshold=3
+  viewMoreIn='modal' }}
 </div>
 
 <div id="{{elementId}}-content"

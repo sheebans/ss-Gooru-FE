@@ -1,7 +1,7 @@
 <div class="panel-heading" role="tab" id="{{elementId}}-heading">
   <span class="img-circle"></span>
   <span class="panel-title">
-    <a class="collapsed"
+    <a class="title collapsed"
        role="button"
        data-toggle="collapse"
        href="#{{elementId}}-content"
@@ -43,7 +43,7 @@
           <div class="panel-heading">
             <img src="" />
             <span class="panel-title">
-              <a {{action "selectResource" item.id}}>
+              <a class="title" {{action "selectResource" item.id}}>
                 {{course-sections-prefix  index=index type=item.collectionType complete=false}}&colon; {{item.title}}
               </a>
               {{!-- Show only for xs --}}

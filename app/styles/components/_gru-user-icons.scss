@@ -1,14 +1,10 @@
 .gru-user-icons {
-  $profile-image-width: 40px;
-  $profile-image-height: 40px;
+  $profile-image-width: 35px;
+  $profile-image-height: 35px;
   $item-background: $brand-primary;
   $modal-height: 270px;
   $tooltip-width: 290px;
   text-align: right;
-
-  @media (min-width: $screen-sm) {
-    min-width: $tooltip-width;
-  }
 
   ul {
     list-style: none;
