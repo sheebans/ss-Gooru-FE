@@ -56,6 +56,14 @@ test('courseSectionsPrefix', function (assert) {
         letter = 'C';
       } else if (key === 'common.assessmentInitial') {
         letter = 'A';
+      }else if (key === 'common.unit') {
+        letter = 'Unit';
+      } else if (key === 'common.lesson') {
+        letter = 'Lesson';
+      } else if (key === 'common.collection') {
+        letter = 'Collection';
+      } else if (key === 'common.assessment') {
+        letter = 'Assessment';
       }
       return letter;
     }
@@ -65,6 +73,10 @@ test('courseSectionsPrefix', function (assert) {
   assert.equal(courseSectionsPrefix(1, 'lesson', i18n), 'L2', 'The prefix should be L2');
   assert.equal(courseSectionsPrefix(1, 'collection', i18n), 'C2', 'The prefix should be C2');
   assert.equal(courseSectionsPrefix(1, 'assessment', i18n), 'A2', 'The prefix should be A2');
+  assert.equal(courseSectionsPrefix(1, 'unit', i18n,true), 'Unit 2', 'The prefix should be Unit 2');
+  assert.equal(courseSectionsPrefix(1, 'lesson', i18n,true), 'Lesson 2', 'The prefix should be Lesson 2');
+  assert.equal(courseSectionsPrefix(1, 'collection', i18n,true), 'Collection 2', 'The prefix should be Collection 2');
+  assert.equal(courseSectionsPrefix(1, 'assessment', i18n,true), 'Assessment 2', 'The prefix should be Assessemnt 2');
 });
 
 test('formatDate', function (assert) {
