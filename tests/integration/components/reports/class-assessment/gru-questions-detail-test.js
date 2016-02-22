@@ -140,10 +140,6 @@ test('Layout', function(assert) {
   this.render(hbs`{{reports/class-assessment/gru-questions-detail model=model }}`);
 
   const $component = this.$();
-  const $header = $component.find(".modal-header");
-  T.exists(assert, $header, "Missing header");
-  T.exists(assert, $header.find(".close"), "Missing close button");
-
   const $navigation = $component.find(".navigation");
   T.exists(assert, $navigation, "Missing navigation");
   T.exists(assert, $navigation.find(".gru-bubbles"), "Missing navigation bubbles");

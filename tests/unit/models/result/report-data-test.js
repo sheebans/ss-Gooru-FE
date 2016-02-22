@@ -22,7 +22,6 @@ test('merge', function (assert) {
     resources: resources
   });
 
-  var defaultQR = QuestionResult.create();
   var QR1 = QuestionResult.create({resourceId: "A", "correct": false, "timeSpent": 10});
   var QR2 = QuestionResult.create({resourceId: "B", "correct": false, "timeSpent": 10});
   var QR3 = QuestionResult.create({resourceId: "A", "correct": true, "timeSpent": 20});
@@ -38,8 +37,8 @@ test('merge', function (assert) {
 
   assert.equal(reportData.data["1"]["A"], QR1, 'row 1 | column 1: -override default object');
   assert.equal(reportData.data["1"]["B"], QR2, 'row 1 | column 2: -override default object');
-  assert.deepEqual(reportData.data["2"]["A"], defaultQR, 'row 2 | column 1: -default object');
-  assert.deepEqual(reportData.data["2"]["B"], defaultQR, 'row 2 | column 2: -default object');
+  assert.deepEqual(reportData.data["2"]["A"].get("resourceId"), "A", 'row 2 | column 1: - wrong id for default object');
+  assert.deepEqual(reportData.data["2"]["B"].get("resourceId"), "B", 'row 2 | column 2: - wrong id for default object');
 
   reportData.merge([
     UserResourcesResult.create({
@@ -72,7 +71,7 @@ test('getEmptyRow', function (assert) {
     resources: resources
   });
 
-  var defaultQR = QuestionResult.create();
+
   var QR1 = QuestionResult.create({resourceId: "A", "correct": false, "timeSpent": 10});
   var QR2 = QuestionResult.create({resourceId: "B", "correct": false, "timeSpent": 10});
 
@@ -88,8 +87,8 @@ test('getEmptyRow', function (assert) {
 
   reportData.data["1"] = reportData.getEmptyRow(["A", "B"]);
 
-  assert.deepEqual(reportData.data["1"]["A"], defaultQR, 'row 1 | column 1: -default object');
-  assert.deepEqual(reportData.data["1"]["B"], defaultQR, 'row 1 | column 2: -default object');
+  assert.deepEqual(reportData.data["1"]["A"].get("resourceId"), "A", 'row 1 | column 1: - wrong id for default object');
+  assert.deepEqual(reportData.data["1"]["B"].get("resourceId"), "B", 'row 1 | column 2: - wrong id for default object');
 });
 
 test('autoCompleteRow', function (assert) {
