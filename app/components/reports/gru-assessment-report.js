@@ -34,6 +34,17 @@ export default Ember.Component.extend({
 
 
   // -------------------------------------------------------------------------
+  // Events
+  /**
+   * Listening for model to update component properties
+   */
+  onInit: Ember.on("init", function(){
+    if (this.get("model")){
+      this.set("assessmentResult", this.get("model").assessmentResult);
+    }
+  }),
+
+  // -------------------------------------------------------------------------
   // Properties
 
   /**

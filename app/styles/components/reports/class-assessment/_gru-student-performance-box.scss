@@ -3,6 +3,7 @@
   margin-right: 2%;
 
   .panel-heading{
+    cursor: pointer;
     color: $white;
     &.not-started{
       background-color: $dark-300;
@@ -15,6 +16,7 @@
     display: flex;
     flex-wrap: wrap;
     span {
+      cursor: pointer;
       width: 22px;
       height: 22px;
       margin-right: 5px;
