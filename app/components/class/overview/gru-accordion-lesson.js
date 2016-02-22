@@ -113,7 +113,6 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   usersLocation: null,
 
-
   // -------------------------------------------------------------------------
   // Observers
 
