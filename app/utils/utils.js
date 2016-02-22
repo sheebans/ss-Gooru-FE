@@ -39,11 +39,11 @@ export function checkStandards(standards, checkableStandards, codes) {
  * @param {string} type
  * @param {service} i18n
  */
-export function courseSectionsPrefix(index, type, i18n,complete) {
+export function courseSectionsPrefix(index, type, i18n,longName) {
   var prefixIndex = ++index;
   var letter;
   var sectionPrefix;
-  if(complete){
+  if(longName){
     const i18nKey = `common.${type}`;
     letter = i18n.t(i18nKey);
     sectionPrefix =`${letter}`+' '+`${prefixIndex}`;

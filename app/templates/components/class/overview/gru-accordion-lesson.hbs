@@ -8,7 +8,7 @@
        aria-expanded="false"
        aria-controls="{{elementId}}-content"
       {{action "selectLesson" model.id}}>
-      {{course-sections-prefix  index=index type='lesson' complete=true}}&colon; {{model.title}}
+      {{course-sections-prefix  index=index type='lesson' longName=true}}&colon; {{model.title}}
     </a>
     {{gru-user-icons
     showOnlyNumbers=true
@@ -44,7 +44,7 @@
             <img src="" />
             <span class="panel-title">
               <a class="title" {{action "selectResource" item.id}}>
-                {{course-sections-prefix  index=index type=item.collectionType complete=false}}&colon; {{item.title}}
+                {{course-sections-prefix  index=index type=item.collectionType longName=false}}&colon; {{item.title}}
               </a>
               {{!-- Show only for xs --}}
               {{gru-user-icons

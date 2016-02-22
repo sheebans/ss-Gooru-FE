@@ -17,9 +17,9 @@ import { courseSectionsPrefix } from 'gooru-web/utils/utils';
 export default Ember.Helper.extend({
   i18n: Ember.inject.service('i18n'),
 
-  compute(params,{index, type,complete}) {
+  compute(params,{index, type,longName}) {
     let i18n = this.get('i18n');
-    return courseSectionsPrefix(index,type,i18n,complete);
+    return courseSectionsPrefix(index,type,i18n,longName);
   }
 
 });
