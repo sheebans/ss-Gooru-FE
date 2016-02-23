@@ -24,6 +24,14 @@ export default Ember.Component.extend({
    * @property {String}
    */
   selectedOption: null,
+
+  isSelected:false,
+
+  click() {
+    let component = this;
+    component.set("isSelected", !component.get("isSelected"));
+    return true;
+  },
   /**
    *  Performance model
    *
@@ -44,9 +52,7 @@ export default Ember.Component.extend({
      * @param {string} collectionId - Identifier for a resource (collection/assessment)
      */
     selectResource: function (collectionId) {
-      console.log('probando');
       this.get('onSelectResource')(collectionId);
-
     }
   },
 

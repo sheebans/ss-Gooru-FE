@@ -5,25 +5,21 @@
    aria-expanded="true"
    aria-controls="lesson-container-for-unit-{{unit.id}}"
   {{action "selectUnit" unit}}
-  id="unit-{{unit.id}}">
-  <ul class="row">
-      {{!--<li class="col-xs-8 col-sm-4 performance-unit-title">
-          <span>
-              {{course-sections-prefix  index=localIndex type='unit'}}&colon; {{unit.title}}
-          </span>
-
-      </li>--}}
+  id="unit-{{unit.id}}"
+class="panel">
+  <ul>
       <li class="performance-unit-content">
           <div>
             {{class.analytics.performance.gru-performance-summary
             performance=unit
               index=localIndex
-            selectedOption=selectedOption}}
+            selectedOption=selectedOption
+            isSelected=isSelected}}
           </div>
       </li>
   </ul>
 </a>
-<div class="lessons-container collapse" id="{{unit.id}}">
+<div class="lessons-container collapse panel" id="{{unit.id}}">
     <!-- each del componete de performance summary con el performance de cada lesson-->
   <div>
     {{#each lessons as |lesson index|}}

@@ -17,7 +17,7 @@ export default Ember.Component.extend({
    *
    * @attribute {Array}
    */
-  classNames:['gru-student-performance-container','panel-group'],
+  classNames:['gru-student-performance-container'],
   /**
    * Attribute that tells the component that it will contain these attributes.
    *

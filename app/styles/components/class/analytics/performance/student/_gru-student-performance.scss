@@ -15,7 +15,7 @@
       display: -webkit-flex;
       display: flex;
       width: 100%;
-      padding: 0 0 0 40px;
+      padding: 0;
       list-style: none;
       >*{
         -webkit-order: 0;
@@ -32,6 +32,7 @@
         &.name-header{
           -webkit-flex-grow: 4;
           flex-grow: 4;
+          padding-left: 40px;
         }
       }
     }

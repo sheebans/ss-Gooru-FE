@@ -4,16 +4,12 @@
    aria-controls="{{lesson.id}}"
    id="lesson-{{lesson.id}}"
   {{action "selectLesson" lesson}}>
-    <ul class="row">
-        {{!--<li class="col-xs-8 col-sm-4 lesson-performance-title">
-            <span><i class="fa fa-chevron-down hidden-xs"></i>
-                {{course-sections-prefix  index=localIndex type='lesson'}}&colon; {{lesson.title}}</span>
-        </li>--}}
-        <li class="col-xs-4 col-sm-8 lesson-performance-content">
-            {{class.analytics.performance.gru-performance-summary
-            performance=lesson
-            selectedOption=selectedOption}}
-        </li>
+    <ul>
+      <li class="lesson-performance-content">
+          {{class.analytics.performance.gru-performance-summary
+          performance=lesson
+          selectedOption=selectedOption}}
+      </li>
     </ul>
 </a>
 <div class="collections-container collapse col-xs-12" id="{{lesson.id}}">

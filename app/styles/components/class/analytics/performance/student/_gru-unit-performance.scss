@@ -1,8 +1,9 @@
 .gru-unit-performance-container {
   border:1px solid $gray-lighter;
   border-radius: 0!important;
-  &.selected >a{
-    background-color:$gray-light;
+  margin-bottom: 17px;
+  &.selected >*{
+    border-left: 4px solid $green-400;
   }
   >a{
     color:$gray;
@@ -19,6 +20,8 @@
     align-content: center;
     display: -webkit-flex;
     display: flex;
+    text-decoration: none;
+    margin:0;
     @include respond-to(xs){
       height:50px;
     }
@@ -69,6 +72,8 @@
           flex-basis: auto;
           -webkit-align-self: auto;
           align-self: auto;
+          height: 100%;
+
         }
       }
       span i{

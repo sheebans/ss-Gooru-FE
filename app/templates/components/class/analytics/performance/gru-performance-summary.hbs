@@ -1,6 +1,7 @@
 <li class="title">
     <span>
-      {{gru-icon name='keyboard_arrow_down'}}{{course-sections-prefix  index=index type='unit'}}&colon; {{performance.title}}
+          {{gru-icon name=(if isSelected "keyboard_arrow_up" "keyboard_arrow_down")}}
+      {{course-sections-prefix  index=index type='unit'}}&colon; {{performance.title}}
     </span>
 </li>
 <li class='score'>

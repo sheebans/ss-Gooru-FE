@@ -13,7 +13,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-unit-performance-container', 'panel'],
+  classNames:['gru-unit-performance-container'],
 
   // -------------------------------------------------------------------------
   // Actions
