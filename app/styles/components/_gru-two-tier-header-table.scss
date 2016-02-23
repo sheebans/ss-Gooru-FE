@@ -114,19 +114,9 @@
       td {
         border-width: 0 1px 1px 0;
         width: $table-cell-width;
-        .score {
-          border-radius: 4px;
-          text-align: center;
-          width: 68px;
-          height: 43px;
-          display: block;
-          color: $white;
-          margin: 0 auto;
-          padding: 7px;
-        }
-        &:first-child {
-          padding-top: 20px;
-        }
+      }
+      > td {
+        padding-top: 20px;
       }
     }
   }
