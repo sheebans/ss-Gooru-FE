@@ -34,7 +34,7 @@ export default Ember.Component.extend({
      * @param item
      */
     selectItem: function(item){
-        this.selectItem(item);
+        this.selectItem(item.resource);
     },
     /**
      * Action triggered when the user close the content player
@@ -57,9 +57,6 @@ export default Ember.Component.extend({
    * DidInsertElement ember event
    */
   setupSubscriptions: Ember.on('didInsertElement', function() {
-    const component = this;
-    let resourceId = component.get("selectedResourceId");
-    component.setItemAsSelected(resourceId);
     /*TODO: Try to reduce the scope of this method binding
 
      Ember uses a technique called event delegation. This allows the framework to set up a global, shared event listener instead of requiring each view to do it manually. For example, instead of each view registering its own mousedown listener on its associated element, Ember sets up a mousedown listener on the body.
@@ -92,19 +89,37 @@ export default Ember.Component.extend({
   selectedResourceId:null,
 
   /**
+   * Resource result for the selected resource
+   * @property {ResourceResult}
+   */
+  resourceResults: Ember.A([]),
+
+  /**
+   * A convenient structure to render the menu
+   * @property
+   */
+  resourceItems: Ember.computed("collection", "resourceResults.[]", "selectedResourceId", function(){
+    let component = this;
+    let collection = component.get("collection");
+    let resourceResults = component.get("resourceResults");
+    let items = resourceResults.map(function(resourceResult){
+      let resourceId = resourceResult.get("resource.id");
+      return {
+        resource: collection.getResourceById(resourceId),
+        started: resourceResult.get("started"),
+        selected: resourceId === component.get("selectedResourceId")
+      };
+    });
+    return items;
+  }),
+
+  /**
    * @property {string} on content player action
    */
   onClosePlayer: 'onClosePlayer',
 
   // -------------------------------------------------------------------------
   // Observers
-  /**
-   * Refreshes the left navigation with the selected resource id
-   */
-  refreshSelectedResource: function() {
-    var resourceId = this.get("selectedResourceId");
-    this.setItemAsSelected(resourceId);
-  }.observes("selectedResourceId", "collection"),
 
 
   // -------------------------------------------------------------------------
@@ -134,26 +149,14 @@ export default Ember.Component.extend({
   },
 
   /**
-   * Triggered when a resource item is highlighted visually
-   * @param {String} itemId
-   */
-  setItemAsSelected: function(itemId){
-    var itemElement = "#item_"+itemId;
-    Ember.$( ".list-group-item" ).removeClass( "selected" );
-    Ember.$(itemElement).addClass( "selected" );
-  },
-
-  /**
    * Triggered when a resource item is selected
-   * @param {Resource} item
+   * @param {Resource} resource
    */
-  selectItem: function(item) {
-    if (item){
-      const itemId = item.id;
+  selectItem: function(resource) {
+    if (resource){
       if (this.get("onItemSelected")){
-        this.sendAction("onItemSelected", item);
+        this.sendAction("onItemSelected", resource);
       }
-      this.setItemAsSelected(itemId);
       this.sendAction("onCloseNavigator");
     }
   }

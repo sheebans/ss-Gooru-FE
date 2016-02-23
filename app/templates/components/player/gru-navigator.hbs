@@ -8,11 +8,12 @@
   </div>
 </div>
 <ul class="list-group resources">
-  {{#each collection.resources as |resource|}}
-      <li class="list-group-item" id= "item_{{resource.id}}"{{action 'selectItem' resource}}>
+  {{#each resourceItems as |item|}}
+      <li class="list-group-item {{if item.started 'started'}} {{if item.selected 'selected'}}"
+        {{action 'selectItem' item}}>
       <div class="resources-info">
-        <i class="bubble-type {{resource.resourceFormat}}"></i>
-        <h6 class="title">{{{resource.title}}}</h6>
+        <i class="bubble-type {{item.resource.resourceFormat}}"></i>
+        <h6 class="title">{{{item.resource.title}}}</h6>
       </div>
     </li>
   {{/each}}

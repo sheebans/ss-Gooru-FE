@@ -30,6 +30,13 @@ export default Ember.Object.extend({
   }),
 
   /**
+   * @property {QuestionResult[]} questionResults
+   */
+  sortedResourceResults: Ember.computed("resourceResults.[]", function(){
+    return this.get("resourceResults").sortBy("resource.order");
+  }),
+
+  /**
    * TODO: TBD
    * @property {Object[]} mastery - An array of learning target objects
    * Each object should have the following properties:
@@ -140,7 +147,7 @@ export default Ember.Object.extend({
    * @param {Collection} collection
    */
   initAssessmentResult: function(collection){
-    const resourceResults = this.get("resourceResults");
+    const resourceResults = Ember.A([]);
     const resources = collection.get("resources");
     resources.forEach(function(resource){
       let resourceId = resource.get('id');
@@ -152,6 +159,7 @@ export default Ember.Object.extend({
         resourceResults.addObject(result);
       }
     });
+    this.set("resourceResults", resourceResults);
   },
 
   /**
