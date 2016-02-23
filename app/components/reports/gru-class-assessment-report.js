@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 import {VIEW_LAYOUT_PICKER_OPTIONS} from "gooru-web/config/config";
+import AssessmentResult from 'gooru-web/models/result/assessment';
 // Private variables
 
 
@@ -28,6 +29,10 @@ export default Ember.Component.extend(ModalMixin, {
       this.set('isTableView', !thumbnails);
     },
 
+    /**
+     * When showing the question details
+     * @param {string} questionId
+     */
     viewQuestionDetail: function (questionId) {
       Ember.Logger.debug('Class assessment report: question with ID ' + questionId + ' was selected');
 
@@ -40,7 +45,37 @@ export default Ember.Component.extend(ModalMixin, {
         reportData: this.get("reportData")
       };
       this.actions.showModal.call(this,
-        'reports.class-assessment.gru-questions-detail', modalModel, null, null, 'gru-questions-detail-modal');
+        'reports.class-assessment.gru-questions-detail',
+        modalModel, null, null, 'gru-questions-detail-modal', true);
+    },
+
+    /**
+     * When showing the student details
+     * @param {string} studentId
+     */
+    viewAssessmentReport: function (studentId) {
+      Ember.Logger.debug('Class assessment report: student with ID ' + studentId + ' was selected');
+
+      let reportData = this.get("reportData");
+      let assessment = this.get("assessment");
+      let resourceResults = reportData.getResultsByStudent(studentId);
+      resourceResults.forEach(function(resourceResult){
+        let resource = assessment.get("resources").findBy("id", resourceResult.get("resourceId"));
+        resourceResult.set("resource", resource);
+      });
+
+      let assessmentResult = AssessmentResult.create({
+        totalAttempts: 1,
+        selectedAttempt: 1,
+        resourceResults: resourceResults
+      });
+
+      let modalModel = {
+        assessmentResult: assessmentResult
+      };
+      this.actions.showModal.call(this,
+        'reports.gru-assessment-report', modalModel,
+        null, null, 'gru-assessment-report-modal', true);
     }
   },
 
