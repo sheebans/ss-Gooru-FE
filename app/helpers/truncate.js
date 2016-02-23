@@ -16,13 +16,14 @@ export function truncate(params, hash) {
   let config = { //TODO product owner will provide max lengths, this will be moved to the configuration
     "name": 20,
     "short": 10,
+    "player-nav-sm": 30,
     "medium": 50,
-    "large": 200,
-    "player-nav-lg":55,
+    "large": 200
   };
   let defaultType = "short";
-  let text = $(hash.text).text();
-
+  var txt = document.createElement("p");
+  txt.innerHTML = hash.text;
+  let text = $(txt).text();
   let maxLength = hash.maxLength;
   let type = hash.type;
   let suffix = hash.suffix !== false; //suffix is disabled by passing false
