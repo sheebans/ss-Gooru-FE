@@ -62,7 +62,7 @@ export default Ember.Component.extend({
      * @param {string} collectionId - Identifier for a resource (collection/assessment)
      */
     selectResource: function (lessonId, collectionId) {
-      let unitId = this.get("unit.id")
+      let unitId = this.get("unit.id");
       this.get('onSelectResource')(unitId, lessonId, collectionId);
     },
     /**
