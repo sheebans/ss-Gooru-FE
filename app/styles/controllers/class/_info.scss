@@ -18,7 +18,7 @@
     .class-info {
       padding: 24px 15px 20px 60px;
       @media (max-width: $screen-xs-max) { /* only for phone */
-        padding-left: 15px; 
+        padding-left: 15px;
       }
     }
     .info-details {
@@ -36,7 +36,7 @@
       }
       .code {
         border: 1px solid $white;
-        width: 65%;
+        width:140px;
         min-height: 50px;
         display: flex;
         flex-direction: column;
@@ -46,9 +46,6 @@
         padding: 10px 0;
         @include border-top-radius(4px);
         @include border-bottom-radius(4px);
-        @media (max-width: $screen-sm-max) {
-          width: 90%;
-        }
         @media (max-width: $screen-xs-max) {
           display: inline-block;
           min-height: 0;
@@ -66,6 +63,10 @@
             font-size: $font-size-large * 1.5;
             line-height: 1;
             @media (max-width: $screen-xs-max) {
+              font-size: $font-size-large;
+              padding-left: 10px;
+            }
+            @media (max-width: $screen-sm-max) {
               font-size: $font-size-large;
             }
           }
@@ -97,7 +98,7 @@
     .row {
       padding-left: 45px;
       @media (max-width: $screen-xs-max) {
-        padding-left: 15px; 
+        padding-left: 15px;
       }
       hr {
         margin-top: 0;
