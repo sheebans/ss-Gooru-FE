@@ -140,7 +140,9 @@ export default Ember.Object.extend({
     var rowLen = columnIds.length;
 
     for (let i = 0; i < rowLen; i++) {
-      row[columnIds[i]] = QuestionResult.create();
+      row[columnIds[i]] = QuestionResult.create({
+        resourceId: columnIds[i]
+      });
     }
     return row;
   },

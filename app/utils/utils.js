@@ -39,13 +39,21 @@ export function checkStandards(standards, checkableStandards, codes) {
  * @param {string} type
  * @param {service} i18n
  */
-export function courseSectionsPrefix(index, type, i18n) {
+export function courseSectionsPrefix(index, type, i18n,longName) {
   var prefixIndex = ++index;
+  var letter;
+  var sectionPrefix;
+  if(longName){
+    const i18nKey = `common.${type}`;
+    letter = i18n.t(i18nKey);
+    sectionPrefix =`${letter}`+' '+`${prefixIndex}`;
+  }else{
+    const i18nKey = `common.${type}Initial`;
+    letter = i18n.t(i18nKey);
+    sectionPrefix =`${letter}${prefixIndex}`;
+  }
 
-  const i18nKey = `common.${type}Initial`;
-  const letter = i18n.t(i18nKey);
-
-  return `${letter}${prefixIndex}`;
+  return sectionPrefix;
 }
 
 /**
@@ -116,14 +124,29 @@ export function getAnswerResultIcon(isCorrect) {
   var html;
 
   if (isCorrect) {
-    html = '<i class="fa fa-check-circle-o answer-correct"></i>';
+    html = '<span class="score answer-correct"><i class="gru-icon material-icons">done</i></span>';
   } else if (isCorrect === false) {
-    html = '<i class="fa fa-times-circle-o answer-incorrect"></i>';
+    html = '<span class="score answer-incorrect"><i class="gru-icon material-icons">clear</i></span>';
   } else {
     // Null or any other falsy value
-    html = '';
+    html = '<span class="score answer-undefined"></span>';
   }
   return html;
+}
+
+/**
+ * Get a html of the score string.
+ * @param {number} value - %value
+ * @returns {String} - html string
+ */
+export function getScoreString(value) {
+
+  if(typeof value === "number"){
+    var gradeColor = getGradeColor(value);
+    return '<span class="score" style="background-color: '+gradeColor+'">'+value+' %</span>';
+  }
+
+  return '<span class="score answer-undefined"></span>';
 }
 
 /**

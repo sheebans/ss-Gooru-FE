@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import {ReorderUtil} from 'gooru-web/utils/questions';
 import QuestionMixin from 'gooru-web/mixins/reports/assessment/questions/question';
 
 /**
@@ -54,11 +53,4 @@ export default Ember.Component.extend(QuestionMixin, {
 
   // -------------------------------------------------------------------------
   // Methods
-  /**
-   * Returns the question util for the question
-   * @param question
-   */
-  getQuestionUtil: function(question){
-    return ReorderUtil.create({question: question});
-  }
 });

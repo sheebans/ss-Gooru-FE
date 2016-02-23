@@ -19,27 +19,53 @@
     }
 
     .overview-header{
-      background-color: $white;
       border-bottom: 1px solid $gray-light;
 
       div {
         display: inline-block;
-        padding:15px 20px;
+        padding:15px 0px;
       }
       @media (min-width: $screen-md) {
-        margin: 0 15px;
+        margin: 0 119px 0 37px;
       }
     }
 
     .locate,
     .edit-content {
       float: right;
-      margin: 15px 20px;
+      margin: 36px 0;
+      span i{
+        vertical-align: middle;
+        padding: 0 5px 0 0;
+      }
     }
   }
 
   .gru-accordion-course {
-    padding: 15px 20px 50px 20px;
+    @media (min-width: $screen-md) {
+      padding: 15px 93px 50px 93px;
+    }
+
+    .accordion-course{
+      .gru-accordion-unit{
+        padding: 22px;
+
+        .unit{
+          min-height: 50px;
+          .title span{
+            display: inline-block;
+            font-size: 15px;
+            @media (min-width: $screen-md) {
+              font-size: 24px;
+            }
+          }
+          .gru-user-icons {
+            display: inline-block;
+            float: right;
+          }
+        }
+      }
+    }
 
     @media (min-width: $screen-md) {
       padding-top: $overview-header + 5px;
@@ -64,35 +90,29 @@
       }
     }
 
-    .gru-user-icons {
-      top: 6px;
-      right: 0;
-    }
 
     .gru-accordion-unit {
 
       &.expanded {
-        > .panel-heading .gru-user-icons { display: none !important; }
+        > .unit .gru-user-icons { display: none !important; }
       }
-
       .gru-accordion-lesson {
 
         &.expanded {
           > .panel-heading {
             background-color: $gray-lighter;
-
             .panel-title { border: 0 none;}
             .gru-user-icons { display: none !important; }
           }
         }
 
         .panel-heading {
-          padding-top: 0;
+          padding: 10px;
           margin-top: 10px;
 
           > .img-circle {
             position: absolute;
-            top: -4px;
+            padding: 10px;
             left: 0;
             height: 2.714rem;
             width: 2.714rem;
@@ -104,7 +124,6 @@
 
           .panel-title {
             display: block;
-            border-bottom: 1px solid $gray-light;
             margin-left: 25px;
             margin-right: 20px;
             padding-top: 5px;
@@ -112,7 +131,9 @@
           }
 
           .gru-user-icons {
-            top: -4px;
+            display: inline-block;
+            float:right;
+            margin: -10px 0 0 0;
           }
         }
 
@@ -127,6 +148,7 @@
             .panel-heading > img {
               border: 1px solid blue;
             }
+
           }
 
           .panel-heading {

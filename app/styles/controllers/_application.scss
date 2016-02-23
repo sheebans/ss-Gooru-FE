@@ -17,7 +17,7 @@
     -webkit-align-content: flex-start;
     align-content: flex-start;
     display: flex;
-    @media (min-width: $screen-sm) {
+    @media (min-width: $screen-md) {
       -webkit-flex-direction: row;
       flex-direction: row;
     }
@@ -25,7 +25,7 @@
       width:100%;
     }
     >.navigation{
-      @media (min-width: $screen-sm) {
+      @media (min-width: $screen-md) {
         width: 20%;
       }
       background: $blue-500; /* Old browsers */
@@ -38,7 +38,7 @@
       }
     }
     >.content{
-      @media (min-width: $screen-sm) {
+      @media (min-width: $screen-md) {
         width: 80%;
       }
       &.full-screen {
