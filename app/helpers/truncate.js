@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {truncate as truncateString } from 'gooru-web/utils/utils';
 /**
  * Convenience helper to truncate texts
  *
@@ -13,35 +14,12 @@ import Ember from 'ember';
  * @returns {*}
  */
 export function truncate(params, hash) {
-  let config = { //TODO product owner will provide max lengths, this will be moved to the configuration
-    "name": 20,
-    "short": 10,
-    "medium": 50,
-    "large": 200
-  };
-  let defaultType = "short";
   let text = hash.text;
   let maxLength = hash.maxLength;
   let type = hash.type;
-  let suffix = hash.suffix !== false; //suffix is disabled by passing false
+  let suffix = hash.suffix;
 
-  if (!maxLength && !type){ //default behavior
-    type = defaultType;
-  }
-
-  if (type) {
-    maxLength = config[type] || config[defaultType];
-  }
-
-  let truncated = text;
-  if (text.length > maxLength) {
-    truncated = text.substring(0, maxLength);
-    if (suffix) {
-      truncated = truncated + "...";
-    }
-  }
-
-  return truncated;
+  return truncateString(text, maxLength, type, suffix);
 }
 
 export default Ember.Helper.helper(truncate);

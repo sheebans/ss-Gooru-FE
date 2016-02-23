@@ -53,12 +53,21 @@ export default Ember.Route.extend({
     const collectionId = params.collectionId;
     const resourceId = params.resourceId;
     const collection = this.get("collectionService").findById(collectionId);
-    const assessmentResult = this.get("performanceService").findAssessmentResultByCollectionAndStudent(collectionId, userId);
+    const assessmentResult = (userId) ?
+      this.get("performanceService").findAssessmentResultByCollectionAndStudent(collectionId, userId) : null;
+
+
+    const context = Ember.Object.create({
+      collectionId: collectionId,
+      resourceId: params.resourceId,
+      userId: userId
+    });
 
     return Ember.RSVP.hash({
       collection: collection,
       resourceId: resourceId,
-      assessmentResult: assessmentResult
+      assessmentResult: assessmentResult,
+      context: context
     });
   },
 
@@ -73,11 +82,13 @@ export default Ember.Route.extend({
     if (!assessmentResult){
       assessmentResult = AssessmentResult.create({
         totalAttempts: 1,
-        selectedAttempt: 1
+        selectedAttempt: 1,
+        resourceResults: Ember.A([])
       });
-      assessmentResult.initAssessmentResult(collection);
     }
+    assessmentResult.merge(collection);
 
+    controller.set("context", model.context);
     controller.set("assessmentResult", assessmentResult);
     controller.set("showReport", assessmentResult.get("submitted"));
 

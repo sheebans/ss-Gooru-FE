@@ -14,7 +14,7 @@ Router.map(function() {
 
   this.route('player', { path: '/player/:collectionId'});
 
-  this.route('context-player', {path: '/player/course/:courseId/class/:classId/unit/:unitId/lesson/:lessonId/collection/:collectionId'});
+  this.route('context-player', {path: '/player/class/:classId/course/:courseId/unit/:unitId/lesson/:lessonId/collection/:collectionId'});
 
   this.route('classes');
 

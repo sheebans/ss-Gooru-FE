@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import AssessmentResult from 'gooru-web/models/result/assessment';
 import PlayerRoute from 'gooru-web/routes/player';
 
 /**
@@ -13,34 +12,48 @@ import PlayerRoute from 'gooru-web/routes/player';
  */
 export default PlayerRoute.extend({
 
+
+  /**
+   * @type LessonService
+   */
+  lessonService: Ember.inject.service('api-sdk/lesson'),
+
   // -------------------------------------------------------------------------
   // Methods
 
   model(params) {
     const userId = this.get('session.userId');
     const collectionId = params.collectionId;
+    const courseId = params.courseId;
+    const unitId = params.unitId;
+    const lessonId = params.lessonId;
 
     const collection = this.get('collectionService').findById(collectionId);
     const assessmentResult = this.get("performanceService").findAssessmentResultByCollectionAndStudent(collectionId, userId);
+    const lesson = this.get('lessonService').findById(courseId, unitId, lessonId);
+
+    const context = Ember.Object.create({
+      courseId: courseId,
+      classId: params.classId,
+      unitId: unitId,
+      lessonId: lessonId,
+      collectionId: collectionId,
+      resourceId: params.resourceId,
+      userId: userId
+    });
 
     return Ember.RSVP.hash({
-      routeParams: Ember.Object.create({
-        courseId: params.courseId,
-        classId: params.classId,
-        unitId: params.unitId,
-        lessonId: params.lessonId,
-        collectionId: collectionId,
-        resourceId: params.resourceId
-      }),
+      context: context,
       collection: collection,
-      assessmentResult: assessmentResult
+      assessmentResult: assessmentResult,
+      lesson: lesson
     });
   },
 
   setupController(controller, model) {
     // Call parent method
     this._super(...arguments);
-    controller.set("routeParams", model.routeParams);
+    controller.set("lesson", model.lesson);
   }
 
 });

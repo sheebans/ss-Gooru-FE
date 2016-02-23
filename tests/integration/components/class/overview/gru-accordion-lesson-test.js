@@ -393,7 +393,7 @@ test('it only loads collections/assessments once after clicking on the lesson na
 });
 
 test('it triggers event handlers', function (assert) {
-  assert.expect(4);
+  assert.expect(5);
 
   // Class with lessons per stub
   var currentClass = Ember.Object.create({
@@ -407,8 +407,9 @@ test('it triggers event handlers', function (assert) {
     title: 'Lesson Title'
   });
 
-  this.on('selectResource', function (itemId) {
-    assert.equal(itemId, 'item-1');
+  this.on('selectResource', function (lessonId, collectionId) {
+    assert.equal(collectionId, 'item-1', "Invalid collection id");
+    assert.equal(lessonId, '888-000', "Invalid lesson id");
   });
 
   this.on('selectLesson', function (itemId) {

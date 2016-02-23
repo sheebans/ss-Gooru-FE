@@ -72,12 +72,10 @@ test('getEmptyMatrix', function (assert) {
     resources: resources
   });
 
-  var defaultQR = QuestionResult.create();
-
-  assert.deepEqual(reportData.data["1"]["A"], defaultQR, 'row 1 | column 1: -default object');
-  assert.deepEqual(reportData.data["1"]["B"], defaultQR, 'row 1 | column 2: -default object');
-  assert.deepEqual(reportData.data["2"]["A"], defaultQR, 'row 2 | column 1: -default object');
-  assert.deepEqual(reportData.data["2"]["B"], defaultQR, 'row 2 | column 2: -default object');
+  assert.deepEqual(reportData.data["1"]["A"].get("resourceId"), "A", 'row 1 | column 1: - wrong id for default object');
+  assert.deepEqual(reportData.data["1"]["B"].get("resourceId"), "B", 'row 1 | column 2: - wrong id for default object');
+  assert.deepEqual(reportData.data["2"]["A"].get("resourceId"), "A", 'row 2 | column 1: - wrong id for default object');
+  assert.deepEqual(reportData.data["2"]["B"].get("resourceId"), "B", 'row 2 | column 2: - wrong id for default object');
 });
 
 test('getEmptyRow', function (assert) {

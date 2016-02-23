@@ -131,3 +131,57 @@ test('pendingQuestionResults', function(assert) {
   assert.equal(assessmentResult.get("pendingQuestionResults").get("length"), 1, "Wrong pending results");
 });
 
+test('merge with no results', function(assert) {
+  let collection = Ember.Object.create({
+    "resources" : Ember.A([
+      Ember.Object.create({
+        id: "1",
+        isQuestion: false
+      }),
+      Ember.Object.create({
+        id: "2",
+        isQuestion: true
+      })
+    ])
+  });
+
+  let assessmentResult = AssessmentResult.create({
+    "resourceResults": Ember.A([]) //no results
+  });
+
+  assessmentResult.merge(collection);
+  let resourceResults = assessmentResult.get("resourceResults");
+
+  assert.ok(resourceResults.findBy("resource.id", "1"), "Resource 1 not found");
+  assert.ok(resourceResults.findBy("resource.id", "2"), "Resource 2 not found");
+});
+
+test('merge with results', function(assert) {
+  let collection = Ember.Object.create({
+    "resources" : Ember.A([
+      Ember.Object.create({
+        id: "1",
+        isQuestion: false
+      }),
+      Ember.Object.create({
+        id: "2",
+        isQuestion: true
+      })
+    ])
+  });
+
+  let assessmentResult = AssessmentResult.create({
+    "resourceResults": Ember.A([
+      Ember.Object.create({
+        "resourceId": "1"
+      })
+    ])
+  });
+
+  assessmentResult.merge(collection);
+  let resourceResults = assessmentResult.get("resourceResults");
+
+  assert.ok(resourceResults.findBy("resource.id", "1"), "Resource 1 not found");
+  assert.ok(resourceResults.findBy("resource.id", "2"), "Resource 2 not found");
+});
+
