@@ -39,13 +39,21 @@ export function checkStandards(standards, checkableStandards, codes) {
  * @param {string} type
  * @param {service} i18n
  */
-export function courseSectionsPrefix(index, type, i18n) {
+export function courseSectionsPrefix(index, type, i18n,longName) {
   var prefixIndex = ++index;
+  var letter;
+  var sectionPrefix;
+  if(longName){
+    const i18nKey = `common.${type}`;
+    letter = i18n.t(i18nKey);
+    sectionPrefix =`${letter}`+' '+`${prefixIndex}`;
+  }else{
+    const i18nKey = `common.${type}Initial`;
+    letter = i18n.t(i18nKey);
+    sectionPrefix =`${letter}${prefixIndex}`;
+  }
 
-  const i18nKey = `common.${type}Initial`;
-  const letter = i18n.t(i18nKey);
-
-  return `${letter}${prefixIndex}`;
+  return sectionPrefix;
 }
 
 /**

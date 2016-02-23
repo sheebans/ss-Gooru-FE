@@ -142,10 +142,10 @@ test('it renders', function(assert) {
   const $lessonTitle = $lessonHeading.find('> .panel-title');
   assert.ok($lessonTitle.length, 'Panel title element is missing');
 
-  const $lessonTitleAnchor = $lessonTitle.find('> a');
+  const $lessonTitleAnchor = $lessonTitle.find('> a.title');
   assert.ok($lessonTitleAnchor.length, 'Title anchor element is missing');
   assert.ok($lessonTitleAnchor.hasClass('collapsed'), 'Panel should be collapsed by default');
-  assert.equal($lessonTitleAnchor.text().trim(), 'L1: Lesson Title', 'Wrong title text');
+  assert.equal($lessonTitleAnchor.text().trim(), 'Lesson 1: Lesson Title', 'Wrong title text');
 
   const $collapsePanel = $component.find('> .panel-collapse');
   assert.ok($collapsePanel.length, 'Panel element is missing');
@@ -196,7 +196,7 @@ test('it renders correctly when there are no collections/assessments to load aft
                     onSelectLesson=(action 'externalAction') }}`);
 
   const $component = this.$('.gru-accordion-lesson');
-  const $lessonTitleAnchor = $component.find('> .panel-heading a');
+  const $lessonTitleAnchor = $component.find('> .panel-heading a.title');
 
   const $collapsePanel = $component.find('> .panel-collapse');
   assert.ok(!$collapsePanel.hasClass('in'), 'Panel should not be visible');
@@ -261,7 +261,7 @@ test('it loads collections/assessments and renders them correctly after clicking
                     currentResource=resourceId }}`);
 
   const $component = this.$('.gru-accordion-lesson');
-  const $lessonTitleAnchor = $component.find('> .panel-heading a');
+  const $lessonTitleAnchor = $component.find('> .panel-heading a.title');
 
   const $collapsePanel = $component.find('> .panel-collapse');
   assert.ok(!$collapsePanel.hasClass('in'), 'Panel should not be visible');
@@ -302,11 +302,11 @@ test('it loads collections/assessments and renders them correctly after clicking
     assert.ok($items.last().hasClass('assessment'), 'Last resource should have the class "assessment"');
     assert.ok($items.last().hasClass('selected'), 'Last resource should have the class "selected"');
 
-    assert.equal($items.first().find('.panel-title').text().trim(), 'C1: Collection 1', 'Incorrect first resource title');
-    assert.equal($items.last().find('.panel-title').text().trim(), 'A2: Assessment 1', 'Incorrect last resource title');
+    assert.equal($items.first().find('.panel-title a.title').text().trim(), 'C1: Collection 1', 'Incorrect first resource title');
+    assert.equal($items.last().find('.panel-title a.title').text().trim(), 'A2: Assessment 1', 'Incorrect last resource title');
 
     assert.equal($items.first().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first resource for mobile');
-    assert.equal($items.last().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last resource for mobile');
+    assert.equal($items.last().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the last resource for mobile');
 
     assert.equal($items.first().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first resource');
     assert.equal($items.last().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last resource');
@@ -347,9 +347,9 @@ test('it only loads collections/assessments once after clicking on the lesson na
                     onSelectLesson=(action 'externalAction') }}`);
 
   const $component = this.$('.gru-accordion-lesson');
-  const $lessonTitleAnchor = $component.find('> .panel-heading a');
+  const $lessonTitleAnchor = $component.find('.panel-heading .panel-title a.title');
 
-  const $collapsePanel = $component.find('> .panel-collapse');
+  const $collapsePanel = $component.find('.panel-collapse');
 
   // Click on the unit name
   Ember.run(() => {
@@ -387,7 +387,7 @@ test('it only loads collections/assessments once after clicking on the lesson na
 
       const $items = $collapsePanel.find('.collections .panel');
       assert.equal($items.length, 2, 'Number of lessons listed should not have changed');
-      assert.equal($lessonTitleAnchor.text().trim(), 'L3: Lesson Title', 'Index in the title text should have changed');
+      assert.equal($lessonTitleAnchor.text().trim(), 'Lesson 3: Lesson Title', 'Index in the title text should have changed');
     });
   });
 });

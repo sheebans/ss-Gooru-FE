@@ -28,7 +28,7 @@ test('Layout as a student', function (assert) {
     const $overviewHeader = find(".overview-header", $overviewContainer);
     assert.ok($overviewHeader.length, 'Missing overview header');
 
-    assert.ok($overviewHeader.find("h5").length, 'Missing title');
+    assert.ok($overviewHeader.find("h3").length, 'Missing title');
     assert.ok($overviewHeader.find("button.locate").length, 'Missing locate button');
     assert.ok(!$overviewHeader.find("button.edit-content").length, 'Edit Content button should not be present');
 
@@ -65,7 +65,7 @@ test('Layout as a teacher', function (assert) {
     const $overviewHeader = find(".overview-header", $overviewContainer);
     assert.ok($overviewHeader.length, 'Missing overview header');
 
-    assert.ok($overviewHeader.find("h5").length, 'Missing title');
+    assert.ok($overviewHeader.find("h3").length, 'Missing title');
     assert.ok($overviewHeader.find("button.edit-content").length, 'Missing edit content button');
     assert.ok(!$overviewHeader.find("button.locate").length, 'Locate button should not be present');
 
