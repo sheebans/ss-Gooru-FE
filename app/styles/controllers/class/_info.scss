@@ -46,9 +46,6 @@
         padding: 10px 0;
         @include border-top-radius(4px);
         @include border-bottom-radius(4px);
-        @media (max-width: $screen-sm-max) {
-          width: 90%;
-        }
         @media (max-width: $screen-xs-max) {
           display: inline-block;
           min-height: 0;
