@@ -11,6 +11,9 @@
 
     .panel {
       border: 0 none;
+      box-shadow: none;
+      border-radius: 0;
+      background-color: transparent;
 
       & + .panel {
         margin-top: 0;

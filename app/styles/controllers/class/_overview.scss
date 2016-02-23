@@ -23,7 +23,7 @@
 
       div {
         display: inline-block;
-        padding:15px 0px;
+        padding: 15px 0;
       }
       @media (min-width: $screen-md) {
         margin: 0 119px 0 37px;
@@ -44,27 +44,6 @@
   .gru-accordion-course {
     @media (min-width: $screen-md) {
       padding: 15px 93px 50px 93px;
-    }
-
-    .accordion-course{
-      .gru-accordion-unit{
-        padding: 22px;
-
-        .unit{
-          min-height: 50px;
-          .title span{
-            display: inline-block;
-            font-size: 15px;
-            @media (min-width: $screen-md) {
-              font-size: 24px;
-            }
-          }
-          .gru-user-icons {
-            display: inline-block;
-            float: right;
-          }
-        }
-      }
     }
 
     @media (min-width: $screen-md) {
@@ -92,48 +71,60 @@
 
 
     .gru-accordion-unit {
+      padding: 40px 10px 0 10px;
 
-      &.expanded {
-        > .unit .gru-user-icons { display: none !important; }
-      }
-      .gru-accordion-lesson {
+      .unit {
+        border-bottom: 1px solid $hr-border;
+        padding-bottom: 10px;
+        padding-right: 20px;
 
-        &.expanded {
-          > .panel-heading {
-            background-color: $gray-lighter;
-            .panel-title { border: 0 none;}
-            .gru-user-icons { display: none !important; }
+        > .panel-title {
+          padding-right: 15px;
+          border-right: 1px solid $hr-border;
+          font-size: $font-size-h4;
+          font-weight: normal;
+
+          + span {
+            padding-left: 15px;
           }
         }
 
-        .panel-heading {
-          padding: 10px;
-          margin-top: 10px;
+        .gru-user-icons {
+          float: right;
+          margin-top: 5px;
+        }
 
-          > .img-circle {
-            position: absolute;
-            padding: 10px;
-            left: 0;
-            height: 2.714rem;
-            width: 2.714rem;
-            border: 1px solid $gray-light;
+        + .collapse {
+          > .panel-body {
+            padding: 0;
+          }
+        }
+      }
 
-            //TODO Remove this background if an image is put in place
-            background-color: #FFFFFF;
+      .gru-accordion-lesson {
+
+        > .panel-heading {
+          padding: 20px;
+          margin: 30px 0 20px 0;
+          background-color: $white;
+          box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.10);
+          border-radius: 5px;
+
+          > .score {
+            padding: 0.8em 1em;
+            border-radius: 5px;
+            color: $white;
           }
 
-          .panel-title {
-            display: block;
-            margin-left: 25px;
-            margin-right: 20px;
-            padding-top: 5px;
-            padding-left: 25px;
+          > .panel-title .title {
+            font-size: $font-size-large;
+            color: $text-color;
+            vertical-align: middle;
+            margin-left: 20px;
           }
 
           .gru-user-icons {
-            display: inline-block;
             float:right;
-            margin: -10px 0 0 0;
           }
         }
 

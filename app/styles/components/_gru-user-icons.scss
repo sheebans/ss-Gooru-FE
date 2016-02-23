@@ -1,6 +1,6 @@
 .gru-user-icons {
-  $profile-image-width: 35px;
-  $profile-image-height: 35px;
+  $profile-image-width: 34px;
+  $profile-image-height: 34px;
   $item-background: $brand-primary;
   $modal-height: 270px;
   $tooltip-width: 290px;
@@ -32,7 +32,6 @@
       line-height: $profile-image-height - 2px;
       background-color: $item-background;
       color:$white;
-      margin-bottom: 21px;
     }
 
     &.active {
