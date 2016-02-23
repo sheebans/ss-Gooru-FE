@@ -193,6 +193,13 @@
           }
         }
       }
+      &.started {
+        background: #00458A; /* Old browsers */
+        background: -moz-linear-gradient(left, $blue-600 0%, $blue-500 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(left, $blue-600 0%,$blue-500 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(-90deg, $blue-600 0%, $blue-500 100%);
+        color: $white;
+      }
       &.selected {
         background: #0050A2; /* Old browsers */
         background: -moz-linear-gradient(left, $blue-500 0%, $blue-400 100%); /* FF3.6-15 */
