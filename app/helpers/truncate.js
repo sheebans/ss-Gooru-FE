@@ -17,10 +17,12 @@ export function truncate(params, hash) {
     "name": 20,
     "short": 10,
     "medium": 50,
-    "large": 200
+    "large": 200,
+    "player-nav-lg":55,
   };
   let defaultType = "short";
-  let text = hash.text;
+  let text = $(hash.text).text();
+
   let maxLength = hash.maxLength;
   let type = hash.type;
   let suffix = hash.suffix !== false; //suffix is disabled by passing false
@@ -40,7 +42,6 @@ export function truncate(params, hash) {
       truncated = truncated + "...";
     }
   }
-
   return truncated;
 }
 

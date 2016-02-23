@@ -12,7 +12,16 @@
       <li class="list-group-item" id= "item_{{resource.id}}"{{action 'selectItem' resource}}>
       <div class="resources-info">
         <i class="bubble-type {{resource.resourceFormat}}"></i>
-        <h6 class="title">{{{resource.title}}}</h6>
+        <h6 class="title visible-lg">
+          {{{truncate text=resource.title type='player-nav-lg'}}}
+        </h6>
+        <h6 class="title visible-md">
+          {{{truncate text=resource.title type='player-nav-md'}}}
+        </h6>
+        <h6 class="title hidden-lg hidden-md">
+          {{{truncate text=resource.title type='player-nav-xs'}}}
+        </h6>
+
       </div>
     </li>
   {{/each}}
