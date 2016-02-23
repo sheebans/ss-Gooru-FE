@@ -31,6 +31,11 @@
   .class-menu {
     margin: 30px 0 0 0;
     li {
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      @supports (flex-wrap: wrap) { /* hide from the incomplete Flexbox implementation in Firefox */
+          display: flex;
+      }
       border: none;
       cursor: pointer;
       color:$white;
@@ -44,7 +49,6 @@
       align-items: center;
       -webkit-align-content: flex-start;
       align-content: flex-start;
-      display: -webkit-flex;
       padding: 7px 32px;
       h6{
         color:$white;
