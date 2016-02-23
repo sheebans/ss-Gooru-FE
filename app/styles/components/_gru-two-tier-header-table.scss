@@ -2,24 +2,46 @@
   $table-cell-width: 90px;
 
   table {
+    font-size: $font-size-h6;
+    background: $white;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.07);
+    border-radius: 5px;
 
     th, td {
-      border-color: $gray-lighter;
-      border-style: solid;
-      border-width: 0;
-      padding: 5px;
+      border: none;
+      border-right: 1px solid $gray-lighter;
+      padding: 5px 20px;
+      font-weight: normal;
+    }
+
+    .header {
+      height: 47px;
+      td {
+        background-color: $dark-400;
+        border: none;
+      }
+      .corner {
+        border-top-left-radius: 5px;
+      }
+    }
+
+    .first-tier, .second-tier {
+      th, td {
+        background-color: #45515C;
+        color: $white;
+        border-color: $dark-400;
+        &:first-child {
+          border-right: 0;
+        }
+      }
     }
 
     > .first-tier {
+      height: 42px;
+      td, th {
+        border-bottom: 1px solid $dark-200;
+      }
       th {
-        text-align: center;
-        background-color: $gray-lighter;
-        border-width: 1px 1px 0 0;
-        height: 3.5em;
-
-        &:first-of-type {
-          border-width: 1px 1px 0 1px;
-        }
         &:hover {
           cursor: pointer;
         }
@@ -27,14 +49,15 @@
     }
 
     > .second-tier {
+      height: 47px;
       th {
         border-width: 2px 1px 3px 0;
+        line-height: 23px;
 
         > span {
           display: block;
           font-weight: normal;
-          font-size: $font-size-small;
-          text-align: center;
+          opacity: 0.6;
           width: $table-cell-width;
         }
 
@@ -77,19 +100,33 @@
     }
 
     > .data {
+      height: 70px;
       th {
-        background-color: $gray-lighter;
-        height: 3.5em;
-        border-width: 0 1px 1px 1px;
-
+        border-right: 0;
+        font-weight: normal;
         &:hover {
           cursor: pointer;
+        }
+        &:first-child {
+          padding-top: 20px;
         }
       }
       td {
         border-width: 0 1px 1px 0;
-        text-align: center;
         width: $table-cell-width;
+        .score {
+          border-radius: 4px;
+          text-align: center;
+          width: 68px;
+          height: 43px;
+          display: block;
+          color: $white;
+          margin: 0 auto;
+          padding: 7px;
+        }
+        &:first-child {
+          padding-top: 20px;
+        }
       }
     }
   }

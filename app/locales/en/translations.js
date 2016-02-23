@@ -486,14 +486,14 @@ export default {
   },
   "reports.gru-table-view": {
     "first-tier-header-prefix": "Q",
-    "name": "Name",
+    "student": "Student",
     "reaction": "Reaction",
     "reactions": "Reactions",
     "score": "Score",
     "scores": "Scores",
     "study-time": "Study Time",
     "time-spent": "Time Spent",
-    "totals": "Total Scores"
+    "totals": "Total"
   },
   "gru-emotion-picker": {
     "react-to-resource": "React to this resource"

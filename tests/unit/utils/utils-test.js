@@ -8,6 +8,7 @@ import {
   formatTime,
   formatTimeInSeconds,
   getAnswerResultIcon,
+  getScoreString,
   getReactionIcon,
   getGradeColor ,
   getLetter,
@@ -103,11 +104,18 @@ test('formatTimeInSeconds', function (assert) {
 });
 
 test('getAnswerResultIcon', function (assert) {
-  assert.equal(getAnswerResultIcon(true), '<i class="fa fa-check-circle-o answer-correct"></i>');
-  assert.equal(getAnswerResultIcon(false), '<i class="fa fa-times-circle-o answer-incorrect"></i>');
-  assert.equal(getAnswerResultIcon(null), '');
-  assert.equal(getAnswerResultIcon(undefined), '');
-  assert.equal(getAnswerResultIcon(''), '');
+  assert.equal(getAnswerResultIcon(true), '<span class="score answer-correct"><i class="gru-icon material-icons">done</i></span>');
+  assert.equal(getAnswerResultIcon(false), '<span class="score answer-incorrect"><i class="gru-icon material-icons">clear</i></span>');
+  assert.equal(getAnswerResultIcon(null), '<span class="score answer-undefined"></span>');
+  assert.equal(getAnswerResultIcon(undefined), '<span class="score answer-undefined"></span>');
+  assert.equal(getAnswerResultIcon(''), '<span class="score answer-undefined"></span>');
+});
+
+test('getScoreString', function (assert) {
+  assert.equal(getScoreString(64), '<span class="score" style="background-color: #ED8E36">64 %</span>');
+  assert.equal(getScoreString(null), '<span class="score answer-undefined"></span>');
+  assert.equal(getAnswerResultIcon(undefined), '<span class="score answer-undefined"></span>');
+  assert.equal(getAnswerResultIcon(''), '<span class="score answer-undefined"></span>');
 });
 
 test('getReactionIcon', function (assert) {
