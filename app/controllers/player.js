@@ -63,12 +63,12 @@ export default Ember.Controller.extend({
     },
 
     /**
-     * Triggered when a navigator item is selected
-     * @param {Resource} item
+     * Triggered when a navigator resource is selected
+     * @param {Resource} resource
      */
-    selectNavigatorItem: function(item){
+    selectNavigatorItem: function(resource){
       const controller = this;
-      controller.moveToResource(item);
+      controller.moveToResource(resource);
     },
 
     /**

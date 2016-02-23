@@ -17,6 +17,13 @@
     }
     .class-info {
       padding: 24px 15px 20px 60px;
+
+      .truncate{
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
       @media (max-width: $screen-xs-max) { /* only for phone */
         padding-left: 15px;
       }
