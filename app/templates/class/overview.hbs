@@ -2,11 +2,11 @@
   <div class="fixed">
     <div class="overview-header">
       <div>
-        <h5>{{t "class.overview.title"}}</h5>
+        <h3>{{t "class.overview.title"}}</h3>
       </div>
       {{#if classController.isStudent}}
-        <button {{action "updateLocation" userLocation}} class="btn btn-default locate">
-          {{t "class.overview.locate"}}
+        <button {{action "updateLocation" userLocation}} class="btn btn-info locate">
+          <span>{{gru-icon name='near_me'}}{{t "class.overview.locate"}}</span>
         </button>
       {{else}}
         <button {{action "editContent"}} class="btn btn-default edit-content">

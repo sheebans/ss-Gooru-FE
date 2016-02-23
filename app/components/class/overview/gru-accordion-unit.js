@@ -32,7 +32,7 @@ export default Ember.Component.extend(AccordionMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-accordion-unit', 'panel', 'panel-default'],
+  classNames:['gru-accordion-unit'],
 
   classNameBindings:['isExpanded:expanded'],
 

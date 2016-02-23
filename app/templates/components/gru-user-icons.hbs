@@ -1,27 +1,33 @@
 <a class="first-view">
-
-  <ul>
-    {{#each firstUsers as |entity index|}}
-      <li class="item user {{if entity.isActive 'active' ''}}">
-        <img class="img-circle name-{{index}}" src="{{entity.user.avatarUrl}}" title="{{entity.user.fullName}}" />
-      </li>
-    {{/each}}
-
-    {{#if showMoreUsers}}
+{{#if showOnlyNumbers}}
+    <ul>
       <li class="item num-left">
-        <span>{{remainingUsersNumber}}</span>
+          <span>{{totalUsers}}</span>
       </li>
-    {{else}}
-      {{#each remainingUsers as |entity|}}
-        <li class="item user {{if entity.isActive 'active' ''}}">
-          <img class="img-circle" src="{{entity.user.avatarUrl}}" title="{{entity.user.fullName}}" />
-        </li>
+    </ul>
+{{else}}
+    <ul>
+      {{#each firstUsers as |entity index|}}
+          <li class="item user {{if entity.isActive 'active' ''}}">
+              <img class="img-circle name-{{index}}" src="{{entity.user.avatarUrl}}" title="{{entity.user.fullName}}" />
+              <span class="user-name">{{entity.user.firstName}}</span>
+          </li>
       {{/each}}
-    {{/if}}
-  </ul>
 
+      {{#if showMoreUsers}}
+          <li class="item num-left">
+              <span>{{remainingUsersNumber}}</span>
+          </li>
+      {{else}}
+        {{#each remainingUsers as |entity|}}
+            <li class="item user {{if entity.isActive 'active' ''}}">
+                <img class="img-circle" src="{{entity.user.avatarUrl}}" title="{{entity.user.fullName}}" />
+            </li>
+        {{/each}}
+      {{/if}}
+    </ul>
+{{/if}}
 </a>
-
 {{#if showMoreUsers}}
   <div class="remaining modal fade">
     <div class="modal-dialog" role="document">

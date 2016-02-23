@@ -54,7 +54,7 @@ export default Ember.Component.extend({
      * @param {string} studentId
      */
     selectStudent: function (studentId) {
-      Ember.Logger.debug('Student with ID: ' + studentId + ' was selected');
+      this.get('onSelectStudent')(studentId);
     }
 
   },

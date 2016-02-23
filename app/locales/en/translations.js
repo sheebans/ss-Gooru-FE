@@ -6,6 +6,7 @@ export default {
   "common": {
 
     "answer":"Your Answer",
+    "assessment":"Assessment",
     "assessmentInitial": "A",
     "attempt": "Attempt number",
     "of": "of",
@@ -15,6 +16,7 @@ export default {
     "cancel": "Cancel",
     "classScores": "Class Scores",
     "close": "Close",
+    "collection":"Collection",
     "collectionInitial": "C",
     "completed": "Completed",
     "contentUnavailable": "Content not available",
@@ -37,6 +39,7 @@ export default {
     "if_questions": "If you have any questions,",
     "learning-target":"Learning Target",
     "learning-target-mobile":"Learning Target in Standard",
+    "lesson":"Lesson",
     "lessonInitial": "L",
     "libraries": "Libraries",
     "loading": "Loading ...",
@@ -97,6 +100,7 @@ export default {
     "suggested-resources":"Suggested Resources",
     "timeSpent": "Time Spent",
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
+    "unit":"Unit",
     "unitInitial": "U",
     "yes": "Yes",
     "no-content": "No content available"
