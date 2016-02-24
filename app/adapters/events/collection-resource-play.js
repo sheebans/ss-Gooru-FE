@@ -3,7 +3,12 @@ import SessionMixin from 'gooru-web/mixins/session';
 
 export default Ember.Object.extend(SessionMixin, {
 
+  host: 'dev-logapi.goorulearning.org', //load from environment.js
   namespace: '/api/nucleus-insights/v1',
+
+  basePath: Ember.computed(function(){
+    return this.get("host") + this.get("namespace");
+  }),
 
   headers: Ember.computed('session.token', function() {
     return {
@@ -23,7 +28,7 @@ export default Ember.Object.extend(SessionMixin, {
     const apiKey = data.query.apiKey;
     const path = `/event?apiKey=${apiKey}`;
 
-    return Ember.$.ajax(this.get('namespace') + path, options);
+    return Ember.$.ajax(this.get('basePath') + path, options);
   }
 
 });

@@ -2,7 +2,7 @@ import Ember from 'ember';
 /**
  * Model for context inside collection play resource event.
  *
- * @typedef {Object} context
+ * @typedef {Object} Context
  *
  */
 export default Ember.Object.extend({

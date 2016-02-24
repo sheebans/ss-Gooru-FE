@@ -192,6 +192,11 @@ export default Ember.Controller.extend(SessionMixin, {
     controller.set("resource", resource);
 
     let resourceResult = assessmentResult.getResultByResourceId(resourceId);
+
+    let context = controller.get("context");
+    context.set("resourceId", resourceId);
+    context.set("resourceType", resource.get("isQuestion") ? 'question' : 'resource');
+
     controller.startResourceResult(resourceResult).then(function(){
       controller.set("resourceResult", resourceResult);
       controller.get('ratingService').findRatingForResource(resource.get("id"))
@@ -209,11 +214,12 @@ export default Ember.Controller.extend(SessionMixin, {
    */
   submitQuestionResult: function(questionResult){
     let controller = this;
+    let context = this.get("context");
+
     //setting submitted at, timeSpent is calculated
     questionResult.set("submittedAt", new Date());
-    let context = Context.create({
-      type: "stop"
-    });
+    context.set("eventType", "stop");
+
     return controller.saveResourceResult(questionResult, context);
   },
 
@@ -224,14 +230,13 @@ export default Ember.Controller.extend(SessionMixin, {
    */
   startResourceResult: function(resourceResult){
     let controller = this;
+    let context = this.get("context");
     //sets startedAt
     if (!resourceResult.get("pending")){ //new attempt
       //todo increase attempt
       resourceResult.set("startedAt", new Date());
     }
-    let context = Context.create({
-      eventType: "start"
-    });
+    context.set("eventType", "start");
 
     return controller.saveResourceResult(resourceResult, context);
   },
@@ -246,17 +251,6 @@ export default Ember.Controller.extend(SessionMixin, {
     let promise = Ember.RSVP.resolve(resourceResult);
     let save = controller.get("saveEnabled");
     if (save){
-      context.userId = controller.get('session.userId');
-      context.resourceId = "3a4c7cd2-a8e4-40f7-858c-3d34669bea1b";
-      context.collectionId = "4a63b373-0941-4dc2-a4b1-bc10bbba7bc6";
-      context.classId = "ed7c8831-5203-4ec6-872f-59ab079233a0";
-      context.parentEventId = "B6F57AE5-595A-4E6D-861F-393D92E48574";
-      context.resourceType = "resource";
-      context.courseId ="659703ac-38ef-46f1-89ea-00a80af0d92d";
-      context.unitId ="ddc0269c-36b0-41ea-bbaf-cb6b6c2c14e4";
-      context.lessonId = "b479f7cd-52af-4b41-a8e5-fbd4b899b099";
-      context.collectionType ="collection";
-
        //TODO: implement
        //let onAir = this.get("onAir");
        //let submitted;
@@ -278,7 +272,8 @@ export default Ember.Controller.extend(SessionMixin, {
   finishAssessment: function(){
     let controller = this;
     let collection = controller.get("collection");
-    let assessmentResult = this.get("assessmentResult");
+    let assessmentResult = controller.get("assessmentResult");
+    let context = controller.get("context");
     return controller.submitPendingQuestionResults().then(function(){
        //TODO: implement
        //let onAir = this.get("onAir");
@@ -287,9 +282,11 @@ export default Ember.Controller.extend(SessionMixin, {
        //return realTimeService.notifyFinishCollection(collection);
        //}
        //});
-      assessmentResult.set("submittedAt", new Date());
-      controller.set("showReport", true);
-      return Ember.RSVP.resolve(collection);
+      context.set("eventType", "stop");
+      return controller.get('eventsService').saveCollectionResult(collection, context).then(function() {
+        assessmentResult.set("submittedAt", new Date());
+        controller.set("showReport", true);
+      });
     });
   },
 
@@ -299,6 +296,7 @@ export default Ember.Controller.extend(SessionMixin, {
   startAssessment: function(){
     let controller = this;
     let assessmentResult = controller.get("assessmentResult");
+    let context = controller.get("context");
     let promise = Ember.RSVP.resolve(controller.get("collection"));
 
     if (!assessmentResult.get("started")){
@@ -310,8 +308,9 @@ export default Ember.Controller.extend(SessionMixin, {
        //return realTimeService.notifyStartCollection(collection);
        //}
        //});
-
       assessmentResult.set("startedAt", new Date());
+      context.set("eventType", "start");
+      return controller.get('eventsService').saveCollectionResult(collection, context);
     }
     return promise;
   },

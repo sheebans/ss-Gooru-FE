@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import AssessmentResult from 'gooru-web/models/result/assessment';
+import Context from 'gooru-web/models/result/context';
+import {generateUUID} from 'gooru-web/utils/utils';
 
 /**
  * @typedef { Ember.Route } PlayerRoute
@@ -57,10 +59,13 @@ export default Ember.Route.extend({
       this.get("performanceService").findAssessmentResultByCollectionAndStudent(collectionId, userId) : null;
 
 
-    const context = Ember.Object.create({
-      collectionId: collectionId,
-      resourceId: params.resourceId,
-      userId: userId
+    let resource = collection.getResourceById(resourceId);
+    const context = Context.create({
+      userId: userId,
+      collectionId: collectionId
+      parentEvent: generateUUID(), //TODO is this comming from BE?
+      collectionType: collection.get("collectionType"),
+      totalQuestionsCount: collection.get("questionCount")
     });
 
     return Ember.RSVP.hash({
