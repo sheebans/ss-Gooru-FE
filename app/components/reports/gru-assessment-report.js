@@ -13,22 +13,31 @@ export default Ember.Component.extend({
      */
     bubbleSelect: function(bubbleOption) {
       const animationSpeed = 1000;  // milliseconds
-      const selectorTable = $(".gru-questions table:visible tbody tr:nth-child(" + bubbleOption.label + ")");
+      const selectorTable = $(".gru-assessment-report .gru-questions table:visible tbody tr:nth-child(" + bubbleOption.label + ")");
       const $elTable = $(selectorTable);
 
-      const selectorList = $(".gru-questions .question-cards-list:visible li:nth-child(" + bubbleOption.label + ") .question-card");
+      const selectorList = $(".gru-assessment-report .gru-questions .question-cards-list:visible li:nth-child(" + bubbleOption.label + ") .question-card");
       const $elList = $(selectorList);
 
-      if ($elTable.length) {
-        $('.gru-assessment-report').animate({
-          scrollTop: $elTable.offset().top
-        }, animationSpeed);
-      } else  if ($elList.length) {
-        $('.gru-assessment-report').animate({
-          scrollTop: $elList.offset().top
-        }, animationSpeed);
-      }else {
-        Ember.Logger.error("No element was found for selectorTable: " + selectorTable);
+      const isModal=$('.gru-assessment-report').parents('.gru-modal');
+      if(isModal.length){
+        if ($elTable.length) {
+          $('.gru-modal').animate({
+            scrollTop: $elTable.offset().top -   $('.gru-modal').offset().top
+          }, animationSpeed);
+        }
+      }else{
+        if ($elTable.length) {
+          $('.gru-assessment-report').animate({
+            scrollTop: $elTable.offset().top
+          }, animationSpeed);
+        } else  if ($elList.length) {
+          $('.gru-assessment-report').animate({
+            scrollTop: $elList.offset().top
+          }, animationSpeed);
+        }else {
+          Ember.Logger.error("No element was found for selectorTable: " + selectorTable);
+        }
       }
     }
     },
