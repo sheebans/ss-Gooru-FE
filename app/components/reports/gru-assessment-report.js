@@ -21,6 +21,7 @@ export default Ember.Component.extend({
       const $elList = $(selectorList);
 
       const isModal=$('.gru-assessment-report').parents('.gru-modal');
+      //Check if the assessment report is showing into a modal
       if(isModal.length){
         if ($elTable.length) {
           $('.gru-modal').animate({
@@ -28,6 +29,7 @@ export default Ember.Component.extend({
           }, animationSpeed);
         }
       }else{
+        //Check if the questions details are showing on table (md or sm devices) or  a list (xs devices)
         if ($elTable.length) {
           $('.gru-assessment-report').animate({
             scrollTop: $elTable.offset().top
