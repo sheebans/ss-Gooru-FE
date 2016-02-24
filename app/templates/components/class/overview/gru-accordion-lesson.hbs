@@ -59,21 +59,23 @@
               <a class="title" {{action "selectResource" item.id}}>
                   {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
               </a>
-              {{!-- Show only for xs --}}
-              {{gru-user-icons
-              class="visible-xs"
-              showOnlyNumbers=true
-              users=item.users
-              viewThreshold=2
-              viewMoreIn='modal' }}
-
-              {{!-- Show for all other screen sizes --}}
-              {{gru-user-icons
-              class="visible-xs"
-              users=item.users
-              viewThreshold=3
-              viewMoreIn='modal' }}
             </span>
+
+            {{!-- Show only for xs --}}
+            {{gru-user-icons
+            class="visible-xs"
+            showOnlyNumbers=true
+            users=item.users
+            viewThreshold=2
+            viewMoreIn='modal' }}
+
+            {{!-- Show for all other screen sizes --}}
+            {{gru-user-icons
+            class="hidden-xs"
+            users=item.users
+            viewThreshold=6
+            viewMoreIn='modal' }}
+
           </div>
         </li>
       {{else}}
