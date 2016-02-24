@@ -236,3 +236,41 @@ export function generateUUID() {
   });
   return uuid;
 }
+
+/**
+ * Truncates a text
+ * @param {string} text
+ * @param {number} maxLength max allowed length for text, optional
+ * @param {string} type indicates the truncate type, optional
+ * @param {boolean} suffix indicates if it adds or not a suffix, default is true
+ * @returns {*}
+ */
+export function truncate(text, maxLength, type, suffix){
+  let config = { //TODO product owner will provide max lengths, this will be moved to the configuration
+    "name": 15,
+    "short": 10,
+    "medium": 50,
+    "large": 200
+  };
+  let defaultType = "short";
+
+  if (!maxLength && !type){ //default behavior
+    type = defaultType;
+  }
+
+  if (type) {
+    maxLength = config[type] || config[defaultType];
+  }
+
+  let addSuffix = (suffix !== false);
+
+  let truncated = text;
+  if (text.length > maxLength) {
+    truncated = text.substring(0, maxLength);
+    if (addSuffix) {
+      truncated = truncated + "...";
+    }
+  }
+
+  return truncated;
+}
