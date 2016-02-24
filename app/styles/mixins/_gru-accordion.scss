@@ -1,4 +1,6 @@
 .gru-accordion {
+  $locate-icon: 18px;
+  $icon-side: 28px;
 
   ol .panel {
     position: relative;
@@ -51,31 +53,38 @@
   .location-marker {
     display: none;
     position: absolute;
-    width: 1.8rem;
-    height: 1.6rem;
     left: 0;
-    top: 4px;
+    top: 9px;
+    padding-right: 10px;
 
     @media (min-width: $screen-md) {
-      left: 0.6rem;
+      left: -45px;
     }
 
-    > .circle {
-      width: 84%;
-      height: 90%;
-      background: $brand-primary;
-      border-radius: 50%;
+    > .icon-wrapper {
+      background-color: $dark-300;
+      line-height: 1;
+      width: $icon-side;
+      height: $icon-side;
+      border-radius: 3px;
+
+      i {
+        color: $white;
+        font-size: $locate-icon;
+        line-height: $icon-side;
+        margin-left: 5px;
+      }
     }
 
     > .arrow-right {
       width: 0;
       height: 0;
-      border-top: 0.5rem solid transparent;
-      border-bottom: 0.5rem solid transparent;
-      border-left: 0.5rem solid $brand-primary;
+      border-top: 0.4rem solid transparent;
+      border-bottom: 0.4rem solid transparent;
+      border-left: 0.8rem solid $dark-300;
       position: absolute;
       right: 0;
-      top: 15%;
+      top: 34%;
     }
   }
 }

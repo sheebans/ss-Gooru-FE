@@ -7,6 +7,7 @@
 }
 
 .controller.overview {
+  $collection-icon-size: 48px;
 
   .fixed {
     @media (min-width: $screen-md) {
@@ -51,7 +52,7 @@
     }
 
     .panel + .panel {
-      margin-top: 25px;
+      margin-top: 10px;
     }
 
     .panel-heading {
@@ -64,11 +65,9 @@
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
-          vertical-align: bottom;
         }
       }
     }
-
 
     .gru-accordion-unit {
       padding: 40px 10px 0 10px;
@@ -104,17 +103,11 @@
       .gru-accordion-lesson {
 
         > .panel-heading {
-          padding: 20px;
+          padding: 15px 20px;
           margin: 30px 0 20px 0;
           background-color: $white;
           box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.10);
           border-radius: 5px;
-
-          > .score {
-            padding: 0.8em 1em;
-            border-radius: 5px;
-            color: $white;
-          }
 
           > .panel-title .title {
             font-size: $font-size-large;
@@ -129,45 +122,59 @@
         }
 
         .collections {
+          padding-left: 10%;
 
-          .assessment {
-            .panel-heading > img {
-              border: 1px solid orange;
-            }
-          }
-          .collection {
-            .panel-heading > img {
-              border: 1px solid blue;
+          > .panel {
+
+            &.collection {
+              line-height: 2.2;
+
+              &.submitted {
+                > .panel-heading i {
+                  color: $blue-400;
+                }
+              }
             }
 
+            &.assessment {
+              .panel-heading .panel-title {
+                vertical-align: -8px;
+              }
+            }
+
+            &:last-child {
+              .panel-heading {
+                border-bottom: 0 none;
+              }
+            }
           }
 
           .panel-heading {
+            border-bottom: 1px solid $gray-lighter;
+            padding: 0;
+            margin: 0;
 
-            > img {
-              position: absolute;
-              top: -2px;
-              left: 35px;
-              height: 30px;
-              width: 42px;
-              border: 1px solid $gray-light;
-
-              @media (min-width: $screen-md) {
-                left: 50px;
-              }
+            > i {
+              font-size: $collection-icon-size;
+              vertical-align: bottom;
+            }
+            > .score {
+              margin-bottom: 10px;
             }
 
             .panel-title {
-              padding-left: 30px;
-              margin-left: 60px;
-
-              @media (min-width: $screen-md) {
-                padding-left: 45px;
-                margin-left: 60px;
-              }
+              font-size: $font-size-base;
+              margin-left: 6%;
             }
           }
         }
+      }
+
+      .gru-accordion-lesson .panel-heading .score {
+        padding: 0.5em 0.8em;
+        border-radius: 5px;
+        color: $white;
+        display: inline-block;
       }
     }
   }
