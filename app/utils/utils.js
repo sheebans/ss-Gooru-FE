@@ -275,3 +275,9 @@ export function truncate(text, maxLength, type, suffix){
 
   return truncated;
 }
+
+export function noTags(text){
+  let element = document.createElement("p");
+  element.innerHTML = text;
+  return $(element).text();
+}

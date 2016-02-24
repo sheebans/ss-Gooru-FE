@@ -14,9 +14,7 @@ import {truncate as truncateString } from 'gooru-web/utils/utils';
  * @returns {*}
  */
 export function truncate(params, hash) {
-  var txt = document.createElement("p");
-  txt.innerHTML = hash.text;
-  let text = $(txt).text();
+  let text = hash.text;
   let maxLength = hash.maxLength;
   let type = hash.type;
   let suffix = hash.suffix;

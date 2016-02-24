@@ -14,10 +14,10 @@
       <div class="resources-info">
         <i class="bubble-type {{item.resource.resourceFormat}}"></i>
           <h6 class="title hidden-sm hidden-md">
-            {{{truncate text=item.resource.title type='medium'}}}
+            {{truncate text=(noTags item.resource.title) type='medium'}}
           </h6>
           <h6 class="title visible-sm visible-md">
-          {{{truncate text=item.resource.title type='player-nav-sm'}}}
+            {{truncate text=(noTags item.resource.title) type='player-nav-sm'}}
         </h6>
       </div>
     </li>
