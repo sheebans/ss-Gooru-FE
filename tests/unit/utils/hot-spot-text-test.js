@@ -1,5 +1,5 @@
 import Ember from 'ember';
-//import AnswerObject from 'gooru-web/utils/question/answer-object';
+import AnswerObject from 'gooru-web/utils/question/answer-object';
 import HotSpotTextUtil from 'gooru-web/utils/question/hot-spot-text';
 import { module, test } from 'qunit';
 
@@ -109,4 +109,66 @@ test('Hot Spot Text - sameAnswer', function (assert) {
   assert.ok(!questionUtil.sameAnswer(answerA, answerC), "Answer should not be the same, it has less options");
   assert.ok(!questionUtil.sameAnswer(answerA, answerD), "Answer should not be the same, it has a different option");
 
+});
+
+test('Hot Spot Text - toAnswerObjects', function (assert) {
+  let answers = Ember.A([
+    Ember.Object.create({id: 1, isCorrect: false, text: "text1", order: 1}),
+    Ember.Object.create({id: 2, isCorrect: true, text: "text2", order: 2}),
+    Ember.Object.create({id: 3, isCorrect: true, text: "text3", order: 3}),
+    Ember.Object.create({id: 4, isCorrect: true, text: "text4", order: 4})
+  ]);
+
+  let question = Ember.Object.create({answers: answers});
+  let questionUtil = HotSpotTextUtil.create({question: question});
+
+  let answerObjects = questionUtil.toAnswerObjects([2, 3, 1]).toArray();
+  assert.equal(answerObjects.length, 4, "Missing answer objects");
+
+  //first
+  assert.equal(answerObjects[0].get("answerId"), 1, "Wrong answerId");
+  assert.equal(answerObjects[0].get("skip"), false, "Wrong skipped");
+  assert.equal(answerObjects[0].get("order"), 1, "Wrong order");
+  assert.equal(answerObjects[0].get("status"), 'incorrect', "Wrong status");
+  assert.equal(answerObjects[0].get("text"), 'text1', "Wrong text");
+  //second
+  assert.equal(answerObjects[1].get("answerId"), 2, "Wrong answerId");
+  assert.equal(answerObjects[1].get("skip"), false, "Wrong skipped");
+  assert.equal(answerObjects[1].get("order"), 2, "Wrong order");
+  assert.equal(answerObjects[1].get("status"), 'correct', "Wrong status");
+  assert.equal(answerObjects[1].get("text"), 'text2', "Wrong text");
+  //third
+  assert.equal(answerObjects[2].get("answerId"), 3, "Wrong answerId");
+  assert.equal(answerObjects[2].get("skip"), false, "Wrong skipped");
+  assert.equal(answerObjects[2].get("order"), 3, "Wrong order");
+  assert.equal(answerObjects[2].get("status"), 'correct', "Wrong status");
+  assert.equal(answerObjects[2].get("text"), 'text3', "Wrong text");
+  //fourth
+  assert.equal(answerObjects[3].get("answerId"), 4, "Wrong answerId");
+  assert.equal(answerObjects[3].get("skip"), true, "Wrong skipped");
+  assert.equal(answerObjects[3].get("order"), 4, "Wrong order");
+  assert.equal(answerObjects[3].get("status"), null, "Wrong status");
+  assert.equal(answerObjects[3].get("text"), 'text4', "Wrong text");
+});
+
+
+test('Hot Spot Text - toUserAnswer', function (assert) {
+  let answers = Ember.A([
+    Ember.Object.create({id: 1, isCorrect: false, text: "text1", order: 1}),
+    Ember.Object.create({id: 2, isCorrect: true, text: "text2", order: 2}),
+    Ember.Object.create({id: 3, isCorrect: true, text: "text3", order: 3}),
+    Ember.Object.create({id: 3, isCorrect: true, text: "text4", order: 4})
+  ]);
+  let question = Ember.Object.create({answers: answers});
+  let questionUtil = HotSpotTextUtil.create({question: question});
+
+  let answerObjects = Ember.A([
+    AnswerObject.create({text: 'text2', answerId: 2, skip: false}),
+    AnswerObject.create({text: 'text1', answerId: 1, skip: false}),
+    AnswerObject.create({text: 'text3', answerId: 3, skip: false}),
+    AnswerObject.create({text: 'text4', answerId: 4, skip : true})
+  ]);
+
+  let userAnswer = questionUtil.toUserAnswer(answerObjects);
+  assert.deepEqual(userAnswer, [2,1,3], "Wrong user answer");
 });
