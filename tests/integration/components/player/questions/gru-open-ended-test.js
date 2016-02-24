@@ -94,3 +94,27 @@ test('Open ended enter response', function (assert) {
   assert.equal($component.find(".help-block span").text(), "1000", "Character limit should be 1000");
 
 });
+
+test('Open ended layout - read only', function (assert) {
+
+  assert.expect(1);
+
+  const question = Ember.Object.create({
+    "id": "569906aa7fe0695bfd409731",
+    questionType: 'OE',
+    text: 'Sample Question OE',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: [],
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 9
+  });
+
+
+  this.set('question', question);
+  this.render(hbs`{{player/questions/gru-open-ended question=question readOnly=true}}`);
+
+  var $component = this.$(); //component dom element
+  T.exists(assert, $component.find("textarea[disabled]"), "Missing textarea");
+});

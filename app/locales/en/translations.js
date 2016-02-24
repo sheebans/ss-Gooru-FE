@@ -6,6 +6,7 @@ export default {
   "common": {
 
     "answer":"Your Answer",
+    "assessment":"Assessment",
     "assessmentInitial": "A",
     "attempt": "Attempt number",
     "of": "of",
@@ -15,6 +16,7 @@ export default {
     "cancel": "Cancel",
     "classScores": "Class Scores",
     "close": "Close",
+    "collection":"Collection",
     "collectionInitial": "C",
     "completed": "Completed",
     "contentUnavailable": "Content not available",
@@ -37,6 +39,7 @@ export default {
     "if_questions": "If you have any questions,",
     "learning-target":"Learning Target",
     "learning-target-mobile":"Learning Target in Standard",
+    "lesson":"Lesson",
     "lessonInitial": "L",
     "libraries": "Libraries",
     "loading": "Loading ...",
@@ -85,6 +88,8 @@ export default {
     "show-correct-answer":"Show Correct Answer",
     "show-results":"Show Results",
     "signUp": "Sign Up",
+    "sortAlphabetical":"Sort Alphabetically",
+    "sortAverage":"Sort by Average",
     "standard":"Standard",
     "standards": "Standards",
     "submit": "Submit",
@@ -95,6 +100,7 @@ export default {
     "suggested-resources":"Suggested Resources",
     "timeSpent": "Time Spent",
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
+    "unit":"Unit",
     "unitInitial": "U",
     "yes": "Yes",
     "no-content": "No content available"
@@ -424,6 +430,12 @@ export default {
     }
   },
 
+  "player": {
+    "gru-navigation": {
+      "view-report": "View Report"
+    }
+  },
+
   "profile.gru-navigation": {
     "about": "About",
     "activity": "Activity",
@@ -480,14 +492,14 @@ export default {
   },
   "reports.gru-table-view": {
     "first-tier-header-prefix": "Q",
-    "name": "Name",
+    "student": "Student",
     "reaction": "Reaction",
     "reactions": "Reactions",
     "score": "Score",
     "scores": "Scores",
     "study-time": "Study Time",
     "time-spent": "Time Spent",
-    "totals": "Total Scores"
+    "totals": "Total"
   },
   "gru-emotion-picker": {
     "react-to-resource": "React to this resource"

@@ -14,6 +14,8 @@ Router.map(function() {
 
   this.route('player', { path: '/player/:collectionId'});
 
+  this.route('context-player', {path: '/player/class/:classId/course/:courseId/unit/:unitId/lesson/:lessonId/collection/:collectionId'});
+
   this.route('classes');
 
   this.route('class', { path: '/class/:classId' }, function() {
@@ -27,13 +29,14 @@ Router.map(function() {
           this.route('course');
           this.route('unit', { path: '/unit/:unitId'});
           this.route('lesson', { path: '/unit/:unitId/lesson/:lessonId'});
+          this.route('collection', { path: '/unit/:unitId/lesson/:lessonId/collection/:collectionId'});
         });
       });
     });
 
     this.route('reports', function () {
-      this.route('collection', {path: '/collection/:collectionId'});
-      this.route('student-collection', {path: '/collection/:collectionId/student/:userId'});
+      this.route('collection', {path: '/unit/:unitId/lesson/:lessonId/collection/:collectionId'});
+      this.route('student-collection', {path: '/unit/:unitId/lesson/:lessonId/collection/:collectionId/student/:userId'});
     });
   });
 

@@ -2,7 +2,6 @@
   line-height: 1;
   .view-layout-list{
     display:inline-block;
-    border: 1px solid  $gray-light;
     border-radius: 4px;
     div{
       cursor:pointer;
@@ -11,17 +10,16 @@
       padding-left: 5px;
       padding-right: 5px;
       span{
-        font-size: 25px;
+        i{
+          font-size: 32px;
+        }
       }
-    }
-    div:first-child{
-      border-right: 1px solid  $gray-light;
     }
     a{
       color: $gray-light;
     }
     div.active a{
-      color: $brand-primary;
+      color: $dark-300;
     }
   }
 }

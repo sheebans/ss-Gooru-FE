@@ -16,8 +16,8 @@
 @import 'controllers/class/overview';
 @import 'controllers/class/analytics/performance/student';
 @import 'controllers/class/analytics/performance/teacher';
+@import 'controllers/class/analytics/performance/teacher/collection';
 @import 'controllers/index';
-@import 'controllers/player';
 @import 'controllers/profile';
 @import 'controllers/framework/assessment';
 @import 'controllers/framework/components';
@@ -41,6 +41,7 @@
 @import 'components/gru-forgot-password-popup';
 @import 'components/gru-header';
 @import 'components/gru-image-picker';
+@import 'components/gru-modal';
 @import 'components/gru-sign-in';
 @import 'components/gru-standards-popup';
 @import 'components/gru-switch';

@@ -28,7 +28,7 @@ test('Layout as a student', function (assert) {
     const $overviewHeader = find(".overview-header", $overviewContainer);
     assert.ok($overviewHeader.length, 'Missing overview header');
 
-    assert.ok($overviewHeader.find("h5").length, 'Missing title');
+    assert.ok($overviewHeader.find("h3").length, 'Missing title');
     assert.ok($overviewHeader.find("button.locate").length, 'Missing locate button');
     assert.ok(!$overviewHeader.find("button.edit-content").length, 'Edit Content button should not be present');
 
@@ -65,7 +65,7 @@ test('Layout as a teacher', function (assert) {
     const $overviewHeader = find(".overview-header", $overviewContainer);
     assert.ok($overviewHeader.length, 'Missing overview header');
 
-    assert.ok($overviewHeader.find("h5").length, 'Missing title');
+    assert.ok($overviewHeader.find("h3").length, 'Missing title');
     assert.ok($overviewHeader.find("button.edit-content").length, 'Missing edit content button');
     assert.ok(!$overviewHeader.find("button.locate").length, 'Locate button should not be present');
 
@@ -98,8 +98,8 @@ test('Clicking on a collection in the accordions should open the player with sai
         andThen(() => {
           var pathName = currentURL().split('?')[0];
 
-          assert.equal(currentRouteName(), 'player');
-          assert.equal(pathName, '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9', 'Incorrect path name');
+          assert.equal(currentRouteName(), 'context-player');
+          assert.equal(pathName, '/player/class/90d82226-5d0d-4673-a85d-f93aa0cbddf2/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/21654d76-45e7-45e9-97ab-5f96a14da137/lesson/cc2bc04c-05ab-4407-9d76-b7021d6138e3/collection/76cb53df-1f6a-41f2-a31d-c75876c6bcf9', 'Incorrect path name');
         });
       });
     });
@@ -128,8 +128,8 @@ test('Clicking on an assessment in the accordions should open the player with sa
         andThen(() => {
           var pathName = currentURL().split('?')[0];
 
-          assert.equal(currentRouteName(), 'player');
-          assert.equal(pathName, '/player/522f6827-f7dd-486f-8631-eba497e2d425', 'Incorrect path name');
+          assert.equal(currentRouteName(), 'context-player');
+          assert.equal(pathName, '/player/class/90d82226-5d0d-4673-a85d-f93aa0cbddf2/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/21654d76-45e7-45e9-97ab-5f96a14da137/lesson/cc2bc04c-05ab-4407-9d76-b7021d6138e3/collection/522f6827-f7dd-486f-8631-eba497e2d425', 'Incorrect path name');
         });
       });
     });

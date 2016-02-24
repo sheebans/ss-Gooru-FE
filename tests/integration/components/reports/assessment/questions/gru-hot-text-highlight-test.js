@@ -20,7 +20,7 @@ test('Hot Text Highlight User Answer', function(assert) {
     isHotTextHighlightWord: true,
     order: 2
   });
-  var userAnswer = ["Le", "casa", "teco", "azul"];
+  var userAnswer = [{index:0, text:"Le"}, {index:1, text:"casa"}, {index:9, text:"teco"}, {index:11, text:"azul"}];
   this.set('question', question);
   this.set('userAnswer', userAnswer);
 
@@ -49,7 +49,7 @@ test('Hot Text Highlight Correct Answer', function(assert) {
     isHotTextHighlightWord: true,
     order: 2
   });
-  var userAnswer = ["Le", "casa", "teco", "azul"];
+  var userAnswer = [{index:0, text:"Le"}, {index:1, text:"casa"}, {index:9, text:"teco"}, {index:11, text:"azul"}];
   this.set('question', question);
   this.set('userAnswer', userAnswer);
 
@@ -78,7 +78,7 @@ test('Hot Text Highlight Anonymous', function(assert) {
     isHotTextHighlightWord: true,
     order: 2
   });
-  var userAnswer = ["Le", "casa", "teco", "azul"];
+  var userAnswer = [{index:0, text:"Le"}, {index:1, text:"casa"}, {index:9, text:"teco"}, {index:11, text:"azul"}];
   this.set('question', question);
   this.set('userAnswer', userAnswer);
 

@@ -35,6 +35,13 @@ export default Ember.Component.extend({
    */
   data: null,
 
+  isFull: Ember.computed("data.[]", function(){
+    var sum = this.get("data").reduce(function (previousValue, value) {
+      return previousValue + parseInt(value.percentage);
+    }, 0);
+    return (sum >= 100);
+  }),
+
   styles: Ember.computed('data', function () {
     return this.get('data').map(function (questionData) {
       return Ember.String.htmlSafe('background-color: ' + questionData.color + '; width: ' + questionData.percentage + '%;');
@@ -60,5 +67,4 @@ export default Ember.Component.extend({
     }, 0);
     return (sum <= 100);
   }
-
 });

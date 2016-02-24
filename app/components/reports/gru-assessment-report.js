@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import {HEADER_HEIGHT} from "gooru-web/config/config";
 
 export default Ember.Component.extend({
 
@@ -18,8 +17,8 @@ export default Ember.Component.extend({
       const $el = $(selector);
 
       if ($el.length) {
-        $('html, body').animate({
-          scrollTop: $el.offset().top - HEADER_HEIGHT
+        $('.gru-assessment-report').animate({
+          scrollTop: $el.offset().top
         }, animationSpeed);
       } else {
         Ember.Logger.error("No element was found for selector: " + selector);
@@ -32,6 +31,17 @@ export default Ember.Component.extend({
 
   classNames: ['reports', 'gru-assessment-report'],
 
+
+  // -------------------------------------------------------------------------
+  // Events
+  /**
+   * Listening for model to update component properties
+   */
+  onInit: Ember.on("init", function(){
+    if (this.get("model")){
+      this.set("assessmentResult", this.get("model").assessmentResult);
+    }
+  }),
 
   // -------------------------------------------------------------------------
   // Properties
@@ -49,5 +59,5 @@ export default Ember.Component.extend({
     return this.get('assessmentResult.questionResults').sort(function(a, b){
       return a.get('question.order')-b.get('question.order');
     });
-  }),
+  })
 });

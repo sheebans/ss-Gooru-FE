@@ -1,18 +1,29 @@
 .reports.class-assessment.gru-student-performance-box {
-  width: 18%;
+  width: 22%;
   margin-right: 2%;
 
+  .panel-heading{
+    cursor: pointer;
+    color: $white;
+    &.not-started{
+      background-color: $dark-300;
+    }
+    .question-in-progress{
+      float: right;
+    }
+  }
   .questions {
     display: flex;
     flex-wrap: wrap;
     span {
-      width: 25px;
-      height: 25px;
+      cursor: pointer;
+      width: 22px;
+      height: 22px;
       margin-right: 5px;
       margin-bottom: 5px;
-      border: 1px solid $gray-darker;
-      &.skipped, &.not-stared {
-        background-color: $gray-lighter;       ;
+      border-radius: 4px;
+      &.skipped, &.not-started {
+        background-color: $light-200;
       }
       &.correct {
         background-color: $brand-success;

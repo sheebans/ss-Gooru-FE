@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { getQuestionUtil } from 'gooru-web/config/question';
 
 /**
  * This mixin is only used by the assessment report question components
@@ -37,7 +38,7 @@ export default Ember.Mixin.create({
    * @param question
    */
   getQuestionUtil: function(question){
-    Ember.Logger.warn("This should be implement by each question type", question);
+    return getQuestionUtil(question.get("questionType")).create({ question: question });
   }
 
 

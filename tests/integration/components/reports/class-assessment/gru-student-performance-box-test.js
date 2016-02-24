@@ -51,14 +51,14 @@ test('Layout when all completed', function (assert) {
   this.set("student", student);
   this.set("reportData", reportData);
 
-  this.on("myClick", function(){
+  this.on("selectStudent", function(){
     assert.ok(true, "This should be called once");
   });
 
   this.render(hbs`{{reports/class-assessment/gru-student-performance-box
     student=student
     reportData=reportData
-    onClick=(action 'myClick')}}`);
+    onSelectStudent=(action 'selectStudent')}}`);
 
   const $component = this.$();
   T.exists(assert, $component.find(".panel"), "Missing student box panel");
@@ -116,14 +116,14 @@ test('Layout having not started questions', function (assert) {
   this.set("student", student);
   this.set("reportData", reportData);
 
-  this.on("myClick", function(){
+  this.on("selectStudent", function(){
     assert.ok(true, "This should be called once");
   });
 
   this.render(hbs`{{reports/class-assessment/gru-student-performance-box
     student=student
     reportData=reportData
-    onClick=(action 'myClick')}}`);
+    onSelectStudent=(action 'selectStudent')}}`);
 
   const $component = this.$();
   T.exists(assert, $component.find(".panel"), "Missing student box panel");
@@ -131,7 +131,7 @@ test('Layout having not started questions', function (assert) {
   const $header = $component.find(".panel .panel-heading");
   T.exists(assert, $header, "Missing student box title");
   T.exists(assert, $header.find(".score"), "Missing student box score");
-  assert.equal(T.text($header), 'Rocha, Perez (67%)', "Wrong title");
+  T.exists(assert, $header.find(".question-in-progress"), "Missing in progress icon");
 
   const $questions = $component.find(".panel .questions");
   T.exists(assert, $questions, "Missing questions area");

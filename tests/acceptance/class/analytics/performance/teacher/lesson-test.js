@@ -33,26 +33,28 @@ test('Layout', function(assert) {
     const $breadcrumbItems = $breadcrumb.find("ul li");
     assert.equal($breadcrumbItems.length, 3, "Incorrect number of breadcrumb items");
     assert.equal(T.text($breadcrumb.find("ul li:last-child")), 'The Best Course Ever Made', "Wrong breadcrumb item label");
+    const $filters = find(".controller.class .gru-filters");
+    T.exists(assert, $filters, "Filters should be visible");
 
   });
 });
 
-//test('Navigate to collection', function(assert) {
-//  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/d0b56322-d3ca-40f5-85b3-2f38ef910ac1/lesson/fbd76aed-1b8d-4c2c-abc6-c7603eef567q');
-//
-//  andThen(function() {
-//    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/d0b56322-d3ca-40f5-85b3-2f38ef910ac1/lesson/fbd76aed-1b8d-4c2c-abc6-c7603eef567q');
-//
-//    const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher-lesson");
-//    const $metricTable = $performanceContainer.find(".gru-metrics-table");
-//
-//    click($metricTable.find("thead tr:eq(0) th:eq(1)"));
-//    andThen(function(){
-//      assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/d0b56322-d3ca-40f5-85b3-2f38ef910ac1/lesson/fbd76aed-1b8d-4c2c-abc6-c7603eef567q');
-//    });
-//
-//    //menu is still selected
-//    const $classMenu = find(".controller.class .gru-class-navigation .class-menu");
-//    T.exists(assert, $classMenu.find(".analytics.selected"), "Missing selected analytics item");
-//  });
-//});
+test('Navigate to collection', function(assert) {
+  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/d0b56322-d3ca-40f5-85b3-2f38ef910ac1/lesson/fbd76aed-1b8d-4c2c-abc6-c7603eef567q');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/d0b56322-d3ca-40f5-85b3-2f38ef910ac1/lesson/fbd76aed-1b8d-4c2c-abc6-c7603eef567q');
+
+    const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher-lesson");
+    const $metricTable = $performanceContainer.find(".gru-metrics-table");
+
+    click($metricTable.find("thead tr:eq(0) th:eq(1)"));
+    andThen(function(){
+      assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/d0b56322-d3ca-40f5-85b3-2f38ef910ac1/lesson/d0b56322-d3ca-40f5-85b3-2f38ef910ac1/collection/522f6827-f7dd-486f-8631-eba497e2d425');
+      //menu is still selected
+      const $classMenu = find(".controller.class .gru-class-navigation .class-menu");
+      T.exists(assert, $classMenu.find(".analytics.selected"), "Missing selected analytics item");
+    });
+
+  });
+});

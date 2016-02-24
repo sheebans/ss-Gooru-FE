@@ -5,9 +5,6 @@ module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     fingerprint: {
       exclude: ['themes/edify'] //excluding test theme files
-    },
-    inlineContent: {
-      'emojiOne': 'public/assets/emoji-one/emoji.svg'
     }
   });
 
@@ -38,6 +35,16 @@ module.exports = function(defaults) {
   app.import({
     development: 'bower_components/toastr/toastr.css',
     production:  'bower_components/toastr/toastr.min.css'
+  });
+
+  app.import({
+    development: 'bower_components/sockjs-client/dist/sockjs.js',
+    production: 'bower_components/sockjs-client/dist/sockjs.min.js'
+  });
+
+  app.import({
+    development: 'bower_components/stomp-websocket/lib/stomp.js',
+    production: 'bower_components/stomp-websocket/lib/stomp.min.js'
   });
 
   app.import({

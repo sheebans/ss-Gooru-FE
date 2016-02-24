@@ -39,13 +39,21 @@ export function checkStandards(standards, checkableStandards, codes) {
  * @param {string} type
  * @param {service} i18n
  */
-export function courseSectionsPrefix(index, type, i18n) {
+export function courseSectionsPrefix(index, type, i18n,longName) {
   var prefixIndex = ++index;
+  var letter;
+  var sectionPrefix;
+  if(longName){
+    const i18nKey = `common.${type}`;
+    letter = i18n.t(i18nKey);
+    sectionPrefix =`${letter}`+' '+`${prefixIndex}`;
+  }else{
+    const i18nKey = `common.${type}Initial`;
+    letter = i18n.t(i18nKey);
+    sectionPrefix =`${letter}${prefixIndex}`;
+  }
 
-  const i18nKey = `common.${type}Initial`;
-  const letter = i18n.t(i18nKey);
-
-  return `${letter}${prefixIndex}`;
+  return sectionPrefix;
 }
 
 /**
@@ -116,14 +124,29 @@ export function getAnswerResultIcon(isCorrect) {
   var html;
 
   if (isCorrect) {
-    html = '<i class="fa fa-check-circle-o answer-correct"></i>';
+    html = '<span class="score answer-correct"><i class="gru-icon material-icons">done</i></span>';
   } else if (isCorrect === false) {
-    html = '<i class="fa fa-times-circle-o answer-incorrect"></i>';
+    html = '<span class="score answer-incorrect"><i class="gru-icon material-icons">clear</i></span>';
   } else {
     // Null or any other falsy value
-    html = '';
+    html = '<span class="score answer-undefined"></span>';
   }
   return html;
+}
+
+/**
+ * Get a html of the score string.
+ * @param {number} value - %value
+ * @returns {String} - html string
+ */
+export function getScoreString(value) {
+
+  if(typeof value === "number"){
+    var gradeColor = getGradeColor(value);
+    return '<span class="score" style="background-color: '+gradeColor+'">'+value+' %</span>';
+  }
+
+  return '<span class="score answer-undefined"></span>';
 }
 
 /**
@@ -142,7 +165,7 @@ export function getReactionIcon(reactionValue) {
     if (reaction && reaction.value && reaction.unicode) {
       html = '<div class="emotion emotion-' + reaction.value + '">';
       html += '  <svg class="svg-sprite">';
-      html += '    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#'+ reaction.unicode + '"></use>';
+      html += '    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#'+ reaction.unicode + '"></use>';
       html += ' </svg>';
       html += '</div>';
     } else {
@@ -212,4 +235,49 @@ export function generateUUID() {
     return (c==='x' ? r : (r&0x3|0x8)).toString(16);
   });
   return uuid;
+}
+
+/**
+ * Truncates a text
+ * @param {string} text
+ * @param {number} maxLength max allowed length for text, optional
+ * @param {string} type indicates the truncate type, optional
+ * @param {boolean} suffix indicates if it adds or not a suffix, default is true
+ * @returns {*}
+ */
+export function truncate(text, maxLength, type, suffix){
+  let config = { //TODO product owner will provide max lengths, this will be moved to the configuration
+    "name": 15,
+    "short": 10,
+    "player-nav-sm": 30,
+    "medium": 50,
+    "large": 200
+  };
+  let defaultType = "short";
+
+  if (!maxLength && !type){ //default behavior
+    type = defaultType;
+  }
+
+  if (type) {
+    maxLength = config[type] || config[defaultType];
+  }
+
+  let addSuffix = (suffix !== false);
+
+  let truncated = text;
+  if (text.length > maxLength) {
+    truncated = text.substring(0, maxLength);
+    if (addSuffix) {
+      truncated = truncated + "...";
+    }
+  }
+
+  return truncated;
+}
+
+export function noTags(text){
+  let element = document.createElement("p");
+  element.innerHTML = text;
+  return $(element).text();
 }

@@ -166,27 +166,18 @@ test('closePlayer: Return to search after closing the player', function(assert) 
   });
 });
 
-test('submitQuestion: When submitting the question', function (assert) {
-  assert.expect(5);
+test('finish collection', function (assert) {
+  assert.expect(3);
   visit('/player/522f6827-f7dd-486f-8631-eba497e2d425?resourceId=46d4a6d4-991b-4c51-a656-f694e037dd68');
   andThen(function () {
     const $playerContainer = find(".controller.player");
     T.exists(assert, $playerContainer, "Missing player");
 
-    var $answerPanel = $playerContainer.find(".gru-question-viewer .answers-panel");
-    assert.ok($answerPanel.find(".actions button.save").attr("disabled"), "Button should be disabled");
-
-    var $openEndedComponent = $answerPanel.find(".gru-open-ended");
-    T.exists(assert, $openEndedComponent.find("textarea"), "Missing open ended text area");
-
-    fillIn($openEndedComponent.find("textarea"), "test");
+    var $navigation = $playerContainer.find(".gru-navigation");
+    click($navigation.find(".finish-collection"));
     andThen(function () {
-      assert.ok(!$answerPanel.find(".actions button.save").attr("disabled"), "Button should not be disabled");
-      click($answerPanel.find(".actions button.save"));
-      andThen(function () {
-        //it moves to the next question
-        assert.equal(currentURL(), '/player/522f6827-f7dd-486f-8631-eba497e2d425?resourceId=0a255924-b887-4200-9e82-fb1e73cd45a9');
-      });
+      T.notExists(assert, $playerContainer.find(".gru-navigation"), "Navigation should not be visible");
+      T.exists(assert, $playerContainer.find(".gru-assessment-report"), "Navigation assessment report should be visible");
     });
   });
 });

@@ -1,5 +1,5 @@
 .reports.assessment.gru-mastery {
-  margin-top: 25px;
+  margin-top: 30px;
 
   .header {
     @media (max-width: $screen-xs) {
@@ -7,9 +7,10 @@
       padding: 0 0 20px 0;
     }
     h4 {
-      display: table-cell;
+      display: inline-block;
       vertical-align: middle;
       width: 23%;
+      margin: 0;
       @media (min-width: $screen-lg-min) {
         width: 40%;
       }
@@ -18,9 +19,10 @@
       }
     }
     h6 {
-      display: table-cell;
+      display: inline-block;
       vertical-align: middle;
       width: 20%;
+      margin: 0;
       @media (min-width: $screen-lg-min) {
         width: 12%;
       }
@@ -30,20 +32,10 @@
       .grading-scale-legend {
         display: table-cell;
         vertical-align: middle;
+        float: right;
+        margin: 5px 0;
       }
       @include clearfix();
-    }
-  }
-
-  .learning-target{
-    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.10);
-    border-radius: 5px;
-    background-color: $white;
-    padding: 25px 15px;
-    margin: 20px 0;
-    display: table;
-    @media (min-width: $screen-xs) {
-      padding: 25px 20px 25px 40px;
     }
   }
 }
