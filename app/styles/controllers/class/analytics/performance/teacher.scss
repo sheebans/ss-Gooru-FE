@@ -1,13 +1,20 @@
 .controller.analytics-performance-teacher {
   .better-experience {
-    margin-bottom:0px;
+    margin-bottom:0;
   }
 
   .row {
-    [class*='col-'] {
+    > [class*='col-']:first-child {
       padding-left: 56px;
+      margin: 0 0 10px 0;
       @media (max-width: $screen-xs-max) {
         padding-left: 15px;
+      }
+    }
+    > [class*='col-']:last-child {
+      padding-left: 56px;
+      @media (max-width: $screen-xs-max) {
+        padding-right: 15px;
       }
     }
   }
