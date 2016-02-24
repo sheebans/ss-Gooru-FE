@@ -192,6 +192,24 @@ export default Ember.Service.extend({
     }).then(function(collectionPerformances) {
       return service.matchStudentsWithPerformances(students, collectionPerformances);
     });
+  },
+
+  findStudentPerformanceByCollection: function(userId, classId, courseId, unitId, lessonId, collectionType) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('Adapter').queryRecord({
+        collectionType: collectionType,
+        classId: classId,
+        courseId: courseId,
+        userId: userId,
+        unitId: unitId,
+        lessonId: lessonId
+      }).then(function(events) {
+        resolve(service.get('performance/studentCollectionPerformanceSerializer').normalizeResponse(events));
+      }, function(error) {
+        reject(error);
+      });
+    });
   }
 
 });

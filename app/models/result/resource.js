@@ -52,6 +52,12 @@ export default Ember.Object.extend(Serializable, {
   submittedAt: null,
 
   /**
+   * Indicates the amount of executions for the same result
+   * @property {number}
+   */
+  attempts: null,
+
+  /**
    * A result is started when it has time spent
    * @property {boolean} indicates when it has been started
    */

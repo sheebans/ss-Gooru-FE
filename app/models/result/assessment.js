@@ -21,9 +21,9 @@ export default Ember.Object.extend({
   resourceResults: Ember.A([]),
 
   /**
-   * @property {string} uuid - This is used for eventId and sessionId, should be generated in the FE, you can use generateUUID inside utils folder
+   * @property {string} sessionId
    */
-  uuid: null,
+  sessionId: null,
 
   /**
    * @property {QuestionResult[]} questionResults

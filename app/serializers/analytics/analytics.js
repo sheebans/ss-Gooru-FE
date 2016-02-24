@@ -3,6 +3,8 @@ import Ember from 'ember';
 import UserResourcesResult from 'gooru-web/models/result/user-resources';
 import ResourceResult from 'gooru-web/models/result/resource';
 import QuestionResult from 'gooru-web/models/result/question';
+import AnswerObject from 'gooru-web/utils/question/answer-object';
+import { getQuestionUtil } from 'gooru-web/config/question';
 
 
 export default Ember.Object.extend({
@@ -38,21 +40,51 @@ export default Ember.Object.extend({
   },
 
   normalizeResourceResult: function(payload) {
-    if (payload.type && payload.type === 'question') {
+    let type = payload.type || payload.resourceType;
+    let timeSpent = payload.totalTimespent || payload.timeSpent;
+    let answerObjects = this.normalizeAnswerObjects(payload.answerObjects);
+    if (type === 'question') {
+      let util = getQuestionUtil(payload.questionType).create();
+
       return QuestionResult.create({
+        //Commons fields for real time and student collection performance
         resourceId: payload.gooruOId,
         reaction: payload.reaction,
-        timeSpent: payload.totalTimespent,
+        timeSpent: timeSpent,
+        userAnswer: util.toUserAnswer(answerObjects),
+
+        //fields only for real time
         correct: payload.answerStatus === 'correct',
-        userAnswer: null
+
+        //fields only for student collection performance
+        score: payload.score,
+        resourceType: type,
+        attempts: payload.attempts,
+        sessionId: payload.sessionId
       });
     } else {
       return ResourceResult.create({
+        //Commons fields for real time and student collection performance
         resourceId: payload.gooruOId,
         reaction: payload.reaction,
-        timeSpent: payload.totalTimespent
+        timeSpent: timeSpent,
+
+        //fields only for student collection performance
+        score: payload.score,
+        resourceType: type,
+        attempts: payload.attempts,
+        sessionId: payload.sessionId
       });
     }
+  },
+
+  normalizeAnswerObjects: function(answerObjects){
+    answerObjects = answerObjects === "N/A" ? [] : [answerObjects];
+    return answerObjects.map(function(answerObject){
+      return AnswerObject.create(answerObject);
+    })
+
+
   }
 
 });
