@@ -114,6 +114,12 @@ export default Ember.Component.extend({
   }),
 
   /**
+   * Contains the back label for this navigation, it is passed as a parameter
+   * @property {string}
+   */
+  backLabel: null,
+
+  /**
    * @property {string} on content player action
    */
   onClosePlayer: 'onClosePlayer',

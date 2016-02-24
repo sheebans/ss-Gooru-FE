@@ -57,7 +57,7 @@ test('Player Navigator', function(assert) {
   });
 
   this.render(hbs`{{player.gru-navigator collection=collection
-      resourceResults=resourceResults
+      resourceResults=resourceResults backLabel='Back'
       selectedResourceId='1' onItemSelected='itemSelected'}}`);
 
   var $component = this.$(); //component dom element
@@ -89,7 +89,7 @@ test('Layout when navigator is closed', function(assert) {
     assert.ok(true, 'external Action was called!');
   });
 
-  this.render(hbs`{{player/gru-navigator onCloseNavigator='parentAction'}}`);
+  this.render(hbs`{{player/gru-navigator onCloseNavigator='parentAction' backLabel='Back'}}`);
   var $component = this.$(); //component dom element
   var $menuButton = $component.find(".hamburger-icon");
 
@@ -156,7 +156,7 @@ test('Player Navigator keyup on left', function(assert) {
 
 
   this.render(hbs`{{player.gru-navigator resourceResults=resourceResults
-        onItemSelected='itemSelected'
+        onItemSelected='itemSelected' backLabel='Back'
         collection=collection selectedResourceId='2'}}`);
 
   let $component = this.$(); //component dom element
@@ -229,7 +229,7 @@ test('Player Navigator keyup on right', function(assert) {
   this.set('collection', collectionMock);
 
   this.render(hbs`{{player.gru-navigator resourceResults=resourceResults
-        onItemSelected='itemSelected'
+        onItemSelected='itemSelected' backLabel='Back'
         collection=collection selectedResourceId='1'}}`);
 
   let $component = this.$(); //component dom element
@@ -251,7 +251,7 @@ test('Close player', function(assert) {
     assert.ok(true, 'external Action was called!');
   });
 
-  this.render(hbs`{{player/gru-navigator onClosePlayer='parentAction'}}`);
+  this.render(hbs`{{player/gru-navigator onClosePlayer='parentAction' backLabel='Back'}}`);
   var $component = this.$(); //component dom element
   var $closeButton = $component.find(".gru-navigator .navigator-header div:first-child");
   $closeButton.click();
