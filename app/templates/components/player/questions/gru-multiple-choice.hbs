@@ -9,6 +9,7 @@
         {{#radio-button
             value=answer.id
             disabled=readOnly
+            groupValue=userAnswer
             changed="selectAnswerChoice"
             name="answer-choice-radio"}}
             <span>({{answer-letter index}})</span>{{{answer.text}}}
