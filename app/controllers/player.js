@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import Context from 'gooru-web/models/result/context';
 import SessionMixin from '../mixins/session';
 
 /**
@@ -271,7 +270,6 @@ export default Ember.Controller.extend(SessionMixin, {
    */
   finishAssessment: function(){
     let controller = this;
-    let collection = controller.get("collection");
     let assessmentResult = controller.get("assessmentResult");
     let context = controller.get("context");
     return controller.submitPendingQuestionResults().then(function(){
@@ -283,7 +281,7 @@ export default Ember.Controller.extend(SessionMixin, {
        //}
        //});
       context.set("eventType", "stop");
-      return controller.get('eventsService').saveCollectionResult(collection, context).then(function() {
+      return controller.get('eventsService').saveCollectionResult(assessmentResult, context).then(function() {
         assessmentResult.set("submittedAt", new Date());
         controller.set("showReport", true);
       });
@@ -310,7 +308,7 @@ export default Ember.Controller.extend(SessionMixin, {
        //});
       assessmentResult.set("startedAt", new Date());
       context.set("eventType", "start");
-      return controller.get('eventsService').saveCollectionResult(collection, context);
+      return controller.get('eventsService').saveCollectionResult(assessmentResult, context);
     }
     return promise;
   },

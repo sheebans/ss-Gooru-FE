@@ -23,6 +23,11 @@ export default Ember.Object.extend({
   parentEventId: null,
 
   /**
+   * @property {string} resourceEventId - Unique Id should be generated for every event from FE. This eventId should be same for start and stop event
+   */
+  resourceEventId: null,
+
+  /**
    * @property {string} classId - Class unique Id associated for the collection / assessment.
    * Can be null if play is outside context of class.
    */

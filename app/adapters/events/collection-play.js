@@ -3,7 +3,7 @@ import SessionMixin from 'gooru-web/mixins/session';
 
 export default Ember.Object.extend(SessionMixin, {
 
-  host: 'dev-logapi.goorulearning.org', //load from environment.js
+  host: 'http://dev-logapi.goorulearning.org', //load from environment.js
   namespace: '/api/nucleus-insights/v1',
 
   basePath: Ember.computed(function(){

@@ -59,11 +59,10 @@ export default Ember.Route.extend({
       this.get("performanceService").findAssessmentResultByCollectionAndStudent(collectionId, userId) : null;
 
 
-    let resource = collection.getResourceById(resourceId);
     const context = Context.create({
       userId: userId,
-      collectionId: collectionId
-      parentEvent: generateUUID(), //TODO is this comming from BE?
+      collectionId: collectionId,
+      parentEventId: generateUUID(), //TODO is this comming from BE?
       collectionType: collection.get("collectionType"),
       totalQuestionsCount: collection.get("questionCount")
     });
