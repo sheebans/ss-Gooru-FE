@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import DS from 'ember-data';
 
 /**
  * @typedef {Object} PerformanceService
@@ -6,6 +7,31 @@ import Ember from 'ember';
 export default Ember.Service.extend({
 
   store: Ember.inject.service(),
+
+  /**
+   * Gets a student's assessment result for a specific collection.
+   * @param collectionId
+   * @param userId
+   * @returns {Promise.<AssessmentResult>}
+   */
+  findAssessmentResultByCollectionAndStudent: function (collectionId, userId) {
+    const response = null;
+
+    // TODO: Replace this with the correct implementation
+    function callToServerEndPoint(collectionId, userId) {
+      return new Ember.RSVP.Promise(function (resolve, reject) {
+        if (collectionId && userId) {
+          resolve(response);
+        } else {
+          reject('findAssessmentResultByCollectionAndStudent: missing parameters');
+        }
+      });
+    }
+
+    return DS.PromiseArray.create({
+      promise: callToServerEndPoint(collectionId, userId)
+    });
+  },
 
   /**
    * Gets the unit performance data for a specific user, class and course.

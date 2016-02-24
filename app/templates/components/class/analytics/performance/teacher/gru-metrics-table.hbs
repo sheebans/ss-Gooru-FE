@@ -10,9 +10,9 @@
           <th id="{{{header.id}}}" class="header pointer" scope="col" {{action 'navigate' header.id}}>
             <div class="header-title">
               {{#if header.collectionType}}
-                <div class="prefix">{{{course-sections-prefix index=index type=header.collectionType}}}</div>
+                <div class="prefix">{{{course-sections-prefix index=index type=header.collectionType longName=false}}}</div>
               {{else}}
-                <div class="prefix">{{{course-sections-prefix index=index type=headerType}}}</div>
+                <div class="prefix">{{{course-sections-prefix index=index type=headerType longName=false}}}</div>
               {{/if}}
               <div class="title">{{{header.title}}}</div>
             </div>

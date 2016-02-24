@@ -177,7 +177,7 @@ test('finish collection', function (assert) {
     click($navigation.find(".finish-collection"));
     andThen(function () {
       T.notExists(assert, $playerContainer.find(".gru-navigation"), "Navigation should not be visible");
-      T.notExists(assert, $playerContainer.find(".gru-assessment-report"), "Navigation assessment report should be visible");
+      T.exists(assert, $playerContainer.find(".gru-assessment-report"), "Navigation assessment report should be visible");
     });
   });
 });

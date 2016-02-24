@@ -13,7 +13,11 @@ export default Ember.Controller.extend(SessionMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
   queryParams: ['resourceId'],
-  //TODO add courseId, unitId, lessonId
+
+  /**
+   * @dependency {Ember.Service} i18n service
+   */
+  i18n: Ember.inject.service(),
 
   /**
    * @dependency {Ember.Service} Service to rate a resource
@@ -71,12 +75,12 @@ export default Ember.Controller.extend(SessionMixin, {
     },
 
     /**
-     * Triggered when a navigator item is selected
-     * @param {Resource} item
+     * Triggered when a navigator resource is selected
+     * @param {Resource} resource
      */
-    selectNavigatorItem: function(item){
+    selectNavigatorItem: function(resource){
       const controller = this;
-      controller.moveToResource(item);
+      controller.moveToResource(resource);
     },
 
     /**
@@ -111,6 +115,15 @@ export default Ember.Controller.extend(SessionMixin, {
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * It contains information about the context where the player is running
+   *
+   * @see context-player.js route and controller
+   *
+   * @property {Context}
+   */
+  context: null,
 
   /**
    * Query param
@@ -151,6 +164,14 @@ export default Ember.Controller.extend(SessionMixin, {
    * @property {boolean} showReport
    */
   showReport: false,
+
+  /**
+   * Text used for the back navigation link
+   * @property {string}
+   */
+  backLabel: Ember.computed("collection", function(){
+    return this.get("i18n").t("common.back");
+  }),
   // -------------------------------------------------------------------------
   // Observers
 
