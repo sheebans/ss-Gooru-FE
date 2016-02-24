@@ -3,7 +3,7 @@
     {{#each options as |option|}}
       <li>
         <div class="checkbox">
-          <label>
+          <label class="{{option.value}}">
             {{#if option.selected}}
               <input type="checkbox" disabled={{option.readOnly}} value="{{option.value}}" checked {{action 'setOption' option}}/>
             {{else}}

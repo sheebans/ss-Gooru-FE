@@ -34,14 +34,13 @@ test('Layout and click', function(assert) {
     assert.equal(item.value.id, '111', "Wrong id");
   });
 
-  this.render(hbs`{{gru-breadcrumb items=breadcrumb onItemSelected='mySelectItem'}}`);
+  this.render(hbs`{{gru-breadcrumb items=breadcrumb onSelectedItem='mySelectItem'}}`);
 
   const $component = this.$();
 
-  assert.ok($component.find("ul li.breadcrumb-item i").length, 4, "Missing item icons");
-  assert.ok($component.find("ul li.breadcrumb-item span").length, 4, "Missing item label");
-  assert.equal(T.text($component.find("ul li.breadcrumb-item span:eq(0)")), 'Course Name', "Wrong item label");
+  assert.ok($component.find(".breadcrumb-item.breadcrumb-item").length, 4, "Missing breadcrumb items");
+  assert.equal(T.text($component.find(".breadcrumb-item:eq(0)")), 'Course Name', "Wrong item label");
 
-  $component.find("ul li.breadcrumb-item:eq(0)").click();
+  $component.find(".breadcrumb-item:eq(0)").click();
 
 });

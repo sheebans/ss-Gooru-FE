@@ -15,7 +15,7 @@
 </div>
 <div class="btn-group drop-menu">
   <button class="selected-filter btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">
-    {{gru-icon name='spellcheck'}} {{t dropdownFilterText}} <span class="caret"></span>
+    {{gru-icon name='spellcheck'}} <span class="text">{{t dropdownFilterText}}</span> <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
     <li class="dropdown-menu-item assessment {{if isFilterByAssessment 'selected' }}"><a {{action 'filter' 'assessment'}}>{{t "class.analytics.performance.actions.assessment"}}</a></li>

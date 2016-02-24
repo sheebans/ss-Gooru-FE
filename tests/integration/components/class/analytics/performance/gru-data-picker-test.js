@@ -20,53 +20,41 @@ test('Data Picker Layout', function(assert) {
 
   T.exists(assert, $dataPicker, 'Missing performance data picker');
 
-  const $options = $component.find(".option-list li");
+  const $options = $component.find(".option-picker li");
   assert.equal($options.length, 5, "Incorrect number of options displayed");
 
-  const $optionScore = $component.find(".option-list li span.score");
+  const $optionScore = $component.find(".option-picker li label.score");
   T.exists(assert, $optionScore, 'Missing Score option');
 
-  const $optionCompletion = $component.find(".option-list li span.completion");
+  const $optionCompletion = $component.find(".option-picker li label.completion");
   T.exists(assert, $optionCompletion, 'Missing Completion option');
 
-  const $optionTime = $component.find(".option-list li span.timeSpent");
+  const $optionTime = $component.find(".option-picker li label.timeSpent");
   T.exists(assert, $optionTime, 'Missing Time option');
 
-  const $optionReaction = $component.find(".option-list li span.reaction");
+  const $optionReaction = $component.find(".option-picker li label.reaction");
   T.exists(assert, $optionReaction, 'Missing Reaction option');
 
-  const $optionAttempt = $component.find(".option-list li span.attempts");
+  const $optionAttempt = $component.find(".option-picker li label.attempts");
   T.exists(assert, $optionAttempt, 'Missing Attempts option');
 });
 
 test('Data Picker Default', function(assert) {
-  assert.expect(2);
+  assert.expect(3);
 
   this.render(hbs`{{class/analytics/performance/gru-data-picker}}`);
 
   const $component = this.$(); //component dom element
 
-  const $optionsActive = $component.find(".active");
-  assert.equal($optionsActive.length, 1, "Incorrect number of active options");
+  const $optionsActive = $component.find("input[checked]");
+  assert.equal($optionsActive.length, 1, "Incorrect number of checked options");
 
-  const $optionScore = $component.find(".option-list li .score");
-  assert.ok($optionScore.hasClass('active'));
+  const $optionScore = $component.find(".option-picker li label.score input[checked]");
+  assert.ok($optionScore.length, "Score option should be checked by default");
 
-});
-test('Verify the icons', function(assert) {
-  assert.expect(2);
-  const iconDefault = "fa-square-o";
-  const iconSelected = "fa-check-square-o";
-  this.set('iconDefault', iconDefault);
-  this.set('iconSelected', iconSelected);
+  const $optionCompletion = $component.find(".option-picker li label.completion input[checked]");
+  assert.ok(!$optionCompletion.length, "Completion option should not be checked by default");
 
-  this.render(hbs`{{class/analytics/performance/gru-data-picker  icon-default=iconDefault icon-selected=iconSelected}}`);
-  var $component = this.$(); //component dom element
-  var $dataPicker = $component.find("ul.option-list");
-  var $scoreOption =  $dataPicker.find("span.score i.fa"); //Score is selected by default
-  assert.ok($scoreOption.hasClass('fa-check-square-o'));
-  var $completionOption =  $dataPicker.find("span.completion i.fa"); // Completion is unselected by default
-  assert.ok($completionOption.hasClass('fa-square-o'));
 });
 
 test('Select option', function(assert) {
@@ -78,8 +66,8 @@ test('Select option', function(assert) {
 
   this.render(hbs`{{class/analytics/performance/gru-data-picker onOptionsChange='parentAction'}}`);
   var $component = this.$(); //component dom element
-  var $dataPicker = $component.find("ul.option-list");
-  $dataPicker.find("li:first-child a").click();
+  var $dataPicker = $component.find(".option-picker");
+  $dataPicker.find("li:first-child input").click();
 });
 
 test('Verify selected option with specific max value', function(assert) {
@@ -95,11 +83,11 @@ test('Verify selected option with specific max value', function(assert) {
 
   this.render(hbs`{{class/analytics/performance/gru-data-picker max=max onOptionsChange='parentAction'}}`);
   var $component = this.$(); //component dom element
-  var $dataPicker = $component.find("ul.option-list");
-  $dataPicker.find("li:eq(1) a").click();//try select completion option
-  $dataPicker.find("li:eq(0) a").click();
-  $dataPicker.find("li:eq(2) a").click();
-  $dataPicker.find("li:eq(3) a").click();
+  var $dataPicker = $component.find(".option-picker");
+  $dataPicker.find("li:eq(1) input").click();//try select completion option
+  $dataPicker.find("li:eq(0) input").click();
+  $dataPicker.find("li:eq(2) input").click();
+  $dataPicker.find("li:eq(3) input").click();
 });
 
 test('Verify that there is at least one selected', function(assert) {
@@ -112,9 +100,9 @@ test('Verify that there is at least one selected', function(assert) {
 
   this.render(hbs`{{class/analytics/performance/gru-data-picker onOptionsChange='parentAction'}}`);
   var $component = this.$(); //component dom element
-  var $dataPicker = $component.find("ul.option-list");
-  $dataPicker.find("li:eq(0) a").click();//try unselected score
-  $dataPicker.find("li:eq(1) a").click();//change option
+  var $dataPicker = $component.find(".option-picker");
+  $dataPicker.find("li:eq(0) input").click();//try unselected score
+  $dataPicker.find("li:eq(1) input").click();//change option
 
 
 });
@@ -143,16 +131,16 @@ test('Verify the option can not be unselected when is readOnly', function(assert
     'readOnly':false
   })
     ]);
-  const max =3;
+  const max = 3;
   this.set('options', options);
   this.set('max', max);
 
   this.render(hbs`{{class/analytics/performance/gru-data-picker  options=options max=max}}`);
   var $component = this.$(); //component dom element
-  var $dataPicker = $component.find("ul.option-list");
-  $dataPicker.find("li:eq(1) a").click();//Select completion
-  $dataPicker.find("li:eq(0) a").click();//try unselected score
-  const $optionScore = $component.find(".option-list li .score");
-  assert.ok($optionScore.hasClass('active'));
+  var $dataPicker = $component.find(".option-picker");
+  $dataPicker.find("li:eq(1) input").click();//Select completion
+  $dataPicker.find("li:eq(0) input").click();//try unselected score
+  const $optionScore = $component.find(".option-picker li label.score input[checked]");
+  assert.ok($optionScore.length, "Score can not be unselected");
 });
 
