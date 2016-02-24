@@ -10,6 +10,7 @@ export default Ember.Component.extend({
     /**
      * Handle event triggered by gru-summary
      * Scroll to specific question
+     * TODO make this method generic
      */
     bubbleSelect: function(bubbleOption) {
       const animationSpeed = 1000;  // milliseconds
