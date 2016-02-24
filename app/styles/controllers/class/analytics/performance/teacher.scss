@@ -4,16 +4,10 @@
   }
 
   .row {
-    > [class*='col-']:first-child {
+    [class*='col-'] {
       padding-left: 56px;
       @media (max-width: $screen-xs-max) {
         padding-left: 15px;
-      }
-    }
-    > [class*='col-']:last-child {
-      padding-right: 56px;
-      @media (max-width: $screen-xs-max) {
-        padding-right: 15px;
       }
     }
   }
@@ -23,7 +17,7 @@
   }
 
   .controls {
-    margin-top: 35px;
+    margin-top: 25px;
   }
 
   .gru-filters {
