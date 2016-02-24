@@ -3,6 +3,7 @@ import {
   alphabeticalStringSort,
   formatTime,
   getAnswerResultIcon,
+  getScoreString,
   getReactionIcon
   } from 'gooru-web/utils/utils';
 import {
@@ -272,9 +273,6 @@ export default Ember.Component.extend({
    * @return {Object[]}
    */
   initQuestionProperties: function () {
-    function scoreString(value) {
-      return (typeof value === "number") ? value + '%' : '';
-    }
 
     return [
       Ember.Object.create({
@@ -287,7 +285,7 @@ export default Ember.Component.extend({
         visible: true,
         renderFunction: getAnswerResultIcon,
         aggregateFunction: correctPercentage,
-        aggregateRenderFunction: scoreString
+        aggregateRenderFunction: getScoreString
       }),
       Ember.Object.create({
         filter: {
@@ -316,7 +314,7 @@ export default Ember.Component.extend({
    */
   initStudentsHeader: function () {
     return {
-      label: this.get('i18n').t('reports.gru-table-view.name').string,
+      label: this.get('i18n').t('reports.gru-table-view.student').string,
       value: 'fullName',
       sortFunction: alphabeticalStringSort
     };

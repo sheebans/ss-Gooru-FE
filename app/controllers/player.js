@@ -11,7 +11,11 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
   queryParams: ['resourceId'],
-  //TODO add courseId, unitId, lessonId
+
+  /**
+   * @dependency {Ember.Service} i18n service
+   */
+  i18n: Ember.inject.service(),
 
   /**
    * @dependency {Ember.Service} Service to rate a resource
@@ -105,6 +109,15 @@ export default Ember.Controller.extend({
   // Properties
 
   /**
+   * It contains information about the context where the player is running
+   *
+   * @see context-player.js route and controller
+   *
+   * @property {Context}
+   */
+  context: null,
+
+  /**
    * Query param
    * @property {string} resourceId
    */
@@ -143,6 +156,14 @@ export default Ember.Controller.extend({
    * @property {boolean} showReport
    */
   showReport: false,
+
+  /**
+   * Text used for the back navigation link
+   * @property {string}
+   */
+  backLabel: Ember.computed("collection", function(){
+    return this.get("i18n").t("common.back");
+  }),
   // -------------------------------------------------------------------------
   // Observers
 

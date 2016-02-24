@@ -56,6 +56,28 @@ test('merge', function (assert) {
   assert.equal(reportData.data["2"]["A"], QR5, 'row 2 | column 1: -override default object');
 });
 
+test('getEmptyMatrix', function (assert) {
+  var resources = Ember.A([
+    Ember.Object.create({"id": "A"}),
+    Ember.Object.create({"id": "B"})
+  ]);
+
+  var students = Ember.A([
+    Ember.Object.create({"id": "1"}),
+    Ember.Object.create({"id": "2"})
+  ]);
+
+  var reportData = ReportData.create({
+    students: students,
+    resources: resources
+  });
+
+  assert.deepEqual(reportData.data["1"]["A"].get("resourceId"), "A", 'row 1 | column 1: - wrong id for default object');
+  assert.deepEqual(reportData.data["1"]["B"].get("resourceId"), "B", 'row 1 | column 2: - wrong id for default object');
+  assert.deepEqual(reportData.data["2"]["A"].get("resourceId"), "A", 'row 2 | column 1: - wrong id for default object');
+  assert.deepEqual(reportData.data["2"]["B"].get("resourceId"), "B", 'row 2 | column 2: - wrong id for default object');
+});
+
 test('getEmptyRow', function (assert) {
   var resources = Ember.A([
     Ember.Object.create({"id": "A"}),

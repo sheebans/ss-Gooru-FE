@@ -1,6 +1,6 @@
 <div class="navigator-header" >
   <div {{action 'closePlayer'}}>
-    <span class="lead"> {{gru-icon name='keyboard_arrow_left'}} {{t 'common.back'}}</span>
+    <span class="lead"> {{gru-icon name='keyboard_arrow_left'}} {{backLabel}}</span>
     <p>{{collection.title}}</p>
   </div>
   <div class="pull-right close-navigator hidden-md hidden-lg">
@@ -13,7 +13,12 @@
         {{action 'selectItem' item}}>
       <div class="resources-info">
         <i class="bubble-type {{item.resource.resourceFormat}}"></i>
-        <h6 class="title">{{{item.resource.title}}}</h6>
+          <h6 class="title hidden-sm hidden-md">
+            {{truncate text=(noTags text=item.resource.title) type='medium'}}
+          </h6>
+          <h6 class="title visible-sm visible-md">
+            {{truncate text=(noTags text=item.resource.title) type='player-nav-sm'}}
+        </h6>
       </div>
     </li>
   {{/each}}

@@ -107,7 +107,7 @@ export default Ember.Object.extend({
   autoCompleteRow: function (QuestionResultMap, resourceIds) {
     resourceIds.forEach(function (resourceId) {
       var questionResult = QuestionResultMap[resourceId];
-      if (typeof questionResult.get('correct') !== 'boolean') {
+      if (!questionResult.get("started")) {
         questionResult.set('correct', false);
       }
     });

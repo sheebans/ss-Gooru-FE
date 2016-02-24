@@ -1,32 +1,3 @@
 <div class="controller player">
-  <div class="main" role="main">
-    {{#if showReport}}
-      {{reports.gru-assessment-report assessmentResult=assessmentResult }}
-    {{else}}
-      {{player.gru-navigation
-      submitted=assessmentResult.submitted
-      ratingScore=resourceResult.reaction
-      onFinishCollection="finishCollection"
-      onViewReport="viewReport"
-      onOpenNavigator="openNavigator"
-      onChangeEmotion="changeEmotion"}}
-
-      {{player.gru-viewer
-        submitted=assessmentResult.submitted
-        resource=resource
-        resourceResult=resourceResult
-        collection=collection
-        onSubmitQuestion="submitQuestion"}}
-    {{/if}}
-  </div>
-  <div class="aside">
-    {{player.gru-navigator
-      resourceResults=assessmentResult.sortedResourceResults
-      collection=collection
-      onClosePlayer="closePlayer"
-      selectedResourceId=resourceId
-      onItemSelected="selectNavigatorItem"
-      onCloseNavigator="closeNavigator"
-    }}
-  </div>
+  {{partial 'partials/player'}}
 </div>

@@ -5,6 +5,11 @@
     <colgroup span="{{secondTierHeadersVisible}}"></colgroup>
   {{/each}}
 
+  <tr class="header">
+    <td class="corner"></td>
+    <td colspan="{{firstTierHeaders.length}}"></td>
+  </tr>
+
   <tr class="first-tier">
     {{#if rowHeadersHeader}}
       <td></td>
@@ -55,12 +60,9 @@
         {{action "selectRowHeader" row.id}}>
         <span>{{row.header}}</span>
       </th>
-
       {{#each row.content as |content|}}
         <td class="hidden">{{{content.output}}}</td>
       {{/each}}
-
     </tr>
   {{/each}}
-
 </table>
