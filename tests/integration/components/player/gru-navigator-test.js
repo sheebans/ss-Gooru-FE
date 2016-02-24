@@ -73,7 +73,7 @@ test('Player Navigator', function(assert) {
   const $firstResourceItem = $collectionResources.find("li.list-group-item:eq(0)");
   T.exists(assert, $firstResourceItem.find(".resources-info"), "Missing resources info");
   T.exists(assert, $firstResourceItem.find(".resources-info .bubble-type.question"), "Missing question class type");
-  assert.equal(T.text($firstResourceItem.find(".resources-info .title")), "Resource #1", "Wrong item text");
+  assert.equal(T.text($firstResourceItem.find(".resources-info .title.visible-sm")), "Resource #1", "Wrong item text");
 
   //$resourceItem Selected
   let $selected = $navigator.find(".list-group-item:eq(0).selected");
