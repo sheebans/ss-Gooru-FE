@@ -6,8 +6,8 @@
    aria-controls="lesson-container-for-unit-{{unit.id}}"
   {{action "selectUnit" unit}}
   id="unit-{{unit.id}}"
-class="panel">
-  <ul>
+  class='panel'>
+  <ul class="row">
       <li class="performance-unit-content">
           <div>
             {{class.analytics.performance.gru-performance-summary
@@ -19,7 +19,7 @@ class="panel">
       </li>
   </ul>
 </a>
-<div class="lessons-container collapse panel" id="{{unit.id}}">
+<div class="lessons-container collapse" id="{{unit.id}}">
     <!-- each del componete de performance summary con el performance de cada lesson-->
   <div>
     {{#each lessons as |lesson index|}}

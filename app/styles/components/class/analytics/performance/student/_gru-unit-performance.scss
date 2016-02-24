@@ -2,7 +2,7 @@
   border:1px solid $gray-lighter;
   border-radius: 0!important;
   margin-bottom: 17px;
-  &.selected >*{
+  &.selected a{
     border-left: 4px solid $green-400;
   }
   >a{

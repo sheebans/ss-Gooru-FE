@@ -34,6 +34,9 @@
       &.title{
         -webkit-flex-grow: 4;
         flex-grow: 4;
+        @include respond-to(xs){
+          display: inline-block;
+        }
         span{
           -webkit-flex-direction: row;
           flex-direction: row;

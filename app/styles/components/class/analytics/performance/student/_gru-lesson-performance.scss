@@ -140,8 +140,6 @@
         }
       }
       div.collections-container{
-        border-top:1px solid $gray-lighter;
-        background-color:$gray-light;
         >div{
           height: 105px;
           -webkit-flex-direction: row;
@@ -187,6 +185,7 @@
             flex-basis: auto;
             -webkit-align-self: auto;
             align-self: auto;
+            padding:0;
             @include respond-to(xs){
               height:100%;
             }

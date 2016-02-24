@@ -35,7 +35,7 @@ test('Class Performance Actions Bar with student mode', function(assert) {
 
   //drop down menu item Selected
   T.exists(assert, $dropMenu.find(".collection.selected"), "Missing selected collection item");
-  assert.equal(T.text($dropMenu.find(".selected-filter")), 'View Collection', 'Wrong text selected');
+  assert.equal(T.text($dropMenu.find(".selected-filter span")), 'View Collection', 'Wrong text selected');
 });
 
 
@@ -65,7 +65,7 @@ test('Class Performance Actions Bar with teacher mode', function(assert) {
 
   //drop down menu item Selected
   T.exists(assert, $dropMenu.find(".collection.selected"), "Missing selected collection item");
-  assert.equal(T.text($dropMenu.find(".selected-filter")), 'View Collection', 'Wrong text selected');
+  assert.equal(T.text($dropMenu.find(".selected-filter span")), 'View Collection', 'Wrong text selected');
 });
 
 
