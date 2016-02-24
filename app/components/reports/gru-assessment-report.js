@@ -13,15 +13,22 @@ export default Ember.Component.extend({
      */
     bubbleSelect: function(bubbleOption) {
       const animationSpeed = 1000;  // milliseconds
-      const selector = $(".gru-questions table tbody tr:nth-child(" + bubbleOption.label + ")");
-      const $el = $(selector);
+      const selectorTable = $(".gru-questions table:visible tbody tr:nth-child(" + bubbleOption.label + ")");
+      const $elTable = $(selectorTable);
 
-      if ($el.length) {
+      const selectorList = $(".gru-questions .question-cards-list:visible li:nth-child(" + bubbleOption.label + ") .question-card");
+      const $elList = $(selectorList);
+
+      if ($elTable.length) {
         $('.gru-assessment-report').animate({
-          scrollTop: $el.offset().top
+          scrollTop: $elTable.offset().top
         }, animationSpeed);
-      } else {
-        Ember.Logger.error("No element was found for selector: " + selector);
+      } else  if ($elList.length) {
+        $('.gru-assessment-report').animate({
+          scrollTop: $elList.offset().top
+        }, animationSpeed);
+      }else {
+        Ember.Logger.error("No element was found for selectorTable: " + selectorTable);
       }
     }
     },
