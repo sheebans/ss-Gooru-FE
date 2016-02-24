@@ -150,7 +150,7 @@
 
           .panel-heading {
             border-bottom: 1px solid $gray-lighter;
-            padding: 0 20px 5px 0;
+            padding: 0 8px 5px 0;
             margin: 0;
 
             > i {
@@ -164,6 +164,12 @@
             .panel-title {
               font-size: $font-size-base;
               margin-left: 6%;
+            }
+
+            .gru-user-icons .first-view.clickable {
+              .item:last-child {
+                margin-right: 17px;
+              }
             }
           }
         }
