@@ -27,6 +27,11 @@ export default Ember.Object.extend(Serializable, {
   resource: null,
 
   /**
+   * @property {string} uuid - This is used for eventId and sessionId, should be generated in the FE, you can use generateUUID inside utils folder
+   */
+  uuid: null,
+
+  /**
    * Sometimes the resource is not resolved and only the id is provided
    * This is used mostly by the real time
    * TODO once the SDK is integrated we could analyze if is possible to use only 'resource'

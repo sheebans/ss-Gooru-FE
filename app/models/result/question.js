@@ -38,6 +38,21 @@ export default ResourceResult.extend({
   userAnswer: null,
 
   /**
+   * Applies only to question type resources. Core API will provide correct answer.
+   * FE needs to capture user chosen values and compare with core API responses and then send status.
+   *
+   * If user did not answer the question or did not view the resource, then status will be skipped.
+   * Values: correct / incorrect / skipped
+   *
+   * This value can be null for “start” event. Required for “stop” event.
+   *
+   * @property {String}
+   */
+  attemptStatus: Ember.computed("correct", "skipped", function () {
+    return this.get('correct') ? 'correct' : (this.get('skipped') ? 'skipped' : 'incorrect');
+  }),
+
+  /**
    * Indicates if the question was skipped, a result is skipped
    * if it has no answer and correct === false
    * @property {boolean}

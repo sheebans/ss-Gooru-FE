@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import Context from 'gooru-web/models/result/context';
+import SessionMixin from '../mixins/session';
 
 /**
  * @module
@@ -6,7 +8,7 @@ import Ember from 'ember';
  *
  * @augments Ember/Controller
  */
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(SessionMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -18,7 +20,13 @@ export default Ember.Controller.extend({
    */
   ratingService: Ember.inject.service("api-sdk/rating"),
 
-  // -------------------------------------------------------------------------
+  /**
+   * @dependency {Ember.Service} Service to rate a resource
+   */
+  eventsService: Ember.inject.service("api-sdk/events"),
+
+
+  // ------------------------------------------------------------------------
   // Attributes
 
 
@@ -182,7 +190,10 @@ export default Ember.Controller.extend({
     let controller = this;
     //setting submitted at, timeSpent is calculated
     questionResult.set("submittedAt", new Date());
-    return controller.saveResourceResult(questionResult);
+    let context = Context.create({
+      type: "stop"
+    });
+    return controller.saveResourceResult(questionResult, context);
   },
 
   /**
@@ -197,8 +208,11 @@ export default Ember.Controller.extend({
       //todo increase attempt
       resourceResult.set("startedAt", new Date());
     }
+    let context = Context.create({
+      eventType: "start"
+    });
 
-    return controller.saveResourceResult(resourceResult);
+    return controller.saveResourceResult(resourceResult, context);
   },
 
   /**
@@ -206,21 +220,33 @@ export default Ember.Controller.extend({
    * @param resourceResult
    * @returns {Promise.<boolean>}
    */
-  saveResourceResult: function(resourceResult){
+  saveResourceResult: function(resourceResult, context){
     let controller = this;
     let promise = Ember.RSVP.resolve(resourceResult);
     let save = controller.get("saveEnabled");
     if (save){
-      /*
-       TODO: implement
-       let onAir = this.get("onAir");
-       let submitted
-       promise = analyticsService.saveResourceResult(resourceResult).then(function(){
+      context.userId = controller.get('session.userId');
+      context.resourceId = "3a4c7cd2-a8e4-40f7-858c-3d34669bea1b";
+      context.collectionId = "4a63b373-0941-4dc2-a4b1-bc10bbba7bc6";
+      context.classId = "ed7c8831-5203-4ec6-872f-59ab079233a0";
+      context.parentEventId = "B6F57AE5-595A-4E6D-861F-393D92E48574";
+      context.resourceType = "resource";
+      context.courseId ="659703ac-38ef-46f1-89ea-00a80af0d92d";
+      context.unitId ="ddc0269c-36b0-41ea-bbaf-cb6b6c2c14e4";
+      context.lessonId = "b479f7cd-52af-4b41-a8e5-fbd4b899b099";
+      context.collectionType ="collection";
+
+       //TODO: implement
+       //let onAir = this.get("onAir");
+       //let submitted;
+       promise = this.get('eventsService').saveResourceResult(resourceResult, context).then(function(){
+         /*
          if (onAir){
-         return realTimeService.notifyResourceResult(resourceResult);
-         }
+         return eventsService.notifyResourceResult(resourceResult);
+         }*/
+         return resourceResult;
        });
-       */
+
     }
     return promise;
   },
@@ -233,15 +259,13 @@ export default Ember.Controller.extend({
     let collection = controller.get("collection");
     let assessmentResult = this.get("assessmentResult");
     return controller.submitPendingQuestionResults().then(function(){
-      /*
-       TODO: implement
-       let onAir = this.get("onAir");
-       return analyticsService.finishCollection(collection).then(function(){
-       if (onAir){
-       return realTimeService.notifyFinishCollection(collection);
-       }
-       });
-       */
+       //TODO: implement
+       //let onAir = this.get("onAir");
+       //return controller.get('eventsService').saveCollectionResult(collection).then(function(){
+       //if (onAir){
+       //return realTimeService.notifyFinishCollection(collection);
+       //}
+       //});
       assessmentResult.set("submittedAt", new Date());
       controller.set("showReport", true);
       return Ember.RSVP.resolve(collection);
@@ -257,15 +281,14 @@ export default Ember.Controller.extend({
     let promise = Ember.RSVP.resolve(controller.get("collection"));
 
     if (!assessmentResult.get("started")){
-      /*
-       TODO: implement
-       let onAir = this.get("onAir");
-       promise = analyticsService.startCollection(collection).then(function(){
-       if (onAir){
-       return realTimeService.notifyStartCollection(collection);
-       }
-       });
-       */
+
+       //TODO: implement
+       //let onAir = this.get("onAir");
+       //promise = this.get('eventsService').saveCollectionResult(collection, context).then(function(){
+       //if (onAir){
+       //return realTimeService.notifyStartCollection(collection);
+       //}
+       //});
 
       assessmentResult.set("startedAt", new Date());
     }
