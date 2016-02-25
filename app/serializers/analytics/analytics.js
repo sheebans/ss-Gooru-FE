@@ -76,8 +76,15 @@ export default Ember.Object.extend({
     }
   },
 
+  /**
+   * Answer object information
+   * @see gooru-web/utils/question/*
+   *
+   * @param {string|[]} answerObjects
+   * @returns {AnswerObject[]}
+   */
   normalizeAnswerObjects: function(answerObjects){
-    answerObjects = answerObjects === "N/A" ? [] : [answerObjects];
+    answerObjects = answerObjects === "N/A" ? [] : answerObjects;
     return answerObjects.map(function(answerObject){
       return AnswerObject.create(answerObject);
     });

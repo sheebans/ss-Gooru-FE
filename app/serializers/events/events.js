@@ -62,7 +62,7 @@ export default Ember.Object.extend({
       serialized.payLoadObject = {
         "questionType": resourceResult.get('question.questionType'),
         "attemptStatus": resourceResult.get('question.attemptStatus'),
-        "answerObject": userAnswer ? util.toAnswerObjects(userAnswer) : {},
+        "answerObject": userAnswer ? util.toJSONAnswerObjects(userAnswer) : {},
         "isStudent": true,
         "taxonomyIds": []
       };

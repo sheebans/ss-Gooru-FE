@@ -86,6 +86,19 @@ export default ResourceResult.extend({
    */
   answered: Ember.computed("userAnswer", function(){
     return this.get("userAnswer") !== null && this.get("userAnswer") !== undefined;
-  })
+  }),
+
+  toJSON: function() {
+    return {
+      gooruOId: this.get('questionId'),
+      score: this.get('score'),
+      reaction: this.get('reaction'),
+      timeSpent: this.get('timeSpent'),
+      resourceType: 'question',
+      questionType: 'MC',
+      answerObject: {}
+    };
+  }
+
 });
 

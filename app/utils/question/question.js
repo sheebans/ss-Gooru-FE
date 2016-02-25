@@ -124,6 +124,26 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Converts the model user answer into an answerObject format
+   * @param {*} userAnswer
+   * @return {AnswerObject[]}
+   */
+  toJSONAnswerObjects: function (userAnswer) {
+    let answerObjects = this.toAnswerObjects(userAnswer);
+    return answerObjects.map(function(answerObject){
+      return {
+        "text": answerObject.get("text"),
+        "status": answerObject.get("status"),
+        "order": answerObject.get("order"),
+        "answerId": answerObject.get("answerId"),
+        "skip": answerObject.get("skip")
+      }
+    });
+  },
+
+
+
+  /**
    * Converts an answerObject format to model userAnswer
    * @param {AnswerObject[]} answerObjects
    */

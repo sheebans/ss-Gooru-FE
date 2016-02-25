@@ -30,6 +30,9 @@ export default Ember.Controller.extend(SessionMixin, {
 
 
   // ------------------------------------------------------------------------
+  realTimeService: Ember.inject.service("api-sdk/real-time"),
+
+  // -------------------------------------------------------------------------
   // Attributes
 
 
@@ -214,6 +217,11 @@ export default Ember.Controller.extend(SessionMixin, {
     //setting submitted at, timeSpent is calculated
     questionResult.set("submittedAt", new Date());
     context.set("eventType", "stop");
+
+    //TODO Remove this example of how to call the notification for RT events.
+    //if (questionResult) {
+    //  controller.get('realTimeService').notifyResourceResult('class-for-pochita-as-teacher', '522f6827-f7dd-486f-8631-eba497e2d425', '0219090c-abe6-4a09-8c9f-343911f5cd86', questionResult);
+    //}
 
     return controller.saveResourceResult(questionResult, context);
   },
