@@ -1,6 +1,6 @@
-<li class="title">
-    <span class="truncate">
-      {{gru-icon name=(if isSelected "keyboard_arrow_up" "keyboard_arrow_down")}}
+<li class="title {{if performance.isUnitOrLesson "unit-lesson" "collection-assessment"}}">
+    <span class="truncate" class={{if isSelected "selected" ""}}>
+      {{#if performance.isUnitOrLesson}}{{gru-icon name=(if isSelected "keyboard_arrow_down" "keyboard_arrow_right")}}{{/if}}
       {{course-sections-prefix  index=index type=performance.type longName=false}}&colon;     {{performance.title}}
     </span>
   {{#if performance.isCollectionOrAssessment}}
@@ -17,20 +17,7 @@
 <li class='score'>
         {{#if performance.hasStarted}}
           {{#if performance.score}}
-            <div class="description">
-                <div class="radial-progress">
-                    <div class="circle">
-                        <div class="mask full">
-                            <div class="fill"></div>
-                        </div>
-                        <div class="mask half">
-                            <div class="fill"></div>
-                            <div class="fill fix"></div>
-                        </div>
-                    </div>
-                </div>
-                <p>{{performance.score}}%</p>
-            </div>
+              <span class="score-box" style="background-color: {{ gradeColor performance.score }}">{{performance.score}}%</span>
           {{else}}
             <p>{{t "gru-performance-summary.not-applicable"}}</p>
           {{/if}}

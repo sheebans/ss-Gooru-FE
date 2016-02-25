@@ -69,6 +69,12 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        .score-box{
+          padding: .5em .8em;
+          border-radius: 5px;
+          color: #fff;
+          display: inline-block;
+        }
       }
       &.completion {
         div{
@@ -138,10 +144,15 @@
         }
       }
       .truncate{
-        width:242px;
+        width:143px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+      }
+      &.unit-lesson{
+        .selected{
+          font-weight: bold;
+        }
       }
     }
 
