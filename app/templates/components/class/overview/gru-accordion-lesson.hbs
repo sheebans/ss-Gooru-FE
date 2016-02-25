@@ -45,7 +45,9 @@
     {{else}}
 
       {{#each visibleItems as |item index|}}
-        <li class="panel {{if item.isAssessment 'assessment' 'collection'}} submitted {{set-if-equal "selected" item.id currentResource}}">
+        <li class="panel {{if item.isAssessment 'assessment' 'collection'}}
+          {{if item.isSubmitted 'submitted'}}
+          {{set-if-equal "selected" item.id currentResource}}">
 
           <div class="location-marker">
             <div class="icon-wrapper">
