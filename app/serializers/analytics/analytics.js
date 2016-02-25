@@ -69,7 +69,7 @@ export default Ember.Object.extend({
 
         //fields only for student collection performance
         score: payload.score,
-        resourceType: type,
+        resourceType: payload.resourceType,
         attempts: payload.attempts,
         sessionId: payload.sessionId
       });
@@ -80,7 +80,7 @@ export default Ember.Object.extend({
     answerObjects = answerObjects === "N/A" ? [] : [answerObjects];
     return answerObjects.map(function(answerObject){
       return AnswerObject.create(answerObject);
-    })
+    });
 
 
   }

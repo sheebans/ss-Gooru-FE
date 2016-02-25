@@ -1,7 +1,5 @@
+import Ember from 'ember';
 import AssessmentResult from 'gooru-web/models/result/assessment';
-import QuestionResult from 'gooru-web/models/result/question';
-import ResourceResult from 'gooru-web/models/result/resource';
-
 export default Ember.Object.extend({
 
   normalizeRealTimeEvent: function(payload) {
