@@ -308,7 +308,8 @@ export default Ember.Controller.extend(SessionMixin, {
        //});
       assessmentResult.set("startedAt", new Date());
       context.set("eventType", "start");
-      return controller.get('eventsService').saveCollectionResult(assessmentResult, context);
+      //return controller.get('eventsService').saveCollectionResult(assessmentResult, context);
+      return promise;
     }
     return promise;
   },

@@ -30,7 +30,7 @@ export default Ember.Object.extend({
     let util = getQuestionUtil(question.get("questionType")).create({ question: question });
     let contextObject = serializer.getContextValues(context);
     contextObject.resourceType = context.get('resourceType');
-
+    let userAnswer = questionResult.get("userAnswer");
     return [{
       "eventId": questionResult.get('uuid'),
       "eventName": "collection.resource.play",
@@ -44,7 +44,7 @@ export default Ember.Object.extend({
       "payLoadObject": {
         "questionType": questionResult.get('question.type'),
         "attemptStatus": questionResult.get('question.attemptStatus'),
-        "answerObject": util.toAnswerObjects(questionResult.get("userAnswer")),
+        "answerObject": userAnswer ? util.toAnswerObjects(userAnswer) : {},
         "isStudent": true,
         "taxonomyIds": []
       }
