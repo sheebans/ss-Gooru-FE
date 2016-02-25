@@ -7,9 +7,16 @@
        aria-expanded="false"
        aria-controls="{{elementId}}-content"
       {{action "selectUnit" model.id}}>
-        <span class="title">{{course-sections-prefix  index=index type='unit' longName=true}}&colon; {{model.title}}</span>
+      <span
+          class="title">{{course-sections-prefix  index=index type='unit' longName=true}}&period;&nbsp;&nbsp;{{model.title}}</span>
     </a>
   </strong>
+
+  {{!-- TODO: Integrate with BE --}}
+  <span>
+    <b>17</b> Lessons
+  </span>
+
   {{gru-user-icons
   showOnlyNumbers=true
   users=model.users
@@ -40,7 +47,8 @@
         onSelectResource=(action 'selectResource')
         onSelectLesson=(action 'updateLesson')
         currentResource=currentResource
-        parsedLocation=parsedLocation }}
+        parsedLocation=parsedLocation
+        isTeacher=isTeacher }}
 
       {{else}}
         <li>{{t "common.contentUnavailable"}}</li>

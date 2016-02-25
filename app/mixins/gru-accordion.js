@@ -36,6 +36,11 @@ export default Ember.Mixin.create({
   isExpanded: false,
 
   /**
+   * @prop {Bool} isTeacher - is the accordion owner a teacher or not?
+   */
+  isTeacher: false,
+
+  /**
    * @prop {Ember.RSVP.Promise} items - children of the accordion
    * Will resolve to {Unit[] | Lesson[] | Collection[]}
    */
