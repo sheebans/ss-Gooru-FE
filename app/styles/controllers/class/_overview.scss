@@ -230,28 +230,3 @@
     }
   }
 }
-
-// TODO: Move this to a separate component?
-.gru-completion-chart {
-  $height: 40px;
-
-  position: relative;
-  width: 3.8em;
-  height: $height;
-
-  .charts.gru-x-bar-chart {
-    background-color: $dark-400;
-    height: $height;
-  }
-  > span {
-    font-size: $font-size-base;
-    color: $white;
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    line-height: $height;
-  }
-}

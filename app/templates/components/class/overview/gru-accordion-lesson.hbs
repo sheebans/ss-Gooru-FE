@@ -6,10 +6,10 @@
   {{else}}
 
   {{!-- TODO: Integrate with BE @see /app/components/class/overview/gru-accordion-unit.js#addUsersToItems --}}
-    <div class="gru-completion-chart">
-      {{ charts/gru-x-bar-chart data=model.completion }}
-      <span>{{model.completed}}/{{model.total}}</span>
-    </div>
+    {{ charts/gru-completion-chart
+    completed=model.completed
+    total=model.total }}
+
   {{/if}}
 
   <span class="panel-title">
