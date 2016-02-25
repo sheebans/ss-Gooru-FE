@@ -5,15 +5,21 @@ const ConfigEvent = Env['events'] || {};
 
 export default Ember.Object.extend({
 
+  /**
+   * Serializes a assessment result
+   * @param {AssessmentResult} assessment
+   * @param {Context} context
+   * @param {string} apiKey
+   * @returns {*[]}
+   */
   serializeCollection: function (assessment, context, apiKey) {
     let serializer = this;
-    let contextObject = serializer.getContextValues(context);
-    contextObject.clientSource = "web";
-    contextObject.totalQuestionsCount = serializer.get('totalQuestionsCount');
+    let totalResources = assessment.get("totalResources");
+    let contextObject = serializer.getContextValuesForCollection(context, totalResources);
     return [{
-      "eventId": assessment.get('uuid'),
+      "eventId": context.get('parentEventId'),
       "eventName": "collection.play",
-      "session": {"apiKey": apiKey, "sessionId": assessment.get('uuid')},
+      "session": {"apiKey": apiKey, "sessionId": context.get('sessionId')},
       "startTime": assessment.get('startedAt'),
       "endTime": assessment.get('submittedAt'),
       "user": {"gooruUId": context.get('userId')},
@@ -25,7 +31,7 @@ export default Ember.Object.extend({
   },
 
   /**
-   * Serialize a result
+   * Serializes a result
    * @param {ResourceResult} resourceResult
    * @param {Context} context
    * @param {string} apiKey
@@ -34,13 +40,13 @@ export default Ember.Object.extend({
   serializeResource: function (resourceResult, context, apiKey) {
     let serializer = this;
     let resource = resourceResult.get("resource");
-    let contextObject = serializer.getContextValues(context);
-    contextObject.resourceType = context.get('resourceType');
+    let resourceType = resource.get("isQuestion") ? 'question' : 'resource'
+    let contextObject = serializer.getContextValuesForResult(context, resource.get("id"), resourceType);
 
     let serialized = {
-      "eventId": resourceResult.get('uuid'),
+      "eventId": context.get('resourceEventId'),
       "eventName": "collection.resource.play",
-      "session": {"apiKey": apiKey, "sessionId": resourceResult.get('uuid')},
+      "session": {"apiKey": apiKey, "sessionId": context.get('sessionId')},
       "startTime": resourceResult.get('startedAt'),
       "endTime": resourceResult.get('submittedAt'),
       "user": {"gooruUId": context.get('userId')},
@@ -54,7 +60,7 @@ export default Ember.Object.extend({
       let util = getQuestionUtil(question.get("questionType")).create({question: question});
       let userAnswer = resourceResult.get("userAnswer");
       serialized.payLoadObject = {
-        "questionType": resourceResult.get('question.type'),
+        "questionType": resourceResult.get('question.questionType'),
         "attemptStatus": resourceResult.get('question.attemptStatus'),
         "answerObject": userAnswer ? util.toAnswerObjects(userAnswer) : {},
         "isStudent": true,
@@ -63,7 +69,6 @@ export default Ember.Object.extend({
     }
     else{
       serialized.payLoadObject = { //TODO looks for resource parameters
-        "attemptStatus": resourceResult.get('question.attemptStatus'),
         "isStudent": true,
         "taxonomyIds": []
       };
@@ -73,12 +78,13 @@ export default Ember.Object.extend({
 
   /**
    * Gets context values
-   * @param context
+   * @param {Context} context
+   * @param {string} resourceType question|resource
    * @returns {*}
    */
-  getContextValues: function (context) {
+  getContextValuesForResult: function (context, resourceId, resourceType) {
     return {
-      "contentGooruId": context.get('resourceId'),
+      "contentGooruId": resourceId,
       "parentGooruId": context.get('collectionId'),
       "classGooruId": context.get('classId'),
       "parentEventId": context.get('parentEventId'),
@@ -86,7 +92,29 @@ export default Ember.Object.extend({
       "courseGooruId": context.get('courseId'),
       "unitGooruId": context.get('unitId'),
       "lessonGooruId": context.get('lessonId'),
-      "collectionType": context.get('collectionType')
+      "collectionType": context.get('collectionType'),
+      "resourceType": resourceType,
+      "clientSource": "web"
+    };
+  },
+
+  /**
+   * Gets context values for collection
+   * @param {Context} context
+   * @param {number} questionCount
+   * @returns {*}
+   */
+  getContextValuesForCollection: function (context, questionCount) {
+    return {
+      "type": context.get('eventType'),
+      "contentGooruId": context.get('collectionId'),
+      "classGooruId": context.get('classId'),
+      "courseGooruId": context.get('courseId'),
+      "unitGooruId": context.get('unitId'),
+      "lessonGooruId": context.get('lessonId'),
+      "collectionType": context.get('collectionType'),
+      "questionCount": questionCount,
+      "clientSource": "web"
     };
   }
 

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import SessionMixin from '../mixins/session';
-
+import {generateUUID} from 'gooru-web/utils/utils';
 /**
  * @module
  * @typedef {Object} PlayerController
@@ -192,10 +192,6 @@ export default Ember.Controller.extend(SessionMixin, {
 
     let resourceResult = assessmentResult.getResultByResourceId(resourceId);
 
-    let context = controller.get("context");
-    context.set("resourceId", resourceId);
-    context.set("resourceType", resource.get("isQuestion") ? 'question' : 'resource');
-
     controller.startResourceResult(resourceResult).then(function(){
       controller.set("resourceResult", resourceResult);
       controller.get('ratingService').findRatingForResource(resource.get("id"))
@@ -234,6 +230,7 @@ export default Ember.Controller.extend(SessionMixin, {
     if (!resourceResult.get("pending")){ //new attempt
       //todo increase attempt
       resourceResult.set("startedAt", new Date());
+      context.set("resourceEventId", generateUUID()); //sets the new event id for this resource event
     }
     context.set("eventType", "start");
 

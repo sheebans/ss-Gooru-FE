@@ -32,9 +32,7 @@ export default PlayerRoute.extend({
     const lessonId = params.lessonId;
 
     const collection = this.get('collectionService').findById(collectionId);
-    const assessmentResult = this.get("performanceService").findAssessmentResultByCollectionAndStudent(collectionId, userId);
     const lesson = this.get('lessonService').findById(courseId, unitId, lessonId);
-
 
     const context = Context.create({
       userId: userId,
@@ -44,9 +42,10 @@ export default PlayerRoute.extend({
       courseId: courseId,
       classId: params.classId,
       unitId: unitId,
-      lessonId: lessonId,
-      totalQuestionsCount: collection.get("questionCount")
+      lessonId: lessonId
     });
+
+    const assessmentResult = this.get("performanceService").findAssessmentResultByCollectionAndStudent(collectionId, userId);
 
     return Ember.RSVP.hash({
       context: context,

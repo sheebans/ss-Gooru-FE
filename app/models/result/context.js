@@ -8,11 +8,6 @@ import Ember from 'ember';
 export default Ember.Object.extend({
 
   /**
-   * @property {string} resourceId - Playing resource UUID
-   */
-  resourceId: null,
-
-  /**
    * @property {string} collectionId - Playing collection / assessment UUID
    */
   collectionId: null,
@@ -21,6 +16,11 @@ export default Ember.Object.extend({
    * @property {string} parentGooruId - This event should be collection.play eventId for analytics to associate this event with collection.
    */
   parentEventId: null,
+
+  /**
+   * @property {string} sessionId - Session id for the assessment
+   */
+  sessionId: null,
 
   /**
    * @property {string} resourceEventId - Unique Id should be generated for every event from FE. This eventId should be same for start and stop event
@@ -38,11 +38,6 @@ export default Ember.Object.extend({
    * If resource started to play then start, Reached end page or summary page or moved to next resource  then stop
    */
   eventType: null,
-
-  /**
-   * @property {string} resourceType - Type of resource: resource or question
-   */
-  resourceType: null,
 
   /**
    * @property {string} courseId - Unique of course associated to the class. Can be null if play is outside context of class.
@@ -67,12 +62,6 @@ export default Ember.Object.extend({
   /**
    * @property {string} clientSource - Get Collection/Assessment API will return how many questions available inside assessments.
    */
-  clientSource: 0,
-
-  /**
-   * @property {number} totalQuestionsCount - Get Collection/Assessment API will return how many questions available inside assessments.
-   */
-  totalQuestionsCount: 0
-
+  clientSource: 0
 });
 

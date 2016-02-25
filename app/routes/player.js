@@ -55,17 +55,16 @@ export default Ember.Route.extend({
     const collectionId = params.collectionId;
     const resourceId = params.resourceId;
     const collection = this.get("collectionService").findById(collectionId);
-    const assessmentResult = (userId) ?
-      this.get("performanceService").findAssessmentResultByCollectionAndStudent(collectionId, userId) : null;
-
-
     const context = Context.create({
       userId: userId,
       collectionId: collectionId,
-      parentEventId: generateUUID(), //TODO is this comming from BE?
-      collectionType: collection.get("collectionType"),
-      totalQuestionsCount: collection.get("questionCount")
+      parentEventId: generateUUID(), //parent event id for all events in this session
+      collectionType: collection.get("collectionType")
     });
+
+    const assessmentResult = (userId) ?
+      this.get("performanceService").findAssessmentResultByCollectionAndStudent(collectionId, userId) : null;
+
 
     return Ember.RSVP.hash({
       collection: collection,
@@ -86,11 +85,14 @@ export default Ember.Route.extend({
     if (!assessmentResult){
       assessmentResult = AssessmentResult.create({
         totalAttempts: 1,
+        sessionId: generateUUID(), //sessionId for new assessment
         selectedAttempt: 1,
         resourceResults: Ember.A([])
       });
     }
     assessmentResult.merge(collection);
+
+    model.context.set("sessionId", assessmentResult.get("sessionId"));
 
     controller.set("context", model.context);
     controller.set("assessmentResult", assessmentResult);
