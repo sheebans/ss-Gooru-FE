@@ -90,7 +90,16 @@ export default QuestionComponent.extend({
   generateItems: function(){
     const component = this;
     const util = component.get("questionUtil");
-    component.set("items", util.getItems());
+    let items = util.getItems();
+
+    let userAnswer = component.get("userAnswer");
+    if (userAnswer){
+      items.forEach(function(item){
+        let selected = userAnswer.findBy("index", item.get("index"));
+        item.set("selected", selected !== undefined);
+      });
+    }
+    component.set("items", items);
   },
 
   /**

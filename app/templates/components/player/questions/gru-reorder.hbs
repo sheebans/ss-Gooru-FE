@@ -5,7 +5,7 @@
 
 <div class="answer-choices">
   <ul class="sortable {{if readOnly 'disabled'}}">
-    {{#each question.answers as |answer|}}
+    {{#each answers as |answer|}}
       <li data-id="{{answer.id}}">
         {{gru-icon name='menu'}}
         <div>{{{answer.text}}}</div>
