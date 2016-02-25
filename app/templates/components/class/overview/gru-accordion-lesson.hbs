@@ -1,14 +1,16 @@
 <div class="panel-heading" role="tab" id="{{elementId}}-heading">
 
-  {{!-- TODO: Integrate with BE // if teacher show the average grade
-  <span class="score" style="background-color: {{ gradeColor 94 }}">93%</span>
-  --}}
+  {{!-- TODO: Integrate with BE --}}
+  {{#if isTeacher}}
+    <span class="score" style="background-color: {{ gradeColor 93 }}">93%</span>
+  {{else}}
 
   {{!-- TODO: Integrate with BE @see /app/components/class/overview/gru-accordion-unit.js#addUsersToItems --}}
-  <div class="gru-completion-chart">
-    {{ charts/gru-x-bar-chart data=model.completion }}
-    <span>{{model.completed}}/{{model.total}}</span>
-  </div>
+    <div class="gru-completion-chart">
+      {{ charts/gru-x-bar-chart data=model.completion }}
+      <span>{{model.completed}}/{{model.total}}</span>
+    </div>
+  {{/if}}
 
   <span class="panel-title">
     <a class="title collapsed"
@@ -43,7 +45,7 @@
     {{else}}
 
       {{#each visibleItems as |item index|}}
-        <li class="panel {{item.collectionType}} submitted {{set-if-equal "selected" item.id currentResource}}">
+        <li class="panel {{if item.isAssessment 'assessment' 'collection'}} submitted {{set-if-equal "selected" item.id currentResource}}">
 
           <div class="location-marker">
             <div class="icon-wrapper">
