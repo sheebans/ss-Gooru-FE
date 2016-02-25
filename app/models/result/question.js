@@ -78,10 +78,9 @@ export default ResourceResult.extend({
       gooruOId: this.get('questionId'),
       score: this.get('score'),
       reaction: this.get('reaction'),
-      totalTimespent: this.get('timeSpent'),
-      type: 'question',
+      timeSpent: this.get('timeSpent'),
+      resourceType: 'question',
       questionType: 'MC',
-      answerStatus: this.get('correct') ? 'correct' : 'incorrect',
       answerObject: {}
     };
   }
