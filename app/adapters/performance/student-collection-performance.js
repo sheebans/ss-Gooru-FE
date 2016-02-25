@@ -1,4 +1,5 @@
 import ApplicationAdapter from '../application';
+import SessionMixin from 'gooru-web/mixins/session';
 
 export default ApplicationAdapter.extend({
 
@@ -6,7 +7,13 @@ export default ApplicationAdapter.extend({
    * @property {string} End-point URI
    */
   //namespace: '/api/nucleus-insights/v2',
-  namespace: '/mocked-api/insights/api/v2',
+  namespace: '/mocked-api/api/nucleus-insights/v2',
+
+  headers: Ember.computed('session.token', function() {
+    return {
+      'gooru-session-token': this.get('session.token')
+    };
+  }),
 
   /**
    * Builds the end-point URL for the queryRecord queryParam
@@ -14,7 +21,13 @@ export default ApplicationAdapter.extend({
    * @param query
    * @returns {string}
    */
-  urlForQueryRecord: function(query) {
+  queryRecord: function(query) {
+    const options = {
+      type: 'GET',
+      dataType: 'json',
+      headers: this.get('headers'),
+      data: {}
+    };
     const namespace = this.get('namespace');
     const contentId = query.contentId;
     const collectionType = query.collectionType;
@@ -32,8 +45,10 @@ export default ApplicationAdapter.extend({
     delete query.collectionType;
     delete query.userId;
 
+
     let queryParams = `classGooruId=${classId}&courseGooruId=${courseId}&unitGooruId=${unitId}&lessonGooruId=${lessonId}`;
-    return `${namespace}/${{collectionType}}/${contentId}/user/${userId}?${queryParams}`;
+    console.log(`${namespace}/${collectionType}/${contentId}/user/${userId}?${queryParams}`);
+    return Ember.$.ajax(`${namespace}/${collectionType}/${contentId}/user/${userId}?${queryParams}`, options);
 
   }
 

@@ -50,27 +50,43 @@ export default Ember.Route.extend({
   /**
    * @param {{ collectionId: string, resourceId: string }} params
    */
-  model(params) {
+  model:function(params) {
+    let route = this;
     const userId = this.get('session.userId');
     const collectionId = params.collectionId;
     const resourceId = params.resourceId;
-    const collection = this.get("collectionService").findById(collectionId);
-    const context = Context.create({
-      userId: userId,
-      collectionId: collectionId,
-      parentEventId: generateUUID(), //parent event id for all events in this session
-      collectionType: collection.get("collectionType")
-    });
+    const collectionPromise = this.get("collectionService").findById(collectionId);
 
-    const assessmentResult = (userId) ?
-      this.get("performanceService").findAssessmentResultByCollectionAndStudent(collectionId, userId) : null;
+    return collectionPromise.then(function(collection){
+      const context = Context.create({
+        userId: userId,
+        collectionId: collectionId,
+        parentEventId: generateUUID(), //parent event id for all events in this session
+        collectionType: collection.get("collectionType")
+      });
 
+      //if(userId){
+      //  route.get("performanceService").findAssessmentResultByCollectionAndStudent(context)
+      //    .then(function(assessmentResult){
+      //      return Ember.RSVP.hash({
+      //        collection: collection,
+      //        resourceId: resourceId,
+      //        assessmentResult: null,
+      //        context: context
+      //      });
+      //  });
+      //}else{
+      console.log(collection);
+        return Ember.RSVP.hash({
+          collection: collection,
+          resourceId: resourceId,
+          assessmentResult: null,
+          context: context
+        });
+      //}
 
-    return Ember.RSVP.hash({
-      collection: collection,
-      resourceId: resourceId,
-      assessmentResult: assessmentResult,
-      context: context
+    }).then(function(error){
+      console.log(error);
     });
   },
 
@@ -79,6 +95,7 @@ export default Ember.Route.extend({
    * @param {Collection} model
    */
   setupController(controller, model) {
+    console.log('model',model);
     const collection = model.collection;
     let assessmentResult = model.assessmentResult;
 

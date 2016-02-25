@@ -2,7 +2,7 @@ import Ember from 'ember';
 import AssessmentResult from 'gooru-web/models/result/assessment';
 export default Ember.Object.extend({
 
-  normalizeRealTimeEvent: function(payload) {
+  normalizeStudentCollection: function(payload) {
     const serializer = this;
     let collection = payload.collection;
     return AssessmentResult.create({

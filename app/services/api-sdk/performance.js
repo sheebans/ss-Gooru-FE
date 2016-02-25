@@ -14,22 +14,24 @@ export default Ember.Service.extend({
    * @param userId
    * @returns {Promise.<AssessmentResult>}
    */
-  findAssessmentResultByCollectionAndStudent: function (collectionId, userId) {
-    const response = null;
-
-    // TODO: Replace this with the correct implementation
-    function callToServerEndPoint(collectionId, userId) {
-      return new Ember.RSVP.Promise(function (resolve, reject) {
-        if (collectionId && userId) {
-          resolve(response);
-        } else {
-          reject('findAssessmentResultByCollectionAndStudent: missing parameters');
-        }
+  findAssessmentResultByCollectionAndStudent: function (context) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('studentCollectionAdapter').queryRecord({
+          collectionType: context.collectionType,
+          classId: context.classId,
+          courseId: context.courseId,
+          userId: context.userId,
+          unitId: context.unitId,
+          lessonId: context.lessonId,
+          contentId: context.collectionId
+      }).then(function(payload) {
+        const eventContent = service.get('studentCollectionPerformanceSerializer').normalizeStudentCollection(payload);
+        return eventContent;
+        //resolve(service.get('performance/studentCollectionPerformanceSerializer').normalizeResponse(payload));
+      }, function(error) {
+        reject(error);
       });
-    }
-
-    return DS.PromiseArray.create({
-      promise: callToServerEndPoint(collectionId, userId)
     });
   },
 
@@ -191,24 +193,6 @@ export default Ember.Service.extend({
       lessonId: lessonId
     }).then(function(collectionPerformances) {
       return service.matchStudentsWithPerformances(students, collectionPerformances);
-    });
-  },
-
-  findStudentPerformanceByCollection: function(userId, classId, courseId, unitId, lessonId, collectionType) {
-    const service = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('Adapter').queryRecord({
-        collectionType: collectionType,
-        classId: classId,
-        courseId: courseId,
-        userId: userId,
-        unitId: unitId,
-        lessonId: lessonId
-      }).then(function(events) {
-        resolve(service.get('performance/studentCollectionPerformanceSerializer').normalizeResponse(events));
-      }, function(error) {
-        reject(error);
-      });
     });
   }
 
