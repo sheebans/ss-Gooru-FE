@@ -109,7 +109,17 @@ export default Ember.Object.extend(Serializable, {
     }
 
     this.set('timeSpent', timeSpent);
-  })
+  }),
+
+  toJSON: function() {
+    return {
+      gooruOId: this.get('resourceId'),
+      reaction: this.get('reaction'),
+      timeSpent: this.get('timeSpent'),
+      resourceType: 'resource'
+    };
+  }
+
 
 
 });

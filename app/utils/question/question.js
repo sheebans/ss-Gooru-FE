@@ -125,20 +125,25 @@ export default Ember.Object.extend({
 
   /**
    * Converts the model user answer into an answerObject format
+   * @see gooru-web/utils/question/*
    * @param {*} userAnswer
-   * @return {AnswerObject[]}
+   * @return {{}|*[]}
    */
   toJSONAnswerObjects: function (userAnswer) {
-    let answerObjects = this.toAnswerObjects(userAnswer);
-    return answerObjects.map(function(answerObject){
-      return {
-        "text": answerObject.get("text"),
-        "status": answerObject.get("status"),
-        "order": answerObject.get("order"),
-        "answerId": answerObject.get("answerId"),
-        "skip": answerObject.get("skip")
-      }
-    });
+    let json = {};
+    if (userAnswer) {
+      let answerObjects = this.toAnswerObjects(userAnswer);
+      json = answerObjects.map(function (answerObject) {
+        return {
+          "text": answerObject.get("text"),
+          "status": answerObject.get("status"),
+          "order": answerObject.get("order"),
+          "answerId": answerObject.get("answerId"),
+          "skip": answerObject.get("skip")
+        };
+      });
+    }
+    return json;
   },
 
 

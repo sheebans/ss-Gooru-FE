@@ -40,7 +40,7 @@ export default Ember.Object.extend({
   serializeResource: function (resourceResult, context, apiKey) {
     let serializer = this;
     let resource = resourceResult.get("resource");
-    let resourceType = resource.get("isQuestion") ? 'question' : 'resource'
+    let resourceType = resource.get("isQuestion") ? 'question' : 'resource';
     let contextObject = serializer.getContextValuesForResult(context, resource.get("id"), resourceType);
 
     let serialized = {
@@ -62,7 +62,7 @@ export default Ember.Object.extend({
       serialized.payLoadObject = {
         "questionType": resourceResult.get('question.questionType'),
         "attemptStatus": resourceResult.get('question.attemptStatus'),
-        "answerObject": userAnswer ? util.toJSONAnswerObjects(userAnswer) : {},
+        "answerObject": util.toJSONAnswerObjects(userAnswer),
         "isStudent": true,
         "taxonomyIds": []
       };
