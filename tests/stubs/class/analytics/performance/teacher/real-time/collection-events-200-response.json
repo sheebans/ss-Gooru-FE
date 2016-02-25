@@ -8,10 +8,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -19,10 +18,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -30,10 +28,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -41,10 +38,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -52,10 +48,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -63,10 +58,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -74,10 +68,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -85,10 +78,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -96,10 +88,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         }
       ]
@@ -112,10 +103,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -123,10 +113,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -134,10 +123,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -145,10 +133,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -156,10 +143,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -167,10 +153,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -178,10 +163,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -189,10 +173,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -200,10 +183,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         }
       ]
@@ -216,10 +198,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -227,10 +208,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -238,10 +218,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -249,10 +228,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -260,10 +238,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -271,10 +248,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -282,10 +258,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -293,10 +268,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -304,10 +278,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         }
       ]
@@ -320,10 +293,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -331,10 +303,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -342,10 +313,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -353,10 +323,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -364,10 +333,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -375,10 +343,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -386,10 +353,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -397,10 +363,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -408,10 +373,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         }
       ]
@@ -424,10 +388,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -435,10 +398,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -446,10 +408,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -457,10 +418,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -468,10 +428,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -479,10 +438,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -490,10 +448,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -501,10 +458,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -512,10 +468,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         }
       ]
@@ -528,10 +483,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -539,10 +493,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -550,10 +503,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -561,10 +513,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -572,10 +523,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -583,10 +533,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -594,10 +543,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -605,10 +553,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         },
         {
@@ -616,10 +563,9 @@
           "views": 1,
           "score": 1,
           "reaction": 5,
-          "totalTimespent": 3600000,
-          "type": "question",
+          "timeSpent": 3600000,
+          "resourceType": "question",
           "questionType": "MC",
-          "answerStatus": "correct",
           "answerObject": {}
         }
       ]

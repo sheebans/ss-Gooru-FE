@@ -5,7 +5,7 @@
       "usageData": [
         {
           "lessonId": "07b70c9c-fc53-4399-939d-632ef81613ba",
-          "completionCount": 5,
+          "completedCount": 5,
           "scoreInPercentage": 65,
           "timeSpent": 89141,
           "attempts": 12,
@@ -13,7 +13,7 @@
         },
         {
           "lessonId": "efb08437-9f6e-448a-9e2f-1644b703394d",
-          "completionCount": 0,
+          "completedCount": 0,
           "scoreInPercentage": 10,
           "timeSpent": 32366,
           "attempts": 4,

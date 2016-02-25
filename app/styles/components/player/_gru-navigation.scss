@@ -49,6 +49,8 @@
         align-content: stretch;
         display:-webkit-flex;
         display: flex;
+        cursor: pointer;
+
         >*{
           color:white;
         }

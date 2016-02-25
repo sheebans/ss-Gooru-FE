@@ -12,7 +12,7 @@ test('normalizeQueryRecordResponse', function(assert) {
           {
             "assessmentId": "collection-id",
             "scoreInPercentage": 90,
-            "completionCount": 10,
+            "completedCount": 10,
             "totalCount": 20,
             "timeSpent": 10000,
             "attempts": 1,

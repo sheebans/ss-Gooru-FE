@@ -10,5 +10,6 @@ test('urlForQueryRecord method for unit class performance', function (assert) {
   };
   const url = adapter.urlForQueryRecord(query);
 
-  assert.equal(url, '/mocked-api/insights/api/v2/class/the-class-id/course/the-course-id/performance', 'Wrong url');
+  //assert.equal(url, '/mocked-api/insights/api/v2/class/the-class-id/course/the-course-id/performance', 'Wrong url');
+  assert.equal(url, '/api/nucleus-insights/v2/class/the-class-id/course/the-course-id/performance', 'Wrong url');
 });
