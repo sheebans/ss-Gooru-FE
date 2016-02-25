@@ -26,7 +26,7 @@ export default Ember.Service.extend({
     const service = this;
     const apiKey = ConfigEvent.eventAPIKey;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      const eventContent = service.get('eventSerializer').serializeCollection(assessment, context);
+      const eventContent = service.get('eventsSerializer').serializeCollection(assessment, context);
       service.get('collectionPlayAdapter').postData({
         body: eventContent,
         query: {

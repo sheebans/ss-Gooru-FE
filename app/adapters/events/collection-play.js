@@ -21,7 +21,7 @@ export default Ember.Object.extend(SessionMixin, {
       data: JSON.stringify(data.body)
     };
     const apiKey = data.query.apiKey;
-    const path = `/api/nucleus-insights/v1/event?apiKey=${apiKey}`;
+    const path = `/event?apiKey=${apiKey}`;
 
     return Ember.$.ajax(this.get('namespace') + path, options);
   }

@@ -31,11 +31,8 @@ export default ApplicationAdapter.extend({
     delete query.collectionType;
     delete query.userId;
 
-    if(collectionType == "assessment") {
-      return `${namespace}/assessment/${contentId}/user/${userId}`;
-    }else {
-      return `${namespace}/collection/${contentId}/user/${userId}?classGooruId=eca17cf9-54fe-4c78-b7f0-85d5641a9a69&courseGooruId=fcdbf316-56b3-4cc1-a8ac-4522ffc7e001&unitGooruId=dce40150-61b9-4b02-8b44-4cc0a51b1974&lessonGooruId=f2013b8b-cd99-4361-a5ed-6c292ac05705`;
-    }
+    return `${namespace}/${{collectionType}}/${contentId}/user/${userId}?classGooruId=fe-4c78-b7f0-85d5641a9a69&courseGooruId=fcdbf316-56b3-4cc1-a8ac-4522ffc7e001&unitGooruId=dce40150-61b9-4b02-8b44-4cc0a51b1974&lessonGooruId=f2013b8b-cd99-4361-a5ed-6c292ac05705`;
+
   }
 
 });

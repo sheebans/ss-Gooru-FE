@@ -13,7 +13,6 @@ export default Ember.Object.extend({
       resourceId: collection.gooruOId,
       timeSpent: collection.timeSpent,
       views: collection.views,
-      resourceType: "collection",
       resourceResults: serializer.normalizeResourceResults(payload.resources)
     });
   }

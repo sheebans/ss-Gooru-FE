@@ -40,17 +40,15 @@ export default Ember.Object.extend({
   },
 
   normalizeResourceResult: function(payload) {
-    let type = payload.type || payload.resourceType;
-    let timeSpent = payload.totalTimespent || payload.timeSpent;
     let answerObjects = this.normalizeAnswerObjects(payload.answerObjects);
-    if (type === 'question') {
+    if (payload.resourceType && payload.resourceType === 'question') {
       let util = getQuestionUtil(payload.questionType).create();
 
       return QuestionResult.create({
         //Commons fields for real time and student collection performance
         resourceId: payload.gooruOId,
         reaction: payload.reaction,
-        timeSpent: timeSpent,
+        timeSpent: payload.timeSpen,
         userAnswer: util.toUserAnswer(answerObjects),
 
         //fields only for real time
@@ -58,7 +56,7 @@ export default Ember.Object.extend({
 
         //fields only for student collection performance
         score: payload.score,
-        resourceType: type,
+        resourceType: payload.resourceType,
         attempts: payload.attempts,
         sessionId: payload.sessionId
       });
@@ -67,7 +65,7 @@ export default Ember.Object.extend({
         //Commons fields for real time and student collection performance
         resourceId: payload.gooruOId,
         reaction: payload.reaction,
-        timeSpent: timeSpent,
+        timeSpent: payload.timeSpent,
 
         //fields only for student collection performance
         score: payload.score,
