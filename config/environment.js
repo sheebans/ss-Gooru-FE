@@ -63,7 +63,7 @@ module.exports = function (environment) {
   };
 
   ENV['real-time'] = {
-    webSocketUrl: 'http://localhost:8080/realtime'
+    webSocketUrl: 'http://localhost:4200/ws/realtime'
   };
 
   if (environment === 'development') {
@@ -76,7 +76,7 @@ module.exports = function (environment) {
       'default-src': "'none'",
       'script-src': "'self'",
       'font-src': "'self' https://fonts.gstatic.com",
-      'connect-src': "'self' http://localhost:8882 http://qa.gooru.org http://192.168.1.62:8080",
+      'connect-src': "'self' http://localhost:4200 ws://localhost:4200 http://localhost:8882 http://qa.gooru.org",
       'img-src': "'self' data: http://qacdn.gooru.org http://profile-images.goorulearning.org.s3.amazonaws.com",
       'style-src': "'self' 'unsafe-inline' https://fonts.googleapis.com",
       'media-src': "'self'"
