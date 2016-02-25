@@ -130,7 +130,7 @@ test('Fill in the blanks layout - read only', function(assert) {
 });
 
 test('Fill in the blanks layout - with user answer', function(assert) {
-  assert.expect(1);
+  assert.expect(3);
   const question = Ember.Object.create({
     "id": "569906aacea8416665209d53",
     questionType: 'FIB',
@@ -148,7 +148,8 @@ test('Fill in the blanks layout - with user answer', function(assert) {
   });
 
   this.set('question', question);
-  this.render(hbs`{{player/questions/gru-fib question=question userAnswer=['amarillo', 'gris']}}`);
+  this.set('userAnswer', ['amarillo', 'gris']);
+  this.render(hbs`{{player/questions/gru-fib question=question userAnswer=userAnswer}}`);
 
   var $component = this.$(); //component dom element
   assert.equal($component.find(".fib-answers input").length,2, "Incorrect number of inputs");
