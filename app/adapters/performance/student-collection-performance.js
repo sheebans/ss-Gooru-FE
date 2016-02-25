@@ -22,6 +22,7 @@ export default ApplicationAdapter.extend({
     const lessonId = query.lessonId;
     const userId = query.userId;
     const classId = query.classId;
+    const courseId = query.courseId;
 
     delete query.classId;
     delete query.courseId;
