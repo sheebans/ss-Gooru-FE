@@ -22,6 +22,10 @@ export default Ember.Route.extend({
    * @type UnitService
    */
   unitService: Ember.inject.service('api-sdk/unit'),
+  /**
+   * @type AnalyticsService
+   */
+  analyticsService: Ember.inject.service('api-sdk/analytics'),
 
 
   // -------------------------------------------------------------------------
@@ -36,24 +40,42 @@ export default Ember.Route.extend({
 
   model: function(params) {
 
+    const route = this;
     const classModel = this.modelFor('class');
-    const lessonId = params.lessonId;
-    const unitId = params.unitId;
-    const collectionId = params.collectionId;
+    const classId = this.paramsFor('class').classId;
     const courseId = classModel.class.get('course');
+    const unitId = params.unitId;
+    const lessonId = params.lessonId;
+    const collectionId = params.collectionId;
 
-    const collectionService = this.get("collectionService");
-    const collection = collectionService.findById(collectionId);
     const unit = this.get('unitService').findById(courseId, unitId);
     const lesson = this.get('lessonService').findById(courseId, unitId, lessonId);
 
+    //const collection =  this.get('collectionService').findById(collectionId);
+    return this.get('collectionService')
+      .findById(collectionId)
+      .then(function(collection) {
+        const collectionType = collection.get('collectionType');
+        return route.get('analyticsService')
+          .findResourcesByCollection(classId, courseId, unitId, lessonId, collectionId, collectionType)
+          .then(function(userResourcesResults) {
+            return Ember.RSVP.hash({
+              unit: unit,
+              lesson: lesson,
+              collection: collection,
+              userResults: userResourcesResults
+            });
+          });
+      });
+
+    /*
     return Ember.RSVP.hash({
       unit: unit,
       lesson: lesson,
       collection: collection,
       userResults: Ember.A([]) //todo integrate with BE
     });
-
+    */
   },
   /**
    * Set all controller properties from the model

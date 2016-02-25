@@ -11,7 +11,7 @@ test('normalizeQueryRecordResponse', function(assert) {
         "usageData": [
           {
             "unitId": "31886eac-f998-493c-aa42-016f53e9fa88",
-            "completionCount": 5,
+            "completedCount": 5,
             "scoreInPercentage": 80,
             "timeSpent": 121507,
             "attempts": 16,
@@ -19,7 +19,7 @@ test('normalizeQueryRecordResponse', function(assert) {
           },
           {
             "unitId": "7deebd55-1976-40a2-8e46-3b8ec5b6d388",
-            "completionCount": 3,
+            "completedCount": 3,
             "scoreInPercentage": 55,
             "timeSpent": 215122,
             "attempts": 7,
@@ -27,7 +27,7 @@ test('normalizeQueryRecordResponse', function(assert) {
           },
           {
             "unitId": "21654d76-45e7-45e9-97ab-5f96a14da135",
-            "completionCount": 3,
+            "completedCount": 3,
             "scoreInPercentage": 55,
             "timeSpent": 215122,
             "attempts": 7,
@@ -35,7 +35,7 @@ test('normalizeQueryRecordResponse', function(assert) {
           },
           {
             "unitId": "c1f810a2-c87f-48f5-a899-0d9753383042",
-            "completionCount": 3,
+            "completedCount": 3,
             "scoreInPercentage": 55,
             "timeSpent": 215122,
             "attempts": 7,
@@ -43,7 +43,7 @@ test('normalizeQueryRecordResponse', function(assert) {
           },
           {
             "unitId": "dfc99db4-d331-4733-ac06-35358cee5c64",
-            "completionCount": 3,
+            "completedCount": 3,
             "scoreInPercentage": 55,
             "timeSpent": 215122,
             "attempts": 7,
