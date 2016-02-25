@@ -32,7 +32,7 @@ export default Ember.Object.extend(SessionMixin, {
   getData: function(query) {
     const options = {
       type: 'GET',
-      dataType: 'application/json',
+      dataType: 'json',
       headers: this.get('headers'),
       data: {}
     };
