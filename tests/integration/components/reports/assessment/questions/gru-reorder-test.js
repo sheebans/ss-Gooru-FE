@@ -10,6 +10,7 @@ moduleForComponent('reports/assessment/questions/gru-reorder', 'Integration | Co
 test('Reoder Question - Show Correct Answer', function (assert) {
 
   var question = Ember.Object.create({
+    questionType: "HT_RO",
     answers: Ember.A([
       Ember.Object.create({ id: "crc", text:"Costa Rica", order: 2 }),
       Ember.Object.create({ id: "bra", text:"Brasil", order: 3 }),
@@ -44,6 +45,7 @@ test('Reoder Question - Show Correct Answer', function (assert) {
 test('Reoder Question - User answer correct', function (assert) {
 
   var question = Ember.Object.create({
+    questionType: "HT_RO",
     answers: Ember.A([
       Ember.Object.create({ id: "crc", text:"Costa Rica", order: 2 }),
       Ember.Object.create({ id: "bra", text:"Brasil", order: 3 }),
@@ -79,6 +81,7 @@ test('Reoder Question - User answer correct', function (assert) {
 test('Reoder Question - User answer all incorrect', function (assert) {
 
   var question = Ember.Object.create({
+    questionType: "HT_RO",
     answers: Ember.A([
       Ember.Object.create({ id: "crc", text:"Costa Rica", order: 2 }),
       Ember.Object.create({ id: "bra", text:"Brasil", order: 3 }),
@@ -114,6 +117,7 @@ test('Reoder Question - User answer all incorrect', function (assert) {
 test('Reoder Question - User answer some incorrect', function (assert) {
 
   var question = Ember.Object.create({
+    questionType: "HT_RO",
     answers: Ember.A([
       Ember.Object.create({ id: "crc", text:"Costa Rica", order: 2 }),
       Ember.Object.create({ id: "bra", text:"Brasil", order: 3 }),

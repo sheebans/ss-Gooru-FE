@@ -13,21 +13,40 @@
 
   .gru-two-tier-header-table {
     .answer-correct, .answer-incorrect {
-      font-size: 2.2rem;
+      i {
+        display: block;
+        line-height: 28px;
+      }
     }
     .answer-correct {
-      color: $brand-success;
+      background-color: $brand-success;
     }
     .answer-incorrect {
-      color: $brand-incorrect;
+      background-color: $brand-incorrect;
     }
+    .answer-undefined {
+      background-color: $light-100;
+    }
+    table tr.data {
+      th {
+        max-width: 12rem;
 
-    table tr.data th {
-      max-width: 12rem;
-
-      span {
-        display: block;
-        @include text-overflow();
+        span {
+          display: block;
+          @include text-overflow();
+        }
+      }
+      td {
+        .score {
+          border-radius: 4px;
+          text-align: center;
+          width: 68px;
+          height: 43px;
+          display: block;
+          color: $white;
+          margin: 0 auto;
+          padding: 7px;
+        }
       }
     }
   }

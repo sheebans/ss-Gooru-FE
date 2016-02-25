@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import {
   alphabeticalStringSort,
-  formatTimeInSeconds,
+  formatTime,
   getAnswerResultIcon,
+  getScoreString,
   getReactionIcon
   } from 'gooru-web/utils/utils';
 import {
@@ -53,7 +54,7 @@ export default Ember.Component.extend({
      * @param {string} studentId
      */
     selectStudent: function (studentId) {
-      Ember.Logger.debug('Student with ID: ' + studentId + ' was selected');
+      this.get('onSelectStudent')(studentId);
     }
 
   },
@@ -83,7 +84,6 @@ export default Ember.Component.extend({
    *
    * Each question object will consist of:
    * - label: visual representation of the header
-   * - order: order of the header with respect to the others
    * - value: internal header identifier
    *
    * The questions will be ordered in the array in ascending order per the order value
@@ -91,22 +91,22 @@ export default Ember.Component.extend({
   assessmentQuestions: Ember.computed('assessment.resources.[]', function () {
     const labelPrefix = this.get('i18n').t('reports.gru-table-view.first-tier-header-prefix').string;
 
-    var questions = this.get('assessment.resources').map(function (question) {
-      return {
-        value: question.get("id"),
-        order: question.get("order"), //TODO, some question collections don't start at 1
-        label: labelPrefix + question.get("order")
-      };
-    });
-    // Add column used for showing totals
-    questions.push({
+    var questions = this.get('assessment.resources')
+      .sortBy('order')
+      .map(function (question, index) {
+        return {
+          value: question.get("id"),
+          label: labelPrefix + (index + 1)
+        };
+      });
+
+    // Add column used for showing totals at the beginning of the array
+    questions.unshift({
       value: -1,
-      order: -1,
       label: this.get('i18n').t('reports.gru-table-view.totals').string
     });
-    return questions.sort(function (a, b) {
-      return a.order - b.order;
-    });
+
+    return questions;
   }),
 
   /**
@@ -273,9 +273,6 @@ export default Ember.Component.extend({
    * @return {Object[]}
    */
   initQuestionProperties: function () {
-    function scoreString(value) {
-      return (typeof value === "number") ? value + '%' : '';
-    }
 
     return [
       Ember.Object.create({
@@ -288,7 +285,7 @@ export default Ember.Component.extend({
         visible: true,
         renderFunction: getAnswerResultIcon,
         aggregateFunction: correctPercentage,
-        aggregateRenderFunction: scoreString
+        aggregateRenderFunction: getScoreString
       }),
       Ember.Object.create({
         filter: {
@@ -296,7 +293,7 @@ export default Ember.Component.extend({
         },
         label: this.get('i18n').t('reports.gru-table-view.study-time').string,
         value: 'timeSpent',
-        renderFunction: formatTimeInSeconds,
+        renderFunction: formatTime,
         aggregateFunction: totalTimeSpent
       }),
       Ember.Object.create({
@@ -317,7 +314,7 @@ export default Ember.Component.extend({
    */
   initStudentsHeader: function () {
     return {
-      label: this.get('i18n').t('reports.gru-table-view.name').string,
+      label: this.get('i18n').t('reports.gru-table-view.student').string,
       value: 'fullName',
       sortFunction: alphabeticalStringSort
     };

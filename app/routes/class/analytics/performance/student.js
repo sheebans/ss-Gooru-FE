@@ -71,10 +71,15 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      * Open the player with the specific collection/assessment
      *
      * @function actions:playItem
+     * @param {string} unitId - Identifier for an unit
+     * @param {string} lessonId - Identifier for a lesson
      * @param {string} collectionId - Identifier for a collection or assessment
      */
-    playResource: function (collectionId) {
-      this.transitionTo('player', collectionId);
+    playResource: function (unitId, lessonId, collectionId) {
+      const currentClass = this.modelFor('class').class;
+      const classId = currentClass.get("id");
+      const courseId = currentClass.get("course");
+      this.transitionTo('context-player', classId, courseId, unitId, lessonId, collectionId);
     }
   }
 

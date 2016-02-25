@@ -11,7 +11,7 @@ test('normalizeQueryRecordResponse', function(assert) {
         "usageData": [
           {
             "lessonId": "27f0bc24-c2b5-40d8-bb8f-e6ec939ad553",
-            "completionCount": 5,
+            "completedCount": 5,
             "scoreInPercentage": 65,
             "timeSpent": 89141,
             "attempts": 12,
@@ -19,7 +19,7 @@ test('normalizeQueryRecordResponse', function(assert) {
           },
           {
             "lessonId": "40fe7ec4-261f-43aa-882b-e678fc754256",
-            "completionCount": 0,
+            "completedCount": 0,
             "scoreInPercentage": 0,
             "timeSpent": 32366,
             "attempts": 4,
@@ -27,7 +27,7 @@ test('normalizeQueryRecordResponse', function(assert) {
           },
           {
             "lessonId": "5c9e8048-493a-489c-89e1-80be13c4bed0",
-            "completionCount": 0,
+            "completedCount": 0,
             "scoreInPercentage": 0,
             "timeSpent": 32366,
             "attempts": 4,
@@ -35,7 +35,7 @@ test('normalizeQueryRecordResponse', function(assert) {
           },
           {
             "lessonId": "7cf4a8ec-adec-4b27-815b-6fa4bea9fd97",
-            "completionCount": 0,
+            "completedCount": 0,
             "scoreInPercentage": 0,
             "timeSpent": 32366,
             "attempts": 4,

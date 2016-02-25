@@ -1,5 +1,5 @@
-//import DS from "ember-data";
 import Ember from "ember";
+import Serializable from 'gooru-web/mixins/serializable';
 
 /**
  * Model for the status of a resource after it has been viewed by a user.
@@ -7,7 +7,7 @@ import Ember from "ember";
  * @typedef {Object} ResourceResult
  *
  */
-export default Ember.Object.extend({
+export default Ember.Object.extend(Serializable, {
 
   /**
    * @property {number} reaction - Value of the reaction the user had towards the question

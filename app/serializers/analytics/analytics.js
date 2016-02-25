@@ -38,19 +38,20 @@ export default Ember.Object.extend({
   },
 
   normalizeResourceResult: function(payload) {
-    if (payload.type && payload.type === 'question') {
+    if (payload.resourceType && payload.resourceType === 'question') {
       return QuestionResult.create({
         resourceId: payload.gooruOId,
         reaction: payload.reaction,
-        timeSpent: payload.totalTimespent,
-        correct: payload.answerStatus === 'correct',
+        timeSpent: payload.timeSpent,
+        correct: payload.score > 0,
+        score: payload.score,
         userAnswer: null
       });
     } else {
       return ResourceResult.create({
         resourceId: payload.gooruOId,
         reaction: payload.reaction,
-        timeSpent: payload.totalTimespent
+        timeSpent: payload.timeSpent
       });
     }
   }

@@ -4,7 +4,7 @@
       "userUid": "6f337b1c-0b0d-49b3-8314-e279181aeddf",
       "usageData":[
         {
-          "completionCount": 10,
+          "completedCount": 10,
           "collectionId": "f83f6575-abc0-45d1-91c7-b5406051c12a",
           "scoreInPercentage": 90,
           "timeSpent": 130339,
@@ -12,7 +12,7 @@
           "totalCount": 20
         },
         {
-          "completionCount": 10,
+          "completedCount": 10,
           "collectionId": "f0087496-cbcd-4e94-96ee-d1a6e4a70671",
           "scoreInPercentage": 90,
           "timeSpent": 130339,

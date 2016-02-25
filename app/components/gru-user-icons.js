@@ -27,18 +27,13 @@ export default Ember.Component.extend({
   // Events
   setup: Ember.on('didInsertElement', function() {
     const viewMoreIn = (this.get('viewMoreIn') === 'modal') ? 'modal' : 'tooltip';
-
-    this.addCustomStyles();
-
-    if (viewMoreIn === 'modal') {
-      this.setupModal();
-    } else {
-      this.setupTooltip();
+    if(!this.get('showOnlyNumbers')){
+      if (viewMoreIn === 'modal') {
+        this.setupModal();
+      } else {
+        this.setupTooltip();
+      }
     }
-  }),
-
-  keepCustomStyles: Ember.on('didUpdate', function() {
-    this.addCustomStyles();
   }),
 
   cleanUp: Ember.on('willDestroyElement', function() {
@@ -126,6 +121,18 @@ export default Ember.Component.extend({
    */
   viewThreshold: 3,
 
+  /**
+   * @prop {Bool} showOnlyNumbers - Shoy only the number of users
+   */
+  showOnlyNumbers:false,
+
+  /**
+   * @prop {Number} totalUsers - Number of total users
+   */
+  totalUsers: Ember.computed('usersSorted.length', function() {
+    return this.get('usersSorted.length');
+  }),
+
   // -------------------------------------------------------------------------
   // Observers
 
@@ -141,17 +148,6 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-  addCustomStyles: function() {
-    var items = this.$('.first-view .item');
-    var itemsLen = items.length;
-
-    for (let i = 0; i < itemsLen; i++) {
-      let zIndex = itemsLen - i;
-      let left = (itemsLen - 1 - i) * 12;
-
-      items.eq(i).attr('style', `z-index: ${zIndex}; left: ${left}px;`);
-    }
-  },
 
   setupTooltip: function() {
     const component = this;
