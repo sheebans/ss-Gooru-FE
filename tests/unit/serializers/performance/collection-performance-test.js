@@ -10,7 +10,7 @@ test('normalizeQueryRecordResponse', function(assert) {
         "userUid": "6f337b1c-0b0d-49b3-8314-e279181aeddf",
         "usageData":[
           {
-            "completionCount": 10,
+            "completedCount": 10,
             "collectionId": "88c8c296-9b25-4ca2-80f8-949076a48f99",
             "scoreInPercentage": 90,
             "timeSpent": 130339,
@@ -18,7 +18,7 @@ test('normalizeQueryRecordResponse', function(assert) {
             "totalCount": 20
           },
           {
-            "completionCount": 0,
+            "completedCount": 0,
             "collectionId": "d26f086a-01d5-4b27-b140-cf8b8e0aee78",
             "scoreInPercentage": 0,
             "timeSpent": 0,
