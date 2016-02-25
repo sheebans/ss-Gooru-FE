@@ -32,6 +32,7 @@
       -webkit-align-self: auto;
       align-self: auto;
       &.title{
+        margin-right: 10px;
         -webkit-flex-grow: 4;
         flex-grow: 4;
         @include respond-to(xs){
@@ -51,11 +52,11 @@
           display: -webkit-flex;
           display: flex;
         }
+
       }
 
     }
     li{
-      height: $performance-circle-size;
       @include respond-to(xs){
         display: none;
       }
@@ -135,6 +136,12 @@
             }
           }
         }
+      }
+      .truncate{
+        width:242px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
 
