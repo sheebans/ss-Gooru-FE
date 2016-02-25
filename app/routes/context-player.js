@@ -25,33 +25,37 @@ export default PlayerRoute.extend({
   // Methods
 
   model(params) {
+    console.log(params);
+    let route = this;
     const userId = this.get('session.userId');
     const collectionId = params.collectionId;
     const courseId = params.courseId;
     const unitId = params.unitId;
     const lessonId = params.lessonId;
 
-    const collection = this.get('collectionService').findById(collectionId);
+    const collectionPromise = this.get('collectionService').findById(collectionId);
     const lesson = this.get('lessonService').findById(courseId, unitId, lessonId);
+    collectionPromise.then(function(collection){
+      console.log(collection.get("collectionType"));
+      const context = Context.create({
+        userId: userId,
+        collectionId: collectionId,
+        parentEventId: generateUUID(), //TODO is this comming from BE?
+        collectionType: collection.get("collectionType"),
+        courseId: courseId,
+        classId: params.classId,
+        unitId: unitId,
+        lessonId: lessonId
+      });
 
-    const context = Context.create({
-      userId: userId,
-      collectionId: collectionId,
-      parentEventId: generateUUID(), //TODO is this comming from BE?
-      collectionType: collection.get("collectionType"),
-      courseId: courseId,
-      classId: params.classId,
-      unitId: unitId,
-      lessonId: lessonId
-    });
+      //const assessmentResult = route.get("performanceService").findAssessmentResultByCollectionAndStudent(context);
 
-    const assessmentResult = this.get("performanceService").findAssessmentResultByCollectionAndStudent(collectionId, userId);
-
-    return Ember.RSVP.hash({
-      context: context,
-      collection: collection,
-      assessmentResult: assessmentResult,
-      lesson: lesson
+      return Ember.RSVP.hash({
+        context: context,
+        collection: collection,
+        assessmentResult: null,
+        lesson: lesson
+      });
     });
   },
 
