@@ -76,7 +76,7 @@
       .panel-title {
         > a {
           display: inline-block;
-          max-width: 75%;
+          max-width: 63%;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -98,12 +98,28 @@
 
         > .panel-title {
           padding-right: 15px;
-          border-right: 1px solid $hr-border;
           font-size: $font-size-h4;
           font-weight: normal;
 
+          @media (min-width: $screen-sm) {
+            border-right: 1px solid $hr-border;
+          }
+
+          > a {
+            display: inline-block;
+            max-width: 80%;
+            line-height: 1.2;
+            @include text-overflow();
+          }
+
           + span {
-            padding-left: 15px;
+            display: none;
+
+            @media (min-width: $screen-sm) {
+              display: inline;
+              padding-left: 15px;
+              vertical-align: 6px;
+            }
           }
         }
 
