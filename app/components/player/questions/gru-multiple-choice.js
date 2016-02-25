@@ -44,11 +44,7 @@ export default QuestionComponent.extend({
 
   // -------------------------------------------------------------------------
   // Properties
-  /**
-   * @property {string} user answer
-   * @see gooru-web/utils/question/multiplce-choice.js
-   */
-  userAnswer: null
+
   // -------------------------------------------------------------------------
   // Observers
 
