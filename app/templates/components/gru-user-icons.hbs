@@ -10,7 +10,7 @@
       {{#each firstUsers as |entity index|}}
           <li class="item user {{if entity.isActive 'active' ''}}">
               <img class="img-circle name-{{index}}" src="{{entity.user.avatarUrl}}" title="{{entity.user.fullName}}" />
-            <span class="user-name">{{truncate text=entity.user.firstName maxLength=8}}</span>
+            <span class="user-name">{{truncate text=entity.user.firstName maxLength=10}}</span>
           </li>
       {{/each}}
 

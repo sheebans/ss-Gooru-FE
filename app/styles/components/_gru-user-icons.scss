@@ -27,6 +27,7 @@
     > .user-name {
       font-size: $font-size-xsmall;
       line-height: 1.3;
+      text-align: center;
     }
 
     &.num-left {
@@ -37,6 +38,10 @@
       line-height: $profile-image-height - 2px;
       background-color: $item-background;
       color:$white;
+    }
+
+    &.user {
+      width: 60px;
     }
 
     &.active {
