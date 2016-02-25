@@ -10,13 +10,20 @@
   $collection-icon-size: 48px;
 
   .fixed {
+    padding: 0 20px;
+
+    @media (min-width: $screen-sm) {
+      padding: 0 60px;
+    }
+
     @media (min-width: $screen-md) {
       position: fixed;
-      width: 75%;
+      width: 83%;
       left: 0;
       top: 50px;
-      margin-left: 25%;
+      margin-left: 22%;
       z-index: 10;
+      padding: 0;
     }
 
     .overview-header{
@@ -34,21 +41,29 @@
     .locate,
     .edit-content {
       float: right;
-      margin: 36px 0;
-      span i{
-        vertical-align: middle;
-        padding: 0 5px 0 0;
+      margin-top: 44px;
+
+      .gru-icon {
+        display: none;
+
+        @media (min-width: $screen-sm) {
+          display: inline;
+          vertical-align: middle;
+          padding: 0 5px 0 0;
+        }
       }
     }
   }
 
   .gru-accordion-course {
-    @media (min-width: $screen-md) {
-      padding: 15px 93px 50px 93px;
+    padding: 0 20px;
+
+    @media (min-width: $screen-sm) {
+      padding: 15px 60px 50px 60px;
     }
 
     @media (min-width: $screen-md) {
-      padding-top: $overview-header + 5px;
+      padding-top: 80px;
     }
 
     .panel + .panel {
@@ -74,7 +89,7 @@
     }
 
     .gru-accordion-unit {
-      padding: 40px 10px 0 10px;
+      padding: 40px 0 0 0;
 
       .unit {
         border-bottom: 1px solid $hr-border;
@@ -111,6 +126,11 @@
           background-color: $white;
           box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.10);
           border-radius: 5px;
+
+          > .gru-completion-chart {
+            display: inline-block;
+            vertical-align: middle;
+          }
 
           > .panel-title .title {
             font-size: $font-size-large;
@@ -150,8 +170,12 @@
 
           .panel-heading {
             border-bottom: 1px solid $gray-lighter;
-            padding: 0 8px 5px 0;
+            padding: 0 20px 5px 0;
             margin: 0;
+
+            @media (min-width: $screen-sm) {
+              padding-right: 8px;
+            }
 
             > i {
               font-size: $collection-icon-size;
@@ -164,6 +188,12 @@
             .panel-title {
               font-size: $font-size-base;
               margin-left: 6%;
+
+              > a {
+                @media (min-width: $screen-sm) {
+                  max-width: 27%;
+                }
+              }
             }
 
             .gru-user-icons .first-view.clickable {
@@ -182,5 +212,30 @@
         display: inline-block;
       }
     }
+  }
+}
+
+// TODO: Move this to a separate component?
+.gru-completion-chart {
+  $height: 40px;
+
+  position: relative;
+  width: 3.8em;
+  height: $height;
+
+  .charts.gru-x-bar-chart {
+    background-color: $dark-400;
+    height: $height;
+  }
+  > span {
+    font-size: $font-size-base;
+    color: $white;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    line-height: $height;
   }
 }

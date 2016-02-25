@@ -1,7 +1,14 @@
 <div class="panel-heading" role="tab" id="{{elementId}}-heading">
 
-  {{!-- TODO: Integrate with BE --}}
+  {{!-- TODO: Integrate with BE // if teacher show the average grade
   <span class="score" style="background-color: {{ gradeColor 94 }}">93%</span>
+  --}}
+
+  {{!-- TODO: Integrate with BE @see /app/components/class/overview/gru-accordion-unit.js#addUsersToItems --}}
+  <div class="gru-completion-chart">
+    {{ charts/gru-x-bar-chart data=model.completion }}
+    <span>{{model.completed}}/{{model.total}}</span>
+  </div>
 
   <span class="panel-title">
     <a class="title collapsed"
