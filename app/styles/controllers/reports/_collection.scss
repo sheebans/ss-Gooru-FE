@@ -4,6 +4,7 @@
 
 .app-container > .controller.reports {
   $gutter-width: 30px;
+  $on-air-icon: 40px;
 
   display: block;
   padding: 0 15px 30px 15px;
@@ -12,8 +13,15 @@
 
     .title {
       > i {
-        margin: 0 15px;
-        vertical-align: -4px;
+        display: inline-block;
+        margin: 0 5px 0 15px;
+        width: $on-air-icon;
+        height: $on-air-icon;
+        vertical-align: middle;
+        background-image: url('gooru/images/on-air-icon.svg');
+        background-size: $on-air-icon $on-air-icon;
+        vertical-align: 28px;
+        @include text-hide();
       }
       > span {
         display: inline-block;
@@ -42,6 +50,10 @@
       .title {
         float: left;
         margin-left: $gutter-width;
+
+        > i {
+          background-image: url('gooru/images/on-air-icon-anonymous.svg');
+        }
       }
       .mode {
         font-size: $font-size-base;

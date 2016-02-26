@@ -8,7 +8,7 @@
 
 .controller.overview {
   $collection-icon-size: 48px;
-  $on-air-icon-size: 28px;
+  $on-air-icon: 35px;
 
   .fixed {
     padding: 0 20px;
@@ -102,28 +102,29 @@
         padding-right: 20px;
 
         > .panel-title {
-          padding-right: 15px;
           font-size: $font-size-h4;
           font-weight: normal;
-
-          @media (min-width: $screen-sm) {
-            border-right: 1px solid $hr-border;
-          }
 
           > a {
             display: inline-block;
             max-width: 80%;
             line-height: 1.2;
             @include text-overflow();
+
+            @media (min-width: $screen-sm) {
+              border-right: 1px solid $hr-border;
+              padding-right: 15px;
+            }
           }
 
-          + span {
+          > span {
             display: none;
+            font-size: $font-size-base;
+            padding-left: 15px;
+            vertical-align: 6px;
 
             @media (min-width: $screen-sm) {
               display: inline;
-              padding-left: 15px;
-              vertical-align: 6px;
             }
           }
         }
@@ -198,7 +199,7 @@
               }
 
               .panel-heading > .icon-container > .score + i {
-                display: inline;
+                display: inline-block;
               }
             }
 
@@ -235,9 +236,13 @@
 
                 + i {
                   display: none;
-                  font-size: $on-air-icon-size;
+                  width: $on-air-icon;
+                  height: $on-air-icon;
                   vertical-align: middle;
-                  margin-left: 20px;
+                  margin-left: 15px;
+                  background-image: url('gooru/images/on-air-icon.svg');
+                  background-size: $on-air-icon $on-air-icon;
+                  @include text-hide();
                 }
               }
             }
