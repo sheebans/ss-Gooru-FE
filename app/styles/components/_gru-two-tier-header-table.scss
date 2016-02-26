@@ -1,6 +1,11 @@
 .gru-two-tier-header-table {
   $table-cell-width: 90px;
 
+  display: inline-block;
+  border-radius: 5px 0 5px 5px;
+  background-color: $dark-400;
+  padding-top: 50px;
+
   table {
     font-size: $font-size-h6;
     background: $white;
@@ -9,20 +14,9 @@
 
     th, td {
       border: none;
-      border-right: 1px solid $gray-lighter;
-      padding: 5px 20px;
+      border-left: 1px solid $gray-lighter;
+      padding: 10px 20px;
       font-weight: normal;
-    }
-
-    .header {
-      height: 47px;
-      td {
-        background-color: $dark-400;
-        border: none;
-      }
-      .corner {
-        border-top-left-radius: 5px;
-      }
     }
 
     .first-tier, .second-tier {
@@ -31,7 +25,7 @@
         color: $white;
         border-color: $dark-400;
         &:first-child {
-          border-right: 0;
+          border-left: 0;
         }
       }
     }
@@ -50,8 +44,9 @@
 
     > .second-tier {
       height: 47px;
+
       th {
-        border-width: 2px 1px 3px 0;
+        border-width: 2px 0 3px 1px;
         line-height: 23px;
 
         > span {
@@ -97,12 +92,19 @@
           }
         }
       }
+
+      + .data {
+        th, td {
+          padding-top: 20px;
+        }
+      }
     }
 
     > .data {
-      height: 70px;
+
       th {
-        border-right: 0;
+        border-left: 0;
+        border-bottom: 1px solid $gray-lighter;
         font-weight: normal;
         &:hover {
           cursor: pointer;
@@ -113,10 +115,15 @@
       }
       td {
         border-width: 0 1px 1px 0;
+        border-color: $gray-lighter;
+        border-style: solid;
         width: $table-cell-width;
       }
-      > td {
-        padding-top: 20px;
+
+      &:last-child {
+        th, td {
+          padding-bottom: 20px;
+        }
       }
     }
   }
