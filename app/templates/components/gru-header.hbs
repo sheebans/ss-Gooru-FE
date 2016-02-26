@@ -35,43 +35,39 @@
               <li class="navbar-nav-list visible-md visible-lg">
                 {{#link-to 'classes' class="navbar-link my-classes-link"}} {{t "common.classes"}} {{/link-to}}
               </li>
-              <li class="navbar-nav-list  visible-md visible-lg">
-                <div class="dropdown">
-                    <a class="profile" data-target="#profile-dropdown" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <i class="icon pull-left">&nbsp;</i>
-                        <span class="username">{{session.userData.username}}</span>
-                        {{gru-icon name='keyboard_arrow_down'}}
-                    </a>
-                    <ul class="dropdown-menu " id="profile-dropdown">
-                        <li class="navbar-nav-list">
-                          {{#link-to 'profile.about' session.userData.gooruUId class="navbar-link"}}
-                              <span class="username">{{session.userData.username}}</span>
-                          {{/link-to}}
-                        </li>
-                        <li class="navbar-nav-list">
-                            <a class="navbar-link" {{action "logout"}}> {{t "common.logout"}}</a>
-                        </li>
-                    </ul>
-                </div>
+              <li class="navbar-nav-list visible-md visible-lg dropdown">
+                  <a class="profile dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                      <i class="icon pull-left">&nbsp;</i>
+                      <span class="username">{{session.userData.username}}</span>
+                      {{gru-icon name='keyboard_arrow_down'}}
+                  </a>
+                  <ul class="dropdown-menu pull-right" role="menu" id="profile-dropdown">
+                      <li class="navbar-nav-list">
+                        {{#link-to 'profile.about' session.userData.gooruUId class="navbar-link"}}
+                            <span class="username">{{session.userData.username}}</span>
+                        {{/link-to}}
+                      </li>
+                      <li class="navbar-nav-list">
+                          <a class="navbar-link" {{action "logout"}}> {{t "common.logout"}}</a>
+                      </li>
+                  </ul>
               </li>
-              <li class="navbar-nav-list hidden-md hidden-lg">
-                  <div class="btn-group drop-menu">
-                      <button class="btn dropdown-toggle" data-toggle="dropdown">{{gru-icon name='menu'}}</button>
-                      <ul class="dropdown-menu dropdown-menu-right">
-                          <li class="navbar-nav-list">
-                            {{#link-to 'classes' class="navbar-link my-classes-link"}} {{t "common.myClasses"}} {{/link-to}}
-                          </li>
-                          <li class="navbar-nav-list">
-                            {{#link-to 'profile.about' session.userData.gooruUId class="navbar-link"}}
-                                <i class="icon pull-left">&nbsp;</i>
-                                <span class="">{{session.userData.username}}</span>
-                            {{/link-to}}
-                          </li>
-                          <li class="navbar-nav-list">
-                              <a class="navbar-link" {{action "logout"}}> {{t "common.logout"}}</a>
-                          </li>
-                      </ul>
-                  </div>
+              <li class="navbar-nav-list hidden-md hidden-lg dropdown collapsed">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{gru-icon name='menu'}}</a>
+                  <ul class="dropdown-menu pull-right" role="menu">
+                      <li class="navbar-nav-list">
+                        {{#link-to 'classes' class="navbar-link my-classes-link"}} {{t "common.classes"}} {{/link-to}}
+                      </li>
+                      <li class="navbar-nav-list">
+                        {{#link-to 'profile.about' session.userData.gooruUId class="navbar-link"}}
+                            <i class="icon pull-left">&nbsp;</i>
+                            <span class="">{{session.userData.username}}</span>
+                        {{/link-to}}
+                      </li>
+                      <li class="navbar-nav-list">
+                          <a class="navbar-link" {{action "logout"}}> {{t "common.logout"}}</a>
+                      </li>
+                  </ul>
               </li>
             {{/if}}
           </ul>
