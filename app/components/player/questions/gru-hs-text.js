@@ -29,12 +29,16 @@ export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Events
   setupInstanceProperties: Ember.on('init', function () {
-    this.set('selectedAnswers', []);
+    let userAnswer = this.get("userAnswer");
+    this.set('selectedAnswers', userAnswer ? userAnswer : []);
+
   }),
 
   setupSubscriptions: Ember.on('didInsertElement', function () {
     const component = this;
     const readOnly = component.get("readOnly");
+
+    component.setUserAnswer();
 
     if (!readOnly){
       this.$('li.answer').on('click', function () {
@@ -97,7 +101,7 @@ export default QuestionComponent.extend({
       id: answer.get('id'),
       content: answer.get('text')
     };
-  })
+  }),
 
   // -------------------------------------------------------------------------
   // Observers
@@ -105,5 +109,15 @@ export default QuestionComponent.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+  setUserAnswer: function(){
+    const userAnswer = this.get("userAnswer");
 
+    if (userAnswer) {
+      userAnswer.forEach(function(answerId){
+        let selector = `li.answer[data-id='${answerId}']`;
+        let $answer = Ember.$(selector);
+        $answer.toggleClass('selected');
+      });
+    }
+  }
 });

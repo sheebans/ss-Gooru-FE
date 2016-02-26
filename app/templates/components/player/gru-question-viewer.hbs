@@ -52,6 +52,7 @@
 
         <form {{action "submitQuestion" on="submit"}}>
           {{component (questionConfig question.questionType 'component.player')
+          userAnswer=questionResult.userAnswer
           question=question
           readOnly=submitted
           onAnswerChanged="changeAnswer"

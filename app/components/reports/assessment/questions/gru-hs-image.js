@@ -48,11 +48,11 @@ export default Ember.Component.extend(QuestionMixin, {
         userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(answer.get("id"));
         selected = true;
       }
-
+      let image = question.get('assetBasePath') + answer.get('text');
       let elementClass = (anonymous) ? 'anonymous' :
         ((userAnswerCorrect) ? 'correct' : 'incorrect');
       return {
-        image: answer.get('image') ? answer.get('image') : DEFAULT_IMAGES.QUESTION_PLACEHOLDER_IMAGE,
+        image: answer.get('text') ? image : DEFAULT_IMAGES.QUESTION_PLACEHOLDER_IMAGE,
         selected: selected,
         "class": elementClass
       };

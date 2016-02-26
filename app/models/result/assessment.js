@@ -21,6 +21,11 @@ export default Ember.Object.extend({
   resourceResults: Ember.A([]),
 
   /**
+   * @property {string} sessionId
+   */
+  sessionId: null,
+
+  /**
    * @property {QuestionResult[]} questionResults
    */
   questionResults: Ember.computed("resourceResults.[]", function(){

@@ -1,5 +1,8 @@
 import Ember from 'ember';
 import PlayerRoute from 'gooru-web/routes/player';
+import Context from 'gooru-web/models/result/context';
+import {generateUUID} from 'gooru-web/utils/utils';
+
 
 /**
  * Context Player Route
@@ -8,10 +11,13 @@ import PlayerRoute from 'gooru-web/routes/player';
  * controller with additional information available only to signed-in users
  *
  * @module
- * @augments ember/PlayerRoute
+ * @extends PlayerRoute
  */
 export default PlayerRoute.extend({
 
+
+  // -------------------------------------------------------------------------
+  // Dependencies
 
   /**
    * @type LessonService
@@ -22,31 +28,40 @@ export default PlayerRoute.extend({
   // Methods
 
   model(params) {
-    const userId = this.get('session.userId');
+    const route = this;
+    const userId = route.get('session.userId');
+    const hasUserSession = !route.get('session.isAnonymous');
+
+    const resourceId = params.resourceId;
     const collectionId = params.collectionId;
     const courseId = params.courseId;
     const unitId = params.unitId;
     const lessonId = params.lessonId;
 
-    const collection = this.get('collectionService').findById(collectionId);
-    const assessmentResult = this.get("performanceService").findAssessmentResultByCollectionAndStudent(collectionId, userId);
-    const lesson = this.get('lessonService').findById(courseId, unitId, lessonId);
+    const collectionPromise = route.get('collectionService').findById(collectionId);
 
-    const context = Ember.Object.create({
-      courseId: courseId,
-      classId: params.classId,
-      unitId: unitId,
-      lessonId: lessonId,
-      collectionId: collectionId,
-      resourceId: params.resourceId,
-      userId: userId
-    });
+    return collectionPromise.then(function(collection){
+      const context = Context.create({
+        userId: userId,
+        collectionId: collectionId,
+        parentEventId: generateUUID(), //TODO is this comming from BE?
+        collectionType: collection.get("collectionType"),
+        courseId: courseId,
+        classId: params.classId,
+        unitId: unitId,
+        lessonId: lessonId
+      });
 
-    return Ember.RSVP.hash({
-      context: context,
-      collection: collection,
-      assessmentResult: assessmentResult,
-      lesson: lesson
+      const lesson = route.get('lessonService').findById(courseId, unitId, lessonId);
+      let assessmentResult = hasUserSession ?
+        route.get("performanceService").findAssessmentResultByCollectionAndStudent(context) : null;
+      return Ember.RSVP.hash({
+        collection: collection,
+        resourceId: resourceId,
+        assessmentResult: assessmentResult,
+        context: context,
+        lesson: lesson
+      });
     });
   },
 

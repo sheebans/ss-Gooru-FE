@@ -17,25 +17,12 @@
       padding: 0 60px;
     }
 
-    @media (min-width: $screen-md) {
-      position: fixed;
-      width: 83%;
-      left: 0;
-      top: 50px;
-      margin-left: 22%;
-      z-index: 10;
-      padding: 0;
-    }
-
     .overview-header{
       border-bottom: 1px solid $gray-light;
 
       div {
         display: inline-block;
         padding: 15px 0;
-      }
-      @media (min-width: $screen-md) {
-        margin: 0 119px 0 37px;
       }
     }
 
@@ -61,10 +48,6 @@
 
     @media (min-width: $screen-sm) {
       padding: 15px 60px 50px 60px;
-    }
-
-    @media (min-width: $screen-md) {
-      padding-top: 80px;
     }
 
     .panel + .panel {

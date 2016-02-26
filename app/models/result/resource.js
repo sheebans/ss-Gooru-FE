@@ -27,6 +27,11 @@ export default Ember.Object.extend(Serializable, {
   resource: null,
 
   /**
+   * @property {string} uuid - This is used for eventId and sessionId, should be generated in the FE, you can use generateUUID inside utils folder
+   */
+  uuid: null,
+
+  /**
    * Sometimes the resource is not resolved and only the id is provided
    * This is used mostly by the real time
    * TODO once the SDK is integrated we could analyze if is possible to use only 'resource'
@@ -45,6 +50,12 @@ export default Ember.Object.extend(Serializable, {
    * @property {Date}
    */
   submittedAt: null,
+
+  /**
+   * Indicates the amount of executions for the same result
+   * @property {number}
+   */
+  attempts: null,
 
   /**
    * A result is started when it has time spent
@@ -98,7 +109,17 @@ export default Ember.Object.extend(Serializable, {
     }
 
     this.set('timeSpent', timeSpent);
-  })
+  }),
+
+  toJSON: function() {
+    return {
+      gooruOId: this.get('resourceId'),
+      reaction: this.get('reaction'),
+      timeSpent: this.get('timeSpent'),
+      resourceType: 'resource'
+    };
+  }
+
 
 
 });

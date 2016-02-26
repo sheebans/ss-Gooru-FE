@@ -1,5 +1,6 @@
 import Ember from "ember";
 import ResourceResult from 'gooru-web/models/result/resource';
+import { getQuestionUtil } from 'gooru-web/config/question';
 
 /**
  * Model for a brief summary of the status of a question after it was answered by a user.
@@ -38,6 +39,21 @@ export default ResourceResult.extend({
   userAnswer: null,
 
   /**
+   * Applies only to question type resources. Core API will provide correct answer.
+   * FE needs to capture user chosen values and compare with core API responses and then send status.
+   *
+   * If user did not answer the question or did not view the resource, then status will be skipped.
+   * Values: correct / incorrect / skipped
+   *
+   * This value can be null for “start” event. Required for “stop” event.
+   *
+   * @property {String}
+   */
+  attemptStatus: Ember.computed("correct", "skipped", "pending", function () {
+    return this.get('correct') ? 'correct' : ((this.get('skipped') || this.get("pending")) ? 'skipped' : 'incorrect');
+  }),
+
+  /**
    * Indicates if the question was skipped, a result is skipped
    * if it has no answer and correct === false
    * @property {boolean}
@@ -73,15 +89,25 @@ export default ResourceResult.extend({
     return this.get("userAnswer") !== null && this.get("userAnswer") !== undefined;
   }),
 
+  /**
+   * JSON representation for this instance
+   * @returns {*}
+   */
   toJSON: function() {
+    let question = this.get("question");
+    let questionType = question.get("questionType");
+    let util = getQuestionUtil(questionType).create({
+      question: question
+    });
+
     return {
       gooruOId: this.get('questionId'),
       score: this.get('score'),
       reaction: this.get('reaction'),
       timeSpent: this.get('timeSpent'),
       resourceType: 'question',
-      questionType: 'MC',
-      answerObject: {}
+      questionType: questionType,
+      answerObject: util.toJSONAnswerObjects(this.get("userAnswer"))
     };
   }
 
