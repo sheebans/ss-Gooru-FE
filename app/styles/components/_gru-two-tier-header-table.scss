@@ -18,7 +18,7 @@
 
     .first-tier, .second-tier {
       th, td {
-        background-color: #45515C;
+        background-color: $dark-300;
         color: $white;
         border-color: $dark-400;
         &:first-child {
@@ -42,9 +42,7 @@
     > .second-tier {
       height: 47px;
       th {
-        border-width: 2px 1px 3px 0;
         line-height: 23px;
-
         > span {
           display: block;
           font-weight: normal;
@@ -63,9 +61,6 @@
           > span {
             width: auto;
           }
-        }
-        &:first-child {
-          border-left-width: 1px;
         }
         &:hover {
           cursor: pointer;

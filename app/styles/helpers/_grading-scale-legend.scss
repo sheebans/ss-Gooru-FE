@@ -33,5 +33,8 @@
         background-color: $light-200;
       }
     }
+    &:last-child {
+      margin: 0;
+    }
   }
 }

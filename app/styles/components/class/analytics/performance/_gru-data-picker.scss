@@ -4,4 +4,26 @@
     margin: 0 auto;
     text-align: center;
   }
+  .checkbox {
+    label {
+      padding: 0;
+      height: 24px;
+      display: table;
+      input {
+        color: $white;
+        width: 21px;
+        height: 24px;
+        margin: 0;
+        display: table-cell;
+        vertical-align: middle;
+      }
+      input[type="checkbox"]:checked:before {
+        top: 3px;
+      }
+      span {
+        display: table-cell;
+        vertical-align: middle;
+      }
+    }
+  }
 }

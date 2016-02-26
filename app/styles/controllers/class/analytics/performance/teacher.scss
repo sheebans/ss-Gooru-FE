@@ -23,19 +23,51 @@
     margin-top: 37px;
   }
 
-  .controls {
+  .controls,
+  .gru-filters {
     margin-top: 15px;
   }
 
+  .controls {
+    .teacher-actions {
+      .drop-menu {
+        @media (max-width: $screen-xs-max) {
+          margin: 10px 0 0 0;
+        }
+      }
+    }
+  }
+
   .gru-filters {
+    width: 100%;
+    display: table;
+    padding: 0;
     .data-picker {
-      padding: 0;
-      min-height: 50px;
+      float: left;
+      padding-left: 56px;
+      height: 50px;
+      @media (max-width: $screen-xs-max) {
+        padding-left: 15px;
+      }
     }
     .performance-scale {
       height: 50px;
       display: table;
-      padding: 0;
+      float: right;
+      @media (max-width: $screen-xs-max) {
+        padding-left: 15px;
+        margin: 10px 0 0 0;
+      }
+      .scale-indicator {
+        vertical-align: middle;
+        display: table-cell;
+        .grading-scale {
+          float: left;
+          @media (min-width: $screen-sm) {
+            float: right;
+          }
+        }
+      }
     }
   }
 

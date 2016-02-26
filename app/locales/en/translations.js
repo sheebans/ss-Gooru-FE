@@ -420,7 +420,8 @@ export default {
       },
       "teacher": {
         "metricsTable": {
-          "average": "Average"
+          "average": "Average",
+          "class-average": "Class Average"
         }
       }
     },
@@ -469,7 +470,7 @@ export default {
     "no-content" : "No content available"
   },
   "gru-metrics-sub-header":{
-    "name":"Name",
+    "student":"Student",
     "score": "Score",
     "completion":"Completion",
     "study-time": "Study Time"

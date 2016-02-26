@@ -9,7 +9,7 @@
             {{else}}
               <input type="checkbox" disabled={{option.readOnly}} value="{{option.value}}" {{action 'setOption' option}}/>
             {{/if}}
-            {{t (concat 'gru-data-picker.' option.value) }}
+            <span>{{t (concat 'gru-data-picker.' option.value) }}</span>
           </label>
         </div>
       </li>
