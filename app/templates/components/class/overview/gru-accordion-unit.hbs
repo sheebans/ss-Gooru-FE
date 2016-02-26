@@ -10,12 +10,16 @@
       <span
           class="title">{{course-sections-prefix  index=index type='unit' longName=true}}&period;&nbsp;&nbsp;{{model.title}}</span>
     </a>
-  </strong>
 
-  {{!-- TODO: Integrate with BE --}}
-  <span>
-    <b>17</b> Lessons
-  </span>
+    {{!-- TODO: Integrate with BE --}}
+    <span>
+      {{#if model.totalLessons}}
+        <b>{{model.totalLessons}}</b> {{t "common.lessonObj" count=model.totalLessons}}
+      {{else}}
+        <b>0</b> {{t "common.lessonObj" count=0}}
+      {{/if}}
+    </span>
+  </strong>
 
   {{gru-user-icons
   showOnlyNumbers=true

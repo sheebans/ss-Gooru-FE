@@ -42,7 +42,11 @@ export default {
     "launch-on-air": "Launch on air",
     "learning-target":"Learning Target",
     "learning-target-mobile":"Learning Target in Standard",
-    "lesson":"Lesson",
+    "lesson": "Lesson",
+    "lessonObj": {
+      one: "Lesson",
+      other: "Lessons"
+    },
     "lessonInitial": "L",
     "libraries": "Libraries",
     "loading": "Loading ...",

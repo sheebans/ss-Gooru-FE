@@ -20,10 +20,6 @@ const lessonServiceStub = Ember.Service.extend({
           title: "Lesson 1",
           visibility: true,
 
-          completion: [{
-            color: "#0072BC",
-            percentage: 50
-          }],
           completed: 5,
           total: 10
         }),
@@ -32,10 +28,6 @@ const lessonServiceStub = Ember.Service.extend({
           title: "Lesson 2",
           visibility: false,
 
-          completion: [{
-            color: "#0072BC",
-            percentage: 50
-          }],
           completed: 5,
           total: 10
         }),
@@ -44,10 +36,6 @@ const lessonServiceStub = Ember.Service.extend({
           title: "Lesson 3",
           visibility: true,
 
-          completion: [{
-            color: "#0072BC",
-            percentage: 50
-          }],
           completed: 5,
           total: 10
         })
@@ -132,7 +120,8 @@ test('it renders', function(assert) {
   // Unit model
   const unit = Ember.Object.create({
     id: "777-999",
-    title: 'Unit Title'
+    title: 'Unit Title',
+    totalLessons: 3
   });
 
   this.set('currentClass', currentClass);
@@ -158,6 +147,9 @@ test('it renders', function(assert) {
   assert.ok($unitTitleAnchor.hasClass('collapsed'), 'Panel should be collapsed by default');
   assert.equal($unitTitleAnchor.find('span').html().replace(/&nbsp;/g, " "), 'Unit 1.  Unit Title', 'Wrong title text');
 
+  const $lessonNumber = $unitTitle.find('> span');
+  assert.equal($lessonNumber.text().trim(), '3 Lessons', 'Number of Lessons');
+
   const $collapsePanel = $component.find('> .panel-collapse');
   assert.ok($collapsePanel.length, 'Panel element is missing');
   assert.ok($collapsePanel.hasClass('collapse'), 'Panel is missing class "collapse"');
@@ -175,7 +167,7 @@ test('it renders', function(assert) {
 });
 
 test('it renders correctly when there are no lessons to load after clicking on the unit name', function(assert) {
-  assert.expect(7);
+  assert.expect(9);
 
   const context = this;
 
@@ -206,6 +198,10 @@ test('it renders correctly when there are no lessons to load after clicking on t
 
   const $component = this.$('.gru-accordion-unit');
   const $unitTitleAnchor = $component.find('.unit a');
+  assert.equal($unitTitleAnchor.find('span').html().replace(/&nbsp;/g, " "), 'Unit 1.  Unit Title', 'Title text');
+
+  const $lessonNumber = $component.find('.unit .panel-title > span');
+  assert.equal($lessonNumber.text().trim(), '0 Lessons', 'Number of Lessons');
 
   const $collapsePanel = $component.find('.panel-collapse');
   assert.ok(!$collapsePanel.hasClass('in'), 'Panel should not be visible');
