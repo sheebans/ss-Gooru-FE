@@ -249,6 +249,7 @@ export function truncate(text, maxLength, type, suffix){
   let config = { //TODO product owner will provide max lengths, this will be moved to the configuration
     "name": 15,
     "short": 10,
+    "player-nav-sm": 30,
     "medium": 50,
     "large": 200
   };
@@ -273,4 +274,10 @@ export function truncate(text, maxLength, type, suffix){
   }
 
   return truncated;
+}
+
+export function noTags(text){
+  let element = document.createElement("p");
+  element.innerHTML = text;
+  return $(element).text();
 }

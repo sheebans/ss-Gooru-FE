@@ -168,8 +168,10 @@ export default Ember.Object.extend({
       }
 
       resourceResults.forEach(function (resourceResult) {
-        var questionId = resourceResult.get("resourceId");
-        data[userId][questionId] = resourceResult;
+        if (data[userId]) {
+          const questionId = resourceResult.get("resourceId");
+          data[userId][questionId] = resourceResult;
+        }
       });
 
       if (doAutoComplete) {

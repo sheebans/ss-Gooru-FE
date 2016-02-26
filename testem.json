@@ -23,6 +23,9 @@
     },
     "/mocked-api": {
       "target": "http://localhost:8882"
+    },
+    "/api/nucleus-insights/v2": {
+      "target": "http://localhost:8882"
     }
   }
 }

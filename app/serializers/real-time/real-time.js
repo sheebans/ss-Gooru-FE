@@ -3,6 +3,10 @@ import UserResourcesResult from 'gooru-web/models/result/user-resources';
 
 export default AnalyticsSerializer.extend({
 
+  serialize: function(snapshot) {
+    return snapshot.toJSON();
+  },
+
   normalizeRealTimeEvent: function(payload) {
     const serializer = this;
     return UserResourcesResult.create({

@@ -24,7 +24,7 @@ test('findStudentPerformanceByCourse', function (assert) {
         "usageData": [
           {
             "unitId": "unit-id-1",
-            "completionCount": 5,
+            "completedCount": 5,
             "scoreInPercentage": 80,
             "timeSpent": 121507,
             "attempts": 16,
@@ -32,7 +32,7 @@ test('findStudentPerformanceByCourse', function (assert) {
           },
           {
             "unitId": "unit-id-2",
-            "completionCount": 3,
+            "completedCount": 3,
             "scoreInPercentage": 55,
             "timeSpent": 215122,
             "attempts": 7,
@@ -49,7 +49,8 @@ test('findStudentPerformanceByCourse', function (assert) {
     Ember.Object.create({ id: 'unit-id-2', title: 'Unit 2'})
   ]);
   const routes = function () {
-    this.get('/mocked-api/insights-api-v1/rest/v2/class/the-class-id/course/the-course-id/performance', function () {
+    //this.get('/mocked-api/insights-api-v1/rest/v2/class/the-class-id/course/the-course-id/performance', function () {
+    this.get('/api/nucleus-insights/v2/class/the-class-id/course/the-course-id/performance', function () {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify(response)];
     }, 0);
   };
@@ -83,7 +84,7 @@ test('findStudentPerformanceByUnit', function (assert) {
         "usageData": [
           {
             "lessonId": "lesson-id-1",
-            "completionCount": 5,
+            "completedCount": 5,
             "scoreInPercentage": 65,
             "timeSpent": 89141,
             "attempts": 12,
@@ -91,7 +92,7 @@ test('findStudentPerformanceByUnit', function (assert) {
           },
           {
             "lessonId": "lesson-id-2",
-            "completionCount": 0,
+            "completedCount": 0,
             "scoreInPercentage": 0,
             "timeSpent": 32366,
             "attempts": 4,
@@ -108,7 +109,8 @@ test('findStudentPerformanceByUnit', function (assert) {
     Ember.Object.create({ id: 'lesson-id-2', title: 'Lesson 2'})
   ]);
   const routes = function () {
-    this.get('/mocked-api/insights-api-v1/rest/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/performance', function () {
+    //this.get('/mocked-api/insights-api-v1/rest/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/performance', function () {
+    this.get('/api/nucleus-insights/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/performance', function () {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify(response)];
     }, 0);
   };
@@ -141,7 +143,7 @@ test('findStudentPerformanceByLesson', function (assert) {
         "userUid": "user-id-1",
         "usageData":[
           {
-            "completionCount": 10,
+            "completedCount": 10,
             "collectionId": "collection-id-1",
             "scoreInPercentage": 90,
             "timeSpent": 130339,
@@ -149,7 +151,7 @@ test('findStudentPerformanceByLesson', function (assert) {
             "totalCount": 20
           },
           {
-            "completionCount": 0,
+            "completedCount": 0,
             "collectionId": "collection-id-2",
             "scoreInPercentage": 0,
             "timeSpent": 0,
@@ -167,7 +169,8 @@ test('findStudentPerformanceByLesson', function (assert) {
     Ember.Object.create({ id: 'collection-id-2', title: 'Collection 2'})
   ]);
   const routes = function () {
-    this.get('/mocked-api/insights-api-v1/rest/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/lesson/the-lesson-id/performance', function () {
+    //this.get('/mocked-api/insights-api-v1/rest/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/lesson/the-lesson-id/performance', function () {
+    this.get('/api/nucleus-insights/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/lesson/the-lesson-id/performance', function () {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify(response)];
     }, 0);
   };
@@ -199,7 +202,7 @@ test('findClassPerformance', function (assert) {
       {
         "usageData": [
           {
-            "completionCount": 10,
+            "completedCount": 10,
             "totalCount": 10,
             "unitId":"unit-id-1",
             "scoreInPercentage": 100,
@@ -223,7 +226,8 @@ test('findClassPerformance', function (assert) {
   ]);
 
   const routes = function () {
-    this.get('/mocked-api/insights/api/v2/class/the-class-id/course/the-course-id/performance', function () {
+    //this.get('/mocked-api/insights/api/v2/class/the-class-id/course/the-course-id/performance', function () {
+    this.get('/api/nucleus-insights/v2/class/the-class-id/course/the-course-id/performance', function () {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify(response)];
     }, 0);
   };
@@ -266,7 +270,7 @@ test('findClassPerformanceByUnit', function (assert) {
       {
         "usageData": [
           {
-            "completionCount": 10,
+            "completedCount": 10,
             "totalCount": 10,
             "lessonId": "lesson-id-1",
             "scoreInPercentage": 100,
@@ -290,7 +294,8 @@ test('findClassPerformanceByUnit', function (assert) {
   ]);
 
   const routes = function () {
-    this.get('/mocked-api/insights/api/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/performance', function () {
+    //this.get('/mocked-api/insights/api/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/performance', function () {
+    this.get('/api/nucleus-insights/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/performance', function () {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify(response)];
     }, 0);
   };
@@ -333,7 +338,7 @@ test('findClassPerformanceByUnitAndLesson', function (assert) {
       {
         "usageData": [
           {
-            "completionCount": 10,
+            "completedCount": 10,
             "totalCount": 10,
             "assessmentId": "collection-id-1",
             "scoreInPercentage": 100,
@@ -357,7 +362,8 @@ test('findClassPerformanceByUnitAndLesson', function (assert) {
   ]);
 
   const routes = function () {
-    this.get('/mocked-api/insights/api/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/lesson/the-lesson-id/performance', function () {
+    //this.get('/mocked-api/insights/api/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/lesson/the-lesson-id/performance', function () {
+    this.get('/api/nucleus-insights/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/lesson/the-lesson-id/performance', function () {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify(response)];
     }, 0);
   };
