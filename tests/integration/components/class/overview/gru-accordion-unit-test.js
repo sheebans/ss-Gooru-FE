@@ -18,17 +18,38 @@ const lessonServiceStub = Ember.Service.extend({
         Ember.Object.create({
           id: "lesson-1",
           title: "Lesson 1",
-          visibility: true
+          visibility: true,
+
+          completion: [{
+            color: "#0072BC",
+            percentage: 50
+          }],
+          completed: 5,
+          total: 10
         }),
         Ember.Object.create({
           id: "lesson-2",
           title: "Lesson 2",
-          visibility: false
+          visibility: false,
+
+          completion: [{
+            color: "#0072BC",
+            percentage: 50
+          }],
+          completed: 5,
+          total: 10
         }),
         Ember.Object.create({
           id: "lesson-3",
           title: "Lesson 3",
-          visibility: true
+          visibility: true,
+
+          completion: [{
+            color: "#0072BC",
+            percentage: 50
+          }],
+          completed: 5,
+          total: 10
         })
       ];
     } else {
@@ -135,7 +156,7 @@ test('it renders', function(assert) {
   const $unitTitleAnchor = $unitTitle.find('> a');
   assert.ok($unitTitleAnchor.length, 'Title anchor element is missing');
   assert.ok($unitTitleAnchor.hasClass('collapsed'), 'Panel should be collapsed by default');
-  assert.equal($unitTitleAnchor.text().trim(), 'Unit 1: Unit Title', 'Wrong title text');
+  assert.equal($unitTitleAnchor.find('span').html().replace(/&nbsp;/g, " "), 'Unit 1.  Unit Title', 'Wrong title text');
 
   const $collapsePanel = $component.find('> .panel-collapse');
   assert.ok($collapsePanel.length, 'Panel element is missing');
@@ -271,8 +292,8 @@ test('it loads lessons and renders them correctly after clicking on the unit nam
 
     const $items = $panelGroup.find('.gru-accordion-lesson');
     assert.equal($items.length, 2, 'Incorrect number of lessons listed');
-    assert.equal($items.first().find('.panel-title a.title').text().trim(), 'Lesson 1: Lesson 1', 'Incorrect first lesson title');
-    assert.equal($items.last().find('.panel-title a.title').text().trim(), 'Lesson 2: Lesson 3', 'Incorrect last lesson title');
+    assert.equal($items.first().find('.panel-title a.title').html().replace(/&nbsp;/g, " ").trim(), 'Lesson 1.  Lesson 1', 'Incorrect first lesson title');
+    assert.equal($items.last().find('.panel-title a.title').html().replace(/&nbsp;/g, " ").trim(), 'Lesson 2.  Lesson 3', 'Incorrect last lesson title');
 
     assert.equal($items.first().find('.unit .gru-user-icons .first-view li').length, 0, 'Wrong number of user icons showing for the first lesson');
     assert.equal($items.last().find('.unit .gru-user-icons .first-view li').length, 0, 'Wrong number of user icons showing for the last lesson ');
@@ -351,7 +372,7 @@ test('it only loads lessons once after clicking on the unit name', function(asse
 
       const $items = $collapsePanel.find('.gru-accordion-lesson');
       assert.equal($items.length, 2, 'Number of lessons listed should not have changed');
-      assert.equal($unitTitleAnchor.text().trim(), 'Unit 3: Unit Title', 'Index in the title text should have changed');
+      assert.equal($unitTitleAnchor.find('span').html().replace(/&nbsp;/g, " "), 'Unit 3.  Unit Title', 'Index in the title text should have changed');
     });
   });
 });

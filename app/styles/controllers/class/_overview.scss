@@ -7,10 +7,13 @@
 }
 
 .controller.overview {
+  $collection-icon-size: 48px;
 
   .fixed {
-    @media (min-width: $screen-md) {
-      padding: 0px 60px 0px 60px;
+    padding: 0 20px;
+
+    @media (min-width: $screen-sm) {
+      padding: 0 60px;
     }
 
     .overview-header{
@@ -18,49 +21,36 @@
 
       div {
         display: inline-block;
-        padding:15px 0px;
+        padding: 15px 0;
       }
     }
 
     .locate,
     .edit-content {
       float: right;
-      margin: 36px 0;
-      span i{
-        vertical-align: middle;
-        padding: 0 5px 0 0;
+      margin-top: 44px;
+
+      .gru-icon {
+        display: none;
+
+        @media (min-width: $screen-sm) {
+          display: inline;
+          vertical-align: middle;
+          padding: 0 5px 0 0;
+        }
       }
     }
   }
 
   .gru-accordion-course {
-    @media (min-width: $screen-md) {
-      padding: 15px 93px 50px 93px;
-    }
+    padding: 0 20px;
 
-    .accordion-course{
-      .gru-accordion-unit{
-        padding: 22px;
-
-        .unit{
-          min-height: 50px;
-          .title span{
-            display: inline-block;
-            font-size: 15px;
-            @media (min-width: $screen-md) {
-              font-size: 24px;
-            }
-          }
-          .gru-user-icons {
-            display: inline-block;
-            float: right;
-          }
-        }
-      }
+    @media (min-width: $screen-sm) {
+      padding: 15px 60px 50px 60px;
     }
 
     .panel + .panel {
-      margin-top: 25px;
+      margin-top: 10px;
     }
 
     .panel-heading {
@@ -69,103 +59,182 @@
       .panel-title {
         > a {
           display: inline-block;
-          max-width: 75%;
+          max-width: 63%;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
-          vertical-align: bottom;
         }
       }
     }
 
+    .gru-user-icons {
+      float: right;
+    }
 
     .gru-accordion-unit {
+      padding: 40px 0 0 0;
 
-      &.expanded {
-        > .unit .gru-user-icons { display: none !important; }
-      }
-      .gru-accordion-lesson {
+      .unit {
+        border-bottom: 1px solid $hr-border;
+        padding-bottom: 10px;
+        padding-right: 20px;
 
-        &.expanded {
-          > .panel-heading {
-            background-color: $gray-lighter;
-            .panel-title { border: 0 none;}
-            .gru-user-icons { display: none !important; }
+        > .panel-title {
+          padding-right: 15px;
+          font-size: $font-size-h4;
+          font-weight: normal;
+
+          @media (min-width: $screen-sm) {
+            border-right: 1px solid $hr-border;
+          }
+
+          > a {
+            display: inline-block;
+            max-width: 80%;
+            line-height: 1.2;
+            @include text-overflow();
+          }
+
+          + span {
+            display: none;
+
+            @media (min-width: $screen-sm) {
+              display: inline;
+              padding-left: 15px;
+              vertical-align: 6px;
+            }
           }
         }
 
-        .panel-heading {
-          padding: 10px;
-          margin-top: 10px;
+        .gru-user-icons {
+          margin-top: 5px;
+        }
 
-          > .img-circle {
-            position: absolute;
-            padding: 10px;
-            left: 0;
-            height: 2.714rem;
-            width: 2.714rem;
-            border: 1px solid $gray-light;
-
-            //TODO Remove this background if an image is put in place
-            background-color: #FFFFFF;
+        + .collapse {
+          > .panel-body {
+            padding: 0;
           }
+        }
+      }
 
-          .panel-title {
-            display: block;
-            margin-left: 25px;
-            margin-right: 20px;
-            padding-top: 5px;
-            padding-left: 25px;
-          }
+      .gru-accordion-lesson {
 
-          .gru-user-icons {
+        > .panel-heading {
+          padding: 15px 20px;
+          margin: 30px 0 20px 0;
+          background-color: $white;
+          box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.10);
+          border-radius: 5px;
+
+          > .gru-completion-chart {
             display: inline-block;
-            float:right;
-            margin: -10px 0 0 0;
+            vertical-align: middle;
+          }
+
+          > .panel-title .title {
+            font-size: $font-size-large;
+            color: $text-color;
+            vertical-align: middle;
+            margin-left: 20px;
           }
         }
 
         .collections {
+          padding-left: 10%;
 
-          .assessment {
-            .panel-heading > img {
-              border: 1px solid orange;
-            }
-          }
-          .collection {
-            .panel-heading > img {
-              border: 1px solid blue;
-            }
+          > .panel {
 
-          }
+            &.collection {
+              line-height: 2.2;
 
-          .panel-heading {
-
-            > img {
-              position: absolute;
-              top: -2px;
-              left: 35px;
-              height: 30px;
-              width: 42px;
-              border: 1px solid $gray-light;
-
-              @media (min-width: $screen-md) {
-                left: 50px;
+              &.submitted {
+                > .panel-heading i {
+                  color: $blue-400;
+                }
               }
             }
 
-            .panel-title {
-              padding-left: 30px;
-              margin-left: 60px;
+            &.assessment {
+              .panel-heading .panel-title {
+                vertical-align: -8px;
+              }
+            }
 
-              @media (min-width: $screen-md) {
-                padding-left: 45px;
-                margin-left: 60px;
+            &:last-child {
+              .panel-heading {
+                border-bottom: 0 none;
+              }
+            }
+          }
+
+          .panel-heading {
+            border-bottom: 1px solid $gray-lighter;
+            padding: 0 20px 5px 0;
+            margin: 0;
+
+            @media (min-width: $screen-sm) {
+              padding-right: 8px;
+            }
+
+            > i {
+              font-size: $collection-icon-size;
+              vertical-align: bottom;
+            }
+            > .score {
+              margin: 5px 0 10px 0;
+            }
+
+            .panel-title {
+              font-size: $font-size-base;
+              margin-left: 6%;
+
+              > a {
+                @media (min-width: $screen-sm) {
+                  max-width: 27%;
+                }
+              }
+            }
+
+            .gru-user-icons .first-view.clickable {
+              .item:last-child {
+                margin-right: 17px;
               }
             }
           }
         }
       }
+
+      .gru-accordion-lesson .panel-heading .score {
+        padding: 0.5em 0.8em;
+        border-radius: 5px;
+        color: $white;
+        display: inline-block;
+      }
     }
+  }
+}
+
+// TODO: Move this to a separate component?
+.gru-completion-chart {
+  $height: 40px;
+
+  position: relative;
+  width: 3.8em;
+  height: $height;
+
+  .charts.gru-x-bar-chart {
+    background-color: $dark-400;
+    height: $height;
+  }
+  > span {
+    font-size: $font-size-base;
+    color: $white;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    line-height: $height;
   }
 }

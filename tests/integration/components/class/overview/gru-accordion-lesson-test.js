@@ -30,6 +30,7 @@ const collectionServiceStub = Ember.Service.extend({
         Ember.Object.create({
           id: "item-3",
           collectionType: "assessment",
+          isAssessment: true,
           title: "Assessment 1",
           visibility: true
         })
@@ -114,7 +115,14 @@ test('it renders', function(assert) {
   // Lesson model
   const lesson = Ember.Object.create({
     id: "888-000",
-    title: 'Lesson Title'
+    title: 'Lesson Title',
+
+    completion: [{
+      color: "#0072BC",
+      percentage: 50
+    }],
+    completed: 5,
+    total: 10
   });
 
   this.set('currentClass', currentClass);
@@ -136,16 +144,13 @@ test('it renders', function(assert) {
   const $lessonHeading = $component.find('> .panel-heading');
   assert.ok($lessonHeading.length, 'Panel heading element is missing');
 
-  const $lessonImage = $lessonHeading.find('> .img-circle');
-  assert.ok($lessonImage.length, 'Image element is missing');
-
   const $lessonTitle = $lessonHeading.find('> .panel-title');
   assert.ok($lessonTitle.length, 'Panel title element is missing');
 
   const $lessonTitleAnchor = $lessonTitle.find('> a.title');
   assert.ok($lessonTitleAnchor.length, 'Title anchor element is missing');
   assert.ok($lessonTitleAnchor.hasClass('collapsed'), 'Panel should be collapsed by default');
-  assert.equal($lessonTitleAnchor.text().trim(), 'Lesson 1: Lesson Title', 'Wrong title text');
+  assert.equal($lessonTitleAnchor.html().replace(/&nbsp;/g, " ").trim(), 'Lesson 1.  Lesson Title', 'Wrong title text');
 
   const $collapsePanel = $component.find('> .panel-collapse');
   assert.ok($collapsePanel.length, 'Panel element is missing');
@@ -177,7 +182,14 @@ test('it renders correctly when there are no collections/assessments to load aft
   // Lesson model
   const lesson = Ember.Object.create({
     id: "888-000",
-    title: 'Lesson Title'
+    title: 'Lesson Title',
+
+    completion: [{
+      color: "#0072BC",
+      percentage: 50
+    }],
+    completed: 5,
+    total: 10
   });
 
   this.on('externalAction', function () {
@@ -227,7 +239,7 @@ test('it renders correctly when there are no collections/assessments to load aft
 });
 
 test('it loads collections/assessments and renders them correctly after clicking on the lesson name', function(assert) {
-  assert.expect(18);
+  assert.expect(17);
 
   const context = this;
 
@@ -240,7 +252,14 @@ test('it loads collections/assessments and renders them correctly after clicking
   // Lesson model
   const lesson = Ember.Object.create({
     id: "888-000",
-    title: 'Lesson Title'
+    title: 'Lesson Title',
+
+    completion: [{
+      color: "#0072BC",
+      percentage: 50
+    }],
+    completed: 5,
+    total: 10
   });
 
   this.on('externalAction', function () {
@@ -292,9 +311,6 @@ test('it loads collections/assessments and renders them correctly after clicking
     const $collectionHeading = $firstCollection.find('> .panel-heading');
     assert.ok($collectionHeading.length, 'Resource is missing the panel heading element');
 
-    const $collectionImage = $collectionHeading.find('> img');
-    assert.ok($collectionImage.length, 'Resource is missing the image element');
-
     const $collectionName = $collectionHeading.find('> .panel-title');
     assert.ok($collectionName.length, 'Element for the resource name is missing');
 
@@ -302,8 +318,8 @@ test('it loads collections/assessments and renders them correctly after clicking
     assert.ok($items.last().hasClass('assessment'), 'Last resource should have the class "assessment"');
     assert.ok($items.last().hasClass('selected'), 'Last resource should have the class "selected"');
 
-    assert.equal($items.first().find('.panel-title a.title').text().trim(), 'C1: Collection 1', 'Incorrect first resource title');
-    assert.equal($items.last().find('.panel-title a.title').text().trim(), 'A2: Assessment 1', 'Incorrect last resource title');
+    assert.equal($items.first().find('.panel-title a.title').html().replace(/&nbsp;/g, " ").trim(), '1.  Collection 1', 'Incorrect first resource title');
+    assert.equal($items.last().find('.panel-title a.title').html().replace(/&nbsp;/g, " ").trim(), '2.  Assessment 1', 'Incorrect last resource title');
 
     assert.equal($items.first().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first resource for mobile');
     assert.equal($items.last().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the last resource for mobile');
@@ -312,7 +328,6 @@ test('it loads collections/assessments and renders them correctly after clicking
     assert.equal($items.last().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last resource');
   });
 });
-
 
 test('it only loads collections/assessments once after clicking on the lesson name', function (assert) {
   assert.expect(5);
@@ -328,7 +343,14 @@ test('it only loads collections/assessments once after clicking on the lesson na
   // Lesson model
   const lesson = Ember.Object.create({
     id: "888-000",
-    title: 'Lesson Title'
+    title: 'Lesson Title',
+
+    completion: [{
+      color: "#0072BC",
+      percentage: 50
+    }],
+    completed: 5,
+    total: 10
   });
 
   this.on('externalAction', function () {
@@ -387,7 +409,7 @@ test('it only loads collections/assessments once after clicking on the lesson na
 
       const $items = $collapsePanel.find('.collections .panel');
       assert.equal($items.length, 2, 'Number of lessons listed should not have changed');
-      assert.equal($lessonTitleAnchor.text().trim(), 'Lesson 3: Lesson Title', 'Index in the title text should have changed');
+      assert.equal($lessonTitleAnchor.html().replace(/&nbsp;/g, " ").trim(), 'Lesson 3.  Lesson Title', 'Index in the title text should have changed');
     });
   });
 });
@@ -404,7 +426,14 @@ test('it triggers event handlers', function (assert) {
   // Lesson model
   const lesson = Ember.Object.create({
     id: "888-000",
-    title: 'Lesson Title'
+    title: 'Lesson Title',
+
+    completion: [{
+      color: "#0072BC",
+      percentage: 50
+    }],
+    completed: 5,
+    total: 10
   });
 
   this.on('selectResource', function (lessonId, collectionId) {
@@ -461,7 +490,14 @@ test('it can start expanded (via "parsedLocation") and be collapsed manually', f
   // Lesson model
   const lesson = Ember.Object.create({
     id: "888-000",
-    title: 'Lesson Title'
+    title: 'Lesson Title',
+
+    completion: [{
+      color: "#0072BC",
+      percentage: 50
+    }],
+    completed: 5,
+    total: 10
   });
 
   this.on('externalAction', function () {
@@ -509,7 +545,14 @@ test('it can be expanded manually and collapsed by changing the "parsedLocation"
   // Lesson model
   const lesson = Ember.Object.create({
     id: "888-000",
-    title: 'Lesson Title'
+    title: 'Lesson Title',
+
+    completion: [{
+      color: "#0072BC",
+      percentage: 50
+    }],
+    completed: 5,
+    total: 10
   });
 
   this.on('externalAction', function () {

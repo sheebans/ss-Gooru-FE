@@ -19,7 +19,7 @@ export default Ember.Object.extend({
       });
     }
 
-    return null;
+    return false;
   }
 
 

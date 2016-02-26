@@ -142,6 +142,15 @@ export default Ember.Component.extend(AccordionMixin, {
           if (entity) {
             entity.get('locationUsers').then((locationUsers) => {
               item.set('users', locationUsers);
+
+              // TODO: remove after integration with analytics
+              item.set('completion', [{
+                color: "#0072BC",
+                percentage: 50
+              }]);
+              item.set('completed', 5);
+              item.set('total', 10);
+
             });
           }
         });
