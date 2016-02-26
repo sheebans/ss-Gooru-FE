@@ -5,6 +5,7 @@ const ConfigEvent = Env['events'] || {};
 export default Ember.Service.extend({
 
   saveResourceResult: function(resourceResult, context) {
+    console.log(resourceResult);
     var service = this;
     var apiKey = ConfigEvent.eventAPIKey;
     return new Ember.RSVP.Promise(function(resolve, reject) {

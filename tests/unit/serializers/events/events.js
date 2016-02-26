@@ -1,5 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 import Context from 'gooru-web/models/result/context';
+import QuestionResult from 'gooru-web/models/result/question';
 
 moduleFor('serializer:events/events', 'Unit | Serializer | events/events');
 
@@ -18,6 +19,15 @@ test('normalizeFindRecordResponse', function(assert) {
       lessonId: "b479f7cd-52af-4b41-a8e5-fbd4b899b099",
       collectionType:"collection"
    });
+
+  const assessment = QuestionResult.create({
+    "correct": true,
+    "questionId": "content-id",
+    "reaction": 4,
+    "timeSpent": 1333,
+    startedAt: "2016",
+    submittedAt: null
+  });
 
 
   const expected = [{
