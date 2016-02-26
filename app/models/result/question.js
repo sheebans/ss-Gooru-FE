@@ -49,8 +49,8 @@ export default ResourceResult.extend({
    *
    * @property {String}
    */
-  attemptStatus: Ember.computed("correct", "skipped", function () {
-    return this.get('correct') ? 'correct' : (this.get('skipped') ? 'skipped' : 'incorrect');
+  attemptStatus: Ember.computed("correct", "skipped", "pending", function () {
+    return this.get('correct') ? 'correct' : ((this.get('skipped') || this.get("pending")) ? 'skipped' : 'incorrect');
   }),
 
   /**

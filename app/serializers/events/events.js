@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import {getQuestionUtil} from 'gooru-web/config/question';
+import {toTimestamp} from 'gooru-web/utils/utils';
 import Env from '../../config/environment';
 const ConfigEvent = Env['events'] || {};
 
@@ -16,12 +17,16 @@ export default Ember.Object.extend({
     let serializer = this;
     let totalResources = assessment.get("totalResources");
     let contextObject = serializer.getContextValuesForCollection(context, totalResources);
+    let startedAt = assessment.get('startedAt');
+    let submittedAt = assessment.get('submittedAt');
+    let startTime = toTimestamp(startedAt);
+    let endTime = !submittedAt ? startTime: toTimestamp(submittedAt);
     return [{
       "eventId": context.get('parentEventId'),
       "eventName": "collection.play",
       "session": {"apiKey": apiKey, "sessionId": context.get('sessionId')},
-      "startTime": assessment.get('startedAt'),
-      "endTime": assessment.get('submittedAt'),
+      "startTime": startTime,
+      "endTime": endTime,
       "user": {"gooruUId": context.get('userId')},
       "context": contextObject,
       "version": {"logApi": ConfigEvent.apiVersion},
@@ -43,12 +48,17 @@ export default Ember.Object.extend({
     let resourceType = resource.get("isQuestion") ? 'question' : 'resource';
     let contextObject = serializer.getContextValuesForResult(context, resource.get("id"), resourceType);
 
+    let startedAt = resourceResult.get('startedAt');
+    let submittedAt = resourceResult.get('submittedAt');
+    let startTime = toTimestamp(startedAt);
+    let endTime = !submittedAt ? startTime: toTimestamp(submittedAt);
+
     let serialized = {
       "eventId": context.get('resourceEventId'),
       "eventName": "collection.resource.play",
       "session": {"apiKey": apiKey, "sessionId": context.get('sessionId')},
-      "startTime": resourceResult.get('startedAt'),
-      "endTime": resourceResult.get('submittedAt'),
+      "startTime": startTime,
+      "endTime": endTime,
       "user": {"gooruUId": context.get('userId')},
       "context": contextObject,
       "version": {"logApi": ConfigEvent.apiVersion},

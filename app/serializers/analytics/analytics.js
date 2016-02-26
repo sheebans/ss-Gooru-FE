@@ -5,7 +5,7 @@ import ResourceResult from 'gooru-web/models/result/resource';
 import QuestionResult from 'gooru-web/models/result/question';
 import AnswerObject from 'gooru-web/utils/question/answer-object';
 import { getQuestionUtil } from 'gooru-web/config/question';
-
+import { toLocal } from 'gooru-web/utils/utils';
 
 export default Ember.Object.extend({
 
@@ -40,7 +40,7 @@ export default Ember.Object.extend({
   },
 
   normalizeResourceResult: function(payload) {
-    let answerObjects = this.normalizeAnswerObjects(payload.answerObjects);
+    let answerObjects = this.normalizeAnswerObjects(payload.answerObject);
     if (payload.resourceType && payload.resourceType === 'question') {
       let util = getQuestionUtil(payload.questionType).create();
 
@@ -58,7 +58,9 @@ export default Ember.Object.extend({
         score: payload.score,
         resourceType: payload.resourceType,
         attempts: payload.attempts,
-        sessionId: payload.sessionId
+        sessionId: payload.sessionId,
+        startedAt: payload.startTime ? toLocal(payload.startTime) : toLocal(new Date().getTime()), /* TODO this should come from server */
+        submittedAt: payload.endTime ? toLocal(payload.endTime) : null
       });
     } else {
       return ResourceResult.create({
@@ -71,7 +73,10 @@ export default Ember.Object.extend({
         score: payload.score,
         resourceType: payload.resourceType,
         attempts: payload.attempts,
-        sessionId: payload.sessionId
+        sessionId: payload.sessionId,
+        startedAt: payload.startTime ? toLocal(payload.startTime) : toLocal(new Date().getTime()), /* TODO this should come from server */
+        submittedAt: payload.endTime ? toLocal(payload.endTime) : null
+
       });
     }
   },
@@ -85,6 +90,9 @@ export default Ember.Object.extend({
    */
   normalizeAnswerObjects: function(answerObjects){
     answerObjects = (!answerObjects || answerObjects === "N/A") ? [] : answerObjects;
+    if (typeof answerObjects === "string"){
+      answerObjects = JSON.parse(answerObjects);
+    }
     return answerObjects.map(function(answerObject){
       return AnswerObject.create(answerObject);
     });
