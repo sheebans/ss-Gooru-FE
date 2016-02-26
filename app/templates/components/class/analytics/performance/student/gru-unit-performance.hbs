@@ -20,13 +20,11 @@
   </ul>
 </a>
 <div class="lessons-container collapse" id="{{unit.id}}">
-    <!-- each del componete de performance summary con el performance de cada lesson-->
   <div>
-    {{#each lessons as |lesson index|}}
+    {{#each lessons as |lesson indexLesson|}}
       {{class.analytics.performance.student.gru-lesson-performance
       lesson = lesson
-      localIndex = index
-      index = localIndex
+      index = indexLesson
       selectedOption = selectedOption
       onSelectResource=(action 'selectResource')
       onSelectLesson=(action 'updateSelectedLesson')
