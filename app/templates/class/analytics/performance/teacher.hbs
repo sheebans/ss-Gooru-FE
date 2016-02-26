@@ -5,11 +5,11 @@
         <span class="better-experience-message">{{t 'class.analytics.performance.better-experience-message'}}</span>
       </div>
     </div>
-    <div class="row">
+    <div class="row navigation {{if isFullScreen 'hide' 'show'}}">
       <div class="col-xs-12">
-        <ul class="nav nav-tabs nav-tabs-lg {{if isFullScreen 'hide' 'show'}}">
-          <li role="presentation" class="active"><a href="#">{{t 'class.analytics.performance.title'}}</a></li>
-          <li role="presentation"><a href="#">{{t 'class.analytics.mastery.title'}}</a></li>
+        <ul class="nav nav-tabs nav-tabs-lg">
+          <li role="presentation" class="performance active"><a href="#">{{t 'class.analytics.performance.title'}}</a></li>
+          <li role="presentation" class="mastery"><a href="#">{{t 'class.analytics.mastery.title'}}</a></li>
         </ul>
       </div>
     </div>

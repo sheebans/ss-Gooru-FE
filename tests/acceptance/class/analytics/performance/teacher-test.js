@@ -71,7 +71,7 @@ test('When view by both option is selected', function(assert) {
     assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
 
     const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher");
-    const $bothViewOption = $performanceContainer.find(".controls .gru-actions-bar .dropdown-menu .both");
+    const $bothViewOption = $performanceContainer.find(".controls .gru-actions-bar .dropdown-menu .both a");
 
     click($bothViewOption);
     andThen(function() {
