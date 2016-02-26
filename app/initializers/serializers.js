@@ -15,6 +15,6 @@ export default {
     application.inject('service:api-sdk/performance', 'studentCollectionPerformanceSerializer', 'serializer:student-collection-performance');
     application.inject('service:api-sdk/real-time', 'realTimeSerializer', 'serializer:real-time');
     application.inject('service:api-sdk/events', 'eventsSerializer', 'serializer:events');
-    application.inject('controller:class/reports/collection', 'realTimeSerializer', 'serializer:real-time');
+    application.inject('controller:reports/collection', 'realTimeSerializer', 'serializer:real-time');
   }
 };

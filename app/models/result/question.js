@@ -102,7 +102,7 @@ export default ResourceResult.extend({
 
     return {
       gooruOId: this.get('questionId'),
-      score: this.get('score'),
+      score: this.get('correct') ? 1 : 0, // this is for real time //TODO  ?
       reaction: this.get('reaction'),
       timeSpent: this.get('timeSpent'),
       resourceType: 'question',

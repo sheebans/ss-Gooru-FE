@@ -67,8 +67,10 @@ export default PlayerRoute.extend({
 
   setupController(controller, model) {
     // Call parent method
-    this._super(...arguments);
+    controller.set("onAir", true); //TODO check for onAir
     controller.set("lesson", model.lesson);
+
+    this._super(...arguments);
   }
 
 });
