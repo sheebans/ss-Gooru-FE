@@ -185,7 +185,6 @@ export default Ember.Component.extend({
           return sortFunction(a.content[sortColumn].value, b.content[sortColumn].value) * sortCriteria.order;
         });
       }
-      console.log('sortedData',sortedData);
       return sortedData;
 
     } else {
