@@ -23,6 +23,20 @@ export default Ember.Route.extend({
 
   userService: Ember.inject.service("api-sdk/user"),
 
+
+  // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+
+    navigateBack: function () {
+      var route = !this.get('history.lastRoute.name') ? 'index' : this.get('history.lastRoute.url');
+      this.transitionTo(route);
+    }
+
+  },
+
+
   // -------------------------------------------------------------------------
   // Methods
 

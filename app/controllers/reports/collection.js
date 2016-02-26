@@ -1,7 +1,6 @@
 import Ember from "ember";
 import Env from 'gooru-web/config/environment';
 
-
 /**
  *
  * Controller for collection/assessment report
@@ -14,17 +13,29 @@ import Env from 'gooru-web/config/environment';
  */
 export default Ember.Controller.extend({
 
+  queryParams: ['anonymous'],
+
+
   // -------------------------------------------------------------------------
   // Dependencies
 
   realTimeService: Ember.inject.service('api-sdk/real-time'),
 
+
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-    setAnonymous: function () {
-      this.set("anonymous", !this.get("anonymous"));
+
+    goBack: function () {
+      this.send('navigateBack');
+    },
+
+    launchAnonymous: function () {
+      var url = window.location.href;
+
+      url += "?anonymous=true";
+      window.open(url, 'realTimeAnonymous', 'width=' + window.screen.width + ', height=' + window.screen.height + ', left=0, top=0', true);
     }
   },
 
