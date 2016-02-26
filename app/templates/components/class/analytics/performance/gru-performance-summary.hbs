@@ -21,10 +21,10 @@
           {{#if performance.score}}
               <span class="score-box" style="background-color: {{ gradeColor performance.score }}">{{performance.score}}%</span>
           {{else}}
-            <p>{{t "gru-performance-summary.not-applicable"}}</p>
+              <span class="score-box" style="background-color: #959A9E">--%</span>
           {{/if}}
         {{else}}
-            <span class="score-box" style="background-color: #B8BFC4">--%</span>
+            <span class="score-box" style="background-color: #959A9E">--%</span>
         {{/if}}
     </li>
     <li class="completion">
