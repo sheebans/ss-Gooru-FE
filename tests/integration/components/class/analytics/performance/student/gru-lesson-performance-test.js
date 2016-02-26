@@ -94,7 +94,7 @@ test('Test for started lesson performance', function(assert) {
     T.exists(assert, $collectionTitle, 'Missing collection Title');
     assert.equal($collectionTitle.text().trim(), "C1:     Indian History CollectionA1:     Indian History Assessment", "Wrong title");
 
-    const $collectionRedoButton = $component.find(".collections-container .collection-performance:nth-child(2) .collection-performance-content .title button.collection-redo-button");
+    const $collectionRedoButton = $component.find(".collections-container .collection-performance.collection-performance:nth-child(1) .collection-performance-content .title button.collection-redo-button");
     T.exists(assert, $collectionRedoButton, 'Missing collection redo button');
     assert.equal($collectionRedoButton.hasClass('collection-redo-button'), true, "Redo class from button missing");
 
