@@ -149,7 +149,7 @@ test('Reorder question layout - with user answer', function (assert) {
   });
 
   this.set('question', question);
-  this.set('userAnswer', ["2", "1", "3"]);
+  this.set('userAnswer', ["well", "aquifer", "pump"]);
 
   this.render(hbs`{{player/questions/gru-reorder question=question userAnswer=userAnswer}}`);
 
