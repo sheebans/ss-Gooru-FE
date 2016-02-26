@@ -14,7 +14,6 @@
 
     th, td {
       border: none;
-      border-left: 1px solid $gray-lighter;
       padding: 10px 20px;
       font-weight: normal;
     }
@@ -24,9 +23,6 @@
         background-color: #45515C;
         color: $white;
         border-color: $dark-400;
-        &:first-child {
-          border-left: 0;
-        }
       }
     }
 
@@ -46,7 +42,7 @@
       height: 47px;
 
       th {
-        border-width: 2px 0 3px 1px;
+        border-width: 2px 0 3px 0;
         line-height: 23px;
 
         > span {
@@ -67,9 +63,6 @@
           > span {
             width: auto;
           }
-        }
-        &:first-child {
-          border-left-width: 1px;
         }
         &:hover {
           cursor: pointer;
@@ -114,7 +107,7 @@
         }
       }
       td {
-        border-width: 0 1px 1px 0;
+        border-width: 0 0 1px 0;
         border-color: $gray-lighter;
         border-style: solid;
         width: $table-cell-width;
