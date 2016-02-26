@@ -96,7 +96,7 @@ test('Notifications work after reordering questions', function (assert) {
   // Move current first item to be the second one
   $component.find('.sortable li:first-child')
     .insertBefore('.sortable li:last-child');
-  answers = { answer: ["aquifer", "well", "pump"], correct: true };
+  answers = { answer: ["aquifer", "well", "pump"], correct: false };
   $component.find('.sortable').trigger('sortupdate');
 
 });
