@@ -21,13 +21,14 @@
       width:100%;
       min-height: 70px;
       border:0;
-      border-top:1px solid $gray-lighter;
       border-radius:0!important;
       padding: 0;
       @include respond-to(xs) {
         min-height:50px;
       }
       >a{
+        border-bottom-left-radius:0;
+        border-top-left-radius: 0;
         color:$gray;
         height: 70px;
         -webkit-flex-direction: row;
@@ -61,6 +62,7 @@
           padding:0;
         }
         >ul{
+          border-bottom:1px solid $gray-lighter;
           >li{
             &.lesson-performance-title {
               -webkit-flex-direction: row;

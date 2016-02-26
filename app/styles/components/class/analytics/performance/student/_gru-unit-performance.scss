@@ -4,6 +4,8 @@
   margin-bottom: 17px;
   &.selected a{
     border-left: 4px solid $green-400;
+    border-bottom-left-radius:0;
+    border-top-left-radius: 0;
   }
   >a{
     color:$gray;

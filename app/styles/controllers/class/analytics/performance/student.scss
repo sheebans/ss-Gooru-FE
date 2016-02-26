@@ -2,24 +2,42 @@
   padding:55px 7% 0 7%;
   .navigation {
     padding-left: 5px;
-    ul li{
-      width:235px;
-      text-align: center;
-      &.active{
-        text-align:left;
-      }
-      a {
-        padding:0 25px 10px 25px;
-        .active & span{
-          opacity: 1;
+    text-align: center;
+    @media (min-width: $screen-sm) {
+      text-align: left;
+    }
+    ul{
+      display: inline-block;
+      li{
+        @media (min-width: $screen-sm) {
+          width:235px;
         }
-        span{
-          opacity: 0.6;
-          color: black;
-          font-weight: normal;
+        text-align: center;
+        &.active{
+          text-align:left;
+        }
+        a {
+          padding: 0 0 11px 0;
+          display: inline-block;
+          margin-right: 15px;
+          margin-left: 15px;
+          @media (min-width: $screen-sm) {
+            margin:0;
+            padding:0 25px 10px 25px;
+            display: block;
+          }
+          .active & span{
+            opacity: 1;
+          }
+          span{
+            opacity: 0.6;
+            color: black;
+            font-weight: normal;
+          }
         }
       }
     }
+
   }
   .gru-content {
     min-height: 400px; /* This is temporal for layout */
@@ -43,6 +61,14 @@
     }
     div.collections-container span.no-content {
       padding-left: 50px;
+    }
+  }
+  .performance-picker{
+    .gru-data-picker{
+      margin-top: 15px;
+      .option-picker{
+        background-color: $white;
+      }
     }
   }
 }
