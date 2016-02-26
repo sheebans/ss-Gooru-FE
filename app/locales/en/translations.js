@@ -350,6 +350,9 @@ export default {
   "gru-multiple-choice": {
     "instructions" : "Please select the correct answer, and click \"Submit\"."
   },
+  "gru-hot-text": {
+    "instructions" : "Please select the correct answer, and click \"Submit\"."
+  },
   "gru-true-false": {
     "instructions" : "Please select the correct answer, and click \"Submit\".",
     "true":"True",

@@ -16,9 +16,9 @@ test('Hot Spot Image Correct Answer', function(assert) {
     hints: [],
     explanation: 'Sample explanation text',
     answers:  Ember.A([
-      Ember.Object.create({ id: "1", isCorrect: true, image:"http://qacdn.gooru.org/qalive/f000/2441/3272/4a12b833-9106-48ef-95b5-ac3ff73575ae.png" }),
-      Ember.Object.create({ id: "2", isCorrect: false, image:"" }),
-      Ember.Object.create({ id: "3", isCorrect: true, image:"" })
+      Ember.Object.create({ id: "1", isCorrect: true, text:"http://qacdn.gooru.org/qalive/f000/2441/3272/4a12b833-9106-48ef-95b5-ac3ff73575ae.png" }),
+      Ember.Object.create({ id: "2", isCorrect: false, text:"" }),
+      Ember.Object.create({ id: "3", isCorrect: true, text:"" })
     ]),
     order: 2
   });
@@ -45,9 +45,9 @@ test('Hot Spot Image Your Answer Incorrect', function(assert) {
     hints: [],
     explanation: 'Sample explanation text',
     answers:  Ember.A([
-      Ember.Object.create({ id: "1", isCorrect: true, image:"http://qacdn.gooru.org/qalive/f000/2441/3272/4a12b833-9106-48ef-95b5-ac3ff73575ae.png" }),
-      Ember.Object.create({ id: "2", isCorrect: false, image:"" }),
-      Ember.Object.create({ id: "3", isCorrect: true, image:"" })
+      Ember.Object.create({ id: "1", isCorrect: true, text:"http://qacdn.gooru.org/qalive/f000/2441/3272/4a12b833-9106-48ef-95b5-ac3ff73575ae.png" }),
+      Ember.Object.create({ id: "2", isCorrect: false, text:"" }),
+      Ember.Object.create({ id: "3", isCorrect: true, text:"" })
     ]),
     order: 2
   });
@@ -74,9 +74,9 @@ test('Hot Spot Image Your Answer Correct', function(assert) {
     hints: [],
     explanation: 'Sample explanation text',
     answers:  Ember.A([
-      Ember.Object.create({ id: "1", isCorrect: true, image:"http://qacdn.gooru.org/qalive/f000/2441/3272/4a12b833-9106-48ef-95b5-ac3ff73575ae.png" }),
-      Ember.Object.create({ id: "2", isCorrect: false, image:"" }),
-      Ember.Object.create({ id: "3", isCorrect: true, image:"" })
+      Ember.Object.create({ id: "1", isCorrect: true, text:"http://qacdn.gooru.org/qalive/f000/2441/3272/4a12b833-9106-48ef-95b5-ac3ff73575ae.png" }),
+      Ember.Object.create({ id: "2", isCorrect: false, text:"" }),
+      Ember.Object.create({ id: "3", isCorrect: true, text:"" })
     ]),
     order: 2
   });
@@ -104,9 +104,9 @@ test('Hot Spot Image anonymous', function(assert) {
     hints: [],
     explanation: 'Sample explanation text',
     answers:  Ember.A([
-      Ember.Object.create({ id: "1", isCorrect: true, image:"http://qacdn.gooru.org/qalive/f000/2441/3272/4a12b833-9106-48ef-95b5-ac3ff73575ae.png" }),
-      Ember.Object.create({ id: "2", isCorrect: false, image:"" }),
-      Ember.Object.create({ id: "3", isCorrect: true, image:"" })
+      Ember.Object.create({ id: "1", isCorrect: true, text:"http://qacdn.gooru.org/qalive/f000/2441/3272/4a12b833-9106-48ef-95b5-ac3ff73575ae.png" }),
+      Ember.Object.create({ id: "2", isCorrect: false, text:"" }),
+      Ember.Object.create({ id: "3", isCorrect: true, text:"" })
     ]),
     order: 2
   });

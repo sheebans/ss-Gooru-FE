@@ -186,14 +186,16 @@ export default Ember.Controller.extend(SessionMixin, {
     let assessmentResult = this.get("assessmentResult");
     let resourceId = resource.get("id");
 
-    controller.set("showReport", false);
-    controller.set("resourceId", resourceId);
-    controller.set("resource", resource);
-
     let resourceResult = assessmentResult.getResultByResourceId(resourceId);
 
     controller.startResourceResult(resourceResult).then(function(){
-      controller.set("resourceResult", resourceResult);
+      controller.setProperties({
+        "showReport": false,
+        "resourceId": resourceId,
+        "resource": resource,
+        "resourceResult": resourceResult
+      });
+
       controller.get('ratingService').findRatingForResource(resource.get("id"))
         .then(function (ratingModel) { //TODO this could not be necessary if the reaction is loaded with the result
           resourceResult.set("reaction", ratingModel.get('score'));
