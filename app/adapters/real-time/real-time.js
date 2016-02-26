@@ -3,7 +3,6 @@ import SessionMixin from 'gooru-web/mixins/session';
 
 export default Ember.Object.extend(SessionMixin, {
 
-  //namespace: '/mocked-api/nucleus/realtime',
   namespace: '/nucleus/realtime',
 
   headers: Ember.computed('session.token', function() {
@@ -39,6 +38,34 @@ export default Ember.Object.extend(SessionMixin, {
     const classId = query.classId;
     const collectionId = query.collectionId;
     const path = `/class/${classId}/collection/${collectionId}/events`;
+
+    return Ember.$.ajax(this.get('namespace') + path, options);
+  },
+
+  postAttempt: function(query) {
+    const options = {
+      type: 'POST',
+      dataType: 'text',
+      headers: this.get('headers'),
+    };
+    const classId = query.classId;
+    const collectionId = query.collectionId;
+    const userId = query.userId;
+    const path = `/class/${classId}/collection/${collectionId}/user/${userId}/complete`;
+
+    return Ember.$.ajax(this.get('namespace') + path, options);
+  },
+
+  deleteAttempt: function(query) {
+    const options = {
+      type: 'DELETE',
+      dataType: 'text',
+      headers: this.get('headers'),
+    };
+    const classId = query.classId;
+    const collectionId = query.collectionId;
+    const userId = query.userId;
+    const path = `/class/${classId}/collection/${collectionId}/user/${userId}/reset`;
 
     return Ember.$.ajax(this.get('namespace') + path, options);
   },

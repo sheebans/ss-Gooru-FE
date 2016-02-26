@@ -35,6 +35,36 @@ export default Ember.Service.extend({
     });
   },
 
+  notifyAttemptStarted: function(classId, collectionId, userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('realTimeAdapter').postAttempt({
+        classId: classId,
+        collectionId: collectionId,
+        userId: userId
+      }).then(function() {
+        resolve();
+      }, function(error) {
+        reject(error);
+      });
+    });
+  },
+
+  notifyAttemptFinished: function(classId, collectionId, userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('realTimeAdapter').deleteAttempt({
+        classId: classId,
+        collectionId: collectionId,
+        userId: userId
+      }).then(function() {
+        resolve();
+      }, function(error) {
+        reject(error);
+      });
+    });
+  },
+
   turnOnAirOn: function(classId, collectionId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
