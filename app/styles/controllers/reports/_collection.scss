@@ -1,0 +1,64 @@
+.reports_collection .container-fluid {
+  min-width: $screen-md-min;
+}
+
+.app-container > .controller.reports {
+  $gutter-width: 30px;
+
+  display: block;
+  padding: 0 15px 30px 15px;
+
+  .header {
+
+    .title {
+      > i {
+        margin: 0 15px;
+        vertical-align: -4px;
+      }
+      > span {
+        display: inline-block;
+        font-size: $font-size-h4;
+        margin: 6px 0;
+      }
+    }
+
+    .actions {
+      .btn-info {
+        i {
+          font-size: $font-size-base;
+          vertical-align: -2px;
+          margin-right: 6px;
+        }
+      }
+    }
+
+    &.anonymous {
+      background-color: $dark-400;
+      color: $white;
+      width: 100vw;
+      margin-left: -$gutter-width;
+      @include clearfix();
+
+      .title {
+        float: left;
+        margin-left: $gutter-width;
+      }
+      .mode {
+        font-size: $font-size-base;
+        float: right;
+        margin-right: $gutter-width + 20px;
+        margin-top: 18px;
+
+        > i {
+          font-size: $font-size-large;
+          vertical-align: text-bottom;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
+  .gru-class-assessment-report {
+    padding-top: 10px;
+  }
+}
