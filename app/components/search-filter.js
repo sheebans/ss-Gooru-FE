@@ -100,7 +100,7 @@ export default Ember.Component.extend({
      * Triggered when change the rating
      */
     onRateChange: function(newRating){
-      console.log('Changing Rate'+newRating);
+      Ember.Logger.debug('Changing Rate'+newRating);
     },
 
     /**
