@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import AssessmentResult from 'gooru-web/models/result/assessment';
 import AnalyticsSerializer from '../analytics/analytics';
 import { toLocal } from 'gooru-web/utils/utils';

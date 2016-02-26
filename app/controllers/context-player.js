@@ -49,8 +49,10 @@ export default PlayerController.extend({
     return promise.then(function(){
       if (onAir){
         let realTimeService = controller.get('realTimeService');
-        return realTimeService.notifyResourceResult(context.get("classId"), context.get("collectionId"),
-          context.get("userId"), resourceResult);
+        if (context.get("eventType") === 'stop') { //only notifies when the question is completed
+          return realTimeService.notifyResourceResult(context.get("classId"), context.get("collectionId"),
+            context.get("userId"), resourceResult);
+        }
       }
     });
   },
@@ -68,7 +70,13 @@ export default PlayerController.extend({
     return promise.then(function(){
       if (onAir){
         let realTimeService = controller.get('realTimeService');
-        //TODO call event
+        Ember.Logger.debug(assessmentResult, context, realTimeService);
+        if (context.get("eventType") === 'start') {
+
+        }
+        else if (context.get("eventType") === 'stop') {
+
+        }
       }
     });
   }

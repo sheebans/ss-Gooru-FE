@@ -36,7 +36,7 @@ test('Navigate to all resources types', function (assert) {
     const $playerContainer = find(".controller.player");
 
     //last visited resource is displayed
-    assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
+    assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
     T.exists(assert, $playerContainer.find('.gru-viewer .gru-url-resource'), "Missing url resource component");
 
     click($playerContainer.find(".gru-navigator .list-group-item:eq(5)")); // navigating to image resource
@@ -73,7 +73,7 @@ test('Navigate to all question types', function (assert) {
     const $playerContainer = find(".controller.player");
 
     //checking that the last visited resource is displayed
-    assert.equal(currentURL(), '/player/522f6827-f7dd-486f-8631-eba497e2d425');
+    assert.equal(currentURL(), '/player/522f6827-f7dd-486f-8631-eba497e2d425?resourceId=46d4a6d4-991b-4c51-a656-f694e037dd68');
     T.exists(assert, $playerContainer.find('.gru-question-viewer .gru-open-ended'), "Missing open ended component");
 
     click($playerContainer.find(".gru-navigator .list-group-item:eq(1)")); // navigating to multiple choice question

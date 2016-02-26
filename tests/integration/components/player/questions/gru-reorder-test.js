@@ -83,20 +83,20 @@ test('Notifications work after reordering questions', function (assert) {
 
   var $component = this.$(); //component dom element
 
-  assert.equal($component.find(".sortable li:first-child").data('id'), "aquifer", "First answer choice, data-id value is incorrect");
-  assert.equal($component.find(".sortable li:last-child").data('id'), "pump", "Last answer choice, data-id value is incorrect");
+  assert.equal($component.find(".sortable li:first-child").data('id'), "pump", "First answer choice, data-id value is incorrect");
+  assert.equal($component.find(".sortable li:last-child").data('id'), "aquifer", "Last answer choice, data-id value is incorrect");
 
   // Move first item to be the last
   $component.find('.sortable li:first-child')
     .insertAfter('.sortable li:last-child');
 
-  answers = { answer: ["well", "pump", "aquifer"], correct: false };
+  answers = { answer: ["well", "aquifer", "pump"], correct: false };
   $component.find('.sortable').trigger('sortupdate');
 
   // Move current first item to be the second one
   $component.find('.sortable li:first-child')
     .insertBefore('.sortable li:last-child');
-  answers = { answer: ["pump", "well", "aquifer"], correct: true };
+  answers = { answer: ["aquifer", "well", "pump"], correct: true };
   $component.find('.sortable').trigger('sortupdate');
 
 });

@@ -2,7 +2,7 @@
   {
     "description": "Gets the collection performance data by student, unit, class, lesson, etc",
     "request": {
-      "url": "^/api/nucleus-insights/v2/assessment/(.+)/(.+)/user/(.+)",
+      "url": "^/api/nucleus-insights/v2/(assessment|collection)/(.+)/user/(.+)",
       "method": "GET"
     },
     "response": {
