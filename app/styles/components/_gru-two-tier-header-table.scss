@@ -1,16 +1,13 @@
 .gru-two-tier-header-table {
   $table-cell-width: 90px;
 
-  display: inline-block;
-  border-radius: 5px 0 5px 5px;
-  background-color: $dark-400;
-  padding-top: 50px;
-
   table {
     font-size: $font-size-h6;
     background: $white;
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.07);
+    border-top: 47px solid $dark-400;
     border-radius: 5px;
+    border-collapse: inherit;
 
     th, td {
       border: none;
@@ -20,7 +17,7 @@
 
     .first-tier, .second-tier {
       th, td {
-        background-color: #45515C;
+        background-color: $dark-300;
         color: $white;
         border-color: $dark-400;
       }
@@ -42,14 +39,12 @@
       height: 47px;
 
       th {
-        border-width: 2px 0 3px 0;
         line-height: 23px;
-
         > span {
           display: block;
           font-weight: normal;
           opacity: 0.6;
-          width: $table-cell-width;
+          min-width: $table-cell-width;
         }
 
         i.fa-sort-asc, i.fa-sort-desc {

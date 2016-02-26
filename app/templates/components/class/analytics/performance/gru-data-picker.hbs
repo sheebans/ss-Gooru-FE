@@ -1,18 +1,18 @@
 <div class="option-picker">
-    <ul class="option-list">
-      {{#each options as |option|}}
-          <li>
-              <a {{action 'setOption' option}}>
-                  <span class="{{option.value}} {{if option.selected 'active'}}">
-                  {{#if option.selected }}
-                   {{fa-icon icon=icon-selected}}
-                  {{else}}
-                    {{fa-icon icon=icon-default}}
-                  {{/if}}
-                  </span>
-                  <span>{{t (concat 'gru-data-picker.' option.value) }}</span>
-              </a>
-          </li>
-      {{/each}}
-    </ul>
+  <ul class="list-inline">
+    {{#each options as |option|}}
+      <li>
+        <div class="checkbox">
+          <label class="{{option.value}}">
+            {{#if option.selected}}
+              <input type="checkbox" disabled={{option.readOnly}} value="{{option.value}}" checked {{action 'setOption' option}}/>
+            {{else}}
+              <input type="checkbox" disabled={{option.readOnly}} value="{{option.value}}" {{action 'setOption' option}}/>
+            {{/if}}
+            <span>{{t (concat 'gru-data-picker.' option.value) }}</span>
+          </label>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
 </div>

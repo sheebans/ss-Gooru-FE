@@ -1,41 +1,12 @@
 .gru-actions-bar {
-  padding: 10px 0 0 0;
-  text-align: center;
   .btn {
-    padding: 4px;
+    font-size: $font-size-base;
   }
-  .drop-menu {
-    .dropdown-toggle {
-      .arrow {
-        padding-left: 0;
-        background: url("gooru/landingpageSprite.png") no-repeat;
-        background-position: -95px -37px;
-        background-size: 185px;
-        width: 25px;
-        height: 10px;
-        display: inline-block;
-      }
-    }
-    .dropdown-menu {
-      right: 0;
-      left: inherit;
-      padding: 10px 0;
-      li {
-        padding: 5px;
-        margin: 0 10px;
-        font-size: $font-size-small;
-        cursor: pointer;
-      }
-      li.selected {
-        background-color: $gray-lighter;
-      }
-    }
-  }
-  .drop-menu.open {
-    .dropdown-toggle {
-      box-shadow: none;
-      .arrow {
-        background-position: -135px -37px;
+  .btn-group {
+    .btn {
+      border-right: 1px solid $white;
+      &:last-child {
+        border-right: 0;
       }
     }
   }

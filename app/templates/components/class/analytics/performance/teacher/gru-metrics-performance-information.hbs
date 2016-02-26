@@ -1,13 +1,12 @@
 {{#if performanceData}}
   {{#if showScore}}
-    <div class="{{{scoreClass}}} table-cell score">{{{performanceData.score}}}%</div>
+    <div class="table-cell">
+      <div class="box score" style="background-color: {{gradeColor performanceData.score}}">{{{performanceData.score}}}%</div>
+    </div>
   {{/if}}
   {{#if showCompletion}}
-    <div class="table-cell completion">
-      {{charts.gru-radial-chart
-      value=performanceData.completionDone
-      minValue=0
-      maxValue=performanceData.completionTotal}}
+    <div class="table-cell">
+      <div class="box completion">{{{performanceData.completionDone}}}/{{{performanceData.completionTotal}}}</div>
    </div>
   {{/if}}
   {{#if showStudyTime}}

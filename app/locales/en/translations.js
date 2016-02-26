@@ -413,7 +413,7 @@ export default {
   },
   "class.analytics": {
     "performance": {
-      "title": "Performance",
+      "title": "View Performance",
       "better-experience-message":"For a better Gooru experience, view full Class Analytics in tablet or desktop.",
       "actions": {
         "share": "Share",
@@ -427,12 +427,13 @@ export default {
       },
       "teacher": {
         "metricsTable": {
-          "average": "Average"
+          "average": "Average",
+          "class-average": "Class Average"
         }
       }
     },
     "mastery": {
-      "title": "Mastery"
+      "title": "View Mastery"
     }
   },
 
@@ -476,7 +477,7 @@ export default {
     "no-content" : "No content available"
   },
   "gru-metrics-sub-header":{
-    "name":"Name",
+    "student":"Student",
     "score": "Score",
     "completion":"Completion",
     "study-time": "Study Time"

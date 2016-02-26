@@ -5,103 +5,105 @@
   overflow-y: hidden;
 
   .table {
-    border: 0 !important;
     margin: 0;
     width: auto;
+    font-size: $font-size-h6;
+    background: $white;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.07);
+    border-top: 47px solid $dark-400;
+    border-radius: 5px;
+    border-collapse: inherit;
+
     thead, tbody
     {
       display: block;
+    }
+
+    thead {
+      tr {
+        th, td {
+          background-color: $dark-300;
+          color: $white;
+          border-right: 1px solid $dark-200;
+          &:first-child {
+            border-right: 0;
+          }
+        }
+      }
+      .headers {
+        td, th {
+          border-bottom: 1px solid $dark-200;
+        }
+        > td {
+          width: 160px;
+        }
+        .header-title {
+          text-align: left;
+          width: inherit;
+          .title {
+            width: inherit;
+            @include text-overflow();
+          }
+        }
+      }
+      .headers,
+      .sub-header {
+        th, td {
+          height: 42px;
+          padding: 0 0 0 20px;
+        }
+      }
     }
     tbody
     {
       overflow-y: auto;
       overflow-x: hidden;
       max-height: 545px;
-    }
-    thead > tr:first-child > th {
-      border-top: 1px solid $gray-lighter ;
-    }
-    thead > tr:first-child > td {
-      border: 0;
+      th {
+        width: 140px;
+        border: 0;
+        span {
+          display: block;
+          width: inherit;
+          @include text-overflow();
+        }
+      }
     }
     td, th {
-      width: 80px;
-      min-width: 80px;
+      width: 100px;
+      min-width: 100px;
       height: 70px;
-      text-align: center;
       vertical-align: middle;
       font-weight: normal;
-      font-size: $font-size-small;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      padding: 0;
+      border: 0;
+      border-right: 1px solid $light-300;
+      padding: 5px 0 5px 20px;
       div:last-child {
         border: 0;
       }
     }
-    .header-title {
-      text-align: left;
-      padding: 0 0 0 5px;
-      margin: 0 auto;
-      .title {
-        max-width: 75px;
-        @include text-overflow();
-      }
-    }
     .table-cell {
-      width: 80px;
-      min-width: 80px;
-      height: 68px;
+      width: 100px;
+      min-width: 100px;
       display: table-cell;
       vertical-align: middle;
-      border-right: 1px solid $gray-lighter ;
-
-      &.completion .gru-radial-chart {
-        width: 50px;
-        height: 50px;
-        margin: 0 auto;
+    }
+    .performance-information {
+      .box {
+        border-radius: 4px;
+        text-align: center;
+        width: 68px;
+        height: 43px;
+        display: block;
+        color: $white;
+        padding: 7px;
+        &.completion {
+          background-color: $blue-400;
+        }
       }
-    }
-    .fixed {
-      max-width: 81px;
-    }
-    th.header {
-      background-color: $gray-lighter;
-      border-top: 1px solid $gray-lighter ;
-    }
-    .sub-header {
-      th {
-        height: 30px;
-        font-size: $font-size-xsmall;
-        color: $gray;
-        .table-cell {
-          height: 30px;
-         }
-      }
-      th:first-child{
-        border-left: 2px solid $gray-lighter ;
-      }
-    }
-    .bad {
-      background-color: $gru-scale-indicator-bad;
-      color: $white;
-    }
-    .regular {
-      background-color: $gru-scale-indicator-regular;
-      color: $white;
-    }
-    .good {
-      background-color: $gru-scale-indicator-good;
-      color: $white;
-    }
-    .very-good {
-      background-color: $gru-scale-indicator-very-good;
-      color: $white;
-    }
-    .excellent {
-      background-color: $gru-scale-indicator-excellent;
-      color: $white;
     }
   }
 }

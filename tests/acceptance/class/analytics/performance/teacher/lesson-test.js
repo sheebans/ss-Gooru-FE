@@ -30,9 +30,9 @@ test('Layout', function(assert) {
 
     //assert breadcrumb text
     const $breadcrumb = find(".controller.class .gru-breadcrumb");
-    const $breadcrumbItems = $breadcrumb.find("ul li");
+    const $breadcrumbItems = $breadcrumb.find("button");
     assert.equal($breadcrumbItems.length, 3, "Incorrect number of breadcrumb items");
-    assert.equal(T.text($breadcrumb.find("ul li:last-child")), 'The Best Course Ever Made', "Wrong breadcrumb item label");
+    assert.equal(T.text($breadcrumb.find("button:last-child")), 'The Best Course Ever Made', "Wrong breadcrumb item label");
     const $filters = find(".controller.class .gru-filters");
     T.exists(assert, $filters, "Filters should be visible");
 

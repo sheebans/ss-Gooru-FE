@@ -15,14 +15,14 @@ export default Ember.Controller.extend(SessionMixin, {
      * Handle event triggered by gru-bubbles
      */
     bubbleOptionSelected: function (option) {
-      console.log(option);
+      Ember.Logger.debug(option);
     },
 
     /**
      * Handle event triggered by gru-switch
      */
     optionSwitch:function(option){
-      console.log(option);
+      Ember.Logger.debug(option);
     },
 
     /**
