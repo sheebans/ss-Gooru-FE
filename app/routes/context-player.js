@@ -11,10 +11,13 @@ import {generateUUID} from 'gooru-web/utils/utils';
  * controller with additional information available only to signed-in users
  *
  * @module
- * @augments ember/PlayerRoute
+ * @extends PlayerRoute
  */
 export default PlayerRoute.extend({
 
+
+  // -------------------------------------------------------------------------
+  // Dependencies
 
   /**
    * @type LessonService
@@ -25,18 +28,19 @@ export default PlayerRoute.extend({
   // Methods
 
   model(params) {
-    console.log(params);
-    let route = this;
-    const userId = this.get('session.userId');
+    const route = this;
+    const userId = route.get('session.userId');
+    const hasUserSession = !route.get('session.isAnonymous');
+
+    const resourceId = params.resourceId;
     const collectionId = params.collectionId;
     const courseId = params.courseId;
     const unitId = params.unitId;
     const lessonId = params.lessonId;
 
-    const collectionPromise = this.get('collectionService').findById(collectionId);
-    const lesson = this.get('lessonService').findById(courseId, unitId, lessonId);
-    collectionPromise.then(function(collection){
-      console.log(collection.get("collectionType"));
+    const collectionPromise = route.get('collectionService').findById(collectionId);
+
+    return collectionPromise.then(function(collection){
       const context = Context.create({
         userId: userId,
         collectionId: collectionId,
@@ -48,12 +52,14 @@ export default PlayerRoute.extend({
         lessonId: lessonId
       });
 
-      //const assessmentResult = route.get("performanceService").findAssessmentResultByCollectionAndStudent(context);
-
+      const lesson = route.get('lessonService').findById(courseId, unitId, lessonId);
+      let assessmentResult = hasUserSession ?
+        route.get("performanceService").findAssessmentResultByCollectionAndStudent(context) : null;
       return Ember.RSVP.hash({
-        context: context,
         collection: collection,
-        assessmentResult: null,
+        resourceId: resourceId,
+        assessmentResult: assessmentResult,
+        context: context,
         lesson: lesson
       });
     });

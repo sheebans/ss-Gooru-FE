@@ -1,13 +1,13 @@
 import ApplicationAdapter from '../application';
-import SessionMixin from 'gooru-web/mixins/session';
+import Ember from 'ember';
 
 export default ApplicationAdapter.extend({
 
   /**
    * @property {string} End-point URI
    */
-  //namespace: '/api/nucleus-insights/v2',
-  namespace: '/mocked-api/api/nucleus-insights/v2',
+  namespace: '/api/nucleus-insights/v2',
+  //namespace: '/mocked-api/api/nucleus-insights/v2',
 
   headers: Ember.computed('session.token', function() {
     return {
@@ -45,9 +45,7 @@ export default ApplicationAdapter.extend({
     delete query.collectionType;
     delete query.userId;
 
-
     let queryParams = `classGooruId=${classId}&courseGooruId=${courseId}&unitGooruId=${unitId}&lessonGooruId=${lessonId}`;
-    console.log(`${namespace}/${collectionType}/${contentId}/user/${userId}?${queryParams}`);
     return Ember.$.ajax(`${namespace}/${collectionType}/${contentId}/user/${userId}?${queryParams}`, options);
 
   }

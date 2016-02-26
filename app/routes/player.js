@@ -52,10 +52,11 @@ export default Ember.Route.extend({
    */
   model:function(params) {
     let route = this;
-    const userId = this.get('session.userId');
+    const userId = route.get('session.userId');
+    let hasUserSession = !route.get('session.isAnonymous');
     const collectionId = params.collectionId;
     const resourceId = params.resourceId;
-    const collectionPromise = this.get("collectionService").findById(collectionId);
+    const collectionPromise = route.get("collectionService").findById(collectionId);
 
     return collectionPromise.then(function(collection){
       const context = Context.create({
@@ -65,28 +66,14 @@ export default Ember.Route.extend({
         collectionType: collection.get("collectionType")
       });
 
-      //if(userId){
-      //  route.get("performanceService").findAssessmentResultByCollectionAndStudent(context)
-      //    .then(function(assessmentResult){
-      //      return Ember.RSVP.hash({
-      //        collection: collection,
-      //        resourceId: resourceId,
-      //        assessmentResult: null,
-      //        context: context
-      //      });
-      //  });
-      //}else{
-      console.log(collection);
-        return Ember.RSVP.hash({
-          collection: collection,
-          resourceId: resourceId,
-          assessmentResult: null,
-          context: context
-        });
-      //}
-
-    }).then(function(error){
-      console.log(error);
+      let assessmentResult = hasUserSession ?
+        route.get("performanceService").findAssessmentResultByCollectionAndStudent(context) : null;
+      return Ember.RSVP.hash({
+        collection: collection,
+        resourceId: resourceId,
+        assessmentResult: assessmentResult,
+        context: context
+      });
     });
   },
 
@@ -95,9 +82,9 @@ export default Ember.Route.extend({
    * @param {Collection} model
    */
   setupController(controller, model) {
-    console.log('model',model);
-    const collection = model.collection;
+    let collection = model.collection;
     let assessmentResult = model.assessmentResult;
+    let hasUserSession = !this.get('session.isAnonymous');
 
     if (!assessmentResult){
       assessmentResult = AssessmentResult.create({
@@ -111,6 +98,7 @@ export default Ember.Route.extend({
 
     model.context.set("sessionId", assessmentResult.get("sessionId"));
 
+    controller.set("saveEnabled", hasUserSession);
     controller.set("context", model.context);
     controller.set("assessmentResult", assessmentResult);
     controller.set("showReport", assessmentResult.get("submitted"));

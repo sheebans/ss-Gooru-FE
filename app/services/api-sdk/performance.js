@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import DS from 'ember-data';
 
 /**
  * @typedef {Object} PerformanceService
@@ -28,7 +27,6 @@ export default Ember.Service.extend({
       }).then(function(payload) {
         const eventContent = service.get('studentCollectionPerformanceSerializer').normalizeStudentCollection(payload);
         return eventContent;
-        //resolve(service.get('performance/studentCollectionPerformanceSerializer').normalizeResponse(payload));
       }, function(error) {
         reject(error);
       });

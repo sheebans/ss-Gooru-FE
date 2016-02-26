@@ -29,9 +29,6 @@ export default Ember.Controller.extend(SessionMixin, {
   eventsService: Ember.inject.service("api-sdk/events"),
 
 
-  // ------------------------------------------------------------------------
-  realTimeService: Ember.inject.service("api-sdk/real-time"),
-
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -217,12 +214,6 @@ export default Ember.Controller.extend(SessionMixin, {
     //setting submitted at, timeSpent is calculated
     questionResult.set("submittedAt", new Date());
     context.set("eventType", "stop");
-
-    //TODO Remove this example of how to call the notification for RT events.
-    //if (questionResult) {
-    //  controller.get('realTimeService').notifyResourceResult('class-for-pochita-as-teacher', '522f6827-f7dd-486f-8631-eba497e2d425', '0219090c-abe6-4a09-8c9f-343911f5cd86', questionResult);
-    //}
-
     return controller.saveResourceResult(questionResult, context);
   },
 
@@ -247,6 +238,7 @@ export default Ember.Controller.extend(SessionMixin, {
 
   /**
    * Saves the resource result
+   * This method is overriden by context-player controller to communicate with analytics
    * @param resourceResult
    * @returns {Promise.<boolean>}
    */
@@ -255,17 +247,9 @@ export default Ember.Controller.extend(SessionMixin, {
     let promise = Ember.RSVP.resolve(resourceResult);
     let save = controller.get("saveEnabled");
     if (save){
-       //TODO: implement
-       //let onAir = this.get("onAir");
-       //let submitted;
        promise = this.get('eventsService').saveResourceResult(resourceResult, context).then(function(){
-         /*
-         if (onAir){
-         return eventsService.notifyResourceResult(resourceResult);
-         }*/
          return resourceResult;
        });
-
     }
     return promise;
   },
@@ -278,16 +262,9 @@ export default Ember.Controller.extend(SessionMixin, {
     let assessmentResult = controller.get("assessmentResult");
     let context = controller.get("context");
     return controller.submitPendingQuestionResults().then(function(){
-       //TODO: implement
-       //let onAir = this.get("onAir");
-       //return controller.get('eventsService').saveCollectionResult(collection).then(function(){
-       //if (onAir){
-       //return realTimeService.notifyFinishCollection(collection);
-       //}
-       //});
       context.set("eventType", "stop");
-      return controller.get('eventsService').saveCollectionResult(assessmentResult, context).then(function() {
-        assessmentResult.set("submittedAt", new Date());
+      assessmentResult.set("submittedAt", new Date());
+      return controller.saveCollectionResult(assessmentResult, context).then(function() {
         controller.set("showReport", true);
       });
     });
@@ -303,22 +280,23 @@ export default Ember.Controller.extend(SessionMixin, {
     let promise = Ember.RSVP.resolve(controller.get("collection"));
 
     if (!assessmentResult.get("started")){
-
-       //TODO: implement
-       //let onAir = this.get("onAir");
-       //promise = this.get('eventsService').saveCollectionResult(collection, context).then(function(){
-       //if (onAir){
-       //return realTimeService.notifyStartCollection(collection);
-       //}
-       //});
       assessmentResult.set("startedAt", new Date());
       context.set("eventType", "start");
-      return controller.get('eventsService').saveCollectionResult(assessmentResult, context);
-      //return promise;
+      return controller.saveCollectionResult(assessmentResult, context);
     }
     return promise;
   },
 
+  /**
+   * Saves an assessment result event
+   * This method is overriden by context-player controller to communicate with analytics
+   * @param {AssessmentResult} assessmentResult
+   * @param {Context} context
+   */
+  saveCollectionResult: function(assessmentResult, context){
+    let controller = this;
+    return controller.get('eventsService').saveCollectionResult(assessmentResult, context);
+  },
 
 
   /**

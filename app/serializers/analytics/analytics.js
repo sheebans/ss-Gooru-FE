@@ -84,7 +84,7 @@ export default Ember.Object.extend({
    * @returns {AnswerObject[]}
    */
   normalizeAnswerObjects: function(answerObjects){
-    answerObjects = answerObjects === "N/A" ? [] : answerObjects;
+    answerObjects = (!answerObjects || answerObjects === "N/A") ? [] : answerObjects;
     return answerObjects.map(function(answerObject){
       return AnswerObject.create(answerObject);
     });
