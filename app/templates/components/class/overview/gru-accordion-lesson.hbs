@@ -38,7 +38,7 @@
      aria-labelledby="{{elementId}}-heading">
 
   <div class="panel-body">
-    <ol class="collections">
+    <ol class="collections {{if isTeacher 'teacher'}}">
 
     {{#if items.isPending}}
       {{three-bounce-spinner}}
@@ -47,24 +47,39 @@
       {{#each visibleItems as |item index|}}
         <li class="panel {{if item.isAssessment 'assessment' 'collection'}}
           {{if item.isSubmitted 'submitted'}}
-          {{set-if-equal "selected" item.id currentResource}}">
+          {{set-if-equal 'selected' item.id currentResource}}
+          {{if item.isOnAir 'on-air'}}">
 
-          <div class="location-marker">
-            <div class="icon-wrapper">
-              {{gru-icon name='near_me'}}
+          {{#if isTeacher}}
+
+            {{#if item.isAssessment}}
+              <button {{action "setOnAir" index}} class="btn btn-success on-air">
+                {{t "common.launch-on-air"}}
+              </button>
+            {{/if}}
+
+          {{else}}
+            <div class="location-marker">
+              <div class="icon-wrapper">
+                  {{gru-icon name='near_me'}}
+              </div>
+              <div class="arrow-right"></div>
             </div>
-            <div class="arrow-right"></div>
-          </div>
+          {{/if}}
 
           <div class="panel-heading">
-            {{#if item.isAssessment}}
 
-            {{!-- TODO: Integrate with BE --}}
-              <span class="score" style="background-color: {{ gradeColor 78 }}">78%</span>
+            <div class="icon-container">
+              {{#if item.isAssessment}}
 
-            {{ else }}
-              {{gru-icon name='apps'}}
-            {{/if}}
+              {{!-- TODO: Integrate with BE --}}
+                <span class="score" style="background-color: {{ gradeColor 78 }}">78%</span>
+                {{gru-icon name='near_me'}}
+
+              {{ else }}
+                {{gru-icon name='apps'}}
+              {{/if}}
+            </div>
 
             <span class="panel-title">
               <a class="title" {{action "selectResource" item.id}}>
@@ -84,7 +99,7 @@
             {{gru-user-icons
             class="hidden-xs"
             users=item.users
-            viewThreshold=6
+            viewThreshold=5
             viewMoreIn='modal' }}
 
           </div>

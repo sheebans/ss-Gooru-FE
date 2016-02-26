@@ -59,7 +59,7 @@ export default Ember.Component.extend({
         color: this.get('color'),
         percentage: this.get('completedPercentage')
       }
-    ]
+    ];
   })
 
 });

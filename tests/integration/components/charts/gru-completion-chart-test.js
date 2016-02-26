@@ -1,6 +1,5 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 import { ANONYMOUS_COLOR } from 'gooru-web/config/config';
 
 moduleForComponent('charts/gru-completion-chart', 'Integration | Component | charts/gru completion chart', {
