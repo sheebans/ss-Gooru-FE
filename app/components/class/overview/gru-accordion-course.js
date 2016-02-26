@@ -35,6 +35,16 @@ export default Ember.Component.extend(AccordionMixin, {
   actions: {
 
     /**
+     * Launch an assessment on-air
+     *
+     * @function actions:launchOnAir
+     */
+    launchOnAir: function (unitId, lessonId, collectionId) {
+      // Send the action so that it bubbles up to the route
+      this.sendAction('onLaunchOnAir', unitId, lessonId, collectionId);
+    },
+
+    /**
      * @function actions:selectItem
      * @param {string} collectionId - Identifier for a collection or assessment
      * @see module:app/components/class/overview/gru-accordion-lesson

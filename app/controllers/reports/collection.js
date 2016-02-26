@@ -17,8 +17,6 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  classController: Ember.inject.controller('class'),
-
   realTimeService: Ember.inject.service('api-sdk/real-time'),
 
   // -------------------------------------------------------------------------
@@ -105,7 +103,7 @@ export default Ember.Controller.extend({
       controller.get('realTimeService').findResourcesByCollection(classId, collectionId)
         .then(function (userResourceResults) {
           // Subscribe to listen for live messages
-          webSocketClient.subscribe('/topic/' + channel, function(message) {
+          webSocketClient.subscribe('/topic/' + channel, function (message) {
             var eventMessage = JSON.parse(message.body);
             const userResourceResult = controller.get('realTimeSerializer').normalizeRealTimeEvent(eventMessage);
             controller.get('reportData').merge([userResourceResult]);

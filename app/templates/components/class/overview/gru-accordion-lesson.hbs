@@ -53,7 +53,7 @@
           {{#if isTeacher}}
 
             {{#if item.isAssessment}}
-              <button {{action "setOnAir" index}} class="btn btn-success on-air">
+              <button {{action "setOnAir" item.id}} class="btn btn-success on-air">
                 {{t "common.launch-on-air"}}
               </button>
             {{/if}}

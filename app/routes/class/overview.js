@@ -22,6 +22,18 @@ export default Ember.Route.extend({
   actions: {
 
     /**
+     * Launch an assessment on-air
+     *
+     * @function actions:launchOnAir
+     */
+    launchOnAir: function (unitId, lessonId, collectionId) {
+      const currentClass = this.modelFor('class').class;
+      const classId = currentClass.get("id");
+      const courseId = currentClass.get("course");
+      this.transitionTo('reports.collection', classId, courseId, unitId, lessonId, collectionId);
+    },
+
+    /**
      * Open the player with the specific collection/assessment
      *
      * @function actions:playItem
