@@ -70,6 +70,10 @@ export default Ember.Component.extend({
     this.set('studentsHeader', this.initStudentsHeader());
   },
 
+  willDestroyElement: function () {
+    this.set('questionProperties', null);
+    this.set('studentsHeader', null);
+  },
 
   // -------------------------------------------------------------------------
   // Properties

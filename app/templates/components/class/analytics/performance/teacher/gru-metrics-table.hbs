@@ -1,7 +1,7 @@
 {{#if headers}}
   <table class="table table-bordered">
     <thead>
-      <tr>
+      <tr class="headers">
         <td></td>
         <th class="header" scope="col">
           {{t "class.analytics.performance.teacher.metricsTable.average"}}
@@ -19,16 +19,6 @@
           </th>
         {{/each}}
       </tr>
-      <tr>
-        <th class="header" scope="row">
-          {{t "class.analytics.performance.teacher.metricsTable.average"}}
-        </th>
-        {{#each averageHeaders.performanceData as |average|}}
-          <th class="performance-information">
-            {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions}}
-          </th>
-        {{/each}}
-      </tr>
       <tr class="sub-header hidden-xs">
         <th>
           {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' metrics=averageMetrics}}
@@ -42,12 +32,22 @@
           </th>
         {{/each}}
       </tr>
+      <tr>
+        <th class="header" scope="row">
+          {{t "class.analytics.performance.teacher.metricsTable.class-average"}}
+        </th>
+        {{#each averageHeaders.performanceData as |average|}}
+          <th class="performance-information">
+            {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions}}
+          </th>
+        {{/each}}
+      </tr>
     </thead>
     <tbody>
       {{#each performanceData as |userPerformance|}}
         <tr>
           <th class="header user-info fixed" scope="row">
-            {{{userPerformance.user}}}
+            <span>{{{userPerformance.user}}}</span>
           </th>
           {{#each userPerformance.performanceData as |data|}}
             <td class="performance-information">

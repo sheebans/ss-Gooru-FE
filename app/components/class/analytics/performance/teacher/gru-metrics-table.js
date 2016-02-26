@@ -83,7 +83,7 @@ export default Ember.Component.extend({
    * @constant {Array}
    */
   averageMetrics: Ember.A([Ember.Object.create({
-    'value': 'name',
+    'value': 'student',
     'sorted':false,
     'isAsc':false,
     'visible': true

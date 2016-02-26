@@ -1,51 +1,77 @@
 .controller.analytics-performance-teacher {
-  .navigation {
-    text-align: center;
-    .performance {
-      min-height: 50px;
+  .better-experience {
+    margin-bottom:0;
+  }
+
+  .row {
+    > [class*='col-']:first-child {
+      padding-left: 56px;
+      margin: 0 0 10px 0;
+      @media (max-width: $screen-xs-max) {
+        padding-left: 15px;
+      }
     }
-    .mastery {
-      border: 1px solid $gray-dark;
-      min-height: 50px;
+    > [class*='col-']:last-child {
+      padding-left: 56px;
+      @media (max-width: $screen-xs-max) {
+        padding-left: 15px;
+      }
     }
   }
 
+  .nav {
+    margin-top: 37px;
+  }
+
+  .controls,
+  .gru-filters {
+    margin-top: 15px;
+  }
+
   .controls {
-    .teacher-breadcrumb {
-      @media (min-width: $screen-sm-min) { /* same for sm and md */
-        padding: 0;
-      }
-      min-height: 50px;
-      .gru-breadcrumb {
-        margin-top: 3%;
-      }
-    }
     .teacher-actions {
-      @media (min-width: $screen-sm-min) { /* same for sm and md */
-        padding: 0;
+      .drop-menu {
+        @media (max-width: $screen-xs-max) {
+          margin: 10px 0 0 0;
+        }
       }
-      min-height: 50px;
     }
   }
 
   .gru-filters {
-    margin: 0;
-    border-top: 1px solid  $gray-light;
+    width: 100%;
+    display: table;
+    padding: 0;
     .data-picker {
-      padding: 0;
-      min-height: 50px;
+      float: left;
+      padding-left: 56px;
+      height: 50px;
+      @media (max-width: $screen-xs-max) {
+        padding-left: 15px;
+      }
     }
     .performance-scale {
       height: 50px;
       display: table;
-      padding: 0;
+      float: right;
+      @media (max-width: $screen-xs-max) {
+        padding-left: 15px;
+        margin: 10px 0 0 0;
+      }
+      .scale-indicator {
+        vertical-align: middle;
+        display: table-cell;
+        .grading-scale {
+          float: left;
+          @media (min-width: $screen-sm) {
+            float: right;
+          }
+        }
+      }
     }
   }
 
   .gru-content {
     min-height: 400px; /* This is temporal for layout */
-  }
-  .better-experience{
-    margin-bottom:0px;
   }
 }
