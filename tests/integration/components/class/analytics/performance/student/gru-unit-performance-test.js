@@ -56,7 +56,7 @@ test('Test for unit performance', function(assert) {
   const $component = this.$();
   T.exists(assert, $component, 'Missing Unit Container');
 
-  const $titleElement = $component.find('.performance-unit-title span');
+  const $titleElement = $component.find('.unit-lesson .section-title');
   assert.equal(T.text($titleElement), 'U1: Unit 1', 'Wrong unit title');
 
   const $scoreElement = $component.find('.gru-performance-summary .score div.description p');

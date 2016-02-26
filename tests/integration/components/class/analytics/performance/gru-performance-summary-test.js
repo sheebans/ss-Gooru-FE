@@ -37,7 +37,7 @@ test('Test for performance summary on valid unit values', function(assert) {
 
   T.exists(assert, $performanceSummary, 'Missing performance summary');
 
-  const $scoreSummary = $component.find(".score .description");
+  const $scoreSummary = $component.find(".score .score-box");
   T.exists(assert, $scoreSummary, 'Missing Score summary');
 
 
