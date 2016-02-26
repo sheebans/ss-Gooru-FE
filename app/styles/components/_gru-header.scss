@@ -132,12 +132,9 @@
           cursor: pointer;
           padding: 0 10px;
           max-height: 45px;
-          .dropdown .open{
-            display:block;
-          }
           button{
             margin:0;
-            &.dropdown-toggle{
+            &.dropdown-toggle {
               background-color: transparent;
               box-shadow: none;
               padding: 0;
@@ -150,6 +147,38 @@
           a{
             padding: 0;
             color: rgba(0,0,0,0.3);
+          }
+          &.open {
+            > a {
+              background-color: inherit;
+            }
+            .dropdown-menu {
+              right: 10px;
+              top: 43px;
+              border-top: 2px solid $brand-primary;
+              padding: 0;
+              @media (min-width: $screen-md) {
+                top: 52px;
+              }
+              li {
+                padding: 0;
+                border-bottom: 1px solid $light-200;
+                &:last-child {
+                  border: 0;
+                }
+                a {
+                  color: $text-color;
+                  padding: 10px 15px;
+                }
+              }
+            }
+          }
+          &.collapsed {
+            .gru-icon {
+              color: $dark-400;
+              font-size: 33px;
+              vertical-align: middle;
+            }
           }
         }
         .no-hover {

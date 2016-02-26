@@ -8,6 +8,26 @@
     li.checkbox {
       display: inline-block;
       margin: 0 15px 0 0;
+      label {
+        padding: 0;
+        height: 24px;
+        display: table;
+        input {
+          color: $white;
+          width: 21px;
+          height: 24px;
+          margin: 0;
+          display: table-cell;
+          vertical-align: middle;
+        }
+        input[type="checkbox"]:checked:before {
+          top: 3px;
+        }
+        span {
+          display: table-cell;
+          vertical-align: middle;
+        }
+      }
     }
   }
 
@@ -44,7 +64,6 @@
           height: 43px;
           display: block;
           color: $white;
-          margin: 0 auto;
           padding: 7px;
         }
       }

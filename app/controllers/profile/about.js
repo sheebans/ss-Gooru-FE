@@ -16,7 +16,7 @@ export default Ember.Controller.extend({
      *
      */
     selectCourse: function(course){
-      console.log("Select Course",course);
+      Ember.Logger.debug("Select Course",course);
     },
 
     /**
@@ -24,7 +24,7 @@ export default Ember.Controller.extend({
      *
      */
     remixCourse: function(){
-      console.log("Remix Course");
+      Ember.Logger.debug("Remix Course");
     },
 
     /**
@@ -32,7 +32,7 @@ export default Ember.Controller.extend({
      *
      */
     viewLayoutChange:function(layout){
-      console.log(layout);
+      Ember.Logger.debug(layout);
     }
   },
   //Public course
