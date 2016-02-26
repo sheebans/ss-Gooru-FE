@@ -17,10 +17,12 @@
 @import 'controllers/class/analytics/performance/student';
 @import 'controllers/class/analytics/performance/teacher';
 @import 'controllers/class/analytics/performance/teacher/collection';
-@import 'controllers/index';
-@import 'controllers/profile';
 @import 'controllers/framework/assessment';
 @import 'controllers/framework/components';
+@import 'controllers/index';
+@import 'controllers/profile';
+@import 'controllers/reports/collection';
+
 
 // TODO: update these components so they follow the naming conventions
 
@@ -60,6 +62,7 @@
 @import 'components/cards/gru-resource-card';
 
 @import 'components/charts/gru-bubble-chart';
+@import 'components/charts/gru-completion-chart';
 @import 'components/charts/gru-pie-chart';
 @import 'components/charts/gru-radial-chart';
 @import 'components/charts/gru-x-bar-chart';

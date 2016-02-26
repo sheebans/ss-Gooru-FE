@@ -47,24 +47,54 @@
     .answer-undefined {
       background-color: $light-100;
     }
-    table tr.data {
-      th {
-        max-width: 12rem;
 
-        span {
-          display: block;
-          @include text-overflow();
+    table {
+
+      .first-tier {
+        th {
+          border-left: 1px solid $dark-400;
+        }
+        td + th {
+          border-left: 0 none;
         }
       }
-      td {
-        .score {
-          border-radius: 4px;
-          text-align: center;
-          width: 68px;
-          height: 43px;
-          display: block;
-          color: $white;
-          padding: 7px;
+      .second-tier {
+        .correct {
+          border-left: 1px solid $dark-400;
+
+          > span { min-width: 60px; }
+        }
+        .row-header + .correct {
+          border-left: 0 none;
+        }
+      }
+
+      tr.data {
+        th {
+          max-width: 12rem;
+
+          span {
+            display: block;
+            @include text-overflow();
+          }
+        }
+        td {
+          &:nth-child(3n-1) {
+            border-left: 1px solid $gray-lighter;
+          }
+
+          .score {
+            border-radius: 4px;
+            text-align: center;
+            width: 68px;
+            height: 43px;
+            display: block;
+            color: $white;
+            padding: 7px;
+          }
+        }
+        th + td {
+          border-left: 0 none !important;
         }
       }
     }

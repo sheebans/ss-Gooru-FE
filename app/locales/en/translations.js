@@ -5,6 +5,7 @@ export default {
    */
   "common": {
 
+    "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
     "assessment":"Assessment",
     "assessmentInitial": "A",
@@ -37,9 +38,15 @@ export default {
     "hints": "Hints",
     "hide-results":"Hide Results",
     "if_questions": "If you have any questions,",
+    "launch-anonymous": "Launch anonymous",
+    "launch-on-air": "Launch on air",
     "learning-target":"Learning Target",
     "learning-target-mobile":"Learning Target in Standard",
-    "lesson":"Lesson",
+    "lesson": "Lesson",
+    "lessonObj": {
+      one: "Lesson",
+      other: "Lessons"
+    },
     "lessonInitial": "L",
     "libraries": "Libraries",
     "loading": "Loading ...",
