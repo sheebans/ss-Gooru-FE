@@ -61,7 +61,7 @@ test('When view by collection option is selected', function(assert) {
     assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student');
 
     const $performanceContainer = find(".controller.class .controller.analytics-performance-student");
-    const $collectionViewOption = $performanceContainer.find(".student-actions .gru-actions-bar .dropdown-menu .collection");
+    const $collectionViewOption = $performanceContainer.find(".controls .gru-actions-bar .dropdown-menu .collection a");
 
     click($collectionViewOption);
     andThen(function() {
@@ -78,8 +78,8 @@ test('When filtering by collection is  pre-selected', function(assert) {
     assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?filterBy=collection');
 
     const $performanceContainer = find(".controller.class .controller.analytics-performance-student");
-    const $menu = $performanceContainer.find(".student-actions .gru-actions-bar .drop-menu");
-    assert.equal(T.text($menu.find(".selected-filter span")), 'View Collection', 'Wrong text selected');
+    const $menu = $performanceContainer.find(".controls .gru-actions-bar .drop-menu");
+    assert.equal(T.text($menu.find(".selected-filter .text")), 'View Collection', 'Wrong text selected');
   });
 });
 

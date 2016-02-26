@@ -1,43 +1,27 @@
-.gru-data-picker{
+.gru-data-picker {
   @media (max-width: $screen-xs) {
-    background-color: $gray-light;
     margin: 0 auto;
     text-align: center;
   }
-  .option-list{
-    list-style: none;
-    margin: 0 auto;
-    display: inline-block;
-    padding: 0;
-    @media (min-width: $screen-xs) {
-      padding: 10px 0 0 0;
-    }
-    li {
-      display: inline-block;
-      padding: 5px;
-      a {
-        color:$gray;
-        &:hover{
-          color:$gray;
-        }
+  .checkbox {
+    label {
+      padding: 0;
+      height: 24px;
+      display: table;
+      input {
+        color: $white;
+        width: 21px;
+        height: 24px;
+        margin: 0;
+        display: table-cell;
+        vertical-align: middle;
       }
-      span{
-        display: table;
-        margin: 0 auto;
-        @media (min-width: $screen-xs) {
-          float:left;
-          padding: 1px;
-        }
+      input[type="checkbox"]:checked:before {
+        top: 3px;
       }
-      i{
-        color: $gray-light;
-      }
-      @media (max-width: $screen-xs) {
-        .active {
-          i {
-            color: $brand-primary;
-          }
-        }
+      span {
+        display: table-cell;
+        vertical-align: middle;
       }
     }
   }

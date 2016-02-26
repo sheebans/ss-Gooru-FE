@@ -51,7 +51,6 @@ export default Ember.Route.extend({
     const unit = this.get('unitService').findById(courseId, unitId);
     const lesson = this.get('lessonService').findById(courseId, unitId, lessonId);
 
-    //const collection =  this.get('collectionService').findById(collectionId);
     return this.get('collectionService')
       .findById(collectionId)
       .then(function(collection) {
@@ -67,15 +66,6 @@ export default Ember.Route.extend({
             });
           });
       });
-
-    /*
-    return Ember.RSVP.hash({
-      unit: unit,
-      lesson: lesson,
-      collection: collection,
-      userResults: Ember.A([]) //todo integrate with BE
-    });
-    */
   },
   /**
    * Set all controller properties from the model

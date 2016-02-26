@@ -11,13 +11,15 @@ export default AnalyticsSerializer.extend({
     const serializer = this;
     return UserResourcesResult.create({
       user: payload.userId,
+      isAttemptStarted: (payload.event.isNewAttempt ? true : false),
+      isAttemptFinished: (payload.event.isCompleteAttempt ? true : false),
       resourceResults: serializer.normalizeRealTimeEventContent(payload.event)
     });
   },
 
   normalizeRealTimeEventContent: function(payload) {
     const serializer = this;
-    return [serializer.normalizeResourceResult(payload)];
+    return (payload.resourceType) ? [serializer.normalizeResourceResult(payload)] : [];
   }
 
 });

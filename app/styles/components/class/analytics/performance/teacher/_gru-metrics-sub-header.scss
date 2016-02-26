@@ -2,11 +2,13 @@
   .sub-header{
     a{
       cursor: pointer;
-      color:$gray;
+      color:$white;
+      opacity: 0.6;
       &:hover,
       &:visited {
         text-decoration: none;
-        color:$gray;
+        color:$white;
+        opacity: 0.6;
       }
     }
   }

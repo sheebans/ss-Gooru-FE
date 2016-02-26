@@ -57,19 +57,19 @@ test('Test for unit performance', function(assert) {
   T.exists(assert, $component, 'Missing Unit Container');
 
   const $titleElement = $component.find('.unit-lesson .section-title');
-  assert.equal(T.text($titleElement), 'U1: Unit 1', 'Wrong unit title');
+  assert.equal($titleElement.text().trim(), 'U1:     Unit 1', 'Wrong unit title');
 
-  const $scoreElement = $component.find('.gru-performance-summary .score div.description p');
+  const $scoreElement = $component.find('.gru-performance-summary .score .score-box');
   assert.equal(T.text($scoreElement), '75%', 'Wrong unit score');
 
-  const $completionElement = $component.find('.gru-performance-summary .completion div.description p');
+  const $completionElement = $component.find('.gru-performance-summary .completion .gru-completion-chart span');
   assert.equal(T.text($completionElement), '5/10', 'Wrong unit completion');
 
   const $timeSpentElement = $component.find('.gru-performance-summary .timeSpent p');
   assert.equal(T.text($timeSpentElement), '1h', 'Wrong unit timeSpent');
 
   const $reactionElement = $component.find('.gru-performance-summary .reaction p');
-  assert.equal(T.text($reactionElement), '–', 'Wrong unit reaction');
+  assert.equal(T.text($reactionElement), '', 'Wrong unit reaction');
 
   const $attemptsElement = $component.find('.gru-performance-summary .attempts p');
   assert.equal(T.text($attemptsElement), '2', 'Wrong unit attempts');
