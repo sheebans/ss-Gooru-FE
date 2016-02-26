@@ -30,8 +30,7 @@
         align-self: auto;
         color:$light-500;
         &.name-header{
-          -webkit-flex-grow: 4;
-          flex-grow: 4;
+          min-width: 16em;
           padding-left: 40px;
           margin-right: 22px;
         }

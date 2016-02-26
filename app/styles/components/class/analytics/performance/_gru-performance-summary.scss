@@ -35,6 +35,9 @@
         margin-right: 10px;
         -webkit-flex-grow: 4;
         flex-grow: 4;
+        @media(min-width: $screen-sm){
+          min-width: 16em;
+        }
         @include respond-to(xs){
           display: inline-block;
         }
@@ -52,7 +55,9 @@
           display: -webkit-flex;
           display: flex;
         }
-
+        .collection-view-report-button{
+          margin-right: 1px;
+        }
       }
 
     }
@@ -147,7 +152,7 @@
         }
       }
       .truncate{
-        width:143px;
+        width:200px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;

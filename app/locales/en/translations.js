@@ -462,7 +462,7 @@ export default {
     "attempts":"Attempts",
     "redo":"Redo",
     "resume":"Resume",
-    "study":"Study",
+    "study":"Study Now",
     "view-report":"View Report",
     "not-applicable":"N/A",
     "not-started": "Not started yet"

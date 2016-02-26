@@ -1,15 +1,17 @@
 <li class="title {{if performance.isUnitOrLesson "unit-lesson" "collection-assessment"}}">
-    <span class="truncate" class={{if isSelected "selected" ""}}>
+    <span class="truncate {{if isSelected "selected" ""}} ">
       <span class="icon">{{#if performance.isUnitOrLesson}}{{gru-icon name=(if isSelected "keyboard_arrow_down" "keyboard_arrow_right")}}{{/if}}</span>
       <span class="section-title">{{course-sections-prefix  index=index type=performance.type longName=false}}&colon;     {{performance.title}}</span>
     </span>
   {{#if performance.isCollectionOrAssessment}}
       <div class="hidden-xs">
         {{#if collection.isCompleted}}
-            <button class="btn btn-sm btn-default collection-redo-button">{{t "gru-performance-summary.redo"}}</button>
-            <button class="btn btn-sm btn-default collection-view-report-button">{{t "gru-performance-summary.view-report"}}</button>
+            <div class="btn-group">
+                <button class="btn btn-info collection-view-report-button"><span>{{gru-icon name="show_chart"}}{{t "gru-performance-summary.view-report"}}</span></button>
+                <button class="btn btn-info collection-redo-button"><span>{{gru-icon name="replay"}}{{t "gru-performance-summary.redo"}}</span></button>
+            </div>
         {{else}}
-            <button class="btn btn-sm btn-default collection-study-button" {{action "selectResource" collection.id}}>{{t "gru-performance-summary.study"}}</button>
+            <button class="btn btn-info collection-study-button" {{action "selectResource" collection.id}}><span>{{gru-icon name='near_me'}}{{t "gru-performance-summary.study"}}</span></button>
         {{/if}}
       </div>
   {{/if}}
@@ -22,7 +24,7 @@
             <p>{{t "gru-performance-summary.not-applicable"}}</p>
           {{/if}}
         {{else}}
-          <span class="not-started">{{t "gru-performance-summary.not-started"}}</span>
+            <span class="score-box" style="background-color: #B8BFC4">--%</span>
         {{/if}}
     </li>
     <li class="completion">
