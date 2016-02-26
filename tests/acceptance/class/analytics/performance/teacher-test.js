@@ -32,7 +32,7 @@ test('Layout', function(assert) {
     T.exists(assert, $performanceContainer.find(".gru-filters .data-picker"), "Missing data picker");
     T.exists(assert, $performanceContainer.find(".gru-filters .data-picker .gru-data-picker"), "Missing data picker");
     T.exists(assert, $performanceContainer.find(".gru-filters .performance-scale"), "Missing performance scale area");
-    T.exists(assert, $performanceContainer.find(".gru-filters .performance-scale .gru-scale-indicator"), "Missing performance scale indicator component");
+    T.exists(assert, $performanceContainer.find(".gru-filters .performance-scale .grading-scale-legend"), "Missing grading-scale-legend helper");
     T.exists(assert, $performanceContainer.find(".gru-content"), "Missing performance content");
     T.exists(assert, $performanceContainer.find(".controls .teacher-breadcrumb .gru-breadcrumb"), "Missing performance breadcrumb component");
     T.exists(assert, $performanceContainer.find(".controls .teacher-actions .gru-actions-bar"), "Missing performance actions component");
