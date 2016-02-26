@@ -183,3 +183,36 @@ test('Layout - read only', function (assert) {
   assert.ok($component.find(".instructions"), "Missing instructions");
   assert.equal($answersContainer.find("li.answer.disabled").length, 4, "Incorrect number of answer choices");
 });
+
+test('Layout - with user answer', function (assert) {
+
+  let question = Ember.Object.create({
+    "id": "569906aabfcfc4cfc1b29b62",
+    questionType: 'HS_TXT',
+    text: 'Sample Question HS_TXT',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({ "id": 1, "text": "Banana", isCorrect: true }),
+      Ember.Object.create({ "id": 2, "text": "Orange", isCorrect: true}),
+      Ember.Object.create({ "id": 3, "text": "Apple", isCorrect: false}),
+      Ember.Object.create({ "id": 4, "text": "Watermelon", isCorrect: false})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 8,
+    "hasAnswers": true
+  });
+
+  this.set('question', question);
+  this.set('userAnswer', [1,3]);
+
+  this.render(hbs`{{player/questions/gru-hs-text question=question userAnswer=userAnswer}}`);
+
+  const $component = this.$(); //component dom element
+  const $answersContainer = $component.find('.answer-choices');
+
+  assert.ok($component.find(".instructions"), "Missing instructions");
+  assert.equal($answersContainer.find("li.answer").length, 4, "Incorrect number of answer choices");
+  assert.equal($answersContainer.find("li.answer.selected").length, 2, "2 should be selected");
+});

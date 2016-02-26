@@ -14,12 +14,13 @@
       </tr>
       </thead>
       <tbody>
-      {{#each question.answers as |answer index|}}
+      {{#each answers as |answer index|}}
         <tr>
           <td>
               {{radio-button
                 disabled=readOnly
               value=(concat "yes|" answer.id)
+              groupValue=answer.groupValue
               changed="selectAnswerChoice"
               name=(concat "answer-choice-radio-" answer.id)}}
           </td>
@@ -27,6 +28,7 @@
             {{radio-button
             disabled=readOnly
             value=(concat "no|" answer.id)
+            groupValue=answer.groupValue
             changed="selectAnswerChoice"
             name=(concat "answer-choice-radio-" answer.id)}}
           </td>

@@ -58,6 +58,25 @@ export default QuestionComponent.extend({
    */
   userSelection: Ember.A([]),
 
+  /**
+   * Convenient structure to render options
+   * @property {[]}
+   */
+  answers: Ember.computed("question.answers", "userAnswer", function(){
+    let answers = this.get("question.answers");
+    let userAnswer = this.get("userAnswer");
+    return answers.map(function(answer){
+      var answerId = answer.get("id");
+      let choice = userAnswer ? userAnswer.findBy("id", answerId) : null;
+      let yesNo = choice && choice.selection ? "yes" : "no";
+      return {
+        id: answerId,
+        text: answer.get("text"),
+        groupValue: choice ? `${yesNo}|${answerId}` : null
+      };
+    });
+  }),
+
   // -------------------------------------------------------------------------
   // Observers
 

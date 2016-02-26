@@ -127,3 +127,35 @@ test('Reorder question layout - read only', function (assert) {
   var $component = this.$(); //component dom element
   assert.equal($component.find(".sortable.disabled").length, 1, "Sortable should be disabled");
 });
+
+
+test('Reorder question layout - with user answer', function (assert) {
+
+  let question = Ember.Object.create({
+    "id": "569906aadfa0072204f7c7c7",
+    questionType: 'HT_RO',
+    text: 'Reorder Question',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([ // ["crc", "bra", "pan", "chi"]
+      Ember.Object.create({id: "aquifer", text: "An aquifer", order: 1}),
+      Ember.Object.create({id: "well", text: "A well", order: 2}),
+      Ember.Object.create({id: "pump", text: "A pump", order: 3})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 3,
+    "hasAnswers": true
+  });
+
+  this.set('question', question);
+  this.set('userAnswer', ["2", "1", "3"]);
+
+  this.render(hbs`{{player/questions/gru-reorder question=question userAnswer=userAnswer}}`);
+
+  var $component = this.$(); //component dom element
+  assert.equal($component.find(".sortable li").length, 3, "3 Sortable items should be found");
+  assert.equal($component.find(".sortable li:first-child").data('id'), "well", "First answer choice, data-id value is incorrect");
+  assert.equal($component.find(".sortable li:last-child").data('id'), "pump", "Last answer choice, data-id value is incorrect");
+
+});
