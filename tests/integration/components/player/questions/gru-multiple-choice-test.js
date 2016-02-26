@@ -122,3 +122,47 @@ test('Multiple choice question layout - read only', function (assert) {
   assert.equal($component.find(".answer-choices .radio.disabled").length, 3, "Missing answer choices");
   assert.equal($component.find(".answer-choices .radio input[disabled]").length, 3, "Missing answer choices radio inputs");
 });
+
+test('Multiple choice question with user answer', function (assert) {
+
+  assert.expect(3);
+  let question = Ember.Object.create({
+    "id": "569906aa20b7dfae1bcd5",
+    questionType: 'MC',
+    text: 'Sample Question MC',
+    answers:  Ember.A([
+      Ember.Object.create({
+        "id": 1,
+        "text": "<p>An aquifer</p>",
+        "answerType": "text",
+        "isCorrect": true,
+        "sequence": 1
+      }),
+      Ember.Object.create({
+        "id": 2,
+        "text": "<p>A well</p>",
+        "answerType": "text",
+        "isCorrect": false,
+        "sequence": 2
+      }),
+      Ember.Object.create({
+        "id": 3,
+        "text": "<p>A pump</p>",
+        "answerType": "text",
+        "isCorrect": false,
+        "sequence": 3
+      })
+    ]),
+    "order": 1,
+    "hasAnswers": true,
+    "hasNarration": true
+  });
+
+  this.set('question', question);
+  this.render(hbs`{{player/questions/gru-multiple-choice question=question userAnswer=2}}`);
+
+  var $component = this.$(); //component dom element
+  T.exists(assert, $component.find(".instructions"), "Missing instructions");
+  assert.equal($component.find(".answer-choices .radio").length, 3, "Missing answer choices");
+  assert.ok($component.find(".answer-choices .radio:eq(1) input:checked").length, "Answer choice 2 should be selected");
+});

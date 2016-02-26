@@ -70,6 +70,8 @@ export default QuestionUtil.extend({
    * For multiple answer the answer is an array of { id: number, selection: boolean }
    * @param { { id: number, selection: boolean }[] } answer
    * @returns {string} i.e id_true,id_false,id_true
+   *
+   * @see '# User Answer' section at class comment
    */
   answerKey: function (answer) {
     let keys = Ember.A(answer).sortBy('id').map(function (item) {
@@ -81,15 +83,11 @@ export default QuestionUtil.extend({
   /**
    * Converts the model user answer into an answerObject format
    *
-   * For MA looks like
-   *
-   *  [{"text":"Yes","status":"correct","order":1,"answerId":1234,"skip":false},
-   *  {"text":"Yes","status":"incorrect","order":2,"answerId":1234,"skip":false},
-   *  {"text":"No","status":"incorrect","order":3,"answerId":"1234,"skip":false},
-   *  {"text":"No","status":"correct","order":4,"answerId":1235,"skip":false}]
-   *
    * @param { { id: string, selection: boolean }[] } userAnswer
    * @return {AnswerObject[]}
+   *
+   * @see '# User Answer' section at class comment
+   * @see '# Answer Object' section at class comment
    */
   toAnswerObjects: function (userAnswer) {
     let util = this;
@@ -109,15 +107,11 @@ export default QuestionUtil.extend({
   /**
    * Converts an answerObject format to model userAnswer
    *
-   * For MA looks like
-   *
-   *  [{"text":"Yes","status":"correct","order":1,"answerId":1234,"skip":false},
-   *  {"text":"Yes","status":"incorrect","order":2,"answerId":1234,"skip":false},
-   *  {"text":"No","status":"incorrect","order":3,"answerId":"1234,"skip":false},
-   *  {"text":"No","status":"correct","order":4,"answerId":1235,"skip":false}]
-   *
    * @param {AnswerObject[]} answerObjects
    * @return { { id: string, selection: boolean }[] } answer selections
+   *
+   * @see '# User Answer' section at class comment
+   * @see '# Answer Object' section at class comment
    */
   toUserAnswer: function (answerObjects) {
     return answerObjects.map(function (answerObject) {
