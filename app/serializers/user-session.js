@@ -3,8 +3,8 @@ import Ember from 'ember';
 export default Ember.Object.extend({
 
   /**
-   * Serializes a assessment result
-   * @param {Context} context
+   * Serializes a list of assessment results
+   * @param payload
    * @returns {*[]}
    */
   serializeSessionAssessments: function (payload) {
@@ -14,9 +14,13 @@ export default Ember.Object.extend({
     });
   },
 
+  /**
+   * Serializes a assessment result
+   * @param payload
+   * @returns {*[]}
+   */
   serializeOpenAssessment: function (payload) {
-    let content = payload.content && payload.content.length > 0 ? payload.content[0] : null;
-    return content;
+    return payload.content && payload.content.length > 0 ? payload.content[0] : null;
   }
 
 });

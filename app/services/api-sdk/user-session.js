@@ -4,7 +4,7 @@ export default Ember.Service.extend({
 
   /**
    * Gets the last opened session.
-   * @param Context context
+   * @param context
    * @returns {Promise.<Array[Object]>}
    */
   getOpenSession: function(context) {
@@ -29,7 +29,7 @@ export default Ember.Service.extend({
 
   /**
    * Gets all the session that were completed.
-   * @param Context context
+   * @param context
    * @returns {Promise.<Object>}
    */
   getCompletedSessions: function(context) {

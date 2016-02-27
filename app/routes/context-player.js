@@ -41,7 +41,7 @@ export default PlayerRoute.extend({
     const collectionPromise = route.get('collectionService').findById(collectionId);
 
     return collectionPromise.then(function(collection){
-      const context = Context.create({
+      let context = Context.create({
         userId: userId,
         collectionId: collectionId,
         parentEventId: generateUUID(), //TODO is this comming from BE?
@@ -54,14 +54,13 @@ export default PlayerRoute.extend({
 
       let lastOpenSessionPromise = !hasUserSession ? Ember.RSVP.resolve(null) : route.get("userSessionService").getOpenSession(context);
       return lastOpenSessionPromise.then(function (lastSession) {
-        let assessmentResult = null;
 
+        //Setting new content if we have some session opened
         if (lastSession) {
-          assessmentResult = route.get("performanceService").findAssessmentResultByCollectionAndStudent(lastSession.sessionId);
+          context.set('sessionId', lastSession.sessionId);
         }
 
-        console.log('result2',assessmentResult);
-
+        let assessmentResult = route.get("performanceService").findAssessmentResultByCollectionAndStudent(context);
         const lesson = route.get('lessonService').findById(courseId, unitId, lessonId);
         return Ember.RSVP.hash({
           collection: collection,

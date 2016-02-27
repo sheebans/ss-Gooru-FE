@@ -73,12 +73,13 @@ export default Ember.Route.extend({
 
       let lastOpenSessionPromise = !hasUserSession ? Ember.RSVP.resolve(null) : route.get("userSessionService").getOpenSession(context);
       return lastOpenSessionPromise.then(function (lastSession) {
-        let assessmentResult = null;
 
+        //Setting new content if we have some session opened
         if (lastSession) {
-          assessmentResult = route.get("performanceService").findAssessmentResultByCollectionAndStudent(lastSession.sessionId);
+          context.set('sessionId', lastSession.sessionId);
         }
 
+        let assessmentResult = route.get("performanceService").findAssessmentResultByCollectionAndStudent(context);
         return Ember.RSVP.hash({
           collection: collection,
           resourceId: resourceId,
@@ -96,7 +97,6 @@ export default Ember.Route.extend({
   setupController(controller, model) {
     let collection = model.collection;
     let assessmentResult = model.assessmentResult;
-    console.log('result',assessmentResult);
     let hasUserSession = !this.get('session.isAnonymous');
 
     if (!assessmentResult){
@@ -108,11 +108,8 @@ export default Ember.Route.extend({
       });
     }
     assessmentResult.merge(collection);
-    console.log(assessmentResult);
-    console.log(assessmentResult.get("sessionId"));
 
     model.context.set("sessionId", assessmentResult.get("sessionId"));
-    console.log(model.context.get("sessionId"));
 
     controller.set("saveEnabled", hasUserSession);
     controller.set("context", model.context);

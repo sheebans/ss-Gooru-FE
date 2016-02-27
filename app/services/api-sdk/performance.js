@@ -9,8 +9,7 @@ export default Ember.Service.extend({
 
   /**
    * Gets a student's assessment result for a specific collection.
-   * @param collectionId
-   * @param userId
+   * @param context
    * @returns {Promise.<AssessmentResult>}
    */
   findAssessmentResultByCollectionAndStudent: function (context) {
@@ -22,7 +21,8 @@ export default Ember.Service.extend({
       userId: context.userId,
       unitId: context.unitId,
       lessonId: context.lessonId,
-      contentId: context.collectionId
+      contentId: context.collectionId,
+      sessionId: context.sessionId
     }).then(function (payload) {
       return service.get('studentCollectionPerformanceSerializer').normalizeStudentCollection(payload);
     });
