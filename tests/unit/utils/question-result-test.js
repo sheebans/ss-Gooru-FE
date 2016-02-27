@@ -362,3 +362,46 @@ test('userAnswers', function (assert) {
   assert.equal(answers.length, 3, "Wrong total answers, 3 provided");
   assert.deepEqual(answers, [3,2,1], 'Wrong answers');
 });
+
+test('attemptStatus', function (assert) {
+  let correct = QuestionResult.create({
+    correct: true,
+    timeSpent: 10, //seconds
+    reaction: 5,
+    userAnswer: 1,
+    startedAt: new Date("October 13, 2014 11:40:00"),
+    submittedAt: new Date("October 13, 2014 11:40:00")
+  });
+  assert.equal(correct.get("attemptStatus"), "correct", "Wrong status for correct");
+
+
+  let incorrect = QuestionResult.create({
+    correct: false,
+    timeSpent: 25, //seconds
+    reaction: 4,
+    userAnswer: 2,
+    startedAt: new Date("October 13, 2014 11:40:00"),
+    submittedAt: new Date("October 13, 2014 11:20:00")
+  });
+  assert.equal(incorrect.get("attemptStatus"), "incorrect", "Wrong status for incorrect");
+
+  let skipped = QuestionResult.create({
+    correct: false, //skipped
+    timeSpent: 0, //seconds
+    reaction: 0,
+    userAnswer: null,  //skipped
+    startedAt: new Date("October 13, 2014 11:40:00"),
+    submittedAt: new Date("October 13, 2014 11:50:00")
+  });
+  assert.equal(skipped.get("attemptStatus"), "skipped", "Wrong status for skipped");
+
+  let pending = QuestionResult.create({
+    correct: false, //pending
+    timeSpent: 0, //seconds
+    reaction: 0,
+    userAnswer: null,  //skipped
+    startedAt: new Date("October 13, 2014 11:40:00"),
+    submittedAt: null
+  });
+  assert.equal(pending.get("attemptStatus"), "skipped", "Wrong status for pending");
+});

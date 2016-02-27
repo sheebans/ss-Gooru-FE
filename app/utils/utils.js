@@ -281,3 +281,29 @@ export function noTags(text){
   element.innerHTML = text;
   return $(element).text();
 }
+
+/**
+ * Returns a date in utc
+ * @param {Date} date
+ * @returs {Moment} utc moment
+ */
+export function toUtc(date){
+  return (date) ? moment(date).utc() : date;
+}
+
+/**
+ * Returns a date in timestamp
+ * @param {Date} date
+ * @returs {number} timestamp
+ */
+export function toTimestamp(date){
+  return (date) ? date.getTime() : date;
+}
+
+/**
+ * Returns a date in local time
+ * @param {number} timestamp
+ */
+export function toLocal(timestamp){
+  return moment.utc(timestamp).toDate();
+}

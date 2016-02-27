@@ -28,6 +28,15 @@ export default QuestionComponent.extend({
 
   // -------------------------------------------------------------------------
   // Events
+  /**
+   * When loading the user answer
+   */
+  updateUserAnswer: Ember.on("init", function(){
+    let userAnswer = this.get("userAnswer");
+    if (userAnswer){
+      this.set("answer", userAnswer);
+    }
+  }),
 
 
   // -------------------------------------------------------------------------

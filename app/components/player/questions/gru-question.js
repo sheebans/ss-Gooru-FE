@@ -72,6 +72,13 @@ export default Ember.Component.extend({
    */
   readOnly: null,
 
+  /**
+   * @property {string} user answer
+   * @see gooru-web/utils/question/multiplce-choice.js
+   */
+  userAnswer: null,
+
+
   // -------------------------------------------------------------------------
   // Observers
 

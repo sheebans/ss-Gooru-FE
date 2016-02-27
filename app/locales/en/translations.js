@@ -13,7 +13,6 @@ export default {
     "of": "of",
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
-    "back": "Back",
     "cancel": "Cancel",
     "classScores": "Class Scores",
     "close": "Close",
@@ -23,6 +22,7 @@ export default {
     "contentUnavailable": "Content not available",
     "correct": "Correct",
     "correct-answer":"Correct Answer",
+    "course-map": "Course Map",
     "create": "Create",
     "edit": "Edit",
     "email_support": "support@gooru.org",
@@ -355,6 +355,9 @@ export default {
   },
 
   "gru-multiple-choice": {
+    "instructions" : "Please select the correct answer, and click \"Submit\"."
+  },
+  "gru-hot-text": {
     "instructions" : "Please select the correct answer, and click \"Submit\"."
   },
   "gru-true-false": {

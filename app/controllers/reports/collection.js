@@ -44,7 +44,8 @@ export default Ember.Controller.extend({
   // Events
 
   init: function () {
-    var socket = new SockJS(Env['real-time'].webSocketUrl);
+    let url = location.host + Env['real-time'].webSocketUrl;
+    var socket = new SockJS(url);
     this.set('webSocketClient', Stomp.over(socket));
   },
 
