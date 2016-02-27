@@ -248,6 +248,7 @@
                 display: -webkit-flex;
                 display: flex;
                 height: 100%;
+                padding-left: 5px;
                 @include respond-to(xs){
                   border-left:1px solid $gray-lighter;
                 }

@@ -1,9 +1,8 @@
 <a href="#{{unit.id}}"
-   data-parent=".gru-student-performance-container"
    data-toggle="collapse"
-   data-target="#{{unit.id}}"
+   data-target="#_{{unit.id}}"
    aria-expanded="true"
-   aria-controls="lesson-container-for-unit-{{unit.id}}"
+   aria-controls="_{{unit.id}}"
   {{action "selectUnit" unit}}
   id="unit-{{unit.id}}"
   class='panel'>
@@ -12,14 +11,14 @@
           <div>
             {{class.analytics.performance.gru-performance-summary
             performance=unit
-              index=localIndex
+            index=localIndex
             selectedOption=selectedOption
-            isSelected=isSelected}}
+            isSelected=selected}}
           </div>
       </li>
   </ul>
 </a>
-<div class="lessons-container collapse" id="{{unit.id}}">
+<div class="lessons-container collapse" id="_{{unit.id}}">
   <div>
     {{#each lessons as |lesson indexLesson|}}
       {{class.analytics.performance.student.gru-lesson-performance

@@ -1,7 +1,7 @@
-<a href="#{{lesson.id}}"
+<a href="#_{{lesson.id}}"
    data-toggle="collapse"
    aria-expanded="false"
-   aria-controls="{{lesson.id}}"
+   aria-controls="_{{lesson.id}}"
    id="lesson-{{lesson.id}}"
    class='panel'
   {{action "selectLesson" lesson}}>
@@ -10,11 +10,12 @@
           {{class.analytics.performance.gru-performance-summary
           performance=lesson
           index=index
+          isSelected=selected
           selectedOption=selectedOption}}
       </li>
     </ul>
 </a>
-<div class="collections-container collapse" id="{{lesson.id}}">
+<div class="collections-container collapse" id="_{{lesson.id}}">
   {{#each lesson.collections as |collection index|}}
       <div class="collection-performance">
           <ul>

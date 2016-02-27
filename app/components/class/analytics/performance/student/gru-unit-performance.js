@@ -28,38 +28,21 @@ export default Ember.Component.extend({
     selectUnit: function (unit) {
       const component = this;
 
-      component.loadLessons(unit.get('id'));
-
-      let element =$('#'+ component.get('elementId')) ;
-
-      let hasLessonsOpen = element.find('#'+unit.get('id')+' .gru-lesson-performance-container .collections-container.in');
-
-      if(element.hasClass('selected')){
-        element.removeClass('selected');
+      if(this.isSelected()){
         //When clicking on a unit to close it, remove the unit and lesson query params
-        component.get('onLocationUpdate')('', 'unit');
-        component.set('selectedUnitId', undefined);
-        component.notifySelectedLesson('');
+        component.get('onLocationUpdate')(null, 'unit');
       }
       else{
-        $('.gru-unit-performance-container.selected').removeClass('selected');
-        element.addClass('selected');
+        const unit = this.get("unit");
+        component.loadLessons(unit.get('id'));
         //When clicking on a unit to open it set the unit query param and the selectedUnitId attribute
         component.get('onLocationUpdate')(unit.get('id'), 'unit');
-        component.set('selectedUnitId',unit.get('id'));
-
-        if(hasLessonsOpen.length>0){
-          //If the unit has lessons open, set its first lesson as the lesson query params and set the selectedLessonId property
-          component.notifySelectedLesson(hasLessonsOpen.attr('id'));
-        }else{
-          //Remove the query params if the unit does not have any.
-          component.notifySelectedLesson('');
-        }
       }
     },
     /**
      * @function actions:selectResource
-     * @param {string} collectionId - Identifier for a resource (collection/assessment)
+     * @param {string} lessonId - Identifier for a lesson
+     * @param {string} collectionId - Identifier for collection/assessment
      */
     selectResource: function (lessonId, collectionId) {
       let unitId = this.get("unit.id");
@@ -74,16 +57,20 @@ export default Ember.Component.extend({
       component.notifySelectedLesson(lessonId);
     }
   },
+
   // -------------------------------------------------------------------------
   // Events
 
-
   didInsertElement:function(){
-    if(this.get('unit.id')===this.get('selectedUnitId')){
-      this.loadSelectedItems(this.get('unit'));
+    this.toggleCollapse();
+    this.toggleSelected();
+    if (this.isSelected()){
+      const unit = this.get("unit");
+      this.loadLessons(unit.get('id'));
     }
   },
-  // -------------------------------------------------------------------------
+
+// -------------------------------------------------------------------------
   // Properties
   /**
    * Selected option to show when on extra small
@@ -98,36 +85,42 @@ export default Ember.Component.extend({
    * @property {Ember.Array}
    */
   lessons: null,
+
   /**
    * Number of the index of this unit
    *
    * @property {Number}
    */
   localIndex:null,
+
   /**
    * Model of the class this unit belongs to
    *
    * @property {Class}
    */
   classModel:null,
+
   /**
    * UserID this user belongs to
    *
    * @property {String}
    */
-  userId:'',
+  userId: null,
+
   /**
    * Currently selected unit Id
    *
    * @property {String}
    */
-  selectedUnitId:undefined,
+  selectedUnitId: null,
+
   /**
    * Currently selected lesson Id
    *
    * @property {String}
    */
-  selectedLessonId:undefined,
+  selectedLessonId: null,
+
   /**
    * Performance model for the unit
    *
@@ -140,6 +133,27 @@ export default Ember.Component.extend({
    * Property that determines whether we are waiting for a promise to get fulfilled.
    */
   isLoading:false,
+
+  /**
+   * Indicates if the current unit is the selected one
+   * @property {boolean} selected
+   */
+  selected: Ember.computed("selectedUnitId", "unit.id", function(){
+    return this.isSelected(); //calling method because this property was not refreshed before events, so weird
+  }),
+
+
+  // -------------------------------------------------------------------------
+  // Observers
+  /**
+   * Observes if the selection has changed
+   */
+  onSelectedUnitChange: Ember.observer("selectedUnitId", "unit.id", function(){
+    this.toggleSelected();
+    this.toggleCollapse();
+  }),
+
+
 
   // -------------------------------------------------------------------------
   // Methods
@@ -181,15 +195,6 @@ export default Ember.Component.extend({
     }
   },
 
-  loadSelectedItems: function(unit){
-    const component = this;
-    component.loadLessons(unit.get('id'));
-    let element =$('#'+ component.get('elementId'));
-    let collapsibleElement=$('#'+unit.get('id'));
-    element.addClass('selected');
-    collapsibleElement.collapse({toggle:true,parent:'.gru-student-performance-container'});
-  },
-
   /**
    * Trigger the 'onLocationUpdate' event handler with the lesson information
    *
@@ -197,11 +202,40 @@ export default Ember.Component.extend({
    */
   notifySelectedLesson: function (lessonId) {
     const component = this;
-    if(lessonId){
-      component.set('selectedLessonId',lessonId);
-    }else{
-      component.set('selectedLessonId',undefined);
-    }
     component.get('onLocationUpdate')(lessonId, 'lesson');
+  },
+
+  /**
+   * Toggles the collapse/expand
+   */
+  toggleCollapse: function(){
+    const component = this;
+    const selected = component.isSelected();
+
+    let collapsibleElement = Ember.$(this.element).find(".lessons-container");
+    collapsibleElement.collapse(selected ? "show" : "hide");
+  },
+
+  /**
+   * Toggles selected
+   */
+  toggleSelected: function(){
+    const $element = Ember.$(this.element);
+    if (this.isSelected()){
+      $element.addClass("selected");
+    }
+    else{
+      $element.removeClass("selected");
+    }
+  },
+
+  /**
+   * Indicates if the current unit is selected
+   * This method was necessary because the ember computed was not refreshed before the event was trigger
+   * @returns {boolean}
+   */
+  isSelected: function(){
+    return this.get("selectedUnitId") === this.get("unit.id");
   }
+
 });
