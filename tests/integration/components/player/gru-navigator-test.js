@@ -13,7 +13,7 @@ moduleForComponent('player/gru-navigator', 'Integration | Component | player/gru
 
 test('Player Navigator', function(assert) {
 
-  assert.expect(8);
+  assert.expect(11);
 
   const resourceMockA = Ember.Object.create({
     id: '1',
@@ -57,13 +57,22 @@ test('Player Navigator', function(assert) {
   });
 
   this.render(hbs`{{player.gru-navigator collection=collection
-      resourceResults=resourceResults backLabel='Back'
+      resourceResults=resourceResults lessonTitle='E-Lesson1'
       selectedResourceId='1' onItemSelected='itemSelected'}}`);
 
   var $component = this.$(); //component dom element
   const $navigator = $component.find(".gru-navigator");
   T.exists(assert, $navigator, "Missing navigator section");
-  T.exists(assert, $navigator.find(".lead"), "Missing collection title");
+
+  //$navigatorHeader
+  const $navigatorHeader = $component.find(".gru-navigator .navigator-header");
+  T.exists(assert, $navigatorHeader.find(".lead"), "Missing back title");
+  T.exists(assert, $navigatorHeader.find(".lesson-title"), "Missing lesson title");
+
+  //$navigatorSubheader
+  const $navigatorSubheader = $component.find(".gru-navigator .navigator-subheader");
+  T.exists(assert, $navigatorSubheader.find(".collection-type"), "Missing collection type");
+  T.exists(assert, $navigatorSubheader.find(".collection-title"), "Missing collection title");
 
   //$collectionResources list
   const $collectionResources = $navigator.find(".resources");
@@ -89,7 +98,7 @@ test('Layout when navigator is closed', function(assert) {
     assert.ok(true, 'external Action was called!');
   });
 
-  this.render(hbs`{{player/gru-navigator onCloseNavigator='parentAction' backLabel='Back'}}`);
+  this.render(hbs`{{player/gru-navigator onCloseNavigator='parentAction' lessonTitle='E-Lesson1'}}`);
   var $component = this.$(); //component dom element
   var $menuButton = $component.find(".hamburger-icon");
 
@@ -156,7 +165,7 @@ test('Player Navigator keyup on left', function(assert) {
 
 
   this.render(hbs`{{player.gru-navigator resourceResults=resourceResults
-        onItemSelected='itemSelected' backLabel='Back'
+        onItemSelected='itemSelected' lessonTitle='E-Lesson1'
         collection=collection selectedResourceId='2'}}`);
 
   let $component = this.$(); //component dom element
@@ -229,7 +238,7 @@ test('Player Navigator keyup on right', function(assert) {
   this.set('collection', collectionMock);
 
   this.render(hbs`{{player.gru-navigator resourceResults=resourceResults
-        onItemSelected='itemSelected' backLabel='Back'
+        onItemSelected='itemSelected' lessonTitle='E-Lesson1'
         collection=collection selectedResourceId='1'}}`);
 
   let $component = this.$(); //component dom element
@@ -251,7 +260,7 @@ test('Close player', function(assert) {
     assert.ok(true, 'external Action was called!');
   });
 
-  this.render(hbs`{{player/gru-navigator onClosePlayer='parentAction' backLabel='Back'}}`);
+  this.render(hbs`{{player/gru-navigator onClosePlayer='parentAction' lessonTitle='E-Lesson1'}}`);
   var $component = this.$(); //component dom element
   var $closeButton = $component.find(".gru-navigator .navigator-header div:first-child");
   $closeButton.click();

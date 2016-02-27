@@ -4,10 +4,10 @@
   height: 100%;
   background-color: $dark-400;
   .navigator-header {
-    height: 81px;
+    height: auto;
     width: 100%;
     background-color: $dark-500;
-    padding: 15px 20px;
+    padding: 12px;
     -webkit-flex-direction: row;
     flex-direction: row;
     -webkit-flex-wrap: nowrap;
@@ -20,7 +20,8 @@
     align-content: stretch;
     display: -webkit-flex;
     display:flex;
-    span{
+    line-height: 28px;
+    span {
       color:$white;
       -webkit-flex-direction: row;
       flex-direction: row;
@@ -38,9 +39,9 @@
     }
     p {
       color:$white;
-      margin-left:25px;
+      margin: 0 0 0 25px;
     }
-    .lead{
+    .lead {
       cursor: pointer;
     }
     .hamburger-icon {
@@ -48,6 +49,14 @@
       color: $gray;
       cursor: pointer;
       margin: 0 10px 0 0;
+    }
+  }
+
+  .navigator-subheader {
+    color: $white;
+    padding: 7px 10px 10px 22px;
+    p {
+      margin: 0;
     }
   }
 

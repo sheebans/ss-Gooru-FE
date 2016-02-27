@@ -5,7 +5,7 @@
   width: 100%;
   z-index: 10;
   @media (min-width: $screen-md) {
-    width:80%;
+    padding-left: 250px;
     height: $player-navigation-md-height;
   }
   .content {

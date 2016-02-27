@@ -165,13 +165,6 @@ export default Ember.Controller.extend(SessionMixin, {
    */
   showReport: false,
 
-  /**
-   * Text used for the back navigation link
-   * @property {string}
-   */
-  backLabel: Ember.computed("collection", function(){
-    return this.get("i18n").t("common.back");
-  }),
   // -------------------------------------------------------------------------
   // Observers
 

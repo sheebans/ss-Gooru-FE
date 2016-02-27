@@ -114,10 +114,11 @@ export default Ember.Component.extend({
   }),
 
   /**
-   * Contains the back label for this navigation, it is passed as a parameter
+   * Contains the lesson title for this navigation, it is passed as a parameter
    * @property {string}
    */
-  backLabel: null,
+
+  lessonTitle: null,
 
   /**
    * @property {string} on content player action
