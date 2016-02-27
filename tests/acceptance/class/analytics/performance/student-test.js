@@ -159,7 +159,7 @@ test('Transition to a collection or assessment', function(assert) {
     click($viewFirstUnitLessons);
     andThen(function() {
       assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?unitId=31886eac-f998-493c-aa42-016f53e9fa88');
-      T.exists(assert, $firstUnitContainer.find(".in"), "Lessons container should be open");
+      T.exists(assert, $firstUnitContainer.find(".selected"), "Lessons container should be open");
 
       const $firstLessonContainer = $firstUnitContainer.find(".gru-lesson-performance-container:eq(0)");
 
@@ -168,7 +168,7 @@ test('Transition to a collection or assessment', function(assert) {
       click($viewFirstLessonCollections);
       andThen(function() {
         assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?lessonId=fbd76aed-1b8d-4c2c-a9c6-c7603eef347c&unitId=31886eac-f998-493c-aa42-016f53e9fa88');
-        T.exists(assert, $firstLessonContainer.find(".in"), "Collections for the first lesson should be showing");
+        T.exists(assert, $firstLessonContainer.find(".selected"), "Collections for the first lesson should be showing");
 
         const $secondCollection = $firstLessonContainer.find(" div.collections-container .collection-performance-content:eq(1)");
         const $viewCollectionInPlayer = $secondCollection.find("button.collection-study-button");
@@ -192,7 +192,7 @@ test('Transition to a collection or assessment in the player on xsmall', functio
     const $performanceContainer = find(".performance-content");
     T.exists(assert, $performanceContainer, "No performance container");
 
-    const $studyAnchor = $performanceContainer.find("#fbd76aed-1b8d-4c2c-a9c6-c7603eef347c .collection-performance .collection-performance-content .gru-performance-summary li.title div button");
+    const $studyAnchor = $performanceContainer.find("#_fbd76aed-1b8d-4c2c-a9c6-c7603eef347c .collection-performance .collection-performance-content .gru-performance-summary li.title div button");
     T.exists(assert, $studyAnchor, "No anchor on completion column");
 
     click($studyAnchor);

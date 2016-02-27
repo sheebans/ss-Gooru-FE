@@ -33,7 +33,6 @@ export default Ember.Component.extend({
         component.get('onLocationUpdate')(null, 'unit');
       }
       else{
-        const unit = this.get("unit");
         component.loadLessons(unit.get('id'));
         //When clicking on a unit to open it set the unit query param and the selectedUnitId attribute
         component.get('onLocationUpdate')(unit.get('id'), 'unit');
