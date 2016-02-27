@@ -22,15 +22,14 @@
     width: 100%;
     float: right;
     padding-bottom: $player-navigation-height;
-    padding-left: 60px;
+    padding-left: 310px;
     padding-right: 60px;
+    @media (min-width: $screen-md) {
+      padding-bottom: $player-navigation-md-height;
+    }
     @media (max-width: $screen-sm-max) {
       padding-left: 15px;
       padding-right: 15px;
-    }
-    @media (min-width: $screen-md) {
-      padding-left: 250px;
-      padding-bottom: $player-navigation-md-height;
     }
     .avatar {
       text-align: center;
