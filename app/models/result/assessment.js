@@ -99,6 +99,20 @@ export default Ember.Object.extend({
    */
   started: Ember.computed.bool("startedAt"),
 
+  /**
+   * Returns the last visited resource
+   * @property {Resource} lastVisitedResource
+   */
+  lastVisitedResource: function() {
+    const resourceResults = this.get("resourceResults");
+    let result = resourceResults
+      .filterBy("submitted", true)
+      .sortBy("submittedAt")
+      .get("firstObject");
+    return result ? result.get("resource") : resourceResults.get("firstObject").get("resource");
+  }.property(),
+
+
 
   // -------------------------------------------------------------------------
   // Computed Properties

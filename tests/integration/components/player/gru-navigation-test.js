@@ -30,7 +30,7 @@ test('Submitted layout', function(assert) {
   const $navigation = $component.find(".gru-navigation");
   T.exists(assert, $navigation, "Missing navigation section");
   T.exists(assert, $navigation.find(".navigation-bar span"), "Missing clickable span");
-  T.exists(assert, $navigation.find("button.view-report"), "Missing view report button");
+  T.notExists(assert, $navigation.find("button.finish-collection"), "Finish collection button should be hidden");
 });
 
 
@@ -62,19 +62,4 @@ test('Finish collection', function(assert) {
 
   assert.ok($finishButton, "Missing finish button");
   $finishButton.click();
-});
-
-test('View Report', function(assert) {
-  assert.expect(2);
-
-  this.on('onViewReport', function(){
-    assert.ok(true, 'external Action was called!');
-  });
-
-  this.render(hbs`{{player/gru-navigation onViewReport='onViewReport' submitted=true}}`);
-  var $component = this.$(); //component dom element
-  var $viewReportButton = $component.find("button.view-report");
-
-  assert.ok($viewReportButton, "Missing submit all button");
-  $viewReportButton.click();
 });

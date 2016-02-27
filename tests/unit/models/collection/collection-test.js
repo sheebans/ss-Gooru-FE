@@ -47,36 +47,6 @@ test('hasResources not empty', function (assert) {
 });
 
 
-test('lastVisitedResource empty', function (assert) {
-  assert.expect(1);
-  let model = this.subject({
-    resources: Ember.A()
-  });
-
-  var lastVisitedResource = model.get("lastVisitedResource");
-  assert.ok(!lastVisitedResource, "Resource should not be found");
-});
-
-test('lastVisitedResource not empty', function (assert) {
-  assert.expect(2);
-
-  let store = this.store();
-
-  var resources = Ember.A();
-  Ember.run(function () {
-    resources.pushObject(store.createRecord("resource/resource", {id: 1}));
-    resources.pushObject(store.createRecord("resource/resource", {id: 2}));
-  });
-  let model = this.subject({
-    resources: resources
-  });
-
-  var lastVisitedResource = model.get("lastVisitedResource");
-  assert.ok(lastVisitedResource, "Resource not found");
-  assert.equal(lastVisitedResource.get("id"), 1, "Wrong resource id");
-});
-
-
 test('prevResource without resources', function (assert) {
   assert.expect(1);
   let store = this.store();

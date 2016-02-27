@@ -36,7 +36,7 @@ export default PlayerRoute.extend({
    */
   playerModel: function(params, context, collection){
     const route = this;
-    this._super(params, context, collection).then(function(model){
+    return this._super(params, context, collection).then(function(model){
       const courseId = context.get("courseId");
       const unitId = context.get("unitId");
       const lessonId = context.get("lessonId");

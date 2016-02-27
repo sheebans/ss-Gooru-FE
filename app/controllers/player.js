@@ -47,14 +47,6 @@ export default Ember.Controller.extend(SessionMixin, {
     },
 
     /**
-     * When clicking at view report
-     */
-    viewReport: function(){
-      let controller = this;
-      controller.set("showReport", true);
-    },
-
-    /**
      * Handle onSubmitQuestion event from gru-question-viewer
      * @see components/player/gru-question-viewer.js
      * @param {Resource} question

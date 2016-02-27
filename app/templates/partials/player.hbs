@@ -1,12 +1,19 @@
 <div class="main" role="main">
   {{#if showReport}}
+    <div class="report-navigation">
+      <button {{action "closePlayer"}} class="btn btn-info back">
+          <span>
+            {{gru-icon name='keyboard_arrow_left'}}
+            {{#if lessonTitle}} {{lessonTitle}} {{else}} {{t 'common.back'}} {{/if}}
+          </span>
+      </button>
+    </div>
     {{reports.gru-assessment-report assessmentResult=assessmentResult }}
   {{else}}
     {{player.gru-navigation
     submitted=assessmentResult.submitted
     ratingScore=resourceResult.reaction
     onFinishCollection="finishCollection"
-    onViewReport="viewReport"
     onOpenNavigator="openNavigator"
     onChangeEmotion="changeEmotion"}}
 
@@ -18,14 +25,16 @@
     onSubmitQuestion="submitQuestion"}}
   {{/if}}
 </div>
-<div class="aside">
-  {{player.gru-navigator
-  lessonTitle=lessonTitle
-  resourceResults=assessmentResult.sortedResourceResults
-  collection=collection
-  onClosePlayer="closePlayer"
-  selectedResourceId=resourceId
-  onItemSelected="selectNavigatorItem"
-  onCloseNavigator="closeNavigator"
-  }}
-</div>
+{{#unless showReport}}
+  <div class="aside">
+    {{player.gru-navigator
+    lessonTitle=lessonTitle
+    resourceResults=assessmentResult.sortedResourceResults
+    collection=collection
+    onClosePlayer="closePlayer"
+    selectedResourceId=resourceId
+    onItemSelected="selectNavigatorItem"
+    onCloseNavigator="closeNavigator"
+    }}
+  </div>
+{{/unless}}

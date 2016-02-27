@@ -141,7 +141,7 @@ export default Ember.Route.extend({
     controller.set("showReport", assessmentResult.get("submitted"));
 
     controller.startAssessment();
-    var resource = collection.get("lastVisitedResource");
+    var resource = assessmentResult.get("lastVisitedResource");
     if (model.resourceId) {
       resource = collection.getResourceById(model.resourceId);
     }

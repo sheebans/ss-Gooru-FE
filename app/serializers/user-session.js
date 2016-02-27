@@ -20,7 +20,7 @@ export default Ember.Object.extend({
    * @returns {*[]}
    */
   serializeOpenAssessment: function (payload) {
-    return payload.content && payload.content.length > 0 ? payload.content[0] : null;
+    return payload.content && payload.content.length > 0 ? payload.content[payload.content.length - 1] : null;
   }
 
 });
