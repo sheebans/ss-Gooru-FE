@@ -18,6 +18,6 @@ export default {
     application.inject('service:api-sdk/real-time', 'realTimeSerializer', 'serializer:real-time');
     application.inject('service:api-sdk/events', 'eventsSerializer', 'serializer:events');
     application.inject('service:api-sdk/user-session', 'userSessionSerializer', 'serializer:user-session');
-    application.inject('controller:class/reports/collection', 'realTimeSerializer', 'serializer:real-time');
+    application.inject('controller:reports/collection', 'realTimeSerializer', 'serializer:real-time');
   }
 };

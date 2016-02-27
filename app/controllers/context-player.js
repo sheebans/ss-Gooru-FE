@@ -33,7 +33,7 @@ export default PlayerController.extend({
    * Text used for the back navigation link
    * @property {string}
    */
-  backLabel: Ember.computed("lesson", function(){
+  lessonTitle: Ember.computed("lesson", function(){
     return truncate(this.get("lesson.title"), null, "name");
   }),
 
@@ -48,10 +48,13 @@ export default PlayerController.extend({
     let onAir = controller.get("onAir");
     return promise.then(function(){
       if (onAir){
-        let realTimeService = controller.get('realTimeService');
+        const classId = context.get("classId");
+        const collectionId = context.get("collectionId");
+        const userId = context.get("userId");
+        const realTimeService = controller.get('realTimeService');
+
         if (context.get("eventType") === 'stop') { //only notifies when the question is completed
-          return realTimeService.notifyResourceResult(context.get("classId"), context.get("collectionId"),
-            context.get("userId"), resourceResult);
+          return realTimeService.notifyResourceResult(classId, collectionId, userId, resourceResult);
         }
       }
     });
@@ -64,23 +67,27 @@ export default PlayerController.extend({
    * @param {Context} context
    */
   saveCollectionResult: function(assessmentResult, context){
-    let controller = this;
-    let promise = this._super(...arguments);
-    let onAir = controller.get("onAir");
+    const controller = this;
+    const promise = this._super(assessmentResult, context);
+    const onAir = controller.get("onAir");
     return promise.then(function(){
+      let notifyPromise = null;
       if (onAir){
-        let realTimeService = controller.get('realTimeService');
-        Ember.Logger.debug(assessmentResult, context, realTimeService);
-        if (context.get("eventType") === 'start') {
+        const classId = context.get("classId");
+        const collectionId = context.get("collectionId");
+        const userId = context.get("userId");
+        const realTimeService = controller.get('realTimeService');
+        const eventType = context.get("eventType");
 
+        if (eventType === 'start') {
+          notifyPromise = realTimeService.notifyAttemptStarted(classId, collectionId, userId);
         }
-        else if (context.get("eventType") === 'stop') {
-
+        else if (eventType === 'stop') {
+          notifyPromise = realTimeService.notifyAttemptFinished(classId, collectionId, userId);
         }
       }
+      return notifyPromise;
     });
   }
-
-
 
 });

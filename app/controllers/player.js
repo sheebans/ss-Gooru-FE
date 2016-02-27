@@ -65,6 +65,7 @@ export default Ember.Controller.extend(SessionMixin, {
       controller.submitQuestionResult(questionResult).then(function(){
         const next = controller.get("collection").nextResource(question);
         if (next){
+          Ember.$(window).scrollTop(0);
           controller.moveToResource(next);
         }
         else{
@@ -164,13 +165,6 @@ export default Ember.Controller.extend(SessionMixin, {
    */
   showReport: false,
 
-  /**
-   * Text used for the back navigation link
-   * @property {string}
-   */
-  backLabel: Ember.computed("collection", function(){
-    return this.get("i18n").t("common.back");
-  }),
   // -------------------------------------------------------------------------
   // Observers
 

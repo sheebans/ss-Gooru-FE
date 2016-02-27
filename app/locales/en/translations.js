@@ -13,7 +13,6 @@ export default {
     "of": "of",
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
-    "back": "Back",
     "cancel": "Cancel",
     "classScores": "Class Scores",
     "close": "Close",
@@ -23,6 +22,7 @@ export default {
     "contentUnavailable": "Content not available",
     "correct": "Correct",
     "correct-answer":"Correct Answer",
+    "course-map": "Course Map",
     "create": "Create",
     "edit": "Edit",
     "email_support": "support@gooru.org",
@@ -43,6 +43,7 @@ export default {
     "learning-target":"Learning Target",
     "learning-target-mobile":"Learning Target in Standard",
     "lesson": "Lesson",
+    "back": "Back",
     "lessonObj": {
       one: "Lesson",
       other: "Lessons"
@@ -464,6 +465,7 @@ export default {
     "attempts":"Attempt"
   },
   "gru-performance-summary":{
+    "name":"Name",
     "scores": "Scores",
     "completion":"Completion",
     "time-spent":"Time Spent",
@@ -471,7 +473,7 @@ export default {
     "attempts":"Attempts",
     "redo":"Redo",
     "resume":"Resume",
-    "study":"Study",
+    "study":"Study Now",
     "view-report":"View Report",
     "not-applicable":"N/A",
     "not-started": "Not started yet"

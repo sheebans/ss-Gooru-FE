@@ -31,6 +31,7 @@ export default Ember.Component.extend({
      * @returns {boolean}
      */
     submitQuestion: function (question, questionResult) {
+      this.$('.content').scrollTop(0);
       this.sendAction("onSubmitQuestion", question, questionResult);
     }
   },

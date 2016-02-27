@@ -52,7 +52,7 @@ export default Ember.Object.extend({
         userAnswer: util.toUserAnswer(answerObjects),
 
         //fields only for real time
-        correct: payload.answerStatus === 'correct',
+        correct: payload.score > 0,
 
         //fields only for student collection performance
         score: payload.score,
@@ -92,6 +92,10 @@ export default Ember.Object.extend({
     answerObjects = (!answerObjects || answerObjects === "N/A") ? [] : answerObjects;
     if (typeof answerObjects === "string"){
       answerObjects = JSON.parse(answerObjects);
+    }
+
+    if (!Ember.$.isArray(answerObjects)){
+      answerObjects = [];
     }
     return answerObjects.map(function(answerObject){
       return AnswerObject.create(answerObject);
