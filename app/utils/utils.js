@@ -250,7 +250,7 @@ export function truncate(text, maxLength, type, suffix){
     "name": 15,
     "short": 10,
     "player-nav-sm": 30,
-    "medium": 50,
+    "medium": 35,
     "large": 200
   };
   let defaultType = "short";

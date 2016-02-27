@@ -159,13 +159,6 @@ export default Ember.Controller.extend({
    */
   showReport: false,
 
-  /**
-   * Text used for the back navigation link
-   * @property {string}
-   */
-  backLabel: Ember.computed("collection", function(){
-    return this.get("i18n").t("common.back");
-  }),
   // -------------------------------------------------------------------------
   // Observers
 

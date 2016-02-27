@@ -1,11 +1,19 @@
 <div class="navigator-header" >
   <div {{action 'closePlayer'}}>
-    <span class="lead"> {{gru-icon name='keyboard_arrow_left'}} {{backLabel}}</span>
-    <p>{{collection.title}}</p>
+    {{#if lessonTitle}}
+      <span class="lead"> {{gru-icon name='keyboard_arrow_left'}}{{t 'common.lesson'}}</span>
+      <p class="lesson-title">{{lessonTitle}}</p>
+    {{else}}
+      <span class="lead"> {{gru-icon name='keyboard_arrow_left'}}{{t 'common.back'}}</span>
+    {{/if}}
   </div>
   <div class="pull-right close-navigator hidden-md hidden-lg">
     <button class="btn btn-link hamburger-icon"{{action 'closeNavigator'}}>{{gru-icon name='menu'}}</button>
   </div>
+</div>
+<div class="navigator-subheader">
+  <p class="collection-type">{{#if collection.isAssessment}}{{t 'common.assessment'}}{{else}}{{t 'common.collection'}}{{/if}}:</p>
+  <p class="collection-title">{{collection.title}}</p>
 </div>
 <ul class="list-group resources">
   {{#each resourceItems as |item|}}
@@ -18,7 +26,7 @@
           </h6>
           <h6 class="title visible-sm visible-md">
             {{truncate text=(noTags text=item.resource.title) type='player-nav-sm'}}
-        </h6>
+          </h6>
       </div>
     </li>
   {{/each}}

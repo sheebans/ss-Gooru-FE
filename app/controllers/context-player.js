@@ -26,10 +26,8 @@ export default PlayerController.extend({
    * Text used for the back navigation link
    * @property {string}
    */
-  backLabel: Ember.computed("lesson", function(){
+  lessonTitle: Ember.computed("lesson", function(){
     return truncate(this.get("lesson.title"), null, "name");
   })
-
-
 
 });
