@@ -65,6 +65,7 @@ export default Ember.Controller.extend(SessionMixin, {
       controller.submitQuestionResult(questionResult).then(function(){
         const next = controller.get("collection").nextResource(question);
         if (next){
+          Ember.$(window).scrollTop(0);
           controller.moveToResource(next);
         }
         else{
