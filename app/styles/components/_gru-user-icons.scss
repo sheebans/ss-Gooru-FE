@@ -15,7 +15,7 @@
   .item {
     position: relative;
     display: inline-block;
-    margin: 0 5px 0 0;
+    margin: 0 3px 0 0;
     vertical-align: middle;
     color:$gray;
 
@@ -40,16 +40,16 @@
       color:$white;
     }
 
-    &.user {
-      width: 60px;
-    }
-
     &.active {
       border-color: $brand-primary;
     }
     >*{
       display: block;
       margin: 0 auto;
+    }
+
+    &.user:last-child {
+      margin-right: 6px;
     }
   }
 

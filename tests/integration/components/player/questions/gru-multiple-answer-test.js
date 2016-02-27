@@ -185,3 +185,56 @@ test('Multiple answer question layout - read only', function (assert) {
   assert.equal($component.find(".answer-choices tr input[disabled]").length, 6, "Missing answer choices radio inputs");
 });
 
+test('Multiple answer question layout - with user answer', function (assert) {
+
+  assert.expect(5);
+
+  let question = Ember.Object.create({
+    "id": "569906aa77bebed003fa6eb1",
+    questionType: 'MA',
+    text: 'Sample Question MA',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({
+        "id": 1,
+        "text": "<p>An aquifer</p>",
+        "answerType": "text",
+        "isCorrect": true,
+        "sequence": 1
+      }),
+      Ember.Object.create({
+        "id": 2,
+        "text": "<p>A well</p>",
+        "answerType": "text",
+        "isCorrect": false,
+        "sequence": 2
+      }),
+      Ember.Object.create({
+        "id": 3,
+        "text": "<p>A pump</p>",
+        "answerType": "text",
+        "isCorrect": false,
+        "sequence": 3
+      })
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 5,
+    "hasAnswers": true
+  });
+
+
+  this.set('question', question);
+  this.set('userAnswer', [{id: 1, selection: true}, {id: 2, selection: false}, {id: 3, selection: false}]);
+
+  this.render(hbs`{{player/questions/gru-multiple-answer question=question userAnswer=userAnswer}}`);
+
+  var $component = this.$(); //component dom element
+  T.exists(assert, $component.find(".instructions"), "Missing instructions");
+  assert.equal($component.find(".answer-choices tbody tr input").length, 6, "Missing answer choices radio inputs");
+  assert.equal($component.find(".answer-choices tbody tr:eq(0) input:checked").val(), 'yes|1', "Wrong selection for answer 1");
+  assert.equal($component.find(".answer-choices tbody tr:eq(1) input:checked").val(), 'no|2', "Wrong selection for answer 1");
+  assert.equal($component.find(".answer-choices tbody tr:eq(2) input:checked").val(), 'no|3', "Wrong selection for answer 1");
+});
+

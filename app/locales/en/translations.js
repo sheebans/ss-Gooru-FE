@@ -5,6 +5,7 @@ export default {
    */
   "common": {
 
+    "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
     "assessment":"Assessment",
     "assessmentInitial": "A",
@@ -12,7 +13,6 @@ export default {
     "of": "of",
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
-    "back": "Back",
     "cancel": "Cancel",
     "classScores": "Class Scores",
     "close": "Close",
@@ -22,6 +22,7 @@ export default {
     "contentUnavailable": "Content not available",
     "correct": "Correct",
     "correct-answer":"Correct Answer",
+    "course-map": "Course Map",
     "create": "Create",
     "edit": "Edit",
     "email_support": "support@gooru.org",
@@ -37,9 +38,15 @@ export default {
     "hints": "Hints",
     "hide-results":"Hide Results",
     "if_questions": "If you have any questions,",
+    "launch-anonymous": "Launch anonymous",
+    "launch-on-air": "Launch on air",
     "learning-target":"Learning Target",
     "learning-target-mobile":"Learning Target in Standard",
-    "lesson":"Lesson",
+    "lesson": "Lesson",
+    "lessonObj": {
+      one: "Lesson",
+      other: "Lessons"
+    },
     "lessonInitial": "L",
     "libraries": "Libraries",
     "loading": "Loading ...",
@@ -348,6 +355,9 @@ export default {
   },
 
   "gru-multiple-choice": {
+    "instructions" : "Please select the correct answer, and click \"Submit\"."
+  },
+  "gru-hot-text": {
     "instructions" : "Please select the correct answer, and click \"Submit\"."
   },
   "gru-true-false": {

@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import AssessmentResult from 'gooru-web/models/result/assessment';
+import Context from 'gooru-web/models/result/context';
+import {generateUUID} from 'gooru-web/utils/utils';
 
 /**
  * @typedef { Ember.Route } PlayerRoute
@@ -48,26 +50,30 @@ export default Ember.Route.extend({
   /**
    * @param {{ collectionId: string, resourceId: string }} params
    */
-  model(params) {
-    const userId = this.get('session.userId');
+  model:function(params) {
+    let route = this;
+    const userId = route.get('session.userId');
+    let hasUserSession = !route.get('session.isAnonymous');
     const collectionId = params.collectionId;
     const resourceId = params.resourceId;
-    const collection = this.get("collectionService").findById(collectionId);
-    const assessmentResult = (userId) ?
-      this.get("performanceService").findAssessmentResultByCollectionAndStudent(collectionId, userId) : null;
+    const collectionPromise = route.get("collectionService").findById(collectionId);
 
+    return collectionPromise.then(function(collection){
+      const context = Context.create({
+        userId: userId,
+        collectionId: collectionId,
+        parentEventId: generateUUID(), //parent event id for all events in this session
+        collectionType: collection.get("collectionType")
+      });
 
-    const context = Ember.Object.create({
-      collectionId: collectionId,
-      resourceId: params.resourceId,
-      userId: userId
-    });
-
-    return Ember.RSVP.hash({
-      collection: collection,
-      resourceId: resourceId,
-      assessmentResult: assessmentResult,
-      context: context
+      let assessmentResult = hasUserSession ?
+        route.get("performanceService").findAssessmentResultByCollectionAndStudent(context) : null;
+      return Ember.RSVP.hash({
+        collection: collection,
+        resourceId: resourceId,
+        assessmentResult: assessmentResult,
+        context: context
+      });
     });
   },
 
@@ -76,18 +82,23 @@ export default Ember.Route.extend({
    * @param {Collection} model
    */
   setupController(controller, model) {
-    const collection = model.collection;
+    let collection = model.collection;
     let assessmentResult = model.assessmentResult;
+    let hasUserSession = !this.get('session.isAnonymous');
 
     if (!assessmentResult){
       assessmentResult = AssessmentResult.create({
         totalAttempts: 1,
+        sessionId: generateUUID(), //sessionId for new assessment
         selectedAttempt: 1,
         resourceResults: Ember.A([])
       });
     }
     assessmentResult.merge(collection);
 
+    model.context.set("sessionId", assessmentResult.get("sessionId"));
+
+    controller.set("saveEnabled", hasUserSession);
     controller.set("context", model.context);
     controller.set("assessmentResult", assessmentResult);
     controller.set("showReport", assessmentResult.get("submitted"));

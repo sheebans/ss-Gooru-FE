@@ -36,13 +36,13 @@ export default QuestionComponent.extend({
       const questionUtil = component.get("questionUtil");
       component.setUserAnswerChoice(answerId);
 
-      let userAnswer = this.get("userAnswer").toArray();
-      const correct = questionUtil.isCorrect(userAnswer);
+      let userSelection = this.get("userSelection").toArray();
+      const correct = questionUtil.isCorrect(userSelection);
 
-      component.notifyAnswerChanged(userAnswer, correct);
+      component.notifyAnswerChanged(userSelection, correct);
 
       if (component.isAnswerCompleted()){
-        component.notifyAnswerCompleted(userAnswer, correct);
+        component.notifyAnswerCompleted(userSelection, correct);
       }
     }
   },
@@ -54,9 +54,28 @@ export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Properties
   /**
-   * @property { { id: number, selection: boolean }[] } userAnswer
+   * @property { { id: number, selection: boolean }[] } userSelection
    */
-  userAnswer: Ember.A([]),
+  userSelection: Ember.A([]),
+
+  /**
+   * Convenient structure to render options
+   * @property {[]}
+   */
+  answers: Ember.computed("question.answers", "userAnswer", function(){
+    let answers = this.get("question.answers");
+    let userAnswer = this.get("userAnswer");
+    return answers.map(function(answer){
+      var answerId = answer.get("id");
+      let choice = userAnswer ? userAnswer.findBy("id", answerId) : null;
+      let yesNo = choice && choice.selection ? "yes" : "no";
+      return {
+        id: answerId,
+        text: answer.get("text"),
+        groupValue: choice ? `${yesNo}|${answerId}` : null
+      };
+    });
+  }),
 
   // -------------------------------------------------------------------------
   // Observers
@@ -70,9 +89,9 @@ export default QuestionComponent.extend({
    */
   isAnswerCompleted: function(){
     const component = this,
-      userAnswer = component.get("userAnswer"),
+      userSelection = component.get("userSelection"),
       totalAnswerChoices = component.get("question.answers.length");
-    return userAnswer.get("length") === totalAnswerChoices;
+    return userSelection.get("length") === totalAnswerChoices;
   },
 
   /**
@@ -80,16 +99,16 @@ export default QuestionComponent.extend({
    * @param {string} answerChoice containing the user selection yes|120202 or no|20200392
    */
   setUserAnswerChoice: function(answerChoice){
-    let userAnswer = this.get("userAnswer");
+    let userSelection = this.get("userSelection");
     let values = answerChoice.split("|");
     let id = values[1];
     let selection = values[0] === "yes";
-    let found = userAnswer.findBy("id", id);
+    let found = userSelection.findBy("id", id);
     if (found){
       found.selection = selection;
     }
     else{
-      userAnswer.addObject({
+      userSelection.addObject({
         id: id,
         selection: selection
       });

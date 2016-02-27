@@ -59,11 +59,25 @@ export default QuestionComponent.extend({
 
   removeSubscriptions: Ember.on('willDestroyElement', function() {
     this.$('.sortable').off('sortupdate');
-  })
+  }),
 
   // -------------------------------------------------------------------------
   // Properties
 
+  /**
+   * Convenient structure to render the question answer choices
+   * @property {*}
+   */
+  answers: Ember.computed("question.answers.[]", function(){
+    let answers = this.get("question.answers").sortBy("order");
+    let userAnswer = this.get("userAnswer");
+    if (userAnswer){ //@see gooru-web/utils/question/reorder.js
+      answers = userAnswer.map(function(answerId){
+        return answers.findBy("id", answerId);
+      });
+    }
+    return answers;
+  })
 
   // -------------------------------------------------------------------------
   // Observers

@@ -75,7 +75,7 @@ module.exports = function (grunt) {
     }
     var testExecTask = 'exec:run:' + command;
 
-    var tasks = noStubby ? ['exec:nginx-stop-server', 'exec:nginx-start-test-server', testExecTask] : ['stubby:test', 'exec:nginx-stop-server', 'exec:nginx-start-test-server', testExecTask];
+    var tasks = noStubby ? [testExecTask] : ['stubby:test', testExecTask];
     grunt.task.run(tasks);
   });
 

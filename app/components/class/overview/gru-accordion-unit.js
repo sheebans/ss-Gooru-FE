@@ -43,6 +43,15 @@ export default Ember.Component.extend(AccordionMixin, {
   actions: {
 
     /**
+     * Launch an assessment on-air
+     *
+     * @function actions:launchOnAir
+     */
+    launchOnAir: function (unitId, lessonId, collectionId) {
+      this.get('onLaunchOnAir')(unitId, lessonId, collectionId);
+    },
+
+    /**
      * Load the data for this unit (data should only be loaded once) and trigger
      * the 'onLocationUpdate' event handler with the unit information
      *
@@ -144,10 +153,6 @@ export default Ember.Component.extend(AccordionMixin, {
               item.set('users', locationUsers);
 
               // TODO: remove after integration with analytics
-              item.set('completion', [{
-                color: "#0072BC",
-                percentage: 50
-              }]);
               item.set('completed', 5);
               item.set('total', 10);
 

@@ -1,7 +1,6 @@
 import Ember from "ember";
 import Env from 'gooru-web/config/environment';
 
-
 /**
  *
  * Controller for collection/assessment report
@@ -14,19 +13,29 @@ import Env from 'gooru-web/config/environment';
  */
 export default Ember.Controller.extend({
 
+  queryParams: ['anonymous'],
+
+
   // -------------------------------------------------------------------------
   // Dependencies
 
-  classController: Ember.inject.controller('class'),
-
   realTimeService: Ember.inject.service('api-sdk/real-time'),
+
 
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-    setAnonymous: function () {
-      this.set("anonymous", !this.get("anonymous"));
+
+    goBack: function () {
+      this.send('navigateBack');
+    },
+
+    launchAnonymous: function () {
+      var url = window.location.href;
+
+      url += "?anonymous=true";
+      window.open(url, 'realTimeAnonymous', 'width=' + window.screen.width + ', height=' + window.screen.height + ', left=0, top=0', true);
     }
   },
 
@@ -35,7 +44,8 @@ export default Ember.Controller.extend({
   // Events
 
   init: function () {
-    var socket = new SockJS(Env['real-time'].webSocketUrl);
+    let url = location.host + Env['real-time'].webSocketUrl;
+    var socket = new SockJS(url);
     this.set('webSocketClient', Stomp.over(socket));
   },
 
@@ -105,7 +115,7 @@ export default Ember.Controller.extend({
       controller.get('realTimeService').findResourcesByCollection(classId, collectionId)
         .then(function (userResourceResults) {
           // Subscribe to listen for live messages
-          webSocketClient.subscribe('/topic/' + channel, function(message) {
+          webSocketClient.subscribe('/topic/' + channel, function (message) {
             var eventMessage = JSON.parse(message.body);
             const userResourceResult = controller.get('realTimeSerializer').normalizeRealTimeEvent(eventMessage);
             controller.get('reportData').merge([userResourceResult]);

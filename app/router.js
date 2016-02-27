@@ -33,11 +33,11 @@ Router.map(function() {
         });
       });
     });
+  });
 
-    this.route('reports', function () {
-      this.route('collection', {path: '/unit/:unitId/lesson/:lessonId/collection/:collectionId'});
-      this.route('student-collection', {path: '/unit/:unitId/lesson/:lessonId/collection/:collectionId/student/:userId'});
-    });
+  this.route('reports', function () {
+    this.route('collection', {path: '/class/:classId/course/:courseId/unit/:unitId/lesson/:lessonId/collection/:collectionId'});
+    this.route('student-collection', {path: '/class/:classId/course/:courseId/unit/:unitId/lesson/:lessonId/collection/:collectionId/student/:userId'});
   });
 
   this.route('profile', { path: '/profile/:userId' }, function() {

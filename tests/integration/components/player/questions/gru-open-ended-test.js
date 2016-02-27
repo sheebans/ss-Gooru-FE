@@ -118,3 +118,29 @@ test('Open ended layout - read only', function (assert) {
   var $component = this.$(); //component dom element
   T.exists(assert, $component.find("textarea[disabled]"), "Missing textarea");
 });
+
+test('Open ended layout - with user answer', function (assert) {
+
+  assert.expect(2);
+
+  const question = Ember.Object.create({
+    "id": "569906aa7fe0695bfd409731",
+    questionType: 'OE',
+    text: 'Sample Question OE',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: [],
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 9
+  });
+
+
+  this.set('question', question);
+  this.set('userAnswer', "Hola");
+  this.render(hbs`{{player/questions/gru-open-ended question=question userAnswer=userAnswer}}`);
+
+  var $component = this.$(); //component dom element
+  T.exists(assert, $component.find("textarea"), "Missing textarea");
+  assert.equal($component.find("textarea").val(), "Hola", "Wrong user answer");
+});
