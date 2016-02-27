@@ -1,44 +1,29 @@
 <a href="#{{unit.id}}"
-   data-parent=".gru-student-performance-container"
    data-toggle="collapse"
-   data-target="#{{unit.id}}"
+   data-target="#_{{unit.id}}"
    aria-expanded="true"
-   aria-controls="lesson-container-for-unit-{{unit.id}}"
+   aria-controls="_{{unit.id}}"
   {{action "selectUnit" unit}}
-  id="unit-{{unit.id}}">
+  id="unit-{{unit.id}}"
+  class='panel'>
   <ul class="row">
-      <li class="col-xs-8 col-sm-4 performance-unit-title">
-          <span>
-              {{course-sections-prefix  index=localIndex type='unit'}}&colon; {{unit.title}}
-          </span>
-
-      </li>
-      <li class="col-xs-4 col-sm-8 performance-unit-content">
-          <div>
-              <ul class="hidden-xs performance-headers">
-                  <li class="score-header"><p>{{t "gru-performance-summary.scores"}}</p></li>
-                  <li class="completion-header"><p>{{t "gru-performance-summary.completion"}}</p></li>
-                  <li class="timeSpent-header"><p>{{t "gru-performance-summary.time-spent"}}</p></li>
-                  <li class="reactions-header"><p>{{t "gru-performance-summary.reactions"}}</p></li>
-                  <li class="attempts-header"><p>{{t "gru-performance-summary.attempts"}}</p></li>
-              </ul>
-          </div>
+      <li class="performance-unit-content">
           <div>
             {{class.analytics.performance.gru-performance-summary
             performance=unit
-            selectedOption=selectedOption}}
+            index=localIndex
+            selectedOption=selectedOption
+            isSelected=selected}}
           </div>
       </li>
   </ul>
 </a>
-<div class="lessons-container collapse" id="{{unit.id}}">
-    <!-- each del componete de performance summary con el performance de cada lesson-->
+<div class="lessons-container collapse" id="_{{unit.id}}">
   <div>
-    {{#each lessons as |lesson index|}}
+    {{#each lessons as |lesson indexLesson|}}
       {{class.analytics.performance.student.gru-lesson-performance
       lesson = lesson
-      localIndex = index
-      index = localIndex
+      index = indexLesson
       selectedOption = selectedOption
       onSelectResource=(action 'selectResource')
       onSelectLesson=(action 'updateSelectedLesson')

@@ -14,7 +14,7 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  queryParams: ['filterBy','unitId','lessonId'],
+  queryParams: ['filterBy', 'unitId', 'lessonId'],
 
   classController: Ember.inject.controller('class'),
 
@@ -34,19 +34,13 @@ export default Ember.Controller.extend({
     },
 
     updateLocation:function(newLocation, type){
-      const location = !newLocation ? undefined : newLocation;
-      if(type==='lesson'){
-        this.set('lessonId',location);
-      }else if(type==='unit'){
-        this.set('unitId',location);
+      const location = !newLocation ? null : newLocation;
+      if (type === 'lesson') {
+        this.set('lessonId', location);
+      } else if (type === 'unit') {
+        this.set('unitId', location);
+        this.set('lessonId', null);
       }
-    },
-    /**
-     * Triggered when the breadcrumb item is selected
-     * @param {*} item
-     */
-    selectBreadcrumbItem: function(item){
-      Ember.log(item);
     },
 
     /**
@@ -106,18 +100,18 @@ export default Ember.Controller.extend({
    * The userId for the student
    * @property {String}
    */
-  userId:'',
+  userId:null,
   /**
    * The unitId for the current unit
    * @property {String}
-   *
-  unitId:'',
+   */
+  unitId:null,
 
   /**
    * The lessonId for the current lesson
    * @property {String}
-   *
-  lessonId:'',
+   */
+  lessonId:null,
 
   /**
    * The filterBy selected
@@ -131,12 +125,6 @@ export default Ember.Controller.extend({
    */
   isFullScreen:  Ember.computed.alias('classController.isFullScreen'),
 
-  breadcrumb: Ember.A([
-    {
-      value: '111',
-      label: 'Course Name'
-    }
-  ]),
   /**
    * Boolean that determines whether the route model has not finished loading.
    * @property {Boolean}
