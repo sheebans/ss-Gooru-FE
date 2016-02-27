@@ -14,7 +14,7 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  queryParams: ['filterBy','unitId','lessonId'],
+  queryParams: ['filterBy', 'unitId', 'lessonId'],
 
   classController: Ember.inject.controller('class'),
 

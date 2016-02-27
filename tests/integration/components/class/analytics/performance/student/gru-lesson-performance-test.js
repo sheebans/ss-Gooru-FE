@@ -111,6 +111,7 @@ test('Test for not started lesson performance', function(assert) {
       id:'333-555-777',
       title: "Quiz :: Indian History",
       type: "lesson",
+      isUnitOrLesson: true,
       score:75,
       completionDone: 0,
       completionTotal: 1,
@@ -120,7 +121,7 @@ test('Test for not started lesson performance', function(assert) {
       collections:Ember.A([
         Ember.Object.create({
           id:'first-collection-id',
-          title: "Indian History Collection",
+          title: "First Collection",
           type: "collection",
           score:75,
           completionDone: 0,
@@ -129,11 +130,12 @@ test('Test for not started lesson performance', function(assert) {
           ratingScore: 0,
           isCompleted: false,
           isCollection: true,
-          hasStarted:true
+          hasStarted:true,
+          isCollectionOrAssessment: true
         }),
         Ember.Object.create({
           id:'second-collection-id',
-          title: "Indian History Assessment",
+          title: "First Assessment",
           type: "assessment",
           score:75,
           completionDone: 5,
@@ -142,11 +144,12 @@ test('Test for not started lesson performance', function(assert) {
           ratingScore: 0,
           isCompleted: true,
           hasStarted:false,
-          isAssessment: true
+          isAssessment: true,
+          isCollectionOrAssessment: true
         }),
         Ember.Object.create({
           id:'third-collection-id',
-          title: "Indian History Assessment",
+          title: "Second Assessment",
           type: "assessment",
           score:75,
           completionDone: 0,
@@ -155,7 +158,8 @@ test('Test for not started lesson performance', function(assert) {
           ratingScore: 0,
           isCompleted: true,
           hasStarted:false,
-          isAssessment: true
+          isAssessment: true,
+          isCollectionOrAssessment: true
         })
       ])
     });
@@ -167,7 +171,7 @@ test('Test for not started lesson performance', function(assert) {
     assert.ok(true, "This should be called 1 time");
   });
 
-  assert.expect(11);
+  assert.expect(10);
 
   this.render(hbs`{{class.analytics.performance.student.gru-lesson-performance
     lesson=lesson
@@ -187,34 +191,28 @@ test('Test for not started lesson performance', function(assert) {
   const $clickableAnchor= $component.find(".gru-lesson-performance-container a"); //component dom element
   T.exists(assert, $clickableAnchor, 'Missing Clickable Anchor');
 
-  const $arrowRightIcon = $component.find(".lessons-container .title .icon i.keyboard_arrow_right");
+  const $arrowRightIcon = $component.find(".lesson-performance-content .title .icon i.keyboard_arrow_right");
   T.exists(assert, $arrowRightIcon, "Missing arrow right icon");
 
   Ember.run(() => {
     $clickableAnchor.click();
   });
 
-  assert.ok($arrowRightIcon.hasClass("keyboard_arrow_down"), "Missing arrow down icon");
+
 
   return wait().then(function() {
 
-    const $firstCollection = $component.find("div.collections-container div.collection-performance:nth-child(2)");
-    T.exists(assert, $firstCollection, 'Missing Second collection');
+    assert.ok($arrowRightIcon.hasClass("keyboard_arrow_down"), "Missing arrow down icon");
 
-    const $collectionTitle = $component.find(".collections-container .collection-performance .collection-performance-content .title .section-title");
+    const $firstAssessment = $component.find("div.collections-container div.collection-performance:nth-child(2)");
+    const $collectionTitle = $firstAssessment.find(".collection-performance-content .title .section-title");
+    T.exists(assert, $firstAssessment, 'Missing Second collection');
     T.exists(assert, $collectionTitle, 'Missing collection Title');
+    assert.equal($collectionTitle.text().trim(), "A1:     First Assessment", "Wrong title");
 
-    assert.equal($collectionTitle.text().trim(), "A2: Indian History Assessment", "Wrong title");
-
-    const $collectionStudyButton = $component.find(".collections-container div:first-child .collection-performance-title div button:first-child");
-
+    const $firstCollection = $component.find("div.collections-container div.collection-performance:nth-child(1)");
+    const $collectionStudyButton = $firstCollection.find("button.collection-study-button");
     T.exists(assert, $collectionStudyButton, 'Missing collection study button');
-
-
-    assert.equal($collectionStudyButton.hasClass('collection-study-button'), true, "Study class from first button missing");
-
-
-
   });
 
 

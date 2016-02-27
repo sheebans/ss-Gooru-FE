@@ -61,7 +61,7 @@ test('When view by collection option is selected', function(assert) {
     assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student');
 
     const $performanceContainer = find(".controller.class .controller.analytics-performance-student");
-    const $collectionViewOption = $performanceContainer.find(".controls .gru-actions-bar .dropdown-menu .collection a");
+    const $collectionViewOption = $performanceContainer.find(".gru-actions-bar .dropdown-menu .collection a");
 
     click($collectionViewOption);
     andThen(function() {
@@ -78,8 +78,8 @@ test('When filtering by collection is  pre-selected', function(assert) {
     assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?filterBy=collection');
 
     const $performanceContainer = find(".controller.class .controller.analytics-performance-student");
-    const $menu = $performanceContainer.find(".controls .gru-actions-bar .drop-menu");
-    assert.equal(T.text($menu.find(".selected-filter .text")), 'View Collection', 'Wrong text selected');
+    const $menu = $performanceContainer.find(".gru-actions-bar .drop-menu");
+    assert.equal(T.text($menu.find(".selected-filter span")), 'View Collection', 'Wrong text selected');
   });
 });
 
@@ -150,7 +150,7 @@ test('Transition to a collection or assessment', function(assert) {
     const $performanceContainer = find(".performance-content");
     T.exists(assert, $performanceContainer, "No performance container");
 
-    const $firstUnitContainer = $performanceContainer.find("div.gru-unit-performance-container:nth-child(2)");
+    const $firstUnitContainer = $performanceContainer.find("div.gru-unit-performance-container:eq(0)");
     T.exists(assert, $firstUnitContainer, "No first unit container");
 
     const $viewFirstUnitLessons = $firstUnitContainer.find("a");
@@ -161,7 +161,7 @@ test('Transition to a collection or assessment', function(assert) {
       assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?unitId=31886eac-f998-493c-aa42-016f53e9fa88');
       T.exists(assert, $firstUnitContainer.find(".in"), "Lessons container should be open");
 
-      const $firstLessonContainer = $firstUnitContainer.find(".gru-lesson-performance-container:first-child");
+      const $firstLessonContainer = $firstUnitContainer.find(".gru-lesson-performance-container:eq(0)");
 
       const $viewFirstLessonCollections = $firstLessonContainer.find(">a");
 
@@ -170,12 +170,11 @@ test('Transition to a collection or assessment', function(assert) {
         assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?lessonId=fbd76aed-1b8d-4c2c-a9c6-c7603eef347c&unitId=31886eac-f998-493c-aa42-016f53e9fa88');
         T.exists(assert, $firstLessonContainer.find(".in"), "Collections for the first lesson should be showing");
 
-        const $viewCollectionInPlayer = $firstLessonContainer.find(" div.collections-container div:nth-child(2) button.collection-study-button");
-
+        const $secondCollection = $firstLessonContainer.find(" div.collections-container .collection-performance-content:eq(1)");
+        const $viewCollectionInPlayer = $secondCollection.find("button.collection-study-button");
         T.exists(assert, $viewCollectionInPlayer, "study button should show");
 
         click($viewCollectionInPlayer);
-
         andThen(function() {
           assert.equal(currentURL(), '/player/class/class-for-pochita-as-student/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/31886eac-f998-493c-aa42-016f53e9fa88/lesson/fbd76aed-1b8d-4c2c-a9c6-c7603eef347c/collection/363d3cc2-f2ac-490d-a870-42167f204c97?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
         });
@@ -213,14 +212,14 @@ test('Transition to a collection or assessment directly', function(assert) {
     const $performanceContainer = find(".performance-content");
     T.exists(assert, $performanceContainer, "No performance container");
 
-    const $firstUnitContainer = $performanceContainer.find("div.gru-unit-performance-container:first-child");
+    const $firstUnitContainer = $performanceContainer.find("div.gru-unit-performance-container:eq(0)");
     T.exists(assert, $firstUnitContainer, "No first unit container");
 
     const $firstUnitLessonsContainer = $firstUnitContainer.find("div.lessons-container");
     T.exists(assert, $firstUnitLessonsContainer, "No first unit lessons container selected");
     assert.ok($firstUnitLessonsContainer.hasClass("in"), "Missing lesson container 'in' class.");
 
-    const $firstLesson = $firstUnitLessonsContainer.find(".gru-lesson-performance-container:first-child");
+    const $firstLesson = $firstUnitLessonsContainer.find(".gru-lesson-performance-container:eq(0)");
     T.exists(assert, $firstLesson, "No first lesson container");
 
     const $firstLessonCollectionsContainer = $firstLesson.find("div.collections-container");
@@ -238,7 +237,7 @@ test('Transition to a closed unit when a unit with lessons is opened', function(
     const $performanceContainer = find(".performance-content");
     T.exists(assert, $performanceContainer, "No performance container");
 
-    const $secondUnitContainer = $performanceContainer.find("div.gru-unit-performance-container:nth-child(2)");
+    const $secondUnitContainer = $performanceContainer.find("div.gru-unit-performance-container:eq(1)");
     T.exists(assert, $secondUnitContainer, "No second unit container");
 
     const $viewSecondUnitLessons = $secondUnitContainer.find("a");
