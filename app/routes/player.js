@@ -45,6 +45,11 @@ export default Ember.Route.extend({
    */
   performanceService: Ember.inject.service("api-sdk/performance"),
 
+  /**
+   * @property {Ember.Service} Service to retrieve an assessment result
+   */
+  userSessionService: Ember.inject.service("api-sdk/user-session"),
+
   // -------------------------------------------------------------------------
   // Methods
   /**
@@ -66,13 +71,20 @@ export default Ember.Route.extend({
         collectionType: collection.get("collectionType")
       });
 
-      let assessmentResult = hasUserSession ?
-        route.get("performanceService").findAssessmentResultByCollectionAndStudent(context) : null;
-      return Ember.RSVP.hash({
-        collection: collection,
-        resourceId: resourceId,
-        assessmentResult: assessmentResult,
-        context: context
+      let lastOpenSessionPromise = !hasUserSession ? Ember.RSVP.resolve(null) : route.get("userSessionService").getOpenSession(context);
+      return lastOpenSessionPromise.then(function (lastSession) {
+        let assessmentResult = null;
+
+        if (lastSession) {
+          assessmentResult = route.get("performanceService").findAssessmentResultByCollectionAndStudent(lastSession.sessionId);
+        }
+
+        return Ember.RSVP.hash({
+          collection: collection,
+          resourceId: resourceId,
+          assessmentResult: assessmentResult,
+          context: context
+        });
       });
     });
   },
@@ -84,6 +96,7 @@ export default Ember.Route.extend({
   setupController(controller, model) {
     let collection = model.collection;
     let assessmentResult = model.assessmentResult;
+    console.log('result',assessmentResult);
     let hasUserSession = !this.get('session.isAnonymous');
 
     if (!assessmentResult){
@@ -95,8 +108,11 @@ export default Ember.Route.extend({
       });
     }
     assessmentResult.merge(collection);
+    console.log(assessmentResult);
+    console.log(assessmentResult.get("sessionId"));
 
     model.context.set("sessionId", assessmentResult.get("sessionId"));
+    console.log(model.context.get("sessionId"));
 
     controller.set("saveEnabled", hasUserSession);
     controller.set("context", model.context);

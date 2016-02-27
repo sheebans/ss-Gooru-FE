@@ -52,15 +52,24 @@ export default PlayerRoute.extend({
         lessonId: lessonId
       });
 
-      const lesson = route.get('lessonService').findById(courseId, unitId, lessonId);
-      let assessmentResult = hasUserSession ?
-        route.get("performanceService").findAssessmentResultByCollectionAndStudent(context) : null;
-      return Ember.RSVP.hash({
-        collection: collection,
-        resourceId: resourceId,
-        assessmentResult: assessmentResult,
-        context: context,
-        lesson: lesson
+      let lastOpenSessionPromise = !hasUserSession ? Ember.RSVP.resolve(null) : route.get("userSessionService").getOpenSession(context);
+      return lastOpenSessionPromise.then(function (lastSession) {
+        let assessmentResult = null;
+
+        if (lastSession) {
+          assessmentResult = route.get("performanceService").findAssessmentResultByCollectionAndStudent(lastSession.sessionId);
+        }
+
+        console.log('result2',assessmentResult);
+
+        const lesson = route.get('lessonService').findById(courseId, unitId, lessonId);
+        return Ember.RSVP.hash({
+          collection: collection,
+          resourceId: resourceId,
+          assessmentResult: assessmentResult,
+          context: context,
+          lesson: lesson
+        });
       });
     });
   },
