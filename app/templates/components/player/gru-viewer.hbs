@@ -8,21 +8,25 @@
     collection=collection}}
   {{else}}
     {{#if resource.hasNarration}}
-      <div class="narration">
-        {{#if resource.hasOwner}}
-          {{#if collection.avatarUrl }}
-            <span>
-                <img class="avatar" src="{{ collection.avatarUrl }}">
-            </span>
-          {{else}}
-              <span>
-                  <img class="avatar" src="assets/gooru/profile.png">
+      <div class="panel panel-default narration">
+        <div class="panel-body">
+          {{#if resource.hasOwner}}
+            {{#if collection.avatarUrl }}
+              <span class="avatar">
+                  <img src="{{ collection.avatarUrl }}">
+                  <span class="user">{{ collection.author }}</span>
               </span>
+            {{else}}
+                <span class="avatar">
+                    <img src="assets/gooru/profile.png">
+                    <span class="user">{{ collection.author }}</span>
+                </span>
+            {{/if}}
           {{/if}}
-        {{/if}}
-        <span class="message">
-          {{{resource.narration}}}
-        </span>
+          <span class="message">
+            {{{resource.narration}}}
+          </span>
+        </div>
       </div>
     {{/if}}
 

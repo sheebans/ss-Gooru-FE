@@ -84,6 +84,6 @@ test('Narration', function (assert) {
   var $component = this.$(); //component dom element
   const $gruViewer = $component.find(".gru-viewer");
   T.exists(assert, $gruViewer, "Missing narration section");
-  T.exists(assert, $gruViewer.find(".narration img.avatar"), "Missing autor image");
+  T.exists(assert, $gruViewer.find(".narration .avatar img"), "Missing autor image");
   T.exists(assert, $gruViewer.find(".narration .message"), "Missing narration");
 });
