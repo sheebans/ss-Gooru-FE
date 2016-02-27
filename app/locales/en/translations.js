@@ -43,6 +43,7 @@ export default {
     "learning-target":"Learning Target",
     "learning-target-mobile":"Learning Target in Standard",
     "lesson": "Lesson",
+    "back": "Back",
     "lessonObj": {
       one: "Lesson",
       other: "Lessons"
