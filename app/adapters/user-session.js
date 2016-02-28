@@ -1,4 +1,4 @@
-import ApplicationAdapter from '../application';
+import ApplicationAdapter from './application';
 import Ember from 'ember';
 
 export default ApplicationAdapter.extend({
@@ -17,7 +17,7 @@ export default ApplicationAdapter.extend({
 
   /**
    * Builds the end-point URL for the queryRecord queryParam
-   * Given a Content ID, User ID and Collection Type, returns performance data of each resource/question in Content
+   * Given a Content ID, User ID, Lesson ID, Class ID, Course ID and Collection Type, returns the session(s) for a specific user
    * @param query
    * @returns {string}
    */
@@ -36,7 +36,7 @@ export default ApplicationAdapter.extend({
     const userId = query.userId;
     const classId = query.classId;
     const courseId = query.courseId;
-    const sessionId = query.sessionId;
+    const openSession = query.openSession;
 
     delete query.classId;
     delete query.courseId;
@@ -45,13 +45,10 @@ export default ApplicationAdapter.extend({
     delete query.contentId;
     delete query.collectionType;
     delete query.userId;
-    delete query.sessionId;
+    delete query.openSession;
 
-    //If there is a session opened we are going to  use only the sessionId to get the data
-    let queryParams = sessionId ? `sessionId=${sessionId}`
-      : `classGooruId=${classId}&courseGooruId=${courseId}&unitGooruId=${unitId}&lessonGooruId=${lessonId}`;
-
-    return Ember.$.ajax(`${namespace}/${collectionType}/${contentId}/user/${userId}?${queryParams}`, options);
+    let queryParams = `userUid=${userId}&classGooruId=${classId}&courseGooruId=${courseId}&unitGooruId=${unitId}&lessonGooruId=${lessonId}&openSession=${openSession}`;
+    return Ember.$.ajax(`${namespace}/${collectionType}/${contentId}/sessions?${queryParams}`, options);
 
   }
 

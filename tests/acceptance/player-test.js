@@ -167,7 +167,7 @@ test('closePlayer: Return to search after closing the player', function(assert) 
 });
 
 test('finish collection', function (assert) {
-  assert.expect(3);
+  assert.expect(5);
   visit('/player/522f6827-f7dd-486f-8631-eba497e2d425?resourceId=46d4a6d4-991b-4c51-a656-f694e037dd68');
   andThen(function () {
     const $playerContainer = find(".controller.player");
@@ -177,7 +177,9 @@ test('finish collection', function (assert) {
     click($navigation.find(".finish-collection"));
     andThen(function () {
       T.notExists(assert, $playerContainer.find(".gru-navigation"), "Navigation should not be visible");
+      T.notExists(assert, $playerContainer.find(".gru-navigator"), "Navigator should not be visible");
       T.exists(assert, $playerContainer.find(".gru-assessment-report"), "Navigation assessment report should be visible");
+      T.exists(assert, $playerContainer.find(".report-navigation .back"), "Missing back button");
     });
   });
 });

@@ -27,43 +27,26 @@ export default PlayerRoute.extend({
   // -------------------------------------------------------------------------
   // Methods
 
-  model(params) {
+  /**
+   * Gets player model, overrides parent method and loads lesson
+   * @param {*} params
+   * @param {Context} context
+   * @param {Collection} collection
+   * @returns {Promise.<*>}
+   */
+  playerModel: function(params, context, collection){
     const route = this;
-    const userId = route.get('session.userId');
-    const hasUserSession = !route.get('session.isAnonymous');
-
-    const resourceId = params.resourceId;
-    const collectionId = params.collectionId;
-    const courseId = params.courseId;
-    const unitId = params.unitId;
-    const lessonId = params.lessonId;
-
-    const collectionPromise = route.get('collectionService').findById(collectionId);
-
-    return collectionPromise.then(function(collection){
-      const context = Context.create({
-        userId: userId,
-        collectionId: collectionId,
-        parentEventId: generateUUID(), //TODO is this comming from BE?
-        collectionType: collection.get("collectionType"),
-        courseId: courseId,
-        classId: params.classId,
-        unitId: unitId,
-        lessonId: lessonId
-      });
-
-      const lesson = route.get('lessonService').findById(courseId, unitId, lessonId);
-      let assessmentResult = hasUserSession ?
-        route.get("performanceService").findAssessmentResultByCollectionAndStudent(context) : null;
-      return Ember.RSVP.hash({
-        collection: collection,
-        resourceId: resourceId,
-        assessmentResult: assessmentResult,
-        context: context,
-        lesson: lesson
+    return this._super(params, context, collection).then(function(model){
+      const courseId = context.get("courseId");
+      const unitId = context.get("unitId");
+      const lessonId = context.get("lessonId");
+      return route.get('lessonService').findById(courseId, unitId, lessonId).then(function(lesson){
+        model.lesson = lesson;
+        return model;
       });
     });
   },
+
 
   setupController(controller, model) {
     // Call parent method
@@ -71,6 +54,31 @@ export default PlayerRoute.extend({
     controller.set("lesson", model.lesson);
 
     this._super(...arguments);
+
+  },
+
+  /**
+   * Get the player context
+   * @param params
+   * @returns {Context}
+   */
+  getContext: function(params){
+    const route = this;
+    const userId = route.get('session.userId');
+    const collectionId = params.collectionId;
+    const courseId = params.courseId;
+    const unitId = params.unitId;
+    const lessonId = params.lessonId;
+
+    return Context.create({
+      userId: userId,
+      collectionId: collectionId,
+      parentEventId: generateUUID(), //TODO is this comming from BE?
+      courseId: courseId,
+      classId: params.classId,
+      unitId: unitId,
+      lessonId: lessonId
+    });
   }
 
 });

@@ -449,6 +449,22 @@
       "body": "File not found!",
       "file": "student-course-performance-200-response.json"
     }
+  },
+
+  {
+    "description": "Student sessions - empty",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/(.+)/(.+)/sessions",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "student-sessions-empty-200-response.json"
+    }
   }
 
 ]

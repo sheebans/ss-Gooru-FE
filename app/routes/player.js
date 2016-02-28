@@ -45,35 +45,70 @@ export default Ember.Route.extend({
    */
   performanceService: Ember.inject.service("api-sdk/performance"),
 
+  /**
+   * @property {Ember.Service} Service to retrieve an assessment result
+   */
+  userSessionService: Ember.inject.service("api-sdk/user-session"),
+
   // -------------------------------------------------------------------------
   // Methods
   /**
    * @param {{ collectionId: string, resourceId: string }} params
    */
-  model:function(params) {
-    let route = this;
-    const userId = route.get('session.userId');
-    let hasUserSession = !route.get('session.isAnonymous');
-    const collectionId = params.collectionId;
-    const resourceId = params.resourceId;
-    const collectionPromise = route.get("collectionService").findById(collectionId);
+  model(params) {
+    const route = this;
+    const context = route.getContext(params);
+    const collectionId = context.get("collectionId");
 
-    return collectionPromise.then(function(collection){
-      const context = Context.create({
-        userId: userId,
-        collectionId: collectionId,
-        parentEventId: generateUUID(), //parent event id for all events in this session
-        collectionType: collection.get("collectionType")
-      });
+    return route.get('collectionService').findById(collectionId).then(function(collection){
+      context.set("collectionType", collection.get("collectionType"));
+      return route.playerModel(params, context, collection);
+    });
+  },
 
-      let assessmentResult = hasUserSession ?
+  /**
+   * Gets player model
+   * @param {*} params
+   * @param {Context} context
+   * @param {Collection} collection
+   * @returns {Promise.<*>}
+   */
+  playerModel: function(params, context, collection){
+    const route = this;
+    const hasUserSession = !route.get('session.isAnonymous');
+
+    let lastOpenSessionPromise = !hasUserSession ? Ember.RSVP.resolve(null) :
+      route.get("userSessionService").getOpenSession(context);
+
+    return lastOpenSessionPromise.then(function (lastSession) {
+      //Setting new content if we have some session opened
+      context.set('sessionId', lastSession ? lastSession.sessionId : null);
+
+      let assessmentResult = (lastSession) ?
         route.get("performanceService").findAssessmentResultByCollectionAndStudent(context) : null;
       return Ember.RSVP.hash({
         collection: collection,
-        resourceId: resourceId,
+        resourceId: params.resourceId,
         assessmentResult: assessmentResult,
         context: context
       });
+    });
+  },
+
+  /**
+   * Get the player context
+   * @param params
+   * @returns {Context}
+   */
+  getContext: function(params){
+    const route = this;
+    const userId = route.get('session.userId');
+    const collectionId = params.collectionId;
+
+    return Context.create({
+      userId: userId,
+      collectionId: collectionId,
+      parentEventId: generateUUID() //TODO is this comming from BE?
     });
   },
 
@@ -104,7 +139,7 @@ export default Ember.Route.extend({
     controller.set("showReport", assessmentResult.get("submitted"));
 
     controller.startAssessment();
-    var resource = collection.get("lastVisitedResource");
+    var resource = assessmentResult.get("lastVisitedResource");
     if (model.resourceId) {
       resource = collection.getResourceById(model.resourceId);
     }

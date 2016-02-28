@@ -9,11 +9,8 @@
          <div class="panel-body">
            {{gru-emotion-picker startEmotion=ratingScore onChangeEmotion="changeEmotion" readOnly=readOnly}}
            {{#unless submitted}}
-             <button class="btn btn-success finish-collection hidden-xs pull-right" {{action "finishCollection"}}> {{t "common.submit-all"}}</button>
-           {{else}}
-             <button class="btn btn-success view-report hidden-xs pull-right" {{action "viewReport"}}> {{t "player.gru-navigation.view-report"}}</button>
+             <button class="btn btn-success finish-collection pull-right" {{action "finishCollection"}}> {{t "common.submit-all"}}</button>
            {{/unless}}
-
          </div>
 
      </div>
