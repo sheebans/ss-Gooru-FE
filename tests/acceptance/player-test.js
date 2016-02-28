@@ -167,7 +167,7 @@ test('closePlayer: Return to search after closing the player', function(assert) 
 });
 
 test('finish collection', function (assert) {
-  assert.expect(3);
+  assert.expect(5);
   visit('/player/522f6827-f7dd-486f-8631-eba497e2d425?resourceId=46d4a6d4-991b-4c51-a656-f694e037dd68');
   andThen(function () {
     const $playerContainer = find(".controller.player");

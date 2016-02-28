@@ -27,5 +27,19 @@
       },
       "body": ""
     }
+  },
+  {
+    "description": "RealTime API: This endpoint emulates a RealTime POST for collection event.",
+    "request": {
+      "url": "^/nucleus/realtime/class/(.+)/collection/(.+)/user/(.+)/complete",
+      "method": "POST"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": ""
+    }
   }
 ]

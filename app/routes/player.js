@@ -59,9 +59,6 @@ export default Ember.Route.extend({
     const route = this;
     const context = route.getContext(params);
     const collectionId = context.get("collectionId");
-    const courseId = context.get("courseId");
-    const unitId = context.get("unitId");
-    const lessonId = context.get("lessonId");
 
     return route.get('collectionService').findById(collectionId).then(function(collection){
       context.set("collectionType", collection.get("collectionType"));
@@ -87,7 +84,8 @@ export default Ember.Route.extend({
       //Setting new content if we have some session opened
       context.set('sessionId', lastSession ? lastSession.sessionId : null);
 
-      let assessmentResult = route.get("performanceService").findAssessmentResultByCollectionAndStudent(context);
+      let assessmentResult = (lastSession) ?
+        route.get("performanceService").findAssessmentResultByCollectionAndStudent(context) : null;
       return Ember.RSVP.hash({
         collection: collection,
         resourceId: params.resourceId,
