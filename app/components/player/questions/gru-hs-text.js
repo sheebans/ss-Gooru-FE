@@ -29,9 +29,8 @@ export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Events
   setupInstanceProperties: Ember.on('init', function () {
-    let userAnswer = this.get("userAnswer");
-    this.set('selectedAnswers', userAnswer ? userAnswer : []);
-
+    const component = this;
+    component.setAnswer();
   }),
 
   setupSubscriptions: Ember.on('didInsertElement', function () {
@@ -106,6 +105,13 @@ export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Observers
 
+  /**
+   * Refresh items when the question changes
+   */
+
+  refreshItems: Ember.observer('question.id', function() {
+    this.setAnswer();
+  }),
 
   // -------------------------------------------------------------------------
   // Methods
@@ -119,5 +125,9 @@ export default QuestionComponent.extend({
         $answer.toggleClass('selected');
       });
     }
-  }
+  },
+  setAnswer: function(){
+    let userAnswer = this.get("userAnswer");
+    this.set('selectedAnswers', userAnswer ? userAnswer : []);
+  },
 });
