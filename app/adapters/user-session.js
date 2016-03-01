@@ -15,6 +15,11 @@ export default ApplicationAdapter.extend({
     };
   }),
 
+  generateUrl: function(namespace, collectionType, contentId, userId, classId, courseId, unitId, lessonId, openSession){
+    let queryParams = `userUid=${userId}&classGooruId=${classId}&courseGooruId=${courseId}&unitGooruId=${unitId}&lessonGooruId=${lessonId}&openSession=${openSession}`;
+    return `${namespace}/${collectionType}/${contentId}/sessions?${queryParams}`;
+  },
+
   /**
    * Builds the end-point URL for the queryRecord queryParam
    * Given a Content ID, User ID, Lesson ID, Class ID, Course ID and Collection Type, returns the session(s) for a specific user
@@ -47,8 +52,7 @@ export default ApplicationAdapter.extend({
     delete query.userId;
     delete query.openSession;
 
-    let queryParams = `userUid=${userId}&classGooruId=${classId}&courseGooruId=${courseId}&unitGooruId=${unitId}&lessonGooruId=${lessonId}&openSession=${openSession}`;
-    return Ember.$.ajax(`${namespace}/${collectionType}/${contentId}/sessions?${queryParams}`, options);
+    return Ember.$.ajax(this.generateUrl(namespace, collectionType, contentId, userId, classId, courseId, unitId, lessonId, openSession), options);
 
   }
 
