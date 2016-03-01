@@ -1,4 +1,5 @@
 import QuestionComponent from './gru-question';
+import Ember from 'ember';
 
 /**
  * Hot Text Highlight

@@ -30,7 +30,7 @@ export default QuestionComponent.extend({
   // Events
   setupInstanceProperties: Ember.on('init', function () {
     const component = this;
-    component.setAnswer();
+    component.setAnswers();
   }),
 
   setupSubscriptions: Ember.on('didInsertElement', function () {
@@ -109,12 +109,15 @@ export default QuestionComponent.extend({
    * Refresh items when the question changes
    */
 
-  refreshItems: Ember.observer('question.id', function() {
-    this.setAnswer();
+  refreshAnswers: Ember.observer('question.id', function() {
+    this.setAnswers();
   }),
 
   // -------------------------------------------------------------------------
   // Methods
+  /**
+   * Set the user answer
+   */
   setUserAnswer: function(){
     const userAnswer = this.get("userAnswer");
 
@@ -126,7 +129,10 @@ export default QuestionComponent.extend({
       });
     }
   },
-  setAnswer: function(){
+  /**
+   * Set answers
+   */
+  setAnswers: function(){
     let userAnswer = this.get("userAnswer");
     this.set('selectedAnswers', userAnswer ? userAnswer : []);
   },

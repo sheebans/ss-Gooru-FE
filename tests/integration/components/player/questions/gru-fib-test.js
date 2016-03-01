@@ -157,3 +157,49 @@ test('Fill in the blanks layout - with user answer', function(assert) {
   assert.equal($component.find(".fib-answers input:eq(1)").val(), "gris", "Wrong answer for input 2");
 
 });
+
+test('Set two questions', function(assert) {
+  assert.expect(2);
+  const question = Ember.Object.create({
+    "id": "569906aacea8416665209d53",
+    questionType: 'FIB',
+    text: 'The sun is_______ and the moon_______',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({id: 1, text: 'yellow'}),
+      Ember.Object.create({id: 2, text: 'white'})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 4,
+    "hasAnswers": true
+  });
+
+  const question1 = Ember.Object.create({
+    "id": "569906aacea8416665209d53",
+    questionType: 'FIB',
+    text: 'The sun is_______ ,the moon_______ and the stars_______',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({id: 1, text: 'yellow'}),
+      Ember.Object.create({id: 2, text: 'white'})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 4,
+    "hasAnswers": true
+  });
+
+  this.set('question', question);
+  this.render(hbs`{{player/questions/gru-fib question=question}}`);
+
+  var $component = this.$(); //component dom element
+  assert.equal($component.find(".fib-answers").text().trim(),"The sun is and the moon","Incorrect answer");
+
+  this.set('question', question1);
+
+  assert.equal($component.find(".fib-answers").text().trim(),"The sun is ,the moon and the stars","Incorrect answer");
+
+});

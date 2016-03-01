@@ -233,3 +233,58 @@ test('Layout - with user answer', function (assert) {
   assert.equal($answersContainer.find("li.answer").length, 3, "Incorrect number of answer choices");
   assert.equal($answersContainer.find("li.answer.selected").length, 1, "One should be selected");
 });
+test('Set two questions', function (assert) {
+
+  let question = Ember.Object.create({
+    "id": "569906aa04f742731bd4e896",
+    isHotSpotImage: true,
+    "assetBasePath": "http://test-base-path/",
+    questionType: 'HS_IMG',
+    text: 'Sample Question HS_IMG',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([ // ["1", "3"]
+      Ember.Object.create({"id": 1, "text": "test-1.png", isCorrect: true}),
+      Ember.Object.create({"id": 2, "text": "test-2.png", isCorrect: false}),
+      Ember.Object.create({"id": 3, "text": "test-3.png", isCorrect: true})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "narration": "Deserunt occaecat ullamco cillum in incididunt anim sit consequat consequat sit. Ipsum duis irure do quis amet cupidatat tempor qui nulla commodo nisi veniam. Culpa Lorem consequat ad officia. Consectetur minim pariatur id laborum tempor voluptate dolor quis laboris et quis commodo.",
+    "order": 7,
+    "hasAnswers": true
+  });
+  let question1 = Ember.Object.create({
+    "id": "569906aa04f742731bd4e896",
+    isHotSpotImage: true,
+    "assetBasePath": "http://test-base-path/",
+    questionType: 'HS_IMG',
+    text: 'Sample Question HS_IMG 2',
+    hints: [],
+    explanation: 'Sample explanation text2',
+    answers: Ember.A([ // ["1", "3"]
+      Ember.Object.create({"id": 1, "text": "test-4.png", isCorrect: true}),
+      Ember.Object.create({"id": 2, "text": "test-5.png", isCorrect: false}),
+      Ember.Object.create({"id": 3, "text": "test-6.png", isCorrect: true})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "narration": "Deserunt occaecat ullamco cillum in incididunt anim sit consequat consequat sit. Ipsum duis irure do quis amet cupidatat tempor qui nulla commodo nisi veniam. Culpa Lorem consequat ad officia. Consectetur minim pariatur id laborum tempor voluptate dolor quis laboris et quis commodo.",
+    "order": 7,
+    "hasAnswers": true
+  });
+
+
+  this.set('question', question);
+
+  this.render(hbs`{{player/questions/gru-hs-image question=question}}`);
+
+  const $component = this.$(); //component dom element
+  const $answersContainer = $component.find('.answer-choices');
+
+  assert.ok($component.find(".instructions"), "Missing instructions");
+  assert.equal($answersContainer.find("li.answer:first-child img").prop('src'), "http://test-base-path/test-1.png", "Incorrect Answer");
+  this.set('question', question1);
+  assert.equal($answersContainer.find("li.answer:first-child img").prop('src'), "http://test-base-path/test-4.png", "Incorrect Answer");
+
+});
