@@ -18,7 +18,7 @@ export default Ember.Service.extend({
         unitId: context.unitId,
         lessonId: context.lessonId,
         contentId: context.collectionId,
-        openSession: false
+        openSession: true
       }).then(function(payload) {
         return resolve(service.get('userSessionSerializer').serializeOpenAssessment(payload));
       }, function(error) {
@@ -43,7 +43,7 @@ export default Ember.Service.extend({
         unitId: context.unitId,
         lessonId: context.lessonId,
         contentId: context.collectionId,
-        openSession: true
+        openSession: false
       }).then(function(payload) {
         return resolve(service.get('userSessionSerializer').serializeSessionAssessments(payload));
       }, function(error) {

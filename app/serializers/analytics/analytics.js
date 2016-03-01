@@ -44,6 +44,9 @@ export default Ember.Object.extend({
     if (payload.resourceType && payload.resourceType === 'question') {
       let util = getQuestionUtil(payload.questionType).create();
 
+      let startedAt = payload.startTime ? toLocal(payload.startTime) : toLocal(new Date().getTime());
+      let submittedAt = payload.endTime ? toLocal(payload.endTime) : startedAt;
+
       return QuestionResult.create({
         //Commons fields for real time and student collection performance
         resourceId: payload.gooruOId,
@@ -59,8 +62,8 @@ export default Ember.Object.extend({
         resourceType: payload.resourceType,
         attempts: payload.attempts,
         sessionId: payload.sessionId,
-        startedAt: payload.startTime ? toLocal(payload.startTime) : toLocal(new Date().getTime()), /* TODO this should come from server */
-        submittedAt: payload.endTime ? toLocal(payload.endTime) : null
+        startedAt: startedAt,
+        submittedAt: submittedAt
       });
     } else {
       return ResourceResult.create({
