@@ -75,14 +75,6 @@ export default QuestionComponent.extend({
     }
   }.observes("answer"),
 
-  /**
-   * Refresh items when the question changes
-   */
-
-  refreshAnswer: Ember.observer('question.id', function() {
-    this.setAnswers();
-  }),
-
   // -------------------------------------------------------------------------
   // Methods
   /**
