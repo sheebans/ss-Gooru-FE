@@ -106,9 +106,8 @@ export default Ember.Object.extend({
   lastVisitedResource: function() {
     const resourceResults = this.get("resourceResults");
     let result = resourceResults
-      .filterBy("submitted", true)
-      .sortBy("submittedAt")
-      .get("firstObject");
+      .filterBy("started", true)
+      .get("lastObject");
     return result ? result.get("resource") : resourceResults.get("firstObject").get("resource");
   }.property(),
 
