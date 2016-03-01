@@ -33,7 +33,7 @@ export default QuestionComponent.extend({
    */
   updateUserAnswer: Ember.on("init", function(){
    const component = this;
-    component.setAnswer();
+    component.setAnswers();
   }),
 
 
@@ -80,7 +80,7 @@ export default QuestionComponent.extend({
    */
 
   refreshAnswer: Ember.observer('question.id', function() {
-    this.setAnswer();
+    this.setAnswers();
   }),
 
   // -------------------------------------------------------------------------
@@ -94,7 +94,7 @@ export default QuestionComponent.extend({
   /**
    * Set answer
    * */
-  setAnswer: function (){
+  setAnswers: function (){
     let userAnswer = this.get("userAnswer");
     if (userAnswer){
       this.set("answer", userAnswer);
