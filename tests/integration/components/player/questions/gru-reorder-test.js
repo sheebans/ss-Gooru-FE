@@ -159,3 +159,55 @@ test('Reorder question layout - with user answer', function (assert) {
   assert.equal($component.find(".sortable li:last-child").data('id'), "pump", "Last answer choice, data-id value is incorrect");
 
 });
+test('Set two questions', function (assert) {
+
+  let question = Ember.Object.create({
+    "id": "569906aadfa0072204f7c7c7",
+    questionType: 'HT_RO',
+    text: 'Reorder Question',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([ // ["crc", "bra", "pan", "chi"]
+      Ember.Object.create({id: "1", text: "An aquifer", order: 1}),
+      Ember.Object.create({id: "2", text: "A well", order: 2}),
+      Ember.Object.create({id: "3", text: "A pump", order: 3})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 3,
+    "hasAnswers": true
+  });
+
+  let question1 = Ember.Object.create({
+    "id": "569906aadfa0072204f7c7c7",
+    questionType: 'HT_RO',
+    text: 'Reorder Question',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([ // ["crc", "bra", "pan", "chi"]
+      Ember.Object.create({id: "1", text: "An aquifer1", order: 1}),
+      Ember.Object.create({id: "2", text: "A well1", order: 2}),
+      Ember.Object.create({id: "3", text: "A pump1", order: 3})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 3,
+    "hasAnswers": true
+  });
+
+  this.set('question', question);
+
+  this.render(hbs`{{player/questions/gru-reorder question=question}}`);
+
+  var $component = this.$(); //component dom element
+
+  assert.equal($component.find(".sortable li:first-child div").text().trim(), "An aquifer", "First answer choice does not have the right text");
+  assert.equal($component.find(".sortable li:last-child div").text().trim(), "A pump", "Last answer choice does not have the right text");
+
+  this.set('question', question1);
+
+  assert.equal($component.find(".sortable li:first-child div").text().trim(), "An aquifer1", "First answer choice does not have the right text");
+  assert.equal($component.find(".sortable li:last-child div").text().trim(), "A pump1", "Last answer choice does not have the right text");
+
+
+});

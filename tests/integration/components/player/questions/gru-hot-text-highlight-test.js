@@ -164,3 +164,53 @@ test('Layout - with user answer', function(assert) {
   assert.equal($phrasesContainer.find("span.item").length, 5, "Incorrect number of sentences");
   assert.equal($phrasesContainer.find("span.item.selected").length, 2, "2 should be selected");
 });
+
+test('Set two questions', function(assert) {
+  assert.expect(2);
+
+  let question = Ember.Object.create({
+    "id": "569906aa68f276ae7ea03c30",
+    questionType: 'HT_HL',
+    text: '<p>Seleccione las palabras escritas incorrectamente</p>',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers:  Ember.A([
+      Ember.Object.create({ id: "1", text:"<p>Sentence 1 [Sentence 2.] Sentence 3 [Sentence 4.] Sentence 5</p>" })
+    ]),
+    isHotTextHighlightWord: false,
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 6,
+    "hasAnswers": true
+  });
+
+  let question1 = Ember.Object.create({
+    "id": "569906aa68f276ae7ea03c30",
+    questionType: 'HT_HL',
+    text: '<p>Seleccione las palabras escritas incorrectamente2</p>',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers:  Ember.A([
+      Ember.Object.create({ id: "1", text:"<p>Question 2[Sentence 2.] Question 2 [Sentence 4.] Question 2</p>" })
+    ]),
+    isHotTextHighlightWord: false,
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 6,
+    "hasAnswers": true
+  });
+
+  this.set("question", question);
+
+  this.render(hbs`{{player/questions/gru-hot-text-highlight question=question}}`);
+
+  var $component = this.$(), //component dom element
+    $phrasesContainer = $component.find(".phrases");
+
+  assert.equal($phrasesContainer.find("span:nth-child(1)").text().trim(),"Sentence 1","Incorrect answer");
+
+  this.set('question', question1);
+
+  assert.equal($phrasesContainer.find("span:nth-child(1)").text().trim(),"Question 2","Incorrect answer");
+});
+
