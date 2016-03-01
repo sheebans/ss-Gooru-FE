@@ -35,7 +35,7 @@ test('getCompletedSessions', function (assert) {
         unitId: 'unitId',
         lessonId: 'lessonId',
         contentId: 'contentId',
-        openSession: true
+        openSession: false
       }, "Error");
       return Ember.RSVP.resolve(response);
     }
@@ -108,7 +108,7 @@ test('getOpenSession', function (assert) {
         unitId: 'unitId',
         lessonId: 'lessonId',
         contentId: 'contentId',
-        openSession: false
+        openSession: true
       }, "Error");
       return Ember.RSVP.resolve(response);
     }
