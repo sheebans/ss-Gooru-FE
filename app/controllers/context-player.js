@@ -53,10 +53,11 @@ export default PlayerController.extend({
         const userId = context.get("userId");
         const realTimeService = controller.get('realTimeService');
 
-        if (context.get("eventType") === 'stop') { //only notifies when the question is completed
-          return realTimeService.notifyResourceResult(classId, collectionId, userId, resourceResult);
+        if (context.get("isStopEvent")) { //only notifies when the question is completed
+          realTimeService.notifyResourceResult(classId, collectionId, userId, resourceResult);
         }
       }
+      return Ember.RSVP.resolve(true); //not waiting for the real time events
     });
   },
 
@@ -77,16 +78,16 @@ export default PlayerController.extend({
         const collectionId = context.get("collectionId");
         const userId = context.get("userId");
         const realTimeService = controller.get('realTimeService');
-        const eventType = context.get("eventType");
 
-        if (eventType === 'start') {
+        if (context.get("isStartEvent")) {
           notifyPromise = realTimeService.notifyAttemptStarted(classId, collectionId, userId);
         }
-        else if (eventType === 'stop') {
+        else if (context.get("isStopEvent")) {
           notifyPromise = realTimeService.notifyAttemptFinished(classId, collectionId, userId);
         }
       }
-      return notifyPromise;
+      //return notifyPromise;
+      return Ember.RSVP.resolve(true); //not waiting for the real time events
     });
   }
 

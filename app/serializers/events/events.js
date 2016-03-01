@@ -21,10 +21,14 @@ export default Ember.Object.extend({
     let submittedAt = assessment.get('submittedAt');
     let startTime = toTimestamp(startedAt);
     let endTime = !submittedAt ? startTime: toTimestamp(submittedAt);
+
     return [{
       "eventId": context.get('parentEventId'),
       "eventName": "collection.play",
-      "session": {"apiKey": apiKey, "sessionId": context.get('sessionId')},
+      "session": {
+        "apiKey": apiKey,
+        "sessionId": context.get('sessionId')
+      },
       "startTime": startTime,
       "endTime": endTime,
       "user": {"gooruUId": context.get('userId')},
@@ -71,7 +75,7 @@ export default Ember.Object.extend({
       let userAnswer = resourceResult.get("userAnswer");
       serialized.payLoadObject = {
         "questionType": resourceResult.get('question.questionType'),
-        "attemptStatus": resourceResult.get('question.attemptStatus'),
+        "attemptStatus": (context.get("isStopEvent") ? resourceResult.get('attemptStatus') : undefined),
         "answerObject": util.toJSONAnswerObjects(userAnswer),
         "isStudent": true,
         "taxonomyIds": []
