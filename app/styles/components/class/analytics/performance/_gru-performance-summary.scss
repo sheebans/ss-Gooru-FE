@@ -1,4 +1,4 @@
- ul.gru-performance-summary, ul.performance-headers{
+ ul.performance-headers{
     @include respond-to(xs) {
       height: 100%;
     }
@@ -17,22 +17,51 @@
     display: -webkit-flex;
     display: flex;
     width: 100%;
+    height:100%;
+    list-style:none;
+    padding-left: 17px;
     >*{
-      width: 100%;
       -webkit-order: 0;
       order: 0;
-      -webkit-flex-grow: 0;
-      flex-grow: 0;
+      -webkit-flex-grow: 1;
+      flex-grow: 1;
       -webkit-flex-shrink: 1;
       flex-shrink: 1;
-      -webkit-flex-basis: auto;
-      flex-basis: auto;
+      -webkit-flex-basis: 135px;
+      flex-basis: 135px;
       -webkit-align-self: auto;
       align-self: auto;
+      &.title{
+        margin-right: 10px;
+        -webkit-flex-grow: 4;
+        flex-grow: 4;
+        @media(min-width: $screen-sm){
+          min-width: 16em;
+        }
+        @include respond-to(xs){
+          display: inline-block;
+        }
+        span{
+          -webkit-flex-direction: row;
+          flex-direction: row;
+          -webkit-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+          -webkit-justify-content: flex-start;
+          justify-content: flex-start;
+          -webkit-align-items: center;
+          align-items: center;
+          -webkit-align-content: stretch;
+          align-content: stretch;
+          display: -webkit-flex;
+          display: flex;
+        }
+        .collection-view-report-button{
+          margin-right: 1px;
+        }
+      }
 
     }
     li{
-      height: $performance-circle-size;
       @include respond-to(xs){
         display: none;
       }
@@ -45,6 +74,15 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        .score-box{
+          width: 50px;
+          height: 40px;
+          line-height: 40px;
+          text-align: center;
+          border-radius: 4px;
+          color: #fff;
+          display: inline-block;
+        }
       }
       &.completion {
         div{
@@ -75,12 +113,7 @@
             }
           }
           span {
-            &.collection-or-assessment-is-completed i{
-              color:$brand-primary;
-            }
-            i{
-              color:$gray-lighter;
-            }
+            color:$gray-lighter;
           }
 
         }
@@ -118,8 +151,16 @@
           }
         }
       }
-      span, a{
-        color:$gray-light;
+      .truncate{
+        width:200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      &.unit-lesson{
+        .selected{
+          font-weight: bold;
+        }
       }
     }
 

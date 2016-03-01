@@ -1,4 +1,3 @@
-import {TrueFalseUtil} from 'gooru-web/utils/questions';
 import MultipleChoiceComponent from 'gooru-web/components/reports/assessment/questions/gru-multiple-choice';
 
 /**
@@ -21,12 +20,5 @@ export default MultipleChoiceComponent.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-  /**
-   * Returns the question util for the question
-   * @param question
-   */
-  getQuestionUtil: function(question){
-    return TrueFalseUtil.create({question: question});
-  }
 
 });

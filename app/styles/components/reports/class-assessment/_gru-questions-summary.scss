@@ -60,6 +60,17 @@
             font-size: $font-size-small;
           }
         }
+        .charts.gru-x-bar-chart {
+          display: inline-block;
+          height: 0.5em;
+          width: 6.8em;
+          margin: 0 5px 0 0;
+          background-color: $light-200;
+          border-radius: 0;
+          .segment {
+            border-radius: 0;
+          }
+        }
       }
     }
   }

@@ -5,21 +5,24 @@ export default {
    */
   "common": {
 
+    "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
+    "assessment":"Assessment",
     "assessmentInitial": "A",
     "attempt": "Attempt number",
     "of": "of",
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
-    "back": "Back",
     "cancel": "Cancel",
     "classScores": "Class Scores",
     "close": "Close",
+    "collection":"Collection",
     "collectionInitial": "C",
     "completed": "Completed",
     "contentUnavailable": "Content not available",
     "correct": "Correct",
     "correct-answer":"Correct Answer",
+    "course-map": "Course Map",
     "create": "Create",
     "edit": "Edit",
     "email_support": "support@gooru.org",
@@ -35,8 +38,16 @@ export default {
     "hints": "Hints",
     "hide-results":"Hide Results",
     "if_questions": "If you have any questions,",
+    "launch-anonymous": "Launch anonymous",
+    "launch-on-air": "Launch on air",
     "learning-target":"Learning Target",
     "learning-target-mobile":"Learning Target in Standard",
+    "lesson": "Lesson",
+    "back": "Back",
+    "lessonObj": {
+      one: "Lesson",
+      other: "Lessons"
+    },
     "lessonInitial": "L",
     "libraries": "Libraries",
     "loading": "Loading ...",
@@ -97,6 +108,7 @@ export default {
     "suggested-resources":"Suggested Resources",
     "timeSpent": "Time Spent",
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
+    "unit":"Unit",
     "unitInitial": "U",
     "yes": "Yes",
     "no-content": "No content available"
@@ -346,6 +358,9 @@ export default {
   "gru-multiple-choice": {
     "instructions" : "Please select the correct answer, and click \"Submit\"."
   },
+  "gru-hot-text": {
+    "instructions" : "Please select the correct answer, and click \"Submit\"."
+  },
   "gru-true-false": {
     "instructions" : "Please select the correct answer, and click \"Submit\".",
     "true":"True",
@@ -402,7 +417,7 @@ export default {
   },
   "class.analytics": {
     "performance": {
-      "title": "Performance",
+      "title": "View Performance",
       "better-experience-message":"For a better Gooru experience, view full Class Analytics in tablet or desktop.",
       "actions": {
         "share": "Share",
@@ -416,12 +431,13 @@ export default {
       },
       "teacher": {
         "metricsTable": {
-          "average": "Average"
+          "average": "Average",
+          "class-average": "Class Average"
         }
       }
     },
     "mastery": {
-      "title": "Mastery"
+      "title": "View Mastery"
     }
   },
 
@@ -449,6 +465,7 @@ export default {
     "attempts":"Attempt"
   },
   "gru-performance-summary":{
+    "name":"Name",
     "scores": "Scores",
     "completion":"Completion",
     "time-spent":"Time Spent",
@@ -456,7 +473,7 @@ export default {
     "attempts":"Attempts",
     "redo":"Redo",
     "resume":"Resume",
-    "study":"Study",
+    "study":"Study Now",
     "view-report":"View Report",
     "not-applicable":"N/A",
     "not-started": "Not started yet"
@@ -465,7 +482,7 @@ export default {
     "no-content" : "No content available"
   },
   "gru-metrics-sub-header":{
-    "name":"Name",
+    "student":"Student",
     "score": "Score",
     "completion":"Completion",
     "study-time": "Study Time"
@@ -486,14 +503,14 @@ export default {
   },
   "reports.gru-table-view": {
     "first-tier-header-prefix": "Q",
-    "name": "Name",
+    "student": "Student",
     "reaction": "Reaction",
     "reactions": "Reactions",
     "score": "Score",
     "scores": "Scores",
     "study-time": "Study Time",
     "time-spent": "Time Spent",
-    "totals": "Total Scores"
+    "totals": "Total"
   },
   "gru-emotion-picker": {
     "react-to-resource": "React to this resource"

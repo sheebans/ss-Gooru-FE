@@ -30,9 +30,9 @@ test('Layout', function(assert) {
 
     //assert breadcrumb text
     const $breadcrumb = find(".controller.class .gru-breadcrumb");
-    const $breadcrumbItems = $breadcrumb.find("ul li");
+    const $breadcrumbItems = $breadcrumb.find("button");
     assert.equal($breadcrumbItems.length, 1, "Incorrect number of breadcrumb items");
-    assert.equal(T.text($breadcrumb.find("ul li:last-child")), 'The Best Course Ever Made', "Wrong breadcrumb item label");
+    assert.equal(T.text($breadcrumb.find("button:last-child")), 'The Best Course Ever Made', "Wrong breadcrumb item label");
 
     const $filters = find(".controller.class .gru-filters");
     T.exists(assert, $filters, "Filters should be visible");
@@ -66,7 +66,7 @@ test('Test data picker options selected', function(assert) {
     assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
 
     const $dataPicker = find(".controller.class .gru-data-picker:eq(0)"); //click the desktop version of the data picker
-    click($dataPicker.find("ul.option-list a:eq(1)")); //click on completion
+    click($dataPicker.find("ul input:eq(1)")); //click on completion
     andThen(function(){
       const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher-course");
       const $metricTable = $performanceContainer.find(".gru-metrics-table");

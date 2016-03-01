@@ -1,22 +1,33 @@
 import Ember from 'ember';
-
+import SessionMixin from '../mixins/session';
+import {generateUUID} from 'gooru-web/utils/utils';
 /**
  * @module
  * @typedef {Object} PlayerController
  *
  * @augments Ember/Controller
  */
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(SessionMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
   queryParams: ['resourceId'],
-  //TODO add courseId, unitId, lessonId
+
+  /**
+   * @dependency {Ember.Service} i18n service
+   */
+  i18n: Ember.inject.service(),
 
   /**
    * @dependency {Ember.Service} Service to rate a resource
    */
   ratingService: Ember.inject.service("api-sdk/rating"),
+
+  /**
+   * @dependency {Ember.Service} Service to rate a resource
+   */
+  eventsService: Ember.inject.service("api-sdk/events"),
+
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -36,14 +47,6 @@ export default Ember.Controller.extend({
     },
 
     /**
-     * When clicking at view report
-     */
-    viewReport: function(){
-      let controller = this;
-      controller.set("showReport", true);
-    },
-
-    /**
      * Handle onSubmitQuestion event from gru-question-viewer
      * @see components/player/gru-question-viewer.js
      * @param {Resource} question
@@ -54,6 +57,7 @@ export default Ember.Controller.extend({
       controller.submitQuestionResult(questionResult).then(function(){
         const next = controller.get("collection").nextResource(question);
         if (next){
+          Ember.$(window).scrollTop(0);
           controller.moveToResource(next);
         }
         else{
@@ -63,12 +67,12 @@ export default Ember.Controller.extend({
     },
 
     /**
-     * Triggered when a navigator item is selected
-     * @param {Resource} item
+     * Triggered when a navigator resource is selected
+     * @param {Resource} resource
      */
-    selectNavigatorItem: function(item){
+    selectNavigatorItem: function(resource){
       const controller = this;
-      controller.moveToResource(item);
+      controller.moveToResource(resource);
     },
 
     /**
@@ -103,6 +107,15 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * It contains information about the context where the player is running
+   *
+   * @see context-player.js route and controller
+   *
+   * @property {Context}
+   */
+  context: null,
 
   /**
    * Query param
@@ -143,6 +156,7 @@ export default Ember.Controller.extend({
    * @property {boolean} showReport
    */
   showReport: false,
+
   // -------------------------------------------------------------------------
   // Observers
 
@@ -158,13 +172,16 @@ export default Ember.Controller.extend({
     let assessmentResult = this.get("assessmentResult");
     let resourceId = resource.get("id");
 
-    controller.set("showReport", false);
-    controller.set("resourceId", resourceId);
-    controller.set("resource", resource);
-
     let resourceResult = assessmentResult.getResultByResourceId(resourceId);
+
     controller.startResourceResult(resourceResult).then(function(){
-      controller.set("resourceResult", resourceResult);
+      controller.setProperties({
+        "showReport": false,
+        "resourceId": resourceId,
+        "resource": resource,
+        "resourceResult": resourceResult
+      });
+
       controller.get('ratingService').findRatingForResource(resource.get("id"))
         .then(function (ratingModel) { //TODO this could not be necessary if the reaction is loaded with the result
           resourceResult.set("reaction", ratingModel.get('score'));
@@ -180,9 +197,12 @@ export default Ember.Controller.extend({
    */
   submitQuestionResult: function(questionResult){
     let controller = this;
+    let context = this.get("context");
+
     //setting submitted at, timeSpent is calculated
     questionResult.set("submittedAt", new Date());
-    return controller.saveResourceResult(questionResult);
+    context.set("eventType", "stop");
+    return controller.saveResourceResult(questionResult, context);
   },
 
   /**
@@ -192,35 +212,32 @@ export default Ember.Controller.extend({
    */
   startResourceResult: function(resourceResult){
     let controller = this;
+    let context = this.get("context");
     //sets startedAt
     if (!resourceResult.get("pending")){ //new attempt
       //todo increase attempt
       resourceResult.set("startedAt", new Date());
+      context.set("resourceEventId", generateUUID()); //sets the new event id for this resource event
     }
+    context.set("eventType", "start");
 
-    return controller.saveResourceResult(resourceResult);
+    return controller.saveResourceResult(resourceResult, context);
   },
 
   /**
    * Saves the resource result
+   * This method is overriden by context-player controller to communicate with analytics
    * @param resourceResult
    * @returns {Promise.<boolean>}
    */
-  saveResourceResult: function(resourceResult){
+  saveResourceResult: function(resourceResult, context){
     let controller = this;
     let promise = Ember.RSVP.resolve(resourceResult);
     let save = controller.get("saveEnabled");
     if (save){
-      /*
-       TODO: implement
-       let onAir = this.get("onAir");
-       let submitted
-       promise = analyticsService.saveResourceResult(resourceResult).then(function(){
-         if (onAir){
-         return realTimeService.notifyResourceResult(resourceResult);
-         }
+       promise = this.get('eventsService').saveResourceResult(resourceResult, context).then(function(){
+         return resourceResult;
        });
-       */
     }
     return promise;
   },
@@ -230,21 +247,14 @@ export default Ember.Controller.extend({
    */
   finishAssessment: function(){
     let controller = this;
-    let collection = controller.get("collection");
-    let assessmentResult = this.get("assessmentResult");
+    let assessmentResult = controller.get("assessmentResult");
+    let context = controller.get("context");
     return controller.submitPendingQuestionResults().then(function(){
-      /*
-       TODO: implement
-       let onAir = this.get("onAir");
-       return analyticsService.finishCollection(collection).then(function(){
-       if (onAir){
-       return realTimeService.notifyFinishCollection(collection);
-       }
-       });
-       */
+      context.set("eventType", "stop");
       assessmentResult.set("submittedAt", new Date());
-      controller.set("showReport", true);
-      return Ember.RSVP.resolve(collection);
+      return controller.saveCollectionResult(assessmentResult, context).then(function() {
+        controller.set("showReport", true);
+      });
     });
   },
 
@@ -254,24 +264,27 @@ export default Ember.Controller.extend({
   startAssessment: function(){
     let controller = this;
     let assessmentResult = controller.get("assessmentResult");
+    let context = controller.get("context");
     let promise = Ember.RSVP.resolve(controller.get("collection"));
 
     if (!assessmentResult.get("started")){
-      /*
-       TODO: implement
-       let onAir = this.get("onAir");
-       promise = analyticsService.startCollection(collection).then(function(){
-       if (onAir){
-       return realTimeService.notifyStartCollection(collection);
-       }
-       });
-       */
-
       assessmentResult.set("startedAt", new Date());
+      context.set("eventType", "start");
+      return controller.saveCollectionResult(assessmentResult, context);
     }
     return promise;
   },
 
+  /**
+   * Saves an assessment result event
+   * This method is overriden by context-player controller to communicate with analytics
+   * @param {AssessmentResult} assessmentResult
+   * @param {Context} context
+   */
+  saveCollectionResult: function(assessmentResult, context){
+    let controller = this;
+    return controller.get('eventsService').saveCollectionResult(assessmentResult, context);
+  },
 
 
   /**

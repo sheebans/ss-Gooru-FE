@@ -21,12 +21,24 @@ export default Ember.Object.extend({
   resourceResults: Ember.A([]),
 
   /**
+   * @property {string} sessionId
+   */
+  sessionId: null,
+
+  /**
    * @property {QuestionResult[]} questionResults
    */
   questionResults: Ember.computed("resourceResults.[]", function(){
     return this.get("resourceResults").filter(function(resourceResult){
       return resourceResult instanceof QuestionResult;
     });
+  }),
+
+  /**
+   * @property {QuestionResult[]} questionResults
+   */
+  sortedResourceResults: Ember.computed("resourceResults.[]", function(){
+    return this.get("resourceResults").sortBy("resource.order");
   }),
 
   /**
@@ -87,6 +99,19 @@ export default Ember.Object.extend({
    */
   started: Ember.computed.bool("startedAt"),
 
+  /**
+   * Returns the last visited resource
+   * @property {Resource} lastVisitedResource
+   */
+  lastVisitedResource: function() {
+    const resourceResults = this.get("resourceResults");
+    let result = resourceResults
+      .filterBy("started", true)
+      .get("lastObject");
+    return result ? result.get("resource") : resourceResults.get("firstObject").get("resource");
+  }.property(),
+
+
 
   // -------------------------------------------------------------------------
   // Computed Properties
@@ -139,17 +164,20 @@ export default Ember.Object.extend({
    * Initializes the assessment results
    * @param {Collection} collection
    */
-  initAssessmentResult: function(collection){
+  merge: function(collection){
     const resourceResults = this.get("resourceResults");
     const resources = collection.get("resources");
     resources.forEach(function(resource){
       let resourceId = resource.get('id');
-      let found = resourceResults.filterBy("resourceId", resourceId).get("length");
+      let found = resourceResults.findBy("resourceId", resourceId);
       if (!found){
         let result = (resource.get("isQuestion")) ?
           QuestionResult.create({ resourceId: resourceId, resource: resource }) :
           ResourceResult.create({ resourceId: resourceId, resource: resource });
         resourceResults.addObject(result);
+      }
+      else{
+        found.set("resource", resource);
       }
     });
   },

@@ -19,6 +19,7 @@ test('Test for performance summary on valid unit values', function(assert) {
         completionDone: 0,
         completionTotal: 1,
         timeSpent: 4852359,
+        isUnitOrLesson:true,
         ratingScore: 0,
         attempts: 2,
         isCompleted: false,
@@ -37,11 +38,11 @@ test('Test for performance summary on valid unit values', function(assert) {
 
   T.exists(assert, $performanceSummary, 'Missing performance summary');
 
-  const $scoreSummary = $component.find(".score .description");
+  const $scoreSummary = $component.find(".score .score-box");
   T.exists(assert, $scoreSummary, 'Missing Score summary');
 
 
-  const $completionSummary = $component.find(".completion .description");
+  const $completionSummary = $component.find(".completion .gru-completion-chart");
   T.exists(assert, $completionSummary, 'Missing Completion summary');
 
 
@@ -74,14 +75,14 @@ test('Test for performance summary on invalid unit values', function(assert) {
 
   const $component = this.$(); //component dom element
 
-  const $scoreSummary = $component.find(".score p");
-  assert.equal(T.text($scoreSummary), "N/A", "Wrong score text");
+  const $scoreSummary = $component.find(".score .score-box");
+  assert.equal(T.text($scoreSummary), "--%", "Wrong score text");
 
-  const $completionSummary = $component.find(".completion .description");
+  const $completionSummary = $component.find(".completion .gru-completion-chart");
   T.exists(assert, $completionSummary, 'Missing Completion summary');
 
   const $reactionSummary = $component.find(".reaction p");
-  assert.equal(T.text($reactionSummary), "–", "Wrong reaction summary text");
+  assert.equal(T.text($reactionSummary), "", "Wrong reaction summary text");
 
   const $timeSpentSummary = $component.find(".timeSpent p");
   assert.equal(T.text($timeSpentSummary), "", "Wrong time spent text");
@@ -112,78 +113,8 @@ test('Test for performance summary on selected reaction', function(assert) {
   const $component = this.$(); //component dom element
 
   const $reactionSummary = $component.find(".reaction.selected");
-  T.exists(assert, $reactionSummary, 'Missing Completion summary checkmark');
+  T.exists(assert, $reactionSummary, 'Missing Reaction summary ');
 
 
 });
 
-
-test('Test for the performance summary components completion tab on collection or assessment with a completed performance', function(assert) {
-  const performance = Ember.Object.create(
-    {
-      title: "Quiz :: Indian History",
-      type: "assessment",
-      isCollectionOrAssessment:true,
-      isCompleted: true,
-      hasStarted:true
-
-    });
-
-  this.set('performance', performance);
-
-
-  this.render(hbs`{{class.analytics.performance.gru-performance-summary performance=performance}}`);
-
-  const $component = this.$(); //component dom element
-
-  const $completionSpanIcon = $component.find(".completion span.collection-or-assessment-is-completed i");
-  T.exists(assert, $completionSpanIcon, 'Missing Completion completed checkmark');
-
-
-});
-
-test('Test for the performance summary components completion tab on collection or assessment with a completed performance', function(assert) {
-  const performance = Ember.Object.create(
-    {
-      title: "Quiz :: Indian History",
-      type: "assessment",
-      isCollectionOrAssessment:true,
-      isCompleted:false,
-      hasStarted: true
-    });
-
-  this.set('performance', performance);
-
-
-  this.render(hbs`{{class.analytics.performance.gru-performance-summary performance=performance}}`);
-
-  const $component = this.$(); //component dom element
-
-  const $completionSpanIcon = $component.find(".completion span.collection-or-assessment-has-started i");
-  T.exists(assert, $completionSpanIcon, 'Missing Completion hasStarted checkmark');
-
-
-});
-
-test('Test for the performance summary components completion tab on collection or assessment with a completed performance', function(assert) {
-  const performance = Ember.Object.create(
-    {
-      title: "Quiz :: Indian History",
-      type: "assessment",
-      isCollectionOrAssessment:true,
-      isCompleted:false,
-      hasStarted: false
-    });
-
-  this.set('performance', performance);
-
-
-  this.render(hbs`{{class.analytics.performance.gru-performance-summary performance=performance}}`);
-
-  const $component = this.$(); //component dom element
-
-  const $completionSpanIcon = $component.find(".completion span.collection-or-assessment-not-started i");
-  T.exists(assert, $completionSpanIcon, 'Missing Completion notStarted checkmark');
-
-
-});

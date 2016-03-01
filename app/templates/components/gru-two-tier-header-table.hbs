@@ -55,12 +55,9 @@
         {{action "selectRowHeader" row.id}}>
         <span>{{row.header}}</span>
       </th>
-
       {{#each row.content as |content|}}
         <td class="hidden">{{{content.output}}}</td>
       {{/each}}
-
     </tr>
   {{/each}}
-
 </table>

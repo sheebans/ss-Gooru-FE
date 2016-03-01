@@ -8,26 +8,94 @@
     li.checkbox {
       display: inline-block;
       margin: 0 15px 0 0;
+      label {
+        padding: 0;
+        height: 24px;
+        display: table;
+        input {
+          color: $white;
+          width: 21px;
+          height: 24px;
+          margin: 0;
+          display: table-cell;
+          vertical-align: middle;
+        }
+        input[type="checkbox"]:checked:before {
+          top: 3px;
+        }
+        span {
+          display: table-cell;
+          vertical-align: middle;
+        }
+      }
     }
   }
 
   .gru-two-tier-header-table {
     .answer-correct, .answer-incorrect {
-      font-size: 2.2rem;
+      i {
+        display: block;
+        line-height: 28px;
+      }
     }
     .answer-correct {
-      color: $brand-success;
+      background-color: $brand-success;
     }
     .answer-incorrect {
-      color: $brand-incorrect;
+      background-color: $brand-incorrect;
+    }
+    .answer-undefined {
+      background-color: $light-100;
     }
 
-    table tr.data th {
-      max-width: 12rem;
+    table {
 
-      span {
-        display: block;
-        @include text-overflow();
+      .first-tier {
+        th {
+          border-left: 1px solid $dark-400;
+        }
+        td + th {
+          border-left: 0 none;
+        }
+      }
+      .second-tier {
+        .correct {
+          border-left: 1px solid $dark-400;
+
+          > span { min-width: 60px; }
+        }
+        .row-header + .correct {
+          border-left: 0 none;
+        }
+      }
+
+      tr.data {
+        th {
+          max-width: 12rem;
+
+          span {
+            display: block;
+            @include text-overflow();
+          }
+        }
+        td {
+          &:nth-child(3n-1) {
+            border-left: 1px solid $gray-lighter;
+          }
+
+          .score {
+            border-radius: 4px;
+            text-align: center;
+            width: 68px;
+            height: 43px;
+            display: block;
+            color: $white;
+            padding: 7px;
+          }
+        }
+        th + td {
+          border-left: 0 none !important;
+        }
       }
     }
   }

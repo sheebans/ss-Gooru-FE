@@ -45,8 +45,22 @@ export default QuestionComponent.extend({
     const component = this;
     let answers = component.get("question.text");
     let readOnly = component.get("readOnly");
-    let input = readOnly ? '<input type="text" value="" disabled/>' : '<input type="text" value=""/>';
-    return answers.replace(/_______/g, input);
+    let disabled = readOnly ? 'disabled': '';
+    let userAnswer = component.get("userAnswer");
+
+
+    if (userAnswer) {
+      userAnswer.forEach(function(choice){
+        let input = `<input type="text" value="${choice}" ${disabled}/>`;
+        answers = answers.replace(/_______/, input);
+      });
+
+      return answers;
+    }
+    else {
+      let input = `<input type="text" value="" ${disabled}/>`;
+      return answers.replace(/_______/g, input);
+    }
   }),
   // -------------------------------------------------------------------------
   // Observers

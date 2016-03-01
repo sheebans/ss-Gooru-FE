@@ -18,17 +18,26 @@ const lessonServiceStub = Ember.Service.extend({
         Ember.Object.create({
           id: "lesson-1",
           title: "Lesson 1",
-          visibility: true
+          visibility: true,
+
+          completed: 5,
+          total: 10
         }),
         Ember.Object.create({
           id: "lesson-2",
           title: "Lesson 2",
-          visibility: false
+          visibility: false,
+
+          completed: 5,
+          total: 10
         }),
         Ember.Object.create({
           id: "lesson-3",
           title: "Lesson 3",
-          visibility: true
+          visibility: true,
+
+          completed: 5,
+          total: 10
         })
       ];
     } else {
@@ -43,38 +52,6 @@ const lessonServiceStub = Ember.Service.extend({
 
     // Simulate async data returned by the service
     return DS.PromiseArray.create({
-      promise: promiseResponse
-    });
-  }
-
-});
-
-// Stub performance service
-const performanceServiceStub = Ember.Service.extend({
-
-  //We are missing the lesson id parameter but is not required at all because we are simulating the response
-  //which is the same for every lesson, the lessonId was removed due to is generating problems with JSHint
-  findCourseMapPerformanceByUnitAndLesson(classId, courseId, unitId) {
-    var response;
-    var promiseResponse;
-
-    //It does not matter the lesson id all the responses would be the same format
-    if (classId === '111-333-555' && courseId === '222-444-666' && unitId === '777-999'){
-      response = Ember.Object.create({
-          classAverageScore: 100
-        });
-    }else {
-      response = [];
-    }
-
-    promiseResponse = new Ember.RSVP.Promise(function(resolve) {
-      Ember.run.next(this, function() {
-        resolve(response);
-      });
-    });
-
-    //// Simulate async data returned by the service
-    return DS.PromiseObject.create({
       promise: promiseResponse
     });
   }
@@ -124,9 +101,6 @@ moduleForComponent('class/overview/gru-accordion-unit', 'Integration | Component
     this.register('service:api-sdk/lesson', lessonServiceStub);
     this.inject.service('api-sdk/lesson', { as: 'lessonService' });
 
-    this.register('service:api-sdk/performance', performanceServiceStub);
-    this.inject.service('api-sdk/performance', { as: 'performanceService' });
-
     this.register('service:api-sdk/course-location', courseLocationStub);
     this.inject.service('api-sdk/course-location', { as: 'courseLocationService' });
 
@@ -146,7 +120,8 @@ test('it renders', function(assert) {
   // Unit model
   const unit = Ember.Object.create({
     id: "777-999",
-    title: 'Unit Title'
+    title: 'Unit Title',
+    totalLessons: 3
   });
 
   this.set('currentClass', currentClass);
@@ -160,10 +135,8 @@ test('it renders', function(assert) {
 
   const $component = this.$('.gru-accordion-unit');
   assert.ok($component.length, 'Component does not have the component class');
-  assert.ok($component.hasClass('panel'), 'Component should have the class "panel"');
-  assert.ok($component.hasClass('panel-default'), 'Component should have the class "panel-default"');
 
-  const $unitHeading = $component.find('> .panel-heading');
+  const $unitHeading = $component.find('.unit');
   assert.ok($unitHeading.length, 'Panel heading element is missing');
 
   const $unitTitle = $unitHeading.find('> .panel-title');
@@ -172,7 +145,10 @@ test('it renders', function(assert) {
   const $unitTitleAnchor = $unitTitle.find('> a');
   assert.ok($unitTitleAnchor.length, 'Title anchor element is missing');
   assert.ok($unitTitleAnchor.hasClass('collapsed'), 'Panel should be collapsed by default');
-  assert.equal($unitTitleAnchor.text().trim(), 'U1: Unit Title', 'Wrong title text');
+  assert.equal($unitTitleAnchor.find('span').html().replace(/&nbsp;/g, " "), 'Unit 1.  Unit Title', 'Wrong title text');
+
+  const $lessonNumber = $unitTitle.find('> span');
+  assert.equal($lessonNumber.text().trim(), '3 Lessons', 'Number of Lessons');
 
   const $collapsePanel = $component.find('> .panel-collapse');
   assert.ok($collapsePanel.length, 'Panel element is missing');
@@ -191,7 +167,7 @@ test('it renders', function(assert) {
 });
 
 test('it renders correctly when there are no lessons to load after clicking on the unit name', function(assert) {
-  assert.expect(7);
+  assert.expect(9);
 
   const context = this;
 
@@ -221,9 +197,13 @@ test('it renders correctly when there are no lessons to load after clicking on t
                     onLocationUpdate=(action 'externalAction') }}`);
 
   const $component = this.$('.gru-accordion-unit');
-  const $unitTitleAnchor = $component.find('> .panel-heading a');
+  const $unitTitleAnchor = $component.find('.unit a');
+  assert.equal($unitTitleAnchor.find('span').html().replace(/&nbsp;/g, " "), 'Unit 1.  Unit Title', 'Title text');
 
-  const $collapsePanel = $component.find('> .panel-collapse');
+  const $lessonNumber = $component.find('.unit .panel-title > span');
+  assert.equal($lessonNumber.text().trim(), '0 Lessons', 'Number of Lessons');
+
+  const $collapsePanel = $component.find('.panel-collapse');
   assert.ok(!$collapsePanel.hasClass('in'), 'Panel should not be visible');
 
   const $panelGroup = $collapsePanel.find('.panel-group');
@@ -252,7 +232,7 @@ test('it renders correctly when there are no lessons to load after clicking on t
 });
 
 test('it loads lessons and renders them correctly after clicking on the unit name', function(assert) {
-  assert.expect(12);
+  assert.expect(10);
 
   const context = this;
 
@@ -282,7 +262,7 @@ test('it loads lessons and renders them correctly after clicking on the unit nam
                     onLocationUpdate=(action 'externalAction') }}`);
 
   const $component = this.$('.gru-accordion-unit');
-  const $unitTitleAnchor = $component.find('> .panel-heading a');
+  const $unitTitleAnchor = $component.find('.unit a');
 
   const $collapsePanel = $component.find('> .panel-collapse');
   assert.ok(!$collapsePanel.hasClass('in'), 'Panel should not be visible');
@@ -307,15 +287,13 @@ test('it loads lessons and renders them correctly after clicking on the unit nam
     assert.ok(!$loadingSpinner.length, 'Loading spinner should have been hidden');
 
     const $items = $panelGroup.find('.gru-accordion-lesson');
-    assert.equal($items.length, 3, 'Incorrect number of lessons listed');
-    assert.equal($items.first().find('.panel-title').text().trim(), 'L1: Lesson 1', 'Incorrect first lesson title');
-    assert.equal($items.last().find('.panel-title').text().trim(), 'L3: Lesson 3', 'Incorrect last lesson title');
+    assert.equal($items.length, 2, 'Incorrect number of lessons listed');
+    assert.equal($items.first().find('.panel-title a.title').html().replace(/&nbsp;/g, " ").trim(), 'Lesson 1.  Lesson 1', 'Incorrect first lesson title');
+    assert.equal($items.last().find('.panel-title a.title').html().replace(/&nbsp;/g, " ").trim(), 'Lesson 2.  Lesson 3', 'Incorrect last lesson title');
 
-    assert.equal($items.first().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first lesson for mobile');
-    assert.equal($items.last().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last lesson for mobile');
+    assert.equal($items.first().find('.unit .gru-user-icons .first-view li').length, 0, 'Wrong number of user icons showing for the first lesson');
+    assert.equal($items.last().find('.unit .gru-user-icons .first-view li').length, 0, 'Wrong number of user icons showing for the last lesson ');
 
-    assert.equal($items.first().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first lesson');
-    assert.equal($items.last().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last lesson');
   });
 });
 
@@ -350,9 +328,9 @@ test('it only loads lessons once after clicking on the unit name', function(asse
                     onLocationUpdate=(action 'externalAction') }}`);
 
   const $component = this.$('.gru-accordion-unit');
-  const $unitTitleAnchor = $component.find('> .panel-heading a');
+  const $unitTitleAnchor = $component.find('.unit .panel-title a.title');
 
-  const $collapsePanel = $component.find('> .panel-collapse');
+  const $collapsePanel = $component.find('.panel-collapse');
 
   // Click on the unit name
   Ember.run(() => {
@@ -363,7 +341,7 @@ test('it only loads lessons once after clicking on the unit name', function(asse
 
     // Assert that the data has been loaded
     const $items = $collapsePanel.find('.gru-accordion-lesson');
-    assert.equal($items.length, 3, 'Incorrect number of lessons listed');
+    assert.equal($items.length, 2, 'Incorrect number of lessons listed');
 
     // Click on the unit name to close the panel with the lessons
     $unitTitleAnchor.click();
@@ -389,8 +367,8 @@ test('it only loads lessons once after clicking on the unit name', function(asse
     return wait().then(function() {
 
       const $items = $collapsePanel.find('.gru-accordion-lesson');
-      assert.equal($items.length, 3, 'Number of lessons listed should not have changed');
-      assert.equal($unitTitleAnchor.text().trim(), 'U3: Unit Title', 'Index in the title text should have changed');
+      assert.equal($items.length, 2, 'Number of lessons listed should not have changed');
+      assert.equal($unitTitleAnchor.find('span').html().replace(/&nbsp;/g, " "), 'Unit 3.  Unit Title', 'Index in the title text should have changed');
     });
   });
 });
@@ -423,7 +401,7 @@ test('it triggers an event when the unit name is clicked on', function (assert) 
                     onLocationUpdate=(action 'externalAction') }}`);
 
   const $component = this.$('.gru-accordion-unit');
-  const $unitTitleAnchor = $component.find('> .panel-heading a');
+  const $unitTitleAnchor = $component.find('.unit a');
 
   // Click on the unit name
   Ember.run(() => {
@@ -463,8 +441,8 @@ test('it can start expanded (via "parsedLocation") and be collapsed manually', f
                     parsedLocation=locationArray }}`);
 
   const $component = this.$('.gru-accordion-unit');
-  const $unitTitleAnchor = $component.find('> .panel-heading a');
-  const $collapsePanel = $component.find('> .panel-collapse');
+  const $unitTitleAnchor = $component.find('.unit a');
+  const $collapsePanel = $component.find('.panel-collapse');
 
   assert.ok($collapsePanel.hasClass('in'), 'Panel should be visible');
 
@@ -509,8 +487,8 @@ test('it can be expanded manually and collapsed by changing the "parsedLocation"
                     parsedLocation=locationArray }}`);
 
   const $component = this.$('.gru-accordion-unit');
-  const $unitTitleAnchor = $component.find('> .panel-heading a');
-  const $collapsePanel = $component.find('> .panel-collapse');
+  const $unitTitleAnchor = $component.find('.unit a');
+  const $collapsePanel = $component.find('.panel-collapse');
 
   assert.ok(!$collapsePanel.hasClass('in'), 'Panel should not be visible');
 

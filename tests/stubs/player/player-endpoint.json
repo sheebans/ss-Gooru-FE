@@ -70,5 +70,19 @@
       "body": "File not found!",
       "file": "start-rating-200-response.json"
     }
+  },
+  {
+    "description": "Create event",
+    "request": {
+      "url": "^/api/events/nucleus-insights/v2/event$",
+      "method": "POST"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": ""
+    }
   }
 ]

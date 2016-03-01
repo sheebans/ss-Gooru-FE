@@ -1,7 +1,7 @@
 {{#if headers}}
   <table class="table table-bordered">
     <thead>
-      <tr>
+      <tr class="headers">
         <td></td>
         <th class="header" scope="col">
           {{t "class.analytics.performance.teacher.metricsTable.average"}}
@@ -10,22 +10,12 @@
           <th id="{{{header.id}}}" class="header pointer" scope="col" {{action 'navigate' header.id}}>
             <div class="header-title">
               {{#if header.collectionType}}
-                <div class="prefix">{{{course-sections-prefix index=index type=header.collectionType}}}</div>
+                <div class="prefix">{{{course-sections-prefix index=index type=header.collectionType longName=false}}}</div>
               {{else}}
-                <div class="prefix">{{{course-sections-prefix index=index type=headerType}}}</div>
+                <div class="prefix">{{{course-sections-prefix index=index type=headerType longName=false}}}</div>
               {{/if}}
               <div class="title">{{{header.title}}}</div>
             </div>
-          </th>
-        {{/each}}
-      </tr>
-      <tr>
-        <th class="header" scope="row">
-          {{t "class.analytics.performance.teacher.metricsTable.average"}}
-        </th>
-        {{#each averageHeaders.performanceData as |average|}}
-          <th class="performance-information">
-            {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions}}
           </th>
         {{/each}}
       </tr>
@@ -42,12 +32,22 @@
           </th>
         {{/each}}
       </tr>
+      <tr>
+        <th class="header" scope="row">
+          {{t "class.analytics.performance.teacher.metricsTable.class-average"}}
+        </th>
+        {{#each averageHeaders.performanceData as |average|}}
+          <th class="performance-information">
+            {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions}}
+          </th>
+        {{/each}}
+      </tr>
     </thead>
     <tbody>
       {{#each performanceData as |userPerformance|}}
         <tr>
           <th class="header user-info fixed" scope="row">
-            {{{userPerformance.user}}}
+            <span>{{{userPerformance.user}}}</span>
           </th>
           {{#each userPerformance.performanceData as |data|}}
             <td class="performance-information">

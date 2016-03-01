@@ -1,28 +1,31 @@
-<div class="panel-heading" role="tab" id="{{elementId}}-heading">
+<div class="unit" role="tab" id="{{elementId}}-heading">
   <strong class="panel-title">
-    <a class="collapsed"
+    <a class="collapsed title"
        role="button"
        data-toggle="collapse"
        href="#{{elementId}}-content"
        aria-expanded="false"
        aria-controls="{{elementId}}-content"
       {{action "selectUnit" model.id}}>
-        {{course-sections-prefix  index=index type='unit'}}&colon; {{model.title}}
+      <span
+          class="title">{{course-sections-prefix  index=index type='unit' longName=true}}&period;&nbsp;&nbsp;{{model.title}}</span>
     </a>
-  </strong>
-  {{!-- Show only for xs --}}
-  {{gru-user-icons
-    class="visible-xs"
-    users=model.users
-    viewThreshold=2
-    viewMoreIn='modal' }}
 
-  {{!-- Show for all other screen sizes --}}
+    {{!-- TODO: Integrate with BE --}}
+    <span>
+      {{#if model.totalLessons}}
+        <b>{{model.totalLessons}}</b> {{t "common.lessonObj" count=model.totalLessons}}
+      {{else}}
+        <b>0</b> {{t "common.lessonObj" count=0}}
+      {{/if}}
+    </span>
+  </strong>
+
   {{gru-user-icons
-    class="hidden-xs"
-    users=model.users
-    viewThreshold=3
-    viewMoreIn='modal' }}
+  showOnlyNumbers=true
+  users=model.users
+  viewThreshold=3
+  viewMoreIn='modal' }}
 </div>
 
 <div id="{{elementId}}-content"
@@ -34,11 +37,11 @@
   <div class="panel-body">
     <ol class="panel-group" role="tablist" aria-multiselectable="true">
 
-    {{#if loading}}
+    {{#if items.isPending}}
       {{three-bounce-spinner}}
     {{else}}
 
-      {{#each items as |item index|}}
+      {{#each visibleItems as |item index|}}
 
         {{class.overview.gru-accordion-lesson
           currentClass=currentClass
@@ -47,9 +50,10 @@
           index=index
         onSelectResource=(action 'selectResource')
         onSelectLesson=(action 'updateLesson')
+        onLaunchOnAir=(action 'launchOnAir')
         currentResource=currentResource
         parsedLocation=parsedLocation
-        isStudent = isStudent}}
+        isTeacher=isTeacher }}
 
       {{else}}
         <li>{{t "common.contentUnavailable"}}</li>

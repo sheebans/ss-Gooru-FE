@@ -84,16 +84,16 @@ test('markItem', function(assert) {
     $item3 = $phrasesContainer.find("span.item:eq(3)");
 
   //selecting items
-  answers = { answer: ["Sentence 2."], correct: false };
+  answers = { answer: [{index:1, text:"Sentence 2."}], correct: false };
   $item1.click();
   assert.ok($item1.hasClass("selected"), "Item 1 should be selected");
 
-  answers = { answer: ["Sentence 2.", "Sentence 4."], correct: true };
+  answers = { answer: [{index:1, text:"Sentence 2."}, {index:3, text:"Sentence 4."}], correct: true };
   $item3.click();
   assert.ok($item3.hasClass("selected"), "Item 3 should be selected");
 
   //deselecting items
-  answers = { answer: ["Sentence 4."], correct: false };
+  answers = { answer: [{index:3, text:"Sentence 4."}], correct: false };
   $item1.click();
   assert.ok(!$item1.hasClass("selected"), "Item 1 should not be selected");
   assert.ok($item3.hasClass("selected"), "Item 3 should be selected");
@@ -132,4 +132,35 @@ test('Layout - read only', function(assert) {
     $phrasesContainer = $component.find(".phrases");
 
   assert.equal($phrasesContainer.find("span.item.disabled").length, 5, "Incorrect number of sentences");
+});
+
+test('Layout - with user answer', function(assert) {
+  assert.expect(2);
+
+  let question = Ember.Object.create({
+    "id": "569906aa68f276ae7ea03c30",
+    questionType: 'HT_HL',
+    text: '<p>Seleccione las palabras escritas incorrectamente</p>',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers:  Ember.A([
+      Ember.Object.create({ id: "1", text:"<p>Sentence 1 [Sentence 2.] Sentence 3 [Sentence 4.] Sentence 5</p>" })
+    ]),
+    isHotTextHighlightWord: false,
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 6,
+    "hasAnswers": true
+  });
+
+  this.set("question", question);
+  this.set("userAnswer", [{ index: 1 }, { index: 3} ]);
+
+  this.render(hbs`{{player/questions/gru-hot-text-highlight question=question userAnswer=userAnswer}}`);
+
+  var $component = this.$(), //component dom element
+    $phrasesContainer = $component.find(".phrases");
+
+  assert.equal($phrasesContainer.find("span.item").length, 5, "Incorrect number of sentences");
+  assert.equal($phrasesContainer.find("span.item.selected").length, 2, "2 should be selected");
 });

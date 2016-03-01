@@ -37,25 +37,21 @@ export default Ember.Component.extend({
      */
     selectLesson: function (lesson) {
       const component = this;
-      let element =$('#'+ component.get('elementId')+' .lesson-performance-title span >i.fa') ;
-      if(element.hasClass('fa-chevron-down')){
-        element.addClass('fa-chevron-up');
-        element.removeClass('fa-chevron-down');
-        this.get('onSelectLesson')(lesson.get('id'));
-      }
-      else{
-        element.addClass('fa-chevron-down');
-        element.removeClass('fa-chevron-up');
+      if (component.isSelected()){
         this.get('onSelectLesson')();
       }
-      this.set('selectedLessonId',lesson.get('id'));
+      else{
+        this.get('onSelectLesson')(lesson.get('id'));
+      }
     },
+
     /**
      * @function actions:selectResource
      * @param {string} collectionId - Identifier for a resource (collection/assessment)
      */
     selectResource: function (collectionId) {
-      this.get('onSelectResource')(collectionId);
+      let lessonId = this.get("lesson.id");
+      this.get('onSelectResource')(lessonId, collectionId);
     }
   },
 
@@ -63,10 +59,17 @@ export default Ember.Component.extend({
   // Events
 
   didInsertElement:function(){
-    if(this.get('lesson.id')===this.get('selectedLessonId')){
-      this.loadSelectedItems(this.get('lesson'));
-    }
+    this.toggleCollapse();
   },
+  // -------------------------------------------------------------------------
+  // Observers
+  /**
+   * Observes if the selection has changed
+   */
+  expandCollapse: Ember.observer("selectedLessonId", "lesson.id", function(){
+    this.toggleCollapse();
+  }),
+
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -98,36 +101,40 @@ export default Ember.Component.extend({
    *
    * @property {String}
    */
-  userId:'',
+  userId: null,
+
   /**
    * SelectedLessonId the currently selected lesson ID(Query Param)
    *
    * @property {String}
    */
-  selectedLessonId:undefined,
+  selectedLessonId: null,
 
-  loadSelectedItems: function(lesson){
-    const component = this;
-    if(component.get('selectedLessonId') !== lesson.get('id')){
-      component.get('onLocationUpdate')(lesson.get('id'), 'lesson');
-    }
-    let element =$('#'+ component.get('elementId')+' .lesson-performance-title span >i.fa') ;
+  /**
+   * Indicates if the current lesson is the selected one
+   * @property {boolean} selected
+   */
+  selected: Ember.computed("selectedLessonId", "lesson.id", function(){
+    return this.isSelected(); //calling the method because the property was not refreshed before events
+  }),
 
-    if(element.hasClass('fa-chevron-down')){
-      element.addClass('fa-chevron-up');
-      element.removeClass('fa-chevron-down');
-      component.get('onSelectLesson')(lesson.get('id'));
-    }
-    else{
-      element.addClass('fa-chevron-down');
-      element.removeClass('fa-chevron-up');
-      component.get('onSelectLesson')();
-    }
-
-    let collapsibleElement=$('#'+lesson.get('id'));
-    collapsibleElement.collapse({toggle:true});
-
-  }
   // -------------------------------------------------------------------------
   // Methods
+  /**
+   * Toggles the collapse/expand
+   */
+  toggleCollapse: function(){
+    let selected = this.isSelected();
+    let collapsibleElement = Ember.$(this.element).find(".collections-container");
+    collapsibleElement.collapse(selected ? "show" : "hide");
+  },
+
+  /**
+   * Indicates if the current lesson is selected
+   * This method was necessary because the ember computed was not refreshed before the event was trigger
+   * @returns {boolean}
+   */
+  isSelected: function(){
+    return this.get("selectedLessonId") === this.get("lesson.id");
+  }
 });

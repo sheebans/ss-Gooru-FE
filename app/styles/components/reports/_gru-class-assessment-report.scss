@@ -1,10 +1,10 @@
 .reports.gru-class-assessment-report {
-  $space-top: 15px;
+  $space-top: 30px;
 
   > .view-container {
     position: relative;
     padding-top: $space-top;
-    border-top: 1px solid $gray-lighter;
+    border-top: 1px solid $light-300;
 
     > .gru-view-layout-picker {
       position: absolute;
@@ -29,6 +29,12 @@
 
 .gru-modal {
   &.gru-questions-detail-modal{
+    .modal-dialog {
+      width: 80%;
+      height: 100%;
+    }
+  }
+  &.gru-assessment-report-modal{
     .modal-dialog {
       width: 80%;
       height: 100%;

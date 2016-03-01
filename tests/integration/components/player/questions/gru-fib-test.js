@@ -128,3 +128,32 @@ test('Fill in the blanks layout - read only', function(assert) {
   assert.equal($component.find(".fib-answers input[disabled]").length,2, "Incorrect number of inputs");
 
 });
+
+test('Fill in the blanks layout - with user answer', function(assert) {
+  assert.expect(3);
+  const question = Ember.Object.create({
+    "id": "569906aacea8416665209d53",
+    questionType: 'FIB',
+    text: 'The sun is _______ and the moon _______',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({id: 1, text: 'yellow'}),
+      Ember.Object.create({id: 2, text: 'white'})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 4,
+    "hasAnswers": true
+  });
+
+  this.set('question', question);
+  this.set('userAnswer', ['amarillo', 'gris']);
+  this.render(hbs`{{player/questions/gru-fib question=question userAnswer=userAnswer}}`);
+
+  var $component = this.$(); //component dom element
+  assert.equal($component.find(".fib-answers input").length,2, "Incorrect number of inputs");
+  assert.equal($component.find(".fib-answers input:eq(0)").val(), "amarillo", "Wrong answer for input 1");
+  assert.equal($component.find(".fib-answers input:eq(1)").val(), "gris", "Wrong answer for input 2");
+
+});

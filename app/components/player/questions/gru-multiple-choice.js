@@ -36,7 +36,7 @@ export default QuestionComponent.extend({
       component.notifyAnswerChanged(answerId, correct);
       component.notifyAnswerCompleted(answerId, correct);
     }
-  }
+  },
 
   // -------------------------------------------------------------------------
   // Events

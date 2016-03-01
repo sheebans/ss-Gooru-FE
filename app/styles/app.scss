@@ -17,11 +17,13 @@
 @import 'controllers/class/analytics/performance/student';
 @import 'controllers/class/analytics/performance/teacher';
 @import 'controllers/class/analytics/performance/teacher/collection';
-@import 'controllers/index';
-@import 'controllers/player';
-@import 'controllers/profile';
 @import 'controllers/framework/assessment';
 @import 'controllers/framework/components';
+@import 'controllers/index';
+@import 'controllers/partials/player';
+@import 'controllers/profile';
+@import 'controllers/reports/collection';
+
 
 // TODO: update these components so they follow the naming conventions
 
@@ -42,6 +44,7 @@
 @import 'components/gru-forgot-password-popup';
 @import 'components/gru-header';
 @import 'components/gru-image-picker';
+@import 'components/gru-modal';
 @import 'components/gru-sign-in';
 @import 'components/gru-standards-popup';
 @import 'components/gru-switch';
@@ -60,6 +63,7 @@
 @import 'components/cards/gru-resource-card';
 
 @import 'components/charts/gru-bubble-chart';
+@import 'components/charts/gru-completion-chart';
 @import 'components/charts/gru-pie-chart';
 @import 'components/charts/gru-radial-chart';
 @import 'components/charts/gru-x-bar-chart';
@@ -67,7 +71,6 @@
 @import 'components/class/gru-class-navigation';
 @import 'components/class/analytics/performance/gru-actions-bar';
 @import 'components/class/analytics/performance/gru-data-picker';
-@import 'components/class/analytics/performance/gru-scale-indicator';
 @import 'components/class/analytics/performance/gru-performance-summary';
 @import 'components/class/analytics/performance/student/gru-student-performance';
 @import 'components/class/analytics/performance/student/gru-unit-performance';

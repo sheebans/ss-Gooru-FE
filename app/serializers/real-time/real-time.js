@@ -3,17 +3,23 @@ import UserResourcesResult from 'gooru-web/models/result/user-resources';
 
 export default AnalyticsSerializer.extend({
 
+  serialize: function(snapshot) {
+    return snapshot.toJSON();
+  },
+
   normalizeRealTimeEvent: function(payload) {
     const serializer = this;
     return UserResourcesResult.create({
       user: payload.userId,
+      isAttemptStarted: (payload.event.isNewAttempt ? true : false),
+      isAttemptFinished: (payload.event.isCompleteAttempt ? true : false),
       resourceResults: serializer.normalizeRealTimeEventContent(payload.event)
     });
   },
 
   normalizeRealTimeEventContent: function(payload) {
     const serializer = this;
-    return [serializer.normalizeResourceResult(payload)];
+    return (payload.resourceType) ? [serializer.normalizeResourceResult(payload)] : [];
   }
 
 });

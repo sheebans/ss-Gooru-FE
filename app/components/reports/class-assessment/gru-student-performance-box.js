@@ -17,18 +17,19 @@ export default Ember.Component.extend({
     /**
      * When the user clicks at the box
      */
-    click: function(){
+    selectStudent: function(){
       const component = this;
-      component.get('onClick')(component.get("student"));
+      component.get('onSelectStudent')(component.get("student.id"));
       Ember.Logger.debug('Clicking at student: ' + component.get("student.id"));
     },
+
     /**
      * @function actions:selectQuestion
      * @param {Number} questionId
      */
     selectQuestion: function (questionId) {
       this.get('onSelectQuestion')(questionId);
-    },
+    }
   },
 
   // -------------------------------------------------------------------------

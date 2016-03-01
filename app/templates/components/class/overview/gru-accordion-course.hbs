@@ -1,9 +1,9 @@
-<ol class="panel-group" role="tablist" aria-multiselectable="true">
-  {{#if loading}}
+<ol class="accordion-course" role="tablist" aria-multiselectable="true">
+  {{#if items.isPending}}
     {{three-bounce-spinner}}
   {{else}}
 
-    {{#each items as |item index|}}
+    {{#each visibleItems as |item index|}}
 
       {{class.overview.gru-accordion-unit
           currentClass=currentClass
@@ -11,9 +11,10 @@
           index=index
       onSelectResource=(action 'selectResource')
       onLocationUpdate=(action 'updateLocation')
+      onLaunchOnAir=(action 'launchOnAir')
       currentResource=currentResource
-      isStudent = isStudent
-      parsedLocation=parsedLocation }}
+      parsedLocation=parsedLocation
+      isTeacher=isTeacher}}
 
     {{else}}
       <li>{{t "common.contentUnavailable"}}</li>

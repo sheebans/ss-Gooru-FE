@@ -88,14 +88,6 @@ export default DS.Model.extend({
    */
   isAssessment: Ember.computed.equal('collectionType', 'assessment'),
 
-  /**
-   * Returns the last visited resource
-   * @property {Resource} lastVisitedResource
-   */
-  lastVisitedResource: function() {
-    //@todo implement logic to return the last visited, for returns the first one
-    return this.get("hasResources") ? this.get("resources.firstObject") : null;
-  }.property(),
 
   /**
    * Gets the next resource based on the resource provided

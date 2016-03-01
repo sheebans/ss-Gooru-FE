@@ -1,4 +1,8 @@
 .gru-accordion {
+  $locate-icon: 18px;
+  $locate-icon-xs: 10px;
+  $icon-side: $locate-icon + 10px;
+  $icon-side-xs: $locate-icon-xs + 8px;
 
   ol .panel {
     position: relative;
@@ -11,7 +15,9 @@
 
     .panel {
       border: 0 none;
-      box-shadow: 0 0 0 transparent;
+      box-shadow: none;
+      border-radius: 0;
+      background-color: transparent;
 
       & + .panel {
         margin-top: 0;
@@ -49,31 +55,58 @@
   .location-marker {
     display: none;
     position: absolute;
-    width: 1.8rem;
-    height: 1.6rem;
-    left: 0;
-    top: 4px;
+    left: -25px;
+    top: 15px;
+    padding-right: 6px;
 
-    @media (min-width: $screen-md) {
-      left: 0.6rem;
+    @media (min-width: $screen-sm) {
+      top: 9px;
+      left: -45px;
+      padding-right: 10px;
     }
 
-    > .circle {
-      width: 84%;
-      height: 90%;
-      background: $brand-primary;
-      border-radius: 50%;
+    > .icon-wrapper {
+      background-color: $dark-300;
+      line-height: 1;
+      width: $icon-side-xs;
+      height: $icon-side-xs;
+      border-radius: 3px;
+
+      @media (min-width: $screen-sm) {
+        width: $icon-side;
+        height: $icon-side;
+      }
+
+      i {
+        color: $white;
+        font-size: $locate-icon-xs;
+        line-height: $icon-side-xs;
+        margin-left: 4px;
+
+        @media (min-width: $screen-sm) {
+          font-size: $locate-icon;
+          line-height: $icon-side;
+          margin-left: 5px;
+        }
+      }
     }
 
     > .arrow-right {
       width: 0;
       height: 0;
-      border-top: 0.5rem solid transparent;
-      border-bottom: 0.5rem solid transparent;
-      border-left: 0.5rem solid $brand-primary;
+      border-top: 0.3rem solid transparent;
+      border-bottom: 0.3rem solid transparent;
+      border-left: 0.5rem solid $dark-300;
       position: absolute;
       right: 0;
-      top: 15%;
+      top: 36%;
+
+      @media (min-width: $screen-sm) {
+        border-top-width: 0.4rem;
+        border-bottom-width: 0.4rem;
+        border-left-width: 0.8rem;
+        top: 34%;
+      }
     }
   }
 }

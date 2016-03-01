@@ -46,9 +46,9 @@ export default Ember.Component.extend({
      * @function actions:selectResource
      * @param {string} collectionId - Identifier for a resource (collection/assessment)
      */
-    selectResource: function (collectionId) {
+    selectResource: function (unitId, lessonId, collectionId) {
       // Send the action so that it bubbles up to the route
-      this.sendAction('onSelectResource', collectionId);
+      this.sendAction('onSelectResource', unitId, lessonId, collectionId);
     },
 
     /**
@@ -92,19 +92,19 @@ export default Ember.Component.extend({
    *
    * @property {String}
    */
-  userId:'',
+  userId: null,
   /**
    * Selected UnitId the selected unit's id belongs to
    *
    * @property {String}
    */
-  selectedUnitId:'',
+  selectedUnitId: null,
   /**
    * Selected LessonId the selected lesson's id belongs to
    *
    * @property {String}
    */
-  selectedLessonId:''
+  selectedLessonId: null
 
   // -------------------------------------------------------------------------
 

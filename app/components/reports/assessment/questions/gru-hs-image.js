@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import {HotSpotImageUtil} from 'gooru-web/utils/questions';
 import QuestionMixin from 'gooru-web/mixins/reports/assessment/questions/question';
 
 // constants
@@ -49,11 +48,11 @@ export default Ember.Component.extend(QuestionMixin, {
         userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(answer.get("id"));
         selected = true;
       }
-
+      let image = question.get('assetBasePath') + answer.get('text');
       let elementClass = (anonymous) ? 'anonymous' :
         ((userAnswerCorrect) ? 'correct' : 'incorrect');
       return {
-        image: answer.get('image') ? answer.get('image') : DEFAULT_IMAGES.QUESTION_PLACEHOLDER_IMAGE,
+        image: answer.get('text') ? image : DEFAULT_IMAGES.QUESTION_PLACEHOLDER_IMAGE,
         selected: selected,
         "class": elementClass
       };
@@ -65,11 +64,4 @@ export default Ember.Component.extend(QuestionMixin, {
 
   // -------------------------------------------------------------------------
   // Methods
-  /**
-   * Returns the question util for the question
-   * @param question
-   */
-  getQuestionUtil: function(question){
-    return HotSpotImageUtil.create({question: question});
-  }
 });

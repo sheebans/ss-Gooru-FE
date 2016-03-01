@@ -1,9 +1,17 @@
 .player .gru-viewer {
+
   .narration {
-    background-color: hsla(0, 0%, 20%, 1);
-    display: table;
-    width: 100%;
-    span{
+    margin-top: 0;
+    @media (max-width: $screen-sm-max) {
+      margin-top: 30px;
+    }
+    @media (max-width: $screen-xs-max) {
+      margin-top: 0;
+    }
+    .panel-body {
+      padding: 10px 15px;
+    }
+    span {
       display: table-cell;
       vertical-align: middle;
     }
@@ -14,23 +22,34 @@
     width: 100%;
     float: right;
     padding-bottom: $player-navigation-height;
+    padding-left: 310px;
+    padding-right: 60px;
     @media (min-width: $screen-md) {
-      width: 80%;
       padding-bottom: $player-navigation-md-height;
     }
-    img.avatar {
-      width: $narration-avatar-width;
-      height: $narration-avatar-height;
-      border-radius: 50px;
-      box-shadow: 0 0 0 2px #87badd;
-      margin: 15px;
-      display: table-cell;
-      vertical-align: middle;
+    @media (max-width: $screen-sm-max) {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    .avatar {
+      text-align: center;
+      padding-right: 15px;
+      img {
+        width: $narration-avatar-width;
+        height: $narration-avatar-height;
+        border-radius: $narration-avatar-height;
+        margin: 0 auto;
+        display: block;
+      }
+      .user {
+        font-size: $font-size-small;
+        display: block;
+      }
     }
     .message {
-      color:$white;
-      min-height: 70px;
-      padding: 10px 15px 10px 0;
+      * {
+        font-size: $font-size-base!important;
+      }
     }
   }
 }

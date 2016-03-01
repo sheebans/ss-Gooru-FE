@@ -1,18 +1,32 @@
 <div class="navigator-header" >
   <div {{action 'closePlayer'}}>
-    <span class="lead"> {{gru-icon name='keyboard_arrow_left'}} {{t 'common.back'}}</span>
-    <p>{{collection.title}}</p>
+    {{#if lessonTitle}}
+      <span class="lead"> {{gru-icon name='keyboard_arrow_left'}}{{t 'common.lesson'}}</span>
+      <p class="lesson-title">{{lessonTitle}}</p>
+    {{else}}
+      <span class="lead"> {{gru-icon name='keyboard_arrow_left'}}{{t 'common.back'}}</span>
+    {{/if}}
   </div>
   <div class="pull-right close-navigator hidden-md hidden-lg">
     <button class="btn btn-link hamburger-icon"{{action 'closeNavigator'}}>{{gru-icon name='menu'}}</button>
   </div>
 </div>
+<div class="navigator-subheader">
+  <p class="collection-type">{{#if collection.isAssessment}}{{t 'common.assessment'}}{{else}}{{t 'common.collection'}}{{/if}}:</p>
+  <p class="collection-title">{{collection.title}}</p>
+</div>
 <ul class="list-group resources">
-  {{#each collection.resources as |resource|}}
-      <li class="list-group-item" id= "item_{{resource.id}}"{{action 'selectItem' resource}}>
+  {{#each resourceItems as |item|}}
+      <li class="list-group-item {{if item.started 'started'}} {{if item.selected 'selected'}}"
+        {{action 'selectItem' item}}>
       <div class="resources-info">
-        <i class="bubble-type {{resource.resourceFormat}}"></i>
-        <h6 class="title">{{{resource.title}}}</h6>
+        <i class="bubble-type {{item.resource.resourceFormat}}"></i>
+          <h6 class="title hidden-sm hidden-md">
+            {{truncate text=(noTags text=item.resource.title) type='medium'}}
+          </h6>
+          <h6 class="title visible-sm visible-md">
+            {{truncate text=(noTags text=item.resource.title) type='player-nav-sm'}}
+          </h6>
       </div>
     </li>
   {{/each}}

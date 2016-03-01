@@ -1,8 +1,13 @@
 import Ember from 'ember';
-import {
-  MultipleChoiceUtil, MultipleAnswerUtil, TrueFalseUtil, OpenEndedUtil,
-  FillInTheBlankUtil, ReorderUtil, HotSpotImageUtil, HotSpotTextUtil, HotTextHighlightUtil
-} from 'gooru-web/utils/questions';
+import MultipleChoiceUtil from 'gooru-web/utils/question/multiple-choice';
+import MultipleAnswerUtil from 'gooru-web/utils/question/multiple-answer';
+import TrueFalseUtil from 'gooru-web/utils/question/true-false';
+import OpenEndedUtil from 'gooru-web/utils/question/open-ended';
+import FillInTheBlankUtil from 'gooru-web/utils/question/fill-in-the-blank';
+import ReorderUtil from 'gooru-web/utils/question/reorder';
+import HotSpotImageUtil from 'gooru-web/utils/question/hot-spot-image';
+import HotSpotTextUtil from 'gooru-web/utils/question/hot-spot-text';
+import HotTextHighlightUtil from 'gooru-web/utils/question/hot-text-highlight';
 
 export const QUESTION_CONFIG = {
   'MC'    : Ember.Object.create({

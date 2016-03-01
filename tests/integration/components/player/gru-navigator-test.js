@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import T from 'gooru-web/tests/helpers/assert';
+import QuestionResult from 'gooru-web/models/result/question';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('player/gru-navigator', 'Integration | Component | player/gru navigator', {
@@ -12,7 +13,7 @@ moduleForComponent('player/gru-navigator', 'Integration | Component | player/gru
 
 test('Player Navigator', function(assert) {
 
-  assert.expect(8);
+  assert.expect(11);
 
   const resourceMockA = Ember.Object.create({
     id: '1',
@@ -43,18 +44,35 @@ test('Player Navigator', function(assert) {
     }
   });
 
-  this.set('collection', collectionMock);
+  const resourceResults = Ember.A([
+    QuestionResult.create({ resource: resourceMockA }),
+    QuestionResult.create({ resource: resourceMockB })
+  ]);
 
-  this.on('itemSelected', function(item) {
-    assert.equal(item.id, '1', "Incorrect selected resource item id");
+  this.set('collection', collectionMock);
+  this.set('resourceResults', resourceResults);
+
+  this.on('itemSelected', function(resource) {
+    assert.equal(resource.get("id"), '1', "Incorrect selected resource item id");
   });
 
-  this.render(hbs`{{player.gru-navigator collection=collection selectedResourceId='1' onItemSelected='itemSelected'}}`);
+  this.render(hbs`{{player.gru-navigator collection=collection
+      resourceResults=resourceResults lessonTitle='E-Lesson1'
+      selectedResourceId='1' onItemSelected='itemSelected'}}`);
 
   var $component = this.$(); //component dom element
   const $navigator = $component.find(".gru-navigator");
   T.exists(assert, $navigator, "Missing navigator section");
-  T.exists(assert, $navigator.find(".lead"), "Missing collection title");
+
+  //$navigatorHeader
+  const $navigatorHeader = $component.find(".gru-navigator .navigator-header");
+  T.exists(assert, $navigatorHeader.find(".lead"), "Missing back title");
+  T.exists(assert, $navigatorHeader.find(".lesson-title"), "Missing lesson title");
+
+  //$navigatorSubheader
+  const $navigatorSubheader = $component.find(".gru-navigator .navigator-subheader");
+  T.exists(assert, $navigatorSubheader.find(".collection-type"), "Missing collection type");
+  T.exists(assert, $navigatorSubheader.find(".collection-title"), "Missing collection title");
 
   //$collectionResources list
   const $collectionResources = $navigator.find(".resources");
@@ -64,10 +82,11 @@ test('Player Navigator', function(assert) {
   const $firstResourceItem = $collectionResources.find("li.list-group-item:eq(0)");
   T.exists(assert, $firstResourceItem.find(".resources-info"), "Missing resources info");
   T.exists(assert, $firstResourceItem.find(".resources-info .bubble-type.question"), "Missing question class type");
-  assert.equal(T.text($firstResourceItem.find(".resources-info .title")), "Resource #1", "Wrong item text");
+  assert.equal(T.text($firstResourceItem.find(".resources-info .title.visible-sm")), "Resource #1", "Wrong item text");
 
   //$resourceItem Selected
-  T.exists(assert, $collectionResources.find("li#item_1.selected"), "Missing selected resource item");
+  let $selected = $navigator.find(".list-group-item:eq(0).selected");
+  T.exists(assert, $selected, "Incorrect selected resource 1");
 
 
 });
@@ -79,7 +98,7 @@ test('Layout when navigator is closed', function(assert) {
     assert.ok(true, 'external Action was called!');
   });
 
-  this.render(hbs`{{player/gru-navigator onCloseNavigator='parentAction'}}`);
+  this.render(hbs`{{player/gru-navigator onCloseNavigator='parentAction' lessonTitle='E-Lesson1'}}`);
   var $component = this.$(); //component dom element
   var $menuButton = $component.find(".hamburger-icon");
 
@@ -90,7 +109,7 @@ test('Layout when navigator is closed', function(assert) {
 
 test('Player Navigator keyup on left', function(assert) {
 
-  //assert.expect(8);
+  assert.expect(2);
 
   const resourceMockA = Ember.Object.create({
     id: '1',
@@ -131,31 +150,40 @@ test('Player Navigator keyup on left', function(assert) {
     }
   });
 
+  this.on('itemSelected', function(resource) {
+    assert.equal(resource.get("id"), '1', "Incorrect selected resource item id");
+  });
+
+  const resourceResults = Ember.A([
+    QuestionResult.create({ resource: resourceMockA }),
+    QuestionResult.create({ resource: resourceMockB })
+  ]);
+
+  this.set('resourceResults', resourceResults);
   this.set('collection', collectionMock);
 
 
 
-  this.render(hbs`{{player.gru-navigator collection=collection selectedResourceId='2'}}`);
+  this.render(hbs`{{player.gru-navigator resourceResults=resourceResults
+        onItemSelected='itemSelected' lessonTitle='E-Lesson1'
+        collection=collection selectedResourceId='2'}}`);
 
   let $component = this.$(); //component dom element
 
   const $navigator = $component.find(".gru-navigator");
-  let $selected = $navigator.find(".selected");
-  assert.equal($selected.attr('id'), 'item_2', "Incorrect selected resource item id 1");
+  let $selected = $navigator.find(".list-group-item:eq(1).selected");
+  T.exists(assert, $selected, "Incorrect selected resource 2");
   let e = $.Event('keyup');
 
   e.which = 37; //Right arrow Character
   $navigator.trigger(e);
-  $selected = $navigator.find(".selected");
-  assert.equal($selected.attr('id'), 'item_1', "Incorrect selected resource item id 2");
-
 
 });
 
 
 test('Player Navigator keyup on right', function(assert) {
 
-  //assert.expect(8);
+  assert.expect(2);
 
   const resourceMockA = Ember.Object.create({
     id: '1',
@@ -196,23 +224,32 @@ test('Player Navigator keyup on right', function(assert) {
     }
   });
 
+  this.on('itemSelected', function(item) {
+    assert.equal(item.get("id"), '2', "Incorrect selected resource item id");
+  });
+
+  const resourceResults = Ember.A([
+    QuestionResult.create({ resource: resourceMockA }),
+    QuestionResult.create({ resource: resourceMockB })
+  ]);
+
+  this.set('resourceResults', resourceResults);
+
   this.set('collection', collectionMock);
 
-
-
-  this.render(hbs`{{player.gru-navigator collection=collection selectedResourceId='1'}}`);
+  this.render(hbs`{{player.gru-navigator resourceResults=resourceResults
+        onItemSelected='itemSelected' lessonTitle='E-Lesson1'
+        collection=collection selectedResourceId='1'}}`);
 
   let $component = this.$(); //component dom element
 
   const $navigator = $component.find(".gru-navigator");
-  let $selected = $navigator.find(".selected");
-  assert.equal($selected.attr('id'), 'item_1', "Incorrect selected resource item id 1");
+  let $selected = $navigator.find(".list-group-item:eq(0).selected");
+  T.exists(assert, $selected, "Incorrect selected resource 1");
   let e = $.Event('keyup');
 
   e.which = 39; //Right arrow Character
   $navigator.trigger(e);
-  $selected = $navigator.find(".selected");
-  assert.equal($selected.attr('id'), 'item_2', "Incorrect selected resource item id 2");
 
 
 });
@@ -223,7 +260,7 @@ test('Close player', function(assert) {
     assert.ok(true, 'external Action was called!');
   });
 
-  this.render(hbs`{{player/gru-navigator onClosePlayer='parentAction'}}`);
+  this.render(hbs`{{player/gru-navigator onClosePlayer='parentAction' lessonTitle='E-Lesson1'}}`);
   var $component = this.$(); //component dom element
   var $closeButton = $component.find(".gru-navigator .navigator-header div:first-child");
   $closeButton.click();

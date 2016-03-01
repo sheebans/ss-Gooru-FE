@@ -1,29 +1,34 @@
 <div class="panel-heading" role="tab" id="{{elementId}}-heading">
-  <span class="img-circle"></span>
+
+  {{!-- TODO: Integrate with BE --}}
+  {{#if isTeacher}}
+    <span class="score" style="background-color: {{ gradeColor 93 }}">93%</span>
+  {{else}}
+
+  {{!-- TODO: Integrate with BE @see /app/components/class/overview/gru-accordion-unit.js#addUsersToItems --}}
+    {{ charts/gru-completion-chart
+    completed=model.completed
+    total=model.total }}
+
+  {{/if}}
+
   <span class="panel-title">
-    <a class="collapsed"
+    <a class="title collapsed"
        role="button"
        data-toggle="collapse"
        href="#{{elementId}}-content"
        aria-expanded="false"
        aria-controls="{{elementId}}-content"
       {{action "selectLesson" model.id}}>
-      {{course-sections-prefix  index=index type='lesson'}}&colon; {{model.title}}
+        {{course-sections-prefix  index=index type='lesson' longName=true}}&period;&nbsp;&nbsp;{{model.title}}
     </a>
-  </span>
-  {{!-- Show only for xs --}}
-  {{gru-user-icons
-    class="visible-xs"
-    users=model.users
-    viewThreshold=2
-    viewMoreIn='modal' }}
-
-  {{!-- Show for all other screen sizes --}}
-  {{gru-user-icons
-    class="hidden-xs"
+    {{gru-user-icons
+    showOnlyNumbers=true
     users=model.users
     viewThreshold=3
     viewMoreIn='modal' }}
+  </span>
+
 </div>
 
 <div id="{{elementId}}-content"
@@ -33,40 +38,70 @@
      aria-labelledby="{{elementId}}-heading">
 
   <div class="panel-body">
-    <ol class="collections">
+    <ol class="collections {{if isTeacher 'teacher'}}">
 
-    {{#if loading}}
+    {{#if items.isPending}}
       {{three-bounce-spinner}}
     {{else}}
 
-      {{#each items as |item index|}}
-        <li class="panel {{item.collectionType}} {{set-if-equal "selected" item.id currentResource}}">
+      {{#each visibleItems as |item index|}}
+        <li class="panel {{if item.isAssessment 'assessment' 'collection'}}
+          {{if item.isSubmitted 'submitted'}}
+          {{set-if-equal 'selected' item.id currentResource}}
+          {{if item.isOnAir 'on-air'}}">
 
-          <div class="location-marker">
-            <div class="circle"></div>
-            <div class="arrow-right"></div>
-          </div>
+          {{#if isTeacher}}
+
+            {{#if item.isAssessment}}
+              <button {{action "setOnAir" item.id}} class="btn btn-success on-air">
+                {{t "common.launch-on-air"}}
+              </button>
+            {{/if}}
+
+          {{else}}
+            <div class="location-marker">
+              <div class="icon-wrapper">
+                  {{gru-icon name='near_me'}}
+              </div>
+              <div class="arrow-right"></div>
+            </div>
+          {{/if}}
 
           <div class="panel-heading">
-            <img src="" />
+
+            <div class="icon-container">
+              {{#if item.isAssessment}}
+
+              {{!-- TODO: Integrate with BE --}}
+                <span class="score" style="background-color: {{ gradeColor 78 }}">78%</span>
+                <i class="on-air">On Air</i>
+
+              {{ else }}
+                {{gru-icon name='apps'}}
+              {{/if}}
+            </div>
+
             <span class="panel-title">
-              <a {{action "selectResource" item.id}}>
-                {{course-sections-prefix  index=index type=item.collectionType}}&colon; {{item.title}}
+              <a class="title" {{action "selectResource" item.id}}>
+                  {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
               </a>
             </span>
+
             {{!-- Show only for xs --}}
             {{gru-user-icons
-              class="visible-xs"
-              users=item.users
-              viewThreshold=2
-              viewMoreIn='modal' }}
+            class="visible-xs"
+            showOnlyNumbers=true
+            users=item.users
+            viewThreshold=2
+            viewMoreIn='modal' }}
 
             {{!-- Show for all other screen sizes --}}
             {{gru-user-icons
-              class="hidden-xs"
-              users=item.users
-              viewThreshold=3
-              viewMoreIn='modal' }}
+            class="hidden-xs"
+            users=item.users
+            viewThreshold=5
+            viewMoreIn='modal' }}
+
           </div>
         </li>
       {{else}}

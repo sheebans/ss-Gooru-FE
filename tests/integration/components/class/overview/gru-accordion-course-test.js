@@ -112,8 +112,8 @@ test('it renders correctly when there are no units', function(assert) {
   const $component = this.$('.gru-accordion-course');
   assert.ok($component.length, 'Component does not have the component class');
 
-  const $panelGroup = $component.find('.panel-group');
-  assert.ok($panelGroup.length, 'Panel group component is missing');
+  const $panelGroup = $component.find('.accordion-course');
+  assert.ok($panelGroup.length, 'Accordion  is missing');
 
   var $loadingSpinner = $panelGroup.find('.three-bounce-spinner');
   assert.ok($loadingSpinner.length, 'Loading spinner should be displayed');
@@ -129,7 +129,7 @@ test('it renders correctly when there are no units', function(assert) {
 });
 
 test('it renders correctly when there are units', function(assert) {
-  assert.expect(11);
+  assert.expect(9);
 
   // Class with units per stub
   const currentClass = Ember.Object.create({
@@ -147,8 +147,8 @@ test('it renders correctly when there are units', function(assert) {
   const $component = this.$('.gru-accordion-course');
   assert.ok($component.length, 'Component does not have the component class');
 
-  const $panelGroup = $component.find('.panel-group');
-  assert.ok($panelGroup.length, 'Panel group component is missing');
+  const $panelGroup = $component.find('.accordion-course');
+  assert.ok($panelGroup.length, 'Accordion is missing');
 
   var $loadingSpinner = $panelGroup.find('.three-bounce-spinner');
   assert.ok($loadingSpinner.length, 'Loading spinner should be displayed');
@@ -159,13 +159,11 @@ test('it renders correctly when there are units', function(assert) {
 
     const $items = $panelGroup.find('.gru-accordion-unit');
     assert.equal($items.length, 2, 'Incorrect number of lessons listed');
-    assert.equal($items.first().find('.panel-title').text().trim(), 'U1: Unit 1', 'Incorrect first unit title');
-    assert.equal($items.last().find('.panel-title').text().trim(), 'U2: Unit 2', 'Incorrect last unit title');
+    assert.equal($items.first().find('.panel-title .title span').html().replace(/&nbsp;/g, " "), 'Unit 1.  Unit 1', 'Incorrect first unit title');
+    assert.equal($items.last().find('.panel-title .title span').html().replace(/&nbsp;/g, " "), 'Unit 2.  Unit 2', 'Incorrect last unit title');
 
-    assert.equal($items.first().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first unit for mobile');
-    assert.equal($items.last().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last unit for mobile');
+    assert.equal($items.first().find('.unit .gru-user-icons .first-view li').length, 1, 'Wrong number of user icons showing for the first unit for mobile');
+    assert.equal($items.last().find('.unit .gru-user-icons .first-view li').length, 1, 'Wrong number of user icons showing for the last unit for mobile');
 
-    assert.equal($items.first().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first unit');
-    assert.equal($items.last().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last unit');
   });
 });

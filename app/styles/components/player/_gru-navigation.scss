@@ -5,7 +5,7 @@
   width: 100%;
   z-index: 10;
   @media (min-width: $screen-md) {
-    width:80%;
+    padding-left: 250px;
     height: $player-navigation-md-height;
   }
   .content {
@@ -49,6 +49,8 @@
         align-content: stretch;
         display:-webkit-flex;
         display: flex;
+        cursor: pointer;
+
         >*{
           color:white;
         }
@@ -56,6 +58,12 @@
     }
     .reaction-bar{
       margin-top: 20px;
+      padding-left: 60px;
+      padding-right: 60px;
+      @media (max-width: $screen-sm-max) {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
       >div >div{
         margin-bottom: 0;
         width: 100%;
@@ -84,10 +92,14 @@
         }
         >*{
           width:100%;
+          &.btn {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+          }
         }
         @media (min-width: $screen-md) {
           button{
-            width:initial;
+            width: initial;
           }
         }
       }

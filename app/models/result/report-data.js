@@ -107,7 +107,7 @@ export default Ember.Object.extend({
   autoCompleteRow: function (QuestionResultMap, resourceIds) {
     resourceIds.forEach(function (resourceId) {
       var questionResult = QuestionResultMap[resourceId];
-      if (typeof questionResult.get('correct') !== 'boolean') {
+      if (!questionResult.get("started")) {
         questionResult.set('correct', false);
       }
     });
@@ -140,7 +140,9 @@ export default Ember.Object.extend({
     var rowLen = columnIds.length;
 
     for (let i = 0; i < rowLen; i++) {
-      row[columnIds[i]] = QuestionResult.create();
+      row[columnIds[i]] = QuestionResult.create({
+        resourceId: columnIds[i]
+      });
     }
     return row;
   },
@@ -166,8 +168,10 @@ export default Ember.Object.extend({
       }
 
       resourceResults.forEach(function (resourceResult) {
-        var questionId = resourceResult.get("resourceId");
-        data[userId][questionId] = resourceResult;
+        if (data[userId]) {
+          const questionId = resourceResult.get("resourceId");
+          data[userId][questionId] = resourceResult;
+        }
       });
 
       if (doAutoComplete) {

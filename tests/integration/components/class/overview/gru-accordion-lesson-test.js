@@ -30,7 +30,16 @@ const collectionServiceStub = Ember.Service.extend({
         Ember.Object.create({
           id: "item-3",
           collectionType: "assessment",
+          isAssessment: true,
+          isOnAir: true,
           title: "Assessment 1",
+          visibility: true
+        }),
+        Ember.Object.create({
+          id: "item-3",
+          collectionType: "assessment",
+          isAssessment: true,
+          title: "Assessment 2",
           visibility: true
         })
       ];
@@ -88,49 +97,12 @@ const courseLocationStub = Ember.Service.extend({
   }
 });
 
-// Stub performance service
-const performanceServiceStub = Ember.Service.extend({
-
-  //We are missing the lesson id parameter but is not required at all because we are simulating the response
-  //which is the same for every lesson, the lessonId was removed due to is generating problems with JSHint
-  findCourseMapPerformanceByUnitAndLesson(classId, courseId, unitId) {
-    var response;
-    var promiseResponse;
-
-    //It does not matter the lesson id all the responses would be the same format
-    if (classId === '111-333-555' && courseId === '222-444-666' && unitId === '777-999'){
-      response = Ember.Object.create({
-        calculateAverageScoreByItem: function(){
-          return 100;
-        }
-      });
-    }else {
-      response = [];
-    }
-
-    promiseResponse = new Ember.RSVP.Promise(function(resolve) {
-      Ember.run.next(this, function() {
-        resolve(response);
-      });
-    });
-
-    //// Simulate async data returned by the service
-    return DS.PromiseObject.create({
-      promise: promiseResponse
-    });
-  }
-
-});
-
 moduleForComponent('class/overview/gru-accordion-lesson', 'Integration | Component | class/overview/gru accordion lesson', {
   integration: true,
 
   beforeEach: function() {
     this.register('service:api-sdk/collection', collectionServiceStub);
     this.inject.service('api-sdk/collection', { as: 'collectionService' });
-
-    this.register('service:api-sdk/performance', performanceServiceStub);
-    this.inject.service('api-sdk/performance', { as: 'performanceService' });
 
     this.register('service:api-sdk/course-location', courseLocationStub);
     this.inject.service('api-sdk/course-location', { as: 'courseLocationService' });
@@ -151,7 +123,10 @@ test('it renders', function(assert) {
   // Lesson model
   const lesson = Ember.Object.create({
     id: "888-000",
-    title: 'Lesson Title'
+    title: 'Lesson Title',
+
+    completed: 5,
+    total: 10
   });
 
   this.set('currentClass', currentClass);
@@ -173,16 +148,16 @@ test('it renders', function(assert) {
   const $lessonHeading = $component.find('> .panel-heading');
   assert.ok($lessonHeading.length, 'Panel heading element is missing');
 
-  const $lessonImage = $lessonHeading.find('> .img-circle');
-  assert.ok($lessonImage.length, 'Image element is missing');
+  const $completionChart = $lessonHeading.find('> .gru-completion-chart');
+  assert.ok($completionChart.length, 'Completion chart for lesson');
 
   const $lessonTitle = $lessonHeading.find('> .panel-title');
   assert.ok($lessonTitle.length, 'Panel title element is missing');
 
-  const $lessonTitleAnchor = $lessonTitle.find('> a');
+  const $lessonTitleAnchor = $lessonTitle.find('> a.title');
   assert.ok($lessonTitleAnchor.length, 'Title anchor element is missing');
   assert.ok($lessonTitleAnchor.hasClass('collapsed'), 'Panel should be collapsed by default');
-  assert.equal($lessonTitleAnchor.text().trim(), 'L1: Lesson Title', 'Wrong title text');
+  assert.equal($lessonTitleAnchor.html().replace(/&nbsp;/g, " ").trim(), 'Lesson 1.  Lesson Title', 'Wrong title text');
 
   const $collapsePanel = $component.find('> .panel-collapse');
   assert.ok($collapsePanel.length, 'Panel element is missing');
@@ -214,7 +189,10 @@ test('it renders correctly when there are no collections/assessments to load aft
   // Lesson model
   const lesson = Ember.Object.create({
     id: "888-000",
-    title: 'Lesson Title'
+    title: 'Lesson Title',
+
+    completed: 5,
+    total: 10
   });
 
   this.on('externalAction', function () {
@@ -233,7 +211,7 @@ test('it renders correctly when there are no collections/assessments to load aft
                     onSelectLesson=(action 'externalAction') }}`);
 
   const $component = this.$('.gru-accordion-lesson');
-  const $lessonTitleAnchor = $component.find('> .panel-heading a');
+  const $lessonTitleAnchor = $component.find('> .panel-heading a.title');
 
   const $collapsePanel = $component.find('> .panel-collapse');
   assert.ok(!$collapsePanel.hasClass('in'), 'Panel should not be visible');
@@ -264,7 +242,7 @@ test('it renders correctly when there are no collections/assessments to load aft
 });
 
 test('it loads collections/assessments and renders them correctly after clicking on the lesson name', function(assert) {
-  assert.expect(18);
+  assert.expect(26);
 
   const context = this;
 
@@ -277,7 +255,10 @@ test('it loads collections/assessments and renders them correctly after clicking
   // Lesson model
   const lesson = Ember.Object.create({
     id: "888-000",
-    title: 'Lesson Title'
+    title: 'Lesson Title',
+
+    completed: 5,
+    total: 10
   });
 
   this.on('externalAction', function () {
@@ -298,7 +279,7 @@ test('it loads collections/assessments and renders them correctly after clicking
                     currentResource=resourceId }}`);
 
   const $component = this.$('.gru-accordion-lesson');
-  const $lessonTitleAnchor = $component.find('> .panel-heading a');
+  const $lessonTitleAnchor = $component.find('> .panel-heading a.title');
 
   const $collapsePanel = $component.find('> .panel-collapse');
   assert.ok(!$collapsePanel.hasClass('in'), 'Panel should not be visible');
@@ -323,33 +304,123 @@ test('it loads collections/assessments and renders them correctly after clicking
     assert.ok(!$loadingSpinner.length, 'Loading spinner should have been hidden');
 
     const $items = $collapsePanel.find('.collections .panel');
-    assert.equal($items.length, 3, 'Incorrect number of resources listed');
+    assert.equal($items.length, 2, 'Incorrect number of resources listed');
 
-    const $firstCollection = $items.first();
-    const $collectionHeading = $firstCollection.find('> .panel-heading');
-    assert.ok($collectionHeading.length, 'Resource is missing the panel heading element');
+    const $collection = $items.first();
+    const $assessment = $items.last();
+    const $onAirAssessment = $items.eq(1);
 
-    const $collectionImage = $collectionHeading.find('> img');
-    assert.ok($collectionImage.length, 'Resource is missing the image element');
+    const $locationMarker = $collection.find('> .location-marker');
+    assert.ok($locationMarker.length, 'Location marker');
+
+    const $collectionHeading = $collection.find('> .panel-heading');
+    assert.ok($collectionHeading.length, 'Panel heading');
 
     const $collectionName = $collectionHeading.find('> .panel-title');
-    assert.ok($collectionName.length, 'Element for the resource name is missing');
+    assert.ok($collectionName.length, 'Panel title');
 
-    assert.ok($items.first().hasClass('collection'), 'First resource should have the class "collection"');
-    assert.ok($items.last().hasClass('assessment'), 'Last resource should have the class "assessment"');
-    assert.ok($items.last().hasClass('selected'), 'Last resource should have the class "selected"');
+    const $collectionIcons = $collectionHeading.find('> .icon-container');
+    assert.ok($collectionIcons.length, 'Collection panel heading: icon container');
+    assert.ok($collectionIcons.find('.gru-icon.apps'), 'Icon container: collection icon');
 
-    assert.equal($items.first().find('.panel-title').text().trim(), 'C1: Collection 1', 'Incorrect first resource title');
-    assert.equal($items.last().find('.panel-title').text().trim(), 'A3: Assessment 1', 'Incorrect last resource title');
+    const $assessmentHeading = $assessment.find('> .panel-heading');
+    assert.ok($assessmentHeading.length, 'Panel heading');
 
-    assert.equal($items.first().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first resource for mobile');
-    assert.equal($items.last().find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last resource for mobile');
+    const $assessmentIcons = $assessmentHeading.find('> .icon-container');
+    assert.ok($assessmentIcons.length, 'Assessment panel heading: icon container');
+    assert.ok($assessmentIcons.find('span.score'), 'Icon container: assessment percentage');
+    assert.ok($assessmentIcons.find('i.on-air'), 'Icon container: on air icon');
 
-    assert.equal($items.first().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first resource');
-    assert.equal($items.last().find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last resource');
+    assert.ok($collection.hasClass('collection'), 'First resource should have the class "collection"');
+    assert.ok($assessment.hasClass('assessment'), 'Last resource should have the class "assessment"');
+    assert.ok($assessment.hasClass('selected'), 'Last resource should have the class "selected"');
+    assert.ok($onAirAssessment.hasClass('on-air'), 'Assessment on air');
+    assert.ok(!$assessment.hasClass('on-air'), 'Assessment not on air');
+
+    assert.equal($collection.find('.panel-title a.title').html().replace(/&nbsp;/g, " ").trim(), '1.  Collection 1', 'Incorrect first resource title');
+    assert.equal($assessment.find('.panel-title a.title').html().replace(/&nbsp;/g, " ").trim(), '3.  Assessment 2', 'Incorrect last resource title');
+
+    assert.equal($collection.find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first resource for mobile');
+    assert.equal($assessment.find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the last resource for mobile');
+
+    assert.equal($collection.find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first resource');
+    assert.equal($assessment.find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last resource');
   });
 });
 
+test('it loads collections/assessments and renders them correctly for teacher', function (assert) {
+  assert.expect(11);
+
+  const context = this;
+
+  // Class with lessons per stub
+  var currentClass = Ember.Object.create({
+    id: "111-333-555",
+    course: "222-444-666"
+  });
+
+  // Lesson model
+  const lesson = Ember.Object.create({
+    id: "888-000",
+    title: 'Lesson Title',
+
+    completed: 5,
+    total: 10
+  });
+
+  this.on('externalAction', function () {
+  });
+
+  this.set('currentClass', currentClass);
+  this.set('unitId', '777-999');
+  this.set('lesson', lesson);
+  this.set('index', 0);
+  this.set('isTeacher', true);
+
+  this.render(hbs`{{class/overview/gru-accordion-lesson
+                    currentClass=currentClass
+                    unitId=unitId
+                    model=lesson
+                    index=index
+                    onSelectLesson=(action 'externalAction')
+                    isTeacher=isTeacher }}`);
+
+  const $component = this.$('.gru-accordion-lesson');
+  const $lessonTitleAnchor = $component.find('> .panel-heading a.title');
+
+  const $lessonScore = $component.find('> .panel-heading > .score');
+  assert.ok($lessonScore.length, 'Score for lesson');
+
+  assert.ok($component.find('.collections').hasClass('teacher'), 'Teacher class applied to content');
+
+  // Click on the lesson name
+  Ember.run(() => {
+    $lessonTitleAnchor.click();
+  });
+
+  return wait().then(function () {
+
+    const $items = $component.find('.collections .panel');
+    assert.equal($items.length, 3, 'Incorrect number of resources listed');
+
+    const $assessment = $items.last();
+    const $onAirAssessment = $items.eq(1);
+
+    assert.ok($assessment.find('> button.on-air').length, 'Button on-air');
+    assert.equal($assessment.find('> button.on-air').text().trim(), context.get('i18n').t('common.launch-on-air').string, 'Button on-air: text');
+
+    const $assessmentHeading = $assessment.find('> .panel-heading');
+    assert.ok($assessmentHeading.length, 'Panel heading');
+
+    const $assessmentIcons = $assessmentHeading.find('> .icon-container');
+    assert.ok($assessmentIcons.length, 'Assessment panel heading: icon container');
+    assert.ok($assessmentIcons.find('span.score'), 'Icon container: assessment percentage');
+    assert.ok($assessmentIcons.find('i.on-air'), 'Icon container: on air icon');
+
+    assert.ok($onAirAssessment.hasClass('on-air'), 'Assessment on air');
+    assert.ok(!$assessment.hasClass('on-air'), 'Assessment not on air');
+  });
+});
 
 test('it only loads collections/assessments once after clicking on the lesson name', function (assert) {
   assert.expect(5);
@@ -365,7 +436,10 @@ test('it only loads collections/assessments once after clicking on the lesson na
   // Lesson model
   const lesson = Ember.Object.create({
     id: "888-000",
-    title: 'Lesson Title'
+    title: 'Lesson Title',
+
+    completed: 5,
+    total: 10
   });
 
   this.on('externalAction', function () {
@@ -384,9 +458,9 @@ test('it only loads collections/assessments once after clicking on the lesson na
                     onSelectLesson=(action 'externalAction') }}`);
 
   const $component = this.$('.gru-accordion-lesson');
-  const $lessonTitleAnchor = $component.find('> .panel-heading a');
+  const $lessonTitleAnchor = $component.find('.panel-heading .panel-title a.title');
 
-  const $collapsePanel = $component.find('> .panel-collapse');
+  const $collapsePanel = $component.find('.panel-collapse');
 
   // Click on the unit name
   Ember.run(() => {
@@ -424,13 +498,13 @@ test('it only loads collections/assessments once after clicking on the lesson na
 
       const $items = $collapsePanel.find('.collections .panel');
       assert.equal($items.length, 3, 'Number of lessons listed should not have changed');
-      assert.equal($lessonTitleAnchor.text().trim(), 'L3: Lesson Title', 'Index in the title text should have changed');
+      assert.equal($lessonTitleAnchor.html().replace(/&nbsp;/g, " ").trim(), 'Lesson 3.  Lesson Title', 'Index in the title text should have changed');
     });
   });
 });
 
 test('it triggers event handlers', function (assert) {
-  assert.expect(4);
+  assert.expect(5);
 
   // Class with lessons per stub
   var currentClass = Ember.Object.create({
@@ -441,11 +515,15 @@ test('it triggers event handlers', function (assert) {
   // Lesson model
   const lesson = Ember.Object.create({
     id: "888-000",
-    title: 'Lesson Title'
+    title: 'Lesson Title',
+
+    completed: 5,
+    total: 10
   });
 
-  this.on('selectResource', function (itemId) {
-    assert.equal(itemId, 'item-1');
+  this.on('selectResource', function (lessonId, collectionId) {
+    assert.equal(collectionId, 'item-1', "Invalid collection id");
+    assert.equal(lessonId, '888-000', "Invalid lesson id");
   });
 
   this.on('selectLesson', function (itemId) {
@@ -497,7 +575,10 @@ test('it can start expanded (via "parsedLocation") and be collapsed manually', f
   // Lesson model
   const lesson = Ember.Object.create({
     id: "888-000",
-    title: 'Lesson Title'
+    title: 'Lesson Title',
+
+    completed: 5,
+    total: 10
   });
 
   this.on('externalAction', function () {
@@ -545,7 +626,10 @@ test('it can be expanded manually and collapsed by changing the "parsedLocation"
   // Lesson model
   const lesson = Ember.Object.create({
     id: "888-000",
-    title: 'Lesson Title'
+    title: 'Lesson Title',
+
+    completed: 5,
+    total: 10
   });
 
   this.on('externalAction', function () {

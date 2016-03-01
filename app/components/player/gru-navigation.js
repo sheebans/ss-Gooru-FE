@@ -40,13 +40,6 @@ export default Ember.Component.extend({
     },
 
     /**
-     * Action triggered when the user wants to access the report
-     */
-    viewReport:function(){
-      this.sendAction("onViewReport");
-    },
-
-    /**
      * Action triggered when the user wants to finish the collection
      */
     finishCollection:function(){
