@@ -12,7 +12,7 @@
     &.selected {
       color:$white;
       font-weight: bold;
-      border-radius: 8%;
+      border-radius: 4px;
       border-color: $blue-400;
       background-color: $blue-400;
     }
@@ -20,7 +20,7 @@
     &:not(.disabled):hover {
       color:$white;
       font-weight: bold;
-      border-radius: 8%;
+      border-radius: 4px;
       border-color: $dark-300;
       background-color: $dark-300;
     }
