@@ -2,7 +2,7 @@
   {{#each answers as |answer index|}}
     <li>
       {{#if answer.selected}}
-        <span class="selected {{{answer.class}}}"><img src="{{{answer.image}}}"></span>
+        <span class="selected {{{answer.class}}}"><img class="img-thumbnail" src="{{{answer.image}}}"></span>
       {{else}}
         <span class="no-selected"><img class="img-thumbnail" src="{{{answer.image}}}"></span>
       {{/if}}
