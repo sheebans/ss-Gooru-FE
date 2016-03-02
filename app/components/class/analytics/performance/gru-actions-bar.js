@@ -57,6 +57,16 @@ export default Ember.Component.extend({
       if (this.get("onFilterSelected")) {
         this.sendAction("onFilterSelected", filterBy);
       }
+    },
+
+    /**
+     * Launch an assessment on-air
+     *
+     * @function actions:launchOnAir
+     */
+    launchOnAir: function () {
+      // Send the action so that it bubbles up to the route
+      this.sendAction('onLaunchOnAir');
     }
   },
 
@@ -75,6 +85,11 @@ export default Ember.Component.extend({
    * @property {String} isStudent - shows if the is student mode.
    */
   isStudent: Ember.computed.equal("mode", "student"),
+
+  /**
+   * @property {Boolean} collectionLevel - shows if the collection level.
+   */
+  collectionLevel: false,
 
 
   /**
