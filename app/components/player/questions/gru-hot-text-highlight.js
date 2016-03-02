@@ -1,4 +1,5 @@
 import QuestionComponent from './gru-question';
+import Ember from 'ember';
 
 /**
  * Hot Text Highlight
@@ -45,6 +46,7 @@ export default QuestionComponent.extend({
     this.generateItems();
   }.on("didInsertElement"),
 
+
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -56,10 +58,10 @@ export default QuestionComponent.extend({
   /**
    * Refresh items when the question changes
    */
-  refreshItems: function(){
-    this.generateItems();
-  }.on("question.id"),
 
+  refreshItems: Ember.observer('question.id', function() {
+    this.generateItems();
+  }),
   // -------------------------------------------------------------------------
   // Methods
   /**

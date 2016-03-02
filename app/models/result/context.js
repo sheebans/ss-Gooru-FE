@@ -62,6 +62,19 @@ export default Ember.Object.extend({
   /**
    * @property {string} clientSource - Get Collection/Assessment API will return how many questions available inside assessments.
    */
-  clientSource: 0
+  clientSource: 0,
+
+  /**
+   * Indicates if the event type is stop
+   * @property {boolean}
+   */
+  isStopEvent: Ember.computed.equal("eventType", "stop"),
+
+  /**
+   * Indicates if the event type is start
+   * @property {boolean}
+   */
+  isStartEvent: Ember.computed.equal("eventType", "start")
+
 });
 
