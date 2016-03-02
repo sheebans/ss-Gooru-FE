@@ -32,10 +32,8 @@ export default QuestionComponent.extend({
    * When loading the user answer
    */
   updateUserAnswer: Ember.on("init", function(){
-    let userAnswer = this.get("userAnswer");
-    if (userAnswer){
-      this.set("answer", userAnswer);
-    }
+   const component = this;
+    component.setAnswers();
   }),
 
 
@@ -77,13 +75,21 @@ export default QuestionComponent.extend({
     }
   }.observes("answer"),
 
-
   // -------------------------------------------------------------------------
   // Methods
   /**
    * Indicates when the answer is completed
    * @return {bool}
    */
-  isAnswerCompleted: Ember.computed.bool("answer.length")
+  isAnswerCompleted: Ember.computed.bool("answer.length"),
 
+  /**
+   * Set answer
+   * */
+  setAnswers: function (){
+    let userAnswer = this.get("userAnswer");
+    if (userAnswer){
+      this.set("answer", userAnswer);
+    }
+  }
 });

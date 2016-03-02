@@ -216,3 +216,52 @@ test('Layout - with user answer', function (assert) {
   assert.equal($answersContainer.find("li.answer").length, 4, "Incorrect number of answer choices");
   assert.equal($answersContainer.find("li.answer.selected").length, 2, "2 should be selected");
 });
+test('Set two questions', function (assert) {
+  let question = Ember.Object.create({
+    "id": "569906aabfcfc4cfc1b29b62",
+    questionType: 'HS_TXT',
+    text: 'Sample Question HS_TXT',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({ "id": 1, "text": "Banana", isCorrect: true }),
+      Ember.Object.create({ "id": 2, "text": "Orange", isCorrect: true}),
+      Ember.Object.create({ "id": 3, "text": "Apple", isCorrect: false}),
+      Ember.Object.create({ "id": 4, "text": "Watermelon", isCorrect: false})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 8,
+    "hasAnswers": true
+  });
+  let question1 = Ember.Object.create({
+    "id": "569906aabfcfc4cfc1b29b62",
+    questionType: 'HS_TXT',
+    text: 'Sample Question HS_TXT',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({ "id": 1, "text": "Banana1", isCorrect: true }),
+      Ember.Object.create({ "id": 2, "text": "Orange1", isCorrect: true}),
+      Ember.Object.create({ "id": 3, "text": "Apple1", isCorrect: false}),
+      Ember.Object.create({ "id": 4, "text": "Watermelon1", isCorrect: false})
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 8,
+    "hasAnswers": true
+  });
+  this.set('question', question);
+
+  this.render(hbs`{{player/questions/gru-hs-text question=question}}`);
+
+  const $component = this.$(); //component dom element
+  const $answersContainer = $component.find('.answer-choices');
+
+  assert.equal($answersContainer.find("li.answer:first-child span").text().trim(), "Banana", "First answer choice does not have the right text");
+  assert.equal($answersContainer.find("li.answer:last-child span").text().trim(), "Watermelon", "Last answer choice does not have the right text");
+  this.set('question', question1);
+
+  assert.equal($answersContainer.find("li.answer:first-child span").text().trim(), "Banana1", "First answer choice does not have the right text");
+  assert.equal($answersContainer.find("li.answer:last-child span").text().trim(), "Watermelon1", "Last answer choice does not have the right text");
+});

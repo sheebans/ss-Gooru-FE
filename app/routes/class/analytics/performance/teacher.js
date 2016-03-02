@@ -32,6 +32,22 @@ export default Ember.Route.extend({
         this.transitionTo(breadcrumbLink, itemId);
       }
     },
+
+    /**
+     * Launch an assessment on-air
+     *
+     * @function actions:launchOnAir
+     */
+    launchOnAir: function () {
+      const currentClass = this.modelFor('class').class;
+      const classId = currentClass.get("id");
+      const courseId = currentClass.get("course");
+      const unitId = this.get("controller.unit.id");
+      const lessonId = this.get("controller.lesson.id");
+      const collectionId = this.get("controller.collection.id");
+
+      this.transitionTo('reports.collection', classId, courseId, unitId, lessonId, collectionId);
+    }
   },
 
   // -------------------------------------------------------------------------

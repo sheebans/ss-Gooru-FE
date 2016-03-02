@@ -12,12 +12,18 @@
       {{gru-icon name='fullscreen'}} <span>{{t "class.analytics.performance.actions.fullScreen"}}</span>
     {{/if}}
   </button>
-  <button class="selected-filter btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">
-    {{gru-icon name='spellcheck'}} <span>{{t dropdownFilterText}}</span>
-  </button>
-  <ul class="dropdown-menu">
-    <li class="dropdown-menu-item assessment {{if isFilterByAssessment 'selected' }}"><a {{action 'filter' 'assessment'}}>{{t "class.analytics.performance.actions.assessment"}}</a></li>
-    <li class="dropdown-menu-item collection {{if isFilterByCollection 'selected' }}"><a {{action 'filter' 'collection'}}>{{t "class.analytics.performance.actions.collection"}}</a></li>
-    <li class="dropdown-menu-item both {{if isFilterByBoth 'selected' }}"><a {{action 'filter' 'both'}}>{{t "class.analytics.performance.actions.both"}}</a></li>
-  </ul>
+  {{#if collectionLevel}}
+    {{#unless isStudent}}
+      <button class="btn btn-info on-air" {{action 'launchOnAir'}}>{{gru-icon name='visibility_off'}} <span>{{t "common.launch-anonymous"}}</span></button>
+    {{/unless}}
+  {{else}}
+    <button class="selected-filter btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">
+      {{gru-icon name='spellcheck'}} <span>{{t dropdownFilterText}}</span>
+    </button>
+    <ul class="dropdown-menu">
+      <li class="dropdown-menu-item assessment {{if isFilterByAssessment 'selected' }}"><a {{action 'filter' 'assessment'}}>{{t "class.analytics.performance.actions.assessment"}}</a></li>
+      <li class="dropdown-menu-item collection {{if isFilterByCollection 'selected' }}"><a {{action 'filter' 'collection'}}>{{t "class.analytics.performance.actions.collection"}}</a></li>
+      <li class="dropdown-menu-item both {{if isFilterByBoth 'selected' }}"><a {{action 'filter' 'both'}}>{{t "class.analytics.performance.actions.both"}}</a></li>
+    </ul>
+  {{/if}}
 </div>

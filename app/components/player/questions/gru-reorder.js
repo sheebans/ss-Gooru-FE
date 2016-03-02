@@ -30,6 +30,37 @@ export default QuestionComponent.extend({
   // Events
   initSortableList: Ember.on('didInsertElement', function() {
     const component = this;
+    component.setAnswers();
+  }),
+
+  removeSubscriptions: Ember.on('willDestroyElement', function() {
+    this.$('.sortable').off('sortupdate');
+  }),
+
+  // -------------------------------------------------------------------------
+  // Properties
+
+  /**
+   * Convenient structure to render the question answer choices
+   * @property {*}
+   */
+  answers: Ember.computed("question.answers.[]", function(){
+    let answers = this.get("question.answers").sortBy("order");
+    let userAnswer = this.get("userAnswer");
+    if (userAnswer){ //@see gooru-web/utils/question/reorder.js
+      answers = userAnswer.map(function(answerId){
+        return answers.findBy("id", answerId);
+      });
+    }
+    return answers;
+  }),
+  // -------------------------------------------------------------------------
+  // Methods
+  /**
+   * Set answers
+   */
+  setAnswers: function(){
+    const component = this;
     const sortable = this.$('.sortable');
     const questionUtil = this.get("questionUtil");
     const readOnly = component.get("readOnly");
@@ -54,36 +85,5 @@ export default QuestionComponent.extend({
       component.notifyAnswerChanged(answers, correct);
       component.notifyAnswerCompleted(answers, correct);
     });
-
-  }),
-
-  removeSubscriptions: Ember.on('willDestroyElement', function() {
-    this.$('.sortable').off('sortupdate');
-  }),
-
-  // -------------------------------------------------------------------------
-  // Properties
-
-  /**
-   * Convenient structure to render the question answer choices
-   * @property {*}
-   */
-  answers: Ember.computed("question.answers.[]", function(){
-    let answers = this.get("question.answers").sortBy("order");
-    let userAnswer = this.get("userAnswer");
-    if (userAnswer){ //@see gooru-web/utils/question/reorder.js
-      answers = userAnswer.map(function(answerId){
-        return answers.findBy("id", answerId);
-      });
-    }
-    return answers;
-  })
-
-  // -------------------------------------------------------------------------
-  // Observers
-
-
-  // -------------------------------------------------------------------------
-  // Methods
-
+  }
 });

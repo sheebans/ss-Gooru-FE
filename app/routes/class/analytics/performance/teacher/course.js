@@ -71,8 +71,8 @@ export default Ember.Route.extend({
     //updating breadcrumb when navigating back to course
     controller.get("teacherController").updateBreadcrumb(controller.get("course"), "course");
 
-    //enabling filters
-    controller.set("teacherController.showFilters", true);
+    //updating the collectionLevel to show or not the launch anonymous button
+    controller.set("teacherController.collectionLevel", false);
 
   }
 

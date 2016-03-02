@@ -29,9 +29,8 @@ export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Events
   setupInstanceProperties: Ember.on('init', function () {
-    let userAnswer = this.get("userAnswer");
-    this.set('selectedAnswers', userAnswer ? userAnswer : []);
-
+    const component = this;
+    component.setAnswers();
   }),
 
   setupSubscriptions: Ember.on('didInsertElement', function () {
@@ -106,9 +105,11 @@ export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Observers
 
-
   // -------------------------------------------------------------------------
   // Methods
+  /**
+   * Set the user answer
+   */
   setUserAnswer: function(){
     const userAnswer = this.get("userAnswer");
 
@@ -119,5 +120,12 @@ export default QuestionComponent.extend({
         $answer.toggleClass('selected');
       });
     }
-  }
+  },
+  /**
+   * Set answers
+   */
+  setAnswers: function(){
+    let userAnswer = this.get("userAnswer");
+    this.set('selectedAnswers', userAnswer ? userAnswer : []);
+  },
 });

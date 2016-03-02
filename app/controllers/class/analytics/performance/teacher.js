@@ -67,6 +67,26 @@ export default Ember.Controller.extend({
   course: Ember.computed.alias('classController.course'),
 
   /**
+   * @property {Unit} unit
+   */
+  unit: null,
+
+  /**
+   * @property {Lesson} lesson
+   */
+  lesson: null,
+
+  /**
+   * @property {Collection} collection
+   */
+  collection: null,
+
+  /**
+   * @property {Boolean} collectionLevel - shows if the collection level.
+   */
+  collectionLevel: false,
+
+  /**
    * The filterBy selected
    * @property {String}
    */
@@ -109,7 +129,7 @@ export default Ember.Controller.extend({
    * Indicates if the filters are visible
    * @property {boolean}
    */
-  showFilters: true,
+  showFilters: Ember.computed.not('collectionLevel'),
   // -------------------------------------------------------------------------
   // Observers
 
@@ -142,5 +162,14 @@ export default Ember.Controller.extend({
     //add new breadcrumb item
     breadcrumb.pushObject(breadcrumbObject);
     return breadcrumb;
+  },
+
+  /**
+   * willDestroyElement event
+   */
+  willDestroyElement: function(){
+    this.set('unit', null);
+    this.set('lesson', null);
+    this.set('collection', null);
   }
 });
