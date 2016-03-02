@@ -6,11 +6,13 @@
       list-style: none;
       margin: 0 5px 5px 0;
       display: inline-block;
+      text-align: center;
       span {
         width: $image-side;
         height: $image-side;
         display: block;
         img{
+          vertical-align: top;
           padding: 4px;
           width: auto;
           max-height: 100%;
