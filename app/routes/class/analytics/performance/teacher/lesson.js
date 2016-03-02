@@ -91,8 +91,10 @@ export default Ember.Route.extend({
     controller.get("teacherController").updateBreadcrumb(model.unit, 'unit');
     //updating the breadcrumb with the lesson
     controller.get("teacherController").updateBreadcrumb(model.lesson, 'lesson');
-    //enabling filters
-    controller.set("teacherController.showFilters", true);
+    //updating the lesson in the teacher controller
+    controller.set("teacherController.lesson", model.lesson);
+    //updating the collectionLevel to show or not the launch anonymous button
+    controller.set("teacherController.collectionLevel", false);
 
   }
 

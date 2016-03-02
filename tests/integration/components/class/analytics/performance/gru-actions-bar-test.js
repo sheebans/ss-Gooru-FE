@@ -12,11 +12,14 @@ moduleForComponent('class/analytics/performance/gru-actions-bar', 'Integration |
 test('Class Performance Actions Bar with student mode', function(assert) {
   assert.expect(12);
 
+  const collectionLevel = false;
+
   this.on('selectFilterBy', function(item) {
     assert.equal(item, 'collection', "Incorrect selected menu class item");
   });
+  this.set('collectionLevel', collectionLevel);
 
-  this.render(hbs`{{class.analytics.performance.gru-actions-bar mode='student' selectedFilterBy='collection' onFilterSelected='selectFilterBy'}}`);
+  this.render(hbs`{{class.analytics.performance.gru-actions-bar mode='student' selectedFilterBy='collection' onFilterSelected='selectFilterBy' collectionLevel=collectionLevel}}`);
 
   var $component = this.$(); //component dom element
   const $actions = $component.find(".gru-actions-bar");
@@ -41,13 +44,17 @@ test('Class Performance Actions Bar with student mode', function(assert) {
 
 
 test('Class Performance Actions Bar with teacher mode', function(assert) {
-  assert.expect(11);
+  assert.expect(12);
+
+  const collectionLevel = false;
 
   this.on('selectFilterBy', function(item) {
     assert.equal(item, 'collection', "Incorrect selected menu class item");
   });
 
-  this.render(hbs`{{class.analytics.performance.gru-actions-bar mode='teacher' selectedFilterBy='collection' onFilterSelected='selectFilterBy'}}`);
+  this.set('collectionLevel', collectionLevel);
+
+  this.render(hbs`{{class.analytics.performance.gru-actions-bar mode='teacher' selectedFilterBy='collection' onFilterSelected='selectFilterBy' collectionLevel=collectionLevel}}`);
 
   var $component = this.$(); //component dom element
   const $actions = $component.find(".gru-actions-bar");
@@ -56,6 +63,7 @@ test('Class Performance Actions Bar with teacher mode', function(assert) {
   T.notExists(assert, $actions.find(".share"), "Share button shouldn't be visible for student mode");
   T.exists(assert, $actions.find(".download"), "Missing download button");
   T.exists(assert, $actions.find(".full-screen"), "Missing full-screen button");
+  T.notExists(assert, $actions.find(".on-air"), "On-air button should not be visible");
 
   //drop down menu list
   const $dropMenu = $actions.find(".drop-menu");
@@ -63,6 +71,7 @@ test('Class Performance Actions Bar with teacher mode', function(assert) {
   T.exists(assert, $dropMenu.find(".assessment"), "Missing assessment item in the view drop down menu");
   T.exists(assert, $dropMenu.find(".collection"), "Missing collection item in the view drop down menu");
   T.exists(assert, $dropMenu.find(".both"), "Missing both item in the view drop down menu");
+
 
   //drop down menu item Selected
   T.exists(assert, $dropMenu.find(".collection.selected"), "Missing selected collection item");
@@ -100,5 +109,24 @@ test('Calling external action when pressing the full screen button', function (a
   const $button = $component.find(".gru-actions-bar .full-screen");
 
   T.exists(assert, $button, "Missing view full screen button");
+  $button.click();
+});
+
+test('launchOnAir action', function(assert) {
+  assert.expect(2);
+
+  const collectionLevel = true;
+
+  this.on('launchOnAir', function() {
+    assert.ok(true, "This should be called once");
+  });
+
+  this.set('collectionLevel', collectionLevel);
+
+  this.render(hbs`{{class.analytics.performance.gru-actions-bar collectionLevel=collectionLevel onLaunchOnAir='launchOnAir'}}`);
+
+  var $component = this.$(); //component dom element
+  const $button = $component.find(".gru-actions-bar .on-air");
+  T.exists(assert, $button, "Missing on-air button");
   $button.click();
 });
