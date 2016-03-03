@@ -32,10 +32,9 @@ export default QuestionComponent.extend({
     const component = this;
     component.setAnswers();
     if(component.get('hasUserAnswer')){
-        component.shuffle();
-    }else{
-      this.set('areAnswersShuffled',true);
+      component.shuffle();
     }
+    this.set('areAnswersShuffled',true);
   }),
 
   removeSubscriptions: Ember.on('willDestroyElement', function() {
@@ -113,9 +112,7 @@ export default QuestionComponent.extend({
    * Disorder elements
    */
     disorder: function(list){
-    for(var j, x, i = list.length; i; j = parseInt(Math.random() * i), x = list[--i], list[i] = list[j], list[j] = x){
-      this.set('areAnswersShuffled',true);
-    }
+    for(var j, x, i = list.length; i; j = parseInt(Math.random() * i), x = list[--i], list[i] = list[j], list[j] = x){}
     return list;
    }
 });

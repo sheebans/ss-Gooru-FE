@@ -36,7 +36,7 @@ test('Reorder question layout', function (assert) {
   var $component = this.$(); //component dom element
 
   assert.ok($component.find(".instructions"), "Missing instructions");
-  T.exists(assert,$component.find(".sortable.shuffled"), "The options should be shuffled");
+  T.exists(assert,$component.find(".sortable.show"), "The options should be shuffled");
   assert.equal($component.find(".sortable li").length, 3, "Incorrect number of answer choices");
   assert.ok($component.find(".sortable li:first-child").hasClass("ui-sortable-handle"), "Class added by sortable plugin is missing");
 });

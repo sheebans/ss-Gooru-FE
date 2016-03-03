@@ -4,7 +4,7 @@
 </p>
 
 <div class="answer-choices">
-    <ul class="sortable {{if readOnly 'disabled'}} {{if areAnswersShuffled 'shuffled' 'order'}}">
+    <ul class="sortable {{if readOnly 'disabled'}} {{if areAnswersShuffled 'show' 'hidden'}}">
       {{#each answers as |answer|}}
         <li data-id="{{answer.id}}">
           {{gru-icon name='menu'}}
