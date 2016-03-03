@@ -74,7 +74,7 @@
   {
     "description": "Create event",
     "request": {
-      "url": "^/api/events/nucleus-insights/v2/event$",
+      "url": "^/api/nucleus-insights/v2/event$",
       "method": "POST"
     },
     "response": {
