@@ -31,7 +31,11 @@ export default QuestionComponent.extend({
   initSortableList: Ember.on('didInsertElement', function() {
     const component = this;
     component.setAnswers();
-    component.shuffle();
+    if(component.get('hasUserAnswer')){
+        component.shuffle();
+    }else{
+      this.set('areAnswersShuffled',true);
+    }
   }),
 
   removeSubscriptions: Ember.on('willDestroyElement', function() {
@@ -55,8 +59,12 @@ export default QuestionComponent.extend({
     }
     return answers;
   }),
-
+  /**
+   * Return true if the answers list are shuffled
+   * @property {Boolean}
+   */
   areAnswersShuffled:false,
+
   // -------------------------------------------------------------------------
   // Methods
   /**
@@ -105,8 +113,9 @@ export default QuestionComponent.extend({
    * Disorder elements
    */
     disorder: function(list){
-    for(var j, x, i = list.length; i; j = parseInt(Math.random() * i), x = list[--i], list[i] = list[j], list[j] = x);
-    this.set('areAnswersShuffled',true);
+    for(var j, x, i = list.length; i; j = parseInt(Math.random() * i), x = list[--i], list[i] = list[j], list[j] = x){
+      this.set('areAnswersShuffled',true);
+    }
     return list;
-  }
+   }
 });
