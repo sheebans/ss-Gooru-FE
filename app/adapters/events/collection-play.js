@@ -3,8 +3,7 @@ import SessionMixin from 'gooru-web/mixins/session';
 
 export default Ember.Object.extend(SessionMixin, {
 
-  //namespace: '/api/nucleus-insights/v2',
-  namespace: '/api/events/nucleus-insights/v2',
+  namespace: '/api/nucleus-insights/v2',
 
   headers: Ember.computed('session.token', function() {
     return {
