@@ -19,6 +19,11 @@
       input[type="checkbox"]:checked:before {
         top: 3px;
       }
+      input[type="checkbox"]:disabled:checked:after {
+        background-color: #0072bc!important;
+        border-color: #0072bc!important;
+        color: white!important;
+      }
       span {
         display: table-cell;
         vertical-align: middle;
