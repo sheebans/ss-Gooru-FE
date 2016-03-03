@@ -35,7 +35,7 @@ export default Ember.Controller.extend({
       var url = window.location.href;
 
       url += "?anonymous=true";
-      window.open(url, 'realTimeAnonymous', 'width=' + window.screen.width + ', height=' + window.screen.height + ', left=0, top=0', true);
+      window.open(url, 'realTimeAnonymous', 'width=' + window.screen.width + ', height=' + window.screen.height + ', left=0, top=0, scrollbars=1', true);
     }
   },
 
