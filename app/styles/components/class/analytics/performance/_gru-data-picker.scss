@@ -20,9 +20,9 @@
         top: 3px;
       }
       input[type="checkbox"]:disabled:checked:after {
-        background-color: #0072bc!important;
-        border-color: #0072bc!important;
-        color: white!important;
+        background-color: $blue-400!important;
+        border-color: $blue-400!important;
+        color: $white!important;
       }
       span {
         display: table-cell;
