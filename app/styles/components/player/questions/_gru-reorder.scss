@@ -11,7 +11,12 @@
       }
     }
   }
-
+  .shuffled{
+    display: block;
+  }
+  .order{
+    display: none;
+  }
   .ui-sortable-handle {
     position:relative;
     border: 1px dashed $light-300;
