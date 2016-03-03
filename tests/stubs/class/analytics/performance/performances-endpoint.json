@@ -109,6 +109,29 @@
   {
     "description": "API 3.0: Returns student's performance data for all the lessons in a class, course, unit and lesson",
     "request": {
+      "url": "^/api/nucleus-insights/v2/class/class-for-pochita-as-student/course/(.+)/unit/7deebd55-1976-40a2-8e46-3b8ec5b6d388/lesson/(.+)/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "student-performance-overview-lesson-200-response.json"
+    }
+  },
+
+  {
+    "description": "API 3.0: Returns student's performance data for all the lessons in a class, course, unit and lesson",
+    "request": {
       "url": "^/api/nucleus-insights/v2/class/(.+)/course/(.+)/unit/7deebd55-1976-40a2-8e46-3b8ec5b6d388/lesson/(.+)/performance",
       "query": {
         "userUid": "(.+)",
@@ -316,6 +339,29 @@
   {
     "description": "API 3.0: Returns student's performance data for a specific unit in a class and course",
     "request": {
+      "url": "^/api/nucleus-insights/v2/class/class-for-pochita-as-student/course/(.+)/unit/7deebd55-1976-40a2-8e46-3b8ec5b6d388/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "student-performance-overview-unit-200-response.json"
+    }
+  },
+
+  {
+    "description": "API 3.0: Returns student's performance data for a specific unit in a class and course",
+    "request": {
       "url": "^/api/nucleus-insights/v2/class/(.+)/course/(.+)/unit/7deebd55-1976-40a2-8e46-3b8ec5b6d388/performance",
       "query": {
         "userUid": "(.+)",
@@ -425,6 +471,29 @@
       },
       "body": "File not found!",
       "file": "student-performance-unit-200-response.json"
+    }
+  },
+
+  {
+    "description": "API 3.0: Returns student's performance data for all the Units in a class and course",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/class/class-for-pochita-as-student/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/performance",
+      "query": {
+        "userUid": "(.+)",
+        "collectionType": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "student-performance-overview-course-200-response.json"
     }
   },
 

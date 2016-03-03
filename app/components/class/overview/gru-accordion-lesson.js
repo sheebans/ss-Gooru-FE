@@ -146,12 +146,6 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   loading: false,
 
-  /**
-   * Indicates if the current user is a student
-   * @property {Boolean}
-   */
-  isStudent: false,
-
   // -------------------------------------------------------------------------
   // Observers
 
@@ -211,9 +205,6 @@ export default Ember.Component.extend(AccordionMixin, {
     performancePromise.then(function(performances) {
       component.set('items', performances);
 
-      // TODO: getLessonUsers is currently dependent on items that's why this declaration
-      // takes place after setting items. Once api-sdk/course-location is complete
-      // both declarations can be put together, as they should
       let usersLocationPromise = component.getLessonUsers();
       usersLocationPromise.then(function (usersLocation) {
         component.set('usersLocation', usersLocation);
@@ -243,7 +234,7 @@ export default Ember.Component.extend(AccordionMixin, {
     const userId = component.get('session.userId');
 
     return this.get("collectionService").findByClassAndCourseAndUnitAndLesson(classId, courseId, unitId, lessonId).then(function(collections){
-      if(!component.get('isStudent')) {
+      if(component.get('isTeacher')) {
         return component.getTeacherCollections(classId, courseId, unitId, lessonId, collections);
       }
       return component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections);
@@ -288,9 +279,6 @@ export default Ember.Component.extend(AccordionMixin, {
     const unitId = component.get('unitId');
     const lessonId = component.get('model.id');
 
-    //return this.get("courseLocationService").findByCourseAndUnitAndLesson(courseId, unitId, lessonId);
-
-    // TODO: remove this after api-sdk/course-location is complete
     return component.get("courseLocationService").findByCourseAndUnitAndLesson(courseId, unitId, lessonId, { collections: component.get('items') });
   }
 

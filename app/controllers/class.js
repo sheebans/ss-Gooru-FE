@@ -27,6 +27,12 @@ export default Ember.Controller.extend({
    */
   course: null,
 
+  /**
+   * The units presented to the user
+   * @property {Unit}
+   */
+  units: null,
+
    /**
    * The menuItem selected
    * @property {String}

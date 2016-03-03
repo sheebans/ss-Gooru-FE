@@ -40,11 +40,11 @@
   <div class="panel-body">
     <ol class="collections {{if isTeacher 'teacher'}}">
 
-    {{#if items.isPending}}
+    {{#if loading}}
       {{three-bounce-spinner}}
     {{else}}
 
-      {{#each visibleItems as |item index|}}
+      {{#each items as |item index|}}
         <li class="panel {{if item.isAssessment 'assessment' 'collection'}}
           {{if item.isSubmitted 'submitted'}}
           {{set-if-equal 'selected' item.id currentResource}}

@@ -1,4 +1,5 @@
 import { test } from 'qunit';
+import wait from 'ember-test-helpers/wait';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 
@@ -17,38 +18,46 @@ moduleForAcceptance('Acceptance | class/overview', {
 test('Layout as a student', function (assert) {
   visit('/class/class-for-pochita-as-student/overview');
   andThen(function() {
+
     assert.equal(currentURL(), '/class/class-for-pochita-as-student/overview');
 
-    const $overviewContainer = find(".controller.class .controller.overview");
-    assert.ok($overviewContainer.length, 'Missing overview container');
+    var $loadingSpinner = find('.three-bounce-spinner');
+    assert.ok($loadingSpinner.length, 'Loading spinner should be displayed');
 
-    const $overviewOption = find(".class-menu");
-    assert.ok($overviewOption.find(".list-group .list-group-item.class-menu-item.overview.selected"), 'Overview option should be selected');
+    return wait().then(function() {
+      $loadingSpinner = find('.three-bounce-spinner');
+      assert.ok(!$loadingSpinner.length, 'Loading spinner should have been hidden');
 
-    const $overviewHeader = find(".overview-header", $overviewContainer);
-    assert.ok($overviewHeader.length, 'Missing overview header');
+      const $overviewContainer = find(".controller.class .controller.overview");
+      assert.ok($overviewContainer.length, 'Missing overview container');
 
-    assert.ok($overviewHeader.find("h3").length, 'Missing title');
-    assert.ok($overviewHeader.find("button.locate").length, 'Missing locate button');
-    assert.ok(!$overviewHeader.find("button.edit-content").length, 'Edit Content button should not be present');
+      const $overviewOption = find(".class-menu");
+      assert.ok($overviewOption.find(".list-group .list-group-item.class-menu-item.overview.selected"), 'Overview option should be selected');
 
-    // The course map should be expanded all the way to the resource of the user's current location
-    // Per /app/services/api-sdk/course-location#findOneByUser,
-    // the user current location is: second unit, first lesson, second resource
-    const $expandedUnits = find(".gru-accordion-unit.expanded", $overviewContainer);
-    assert.equal($expandedUnits.length, 1, 'Wrong number of unit accordions expanded');
+      const $overviewHeader = find(".overview-header", $overviewContainer);
+      assert.ok($overviewHeader.length, 'Missing overview header');
 
-    const $expandedLessons = find(".gru-accordion-lesson.expanded", $overviewContainer);
-    assert.equal($expandedLessons.length, 1, 'Wrong number of lesson accordions expanded');
+      assert.ok($overviewHeader.find("h3").length, 'Missing title');
+      assert.ok($overviewHeader.find("button.locate").length, 'Missing locate button');
+      assert.ok(!$overviewHeader.find("button.edit-content").length, 'Edit Content button should not be present');
+      // The course map should be expanded all the way to the resource of the user's current location
+      // Per /app/services/api-sdk/course-location#findOneByUser,
+      // the user current location is: second unit, first lesson, second resource
+      const $expandedUnits = find(".gru-accordion-unit.expanded", $overviewContainer);
+      assert.equal($expandedUnits.length, 1, 'Wrong number of unit accordions expanded');
 
-    var $accordion = find(".gru-accordion-unit:eq(1)", $overviewContainer);
-    assert.ok($accordion.hasClass('expanded'), 'Second unit should be expanded');
+      const $expandedLessons = find(".gru-accordion-lesson.expanded", $overviewContainer);
+      assert.equal($expandedLessons.length, 1, 'Wrong number of lesson accordions expanded');
 
-    $accordion = find(".gru-accordion-lesson:eq(0)", $accordion);
-    assert.ok($accordion.hasClass('expanded'), 'First lesson in the second unit should be expanded');
+      var $accordion = find(".gru-accordion-unit:eq(1)", $overviewContainer);
+      assert.ok($accordion.hasClass('expanded'), 'Second unit should be expanded');
 
-    var $resource = find(".collections .panel:eq(1)", $accordion);
-    assert.ok($resource.hasClass('selected'), 'Second resource should be marked as selected');
+      $accordion = find(".gru-accordion-lesson:eq(0)", $accordion);
+      assert.ok($accordion.hasClass('expanded'), 'First lesson in the second unit should be expanded');
+
+      var $resource = find(".collections .panel:eq(1)", $accordion);
+      assert.ok($resource.hasClass('selected'), 'Second resource should be marked as selected');
+    });
   });
 });
 

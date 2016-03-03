@@ -40,22 +40,21 @@ export default Ember.Route.extend({
     const route = this;
     const classId = params.classId;
     const classPromise = this.get("classService").findById(classId);
-
-    const coursePromise = classPromise.then(function(classObj) {
-      return route.get('courseService').findById(classObj.get('course'));
-    });
-    const unitsPromise = classPromise.then(function(classObj) {
-      return route.get('unitService').findByClassAndCourse(classId, classObj.get('course'));
-    });
-
     const memberPromise = this.get("userService").findMembersByClass(classId);
 
-    return Ember.RSVP.hash({
-      class: classPromise,
-      course: coursePromise,
-      units: unitsPromise,
-      members: memberPromise
+    return classPromise.then(function(classObj) {
+        return route.get('unitService').findByClassAndCourse(classId, classObj.get('course')).then(function(units){
+          return route.get('courseService').findById(classObj.get('course')).then(function(course){
+            return Ember.RSVP.hash({
+              class: classObj,
+              course: course,
+              units: units,
+              members: memberPromise
+            });
+          });
+        });
     });
+
   },
 
   /**
@@ -64,8 +63,10 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
+    console.log('modelSetup',model);
     controller.set("class", model.class);
     controller.set("course", model.course);
+    controller.set("units", model.units);
     controller.set("members", model.members);
   },
 
