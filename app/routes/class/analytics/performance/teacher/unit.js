@@ -74,8 +74,10 @@ export default Ember.Route.extend({
     controller.set('lessons', model.lessons);
     controller.set('unitId', model.unit);
 
-    //enabling filters
-    controller.set("teacherController.showFilters", true);
+    //updating the unit in the teacher controller
+    controller.set("teacherController.unit", model.unit);
+    //updating the collectionLevel to show or not the launch anonymous button
+    controller.set("teacherController.collectionLevel", false);
 
   }
 });

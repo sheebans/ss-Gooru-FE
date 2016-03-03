@@ -1,7 +1,5 @@
 .gru-actions-bar {
-  padding-top: 35px;
-  padding-left: 5px;
-  text-align: left;
+  text-align: right;
   .drop-menu {
     button{
       -webkit-flex-direction: row;
@@ -14,8 +12,6 @@
       align-items: center;
       -webkit-align-content: stretch;
       align-content: stretch;
-      display: -webkit-flex;
-      display: flex;
       border-right: 1px solid white;
       &:last-child{border-right:none}
       i{
