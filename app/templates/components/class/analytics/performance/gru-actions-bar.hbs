@@ -7,7 +7,7 @@
   <button class="btn btn-info download" {{action 'download'}}>{{gru-icon name='file_download'}} <span>{{t "class.analytics.performance.actions.download"}}</span></button>
   <button class="btn btn-info full-screen hidden-sm hidden-xs {{if isFullScreen 'exit-full-screen' 'view-full-screen'}}" {{action 'toggleFullScreen'}}>
     {{#if isFullScreen}}
-      {{gru-icon name='exit_fullscreen'}} <span>{{t "class.analytics.performance.actions.exitFullScreen"}}</span>
+      {{gru-icon name='fullscreen_exit'}} <span>{{t "class.analytics.performance.actions.exitFullScreen"}}</span>
     {{else}}
       {{gru-icon name='fullscreen'}} <span>{{t "class.analytics.performance.actions.fullScreen"}}</span>
     {{/if}}
