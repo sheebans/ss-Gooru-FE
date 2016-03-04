@@ -51,7 +51,7 @@ export default Ember.Object.extend({
         //Commons fields for real time and student collection performance
         resourceId: payload.gooruOId,
         reaction: payload.reaction,
-        timeSpent: payload.timeSpen,
+        timeSpent: payload.timeSpent,
         userAnswer: util.toUserAnswer(answerObjects),
 
         //fields only for real time
@@ -92,7 +92,7 @@ export default Ember.Object.extend({
    * @returns {AnswerObject[]}
    */
   normalizeAnswerObjects: function(answerObjects){
-    answerObjects = (!answerObjects || answerObjects === "N/A") ? [] : answerObjects;
+    answerObjects = (!answerObjects || answerObjects === "N/A" ||  answerObjects === "NA") ? [] : answerObjects;
     if (typeof answerObjects === "string"){
       answerObjects = JSON.parse(answerObjects);
     }
