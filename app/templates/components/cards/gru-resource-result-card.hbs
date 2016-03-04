@@ -1,0 +1,37 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="card-icon">
+      {{#if item.resource.isQuestion }}
+        <i class="question-icon"></i>
+      {{else}}
+        <i class="{{item.resource.resourceFormat}}-icon"></i>
+      {{/if}}
+    </div>
+    <div class="resource-description">
+      {{#if item.resource.isQuestion }}
+        <div class="title">{{item.resource.text}}</div>
+        <div class="format">{{t (concat 'common.question-type.' item.resource.questionType) }}</div>
+      {{else}}
+        <div class="title">{{item.resource.title}}</div>
+        <div class="format">{{t (concat 'common.resource-format.' item.resource.resourceFormat) }}</div>
+      {{/if}}
+    </div>
+  </div>
+  <div class="panel-footer {{if item.timeSpent "bdg-blue"}}">
+    <div class="result-details {{if item.timeSpent "hasStarted"}}">
+      {{#if item.timeSpent}}
+        <div>
+          {{gru-icon name='av_timer'}}{{formatTime item.timeSpent}}
+          {{#if item.reaction}}
+            <span class="resource-reaction">
+              {{reactionIcon item.reaction}}
+            </span>
+          {{/if}}
+        </div>
+      {{else}}
+        <p class="status">{{t "cards.gru-resource-result-card.skipped"}}</p>
+      {{/if}}
+    </div>
+  </div>
+</div>
+

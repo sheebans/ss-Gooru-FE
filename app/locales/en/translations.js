@@ -493,7 +493,7 @@ export default {
       "remixed-by":"Remixed by",
       "remix":"Remix"
     },
-    "gru-resource-card":{
+    "gru-resource-result-card": {
       "skipped":"Skipped"
     },
     "gru-profile-card": {

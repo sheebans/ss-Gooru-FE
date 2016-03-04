@@ -3,7 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 import Ember from 'ember';
 
-moduleForComponent('cards/gru-resource-card', 'Integration | Component | cards/gru resource card', {
+moduleForComponent('cards/gru-resource-result-card', 'Integration | Component | cards/gru resource result card', {
   integration: true,
   beforeEach: function () {
     this.container.lookup('service:i18n').set("locale", "en");
@@ -23,9 +23,9 @@ test('Resource card that is not a question and it has not been started', functio
 
   this.set('mockResourceResult', mockResourceResult);
 
-  this.render(hbs`{{cards/gru-resource-card item=mockResourceResult}}`);
+  this.render(hbs`{{cards/gru-resource-result-card item=mockResourceResult}}`);
 
-  const $component = this.$('.gru-resource-card');
+  const $component = this.$('.gru-resource-result-card');
   assert.ok($component, 'Component does not have the component class');
 
   const $detailsContainer = $component.find('.panel');
@@ -46,7 +46,7 @@ test('Resource card that is not a question and it has not been started', functio
   assert.ok($resultContainer, 'Result container not found');
 
   const $resultStatus = $resultContainer.find('p.status');
-  assert.equal(T.text($resultStatus), this.get('i18n').t('cards.gru-resource-card.skipped').toString(), 'Wrong result status text');
+  assert.equal(T.text($resultStatus), this.get('i18n').t('cards.gru-resource-result-card.skipped').toString(), 'Wrong result status text');
 
 
 });
@@ -64,9 +64,9 @@ test('Resource card that is not a question and it has been viewed but not reacte
 
   this.set('mockResourceResult', mockResourceResult);
 
-  this.render(hbs`{{cards/gru-resource-card item=mockResourceResult}}`);
+  this.render(hbs`{{cards/gru-resource-result-card item=mockResourceResult}}`);
 
-  const $component = this.$('.gru-resource-card');
+  const $component = this.$('.gru-resource-result-card');
   assert.ok($component, 'Component does not have the component class');
 
   const $resultContainer = $component.find('.result-details');
@@ -92,9 +92,9 @@ test('Resource card that is not a question and it has been viewed but reacted to
 
   this.set('mockResourceResult', mockResourceResult);
 
-  this.render(hbs`{{cards/gru-resource-card item=mockResourceResult}}`);
+  this.render(hbs`{{cards/gru-resource-result-card item=mockResourceResult}}`);
 
-  const $component = this.$('.gru-resource-card');
+  const $component = this.$('.gru-resource-result-card');
   assert.ok($component, 'Component does not have the component class');
 
   const $resultContainer = $component.find('.result-details');
@@ -121,9 +121,9 @@ test('Resource card that is a question', function (assert) {
 
   this.set('mockQuestionResult', mockQuestionResult);
 
-  this.render(hbs`{{cards/gru-resource-card item=mockQuestionResult}}`);
+  this.render(hbs`{{cards/gru-resource-result-card item=mockQuestionResult}}`);
 
-  const $component = this.$('.gru-resource-card');
+  const $component = this.$('.gru-resource-result-card');
   assert.ok($component, 'Component does not have the component class');
 
   const $detailsContainer = $component.find('.panel');
