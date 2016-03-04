@@ -6,7 +6,7 @@
           class="section-title">{{course-sections-prefix  index=index type=performance.type longName=false}}&colon;     {{performance.title}}</span>
     </span>
   {{#if performance.isCollectionOrAssessment}}
-    <div>
+    <div class="hidden-xs">
       {{#if performance.isCompleted}}
         <div class="btn-group">
           <button class="btn btn-info collection-view-report-button">
@@ -37,6 +37,18 @@
     {{ charts/gru-completion-chart
     completed=performance.completionDone
     total=performance.completionTotal }}
+  {{else}}
+    <div class="visible-xs">
+      {{#if performance.isCompleted}}
+          <button class="btn btn-info collection-redo-button" {{action "selectResource" performance.id}}>
+            {{gru-icon name="replay"}}
+          </button>
+      {{else}}
+        <button class="btn btn-info collection-study-button" {{action "selectResource" performance.id}}>
+          {{gru-icon name='near_me'}}
+        </button>
+      {{/if}}
+    </div>
   {{/if}}
 </li>
 <li class="timeSpent {{if timeSpentSelected 'selected'}}">

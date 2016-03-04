@@ -13,8 +13,8 @@
           width:235px;
         }
         text-align: center;
-        &.active a span{
-
+        &.active{
+          text-align:left;
         }
         a {
           padding: 0 0 11px 0;
@@ -26,18 +26,13 @@
             padding:0 25px 10px 25px;
             display: block;
           }
-          .active &{
-            background-color: red;
+          .active & span{
+            opacity: 1;
           }
           span{
             opacity: 0.6;
             color: black;
             font-weight: normal;
-            font-size: $font-size-lead;
-            .active &{
-              opacity: 1;
-              font-weight: bold;
-            }
           }
         }
       }

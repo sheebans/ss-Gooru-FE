@@ -23,19 +23,19 @@ test('Data Picker Layout', function(assert) {
   const $options = $component.find(".option-picker li");
   assert.equal($options.length, 5, "Incorrect number of options displayed");
 
-  const $optionScore = $component.find(".option-picker li div.score");
+  const $optionScore = $component.find(".option-picker li label.score");
   T.exists(assert, $optionScore, 'Missing Score option');
 
-  const $optionCompletion = $component.find(".option-picker li div.completion");
+  const $optionCompletion = $component.find(".option-picker li label.completion");
   T.exists(assert, $optionCompletion, 'Missing Completion option');
 
-  const $optionTime = $component.find(".option-picker li div.timeSpent");
+  const $optionTime = $component.find(".option-picker li label.timeSpent");
   T.exists(assert, $optionTime, 'Missing Time option');
 
-  const $optionReaction = $component.find(".option-picker li div.reaction");
+  const $optionReaction = $component.find(".option-picker li label.reaction");
   T.exists(assert, $optionReaction, 'Missing Reaction option');
 
-  const $optionAttempt = $component.find(".option-picker li div.attempts");
+  const $optionAttempt = $component.find(".option-picker li label.attempts");
   T.exists(assert, $optionAttempt, 'Missing Attempts option');
 });
 
@@ -49,10 +49,10 @@ test('Data Picker Default', function(assert) {
   const $optionsActive = $component.find("input[checked]");
   assert.equal($optionsActive.length, 1, "Incorrect number of checked options");
 
-  const $optionScore = $component.find(".option-picker li div.score input[checked]");
+  const $optionScore = $component.find(".option-picker li label.score input[checked]");
   assert.ok($optionScore.length, "Score option should be checked by default");
 
-  const $optionCompletion = $component.find(".option-picker li div.completion input[checked]");
+  const $optionCompletion = $component.find(".option-picker li label.completion input[checked]");
   assert.ok(!$optionCompletion.length, "Completion option should not be checked by default");
 
 });
@@ -140,7 +140,7 @@ test('Verify the option can not be unselected when is readOnly', function(assert
   var $dataPicker = $component.find(".option-picker");
   $dataPicker.find("li:eq(1) input").click();//Select completion
   $dataPicker.find("li:eq(0) input").click();//try unselected score
-  const $optionScore = $component.find(".option-picker li div.score input[checked]");
+  const $optionScore = $component.find(".option-picker li label.score input[checked]");
   assert.ok($optionScore.length, "Score can not be unselected");
 });
 
