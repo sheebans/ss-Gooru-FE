@@ -4,7 +4,7 @@
       "userUid": "pochita",
       "usageData": [
         {
-          "lessonId": "27f0bc24-c2b5-40d8-bb8f-e6ec939ad553",
+          "lessonId": "fbd76aed-1b8d-4c2c-a9c6-c7603eef347c",
           "completedCount": 5,
           "scoreInPercentage": 65,
           "timeSpent": 89141,
@@ -12,7 +12,7 @@
           "totalCount": 10
         },
         {
-          "lessonId": "40fe7ec4-261f-43aa-882b-e678fc754256",
+          "lessonId": "aaac5d15-8434-43ff-8f8b-78cf0b6fd032",
           "completedCount": 0,
           "scoreInPercentage": 10,
           "timeSpent": 32366,
@@ -20,17 +20,9 @@
           "totalCount": 0
         },
         {
-          "lessonId": "5c9e8048-493a-489c-89e1-80be13c4bed0",
+          "lessonId": "cc2bc04c-05ab-4407-9d76-b7021d6138e3",
           "completedCount": 0,
           "scoreInPercentage": 30,
-          "timeSpent": 32366,
-          "attempts": 4,
-          "totalCount": 0
-        },
-        {
-          "lessonId": "f5d94f21-e4e1-42c6-b697-688193294aa6",
-          "completedCount": 0,
-          "scoreInPercentage": 45,
           "timeSpent": 32366,
           "attempts": 4,
           "totalCount": 0

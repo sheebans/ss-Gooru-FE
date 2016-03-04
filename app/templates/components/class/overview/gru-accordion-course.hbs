@@ -1,6 +1,7 @@
 <ol class="accordion-course" role="tablist" aria-multiselectable="true">
-
+  {{#if loading}}
     {{three-bounce-spinner}}
+  {{else}}
 
     {{#each items as |item index|}}
 
@@ -19,5 +20,6 @@
       <li>{{t "common.contentUnavailable"}}</li>
     {{/each}}
 
+  {{/if}}
 </ol>
 

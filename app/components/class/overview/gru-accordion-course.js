@@ -91,10 +91,8 @@ export default Ember.Component.extend(AccordionMixin, {
     let component = this;
     component.set("loading", true);
     let performancePromise = component.getUnitsPerformance();
-    console.log('per',performancePromise);
     performancePromise.then(function(performances){
       component.set('items', performances); //setting the units to the according mixin
-      console.log(performances);
 
       // TODO: getCourseUsers is currently dependent on items that's why this declaration
       // takes place after setting items. Once api-sdk/course-location is complete
@@ -129,6 +127,7 @@ export default Ember.Component.extend(AccordionMixin, {
 
     if (parsedLocation.length === 3) {
       currentResource = parsedLocation[2];
+      console.log(currentResource);
     } else {
       Ember.Logger.warn('The user location does not specify a current resource');
     }
@@ -226,8 +225,6 @@ export default Ember.Component.extend(AccordionMixin, {
       return component.getTeacherUnits(classId, courseId, units);
     }
 
-    console.log('UnitsWithName', units);
-
     return this.get('performanceService').findStudentPerformanceByCourse(userId, classId, courseId, units);
   },
 
@@ -255,11 +252,8 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   getCourseUsers: function() {
     const courseId = this.get('currentClass.course');
-
-    //return this.get("courseLocationService").findByCourse(courseId);
-
-    // TODO: remove this after api-sdk/course-location is complete
     const component = this;
+
     return component.get("courseLocationService").findByCourse(courseId, { units: component.get("units")});
 
   }

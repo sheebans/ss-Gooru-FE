@@ -24,6 +24,9 @@ export default Ember.Route.extend({
    */
   courseService: Ember.inject.service('api-sdk/course'),
 
+  /**
+   * @type {UnitService} Service to retrieve unit information
+   */
   unitService: Ember.inject.service('api-sdk/unit'),
 
   // -------------------------------------------------------------------------
@@ -63,7 +66,6 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
-    console.log('modelSetup',model);
     controller.set("class", model.class);
     controller.set("course", model.course);
     controller.set("units", model.units);
