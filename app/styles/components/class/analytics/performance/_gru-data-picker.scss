@@ -1,27 +1,76 @@
-.gru-data-picker {
-  @media (max-width: $screen-xs) {
+ .gru-data-picker {
     margin: 0 auto;
     text-align: center;
-  }
-  .checkbox {
-    label {
-      padding: 0;
-      height: 24px;
-      display: table;
+   .list-inline{
+     -webkit-flex-direction: row;
+     flex-direction: row;
+     -webkit-flex-wrap: nowrap;
+     flex-wrap: nowrap;
+     -webkit-justify-content: space-around;
+     justify-content: space-around;
+     -webkit-align-items: center;
+     align-items: center;
+     -webkit-align-content: stretch;
+     align-content: stretch;
+     display: -webkit-flex;
+     display: flex;
+   }
+    .checkbox {
+      -webkit-flex-direction: column;
+      flex-direction: column;
+      -webkit-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-align-content: center;
+      align-content: center;
+      display: -webkit-flex;
+      display: flex;
       input {
         color: $white;
-        width: 21px;
-        height: 24px;
         margin: 0;
-        display: table-cell;
-        vertical-align: middle;
       }
-      input[type="checkbox"]:checked:before {
-        top: 3px;
+      input[type="checkbox"]:checked:after {
+        background-color: $blue-400;
       }
-      span {
-        display: table-cell;
-        vertical-align: middle;
+      input[type="checkbox"]:after {
+        background-color: $gray-light;
+        border:none;
+        border-radius:50%;
+        @media (min-width: $screen-sm) {
+          border: 2px solid #666;
+          border-radius: 3px;
+        }
+      }
+      label {
+        padding: 0;
+      }
+    }
+  }
+.analytics-performance-student{
+  .gru-data-picker .checkbox {
+    input[type="checkbox"]:checked:before {
+      top:3px;
+      content:none;
+    }
+    input[type="checkbox"]:after{
+      margin:0;
+    }
+  }
+}
+.analytics-performance-teacher {
+  .gru-data-picker {
+    .checkbox {
+      padding: 0;
+      -webkit-flex-direction: row;
+      flex-direction: row;
+      input[type="checkbox"]:after{
+        background-color: transparent;
+      }
+      input[type="checkbox"]:checked:after{
+        background-color: $blue-400;
       }
     }
   }
