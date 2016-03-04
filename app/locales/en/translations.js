@@ -331,11 +331,11 @@ export default {
   },
 
   "search-result": {
-    "resource": "resource",
-    "resources": "resources",
+    "resource": "Resource",
+    "resources": "Resources",
     "and": "and",
-    "question": "question",
-    "questions": "questions",
+    "question": "Question",
+    "questions": "Questions",
     "in-this-collection": "in this collection",
     "search-results-for": "Search Results for"
   },
@@ -491,7 +491,8 @@ export default {
     "gru-course-card":{
       "units":"Units",
       "remixed-by":"Remixed by",
-      "remix":"Remix"
+      "remix":"Remix",
+      "created":"Created by"
     },
     "gru-resource-card":{
       "skipped":"Skipped"

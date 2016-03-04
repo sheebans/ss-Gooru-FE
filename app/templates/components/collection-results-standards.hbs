@@ -1,15 +1,15 @@
-<div class="collection-results-standards pa-md-1 pa-sm-0">
+<div class="collection-results-standards">
   {{#each fillStandardsTooltipSection as |standard|}}
-    <div class="uc-search-standard pa-md-1 pa-sm-0">
+    <div class="uc-search-standard">
       <div class="label" data-toggle="tooltip" data-placement="bottom" title="{{standard.description}}">
-        <button class="btn btn-link" {{action "showModal" "gru-standards-popup" standards}}>{{standard.name}}</button>
+        <button class="btn-standard btn btn-primary truncate btn-xs">{{standard.name}}</button>
       </div>
     </div>
   {{/each}}
   {{#if quantityTooltips}}
-    <div class="blue-link pa-left-1 pa-top-2" data-html="true" data-toggle="tooltip" data-placement="bottom"
+    <div data-html="true" data-toggle="tooltip" data-placement="bottom"
          title="{{tooltipStandards}}">
-      <button class="btn btn-link" {{action "showModal" "gru-standards-popup" standards}}>+{{quantityTooltips}}</button>
+      <a>+{{quantityTooltips}}</a>
     </div>
   {{/if}}
 </div>
