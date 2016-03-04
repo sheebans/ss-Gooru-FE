@@ -28,6 +28,18 @@ test('urlForGetEvents', function (assert) {
   assert.equal(url, '/nucleus/realtime/class/the-class-id/collection/the-collection-id/events', 'Wrong url');
 });
 
+test('urlForPostAttempt', function (assert) {
+  const adapter = this.subject();
+  const query = {
+    classId: 'the-class-id',
+    collectionId: 'the-collection-id',
+    userId: 'the-user-id'
+  };
+  const url = adapter.urlForPostAttempt(query);
+
+  assert.equal(url, '/nucleus/realtime/class/the-class-id/collection/the-collection-id/user/the-user-id/complete', 'Wrong url');
+});
+
 test('urlForDeleteAttempt', function (assert) {
   const adapter = this.subject();
   const query = {

@@ -39,7 +39,7 @@ export default Ember.Object.extend(SessionMixin, {
       dataType: 'json',
       headers: this.get('headers')
     };
-    return Ember.$.ajax(this.get('namespace') + path, options);
+    return Ember.$.ajax(path, options);
   },
 
   urlForGetEvents: function(query) {
@@ -50,20 +50,21 @@ export default Ember.Object.extend(SessionMixin, {
   },
 
   postAttempt: function(query) {
-    const path = this.generatePostAttemptUrl(query);
+    const path = this.urlForPostAttempt(query);
     const options = {
       type: 'POST',
       dataType: 'text',
       headers: this.get('headers')
     };
-    return Ember.$.ajax(this.get('namespace') + path, options);
+    return Ember.$.ajax(path, options);
   },
 
-  generatePostAttemptUrl: function(query) {
+  urlForPostAttempt: function(query) {
+    const namespace = this.get('namespace');
     const classId = query.classId;
     const collectionId = query.collectionId;
     const userId = query.userId;
-    return `/class/${classId}/collection/${collectionId}/user/${userId}/complete`;
+    return `${namespace}/class/${classId}/collection/${collectionId}/user/${userId}/complete`;
   },
 
   deleteAttempt: function(query) {
