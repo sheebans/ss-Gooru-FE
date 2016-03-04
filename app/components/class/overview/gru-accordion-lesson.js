@@ -203,18 +203,20 @@ export default Ember.Component.extend(AccordionMixin, {
     var performancePromise = component.getCollectionPerformances();
     component.set("loading", true);
     performancePromise.then(function(performances) {
-      component.set('items', performances);
+      if (!component.get("isDestroyed")){
+        component.set('items', performances);
 
-      let usersLocationPromise = component.getLessonUsers();
-      usersLocationPromise.then(function (usersLocation) {
-        component.set('usersLocation', usersLocation);
+        let usersLocationPromise = component.getLessonUsers();
+        usersLocationPromise.then(function (usersLocation) {
+          component.set('usersLocation', usersLocation);
 
-        let userLocation = component.get('userLocation');
-        if (!component.get('location') && userLocation) {
-          component.set('location', userLocation);
-        }
-      });
-      component.set("loading", false);
+          let userLocation = component.get('userLocation');
+          if (!component.get('location') && userLocation) {
+            component.set('location', userLocation);
+          }
+        });
+        component.set("loading", false);
+      }
     });
   },
 
