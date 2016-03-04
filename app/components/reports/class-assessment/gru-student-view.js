@@ -28,7 +28,7 @@ export default Ember.Component.extend({
      * @function actions:sort
      */
     sortStudentView:function(sort) {
-      this.set('sortAverage', sort);
+      this.set('sortAlphabetically', sort);
     }
   },
 
@@ -102,8 +102,15 @@ export default Ember.Component.extend({
    *
    * @property {Boolean}
    */
-  sortAverage:true,
+  sortAlphabetically:true,
 
+  studentPerformanceListSorting: ['student.fullName'],
+  sortedStudentPerformance: Ember.computed.sort('studentPerformanceList', 'studentPerformanceListSorting'),
+
+
+
+  studentPerformanceListSortingByAverage: ['score'],
+  sortedStudentPerformanceByAverage: Ember.computed.sort('studentPerformanceList', 'studentPerformanceListSortingByAverage'),
   // -------------------------------------------------------------------------
   // Methods
 
