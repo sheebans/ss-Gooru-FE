@@ -12,17 +12,6 @@ export default Ember.Object.extend(SessionMixin, {
   }),
 
   queryRecord: function(query) {
-    const url = this.urlForGetCollectionPerformance(query);
-    const options = {
-      type: 'GET',
-      dataType: 'json',
-      headers: this.get('headers'),
-      data: {}
-    };
-    return Ember.$.ajax(url, options);
-  },
-
-  urlForGetCollectionPerformance: function(query) {
     const namespace = this.get('namespace');
     const classId = query.classId;
     const courseId = query.courseId;
@@ -30,7 +19,14 @@ export default Ember.Object.extend(SessionMixin, {
     const lessonId = query.lessonId;
     const collectionId = query.collectionId;
     const collectionType = query.collectionType;
-    return `${namespace}/class/${classId}/course/${courseId}/unit/${unitId}/lesson/${lessonId}/${collectionType}/${collectionId}/performance`;
+    const url = `${namespace}/class/${classId}/course/${courseId}/unit/${unitId}/lesson/${lessonId}/${collectionType}/${collectionId}/performance`;
+    const options = {
+      type: 'GET',
+      dataType: 'json',
+      headers: this.get('headers'),
+      data: {}
+    };
+    return Ember.$.ajax(url, options);
   }
 
 });

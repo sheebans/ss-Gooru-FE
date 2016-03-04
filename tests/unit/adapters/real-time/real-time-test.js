@@ -1,20 +1,42 @@
 import { moduleFor, test } from 'ember-qunit';
+import Pretender from 'pretender';
 
 moduleFor('adapter:real-time/real-time', 'Unit | Adapter | real-time/real-time', {
   // Specify the other units that are required for this test.
   // needs: ['serializer:foo']
+  beforeEach: function() {
+    this.pretender = new Pretender();
+  },
+  afterEach: function() {
+    this.pretender.shutdown();
+  }
 });
 
-test('urlForPostEvent', function (assert) {
+test('postData', function(assert) {
   const adapter = this.subject();
-  const query = {
-    classId: 'the-class-id',
-    collectionId: 'the-collection-id',
-    userId: 'the-user-id'
+  const data = {
+    query: {
+      classId: 'the-class-id',
+      collectionId: 'the-collection-id',
+      userId: 'the-user-id'
+    },
+    body: {}
   };
-  const url = adapter.urlForPostEvent(query);
+  const routes = function() {
+    this.post('/nucleus/realtime/class/the-class-id/collection/the-collection-id/user/the-user-id/event', function() {
+      return [200, {'Content-Type': 'text/plain'}, ""];
+    }, false);
+  };
 
-  assert.equal(url, '/nucleus/realtime/class/the-class-id/collection/the-collection-id/user/the-user-id/event', 'Wrong url');
+  this.pretender.map(routes);
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  adapter.postData(data)
+    .then(function(response) {
+      assert.equal("", response, 'Wrong response');
+    });
 });
 
 test('urlForGetEvents', function (assert) {

@@ -1,11 +1,18 @@
 import { moduleFor, test } from 'ember-qunit';
+import Pretender from 'pretender';
 
 moduleFor('adapter:analytics/analytics', 'Unit | Adapter | analytics/analytics', {
   // Specify the other units that are required for this test.
   // needs: ['serializer:foo']
+  beforeEach: function() {
+    this.pretender = new Pretender();
+  },
+  afterEach: function() {
+    this.pretender.shutdown();
+  }
 });
 
-test('urlForGetCollectionPerformance', function (assert) {
+test('queryRecord', function(assert) {
   const adapter = this.subject();
   const query = {
     classId: 'the-class-id',
@@ -15,7 +22,19 @@ test('urlForGetCollectionPerformance', function (assert) {
     collectionId: 'the-collection-id',
     collectionType: 'the-collection-type'
   };
-  const url = adapter.urlForGetCollectionPerformance(query);
+  const routes = function() {
+    this.get('/api/nucleus-insights/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/lesson/the-lesson-id/the-collection-type/the-collection-id/performance', function() {
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  };
 
-  assert.equal(url, '/api/nucleus-insights/v2/class/the-class-id/course/the-course-id/unit/the-unit-id/lesson/the-lesson-id/the-collection-type/the-collection-id/performance', 'Wrong url');
+  this.pretender.map(routes);
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  adapter.queryRecord(query)
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
 });

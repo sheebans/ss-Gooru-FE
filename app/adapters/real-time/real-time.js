@@ -12,7 +12,11 @@ export default Ember.Object.extend(SessionMixin, {
   }),
 
   postData: function(data) {
-    const url = this.urlForPostEvent(data.query);
+    const namespace = this.get('namespace');
+    const classId = data.query.classId;
+    const collectionId = data.query.collectionId;
+    const userId = data.query.userId;
+    const url = `${namespace}/class/${classId}/collection/${collectionId}/user/${userId}/event`;
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
@@ -22,14 +26,6 @@ export default Ember.Object.extend(SessionMixin, {
       data: JSON.stringify(data.body)
     };
     return Ember.$.ajax(url, options);
-  },
-
-  urlForPostEvent: function(query) {
-    const namespace = this.get('namespace');
-    const classId = query.classId;
-    const collectionId = query.collectionId;
-    const userId = query.userId;
-    return `${namespace}/class/${classId}/collection/${collectionId}/user/${userId}/event`;
   },
 
   getData: function(query) {
