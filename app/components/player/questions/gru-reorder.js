@@ -30,6 +30,47 @@ export default QuestionComponent.extend({
   // Events
   initSortableList: Ember.on('didInsertElement', function() {
     const component = this;
+    component.setAnswers();
+    if(component.get('hasUserAnswer')){
+      component.shuffle();
+    }
+    this.set('areAnswersShuffled',true);
+  }),
+
+  removeSubscriptions: Ember.on('willDestroyElement', function() {
+    this.$('.sortable').off('sortupdate');
+  }),
+
+  // -------------------------------------------------------------------------
+  // Properties
+
+  /**
+   * Convenient structure to render the question answer choices
+   * @property {*}
+   */
+  answers: Ember.computed("question.answers.[]", function(){
+    let answers = this.get("question.answers").sortBy("order");
+    let userAnswer = this.get("userAnswer");
+    if (userAnswer){ //@see gooru-web/utils/question/reorder.js
+      answers = userAnswer.map(function(answerId){
+        return answers.findBy("id", answerId);
+      });
+    }
+    return answers;
+  }),
+  /**
+   * Return true if the answers list are shuffled
+   * @property {Boolean}
+   */
+  areAnswersShuffled:false,
+
+  // -------------------------------------------------------------------------
+  // Methods
+  /**
+   * Set answers
+   */
+  setAnswers: function(){
+    const component = this;
     const sortable = this.$('.sortable');
     const questionUtil = this.get("questionUtil");
     const readOnly = component.get("readOnly");
@@ -54,36 +95,24 @@ export default QuestionComponent.extend({
       component.notifyAnswerChanged(answers, correct);
       component.notifyAnswerCompleted(answers, correct);
     });
-
-  }),
-
-  removeSubscriptions: Ember.on('willDestroyElement', function() {
-    this.$('.sortable').off('sortupdate');
-  }),
-
-  // -------------------------------------------------------------------------
-  // Properties
-
+  },
   /**
-   * Convenient structure to render the question answer choices
-   * @property {*}
+   * Take the list of items and shuffle all his members
    */
-  answers: Ember.computed("question.answers.[]", function(){
-    let answers = this.get("question.answers").sortBy("order");
-    let userAnswer = this.get("userAnswer");
-    if (userAnswer){ //@see gooru-web/utils/question/reorder.js
-      answers = userAnswer.map(function(answerId){
-        return answers.findBy("id", answerId);
-      });
-    }
-    return answers;
-  })
+    shuffle: function(){
+    const component = this;
+    const $items = component.$('.sortable') ;
+    return $items.each(function(){
+      var items = $items.children().clone(true);
+      return (items.length) ? $(this).html(component.disorder(items)) : $items;
 
-  // -------------------------------------------------------------------------
-  // Observers
-
-
-  // -------------------------------------------------------------------------
-  // Methods
-
+    });
+    },
+  /**
+   * Disorder elements
+   */
+    disorder: function(list){
+    for(var j, x, i = list.length; i; j = parseInt(Math.random() * i), x = list[--i], list[i] = list[j], list[j] = x){}
+    return list;
+   }
 });

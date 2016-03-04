@@ -23,18 +23,8 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-
   // -------------------------------------------------------------------------
   // Events
-  /**
-   * On init set question properties
-   */
-  setQuestionProperties: Ember.on('init', function() {
-    let question = this.get("question");
-    let type = question.get("questionType");
-    let questionUtil = getQuestionUtil(type).create({ question: question });
-    this.set("questionUtil", questionUtil);
-  }),
 
   // -------------------------------------------------------------------------
   // Properties
@@ -64,7 +54,11 @@ export default Ember.Component.extend({
    * Question Util based on the question type
    * @property {QuestionUtil}
    */
-  questionUtil: null,
+  questionUtil: Ember.computed("question", function(){
+    let question = this.get("question");
+    let type = question.get("questionType");
+    return getQuestionUtil(type).create({ question: question });
+  }),
 
   /**
    * Indicates if the question is readOnly
@@ -77,11 +71,29 @@ export default Ember.Component.extend({
    * @see gooru-web/utils/question/multiplce-choice.js
    */
   userAnswer: null,
+  /**
+   * Indicate if the question has a user answer
+   * @property {Boolean}
+   */
+  hasUserAnswer:Ember.computed("userAnswer", function () {
+    return this.get("userAnswer")===null||this.get("userAnswer")===undefined ? true : false;
+  }),
 
 
   // -------------------------------------------------------------------------
   // Observers
+  // -------------------------------------------------------------------------
+  // Observers
 
+  /**
+   * Refresh items when the question changes
+   */
+
+  refreshAnswers: Ember.observer('question.id', function() {
+    if (typeof this.setAnswers === 'function') {
+      this.setAnswers();
+    }
+  }),
 
   // -------------------------------------------------------------------------
   // Methods

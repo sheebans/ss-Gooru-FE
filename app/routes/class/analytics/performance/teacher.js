@@ -31,7 +31,7 @@ export default Ember.Route.extend({
       else {
         this.transitionTo(breadcrumbLink, itemId);
       }
-    },
+    }
   },
 
   // -------------------------------------------------------------------------

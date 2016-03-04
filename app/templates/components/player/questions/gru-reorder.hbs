@@ -4,12 +4,12 @@
 </p>
 
 <div class="answer-choices">
-  <ul class="sortable {{if readOnly 'disabled'}}">
-    {{#each answers as |answer|}}
-      <li data-id="{{answer.id}}">
-        {{gru-icon name='menu'}}
-        <div>{{{answer.text}}}</div>
-      </li>
-    {{/each}}
-  </ul>
+    <ul class="sortable {{if readOnly 'disabled'}} {{if areAnswersShuffled 'show' 'hidden'}}">
+      {{#each answers as |answer|}}
+        <li data-id="{{answer.id}}">
+          {{gru-icon name='menu'}}
+          <div>{{{answer.text}}}</div>
+        </li>
+      {{/each}}
+    </ul>
 </div>

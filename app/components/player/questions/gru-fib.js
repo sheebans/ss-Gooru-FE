@@ -28,10 +28,7 @@ export default QuestionComponent.extend({
   // Events
   initInputEvents: function () {
     const component = this;
-    const inputs = component.$(".fib-answers input[type=text]");
-    inputs.on("keyup", function () {
-      component.notifyInputAnswers();
-    });
+    component.setAnswers();
   }.on('didInsertElement'),
 
   // -------------------------------------------------------------------------
@@ -65,7 +62,6 @@ export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Observers
 
-
   // -------------------------------------------------------------------------
   // Methods
   /**
@@ -92,5 +88,15 @@ export default QuestionComponent.extend({
       component.notifyAnswerCleared(answers);
     }
 
+  },
+  /**
+   * Set answers
+   */
+  setAnswers:function(){
+    const component = this;
+    const inputs = component.$(".fib-answers input[type=text]");
+    inputs.on("keyup", function () {
+      component.notifyInputAnswers();
+    });
   }
 });

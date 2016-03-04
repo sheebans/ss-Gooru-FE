@@ -44,6 +44,25 @@ export default Ember.Controller.extend({
      */
     toggleFullScreen: function () {
       return this.get("classController").toggleFullScreen();
+    },
+
+    /**
+     * Launch an assessment on-air
+     *
+     * @function actions:launchOnAir
+     */
+    launchOnAir: function () {
+      const currentClass = this.get("classController").class;
+      const classId = currentClass.get("id");
+      const courseId = currentClass.get("course");
+      const unitId = this.get("unit.id");
+      const lessonId = this.get("lesson.id");
+      const collectionId = this.get("collection.id");
+
+      var url = 'reports/class/'+classId+'/course/'+courseId+'/unit/'+unitId+'/lesson/'+lessonId+'/collection/'+collectionId;
+
+      url += '?anonymous=true';
+      window.open(url, 'realTimeAnonymous', 'width=' + window.screen.width + ', height=' + window.screen.height + ', left=0, top=0', true);
     }
   },
 
@@ -65,6 +84,26 @@ export default Ember.Controller.extend({
    * @property {Course}
    */
   course: Ember.computed.alias('classController.course'),
+
+  /**
+   * @property {Unit} unit
+   */
+  unit: null,
+
+  /**
+   * @property {Lesson} lesson
+   */
+  lesson: null,
+
+  /**
+   * @property {Collection} collection
+   */
+  collection: null,
+
+  /**
+   * @property {Boolean} collectionLevel - shows if the collection level.
+   */
+  collectionLevel: false,
 
   /**
    * The filterBy selected
@@ -109,7 +148,7 @@ export default Ember.Controller.extend({
    * Indicates if the filters are visible
    * @property {boolean}
    */
-  showFilters: true,
+  showFilters: Ember.computed.not('collectionLevel'),
   // -------------------------------------------------------------------------
   // Observers
 
@@ -142,5 +181,14 @@ export default Ember.Controller.extend({
     //add new breadcrumb item
     breadcrumb.pushObject(breadcrumbObject);
     return breadcrumb;
+  },
+
+  /**
+   * willDestroyElement event
+   */
+  willDestroyElement: function(){
+    this.set('unit', null);
+    this.set('lesson', null);
+    this.set('collection', null);
   }
 });
