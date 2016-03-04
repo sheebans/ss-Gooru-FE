@@ -114,13 +114,13 @@ test('Clicking on an assessment in the accordions should open the player with sa
     const $unitAccordions = find('.gru-accordion-course .gru-accordion-unit');
 
     // Click on the last unit
-    click($unitAccordions.last().find('.panel-title a'));
+    click($unitAccordions.last().find('.panel-title a.title').last());
     andThen(() => {
 
       const $lessonAccordions = find('.gru-accordion-lesson', $unitAccordions.last());
 
       //Click on the last lesson
-      click($lessonAccordions.last().find('.panel-title a'));
+      click($lessonAccordions.last().find('.panel-title a.title'));
       andThen(() => {
 
         const $assessments = find('.collections', $lessonAccordions.last());
