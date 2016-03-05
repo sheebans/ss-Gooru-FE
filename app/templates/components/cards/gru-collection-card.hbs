@@ -45,8 +45,8 @@
               {{else}}
                   <img class="img-responsive" src="assets/gooru/profile.png">
               {{/if}}
-                <div class="author-name-link pa-left-2" alt="{{ collection.author }}" title="{{ collection.author }}">
-                 {{#if collection.isAssessment}}   <a href="{{ collection.profilePageUrl }}" target="_blank">{{collection.author}}</a>{{else}}<a href="" target="_blank">{{remixedByUser}}</a> +{{remixedUsers}}{{/if}}
+                <div class="author-name-link pa-left-2">
+                 {{#if collection.isAssessment}}   <a href="{{ collection.profilePageUrl }}" target="_blank">{{collection.author}}</a>{{else}}<a>{{remixedByUser}}</a> +{{remixedUsers}}{{/if}}
                 </div>
             </div>
             <div class="description col-md-12 col-sm-12 col-xs-12">
