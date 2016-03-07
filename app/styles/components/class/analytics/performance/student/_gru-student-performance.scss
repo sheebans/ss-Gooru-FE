@@ -32,7 +32,8 @@
         &.name-header{
           min-width: 16em;
           padding-left: 40px;
-          margin-right: 22px;
+          -webkit-flex-grow: 4;
+          flex-grow: 4;
         }
       }
     }
