@@ -1,0 +1,71 @@
+.cards.gru-resource-card{
+  width: 222px;
+  height: 240px;
+  .truncate {
+    width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .panel{
+    border-radius: 6px;
+    .panel-heading{
+      background-color: $white;
+      border-bottom: 1px solid $gray-lighter;
+      border-top-right-radius: 6px;
+      border-top-left-radius: 6px;
+
+      .icon{
+
+      }
+      h6{
+        margin: 5px 0 5px 0;
+        color:$gray-dark;
+      }
+      .resource-type{
+        span{
+          color:$text-color;
+        }
+      }
+    }
+    .panel-body{
+      .standards{
+        .uc-search-standard {
+          display: inline-block;
+          float: left;
+          width: 47%;
+          .truncate{
+            width: 99%;
+          }
+          .label{
+            padding: 0;
+          }
+        }
+      }
+      .publisher{
+        margin: 10px 0 10px 0;
+        img{
+          width: 30px;
+          height: 30px;
+          border-radius: 50px;
+        }
+        > *{
+          display: inline-block;
+        }
+      }
+      .description{
+        p{
+          height:92px;
+          overflow: hidden;
+        }
+        p.truncate{
+          overflow : hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+        }
+      }
+    }
+  }
+}

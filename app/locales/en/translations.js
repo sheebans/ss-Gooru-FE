@@ -488,10 +488,10 @@ export default {
     "study-time": "Study Time"
   },
   "cards":{
+    "remix":"Remix",
     "gru-course-card":{
       "units":"Units",
       "remixed-by":"Remixed by",
-      "remix":"Remix",
       "created":"Created by",
       "in":"in",
       "resource": {
@@ -503,6 +503,9 @@ export default {
         one: "{{count}} Question",
         other: "{{count}} Questions"
       }
+    },
+    "gru-resource-card":{
+      "add":"Add to",
     },
     "gru-resource-result-card": {
       "skipped":"Skipped"
