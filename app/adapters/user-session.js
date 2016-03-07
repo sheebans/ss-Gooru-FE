@@ -7,18 +7,12 @@ export default ApplicationAdapter.extend({
    * @property {string} End-point URI
    */
   namespace: '/api/nucleus-insights/v2',
-  //namespace: '/mocked-api/api/nucleus-insights/v2',
 
   headers: Ember.computed('session.token', function() {
     return {
       'gooru-session-token': this.get('session.token')
     };
   }),
-
-  generateUrl: function(namespace, collectionType, contentId, userId, classId, courseId, unitId, lessonId, openSession){
-    let queryParams = `userUid=${userId}&classGooruId=${classId}&courseGooruId=${courseId}&unitGooruId=${unitId}&lessonGooruId=${lessonId}&openSession=${openSession}`;
-    return `${namespace}/${collectionType}/${contentId}/sessions?${queryParams}`;
-  },
 
   /**
    * Builds the end-point URL for the queryRecord queryParam
@@ -42,6 +36,8 @@ export default ApplicationAdapter.extend({
     const classId = query.classId;
     const courseId = query.courseId;
     const openSession = query.openSession;
+    const queryParams = `userUid=${userId}&classGooruId=${classId}&courseGooruId=${courseId}&unitGooruId=${unitId}&lessonGooruId=${lessonId}&openSession=${openSession}`;
+    const url = `${namespace}/${collectionType}/${contentId}/sessions?${queryParams}`;
 
     delete query.classId;
     delete query.courseId;
@@ -52,8 +48,7 @@ export default ApplicationAdapter.extend({
     delete query.userId;
     delete query.openSession;
 
-    return Ember.$.ajax(this.generateUrl(namespace, collectionType, contentId, userId, classId, courseId, unitId, lessonId, openSession), options);
-
+    return Ember.$.ajax(url, options);
   }
 
 });
