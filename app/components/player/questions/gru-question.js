@@ -71,6 +71,13 @@ export default Ember.Component.extend({
    * @see gooru-web/utils/question/multiplce-choice.js
    */
   userAnswer: null,
+  /**
+   * Indicate if the question has a user answer
+   * @property {Boolean}
+   */
+  hasUserAnswer:Ember.computed("userAnswer", function () {
+    return this.get("userAnswer")===null||this.get("userAnswer")===undefined ? true : false;
+  }),
 
 
   // -------------------------------------------------------------------------

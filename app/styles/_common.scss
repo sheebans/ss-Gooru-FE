@@ -177,3 +177,27 @@ button.btn-link {
   width: 100%;
   clear: both;
 }
+
+.cards {
+  i.video-icon {
+    background-image: url("gooru/images/video-resource.svg");
+  }
+  i.webpage-icon {
+    background: url("gooru/images/website-resource.svg");
+  }
+  i.interactive-icon {
+    background: url("gooru/images/interactive-resource.svg");
+  }
+  i.question-icon {
+    background: url("gooru/images/question-resource.svg");
+  }
+  i.image-icon {
+    background: url("gooru/images/image-resource.svg");
+  }
+  i.text-icon {
+    background: url("gooru/images/text-resource.svg");
+  }
+  i.audio-icon {
+    background: url("gooru/images/audio-resource.svg");
+  }
+}
