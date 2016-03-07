@@ -37,6 +37,15 @@ export default DS.Model.extend({
    */
   author: DS.attr('string'),
   /**
+   * @property {Array} List of Collection's Remixed by
+   */
+  remixedBy: DS.attr(''),
+  /**
+   * @property {string} Collection's Course
+   */
+  course: DS.attr('string'),
+
+  /**
    * @property {string} Author's avatar
    */
   avatarUrl: DS.attr('string'),

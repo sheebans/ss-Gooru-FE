@@ -30,7 +30,7 @@ test('collection results standards layout', function(assert) {
 
     assert.equal(T.text($searchStandardLabel), standards[0].name, "Incorrect name text");
 
-    var $standardBlueLink =$component.find('.blue-link');
-    T.exists(assert, $standardBlueLink, "Missing standard blue link");
+    var $standardTooltip =$component.find('.tooltip');
+    T.exists(assert, $standardTooltip, "Missing standard blue link");
 
 });
