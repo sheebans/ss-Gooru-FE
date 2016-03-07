@@ -2,7 +2,7 @@ import Ember from 'ember';
 /**
  * Collection and Assessment card
  *
- * Component responsible of showing the colleciton or resource information in cards, so that most useful information is summarized there.
+ * Component responsible of showing the collection or assessmentO information in cards, so that most useful information is summarized there.
  * @module
  */
 

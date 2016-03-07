@@ -331,15 +331,11 @@ export default {
   },
 
   "search-result": {
-    "resource": {
-      one: "{{count}} Resource",
-      other: "{{count}} Resources"
-    },
+    "resource": "Resource",
+    "resources": "Resources",
     "and": "and",
-    "question": {
-      one: "{{count}} Question",
-      other: "{{count}} Questions"
-    },
+    "question": "Question",
+    "questions": "Questions",
     "in-this-collection": "in this collection",
     "search-results-for": "Search Results for"
   },
@@ -497,7 +493,16 @@ export default {
       "remixed-by":"Remixed by",
       "remix":"Remix",
       "created":"Created by",
-      "in":"in"
+      "in":"in",
+      "resource": {
+        one: "{{count}} Resource",
+        other: "{{count}} Resources"
+      },
+      "and": "and",
+      "question": {
+        one: "{{count}} Question",
+        other: "{{count}} Questions"
+      }
     },
     "gru-resource-card":{
       "skipped":"Skipped"
