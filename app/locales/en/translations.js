@@ -331,11 +331,15 @@ export default {
   },
 
   "search-result": {
-    "resource": "Resource",
-    "resources": "Resources",
+    "resource": {
+      one: "{{count}} Resource",
+      other: "{{count}} Resources"
+    },
     "and": "and",
-    "question": "Question",
-    "questions": "Questions",
+    "question": {
+      one: "{{count}} Question",
+      other: "{{count}} Questions"
+    },
     "in-this-collection": "in this collection",
     "search-results-for": "Search Results for"
   },

@@ -16,11 +16,10 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                   <span class="question-resources">
                     {{#if hasResources}}
-                        <span class="bar">|</span><p> {{collection.resourceCount}} {{#if hasSeveralResources}} {{t "search-result.resources"}} {{else}} {{t "search-result.resource"}} {{/if}} </p>
+                        <span class="bar">|</span><p>{{t "search-result.resource" count=collection.resourceCount}}</p>
                     {{/if}}
                     {{#if hasQuestions}}
-                        <span class="bar">|</span><p> {{collection.questionCount}}
-                      {{#if hasSeveralQuestions}}{{t "search-result.questions"}} {{else}} {{t "search-result.question"}} {{/if}}</p>
+                        <span class="bar">|</span><p>{{t "search-result.question" count=collection.questionCount}}</p>
                     {{/if}}
                   </span>
                     </div>

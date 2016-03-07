@@ -192,6 +192,7 @@ export default Ember.Controller.extend(SessionMixin, {
   collection: Ember.Object.create({
     title: "Collection Title",
     questionCount:4,
+    resourceCount: 1,
     course:"Math",
     isAssessment:false,
     standards:Ember.A([Ember.Object.create({
