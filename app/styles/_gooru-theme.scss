@@ -644,6 +644,11 @@ input[type="checkbox"],
 
 @include text-emphasis-variant('.text-danger', $pink-400);
 
+.lead{
+  font-size: 19.5px;
+  line-height: 30px;
+}
+
 // Modal =====================================================================
 
 .modal-backdrop{

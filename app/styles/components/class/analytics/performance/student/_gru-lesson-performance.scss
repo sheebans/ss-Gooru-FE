@@ -43,6 +43,7 @@
         align-content: center;
         display: -webkit-flex;
         display: flex;
+        text-decoration: none;
         @include respond-to(xs){
           height:50px;
         }
@@ -249,13 +250,16 @@
                 display: flex;
                 height: 100%;
                 padding-left: 5px;
-                @include respond-to(xs){
-                  border-left:1px solid $gray-lighter;
-                }
                 .section-title{
                   padding: 5px;
                 }
-
+                ul{
+                  -webkit-align-items: flex-end;
+                  align-items: flex-end;
+                  li p{
+                    margin:0 0 5px;
+                  }
+                }
               }
             }
           }
