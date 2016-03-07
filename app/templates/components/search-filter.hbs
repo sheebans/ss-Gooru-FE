@@ -1,84 +1,33 @@
 <section class="search-filter">
-    <div class="row pa-md-left-30 pa-sm-left-30">
-       <div class="buttons-filter">
-           <ul class="search-filter-options">
-               <li class="ma-md-2 ma-sm-2">
-                   <div class="collections-select">
-                       <div class="dropdown">
-                           <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                             {{#if resourceSelected}}
-                               {{t "search-filter.resource"}}
-                             {{else}}
-                               {{t "search-filter.collection"}}
-                             {{/if}}
-                               <span class="caret"></span>
-                           </button>
-                           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                               <li class="collection" {{action 'onCollectionSelected'}}><a>{{t "search-filter.collection"}}</a></li>
-                               <li class="resource"{{action 'onResourceSelected'}}><a>{{t "search-filter.resource"}}</a></li>
-                           </ul>
-                       </div>
-                   </div>
-               </li>
-              {{#if collectionSelected}}
-               <li class="ma-md-left-1 ma-sm-left-1">
-                   <button class="btn btn-default collections btn-search-filter {{if collectionFilterSelected 'selected'}}" {{action 'searchCollectionFilter'}}>
-                    <span class="pa-md-right-2 pa-sm-right-2"><div class="img-collections"></div></span>
-                    {{t "search-filter.collectionsButton"}}
-                   </button></li>
-               <li class="ma-md-left-1 ma-sm-left-1">
-                  <div class="border-gray pa-md-right-2 pa-sm-right-2">
-                      <button class="col-center-block  btn btn-default assessments btn-search-filter {{unless collectionFilterSelected 'selected'}}" {{action 'searchAssessmentFilter'}}>
-                        <span class="pa-md-right-2 pa-sm-right-2"><div class="img-assessments"></div></span>
-                        {{t "search-filter.assessmentsButton"}}
-                      </button>
-                  </div>
-               </li>
-               <li class="ma-md-left-1 ma-sm-left-1 author-label">
-                   <p class="pa-md-4 pa-sm-4 pa-xs-top-5">{{t "search-filter.author.title"}}</p>
-               </li>
-               <li>
-                 {{input
-                     id="author"
-                     class="author pa-md-2 pa-sm-2 ma-xs-top-3"
-                     placeholder=(t "search-filter.author.placeholder")
-                 }}
-               </li>
-               <li class="ma-md-2 ma-sm-2">
-                   <div class="img-question ma-xs-top-5" data-toggle="tooltip" data-placement="bottom" title={{t "search-filter.author.questionToolTip"}}></div>
-               </li>
-              {{/if}}
-             {{#if resourceSelected}}
-               <li>
-                   {{resource-options}}
-               </li>
-             {{/if}}
-           </ul>
-       </div>
-    </div>
-    <div class="row bg-gray-light subfilters pa-md-left-30 pa-sm-left-30 pa-xs-left-2">
-      <ul class="search-filter-options">
-          <li class="subfilters-dropdowns pa-right-10 pa-top-5 pa-bottom-5 grade">
-            {{grade-dropdown
-              placeholder=(t "grade-dropdown.placeholder")
-              prompt=(t "grade-dropdown.prompt")
-              grades=grades
-              onChangeAction="onGradeSelected"
-              btn-group-size="btn-group-sm"}}
-          </li>
-          <li class="subfilters-dropdowns pa-right-10 pa-top-5 pa-bottom-5 subject">
-            {{subject-dropdown
-              subjects=subjects
-              onChangeAction="onSubjectChange"
-              btn-group-size="btn-group-sm"}}
-          </li>
-          <li class="subfilters-dropdowns pa-right-10 pa-top-5 pa-bottom-5 standard">
-            {{standard-dropdown
-              standards=standards
-              onStandardSelectedAction="onStandardSelected"
-              btn-group-size="btn-group-sm"}}
-          </li>
-      </ul>
-    </div>
-
+  <ul class="col-md-10 search-filter-options">
+    <li>
+      <button class="btn collections btn-search-filter {{if collectionFilterSelected 'selected'}}" {{action 'searchFilter' 'collection'}}>
+       <span class="icon"></span>
+       <span class="text">{{t "search-filter.collections"}}</span>
+      </button>
+    </li>
+    <li>
+      <button class="btn assessments btn-search-filter {{if assessmentFilterSelected 'selected'}}" {{action 'searchFilter' 'assessment'}}>
+        <span class="icon"></span>
+        <span class="text">{{t "search-filter.assessments"}}</span>
+      </button>
+    </li>
+    <li>
+      <button class="btn resources btn-search-filter {{if resourcesFilterSelected 'selected'}}" {{action 'searchFilter' 'resources'}}>
+        <span class="icon"></span>
+        <span class="text">{{t "search-filter.resources"}}</span>
+      </button>
+    </li>
+    <li>
+      <button class="btn questions btn-search-filter {{if questionsFilterSelected 'selected'}}" {{action 'searchFilter' 'questions'}}>
+        <span class="icon">{{gru-icon name='help_outline '}}</span>
+        <span class="text">{{t "search-filter.questions"}}</span>
+      </button>
+    </li>
+  </ul>
+  <span class="col-md-2 standards hidden-sm hidden-xs">
+    <button class="btn btn-primary">
+     <span>{{t "common.standards"}}</span>
+    </button>
+  </span>
 </section>
