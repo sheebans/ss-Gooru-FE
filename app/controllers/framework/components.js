@@ -175,6 +175,7 @@ export default Ember.Controller.extend(SessionMixin, {
     resourceCount: 3,
     questionCount:4,
     isAssessment:true,
+    course:"Math",
     standards:Ember.A([Ember.Object.create({
       description:"Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.",
       name:"CCSS.Math.Content.7.RP.A.3"
@@ -191,6 +192,7 @@ export default Ember.Controller.extend(SessionMixin, {
   collection: Ember.Object.create({
     title: "Collection Title",
     questionCount:4,
+    course:"Math",
     isAssessment:false,
     standards:Ember.A([Ember.Object.create({
       description:"Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.",

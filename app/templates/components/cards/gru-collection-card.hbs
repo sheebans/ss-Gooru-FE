@@ -14,7 +14,7 @@
                         <h6 class="title truncate" alt="{{ collection.title }}">{{ collection.title }}</h6>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                  <span>
+                  <span class="question-resources">
                     {{#if hasResources}}
                         <span class="bar">|</span><p> {{collection.resourceCount}} {{#if hasSeveralResources}} {{t "search-result.resources"}} {{else}} {{t "search-result.resource"}} {{/if}} </p>
                     {{/if}}
@@ -25,7 +25,7 @@
                   </span>
                     </div>
                     <div class="course col-md-12 col-sm-12 col-xs-12">
-                        {{gru-icon name="chrome_reader_mode"}}<p>in <a>Math</a></p>
+                        {{gru-icon name="chrome_reader_mode"}}<p>{{t "cards.gru-course-card.in"}}<a>{{collection.course}}</a></p>
                     </div>
                 </div>
             </div>
@@ -38,21 +38,21 @@
                 {{collection-results-standards collection=collection standards=collection.standards}}
               {{/if}}
             </div>
-            <div class="author col-md-12 col-sm-12 col-xs-12">
+            <div class="{{if collection.isAssessment 'author' 'remixed-by'}} col-md-12 col-sm-12 col-xs-12">
                {{#if collection.isAssessment}}{{t "cards.gru-course-card.created"}}{{else}}{{t "cards.gru-course-card.remixed-by"}}{{/if}}
               {{#if collection.avatarUrl }}
                   <img class="img-responsive" src="{{ collection.avatarUrl }}">
               {{else}}
                   <img class="img-responsive" src="assets/gooru/profile.png">
               {{/if}}
-                <div class="author-name-link pa-left-2">
+                <div>
                  {{#if collection.isAssessment}}   <a href="{{ collection.profilePageUrl }}" target="_blank">{{collection.author}}</a>{{else}}<a>{{remixedByUser}}</a> +{{remixedUsers}}{{/if}}
                 </div>
             </div>
             <div class="description col-md-12 col-sm-12 col-xs-12">
                 <p>{{ collection.description }}</p>
             </div>
-            <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="remix-btn col-md-12 col-sm-12 col-xs-12">
                 <button class="btn btn-primary btn-sm">{{t "cards.gru-course-card.remix"}}</button>
             </div>
         </div>

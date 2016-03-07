@@ -37,10 +37,8 @@
             color:$gray-light;
             vertical-align: middle;
           }
-          > *{
-            margin-right: 4px;
-          }
           p,a{
+            margin-left: 4px;
             vertical-align: bottom;
           }
         }
@@ -65,7 +63,7 @@
           }
         }
       }
-      .author{
+      .author,.remixed-by{
         margin: 10px 0 10px 0;
         img{
           width: 30px;
