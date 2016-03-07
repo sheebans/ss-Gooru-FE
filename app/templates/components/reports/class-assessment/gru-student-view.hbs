@@ -5,7 +5,6 @@
     </div>
 </div>
 <div class="student-performance-list">
-  {{#if sortAlphabetically}}
     {{#each  sortedStudentPerformance as |studentPerformance|}}
       {{ reports.class-assessment.gru-student-performance-box
       anonymous=anonymous
@@ -15,24 +14,4 @@
       onSelectStudent=(action 'selectStudent')
       }}
     {{/each}}
-  {{else}}
-    {{#each sortedStudentPerformanceByAverage  as |studentPerformance|}}
-      {{ reports.class-assessment.gru-student-performance-box
-      anonymous=anonymous
-      student=studentPerformance.student
-      reportData=studentPerformance.reportData
-      onSelectQuestion=(action 'selectQuestion')
-      onSelectStudent=(action 'selectStudent')
-      }}
-    {{/each}}
-
-  {{/if}}
-
-
-
-
 </div>
-
-
-
-

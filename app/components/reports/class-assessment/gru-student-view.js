@@ -29,6 +29,11 @@ export default Ember.Component.extend({
      */
     sortStudentView:function(sort) {
       this.set('sortAlphabetically', sort);
+      if(this.get('sortAlphabetically')){
+        this.set('studentPerformanceListSorting',['student.fullName']);
+      }else{
+        this.set('studentPerformanceListSorting',['score']);
+      }
     }
   },
 
@@ -98,19 +103,24 @@ export default Ember.Component.extend({
   }),
 
   /**
-   * Indicate if the table sort by average
+   * Indicate if the table is to be sorted alphabetically using the students full name, if not, sort by average of score.
    *
    * @property {Boolean}
    */
   sortAlphabetically:true,
 
+  /**
+   * Array containing the criteria that controls the sorting, default is sort alphabetically, default is defined by property '@sortAlphabetically'
+   *
+   * @property {Array}
+   */
   studentPerformanceListSorting: ['student.fullName'],
+  /**
+   * Property containing t he sorted list
+   *
+   * @property {Ember.computed}
+   */
   sortedStudentPerformance: Ember.computed.sort('studentPerformanceList', 'studentPerformanceListSorting'),
-
-
-
-  studentPerformanceListSortingByAverage: ['score'],
-  sortedStudentPerformanceByAverage: Ember.computed.sort('studentPerformanceList', 'studentPerformanceListSortingByAverage'),
   // -------------------------------------------------------------------------
   // Methods
 
