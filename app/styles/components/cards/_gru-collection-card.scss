@@ -1,0 +1,85 @@
+.cards.gru-collection-card{
+  width: 300px;
+  height: 290px;
+
+  .truncate {
+    width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .panel{
+    border-radius: 6px;
+    .panel-heading{
+      background-color: $white;
+      border-bottom: 1px solid $gray-lighter;
+      border-top-right-radius: 6px;
+      border-top-left-radius: 6px;
+      .image{
+        img{
+          border-radius: 4px;
+        }
+      }
+      .collection-info{
+        color:$text-color;
+        .bar{
+          font-weight:bold;
+          color:$gray-dark;
+        }
+        h6{
+          margin: 5px 0 5px 0;
+        }
+        p{
+          display: inline;
+        }
+        .course{
+          i{
+            color:$gray-light;
+            vertical-align: middle;
+          }
+          p,a{
+            margin-left: 4px;
+            vertical-align: bottom;
+          }
+        }
+        div{
+          > *{
+            padding-left: 0;
+          }
+        }
+      }
+    }
+    .panel-body{
+      .standards{
+        .uc-search-standard {
+          display: inline-block;
+          float: left;
+          width: 47%;
+          .truncate{
+            width: 99%;
+          }
+          .label{
+            padding: 0;
+          }
+        }
+      }
+      .author,.remixed-by{
+        margin: 10px 0 10px 0;
+        img{
+          width: 30px;
+          height: 30px;
+          border-radius: 50px;
+        }
+        > *{
+          display: inline-block;
+        }
+      }
+      .description{
+        p{
+          height:92px;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+}

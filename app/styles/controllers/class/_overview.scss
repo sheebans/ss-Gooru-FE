@@ -151,6 +151,7 @@
           > .panel {
 
             > button.on-air {
+              display: none;
               position: absolute;
               top: 9px;
               left: -110px;
@@ -158,6 +159,10 @@
               padding: 8px;
               line-height: 1;
               @include text-overflow();
+
+              @media (min-width: $screen-sm) {
+                display: inline-block;
+              }
             }
 
             &.collection {
@@ -181,8 +186,13 @@
                 display: none;
               }
 
+              // on-air icon
               .panel-heading > .icon-container > .score + i {
-                display: inline-block;
+                display: none;
+
+                @media (min-width: $screen-sm) {
+                  display: inline-block;
+                }
               }
             }
 
