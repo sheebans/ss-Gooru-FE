@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import AccordionMixin from '../../../mixins/gru-accordion';
+import SessionMixin from 'gooru-web/mixins/session';
 
 /**
  * Accordion Course
@@ -11,7 +12,7 @@ import AccordionMixin from '../../../mixins/gru-accordion';
  * @augments Ember/Component
  * @mixes mixins/gru-accordion
  */
-export default Ember.Component.extend(AccordionMixin, {
+export default Ember.Component.extend(AccordionMixin, SessionMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -29,12 +30,6 @@ export default Ember.Component.extend(AccordionMixin, {
    * @requires service:api-sdk/performance
    */
   performanceService: Ember.inject.service("api-sdk/performance"),
-
-  /**
-   * @requires service:api-sdk/session
-   */
-  session: Ember.inject.service("session"),
-
 
   // -------------------------------------------------------------------------
   // Attributes

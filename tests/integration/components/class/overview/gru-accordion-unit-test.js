@@ -221,7 +221,7 @@ test('it renders', function(assert) {
 });
 
 test('it renders correctly when there are no lessons to load after clicking on the unit name', function(assert) {
-  assert.expect(9);
+  assert.expect(8);
 
   const context = this;
 
@@ -254,8 +254,9 @@ test('it renders correctly when there are no lessons to load after clicking on t
   const $unitTitleAnchor = $component.find('.unit a');
   assert.equal($unitTitleAnchor.find('span').html().replace(/&nbsp;/g, " "), 'Unit 1.  Unit Title', 'Title text');
 
-  const $lessonNumber = $component.find('.unit .panel-title > span');
-  assert.equal($lessonNumber.text().trim(), '0 Lessons', 'Number of Lessons');
+  //TODO: WE NEED TO TEST THIS ONCE WE ADD THE NUMBER OF LESSONS
+  //const $lessonNumber = $component.find('.unit .panel-title > span');
+  //assert.equal($lessonNumber.text().trim(), '0 Lessons', 'Number of Lessons');
 
   const $collapsePanel = $component.find('.panel-collapse');
   assert.ok(!$collapsePanel.hasClass('in'), 'Panel should not be visible');

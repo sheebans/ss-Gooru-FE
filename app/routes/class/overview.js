@@ -61,7 +61,6 @@ export default Ember.Route.extend({
     const units = this.modelFor('class').units;
     var userId = this.get('session.userId');
     var userLocation = Ember.RSVP.resolve('');
-    //console.log('student', currentClass.isStudent(userId));
     if (currentClass.isStudent(userId)) {
 
       // Get the user location in a course only if the user is enrolled
