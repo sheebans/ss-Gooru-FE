@@ -251,7 +251,6 @@ export default Ember.Component.extend(AccordionMixin, {
     const courseId = component.get('currentClass.course');
     const unitId = component.get('model.id');
     const userId = component.get('session.userId');
-
     return component.get('lessonService').findByClassAndCourseAndUnit(classId, courseId, unitId).then(function(lessons) {
       if(component.get('isTeacher')) {
         return component.getTeacherCollections(classId, courseId, unitId, lessons);

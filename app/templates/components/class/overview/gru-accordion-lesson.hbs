@@ -2,13 +2,13 @@
 
   {{!-- TODO: Integrate with BE --}}
   {{#if isTeacher}}
-    <span class="score" style="background-color: {{ gradeColor 93 }}">93%</span>
+    <span class="score" style="background-color: {{ gradeColor 93 }}">{{model.classAverageScore}}%</span>
   {{else}}
 
   {{!-- TODO: Integrate with BE @see /app/components/class/overview/gru-accordion-unit.js#addUsersToItems --}}
     {{ charts/gru-completion-chart
-    completed=model.completed
-    total=model.total }}
+    completed=model.completionDone
+    total=model.completionTotal }}
 
   {{/if}}
 
@@ -73,7 +73,7 @@
               {{#if item.isAssessment}}
 
               {{!-- TODO: Integrate with BE --}}
-                <span class="score" style="background-color: {{ gradeColor 78 }}">78%</span>
+                <span class="score" style="background-color: {{ gradeColor 78 }}">{{item.score}}%</span>
                 <i class="on-air">On Air</i>
 
               {{ else }}

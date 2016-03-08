@@ -18,7 +18,7 @@ export default DS.JSONAPISerializer.extend({
   normalizeQueryRecordResponse: function(store, primaryModelClass, payload) {
     const serializer = this;
     const hasResults = payload.content.length > 0;
-    var model = {};
+    var model = { data: [] };
     if (hasResults) {
       model = serializer.getSingleRecord(payload.content[0]);
     }

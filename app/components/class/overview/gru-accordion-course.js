@@ -100,7 +100,6 @@ export default Ember.Component.extend(AccordionMixin, {
       let usersLocationPromise = component.getCourseUsers();
       usersLocationPromise.then(function(usersLocation){
         component.set('usersLocation', usersLocation);
-        console.log(component.get('userLocation'));
         let userLocation = component.get('userLocation');
         if (!component.get('location') && userLocation) {
           component.set('location', userLocation);
@@ -121,13 +120,11 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   currentResource: Ember.computed('userLocation', function () {
     const userLocation = this.get('userLocation');
-    console.log(this.get('userLocation'));
     var parsedLocation = userLocation.split('+');
     var currentResource = null;
 
     if (parsedLocation.length === 3) {
       currentResource = parsedLocation[2];
-      console.log(currentResource);
     } else {
       Ember.Logger.warn('The user location does not specify a current resource');
     }
