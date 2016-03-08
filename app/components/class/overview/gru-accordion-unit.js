@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import AccordionMixin from '../../../mixins/gru-accordion';
+import SessionMixin from 'gooru-web/mixins/session';
 
 // Whenever the observer 'parsedLocationChanged' is running, this flag is set so
 // clicking on the units should not update the location
@@ -15,7 +16,7 @@ var isUpdatingLocation = false;
  * @augments Ember/Component
  * @mixes mixins/gru-accordion
  */
-export default Ember.Component.extend(AccordionMixin, {
+export default Ember.Component.extend(AccordionMixin, SessionMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -28,6 +29,11 @@ export default Ember.Component.extend(AccordionMixin, {
    * @requires service:api-sdk/course-location
    */
   courseLocationService: Ember.inject.service("api-sdk/course-location"),
+
+  /**
+   * @requires service:api-sdk/performance
+   */
+  performanceService: Ember.inject.service("api-sdk/performance"),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -127,10 +133,33 @@ export default Ember.Component.extend(AccordionMixin, {
   parsedLocation: [],
 
   /**
-   * @prop {Ember.RSVP.Promise} usersLocation - Users participating in the unit
+   * Contains only visible units
+   * @property {Unit[]} units
+   */
+  lessons: null,
+
+  /**
+   * @prop {String} userLocation - Location of a user in a course
+   */
+  userLocation: null,
+
+  /**
+   * @prop {Ember.RSVP.Promise} usersLocation - Users enrolled in the course
    * Will resolve to {Location[]}
    */
-  usersLocation: null,
+  usersLocation: Ember.A([]),
+
+  /**
+   * Indicates the status of the spinner
+   * @property {Boolean}
+   */
+  loading: false,
+
+  /**
+   * Indicates if the current user is a student
+   * @property {Boolean}
+   */
+  isStudent: null,
 
   // -------------------------------------------------------------------------
   // Observers
@@ -140,27 +169,19 @@ export default Ember.Component.extend(AccordionMixin, {
    * corresponding users information (coming from a separate service) to each
    * one of the items so they are resolved in one single loop in the template.
    */
-  addUsersToItems: Ember.observer('items.isFulfilled', function() {
-    if (this.get('items.isFulfilled')) {
-      let visibleItems = this.get('visibleItems');
-
-      this.get('usersLocation').then((usersLocation) => {
-        visibleItems.forEach((item) => {
-          // Get the users for a specific lesson
-          let entity = usersLocation.findBy('lesson', item.get('id'));
-          if (entity) {
-            entity.get('locationUsers').then((locationUsers) => {
-              item.set('users', locationUsers);
-
-              // TODO: remove after integration with analytics
-              item.set('completed', 5);
-              item.set('total', 10);
-
-            });
-          }
-        });
-      }).catch((e) => {
-        Ember.Logger.error('Unable to retrieve course users: ', e);
+  addUsersToItems: Ember.observer('items', 'usersLocation', function() {
+    if (this.get('items.length')) {
+      let component = this;
+      let visibleItems = this.get('items');
+      let usersLocation = component.get("usersLocation");
+      visibleItems.forEach((item) => {
+        // Get the users for a specific unit
+        let entity = usersLocation.findBy('lesson', item.get('id'));
+        if (entity) {
+          entity.get('locationUsers').then((locationUsers) => {
+            item.set('users', locationUsers);
+          });
+        }
       });
     }
   }),
@@ -193,33 +214,70 @@ export default Ember.Component.extend(AccordionMixin, {
    * @returns {undefined}
    */
   loadData: function () {
-    // Loading of data will only happen if 'items' has not previously been set
-    if (!this.get('items')) {
-      var itemsPromise = this.getLessons();
-      this.set('items', itemsPromise);
+    // Load the lessons and users in the course when the component is instantiated
+    let component = this;
+    component.set("loading", true);
+    let performancePromise = component.getLessons();
+    performancePromise.then(function(performances){
+      component.set('items', performances); //setting the units to the according mixin
 
-      // TODO: getUnitUsers is currently dependent on items that's why this declaration
-      // takes place after setting items. Once api-sdk/course-location is complete
-      // both declarations can be put together, as they should
-      var usersLocation = this.getUnitUsers();
-      this.set('usersLocation', usersLocation);
-    }
+      let usersLocationPromise = component.getUnitUsers();
+      usersLocationPromise.then(function(usersLocation){
+        component.set('usersLocation', usersLocation);
+
+        let userLocation = component.get('userLocation');
+        if (!component.get('location') && userLocation) {
+          component.set('location', userLocation);
+        }
+      });
+      component.set("loading", false);
+    });
   },
 
   /**
-   * Get all the lessons for the unit
+   * Get all the lessons by unit
    *
    * @function
    * @requires api-sdk/lesson#findByClassAndCourseAndUnit
    * @returns {Ember.RSVP.Promise}
    */
   getLessons: function() {
-    const classId = this.get('currentClass.id');
-    const courseId = this.get('currentClass.course');
-    const unitId = this.get('model.id');
-
-    return this.get("lessonService").findByClassAndCourseAndUnit(classId, courseId, unitId);
+    let component = this;
+    const classId = component.get('currentClass.id');
+    const courseId = component.get('currentClass.course');
+    const unitId = component.get('model.id');
+    const userId = component.get('session.userId');
+    return component.get('lessonService').findByClassAndCourseAndUnit(classId, courseId, unitId).then(function(lessons) {
+      if(component.get('isTeacher')) {
+        return component.getTeacherCollections(classId, courseId, unitId, lessons);
+      }
+      return component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
+    });
   },
+
+  /**
+   * Get all the performances by lesson
+   *
+   * @function
+   * @requires api-sdk/performance#findCourseMapPerformanceByLesson
+   * @returns {Ember.RSVP.Promise}
+   */
+  getTeacherCollections: function(classId, courseId, unitId, lessons){
+    var component = this;
+    lessons.forEach(function (lesson) {
+      let lessonId = lesson.get('id');
+      if (lessonId) {
+        let courseMapPerformances = component.get('performanceService').findCourseMapPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId);
+        courseMapPerformances.then(function (classPerformance) {
+          lesson.set('classAverageScore', classPerformance.get('classAverageScore'));
+        });
+      }
+    });
+
+    return new Ember.RSVP.resolve(lessons);
+
+  },
+
 
   /**
    * Get all the users participating in the unit
@@ -229,16 +287,11 @@ export default Ember.Component.extend(AccordionMixin, {
    * @returns {Ember.RSVP.Promise}
    */
   getUnitUsers: function() {
-    const courseId = this.get('currentClass.course');
-    const unitId = this.get('model.id');
-
-    //return this.get("courseLocationService").findByCourseAndUnit(courseId, unitId);
-
-    // TODO: remove this after api-sdk/course-location is complete
     const component = this;
-    return this.get('items').then((items) => {
-      return component.get("courseLocationService").findByCourseAndUnit(courseId, unitId, { lessons: items });
-    });
+    const courseId = component.get('currentClass.course');
+    const unitId = component.get('model.id');
+
+    return component.get("courseLocationService").findByCourseAndUnit(courseId, unitId, { lessons: component.get("items")});
   }
 
 });

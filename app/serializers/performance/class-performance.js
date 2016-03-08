@@ -37,6 +37,7 @@ export default PerformanceSerializer.extend({
         serializer.normalizeStudentPerformanceAttributes(result.usageData, result.userUid, model);
       });
     }
+
     return model;
   },
 
