@@ -468,7 +468,7 @@ export default {
     "scores": "Scores",
     "completion":"Completion",
     "time-spent":"Time Spent",
-    "reactions":"Reactions",
+    "reaction":"Reaction",
     "attempts":"Attempts",
     "redo":"Redo",
     "resume":"Resume",
