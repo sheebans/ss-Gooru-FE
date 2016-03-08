@@ -31,10 +31,17 @@
   .controls {
     .teacher-actions {
       .gru-actions-bar {
-        text-align: right;
+        @media (min-width: $screen-sm) {
+          text-align: right;
+        }
         .drop-menu {
           @media (max-width: $screen-xs-max) {
             margin: 10px 0 0 0;
+          }
+          button {
+            @media (max-width: $screen-xs-max) {
+              margin: 0 0 5px 0;
+            }
           }
         }
       }
