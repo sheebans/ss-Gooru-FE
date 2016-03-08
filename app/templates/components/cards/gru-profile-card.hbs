@@ -1,13 +1,13 @@
 <a {{action "selectUser" profile.user.id}}>
-  <img class="img-circle" src="{{profile.user.avatarUrl}}"
-       alt="{{t "common.avatarFor"}} {{profile.user.fullNameInformal}}"/>
-  <strong>{{profile.user.fullNameInformal}}</strong>
+  <span class="img-wrapper"><img class="img-circle" src="{{profile.user.avatarUrl}}"
+       alt="{{t "common.avatarFor"}} {{profile.user.fullNameInformal}}"/></span>
+  <strong class="hidden-xs hidden-sm">{{profile.user.fullNameInformal}}</strong>
 </a>
 <div class="social">
 		<span class="followers">
       <em>{{profile.followers}}</em> {{t "cards.gru-profile-card.followers"}}
     </span>
 		<span class="following">
-      <em>{{profile.followings}}</em> {{t "cards.gru-profile-card.followings"}}
+      <em>{{profile.followings}}</em> {{t "cards.gru-profile-card.following"}}
     </span>
 </div>

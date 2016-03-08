@@ -41,10 +41,10 @@ test('it renders', function (assert) {
   assert.equal($followers.text().trim(), '10 ' + this.get('i18n').t('cards.gru-profile-card.followers').string);
 
   const $following = $component.find('> .social > .following');
-  assert.equal($following.text().trim(), '20 ' + this.get('i18n').t('cards.gru-profile-card.followings').string);
+  assert.equal($following.text().trim(), '20 ' + this.get('i18n').t('cards.gru-profile-card.following').string);
 
   return wait().then(function () {
-    const $image = $component.find('> a > img');
+    const $image = $component.find('> a > span > img');
     assert.equal($image.attr('src'), '/assets/gooru/profile.png');
 
     const $name = $component.find('> a > strong');
@@ -83,7 +83,7 @@ test('it triggers an action when the name or the image of the user is selected',
   const $component = this.$('.cards.gru-profile-card');
 
   return wait().then(function () {
-    const $image = $component.find('> a > img');
+    const $image = $component.find('> a > span > img');
     const $name = $component.find('> a > strong');
 
     $image.click();

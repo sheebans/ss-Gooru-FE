@@ -452,11 +452,9 @@ export default {
 
   "profile.gru-navigation": {
     "about": "About",
-    "activity": "Activity",
-    "analytics": "Analytics",
+    "about-you": "About You",
     "content": "Content",
-    "network": "Network",
-    "viewAs": "View as"
+    "network": "Network"
   },
 
   "gru-data-picker":{
@@ -514,7 +512,7 @@ export default {
     },
     "gru-profile-card": {
       "followers": "Followers",
-      "followings": "Followings"
+      "following": "Following"
     }
   },
   "reports.gru-table-view": {

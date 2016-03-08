@@ -20,8 +20,6 @@ test('it renders', function (assert) {
 
   const $menuOptions = $component.find('.profile-menu');
   assert.ok($menuOptions.find('li:eq(0)').hasClass('about'), 'About should be the first option in the menu');
-  assert.ok($menuOptions.find('li:eq(1)').hasClass('activity'), 'Activity should be the second option in the menu');
-  assert.ok($menuOptions.find('li:eq(2)').hasClass('content'), 'Content should be the third option in the menu');
-  assert.ok($menuOptions.find('li:eq(3)').hasClass('network'), 'Network should be the fourth option in the menu');
-  assert.ok($menuOptions.find('li:eq(4)').hasClass('analytics'), 'Analytics should be the fifth option in the menu');
+  assert.ok($menuOptions.find('li:eq(1)').hasClass('content'), 'Content should be the third option in the menu');
+  assert.ok($menuOptions.find('li:eq(2)').hasClass('network'), 'Network should be the fourth option in the menu');
 });
