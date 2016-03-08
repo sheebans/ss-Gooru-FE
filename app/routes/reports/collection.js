@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Env from 'gooru-web/config/environment';
 import ReportData from 'gooru-web/models/result/report-data';
 
 /**
@@ -30,8 +31,7 @@ export default Ember.Route.extend({
   actions: {
 
     navigateBack: function () {
-      var route = !this.get('history.lastRoute.name') ? 'index' : this.get('history.lastRoute.url');
-      this.transitionTo(route);
+      window.history.back();
     }
 
   },
@@ -76,6 +76,9 @@ export default Ember.Route.extend({
   },
 
   setupController: function (controller, model) {
+    var url = location.host + Env['real-time'].webSocketUrl;
+    var socket = new SockJS(url);
+
     // Create an instance of report data to pass to the controller.
     var reportData = ReportData.create({
       students: model.students,
@@ -85,19 +88,31 @@ export default Ember.Route.extend({
     // Merge any data from analytics into the report data.
     reportData.merge(model.userResults);
 
-    controller.set('routeParams', model.routeParams);
-    controller.set('assessment', model.collection);
-    controller.set('students', model.students);
+    controller.setProperties({
+      routeParams: model.routeParams,
+      assessment: model.collection,
+      students: model.students,
+      webSocketClient: Stomp.over(socket)
+    });
+
+    // Because there's on observer on reportData, it's important set all other controller properties beforehand
     controller.set('reportData', reportData);
+
   },
 
   resetController: function (controller) {
+    const webSocketClient = controller.get('webSocketClient');
+    if (webSocketClient !== null) {
+      webSocketClient.disconnect();
+    }
+
     // When exiting, reset the controller values
     controller.setProperties({
       routeParams: null,
       assessment: null,
       students: null,
-      reportData: null
+      reportData: null,
+      webSocketClient: null
     });
   }
 
