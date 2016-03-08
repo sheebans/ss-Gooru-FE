@@ -1,69 +1,129 @@
-.cards.gru-resource-card{
+.cards.gru-resource-card {
   width: 222px;
   height: 240px;
-  .truncate {
-    width: 90%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .panel{
+  .panel {
     border-radius: 6px;
-    .panel-heading{
+    .panel-heading {
       background-color: $white;
       border-bottom: 1px solid $gray-lighter;
       border-top-right-radius: 6px;
       border-top-left-radius: 6px;
 
-      .icon{
-
+      .header {
+        > *{
+          display: inline-block;
+        }
+        > i {
+          height: 36px;
+          width: 28px;
+          margin: 0 auto;
+          &.video-icon {
+            background: url("gooru/images/video-resource-green.svg");
+            -webkit-background-size: 31px 30px;
+            background-size: 31px 30px;
+            height: 30px;
+            width: 31px;
+          }
+          &.webpage-icon {
+            background: url("gooru/images/website-resource-green.svg");
+            -webkit-background-size: 29px 30px;
+            background-size: 29px 30px;
+            height: 30px;
+            width: 29px;
+          }
+          &.interactive-icon {
+            background: url("gooru/images/interactive-resource-green.svg");
+            -webkit-background-size: 34px 30px;
+            background-size: 34px 30px;
+            height: 30px;
+            width: 34px;
+          }
+          &.question-icon {
+            background: url("gooru/images/question-resource-green.svg");
+            -webkit-background-size: 30px 30px;
+            background-size: 30px 30px;
+            height: 30px;
+            width: 30px;
+          }
+          &.image-icon {
+            background: url("gooru/images/image-resource-green.svg");
+            -webkit-background-size: 30px 30px;
+            background-size: 30px 30px;
+            height: 30px;
+            width: 30px;
+          }
+          &.text-icon {
+            background: url("gooru/images/text-resource-green.svg");
+            -webkit-background-size: 31px 30px;
+            background-size: 31px 30px;
+            height: 30px;
+            width: 31px;
+          }
+          &.audio-icon {
+            background: url("gooru/images/audio-resource-green.svg");
+            -webkit-background-size: 34px 30px;
+            background-size: 34px 30px;
+            height: 30px;
+            width: 34px;
+          }
+        }
       }
-      h6{
-        margin: 5px 0 5px 0;
-        color:$gray-dark;
-      }
-      .resource-type{
-        span{
-          color:$text-color;
+      .collection-info{
+        margin-left: 16px;
+        > *{
+          display: block;
+        }
+        h6 {
+          margin: 5px 0 5px 0;
+          color: $gray-dark;
+        }
+        .resource-type {
+          span {
+            color: $text-color;
+          }
         }
       }
     }
-    .panel-body{
-      .standards{
+    .panel-body {
+      padding: 5px 15px 15px 15px;
+      .standards {
         .uc-search-standard {
           display: inline-block;
           float: left;
           width: 47%;
-          .truncate{
+          .truncate {
             width: 99%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
-          .label{
+          .label {
             padding: 0;
           }
         }
       }
-      .publisher{
+      .publisher {
         margin: 10px 0 10px 0;
-        img{
+        img {
           width: 30px;
           height: 30px;
           border-radius: 50px;
         }
-        > *{
+        > * {
           display: inline-block;
         }
-      }
-      .description{
-        p{
-          height:92px;
-          overflow: hidden;
+        .publisher-name{
+          a{
+            margin-left: 5px;
+          }
         }
-        p.truncate{
-          overflow : hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;
+      }
+      .description {
+        $font-size: 13px;
+        $line-height: 1.8;
+        $lines-to-show: 3;
+        p.truncate {
+          @include ellipsis($font-size: $font-size, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
         }
       }
     }
