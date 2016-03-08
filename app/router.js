@@ -51,12 +51,6 @@ Router.map(function() {
 
     this.route('network');
   });
-
-  this.route('framework', function () {
-    this.route('assessment');
-    this.route('class-assessment');
-    this.route('components');
-  });
 });
 
 export default Router;

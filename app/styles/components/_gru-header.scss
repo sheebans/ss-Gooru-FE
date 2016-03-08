@@ -6,7 +6,7 @@
   z-index:98;
   height:55px;
   @media (min-width: $screen-md) {
-    height: 64px;
+    height: 63px;
   }
   .container-fluid {
     .navbar-default {
@@ -27,7 +27,7 @@
       min-height:55px;
       margin-bottom: 0;
       @media (min-width: $screen-md) {
-        height: 64px;
+        height: 63px;
       }
       .navbar-header {
         -webkit-flex-basis: 111px;
@@ -51,7 +51,7 @@
         display: inline-flex;
         height: 55px;
         @media (min-width: $screen-md) {
-          height: 64px;
+          height: 58px;
           -webkit-flex-basis: 111px;
           flex-basis: 111px;
           min-width:111px;
@@ -90,7 +90,7 @@
           height: 55px;
           margin-bottom: 0;
           @media (min-width: $screen-md) {
-            height: 64px;
+            height: 58px;
           }
           span{
             height:24px;

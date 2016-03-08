@@ -19,6 +19,13 @@
       input[type="checkbox"]:checked:before {
         top: 3px;
       }
+
+      // CSS styling of checkboxes does not work in FF: https://bugzilla.mozilla.org/show_bug.cgi?id=418833
+      input[type="checkbox"]:disabled:checked:after {
+        background-color: $blue-400!important;
+        border-color: $blue-400!important;
+        color: $white!important;
+      }
       span {
         display: table-cell;
         vertical-align: middle;

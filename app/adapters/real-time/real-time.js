@@ -12,6 +12,11 @@ export default Ember.Object.extend(SessionMixin, {
   }),
 
   postData: function(data) {
+    const namespace = this.get('namespace');
+    const classId = data.query.classId;
+    const collectionId = data.query.collectionId;
+    const userId = data.query.userId;
+    const url = `${namespace}/class/${classId}/collection/${collectionId}/user/${userId}/event`;
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
@@ -20,93 +25,85 @@ export default Ember.Object.extend(SessionMixin, {
       headers: this.get('headers'),
       data: JSON.stringify(data.body)
     };
-    const classId = data.query.classId;
-    const collectionId = data.query.collectionId;
-    const userId = data.query.userId;
-    const path = `/class/${classId}/collection/${collectionId}/user/${userId}/event`;
-
-    return Ember.$.ajax(this.get('namespace') + path, options);
+    return Ember.$.ajax(url, options);
   },
 
   getData: function(query) {
+    const namespace = this.get('namespace');
+    const classId = query.classId;
+    const collectionId = query.collectionId;
+    const path = `${namespace}/class/${classId}/collection/${collectionId}/events`;
     const options = {
       type: 'GET',
       dataType: 'json',
-      headers: this.get('headers'),
-      data: {}
+      headers: this.get('headers')
     };
-    const classId = query.classId;
-    const collectionId = query.collectionId;
-    const path = `/class/${classId}/collection/${collectionId}/events`;
-
-    return Ember.$.ajax(this.get('namespace') + path, options);
+    return Ember.$.ajax(path, options);
   },
 
   postAttempt: function(query) {
-    const options = {
-      type: 'POST',
-      dataType: 'text',
-      headers: this.get('headers'),
-    };
+    const namespace = this.get('namespace');
     const classId = query.classId;
     const collectionId = query.collectionId;
     const userId = query.userId;
-    const path = `/class/${classId}/collection/${collectionId}/user/${userId}/complete`;
-
-    return Ember.$.ajax(this.get('namespace') + path, options);
+    const path = `${namespace}/class/${classId}/collection/${collectionId}/user/${userId}/complete`;
+    const options = {
+      type: 'POST',
+      dataType: 'text',
+      headers: this.get('headers')
+    };
+    return Ember.$.ajax(path, options);
   },
 
   deleteAttempt: function(query) {
-    const options = {
-      type: 'DELETE',
-      dataType: 'text',
-      headers: this.get('headers'),
-    };
+    const namespace = this.get('namespace');
     const classId = query.classId;
     const collectionId = query.collectionId;
     const userId = query.userId;
-    const path = `/class/${classId}/collection/${collectionId}/user/${userId}/reset`;
-
-    return Ember.$.ajax(this.get('namespace') + path, options);
-  },
-
-  postOnAir: function(query) {
-    const options = {
-      type: 'POST',
-      dataType: 'text',
-      headers: this.get('headers'),
-    };
-    const classId = query.classId;
-    const collectionId = query.collectionId;
-    const path = `/class/${classId}/collection/${collectionId}/onair`;
-
-    return Ember.$.ajax(this.get('namespace') + path, options);
-  },
-
-  deleteOnAir: function(query) {
+    const url = `${namespace}/class/${classId}/collection/${collectionId}/user/${userId}/reset`;
     const options = {
       type: 'DELETE',
       dataType: 'text',
-      headers: this.get('headers'),
+      headers: this.get('headers')
     };
-    const classId = query.classId;
-    const collectionId = query.collectionId;
-    const path = `/class/${classId}/collection/${collectionId}/onair`;
+    return Ember.$.ajax(url, options);
+  },
 
-    return Ember.$.ajax(this.get('namespace') + path, options);
+  postOnAir: function(query) {
+    const url = this.urlForOnAir(query);
+    const options = {
+      type: 'POST',
+      dataType: 'text',
+      headers: this.get('headers')
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  deleteOnAir: function(query) {
+    const url = this.urlForOnAir(query);
+    const options = {
+      type: 'DELETE',
+      dataType: 'text',
+      headers: this.get('headers')
+    };
+    return Ember.$.ajax(url, options);
   },
 
   isOnAir: function(query) {
+    const url = this.urlForOnAir(query);
     const options = {
       type: 'GET',
       dataType: 'text',
-      headers: this.get('headers'),
+      headers: this.get('headers')
     };
+    return Ember.$.ajax(url, options);
+  },
+
+  urlForOnAir: function(query) {
+    const namespace = this.get('namespace');
     const classId = query.classId;
     const collectionId = query.collectionId;
-    const path = `/class/${classId}/collection/${collectionId}/onair`;
-
-    return Ember.$.ajax(this.get('namespace') + path, options);
+    return `${namespace}/class/${classId}/collection/${collectionId}/onair`;
   }
 
 });

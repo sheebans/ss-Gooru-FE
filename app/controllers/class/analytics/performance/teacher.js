@@ -44,6 +44,25 @@ export default Ember.Controller.extend({
      */
     toggleFullScreen: function () {
       return this.get("classController").toggleFullScreen();
+    },
+
+    /**
+     * Launch an assessment on-air
+     *
+     * @function actions:launchOnAir
+     */
+    launchOnAir: function () {
+      const currentClass = this.get("classController").class;
+      const classId = currentClass.get("id");
+      const courseId = currentClass.get("course");
+      const unitId = this.get("unit.id");
+      const lessonId = this.get("lesson.id");
+      const collectionId = this.get("collection.id");
+
+      var url = 'reports/class/'+classId+'/course/'+courseId+'/unit/'+unitId+'/lesson/'+lessonId+'/collection/'+collectionId;
+
+      url += '?anonymous=true';
+      window.open(url, 'realTimeAnonymous', 'width=' + window.screen.width + ', height=' + window.screen.height + ', left=0, top=0', true);
     }
   },
 
