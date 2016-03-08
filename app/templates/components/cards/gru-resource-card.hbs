@@ -1,20 +1,18 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="row">
-            <div class="icon col-md-4 col-sm-4 col-xs-4">
+            <div class="header col-md-12 col-sm-12 col-xs-12">
               {{#if resource.isQuestion }}
                   <i class="question-icon"></i>
               {{else}}
                   <i class="{{resource.resourceFormat}}-icon"></i>
               {{/if}}
-            </div>
-            <div class="collection-info col-md-8 col-sm-8 col-xs-8">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="collection-info">
+                    <div>
                         <h6 class="title truncate" alt="{{resource.title}}">{{resource.title}}</h6>
                     </div>
-                    <div class="resource-type col-md-12 col-sm-12 col-xs-12">
-                      <span>{{resource.resourceFormat}}</span>
+                    <div class="resource-type">
+                        <span>{{#if resource.isQuestion }}{{t (concat "common.question-type."resource.questionType)}}{{else}}{{t (concat "common.resource-format."resource.resourceFormat)}}{{/if}}</span>
                     </div>
                 </div>
             </div>
@@ -33,7 +31,7 @@
               {{else}}
                   <img class="img-responsive" src="assets/gooru/profile.png">
               {{/if}}
-                <div>
+                <div class="publisher-name">
                   <a href="{{ resource.url }}" target="_blank">{{resource.owner.name}}</a>
                 </div>
             </div>
