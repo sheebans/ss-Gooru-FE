@@ -205,7 +205,7 @@ export default Ember.Controller.extend(SessionMixin, {
     author:"dara.weiner",
     remixedBy:["James","Andrea","Patric"]
   }),
-  resource: Ember.Object.create({
+  resource1: Ember.Object.create({
     title: "Resource Title",
     isQuestion:false,
     resourceFormat:"video",
@@ -221,7 +221,7 @@ export default Ember.Controller.extend(SessionMixin, {
       name:"CCSS.Math.Content.5.NBT.A.2"
     })])
   }),
-  question: Ember.Object.create({
+  question1: Ember.Object.create({
     title: "Question Title",
     isQuestion:true,
     questionType:"MC",
