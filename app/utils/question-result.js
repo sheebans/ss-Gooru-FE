@@ -61,7 +61,6 @@ export function totalCompleted(questionsResults) {
  */
 export function totalNotStarted(questionsResults) {
   let totals = stats(questionsResults);
-  console.debug(totals);
   return totals.get("totalNotStarted");
 }
 

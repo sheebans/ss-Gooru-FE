@@ -2,6 +2,7 @@
   padding:55px 7% 0 7%;
   .navigation {
     padding-left: 5px;
+    margin-bottom: 35px;
     text-align: center;
     @media (min-width: $screen-sm) {
       text-align: left;
@@ -15,6 +16,9 @@
         text-align: center;
         &.active{
           text-align:left;
+          a span{
+            font-weight:bolder;
+          }
         }
         a {
           padding: 0 0 11px 0;

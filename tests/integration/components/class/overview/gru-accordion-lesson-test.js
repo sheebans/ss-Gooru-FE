@@ -4,6 +4,83 @@ import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
 import DS from 'ember-data';
 
+// Stub performance service
+const performanceServiceStub = Ember.Service.extend({
+
+  findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId) {
+    var response;
+    var promiseResponse;
+
+    if (classId === '111-333-555' &&
+          courseId === '222-444-666' &&
+            unitId === '777-999' && lessonId === '888-000') {
+      response = [
+        Ember.Object.create({
+          id: "item-1",
+          collectionType: "collection",
+          title: "Collection 1",
+          visibility: true
+        }),
+        Ember.Object.create({
+          id: "item-2",
+          collectionType: "collection",
+          title: "Collection 2",
+          visibility: false
+        }),
+        Ember.Object.create({
+          id: "item-3",
+          collectionType: "assessment",
+          isAssessment: true,
+          isOnAir: true,
+          title: "Assessment 1",
+          visibility: true
+        })
+      ];
+    } else {
+      response = [];
+    }
+
+    promiseResponse = new Ember.RSVP.Promise(function(resolve) {
+      Ember.run.next(this, function() {
+        resolve(response);
+      });
+    });
+
+    // Simulate async data returned by the service
+    return DS.PromiseArray.create({
+      promise: promiseResponse
+    });
+  },
+
+  findCourseMapPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId) {
+    var response;
+    var promiseResponse;
+
+    if (classId === '111-333-555' &&
+          courseId === '222-444-666' &&
+            unitId === '777-999' && lessonId === '888-000') {
+      response = Ember.Object.create({
+          calculateAverageScoreByItem: function(){
+            return 1;
+          }
+        });
+    } else {
+      response = null;
+    }
+
+    promiseResponse = new Ember.RSVP.Promise(function(resolve) {
+      Ember.run.next(this, function() {
+        resolve(response);
+      });
+    });
+
+    // Simulate async data returned by the service
+    return DS.PromiseObject.create({
+      promise: promiseResponse
+    });
+  }
+});
+
 // Stub unit service
 const collectionServiceStub = Ember.Service.extend({
 
@@ -39,6 +116,7 @@ const collectionServiceStub = Ember.Service.extend({
           id: "item-3",
           collectionType: "assessment",
           isAssessment: true,
+          isOnAir: true,
           title: "Assessment 2",
           visibility: true
         })
@@ -106,6 +184,9 @@ moduleForComponent('class/overview/gru-accordion-lesson', 'Integration | Compone
 
     this.register('service:api-sdk/course-location', courseLocationStub);
     this.inject.service('api-sdk/course-location', { as: 'courseLocationService' });
+
+    this.register('service:api-sdk/performance', performanceServiceStub);
+    this.inject.service('api-sdk/performance', { as: 'performanceService' });
 
     this.inject.service('i18n');
   }
@@ -334,11 +415,11 @@ test('it loads collections/assessments and renders them correctly after clicking
     assert.ok($collection.hasClass('collection'), 'First resource should have the class "collection"');
     assert.ok($assessment.hasClass('assessment'), 'Last resource should have the class "assessment"');
     assert.ok($assessment.hasClass('selected'), 'Last resource should have the class "selected"');
-    assert.ok($onAirAssessment.hasClass('on-air'), 'Assessment on air');
-    assert.ok(!$assessment.hasClass('on-air'), 'Assessment not on air');
+    assert.ok($assessment.hasClass('on-air'), 'Assessment on air');
+    assert.ok(!$onAirAssessment.hasClass('on-air'), 'Assessment not on air');
 
     assert.equal($collection.find('.panel-title a.title').html().replace(/&nbsp;/g, " ").trim(), '1.  Collection 1', 'Incorrect first resource title');
-    assert.equal($assessment.find('.panel-title a.title').html().replace(/&nbsp;/g, " ").trim(), '3.  Assessment 2', 'Incorrect last resource title');
+    assert.equal($assessment.find('.panel-title a.title').html().replace(/&nbsp;/g, " ").trim(), '3.  Assessment 1', 'Incorrect last resource title');
 
     assert.equal($collection.find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first resource for mobile');
     assert.equal($assessment.find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the last resource for mobile');
@@ -401,7 +482,7 @@ test('it loads collections/assessments and renders them correctly for teacher', 
   return wait().then(function () {
 
     const $items = $component.find('.collections .panel');
-    assert.equal($items.length, 3, 'Incorrect number of resources listed');
+    assert.equal($items.length, 4, 'Incorrect number of resources listed');
 
     const $assessment = $items.last();
     const $onAirAssessment = $items.eq(1);
@@ -417,8 +498,8 @@ test('it loads collections/assessments and renders them correctly for teacher', 
     assert.ok($assessmentIcons.find('span.score'), 'Icon container: assessment percentage');
     assert.ok($assessmentIcons.find('i.on-air'), 'Icon container: on air icon');
 
-    assert.ok($onAirAssessment.hasClass('on-air'), 'Assessment on air');
-    assert.ok(!$assessment.hasClass('on-air'), 'Assessment not on air');
+    assert.ok($assessment.hasClass('on-air'), 'Assessment on air');
+    assert.ok(!$onAirAssessment.hasClass('on-air'), 'Assessment not on air');
   });
 });
 

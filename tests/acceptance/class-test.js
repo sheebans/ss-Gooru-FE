@@ -56,7 +56,7 @@ test('When overview page is selected', function(assert) {
     click($overviewMenuItem);
 
     andThen(function() {
-      assert.equal(currentURL(), '/class/class-10/overview');
+      assert.equal(currentURL(), '/class/class-10/overview?location=7deebd55-1976-40a2-8e46-3b8ec5b6d388%2B27f0bc24-c2b5-40d8-bb8f-e6ec939ad553%2B567399f336d4a8e75eb10661');
 
     });
   });

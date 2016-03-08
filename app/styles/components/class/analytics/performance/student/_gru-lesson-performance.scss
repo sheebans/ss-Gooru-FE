@@ -43,6 +43,7 @@
         align-content: center;
         display: -webkit-flex;
         display: flex;
+        text-decoration: none;
         @include respond-to(xs){
           height:50px;
         }
@@ -64,39 +65,6 @@
         >ul{
           border-bottom:1px solid $gray-lighter;
           >li{
-            &.lesson-performance-title {
-              -webkit-flex-direction: row;
-              flex-direction: row;
-              -webkit-flex-wrap: nowrap;
-              flex-wrap: nowrap;
-              -webkit-justify-content: flex-start;
-              justify-content: flex-start;
-              -webkit-align-items: center;
-              align-items: center;
-              -webkit-align-content: center;
-              align-content: center;
-              display: -webkit-flex;
-              display: flex;
-              height:100%;
-              text-align: left;
-              > span {
-                padding-left: 15px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                -webkit-order: 0;
-                order: 0;
-                -webkit-flex-grow: 0;
-                flex-grow: 0;
-                -webkit-flex-shrink: 1;
-                flex-shrink: 1;
-                -webkit-flex-basis: auto;
-                flex-basis: auto;
-                -webkit-align-self: auto;
-                align-self: auto;
-
-              }
-            }
             &.lesson-performance-content{
               -webkit-flex-direction: row;
               flex-direction: row;
@@ -135,15 +103,11 @@
                 border-left:1px solid $gray-lighter;
               }
             }
-            &:last-child:before{
-
-            }
           }
         }
       }
       div.collections-container{
         >div{
-          height: 105px;
           -webkit-flex-direction: row;
           flex-direction: row;
           -webkit-flex-wrap: wrap;
@@ -156,9 +120,7 @@
           align-content: center;
           display: -webkit-flex;
           display: flex;
-          @include respond-to(xs){
-            height:50px;
-          }
+          padding-bottom: 20px;
           &:after{
             border-top: 1px solid $gray-lighter;
             width: 96%;
@@ -192,48 +154,6 @@
               height:100%;
             }
             li{
-              &.collection-performance-title {
-                -webkit-flex-direction: column;
-                flex-direction: column;
-                -webkit-flex-wrap: nowrap;
-                flex-wrap: nowrap;
-                -webkit-justify-content: center;
-                justify-content: center;
-                -webkit-align-items: flex-start;
-                align-items: flex-start;
-                -webkit-align-content: center;
-                align-content: center;
-                display: -webkit-flex;
-                display: flex;
-                height: 100%;
-                text-align: left;
-                >span{
-                  white-space: nowrap;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                  &.has-action{
-                    cursor: pointer;
-                  }
-                }
-                > * {
-                  padding-left: 55px;
-                  -webkit-order: 0;
-                  order: 0;
-                  -webkit-flex-grow: 0;
-                  flex-grow: 0;
-                  -webkit-flex-shrink: 1;
-                  flex-shrink: 1;
-                  -webkit-flex-basis: auto;
-                  flex-basis: auto;
-                  -webkit-align-self: auto;
-                  align-self: auto;
-                  max-width: 100%;
-                  text-align: start;
-                  @include respond-to(xs){
-                    padding-left:30px;
-                  }
-                }
-              }
               &.collection-performance-content{
                 -webkit-flex-direction: row;
                 flex-direction: row;
@@ -249,18 +169,25 @@
                 display: flex;
                 height: 100%;
                 padding-left: 5px;
-                @include respond-to(xs){
-                  border-left:1px solid $gray-lighter;
-                }
                 .section-title{
                   padding: 5px;
                 }
-                .score-box{
-                  @media(min-width: $screen-sm){
-                    margin-top: 27px;
+                ul{
+                  -webkit-align-items: flex-end;
+                  align-items: flex-end;
+                  li{
+                    &.title{
+                      -webkit-flex-direction: column;
+                      flex-direction: column;
+                      -webkit-align-items: flex-start;
+                      align-items: flex-start;
+                      padding-left: 40px;
+                    }
+                    p{
+                      margin:0 0 5px;
+                    }
                   }
                 }
-
               }
             }
           }

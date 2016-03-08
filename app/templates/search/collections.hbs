@@ -1,11 +1,4 @@
-{{search-filter
-    subjects=subjects
-    grades=grades
-    standards=standards
-    onFilterType="filterType"
-    term=term
-    selectedCollectionType=collectionType}}
 {{collection-results
-    term=term
-    collectionResults=collectionResults
-  onContentPlayerAction="onContentPlayer"}}
+term=searchController.term
+collectionResults=searchController.collectionResults
+onContentPlayerAction="onContentPlayer"}}
