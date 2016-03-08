@@ -29,7 +29,10 @@ export default Ember.Object.extend(SessionMixin, {
   },
 
   getData: function(query) {
-    const path = this.urlForGetEvents(query);
+    const namespace = this.get('namespace');
+    const classId = query.classId;
+    const collectionId = query.collectionId;
+    const path = `${namespace}/class/${classId}/collection/${collectionId}/events`;
     const options = {
       type: 'GET',
       dataType: 'json',
@@ -38,15 +41,12 @@ export default Ember.Object.extend(SessionMixin, {
     return Ember.$.ajax(path, options);
   },
 
-  urlForGetEvents: function(query) {
+  postAttempt: function(query) {
     const namespace = this.get('namespace');
     const classId = query.classId;
     const collectionId = query.collectionId;
-    return `${namespace}/class/${classId}/collection/${collectionId}/events`;
-  },
-
-  postAttempt: function(query) {
-    const path = this.urlForPostAttempt(query);
+    const userId = query.userId;
+    const path = `${namespace}/class/${classId}/collection/${collectionId}/user/${userId}/complete`;
     const options = {
       type: 'POST',
       dataType: 'text',
@@ -55,30 +55,18 @@ export default Ember.Object.extend(SessionMixin, {
     return Ember.$.ajax(path, options);
   },
 
-  urlForPostAttempt: function(query) {
+  deleteAttempt: function(query) {
     const namespace = this.get('namespace');
     const classId = query.classId;
     const collectionId = query.collectionId;
     const userId = query.userId;
-    return `${namespace}/class/${classId}/collection/${collectionId}/user/${userId}/complete`;
-  },
-
-  deleteAttempt: function(query) {
-    const url = this.urlForDeleteAttempt(query);
+    const url = `${namespace}/class/${classId}/collection/${collectionId}/user/${userId}/reset`;
     const options = {
       type: 'DELETE',
       dataType: 'text',
       headers: this.get('headers')
     };
     return Ember.$.ajax(url, options);
-  },
-
-  urlForDeleteAttempt: function(query) {
-    const namespace = this.get('namespace');
-    const classId = query.classId;
-    const collectionId = query.collectionId;
-    const userId = query.userId;
-    return `${namespace}/class/${classId}/collection/${collectionId}/user/${userId}/reset`;
   },
 
   postOnAir: function(query) {

@@ -1,4 +1,4 @@
-.gru-resource-card {
+.cards.gru-resource-result-card {
   width: 195px;
   height: 128px;
   .panel {
@@ -9,58 +9,51 @@
     .panel-body {
       height: 88px;
       padding: 10px 5px;
-      .card-icon{
+      .card-icon {
         float: left;
         margin: 0 5px;
-        >i{
+        > i {
           height: 36px;
-          width : 28px;
+          width: 28px;
           display: block;
           margin: 0 auto;
-          &.video-icon{
-            background: url("gooru/images/video-resource.svg");
+          &.video-icon {
             -webkit-background-size: 31px 30px;
             background-size: 31px 30px;
-            height:30px;
+            height: 30px;
             width: 31px;
           }
-          &.webpage-icon{
-            background: url("gooru/images/website-resource.svg");
+          &.webpage-icon {
             -webkit-background-size: 29px 30px;
             background-size: 29px 30px;
             height: 30px;
             width: 29px;
           }
-          &.interactive-icon{
-            background: url("gooru/images/interactive-resource.svg");
+          &.interactive-icon {
             -webkit-background-size: 34px 30px;
             background-size: 34px 30px;
             height: 30px;
             width: 34px;
           }
-          &.question-icon{
-            background: url("gooru/images/question-resource.svg");
+          &.question-icon {
             -webkit-background-size: 30px 30px;
             background-size: 30px 30px;
             height: 30px;
             width: 30px;
           }
-          &.image-icon{
-            background: url("gooru/images/image-resource.svg");
+          &.image-icon {
             -webkit-background-size: 30px 30px;
             background-size: 30px 30px;
             height: 30px;
             width: 30px;
           }
-          &.text-icon{
-            background: url("gooru/images/text-resource.svg");
+          &.text-icon {
             -webkit-background-size: 31px 30px;
             background-size: 31px 30px;
             height: 30px;
             width: 31px;
           }
-          &.audio-icon{
-            background: url("gooru/images/audio-resource.svg");
+          &.audio-icon {
             -webkit-background-size: 34px 30px;
             background-size: 34px 30px;
             height: 30px;
@@ -77,8 +70,8 @@
           max-height: 45px;
           overflow: hidden;
         }
-        .format{
-          font-size:$font-size-small;
+        .format {
+          font-size: $font-size-small;
           color: $gray-base;
           margin: 10px 0 0 0;
         }

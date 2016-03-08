@@ -104,7 +104,7 @@ export default Ember.Object.extend(Serializable, {
     if (submittedAt) {
       let startedAt = this.get("startedAt");
       if (startedAt) { //updating time spent when submitted at is changed
-        timeSpent = Math.round(submittedAt.getTime() - startedAt.getTime()) / 1000;
+        timeSpent = submittedAt.getTime() - startedAt.getTime();
       }
     }
 
@@ -119,7 +119,5 @@ export default Ember.Object.extend(Serializable, {
       resourceType: 'resource'
     };
   }
-
-
 
 });

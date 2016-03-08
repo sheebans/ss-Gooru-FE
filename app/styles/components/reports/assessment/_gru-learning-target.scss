@@ -1,6 +1,6 @@
 .reports.assessment.gru-learning-target {
   .learning-target{
-    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.10);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.10);
     border-radius: 5px;
     border-left: 5px solid;
     background-color: $white;
@@ -60,7 +60,7 @@
     }
 
     .resource-cards-section {
-      .gru-resource-card {
+      .gru-resource-result-card {
         float: left;
         margin-top:10px;
         display:none;
