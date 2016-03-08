@@ -17,12 +17,11 @@
 @import 'controllers/class/analytics/performance/student';
 @import 'controllers/class/analytics/performance/teacher';
 @import 'controllers/class/analytics/performance/teacher/collection';
-@import 'controllers/framework/assessment';
-@import 'controllers/framework/components';
 @import 'controllers/index';
 @import 'controllers/partials/player';
 @import 'controllers/profile';
 @import 'controllers/reports/collection';
+@import 'controllers/search';
 
 
 // TODO: update these components so they follow the naming conventions

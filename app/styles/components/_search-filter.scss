@@ -1,89 +1,95 @@
-.search-filter{
-  .search-filter-options{
-    padding-left: 0px;
-  }
-  .img-collections{
-    width:30px;
-    height: 24px;
-    background: url('gooru/collection-icon.png') no-repeat;
-  }
-  .collections,.assessments{
-    div{
-      float:left;
-    }
-  }
-  .img-assessments{
-    width:30px;
-    height: 24px;
-    background: url('gooru/assessment-type.png') no-repeat;
-  }
-  .btn-search-filter{
-    border-radius: 4px;
-    border: 2px solid $white;
-    background-color: $white;
-    &:hover {
-      border-color: $brand-primary;
-      opacity:.75;
-    }
-    &:active, &:focus {
-      border-color: $brand-primary;
-      outline: 0;
-    }
-    span {
-      vertical-align: middle;
+.search-filter {
+  display: table;
+  height: 51px;
+  width: 100%;
+  .search-filter-options {
+    padding: 0;
+    list-style: none;
+    display: inline-block;
+    height: inherit;
+    margin: 0;
+    li{
       display: inline-block;
-    }
-  }
-  .btn-search-filter.selected {
-    border-color: $brand-primary;
-  }
-  .buttons-filter{
-    ul{
-      list-style: none;
-      li{
-        float:left;
-        @media (max-width: $screen-sm) {
-          margin: 0 0 10px 3px;
+      vertical-align: middle;
+      margin: 0 10px;
+      @media (max-width: $screen-sm) {
+        margin: 0 0 10px 0;
+      }
+      .btn-search-filter {
+        background-color: $dark-400;
+        color: $white;
+        padding: 10px 10px 12px;
+        border-radius: 0;
+        border-bottom: $dark-400 3px solid;
+        height: 51px;
+        @media (max-width: $screen-xs) {
+          padding: 0;
         }
-        .border-gray {
-          @media (max-width: $screen-sm) {
-            border: none;
+        span {
+          vertical-align: middle;
+          display: inline-block;
+          opacity: 0.6;
+          font-size: $font-size-h6;
+          margin: 0 5px 0 0;
+          i {
+            font-size: $font-size-h5;
+            line-height: 26px;
+          }
+          &.text {
+            @media (max-width: $screen-xs) {
+              display: block;
+            }
+          }
+        }
+      }
+      .btn-search-filter.selected {
+        border-bottom-color: $white;
+        span {
+          opacity: 1;
+        }
+      }
+      .collections {
+        .icon {
+          background: url("gooru/images/navigation_collection.svg");
+          width: 20px;
+          height: 15px;
+        }
+        &.selected {
+          .icon {
+            background: url("gooru/images/navigation_collection_selected.svg");
+          }
+        }
+      }
+      .assessments {
+        .icon {
+          background: url("gooru/images/navigation_assessment.svg");
+          width: 20px;
+          height: 15px;
+        }
+        &.selected {
+          .icon {
+            background: url("gooru/images/navigation_assessment_selected.svg");
+          }
+        }
+      }
+      .resources {
+        .icon {
+          background: url("gooru/images/navigation_resource.svg");
+          width: 23px;
+          height: 21px;
+        }
+        &.selected {
+          .icon {
+            background: url("gooru/images/navigation_resource_selected.svg");
           }
         }
       }
     }
-    .dropdown-toggle {
-      @media (max-width: $screen-sm) {
-        width: 85px;
-        padding: 6px 0;
-      }
-    }
-    button.collections {
-      @media (max-width: $screen-sm) {
-        width: 105px;
-        padding: 6px 0;
-      }
-    }
-    button.assessments {
-      @media (max-width: $screen-sm) {
-        width: 120px;
-        padding: 6px 0;
-      }
-    }
   }
-  .subfilters-dropdowns{
-    list-style: none;
-    float:left;
-  }
-  .subfilters{
-    .grade-dropdown > .btn-group .selected-text{
-      width:68px;
-    }
-    .subject-dropdown .app-dropdown > .btn-group .selected-text{
-      width:80px;
-    }
-  }
-  .collections-select .dropdown-menu{
-    min-width: 0px;
+  .standards {
+    display: table-cell;
+    float: none;
+    text-align: right;
+    vertical-align: middle;
   }
 }

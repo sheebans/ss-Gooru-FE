@@ -1,10 +1,20 @@
 import { moduleFor, test } from 'ember-qunit';
+import Pretender from 'pretender';
 
-moduleFor('adapter:user-session', 'Unit | Adapter | user-session', {});
+moduleFor('adapter:user-session', 'Unit | Adapter | user-session', {
+  beforeEach: function(assert) {
+    this.pretender = new Pretender();
+    this.pretender.unhandledRequest = function(verb, path) {
+      assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+    };
+  },
+  afterEach: function() {
+    this.pretender.shutdown();
+  }
+});
 
-test('queryRecord method for user session', function (assert) {
+test('queryRecord method for user session', function(assert) {
   const adapter = this.subject();
-
   const query = {
     namespace: '/api/nucleus-insights/v2',
     contentId: 'contentId',
@@ -17,6 +27,20 @@ test('queryRecord method for user session', function (assert) {
     openSession: 'openSession'
   };
 
-  const url = adapter.generateUrl(query.namespace, query.collectionType, query.contentId, query.userId, query.classId, query.courseId, query.unitId, query.lessonId, query.openSession);
-  assert.equal(url, '/api/nucleus-insights/v2/collectionType/contentId/sessions?userUid=userId&classGooruId=classId&courseGooruId=courseId&unitGooruId=unitId&lessonGooruId=lessonId&openSession=openSession', 'Wrong url');
+  this.pretender.map(function() {
+    this.get('/api/nucleus-insights/v2/collectionType/contentId/sessions', function(request) {
+      assert.equal('userId', request.queryParams.userUid);
+      assert.equal('classId', request.queryParams.classGooruId);
+      assert.equal('courseId', request.queryParams.courseGooruId);
+      assert.equal('unitId', request.queryParams.unitGooruId);
+      assert.equal('lessonId', request.queryParams.lessonGooruId);
+      assert.equal('openSession', request.queryParams.openSession);
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+
+  adapter.queryRecord(query)
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
 });

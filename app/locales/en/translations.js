@@ -301,14 +301,13 @@ export default {
   },
 
   "search-filter": {
-    "collection": "Collection",
-    "resource": "Resource",
-    "collectionsButton": "Collections",
-    "assessmentsButton": "Assessments",
+    "courses": "Courses",
+    "collections": "Collections",
+    "resources": "Resources",
+    "assessments": "Assessments",
+    "questions": "Questions",
     "author": {
-      "title": "Author",
-      "placeholder": "e.g. Username",
-      "questionToolTip": "Enter the username of an author on Gooru."
+      "placeholder": "Author"
     }
   },
 

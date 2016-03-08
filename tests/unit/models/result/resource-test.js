@@ -14,7 +14,7 @@ test('Change submittedAt', function(assert) {
   assert.equal(resourceResult.get("timeSpent"), 99999, "Wrong initial time spent, the observer is not thrown on init");
 
   resourceResult.set("submittedAt", new Date("October 13, 2014 11:41:00"));
-  assert.equal(resourceResult.get("timeSpent"), 60, "Wrong new time spent");
+  assert.equal(resourceResult.get("timeSpent"), 60000, "Wrong new time spent");
 
   resourceResult.set("submittedAt", null);
   assert.equal(resourceResult.get("timeSpent"), 0, "Wrong time spent, should be 0");
