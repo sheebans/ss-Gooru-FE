@@ -1,0 +1,37 @@
+{
+  "content": [
+    {
+      "userUid": "pochita",
+      "usageData": [
+        {
+          "lessonId": "fbd76aed-1b8d-4c2c-a9c6-c7603eef347c",
+          "completedCount": 5,
+          "scoreInPercentage": 65,
+          "timeSpent": 89141,
+          "attempts": 12,
+          "totalCount": 10
+        },
+        {
+          "lessonId": "aaac5d15-8434-43ff-8f8b-78cf0b6fd032",
+          "completedCount": 0,
+          "scoreInPercentage": 10,
+          "timeSpent": 32366,
+          "attempts": 4,
+          "totalCount": 0
+        },
+        {
+          "lessonId": "cc2bc04c-05ab-4407-9d76-b7021d6138e3",
+          "completedCount": 0,
+          "scoreInPercentage": 30,
+          "timeSpent": 32366,
+          "attempts": 4,
+          "totalCount": 0
+        }
+      ]
+    }
+  ],
+  "message": null,
+  "paginate": null
+}
+
+

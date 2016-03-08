@@ -45,6 +45,47 @@ const unitServiceStub = Ember.Service.extend({
   }
 });
 
+// performance service
+const performanceServiceStub = Ember.Service.extend({
+
+  findStudentPerformanceByCourse(userId, classId, courseId) {
+    var response;
+    var promiseResponse;
+
+    if (classId === '111-333-555' && courseId === '222-444-666') {
+      response = [
+        Ember.Object.create({
+          id: "unit-1",
+          title: "Unit 1",
+          visibility: true
+        }),
+        Ember.Object.create({
+          id: "unit-2",
+          title: "Unit 2",
+          visibility: true
+        }),
+        Ember.Object.create({
+          id: "unit-3",
+          title: "Unit 3",
+          visibility: false
+        })
+      ];
+    } else {
+      response = [];
+    }
+
+    promiseResponse = new Ember.RSVP.Promise(function(resolve) {
+      Ember.run.next(this, function() {
+        resolve(response);
+      });
+    });
+
+    return DS.PromiseArray.create({
+      promise: promiseResponse
+    });
+  }
+});
+
 const courseLocationStub = Ember.Service.extend({
 
   findByCourse(courseId) {
@@ -89,6 +130,9 @@ moduleForComponent('class/overview/gru-accordion-course', 'Integration | Compone
 
     this.register('service:api-sdk/course-location', courseLocationStub);
     this.inject.service('api-sdk/course-location', { as: 'courseLocationService' });
+
+    this.register('service:api-sdk/performance', performanceServiceStub);
+    this.inject.service('api-sdk/performance', { as: 'performanceService' });
 
     this.inject.service('i18n');
   }
@@ -158,9 +202,9 @@ test('it renders correctly when there are units', function(assert) {
     assert.ok(!$loadingSpinner.length, 'Loading spinner should have been hidden');
 
     const $items = $panelGroup.find('.gru-accordion-unit');
-    assert.equal($items.length, 2, 'Incorrect number of lessons listed');
+    assert.equal($items.length, 3, 'Incorrect number of lessons listed');
     assert.equal($items.first().find('.panel-title .title span').html().replace(/&nbsp;/g, " "), 'Unit 1.  Unit 1', 'Incorrect first unit title');
-    assert.equal($items.last().find('.panel-title .title span').html().replace(/&nbsp;/g, " "), 'Unit 2.  Unit 2', 'Incorrect last unit title');
+    assert.equal($items.last().find('.panel-title .title span').html().replace(/&nbsp;/g, " "), 'Unit 3.  Unit 3', 'Incorrect last unit title');
 
     assert.equal($items.first().find('.unit .gru-user-icons .first-view li').length, 1, 'Wrong number of user icons showing for the first unit for mobile');
     assert.equal($items.last().find('.unit .gru-user-icons .first-view li').length, 1, 'Wrong number of user icons showing for the last unit for mobile');

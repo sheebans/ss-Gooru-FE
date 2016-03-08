@@ -167,6 +167,27 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Gets the lesson teacher performance data for a specific class, course and unit.
+   * @param classId
+   * @param courseId
+   * @param unitId
+   * @param students
+   * @param options
+   * @returns {Promise.<ClassLessonPerformance[]>}
+   */
+  findCourseMapPerformanceByUnit: function(classId, courseId, unitId, options = { collectionType: 'assessment' }) {
+    const service = this;
+    return service.get('store').queryRecord('performance/class-lesson-performance', {
+      collectionType: options.collectionType,
+      classId: classId,
+      courseId: courseId,
+      unitId: unitId
+    }).then(function(lessonPerformances) {
+      return lessonPerformances;
+    });
+  },
+
+  /**
    * Gets the collection teacher performance data for a specific class, course, unit and lesson.
    * @param classId
    * @param courseId
@@ -186,6 +207,28 @@ export default Ember.Service.extend({
       lessonId: lessonId
     }).then(function (collectionPerformances) {
       return service.matchStudentsWithPerformances(students, collectionPerformances);
+    });
+  },
+
+  /**
+   **  Gets the collection teacher performance data for a specific class, course, unit and lesson.
+   * @param classId
+   * @param courseId
+   * @param unitId
+   * @param lessonId
+   * @param options
+   * @returns {Promise.<ClassCollectionPerformance[]>}
+   */
+  findCourseMapPerformanceByUnitAndLesson: function(classId, courseId, unitId, lessonId, options = { collectionType: 'assessment' }) {
+    const service = this;
+    return service.get('store').queryRecord('performance/class-collection-performance', {
+      collectionType: options.collectionType,
+      classId: classId,
+      courseId: courseId,
+      unitId: unitId,
+      lessonId: lessonId
+    }).then(function(collectionPerformances) {
+      return collectionPerformances;
     });
   }
 

@@ -1,9 +1,9 @@
 <ol class="accordion-course" role="tablist" aria-multiselectable="true">
-  {{#if items.isPending}}
+  {{#if loading}}
     {{three-bounce-spinner}}
   {{else}}
 
-    {{#each visibleItems as |item index|}}
+    {{#each items as |item index|}}
 
       {{class.overview.gru-accordion-unit
           currentClass=currentClass

@@ -58,6 +58,57 @@ const lessonServiceStub = Ember.Service.extend({
 
 });
 
+// Stub performance service
+const performanceServiceStub = Ember.Service.extend({
+
+  findStudentPerformanceByUnit(userId, classId, courseId, unitId) {
+    var response;
+    var promiseResponse;
+
+    if (classId === '111-333-555' &&
+          courseId === '222-444-666' &&
+            unitId === '777-999') {
+      response = [
+        Ember.Object.create({
+          id: "lesson-1",
+          title: "Lesson 1",
+          visibility: true,
+          completed: 5,
+          total: 10
+        }),
+        Ember.Object.create({
+          id: "lesson-2",
+          title: "Lesson 2",
+          visibility: false,
+          completed: 5,
+          total: 10
+        }),
+        Ember.Object.create({
+          id: "lesson-3",
+          title: "Lesson 3",
+          visibility: true,
+          completed: 5,
+          total: 10
+        })
+      ];
+    } else {
+      response = [];
+    }
+
+    promiseResponse = new Ember.RSVP.Promise(function(resolve) {
+      Ember.run.next(this, function() {
+        resolve(response);
+      });
+    });
+
+    // Simulate async data returned by the service
+    return DS.PromiseArray.create({
+      promise: promiseResponse
+    });
+  }
+
+});
+
 const courseLocationStub = Ember.Service.extend({
 
   findByCourseAndUnit(courseId, unitId) {
@@ -103,6 +154,9 @@ moduleForComponent('class/overview/gru-accordion-unit', 'Integration | Component
 
     this.register('service:api-sdk/course-location', courseLocationStub);
     this.inject.service('api-sdk/course-location', { as: 'courseLocationService' });
+
+    this.register('service:api-sdk/performance', performanceServiceStub);
+    this.inject.service('api-sdk/performance', { as: 'performanceService' });
 
     this.inject.service('i18n');
   }
@@ -167,7 +221,7 @@ test('it renders', function(assert) {
 });
 
 test('it renders correctly when there are no lessons to load after clicking on the unit name', function(assert) {
-  assert.expect(9);
+  assert.expect(8);
 
   const context = this;
 
@@ -200,8 +254,9 @@ test('it renders correctly when there are no lessons to load after clicking on t
   const $unitTitleAnchor = $component.find('.unit a');
   assert.equal($unitTitleAnchor.find('span').html().replace(/&nbsp;/g, " "), 'Unit 1.  Unit Title', 'Title text');
 
-  const $lessonNumber = $component.find('.unit .panel-title > span');
-  assert.equal($lessonNumber.text().trim(), '0 Lessons', 'Number of Lessons');
+  //TODO: WE NEED TO TEST THIS ONCE WE ADD THE NUMBER OF LESSONS
+  //const $lessonNumber = $component.find('.unit .panel-title > span');
+  //assert.equal($lessonNumber.text().trim(), '0 Lessons', 'Number of Lessons');
 
   const $collapsePanel = $component.find('.panel-collapse');
   assert.ok(!$collapsePanel.hasClass('in'), 'Panel should not be visible');
@@ -287,9 +342,9 @@ test('it loads lessons and renders them correctly after clicking on the unit nam
     assert.ok(!$loadingSpinner.length, 'Loading spinner should have been hidden');
 
     const $items = $panelGroup.find('.gru-accordion-lesson');
-    assert.equal($items.length, 2, 'Incorrect number of lessons listed');
+    assert.equal($items.length, 3, 'Incorrect number of lessons listed');
     assert.equal($items.first().find('.panel-title a.title').html().replace(/&nbsp;/g, " ").trim(), 'Lesson 1.  Lesson 1', 'Incorrect first lesson title');
-    assert.equal($items.last().find('.panel-title a.title').html().replace(/&nbsp;/g, " ").trim(), 'Lesson 2.  Lesson 3', 'Incorrect last lesson title');
+    assert.equal($items.last().find('.panel-title a.title').html().replace(/&nbsp;/g, " ").trim(), 'Lesson 3.  Lesson 3', 'Incorrect last lesson title');
 
     assert.equal($items.first().find('.unit .gru-user-icons .first-view li').length, 0, 'Wrong number of user icons showing for the first lesson');
     assert.equal($items.last().find('.unit .gru-user-icons .first-view li').length, 0, 'Wrong number of user icons showing for the last lesson ');
@@ -341,7 +396,7 @@ test('it only loads lessons once after clicking on the unit name', function(asse
 
     // Assert that the data has been loaded
     const $items = $collapsePanel.find('.gru-accordion-lesson');
-    assert.equal($items.length, 2, 'Incorrect number of lessons listed');
+    assert.equal($items.length, 3, 'Incorrect number of lessons listed');
 
     // Click on the unit name to close the panel with the lessons
     $unitTitleAnchor.click();
@@ -367,7 +422,7 @@ test('it only loads lessons once after clicking on the unit name', function(asse
     return wait().then(function() {
 
       const $items = $collapsePanel.find('.gru-accordion-lesson');
-      assert.equal($items.length, 2, 'Number of lessons listed should not have changed');
+      assert.equal($items.length, 3, 'Number of lessons listed should not have changed');
       assert.equal($unitTitleAnchor.find('span').html().replace(/&nbsp;/g, " "), 'Unit 3.  Unit Title', 'Index in the title text should have changed');
     });
   });
@@ -375,6 +430,8 @@ test('it only loads lessons once after clicking on the unit name', function(asse
 
 test('it triggers an event when the unit name is clicked on', function (assert) {
   assert.expect(1);
+
+  var location = null;
 
   // Class with lessons per stub
   var currentClass = Ember.Object.create({
@@ -389,7 +446,7 @@ test('it triggers an event when the unit name is clicked on', function (assert) 
   });
 
   this.on('externalAction', function (newLocation) {
-    assert.equal('777-999', newLocation);
+    location = newLocation;
   });
 
   this.set('currentClass', currentClass);
@@ -406,6 +463,10 @@ test('it triggers an event when the unit name is clicked on', function (assert) 
   // Click on the unit name
   Ember.run(() => {
     $unitTitleAnchor.click();
+  });
+
+  return wait().then(function() {
+    assert.equal('777-999', location);
   });
 
 });

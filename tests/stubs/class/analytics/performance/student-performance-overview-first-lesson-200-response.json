@@ -1,0 +1,43 @@
+{
+  "content":[
+    {
+      "userUid": "pochita",
+      "usageData":[
+        {
+          "completedCount": 10,
+          "collectionId": "522f6827-f7dd-486f-8631-eba497e2d425",
+          "scoreInPercentage": 90,
+          "timeSpent": 130339,
+          "views": 18,
+          "totalCount": 20
+        },
+        {
+          "completedCount": 10,
+          "collectionId": "76cb53df-1f6a-41f2-a31d-c75876c6bcf9",
+          "scoreInPercentage": 90,
+          "timeSpent": 130339,
+          "views": 18,
+          "totalCount": 20
+        },
+        {
+          "completedCount": 0,
+          "collectionId": "5028ac7f-82da-4f09-998b-ecf480d4b985",
+          "scoreInPercentage": 0,
+          "timeSpent": 0,
+          "views": 12,
+          "totalCount": 0
+        },
+        {
+          "completedCount": 0,
+          "collectionId": "363d3cc2-f2ac-490d-a870-42167f204c96",
+          "scoreInPercentage": 0,
+          "timeSpent": 0,
+          "views": 12,
+          "totalCount": 0
+        }
+      ]
+    }
+  ],
+  "message": null,
+  "paginate": null
+}

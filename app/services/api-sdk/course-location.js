@@ -13,7 +13,7 @@ export default Ember.Service.extend(StoreMixin, {
     const users = Ember.A([this.createUserObjectWithId(user, 1, true)]);
     const response = Ember.Object.create({
       unit: '7deebd55-1976-40a2-8e46-3b8ec5b6d388',
-      lesson: 'fbd76aed-1b8d-4c2c-a9c6-c7603eef843f',
+      lesson: '27f0bc24-c2b5-40d8-bb8f-e6ec939ad553',
       collection: '567399f336d4a8e75eb10661',
       locationUsers: DS.PromiseArray.create({
         promise: Ember.RSVP.resolve(users)
