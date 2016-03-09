@@ -164,6 +164,19 @@ export default DS.Model.extend(UserValidations, {
    * @property {Meta} metadata
    */
   metadata: DS.belongsTo("meta", { async: true }),
+  /**
+   * @property {string} districtName
+   */
+  districtName: DS.attr("string"),
+  /**
+   * @property {number}totalFollowers
+   */
+  totalFollowers: DS.attr('number'),
+
+  /**
+   * @property {number}totalFollowing
+   */
+  totalFollowing: DS.attr('number'),
 
   fullName: Ember.computed('firstName', 'lastName', function() {
     return this.get('lastName') + ', ' + this.get('firstName');
