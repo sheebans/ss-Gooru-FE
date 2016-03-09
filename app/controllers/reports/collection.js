@@ -135,7 +135,7 @@ export default Ember.Controller.extend({
             reportData.merge(userResourceResults);
             });
 
-      }, function (message) {
+      }, function () {
         controller.showNotification();
         connectAttemptDelay *= 2;
         webSocketClient.disconnect();

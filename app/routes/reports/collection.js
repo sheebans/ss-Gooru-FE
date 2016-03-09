@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import Env from 'gooru-web/config/environment';
 import ReportData from 'gooru-web/models/result/report-data';
 
 /**
