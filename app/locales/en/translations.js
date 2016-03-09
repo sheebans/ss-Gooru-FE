@@ -111,6 +111,9 @@ export default {
     "unit":"Unit",
     "unitInitial": "U",
     "yes": "Yes",
+    warnings: {
+      "on-air-connection-lost": "The On Air feature has lost connection and is retrying automatically. While it's tempting, please don't refresh your screen!"
+    },
     "no-content": "No content available"
   },
 

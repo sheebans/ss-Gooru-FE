@@ -76,9 +76,6 @@ export default Ember.Route.extend({
   },
 
   setupController: function (controller, model) {
-    var url = location.host + Env['real-time'].webSocketUrl;
-    var socket = new SockJS(url);
-
     // Create an instance of report data to pass to the controller.
     var reportData = ReportData.create({
       students: model.students,
@@ -91,8 +88,7 @@ export default Ember.Route.extend({
     controller.setProperties({
       routeParams: model.routeParams,
       assessment: model.collection,
-      students: model.students,
-      webSocketClient: Stomp.over(socket)
+      students: model.students
     });
 
     // Because there's on observer on reportData, it's important set all other controller properties beforehand
