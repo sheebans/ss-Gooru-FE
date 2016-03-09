@@ -1,5 +1,6 @@
 import Ember from "ember";
 import Env from 'gooru-web/config/environment';
+import { REAL_TIME } from 'gooru-web/config/config';
 
 /**
  *
@@ -98,7 +99,7 @@ export default Ember.Controller.extend({
     const collectionId = this.get('routeParams.collectionId');
     const channel = classId + '_' + collectionId;
     const reportData = this.get('reportData');
-    var connectAttemptDelay = 1000;
+    var connectAttemptDelay = REAL_TIME.CONNECTION_ATTEMPT_DELAY;
 
     function connectWithWebSocket() {
 
@@ -106,8 +107,8 @@ export default Ember.Controller.extend({
       let url = location.host + Env['real-time'].webSocketUrl;
       let socket = new SockJS(url);
       let webSocketClient = Stomp.over(socket);
-      webSocketClient.heartbeat.outgoing = 5000;  // 5 second heart-beat to the server
-      webSocketClient.heartbeat.incoming = 5000;  // 5 second heart-beat from the server
+      webSocketClient.heartbeat.outgoing = REAL_TIME.OUTGOING_HEARTBEAT;
+      webSocketClient.heartbeat.incoming = REAL_TIME.INCOMING_HEARTBEAT;
 
       controller.set('webSocketClient', webSocketClient);
 
@@ -115,7 +116,7 @@ export default Ember.Controller.extend({
 
         // Clear a failed connection notification, if there was one
         controller.clearNotification();
-        connectAttemptDelay = 1000;
+        connectAttemptDelay = REAL_TIME.CONNECTION_ATTEMPT_DELAY;
 
         // A web socket connection was made to the RT server. Before subscribing
         // for live messages, a request will be made to fetch any initialization data
