@@ -34,6 +34,7 @@ export default {
       "emotion-5": "I can explain"
     },
     "explanation": "Explanation",
+    "follow": "Follow",
     "forgotPassword": "Forgot Password",
     "hints": "Hints",
     "hide-results":"Hide Results",
@@ -109,6 +110,7 @@ export default {
     "suggested-resources":"Suggested Resources",
     "timeSpent": "Time Spent",
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
+    "unfollow": "Unfollow",
     "unit":"Unit",
     "unitInitial": "U",
     "yes": "Yes",

@@ -14,6 +14,17 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * Indicates if the user is seeing his own profile
+   * @property {isMyProfile}
+   * @see {Class} profile
+   * @returns {bool}
+   */
+  isMyProfile: Ember.computed('profile', function() {
+    return this.get('profile').get('id') === this.get("session.userId");
+  }),
+
   /**
    * The profile presented to the user
    * @property {Profile}

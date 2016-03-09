@@ -24,6 +24,7 @@ test('Layout', function(assert) {
     const $profileContainer = find(".controller.profile");
     T.exists(assert, $profileContainer, "Missing profile container");
     T.exists(assert, $profileContainer.find("> .navigation"), "Missing profile navigation");
+    T.exists(assert, $profileContainer.find("> .navigation .profile-info .actions .btn"), "Missing profile action button");
     T.exists(assert, $profileContainer.find("> .content"), "Missing profile content");
   });
 });
@@ -73,7 +74,7 @@ test('menu option selection updates when navigating between sections', function 
       assert.equal(currentURL(), '/profile/pochita/about');
       assert.ok($menu.find('.about').hasClass('selected'), 'Menu option \'about\' should be selected');
 
-      click($menu.find('.network > h6'));
+      click($menu.find('.network'));
       andThen(function () {
         assert.equal(currentURL(), '/profile/pochita/network');
         assert.ok(!$menu.find('.about').hasClass('selected'), 'Menu option \'about\' should no longer be selected');

@@ -16,7 +16,7 @@ test('it renders', function (assert) {
   assert.ok($component.length, 'Component does not have the component classes');
 
   const $actions = $component.find('.profile-info .actions');
-  assert.ok($actions.find('button.edit').length, 'Edit button is missing');
+  assert.ok($actions.find('button').length, 'Action button is missing');
 
   const $menuOptions = $component.find('.profile-menu');
   assert.ok($menuOptions.find('li:eq(0)').hasClass('about'), 'About should be the first option in the menu');
