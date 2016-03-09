@@ -90,6 +90,7 @@ export default {
       "audio"       : "Audio"
     },
     "remaining": "{{number}} Left",
+    "remix":"Remix",
     "score":"Score",
     "search": "Search",
     "search-placeholder": "Search...",
@@ -111,6 +112,9 @@ export default {
     "unit":"Unit",
     "unitInitial": "U",
     "yes": "Yes",
+    warnings: {
+      "on-air-connection-lost": "The On Air feature has lost connection and is retrying automatically. While it's tempting, please don't refresh your screen!"
+    },
     "no-content": "No content available"
   },
 
@@ -490,7 +494,6 @@ export default {
     "gru-course-card":{
       "units":"Units",
       "remixed-by":"Remixed by",
-      "remix":"Remix",
       "created":"Created by",
       "in":"in",
       "resource": {
@@ -502,6 +505,9 @@ export default {
         one: "{{count}} Question",
         other: "{{count}} Questions"
       }
+    },
+    "gru-resource-card":{
+      "add":"Add to",
     },
     "gru-resource-result-card": {
       "skipped":"Skipped"

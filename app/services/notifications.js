@@ -3,29 +3,31 @@ import Ember from 'ember';
 
 const { Service, on } = Ember;
 
+const defaultOptions = {
+  closeButton: false,
+  debug: false,
+  newestOnTop: true,
+  progressBar: false,
+  positionClass: "toast-top-full-width",
+  preventDuplicates: false,
+  onclick: null,
+  showDuration: 300,
+  hideDuration: 1000,
+  timeOut: 3000,
+  extendedTimeOut: 1000,
+  showEasing: "swing",
+  hideEasing: "linear",
+  showMethod: "fadeIn",
+  hideMethod: "fadeOut"
+};
+
 /*
  * Wrapper for the toastr library: https://github.com/CodeSeven/toastr
  */
 export default Service.extend({
 
   initToaster: on('init', function () {
-    toastr.options = {
-      closeButton: false,
-      debug: false,
-      newestOnTop: true,
-      progressBar: false,
-      positionClass: "toast-top-full-width",
-      preventDuplicates: false,
-      onclick: null,
-      showDuration: 300,
-      hideDuration: 1000,
-      timeOut: 3000,
-      extendedTimeOut: 1000,
-      showEasing: "swing",
-      hideEasing: "linear",
-      showMethod: "fadeIn",
-      hideMethod: "fadeOut"
-    };
+    toastr.options = defaultOptions;
   }),
 
   /**
@@ -48,6 +50,7 @@ export default Service.extend({
    */
   success(message, title) {
     toastr.success(message, title);
+    this.restoreOptions();
   },
 
   /**
@@ -60,6 +63,7 @@ export default Service.extend({
    */
   info(message, title) {
     toastr.info(message, title);
+    this.restoreOptions();
   },
 
   /**
@@ -72,6 +76,7 @@ export default Service.extend({
    */
   warning(message, title) {
     toastr.warning(message, title);
+    this.restoreOptions();
   },
 
   /**
@@ -84,6 +89,15 @@ export default Service.extend({
    */
   error(message, title) {
     toastr.error(message, title);
+    this.restoreOptions();
+  },
+
+  setOptions(options) {
+    toastr.options = options;
+  },
+
+  restoreOptions() {
+    toastr.options = defaultOptions;
   }
 
 });
