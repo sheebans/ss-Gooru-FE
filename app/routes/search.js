@@ -70,6 +70,30 @@ export default Ember.Route.extend({
      */
     onOpenContentPlayer: function(collectionId) {
       this.transitionTo('player', collectionId);
+    },
+
+    /**
+     * Action triggered to filter by type in collections page
+     */
+    filterType: function (term, filterType) {
+      const route = this;
+      const controller = route.get("controller");
+      const searchService = route.get('searchService');
+      
+      if(filterType==='questions'){
+        this.transitionTo('search.questions');
+      }
+      else {
+        const params = {
+          "term": term,
+          "collectionType": filterType
+        };
+        searchService.searchCollections(params).then(function(collectionResults){
+          controller.setProperties(params);
+          controller.set("collectionResults", collectionResults);
+        });
+        this.transitionTo('search.collections');
+      }
     }
   }
 });

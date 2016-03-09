@@ -4,33 +4,10 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  queryParams: ['term', "collectionType"],
+  queryParams: ['term', "filterType"],
 
   // -------------------------------------------------------------------------
   // Actions
-
-  actions: {
-    /**
-     * Action triggered to filter by type in collections page
-     */
-    filterType: function (term, collectionType) {
-      //TODO: create a search criteria object instead of passing that many parameters
-      const
-        controller = this,
-        searchService = controller.get('searchService'),
-        params = {
-          "term": term,
-          "collectionType": collectionType
-        };
-
-      searchService.searchCollections(params).then(function(collectionResults){
-        controller.setProperties(params);
-        controller.set("collectionResults", collectionResults);
-      });
-    }
-
-  },
-
 
   // -------------------------------------------------------------------------
   // Events
@@ -51,9 +28,9 @@ export default Ember.Controller.extend({
   term: null,
 
   /**
-   * @property {string} collection type filter
+   * @property {string} filter type filter
    */
-  collectionType: null,
+  filterType: null,
 
   /**
    * Configured standards
