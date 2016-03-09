@@ -119,11 +119,10 @@
         }
       }
       .description {
-        $font-size: 13px;
         $line-height: 1.8;
         $lines-to-show: 3;
         p.truncate {
-          @include ellipsis($font-size: $font-size, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
+          @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
         }
       }
     }

@@ -32,7 +32,7 @@
                   <img class="img-responsive" src="assets/gooru/profile.png">
               {{/if}}
                 <div class="publisher-name">
-                  <a href="{{ resource.url }}" target="_blank">{{resource.owner.name}}</a>
+                  <a href="{{ resource.owner.url }}" target="_blank">{{resource.owner.name}}</a>
                 </div>
             </div>
             <div class="description col-md-12 col-sm-12 col-xs-12">
@@ -43,7 +43,7 @@
               {{/if}}
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <button class="{{if resource.isQuestion 'remix-btn' 'add-to-btn' }} btn-success btn-sm">{{#if resource.isQuestion }}{{t "cards.remix"}}{{else}}{{t "cards.gru-resource-card.add"}}{{/if}}</button>
+                <button class="{{if resource.isQuestion 'remix-btn' 'add-to-btn' }} btn-success btn-sm">{{#if resource.isQuestion }}{{t "common.remix"}}{{else}}{{t "cards.gru-resource-card.add"}}{{/if}}</button>
             </div>
         </div>
     </div>

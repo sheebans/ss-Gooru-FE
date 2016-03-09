@@ -90,6 +90,7 @@ export default {
       "audio"       : "Audio"
     },
     "remaining": "{{number}} Left",
+    "remix":"Remix",
     "score":"Score",
     "search": "Search",
     "search-placeholder": "Search...",
@@ -487,7 +488,6 @@ export default {
     "study-time": "Study Time"
   },
   "cards":{
-    "remix":"Remix",
     "gru-course-card":{
       "units":"Units",
       "remixed-by":"Remixed by",
