@@ -94,64 +94,68 @@ export default Ember.Controller.extend({
    * data from the real time server as well
    */
   reportDataLoaded: Ember.observer('reportData', function () {
-    const controller = this;
     const classId = this.get('routeParams.classId');
     const collectionId = this.get('routeParams.collectionId');
-    const channel = classId + '_' + collectionId;
     const reportData = this.get('reportData');
-    var connectAttemptDelay = REAL_TIME_CLIENT.CONNECTION_ATTEMPT_DELAY;
-
-    function connectWithWebSocket() {
-
-      // Create a new web socket connection
-      let url = location.host + Env['real-time'].webSocketUrl;
-      let socket = new SockJS(url);
-      let webSocketClient = Stomp.over(socket);
-      webSocketClient.heartbeat.outgoing = REAL_TIME_CLIENT.OUTGOING_HEARTBEAT;
-      webSocketClient.heartbeat.incoming = REAL_TIME_CLIENT.INCOMING_HEARTBEAT;
-
-      controller.set('webSocketClient', webSocketClient);
-
-      webSocketClient.connect({}, function () {
-
-        // Clear a failed connection notification, if there was one
-        controller.clearNotification();
-        connectAttemptDelay = REAL_TIME_CLIENT.CONNECTION_ATTEMPT_DELAY;
-
-        // A web socket connection was made to the RT server. Before subscribing
-        // for live messages, a request will be made to fetch any initialization data
-        // from the RT server (to avoid overriding data from live messages with init data)
-        controller.get('realTimeService').findResourcesByCollection(classId, collectionId)
-          .then(function (userResourceResults) {
-
-            // Subscribe to listen for live messages
-            webSocketClient.subscribe('/topic/' + channel, function (message) {
-              var eventMessage = JSON.parse(message.body);
-              const userResourceResult = controller.get('realTimeSerializer').normalizeRealTimeEvent(eventMessage);
-              reportData.merge([userResourceResult]);
-            });
-
-            // Merge any init data from the RT server with any
-            // previous report data
-            reportData.merge(userResourceResults);
-            });
-
-      }, function () {
-        controller.showNotification();
-        connectAttemptDelay *= 2;
-        webSocketClient.disconnect();
-        setTimeout(connectWithWebSocket, connectAttemptDelay);
-      });
-    }
 
     if (reportData) {
-      connectWithWebSocket();
+      this.connectWithWebSocket(classId, collectionId, reportData);
     }
   }),
 
 
   // -------------------------------------------------------------------------
   // Methods
+
+  connectWithWebSocket: function (classId, collectionId, reportData) {
+
+    // Create a new web socket connection
+    let url = location.host + Env['real-time'].webSocketUrl;
+    let socket = new SockJS(url);
+    let webSocketClient = Stomp.over(socket);
+    webSocketClient.heartbeat.outgoing = REAL_TIME_CLIENT.OUTGOING_HEARTBEAT;
+    webSocketClient.heartbeat.incoming = REAL_TIME_CLIENT.INCOMING_HEARTBEAT;
+
+    this.set('webSocketClient', webSocketClient);
+
+    webSocketClient.connect({}, function () {
+
+      // Clear a failed connection notification, if there was one
+      this.clearNotification();
+
+      // A web socket connection was made to the RT server. Before subscribing
+      // for live messages, a request will be made to fetch any initialization data
+      // from the RT server (to avoid overriding data from live messages with init data)
+      this.get('realTimeService').findResourcesByCollection(classId, collectionId)
+        .then(function (userResourceResults) {
+          const channel = classId + '_' + collectionId;
+
+          // Subscribe to listen for live messages
+          webSocketClient.subscribe('/topic/' + channel, function (message) {
+            var eventMessage = JSON.parse(message.body);
+            const userResourceResult = controller.get('realTimeSerializer').normalizeRealTimeEvent(eventMessage);
+            reportData.merge([userResourceResult]);
+          });
+
+          // Merge any init data from the RT server with any
+          // previous report data
+          reportData.merge(userResourceResults);
+        });
+
+    }.bind(this), function () {
+      var connectAttemptDelay = REAL_TIME_CLIENT.CONNECTION_ATTEMPT_DELAY;
+
+      this.showNotification();
+      webSocketClient.disconnect();
+      webSocketClient = null;
+
+      setTimeout(function () {
+        // Make a recursive call to try to reconnect
+        this.connectWithWebSocket(classId, collectionId, reportData);
+      }.bind(this), connectAttemptDelay);
+
+    }.bind(this)).bind(this);
+  },
 
   showNotification: function () {
     var isDisplayed = this.get('isNotificationDisplayed');
