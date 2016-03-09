@@ -90,6 +90,7 @@ export default {
       "audio"       : "Audio"
     },
     "remaining": "{{number}} Left",
+    "remix":"Remix",
     "score":"Score",
     "search": "Search",
     "search-placeholder": "Search...",
@@ -493,7 +494,6 @@ export default {
     "gru-course-card":{
       "units":"Units",
       "remixed-by":"Remixed by",
-      "remix":"Remix",
       "created":"Created by",
       "in":"in",
       "resource": {
@@ -505,6 +505,9 @@ export default {
         one: "{{count}} Question",
         other: "{{count}} Questions"
       }
+    },
+    "gru-resource-card":{
+      "add":"Add to",
     },
     "gru-resource-result-card": {
       "skipped":"Skipped"
