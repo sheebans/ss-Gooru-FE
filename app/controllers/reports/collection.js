@@ -119,6 +119,7 @@ export default Ember.Controller.extend({
     this.set('webSocketClient', webSocketClient);
 
     webSocketClient.connect({}, function () {
+      var controller = this;
 
       // Clear a failed connection notification, if there was one
       this.clearNotification();
