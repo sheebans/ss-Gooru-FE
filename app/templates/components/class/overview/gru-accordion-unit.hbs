@@ -16,7 +16,8 @@
       {{#if model.totalLessons}}
         <b>{{model.totalLessons}}</b> {{t "common.lessonObj" count=model.totalLessons}}
       {{else}}
-        <b>0</b> {{t "common.lessonObj" count=0}}
+      {{!-- TODO: Add the lessons here--}}
+        <b></b> {{!--t "common.lessonObj" count=0--}}
       {{/if}}
     </span>
   </strong>
@@ -37,11 +38,11 @@
   <div class="panel-body">
     <ol class="panel-group" role="tablist" aria-multiselectable="true">
 
-    {{#if items.isPending}}
+    {{#if loading}}
       {{three-bounce-spinner}}
     {{else}}
 
-      {{#each visibleItems as |item index|}}
+      {{#each items as |item index|}}
 
         {{class.overview.gru-accordion-lesson
           currentClass=currentClass

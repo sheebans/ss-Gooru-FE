@@ -64,11 +64,18 @@ export default Ember.Controller.extend({
   userLocation: null,
 
   /**
+   * A link to the computed property isStudent in class controller
+   * @see controllers/class.js
+   * @property {isStudent}
+   */
+  isStudent: Ember.computed.alias('classController.isStudent'),
+
+  /**
    * A link to the parent class controller
    * @see controllers/class.js
    * @property {Class}
    */
-  "class": Ember.computed.reads('classController.class')
+  "class": Ember.computed.alias('classController.class')
 
   // -------------------------------------------------------------------------
   // Observers

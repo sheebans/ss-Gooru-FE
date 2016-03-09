@@ -44,7 +44,6 @@ export function createDataMatrix(headers, classPerformanceData) {
   });
   itemPerformanceAverageData.get('performanceData').insertAt(0, createClassAverageObject(classPerformanceData));
   dataMatrix.insertAt(0, itemPerformanceAverageData);
-
   return dataMatrix;
 }
 

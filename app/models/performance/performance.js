@@ -17,6 +17,11 @@ export default DS.Model.extend({
    */
   type: DS.attr('string'),
   /**
+   * This will fix the change in gru-accordion-lesson because classPerformance uses collectionType instead of type, this would be only for collection and assessmet
+   * @property {String} Student performance type (e.g. collection, assessment)
+   */
+  collectionType : Ember.computed.alias('type'),
+  /**
    * @property {Boolean} Value that tells whether the performance data belongs to an assessment
    */
   isAssessment : Ember.computed.equal('type', 'assessment'),
