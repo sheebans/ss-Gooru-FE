@@ -26,11 +26,10 @@ export default Ember.Route.extend({
      *
      * @function actions:launchOnAir
      */
-    launchOnAir: function (unitId, lessonId, collectionId) {
+    launchOnAir: function (collectionId) {
       const currentClass = this.modelFor('class').class;
       const classId = currentClass.get("id");
-      const courseId = currentClass.get("course");
-      this.transitionTo('reports.collection', classId, courseId, unitId, lessonId, collectionId);
+      this.transitionTo('reports.collection', classId, collectionId);
     },
 
     /**

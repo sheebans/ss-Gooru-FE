@@ -74,9 +74,7 @@ export default Ember.Component.extend(AccordionMixin, SessionMixin, {
     },
 
     setOnAir: function (collectionId) {
-      const unitId = this.get('unitId');
-      const lessonId = this.get('model.id');
-      this.get('onLaunchOnAir')(unitId, lessonId, collectionId);
+      this.get('onLaunchOnAir')(collectionId);
     }
   },
 
