@@ -310,6 +310,16 @@ export default {
       "placeholder": "Author"
     }
   },
+  "category-menu": {
+    "courses": "Courses",
+    "collections": "Collections",
+    "resources": "Resources",
+    "assessments": "Assessments",
+    "questions": "Questions",
+    "author": {
+      "placeholder": "Author"
+    }
+  },
 
   "resource": {
     "video": "Video",

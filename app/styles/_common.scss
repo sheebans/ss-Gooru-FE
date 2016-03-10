@@ -201,3 +201,112 @@ button.btn-link {
     background: url("gooru/images/audio-resource.svg");
   }
 }
+
+div.category-menu {
+  height:100%;
+  @media (max-width: $screen-sm-max) {width: 100%;}
+  ul.category-options {
+    padding: 0;
+    list-style: none;
+    display: inline-block;
+    height: inherit;
+    margin: 0;
+    @media (max-width: $screen-sm-max) {
+      @include flexbox;
+      @include justify-content(space-around);
+      @include align-items(center);
+      @include align-content(stretch);
+
+      -webkit-flex-direction: row;
+      flex-direction: row;
+      -webkit-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+      -webkit-justify-content: space-around;
+      justify-content: space-around;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-align-content: stretch;
+      align-content: stretch;
+      display: -webkit-flex;
+      display: flex;
+      width: 100%;
+    }
+    li{
+      display: inline-block;
+      margin: 0 10px;
+      height:100%;
+      @media (max-width: $screen-sm-max) {margin: 0;}
+      .btn-category {
+        color: $white;
+        -webkit-box-shadow:none;
+        box-shadow:none;
+        height:100%;
+        >*{
+          opacity: 0.6;
+        }
+        i {
+          font-size: $font-size-h5;
+          line-height: 26px;
+          display: inline-block;
+          vertical-align: middle;
+          margin-right: 5px;
+        }
+        span {
+          vertical-align: middle;
+          display: inline-block;
+          font-size: $font-size-h6;
+          margin: 0 5px 0 0;
+        }
+      }
+      &.active a{
+        -webkit-box-shadow: inset 0 -3px 0 $white;
+        box-shadow: inset 0 -3px 0 $white;
+        >* {
+          opacity: 1;
+        }
+      }
+      &.collections {
+        i {
+          background: url("gooru/images/navigation_collection.svg");
+          width: 20px;
+          height: 15px;
+        }
+        &.active {
+          i {
+            background: url("gooru/images/navigation_collection_selected.svg");
+          }
+        }
+      }
+      &.assessments {
+        i {
+          background: url("gooru/images/navigation_assessment.svg");
+          width: 20px;
+          height: 15px;
+        }
+        &.active {
+          i {
+            background: url("gooru/images/navigation_assessment_selected.svg");
+          }
+        }
+      }
+      &.resources {
+        i{
+          background: url("gooru/images/navigation_resource.svg");
+          width: 23px;
+          height: 21px;
+        }
+        &.active {
+          i {
+            background: url("gooru/images/navigation_resource_selected.svg");
+          }
+        }
+      }
+    }
+  }
+  .standards {
+    display: table-cell;
+    float: none;
+    text-align: right;
+    vertical-align: middle;
+  }
+}
