@@ -1,44 +1,65 @@
-.gru-course-card{
-  display: inline-block;
-  border: 1px solid $gray-base;
-  padding: 5px;
+.cards.gru-course-card{
   margin:5px;
-  h3,.thumbnail{
-    cursor: pointer;
-  }
-  .thumbnail,.card-info{
-    vertical-align: middle;
-    margin-right: 5px;
-  }
-  .thumbnail{
-    width: 125px;
-    height: 125px;
-    margin-bottom:0px;
-    border: 1px solid $gray-base;
-  }
-  .remixed,.users-teaser,.course-title,.icon,.total-units,.subject,.thumbnail,.card-info{
-    display: inline-block;
-  }
-  .icon{
-    float:right;
-    font-size: 22px;
-  }
-   h3{
-     margin-top:5px;
-   }
-  h3.truncate{
-    width: 93%;
-  }
-  .truncate {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  p.subject.truncate{
-    width: 90%;
-    margin-bottom: 0px;
-  }
-  .total-units{
-    padding-right: 10px;
+  display: inline-block;
+  .panel{
+    border-radius: 6px;
+    width: 463px;
+    height: 145px;
+    .panel-body{
+      padding:0px;
+      .icon{
+        color: $gray-base;
+        float:right;
+        font-size: 22px;
+      }
+      h3,.course-image{
+        cursor: pointer;
+      }
+      .course-image{
+        width: 145px;
+        margin-bottom:0px;
+        float: left;
+        img{
+          border-top-left-radius:6px;
+          border-bottom-left-radius:6px;
+        }
+      }
+      .card-info{
+        padding-left:23px;
+        float: left;
+        width: 67%;
+        .header{
+          margin-top: 5px;
+          h6.truncate{
+            width: 90%;
+          }
+          .truncate {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+        p.subject.truncate{
+          width: 90%;
+          margin-bottom: 0px;
+          .bars{
+            border-left: 2px solid $gray-base;
+            border-right: 2px solid $gray-base;
+            margin-right: 5px;
+          }
+        }
+        .total-units{
+          padding: 0 5px 0 5px;
+        }
+        button{
+          width: 73px;
+          height:28px;
+          font-size: $font-size-base;
+        }
+      }
+      .remix-button,.edit-button,.users-teaser,.course-title,.icon,.total-units,.subject{
+        display: inline-block;
+      }
+    }
   }
 }
