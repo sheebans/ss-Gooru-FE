@@ -167,19 +167,28 @@ export default Ember.Object.extend({
   merge: function(collection){
     const resourceResults = this.get("resourceResults");
     const resources = collection.get("resources");
-    resources.forEach(function(resource){
-      let resourceId = resource.get('id');
-      let found = resourceResults.findBy("resourceId", resourceId);
-      if (!found){
-        let result = (resource.get("isQuestion")) ?
-          QuestionResult.create({ resourceId: resourceId, resource: resource }) :
-          ResourceResult.create({ resourceId: resourceId, resource: resource });
-        resourceResults.addObject(result);
-      }
-      else{
-        found.set("resource", resource);
-      }
-    });
+
+    if (resources.get('length')) {
+
+      resources.forEach(function (resource) {
+        let resourceId = resource.get('id');
+        let found = resourceResults.findBy("resourceId", resourceId);
+        if (!found) {
+          let result = (resource.get("isQuestion")) ?
+            QuestionResult.create({resourceId: resourceId, resource: resource}) :
+            ResourceResult.create({resourceId: resourceId, resource: resource});
+          resourceResults.addObject(result);
+        }
+        else {
+          found.set("resource", resource);
+        }
+      });
+
+    } else {
+      Ember.Logger.error('Collection with ID: ' + collection.get('id') + ' does not have any resources. No resource results were set.');
+    }
+
+
   },
 
   /**
