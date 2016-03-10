@@ -1,27 +1,36 @@
 .cards.gru-collection-card{
-  width: 300px;
-  height: 290px;
-
-  .truncate {
-    width: 90%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
   .panel{
+    width: 300px;
+    height: 290px;
     border-radius: 6px;
     .panel-heading{
       background-color: $white;
       border-bottom: 1px solid $gray-lighter;
       border-top-right-radius: 6px;
       border-top-left-radius: 6px;
+      padding:10px 15px 0 15px;
+
+      .truncate {
+        width: 90%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
       .image{
+        display: inline-block;
         img{
+          width: 74px;
+          height: 74px;
           border-radius: 4px;
         }
       }
       .collection-info{
+        display: inline-block;
         color:$text-color;
+        vertical-align: top;
+        margin-left: 15px;
+        width: 66%;
         .bar{
           font-weight:bold;
           color:$gray-dark;
@@ -52,6 +61,7 @@
     .panel-body{
       padding: 5px 15px 15px 15px;
       .standards{
+        height: 24px;
         .uc-search-standard {
           display: inline-block;
           float: left;
@@ -76,9 +86,11 @@
         }
       }
       .description{
-        p{
-          height:92px;
-          overflow: hidden;
+        height: 78px;
+        $line-height: 1.8;
+        $lines-to-show: 3;
+        p.truncate {
+          @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
         }
       }
     }

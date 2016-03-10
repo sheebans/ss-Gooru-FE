@@ -42,15 +42,15 @@ export default Ember.Component.extend({
   /**
    * @property {String} remixedByUser
    */
-  remixedByUser: Ember.computed('collection',function(){
-    return this.get('collection.remixedBy')[0];
-  }),
+  //remixedByUser: Ember.computed('collection',function(){
+  //  return this.get('collection.remixedBy')[0];
+  //}),
   /**
    * @property {Number} remixedUsers
    */
-  remixedUsers:Ember.computed('collection',function(){
-    return (this.get('collection.remixedBy').length)-1;
-  }),
+  //remixedUsers:Ember.computed('collection',function(){
+  //  return (this.get('collection.remixedBy').length)-1;
+  //}),
 
 
 });
