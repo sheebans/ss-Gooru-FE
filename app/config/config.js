@@ -64,3 +64,9 @@ export const NO_ANSWER_COLOR = '#FFFFFF';//white
 
 // Height of the application header in pixels
 export const HEADER_HEIGHT = 50;
+
+export const REAL_TIME_CLIENT = {
+  CONNECTION_ATTEMPT_DELAY: 3000,
+  OUTGOING_HEARTBEAT: 5000,
+  INCOMING_HEARTBEAT: 5000
+};

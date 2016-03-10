@@ -31,10 +31,17 @@
   .controls {
     .teacher-actions {
       .gru-actions-bar {
-        text-align: right;
+        @media (min-width: $screen-sm) {
+          text-align: right;
+        }
         .drop-menu {
           @media (max-width: $screen-xs-max) {
             margin: 10px 0 0 0;
+          }
+          button {
+            @media (max-width: $screen-xs-max) {
+              margin: 0 0 5px 0;
+            }
           }
         }
       }
@@ -50,7 +57,10 @@
       padding-left: 56px;
       height: 50px;
       @media (max-width: $screen-xs-max) {
-        padding-left: 15px;
+        width: 100vw;
+        background: $white;
+        padding: 0;
+        height: 58px;
       }
     }
     .performance-scale {
@@ -60,14 +70,15 @@
       @media (max-width: $screen-xs-max) {
         padding-left: 15px;
         margin: 10px 0 0 0;
+        float: left;
       }
       .scale-indicator {
         vertical-align: middle;
         display: table-cell;
         .grading-scale {
-          float: left;
-          @media (min-width: $screen-sm) {
             float: right;
+          @media (max-width: $screen-xs-max) {
+            float: left;
           }
         }
       }

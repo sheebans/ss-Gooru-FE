@@ -31,17 +31,22 @@
     input {
       color: $white;
       margin: 0;
+      @media (max-width: $screen-xs-max) {
+        background-color: transparent;
+      }
     }
     input[type="checkbox"]:checked:after {
       background-color: $blue-400;
+      border-color: $blue-400;
     }
     input[type="checkbox"]:after {
       background-color: $gray-light;
-      border:none;
-      border-radius:50%;
-      @media (min-width: $screen-sm) {
-        border: 2px solid #666;
-        border-radius: 3px;
+      border: 2px solid $gray;
+      border-radius: 3px;
+      background-color: transparent;
+      @media (max-width: $screen-xs-max) {
+        border-radius:50%;
+        border-color:$gray-light;
       }
     }
     input[type="checkbox"]:disabled:checked:after {
@@ -70,15 +75,21 @@
 .analytics-performance-teacher {
   .gru-data-picker {
     .checkbox {
-      padding: 0;
-      -webkit-flex-direction: row;
-      flex-direction: row;
-      input[type="checkbox"]:after{
-        background-color: transparent;
+      @media (min-width: $screen-xs-max) {
+        padding: 0;
+        -webkit-flex-direction: row;
+        flex-direction: row;
       }
-      input[type="checkbox"]:checked:after{
-        background-color: $blue-400;
-        border:none;
+      input {
+        width: 18px;
+        height: 16px;
+        margin: 0 5px 0 0;
+      }
+    }
+    input[type="checkbox"]:checked:before {
+      @media (max-width: $screen-xs-max) {
+        top: 3px;
+        content: none;
       }
     }
   }

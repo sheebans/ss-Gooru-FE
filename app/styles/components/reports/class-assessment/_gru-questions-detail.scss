@@ -26,6 +26,13 @@
       float: right;
       margin-top: 5px;
     }
+    &.anonymous {
+      .gru-bubbles {
+        .bubble {
+          font-size: $font-size-h5;
+        }
+      }
+    }
   }
   .body{
     width: 100%;
@@ -49,17 +56,20 @@
     }
     .question-info {
       width: 50%;
+      .narration {
+        .panel-body {
+          padding:15px 35px;
+        }
+      }
+      &.anonymous {
+        font-size: $font-size-h3;
+      }
     }
     .question-metrics {
       width: 50%;
       padding: 0 0 0 20px;
       .panel-body {
         padding: 0;
-      }
-    }
-    .narration {
-      .panel-body {
-        padding:15px 35px;
       }
     }
   }
