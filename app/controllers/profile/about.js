@@ -27,7 +27,7 @@ export default Ember.Controller.extend({
       Ember.Logger.debug("Remix Course");
     },
     /**
-     * Handle onRemixCourse event from gru-course-card
+     * Handle onEditCourse event from gru-course-card
      *
      */
     editCourse: function(){

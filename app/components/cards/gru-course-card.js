@@ -36,7 +36,7 @@ export default Ember.Component.extend({
       this.sendAction("onRemixCourse");
     },
     /**
-     *Action triggered when select remix the course
+     *Action triggered when select edit the course
      */
     editCourse:function(){
       this.sendAction("onEditCourse");
