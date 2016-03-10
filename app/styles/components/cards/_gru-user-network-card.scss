@@ -1,7 +1,4 @@
 .cards.gru-user-network-card{
-  width: 220px;
-  height: 170px;
-
   .truncate {
     width: 90%;
     white-space: nowrap;
@@ -9,6 +6,8 @@
     text-overflow: ellipsis;
   }
   .panel{
+    width: 220px;
+    height: 170px;
     border-radius: 6px;
     .panel-heading{
       background-color: $white;
