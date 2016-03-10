@@ -52,9 +52,9 @@ export default Ember.Component.extend(AccordionMixin, SessionMixin, {
      *
      * @function actions:launchOnAir
      */
-    launchOnAir: function (unitId, lessonId, collectionId) {
+    launchOnAir: function (collectionId) {
       // Send the action so that it bubbles up to the route
-      this.sendAction('onLaunchOnAir', unitId, lessonId, collectionId);
+      this.sendAction('onLaunchOnAir', collectionId);
     },
 
     /**
