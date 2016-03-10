@@ -31,16 +31,19 @@
     input {
       color: $white;
       margin: 0;
-      background-color: transparent;
+      @media (max-width: $screen-xs-max) {
+        background-color: transparent;
+      }
     }
     input[type="checkbox"]:checked:after {
-      background-color: $blue-400!important;
+      background-color: $blue-400;
       border-color: $blue-400;
     }
     input[type="checkbox"]:after {
       background-color: $gray-light;
       border: 2px solid $gray;
       border-radius: 3px;
+      background-color: transparent;
       @media (max-width: $screen-xs-max) {
         border-radius:50%;
         border-color:$gray-light;
@@ -81,11 +84,6 @@
         width: 18px;
         height: 16px;
         margin: 0 5px 0 0;
-      }
-      input[type="checkbox"]:after{
-        @media (min-width: $screen-xs-max) {
-          background-color: transparent;
-        }
       }
     }
     input[type="checkbox"]:checked:before {
