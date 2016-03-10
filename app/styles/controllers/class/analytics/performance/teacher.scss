@@ -57,7 +57,10 @@
       padding-left: 56px;
       height: 50px;
       @media (max-width: $screen-xs-max) {
-        padding-left: 15px;
+        width: 100vw;
+        background: $white;
+        padding: 0;
+        height: 58px;
       }
     }
     .performance-scale {
@@ -67,14 +70,15 @@
       @media (max-width: $screen-xs-max) {
         padding-left: 15px;
         margin: 10px 0 0 0;
+        float: left;
       }
       .scale-indicator {
         vertical-align: middle;
         display: table-cell;
         .grading-scale {
-          float: left;
-          @media (min-width: $screen-sm) {
             float: right;
+          @media (max-width: $screen-xs-max) {
+            float: left;
           }
         }
       }
