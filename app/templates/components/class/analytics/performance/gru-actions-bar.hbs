@@ -2,7 +2,7 @@
   {{#if isStudent }}
     <button class="btn btn-info share" {{action 'share'}}>{{gru-icon name='send'}} <span>{{t "class.analytics.performance.actions.share"}}</span></button>
   {{else}}
-    <button class="btn btn-info edit" {{action 'editContent'}}> <span>{{t "class.analytics.performance.actions.edit"}}</span></button>
+    <button class="btn btn-info edit" {{action 'editContent'}}> {{gru-icon name='mode_edit'}}<span>{{t "class.analytics.performance.actions.edit"}}</span></button>
   {{/if}}
   <button class="btn btn-info download" {{action 'download'}}>{{gru-icon name='file_download'}} <span>{{t "class.analytics.performance.actions.download"}}</span></button>
   <button class="btn btn-info full-screen hidden-sm hidden-xs {{if isFullScreen 'exit-full-screen' 'view-full-screen'}}" {{action 'toggleFullScreen'}}>

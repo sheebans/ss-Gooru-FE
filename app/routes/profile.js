@@ -21,7 +21,7 @@ export default Ember.Route.extend({
    * Get model for the controller
    */
   model: function(params) {
-    const profile = this.get("profileService").findByUser(params.userId);
+    const profile = this.get("profileService").findById(params.userId);
 
     return Ember.RSVP.hash({
       profile: profile

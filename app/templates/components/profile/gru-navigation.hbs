@@ -1,37 +1,53 @@
-<div class="profile-info">
-  {{cards.gru-profile-card
-  profile=profile
-  onProfileSelect=(action 'selectUserProfile')}}
-
-  <div class="actions">
-    <button class="edit btn btn-default">{{t "common.edit"}}</button>
-    <div class="dropdown impersonate">
-      <button class="btn btn-default dropdown-toggle" type="button"
-              data-toggle="dropdown">{{t "profile.gru-navigation.viewAs"}}
-        <span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        {{!-- TODO: Replace with real values --}}
-        <li><a href="#">User 1</a></li>
-        <li><a href="#">User 2</a></li>
-      </ul>
+<div class="xs-design hidden-md hidden-lg">
+  <div class="profile-bar">
+    <div class="navigation-active">
+      <div class="btn-group drop-menu">
+        <button class="btn dropdown-toggle" data-toggle="dropdown">{{gru-icon name='person'}}{{gru-icon name='keyboard_arrow_down'}}</button>
+        <ul class="dropdown-menu">
+          <li class="profile-menu-item close"> <button class="btn dropdown-toggle" data-toggle="dropdown">{{gru-icon name='close'}}</button></li>
+          <li class="profile-menu-item about" {{action 'selectItem' 'about'}}>
+              <h6>{{t "profile.gru-navigation.about-you"}}</h6>{{gru-icon name='person'}}
+          </li>
+          <li class="profile-menu-item content" {{action 'selectItem' 'content'}}>
+              <h6>{{t "profile.gru-navigation.content"}}</h6><i class="gru-icon material-icons content"></i>
+          </li>
+          <li class="profile-menu-item network" {{action 'selectItem' 'network'}}>
+              <h6>{{t "profile.gru-navigation.network"}}</h6><i class="gru-icon material-icons network"></i>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
 
-<ul class="profile-menu">
-  <li class="menu-option about">
-    <a {{action 'selectItem' 'about'}}>{{t "profile.gru-navigation.about"}}</a>
-  </li>
-  <li class="menu-option activity">
-    <a {{action 'selectItem' 'activity'}}>{{t "profile.gru-navigation.activity"}}</a>
-  </li>
-  <li class="menu-option content">
-    <a {{action 'selectItem' 'content'}}>{{t "profile.gru-navigation.content"}}</a>
-  </li>
-  <li class="menu-option network">
-    <a {{action 'selectItem' 'network'}}>{{t "profile.gru-navigation.network"}}</a>
-  </li>
-  <li class="menu-option analytics">
-    <a {{action 'selectItem' 'analytics'}}>{{t "profile.gru-navigation.analytics"}}</a>
-  </li>
-</ul>
+<div class="profile-info clearfix">
+  {{cards.gru-profile-card
+  profile=profile
+  class="clearfix"
+  onProfileSelect=(action 'selectUserProfile')}}
+  <div class="actions">
+    {{#if isMyProfile}}
+      <button class="edit btn btn-default btn-lg">{{t "common.edit"}}</button>
+    {{else}}
+      <button class="follow btn btn-default btn-lg">{{t "common.follow"}}</button>
+    {{/if}}
+    
+  </div>
+</div>
+
+<div class="md-design hidden-xs hidden-sm">
+  <ul class="profile-menu list-group">
+    <li class="list-group-item profile-menu-item about" {{action 'selectItem' 'about'}}>
+      <h6>{{t "profile.gru-navigation.about-you"}}</h6>
+      {{gru-icon name='person'}}
+    </li>
+    <li class="list-group-item profile-menu-item content" {{action 'selectItem' 'content'}}>
+      <h6>{{t "profile.gru-navigation.content"}}</h6>
+      <i class="gru-icon material-icons content"></i>
+    </li>
+    <li class="list-group-item profile-menu-item network" {{action 'selectItem' 'network'}}>
+      <h6>{{t "profile.gru-navigation.network"}}</h6>
+      <i class="gru-icon material-icons network"></i>
+    </li>
+  </ul>
+</div>

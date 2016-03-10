@@ -37,7 +37,7 @@ Router.map(function() {
   });
 
   this.route('reports', function () {
-    this.route('collection', {path: '/class/:classId/course/:courseId/unit/:unitId/lesson/:lessonId/collection/:collectionId'});
+    this.route('collection', {path: '/class/:classId/collection/:collectionId'});
     this.route('student-collection', {path: '/class/:classId/course/:courseId/unit/:unitId/lesson/:lessonId/collection/:collectionId/student/:userId'});
   });
 

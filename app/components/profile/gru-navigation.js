@@ -88,8 +88,8 @@ export default Ember.Component.extend({
   // Methods
 
   highlightMenuItem: function (item) {
-    this.$(".menu-option").removeClass("selected");
-    this.$(".menu-option." + item).addClass("selected");
+    this.$(".profile-menu-item").removeClass("selected");
+    this.$(".profile-menu-item." + item).addClass("selected");
   }
 
 });

@@ -1,11 +1,15 @@
 .controller.analytics-performance-student {
-  padding:55px 7% 0 7%;
+  padding:55px 0 0 0;
   .navigation {
-    padding-left: 5px;
+    padding: 0 7%;
+
     margin-bottom: 35px;
     text-align: center;
     @media (min-width: $screen-sm) {
       text-align: left;
+    }
+    @media (max-width: $screen-sm) {
+      padding:0 4%;
     }
     ul{
       display: inline-block;
@@ -43,30 +47,38 @@
     }
 
   }
-  .gru-content {
-    min-height: 400px; /* This is temporal for layout */
+  .student-actions{
+    padding: 0 7%;
   }
-  .performance-content {
-    color: $gray;
-    margin-top: 40px;
-    margin-bottom: 15px;
-    span.not-started, span.no-content {
-      text-align: start;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 100%;
-      padding-left: 5%;
+  .tab-content {
+    padding: 0 7%;
+    @media (max-width: $screen-sm) {
+      padding:0 4%;
+    }
+    .performance-content {
+      color: $gray;
+      margin-top: 40px;
+      margin-bottom: 15px;
+      span.not-started, span.no-content {
+        text-align: start;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        padding-left: 5%;
 
-      @include respond-to(xs) {
-        text-align: center;
-        padding: 0;
+        @include respond-to(xs) {
+          text-align: center;
+          padding: 0;
+        }
+      }
+      div.collections-container span.no-content {
+        padding-left: 50px;
       }
     }
-    div.collections-container span.no-content {
-      padding-left: 50px;
-    }
+
   }
+
   .performance-picker{
     .gru-data-picker{
       margin-top: 15px;

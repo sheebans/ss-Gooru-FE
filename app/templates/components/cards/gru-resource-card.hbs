@@ -1,1 +1,50 @@
-{{yield}}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="header col-md-12 col-sm-12 col-xs-12">
+              {{#if resource.isQuestion }}
+                  <i class="question-icon"></i>
+              {{else}}
+                  <i class="{{resource.resourceFormat}}-icon"></i>
+              {{/if}}
+                <div class="collection-info">
+                    <div>
+                        <h6 class="title truncate" alt="{{resource.title}}">{{resource.title}}</h6>
+                    </div>
+                    <div class="{{if resource.isQuestion 'question-type' 'resource-type' }}">
+                        <span>{{#if resource.isQuestion }}{{t (concat "common.question-type."resource.questionType)}}{{else}}{{t (concat "common.resource-format."resource.resourceFormat)}}{{/if}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="standards col-md-12 col-sm-12 col-xs-12">
+              {{#if resource.standards }}
+                {{collection-results-standards collection=resource standards=resource.standards}}
+              {{/if}}
+            </div>
+            <div class="publisher col-md-12 col-sm-12 col-xs-12">
+              {{#if resource.owner.avatarUrl }}
+                  <img class="img-responsive" src="{{ resource.owner.avatarUrl }}">
+              {{else}}
+                  <img class="img-responsive" src="assets/gooru/profile.png">
+              {{/if}}
+                <div class="publisher-name">
+                  <a href="{{ resource.owner.url }}" target="_blank">{{resource.owner.name}}</a>
+                </div>
+            </div>
+            <div class="description col-md-12 col-sm-12 col-xs-12">
+              {{#if resource.isQuestion }}
+                  <p class="truncate">{{ resource.text }}</p>
+              {{else}}
+                  <p class="truncate">{{ resource.description }}</p>
+              {{/if}}
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <button class="{{if resource.isQuestion 'remix-btn' 'add-to-btn' }} btn-success btn-sm">{{#if resource.isQuestion }}{{t "common.remix"}}{{else}}{{t "cards.gru-resource-card.add"}}{{/if}}</button>
+            </div>
+        </div>
+    </div>
+</div>

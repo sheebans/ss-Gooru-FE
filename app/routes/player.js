@@ -128,6 +128,7 @@ export default Ember.Route.extend({
         selectedAttempt: 1,
         resourceResults: Ember.A([])
       });
+      Ember.Logger.debug('No assessment results found. Assessment result was created.');
     }
     assessmentResult.merge(collection);
 
