@@ -5,17 +5,55 @@
     float: left;
     width: 84%;
     margin: 0 1% 5% 0;
+    &.anonymous { /** this is a quick fix for a demo, implemenation may change once the final mock is provided **/
+      width: 78%;
+    }
   }
   .overall-completion {
     color: $white;
     font-weight: bold;
     float: right;
+    &.anonymous { /** this is a quick fix for a demo, implemenation may change once the final mock is provided **/
+      font-size: $font-size-h3;
+      margin-top: -18px;
+    }
   }
 
   .panel-answer {
     clear: both;
     .panel-heading-anonymous {
       background-color: $blue-400;
+    }
+
+    &.anonymous { /** this is a quick fix for a demo, implemenation may change once the final mock is provided **/
+      font-size: $font-size-h3;
+
+      .answer-chart {
+        width: 75%;
+      }
+
+      .gru-multiple-choice,
+      .gru-true-false {
+        i {
+          margin-top: 30px;
+        }
+      }
+      .gru-multiple-answer {
+        ul li span.column {
+          width: 60px;
+        }
+      }
+      .gru-hot-text-highlight p {
+        line-height: 65px;
+      }
+      .gru-hs-image ul li span {
+        width: 93px;
+        height: 93px;
+        &.selected {
+          width: 100px;
+          height: 100px;
+        }
+      }
     }
   }
 

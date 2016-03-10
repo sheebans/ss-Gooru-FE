@@ -24,24 +24,13 @@
 
     .profile-menu {
       li {
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        @supports (flex-wrap: wrap) { /* hide from the incomplete Flexbox implementation in Firefox */
-            display: flex;
-        }
+        @include flexbox;
+        @include justify-content(space-between);
+        @include align-items(center);
+        @include align-content(flex-start);
         border: none;
         cursor: pointer;
         color:$white;
-        -webkit-flex-direction: row;
-        flex-direction: row;
-        -webkit-flex-wrap: nowrap;
-        flex-wrap: nowrap;
-        -webkit-justify-content: space-between;
-        justify-content: space-between;
-        -webkit-align-items: center;
-        align-items: center;
-        -webkit-align-content: flex-start;
-        align-content: flex-start;
         padding: 7px 32px;
         h6 {
           color: $white;
@@ -64,38 +53,22 @@
       }
     }
     .xs-design {
-      -webkit-flex-direction: column;
-      flex-direction: column;
-      -webkit-flex-wrap: nowrap;
-      flex-wrap: nowrap;
-      -webkit-justify-content: flex-start;
-      justify-content: flex-start;
-      -webkit-align-items: center;
-      align-items: center;
-      -webkit-align-content: center;
-      align-content: center;
-      display:-webkit-flex;
-      display:flex;
+      @include flexbox();
+      @include flex-direction(column);
+      @include align-items(center);
+      @include align-content(center);
       .profile-bar {
-        -webkit-flex-direction: row-reverse;
-        flex-direction: row-reverse;
-        -webkit-flex-wrap: nowrap;
-        flex-wrap: nowrap;
-        -webkit-justify-content: space-between;
-        justify-content: space-between;
-        -webkit-align-items: center;
-        align-items: center;
-        -webkit-align-content: center;
-        align-content: center;
-        display:-webkit-flex;
-        display:flex;
+        @include flexbox();
+        @include flex-direction(row-reverse);
+        @include justify-content(space-between);
+        @include align-items(center);
+        @include align-content(center);
         width: 100%;
         height:60px;
         padding: 0;
         border: 1px solid rgba(255,255,255,0.17);
         .navigation-active {
-          display:-webkit-flex;
-          display:flex;
+          @include flexbox();
           height: 100%;
           z-index: 100;
         }
@@ -106,17 +79,10 @@
           text-overflow: ellipsis;
         }
         .drop-menu {
-          -webkit-flex-direction: row;
-          flex-direction: row;
-          -webkit-flex-wrap: nowrap;
-          flex-wrap: nowrap;
-          -webkit-justify-content: center;
-          justify-content: center;
-          -webkit-align-items: center;
-          align-items: center;
-          -webkit-align-content: center;
-          align-content: center;
-          display: flex;
+          @include flexbox();
+          @include justify-content(center);
+          @include align-items(center);
+          @include align-content(center);
           background-color:rgba(0,0, 0, 0.15);
           margin-left:15px;
           &.open ul{
@@ -141,48 +107,24 @@
             left: initial;
             top: 0;
             right: -55%;
-            /* Rectangle 104 Copy 2: */
-            background: #0050A2; /* Old browsers */
-            background: -moz-linear-gradient(left, $blue-500 0%, $blue-400 100%); /* FF3.6-15 */
-            background: -webkit-linear-gradient(left, $blue-500 0%,$blue-400 100%); /* Chrome10-25,Safari5.1-6 */
-            background: linear-gradient(-90deg, $blue-500 0%, $blue-400 100%);
-            box-shadow: inset 0px 1px 3px 0px rgba(0,0,0,0.50);
-            -webkit-flex-direction: column;
-            flex-direction: column;
-            -webkit-flex-wrap: nowrap;
-            flex-wrap: nowrap;
-            -webkit-justify-content: flex-start;
-            justify-content: flex-start;
-            -webkit-align-items: center;
-            align-items: center;
-            -webkit-align-content: center;
-            align-content: center;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-            -moz-transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-            -o-transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-            transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+            @include gradient-horizontal($blue-400, $blue-500, 0%, 100%);
+            @include box-shadow(inset 0px 1px 3px 0px rgba(0,0,0,0.50));
+            @include flexbox();
+            @include flex-direction(column);
+            @include align-items(center);
+            @include align-content(center);
+            @include transition(all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940));
             >li{
               width:100%;
-              -webkit-flex-direction: row;
-              flex-direction: row;
-              -webkit-flex-wrap: nowrap;
-              flex-wrap: nowrap;
-              -webkit-justify-content: space-between;
-              justify-content: space-between;
-              -webkit-align-items: center;
-              align-items: center;
-              -webkit-align-content: center;
-              align-content: center;
-              display:-webkit-flex;
-              display:flex;
+              @include flexbox();
+              @include justify-content(space-between);
+              @include align-items(center);
+              @include align-content(center);
               padding: 30px;
               height:60px;
               cursor:pointer;
               &.close{
-                -webkit-flex-direction: row-reverse;
-                flex-direction: row-reverse;
+                @include flex-direction(row-reverse);
                 padding-right: 10px;
                 margin-bottom: 10px;
                 cursor:default;

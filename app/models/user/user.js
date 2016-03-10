@@ -164,6 +164,19 @@ export default DS.Model.extend(UserValidations, {
    * @property {Meta} metadata
    */
   metadata: DS.belongsTo("meta", { async: true }),
+  /**
+   * @property {string} districtName
+   */
+  districtName: DS.attr("string"),
+  /**
+   * @property {number}totalFollowers
+   */
+  totalFollowers: DS.attr('number'),
+
+  /**
+   * @property {number}totalFollowing
+   */
+  totalFollowing: DS.attr('number'),
 
   fullName: Ember.computed('firstName', 'lastName', function() {
     return this.get('lastName') + ', ' + this.get('firstName');
@@ -177,7 +190,8 @@ export default DS.Model.extend(UserValidations, {
    * @property {string} internal code used for anonymous reports
    */
   code: Ember.computed(function(){
-    return parseInt(Math.random() * 10000); //TODO this should come from BE, it is not defined yet
+    //return parseInt(Math.random() * 10000); //TODO this should come from BE, it is not defined yet
+    return this.get("username");
   })
 
 });
