@@ -71,11 +71,4 @@ export default Ember.Controller.extend({
     })])
   }),
 
-  user:Ember.Object.create({
-    fullNameInformal:"Lisa Keller",
-    districtName:"District Name",
-    totalFollowers:115,
-    totalFollowing:200,
-  })
-
 });
