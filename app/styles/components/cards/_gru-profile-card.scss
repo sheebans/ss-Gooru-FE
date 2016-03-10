@@ -57,33 +57,45 @@
   }
 
   @media (max-width: $screen-sm-max) {
-    text-align: right;
-    padding: 0 20px;
+    margin: 0 65px;
+    position: relative;
     > a {
-      float: left;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      > strong {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
+        line-height: 60px;
+      }
       .img-wrapper {
-        margin: 0 auto;
+        margin: 0;
+        display: inline-block;
+        vertical-align: middle;
+        .img-circle {
+          height: 3rem;
+          width: 3rem;
+        }
       }
     }
     > .social {
-      margin: 0;
-      width: 75%;
-      float: right;
+      margin: 8px 0 0;
+      display: inline-block;
       text-align: center;
     }
   }
 
   @media (max-width: $screen-xs-max) {
+    margin: 0 20px;
     > a {
-      margin-top: 15px;
       .img-wrapper {
         .img-circle {
-          height: 5rem;
-          width: 5rem;
         }
       }
     }
     > .social {
+      margin-top: 60px;
       > span {
         padding: 4px 15px 0;
       }
