@@ -255,6 +255,8 @@ export default Ember.Component.extend(AccordionMixin, SessionMixin, {
           //because the student uses score.
           collection.set('score', classPerformance.calculateAverageScoreByItem(collectionId));
         });
+      }else{
+        collection.set('score', 0);
       }
     });
 

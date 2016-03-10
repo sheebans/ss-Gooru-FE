@@ -167,7 +167,7 @@ test('Transition to a collection or assessment', function(assert) {
 
       click($viewFirstLessonCollections);
       andThen(function() {
-        assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?lessonId=fbd76aed-1b8d-4c2c-a9c6-c7603eef347c&unitId=31886eac-f998-493c-aa42-016f53e9fa88');
+        assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?lessonId=fbd76aed-1b8d-4c2c-abc6-c7603eef567q&unitId=31886eac-f998-493c-aa42-016f53e9fa88');
         T.exists(assert, $firstLessonContainer.find(".selected"), "Collections for the first lesson should be showing");
 
         const $secondCollection = $firstLessonContainer.find(" div.collections-container .collection-performance-content:eq(1)");
@@ -176,7 +176,7 @@ test('Transition to a collection or assessment', function(assert) {
 
         click($viewCollectionInPlayer);
         andThen(function() {
-          assert.equal(currentURL(), '/player/class/class-for-pochita-as-student/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/31886eac-f998-493c-aa42-016f53e9fa88/lesson/fbd76aed-1b8d-4c2c-a9c6-c7603eef347c/collection/363d3cc2-f2ac-490d-a870-42167f204c97?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
+          assert.equal(currentURL(), '/player/class/class-for-pochita-as-student/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/31886eac-f998-493c-aa42-016f53e9fa88/lesson/fbd76aed-1b8d-4c2c-abc6-c7603eef567q/collection/5673982f9cfca1521ea5b8f9?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
         });
       });
     });
@@ -192,22 +192,21 @@ test('Transition to a collection or assessment in the player on xsmall', functio
     const $performanceContainer = find(".performance-content");
     T.exists(assert, $performanceContainer, "No performance container");
 
-    const $studyAnchor = $performanceContainer.find("#_fbd76aed-1b8d-4c2c-a9c6-c7603eef347c .collection-performance .collection-performance-content .gru-performance-summary li.title div button");
+    const $studyAnchor = $performanceContainer.find("#_fbd76aed-1b8d-4c2c-abc6-c7603eef567q .collection-performance .collection-performance-content .gru-performance-summary li.title div button");
     T.exists(assert, $studyAnchor, "No anchor on completion column");
 
     click($studyAnchor);
     andThen(function() {
-      assert.equal(currentURL(), '/player/class/class-for-pochita-as-student/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/31886eac-f998-493c-aa42-016f53e9fa88/lesson/fbd76aed-1b8d-4c2c-a9c6-c7603eef347c/collection/363d3cc2-f2ac-490d-a870-42167f204c97?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
+      assert.equal(currentURL(), '/player/class/class-for-pochita-as-student/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/31886eac-f998-493c-aa42-016f53e9fa88/lesson/fbd76aed-1b8d-4c2c-abc6-c7603eef567q/collection/5673982fcf381597c956a53f?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
     });
   });
 });
 
 //it looks like something was changed with how the URL is managed.
 test('Transition to a collection or assessment directly', function(assert) {
-  visit('/class/class-for-pochita-as-student/analytics/performance/student?lessonId=fbd76aed-1b8d-4c2c-a9c6-c7603eef347c&unitId=31886eac-f998-493c-aa42-016f53e9fa88');
-
+  visit('/class/class-for-pochita-as-student/analytics/performance/student?lessonId=fbd76aed-1b8d-4c2c-abc6-c7603eef567q&unitId=31886eac-f998-493c-aa42-016f53e9fa88');
   andThen(function() {
-    assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?lessonId=fbd76aed-1b8d-4c2c-a9c6-c7603eef347c&unitId=31886eac-f998-493c-aa42-016f53e9fa88');
+    assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?lessonId=fbd76aed-1b8d-4c2c-abc6-c7603eef567q&unitId=31886eac-f998-493c-aa42-016f53e9fa88');
 
     const $performanceContainer = find(".performance-content");
     T.exists(assert, $performanceContainer, "No performance container");

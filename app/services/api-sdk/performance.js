@@ -45,7 +45,7 @@ export default Ember.Service.extend({
       classId: classId,
       courseId: courseId
     }).then(function (unitPerformances) {
-      return service.matchTitlesWithPerformances(units, unitPerformances);
+      return service.matchCourseMapWithPerformances(units, unitPerformances);
     });
   },
 
@@ -68,7 +68,7 @@ export default Ember.Service.extend({
       courseId: courseId,
       unitId: unitId
     }).then(function (lessonPerformances) {
-      return service.matchTitlesWithPerformances(lessons, lessonPerformances);
+      return service.matchCourseMapWithPerformances(lessons, lessonPerformances);
     });
   },
 
@@ -93,7 +93,7 @@ export default Ember.Service.extend({
       unitId: unitId,
       lessonId: lessonId
     }).then(function (collectionPerformances) {
-      return service.matchTitlesWithPerformances(collections, collectionPerformances);
+      return service.matchCourseMapWithPerformances(collections, collectionPerformances);
     });
   },
 
@@ -110,6 +110,31 @@ export default Ember.Service.extend({
         performance.set('title', objectWithTitle.get('title'));
       }
       return performance;
+    });
+  },
+
+  /**
+   * Gets the data for al the performances in class.
+   * @param objectsWithTitle
+   * @param performances
+   * @returns {Promise.<CollectionPerformance[]>}
+   */
+  matchCourseMapWithPerformances: function (objectsWithTitle, performances) {
+    const service = this;
+    return objectsWithTitle.map(function (object) {
+      let objectWithTitle = performances.findBy('id', object.get('id'));
+      if(objectWithTitle) {
+        objectWithTitle.set('title', object.get('title'));
+      }else {
+        objectWithTitle = service.get('store').createRecord("performance/collection-performance", {
+          id: object.get('id'),
+          title: object.get('title'),
+          score: 0,
+          collectionType: object.get('collectionType')
+        });
+        objectWithTitle.destroyRecord();
+      }
+      return objectWithTitle;
     });
   },
 
