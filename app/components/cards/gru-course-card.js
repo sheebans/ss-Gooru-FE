@@ -16,7 +16,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-course-card'],
+  classNames:['cards','gru-course-card'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -34,6 +34,12 @@ export default Ember.Component.extend({
      */
     remixCourse:function(){
       this.sendAction("onRemixCourse");
+    },
+    /**
+     *Action triggered when select remix the course
+     */
+    editCourse:function(){
+      this.sendAction("onEditCourse");
     }
   },
   // -------------------------------------------------------------------------
@@ -42,6 +48,10 @@ export default Ember.Component.extend({
    * @property {Course} course
    */
   course: null,
+  /**
+   * @property {Boolean} course
+   */
+  isOwner:false,
 
   /**
    * @property {Array} users
