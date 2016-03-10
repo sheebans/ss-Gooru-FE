@@ -177,7 +177,8 @@ export default DS.Model.extend(UserValidations, {
    * @property {string} internal code used for anonymous reports
    */
   code: Ember.computed(function(){
-    return parseInt(Math.random() * 10000); //TODO this should come from BE, it is not defined yet
+    //return parseInt(Math.random() * 10000); //TODO this should come from BE, it is not defined yet
+    return this.get("username");
   })
 
 });
