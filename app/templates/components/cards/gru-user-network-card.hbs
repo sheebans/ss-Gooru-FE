@@ -1,58 +1,34 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <div class="row">
-            <div class="image col-md-5 col-sm-5 col-xs-5">
-              {{#if user.avatarUrl }}
-                  <img class="img-responsive" src="{{ user.avatarUrl }}">
-              {{else}}
-                  <img class="img-responsive" src="assets/gooru/profile.png">
-              {{/if}}
-            </div>
-            <div class="user-info col-md-7 col-sm-7 col-xs-7">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <h6 class="name truncate">{{ user.fullNameInformal }}</h6>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <span class="district">{{user.districtName}}</span>
-                    </div>
-                </div>
-            </div>
+        <div class="image">
+            <img class="img-responsive" src={{if user.avatarUrl user.avatarUrl "assets/gooru/profile.png"}}>
+        </div>
+        <div class="user-info">
+            <h6 class="name truncate">{{ user.fullNameInformal }}</h6>
+            <span class="district">{{user.districtName}}</span>
         </div>
     </div>
     <div class="panel-body">
-        <div class="row">
-            <div class="following-followers col-md-12 col-sm-12 col-xs-12">
-                <div class="row">
-                    <div class="followers col-md-6 col-sm-6 col-xs-6">
-                        <div class="row">
-                            <div class="count col-md-12 col-sm-12 col-xs-12 text-center">
-                              <span>{{user.totalFollowers}}</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="description col-md-12 col-sm-12 col-xs-12 text-center">
-                              {{t "cards.gru-profile-card.followers"}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="following col-md-6 col-sm-6 col-xs-6">
-                        <div class="row">
-                            <div class="count col-md-12 col-sm-12 col-xs-12 text-center">
-                              <span>{{user.totalFollowing}}</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="description col-md-12 col-sm-12 col-xs-12 text-center">
-                              {{t "cards.gru-profile-card.followings"}}
-                            </div>
-                        </div>
-                    </div>
+        <div class="following-followers">
+            <div class="followers">
+                <div class="count  text-center">
+                    <span>{{user.totalFollowers}}</span>
+                </div>
+                <div class="description text-center">
+                  {{t "cards.gru-profile-card.followers"}}
                 </div>
             </div>
-            <div class="follow-btn col-md-12 col-sm-12 col-xs-12">
-              <button class="btn btn-sm {{if isFollowing 'btn-following' 'btn-success'}}"{{action 'setFollow'}}>{{#if isFollowing}}{{t "cards.gru-user-network-card.following"}} {{else}}{{t "cards.gru-user-network-card.follow"}}{{/if}}</button>
+            <div class="following">
+                <div class="count text-center">
+                    <span>{{user.totalFollowing}}</span>
+                </div>
+                <div class="description text-center">
+                      {{t "cards.gru-profile-card.followings"}}
+                </div>
             </div>
+        </div>
+        <div class="follow-btn">
+            <button class="btn btn-sm {{if isFollowing 'btn-following' 'btn-success'}}"{{action 'setFollow'}}>{{#if isFollowing}}{{t "cards.gru-user-network-card.following"}} {{else}}{{t "cards.gru-user-network-card.follow"}}{{/if}}</button>
         </div>
     </div>
 </div>

@@ -15,20 +15,33 @@
       border-bottom: 1px solid $gray-lighter;
       border-top-right-radius: 6px;
       border-top-left-radius: 6px;
+      padding: 10px 15px 0px 15px;
       .image{
+        display: inline-block;
         img{
+          width:60px;
+          height:60px;
           border-radius: 50%;
         }
       }
       .user-info{
+        display: inline-block;
         color:$text-color;
+        vertical-align: top;
+        margin-left: 15px;
         h6{
           margin: 5px 0 5px 0;
         }
       }
     }
     .panel-body{
-      padding: 15px 15px 0 15px;
+      padding: 15px 0 0 0;
+      .following-followers{
+        >*{
+         width: 49%;
+          display: inline-block;
+        }
+      }
       .followers{
         border-right: 1px solid $gray-lighter;
       }
@@ -37,7 +50,6 @@
       }
       .follow-btn{
         color:$white;
-        padding:0;
         button{
           margin-top: 15px;
           width: 100%;
