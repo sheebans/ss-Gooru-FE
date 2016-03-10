@@ -34,7 +34,7 @@
       background-color: transparent;
     }
     input[type="checkbox"]:checked:after {
-      background-color: $blue-400;
+      background-color: $blue-400!important;
       border-color: $blue-400;
     }
     input[type="checkbox"]:after {
@@ -77,12 +77,14 @@
         -webkit-flex-direction: row;
         flex-direction: row;
       }
+      input {
+        width: 18px;
+        height: 16px;
+        margin: 0 5px 0 0;
+      }
       input[type="checkbox"]:after{
         @media (min-width: $screen-xs-max) {
           background-color: transparent;
-          margin:0;
-          width:15px;
-          height: 15px;
         }
       }
     }
