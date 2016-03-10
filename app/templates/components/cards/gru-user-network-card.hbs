@@ -1,0 +1,34 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="image">
+            <img class="img-responsive" src={{if user.avatarUrl user.avatarUrl "assets/gooru/profile.png"}}>
+        </div>
+        <div class="user-info">
+            <h6 class="name truncate">{{ user.fullNameInformal }}</h6>
+            <span class="district">{{user.districtName}}</span>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="following-followers">
+            <div class="followers">
+                <div class="count  text-center">
+                    <span>{{user.totalFollowers}}</span>
+                </div>
+                <div class="description text-center">
+                  {{t "cards.gru-profile-card.followers"}}
+                </div>
+            </div>
+            <div class="following">
+                <div class="count text-center">
+                    <span>{{user.totalFollowing}}</span>
+                </div>
+                <div class="description text-center">
+                      {{t "cards.gru-profile-card.following"}}
+                </div>
+            </div>
+        </div>
+        <div class="follow-btn">
+            <button class="btn btn-sm {{if isFollowing 'btn-following' 'btn-success'}}"{{action 'setFollow'}}>{{#if isFollowing}}{{t "cards.gru-profile-card.following"}} {{else}}{{t "cards.gru-user-network-card.follow"}}{{/if}}</button>
+        </div>
+    </div>
+</div>
