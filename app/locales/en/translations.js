@@ -515,6 +515,9 @@ export default {
     "gru-profile-card": {
       "followers": "Followers",
       "following": "Following"
+    },
+    "gru-user-network-card":{
+      "follow":"Follow"
     }
   },
   "reports.gru-table-view": {
