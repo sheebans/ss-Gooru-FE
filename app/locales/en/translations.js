@@ -117,7 +117,14 @@ export default {
     warnings: {
       "on-air-connection-lost": "The On Air feature has lost connection and is retrying automatically. While it's tempting, please don't refresh your screen!"
     },
-    "no-content": "No content available"
+    "no-content": "No content available",
+    "courses": "Courses",
+    "collections": "Collections",
+    "resources": "Resources",
+    "assessments": "Assessments",
+    "add-to":"Add To",
+    "course":"Course",
+    "resource":"Resource"
   },
 
   /*
@@ -315,23 +322,6 @@ export default {
     "author": {
       "placeholder": "Author"
     }
-  },
-  "category-menu": {
-    "courses": "Courses",
-    "collections": "Collections",
-    "resources": "Resources",
-    "assessments": "Assessments",
-    "questions": "Questions",
-    "add-to":"Add To",
-    "course":"Course",
-    "collection":"Collection",
-    "resource":"Resource",
-    "assessment":"Assessment",
-    "question":"Question",
-    "author": {
-      "placeholder": "Author"
-    }
-
   },
 
   "resource": {

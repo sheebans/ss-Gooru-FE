@@ -31,6 +31,6 @@ test('Layout', function(assert) {
     T.exists(assert, $categoryMenuActiveLink, "Missing content navigator active link");
 
     const $addToBtn = find(".controller.profile .content .content-navigation .btn-group");
-    T.exists(assert, $addToBtn, "Missing content navigator active link");
+    T.exists(assert, $addToBtn, "Missing add to button group");
   });
 });
