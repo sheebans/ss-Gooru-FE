@@ -12,7 +12,7 @@ moduleForComponent('resource-options', 'Integration | Component | resource optio
 test('resource-options-menu', function(assert) {
   assert.expect(22);
 
-  this.render(hbs`{{resource-options}}`); //render the component
+  this.render(hbs`{{search/resource-options}}`); //render the component
   var $component = this.$(); //component dom element
   var $resourceMenu = $component.find(".resource-options-menu");
   T.exists(assert, $resourceMenu, "Missing resource menu");

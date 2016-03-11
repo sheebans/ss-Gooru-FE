@@ -4,10 +4,11 @@ export default {
    * COMMON: Translations used globally in the app or shared between components
    */
   "common": {
-
+    "add-to":"Add To",
     "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
     "assessment":"Assessment",
+    "assessments": "Assessments",
     "assessmentInitial": "A",
     "attempt": "Attempt number",
     "of": "of",
@@ -17,12 +18,15 @@ export default {
     "classScores": "Class Scores",
     "close": "Close",
     "collection":"Collection",
+    "collections": "Collections",
     "collectionInitial": "C",
     "completed": "Completed",
     "contentUnavailable": "Content not available",
     "correct": "Correct",
     "correct-answer":"Correct Answer",
     "course-map": "Course Map",
+    "course":"Course",
+    "courses": "Courses",
     "create": "Create",
     "edit": "Edit",
     "email_support": "support@gooru.org",
@@ -82,6 +86,8 @@ export default {
       "HT_HL"  : "Hot Text Highlight"
     },
     "reaction": "Reaction",
+    "resource":"Resource",
+    "resources": "Resources",
     "resource-format":{
       "image"       : "Image",
       "text"        : "Text",
@@ -312,6 +318,16 @@ export default {
     "resources": "Resources",
     "assessments": "Assessments",
     "questions": "Questions",
+    "question-types": {
+      "MC": "Multiple Choice",
+      "FIB": "Fill in the Blank",
+      "T/F": "True / False",
+      "MA": "Multiple Answer",
+      "HS_TXT": "Hot Spot- Text",
+      "HS_IMG": "Hot Spot- Image",
+      "HT_RO": "Hot Text- Reorder",
+      "HT_HL": "Hot Text- Highlight"
+    },
     "author": {
       "placeholder": "Author"
     }

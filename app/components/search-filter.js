@@ -4,10 +4,10 @@ export default Ember.Component.extend({
 
   /**
    * Type of collection filter selected
-   *  @property {string} selectedCollectionType
+   *  @property {string} selectedFilterType
    *
    */
-  selectedCollectionType: 'collection',
+  selectedFilterType: 'collection',
 
   /**
    * True if collection filter option is selected
@@ -15,10 +15,10 @@ export default Ember.Component.extend({
    *
    */
 
-  collectionFilterSelected: Ember.computed('selectedCollectionType', function() {
-    var selectedCollectionType = this.get('selectedCollectionType');
+  collectionFilterSelected: Ember.computed('selectedFilterType', function() {
+    var selectedFilterType = this.get('selectedFilterType');
 
-    return (!selectedCollectionType || selectedCollectionType === 'collection');
+    return (!selectedFilterType || selectedFilterType === 'collection');
   }),
 
   /**
@@ -27,10 +27,10 @@ export default Ember.Component.extend({
    *
    */
 
-  assessmentFilterSelected: Ember.computed('selectedCollectionType', function() {
-    var selectedCollectionType = this.get('selectedCollectionType');
+  assessmentFilterSelected: Ember.computed('selectedFilterType', function() {
+    var selectedFilterType = this.get('selectedFilterType');
 
-    return (selectedCollectionType && selectedCollectionType === 'assessment');
+    return (selectedFilterType && selectedFilterType === 'assessment');
   }),
 
   /**
@@ -39,10 +39,10 @@ export default Ember.Component.extend({
    *
    */
 
-  resourcesFilterSelected: Ember.computed('selectedCollectionType', function() {
-    var selectedCollectionType = this.get('selectedCollectionType');
+  resourcesFilterSelected: Ember.computed('selectedFilterType', function() {
+    var selectedFilterType = this.get('selectedFilterType');
 
-    return (selectedCollectionType && selectedCollectionType === 'resources');
+    return (selectedFilterType && selectedFilterType === 'resources');
   }),
 
   /**
@@ -51,10 +51,10 @@ export default Ember.Component.extend({
    *
    */
 
-  questionsFilterSelected: Ember.computed('selectedCollectionType', function() {
-    var selectedCollectionType = this.get('selectedCollectionType');
+  questionsFilterSelected: Ember.computed('selectedFilterType', function() {
+    var selectedFilterType = this.get('selectedFilterType');
 
-    return (selectedCollectionType && selectedCollectionType === 'questions');
+    return (selectedFilterType && selectedFilterType === 'questions');
   }),
 
   actions: {
@@ -64,7 +64,7 @@ export default Ember.Component.extend({
      * @param {String} filterType
      */
     searchFilter: function(filterType){
-      this.set('selectedCollectionType',filterType);
+      this.set('selectedFilterType',filterType);
       this.sendAction("onFilterType", this.get("term"),filterType);
     }
   }
