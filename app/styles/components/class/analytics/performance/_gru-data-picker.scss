@@ -40,13 +40,13 @@
       border-color: $blue-400;
     }
     input[type="checkbox"]:after {
-      background-color: $gray-light;
       border: 2px solid $gray;
       border-radius: 3px;
       background-color: transparent;
       @media (max-width: $screen-xs-max) {
         border-radius:50%;
         border-color:$gray-light;
+        background-color: $gray-light;
       }
     }
     input[type="checkbox"]:disabled:checked:after {
