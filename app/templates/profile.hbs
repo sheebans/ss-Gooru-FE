@@ -7,56 +7,6 @@
       selectedMenuItem=menuItem }}
     </div>
     <div class="content">
-        <div class="content-navigation">
-            <div class="category-menu">
-                <ul class="nav nav-tabs category-options">
-                  {{#link-to "profile.content" tagName="li" class='courses'}}
-                      <a href='{{view.href}}' class="btn btn-category">
-                        {{gru-icon name='chrome_reader_mode'}}
-                          <span>{{t "category-menu.courses"}}</span>
-                      </a>
-                  {{/link-to}}
-                  {{#link-to "profile.network" tagName="li" class='collections'}}
-                      <a href='{{view.href}}' class="btn btn-category">
-                          <i class="icon"></i>
-                          <span>{{t "category-menu.collections"}}</span>
-                      </a>
-                  {{/link-to}}
-                  {{#link-to "profile.network" tagName="li" class='assessments'}}
-                      <a href='{{view.href}}' class="btn btn-category">
-                          <i class="icon"></i>
-                          <span>{{t "category-menu.assessments"}}</span>
-                      </a>
-                  {{/link-to}}
-                  {{#link-to "profile.network" tagName="li" class='resources'}}
-                      <a href='{{view.href}}' class="btn btn-category">
-                          <i class="icon"></i>
-                          <span>{{t "category-menu.resources"}}</span>
-                      </a>
-                  {{/link-to}}
-                  {{#link-to "profile.network" tagName="li" class='questions'}}
-                      <a href='{{view.href}}' class="btn btn-category">
-                        {{gru-icon name='help_outline '}}
-                          <span>{{t "category-menu.questions"}}</span>
-                      </a>
-                  {{/link-to}}
-                </ul>
-
-            </div>
-            <div class="btn-group hidden-xs hidden-sm">
-                <a href="#" class="btn btn-success">Success</a>
-                <a href="#" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                </ul>
-            </div>
-        </div>
-
-
       {{outlet}}
     </div>
 </div>

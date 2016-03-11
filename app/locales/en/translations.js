@@ -322,9 +322,16 @@ export default {
     "resources": "Resources",
     "assessments": "Assessments",
     "questions": "Questions",
+    "add-to":"Add To",
+    "course":"Course",
+    "collection":"Collection",
+    "resource":"Resource",
+    "assessment":"Assessment",
+    "question":"Question",
     "author": {
       "placeholder": "Author"
     }
+
   },
 
   "resource": {
