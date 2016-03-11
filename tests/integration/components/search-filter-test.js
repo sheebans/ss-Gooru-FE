@@ -58,11 +58,11 @@ test('search-filter-onCollectionFilterClick', function(assert) {
 
   this.set('standards', standards);
 
-  this.on('filterType', function(term, collectionType) {
-    assert.equal(collectionType, 'collection', "Incorrect assessment filter type");
+  this.on('filterType', function(term, filterType) {
+    assert.equal(filterType, 'collection', "Incorrect assessment filter type");
   });
 
-  this.render(hbs`{{search-filter standards=standards onFilterType='filterType' selectedCollectionType='collection'}}`);
+  this.render(hbs`{{search-filter standards=standards onFilterType='filterType' selectedFilterType='collection'}}`);
 
   var $component = this.$(); //component dom element
 
@@ -80,11 +80,11 @@ test('search-filter-onAssessmentFilterClick', function(assert) {
 
   this.set('standards', standards);
 
-  this.on('onFilterType', function(term, collectionType) {
-    assert.equal(collectionType, 'assessment', "Incorrect assessment filter type");
+  this.on('onFilterType', function(term, filterType) {
+    assert.equal(filterType, 'assessment', "Incorrect assessment filter type");
   });
 
-  this.render(hbs`{{search-filter standards=standards onFilterType='filterType' selectedCollectionType='assessment'}}`);
+  this.render(hbs`{{search-filter standards=standards onFilterType='filterType' selectedFilterType='assessment'}}`);
 
   var $component = this.$(); //component dom element
 

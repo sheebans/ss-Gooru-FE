@@ -10,7 +10,6 @@ Router.map(function() {
 
   this.route('search', function() {
     this.route('collections');
-    this.route('assessments');
     this.route('questions');
   });
 

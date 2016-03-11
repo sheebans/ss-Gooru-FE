@@ -1,38 +1,10 @@
 <div class="controller search">
   <div class="filters">
-    <section class="search-filter">
-      <ul class="col-md-10 search-filter-options">
-        {{#link-to "search.collections" tagName="li"}}
-          <span class="collections btn-search-filter">
-            <span class="icon"></span>
-            <span class="text">{{t "search-filter.collections"}}</span>
-          </span>
-        {{/link-to}}
-        {{#link-to "search.collections" tagName="li"}}
-          <span class="btn assessments btn-search-filter">
-            <span class="icon"></span>
-            <span class="text">{{t "search-filter.assessments"}}</span>
-          </span>
-        {{/link-to}}
-        {{#link-to "search.collections" tagName="li"}}
-          <span class="btn resources btn-search-filter">
-            <span class="icon"></span>
-            <span class="text">{{t "search-filter.resources"}}</span>
-          </span>
-        {{/link-to}}
-        {{#link-to "search.questions" tagName="li"}}
-          <span class="questions btn-search-filter">
-            <span class="icon">{{gru-icon name='help_outline'}}<</span>
-            <span class="text">{{t "search-filter.questions"}}</span>
-          </span>
-        {{/link-to}}
-      </ul>
-      <span class="col-md-2 standards hidden-sm hidden-xs">
-        <button class="btn btn-primary">
-          <span>{{t "common.standards"}}</span>
-        </button>
-      </span>
-    </section>
+    {{search-filter
+    standards=standards
+    onFilterType="filterType"
+    term=term
+    selectedFilterType=filterType}}
   </div>
 
   <div class="content">
