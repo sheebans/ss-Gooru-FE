@@ -173,25 +173,37 @@ export default Ember.Component.extend({
 
     if(hasNoLessons) {
       component.set('isLoading', true);
-      this.get('lessonService').findByClassAndCourseAndUnit(classId, courseId, unitId)
-        .then(function(lessons) {
-          component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons)
-            .then(function(lessonPerformances) {
-              lessonPerformances.forEach(function(lessonPerformance) {
-                const lessonId = lessonPerformance.get('id');
-                component.get('collectionService').findByClassAndCourseAndUnitAndLesson(classId, courseId, unitId, lessonId)
-                  .then(function(collections) {
-                    component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections)
-                      .then(function(collectionPerformances) {
-                        lessonPerformance.set('collections', collectionPerformances);
-                      });
-                  });
-              });
-              component.set('lessons', lessonPerformances);
-              component.set('isLoading', false);
-            });
+      component.loadData(classId, courseId, unitId, userId).then(function(lessonPerformances){
+        component.set('lessons', lessonPerformances);
+        component.set('isLoading', false);
       });
+
     }
+  },
+
+  loadData: function(classId, courseId, unitId, userId){
+    const component = this;
+    const lessonsPromise = component.get('lessonService').findByClassAndCourseAndUnit(classId, courseId, unitId);
+    return lessonsPromise.then(function(lessons) {
+      const lessonsPerformancePromises = component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
+        return lessonsPerformancePromises.then(function(lessonPerformances) {
+            const promises = lessonPerformances.map(function(lessonPerformance) {
+              //TODO this should be loaded at the gru-lesson-performance only when the lesson is expanded
+              const lessonId = lessonPerformance.get('id');
+              const collectionPromise = component.get('collectionService').findByClassAndCourseAndUnitAndLesson(classId, courseId, unitId, lessonId);
+              return collectionPromise.then(function(collections) {
+                const collectionPerformancePromise = component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections);
+                    return collectionPerformancePromise.then(function(collectionPerformances) {
+                      lessonPerformance.set('collections', collectionPerformances);
+                    });
+                });
+            });
+            //return lesson performances until everything is loaded
+            return Ember.RSVP.all(promises).then(function(){
+              return lessonPerformances;
+            });
+          });
+      });
   },
 
   /**
