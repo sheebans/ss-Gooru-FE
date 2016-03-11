@@ -79,7 +79,7 @@ export default Ember.Route.extend({
       const route = this;
       const controller = route.get("controller");
       const searchService = route.get('searchService');
-      
+
       if(filterType==='questions'){
         this.transitionTo('search.questions');
       }

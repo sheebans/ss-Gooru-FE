@@ -11,6 +11,110 @@
     @media (min-width: $screen-sm) {
       padding-left: 3%;
     }
+
+    .search-filter {
+      display: table;
+      height: 51px;
+      width: 100%;
+      .search-filter-options {
+        padding: 0;
+        list-style: none;
+        display: inline-block;
+        height: inherit;
+        margin: 0;
+        li{
+          display: inline-block;
+          vertical-align: middle;
+          margin: 0 10px;
+          border-bottom: $dark-400 3px solid;
+          height: 51px;
+          @media (max-width: $screen-sm) {
+            margin: 0 0 10px 0;
+          }
+          .btn-search-filter {
+            background-color: $dark-400;
+            color: $white;
+            padding: 10px 10px 12px;
+            border-radius: 0;
+            height: 47px;
+            display: inline-block;
+            @media (max-width: $screen-xs) {
+              padding: 0;
+            }
+            span {
+              vertical-align: middle;
+              display: inline-block;
+              opacity: 0.6;
+              font-size: $font-size-h6;
+              margin: 0 5px 0 0;
+              i {
+                font-size: $font-size-h5;
+                line-height: 26px;
+              }
+              &.text {
+                @media (max-width: $screen-xs) {
+                  display: block;
+                }
+              }
+            }
+          }
+          .collections {
+            .icon {
+              background: url("gooru/images/navigation_collection.svg");
+              width: 20px;
+              height: 15px;
+            }
+            &.active {
+              .icon {
+                background: url("gooru/images/navigation_collection_selected.svg");
+              }
+            }
+          }
+          .assessments {
+            .icon {
+              background: url("gooru/images/navigation_assessment.svg");
+              width: 20px;
+              height: 15px;
+            }
+            &.active {
+              .icon {
+                background: url("gooru/images/navigation_assessment_selected.svg");
+              }
+            }
+          }
+          .resources {
+            .icon {
+              background: url("gooru/images/navigation_resource.svg");
+              width: 23px;
+              height: 21px;
+            }
+            &.active {
+              .icon {
+                background: url("gooru/images/navigation_resource_selected.svg");
+              }
+            }
+          }
+          &.active {
+            border-bottom-color: $white;
+            span {
+              opacity: 1;
+            }
+            .resources {
+              .icon {
+                  background: url("gooru/images/navigation_resource_selected.svg");
+              }
+            }
+          }
+        }
+      }
+      .standards {
+        display: table-cell;
+        float: none;
+        text-align: right;
+        vertical-align: middle;
+      }
+    }
+
   }
 
   .content {

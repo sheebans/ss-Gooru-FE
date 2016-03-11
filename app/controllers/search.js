@@ -4,7 +4,7 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  queryParams: ['term', "filterType"],
+  queryParams: ['term'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -28,9 +28,9 @@ export default Ember.Controller.extend({
   term: null,
 
   /**
-   * @property {string} filter type filter
+   * @property {string} collection type filter
    */
-  filterType: null,
+  collectionType: null,
 
   /**
    * Configured standards
@@ -42,7 +42,15 @@ export default Ember.Controller.extend({
    * These are the collection search results
    * @property {CollectionResult[]}
    */
-  collectionResults: null
+  collectionResults: null,
+
+  /**
+   * Type of collection filter selected
+   *  @property {string} selectedFilterType
+   *
+   */
+  selectedFilterType: 'collection'
+
 
   // -------------------------------------------------------------------------
   // Methods
