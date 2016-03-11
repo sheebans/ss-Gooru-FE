@@ -312,6 +312,16 @@ export default {
     "resources": "Resources",
     "assessments": "Assessments",
     "questions": "Questions",
+    "question-types": {
+      "MC": "Multiple Choice",
+      "FIB": "Fill in the Blank",
+      "T/F": "True / False",
+      "MA": "Multiple Answer",
+      "HS_TXT": "Hot Spot- Text",
+      "HS_IMG": "Hot Spot- Image",
+      "HT_RO": "Hot Text- Reorder",
+      "HT_HL": "Hot Text- Highlight"
+    },
     "author": {
       "placeholder": "Author"
     }
