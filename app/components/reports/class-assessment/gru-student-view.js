@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { correctPercentage } from 'gooru-web/utils/question-result';
 
 export default Ember.Component.extend({
 
@@ -32,7 +33,7 @@ export default Ember.Component.extend({
       if(this.get('sortAlphabetically')){
         this.set('studentPerformanceListSorting',['student.fullName']);
       }else{
-        this.set('studentPerformanceListSorting',['score']);
+        this.set('studentPerformanceListSorting',['score:desc','student.fullName']);
       }
     }
   },
