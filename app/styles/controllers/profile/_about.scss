@@ -1,0 +1,41 @@
+.controller.about {
+  > h4 {
+    margin-top: 0;
+    .btn {
+      margin-top: -0.3em;
+    }
+    .verification {
+      color: $green-400;
+      .gru-icon {
+        font-size: $font-size-h4;
+        vertical-align: text-bottom;
+      }
+    }
+  }
+  .panel {
+    h6 {
+      font-weight: normal;
+      color: $dark-400;
+      margin-top: 0;
+    }
+    p {
+      font-size: $font-size-large;
+      padding: 0 4px;
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+    .row {
+      p {
+        margin-bottom: 1em;
+      }
+    }
+  }
+  @media (min-width: $screen-sm-min) {
+    > h4 {
+      border-bottom: 1px solid $light-300;
+      padding-bottom: 0.8em;
+      margin-bottom: 0.6em;
+    }
+  }
+}

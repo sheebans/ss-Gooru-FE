@@ -206,10 +206,12 @@
 
   > .content {
     height: 100%;
-    border-left: 1px solid  $gray-light;
-    margin-left: -1px;
-    @media (max-width: $screen-xs-max) { /* only for phone */
-      padding: 0;
+    padding: 20px;
+    @media (min-width: $screen-sm-min) {
+      padding: 20px 65px;
+    }
+    @media (min-width: $screen-md-min) {
+      padding: 20px 56px;
     }
   }
 }

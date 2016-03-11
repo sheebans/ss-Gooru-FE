@@ -452,11 +452,23 @@ export default {
     }
   },
 
-  "profile.gru-navigation": {
+  "profile": {
     "about": "About",
     "about-you": "About You",
-    "content": "Content",
-    "network": "Network"
+    "biography": "Biography",
+    "country": "Country",
+    "district": "District",
+    "first-name": "First Name",
+    "last-name": "Last Name",
+    "last-updated": "Last Updated",
+    "role": "Role",
+    "school": "School",
+    "school-info": "School Information",
+    "verified": "Verified",
+    "gru-navigation": {
+      "content": "Content",
+      "network": "Network"
+    }
   },
 
   "gru-data-picker":{
