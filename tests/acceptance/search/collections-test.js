@@ -21,7 +21,7 @@ test('Layout', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/search/collections?term=any');
     T.exists(assert, find(".search-filter"), "Missing search filters");
-    T.exists(assert, find(".collection-results"), "Missing collection results");
+    T.exists(assert, find(".collection-results .results"), "Missing collection results");
     //there is not need to test more layout since each component has it own layout test
   });
 });

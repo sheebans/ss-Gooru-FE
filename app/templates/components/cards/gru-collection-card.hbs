@@ -23,20 +23,21 @@
         </div>
     </div>
     <div class="panel-body">
-            <div class="standards">
-              {{#if collection.standards }}
+        <div class="collection-details">
+          {{#if collection.standards }}
+              <div class="standards">
                 {{collection-results-standards collection=collection standards=collection.standards}}
-              {{/if}}
             </div>
+          {{/if}}
             <div class="{{if collection.isAssessment 'author' 'remixed-by'}}">
-               {{#if collection.isAssessment}}{{t "cards.gru-course-card.created"}}{{else}}{{t "cards.gru-course-card.remixed-by"}}{{/if}}
+              {{#if collection.isAssessment}}<span>{{t "cards.gru-course-card.created"}}</span>{{else}}<span>{{t "cards.gru-course-card.remixed-by"}}</span>{{/if}}
               {{#if collection.avatarUrl }}
                   <img class="img-responsive" src="{{ collection.avatarUrl }}">
               {{else}}
                   <img class="img-responsive" src="assets/gooru/profile.png">
               {{/if}}
                 <div>
-                 {{#if collection.isAssessment}}   <a href="{{ collection.profilePageUrl }}" target="_blank">{{collection.author}}</a>{{else}}<a>{{remixedByUser}}</a> {{#if remixedUsers}}+{{remixedUsers}}{{/if}}{{/if}}
+                  {{#if collection.isAssessment}}   <a href="{{ collection.profilePageUrl }}" target="_blank">{{collection.author}}</a>{{else}}<a>{{remixedByUser}}</a> {{#if remixedUsers}}+{{remixedUsers}}{{/if}}{{/if}}
                 </div>
             </div>
             <div class="description">
@@ -45,5 +46,6 @@
             <div class="remix-btn">
                 <button class="btn btn-primary btn-sm">{{t "common.remix"}}</button>
             </div>
+        </div>
     </div>
 </div>
