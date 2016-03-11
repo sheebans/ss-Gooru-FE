@@ -4,10 +4,11 @@ export default {
    * COMMON: Translations used globally in the app or shared between components
    */
   "common": {
-
+    "add-to":"Add To",
     "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
     "assessment":"Assessment",
+    "assessments": "Assessments",
     "assessmentInitial": "A",
     "attempt": "Attempt number",
     "of": "of",
@@ -17,12 +18,15 @@ export default {
     "classScores": "Class Scores",
     "close": "Close",
     "collection":"Collection",
+    "collections": "Collections",
     "collectionInitial": "C",
     "completed": "Completed",
     "contentUnavailable": "Content not available",
     "correct": "Correct",
     "correct-answer":"Correct Answer",
     "course-map": "Course Map",
+    "course":"Course",
+    "courses": "Courses",
     "create": "Create",
     "edit": "Edit",
     "email_support": "support@gooru.org",
@@ -82,6 +86,8 @@ export default {
       "HT_HL"  : "Hot Text Highlight"
     },
     "reaction": "Reaction",
+    "resource":"Resource",
+    "resources": "Resources",
     "resource-format":{
       "image"       : "Image",
       "text"        : "Text",
@@ -117,14 +123,7 @@ export default {
     warnings: {
       "on-air-connection-lost": "The On Air feature has lost connection and is retrying automatically. While it's tempting, please don't refresh your screen!"
     },
-    "no-content": "No content available",
-    "courses": "Courses",
-    "collections": "Collections",
-    "resources": "Resources",
-    "assessments": "Assessments",
-    "add-to":"Add To",
-    "course":"Course",
-    "resource":"Resource"
+    "no-content": "No content available"
   },
 
   /*
