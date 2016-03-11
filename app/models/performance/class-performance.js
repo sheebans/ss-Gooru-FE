@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import DS from 'ember-data';
+import Utils from 'gooru-web/utils/math';
 
 /**
  * Model that contains a class performance data.
@@ -95,7 +96,8 @@ export default DS.Model.extend({
         }
       });
     }
-    return counter > 0 ? sumValue / counter : sumValue;
+    const value = counter > 0 ? sumValue / counter : sumValue;
+    return Utils.roundFloat(value);
   },
 
   /**
@@ -115,7 +117,7 @@ export default DS.Model.extend({
         }
       });
     }
-    return sumValue;
+    return Utils.roundFloat(sumValue);
   },
 
   /**
@@ -126,7 +128,7 @@ export default DS.Model.extend({
   calculateClassAverage: function(fieldName) {
     const counter = this.get('studentPerformanceData.length');
     if (counter > 0) {
-      return this.calculateClassSum(fieldName) / counter;
+      return Utils.roundFloat(this.calculateClassSum(fieldName) / counter);
     } else {
       return 0;
     }
