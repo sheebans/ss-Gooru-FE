@@ -1,38 +1,38 @@
 <div class="controller about">
   <h4>
     {{#if isMyProfile}}
-      {{t "profile.about-you"}}
+      {{t "common.about-you"}}
       {{#link-to "profile.network" tagName="button" class='btn btn-info pull-right hidden-xs'}}{{t "common.edit"}}{{/link-to}}
     {{else}}
-      {{t "profile.about"}}
+      {{t "common.about"}}
     {{/if}}
   </h4>
   <div class="panel panel-default">
     <div class="panel-body">
       <div class="row">
         <div class="col-xs-12 col-sm-6">
-          <h6>{{t "profile.first-name"}}</h6>
+          <h6>{{t "common.first-name"}}</h6>
           <p class="first-name">{{profile.user.firstName}}</p>
         </div>
         <div class="col-xs-12 col-sm-6">
-          <h6>{{t "profile.last-name"}}</h6>
+          <h6>{{t "common.last-name"}}</h6>
           <p class="last-name">{{profile.user.lastName}}</p>
         </div>
       </div>
-      <h6>{{t "profile.biography"}}</h6>
+      <h6>{{t "common.biography"}}</h6>
       <div class="bio">
         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
       </div>
     </div>
   </div>
   <h4>
-    {{t "profile.school-info"}}
-    <span class="verification pull-right hidden-xs">{{gru-icon name="check"}} {{t "profile.verified"}}</span>
+    {{t "common.school-info"}}
+    <span class="verification pull-right hidden-xs">{{gru-icon name="check"}} {{t "common.verified"}}</span>
   </h4>
   <div class="panel panel-default">
     <div class="panel-body">
-      <span class="pull-right hidden-xs">{{t "profile.last-updated"}}: {{formatDate "2016-03-06" "MMMM D, YYYY"}}</span>
-      <h6>{{t "profile.role"}}</h6>
+      <span class="pull-right hidden-xs">{{t "common.last-updated"}}: {{formatDate "2016-03-06" "MMMM D, YYYY"}}</span>
+      <h6>{{t "common.role"}}</h6>
       <p class="role">
         {{#if profile.user.role}}
           {{profile.user.role}}
@@ -40,7 +40,7 @@
           Student
         {{/if}}
       </p>
-      <h6>{{t "profile.school"}}</h6>
+      <h6>{{t "common.school"}}</h6>
       <p class="school">
         {{#if profile.user.organization}}
           {{profile.user.organization}}
@@ -48,7 +48,7 @@
           Riverside Unified School
         {{/if}}
       </p>
-      <h6>{{t "profile.district"}}</h6>
+      <h6>{{t "common.district"}}</h6>
       <p class="district">
         {{#if profile.user.districtName}}
           {{profile.user.districtName}}
@@ -56,7 +56,7 @@
           Riverside Unified School District
         {{/if}}
       </p>
-      <h6>{{t "profile.country"}}</h6>
+      <h6>{{t "common.country"}}</h6>
       <p class="country">
         {{#if profile.user.country}}
           {{profile.user.country}}

@@ -7,9 +7,9 @@
           <li class="profile-menu-item close"> <button class="btn dropdown-toggle" data-toggle="dropdown">{{gru-icon name='close'}}</button></li>
           <li class="profile-menu-item about" {{action 'selectItem' 'about'}}>
             {{#if isMyProfile}}
-              <h6>{{t "profile.about-you"}}</h6>
+              <h6>{{t "profile.gru-navigation.about-you"}}</h6>
             {{else}}
-              <h6>{{t "profile.about"}}</h6>
+              <h6>{{t "profile.gru-navigation.about"}}</h6>
             {{/if}}
             {{gru-icon name='person'}}
           </li>
@@ -43,9 +43,9 @@
   <ul class="profile-menu list-group">
     <li class="list-group-item profile-menu-item about" {{action 'selectItem' 'about'}}>
       {{#if isMyProfile}}
-        <h6>{{t "profile.about-you"}}</h6>
+        <h6>{{t "profile.gru-navigation.about-you"}}</h6>
       {{else}}
-        <h6>{{t "profile.about"}}</h6>
+        <h6>{{t "profile.gru-navigation.about"}}</h6>
       {{/if}}
       {{gru-icon name='person'}}
     </li>
