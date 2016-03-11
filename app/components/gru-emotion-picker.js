@@ -50,17 +50,25 @@ export default Ember.Component.extend({
    * Overwrites didInsertElement hook.
    */
   didInsertElement: function() {
+    this._super(...arguments);
     const component = this;
     const startEmotion = this.get('startEmotion');
 
     // Adds tooltip to UI elements (elements with attribute 'data-toggle')
     component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
-
     // Sets the emotion icon if there is a score for this resource
     if (startEmotion) {
       Ember.run.scheduleOnce('afterRender', this, function () {
-        this.selectEmotion(startEmotion);
+        component.selectEmotion(startEmotion);
       });
+    }
+  },
+
+  didUpdate: function() {
+    this._super(...arguments);
+    const startEmotion = this.get('startEmotion');
+    if (startEmotion) {
+      this.selectEmotion(startEmotion);
     }
   },
 
@@ -97,6 +105,7 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+
   selectEmotion: function (emotionValue) {
     this.$(".emotions-list li").find(".active").removeClass("active");
     this.set('selectedEmotion', 0);
