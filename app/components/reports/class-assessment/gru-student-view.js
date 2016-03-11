@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { correctPercentage } from 'gooru-web/utils/question-result';
 
 export default Ember.Component.extend({
 
@@ -32,7 +33,7 @@ export default Ember.Component.extend({
       if(this.get('sortAlphabetically')){
         this.set('studentPerformanceListSorting',['student.fullName']);
       }else{
-        this.set('studentPerformanceListSorting',['score']);
+        this.set('studentPerformanceListSorting',['score:desc','student.fullName']);
       }
     }
   },
@@ -95,9 +96,11 @@ export default Ember.Component.extend({
     const reportData = component.get("reportData.data");
     return students.map(function(student){
       let studentReportData = reportData[student.get("id")] || {};
+      let studentResourceResults = component.getReportDataResults(studentReportData);
       return Ember.Object.create({
         student: student,
-        reportData: component.getReportDataResults(studentReportData)
+        reportData: studentResourceResults,
+        score: correctPercentage(studentResourceResults)
       });
     });
   }),
