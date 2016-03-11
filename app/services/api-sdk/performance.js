@@ -127,7 +127,6 @@ export default Ember.Service.extend({
         objectWithTitle.set('title', object.get('title'));
       }else{
         objectWithTitle = service.getRecordByType(type, object);
-        objectWithTitle.destroyRecord();//TODO: We need to change that to not use ember data
       }
       return objectWithTitle;
     });
@@ -140,15 +139,30 @@ export default Ember.Service.extend({
    * @returns {Promise.<performance[]>}
    */
   getRecordByType: function(type, object){
+    const id = object.get("id");
+    const store = this.get('store');
+    let modelName = null;
+    let record = this.getRecord(type, object);
     if(type === 'unit') {
-      return this.get('store').createRecord("performance/unit-performance", this.getRecord('unit', object));
-    }else if(type === 'lesson'){
-      return this.get('store').createRecord("performance/lesson-performance", this.getRecord('lesson', object));
-    }else{
-      let collection = this.get('store').createRecord("performance/collection-performance", this.getRecord('collection', object));
-      collection.set('collectionType', object.get('collectionType'));
-      return collection;
+      modelName = "performance/unit-performance";
     }
+    else if(type === 'lesson'){
+      modelName = "performance/lesson-performance";
+    }
+    else {
+      modelName = "performance/collection-performance";
+    }
+
+    const found = store.recordIsLoaded(modelName, id);
+    const newRecord = (found) ?
+      store.recordForId(modelName, id) :
+      store.createRecord(modelName, record);
+
+    if (type === 'collection') {
+      newRecord.set("collectionType", object.get("collectionType"));
+    }
+
+    return newRecord;
   },
 
   /**
@@ -162,7 +176,6 @@ export default Ember.Service.extend({
       id: object.get('id'),
       title: object.get('title'),
       type: type,
-      score: 0,
       completionTotal: 0,
       completionDone: 0
     };
