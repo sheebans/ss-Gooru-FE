@@ -26,6 +26,13 @@ export default Ember.Controller.extend({
     remixCourse: function(){
       Ember.Logger.debug("Remix Course");
     },
+    /**
+     * Handle onEditCourse event from gru-course-card
+     *
+     */
+    editCourse: function(){
+      Ember.Logger.debug("Remix Course");
+    },
 
     /**
      * Handle onViewLayoutChange event from gru-view-layout-picker
@@ -70,5 +77,39 @@ export default Ember.Controller.extend({
       'username': 'username-3'
     })])
   }),
+  //Private Course when the user is owner
+  courseTest1 :  Ember.Object.create({
+    'title': 'Water cycle',
+    'totalUnits': 8,
+    'subjects': ['Science','Biology'],
+    'imageUrl': '/assets/gooru/profile.png',
+    'isPublic':false,
+    'remixedBy':  Ember.A([Ember.Object.create({
+      'email': 'user_1@test.com',
+      'firstName': 'firstname-1',
+      'fullName': 'lastname-1 firstname-1',
+      'id': 'id-1',
+      'lastName': 'lastname-1',
+      'avatarUrl': '/assets/gooru/profile.png',
+      'username': 'username-1'
+    })])
+  }),
+  //Public Course when the user isn't owner
+  courseTest2 :  Ember.Object.create({
+    'title': 'Water cycle',
+    'totalUnits': 8,
+    'subjects': ['Science','Biology'],
+    'imageUrl': '/assets/gooru/profile.png',
+    'isPublic':true,
+    'remixedBy':  Ember.A([Ember.Object.create({
+      'email': 'user_1@test.com',
+      'firstName': 'firstname-1',
+      'fullName': 'lastname-1 firstname-1',
+      'id': 'id-1',
+      'lastName': 'lastname-1',
+      'avatarUrl': '/assets/gooru/profile.png',
+      'username': 'username-1'
+    })])
+  })
 
 });

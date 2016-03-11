@@ -87,6 +87,7 @@
       &.selected{
         @include respond-to(xs){
           display: flex;
+          margin-right: 10px;
         }
       }
       &.score{

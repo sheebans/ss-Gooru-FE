@@ -45,7 +45,7 @@ export default Ember.Service.extend({
       classId: classId,
       courseId: courseId
     }).then(function (unitPerformances) {
-      return service.matchTitlesWithPerformances(units, unitPerformances);
+      return service.matchCourseMapWithPerformances(units, unitPerformances, 'unit');
     });
   },
 
@@ -68,7 +68,7 @@ export default Ember.Service.extend({
       courseId: courseId,
       unitId: unitId
     }).then(function (lessonPerformances) {
-      return service.matchTitlesWithPerformances(lessons, lessonPerformances);
+      return service.matchCourseMapWithPerformances(lessons, lessonPerformances, 'lesson');
     });
   },
 
@@ -93,7 +93,7 @@ export default Ember.Service.extend({
       unitId: unitId,
       lessonId: lessonId
     }).then(function (collectionPerformances) {
-      return service.matchTitlesWithPerformances(collections, collectionPerformances);
+      return service.matchCourseMapWithPerformances(collections, collectionPerformances, 'collection');
     });
   },
 
@@ -111,6 +111,74 @@ export default Ember.Service.extend({
       }
       return performance;
     });
+  },
+
+  /**
+   * Gets the data for al the performances in class.
+   * @param objectsWithTitle
+   * @param performances
+   * @returns {Promise.<CollectionPerformance[]>}
+   */
+  matchCourseMapWithPerformances: function (objectsWithTitle, performances, type) {
+    const service = this;
+    return objectsWithTitle.map(function (object) {
+      let objectWithTitle = performances.findBy('id', object.get('id'));
+      if(objectWithTitle) {
+        objectWithTitle.set('title', object.get('title'));
+      }else{
+        objectWithTitle = service.getRecordByType(type, object);
+      }
+      return objectWithTitle;
+    });
+  },
+
+  /**
+   * Gets the perfomrmance object by type.
+   * @param type
+   * @param object
+   * @returns {Promise.<performance[]>}
+   */
+  getRecordByType: function(type, object){
+    const id = object.get("id");
+    const store = this.get('store');
+    let modelName = null;
+    let record = this.getRecord(type, object);
+    if(type === 'unit') {
+      modelName = "performance/unit-performance";
+    }
+    else if(type === 'lesson'){
+      modelName = "performance/lesson-performance";
+    }
+    else {
+      modelName = "performance/collection-performance";
+    }
+
+    const found = store.recordIsLoaded(modelName, id);
+    const newRecord = (found) ?
+      store.recordForId(modelName, id) :
+      store.createRecord(modelName, record);
+
+    if (type === 'collection') {
+      newRecord.set("collectionType", object.get("collectionType"));
+    }
+
+    return newRecord;
+  },
+
+  /**
+   * Gets the perfomrmance object by type.
+   * @param type
+   * @param object
+   * @returns {object}
+   */
+  getRecord: function(type, object) {
+    return {
+      id: object.get('id'),
+      title: object.get('title'),
+      type: type,
+      completionTotal: 0,
+      completionDone: 0
+    };
   },
 
   matchStudentsWithPerformances: function (objectsWithTitle, performances) {

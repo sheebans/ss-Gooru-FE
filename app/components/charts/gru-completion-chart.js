@@ -47,7 +47,7 @@ export default Ember.Component.extend({
     if (typeof total === 'number' && total !== 0) {
       percentage = Math.round(this.get('completed') / total * 100);
     }
-    return percentage;
+    return percentage > 100 ? 100 : percentage;
   }),
 
   /**
