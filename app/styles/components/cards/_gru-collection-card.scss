@@ -67,19 +67,25 @@
       .collection-details{
         height: 200px;
         .standards{
-          display:table-row;
           height: 20px;
-          .uc-search-standard {
-            display: inline-block;
-            float: left;
-            width: 47%;
-            .truncate{
-              width: 99%;
+          .collection-results-standards{
+            .uc-search-standard {
+              display: inline-block;
+              float: left;
+              width: 44%;
+              margin: 0 1px;
+              .truncate{
+                width: 99%;
+              }
+              .label{
+                padding: 0;
+              }
             }
-            .label{
-              padding: 0;
+            a{
+              margin-left: 5px;
             }
           }
+
         }
         .author,.remixed-by{
           display:table-row;
@@ -98,7 +104,6 @@
         }
         .description{
           height: 88px;
-          display:table-row;
           $line-height: 1.8;
           $lines-to-show: 3;
           p.truncate {

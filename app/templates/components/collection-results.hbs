@@ -3,7 +3,7 @@
         <div class="text-center">
             <div class="results">
               {{#each collectionResults.collections as |collection|}}
-                {{cards.gru-collection-card collection=collection}}
+                {{cards.gru-collection-card collection=collection onOpenContentPlayer="openContentPlayer"}}
               {{/each}}
             </div>
         </div>

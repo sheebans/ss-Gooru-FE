@@ -1,14 +1,10 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="image">
-          {{#if collection.imageUrl }}
-              <img class="img-responsive" src="{{ collection.imageUrl }}">
-          {{else}}
-              <img class="img-responsive" src="assets/gooru/profile.png">
-          {{/if}}
+            <a {{action "openContentPlayer" collection.id}}><img class="img-responsive" src="{{if collection.imageUrl collection.imageUrl "assets/gooru/profile.png"}}"></a>
         </div>
         <div class="collection-info">
-            <h6 class="title truncate" alt="{{ collection.title }}">{{ collection.title }}</h6>
+            <a {{action "openContentPlayer" collection.id}}> <h6 class="title truncate" alt="{{ collection.title }}">{{ collection.title }}</h6></a>
             <span class="question-resources">
               {{#if hasResources}}
                   <span class="bar">|</span><p>{{t "cards.gru-course-card.resource" count=collection.resourceCount}}</p>
@@ -30,14 +26,18 @@
             </div>
           {{/if}}
             <div class="{{if collection.isAssessment 'author' 'remixed-by'}}">
-              {{#if collection.isAssessment}}<span>{{t "cards.gru-course-card.created"}}</span>{{else}}<span>{{t "cards.gru-course-card.remixed-by"}}</span>{{/if}}
-              {{#if collection.avatarUrl }}
-                  <img class="img-responsive" src="{{ collection.avatarUrl }}">
+              {{#if collection.isAssessment}}
+                  <span>{{t "cards.gru-course-card.created"}}</span>
+                  <img class="img-responsive" src="{{if collection.avatarUrl collection.avatarUrl "assets/gooru/profile.png"}}">
+                  <a href="{{ collection.profilePageUrl }}" target="_blank">{{collection.author}}</a>
               {{else}}
-                  <img class="img-responsive" src="assets/gooru/profile.png">
+                {{#if collection.remixedBy}}
+                  <span>{{t "cards.gru-course-card.remixed-by"}}</span>
+                  <img class="img-responsive" src="{{if remixedByUser.avatarUrl remixedByUser.avatarUrl "assets/gooru/profile.png"}}">
+                  <a>{{remixedByUser.firstName}}</a> {{#if remixedUsers}}+{{remixedUsers}}{{/if}}
+                {{/if}}
               {{/if}}
                 <div>
-                  {{#if collection.isAssessment}}   <a href="{{ collection.profilePageUrl }}" target="_blank">{{collection.author}}</a>{{else}}<a>{{remixedByUser}}</a> {{#if remixedUsers}}+{{remixedUsers}}{{/if}}{{/if}}
                 </div>
             </div>
             <div class="description">
