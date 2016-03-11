@@ -67,9 +67,7 @@ export default Ember.Component.extend({
   didUpdate: function() {
     this._super(...arguments);
     const startEmotion = this.get('startEmotion');
-    if (startEmotion) {
-      this.selectEmotion(startEmotion);
-    }
+    this.selectEmotion(startEmotion);
   },
 
   // -------------------------------------------------------------------------
@@ -106,12 +104,14 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Methods
 
-  selectEmotion: function (emotionValue) {
+  selectEmotion: function(emotionValue) {
     this.$(".emotions-list li").find(".active").removeClass("active");
     this.set('selectedEmotion', 0);
 
-    this.set('selectedEmotion', emotionValue);
-    this.$(".emotion-" + emotionValue).toggleClass("active");
+    if (emotionValue) {
+      this.set('selectedEmotion', emotionValue);
+      this.$(".emotion-" + emotionValue).toggleClass("active");
+    }
   }
 
 });
