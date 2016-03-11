@@ -12,15 +12,17 @@
       <div class="row">
         <div class="col-xs-12 col-sm-6">
           <h6>{{t "profile.first-name"}}</h6>
-          <p>{{profile.user.firstName}}</p>
+          <p class="first-name">{{profile.user.firstName}}</p>
         </div>
         <div class="col-xs-12 col-sm-6">
           <h6>{{t "profile.last-name"}}</h6>
-          <p>{{profile.user.lastName}}</p>
+          <p class="last-name">{{profile.user.lastName}}</p>
         </div>
       </div>
       <h6>{{t "profile.biography"}}</h6>
-      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+      <div class="bio">
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+      </div>
     </div>
   </div>
   <h4>
@@ -31,7 +33,7 @@
     <div class="panel-body">
       <span class="pull-right hidden-xs">{{t "profile.last-updated"}}: {{formatDate "2016-03-06" "MMMM D, YYYY"}}</span>
       <h6>{{t "profile.role"}}</h6>
-      <p>
+      <p class="role">
         {{#if profile.user.role}}
           {{profile.user.role}}
         {{else}}
@@ -39,7 +41,7 @@
         {{/if}}
       </p>
       <h6>{{t "profile.school"}}</h6>
-      <p>
+      <p class="school">
         {{#if profile.user.organization}}
           {{profile.user.organization}}
         {{else}}
@@ -47,7 +49,7 @@
         {{/if}}
       </p>
       <h6>{{t "profile.district"}}</h6>
-      <p>
+      <p class="district">
         {{#if profile.user.districtName}}
           {{profile.user.districtName}}
         {{else}}
@@ -55,7 +57,7 @@
         {{/if}}
       </p>
       <h6>{{t "profile.country"}}</h6>
-      <p>
+      <p class="country">
         {{#if profile.user.country}}
           {{profile.user.country}}
         {{else}}
