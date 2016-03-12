@@ -13,6 +13,33 @@ Router.map(function() {
     this.route('questions');
   });
 
+  this.route('content', function () {
+
+    this.route('courses', function () {
+      this.route('edit', {path: '/edit/:courseId'});
+    });
+
+    //this.route('collections', function() {
+    //  this.route('new');
+    //  this.route('edit', { path: '/edit/:collectionId' });
+    //});
+    //
+    //this.route('assessments', function() {
+    //  this.route('new');
+    //  this.route('edit', { path: '/edit/:assessmentId' });
+    //});
+    //
+    //this.route('resources', function() {
+    //  this.route('new');
+    //  this.route('edit', { path: '/edit/:resourceId' });
+    //});
+    //
+    //this.route('questions', function() {
+    //  this.route('new');
+    //  this.route('edit', { path: '/edit/:resourceId' });
+    //});
+  });
+
   this.route('player', { path: '/player/:collectionId'});
 
   this.route('context-player', {path: '/player/class/:classId/course/:courseId/unit/:unitId/lesson/:lessonId/collection/:collectionId'});

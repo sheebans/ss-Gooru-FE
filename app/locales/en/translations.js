@@ -14,6 +14,8 @@ export default {
     "of": "of",
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
+    "best-practices": "Best Practices",
+    "builder": "Builder",
     "cancel": "Cancel",
     "classScores": "Class Scores",
     "close": "Close",
@@ -29,6 +31,7 @@ export default {
     "courses": "Courses",
     "create": "Create",
     "edit": "Edit",
+    "edit_course": "Edit Course",
     "email_support": "support@gooru.org",
     "emotions": {
       "emotion-1": "I need help",
@@ -43,6 +46,7 @@ export default {
     "hints": "Hints",
     "hide-results":"Hide Results",
     "if_questions": "If you have any questions,",
+    "information": "Information",
     "launch-anonymous": "Launch Anonymous",
     "launch-on-air": "Launch on air",
     "learning-target":"Learning Target",
@@ -71,6 +75,7 @@ export default {
     },
     "performance":"Show Performance",
     "please_contact": "Please contact",
+    "preview": "Preview",
     "question":"Question",
     "questions": "Questions",
     "question-type":{
@@ -101,6 +106,7 @@ export default {
     "score":"Score",
     "search": "Search",
     "search-placeholder": "Search...",
+    "settings": "Settings",
     "show-correct-answer":"Show Correct Answer",
     "show-results":"Show Results",
     "signUp": "Sign Up",
@@ -183,6 +189,10 @@ export default {
     "classesTaught": "Classes I Teach",
     "noClassesJoined": "You have not joined any classes",
     "noClassesTaught": "You do not have any created classes"
+  },
+
+  "content.courses.edit": {
+    "assign-to-class": "Assign to Class"
   },
 
   /*
