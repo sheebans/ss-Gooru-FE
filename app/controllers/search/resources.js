@@ -1,9 +1,9 @@
 import Ember from 'ember';
 
 /**
- * Questions search controller
+ * Resources search controller
  *
- * Controller responsible for filtering and searching questions
+ * Controller responsible for filtering and searching resources
  *
  * @module
  * @augments ember/Controller

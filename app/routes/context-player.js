@@ -73,7 +73,7 @@ export default PlayerRoute.extend({
     return Context.create({
       userId: userId,
       collectionId: collectionId,
-      parentEventId: generateUUID(), //TODO is this comming from BE?
+      parentEventId: generateUUID(), //TODO is this coming from BE?
       courseId: courseId,
       classId: params.classId,
       unitId: unitId,
