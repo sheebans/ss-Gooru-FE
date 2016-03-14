@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import T from 'gooru-web/tests/helpers/assert';
 import hbs from 'htmlbars-inline-precompile';
+import Ember from "ember";
 
 moduleForComponent('gru-question-options', 'Integration | Component | resource options', {
   integration: true,
@@ -11,7 +12,7 @@ moduleForComponent('gru-question-options', 'Integration | Component | resource o
 
 test('gru-question-options-default', function(assert) {
 
-  const selectedOptionType = 'multiple-choice';
+  const selectedOptionType = Ember.A(["multiple-choice"]);
 
   this.set('selectedOptionType', selectedOptionType);
 
@@ -66,18 +67,16 @@ test('gru-question-options-default', function(assert) {
 test('search-filter-onMultipleChoiceClick', function(assert) {
   assert.expect(1); //making sure all asserts are called
 
-  const selectedOptionType = 'multiple-choice';
-
-  this.set('selectedOptionType', selectedOptionType);
-
-  this.on('selectMenuOption', function(option) {
-    assert.equal(option, 'multiple-choice', "Incorrect multiple-choice option type");
+  this.on('selectMenuOption', function(options) {
+    assert.equal(options[0], 'multiple-choice', "Incorrect multiple-choice option type");
   });
 
-  this.render(hbs`{{search/gru-question-options selectedOptionType=selectedOptionType onSelectMenuOption='selectMenuOption'}}`);
+  this.render(hbs`{{search/gru-question-options onSelectMenuOption='selectMenuOption'}}`);
 
   var $component = this.$(); //component dom element
 
-  const $multipleChoiceOptionSelected = $component.find(".multiple-choice.btn-option.selected");
-  T.exists(assert, $multipleChoiceOptionSelected, "Missing multiple choice option selected");
+  const $multipleChoiceOptionButton = $component.find(".multiple-choice.btn-option");
+
+  $multipleChoiceOptionButton.click();
+  assert.ok(!$multipleChoiceOptionButton.hasClass("selected"), "Missing multiple choice option selected");
 });
