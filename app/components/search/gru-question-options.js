@@ -31,11 +31,11 @@ export default Ember.Component.extend({
   // Properties
 
   /**
-   * Types of question selected
-   *  @property {array} selectedOptionTypes
+   * Type of question selected
+   *  @property {string} selectedOptionType
    *
    */
-  selectedOptionTypes: Ember.A([]),
+  selectedOptionType: 'multiple-choice',
 
   /**
    * True if multiple-choice option is selected
@@ -43,9 +43,10 @@ export default Ember.Component.extend({
    *
    */
 
-  multipleChoiceSelected: Ember.computed('selectedOptionTypes.[]', function() {
-    const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("multiple-choice");
+  multipleChoiceSelected: Ember.computed('selectedOptionType', function() {
+    var selectedOptionType = this.get('selectedOptionType');
+
+    return (!selectedOptionType || selectedOptionType === 'multiple-choice');
   }),
 
   /**
@@ -54,9 +55,10 @@ export default Ember.Component.extend({
    *
    */
 
-  multipleAnswerSelected: Ember.computed('selectedOptionTypes.[]', function() {
-    const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("multiple-answer");
+  multipleAnswerSelected: Ember.computed('selectedOptionType', function() {
+    var selectedOptionType = this.get('selectedOptionType');
+
+    return (!selectedOptionType || selectedOptionType === 'multiple-answer');
   }),
 
   /**
@@ -65,9 +67,10 @@ export default Ember.Component.extend({
    *
    */
 
-  trueFalseSelected: Ember.computed('selectedOptionTypes.[]', function() {
-    const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("true-false");
+  trueFalseSelected: Ember.computed('selectedOptionType', function() {
+    var selectedOptionType = this.get('selectedOptionType');
+
+    return (!selectedOptionType || selectedOptionType === 'true-false');
   }),
 
   /**
@@ -76,9 +79,10 @@ export default Ember.Component.extend({
    *
    */
 
-  fibSelected: Ember.computed('selectedOptionTypes.[]', function() {
-    const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("fib");
+  fibSelected: Ember.computed('selectedOptionType', function() {
+    var selectedOptionType = this.get('selectedOptionType');
+
+    return (!selectedOptionType || selectedOptionType === 'fib');
   }),
 
   /**
@@ -87,9 +91,10 @@ export default Ember.Component.extend({
    *
    */
 
-  htHighlightSelected: Ember.computed('selectedOptionTypes.[]', function() {
-    const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("ht-highlight");
+  htHighlightSelected: Ember.computed('selectedOptionType', function() {
+    var selectedOptionType = this.get('selectedOptionType');
+
+    return (!selectedOptionType || selectedOptionType === 'ht-highlight');
   }),
 
   /**
@@ -98,9 +103,10 @@ export default Ember.Component.extend({
    *
    */
 
-  htReorderSelected: Ember.computed('selectedOptionTypes.[]', function() {
-    const selectedOptions = this.get("selectedOptionTypes");
-    return selectedOptions.contains('ht-reorder');
+  htReorderSelected: Ember.computed('selectedOptionType', function() {
+    var selectedOptionType = this.get('selectedOptionType');
+
+    return (!selectedOptionType || selectedOptionType === 'ht-reorder');
   }),
 
   /**
@@ -109,9 +115,10 @@ export default Ember.Component.extend({
    *
    */
 
-  hsTextSelected: Ember.computed('selectedOptionTypes.[]', function() {
-    const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("hs-text");
+  hsTextSelected: Ember.computed('selectedOptionType', function() {
+    var selectedOptionType = this.get('selectedOptionType');
+
+    return (!selectedOptionType || selectedOptionType === 'hs-text');
   }),
 
   /**
@@ -120,10 +127,11 @@ export default Ember.Component.extend({
    *
    */
 
-  hsImagesSelected: Ember.computed('selectedOptionTypes.[]', function() {
-    const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("hs-images");
-  })
+  hsImagesSelected: Ember.computed('selectedOptionType', function() {
+    var selectedOptionType = this.get('selectedOptionType');
+
+    return (!selectedOptionType || selectedOptionType === 'hs-images');
+  }),
 
   // -------------------------------------------------------------------------
   // Observers
