@@ -31,7 +31,11 @@ export default {
     "courses": "Courses",
     "create": "Create",
     "edit": "Edit",
-    "edit_course": "Edit Course",
+    "edit-assessment": "Edit Assessment",
+    "edit-collection": "Edit Collection",
+    "edit-course": "Edit Course",
+    "edit-question": "Edit Question",
+    "edit-resource": "Edit Resource",
     "email_support": "support@gooru.org",
     "emotions": {
       "emotion-1": "I need help",
@@ -533,7 +537,7 @@ export default {
       }
     },
     "gru-resource-card":{
-      "add":"Add to",
+      "add": "Add to"
     },
     "gru-resource-result-card": {
       "skipped":"Skipped"

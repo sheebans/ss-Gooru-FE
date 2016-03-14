@@ -20,25 +20,21 @@ Router.map(function() {
       this.route('edit', {path: '/edit/:courseId'});
     });
 
-    //this.route('collections', function() {
-    //  this.route('new');
-    //  this.route('edit', { path: '/edit/:collectionId' });
-    //});
-    //
-    //this.route('assessments', function() {
-    //  this.route('new');
-    //  this.route('edit', { path: '/edit/:assessmentId' });
-    //});
-    //
-    //this.route('resources', function() {
-    //  this.route('new');
-    //  this.route('edit', { path: '/edit/:resourceId' });
-    //});
-    //
-    //this.route('questions', function() {
-    //  this.route('new');
-    //  this.route('edit', { path: '/edit/:resourceId' });
-    //});
+    this.route('collections', function () {
+      this.route('edit', {path: '/edit/:collectionId'});
+    });
+
+    this.route('assessments', function () {
+      this.route('edit', {path: '/edit/:assessmentId'});
+    });
+
+    this.route('resources', function () {
+      this.route('edit', {path: '/edit/:resourceId'});
+    });
+
+    this.route('questions', function () {
+      this.route('edit', {path: '/edit/:resourceId'});
+    });
   });
 
   this.route('player', { path: '/player/:collectionId'});
