@@ -64,6 +64,8 @@ export default {
     "menu": "Menu",
     "no": "No",
     "notStarted": "Not started",
+    "no-results":"No Results Found",
+    "no-results-message":"Check your spelling. We all make mistakes!<br/>Go broader & remove some filters.<br/>Try searching for a similar word instead.",
     "number":"No.",
     "numberStudents": {
       one: "{{count}} Student",
