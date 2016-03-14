@@ -1,4 +1,8 @@
-.content_courses_edit .app-container {
+.content_assessments_edit .app-container,
+.content_collections_edit .app-container,
+.content_courses_edit .app-container,
+.content_questions_edit .app-container,
+.content_resources_edit .app-container {
   padding-left: 0;
   padding-right: 0;
 
@@ -7,7 +11,11 @@
   }
 }
 
-.controller.content.courses.edit {
+.controller.content.assessments.edit,
+.controller.content.collections.edit,
+.controller.content.courses.edit,
+.controller.content.questions.edit,
+.controller.content.resources.edit {
   @include flexbox();
 
   > article {
