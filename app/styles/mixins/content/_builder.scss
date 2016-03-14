@@ -16,6 +16,9 @@
 .controller.content.courses.edit,
 .controller.content.questions.edit,
 .controller.content.resources.edit {
+  $information-padding: 30px;
+  $aside-padding: 30px;
+
   @include flexbox();
 
   > article {
@@ -85,14 +88,40 @@
   > aside {
     background-color: $white;
     width: 260px;
-    padding: 30px;
+    padding: $aside-padding 0 0 $aside-padding;
 
-    h4 {
-      color: $gray;
+    > div {
+      position: fixed;
+      padding-right: $aside-padding;
+
+      h4 {
+        color: $gray;
+      }
     }
   }
 
   #information {
-    padding-top: 30px;
+    padding-top: $information-padding;
+  }
+
+  &.fixed-header {
+    > article {
+      > header {
+        padding-top: 5px;
+        position: fixed;
+
+        h1 {
+          display: none;
+        }
+
+        nav {
+          padding-top: 10px;
+        }
+      }
+    }
+
+    #information {
+      padding-top: $information-padding + 115px;
+    }
   }
 }
