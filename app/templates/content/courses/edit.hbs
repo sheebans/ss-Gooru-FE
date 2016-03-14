@@ -4,13 +4,7 @@
     <header>
       <h1>{{t "common.edit_course"}}</h1>
 
-      <div class="actions">
-        <button class="btn btn-default btn-icon">{{gru-icon name="delete"}}</button>
-        <button class="btn btn-default btn-icon">{{gru-icon name="person_add"}}</button>
-        <button class="btn btn-default btn-icon">{{gru-icon name="insert_link"}}</button>
-        <button class="btn btn-default">{{t "content.courses.edit.assign-to-class"}}</button>
-        <button class="btn btn-default">{{t "common.preview"}}</button>
-      </div>
+      {{partial 'content/partials/header-actions'}}
 
       <nav>
         <a class="selected" href="#">{{t "common.information"}}</a>
