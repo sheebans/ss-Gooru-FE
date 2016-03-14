@@ -4,6 +4,8 @@ export default {
    * COMMON: Translations used globally in the app or shared between components
    */
   "common": {
+    "about": "About",
+    "about-you": "About You",
     "add-to":"Add To",
     "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
@@ -14,6 +16,7 @@ export default {
     "of": "of",
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
+    "biography": "Biography",
     "cancel": "Cancel",
     "classScores": "Class Scores",
     "close": "Close",
@@ -25,9 +28,11 @@ export default {
     "correct": "Correct",
     "correct-answer":"Correct Answer",
     "course-map": "Course Map",
+    "country": "Country",
     "course":"Course",
     "courses": "Courses",
     "create": "Create",
+    "district": "District",
     "edit": "Edit",
     "email_support": "support@gooru.org",
     "emotions": {
@@ -38,11 +43,14 @@ export default {
       "emotion-5": "I can explain"
     },
     "explanation": "Explanation",
+    "first-name": "First Name",
     "follow": "Follow",
     "forgotPassword": "Forgot Password",
     "hints": "Hints",
     "hide-results":"Hide Results",
     "if_questions": "If you have any questions,",
+    "last-name": "Last Name",
+    "last-updated": "Last Updated",
     "launch-anonymous": "Launch Anonymous",
     "launch-on-air": "Launch on air",
     "learning-target":"Learning Target",
@@ -100,6 +108,9 @@ export default {
     },
     "remaining": "{{number}} Left",
     "remix":"Remix",
+    "role": "Role",
+    "school": "School",
+    "school-info": "School Information",
     "score":"Score",
     "search": "Search",
     "search-placeholder": "Search...",
@@ -121,6 +132,7 @@ export default {
     "unfollow": "Unfollow",
     "unit":"Unit",
     "unitInitial": "U",
+    "verified": "Verified",
     "yes": "Yes",
     warnings: {
       "on-air-connection-lost": "The On Air feature has lost connection and is retrying automatically. While it's tempting, please don't refresh your screen!"
@@ -470,11 +482,13 @@ export default {
     }
   },
 
-  "profile.gru-navigation": {
-    "about": "About",
-    "about-you": "About You",
-    "content": "Content",
-    "network": "Network"
+  "profile": {
+    "gru-navigation": {
+      "about": "About",
+      "about-you": "About You",
+      "content": "Content",
+      "network": "Network"
+    }
   },
 
   "gru-data-picker":{

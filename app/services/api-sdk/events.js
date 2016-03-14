@@ -38,6 +38,18 @@ export default Ember.Service.extend({
         reject(error);
       });
     });
+  },
+
+  saveReaction: function(resourceResult, context) {
+    var service = this;
+    var apiKey = ConfigEvent.eventAPIKey;
+    var reactionContent = service.get('eventsSerializer').serializeReaction(resourceResult, context, apiKey);
+    return service.get('collectionResourceAdapter').postData({
+      body: reactionContent,
+      query: {
+        apiKey: apiKey
+      }
+    });
   }
 
 });
