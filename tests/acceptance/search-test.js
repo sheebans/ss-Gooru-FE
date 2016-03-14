@@ -28,36 +28,36 @@ test('Layout', function(assert) {
   });
 });
 
-test('When collections filter is selected', function(assert) {
-  visit('/search/collections?term=water');
-
-  andThen(function() {
-    assert.equal(currentURL(), '/search/collections?term=water');
-
-    const collectionsFilterButton = find(".filters .collections");
-
-    click(collectionsFilterButton);
-
-    andThen(function() {
-      assert.equal(currentURL(), '/search/collections?collectionType=collection&term=water');
-
-    });
-  });
-});
-
-test('When assessments filter is selected', function(assert) {
-  visit('/search/collections?term=water');
-
-  andThen(function() {
-    assert.equal(currentURL(), '/search/collections?term=water');
-
-    const assessmentsFilterButton = find(".filters .assessments");
-
-    click(assessmentsFilterButton);
-
-    andThen(function() {
-      assert.equal(currentURL(), '/search/collections?collectionType=assessment&term=water');
-
-    });
-  });
-});
+//test('When collections filter is selected', function(assert) {
+//  visit('/search/collections?term=water');
+//
+//  andThen(function() {
+//    assert.equal(currentURL(), '/search/collections?term=water');
+//
+//    const collectionsFilterButton = find(".filters .collections");
+//
+//    click(collectionsFilterButton);
+//
+//    andThen(function() {
+//      assert.equal(currentURL(), '/search/collections?collectionType=collection&term=water');
+//
+//    });
+//  });
+//});
+//
+//test('When assessments filter is selected', function(assert) {
+//  visit('/search/collections?term=water');
+//
+//  andThen(function() {
+//    assert.equal(currentURL(), '/search/collections?term=water');
+//
+//    const assessmentsFilterButton = find(".filters .assessments");
+//
+//    click(assessmentsFilterButton);
+//
+//    andThen(function() {
+//      assert.equal(currentURL(), '/search/collections?collectionType=assessment&term=water');
+//
+//    });
+//  });
+//});

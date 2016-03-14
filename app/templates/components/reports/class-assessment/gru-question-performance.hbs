@@ -1,12 +1,12 @@
-<div class="chart">
+<div class="chart {{if anonymous 'anonymous'}}">
   {{charts/gru-x-bar-chart data=questionBarChartData.data}}
 </div>
-<div class="overall-completion">
+<div class="overall-completion {{if anonymous 'anonymous'}}">
   <span>{{questionBarChartData.completed}}</span>/<span>{{questionBarChartData.total}}</span>
 </div>
 
 {{#each answersData as |answerData|}}
-  <div class="panel-answer panel
+  <div class="panel-answer panel {{if anonymous 'anonymous'}}
     {{if answerData.correct 'panel-success' 'panel-danger'}}">
       <div class="panel-heading {{if anonymousAndNotShowResult 'panel-heading-anonymous'}}">
         {{#unless anonymous}}

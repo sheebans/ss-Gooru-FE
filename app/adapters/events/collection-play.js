@@ -12,6 +12,9 @@ export default Ember.Object.extend(SessionMixin, {
   }),
 
   postData: function(data) {
+    const namespace = this.get('namespace');
+    const apiKey = data.query.apiKey;
+    const path = `${namespace}/event?apiKey=${apiKey}`;
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
@@ -20,10 +23,7 @@ export default Ember.Object.extend(SessionMixin, {
       headers: this.get('headers'),
       data: JSON.stringify(data.body)
     };
-    const apiKey = data.query.apiKey;
-    const path = `/event?apiKey=${apiKey}`;
-
-    return Ember.$.ajax(this.get('namespace') + path, options);
+    return Ember.$.ajax(path, options);
   }
 
 });

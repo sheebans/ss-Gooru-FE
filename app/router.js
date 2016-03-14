@@ -10,6 +10,8 @@ Router.map(function() {
 
   this.route('search', function() {
     this.route('collections');
+    this.route('questions');
+    this.route('resources');
   });
 
   this.route('player', { path: '/player/:collectionId'});

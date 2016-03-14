@@ -22,7 +22,6 @@ test('Layout', function(assert) {
     assert.equal(currentURL(), '/search/collections?term=any');
     T.exists(assert, find(".search-filter"), "Missing search filters");
     T.exists(assert, find(".collection-results .results"), "Missing collection results");
-    //there is not need to test more layout since each component has it own layout test
   });
 });
 
@@ -47,7 +46,7 @@ test('filterType: When filtering by assessments', function(assert) {
     T.exists(assert, $assessmentButton, "Missing assessment filter button");
     click($assessmentButton); //clicking first collection title
     andThen(function() {
-      assert.equal(currentURL(), '/search/collections?collectionType=assessment&term=any');
+      assert.equal(currentURL(), '/search/collections?term=any');
       assert.equal(find(".results div.gru-collection-card").length, 9, "Search should return only 9 assessments");
     });
   });
