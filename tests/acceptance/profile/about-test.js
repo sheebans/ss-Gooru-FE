@@ -23,5 +23,12 @@ test('Layout', function(assert) {
 
     const $aboutContainer = find(".controller.about");
     T.exists(assert, $aboutContainer, "Missing about container");
+    T.exists(assert, $aboutContainer.find(".first-name"), "Missing user first name");
+    T.exists(assert, $aboutContainer.find(".last-name"), "Missing user last name");
+    T.exists(assert, $aboutContainer.find(".bio"), "Missing user biography");
+    T.exists(assert, $aboutContainer.find(".role"), "Missing user role");
+    T.exists(assert, $aboutContainer.find(".school"), "Missing user school");
+    T.exists(assert, $aboutContainer.find(".district"), "Missing user district");
+    T.exists(assert, $aboutContainer.find(".country"), "Missing user country");
   });
 });
