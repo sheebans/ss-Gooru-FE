@@ -83,7 +83,7 @@ export default Ember.Route.extend({
       if(filterType==='questions'){
         this.transitionTo('search.questions');
       }
-      if(filterType==='resources'){
+      else if(filterType==='resources'){
         this.transitionTo('search.resources');
       }
       else {
