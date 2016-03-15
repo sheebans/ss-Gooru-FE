@@ -250,6 +250,12 @@ div.category-menu {
         >* {
           opacity: 1;
         }
+        &:focus:hover {
+          color: $white;
+        }
+        &:hover {
+          color: $white;
+        }
       }
       &.collections {
         i {

@@ -23,7 +23,7 @@ test('Layout', function(assert) {
 
     const $searchContainer = find(".search");
     T.exists(assert, $searchContainer, "Missing search container");
-    T.exists(assert, $searchContainer.find(".filters"), "Missing search filters");
+    T.exists(assert, $searchContainer.find(".content-navigation"), "Missing content-navigation");
     T.exists(assert, $searchContainer.find(".content"), "Missing search content");
   });
 });

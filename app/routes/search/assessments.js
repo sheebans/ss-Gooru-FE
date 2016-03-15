@@ -16,13 +16,13 @@ export default Ember.Route.extend({
     this._super(controller, model);
     var term = controller.get('searchController').term;
     var searchParams = {
-      "term": term,
-      "collectionType": 'collections'
-    };
+          "term": term,
+          "collectionType": 'assessments'
+        };
 
     var collectionResults = this.get('searchService').searchCollections(searchParams);
 
-    controller.get('searchController').set('collectionResults', collectionResults);
+    controller.set('collectionResults', collectionResults);
   }
 
   // -------------------------------------------------------------------------
