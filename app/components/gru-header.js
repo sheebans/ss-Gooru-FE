@@ -33,8 +33,9 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
     },
 
     searchTerm: function () {
-      if(!this.isBlank(this.get("term"))){
-        this.sendAction('onSearch', this.get("term"));
+      var term = $.trim(this.get('term'));
+      if (term) {
+        this.sendAction('onSearch', term);
       }
     }
   },
@@ -67,7 +68,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    * Search term
    * @property {string}
    */
-  term: null,
+  term: null
 
 
   // -------------------------------------------------------------------------
@@ -76,11 +77,4 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Methods
-  /**
-   * For checking if a string is blank, null or undefined
-   */
-  isBlank(str) {
-    return (!str || /^\s*$/.test(str));
-  }
-
 });
