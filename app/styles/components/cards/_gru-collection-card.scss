@@ -65,7 +65,7 @@
       height: 200px;
       padding: 5px 15px 15px 15px;
       .collection-details{
-        height: 200px;
+        height: inherit;
         .standards{
           height: 20px;
           .collection-results-standards{
@@ -114,7 +114,6 @@
           position: absolute;
           left: 15px;
           bottom: 35px;
-          display:table-row;
         }
       }
     }
