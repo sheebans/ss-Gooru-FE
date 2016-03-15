@@ -24,7 +24,7 @@ export default Ember.Mixin.create({
           if (!$container.hasClass('fixed-header')) {
             // Add inline styles to preserve the same look
             $container.find('article > header').css({
-              width: headerWidth.split('px')[0],
+              width: headerWidth.split('px')[0] || '100%',
               paddingLeft: headerPaddingLeft
             });
             $container.addClass('fixed-header');
