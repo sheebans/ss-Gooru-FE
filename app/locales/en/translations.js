@@ -16,7 +16,9 @@ export default {
     "of": "of",
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
+    "best-practices": "Best Practices",
     "biography": "Biography",
+    "builder": "Builder",
     "cancel": "Cancel",
     "classScores": "Class Scores",
     "close": "Close",
@@ -34,6 +36,11 @@ export default {
     "create": "Create",
     "district": "District",
     "edit": "Edit",
+    "edit-assessment": "Edit Assessment",
+    "edit-collection": "Edit Collection",
+    "edit-course": "Edit Course",
+    "edit-question": "Edit Question",
+    "edit-resource": "Edit Resource",
     "email_support": "support@gooru.org",
     "emotions": {
       "emotion-1": "I need help",
@@ -49,6 +56,7 @@ export default {
     "hints": "Hints",
     "hide-results":"Hide Results",
     "if_questions": "If you have any questions,",
+    "information": "Information",
     "last-name": "Last Name",
     "last-updated": "Last Updated",
     "launch-anonymous": "Launch Anonymous",
@@ -72,6 +80,8 @@ export default {
     "menu": "Menu",
     "no": "No",
     "notStarted": "Not started",
+    "no-results":"No Results Found",
+    "no-results-message":"Check your spelling. We all make mistakes!<br/>Go broader & remove some filters.<br/>Try searching for a similar word instead.",
     "number":"No.",
     "numberStudents": {
       one: "{{count}} Student",
@@ -79,6 +89,7 @@ export default {
     },
     "performance":"Show Performance",
     "please_contact": "Please contact",
+    "preview": "Preview",
     "question":"Question",
     "questions": "Questions",
     "question-type":{
@@ -112,6 +123,7 @@ export default {
     "score":"Score",
     "search": "Search",
     "search-placeholder": "Search...",
+    "settings": "Settings",
     "show-correct-answer":"Show Correct Answer",
     "show-results":"Show Results",
     "signUp": "Sign Up",
@@ -195,6 +207,10 @@ export default {
     "classesTaught": "Classes I Teach",
     "noClassesJoined": "You have not joined any classes",
     "noClassesTaught": "You do not have any created classes"
+  },
+
+  "content.courses.edit": {
+    "assign-to-class": "Assign to Class"
   },
 
   /*
@@ -537,7 +553,7 @@ export default {
       }
     },
     "gru-resource-card":{
-      "add":"Add to",
+      "add": "Add to"
     },
     "gru-resource-result-card": {
       "skipped":"Skipped"

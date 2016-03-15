@@ -211,28 +211,46 @@ div.category-menu {
     display: inline-block;
     height: inherit;
     margin: 0;
-    @media (max-width: $screen-sm-max) {
-      @include flexbox;
+    @media (max-width: $screen-xs-max) {
       @include justify-content(space-around);
+      width: 100%;
+      margin:0;
+    }
+    @include respond-to(xs){
+      @include flexbox;
+      @include align-items(center);
+    }
+    @include respond-to(sm){
+      @include flexbox;
       @include align-items(center);
       width: 100%;
+      margin-left: 20px;
     }
     li{
       display: inline-block;
       margin: 0 10px;
       height:100%;
-      @media (max-width: $screen-sm-max) {margin: 0;}
+      @include respond-to(xs) {margin:0;}
+      @include respond-to(sm) {margin: 0 20px;}
       .btn-category {
         color: $white;
         -webkit-box-shadow:none;
         box-shadow:none;
         height:100%;
+        padding:0;
+        @include flexbox;
+        @include align-items(center);
+        @media (max-width: $screen-sm-max) {
+          @include flex-direction(column);
+          width: 100%;
+          padding: 5px 0 0 0;
+        }
         >*{
           opacity: 0.6;
         }
         i {
           font-size: $font-size-h5;
-          line-height: 26px;
+          line-height: 16px;
           display: inline-block;
           vertical-align: middle;
           margin-right: 5px;
@@ -261,7 +279,7 @@ div.category-menu {
         i {
           background: url("gooru/images/navigation_collection.svg");
           width: 20px;
-          height: 15px;
+          min-height: 15px;
         }
         &.active {
           i {
@@ -273,7 +291,7 @@ div.category-menu {
         i {
           background: url("gooru/images/navigation_assessment.svg");
           width: 20px;
-          height: 15px;
+          min-height: 15px;
         }
         &.active {
           i {
@@ -282,10 +300,15 @@ div.category-menu {
         }
       }
       &.resources {
+        a{
+          padding: 2px 0 0 0;
+          line-height: 20px;
+
+        }
         i{
           background: url("gooru/images/navigation_resource.svg");
           width: 23px;
-          height: 21px;
+          min-height: 21px;
         }
         &.active {
           i {

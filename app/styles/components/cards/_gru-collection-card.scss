@@ -1,27 +1,36 @@
 .cards.gru-collection-card{
-  width: 300px;
-  height: 290px;
-
-  .truncate {
-    width: 90%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
   .panel{
+    width: 300px;
+    height: 290px;
     border-radius: 6px;
     .panel-heading{
       background-color: $white;
       border-bottom: 1px solid $gray-lighter;
       border-top-right-radius: 6px;
       border-top-left-radius: 6px;
+      padding:10px 15px 0 15px;
+
+      .truncate {
+        width: 90%;
+        white-space: nowrap;
+        @include text-overflow();
+        text-overflow: ellipsis;
+      }
+
       .image{
+        display: inline-block;
         img{
+          width: 74px;
+          height: 74px;
           border-radius: 4px;
         }
       }
       .collection-info{
+        display: inline-block;
         color:$text-color;
+        vertical-align: top;
+        margin-left: 15px;
+        width: 66%;
         .bar{
           font-weight:bold;
           color:$gray-dark;
@@ -50,35 +59,61 @@
       }
     }
     .panel-body{
+      position: relative;
+      display:table;
+      width: 100%;
+      height: 200px;
       padding: 5px 15px 15px 15px;
-      .standards{
-        .uc-search-standard {
-          display: inline-block;
-          float: left;
-          width: 47%;
-          .truncate{
-            width: 99%;
+      .collection-details{
+        height: inherit;
+        .standards{
+          height: 20px;
+          .collection-results-standards{
+            .uc-search-standard {
+              display: inline-block;
+              float: left;
+              width: 44%;
+              margin: 0 1px;
+              .truncate{
+                width: 99%;
+              }
+              .label{
+                padding: 0;
+              }
+            }
+            a{
+              margin-left: 5px;
+            }
           }
-          .label{
-            padding: 0;
+
+        }
+        .author,.remixed-by{
+          display:table-row;
+          margin: 10px 0 10px 0;
+          img{
+            width: 30px;
+            height: 30px;
+            border-radius: 50px;
+          }
+          > *{
+            display: inline-block;
+          }
+          span{
+            margin:10px 5px 10px 0;
           }
         }
-      }
-      .author,.remixed-by{
-        margin: 10px 0 10px 0;
-        img{
-          width: 30px;
-          height: 30px;
-          border-radius: 50px;
+        .description{
+          height: 88px;
+          $line-height: 1.8;
+          $lines-to-show: 3;
+          p.truncate {
+            @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
+          }
         }
-        > *{
-          display: inline-block;
-        }
-      }
-      .description{
-        p{
-          height:92px;
-          overflow: hidden;
+        .remix-btn{
+          position: absolute;
+          left: 15px;
+          bottom: 35px;
         }
       }
     }

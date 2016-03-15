@@ -1,0 +1,127 @@
+.content_assessments_edit .app-container,
+.content_collections_edit .app-container,
+.content_courses_edit .app-container,
+.content_questions_edit .app-container,
+.content_resources_edit .app-container {
+  padding-left: 0;
+  padding-right: 0;
+
+  > .controller {
+    display: block;
+  }
+}
+
+.controller.content.assessments.edit,
+.controller.content.collections.edit,
+.controller.content.courses.edit,
+.controller.content.questions.edit,
+.controller.content.resources.edit {
+  $information-padding: 30px;
+  $aside-padding: 30px;
+
+  @include flexbox();
+
+  > article {
+    @include flex();
+
+    > header {
+
+      background-color: $dark-400;
+      padding: 20px 20px 0 5%;
+
+      h1, nav > a {
+        color: $white;
+        display: inline-block;
+      }
+
+      h1 {
+        font-size: $font-size-h3;
+        margin: 0;
+      }
+
+      button.toggle {
+        float: right;
+        color: $white;
+        border: 0 none;
+        background-color: $dark-400;
+        padding: 20px 15px 0;
+      }
+
+      .actions {
+        float: right;
+        margin-top: 5px;
+
+        .btn-icon {
+          padding: 5px 8px;
+
+          > i {
+            font-size: $font-size-h5;
+          }
+        }
+      }
+
+      nav {
+        padding-top: 15px;
+
+        a {
+          vertical-align: middle;
+          opacity: 0.6;
+          font-size: $font-size-h6;
+          padding: 5px 10px;
+          margin-right: 20px;
+          border-bottom: 3px solid $dark-400;
+
+          &.selected {
+            opacity: 1;
+            border-bottom-color: $white;
+          }
+        }
+      }
+    }
+
+    > section {
+      padding-left: 5%;
+      padding-right: 5%;
+    }
+  }
+
+  > aside {
+    background-color: $white;
+    width: 260px;
+    padding: $aside-padding 0 0 $aside-padding;
+
+    > div {
+      position: fixed;
+      padding-right: $aside-padding;
+
+      h4 {
+        color: $gray;
+      }
+    }
+  }
+
+  #information {
+    padding-top: $information-padding;
+  }
+
+  &.fixed-header {
+    > article {
+      > header {
+        padding-top: 5px;
+        position: fixed;
+
+        h1 {
+          display: none;
+        }
+
+        nav {
+          padding-top: 10px;
+        }
+      }
+    }
+
+    #information {
+      padding-top: $information-padding + 115px;
+    }
+  }
+}
