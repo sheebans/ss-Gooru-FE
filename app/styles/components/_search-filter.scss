@@ -13,7 +13,7 @@
       vertical-align: middle;
       margin: 0 10px;
       @media (max-width: $screen-sm) {
-        margin: 0 0 10px 0;
+        margin: 0 0 0 10px;
       }
       .btn-search-filter {
         background-color: $dark-400;
@@ -23,14 +23,13 @@
         border-bottom: $dark-400 3px solid;
         height: 51px;
         @media (max-width: $screen-xs) {
-          padding: 0;
+          padding: 5px 0 0 0;
         }
         span {
           vertical-align: middle;
           display: inline-block;
           opacity: 0.6;
           font-size: $font-size-h6;
-          margin: 0 5px 0 0;
           i {
             font-size: $font-size-h5;
             line-height: 26px;
@@ -38,7 +37,14 @@
           &.text {
             @media (max-width: $screen-xs) {
               display: block;
+              font-size: $font-size-base;
             }
+          }
+        }
+        &.questions {
+          .icon {
+            line-height: 18px;
+            height: 22px;
           }
         }
       }
