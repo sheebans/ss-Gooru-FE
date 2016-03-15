@@ -5,7 +5,7 @@
         <div class="navbar-header">
             {{#link-to 'index' class="navbar-brand home-link"}}  {{/link-to}}
         </div>
-        <div class="search-navbar-form">
+        <div class="search-navbar-form {{if session.isAnonymous 'anonymous' 'logged'}}">
           <form {{action "searchTerm" on="submit"}} class="form-inline">
             <div class="form-group">
               <span>{{gru-icon name='search'}}</span>
