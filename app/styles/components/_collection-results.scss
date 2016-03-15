@@ -43,8 +43,8 @@
     border-radius: 6px;
     .panel-body{
       height:inherit;
-      display: flex;
-      align-items: center;
+      @include flexbox;
+      @include align-items(center);
     }
     .no-results-content{
       margin: 0 auto;

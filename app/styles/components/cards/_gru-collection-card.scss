@@ -13,7 +13,7 @@
       .truncate {
         width: 90%;
         white-space: nowrap;
-        overflow: hidden;
+        @include text-overflow();
         text-overflow: ellipsis;
       }
 

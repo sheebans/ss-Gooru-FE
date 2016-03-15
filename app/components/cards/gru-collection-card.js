@@ -37,7 +37,7 @@ export default Ember.Component.extend({
   /**
    * @property {string} on content player action
    */
-  onOpenContentPlayer: "onOpenContentPlayer",
+  onOpenContentPlayer: null,
 
   /**
    * @property {boolean} Indicates if collection has 1 or more resources
