@@ -59,7 +59,7 @@ test('collections layout', function(assert) {
     this.set('term', 'europe');
     this.set('collectionResults', collectionResults);
 
-    assert.expect(17);
+    assert.expect(2);
 
     this.render(hbs`{{collection-results term=term collectionResults=collectionResults}}`); //render the component
     var $component = this.$(); //component dom element
@@ -67,47 +67,8 @@ test('collections layout', function(assert) {
 
     T.exists(assert, $collectionResults, "Missing collection results");
 
-    var $searchResults =$component.find('.search-results');
+    var $searchResults =$component.find('.results');
     T.exists(assert, $searchResults, "Missing search results");
 
-    var $collectionRemixes =$component.find('.remixes:eq(0)');
-    T.exists(assert, $collectionRemixes, "Missing collection remix");
-
-    assert.equal(T.text($collectionRemixes), results[0].remixes, "Incorrect remix text");
-
-    var $collectionView =$component.find(".views:eq(0)");
-    T.exists(assert, $collectionView, "Missing collection view");
-
-    assert.equal(T.text($collectionView), results[0].views, "Incorrect view text");
-
-    var $remixButton =$component.find('#btnRemix');
-    T.exists(assert, $remixButton, "Missing remix button");
-    assert.equal(T.text($remixButton), "Remix", "Incorrect remix button text");
-
-    var $imgCollection =$component.find('.collection-img a img');
-    T.exists(assert, $imgCollection, "Missing image collection");
-
-    var $collectionDescription =$component.find('.collection-desc:eq(0)');
-    T.exists(assert, $collectionDescription, "Missing collection description");
-
-    var $collectionDescriptionTitle = $collectionDescription.find(".title:eq(0)");
-    T.exists(assert, $collectionDescriptionTitle, "Missing collection description title");
-
-    assert.equal(T.text($collectionDescriptionTitle), results[0].title, "Incorrect title text");
-
-    var $collectionDetails = $collectionDescription.find(".details");
-    T.exists(assert, $collectionDetails, "Missing collection details");
-
-    var $collectionDetailsImage = $collectionDetails.find("img");
-    T.exists(assert, $collectionDetailsImage, "Missing collection details image");
-
-    var $collectionDetailsAuthorName = $collectionDetails.find(".author-name-link a");
-    T.exists(assert, $collectionDetailsAuthorName, "Missing collection author name");
-
-    var $collectionDetailsAuthorNameTeam = $collectionDetails.find(".author-name-team");
-    T.exists(assert, $collectionDetailsAuthorNameTeam, "Missing collection author name team");
-
-    var $searchStandard = $component.find('.standard-container');
-    T.exists(assert, $searchStandard, "Missing standards");
 
 });

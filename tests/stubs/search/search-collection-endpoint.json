@@ -21,6 +21,27 @@
     }
   },
   {
+    "description": "Search for no results",
+    "request": {
+      "url": "^/gooru-search/rest/v2/search/scollection$",
+      "query": {
+        "q": "noResultFound"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "search-no-results-ok-response.json"
+    }
+  },
+  {
     "description": "Search for assessments any term",
     "request": {
       "url": "^/gooru-search/rest/v2/search/scollection$",
