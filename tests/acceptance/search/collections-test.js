@@ -72,3 +72,21 @@ test('searchTerm: Search by term when user is already at the results page', func
   });
 });
 
+test('No results found', function(assert) {
+  assert.expect(5);
+  visit('/search/collections?term=noResultFound');
+  andThen(function() {
+    const $assessmentButton = find(".search-filter-options .assessments");
+    T.exists(assert, $assessmentButton, "Missing assessment filter button");
+    click($assessmentButton); //clicking first collection title
+    andThen(function() {
+      assert.equal(currentURL(), '/search/collections?term=noResultFound');
+      const $noResultFound = find(".results div.no-results-found");
+      T.exists(assert, $noResultFound.find(".title"), "Missing no result found title");
+      T.exists(assert, $noResultFound.find("i.remove_circle_outline"), "Missing no result found icon");
+      T.exists(assert, $noResultFound.find(".message"), "Missing no result found message");
+    });
+  });
+});
+
+
