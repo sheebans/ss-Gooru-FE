@@ -7,7 +7,7 @@ import Ember from 'ember';
  */
 export default Ember.Mixin.create({
 
-  fixNavigationOnScroll: Ember.on('init', function () {
+  UISetup: Ember.on('init', function () {
     this._super(...arguments);
 
     Ember.$('document').ready(function () {
