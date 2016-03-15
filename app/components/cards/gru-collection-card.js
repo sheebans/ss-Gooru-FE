@@ -20,7 +20,13 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-
+    /**
+     * Action triggered to open the content player
+     * @param {string} collectionId collection identifier
+     */
+    openContentPlayer: function(collectionId) {
+      this.sendAction("onOpenContentPlayer", collectionId);
+    }
   },
   // -------------------------------------------------------------------------
   // Properties
@@ -28,6 +34,10 @@ export default Ember.Component.extend({
    * @property {Collection/Resource} collection
    */
   collection: null,
+  /**
+   * @property {string} on content player action
+   */
+  onOpenContentPlayer: "onOpenContentPlayer",
 
   /**
    * @property {boolean} Indicates if collection has 1 or more resources
@@ -42,15 +52,15 @@ export default Ember.Component.extend({
   /**
    * @property {String} remixedByUser
    */
-  remixedByUser: Ember.computed('collection',function(){
-    return this.get('collection.remixedBy')[0];
-  }),
+  //remixedByUser: Ember.computed('collection',function(){
+  //  return this.get('collection.remixedBy')[0];
+  //}),
   /**
    * @property {Number} remixedUsers
    */
-  remixedUsers:Ember.computed('collection',function(){
-    return (this.get('collection.remixedBy').length)-1;
-  }),
+  //remixedUsers:Ember.computed('collection',function(){
+  //  return (this.get('collection.remixedBy').length)-1;
+  //}),
 
 
 });

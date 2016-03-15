@@ -144,7 +144,7 @@ test('closePlayer: Return to search after closing the player', function(assert) 
   visit('/search/collections?term=water');
   andThen(function() {
 
-    const collectionCardLink = find(".collection-card:eq(0) .collection-desc a");
+    const collectionCardLink = find(".results div:eq(0) .collection-info a");
     click(collectionCardLink);
     andThen(function() {
 

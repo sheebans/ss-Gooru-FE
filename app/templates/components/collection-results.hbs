@@ -1,53 +1,10 @@
 <div class="collection-results">
-    <div class="row bg-gray-light-2">
-        <div class="container">
-            <div class="col-md-12 col-sm-12 pa-0 col-center-block">
-                <div class="search-results">{{t "search-result.search-results-for"}} {{term}} ({{collectionResults.totalHitCount}})</div>
-                {{#each collectionResults.collections as |collection|}}
-
-                    <div class="col-md-6 col-sm-6 collection-card">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <div class="col-md-3 col-sm-4  pa-0 view-container">
-                                    <i class="fa fa-retweet"></i><span class="remixes">{{ collection.remixes }}</span>
-                                    <i class="fa fa-eye"></i><span class="views">{{ collection.views }}</span>
-                                </div>
-                                <div class="col-md-9 col-sm-8 pa-0 remix-button btn-group btn-group-sm">
-                                    <button type="button" class="btn btn-primary pull-right" id="btnRemix" data-toggle="tooltip" data-placement="bottom" title="This collection could use a bit of your signature touch.">Remix</button>
-                                </div>
-                            </div>
-                            <div class="panel-body pa-0">
-                                <div class="col-md-4 col-sm-4 pa-0 collection-img">
-                                    <a {{action "openContentPlayer" collection.id}}><img src="{{ collection.imageUrl }}"></a>
-                                </div>
-                                <div class="col-md-8 col-sm-8 collection-desc">
-                                    <a {{action "openContentPlayer" collection.id}}><div class="title ma-top-1" alt="{{ collection.title }}">{{ collection.title }}</div></a>
-                                    <div class="details">
-                                        {{#if collection.avatarUrl }}
-                                            <img src="{{ collection.avatarUrl }}">
-                                        {{else}}
-                                            <img src="assets/gooru/profile.png">
-                                        {{/if}}
-                                        <div class="author-name-link pa-left-2" alt="{{ collection.author }}" title="{{ collection.author }}">
-                                            <a href="{{ collection.profilePageUrl }}" target="_blank">{{ collection.author }}</a>
-                                        </div>
-                                        <div class="author-name-team" data-html="true" data-toggle="tooltip" data-placement="bottom" title="{{ collection.libraries }}">{{#if collection.hasTeam}}Team{{/if}}</div>
-                                    </div>
-                                    <div class="description" title="{{ collection.description }}" alt="{{ collection.description }}">{{ collection.description }}</div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="standard-container pa-md-left-5 pa-sm-left-0">
-                                    {{#if collection.standards }}
-                                         {{collection-results-standards collection=collection standards=collection.standards}}
-                                    {{/if}}
-                                </div>
-                                {{#if collection.resources }}
-                                    {{collection-results-resources collection=collection resources=collection.resources}}
-                                {{/if}}
-                            </div>
-                        </div>
-                    </div>
-                {{/each}}
+    <div class="row">
+        <div class="text-center">
+            <div class="results">
+              {{#each collectionResults.collections as |collection|}}
+                {{cards.gru-collection-card collection=collection onOpenContentPlayer="openContentPlayer"}}
+              {{/each}}
             </div>
         </div>
     </div>
