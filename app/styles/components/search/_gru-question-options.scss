@@ -1,7 +1,9 @@
+$optionsHeightXS: 70px;
+$optionsHeightSM: 53px;
 .gru-question-options {
   .options {
     display: block;
-    height: 70px;
+    height: $optionsHeightXS;
     width: 100%;
     background-color: $light-100;
     margin-left: -15px;
@@ -10,7 +12,7 @@
     text-align: center;
     padding: 0 0 0 3%;
     @media (min-width: $screen-sm) {
-      height: 53px;
+      height: $optionsHeightSM;
     }
     ul {
       padding: 0;
@@ -25,7 +27,7 @@
         height: 62px;
       }
       @media (min-width: $screen-lg) {
-        height: 53px;
+        height: $optionsHeightSM;
       }
       li{
         display: table;
@@ -39,12 +41,12 @@
           padding: 0 5px;
           border-radius: 0;
           border-bottom: $light-100 3px solid;
-          height: 70px;
+          height: $optionsHeightXS;
           background-color: $light-100;
-
+          display: table-row;
           @media (min-width: $screen-sm) {
             padding: 1em;
-            height: 53px;
+            height: $optionsHeightSM;
           }
           &.true-false {
             .text {
