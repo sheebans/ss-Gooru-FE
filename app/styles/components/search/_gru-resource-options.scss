@@ -1,16 +1,17 @@
 .gru-resource-options {
   .options {
     display: block;
-    height: 53px;
+    height: 70px;
     width: 100%;
     background-color: $light-100;
     margin-left: -15px;
     width: 100vw;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.20);
     text-align: center;
-    padding: 0 0 0 15px;
+    padding: 0 0 0 3%;
     @media (min-width: $screen-sm) {
       padding: 0 0 0 35px;
+      height: 53px;
     }
     ul {
       padding: 0;
@@ -18,36 +19,45 @@
       @include flexbox;
       height: inherit;
       margin: 0;
-      height: 53px;
+      height: 70px;
       overflow: hidden;
       overflow-x: auto;
       @media (min-width: $screen-sm) {
-        height: 62px;
+        height: 53px;
       }
       li {
-        display: inline-block;
+        display: table;
         vertical-align: middle;
-        margin: 0 0.5em;
+        margin: 0 0.7em;
         .btn-option {
           color: $green-300;
           padding: 0 5px;
           border-radius: 0;
           border-bottom: $light-100 3px solid;
-          height: 53px;
+          height: 70px;
           background-color: $light-100;
           span {
             vertical-align: middle;
             display: inline-block;
             font-size: $font-size-h6;
-            margin: 0 5px 0 0;
             i {
               font-size: $font-size-h5;
               line-height: 26px;
             }
+            &.icon-container {
+              height: 30px;
+              margin: 0 0 5px 0;
+            }
             &.text {
               line-height: 14px;
               text-align: left;
+              @media (max-width: $screen-xs-max) {
+                display: block;
+              }
             }
+          }
+          @media (min-width: $screen-sm) {
+            height: 53px;
           }
         }
         .btn-option.selected {

@@ -8,6 +8,7 @@
     width: 100vw;
     box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.20);
     text-align: center;
+    padding: 0 0 0 3%;
     @media (min-width: $screen-sm) {
       height: 53px;
     }
@@ -27,9 +28,9 @@
         height: 53px;
       }
       li{
-        display: inline-block;
+        display: table;
         vertical-align: middle;
-        margin: 0;
+        margin: 0 0.7em;
         @media (min-width: $screen-sm) {
           margin: 0 0.5em;
         }
@@ -40,6 +41,7 @@
           border-bottom: $light-100 3px solid;
           height: 70px;
           background-color: $light-100;
+
           @media (min-width: $screen-sm) {
             padding: 1em;
             height: 53px;
