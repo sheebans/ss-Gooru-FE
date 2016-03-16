@@ -176,12 +176,21 @@
                   -webkit-align-items: flex-end;
                   align-items: flex-end;
                   li{
+                    @media (max-width: $screen-sm) {
+                      -webkit-flex-basis:initial;
+                      flex-basis:initial;
+                    }
                     &.title{
                       -webkit-flex-direction: column;
                       flex-direction: column;
                       -webkit-align-items: flex-start;
                       align-items: flex-start;
                       padding-left: 40px;
+                    }
+                    >span{
+                      i{
+                        display: none;
+                      }
                     }
                     p{
                       margin:0 0 5px;

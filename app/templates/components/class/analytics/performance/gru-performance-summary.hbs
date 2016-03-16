@@ -1,16 +1,19 @@
 <li class="title {{if performance.isUnitOrLesson "unit-lesson" "collection-assessment"}}">
-    <span class="truncate {{if isSelected "selected" ""}} ">
-      <span
-              class="icon">{{#if performance.isUnitOrLesson}}{{gru-icon name=(if isSelected "keyboard_arrow_down" "keyboard_arrow_right")}}{{/if}}</span>
-      <span
-              class="section-title">{{course-sections-prefix  index=index type=performance.type longName=false}}&colon;     {{performance.title}}</span>
+    <span class="{{if isSelected "selected" ""}} ">
+      <i class="icon">{{#if performance.isUnitOrLesson}}{{gru-icon name=(if isSelected "keyboard_arrow_down" "keyboard_arrow_right")}}{{/if}}</i>
+      <p class="truncate section-title">
+          {{#if performance.isUnitOrLesson}}
+            {{course-sections-prefix  index=index type=performance.type longName=false}}&colon;
+          {{/if}}
+          {{performance.title}}
+      </p>
     </span>
   {{#if performance.isCollectionOrAssessment}}
       <div>
         {{#if performance.isCompleted}}
             <div class="btn-group">
                 <button class="btn btn-info collection-view-report-button">
-                    <span>{{gru-icon name="show_chart"}}{{t "gru-performance-summary.view-report"}}</span></button>
+                    <span>{{gru-icon name="more"}}{{t "gru-performance-summary.view-report"}}</span></button>
                 <button class="btn btn-info collection-redo-button" {{action "selectResource" performance.id}}>
                     <span>{{gru-icon name="replay"}}{{t "gru-performance-summary.redo"}}</span></button>
             </div>
