@@ -1,6 +1,6 @@
 <div class="controller search">
   <div class="content-navigation">
-    <div class="category-menu">
+    <div class="category-menu col-md-10 col-sm-12 col-xs-12">
       <ul class="nav nav-tabs category-options">
         {{#link-to "search.collections" tagName="li" class='collections'}}
           <a href='{{view.href}}' class="btn btn-category">
@@ -27,8 +27,12 @@
           </a>
         {{/link-to}}
       </ul>
-
     </div>
+    <span class="col-md-2 standards hidden-sm hidden-xs">
+        <button class="btn btn-primary">
+          <span>{{t "common.standards"}}</span>
+        </button>
+      </span>
   </div>
   <div class="content">
     {{outlet}}

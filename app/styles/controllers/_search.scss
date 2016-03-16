@@ -7,6 +7,13 @@
     padding: 0 0 0 3%;
     width: 100vw;
     margin-left: -15px;
+    display: table;
+    .standards {
+      display: table-cell;
+      float: none;
+      text-align: right;
+      vertical-align: middle;
+    }
   }
 
   .content {
