@@ -33,7 +33,10 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
     },
 
     searchTerm: function () {
-      this.sendAction('onSearch', this.get("term"));
+      var term = $.trim(this.get('term'));
+      if (term) {
+        this.sendAction('onSearch', term);
+      }
     }
   },
 
@@ -74,6 +77,4 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Methods
-
-
 });

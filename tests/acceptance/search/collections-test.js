@@ -16,12 +16,12 @@ moduleForAcceptance('Acceptance | search/collections', {
 });
 
 test('Layout', function(assert) {
-  assert.expect(2); //making sure all asserts are called
+  assert.expect(3); //making sure all asserts are called
   visit('/search/collections?term=any');
   andThen(function() {
     assert.equal(currentURL(), '/search/collections?term=any');
-    T.exists(assert, find(".collection-results"), "Missing collection results");
-    //there is not need to test more layout since each component has it own layout test
+    T.exists(assert, find(".search-filter"), "Missing search filters");
+    T.exists(assert, find(".collection-results .results"), "Missing collection results");
   });
 });
 
@@ -29,11 +29,25 @@ test('onOpenContentPlayer: When opening a collection', function(assert) {
   assert.expect(2);
   visit('/search/collections?term=any');
   andThen(function() {
-    const $firstCollectionLink = find(".collection-card:eq(0) .collection-desc a");
+    const $firstCollectionLink = find(".results div:eq(0) .collection-info a");
     T.exists(assert, $firstCollectionLink, "Missing collection link");
     click($firstCollectionLink); //clicking first collection title
     andThen(function() {
       assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
+    });
+  });
+});
+
+test('filterType: When filtering by assessments', function(assert) {
+  assert.expect(3);
+  visit('/search/collections?term=any');
+  andThen(function() {
+    const $assessmentButton = find(".search-filter-options .assessments");
+    T.exists(assert, $assessmentButton, "Missing assessment filter button");
+    click($assessmentButton); //clicking first collection title
+    andThen(function() {
+      assert.equal(currentURL(), '/search/collections?term=any');
+      assert.equal(find(".results div.gru-collection-card").length, 9, "Search should return only 9 assessments");
     });
   });
 });
@@ -53,8 +67,26 @@ test('searchTerm: Search by term when user is already at the results page', func
 
     andThen(function(){
       assert.equal(currentURL(), '/search/collections?term=europe');
-      assert.equal(find(".collection-card").length, 1, "Europe search should return 1 collection");
+      assert.equal(find(".results div.gru-collection-card").length, 1, "Europe search should return 1 collection");
     });
   });
 });
+
+test('No results found', function(assert) {
+  assert.expect(5);
+  visit('/search/collections?term=noResultFound');
+  andThen(function() {
+    const $assessmentButton = find(".search-filter-options .assessments");
+    T.exists(assert, $assessmentButton, "Missing assessment filter button");
+    click($assessmentButton); //clicking first collection title
+    andThen(function() {
+      assert.equal(currentURL(), '/search/collections?term=noResultFound');
+      const $noResultFound = find(".results div.no-results-found");
+      T.exists(assert, $noResultFound.find(".title"), "Missing no result found title");
+      T.exists(assert, $noResultFound.find("i.remove_circle_outline"), "Missing no result found icon");
+      T.exists(assert, $noResultFound.find(".message"), "Missing no result found message");
+    });
+  });
+});
+
 

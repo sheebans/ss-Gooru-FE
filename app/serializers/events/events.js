@@ -50,7 +50,8 @@ export default Ember.Object.extend({
     let serializer = this;
     let resource = resourceResult.get("resource");
     let resourceType = resource.get("isQuestion") ? 'question' : 'resource';
-    let contextObject = serializer.getContextValuesForResult(context, resource.get("id"), resourceType);
+    let reactionType = resourceResult.get('reaction');
+    let contextObject = serializer.getContextValuesForResult(context, resource.get("id"), resourceType, reactionType);
 
     let startedAt = resourceResult.get('startedAt');
     let submittedAt = resourceResult.get('submittedAt');
@@ -90,13 +91,34 @@ export default Ember.Object.extend({
     return [serialized];
   },
 
+  serializeReaction: function(resourceResult, context, apiKey) {
+    let serializer = this;
+    let resource = resourceResult.get('resource');
+    let reactionType = resourceResult.get('reaction');  // Extracts the reaction value (reactionType) from the resourceResult
+    let startTime = toTimestamp(resourceResult.get('startedAt'));
+    let contextObject = serializer.getContextValuesForReaction(context, resource.get('id'), reactionType);
+    let serialized = {
+      eventId: context.get('resourceEventId'),
+      eventName: 'reaction.create',
+      session: { apiKey: apiKey, sessionId: context.get('sessionId') },
+      user: { gooruUId: context.get('userId') },
+      startTime: startTime,
+      endTime: startTime,   // Setting the same startTime for the endTime
+      context: contextObject,
+      version: { logApi: ConfigEvent.apiVersion },
+      metrics: {},
+      payLoadObject: { isStudent: true }
+    };
+    return [serialized];
+  },
+
   /**
    * Gets context values
    * @param {Context} context
    * @param {string} resourceType question|resource
    * @returns {*}
    */
-  getContextValuesForResult: function (context, resourceId, resourceType) {
+  getContextValuesForResult: function (context, resourceId, resourceType, reactionType) {
     return {
       "contentGooruId": resourceId,
       "parentGooruId": context.get('collectionId'),
@@ -108,7 +130,8 @@ export default Ember.Object.extend({
       "lessonGooruId": context.get('lessonId'),
       "collectionType": context.get('collectionType'),
       "resourceType": resourceType,
-      "clientSource": "web"
+      "clientSource": "web",
+      reactionType: reactionType
     };
   },
 
@@ -129,6 +152,20 @@ export default Ember.Object.extend({
       "collectionType": context.get('collectionType'),
       "questionCount": questionCount,
       "clientSource": "web"
+    };
+  },
+
+  getContextValuesForReaction: function(context, resourceId, reactionType) {
+    return {
+      contentGooruId: resourceId,
+      parentGooruId: context.get('collectionId'),
+      classGooruId: context.get('classId'),
+      parentEventId: context.get('parentEventId'),
+      courseGooruId: context.get('courseId'),
+      unitGooruId: context.get('unitId'),
+      lessonGooruId: context.get('lessonId'),
+      collectionType: context.get('collectionType'),
+      reactionType: reactionType
     };
   }
 

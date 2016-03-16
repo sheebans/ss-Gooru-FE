@@ -205,10 +205,14 @@
   }
   > .content {
     height: 100%;
-    border-left: 1px solid  $gray-light;
-    margin-left: -1px;
-    @media (max-width: $screen-xs-max) { /* only for phone */
-      padding: 0;
+    >div:last-child{
+      padding: 20px;
+      @media (min-width: $screen-sm-min) {
+        padding: 20px 65px;
+      }
+      @media (min-width: $screen-md-min) {
+        padding: 20px 56px;
+      }
     }
     div.content-navigation{
       height: 50px;
@@ -219,6 +223,7 @@
       @include justify-content(space-between);
       .btn-group{
         margin-right: 30px;
+
       }
     }
   }

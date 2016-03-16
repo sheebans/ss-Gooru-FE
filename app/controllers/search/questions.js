@@ -25,7 +25,16 @@ export default Ember.Controller.extend({
      * Action triggered to selectMenuOption
      */
     selectMenuOption: function (option) {
-        this.set("selectedOptionType", option);
+      var selectedOptionTypes = this.get('selectedOptionTypes');
+
+      if(selectedOptionTypes.contains(option)){
+        selectedOptionTypes.removeObject(option);
+      }
+      else {
+        selectedOptionTypes.pushObject(option);
+      }
+
+      this.set('selectedOptionTypes', selectedOptionTypes);
     }
   },
 
@@ -39,11 +48,11 @@ export default Ember.Controller.extend({
   // Properties
 
   /**
-   * Type of question selected
-   *  @property {string} selectedOptionType
+   * Types of question selected
+   *  @property {array} selectedOptionTypes
    *
    */
-  selectedOptionType: 'multiple-choice'
+  selectedOptionTypes: Ember.A([]),
 
   // -------------------------------------------------------------------------
   // Methods

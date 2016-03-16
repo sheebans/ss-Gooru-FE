@@ -7,6 +7,7 @@
 @import 'helpers/grading-scale-legend';
 @import 'helpers/three-bounce-spinner';
 @import 'helpers/fractional';
+@import 'mixins/content/builder';
 @import 'mixins/gru-accordion';
 
 @import 'controllers/application';
@@ -20,6 +21,7 @@
 @import 'controllers/index';
 @import 'controllers/partials/player';
 @import 'controllers/profile';
+@import 'controllers/profile/about';
 @import 'controllers/reports/collection';
 @import 'controllers/search';
 
@@ -121,4 +123,4 @@
 @import 'components/reports/class-assessment/gru-table-view';
 
 @import 'components/search/gru-question-options';
-@import 'components/search/resource-options';
+@import 'components/search/gru-resource-options';

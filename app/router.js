@@ -11,6 +11,30 @@ Router.map(function() {
   this.route('search', function() {
     this.route('collections');
     this.route('questions');
+    this.route('resources');
+  });
+
+  this.route('content', function () {
+
+    this.route('courses', function () {
+      this.route('edit', {path: '/edit/:courseId'});
+    });
+
+    this.route('collections', function () {
+      this.route('edit', {path: '/edit/:collectionId'});
+    });
+
+    this.route('assessments', function () {
+      this.route('edit', {path: '/edit/:assessmentId'});
+    });
+
+    this.route('resources', function () {
+      this.route('edit', {path: '/edit/:resourceId'});
+    });
+
+    this.route('questions', function () {
+      this.route('edit', {path: '/edit/:resourceId'});
+    });
   });
 
   this.route('player', { path: '/player/:collectionId'});

@@ -101,3 +101,14 @@ test('Do search by hitting Enter', function(assert) {
   $searchInput.change();
   this.$('form').submit();
 });
+
+test('Do search with a blank space', function(assert) {
+  assert.expect(1);
+  const ANY_TERM = ' ';
+  this.render(hbs`{{gru-header onSearch='searchAction'}}`);
+  var $searchInput = this.$('.search-input');
+  $searchInput.val(ANY_TERM);
+  $searchInput.change();
+  this.$('form').submit();
+  T.notExists(assert,this.$(".results"), "Result of search should not appear");
+});

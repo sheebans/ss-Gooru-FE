@@ -21,11 +21,6 @@ export default Ember.Controller.extend(SessionMixin, {
   /**
    * @dependency {Ember.Service} Service to rate a resource
    */
-  ratingService: Ember.inject.service("api-sdk/rating"),
-
-  /**
-   * @dependency {Ember.Service} Service to rate a resource
-   */
   eventsService: Ember.inject.service("api-sdk/events"),
 
 
@@ -97,7 +92,8 @@ export default Ember.Controller.extend(SessionMixin, {
      * @param {string} emotionScore
      */
     changeEmotion: function(emotionScore) {
-      this.get('ratingService').rateResource(this.get('resourceId'), emotionScore);
+      let resourceResult = this.get('resourceResult');
+      this.saveReactionForResource(resourceResult, emotionScore);
     }
   },
 
@@ -167,11 +163,10 @@ export default Ember.Controller.extend(SessionMixin, {
    * Moves to resource
    * @param {Resource} resource
    */
-  moveToResource: function(resource){
+  moveToResource: function(resource) {
     let controller = this;
     let assessmentResult = this.get("assessmentResult");
     let resourceId = resource.get("id");
-
     let resourceResult = assessmentResult.getResultByResourceId(resourceId);
 
     controller.startResourceResult(resourceResult).then(function(){
@@ -181,13 +176,7 @@ export default Ember.Controller.extend(SessionMixin, {
         "resource": resource,
         "resourceResult": resourceResult
       });
-
-      controller.get('ratingService').findRatingForResource(resource.get("id"))
-        .then(function (ratingModel) { //TODO this could not be necessary if the reaction is loaded with the result
-          resourceResult.set("reaction", ratingModel.get('score'));
-        });
     }); //saves the resource status
-
   },
 
   /**
@@ -298,6 +287,14 @@ export default Ember.Controller.extend(SessionMixin, {
       return controller.submitQuestionResult(questionResult);
     });
     return Ember.RSVP.all(promises);
+  },
+
+  saveReactionForResource: function(resourceResult, reactionType) {
+    let eventsService = this.get('eventsService');
+    let context = this.get('context');
+    resourceResult.set('reaction', reactionType);   // Sets the reaction value into the resourceResult
+
+    eventsService.saveReaction(resourceResult, context);
   }
 
 
