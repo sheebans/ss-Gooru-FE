@@ -1,0 +1,24 @@
+<div class="title">
+    <h2>{{t "content.courses.edit.settings"}}</h2>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <h3>{{t "content.courses.edit.content-publishing"}}</h3>
+    </div>
+    <div class="panel-body">
+        <div class="setting-content">
+            <span class="icon">{{gru-icon name="public"}}</span>
+            <span class="description">{{t "content.courses.edit.publish-to"}}</span>
+            {{gru-switch switchOptions=switchOptions}}
+        </div>
+        <div class="setting-content">
+            <span class="icon">{{gru-icon name="visibility"}}</span>
+            <span class="description">{{t "content.courses.edit.request-to"}}</span>
+            {{#if wasRequestSent}}
+                <button class="btn {{if isRequestApproved 'btn-success' 'btn-primary'}}">{{if isRequestApproved (t "content.courses.edit.approved") (t "content.courses.edit.pending")}}</button>
+              {{else}}
+                <button class="btn btn-primary" {{action 'sendRequest'}}>{{t "content.courses.edit.send-request"}}</button>
+            {{/if}}
+        </div>
+    </div>
+</div>

@@ -29,10 +29,8 @@ export default Ember.Component.extend({
     selectOption: function () {
       if(this.isChecked()){
         this.sendAction("onOptionSwitch", this.get("optionB"));
-        this.activeOption("optionB");
       }else{
         this.sendAction("onOptionSwitch", this.get("optionA"));
-        this.activeOption("optionA");
       }
     }
 
@@ -44,14 +42,7 @@ export default Ember.Component.extend({
    * Overwrites didInsertElement hook.
    */
   didInsertElement: function() {
-    var elem = document.querySelector('.js-switch');
-    new Switchery(elem, {
-      color: '#f0f0f0',
-      secondaryColor: '#f0f0f0',
-      jackColor: '#DEDEDE',
-      jackSecondaryColor: '#DEDEDE',
-      size:'small'
-    });
+    $('input[type=checkbox][data-toggle^=toggle]').bootstrapToggle();
   },
 // -------------------------------------------------------------------------
 // Properties
@@ -83,14 +74,7 @@ export default Ember.Component.extend({
    * Checks the input has been checked
    */
   isChecked: function() {
-    return document.querySelector('.js-switch').checked;
-  },
-  /**
-   * Highlight the active label
-   */
-  activeOption: function(option) {
-    this.$().find(".active").removeClass("active");
-    this.$("."+option).addClass("active");
+    return document.querySelector('.switch input').checked;
   }
 });
 

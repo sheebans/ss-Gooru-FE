@@ -19,6 +19,16 @@
   $information-padding: 30px;
   $aside-padding: 30px;
 
+  h2{
+    font-size: $font-size-h4;
+    margin-bottom: 30px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid $gray-lighter;
+  }
+  h3{
+    font-size: $font-size-large;
+  }
+
   @include flexbox();
 
   > article {
@@ -122,6 +132,32 @@
 
     #information {
       padding-top: $information-padding + 115px;
+    }
+    #settings{
+      .panel{
+        .panel-heading{
+          border-top-right-radius: 6px;
+          border-top-left-radius: 6px;
+          background-color: $white;
+          padding: 10px 25px 0px 25px;
+          h3{
+            padding-bottom: 20px;
+            border-bottom: 1px solid $gray-lighter;
+          }
+        }
+        .panel-body{
+          padding: 0 25px 25px 25px;
+        }
+        i{
+          vertical-align: middle;
+        }
+        .setting-content{
+          margin-top: 10px;
+          .icon, .description{
+            margin-right:10px;
+          }
+        }
+      }
     }
   }
 }

@@ -210,7 +210,14 @@ export default {
   },
 
   "content.courses.edit": {
-    "assign-to-class": "Assign to Class"
+    "assign-to-class": "Assign to Class",
+    "settings":"Settings",
+    "content-publishing":"Content Publishing",
+    "publish-to":" Publish to my profile",
+    "request-to":"Request to be searchable and featured in Gooru",
+    "send-request":"Send Request",
+    "pending":"Pending",
+    "approved":"Approved"
   },
 
   /*
