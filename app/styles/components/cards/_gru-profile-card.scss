@@ -38,9 +38,13 @@
 
     > span {
       display: inline-block;
-      padding: 0 25px;
+      padding: 0 0 0 20px;
       line-height: 1;
       font-size: 1.1rem;
+      margin-right: -4px;
+      &:first-of-type {
+        padding: 0 20px 0 0;
+      }
 
       > em {
         display: block;
@@ -89,7 +93,15 @@
   @media (max-width: $screen-xs-max) {
     margin: 0 20px;
     > a {
+      left: 50%;
+      @include translate(-50%, 0);
+      white-space: nowrap;
+      > strong {
+        padding: 0 1rem;
+      }
       .img-wrapper {
+        margin-left: -3.5rem;
+        margin-right: 0.5rem;
         .img-circle {
         }
       }
