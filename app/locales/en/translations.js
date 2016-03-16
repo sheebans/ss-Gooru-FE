@@ -6,6 +6,8 @@ export default {
   "common": {
     "about": "About",
     "about-you": "About You",
+    "add": "Add",
+    "add-course": "Add New Course",
     "add-to":"Add To",
     "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
@@ -20,6 +22,12 @@ export default {
     "biography": "Biography",
     "builder": "Builder",
     "cancel": "Cancel",
+    "category": "Category",
+    "categoryOptions": {
+      "k12": "K-12",
+      "higher-ed": "Higher Education",
+      "professional-dev": "Professional Development"
+    },
     "classScores": "Class Scores",
     "close": "Close",
     "collection":"Collection",
@@ -32,6 +40,7 @@ export default {
     "course-map": "Course Map",
     "country": "Country",
     "course":"Course",
+    "course-title": "Course Title",
     "courses": "Courses",
     "create": "Create",
     "district": "District",

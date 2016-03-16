@@ -6,6 +6,11 @@ import DS from 'ember-data';
 export default DS.Model.extend({
 
   /**
+   * @property {Number} category - Category the course belongs to
+   */
+  category: DS.attr('number'),
+
+  /**
    * @property {string} title
    */
   title: DS.attr('string'),

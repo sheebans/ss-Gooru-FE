@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{t "common.add-course"}}</h4>
+</div>
+<div class="modal-body">
+  <form {{action "signUp" on="submit"}}>
+
+    <label>
+      <span class="required">{{t 'common.course-title'}}</span>
+      {{validation.gru-input model=course valuePath='title'}}
+    </label>
+
+    <label>
+      <span class="required">{{t 'common.category'}}</span>
+    </label>
+    <div class="btn-group">
+      {{#each categories as |category index| }}
+        <a href="#" class="btn {{if index '' 'selected'}}">{{t category.label}}</a>
+      {{/each}}
+    </div>
+
+  </form>
+  <div class="actions">
+    <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
+      <span aria-hidden="true">{{t 'common.cancel'}}</span>
+    </button>
+    <button type="submit" class="btn btn-primary">{{t 'common.add'}}</button>
+  </div>
+</div>
+
