@@ -27,6 +27,12 @@ export default Ember.Controller.extend(BuilderMixin, {
    * @property {Boolean}
    */
   wasRequestSent:false,
+
+  /**
+   * Indicate if a course information is in edit mode
+   * @property {Boolean}
+   */
+  isEdit:false,
   /**
    * Toggle Options
    * @property {Ember.Array}
