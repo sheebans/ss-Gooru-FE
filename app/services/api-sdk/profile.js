@@ -3,10 +3,18 @@ import StoreMixin from '../../mixins/store';
 import SessionMixin from '../../mixins/session';
 
 /**
+ * Service to support the Profile CRUD operations
+ *
  * @typedef {Object} ProfileService
  */
 export default Ember.Service.extend(StoreMixin, SessionMixin, {
 
+  /**
+   * Creates a new user account
+   *
+   * @param profileData object with the profile data
+   * @returns {Promise}
+   */
   createProfile: function(profileData) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {

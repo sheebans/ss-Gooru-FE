@@ -2,7 +2,8 @@ import Ember from 'ember';
 import BaseAuthenticator from 'ember-simple-auth/authenticators/base';
 
 /**
- * @class
+ * The Ember Simple Auth authenticator for API 3.0
+ *
  * @typedef {Object} AuthApi30
  */
 export default BaseAuthenticator.extend({

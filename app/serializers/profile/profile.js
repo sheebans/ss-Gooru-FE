@@ -1,7 +1,17 @@
 import Ember from 'ember';
 
+/**
+ * Serializer to support the Profile CRUD operations in the API 3.0
+ *
+ * @typedef {Object} ProfileSerializer
+ */
 export default Ember.Object.extend({
 
+  /**
+   * Serialize a Profile object into a JSON representation required by the Profile endpoint
+   * @param profileData the profile object
+   * @returns {Object} returns a JSON Object
+   */
   serializeCreateProfile: function(profileData) {
     return {
       firstname: profileData.get('firstName'),

@@ -1,10 +1,20 @@
 import Ember from 'ember';
 import Env from 'gooru-web/config/environment';
 
+/**
+ * Adapter for the Authentication (Login) with API 3.0
+ *
+ * @typedef {Object} AuthenticationAdapter
+ */
 export default Ember.Object.extend({
 
   namespace: '/api/nucleus-auth/v1/token',
 
+  /**
+   * Post a request to authenticate a normal user or anonymous user.
+   * @param data values required to build the post body
+   * @returns {Promise}
+   */
   postAuthentication: function(data) {
     const adapter = this;
     const url = this.get('namespace');
