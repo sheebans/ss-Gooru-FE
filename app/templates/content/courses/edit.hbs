@@ -19,10 +19,10 @@
             <h2>{{t "common.information"}}</h2>
             <div class="edit-buttons">
                 {{#if isEdit}}
-                    <button class="btn btn-info">{{t "common.cancel"}}</button>
+                    <button class="btn btn-info"  {{action 'cancelEditCourse'}}>{{t "common.cancel"}}</button>
                     <button class="btn btn-success">{{t "common.save"}}</button>
                   {{else}}
-                    <button class="btn btn-primary">{{t "common.edit"}}</button>
+                    <button class="btn btn-primary" {{action 'editCourse'}}>{{t "common.edit"}}</button>
                 {{/if}}
             </div>
         </div>
@@ -32,25 +32,60 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div class="title">
+                    <div class="title-section">
                         <span>Course Title</span><span class="required">*</span>
+                      {{#if isEdit}}
                         {{input class="course-title"}}
+                      {{else}}
+                        <span class="title">{{course.title}}</span>
+                      {{/if}}
                     </div>
                     <div class="category">
                         <span>Category</span><span class="required">*</span>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary">K-12</button>
-                            <button type="button" class="btn btn-primary">Higher Education</button>
-                            <button type="button" class="btn btn-primary">Professional Development</button>
+                      {{#if isEdit}}
+                        <div class="category-dropdown">
+                            <div class="btn-group">
+                              {{#each course.categories as |category|}}
+                                  <button type="button" class="btn btn-sm {{if category.isActive 'btn-primary' 'btn-info'}}">{{category.name}}</button>
+                              {{/each}}
+                            </div>
                         </div>
+                        {{else}}
+                        <div>
+                          {{#each course.categories as |category|}}
+                            {{#if category.isActive}}
+                                <button type="button" class="btn-empty btn btn-sm">{{category.name}}</button>
+                            {{/if}}
+                          {{/each}}
+                        </div>
+                      {{/if}}
                     </div>
                     <div class="subject">
                         <span>K-12 Subject and Course</span><span class="required">*</span>
+                        {{#if isEdit}}
                         <button type="button" class="btn btn-primary">+ Add</button>
+                          {{else}}
+                          <div class="subjects">
+                              <button type="button" class="btn-empty btn btn-sm">Grade 3 Math</button>
+                              <button type="button" class="btn-empty btn btn-sm">Grade 4 Math</button>
+                          </div>
+                        {{/if}}
                     </div>
-                    <div class="audience">
+                    <div class="audience-section">
                         <span>Audience</span><span class="required">*</span>
-                        <button type="button" class="btn btn-primary">+ Add</button>
+                        {{#if isEdit}}
+                          <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                               + Add
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby=>
+
+                            </ul>
+                          </div>
+                          {{else}}
+                          <span class="audience">Not specified</span>
+                          {{/if}}
                     </div>
                 </div>
             </div>

@@ -114,6 +114,7 @@
 
   #information {
     padding-top: $information-padding;
+    padding-bottom: $information-padding;;
     .header{
       h2{
         display: inline-block;
@@ -121,7 +122,7 @@
       .edit-buttons{
         display: inline-block;
         float: right;
-        margin-top: 20px;
+        margin: 20px 10px 0 0;
       }
     }
     .edit-information-content{
@@ -137,8 +138,57 @@
       .panel{
         border-radius: 6px;
         display: inline-block;
-        width: 683px;
-        height: 323px;
+        width: 74%;
+
+        .panel-body{
+          .title-section{
+            > *{
+              margin: 8px 0;
+            }
+            input{
+              width: 50%;
+              outline: 0;
+            }
+            input,.title{
+              display: block;
+            }
+            .title{
+              font-size: $font-size-large;
+            }
+          }
+          .category{
+            > *{
+              margin: 12px 0;
+            }
+          }
+          .subject{
+            > *{
+              margin: 8px 0;
+            }
+            button{
+              display: block;
+            }
+            .subjects{
+              button{
+                display:inline-block;
+              }
+            }
+          }
+          .audience-section{
+            > *{
+              margin: 8px 0;
+            }
+            span.audience{
+              display: block;
+            }
+          }
+        }
+        .category,.subject{
+          .btn-empty{
+            border:1px solid $gray-light;
+            background-color: $white;
+          }
+        }
       }
     }
   }
