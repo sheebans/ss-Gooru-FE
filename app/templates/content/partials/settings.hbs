@@ -1,23 +1,23 @@
 <div class="title">
-    <h2>{{t "content.courses.edit.settings"}}</h2>
+    <h2>{{t "common.settings"}}</h2>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading">
-      <h3>{{t "content.courses.edit.content-publishing"}}</h3>
+      <h3>{{t "common.content-publishing"}}</h3>
     </div>
     <div class="panel-body">
         <div class="setting-content">
             <span class="icon">{{gru-icon name="public"}}</span>
-            <span class="description publish-to">{{t "content.courses.edit.publish-to"}}</span>
+            <span class="description publish-to">{{t "common.publish-to"}}</span>
             {{gru-switch switchOptions=switchOptions}}
         </div>
         <div class="setting-content">
             <span class="icon">{{gru-icon name="visibility"}}</span>
-            <span class="description request-to">{{t "content.courses.edit.request-to"}}</span>
+            <span class="description request-to">{{t "common.request-to"}}</span>
             {{#if wasRequestSent}}
-                <button class="request btn {{if isRequestApproved 'btn-success' 'btn-primary'}}">{{if isRequestApproved (t "content.courses.edit.approved") (t "content.courses.edit.pending")}}</button>
+                <button class="request btn {{if isRequestApproved 'btn-success' 'btn-primary'}}">{{if isRequestApproved (t "common.approved") (t "common.pending")}}</button>
               {{else}}
-                <button class="request btn btn-primary" {{action 'sendRequest'}}>{{t "content.courses.edit.send-request"}}</button>
+                <button class="request btn btn-primary" {{action 'sendRequest'}}>{{t "common.send-request"}}</button>
             {{/if}}
         </div>
     </div>

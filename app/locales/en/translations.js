@@ -9,6 +9,7 @@ export default {
     "add-to":"Add To",
     "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
+    "approved":"Approved",
     "assessment":"Assessment",
     "assessments": "Assessments",
     "assessmentInitial": "A",
@@ -26,6 +27,7 @@ export default {
     "collections": "Collections",
     "collectionInitial": "C",
     "completed": "Completed",
+    "content-publishing":"Content Publishing",
     "contentUnavailable": "Content not available",
     "correct": "Correct",
     "correct-answer":"Correct Answer",
@@ -89,6 +91,8 @@ export default {
     },
     "performance":"Show Performance",
     "please_contact": "Please contact",
+    "pending":"Pending",
+    "publish-to":" Publish to my profile",
     "preview": "Preview",
     "question":"Question",
     "questions": "Questions",
@@ -105,6 +109,7 @@ export default {
       "HT_HL"  : "Hot Text Highlight"
     },
     "reaction": "Reaction",
+    "request-to":"Request to be searchable and featured in Gooru",
     "resource":"Resource",
     "resources": "Resources",
     "resource-format":{
@@ -118,12 +123,13 @@ export default {
     "remaining": "{{number}} Left",
     "remix":"Remix",
     "role": "Role",
+    "settings":"Settings",
     "school": "School",
     "school-info": "School Information",
     "score":"Score",
     "search": "Search",
     "search-placeholder": "Search...",
-    "settings": "Settings",
+    "send-request":"Send Request",
     "show-correct-answer":"Show Correct Answer",
     "show-results":"Show Results",
     "signUp": "Sign Up",
@@ -210,14 +216,7 @@ export default {
   },
 
   "content.courses.edit": {
-    "assign-to-class": "Assign to Class",
-    "settings":"Settings",
-    "content-publishing":"Content Publishing",
-    "publish-to":" Publish to my profile",
-    "request-to":"Request to be searchable and featured in Gooru",
-    "send-request":"Send Request",
-    "pending":"Pending",
-    "approved":"Approved"
+    "assign-to-class": "Assign to Class"
   },
 
   /*

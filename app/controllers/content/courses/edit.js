@@ -28,8 +28,8 @@ export default Ember.Controller.extend(BuilderMixin, {
    */
   wasRequestSent:false,
   /**
-   * The profile presented to the user
-   * @property {Profile}
+   * Toggle Options
+   * @property {Ember.Array}
    */
   switchOptions:Ember.A([Ember.Object.create({
     'label': "On",

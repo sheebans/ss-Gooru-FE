@@ -23,8 +23,5 @@
     "stomp-websocket": "~2.3.4",
     "toastr": "~2.1.2",
     "bootstrap-toggle": "^2.2.1"
-  },
-  "devDependencies": {
-    "bootstrap-toggle": "^2.2.1"
   }
 }

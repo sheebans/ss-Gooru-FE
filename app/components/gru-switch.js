@@ -74,7 +74,7 @@ export default Ember.Component.extend({
    * Checks the input has been checked
    */
   isChecked: function() {
-    return document.querySelector('.switch input').checked;
+    return this.$('.switch input').checked;
   }
 });
 
