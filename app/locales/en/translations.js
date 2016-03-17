@@ -58,6 +58,9 @@ export default {
       "emotion-4": "I understand",
       "emotion-5": "I can explain"
     },
+    "errors": {
+      "course-not-created": "Oops! Unable to create course right now. Please try again shortly."
+    },
     "explanation": "Explanation",
     "first-name": "First Name",
     "follow": "Follow",
@@ -153,7 +156,7 @@ export default {
     "unitInitial": "U",
     "verified": "Verified",
     "yes": "Yes",
-    warnings: {
+    "warnings": {
       "on-air-connection-lost": "The On Air feature has lost connection and is retrying automatically. While it's tempting, please don't refresh your screen!"
     },
     "no-content": "No content available"
