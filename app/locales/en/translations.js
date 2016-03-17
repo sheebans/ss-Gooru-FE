@@ -89,6 +89,7 @@ export default {
       one: "{{count}} Student",
       other: "{{count}} Students"
     },
+    "other": "Other",
     "performance":"Show Performance",
     "please_contact": "Please contact",
     "pending":"Pending",
@@ -123,6 +124,10 @@ export default {
     "remaining": "{{number}} Left",
     "remix":"Remix",
     "role": "Role",
+    "save": "Save",
+    "save-next": "Save and Next",
+    "save-submit": "Save and Submit All",
+    "save-finish": "Save and Finish",
     "settings":"Settings",
     "school": "School",
     "school-info": "School Information",
@@ -139,10 +144,9 @@ export default {
     "standards": "Standards",
     "submit": "Submit",
     "submit-all":"Submit all",
-    "save-next": "Save and Next",
-    "save-submit": "Save and Submit All",
-    "save-finish": "Save and Finish",
+    "student": "Student",
     "suggested-resources":"Suggested Resources",
+    "teacher": "Teacher",
     "timeSpent": "Time Spent",
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
     "unfollow": "Unfollow",
@@ -585,5 +589,8 @@ export default {
   },
   "gru-emotion-picker": {
     "react-to-resource": "React to this resource"
+  },
+  "validations": {
+    "unsavedChanges": "Your changes haven't saved yet. Would you like to leave this page?"
   }
 };
