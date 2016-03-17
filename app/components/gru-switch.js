@@ -2,9 +2,9 @@ import Ember from 'ember';
 /**
  * Switch component
  * Component responsible for show two options to switch
- * Use Switchery component that helps
- * you turn your default HTML checkbox inputs into beautiful iOS 7 style
- * @see http://abpetkov.github.io/switchery/
+ * Use Bootstrap Toggle component that helps
+ * you turn your default HTML checkboxes into toggles.
+ * @see https://github.com/minhur/bootstrap-toggle/
  * @module
  * @augments ember/Component
  */

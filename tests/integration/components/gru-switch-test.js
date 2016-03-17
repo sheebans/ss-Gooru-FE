@@ -38,11 +38,11 @@ test('Switch', function(assert) {
     var counter = 0;
     var $switch = $component.find(".gru-switch");
     if (counter === 0) {
-      assert.equal("Option B", option.label);
-      T.notExists(assert, $switch.find(".off"), 'The toggle should be on');
-    } else {
       assert.equal("Option A", option.label);
       T.exists(assert, $switch.find(".off"), 'The toggle should be off');
+    } else {
+      assert.equal("Option B", option.label);
+      T.notExists(assert, $switch.find(".off"), 'The toggle should be on');
     }
     counter++;
   });
