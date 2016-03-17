@@ -77,7 +77,7 @@ test('Test for started lesson performance', function(assert) {
 
   const $lessonTitle = $component.find(".lesson-performance-content .title .section-title");
 
-  assert.equal($lessonTitle.text().trim(), "L1:Quiz :: Indian History", "Wrong title");
+  assert.equal($lessonTitle.text().trim(), "L1: Quiz :: Indian History", "Wrong title");
 
   const $clickableAnchor= $component.find(".gru-lesson-performance-container a"); //component dom element
   T.exists(assert, $clickableAnchor, 'Missing Clickable Anchor');
@@ -189,7 +189,7 @@ test('Test for not started lesson performance', function(assert) {
 
   const $lessonTitle = $component.find(".lesson-performance-content .title .section-title");
 
-  assert.equal($lessonTitle.text().trim(), "L1:Quiz :: Indian History", "Wrong title");
+  assert.equal($lessonTitle.text().trim(), "L1: Quiz :: Indian History", "Wrong title");
 
   const $clickableAnchor= $component.find(".gru-lesson-performance-container a"); //component dom element
   T.exists(assert, $clickableAnchor, 'Missing Clickable Anchor');

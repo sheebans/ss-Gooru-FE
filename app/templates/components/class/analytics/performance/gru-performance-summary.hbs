@@ -1,7 +1,7 @@
 <li class="title {{if performance.isUnitOrLesson "unit-lesson" "collection-assessment"}}">
     <span class="{{if isSelected "selected" ""}} ">
       <i class="icon">{{#if performance.isUnitOrLesson}}{{gru-icon name=(if isSelected "keyboard_arrow_down" "keyboard_arrow_right")}}{{/if}}</i>
-      <p class="truncate section-title">{{#if performance.isUnitOrLesson}}{{course-sections-prefix  index=index type=performance.type longName=false}}&colon;{{/if}}{{performance.title}}</p>
+      <p class="truncate section-title">{{#if performance.isUnitOrLesson}}{{course-sections-prefix  index=index type=performance.type longName=false}}&colon; {{/if}}{{performance.title}}</p>
     </span>
   {{#if performance.isCollectionOrAssessment}}
       <div>
