@@ -79,12 +79,12 @@ module.exports = function(defaults) {
   });
 
   app.import({
-    development: 'bower_components/switchery/dist/switchery.css',
-    production:  'bower_components/switchery/dist/switchery.min.css'
+    development: 'bower_components/bootstrap-toggle/css/bootstrap2-toggle.css',
+    production:  'bower_components/bootstrap-toggle/css/bootstrap2-toggle.min.css'
   });
   app.import({
-    development: 'bower_components/switchery/dist/switchery.js',
-    production:  'bower_components/switchery/dist/switchery.min.js'
+    development: 'bower_components/bootstrap-toggle/js/bootstrap2-toggle.js',
+    production:  'bower_components/bootstrap-toggle/js/bootstrap2-toggle.min.js'
   });
 
   app.import({
