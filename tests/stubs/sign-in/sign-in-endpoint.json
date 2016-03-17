@@ -34,5 +34,42 @@
       "body": "File not found!",
       "file": "pochita-sign-in-ok-response.json"
     }
+  },
+  {
+    "description": "API 3.0 Sign in support for Pochita username",
+    "request": {
+      "url": "^/api/nucleus-auth/v1/token$",
+      "query": {},
+      "post": "(.+)\"grant_type\":\"credential\"(.+)",
+      "method": "POST",
+      "headers": {
+        "authorization": "Basic cG9jaGl0YTo="
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "sign-in-api3-pochita-200-response.json"
+    }
+  },
+  {
+    "description": "API 3.0 Sign in support for Anonymous user",
+    "request": {
+      "url": "^/api/nucleus-auth/v1/token$",
+      "query": {},
+      "post": "(.+)\"grant_type\":\"anonymous\"(.+)",
+      "method": "POST"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "sign-in-api3-anonymous-200-response.json"
+    }
   }
 ]
