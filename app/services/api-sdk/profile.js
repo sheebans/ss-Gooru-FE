@@ -7,6 +7,20 @@ import SessionMixin from '../../mixins/session';
  */
 export default Ember.Service.extend(StoreMixin, SessionMixin, {
 
+  createProfile: function(profileData) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      let serializedProfileData = service.get('profileSerializer').serializeCreateProfile(profileData);
+      service.get('profileAdapter').createProfile({
+        body: serializedProfileData
+      }).then(function(response) {
+        resolve(service.get('profileSerializer').normalizeCreateProfile(response));
+      }, function(error) {
+        reject(error);
+      });
+    });
+  },
+
   findByCurrentUser: function() {
     if (!this.get('session.isAnonymous')) {
       var currentProfileId = this.get('session.userId');

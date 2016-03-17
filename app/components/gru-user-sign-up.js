@@ -20,6 +20,8 @@ export default Ember.Component.extend(ModalMixin, {
    */
   userService: Ember.inject.service("api-sdk/user"),
 
+  profileService: Ember.inject.service("api-sdk/profile"),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -37,7 +39,17 @@ export default Ember.Component.extend(ModalMixin, {
      */
     signUp: function() {
       const component = this;
+      let userModel = this.get('user');
+      component.get('profileService').createProfile(userModel)
+        .then(function() {
+          component.triggerAction({ action: 'closeModal' });
+          })
+        .then(function() {
+            Ember.Logger.error('Error signing up user');
+          });
 
+      // TODO We need to enable validation but first we need to implement API 3.0 Availabilty integration
+      /*
       var userModel = this.get('user');
       userModel.validate().then(({
         model, validations
@@ -66,6 +78,7 @@ export default Ember.Component.extend(ModalMixin, {
       }, () => {
 
       });
+      */
     }
   },
 

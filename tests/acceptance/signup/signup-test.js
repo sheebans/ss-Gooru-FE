@@ -1,7 +1,18 @@
 import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
+import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 
-moduleForAcceptance('Acceptance | SignUp');
+moduleForAcceptance('Acceptance | SignUp', {
+  beforeEach: function () {
+    authenticateSession(this.application, {
+      isAnonymous: true,
+      token: 'player-token',
+      user: {
+        gooruUId: 'player-token-user-id'
+      }
+    });
+  }
+});
 
 test('Sign up test', function(assert) {
 
