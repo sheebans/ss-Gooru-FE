@@ -26,6 +26,7 @@ test('Test for started lesson performance', function(assert) {
       ratingScore: 0,
       isCompleted: true,
       hasStarted: true,
+      isUnitOrLesson: true,
       collections:Ember.A([
         Ember.Object.create({
           id:'first-collection-id',
@@ -76,7 +77,7 @@ test('Test for started lesson performance', function(assert) {
 
   const $lessonTitle = $component.find(".lesson-performance-content .title .section-title");
 
-  assert.equal($lessonTitle.text().trim(), "L1:     Quiz :: Indian History", "Wrong title");
+  assert.equal($lessonTitle.text().trim(), "L1: Quiz :: Indian History", "Wrong title");
 
   const $clickableAnchor= $component.find(".gru-lesson-performance-container a"); //component dom element
   T.exists(assert, $clickableAnchor, 'Missing Clickable Anchor');
@@ -94,7 +95,7 @@ test('Test for started lesson performance', function(assert) {
 
     const $collectionTitle = $component.find(".collections-container .collection-performance .collection-performance-content .title .section-title");
     T.exists(assert, $collectionTitle, 'Missing collection Title');
-    assert.equal($collectionTitle.text().trim(), "C1:     Indian History CollectionA1:     Indian History Assessment", "Wrong title");
+    assert.equal($collectionTitle.text().trim(), "Indian History CollectionIndian History Assessment", "Wrong title");
 
     const $collectionRedoButton = $component.find(".collections-container .collection-performance.collection-performance:nth-child(1) .collection-performance-content .title button.collection-redo-button");
     T.exists(assert, $collectionRedoButton, 'Missing collection redo button');
@@ -188,7 +189,7 @@ test('Test for not started lesson performance', function(assert) {
 
   const $lessonTitle = $component.find(".lesson-performance-content .title .section-title");
 
-  assert.equal($lessonTitle.text().trim(), "L1:     Quiz :: Indian History", "Wrong title");
+  assert.equal($lessonTitle.text().trim(), "L1: Quiz :: Indian History", "Wrong title");
 
   const $clickableAnchor= $component.find(".gru-lesson-performance-container a"); //component dom element
   T.exists(assert, $clickableAnchor, 'Missing Clickable Anchor');
@@ -210,7 +211,7 @@ test('Test for not started lesson performance', function(assert) {
     const $collectionTitle = $firstAssessment.find(".collection-performance-content .title .section-title");
     T.exists(assert, $firstAssessment, 'Missing Second collection');
     T.exists(assert, $collectionTitle, 'Missing collection Title');
-    assert.equal($collectionTitle.text().trim(), "A1:     First Assessment", "Wrong title");
+    assert.equal($collectionTitle.text().trim(), "First Assessment", "Wrong title");
 
     const $firstCollection = $component.find("div.collections-container div.collection-performance:nth-child(1)");
     const $collectionStudyButton = $firstCollection.find("button.collection-study-button");
