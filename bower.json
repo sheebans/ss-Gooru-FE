@@ -21,7 +21,7 @@
     "qunit": "~1.20.0",
     "sockjs-client": "~1.0.3",
     "stomp-websocket": "~2.3.4",
-    "switchery": "~0.8.1",
-    "toastr": "~2.1.2"
+    "toastr": "~2.1.2",
+    "bootstrap-toggle": "^2.2.1"
   }
 }
