@@ -33,7 +33,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="title-section">
-                        <span>Course Title</span><span class="required">*</span>
+                        <span>{{t "content.courses.edit.information.course-title"}}</span><span class="required">*</span>
                       {{#if isEdit}}
                         {{input class="course-title"}}
                       {{else}}
@@ -41,7 +41,7 @@
                       {{/if}}
                     </div>
                     <div class="category">
-                        <span>Category</span><span class="required">*</span>
+                        <span>{{t "content.courses.edit.information.category"}}</span><span class="required">*</span>
                       {{#if isEdit}}
                         <div class="category-dropdown">
                             <div class="btn-group">
@@ -63,7 +63,7 @@
                     <div class="subject">
                         <span>K-12 Subject and Course</span><span class="required">*</span>
                         {{#if isEdit}}
-                        <button type="button" class="btn btn-primary">+ Add</button>
+                        <button type="button" class="btn btn-primary">{{t "content.courses.edit.information.add"}}</button>
                           {{else}}
                           <div class="subjects">
                               <button type="button" class="btn-empty btn btn-sm">Grade 3 Math</button>
@@ -72,11 +72,11 @@
                         {{/if}}
                     </div>
                     <div class="audience-section">
-                        <span>Audience</span><span class="required">*</span>
+                        <span>{{t "content.courses.edit.information.audience"}}</span><span class="required">*</span>
                         {{#if isEdit}}
                           <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                               + Add
+                              {{t "content.courses.edit.information.add"}}
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby=>
@@ -84,7 +84,7 @@
                             </ul>
                           </div>
                           {{else}}
-                          <span class="audience">Not specified</span>
+                          <span class="audience">{{t "content.courses.edit.information.not-specified"}}</span>
                           {{/if}}
                     </div>
                 </div>

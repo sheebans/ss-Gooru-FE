@@ -220,7 +220,14 @@ export default {
   },
 
   "content.courses.edit": {
-    "assign-to-class": "Assign to Class"
+    "assign-to-class": "Assign to Class",
+    "information":{
+      "course-title":"Course Title",
+      "category":"Category",
+      "audience":"Audience",
+      "add":"+ Add",
+      "not-specified":"Not specified"
+    }
   },
 
   /*
