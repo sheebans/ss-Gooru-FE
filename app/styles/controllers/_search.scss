@@ -1,21 +1,26 @@
 .controller.search {
   display: block;
-  width: 100vw;
+  width: 100%;
   div.content-navigation{
     background-color: $dark-400;
     height: 51px;
     padding: 0 0 0 3%;
     width: 100vw;
     margin-left: -15px;
-    display: table;
     div.category-menu {
       height: inherit;
+      padding: 0;
+      ul.category-options {
+        margin-left: 0;
+        width: inherit;
+      }
     }
     .standards {
       display: table-cell;
       float: none;
       text-align: right;
       vertical-align: middle;
+      height: inherit;
     }
   }
 
