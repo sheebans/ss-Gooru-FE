@@ -146,6 +146,11 @@ p {
   margin: 0 0 1em;
 }
 
+// Fix bug in IE 10/Edge
+button {
+  overflow: hidden;
+}
+
 input,
 button {
   -webkit-font-smoothing: antialiased;
