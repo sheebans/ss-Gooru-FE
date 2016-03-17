@@ -1,6 +1,8 @@
 .controller.about {
-  > h4 {
+  h4 {
     margin-top: 0;
+    padding-bottom: 0.4em;
+    border-bottom: 1px solid $light-300;
     .btn {
       margin-top: -0.3em;
     }
@@ -35,10 +37,9 @@
     }
   }
   @media (min-width: $screen-sm-min) {
-    > h4 {
-      border-bottom: 1px solid $light-300;
-      padding-bottom: 0.8em;
+    h4 {
       margin-bottom: 0.6em;
+      padding-bottom: 0.8em;
     }
   }
 }

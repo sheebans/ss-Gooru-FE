@@ -1,3 +1,5 @@
-<div class="optionA"><span>{{optionA.label}}</span></div>
-<div class="switch"><a {{action 'selectOption'}}> <input type="checkbox" class="js-switch" checked/></a></div>
-<div class="optionB active"><span>{{optionB.label}}</span></div>
+<div class="switch">
+    <a {{action 'selectOption'}}>
+    <input type="checkbox" data-toggle="toggle" data-on={{optionA.label}} data-off={{optionB.label}} data-width="61" data-height="34">
+    </a>
+</div>
