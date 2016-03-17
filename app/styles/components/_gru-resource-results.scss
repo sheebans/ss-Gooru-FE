@@ -1,0 +1,66 @@
+.resource-results {
+  .tooltip {
+    background-color: $white;
+    color: $gray;
+    opacity: 1;
+    border-radius: 3px;
+    border: solid 1px $gray-lighter;
+    max-width: 250px;
+    .tooltip-arrow {
+      border-width: 0 10px 8px;
+      top: -7px;
+      border-bottom-color: $white;
+      background-color: transparent;
+    }
+    .tooltip-inner {
+      color: $gray;
+      background: $white;
+      border: solid 1px #fff;
+      max-width: 250px;
+      padding: 2px 5px;
+      text-align: left;
+    }
+  }
+  .search-results {
+    height: 35px;
+  }
+  .label a{
+    text-decoration: none;
+    color:$white;
+  }
+  .results{
+    margin: 18px auto;
+    float: none;
+  }
+  .gru-resource-card{
+    display:inline-block;
+    margin: 10px;
+    text-align:left;
+  }
+  .no-results-found{
+    width:292px;
+    height:362px;
+    display: inline-block;
+    border-radius: 6px;
+    .panel-body{
+      height:inherit;
+      @include flexbox;
+      @include align-items(center);
+    }
+    .no-results-content{
+      margin: 0 auto;
+      vertical-align: middle;
+      > *{
+        display: block;
+      }
+      i{
+        font-size: 86px;
+        color:$gray-dark;
+        margin: 25px 0;
+      }
+      .title{
+        font-size: 18px;
+      }
+    }
+  }
+}

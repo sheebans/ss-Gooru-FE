@@ -2,14 +2,14 @@
   .gru-resource-options {
     $optionsHeightXS: 70px;
     $optionsHeightSM: 53px;
-
+    margin-left: -15px;
+    padding: 0;
     .options {
       display: block;
       height: $optionsHeightXS;
-      width: 100%;
       background-color: $light-100;
       margin-left: -15px;
-      width: 100vw;
+      width: inherit;
       box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.20);
       text-align: center;
       padding: 0 0 0 3%;

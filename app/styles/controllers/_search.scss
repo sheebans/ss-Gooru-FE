@@ -1,6 +1,6 @@
 .controller.search {
   display: block;
-
+  width: 100vw;
   div.content-navigation{
     background-color: $dark-400;
     height: 51px;
@@ -8,6 +8,9 @@
     width: 100vw;
     margin-left: -15px;
     display: table;
+    div.category-menu {
+      height: inherit;
+    }
     .standards {
       display: table-cell;
       float: none;
