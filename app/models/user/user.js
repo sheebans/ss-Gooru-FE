@@ -96,6 +96,14 @@ export default DS.Model.extend(UserValidations, {
    * @property {string} organization
    */
   organization: DS.attr("string"),
+  /**
+   * @property {string} school
+   */
+  school: DS.attr("string"),
+  /**
+   * @property {string} country
+   */
+  country: DS.attr("string"),
 
   // Values only used to read data from SignUp end-point
   /**

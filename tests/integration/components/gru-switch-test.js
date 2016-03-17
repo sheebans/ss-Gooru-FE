@@ -11,7 +11,7 @@ moduleForComponent('gru-switch', 'Integration | Component | gru switch', {
 });
 
 test('Switch Layout', function(assert) {
-  assert.expect(4);
+  assert.expect(2);
   const switchOptions = Ember.A([Ember.Object.create({
     'label': "Option A",
     'value': 'some-value'
@@ -27,26 +27,22 @@ test('Switch Layout', function(assert) {
   const $switch = $component.find(".gru-switch");
 
   T.exists(assert, $switch, 'Missing switch component');
-  T.exists(assert, $switch.find(".optionA"), 'Missing first option');
-  T.exists(assert, $switch.find(".optionB"), 'Missing second option');
   T.exists(assert, $switch.find(".switch"), 'Missing switch');
 
 });
 
 test('Switch', function(assert) {
-  assert.expect(6);
+  assert.expect(4);
 
   this.on('parentAction', function(option){
     var counter = 0;
     var $switch = $component.find(".gru-switch");
     if (counter === 0) {
-      assert.equal("Option B", option.label);
-      T.notExists(assert, $switch.find(".optionA.active"), 'Option A should be inactive');
-      T.exists(assert, $switch.find(".optionB.active"), 'Option B should be active');
-    } else {
       assert.equal("Option A", option.label);
-      T.notExists(assert, $switch.find(".optionB.active"), 'Option B should be inactive');
-      T.exists(assert, $switch.find(".optionA.active"), 'Option A should be active');
+      T.exists(assert, $switch.find(".off"), 'The toggle should be off');
+    } else {
+      assert.equal("Option B", option.label);
+      T.notExists(assert, $switch.find(".off"), 'The toggle should be on');
     }
     counter++;
   });
