@@ -40,7 +40,9 @@ export default DS.JSONAPISerializer.extend({
         attributes: {
           firstName: payload.user.firstName,
           lastName: payload.user.lastName,
-          avatarUrl: payload.user.profileImageUrl
+          avatarUrl: payload.user.profileImageUrl,
+          username: payload.user.username,
+          usernameDisplay: payload.user.usernameDisplay
         },
         relationships: {
           metadata: {
