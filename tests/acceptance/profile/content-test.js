@@ -34,3 +34,26 @@ test('Layout', function(assert) {
     T.exists(assert, $addToBtn, "Missing add to button group");
   });
 });
+
+test('Modal for creating a course', function (assert) {
+  visit('/profile/pochita/content/');
+  andThen(function () {
+
+    const $btnGroup = find(".controller.profile .content .content-navigation .btn-group");
+    const $modal = find(".gru-modal");
+
+    assert.ok(!$btnGroup.hasClass("open"), 'Button group not open');
+    assert.ok(!$modal.hasClass("in"), 'Modal not visible');
+
+    const $dropDown = $btnGroup.find("a.dropdown-toggle");
+    $dropDown.click();
+    assert.ok($btnGroup.hasClass("open"), 'Button group open');
+
+    const $courseBtn = $btnGroup.find(".dropdown-menu li:first-child a");
+    $courseBtn.click();
+    assert.ok($modal.hasClass("in"), 'Modal visible');
+
+    $modal.find(".actions button.cancel").click();
+    assert.ok(!$modal.hasClass("in"), 'Modal was hidden');
+  });
+});
