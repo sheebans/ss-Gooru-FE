@@ -21,14 +21,16 @@
 
   h2{
     font-size: $font-size-h4;
-    margin-bottom: 30px;
     padding-bottom: 25px;
-    border-bottom: 1px solid $gray-lighter;
+    margin-bottom: 0px;
   }
   h3{
     font-size: $font-size-large;
   }
-
+  div.header{
+    border-bottom: 1px solid $gray-light;
+    margin-bottom: 25px;
+  }
   @include flexbox();
 
   > article {
@@ -112,6 +114,107 @@
 
   #information {
     padding-top: $information-padding;
+    padding-bottom: $information-padding;;
+    .header{
+      h2{
+        display: inline-block;
+      }
+      .edit-buttons{
+        display: inline-block;
+        float: right;
+        margin: 20px 10px 0 0;
+      }
+    }
+    .edit-information-content{
+      > * {
+        margin: 0 10px;
+      }
+      .course-thumbnail{
+        display: inline-block;
+        float:left;
+        width: 191px;
+        height: 189px;
+        .upload-image{
+          background-color: $dark-300;
+          width: inherit;
+          height: inherit;
+          border-radius: 6px;
+          @include flexbox();
+          @include justify-content(center);
+          @include align-items(center);
+          i{
+            font-size: 62px;
+            color:$dark-400;
+          }
+        }
+        button{
+          position: relative;
+          top: -34px;
+          background-color:$dark-400;
+          width: 100%;
+          border-radius: 0 6px;
+        }
+      }
+      .panel{
+        float:left;
+        border-radius: 6px;
+        display: inline-block;
+        width: 34em;
+
+        @media(min-width: $screen-md-max){
+          width: 51em;
+        }
+        .panel-body{
+          .title-section{
+            > *{
+              margin: 8px 0;
+            }
+            input{
+              width: 50%;
+              outline: 0;
+            }
+            input,.title{
+              display: block;
+            }
+            .title{
+              font-size: $font-size-large;
+            }
+          }
+          .category{
+            > *{
+              margin: 12px 0;
+            }
+          }
+          .subject{
+            > *{
+              margin: 8px 0;
+            }
+            button{
+              display: block;
+            }
+            .subjects{
+              button{
+                display:inline-block;
+              }
+            }
+          }
+          .audience-section{
+            > *{
+              margin: 8px 0;
+            }
+            span.audience{
+              display: block;
+            }
+          }
+        }
+        .category,.subject{
+          .btn-empty{
+            border:1px solid $gray-light;
+            background-color: $white;
+          }
+        }
+      }
+    }
   }
 
   &.fixed-header {

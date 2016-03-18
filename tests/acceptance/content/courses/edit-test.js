@@ -47,7 +47,7 @@ test('Settings Layout', function (assert) {
     assert.equal(currentURL(), '/content/courses/edit/123');
 
     var $container = find(".controller.content.courses.edit");
-    assert.ok($container.find('#settings .title h2'), "Missing Settings Title");
+    assert.ok($container.find('#settings .header h2'), "Missing Settings Title");
     assert.ok($container.find('.panel h3'), "Missing Content Publishing Subtitle");
     assert.ok($container.find('.panel-body .setting-content:nth-child(0) .icon i.visibility'), "Missing Visibility Icon");
     assert.ok($container.find('.panel-body .setting-content:nth-child(0) .description.publish-to'), "Missing Publish to message");
