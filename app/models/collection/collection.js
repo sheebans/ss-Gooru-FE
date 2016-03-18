@@ -37,6 +37,10 @@ export default DS.Model.extend({
    */
   author: DS.attr('string'),
   /**
+   * @property {string} Collection's author id
+   */
+  authorId: DS.attr('string'),
+  /**
    * @property {Array} List of Collection's Remixed by
    */
   remixedBy: DS.attr(''),

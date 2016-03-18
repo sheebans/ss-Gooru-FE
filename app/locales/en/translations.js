@@ -6,6 +6,8 @@ export default {
   "common": {
     "about": "About",
     "about-you": "About You",
+    "add": "Add",
+    "add-course": "Add New Course",
     "add-to":"Add To",
     "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
@@ -21,6 +23,12 @@ export default {
     "biography": "Biography",
     "builder": "Builder",
     "cancel": "Cancel",
+    "category": "Category",
+    "categoryOptions": {
+      "k12": "K-12",
+      "higher-ed": "Higher Education",
+      "professional-dev": "Professional Development"
+    },
     "classScores": "Class Scores",
     "close": "Close",
     "collection":"Collection",
@@ -34,6 +42,7 @@ export default {
     "course-map": "Course Map",
     "country": "Country",
     "course":"Course",
+    "course-title": "Course Title",
     "courses": "Courses",
     "create": "Create",
     "district": "District",
@@ -50,6 +59,9 @@ export default {
       "emotion-3": "Meh...",
       "emotion-4": "I understand",
       "emotion-5": "I can explain"
+    },
+    "errors": {
+      "course-not-created": "Oops! Unable to create course right now. Please try again shortly."
     },
     "explanation": "Explanation",
     "first-name": "First Name",
@@ -154,7 +166,7 @@ export default {
     "unitInitial": "U",
     "verified": "Verified",
     "yes": "Yes",
-    warnings: {
+    "warnings": {
       "on-air-connection-lost": "The On Air feature has lost connection and is retrying automatically. While it's tempting, please don't refresh your screen!"
     },
     "no-content": "No content available"
