@@ -1,12 +1,10 @@
 import Ember from 'ember';
 
 /**
- * Resources search controller
- *
- * Controller responsible for filtering and searching resources
+ * Assessments Controller
  *
  * @module
- * @augments ember/Controller
+ * @augments ember/CollectionsController
  */
 export default Ember.Controller.extend({
 
@@ -21,24 +19,6 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-  actions: {
-    /**
-     * Action triggered to selectMenuOption
-     */
-    selectMenuOption: function (option) {
-      var selectedOptionTypes = this.get('selectedOptionTypes');
-
-      if(selectedOptionTypes.contains(option)){
-        selectedOptionTypes.removeObject(option);
-      }
-      else {
-        selectedOptionTypes.pushObject(option);
-      }
-
-      this.set('selectedOptionTypes', selectedOptionTypes);
-    }
-  },
-
   // -------------------------------------------------------------------------
   // Events
 
@@ -49,17 +29,10 @@ export default Ember.Controller.extend({
   // Properties
 
   /**
-   * Types of question selected
-   *  @property {array} selectedOptionTypes
-   *
+   * These are the collection search results
+   * @property {CollectionResults[]}
    */
-  selectedOptionTypes: Ember.A([]),
-
-  /**
-   * These are the resource search results
-   * @property {resourceResults[]}
-   */
-  resourceResults: null
+  collectionResults: null
 
   // -------------------------------------------------------------------------
   // Methods
