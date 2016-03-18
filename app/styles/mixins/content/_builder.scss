@@ -138,8 +138,11 @@
       .panel{
         border-radius: 6px;
         display: inline-block;
-        width: 74%;
+        width: 34em;
 
+        @media(min-width: $screen-md-max){
+          width: 51em;
+        }
         .panel-body{
           .title-section{
             > *{
