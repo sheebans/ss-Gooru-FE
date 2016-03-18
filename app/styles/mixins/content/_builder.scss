@@ -131,11 +131,32 @@
       }
       .course-thumbnail{
         display: inline-block;
+        float:left;
         width: 191px;
         height: 189px;
-        border-radius: 4%;
+        .upload-image{
+          background-color: $dark-300;
+          width: inherit;
+          height: inherit;
+          border-radius: 6px;
+          @include flexbox();
+          @include justify-content(center);
+          @include align-items(center);
+          i{
+            font-size: 62px;
+            color:$dark-400;
+          }
+        }
+        button{
+          position: relative;
+          top: -34px;
+          background-color:$dark-400;
+          width: 100%;
+          border-radius: 0 6px;
+        }
       }
       .panel{
+        float:left;
         border-radius: 6px;
         display: inline-block;
         width: 34em;

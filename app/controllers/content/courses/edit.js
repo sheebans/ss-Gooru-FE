@@ -16,15 +16,30 @@ export default Ember.Controller.extend(BuilderMixin, {
       this.set('wasRequestSent',true);
     },
     /*
-     * Edit Course
+     * Edit Content
      * */
-    editCourse:function(){
+    editContent:function(){
       this.set('isEdit',true);
     },
     /*
-     * Cancel Edit
+     * Cancel Edit Content
      * */
-    cancelEditCourse:function(){
+    cancelEditContent:function(){
+      this.set('isEdit',false);
+    },
+    /*
+     *Set Category
+     * */
+    setCategory:function(newCategory){
+      this.set('activeCategory',newCategory);
+    },
+    /*
+     *Save Content
+     * */
+    saveNewContent:function(){
+      var courseTitle= $("#course-name").val();
+      this.set('course.title',courseTitle);
+      this.set('course.category',this.get('activeCategory'));
       this.set('isEdit',false);
     },
   },
@@ -58,6 +73,13 @@ export default Ember.Controller.extend(BuilderMixin, {
    */
   isEdit:false,
   /**
+   * Indicate the active category
+   * @property {Boolean}
+   */
+  activeCategory: Ember.computed(function(){
+    return   this.get('course.category');
+  }),
+  /**
    * Toggle Options
    * @property {Ember.Array}
    */
@@ -75,12 +97,13 @@ export default Ember.Controller.extend(BuilderMixin, {
 
   selectedCategory: Ember.computed('course.category','categories',function(){
     var categoriesList = this.get('categories');
-    var selectedCategorie;
-    categoriesList.forEach(function(categorie){
-      if (categorie.value === this.get('couse.category')){
-        selectedCategorie=categorie.label;
+    var selectedCategoryValue=this.get('course.category');
+    var selectedCategory;
+    categoriesList.forEach(function(category){
+      if (category.value === selectedCategoryValue ){
+        selectedCategory=category.label;
       }
     });
-    return selectedCategorie;
+    return selectedCategory;
   }),
 });
