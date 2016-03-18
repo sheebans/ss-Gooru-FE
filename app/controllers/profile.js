@@ -1,10 +1,12 @@
 import Ember from 'ember';
+import SessionMixin from 'gooru-web/mixins/session';
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(SessionMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
-  session: Ember.inject.service("session"),
+
+  profileService: Ember.inject.service('api-sdk/profile'),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -44,11 +46,17 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+
   /**
    * Selected the menu item
    * @param {string} item
    */
   selectMenuItem: function(item){
     this.set("menuItem", item);
+  },
+
+  saveProfile(profile) {
+    this.get('profileService').updateProfile(profile);
   }
+
 });

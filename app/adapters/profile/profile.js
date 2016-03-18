@@ -29,6 +29,33 @@ export default Ember.Object.extend(SessionMixin, {
     return Ember.$.ajax(url, options);
   },
 
+  readMyProfile: function() {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/me`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  updateProfile: function(data) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/me`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify(data.body)
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')

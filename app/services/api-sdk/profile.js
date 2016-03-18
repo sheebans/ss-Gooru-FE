@@ -29,6 +29,36 @@ export default Ember.Service.extend(StoreMixin, SessionMixin, {
     });
   },
 
+  readMyProfile: function() {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readMyProfile()
+        .then(function(response) {
+          resolve(service.get('profileSerializer').normalizeReadProfile(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
+  updateProfile: function(profile) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      let serializedProfile = service.get('profileSerializer').serializeUpdateProfile(profile);
+      service.get('profileAdapter').updateProfile({
+        body: serializedProfile
+      }).then(function() {
+        resolve();
+      }, function(error) {
+        reject(error);
+      });
+    });
+  },
+
+
+  //
+  // TODO The following functions must be deleted once API 3.0 integration is done
+  //
   findByCurrentUser: function() {
     if (!this.get('session.isAnonymous')) {
       var currentProfileId = this.get('session.userId');

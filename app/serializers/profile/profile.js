@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ProfileModel from 'gooru-web/models/profile/profile';
 
 /**
  * Serializer to support the Profile CRUD operations in the API 3.0
@@ -26,11 +27,43 @@ export default Ember.Object.extend({
     };
   },
 
+  serializeUpdateProfile: function(profile) {
+    return {
+      firstname: profile.get('firstName'),
+      lastname: profile.get('lastName'),
+      'user_category': profile.get('role'),
+      grade: profile.get('grades'),
+      country: profile.get('country'),
+      state: profile.get('state'),
+      school: profile.get('school'),
+      'school_district': profile.get('schoolDistrict'),
+      'about_me': profile.get('aboutMe')
+    };
+  },
+
   // TODO This method will be implemented later
   normalizeCreateProfile: function(payload) {
     // This is a temporal response implementation
     return { payload: payload};
+  },
+
+  normalizeReadProfile: function(payload) {
+    return ProfileModel.create({
+      id: payload.id,
+      firstName: payload.firstname,
+      lastName: payload.lastname,
+      username: payload.username,
+      email: payload['email_id'],
+      grades: payload.grade,
+      dateOfBirth: payload['birth_date'],
+      role: payload['user_category'],
+      lastUpdate: payload['updated_at'],
+      country: payload.country,
+      state: payload.state,
+      school: payload.school,
+      schoolDistrict: payload['school_district'],
+      aboutMe: payload['about_me']
+    });
   }
 
 });
-
