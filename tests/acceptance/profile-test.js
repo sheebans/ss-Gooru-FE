@@ -88,3 +88,33 @@ test('menu option selection updates when navigating between sections', function 
     });
   });
 });
+
+test('follow button appears by default', function(assert) {
+  visit('/profile/param-123/about');
+  andThen(function() {
+    assert.equal(currentURL(), '/profile/param-123/about');
+    andThen(function () {
+      var $actions = find('.controller.profile .profile-info .actions');
+      assert.ok($actions.find('.btn.follow').length, 'Follow button is missing');
+    });
+  });
+});
+
+test('follow button changes to unfollow when clicked and backwards', function(assert) {
+  visit('/profile/param-123/about');
+  andThen(function() {
+    assert.equal(currentURL(), '/profile/param-123/about');
+    andThen(function () {
+      var $actions = find('.controller.profile .profile-info .actions');
+      var $button = $actions.find('.btn');
+      click($button);
+      andThen(function () {
+        assert.ok($button.hasClass('unfollow'), 'Follow button didn\'t changed to unfollow');
+        click($button);
+        andThen(function () {
+          assert.ok($button.hasClass('follow'), 'Unfollow button didn\'t changed to follow');
+        });
+      });
+    });
+  });
+});
