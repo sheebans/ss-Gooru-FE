@@ -16,6 +16,7 @@ export default {
     "assessments": "Assessments",
     "assessmentInitial": "A",
     "attempt": "Attempt number",
+    "audience":"Audience",
     "of": "of",
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
@@ -94,6 +95,7 @@ export default {
     "menu": "Menu",
     "no": "No",
     "notStarted": "Not started",
+    "not-specified":"Not specified",
     "no-results":"No Results Found",
     "no-results-message":"Check your spelling. We all make mistakes!<br/>Go broader & remove some filters.<br/>Try searching for a similar word instead.",
     "number":"No.",
@@ -234,11 +236,7 @@ export default {
   "content.courses.edit": {
     "assign-to-class": "Assign to Class",
     "information":{
-      "course-title":"Course Title",
-      "category":"Category",
-      "audience":"Audience",
-      "add":"+ Add",
-      "not-specified":"Not specified"
+      "course-title":"Course Title"
     }
   },
 

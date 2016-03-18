@@ -28,7 +28,7 @@
     font-size: $font-size-large;
   }
   div.header{
-    border-bottom: 1px solid $gray-lighter;
+    border-bottom: 1px solid $gray-light;
     margin-bottom: 25px;
   }
   @include flexbox();
