@@ -18,12 +18,34 @@ export default DS.Model.extend({
   aboutMe: DS.attr('string'),
 
   /**
+   * @property {Object} followersList - List of all the id's of followers that the user has
+   */
+  followersList: DS.attr(),
+
+  /**
+   * @property {Object} followersDetails - Details of all the followers that the user has
+   */
+  followersDetails: DS.attr(),
+
+  /**
    * @property {Number} followers - Number of followers that the user has
+   * TODO: Change this to a computed property that reads the length of followers in followersDetails
    */
   followers: DS.attr('number'),
 
   /**
+   * @property {Object} followingsList - List of all the id's of followings that the user has
+   */
+  followingsList: DS.attr(),
+
+  /**
+   * @property {Object} followingsDetails - Details of all the followings that the user has
+   */
+  followingsDetails: DS.attr(),
+
+  /**
    * @property {Number} followings - Number of people that the user is following
+   * TODO: Change this to a computed property that reads the length of followings in followersDetails
    */
   followings: DS.attr('number'),
 

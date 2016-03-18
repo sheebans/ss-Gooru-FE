@@ -14,7 +14,16 @@ export default DS.JSONAPISerializer.extend({
           profileId: payload.profileId,
           aboutMe: payload.aboutMe,
           followers: 736,
-          followings: 566
+          followersList: [
+            'ff90e7e2-7788-48fb-9ce2-7b6d7a828840',
+            'df956d5f-b7b2-43ae-98a1-c90a12eacaf9'
+          ],
+          followersDetails: [],
+          followings: 566,
+          followingsList: [
+            'df956d5f-b7b2-43ae-98a1-c90a12eacaf9'
+          ],
+          followingsDetails: []
         },
         relationships: {
           user: {

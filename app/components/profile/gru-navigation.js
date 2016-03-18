@@ -42,6 +42,16 @@ export default Ember.Component.extend({
       if (this.get("onItemSelected")) {
         this.sendAction("onItemSelected", item);
       }
+    },
+
+    /**
+     * 
+     * Triggered when the user clicks follow/unfollow button
+     */
+    toggleFollowingStatus: function() {
+      if (this.get("onFollowChanged")) {
+        this.sendAction("onFollowChanged");
+      }
     }
 
   },
