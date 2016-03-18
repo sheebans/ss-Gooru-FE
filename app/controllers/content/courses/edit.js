@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import BuilderMixin from 'gooru-web/mixins/content/builder';
+import { COURSE_CATEGORIES } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend(BuilderMixin, {
   // -------------------------------------------------------------------------
@@ -38,16 +39,7 @@ export default Ember.Controller.extend(BuilderMixin, {
    */
   course: Ember.Object.create({
     'title': "Course Title",
-    'categories':Ember.A([Ember.Object.create({
-      'name': "K-12",
-      'isActive': true
-    }),Ember.Object.create({
-      'name': "Higher Education",
-      'isActive': false
-    }),Ember.Object.create({
-      'name': "Professional Development",
-      'isActive': false
-    })])
+    'category':1
   }),
   /**
    * Indicate if a request to be publish is approved
@@ -76,4 +68,19 @@ export default Ember.Controller.extend(BuilderMixin, {
     'label': "Off",
     'value': false
   })]),
+  /**
+   * @type {Ember.A} categories - List of course categories
+   */
+  categories: COURSE_CATEGORIES,
+
+  selectedCategory: Ember.computed('course.category','categories',function(){
+    var categoriesList = this.get('categories');
+    var selectedCategorie;
+    categoriesList.forEach(function(categorie){
+      if (categorie.value === this.get('couse.category')){
+        selectedCategorie=categorie.label;
+      }
+    });
+    return selectedCategorie;
+  }),
 });

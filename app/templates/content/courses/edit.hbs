@@ -45,18 +45,14 @@
                       {{#if isEdit}}
                         <div class="category-dropdown">
                             <div class="btn-group">
-                              {{#each course.categories as |category|}}
-                                  <button type="button" class="btn btn-sm {{if category.isActive 'btn-primary' 'btn-info'}}">{{category.name}}</button>
+                              {{#each categories as |category|}}
+                                  <button type="button" class="btn btn-sm {{set-if-equal 'btn-primary' 'btn-info' category.value course.category}}">{{t category.label}}</button>
                               {{/each}}
                             </div>
                         </div>
                         {{else}}
                         <div>
-                          {{#each course.categories as |category|}}
-                            {{#if category.isActive}}
-                                <button type="button" class="btn-empty btn btn-sm">{{category.name}}</button>
-                            {{/if}}
-                          {{/each}}
+                            <button type="button" class="btn-empty btn btn-sm">{{t selectedCategory}}</button>
                         </div>
                       {{/if}}
                     </div>
