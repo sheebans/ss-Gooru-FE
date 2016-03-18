@@ -67,7 +67,7 @@ export default Ember.Component.extend(ModalMixin, {
    */
   credentials: Ember.Object.create({
     username: null,
-    password: null
+    password: ''
   }),
 
   /**
