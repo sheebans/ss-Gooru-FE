@@ -2,6 +2,7 @@
   > a {
     display: block;
     text-align: center;
+    white-space: nowrap;
     > strong {
       color: $text-color;
       display: block;
@@ -12,6 +13,7 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      width: 100%;
     }
     .img-wrapper {
       display: inline-block;
@@ -67,6 +69,7 @@
       height: 100%;
       position: absolute;
       left: 0;
+      max-width: 35%;
       > strong {
         display: inline-block;
         vertical-align: middle;
@@ -93,9 +96,9 @@
   @media (max-width: $screen-xs-max) {
     margin: 0 20px;
     > a {
+      max-width: 55%;
       left: 50%;
       @include translate(-50%, 0);
-      white-space: nowrap;
       > strong {
         padding: 0 1rem;
       }

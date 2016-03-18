@@ -11,6 +11,12 @@ export const DEFAULT_IMAGES = {
   QUESTION_PLACEHOLDER_IMAGE: '/assets/gooru/question-placeholder-image.png'
 };
 
+export const COURSE_CATEGORIES = [
+  {value: 1, label: 'common.categoryOptions.k12'},
+  {value: 2, label: 'common.categoryOptions.higher-ed'},
+  {value: 3, label: 'common.categoryOptions.professional-dev'}
+];
+
 export const CONTENT_TYPES = {
   COLLECTION: 'collection',
   ASSESSMENT: 'assessment'

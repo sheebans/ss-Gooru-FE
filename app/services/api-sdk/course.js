@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import DS from 'ember-data';
 import StoreMixin from '../../mixins/store';
 
 /**
@@ -13,6 +14,20 @@ export default Ember.Service.extend(StoreMixin, {
    */
   findById: function(id) {
     return this.get('store').findRecord('course/course', id);
+  },
+
+  /**
+   * TODO: Creates a new course model
+   * @returns {Course}
+   */
+  create: function (course) {
+    // Add a fictitious id to the course
+    course.set('id', 456);
+
+    // Simulate async data returned by the service
+    return DS.PromiseObject.create({
+      promise: new Ember.RSVP.resolve(course)
+    });
   }
 
 });
