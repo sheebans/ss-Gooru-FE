@@ -45,6 +45,7 @@ function normalizeCollections(searchResults, relationshipItems, collectionModel)
         imageUrl: (result.thumbnails ? result.thumbnails.url : ''),
         url: '',
         author: result.creatornameDisplay,
+        authorId: result.creatorId,
         avatarUrl: 'http://profile-images.goorulearning.org.s3.amazonaws.com/' + result.creatorId + '.png',
         profilePageUrl: 'http://www.goorulearning.org/#profilepage&id=' + result.creatorId + '&user=' + result.creatornameDisplay,
         description: result.description,

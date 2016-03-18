@@ -21,24 +21,27 @@
     <div class="panel-body">
         <div class="collection-details">
           {{#if collection.standards }}
-              <div class="standards">
+            <div class="standards">
                 {{collection-results-standards collection=collection standards=collection.standards}}
             </div>
           {{/if}}
             <div class="{{if collection.isAssessment 'author' 'remixed-by'}}">
               {{#if collection.isAssessment}}
-                  <span>{{t "cards.gru-course-card.created"}}</span>
+                {{#link-to 'profile.about' collection.authorId tagName="div"}}
+                  <span class="title">{{t "cards.gru-course-card.created"}}</span>
                   <img class="img-responsive" src="{{if collection.avatarUrl collection.avatarUrl "assets/gooru/profile.png"}}">
-                  <a href="{{ collection.profilePageUrl }}" target="_blank">{{collection.author}}</a>
+                  <span>{{collection.author}}</span>
+                {{/link-to}}
               {{else}}
                 {{#if collection.remixedBy}}
-                  <span>{{t "cards.gru-course-card.remixed-by"}}</span>
-                  <img class="img-responsive" src="{{if remixedByUser.avatarUrl remixedByUser.avatarUrl "assets/gooru/profile.png"}}">
-                  <a>{{remixedByUser.firstName}}</a> {{#if remixedUsers}}+{{remixedUsers}}{{/if}}
+                  {{!-- TODO: Make sure that the controller pass remixedByUser with id --}}
+                  {{#link-to 'profile.about' remixedByUser.id tagName="div"}}
+                    <span class="title">{{t "cards.gru-course-card.remixed-by"}}</span>
+                    <img class="img-responsive" src="{{if remixedByUser.avatarUrl remixedByUser.avatarUrl "assets/gooru/profile.png"}}">
+                    <span>{{remixedByUser.firstName}}</span> {{#if remixedUsers}}+{{remixedUsers}}{{/if}}
+                  {{/link-to}}
                 {{/if}}
               {{/if}}
-                <div>
-                </div>
             </div>
             <div class="description">
                 <p class="truncate">{{ collection.description }}</p>

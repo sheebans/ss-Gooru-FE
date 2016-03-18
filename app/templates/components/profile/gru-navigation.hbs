@@ -34,7 +34,9 @@
     {{#if isMyProfile}}
       {{#link-to 'profile.edit' tagName="button" class="edit btn btn-default btn-lg"}}{{t "common.edit"}}{{/link-to}}
     {{else}}
-      <button class="follow btn btn-default btn-lg">{{t "common.follow"}}</button>
+      <button class="btn btn-default btn-lg {{if isFollowed 'unfollow' 'follow'}}" {{action 'toggleFollowingStatus'}}>
+        {{if isFollowed (t "common.unfollow") (t "common.follow")}}
+      </button>
     {{/if}}
   </div>
 </div>
