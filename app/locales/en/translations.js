@@ -9,6 +9,7 @@ export default {
     "add-to":"Add To",
     "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
+    "approved":"Approved",
     "assessment":"Assessment",
     "assessments": "Assessments",
     "assessmentInitial": "A",
@@ -26,6 +27,7 @@ export default {
     "collections": "Collections",
     "collectionInitial": "C",
     "completed": "Completed",
+    "content-publishing":"Content Publishing",
     "contentUnavailable": "Content not available",
     "correct": "Correct",
     "correct-answer":"Correct Answer",
@@ -87,8 +89,11 @@ export default {
       one: "{{count}} Student",
       other: "{{count}} Students"
     },
+    "other": "Other",
     "performance":"Show Performance",
     "please_contact": "Please contact",
+    "pending":"Pending",
+    "publish-to":" Publish to my profile",
     "preview": "Preview",
     "question":"Question",
     "questions": "Questions",
@@ -105,6 +110,7 @@ export default {
       "HT_HL"  : "Hot Text Highlight"
     },
     "reaction": "Reaction",
+    "request-to":"Request to be searchable and featured in Gooru",
     "resource":"Resource",
     "resources": "Resources",
     "resource-format":{
@@ -118,12 +124,17 @@ export default {
     "remaining": "{{number}} Left",
     "remix":"Remix",
     "role": "Role",
+    "save": "Save",
+    "save-next": "Save and Next",
+    "save-submit": "Save and Submit All",
+    "save-finish": "Save and Finish",
+    "settings":"Settings",
     "school": "School",
     "school-info": "School Information",
     "score":"Score",
     "search": "Search",
     "search-placeholder": "Search...",
-    "settings": "Settings",
+    "send-request":"Send Request",
     "show-correct-answer":"Show Correct Answer",
     "show-results":"Show Results",
     "signUp": "Sign Up",
@@ -133,10 +144,9 @@ export default {
     "standards": "Standards",
     "submit": "Submit",
     "submit-all":"Submit all",
-    "save-next": "Save and Next",
-    "save-submit": "Save and Submit All",
-    "save-finish": "Save and Finish",
+    "student": "Student",
     "suggested-resources":"Suggested Resources",
+    "teacher": "Teacher",
     "timeSpent": "Time Spent",
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
     "unfollow": "Unfollow",
@@ -579,5 +589,8 @@ export default {
   },
   "gru-emotion-picker": {
     "react-to-resource": "React to this resource"
+  },
+  "validations": {
+    "unsavedChanges": "Your changes haven't saved yet. Would you like to leave this page?"
   }
 };

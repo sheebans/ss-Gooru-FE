@@ -68,6 +68,7 @@ Router.map(function() {
 
   this.route('profile', { path: '/profile/:userId' }, function() {
     this.route('about');
+    this.route('edit');
     this.route('activity');
     this.route('analytics');
 
