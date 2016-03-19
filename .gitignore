@@ -23,6 +23,7 @@ testem.log
 .vagrant
 access.log
 error.log
+*.sublime-*
 
 #tests
 report-xunit.xml
