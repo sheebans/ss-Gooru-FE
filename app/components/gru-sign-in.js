@@ -27,7 +27,7 @@ export default Ember.Component.extend(ModalMixin, {
       var component = this;
 
       component.get("sessionService")
-        .signInWithUser(component.get("credentials"))
+        .signInWithUser(component.get("credentials"), component.get('useApi3'))
         .then(function() {
           // Close the modal
           component.triggerAction({
@@ -67,7 +67,7 @@ export default Ember.Component.extend(ModalMixin, {
    */
   credentials: Ember.Object.create({
     username: null,
-    password: null
+    password: ''
   }),
 
   /**
@@ -77,7 +77,9 @@ export default Ember.Component.extend(ModalMixin, {
    * @type {Ember.Component}
    * @private
    */
-  target: null
+  target: null,
+
+  useApi3: true
 
 
 });

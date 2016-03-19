@@ -9,6 +9,12 @@ export function initialize(application) {
      */
     token: Ember.computed.alias('data.authenticated.token'),
 
+    // TODO This property should be removed once API 2.0 is not needed anymore
+    /**
+     * @property {string} Session Token coming from API 3.0
+     */
+    'token-api3': Ember.computed.alias('data.authenticated.token-api3'),
+
     /**
      * @property {string} Session user data
      */
@@ -33,7 +39,7 @@ export function initialize(application) {
      * @returns {*|Ember.RSVP.Promise}
      */
     authenticateAsAnonymous: function() {
-      return this.authenticate('authenticator:custom', {anonymous: true});
+      return this.authenticate('authenticator:auth-api-3', { isAnonymous: true });
     }
   });
 }
