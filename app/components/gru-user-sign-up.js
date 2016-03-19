@@ -43,8 +43,7 @@ export default Ember.Component.extend(ModalMixin, {
       component.get('profileService').createProfile(userModel)
         .then(function() {
           component.triggerAction({ action: 'closeModal' });
-          })
-        .then(function() {
+          }, function() {
             Ember.Logger.error('Error signing up user');
           });
 

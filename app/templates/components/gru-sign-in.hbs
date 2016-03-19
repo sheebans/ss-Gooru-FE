@@ -49,6 +49,14 @@
                   <span class="text text-danger">{{errorMessage}}</span>
                 </div>
               {{/if}}
+              <!-- TODO: Remove this temporal checkbox once it is not required -->
+              <div class="form-group">
+                <span class="text">Use API 3.0?</span>
+                {{input
+                  id="use_api_3"
+                  type="checkbox"
+                  checked=useApi3}}
+              </div>
             </form>
           </div>
         </div>
