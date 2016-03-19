@@ -6,7 +6,32 @@ import Ember from 'ember';
  * @mixin
  */
 export default Ember.Mixin.create({
+  actions:{
 
+    /*
+     * Edit Content
+     * */
+    editContent:function(){
+      this.set('isEditing',true);
+    },
+    /*
+     * Cancel Edit Content
+     * */
+    cancelEditContent:function(){
+      this.set('isEditing',false);
+    },
+    /*
+     *Save Content
+     * */
+    saveNewContent:function(){
+      var courseTitle= $("#course-name").val();
+      this.set('course.title',courseTitle);
+      this.set('course.category',this.get('activeCategory'));
+      this.set('isEditing',false);
+    }
+  },
+  // -------------------------------------------------------------------------
+  // Events
   UISetup: Ember.on('init', function () {
     this._super(...arguments);
 
@@ -39,6 +64,14 @@ export default Ember.Mixin.create({
       });
 
     });
-  })
+  }),
+
+  // -------------------------------------------------------------------------
+  // Properties
+  /**
+   * Indicate if a course information is in edit mode
+   * @property {Boolean}
+   */
+  isEditing:false,
 
 });
