@@ -29,23 +29,37 @@ export default Ember.Service.extend(StoreMixin, SessionMixin, {
     });
   },
 
+  /**
+   * Gets the current user Profile information
+   *
+   * @returns {Promise}
+   */
   readMyProfile: function() {
+    console.log('Calling readMyProfile()...');
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('profileAdapter').readMyProfile()
         .then(function(response) {
+          console.log('Adapter response', response);
           resolve(service.get('profileSerializer').normalizeReadProfile(response));
         }, function(error) {
+          console.log('Error: ', error);
           reject(error);
         });
     });
   },
 
-  updateProfile: function(profile) {
+  /**
+   * Updates the current user Profile information
+   *
+   * @param profile
+   * @returns {Ember.RSVP.Promise}
+   */
+  updateMyProfile: function(profile) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       let serializedProfile = service.get('profileSerializer').serializeUpdateProfile(profile);
-      service.get('profileAdapter').updateProfile({
+      service.get('profileAdapter').updateMyProfile({
         body: serializedProfile
       }).then(function() {
         resolve();

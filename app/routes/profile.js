@@ -24,10 +24,10 @@ export default Ember.Route.extend({
     let profile = null;
     let userId = params.userId;
 
+    console.log('Calling model()...', userId);
     if (userId) {
       if (userId === 'me') {
         profile = this.get('profileService').readMyProfile();
-        console.log(profile);
       } else {
         profile = this.get('profileService').findById(params.userId);
       }
@@ -44,6 +44,7 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
+    console.log('Profile', model.profile);
     controller.set('profile', model.profile);
   },
 

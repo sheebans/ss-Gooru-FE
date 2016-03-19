@@ -56,7 +56,7 @@ export default Ember.Controller.extend(SessionMixin, {
   },
 
   saveProfile(profile) {
-    this.get('profileService').updateProfile(profile);
+    this.get('profileService').updateMyProfile(profile);
   }
 
 });
