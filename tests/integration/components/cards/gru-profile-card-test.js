@@ -19,7 +19,9 @@ test('it renders', function (assert) {
     promise: new Ember.RSVP.resolve(
       Ember.Object.create({
         avatarUrl: "/assets/gooru/profile.png",
-        fullNameInformal: "John Doe"
+        fullNameInformal: "John Doe",
+        username: "JohnDoe",
+        usernameDisplay: "JohnDoe"
       })
     )
   });
@@ -48,7 +50,7 @@ test('it renders', function (assert) {
     assert.equal($image.attr('src'), '/assets/gooru/profile.png');
 
     const $name = $component.find('> a > strong');
-    assert.equal($name.text(), 'John Doe');
+    assert.equal($name.text(), 'JohnDoe');
   });
 });
 
@@ -60,7 +62,9 @@ test('it triggers an action when the name or the image of the user is selected',
       Ember.Object.create({
         id: 111,
         avatarUrl: "/assets/gooru/profile.png",
-        fullNameInformal: "John Doe"
+        fullNameInformal: "John Doe",
+        username: "JohnDoe",
+        usernameDisplay: "JohnDoe"
       })
     )
   });

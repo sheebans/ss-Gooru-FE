@@ -31,7 +31,6 @@
         }
         li {
           display: table;
-          vertical-align: middle;
           margin: 0 0.7em;
           .btn-option {
             color: $green-300;
@@ -40,7 +39,7 @@
             border-bottom: $light-100 3px solid;
             height: $optionsHeightXS;
             background-color: $light-100;
-            display: table-row;
+            display: table-cell;
             span {
               vertical-align: middle;
               display: inline-block;

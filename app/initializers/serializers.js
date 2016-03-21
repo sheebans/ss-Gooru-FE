@@ -3,8 +3,6 @@ import EventsSerializer from 'gooru-web/serializers/events/events';
 import RealTimeSerializer from 'gooru-web/serializers/real-time/real-time';
 import StudentCollectionPerformanceSerializer from 'gooru-web/serializers/performance/student-collection-performance';
 import UserSessionSerializer from 'gooru-web/serializers/user-session';
-import AuthenticationSerializer from 'gooru-web/serializers/authentication/authentication';
-import ProfileSerializer from 'gooru-web/serializers/profile/profile';
 
 export default {
   name: 'serializers',
@@ -14,8 +12,6 @@ export default {
     application.register('serializer:real-time', RealTimeSerializer, { singleton: false } );
     application.register('serializer:student-collection-performance', StudentCollectionPerformanceSerializer, { singleton: false } );
     application.register('serializer:user-session', UserSessionSerializer, { singleton: false } );
-    application.register('serializer:authentication/authentication', AuthenticationSerializer, { singleton: false } );
-    application.register('serializer:profile/profile', ProfileSerializer, { singleton: false } );
 
     application.inject('service:api-sdk/analytics', 'analyticsSerializer', 'serializer:analytics');
     application.inject('service:api-sdk/performance', 'studentCollectionPerformanceSerializer', 'serializer:student-collection-performance');
@@ -23,7 +19,5 @@ export default {
     application.inject('service:api-sdk/events', 'eventsSerializer', 'serializer:events');
     application.inject('service:api-sdk/user-session', 'userSessionSerializer', 'serializer:user-session');
     application.inject('controller:reports/collection', 'realTimeSerializer', 'serializer:real-time');
-    application.inject('service:api-sdk/authentication', 'authenticationSerializer', 'serializer:authentication/authentication');
-    application.inject('service:api-sdk/profile', 'profileSerializer', 'serializer:profile/profile');
   }
 };

@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import AuthenticationSerializer from 'gooru-web/serializers/authentication/authentication';
+import AuthenticationAdapter from 'gooru-web/adapters/authentication/authentication';
 
 /**
  * Service for the Authentication (Login) with API 3.0
@@ -6,6 +8,17 @@ import Ember from 'ember';
  * @typedef {Object} AuthenticationService
  */
 export default Ember.Service.extend({
+
+  authenticationSerializer: null,
+
+  authenticationAdapter: null,
+
+
+  init: function () {
+    this._super(...arguments);
+    this.set('authenticationSerializer', AuthenticationSerializer.create());
+    this.set('authenticationAdapter', AuthenticationAdapter.create(Ember.getOwner(this).ownerInjection()));
+  },
 
   /**
    * Authenticates as an anonymous account

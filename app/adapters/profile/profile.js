@@ -1,12 +1,13 @@
 import Ember from 'ember';
-import SessionMixin from 'gooru-web/mixins/session';
 
 /**
  * Adapter to support the Profile CRUD operations in the API 3.0
  *
  * @typedef {Object} ProfileAdapter
  */
-export default Ember.Object.extend(SessionMixin, {
+export default Ember.Object.extend({
+
+  session: Ember.inject.service('session'),
 
   namespace: '/api/nucleus-auth/v1/users',
 

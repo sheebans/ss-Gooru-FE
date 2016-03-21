@@ -10,6 +10,16 @@ export default Ember.Controller.extend(SessionMixin, {
 
   // -------------------------------------------------------------------------
   // Actions
+  actions: {
+    toggleFollowingStatus() {
+      this.set('isFollowed', !this.get('isFollowed'));
+      if (this.get('isFollowed')) {
+        // TODO: Make request that follows the user
+      } else {
+        // TODO: Make request that unfollows the user
+      }
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Events
@@ -38,6 +48,20 @@ export default Ember.Controller.extend(SessionMixin, {
    * @property {String}
    */
   menuItem: null,
+
+  /**
+   * Indicates if the user is being followed
+   * @property {Boolean} isFollowed
+   */
+  isFollowed: Ember.computed('profile', function() {
+    let myId = this.get("session.userId");
+    let followers = this.get("profile.followersList");
+    if (myId && followers) {
+      return followers.indexOf(myId) >= 0;
+    } else {
+      return false;
+    }
+  }),
 
 
   // -------------------------------------------------------------------------
