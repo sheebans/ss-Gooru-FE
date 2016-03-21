@@ -2,7 +2,7 @@ import Ember from 'ember';
 import ProfileModel from 'gooru-web/models/profile/profile';
 
 /**
- * Serializer to support the Profile CRUD operations in the API 3.0
+ * Serializer to support the Profile CRUD operations for API 3.0
  *
  * @typedef {Object} ProfileSerializer
  */

@@ -50,15 +50,12 @@ export default Ember.Service.extend({
    * @returns {Promise}
    */
   readMyProfile: function() {
-    console.log('Calling readMyProfile()...');
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('profileAdapter').readMyProfile()
         .then(function(response) {
-          console.log('Adapter response', response);
           resolve(service.get('profileSerializer').normalizeReadProfile(response));
         }, function(error) {
-          console.log('Error: ', error);
           reject(error);
         });
     });

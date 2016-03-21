@@ -46,7 +46,6 @@ export default Ember.Object.extend({
       headers: adapter.defineHeaders()
     };
 
-    console.log('Calling readMyProfile Adapter', options, url);
     return Ember.$.ajax(url, options);
   },
 

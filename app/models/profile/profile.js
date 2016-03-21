@@ -75,6 +75,23 @@ export default Ember.Object.extend({
   /**
    * @property {string} aboutMe - The profile biography
    */
-  aboutMe: null
+  aboutMe: null,
+
+  /**
+   * @property {string} avatarUrl - The avatar image url
+   */
+  avatarUrl: null,
+
+  /**
+   * @property {string} displayName - The firstName and lastName
+   */
+  displayName: Ember.computed('firstName', 'lastName', function () {
+    return this.get('firstName') + ' ' + this.get('lastName');
+  }),
+
+  /**
+   * @property {object} network - The network information object
+   */
+  network: null
 
 });

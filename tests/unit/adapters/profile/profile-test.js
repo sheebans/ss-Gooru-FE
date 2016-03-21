@@ -1,16 +1,9 @@
 import Ember from 'ember';
-import { moduleFor, test } from 'ember-qunit';
-import Pretender from 'pretender';
+import { test } from 'ember-qunit';
+import moduleForAdapter from 'gooru-web/tests/helpers/module-for-adapter';
 
-moduleFor('adapter:profile/profile', 'Unit | Adapter | profile/profile', {
-  // Specify the other units that are required for this test.
-  // needs: ['serializer:foo']
-  beforeEach: function() {
-    this.pretender = new Pretender();
-  },
-  afterEach: function() {
-    this.pretender.shutdown();
-  }
+moduleForAdapter('adapter:profile/profile', 'Unit | Adapter | profile/profile', {
+  // needs: []
 });
 
 test('createProfile', function(assert) {
