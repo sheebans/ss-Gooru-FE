@@ -35,6 +35,14 @@ test('Layout', function(assert) {
   });
 });
 
+test('\'Add\' button not present in others profile', function(assert) {
+  visit('/profile/param-123/content');
+  andThen(function() {
+    const $btnGroup = find(".controller.profile .content .content-navigation .btn-group");
+    assert.notOk($btnGroup.length, '\'Add\' button present on other\'s profile');
+  });
+});
+
 test('Modal for creating a course', function (assert) {
   visit('/profile/pochita/content/');
   andThen(function () {
