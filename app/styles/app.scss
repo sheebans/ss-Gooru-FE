@@ -21,6 +21,7 @@
 @import 'controllers/index';
 @import 'controllers/partials/player';
 @import 'controllers/profile';
+@import 'controllers/profile/content';
 @import 'controllers/profile/about';
 @import 'controllers/profile/edit';
 @import 'controllers/reports/collection';
@@ -81,6 +82,8 @@
 @import 'components/class/analytics/performance/teacher/gru-metrics-table';
 @import 'components/class/analytics/performance/teacher/gru-metrics-sub-header';
 
+@import 'components/content/gru-audience';
+@import 'components/content/gru-category';
 @import 'components/content/modals';
 
 @import 'components/player/gru-navigation';

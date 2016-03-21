@@ -16,6 +16,24 @@
       "body": "File not found!",
       "file": "sign-up-ok-response.json"
     }
+  },
+  {
+    "description": "API 3.0 Endpoint to support account creation",
+    "request": {
+      "url": "^/api/nucleus-auth/v1/users$",
+      "method": "POST",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "sign-up-api3-200-response.json"
+    }
   }
 ]
 
