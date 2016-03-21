@@ -20,7 +20,7 @@ export default Ember.Component.extend({
      * */
     setCategory:function(newCategory){
       this.set('activeCategory',newCategory);
-      this.sendAction("onChangeCategory",this.get('activeCategory'));
+      this.sendAction("onChangeCategory",newCategory);
     }
   },
 
@@ -37,16 +37,24 @@ export default Ember.Component.extend({
   categories: COURSE_CATEGORIES,
 
   /**
-   * @type Number} courseCategory
+   * @type {Number} courseCategory
    */
   courseCategory: null,
   /**
    * Indicate the active category
-   * @property {Boolean}
+   * @property {Category}
    */
-  activeCategory: Ember.computed(function(){
-    return   this.get('courseCategory');
-  }),
+  activeCategory: Ember.computed('courseCategory','categories',function(){
+    var categoriesList = this.get('categories');
+    var selectedCategoryValue=this.get('courseCategory');
+    var selectedCategory;
+    categoriesList.forEach(function(category){
+      if (category.value === selectedCategoryValue ){
+      selectedCategory=category;
+      }
+      });
+    return selectedCategory;
+    }),
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -54,20 +62,6 @@ export default Ember.Component.extend({
    * @property {Boolean}
    */
   isEditing:null,
-  /**
-   * Selected Category
-   */
-  selectedCategory: Ember.computed('courseCategory','categories',function(){
-    var categoriesList = this.get('categories');
-    var selectedCategoryValue=this.get('courseCategory');
-    var selectedCategory;
-    categoriesList.forEach(function(category){
-      if (category.value === selectedCategoryValue ){
-        selectedCategory=category.label;
-      }
-    });
-    return selectedCategory;
-  }),
   /**
    * @property {String|Function} onChangeCategory - event handler for when the selected category is changed
    */

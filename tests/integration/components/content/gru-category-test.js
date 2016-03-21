@@ -30,7 +30,7 @@ test('Category Edit Layout', function(assert) {
   assert.equal($categoryComponent.find('span.category-label').text(), 'Category', 'Incorrect title');
   assert.ok($categoryComponent.find('.category-group .btn-group'), 'Missing Category group');
   assert.equal($categoryComponent.find('.category-group button:eq(0)').text(), 'K-12', 'Incorrect Category');
-  assert.ok($categoryComponent.find('.category-group button:eq(0)').hasClass('btn-primary'), 'Component class is missing');
+  assert.ok($categoryComponent.find('.category-group button:eq(0)').hasClass('btn-primary'), 'btn-primary class is missing');
   assert.equal($categoryComponent.find('.category-group button:eq(1)').text(), 'Higher Education', 'Incorrect Category');
   assert.equal($categoryComponent.find('.category-group button:eq(2)').text(), 'Professional Development', 'Incorrect Category');
 });

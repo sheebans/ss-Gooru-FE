@@ -21,7 +21,7 @@ export default Ember.Controller.extend(BuilderMixin, {
     saveNewContent:function(){
       var courseTitle= $("#course-name").val();
       this.set('course.title',courseTitle);
-      this.set('course.category',this.get('activeCategory'));
+      this.set('course.category',this.get('activeCategory.value'));
       this.set('isEditing',false);
     },
     /*
