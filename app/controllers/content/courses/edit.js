@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import BuilderMixin from 'gooru-web/mixins/content/builder';
-import { COURSE_CATEGORIES } from 'gooru-web/config/config';
+import Course from 'gooru-web/models/content/course';
 
 export default Ember.Controller.extend(BuilderMixin, {
   // -------------------------------------------------------------------------
@@ -16,46 +16,41 @@ export default Ember.Controller.extend(BuilderMixin, {
       this.set('wasRequestSent',true);
     },
     /*
-     * Edit Content
-     * */
-    editContent:function(){
-      this.set('isEdit',true);
-    },
-    /*
-     * Cancel Edit Content
-     * */
-    cancelEditContent:function(){
-      this.set('isEdit',false);
-    },
-    /*
-     *Set Category
-     * */
-    setCategory:function(newCategory){
-      this.set('activeCategory',newCategory);
-    },
-    /*
      *Save Content
      * */
     saveNewContent:function(){
       var courseTitle= $("#course-name").val();
       this.set('course.title',courseTitle);
-      this.set('course.category',this.get('activeCategory'));
-      this.set('isEdit',false);
+      this.set('course.category',this.get('activeCategory.value'));
+      this.set('isEditing',false);
     },
+    /*
+     *Action Triggered when change de action
+     */
+    changeCategory:function(newCategory){
+      this.set('activeCategory',newCategory);
+    }
   },
   // -------------------------------------------------------------------------
   // Events
 
+  // -------------------------------------------------------------------------
+  // Events
+
+  init() {
+    this._super(...arguments);
+    var course = Course.create(Ember.getOwner(this).ownerInjection(), {'title': "Course Title",
+      'category':1
+    });
+    this.set('course', course);
+  },
   // -------------------------------------------------------------------------
   // Properties
   /**
    * ONLY FOR TEST
    * @property {Course}
    */
-  course: Ember.Object.create({
-    'title': "Course Title",
-    'category':1
-  }),
+  course: null,
   /**
    * Indicate if a request to be publish is approved
    * @property {Boolean}
@@ -66,19 +61,6 @@ export default Ember.Controller.extend(BuilderMixin, {
    * @property {Boolean}
    */
   wasRequestSent:false,
-
-  /**
-   * Indicate if a course information is in edit mode
-   * @property {Boolean}
-   */
-  isEdit:false,
-  /**
-   * Indicate the active category
-   * @property {Boolean}
-   */
-  activeCategory: Ember.computed(function(){
-    return   this.get('course.category');
-  }),
   /**
    * Toggle Options
    * @property {Ember.Array}
@@ -91,19 +73,9 @@ export default Ember.Controller.extend(BuilderMixin, {
     'value': false
   })]),
   /**
-   * @type {Ember.A} categories - List of course categories
+   * Active Category
+   * @property {Number}
    */
-  categories: COURSE_CATEGORIES,
+  activeCategory:null
 
-  selectedCategory: Ember.computed('course.category','categories',function(){
-    var categoriesList = this.get('categories');
-    var selectedCategoryValue=this.get('course.category');
-    var selectedCategory;
-    categoriesList.forEach(function(category){
-      if (category.value === selectedCategoryValue ){
-        selectedCategory=category.label;
-      }
-    });
-    return selectedCategory;
-  }),
 });

@@ -66,6 +66,13 @@ module.exports = function (environment) {
     webSocketUrl: '/ws/realtime'
   };
 
+  ENV['API-3.0'] = {
+    clientKey : "c2hlZWJhbkBnb29ydWxlYXJuaW5nLm9yZw==",
+    clientId: "ba956a97-ae15-11e5-a302-f8a963065976",
+    'user-token-api-2.0': '0e22e273-e2aa-4a6e-9e4f-c4d376c5317b',
+    'anonymous-token-api-2.0': '00ed3b76-bffa-4372-90b0-00f886ce2584'
+  };
+
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
@@ -81,7 +88,6 @@ module.exports = function (environment) {
       'style-src': "'self' 'unsafe-inline' https://fonts.googleapis.com",
       'media-src': "'self'"
     }
-
   }
 
   if (environment === 'test') {
