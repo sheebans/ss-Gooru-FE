@@ -8,7 +8,6 @@ export default {
     "about-you": "About You",
     "add": "Add",
     "add-course": "Add New Course",
-    "add-to":"Add To",
     "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
     "approved":"Approved",

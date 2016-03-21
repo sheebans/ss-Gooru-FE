@@ -1,0 +1,14 @@
+div.content-navigation{
+  height: 50px;
+  width: 100%;
+  background-color: $dark-400;
+  @include flexbox;
+  @include align-items(center);
+  @include justify-content(space-between);
+  .btn-group{
+    margin-right: 30px;
+    .dropdown-toggle{
+      background-color:$green-300;
+    }
+  }
+}
