@@ -35,7 +35,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="title">
-                        <span>{{t "content.courses.edit.information.course-title"}}</span><span class="required">*</span>
+                        <span>{{t "content.courses.edit.information.course-title"}}</span>
                       {{#if isEditing}}
                         {{input id="course-name" class="course-title"}}
                       {{else}}
@@ -46,7 +46,7 @@
                         {{content.gru-category isEditing=isEditing courseCategory=course.category onChangeCategory="changeCategory"}}
                     </div>
                     <div class="subject">
-                        <span>K-12 Subject and Course</span><span class="required">*</span>
+                        <span>K-12 Subject and Course</span>
                         {{#if isEditing}}
                         <button type="button" class="btn btn-primary btn-sm">{{t "common.add-plus"}}</button>
                           {{else}}

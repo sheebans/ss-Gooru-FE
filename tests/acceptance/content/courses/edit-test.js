@@ -73,7 +73,7 @@ test('Information Layout', function (assert) {
     assert.ok($container.find('.course-thumbnail .upload-image .library_add'), "Missing Thumbnail Image");
     assert.ok($container.find('.panel-body .title'), "Missing Title Section");
     assert.ok($container.find('.panel-body .title .title'), "Missing Course Title");
-    assert.equal($container.find('.panel-body .title .title').text(), "Course Title", "The label should be say Course Title");
+    assert.equal($container.find('.panel-body .title .title').text(), "Course Title", "The Course Title should be Course Title");
     assert.ok($container.find('.panel-body .category '), "Missing Category Section");
     assert.ok($container.find('.panel-body .subject'), "Missing Subject Section");
     assert.ok($container.find('.panel-body .audience'), "Missing Audience Section");
@@ -89,7 +89,7 @@ test('Information Layout', function (assert) {
       $container.find("#course-name").trigger('blur');
       click($cancel);
       andThen(function () {
-        assert.equal($container.find('.panel-body .title .title').text(), "Course Title", "The label should be say Course Title");
+        assert.equal($container.find('.panel-body .title .title').text(), "Course Title", "The Course Title should be Course Title");
         const $edit = $container.find('.actions .edit');
         click($edit);
         andThen(function () {
@@ -100,7 +100,7 @@ test('Information Layout', function (assert) {
           click($save);
           andThen(function () {
             assert.ok($container.find('.actions .edit'), "Missing Edit Button");
-            assert.equal($container.find('.panel-body .title span.title').text(), "New Title", "The label should be say New Title");
+            assert.equal($container.find('.panel-body .title span.title').text(), "New Title", "The Course Title should be New Title");
           });
         });
       });
