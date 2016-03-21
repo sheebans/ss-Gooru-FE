@@ -79,7 +79,7 @@ test('Information Layout', function (assert) {
     assert.ok($container.find('.panel-body .audience'), "Missing Audience Section");
     const $edit = $container.find('.actions .edit');
     assert.equal($edit.text(), "Edit", "The button should be say Edit");
-    $edit.click();
+    click($edit);
     andThen(function () {
       const $save = $container.find('.actions .save');
       assert.equal($save.text(), "Save", "The button should be say Save");
@@ -87,20 +87,20 @@ test('Information Layout', function (assert) {
       assert.equal($cancel.text(), "Cancel", "The button should be say Cancel");
       fillIn($container.find("#course-name"), 'New Course Name');
       $container.find("#course-name").trigger('blur');
-      $cancel.click();
+      click($cancel);
       andThen(function () {
         assert.equal($container.find('.panel-body .title .title').text(), "Course Title", "The label should be say Course Title");
         const $edit = $container.find('.actions .edit');
-        $edit.click();
+        click($edit);
         andThen(function () {
           assert.ok($container.find('.course-thumbnail .upload-image .upload'), "Missing Upload Thumbnail Button");
           fillIn($container.find("#course-name"), 'New Title');
           $container.find("#course-name").trigger('blur');
           const $save = $container.find('.actions .save');
-          $save.click();
+          click($save);
           andThen(function () {
             assert.ok($container.find('.actions .edit'), "Missing Edit Button");
-            //assert.equal($container.find('.panel-body .title span.title').text(), "New Title", "The label should be say New Title");
+            assert.equal($container.find('.panel-body .title span.title').text(), "New Title", "The label should be say New Title");
           });
         });
       });

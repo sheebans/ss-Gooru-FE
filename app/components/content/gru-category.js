@@ -13,6 +13,18 @@ export default Ember.Component.extend({
   // Dependencies
 
   // -------------------------------------------------------------------------
+  // Actions
+  actions:{
+    /*
+     *Set Category
+     * */
+    setCategory:function(newCategory){
+      this.set('activeCategory',newCategory);
+      this.sendAction("onChangeCategory",this.get('activeCategory'));
+    }
+  },
+
+  // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['content','gru-category'],
@@ -35,7 +47,7 @@ export default Ember.Component.extend({
   activeCategory: Ember.computed(function(){
     return   this.get('courseCategory');
   }),
-// -------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
   // Properties
   /**
    * Indicate if a course information is in edit mode
@@ -56,4 +68,9 @@ export default Ember.Component.extend({
     });
     return selectedCategory;
   }),
+  /**
+   * @property {String|Function} onChangeCategory - event handler for when the selected category is changed
+   */
+  onChangeCategory: null,
+
 });

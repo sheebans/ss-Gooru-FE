@@ -16,25 +16,41 @@ export default Ember.Controller.extend(BuilderMixin, {
       this.set('wasRequestSent',true);
     },
     /*
-     *Set Category
+     *Save Content
      * */
-    setCategory:function(newCategory){
-      this.set('activeCategory',newCategory);
+    saveNewContent:function(){
+      var courseTitle= $("#course-name").val();
+      this.set('course.title',courseTitle);
+      this.set('course.category',this.get('activeCategory'));
+      this.set('isEditing',false);
     },
+    /*
+     *Action Triggered when change de action
+     */
+    changeCategory:function(newCategory){
+      this.set('activeCategory',newCategory);
+    }
   },
   // -------------------------------------------------------------------------
   // Events
 
+  // -------------------------------------------------------------------------
+  // Events
+
+  init() {
+    this._super(...arguments);
+    var course = Course.create(Ember.getOwner(this).ownerInjection(), {'title': "Course Title",
+      'category':1
+    });
+    this.set('course', course);
+  },
   // -------------------------------------------------------------------------
   // Properties
   /**
    * ONLY FOR TEST
    * @property {Course}
    */
-  course: Course.create(
-    {'title': "Course Title",
-      'category':1
-    }),
+  course: null,
   /**
    * Indicate if a request to be publish is approved
    * @property {Boolean}
@@ -56,5 +72,10 @@ export default Ember.Controller.extend(BuilderMixin, {
     'label': "Off",
     'value': false
   })]),
+  /**
+   * Active Category
+   * @property {Number}
+   */
+  activeCategory:null
 
 });

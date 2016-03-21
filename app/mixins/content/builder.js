@@ -19,15 +19,6 @@ export default Ember.Mixin.create({
      * */
     cancelEditContent:function(){
       this.set('isEditing',false);
-    },
-    /*
-     *Save Content
-     * */
-    saveNewContent:function(){
-      var courseTitle= $("#course-name").val();
-      this.set('course.title',courseTitle);
-      this.set('course.category',this.get('activeCategory'));
-      this.set('isEditing',false);
     }
   },
   // -------------------------------------------------------------------------

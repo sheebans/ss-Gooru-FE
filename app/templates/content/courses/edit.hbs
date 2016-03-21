@@ -28,7 +28,7 @@
                     <span>{{gru-icon name="library_add"}}</span>
                 </div>
                 {{#if isEditing}}
-                  <button class="upload btn btn-info">{{t 'upload-thumbnail'}}</button>
+                  <button class="upload btn btn-info">{{t 'common.upload-thumbnail'}}</button>
                 {{/if}}
               {{/if}}
             </div>
@@ -43,7 +43,7 @@
                       {{/if}}
                     </div>
                     <div class="category">
-                        {{content.gru-category isEditing=isEditing courseCategory=course.category}}
+                        {{content.gru-category isEditing=isEditing courseCategory=course.category onChangeCategory="changeCategory"}}
                     </div>
                     <div class="subject">
                         <span>K-12 Subject and Course</span><span class="required">*</span>
