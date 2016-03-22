@@ -118,7 +118,7 @@ export default Ember.Controller.extend(BuilderMixin, {
     var activeAudience = component.get('activeAudience');
     var newAudience = [];
     activeAudience.map(function (object) {
-      if(object.checked==true){
+      if(object.checked===true){
         newAudience.push(object.value);
       }
     });
