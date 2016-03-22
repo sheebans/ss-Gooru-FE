@@ -19,7 +19,7 @@ export default Ember.Component.extend({
   // Actions
   actions:{
     removeAudience:function(audience){
-      $.map( this.get('audienceList'), function(object) {
+      $.map( this.get('activeAudience'), function(object) {
         if(object===audience){
           Ember.set(object,'checked', false);
         }
@@ -30,14 +30,14 @@ export default Ember.Component.extend({
    * Overwrites didUpdate hook.
    */
   didUpdate: function() {
-    $('.dropdown-menu.audience li label').on('click', function (e) {
+    $('.gru-audience .dropdown-menu.audience li label').on('click', function (e) {
       e.stopPropagation();
     });
   },
   // -------------------------------------------------------------------------
   // Events
-  sendUpdatedAudienceValues: Ember.observer('audienceList.@each.checked', function() {
-    this.sendAction('onChangeAudience', this.get('audienceList'));
+  sendUpdatedAudienceValues: Ember.observer('activeAudience.@each.checked', function() {
+    this.sendAction('onChangeAudience', this.get('activeAudience'));
   }),
 
   // -------------------------------------------------------------------------
@@ -49,7 +49,7 @@ export default Ember.Component.extend({
   isEditing:null,
 
   /**
-   * @type {Ember.A} audienceList - List of audiences
+   * @type {Ember.A} audienceList - List of course audiences
    */
   audienceList:null,
 
@@ -58,12 +58,12 @@ export default Ember.Component.extend({
    * @property {String|Function} onChangeAudience - event handler when the selected audience is changed
    */
   onChangeAudience: null,
-
-  audienceChecked:Ember.computed('audienceList.@each.checked',function(){
-    var checked = $.grep(this.get('audienceList'), function( a ) {
-     return a.checked === true
-    });
-    return checked;
-  }),
+  /**
+   * @type {Ember.A} audienceList - List of active audiences
+   */
+  activeAudience:Ember.computed('audienceList.@each.checked','isEditing',function(){
+    var list = Ember.copy(this.get('audienceList'),true);
+    return list;
+  })
 
 });

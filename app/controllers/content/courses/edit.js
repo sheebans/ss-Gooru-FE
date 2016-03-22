@@ -23,7 +23,7 @@ export default Ember.Controller.extend(BuilderMixin, {
       var courseTitle= $("#course-name").val();
       this.set('course.title',courseTitle);
       this.set('course.category',this.get('activeCategory.value'));
-      this.set('course.audience',this.get('activeAudience'));
+      this.saveAudience();
       this.set('isEditing',false);
     },
     /*
@@ -91,11 +91,11 @@ export default Ember.Controller.extend(BuilderMixin, {
   /**
    * @type {Ember.A} audienceList - List of audiences
    */
-  audienceList:Ember.computed('course',function(){
+  audienceList:Ember.computed('course.audience',function(){
     var component = this;
     var list = COURSE_AUDIENCE.slice(0);
     list.forEach(function(object){
-      object.checked = component.existIntoArray(object.value,component.get('course.audience'));
+      Ember.set(object,'checked', component.existIntoArray(object.value,component.get('course.audience')));
     });
     return list;
   }),
@@ -109,8 +109,20 @@ export default Ember.Controller.extend(BuilderMixin, {
   existIntoArray: function (value,array) {
     var find= $.inArray(value, array);
     return (find > -1);
+  },
+  /*
+   * Save new audience
+   */
+  saveAudience: function () {
+    var component = this;
+    var activeAudience = component.get('activeAudience');
+    var newAudience = [];
+    activeAudience.map(function (object) {
+      if(object.checked==true){
+        newAudience.push(object.value);
+      }
+    });
+    component.set('course.audience',newAudience);
   }
-
-
 
 });
