@@ -133,7 +133,8 @@ export default {
       "video"       : "Video",
       "interactive" : "Interactive",
       "webpage"     : "Webpage",
-      "audio"       : "Audio"
+      "audio"       : "Audio",
+      "question"    : "Question"
     },
     "remaining": "{{number}} Left",
     "remix":"Remix",
