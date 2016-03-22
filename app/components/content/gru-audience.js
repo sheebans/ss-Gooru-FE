@@ -19,7 +19,7 @@ export default Ember.Component.extend({
   // Actions
   actions:{
     /**
-     * Remove Audience from active audience
+     * Remove audience from active audience
      */
     removeAudience:function(audience){
       $.map( this.get('activeAudience'), function(object) {
