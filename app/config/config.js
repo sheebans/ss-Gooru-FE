@@ -11,6 +11,15 @@ export const DEFAULT_IMAGES = {
   QUESTION_PLACEHOLDER_IMAGE: '/assets/gooru/question-placeholder-image.png'
 };
 
+export const COURSE_AUDIENCE = [
+  {value: 1, label: 'common.categoryAudience.all'},
+  {value: 2, label: 'common.categoryAudience.english-language-learn'},
+  {value: 3, label: 'common.categoryAudience.students-above-grade-lev'},
+  {value: 4, label: 'common.categoryAudience.students-below-grade-lev'},
+  {value: 5, label: 'common.categoryAudience.students-special-needs'},
+  {value: 6, label: 'common.categoryAudience.teachers'}
+];
+
 export const COURSE_CATEGORIES = [
   {value: 1, label: 'common.categoryOptions.k12'},
   {value: 2, label: 'common.categoryOptions.higher-ed'},

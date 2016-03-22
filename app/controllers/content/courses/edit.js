@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import BuilderMixin from 'gooru-web/mixins/content/builder';
 import Course from 'gooru-web/models/content/course';
+import { COURSE_AUDIENCE } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend(BuilderMixin, {
   // -------------------------------------------------------------------------
@@ -22,25 +23,34 @@ export default Ember.Controller.extend(BuilderMixin, {
       var courseTitle= $("#course-name").val();
       this.set('course.title',courseTitle);
       this.set('course.category',this.get('activeCategory.value'));
+      this.set('course.audience',this.get('activeAudience'));
       this.set('isEditing',false);
     },
     /*
-     *Action Triggered when change de action
+     *Action Triggered when change category
+     * @see content.gru-category
      */
     changeCategory:function(newCategory){
       this.set('activeCategory',newCategory);
-    }
-  },
-  // -------------------------------------------------------------------------
-  // Events
+    },
+    /*
+     *Action Triggered when change the audience
+     * @see content.audience
+     */
+    changeAudience:function(newAudience){
+      this.set('activeAudience',newAudience);
+    },
 
+  },
   // -------------------------------------------------------------------------
   // Events
 
   init() {
     this._super(...arguments);
-    var course = Course.create(Ember.getOwner(this).ownerInjection(), {'title': "Course Title",
-      'category':1
+    var course = Course.create(Ember.getOwner(this).ownerInjection(), {
+      'title': "Course Title",
+      'category':1,
+      'audience':[2,4]
     });
     this.set('course', course);
   },
@@ -76,6 +86,31 @@ export default Ember.Controller.extend(BuilderMixin, {
    * Active Category
    * @property {Number}
    */
-  activeCategory:null
+  activeCategory:null,
+
+  /**
+   * @type {Ember.A} audienceList - List of audiences
+   */
+  audienceList:Ember.computed('course',function(){
+    var component = this;
+    var list = COURSE_AUDIENCE.slice(0);
+    list.forEach(function(object){
+      object.checked = component.existIntoArray(object.value,component.get('course.audience'));
+    });
+    return list;
+  }),
+
+  // -------------------------------------------------------------------------
+  //Methods
+
+  /*
+   * Check if the value exist into array
+   */
+  existIntoArray: function (value,array) {
+    var find= $.inArray(value, array);
+    return (find > -1);
+  }
+
+
 
 });

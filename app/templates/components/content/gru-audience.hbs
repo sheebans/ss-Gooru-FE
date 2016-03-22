@@ -5,9 +5,16 @@
           {{t "common.add-plus"}}
             <span class="caret"></span>
         </button>
-        <ul class="dropdown-menu">
-
+        <ul class="dropdown-menu audience">
+        {{#each audienceList as |audience|}}
+            <li><label>{{input type="checkbox" checked=audience.checked}}<span>{{t audience.label}}</span></label></li>
+        {{/each}}
         </ul>
+      {{#each audienceList as |audience|}}
+        {{#if audience.checked}}
+          <button type="button" class="btn-audience btn-info btn btn-sm">{{t audience.label}}<span {{action 'removeAudience' audience}}>{{gru-icon name="clear"}}</span></button>
+        {{/if}}
+      {{/each}}
     </div>
 {{else}}
     <span class="empty">{{t "common.not-specified"}}</span>
