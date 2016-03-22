@@ -1,0 +1,39 @@
+<div class="header">
+  <h2>{{t "common.builder"}}</h2>
+
+  <div class="detail">
+    {{#if items.length}}
+      <span>{{t "common.unitObj" count=items.length}}</span>
+    {{else}}
+      <span>{{t "common.add-units"}}</span>
+    {{/if}}
+
+    <div class="actions">
+      <button class="btn btn-primary add-unit">{{gru-icon name="add"}}</button>
+
+      {{#if items.length}}
+        <button class="btn btn-primary sort-units">{{gru-icon name="swap_vert"}}</button>
+      {{/if}}
+    </div>
+
+  </div>
+</div>
+
+<ol class="accordion-course" role="tablist" aria-multiselectable="true">
+
+  {{#each items as |item index|}}
+
+    {{content.courses.gru-accordion-unit
+    model=item
+    index=index
+    onSelectResource=(action 'selectResource') }}
+
+  {{/each}}
+
+  <li class="add-item">
+    <a href="#">{{t "common.add-new-unit"}}</a>
+  </li>
+
+</ol>
+
+
