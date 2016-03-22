@@ -73,7 +73,7 @@ export default Ember.Component.extend(AccordionMixin, {
   getUnits: function () {
     const courseId = this.get('model.id');
 
-    return this.get("lessonService").findByClassAndCourseAndUnit(unitId);
+    return this.get("lessonService").findByClassAndCourseAndUnit(courseId);
   }
 
 
