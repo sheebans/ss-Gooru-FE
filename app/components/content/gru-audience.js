@@ -18,6 +18,9 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions:{
+    /**
+     * Remove Audience from active audience
+     */
     removeAudience:function(audience){
       $.map( this.get('activeAudience'), function(object) {
         if(object===audience){
@@ -52,7 +55,6 @@ export default Ember.Component.extend({
    * @type {Ember.A} audienceList - List of course audiences
    */
   audienceList:null,
-
 
   /**
    * @property {String|Function} onChangeAudience - event handler when the selected audience is changed
