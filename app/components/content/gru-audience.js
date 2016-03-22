@@ -21,9 +21,8 @@ export default Ember.Component.extend({
     removeAudience:function(audience){
       $.map( this.get('audienceList'), function(object) {
         if(object===audience){
-          return object.checked ===false;
+          Ember.set(object,'checked', false);
         }
-        return object;
       });
     },
   },
@@ -60,5 +59,11 @@ export default Ember.Component.extend({
    */
   onChangeAudience: null,
 
+  audienceChecked:Ember.computed('audienceList.@each.checked',function(){
+    var checked = $.grep(this.get('audienceList'), function( a ) {
+     return a.checked === true
+    });
+    return checked;
+  }),
 
 });

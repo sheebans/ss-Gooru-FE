@@ -6,7 +6,7 @@
       display: block;
     }
   .dropdown-toggle{
-    margin-right: 10px;
+    margin: 5px 5px 5px 0px;
   }
   li{
     label{
@@ -20,10 +20,17 @@
     }
   }
   .btn-audience{
-    margin-top: 5px;
     i{
       font-size: 20px;
       margin-left:5px;
     }
+  }
+  .btn-empty{
+    margin-top: 5px;
+    border:1px solid $gray-light;
+    background-color: $white;
+  }
+  .active-audience{
+    display:block;
   }
 }

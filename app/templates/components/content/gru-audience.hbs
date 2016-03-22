@@ -17,5 +17,13 @@
       {{/each}}
     </div>
 {{else}}
+  {{#if audienceChecked}}
+      <div class="active-audience">
+         {{#each audienceChecked as |audience|}}
+             <button type="button" class="btn-empty btn btn-sm">{{t audience.label}}</button>
+         {{/each}}
+      </div>
+  {{else}}
     <span class="empty">{{t "common.not-specified"}}</span>
+  {{/if}}
 {{/if}}

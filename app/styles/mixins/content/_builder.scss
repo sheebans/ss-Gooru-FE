@@ -37,7 +37,7 @@
     @include flex();
 
     > header {
-
+      z-index: 101;
       background-color: $dark-400;
       padding: 20px 20px 0 5%;
 
