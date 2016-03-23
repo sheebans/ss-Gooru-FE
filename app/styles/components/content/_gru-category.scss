@@ -1,6 +1,8 @@
 .content.gru-category{
-    > *{
-      margin: 12px 0;
+    label{
+      > *{
+        margin: 12px 0;
+      }
     }
     .btn-empty{
       border:1px solid $gray-light;

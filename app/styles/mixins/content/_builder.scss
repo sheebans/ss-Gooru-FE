@@ -37,7 +37,7 @@
     @include flex();
 
     > header {
-      z-index: $zindex-navbar;
+      z-index: $zindex-navbar-fixed;
       background-color: $dark-400;
       padding: 20px 20px 0 5%;
 
@@ -169,11 +169,12 @@
         }
         .panel-body{
           .title{
-            > *{
-              margin: 8px 0;
+            label{
+              > *{
+                margin: 8px 0;
+              }
             }
             input{
-              width: 50%;
               outline: 0;
             }
             input,.title{
@@ -184,8 +185,10 @@
             }
           }
           .subject{
-            > *{
-              margin: 8px 0;
+            label{
+              > *{
+                margin: 8px 0;
+              }
             }
             button{
               display: block;
