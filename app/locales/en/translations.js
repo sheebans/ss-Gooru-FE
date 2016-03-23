@@ -9,6 +9,9 @@ export default {
     "add": "Add",
     "add-plus": "+ Add",
     "add-course": "Add New Course",
+    "add-new-unit": "Add New Unit",
+    "add-to": "Add To",
+    "add-units": "Add Units",
     "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
     "approved":"Approved",
@@ -17,6 +20,14 @@ export default {
     "assessmentInitial": "A",
     "attempt": "Attempt number",
     "audience":"Audience",
+    "audienceList": {
+      "all": "All Students",
+      "english-language-learners": "English Language Learners",
+      "above-grade-level": "Students Above Grade Level",
+      "below-grade-level": "Students Below Grade Level",
+      "special-needs": "Students With Special Needs",
+      "teachers": "Teachers"
+    },
     "of": "of",
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
@@ -167,6 +178,10 @@ export default {
     "unfollow": "Unfollow",
     "unit":"Unit",
     "unitInitial": "U",
+    "unitObj": {
+      one: "Unit",
+      other: "Units"
+    },
     "verified": "Verified",
     "yes": "Yes",
     "warnings": {

@@ -1,0 +1,48 @@
+<div class="panel-heading" role="tab" id="{{elementId}}-heading">
+
+  <span class="panel-title">
+    <a class="title collapsed"
+       role="button"
+       data-toggle="collapse"
+       href="#{{elementId}}-content"
+       aria-expanded="false"
+       aria-controls="{{elementId}}-content"
+      {{action "selectLesson" model.id}}>
+        {{course-sections-prefix  index=index type='lesson' longName=true}}&period;&nbsp;&nbsp;{{model.title}}
+    </a>
+  </span>
+</div>
+
+<div id="{{elementId}}-content"
+     data-index="{{componentIndex}}"
+     class="panel-collapse collapse"
+     role="tabpanel"
+     aria-labelledby="{{elementId}}-heading">
+
+  <div class="panel-body">
+    <ol class="collections">
+
+      {{#if items.isPending}}
+        {{three-bounce-spinner}}
+      {{else}}
+
+        {{#each visibleItems as |item index|}}
+          <li class="panel {{if item.isAssessment 'assessment' 'collection'}}">
+
+            <div class="panel-heading">
+              <span class="panel-title">
+                <a class="title" {{action "selectResource" item.id}}>
+                    {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
+                </a>
+              </span>
+            </div>
+          </li>
+        {{else}}
+          <li>{{t "common.contentUnavailable"}}</li>
+        {{/each}}
+
+      {{/if}}
+    </ol>
+
+  </div>
+</div>

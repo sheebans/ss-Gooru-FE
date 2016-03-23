@@ -63,7 +63,7 @@ export default Ember.Component.extend({
    */
   isEditing:null,
   /**
-   * @property {String|Function} onChangeCategory - event handler for when the selected category is changed
+   * @property {String|Function} onChangeCategory - event handler when the selected category is changed
    */
   onChangeCategory: null,
 
