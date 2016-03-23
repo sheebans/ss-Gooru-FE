@@ -107,45 +107,46 @@
         }
       }
       div.collections-container{
-        >div{
+        @include flexbox;
+        @include flex-direction(column);
+        >ul {
           padding-bottom: 20px;
-          &:after{
+          @include align-items(flex-end);
+          &:after {
             border-top: 1px solid $gray-lighter;
             width: 96%;
             position: relative;
-            left:0;
-            top:31px;
-            @include respond-to(xs){
-              top:0;
+            left: 0;
+            top: 31px;
+            @include respond-to(xs) {
+              top: 0;
               bottom: 0;
             }
           }
-          &:last-child{
-            &:after{
-              border:none;
+          &:last-child {
+            &:after {
+              border: none;
             }
           }
-          .section-title{
-            padding: 5px;
-          }
-          ul{
-            @include align-items(flex-end);
-            li{
-              @media (max-width: $screen-sm) {
-                @include flex-basis(initial);
+
+          li{
+            @media (max-width: $screen-sm) {
+              @include flex-basis(initial);
+            }
+            &.title{
+              @include flex-direction(column);
+              @include align-items(flex-start);
+              .section-title {
+                padding: 5px;
               }
-              &.title{
-                @include flex-direction(column);
-                @include align-items(flex-start);
+            }
+            >span{
+              i{
+                display: none;
               }
-              >span{
-                i{
-                  display: none;
-                }
-              }
-              p{
-                margin:0 0 5px;
-              }
+            }
+            p{
+              margin:0 0 5px;
             }
           }
         }
