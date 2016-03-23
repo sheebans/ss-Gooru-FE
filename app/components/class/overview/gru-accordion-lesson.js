@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import AccordionMixin from '../../../mixins/gru-accordion';
-import SessionMixin from 'gooru-web/mixins/session';
 
 // Whenever the observer 'parsedLocationChanged' is running, this flag is set so
 // clicking on the lessons should not update the location
@@ -16,10 +15,16 @@ var isUpdatingLocation = false;
  * @augments Ember/Component
  * @mixes mixins/gru-accordion
  */
-export default Ember.Component.extend(AccordionMixin, SessionMixin, {
+export default Ember.Component.extend(AccordionMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
+
+  /**
+   * @requires service:session
+   */
+  session: Ember.inject.service("session"),
+
   /**
    * @requires service:api-sdk/collection
    */

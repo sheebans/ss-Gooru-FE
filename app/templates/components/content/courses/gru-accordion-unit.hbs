@@ -1,0 +1,54 @@
+<div class="unit" role="tab" id="{{elementId}}-heading">
+  <strong class="panel-title">
+    <a class="collapsed title"
+       role="button"
+       data-toggle="collapse"
+       href="#{{elementId}}-content"
+       aria-expanded="false"
+       aria-controls="{{elementId}}-content"
+      {{action "selectUnit" model.id}}>
+      <span
+          class="title">{{course-sections-prefix  index=index type='unit' longName=true}}&period;&nbsp;&nbsp;{{model.title}}</span>
+    </a>
+
+    {{!-- TODO: Integrate with BE --}}
+    <span>
+      {{#if model.totalLessons}}
+        <b>{{model.totalLessons}}</b> {{t "common.lessonObj" count=model.totalLessons}}
+      {{else}}
+        <b>{{t "common.lessonObj" count=0}}</b>
+      {{/if}}
+    </span>
+  </strong>
+</div>
+
+<div id="{{elementId}}-content"
+     data-index="{{componentIndex}}"
+     class="panel-collapse collapse"
+     role="tabpanel"
+     aria-labelledby="{{elementId}}-heading">
+
+  <div class="panel-body">
+    <ol class="panel-group" role="tablist" aria-multiselectable="true">
+
+      {{#if loading}}
+        {{three-bounce-spinner}}
+      {{else}}
+
+        {{#each items as |item index|}}
+
+          {{content.courses.gru-accordion-unit
+          unitId=model.id
+          model=item
+          index=index
+          onSelectResource=(action 'selectResource') }}
+
+        {{else}}
+          <li>{{t "common.contentUnavailable"}}</li>
+        {{/each}}
+
+      {{/if}}
+    </ol>
+
+  </div>
+</div>

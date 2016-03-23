@@ -1,8 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
-import Ember from 'ember';
-import DS from 'ember-data';
+import ProfileModel from 'gooru-web/models/profile/profile';
 
 moduleForComponent('cards/gru-profile-card', 'Integration | Component | cards/gru profile card', {
   integration: true,
@@ -15,21 +14,15 @@ moduleForComponent('cards/gru-profile-card', 'Integration | Component | cards/gr
 test('it renders', function (assert) {
   assert.expect(5);
 
-  const mockUser = DS.PromiseObject.create({
-    promise: new Ember.RSVP.resolve(
-      Ember.Object.create({
-        avatarUrl: "/assets/gooru/profile.png",
-        fullNameInformal: "John Doe",
-        username: "JohnDoe",
-        usernameDisplay: "JohnDoe"
-      })
-    )
-  });
-
-  const mockProfile = Ember.Object.create({
-    followers: 10,
-    followings: 20,
-    user: mockUser
+  const mockProfile = ProfileModel.create({
+    avatarUrl: "/assets/gooru/profile.png",
+    firstName: "John",
+    lastName: "Doe",
+    username: "JohnDoe",
+    network: {
+      followerCount: 10,
+      followingCount: 20
+    }
   });
 
   this.set('mockProfile', mockProfile);
@@ -50,27 +43,23 @@ test('it renders', function (assert) {
     assert.equal($image.attr('src'), '/assets/gooru/profile.png');
 
     const $name = $component.find('> a > strong');
-    assert.equal($name.text(), 'JohnDoe');
+    assert.equal($name.text(), 'John Doe');
   });
 });
 
 test('it triggers an action when the name or the image of the user is selected', function (assert) {
   assert.expect(2);
 
-  const mockUser = DS.PromiseObject.create({
-    promise: new Ember.RSVP.resolve(
-      Ember.Object.create({
-        id: 111,
-        avatarUrl: "/assets/gooru/profile.png",
-        fullNameInformal: "John Doe",
-        username: "JohnDoe",
-        usernameDisplay: "JohnDoe"
-      })
-    )
-  });
-
-  const mockProfile = Ember.Object.create({
-    user: mockUser
+  const mockProfile = ProfileModel.create({
+    id: 111,
+    avatarUrl: "/assets/gooru/profile.png",
+    firstName: "John",
+    lastName: "Doe",
+    username: "JohnDoe",
+    network: {
+      followerCount: 0,
+      followingCount: 0
+    }
   });
 
   this.on('externalAction', function (userId) {
