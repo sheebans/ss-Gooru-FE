@@ -17,6 +17,14 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
+  /**
+   * DidInsertElement ember event
+   */
+  didInsertElement: function() {
+    var component = this;
+    component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
+  },
+
 
   // -------------------------------------------------------------------------
   // Properties

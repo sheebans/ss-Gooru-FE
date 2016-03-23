@@ -76,6 +76,8 @@
               margin: 0 1px;
               .truncate{
                 width: 99%;
+                @include text-overflow();
+                text-overflow: ellipsis;
               }
               .label{
                 padding: 0;
