@@ -26,6 +26,9 @@ export default Ember.Controller.extend({
      */
     selectMenuOption: function (option) {
       var selectedOptionTypes = this.get('selectedOptionTypes');
+      var controller = this;
+      var searchService = controller.get('searchService');
+      var term = controller.get('term');
 
       if(selectedOptionTypes.contains(option)){
         selectedOptionTypes.removeObject(option);
@@ -33,6 +36,11 @@ export default Ember.Controller.extend({
       else {
         selectedOptionTypes.pushObject(option);
       }
+
+      searchService.searchResources(term, selectedOptionTypes)
+        .then(function(resourceResults){
+          controller.set("resourceResults", resourceResults);
+        });
 
       this.set('selectedOptionTypes', selectedOptionTypes);
     }
@@ -43,6 +51,11 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Services
+  /**
+   * @property {Ember.Service} Service to do the search
+   */
+  searchService: Ember.inject.service('api-sdk/search'),
+
 
   // -------------------------------------------------------------------------
   // Properties
@@ -58,7 +71,12 @@ export default Ember.Controller.extend({
    * These are the resource search results
    * @property {resourceResults[]}
    */
-  resourceResults: null
+  resourceResults: null,
+
+  /**
+   * @property {string} term filter
+   */
+  term: null
 
   // -------------------------------------------------------------------------
   // Methods

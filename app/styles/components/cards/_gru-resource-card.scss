@@ -1,4 +1,5 @@
 .cards.gru-resource-card {
+  $line-height: 1.8;
   width: 220px;
   height: 250px;
   .panel {
@@ -18,6 +19,8 @@
           height: 36px;
           width: 28px;
           margin: 0 auto;
+          vertical-align: top;
+          margin: 10px 0 0 0;
           &.video-icon {
             background: url("gooru/images/video-resource-green.svg");
             -webkit-background-size: 31px 30px;
@@ -73,12 +76,16 @@
       }
       .collection-info{
         margin-left: 16px;
+        width: 136px;
+        $lines-to-show: 1;
         > *{
           display: block;
         }
         h6 {
           margin: 5px 0 5px 0;
           color: $gray-dark;
+          height: 20px;
+          @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
         }
         .resource-type, .question-type {
           span {
@@ -127,7 +134,6 @@
         }
       }
       .description {
-        $line-height: 1.8;
         $lines-to-show: 3;
         width: 100%;
         p.truncate {
