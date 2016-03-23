@@ -22,13 +22,13 @@ export default Ember.Controller.extend(BuilderMixin, {
   // Properties
 
   /**
-   * Is a request pending approval?
+   * Request pending approval
    * @property {Boolean}
    */
   isRequestApproved: false,
 
   /**
-   * Has a request to make the course searchable been sent?
+   * Request to make the collection searchable been sent?
    * @property {Boolean}
    */
   wasRequestSent: false,

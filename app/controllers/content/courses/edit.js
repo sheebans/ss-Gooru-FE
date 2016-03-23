@@ -68,13 +68,13 @@ export default Ember.Controller.extend(BuilderMixin, {
   course: null,
 
   /**
-   * Is a request pending approval?
+   * Request pending approval
    * @property {Boolean}
    */
   isRequestApproved: false,
 
   /**
-   * Has a request to make the course searchable been sent?
+   * Request to make the course searchable been sent?
    * @property {Boolean}
    */
   wasRequestSent: false,
