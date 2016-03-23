@@ -104,11 +104,10 @@
         .uc-search-standard {
           display: inline-block;
           float: left;
-          width: 47%;
+          width: 43%;
           .truncate {
-            width: 99%;
-            white-space: nowrap;
-            overflow: hidden;
+            width: 98%;
+            @include text-overflow();
             text-overflow: ellipsis;
           }
           .label {

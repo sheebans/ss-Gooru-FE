@@ -7,11 +7,13 @@ export default Ember.Route.extend({
    */
   searchService: Ember.inject.service('api-sdk/search'),
 
-  model: function() {
+  model: function(params) {
+    const selectedOptionTypes = params.selectedOptionTypes;
     const term = this.paramsFor('search').term;
-    var resourceResults = this.get('searchService').searchResources(term, []);
+    var resourceResults = this.get('searchService').searchResources(term, selectedOptionTypes);
     return Ember.RSVP.hash({
-      resources: resourceResults
+      resources: resourceResults,
+      selectedOptionTypes: selectedOptionTypes
     });
   },
 
@@ -23,6 +25,7 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     this._super(controller, model);
     controller.set('resourceResults', model.resources);
+    controller.set('selectedOptionTypes', model.selectedOptionTypes);
   }
 
 });
