@@ -1,0 +1,42 @@
+div.content-navigation {
+  height: 50px;
+  width: 100%;
+  background-color: $dark-400;
+  @include flexbox;
+  @include align-items(center);
+  @include justify-content(space-between);
+  .category-menu {
+    @media (min-width: $screen-xs-min) { width: 100%; }
+    @media (min-width: $screen-sm-min) {
+      margin-left: 20px;
+      width: auto;
+    }
+  }
+  .btn-group {
+    margin-right: 30px;
+    .btn {
+      font-size: $font-size-base;
+      .symbol {
+        font-size: $font-size-base * 1.6;
+        line-height: $font-size-base;
+        margin: 0 -8px;
+      }
+    }
+    .dropdown-toggle {
+      background-color: $green-300;
+    }
+    .dropdown-menu {
+      padding: 0;
+      li {
+        text-align: center;
+        border-bottom: 1px solid $light-200;
+        &:last-child {
+          border-bottom: 0;
+        }
+        a {
+          padding: 7px 20px;
+        }
+      }
+    }
+  }
+}

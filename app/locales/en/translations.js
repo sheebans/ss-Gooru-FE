@@ -7,8 +7,8 @@ export default {
     "about": "About",
     "about-you": "About You",
     "add": "Add",
+    "add-plus": "+ Add",
     "add-course": "Add New Course",
-    "add-to":"Add To",
     "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
     "approved":"Approved",
@@ -133,7 +133,8 @@ export default {
       "video"       : "Video",
       "interactive" : "Interactive",
       "webpage"     : "Webpage",
-      "audio"       : "Audio"
+      "audio"       : "Audio",
+      "question"    : "Question"
     },
     "remaining": "{{number}} Left",
     "remix":"Remix",
@@ -162,6 +163,7 @@ export default {
     "suggested-resources":"Suggested Resources",
     "teacher": "Teacher",
     "timeSpent": "Time Spent",
+    "upload-thumbnail":"Upload Thumbnail",
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
     "unfollow": "Unfollow",
     "unit":"Unit",

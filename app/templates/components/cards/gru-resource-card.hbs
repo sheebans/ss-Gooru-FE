@@ -1,21 +1,13 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="header">
-      {{#if resource.isQuestion }}
-        <i class="question-icon"></i>
-      {{else}}
-      <!--<i class="{{!resource.resourceFormat}}-icon"></i>-->
-      <!--Temporal-->
-        <i class="interactive-icon"></i>
-      {{/if}}
+        <i class="{{resource.format}}-icon"></i>
         <div class="collection-info">
           <div>
             <h6 class="title truncate" alt="{{resource.title}}">{{resource.title}}</h6>
           </div>
           <div class="{{if resource.isQuestion 'question-type' 'resource-type' }}">
-            <!--<span>{{!#if resource.isQuestion }}{{!t (concat "common.question-type."resource.questionType)}}{{!else}}{{!t (concat "common.resource-format."resource.resourceFormat)}}{{!/if}}</span>-->
-            <!--Temporal-->
-            <span>{{t (concat "common.resource-format.interactive")}}</span>
+            <span>{{t (concat "common.resource-format." resource.format)}}</span>
           </div>
         </div>
     </div>
@@ -33,17 +25,13 @@
           <img class="img-responsive" src="assets/gooru/profile.png">
       {{/if}}
         <div class="publisher-name">
-          <!--<a href="{{! resource.owner.url }}" target="_blank">{{!resource.owner.name}}</a>-->
-          <!--Temporal-->
-          <a href="" target="_blank">Publisher Name</a>
+          {{#link-to 'profile.about' resource.owner.id target="_blank"}}
+            {{resource.owner.username}}
+          {{/link-to}}
         </div>
     </div>
     <div class="description">
-      {{#if resource.isQuestion }}
-          <p class="truncate">{{ resource.text }}</p>
-      {{else}}
-          <p class="truncate">{{ resource.description }}</p>
-      {{/if}}
+      <p class="truncate">{{ resource.description }}</p>
     </div>
   </div>
   <div class="panel-footer">
