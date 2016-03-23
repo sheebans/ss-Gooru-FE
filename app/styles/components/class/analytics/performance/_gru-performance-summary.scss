@@ -13,12 +13,13 @@
     list-style:none;
     padding: 0;
     >*{
-      @include flex-basis(120px);
+      @include flex-basis(145px);
       &.title{
         @include flex-grow(4);
         padding-left: 15px;
         @media(min-width: $screen-sm){
-          min-width: 16em;
+          min-width: 228px;
+          @include flex-basis(228px);
         }
         @include respond-to(xs){
           display: inline-block;
@@ -38,6 +39,7 @@
       @include flexbox;
       @include justify-content(flex-end);
       @include align-items(center);
+      @include flex-grow(1);
       @media (min-width: $screen-sm) {
         -webkit-justify-content: flex-start;
         justify-content: flex-start;
