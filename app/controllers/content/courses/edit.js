@@ -1,84 +1,84 @@
 import Ember from 'ember';
 import BuilderMixin from 'gooru-web/mixins/content/builder';
-import { COURSE_CATEGORIES } from 'gooru-web/config/config';
+import Course from 'gooru-web/models/content/course';
+import { COURSE_AUDIENCE } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend(BuilderMixin, {
+
   // -------------------------------------------------------------------------
   // Dependencies
 
+
   // -------------------------------------------------------------------------
   // Actions
+
   actions:{
-    /*
-    * Send request to publish a course
-    * */
-    sendRequest:function(){
+    /**
+     * Send request to publish a course
+     */
+    sendRequest: function () {
       this.set('wasRequestSent',true);
     },
-    /*
-     * Edit Content
-     * */
-    editContent:function(){
-      this.set('isEdit',true);
+
+    /**
+     * Save Content
+     */
+    saveNewContent: function () {
+      var courseTitle= $("#course-name").val();
+      this.set('course.title',courseTitle);
+      this.set('course.category',this.get('activeCategory.value'));
+      this.saveAudience();
+      this.set('isEditing',false);
     },
     /*
-     * Cancel Edit Content
-     * */
-    cancelEditContent:function(){
-      this.set('isEdit',false);
-    },
-    /*
-     *Set Category
-     * */
-    setCategory:function(newCategory){
+     *Action Triggered when change category
+     * @see content.gru-category
+     */
+    changeCategory:function(newCategory){
       this.set('activeCategory',newCategory);
     },
     /*
-     *Save Content
-     * */
-    saveNewContent:function(){
-      var courseTitle= $("#course-name").val();
-      this.set('course.title',courseTitle);
-      this.set('course.category',this.get('activeCategory'));
-      this.set('isEdit',false);
+     *Action Triggered when change the audience
+     * @see content.audience
+     */
+    changeAudience:function(newAudience){
+      this.set('tempAudience',newAudience);
     },
+
   },
   // -------------------------------------------------------------------------
   // Events
 
+  init() {
+    this._super(...arguments);
+    var course = Course.create(Ember.getOwner(this).ownerInjection(), {
+      'title': "Course Title",
+      'category':1,
+      'audience':[2,4]
+    });
+    this.set('course', course);
+  },
   // -------------------------------------------------------------------------
   // Properties
-  /**
-   * ONLY FOR TEST
-   * @property {Course}
-   */
-  course: Ember.Object.create({
-    'title': "Course Title",
-    'category':1
-  }),
-  /**
-   * Indicate if a request to be publish is approved
-   * @property {Boolean}
-   */
-  isRequestApproved:false,
-  /**
-   * Indicate if a request to be searchable and featured has been send
-   * @property {Boolean}
-   */
-  wasRequestSent:false,
 
   /**
-   * Indicate if a course information is in edit mode
-   * @property {Boolean}
+   * Course model
+   * @property {Course}
    */
-  isEdit:false,
+  course: null,
+
   /**
-   * Indicate the active category
+   * Is a request pending approval?
    * @property {Boolean}
    */
-  activeCategory: Ember.computed(function(){
-    return   this.get('course.category');
-  }),
+  isRequestApproved: false,
+
+  /**
+   * Has a request to make the course searchable been sent?
+   * @property {Boolean}
+   */
+  wasRequestSent: false,
+
   /**
    * Toggle Options
    * @property {Ember.Array}
@@ -90,20 +90,54 @@ export default Ember.Controller.extend(BuilderMixin, {
     'label': "Off",
     'value': false
   })]),
-  /**
-   * @type {Ember.A} categories - List of course categories
-   */
-  categories: COURSE_CATEGORIES,
 
-  selectedCategory: Ember.computed('course.category','categories',function(){
-    var categoriesList = this.get('categories');
-    var selectedCategoryValue=this.get('course.category');
-    var selectedCategory;
-    categoriesList.forEach(function(category){
-      if (category.value === selectedCategoryValue ){
-        selectedCategory=category.label;
+  /**
+   * Active Category
+   * @property {Number}
+   */
+  activeCategory:null,
+  /**
+   * Active Audience
+   * @property {Number}
+   */
+   tempAudience:null,
+  /**
+   * @type {Ember.A} audienceList - List of audiences
+   */
+  audienceList:Ember.computed('course.audience',function(){
+    var component = this;
+    var list = COURSE_AUDIENCE.slice(0);
+    list.forEach(function(object){
+      Ember.set(object,'checked', component.findInArray(object.value,component.get('course.audience')));
+    });
+    return list;
+  }),
+
+  // -------------------------------------------------------------------------
+  //Methods
+
+  /*
+   * Check if the value exist into array
+   */
+  findInArray: function (value,array) {
+   return $.inArray(value, array) > -1;
+  },
+  /*
+   * Save new audience
+   */
+  saveAudience: function () {
+    var component = this;
+    var tempAudience = component.get('tempAudience');
+    var newAudience = [];
+    if(tempAudience==null){
+      tempAudience =  component.get('audienceList');
+    }
+    tempAudience.map(function (object) {
+      if(object.checked===true){
+        newAudience.push(object.value);
       }
     });
-    return selectedCategory;
-  }),
+    component.set('course.audience',newAudience);
+  }
+
 });

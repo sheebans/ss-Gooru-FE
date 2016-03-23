@@ -1,0 +1,38 @@
+.content.gru-audience{
+    > *{
+      margin: 8px 0;
+    }
+    span.empty{
+      display: block;
+    }
+  .dropdown-toggle{
+    margin: 5px 5px 5px 0px;
+    height: 30px;
+  }
+  li{
+    label{
+      display: block;
+      margin: 5px 10px;
+      padding:5px;
+
+      input{
+        margin-right: 5px;
+      }
+    }
+  }
+  .btn-audience{
+    margin-bottom: 4px;
+    i{
+      font-size: 20px;
+      margin-left:5px;
+    }
+  }
+  .btn-empty{
+    margin-top: 5px;
+    border:1px solid $gray-light;
+    background-color: $white;
+  }
+  .active-audience{
+    display:block;
+  }
+}
