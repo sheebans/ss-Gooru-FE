@@ -5,18 +5,20 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  // -------------------------------------------------------------------------
-  // Actions
-  actions: {
-    updateProfile() {
-      // TODO: Update profile
-    }
-  },
-
   parentController: Ember.inject.controller('profile'),
 
   // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+    updateProfile: function() {
+      this.get('parentController').saveProfile(this.get('profile'));
+    }
+  },
+
+  // -------------------------------------------------------------------------
   // Properties
+
   /**
    * A link to the parent profile property
    * @see controllers/profile.js
