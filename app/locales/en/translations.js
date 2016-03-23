@@ -9,6 +9,9 @@ export default {
     "add": "Add",
     "add-plus": "+ Add",
     "add-course": "Add New Course",
+    "add-new-unit": "Add New Unit",
+    "add-to": "Add To",
+    "add-units": "Add Units",
     "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
     "approved":"Approved",
@@ -175,6 +178,10 @@ export default {
     "unfollow": "Unfollow",
     "unit":"Unit",
     "unitInitial": "U",
+    "unitObj": {
+      one: "Unit",
+      other: "Units"
+    },
     "verified": "Verified",
     "yes": "Yes",
     "warnings": {

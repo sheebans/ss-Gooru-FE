@@ -16,25 +16,13 @@
 .controller.content.courses.edit,
 .controller.content.questions.edit,
 .controller.content.resources.edit {
-  $information-padding: 30px;
   $aside-padding: 30px;
 
-  h2{
-    font-size: $font-size-h4;
-    padding-bottom: 25px;
-    margin-bottom: 0px;
-  }
-  h3{
-    font-size: $font-size-large;
-  }
-  div.header{
-    border-bottom: 1px solid $gray-light;
-    margin-bottom: 25px;
-  }
   @include flexbox();
 
   > article {
     @include flex();
+    padding-bottom: 50px;
 
     > header {
       z-index: $zindex-navbar-fixed;
@@ -94,6 +82,49 @@
     > section {
       padding-left: 5%;
       padding-right: 5%;
+
+      h2 {
+        display: inline-block;
+        font-size: $font-size-h4;
+        padding: 0;
+        margin: 0;
+        line-height: 34px; // height of the buttons
+      }
+
+      h3 {
+        font-size: $font-size-large;
+      }
+
+      .header {
+        border-bottom: 1px solid $gray-light;
+        margin-bottom: 25px;
+        padding: 40px 0 20px;
+
+        .detail {
+          float: right;
+
+          > span {
+            display: inline-block;
+            padding-right: 20px;
+            border-right: 1px solid $gray-light;
+            line-height: 2.2;
+          }
+          .actions {
+            display: inline-block;
+            padding-left: 20px;
+
+            button {
+              font-size: 24px;
+              line-height: 1;
+              padding: 5px 7px;
+            }
+          }
+        }
+      }
+
+      .panel {
+        margin-bottom: 0;
+      }
     }
   }
 
@@ -113,27 +144,28 @@
   }
 
   #information {
-    padding-top: $information-padding;
-    padding-bottom: $information-padding;;
-    .header{
-      h2{
-        display: inline-block;
-      }
-      .actions{
-        display: inline-block;
+
+    .header {
+      .actions {
         float: right;
-        margin: 20px 10px 0 0;
       }
     }
-    .edit-information-content{
-      > * {
-        margin: 0 10px;
+
+    .content {
+
+      @media(min-width: $screen-sm) {
+        @include flexbox();
       }
-      .course-thumbnail{
-        display: inline-block;
-        float:left;
-        width: 191px;
-        height: 189px;
+
+      .image {
+        width: 190px;
+        height: 210px;
+
+        @media(min-width: $screen-sm) {
+          float: left;
+          margin-right: 20px;
+        }
+
         .upload-image{
           background-color: $dark-300;
           width: inherit;
@@ -158,14 +190,12 @@
           border-bottom-right-radius: 6px;
         }
       }
-      .panel{
-        float:left;
-        border-radius: 6px;
-        display: inline-block;
-        width: 34em;
 
-        @media(min-width: $screen-md-max){
-          width: 51em;
+      .panel {
+        border-radius: 6px;
+
+        @media(min-width: $screen-sm) {
+          @include flex();
         }
         .panel-body{
           .title{
@@ -210,6 +240,22 @@
     }
   }
 
+  #builder {
+    .add-item {
+      padding-top: 10px;
+
+      a {
+        display: block;
+        border: 2px dashed $gray-light;
+        padding: 20px;
+        border-radius: 6px;
+        font-size: $font-size-large;
+        color: $gray;
+        text-align: center;
+      }
+    }
+  }
+
   &.fixed-header {
     > article {
       > header {
@@ -227,8 +273,9 @@
     }
 
     #information {
-      padding-top: $information-padding + 115px;
+      padding-top: 115px;
     }
+
     #settings{
       .panel{
         border-radius: 6px;

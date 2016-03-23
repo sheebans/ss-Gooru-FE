@@ -4,22 +4,26 @@ import Course from 'gooru-web/models/content/course';
 import { COURSE_AUDIENCE } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend(BuilderMixin, {
+
   // -------------------------------------------------------------------------
   // Dependencies
 
+
   // -------------------------------------------------------------------------
   // Actions
+
   actions:{
-    /*
-    * Send request to publish a course
-    * */
-    sendRequest:function(){
+    /**
+     * Send request to publish a course
+     */
+    sendRequest: function () {
       this.set('wasRequestSent',true);
     },
-    /*
-     *Save Content
-     * */
-    saveNewContent:function(){
+
+    /**
+     * Save Content
+     */
+    saveNewContent: function () {
       var courseTitle= $("#course-name").val();
       this.set('course.title',courseTitle);
       this.set('course.category',this.get('activeCategory.value'));
@@ -56,21 +60,25 @@ export default Ember.Controller.extend(BuilderMixin, {
   },
   // -------------------------------------------------------------------------
   // Properties
+
   /**
-   * ONLY FOR TEST
+   * Course model
    * @property {Course}
    */
   course: null,
+
   /**
-   * Indicate if a request to be publish is approved
+   * Is a request pending approval?
    * @property {Boolean}
    */
-  isRequestApproved:false,
+  isRequestApproved: false,
+
   /**
-   * Indicate if a request to be searchable and featured has been send
+   * Has a request to make the course searchable been sent?
    * @property {Boolean}
    */
-  wasRequestSent:false,
+  wasRequestSent: false,
+
   /**
    * Toggle Options
    * @property {Ember.Array}
@@ -82,6 +90,7 @@ export default Ember.Controller.extend(BuilderMixin, {
     'label': "Off",
     'value': false
   })]),
+
   /**
    * Active Category
    * @property {Number}
