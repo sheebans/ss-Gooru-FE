@@ -48,7 +48,7 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
-    model.profile.network = model.network;
+    model.profile.set('network', model.network);
     controller.set('profile', model.profile);
   },
 

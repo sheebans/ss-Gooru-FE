@@ -1,10 +1,11 @@
 import Ember from 'ember';
-import SessionMixin from 'gooru-web/mixins/session';
 
-export default Ember.Controller.extend(SessionMixin, {
+export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+
+  session: Ember.inject.service('session'),
 
   profileService: Ember.inject.service('api-sdk/profile'),
 
