@@ -28,7 +28,7 @@ export default Ember.Controller.extend(BuilderMixin, {
   isRequestApproved: false,
 
   /**
-   * Request to make the collection searchable been sent?
+   * Request to make the collection searchable been sent
    * @property {Boolean}
    */
   wasRequestSent: false,
