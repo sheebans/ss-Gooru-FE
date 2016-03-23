@@ -14,9 +14,11 @@ export default Ember.Route.extend({
   searchService: Ember.inject.service('api-sdk/search'),
 
   model: function(params) {
-    var resourceResults = this.get('searchService').searchResources(params.term, []);
+    const term = params.term;
+    const resourceResults = this.get('searchService').searchResources(term, []);
     return Ember.RSVP.hash({
-      resources: resourceResults
+      resources: resourceResults,
+      term: term
     });
   },
 
@@ -28,6 +30,7 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     this._super(controller, model);
     controller.set('resourceResults', model.resources);
+    controller.set('term', model.term);
   }
 
   // -------------------------------------------------------------------------

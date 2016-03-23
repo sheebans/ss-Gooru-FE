@@ -21,6 +21,6 @@ test('Layout', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/search/resources?term=any');
     T.exists(assert, find(".gru-resource-options"), "Missing gru-resource-options menu");
-    T.exists(assert, find(".gru-resource-results"), "Missing gru-resource-results menu");
+    T.exists(assert, find(".gru-resource-results"), "Missing gru-resource-results");
   });
 });

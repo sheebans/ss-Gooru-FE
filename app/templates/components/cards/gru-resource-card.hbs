@@ -25,9 +25,9 @@
           <img class="img-responsive" src="assets/gooru/profile.png">
       {{/if}}
         <div class="publisher-name">
-          <!--<a href="{{! resource.owner.url }}" target="_blank">{{!resource.owner.name}}</a>-->
-          <!--Temporal-->
-          <a href="" target="_blank">{{ resource.owner.username }}</a>
+          {{#link-to 'profile.about' resource.owner.id target="_blank"}}
+            {{resource.owner.username}}
+          {{/link-to}}
         </div>
     </div>
     <div class="description">
