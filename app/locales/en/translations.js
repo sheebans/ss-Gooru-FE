@@ -17,6 +17,14 @@ export default {
     "assessmentInitial": "A",
     "attempt": "Attempt number",
     "audience":"Audience",
+    "audienceList": {
+      "all": "All Students",
+      "english-language-learners": "English Language Learners",
+      "above-grade-level": "Students Above Grade Level",
+      "below-grade-level": "Students Below Grade Level",
+      "special-needs": "Students With Special Needs",
+      "teachers": "Teachers"
+    },
     "of": "of",
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
@@ -25,14 +33,6 @@ export default {
     "builder": "Builder",
     "cancel": "Cancel",
     "category": "Category",
-    "categoryAudience": {
-      "all": "All Students",
-      "english-language-learn": "English Language Learners",
-      "students-above-grade-lev": "Students Above Grade Level",
-      "students-below-grade-lev": "Students Below Grade Level",
-      "students-special-needs": "Students With Special Needs",
-      "teachers":"Teachers"
-    },
     "categoryOptions": {
       "k12": "K-12",
       "higher-ed": "Higher Education",

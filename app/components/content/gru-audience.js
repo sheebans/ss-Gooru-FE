@@ -33,14 +33,15 @@ export default Ember.Component.extend({
    * Overwrites didUpdate hook.
    */
   didUpdate: function() {
-    $('.gru-audience .dropdown-menu.audience li label').on('click', function (e) {
+    this.$('.dropdown-menu.audience li label').on('click', function (e) {
       e.stopPropagation();
     });
   },
   // -------------------------------------------------------------------------
   // Events
   sendUpdatedAudienceValues: Ember.observer('activeAudience.@each.checked', function() {
-    this.sendAction('onChangeAudience', this.get('activeAudience'));
+    //this.sendAction(this.get('onChangeAudience'), this.get('activeAudience'));
+      this.get('onChangeAudience')(this.get('activeAudience'));
   }),
 
   // -------------------------------------------------------------------------
@@ -56,16 +57,15 @@ export default Ember.Component.extend({
    */
   audienceList:null,
 
-  /**
-   * @property {String|Function} onChangeAudience - event handler when the selected audience is changed
-   */
-  onChangeAudience: null,
+  ///**
+  // * @property {String|Function} onChangeAudience - event handler when the selected audience is changed
+  // */
+  //onChangeAudience: null,
   /**
    * @type {Ember.A} audienceList - List of active audiences
    */
   activeAudience:Ember.computed('audienceList.@each.checked','isEditing',function(){
     var list = Ember.copy(this.get('audienceList'),true);
     return list;
-  })
-
+  }),
 });

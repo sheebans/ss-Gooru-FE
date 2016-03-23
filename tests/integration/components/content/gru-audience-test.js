@@ -8,12 +8,12 @@ moduleForComponent('content/gru-audience', 'Integration | Component | content/gr
 test('Audience Read Only Layout', function(assert) {
  var audienceList= [{
    'value':1,
-   'label':'common.categoryAudience.all',
+   'label':'common.audienceList.all',
    'checked':true
  },
    {
      'value':2,
-     'label':'common.categoryAudience.teachers',
+     'label':'common.audienceList.teachers',
      'checked':false
    }];
   this.set('audienceList',audienceList);
@@ -32,12 +32,12 @@ test('Audience Read Only Layout', function(assert) {
 test('Audience Edit Layout', function(assert) {
   var audienceList= [{
     'value':1,
-    'label':'common.categoryAudience.all',
+    'label':'common.audienceList.all',
     'checked':true
   },
     {
       'value':2,
-      'label':'common.categoryAudience.teachers',
+      'label':'common.audienceList.teachers',
       'checked':false
     }];
   this.set('audienceList',audienceList);
@@ -56,12 +56,12 @@ test('Audience Edit Layout', function(assert) {
 test('Audience Edit Remove Audience', function(assert) {
   var audienceList= [{
     'value':1,
-    'label':'common.categoryAudience.all',
+    'label':'common.audienceList.all',
     'checked':true
   },
     {
       'value':2,
-      'label':'common.categoryAudience.teachers',
+      'label':'common.audienceList.teachers',
       'checked':false
     }];
   this.set('audienceList',audienceList);
@@ -71,7 +71,7 @@ test('Audience Edit Remove Audience', function(assert) {
   });
 
   this.render(hbs`
-    {{content.gru-audience isEditing=true audienceList=audienceList onChangeAudience="changeAudience"}}
+    {{content.gru-audience isEditing=true audienceList=audienceList onChangeAudience=(action "changeAudience")}}
   `);
 
   var $component = this.$();
@@ -83,12 +83,12 @@ test('Audience Edit Remove Audience', function(assert) {
 test('Audience Edit Add Audience', function(assert) {
   var audienceList= [{
     'value':1,
-    'label':'common.categoryAudience.all',
+    'label':'common.audienceList.all',
     'checked':false
   },
     {
       'value':2,
-      'label':'common.categoryAudience.teachers',
+      'label':'common.audienceList.teachers',
       'checked':false
     }];
   this.set('audienceList',audienceList);
@@ -98,7 +98,7 @@ test('Audience Edit Add Audience', function(assert) {
   });
 
   this.render(hbs`
-    {{content.gru-audience isEditing=true audienceList=audienceList onChangeAudience="changeAudience"}}
+    {{content.gru-audience isEditing=true audienceList=audienceList onChangeAudience=(action "changeAudience")}}
   `);
 
   var $component = this.$();

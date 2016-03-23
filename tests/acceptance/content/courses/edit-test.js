@@ -82,6 +82,7 @@ test('Information Layout', function (assert) {
     assert.equal($edit.text(), "Edit", "The button should be say Edit");
     click($edit);
     andThen(function () {
+
       const $save = $container.find('.actions .save');
       assert.equal($save.text(), "Save", "The button should be say Save");
       const $cancel = $container.find('.actions .cancel');
@@ -92,11 +93,13 @@ test('Information Layout', function (assert) {
       click($audience);
       click($cancel);
       andThen(function () {
+
         assert.equal($container.find('.panel-body .title .title').text(), "Course Title", "The Course Title should be Course Title");
         assert.equal($container.find('.gru-audience .btn-empty').length, 2, 'Incorrect number of audience selected');
         const $edit = $container.find('.actions .edit');
         click($edit);
         andThen(function () {
+
           assert.ok($container.find('.course-thumbnail .upload-image .upload'), "Missing Upload Thumbnail Button");
           fillIn($container.find("#course-name"), 'New Title');
           $container.find("#course-name").trigger('blur');
@@ -105,24 +108,30 @@ test('Information Layout', function (assert) {
           click($audience);
           click($save);
           andThen(function () {
+
             assert.ok($container.find('.actions .edit'), "Missing Edit Button");
             assert.equal($container.find('.panel-body .title span.title').text(), "New Title", "The Course Title should be New Title");
             assert.equal($container.find('.gru-audience .btn-empty').length, 1, 'Incorrect number of audience selected');
             const $edit = $container.find('.actions .edit');
             click($edit);
             andThen(function () {
+
               const $audienceDropdown = $container.find('.gru-audience .dropdown');
               $audienceDropdown.addClass('open');
               andThen(function () {
+
                 var $selectAudience = $container.find('.gru-audience .dropdown-menu li:eq(0) label input');
                 click($selectAudience);
                 andThen(function () {
+
                   var $selectAudience = $container.find('.gru-audience .dropdown-menu li:eq(4) label input');
                   click($selectAudience);
                   andThen(function () {
+
                     const $save = $container.find('.actions .save');
                     click($save);
                     andThen(function () {
+
                       assert.equal($container.find('.gru-audience .btn-empty').length, 3, 'Incorrect number of audience selected');
                     });
                   });

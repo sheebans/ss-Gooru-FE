@@ -87,7 +87,11 @@ export default Ember.Controller.extend(BuilderMixin, {
    * @property {Number}
    */
   activeCategory:null,
-
+  /**
+   * Active Audience
+   * @property {Number}
+   */
+   activeAudience:null,
   /**
    * @type {Ember.A} audienceList - List of audiences
    */
@@ -95,7 +99,7 @@ export default Ember.Controller.extend(BuilderMixin, {
     var component = this;
     var list = COURSE_AUDIENCE.slice(0);
     list.forEach(function(object){
-      Ember.set(object,'checked', component.existIntoArray(object.value,component.get('course.audience')));
+      Ember.set(object,'checked', component.findInArray(object.value,component.get('course.audience')));
     });
     return list;
   }),
@@ -106,9 +110,8 @@ export default Ember.Controller.extend(BuilderMixin, {
   /*
    * Check if the value exist into array
    */
-  existIntoArray: function (value,array) {
-    var find= $.inArray(value, array);
-    return (find > -1);
+  findInArray: function (value,array) {
+   return $.inArray(value, array) > -1;
   },
   /*
    * Save new audience

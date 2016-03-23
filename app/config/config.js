@@ -12,12 +12,12 @@ export const DEFAULT_IMAGES = {
 };
 
 export const COURSE_AUDIENCE = [
-  {value: 1, label: 'common.categoryAudience.all'},
-  {value: 2, label: 'common.categoryAudience.english-language-learn'},
-  {value: 3, label: 'common.categoryAudience.students-above-grade-lev'},
-  {value: 4, label: 'common.categoryAudience.students-below-grade-lev'},
-  {value: 5, label: 'common.categoryAudience.students-special-needs'},
-  {value: 6, label: 'common.categoryAudience.teachers'}
+  {value: 1, label: 'common.audienceList.all'},
+  {value: 2, label: 'common.audienceList.english-language-learners'},
+  {value: 3, label: 'common.audienceList.above-grade-level'},
+  {value: 4, label: 'common.audienceList.below-grade-level'},
+  {value: 5, label: 'common.audienceList.special-needs'},
+  {value: 6, label: 'common.audienceList.teachers'}
 ];
 
 export const COURSE_CATEGORIES = [

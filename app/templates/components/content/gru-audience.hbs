@@ -12,7 +12,10 @@
         </ul>
       {{#each activeAudience as |audience|}}
         {{#if audience.checked}}
-          <button type="button" class="btn-audience btn-info btn btn-sm"><span class="btn-label">{{t audience.label}}</span><span class="remove-audience" {{action 'removeAudience' audience}}>{{gru-icon name="clear"}}</span></button>
+          <button type="button" class="btn-audience btn-info btn btn-sm">
+              <span class="btn-label">{{t audience.label}}</span>
+              <span class="remove-audience" {{action 'removeAudience' audience}}>{{gru-icon name="clear"}}</span>
+          </button>
         {{/if}}
       {{/each}}
     </div>

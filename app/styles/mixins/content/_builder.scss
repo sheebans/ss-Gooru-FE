@@ -37,7 +37,7 @@
     @include flex();
 
     > header {
-      z-index: 1100;
+      z-index: $zindex-navbar;
       background-color: $dark-400;
       padding: 20px 20px 0 5%;
 
