@@ -40,3 +40,25 @@ test('Layout', function (assert) {
     assert.ok($container.find('> section#settings').length, "Settings section");
   });
 });
+test('Settings Layout', function (assert) {
+  visit('/content/collections/edit/123');
+
+  andThen(function () {
+    assert.equal(currentURL(), '/content/collections/edit/123');
+
+    var $container = find(".controller.content.collections.edit");
+    assert.ok($container.find('#settings .header h2'), "Missing Settings Title");
+    assert.ok($container.find('.panel h3'), "Missing Content Publishing Subtitle");
+    assert.ok($container.find('.panel-body .setting-content:nth-child(0) .icon i.visibility'), "Missing Visibility Icon");
+    assert.ok($container.find('.panel-body .setting-content:nth-child(0) .description.publish-to'), "Missing Publish to message");
+    assert.ok($container.find('.panel-body .toggle'), "Missing Toggle");
+    assert.ok($container.find('.panel-body .setting-content:nth-child(1) .icon i.public'), "Missing Public Icon");
+    assert.ok($container.find('.panel-body .setting-content:nth-child(1) .description.request-to'), "Missing Request to message");
+    const $sendRequest = $container.find('.panel-body .request');
+    assert.equal($sendRequest.text(), "Send Request", "The button should be say Send Request");
+    $sendRequest.click();
+    andThen(function () {
+      assert.equal($container.find('.panel-body .request').text(), "Pending", "The button should be say Send Request");
+    });
+  });
+});
