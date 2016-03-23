@@ -2,23 +2,18 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
-  queryParams: {
-    term: {
-      refreshModel: true
-    }
-  },
-
   /**
    * @property {Ember.Service} Service to do the search
    */
   searchService: Ember.inject.service('api-sdk/search'),
 
   model: function(params) {
-    const term = params.term;
-    const resourceResults = this.get('searchService').searchResources(term, []);
+    const selectedOptionTypes = params.selectedOptionTypes;
+    const term = this.paramsFor('search').term;
+    var resourceResults = this.get('searchService').searchResources(term, selectedOptionTypes);
     return Ember.RSVP.hash({
       resources: resourceResults,
-      term: term
+      selectedOptionTypes: selectedOptionTypes
     });
   },
 
@@ -30,10 +25,7 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     this._super(controller, model);
     controller.set('resourceResults', model.resources);
-    controller.set('term', model.term);
+    controller.set('selectedOptionTypes', model.selectedOptionTypes);
   }
-
-  // -------------------------------------------------------------------------
-  // Actions
 
 });

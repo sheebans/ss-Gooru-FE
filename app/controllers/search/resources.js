@@ -14,9 +14,10 @@ export default Ember.Controller.extend({
   // Dependencies
   searchController: Ember.inject.controller('search'),
 
+  queryParams: ['selectedOptionTypes'],
+
   // -------------------------------------------------------------------------
   // Attributes
-
 
   // -------------------------------------------------------------------------
   // Actions

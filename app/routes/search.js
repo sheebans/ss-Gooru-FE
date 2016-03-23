@@ -36,11 +36,11 @@ export default Ember.Route.extend({
   model: function(params) {
     var standards = this.get("standardService").readAll();
     var profile = this.get("profileService").findByCurrentUser();
-    var collectionResults = this.get('searchService').searchCollections(params);
+    //var collectionResults = this.get('searchService').searchCollections(params);
     return Ember.RSVP.hash({
       standards: standards,
-      profile: profile,
-      collectionResults: collectionResults
+      profile: profile
+      //collectionResults: collectionResults
     });
   },
   /**
@@ -58,7 +58,7 @@ export default Ember.Route.extend({
     }
 
     controller.set("standards", model.standards);
-    controller.set('collectionResults', model.collectionResults);
+    //controller.set('collectionResults', model.collectionResults);
   },
 
   // -------------------------------------------------------------------------

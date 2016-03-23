@@ -7,6 +7,14 @@ export default Ember.Route.extend({
    */
   searchService: Ember.inject.service('api-sdk/search'),
 
+  model: function() {
+    const term = this.paramsFor('search').term;
+    var collectionResults = this.get('searchService').searchCollections(term, true);
+    return Ember.RSVP.hash({
+      collections: collectionResults
+    });
+  },
+
   /**
    * Set all controller properties used in the template
    * @param controller
@@ -14,18 +22,7 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
     this._super(controller, model);
-    var term = controller.get('searchController').term;
-    var searchParams = {
-          "term": term,
-          "collectionType": 'assessments'
-        };
-
-    var collectionResults = this.get('searchService').searchCollections(searchParams);
-
-    controller.set('collectionResults', collectionResults);
+    controller.set('collectionResults', model.collections);
   }
-
-  // -------------------------------------------------------------------------
-  // Actions
 
 });

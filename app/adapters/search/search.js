@@ -11,11 +11,10 @@ export default Ember.Object.extend({
 
   namespace: '/gooru-search/rest/v2/search',
 
-
-  searchResources: function(term, categories) {
+  searchCollections: function(term, isTypeAssessment = false) {
     const adapter = this;
     const namespace = this.get('namespace');
-    const url = `${namespace}/resource`;
+    const url = `${namespace}/scollection`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -23,11 +22,32 @@ export default Ember.Object.extend({
       headers: adapter.defineHeaders(),
       data: {
         q: term,
-        'flt.resourceFormat': (Ember.isArray(categories) && categories.length > 0 ? categories.join(',') : null),
+        'flt.collectionType': (isTypeAssessment ? 'assessment' : 'collection'),
         start: 1,
         length: 20
       }
     };
+    return Ember.$.ajax(url, options);
+  },
+
+  searchResources: function(term, categories = []) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/resource`;
+    let options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
+      headers: adapter.defineHeaders(),
+      data: {
+        q: term,
+        start: 1,
+        length: 20
+      }
+    };
+    if (Ember.isArray(categories) && categories.length > 0) {
+      options.data['flt.resourceFormat'] = categories.join(',');
+    }
     return Ember.$.ajax(url, options);
   },
 

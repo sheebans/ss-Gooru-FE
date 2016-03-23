@@ -41,7 +41,7 @@ export default Ember.Component.extend(ModalMixin, {
           itemsStandards.addObject(item);
         }
         else {
-          itemName = '<p>' + item.get('name') + '</p>';
+          itemName = '<p>' + item.get('code') + '</p>';
           count += 1;
           tooltipsStand = tooltipsStand + itemName;
         }
