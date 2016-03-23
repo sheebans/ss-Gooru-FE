@@ -15,11 +15,11 @@
     >*{
       @include flex-basis(145px);
       &.title{
-        @include flex-grow(4);
+        min-width: 228px;
+        @include flex-basis(228px);
         padding-left: 15px;
         @media(min-width: $screen-sm){
-          min-width: 228px;
-          @include flex-basis(228px);
+
         }
         @include respond-to(xs){
           display: inline-block;

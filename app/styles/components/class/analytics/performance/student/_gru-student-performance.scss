@@ -16,7 +16,6 @@
           min-width: 228px;
           @include flex-basis(228px);
           padding-left: 40px;
-          @include flex-grow(4);
         }
       }
     }
