@@ -40,7 +40,6 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
   sendUpdatedAudienceValues: Ember.observer('activeAudience.@each.checked', function() {
-    //this.sendAction(this.get('onChangeAudience'), this.get('activeAudience'));
       this.get('onChangeAudience')(this.get('activeAudience'));
   }),
 
@@ -57,10 +56,6 @@ export default Ember.Component.extend({
    */
   audienceList:null,
 
-  ///**
-  // * @property {String|Function} onChangeAudience - event handler when the selected audience is changed
-  // */
-  //onChangeAudience: null,
   /**
    * @type {Ember.A} audienceList - List of active audiences
    */
