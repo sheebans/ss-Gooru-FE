@@ -34,18 +34,20 @@ export default Ember.Object.extend({
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/resource`;
-    const options = {
+    let options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
       headers: adapter.defineHeaders(),
       data: {
         q: term,
-        'flt.resourceFormat': (Ember.isArray(categories) && categories.length > 0 ? categories.join(',') : null),
         start: 1,
         length: 20
       }
     };
+    if (Ember.isArray(categories) && categories.length > 0) {
+      options.data['flt.resourceFormat'] = categories.join(',');
+    }
     return Ember.$.ajax(url, options);
   },
 
