@@ -6,11 +6,11 @@
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu audience">
-        {{#each activeAudience as |audience|}}
+        {{#each selectedAudience as |audience|}}
             <li><label>{{input type="checkbox" checked=audience.checked}}<span>{{t audience.label}}</span></label></li>
         {{/each}}
         </ul>
-      {{#each activeAudience as |audience|}}
+      {{#each selectedAudience as |audience|}}
         {{#if audience.checked}}
           <button type="button" class="btn-audience btn-info btn btn-sm">
               <span class="btn-label">{{t audience.label}}</span>

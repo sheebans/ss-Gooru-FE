@@ -22,7 +22,7 @@ export default Ember.Component.extend({
      * Remove audience from active audience
      */
     removeAudience:function(audience){
-      $.map( this.get('activeAudience'), function(object) {
+      $.map( this.get('selectedAudience'), function(object) {
         if(object===audience){
           Ember.set(object,'checked', false);
         }
@@ -39,8 +39,8 @@ export default Ember.Component.extend({
   },
   // -------------------------------------------------------------------------
   // Events
-  sendUpdatedAudienceValues: Ember.observer('activeAudience.@each.checked', function() {
-      this.get('onChangeAudience')(this.get('activeAudience'));
+  sendUpdatedAudienceValues: Ember.observer('selectedAudience.@each.checked', function() {
+      this.get('onChangeAudience')(this.get('selectedAudience'));
   }),
 
   // -------------------------------------------------------------------------
@@ -59,7 +59,7 @@ export default Ember.Component.extend({
   /**
    * @type {Ember.A} audienceList - List of active audiences
    */
-  activeAudience:Ember.computed('audienceList.@each.checked','isEditing',function(){
+  selectedAudience:Ember.computed('audienceList.@each.checked','isEditing',function(){
     var list = Ember.copy(this.get('audienceList'),true);
     return list;
   }),

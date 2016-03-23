@@ -42,7 +42,7 @@ export default Ember.Controller.extend(BuilderMixin, {
      * @see content.audience
      */
     changeAudience:function(newAudience){
-      this.set('activeAudience',newAudience);
+      this.set('tempAudience',newAudience);
     },
 
   },
@@ -100,7 +100,7 @@ export default Ember.Controller.extend(BuilderMixin, {
    * Active Audience
    * @property {Number}
    */
-   activeAudience:null,
+   tempAudience:null,
   /**
    * @type {Ember.A} audienceList - List of audiences
    */
@@ -127,12 +127,12 @@ export default Ember.Controller.extend(BuilderMixin, {
    */
   saveAudience: function () {
     var component = this;
-    var activeAudience = component.get('activeAudience');
+    var tempAudience = component.get('tempAudience');
     var newAudience = [];
-    if(activeAudience==null){
-      activeAudience =  component.get('audienceList');
+    if(tempAudience==null){
+      tempAudience =  component.get('audienceList');
     }
-    activeAudience.map(function (object) {
+    tempAudience.map(function (object) {
       if(object.checked===true){
         newAudience.push(object.value);
       }
