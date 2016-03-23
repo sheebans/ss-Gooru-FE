@@ -59,7 +59,12 @@ export default Ember.Controller.extend({
    * These are the resource search results
    * @property {resourceResults[]}
    */
-  resourceResults: null
+  resourceResults: null,
+
+  /**
+   * @property {string} term filter
+   */
+  term: null
 
   // -------------------------------------------------------------------------
   // Methods

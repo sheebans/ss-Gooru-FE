@@ -6,7 +6,7 @@
           <div>
             <h6 class="title truncate" alt="{{resource.title}}">{{resource.title}}</h6>
           </div>
-          <div class="{{if resource.isQuestion 'question-type' 'resource-type' }}">
+          <div class="{{if isQuestion 'question-type' 'resource-type' }}">
             <span>{{t (concat "common.resource-format." resource.format)}}</span>
           </div>
         </div>
@@ -35,6 +35,6 @@
     </div>
   </div>
   <div class="panel-footer">
-    <button class="{{if resource.isQuestion 'remix-btn' 'add-to-btn' }} btn-success btn-sm">{{#if resource.isQuestion }}{{t "common.remix"}}{{else}}{{t "cards.gru-resource-card.add"}}{{/if}}</button>
+    <button class="{{if isQuestion 'remix-btn' 'add-to-btn' }} btn-success btn-sm">{{#if isQuestion }}{{t "common.remix"}}{{else}}{{t "cards.gru-resource-card.add"}}{{/if}}</button>
   </div>
 </div>

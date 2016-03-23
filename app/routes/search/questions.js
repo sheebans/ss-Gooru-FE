@@ -2,10 +2,25 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
+  queryParams: {
+    term: {
+      refreshModel: true
+    }
+  },
+
   /**
    * @property {Ember.Service} Service to do the search
    */
   searchService: Ember.inject.service('api-sdk/search'),
+
+  model: function(params) {
+    const term = params.term;
+    const resourceResults = this.get('searchService').searchResources(term, ['question']);
+    return Ember.RSVP.hash({
+      resources: resourceResults,
+      term: term
+    });
+  },
 
   /**
    * Set all controller properties used in the template
@@ -14,18 +29,10 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
     this._super(controller, model);
-    var term = controller.get('searchController').term;
-    var searchParams = {
-      "term": term,
-      "collectionType": 'collections'
-    };
-
-    var resourceResults = this.get('searchService').searchCollections(searchParams);
-
-    controller.set('resourceResults', resourceResults);
+    controller.set('resourceResults', model.resources);
+    controller.set('term', model.term);
   }
 
   // -------------------------------------------------------------------------
   // Actions
-
 });
