@@ -1,13 +1,13 @@
 import Ember from 'ember';
-import StoreMixin from '../../mixins/store';
 import SearchSerializer from 'gooru-web/serializers/search/search';
 import SearchAdapter from 'gooru-web/adapters/search/search';
 
-export default Ember.Service.extend(StoreMixin, {
+export default Ember.Service.extend({
 
   searchSerializer: null,
 
   searchAdapter: null,
+
 
   init: function () {
     this._super(...arguments);
@@ -15,19 +15,16 @@ export default Ember.Service.extend(StoreMixin, {
     this.set('searchAdapter', SearchAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
-  searchCollections: function(params) {
-    if(Object.keys(params).length) {
-      return this.get('store').queryRecord('search/collection-result', {
-        category: 'All',
-        'flt.collectionType': (params.collectionType)?params.collectionType:'collection',
-        includeCIMetaData: true,
-        length: 20,
-        q: params.term,
-        start: 1
-      });
-    } else {
-      return Ember.A();
-    }
+  searchCollections: function(term, isTypeAssessment = false) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('searchAdapter').searchCollections(term, isTypeAssessment)
+        .then(function(response) {
+          resolve(service.get('searchSerializer').normalizeSearchCollections(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
   },
 
   searchResources: function(term, categories) {
@@ -35,7 +32,7 @@ export default Ember.Service.extend(StoreMixin, {
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('searchAdapter').searchResources(term, categories)
         .then(function(response) {
-          resolve(service.get('searchSerializer').normalizeSearchResource(response));
+          resolve(service.get('searchSerializer').normalizeSearchResources(response));
         }, function(error) {
           reject(error);
       });

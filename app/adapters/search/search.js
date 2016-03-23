@@ -11,8 +11,26 @@ export default Ember.Object.extend({
 
   namespace: '/gooru-search/rest/v2/search',
 
+  searchCollections: function(term, isTypeAssessment = false) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/scollection`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
+      headers: adapter.defineHeaders(),
+      data: {
+        q: term,
+        'flt.collectionType': (isTypeAssessment ? 'assessment' : 'collection'),
+        start: 1,
+        length: 20
+      }
+    };
+    return Ember.$.ajax(url, options);
+  },
 
-  searchResources: function(term, categories) {
+  searchResources: function(term, categories = []) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/resource`;

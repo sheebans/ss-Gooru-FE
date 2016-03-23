@@ -2,24 +2,28 @@ import Ember from 'ember';
 
 export default Ember.Object.extend({
 
+  id: null,
+
   title: null,
 
   description: null,
 
-  category: null,
+  resourceCount: 0,
 
-  format: null,
+  questionCount: 0,
 
-  publisher: null,
+  remixCount: 0,
 
   thumbnailUrl: null,
 
-  url: null,
+  course: null,
 
   owner: null,
 
   standards: null,
 
-  isQuestion: Ember.computed.equal('category', 'Question')
+  isPublic: false,
+
+  isAssessment: false
 
 });
