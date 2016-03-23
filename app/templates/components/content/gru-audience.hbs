@@ -1,14 +1,34 @@
 <span class="audience-label">{{t "common.audience"}}</span>
 {{#if isEditing}}
     <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle btn-sm" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <button class="btn-primary dropdown-toggle btn-sm" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           {{t "common.add-plus"}}
             <span class="caret"></span>
         </button>
-        <ul class="dropdown-menu">
-
+        <ul class="dropdown-menu audience">
+        {{#each selectedAudience as |audience|}}
+            <li><label>{{input type="checkbox" checked=audience.checked}}<span>{{t audience.label}}</span></label></li>
+        {{/each}}
         </ul>
+      {{#each selectedAudience as |audience|}}
+        {{#if audience.checked}}
+          <button type="button" class="btn-audience btn-info btn btn-sm">
+              <span class="btn-label">{{t audience.label}}</span>
+              <span class="remove-audience" {{action 'removeAudience' audience}}>{{gru-icon name="clear"}}</span>
+          </button>
+        {{/if}}
+      {{/each}}
     </div>
 {{else}}
+  {{#if audienceList}}
+      <div class="active-audience">
+         {{#each audienceList as |audience|}}
+           {{#if audience.checked}}
+             <button type="button" class="btn-empty btn btn-sm">{{t audience.label}}</button>
+           {{/if}}
+         {{/each}}
+      </div>
+  {{else}}
     <span class="empty">{{t "common.not-specified"}}</span>
+  {{/if}}
 {{/if}}
