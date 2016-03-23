@@ -55,10 +55,10 @@ test('Settings Layout', function (assert) {
     assert.ok($container.find('.panel-body .setting-content:nth-child(1) .icon i.public'), "Missing Public Icon");
     assert.ok($container.find('.panel-body .setting-content:nth-child(1) .description.request-to'), "Missing Request to message");
     const $sendRequest = $container.find('.panel-body .request');
-    assert.equal($sendRequest.text(), "Send Request", "The button should be say Send Request");
+    assert.ok($container.find('.panel-body .request.btn-send-request'), "The button should be Send Request");
     $sendRequest.click();
     andThen(function () {
-      assert.equal($container.find('.panel-body .request').text(), "Pending", "The button should be say Send Request");
+      assert.ok($container.find('.panel-body .request.btn-pending'), "The button should be Send Request");
     });
   });
 });
