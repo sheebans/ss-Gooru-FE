@@ -107,46 +107,53 @@
         }
       }
       div.collections-container{
-        @include flexbox;
-        @include flex-direction(column);
-        >ul {
-          padding-bottom: 20px;
-          @include align-items(flex-end);
-          &:after {
-            border-top: 1px solid $gray-lighter;
-            width: 96%;
-            position: relative;
-            left: 0;
-            top: 31px;
-            @include respond-to(xs) {
-              top: 0;
-              bottom: 0;
-            }
-          }
-          &:last-child {
-            &:after {
-              border: none;
-            }
-          }
 
-          li{
-            @media (max-width: $screen-sm) {
-              @include flex-basis(initial);
-            }
-            &.title{
-              @include flex-direction(column);
-              @include align-items(flex-start);
-              .section-title {
-                padding: 5px;
+
+        >ul {
+          @include flexbox;
+          @include flex-direction(column);
+          list-style: none;
+          padding: 0;
+          li ul{
+            padding-bottom: 20px;
+            height:100px;
+            @include align-items(flex-end);
+            &:after {
+              border-top: 1px solid $gray-lighter;
+              width: 96%;
+              position: relative;
+              left: 0;
+              top: 31px;
+              @include respond-to(xs) {
+                top: 0;
+                bottom: 0;
               }
             }
-            >span{
-              i{
-                display: none;
+            &:last-child {
+              &:after {
+                border: none;
               }
             }
-            p{
-              margin:0 0 5px;
+
+            li{
+              @media (max-width: $screen-sm) {
+                @include flex-basis(initial);
+              }
+              &.title{
+                @include flex-direction(column);
+                @include align-items(flex-start);
+                .section-title {
+                  padding: 5px;
+                }
+              }
+              >span{
+                i{
+                  display: none;
+                }
+              }
+              p{
+                margin:0 0 5px;
+              }
             }
           }
         }
