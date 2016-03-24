@@ -11,6 +11,13 @@ export default Ember.Object.extend({
 
   namespace: '/gooru-search/rest/v2/search',
 
+  /**
+   * Fetches the collections that match with the term
+   *
+   * @param term the term to search
+   * @param isTypeAssessment determines if the search is for assessments. By default is false.
+   * @returns {Promise}
+   */
   searchCollections: function(term, isTypeAssessment = false) {
     const adapter = this;
     const namespace = this.get('namespace');
@@ -30,6 +37,13 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Fetches the resources that match with the term
+   *
+   * @param term the term to search
+   * @param categories the resource categories to filter the search
+   * @returns {Promise}
+   */
   searchResources: function(term, categories = []) {
     const adapter = this;
     const namespace = this.get('namespace');
