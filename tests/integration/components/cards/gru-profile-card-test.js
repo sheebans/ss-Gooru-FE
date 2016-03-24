@@ -43,7 +43,7 @@ test('it renders', function (assert) {
     assert.equal($image.attr('src'), '/assets/gooru/profile.png');
 
     const $name = $component.find('> a > strong');
-    assert.equal($name.text(), 'John Doe');
+    assert.equal($name.text(), 'JohnDoe');
   });
 });
 
