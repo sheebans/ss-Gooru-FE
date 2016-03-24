@@ -43,7 +43,7 @@ export default Ember.Controller.extend(BuilderMixin, {
      */
     changeAudience:function(newAudience){
       this.set('tempAudience',newAudience);
-    },
+    }
 
   },
   // -------------------------------------------------------------------------
@@ -52,9 +52,10 @@ export default Ember.Controller.extend(BuilderMixin, {
   init() {
     this._super(...arguments);
     var course = Course.create(Ember.getOwner(this).ownerInjection(), {
-      'title': "Course Title",
-      'category':1,
-      'audience':[2,4]
+      title: "Course Title",
+      category: 1,
+      audience: [2, 4],
+      image: 'assets/gooru/default-image.png'
     });
     this.set('course', course);
   },

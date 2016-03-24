@@ -173,6 +173,7 @@ export default {
     "suggested-resources":"Suggested Resources",
     "teacher": "Teacher",
     "timeSpent": "Time Spent",
+    "update-thumbnail": "Update Thumbnail",
     "upload-thumbnail":"Upload Thumbnail",
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
     "unfollow": "Unfollow",
@@ -251,6 +252,8 @@ export default {
 
   "content.courses.edit": {
     "assign-to-class": "Assign to Class",
+    "big-ideas": "Big Ideas",
+    "essential-questions": "Essential Questions",
     "information":{
       "course-title":"Course Title"
     }

@@ -1,0 +1,41 @@
+{{#if isEditing}}
+
+  {{#if image}}
+    {{#if isFileInputEmpty}}
+      <img class="img-responsive" src="{{image}}"/>
+    {{/if}}
+  {{else}}
+    {{gru-icon name="library_add"}}
+  {{/if}}
+
+  {{#file-picker
+  accept=".jpg,.jpeg,.gif,.png"
+  dropzone=false
+  fileLoaded=(action 'prepareForSubmission')
+  readAs="readAsDataURL"
+  errors=filePickerErrors
+  onRemoveImage=(action 'disableButtons')
+  removePreview=isFileInputEmpty }}
+
+    <button class="btn btn-info">
+      {{#if image}}
+        {{t 'common.update-thumbnail'}}
+      {{else}}
+        {{t 'common.upload-thumbnail'}}
+      {{/if}}
+    </button>
+  {{/file-picker}}
+
+  {{#if image}}
+    <button class="delete btn" {{action 'resetImage'}}>{{gru-icon name="delete"}}</button>
+  {{/if}}
+
+{{else}}
+
+  {{#if image}}
+    <img class="img-responsive" src="{{image}}"/>
+  {{else}}
+    {{gru-icon name="library_add"}}
+  {{/if}}
+
+{{/if}}
