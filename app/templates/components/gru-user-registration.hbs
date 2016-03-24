@@ -32,7 +32,9 @@
         </div>
         <div class="row footer">
           <div class="col-md-12">
-            <span class="log-in-here">{{t "gru-user-registration.haveAccount"}} <button class="btn btn-link" {{action "showModal" "gru-sign-in"}}>{{t "gru-user-registration.clickLogIn"}}</button></span>
+            <span class="log-in-here">{{t "gru-user-registration.haveAccount"}}
+              {{#link-to 'sign-in' class="btn btn-link" tagName='button'}} {{t "gru-user-registration.clickLogIn"}} {{/link-to}}
+            </span>
           </div>
         </div>
       </div>

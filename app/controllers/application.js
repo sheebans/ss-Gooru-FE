@@ -48,7 +48,7 @@ export default Ember.Controller.extend({
   actions: {
     /**
      * Action triggered after a user has signed in
-     * @see gru-sign-in.hbs
+     * @see sign-in.hbs
      */
     signIn: function() {
       return true;
