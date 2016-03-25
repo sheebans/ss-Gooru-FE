@@ -547,6 +547,9 @@ export default {
       "about-you": "About You",
       "content": "Content",
       "network": "Network"
+    },
+    "edit": {
+      "select-district": "Select a district..."
     }
   },
 

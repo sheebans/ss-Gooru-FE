@@ -12,11 +12,11 @@
         <div class="row">
           <div class="col-xs-12 col-sm-6">
             <h6><label for="first-name">{{t "common.first-name"}}</label></h6>
-            {{input id="first-name" class="form-control" value=profile.user.firstName}}
+            {{input id="first-name" class="form-control" value=profile.firstName}}
           </div>
           <div class="col-xs-12 col-sm-6">
             <h6><label for="last-name">{{t "common.last-name"}}</label></h6>
-            {{input id="last-name" class="form-control" value=profile.user.lastName}}
+            {{input id="last-name" class="form-control" value=profile.lastName}}
           </div>
         </div>
         <h6><label for="bio">{{t "common.biography"}}</label></h6>
@@ -32,30 +32,30 @@
       <div class="panel-body">
         <h6>{{t "common.role"}}</h6>
         <div class="checkbox-inline">
-          {{input id="teacher-role" type="checkbox" checked=(eq profile.user.role undefined)}}
+          {{input id="teacher-role" type="checkbox" checked=(eq profile.role "teacher")}}
           <label for="teacher-role">{{t "common.teacher"}}</label>
         </div>
         <div class="checkbox-inline">
-          {{input id="student-role" type="checkbox" checked=(eq profile.user.role "student")}}
+          {{input id="student-role" type="checkbox" checked=(eq profile.role "student")}}
           <label for="student-role">{{t "common.student"}}</label>
         </div>
         <div class="checkbox-inline">
-          {{input id="other-role" type="checkbox" checked=(eq profile.user.role "other")}}
+          {{input id="other-role" type="checkbox" checked=(eq profile.role "other")}}
           <label for="other-role">{{t "common.other"}}</label>
         </div>
         <h6><label for="school">{{t "common.school"}}</label></h6>
         <div class="row">
           <div class="col-xs-12 col-sm-8 col-md-7">
-            {{input id="school" class="form-control" value=profile.user.school}}
+            {{input id="school" class="form-control" value=profile.school}}
           </div>
         </div>
         <h6><label for="district">{{t "common.district"}}</label></h6>
         <div class="row">
           <div class="col-xs-12">
-            <select id="district" class="form-control" onchange={{action (mut profile.user.districtName) value="target.value"}}>
-              <option value="">Select a district...</option>
+            <select id="district" class="form-control" onchange={{action (mut profile.schoolDistrict) value="target.value"}}>
+              <option value="">{{t 'profile.edit.select-district'}}</option>
               {{#each districts as |districtChoice|}}
-                <option value={{districtChoice}} selected={{eq profile.user.districtName districtChoice}}>{{districtChoice}}</option>
+                <option value={{districtChoice}} selected={{eq profile.schoolDistrict districtChoice}}>{{districtChoice}}</option>
               {{/each}}
             </select>
           </div>
@@ -63,7 +63,7 @@
         <h6><label for="country">{{t "common.country"}}</label></h6>
         <div class="row">
           <div class="col-xs-12 col-sm-8 col-md-7">
-            {{input id="country" class="form-control" value=profile.user.country}}
+            {{input id="country" class="form-control" value=profile.country}}
           </div>
         </div>
       </div>
