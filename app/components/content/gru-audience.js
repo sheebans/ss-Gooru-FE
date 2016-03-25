@@ -27,7 +27,7 @@ export default Ember.Component.extend({
           Ember.set(object,'checked', false);
         }
       });
-    },
+    }
   },
   /**
    * Overwrites didUpdate hook.
@@ -60,7 +60,6 @@ export default Ember.Component.extend({
    * @type {Ember.A} audienceList - List of active audiences
    */
   selectedAudience:Ember.computed('audienceList.@each.checked','isEditing',function(){
-    var list = Ember.copy(this.get('audienceList'),true);
-    return list;
-  }),
+    return Ember.copy(this.get('audienceList'), true);
+  })
 });

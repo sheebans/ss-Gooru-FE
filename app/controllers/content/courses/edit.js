@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import BuilderMixin from 'gooru-web/mixins/content/builder';
-import Course from 'gooru-web/models/content/course';
 import { COURSE_AUDIENCE } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend(BuilderMixin, {
@@ -23,7 +22,8 @@ export default Ember.Controller.extend(BuilderMixin, {
     /**
      * Save Content
      */
-    saveNewContent: function () {
+    saveContent: function () {
+      // TODO: API call to save content
       var courseTitle= $("#course-name").val();
       this.set('course.title',courseTitle);
       this.set('course.category',this.get('activeCategory.value'));
@@ -46,19 +46,12 @@ export default Ember.Controller.extend(BuilderMixin, {
     }
 
   },
+
+
   // -------------------------------------------------------------------------
   // Events
 
-  init() {
-    this._super(...arguments);
-    var course = Course.create(Ember.getOwner(this).ownerInjection(), {
-      title: "Course Title",
-      category: 1,
-      audience: [2, 4],
-      image: 'assets/gooru/default-image.png'
-    });
-    this.set('course', course);
-  },
+
   // -------------------------------------------------------------------------
   // Properties
 
