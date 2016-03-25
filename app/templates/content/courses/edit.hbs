@@ -20,52 +20,43 @@
             {{partial 'content/partials/information-actions'}}
         </div>
       <div class="content">
-        <div class="image">
-          {{#if course.image}}
-                  <img/>
-                {{else}}
-                <div class="upload-image">
-                    <span>{{gru-icon name="library_add"}}</span>
-                </div>
+
+        {{content.gru-image isEditing=isEditing image=course.image}}
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="title">
+              <label>
+                <span class="required">{{t "content.courses.edit.information.course-title"}}</span>
                 {{#if isEditing}}
-                  <button class="upload btn btn-info">{{t 'common.upload-thumbnail'}}</button>
+                  {{validation.gru-input model=course valuePath='title' id="course-name" class="course-title"}}
+                {{else}}
+                  <span class="title">{{course.title}}</span>
                 {{/if}}
-              {{/if}}
+              </label>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="title">
-                          <label>
-                             <span class="required">{{t "content.courses.edit.information.course-title"}}</span>
-                            {{#if isEditing}}
-                              {{validation.gru-input model=course valuePath='title' id="course-name" class="course-title"}}
-                            {{else}}
-                                <span class="title">{{course.title}}</span>
-                            {{/if}}
-                          </label>
-                    </div>
-                    <div class="category">
-                        {{content.gru-category isEditing=isEditing courseCategory=course.category onChangeCategory="changeCategory"}}
-                    </div>
-                    <div class="subject">
-                        <label>
-                            <span class="required">K-12 Subject and Course</span>
-                            {{#if isEditing}}
-                              <button type="button" class="btn-primary btn-sm">{{t "common.add-plus"}}</button>
-                            {{else}}
-                              <div class="subjects">
-                                <button type="button" class="btn-empty btn btn-sm">Grade 3 Math</button>
-                                <button type="button" class="btn-empty btn btn-sm">Grade 4 Math</button>
-                               </div>
-                            {{/if}}
-                        </label>
-                    </div>
-                    <div class="audience">
-                        {{content.gru-audience isEditing=isEditing audienceList=audienceList onChangeAudience=(action "changeAudience")}}
-                    </div>
-                </div>
+            <div class="category">
+              {{content.gru-category isEditing=isEditing courseCategory=course.category onChangeCategory="changeCategory"}}
             </div>
+            <div class="subject">
+              <label>
+                <span>K-12 Subject and Course</span>
+                {{#if isEditing}}
+                  <button type="button" class="btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
+                {{else}}
+                  <div class="subjects">
+                    <button type="button" class="btn-empty btn btn-sm">Grade 3 Math</button>
+                    <button type="button" class="btn-empty btn btn-sm">Grade 4 Math</button>
+                  </div>
+                {{/if}}
+              </label>
+            </div>
+            <div class="audience">
+              {{content.gru-audience isEditing=isEditing audienceList=audienceList onChangeAudience=(action "changeAudience")}}
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <section id="builder">
