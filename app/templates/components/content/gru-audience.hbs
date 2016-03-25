@@ -1,9 +1,11 @@
  <span class="audience-label">{{t "common.audience"}}</span>
   {{#if isEditing}}
       <div class="dropdown">
-          <button class="btn-primary dropdown-toggle btn-sm" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            {{t "common.add-plus"}}
-              <span class="caret"></span>
+        <button class="btn-primary dropdown-toggle btn-sm add-prefix"
+                type="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          {{t "common.add"}}
+          <span class="caret"></span>
           </button>
           <ul class="dropdown-menu audience">
             {{#each selectedAudience as |audience|}}
