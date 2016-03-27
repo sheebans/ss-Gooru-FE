@@ -21,7 +21,7 @@
         </div>
       <div class="content">
 
-        {{content.gru-image isEditing=isEditing image=course.image}}
+        {{content.gru-image isEditing=isEditing srcImage=course.image editImage=tempCourse.image}}
 
         <div class="panel panel-default">
           <div class="panel-body">
@@ -29,14 +29,14 @@
               <label>
                 <span class="required">{{t "content.courses.edit.information.course-title"}}</span>
                 {{#if isEditing}}
-                  {{validation.gru-input model=course valuePath='title' id="course-name" class="course-title"}}
+                  {{validation.gru-input model=tempCourse valuePath='title'}}
                 {{else}}
                   <span class="title">{{course.title}}</span>
                 {{/if}}
               </label>
             </div>
             <div class="category">
-              {{content.gru-category isEditing=isEditing courseCategory=course.category onChangeCategory="changeCategory"}}
+              {{content.gru-category isEditing=isEditing srcCategory=course.category editCategory=tempCourse.category}}
             </div>
             <div class="subject">
               <label>
@@ -52,7 +52,7 @@
               </label>
             </div>
             <div class="audience">
-              {{content.gru-audience isEditing=isEditing audienceList=audienceList onChangeAudience=(action "changeAudience")}}
+              {{content.gru-audience isEditing=isEditing srcSelectedAudiences=course.audience editSelectedAudiences=tempCourse.audience}}
             </div>
           </div>
         </div>

@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import { AUDIENCES } from 'gooru-web/config/config';
+
 /**
  * Audience component
  *
@@ -8,58 +10,89 @@ import Ember from 'ember';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-  // -------------------------------------------------------------------------
-  // Dependencies
 
   // -------------------------------------------------------------------------
   // Attributes
-  classNames: ['content','gru-audience'],
+
+  classNames: ['content', 'gru-audience'],
 
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
+
+  actions: {
+
     /**
      * Remove audience from active audience
      */
-    removeAudience:function(audience){
-      $.map( this.get('selectedAudience'), function(object) {
-        if(object===audience){
-          Ember.set(object,'checked', false);
-        }
-      });
+    removeAudience: function (audience) {
+      audience.set('checked', false);
     }
   },
+
+  // -------------------------------------------------------------------------
+  // Events
+
   /**
-   * Overwrites didUpdate hook.
+   * Overwrites didUpdate hook
    */
   didUpdate: function() {
     this.$('.dropdown-menu.audience li label').on('click', function (e) {
       e.stopPropagation();
     });
   },
-  // -------------------------------------------------------------------------
-  // Events
-  sendUpdatedAudienceValues: Ember.observer('selectedAudience.@each.checked', function() {
-      this.get('onChangeAudience')(this.get('selectedAudience'));
-  }),
+
 
   // -------------------------------------------------------------------------
   // Properties
+
   /**
-   * Indicate if a course information is in edit mode
+   * @type {Ember.A}
+   */
+  editAudiences: Ember.computed('srcSelectedAudiences.length', function () {
+    return AUDIENCES.slice(0).map(function (object) {
+      object.checked = this.get('srcSelectedAudiences').indexOf(object.value) > -1;
+      return Ember.Object.create(object);
+    }.bind(this));
+  }),
+
+  /**
+   * @type {Ember.A} editSelectedAudiences - Editable list of audiences selected for the course
+   */
+  editSelectedAudiences: null,
+
+  /**
+   * Is the course being edited or not?
    * @property {Boolean}
    */
-  isEditing:null,
+  isEditing: null,
 
   /**
-   * @type {Ember.A} audienceList - List of course audiences
+   * @type {Ember.A}
    */
-  audienceList:null,
+  srcAudiences: Ember.computed('srcSelectedAudiences.length', function () {
+    return AUDIENCES.slice(0).map(function (object) {
+      object.checked = this.get('srcSelectedAudiences').indexOf(object.value) > -1;
+      return Ember.Object.create(object);
+    }.bind(this));
+  }),
 
   /**
-   * @type {Ember.A} audienceList - List of active audiences
+   * @type {Ember.A} srcSelectedAudiences - Initial list of audiences selected for the course
    */
-  selectedAudience:Ember.computed('audienceList.@each.checked','isEditing',function(){
-    return Ember.copy(this.get('audienceList'), true);
+  srcSelectedAudiences: null,
+
+
+  // -------------------------------------------------------------------------
+  // Observers
+
+  /**
+   * Observes if the selection has changed
+   */
+  updateSelectedAudiences: Ember.observer('editAudiences.@each.checked', function () {
+    var selectedAudiences = this.get('editAudiences').filterBy('checked').map(function (audience) {
+      return audience.get('value');
+    });
+    this.set('editSelectedAudiences', selectedAudiences);
   })
+
 });
