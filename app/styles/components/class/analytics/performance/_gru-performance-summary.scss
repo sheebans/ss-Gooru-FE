@@ -18,9 +18,6 @@
         min-width: 228px;
         @include flex-basis(228px);
         padding-left: 15px;
-        @media(min-width: $screen-sm){
-
-        }
         @include respond-to(xs){
           display: inline-block;
         }

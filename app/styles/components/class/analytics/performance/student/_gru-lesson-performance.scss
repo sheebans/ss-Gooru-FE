@@ -132,7 +132,6 @@
                 border: none;
               }
             }
-
             li{
               &.title{
                 @include flex-direction(column);
@@ -158,7 +157,4 @@
       width: 100%;
     }
   }
-
-
-
 }
