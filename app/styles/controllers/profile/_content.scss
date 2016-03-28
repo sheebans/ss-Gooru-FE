@@ -6,14 +6,29 @@ div.content-navigation {
   @include align-items(center);
   @include justify-content(space-between);
   .category-menu {
-    @media (min-width: $screen-xs-min) { width: 100%; }
+    width: 100%;
     @media (min-width: $screen-sm-min) {
-      margin-left: 20px;
+      margin-left: 0;
       width: auto;
+      ul {
+        margin-left: 0;
+        li:first-of-type {
+          margin-left: 10px;
+        }
+        li:last-of-type {
+          margin-right: 10px;
+        }
+      }
+    }
+    @media (min-width: $screen-md-min) {
+      margin-left: 20px;
     }
   }
   .btn-group {
-    margin-right: 30px;
+    margin-right: 10px;
+    @media (min-width: $screen-md-min) {
+      margin-right: 30px;
+    }
     .btn {
       font-size: $font-size-base;
       .symbol {

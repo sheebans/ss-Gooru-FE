@@ -321,15 +321,17 @@ export default {
   },
 
   "login": {
-    "title": "Welcome to Gooru",
+    "title": "Welcome Back!",
+    "description": "Learning is just around the corner.",
     "gooruAccountTitle": "Log in to your Gooru account",
-    "googleButton": "Log in with Google",
+    "googleButton": "Sign In with Google",
     "or": "Or",
     "haveAccount": "Do you have an account?",
     "signUpHere": "Sign Up here!",
-    "forgotPassword": "Forgot your Password?",
+    "forgotPassword": "Forgot your password?",
     "password": "Password",
-    "usernameOrEmail": "Username or Email"
+    "usernameOrEmail": "Username or Email",
+    "log-in": "Log In"
   },
 
   "footer": {
@@ -545,6 +547,9 @@ export default {
       "about-you": "About You",
       "content": "Content",
       "network": "Network"
+    },
+    "edit": {
+      "select-district": "Select a district..."
     }
   },
 
