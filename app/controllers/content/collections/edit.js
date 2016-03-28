@@ -8,11 +8,29 @@ export default Ember.Controller.extend(BuilderMixin, {
   // -------------------------------------------------------------------------
   // Actions
   actions:{
+
     /**
-     * Send request to publish a collection
+     * Edit Content
+     */
+    editContent: function () {
+      var collectionForEditing = this.get('course').copy();
+      this.set('tempCollection', collectionForEditing);
+      this.set('isEditing', true);
+    },
+
+    /**
+     * Save Content
+     */
+    saveContent: function () {
+      // TODO: API call to save content
+      this.set('isEditing',false);
+    },
+
+    /**
+     * Send request to publish a course
      */
     sendRequest: function () {
-      this.set('wasRequestSent',true);
+      this.set('wasRequestSent', true);
     }
   },
   // -------------------------------------------------------------------------
@@ -22,13 +40,28 @@ export default Ember.Controller.extend(BuilderMixin, {
   // Properties
 
   /**
+   * Collection model as instantiated by the route. This is the model used when not editing
+   * or after any collection changes have been saved.
+   * @property {Collection}
+   */
+  collection: null,
+
+  /**
+   * Copy of the collection model used for editing.
+   * @property {Collection}
+   */
+  tempCollection: null,
+
+  /**
    * Request pending approval
+   * // TODO: Change this to a computed property of a collection property
    * @property {Boolean}
    */
   isRequestApproved: false,
 
   /**
-   * Request to make the collection searchable been sent
+   * Request to make the collection searchable been sent?
+   * // TODO: Change this to a computed property of a collection property
    * @property {Boolean}
    */
   wasRequestSent: false,
@@ -43,5 +76,6 @@ export default Ember.Controller.extend(BuilderMixin, {
   }),Ember.Object.create({
     'label': "Off",
     'value': false
-  })]),
+  })])
+
 });

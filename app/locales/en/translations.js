@@ -250,6 +250,12 @@ export default {
     "noClassesTaught": "You do not have any created classes"
   },
 
+  "content.collections.edit": {
+    "information":{
+      "collection-title":"Collection Title"
+    }
+  },
+
   "content.courses.edit": {
     "assign-to-class": "Assign to Class",
     "big-ideas": "Big Ideas",
