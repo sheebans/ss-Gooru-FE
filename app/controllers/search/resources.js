@@ -30,7 +30,7 @@ export default Ember.Controller.extend({
       var selectedOptionTypes = this.get('selectedOptionTypes');
       var controller = this;
       var searchService = controller.get('searchService');
-      var term = controller.get('term');
+      var term = controller.get('searchController.term');
 
       if(selectedOptionTypes.contains(option)){
         selectedOptionTypes.removeObject(option);
