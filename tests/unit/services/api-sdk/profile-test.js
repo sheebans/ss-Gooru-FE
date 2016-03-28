@@ -40,3 +40,58 @@ test('createProfile', function(assert) {
       done();
     });
 });
+
+test('readMyProfile', function(assert) {
+  const service = this.subject();
+
+  assert.expect(2);
+
+  service.set('profileAdapter', Ember.Object.create({
+    readMyProfile: function() {
+      assert.ok(true, "readMyProfile() function was called" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    normalizeReadProfile: function(profilePayload) {
+      assert.deepEqual({}, profilePayload, 'Wrong profile payload');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.readMyProfile()
+    .then(function() {
+      done();
+    });
+});
+
+test('updateMyProfile', function(assert) {
+  const service = this.subject();
+
+  assert.expect(2);
+
+  service.set('profileAdapter', Ember.Object.create({
+    updateMyProfile: function(data) {
+      const expectedData = {
+        body: {}
+      };
+      assert.deepEqual(expectedData, data, 'Wrong profile data');
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    serializeUpdateProfile: function(profileObject) {
+      assert.deepEqual({}, profileObject, 'Wrong profile object');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.updateMyProfile({})
+    .then(function() {
+      done();
+    });
+});
