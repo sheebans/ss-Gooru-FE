@@ -231,6 +231,14 @@
             background-color: $white;
           }
         }
+        .century-skill{
+          label {
+            > * {
+              display: block;
+              margin: 8px 0;
+            }
+          }
+        }
       }
     }
   }

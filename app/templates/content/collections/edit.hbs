@@ -35,6 +35,16 @@
                             {{/if}}
                           </label>
                       </div>
+                      <div class="title learning-objectives">
+                          <label>
+                              <span>{{t "common.learning-objectives"}}</span>
+                            {{#if isEditing}}
+                              {{validation.gru-input model=tempCollection valuePath='learningObjectives' id="learning-objectives"}}
+                            {{else}}
+                                <span class="title">{{collection.learningObjectives}}</span>
+                            {{/if}}
+                          </label>
+                      </div>
                       <div class="category">
                         {{content.gru-category isEditing=isEditing srcCategory=collection.category editCategory=tempCollection.category}}
                       </div>
@@ -53,6 +63,18 @@
                       </div>
                       <div class="audience">
                         {{content.gru-audience isEditing=isEditing srcSelectedAudiences=collection.audience editSelectedAudiences=tempCollection.audience}}
+                      </div>
+                      <div class="century-skill">
+                          <label>
+                              <span>21st Century Skills</span>
+                            {{#if isEditing}}
+                                <button type="button" class="btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
+                            {{else}}
+                                <div class="skills">
+                                    <span>No specified</span>
+                                </div>
+                            {{/if}}
+                          </label>
                       </div>
                   </div>
               </div>

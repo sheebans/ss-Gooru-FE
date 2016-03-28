@@ -92,6 +92,7 @@ export default {
     "launch-on-air": "Launch on air",
     "learning-target":"Learning Target",
     "learning-target-mobile":"Learning Target in Standard",
+    "learning-objectives":"Learning Objectives",
     "lesson": "Lesson",
     "back": "Back",
     "lessonObj": {

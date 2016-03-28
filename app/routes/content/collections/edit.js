@@ -24,7 +24,8 @@ export default Ember.Route.extend({
       title: "Collection Title",
       category: 1,
       audience: [2, 4],
-      image: 'assets/gooru/default-image.png'
+      image: 'assets/gooru/default-image.png',
+      learningObjectives: "Learning Objectives"
     });
 
     controller.set('collection', collection);

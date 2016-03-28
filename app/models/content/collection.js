@@ -27,9 +27,9 @@ const Collection = Ember.Object.extend(Validations, {
   subject: '',
 
   /**
-   * @property {String} learningObjects
+   * @property {String} learningObjectives
    */
-  learningObjects: '',
+  learningObjectives: '',
 
   /**
    * @property {String} title
@@ -59,7 +59,7 @@ const Collection = Ember.Object.extend(Validations, {
       'category',
       'image',
       'subject',
-      'learningObjects',
+      'learningObjectives',
       'title',
       'isPublic'
     ]);
@@ -73,4 +73,4 @@ const Collection = Ember.Object.extend(Validations, {
 
 });
 
-export default Course;
+export default Collection;

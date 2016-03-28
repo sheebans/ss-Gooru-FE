@@ -13,7 +13,7 @@ export default Ember.Controller.extend(BuilderMixin, {
      * Edit Content
      */
     editContent: function () {
-      var collectionForEditing = this.get('course').copy();
+      var collectionForEditing = this.get('collection').copy();
       this.set('tempCollection', collectionForEditing);
       this.set('isEditing', true);
     },
