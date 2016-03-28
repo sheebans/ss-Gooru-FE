@@ -107,8 +107,6 @@
         }
       }
       div.collections-container{
-
-
         >ul {
           @include flexbox;
           @include flex-direction(column);
@@ -136,9 +134,6 @@
             }
 
             li{
-              @media (max-width: $screen-sm) {
-                @include flex-basis(initial);
-              }
               &.title{
                 @include flex-direction(column);
                 @include align-items(flex-start);
