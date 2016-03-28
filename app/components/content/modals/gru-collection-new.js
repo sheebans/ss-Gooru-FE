@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Course from 'gooru-web/models/content/course';
+import Collection from 'gooru-web/models/content/collection';
 import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
@@ -10,7 +10,7 @@ export default Ember.Component.extend({
   /**
    * @property {Service} User service API SDK
    */
-  courseService: Ember.inject.service("api-sdk/course"),
+  collectionService: Ember.inject.service("api-sdk/collection"),
 
   /**
    * @property {Service} I18N service
@@ -25,7 +25,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content', 'modals', 'gru-course-new'],
+  classNames: ['content', 'modals', 'gru-collection-new'],
 
   classNameBindings: ['component-class'],
 
@@ -35,29 +35,29 @@ export default Ember.Component.extend({
   actions: {
 
     selectCategory: function (categoryValue) {
-      this.set('course.category', categoryValue);
+      this.set('collection.category', categoryValue);
     },
 
-    createCourse: function () {
-      const course = this.get('course');
-      course.validate().then(function ({ model, validations }) {
+    createCollection: function () {
+      const collection = this.get('collection');
+      collection.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
 
-          this.get("courseService")
-            .create(course)
+          this.get("collectionService")
+            .create(collection)
             .then(function (course) {
-                this.triggerAction({
-                  action: 'closeModal'
-                });
-                this.get('router').transitionTo('content.courses.edit', course.get('id'));
+              this.triggerAction({
+                action: 'closeModal'
+              });
+              this.get('router').transitionTo('content.collection.edit', collection.get('id'));
 
-              }.bind(this),
+            }.bind(this),
 
-              function () {
-                const message = this.get('i18n').t('common.errors.course-not-created').string;
-                this.get('notifications').error(message);
-              }.bind(this)
-            );
+            function () {
+              const message = this.get('i18n').t('common.errors.collection-not-created').string;
+              this.get('notifications').error(message);
+            }.bind(this)
+          );
         }
         this.set('didValidate', true);
       }.bind(this));
@@ -70,8 +70,8 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    var course = Course.create(Ember.getOwner(this).ownerInjection(), {title: null});
-    this.set('course', course);
+    var collection = Collection.create(Ember.getOwner(this).ownerInjection(), {title: null});
+    this.set('collection', collection);
   },
 
 
@@ -91,7 +91,7 @@ export default Ember.Component.extend({
   /**
    * @type {Course} course
    */
-  course: null,
+  collection: null,
 
   /**
    * Class handling the actions from the component.
