@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import Collection from 'gooru-web/models/collection';
-import { COURSE_CATEGORIES } from 'gooru-web/config/config';
+import Collection from 'gooru-web/models/content/collection';
+import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
 
@@ -81,7 +81,7 @@ export default Ember.Component.extend({
   /**
    * @type {Ember.A} categories - List of course categories
    */
-  categories: COURSE_CATEGORIES,
+  categories: TAXONOMY_CATEGORIES,
 
   /**
    * @type {?String} specific class
