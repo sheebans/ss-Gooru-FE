@@ -4,8 +4,7 @@
     "request": {
       "url": "^/gooru-search/rest/v2/search/resource$",
       "query": {
-        "q": "(.+)",
-        "flt.resourceFormat": "(.+)"
+        "q": "(.+)"
       },
       "method": "GET",
       "headers": {
