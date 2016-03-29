@@ -1,8 +1,8 @@
 {{#if isEditing}}
 
-  {{#if image}}
+  {{#if editImage}}
     {{#if isFileInputEmpty}}
-      <img class="img-responsive" src="{{image}}"/>
+      <img class="img-responsive" src="{{editImage}}"/>
     {{/if}}
   {{else}}
     {{gru-icon name="library_add"}}
@@ -18,7 +18,7 @@
   removePreview=isFileInputEmpty }}
 
     <button class="btn btn-info">
-      {{#if image}}
+      {{#if editImage}}
         {{t 'common.update-thumbnail'}}
       {{else}}
         {{t 'common.upload-thumbnail'}}
@@ -26,14 +26,14 @@
     </button>
   {{/file-picker}}
 
-  {{#if image}}
+  {{#if editImage}}
     <button class="delete btn" {{action 'resetImage'}}>{{gru-icon name="delete"}}</button>
   {{/if}}
 
 {{else}}
 
-  {{#if image}}
-    <img class="img-responsive" src="{{image}}"/>
+  {{#if srcImage}}
+    <img class="img-responsive" src="{{srcImage}}"/>
   {{else}}
     {{gru-icon name="library_add"}}
   {{/if}}
