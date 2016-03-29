@@ -1,0 +1,24 @@
+[
+  {
+    "description": "API 3.0: Search for Resources using any term",
+    "request": {
+      "url": "^/gooru-search/rest/v2/search/resource$",
+      "query": {
+        "q": "(.+)",
+        "flt.resourceFormat": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "search-resource-any-term-200-response.json"
+    }
+  }
+]
