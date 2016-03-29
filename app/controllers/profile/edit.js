@@ -13,6 +13,7 @@ export default Ember.Controller.extend({
   actions: {
     updateProfile: function() {
       this.get('parentController').saveProfile(this.get('profile'));
+      this.transitionToRoute('/profile/me/about');
     }
   },
 
