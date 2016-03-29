@@ -1,6 +1,16 @@
 import Ember from 'ember';
 import GruImagePicker from 'gooru-web/components/gru-image-picker';
 
+/**
+ * Image picker for content authoring
+ *
+ * Component responsible for letting the user select/preview an image using a
+ * system file browser dialog. Used in the creation/edition of courses,
+ * collections and assessments.
+ *
+ * @module
+ * @augments components/gru-image-picker.js
+ */
 export default GruImagePicker.extend({
 
   // -------------------------------------------------------------------------
