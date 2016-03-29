@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import ResourceModel from 'gooru-web/models/search/resource';
+import SearchCollectionModel from 'gooru-web/models/search/collection';
+import SearchResourceModel from 'gooru-web/models/search/resource';
 
 /**
  * Serializer to support Search functionality
@@ -8,16 +9,22 @@ import ResourceModel from 'gooru-web/models/search/resource';
  */
 export default Ember.Object.extend({
 
+  /**
+   * Normalize the Search collections response
+   *
+   * @param payload is the endpoint response in JSON format
+   * @returns {SearchCollectionModel[]}
+   */
   normalizeSearchCollections: function(payload) {
     const serializer = this;
     if (Ember.isArray(payload.searchResults)) {
       return payload.searchResults.map(function(result) {
-        return ResourceModel.create({
+        return SearchCollectionModel.create({
           id: result.id,
           title: result.title,
           description: result.description ? result.description : '',
-          resourceCount: result.resourceCount ? result.resourceCount : 0,
-          questionCount: result.questionCount ? result.questionCount : 0,
+          resourceCount: result.resourceCount ? Number(result.resourceCount) : 0,
+          questionCount: result.questionCount ? Number(result.questionCount) : 0,
           remixCount: result.scollectionRemixCount ? result.scollectionRemixCount : 0,
           course: result.subject ? result.subject : '',
           isPublic: (result.sharing ? result.sharing === 'public' : false),
@@ -36,11 +43,17 @@ export default Ember.Object.extend({
     }
   },
 
+  /**
+   * Normalize the Search resources response
+   *
+   * @param payload is the endpoint response in JSON format
+   * @returns {SearchResourceModel[]}
+   */
   normalizeSearchResources: function(payload) {
     const serializer = this;
     if (Ember.isArray(payload.searchResults)) {
       return payload.searchResults.map(function(result) {
-        return ResourceModel.create({
+        return SearchResourceModel.create({
           title: result.title,
           description: result.description ? result.description : '',
           format: (result.resourceFormat ? result.resourceFormat.value : ''),
@@ -49,8 +62,8 @@ export default Ember.Object.extend({
           url: result.url ? result.url : '',
           owner: Ember.Object.create(result.creator ? {
             id: result.creator.gooruUId,
-            firstName: result.creator.firstname,
-            lastName: result.creator.lastname,
+            firstName: result.creator.firstName,
+            lastName: result.creator.lastName,
             username: result.creator.usernameDisplay,
             avatarUrl: result.creator.profileImageUrl
           } : {}),

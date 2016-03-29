@@ -7,7 +7,9 @@ export default Ember.Route.extend({
   /**
    * @type {ProfileService} Service to retrieve profile information
    */
-  profileService: Ember.inject.service("api-sdk/profile"),
+  profileService: Ember.inject.service('api-sdk/profile'),
+
+  networkService: Ember.inject.service('api-sdk/network'),
 
 
   // -------------------------------------------------------------------------
@@ -21,10 +23,22 @@ export default Ember.Route.extend({
    * Get model for the controller
    */
   model: function(params) {
-    const profile = this.get("profileService").findById(params.userId);
+    let profile = null;
+    let network = null;
+    let userId = params.userId;
+
+    if (userId) {
+      if (userId === 'me') {
+        profile = this.get('profileService').readMyProfile();
+        network = this.get('networkService').readMyNetwork();
+      } else {
+        profile = this.get('profileService').findById(params.userId);
+      }
+    }
 
     return Ember.RSVP.hash({
-      profile: profile
+      profile: profile,
+      network: network
     });
   },
 
@@ -34,7 +48,8 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
-    controller.set("profile", model.profile);
+    model.profile.set('network', model.network);
+    controller.set('profile', model.profile);
   },
 
   // -------------------------------------------------------------------------
@@ -47,8 +62,8 @@ export default Ember.Route.extend({
      */
     selectMenuItem: function(item){
       const route = this;
-      const controller = route.get("controller");
-      const currentMenuItem = controller.get("menuItem");
+      const controller = route.get('controller');
+      const currentMenuItem = controller.get('menuItem');
       controller.selectMenuItem(item);
 
       if (currentMenuItem !== item) {

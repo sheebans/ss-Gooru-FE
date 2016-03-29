@@ -29,6 +29,9 @@
       &:last-of-type {
         margin-bottom: 0;
       }
+      &.role {
+        text-transform: capitalize;
+      }
     }
     .row {
       p {

@@ -15,6 +15,8 @@ Router.map(function() {
     this.route('resources');
   });
 
+  this.route('sign-in');
+
   this.route('content', function () {
 
     this.route('courses', function () {

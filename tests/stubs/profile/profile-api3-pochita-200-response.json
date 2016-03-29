@@ -1,0 +1,16 @@
+{
+  "id": "f5e1691b-754a-47ff-98db-fcc0b5c030e6",
+  "firstname": "Pochita",
+  "lastname": "",
+  "username": "pochita",
+  "email_id": "email",
+  "grade": [],
+  "birth_date": "01/01/2000",
+  "user_category": "teacher",
+  "updated_at": "01/01/2000",
+  "country": "CR",
+  "state": "San Jose",
+  "school": "Escuela Pochita",
+  "school_district": "school-district",
+  "about_me": "I am teacher Pochita"
+}

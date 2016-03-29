@@ -9,6 +9,9 @@ export default {
     "add": "Add",
     "add-plus": "+ Add",
     "add-course": "Add New Course",
+    "add-new-unit": "Add New Unit",
+    "add-to": "Add To",
+    "add-units": "Add Units",
     "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
     "approved":"Approved",
@@ -17,6 +20,14 @@ export default {
     "assessmentInitial": "A",
     "attempt": "Attempt number",
     "audience":"Audience",
+    "audienceList": {
+      "all": "All Students",
+      "english-language-learners": "English Language Learners",
+      "above-grade-level": "Students Above Grade Level",
+      "below-grade-level": "Students Below Grade Level",
+      "special-needs": "Students With Special Needs",
+      "teachers": "Teachers"
+    },
     "of": "of",
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
@@ -168,6 +179,10 @@ export default {
     "unfollow": "Unfollow",
     "unit":"Unit",
     "unitInitial": "U",
+    "unitObj": {
+      one: "Unit",
+      other: "Units"
+    },
     "verified": "Verified",
     "yes": "Yes",
     "warnings": {
@@ -307,15 +322,17 @@ export default {
   },
 
   "login": {
-    "title": "Welcome to Gooru",
+    "title": "Welcome Back!",
+    "description": "Learning is just around the corner.",
     "gooruAccountTitle": "Log in to your Gooru account",
-    "googleButton": "Log in with Google",
+    "googleButton": "Sign In with Google",
     "or": "Or",
     "haveAccount": "Do you have an account?",
     "signUpHere": "Sign Up here!",
-    "forgotPassword": "Forgot your Password?",
+    "forgotPassword": "Forgot your password?",
     "password": "Password",
-    "usernameOrEmail": "Username or Email"
+    "usernameOrEmail": "Username or Email",
+    "log-in": "Log In"
   },
 
   "footer": {
@@ -531,6 +548,9 @@ export default {
       "about-you": "About You",
       "content": "Content",
       "network": "Network"
+    },
+    "edit": {
+      "select-district": "Select a district..."
     }
   },
 

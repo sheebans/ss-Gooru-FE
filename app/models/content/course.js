@@ -30,6 +30,11 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {Boolean} isPublic
    */
-  isPublic: false
+  isPublic: false,
+
+  /**
+   * @property {Number[]} Array with the audience ids
+   */
+  audience:[]
 
 });

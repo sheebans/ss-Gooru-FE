@@ -40,6 +40,44 @@
       "body": "File not found!",
       "file": "pochita-profile-ok-response.json"
     }
+  },
+  {
+    "description": "API 3.0 Endpoint to return current user Profile info",
+    "request": {
+      "url": "^/api/nucleus-auth/v1/users/me",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "profile-api3-pochita-200-response.json"
+    }
+  },
+  {
+    "description": "API 3.0 Endpoint to update current user Profile info",
+    "request": {
+      "url": "^/api/nucleus-auth/v1/users/me",
+      "method": "PUT",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "profile-api3-pochita-200-response.json"
+    }
   }
 ]
+
+
 
