@@ -1,5 +1,4 @@
-<label>
-  <span>{{t "common.category"}}</span>
+<span class="label">{{t "common.category"}}</span>
 {{#if isEditing}}
 
   <div class="btn-group">
@@ -15,11 +14,11 @@
   </div>
 
 {{else}}
-  {{#each categories as |category|}}
-    {{#if (eq category.value srcCategory)}}
-      <div class="btn-empty btn-sm">{{t category.label}}</div>
-    {{/if}}
-  {{/each}}
+  <div>
+    {{#each categories as |category|}}
+      {{#if (eq category.value srcCategory)}}
+        <div class="btn-empty btn btn-sm">{{t category.label}}</div>
+      {{/if}}
+    {{/each}}
+  </div>
 {{/if}}
-
-</label>
