@@ -71,7 +71,8 @@
     }
   }
 
-  &.has-image {
+  &.is-viewing.has-src-image,
+  &.is-editing.has-edit-image {
     background-color: $white;
   }
 }

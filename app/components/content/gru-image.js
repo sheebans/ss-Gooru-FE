@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import GruImagePicker from 'gooru-web/components/gru-image-picker'
+import GruImagePicker from 'gooru-web/components/gru-image-picker';
 
 export default GruImagePicker.extend({
 
@@ -8,7 +8,7 @@ export default GruImagePicker.extend({
 
   classNames: ['content', 'gru-image'],
 
-  classNameBindings: ['isEditing:is-editing', 'image:has-image'],
+  classNameBindings: ['isEditing:is-editing:is-viewing', 'srcImage:has-src-image', 'editImage:has-edit-image'],
 
 
   // -------------------------------------------------------------------------
@@ -20,9 +20,29 @@ export default GruImagePicker.extend({
      * @function actions:resetImage
      */
     resetImage: function () {
-      this.set('image', null);
+      this.set('editImage', null);
       this.actions.resetPicker.call(this);
     }
-  }
+  },
+
+  // -------------------------------------------------------------------------
+  // Properties
+
+  /**
+   * Is the course being edited or not?
+   * @property {Boolean}
+   */
+  isEditing: null,
+
+  /**
+   * @type {string} editImage - Edited image url
+   */
+  editImage: Ember.computed.alias('image'),
+
+  /**
+   * @type {string} srcImage - Initial image url
+   */
+  srcImage: null
+
 
 });
