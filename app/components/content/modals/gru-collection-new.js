@@ -45,7 +45,7 @@ export default Ember.Component.extend({
 
           this.get("collectionService")
             .create(collection)
-            .then(function (course) {
+            .then(function (collection) {
               this.triggerAction({
                 action: 'closeModal'
               });
@@ -79,7 +79,7 @@ export default Ember.Component.extend({
   // Properties
 
   /**
-   * @type {Ember.A} categories - List of course categories
+   * @type {Ember.A} categories - List of collection categories
    */
   categories: TAXONOMY_CATEGORIES,
 
@@ -89,7 +89,7 @@ export default Ember.Component.extend({
   'component-class': null,
 
   /**
-   * @type {Course} course
+   * @type {Collection} collection
    */
   collection: null,
 
