@@ -26,8 +26,10 @@ export default Ember.Controller.extend({
           controller.send('signIn');
         })
         .catch((reason) => {
-          controller.set("errorMessage", reason.error);
+          //controller.set("errorMessage", reason.error);
+          console.log('error',  reason);
         });
+
     }
 
   },
