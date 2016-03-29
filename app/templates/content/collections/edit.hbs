@@ -7,9 +7,9 @@
       {{partial 'content/partials/collections-header-actions'}}
 
       <nav>
-        <a class="selected" href="#">{{t "common.information"}}</a>
-        <a href="#">{{t "common.builder"}}</a>
-        <a href="#">{{t "common.settings"}}</a>
+        {{#gru-scroll to="#information" class="selected" offset='article > header'}}{{t "common.information"}}{{/gru-scroll}}
+        {{#gru-scroll to="#builder" offset='article > header'}}{{t "common.builder"}}{{/gru-scroll}}
+        {{#gru-scroll to="#settings" offset='article > header'}}{{t "common.settings"}}{{/gru-scroll}}
       </nav>
 
     </header>
