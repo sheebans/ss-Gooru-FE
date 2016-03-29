@@ -2,7 +2,12 @@ import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations({
-  title: validator('presence', true)
+  title: [
+    validator('presence', true),
+    validator('length', {
+      max: 50
+    })
+  ]
 });
 
 /**

@@ -1,4 +1,4 @@
-<span class="audience-label">{{t "common.audience"}}</span>
+<span class="label">{{t "common.audience"}}</span>
 {{#if isEditing}}
   <div class="dropdown">
     <button class="btn-primary dropdown-toggle btn-sm add-prefix"
@@ -22,15 +22,17 @@
     {{/each}}
   </div>
 {{else}}
-  {{#if srcAudiences}}
-    <div class="active-audience">
+  <div>
+    {{#if srcSelectedAudiences.length}}
+
       {{#each srcAudiences as |audience|}}
         {{#if audience.checked}}
           <div class="btn-empty btn btn-sm">{{t audience.label}}</div>
         {{/if}}
       {{/each}}
-    </div>
+
   {{else}}
-    <span class="empty">{{t "common.not-specified"}}</span>
+      <span>{{t "common.not-specified"}}</span>
   {{/if}}
+  </div>
 {{/if}}

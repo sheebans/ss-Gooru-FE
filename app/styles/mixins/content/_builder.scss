@@ -142,7 +142,8 @@
           padding-bottom: 25px;
         }
 
-        label span.required:after {
+        label span.required:after,
+        span.label.required:after{
           content: ' *';
         }
       }
@@ -192,50 +193,48 @@
         @media(min-width: $screen-sm) {
           @include flex();
         }
-        .panel-body{
-          .title{
-            label{
-              > *{
-                margin: 8px 0;
+        .panel-body {
+          padding-top: 10px;
+
+          > div {
+            margin-top: 15px;
+
+            > label {
+              input, b {
+                display: block;
+              }
+              input {
+                outline: 0;
+              }
+              b {
+                font-size: $font-size-large;
+                font-weight: normal;
+              }
+              .form-group {
+                margin-bottom: 5px;
               }
             }
-            input{
-              outline: 0;
-            }
-            input,.title{
+            > label > span,
+            > span.label {
+              color: $gray;
+              padding: 0 0 .6em 0;
               display: block;
+              font-size: 100%;
+              font-weight: normal;
+              text-align: left;
             }
-            .title{
-              font-size: $font-size-large;
+
+            .btn-empty {
+              margin-top: 5px;
+              border: 1px solid $gray-light;
+              background-color: $white;
+              cursor: auto;
             }
           }
-          .subject{
-            label{
-              > *{
-                margin: 8px 0;
-              }
-            }
-            button{
-              display: block;
-            }
-            .subjects{
-              button{
-                display:inline-block;
-              }
-            }
-          }
-        }
-        .subject{
-          .btn-empty{
-            border:1px solid $gray-light;
-            background-color: $white;
-          }
-        }
-        .century-skill{
-          label {
-            > * {
-              display: block;
-              margin: 8px 0;
+          .learning-objectives{
+            textarea{
+              width: 600px;
+              outline: none;
             }
           }
         }

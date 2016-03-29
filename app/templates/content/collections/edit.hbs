@@ -31,26 +31,23 @@
                             {{#if isEditing}}
                               {{validation.gru-input model=tempCollection valuePath='title'}}
                             {{else}}
-                                <span class="title">{{collection.title}}</span>
+                                <b>{{collection.title}}</b>
                             {{/if}}
                           </label>
                       </div>
-                      <div class="title learning-objectives">
+                      <div class="learning-objectives">
                           <label>
-                              <span>{{t "common.learning-objectives"}}</span>
+                           <span>{{t "common.learning-objectives"}}</span>
                             {{#if isEditing}}
-                              {{validation.gru-input model=tempCollection valuePath='learningObjectives' id="learning-objectives"}}
+                                <textarea id="textarea" name="textarea" rows="2" maxlength="500"></textarea>
                             {{else}}
-                                <span class="title">{{collection.learningObjectives}}</span>
+                                <b>{{collection.learningObjectives}}</b>
                             {{/if}}
                           </label>
                       </div>
-                      <div class="category">
                         {{content.gru-category isEditing=isEditing srcCategory=collection.category editCategory=tempCollection.category}}
-                      </div>
                       <div class="subject">
-                          <label>
-                              <span class="required">K-12 Standards</span>
+                              <span class="label required">K-12 Standards</span>
                             {{#if isEditing}}
                                 <button type="button" class="btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
                             {{else}}
@@ -59,14 +56,10 @@
                                     <button type="button" class="btn-empty btn btn-sm">Grade 4 Math</button>
                                 </div>
                             {{/if}}
-                          </label>
                       </div>
-                      <div class="audience">
                         {{content.gru-audience isEditing=isEditing srcSelectedAudiences=collection.audience editSelectedAudiences=tempCollection.audience}}
-                      </div>
                       <div class="century-skill">
-                          <label>
-                              <span>21st Century Skills</span>
+                              <span class="label required">21st Century Skills</span>
                             {{#if isEditing}}
                                 <button type="button" class="btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
                             {{else}}
@@ -74,7 +67,6 @@
                                     <span>No specified</span>
                                 </div>
                             {{/if}}
-                          </label>
                       </div>
                   </div>
               </div>
