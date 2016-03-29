@@ -249,6 +249,9 @@ export default {
     "noClassesTaught": "You do not have any created classes"
   },
 
+  "content.collections.edit": {
+    "assign-to-course": "Assign to Course",
+  },
   "content.courses.edit": {
     "assign-to-class": "Assign to Class",
     "information":{
