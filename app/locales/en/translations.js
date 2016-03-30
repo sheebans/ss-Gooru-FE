@@ -261,7 +261,7 @@ export default {
       "collection-title":"Collection Title"
     }
   },
-  
+
   "content.courses.edit": {
     "assign-to-class": "Assign to Class",
     "big-ideas": "Big Ideas",
