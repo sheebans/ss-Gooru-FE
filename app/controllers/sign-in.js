@@ -23,33 +23,37 @@ export default Ember.Controller.extend({
   actions: {
 
     authenticate: function() {
-      var controller = this;
+      const controller = this;
       const user = controller.get('user');
-      console.log('user',user);
-      user.validate().then(function ({ model, validations }) {
-        console.log('validations',validations.get('isValid'));
-        if (validations.get('isValid')) {
-
-        }
-      })
 
       toastr.clear();
-      //controller.get("sessionService")
-      //  .signInWithUser(controller.get("credentials"), controller.get('useApi3'))
-      //  .then(function() {
-      //    // Trigger action in parent
-      //    controller.send('signIn');
-      //  })
-      //  .catch((reason) => {
-      //   if(reason.status===404){
-      //     const message = this.get('i18n').t('common.errors.sign-in-credentials-not-valid').string;
-      //     toastr.options = {
-      //       positionClass : 'toast-top-full-width sign-in'
-      //     };
-      //     toastr.error(message);
-      //   }
-      //
-      //  });
+      controller.set('showErrorMessage', false);
+
+      user.validate().then(function ({ model, validations }) {
+        if (validations.get('isValid')) {
+
+          controller.get("sessionService")
+            .signInWithUser(user, controller.get('useApi3'))
+            .then(function() {
+              // Trigger action in parent
+              controller.send('signIn');
+            })
+            .catch((reason) => {
+              console.log('reason',reason);
+              if(reason.status===404){
+                const message = controller.get('i18n').t('common.errors.sign-in-credentials-not-valid').string;
+                toastr.options = {
+                  positionClass : 'toast-top-full-width sign-in'
+                };
+                toastr.error(message);
+              }
+
+            });
+        }
+        else {
+          controller.set('showErrorMessage', true);
+        }
+      })
     }
   },
 
@@ -66,7 +70,7 @@ export default Ember.Controller.extend({
   /**
    * @property {string} authentication error message
    */
-  errorMessage: null,
+  showErrorMessage: false,
 
   /**
    * Object with credentials for signing in
