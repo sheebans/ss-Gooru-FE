@@ -117,9 +117,12 @@
 }
 
 #toast-container.toast-top-full-width.sign-in {
-  top: 63px;
+  top: 55px;
   width: 100%;
   position: fixed;
+  @media (min-width: $screen-md) {
+    top: 63px;
+  }
   > div.toast-error {
     width: inherit;
     background-image: none!important;

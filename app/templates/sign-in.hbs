@@ -21,27 +21,18 @@
     <div class="sign-in-form">
       <form>
         <div class="form-group username">
-          <label class="control-label" for="signin_username">{{t "login.usernameOrEmail"}}</label>
-          {{validation.gru-input model=user valuePath='username' showMessage=showErrorMessage}}
-
-          {{!input
-          id="signin_username"
-          value=credentials.username
-          class="form-control text-box sign-in-username"}}
+          <label class="control-label">{{t "login.usernameOrEmail"}}</label>
+          {{validation.gru-input model=user valuePath='username' }}
         </div>
         <div class="form-group">
-          <label class="control-label" for="signin_username">{{t "login.password"}}</label>
-          {{validation.gru-input model=user valuePath='password' showMessage=showErrorMessage}}
-          {{!input
-          id="signin_password"
-          type="password"
-          value=credentials.password
-          class="form-control text-box sign-in-password"}}
+          <label class="control-label">{{t "login.password"}}</label>
+          {{validation.gru-input model=user valuePath='password' }}
         </div>
         <div class="form-group forgot-password">
           <a class="btn btn-link" alt="{{t "login.forgotPassword"}}"
              title="{{t "login.forgotPassword"}}" {{action "showModal" "gru-forgot-password-popup"}}>{{t "login.forgotPassword"}}</a>
         </div>
+
         <!-- TODO: Remove this temporal checkbox once it is not required -->
         <div class="form-group">
           <span class="text">Use API 3.0?</span>
