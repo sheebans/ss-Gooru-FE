@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import SessionMixin from '../mixins/session';
 
 /**
  * User route
@@ -7,7 +6,7 @@ import SessionMixin from '../mixins/session';
  * @module
  * @augments Ember.Route
  */
-export default Ember.Route.extend(SessionMixin, {
+export default Ember.Route.extend( {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -16,7 +15,7 @@ export default Ember.Route.extend(SessionMixin, {
    * @type {Ember.Service} Service to retrieve user information
    */
   classService: Ember.inject.service("api-sdk/class"),
-
+  session: Ember.inject.service("session"),
   // -------------------------------------------------------------------------
   // Actions
 
@@ -40,7 +39,7 @@ export default Ember.Route.extend(SessionMixin, {
    * @param model
    */
   setupController: function(/*controller, model*/) {
-    
+
   }
 
 });
