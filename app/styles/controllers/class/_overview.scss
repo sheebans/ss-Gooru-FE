@@ -50,8 +50,15 @@
       padding: 15px 60px 50px 60px;
     }
 
-    .panel + .panel {
-      margin-top: 10px;
+    .panel {
+      border: 0 none;
+      box-shadow: none;
+      border-radius: 0;
+      background-color: transparent;
+
+      & + .panel {
+        margin-top: 10px;
+      }
     }
 
     .panel-heading {

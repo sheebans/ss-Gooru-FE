@@ -124,6 +124,27 @@
 
       .panel {
         margin-bottom: 0;
+
+        .panel-heading, .panel-body {
+          padding-left: 25px;
+          padding-right: 25px;
+        }
+
+        .panel-heading {
+          border-top-right-radius: 6px;
+          border-top-left-radius: 6px;
+          background-color: $white;
+          padding-top: 10px;
+          padding-bottom: 0;
+        }
+
+        .panel-body {
+          padding-bottom: 25px;
+        }
+
+        label span.required:after {
+          content: ' *';
+        }
       }
     }
   }
@@ -143,52 +164,26 @@
     }
   }
 
+  button.add-prefix {
+    padding: 5px 15px;
+  }
+
+  .add-prefix:before {
+    content: '+ ';
+  }
+
   #information {
 
-    .header {
+    > .header {
       .actions {
         float: right;
       }
     }
 
-    .content {
+    > .content {
 
       @media(min-width: $screen-sm) {
         @include flexbox();
-      }
-
-      .image {
-        width: 190px;
-        height: 210px;
-
-        @media(min-width: $screen-sm) {
-          float: left;
-          margin-right: 20px;
-        }
-
-        .upload-image{
-          background-color: $dark-300;
-          width: inherit;
-          height: inherit;
-          border-radius: 6px;
-          @include flexbox();
-          @include justify-content(center);
-          @include align-items(center);
-          i{
-            font-size: 62px;
-            color:$dark-400;
-          }
-        }
-        button{
-          position: relative;
-          top: -34px;
-          background-color:$dark-400;
-          width: 100%;
-          border-top-left-radius: 0;
-          border-top-right-radius: 0;
-          border-bottom-left-radius: 6px;
-          border-bottom-right-radius: 6px;
-        }
       }
 
       .panel {
@@ -197,43 +192,43 @@
         @media(min-width: $screen-sm) {
           @include flex();
         }
-        .panel-body{
-          .title{
-            label{
-              > *{
-                margin: 8px 0;
+        .panel-body {
+          padding-top: 10px;
+
+          > div {
+            margin-top: 15px;
+
+            > label {
+              input, b {
+                display: block;
+              }
+              input {
+                outline: 0;
+              }
+              b {
+                font-size: $font-size-large;
+                font-weight: normal;
+              }
+              .form-group {
+                margin-bottom: 5px;
               }
             }
-            input{
-              outline: 0;
-            }
-            input,.title{
+            > label > span,
+            > span.label {
+              color: $gray;
+              padding: 0 0 .6em 0;
               display: block;
+              font-size: 100%;
+              font-weight: normal;
+              text-align: left;
             }
-            .title{
-              font-size: $font-size-large;
+
+            .btn-empty {
+              margin-top: 5px;
+              border: 1px solid $gray-light;
+              background-color: $white;
+              cursor: auto;
             }
-          }
-          .subject{
-            label{
-              > *{
-                margin: 8px 0;
-              }
-            }
-            button{
-              display: block;
-            }
-            .subjects{
-              button{
-                display:inline-block;
-              }
-            }
-          }
-        }
-        .subject{
-          .btn-empty{
-            border:1px solid $gray-light;
-            background-color: $white;
           }
         }
       }
@@ -242,8 +237,6 @@
 
   #builder {
     .add-item {
-      padding-top: 10px;
-
       a {
         display: block;
         border: 2px dashed $gray-light;
@@ -279,26 +272,30 @@
     #settings{
       .panel{
         border-radius: 6px;
-        .panel-heading{
-          border-top-right-radius: 6px;
-          border-top-left-radius: 6px;
-          background-color: $white;
-          padding: 10px 25px 0px 25px;
-          h3{
-            padding-bottom: 20px;
+        .panel-heading {
+
+          h3 {
+            padding-bottom: 15px;
             border-bottom: 1px solid $gray-light;
+            margin-bottom: 0;
+            margin-top: 15px;
           }
         }
-        .panel-body{
-          padding: 0 25px 25px 25px;
-        }
-        i{
-          vertical-align: middle;
-        }
-        .setting-content{
-          margin-top: 10px;
-          .icon, .description{
-            margin-right:10px;
+        .panel-body {
+          .setting {
+            margin-top: 10px;
+
+            > i, > span {
+              margin-right: 10px;
+            }
+
+            > i {
+              vertical-align: -6px;
+            }
+
+            &:first-child {
+              margin-top: 0;
+            }
           }
         }
       }

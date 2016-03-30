@@ -1,0 +1,68 @@
+.controller.content.courses.edit {
+
+  .accordion-course {
+    li {
+      padding: 10px 0;
+    }
+
+    .panel-heading {
+      border-bottom: 1px solid $gray-light;
+
+      h3 {
+        display: inline-block;
+        margin: 0 0 10px;
+        padding: 0 20px 0 0;
+        font-weight: bold;
+        border-right: 1px solid $gray-light;
+        line-height: 2.5;
+      }
+
+      .gru-input {
+        display: inline-block;
+        width: 25rem;
+        margin-left: 15px;
+      }
+
+      .actions {
+        float: right;
+        margin-top: 5px;
+        margin-right: 20px;
+      }
+    }
+
+    .unit {
+      .panel-body {
+        padding: 0 25px 25px;
+
+        .col-sm-6 {
+          label {
+            width: 100%;
+
+            span {
+              display: block;
+            }
+
+            textarea {
+              font-size: $font-size-base;
+              height: 80px;
+              resize: none;
+              width: 100%;
+              margin-top: 6px;
+
+              &:focus {
+                outline: 0 none;
+              }
+            }
+          }
+        }
+
+        .domain {
+          > span {
+            display: block;
+            margin: 10px 0;
+          }
+        }
+      }
+    }
+  }
+}

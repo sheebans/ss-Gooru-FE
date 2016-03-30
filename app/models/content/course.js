@@ -5,7 +5,11 @@ const Validations = buildValidations({
   title: validator('presence', true)
 });
 
-export default Ember.Object.extend(Validations, {
+/**
+ * Course model
+ * typedef {Object} Course
+ */
+const Course = Ember.Object.extend(Validations, {
 
   /**
    * @property {Number} category - Category the course belongs to
@@ -35,6 +39,32 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {Number[]} Array with the audience ids
    */
-  audience:[]
+  audience:[],
+
+  /**
+   * Return a copy of the course
+   *
+   * @function
+   * @return {Course}
+   */
+  copy: function() {
+
+    // Copy the course data
+    var copiedProperties = this.getProperties([
+      'category',
+      'image',
+      'subject',
+      'title',
+      'isPublic'
+    ]);
+    var audience = this.get('audience');
+
+    // Copy the audience values
+    copiedProperties.audience = audience.slice(0);
+
+    return Course.create(Ember.getOwner(this).ownerInjection(), copiedProperties);
+  }
 
 });
+
+export default Course;

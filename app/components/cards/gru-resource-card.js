@@ -18,14 +18,11 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-  actions: {
-
-  },
   // -------------------------------------------------------------------------
   // Properties
   /**
-   * @property {Collection/Resource} collection
+   * @property {Resource/Question} resource
    */
-  resource: null,
+  resource: null
 
 });
