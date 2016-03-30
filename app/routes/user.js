@@ -2,7 +2,7 @@ import Ember from 'ember';
 import SessionMixin from '../mixins/session';
 
 /**
- * Classes route
+ * User route
  *
  * @module
  * @augments Ember.Route
@@ -13,7 +13,7 @@ export default Ember.Route.extend(SessionMixin, {
   // Dependencies
 
   /**
-   * @type {Ember.Service} Service to retrieve class information
+   * @type {Ember.Service} Service to retrieve user information
    */
   classService: Ember.inject.service("api-sdk/class"),
 
@@ -40,7 +40,7 @@ export default Ember.Route.extend(SessionMixin, {
    * @param model
    */
   setupController: function(/*controller, model*/) {
-    //controller.set("myClasses", model.myClasses);
+    
   }
 
 });
