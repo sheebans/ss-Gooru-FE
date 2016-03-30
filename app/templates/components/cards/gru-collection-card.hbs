@@ -1,16 +1,16 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="image">
-            <a {{action "openContentPlayer" collection.id}}><img class="img-responsive" src="{{if collection.imageUrl collection.imageUrl "assets/gooru/profile.png"}}"></a>
+            <a {{action "openContentPlayer" collection.id}}><img class="img-responsive" src="{{if collection.thumbnailUrl collection.thumbnailUrl "assets/gooru/profile.png"}}"></a>
         </div>
         <div class="collection-info">
             <a {{action "openContentPlayer" collection.id}}> <h6 class="title truncate" alt="{{ collection.title }}">{{ collection.title }}</h6></a>
             <span class="question-resources">
               {{#if hasResources}}
-                  <span class="bar">|</span><p>{{t "cards.gru-course-card.resource" count=collection.resourceCount}}</p>
+                  <span class="bar">| </span><p>{{t "cards.gru-course-card.resource" count=collection.resourceCount}}</p>
               {{/if}}
               {{#if hasQuestions}}
-                  <span class="bar">|</span><p>{{t "cards.gru-course-card.question" count=collection.questionCount}}</p>
+                  <span class="bar">| </span><p>{{t "cards.gru-course-card.question" count=collection.questionCount}}</p>
               {{/if}}
             </span>
             <div class="course">
@@ -27,18 +27,17 @@
           {{/if}}
             <div class="{{if collection.isAssessment 'author' 'remixed-by'}}">
               {{#if collection.isAssessment}}
-                {{#link-to 'profile.about' collection.authorId tagName="div"}}
+                {{#link-to 'profile.about' collection.owner.id tagName="div"}}
                   <span class="title">{{t "cards.gru-course-card.created"}}</span>
-                  <img class="img-responsive" src="{{if collection.avatarUrl collection.avatarUrl "assets/gooru/profile.png"}}">
-                  <span>{{collection.author}}</span>
+                  <img class="img-responsive" src="{{if collection.owner.avatarUrl collection.owner.avatarUrl "assets/gooru/profile.png"}}">
+                  <span>{{collection.owner.username}}</span>
                 {{/link-to}}
               {{else}}
-                {{#if collection.remixedBy}}
-                  {{!-- TODO: Make sure that the controller pass remixedByUser with id --}}
-                  {{#link-to 'profile.about' remixedByUser.id tagName="div"}}
+                {{#if collection.owner}}
+                  {{#link-to 'profile.about' collection.owner.id tagName="div"}}
                     <span class="title">{{t "cards.gru-course-card.remixed-by"}}</span>
-                    <img class="img-responsive" src="{{if remixedByUser.avatarUrl remixedByUser.avatarUrl "assets/gooru/profile.png"}}">
-                    <span>{{remixedByUser.firstName}}</span> {{#if remixedUsers}}+{{remixedUsers}}{{/if}}
+                    <img class="img-responsive" src="{{if collection.owner.avatarUrl collection.owner.avatarUrl "assets/gooru/profile.png"}}">
+                    <span>{{collection.owner.username}}</span> {{#if collection.remixCount}}+{{collection.remixCount}}{{/if}}
                   {{/link-to}}
                 {{/if}}
               {{/if}}
