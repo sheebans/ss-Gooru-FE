@@ -15,11 +15,12 @@
     li {
       margin-bottom: 0;
 
-      a {
-
-        span {
-          font-weight: bold;
-        }
+      &.actions {
+        @include flexbox;
+        @include align-items(flex-end);
+        @include justify-content(space-between);
+        height: 39px;
+        width: 190px;
       }
 
       &:not(.active) {
@@ -35,6 +36,13 @@
           box-shadow: inset 0 -4px 0 $gray;
           padding-left: 0;
           padding-right: 0;
+        }
+      }
+
+      a {
+
+        span {
+          font-weight: bold;
         }
       }
     }
