@@ -36,7 +36,6 @@ export default Ember.Component.extend({
 
   isQuestion: Ember.computed('resource', function() {
     const resourceFormat = this.get('resource.format');
-    console.log('resourceFormat',resourceFormat);
     return (resourceFormat==="question");
 
   })
