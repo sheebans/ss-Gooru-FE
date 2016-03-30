@@ -1,14 +1,11 @@
-.content.gru-category{
-    label{
-      > *{
-        margin: 12px 0;
-      }
-    }
-    .btn-empty{
-      border:1px solid $gray-light;
-      background-color: $white;
-    }
-    button{
-     margin: 1px;
+.content.gru-category {
+
+  .btn-empty {
+    border: 1px solid $gray-light;
+    background-color: $white;
+  }
+
+  button {
+    margin: 1px;
   }
 }

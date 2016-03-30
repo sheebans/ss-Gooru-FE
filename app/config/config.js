@@ -1,3 +1,12 @@
+export const AUDIENCES = [
+  {value: 1, label: 'common.audienceList.all'},
+  {value: 2, label: 'common.audienceList.english-language-learners'},
+  {value: 3, label: 'common.audienceList.above-grade-level'},
+  {value: 4, label: 'common.audienceList.below-grade-level'},
+  {value: 5, label: 'common.audienceList.special-needs'},
+  {value: 6, label: 'common.audienceList.teachers'}
+];
+
 export const RESOURCE_COMPONENT_MAP = {
   'video/youtube' : 'player.resources.gru-youtube-resource',
   'resource/url'  : 'player.resources.gru-url-resource',
@@ -10,15 +19,6 @@ export const DEFAULT_IMAGES = {
   USER_PROFILE: '/assets/gooru/profile.png',
   QUESTION_PLACEHOLDER_IMAGE: '/assets/gooru/question-placeholder-image.png'
 };
-
-export const COURSE_AUDIENCE = [
-  {value: 1, label: 'common.audienceList.all'},
-  {value: 2, label: 'common.audienceList.english-language-learners'},
-  {value: 3, label: 'common.audienceList.above-grade-level'},
-  {value: 4, label: 'common.audienceList.below-grade-level'},
-  {value: 5, label: 'common.audienceList.special-needs'},
-  {value: 6, label: 'common.audienceList.teachers'}
-];
 
 export const COURSE_CATEGORIES = [
   {value: 1, label: 'common.categoryOptions.k12'},
