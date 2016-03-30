@@ -22,14 +22,17 @@
       <form>
         <div class="form-group username">
           <label class="control-label" for="signin_username">{{t "login.usernameOrEmail"}}</label>
-          {{input
+          {{validation.gru-input model=user valuePath='username'}}
+
+          {{!input
           id="signin_username"
           value=credentials.username
           class="form-control text-box sign-in-username"}}
         </div>
         <div class="form-group">
           <label class="control-label" for="signin_username">{{t "login.password"}}</label>
-          {{input
+          {{validation.gru-input model=user valuePath='password'}}
+          {{!input
           id="signin_password"
           type="password"
           value=credentials.password

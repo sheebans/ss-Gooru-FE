@@ -1,11 +1,18 @@
 import Ember from 'ember';
+import { validator, buildValidations } from 'ember-cp-validations';
+
+const Validations = buildValidations({
+  username: validator('presence', true),
+  password: validator('presence', true)
+
+});
 
 /**
  * Profile model with the user account information
  *
  * @typedef {Object} ProfileModel
  */
-export default Ember.Object.extend({
+export default Ember.Object.extend(Validations,{
 
   /**
    * @property {string} id - The profile id
@@ -26,6 +33,11 @@ export default Ember.Object.extend({
    * @property {string} username - The profile username
    */
   username: null,
+
+  /**
+   * @property {string} password  - The profile password
+   */
+  password: null,
 
   /**
    * @property {string} email - The profile email

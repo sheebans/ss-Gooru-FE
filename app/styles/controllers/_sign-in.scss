@@ -115,3 +115,18 @@
     }
   }
 }
+
+#toast-container.toast-top-full-width.sign-in {
+  top: 63px;
+  width: 100%;
+  position: fixed;
+  > div.toast-error {
+    width: inherit;
+    background-image: none!important;
+    background-color: $red-400;
+    opacity: 1;
+    .toast-message {
+      text-align: center;
+    }
+  }
+}

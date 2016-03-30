@@ -73,7 +73,8 @@ export default {
       "emotion-5": "I can explain"
     },
     "errors": {
-      "course-not-created": "Oops! Unable to create course right now. Please try again shortly."
+      "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
+      "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again."
     },
     "explanation": "Explanation",
     "first-name": "First Name",
