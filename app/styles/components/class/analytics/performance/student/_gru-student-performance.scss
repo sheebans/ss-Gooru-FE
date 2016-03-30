@@ -9,12 +9,13 @@
       padding: 0;
       list-style: none;
       >*{
-        @include flex-basis(120px);
+        @include flex-basis(145px);
+        @include flex-grow(1);
         color:$light-500;
         &.name-header{
-          min-width: 16em;
+          min-width: 228px;
+          @include flex-basis(228px);
           padding-left: 40px;
-          @include flex-grow(4);
         }
       }
     }

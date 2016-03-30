@@ -16,18 +16,16 @@
     </ul>
 </a>
 <div class="collections-container collapse" id="_{{lesson.id}}">
-  {{#each lesson.collections as |collection index|}}
-      <div class="collection-performance">
-          <ul>
-            <li class="collection-performance-content">
-                {{class.analytics.performance.gru-performance-summary
-                performance=collection
-                selectedOption=selectedOption
-                onSelectResource=(action 'selectResource')}}
-            </li>
-          </ul>
-      </div>
-  {{else}}
+    <ul>
+      {{#each lesson.collections as |collection index|}}
+        <li class="collection-performance-content">
+          {{class.analytics.performance.gru-performance-summary
+          performance=collection
+          selectedOption=selectedOption
+          onSelectResource=(action 'selectResource')}}
+        </li>
+    {{else}}
       <span class="no-content">{{t "gru-performance.no-content"}}</span>
   {{/each}}
+    </ul>
 </div>

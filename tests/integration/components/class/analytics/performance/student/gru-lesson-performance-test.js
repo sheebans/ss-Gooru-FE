@@ -90,18 +90,18 @@ test('Test for started lesson performance', function(assert) {
     const $collectionsContainer = $component.find(".collections-container");
     assert.equal($collectionsContainer.hasClass('in'), true, "Collections container did not open");
 
-    const $firstCollection = $component.find("div.collections-container div.collection-performance:first-child");
+    const $firstCollection = $component.find("div.collections-container ul:first-child");
     T.exists(assert, $firstCollection, 'Missing First collection');
 
-    const $collectionTitle = $component.find(".collections-container .collection-performance .collection-performance-content .title .section-title");
+    const $collectionTitle = $component.find(".collections-container ul .collection-performance-content .title .section-title");
     T.exists(assert, $collectionTitle, 'Missing collection Title');
     assert.equal($collectionTitle.text().trim(), "Indian History CollectionIndian History Assessment", "Wrong title");
 
-    const $collectionRedoButton = $component.find(".collections-container .collection-performance.collection-performance:nth-child(1) .collection-performance-content .title button.collection-redo-button");
+    const $collectionRedoButton = $component.find(".collections-container ul:nth-child(1) .collection-performance-content .title button.collection-redo-button");
     T.exists(assert, $collectionRedoButton, 'Missing collection redo button');
     assert.equal($collectionRedoButton.hasClass('collection-redo-button'), true, "Redo class from button missing");
 
-    const $collectionViewReportButton = $component.find(".collections-container .collection-performance.collection-performance:nth-child(1) .collection-performance-content .title button.collection-view-report-button");
+    const $collectionViewReportButton = $component.find(".collections-container ul:nth-child(1) .collection-performance-content .title button.collection-view-report-button");
     T.exists(assert, $collectionViewReportButton, 'Missing collection view report button');
     assert.equal($collectionViewReportButton.hasClass('collection-view-report-button'), true, "View report class from second button missing");
 
@@ -194,7 +194,7 @@ test('Test for not started lesson performance', function(assert) {
   const $clickableAnchor= $component.find(".gru-lesson-performance-container a"); //component dom element
   T.exists(assert, $clickableAnchor, 'Missing Clickable Anchor');
 
-  const $arrowRightIcon = $component.find(".lesson-performance-content .title .icon i.keyboard_arrow_right");
+  const $arrowRightIcon = $component.find(".lesson-performance-content .title i.keyboard_arrow_right");
   T.exists(assert, $arrowRightIcon, "Missing arrow right icon");
 
   Ember.run(() => {
@@ -207,13 +207,13 @@ test('Test for not started lesson performance', function(assert) {
 
     //TODO: issue here assert.ok($arrowRightIcon.hasClass("keyboard_arrow_down"), "Missing arrow down icon");
 
-    const $firstAssessment = $component.find("div.collections-container div.collection-performance:nth-child(2)");
-    const $collectionTitle = $firstAssessment.find(".collection-performance-content .title .section-title");
+    const $firstAssessment = $component.find("div.collections-container>ul>li:nth-child(2)");
+    const $collectionTitle = $firstAssessment.find(".title .section-title");
     T.exists(assert, $firstAssessment, 'Missing Second collection');
     T.exists(assert, $collectionTitle, 'Missing collection Title');
     assert.equal($collectionTitle.text().trim(), "First Assessment", "Wrong title");
 
-    const $firstCollection = $component.find("div.collections-container div.collection-performance:nth-child(1)");
+    const $firstCollection = $component.find("div.collections-container ul:nth-child(1)");
     const $collectionStudyButton = $firstCollection.find("button.collection-study-button");
     T.exists(assert, $collectionStudyButton, 'Missing collection study button');
   });

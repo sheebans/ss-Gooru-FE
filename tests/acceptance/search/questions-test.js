@@ -17,7 +17,7 @@ moduleForAcceptance('Acceptance | search/questions', {
 
 test('Layout', function(assert) {
   assert.expect(2); //making sure all asserts are called
-  visit('/search/questions?term=any');
+  visit('/search/questions?term=any&flt.resourceFormat=Interactive,Question');
   andThen(function() {
     assert.equal(currentURL(), '/search/questions?term=any');
     T.exists(assert, find(".gru-question-options"), "Missing gru-question-options menu");

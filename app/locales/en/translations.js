@@ -148,7 +148,8 @@ export default {
       "video"       : "Video",
       "interactive" : "Interactive",
       "webpage"     : "Webpage",
-      "audio"       : "Audio"
+      "audio"       : "Audio",
+      "question"    : "Question"
     },
     "remaining": "{{number}} Left",
     "remix":"Remix",
@@ -255,11 +256,12 @@ export default {
   },
 
   "content.collections.edit": {
+    "assign-to-course": "Assign to Course",
     "information":{
       "collection-title":"Collection Title"
     }
   },
-
+  
   "content.courses.edit": {
     "assign-to-class": "Assign to Class",
     "big-ideas": "Big Ideas",

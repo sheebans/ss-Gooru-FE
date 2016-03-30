@@ -1,13 +1,10 @@
 import Ember from 'ember';
 
 /**
- * Collection search controller
- *
- * Controller responsible for filtering and searching collections/assessments
+ * Assessments Controller
  *
  * @module
- * @see controllers/player.js
- * @augments ember/Controller
+ * @augments ember/CollectionsController
  */
 export default Ember.Controller.extend({
 
@@ -17,7 +14,6 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Attributes
-
 
   // -------------------------------------------------------------------------
   // Actions
@@ -30,11 +26,13 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
   /**
    * These are the collection search results
-   * @property {CollectionResult[]}
+   * @property {CollectionResults[]}
    */
   collectionResults: null
+
   // -------------------------------------------------------------------------
   // Methods
 

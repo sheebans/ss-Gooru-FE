@@ -1,23 +1,15 @@
 import Ember from 'ember';
 
-/**
- * Collection search controller
- *
- * Controller responsible for filtering and searching collections/assessments
- *
- * @module
- * @see controllers/player.js
- * @augments ember/Controller
- */
-export default Ember.Controller.extend({
+export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
-  searchController: Ember.inject.controller('search'),
+
 
   // -------------------------------------------------------------------------
   // Attributes
 
+  classNames:['gru-resource-results'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -25,17 +17,32 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Events
 
-  // -------------------------------------------------------------------------
-  // Services
+  /**
+   * DidInsertElement ember event
+   */
+  didInsertElement: function() {
+    var component = this;
+    component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
+  },
+
 
   // -------------------------------------------------------------------------
   // Properties
+
   /**
-   * These are the collection search results
-   * @property {CollectionResult[]}
+   * @property {array} Resource results for the search
    */
-  collectionResults: null
+  resourceResults: null,
+
+  /**
+   * @property {array} Term used to search
+   */
+  term: ''
+
+  // -------------------------------------------------------------------------
+  // Observers
+
+
   // -------------------------------------------------------------------------
   // Methods
-
 });
