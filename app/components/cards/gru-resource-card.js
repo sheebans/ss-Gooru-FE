@@ -18,26 +18,11 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-  actions: {
-
-  },
   // -------------------------------------------------------------------------
   // Properties
   /**
    * @property {Resource/Question} resource
    */
-  resource: null,
-
-  /**
-   * True if hs-images option is selected
-   *  @property {boolean} hsImagesSelected
-   *
-   */
-
-  isQuestion: Ember.computed('resource', function() {
-    const resourceFormat = this.get('resource.format');
-    return (resourceFormat==="question");
-
-  })
+  resource: null
 
 });
