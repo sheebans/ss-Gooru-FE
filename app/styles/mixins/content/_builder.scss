@@ -232,9 +232,13 @@
             }
           }
           .learning-objectives{
-            textarea{
-              width: 600px;
-              outline: none;
+            label{
+              width: 100%;
+              textarea{
+                width: 100%;
+                outline: none;
+                resize: none;
+              }
             }
           }
         }

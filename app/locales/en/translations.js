@@ -90,9 +90,9 @@ export default {
     "last-updated": "Last Updated",
     "launch-anonymous": "Launch Anonymous",
     "launch-on-air": "Launch on air",
+    "learning-objectives":"Learning Objectives",
     "learning-target":"Learning Target",
     "learning-target-mobile":"Learning Target in Standard",
-    "learning-objectives":"Learning Objectives",
     "lesson": "Lesson",
     "back": "Back",
     "lessonObj": {
