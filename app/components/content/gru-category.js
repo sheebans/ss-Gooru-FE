@@ -1,70 +1,57 @@
 import Ember from 'ember';
 import { COURSE_CATEGORIES } from 'gooru-web/config/config';
+
 /**
  * Category component
  *
- * Component responsible for show  the categories group
+ * Component responsible for displaying/editing a category value
  *
  * @module
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-  // -------------------------------------------------------------------------
-  // Dependencies
 
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
-    /*
-     *Set Category
-     * */
-    setCategory:function(newCategory){
-      this.set('activeCategory',newCategory);
-      this.sendAction("onChangeCategory",newCategory);
+
+  actions: {
+
+    /**
+     * Set Category
+     */
+    setCategory: function (categoryValue) {
+      this.set('editCategory', categoryValue);
     }
   },
 
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content','gru-category'],
+  classNames: ['content', 'gru-category'],
+
 
   // -------------------------------------------------------------------------
   // Properties
+
   /**
    * @type {Ember.A} categories - List of course categories
    */
   categories: COURSE_CATEGORIES,
 
   /**
-   * @type {Number} courseCategory
-   */
-  courseCategory: null,
-  /**
-   * Indicate the active category
-   * @property {Category}
-   */
-  activeCategory: Ember.computed('courseCategory','categories',function(){
-    var categoriesList = this.get('categories');
-    var selectedCategoryValue=this.get('courseCategory');
-    var selectedCategory;
-    categoriesList.forEach(function(category){
-      if (category.value === selectedCategoryValue ){
-      selectedCategory=category;
-      }
-      });
-    return selectedCategory;
-    }),
-  // -------------------------------------------------------------------------
-  // Properties
-  /**
-   * Indicate if a course information is in edit mode
+   * Is the course being edited or not?
    * @property {Boolean}
    */
-  isEditing:null,
+  isEditing: null,
+
   /**
-   * @property {String|Function} onChangeCategory - event handler when the selected category is changed
+   * @type {Number} Edited category value
    */
-  onChangeCategory: null,
+  editCategory: null,
+
+  /**
+   * @type {Number} Initial category value
+   */
+  srcCategory: null
 
 });

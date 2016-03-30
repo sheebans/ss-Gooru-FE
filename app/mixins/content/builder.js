@@ -6,21 +6,17 @@ import Ember from 'ember';
  * @mixin
  */
 export default Ember.Mixin.create({
-  actions:{
 
-    /*
-     * Edit Content
-     * */
-    editContent:function(){
-      this.set('isEditing',true);
-    },
-    /*
+  actions: {
+
+    /**
      * Cancel Edit Content
-     * */
-    cancelEditContent:function(){
-      this.set('isEditing',false);
+     */
+    cancelEdit:function(){
+      this.set('isEditing', false);
     }
   },
+
   // -------------------------------------------------------------------------
   // Events
   UISetup: Ember.on('init', function () {
@@ -57,12 +53,14 @@ export default Ember.Mixin.create({
     });
   }),
 
+
   // -------------------------------------------------------------------------
   // Properties
+
   /**
    * Indicate if a course information is in edit mode
    * @property {Boolean}
    */
-  isEditing:false,
+  isEditing: false
 
 });
