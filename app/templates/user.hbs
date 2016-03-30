@@ -1,7 +1,19 @@
-<div class="controller user">
+<div class="controller user row">
   <h2>Hi {firstName}!</h2>
   <p class="lead">
-    You're currently in {#numerical} classes and teaching {#numerical}
+    You're currently in {#numerical} classes and teaching {#numerical} class.
   </p>
+  <div class="navigator">
+      <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active active-classes"><a href="#active-classes" aria-controls="activeClasses" role="tab" data-toggle="tab"><span class="lead">{{t 'user.active-classes'}}</span></a></li>
+          <li role="presentation" class="archived-classes"><a href="#archived-classes" aria-controls="archivedClasses" role="tab" data-toggle="tab"><span class="lead">{{t 'user.archived-classes'}}</span></a></li>
+          <li class="pull-right">
+            <button type="button" name="button" class="btn btn-success">{{t 'user.create-class'}}</button>
+            <button type="button" name="button" class="btn btn-success">{{t 'user.join-class'}}</button>
+          </li>
+      </ul>
+  </div>
+  <div class="content">
+    {{outlet}}
+  </div>
 </div>
-{{outlet}}

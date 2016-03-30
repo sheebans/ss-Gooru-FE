@@ -39,8 +39,8 @@ export default Ember.Route.extend(SessionMixin, {
    * @param controller
    * @param model
    */
-  setupController: function(controller, model) {
-    controller.set("myClasses", model.myClasses);
+  setupController: function(/*controller, model*/) {
+    //controller.set("myClasses", model.myClasses);
   }
 
 });
