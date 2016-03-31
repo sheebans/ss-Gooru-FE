@@ -27,4 +27,4 @@ error.log
 
 #tests
 report-xunit.xml
-
+.sass-lint.yml

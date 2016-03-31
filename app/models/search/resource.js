@@ -55,6 +55,6 @@ export default Ember.Object.extend({
   /**
    * @property {boolean} isQuestion - Indicates if the resource is a Question
    */
-  isQuestion: Ember.computed.equal('category', 'Question')
+  isQuestion: Ember.computed.equal('format', 'question')
 
 });

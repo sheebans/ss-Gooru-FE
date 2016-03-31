@@ -43,7 +43,7 @@
       "post": "(.+)\"grant_type\":\"credential\"(.+)",
       "method": "POST",
       "headers": {
-        "authorization": "Basic cG9jaGl0YTo="
+        "authorization": "Basic cG9jaGl0YTpwb2NoaXRh"
       }
     },
     "response": {
