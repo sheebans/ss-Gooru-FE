@@ -49,7 +49,7 @@ test('Validate if the course title field is left blank', function (assert) {
     });
   });
 });
-test('Validate if the course title field is more than 50 characters', function (assert) {
+test('Validate the character limit in the course title field', function (assert) {
   assert.expect(1);
 
   this.render(hbs`{{content/modals/gru-collection-new}}`);
