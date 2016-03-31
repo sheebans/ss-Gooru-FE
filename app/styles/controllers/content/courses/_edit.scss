@@ -1,11 +1,12 @@
 .controller.content.courses.edit {
 
   .accordion-course {
-    li {
+    > li {
       padding: 10px 0;
     }
 
     .panel-heading {
+      position: relative;
       border-bottom: 1px solid $gray-light;
 
       h3 {
@@ -17,20 +18,55 @@
         line-height: 2.5;
       }
 
+      strong {
+        margin-left: 15px;
+        font-weight: normal;
+        font-size: 16px;
+      }
+
       .gru-input {
         display: inline-block;
-        width: 25rem;
+        width: 85%;
         margin-left: 15px;
+
+        .form-group {
+          display: inline-block;
+          margin-bottom: 0;
+          width: inherit;
+
+          input, .error-messages {
+            display: inline;
+          }
+
+          input {
+            width: 50%;
+            max-width: 25em;
+            margin-right: 10px;
+          }
+        }
       }
 
       .actions {
-        float: right;
-        margin-top: 5px;
-        margin-right: 20px;
+        position: absolute;
+        top: 15px;
+        right: 20px;
+      }
+    }
+
+    .view {
+      .collapsed {
+        .panel-heading {
+          margin-bottom: 0;
+          border-bottom: 0 none;
+        }
+        .panel-body {
+          display: none;
+        }
       }
     }
 
     .unit {
+
       .panel-body {
         padding: 0 25px 25px;
 
