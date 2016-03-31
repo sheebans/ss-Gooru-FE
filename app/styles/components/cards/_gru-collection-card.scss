@@ -30,7 +30,7 @@
         color:$text-color;
         vertical-align: top;
         margin-left: 15px;
-        width: 66%;
+        width: 65%;
         .bar{
           font-weight:bold;
           color:$gray-dark;
@@ -76,6 +76,8 @@
               margin: 0 1px;
               .truncate{
                 width: 99%;
+                @include text-overflow();
+                text-overflow: ellipsis;
               }
               .label{
                 padding: 0;
@@ -88,7 +90,6 @@
 
         }
         .author,.remixed-by{
-          display:table-row;
           margin: 10px 0 10px 0;
           img{
             width: 30px;

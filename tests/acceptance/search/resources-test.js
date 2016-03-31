@@ -16,10 +16,11 @@ moduleForAcceptance('Acceptance | search/resources', {
 });
 
 test('Layout', function(assert) {
-  assert.expect(2); //making sure all asserts are called
+  assert.expect(3); //making sure all asserts are called
   visit('/search/resources?term=any');
   andThen(function() {
     assert.equal(currentURL(), '/search/resources?term=any');
     T.exists(assert, find(".gru-resource-options"), "Missing gru-resource-options menu");
+    T.exists(assert, find(".gru-resource-results"), "Missing gru-resource-results");
   });
 });

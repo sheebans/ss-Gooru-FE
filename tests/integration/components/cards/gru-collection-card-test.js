@@ -14,12 +14,16 @@ test('Collection Card Layout', function(assert) {
     isAssessment:false,
     standards:Ember.A([Ember.Object.create({
       description:"Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.",
-      name:"CCSS.Math.Content.7.RP.A.3"
+      code:"CCSS.Math.Content.7.RP.A.3"
     }),Ember.Object.create({
       description:"Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.",
-      name:"CCSS.Math.Content.5.NBT.A.2"
+      code:"CCSS.Math.Content.5.NBT.A.2"
     })]),
-    author:"dara.weiner",
+    owner: Ember.Object.create({
+      id: 'owner-id',
+      username: 'dara.weiner',
+      avatarUrl: 'avatar-url'
+    }),
     remixedBy:["James","Andrea","Patric"]
   });
 
@@ -47,13 +51,13 @@ test('Assessment Card Layout', function(assert) {
     isAssessment:true,
     standards:Ember.A([Ember.Object.create({
       description:"Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.",
-      name:"CCSS.Math.Content.7.RP.A.3"
+      code:"CCSS.Math.Content.7.RP.A.3"
     }),Ember.Object.create({
       description:"Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.",
-      name:"CCSS.Math.Content.5.NBT.A.2"
+      code:"CCSS.Math.Content.5.NBT.A.2"
     }),Ember.Object.create({
       description:"Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.",
-      name:"CCSS.Math.Content.5.NBT.A.2"
+      code:"CCSS.Math.Content.5.NBT.A.2"
     })]),
     author:"dara.weiner",
     description:"Students will be able to break salt down into its basic chemical components (NaCl) and describe how these atoms come together to form this important compound."

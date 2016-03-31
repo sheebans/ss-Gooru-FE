@@ -1,84 +1,78 @@
 import Ember from 'ember';
 import BuilderMixin from 'gooru-web/mixins/content/builder';
-import { COURSE_CATEGORIES } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend(BuilderMixin, {
+
   // -------------------------------------------------------------------------
   // Dependencies
 
+
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
-    /*
-    * Send request to publish a course
-    * */
-    sendRequest:function(){
-      this.set('wasRequestSent',true);
-    },
-    /*
+
+  actions: {
+
+    /**
      * Edit Content
-     * */
-    editContent:function(){
-      this.set('isEdit',true);
+     */
+    editContent: function () {
+      var courseForEditing = this.get('course').copy();
+      this.set('tempCourse', courseForEditing);
+      this.set('isEditing', true);
     },
-    /*
-     * Cancel Edit Content
-     * */
-    cancelEditContent:function(){
-      this.set('isEdit',false);
+
+    /**
+     * Save Content
+     */
+    saveContent: function () {
+      // TODO: API call to save content
+      this.set('isEditing',false);
     },
-    /*
-     *Set Category
-     * */
-    setCategory:function(newCategory){
-      this.set('activeCategory',newCategory);
-    },
-    /*
-     *Save Content
-     * */
-    saveNewContent:function(){
-      var courseTitle= $("#course-name").val();
-      this.set('course.title',courseTitle);
-      this.set('course.category',this.get('activeCategory'));
-      this.set('isEdit',false);
-    },
+
+    /**
+     * Send request to publish a course
+     */
+    sendRequest: function () {
+      this.set('wasRequestSent', true);
+    }
+
   },
+
+
   // -------------------------------------------------------------------------
   // Events
 
+
   // -------------------------------------------------------------------------
   // Properties
-  /**
-   * ONLY FOR TEST
-   * @property {Course}
-   */
-  course: Ember.Object.create({
-    'title': "Course Title",
-    'category':1
-  }),
-  /**
-   * Indicate if a request to be publish is approved
-   * @property {Boolean}
-   */
-  isRequestApproved:false,
-  /**
-   * Indicate if a request to be searchable and featured has been send
-   * @property {Boolean}
-   */
-  wasRequestSent:false,
 
   /**
-   * Indicate if a course information is in edit mode
-   * @property {Boolean}
+   * Course model as instantiated by the route. This is the model used when not editing
+   * or after any course changes have been saved.
+   * @property {Course}
    */
-  isEdit:false,
+  course: null,
+
   /**
-   * Indicate the active category
+   * Copy of the course model used for editing.
+   * @property {Course}
+   */
+  tempCourse: null,
+
+  /**
+   * Request pending approval
+   * // TODO: Change this to a computed property of a course property
    * @property {Boolean}
    */
-  activeCategory: Ember.computed(function(){
-    return   this.get('course.category');
-  }),
+  isRequestApproved: false,
+
+  /**
+   * Request to make the course searchable been sent?
+   * // TODO: Change this to a computed property of a course property
+   * @property {Boolean}
+   */
+  wasRequestSent: false,
+
   /**
    * Toggle Options
    * @property {Ember.Array}
@@ -89,21 +83,6 @@ export default Ember.Controller.extend(BuilderMixin, {
   }),Ember.Object.create({
     'label': "Off",
     'value': false
-  })]),
-  /**
-   * @type {Ember.A} categories - List of course categories
-   */
-  categories: COURSE_CATEGORIES,
+  })])
 
-  selectedCategory: Ember.computed('course.category','categories',function(){
-    var categoriesList = this.get('categories');
-    var selectedCategoryValue=this.get('course.category');
-    var selectedCategory;
-    categoriesList.forEach(function(category){
-      if (category.value === selectedCategoryValue ){
-        selectedCategory=category.label;
-      }
-    });
-    return selectedCategory;
-  }),
 });

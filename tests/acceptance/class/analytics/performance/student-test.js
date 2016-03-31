@@ -184,16 +184,16 @@ test('Transition to a collection or assessment', function(assert) {
 });
 
 test('Transition to a collection or assessment in the player on xsmall', function(assert) {
-  visit('/class/class-for-pochita-as-student/analytics/performance/student?lessonId=27f0bc24-c2b5-40d8-bb8f-e6ec939ad553&unitId=31886eac-f998-493c-aa42-016f53e9fa88');
+  visit('/class/class-for-pochita-as-student/analytics/performance/student?lessonId=fbd76aed-1b8d-4c2c-abc6-c7603eef567q&unitId=31886eac-f998-493c-aa42-016f53e9fa88');
 
   andThen(function() {
-    assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?lessonId=27f0bc24-c2b5-40d8-bb8f-e6ec939ad553&unitId=31886eac-f998-493c-aa42-016f53e9fa88');
+    assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?lessonId=fbd76aed-1b8d-4c2c-abc6-c7603eef567q&unitId=31886eac-f998-493c-aa42-016f53e9fa88');
 
     const $performanceContainer = find(".performance-content");
     T.exists(assert, $performanceContainer, "No performance container");
 
-    const $studyAnchor = $performanceContainer.find("#_fbd76aed-1b8d-4c2c-abc6-c7603eef567q .collection-performance .collection-performance-content .gru-performance-summary li.title div button");
-    T.exists(assert, $studyAnchor, "No anchor on completion column");
+    const $studyAnchor = $performanceContainer.find("#_fbd76aed-1b8d-4c2c-abc6-c7603eef567q .collection-performance-content .gru-performance-summary li.title div button");
+    T.exists(assert, $studyAnchor, "No anchor on title column");
 
     click($studyAnchor);
     andThen(function() {

@@ -7,6 +7,18 @@ import Ember from 'ember';
  */
 export default Ember.Mixin.create({
 
+  actions: {
+
+    /**
+     * Cancel Edit Content
+     */
+    cancelEdit:function(){
+      this.set('isEditing', false);
+    }
+  },
+
+  // -------------------------------------------------------------------------
+  // Events
   UISetup: Ember.on('init', function () {
     this._super(...arguments);
 
@@ -39,6 +51,16 @@ export default Ember.Mixin.create({
       });
 
     });
-  })
+  }),
+
+
+  // -------------------------------------------------------------------------
+  // Properties
+
+  /**
+   * Indicate if a course information is in edit mode
+   * @property {Boolean}
+   */
+  isEditing: false
 
 });

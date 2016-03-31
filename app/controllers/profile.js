@@ -4,7 +4,10 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
-  session: Ember.inject.service("session"),
+
+  session: Ember.inject.service('session'),
+
+  profileService: Ember.inject.service('api-sdk/profile'),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -68,11 +71,17 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+
   /**
    * Selected the menu item
    * @param {string} item
    */
   selectMenuItem: function(item){
     this.set("menuItem", item);
+  },
+
+  saveProfile(profile) {
+    this.get('profileService').updateMyProfile(profile);
   }
+
 });

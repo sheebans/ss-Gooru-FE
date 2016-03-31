@@ -1,6 +1,7 @@
 .cards.gru-resource-card {
-  width: 222px;
-  height: 240px;
+  $line-height: 1.8;
+  width: 220px;
+  height: 250px;
   .panel {
     border-radius: 6px;
     .panel-heading {
@@ -10,6 +11,7 @@
       border-top-left-radius: 6px;
 
       .header {
+        width: 100%;
         > *{
           display: inline-block;
         }
@@ -17,6 +19,8 @@
           height: 36px;
           width: 28px;
           margin: 0 auto;
+          vertical-align: top;
+          margin: 10px 0 0 0;
           &.video-icon {
             background: url("gooru/images/video-resource-green.svg");
             -webkit-background-size: 31px 30px;
@@ -37,6 +41,8 @@
             background-size: 34px 30px;
             height: 30px;
             width: 34px;
+            vertical-align: top;
+            margin: 5px 0 0 0;
           }
           &.question-icon {
             background: url("gooru/images/question-resource-green.svg");
@@ -70,12 +76,16 @@
       }
       .collection-info{
         margin-left: 16px;
+        width: 136px;
+        $lines-to-show: 1;
         > *{
           display: block;
         }
         h6 {
           margin: 5px 0 5px 0;
           color: $gray-dark;
+          height: 20px;
+          @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
         }
         .resource-type, .question-type {
           span {
@@ -85,16 +95,19 @@
       }
     }
     .panel-body {
-      padding: 5px 15px 15px 15px;
+      padding: 5px 15px 0 15px;
+      height: 128px;
       .standards {
+        height: 25px;
+        overflow: hidden;
+        width: 100%;
         .uc-search-standard {
           display: inline-block;
           float: left;
-          width: 47%;
+          width: 43%;
           .truncate {
-            width: 99%;
-            white-space: nowrap;
-            overflow: hidden;
+            width: 98%;
+            @include text-overflow();
             text-overflow: ellipsis;
           }
           .label {
@@ -103,10 +116,11 @@
         }
       }
       .publisher {
-        margin: 10px 0 10px 0;
+        margin: 3px 0 3px 2px;
+        width: 100%;
         img {
-          width: 30px;
-          height: 30px;
+          width: 20px;
+          height: 20px;
           border-radius: 50px;
         }
         > * {
@@ -119,12 +133,15 @@
         }
       }
       .description {
-        $line-height: 1.8;
         $lines-to-show: 3;
+        width: 100%;
         p.truncate {
           @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
         }
       }
+    }
+    .panel-footer {
+      background-color: $white;
     }
   }
 }

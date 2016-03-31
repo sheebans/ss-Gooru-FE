@@ -7,8 +7,12 @@ export default {
     "about": "About",
     "about-you": "About You",
     "add": "Add",
+    "add-plus": "+ Add",
+    "add-collection": "Add New Collection",
     "add-course": "Add New Course",
-    "add-to":"Add To",
+    "add-new-unit": "Add New Unit",
+    "add-to": "Add To",
+    "add-units": "Add Units",
     "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
     "approved":"Approved",
@@ -17,6 +21,14 @@ export default {
     "assessmentInitial": "A",
     "attempt": "Attempt number",
     "audience":"Audience",
+    "audienceList": {
+      "all": "All Students",
+      "english-language-learners": "English Language Learners",
+      "above-grade-level": "Students Above Grade Level",
+      "below-grade-level": "Students Below Grade Level",
+      "special-needs": "Students With Special Needs",
+      "teachers": "Teachers"
+    },
     "of": "of",
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
@@ -33,6 +45,7 @@ export default {
     "classScores": "Class Scores",
     "close": "Close",
     "collection":"Collection",
+    "collection-title":"Collection Title",
     "collections": "Collections",
     "collectionInitial": "C",
     "completed": "Completed",
@@ -62,7 +75,9 @@ export default {
       "emotion-5": "I can explain"
     },
     "errors": {
-      "course-not-created": "Oops! Unable to create course right now. Please try again shortly."
+      "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
+      "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
+      "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again."
     },
     "explanation": "Explanation",
     "first-name": "First Name",
@@ -76,6 +91,7 @@ export default {
     "last-updated": "Last Updated",
     "launch-anonymous": "Launch Anonymous",
     "launch-on-air": "Launch on air",
+    "learning-objectives":"Learning Objectives",
     "learning-target":"Learning Target",
     "learning-target-mobile":"Learning Target in Standard",
     "lesson": "Lesson",
@@ -133,7 +149,8 @@ export default {
       "video"       : "Video",
       "interactive" : "Interactive",
       "webpage"     : "Webpage",
-      "audio"       : "Audio"
+      "audio"       : "Audio",
+      "question"    : "Question"
     },
     "remaining": "{{number}} Left",
     "remix":"Remix",
@@ -162,10 +179,16 @@ export default {
     "suggested-resources":"Suggested Resources",
     "teacher": "Teacher",
     "timeSpent": "Time Spent",
+    "update-thumbnail": "Update Thumbnail",
+    "upload-thumbnail":"Upload Thumbnail",
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
     "unfollow": "Unfollow",
     "unit":"Unit",
     "unitInitial": "U",
+    "unitObj": {
+      one: "Unit",
+      other: "Units"
+    },
     "verified": "Verified",
     "yes": "Yes",
     "warnings": {
@@ -233,11 +256,27 @@ export default {
     "noClassesTaught": "You do not have any created classes"
   },
 
+  "content.collections.edit": {
+    "assign-to-course": "Assign to Course",
+    "information":{
+      "collection-title":"Collection Title"
+    }
+  },
+
   "content.courses.edit": {
     "assign-to-class": "Assign to Class",
+    "big-ideas": "Big Ideas",
+    "essential-questions": "Essential Questions",
     "information":{
       "course-title":"Course Title"
     }
+  },
+
+  "user":{
+    "active-classes": "Active Classes",
+    "archived-classes": "Archived Classes",
+    "create-class": "Create Class",
+    "join-class": "Join Class"
   },
 
   /*
@@ -305,15 +344,17 @@ export default {
   },
 
   "login": {
-    "title": "Welcome to Gooru",
+    "title": "Welcome Back!",
+    "description": "Learning is just around the corner.",
     "gooruAccountTitle": "Log in to your Gooru account",
-    "googleButton": "Log in with Google",
+    "googleButton": "Sign In with Google",
     "or": "Or",
     "haveAccount": "Do you have an account?",
     "signUpHere": "Sign Up here!",
-    "forgotPassword": "Forgot your Password?",
+    "forgotPassword": "Forgot your password?",
     "password": "Password",
-    "usernameOrEmail": "Username or Email"
+    "usernameOrEmail": "Username or Email",
+    "log-in": "Log In"
   },
 
   "footer": {
@@ -529,6 +570,9 @@ export default {
       "about-you": "About You",
       "content": "Content",
       "network": "Network"
+    },
+    "edit": {
+      "select-district": "Select a district..."
     }
   },
 

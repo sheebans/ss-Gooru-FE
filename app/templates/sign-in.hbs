@@ -1,0 +1,55 @@
+<div class="controller sign-in row">
+  <div class="sign-in-wrapper col-md-12 col-sm-12 col-xs-12">
+    <div class="sign-in-header">
+      <h3>{{t "login.title"}}</h3>
+      <div class="description" alt="{{t "login.description"}}"
+           title="{{t "login.description"}}">{{t "login.description"}}
+      </div>
+      <div class="googleButton">
+        <div class="googleButtonContentWrapper">
+          <div class="googleButtonIcon">
+            <div class="googleButtonIconImage">
+            </div>
+          </div>
+          <span class="googleButtonContent">
+            <span>{{t "login.googleButton"}}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="sign-in-form">
+      <form>
+        <div class="form-group username">
+          <label class="control-label">{{t "login.usernameOrEmail"}}</label>
+          {{validation.gru-input model=user valuePath='username' }}
+        </div>
+        <div class="form-group">
+          <label class="control-label">{{t "login.password"}}</label>
+          {{validation.gru-input model=user valuePath='password' type='password'}}
+        </div>
+        <div class="form-group forgot-password">
+          <a class="btn btn-link" alt="{{t "login.forgotPassword"}}"
+             title="{{t "login.forgotPassword"}}" {{action "showModal" "gru-forgot-password-popup"}}>{{t "login.forgotPassword"}}</a>
+        </div>
+
+        <!-- TODO: Remove this temporal checkbox once it is not required -->
+        <div class="form-group">
+          <span class="text">Use API 3.0?</span>
+          {{input
+          id="use_api_3"
+          type="checkbox"
+          checked=useApi3}}
+        </div>
+        {{#if errorMessage}}
+          <div class="form-group">
+            <span class="text text-danger">{{errorMessage}}</span>
+          </div>
+        {{/if}}
+        <div class="log-in-button form-group text-center">
+          <button class="btn btn-success submit-sign-in" {{action "authenticate"}}>{{t "login.log-in"}} <span>{{gru-icon name='keyboard_arrow_right'}}</span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -10,9 +10,12 @@ Router.map(function() {
 
   this.route('search', function() {
     this.route('collections');
+    this.route('assessments');
     this.route('questions');
     this.route('resources');
   });
+
+  this.route('sign-in');
 
   this.route('content', function () {
 
@@ -77,6 +80,7 @@ Router.map(function() {
 
     this.route('network');
   });
+  this.route('user');
 });
 
 export default Router;

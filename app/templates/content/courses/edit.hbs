@@ -4,7 +4,13 @@
     <header>
       <h1>{{t "common.edit-course"}}</h1>
 
-      {{partial 'content/partials/header-actions'}}
+        <div class="actions">
+            <button class="btn btn-default btn-icon">{{gru-icon name="delete"}}</button>
+            <button class="btn btn-default btn-icon">{{gru-icon name="person_add"}}</button>
+            <button class="btn btn-default btn-icon">{{gru-icon name="insert_link"}}</button>
+            <button class="btn btn-default">{{t "content.courses.edit.assign-to-class"}}</button>
+            <button class="btn btn-default">{{t "common.preview"}}</button>
+        </div>
 
       <nav>
         {{#gru-scroll to="#information" class="selected" offset='article > header'}}{{t "common.information"}}{{/gru-scroll}}
@@ -17,119 +23,51 @@
     <section id="information">
         <div class="header">
             <h2>{{t "common.information"}}</h2>
-            <div class="edit-buttons">
-                {{#if isEdit}}
-                    <button class="btn btn-info"  {{action 'cancelEditContent'}}>{{t "common.cancel"}}</button>
-                    <button class="btn btn-success"{{action 'saveNewContent'}}>{{t "common.save"}}</button>
-                  {{else}}
-                    <button class="btn btn-primary" {{action 'editContent'}}>{{t "common.edit"}}</button>
-                {{/if}}
-            </div>
+            {{partial 'content/partials/information-actions'}}
         </div>
-        <div class="edit-information-content">
-            <div class="course-thumbnail">
-              {{#if}}
-                  <img/>
-                {{else}}
-                <div class="upload-image">
-                    <span>{{gru-icon name="library_add"}}</span>
-                </div>
-                {{#if isEdit}}
-                  <button class="btn btn-info">Upload Thumbnail</button>
-                {{/if}}
-              {{/if}}
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="title-section">
-                        <span>{{t "content.courses.edit.information.course-title"}}</span><span class="required">*</span>
-                      {{#if isEdit}}
-                        {{input id="course-name" class="course-title"}}
-                      {{else}}
-                        <span class="title">{{course.title}}</span>
-                      {{/if}}
-                    </div>
-                    <div class="category">
-                        <span>{{t "common.category"}}</span><span class="required">*</span>
-                      {{#if isEdit}}
-                        <div class="category-dropdown">
-                            <div class="btn-group">
-                              {{#each categories as |category|}}
-                                {{#if (eq category.value activeCategory)}}
-                                    <button type="button" class="btn btn-sm btn-primary" {{action 'setCategory' category.value}}>{{t category.label}}</button>
-                                  {{else}}
-                                    <button type="button" class="btn btn-sm btn-info" {{action 'setCategory' category.value}}>{{t category.label}}</button>
-                                {{/if}}
-                              {{/each}}
-                            </div>
-                        </div>
-                        {{else}}
-                        <div>
-                            <button type="button" class="btn-empty btn btn-sm">{{t selectedCategory}}</button>
-                        </div>
-                      {{/if}}
-                    </div>
-                    <div class="subject">
-                        <span>K-12 Subject and Course</span><span class="required">*</span>
-                        {{#if isEdit}}
-                        <button type="button" class="btn btn-primary btn-sm">{{t "common.add"}}</button>
-                          {{else}}
-                          <div class="subjects">
-                              <button type="button" class="btn-empty btn btn-sm">Grade 3 Math</button>
-                              <button type="button" class="btn-empty btn btn-sm">Grade 4 Math</button>
-                          </div>
-                        {{/if}}
-                    </div>
-                    <div class="audience-section">
-                        <span>{{t "common.audience"}}</span><span class="required">*</span>
-                        {{#if isEdit}}
-                          <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle btn-sm" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                              {{t "content.courses.edit.information.add"}}
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
+      <div class="content">
 
-                            </ul>
-                          </div>
-                          {{else}}
-                          <span class="audience">{{t "common.not-specified"}}</span>
-                          {{/if}}
-                    </div>
-                </div>
+        {{content.gru-image isEditing=isEditing srcImage=course.image editImage=tempCourse.image}}
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="title">
+              <label>
+                <span class="required">{{t "content.courses.edit.information.course-title"}}</span>
+                {{#if isEditing}}
+                  {{validation.gru-input model=tempCourse valuePath='title'}}
+                {{else}}
+                  <b>{{course.title}}</b>
+                {{/if}}
+              </label>
             </div>
+
+            {{content.gru-category isEditing=isEditing srcCategory=course.category editCategory=tempCourse.category}}
+
+            <div class="subject">
+              <label>
+                <span>K-12 Subject and Course</span>
+                {{#if isEditing}}
+                  <button type="button" class="btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
+                {{else}}
+                  <div class="subjects">
+                    <button type="button" class="btn-empty btn btn-sm">Grade 3 Math</button>
+                    <button type="button" class="btn-empty btn btn-sm">Grade 4 Math</button>
+                  </div>
+                {{/if}}
+              </label>
+            </div>
+
+            {{content.gru-audience isEditing=isEditing srcSelectedAudiences=course.audience editSelectedAudiences=tempCourse.audience}}
+
+          </div>
         </div>
+      </div>
     </section>
 
     <section id="builder">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sit amet enim accumsan, volutpat sapien ut,
-        rhoncus neque. Sed porta nibh non maximus rutrum. Morbi placerat finibus erat, sit amet condimentum ante
-        faucibus in. Donec sed augue sit amet mi scelerisque consequat quis sed massa. Integer iaculis ultricies
-        feugiat. Nullam ac est sed nisi rutrum semper. Praesent nec egestas orci. Nam eget metus ex. Donec venenatis et
-        erat non dictum. Aenean tristique, magna in luctus bibendum, turpis nisi vehicula tellus, sed porta enim erat
-        vel odio. Nunc sit amet auctor purus. Maecenas aliquet risus non tincidunt porta. Interdum et malesuada fames ac
-        ante ipsum primis in faucibus. Ut faucibus viverra lectus, at suscipit leo. In ac lectus leo. Phasellus interdum
-        rutrum dolor eu commodo.
-
-        Praesent mi neque, bibendum in sollicitudin vel, lobortis nec metus. Phasellus pulvinar posuere sapien, eget
-        imperdiet sem convallis eget. Donec pulvinar, ex ultrices luctus feugiat, sapien nisi condimentum est, varius
-        lacinia nibh elit nec felis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-        Curae; Aenean mattis lorem purus, eu fringilla ligula lacinia at. Donec imperdiet vitae elit a mollis. Curabitur
-        posuere hendrerit ipsum ut aliquet. Proin mi mauris, lacinia nec varius lacinia, luctus ac ante. Vestibulum
-        vehicula leo in augue sagittis lacinia. Sed ut finibus eros, a egestas massa. Proin pretium quam quis elit
-        tristique imperdiet. Nam euismod, diam eu tempus rutrum, magna metus interdum justo, nec luctus odio leo vitae
-        nisi. Proin sit amet urna posuere dolor dictum fringilla sit amet eget sem. Quisque eleifend velit ipsum, et
-        iaculis mi lobortis eget. Nunc ullamcorper lacus ac dui laoreet convallis.
-
-        Pellentesque nec sem nunc. Aenean dignissim scelerisque vulputate. Etiam at dignissim sapien. Sed volutpat augue
-        non mi fermentum, at vulputate dui suscipit. Nulla convallis risus vitae ipsum convallis, in varius turpis
-        facilisis. Quisque et malesuada risus. Sed et justo magna. Sed malesuada ipsum in mi aliquam, eleifend volutpat
-        lacus sollicitudin. Praesent sodales vitae lorem vitae dapibus. Fusce lectus elit, elementum in felis a, laoreet
-        accumsan dui. Integer viverra ante vel scelerisque molestie. Nullam aliquet, turpis consequat sagittis luctus,
-        diam orci pellentesque urna, nec congue eros dolor vitae dolor. Vivamus ac nisi ut nisi faucibus laoreet et ut
-        lectus. In consectetur eu libero sit amet varius. Etiam dignissim scelerisque lorem, vitae porttitor elit
-        venenatis quis.
-      </p>
+      {{content.courses.gru-accordion-course
+      model=course }}
     </section>
 
     <section id="settings">

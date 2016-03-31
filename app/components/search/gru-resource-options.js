@@ -56,7 +56,7 @@ export default Ember.Component.extend({
 
   webPageSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("web-page");
+    return selectedOptions.contains("webpage");
   }),
 
   /**

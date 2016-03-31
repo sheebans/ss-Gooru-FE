@@ -1,5 +1,15 @@
 import Ember from 'ember';
 
+/**
+ * Image picker
+ *
+ * Component responsible for letting the user select/preview an image using a
+ * system file browser dialog. Only certain file types are allowed
+ * (@see gru-image-picker.hbs); otherwise an error is presented to the user.
+ *
+ * @module
+ * @augments ember/Component
+ */
 export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------

@@ -12,6 +12,9 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+  searchController: Ember.inject.controller('search'),
+
+  queryParams: ['selectedOptionTypes'],
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -53,6 +56,17 @@ export default Ember.Controller.extend({
    *
    */
   selectedOptionTypes: Ember.A([]),
+
+  /**
+   * These are the resource search results
+   * @property {resourceResults[]}
+   */
+  resourceResults: null,
+
+  /**
+   * @property {string} term filter
+   */
+  term: null
 
   // -------------------------------------------------------------------------
   // Methods

@@ -33,14 +33,12 @@ export default Ember.Route.extend({
    */
   searchService: Ember.inject.service('api-sdk/search'),
 
-  model: function(params) {
+  model: function() {
     var standards = this.get("standardService").readAll();
     var profile = this.get("profileService").findByCurrentUser();
-    var collectionResults = this.get('searchService').searchCollections(params);
     return Ember.RSVP.hash({
       standards: standards,
-      profile: profile,
-      collectionResults: collectionResults
+      profile: profile
     });
   },
   /**
@@ -50,15 +48,12 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
     this._super(controller, model);
-
     if (model.profile) {
       var checkableStandards = this.get("standardService").getCheckableStandards();
       var codes = model.profile.get("user.metadata.taxonomyPreference.code");
       checkStandards(model.standards, checkableStandards, codes);
     }
-
     controller.set("standards", model.standards);
-    controller.set('collectionResults', model.collectionResults);
   },
 
   // -------------------------------------------------------------------------
@@ -70,33 +65,6 @@ export default Ember.Route.extend({
      */
     onOpenContentPlayer: function(collectionId) {
       this.transitionTo('player', collectionId);
-    },
-
-    /**
-     * Action triggered to filter by type in collections page
-     */
-    filterType: function (term, filterType) {
-      const route = this;
-      const controller = route.get("controller");
-      const searchService = route.get('searchService');
-
-      if(filterType==='questions'){
-        this.transitionTo('search.questions');
-      }
-      else if(filterType==='resources'){
-        this.transitionTo('search.resources');
-      }
-      else {
-        const params = {
-          "term": term,
-          "collectionType": filterType
-        };
-        searchService.searchCollections(params).then(function(collectionResults){
-          controller.setProperties(params);
-          controller.set("collectionResults", collectionResults);
-        });
-        this.transitionTo('search.collections');
-      }
     }
   }
 });

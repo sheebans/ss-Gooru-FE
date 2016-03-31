@@ -34,17 +34,19 @@
         </ul>
 
     </div>
-    <div class="btn-group hidden-xs hidden-sm">
-        <a href="#" class="btn btn-success">{{t "common.add-to"}}</a>
+    {{#if isMyProfile}}
+      <div class="btn-group hidden-xs">
+        <a href="#" class="btn btn-success" data-toggle="dropdown"><span class="hidden-sm">{{t "common.add"}}</span>{{gru-icon name="add" class="visible-sm-inline symbol"}}</a>
         <a href="#" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#" {{action "showModal" "content.modals.gru-course-new"}} >{{t "common.course"}}</a></li>
-          <li><a href="#">{{t "common.collection"}}</a></li>
-          <li><a href="#">{{t "common.assessment"}}</a></li>
-          <li><a href="#">{{t "common.resource"}}</a></li>
-          <li><a href="#">{{t "common.question"}}</a></li>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li><a href="#" {{action "showModal" "content.modals.gru-course-new"}}>{{t "common.course"}}</a></li>
+          <li><a href="#" {{action "showModal" "content.modals.gru-collection-new"}}>{{t "common.collection"}}</a></li>
+          <li><a href="#" {{action "showModal" "content.modals.gru-assessment-new"}}>{{t "common.assessment"}}</a></li>
+          <li><a href="#" {{action "showModal" "content.modals.gru-resource-new"}}>{{t "common.resource"}}</a></li>
+          <li><a href="#" {{action "showModal" "content.modals.gru-question-new"}}>{{t "common.question"}}</a></li>
         </ul>
-    </div>
+      </div>
+    {{/if}}
 </div>
 <div class="content_outlet">
   {{outlet}}
