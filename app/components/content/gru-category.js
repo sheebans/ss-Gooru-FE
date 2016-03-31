@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { COURSE_CATEGORIES } from 'gooru-web/config/config';
+import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 
 /**
  * Category component
@@ -36,7 +36,7 @@ export default Ember.Component.extend({
   /**
    * @type {Ember.A} categories - List of course categories
    */
-  categories: COURSE_CATEGORIES,
+  categories: TAXONOMY_CATEGORIES,
 
   /**
    * Is the course being edited or not?

@@ -8,6 +8,7 @@ export default {
     "about-you": "About You",
     "add": "Add",
     "add-plus": "+ Add",
+    "add-collection": "Add New Collection",
     "add-course": "Add New Course",
     "add-new-unit": "Add New Unit",
     "add-to": "Add To",
@@ -44,6 +45,7 @@ export default {
     "classScores": "Class Scores",
     "close": "Close",
     "collection":"Collection",
+    "collection-title":"Collection-Title",
     "collections": "Collections",
     "collectionInitial": "C",
     "completed": "Completed",
@@ -73,6 +75,7 @@ export default {
       "emotion-5": "I can explain"
     },
     "errors": {
+      "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly."
     },
     "explanation": "Explanation",
@@ -87,6 +90,7 @@ export default {
     "last-updated": "Last Updated",
     "launch-anonymous": "Launch Anonymous",
     "launch-on-air": "Launch on air",
+    "learning-objectives":"Learning Objectives",
     "learning-target":"Learning Target",
     "learning-target-mobile":"Learning Target in Standard",
     "lesson": "Lesson",
@@ -253,7 +257,11 @@ export default {
 
   "content.collections.edit": {
     "assign-to-course": "Assign to Course",
+    "information":{
+      "collection-title":"Collection Title"
+    }
   },
+
   "content.courses.edit": {
     "assign-to-class": "Assign to Class",
     "big-ideas": "Big Ideas",

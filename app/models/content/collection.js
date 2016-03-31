@@ -6,10 +6,10 @@ const Validations = buildValidations({
 });
 
 /**
- * Course model
- * typedef {Object} Course
+ * Collection model
+ * typedef {Object} Collection
  */
-const Course = Ember.Object.extend(Validations, {
+const Collection = Ember.Object.extend(Validations, {
 
   /**
    * @property {Number} category - Category the course belongs to
@@ -17,7 +17,7 @@ const Course = Ember.Object.extend(Validations, {
   category: 1,
 
   /**
-   * @property {String} image - Course image url
+   * @property {String} image - Collection image url
    */
   image: '',
 
@@ -25,6 +25,11 @@ const Course = Ember.Object.extend(Validations, {
    * @property {String} subject
    */
   subject: '',
+
+  /**
+   * @property {String} learningObjectives
+   */
+  learningObjectives: '',
 
   /**
    * @property {String} title
@@ -42,7 +47,7 @@ const Course = Ember.Object.extend(Validations, {
   audience:[],
 
   /**
-   * Return a copy of the course
+   * Return a copy of the collection
    *
    * @function
    * @return {Course}
@@ -54,6 +59,7 @@ const Course = Ember.Object.extend(Validations, {
       'category',
       'image',
       'subject',
+      'learningObjectives',
       'title',
       'isPublic'
     ]);
@@ -62,9 +68,9 @@ const Course = Ember.Object.extend(Validations, {
     // Copy the audience values
     copiedProperties.audience = audience.slice(0);
 
-    return Course.create(Ember.getOwner(this).ownerInjection(), copiedProperties);
+    return Collection.create(Ember.getOwner(this).ownerInjection(), copiedProperties);
   }
 
 });
 
-export default Course;
+export default Collection;
