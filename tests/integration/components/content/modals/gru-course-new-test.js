@@ -6,7 +6,7 @@ import DS from 'ember-data';
 
 const courseServiceStub = Ember.Service.extend({
 
-  create(course) {
+  createCourse(course) {
     var promiseResponse;
 
     if (course.get('title') === 'COURSE FAIL') {

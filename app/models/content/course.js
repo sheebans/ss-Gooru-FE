@@ -14,17 +14,20 @@ const Course = Ember.Object.extend(Validations, {
   /**
    * @property {Number} category - Category the course belongs to
    */
+  // TODO We need to revisit this property, probably it will be a string
   category: 1,
 
   /**
    * @property {String} image - Course image url
    */
+  // TODO This property will be replaced by thumbnailUrl
   image: '',
 
   /**
-   * @property {String} subject
+   * @property {Boolean} isPublic
    */
-  subject: '',
+  // TODO This property probably will be replaced isVisibleOnProfile
+  isPublic: false,
 
   /**
    * @property {String} title
@@ -32,14 +35,34 @@ const Course = Ember.Object.extend(Validations, {
   title: '',
 
   /**
-   * @property {Boolean} isPublic
+   *  @property {String} Course description
    */
-  isPublic: false,
+  description: '',
+
+  /**
+   * @property {String} Course thumbnail url
+   */
+  thumbnailUrl: '',
+
+  /**
+   * @property {Boolean} Is this course visible on profile
+   */
+  isVisibleOnProfile: true,
 
   /**
    * @property {Number[]} Array with the audience ids
    */
   audience:[],
+
+  /**
+   * @property {String[]} Course taxonomy array
+   */
+  taxonomy: [],
+
+  /**
+   * @property {String} subject
+   */
+  subject: '',
 
   /**
    * Return a copy of the course
@@ -52,13 +75,16 @@ const Course = Ember.Object.extend(Validations, {
     // Copy the course data
     var copiedProperties = this.getProperties([
       'category',
-      'image',
-      'subject',
       'title',
-      'isPublic'
+      'description',
+      'thumbnailUrl',
+      'isVisibleOnProfile',
+      'audience',
+      'taxonomy',
+      'subject'
     ]);
+    // TODO Do we want to copy just one value here?
     var audience = this.get('audience');
-
     // Copy the audience values
     copiedProperties.audience = audience.slice(0);
 
