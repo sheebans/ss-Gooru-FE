@@ -27,7 +27,7 @@ export default Ember.Component.extend(AccordionMixin, {
 
   classNames: ['content', 'courses', 'gru-accordion', 'gru-accordion-unit'],
 
-  classNameBindings: ['isEditing:edit:view'],
+  classNameBindings: ['model.isEditing:edit:view'],
 
   tagName: 'li',
 
@@ -59,17 +59,8 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     selectUnit: function () {
       this.loadData();
-    },
-
-    /**
-     * @function actions:selectItem
-     * @param {string} collectionId - Identifier for a collection or assessment
-     * @see components/class/overview/gru-accordion-lesson
-     */
-    selectResource: function (lessonId, collectionId) {
-      let unitId = this.get("model.id");
-      this.get('onSelectResource')(unitId, lessonId, collectionId);
     }
+
   },
 
   // -------------------------------------------------------------------------

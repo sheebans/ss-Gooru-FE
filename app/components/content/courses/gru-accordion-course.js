@@ -1,47 +1,28 @@
 import Ember from 'ember';
-import AccordionMixin from 'gooru-web/mixins/gru-accordion';
 import Unit from 'gooru-web/models/content/unit';
 
 /**
  * Content Builder: Accordion Course
  *
- * Component responsible for behaving as an accordion and listing a set of units
+ * Component responsible for listing a set of units
  *
  * @module
  * @augments Ember/Component
  * @mixes mixins/gru-accordion
  */
-export default Ember.Component.extend(AccordionMixin, {
-
-  // -------------------------------------------------------------------------
-  // Dependencies
-
-  /**
-   * @requires service:api-sdk/unit
-   */
-  unitService: Ember.inject.service("api-sdk/unit"),
+export default Ember.Component.extend({
 
 
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content', 'courses', 'gru-accordion', 'gru-accordion-course'],
+  classNames: ['content', 'courses', 'gru-accordion-course', 'gru-accordion'],
 
 
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
-    /**
-     * @function actions:selectItem
-     * @param {string} collectionId - Identifier for a collection or assessment
-     * @see module:app/components/class/overview/gru-accordion-lesson
-     */
-    selectResource: function (unitId, lessonId, collectionId) {
-      // Send the action so that it bubbles up to the route
-      this.sendAction('onSelectResource', unitId, lessonId, collectionId);
-    },
 
     addUnit: function () {
       var unit = Unit.create(Ember.getOwner(this).ownerInjection(), {
@@ -67,6 +48,11 @@ export default Ember.Component.extend(AccordionMixin, {
   // Properties
 
   /**
+   * @prop {Ember.RSVP.Promise | Content/Unit[]} items
+   */
+  items: null,
+
+  /**
    * @property {Boolean} savedItems - List of all items with a truthy 'id' value?
    */
   savedItems: Ember.computed('items.@each.id', function () {
@@ -88,24 +74,6 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   isAddingItem: Ember.computed('items.[]', 'savedItems.[]', function () {
     return this.get('items.length') > this.get('savedItems.length');
-  }),
-
-
-  // -------------------------------------------------------------------------
-  // Methods
-
-  /**
-   * TODO: Get all the units for the course
-   *
-   * @function
-   * @requires api-sdk/unit#findByClassAndCourseAndUnit
-   * @returns {Ember.RSVP.Promise}
-   */
-  getUnits: function () {
-    const courseId = this.get('model.id');
-
-    return this.get("lessonService").findByClassAndCourseAndUnit(courseId);
-  }
-
+  })
 
 });
