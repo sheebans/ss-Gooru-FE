@@ -1,0 +1,50 @@
+.container-fluid {
+  .user {
+    @include flexbox;
+    @include flex-direction(column);
+    @include align-items(center);
+    margin: 0 auto;
+    width: 80%;
+  }
+}
+
+.user {
+  .nav-tabs {
+    box-shadow: inset 0 -1px 0 $gray-light;
+
+    li {
+      margin-bottom: 0;
+
+      &.actions {
+        @include flexbox;
+        @include align-items(flex-end);
+        @include justify-content(space-between);
+        height: 39px;
+        width: 190px;
+      }
+
+      &:not(.active) {
+
+        a {
+          box-shadow: none;
+        }
+      }
+
+      &.active {
+
+        a {
+          box-shadow: inset 0 -4px 0 $gray;
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
+
+      a {
+
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
