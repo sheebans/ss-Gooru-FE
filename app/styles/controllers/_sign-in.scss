@@ -128,6 +128,10 @@
     background-image: none!important;
     background-color: $red-400;
     opacity: 1;
+    @media (max-width: $screen-xs-min) {
+      padding: 10px;
+      margin: 0;
+    }
     .toast-message {
       text-align: center;
     }
