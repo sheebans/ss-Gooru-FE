@@ -80,6 +80,7 @@ Router.map(function() {
 
     this.route('network');
   });
+  this.route('user');
 });
 
 export default Router;

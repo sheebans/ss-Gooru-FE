@@ -264,6 +264,13 @@ export default {
     }
   },
 
+  "user":{
+    "active-classes": "Active Classes",
+    "archived-classes": "Archived Classes",
+    "create-class": "Create Class",
+    "join-class": "Join Class"
+  },
+
   /*
    * COMPONENTS: Translations used in a specific component
    */
