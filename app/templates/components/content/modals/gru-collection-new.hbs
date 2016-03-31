@@ -2,7 +2,7 @@
     <h4 class="modal-title">{{t "common.add-collection"}}</h4>
 </div>
 <div class="modal-body">
-    <form {{action "createCollection" on="submit"}}>
+    <form>
         <label>
             <span class="required">{{t 'common.collection-title'}}</span>
           {{validation.gru-input model=collection valuePath='title'}}
@@ -11,7 +11,7 @@
             <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
                 <span aria-hidden="true">{{t 'common.cancel'}}</span>
             </button>
-            <button type="submit" class="btn btn-primary">{{t 'common.add'}}</button>
+            <button type="submit" class="btn btn-primary add">{{t 'common.add'}}</button>
         </div>
     </form>
 </div>
