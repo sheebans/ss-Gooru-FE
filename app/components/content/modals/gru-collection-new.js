@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import Collection from 'gooru-web/models/content/collection';
-import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
 
@@ -33,12 +32,6 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
-
-  /**
-   * @type {Ember.A} categories - List of collection categories
-   */
-  categories: TAXONOMY_CATEGORIES,
-
   /**
    * @type {?String} specific class
    */
