@@ -1,11 +1,26 @@
 import Ember from 'ember';
-import DS from 'ember-data';
 import StoreMixin from '../../mixins/store';
+import CourseSerializer from 'gooru-web/serializers/content/course';
+import CourseAdapter from 'gooru-web/adapters/content/course';
+
 
 /**
+ * Service to support the Course CRUD operations
+ *
  * @typedef {Object} CourseService
  */
 export default Ember.Service.extend(StoreMixin, {
+
+  courseSerializer: null,
+
+  courseAdapter: null,
+
+
+  init: function () {
+    this._super(...arguments);
+    this.set('courseSerializer', CourseSerializer.create());
+    this.set('courseAdapter', CourseAdapter.create(Ember.getOwner(this).ownerInjection()));
+  },
 
   /**
    * Returns a course by id
@@ -17,16 +32,24 @@ export default Ember.Service.extend(StoreMixin, {
   },
 
   /**
-   * TODO: Creates a new course model
-   * @returns {Course}
+   * Creates a new course
+   *
+   * @param courseModel The Course model to be saved
+   * @returns {Promise}
    */
-  create: function (course) {
-    // Add a fictitious id to the course
-    course.set('id', 456);
-
-    // Simulate async data returned by the service
-    return DS.PromiseObject.create({
-      promise: new Ember.RSVP.resolve(course)
+  createCourse: function(courseModel) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      let serializedCourseModel = service.get('courseSerializer').serializeCreateCourse(courseModel);
+      service.get('courseAdapter').createCourse({
+        body: serializedCourseModel
+      }).then(function(responseData, textStatus, request) {
+        let courseId = request.getResponseHeader('location');
+        courseModel.set('id', courseId);
+        resolve(courseModel);
+      }, function(error) {
+        reject(error);
+      });
     });
   }
 
