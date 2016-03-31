@@ -45,7 +45,7 @@ export default {
     "classScores": "Class Scores",
     "close": "Close",
     "collection":"Collection",
-    "collection-title":"Collection-Title",
+    "collection-title":"Collection Title",
     "collections": "Collections",
     "collectionInitial": "C",
     "completed": "Completed",
