@@ -88,12 +88,6 @@ export default Ember.Component.extend(AccordionMixin, {
   // -------------------------------------------------------------------------
   // Properties
 
-  /**
-   * Contains only visible units
-   * @property {Unit[]} units
-   */
-  lessons: null,
-
 
   // -------------------------------------------------------------------------
   // Methods

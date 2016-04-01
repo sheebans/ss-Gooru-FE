@@ -7,61 +7,32 @@ import Ember from 'ember';
  */
 export default Ember.Mixin.create({
 
-  actions: {
-
-    /**
-     * Cancel Edit Content
-     */
-    cancelEdit: function () {
-      this.set('isEditing', false);
-    }
-  },
-
-  // -------------------------------------------------------------------------
-  // Events
-  UISetup: Ember.on('init', function () {
-    this._super(...arguments);
-
-    Ember.$('document').ready(function () {
-      const $container = Ember.$('.controller.content.edit');
-      const $header = $container.find('article > header');
-      const $window = Ember.$(window);
-
-      Ember.$(window).on('scroll', function () {
-        var scrollTop = $window.scrollTop();
-        var headerWidth = $header.css('width');
-        var headerPaddingLeft = $header.css('paddingLeft');
-        headerWidth = headerWidth && headerWidth.split('px')[0] || '100%';
-
-        if (scrollTop >= 65) {
-          if (!$container.hasClass('fixed-header')) {
-            // Add inline styles to preserve the same look
-            $container.find('article > header').css({
-              width: headerWidth,
-              paddingLeft: headerPaddingLeft
-            });
-            $container.addClass('fixed-header');
-          }
-        } else {
-          if ($container.hasClass('fixed-header')) {
-            // Remove any inline styles
-            $container.find('article > header').prop('style', '');
-            $container.removeClass('fixed-header');
-          }
-        }
-      });
-
-    });
-  }),
-
 
   // -------------------------------------------------------------------------
   // Properties
 
   /**
-   * Indicate if a course information is in edit mode
-   * @property {Boolean}
+   * @property {Boolean} savedItems - List of all items with a truthy 'id' value?
    */
-  isEditing: false
+  savedItems: Ember.computed('items.@each.id', function () {
+    var items = this.get('items');
+    return items.filterBy('id');
+  }),
+
+  /**
+   * @property {Boolean} isEditingItem - Is an item being edited or not?
+   * New items (i.e. not yet saved) are also considered as being edited.
+   */
+  isEditingItem: Ember.computed('items.@each.isEditing', function () {
+    var items = this.get('items');
+    return items.filterBy('isEditing', true).length;
+  }),
+
+  /**
+   * @property {Boolean} isAddingItem - Is a new item being added or not?
+   */
+  isAddingItem: Ember.computed('items.[]', 'savedItems.[]', function () {
+    return this.get('items.length') > this.get('savedItems.length');
+  })
 
 });

@@ -18,6 +18,11 @@ const Course = Ember.Object.extend(Validations, {
   category: 1,
 
   /**
+   * @property {Content/Unit[]} children - List of course units
+   */
+  children: [],
+
+  /**
    * @property {String} image - Course image url
    */
   // TODO This property will be replaced by thumbnailUrl
@@ -63,11 +68,6 @@ const Course = Ember.Object.extend(Validations, {
    * @property {String[]} Course taxonomy array
    */
   taxonomy: [],
-
-  /**
-   * @property {Content/Unit[]} units - Course units
-   */
-  units: [],
 
   /**
    * Return a copy of the course

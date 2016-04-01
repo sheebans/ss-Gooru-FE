@@ -18,19 +18,29 @@ export default Ember.Object.extend(Validations, {
   bigIdeas: '',
 
   /**
+   * @property {Content/Lesson[]} children - List of unit lessons
+   */
+  children: [],
+
+  /**
    * @property {String} essentialQuestions
    */
   essentialQuestions: '',
 
   /**
-   * @property {Number} id
+   * @property {String} id - Gooru id for the unit
    */
-  id: 0,
+  id: '',
 
   /**
    * @property {Boolean} isEditing
    */
   isEditing: false,
+
+  /**
+   * @property {Number} lessonsTotal - total number of lessons in the unit
+   */
+  lessonsTotal: 0,
 
   /**
    * @property {String} sequence - sequence order among other course units
