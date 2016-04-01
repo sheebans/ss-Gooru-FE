@@ -1,11 +1,11 @@
 <div class="modal-header">
-    <h4 class="modal-title">{{t "common.add-collection"}}</h4>
+    <h4 class="modal-title">{{t "common.add-assessment"}}</h4>
 </div>
 <div class="modal-body">
-    <form {{action "createCollection" on="submit"}}>
+    <form {{action "createAssessment" on="submit"}}>
         <label>
-            <span class="required">{{t 'common.collection-title'}}</span>
-          {{validation.gru-input model=collection valuePath='title' maxlength=50}}
+            <span class="required">{{t 'common.assessment-title'}}</span>
+          {{validation.gru-input model=assessment valuePath='title' maxlength=50}}
         </label>
         <div class="actions">
             <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
