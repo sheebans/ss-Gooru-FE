@@ -1,0 +1,81 @@
+.create-class {
+  margin: 0 -15px;
+
+  .modal {
+    display: block;
+    height: 91vh;
+    position: relative;
+
+    .modal-dialog {
+      margin: 70px auto 10px;
+      width: 100%;
+      @media (min-width: $screen-sm) {
+        width: 405px;
+      }
+    }
+
+    .modal-header {
+      padding-top: 32px;
+    }
+
+    .modal-content {
+      text-align: center;
+    }
+
+    .modal-body {
+      padding: 0 30px 15px;
+    }
+
+    .form-group {
+      text-align: initial;
+    }
+  }
+
+  .modal-footer {
+    @include flexbox;
+    @include flex-direction(column);
+    padding: 0;
+    text-align: center;
+
+    a {
+      margin: 0 auto;
+      padding: 50px 0 25px;
+      width: initial;
+    }
+
+    button {
+      font-size: $font-size-h4;
+      padding-left: 35px;
+      padding-right: 0;
+    }
+
+    i {
+      font-size: $font-size-h3;
+      margin-top: 5px;
+    }
+  }
+
+  .conditions {
+    @include flexbox;
+  }
+
+}
+
+.condition-prompt {
+  padding-top: 20px;
+
+  label {
+
+    &:last-child {
+      margin-left: 15px;
+    }
+  }
+}
+
+.class-name-input {
+
+  label {
+    margin-bottom: 10px;
+    margin-left: 3px;
+  }
+}

@@ -257,7 +257,15 @@ export default {
     "noClassesJoined": "You have not joined any classes",
     "noClassesTaught": "You do not have any created classes"
   },
-
+  "content.classes.create":{
+    "title":"Create a Class",
+    "content":"Where students engage with content.",
+    "class-name-input":"Name your Class",
+    "condition-prompt":"How will students join your class?",
+    "condition-prompt-code":"Anyone with Class code",
+    "condition-prompt-invite":"Invite only",
+    "get-started":"Get Started"
+  },
   "content.collections.edit": {
     "assign-to-course": "Assign to Course",
     "information":{

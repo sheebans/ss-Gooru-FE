@@ -32,7 +32,7 @@ test('Layout', function(assert) {
 
     T.exists(assert, $navigatorContainer.find(".actions .create-class"), "Missing create class button");
 
-    T.exists(assert, $navigatorContainer.find(".actions .create-class"), "Missing join class button");
+    T.exists(assert, $navigatorContainer.find(".actions .join-class"), "Missing join class button");
 
     T.exists(assert, $userContainer.find(".content"), "Missing user content");
   });
