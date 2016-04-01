@@ -23,7 +23,7 @@ export default Ember.Component.extend({
       const assessment = this.get('assessment');
       assessment.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
-          Ember.logger("Collection Valid");
+          Ember.logger("Assessment Valid");
         }
         this.set('didValidate', true);
       }.bind(this));
