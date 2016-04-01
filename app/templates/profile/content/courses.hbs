@@ -16,8 +16,10 @@
         </ul>
     </div>
     <div class="courses-content">
-        <p>
-          {{courses}}
-        </p>
+      {{#each courses as |course|}}
+        {{cards.gru-course-card
+          course=course
+        }}
+      {{/each}}
     </div>
 </div>

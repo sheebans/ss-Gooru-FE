@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import ProfileSerializer from 'gooru-web/serializers/profile/profile';
-import CourseSerializer from 'gooru-web/serializers/course/courses';
+import CourseSerializer from 'gooru-web/serializers/course/course';
 import ProfileAdapter from 'gooru-web/adapters/profile/profile';
-import ProfileCourseAdapter from 'gooru-web/adapters/profile/courses';
+import ProfileCourseAdapter from 'gooru-web/adapters/profile/course';
 
 
 /**
@@ -50,10 +50,27 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Gets the current user Profile information
+   *
+   * @returns {Promise}
+   */
+  readMyProfile: function() {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readMyProfile()
+        .then(function(response) {
+          resolve(service.get('profileSerializer').normalizeReadProfile(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
+  /**
    * Updates the current user Profile information
    *
-   * @param profile
-   * @returns {Ember.RSVP.Promise}
+   * @param profile the Profile object
+   * @returns {Promise}
    */
   updateMyProfile: function(profile) {
     const service = this;
@@ -70,63 +87,28 @@ export default Ember.Service.extend({
   },
 
   /**
-   * Gets the user Profile information of a given user id
+   * Gets the list of courses created by the profile and filter by subject
    *
+   * @param profile the Profile object
+   * @param subject the subject to filter the courses
    * @returns {Promise}
    */
-  readUserProfile: function(userId) {
+  getCourses: function(profile, subject) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readUserProfile(userId)
+      service.get('profileCourseAdapter').getCourses(profile.get('id'), subject)
         .then(function(response) {
-          resolve(service.get('profileSerializer').normalizeReadProfile(response));
+          resolve(service.get('courseSerializer').normalizeGetCourses(response));
         }, function(error) {
           reject(error);
         });
     });
   },
 
-  /**
-   * Follows a user profile
-   * @param userId
-   * @returns {Ember.RSVP.Promise}
-   */
-  followUserProfile: function(userId) {
-    const service = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').followUserProfile(userId)
-        .then(function() {
-          resolve();
-        }, function(error) {
-          reject(error);
-        });
-    });
-  },
-
-  /**
-   * Unfollows a user profile
-   * @param userId
-   * @returns {Ember.RSVP.Promise}
-   */
-  unfollowUserProfile: function(userId) {
-    const service = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').unfollowUserProfile(userId)
-        .then(function() {
-          resolve();
-        }, function(error) {
-          reject(error);
-        });
-    });
-  },
 
   //
   // TODO The following functions must be deleted once API 3.0 integration is done
   //
-  findById: function(profileId) {
-    return this.get('store').findRecord('profile', profileId);
-  },
-
   findByCurrentUser: function() {
     if (!this.get('session.isAnonymous')) {
       var currentProfileId = this.get('session.userId');
@@ -136,20 +118,18 @@ export default Ember.Service.extend({
   },
 
   /**
-   * Unfollows a user profile
-   * @param userId
-   * @returns {Ember.RSVP.Promise}
+   * Find a user profile by user id
+   * @param {string} userId
+   * @returns {Profile}
    */
-  listCourses: function(userId) {
-    const service = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileCourseAdapter').getCourses(userId)
-        .then(function() {
-          resolve();
-        }, function(error) {
-          reject(error);
-        });
-    });
+  findByUser: function(userId) {
+    //TODO implement, for now it returns the current user
+    Ember.Logger.log(userId);
+    return this.findByCurrentUser();
+  },
+
+  findById: function(profileId) {
+    return this.get('store').findRecord('profile', profileId);
   }
 
 });
