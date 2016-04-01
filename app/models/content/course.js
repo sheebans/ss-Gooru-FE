@@ -55,14 +55,19 @@ const Course = Ember.Object.extend(Validations, {
   audience:[],
 
   /**
+   * @property {String} subject
+   */
+  subject: '',
+
+  /**
    * @property {String[]} Course taxonomy array
    */
   taxonomy: [],
 
   /**
-   * @property {String} subject
+   * @property {Content/Unit[]} units - Course units
    */
-  subject: '',
+  units: [],
 
   /**
    * Return a copy of the course
@@ -72,23 +77,26 @@ const Course = Ember.Object.extend(Validations, {
    */
   copy: function() {
 
-    // Copy the course data
-    var copiedProperties = this.getProperties([
-      'category',
-      'title',
-      'description',
-      'thumbnailUrl',
-      'isVisibleOnProfile',
-      'audience',
-      'taxonomy',
-      'subject'
-    ]);
-    // TODO Do we want to copy just one value here?
-    var audience = this.get('audience');
-    // Copy the audience values
-    copiedProperties.audience = audience.slice(0);
+    var properties = [];
+    var enumerableKeys = Object.keys(this);
 
-    return Course.create(Ember.getOwner(this).ownerInjection(), copiedProperties);
+    for (let i = 0; i < enumerableKeys.length; i++) {
+      let key = enumerableKeys[i];
+      let value = Ember.typeOf(this.get(key));
+      if (value === 'string' || value === 'number' || value === 'boolean') {
+        properties.push(key);
+      }
+    }
+
+    // Copy the course data
+    properties = this.getProperties(properties);
+
+    var audience = this.get('audience');
+
+    // Copy the audience values
+    properties.audience = audience.slice(0);
+
+    return Course.create(Ember.getOwner(this).ownerInjection(), properties);
   }
 
 });
