@@ -100,20 +100,29 @@ test('follow button appears by default', function(assert) {
   });
 });
 
-test('follow button changes to unfollow when clicked and backwards', function(assert) {
+test('click follow button', function(assert) {
   visit('/profile/param-123/about');
   andThen(function() {
     assert.equal(currentURL(), '/profile/param-123/about');
     andThen(function () {
       var $actions = find('.controller.profile .profile-info .actions');
-      var $button = $actions.find('.btn');
-      click($button);
-      andThen(function () {
-        assert.ok($button.hasClass('unfollow'), 'Follow button didn\'t changed to unfollow');
-        click($button);
-        andThen(function () {
-          assert.ok($button.hasClass('follow'), 'Unfollow button didn\'t changed to follow');
-        });
+      var $button = $actions.find('.follow');
+      $button.on( "click", function() {
+        assert.ok( true, "follow button was clicked!" );
+      });
+    });
+  });
+});
+
+test('click unfollow button', function(assert) {
+  visit('/profile/param-1234/about');
+  andThen(function() {
+    assert.equal(currentURL(), '/profile/param-1234/about');
+    andThen(function () {
+      var $actions = find('.controller.profile .profile-info .actions');
+      var $button = $actions.find('.unfollow');
+      $button.on( "click", function() {
+        assert.ok( true, "unfollow button was clicked!" );
       });
     });
   });

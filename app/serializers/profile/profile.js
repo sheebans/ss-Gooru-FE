@@ -22,7 +22,7 @@ export default Ember.Object.extend({
       password: profileData.get('password'),
       'birth_date': profileData.get('dateOfBirth'),
       'user_category': profileData.get('role'),
-      gender: 'male',
+      gender: null,
       grade: []
     };
   },
@@ -64,15 +64,26 @@ export default Ember.Object.extend({
       lastName: payload.lastname,
       username: payload.username,
       email: payload['email_id'],
+      gender: payload.gender,
       grades: payload.grade,
       dateOfBirth: payload['birth_date'],
       role: payload['user_category'],
+      createdAt: payload['created_at'],
       lastUpdate: payload['updated_at'],
+      countryId: payload['country_id'],
       country: payload.country,
+      stateId: payload['state_id'],
       state: payload.state,
+      schoolId: payload['school_id'],
       school: payload.school,
+      schoolDistrictId: payload['school_district_id'],
       schoolDistrict: payload['school_district'],
-      aboutMe: payload['about_me']
+      aboutMe: payload['about_me'],
+      avatarUrl: payload['thumbnail_path'],
+      rosterId: payload['roster_id'],
+      followers: payload.followers,
+      followings: payload.followings,
+      isFollowing: !!payload.isFollowing
     });
   }
 

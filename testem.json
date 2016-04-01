@@ -35,6 +35,9 @@
     },
     "/api/nucleus-auth/v1": {
       "target": "http://localhost:8882"
+    },
+    "/api/nucleus/v1": {
+      "target": "http://localhost:8882"
     }
   }
 }
