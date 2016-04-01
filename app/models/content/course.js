@@ -24,12 +24,6 @@ const Course = Ember.Object.extend(Validations, {
   image: '',
 
   /**
-   * @property {Boolean} isPublic
-   */
-  // TODO This property probably will be replaced isVisibleOnProfile
-  isPublic: false,
-
-  /**
    * @property {String} title
    */
   title: '',
@@ -48,6 +42,11 @@ const Course = Ember.Object.extend(Validations, {
    * @property {Boolean} Is this course visible on profile
    */
   isVisibleOnProfile: true,
+
+  /**
+   * @property {Boolean} isPublished When a course is set as published
+   */
+  isPublished: false,
 
   /**
    * @property {Number[]} Array with the audience ids

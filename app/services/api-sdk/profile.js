@@ -1,6 +1,9 @@
 import Ember from 'ember';
 import ProfileSerializer from 'gooru-web/serializers/profile/profile';
+import CourseSerializer from 'gooru-web/serializers/course/course';
 import ProfileAdapter from 'gooru-web/adapters/profile/profile';
+import ProfileCourseAdapter from 'gooru-web/adapters/profile/course';
+
 
 /**
  * Service to support the Profile CRUD operations
@@ -21,7 +24,9 @@ export default Ember.Service.extend({
   init: function () {
     this._super(...arguments);
     this.set('profileSerializer', ProfileSerializer.create());
+    this.set('courseSerializer', CourseSerializer.create());
     this.set('profileAdapter', ProfileAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set('profileCourseAdapter', ProfileCourseAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
   /**
@@ -64,8 +69,8 @@ export default Ember.Service.extend({
   /**
    * Updates the current user Profile information
    *
-   * @param profile
-   * @returns {Ember.RSVP.Promise}
+   * @param profile the Profile object
+   * @returns {Promise}
    */
   updateMyProfile: function(profile) {
     const service = this;
@@ -78,6 +83,25 @@ export default Ember.Service.extend({
       }, function(error) {
         reject(error);
       });
+    });
+  },
+
+  /**
+   * Gets the list of courses created by the profile and filter by subject
+   *
+   * @param profile the Profile object
+   * @param subject the subject to filter the courses
+   * @returns {Promise}
+   */
+  getCourses: function(profile, subject) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileCourseAdapter').getCourses(profile.get('id'), subject)
+        .then(function(response) {
+          resolve(service.get('courseSerializer').normalizeGetCourses(response));
+        }, function(error) {
+          reject(error);
+        });
     });
   },
 
