@@ -9,8 +9,6 @@ export default Ember.Route.extend({
    */
   profileService: Ember.inject.service('api-sdk/profile'),
 
-  networkService: Ember.inject.service('api-sdk/network'),
-
 
   // -------------------------------------------------------------------------
   // Methods
@@ -23,22 +21,16 @@ export default Ember.Route.extend({
    * Get model for the controller
    */
   model: function(params) {
+    let route = this;
     let profile = null;
-    let network = null;
     let userId = params.userId;
 
     if (userId) {
-      if (userId === 'me') {
-        profile = this.get('profileService').readMyProfile();
-        network = this.get('networkService').readMyNetwork();
-      } else {
-        profile = this.get('profileService').findById(params.userId);
-      }
+      profile = route.get('profileService').readUserProfile(params.userId);
     }
 
     return Ember.RSVP.hash({
-      profile: profile,
-      network: network
+      profile: profile
     });
   },
 
@@ -48,7 +40,6 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
-    model.profile.set('network', model.network);
     controller.set('profile', model.profile);
   },
 

@@ -1,5 +1,5 @@
 .cards.gru-profile-card {
-  > a {
+  > div {
     display: block;
     text-align: center;
     white-space: nowrap;
@@ -65,7 +65,7 @@
   @media (max-width: $screen-sm-max) {
     margin: 0 65px;
     position: relative;
-    > a {
+    > div {
       height: 100%;
       position: absolute;
       left: 0;
@@ -95,7 +95,7 @@
 
   @media (max-width: $screen-xs-max) {
     margin: 0 20px;
-    > a {
+    > div {
       max-width: 55%;
       left: 50%;
       @include translate(-50%, 0);

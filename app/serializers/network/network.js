@@ -15,8 +15,9 @@ export default Ember.Object.extend({
    */
   normalizeReadNetwork: function(payload) {
     return NetworkModel.create({
-      followerCount: Ember.isArray(payload.followers) ? payload.followers.length : 0,
-      followingCount: Ember.isArray(payload.followings) ? payload.followings.length : 0
+      followers: payload.followers,
+      followings: payload.followings,
+      details: payload.details
     });
   }
 

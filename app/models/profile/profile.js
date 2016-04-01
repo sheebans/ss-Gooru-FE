@@ -51,6 +51,11 @@ export default Ember.Object.extend(Validations,{
   email: null,
 
   /**
+   * @property {string} gender - Profile gender
+   */
+  gender: null,
+
+  /**
    * @property {string[]} grades - An arrays of string with the grades of the profile
    */
   grades: [],
@@ -66,9 +71,19 @@ export default Ember.Object.extend(Validations,{
   role: null,
 
   /**
+   * @property {date} createdAt - The profile creation date
+   */
+  createdAt: null,
+
+  /**
    * @property {date} lastUpdate - The last profile modification date
    */
   lastUpdate: null,
+
+  /**
+   * @property {string} countryId - The profile country id
+   */
+  countryId: null,
 
   /**
    * @property {string} country - The profile country
@@ -76,14 +91,29 @@ export default Ember.Object.extend(Validations,{
   country: null,
 
   /**
+   * @property {string} stateId - The profile state id
+   */
+  stateId: null,
+
+  /**
    * @property {string} state - The profile state
    */
   state: null,
 
   /**
+   * @property {string} schoolId - The profile school id
+   */
+  schoolId: null,
+
+  /**
    * @property {string} school - The profile school
    */
   school: null,
+
+  /**
+   * @property {string} schoolDistrictId - The profile school district id
+   */
+  schoolDistrictId: null,
 
   /**
    * @property {string} schoolDistrict - The profile school district
@@ -101,11 +131,31 @@ export default Ember.Object.extend(Validations,{
   avatarUrl: null,
 
   /**
+   * @property {string} rosterId - Profile roster id
+   */
+  rosterId: null,
+
+  /**
    * @property {string} displayName - The firstName and lastName
    */
   displayName: Ember.computed('firstName', 'lastName', function () {
     return this.get('firstName') + ' ' + this.get('lastName');
   }),
+
+  /**
+   * @property {number} followers - The followers count of the profile
+   */
+  followers: 0,
+
+  /**
+   * @property {number} followings - The followings count of the profile
+   */
+  followings: 0,
+
+  /**
+   * @property {boolean} isFollowing - Indicates if current user is following the profile
+   */
+  isFollowing: false,
 
   /**
    * @property {object} network - The network information object

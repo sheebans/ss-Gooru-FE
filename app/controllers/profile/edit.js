@@ -12,8 +12,9 @@ export default Ember.Controller.extend({
 
   actions: {
     updateProfile: function() {
+      const userId = this.get('profile.id');
       this.get('parentController').saveProfile(this.get('profile'));
-      this.transitionToRoute('/profile/me/about');
+      this.transitionToRoute(`/profile/${userId}/about`);
     }
   },
 
