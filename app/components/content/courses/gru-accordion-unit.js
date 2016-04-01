@@ -27,13 +27,30 @@ export default Ember.Component.extend(AccordionMixin, {
 
   classNames: ['content', 'courses', 'gru-accordion', 'gru-accordion-unit'],
 
-  classNameBindings: ['isExpanded:expanded'],
+  classNameBindings: ['model.isEditing:edit:view'],
 
   tagName: 'li',
 
   // -------------------------------------------------------------------------
   // Actions
+
   actions: {
+
+    /**
+     * Load the data for this unit (data should only be loaded once)
+     *
+     * @function actions:selectUnit
+     */
+    cancelEdit: function () {
+      var unit = this.get('model');
+      if (!unit.get('id')) {
+        this.get('onCancelAddUnit')(unit);
+      } else {
+        // TODO: If the item already exists, set it's 'editing' flag to false
+        // and restore its model
+        //this.set('model.isEditing', false);
+      }
+    },
 
     /**
      * Load the data for this unit (data should only be loaded once)
@@ -42,21 +59,13 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     selectUnit: function () {
       this.loadData();
-    },
-
-    /**
-     * @function actions:selectItem
-     * @param {string} collectionId - Identifier for a collection or assessment
-     * @see components/class/overview/gru-accordion-lesson
-     */
-    selectResource: function (lessonId, collectionId) {
-      let unitId = this.get("model.id");
-      this.get('onSelectResource')(unitId, lessonId, collectionId);
     }
+
   },
 
   // -------------------------------------------------------------------------
   // Events
+
   setupComponent: Ember.on('didInsertElement', function () {
     const component = this;
 

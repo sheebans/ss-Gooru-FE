@@ -74,6 +74,10 @@ export default Ember.Component.extend({
    */
   valuePath: '',
   /**
+   * @param {String} type - max length of the input field.
+   */
+  maxlength:'',
+  /**
    * @param {Object} attributeValidation - value used to set the rawInputValue
    */
   attributeValidation: null,
@@ -88,7 +92,7 @@ export default Ember.Component.extend({
    * @param {Computed } showErrorClass - computed property that defines the
    */
   showErrorClass: computed('isTyping', 'showMessage', 'hasContent', 'attributeValidation', function() {
-    return this.get('attributeValidation') && !this.get('isTyping') && this.get('showMessage') && this.get('hasContent');
+    return this.get('attributeValidation') && !this.get('isTyping') && this.get('showMessage') && !this.get('hasContent');
   }),
   /**
    * @param {Computed } hasContent - computed property that defines whether the rawInputValue is null or not.

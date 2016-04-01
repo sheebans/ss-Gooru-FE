@@ -25,7 +25,10 @@ export default Ember.Route.extend({
       title: "Course Title",
       category: 1,
       audience: [2, 4],
-      image: 'assets/gooru/default-image.png'
+      image: '',
+
+      // TODO: Create/use model for units
+      units: []
     });
 
     controller.set('course', course);

@@ -34,10 +34,69 @@ test('Layout', function(assert) {
 
     var $signInForm = $signInContainer.find(".sign-in-form form");
     T.exists(assert, $signInForm, "Missing sign in form");
-    T.exists(assert, $signInForm.find("#signin_username"), "Missing username field");
-    T.exists(assert, $signInForm.find("#signin_password"), "Missing password field");
+    T.exists(assert, $signInForm.find(".gru-input.username"), "Missing username field");
+    T.exists(assert, $signInForm.find(".gru-input.password"), "Missing password field");
     T.exists(assert, $signInForm.find("div.forgot-password a"), "Missing forgot password link");
     T.exists(assert, $signInForm.find("div.log-in-button button"), "Missing sign in button");
 
+  });
+});
+
+
+test('it shows an error message if the username field is left blank', function (assert) {
+  visit('/sign-in');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-in');
+
+
+    const $signInContainer = find(".sign-in");
+    const $usernameField = $signInContainer.find(".gru-input.username");
+
+    assert.ok(!$usernameField.find(".error-messages .error").length, 'Username error message not visible');
+
+    // Try submitting without filling in data
+    $signInContainer.find("button.submit-sign-in").click();
+
+    return wait().then(function () {
+
+      assert.ok($usernameField.find(".error-messages .error").length, 'Username error message visible');
+      // Fill in the input field
+      $usernameField.find("input").val('Username');
+      $usernameField.find("input").blur();
+
+      return wait().then(function () {
+        assert.ok(!$usernameField.find(".error-messages .error").length, 'Username error message was hidden');
+      });
+    });
+  });
+});
+
+test('it shows an error message if the password field is left blank', function (assert) {
+  visit('/sign-in');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-in');
+
+
+    const $signInContainer = find(".sign-in");
+    const $passwordField = $signInContainer.find(".gru-input.password");
+
+    assert.ok(!$passwordField.find(".error-messages .error").length, 'Password error message not visible');
+
+    // Try submitting without filling in data
+    $signInContainer.find("button.submit-sign-in").click();
+
+    return wait().then(function () {
+
+      assert.ok($passwordField.find(".error-messages .error").length, 'Password error message visible');
+      // Fill in the input field
+      $passwordField.find("input").val('Password');
+      $passwordField.find("input").blur();
+
+      return wait().then(function () {
+        assert.ok(!$passwordField.find(".error-messages .error").length, 'Password error message was hidden');
+      });
+    });
   });
 });

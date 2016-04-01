@@ -1,54 +1,54 @@
-<div class="unit" role="tab" id="{{elementId}}-heading">
-  <strong class="panel-title">
-    <a class="collapsed title"
-       role="button"
-       data-toggle="collapse"
-       href="#{{elementId}}-content"
-       aria-expanded="false"
-       aria-controls="{{elementId}}-content"
-      {{action "selectUnit" model.id}}>
-      <span
-          class="title">{{course-sections-prefix  index=index type='unit' longName=true}}&period;&nbsp;&nbsp;{{model.title}}</span>
-    </a>
-
-    {{!-- TODO: Integrate with BE --}}
-    <span>
-      {{#if model.totalLessons}}
-        <b>{{model.totalLessons}}</b> {{t "common.lessonObj" count=model.totalLessons}}
-      {{else}}
-        <b>{{t "common.lessonObj" count=0}}</b>
-      {{/if}}
-    </span>
-  </strong>
-</div>
-
-<div id="{{elementId}}-content"
-     data-index="{{componentIndex}}"
-     class="panel-collapse collapse"
-     role="tabpanel"
-     aria-labelledby="{{elementId}}-heading">
-
-  <div class="panel-body">
-    <ol class="panel-group" role="tablist" aria-multiselectable="true">
-
-      {{#if loading}}
-        {{three-bounce-spinner}}
-      {{else}}
-
-        {{#each items as |item index|}}
-
-          {{content.courses.gru-accordion-unit
-          unitId=model.id
-          model=item
-          index=index
-          onSelectResource=(action 'selectResource') }}
-
+{{#if model.isEditing}}
+  <li class="unit">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        {{#if model.id}}
+          <h3>{{t "common.unit"}} {{model.sequence}}</h3>
         {{else}}
-          <li>{{t "common.contentUnavailable"}}</li>
-        {{/each}}
+          <h3>{{t "common.unit"}} {{totalItems}}</h3>
+        {{/if}}
 
-      {{/if}}
-    </ol>
+        {{validation.gru-input model=model valuePath='title'}}
 
-  </div>
-</div>
+        <div class="actions">
+          <button class="cancel btn btn-info"  {{action 'cancelEdit'}}>{{t "common.cancel"}}</button>
+          <button class="save btn btn-success" {{action 'saveContent'}}>{{t "common.save"}}</button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <label>
+              <span>{{t "content.courses.edit.big-ideas"}}</span>
+              <textarea>{{model.bigIdeas}}</textarea>
+            </label>
+          </div>
+          <div class="col-sm-6">
+            <label>
+              <span>{{t "content.courses.edit.essential-questions"}}</span>
+              <textarea>{{model.essentialQuestions}}</textarea>
+            </label>
+          </div>
+        </div>
+
+        <div class="domain">
+          <span>Domain</span>
+          <button type="button" class="btn btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
+        </div>
+      </div>
+    </div>
+  </li>
+
+{{else}}
+  <li class="unit {{if isExpanded 'expanded' 'collapsed'}}">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3>{{t "common.unit"}} {{model.sequence}}</h3>
+        <strong>{{model.title}}</strong>
+
+      </div>
+      <div class="panel-body"></div>
+    </div>
+  </li>
+
+{{/if}}
