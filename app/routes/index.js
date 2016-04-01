@@ -4,10 +4,23 @@ import Ember from 'ember';
  */
 export default Ember.Route.extend({
 
+  session: Ember.inject.service(),
+
+  beforeModel() {
+    if (this.get('session.isAnonymous')) {
+      this.transitionTo('sign-in');
+    } else {
+      this.transitionTo('user');
+    }
+  }
+
+
   // -------------------------------------------------------------------------
   // Events
 
-  renderTemplate() {
-    this.render('sign-in');
-  }
+  //renderTemplate() {
+  //  this.render('sign-in');
+  //}
 });
+
+

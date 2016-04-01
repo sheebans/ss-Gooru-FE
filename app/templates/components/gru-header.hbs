@@ -3,11 +3,7 @@
     <div class="col-xs-12">
       <nav class="navbar navbar-default row">
         <div class="navbar-header">
-          {{#if session.isAnonymous}}
-            {{#link-to 'sign-in' class="navbar-brand home-link"}}  {{/link-to}}
-            {{else}}
-            {{#link-to 'user' class="navbar-brand home-link"}}  {{/link-to}}
-          {{/if}}
+          {{#link-to 'index' class="navbar-brand home-link"}}  {{/link-to}}
         </div>
         <div class="search-navbar-form {{if session.isAnonymous 'anonymous' 'authenticated'}}">
           <form {{action "searchTerm" on="submit"}} class="form-inline">
@@ -24,9 +20,6 @@
         <div class="navbar-collapse">
           <ul class="nav navbar-nav menu-navbar">
             {{#if session.isAnonymous}}
-              <li class="navbar-nav-list">
-                {{#link-to 'sign-in' class="btn btn-info sign-in-button" tagName='button'}} {{t "common.login"}} {{/link-to}}
-              </li>
               <li class="navbar-nav-list no-hover">
                 <button
                     class="btn btn-primary navbar-btn sign-up-button" {{action "showModal" "gru-user-registration"}}>
