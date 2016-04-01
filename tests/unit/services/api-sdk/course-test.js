@@ -51,3 +51,33 @@ test('findById', function (assert) {
     });
   });
 });
+
+test('createCourse', function(assert) {
+  const service = this.subject();
+  let courseModel = Ember.Object.create();
+
+  assert.expect(2);
+
+  // There is not a Adapter stub in this case
+  // Pretender was included because it is needed to simulate the response Headers including the Location value
+  this.pretender.map(function() {
+    this.post('/api/nucleus/v1/courses', function() {
+      return [200, {'Content-Type': 'text/plain', 'Location': 'course-id'}, ''];
+    }, false);
+  });
+
+  service.set('courseSerializer', Ember.Object.create({
+    serializeCreateCourse: function(courseObject) {
+      assert.deepEqual(courseObject, courseModel, 'Wrong profile object');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.createCourse(courseModel)
+    .then(function() {
+      assert.equal(courseModel.get('id'), 'course-id', 'Wrong course id');
+      done();
+    });
+});
+

@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import Course from 'gooru-web/models/content/course';
-import { COURSE_CATEGORIES } from 'gooru-web/config/config';
+import CourseModel from 'gooru-web/models/content/course';
+import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
 
@@ -44,7 +44,7 @@ export default Ember.Component.extend({
         if (validations.get('isValid')) {
 
           this.get("courseService")
-            .create(course)
+            .createCourse(course)
             .then(function (course) {
                 this.triggerAction({
                   action: 'closeModal'
@@ -70,7 +70,7 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    var course = Course.create(Ember.getOwner(this).ownerInjection(), {title: null});
+    var course = CourseModel.create(Ember.getOwner(this).ownerInjection(), {title: null});
     this.set('course', course);
   },
 
@@ -81,7 +81,7 @@ export default Ember.Component.extend({
   /**
    * @type {Ember.A} categories - List of course categories
    */
-  categories: COURSE_CATEGORIES,
+  categories: TAXONOMY_CATEGORIES,
 
   /**
    * @type {?String} specific class

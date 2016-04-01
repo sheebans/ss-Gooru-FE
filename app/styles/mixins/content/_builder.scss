@@ -140,7 +140,8 @@
           padding-bottom: 25px;
         }
 
-        label span.required:after {
+        label span.required:after,
+        span.label.required:after{
           content: ' *';
         }
       }
@@ -226,6 +227,16 @@
               border: 1px solid $gray-light;
               background-color: $white;
               cursor: auto;
+            }
+          }
+          .learning-objectives{
+            label{
+              width: 100%;
+              textarea{
+                width: 100%;
+                outline: none;
+                resize: none;
+              }
             }
           }
         }

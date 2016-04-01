@@ -28,6 +28,7 @@
 @import 'controllers/reports/collection';
 @import 'controllers/search';
 @import 'controllers/sign-in';
+@import 'controllers/user';
 
 
 // TODO: update these components so they follow the naming conventions
@@ -38,6 +39,7 @@
 @import 'components/search-filter';
 @import 'components/rating-stars';
 @import 'components/collection-results';
+@import 'components/gru-resource-results';
 @import 'components/grade-dropdown';
 @import 'components/gru-breadcrumb';
 @import 'components/gru-bubbles';

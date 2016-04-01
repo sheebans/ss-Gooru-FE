@@ -40,7 +40,7 @@ export default BaseAuthenticator.extend({
         return response;
       },
       function (error) {
-        return error.responseText;
+        return error;
       });
   },
 
@@ -58,7 +58,7 @@ export default BaseAuthenticator.extend({
         return response;
       },
       function (error) {
-        return error.responseText;
+        return error;
       });
   }
 

@@ -93,7 +93,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      * @see gru-header.hbs
      */
     signIn: function() {
-      this.transitionTo("classes");
+      this.transitionTo("user");
     },
 
     /**

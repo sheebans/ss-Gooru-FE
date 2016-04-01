@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import User from 'gooru-web/models/profile/profile';
 
 export default Ember.Controller.extend({
 
@@ -9,6 +10,16 @@ export default Ember.Controller.extend({
    */
   sessionService: Ember.inject.service("api-sdk/session"),
 
+  /**
+   * @property {Service} Notifications service
+   */
+  notifications: Ember.inject.service(),
+
+  /**
+   * @property {Service} I18N service
+   */
+  i18n: Ember.inject.service(),
+
   // -------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------
@@ -17,19 +28,38 @@ export default Ember.Controller.extend({
   actions: {
 
     authenticate: function() {
-      var controller = this;
+      const controller = this;
+      const user = controller.get('user');
+      const errorMessage = controller.get('i18n').t('common.errors.sign-in-credentials-not-valid').string;
 
-      controller.get("sessionService")
-        .signInWithUser(controller.get("credentials"), controller.get('useApi3'))
-        .then(function() {
-          // Trigger action in parent
-          controller.send('signIn');
-        })
-        .catch((reason) => {
-          controller.set("errorMessage", reason.error);
-        });
+      controller.get("notifications").clear();
+      controller.get("notifications").setOptions({
+        positionClass: 'toast-top-full-width sign-in'
+      });
+
+      user.validate().then(function ({ model, validations }) {
+        if (validations.get('isValid')) {
+          controller.get("sessionService")
+            .signInWithUser(user, controller.get('useApi3'))
+            .then(function() {
+              // Trigger action in parent
+              controller.send('signIn');
+            })
+            .catch((reason) => {
+              if(reason.status===404 || reason.status===401){
+                controller.get("notifications").error(errorMessage);
+              }
+            });
+        }
+        controller.set('didValidate', true);
+      });
     }
+  },
 
+  init() {
+    this._super(...arguments);
+    var user = User.create(Ember.getOwner(this).ownerInjection(), {username: null, password: null});
+    this.set('user', user);
   },
 
 
@@ -37,19 +67,9 @@ export default Ember.Controller.extend({
   // Properties
 
   /**
-   * @property {string} authentication error message
+   * @type {Course} course
    */
-  errorMessage: null,
-
-  /**
-   * Object with credentials for signing in
-   *
-   * @type {Ember.Object}
-   */
-  credentials: Ember.Object.create({
-    username: null,
-    password: ''
-  }),
+  user: null,
 
   target: null,
 
