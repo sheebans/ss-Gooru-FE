@@ -3,6 +3,7 @@
 
   .modal {
     display: block;
+    height: 91vh;
     position: relative;
 
     .modal-dialog {
@@ -44,6 +45,8 @@
 
     button {
       font-size: $font-size-h4;
+      padding-left: 35px;
+      padding-right: 0;
     }
 
     i {
@@ -52,7 +55,7 @@
     }
   }
 
-  .radios {
+  .conditions {
     @include flexbox;
   }
 
