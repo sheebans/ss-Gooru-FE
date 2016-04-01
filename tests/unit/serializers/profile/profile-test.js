@@ -23,7 +23,7 @@ test('serializeCreateProfile', function(assert) {
     password: 'password',
     'birth_date': '01/01/2000',
     'user_category': 'role',
-    gender: 'male',
+    gender: null,
     grade: []
   };
   const response = serializer.serializeCreateProfile(profileObject);
@@ -67,15 +67,26 @@ test('normalizeReadProfile', function(assert) {
     lastname: 'last-name',
     username: 'username',
     'email_id': 'email',
+    gender: 'male',
     grade: [],
     'birth_date': '01/01/2000',
     'user_category': 'role',
+    'created_at': '01/01/2000',
     'updated_at': '01/01/2000',
+    'country_id': '',
     country: 'country',
+    'state_id': '',
     state: 'state',
+    'school_id': '',
     school: 'school',
+    'school_district_id': '',
     'school_district': 'school-district',
-    'about_me': 'about-me'
+    'about_me': 'about-me',
+    'thumbnail_path': 'thumbnail.png',
+    'roster_id': '',
+    followers: 2,
+    followings: 3,
+    isFollowing: false
   };
   const expected = ProfileModel.create({
     id: 'id',
@@ -83,15 +94,26 @@ test('normalizeReadProfile', function(assert) {
     lastName: 'last-name',
     username: 'username',
     email: 'email',
+    gender: 'male',
     grades: [],
     dateOfBirth: '01/01/2000',
     role: 'role',
+    createdAt: '01/01/2000',
     lastUpdate: '01/01/2000',
+    countryId: '',
     country: 'country',
+    stateId: '',
     state: 'state',
+    schoolId:'',
     school:'school',
+    schoolDistrictId: '',
     schoolDistrict: 'school-district',
-    aboutMe: 'about-me'
+    aboutMe: 'about-me',
+    avatarUrl: 'thumbnail.png',
+    rosterId: '',
+    followers: 2,
+    followings: 3,
+    isFollowing: false
   });
   const normalizedProfile = serializer.normalizeReadProfile(profilePayload);
   assert.deepEqual(expected, normalizedProfile, 'Wrong normalized response');

@@ -41,7 +41,7 @@
                   </a>
                   <ul class="dropdown-menu pull-right" role="menu" id="profile-dropdown">
                       <li class="navbar-nav-list">
-                        {{#link-to 'profile.about' 'me' class="navbar-link"}}
+                        {{#link-to 'profile.about' session.userData.gooruUId class="navbar-link"}}
                             <span class="username">{{session.userData.username}}</span>
                         {{/link-to}}
                       </li>

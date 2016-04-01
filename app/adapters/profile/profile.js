@@ -9,7 +9,9 @@ export default Ember.Object.extend({
 
   session: Ember.inject.service('session'),
 
-  namespace: '/api/nucleus-auth/v1/users',
+  namespace: '/api/nucleus/v1/profiles',
+
+  usersNamespace: '/api/nucleus-auth/v1/users',
 
   /**
    * Posts a request to the API to create a new user account
@@ -19,7 +21,7 @@ export default Ember.Object.extend({
    */
   createProfile: function(data) {
     const adapter = this;
-    const url = this.get('namespace');
+    const url = this.get('usersNamespace');
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
@@ -32,24 +34,6 @@ export default Ember.Object.extend({
   },
 
   /**
-   * Gets the current user Profile information
-   *
-   * @returns {Promise}
-   */
-  readMyProfile: function() {
-    const adapter = this;
-    const namespace = adapter.get('namespace');
-    const url = `${namespace}/me`;
-    const options = {
-      type: 'GET',
-      contentType: 'application/json; charset=utf-8',
-      headers: adapter.defineHeaders()
-    };
-
-    return Ember.$.ajax(url, options);
-  },
-
-  /**
    * Updates the current user Profile data
    *
    * @param data the request body data
@@ -57,7 +41,7 @@ export default Ember.Object.extend({
    */
   updateMyProfile: function(data) {
     const adapter = this;
-    const namespace = adapter.get('namespace');
+    const namespace = adapter.get('usersNamespace');
     const url = `${namespace}/me`;
     const options = {
       type: 'PUT',
@@ -67,6 +51,63 @@ export default Ember.Object.extend({
       headers: adapter.defineHeaders(),
       data: JSON.stringify(data.body)
     };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Gets the profile information of a given user id
+   *
+   * @param userId the unique profile user id
+   * @returns {Promise}
+   */
+  readUserProfile: function(userId) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/${userId}/demographics`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Follows a user profile
+   * @param userId
+   * @returns {*|Promise}
+   */
+  followUserProfile: function (userId) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/follow`;
+    const options = {
+      type: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({"user_id": userId})
+    };
+
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Unfollows a user profile
+   * @param userId
+   * @returns {*|Promise}
+   */
+  unfollowUserProfile: function (userId) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/${userId}/unfollow`;
+    const options = {
+      type: 'DELETE',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+
     return Ember.$.ajax(url, options);
   },
 

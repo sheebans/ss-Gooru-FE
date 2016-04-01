@@ -10,7 +10,7 @@
           <li role="presentation" class="active active-classes"><a href="#active-classes" aria-controls="activeClasses" role="tab" data-toggle="tab"><span class="lead">{{t 'user.active-classes'}}</span></a></li>
           <li role="presentation" class="archived-classes"><a href="#archived-classes" aria-controls="archivedClasses" role="tab" data-toggle="tab"><span class="lead">{{t 'user.archived-classes'}}</span></a></li>
           <li class="pull-right actions">
-            <button type="button" name="button" class="btn btn-success create-class">{{t 'user.create-class'}}</button>
+            {{#link-to 'content.classes.create' class="btn btn-success create-class" tagName='button'}} {{t 'user.create-class'}} {{/link-to}}
             <button type="button" name="button" class="btn btn-success join-class">{{t 'user.join-class'}}</button>
           </li>
       </ul>

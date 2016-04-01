@@ -13,11 +13,23 @@ export default Ember.Controller.extend({
   // Actions
   actions: {
     toggleFollowingStatus() {
-      this.set('isFollowed', !this.get('isFollowed'));
-      if (this.get('isFollowed')) {
-        // TODO: Make request that follows the user
+      const controller = this;
+      if (controller.get('profile.isFollowing')) {
+        controller.get('profileService').unfollowUserProfile(controller.get('profile.id'))
+          .then(function() {
+            controller.get('profileService').readUserProfile(controller.get('profile.id'))
+              .then(function(updatedProfile) {
+                controller.set('profile', updatedProfile);
+              });
+          });
       } else {
-        // TODO: Make request that unfollows the user
+        controller.get('profileService').followUserProfile(controller.get('profile.id'))
+          .then(function() {
+            controller.get('profileService').readUserProfile(controller.get('profile.id'))
+              .then(function(updatedProfile) {
+                controller.set('profile', updatedProfile);
+              });
+          });
       }
     }
   },
@@ -49,21 +61,6 @@ export default Ember.Controller.extend({
    * @property {String}
    */
   menuItem: null,
-
-  /**
-   * Indicates if the user is being followed
-   * @property {Boolean} isFollowed
-   */
-  isFollowed: Ember.computed('profile', function() {
-    let myId = this.get("session.userId");
-    let followers = this.get("profile.followersList");
-    if (myId && followers) {
-      return followers.indexOf(myId) >= 0;
-    } else {
-      return false;
-    }
-  }),
-
 
   // -------------------------------------------------------------------------
   // Observers

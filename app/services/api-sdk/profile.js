@@ -50,27 +50,10 @@ export default Ember.Service.extend({
   },
 
   /**
-   * Gets the current user Profile information
-   *
-   * @returns {Promise}
-   */
-  readMyProfile: function() {
-    const service = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readMyProfile()
-        .then(function(response) {
-          resolve(service.get('profileSerializer').normalizeReadProfile(response));
-        }, function(error) {
-          reject(error);
-        });
-    });
-  },
-
-  /**
    * Updates the current user Profile information
    *
-   * @param profile the Profile object
-   * @returns {Promise}
+   * @param profile
+   * @returns {Ember.RSVP.Promise}
    */
   updateMyProfile: function(profile) {
     const service = this;
@@ -87,49 +70,68 @@ export default Ember.Service.extend({
   },
 
   /**
-   * Gets the list of courses created by the profile and filter by subject
+   * Gets the user Profile information of a given user id
    *
-   * @param profile the Profile object
-   * @param subject the subject to filter the courses
    * @returns {Promise}
    */
-  getCourses: function(profile, subject) {
+  readUserProfile: function(userId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileCourseAdapter').getCourses(profile.get('id'), subject)
+      service.get('profileAdapter').readUserProfile(userId)
         .then(function(response) {
-          resolve(service.get('courseSerializer').normalizeGetCourses(response));
+          resolve(service.get('profileSerializer').normalizeReadProfile(response));
         }, function(error) {
           reject(error);
         });
     });
   },
 
+  /**
+   * Follows a user profile
+   * @param userId
+   * @returns {Ember.RSVP.Promise}
+   */
+  followUserProfile: function(userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').followUserProfile(userId)
+        .then(function() {
+          resolve();
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
+  /**
+   * Unfollows a user profile
+   * @param userId
+   * @returns {Ember.RSVP.Promise}
+   */
+  unfollowUserProfile: function(userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').unfollowUserProfile(userId)
+        .then(function() {
+          resolve();
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
 
   //
   // TODO The following functions must be deleted once API 3.0 integration is done
   //
+  findById: function(profileId) {
+    return this.get('store').findRecord('profile', profileId);
+  },
+
   findByCurrentUser: function() {
     if (!this.get('session.isAnonymous')) {
       var currentProfileId = this.get('session.userId');
       return this.findById(currentProfileId);
     }
     return null;
-  },
-
-  /**
-   * Find a user profile by user id
-   * @param {string} userId
-   * @returns {Profile}
-   */
-  findByUser: function(userId) {
-    //TODO implement, for now it returns the current user
-    Ember.Logger.log(userId);
-    return this.findByCurrentUser();
-  },
-
-  findById: function(profileId) {
-    return this.get('store').findRecord('profile', profileId);
   }
-
 });
