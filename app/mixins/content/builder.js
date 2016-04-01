@@ -12,7 +12,7 @@ export default Ember.Mixin.create({
     /**
      * Cancel Edit Content
      */
-    cancelEdit:function(){
+    cancelEdit: function () {
       this.set('isEditing', false);
     }
   },
@@ -31,12 +31,13 @@ export default Ember.Mixin.create({
         var scrollTop = $window.scrollTop();
         var headerWidth = $header.css('width');
         var headerPaddingLeft = $header.css('paddingLeft');
+        headerWidth = headerWidth && headerWidth.split('px')[0] || '100%';
 
         if (scrollTop >= 65) {
           if (!$container.hasClass('fixed-header')) {
             // Add inline styles to preserve the same look
             $container.find('article > header').css({
-              width: headerWidth.split('px')[0] || '100%',
+              width: headerWidth,
               paddingLeft: headerPaddingLeft
             });
             $container.addClass('fixed-header');
