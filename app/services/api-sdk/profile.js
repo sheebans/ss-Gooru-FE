@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import ProfileSerializer from 'gooru-web/serializers/profile/profile';
-import CourseSerializer from 'gooru-web/serializers/course/course';
+import CourseSerializer from 'gooru-web/serializers/course/courses';
 import ProfileAdapter from 'gooru-web/adapters/profile/profile';
-import ProfileCourseAdapter from 'gooru-web/adapters/profile/course';
+import ProfileCourseAdapter from 'gooru-web/adapters/profile/courses';
 
 
 /**
@@ -133,5 +133,23 @@ export default Ember.Service.extend({
       return this.findById(currentProfileId);
     }
     return null;
+  },
+
+  /**
+   * Unfollows a user profile
+   * @param userId
+   * @returns {Ember.RSVP.Promise}
+   */
+  listCourses: function(userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileCourseAdapter').getCourses(userId)
+        .then(function() {
+          resolve();
+        }, function(error) {
+          reject(error);
+        });
+    });
   }
+
 });

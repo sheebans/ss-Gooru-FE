@@ -79,7 +79,7 @@ Router.map(function() {
     this.route('analytics');
 
     this.route('content', function() {
-      this.route('course');
+      this.route('courses');
     });
 
     this.route('network');
