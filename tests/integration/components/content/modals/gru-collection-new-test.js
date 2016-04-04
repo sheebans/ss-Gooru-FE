@@ -9,7 +9,7 @@ moduleForComponent('gru-collection-new', 'Integration | Component | gru collecti
   }
 });
 
-test('New Course Layout', function(assert) {
+test('New Collection Layout', function(assert) {
 
   this.render(hbs`{{content/modals/gru-collection-new}}`);
 
@@ -24,7 +24,7 @@ test('New Course Layout', function(assert) {
   assert.ok($component.find('actions .add'), 'Missing Add Button');
 
 });
-test('Validate if the course title field is left blank', function (assert) {
+test('Validate if the collection title field is left blank', function (assert) {
   assert.expect(3);
 
   this.render(hbs`{{content/modals/gru-collection-new}}`);
@@ -41,7 +41,7 @@ test('Validate if the course title field is left blank', function (assert) {
 
     assert.ok($titleField.find(".error-messages .error").length, 'Title error should be visible');
     // Fill in the input field
-    $titleField.find("input").val('Course Name');
+    $titleField.find("input").val('Collection Name');
     $titleField.find("input").blur();
 
     return wait().then(function () {

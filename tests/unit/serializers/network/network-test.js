@@ -11,8 +11,9 @@ test('normalizeReadNetwork', function(assert) {
     "details": []
   };
   const expected = NetworkModel.create({
-    followerCount: 5,
-    followingCount: 3
+    followers: ["id-1", "id-2", "id-3", "id-4", "id-5"],
+    followings: ["id-1", "id-2", "id-3"],
+    details: []
   });
   const normalizedProfile = serializer.normalizeReadNetwork(networkPayload);
   assert.deepEqual(expected, normalizedProfile, 'Wrong normalized response');

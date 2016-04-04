@@ -19,7 +19,7 @@ test('Sign up test', function(assert) {
   visit('/');
   andThen(function() {
 
-    assert.equal(currentURL(), '/');
+    assert.equal(currentURL(), '/sign-in');
 
     var $signUpLink = find('.sign-up-button');
     var $modal = find(".gru-modal");

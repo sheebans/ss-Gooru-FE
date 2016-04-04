@@ -2,36 +2,37 @@
   <h2>{{t "common.builder"}}</h2>
 
   <div class="detail">
-    {{#if items.length}}
-      <span>{{t "common.unitObj" count=items.length}}</span>
+    {{#if savedItems.length}}
+      <span><b>{{savedItems.length}}</b> {{t "common.unitObj" count=savedItems.length}}</span>
     {{else}}
       <span>{{t "common.add-units"}}</span>
     {{/if}}
 
     <div class="actions">
-      <button class="btn btn-primary add-unit">{{gru-icon name="add"}}</button>
+      <button class="btn btn-primary add-unit" {{action 'addUnit'}}>{{gru-icon name="add"}}</button>
 
-      {{#if items.length}}
-        <button class="btn btn-primary sort-units">{{gru-icon name="swap_vert"}}</button>
+      {{#if (gt savedItems.length 1)}}
+        {{#unless isEditingItem}}
+          <button class="btn btn-primary sort-units">{{gru-icon name="swap_vert"}}</button>
+        {{/unless}}
       {{/if}}
     </div>
-
   </div>
 </div>
 
 <ol class="accordion-course" role="tablist" aria-multiselectable="true">
 
-  {{#each items as |item index|}}
+  {{#each items as |item|}}
 
     {{content.courses.gru-accordion-unit
     model=item
-    index=index
-    onSelectResource=(action 'selectResource') }}
+    totalItems=items.length
+    onCancelAddUnit=(action 'cancelAddUnit') }}
 
   {{/each}}
 
-  <li class="add-item">
-    <a href="#">{{t "common.add-new-unit"}}</a>
+  <li class="unit add-item">
+    <a class="add-prefix" href="#" {{action 'addUnit'}}>{{t "common.add-new-unit"}}</a>
   </li>
 
 </ol>

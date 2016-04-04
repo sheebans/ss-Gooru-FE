@@ -25,15 +25,6 @@ export default Ember.Component.extend({
 
     /**
      *
-     * Triggered when the name or the image of the user displayed in the profile navigation is selected
-     * @param userId
-     */
-    selectUserProfile: function (userId) {
-      Ember.Logger.debug('User with ID ' + userId + ' was selected');
-    },
-
-    /**
-     *
      * Triggered when an menu item is selected
      * @param item
      */
@@ -45,7 +36,7 @@ export default Ember.Component.extend({
     },
 
     /**
-     * 
+     *
      * Triggered when the user clicks follow/unfollow button
      */
     toggleFollowingStatus: function() {

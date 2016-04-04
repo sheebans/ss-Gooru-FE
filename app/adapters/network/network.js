@@ -30,6 +30,24 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Gets network information for a given user id
+   *
+   * @returns {Promise}
+   */
+  readUserNetwork: function(userId) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/${userId}/network`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders(),
+      data: { details: '' }
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')
