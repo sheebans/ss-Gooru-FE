@@ -11,6 +11,7 @@ export default {
     "add-assessment": "Add New Assessment",
     "add-collection": "Add New Collection",
     "add-course": "Add New Course",
+    "add-lessons": "Add Lessons",
     "add-new-unit": "Add New Unit",
     "add-to": "Add To",
     "add-units": "Add Units",
@@ -112,10 +113,11 @@ export default {
     "mastery":"Mastery",
     "menu": "Menu",
     "no": "No",
+    "no-content": "No content available",
+    "no-results": "No Results Found",
+    "no-results-message":"Check your spelling. We all make mistakes!<br/>Go broader & remove some filters.<br/>Try searching for a similar word instead.",
     "notStarted": "Not started",
     "not-specified":"Not specified",
-    "no-results":"No Results Found",
-    "no-results-message":"Check your spelling. We all make mistakes!<br/>Go broader & remove some filters.<br/>Try searching for a similar word instead.",
     "number":"No.",
     "numberStudents": {
       one: "{{count}} Student",
@@ -195,8 +197,7 @@ export default {
     "yes": "Yes",
     "warnings": {
       "on-air-connection-lost": "The On Air feature has lost connection and is retrying automatically. While it's tempting, please don't refresh your screen!"
-    },
-    "no-content": "No content available"
+    }
   },
 
   /*

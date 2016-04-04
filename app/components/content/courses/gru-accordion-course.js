@@ -42,15 +42,11 @@ export default Ember.Component.extend(BuilderMixin, {
       Ember.Logger.log('Unit should be removed');
     }
 
-  },
+  }
 
 
   // -------------------------------------------------------------------------
   // Properties
 
-  /**
-   * @prop {Ember.RSVP.Promise | Content/Unit[]} items - List of course units
-   */
-  items: null
 
 });
