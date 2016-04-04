@@ -333,8 +333,8 @@ export default {
   "sign-up": {
     "step-1-title": "Hello!",
     "step-1-description": "We're glad you’ve decided to join us.",
-    "sign-in": "Sign In",
-    "sign-in-description": "if you already have an account.",
+    "log-in": "Log In",
+    "log-in-description": "if you already have an account.",
     "username": "Username",
     "dateOfBirth": {
       "title": "Birthday",
