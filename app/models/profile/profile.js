@@ -2,13 +2,18 @@ import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations({
-  username: validator('presence', {
-    presence: true,
-    message: 'Please enter a username'
-  }),
+  username: {
+    validators: [
+      validator('presence', {
+        presence: true,
+        message: 'Please enter a username.'
+      })
+    ]
+  },
+
   password: validator('presence', {
     presence: true,
-    message: 'Please enter a password'
+    message: 'Please enter a password.'
   })
 
 });
