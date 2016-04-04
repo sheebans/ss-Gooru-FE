@@ -51,16 +51,21 @@ export default Ember.Controller.extend({
               }
             });
         }
+        console.log('val',validations.get('isValid'));
         controller.set('didValidate', true);
       });
     }
   },
 
-  init() {
+  modelSetup: Ember.on('init', function () {
     this._super(...arguments);
-    var user = User.create(Ember.getOwner(this).ownerInjection(), {username: null, password: null});
-    this.set('user', user);
-  },
+    Ember.$('document').ready(function () {
+      console.log( "input!", Ember.$('.gru-input.username input').val());
+
+    });
+    //var user = User.create(Ember.getOwner(this).ownerInjection(), {username: 'x', password: 'c'});
+    //this.set('user', user);
+    }),
 
 
   // -------------------------------------------------------------------------
