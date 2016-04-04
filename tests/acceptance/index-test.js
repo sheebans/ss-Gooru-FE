@@ -18,7 +18,7 @@ test('load: Layout', function(assert) {
   andThen(function() {
     assert.expect(2);
 
-    assert.equal(currentURL(), '/');
+    assert.equal(currentURL(), '/sign-in');
 
     //hero
     var $signIn = find('.sign-in');
