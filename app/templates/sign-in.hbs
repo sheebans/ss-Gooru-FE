@@ -5,13 +5,13 @@
       <div class="description" alt="{{t "login.description"}}"
            title="{{t "login.description"}}">{{t "login.description"}}
       </div>
-      <div class="googleButton">
-        <div class="googleButtonContentWrapper">
-          <div class="googleButtonIcon">
-            <div class="googleButtonIconImage">
+      <div class="google-button">
+        <div class="google-button-content-wrapper">
+          <div class="google-button-icon">
+            <div class="google-button-icon-image">
             </div>
           </div>
-          <span class="googleButtonContent">
+          <span class="google-button-content">
             <span>{{t "login.googleButton"}}</span>
           </span>
         </div>
@@ -21,12 +21,16 @@
     <div class="sign-in-form">
       <form>
         <div class="form-group username">
-          <label class="control-label">{{t "login.usernameOrEmail"}}</label>
-          {{validation.gru-input model=user valuePath='username' }}
+          <label>
+            <span>{{t "login.usernameOrEmail"}}</span>
+            {{validation.gru-input model=user valuePath='username' }}
+          </label>
         </div>
         <div class="form-group">
-          <label class="control-label">{{t "login.password"}}</label>
-          {{validation.gru-input model=user valuePath='password' type='password'}}
+          <label>
+            <span>{{t "login.password"}}</span>
+            {{validation.gru-input model=user valuePath='password' type='password'}}
+          </label>
         </div>
         <div class="form-group forgot-password">
           <a class="btn btn-link" alt="{{t "login.forgotPassword"}}"
@@ -41,11 +45,6 @@
           type="checkbox"
           checked=useApi3}}
         </div>
-        {{#if errorMessage}}
-          <div class="form-group">
-            <span class="text text-danger">{{errorMessage}}</span>
-          </div>
-        {{/if}}
         <div class="log-in-button form-group text-center">
           <button class="btn btn-success submit-sign-in" {{action "authenticate"}}>{{t "login.log-in"}} <span>{{gru-icon name='keyboard_arrow_right'}}</span></button>
         </div>
