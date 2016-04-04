@@ -24,10 +24,7 @@
                 {{#link-to 'sign-in' class="btn btn-info sign-in-button" tagName='button'}} {{t "common.login"}} {{/link-to}}
               </li>
               <li class="navbar-nav-list no-hover">
-                <button
-                    class="btn btn-primary navbar-btn sign-up-button" {{action "showModal" "gru-user-registration"}}>
-                  {{t "common.signUp"}}
-                </button>
+                {{#link-to 'sign-up' class="btn btn-primary sign-up-button" tagName='button'}} {{t "common.signUp"}} {{/link-to}}
               </li>
             {{else}}
               <li class="navbar-nav-list visible-md visible-lg">

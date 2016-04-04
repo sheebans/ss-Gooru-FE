@@ -45,11 +45,6 @@
           type="checkbox"
           checked=useApi3}}
         </div>
-        {{#if errorMessage}}
-          <div class="form-group">
-            <span class="text text-danger">{{errorMessage}}</span>
-          </div>
-        {{/if}}
         <div class="log-in-button form-group text-center">
           <button class="btn btn-success submit-sign-in" {{action "authenticate"}}>{{t "login.log-in"}} <span>{{gru-icon name='keyboard_arrow_right'}}</span></button>
         </div>
