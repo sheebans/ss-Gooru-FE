@@ -48,8 +48,8 @@ export default Ember.Controller.extend({
    * willDestroyElement event
    */
   willDestroyElement: function(){
-    this.get("birthDays").clear();
-    this.get("birthDays").clear();
+    this.set('birthDays', null);
+    this.set('birthYears', null);
   },
 
 
