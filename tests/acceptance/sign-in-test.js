@@ -30,7 +30,7 @@ test('Layout', function(assert) {
     assert.equal(T.text($signInHeader.find("h3")), "Welcome Back!", "Incorrect sign-in title text");
     T.exists(assert, $signInHeader.find(".description"), "Missing sign-in description");
     assert.equal(T.text($signInHeader.find(".description")), "Learning is just around the corner.", "Incorrect sign-in description text");
-    T.exists(assert, $signInHeader.find(".googleButton"), "Missing sign-in google button");
+    T.exists(assert, $signInHeader.find(".google-button"), "Missing sign-in google button");
 
     var $signInForm = $signInContainer.find(".sign-in-form form");
     T.exists(assert, $signInForm, "Missing sign in form");

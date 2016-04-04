@@ -22,8 +22,9 @@ export default Ember.Controller.extend({
   init() {
     this._super(...arguments);
     var user = User.create(Ember.getOwner(this).ownerInjection(), {username: null, password: null});
-    var birthDays = this.get("birthDays");
-    var birthYears = this.get("birthYears");
+    var birthDays = [];
+    var birthYears = [];
+
     var currentTime = new Date();
 
     // returns the current year (four digits)
@@ -43,18 +44,17 @@ export default Ember.Controller.extend({
 
   },
 
+  /**
+   * willDestroyElement event
+   */
+  willDestroyElement: function(){
+    this.get("birthDays").clear();
+    this.get("birthDays").clear();
+  },
+
 
   // -------------------------------------------------------------------------
   // Properties
 
-  /**
-   * @property {[]} birthDays
-   */
-  birthDays: Ember.A(),
-
-  /**
-   * @property {[]} birthYears
-   */
-  birthYears: Ember.A()
 
 });

@@ -35,7 +35,7 @@ test('Layout', function(assert) {
     T.exists(assert, $signUpHeader.find(".description"), "Missing sign-up description");
     assert.equal(T.text($signUpHeader.find(".description")), "We're glad you’ve decided to join us.", "Incorrect sign-up description text");
     T.exists(assert, $signUpHeader.find(".sign-in-description"), "Missing sign-in description");
-    T.exists(assert, $signUpHeader.find(".googleButton"), "Missing sign-up google button");
+    T.exists(assert, $signUpHeader.find(".google-button"), "Missing sign-up google button");
 
     var $signUpForm = $firstStep.find(".sign-up-form form");
     T.exists(assert, $signUpForm, "Missing sign up form");
