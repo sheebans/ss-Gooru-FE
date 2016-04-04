@@ -6,10 +6,9 @@ export default Ember.Route.extend({
   // Dependencies
   i18n: Ember.inject.service(),
 
-  // -------------------------------------------------------------------------
-  // Methods
+  session: Ember.inject.service('session'),
 
-  // 
+  //
   // Actions
   actions: {
     willTransition(transition) {
@@ -23,6 +22,17 @@ export default Ember.Route.extend({
           transition.abort();
         }
       }
+    }
+  },
+
+  // -------------------------------------------------------------------------
+  // Methods
+  beforeModel: function(transition) {
+    const userId = transition.params.profile.userId;
+    const myId = this.get("session.userId");
+    if (userId !== myId) {
+      transition.abort();
+      this.transitionTo('profile.about', userId);
     }
   },
 

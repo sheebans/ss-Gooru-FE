@@ -8,6 +8,7 @@ export default {
     "about-you": "About You",
     "add": "Add",
     "add-plus": "+ Add",
+    "add-assessment": "Add New Assessment",
     "add-collection": "Add New Collection",
     "add-course": "Add New Course",
     "add-new-unit": "Add New Unit",
@@ -17,6 +18,7 @@ export default {
     "answer":"Your Answer",
     "approved":"Approved",
     "assessment":"Assessment",
+    "assessment-title":"Assessment Title",
     "assessments": "Assessments",
     "assessmentInitial": "A",
     "attempt": "Attempt number",
@@ -256,7 +258,15 @@ export default {
     "noClassesJoined": "You have not joined any classes",
     "noClassesTaught": "You do not have any created classes"
   },
-
+  "content.classes.create":{
+    "title":"Create a Class",
+    "content":"Where students engage with content.",
+    "class-name-input":"Name your Class",
+    "condition-prompt":"How will students join your class?",
+    "condition-prompt-code":"Anyone with Class code",
+    "condition-prompt-invite":"Invite only",
+    "get-started":"Get Started"
+  },
   "content.collections.edit": {
     "assign-to-course": "Assign to Course",
     "information":{

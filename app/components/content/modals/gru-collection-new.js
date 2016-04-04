@@ -16,9 +16,20 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-  actions: {
 
-  },
+    actions: {
+
+      createCollection: function () {
+        const collection = this.get('collection');
+        collection.validate().then(function ({ model, validations }) {
+          if (validations.get('isValid')) {
+            Ember.logger("Collection Valid");
+          }
+          this.set('didValidate', true);
+        }.bind(this));
+      }
+
+    },
 
   // -------------------------------------------------------------------------
   // Events

@@ -9,18 +9,7 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-  actions: {
-
-    /**
-     *
-     * Triggered when the name or the image of the user is selected
-     * @param userId
-     */
-    selectUser: function (userId) {
-      this.get('onProfileSelect')(userId);
-    }
-  },
-
+  
   // -------------------------------------------------------------------------
   // Properties
 

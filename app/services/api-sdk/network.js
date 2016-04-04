@@ -37,6 +37,23 @@ export default Ember.Service.extend({
           reject(error);
         });
     });
+  },
+
+  /**
+   * Gets user network information of a given user id
+   *
+   * @returns {Promise}
+   */
+  readUserNetwork: function(userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('networkAdapter').readUserNetwork(userId)
+        .then(function(response) {
+          resolve(service.get('networkSerializer').normalizeReadNetwork(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
   }
 
 });

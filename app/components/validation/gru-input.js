@@ -74,6 +74,10 @@ export default Ember.Component.extend({
    */
   valuePath: '',
   /**
+   * @param {Number} type - max length of the input field.
+   */
+  maxlength:1000,
+  /**
    * @param {Object} attributeValidation - value used to set the rawInputValue
    */
   attributeValidation: null,
