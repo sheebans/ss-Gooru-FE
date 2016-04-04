@@ -1,5 +1,12 @@
 <div class="form-group">
-  {{role-radio-button onCheck=(action "setValue")}}
+  {{#radio-button
+    name=name
+    value=valuePath
+    groupValue=groupValue
+    }}
+    {{!--changed=(action "setValue")--}}
+    {{t translationPath}}
+  {{/radio-button}}
     <div class="error-messages">
       {{#if showMessage}}
           <span class="error">

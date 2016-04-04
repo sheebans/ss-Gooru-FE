@@ -6,6 +6,10 @@
     height: 91vh;
     position: relative;
 
+    &.gru-class-new {
+      width: 100%;
+    }
+
     .modal-dialog {
       margin: 70px auto 10px;
       width: 100%;
@@ -64,9 +68,9 @@
 .condition-prompt {
   padding-top: 20px;
 
-  label {
+  .conditions {
 
-    &:last-child {
+    &>:last-child {
       margin-left: 15px;
     }
   }
