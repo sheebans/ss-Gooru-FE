@@ -11,7 +11,7 @@ moduleForComponent('gru-header', 'Integration | Component | Header', {
 });
 
 test('header layout', function(assert) {
-  assert.expect(9); //making sure all asserts are called
+  assert.expect(8); //making sure all asserts are called
 
   this.set('session', Ember.Object.create({isAnonymous: true}));
 
@@ -35,7 +35,6 @@ test('header layout', function(assert) {
 
   var $navMenu = $component.find(".menu-navbar");
   T.notExists(assert, $navMenu.find(".my-classes-link"), "Link should be available for authenticated users only");
-  T.exists(assert, $component.find(".sign-in-button"), "Missing sign-in-btn button");
   T.exists(assert, $navMenu.find(".sign-up-button"), "Missing sign up button");
   T.notExists(assert, $navMenu.find(".user-logged"), "User info should not be present");
 

@@ -19,7 +19,7 @@ test('searchTerm: Search box navigation', function(assert) {
   andThen(function() {
     assert.expect(2); //making sure all asserts are called
 
-    assert.equal(currentURL(), '/');
+    assert.equal(currentURL(), '/sign-in');
 
 
     const $appHeader = find('.gru-header');
@@ -45,7 +45,7 @@ test('Theme support - no theme', function(assert) {
   andThen(function() {
     assert.expect(3); //making sure all asserts are called
 
-    assert.equal(currentURL(), '/');
+    assert.equal(currentURL(), '/sign-in');
 
     assert.ok(!Ember.$("html").attr("id"), "Html element should have no id");
 
@@ -61,7 +61,7 @@ test('Theme support - Having translations and styles url', function(assert) {
   andThen(function() {
     assert.expect(4); //making sure all asserts are called
 
-    assert.equal(currentURL(), '/?themeId=edify');
+    assert.equal(currentURL(), '/sign-in');
 
     T.exists(assert, Ember.$("#edify"), "Missing html element having theme id");
 
