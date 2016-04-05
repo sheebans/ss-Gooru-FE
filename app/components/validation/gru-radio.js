@@ -82,6 +82,10 @@ export default Ember.Component.extend({
    */
   attributeValidation: null,
 
+  /**
+   * @param {function} action to be performed on radio change.
+   */
+  onChange: null,
 
   /**
    * @param {Computed } didValidate - value used to check if input has been validated or not

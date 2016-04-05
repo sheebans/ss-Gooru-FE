@@ -159,6 +159,7 @@ export default {
     "role": "Role",
     "save": "Save",
     "save-next": "Save and Next",
+    "next": "Next",
     "save-submit": "Save and Submit All",
     "save-finish": "Save and Finish",
     "settings":"Settings",
@@ -329,20 +330,38 @@ export default {
     "clickLogIn": "Click here to log in."
   },
 
-  "gru-user-sign-up": {
+  "sign-up": {
+    "step-1-title": "Hello!",
+    "step-1-description": "We're glad you’ve decided to join us.",
+    "log-in": "Log In",
+    "log-in-description": "if you already have an account.",
     "username": "Username",
-    "dateOfBirth": "Birthday",
+    "dateOfBirth": {
+      "title": "Birthday",
+      "day": "Day",
+      "month": "Month",
+      "months": {
+        january:"January",
+        february:"February",
+        march:"March",
+        april:"April",
+        may:"May",
+        june:"June",
+        july:"July",
+        august:"August",
+        september:"September",
+        october:"October",
+        november:"November",
+        december:"December"
+      },
+      "year": "Year"
+    },
+
     "firstName": "First Name",
     "lastName": "Last Name",
     "email": "Email",
     "password": "Password",
-    "rePassword": "Confirm Password",
-    "usernameToolTip": "Choose wisely! This is how students and others in the Gooru community will identify you. (Between 4 and 20 characters, with no spaces or special characters.)",
-    "nameToolTip": "Your name will not appear publicly anywhere on Gooru.",
-    "emailToolTip": "Double check your email. Make sure it's correct!",
-    "passwordToolTip": "Passwords must be between 5 and 14 characters and contain at least one number.",
-    "infoMessage": "Please fill out the following information.",
-    "birthdayToolTip":"<p><strong>Why enter your birthday?</strong></p><p>Your birthday helps ensure you get the right Gooru experience for your age. This information will never appear anywhere on the website</p>"
+    "rePassword": "Confirm Password"
   },
 
   "gru-user-sign-up-cancel": {
