@@ -36,15 +36,24 @@ export default Ember.Component.extend(BuilderMixin, {
 
   actions: {
 
+    add: function () {
+      this.get('onExpandUnit')();
+      this.set('model.isExpanded', true);
+    },
+
+    addLesson: function () {
+      Ember.Logger.info('Add new lesson');
+    },
+
     /**
      * Load the data for this unit (data should only be loaded once)
      *
      * @function actions:selectUnit
      */
     cancelEdit: function () {
-      var unit = this.get('model');
-      if (!unit.get('id')) {
-        this.get('onCancelAddUnit')(unit);
+      var unitId = this.get('unit.id');
+      if (!unitId) {
+        this.get('onCancelAddUnit')(this.get('model'));
       } else {
         // TODO: If the item already exists, set it's 'editing' flag to false
         // and restore its model
@@ -59,6 +68,12 @@ export default Ember.Component.extend(BuilderMixin, {
      */
     selectUnit: function () {
       this.loadData();
+    },
+
+    toggle: function () {
+      var toggleValue = !this.get('model.isExpanded');
+      this.get('onExpandUnit')();
+      this.set('model.isExpanded', toggleValue);
     }
 
   },
@@ -69,28 +84,14 @@ export default Ember.Component.extend(BuilderMixin, {
     this.set('items', Ember.A());
   }),
 
-  setupComponent: Ember.on('didInsertElement', function () {
-    const component = this;
-
-    this.$().on('hide.bs.collapse', function (e) {
-      e.stopPropagation();
-      component.set('isExpanded', false);
-    });
-
-    this.$().on('show.bs.collapse', function (e) {
-      e.stopPropagation();
-      component.set('isExpanded', true);
-    });
-  }),
-
-  removeSubscriptions: Ember.on('willDestroyElement', function () {
-    this.$().off('hide.bs.collapse');
-    this.$().off('show.bs.collapse');
-  }),
 
   // -------------------------------------------------------------------------
   // Properties
 
+  /**
+   * @prop {Content/Unit} unit
+   */
+  unit: Ember.computed.alias('model.data'),
 
   // -------------------------------------------------------------------------
   // Methods

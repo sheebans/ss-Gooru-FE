@@ -27,7 +27,8 @@
     {{content.courses.gru-accordion-unit
     model=item
     totalItems=items.length
-    onCancelAddUnit=(action 'cancelAddUnit') }}
+    onCancelAddUnit=(action 'cancelAddUnit')
+    onExpandUnit=(action 'closeAllUnits') }}
 
   {{/each}}
 

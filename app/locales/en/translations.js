@@ -12,6 +12,7 @@ export default {
     "add-collection": "Add New Collection",
     "add-course": "Add New Course",
     "add-lessons": "Add Lessons",
+    "add-new-lesson": "Add New Lesson",
     "add-new-unit": "Add New Unit",
     "add-to": "Add To",
     "add-units": "Add Units",

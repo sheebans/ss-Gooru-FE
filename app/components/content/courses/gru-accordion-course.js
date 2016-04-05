@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import BuilderItem from 'gooru-web/models/content/builder/item';
 import BuilderMixin from 'gooru-web/mixins/content/builder';
 import Unit from 'gooru-web/models/content/unit';
 
@@ -27,19 +28,30 @@ export default Ember.Component.extend(BuilderMixin, {
 
     addUnit: function () {
       var unit = Unit.create(Ember.getOwner(this).ownerInjection(), {
-        isEditing: true,
         title: null
       });
-      this.get('items').pushObject(unit);
+      var builderItem = BuilderItem.create({
+        isEditing: true,
+        data: unit
+      });
+      // Close all units before presenting the form for the new unit
+      this.actions.closeAllUnits.apply(this);
+      this.get('items').pushObject(builderItem);
     },
 
-    cancelAddUnit: function (unit) {
-      this.get('items').removeObject(unit);
-      unit.destroy();
+    cancelAddUnit: function (builderItem) {
+      this.get('items').removeObject(builderItem);
+      builderItem.destroy();
     },
 
     removeUnit: function () {
       Ember.Logger.log('Unit should be removed');
+    },
+
+    closeAllUnits: function () {
+      this.get('items').forEach(function (builderItem) {
+        builderItem.set('isExpanded', false);
+      });
     }
 
   }

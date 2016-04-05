@@ -1,12 +1,12 @@
 <div class="panel panel-default edit">
   <div class="panel-heading">
     {{#if model.id}}
-      <h3>{{t "common.unit"}} {{model.sequence}}</h3>
+      <h3>{{t "common.unit"}} {{unit.sequence}}</h3>
     {{else}}
       <h3>{{t "common.unit"}} {{totalItems}}</h3>
     {{/if}}
 
-    {{validation.gru-input model=model valuePath='title'}}
+    {{validation.gru-input model=unit valuePath='title'}}
 
     <div class="actions">
       <button class="cancel btn btn-info"  {{action 'cancelEdit'}}>{{t "common.cancel"}}</button>
@@ -18,13 +18,13 @@
       <div class="col-sm-6">
         <label>
           <span>{{t "content.courses.edit.big-ideas"}}</span>
-          <textarea>{{model.bigIdeas}}</textarea>
+          <textarea>{{unit.bigIdeas}}</textarea>
         </label>
       </div>
       <div class="col-sm-6">
         <label>
           <span>{{t "content.courses.edit.essential-questions"}}</span>
-          <textarea>{{model.essentialQuestions}}</textarea>
+          <textarea>{{unit.essentialQuestions}}</textarea>
         </label>
       </div>
     </div>
@@ -36,10 +36,10 @@
   </div>
 </div>
 
-<div class="panel panel-default view {{if isExpanded 'expanded' 'collapsed'}}">
+<div class="panel panel-default view {{if model.isExpanded 'expanded' 'collapsed'}}">
   <div class="panel-heading">
-    <h3><a href="#" {{action 'toggle'}}>{{t "common.unit"}} {{model.sequence}}</a></h3>
-    <strong><a href="#" {{action 'toggle'}}>{{model.title}}</a></strong>
+    <h3><a href="#" {{action 'toggle'}}>{{t "common.unit"}} {{unit.sequence}}</a></h3>
+    <strong><a href="#" {{action 'toggle'}}>{{unit.title}}</a></strong>
 
     <div class="detail">
       {{#if savedItems.length}}
@@ -60,5 +60,15 @@
       </div>
     </div>
   </div>
-  <div class="panel-body"></div>
+  <div class="panel-body">
+
+    <ol class="accordion-unit" role="tablist" aria-multiselectable="true">
+
+      <li class="lesson add-item">
+        <a class="add-prefix" href="#" {{action 'addLesson'}}>{{t "common.add-new-lesson"}}</a>
+      </li>
+
+    </ol>
+
+  </div>
 </div>

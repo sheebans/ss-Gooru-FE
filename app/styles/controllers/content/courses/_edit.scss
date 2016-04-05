@@ -51,6 +51,18 @@
       }
     }
 
+    .add-item {
+      a {
+        display: block;
+        border: 2px dashed $gray-light;
+        padding: 20px;
+        border-radius: 6px;
+        font-size: $font-size-large;
+        color: $gray;
+        text-align: center;
+      }
+    }
+
     .gru-accordion {
       &.view {
         > .edit {
@@ -60,6 +72,7 @@
         > .view {
           .panel-heading {
             padding-right: 10px;
+            margin-bottom: 0;
 
             .detail {
               float: right;
@@ -92,6 +105,10 @@
                 }
               }
             }
+          }
+
+          .panel-body {
+            padding-top: 20px;
           }
 
           &.collapsed {
@@ -152,6 +169,16 @@
           > span {
             display: block;
             margin: 10px 0;
+          }
+        }
+      }
+
+      &.view {
+        .panel-body {
+          background-color: $dark-400;
+
+          .add-item a {
+            color: $white;
           }
         }
       }

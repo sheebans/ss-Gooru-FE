@@ -33,11 +33,6 @@ export default Ember.Object.extend(Validations, {
   id: '',
 
   /**
-   * @property {Boolean} isEditing
-   */
-  isEditing: false,
-
-  /**
    * @property {Number} lessonsTotal - total number of lessons in the unit
    */
   lessonsTotal: 0,
