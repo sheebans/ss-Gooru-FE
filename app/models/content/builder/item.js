@@ -19,6 +19,11 @@ export default Ember.Object.extend({
   isEditing: false,
 
   /**
+   * @property {Boolean} isEditing - Is the builder item being edited or not?
+   */
+  isNew: Ember.computed.not('data.id'),
+
+  /**
    * @property {Content/Unit|Content/Lesson} model - Builder item content
    */
   data: null

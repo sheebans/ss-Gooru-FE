@@ -2,8 +2,8 @@
   <h2>{{t "common.builder"}}</h2>
 
   <div class="detail">
-    {{#if savedItems.length}}
-      <span><b>{{savedItems.length}}</b> {{t "common.unitObj" count=savedItems.length}}</span>
+    {{#if totalSavedItems}}
+      <span><b>{{totalSavedItems}}</b> {{t "common.unitObj" count=totalSavedItems}}</span>
     {{else}}
       <span>{{t "common.add-units"}}</span>
     {{/if}}
@@ -11,7 +11,7 @@
     <div class="actions">
       <button class="btn btn-primary add-unit" {{action 'addUnit'}}>{{gru-icon name="add"}}</button>
 
-      {{#if (gt savedItems.length 1)}}
+      {{#if (gt totalSavedItems 1)}}
         {{#unless isEditingItem}}
           <button class="btn btn-primary sort-units">{{gru-icon name="swap_vert"}}</button>
         {{/unless}}

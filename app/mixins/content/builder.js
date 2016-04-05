@@ -12,11 +12,6 @@ export default Ember.Mixin.create({
   // Properties
 
   /**
-   * @prop {Bool} expanded - is the accordion expanded or collapsed?
-   */
-  isExpanded: false,
-
-  /**
    * @prop {Ember.RSVP.Promise} items - children of the accordion
    * Will resolve to {Unit[] | Lesson[] | Collection[]}
    */
@@ -30,8 +25,9 @@ export default Ember.Mixin.create({
   /**
    * @property {Boolean} isAddingItem - Is a new item being added or not?
    */
-  isAddingItem: Ember.computed('items.[]', 'savedItems.[]', function () {
-    return this.get('items.length') > this.get('savedItems.length');
+  isAddingItem: Ember.computed('items.@each.isNew', function () {
+    var items = this.get('items');
+    return !!items.filterBy('isNew').length;
   }),
 
   /**
@@ -44,11 +40,11 @@ export default Ember.Mixin.create({
   }),
 
   /**
-   * @property {Boolean} savedItems - List of all items with a truthy 'id' value?
+   * @property {Boolean} totalSavedItems - Number of items that have been saved at least once?
    */
-  savedItems: Ember.computed('items.@each.id', function () {
+  totalSavedItems: Ember.computed('items.@each.isNew', function () {
     var items = this.get('items');
-    return items.filterBy('id');
+    return items.filterBy('isNew', false).length;
   })
 
 });

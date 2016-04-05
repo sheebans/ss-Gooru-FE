@@ -51,8 +51,7 @@ export default Ember.Component.extend(BuilderMixin, {
      * @function actions:selectUnit
      */
     cancelEdit: function () {
-      var unitId = this.get('unit.id');
-      if (!unitId) {
+      if (this.get('model.isNew')) {
         this.get('onCancelAddUnit')(this.get('model'));
       } else {
         // TODO: If the item already exists, set it's 'editing' flag to false
