@@ -2,6 +2,7 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
+import { encodeTerm } from 'gooru-web/utils/encode-term';
 
 moduleForComponent('gru-header', 'Integration | Component | Header', {
   integration: true,
@@ -82,18 +83,13 @@ test('Do search by clicking search button', function(assert) {
 
 
 test('Do search by hitting Enter', function(assert) {
-  function encode(term){
-    return encodeURIComponent(term).replace(/[!'()*]/g, function(c) {
-      return '%' + c.charCodeAt(0).toString(16);
-    });
-  }
 
   assert.expect(1); //making sure all asserts are called
 
   const ANY_TERM = 'any term';
 
   this.on('searchAction', function(term){
-    assert.equal(term, encode(ANY_TERM), 'onSearchAction should be called once');
+    assert.equal(term, encodeTerm(ANY_TERM), 'onSearchAction should be called once');
   });
 
   this.render(hbs`{{gru-header onSearch='searchAction'}}`);
@@ -118,16 +114,11 @@ test('Do search with a blank space', function(assert) {
 test('Encode term', function(assert) {
   assert.expect(1); //making sure all asserts are called
 
-  function encode(term){
-    return encodeURIComponent(term).replace(/[!'()*]/g, function(c) {
-      return '%' + c.charCodeAt(0).toString(16);
-    });
-  }
 
   const ANY_TERM = '@$%*^';
 
   this.on('searchAction', function(term){
-    assert.equal(term, encode(ANY_TERM), 'Bad Encode');
+    assert.equal(term, encodeTerm(ANY_TERM), 'Bad Encode');
   });
 
   this.render(hbs`{{gru-header onSearch='searchAction'}}`);
