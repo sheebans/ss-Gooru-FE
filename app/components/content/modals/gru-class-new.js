@@ -35,10 +35,9 @@ export default Ember.Component.extend({
     this._super(...arguments);
     var newClass = Class.create(Ember.getOwner(this).ownerInjection(), {
       title: null,
-      class_sharing: 'open'
+      classSharing: 'open'
     });
     this.set('newClass', newClass);
-    this.set('currentClassSharing', Ember.computed.alias('newClass.classSharing'));
   },
 
 
@@ -53,6 +52,6 @@ export default Ember.Component.extend({
   /**
    * @type {String} open or restricted, tells the component which radio is checked.
    */
-  currentClassSharing: null
+  currentClassSharing:  Ember.computed.alias('newClass.classSharing')
 
 });
