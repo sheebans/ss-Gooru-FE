@@ -3,14 +3,23 @@
 
   .modal {
     display: block;
-    height: 91vh;
     position: relative;
 
+    &.gru-class-new {
+      height: inherit;
+      width: 100%;
+      z-index: 0;
+    }
+
     .modal-dialog {
-      margin: 70px auto 10px;
+      margin: 10px 0;
       width: 100%;
       @media (min-width: $screen-sm) {
+        margin: 30px auto;
         width: 405px;
+      }
+      @media (min-width: $screen-md) {
+        margin: 70px auto;
       }
     }
 
@@ -64,9 +73,9 @@
 .condition-prompt {
   padding-top: 20px;
 
-  label {
+  .conditions {
 
-    &:last-child {
+    &>:last-child {
       margin-left: 15px;
     }
   }

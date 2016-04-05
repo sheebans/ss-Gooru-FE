@@ -94,3 +94,16 @@ test('When assessments filter is selected', function(assert) {
     });
   });
 });
+test('Special character search', function(assert) {
+  visit('/');
+
+  andThen(function() {
+    const $searchInput = find(".search-navbar-form input");
+    $searchInput.find("input").val('!@#$%^&*()');
+    $searchInput.find("input").blur();
+
+    return wait().then(function () {
+      assert.ok(find(".results .no-results-found"), 'No results found should be appear');
+    });
+  });
+});

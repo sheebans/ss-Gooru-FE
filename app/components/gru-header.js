@@ -1,6 +1,7 @@
 import Ember from "ember";
 import SessionMixin from '../mixins/session';
 import ModalMixin from '../mixins/modal';
+import { encodeTerm } from 'gooru-web/utils/encode-term';
 
 /**
  * Application header component
@@ -35,7 +36,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
     searchTerm: function () {
       var term = $.trim(this.get('term'));
       if (term) {
-        this.sendAction('onSearch', term);
+        this.sendAction('onSearch', encodeTerm(term));
       }
     }
   },
@@ -68,7 +69,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    * Search term
    * @property {string}
    */
-  term: null
+  term: null,
 
 
   // -------------------------------------------------------------------------

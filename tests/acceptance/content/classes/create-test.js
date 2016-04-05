@@ -27,9 +27,9 @@ test('Layout', function (assert) {
     assert.ok($container.find('.modal-footer').length, "Footer is missing");
 
 
-    const $classNameInput = $container.find('.class-name-input');
+    const $classNameInput = $container.find('.class-name-input-container');
     assert.ok($classNameInput.length, "Class name input container missing");
-    assert.ok($classNameInput.find('.form-control#class-name-input').length, "Missing class name input");
+    assert.ok($classNameInput.find('.gru-input.title').length, "Missing class name input");
 
     const $conditionPrompt = $container.find('.condition-prompt');
     assert.ok($conditionPrompt.length, "Missing condition prompt container");
@@ -38,5 +38,35 @@ test('Layout', function (assert) {
     assert.ok($container.find('a.cancel-button').length, "Cancel button is missing");
     assert.ok($container.find('button.get-started').length, "Get started button is missing");
 
+
+
+
+  });
+});
+
+test('it shows an error message if the title field is left blank and you blur ir out', function (assert) {
+  visit('/content/classes/create');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/content/classes/create');
+
+    const $createClassContainer = find(".create-class");
+    const $titleField = $createClassContainer.find(".gru-input.title");
+
+    assert.ok(!$titleField.find(".error-messages .error").length, 'Username error message should not be visible');
+    // Try submitting without filling in data
+    $createClassContainer.find("button.get-started").click();
+
+    return wait().then(function () {
+
+      assert.ok($titleField.find(".error-messages .error").length, 'Username error message visible');
+      // Fill in the input field
+      $titleField.find("input").val('Username');
+      $titleField.find("input").blur();
+
+      return wait().then(function () {
+        assert.ok(!$titleField.find(".error-messages .error").length, 'Username error message was hidden');
+      });
+    });
   });
 });

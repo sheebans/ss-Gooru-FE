@@ -4,12 +4,6 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
-  /**
-   * @property {Session} current session
-   */
-  session: Ember.inject.service("session"),
-
-
   // -------------------------------------------------------------------------
   // Methods
 
