@@ -2,6 +2,7 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
+import { encodeTerm } from 'gooru-web/utils/encode-term';
 
 moduleForComponent('gru-header', 'Integration | Component | Header', {
   integration: true,
@@ -11,7 +12,7 @@ moduleForComponent('gru-header', 'Integration | Component | Header', {
 });
 
 test('header layout', function(assert) {
-  assert.expect(9); //making sure all asserts are called
+  assert.expect(8); //making sure all asserts are called
 
   this.set('session', Ember.Object.create({isAnonymous: true}));
 
@@ -35,7 +36,6 @@ test('header layout', function(assert) {
 
   var $navMenu = $component.find(".menu-navbar");
   T.notExists(assert, $navMenu.find(".my-classes-link"), "Link should be available for authenticated users only");
-  T.exists(assert, $component.find(".sign-in-button"), "Missing sign-in-btn button");
   T.exists(assert, $navMenu.find(".sign-up-button"), "Missing sign up button");
   T.notExists(assert, $navMenu.find(".user-logged"), "User info should not be present");
 
@@ -83,12 +83,13 @@ test('Do search by clicking search button', function(assert) {
 
 
 test('Do search by hitting Enter', function(assert) {
+
   assert.expect(1); //making sure all asserts are called
 
   const ANY_TERM = 'any term';
 
   this.on('searchAction', function(term){
-    assert.equal(term, ANY_TERM, 'onSearchAction should be called once');
+    assert.equal(term, encodeTerm(ANY_TERM), 'onSearchAction should be called once');
   });
 
   this.render(hbs`{{gru-header onSearch='searchAction'}}`);
@@ -108,4 +109,22 @@ test('Do search with a blank space', function(assert) {
   $searchInput.change();
   this.$('form').submit();
   T.notExists(assert,this.$(".results"), "Result of search should not appear");
+});
+
+test('Encode term', function(assert) {
+  assert.expect(1); //making sure all asserts are called
+
+
+  const ANY_TERM = '@$%*^';
+
+  this.on('searchAction', function(term){
+    assert.equal(term, encodeTerm(ANY_TERM), 'Bad Encode');
+  });
+
+  this.render(hbs`{{gru-header onSearch='searchAction'}}`);
+
+  var $searchInput = this.$('.search-input');
+  $searchInput.val(ANY_TERM);
+  $searchInput.change();
+  this.$('form').submit();
 });

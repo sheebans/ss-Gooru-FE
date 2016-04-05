@@ -16,19 +16,24 @@ Router.map(function() {
   });
 
   this.route('sign-in');
+  this.route('sign-up');
 
   this.route('content', function () {
 
-    this.route('courses', function () {
-      this.route('edit', {path: '/edit/:courseId'});
+    this.route('assessments', function () {
+      this.route('edit', {path: '/edit/:assessmentId'});
     });
 
     this.route('collections', function () {
       this.route('edit', {path: '/edit/:collectionId'});
     });
 
-    this.route('assessments', function () {
-      this.route('edit', {path: '/edit/:assessmentId'});
+    this.route('courses', function () {
+      this.route('edit', {path: '/edit/:courseId'});
+    });
+
+    this.route('classes', function(){
+      this.route('create',{path: '/create/'});
     });
 
     this.route('resources', function () {

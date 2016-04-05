@@ -135,7 +135,7 @@ test('closePlayer: If navigating directly to the player, closing the player shou
     click(playerCloseButton);
     andThen(function() {
 
-      assert.equal(currentURL(), '/', 'Redirected to an incorrect url');
+      assert.equal(currentURL(), '/sign-in', 'Redirected to an incorrect url');
     });
   });
 });
