@@ -2,23 +2,24 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('content/modals/gru-resource-new', 'Integration | Component | content/modals/gru resource new', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.inject.service('i18n');
+  }
 });
 
-test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
+test('New Resource Layout', function(assert) {
   this.render(hbs`{{content/modals/gru-resource-new}}`);
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#content/modals/gru-resource-new}}
-      template block text
-    {{/content/modals/gru-resource-new}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  const $component = this.$(".gru-resource-new");
+  assert.ok($component, 'Missing Component');
+  assert.ok($component.find('h4.modal-title'), 'Missing Title');
+  assert.ok($component.find('.icon .link'), 'Missing link icon');
+  assert.equal($component.find('h4.modal-title').text(), this.get('i18n').t('common.add-new-resource').string, 'Incorrect Title');
+  assert.ok($component.find('label span'), 'Missing URL label');
+  assert.equal($component.find('span.title').text(), this.get('i18n').t('common.add-from-url').string, 'Incorrect Add URL Label');
+  assert.equal($component.find('label span').text(), this.get('i18n').t('common.enter-url').string, 'Incorrect Enter URL Label');
+  assert.ok($component.find('label input'), 'Missing URL Input');
+  assert.ok($component.find('actions .cancel'), 'Missing Cancel Button');
+  assert.ok($component.find('actions .add'), 'Missing Add Button');
 });
