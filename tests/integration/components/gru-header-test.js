@@ -82,12 +82,18 @@ test('Do search by clicking search button', function(assert) {
 
 
 test('Do search by hitting Enter', function(assert) {
+  function encode(term){
+    return encodeURIComponent(term).replace(/[!'()*]/g, function(c) {
+      return '%' + c.charCodeAt(0).toString(16);
+    });
+  }
+
   assert.expect(1); //making sure all asserts are called
 
   const ANY_TERM = 'any term';
 
   this.on('searchAction', function(term){
-    assert.equal(term, ANY_TERM, 'onSearchAction should be called once');
+    assert.equal(term, encode(ANY_TERM), 'onSearchAction should be called once');
   });
 
   this.render(hbs`{{gru-header onSearch='searchAction'}}`);
@@ -107,4 +113,27 @@ test('Do search with a blank space', function(assert) {
   $searchInput.change();
   this.$('form').submit();
   T.notExists(assert,this.$(".results"), "Result of search should not appear");
+});
+
+test('Encode term', function(assert) {
+  assert.expect(1); //making sure all asserts are called
+
+  function encode(term){
+    return encodeURIComponent(term).replace(/[!'()*]/g, function(c) {
+      return '%' + c.charCodeAt(0).toString(16);
+    });
+  }
+
+  const ANY_TERM = '@$%*^';
+
+  this.on('searchAction', function(term){
+    assert.equal(term, encode(ANY_TERM), 'Bad Encode');
+  });
+
+  this.render(hbs`{{gru-header onSearch='searchAction'}}`);
+
+  var $searchInput = this.$('.search-input');
+  $searchInput.val(ANY_TERM);
+  $searchInput.change();
+  this.$('form').submit();
 });

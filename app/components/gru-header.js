@@ -35,7 +35,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
     searchTerm: function () {
       var term = $.trim(this.get('term'));
       if (term) {
-        this.sendAction('onSearch', term);
+        this.sendAction('onSearch', this.encodeTerm(term));
       }
     }
   },
@@ -68,7 +68,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    * Search term
    * @property {string}
    */
-  term: null
+  term: null,
 
 
   // -------------------------------------------------------------------------
@@ -77,4 +77,12 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Methods
+  /*
+  * This function encodes special characters.
+  * */
+  encodeTerm:function(term){
+   return encodeURIComponent(term).replace(/[!'()*]/g, function(c) {
+      return '%' + c.charCodeAt(0).toString(16);
+    });
+  }
 });
