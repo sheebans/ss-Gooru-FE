@@ -44,7 +44,7 @@ export default Ember.Controller.extend({
 
     Ember.run.schedule("afterRender",this,function() {
       $('.selectpicker').selectpicker();
-    })
+    });
   },
 
   /**
