@@ -2,7 +2,11 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
-  setupController: function () {
+  beforeModel: function() {
+    this.transitionTo('profile.content.course');
+  },
+
+  setupController: function() {
 
   }
 

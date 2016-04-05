@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import ProfileSerializer from 'gooru-web/serializers/profile/profile';
-import CourseSerializer from 'gooru-web/serializers/course/course';
+import CourseSerializer from 'gooru-web/serializers/content/course';
 import ProfileAdapter from 'gooru-web/adapters/profile/profile';
 import ProfileCourseAdapter from 'gooru-web/adapters/profile/course';
 
