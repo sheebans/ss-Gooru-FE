@@ -95,8 +95,8 @@ export default Ember.Component.extend({
   /**
    * @param {Computed } showErrorClass - computed property that defines the
    */
-  showErrorClass: computed('isTyping', 'showMessage', 'hasContent', 'attributeValidation', function() {
-    return this.get('attributeValidation') && !this.get('isTyping') && this.get('showMessage') && this.get('hasContent');
+  showErrorClass: computed('showMessage', 'hasContent', 'attributeValidation', function() {
+    return this.get('attributeValidation') && this.get('showMessage') && this.get('hasContent');
   }),
   /**
    * @param {Computed } hasContent - computed property that defines whether the rawInputValue is null or not.
