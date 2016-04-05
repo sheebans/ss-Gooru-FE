@@ -11,10 +11,56 @@ const Validations = buildValidations({
     ]
   },
 
-  password: validator('presence', {
-    presence: true,
-    message: 'Please enter a password.'
-  })
+  firstName: {
+    validators: [
+      validator('length', {
+        min: 2,
+        message: 'First name must have at least two letters.'
+      })
+    ]
+  },
+
+  lastName: {
+    validators: [
+      validator('length', {
+        min: 2,
+        message: 'Last name must have at least two letters.'
+      })
+    ]
+  },
+
+  password: [
+    validator('presence', {
+      presence: true,
+      message: 'Please enter a password.'
+    }),
+    validator('format', {
+      regex: /^\w+$/,
+      message: "Please don't use special characters"
+    })
+  ],
+
+  rePassword:[
+    validator('presence', {
+      presence: true,
+      message: 'Please enter confirm a password.'
+    }),
+    validator('format', {
+      regex: /^\w+$/,
+      message: "Please don't use special characters"
+    }),
+    validator(function(value,options,model/* ,attribute*/) {
+      return value !== model.get('password') ? `Passwords do not match.` : true ;
+    })
+  ],
+
+  email: [
+    validator('format', {
+      type: 'email',
+      message: 'Please enter a valid email address.'
+    }),
+    validator('email')
+  ]
 
 });
 
