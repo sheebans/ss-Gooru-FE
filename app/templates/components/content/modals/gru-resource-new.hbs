@@ -2,7 +2,7 @@
     <h4 class="modal-title">{{t "common.add-new-resource"}}</h4>
 </div>
 <div class="modal-body">
-    <form>
+    <form  {{action "createResource" on="submit"}}>
         <div class="content">
             <span class="icon">{{gru-icon name="link"}}</span>
              <div>
@@ -17,7 +17,7 @@
             <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
                 <span aria-hidden="true">{{t 'common.cancel'}}</span>
             </button>
-            <button class="btn btn-primary add">{{t 'common.add'}}</button>
+            <button type="submit" class="btn btn-primary add">{{t 'common.add'}}</button>
         </div>
     </form>
 </div>

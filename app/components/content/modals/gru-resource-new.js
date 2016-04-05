@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Resource from 'gooru-web/models/content/resource';
 
 export default Ember.Component.extend({
 
@@ -17,10 +18,27 @@ export default Ember.Component.extend({
 
 
   actions: {
+    createResource: function () {
+      const resource = this.get('resource');
+      resource.validate().then(function ({ model, validations }) {
+        if (validations.get('isValid')) {
+          Ember.logger("Collection Valid");
+        }
+        this.set('didValidate', true);
+      }.bind(this));
+    }
   },
 
   // -------------------------------------------------------------------------
   // Events
+
+  init() {
+    this._super(...arguments);
+    var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {url: null});
+    this.set('resource', resource);
+  },
+
+
 
   // -------------------------------------------------------------------------
   // Properties
