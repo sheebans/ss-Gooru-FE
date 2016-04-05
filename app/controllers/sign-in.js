@@ -37,6 +37,13 @@ export default Ember.Controller.extend({
         positionClass: 'toast-top-full-width sign-in'
       });
 
+      if(controller.get('didValidate')=== false){
+        var username = Ember.$('.gru-input.username input').val();
+        var password = Ember.$('.gru-input.password input').val();
+        user.set('username',username);
+        user.set('password',password);
+      }
+
       user.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
           controller.get("sessionService")
@@ -56,7 +63,7 @@ export default Ember.Controller.extend({
     }
   },
 
-  init() {
+  init(){
     this._super(...arguments);
     var user = User.create(Ember.getOwner(this).ownerInjection(), {username: null, password: null});
     this.set('user', user);
@@ -73,7 +80,12 @@ export default Ember.Controller.extend({
 
   target: null,
 
-  useApi3: true
+  useApi3: true,
+
+  /**
+   * @param {Boolean } didValidate - value used to check if input has been validated or not
+   */
+  didValidate: false
 
 
 });
