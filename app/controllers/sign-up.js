@@ -42,6 +42,9 @@ export default Ember.Controller.extend({
     this.set('birthDays', birthDays);
     this.set('birthYears', birthYears);
 
+    Ember.run.schedule("afterRender",this,function() {
+      $('.selectpicker').selectpicker();
+    })
   },
 
   /**
