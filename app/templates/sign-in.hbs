@@ -5,17 +5,19 @@
       <div class="description" alt="{{t "login.description"}}"
            title="{{t "login.description"}}">{{t "login.description"}}
       </div>
-      <div class="google-button">
-        <div class="google-button-content-wrapper">
-          <div class="google-button-icon">
-            <div class="google-button-icon-image">
+      <a href="{{unbound googleSignInUrl}}">
+        <div class="google-button">
+          <div class="google-button-content-wrapper">
+            <div class="google-button-icon">
+              <div class="google-button-icon-image">
+              </div>
             </div>
+            <span class="google-button-content">
+              <span>{{t "login.googleButton"}}</span>
+            </span>
           </div>
-          <span class="google-button-content">
-            <span>{{t "login.googleButton"}}</span>
-          </span>
         </div>
-      </div>
+      </a>
     </div>
     <div class="divider"></div>
     <div class="sign-in-form">

@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import User from 'gooru-web/models/profile/profile';
+import Env from 'gooru-web/config/environment';
 
 export default Ember.Controller.extend({
 
@@ -60,6 +61,7 @@ export default Ember.Controller.extend({
     this._super(...arguments);
     var user = User.create(Ember.getOwner(this).ownerInjection(), {username: null, password: null});
     this.set('user', user);
+    this.set('googleSignInUrl', Env['google-sign-in'].url);
   },
 
 

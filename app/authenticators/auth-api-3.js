@@ -17,6 +17,8 @@ export default BaseAuthenticator.extend({
   authenticate: function(options) {
     if (options.isAnonymous) {
       return this.get('authenticationService').authenticateAsAnonymous();
+    } else if(options.hasAccessToken) {
+      return this.get('authenticationService').authenticateWithToken(options.accessToken);
     } else {
       return this.get('authenticationService').authenticateWithCredentials(options.username, options.password);
     }
