@@ -34,24 +34,24 @@ const Class = Ember.Object.extend(Validations, {
   /**
    * @property  {String} Sharing type of the class. Either “open” or “restricted”
    */
-  class_sharing: '',
+  classSharing: '',
 
   /**
    * @property {String} Path to the cover image of the class
    */
-  cover_image: '',
+  coverImage: '',
 
   /**
    * @property {String} Minimum score for class.
    */
-  min_score:'',
+  minScore:'',
 
   /**
    *
    * @property {Date} End date of class
    */
 
-   end_date:null,
+   endDate:null,
   /**
    *
    * @property {Array} Collaborators on class
@@ -63,7 +63,7 @@ const Class = Ember.Object.extend(Validations, {
     *
     * @property {Array} Creator name
     */
-   creator_system:'',
+   creatorSystem:'',
 
 });
 

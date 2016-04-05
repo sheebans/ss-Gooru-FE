@@ -11,8 +11,6 @@ export default Ember.Component.extend({
 
   classNames: ['content', 'modal', 'gru-class-new'],
 
-  classNameBindings: ['component-class'],
-
   // -------------------------------------------------------------------------
   // Actions
 
@@ -40,7 +38,7 @@ export default Ember.Component.extend({
       class_sharing: 'open'
     });
     this.set('newClass', newClass);
-    this.set('currentClassSharing', newClass.get('class_sharing'));
+    this.set('currentClassSharing', Ember.computed.alias('newClass.classSharing'));
   },
 
 
@@ -50,6 +48,11 @@ export default Ember.Component.extend({
   /**
    * @type {Class} class
    */
-  newClass: null
+  newClass: null,
+
+  /**
+   * @type {String} open or restricted, tells the component which radio is checked.
+   */
+  currentClassSharing: null
 
 });
