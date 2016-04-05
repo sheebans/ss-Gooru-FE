@@ -1,0 +1,228 @@
+.controller.sign-up {
+  .modal {
+    display: block;
+    position: relative;
+    z-index: 0;
+    padding: 0;
+    margin: 15px auto;
+    max-width: 405px;
+    width: 100%;
+    @media (min-width: $screen-sm-min) {
+      width: 425px;
+      margin: 60px auto;
+    }
+    .modal-dialog {
+      width: 100%;
+      max-width: 405px;
+      margin: 0;
+      @media (min-width: $screen-sm-min) {
+        width: 405px;
+        margin: 10px;
+      }
+      .modal-content {
+        border: 0;
+      }
+      .modal-header {
+        text-align: center;
+        padding: 5px 0 0 0;
+        .progress-dots {
+          margin: 0 auto;
+          .dot {
+            width: 10px;
+            height: 10px;
+            background: $light-400;
+            border-radius: 50px;
+            margin: 0 5px 0 0;
+            display: inline-block;
+            &.color {
+              background: $green-400;
+            }
+          }
+        }
+
+        h3 {
+          margin: 15px 0;
+        }
+        .description {
+          font-size: $font-size-large;
+          font-weight: 300;
+        }
+
+        .google-button {
+          height: 50px;
+          width: 240px;
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+          border-radius: 1px;
+          text-align: center;
+          position: relative;
+          cursor: pointer;
+          background-color: $blue-300;
+          margin: 20px auto;
+          &:active {
+            background-color: $blue-400;
+          }
+          &:hover {
+            box-shadow: 0 0 3px 3px rgba(66, 133, 244, 0.3);
+          }
+          .google-button-content-wrapper {
+            border: 1px solid transparent;
+            width: 100%;
+            height: 100%;
+            .google-button-icon {
+              float: left;
+              background-color: $white;
+              border-radius: 1px;
+              padding: 15px;
+              .google-button-icon-image {
+                width: 18px;
+                height: 18px;
+                display: block;
+                background: url("gooru/images/google-icon.svg")
+              }
+            }
+            .google-button-content {
+              line-height: 48px;
+              font-family: $font-family-roboto;
+              font-size: $font-size-h6;
+              font-weight: 500;
+              letter-spacing: 0.21px;
+              margin-left: 6px;
+              margin-right: 6px;
+              vertical-align: top;
+              color: $white;
+            }
+          }
+        }
+      }
+      .divider {
+        border-bottom: 2px solid $light-200;
+        margin: 5px 0 0 0;
+        width: 100%;
+      }
+      .modal-body {
+        padding: 0;
+        .sign-up-form {
+          padding: 15px 37px 0;
+          .form-group {
+            margin: 5px 0 10px 0;
+            label {
+              width: 100%;
+              span.required {
+                display: block;
+                &:after {
+                  content: ' *';
+                }
+              }
+            }
+            &.birth-day-date {
+              margin-bottom: 30px;
+            }
+            a.btn-link {
+              padding: 0;
+              text-transform: none;
+              color: $blue-200;
+              font-size: $font-size-base;
+            }
+            input {
+              &:focus {
+                border-color: $blue-200;
+              }
+            }
+            .bootstrap-select {
+              border-bottom: 1px solid $table-border-color;
+              .dropdown-toggle {
+                color: $gray;
+                font-size: $font-size-large;
+                font-weight: 300;
+                padding: 0 0 0 3px;
+                background-color: $white;
+                box-shadow: none;
+                background-position: 0;
+                background-size: unset;
+
+                &:hover {
+                  background-color: $white !important;
+                  color: $gray !important;
+                }
+                &:focus {
+                  background-color: $white !important;
+                  color: $gray !important;
+                }
+              }
+              .btn-default {
+                &:focus,
+                &:hover,
+                &:active,
+                &:active:hover {
+                  background-color: $white;
+                  background-image: none;
+                }
+              }
+            }
+            .birth-months {
+              float: left;
+              margin-right: 10px;
+              @media (min-width: $screen-sm-min) {
+                margin-right: 20px;
+              }
+              .bootstrap-select {
+                width: 105px;
+                @media (min-width: $screen-sm-min) {
+                  width: 130px;
+                }
+              }
+            }
+            .birth-days {
+              float: left;
+              margin-right: 10px;
+              @media (min-width: $screen-sm-min) {
+                margin-right: 20px;
+              }
+              .bootstrap-select {
+                width: 55px;
+                @media (min-width: $screen-sm-min) {
+                  width: 65px;
+                }
+              }
+            }
+            .birth-years {
+              float: left;
+              .bootstrap-select {
+                width: 65px;
+                @media (min-width: $screen-sm-min) {
+                  width: 95px;
+                }
+              }
+            }
+            &.sign-up-button {
+              margin: 50px -37px 0;
+              button {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                width: 100%;
+                font-size: $font-size-h4;
+                font-weight: 300;
+                position: relative;
+                i {
+                  position: absolute;
+                  font-size: $font-size-h3;
+                  line-height: 48px;
+                  position: absolute;
+                  right: 5px;
+                }
+              }
+            }
+          }
+          .bootstrap-select.btn-group.dropup.open .dropdown-toggle .caret {
+            border-top: 0;
+            border-bottom: 4px dashed;
+          }
+          .bootstrap-select.btn-group.dropup .dropdown-toggle .caret {
+            border-bottom: 0;
+            border-top: 4px dashed;
+          }
+        }
+      }
+    }
+  }
+}
