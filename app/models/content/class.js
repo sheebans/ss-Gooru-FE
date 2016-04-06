@@ -11,6 +11,11 @@ const Validations = buildValidations({
  * typedef {Object} Class
  */
 const Class = Ember.Object.extend(Validations, {
+
+  id: null,
+
+  code: null,
+
   /**
    * @property {String} Title of the class
    */

@@ -6,6 +6,31 @@ moduleForService('service:api-sdk/class', 'Unit | Service | api-sdk/class', {
   needs: ['serializer:class/class', 'model:class/class', 'adapter:class/class']
 });
 
+test('readClassInfo', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('classAdapter', Ember.Object.create({
+    readClassInfo: function(classId) {
+      assert.equal(classId, 'class-id', 'Wrong class id');
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('classSerializer', Ember.Object.create({
+    normalizeReadClassInfo: function(profilePayload) {
+      assert.deepEqual({}, profilePayload, 'Wrong class payload');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.readClassInfo('class-id')
+    .then(function() {
+      done();
+    });
+});
+
 test('findClassesIJoined', function (assert) {
   const service = this.subject();
 

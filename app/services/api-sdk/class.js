@@ -1,10 +1,36 @@
 import Ember from 'ember';
-import StoreMixin from '../../mixins/store';
+import ClassSerializer from 'gooru-web/serializers/content/class';
+import ClassAdapter from 'gooru-web/adapters/content/class';
 
 /**
  * @typedef {Object} ClassService
  */
-export default Ember.Service.extend(StoreMixin, {
+export default Ember.Service.extend({
+
+  store: Ember.inject.service(),
+
+  classSerializer: null,
+
+  classAdapter: null,
+
+
+  init: function () {
+    this._super(...arguments);
+    this.set('classSerializer', ClassSerializer.create());
+    this.set('classAdapter', ClassAdapter.create(Ember.getOwner(this).ownerInjection()));
+  },
+
+  readClassInfo: function(classId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classAdapter').readClassInfo(classId)
+        .then(function(response) {
+          resolve(service.get('classSerializer').normalizeReadClassInfo(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
 
   /**
    * Returns the list of the classes the user is joined (as student).
