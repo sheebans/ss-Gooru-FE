@@ -4,10 +4,11 @@
 
 @import 'mixins';
 @import 'common';
+
 @import 'helpers/grading-scale-legend';
 @import 'helpers/three-bounce-spinner';
 @import 'helpers/fractional';
-@import 'mixins/content/builder';
+@import 'mixins/content/edit';
 @import 'mixins/gru-accordion';
 
 @import 'controllers/application';
@@ -30,6 +31,7 @@
 @import 'controllers/reports/collection';
 @import 'controllers/search';
 @import 'controllers/sign-in';
+@import 'controllers/sign-up';
 @import 'controllers/user';
 
 

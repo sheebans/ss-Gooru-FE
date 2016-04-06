@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import BuilderItem from 'gooru-web/models/content/builder/item';
+import BuilderMixin from 'gooru-web/mixins/content/builder';
 import Unit from 'gooru-web/models/content/unit';
 
 /**
@@ -10,7 +12,7 @@ import Unit from 'gooru-web/models/content/unit';
  * @augments Ember/Component
  * @mixes mixins/gru-accordion
  */
-export default Ember.Component.extend({
+export default Ember.Component.extend(BuilderMixin, {
 
 
   // -------------------------------------------------------------------------
@@ -26,54 +28,37 @@ export default Ember.Component.extend({
 
     addUnit: function () {
       var unit = Unit.create(Ember.getOwner(this).ownerInjection(), {
-        isEditing: true,
         title: null
       });
-      this.get('items').pushObject(unit);
+      var builderItem = BuilderItem.create({
+        isEditing: true,
+        data: unit
+      });
+      // Close all units before presenting the form for the new unit
+      this.actions.closeAllUnits.apply(this);
+      this.get('items').pushObject(builderItem);
     },
 
-    cancelAddUnit: function (unit) {
-      this.get('items').removeObject(unit);
-      unit.destroy();
+    cancelAddUnit: function (builderItem) {
+      this.get('items').removeObject(builderItem);
+      builderItem.destroy();
     },
 
     removeUnit: function () {
       Ember.Logger.log('Unit should be removed');
+    },
+
+    closeAllUnits: function () {
+      this.get('items').forEach(function (builderItem) {
+        builderItem.set('isExpanded', false);
+      });
     }
 
-  },
+  }
 
 
   // -------------------------------------------------------------------------
   // Properties
 
-  /**
-   * @prop {Ember.RSVP.Promise | Content/Unit[]} items
-   */
-  items: null,
-
-  /**
-   * @property {Boolean} savedItems - List of all items with a truthy 'id' value?
-   */
-  savedItems: Ember.computed('items.@each.id', function () {
-    var items = this.get('items');
-    return items.filterBy('id');
-  }),
-
-  /**
-   * @property {Boolean} isEditingUnit - Is a unit being edited or not?
-   * New units (i.e. not yet saved) are also considered as being edited.
-   */
-  isEditingItem: Ember.computed('items.@each.isEditing', function () {
-    var items = this.get('items');
-    return items.filterBy('isEditing', true).length;
-  }),
-
-  /**
-   * @property {Boolean} isAddingUnit - Is a new unit being added or not?
-   */
-  isAddingItem: Ember.computed('items.[]', 'savedItems.[]', function () {
-    return this.get('items.length') > this.get('savedItems.length');
-  })
 
 });

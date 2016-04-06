@@ -9,6 +9,10 @@
       position: relative;
       border-bottom: 1px solid $gray-light;
 
+      h3 > a, strong > a {
+        color: $text-color;
+      }
+
       h3 {
         display: inline-block;
         margin: 0 0 10px;
@@ -45,27 +49,96 @@
           }
         }
       }
+    }
 
-      .actions {
-        position: absolute;
-        top: 15px;
-        right: 20px;
+    .add-item {
+      a {
+        display: block;
+        border: 2px dashed $gray-light;
+        padding: 20px;
+        border-radius: 6px;
+        font-size: $font-size-large;
+        color: $gray;
+        text-align: center;
       }
     }
 
-    .view {
-      .collapsed {
-        .panel-heading {
-          margin-bottom: 0;
-          border-bottom: 0 none;
-        }
-        .panel-body {
+    .gru-accordion {
+      &.view {
+        > .edit {
           display: none;
         }
+
+        > .view {
+          .panel-heading {
+            padding-right: 10px;
+            margin-bottom: 0;
+
+            .detail {
+              float: right;
+
+              > span {
+                vertical-align: middle;
+                margin-right: 10px;
+              }
+
+              button {
+                background-color: transparent;
+                font-size: 24px;
+                line-height: 1;
+                padding: 7px 5px;
+
+                i {
+                  color: $gray;
+                }
+              }
+
+              div {
+                display: inline-block;
+              }
+
+              .actions {
+                div {
+                  border-left: 1px solid $gray-light;
+                  margin-left: 5px;
+                  padding-left: 10px;
+                }
+              }
+            }
+          }
+
+          .panel-body {
+            padding-top: 20px;
+          }
+
+          &.collapsed {
+            .panel-heading {
+              margin-bottom: 0;
+              border-bottom: 0 none;
+            }
+            .panel-body {
+              display: none;
+            }
+          }
+        }
+      }
+      &.edit {
+        > .view {
+          display: none;
+        }
+        > .edit {
+          .panel-heading {
+            .actions {
+              position: absolute;
+              top: 15px;
+              right: 20px;
+            }
+          }
+        }
       }
     }
 
-    .unit {
+    .gru-accordion-unit {
 
       .panel-body {
         padding: 0 25px 25px;
@@ -96,6 +169,16 @@
           > span {
             display: block;
             margin: 10px 0;
+          }
+        }
+      }
+
+      &.view {
+        .panel-body {
+          background-color: $dark-400;
+
+          .add-item a {
+            color: $white;
           }
         }
       }

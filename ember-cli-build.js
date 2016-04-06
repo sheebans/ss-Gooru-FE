@@ -91,5 +91,16 @@ module.exports = function(defaults) {
     development: 'bower_components/moment/moment.js',
     production:  'bower_components/moment/min/moment.min.js'
   });
+
+  app.import({
+    development: 'bower_components/bootstrap-select/dist/css/bootstrap-select.min.css',
+    production:  'bower_components/bootstrap-select/dist/css/bootstrap-select.min.css'
+  });
+
+  app.import({
+    development: 'bower_components/bootstrap-select/dist/js/bootstrap-select.min.js',
+    production:  'bower_components/bootstrap-select/dist/js/bootstrap-select.min.js'
+  });
+
   return app.toTree();
 };

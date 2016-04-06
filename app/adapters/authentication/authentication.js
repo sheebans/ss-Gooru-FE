@@ -41,6 +41,23 @@ export default Ember.Object.extend({
         'Authorization': 'Basic ' + btoa(data.username + ':' + data.password)
       };
     }
-  }
+  },
 
-});
+  /**
+   * Post a request to authenticate a google user
+   * @param access token required to build the get headers
+   * @returns {Promise}
+   */
+  postAuthenticationWithToken: function(data) {
+      const url = this.get('namespace');
+      const options = {
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        headers: {
+          'Authorization' : 'Token ' + data.accessToken
+        }
+      };
+      return Ember.$.ajax(url, options);
+    }
+  }
+);
