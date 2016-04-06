@@ -124,6 +124,9 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+  /*
+  * Remove white spaces from input
+  */
   removeWhiteSpaces:function(value){
     return $.trim(value);
   },
