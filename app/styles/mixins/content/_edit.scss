@@ -244,20 +244,6 @@
     }
   }
 
-  #builder {
-    .add-item {
-      a {
-        display: block;
-        border: 2px dashed $gray-light;
-        padding: 20px;
-        border-radius: 6px;
-        font-size: $font-size-large;
-        color: $gray;
-        text-align: center;
-      }
-    }
-  }
-
   &.fixed-header {
     > article {
       > header {

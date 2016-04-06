@@ -36,6 +36,7 @@ export default Ember.Component.extend({
   // Actions
   actions:{
     inputValueChange: function() {
+      this.set('rawInputValue',this.removeWhiteSpaces(this.get('rawInputValue')));
       this.set('value', this.get('rawInputValue'));
       this.set('isTyping', false);
     },
@@ -95,8 +96,8 @@ export default Ember.Component.extend({
   /**
    * @param {Computed } showErrorClass - computed property that defines the
    */
-  showErrorClass: computed('isTyping', 'showMessage', 'hasContent', 'attributeValidation', function() {
-    return this.get('attributeValidation') && !this.get('isTyping') && this.get('showMessage') && this.get('hasContent');
+  showErrorClass: computed('showMessage', 'hasContent', 'attributeValidation', function() {
+    return this.get('attributeValidation') && this.get('showMessage') && this.get('hasContent');
   }),
   /**
    * @param {Computed } hasContent - computed property that defines whether the rawInputValue is null or not.
@@ -115,7 +116,7 @@ export default Ember.Component.extend({
    */
   showMessage: computed('attributeValidation.isDirty', 'isInvalid', 'didValidate', 'isTyping', function() {
     return (this.get('attributeValidation.isDirty') || this.get('didValidate')) && this.get('isInvalid') && !this.get('isTyping');
-  })
+  }),
 
   // -------------------------------------------------------------------------
   // Observers
@@ -123,6 +124,8 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-
+  removeWhiteSpaces:function(value){
+    return $.trim(value);
+  },
 
 });

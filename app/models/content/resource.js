@@ -5,13 +5,13 @@ const Validations = buildValidations({
   //TO DO We need use i18n for error messages
   url: {
     validators: [
-      validator('presence', true),
+      validator('presence', {
+        presence: true,
+        message:'Please enter a valid URL.'
+      }),
       validator('format', {
         type: 'url',
         message: 'Invalid URL.'
-      }),
-      validator('no-whitespace',{
-        message:'Please enter a valid URL'
       }),
       validator('host',{
         message:'Resources can not be Gooru\'s URLs.',
