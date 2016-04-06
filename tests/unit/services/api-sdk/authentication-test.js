@@ -65,3 +65,33 @@ test('authenticateWithCredentials', function(assert) {
       done();
     });
 });
+
+test('authenticateWithToken', function(assert) {
+  const service = this.subject();
+  const response = {};
+  const expectedData = {
+    accessToken: 'access_token'
+  };
+
+  assert.expect(2);
+
+  service.set('authenticationAdapter', Ember.Object.create({
+    postAuthenticationWithToken: function(data) {
+      assert.deepEqual(expectedData, data, 'Wrong authentication data');
+      return Ember.RSVP.resolve(response);
+    }
+  }));
+
+  service.set('authenticationSerializer', Ember.Object.create({
+    normalizeResponse: function(payload) {
+      assert.deepEqual(response, payload, 'Wrong response payload');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.authenticateWithToken('access_token')
+    .then(function() {
+      done();
+    });
+});
