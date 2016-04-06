@@ -283,11 +283,19 @@ export default {
     }
   },
 
-  "user":{
+  "user": {
     "active-classes": "Active Classes",
     "archived-classes": "Archived Classes",
     "create-class": "Create Class",
-    "join-class": "Join Class"
+    "join-class": "Join Class",
+    "joined-classes": {
+      'one':"You're currently in 1 class",
+      "other" : "You're currently in {{count}} classes"
+    },
+    "teaching-classes": {
+      'one':" and teaching 1 class",
+      "other" : " and teaching {{count}} classes"
+    }
   },
 
   /*

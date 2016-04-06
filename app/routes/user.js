@@ -16,8 +16,15 @@ export default Ember.Route.extend( {
    */
   classService: Ember.inject.service("api-sdk/class"),
   session: Ember.inject.service("session"),
+
   // -------------------------------------------------------------------------
   // Actions
+
+  actions:{
+    switchTab: function () {
+      $('.nav-tabs li.tab:not(.active)').tab('show');
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Methods
@@ -38,8 +45,9 @@ export default Ember.Route.extend( {
    * @param controller
    * @param model
    */
-  setupController: function(/*controller, model*/) {
-
+  setupController: function(controller/*, model*/) {
+    controller.set("totalJoinedClasses", 2);
+    controller.set("totalTeachingClasses", 1);
   }
 
 });
