@@ -88,5 +88,22 @@
       "body": "File not found!",
       "file": "any-class-info-200-response.json"
     }
+  },
+  {
+    "request": {
+      "url": "^/api/nucleus/v1/classes$",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "user-classes-api3-ok-response.json"
+    }
   }
 ]

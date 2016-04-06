@@ -287,7 +287,12 @@ export default {
     "active-classes": "Active Classes",
     "archived-classes": "Archived Classes",
     "create-class": "Create Class",
-    "join-class": "Join Class"
+    "join-class": "Join Class",
+    "welcome-message": "You are currently in",
+    "member-classes": " {{count}} classes",
+    "member-class": " {{count}} class",
+    "teaching-classes": " and teaching {{count}} classes.",
+    "teaching-class": " and teaching {{count}} class."
   },
 
   /*

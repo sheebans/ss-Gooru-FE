@@ -12,10 +12,20 @@ export default Ember.Route.extend( {
   // Dependencies
 
   /**
-   * @type {Ember.Service} Service to retrieve user information
+   * @type {ClassService} Service to retrieve user information
    */
   classService: Ember.inject.service("api-sdk/class"),
+
+  /**
+   * @type {ProfileService} Service to retrieve profile information
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
+
+  /**
+   * @type {SessionService} Service to retrieve session information
+   */
   session: Ember.inject.service("session"),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -30,7 +40,15 @@ export default Ember.Route.extend( {
    * Get model for the controller
    */
   model: function() {
+    let route = this;
+    const myId = this.get("session.userId");
+    let myClasses = route.get('classService').findMyClasses();
+    let profile = route.get('profileService').readUserProfile(myId);
 
+    return Ember.RSVP.hash({
+      myClasses: myClasses,
+      profile: profile
+    });
   },
 
   /**
@@ -38,8 +56,9 @@ export default Ember.Route.extend( {
    * @param controller
    * @param model
    */
-  setupController: function(/*controller, model*/) {
-
+  setupController: function(controller, model) {
+    controller.set('myClasses', model.myClasses);
+    controller.set('profile', model.profile);
   }
 
 });
