@@ -9,13 +9,8 @@ const Validations = buildValidations({
         type: 'url',
         message: 'Please enter a valid url.'
       }),
-      validator(function(value, options, model, attribute) {
-        return value.contains(window.location.hostname) ? 'You can not add a Gooru url as a resource.' : true;
-        }) ,
-      validator('length', {
-        allowBlank:false,
-        min: 1
-      }),
+      validator('no-whitespace',true),
+      validator('host',true),
     ]
   }
 });
