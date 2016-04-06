@@ -13,6 +13,10 @@ const Validations = buildValidations({
 
   firstName: {
     validators: [
+      validator('presence', {
+        presence: true,
+        message: 'Please enter a first name.'
+      }),
       validator('length', {
         min: 2,
         message: 'First name must have at least two letters.'
@@ -22,6 +26,10 @@ const Validations = buildValidations({
 
   lastName: {
     validators: [
+      validator('presence', {
+        presence: true,
+        message: 'Please enter a last name.'
+      }),
       validator('length', {
         min: 2,
         message: 'Last name must have at least two letters.'
@@ -43,7 +51,7 @@ const Validations = buildValidations({
   rePassword:[
     validator('presence', {
       presence: true,
-      message: 'Please enter confirm a password.'
+      message: 'Please confirm a password.'
     }),
     validator('format', {
       regex: /^\w+$/,
@@ -115,6 +123,21 @@ export default Ember.Object.extend(Validations,{
    * @property {date} dateOfBirth - The profile date of birth
    */
   dateOfBirth: null,
+
+  /**
+   * @property {date} dayOfBirth - The profile day of birth
+   */
+  dayOfBirth: null,
+
+  /**
+   * @property {date} monthOfBirth - The profile month of birth
+   */
+  monthOfBirth: null,
+
+  /**
+   * @property {date} yearOfBirth - The profile year of birth
+   */
+  yearOfBirth: null,
 
   /**
    * @property {string} role - The profile role (teacher, student, etc)

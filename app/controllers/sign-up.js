@@ -14,14 +14,31 @@ export default Ember.Controller.extend({
 
   actions: {
 
-    //authenticate: function() {
+    next: function() {
+      const controller = this;
+      const user = controller.get('user');
 
-    //}
+      console.log('months', $('#signUpForm select.months').val());
+
+      user.validate().then(function ({ model, validations }) {
+        if (validations.get('isValid')) {
+          //to do
+        }
+        controller.set('didValidate', true);
+      });
+
+    }
   },
 
   init() {
     this._super(...arguments);
-    var user = User.create(Ember.getOwner(this).ownerInjection(), {username: null, password: null});
+    var user = User.create(Ember.getOwner(this).ownerInjection(), {
+                  username: null,
+                  password: null,
+                  firstName: null,
+                  lastName: null,
+                  email: null
+                });
     var birthDays = [];
     var birthYears = [];
 
@@ -29,6 +46,24 @@ export default Ember.Controller.extend({
 
     // returns the current year (four digits)
     var year = currentTime.getFullYear();
+
+    Ember.run.schedule("afterRender",this,function() {
+
+      $('.selectpicker').selectpicker();
+
+      $('#signUpForm select').on('change', function(e) {
+        //console.log('change', $(this).val());
+        //$('#signUpForm').validate().element($(this));
+      });
+      $('#signUpForm select.days').on('change', function(e) {
+       // console.log('change', $(this).val());
+        //$('#signUpForm').validate().element($(this));
+      });
+      $('#signUpForm select.years').on('change', function(e) {
+       // console.log('change', $(this).val());
+        //$('#signUpForm').validate().element($(this));
+      });
+    });
 
     for (let d = 1; d <= 31; d++) {
       birthDays.push(d);
@@ -42,9 +77,6 @@ export default Ember.Controller.extend({
     this.set('birthDays', birthDays);
     this.set('birthYears', birthYears);
 
-    Ember.run.schedule("afterRender",this,function() {
-      $('.selectpicker').selectpicker();
-    });
   },
 
   /**
@@ -58,6 +90,8 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+  user: null,
 
 
 });

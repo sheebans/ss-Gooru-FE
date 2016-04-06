@@ -35,7 +35,7 @@
             <div class="wrapper">
               <div class="main">
                 <div class="sign-up-form">
-                  <form>
+                  <form id="signUpForm" {{action "next" on="submit"}}>
                     <div class="form-group username">
                       <label>
                         <span class="required">{{t "sign-up.username"}}</span>
@@ -108,7 +108,7 @@
                       </label>
                     </div>
                     <div class="sign-up-button form-group text-center">
-                      <button class="btn btn-success submit-sign-in" >{{t "common.next"}}</button>
+                      <button type="submit" class="btn btn-success submit-sign-up">{{t "common.next"}}</button>
                     </div>
                   </form>
                 </div>
