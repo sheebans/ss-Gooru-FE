@@ -6,5 +6,5 @@ moduleFor('validator:no-whitespace', 'Unit | Validator | no-whitespace', {
 
 test('Valid white space', function(assert) {
   var validator = this.subject();
-  assert.equal(validator.validate(" "), true, "Should be invalid");
+  assert.equal(validator.validate(" ",{message:"Please enter a valid URL"}), 'Please enter a valid URL', "Should be invalid");
 });

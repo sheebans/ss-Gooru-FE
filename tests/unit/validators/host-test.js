@@ -1,10 +1,10 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('validator:host', 'Unit | Validator | host', {
+moduleFor('validator:email', 'Unit | Validator | email', {
   needs: ['validator:messages']
 });
 
-test('Invalid host', function(assert) {
+test('it works', function(assert) {
   var validator = this.subject();
-  assert.equal(validator.validate(window.location.href), 'You can not add a Gooru url as a resource.', "Should be invalid");
+  assert.ok(validator);
 });
