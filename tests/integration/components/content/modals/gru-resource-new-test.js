@@ -25,7 +25,7 @@ test('New Resource Layout', function(assert) {
   assert.ok($component.find('actions .add'), 'Missing Add Button');
 });
 
-test('Validate if the collection title field is left blank', function (assert) {
+test('Validate if the resource URL is left blank', function (assert) {
   assert.expect(3);
 
   this.render(hbs`{{content/modals/gru-resource-new}}`);
@@ -51,7 +51,7 @@ test('Validate if the collection title field is left blank', function (assert) {
   });
 });
 
-test('Validate if the collection title field has only whitespaces', function (assert) {
+test('Validate if the resource URL field has only whitespaces', function (assert) {
   assert.expect(3);
 
   this.render(hbs`{{content/modals/gru-resource-new}}`);
