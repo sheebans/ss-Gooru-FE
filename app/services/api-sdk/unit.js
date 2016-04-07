@@ -78,17 +78,10 @@ export default Ember.Service.extend(StoreMixin, {
   createUnit: function (courseId, unit) {
     var unitData = this.get('serializer').serializeCreateUnit(unit);
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      this.get('adapter').createUnit({
-        courseId: courseId,
-        unit: unitData
-      }).then(function (responseData, textStatus, request) {
-        var unitId = request.getResponseHeader('location');
-        resolve(unitId);
-      }, function (error) {
-        reject(error);
-      });
-    }.bind(this));
+    return this.get('adapter').createUnit({
+      courseId: courseId,
+      unit: unitData
+    });
   }
 
 });

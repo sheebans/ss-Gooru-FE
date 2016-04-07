@@ -16,8 +16,8 @@ export default Ember.Object.extend({
   /**
    * Posts a new unit
    *
-   * @param params - data to be sent in the request body
-   * @returns {JQuery Deferred Object}
+   * @param params - data to send in the request
+   * @returns {Ember.Promise}
    */
   createUnit: function (params) {
     const courseId = params.courseId;
@@ -30,7 +30,16 @@ export default Ember.Object.extend({
       headers: this.defineHeaders(),
       data: JSON.stringify(params.unit)
     };
-    return Ember.$.ajax(url, options);
+
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function (responseData, textStatus, request) {
+          var unitId = request.getResponseHeader('location');
+          resolve(unitId);
+        }, function (error) {
+          reject(error);
+        });
+    });
   },
 
   defineHeaders: function () {
