@@ -1,6 +1,7 @@
 .content.modals.gru-course-new,
 .content.modals.gru-collection-new,
-.content.modals.gru-assessment-new {
+.content.modals.gru-assessment-new,
+.content.modals.gru-resource-new{
   background-color: transparent;
 
   .modal-header {
@@ -35,7 +36,7 @@
         }
 
         .gru-input {
-          width: 80%;
+          width: 100%;
         }
       }
 
@@ -76,6 +77,32 @@
 
 .content.modals.gru-course-new,
 .content.modals.gru-collection-new,
-.content.modals.gru-assessment-new {
+.content.modals.gru-assessment-new,
+.content.modals.gru-resource-new{
   width: 500px;
+}
+.content.modals.gru-resource-new{
+  .content{
+    height: 175px;
+    border: 1px solid $light-200;
+    border-radius: 6px;
+    background-color: $light-100;
+    > * {
+      margin-top: 20px;
+      float: left;
+    }
+    span.title{
+      font-size: $font-size-large;
+    }
+    .icon{
+      margin:25px 20px 0 20px;
+      color: $light-300;
+    }
+    label{
+      margin-top: 10px;
+    }
+    div{
+      width: 85%;
+    }
+  }
 }

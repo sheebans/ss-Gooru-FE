@@ -36,6 +36,7 @@ export default Ember.Component.extend({
   // Actions
   actions:{
     inputValueChange: function() {
+      this.set('rawInputValue',this.removeWhiteSpaces(this.get('rawInputValue')));
       this.set('value', this.get('rawInputValue'));
       this.set('isTyping', false);
     },
@@ -115,7 +116,7 @@ export default Ember.Component.extend({
    */
   showMessage: computed('attributeValidation.isDirty', 'isInvalid', 'didValidate', 'isTyping', function() {
     return (this.get('attributeValidation.isDirty') || this.get('didValidate')) && this.get('isInvalid') && !this.get('isTyping');
-  })
+  }),
 
   // -------------------------------------------------------------------------
   // Observers
@@ -123,6 +124,11 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-
+  /*
+  * Remove white spaces from input
+  */
+  removeWhiteSpaces:function(value){
+    return $.trim(value);
+  },
 
 });

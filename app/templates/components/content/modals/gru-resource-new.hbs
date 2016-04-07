@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{t "common.add-new-resource"}}</h4>
+</div>
+<div class="modal-body">
+    <form  {{action "createResource" on="submit"}}>
+        <div class="content">
+            <span class="icon">{{gru-icon name="link"}}</span>
+             <div>
+                <span class="title">{{t 'common.add-from-url'}}</span>
+                <label>
+                  <span>{{t 'common.enter-url'}}</span>
+                  {{validation.gru-input model=resource valuePath='url'}}
+                </label>
+              </div>
+        </div>
+        <div class="actions">
+            <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
+                <span aria-hidden="true">{{t 'common.cancel'}}</span>
+            </button>
+            <button type='submit' class="btn btn-primary add">{{t 'common.add'}}</button>
+        </div>
+    </form>
+</div>
