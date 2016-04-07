@@ -8,6 +8,8 @@ import ClassAdapter from 'gooru-web/adapters/content/class';
  */
 export default Ember.Service.extend(StoreMixin, {
 
+  session: Ember.inject.service(),
+
   classSerializer: null,
 
   classAdapter: null,
@@ -37,6 +39,22 @@ export default Ember.Service.extend(StoreMixin, {
       }, function(error) {
         reject(error);
       });
+    });
+  },
+
+  /**
+   * Return the list of classes related to a user
+   * @returns {RSVP.Promise}
+   */
+  findMyClasses: function() {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classAdapter').getMyClasses()
+          .then(function(response) {
+            resolve(service.get('classSerializer').normalizeClasses(response));
+          }, function(error) {
+            reject(error);
+          });
     });
   },
 
