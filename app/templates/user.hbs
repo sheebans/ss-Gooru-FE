@@ -1,6 +1,6 @@
 <div class="controller user row">
   <div class="greetings">
-    <h2>Hi {firstName}!</h2>
+    <span>Hi {{profile.firstName}}!</span>
     <p class="lead">
       You're currently in {#numerical} classes and teaching {#numerical} class.
     </p>
@@ -15,7 +15,26 @@
           </li>
       </ul>
   </div>
-  <div class="content">
-    {{outlet}}
+  <div class="content tab-content">
+    <div role="tabpanel" class="tab-pane active" id="active-classes">
+      {{#each myClasses.classes as |class|}}
+        {{#unless class.isArchived}}
+          <div>
+            <h5>{{class.title}} | {{class.code}}</h5>
+            <p>isStudent: {{class.isStudent}} | isArchived: {{class.isArchived}}</p>
+          </div>
+        {{/unless}}
+      {{/each}}
+    </div>
+    <div role="tabpanel" class="tab-pane" id="archived-classes">
+      {{#each myClasses.classes as |class|}}
+        {{#if class.isArchived}}
+          <div>
+            <h5>{{class.title}} | {{class.code}}</h5>
+            <p>isStudent: {{class.isStudent}} | isArchived: {{class.isArchived}}</p>
+          </div>
+        {{/if}}
+      {{/each}}
+    </div>
   </div>
 </div>
