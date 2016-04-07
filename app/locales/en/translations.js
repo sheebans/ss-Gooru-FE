@@ -11,9 +11,11 @@ export default {
     "add-assessment": "Add New Assessment",
     "add-collection": "Add New Collection",
     "add-course": "Add New Course",
+    "add-from-url":"Add from URL",
     "add-lessons": "Add Lessons",
     "add-new-lesson": "Add New Lesson",
     "add-new-unit": "Add New Unit",
+    "add-new-resource": "Add New Resource",
     "add-to": "Add To",
     "add-units": "Add Units",
     "anonymous_mode": "Anonymous Mode",
@@ -78,9 +80,11 @@ export default {
       "emotion-4": "I understand",
       "emotion-5": "I can explain"
     },
+    "enter-url":"Enter URL",
     "errors": {
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
+      "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again."
     },
     "explanation": "Explanation",

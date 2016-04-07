@@ -20,6 +20,28 @@ export default Ember.Service.extend({
     this.set('classAdapter', ClassAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
+  /**
+   * Creates a new class
+   *
+   * @param classData object with the class data
+   * @returns {Promise}
+   */
+  createClass: function(classData) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      let serializedClassData = service.get('classSerializer').serializeCreateClass(classData);
+      service.get('classAdapter').createClass({
+        body: serializedClassData
+      }).then(function(responseData, textStatus, request) {
+        let classId = request.getResponseHeader('location');
+        classData.set('id', classId);
+        resolve(classData);
+      }, function(error) {
+        reject(error);
+      });
+    });
+  },
+
   readClassInfo: function(classId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {

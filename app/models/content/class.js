@@ -3,7 +3,7 @@ import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations({
   title: validator('presence', true),
-  class_sharing:validator('presence', true)
+  classSharing: validator('presence', true)
 });
 
 /**

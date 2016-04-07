@@ -9,6 +9,19 @@ import ClassModel from 'gooru-web/models/content/class';
 export default Ember.Object.extend({
 
   /**
+   * Serialize a Class object into a JSON representation required by the Create Class endpoint
+   *
+   * @param classModel The Class model to be serialized
+   * @returns {Object} returns a JSON Object
+   */
+  serializeCreateClass: function(classModel) {
+    return {
+      title: classModel.get('title'),
+      class_sharing: classModel.get('classSharing')
+    };
+  }
+
+
    * Normalize the Read Class info endpoint response
    * @param payload is the endpoint response in JSON format
    * @returns {ClassModel} a class model object
