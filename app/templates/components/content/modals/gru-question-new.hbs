@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{t "common.add-new-question"}}</h4>
+</div>
+<div class="modal-body">
+    <form  {{action "createQuestion" on="submit"}}>
+        <label class="title">
+            <span class="required">{{t 'common.question-title'}}</span>
+          {{validation.gru-input model=question valuePath='title' maxlength=50}}
+        </label>
+        <label class="type">
+            <span class="required">{{t 'common.add-type-question'}}</span>
+        </label>
+        <div class="question-types text-center">
+          {{#each questionTypes as |question|}}
+              <div class="panel panel-default {{concat 'question-type-' question.type}} {{set-if-equal 'active' question.type selectedType}}" {{action 'selectType' question.type}}>
+                  <div class="panel-body">
+                    {{gru-icon name=question.icon}}
+                  </div>
+                  <div class="panel-footer">
+                    {{t (concat 'common.question-type.' question.type) }}
+                  </div>
+              </div>
+          {{/each}}
+        </div>
+        <div class="actions question-new">
+            <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
+                <span aria-hidden="true">{{t 'common.cancel'}}</span>
+            </button>
+            <button type="submit" class="btn btn-primary add">{{t 'common.add'}}</button>
+        </div>
+    </form>
+</div>

@@ -57,7 +57,7 @@ const Collection = Ember.Object.extend(Validations, {
    * Return a copy of the collection
    *
    * @function
-   * @return {Course}
+   * @return {Collection}
    */
   copy: function() {
 
