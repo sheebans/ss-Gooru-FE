@@ -1,35 +1,37 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="course-image" {{action 'selectCourse'}}>
-            <img class="img-responsive" src="{{course.imageUrl}}"/>
+            <img width='145px' height='145px;' class="img-responsive" src="{{course.imageUrl}}"/>
         </div>
         <div class="card-info">
             <div class="header">
                 <h6 class="course-title truncate" {{action 'selectCourse'}}>{{course.title}}</h6>
-              {{#if course.isPublic}}
+              {{#if course.isPublished}}
                   <span class="icon">{{gru-icon name="public"}}</span>
               {{/if}}
             </div>
             <div class="card-content">
                 <p class="subject truncate">
                   <span class="bars">
-                     <span class="total-units">{{course.totalUnits}} {{t "cards.gru-course-card.units"}}</span>
+                     <span class="total-units">{{course.unitCount}} {{t "cards.gru-course-card.units"}}</span>
                   </span>
                   {{subjects}}
                 </p>
             </div>
             <div class="remixed-users">
-                <span class="remixed">{{t "cards.gru-course-card.remixed-by"}}</span>
-                <span class="users-teaser">{{gru-user-teaser users=users}}</span>
+                {{#if users}}
+                  <span class="remixed">{{t "cards.gru-course-card.remixed-by"}}</span>
+                  <span class="users-teaser">{{gru-user-teaser users=users}}</span>
+                {{/if}}
             </div>
           <div>
             {{#if isOwner}}
                 <div class="edit-button">
                     <button class="btn btn-sm btn-success" {{action 'editCourse'}}>{{t "common.edit"}}</button>
                 </div>
-                <span class="icon {{if course.isPublic 'hidden' 'show'}}">{{gru-icon name="visibility_off"}}</span>
+                <span class="icon {{if course.isVisibleOnProfile 'hidden' 'show'}}">{{gru-icon name="visibility_off"}}</span>
             {{else}}
-              {{#if course.isPublic}}
+              {{#if course.isPublished}}
                   <div class="remix-button">
                       <button class="btn btn-sm btn-success" {{action 'remixCourse'}}>{{t "common.remix"}}</button>
                   </div>
@@ -39,5 +41,3 @@
         </div>
     </div>
 </div>
-
-

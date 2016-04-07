@@ -1,0 +1,23 @@
+<div class="controller profile-courses">
+  <div class="category-menu">
+    <ul class="nav nav-tabs category-options">
+      <li>
+        <a href='#' class="btn btn-category">
+          <span>Place</span>
+          <span>Holder</span>
+        </a>
+          </li>
+      <li>
+        <a href='#' class="btn btn-category">
+          <span>Place</span>
+          <span>Holder</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="course-content">
+    {{#each courses as |course|}}
+      {{cards.gru-course-card course=course isOwner=true}}
+    {{/each}}
+  </div>
+</div>

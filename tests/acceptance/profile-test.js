@@ -45,13 +45,13 @@ test('menu option \'about\' is selected when navigating directly to profile.abou
   });
 });
 
-test('menu option \'content\' is selected when navigating directly to profile.content', function (assert) {
+test('menu option \'content/courses \' is selected when navigating directly to profile.content', function (assert) {
   visit('/profile/pochita/content');
 
   andThen(function () {
     var $menu = find('.controller.profile > .navigation .profile-menu');
 
-    assert.equal(currentURL(), '/profile/pochita/content');
+    assert.equal(currentURL(), '/profile/pochita/content/courses');
     assert.ok($menu.find('.content').hasClass('selected'), 'Menu option \'content\' should be selected');
   });
 });

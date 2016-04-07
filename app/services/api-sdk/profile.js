@@ -2,7 +2,7 @@ import Ember from 'ember';
 import ProfileSerializer from 'gooru-web/serializers/profile/profile';
 import CourseSerializer from 'gooru-web/serializers/content/course';
 import ProfileAdapter from 'gooru-web/adapters/profile/profile';
-import ProfileCourseAdapter from 'gooru-web/adapters/profile/course';
+import ProfileCoursesAdapter from 'gooru-web/adapters/profile/courses';
 
 
 /**
@@ -26,7 +26,7 @@ export default Ember.Service.extend({
     this.set('profileSerializer', ProfileSerializer.create());
     this.set('courseSerializer', CourseSerializer.create());
     this.set('profileAdapter', ProfileAdapter.create(Ember.getOwner(this).ownerInjection()));
-    this.set('profileCourseAdapter', ProfileCourseAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set('profileCourseAdapter', ProfileCoursesAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
   /**

@@ -4,17 +4,18 @@
       color: $white;
     }
     .profile-info {
-
-      text-align: center;
       padding: 15px 0 7px;
+      text-align: center;
 
       > .actions {
         margin: 28px 0;
         position: relative;
+
         button {
-          width: 70%;
           border: 1px solid $white;
           font-size: 15px;
+          width: 70%;
+
           &:active {
             background: none;
           }
@@ -205,14 +206,15 @@
   }
   > .content {
     height: 100%;
+    /*This code must be more specific, it is adding properties to the course page which are hard to remove because it is so highly nested.*/
     >div:last-child {
-      padding: 20px 0;
+      //padding: 20px 0;
       >*{
         @media (min-width: $screen-sm-min) {
-          padding: 0 65px;
+          //padding: 0 65px;
         }
         @media (min-width: $screen-md-min) {
-          padding: 0 56px;
+          //padding: 0 56px;
         }
       }
 

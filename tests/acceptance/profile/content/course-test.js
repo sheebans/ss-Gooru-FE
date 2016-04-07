@@ -3,7 +3,7 @@ import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 import T from 'gooru-web/tests/helpers/assert';
 
-moduleForAcceptance('Acceptance | profile content course', {
+moduleForAcceptance('Acceptance | profile content courses', {
   beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: false,
@@ -16,12 +16,14 @@ moduleForAcceptance('Acceptance | profile content course', {
 });
 
 test('Layout', function(assert) {
-  visit('/profile/pochita/content/course');
+  visit('/profile/pochita/content/courses');
 
   andThen(function() {
-    assert.equal(currentURL(), '/profile/pochita/content/course');
+    assert.equal(currentURL(), '/profile/pochita/content/courses');
 
-    const $contentCourseContainer = find(".controller.content-course");
-    T.exists(assert, $contentCourseContainer, "Missing content course container");
+    const $contentCourseContainer = find(".controller.profile-courses");
+    T.exists(assert, $contentCourseContainer, "Missing content courses container");
+    T.exists(assert, $contentCourseContainer.find(".course-content >div:first-child .card-info .course-title"), "Missing player navigation");
+    assert.equal(T.text($contentCourseContainer.find(".course-content >div:first-child .card-info .course-title")), "Jeff Course07", "Incorrect collections button text");
   });
 });

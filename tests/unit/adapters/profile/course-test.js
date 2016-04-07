@@ -1,7 +1,7 @@
 import { test } from 'ember-qunit';
 import moduleForAdapter from 'gooru-web/tests/helpers/module-for-adapter';
 
-moduleForAdapter('adapter:profile/course', 'Unit | Adapter | profile/course', {
+moduleForAdapter('adapter:profile/courses', 'Unit | Adapter | profile/courses', {
   // needs: []
 });
 
@@ -19,4 +19,3 @@ test('getCourses', function(assert) {
     });
 
 });
-
