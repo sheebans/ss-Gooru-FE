@@ -45,7 +45,7 @@ const Validations = buildValidations({
     }),
     validator('format', {
       regex: /^\w+$/,
-      message: "Please don't use special characters"
+      message: "Please don't use special characters."
     })
   ],
 
@@ -56,7 +56,7 @@ const Validations = buildValidations({
     }),
     validator('format', {
       regex: /^\w+$/,
-      message: "Please don't use special characters"
+      message: "Please don't use special characters."
     }),
     validator(function(value,options,model/* ,attribute*/) {
       return value !== model.get('password') ? `Passwords do not match.` : true ;

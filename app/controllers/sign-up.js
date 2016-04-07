@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import User from 'gooru-web/models/profile/profile';
+import Profile from 'gooru-web/models/profile/profile';
 
 export default Ember.Controller.extend({
 
@@ -13,9 +13,9 @@ export default Ember.Controller.extend({
 
     next: function() {
       const controller = this;
-      const user = controller.get('user');
+      const profile = controller.get('profile');
       const validDate = controller.validDateSelectPicker();
-      user.validate().then(function ({model, validations}) {
+      profile.validate().then(function ({model, validations}) {
        if (validations.get('isValid') && validDate!=='') {
           //to do
         }
@@ -32,30 +32,30 @@ export default Ember.Controller.extend({
    */
   init() {
     this._super(...arguments);
-    var user = User.create(Ember.getOwner(this).ownerInjection(), {
+    var profile = Profile.create(Ember.getOwner(this).ownerInjection(), {
                   username: null,
                   password: null,
                   firstName: null,
                   lastName: null,
                   email: null
                 });
-    this.set('user', user);
+    this.set('profile', profile);
   },
 
   /**
    * willDestroyElement event
    */
   willDestroyElement: function(){
-    this.set('user', null);
+    this.set('profile', null);
   },
 
   // -------------------------------------------------------------------------
   // Properties
 
   /**
-   * @type {Profile} user
+   * @type {Profile} profile
    */
-  user: null,
+  profile: null,
 
   /**
    * To show error birth message or not
