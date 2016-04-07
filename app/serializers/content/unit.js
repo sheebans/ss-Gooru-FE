@@ -17,8 +17,8 @@ export default Ember.Object.extend({
   serializeCreateUnit: function (unitModel) {
     return {
       title: unitModel.get('title'),
-      big_ideas: unitModel.get('description'),
-      essential_questions: unitModel.get('thumbnailUrl'),
+      big_ideas: unitModel.get('bigIdeas'),
+      essential_questions: unitModel.get('essentialQuestions'),
       taxonomy: [],   // TODO: pending
       creator_system: CREATOR_SYSTEM
     };
