@@ -1,6 +1,4 @@
 import Ember from 'ember';
-import StoreMixin from '../../mixins/store';
-import SessionMixin from '../../mixins/session';
 import CollectionSerializer from 'gooru-web/serializers/content/collection';
 import CollectionAdapter from 'gooru-web/adapters/content/collection';
 
@@ -8,7 +6,12 @@ import CollectionAdapter from 'gooru-web/adapters/content/collection';
 /**
  * @typedef {Object} CollectionService
  */
-export default Ember.Service.extend(StoreMixin, SessionMixin, {
+export default Ember.Service.extend({
+
+  /**
+   * @property {Store} Store service
+   */
+  store: Ember.inject.service(),
 
   /**
    * @property {CollectionSerializer} collectionSerializer

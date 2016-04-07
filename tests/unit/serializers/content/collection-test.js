@@ -11,7 +11,7 @@ test('serializeCreateCollection', function(assert) {
   });
   const expected = {
     title: 'collection-title',
-    learningObjective: 'any'
+    learning_objective: 'any'
   };
   const response = serializer.serializeCreateCollection(collectionObject);
   assert.deepEqual(expected, response, 'Wrong serialized response');
