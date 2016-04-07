@@ -88,5 +88,22 @@
       "body": "File not found!",
       "file": "any-class-info-200-response.json"
     }
+  },
+  {
+    "description": "Create a class",
+    "request": {
+      "url": "^/api/nucleus/v1/classes$",
+      "method": "POST",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "text/plain",
+        "Location": "2d84ab6c-10ee-4578-b89a-6b41c87dc9fc"
+      }
+    }
   }
 ]
