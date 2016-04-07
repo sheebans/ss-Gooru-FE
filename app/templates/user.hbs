@@ -1,18 +1,8 @@
 <div class="controller user row">
   <div class="greetings">
-    <h2>Hi {{profile.firstName}}!</h2>
+    <span>Hi {{profile.firstName}}!</span>
     <p class="lead">
-      {{t "user.welcome-message"}}
-      {{#if (eq myClasses.memberList.length 1)}}
-        {{t "user.member-class" count=myClasses.memberList.length}}
-      {{else}}
-        {{t "user.member-classes" count=myClasses.memberList.length}}
-      {{/if}}
-      {{#if (eq myClasses.ownerList.length 1)}}
-        {{t "user.teaching-class" count=myClasses.ownerList.length}}
-      {{else}}
-        {{t "user.teaching-classes" count=myClasses.ownerList.length}}
-      {{/if}}
+      You're currently in {#numerical} classes and teaching {#numerical} class.
     </p>
   </div>
   <div class="navigator">
