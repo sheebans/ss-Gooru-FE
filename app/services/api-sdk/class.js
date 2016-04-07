@@ -1,10 +1,62 @@
 import Ember from 'ember';
 import StoreMixin from '../../mixins/store';
+import ClassSerializer from 'gooru-web/serializers/content/class';
+import ClassAdapter from 'gooru-web/adapters/content/class';
 
 /**
  * @typedef {Object} ClassService
  */
 export default Ember.Service.extend(StoreMixin, {
+
+  session: Ember.inject.service(),
+
+  classSerializer: null,
+
+  classAdapter: null,
+
+  init: function () {
+    this._super(...arguments);
+    this.set('classSerializer', ClassSerializer.create());
+    this.set('classAdapter', ClassAdapter.create(Ember.getOwner(this).ownerInjection()));
+  },
+
+  /**
+   * Creates a new class
+   *
+   * @param classData object with the class data
+   * @returns {Promise}
+   */
+  createClass: function(classData) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      let serializedClassData = service.get('classSerializer').serializeCreateClass(classData);
+      service.get('classAdapter').createClass({
+        body: serializedClassData
+      }).then(function(responseData, textStatus, request) {
+        let classId = request.getResponseHeader('location');
+        classData.set('id', classId);
+        resolve(classData);
+      }, function(error) {
+        reject(error);
+      });
+    });
+  },
+
+  /**
+   * Return the list of classes related to a user
+   * @returns {RSVP.Promise}
+   */
+  findMyClasses: function() {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classAdapter').getMyClasses()
+          .then(function(response) {
+            resolve(service.get('classSerializer').normalizeClasses(response));
+          }, function(error) {
+            reject(error);
+          });
+    });
+  },
 
   /**
    * Returns the list of the classes the user is joined (as student).

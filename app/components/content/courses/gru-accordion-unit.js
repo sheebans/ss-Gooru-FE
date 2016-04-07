@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import AccordionMixin from '../../../mixins/gru-accordion';
+import BuilderMixin from 'gooru-web/mixins/content/builder';
 
 /**
  * Content Builder: Accordion Unit
@@ -11,7 +11,7 @@ import AccordionMixin from '../../../mixins/gru-accordion';
  * @augments Ember/Component
  * @mixes mixins/gru-accordion
  */
-export default Ember.Component.extend(AccordionMixin, {
+export default Ember.Component.extend(BuilderMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -36,15 +36,23 @@ export default Ember.Component.extend(AccordionMixin, {
 
   actions: {
 
+    add: function () {
+      this.get('onExpandUnit')();
+      this.set('model.isExpanded', true);
+    },
+
+    addLesson: function () {
+      Ember.Logger.info('Add new lesson');
+    },
+
     /**
      * Load the data for this unit (data should only be loaded once)
      *
      * @function actions:selectUnit
      */
     cancelEdit: function () {
-      var unit = this.get('model');
-      if (!unit.get('id')) {
-        this.get('onCancelAddUnit')(unit);
+      if (this.get('model.isNew')) {
+        this.get('onCancelAddUnit')(this.get('model'));
       } else {
         // TODO: If the item already exists, set it's 'editing' flag to false
         // and restore its model
@@ -59,41 +67,30 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     selectUnit: function () {
       this.loadData();
+    },
+
+    toggle: function () {
+      var toggleValue = !this.get('model.isExpanded');
+      this.get('onExpandUnit')();
+      this.set('model.isExpanded', toggleValue);
     }
 
   },
 
   // -------------------------------------------------------------------------
   // Events
-
-  setupComponent: Ember.on('didInsertElement', function () {
-    const component = this;
-
-    this.$().on('hide.bs.collapse', function (e) {
-      e.stopPropagation();
-      component.set('isExpanded', false);
-    });
-
-    this.$().on('show.bs.collapse', function (e) {
-      e.stopPropagation();
-      component.set('isExpanded', true);
-    });
+  initData: Ember.on('init', function () {
+    this.set('items', Ember.A());
   }),
 
-  removeSubscriptions: Ember.on('willDestroyElement', function () {
-    this.$().off('hide.bs.collapse');
-    this.$().off('show.bs.collapse');
-  }),
 
   // -------------------------------------------------------------------------
   // Properties
 
   /**
-   * Contains only visible units
-   * @property {Unit[]} units
+   * @prop {Content/Unit} unit
    */
-  lessons: null,
-
+  unit: Ember.computed.alias('model.data'),
 
   // -------------------------------------------------------------------------
   // Methods
