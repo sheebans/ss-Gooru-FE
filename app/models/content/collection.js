@@ -36,7 +36,7 @@ const Collection = Ember.Object.extend(Validations, {
   /**
    * @property {String} learningObjectives
    */
-  learningObjectives: '',
+  learningObjectives: null,
 
   /**
    * @property {String} title
