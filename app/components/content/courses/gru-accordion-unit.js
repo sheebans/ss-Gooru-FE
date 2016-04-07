@@ -17,9 +17,24 @@ export default Ember.Component.extend(BuilderMixin, {
   // Dependencies
 
   /**
+   * @requires service:i18n
+   */
+  i18n: Ember.inject.service(),
+
+  /**
    * @requires service:api-sdk/lesson
    */
   lessonService: Ember.inject.service("api-sdk/lesson"),
+
+  /**
+   * @requires service:notifications
+   */
+  notifications: Ember.inject.service(),
+
+  /**
+   * @requires service:api-sdk/unit
+   */
+  unitService: Ember.inject.service("api-sdk/unit"),
 
 
   // -------------------------------------------------------------------------
@@ -60,6 +75,24 @@ export default Ember.Component.extend(BuilderMixin, {
       }
     },
 
+    saveUnit: function () {
+      var courseId = this.get('courseId');
+      var unit = this.get('unit');
+
+      this.get('unitService')
+        .createUnit(courseId, unit)
+
+        .then(function (unitId) {
+          unit.set('id', unitId);
+          this.set('model.isEditing', false);
+        }.bind(this))
+
+        .catch(function () {
+          var message = this.get('i18n').t('common.errors.unit-not-created').string;
+          this.get('notifications').error(message);
+        }.bind(this));
+    },
+
     /**
      * Load the data for this unit (data should only be loaded once)
      *
@@ -86,6 +119,11 @@ export default Ember.Component.extend(BuilderMixin, {
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * @prop {String} course - ID of the course this unit belongs to
+   */
+  courseId: null,
 
   /**
    * @prop {Content/Unit} unit
