@@ -7,10 +7,10 @@ import Ember from 'ember';
  */
 export default Ember.Object.extend({
 
-  session: Ember.inject.service('session'),
+  session: Ember.inject.service(),
 
   namespace: function (courseId) {
-    return `/api/nucleus/v1/courses/${courseId}/units`
+    return `/api/nucleus/v1/courses/${courseId}/units`;
   },
 
   /**
