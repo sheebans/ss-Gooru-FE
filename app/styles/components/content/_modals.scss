@@ -36,7 +36,7 @@
         }
 
         .gru-input {
-          width: 100%;
+          width: 80%;
         }
       }
 
@@ -98,11 +98,15 @@
       margin:25px 20px 0 20px;
       color: $light-300;
     }
-    label{
-      margin-top: 10px;
-    }
     div{
       width: 85%;
+
+      .url-label{
+        margin-top: 10px;
+        .gru-input {
+          width: 100%;
+        }
+      }
     }
   }
 }
