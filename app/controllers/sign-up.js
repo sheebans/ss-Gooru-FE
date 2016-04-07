@@ -15,15 +15,12 @@ export default Ember.Controller.extend({
       const controller = this;
       const user = controller.get('user');
       const validDate = controller.validDateSelectPicker();
-
-      user.validate().then(function ({ model, validations }) {
-        if (validations.get('isValid') && validDate) {
-
+      user.validate().then(function ({model, validations}) {
+       if (validations.get('isValid') && validDate!=='') {
           //to do
         }
         controller.set('didValidate', true);
       });
-
     }
   },
 
@@ -77,14 +74,12 @@ export default Ember.Controller.extend({
     var monthSelected = $('.selectpicker.months option:selected').val();
     var daySelected = $('.selectpicker.days option:selected').val();
     var yearSelected = $('.selectpicker.years option:selected').val();
+    var birthDayDate = '';
 
-    this.set('validDate', true);
-
-    if (!monthSelected || !daySelected || !yearSelected){
-      this.set('validDate', false);
-      return false;
+    if (monthSelected || daySelected || yearSelected){
+      birthDayDate = monthSelected +'/'+ daySelected +'/'+ yearSelected;
     }
 
-    return true;
+    return birthDayDate;
   }
 });

@@ -93,7 +93,7 @@ export default Ember.Component.extend({
     var birthDays = [];
 
     for (let d = 1; d <= 31; d++) {
-      birthDays.push(d);
+      birthDays.push(("0"+d).slice(-2));
     }
 
     return birthDays;

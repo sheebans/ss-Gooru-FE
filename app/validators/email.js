@@ -8,12 +8,10 @@ export default BaseValidator.extend({
   validate(value) {
     if (value) {
       return this.get('profileService').checkEmailAvailability(value)
-        .then(function (availability) {
-          if (availability.get('availability')) {
-            return 'This Email id is already registered.';
-          } else {
-            return true;
-          }
+        .then(function() {
+          return true;
+        }, function(error) {
+          return error;
         });
     } else {
       return true;

@@ -8,12 +8,10 @@ export default BaseValidator.extend({
   validate(value) {
     if (value) {
       return this.get('profileService').checkUsernameAvailability(value)
-        .then(function (availability) {
-          if (availability.get('availability')) {
-            return 'This Username is taken.';
-          } else {
-            return true;
-          }
+        .then(function() {
+          return true;
+        }, function(error) {
+          return error;
         });
     } else {
       return true;

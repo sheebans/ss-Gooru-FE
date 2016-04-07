@@ -42,7 +42,7 @@
                         {{validation.gru-input model=user valuePath='username' }}
                       </label>
                     </div>
-                    {{gru-select-date-picker onChangeOption="changeOption"}}
+                    {{gru-select-date-picker wasSubmitted=didValidate}}
                     <div class="form-group firstName">
                       <label>
                         <span class="required">{{t "sign-up.firstName"}}</span>
