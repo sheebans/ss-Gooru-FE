@@ -57,7 +57,8 @@ export default Ember.Object.extend({
       thumbnailUrl: payload.thumbnail,
       taxonomy: payload.taxonomy,
       isVisibleOnProfile: payload['visible_on_profile'],
-      isPublished: payload['publish_status'] && payload['publish_status'] === 'published'
+      isPublished: payload['publish_status'] && payload['publish_status'] === 'published',
+      unitCount: payload['unit_count'] ? payload['unit_count'] : 0
       // TODO More properties will be added here...
     });
   }

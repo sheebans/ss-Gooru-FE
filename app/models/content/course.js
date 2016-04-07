@@ -69,6 +69,11 @@ const Course = Ember.Object.extend(Validations, {
   taxonomy: [],
 
   /**
+   * @property {Number} Number of units in the course
+   */
+  unitCount: 0,
+
+  /**
    * Return a copy of the course
    *
    * @function

@@ -44,7 +44,7 @@ test('normalizeGetCourses', function(assert) {
         "taxonomy": [],
         "sequence_id": 1,
         "visible_on_profile": true,
-        "unit_count": null,
+        "unit_count": 5,
         "owner_info": {
           "id": "08fd3a1a-8118-4b02-ab59-c0b4a5037863",
           "firstname": "Jeffrey",
@@ -88,7 +88,8 @@ test('normalizeGetCourses', function(assert) {
       thumbnailUrl: '74266efb-74eb-45de-a6a8-4052710af82c.png',
       taxonomy: [],
       isVisibleOnProfile: true,
-      isPublished: false
+      isPublished: false,
+      unitCount: 5
     }),
     CourseModel.create({
       id: '3fc882b2-dd9e-4957-9498-386984f156f7',
@@ -96,7 +97,8 @@ test('normalizeGetCourses', function(assert) {
       thumbnailUrl: '',
       taxonomy: [],
       isVisibleOnProfile: true,
-      isPublished: false
+      isPublished: false,
+      unitCount: 0
     })
   ];
   const normalizedCourses = serializer.normalizeGetCourses(coursesPayload);
