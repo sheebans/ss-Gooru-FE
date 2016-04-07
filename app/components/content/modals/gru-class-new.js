@@ -6,6 +6,21 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
+  /**
+   * @property {Service} Class service API SDK
+   */
+  classService: Ember.inject.service("api-sdk/class"),
+
+  /**
+   * @property {Service} I18N service
+   */
+  i18n: Ember.inject.service(),
+
+  /**
+   * @property {Service} Notifications service
+   */
+  notifications: Ember.inject.service(),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -17,10 +32,21 @@ export default Ember.Component.extend({
     actions: {
 
       createClass: function () {
+        const component = this;
         const newClass = this.get('newClass');
         newClass.validate().then(function ({ model, validations }) {
           if (validations.get('isValid')) {
-            Ember.logger("Class Valid");
+            component.get('classService')
+                .createClass(newClass)
+                .then(function(newClass) {
+                  component.get('router').transitionTo('class', { classId : newClass.get('id') });
+                },
+
+                function() {
+                  const message = this.get('i18n').t('common.errors.class-not-created').string;
+                  this.get('notifications').error(message);
+                }
+              );
           }
           this.set('didValidate', true);
         }.bind(this));
