@@ -1,28 +1,49 @@
 import Ember from 'ember';
-import ClassSerializer from 'gooru-web/serializers/class/class';
+import StoreMixin from '../../mixins/store';
+import ClassSerializer from 'gooru-web/serializers/content/class';
 import MyClassesSerializer from 'gooru-web/serializers/class/my-classes';
-import ClassAdapter from 'gooru-web/adapters/class/class';
+import ClassAdapter from 'gooru-web/adapters/content/class';
 
 /**
  * @typedef {Object} ClassService
  */
-export default Ember.Service.extend({
+export default Ember.Service.extend(StoreMixin, {
 
   session: Ember.inject.service(),
-
-  store: Ember.inject.service(),
-
-  classAdapter: null,
 
   classSerializer: null,
 
   myClassesSerializer: null,
 
+  classAdapter: null,
+
   init: function () {
     this._super(...arguments);
-    this.set('classAdapter', ClassAdapter.create(Ember.getOwner(this).ownerInjection()));
     this.set('classSerializer', ClassSerializer.create());
     this.set('myClassesSerializer', MyClassesSerializer.create());
+    this.set('classAdapter', ClassAdapter.create(Ember.getOwner(this).ownerInjection()));
+  },
+
+  /**
+   * Creates a new class
+   *
+   * @param classData object with the class data
+   * @returns {Promise}
+   */
+  createClass: function(classData) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      let serializedClassData = service.get('classSerializer').serializeCreateClass(classData);
+      service.get('classAdapter').createClass({
+        body: serializedClassData
+      }).then(function(responseData, textStatus, request) {
+        let classId = request.getResponseHeader('location');
+        classData.set('id', classId);
+        resolve(classData);
+      }, function(error) {
+        reject(error);
+      });
+    });
   },
 
   /**

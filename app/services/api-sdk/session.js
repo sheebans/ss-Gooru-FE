@@ -13,8 +13,22 @@ export default Ember.Service.extend({
   signInWithUser: function(credentials, useApi3) {
     return this.get('session').authenticate(useApi3 ? 'authenticator:auth-api-3' : 'authenticator:custom', {
       isAnonymous: false,
+      hasAccessToken: false,
       username: credentials.get('username'),
       password: credentials.get('password')
+    });
+  },
+
+  /**
+   * Creates a session with the specified access token
+   * @param token - the access token
+   * @returns {*|Ember.RSVP.Promise}
+   */
+  signInWithToken: function(token) {
+    return this.get('session').authenticate('authenticator:auth-api-3', {
+      isAnonymous: false,
+      hasAccessToken: true,
+      accessToken: token
     });
   }
 

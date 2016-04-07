@@ -6,6 +6,35 @@ moduleForService('service:api-sdk/class', 'Unit | Service | api-sdk/class', {
   needs: ['serializer:class/class', 'model:class/class', 'adapter:class/class']
 });
 
+test('createClass', function(assert) {
+  const service = this.subject();
+  let classModel = Ember.Object.create();
+
+  assert.expect(2);
+
+  // There is not a Adapter stub in this case
+  // Pretender was included because it is needed to simulate the response Headers including the Location value
+  this.pretender.map(function() {
+    this.post('/api/nucleus/v1/classes', function() {
+      return [201, {'Content-Type': 'text/plain', 'Location': 'class-id'}, ''];
+    }, false);
+  });
+
+  service.set('classSerializer', Ember.Object.create({
+    serializeCreateClass: function(classObject) {
+      assert.deepEqual(classObject, classModel, 'Wrong class object');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.createClass(classModel)
+      .then(function() {
+        assert.equal(classModel.get('id'), 'class-id', 'Wrong class id');
+        done();
+      });
+});
+
 test('findMyClasses', function(assert) {
   const service = this.subject();
   assert.expect(2);

@@ -36,7 +36,12 @@ export default Ember.Component.extend({
   // Actions
   actions:{
     inputValueChange: function() {
+      this.set('rawInputValue',this.removeWhiteSpaces(this.get('rawInputValue')));
       this.set('value', this.get('rawInputValue'));
+      this.set('isTyping', false);
+    },
+    inputTyping: function() {
+      this.set('isTyping', true);
     }
   },
 
@@ -81,6 +86,7 @@ export default Ember.Component.extend({
    * @param {Object} attributeValidation - value used to set the rawInputValue
    */
   attributeValidation: null,
+  isTyping: false,
 
   /**
    * @param {Computed } didValidate - value used to check if input has been validated or not
@@ -91,7 +97,7 @@ export default Ember.Component.extend({
    * @param {Computed } showErrorClass - computed property that defines the
    */
   showErrorClass: computed('showMessage', 'hasContent', 'attributeValidation', function() {
-    return this.get('attributeValidation') && this.get('showMessage') && !this.get('hasContent');
+    return this.get('attributeValidation') && this.get('showMessage') && this.get('hasContent');
   }),
   /**
    * @param {Computed } hasContent - computed property that defines whether the rawInputValue is null or not.
@@ -108,9 +114,9 @@ export default Ember.Component.extend({
   /**
    * @param {Computed } hasContent - computed property that defines what message to show
    */
-  showMessage: computed('attributeValidation.isDirty', 'isInvalid', 'hasContent', 'didValidate', function() {
-    return (this.get('attributeValidation.isDirty') || this.get('didValidate')) && this.get('isInvalid') && !this.get('hasContent');
-  })
+  showMessage: computed('attributeValidation.isDirty', 'isInvalid', 'didValidate', 'isTyping', function() {
+    return (this.get('attributeValidation.isDirty') || this.get('didValidate')) && this.get('isInvalid') && !this.get('isTyping');
+  }),
 
   // -------------------------------------------------------------------------
   // Observers
@@ -118,6 +124,11 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-
+  /*
+  * Remove white spaces from input
+  */
+  removeWhiteSpaces:function(value){
+    return $.trim(value);
+  },
 
 });

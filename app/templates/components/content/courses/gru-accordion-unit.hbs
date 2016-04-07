@@ -1,54 +1,74 @@
-{{#if model.isEditing}}
-  <li class="unit">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        {{#if model.id}}
-          <h3>{{t "common.unit"}} {{model.sequence}}</h3>
-        {{else}}
-          <h3>{{t "common.unit"}} {{totalItems}}</h3>
-        {{/if}}
+<div class="panel panel-default edit">
+  <div class="panel-heading">
+    {{#if model.id}}
+      <h3>{{t "common.unit"}} {{unit.sequence}}</h3>
+    {{else}}
+      <h3>{{t "common.unit"}} {{totalItems}}</h3>
+    {{/if}}
 
-        {{validation.gru-input model=model valuePath='title'}}
+    {{validation.gru-input model=unit valuePath='title'}}
 
-        <div class="actions">
-          <button class="cancel btn btn-info"  {{action 'cancelEdit'}}>{{t "common.cancel"}}</button>
-          <button class="save btn btn-success" {{action 'saveContent'}}>{{t "common.save"}}</button>
-        </div>
+    <div class="actions">
+      <button class="cancel btn btn-info"  {{action 'cancelEdit'}}>{{t "common.cancel"}}</button>
+      <button class="save btn btn-success" {{action 'saveContent'}}>{{t "common.save"}}</button>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-sm-6">
+        <label>
+          <span>{{t "content.courses.edit.big-ideas"}}</span>
+          <textarea>{{unit.bigIdeas}}</textarea>
+        </label>
       </div>
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-sm-6">
-            <label>
-              <span>{{t "content.courses.edit.big-ideas"}}</span>
-              <textarea>{{model.bigIdeas}}</textarea>
-            </label>
-          </div>
-          <div class="col-sm-6">
-            <label>
-              <span>{{t "content.courses.edit.essential-questions"}}</span>
-              <textarea>{{model.essentialQuestions}}</textarea>
-            </label>
-          </div>
-        </div>
+      <div class="col-sm-6">
+        <label>
+          <span>{{t "content.courses.edit.essential-questions"}}</span>
+          <textarea>{{unit.essentialQuestions}}</textarea>
+        </label>
+      </div>
+    </div>
 
-        <div class="domain">
-          <span>Domain</span>
-          <button type="button" class="btn btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
+    <div class="domain">
+      <span>Domain</span>
+      <button type="button" class="btn btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default view {{if model.isExpanded 'expanded' 'collapsed'}}">
+  <div class="panel-heading">
+    <h3><a href="#" {{action 'toggle'}}>{{t "common.unit"}} {{unit.sequence}}</a></h3>
+    <strong><a href="#" {{action 'toggle'}}>{{unit.title}}</a></strong>
+
+    <div class="detail">
+      {{#if totalSavedItems}}
+        <span><b>{{totalSavedItems}}</b> {{t "common.lessonObj" count=totalSavedItems}}</span>
+      {{else}}
+        <span>{{t "common.add-lessons"}}</span>
+      {{/if}}
+
+      <div class="actions">
+        <button class="btn add-item" {{action 'add'}}>{{gru-icon name="add"}}</button>
+        <button class="btn sort-items" {{action 'swap'}}>{{gru-icon name="swap_vert"}}</button>
+        <div>
+          <button class="btn edit-item" {{action 'edit' model}}>{{gru-icon name="edit"}}</button>
+          <button class="btn copy-item" {{action 'copy' model}}>{{gru-icon name="content_copy"}}</button>
+          <button class="btn move-item" {{action 'move' model}}>{{gru-icon name="subdirectory_arrow_right"}}</button>
+          <button class="btn delete-item" {{action 'delete' model}}>{{gru-icon name="delete"}}</button>
         </div>
       </div>
     </div>
-  </li>
+  </div>
+  <div class="panel-body">
 
-{{else}}
-  <li class="unit {{if isExpanded 'expanded' 'collapsed'}}">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3>{{t "common.unit"}} {{model.sequence}}</h3>
-        <strong>{{model.title}}</strong>
+    <ol class="accordion-unit" role="tablist" aria-multiselectable="true">
 
-      </div>
-      <div class="panel-body"></div>
-    </div>
-  </li>
+      <li class="lesson add-item">
+        <a class="add-prefix" href="#" {{action 'addLesson'}}>{{t "common.add-new-lesson"}}</a>
+      </li>
 
-{{/if}}
+    </ol>
+
+  </div>
+</div>

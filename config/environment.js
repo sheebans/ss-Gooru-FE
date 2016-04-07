@@ -73,6 +73,10 @@ module.exports = function (environment) {
     'anonymous-token-api-2.0': '00ed3b76-bffa-4372-90b0-00f886ce2584'
   };
 
+  ENV['google-sign-in'] = {
+    url: 'http://nucleus.gooru.org/api/nucleus-auth-idp/v1/google'
+  };
+
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;

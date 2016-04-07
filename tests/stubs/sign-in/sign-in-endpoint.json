@@ -71,5 +71,23 @@
       "body": "File not found!",
       "file": "sign-in-api3-anonymous-200-response.json"
     }
+  },
+  {
+    "description": "API 3.0 Sign in support for user with token",
+    "request": {
+      "url": "^/api/nucleus-auth/v1/token$",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "sign-in-token-api3-pochita-200-response.json"
+    }
   }
 ]
