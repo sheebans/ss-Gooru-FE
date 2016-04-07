@@ -7,7 +7,8 @@ const Validations = buildValidations({
       validator('presence', {
         presence: true,
         message: 'Please enter a username.'
-      })
+      }),
+      validator('username')
     ]
   },
 
@@ -51,7 +52,7 @@ const Validations = buildValidations({
   rePassword:[
     validator('presence', {
       presence: true,
-      message: 'Please confirm a password.'
+      message: 'Please confirm your password.'
     }),
     validator('format', {
       regex: /^\w+$/,

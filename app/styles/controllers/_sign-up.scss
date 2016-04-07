@@ -116,6 +116,7 @@
             }
             &.birth-day-date {
               margin-bottom: 30px;
+              display: block;
             }
             a.btn-link {
               padding: 0;
@@ -211,6 +212,12 @@
                   right: 5px;
                 }
               }
+            }
+            span.error {
+              color: $red-400;
+              display: inline-block;
+              font-size: 12px;
+              margin-top: 4px;
             }
           }
           .bootstrap-select.btn-group.dropup.open .dropdown-toggle .caret {

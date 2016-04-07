@@ -354,7 +354,8 @@ export default {
         november:"November",
         december:"December"
       },
-      "year": "Year"
+      "year": "Year",
+      "error-message": 'Please enter your birth date.'
     },
 
     "firstName": "First Name",

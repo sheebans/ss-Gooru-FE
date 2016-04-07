@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ProfileSerializer from 'gooru-web/serializers/profile/profile';
 import ProfileAdapter from 'gooru-web/adapters/profile/profile';
+import AvailabilityAdapter from 'gooru-web/adapters/profile/availability';
 
 /**
  * Service to support the Profile CRUD operations
@@ -22,6 +23,7 @@ export default Ember.Service.extend({
     this._super(...arguments);
     this.set('profileSerializer', ProfileSerializer.create());
     this.set('profileAdapter', ProfileAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set('availabilityAdapter', AvailabilityAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
   /**
@@ -111,6 +113,52 @@ export default Ember.Service.extend({
           resolve();
         }, function(error) {
           reject(error);
+        });
+    });
+  },
+
+  /**
+   * Checks if the username was already taken
+   * @param username
+   * @returns {Promise}
+   */
+  checkUsernameAvailability: function(username) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('availabilityAdapter').verifyUsername(username)
+        .then(function() {
+          reject('Aww, this username is taken. Try another.');
+        }, function(error) {
+
+          if(error.status===404 || error.status===500){
+            resolve();
+          }
+          else {
+            reject(error);
+          }
+        });
+    });
+  },
+
+  /**
+   * Checks if the email was already taken
+   * @param email
+   * @returns {Promise}
+   */
+  checkEmailAvailability: function(email) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('availabilityAdapter').verifyEmail(email)
+        .then(function() {
+          reject('This email is taken. Try another.');
+        }, function(error) {
+
+          if(error.status===404 || error.status===500){
+            resolve();
+          }
+          else {
+            reject(error);
+          }
         });
     });
   },

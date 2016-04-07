@@ -130,3 +130,91 @@ test('unfollowUserProfile', function(assert) {
       done();
     });
 });
+
+test('checkUsernameAvailability-User does not exist', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('availabilityAdapter', Ember.Object.create({
+    verifyUsername: function(username) {
+      assert.notEqual(username, 'other-username-value', 'Usernames should not be equal');
+      return Ember.RSVP.reject({ status: 404 });
+    }
+  }));
+
+  var done = assert.async();
+  service.checkUsernameAvailability('username-value')
+    .then(function() {
+      assert.ok(true);
+      done();
+    }, function() {
+      assert.ok(false, 'Username was not validated correctly');
+      done();
+    });
+});
+
+test('checkUsernameAvailability-User already exists', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('availabilityAdapter', Ember.Object.create({
+    verifyUsername: function(username) {
+      assert.equal(username, 'username-value', 'Usernames should be equal');
+      return Ember.RSVP.reject({ status: 200 });
+    }
+  }));
+
+  var done = assert.async();
+  service.checkUsernameAvailability('username-value')
+    .then(function() {
+      assert.ok(false, 'Username was not validated correctly');
+      done();
+    }, function() {
+      assert.ok(true);
+      done();
+    });
+});
+
+test('checkEmailAvailability-Email does not exist', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('availabilityAdapter', Ember.Object.create({
+    verifyEmail: function(email) {
+      assert.notEqual(email, 'other-email-value', 'Emails should not be equal');
+      return Ember.RSVP.reject({ status: 404 });
+    }
+  }));
+
+  var done = assert.async();
+  service.checkEmailAvailability('email-value')
+    .then(function() {
+      assert.ok(true);
+      done();
+    }, function() {
+      assert.ok(false, 'Email was not validated correctly');
+      done();
+    });
+});
+
+test('checkEmailAvailability-Email already exists', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('availabilityAdapter', Ember.Object.create({
+    verifyEmail: function(email) {
+      assert.equal(email, 'email-value', 'Emails should be equal');
+      return Ember.RSVP.reject({ status: 200 });
+    }
+  }));
+
+  var done = assert.async();
+  service.checkEmailAvailability('email-value')
+    .then(function() {
+      assert.ok(false, 'Email was not validated correctly');
+      done();
+    }, function() {
+      assert.ok(true);
+      done();
+    });
+});

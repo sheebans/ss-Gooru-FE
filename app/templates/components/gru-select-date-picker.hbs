@@ -1,0 +1,42 @@
+<div class="form-group birth-day-date">
+  <label>
+    <span class="required">{{t "sign-up.dateOfBirth.title"}}</span>
+    <div class="birth-months">
+      <select class="selectpicker months" data-live-search="true" title="{{t "sign-up.dateOfBirth.month"}}">
+        <option value="1">{{t "sign-up.dateOfBirth.months.january"}}</option>
+        <option value="2">{{t "sign-up.dateOfBirth.months.february"}}</option>
+        <option value="3">{{t "sign-up.dateOfBirth.months.march"}}</option>
+        <option value="4">{{t "sign-up.dateOfBirth.months.april"}}</option>
+        <option value="5">{{t "sign-up.dateOfBirth.months.may"}}</option>
+        <option value="6">{{t "sign-up.dateOfBirth.months.june"}}</option>
+        <option value="7">{{t "sign-up.dateOfBirth.months.july"}}</option>
+        <option value="8">{{t "sign-up.dateOfBirth.months.august"}}</option>
+        <option value="9">{{t "sign-up.dateOfBirth.months.september"}}</option>
+        <option value="10">{{t "sign-up.dateOfBirth.months.october"}}</option>
+        <option value="11">{{t "sign-up.dateOfBirth.months.november"}}</option>
+        <option value="12">{{t "sign-up.dateOfBirth.months.december"}}</option>
+      </select>
+    </div>
+    <div class="birth-days">
+      <select class="selectpicker days" data-live-search="true" title="{{t "sign-up.dateOfBirth.day"}}">
+        {{#each birthDays as |birthDay|}}
+          <option value="{{birthDay}}">{{birthDay}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="birth-years">
+      <select class="selectpicker years" data-live-search="true" title="{{t "sign-up.dateOfBirth.year"}}">
+        {{#each birthYears as |birthYear|}}
+          <option value="{{birthYear}}">{{birthYear}}</option>
+        {{/each}}
+      </select>
+    </div>
+  </label>
+  <div class="error-messages">
+    {{#if showBirthMessage}}
+      <span class="error">
+        {{t "sign-up.dateOfBirth.error-message"}}
+      </span>
+    {{/if}}
+  </div>
+</div>
