@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import StoreMixin from '../../mixins/store';
 import ClassSerializer from 'gooru-web/serializers/content/class';
-import MyClassesSerializer from 'gooru-web/serializers/class/my-classes';
 import ClassAdapter from 'gooru-web/adapters/content/class';
 
 /**
@@ -13,14 +12,11 @@ export default Ember.Service.extend(StoreMixin, {
 
   classSerializer: null,
 
-  myClassesSerializer: null,
-
   classAdapter: null,
 
   init: function () {
     this._super(...arguments);
     this.set('classSerializer', ClassSerializer.create());
-    this.set('myClassesSerializer', MyClassesSerializer.create());
     this.set('classAdapter', ClassAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
@@ -55,7 +51,7 @@ export default Ember.Service.extend(StoreMixin, {
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('classAdapter').getMyClasses()
           .then(function(response) {
-            resolve(service.get('myClassesSerializer').normalizeMyClasses(response));
+            resolve(service.get('classSerializer').normalizeClasses(response));
           }, function(error) {
             reject(error);
           });

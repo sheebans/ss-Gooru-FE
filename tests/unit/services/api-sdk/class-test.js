@@ -3,7 +3,11 @@ import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
 
 moduleForService('service:api-sdk/class', 'Unit | Service | api-sdk/class', {
-  needs: ['serializer:class/class', 'model:class/class', 'adapter:class/class']
+  needs: [
+    'serializer:class/class', 'serializer:content/class',
+    'model:class/class', 'model:content/class', 'model:content/classes',
+    'adapter:class/class', 'adapter:content/class'
+  ]
 });
 
 test('createClass', function(assert) {
@@ -46,18 +50,18 @@ test('findMyClasses', function(assert) {
     }
   }));
 
-  service.set('myClassesSerializer', Ember.Object.create({
-    normalizeMyClasses: function(myClassesPayload) {
-      assert.deepEqual({}, myClassesPayload, 'Wrong my classes payload');
+  service.set('classSerializer', Ember.Object.create({
+    normalizeClasses: function(classesPayload) {
+      assert.deepEqual({}, classesPayload, 'Wrong my classes payload');
       return {};
     }
   }));
 
   var done = assert.async();
   service.findMyClasses()
-      .then(function() {
-        done();
-      });
+    .then(function() {
+      done();
+    });
 });
 
 test('findClassesIJoined', function (assert) {
