@@ -20,7 +20,7 @@ export default BaseAuthenticator.extend({
     } else if(options.hasAccessToken) {
       return this.get('authenticationService').authenticateWithToken(options.accessToken);
     } else if(options.hasUserData) {
-      return new Ember.RSVP.Promise(function(resolve, reject) {resolve(options.user);});;
+      return new Ember.RSVP.Promise(function(resolve) {resolve(options.user);});
     } else {
       return this.get('authenticationService').authenticateWithCredentials(options.username, options.password);
     }
