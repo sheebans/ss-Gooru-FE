@@ -144,11 +144,13 @@ export default {
       "MC"     : "Multiple Choice",
       "FIB"    : "Fill In the Blank",
       "T/F"    : "True or False",
+      "T_F"    : "True or False",
       "MA"     : "Multiple Answer",
       "OE"     : "Open Ended",
       "HS_TXT" : "Hot Spot Text",
       "HS_IMG" : "Hot Spot Image",
       "HT_TO"  : "Hot Text Reorder",
+      "HT_RO"  : "Hot Text Reorder",
       "HT_HL"  : "Hot Text Highlight"
     },
     "reaction": "Reaction",

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Question from 'gooru-web/models/content/question';
-
+import {QUESTION_CONFIG} from 'gooru-web/config/question';
 export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
@@ -74,14 +74,33 @@ export default Ember.Component.extend({
   /**
    * @type {Array{}} questionTypes
    */
-  questionTypes: Ember.A([{
-    type:"MC"},{
-    type:"MA"}, {
-    type:"HT_TO"},{
-    type:"HT_HL"},{
-    type:"T/F"},{
-    type:"FIB"},{
-    type:"HS_IMG"},{
-    type:"HS_TXT"}])
+  questionTypes: Ember.computed(function(){
+    let array = Ember.A(Object.keys(QUESTION_CONFIG)).without('OE');
+    this.move(array,6,2);
+    this.move(array,7,3);
+    this.move(array,7,6);
+    const $component = this;
+    let arrayTypes=array.map(function(item){
+      return $component.normalizeQuestionTypes(item);
+    });
+    return arrayTypes;
+  }),
+
+
+  //Methods
+  /*
+  * Replace / to _
+  * */
+  normalizeQuestionTypes: function(questionType) {
+    return questionType.replace('/', '_');
+  },
+  /*
+   * Move array object into array
+   * */
+  move(arr, fromIndex, toIndex) {
+  var element = arr[fromIndex];
+  arr.splice(fromIndex, 1);
+  arr.splice(toIndex, 0, element);
+}
 
 });

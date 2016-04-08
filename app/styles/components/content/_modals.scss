@@ -75,6 +75,16 @@
             border-top-right-radius: 4px;
             background-color:$blue-400;
             padding: 10px 15px 10px 15px;
+
+            .question-type-icon{
+              display: inline-block;
+              margin: 0 auto;
+              vertical-align: top;
+              -webkit-background-size: 70px 70px;
+              background-size: 70px 70px;
+              height: 70px;
+              width: 70px;
+            }
           }
           .panel-footer{
             border-bottom-left-radius: 4px;
@@ -84,81 +94,44 @@
             padding: 5px 15px 5px 15px;
           }
         }
-        i {
-          display: inline-block;
-          margin: 0 auto;
-          vertical-align: top;
-        }
         .question-type-MC{
           i{
             background: url("gooru/images/multiple-choice.svg");
-            -webkit-background-size: 70px 70px;
-            background-size: 70px 70px;
-            height: 70px;
-            width: 70px;
           }
         }
         .question-type-MA{
           i{
             background: url("gooru/images/multiple-answer.svg");
-            -webkit-background-size: 70px 70px;
-            background-size: 70px 70px;
-            height: 70px;
-            width: 70px;
           }
         }
-        .true-false{
+        .question-type-T_F{
           i{
             background: url("gooru/images/true-false.svg");
-            -webkit-background-size: 70px 70px;
-            background-size: 70px 70px;
-            height: 70px;
-            width: 70px;
           }
         }
         .question-type-FIB{
           i{
             background: url("gooru/images/fill-in-the-blank.svg");
-            -webkit-background-size: 70px 70px;
-            background-size: 70px 70px;
-            height: 70px;
-            width: 70px;
           }
         }
         .question-type-HS_IMG{
           i{
             background: url("gooru/images/hs-image.svg");
-            -webkit-background-size: 70px 70px;
-            background-size: 70px 70px;
-            height: 70px;
-            width: 70px;
           }
         }
         .question-type-HS_TXT{
           i{
             background: url("gooru/images/hs-text.svg");
-            -webkit-background-size: 70px 70px;
-            background-size: 70px 70px;
-            height: 70px;
-            width: 70px;
           }
         }
         .question-type-HT_HL{
            i{
              background: url("gooru/images/hot-text.svg");
-             -webkit-background-size: 70px 70px;
-             background-size: 70px 70px;
-             height: 70px;
-             width: 70px;
            }
          }
-        .question-type-HT_TO{
+        .question-type-HT_RO{
           i{
             background: url("gooru/images/hot-text-reorder.svg");
-            -webkit-background-size: 70px 70px;
-            background-size: 70px 70px;
-            height: 70px;
-            width: 70px;
           }
         }
       }

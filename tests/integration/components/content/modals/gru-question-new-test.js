@@ -24,7 +24,7 @@ test('Question New Layout', function(assert) {
   assert.ok($component.find('.question-type-MC'), 'Missing Multiple Choice Type');
   assert.ok($component.find('.question-type-MA'), 'Missing Multiple Answer Type');
   assert.ok($component.find('.question-type-HT_TO'), 'Missing Order List Type');
-  assert.ok($component.find('.true-false'), 'Missing True/False Type');
+  assert.ok($component.find('.T_F'), 'Missing True/False Type');
   assert.ok($component.find('.question-type-HT_HL'), 'Missing Hot Text Highlight Type');
   assert.ok($component.find('.question-type-FIB'), 'Missing Fill in the blanks Type');
   assert.ok($component.find('.question-type-HS_IMG'), 'Missing Hot Spot Image Type');
