@@ -190,7 +190,7 @@ test('normalizeGetCourses', function(assert) {
     }
   };
   const expected = [
-    CourseModel.create({
+    Course.create({
       id: '2fd4971b-68bc-42c9-8f02-e8fc16996363',
       title: 'Course Test Jeff01',
       thumbnailUrl: '74266efb-74eb-45de-a6a8-4052710af82c.png',
@@ -199,7 +199,7 @@ test('normalizeGetCourses', function(assert) {
       isPublished: false,
       unitCount: 5
     }),
-    CourseModel.create({
+    Course.create({
       id: '3fc882b2-dd9e-4957-9498-386984f156f7',
       title: 'Jeff Course02',
       thumbnailUrl: '',

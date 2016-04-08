@@ -41,14 +41,33 @@ export default Ember.Object.extend({
   },
 
   /**
-   * Normalize a class response
-   * @param courseData - The endpoint response in JSON format
-   * @returns {Content/Course} course model
+   * Normalize an array of courses
+   *
+   * @param payload endpoint response format in JSON format
+   * @returns {CourseModel[]} a CourseModel array
    */
-  normalizeCourse: function (courseData) {
-    var serializer = this;
+  normalizeGetCourses: function(courseData) {
+    const serializer = this;
+    if (courseData.courses) {
+      return courseData.courses.map(function (course) {
+        return serializer.normalizeCourse(course);
+      });
+    } else {
+      return [];
+    }
+  },
 
-    return Course.create(Ember.getOwner(this).ownerInjection(), {
+
+  /**
+  * Normalize a class response
+  *
+  * @param courseData - The endpoint response in JSON format
+  * @returns {Content/Course} course model
+  */
+  
+  normalizeCourse: function(courseData) {
+    const serializer = this;
+    return Course.create(Ember.getOwner(serializer).ownerInjection(),{
       children: function () {
         var units = [];
         if (courseData.unitSummary) {
@@ -63,14 +82,15 @@ export default Ember.Object.extend({
         return units;
       }(),
       id: courseData.id,
-      isPublic: courseData.visible_on_profile,
       title: courseData.title,
       description: courseData.description,
       thumbnailUrl: courseData.thumbnail,
-      isVisibleOnProfile: courseData.visible_on_profile,
+      taxonomy: courseData.taxonomy.slice(0),
       audience: courseData.audience.slice(0),
-      subject: courseData.subject_bucket,
-      taxonomy: courseData.taxonomy.slice(0)
+      isVisibleOnProfile: courseData['visible_on_profile'],
+      isPublished: courseData['publish_status'] && courseData['publish_status'] === 'published',
+      unitCount: courseData['unit_count'] ? courseData['unit_count'] : 0
+      // TODO More properties will be added here...
     });
   }
 
