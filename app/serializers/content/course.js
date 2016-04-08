@@ -17,7 +17,7 @@ export default Ember.Object.extend({
    * @returns {Object} returns a JSON Object
    */
   serializeCreateCourse: function(courseModel) {
-    courseData = this.get('serializeEditCourse')(courseModel);
+    var courseData = this.get('serializeUpdateCourse')(courseModel);
     courseData.creator_system = CREATOR_SYSTEM;
     return courseData;
   },

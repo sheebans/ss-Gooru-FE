@@ -20,7 +20,7 @@ test('Course creation, success', function (assert) {
       return [
         201,
         {
-          'Content-Type': 'text/plain',
+          'Content-Type': 'application/json; charset=utf-8',
           'Location': 'course-id-123'
         },
         ''];
@@ -49,7 +49,7 @@ test('Get course by ID', function (assert) {
       return [
         201,
         {
-          'Content-Type': 'application/json; charset=utf-8',
+          'Content-Type': 'application/json; charset=utf-8'
         },
         JSON.stringify(courseData)];
     });
@@ -59,5 +59,32 @@ test('Get course by ID', function (assert) {
   adapter.getCourseById('course-id-123')
     .then(function (response) {
       assert.deepEqual(response, courseData, 'Should respond with the corresponding course data');
+    });
+});
+
+test('Update course, success', function (assert) {
+  this.pretender.map(function () {
+    this.put('/api/nucleus/v1/courses/course-id-123', function () {
+      return [
+        204,
+        {
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        ''];
+    });
+  });
+
+  const adapter = this.subject();
+
+  const courseData = {
+    courseId: 'course-id-123',
+    course: {
+      title: 'Course Title'
+    }
+  };
+
+  adapter.updateCourse(courseData)
+    .then(function (response) {
+      assert.equal(response, '', 'Should respond with no content');
     });
 });

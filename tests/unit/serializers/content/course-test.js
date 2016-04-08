@@ -2,12 +2,14 @@ import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
 import Course from 'gooru-web/models/content/course';
 import Unit from 'gooru-web/models/content/unit';
+import { CREATOR_SYSTEM } from 'gooru-web/config/config';
 
 moduleFor('serializer:content/course', 'Unit | Serializer | content/course');
 
 test('serializeCreateCourse', function(assert) {
   const serializer = this.subject();
-  const courseObject = Course.create({
+
+  const course = Course.create({
     title: 'course-title',
     description: 'course-description',
     thumbnailUrl: 'course-thumbnail-url',
@@ -16,18 +18,45 @@ test('serializeCreateCourse', function(assert) {
     audience: [],
     subject: 'course-subject'
   });
+
   const expected = {
-    title: 'course-title',
-    description: 'course-description',
-    thumbnail: 'course-thumbnail-url',
-    'visible_on_profile': true,
+    title: course.title,
+    description: course.description,
+    thumbnail: course.thumbnailUrl,
+    visible_on_profile: course.isVisibleOnProfile,
     taxonomy: [],
     audience: [],
-    'subject_bucket': 'course-subject',
-    'creator_system': 'gooru'
+    'subject_bucket': course.subject,
+    'creator_system': CREATOR_SYSTEM
   };
-  const response = serializer.serializeCreateCourse(courseObject);
-  assert.deepEqual(expected, response, 'Wrong serialized response');
+  const courseObject = serializer.serializeCreateCourse(course);
+  assert.deepEqual(courseObject, expected, 'Serializer response');
+});
+
+test('serializeUpdateCourse', function (assert) {
+  const serializer = this.subject();
+
+  const course = Course.create({
+    title: 'course-title',
+    description: 'course-description',
+    thumbnailUrl: 'course-thumbnail-url',
+    isVisibleOnProfile: true,
+    taxonomy: [],
+    audience: [],
+    subject: 'course-subject'
+  });
+
+  const expected = {
+    title: course.title,
+    description: course.description,
+    thumbnail: course.thumbnailUrl,
+    visible_on_profile: course.isVisibleOnProfile,
+    taxonomy: [],
+    audience: [],
+    'subject_bucket': course.subject
+  };
+  const courseObject = serializer.serializeUpdateCourse(course);
+  assert.deepEqual(courseObject, expected, 'Serializer response');
 });
 
 test('normalizeCourse', function (assert) {
