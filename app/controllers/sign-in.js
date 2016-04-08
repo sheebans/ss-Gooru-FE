@@ -50,6 +50,7 @@ export default Ember.Controller.extend({
           controller.get("sessionService")
             .signInWithUser(user, controller.get('useApi3'))
             .then(function() {
+              controller.set('didValidate', true);
               // Trigger action in parent
               controller.send('signIn');
             })
@@ -59,7 +60,6 @@ export default Ember.Controller.extend({
               }
             });
         }
-        controller.set('didValidate', true);
       });
     }
   },
