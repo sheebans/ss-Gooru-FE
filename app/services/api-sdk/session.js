@@ -14,6 +14,7 @@ export default Ember.Service.extend({
     return this.get('session').authenticate(useApi3 ? 'authenticator:auth-api-3' : 'authenticator:custom', {
       isAnonymous: false,
       hasAccessToken: false,
+      hasUserData: false,
       username: credentials.get('username'),
       password: credentials.get('password')
     });
@@ -28,7 +29,22 @@ export default Ember.Service.extend({
     return this.get('session').authenticate('authenticator:auth-api-3', {
       isAnonymous: false,
       hasAccessToken: true,
+      hasUserData: false,
       accessToken: token
+    });
+  },
+
+  /**
+   * Creates a session with the specified user
+   * @param user - the user data
+   * @returns {*|Ember.RSVP.Promise}
+   */
+  signUp: function(user) {
+    return this.get('session').authenticate('authenticator:auth-api-3', {
+      isAnonymous: false,
+      hasAccessToken: false,
+      hasUserData: true,
+      user
     });
   }
 

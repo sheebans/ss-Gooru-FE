@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ProfileModel from 'gooru-web/models/profile/profile';
+import Env from 'gooru-web/config/environment';
 
 /**
  * Serializer to support the Profile CRUD operations for API 3.0
@@ -46,10 +47,16 @@ export default Ember.Object.extend({
     };
   },
 
-  // TODO This method will be implemented later
   normalizeCreateProfile: function(payload) {
-    // This is a temporal response implementation
-    return { payload: payload};
+    return {
+      token: Env['API-3.0']['user-token-api-2.0'],
+      'token-api3': payload['access_token'],
+      user: {
+        username: payload.username,
+        gooruUId: payload['user_id']
+      },
+      isAnonymous: false
+    };
   },
 
   /**
