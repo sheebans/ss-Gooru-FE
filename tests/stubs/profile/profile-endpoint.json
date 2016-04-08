@@ -168,7 +168,7 @@
   {
     "description": "API 3.0 Endpoint to get a profile's courses",
     "request": {
-      "url": "^/api/nucleus/v1/profiles/pochita/courses",
+      "url": "^/api/nucleus/v1/profiles/(.+)/courses",
       "method": "GET",
       "headers": {
         "authorization": "Token (.+)"
