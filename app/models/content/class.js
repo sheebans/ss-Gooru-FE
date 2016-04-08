@@ -2,7 +2,11 @@ import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations({
-  title: validator('presence', true),
+  //TO DO We need to use i18n for error messages
+  title: validator('presence', {
+    presence: true,
+    message: 'Please give your class a name'
+  }),
   classSharing: validator('presence', true)
 });
 
