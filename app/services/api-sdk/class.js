@@ -42,12 +42,34 @@ export default Ember.Service.extend({
     });
   },
 
+  /**
+   * Reads class information for a specified class ID
+   * @param classId the class id to read
+   * @returns {Promise}
+   */
   readClassInfo: function(classId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('classAdapter').readClassInfo(classId)
         .then(function(response) {
           resolve(service.get('classSerializer').normalizeReadClassInfo(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
+  /**
+   * Gets the members, collaborators, invitees and owner for a specified class ID
+   * @param classId the class id to read
+   * @returns {Promise}
+   */
+  readClassMembers: function(classId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classAdapter').readClassMembers(classId)
+        .then(function(response) {
+          resolve(service.get('classSerializer').normalizeReadClassMembers(response));
         }, function(error) {
           reject(error);
         });

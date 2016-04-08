@@ -15,7 +15,7 @@ test('serializeCreateClass', function(assert) {
   };
   const response = serializer.serializeCreateClass(classObject);
   assert.deepEqual(expected, response, 'Wrong serialized response');
-moduleFor('serializer:content/class', 'Unit | Serializer | content/profile');
+});
 
 test('normalizeReadProfile', function(assert) {
   const serializer = this.subject();

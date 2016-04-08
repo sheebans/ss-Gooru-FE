@@ -42,20 +42,30 @@ export default Ember.Route.extend({
   model: function(params) {
     const route = this;
     const classId = params.classId;
-    const classPromise = this.get("classService").findById(classId);
-    const memberPromise = this.get("userService").findMembersByClass(classId);
+    //const classPromise = this.get("classService").findById(classId);
+    //const memberPromise = this.get("userService").findMembersByClass(classId);
+    const classPromise = route.get('classService').readClassInfo(classId);
+    const membersPromise = route.get('classService').readClassMembers(classId);
 
+
+
+    /*
     return classPromise.then(function(classObj) {
-        return route.get('unitService').findByClassAndCourse(classId, classObj.get('course')).then(function(units){
-          return route.get('courseService').findById(classObj.get('course')).then(function(course){
-            return Ember.RSVP.hash({
-              class: classObj,
-              course: course,
-              units: units,
-              members: memberPromise
-            });
+      return route.get('unitService').findByClassAndCourse(classId, classObj.get('course')).then(function(units){
+        return route.get('courseService').findById(classObj.get('course')).then(function(course){
+          return Ember.RSVP.hash({
+            class: classObj,
+            course: course,
+            units: units,
+            members: memberPromise
           });
         });
+      });
+    });
+    */
+    return Ember.RSVP.hash({
+      class: classPromise,
+      members: membersPromise
     });
 
   },
@@ -66,10 +76,16 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
+    let classModel = model.class;
+    console.log(model.members);
+    classModel.set('owner', model.members.get('owner'));
+    classModel.set('collaborators', model.members.get('collaborators'));
+    classModel.set('members', model.members.get('members'));
+
     controller.set("class", model.class);
-    controller.set("course", model.course);
-    controller.set("units", model.units);
-    controller.set("members", model.members);
+    //controller.set("course", model.course);
+    //controller.set("units", model.units);
+    //controller.set("members", model.members);
   },
 
   // -------------------------------------------------------------------------

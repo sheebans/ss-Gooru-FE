@@ -49,26 +49,37 @@ const Class = Ember.Object.extend(Validations, {
   /**
    * @property {String} Minimum score for class.
    */
-  minScore:'',
+  minScore: '',
 
   /**
-   *
+   * @property {Date} Start date of class
+   */
+  startDate: null,
+
+  /**
    * @property {Date} End date of class
    */
+  endDate: null,
 
-   endDate:null,
   /**
-   *
-   * @property {Array} Collaborators on class
+   * @property {Array} Creator name
    */
+  creatorSystem: '',
 
-   collaborator:[],
+  /**
+   * @property {Object} Owner information
+   */
+  owner: Ember.Object.create({}),
 
-   /**
-    *
-    * @property {Array} Creator name
-    */
-   creatorSystem:'',
+  /**
+   * @property {Object[]} Collaborators on class
+   */
+  collaborators: [],
+
+  /**
+   * @property {Object[]} Members on class
+   */
+  members: []
 
 });
 
