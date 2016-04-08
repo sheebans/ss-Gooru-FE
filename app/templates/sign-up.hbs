@@ -39,38 +39,38 @@
                     <div class="form-group username">
                       <label>
                         <span class="required">{{t "sign-up.username"}}</span>
-                        {{validation.gru-input model=user valuePath='username' }}
+                        {{validation.gru-input model=profile valuePath='username' }}
                       </label>
                     </div>
                     {{gru-select-date-picker wasSubmitted=didValidate}}
                     <div class="form-group firstName">
                       <label>
                         <span class="required">{{t "sign-up.firstName"}}</span>
-                        {{validation.gru-input model=user valuePath='firstName' }}
+                        {{validation.gru-input model=profile valuePath='firstName' }}
                       </label>
                     </div>
                     <div class="form-group lastName">
                       <label>
                         <span class="required">{{t "sign-up.lastName"}}</span>
-                        {{validation.gru-input model=user valuePath='lastName' }}
+                        {{validation.gru-input model=profile valuePath='lastName' }}
                       </label>
                     </div>
                     <div class="form-group email">
                       <label>
                         <span class="required">{{t "sign-up.email"}}</span>
-                        {{validation.gru-input model=user valuePath='email' }}
+                        {{validation.gru-input model=profile valuePath='email' }}
                       </label>
                     </div>
                     <div class="form-group">
                       <label>
                         <span class="required">{{t "sign-up.password"}}</span>
-                        {{validation.gru-input model=user valuePath='password' type='password'}}
+                        {{validation.gru-input model=profile valuePath='password' type='password'}}
                       </label>
                     </div>
                     <div class="form-group">
                       <label>
                         <span class="required">{{t "sign-up.rePassword"}}</span>
-                        {{validation.gru-input model=user valuePath='rePassword' type='password'}}
+                        {{validation.gru-input model=profile valuePath='rePassword' type='password'}}
                       </label>
                     </div>
                     <div class="sign-up-button form-group text-center">

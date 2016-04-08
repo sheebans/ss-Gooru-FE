@@ -32,31 +32,30 @@ export default Ember.Component.extend({
 
     $('.selectpicker').selectpicker();
 
-    Ember.run.later(this, function() {
+    $('.selectpicker').on('loaded.bs.select', function (e) {
 
       $('.birth-day-date').on('focusout', function(e) {
         e.stopPropagation();
-
-        var birthMonthSelected = this.get('birthMonthSelected');
-        var birthDaySelected = this.get('birthDaySelected');
-        var birthYearSelected = this.get('birthYearSelected');
-
-       // this.set('showBirthMessage', false);
-        this.set('focusLost', false);
-
-        if (!birthMonthSelected || !birthDaySelected || !birthYearSelected){
-          this.set('focusLost', true);
-        }
+        this.set('focusLost', true);
 
       }.bind(this));
 
-      $('.birth-day-date').on('focusin', function(e) {
+      $('.birth-day-date .bootstrap-select.months').on('focusin', function(e) {
         e.stopPropagation();
         this.set('focusLost', false);
-       // this.set('showBirthMessage', false);
       }.bind(this));
 
-    }.bind(this), 2000);
+      $('.birth-day-date .bootstrap-select.days').on('focusin', function(e) {
+        e.stopPropagation();
+        this.set('focusLost', false);
+      }.bind(this));
+
+      $('.birth-day-date .bootstrap-select.years').on('focusin', function(e) {
+        e.stopPropagation();
+        this.set('focusLost', false);
+      }.bind(this));
+
+    }.bind(this));
 
     $('.birth-day-date select.selectpicker.months').on('change', function(){
       var monthSelected = $('.selectpicker.months option:selected').val();
@@ -139,14 +138,18 @@ export default Ember.Component.extend({
   birthYearSelected: null,
 
   /**
-   * Show validation error message or not
+   * Show sign up form was submitted or not
    * @property {Boolean}
    */
 
   wasSubmitted: false,
 
   showBirthMessage: Ember.computed('birthDaySelected', 'birthMonthSelected', 'birthYearSelected', 'focusLost', 'wasSubmitted', function() {
-    return (!this.get('birthMonthSelected') || !this.get('birthDaySelected') || !this.get('birthYearSelected')) && (this.get('focusLost') || this.get('wasSubmitted'));
+
+    return ((
+      ((!this.get('birthMonthSelected') || !this.get('birthDaySelected') || !this.get('birthYearSelected')) && this.get('focusLost'))
+    ||((!this.get('birthMonthSelected') || !this.get('birthDaySelected') || !this.get('birthYearSelected')) && this.get('wasSubmitted')))
+    && this.get('focusLost') !==false);
   })
   // -------------------------------------------------------------------------
   // Observers

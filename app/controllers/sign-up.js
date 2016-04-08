@@ -17,6 +17,8 @@ export default Ember.Controller.extend({
       const validDate = controller.validDateSelectPicker();
       profile.validate().then(function ({model, validations}) {
        if (validations.get('isValid') && validDate!=='') {
+         profile.set('dayOfBirth', validDate);
+         console.log('save');
           //to do
         }
         controller.set('didValidate', true);
@@ -56,12 +58,6 @@ export default Ember.Controller.extend({
    * @type {Profile} profile
    */
   profile: null,
-
-  /**
-   * To show error birth message or not
-   * @property {Boolean}
-   */
- // validDate: true,
 
   // -------------------------------------------------------------------------
   // Methods
