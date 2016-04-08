@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 import ProfileModel from 'gooru-web/models/profile/profile';
+import Env from 'gooru-web/config/environment';
 
 moduleFor('serializer:profile/profile', 'Unit | Serializer | profile/profile');
 
@@ -116,5 +117,27 @@ test('normalizeReadProfile', function(assert) {
     isFollowing: false
   });
   const normalizedProfile = serializer.normalizeReadProfile(profilePayload);
+  assert.deepEqual(expected, normalizedProfile, 'Wrong normalized response');
+});
+
+
+test('normalizeCreateProfile', function(assert) {
+  const serializer = this.subject();
+  const profilePayload = {
+      "user_id": "user_id",
+      "username": "username",
+      "access_token": "access_token"
+    }
+    ;
+  const expected = {
+    token: Env['API-3.0']['user-token-api-2.0'],
+    'token-api3': "access_token",
+    user: {
+      username: "username",
+      gooruUId: "user_id"
+    },
+    isAnonymous: false
+  };
+  const normalizedProfile = serializer.normalizeCreateProfile(profilePayload);
   assert.deepEqual(expected, normalizedProfile, 'Wrong normalized response');
 });
