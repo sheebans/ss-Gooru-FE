@@ -50,6 +50,7 @@ export default Ember.Object.extend({
         }
         return units;
       }(),
+      id: courseData.id,
       isPublic: courseData.visible_on_profile,
       title: courseData.title,
       description: courseData.description,

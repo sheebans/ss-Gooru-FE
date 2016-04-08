@@ -92,6 +92,7 @@ test('normalizeCourse', function (assert) {
         title: payload.unitSummary[1].title
       })
     ],
+    id: payload.id,
     isPublic: payload.visible_on_profile,
     title: payload.title,
     description: payload.description,
