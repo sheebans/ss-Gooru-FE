@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import wait from 'ember-test-helpers/wait';
 
 moduleForComponent('content/modals/gru-question-new', 'Integration | Component | content/modals/gru question new', {
   integration: true,
@@ -24,7 +25,7 @@ test('Question New Layout', function(assert) {
   assert.ok($component.find('.question-type-MC'), 'Missing Multiple Choice Type');
   assert.ok($component.find('.question-type-MA'), 'Missing Multiple Answer Type');
   assert.ok($component.find('.question-type-HT_TO'), 'Missing Order List Type');
-  assert.ok($component.find('.T_F'), 'Missing True/False Type');
+  assert.ok($component.find('.question-type-T_F'), 'Missing True/False Type');
   assert.ok($component.find('.question-type-HT_HL'), 'Missing Hot Text Highlight Type');
   assert.ok($component.find('.question-type-FIB'), 'Missing Fill in the blanks Type');
   assert.ok($component.find('.question-type-HS_IMG'), 'Missing Hot Spot Image Type');
@@ -44,5 +45,68 @@ test('Select question type', function(assert) {
   $multipleAnswer.click();
   assert.equal($component.find('.panel.question-type-MA.active').length,1, 'Multiple answer should be active');
   assert.equal($component.find('.panel.active').length,1, 'Only one type should be active');
+});
+test('Validate if the collection title field is left blank', function (assert) {
+  assert.expect(3);
+
+  this.render(hbs`{{content/modals/gru-collection-new}}`);
+
+  const $component = this.$('.gru-collection-new');
+  const $titleField = $component.find(".gru-input.title");
+
+  assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message not visible');
+
+  // Try submitting without filling in data
+  $component.find(".actions button[type='submit']").click();
+
+  return wait().then(function () {
+
+    assert.ok($titleField.find(".error-messages .error").length, 'Title error should be visible');
+    // Fill in the input field
+    $titleField.find("input").val('Collection Name');
+    $titleField.find("input").blur();
+
+    return wait().then(function () {
+      assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message was hidden');
+    });
+  });
+});
+test('Validate if the Question Title field has only whitespaces', function (assert) {
+  assert.expect(3);
+
+  this.render(hbs`{{content/modals/gru-question-new}}`);
+
+  const $component = this.$('.gru-question-new');
+  const $titleField = $component.find(".gru-input.title");
+
+  assert.ok(!$titleField.find(".error-messages .error").length, 'Question Title error message not visible');
+
+  // Try submitting without filling in data
+  $component.find(".actions button[type='submit']").click();
+
+  return wait().then(function () {
+
+    assert.ok($titleField.find(".error-messages .error").length, 'Question Title error should be visible');
+    // Fill in the input field
+    $titleField.find("input").val(' ');
+    $component.find(".actions button[type='submit']").click();
+
+    return wait().then(function () {
+      assert.ok($titleField.find(".error-messages .error").length, 'Question Title error message should be visible');
+    });
+  });
+});
+test('Validate the character limit in the Question title field', function (assert) {
+  assert.expect(1);
+
+  this.render(hbs`{{content/modals/gru-question-new}}`);
+
+  const $component = this.$('.gru-question-new');
+  const $titleField = $component.find(".gru-input.title");
+
+  $titleField.find("input").val('123456790123456790123456790123456790123456790extra');
+  $titleField.find("input").blur();
+
+  assert.equal($titleField.find("input").val().length,50, "Incorrect number of incorrect characters");
 });
 
