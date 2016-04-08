@@ -3,8 +3,7 @@ import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
 
 moduleForService('service:api-sdk/assessment', 'Unit | Service | api-sdk/assessment', {
-  needs: ['serializer:assessment/assessment', 'model:assessment/assessment',
-    'model:resource/resource', 'adapter:assessment/assessment']
+
 });
 
 test('createAssessment', function(assert) {
