@@ -1,4 +1,4 @@
 import Ember from 'ember';
-import BuilderMixin from 'gooru-web/mixins/content/builder';
+import ContentEditMixin from 'gooru-web/mixins/content/edit';
 
-export default Ember.Controller.extend(BuilderMixin, {});
+export default Ember.Controller.extend(ContentEditMixin, {});

@@ -1,6 +1,6 @@
 <div class="controller user row">
   <div class="greetings">
-    <span>Hi {firstName}!</span>
+    <span>Hi {{profile.firstName}}!</span>
     <p>
       {{t 'user.joined-classes' count=totalJoinedClasses}}{{t 'user.teaching-classes' count=totalTeachingClasses}}
     </p>
@@ -29,6 +29,25 @@
       </ul>
   </div>
   <div class="content tab-content">
-    {{outlet}}
+    <div role="tabpanel" class="tab-pane active" id="active-classes">
+      {{#each myClasses.classes as |class|}}
+        {{#unless class.isArchived}}
+          <div>
+            <h5>{{class.title}} | {{class.code}}</h5>
+            <p>isStudent: {{class.isStudent}} | isArchived: {{class.isArchived}}</p>
+          </div>
+        {{/unless}}
+      {{/each}}
+    </div>
+    <div role="tabpanel" class="tab-pane" id="archived-classes">
+      {{#each myClasses.classes as |class|}}
+        {{#if class.isArchived}}
+          <div>
+            <h5>{{class.title}} | {{class.code}}</h5>
+            <p>isStudent: {{class.isStudent}} | isArchived: {{class.isArchived}}</p>
+          </div>
+        {{/if}}
+      {{/each}}
+    </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import AccordionMixin from '../../../mixins/gru-accordion';
+import BuilderMixin from 'gooru-web/mixins/content/builder';
 
 /**
  * Content Builder: Accordion Lesson
@@ -11,7 +11,7 @@ import AccordionMixin from '../../../mixins/gru-accordion';
  * @augments Ember/Component
  * @mixes mixins/gru-accordion
  */
-export default Ember.Component.extend(AccordionMixin, {
+export default Ember.Component.extend(BuilderMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -26,9 +26,9 @@ export default Ember.Component.extend(AccordionMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content', 'courses', 'gru-accordion', 'gru-accordion-lesson', 'panel', 'panel-default'],
+  classNames: ['content', 'courses', 'gru-accordion', 'gru-accordion-lesson'],
 
-  classNameBindings: ['isExpanded:expanded'],
+  classNameBindings: ['model.isEditing:edit:view'],
 
   tagName: 'li',
 

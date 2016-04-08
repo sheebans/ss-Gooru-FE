@@ -1,10 +1,10 @@
 .cards.gru-profile-card {
-  > div {
+  > .avatar {
     display: block;
     text-align: center;
     white-space: nowrap;
     > strong {
-      color: $text-color;
+      color: $white;
       display: block;
       font-size: 1.7rem;
       font-weight: normal;
@@ -65,7 +65,7 @@
   @media (max-width: $screen-sm-max) {
     margin: 0 65px;
     position: relative;
-    > div {
+    > .avatar {
       height: 100%;
       position: absolute;
       left: 0;
@@ -95,7 +95,7 @@
 
   @media (max-width: $screen-xs-max) {
     margin: 0 20px;
-    > div {
+    > .avatar {
       max-width: 55%;
       left: 50%;
       @include translate(-50%, 0);

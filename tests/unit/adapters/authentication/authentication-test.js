@@ -70,3 +70,30 @@ test('postAuthentication for normal account', function(assert) {
       assert.deepEqual({}, response, 'Wrong response');
     });
 });
+
+test('postAuthenticationWithToken', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  const data = {
+    accessToken: 'access_token'
+  };
+  const access_token = 'access_token';
+  const routes = function() {
+    this.get('/api/nucleus-auth/v1/token', function(request) {
+      assert.equal('Token ' + access_token, request.requestHeaders['Authorization']);
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  };
+
+  this.pretender.map(routes);
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  adapter.postAuthenticationWithToken(data)
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});

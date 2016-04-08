@@ -3,7 +3,65 @@ import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
 
 moduleForService('service:api-sdk/class', 'Unit | Service | api-sdk/class', {
-  needs: ['serializer:class/class', 'model:class/class', 'adapter:class/class']
+  needs: [
+    'serializer:class/class', 'serializer:content/class',
+    'model:class/class', 'model:content/class', 'model:content/classes',
+    'adapter:class/class', 'adapter:content/class'
+  ]
+});
+
+test('createClass', function(assert) {
+  const service = this.subject();
+  let classModel = Ember.Object.create();
+
+  assert.expect(2);
+
+  // There is not a Adapter stub in this case
+  // Pretender was included because it is needed to simulate the response Headers including the Location value
+  this.pretender.map(function() {
+    this.post('/api/nucleus/v1/classes', function() {
+      return [201, {'Content-Type': 'text/plain', 'Location': 'class-id'}, ''];
+    }, false);
+  });
+
+  service.set('classSerializer', Ember.Object.create({
+    serializeCreateClass: function(classObject) {
+      assert.deepEqual(classObject, classModel, 'Wrong class object');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.createClass(classModel)
+      .then(function() {
+        assert.equal(classModel.get('id'), 'class-id', 'Wrong class id');
+        done();
+      });
+});
+
+test('findMyClasses', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('classAdapter', Ember.Object.create({
+    getMyClasses: function() {
+      assert.ok(true, "getMyClasses() function was called" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('classSerializer', Ember.Object.create({
+    normalizeClasses: function(classesPayload) {
+      assert.deepEqual({}, classesPayload, 'Wrong my classes payload');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.findMyClasses()
+    .then(function() {
+      done();
+    });
 });
 
 test('findClassesIJoined', function (assert) {
