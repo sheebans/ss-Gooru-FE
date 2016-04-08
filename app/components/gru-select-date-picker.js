@@ -41,17 +41,19 @@ export default Ember.Component.extend({
         var birthDaySelected = this.get('birthDaySelected');
         var birthYearSelected = this.get('birthYearSelected');
 
-        this.set('showBirthMessage', false);
+       // this.set('showBirthMessage', false);
+        this.set('focusLost', false);
 
         if (!birthMonthSelected || !birthDaySelected || !birthYearSelected){
-          this.set('showBirthMessage', true);
+          this.set('focusLost', true);
         }
 
       }.bind(this));
 
       $('.birth-day-date').on('focusin', function(e) {
         e.stopPropagation();
-        this.set('showBirthMessage', false);
+        this.set('focusLost', false);
+       // this.set('showBirthMessage', false);
       }.bind(this));
 
     }.bind(this), 2000);
@@ -140,7 +142,12 @@ export default Ember.Component.extend({
    * Show validation error message or not
    * @property {Boolean}
    */
-  showBirthMessage: false
+
+  wasSubmitted: false,
+
+  showBirthMessage: Ember.computed('birthDaySelected', 'birthMonthSelected', 'birthYearSelected', 'focusLost', 'wasSubmitted', function() {
+    return (!this.get('birthMonthSelected') || !this.get('birthDaySelected') || !this.get('birthYearSelected')) && (this.get('focusLost') || this.get('wasSubmitted'));
+  })
   // -------------------------------------------------------------------------
   // Observers
 
