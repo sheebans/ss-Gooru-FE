@@ -27,7 +27,7 @@ test('Layout', function(assert) {
 
     T.exists(assert, $userContainer.find(".greetings"), "Missing user greetings");
 
-    const $navigatorContainer = $userContainer.find(".navigator");
+    const $navigatorContainer = $userContainer.find(".home-navigator");
     T.exists(assert, $navigatorContainer, "Missing user navigator");
 
     T.exists(assert, $navigatorContainer.find(".actions .create-class"), "Missing create class button");
