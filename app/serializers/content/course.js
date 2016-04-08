@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import Course from 'gooru-web/models/content/course';
 import Unit from 'gooru-web/models/content/unit';
+import { CREATOR_SYSTEM } from 'gooru-web/config/config';
 
 /**
  * Serializer to support the Course CRUD operations for API 3.0
@@ -16,6 +17,18 @@ export default Ember.Object.extend({
    * @returns {Object} returns a JSON Object
    */
   serializeCreateCourse: function(courseModel) {
+    courseData = this.get('serializeEditCourse')(courseModel);
+    courseData.creator_system = CREATOR_SYSTEM;
+    return courseData;
+  },
+
+  /**
+   * Serialize a Course object into a JSON representation required by the Create Edit endpoint
+   *
+   * @param courseModel The Course model to be serialized
+   * @returns {Object} returns a JSON Object
+   */
+  serializeUpdateCourse: function (courseModel) {
     return {
       title: courseModel.get('title'),
       description: courseModel.get('description'),
@@ -23,8 +36,7 @@ export default Ember.Object.extend({
       'visible_on_profile': courseModel.get('isVisibleOnProfile'),
       taxonomy: courseModel.get('taxonomy'),
       audience: courseModel.get('audience'),
-      'subject_bucket' : courseModel.get('subject'),
-      'creator_system': 'gooru'
+      'subject_bucket': courseModel.get('subject')
     };
   },
 

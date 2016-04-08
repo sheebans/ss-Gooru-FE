@@ -40,6 +40,34 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Update existing course
+   *
+   * @param data - course data to be sent in the request body
+   * @returns {Promise|String} ID of the newly created course
+   */
+  updateCourse: function (data) {
+    const courseId = data.courseId;
+    const url = this.get('namespace') + `/${courseId}`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: this.defineHeaders(),
+      data: JSON.stringify(data.course)
+    };
+
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function () {
+          resolve('');
+        }, function (error) {
+          reject(error);
+        });
+    });
+  },
+
+  /**
    * Get course data for the corresponding course ID
    *
    * @param courseId - course ID to search for

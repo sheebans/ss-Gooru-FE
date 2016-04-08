@@ -23,6 +23,25 @@ export default Ember.Service.extend(StoreMixin, {
   },
 
   /**
+   * Creates a new course
+   *
+   * @param courseModel The Course model to be saved
+   * @returns {Promise}
+   */
+  createCourse: function (courseModel) {
+    var courseData = this.get('serializer').serializeCreateCourse(courseModel);
+
+    return this.get('adapter').createCourse({
+      body: courseData
+    }).then(function (courseId) {
+      courseModel.set('id', courseId);
+      return courseModel;
+    }).catch(function (error) {
+      return error;
+    });
+  },
+
+  /**
    * Returns a course by id
    * @param {string} id
    * @returns {Promise.<Course>}
@@ -47,18 +66,18 @@ export default Ember.Service.extend(StoreMixin, {
   },
 
   /**
-   * Creates a new course
+   * Update existing course
    *
-   * @param courseModel The Course model to be saved
-   * @returns {Promise}
+   * @param courseModel The Course model to update
+   * @returns {Promise|Content/Course} Course model updated
    */
-  createCourse: function(courseModel) {
-    var courseData = this.get('serializer').serializeCreateCourse(courseModel);
+  updateCourse: function (courseModel) {
+    var courseData = this.get('serializer').serializeUpdateCourse(courseModel);
 
-    return this.get('adapter').createCourse({
-      body: courseData
-    }).then(function (courseId) {
-      courseModel.set('id', courseId);
+    return this.get('adapter').updateCourse({
+      courseId: courseModel.get('id'),
+      course: courseData
+    }).then(function () {
       return courseModel;
     }).catch(function (error) {
       return error;
