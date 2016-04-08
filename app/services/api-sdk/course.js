@@ -11,15 +11,15 @@ import CourseAdapter from 'gooru-web/adapters/content/course';
  */
 export default Ember.Service.extend(StoreMixin, {
 
-  courseSerializer: null,
+  serializer: null,
 
-  courseAdapter: null,
+  adapter: null,
 
 
   init: function () {
     this._super(...arguments);
-    this.set('courseSerializer', CourseSerializer.create());
-    this.set('courseAdapter', CourseAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set('serializer', CourseSerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set('adapter', CourseAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
   /**
@@ -32,24 +32,36 @@ export default Ember.Service.extend(StoreMixin, {
   },
 
   /**
+   * Returns a course by id
+   * @param {string} courseId
+   * @returns {Promise|Content/Course}
+   */
+  fetchById: function (courseId) {
+    return this.get('adapter').getCourseById(courseId)
+      .then(function (courseData) {
+        return this.get('serializer').normalizeCourse(courseData);
+      }.bind(this))
+      .catch(function (error) {
+        return error;
+      });
+  },
+
+  /**
    * Creates a new course
    *
    * @param courseModel The Course model to be saved
    * @returns {Promise}
    */
   createCourse: function(courseModel) {
-    const service = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      let serializedCourseModel = service.get('courseSerializer').serializeCreateCourse(courseModel);
-      service.get('courseAdapter').createCourse({
-        body: serializedCourseModel
-      }).then(function(responseData, textStatus, request) {
-        let courseId = request.getResponseHeader('location');
-        courseModel.set('id', courseId);
-        resolve(courseModel);
-      }, function(error) {
-        reject(error);
-      });
+    var courseData = this.get('serializer').serializeCreateCourse(courseModel);
+
+    return this.get('adapter').createCourse({
+      body: courseData
+    }).then(function (courseId) {
+      courseModel.set('id', courseId);
+      return courseModel;
+    }).catch(function (error) {
+      return error;
     });
   }
 
