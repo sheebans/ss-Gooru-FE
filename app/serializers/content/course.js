@@ -74,23 +74,4 @@ export default Ember.Object.extend({
     });
   }
 
-  /**
-   * Normalize a single course
-   *
-   * @param payload endpoint response format in JSON format
-   * @returns {CourseModel}
-   */
-  normalizeCourse: function(payload) {
-    return CourseModel.create({
-      id: payload.id,
-      title: payload.title,
-      thumbnailUrl: payload.thumbnail,
-      taxonomy: payload.taxonomy,
-      isVisibleOnProfile: payload['visible_on_profile'],
-      isPublished: payload['publish_status'] && payload['publish_status'] === 'published',
-      unitCount: payload['unit_count'] ? payload['unit_count'] : 0
-      // TODO More properties will be added here...
-    });
-  }
-
 });
