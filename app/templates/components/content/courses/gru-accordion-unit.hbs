@@ -1,7 +1,8 @@
 <div class="panel panel-default edit">
   <div class="panel-heading">
-    {{#if model.id}}
-      <h3>{{t "common.unit"}} {{unit.sequence}}</h3>
+
+    {{#if unit.id}}
+      <h3>{{t "common.unit"}} {{plus-one index}}</h3>
     {{else}}
       <h3>{{t "common.unit"}} {{totalItems}}</h3>
     {{/if}}
@@ -10,7 +11,7 @@
 
     <div class="actions">
       <button class="cancel btn btn-info"  {{action 'cancelEdit'}}>{{t "common.cancel"}}</button>
-      <button class="save btn btn-success" {{action 'saveContent'}}>{{t "common.save"}}</button>
+      <button class="save btn btn-success" {{action 'saveUnit'}}>{{t "common.save"}}</button>
     </div>
   </div>
   <div class="panel-body">
@@ -38,7 +39,7 @@
 
 <div class="panel panel-default view {{if model.isExpanded 'expanded' 'collapsed'}}">
   <div class="panel-heading">
-    <h3><a href="#" {{action 'toggle'}}>{{t "common.unit"}} {{unit.sequence}}</a></h3>
+    <h3><a href="#" {{action 'toggle'}}>{{t "common.unit"}} {{plus-one index}}</a></h3>
     <strong><a href="#" {{action 'toggle'}}>{{unit.title}}</a></strong>
 
     <div class="detail">

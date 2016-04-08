@@ -66,7 +66,7 @@ test('createCourse', function(assert) {
     }, false);
   });
 
-  service.set('courseSerializer', Ember.Object.create({
+  service.set('serializer', Ember.Object.create({
     serializeCreateCourse: function(courseObject) {
       assert.deepEqual(courseObject, courseModel, 'Wrong profile object');
       return {};
