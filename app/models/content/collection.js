@@ -36,7 +36,7 @@ const Collection = Ember.Object.extend(Validations, {
   /**
    * @property {String} learningObjectives
    */
-  learningObjectives: '',
+  learningObjectives: null,
 
   /**
    * @property {String} title
@@ -57,7 +57,7 @@ const Collection = Ember.Object.extend(Validations, {
    * Return a copy of the collection
    *
    * @function
-   * @return {Course}
+   * @return {Collection}
    */
   copy: function() {
 

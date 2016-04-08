@@ -29,6 +29,8 @@ export default Ember.Route.extend( {
   // -------------------------------------------------------------------------
   // Actions
 
+
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -56,7 +58,11 @@ export default Ember.Route.extend( {
    * @param controller
    * @param model
    */
+
   setupController: function(controller, model) {
+    controller.set("totalJoinedClasses", 2);
+    controller.set("totalTeachingClasses", 1);
+
     controller.set('myClasses', model.myClasses);
     controller.set('profile', model.profile);
   }
