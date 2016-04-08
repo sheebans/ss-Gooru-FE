@@ -20,11 +20,7 @@ export default Ember.Route.extend( {
   // -------------------------------------------------------------------------
   // Actions
 
-  actions:{
-    switchTab: function () {
-      $('.nav-tabs li.tab:not(.active)').tab('show');
-    }
-  },
+
 
   // -------------------------------------------------------------------------
   // Methods
