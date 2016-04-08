@@ -146,7 +146,6 @@ export default {
       "T/F"    : "True or False",
       "MA"     : "Multiple Answer",
       "OE"     : "Open Ended",
-      "OL"     : "Order List",
       "HS_TXT" : "Hot Spot Text",
       "HS_IMG" : "Hot Spot Image",
       "HT_TO"  : "Hot Text Reorder",

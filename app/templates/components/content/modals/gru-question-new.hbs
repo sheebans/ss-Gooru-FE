@@ -12,9 +12,9 @@
         </label>
         <div class="question-types text-center">
           {{#each questionTypes as |question|}}
-              <div class="panel panel-default {{concat 'question-type-' question.type}} {{set-if-equal 'active' question.type selectedType}}" {{action 'selectType' question.type}}>
+              <div class="panel panel-default {{if (eq question.type 'T/F') 'true-false'}} {{concat 'question-type-' question.type}} {{set-if-equal 'active' question.type selectedType}}" {{action 'selectType' question.type}}>
                   <div class="panel-body">
-                    <i></i>
+                      <i></i>
                   </div>
                   <div class="panel-footer">
                     {{t (concat 'common.question-type.' question.type) }}

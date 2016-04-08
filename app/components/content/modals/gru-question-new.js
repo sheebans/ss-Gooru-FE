@@ -79,7 +79,7 @@ export default Ember.Component.extend({
     icon:""},{
     type:"MA",
     icon:""}, {
-    type:"OL",
+    type:"HT_TO",
     icon:""},{
     type:"HT_HL",
     icon:""},{
