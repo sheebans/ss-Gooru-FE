@@ -16,5 +16,23 @@
       "body": "File not found!",
       "file": "course-200-response.json"
     }
+  },
+  {
+    "description": "Fetch user classes",
+    "request": {
+      "url": "^/api/nucleus/v1/courses/(.+)$",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-course-200-response.json"
+    }
   }
 ]
