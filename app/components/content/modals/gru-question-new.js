@@ -75,21 +75,13 @@ export default Ember.Component.extend({
    * @type {Array{}} questionTypes
    */
   questionTypes: Ember.A([{
-    type:"MC",
-    icon:""},{
-    type:"MA",
-    icon:""}, {
-    type:"HT_TO",
-    icon:""},{
-    type:"HT_HL",
-    icon:""},{
-    type:"T/F",
-    icon:""},{
-    type:"FIB",
-    icon:""},{
-    type:"HS_IMG",
-    icon:""},{
-    type:"HS_TXT",
-    icon:""}])
+    type:"MC"},{
+    type:"MA"}, {
+    type:"HT_TO"},{
+    type:"HT_HL"},{
+    type:"T/F"},{
+    type:"FIB"},{
+    type:"HS_IMG"},{
+    type:"HS_TXT"}])
 
 });
