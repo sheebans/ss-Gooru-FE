@@ -341,6 +341,7 @@ export default {
     "step-1-description": "We're glad you’ve decided to join us.",
     "log-in": "Log In",
     "log-in-description": "if you already have an account.",
+    "google-button": "Sign Up with Google",
     "username": "Username",
     "dateOfBirth": {
       "title": "Birthday",

@@ -40,10 +40,7 @@ test('Layout', function(assert) {
     var $signUpForm = $firstStep.find(".sign-up-form form");
     T.exists(assert, $signUpForm, "Missing sign up form");
     T.exists(assert, $signUpForm.find(".gru-input.username"), "Missing username field");
-    T.exists(assert, $signUpForm.find(".birth-day-date"), "Missing birth-day-date field");
-    T.exists(assert, $signUpForm.find(".birth-months"), "Missing birth-months field");
-    T.exists(assert, $signUpForm.find(".birth-days"), "Missing birth-days field");
-    T.exists(assert, $signUpForm.find(".birth-years"), "Missing birth-years field");
+    T.exists(assert, $signUpForm.find(".gru-select-date-picker"), "Missing gru-select-date-picker component");
     T.exists(assert, $signUpForm.find(".gru-input.firstName"), "Missing firstName field");
     T.exists(assert, $signUpForm.find(".gru-input.lastName"), "Missing lastName field");
     T.exists(assert, $signUpForm.find(".gru-input.email"), "Missing email field");
@@ -51,5 +48,46 @@ test('Layout', function(assert) {
     T.exists(assert, $signUpForm.find(".gru-input.rePassword"), "Missing rePassword field");
     T.exists(assert, $signUpForm.find("div.sign-up-button button"), "Missing sign in button");
 
+  });
+});
+
+test('it shows error messages if the all fields are left blank', function (assert) {
+  visit('/sign-up');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-up');
+
+
+    const $signUpContainer = find(".sign-up");
+    const $usernameField = $signUpContainer.find(".gru-input.username");
+    const $birthDayField = $signUpContainer.find(".gru-select-date-picker .birth-day-date");
+    const $firstNameField = $signUpContainer.find(".gru-input.firstName");
+    const $lastNameField = $signUpContainer.find(".gru-input.lastName");
+    const $emailField = $signUpContainer.find(".gru-input.email");
+    const $passwordField = $signUpContainer.find(".gru-input.password");
+    const $rePasswordField = $signUpContainer.find(".gru-input.rePassword");
+
+    assert.ok(!$usernameField.find(".error-messages .error").length, 'Username error message not visible');
+    assert.ok(!$birthDayField.find(".error-messages .error").length, 'Birth day error message not visible');
+    assert.ok(!$firstNameField.find(".error-messages .error").length, 'First name error message not visible');
+    assert.ok(!$lastNameField.find(".error-messages .error").length, 'Last name error message not visible');
+    assert.ok(!$emailField.find(".error-messages .error").length, 'Email error message not visible');
+    assert.ok(!$passwordField.find(".error-messages .error").length, 'Password error message not visible');
+    assert.ok(!$rePasswordField.find(".error-messages .error").length, 'Repassword error message not visible');
+
+    // Try submitting without filling in data
+    $signUpContainer.find("button.submit-sign-up").click();
+
+    return wait().then(function () {
+
+      assert.ok($usernameField.find(".error-messages .error").length, 'Username error message visible');
+      assert.ok($birthDayField.find(".error-messages .error").length, 'Birth day error message visible');
+      assert.ok($firstNameField.find(".error-messages .error").length, 'First name error message visible');
+      assert.ok($lastNameField.find(".error-messages .error").length, 'Last name error message visible');
+      assert.ok($emailField.find(".error-messages .error").length, 'Email error message visible');
+      assert.ok($passwordField.find(".error-messages .error").length, 'Password error message visible');
+      assert.ok($rePasswordField.find(".error-messages .error").length, 'Repassword error message visible');
+
+    });
   });
 });

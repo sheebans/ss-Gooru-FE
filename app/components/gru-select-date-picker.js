@@ -32,7 +32,7 @@ export default Ember.Component.extend({
 
     $('.selectpicker').selectpicker();
 
-    $('.selectpicker').on('loaded.bs.select', function (e) {
+    $('.selectpicker').on('loaded.bs.select', function () {
 
       $('.birth-day-date').on('focusout', function(e) {
         e.stopPropagation();
@@ -144,12 +144,12 @@ export default Ember.Component.extend({
 
   wasSubmitted: false,
 
+  /**
+   * Show error birth message or not
+   * @property {Boolean}
+   */
   showBirthMessage: Ember.computed('birthDaySelected', 'birthMonthSelected', 'birthYearSelected', 'focusLost', 'wasSubmitted', function() {
-
-    return ((
-      ((!this.get('birthMonthSelected') || !this.get('birthDaySelected') || !this.get('birthYearSelected')) && this.get('focusLost'))
-    ||((!this.get('birthMonthSelected') || !this.get('birthDaySelected') || !this.get('birthYearSelected')) && this.get('wasSubmitted')))
-    && this.get('focusLost') !==false);
+    return (((!this.get('birthMonthSelected') || !this.get('birthDaySelected') || !this.get('birthYearSelected')) && this.get('focusLost'))|| ((!this.get('birthMonthSelected') || !this.get('birthDaySelected') || !this.get('birthYearSelected')) && this.get('wasSubmitted')) && this.get('focusLost') !==false);
   })
   // -------------------------------------------------------------------------
   // Observers
