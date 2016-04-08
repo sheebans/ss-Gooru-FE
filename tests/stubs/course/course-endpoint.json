@@ -14,9 +14,10 @@
         "Content-Type": "application/json"
       },
       "body": "File not found!",
-      "file": "course-200-response.json"
+      "file": "get-course-response.json"
     }
   },
+
   {
     "description": "Fetch user classes",
     "request": {
@@ -33,6 +34,22 @@
       },
       "body": "File not found!",
       "file": "fetch-course-200-response.json"
+    }
+  },
+  {
+    "description": "Update course with a specific ID",
+    "request": {
+      "url": "^/gooruapi/rest/v1/course/(.+)$",
+      "method": "PUT",
+      "headers": {
+        "gooru-session-token": "(.+)"
+      }
+    },
+    "response": {
+      "status": 204,
+      "headers": {
+        "Content-Type": "application/json"
+      }
     }
   }
 ]
