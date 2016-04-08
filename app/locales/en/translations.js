@@ -16,7 +16,9 @@ export default {
     "add-new-lesson": "Add New Lesson",
     "add-new-unit": "Add New Unit",
     "add-new-resource": "Add New Resource",
+    "add-new-question": "Add New Question",
     "add-to": "Add To",
+    "add-type-question":"What type of question would you like to add?",
     "add-units": "Add Units",
     "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
@@ -82,10 +84,13 @@ export default {
     },
     "enter-url":"Enter URL",
     "errors": {
+      "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
+      "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
-      "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
-      "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again."
+      "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
+      "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
+      "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly."
     },
     "explanation": "Explanation",
     "first-name": "First Name",
@@ -136,16 +141,19 @@ export default {
     "preview": "Preview",
     "question":"Question",
     "questions": "Questions",
+    "question-title":"Question Title",
     "question-type":{
       "SA"     : "Single Answer",
       "MC"     : "Multiple Choice",
       "FIB"    : "Fill In the Blank",
       "T/F"    : "True or False",
+      "T_F"    : "True or False",
       "MA"     : "Multiple Answer",
       "OE"     : "Open Ended",
       "HS_TXT" : "Hot Spot Text",
       "HS_IMG" : "Hot Spot Image",
       "HT_TO"  : "Hot Text Reorder",
+      "HT_RO"  : "Hot Text Reorder",
       "HT_HL"  : "Hot Text Highlight"
     },
     "reaction": "Reaction",
@@ -289,11 +297,19 @@ export default {
     }
   },
 
-  "user":{
+  "user": {
     "active-classes": "Active Classes",
     "archived-classes": "Archived Classes",
     "create-class": "Create Class",
-    "join-class": "Join Class"
+    "join-class": "Join Class",
+    "joined-classes": {
+      'one':"You're currently in 1 class",
+      "other" : "You're currently in {{count}} classes"
+    },
+    "teaching-classes": {
+      'one':" and teaching 1 class",
+      "other" : " and teaching {{count}} classes"
+    }
   },
 
   /*

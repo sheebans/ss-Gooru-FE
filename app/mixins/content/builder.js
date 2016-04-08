@@ -12,13 +12,18 @@ export default Ember.Mixin.create({
   // Properties
 
   /**
+   * @prop {Number} index - Item index number relative to its sibling
+   */
+  index: null,
+
+  /**
    * @prop {Ember.RSVP.Promise} items - children of the accordion
    * Will resolve to {Unit[] | Lesson[] | Collection[]}
    */
   items: null,
 
   /**
-   * @prop {Unit | Lesson} model - accordion root
+   * @prop {Unit | Lesson} model - Item data model (accordion root)
    */
   model: null,
 
