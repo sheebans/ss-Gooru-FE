@@ -38,3 +38,26 @@ test('Course creation, success', function (assert) {
       assert.equal(courseId, 'course-id-123', 'Should respond with the newly created ID for the course');
     });
 });
+
+test('Get course by ID', function (assert) {
+  const courseData = {
+    title: 'Course Title'
+  };
+
+  this.pretender.map(function () {
+    this.get('/api/nucleus/v1/courses/course-id-123', function () {
+      return [
+        201,
+        {
+          'Content-Type': 'application/json; charset=utf-8',
+        },
+        JSON.stringify(courseData)];
+    });
+  });
+
+  const adapter = this.subject();
+  adapter.getCourseById('course-id-123')
+    .then(function (response) {
+      assert.deepEqual(response, courseData, 'Should respond with the corresponding course data');
+    });
+});
