@@ -26,11 +26,7 @@ test('Layout', function(assert) {
     T.exists(assert, $profileContainer.find("> .navigation"), "Missing profile navigation");
     T.exists(assert, $profileContainer.find("> .navigation .profile-info .actions .btn"), "Missing profile action button");
     T.exists(assert, $profileContainer.find("> .content"), "Missing profile content");
-    T.exists(assert, $profileContainer.find("> .content"), "Missing profile content");
-
-
   });
-
 
 });
 

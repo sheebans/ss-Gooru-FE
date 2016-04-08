@@ -6,8 +6,8 @@ export default Ember.Route.extend({
     this.transitionTo('profile.content.courses');
   },
 
-  setupController: function() {
-
+  setupController: function(controller) {
+    controller.get('parentController').selectMenuItem('content');
   }
 
 });

@@ -88,7 +88,4 @@ Router.map(function() {
   this.route('user');
 });
 
-
-// JAJAJA
-
 export default Router;

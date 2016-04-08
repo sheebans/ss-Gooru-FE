@@ -136,7 +136,7 @@ test('getCourses', function(assert) {
 
   assert.expect(3);
 
-  service.set('profileCourseAdapter', Ember.Object.create({
+  service.set('profileCoursesAdapter', Ember.Object.create({
     getCourses: function(profileId, subject) {
       assert.equal(profileId, 'profile-id', 'Wrong profile id');
       assert.equal(subject, 'course-subject', 'Wrong course subject');

@@ -26,7 +26,7 @@ export default Ember.Service.extend({
     this.set('profileSerializer', ProfileSerializer.create());
     this.set('courseSerializer', CourseSerializer.create());
     this.set('profileAdapter', ProfileAdapter.create(Ember.getOwner(this).ownerInjection()));
-    this.set('profileCourseAdapter', ProfileCoursesAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set('profileCoursesAdapter', ProfileCoursesAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
   /**
@@ -130,7 +130,7 @@ export default Ember.Service.extend({
   getCourses: function(profile, subject) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileCourseAdapter').getCourses(profile.get('id'), subject)
+      service.get('profileCoursesAdapter').getCourses(profile.get('id'), subject)
         .then(function(response) {
           resolve(service.get('courseSerializer').normalizeGetCourses(response));
         }, function(error) {

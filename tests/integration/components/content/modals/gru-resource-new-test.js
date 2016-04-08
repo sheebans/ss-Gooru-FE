@@ -6,6 +6,7 @@ moduleForComponent('content/modals/gru-resource-new', 'Integration | Component |
   integration: true,
   beforeEach: function () {
     this.inject.service('i18n');
+
   }
 });
 
