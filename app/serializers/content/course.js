@@ -38,13 +38,17 @@ export default Ember.Object.extend({
 
     return Course.create(Ember.getOwner(this).ownerInjection(), {
       children: function () {
-        return courseData.unitSummary.map(function (unitData) {
-          return Unit.create(Ember.getOwner(serializer).ownerInjection(), {
-            id: unitData.unit_id,
-            sequence: unitData.sequence_id,
-            title: unitData.title
+        var units = [];
+        if (courseData.unitSummary) {
+          units = courseData.unitSummary.map(function (unitData) {
+            return Unit.create(Ember.getOwner(serializer).ownerInjection(), {
+              id: unitData.unit_id,
+              sequence: unitData.sequence_id,
+              title: unitData.title
+            });
           });
-        });
+        }
+        return units;
       }(),
       isPublic: courseData.visible_on_profile,
       title: courseData.title,
