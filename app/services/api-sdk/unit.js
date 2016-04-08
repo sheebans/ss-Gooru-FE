@@ -73,7 +73,7 @@ export default Ember.Service.extend(StoreMixin, {
    * Create a unit for a course
    * @param {String} courseId - ID of the course the unit belongs to
    * @param {Content/Unit} unit - Unit model
-   * @returns {Promise|String} returns the Gooru ID of the newly created unit
+   * @returns {Promise|String} returns the unit model with the newly assigned ID
    */
   createUnit: function (courseId, unit) {
     var unitData = this.get('serializer').serializeCreateUnit(unit);
@@ -81,6 +81,11 @@ export default Ember.Service.extend(StoreMixin, {
     return this.get('adapter').createUnit({
       courseId: courseId,
       unit: unitData
+    }).then(function (unitId) {
+      unit.set('id', unitId);
+      return unit;
+    }).catch(function (error) {
+      return error;
     });
   }
 

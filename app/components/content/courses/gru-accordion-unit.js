@@ -82,8 +82,7 @@ export default Ember.Component.extend(BuilderMixin, {
       this.get('unitService')
         .createUnit(courseId, unit)
 
-        .then(function (unitId) {
-          unit.set('id', unitId);
+        .then(function () {
           this.set('model.isEditing', false);
         }.bind(this))
 

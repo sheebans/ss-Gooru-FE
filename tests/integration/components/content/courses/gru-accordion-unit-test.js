@@ -11,7 +11,8 @@ const unitServiceStub = Ember.Service.extend({
       if (courseId === 'course-id-fail' || !unit) {
         reject({status: 500});
       } else {
-        resolve('unit-id-123');
+        unit.set('id', 'unit-id-123');
+        resolve(unit);
       }
     });
   }
