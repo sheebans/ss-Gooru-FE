@@ -46,8 +46,8 @@ export default Ember.Component.extend({
                   component.get('router').transitionTo('content.collections.edit', { collectionId : newCollection.get('id') });
                 },
                 function() {
-                  const message = this.get('i18n').t('common.errors.collection-not-created').string;
-                  this.get('notifications').error(message);
+                  const message = component.get('i18n').t('common.errors.collection-not-created').string;
+                  component.get('notifications').error(message);
                 }
               );
           }

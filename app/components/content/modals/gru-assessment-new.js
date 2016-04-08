@@ -8,7 +8,7 @@ export default Ember.Component.extend({
   /**
    * @property {AssessmentService} Assessment service API SDK
    */
-  assessmentService: Ember.inject.service("api-sdk/assessment"),
+  resourceService: Ember.inject.service("api-sdk/assessment"),
 
   /**
    * @property {Service} I18N service
@@ -39,15 +39,15 @@ export default Ember.Component.extend({
       const assessment = this.get('assessment');
       assessment.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
-          component.get('assessmentService')
+          component.get('resourceService')
             .createAssessment(assessment)
             .then(function(newAssessment) {
                 component.triggerAction({ action: 'closeModal' });
                 component.get('router').transitionTo('content.assessments.edit', { assessmentId : newAssessment.get('id') });
               },
               function() {
-                const message = this.get('i18n').t('common.errors.assessment-not-created').string;
-                this.get('notifications').error(message);
+                const message = component.get('i18n').t('common.errors.assessment-not-created').string;
+                component.get('notifications').error(message);
               }
             );
         }
