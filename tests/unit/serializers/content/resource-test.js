@@ -13,8 +13,25 @@ test('serializeCreateResource', function(assert) {
   const expected = {
     title: 'resource-title',
     url: 'any',
-    content_subformat: 'video'
+    content_subformat: 'video_resource' //subformat is converted at the serializer
   };
   const response = serializer.serializeCreateResource(resourceObject);
   assert.deepEqual(expected, response, 'Wrong serialized response');
+});
+
+test('normalizeReadResource', function(assert) {
+  const serializer = this.subject();
+  const resourceData = {
+    id: "abcd",
+    title: 'resource-title',
+    url: 'any',
+    content_subformat: 'video_resource'
+  };
+
+
+  const resource = serializer.normalizeReadResource(resourceData);
+  assert.equal('abcd', resource.get("id"), 'Wrong id');
+  assert.equal('resource-title', resource.get("title"), 'Wrong title');
+  assert.equal('any', resource.get("url"), 'Wrong url');
+  assert.equal('video', resource.get("format"), 'Wrong format'); //format is converted at the normalizer
 });

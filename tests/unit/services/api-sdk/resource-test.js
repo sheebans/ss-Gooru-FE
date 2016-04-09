@@ -34,3 +34,25 @@ test('createResource', function(assert) {
       done();
     });
 });
+
+test('readResource', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('resourceAdapter', Ember.Object.create({
+    readResource: function(resourceId) {
+      assert.equal(1, resourceId, "readResource() function was called" );
+      return Ember.RSVP.resolve({ id: resourceId });
+    }
+  }));
+
+  service.set('resourceSerializer', Ember.Object.create({
+    normalizeReadResource: function(resourceData) {
+      assert.deepEqual({ id: 1 }, resourceData, 'Wrong resource data');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.readResource(1).then(function() { done(); });
+});

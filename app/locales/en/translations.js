@@ -644,6 +644,9 @@ export default {
     "completion":"Completion",
     "study-time": "Study Time"
   },
+  "gru-resource-new": {
+    "resource-already-exist": "This resource already exists in Gooru!"
+  },
   "cards":{
     "gru-course-card":{
       "units":"Units",

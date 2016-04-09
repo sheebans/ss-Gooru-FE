@@ -10,14 +10,28 @@
                 <label class="url-label">
                   <span class="required">{{t 'common.enter-url'}}</span>
                   {{validation.gru-input model=resource valuePath='url'}}
+                  {{#if existingResource}}
+                    <span class="validation error">{{t 'gru-resource-new.resource-already-exist'}}</span>
+                  {{/if}}
                 </label>
               </div>
         </div>
+          {{#if existingResource}}
+          <div class="resource-card">
+            {{cards.gru-resource-card resource=existingResource}}
+          </div>
+          {{/if}}
         <div class="actions">
+          {{#unless existingResource}}
             <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
-                <span aria-hidden="true">{{t 'common.cancel'}}</span>
+              <span aria-hidden="true">{{t 'common.cancel' }}</span>
             </button>
-            <button type='submit' class="btn btn-primary add">{{t 'common.add'}}</button>
+              <button type='submit' class="btn btn-primary add">{{t 'common.add'}}</button>
+          {{else}}
+            <button type="button" class="btn btn-default close" data-dismiss="modal" aria-label="{{t 'common.close'}}">
+              <span aria-hidden="true">{{t 'common.close' }}</span>
+            </button>
+          {{/unless}}
         </div>
     </form>
 </div>

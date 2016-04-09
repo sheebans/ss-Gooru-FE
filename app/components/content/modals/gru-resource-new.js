@@ -35,22 +35,27 @@ export default Ember.Component.extend({
     createResource: function () {
       const component = this;
       const resource = this.get('resource');
+
       resource.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
-          component.get('resourceService')
-            .createResource(resource)
-            .then(function(newResource) {
-                component.triggerAction({ action: 'closeModal' });
-                component.get('router').transitionTo('content.resources.edit', { resourceId : newResource.get('id') });
+          var resourceService = component.get('resourceService');
+          resourceService.createResource(resource)
+            .then(function (newResource) {
+                component.onNewResource(newResource);
               },
-              function() {
-                const message = component.get('i18n').t('common.errors.resource-not-created').string;
-                component.get('notifications').error(message);
+              function (data) {
+                if (data.resourceId) { //already exists
+                  component.displayExistingResource(data.resourceId);
+                }
+                else {
+                  const message = component.get('i18n').t('common.errors.resource-not-created').string;
+                  component.get('notifications').error(message);
+                }
               }
-            );
+            )
         }
-        this.set('didValidate', true);
-      }.bind(this));
+        component.set('didValidate', true);
+      });
     }
   },
 
@@ -75,7 +80,7 @@ export default Ember.Component.extend({
   'component-class': null,
 
   /**
-   * @type {Collection} collection
+   * @type {Content/Resource} resource
    */
   resource: null,
 
@@ -86,6 +91,39 @@ export default Ember.Component.extend({
    * @type {Ember.Component}
    * @private
    */
-  target: null
+  target: null,
+
+
+  /**
+   * @type {Content/Resource} resource
+   */
+  existingResource: null,
+
+
+
+  //
+  // Methods
+  /**
+   * After a resource is saved
+   * @param {Content/Resource} newResource
+   */
+  onNewResource: function(newResource){
+    const component = this;
+    component.triggerAction({ action: 'closeModal' });
+    component.get('router').transitionTo('content.resources.edit', { resourceId : newResource.get('id') });
+  },
+
+  /**
+   * Display an existing resource
+   * @param {string} resourceId
+   */
+  displayExistingResource: function(resourceId){
+    const component = this;
+    const resourceService = component.get('resourceService');
+    resourceService.readResource(resourceId)
+      .then(function(resource){
+        component.set("existingResource", resource);
+      });
+  }
 
 });

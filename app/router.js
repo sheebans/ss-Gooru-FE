@@ -17,6 +17,7 @@ Router.map(function() {
 
   this.route('sign-in');
   this.route('sign-up');
+  this.route('logout');
 
   this.route('content', function () {
 

@@ -42,11 +42,33 @@ export default Ember.Service.extend({
         resourceData.set('id', resourceId);
         resolve(resourceData);
       }, function(error) {
-        if (error.statusCode === 400){
-          // {"duplicate_ids":["537557e1-e424-4f03-8475-d813d6b26a47"]}
+        if (error.status === 400){ //when the resource already exists
+          let data = JSON.parse(error.responseText);
+          let alreadyExists = data && data.duplicate_ids && data.duplicate_ids.length;
+          if (alreadyExists){
+            reject({ status: 400, resourceId: data.duplicate_ids[0] });
+          }
         }
-        reject(error);
+        else{
+          reject(error);
+        }
       });
+    });
+  },
+
+  /**
+   * Finds an resources by id
+   * @param {string} resourceId
+   * @returns {Ember.RSVP.Promise}
+   */
+  readResource: function(resourceId){
+    const service = this;
+    const serializer = service.get('resourceSerializer');
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('resourceAdapter').readResource(resourceId)
+        .then(function(responseData /*, textStatus, request */) {
+        resolve(serializer.normalizeReadResource(responseData));
+      }, reject );
     });
   }
 });
