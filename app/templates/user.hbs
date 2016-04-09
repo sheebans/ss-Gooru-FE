@@ -1,16 +1,29 @@
 <div class="controller user row">
   <div class="greetings">
     <span>Hi {{profile.firstName}}!</span>
-    <p class="lead">
-      You're currently in {#numerical} classes and teaching {#numerical} class.
+    <p>
+      {{t 'user.joined-classes' count=totalJoinedClasses}}{{t 'user.teaching-classes' count=totalTeachingClasses}}
     </p>
   </div>
-  <div class="navigator">
+  <div class="home-navigator">
       <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active active-classes"><a href="#active-classes" aria-controls="activeClasses" role="tab" data-toggle="tab"><span class="lead">{{t 'user.active-classes'}}</span></a></li>
-          <li role="presentation" class="archived-classes"><a href="#archived-classes" aria-controls="archivedClasses" role="tab" data-toggle="tab"><span class="lead">{{t 'user.archived-classes'}}</span></a></li>
+          <li role="presentation" class="active active-classes tab">
+            <a href="#active-classes" aria-controls="activeClasses" role="tab" data-toggle="tab" {{action 'switchTab'}}>
+              <span class="lead">{{t 'user.active-classes'}}</span>
+            </a>
+          </li>
+          <li role="presentation" class="archived-classes tab">
+            <a href="#archived-classes" aria-controls="archivedClasses" role="tab" data-toggle="tab" {{action 'switchTab'}}>
+              <span class="lead">{{t 'user.archived-classes'}}</span>
+            </a>
+          </li>
+          <li class="visible-xs ">
+            <a href='#' class="switch-tab-btn" {{action 'switchTab'}}>{{gru-icon name='keyboard_arrow_right'}}</a>
+          </li>
           <li class="pull-right actions">
-            {{#link-to 'content.classes.create' class="btn btn-success create-class" tagName='button'}} {{t 'user.create-class'}} {{/link-to}}
+            {{#link-to 'content.classes.create' class="btn btn-success create-class-cta" tagName='button'}}
+              {{t 'user.create-class'}}
+            {{/link-to}}
             <button type="button" name="button" class="btn btn-success join-class">{{t 'user.join-class'}}</button>
           </li>
       </ul>
