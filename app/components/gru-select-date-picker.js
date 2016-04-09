@@ -112,7 +112,7 @@ export default Ember.Component.extend({
     // returns the current year (four digits)
     var year = currentTime.getFullYear();
 
-    for (let y = 1900; y <= year; y++) {
+    for (let y = year; y >= 1900; y--) {
       birthYears.push(y);
     }
 
