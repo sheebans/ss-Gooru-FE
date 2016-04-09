@@ -6,6 +6,16 @@ export default Ember.Controller.extend(ContentEditMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
 
+  /**
+   * @requires service:notifications
+   */
+  notifications: Ember.inject.service(),
+
+  /**
+   * @requires service:api-sdk/course
+   */
+  courseService: Ember.inject.service("api-sdk/course"),
+
 
   // -------------------------------------------------------------------------
   // Actions
@@ -24,9 +34,20 @@ export default Ember.Controller.extend(ContentEditMixin, {
     /**
      * Save Content
      */
-    saveContent: function () {
-      // TODO: API call to save content
-      this.set('isEditing',false);
+    updateContent: function () {
+      var editedCourse = this.get('tempCourse');
+      this.get('courseService').updateCourse(editedCourse)
+
+        .then(function () {
+          this.set('course', editedCourse);
+          this.set('isEditing', false);
+        }.bind(this))
+
+        .catch(function () {
+          var message = this.get('i18n').t('common.errors.course-not-updated').string;
+          this.get('notifications').error(message);
+        }.bind(this));
+
     },
 
     /**

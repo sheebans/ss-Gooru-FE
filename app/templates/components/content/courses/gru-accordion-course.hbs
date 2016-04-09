@@ -22,10 +22,12 @@
 
 <ol class="accordion-course" role="tablist" aria-multiselectable="true">
 
-  {{#each items as |item|}}
+  {{#each items as |item index|}}
 
     {{content.courses.gru-accordion-unit
+    courseId=model.id
     model=item
+    index=index
     totalItems=items.length
     onCancelAddUnit=(action 'cancelAddUnit')
     onExpandUnit=(action 'closeAllUnits') }}

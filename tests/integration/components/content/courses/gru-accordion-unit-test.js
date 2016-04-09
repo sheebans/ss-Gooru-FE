@@ -4,11 +4,28 @@ import BuilderItem from 'gooru-web/models/content/builder/item';
 import Unit from 'gooru-web/models/content/unit';
 import Ember from 'ember';
 
+const unitServiceStub = Ember.Service.extend({
+
+  createUnit(courseId, unit) {
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      if (courseId === 'course-id-fail' || !unit) {
+        reject({status: 500});
+      } else {
+        unit.set('id', 'unit-id-123');
+        resolve(unit);
+      }
+    });
+  }
+});
+
 moduleForComponent('content/courses/gru-accordion-unit', 'Integration | Component | content/courses/gru accordion unit', {
   integration: true,
 
   beforeEach: function () {
     this.inject.service('i18n');
+
+    this.register('service:api-sdk/unit', unitServiceStub);
+    this.inject.service('api-sdk/unit');
   }
 });
 
@@ -16,7 +33,7 @@ test('it renders a form for a new unit', function (assert) {
 
   const unit = BuilderItem.create({
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
-      id: 0
+      id: ''
     }),
     isEditing: true
   });
@@ -38,6 +55,65 @@ test('it renders a form for a new unit', function (assert) {
   const $panelBody = $component.find('.edit .panel-body');
   assert.ok($panelBody.find('> .row .col-sm-6 label textarea').length, 2, 'Text areas');
   assert.ok($panelBody.find('> .domain').length, 'Domain');
+});
+
+test('it can create a new unit', function (assert) {
+
+  var unit = BuilderItem.create({
+    data: Unit.create(Ember.getOwner(this).ownerInjection(), {
+      id: 0
+    }),
+    isEditing: true
+  });
+
+  this.set('unit', unit);
+  this.set('courseId', 'course-id-123');
+  this.render(hbs`{{content/courses/gru-accordion-unit
+    courseId=courseId
+    model=unit }}`);
+
+  const $component = this.$('.content.courses.gru-accordion.gru-accordion-unit');
+  assert.ok($component.length, 'Component');
+
+  const $saveButton = $component.find('.edit .panel-heading .actions button:eq(1)');
+  $saveButton.click();
+
+  unit = this.get('unit');
+  assert.equal(unit.get('data.id'), 'unit-id-123', 'Unit ID updated after saving');
+  assert.equal(unit.get('isEditing'), false, 'Unit is no longer editable');
+});
+
+test('it shows an error message if it fails to create a new unit', function (assert) {
+  assert.expect(2);
+
+  const context = this;
+
+  // Mock notifications service
+  this.register('service:notifications', Ember.Service.extend({
+    error(message) {
+      assert.equal(message, context.get('i18n').t('common.errors.unit-not-created').string, 'Notification displayed');
+    }
+  }));
+  this.inject.service('notifications');
+
+  var unit = BuilderItem.create({
+    data: Unit.create(Ember.getOwner(this).ownerInjection(), {
+      id: 0
+    }),
+    isEditing: true
+  });
+
+  this.set('unit', unit);
+  this.set('courseId', 'course-id-fail');
+  this.render(hbs`{{content/courses/gru-accordion-unit
+    courseId=courseId
+    model=unit }}`);
+
+  const $component = this.$('.content.courses.gru-accordion.gru-accordion-unit');
+  assert.ok($component.length, 'Component');
+
+  const $saveButton = $component.find('.edit .panel-heading .actions button:eq(1)');
+  $saveButton.click();
 });
 
 test('it renders a form when editing an existing unit', function (assert) {
