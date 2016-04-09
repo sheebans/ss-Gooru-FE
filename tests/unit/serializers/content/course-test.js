@@ -121,15 +121,16 @@ test('normalizeCourse', function (assert) {
         title: payload.unitSummary[1].title
       })
     ],
-    id: payload.id,
-    isPublic: payload.visible_on_profile,
-    title: payload.title,
-    description: payload.description,
-    thumbnailUrl: payload.thumbnail,
-    isVisibleOnProfile: payload.visible_on_profile,
     audience: payload.audience.slice(0),
+    description: payload.description,
+    id: payload.id,
+    isPublished: false,
+    isVisibleOnProfile: payload.visible_on_profile,
     subject: payload.subject_bucket,
-    taxonomy: payload.taxonomy.slice(0)
+    taxonomy: payload.taxonomy.slice(0),
+    thumbnailUrl: payload.thumbnail,
+    title: payload.title,
+    unitCount: 0
   });
 
   const result = serializer.normalizeCourse(payload);
@@ -141,11 +142,11 @@ test('normalizeGetCourses', function(assert) {
   const coursesPayload = {
     "courses": [
       {
-        "id": "2fd4971b-68bc-42c9-8f02-e8fc16996363",
-        "title": "Course Test Jeff01",
+        "id": "course-id-1",
+        "title": "Test Course 1",
         "publish_status": "unpublished",
-        "thumbnail": "74266efb-74eb-45de-a6a8-4052710af82c.png",
-        "owner_id": "08fd3a1a-8118-4b02-ab59-c0b4a5037863",
+        "thumbnail": "thumbnail-1.png",
+        "owner_id": "owner-id-1",
         "original_creator_id": null,
         "collaborator": null,
         "original_course_id": null,
@@ -154,19 +155,19 @@ test('normalizeGetCourses', function(assert) {
         "visible_on_profile": true,
         "unit_count": 5,
         "owner_info": {
-          "id": "08fd3a1a-8118-4b02-ab59-c0b4a5037863",
-          "firstname": "Jeffrey",
-          "lastname": "Bermudez",
+          "id": "owner-id-1",
+          "firstname": "Florinda",
+          "lastname": "Meza",
           "thumbnail_path": null,
           "school_district_id": null
         }
       },
       {
         "id": "3fc882b2-dd9e-4957-9498-386984f156f7",
-        "title": "Jeff Course02",
-        "publish_status": "unpublished",
+        "title": "Test Course 2",
+        "publish_status": "published",
         "thumbnail": "",
-        "owner_id": "08fd3a1a-8118-4b02-ab59-c0b4a5037863",
+        "owner_id": "owner-id-2",
         "original_creator_id": null,
         "collaborator": null,
         "original_course_id": null,
@@ -175,9 +176,9 @@ test('normalizeGetCourses', function(assert) {
         "visible_on_profile": true,
         "unit_count": null,
         "owner_info": {
-          "id": "08fd3a1a-8118-4b02-ab59-c0b4a5037863",
-          "firstname": "Jeffrey",
-          "lastname": "Bermudez",
+          "id": "owner-id-2",
+          "firstname": "Roberto",
+          "lastname": "Gomez",
           "thumbnail_path": null,
           "school_district_id": null
         }
@@ -190,22 +191,30 @@ test('normalizeGetCourses', function(assert) {
     }
   };
   const expected = [
-    Course.create({
-      id: '2fd4971b-68bc-42c9-8f02-e8fc16996363',
-      title: 'Course Test Jeff01',
-      thumbnailUrl: '74266efb-74eb-45de-a6a8-4052710af82c.png',
-      taxonomy: [],
-      isVisibleOnProfile: true,
+    Course.create(Ember.getOwner(this).ownerInjection(), {
+      children: [],
+      audience: [],
+      description: undefined,
+      id: coursesPayload.courses[0].id,
       isPublished: false,
-      unitCount: 5
+      isVisibleOnProfile: coursesPayload.courses[0].visible_on_profile,
+      subject: undefined,
+      taxonomy: coursesPayload.courses[0].taxonomy.slice(0),
+      thumbnailUrl: coursesPayload.courses[0].thumbnail,
+      title: coursesPayload.courses[0].title,
+      unitCount: coursesPayload.courses[0].unit_count
     }),
-    Course.create({
-      id: '3fc882b2-dd9e-4957-9498-386984f156f7',
-      title: 'Jeff Course02',
-      thumbnailUrl: '',
-      taxonomy: [],
-      isVisibleOnProfile: true,
-      isPublished: false,
+    Course.create(Ember.getOwner(this).ownerInjection(), {
+      children: [],
+      audience: [],
+      description: undefined,
+      id: coursesPayload.courses[1].id,
+      isPublished: true,
+      isVisibleOnProfile: coursesPayload.courses[1].visible_on_profile,
+      subject: undefined,
+      taxonomy: coursesPayload.courses[1].taxonomy.slice(0),
+      thumbnailUrl: coursesPayload.courses[1].thumbnail,
+      title: coursesPayload.courses[1].title,
       unitCount: 0
     })
   ];
