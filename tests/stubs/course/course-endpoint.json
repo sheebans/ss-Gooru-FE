@@ -5,7 +5,7 @@
       "url": "^/gooruapi/rest/v1/course/(.+)$",
       "method": "GET",
       "headers": {
-        "authorization": "Token (.+)"
+        "gooru-session-token": "(.+)"
       }
     },
     "response": {
