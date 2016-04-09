@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-  actions:{
+  actions: {
     switchTab: function () {
       $('.nav-tabs li.tab:not(.active)').tab('show');
     }
@@ -20,6 +20,17 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Properties
 
-  "totalJoinedClasses": null,
-  "totalTeachingClasses": null,
+  /**
+   * @property {Number} Total of joined classes
+   */
+  totalJoinedClasses: Ember.computed('myClasses', function() {
+    return this.get('myClasses.memberList').length;
+  }),
+
+  /**
+   * @property {Number} Total of teaching classes
+   */
+  totalTeachingClasses: Ember.computed('myClasses', function() {
+    return this.get('myClasses.ownerList').length + this.get('myClasses.collaboratorList').length;
+  })
 });
