@@ -52,7 +52,7 @@ export default Ember.Component.extend({
                   component.get('notifications').error(message);
                 }
               }
-            )
+            );
         }
         component.set('didValidate', true);
       });
