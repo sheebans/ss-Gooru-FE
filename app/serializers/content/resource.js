@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import Resource from 'gooru-web/models/content/resource';
-import {RESOURCE_FORMAT_MAP} from 'gooru-web/config/config';
 
 /**
  * Serializer to support the Resource CRUD operations for API 3.0
