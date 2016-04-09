@@ -66,7 +66,7 @@ export default Ember.Object.extend({
   normalizeCourse: function(courseData) {
     const serializer = this;
 
-    return Course.create(Ember.getOwner(this).ownerInjection(), {
+    return Course.create(Ember.getOwner(serializer).ownerInjection(), {
       children: function () {
         var units = [];
         if (courseData.unitSummary) {
