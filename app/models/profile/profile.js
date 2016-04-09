@@ -8,6 +8,11 @@ const Validations = buildValidations({
         presence: true,
         message: 'Please enter a username.'
       }),
+      validator('length', {
+        min: 4,
+        max: 20,
+        message: 'Username must be between 4 and 20 characters.'
+      }),
       validator('username')
     ]
   },
@@ -46,7 +51,12 @@ const Validations = buildValidations({
     validator('format', {
       regex: /^\w+$/,
       message: "Please don't use special characters."
-    })
+    }),
+    validator('length', {
+      min: 5,
+      max: 14,
+      message: "Password must be between 5 and 14 characters."
+    }),
   ],
 
   rePassword:[
@@ -124,21 +134,6 @@ export default Ember.Object.extend(Validations,{
    * @property {date} dateOfBirth - The profile date of birth
    */
   dateOfBirth: null,
-
-  /**
-   * @property {date} dayOfBirth - The profile day of birth
-   */
-  dayOfBirth: null,
-
-  /**
-   * @property {date} monthOfBirth - The profile month of birth
-   */
-  monthOfBirth: null,
-
-  /**
-   * @property {date} yearOfBirth - The profile year of birth
-   */
-  yearOfBirth: null,
 
   /**
    * @property {string} role - The profile role (teacher, student, etc)

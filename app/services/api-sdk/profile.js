@@ -129,8 +129,7 @@ export default Ember.Service.extend({
         .then(function() {
           reject('Aww, this username is taken. Try another.');
         }, function(error) {
-
-          if(error.status===404 || error.status===500){
+           if(error.status===404 || error.status===500 || error.status===200){
             resolve();
           }
           else {
@@ -153,7 +152,7 @@ export default Ember.Service.extend({
           reject('This email is taken. Try another.');
         }, function(error) {
 
-          if(error.status===404 || error.status===500){
+          if(error.status===404 || error.status===500 || error.status===200){
             resolve();
           }
           else {
