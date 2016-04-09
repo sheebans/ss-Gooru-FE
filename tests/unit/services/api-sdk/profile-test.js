@@ -160,7 +160,7 @@ test('checkUsernameAvailability-User already exists', function(assert) {
   service.set('availabilityAdapter', Ember.Object.create({
     verifyUsername: function(username) {
       assert.equal(username, 'username-value', 'Usernames should be equal');
-      return Ember.RSVP.reject({ status: 200 });
+      return Ember.RSVP.resolve({ status: 200 });
     }
   }));
 
@@ -204,7 +204,7 @@ test('checkEmailAvailability-Email already exists', function(assert) {
   service.set('availabilityAdapter', Ember.Object.create({
     verifyEmail: function(email) {
       assert.equal(email, 'email-value', 'Emails should be equal');
-      return Ember.RSVP.reject({ status: 200 });
+      return Ember.RSVP.resolve({ status: 200 });
     }
   }));
 

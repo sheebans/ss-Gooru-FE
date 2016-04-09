@@ -39,7 +39,6 @@ export default Ember.Controller.extend({
          });
         }
         controller.set('didValidate', true);
-      }, function(error) {
       });
     }
   },
