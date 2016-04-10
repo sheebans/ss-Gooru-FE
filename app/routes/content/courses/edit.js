@@ -1,12 +1,18 @@
 import Ember from 'ember';
-import Course from 'gooru-web/models/content/course';
+import BuilderItem from 'gooru-web/models/content/builder/item';
 
 export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
-   * @property {Session} current session
+   * @requires service:api-sdk/course
+   */
+  courseService: Ember.inject.service("api-sdk/course"),
+
+  /**
+   * @requires service:session
    */
   session: Ember.inject.service("session"),
 
@@ -18,20 +24,23 @@ export default Ember.Route.extend({
     // TODO: authenticate session with ember-simple-auth, if not send to log in
   },
 
-  setupController(controller /*, model */) {
+  model: function (params) {
+    var course = this.get('courseService').fetchById(params.courseId);
 
-    // TODO: Fetch data from model
-    var course = Course.create(Ember.getOwner(this).ownerInjection(), {
-      title: "Course Title",
-      category: 1,
-      audience: [2, 4],
-      image: '',
+    return Ember.RSVP.hash({
+      course: course
+    });
+  },
 
-      // TODO: Create/use model for units
-      units: []
+  setupController(controller, model) {
+    model.course.children = model.course.children.map(function (unit) {
+      // Wrap every unit inside of a builder item
+      return BuilderItem.create({
+        data: unit
+      });
     });
 
-    controller.set('course', course);
+    controller.set('course', model.course);
   }
 
 });

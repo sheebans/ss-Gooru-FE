@@ -31,7 +31,9 @@
   </h4>
   <div class="panel panel-default">
     <div class="panel-body">
-      <span class="pull-right hidden-xs">{{t "common.last-updated"}}: {{formatDate profile.lastUpdate "MMMM D, YYYY"}}</span>
+      {{#if profile.lastUpdate}}
+        <span class="pull-right hidden-xs">{{t "common.last-updated"}}: {{formatDate profile.lastUpdate "MMMM D, YYYY"}}</span>
+      {{/if}}
       <h6>{{t "common.role"}}</h6>
       <p class="role">
         {{profile.role}}

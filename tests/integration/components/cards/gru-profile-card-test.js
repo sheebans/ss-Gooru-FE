@@ -19,10 +19,8 @@ test('it renders', function (assert) {
     firstName: "John",
     lastName: "Doe",
     username: "JohnDoe",
-    network: {
-      followerCount: 10,
-      followingCount: 20
-    }
+    followers: 10,
+    followings: 20
   });
 
   this.set('mockProfile', mockProfile);
@@ -39,47 +37,10 @@ test('it renders', function (assert) {
   assert.equal($following.text().trim(), '20 ' + this.get('i18n').t('cards.gru-profile-card.following').string);
 
   return wait().then(function () {
-    const $image = $component.find('> a > span > img');
+    const $image = $component.find('> div > span > img');
     assert.equal($image.attr('src'), '/assets/gooru/profile.png');
 
-    const $name = $component.find('> a > strong');
+    const $name = $component.find('> div > strong');
     assert.equal($name.text(), 'JohnDoe');
-  });
-});
-
-test('it triggers an action when the name or the image of the user is selected', function (assert) {
-  assert.expect(2);
-
-  const mockProfile = ProfileModel.create({
-    id: 111,
-    avatarUrl: "/assets/gooru/profile.png",
-    firstName: "John",
-    lastName: "Doe",
-    username: "JohnDoe",
-    network: {
-      followerCount: 0,
-      followingCount: 0
-    }
-  });
-
-  this.on('externalAction', function (userId) {
-    // This should be called twice
-    assert.equal(userId, 111);
-  });
-
-  this.set('mockProfile', mockProfile);
-
-  this.render(hbs`{{cards/gru-profile-card
-                    profile=mockProfile
-                    onProfileSelect=(action 'externalAction')}}`);
-
-  const $component = this.$('.cards.gru-profile-card');
-
-  return wait().then(function () {
-    const $image = $component.find('> a > span > img');
-    const $name = $component.find('> a > strong');
-
-    $image.click();
-    $name.click();
   });
 });

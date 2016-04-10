@@ -2,7 +2,14 @@ import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations({
-  title: validator('presence', true),
+  title: {
+    validators: [
+      validator('presence', {
+        presence: true,
+        message:'Please enter the collection title.'
+      })
+    ]
+  }
 });
 
 /**
@@ -29,7 +36,7 @@ const Collection = Ember.Object.extend(Validations, {
   /**
    * @property {String} learningObjectives
    */
-  learningObjectives: '',
+  learningObjectives: null,
 
   /**
    * @property {String} title
@@ -50,25 +57,30 @@ const Collection = Ember.Object.extend(Validations, {
    * Return a copy of the collection
    *
    * @function
-   * @return {Course}
+   * @return {Collection}
    */
   copy: function() {
 
+    var properties = [];
+    var enumerableKeys = Object.keys(this);
+
+    for (let i = 0; i < enumerableKeys.length; i++) {
+      let key = enumerableKeys[i];
+      let value = Ember.typeOf(this.get(key));
+      if (value === 'string' || value === 'number' || value === 'boolean') {
+        properties.push(key);
+      }
+    }
+
     // Copy the course data
-    var copiedProperties = this.getProperties([
-      'category',
-      'image',
-      'subject',
-      'learningObjectives',
-      'title',
-      'isPublic'
-    ]);
+    properties = this.getProperties(properties);
+
     var audience = this.get('audience');
 
     // Copy the audience values
-    copiedProperties.audience = audience.slice(0);
+    properties.audience = audience.slice(0);
 
-    return Collection.create(Ember.getOwner(this).ownerInjection(), copiedProperties);
+    return Collection.create(Ember.getOwner(this).ownerInjection(), properties);
   }
 
 });

@@ -3,8 +3,13 @@
 
   .modal {
     display: block;
-    height: 91vh;
     position: relative;
+
+    &.gru-class-new {
+      height: inherit;
+      width: 100%;
+      z-index: 0;
+    }
 
     .modal-dialog {
       margin: 10px 0;
@@ -69,9 +74,9 @@
 .condition-prompt {
   padding-top: 20px;
 
-  label {
+  .conditions {
 
-    &:last-child {
+    &>:last-child {
       margin-left: 15px;
     }
   }

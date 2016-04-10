@@ -1,0 +1,39 @@
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">{{t 'content.classes.create.title'}}</h3>
+        <p class="lead">{{t 'content.classes.create.content'}}</p>
+      </div>
+      <div class="modal-body">
+        <div class="form-group class-name-input-container">
+          <label class="control-label" for="">{{t 'content.classes.create.class-name-input'}}</label>
+          {{validation.gru-input model=newClass valuePath='title'}}
+        </div>
+        <div class="form-group condition-prompt">
+          <p>{{t 'content.classes.create.condition-prompt'}}</p>
+          <div class="conditions">
+            {{
+              validation.gru-radio
+              model=newClass
+              groupValue=currentClassSharing
+              valuePath='open'
+              name="condition-prompt-radio"
+              translationPath="content.classes.create.condition-prompt-code"
+            }}
+            {{
+              validation.gru-radio
+              model=newClass
+              groupValue=currentClassSharing
+              valuePath='restricted'
+              name="condition-prompt-radio"
+              translationPath="content.classes.create.condition-prompt-invite"
+            }}
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        {{#link-to 'user' class="cancel-button"}}{{t 'common.cancel'}}{{/link-to}}
+        <button type="button" class="btn btn-success get-started" {{action "createClass"}}>{{t 'content.classes.create.get-started'}} {{gru-icon name= "keyboard_arrow_right" class="pull-right"}} </button>
+      </div>
+    </div>
+  </div>

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import AccordionMixin from '../../../mixins/gru-accordion';
+import BuilderMixin from 'gooru-web/mixins/content/builder';
 
 /**
  * Content Builder: Accordion Unit
@@ -11,15 +11,30 @@ import AccordionMixin from '../../../mixins/gru-accordion';
  * @augments Ember/Component
  * @mixes mixins/gru-accordion
  */
-export default Ember.Component.extend(AccordionMixin, {
+export default Ember.Component.extend(BuilderMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
 
   /**
+   * @requires service:i18n
+   */
+  i18n: Ember.inject.service(),
+
+  /**
    * @requires service:api-sdk/lesson
    */
   lessonService: Ember.inject.service("api-sdk/lesson"),
+
+  /**
+   * @requires service:notifications
+   */
+  notifications: Ember.inject.service(),
+
+  /**
+   * @requires service:api-sdk/unit
+   */
+  unitService: Ember.inject.service("api-sdk/unit"),
 
 
   // -------------------------------------------------------------------------
@@ -36,20 +51,45 @@ export default Ember.Component.extend(AccordionMixin, {
 
   actions: {
 
+    add: function () {
+      this.get('onExpandUnit')();
+      this.set('model.isExpanded', true);
+    },
+
+    addLesson: function () {
+      Ember.Logger.info('Add new lesson');
+    },
+
     /**
      * Load the data for this unit (data should only be loaded once)
      *
      * @function actions:selectUnit
      */
     cancelEdit: function () {
-      var unit = this.get('model');
-      if (!unit.get('id')) {
-        this.get('onCancelAddUnit')(unit);
+      if (this.get('model.isNew')) {
+        this.get('onCancelAddUnit')(this.get('model'));
       } else {
         // TODO: If the item already exists, set it's 'editing' flag to false
         // and restore its model
         //this.set('model.isEditing', false);
       }
+    },
+
+    saveUnit: function () {
+      var courseId = this.get('courseId');
+      var unit = this.get('unit');
+
+      this.get('unitService')
+        .createUnit(courseId, unit)
+
+        .then(function () {
+          this.set('model.isEditing', false);
+        }.bind(this))
+
+        .catch(function () {
+          var message = this.get('i18n').t('common.errors.unit-not-created').string;
+          this.get('notifications').error(message);
+        }.bind(this));
     },
 
     /**
@@ -59,41 +99,35 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     selectUnit: function () {
       this.loadData();
+    },
+
+    toggle: function () {
+      var toggleValue = !this.get('model.isExpanded');
+      this.get('onExpandUnit')();
+      this.set('model.isExpanded', toggleValue);
     }
 
   },
 
   // -------------------------------------------------------------------------
   // Events
-
-  setupComponent: Ember.on('didInsertElement', function () {
-    const component = this;
-
-    this.$().on('hide.bs.collapse', function (e) {
-      e.stopPropagation();
-      component.set('isExpanded', false);
-    });
-
-    this.$().on('show.bs.collapse', function (e) {
-      e.stopPropagation();
-      component.set('isExpanded', true);
-    });
+  initData: Ember.on('init', function () {
+    this.set('items', Ember.A());
   }),
 
-  removeSubscriptions: Ember.on('willDestroyElement', function () {
-    this.$().off('hide.bs.collapse');
-    this.$().off('show.bs.collapse');
-  }),
 
   // -------------------------------------------------------------------------
   // Properties
 
   /**
-   * Contains only visible units
-   * @property {Unit[]} units
+   * @prop {String} course - ID of the course this unit belongs to
    */
-  lessons: null,
+  courseId: null,
 
+  /**
+   * @prop {Content/Unit} unit
+   */
+  unit: Ember.computed.alias('model.data'),
 
   // -------------------------------------------------------------------------
   // Methods

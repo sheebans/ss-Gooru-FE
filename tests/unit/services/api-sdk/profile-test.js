@@ -41,32 +41,6 @@ test('createProfile', function(assert) {
     });
 });
 
-test('readMyProfile', function(assert) {
-  const service = this.subject();
-
-  assert.expect(2);
-
-  service.set('profileAdapter', Ember.Object.create({
-    readMyProfile: function() {
-      assert.ok(true, "readMyProfile() function was called" );
-      return Ember.RSVP.resolve({});
-    }
-  }));
-
-  service.set('profileSerializer', Ember.Object.create({
-    normalizeReadProfile: function(profilePayload) {
-      assert.deepEqual({}, profilePayload, 'Wrong profile payload');
-      return {};
-    }
-  }));
-
-  var done = assert.async();
-  service.readMyProfile()
-    .then(function() {
-      done();
-    });
-});
-
 test('updateMyProfile', function(assert) {
   const service = this.subject();
 
@@ -91,6 +65,67 @@ test('updateMyProfile', function(assert) {
 
   var done = assert.async();
   service.updateMyProfile({})
+    .then(function() {
+      done();
+    });
+});
+
+test('readUserProfile', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('profileAdapter', Ember.Object.create({
+    readUserProfile: function() {
+      assert.ok(true, "readUserProfile() function was called" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    normalizeReadProfile: function(profilePayload) {
+      assert.deepEqual({}, profilePayload, 'Wrong profile payload');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.readUserProfile()
+    .then(function() {
+      done();
+    });
+});
+
+test('followUserProfile', function(assert) {
+  const service = this.subject();
+  assert.expect(1);
+
+  service.set('profileAdapter', Ember.Object.create({
+    followUserProfile: function() {
+      assert.ok(true, "followUserProfile() function was called" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  var done = assert.async();
+  service.followUserProfile()
+    .then(function() {
+      done();
+    });
+});
+
+test('unfollowUserProfile', function(assert) {
+  const service = this.subject();
+  assert.expect(1);
+
+  service.set('profileAdapter', Ember.Object.create({
+    unfollowUserProfile: function() {
+      assert.ok(true, "unfollowUserProfile() function was called" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  var done = assert.async();
+  service.unfollowUserProfile()
     .then(function() {
       done();
     });

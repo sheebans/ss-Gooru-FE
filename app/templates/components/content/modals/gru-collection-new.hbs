@@ -5,7 +5,7 @@
     <form {{action "createCollection" on="submit"}}>
         <label>
             <span class="required">{{t 'common.collection-title'}}</span>
-          {{validation.gru-input model=collection valuePath='title' maxlength='50'}}
+          {{validation.gru-input model=collection valuePath='title' maxlength=50}}
         </label>
         <div class="actions">
             <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
