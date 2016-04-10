@@ -169,7 +169,7 @@ test('normalizeStandards', function(assert) {
 
   const standards = serializer.normalizeStandards(standardsData);
   assert.equal(standards.length, 2, 'Wrong standards length');
-  assert.equal(standards[0].code, "a", 'Wrong code');
+  assert.equal(standards[0].get("code"), "a", 'Wrong code');
 });
 
 
@@ -281,7 +281,7 @@ test('normalizeCollection', function(assert) {
   assert.equal(collection.get("resourceCount"), 5, 'Wrong resource count');
   assert.equal(collection.get("questionCount"), 3, 'Wrong question count');
   assert.equal(collection.get("remixCount"), 2, 'Wrong remix count');
-  assert.deepEqual(collection.get("standards"), ["K12.MA"], 'Wrong standards');
+  assert.deepEqual(collection.get("standards")[0].get("code"), "K12.MA", 'Wrong standards');
   assert.equal(collection.get("owner.id"), "852f9814-0eb4-461d-bd3b-aca9c2500595", 'Wrong owner id');
 });
 

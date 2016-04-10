@@ -24,6 +24,7 @@ test('Collection Card Layout', function(assert) {
       username: 'dara.weiner',
       avatarUrl: 'avatar-url'
     }),
+    course: "Any course title",
     remixedBy:["James","Andrea","Patric"]
   });
 
@@ -34,7 +35,6 @@ test('Collection Card Layout', function(assert) {
   T.exists(assert, $collectionCard.find(".panel-heading h6.title"), "Missing Title");
   T.exists(assert, $collectionCard.find(".panel-heading .image img"), "Missing Collection Image");
   T.exists(assert, $collectionCard.find(".panel-heading .question-resources"), "Missing Question and Resource Label");
-  T.exists(assert, $collectionCard.find(".panel-heading .course"), "Missing Course Label");
   T.exists(assert, $collectionCard.find(".panel-heading .course"), "Missing Course Label");
   T.exists(assert, $collectionCard.find(".panel-body .standards"), "Missing Standards");
   T.exists(assert, $collectionCard.find(".panel-body .remixed-by"), "Missing Remixed By section");
@@ -61,7 +61,8 @@ test('Assessment Card Layout', function(assert) {
       code:"CCSS.Math.Content.5.NBT.A.2"
     })]),
     author:"dara.weiner",
-    description:"Students will be able to break salt down into its basic chemical components (NaCl) and describe how these atoms come together to form this important compound."
+    description:"Students will be able to break salt down into its basic chemical components (NaCl) and describe how these atoms come together to form this important compound.",
+    course: "Any course title"
   });
 
   this.set('assessment', assessment);
@@ -71,7 +72,6 @@ test('Assessment Card Layout', function(assert) {
   T.exists(assert, $collectionCard.find(".panel-heading h6.title"), "Missing Title");
   T.exists(assert, $collectionCard.find(".panel-heading .image img"), "Missing Collection Image");
   T.exists(assert, $collectionCard.find(".panel-heading .question-resources"), "Missing Question and Resource Label");
-  T.exists(assert, $collectionCard.find(".panel-heading .course"), "Missing Course Label");
   T.exists(assert, $collectionCard.find(".panel-heading .course"), "Missing Course Label");
   T.exists(assert, $collectionCard.find(".panel-body .standards"), "Missing Standards");
   T.exists(assert, $collectionCard.find(".panel-body .author"), "Missing Remixed By section");

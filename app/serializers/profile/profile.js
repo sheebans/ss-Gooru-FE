@@ -230,7 +230,6 @@ export default Ember.Object.extend({
    * @returns {Content/User}
    */
   normalizeStandards: function (standards) {
-    const serializer = this;
     return standards.map(function(standard){
       return Ember.Object.create({ code: standard, description: null });
     });
