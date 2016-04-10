@@ -174,3 +174,25 @@ test('readQuestions', function(assert) {
   var done = assert.async();
   service.readQuestions(1).then(function() { done(); });
 });
+
+test('readCollections', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('profileAdapter', Ember.Object.create({
+    readCollections: function(userId) {
+      assert.equal(userId, 1, "readCollections(1) function was called" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    normalizeReadCollections: function(response) {
+      assert.deepEqual(response, {}, "normalizeReadCollections() function was called" );
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.readCollections(1).then(function() { done(); });
+});

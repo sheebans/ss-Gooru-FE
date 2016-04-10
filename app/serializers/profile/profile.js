@@ -3,6 +3,8 @@ import ProfileModel from 'gooru-web/models/profile/profile';
 import Env from 'gooru-web/config/environment';
 import ResourceModel from 'gooru-web/models/content/resource';
 import QuestionModel from 'gooru-web/models/content/question';
+import CollectionModel from 'gooru-web/models/content/collection';
+import UserModel from 'gooru-web/models/content/user';
 
 /**
  * Serializer to support the Profile CRUD operations for API 3.0
@@ -127,6 +129,21 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Normalize the collections
+   * @param payload
+   * @returns {Content/Collection[]}
+   */
+  normalizeReadCollections: function(payload){
+    const collections = payload.collections || [];
+    const serializer = this;
+    const owners = serializer.normalizeOwners(payload.owner_details || []);
+
+    return collections.map(function(collectionData){
+      return serializer.normalizeCollection(collectionData, owners);
+    });
+  },
+
+  /**
    * Normalizes a resource
    * @param {Object} resourceData
    * @param {[]} owners
@@ -168,9 +185,37 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Normalizes a collection
+   * @param {Object} collectionData
+   * @param {[]} owners
+   * @returns {Content/Resource}
+   */
+  normalizeCollection: function (collectionData, owners) {
+    const serializer = this;
+    const ownerId = collectionData.owner_id;
+    const filteredOwners = Ember.A(owners).filterBy("id", ownerId);
+    const standards = serializer.normalizeStandards(collectionData.taxonomy || []);
+    return CollectionModel.create({
+      id: collectionData.id,
+      title: collectionData.title,
+      image: collectionData.thumbnail,
+      standards: standards,
+      description: collectionData.description, //TODO missing description
+      publishStatus: collectionData.publish_status,
+      learningObjectives: collectionData.learning_objective,
+      resourceCount: collectionData.resource_count,
+      questionCount: collectionData.question_count,
+      remixCount: collectionData.remix_count, //TODO missing on API
+      course: collectionData.course_title,
+      isVisibleOnProfile: collectionData.visible_on_profile,
+      owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
+    });
+  },
+
+  /**
    * Normalizes owners
    * @param payload
-   * @returns {Array}
+   * @returns {Content/User}
    */
   normalizeOwners: function (payload) {
     const serializer = this;
@@ -180,17 +225,29 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Normalizes standards
+   * @param {string[]} payload
+   * @returns {Content/User}
+   */
+  normalizeStandards: function (standards) {
+    const serializer = this;
+    return standards.map(function(standard){
+      return Ember.Object.create({ code: standard, description: null });
+    });
+  },
+
+  /**
    * Normalizes owner
    * @param ownerData
-   * @returns {*|Object}
+   * @returns {Content/User}
    */
   normalizeOwner: function (ownerData) {
-    return Ember.Object.create({
+    return UserModel.create({
       "id": ownerData.id,
       "firstName": ownerData.firstname,
       "lastName": ownerData.lastname,
       "avatarUrl": ownerData.thumbnail_path,
-      "username": ownerData.username || 'Not provided'
+      "username": ownerData.username || 'Not provided' //TODO missing on API
     });
   }
 

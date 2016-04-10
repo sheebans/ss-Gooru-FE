@@ -164,4 +164,21 @@ export default Ember.Service.extend({
     });
   },
 
+  /**
+   * Return the list of collections related to a user
+   * @param {string} userId
+   * @returns {RSVP.Promise}
+   */
+  readCollections: function(userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readCollections(userId).then(
+        function(response) {
+          resolve(service.get('profileSerializer').normalizeReadCollections(response));
+        },
+        reject
+      );
+    });
+  },
+
 });

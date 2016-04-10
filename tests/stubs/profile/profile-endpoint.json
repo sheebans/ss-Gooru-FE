@@ -182,6 +182,24 @@
       "body": "File not found!",
       "file": "profile-api3-questions-200-response.json"
     }
+  },
+  {
+    "description": "API 3.0 Endpoint to get user collections",
+    "request": {
+      "url": "^/api/nucleus/v1/profiles/(.*)/collections",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "profile-api3-collections-200-response.json"
+    }
   }
 ]
 

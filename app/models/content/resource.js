@@ -64,9 +64,14 @@ const ResourceModel = Ember.Object.extend(Validations,{
   publishStatus: null,
 
   /**
-   * @property { { id: string, firstName: string, lastName: string, thumbnailUrl: string } }
+   * @property { Content/User }
    */
-  owner: null
+  owner: null,
+
+  /**
+   * @property {Boolean} isPublic
+   */
+  isPublic: Ember.computed.equal("publishedStatus", "published")
 
 
 });
