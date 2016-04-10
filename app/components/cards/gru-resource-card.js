@@ -17,12 +17,40 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
+  actions: {
+    editResource: function(){
+      this.sendAction("onEditResource", this.get("resource"));
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Properties
   /**
    * @property {Resource/Question} resource
    */
-  resource: null
+  resource: null,
+
+  /**
+   * Indicates if the edit functionality is enabled
+   * @property {boolean}
+   */
+  editEnabled: false,
+
+  /**
+   * Indicates if the edit functionality is enabled
+   * @property {boolean}
+   */
+  remixEnabled: true,
+
+  /**
+   * Indicates if the edit functionality is enabled
+   * @property {boolean}
+   */
+  addEnabled: true,
+
+  /**
+   * @property {string} edit action
+   */
+  onEditResource: null
 
 });

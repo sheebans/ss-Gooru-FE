@@ -128,5 +128,23 @@ export default Ember.Service.extend({
       return this.findById(currentProfileId);
     }
     return null;
-  }
+  },
+
+  /**
+   * Return the list of resources related to a user
+   * @param {string} userId
+   * @returns {RSVP.Promise}
+   */
+  readResources: function(userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readResources(userId).then(
+        function(response) {
+          resolve(service.get('profileSerializer').normalizeReadResources(response));
+        },
+        reject
+      );
+    });
+  },
+
 });

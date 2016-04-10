@@ -35,6 +35,18 @@
     </div>
   </div>
   <div class="panel-footer">
-    <button class="{{if resource.isQuestion 'remix-btn' 'add-to-btn' }} btn-success btn-sm">{{#if resource.isQuestion }}{{t "common.remix"}}{{else}}{{t "cards.gru-resource-card.add"}}{{/if}}</button>
+    {{#if editEnabled }}
+      <button class="edit-btn btn-success btn-sm" {{action "editResource"}}>{{t "common.edit"}}</button>
+    {{/if}}
+    {{#if addEnabled }}
+      {{#unless resource.isQuestions}}
+        <button class="add-to-btn btn-success btn-sm">{{t "common.add-to"}}</button>
+      {{/unless}}
+    {{/if}}
+    {{#if remixEnabled }}
+      {{#if resource.isQuestions}}
+        <button class="remix-btn btn-success btn-sm">{{t "common.remix"}}</button>
+      {{/if}}
+    {{/if}}
   </div>
 </div>

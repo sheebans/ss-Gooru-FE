@@ -146,6 +146,24 @@
       },
       "body": ""
     }
+  },
+  {
+    "description": "API 3.0 Endpoint to get user resources",
+    "request": {
+      "url": "^/api/nucleus/v1/profiles/(.*)/resources",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "profile-api3-resources-200-response.json"
+    }
   }
 ]
 

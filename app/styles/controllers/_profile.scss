@@ -208,10 +208,10 @@
     >div:last-child{
       padding: 20px;
       @media (min-width: $screen-sm-min) {
-        padding: 20px 65px;
+        padding: 20px 40px;
       }
       @media (min-width: $screen-md-min) {
-        padding: 20px 56px;
+        padding: 20px 30px;
       }
     }
   }

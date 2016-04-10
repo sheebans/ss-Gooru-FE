@@ -26,7 +26,7 @@ const Validations = buildValidations({
  *
  * @typedef {Object} Content/Resource
  */
-export default Ember.Object.extend(Validations,{
+const ResourceModel = Ember.Object.extend(Validations,{
 
   /**
    * @property {String} url
@@ -51,6 +51,44 @@ export default Ember.Object.extend(Validations,{
   /**
    * @property {string}
    */
-  title: null
+  title: null,
+
+  /**
+   * @property {string}
+   */
+  description: null,
+
+  /**
+   * @property {string} published|unpublished|requested
+   */
+  publishStatus: null,
+
+  /**
+   * @property { { id: string, firstName: string, lastName: string, thumbnailUrl: string } }
+   */
+  owner: null
+
 
 });
+
+ResourceModel.reopenClass({
+  /**
+   * Serializes the resource format to be API compliant
+   * @param format
+   * @returns {string}
+   */
+  serializeResourceFormat: function (format) {
+    return format ? `${format}_resource` : undefined;
+  },
+
+  /**
+   * Normalizes the resource format to be App compliant
+   * @param format
+   * @returns {string}
+   */
+  normalizeResourceFormat: function (format) {
+    return format ? format.split("_")[0] : undefined;// i.e video_resource to video
+  }
+});
+
+export default ResourceModel;

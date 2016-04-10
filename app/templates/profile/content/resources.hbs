@@ -1,3 +1,9 @@
 <div class="controller content-resources">
-  <h1>Resources Content Page</h1>
+    <div class="resources">
+      {{#each resources as |resource|}}
+          <div class="card">
+            {{cards.gru-resource-card resource=resource editEnabled=true onEditResource="editResource"}}
+          </div>
+      {{/each}}
+    </div>
 </div>

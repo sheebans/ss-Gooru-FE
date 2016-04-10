@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ProfileModel from 'gooru-web/models/profile/profile';
 import Env from 'gooru-web/config/environment';
+import ResourceModel from 'gooru-web/models/content/resource';
 
 /**
  * Serializer to support the Profile CRUD operations for API 3.0
@@ -92,6 +93,71 @@ export default Ember.Object.extend({
       followings: payload.followings,
       isFollowing: !!payload.isFollowing
     });
+  },
+
+  /**
+   * Normalize the resources
+   * @param payload
+   * @returns {Content/Resource[]}
+   */
+  normalizeReadResources: function(payload){
+    const resources = payload.resources || [];
+    const serializer = this;
+    const owners = serializer.normalizeOwners(payload.owner_details || []);
+
+    return resources.map(function(resourceData){
+      return serializer.normalizeResource(resourceData, owners);
+    });
+  },
+
+  /**
+   * Normalizes a resource
+   * @param {Object} resourceData
+   * @param {[]} owners
+   * @returns {Content/Resource}
+   */
+  normalizeResource: function (resourceData, owners) {
+    const format = ResourceModel.normalizeResourceFormat(resourceData.content_subformat);
+
+    const creatorId = resourceData.creator_id;
+    const filteredOwners = Ember.A(owners).filterBy("id", creatorId);
+    return ResourceModel.create({
+      id: resourceData.id,
+      title: resourceData.title,
+      description: resourceData.description,
+      url: resourceData.url,
+      format: format,
+      publishStatus: resourceData.publish_status,
+      owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
+    });
+  },
+
+  /**
+   * Normalizes owners
+   * @param payload
+   * @returns {Array}
+   */
+  normalizeOwners: function (payload) {
+    const serializer = this;
+    return payload.map(function(ownerData){
+      return serializer.normalizeOwner(ownerData);
+    });
+  },
+
+  /**
+   * Normalizes owner
+   * @param ownerData
+   * @returns {*|Object}
+   */
+  normalizeOwner: function (ownerData) {
+    return Ember.Object.create({
+      "id": ownerData.id,
+      "firstName": ownerData.firstname,
+      "lastName": ownerData.lastname,
+      "avatarUrl": ownerData.thumbnail_path,
+      "username": ownerData.username || 'Not provided'
+    });
   }
+
 
 });

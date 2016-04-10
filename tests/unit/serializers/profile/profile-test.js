@@ -141,3 +141,109 @@ test('normalizeCreateProfile', function(assert) {
   const normalizedProfile = serializer.normalizeCreateProfile(profilePayload);
   assert.deepEqual(expected, normalizedProfile, 'Wrong normalized response');
 });
+
+test('normalizeOwners', function(assert) {
+  const serializer = this.subject();
+  const ownersData = [
+    {
+    "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
+    "firstname": "Sachin",
+    "lastname": "Zope",
+    "thumbnail_path": "any"
+    },
+    {
+    "id": "2",
+    "firstname": "Javier",
+    "lastname": "Perez",
+    "thumbnail_path": "none"
+    }
+  ];
+
+  const owners = serializer.normalizeOwners(ownersData);
+  assert.equal(owners.length, 2, 'Wrong owners length');
+});
+
+
+test('normalizeOwner', function(assert) {
+  const serializer = this.subject();
+  const ownerData = {
+    "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
+    "firstname": "Sachin",
+    "lastname": "Zope",
+    "thumbnail_path": "any"
+  };
+
+  const owner = serializer.normalizeOwner(ownerData);
+  assert.equal(owner.get("id"), 'f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d', 'Wrong id');
+  assert.equal(owner.get("firstName"), 'Sachin', 'Wrong first name');
+  assert.equal(owner.get("lastName"), 'Zope', 'Wrong last name');
+  assert.equal(owner.get("avatarUrl"), 'any', 'Wrong avatar url');
+});
+
+
+test('normalizeResource', function(assert) {
+  const serializer = this.subject();
+  const owners = [Ember.Object.create({
+    "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
+    "firstname": "Sachin",
+    "lastname": "Zope",
+    "thumbnail_path": "any"
+  })];
+
+  const resourceData = {
+    "id": "f59eff43-767d-4910-af5a-b7dc9a5ce065",
+    "title": "Introduction to Java",
+    "description": "Some description",
+    "publish_status": "unpublished",
+    "content_subformat": "webpage_resource",
+    "creator_id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d"
+  };
+
+  const resource = serializer.normalizeResource(resourceData, owners);
+  assert.equal(resource.get("id"), 'f59eff43-767d-4910-af5a-b7dc9a5ce065', 'Wrong id');
+  assert.equal(resource.get("title"), 'Introduction to Java', 'Wrong title');
+  assert.equal(resource.get("description"), 'Some description', 'Wrong title');
+  assert.equal(resource.get("publishStatus"), 'unpublished', 'Wrong title');
+  assert.equal(resource.get("format"), 'webpage', 'Wrong title');
+  assert.equal(resource.get("owner.id"), "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d", 'Wrong owner id');
+});
+
+
+test('normalizeReadResources', function(assert) {
+  const serializer = this.subject();
+  const payload = {
+    resources: [
+      {
+        "id": "f59eff43-767d-4910-af5a-b7dc9a5ce065",
+        "title": "Introduction to Java",
+        "description": "Some description",
+        "publish_status": "unpublished",
+        "content_subformat": "webpage_resource",
+        "creator_id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d"
+      },
+      {
+        "id": "2",
+        "title": "Introduction to C#",
+        "description": "Some description",
+        "publish_status": "published",
+        "content_subformat": "webpage_resource",
+        "creator_id": "2"
+      }
+    ],
+    owner_details: [
+      {
+        "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
+        "firstname": "Sachin",
+        "lastname": "Zope",
+        "thumbnail_path": "any"
+      }
+    ]
+  };
+
+  const resources = serializer.normalizeReadResources(payload);
+  assert.equal(resources.length, 2, 'Wrong total resources');
+  assert.equal(resources[0].get("owner.id"), "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d", 'Invalid owner id for resource 1');
+  assert.ok(!resources[1].get("owner"), 'Second resource should not have an owner');
+});
+
+

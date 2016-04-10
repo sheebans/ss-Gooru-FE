@@ -130,3 +130,27 @@ test('unfollowUserProfile', function(assert) {
       assert.equal("", response, 'Wrong response');
     });
 });
+
+
+test('readResources', function(assert) {
+  const adapter = this.subject();
+  const userId = "user-id";
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  const routes = function() {
+    this.get('/api/nucleus/v1/profiles/user-id/resources', function() {
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  };
+
+  this.pretender.map(routes);
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  adapter.readResources(userId)
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});

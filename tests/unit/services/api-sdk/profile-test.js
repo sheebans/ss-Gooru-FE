@@ -130,3 +130,25 @@ test('unfollowUserProfile', function(assert) {
       done();
     });
 });
+
+test('readResources', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('profileAdapter', Ember.Object.create({
+    readResources: function(userId) {
+      assert.equal(userId, 1, "readResources(1) function was called" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    normalizeReadResources: function(response) {
+      assert.deepEqual(response, {}, "normalizeReadResources() function was called" );
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.readResources(1).then(function() { done(); });
+});
