@@ -3,7 +3,7 @@ import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 import T from 'gooru-web/tests/helpers/assert';
 
-moduleForAcceptance('Acceptance | profile content resources', {
+moduleForAcceptance('Acceptance | profile content questions', {
   beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: false,
@@ -24,7 +24,7 @@ test('Layout', function(assert) {
     const $contentCourseContainer = find(".controller.content-questions");
     T.exists(assert, $contentCourseContainer, "Missing content questions container");
 
-    const cards = $contentCourseContainer.find(".questions.card");
+    const cards = $contentCourseContainer.find(".questions .card");
     assert.equal(cards.length, 5, "Missing cards");
 
   });
