@@ -19,13 +19,47 @@ const Validations = buildValidations({
 const Question = Ember.Object.extend(Validations, {
 
   /**
-   * @property {String} title
+   * @property {string}
    */
-  title: '',
+  id: null,
+
   /**
-   * @property {String} type
+   * @property {string} title
    */
-  type:''
+  title: null,
+
+  /**
+   * Possible question types
+   * @property {string} type
+   */
+  type: null,
+
+  /**
+   * Resource format, in this case it is question
+   * @property {string}
+   */
+  format: 'question',
+
+  /**
+   * @property {string}
+   */
+  title: null,
+
+  /**
+   * @property {string}
+   */
+  description: null,
+
+  /**
+   * @property {string} published|unpublished|requested
+   */
+  publishStatus: null,
+
+  /**
+   * @property { { id: string, firstName: string, lastName: string, thumbnailUrl: string } }
+   */
+  owner: null
+
 
 
 });

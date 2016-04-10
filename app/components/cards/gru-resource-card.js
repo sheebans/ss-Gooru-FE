@@ -31,6 +31,14 @@ export default Ember.Component.extend({
   resource: null,
 
   /**
+   * Indicates if this resource is a question
+   * @property {boolean}
+   */
+  isQuestion: Ember.computed("resource.format", "resource.isQuestion", function(){
+    return this.get("resource.isQuestion") || this.get("resource.format") === "question";
+  }),
+
+  /**
    * Indicates if the edit functionality is enabled
    * @property {boolean}
    */

@@ -152,3 +152,25 @@ test('readResources', function(assert) {
   var done = assert.async();
   service.readResources(1).then(function() { done(); });
 });
+
+test('readQuestions', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('profileAdapter', Ember.Object.create({
+    readQuestions: function(userId) {
+      assert.equal(userId, 1, "readQuestions(1) function was called" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    normalizeReadQuestions: function(response) {
+      assert.deepEqual(response, {}, "normalizeReadQuestions() function was called" );
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.readQuestions(1).then(function() { done(); });
+});

@@ -1,3 +1,9 @@
 <div class="controller content-questions">
-  <h1>Questions Content Page</h1>
+  <div class="questions">
+    {{#each questions as |question|}}
+      <div class="card">
+        {{cards.gru-resource-card resource=question editEnabled=true onEditResource="editQuestion"}}
+      </div>
+    {{/each}}
+  </div>
 </div>

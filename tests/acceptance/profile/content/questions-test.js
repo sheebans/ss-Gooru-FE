@@ -16,12 +16,16 @@ moduleForAcceptance('Acceptance | profile content resources', {
 });
 
 test('Layout', function(assert) {
-  visit('/profile/pochita/content/resources');
+  visit('/profile/pochita/content/questions');
 
   andThen(function() {
-    assert.equal(currentURL(), '/profile/pochita/content/resources');
+    assert.equal(currentURL(), '/profile/pochita/content/questions');
 
-    const $contentCourseContainer = find(".controller.content-resources");
-    T.exists(assert, $contentCourseContainer, "Missing content resources container");
+    const $contentCourseContainer = find(".controller.content-questions");
+    T.exists(assert, $contentCourseContainer, "Missing content questions container");
+
+    const cards = $contentCourseContainer.find(".questions.card");
+    assert.equal(cards.length, 5, "Missing cards");
+
   });
 });

@@ -2,6 +2,7 @@ import Ember from 'ember';
 import ProfileModel from 'gooru-web/models/profile/profile';
 import Env from 'gooru-web/config/environment';
 import ResourceModel from 'gooru-web/models/content/resource';
+import QuestionModel from 'gooru-web/models/content/question';
 
 /**
  * Serializer to support the Profile CRUD operations for API 3.0
@@ -111,6 +112,21 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Normalize the questions
+   * @param payload
+   * @returns {Content/Question[]}
+   */
+  normalizeReadQuestions: function(payload){
+    const questions = payload.questions || [];
+    const serializer = this;
+    const owners = serializer.normalizeOwners(payload.owner_details || []);
+
+    return questions.map(function(questionData){
+      return serializer.normalizeQuestion(questionData, owners);
+    });
+  },
+
+  /**
    * Normalizes a resource
    * @param {Object} resourceData
    * @param {[]} owners
@@ -128,6 +144,25 @@ export default Ember.Object.extend({
       url: resourceData.url,
       format: format,
       publishStatus: resourceData.publish_status,
+      owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
+    });
+  },
+
+  /**
+   * Normalizes a question
+   * @param {Object} questionData
+   * @param {[]} owners
+   * @returns {Content/Resource}
+   */
+  normalizeQuestion: function (questionData, owners) {
+    const creatorId = questionData.creator_id;
+    const filteredOwners = Ember.A(owners).filterBy("id", creatorId);
+    return QuestionModel.create({
+      id: questionData.id,
+      title: questionData.title,
+      description: questionData.description,
+      format: questionData.content_format,
+      publishStatus: questionData.publish_status,
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
   },

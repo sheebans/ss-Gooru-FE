@@ -147,4 +147,21 @@ export default Ember.Service.extend({
     });
   },
 
+  /**
+   * Return the list of questions related to a user
+   * @param {string} userId
+   * @returns {RSVP.Promise}
+   */
+  readQuestions: function(userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readQuestions(userId).then(
+        function(response) {
+          resolve(service.get('profileSerializer').normalizeReadQuestions(response));
+        },
+        reject
+      );
+    });
+  },
+
 });

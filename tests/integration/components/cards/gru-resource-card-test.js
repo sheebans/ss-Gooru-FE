@@ -37,7 +37,7 @@ test('Resource Card Layout', function(assert) {
   T.exists(assert, $resourceCard.find(".panel-body .publisher .publisher-name a"), "Missing Publisher Name");
   T.exists(assert, $resourceCard.find(".panel-body .description p"), "Missing Description");
   T.exists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Missing Add to Button");
-  T.notExists(assert, $resourceCard.find(".panel-footer button.edit"), "Edit Button should not be visible");
+  T.notExists(assert, $resourceCard.find(".panel-footer button.edit-btn"), "Edit Button should not be visible");
 });
 
 test('Question Card Layout', function(assert) {
@@ -70,7 +70,7 @@ test('Question Card Layout', function(assert) {
   T.exists(assert, $resourceCard.find(".panel-body .publisher .publisher-name a"), "Missing Publisher Name");
   T.exists(assert, $resourceCard.find(".panel-body .description p"), "Missing Description");
   T.exists(assert, $resourceCard.find(".panel-footer button.remix-btn"), "Missing Remix Button");
-  T.notExists(assert, $resourceCard.find(".panel-footer button.edit"), "Edit Button should not be visible");
+  T.notExists(assert, $resourceCard.find(".panel-footer button.edit-btn"), "Edit Button should not be visible");
 
 });
 
@@ -104,8 +104,8 @@ test('Resource card trying buttons', function(assert) {
   var $component = this.$(); //component dom element
   const $resourceCard = $component.find(".gru-resource-card");
   T.notExists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Add to Button should not be visible");
-  T.exists(assert, $resourceCard.find(".panel-footer button.edit"), "Edit Button should be visible");
+  T.exists(assert, $resourceCard.find(".panel-footer button.edit-btn"), "Edit Button should be visible");
 
-  $resourceCard.find(".panel-footer button.edit").click();
+  $resourceCard.find(".panel-footer button.edit-btn").click();
 
 });
