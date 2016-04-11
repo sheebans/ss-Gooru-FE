@@ -285,6 +285,45 @@ test('normalizeCollection', function(assert) {
   assert.equal(collection.get("owner.id"), "852f9814-0eb4-461d-bd3b-aca9c2500595", 'Wrong owner id');
 });
 
+test('normalizeAssessment', function(assert) {
+  const serializer = this.subject();
+  const owners = [Ember.Object.create({
+    "id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
+    "firstname": "Sachin",
+    "lastname": "Zope",
+    "thumbnail_path": "any"
+  })];
+
+  const assessmentData = {
+    "id": "50484e74-ad95-44d5-981a-c18411260233",
+    "title": "oops poly basics",
+    "publish_status": "published",
+    "thumbnail": "collection.png",
+    "taxonomy": [ "K12.MA" ],
+    "visible_on_profile": false,
+    "learning_objective": "This is important collection",
+    "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
+    "course_title": "mathematics course 101",
+    "question_count": 3,
+    "remix_count": 2,
+    "description": "Some description"
+  };
+
+  const collection = serializer.normalizeAssessment(assessmentData, owners);
+  assert.equal(collection.get("id"), '50484e74-ad95-44d5-981a-c18411260233', 'Wrong id');
+  assert.equal(collection.get("title"), 'oops poly basics', 'Wrong title');
+  assert.equal(collection.get("description"), 'Some description', 'Wrong description');
+  assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
+  assert.equal(collection.get("image"), 'collection.png', 'Wrong image');
+  assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
+  assert.equal(collection.get("isVisibleOnProfile"), false, 'Wrong visible on profile');
+  assert.equal(collection.get("learningObjectives"), "This is important collection", 'Wrong learning objective');
+  assert.equal(collection.get("questionCount"), 3, 'Wrong question count');
+  assert.equal(collection.get("remixCount"), 2, 'Wrong remix count');
+  assert.deepEqual(collection.get("standards")[0].get("code"), "K12.MA", 'Wrong standards');
+  assert.equal(collection.get("owner.id"), "852f9814-0eb4-461d-bd3b-aca9c2500595", 'Wrong owner id');
+});
+
 
 test('normalizeReadResources', function(assert) {
   const serializer = this.subject();
@@ -409,6 +448,55 @@ test('normalizeReadCollections', function(assert) {
   assert.equal(collections.length, 2, 'Wrong total collections');
   assert.equal(collections[0].get("owner.id"), "852f9814-0eb4-461d-bd3b-aca9c2500595", 'Invalid owner id for collection 1');
   assert.ok(!collections[1].get("owner"), 'Second collection should not have an owner');
+});
+
+test('normalizeReadAssessments', function(assert) {
+  const serializer = this.subject();
+  const payload = {
+    assessments: [
+      {
+        "id": "50484e74-ad95-44d5-981a-c18411260233",
+        "title": "oops poly basics",
+        "publish_status": "published",
+        "thumbnail": "collection.png",
+        "taxonomy": [ "K12.MA" ],
+        "visible_on_profile": false,
+        "learning_objective": "This is important collection",
+        "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
+        "course_title": "mathematics course 101",
+        "question_count": 3,
+        "remix_count": 2,
+        "description": "Some description"
+      },
+      {
+        "id": "2",
+        "title": "oops poly basics",
+        "publish_status": "published",
+        "thumbnail": "collection.png",
+        "taxonomy": [ "K12.MA" ],
+        "visible_on_profile": false,
+        "learning_objective": "This is important collection",
+        "owner_id": "2",
+        "course_title": "mathematics course 101",
+        "question_count": 3,
+        "remix_count": 2,
+        "description": "Some description"
+      }
+    ],
+    owner_details: [
+      {
+        "id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
+        "firstname": "Sachin",
+        "lastname": "Zope",
+        "thumbnail_path": "any"
+      }
+    ]
+  };
+
+  const assessments = serializer.normalizeReadAssessments(payload);
+  assert.equal(assessments.length, 2, 'Wrong total assessments');
+  assert.equal(assessments[0].get("owner.id"), "852f9814-0eb4-461d-bd3b-aca9c2500595", 'Invalid owner id for assessment 1');
+  assert.ok(!assessments[1].get("owner"), 'Second assessment should not have an owner');
 });
 
 

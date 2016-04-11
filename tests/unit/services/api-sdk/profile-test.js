@@ -196,3 +196,25 @@ test('readCollections', function(assert) {
   var done = assert.async();
   service.readCollections(1).then(function() { done(); });
 });
+
+test('readAssessments', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('profileAdapter', Ember.Object.create({
+    readAssessments: function(userId) {
+      assert.equal(userId, 1, "readAssessments(1) function was called" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    normalizeReadAssessments: function(response) {
+      assert.deepEqual(response, {}, "normalizeReadAssessments() function was called" );
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.readAssessments(1).then(function() { done(); });
+});

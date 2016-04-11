@@ -133,7 +133,7 @@ export default Ember.Service.extend({
   /**
    * Return the list of resources related to a user
    * @param {string} userId
-   * @returns {RSVP.Promise}
+   * @returns {RSVP.Promise.<Content/Resource>}
    */
   readResources: function(userId) {
     const service = this;
@@ -150,7 +150,7 @@ export default Ember.Service.extend({
   /**
    * Return the list of questions related to a user
    * @param {string} userId
-   * @returns {RSVP.Promise}
+   * @returns {RSVP.Promise.<Content/Question>}
    */
   readQuestions: function(userId) {
     const service = this;
@@ -167,7 +167,7 @@ export default Ember.Service.extend({
   /**
    * Return the list of collections related to a user
    * @param {string} userId
-   * @returns {RSVP.Promise}
+   * @returns {RSVP.Promise.<Content/Collection>}
    */
   readCollections: function(userId) {
     const service = this;
@@ -180,5 +180,22 @@ export default Ember.Service.extend({
       );
     });
   },
+
+  /**
+   * Return the list of assessments related to a user
+   * @param {string} userId
+   * @returns {RSVP.Promise.<Content/Assessment>}
+   */
+  readAssessments: function(userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readCollections(userId).then(
+        function(response) {
+          resolve(service.get('profileSerializer').normalizeReadCollections(response));
+        },
+        reject
+      );
+    });
+  }
 
 });

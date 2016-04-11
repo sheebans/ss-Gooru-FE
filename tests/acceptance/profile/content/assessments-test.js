@@ -23,5 +23,9 @@ test('Layout', function(assert) {
 
     const $contentCourseContainer = find(".controller.content-assessments");
     T.exists(assert, $contentCourseContainer, "Missing content assessments container");
+
+    const cards = $contentCourseContainer.find(".assessments .card");
+    assert.equal(cards.length, 5, "Missing cards");
+
   });
 });
