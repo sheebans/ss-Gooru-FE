@@ -39,6 +39,7 @@ export default Ember.Component.extend({
     },
 
     createCourse: function () {
+      const component = this;
       const course = this.get('course');
       course.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
@@ -46,17 +47,15 @@ export default Ember.Component.extend({
           this.get("courseService")
             .createCourse(course)
             .then(function (course) {
-                this.triggerAction({
+                component.triggerAction({
                   action: 'closeModal'
                 });
-                this.get('router').transitionTo('content.courses.edit', course.get('id'));
-
-              }.bind(this),
-
+                component.get('router').transitionTo('content.courses.edit', course.get('id'));
+              },
               function () {
-                const message = this.get('i18n').t('common.errors.course-not-created').string;
-                this.get('notifications').error(message);
-              }.bind(this)
+                const message = component.get('i18n').t('common.errors.course-not-created').string;
+                component.get('notifications').error(message);
+              }
             );
         }
         this.set('didValidate', true);

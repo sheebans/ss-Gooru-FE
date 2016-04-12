@@ -31,7 +31,7 @@ export default Ember.Object.extend(Validations,{
   /**
    * @property {String} url
    */
-  url: '',
+  url: null,
 
   /**
    * @property {Number} id
@@ -42,5 +42,15 @@ export default Ember.Object.extend(Validations,{
    * @property {Boolean} isEditing
    */
   isEditing: false,
+
+  /**
+   * @property {string}
+   */
+  format: null,
+
+  /**
+   * @property {string}
+   */
+  title: null
 
 });
