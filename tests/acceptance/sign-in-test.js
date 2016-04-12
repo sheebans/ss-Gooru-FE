@@ -10,7 +10,7 @@ moduleForAcceptance('Acceptance | sign-in', {
       isAnonymous: true,
       token: 'sign-in-token',
       user: {
-        gooruUId: 'session-id'
+        gooruUId: 'pochita'
       }
     });
   }
@@ -130,33 +130,37 @@ test('it shows an error message if the password and username field has only blan
     });
   });
 });
-//test('Sign in after try with wrong credentials when press key Enter', function (assert) {
-//  visit('/sign-in');
-//
-//  andThen(function() {
-//    assert.equal(currentURL(), '/sign-in');
-//    const $signInContainer = find(".controller.sign-in .sign-in-form");
-//    const $usernameField = $signInContainer.find(".gru-input.username");
-//
-//    assert.ok(!$usernameField.find(".error-messages .error").length, 'Username error message not visible');
-//
-//    $usernameField.find("input").val(' ');
-//    $usernameField.find("input").blur();
-//    const $passwordField = $signInContainer.find(".gru-input.password");
-//    $passwordField.find("input").val('pochita');
-//    $passwordField.find("input").blur();
-//    // Try submitting without filling in data
-//    keyEvent($signInContainer, 'keyup', KEY_CODES.ENTER);
-//    andThen(function() {
-//      assert.ok($usernameField.find(".error-messages .error").length, 'Username error message should be visible');
-//      $usernameField.find("input").val('pochita');
-//      $usernameField.find("input").blur();
-//      $passwordField.find("input").val('pochita');
-//      $passwordField.find("input").blur();
-//      keyEvent($signInContainer, 'keyup', KEY_CODES.ENTER);
-//      andThen(function() {
-//        assert.equal(currentURL(), '/user');
-//      });
-//    });
-//  });
-//});
+
+test('Sign in after try with wrong credentials when press key Enter', function (assert) {
+  visit('/sign-in');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-in');
+    const $signInContainer = find(".controller.sign-in .sign-in-form");
+    const $usernameField = $signInContainer.find(".gru-input.username");
+
+    assert.ok(!$usernameField.find(".error-messages .error").length, 'Username error message not visible');
+
+    $usernameField.find("input").val('');
+    $usernameField.find("input").blur();
+    const $passwordField = $signInContainer.find(".gru-input.password");
+    $passwordField.find("input").val('pochita');
+    $passwordField.find("input").blur();
+    // Try submitting without filling in data
+    keyEvent($signInContainer, 'keyup', KEY_CODES.ENTER);
+    return wait().then(function () {
+      assert.ok($usernameField.find(".error-messages .error").length, 'Username error message should be visible');
+      $usernameField.find("input").val('pochita');
+      $usernameField.find("input").blur();
+      $passwordField.find("input").val('pochita');
+      $passwordField.find("input").blur();
+      $signInContainer.find("input#use_api_3").click();
+      keyEvent($signInContainer, 'keyup', KEY_CODES.ENTER);
+      andThen(function() {
+        assert.ok(!$usernameField.find(".error-messages .error").length, 'Username error message not visible');
+        assert.ok(!$passwordField.find(".error-messages .error").length, 'Password error message not visible');
+        assert.equal(currentURL(), '/user');
+      });
+    });
+  });
+});
