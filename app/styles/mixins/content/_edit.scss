@@ -171,6 +171,25 @@
     content: '+ ';
   }
 
+  article.fixed-header {
+    > header {
+      padding-top: 5px;
+      position: fixed;
+
+      h1 {
+        display: none;
+      }
+
+      nav {
+        padding-top: 10px;
+      }
+    }
+
+    #information {
+      padding-top: 115px;
+    }
+  }
+
   #information {
 
     > .header {
@@ -244,56 +263,39 @@
     }
   }
 
-  &.fixed-header {
-    > article {
-      > header {
-        padding-top: 5px;
-        position: fixed;
+  #settings {
+    .panel{
+      border-radius: 6px;
 
-        h1 {
-          display: none;
-        }
+      .panel-heading {
+        border-top-right-radius: 6px;
+        border-top-left-radius: 6px;
 
-        nav {
-          padding-top: 10px;
+        h3 {
+          padding-bottom: 15px;
+          border-bottom: 1px solid $gray-light;
+          margin-bottom: 0;
+          margin-top: 15px;
         }
       }
-    }
+      .panel-body {
+        .setting {
+          margin-top: 10px;
 
-    #information {
-      padding-top: 115px;
-    }
-
-    #settings{
-      .panel{
-        border-radius: 6px;
-        .panel-heading {
-
-          h3 {
-            padding-bottom: 15px;
-            border-bottom: 1px solid $gray-light;
-            margin-bottom: 0;
-            margin-top: 15px;
+          > i, > span {
+            margin-right: 10px;
           }
-        }
-        .panel-body {
-          .setting {
-            margin-top: 10px;
 
-            > i, > span {
-              margin-right: 10px;
-            }
+          > i {
+            vertical-align: -6px;
+          }
 
-            > i {
-              vertical-align: -6px;
-            }
-
-            &:first-child {
-              margin-top: 0;
-            }
+          &:first-child {
+            margin-top: 0;
           }
         }
       }
     }
   }
 }
+

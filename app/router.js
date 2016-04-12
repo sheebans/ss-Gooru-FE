@@ -81,7 +81,7 @@ Router.map(function() {
     this.route('analytics');
 
     this.route('content', function() {
-      this.route('course');
+      this.route('courses');
       this.route('resources');
       this.route('questions');
       this.route('collections');

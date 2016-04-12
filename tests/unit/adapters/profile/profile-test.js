@@ -103,7 +103,6 @@ test('followUserProfile', function(assert) {
 
   adapter.followUserProfile(userId)
     .then(function(response) {
-      console.log(response);
       assert.deepEqual({}, response, 'Wrong response');
     });
 });

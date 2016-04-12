@@ -32,14 +32,14 @@
                 {{#link-to 'profile.about' collection.owner.id tagName="div"}}
                   <span class="title">{{t "cards.gru-course-card.created"}}</span>
                   <img class="img-responsive" src="{{if collection.owner.avatarUrl collection.owner.avatarUrl "assets/gooru/profile.png"}}">
-                  <span>{{collection.owner.username}}</span>
+                  <span>{{collection.owner.displayName}}</span>
                 {{/link-to}}
               {{else}}
                 {{#if collection.owner}}
                   {{#link-to 'profile.about' collection.owner.id tagName="div"}}
                     <span class="title">{{t "cards.gru-course-card.remixed-by"}}</span>
                     <img class="img-responsive" src="{{if collection.owner.avatarUrl collection.owner.avatarUrl "assets/gooru/profile.png"}}">
-                    <span>{{collection.owner.username}}</span> {{#if collection.remixCount}}+{{collection.remixCount}}{{/if}}
+                    <span>{{collection.owner.displayName}}</span> {{#if collection.remixCount}}+{{collection.remixCount}}{{/if}}
                   {{/link-to}}
                 {{/if}}
               {{/if}}

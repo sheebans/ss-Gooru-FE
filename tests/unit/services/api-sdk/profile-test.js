@@ -218,3 +218,33 @@ test('readAssessments', function(assert) {
   var done = assert.async();
   service.readAssessments(1).then(function() { done(); });
 });
+
+test('getCourses', function(assert) {
+  const service = this.subject();
+
+  assert.expect(3);
+
+  service.set('profileCoursesAdapter', Ember.Object.create({
+    getCourses: function(profileId, subject) {
+      assert.equal(profileId, 'profile-id', 'Wrong profile id');
+      assert.equal(subject, 'course-subject', 'Wrong course subject');
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('courseSerializer', Ember.Object.create({
+    normalizeGetCourses: function(coursesPayload) {
+      assert.deepEqual({}, coursesPayload, 'Wrong courses payload');
+      return {};
+    }
+  }));
+
+  let profileObject = Ember.Object.create({
+    id: 'profile-id'
+  });
+  var done = assert.async();
+  service.getCourses(profileObject, 'course-subject')
+    .then(function() {
+      done();
+    });
+});

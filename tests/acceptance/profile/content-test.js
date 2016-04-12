@@ -84,7 +84,7 @@ test('Navigation links', function(assert) {
 
     click($contentNavContainer.find("li.courses"));
     andThen(function(){
-      assert.equal(currentURL(), '/profile/pochita/content/course');
+      assert.equal(currentURL(), '/profile/pochita/content/courses');
       click($contentNavContainer.find("li.collections"));
       andThen(function(){
         assert.equal(currentURL(), '/profile/pochita/content/collections');
