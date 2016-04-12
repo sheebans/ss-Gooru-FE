@@ -360,6 +360,7 @@ export default {
     "step-1-description": "We're glad you’ve decided to join us.",
     "log-in": "Log In",
     "log-in-description": "if you already have an account.",
+    "google-button": "Sign Up with Google",
     "username": "Username",
     "dateOfBirth": {
       "title": "Birthday",
@@ -379,14 +380,17 @@ export default {
         november:"November",
         december:"December"
       },
-      "year": "Year"
+      "year": "Year",
+      "error-message": 'Please enter your birth date.'
     },
 
     "firstName": "First Name",
     "lastName": "Last Name",
     "email": "Email",
     "password": "Password",
-    "rePassword": "Confirm Password"
+    "rePassword": "Confirm Password",
+    "error-username-taken": "Aww, this username is taken. Try another.",
+    "error-email-taken": "This email is taken. Try another.",
   },
 
   "gru-user-sign-up-cancel": {
