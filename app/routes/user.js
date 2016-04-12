@@ -43,7 +43,7 @@ export default Ember.Route.extend( {
    */
   model: function() {
     let route = this;
-    const myId = this.get("session.userId");
+    const myId = route.get("session.userId");
     let myClasses = route.get('classService').findMyClasses();
     let profile = route.get('profileService').readUserProfile(myId);
 
@@ -60,9 +60,6 @@ export default Ember.Route.extend( {
    */
 
   setupController: function(controller, model) {
-    controller.set("totalJoinedClasses", 2);
-    controller.set("totalTeachingClasses", 1);
-
     controller.set('myClasses', model.myClasses);
     controller.set('profile', model.profile);
   }

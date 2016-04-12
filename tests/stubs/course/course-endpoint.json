@@ -39,17 +39,19 @@
   {
     "description": "Update course with a specific ID",
     "request": {
-      "url": "^/gooruapi/rest/v1/course/(.+)$",
+      "url": "^/api/nucleus/v1/courses/(.+)$",
       "method": "PUT",
       "headers": {
-        "gooru-session-token": "(.+)"
+        "authorization": "Token (.+)"
       }
     },
     "response": {
       "status": 204,
       "headers": {
         "Content-Type": "application/json"
-      }
+      },
+      "body": "",
+      "file": "fetch-course-200-response.json"
     }
   }
 ]

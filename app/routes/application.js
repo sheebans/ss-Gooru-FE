@@ -109,8 +109,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      * Action triggered when login out
      */
     logout: function() {
-      this.get("session").invalidate();
-      this.refresh();
+      this.transitionTo("logout");
     },
 
     /**

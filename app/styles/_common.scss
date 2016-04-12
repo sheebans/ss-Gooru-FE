@@ -37,7 +37,8 @@ button.btn-link {
   padding: 0;
 }
 
-.validation span.error {
+.validation span.error,
+span.validation.error {
   font-size: $font-size-small;
   color: $brand-danger;
   display: inline-block;

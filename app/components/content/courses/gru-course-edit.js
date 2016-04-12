@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
 
-export default Ember.Controller.extend(ContentEditMixin, {
+export default Ember.Component.extend(ContentEditMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -16,6 +16,13 @@ export default Ember.Controller.extend(ContentEditMixin, {
    */
   courseService: Ember.inject.service("api-sdk/course"),
 
+
+  // -------------------------------------------------------------------------
+  // Attributes
+
+  classNames: ['content', 'courses', 'gru-course-edit'],
+
+  tagName: 'article',
 
   // -------------------------------------------------------------------------
   // Actions
@@ -47,7 +54,6 @@ export default Ember.Controller.extend(ContentEditMixin, {
           var message = this.get('i18n').t('common.errors.course-not-updated').string;
           this.get('notifications').error(message);
         }.bind(this));
-
     },
 
     /**
