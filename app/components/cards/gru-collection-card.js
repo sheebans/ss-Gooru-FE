@@ -26,7 +26,12 @@ export default Ember.Component.extend({
      */
     openContentPlayer: function(collectionId) {
       this.sendAction("onOpenContentPlayer", collectionId);
+    },
+
+    editCollection: function(){
+      this.sendAction("onEditCollection", this.get("collection"));
     }
+
   },
   // -------------------------------------------------------------------------
   // Properties
@@ -50,6 +55,11 @@ export default Ember.Component.extend({
   hasQuestions: Ember.computed.gt('collection.questionCount', 0),
 
   /**
+   * @property {boolean}
+   */
+  isAssessment: Ember.computed.alias('collection.isAssessment'),
+
+  /**
    * @property {String} remixedByUser
    */
   //remixedByUser: Ember.computed('collection',function(){
@@ -61,6 +71,29 @@ export default Ember.Component.extend({
   //remixedUsers:Ember.computed('collection',function(){
   //  return (this.get('collection.remixedBy').length)-1;
   //}),
+
+  /**
+   * Indicates if the edit functionality is enabled
+   * @property {boolean}
+   */
+  editEnabled: false,
+
+  /**
+   * Indicates if the edit functionality is enabled
+   * @property {boolean}
+   */
+  remixEnabled: true,
+
+  /**
+   * Indicates if the edit functionality is enabled
+   * @property {boolean}
+   */
+  addEnabled: true,
+
+  /**
+   * @property {string} edit action
+   */
+  onEditCollection: null
 
 
 });
