@@ -27,6 +27,7 @@
 @import 'controllers/profile/content';
 @import 'controllers/profile/about';
 @import 'controllers/profile/edit';
+@import 'controllers/profile/courses';
 @import 'controllers/reports/collection';
 @import 'controllers/search';
 @import 'controllers/sign-in';
@@ -64,6 +65,7 @@
 @import 'components/gru-user-teaser';
 @import 'components/gru-view-layout-picker';
 
+@import 'components/cards/gru-class-card';
 @import 'components/cards/gru-collection-card';
 @import 'components/cards/gru-course-card';
 @import 'components/cards/gru-profile-card';

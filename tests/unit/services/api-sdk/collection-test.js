@@ -7,6 +7,35 @@ moduleForService('service:api-sdk/collection', 'Unit | Service | api-sdk/collect
     'model:resource/resource', 'adapter:collection/collection']
 });
 
+test('createCollection', function(assert) {
+  const service = this.subject();
+  let collectionModel = Ember.Object.create();
+
+  assert.expect(2);
+
+  // There is not a Adapter stub in this case
+  // Pretender was included because it is needed to simulate the response Headers including the Location value
+  this.pretender.map(function() {
+    this.post('/api/nucleus/v1/collections', function() {
+      return [201, {'Content-Type': 'text/plain', 'Location': 'collection-id'}, ''];
+    }, false);
+  });
+
+  service.set('collectionSerializer', Ember.Object.create({
+    serializeCreateCollection: function(collectionObject) {
+      assert.deepEqual(collectionObject, collectionModel, 'Wrong collection object');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.createCollection(collectionModel)
+    .then(function() {
+      assert.equal(collectionModel.get('id'), 'collection-id', 'Wrong collection id');
+      done();
+    });
+});
+
 test('findByClassAndCourseAndUnitAndLesson', function (assert) {
   const service = this.subject();
   const response = [

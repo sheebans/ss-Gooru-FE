@@ -32,6 +32,21 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Gets the list of classes for a user
+   * @returns {Promise}
+   */
+  getMyClasses: function() {
+    const adapter = this;
+    const url = adapter.get('namespace');
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
    * Gets the class information of a given class id
    * @param classId the class ID to be read
    * @returns {Promise}
@@ -65,6 +80,10 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Creates the headers required by API 3.0
+   * @returns {{Authorization: string}}
+   */
   defineHeaders: function() {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')

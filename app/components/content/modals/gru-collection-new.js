@@ -5,6 +5,21 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+  /**
+   * @property {CollectionService} Course service API SDK
+   */
+  collectionService: Ember.inject.service("api-sdk/collection"),
+
+  /**
+   * @property {Service} I18N service
+   */
+  i18n: Ember.inject.service(),
+
+  /**
+   * @property {Service} Notifications service
+   */
+  notifications: Ember.inject.service(),
+
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -20,10 +35,21 @@ export default Ember.Component.extend({
     actions: {
 
       createCollection: function () {
+        const component = this;
         const collection = this.get('collection');
         collection.validate().then(function ({ model, validations }) {
           if (validations.get('isValid')) {
-            Ember.logger("Collection Valid");
+            component.get('collectionService')
+              .createCollection(collection)
+              .then(function(newCollection) {
+                  component.triggerAction({ action: 'closeModal' });
+                  component.get('router').transitionTo('content.collections.edit', { collectionId : newCollection.get('id') });
+                },
+                function() {
+                  const message = component.get('i18n').t('common.errors.collection-not-created').string;
+                  component.get('notifications').error(message);
+                }
+              );
           }
           this.set('didValidate', true);
         }.bind(this));

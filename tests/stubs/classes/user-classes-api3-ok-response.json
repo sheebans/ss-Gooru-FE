@@ -1,0 +1,111 @@
+{
+  "owner": [
+    "d8b6eb04-5466-4e29-92f5-06584b6b6ef5",
+    "2a0a0d90-faed-4ba4-9bab-04ddc4c18f30"
+  ],
+  "collaborator": ["63dd64b2-bb30-47a9-8daf-8330f57e16c3"],
+  "member": [
+    "e264cdc8-19d1-4285-88f5-5b359daf33da",
+    "1c0a0d90-faed-4ba4-9bab-04ddc4c88f30",
+    "440a0d90-aced-4ba4-9bab-04ddc4c88f30"
+
+  ],
+  "member_count": {
+    "d8b6eb04-5466-4e29-92f5-06584b6b6ef5": 1,
+    "1c0a0d90-faed-4ba4-9bab-04ddc4c88f30": 10,
+    "440a0d90-aced-4ba4-9bab-04ddc4c88f30": 2
+  },
+  "classes": [{
+    "id": "d8b6eb04-5466-4e29-92f5-06584b6b6ef5",
+    "creator_id": "2afaf0fd-ed92-48c5-9195-7f4bc1e0064e",
+    "title": "My class - 1",
+    "description": "This class is intended to make awareness of good habits",
+    "greeting": "Hi! Welcome to my class",
+    "grade": [
+      4,
+      5
+    ],
+    "class_sharing": "open",
+    "cover_image": "e264cdc8-19d1-4285-88f5-5b359daf33da.png",
+    "code": "VZFMEWH",
+    "min_score": 75,
+    "end_date": "2016-12-31",
+    "course_id": null,
+    "collaborator": [
+      "63dd64b2-bb30-47a9-8daf-8330f57e16c3",
+      "E4510f0a-a4a1-46d8-b7c3-fce31754c7d8"
+    ],
+    "gooru_version": 3,
+    "content_visibility": null,
+    "is_archived": false
+  }, {
+    "id": "2a0a0d90-faed-4ba4-9bab-04ddc4c18f30",
+    "creator_id": "2afaf0fd-ed92-48c5-9195-7f4bc1e0064e",
+    "title": "My class - 2",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra quis ex ac pretium. Pellentesque euismod ultrices tempor. Curabitur fringilla pharetra maximus. Phasellus interdum condimentum mattis. Curabitur eu enim id sem imperdiet fermentum sed id neque. In consequat lacus dui, vel mattis nulla lobortis maximus. Proin a aliquet risus. Etiam enim enim, rutrum vel aliquet non, facilisis nec ligula. Vivamus vitae dolor enim.",
+    "greeting": "Hi! Welcome to my class",
+    "grade": [
+      4,
+      5
+    ],
+    "class_sharing": "open",
+    "cover_image": "e264cdc8-19d1-4285-88f5-5b359daf33da.png",
+    "code": "ALU3LCB",
+    "min_score": 75,
+    "end_date": "2016-12-31",
+    "course_id": null,
+    "collaborator": [
+      "63dd64b2-bb30-47a9-8daf-8330f57e16c3",
+      "E4510f0a-a4a1-46d8-b7c3-fce31754c7d8"
+    ],
+    "gooru_version": 3,
+    "content_visibility": null,
+    "is_archived": false
+  }, {
+    "id": "1c0a0d90-faed-4ba4-9bab-04ddc4c88f30",
+    "creator_id": "2afaf0fd-ed92-48c5-9195-7f4bc1e0064e",
+    "title": "My class - 3",
+    "description": "Proin a aliquet risus. Etiam enim enim, rutrum vel aliquet non, facilisis nec ligula. Vivamus vitae dolor enim.",
+    "greeting": "Hi! Welcome to my class",
+    "grade": [
+      4,
+      5
+    ],
+    "class_sharing": "open",
+    "cover_image": "e264cdc8-19d1-4285-88f5-5b359daf33da.png",
+    "code": "VVU3LCB",
+    "min_score": 75,
+    "end_date": "2016-12-31",
+    "course_id": null,
+    "collaborator": [
+      "63dd64b2-bb30-47a9-8daf-8330f57e16c3",
+      "E4510f0a-a4a1-46d8-b7c3-fce31754c7d8"
+    ],
+    "gooru_version": 3,
+    "content_visibility": null,
+    "is_archived": false
+  }, {
+    "id": "440a0d90-aced-4ba4-9bab-04ddc4c88f30",
+    "creator_id": "2afaf0fd-ed92-48c5-9195-7f4bc1e0064e",
+    "title": "My class - 4",
+    "description": "This class is intended to make awareness of good habits",
+    "greeting": "Hi! Welcome to my class",
+    "grade": [
+      4,
+      5
+    ],
+    "class_sharing": "open",
+    "cover_image": "e264cdc8-19d1-4285-88f5-5b359daf33da.png",
+    "code": "XXU3LCX",
+    "min_score": 75,
+    "end_date": "2016-12-31",
+    "course_id": null,
+    "collaborator": [
+      "63dd64b2-bb30-47a9-8daf-8330f57e16c3",
+      "E4510f0a-a4a1-46d8-b7c3-fce31754c7d8"
+    ],
+    "gooru_version": 3,
+    "content_visibility": null,
+    "is_archived": true
+  }]
+}

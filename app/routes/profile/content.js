@@ -2,7 +2,11 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
-  setupController: function (controller /*, model */) {
+  beforeModel: function() {
+    this.transitionTo('profile.content.courses');
+  },
+
+  setupController: function(controller) {
     controller.get('parentController').selectMenuItem('content');
   }
 

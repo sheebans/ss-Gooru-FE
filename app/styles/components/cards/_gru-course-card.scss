@@ -1,63 +1,102 @@
-.cards.gru-course-card{
-  margin:5px;
+.gru-course-card {
   display: inline-block;
-  .panel{
+  margin: 5px 12px;
+
+  .remixed-users {
+    height: 35px;
+  }
+
+  .course-title {
+    bottom: 5px;
+  }
+
+  .course-image {
+    float: left;
+    margin-bottom: 0;
+    width: 145px;
+
+    img {
+      border: 0;
+      border-bottom-left-radius: 6px;
+      border-top-left-radius: 6px;
+      height: 145px;
+      width: 145px;
+    }
+  }
+
+  .card-info {
+    @include respond-to(lg) {
+      width: 67%;
+    }
+    @include flexbox;
+    @include flex-direction(column);
+    padding-left: 23px;
+
+    .header {
+      margin-top: 5px;
+
+      h6 {
+        width: 90%;
+      }
+
+      .truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    .subject {
+      margin-bottom: 0;
+      width: 90%;
+
+      .bars {
+        border-left: 2px solid $gray-base;
+        border-right: 2px solid $gray-base;
+        margin-right: 5px;
+      }
+    }
+
+    .total-units {
+      padding: 0 5px;
+    }
+
+    button {
+      font-size: $font-size-base;
+      height: 28px;
+      width: 73px;
+    }
+  }
+
+  .panel {
+    @include respond-to(lg) {
+      width: 463px;
+    }
     border-radius: 6px;
-    width: 463px;
     height: 145px;
-    .panel-body{
-      padding:0px;
-      .icon{
+    width: 353px;
+
+    .panel-body {
+      padding: 0;
+
+      .icon {
         color: $gray-base;
-        float:right;
+        float: right;
         font-size: 22px;
       }
-      h3,.course-image{
+
+      h3,
+      .course-image {
         cursor: pointer;
       }
-      .course-image{
-        width: 145px;
-        margin-bottom:0px;
-        float: left;
-        img{
-          border-top-left-radius:6px;
-          border-bottom-left-radius:6px;
-        }
-      }
-      .card-info{
-        padding-left:23px;
-        float: left;
-        width: 67%;
-        .header{
-          margin-top: 5px;
-          h6.truncate{
-            width: 90%;
-          }
-          .truncate {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-        }
-        p.subject.truncate{
-          width: 90%;
-          margin-bottom: 0px;
-          .bars{
-            border-left: 2px solid $gray-base;
-            border-right: 2px solid $gray-base;
-            margin-right: 5px;
-          }
-        }
-        .total-units{
-          padding: 0 5px 0 5px;
-        }
-        button{
-          width: 73px;
-          height:28px;
-          font-size: $font-size-base;
-        }
-      }
-      .remix-button,.edit-button,.users-teaser,.course-title,.icon,.total-units,.subject{
+
+      .remix-button,
+      .edit-button,
+      .users-teaser,
+      .course-title,
+      .icon,
+      .total-units,
+      .subject {
         display: inline-block;
       }
     }

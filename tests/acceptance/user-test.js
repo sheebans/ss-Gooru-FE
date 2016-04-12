@@ -7,9 +7,9 @@ moduleForAcceptance('Acceptance | user', {
   beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: false,
-      token: 'class-token',
+      'token-api3': 'user-token',
       user: {
-        gooruUId: 'class-token-user-id'
+        gooruUId: 'pochita'
       }
     });
   }
@@ -27,10 +27,10 @@ test('Layout', function(assert) {
 
     T.exists(assert, $userContainer.find(".greetings"), "Missing user greetings");
 
-    const $navigatorContainer = $userContainer.find(".navigator");
+    const $navigatorContainer = $userContainer.find(".home-navigator");
     T.exists(assert, $navigatorContainer, "Missing user navigator");
 
-    T.exists(assert, $navigatorContainer.find(".actions .create-class"), "Missing create class button");
+    T.exists(assert, $navigatorContainer.find(".actions .create-class-cta"), "Missing create class button");
 
     T.exists(assert, $navigatorContainer.find(".actions .join-class"), "Missing join class button");
 

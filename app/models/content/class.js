@@ -2,7 +2,11 @@ import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations({
-  title: validator('presence', true),
+  //TO DO We need to use i18n for error messages
+  title: validator('presence', {
+    presence: true,
+    message: 'Please give your class a name'
+  }),
   classSharing: validator('presence', true)
 });
 
@@ -11,45 +15,55 @@ const Validations = buildValidations({
  * typedef {Object} Class
  */
 const Class = Ember.Object.extend(Validations, {
-
+  /**
+   * @property {String} id - The profile id
+   */
   id: null,
 
-  code: null,
+  /**
+   * @property {String} creatorId - The id of the creator
+   */
+  creatorId: null,
 
   /**
    * @property {String} Title of the class
    */
-  title: '',
+  title: null,
 
   /**
    * @property {String} Description for class
    */
-  description: '',
+  description: null,
 
   /**
    * @property {String} Greetings for class
    */
-  greeting: '',
+  greeting: null,
 
   /**
    * @property {Number[]} Grade for class
    */
-  grade:[],
+  grade: [],
 
   /**
    * @property  {String} Sharing type of the class. Either “open” or “restricted”
    */
-  classSharing: '',
+  classSharing: null,
 
   /**
    * @property {String} Path to the cover image of the class
    */
-  coverImage: '',
+  coverImage: null,
+
+  /**
+   * @property {String} code - The class code
+   */
+  code: null,
 
   /**
    * @property {String} Minimum score for class.
    */
-  minScore: '',
+  minScore: null,
 
   /**
    * @property {Date} Start date of class
@@ -62,9 +76,14 @@ const Class = Ember.Object.extend(Validations, {
   endDate: null,
 
   /**
-   * @property {Array} Creator name
+   * @property {String} courseId - The course id of the class
    */
-  creatorSystem: '',
+  courseId: null,
+
+  /**
+   * @property {String} Creator name
+   */
+  creatorSystem: null,
 
   /**
    * @property {Object} Owner information
@@ -79,7 +98,29 @@ const Class = Ember.Object.extend(Validations, {
   /**
    * @property {Object[]} Members on class
    */
-  members: []
+  members: [],
+
+  /**
+   * @property {String} stateId - The class content visibility
+   */
+  contentVisibility: null,
+
+  /**
+   * @property {Boolean} isArchived - Is the class archived?
+   */
+  isArchived: false,
+
+  /**
+   * @property {Boolean} isStudent - The user is student in the class
+   */
+  isStudent: false,
+
+  /**
+   * @property {Boolean} isStudent - The user is teacher in the class
+   */
+  isTeacher: Ember.computed('isStudent', function () {
+    return !this.get('isStudent');
+  })
 
 });
 

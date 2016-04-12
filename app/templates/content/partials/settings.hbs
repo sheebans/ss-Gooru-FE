@@ -15,7 +15,7 @@
         {{gru-icon name="public"}}
         <span>{{t "common.request-to"}}</span>
             {{#if wasRequestSent}}
-                <button class="request btn {{if isRequestApproved 'btn-success btn-approved' 'btn-primary btn-pendding'}}">{{if isRequestApproved (t "common.approved") (t "common.pending")}}</button>
+                <button class="request btn {{if isRequestApproved 'btn-success btn-approved' 'btn-primary btn-pending'}}">{{if isRequestApproved (t "common.approved") (t "common.pending")}}</button>
               {{else}}
                 <button class="request btn btn-primary btn-send-request" {{action 'sendRequest'}}>{{t "common.send-request"}}</button>
             {{/if}}

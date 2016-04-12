@@ -19,39 +19,42 @@ export default Ember.Mixin.create({
 
   // -------------------------------------------------------------------------
   // Events
-  UISetup: Ember.on('init', function () {
+  addSubscriptions: Ember.on('didInsertElement', function () {
     this._super(...arguments);
 
-    Ember.$('document').ready(function () {
-      const $container = Ember.$('.controller.content.edit');
-      const $header = $container.find('article > header');
-      const $window = Ember.$(window);
+    const $container = this.$();
+    const $header = $container.find('> header');
+    const $window = Ember.$(window);
+    const headerTopOffset = $header.offset().top;
 
-      Ember.$(window).on('scroll', function () {
-        var scrollTop = $window.scrollTop();
-        var headerWidth = $header.css('width');
-        var headerPaddingLeft = $header.css('paddingLeft');
-        headerWidth = headerWidth && headerWidth.split('px')[0] || '100%';
+    // Add fix header behaviour
+    Ember.$(window).on('scroll.edit', function () {
+      var scrollTop = $window.scrollTop();
+      var headerWidth = $header.css('width');
+      var headerPaddingLeft = $header.css('paddingLeft');
+      headerWidth = headerWidth && headerWidth.split('px')[0] || '100%';
 
-        if (scrollTop >= 65) {
-          if (!$container.hasClass('fixed-header')) {
-            // Add inline styles to preserve the same look
-            $container.find('article > header').css({
-              width: headerWidth,
-              paddingLeft: headerPaddingLeft
-            });
-            $container.addClass('fixed-header');
-          }
-        } else {
-          if ($container.hasClass('fixed-header')) {
-            // Remove any inline styles
-            $container.find('article > header').prop('style', '');
-            $container.removeClass('fixed-header');
-          }
+      if (scrollTop >= headerTopOffset) {
+        if (!$container.hasClass('fixed-header')) {
+          // Add inline styles to preserve the same look
+          $header.css({
+            width: headerWidth,
+            paddingLeft: headerPaddingLeft
+          });
+          $container.addClass('fixed-header');
         }
-      });
-
+      } else {
+        if ($container.hasClass('fixed-header')) {
+          // Remove any inline styles
+          $header.prop('style', '');
+          $container.removeClass('fixed-header');
+        }
+      }
     });
+  }),
+
+  removeSubscriptions: Ember.on('willDestroyElement', function() {
+    Ember.$(window).off('scroll.edit');
   }),
 
 

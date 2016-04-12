@@ -109,7 +109,7 @@
   transform: translateX($value);
 }
 
-@mixin translate-show() {
+@mixin translate-show {
   @include translateX(0);
   transition: transform 0.6s ease-out 0.5s;
 }
@@ -123,22 +123,24 @@
 @mixin respond-to($media) {
   @if $media == xs {
     @media only screen and (max-width: $screen-xs-max) { @content; }
-  }
-  @else if $media == sm {
+  } @else if $media == sm {
     @media only screen and (min-width: $screen-sm-min) and (max-width: $screen-sm-max) { @content; }
-  }
-  @else if $media == md {
+  } @else if $media == md {
     @media only screen and (min-width: $screen-md-min) and (max-width: $screen-md-max) { @content; }
-  }
-  @else if $media == lg {
+  } @else if $media == lg {
     @media only screen and (min-width: $screen-lg-min) { @content; }
-  }
-  @else{
-    @error "$media is not one of the supported media targets, supported media targets are: [xs,sm, md,lg,xs-to-sm,xs-to-md,xs-to-lg]"
+  } @else if $media == xs-to-lg {
+    @media only screen and (min-width: $screen-xs-min) { @content; }
+  } @else if $media == sm-to-lg {
+    @media only screen and (min-width: $screen-sm-min) { @content; }
+  } @else if $media == md-to-lg {
+    @media only screen and (min-width: $screen-md-min) { @content; }
+  } @else {
+    @error '$media is not one of the supported media targets, supported media targets are: [xs,sm, md,lg,xs-to-lg,sm-to-lg, md-to-lg]'
   }
 }
-/*Multi-line Ellipsis using pure CSS as a work around
-http://revelry.co/multi-line-ellipsis-using-pure-css*/
+//Multi-line Ellipsis using pure CSS as a work around - http://revelry.co/multi-line-ellipsis-using-pure-css
+
 @mixin ellipsis($font-size, $line-height, $lines-to-show, $excerpt-bg: transparent) {
   background: $excerpt-bg;
   display: block; /* Fallback for non-webkit */

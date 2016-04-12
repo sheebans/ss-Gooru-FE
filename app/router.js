@@ -17,6 +17,7 @@ Router.map(function() {
 
   this.route('sign-in');
   this.route('sign-up');
+  this.route('logout');
 
   this.route('content', function () {
 
@@ -80,7 +81,7 @@ Router.map(function() {
     this.route('analytics');
 
     this.route('content', function() {
-      this.route('course');
+      this.route('courses');
     });
 
     this.route('network');

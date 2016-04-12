@@ -1,11 +1,13 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
+import Resource from 'gooru-web/models/content/resource';
 
 moduleForComponent('content/modals/gru-resource-new', 'Integration | Component | content/modals/gru resource new', {
   integration: true,
   beforeEach: function () {
     this.inject.service('i18n');
+
   }
 });
 
@@ -23,6 +25,23 @@ test('New Resource Layout', function(assert) {
   assert.ok($component.find('label input'), 'Missing URL Input');
   assert.ok($component.find('actions .cancel'), 'Missing Cancel Button');
   assert.ok($component.find('actions .add'), 'Missing Add Button');
+});
+
+test('New Resource Layout - Existing resource', function(assert) {
+  const resource = Resource.create({
+    title: "My Resource",
+    format: "video"
+  });
+
+  this.set("resource", resource);
+
+  this.render(hbs`{{content/modals/gru-resource-new existingResource=resource}}`);
+
+  const $component = this.$(".gru-resource-new");
+  assert.ok(!$component.find('actions .add').length, 'Add Button should not be visible');
+  assert.ok(!$component.find('actions .cancel').length, 'Cancel Button should not be visible');
+  assert.ok($component.find('actions .close'), 'Missing Close Button');
+  assert.ok($component.find('.gru-resource-card'), 'Missing Resource Card');
 });
 
 test('Validate if the resource URL is left blank', function (assert) {
