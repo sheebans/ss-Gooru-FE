@@ -192,10 +192,12 @@ export default {
     "sortAverage":"Sort by Average",
     "standard":"Standard",
     "standards": "Standards",
+    "study": "Study",
     "submit": "Submit",
     "submit-all":"Submit all",
     "student": "Student",
     "suggested-resources":"Suggested Resources",
+    "teach": "Teach",
     "teacher": "Teacher",
     "timeSpent": "Time Spent",
     "update-thumbnail": "Update Thumbnail",
@@ -663,6 +665,12 @@ export default {
     "resource-already-exist": "This resource already exists in Gooru!"
   },
   "cards":{
+    "gru-class-card": {
+      "student": {
+        one: "{{count}} Student",
+        other: "{{count}} Students"
+      }
+    },
     "gru-course-card":{
       "units":"Units",
       "remixed-by":"Remixed by",

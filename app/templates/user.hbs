@@ -2,7 +2,7 @@
   <div class="greetings">
     <span>Hi {{profile.firstName}}!</span>
     <p>
-      {{t 'user.joined-classes' count=totalJoinedClasses}}{{t 'user.teaching-classes' count=totalTeachingClasses}}
+      {{t 'user.joined-classes' count=totalJoinedClasses}}{{t 'user.teaching-classes' count=totalTeachingClasses}}.
     </p>
   </div>
   <div class="home-navigator">
@@ -29,23 +29,21 @@
       </ul>
   </div>
   <div class="content tab-content">
-    <div role="tabpanel" class="tab-pane active" id="active-classes">
+    <div role="tabpanel" class="tab-pane row active" id="active-classes">
       {{#each myClasses.classes as |class|}}
         {{#unless class.isArchived}}
-          <div>
-            <h5>{{class.title}} | {{class.code}}</h5>
-            <p>isStudent: {{class.isStudent}} | isArchived: {{class.isArchived}}</p>
-          </div>
+          {{cards.gru-class-card
+          class=class
+          classStudentCount=myClasses.memberCount}}
         {{/unless}}
       {{/each}}
     </div>
-    <div role="tabpanel" class="tab-pane" id="archived-classes">
+    <div role="tabpanel" class="tab-pane row" id="archived-classes">
       {{#each myClasses.classes as |class|}}
         {{#if class.isArchived}}
-          <div>
-            <h5>{{class.title}} | {{class.code}}</h5>
-            <p>isStudent: {{class.isStudent}} | isArchived: {{class.isArchived}}</p>
-          </div>
+          {{cards.gru-class-card
+          class=class
+          classStudentCount=myClasses.memberCount}}
         {{/if}}
       {{/each}}
     </div>
