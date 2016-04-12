@@ -116,7 +116,7 @@
             @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
           }
         }
-        .remix-btn{
+        .buttons{
           position: absolute;
           left: 15px;
           bottom: 35px;

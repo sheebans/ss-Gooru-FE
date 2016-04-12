@@ -13,9 +13,11 @@
                   <span class="bar">| </span><p>{{t "cards.gru-course-card.question" count=collection.questionCount}}</p>
               {{/if}}
             </span>
-            <div class="course">
-              {{gru-icon name="chrome_reader_mode"}}<p>{{t "cards.gru-course-card.in"}}<a>{{collection.course}}</a></p>
-            </div>
+            {{#if collection.course }}
+              <div class="course">
+                {{gru-icon name="chrome_reader_mode"}}<p>{{t "cards.gru-course-card.in"}}<a>{{collection.course}}</a></p>
+              </div>
+            {{/if}}
         </div>
     </div>
     <div class="panel-body">
@@ -25,8 +27,8 @@
                 {{collection-results-standards collection=collection standards=collection.standards}}
             </div>
           {{/if}}
-            <div class="{{if collection.isAssessment 'author' 'remixed-by'}}">
-              {{#if collection.isAssessment}}
+            <div class="{{if isAssessment 'author' 'remixed-by'}}">
+              {{#if isAssessment}}
                 {{#link-to 'profile.about' collection.owner.id tagName="div"}}
                   <span class="title">{{t "cards.gru-course-card.created"}}</span>
                   <img class="img-responsive" src="{{if collection.owner.avatarUrl collection.owner.avatarUrl "assets/gooru/profile.png"}}">
@@ -45,8 +47,13 @@
             <div class="description">
                 <p class="truncate">{{ collection.description }}</p>
             </div>
-            <div class="remix-btn">
-                <button class="btn btn-primary btn-sm">{{t "common.remix"}}</button>
+            <div class="buttons">
+            {{#if remixEnabled }}
+                <button class="remix-btn btn btn-primary btn-sm">{{t "common.remix"}}</button>
+            {{/if}}
+            {{#if editEnabled }}
+                <button class="edit-btn btn btn-primary btn-sm" {{action "editCollection"}}>{{t "common.edit"}}</button>
+            {{/if}}
             </div>
         </div>
     </div>

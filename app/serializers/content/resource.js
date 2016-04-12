@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Resource from 'gooru-web/models/content/resource';
+import ResourceModel from 'gooru-web/models/content/resource';
 
 /**
  * Serializer to support the Resource CRUD operations for API 3.0
@@ -8,23 +8,6 @@ import Resource from 'gooru-web/models/content/resource';
  */
 export default Ember.Object.extend({
 
-  /**
-   * Serializes the resource format to be API compliant
-   * @param format
-   * @returns {string}
-   */
-  serializeResourceFormat: function (format) {
-    return format ? `${format}_resource` : undefined;
-  },
-
-  /**
-   * Normalizes the resource format to be App compliant
-   * @param format
-   * @returns {string}
-   */
-  normalizeResourceFormat: function (format) {
-    return format ? format.split("_")[0] : undefined;// i.e video_resource to video
-  },
 
   /**
    * Serialize a Resource object into a JSON representation required by the Create Resource endpoint
@@ -33,7 +16,7 @@ export default Ember.Object.extend({
    * @returns {Object} returns a JSON Object
    */
   serializeCreateResource: function(resourceModel) {
-    const format = this.serializeResourceFormat(resourceModel.get("format"));
+    const format = ResourceModel.serializeResourceFormat(resourceModel.get("format"));
     return {
       title: resourceModel.get('title'),
       url: resourceModel.get("url"),
@@ -47,15 +30,32 @@ export default Ember.Object.extend({
    * @returns {Content/Resource}
    */
   normalizeReadResource: function(resourceData){
-
-    const format = this.normalizeResourceFormat(resourceData.content_subformat);
-    return Resource.create({
+    const serializer = this;
+    const format = ResourceModel.normalizeResourceFormat(resourceData.content_subformat);
+    const standards = resourceData.taxonomy || [];
+    return ResourceModel.create({
       id: resourceData.id,
       title: resourceData.title,
       url: resourceData.url,
-      format: format
+      format: format,
+      description: resourceData.description,
+      publishStatus: resourceData.publish_status,
+      standards: serializer.normalizeStandards(standards),
+      owner: null //TODO not available at the API
     });
-  }
+  },
+
+  /**
+   * Normalizes standards
+   * @param {string[]} payload
+   * @returns {Content/User}
+   */
+  normalizeStandards: function (standards) {
+    return standards.map(function(standard){
+      return Ember.Object.create({ code: standard, description: null });
+    });
+  },
+
 
 
 });

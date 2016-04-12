@@ -1,6 +1,11 @@
 import Ember from 'ember';
 import ProfileModel from 'gooru-web/models/profile/profile';
 import Env from 'gooru-web/config/environment';
+import ResourceModel from 'gooru-web/models/content/resource';
+import AssessmentModel from 'gooru-web/models/content/assessment';
+import QuestionModel from 'gooru-web/models/content/question';
+import CollectionModel from 'gooru-web/models/content/collection';
+import UserModel from 'gooru-web/models/content/user';
 
 /**
  * Serializer to support the Profile CRUD operations for API 3.0
@@ -92,6 +97,206 @@ export default Ember.Object.extend({
       followings: payload.followings,
       isFollowing: !!payload.isFollowing
     });
+  },
+
+  /**
+   * Normalize the resources
+   * @param payload
+   * @returns {Content/Resource[]}
+   */
+  normalizeReadResources: function(payload){
+    const resources = payload.resources || [];
+    const serializer = this;
+    const owners = serializer.normalizeOwners(payload.owner_details || []);
+
+    return resources.map(function(resourceData){
+      return serializer.normalizeResource(resourceData, owners);
+    });
+  },
+
+  /**
+   * Normalize the questions
+   * @param payload
+   * @returns {Content/Question[]}
+   */
+  normalizeReadQuestions: function(payload){
+    const questions = payload.questions || [];
+    const serializer = this;
+    const owners = serializer.normalizeOwners(payload.owner_details || []);
+
+    return questions.map(function(questionData){
+      return serializer.normalizeQuestion(questionData, owners);
+    });
+  },
+
+  /**
+   * Normalize the collections
+   * @param payload
+   * @returns {Content/Collection[]}
+   */
+  normalizeReadCollections: function(payload){
+    const collections = payload.collections || [];
+    const serializer = this;
+    const owners = serializer.normalizeOwners(payload.owner_details || []);
+
+    return collections.map(function(collectionData){
+      return serializer.normalizeCollection(collectionData, owners);
+    });
+  },
+
+  /**
+   * Normalize the assessments
+   * @param payload
+   * @returns {Content/Assessment[]}
+   */
+  normalizeReadAssessments: function(payload){
+    const assessments = payload.assessments || [];
+    const serializer = this;
+    const owners = serializer.normalizeOwners(payload.owner_details || []);
+
+    return assessments.map(function(assessmentData){
+      return serializer.normalizeAssessment(assessmentData, owners);
+    });
+  },
+
+  /**
+   * Normalizes a resource
+   * @param {Object} resourceData
+   * @param {[]} owners
+   * @returns {Content/Resource}
+   */
+  normalizeResource: function (resourceData, owners) {
+    const serializer = this;
+    const format = ResourceModel.normalizeResourceFormat(resourceData.content_subformat);
+    const standards = resourceData.taxonomy || [];
+    const creatorId = resourceData.creator_id;
+    const filteredOwners = Ember.A(owners).filterBy("id", creatorId);
+    return ResourceModel.create({
+      id: resourceData.id,
+      title: resourceData.title,
+      description: resourceData.description,
+      url: resourceData.url,
+      format: format,
+      publishStatus: resourceData.publish_status,
+      standards: serializer.normalizeStandards(standards),
+      owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
+    });
+  },
+
+  /**
+   * Normalizes a question
+   * @param {Object} questionData
+   * @param {[]} owners
+   * @returns {Content/Question}
+   */
+  normalizeQuestion: function (questionData, owners) {
+    const serializer = this;
+    const creatorId = questionData.creator_id;
+    const filteredOwners = Ember.A(owners).filterBy("id", creatorId);
+    const standards = questionData.taxonomy || [];
+    return QuestionModel.create({
+      id: questionData.id,
+      title: questionData.title,
+      description: questionData.description,
+      format: questionData.content_format,
+      publishStatus: questionData.publish_status,
+      standards: serializer.normalizeStandards(standards),
+      owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
+    });
+  },
+
+  /**
+   * Normalizes a collection
+   * @param {Object} collectionData
+   * @param {[]} owners
+   * @returns {Content/Collection}
+   */
+  normalizeCollection: function (collectionData, owners) {
+    const serializer = this;
+    const ownerId = collectionData.owner_id;
+    const filteredOwners = Ember.A(owners).filterBy("id", ownerId);
+    const standards = serializer.normalizeStandards(collectionData.taxonomy || []);
+    return CollectionModel.create({
+      id: collectionData.id,
+      title: collectionData.title,
+      image: collectionData.thumbnail,
+      standards: standards,
+      description: collectionData.description, //TODO missing description
+      publishStatus: collectionData.publish_status,
+      learningObjectives: collectionData.learning_objective,
+      resourceCount: collectionData.resource_count,
+      questionCount: collectionData.question_count,
+      remixCount: collectionData.remix_count, //TODO missing on API
+      course: collectionData.course_title,
+      isVisibleOnProfile: collectionData.visible_on_profile,
+      owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
+    });
+  },
+
+  /**
+   * Normalizes a assessment
+   * @param {Object} assessmentData
+   * @param {[]} owners
+   * @returns {Content/Assessment}
+   */
+  normalizeAssessment: function (assessmentData, owners) {
+    const serializer = this;
+    const ownerId = assessmentData.owner_id;
+    const filteredOwners = Ember.A(owners).filterBy("id", ownerId);
+    const standards = serializer.normalizeStandards(assessmentData.taxonomy || []);
+    return AssessmentModel.create({
+      id: assessmentData.id,
+      title: assessmentData.title,
+      image: assessmentData.thumbnail,
+      standards: standards,
+      description: assessmentData.description, //TODO missing description
+      publishStatus: assessmentData.publish_status,
+      learningObjectives: assessmentData.learning_objective,
+      questionCount: assessmentData.question_count,
+      remixCount: assessmentData.remix_count, //TODO missing on API
+      course: assessmentData.course_title,
+      isVisibleOnProfile: assessmentData.visible_on_profile,
+      owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
+    });
+  },
+
+  /**
+   * Normalizes owners
+   * @param payload
+   * @returns {Content/User}
+   */
+  normalizeOwners: function (payload) {
+    const serializer = this;
+    return payload.map(function(ownerData){
+      return serializer.normalizeOwner(ownerData);
+    });
+  },
+
+  /**
+   * Normalizes standards
+   * @param {string[]} payload
+   * @returns {Content/User}
+   */
+  normalizeStandards: function (standards) {
+    return standards.map(function(standard){
+      return Ember.Object.create({ code: standard, description: null });
+    });
+  },
+
+  /**
+   * Normalizes owner
+   * @param ownerData
+   * @returns {Content/User}
+   */
+  normalizeOwner: function (ownerData) {
+    return UserModel.create({
+      "id": ownerData.id,
+      "firstName": ownerData.firstname,
+      "lastName": ownerData.lastname,
+      "avatarUrl": ownerData.thumbnail_path,
+      "username": ownerData.username || 'Not provided' //TODO missing on API
+    });
   }
+
 
 });
