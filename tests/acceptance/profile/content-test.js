@@ -19,7 +19,7 @@ test('Layout', function(assert) {
   visit('/profile/pochita/content/');
 
   andThen(function() {
-    assert.equal(currentURL(), '/profile/pochita/content/');
+    assert.equal(currentURL(), '/profile/pochita/content/courses');
 
     const $contentContainer = find(".controller.profile .content");
     T.exists(assert, $contentContainer, "Missing content container");

@@ -1,7 +1,7 @@
 <div class="content-navigation">
     <div class="category-menu">
         <ul class="nav nav-tabs category-options">
-          {{#link-to "profile.content" tagName="li" class='courses'}}
+          {{#link-to "profile.content.courses" tagName="li" class='courses'}}
               <a href='{{view.href}}' class="btn btn-category">
                 {{gru-icon name='chrome_reader_mode'}}
                   <span>{{t "common.courses"}}</span>
@@ -48,7 +48,6 @@
       </div>
     {{/if}}
 </div>
-<div>
-    <p>Content Section</p>
+<div class="content_outlet">
   {{outlet}}
 </div>
