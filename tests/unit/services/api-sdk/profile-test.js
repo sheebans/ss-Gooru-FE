@@ -155,6 +155,12 @@ test('checkUsernameAvailability-User does not exist', function(assert) {
 
 test('checkUsernameAvailability-User already exists', function(assert) {
   const service = this.subject();
+  var i18n = Ember.Object.create({
+    t: function () {
+      return { string: 'sign-up.error-username-taken'};
+    }
+  });
+  service.set('i18n', i18n);
   assert.expect(2);
 
   service.set('availabilityAdapter', Ember.Object.create({
@@ -199,6 +205,12 @@ test('checkEmailAvailability-Email does not exist', function(assert) {
 
 test('checkEmailAvailability-Email already exists', function(assert) {
   const service = this.subject();
+  var i18n = Ember.Object.create({
+    t: function () {
+      return { string: 'sign-up.error-username-taken'};
+    }
+  });
+  service.set('i18n', i18n);
   assert.expect(2);
 
   service.set('availabilityAdapter', Ember.Object.create({
