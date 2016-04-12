@@ -28,6 +28,7 @@
     }
 
     .modal-content {
+      border: 0;
       text-align: center;
     }
 
@@ -46,13 +47,13 @@
     padding: 0;
     text-align: center;
 
-    a {
+    .cancel-button {
       margin: 0 auto;
       padding: 50px 0 25px;
       width: initial;
     }
 
-    button {
+    .get-started-btn {
       font-size: $font-size-h4;
       padding-left: 35px;
       padding-right: 0;
@@ -60,7 +61,7 @@
 
     i {
       font-size: $font-size-h3;
-      margin-top: 5px;
+      margin-top: -2px;
     }
   }
 
