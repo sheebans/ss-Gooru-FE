@@ -54,6 +54,7 @@ export default Ember.Component.extend(BuilderMixin, {
   actions: {
 
     add: function () {
+      this.loadData();
       this.get('onExpandUnit')();
       this.set('model.isExpanded', true);
     },
@@ -106,48 +107,15 @@ export default Ember.Component.extend(BuilderMixin, {
         }.bind(this));
     },
 
-    /**
-     * Load the data for this unit (data should only be loaded once)
-     *
-     * @function actions:selectUnit
-     */
-    selectUnit: function () {
-      this.loadData();
-    },
-
     toggle: function () {
       var toggleValue = !this.get('model.isExpanded');
+
+      this.loadData();
       this.get('onExpandUnit')();
       this.set('model.isExpanded', toggleValue);
     }
 
   },
-
-  // -------------------------------------------------------------------------
-  // Events
-  initData: Ember.on('init', function () {
-    //this.set('items', Ember.A());
-
-    // TODO: Fetch data from model
-    var children = [
-      BuilderItem.create({
-        data: Lesson.create(Ember.getOwner(this).ownerInjection(), {
-          id: 12345,
-          sequence: 1,
-          title: 'Sample Unit Title'
-        })
-      }),
-      BuilderItem.create({
-        data: Lesson.create(Ember.getOwner(this).ownerInjection(), {
-          id: 56789,
-          sequence: 2,
-          title: 'Another Unit Title'
-        })
-      })
-    ];
-
-    this.set('items', Ember.A(children));
-  }),
 
 
   // -------------------------------------------------------------------------
@@ -157,6 +125,11 @@ export default Ember.Component.extend(BuilderMixin, {
    * @prop {String} course - ID of the course this unit belongs to
    */
   courseId: null,
+
+  /**
+   * @prop {Boolean} isLoaded - Has the data for the unit already been loaded
+   */
+  isLoaded: false,
 
   /**
    * @prop {Content/Unit} unit
@@ -173,24 +146,24 @@ export default Ember.Component.extend(BuilderMixin, {
    * @returns {undefined}
    */
   loadData: function () {
-    // Loading of data will only happen if 'items' has not previously been set
-    if (!this.get('items')) {
-      var itemsPromise = this.getLessons();
-      this.set('items', itemsPromise);
+    if (!this.get('isLoaded')) {
+      let courseId = this.get('courseId');
+      let unitId = this.get('unit.id');
+
+      this.get('unitService')
+       .fetchById(courseId, unitId)
+       .then(function(unit) {
+         this.set('model.data', unit);
+         this.set('items', unit.get('children'));
+         this.set('isLoaded', true);
+       }.bind(this))
+
+       .catch(function(error) {
+         var message = this.get('i18n').t('common.errors.unit-not-loaded').string;
+         this.get('notifications').error(message);
+         Ember.Logger.error(error);
+       }.bind(this));
     }
-  },
-
-  /**
-   * TODO: Get all the lessons for the unit
-   *
-   * @function
-   * @requires api-sdk/lesson#findByClassAndCourseAndUnit
-   * @returns {Ember.RSVP.Promise}
-   */
-  getLessons: function () {
-    const unitId = this.get('model.id');
-
-    return this.get("lessonService").findByClassAndCourseAndUnit(unitId);
   }
 
 });

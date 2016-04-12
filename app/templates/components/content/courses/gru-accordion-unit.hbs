@@ -43,10 +43,18 @@
     <strong><a href="#" {{action 'toggle'}}>{{unit.title}}</a></strong>
 
     <div class="detail">
-      {{#if totalSavedItems}}
-        <span><b>{{unit.lessonCount}}</b> {{t "common.lessonObj" count=unit.lessonCount}}</span>
+      {{#if isLoaded}}
+        {{#if totalSavedItems}}
+          <span><b>{{totalSavedItems}}</b> {{t "common.lessonObj" count=unit.totalSavedItems}}</span>
+        {{else}}
+          <span>{{t "common.add-lessons"}}</span>
+        {{/if}}
       {{else}}
-        <span>{{t "common.add-lessons"}}</span>
+        {{#if unit.lessonCount}}
+          <span><b>{{unit.lessonCount}}</b> {{t "common.lessonObj" count=unit.lessonCount}}</span>
+        {{else}}
+          <span>{{t "common.add-lessons"}}</span>
+        {{/if}}
       {{/if}}
 
       <div class="actions">

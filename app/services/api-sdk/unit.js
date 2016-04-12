@@ -18,7 +18,7 @@ export default Ember.Service.extend(StoreMixin, {
 
   init: function () {
     this._super(...arguments);
-    this.set('serializer', UnitSerializer.create());
+    this.set('serializer', UnitSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('adapter', UnitAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
@@ -87,6 +87,24 @@ export default Ember.Service.extend(StoreMixin, {
     }).catch(function (error) {
       return error;
     });
+  },
+
+  /**
+   * Returns a unit by id
+   * @param {string} courseId - course the unit belongs to
+   * @param {string} unitId - unit ID to search for
+   * @returns {Promise|Content/Unit}
+   */
+  fetchById: function (courseId, unitId) {
+    return this.get('adapter').getUnitById({
+      courseId: courseId,
+      unitId: unitId
+    }).then(function (unitData) {
+        return this.get('serializer').normalizeUnit(unitData);
+      }.bind(this))
+      .catch(function (error) {
+        return error;
+      });
   }
 
 });

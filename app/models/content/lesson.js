@@ -15,7 +15,7 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {Number} assessmentsTotal - total number of assessments in the lesson
    */
-  assessmentsTotal: 0,
+  assessmentCount: 0,
 
   /**
    * @property {Content/Lesson[]} children - List of collections/assessments
@@ -25,17 +25,12 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {Number} collectionsTotal - total number of collections in the lesson
    */
-  collectionsTotal: 0,
+  collectionCount: 0,
 
   /**
    * @property {String} id - Gooru id for the unit
    */
   id: '',
-
-  /**
-   * @property {Number} lessonsTotal - total number of lessons in the unit
-   */
-  lessonsTotal: 0,
 
   /**
    * @property {String} sequence - sequence order among other course units

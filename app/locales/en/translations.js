@@ -92,7 +92,8 @@ export default {
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
       "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
-      "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly."
+      "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
+      "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly."
     },
     "explanation": "Explanation",
     "first-name": "First Name",
