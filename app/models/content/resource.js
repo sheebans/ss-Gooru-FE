@@ -26,12 +26,12 @@ const Validations = buildValidations({
  *
  * @typedef {Object} Content/Resource
  */
-export default Ember.Object.extend(Validations,{
+const ResourceModel = Ember.Object.extend(Validations,{
 
   /**
    * @property {String} url
    */
-  url: '',
+  url: null,
 
   /**
    * @property {Number} id
@@ -43,4 +43,62 @@ export default Ember.Object.extend(Validations,{
    */
   isEditing: false,
 
+  /**
+   * @property {string}
+   */
+  format: null,
+
+  /**
+   * @property {string}
+   */
+  title: null,
+
+  /**
+   * @property {string}
+   */
+  description: null,
+
+  /**
+   * @property {string} published|unpublished|requested
+   */
+  publishStatus: null,
+
+  /**
+   * @property { Content/User }
+   */
+  owner: null,
+
+  /**
+   * @property {Boolean} isPublic
+   */
+  isPublic: Ember.computed.equal("publishedStatus", "published"),
+
+  /**
+   * @property { { code: string, description: string }[] }
+   */
+  standards: null
+
+
 });
+
+ResourceModel.reopenClass({
+  /**
+   * Serializes the resource format to be API compliant
+   * @param format
+   * @returns {string}
+   */
+  serializeResourceFormat: function (format) {
+    return format ? `${format}_resource` : undefined;
+  },
+
+  /**
+   * Normalizes the resource format to be App compliant
+   * @param format
+   * @returns {string}
+   */
+  normalizeResourceFormat: function (format) {
+    return format ? format.split("_")[0] : undefined;// i.e video_resource to video
+  }
+});
+
+export default ResourceModel;

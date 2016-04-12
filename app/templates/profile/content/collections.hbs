@@ -1,0 +1,13 @@
+<div class="controller content-collections">
+  <div class="collections clearfix">
+    {{#each collections as |collection|}}
+      <div class="card">
+        {{cards.gru-collection-card
+          collection=collection
+          editEnabled=true
+          remixEnabled=false
+          onEditCollection="editCollection"}}
+      </div>
+    {{/each}}
+  </div>
+</div>

@@ -2,7 +2,7 @@ import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 
-moduleForAcceptance('Acceptance | Create Class', {
+moduleForAcceptance('Acceptance | Content Classes Create Class', {
   beforeEach: function () {
     authenticateSession(this.application, {
       isAnonymous: false,
@@ -36,7 +36,7 @@ test('Layout', function (assert) {
     assert.equal($container.find('.conditions label').length, 2, "Number of edit sections");
 
     assert.ok($container.find('a.cancel-button').length, "Cancel button is missing");
-    assert.ok($container.find('button.get-started').length, "Get started button is missing");
+    assert.ok($container.find('a.get-started-btn').length, "Get started button is missing");
 
 
 
@@ -44,7 +44,7 @@ test('Layout', function (assert) {
   });
 });
 
-test('it shows an error message if the title field is left blank and you blur ir out', function (assert) {
+test('it shows an error message if the title field is left blank and you blur it out', function (assert) {
   visit('/content/classes/create');
 
   andThen(function() {
@@ -55,11 +55,11 @@ test('it shows an error message if the title field is left blank and you blur ir
 
     assert.ok(!$titleField.find(".error-messages .error").length, 'Username error message should not be visible');
     // Try submitting without filling in data
-    $createClassContainer.find("button.get-started").click();
+    $createClassContainer.find("a.get-started-btn").click();
 
     return wait().then(function () {
 
-      assert.ok($titleField.find(".error-messages .error").length, 'Username error message visible');
+      assert.ok($titleField.find(".error-messages .error").length, 'Username error message should be visible');
       // Fill in the input field
       $titleField.find("input").val('Username');
       $titleField.find("input").blur();

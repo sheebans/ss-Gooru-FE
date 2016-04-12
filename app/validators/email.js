@@ -3,21 +3,18 @@ import Ember from 'ember';
 
 export default BaseValidator.extend({
 
-  userService: Ember.inject.service('api-sdk/user'),
+  profileService: Ember.inject.service('api-sdk/profile'),
 
   validate(value) {
     if (value) {
-      return this.get('userService').checkEmailAvailability(value)
-        .then(function (availability) {
-          if (availability.get('availability')) {
-            return 'This Email id is already registered.';
-          } else {
-            return true;
-          }
+      return this.get('profileService').checkEmailAvailability(value)
+        .then(function() {
+          return true;
+        }, function(error) {
+          return error;
         });
     } else {
       return true;
     }
   }
-
 });

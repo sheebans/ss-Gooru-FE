@@ -5,6 +5,20 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+  /**
+   * @property {QuestionService} Question service API SDK
+   */
+  questionService: Ember.inject.service("api-sdk/question"),
+
+  /**
+   * @property {Service} I18N service
+   */
+  i18n: Ember.inject.service(),
+
+  /**
+   * @property {Service} Notifications service
+   */
+  notifications: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -20,14 +34,26 @@ export default Ember.Component.extend({
   actions: {
 
     createQuestion: function () {
-      const question = this.get('question');
+      const component = this;
+      const question = component.get('question');
       question.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
-          Ember.logger("Question Valid");
+          component.get('questionService')
+            .createQuestion(question)
+            .then(function(newQuestion) {
+                component.triggerAction({ action: 'closeModal' });
+                component.get('router').transitionTo('content.questions.edit', { questionId : newQuestion.get('id') });
+              },
+              function() {
+                const message = component.get('i18n').t('common.errors.question-not-created').string;
+                component.get('notifications').error(message);
+              }
+            );
         }
-        this.set('didValidate', true);
-      }.bind(this));
+        component.set('didValidate', true);
+      });
     },
+
     selectType:function(type){
       this.set('selectedType',type);
       this.set('question.type',this.get('selectedType'));

@@ -1,0 +1,27 @@
+<div class="panel {{if class.isStudent 'student' 'teacher'}}">
+  <div class="panel-heading">
+    <h5>
+      <span class="title">{{class.title}}</span>
+      <span class="code">{{class.code}}</span>
+      {{#link-to 'class.overview' class.id class="action"}}
+        <span>{{if class.isStudent (t "common.study") (t "common.teach")}} {{gru-icon name="keyboard_arrow_right"}}</span>
+      {{/link-to}}
+    </h5>
+  </div>
+  <div class="panel-body">
+    <div class="members-info">
+      <div class="collaborators">
+        {{! Place collaborator avatar and first name in the next two lines }}
+        <img class="collaborator-avatar" src="/assets/gooru/profile.png" alt="{teacher}">
+        <span class="name">{teacher}</span>
+        {{#if (gt collaboratorsCount 0)}} <span class="collaborators-count">+{{collaboratorsCount}}</span>{{/if}}
+      </div>
+      <div class="students-info">
+        <small>{{gru-icon name="group"}} {{t "cards.gru-class-card.student" count=studentCount}}</small>
+      </div>
+    </div>
+    <div class="description">
+      <div>{{class.description}}</div>
+    </div>
+  </div>
+</div>

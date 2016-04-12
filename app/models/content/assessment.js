@@ -19,19 +19,24 @@ const Validations = buildValidations({
 const Assessment = Ember.Object.extend(Validations, {
 
   /**
+   * @property {string}
+   */
+  id: null,
+
+  /**
    * @property {Number} category - Category the course belongs to
    */
   category: 1,
 
   /**
-   * @property {String} image - Assessment image url
+   * @property {String} image - Collection image url
    */
-  image: '',
+  image: null,
 
   /**
    * @property {String} subject
    */
-  subject: '',
+  subject: null,
 
   /**
    * @property {String} learningObjectives
@@ -41,17 +46,63 @@ const Assessment = Ember.Object.extend(Validations, {
   /**
    * @property {String} title
    */
-  title: '',
+  title: null,
+
+  /**
+   * @property {string} published|unpublished|requested
+   */
+  publishStatus: null,
 
   /**
    * @property {Boolean} isPublic
    */
-  isPublic: false,
+  isPublic: Ember.computed.equal("publishedStatus", "published"), //TODO renamed by isPublished
+
+  /**
+   * @property {Boolean} isVisibleOnProfile
+   */
+  isVisibleOnProfile: false,
 
   /**
    * @property {Number[]} Array with the audience ids
    */
   audience:[],
+
+  /**
+   * @property {Object[]} standards - The collection standards information
+   */
+  standards: null,
+
+  /**
+   * @property {number} resourceCount - The number of resources in the collection
+   */
+  resourceCount: 0,
+
+  /**
+   * @property {number} questionCount - The number of questions in the collection
+   */
+  questionCount: 0,
+
+  /**
+   * @property {number} remixCount - The number of remixes made in the collection
+   */
+  remixCount: 0,
+
+  /**
+   * @property {string} thumbnailUrl - The thumbnail url
+   * //TODO resolve url
+   */
+  thumbnailUrl: Ember.computed.alias("image"),
+
+  /**
+   * @property {string} course - The name of the course which this collection belongs to
+   */
+  course: null,
+
+  /**
+   * @property {Content/User} owner - The resource owner information
+   */
+  owner: null,
 
   /**
    * Return a copy of the assessment

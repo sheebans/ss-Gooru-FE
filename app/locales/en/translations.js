@@ -89,6 +89,8 @@ export default {
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
+      "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
+      "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly."
     },
@@ -191,10 +193,12 @@ export default {
     "sortAverage":"Sort by Average",
     "standard":"Standard",
     "standards": "Standards",
+    "study": "Study",
     "submit": "Submit",
     "submit-all":"Submit all",
     "student": "Student",
     "suggested-resources":"Suggested Resources",
+    "teach": "Teach",
     "teacher": "Teacher",
     "timeSpent": "Time Spent",
     "update-thumbnail": "Update Thumbnail",
@@ -357,6 +361,7 @@ export default {
     "step-1-description": "We're glad you’ve decided to join us.",
     "log-in": "Log In",
     "log-in-description": "if you already have an account.",
+    "google-button": "Sign Up with Google",
     "username": "Username",
     "dateOfBirth": {
       "title": "Birthday",
@@ -376,14 +381,17 @@ export default {
         november:"November",
         december:"December"
       },
-      "year": "Year"
+      "year": "Year",
+      "error-message": 'Please enter your birth date.'
     },
 
     "firstName": "First Name",
     "lastName": "Last Name",
     "email": "Email",
     "password": "Password",
-    "rePassword": "Confirm Password"
+    "rePassword": "Confirm Password",
+    "error-username-taken": "Aww, this username is taken. Try another.",
+    "error-email-taken": "This email is taken. Try another.",
   },
 
   "gru-user-sign-up-cancel": {
@@ -658,7 +666,16 @@ export default {
     "completion":"Completion",
     "study-time": "Study Time"
   },
+  "gru-resource-new": {
+    "resource-already-exist": "This resource already exists in Gooru!"
+  },
   "cards":{
+    "gru-class-card": {
+      "student": {
+        one: "{{count}} Student",
+        other: "{{count}} Students"
+      }
+    },
     "gru-course-card":{
       "units":"Units",
       "remixed-by":"Remixed by",

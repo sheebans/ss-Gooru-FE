@@ -1,6 +1,9 @@
 import Ember from 'ember';
 import ProfileSerializer from 'gooru-web/serializers/profile/profile';
+import CourseSerializer from 'gooru-web/serializers/content/course';
 import ProfileAdapter from 'gooru-web/adapters/profile/profile';
+import ProfileCoursesAdapter from 'gooru-web/adapters/profile/courses';
+import AvailabilityAdapter from 'gooru-web/adapters/profile/availability';
 
 /**
  * Service to support the Profile CRUD operations
@@ -17,11 +20,16 @@ export default Ember.Service.extend({
 
   profileAdapter: null,
 
+  i18n: Ember.inject.service(),
+
 
   init: function () {
     this._super(...arguments);
     this.set('profileSerializer', ProfileSerializer.create());
+    this.set('courseSerializer', CourseSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('profileAdapter', ProfileAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set('profileCoursesAdapter', ProfileCoursesAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set('availabilityAdapter', AvailabilityAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
   /**
@@ -115,6 +123,72 @@ export default Ember.Service.extend({
     });
   },
 
+  /**
+   * Checks if the username was already taken
+   * @param username
+   * @returns {Promise}
+   */
+  checkUsernameAvailability: function(username) {
+    const service = this;
+    const i18n = service.get('i18n');
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('availabilityAdapter').verifyUsername(username)
+        .then(function() {
+          reject(i18n.t("sign-up.error-username-taken").string);
+        }, function(error) {
+           if(error.status===404 || error.status===500 || error.status===200){
+            resolve();
+          }
+          else {
+            reject(error);
+          }
+        });
+    });
+  },
+
+  /**
+   * Checks if the email was already taken
+   * @param email
+   * @returns {Promise}
+   */
+  checkEmailAvailability: function(email) {
+    const service = this;
+    const i18n = service.get('i18n');
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('availabilityAdapter').verifyEmail(email)
+        .then(function() {
+          reject(i18n.t("sign-up.error-email-taken").string);
+        }, function(error) {
+
+          if(error.status===404 || error.status===500 || error.status===200){
+            resolve();
+          }
+          else {
+            reject(error);
+          }
+        });
+    });
+  },
+
+  /**
+   * Gets the list of courses created by the profile and filter by subject
+   *
+   * @param profile the Profile object
+   * @param subject the subject to filter the courses
+   * @returns {Promise}
+   */
+  getCourses: function(profile, subject) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileCoursesAdapter').getCourses(profile.get('id'), subject)
+        .then(function(response) {
+          resolve(service.get('courseSerializer').normalizeGetCourses(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
   //
   // TODO The following functions must be deleted once API 3.0 integration is done
   //
@@ -128,5 +202,74 @@ export default Ember.Service.extend({
       return this.findById(currentProfileId);
     }
     return null;
+  },
+
+  /**
+   * Return the list of resources related to a user
+   * @param {string} userId
+   * @returns {RSVP.Promise.<Content/Resource>}
+   */
+  readResources: function(userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readResources(userId).then(
+        function(response) {
+          resolve(service.get('profileSerializer').normalizeReadResources(response));
+        },
+        reject
+      );
+    });
+  },
+
+  /**
+   * Return the list of questions related to a user
+   * @param {string} userId
+   * @returns {RSVP.Promise.<Content/Question>}
+   */
+  readQuestions: function(userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readQuestions(userId).then(
+        function(response) {
+          resolve(service.get('profileSerializer').normalizeReadQuestions(response));
+        },
+        reject
+      );
+    });
+  },
+
+  /**
+   * Return the list of collections related to a user
+   * @param {string} userId
+   * @returns {RSVP.Promise.<Content/Collection>}
+   */
+  readCollections: function(userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readCollections(userId).then(
+        function(response) {
+          resolve(service.get('profileSerializer').normalizeReadCollections(response));
+        },
+        reject
+      );
+    });
+  },
+
+  /**
+   * Return the list of assessments related to a user
+   * @param {string} userId
+   * @returns {RSVP.Promise.<Content/Assessment>}
+   */
+  readAssessments: function(userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readAssessments(userId).then(
+        function(response) {
+          resolve(service.get('profileSerializer').normalizeReadAssessments(response));
+        },
+        reject
+      );
+    });
   }
+
 });
