@@ -388,7 +388,9 @@ export default {
     "lastName": "Last Name",
     "email": "Email",
     "password": "Password",
-    "rePassword": "Confirm Password"
+    "rePassword": "Confirm Password",
+    "error-username-taken": "Aww, this username is taken. Try another.",
+    "error-email-taken": "This email is taken. Try another.",
   },
 
   "gru-user-sign-up-cancel": {

@@ -18,6 +18,8 @@ export default Ember.Service.extend({
 
   profileAdapter: null,
 
+  i18n: Ember.inject.service(),
+
 
   init: function () {
     this._super(...arguments);
@@ -127,7 +129,8 @@ export default Ember.Service.extend({
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('availabilityAdapter').verifyUsername(username)
         .then(function() {
-          reject('Aww, this username is taken. Try another.');
+          var i18n = service.get('i18n');
+          reject(i18n.t("sign-up.error-username-taken"));
         }, function(error) {
            if(error.status===404 || error.status===500 || error.status===200){
             resolve();
@@ -146,10 +149,11 @@ export default Ember.Service.extend({
    */
   checkEmailAvailability: function(email) {
     const service = this;
+    var i18n = service.get('i18n');
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('availabilityAdapter').verifyEmail(email)
         .then(function() {
-          reject('This email is taken. Try another.');
+          reject(i18n.t("sign-up.error-email-taken"));
         }, function(error) {
 
           if(error.status===404 || error.status===500 || error.status===200){
