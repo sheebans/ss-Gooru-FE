@@ -16,7 +16,8 @@ test('Course Card Layout', function(assert) {
     'totalUnits': 8,
     'subjects': ['Science'],
     'imageUrl': '/assets/gooru/profile.png',
-    'isPublic':true,
+    'isPublished':true,
+    'isVisibleOnProfile':true,
     'remixedBy':  Ember.A([Ember.Object.create({
       'email': 'user_1@test.com',
       'firstName': 'firstname-1',
@@ -66,7 +67,8 @@ test('Course Card Private', function(assert) {
     'totalUnits': 8,
     'subjects': ['Science'],
     'imageUrl': '/assets/gooru/profile.png',
-    'isPublic':false,
+    'isPublished':false,
+    'isVisibleOnProfile':false,
     'remixedBy':  Ember.A([Ember.Object.create({
       'email': 'user_1@test.com',
       'firstName': 'firstname-1',
@@ -156,7 +158,8 @@ test('Click Remix', function(assert) {
     'totalUnits': 8,
     'subjects': ['Science'],
     'imageUrl': '/assets/gooru/profile.png',
-    'isPublic':true,
+    'isPublished':true,
+    'isVisibleOnProfile':true,
     'remixedBy':  Ember.A([Ember.Object.create({
       'email': 'user_1@test.com',
       'firstName': 'firstname-1',
@@ -204,7 +207,8 @@ test('Course Card Layout Owner and Public', function(assert) {
     'totalUnits': 8,
     'subjects': ['Science'],
     'imageUrl': '/assets/gooru/profile.png',
-    'isPublic':true,
+    'isPublished':true,
+    'isVisibleOnProfile':true,
     'remixedBy':  Ember.A([Ember.Object.create({
       'email': 'user_1@test.com',
       'firstName': 'firstname-1',
@@ -255,7 +259,8 @@ test('Course Card Layout Owner and Private', function(assert) {
     'totalUnits': 8,
     'subjects': ['Science'],
     'imageUrl': '/assets/gooru/profile.png',
-    'isPublic':false,
+    'isPublished':false,
+    'isVisibleOnProfile':false,
     'remixedBy':  Ember.A([Ember.Object.create({
       'email': 'user_1@test.com',
       'firstName': 'firstname-1',
@@ -306,7 +311,8 @@ test('Click Edit', function(assert) {
     'totalUnits': 8,
     'subjects': ['Science'],
     'imageUrl': '/assets/gooru/profile.png',
-    'isPublic':true,
+    'isPublished':true,
+    'isVisibleOnProfile':true,
     'remixedBy':  Ember.A([Ember.Object.create({
       'email': 'user_1@test.com',
       'firstName': 'firstname-1',

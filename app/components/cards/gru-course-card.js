@@ -63,13 +63,17 @@ export default Ember.Component.extend({
    * @property {String} subjects
    */
   subjects:Ember.computed('course', function() {
+    // TODO Verify if this method is required
+    /*
     var subjectsList = this.get("course.subjects");
     var subjects = "";
     subjectsList.forEach(function(object){
       subjects+=" "+object+" |";
     });
     return subjects.substr(0, subjects.length-1);
-  }),
+    */
+    return "";
+  })
 
 
 
