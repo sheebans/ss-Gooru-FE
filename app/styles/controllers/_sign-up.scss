@@ -161,7 +161,7 @@
               }
               &.dropup {
                 .dropdown-menu {
-                  top:100%
+                  top:100%;
                 }
               }
             }
@@ -232,6 +232,9 @@
           .bootstrap-select.btn-group.dropup .dropdown-toggle .caret {
             border-bottom: 0;
             border-top: 4px dashed;
+          }
+          .bootstrap-select.btn-group .dropdown-menu.inner {
+            max-height: 300px!important;
           }
         }
       }
