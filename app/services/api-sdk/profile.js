@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import ProfileSerializer from 'gooru-web/serializers/profile/profile';
+import CourseSerializer from 'gooru-web/serializers/content/course';
 import ProfileAdapter from 'gooru-web/adapters/profile/profile';
+import ProfileCoursesAdapter from 'gooru-web/adapters/profile/courses';
 import AvailabilityAdapter from 'gooru-web/adapters/profile/availability';
 
 /**
@@ -24,7 +26,9 @@ export default Ember.Service.extend({
   init: function () {
     this._super(...arguments);
     this.set('profileSerializer', ProfileSerializer.create());
+    this.set('courseSerializer', CourseSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('profileAdapter', ProfileAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set('profileCoursesAdapter', ProfileCoursesAdapter.create(Ember.getOwner(this).ownerInjection()));
     this.set('availabilityAdapter', AvailabilityAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
@@ -162,6 +166,25 @@ export default Ember.Service.extend({
           else {
             reject(error);
           }
+        });
+    });
+  },
+
+  /**
+   * Gets the list of courses created by the profile and filter by subject
+   *
+   * @param profile the Profile object
+   * @param subject the subject to filter the courses
+   * @returns {Promise}
+   */
+  getCourses: function(profile, subject) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileCoursesAdapter').getCourses(profile.get('id'), subject)
+        .then(function(response) {
+          resolve(service.get('courseSerializer').normalizeGetCourses(response));
+        }, function(error) {
+          reject(error);
         });
     });
   },
