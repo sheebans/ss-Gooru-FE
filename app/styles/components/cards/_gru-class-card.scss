@@ -1,0 +1,107 @@
+.cards.gru-class-card {
+  .panel {
+    @include border-top-radius(4px);
+    @include border-bottom-radius(4px);
+    @include box-shadow(0 0 7px #ddd);
+    .panel-heading {
+      position: relative;
+      @include border-top-radius(4px);
+      * {
+        color: $white;
+      }
+      h5 {
+        padding-right: 90px;
+        @include flexbox();
+        @include flex-direction(row);
+        @include justify-content(space-between);
+        @include align-items(center);
+        .title {
+        }
+        .code {
+          float: right;
+          border: 1px solid $white;
+          font-size: $font-size-large;
+          text-transform: uppercase;
+          padding: 4px 5px;
+          @include border-top-radius(4px);
+          @include border-bottom-radius(4px);
+        }
+      }
+      .action {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        font-size: $font-size-large;
+        padding: 0 10px 0 15px;
+        @include border-top-radius(4px);
+        @include border-left-radius(0);
+        span {
+          display: inline-block;
+          line-height: $font-size-large * 2;
+          transform: translateY(50%);
+        }
+        .gru-icon {
+          vertical-align: middle;
+          font-size: $font-size-large * 2;
+          margin: -2px -7px 0 -7px;
+        }
+      }
+    }
+    .panel-body {
+      line-height: 1.5;
+      padding: 0;
+      > div {
+        padding: 20px;
+      }
+      .members-info {
+        border-right: 1px solid $gray-lighter;
+        color: $gray-light;
+        float: left;
+        margin-right: -1px;
+        .collaborators {
+          margin-bottom: 15px;
+          color: $gray;
+          .collaborator-avatar {
+            height: 1.4rem;
+            width: 1.4rem;
+            vertical-align: middle;
+            margin-right: 5px;
+            @include border-top-radius(50%);
+            @include border-bottom-radius(50%);
+          }
+        }
+        .gru-icon {
+          font-size: 150%;
+          line-height: 1;
+          vertical-align: middle;
+        }
+      }
+      .description {
+        border-left: 1px solid $gray-lighter;
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+        > div {
+          @include ellipsis($font-size-base, 1.5, 4);
+        }
+      }
+    }
+    &.student {
+      .panel-heading {
+        background-color: $sky-300;
+        .action {
+          background-color: $sky-400;
+        }
+      }
+    }
+    &.teacher {
+      .panel-heading {
+        background-color: $teal-300;
+        .action {
+          background-color: $teal-400;
+        }
+      }
+    }
+  }
+}

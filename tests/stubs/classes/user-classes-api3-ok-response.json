@@ -42,7 +42,7 @@
     "id": "2a0a0d90-faed-4ba4-9bab-04ddc4c18f30",
     "creator_id": "2afaf0fd-ed92-48c5-9195-7f4bc1e0064e",
     "title": "My class - 2",
-    "description": "This class is intended to make awareness of good habits",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra quis ex ac pretium. Pellentesque euismod ultrices tempor. Curabitur fringilla pharetra maximus. Phasellus interdum condimentum mattis. Curabitur eu enim id sem imperdiet fermentum sed id neque. In consequat lacus dui, vel mattis nulla lobortis maximus. Proin a aliquet risus. Etiam enim enim, rutrum vel aliquet non, facilisis nec ligula. Vivamus vitae dolor enim.",
     "greeting": "Hi! Welcome to my class",
     "grade": [
       4,
@@ -65,7 +65,7 @@
     "id": "1c0a0d90-faed-4ba4-9bab-04ddc4c88f30",
     "creator_id": "2afaf0fd-ed92-48c5-9195-7f4bc1e0064e",
     "title": "My class - 3",
-    "description": "This class is intended to make awareness of good habits",
+    "description": "Proin a aliquet risus. Etiam enim enim, rutrum vel aliquet non, facilisis nec ligula. Vivamus vitae dolor enim.",
     "greeting": "Hi! Welcome to my class",
     "grade": [
       4,
