@@ -89,6 +89,7 @@ export default {
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
+      "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
       "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly."

@@ -42,7 +42,7 @@ Router.map(function() {
     });
 
     this.route('questions', function () {
-      this.route('edit', {path: '/edit/:resourceId'});
+      this.route('edit', {path: '/edit/:questionId'});
     });
   });
 

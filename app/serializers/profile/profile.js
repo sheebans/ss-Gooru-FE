@@ -166,8 +166,9 @@ export default Ember.Object.extend({
    * @returns {Content/Resource}
    */
   normalizeResource: function (resourceData, owners) {
+    const serializer = this;
     const format = ResourceModel.normalizeResourceFormat(resourceData.content_subformat);
-
+    const standards = resourceData.taxonomy || [];
     const creatorId = resourceData.creator_id;
     const filteredOwners = Ember.A(owners).filterBy("id", creatorId);
     return ResourceModel.create({
@@ -177,6 +178,7 @@ export default Ember.Object.extend({
       url: resourceData.url,
       format: format,
       publishStatus: resourceData.publish_status,
+      standards: serializer.normalizeStandards(standards),
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
   },
@@ -188,14 +190,17 @@ export default Ember.Object.extend({
    * @returns {Content/Question}
    */
   normalizeQuestion: function (questionData, owners) {
+    const serializer = this;
     const creatorId = questionData.creator_id;
     const filteredOwners = Ember.A(owners).filterBy("id", creatorId);
+    const standards = questionData.taxonomy || [];
     return QuestionModel.create({
       id: questionData.id,
       title: questionData.title,
       description: questionData.description,
       format: questionData.content_format,
       publishStatus: questionData.publish_status,
+      standards: serializer.normalizeStandards(standards),
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
   },

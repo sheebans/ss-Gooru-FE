@@ -71,7 +71,12 @@ const ResourceModel = Ember.Object.extend(Validations,{
   /**
    * @property {Boolean} isPublic
    */
-  isPublic: Ember.computed.equal("publishedStatus", "published")
+  isPublic: Ember.computed.equal("publishedStatus", "published"),
+
+  /**
+   * @property { { code: string, description: string }[] }
+   */
+  standards: null
 
 
 });

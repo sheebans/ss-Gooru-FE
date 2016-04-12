@@ -11,6 +11,7 @@ import HotTextHighlightUtil from 'gooru-web/utils/question/hot-text-highlight';
 
 export const QUESTION_CONFIG = {
   'MC'    : Ember.Object.create({
+    apiType: 'multiple_choice_question',
     util: MultipleChoiceUtil,
     component: {
       player: 'player.questions.gru-multiple-choice',
@@ -18,6 +19,7 @@ export const QUESTION_CONFIG = {
     }
   }),
   'MA'    : Ember.Object.create({
+    apiType: 'multiple_answer_question',
     util: MultipleAnswerUtil,
     component: {
       player: 'player.questions.gru-multiple-answer',
@@ -25,6 +27,7 @@ export const QUESTION_CONFIG = {
     }
   }),
   'T/F'   : Ember.Object.create({
+    apiType: 'true_false_question',
     util: TrueFalseUtil,
     component: {
       player: 'player.questions.gru-true-false',
@@ -32,6 +35,7 @@ export const QUESTION_CONFIG = {
     }
   }),
   'OE'    : Ember.Object.create({
+    apiType: 'open_ended_question',
     util: OpenEndedUtil,
     component: {
       player: 'player.questions.gru-open-ended',
@@ -39,6 +43,7 @@ export const QUESTION_CONFIG = {
     }
   }),
   'FIB'   : Ember.Object.create({
+    apiType: 'fill_in_the_blank_question',
     util: FillInTheBlankUtil,
     component: {
       player: 'player.questions.gru-fib',
@@ -46,6 +51,7 @@ export const QUESTION_CONFIG = {
     }
   }),
   'HS_TXT': Ember.Object.create({
+    apiType: 'hot_spot_text_question',
     util: HotSpotTextUtil,
     component: {
       player: 'player.questions.gru-hs-text',
@@ -53,6 +59,7 @@ export const QUESTION_CONFIG = {
     }
   }),
   'HS_IMG': Ember.Object.create({
+    apiType: 'hot_spot_image_question',
     util: HotSpotImageUtil,
     component: {
       player: 'player.questions.gru-hs-image',
@@ -60,6 +67,7 @@ export const QUESTION_CONFIG = {
     }
   }),
   'HT_RO' : Ember.Object.create({
+    apiType: 'hot_text_reorder_question',
     util: ReorderUtil,
     component: {
       player: 'player.questions.gru-reorder',
@@ -67,6 +75,7 @@ export const QUESTION_CONFIG = {
     }
   }),
   'HT_HL' : Ember.Object.create({
+    apiType: 'hot_text_highlight_question',
     util: HotTextHighlightUtil,
     component: {
       player: 'player.questions.gru-hot-text-highlight',
@@ -97,11 +106,37 @@ export function getQuestionConfig(questionType, propertyPath){
 }
 
 /**
+ * Returns the question type based on apiType
+ * @param {string} apiType, a valid question apiType from API 3.0
+ */
+export function getQuestionTypeByApiType(apiType){
+  let type = null;
+  for (var property in QUESTION_CONFIG) {
+    if (QUESTION_CONFIG.hasOwnProperty(property)) {
+      if (QUESTION_CONFIG[property].apiType === apiType){
+        type = property;
+        break;
+      }
+    }
+  }
+  return type;
+}
+
+/**
  * Gets the question util per question type
  * @param {string} questionType
  * @returns {Object|*}
  */
 export function getQuestionUtil(questionType){
   return getQuestionConfig(questionType, 'util');
+}
+
+/**
+ * Returns the new question api type for API 3.0
+ * @param {string} questionType
+ * @returns {string}
+ */
+export function getQuestionApiType(questionType){
+  return getQuestionConfig(questionType, 'apiType');
 }
 

@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
+import { getQuestionApiType, getQuestionTypeByApiType } from 'gooru-web/config/question';
 
 const Validations = buildValidations({
   title: {
@@ -58,10 +59,35 @@ const Question = Ember.Object.extend(Validations, {
   /**
    * @property { Content/User }
    */
-  owner: null
+  owner: null,
+
+  /**
+   * @property { { code: string, description: string }[] }
+   */
+  standards: null
 
 
 
+});
+
+Question.reopenClass({
+  /**
+   * Serializes the question type to be API compliant
+   * @param type
+   * @returns {string}
+   */
+  serializeQuestionType: function (type) {
+    return getQuestionApiType(type);
+  },
+
+  /**
+   * Normalizes the question type to be App compliant
+   * @param format
+   * @returns {string}
+   */
+  normalizeQuestionType: function (apiType) {
+    return getQuestionTypeByApiType(apiType);
+  }
 });
 
 export default Question;

@@ -8,7 +8,7 @@ export default Ember.Component.extend({
   /**
    * @property {AssessmentService} Assessment service API SDK
    */
-  resourceService: Ember.inject.service("api-sdk/assessment"),
+  questionService: Ember.inject.service("api-sdk/assessment"),
 
   /**
    * @property {Service} I18N service
@@ -39,7 +39,7 @@ export default Ember.Component.extend({
       const assessment = this.get('assessment');
       assessment.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
-          component.get('resourceService')
+          component.get('questionService')
             .createAssessment(assessment)
             .then(function(newAssessment) {
                 component.triggerAction({ action: 'closeModal' });

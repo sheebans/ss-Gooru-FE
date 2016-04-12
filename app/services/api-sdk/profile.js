@@ -189,9 +189,9 @@ export default Ember.Service.extend({
   readAssessments: function(userId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readCollections(userId).then(
+      service.get('profileAdapter').readAssessments(userId).then(
         function(response) {
-          resolve(service.get('profileSerializer').normalizeReadCollections(response));
+          resolve(service.get('profileSerializer').normalizeReadAssessments(response));
         },
         reject
       );

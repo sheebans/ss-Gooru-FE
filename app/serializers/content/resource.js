@@ -30,15 +30,32 @@ export default Ember.Object.extend({
    * @returns {Content/Resource}
    */
   normalizeReadResource: function(resourceData){
-
+    const serializer = this;
     const format = ResourceModel.normalizeResourceFormat(resourceData.content_subformat);
+    const standards = resourceData.taxonomy || [];
     return ResourceModel.create({
       id: resourceData.id,
       title: resourceData.title,
       url: resourceData.url,
-      format: format
+      format: format,
+      description: resourceData.description,
+      publishStatus: resourceData.publish_status,
+      standards: serializer.normalizeStandards(standards),
+      owner: null //TODO not available at the API
     });
-  }
+  },
+
+  /**
+   * Normalizes standards
+   * @param {string[]} payload
+   * @returns {Content/User}
+   */
+  normalizeStandards: function (standards) {
+    return standards.map(function(standard){
+      return Ember.Object.create({ code: standard, description: null });
+    });
+  },
+
 
 
 });
