@@ -43,8 +43,8 @@ export default Ember.Component.extend({
                 },
 
                 function() {
-                  const message = this.get('i18n').t('common.errors.class-not-created').string;
-                  this.get('notifications').error(message);
+                  const message = component.get('i18n').t('common.errors.class-not-created').string;
+                  component.get('notifications').error(message);
                 }
               );
           }
