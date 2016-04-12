@@ -2,14 +2,84 @@ import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations({
-  username: validator('presence', {
-    presence: true,
-    message: 'Please enter a username.'
-  }),
-  password: validator('presence', {
-    presence: true,
-    message: 'Please enter a password.'
-  })
+  username: {
+    validators: [
+      validator('presence', {
+        presence: true,
+        message: 'Please enter a username.'
+      }),
+      validator('length', {
+        min: 4,
+        max: 20,
+        message: 'Username must be between 4 and 20 characters.'
+      }),
+      validator('username')
+    ]
+  },
+
+  firstName: {
+    validators: [
+      validator('presence', {
+        presence: true,
+        message: 'Please enter a first name.'
+      }),
+      validator('length', {
+        min: 2,
+        message: 'First name must have at least two letters.'
+      })
+    ]
+  },
+
+  lastName: {
+    validators: [
+      validator('presence', {
+        presence: true,
+        message: 'Please enter a last name.'
+      }),
+      validator('length', {
+        min: 2,
+        message: 'Last name must have at least two letters.'
+      })
+    ]
+  },
+
+  password: [
+    validator('presence', {
+      presence: true,
+      message: 'Please enter a password.'
+    }),
+    validator('format', {
+      regex: /^\w+$/,
+      message: "Please don't use special characters."
+    }),
+    validator('length', {
+      min: 5,
+      max: 14,
+      message: "Password must be between 5 and 14 characters."
+    }),
+  ],
+
+  rePassword:[
+    validator('presence', {
+      presence: true,
+      message: 'Please confirm your password.'
+    }),
+    validator('format', {
+      regex: /^\w+$/,
+      message: "Please don't use special characters."
+    }),
+    validator(function(value,options,model/* ,attribute*/) {
+      return value !== model.get('password') ? `Passwords do not match.` : true ;
+    })
+  ],
+
+  email: [
+    validator('format', {
+      type: 'email',
+      message: 'Please enter a valid email address.'
+    }),
+    validator('email')
+  ]
 
 });
 

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import User from 'gooru-web/models/profile/profile';
+import User from 'gooru-web/models/sign-in/sign-in';
 import Env from 'gooru-web/config/environment';
 
 export default Ember.Controller.extend({
