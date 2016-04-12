@@ -33,18 +33,18 @@ var mockClass = Ember.Object.create({
   isStudent: false
 });
 
-var countObject = Ember.Object.create({
+var classStudentCount = Ember.Object.create({
   'class-id': 4
 });
 
 test('Class Card Layout', function(assert) {
 
   this.set('class', mockClass);
-  this.set('countObject', countObject);
+  this.set('classStudentCount', classStudentCount);
 
   assert.expect(10);
 
-  this.render(hbs`{{cards/gru-class-card class=class countObject=countObject}}`);
+  this.render(hbs`{{cards/gru-class-card class=class classStudentCount=classStudentCount}}`);
 
   var $component = this.$(); //component dom element
 
@@ -68,11 +68,11 @@ test('Student class card', function (assert) {
   mockClass.set('isStudent', true);
 
   this.set('class', mockClass);
-  this.set('countObject', countObject);
+  this.set('classStudentCount', classStudentCount);
 
   assert.expect(1);
 
-  this.render(hbs`{{cards/gru-class-card class=class countObject=countObject}}`);
+  this.render(hbs`{{cards/gru-class-card class=class classStudentCount=classStudentCount}}`);
 
   var $component = this.$(); //component dom element
 
@@ -84,11 +84,11 @@ test('Student class card', function (assert) {
 test('Class with just one collaborator', function (assert) {
   mockClass.set('collaborator', ["collaborator-1"]);
   this.set('class', mockClass);
-  this.set('countObject', countObject);
+  this.set('classStudentCount', classStudentCount);
 
   assert.expect(2);
 
-  this.render(hbs`{{cards/gru-class-card class=class countObject=countObject}}`);
+  this.render(hbs`{{cards/gru-class-card class=class classStudentCount=classStudentCount}}`);
 
   var $component = this.$(); //component dom element
 

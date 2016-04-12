@@ -15,7 +15,7 @@ export default Ember.Component.extend({
   /**
    * @property {Object} Object containing student count by class
    */
-  countObject: null,
+  classStudentCount: null,
 
   /**
    * @property {Number} Count of collaborators in the class
@@ -28,10 +28,10 @@ export default Ember.Component.extend({
   /**
    * @property {Number} Count of students in the class
    */
-  studentCount: Ember.computed('class.id', 'countObject', function() {
-    let countObject = this.get('countObject');
-    return (countObject && Ember.keys(countObject).length) ?
-        (countObject[this.get('class.id')] ? countObject[this.get('class.id')] : 0) :
+  studentCount: Ember.computed('class.id', 'classStudentCount', function() {
+    let classStudentCount = this.get('classStudentCount');
+    return (classStudentCount && Ember.keys(classStudentCount).length) ?
+        (classStudentCount[this.get('class.id')] ? classStudentCount[this.get('class.id')] : 0) :
         0;
   })
 });
