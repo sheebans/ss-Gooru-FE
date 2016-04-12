@@ -20,6 +20,9 @@
         <div class="navbar-collapse">
           <ul class="nav navbar-nav menu-navbar">
             {{#if session.isAnonymous}}
+              <li class="navbar-nav-list">
+                {{#link-to 'sign-in' class="btn btn-info sign-in-button" tagName='button'}} {{t "common.login"}} {{/link-to}}
+              </li>
               <li class="navbar-nav-list no-hover">
                 {{#link-to 'sign-up' class="btn btn-primary sign-up-button" tagName='button'}} {{t "common.signUp"}} {{/link-to}}
               </li>
