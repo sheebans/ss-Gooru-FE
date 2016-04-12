@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 /**
- * Adapter to support the Profile CRUD operations in the API 3.0
+ * Adapter to support the availability of username and email
  *
  * @typedef {Object} AvailabilityAdapter
  */
