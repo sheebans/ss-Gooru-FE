@@ -25,6 +25,7 @@ export default Ember.Mixin.create({
     const $container = this.$();
     const $header = $container.find('> header');
     const $window = Ember.$(window);
+    const headerTopOffset = $header.offset().top;
 
     // Add fix header behaviour
     Ember.$(window).on('scroll.edit', function () {
@@ -33,7 +34,7 @@ export default Ember.Mixin.create({
       var headerPaddingLeft = $header.css('paddingLeft');
       headerWidth = headerWidth && headerWidth.split('px')[0] || '100%';
 
-      if (scrollTop >= 65) {
+      if (scrollTop >= headerTopOffset) {
         if (!$container.hasClass('fixed-header')) {
           // Add inline styles to preserve the same look
           $header.css({
