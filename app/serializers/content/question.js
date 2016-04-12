@@ -39,7 +39,6 @@ export default Ember.Object.extend({
       description: questionData.description,
       publishStatus: questionData.publish_status,
       standards: serializer.normalizeStandards(standards),
-      owner: null, //TODO not available at the API
       answers: null, //TODO the structure is missing some info at the API
       hints: null, //TODO
       explanation: null //TODO

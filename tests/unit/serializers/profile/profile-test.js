@@ -265,14 +265,12 @@ test('normalizeCollection', function(assert) {
     "course_title": "mathematics course 101",
     "resource_count": 5,
     "question_count": 3,
-    "remix_count": 2,
-    "description": "Some description"
+    "remix_count": 2
   };
 
   const collection = serializer.normalizeCollection(collectionData, owners);
   assert.equal(collection.get("id"), '50484e74-ad95-44d5-981a-c18411260233', 'Wrong id');
   assert.equal(collection.get("title"), 'oops poly basics', 'Wrong title');
-  assert.equal(collection.get("description"), 'Some description', 'Wrong description');
   assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
   assert.equal(collection.get("image"), 'collection.png', 'Wrong image');
   assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
@@ -305,14 +303,12 @@ test('normalizeAssessment', function(assert) {
     "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
     "course_title": "mathematics course 101",
     "question_count": 3,
-    "remix_count": 2,
-    "description": "Some description"
+    "remix_count": 2
   };
 
   const collection = serializer.normalizeAssessment(assessmentData, owners);
   assert.equal(collection.get("id"), '50484e74-ad95-44d5-981a-c18411260233', 'Wrong id');
   assert.equal(collection.get("title"), 'oops poly basics', 'Wrong title');
-  assert.equal(collection.get("description"), 'Some description', 'Wrong description');
   assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
   assert.equal(collection.get("image"), 'collection.png', 'Wrong image');
   assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');

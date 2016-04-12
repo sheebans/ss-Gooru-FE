@@ -136,10 +136,19 @@ export default Ember.Object.extend(Validations,{
   rosterId: null,
 
   /**
-   * @property {string} displayName - The firstName and lastName
+   * @property {string} displayName
    */
-  displayName: Ember.computed('firstName', 'lastName', function () {
-    return this.get('firstName') + ' ' + this.get('lastName');
+  displayName: Ember.computed('username', 'fullName', function () {
+    return this.get("username") ? this.get("username") : this.get("fullName");
+  }),
+
+  /**
+   * @property {string}
+   */
+  fullName: Ember.computed("firstName", "lastName", function(){
+    const firstName = this.get("firstName");
+    const lastName = this.get("lastName");
+    return `${firstName} ${lastName}`;
   }),
 
   /**

@@ -8,7 +8,7 @@ export default Ember.Component.extend({
   /**
    * @property {ResourceService} Resource service API SDK
    */
-  questionService: Ember.inject.service("api-sdk/resource"),
+  resourceService: Ember.inject.service("api-sdk/resource"),
 
   /**
    * @property {Service} I18N service
@@ -119,7 +119,7 @@ export default Ember.Component.extend({
    */
   displayExistingResource: function(resourceId){
     const component = this;
-    const resourceService = component.get('questionService');
+    const resourceService = component.get('resourceService');
     resourceService.readResource(resourceId)
       .then(function(resource){
         component.set("existingResource", resource);

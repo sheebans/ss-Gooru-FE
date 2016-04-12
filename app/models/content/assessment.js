@@ -56,7 +56,7 @@ const Assessment = Ember.Object.extend(Validations, {
   /**
    * @property {Boolean} isPublic
    */
-  isPublic: Ember.computed.equal("publishedStatus", "published"),
+  isPublic: Ember.computed.equal("publishedStatus", "published"), //TODO renamed by isPublished
 
   /**
    * @property {Boolean} isVisibleOnProfile

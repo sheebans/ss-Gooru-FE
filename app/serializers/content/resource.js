@@ -40,14 +40,13 @@ export default Ember.Object.extend({
       format: format,
       description: resourceData.description,
       publishStatus: resourceData.publish_status,
-      standards: serializer.normalizeStandards(standards),
-      owner: null //TODO not available at the API
+      standards: serializer.normalizeStandards(standards)
     });
   },
 
   /**
    * Normalizes standards
-   * @param {string[]} payload
+   * @param {string[]} standards
    * @returns {Content/User}
    */
   normalizeStandards: function (standards) {
