@@ -111,15 +111,44 @@ const Class = Ember.Object.extend(Validations, {
   isArchived: false,
 
   /**
-   * @property {Boolean} isStudent - The user is student in the class
+   * Verifies if the passed id corresponds to a student in the class
+   * @param studentId the student id to search
+   * @returns {Boolean} returns true if is a student, otherwise undefined
    */
-  isStudent: false,
+  isStudent: function(studentId) {
+    return this.get('members').findBy('id', studentId);
+  },
 
   /**
-   * @property {Boolean} isStudent - The user is teacher in the class
+   * Verifies if the passed id corresponds to a teacher in the class
+   * @param teacherId the teacher id to search
+   * @returns {Boolean} returns true if is a teacher, otherwise undefined
    */
-  isTeacher: Ember.computed('isStudent', function () {
-    return !this.get('isStudent');
+  isTeacher: function(teacherId) {
+    return (this.get('owner.id') === teacherId || this.get('collaborators').findBy('id', teacherId));
+  },
+
+  /**
+   * @property {Number} Computed property that counts the number of members in the class
+   */
+  countMembers: Ember.computed('members', function() {
+    return this.get('members.length');
+  }),
+
+  /**
+   * @property {Number} Computed property that counts the number of teachers in the class
+   */
+  countTeachers: Ember.computed('owner', 'collaborators', function() {
+    let counter = this.get('owner') ? 1 : 0;
+    return counter + this.get('collaborators.length');
+  }),
+
+  teachers: Ember.computed('owner', 'collaborators', function() {
+    let teachers = [];
+    if (this.get('owner')) {
+      teachers.push(this.get('owner'));
+    }
+    return teachers.pushObjects(this.get('collaborators'));
   })
 
 });

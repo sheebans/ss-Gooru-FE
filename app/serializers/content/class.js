@@ -74,7 +74,7 @@ export default Ember.Object.extend({
       classSharing: payload['class_sharing'],
       coverImage: payload['cover_image'],
       minScore: payload['min_score'],
-      startDate: payload['end_date'], // TODO We need to get the value from payload once it is implemented.
+      startDate: payload['created_at'],
       endDate: payload['end_date'],
       collaborator: [],
       creatorSystem: ''
@@ -94,25 +94,6 @@ export default Ember.Object.extend({
       members: serializer.filterMembers(payload)
     });
   },
-
-  filterCollaborators: function(payload) {
-    return this.filterElements(payload, 'collaborator');
-  },
-
-  filterMembers: function(payload) {
-    return this.filterElements(payload, 'member');
-  },
-
-  filterElements: function(payload, property) {
-    let elements = payload[property];
-    if (Ember.isArray(elements) && elements.length > 0) {
-      return elements.map(function(elementId) {
-        return this.get('profileSerializer').normalizeReadProfile(payload.details.findBy('id', elementId));
-      }).compact();
-    } else {
-      return [];
-    }
-  }
 
   /**
    * Normalize the user classes endpoint response
@@ -136,6 +117,26 @@ export default Ember.Object.extend({
         return normalizedClasses;
       })()
     });
+  },
+
+  filterCollaborators: function(payload) {
+    return this.filterElements(payload, 'collaborator');
+  },
+
+  filterMembers: function(payload) {
+    return this.filterElements(payload, 'member');
+  },
+
+  filterElements: function(payload, property) {
+    const serializer = this;
+    let elements = payload[property];
+    if (Ember.isArray(elements) && elements.length > 0) {
+      return elements.map(function(elementId) {
+        return serializer.get('profileSerializer').normalizeReadProfile(payload.details.findBy('id', elementId));
+      }).compact();
+    } else {
+      return [];
+    }
   }
 
 });
