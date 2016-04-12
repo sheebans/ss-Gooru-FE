@@ -82,6 +82,10 @@ Router.map(function() {
 
     this.route('content', function() {
       this.route('course');
+
+      this.route('classes', function() {
+        this.route('join');
+      });
     });
 
     this.route('network');
