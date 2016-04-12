@@ -44,7 +44,7 @@
 
     <div class="detail">
       {{#if totalSavedItems}}
-        <span><b>{{totalSavedItems}}</b> {{t "common.lessonObj" count=totalSavedItems}}</span>
+        <span><b>{{unit.lessonCount}}</b> {{t "common.lessonObj" count=unit.lessonCount}}</span>
       {{else}}
         <span>{{t "common.add-lessons"}}</span>
       {{/if}}
@@ -71,6 +71,7 @@
           courseId=courseId
           unitId=model.id
           model=item
+          items=model.children
           index=index
           totalItems=items.length
           onCancelAddLesson=(action 'cancelAddLesson') }}

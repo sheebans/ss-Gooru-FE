@@ -51,10 +51,11 @@ export default Ember.Object.extend({
     return Course.create(Ember.getOwner(this).ownerInjection(), {
       children: function () {
         var units = [];
-        if (courseData.unitSummary) {
-          units = courseData.unitSummary.map(function (unitData) {
+        if (courseData.unit_summary) {
+          units = courseData.unit_summary.map(function (unitData) {
             return Unit.create(Ember.getOwner(serializer).ownerInjection(), {
               id: unitData.unit_id,
+              lessonCount: unitData.lesson_count ? unitData.lesson_count : 0,
               sequence: unitData.sequence_id,
               title: unitData.title
             });
