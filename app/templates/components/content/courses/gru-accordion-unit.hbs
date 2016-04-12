@@ -30,8 +30,8 @@
       </div>
     </div>
 
-    <div class="domain">
-      <span>Domain</span>
+    <div class="data-row">
+      <span>{{t "common.domain"}}</span>
       <button type="button" class="btn btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
     </div>
   </div>
@@ -64,6 +64,18 @@
   <div class="panel-body">
 
     <ol class="accordion-unit" role="tablist" aria-multiselectable="true">
+
+      {{#each items as |item index|}}
+
+        {{content.courses.gru-accordion-lesson
+          courseId=courseId
+          unitId=model.id
+          model=item
+          index=index
+          totalItems=items.length
+          onCancelAddLesson=(action 'cancelAddLesson') }}
+
+      {{/each}}
 
       <li class="lesson add-item">
         <a class="add-prefix" href="#" {{action 'addLesson'}}>{{t "common.add-new-lesson"}}</a>

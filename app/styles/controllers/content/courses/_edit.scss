@@ -1,6 +1,7 @@
 .controller.content.courses.edit {
 
-  .accordion-course {
+  .accordion-course,
+  .accordion-unit {
     > li {
       padding: 10px 0;
     }
@@ -165,7 +166,7 @@
           }
         }
 
-        .domain {
+        .data-row {
           > span {
             display: block;
             margin: 10px 0;
@@ -174,7 +175,7 @@
       }
 
       &.view {
-        .panel-body {
+        > .expanded > .panel-body {
           background-color: $dark-400;
 
           .add-item a {

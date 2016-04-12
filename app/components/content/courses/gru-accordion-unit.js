@@ -1,5 +1,7 @@
 import Ember from 'ember';
+import BuilderItem from 'gooru-web/models/content/builder/item';
 import BuilderMixin from 'gooru-web/mixins/content/builder';
+import Lesson from 'gooru-web/models/content/lesson';
 
 /**
  * Content Builder: Accordion Unit
@@ -57,7 +59,19 @@ export default Ember.Component.extend(BuilderMixin, {
     },
 
     addLesson: function () {
-      Ember.Logger.info('Add new lesson');
+      var lesson = Lesson.create(Ember.getOwner(this).ownerInjection(), {
+        title: null
+      });
+      var builderItem = BuilderItem.create({
+        isEditing: true,
+        data: lesson
+      });
+      this.get('items').pushObject(builderItem);
+    },
+
+    cancelAddLesson: function (builderItem) {
+      this.get('items').removeObject(builderItem);
+      builderItem.destroy();
     },
 
     /**
@@ -112,7 +126,27 @@ export default Ember.Component.extend(BuilderMixin, {
   // -------------------------------------------------------------------------
   // Events
   initData: Ember.on('init', function () {
-    this.set('items', Ember.A());
+    //this.set('items', Ember.A());
+
+    // TODO: Fetch data from model
+    var children = [
+      BuilderItem.create({
+        data: Lesson.create(Ember.getOwner(this).ownerInjection(), {
+          id: 12345,
+          sequence: 1,
+          title: 'Sample Unit Title'
+        })
+      }),
+      BuilderItem.create({
+        data: Lesson.create(Ember.getOwner(this).ownerInjection(), {
+          id: 56789,
+          sequence: 2,
+          title: 'Another Unit Title'
+        })
+      })
+    ];
+
+    this.set('items', Ember.A(children));
   }),
 
 
