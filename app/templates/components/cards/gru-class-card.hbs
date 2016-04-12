@@ -3,15 +3,15 @@
     <h5>
       <span class="title">{{class.title}}</span>
       <span class="code">{{class.code}}</span>
-      <a href="#" class="action">
+      {{#link-to 'class.overview' class.id class="action"}}
         <span>{{if class.isStudent (t "common.study") (t "common.teach")}} {{gru-icon name="keyboard_arrow_right"}}</span>
-      </a>
+      {{/link-to}}
     </h5>
   </div>
   <div class="panel-body">
     <div class="members-info">
       <div class="collaborators">
-        {{! Place collaborator avatar and first name in the next line }}
+        {{! Place collaborator avatar and first name in the next two lines }}
         <img class="collaborator-avatar" src="/assets/gooru/profile.png" alt="{teacher}">
         <span class="name">{teacher}</span>
         {{#if (gt collaboratorsCount 0)}} <span class="collaborators-count">+{{collaboratorsCount}}</span>{{/if}}
