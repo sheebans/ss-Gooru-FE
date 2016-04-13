@@ -2,7 +2,7 @@
     <h4 class="modal-title">{{t "common.add-new-resource"}}</h4>
 </div>
 <div class="modal-body">
-    <form  {{action "createResource" on="submit"}}>
+    <form>
         <div class="header-add-url">
             <span class="icon">{{gru-icon name="link"}}</span>
             <span class="title">{{t 'common.add-from-url'}}</span>
@@ -26,12 +26,12 @@
         </label>
         <div class="resource-types text-center">
           {{#each resourceTypes as |resourceType|}}
-              <div class="panel panel-default {{concat 'resource-type-' resourceType.label}} {{set-if-equal 'active' resourceType.type selectedType}}" {{action 'selectType' resourceType.type}}>
+              <div class="panel panel-default {{concat 'resource-type-' resourceType}} {{set-if-equal 'active' resourceType selectedType}}" {{action 'selectType' resourceType}}>
                   <div class="panel-body">
                       <i class="resource-type-icon"></i>
                   </div>
                   <div class="panel-footer">
-                    {{t (concat 'common.resource-format.' resourceType.label) }}
+                    {{t (concat 'common.resource-format.' resourceType) }}
                   </div>
               </div>
           {{/each}}
@@ -41,7 +41,10 @@
             <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal" aria-label="{{t 'common.close'}}">
               <span aria-hidden="true">{{t 'common.cancel' }}</span>
             </button>
-              <button type='submit' class="btn btn-primary add-btn">{{t 'common.add'}}</button>
+              <button type="button" class="btn btn-default more-btn" {{action "createResource" "edit"}} aria-label="{{t 'common.more-details'}}">
+                  <span aria-hidden="true">{{t 'common.more-details' }}</span>
+              </button>
+              <button type='submit' class="btn btn-primary add-btn" {{action "createResource" "add"}} aria-label="{{t 'common.close'}}">{{t 'common.add'}}</button>
           {{else}}
             <button type="button" class="btn btn-default close-btn" data-dismiss="modal" aria-label="{{t 'common.close'}}">
               <span aria-hidden="true">{{t 'common.close' }}</span>

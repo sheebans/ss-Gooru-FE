@@ -125,6 +125,7 @@ export default {
     "myContent": "My Content",
     "mastery":"Mastery",
     "menu": "Menu",
+    "more-details":"More Details",
     "no": "No",
     "no-content": "No content available",
     "no-results": "No Results Found",
@@ -166,11 +167,9 @@ export default {
     "resource-format":{
       "image"       : "Image",
       "text"        : "Text",
-      "document"    : "Document",
       "video"       : "Video",
       "interactive" : "Interactive",
       "webpage"     : "Webpage",
-      "website"     : "Website",
       "audio"       : "Audio",
       "question"    : "Question"
     },

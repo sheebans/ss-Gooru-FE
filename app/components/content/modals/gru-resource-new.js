@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Resource from 'gooru-web/models/content/resource';
-
+import {RESOURCE_TYPES} from 'gooru-web/config/config';
 export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
@@ -32,7 +32,7 @@ export default Ember.Component.extend({
 
 
   actions: {
-    createResource: function () {
+    createResource: function (type) {
       const component = this;
       const resource = this.get('resource');
 
@@ -41,7 +41,11 @@ export default Ember.Component.extend({
           var resourceService = component.get('resourceService');
           resourceService.createResource(resource)
             .then(function (newResource) {
-                component.onNewResource(newResource);
+                if(type==="edit"){
+                  component.onNewResource(newResource);
+                }else{
+                  component.triggerAction({ action: 'closeModal' });
+                }
               },
               function (data) {
                 if (data.resourceId) { //already exists
@@ -69,7 +73,8 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {url: null,title:null,format:"website"});
+
+    var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {url: null,title:null,format:"webpage"});
     this.set('resource', resource);
   },
 
@@ -112,27 +117,7 @@ export default Ember.Component.extend({
   /**
    * @type {Array{}} resourceTypes
    */
-  resourceTypes:Ember.A([
-    Ember.Object.create({
-    label:"website",
-    type:"webpage"
-  }),Ember.Object.create({
-    label:"video",
-    type:"video"
-  }),Ember.Object.create({
-    label:"interactive",
-    type:"interactive"
-  }),Ember.Object.create({
-    label:"audio",
-    type:"audio"
-  }), Ember.Object.create({
-      label:"image",
-      type:"image"
-    }), Ember.Object.create({
-      label:"document",
-      type:"text"
-    })
-  ]),
+  resourceTypes:RESOURCE_TYPES,
 
   //
   // Methods

@@ -23,7 +23,7 @@ const Validations = buildValidations({
     validators: [
       validator('presence', {
         presence: true,
-        message:'Please enter the Resource title.'
+        message:'Please enter a resource title.'
       })
     ]
   }
