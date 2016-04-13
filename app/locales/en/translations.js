@@ -19,6 +19,7 @@ export default {
     "add-new-question": "Add New Question",
     "add-to": "Add To",
     "add-type-question":"What type of question would you like to add?",
+    "add-type-resource":"What type of resource is this?",
     "add-units": "Add Units",
     "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
@@ -165,12 +166,15 @@ export default {
     "resource-format":{
       "image"       : "Image",
       "text"        : "Text",
+      "document"    : "Document",
       "video"       : "Video",
       "interactive" : "Interactive",
       "webpage"     : "Webpage",
+      "website"     : "Website",
       "audio"       : "Audio",
       "question"    : "Question"
     },
+    "resource-title":"Resource Title",
     "remaining": "{{number}} Left",
     "remix":"Remix",
     "role": "Role",

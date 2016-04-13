@@ -15,7 +15,15 @@ const Validations = buildValidations({
       }),
       validator('host',{
         message:'Resources can not be Gooru\'s URLs.',
-        location: window.location.host
+        location: window.location.hostname
+      })
+    ]
+  },
+  title: {
+    validators: [
+      validator('presence', {
+        presence: true,
+        message:'Please enter the Resource title.'
       })
     ]
   }

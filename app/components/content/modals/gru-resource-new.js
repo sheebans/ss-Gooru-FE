@@ -56,6 +56,11 @@ export default Ember.Component.extend({
         }
         component.set('didValidate', true);
       });
+    },
+
+    selectType:function(type){
+      this.set('selectedType',type);
+      this.set('resource.format',this.get('selectedType'));
     }
   },
 
@@ -64,9 +69,7 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {url: null});
-    resource.set("title", "Untitled"); //TODO remove once fields are added to modal
-    resource.set("format", "video_resource"); //TODO remove once fields are added to modal
+    var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {url: null,title:null,format:"website"});
     this.set('resource', resource);
   },
 
@@ -93,13 +96,43 @@ export default Ember.Component.extend({
    */
   target: null,
 
+  /**
+   * @type {String} selectedType
+   */
+  selectedType: Ember.computed('resource.format',function(){
+    return this.get('resource.format');
+  }),
+
 
   /**
    * @type {Content/Resource} resource
    */
   existingResource: null,
 
-
+  /**
+   * @type {Array{}} resourceTypes
+   */
+  resourceTypes:Ember.A([
+    Ember.Object.create({
+    label:"website",
+    type:"webpage"
+  }),Ember.Object.create({
+    label:"video",
+    type:"video"
+  }),Ember.Object.create({
+    label:"interactive",
+    type:"interactive"
+  }),Ember.Object.create({
+    label:"audio",
+    type:"audio"
+  }), Ember.Object.create({
+      label:"image",
+      type:"image"
+    }), Ember.Object.create({
+      label:"document",
+      type:"text"
+    })
+  ]),
 
   //
   // Methods

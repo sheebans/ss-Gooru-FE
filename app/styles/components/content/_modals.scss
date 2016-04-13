@@ -58,7 +58,7 @@
           }
         }
       }
-      .question-types{
+      .question-types,.resource-types{
         margin-top:10px;
         @include flexbox;
         @include justify-content(center);
@@ -84,6 +84,15 @@
               background-size: 70px 70px;
               height: 70px;
               width: 70px;
+            }
+            .resource-type-icon{
+              display: inline-block;
+              margin: 10px auto;
+              vertical-align: top;
+              -webkit-background-size: 40px 40px;
+              background-size: 40px 40px;
+              height: 40px;
+              width: 40px;
             }
           }
           .panel-footer{
@@ -134,6 +143,36 @@
             background: url("gooru/images/hot-text-reorder.svg");
           }
         }
+        .resource-type-website{
+          i{
+            background: url("gooru/images/website-resource-white.svg");
+          }
+        }
+        .resource-type-video{
+          i{
+            background: url("gooru/images/video-resource-white.svg");
+          }
+        }
+        .resource-type-document{
+          i{
+            background: url("gooru/images/text-resource-white.svg");
+          }
+        }
+        .resource-type-interactive{
+          i{
+            background: url("gooru/images/interactive-resource-white.svg");
+          }
+        }
+        .resource-type-image{
+          i{
+            background: url("gooru/images/image-resource-white.svg");
+          }
+        }
+        .resource-type-audio{
+          i{
+            background: url("gooru/images/audio-resource-white.svg");
+          }
+        }
       }
     }
 
@@ -161,31 +200,40 @@
   width: 500px;
 }
 .content.modals.gru-resource-new{
-  .content{
-    height: 175px;
-    border: 1px solid $light-200;
-    border-radius: 6px;
-    background-color: $light-100;
-    > * {
-      margin-top: 20px;
-      float: left;
+   .header-add-url {
+     width: 100%;
+     float: left;
+     margin-bottom: 12px;
     }
     span.title{
       font-size: $font-size-large;
     }
     .icon{
-      margin:25px 20px 0 20px;
+      margin-right:5px;
       color: $light-300;
+      i{
+        vertical-align: bottom;
+      }
     }
-    div{
-      width: 85%;
-
-      .url-label{
-        margin-top: 20px;
+      .url-label,.title-label, .type{
+        margin-left: 10px;
         .gru-input {
           width: 100%;
         }
       }
+  .actions.resource-new{
+    margin-top: 10px;
+  }
+  .panel.active{
+    opacity:0.6;
+  }
+  .existing-resource-message{
+    height: 285px;
+    border: 1px solid $light-200;
+    border-radius: 6px;
+    background-color: $light-100;
+    .gru-resource-card{
+      margin: 14px auto;
     }
   }
 }
