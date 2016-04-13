@@ -63,8 +63,7 @@ export default Ember.Component.extend({
     },
 
     selectType:function(type){
-      this.set('selectedType',type);
-      this.set('resource.format',this.get('selectedType'));
+      this.set('resource.format',type);
     }
   },
 
@@ -104,9 +103,7 @@ export default Ember.Component.extend({
   /**
    * @type {String} selectedType
    */
-  selectedType: Ember.computed('resource.format',function(){
-    return this.get('resource.format');
-  }),
+  selectedType: Ember.computed.alias('resource.format'),
 
 
   /**

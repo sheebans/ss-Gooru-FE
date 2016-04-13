@@ -19,15 +19,16 @@ test('New Resource Layout', function(assert) {
   assert.ok($component.find('h4.modal-title'), 'Missing Title');
   assert.ok($component.find('.icon .link'), 'Missing link icon');
   assert.equal($component.find('h4.modal-title').text(), this.get('i18n').t('common.add-new-resource').string, 'Incorrect Title');
-  assert.ok($component.find('label.url-label span'), 'Missing URL label');
+  assert.ok($component.find('label.url-label span').length, 'Missing URL label');
   assert.equal($component.find('.header-add-url span.title').text(), this.get('i18n').t('common.add-from-url').string, 'Incorrect Add URL Label');
   assert.equal($component.find('label.url-label span').text(), this.get('i18n').t('common.enter-url').string, 'Incorrect Enter URL Label');
-  assert.ok($component.find('label.url-label input'), 'Missing Title Input');
-  assert.ok($component.find('label.title-label span'), 'Missing Title label');
+  assert.ok($component.find('label.url-label input').length, 'Missing Title Input');
+  assert.ok($component.find('label.title-label span').length, 'Missing Title label');
   assert.equal($component.find('label.title-label span').text(), this.get('i18n').t('common.resource-title').string, 'Incorrect Resource Title Label');
-  assert.ok($component.find('label.title-label input'), 'Missing Title Input');
-  assert.ok($component.find('actions .cancel-btn'), 'Missing Cancel Button');
-  assert.ok($component.find('actions .add-btn'), 'Missing Add Button');
+  assert.ok($component.find('label.title-label input').length, 'Missing Title Input');
+  assert.ok($component.find('.actions button.cancel-btn').length, 'Missing Cancel Button');
+  assert.ok($component.find('.actions button.more-btn').length, 'Missing More Details Button');
+  assert.ok($component.find('.actions button.add-btn').length, 'Missing Add Button');
 });
 
 test('New Resource Layout - Existing resource', function(assert) {
@@ -41,10 +42,10 @@ test('New Resource Layout - Existing resource', function(assert) {
   this.render(hbs`{{content/modals/gru-resource-new existingResource=resource}}`);
 
   const $component = this.$(".gru-resource-new");
-  assert.ok(!$component.find('actions .add-btn').length, 'Add Button should not be visible');
-  assert.ok(!$component.find('actions .cancel-btn').length, 'Cancel Button should not be visible');
-  assert.ok($component.find('actions .close-btn'), 'Missing Close Button');
-  assert.ok($component.find('.gru-resource-card'), 'Missing Resource Card');
+  assert.ok(!$component.find('.actions button.add-btn').length, 'Add Button should not be visible');
+  assert.ok(!$component.find('.actions button.cancel-btn').length, 'Cancel Button should not be visible');
+  assert.ok($component.find('.actions button.close-btn').length, 'Missing Close Button');
+  assert.ok($component.find('.gru-resource-card').length, 'Missing Resource Card');
 });
 
 test('Validate if the resource URL is left blank', function (assert) {
