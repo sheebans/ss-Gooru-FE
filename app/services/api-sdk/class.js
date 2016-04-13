@@ -52,8 +52,9 @@ export default Ember.Service.extend(StoreMixin, {
     const service = this;
     return new Ember.RSVP.Promise(function (resolve, reject) {
       service.get('classAdapter').joinClass(code)
-        .then(function (/*responseData, textStatus, request*/) {
-          resolve(true);
+        .then(function (responseData, textStatus, request) {
+            let classId = request.getResponseHeader('location');
+            resolve(classId);
         },
         function (error) { //handling server errors
           const status = error.status;

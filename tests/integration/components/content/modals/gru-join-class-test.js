@@ -58,3 +58,19 @@ test('it shows an error message if the class code field is left blank and you bl
   });
 
 });
+
+test('onJoinClass event', function (assert) {
+  assert.expect(1);
+
+  this.on("joinClass", function(code){
+    assert.equal(code, "any","The event should be thrown");
+  });
+  this.render(hbs`{{content/modals/gru-join-class onJoinClass='joinClass'}}`);
+
+  const $component = this.$('.content.modal.gru-join-class');
+
+  const $codeField = $component.find(".gru-input.code");
+
+  $codeField.find("input").val("any");
+  $component.find("a.join-class-btn").click();
+});

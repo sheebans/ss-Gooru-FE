@@ -47,14 +47,14 @@ test('joinClass successful', function(assert) {
   // Pretender was included because it is needed to simulate the response Headers including the Location value
   this.pretender.map(function() {
     this.put('/api/nucleus/v1/classes/any/members', function() {
-      return [204, {'Content-Type': 'text/plain' }, ''];
+      return [204, {'Content-Type': 'text/plain', 'Location': 'class-id' }, ''];
     }, false);
   });
 
   var done = assert.async();
   service.joinClass("any")
-      .then(function(joined) {
-        assert.ok(joined, 'Joined should be true');
+      .then(function(classId) {
+        assert.equal(classId, 'class-id', 'Joined should be true');
         done();
       });
 });

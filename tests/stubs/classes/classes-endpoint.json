@@ -123,5 +123,23 @@
       "body": "File not found!",
       "file": "user-classes-api3-ok-response.json"
     }
+  },
+  {
+    "description": "Join class",
+    "request": {
+      "url": "^/api/nucleus/v1/classes/(.*)/members$",
+      "method": "PUT",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 204,
+      "headers": {
+        "Content-Type": "text/plain",
+        "Location": "2d84ab6c-10ee-4578-b89a-6b41c87dc9fc"
+      }
+    }
   }
+
 ]
