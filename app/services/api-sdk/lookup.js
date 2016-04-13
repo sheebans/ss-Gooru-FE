@@ -23,7 +23,7 @@ export default Ember.Service.extend({
   },
 
   /**
-   * Gets the current user Profile information
+   * Gets the countries information
    * @param {string} keyword optional
    *
    * @returns {Promise}
@@ -34,6 +34,23 @@ export default Ember.Service.extend({
       service.get('lookupAdapter').readCountries(keyword)
         .then(function(response) {
           resolve(service.get('lookupSerializer').normalizeReadCountries(response));
+        }, reject);
+    });
+  },
+
+  /**
+   * Gets the states information
+   * @param {string} country id
+   * @param {string} keyword optional
+   *
+   * @returns {Promise}
+   */
+  readStates: function(countryId, keyword) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('lookupAdapter').readStates(countryId, keyword)
+        .then(function(response) {
+          resolve(service.get('lookupSerializer').normalizeReadStates(response));
         }, reject);
     });
   }

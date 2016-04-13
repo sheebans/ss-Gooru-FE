@@ -13,8 +13,8 @@ test('readCountries', function(assert) {
   assert.expect(2);
 
   service.set('lookupAdapter', Ember.Object.create({
-    readCountries: function(userId) {
-      assert.equal(userId, 1, "readCountries(1) function was called" );
+    readCountries: function(keyworkd) {
+      assert.equal(keyworkd, "any", "readCountries(1) function was called" );
       return Ember.RSVP.resolve({});
     }
   }));
@@ -27,5 +27,28 @@ test('readCountries', function(assert) {
   }));
 
   var done = assert.async();
-  service.readCountries(1).then(function() { done(); });
+  service.readCountries("any").then(function() { done(); });
+});
+
+test('readStates', function(assert) {
+  const service = this.subject();
+  assert.expect(3);
+
+  service.set('lookupAdapter', Ember.Object.create({
+    readStates: function(countryId, keyword) {
+      assert.equal(countryId, 1, "Wrong country id" );
+      assert.equal(keyword, "any", "Wrong keyword" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('lookupSerializer', Ember.Object.create({
+    normalizeReadStates: function(response) {
+      assert.deepEqual(response, {}, "normalizeReadStates() function was called" );
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.readStates(1, "any").then(function() { done(); });
 });
