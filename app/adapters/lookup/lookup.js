@@ -56,7 +56,7 @@ export default Ember.Object.extend({
 
 
   /**
-   * 
+   *
    * @returns {{Authorization: string}}
    */
   defineHeaders: function() {

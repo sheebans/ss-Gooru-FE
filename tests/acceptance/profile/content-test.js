@@ -16,10 +16,10 @@ moduleForAcceptance('Acceptance | profile content', {
 });
 
 test('Layout', function(assert) {
-  visit('/profile/pochita/content/');
+  visit('/pochita/content/');
 
   andThen(function() {
-    assert.equal(currentURL(), '/profile/pochita/content/');
+    assert.equal(currentURL(), '/pochita/content/');
 
     const $contentContainer = find(".controller.profile .content");
     T.exists(assert, $contentContainer, "Missing content container");
@@ -39,7 +39,7 @@ test('Layout', function(assert) {
 });
 
 test('\'Add\' button not present in others profile', function(assert) {
-  visit('/profile/param-123/content');
+  visit('/param-123/content');
   andThen(function() {
     const $btnGroup = find(".controller.profile .content .content-navigation .btn-group");
     assert.notOk($btnGroup.length, '\'Add\' button present on other\'s profile');
@@ -47,7 +47,7 @@ test('\'Add\' button not present in others profile', function(assert) {
 });
 
 test('Modal for creating a course', function (assert) {
-  visit('/profile/pochita/content/');
+  visit('/pochita/content/');
   andThen(function () {
 
     const $btnGroup = find(".controller.profile .content .content-navigation .btn-group");
@@ -70,10 +70,10 @@ test('Modal for creating a course', function (assert) {
 });
 
 test('Navigation links', function(assert) {
-  visit('/profile/pochita/content/');
+  visit('/pochita/content/');
 
   andThen(function() {
-    assert.equal(currentURL(), '/profile/pochita/content/');
+    assert.equal(currentURL(), '/pochita/content/');
 
     const $contentNavContainer = find(".controller.profile .content .content-navigation");
     T.exists(assert, $contentNavContainer.find("li.courses"), "Missing courses link");
@@ -84,19 +84,19 @@ test('Navigation links', function(assert) {
 
     click($contentNavContainer.find("li.courses"));
     andThen(function(){
-      assert.equal(currentURL(), '/profile/pochita/content/courses');
+      assert.equal(currentURL(), '/pochita/content/courses');
       click($contentNavContainer.find("li.collections"));
       andThen(function(){
-        assert.equal(currentURL(), '/profile/pochita/content/collections');
+        assert.equal(currentURL(), '/pochita/content/collections');
         click($contentNavContainer.find("li.assessments"));
         andThen(function(){
-          assert.equal(currentURL(), '/profile/pochita/content/assessments');
+          assert.equal(currentURL(), '/pochita/content/assessments');
           click($contentNavContainer.find("li.resources"));
           andThen(function(){
-            assert.equal(currentURL(), '/profile/pochita/content/resources');
+            assert.equal(currentURL(), '/pochita/content/resources');
             click($contentNavContainer.find("li.questions"));
             andThen(function(){
-              assert.equal(currentURL(), '/profile/pochita/content/questions');
+              assert.equal(currentURL(), '/pochita/content/questions');
             });
           });
         });
