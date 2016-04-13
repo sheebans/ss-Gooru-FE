@@ -261,3 +261,90 @@ test('getCourses', function(assert) {
     });
 });
 
+test('readResources', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('profileAdapter', Ember.Object.create({
+    readResources: function(userId) {
+      assert.equal(userId, 1, "readResources(1) function was called" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    normalizeReadResources: function(response) {
+      assert.deepEqual(response, {}, "normalizeReadResources() function was called" );
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.readResources(1).then(function() { done(); });
+});
+
+test('readQuestions', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('profileAdapter', Ember.Object.create({
+    readQuestions: function(userId) {
+      assert.equal(userId, 1, "readQuestions(1) function was called" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    normalizeReadQuestions: function(response) {
+      assert.deepEqual(response, {}, "normalizeReadQuestions() function was called" );
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.readQuestions(1).then(function() { done(); });
+});
+
+test('readCollections', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('profileAdapter', Ember.Object.create({
+    readCollections: function(userId) {
+      assert.equal(userId, 1, "readCollections(1) function was called" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    normalizeReadCollections: function(response) {
+      assert.deepEqual(response, {}, "normalizeReadCollections() function was called" );
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.readCollections(1).then(function() { done(); });
+});
+
+test('readAssessments', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('profileAdapter', Ember.Object.create({
+    readAssessments: function(userId) {
+      assert.equal(userId, 1, "readAssessments(1) function was called" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    normalizeReadAssessments: function(response) {
+      assert.deepEqual(response, {}, "normalizeReadAssessments() function was called" );
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.readAssessments(1).then(function() { done(); });
+});

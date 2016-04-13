@@ -58,7 +58,12 @@ export default Ember.Route.extend({
       controller.selectMenuItem(item);
 
       if (currentMenuItem !== item) {
-        route.transitionTo('profile.' + item);
+        if (item === 'content'){
+          route.transitionTo('profile.' + item + '.courses');
+        }
+        else {
+          route.transitionTo('profile.' + item);
+        }
       }
     }
 

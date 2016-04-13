@@ -66,7 +66,7 @@ export default Ember.Component.extend({
     this._super(...arguments);
     var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {url: null});
     resource.set("title", "Untitled"); //TODO remove once fields are added to modal
-    resource.set("format", "video_resource"); //TODO remove once fields are added to modal
+    resource.set("format", "video"); //TODO remove once fields are added to modal
     this.set('resource', resource);
   },
 

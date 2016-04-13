@@ -1,0 +1,13 @@
+<div class="controller content-assessments">
+  <div class="assessments clearfix">
+    {{#each assessments as |assessment|}}
+      <div class="card">
+        {{cards.gru-collection-card
+        collection=assessment
+        editEnabled=true
+        remixEnabled=false
+        onEditCollection="editAssessment"}}
+      </div>
+    {{/each}}
+  </div>
+</div>

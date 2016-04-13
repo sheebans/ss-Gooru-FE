@@ -16,10 +16,10 @@ moduleForAcceptance('Acceptance | profile edit', {
 });
 
 test('Layout', function(assert) {
-  visit('/profile/pochita/edit');
+  visit('/pochita/edit');
 
   andThen(function() {
-    assert.equal(currentURL(), '/profile/pochita/edit');
+    assert.equal(currentURL(), '/pochita/edit');
 
     const $editContainer = find(".controller.about.edit");
     T.exists(assert, $editContainer, "Missing edit container");
@@ -38,26 +38,26 @@ test('Layout', function(assert) {
 });
 
 test('no menu option is selected when entering to edit mode', function (assert) {
-  visit('/profile/pochita/edit');
+  visit('/pochita/edit');
 
   andThen(function () {
       var $menu = find('.controller.profile > .navigation .profile-menu');
-      assert.equal(currentURL(), '/profile/pochita/edit');
+      assert.equal(currentURL(), '/pochita/edit');
       assert.notOk(!!$menu.find('.selected').length, 'A menu option is selected');
   });
 });
 
 test('menu option \'about\' is selected when cancelling the edit', function (assert) {
-  visit('/profile/pochita/edit');
+  visit('/pochita/edit');
 
   andThen(function () {
     var $cancelButton = find('.controller.about.edit  .cancel');
-    assert.equal(currentURL(), '/profile/pochita/edit');
+    assert.equal(currentURL(), '/pochita/edit');
 
     click($cancelButton);
     andThen(function () {
       var $menu = find('.controller.profile > .navigation .profile-menu');
-      assert.equal(currentURL(), '/profile/pochita/about');
+      assert.equal(currentURL(), '/pochita/about');
       assert.ok($menu.find('.about').hasClass('selected'), 'Menu option \'about\' should be selected');
     });
   });

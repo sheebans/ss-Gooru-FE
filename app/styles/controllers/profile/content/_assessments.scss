@@ -1,0 +1,13 @@
+.controller.content-assessments {
+  padding: 20px 20px;
+  .assessments {
+    @include flexbox;
+    @include flex-wrap(wrap);
+    @include justify-content(center);
+
+    .card {
+      margin-right: 14px;
+      float: left;
+    }
+  }
+}

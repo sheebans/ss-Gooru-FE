@@ -202,5 +202,74 @@ export default Ember.Service.extend({
       return this.findById(currentProfileId);
     }
     return null;
+  },
+
+  /**
+   * Return the list of resources related to a user
+   * @param {string} userId
+   * @returns {RSVP.Promise.<Content/Resource>}
+   */
+  readResources: function(userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readResources(userId).then(
+        function(response) {
+          resolve(service.get('profileSerializer').normalizeReadResources(response));
+        },
+        reject
+      );
+    });
+  },
+
+  /**
+   * Return the list of questions related to a user
+   * @param {string} userId
+   * @returns {RSVP.Promise.<Content/Question>}
+   */
+  readQuestions: function(userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readQuestions(userId).then(
+        function(response) {
+          resolve(service.get('profileSerializer').normalizeReadQuestions(response));
+        },
+        reject
+      );
+    });
+  },
+
+  /**
+   * Return the list of collections related to a user
+   * @param {string} userId
+   * @returns {RSVP.Promise.<Content/Collection>}
+   */
+  readCollections: function(userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readCollections(userId).then(
+        function(response) {
+          resolve(service.get('profileSerializer').normalizeReadCollections(response));
+        },
+        reject
+      );
+    });
+  },
+
+  /**
+   * Return the list of assessments related to a user
+   * @param {string} userId
+   * @returns {RSVP.Promise.<Content/Assessment>}
+   */
+  readAssessments: function(userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readAssessments(userId).then(
+        function(response) {
+          resolve(service.get('profileSerializer').normalizeReadAssessments(response));
+        },
+        reject
+      );
+    });
   }
+
 });

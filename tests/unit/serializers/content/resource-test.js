@@ -25,13 +25,18 @@ test('normalizeReadResource', function(assert) {
     id: "abcd",
     title: 'resource-title',
     url: 'any',
-    content_subformat: 'video_resource'
+    content_subformat: 'video_resource',
+    description: 'any desc',
+    publish_status: 'published',
+    taxonomy: ["a", "b"]
   };
-
 
   const resource = serializer.normalizeReadResource(resourceData);
   assert.equal('abcd', resource.get("id"), 'Wrong id');
   assert.equal('resource-title', resource.get("title"), 'Wrong title');
   assert.equal('any', resource.get("url"), 'Wrong url');
+  assert.equal('any desc', resource.get("description"), 'Wrong description');
+  assert.equal('published', resource.get("publishStatus"), 'Wrong publish');
+  assert.equal(2, resource.get("standards").length, 'Wrong standards');
   assert.equal('video', resource.get("format"), 'Wrong format'); //format is converted at the normalizer
 });
