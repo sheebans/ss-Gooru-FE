@@ -24,7 +24,9 @@
             {{#link-to 'content.classes.create' class="btn btn-success create-class-cta" tagName='button'}}
               {{t 'user.create-class'}}
             {{/link-to}}
-            <button type="button" name="button" class="btn btn-success join-class">{{t 'user.join-class'}}</button>
+            {{#link-to 'content.classes.join' class="btn btn-success join-class-cta" tagName='button'}}
+              {{t 'user.join-class'}}
+            {{/link-to}}
           </li>
       </ul>
   </div>

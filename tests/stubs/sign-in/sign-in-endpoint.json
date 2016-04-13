@@ -24,7 +24,10 @@
         "apiKey": "ASERTYUIOMNHBGFDXSDWERT123RTGHYT"
       },
       "post": "(.+)\"username\":\"pochita\"(.+)",
-      "method": "POST"
+      "method": "POST",
+      "headers": {
+        "authorization": "Basic cG9jaGl0YTpwb2NoaXRh"
+      }
     },
     "response": {
       "status": 200,
