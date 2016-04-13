@@ -27,12 +27,12 @@ export default Ember.Component.extend(Validations,{
 
     joinClass: function () {
       const component = this;
-      this.validate().then(function ({validations }) {
+      component.validate().then(function ({validations }) {
         if (validations.get('isValid')) {
 
         }
-        this.set('didValidate', true);
-      }.bind(this));
+        component.set('didValidate', true);
+      }.bind(component));
     }
 
   },

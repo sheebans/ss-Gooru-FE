@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import wait from 'ember-test-helpers/wait';
 
 moduleForComponent('content/modals/gru-join-class', 'Integration | Component | content/modals/gru join class', {
   integration: true
@@ -29,4 +30,31 @@ test('Layout', function (assert) {
   assert.equal($footer.find('a').length, 2, 'Number of action buttons');
   assert.ok($footer.find('a.back-cta').length, 'Not now button');
   assert.ok($footer.find('a.btn').length, 'Join class button');
+});
+
+
+test('it shows an error message if the class code field is left blank and you blur it out', function (assert) {
+
+  this.render(hbs`{{content/modals/gru-join-class}}`);
+
+  const $component = this.$('.content.modal.gru-join-class');
+
+  const $codeField = $component.find(".gru-input.code");
+
+  assert.ok(!$codeField.find(".error-messages .error").length, 'Username error message should not be visible');
+  // Try submitting without filling in data
+  $component.find("a.join-class-btn").click();
+
+  return wait().then(function () {
+
+    assert.ok($codeField.find(".error-messages .error").length, 'Username error message should be visible');
+    // Fill in the input field
+    $codeField.find("input").val('Class code');
+    $codeField.find("input").blur();
+
+    return wait().then(function () {
+      assert.ok(!$codeField.find(".error-messages .error").length, 'Username error message was hidden');
+    });
+  });
+
 });
