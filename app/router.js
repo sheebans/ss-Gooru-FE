@@ -33,8 +33,9 @@ Router.map(function() {
       this.route('edit', {path: '/edit/:courseId'});
     });
 
-    this.route('classes', function(){
-      this.route('create',{path: '/create/'});
+    this.route('classes', function() {
+      this.route('create');
+      this.route('join');
     });
 
     this.route('resources', function () {
@@ -74,7 +75,11 @@ Router.map(function() {
     this.route('student-collection', {path: '/class/:classId/course/:courseId/unit/:unitId/lesson/:lessonId/collection/:collectionId/student/:userId'});
   });
 
-  this.route('profile', { path: '/profile/:userId' }, function() {
+  this.route('user');
+
+  this.route('api'); //development api for testing end points
+
+  this.route('profile', { path: '/:userId' }, function() {
     this.route('about');
     this.route('edit');
     this.route('activity');
@@ -90,7 +95,10 @@ Router.map(function() {
 
     this.route('network');
   });
-  this.route('user');
+  /**
+   * IMPORTANT! the profile route should be the last one at this file, so we can handle the app urls
+   * and the vanity urls for profiles like www.gooru.org/javier-perez
+   */
 });
 
 export default Router;

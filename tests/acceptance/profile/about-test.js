@@ -16,10 +16,10 @@ moduleForAcceptance('Acceptance | profile about', {
 });
 
 test('Layout', function(assert) {
-  visit('/profile/pochita/about');
+  visit('/pochita/about');
 
   andThen(function() {
-    assert.equal(currentURL(), '/profile/pochita/about');
+    assert.equal(currentURL(), '/pochita/about');
 
     const $aboutContainer = find(".controller.about");
     T.exists(assert, $aboutContainer, "Missing about container");

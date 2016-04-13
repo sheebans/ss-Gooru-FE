@@ -16,10 +16,10 @@ moduleForAcceptance('Acceptance | profile content assessments', {
 });
 
 test('Layout', function(assert) {
-  visit('/profile/pochita/content/assessments');
+  visit('/pochita/content/assessments');
 
   andThen(function() {
-    assert.equal(currentURL(), '/profile/pochita/content/assessments');
+    assert.equal(currentURL(), '/pochita/content/assessments');
 
     const $contentCourseContainer = find(".controller.content-assessments");
     T.exists(assert, $contentCourseContainer, "Missing content assessments container");
