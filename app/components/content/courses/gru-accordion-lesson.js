@@ -55,15 +55,6 @@ export default Ember.Component.extend(BuilderMixin, {
       this.set('model.isExpanded', true);
     },
 
-    addCollection: function () {
-      Ember.Logger.info('Add new collection');
-    },
-
-    /**
-     * Load the data for this unit (data should only be loaded once)
-     *
-     * @function actions:selectUnit
-     */
     cancelEdit: function () {
       if (this.get('model.isNew')) {
         this.get('onCancelAddLesson')(this.get('model'));
@@ -76,7 +67,7 @@ export default Ember.Component.extend(BuilderMixin, {
 
     saveLesson: function () {
       var courseId = this.get('courseId');
-      var unit = this.get('unitId');
+      var unitId = this.get('unitId');
       var lesson = this.get('lesson');
 
       this.get('lessonService')
@@ -86,19 +77,11 @@ export default Ember.Component.extend(BuilderMixin, {
           this.set('model.isEditing', false);
         }.bind(this))
 
-        .catch(function () {
+        .catch(function (error) {
           var message = this.get('i18n').t('common.errors.lesson-not-created').string;
           this.get('notifications').error(message);
+          Ember.Logger.error(error);
         }.bind(this));
-    },
-
-    /**
-     * Load the data for this unit (data should only be loaded once)
-     *
-     * @function actions:selectUnit
-     */
-    selectLesson: function () {
-      this.loadData();
     },
 
     toggle: function () {
@@ -107,12 +90,6 @@ export default Ember.Component.extend(BuilderMixin, {
     }
 
   },
-
-  // -------------------------------------------------------------------------
-  // Events
-  initData: Ember.on('init', function () {
-    this.set('items', Ember.A());
-  }),
 
 
   // -------------------------------------------------------------------------
@@ -124,14 +101,20 @@ export default Ember.Component.extend(BuilderMixin, {
   courseId: null,
 
   /**
+   * @prop {Boolean} isLoaded - Has the data for the lesson already been loaded
+   */
+  isLoaded: false,
+
+  /**
+   * @prop {Content/Lesson} lesson
+   */
+  lesson: Ember.computed.alias('model.data'),
+
+  /**
    * @prop {String} unitId - ID of the unit this lesson belongs to
    */
   unitId: null,
 
-  /**
-   * @prop {Content/Unit} unit
-   */
-  lesson: Ember.computed.alias('model.data'),
 
   // -------------------------------------------------------------------------
   // Methods
@@ -148,19 +131,6 @@ export default Ember.Component.extend(BuilderMixin, {
       var itemsPromise = this.getLessons();
       this.set('items', itemsPromise);
     }
-  },
-
-  /**
-   * TODO: Get all the collections/assessments for the lesson
-   *
-   * @function
-   * @requires api-sdk/lesson#findByClassAndCourseAndUnit
-   * @returns {Ember.RSVP.Promise}
-   */
-  getCollections: function () {
-    const unitId = this.get('model.id');
-
-    return this.get("lessonService").findByClassAndCourseAndUnit(unitId);
   }
 
 });

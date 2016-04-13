@@ -42,7 +42,7 @@ export default Ember.Object.extend({
             return Lesson.create(Ember.getOwner(serializer).ownerInjection(), {
               assessmentCount: lessonData.assessment_count ? lessonData.assessment_count : 0,
               collectionCount: lessonData.collection_count ? lessonData.collection_count : 0,
-              id: lessonData.unit_id,
+              id: lessonData.lesson_id,
               sequence: lessonData.sequence_id,
               title: lessonData.title
             });

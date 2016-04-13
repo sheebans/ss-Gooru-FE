@@ -13,7 +13,7 @@ const Validations = buildValidations({
 export default Ember.Object.extend(Validations, {
 
   /**
-   * @property {Number} assessmentsTotal - total number of assessments in the lesson
+   * @property {Number} assessmentCount - total number of assessments in the lesson
    */
   assessmentCount: 0,
 
@@ -23,17 +23,17 @@ export default Ember.Object.extend(Validations, {
   children: [],
 
   /**
-   * @property {Number} collectionsTotal - total number of collections in the lesson
+   * @property {Number} collectionCount - total number of collections in the lesson
    */
   collectionCount: 0,
 
   /**
-   * @property {String} id - Gooru id for the unit
+   * @property {String} id - Gooru id for the lesson
    */
   id: '',
 
   /**
-   * @property {String} sequence - sequence order among other course units
+   * @property {String} sequence - sequence order among other unit lessons
    */
   sequence: 0,
 

@@ -101,9 +101,10 @@ export default Ember.Component.extend(BuilderMixin, {
           this.set('model.isEditing', false);
         }.bind(this))
 
-        .catch(function () {
+        .catch(function (error) {
           var message = this.get('i18n').t('common.errors.unit-not-created').string;
           this.get('notifications').error(message);
+          Ember.Logger.error(error);
         }.bind(this));
     },
 
@@ -154,7 +155,16 @@ export default Ember.Component.extend(BuilderMixin, {
        .fetchById(courseId, unitId)
        .then(function(unit) {
          this.set('model.data', unit);
-         this.set('items', unit.get('children'));
+
+         // Wrap every lesson inside of a builder item
+         var children = unit.get('children').map(function (lesson) {
+           return BuilderItem.create({
+             data: lesson
+           });
+         });
+         unit.set('children', children);
+
+         this.set('items', children);
          this.set('isLoaded', true);
        }.bind(this))
 

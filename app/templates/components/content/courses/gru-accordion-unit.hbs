@@ -77,9 +77,8 @@
 
         {{content.courses.gru-accordion-lesson
           courseId=courseId
-          unitId=model.id
+          unitId=unit.id
           model=item
-          items=model.children
           index=index
           totalItems=items.length
           onCancelAddLesson=(action 'cancelAddLesson') }}
