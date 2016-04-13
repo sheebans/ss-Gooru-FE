@@ -89,6 +89,31 @@ test('readClassInfo', function(assert) {
     });
 });
 
+test('readClassMembers', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('classAdapter', Ember.Object.create({
+    readClassMembers: function(classId) {
+      assert.equal(classId, 'class-id', 'Wrong class id');
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('classSerializer', Ember.Object.create({
+    normalizeReadClassMembers: function(profilePayload) {
+      assert.deepEqual({}, profilePayload, 'Wrong class payload');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.readClassMembers('class-id')
+    .then(function() {
+      done();
+    });
+});
+
 test('findClassesIJoined', function (assert) {
   const service = this.subject();
 
