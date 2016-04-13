@@ -84,6 +84,7 @@ export default {
     },
     "enter-url":"Enter URL",
     "errors": {
+      "join-class-code":"Please enter the class code.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
@@ -276,14 +277,25 @@ export default {
     "noClassesJoined": "You have not joined any classes",
     "noClassesTaught": "You do not have any created classes"
   },
-  "content.classes.create":{
-    "title":"Create a Class",
-    "content":"Where students engage with content.",
-    "class-name-input":"Name your Class",
-    "condition-prompt":"How will students join your class?",
-    "condition-prompt-code":"Anyone with Class code",
-    "condition-prompt-invite":"Invite only",
-    "get-started":"Get Started"
+  "content.classes": {
+    "create": {
+      "title": "Create a Class",
+      "content": "Where students engage with content.",
+      "class-name-input": "Name your Class",
+      "condition-prompt": "How will students join your class?",
+      "condition-prompt-code": "Anyone with Class code",
+      "condition-prompt-invite": "Invite only",
+      "get-started": "Get Started"
+    },
+    "join": {
+      "title": "Join a Class",
+      "content": "Where the journey begins.",
+      "class-code-input": "Enter a Class Code",
+      "terms-and-conditions": 'By clicking "Join Class" I agree to share my collection progress and information with [teacher username]. This information provides [teacher username] with tools that measure your progress and help to enhance your learning experience.',
+      "not-now": "Not now",
+      "join-class": "Join Class"
+
+    }
   },
   "content.collections.edit": {
     "assign-to-course": "Assign to Course",
