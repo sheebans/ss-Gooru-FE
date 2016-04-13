@@ -19,7 +19,7 @@ export default Ember.Object.extend({
    */
   createClass: function(data) {
     const adapter = this;
-    const url = this.get('namespace');
+    const url = adapter.get('namespace');
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
