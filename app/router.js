@@ -43,7 +43,7 @@ Router.map(function() {
     });
 
     this.route('questions', function () {
-      this.route('edit', {path: '/edit/:resourceId'});
+      this.route('edit', {path: '/edit/:questionId'});
     });
   });
 
@@ -83,6 +83,10 @@ Router.map(function() {
 
     this.route('content', function() {
       this.route('courses');
+      this.route('resources');
+      this.route('questions');
+      this.route('collections');
+      this.route('assessments');
     });
 
     this.route('network');

@@ -6,7 +6,7 @@
           <div>
             <h6 class="title truncate" alt="{{resource.title}}">{{resource.title}}</h6>
           </div>
-          <div class="{{if resource.isQuestion 'question-type' 'resource-type' }}">
+          <div class="{{if isQuestion 'question-type' 'resource-type' }}">
             <span>{{t (concat "common.resource-format." resource.format)}}</span>
           </div>
         </div>
@@ -26,7 +26,7 @@
       {{/if}}
         <div class="publisher-name">
           {{#link-to 'profile.about' resource.owner.id target="_blank"}}
-            {{resource.owner.username}}
+            {{resource.owner.displayName}}
           {{/link-to}}
         </div>
     </div>
@@ -35,6 +35,18 @@
     </div>
   </div>
   <div class="panel-footer">
-    <button class="{{if resource.isQuestion 'remix-btn' 'add-to-btn' }} btn-success btn-sm">{{#if resource.isQuestion }}{{t "common.remix"}}{{else}}{{t "cards.gru-resource-card.add"}}{{/if}}</button>
+    {{#if editEnabled }}
+      <button class="edit-btn btn-success btn-sm" {{action "editResource"}}>{{t "common.edit"}}</button>
+    {{/if}}
+    {{#if addEnabled }}
+      {{#unless isQuestion}}
+        <button class="add-to-btn btn-success btn-sm">{{t "common.add-to"}}</button>
+      {{/unless}}
+    {{/if}}
+    {{#if remixEnabled }}
+      {{#if isQuestion}}
+        <button class="remix-btn btn-success btn-sm">{{t "common.remix"}}</button>
+      {{/if}}
+    {{/if}}
   </div>
 </div>

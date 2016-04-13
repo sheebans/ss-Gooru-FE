@@ -42,7 +42,7 @@ test('menu option \'about\' is selected when navigating directly to profile.abou
 });
 
 test('menu option \'content/courses \' is selected when navigating directly to profile.content', function (assert) {
-  visit('/profile/pochita/content');
+  visit('/profile/pochita/content/courses');
 
   andThen(function () {
     var $menu = find('.controller.profile > .navigation .profile-menu');

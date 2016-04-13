@@ -131,6 +131,106 @@ test('unfollowUserProfile', function(assert) {
     });
 });
 
+test('checkUsernameAvailability-User does not exist', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('availabilityAdapter', Ember.Object.create({
+    verifyUsername: function(username) {
+      assert.notEqual(username, 'other-username-value', 'Usernames should not be equal');
+      return Ember.RSVP.reject({ status: 404 });
+    }
+  }));
+
+  var done = assert.async();
+  service.checkUsernameAvailability('username-value')
+    .then(function() {
+      assert.ok(true);
+      done();
+    }, function() {
+      assert.ok(false, 'Username was not validated correctly');
+      done();
+    });
+});
+
+test('checkUsernameAvailability-User already exists', function(assert) {
+  const service = this.subject();
+  var i18n = Ember.Object.create({
+    t: function () {
+      return { string: 'sign-up.error-username-taken'};
+    }
+  });
+  service.set('i18n', i18n);
+  assert.expect(2);
+
+  service.set('availabilityAdapter', Ember.Object.create({
+    verifyUsername: function(username) {
+      assert.equal(username, 'username-value', 'Usernames should be equal');
+      return Ember.RSVP.resolve({ status: 200 });
+    }
+  }));
+
+  var done = assert.async();
+  service.checkUsernameAvailability('username-value')
+    .then(function() {
+      assert.ok(false, 'Username was not validated correctly');
+      done();
+    }, function() {
+      assert.ok(true);
+      done();
+    });
+});
+
+test('checkEmailAvailability-Email does not exist', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('availabilityAdapter', Ember.Object.create({
+    verifyEmail: function(email) {
+      assert.notEqual(email, 'other-email-value', 'Emails should not be equal');
+      return Ember.RSVP.reject({ status: 404 });
+    }
+  }));
+
+  var done = assert.async();
+  service.checkEmailAvailability('email-value')
+    .then(function() {
+      assert.ok(true);
+      done();
+    }, function() {
+      assert.ok(false, 'Email was not validated correctly');
+      done();
+    });
+});
+
+test('checkEmailAvailability-Email already exists', function(assert) {
+  const service = this.subject();
+  var i18n = Ember.Object.create({
+    t: function () {
+      return { string: 'sign-up.error-username-taken'};
+    }
+  });
+  service.set('i18n', i18n);
+  assert.expect(2);
+
+  service.set('availabilityAdapter', Ember.Object.create({
+    verifyEmail: function(email) {
+      assert.equal(email, 'email-value', 'Emails should be equal');
+      return Ember.RSVP.resolve({ status: 200 });
+    }
+  }));
+
+  var done = assert.async();
+  service.checkEmailAvailability('email-value')
+    .then(function() {
+      assert.ok(false, 'Email was not validated correctly');
+      done();
+    }, function() {
+      assert.ok(true);
+      done();
+    });
+});
+
 test('getCourses', function(assert) {
   const service = this.subject();
 
@@ -159,4 +259,92 @@ test('getCourses', function(assert) {
     .then(function() {
       done();
     });
+});
+
+test('readResources', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('profileAdapter', Ember.Object.create({
+    readResources: function(userId) {
+      assert.equal(userId, 1, "readResources(1) function was called" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    normalizeReadResources: function(response) {
+      assert.deepEqual(response, {}, "normalizeReadResources() function was called" );
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.readResources(1).then(function() { done(); });
+});
+
+test('readQuestions', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('profileAdapter', Ember.Object.create({
+    readQuestions: function(userId) {
+      assert.equal(userId, 1, "readQuestions(1) function was called" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    normalizeReadQuestions: function(response) {
+      assert.deepEqual(response, {}, "normalizeReadQuestions() function was called" );
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.readQuestions(1).then(function() { done(); });
+});
+
+test('readCollections', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('profileAdapter', Ember.Object.create({
+    readCollections: function(userId) {
+      assert.equal(userId, 1, "readCollections(1) function was called" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    normalizeReadCollections: function(response) {
+      assert.deepEqual(response, {}, "normalizeReadCollections() function was called" );
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.readCollections(1).then(function() { done(); });
+});
+
+test('readAssessments', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('profileAdapter', Ember.Object.create({
+    readAssessments: function(userId) {
+      assert.equal(userId, 1, "readAssessments(1) function was called" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    normalizeReadAssessments: function(response) {
+      assert.deepEqual(response, {}, "normalizeReadAssessments() function was called" );
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.readAssessments(1).then(function() { done(); });
 });

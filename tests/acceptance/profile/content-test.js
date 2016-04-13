@@ -19,7 +19,7 @@ test('Layout', function(assert) {
   visit('/profile/pochita/content/');
 
   andThen(function() {
-    assert.equal(currentURL(), '/profile/pochita/content/courses');
+    assert.equal(currentURL(), '/profile/pochita/content/');
 
     const $contentContainer = find(".controller.profile .content");
     T.exists(assert, $contentContainer, "Missing content container");
@@ -27,10 +27,13 @@ test('Layout', function(assert) {
     const $contentNavContainer = find(".controller.profile .content .content-navigation");
     T.exists(assert, $contentNavContainer, "Missing content navigator container");
 
-    const $categoryMenuActiveLink = find(".controller.profile .content .content-navigation .category-options .active");
-    T.exists(assert, $categoryMenuActiveLink, "Missing content navigator active link");
+    T.exists(assert, $contentNavContainer.find("li.courses"), "Missing courses link");
+    T.exists(assert, $contentNavContainer.find("li.collections"), "Missing collections link");
+    T.exists(assert, $contentNavContainer.find("li.assessments"), "Missing assessments link");
+    T.exists(assert, $contentNavContainer.find("li.resources"), "Missing resources link");
+    T.exists(assert, $contentNavContainer.find("li.questions"), "Missing questions link");
 
-    const $addToBtn = find(".controller.profile .content .content-navigation .btn-group");
+    const $addToBtn = $contentNavContainer.find(".btn-group");
     T.exists(assert, $addToBtn, "Missing add to button group");
   });
 });
@@ -63,5 +66,41 @@ test('Modal for creating a course', function (assert) {
 
     $modal.find(".actions button.cancel").click();
     assert.ok(!$modal.hasClass("in"), 'Modal was hidden');
+  });
+});
+
+test('Navigation links', function(assert) {
+  visit('/profile/pochita/content/');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/profile/pochita/content/');
+
+    const $contentNavContainer = find(".controller.profile .content .content-navigation");
+    T.exists(assert, $contentNavContainer.find("li.courses"), "Missing courses link");
+    T.exists(assert, $contentNavContainer.find("li.collections"), "Missing collections link");
+    T.exists(assert, $contentNavContainer.find("li.assessments"), "Missing assessments link");
+    T.exists(assert, $contentNavContainer.find("li.resources"), "Missing resources link");
+    T.exists(assert, $contentNavContainer.find("li.questions"), "Missing questions link");
+
+    click($contentNavContainer.find("li.courses"));
+    andThen(function(){
+      assert.equal(currentURL(), '/profile/pochita/content/courses');
+      click($contentNavContainer.find("li.collections"));
+      andThen(function(){
+        assert.equal(currentURL(), '/profile/pochita/content/collections');
+        click($contentNavContainer.find("li.assessments"));
+        andThen(function(){
+          assert.equal(currentURL(), '/profile/pochita/content/assessments');
+          click($contentNavContainer.find("li.resources"));
+          andThen(function(){
+            assert.equal(currentURL(), '/profile/pochita/content/resources');
+            click($contentNavContainer.find("li.questions"));
+            andThen(function(){
+              assert.equal(currentURL(), '/profile/pochita/content/questions');
+            });
+          });
+        });
+      });
+    });
   });
 });
