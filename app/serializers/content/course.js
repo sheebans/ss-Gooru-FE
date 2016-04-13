@@ -41,14 +41,32 @@ export default Ember.Object.extend({
   },
 
   /**
-   * Normalize a class response
-   * @param courseData - The endpoint response in JSON format
-   * @returns {Content/Course} course model
+   * Normalize an array of courses
+   *
+   * @param payload endpoint response format in JSON format
+   * @returns {Content/Course[]} courseData - An array of course models
    */
-  normalizeCourse: function (courseData) {
-    var serializer = this;
+  normalizeGetCourses: function(courseData) {
+    if (courseData.courses) {
+      return courseData.courses.map(function (course) {
+        return this.normalizeCourse(course);
+      }.bind(this));
+    } else {
+      return [];
+    }
+  },
 
-    return Course.create(Ember.getOwner(this).ownerInjection(), {
+
+  /**
+  * Normalize a class response
+  *
+  * @param courseData - The endpoint response in JSON format
+  * @returns {Content/Course} course model
+  */
+  normalizeCourse: function(courseData) {
+    const serializer = this;
+
+    return Course.create(Ember.getOwner(serializer).ownerInjection(), {
       children: function () {
         var units = [];
         if (courseData.unit_summary) {
@@ -63,17 +81,18 @@ export default Ember.Object.extend({
         }
         return units;
       }(),
-      id: courseData.id,
-      isPublic: courseData.visible_on_profile,
-      title: courseData.title,
+      audience: courseData.audience ? courseData.audience.slice(0) : [],
       description: courseData.description,
-      thumbnailUrl: courseData.thumbnail,
-      isVisibleOnProfile: courseData.visible_on_profile,
-      audience: courseData.audience.slice(0),
+      id: courseData.id,
+      isPublished: courseData['publish_status'] && courseData['publish_status'] === 'published',
+      isVisibleOnProfile: courseData['visible_on_profile'],
       subject: courseData.subject_bucket,
-      taxonomy: courseData.taxonomy.slice(0)
+      taxonomy: courseData.taxonomy.slice(0),
+      thumbnailUrl: courseData.thumbnail,
+      title: courseData.title,
+      unitCount: courseData.unit_count ? courseData.unit_count : 0
+      // TODO More properties will be added here...
     });
   }
 
 });
-

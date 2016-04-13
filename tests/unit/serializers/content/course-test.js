@@ -121,17 +121,103 @@ test('normalizeCourse', function (assert) {
         title: payload.unit_summary[1].title
       })
     ],
-    id: payload.id,
-    isPublic: payload.visible_on_profile,
-    title: payload.title,
-    description: payload.description,
-    thumbnailUrl: payload.thumbnail,
-    isVisibleOnProfile: payload.visible_on_profile,
     audience: payload.audience.slice(0),
+    description: payload.description,
+    id: payload.id,
+    isPublished: false,
+    isVisibleOnProfile: payload.visible_on_profile,
     subject: payload.subject_bucket,
-    taxonomy: payload.taxonomy.slice(0)
+    taxonomy: payload.taxonomy.slice(0),
+    thumbnailUrl: payload.thumbnail,
+    title: payload.title,
+    unitCount: 0
   });
 
   const result = serializer.normalizeCourse(payload);
   assert.deepEqual(result, expected, 'Serialized response');
+});
+
+test('normalizeGetCourses', function(assert) {
+  const serializer = this.subject();
+  const coursesPayload = {
+    "courses": [
+      {
+        "id": "course-id-1",
+        "title": "Test Course 1",
+        "publish_status": "unpublished",
+        "thumbnail": "thumbnail-1.png",
+        "owner_id": "owner-id-1",
+        "original_creator_id": null,
+        "collaborator": null,
+        "original_course_id": null,
+        "taxonomy": [],
+        "sequence_id": 1,
+        "visible_on_profile": true,
+        "unit_count": 5,
+        "owner_info": {
+          "id": "owner-id-1",
+          "firstname": "Florinda",
+          "lastname": "Meza",
+          "thumbnail_path": null,
+          "school_district_id": null
+        }
+      },
+      {
+        "id": "3fc882b2-dd9e-4957-9498-386984f156f7",
+        "title": "Test Course 2",
+        "publish_status": "published",
+        "thumbnail": "",
+        "owner_id": "owner-id-2",
+        "original_creator_id": null,
+        "collaborator": null,
+        "original_course_id": null,
+        "taxonomy": [],
+        "sequence_id": 1,
+        "visible_on_profile": true,
+        "unit_count": null,
+        "owner_info": {
+          "id": "owner-id-2",
+          "firstname": "Roberto",
+          "lastname": "Gomez",
+          "thumbnail_path": null,
+          "school_district_id": null
+        }
+      }
+    ],
+    "filters": {
+      "subject": null,
+      "limit": 10,
+      "offset": 0
+    }
+  };
+  const expected = [
+    Course.create(Ember.getOwner(this).ownerInjection(), {
+      children: [],
+      audience: [],
+      description: undefined,
+      id: coursesPayload.courses[0].id,
+      isPublished: false,
+      isVisibleOnProfile: coursesPayload.courses[0].visible_on_profile,
+      subject: undefined,
+      taxonomy: coursesPayload.courses[0].taxonomy.slice(0),
+      thumbnailUrl: coursesPayload.courses[0].thumbnail,
+      title: coursesPayload.courses[0].title,
+      unitCount: coursesPayload.courses[0].unit_count
+    }),
+    Course.create(Ember.getOwner(this).ownerInjection(), {
+      children: [],
+      audience: [],
+      description: undefined,
+      id: coursesPayload.courses[1].id,
+      isPublished: true,
+      isVisibleOnProfile: coursesPayload.courses[1].visible_on_profile,
+      subject: undefined,
+      taxonomy: coursesPayload.courses[1].taxonomy.slice(0),
+      thumbnailUrl: coursesPayload.courses[1].thumbnail,
+      title: coursesPayload.courses[1].title,
+      unitCount: 0
+    })
+  ];
+  const normalizedCourses = serializer.normalizeGetCourses(coursesPayload);
+  assert.deepEqual(normalizedCourses, expected, 'Wrong normalized response');
 });

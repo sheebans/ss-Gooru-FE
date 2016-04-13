@@ -37,6 +37,7 @@ test('Resource Card Layout', function(assert) {
   T.exists(assert, $resourceCard.find(".panel-body .publisher .publisher-name a"), "Missing Publisher Name");
   T.exists(assert, $resourceCard.find(".panel-body .description p"), "Missing Description");
   T.exists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Missing Add to Button");
+  T.notExists(assert, $resourceCard.find(".panel-footer button.edit-btn"), "Edit Button should not be visible");
 });
 
 test('Question Card Layout', function(assert) {
@@ -69,5 +70,42 @@ test('Question Card Layout', function(assert) {
   T.exists(assert, $resourceCard.find(".panel-body .publisher .publisher-name a"), "Missing Publisher Name");
   T.exists(assert, $resourceCard.find(".panel-body .description p"), "Missing Description");
   T.exists(assert, $resourceCard.find(".panel-footer button.remix-btn"), "Missing Remix Button");
+  T.notExists(assert, $resourceCard.find(".panel-footer button.edit-btn"), "Edit Button should not be visible");
+
+});
+
+test('Resource card trying buttons', function(assert) {
+  assert.expect(3);
+
+  var resource = Ember.Object.create({
+    id: 1,
+    title: "Resource Title",
+    isQuestion:false,
+    format:"video",
+    description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    owner:Ember.Object.create({
+      name:"Publisher"
+    }),
+    standards:Ember.A([Ember.Object.create({
+      description:"Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.",
+      code:"CCSS.Math.Content.7.RP.A.3"
+    }),Ember.Object.create({
+      description:"Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.",
+      code:"CCSS.Math.Content.5.NBT.A.2"
+    })])
+  });
+
+  this.set('resource', resource);
+  this.on("editResource", function(resource){
+    assert.equal(resource.get("id"), 1, "Wrong resource id");
+  });
+
+  this.render(hbs`{{cards/gru-resource-card resource=resource editEnabled=true onEditResource="editResource" addEnabled=false}}`);
+  var $component = this.$(); //component dom element
+  const $resourceCard = $component.find(".gru-resource-card");
+  T.notExists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Add to Button should not be visible");
+  T.exists(assert, $resourceCard.find(".panel-footer button.edit-btn"), "Edit Button should be visible");
+
+  $resourceCard.find(".panel-footer button.edit-btn").click();
 
 });

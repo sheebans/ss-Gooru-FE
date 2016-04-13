@@ -97,6 +97,15 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     },
 
     /**
+     * Action triggered when submitting the sign up form
+     * @see application.hbs
+     * @see gru-header.hbs
+     */
+    signUp: function() {
+      this.transitionTo("user");
+    },
+
+    /**
      * Action triggered when login out
      */
     logout: function() {

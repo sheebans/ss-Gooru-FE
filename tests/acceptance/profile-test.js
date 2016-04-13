@@ -16,72 +16,68 @@ moduleForAcceptance('Acceptance | profile', {
 });
 
 test('Layout', function(assert) {
-  visit('/profile/pochita');
+  visit('/pochita');
 
   andThen(function() {
-    assert.equal(currentURL(), '/profile/pochita');
+    assert.equal(currentURL(), '/pochita');
 
     const $profileContainer = find(".controller.profile");
     T.exists(assert, $profileContainer, "Missing profile container");
     T.exists(assert, $profileContainer.find("> .navigation"), "Missing profile navigation");
     T.exists(assert, $profileContainer.find("> .navigation .profile-info .actions .btn"), "Missing profile action button");
     T.exists(assert, $profileContainer.find("> .content"), "Missing profile content");
-    T.exists(assert, $profileContainer.find("> .content"), "Missing profile content");
-
-
   });
-
 
 });
 
 test('menu option \'about\' is selected when navigating directly to profile.about', function (assert) {
-  visit('/profile/pochita/about');
+  visit('/pochita/about');
 
   andThen(function () {
     var $menu = find('.controller.profile > .navigation .profile-menu');
 
-    assert.equal(currentURL(), '/profile/pochita/about');
+    assert.equal(currentURL(), '/pochita/about');
     assert.ok($menu.find('.about').hasClass('selected'), 'Menu option \'about\' should be selected');
   });
 });
 
-test('menu option \'content\' is selected when navigating directly to profile.content', function (assert) {
-  visit('/profile/pochita/content');
+test('menu option \'content/courses \' is selected when navigating directly to profile.content', function (assert) {
+  visit('/pochita/content/courses');
 
   andThen(function () {
     var $menu = find('.controller.profile > .navigation .profile-menu');
 
-    assert.equal(currentURL(), '/profile/pochita/content');
+    assert.equal(currentURL(), '/pochita/content/courses');
     assert.ok($menu.find('.content').hasClass('selected'), 'Menu option \'content\' should be selected');
   });
 });
 
 test('menu option \'network\' is selected when navigating directly to profile.network', function (assert) {
-  visit('/profile/pochita/network');
+  visit('/pochita/network');
 
   andThen(function () {
     var $menu = find('.controller.profile > .navigation .profile-menu');
 
-    assert.equal(currentURL(), '/profile/pochita/network');
+    assert.equal(currentURL(), '/pochita/network');
     assert.ok($menu.find('.network').hasClass('selected'), 'Menu option \'network\' should be selected');
   });
 });
 
 test('menu option selection updates when navigating between sections', function (assert) {
-  visit('/profile/pochita/about');
+  visit('/pochita/about');
 
   andThen(function () {
-    assert.equal(currentURL(), '/profile/pochita/about');
+    assert.equal(currentURL(), '/pochita/about');
 
     andThen(function () {
       var $menu = find('.controller.profile > .navigation .profile-menu');
 
-      assert.equal(currentURL(), '/profile/pochita/about');
+      assert.equal(currentURL(), '/pochita/about');
       assert.ok($menu.find('.about').hasClass('selected'), 'Menu option \'about\' should be selected');
 
       click($menu.find('.network'));
       andThen(function () {
-        assert.equal(currentURL(), '/profile/pochita/network');
+        assert.equal(currentURL(), '/pochita/network');
         assert.ok(!$menu.find('.about').hasClass('selected'), 'Menu option \'about\' should no longer be selected');
         assert.ok($menu.find('.network').hasClass('selected'), 'Menu option \'network\' should now be selected');
       });
@@ -90,9 +86,9 @@ test('menu option selection updates when navigating between sections', function 
 });
 
 test('follow button appears by default', function(assert) {
-  visit('/profile/param-123/about');
+  visit('/param-123/about');
   andThen(function() {
-    assert.equal(currentURL(), '/profile/param-123/about');
+    assert.equal(currentURL(), '/param-123/about');
     andThen(function () {
       var $actions = find('.controller.profile .profile-info .actions');
       assert.ok($actions.find('.btn.follow').length, 'Follow button is missing');
@@ -101,9 +97,9 @@ test('follow button appears by default', function(assert) {
 });
 
 test('click follow button', function(assert) {
-  visit('/profile/param-123/about');
+  visit('/param-123/about');
   andThen(function() {
-    assert.equal(currentURL(), '/profile/param-123/about');
+    assert.equal(currentURL(), '/param-123/about');
     andThen(function () {
       var $actions = find('.controller.profile .profile-info .actions');
       var $button = $actions.find('.follow');
@@ -115,9 +111,9 @@ test('click follow button', function(assert) {
 });
 
 test('click unfollow button', function(assert) {
-  visit('/profile/param-1234/about');
+  visit('/param-1234/about');
   andThen(function() {
-    assert.equal(currentURL(), '/profile/param-1234/about');
+    assert.equal(currentURL(), '/param-1234/about');
     andThen(function () {
       var $actions = find('.controller.profile .profile-info .actions');
       var $button = $actions.find('.unfollow');

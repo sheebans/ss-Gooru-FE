@@ -25,8 +25,13 @@
 @import 'controllers/partials/player';
 @import 'controllers/profile';
 @import 'controllers/profile/content';
+@import 'controllers/profile/content/assessments';
+@import 'controllers/profile/content/collections';
+@import 'controllers/profile/content/questions';
+@import 'controllers/profile/content/resources';
 @import 'controllers/profile/about';
 @import 'controllers/profile/edit';
+@import 'controllers/profile/courses';
 @import 'controllers/reports/collection';
 @import 'controllers/search';
 @import 'controllers/sign-in';

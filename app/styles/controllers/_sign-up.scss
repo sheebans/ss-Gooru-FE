@@ -116,6 +116,7 @@
             }
             &.birth-day-date {
               margin-bottom: 30px;
+              display: block;
             }
             a.btn-link {
               padding: 0;
@@ -156,6 +157,11 @@
                 &:active:hover {
                   background-color: $white;
                   background-image: none;
+                }
+              }
+              &.dropup {
+                .dropdown-menu {
+                  top:100%;
                 }
               }
             }
@@ -212,6 +218,12 @@
                 }
               }
             }
+            span.error {
+              color: $red-400;
+              display: inline-block;
+              font-size: 12px;
+              margin-top: 4px;
+            }
           }
           .bootstrap-select.btn-group.dropup.open .dropdown-toggle .caret {
             border-top: 0;
@@ -220,6 +232,9 @@
           .bootstrap-select.btn-group.dropup .dropdown-toggle .caret {
             border-bottom: 0;
             border-top: 4px dashed;
+          }
+          .bootstrap-select.btn-group .dropdown-menu.inner {
+            max-height: 300px!important;
           }
         }
       }
