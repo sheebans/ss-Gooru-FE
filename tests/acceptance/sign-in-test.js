@@ -145,22 +145,10 @@ test('Sign in after try with wrong credentials when press key Enter', function (
     $usernameField.find("input").blur();
     const $passwordField = $signInContainer.find(".gru-input.password");
     $passwordField.find("input").val('pochita');
-    $passwordField.find("input").blur();
     // Try submitting without filling in data
     keyEvent($signInContainer, 'keyup', KEY_CODES.ENTER);
-    return wait().then(function () {
+    andThen(function() {
       assert.ok($usernameField.find(".error-messages .error").length, 'Username error message should be visible');
-      $usernameField.find("input").val('pochita');
-      $usernameField.find("input").blur();
-      $passwordField.find("input").val('pochita');
-      $passwordField.find("input").blur();
-      $signInContainer.find("input#use_api_3").click();
-      keyEvent($signInContainer, 'keyup', KEY_CODES.ENTER);
-      andThen(function() {
-        assert.ok(!$usernameField.find(".error-messages .error").length, 'Username error message not visible');
-        assert.ok(!$passwordField.find(".error-messages .error").length, 'Password error message not visible');
-        assert.equal(currentURL(), '/user');
-      });
     });
   });
 });
