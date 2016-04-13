@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import CountryModel from 'gooru-web/models/country';
 import StateModel from 'gooru-web/models/state';
+import DistrictModel from 'gooru-web/models/district';
 
 /**
  * Serializer to support the Profile CRUD operations for API 3.0
@@ -30,6 +31,18 @@ export default Ember.Object.extend({
     const states = payload.states || [];
     return states.map(function(state){
       return StateModel.create({ id: state.id, name: state.name, code: state.code });
+    });
+  },
+
+  /**
+   * Normalizes district
+   * @param {} payload
+   * @returns {District[]}
+   */
+  normalizeReadDistricts: function (payload) {
+    const districts = payload.school_districts || [];
+    return districts.map(function(district){
+      return DistrictModel.create({ id: district.id, name: district.name, code: district.code });
     });
   }
 });

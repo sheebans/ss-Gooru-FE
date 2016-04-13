@@ -52,3 +52,26 @@ test('readStates', function(assert) {
   var done = assert.async();
   service.readStates(1, "any").then(function() { done(); });
 });
+
+test('readDistricts', function(assert) {
+  const service = this.subject();
+  assert.expect(3);
+
+  service.set('lookupAdapter', Ember.Object.create({
+    readDistricts: function(stateId, keyword) {
+      assert.equal(stateId, 1, "Wrong state id" );
+      assert.equal(keyword, "any", "Wrong keyword" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('lookupSerializer', Ember.Object.create({
+    normalizeReadDistricts: function(response) {
+      assert.deepEqual(response, {}, "normalizeReadDistricts() function was called" );
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.readDistricts(1, "any").then(function() { done(); });
+});

@@ -11,7 +11,7 @@ export default Ember.Route.extend({
   actions: {
     doRequest: function (){
       const body = Ember.$("#request-body").val();
-      this.get("lookupService").readStates('2794d932-d478-11e4-bfe7-22000abfab1d', body).then(function(states){
+      this.get("lookupService").readDistricts('27a84e40-d478-11e4-bfe7-22000abfab1d', body).then(function(states){
         console.debug(states);
       });
     }

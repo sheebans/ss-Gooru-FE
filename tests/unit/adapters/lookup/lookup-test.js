@@ -8,6 +8,8 @@ moduleForAdapter('adapter:lookup/lookup', 'Unit | Adapter | lookup/lookup', {
 
 
 test('readCountries', function(assert) {
+  assert.expect(2);
+
   const adapter = this.subject();
   const keyword = "any-keyword";
   adapter.set('session', Ember.Object.create({
@@ -32,6 +34,8 @@ test('readCountries', function(assert) {
 });
 
 test('readStates', function(assert) {
+  assert.expect(2);
+
   const adapter = this.subject();
   const keyword = "any-keyword";
   adapter.set('session', Ember.Object.create({
@@ -50,6 +54,33 @@ test('readStates', function(assert) {
   };
 
   adapter.readStates(1, keyword)
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});
+
+test('readDistricts', function(assert) {
+  assert.expect(3);
+
+  const adapter = this.subject();
+  const keyword = "any-keyword";
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  const routes = function() {
+    this.get('/api/nucleus/v1/lookups/school-districts', function(request) {
+      assert.equal(request.queryParams.keyword, 'any-keyword', "Missing keyword param");
+      assert.equal(request.queryParams.state_id, 1, "Missing state param");
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  };
+
+  this.pretender.map(routes);
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  adapter.readDistricts(1, keyword)
     .then(function(response) {
       assert.deepEqual({}, response, 'Wrong response');
     });

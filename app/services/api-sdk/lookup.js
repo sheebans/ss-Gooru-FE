@@ -53,6 +53,23 @@ export default Ember.Service.extend({
           resolve(service.get('lookupSerializer').normalizeReadStates(response));
         }, reject);
     });
+  },
+
+  /**
+   * Gets the districts information
+   * @param {string} stateId
+   * @param {string} keyword optional
+   *
+   * @returns {Promise}
+   */
+  readDistricts: function(stateId, keyword) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('lookupAdapter').readDistricts(stateId, keyword)
+        .then(function(response) {
+          resolve(service.get('lookupSerializer').normalizeReadDistricts(response));
+        }, reject);
+    });
   }
 
 });

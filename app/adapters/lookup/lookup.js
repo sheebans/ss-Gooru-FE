@@ -54,6 +54,36 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Gets the districts information
+   *
+   * @param {string} state id optional
+   * @param {string} keyword optional keyword
+   * @returns {Promise}
+   */
+  readDistricts: function(stateId, keyword) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/school-districts`;
+    const data = {};
+
+    if (keyword){
+      data.keyword = keyword;
+    }
+
+    if (stateId) {
+      data.state_id = stateId;
+    }
+
+    const options = {
+      type: 'GET',
+      //using default content type so this is serialized as query params
+      headers: adapter.defineHeaders(),
+      data: data
+    };
+    return Ember.$.ajax(url, options);
+  },
+
 
   /**
    *
