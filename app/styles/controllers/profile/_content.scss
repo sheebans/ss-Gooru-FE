@@ -1,22 +1,29 @@
-div.content-navigation {
-  height: 50px;
-  width: 100%;
-  background-color: $dark-400;
+.content-navigation {
   @include flexbox;
   @include align-items(center);
   @include justify-content(space-between);
+  background-color: $dark-400;
+  height: 50px;
+  width: 100%;
+
   .category-menu {
     width: 100%;
     @media (min-width: $screen-sm-min) {
       margin-left: 0;
       width: auto;
+
       ul {
         margin-left: 0;
-        li:first-of-type {
-          margin-left: 10px;
-        }
-        li:last-of-type {
-          margin-right: 10px;
+
+        li {
+
+          &:first-of-type {
+            margin-left: 10px;
+          }
+
+          &:last-of-type {
+            margin-right: 10px;
+          }
         }
       }
     }
