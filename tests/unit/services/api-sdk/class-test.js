@@ -39,6 +39,72 @@ test('createClass', function(assert) {
       });
 });
 
+test('joinClass successful', function(assert) {
+  const service = this.subject();
+  assert.expect(1);
+
+  // There is not a Adapter stub in this case
+  // Pretender was included because it is needed to simulate the response Headers including the Location value
+  this.pretender.map(function() {
+    this.put('/api/nucleus/v1/classes/any/members', function() {
+      return [204, {'Content-Type': 'text/plain' }, ''];
+    }, false);
+  });
+
+  var done = assert.async();
+  service.joinClass("any")
+      .then(function(joined) {
+        assert.ok(joined, 'Joined should be true');
+        done();
+      });
+});
+
+test('joinClass restricted', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  // There is not a Adapter stub in this case
+  // Pretender was included because it is needed to simulate the response Headers including the Location value
+  this.pretender.map(function() {
+    this.put('/api/nucleus/v1/classes/any/members', function() {
+      return [400, {'Content-Type': 'text/plain' }, ''];
+    }, false);
+  });
+
+  var done = assert.async();
+  service.joinClass("any")
+      .then(function() {
+        assert.ok(false, 'Success callback should not be called');
+        done();
+      }, function (error){
+        assert.equal(error.status, 400, "Wrong error status");
+        assert.equal(error.code, 'restricted', "Wrong error code");
+      });
+});
+
+test('joinClass not found', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  // There is not a Adapter stub in this case
+  // Pretender was included because it is needed to simulate the response Headers including the Location value
+  this.pretender.map(function() {
+    this.put('/api/nucleus/v1/classes/any/members', function() {
+      return [400, {'Content-Type': 'text/plain' }, ''];
+    }, false);
+  });
+
+  var done = assert.async();
+  service.joinClass("any")
+      .then(function() {
+        assert.ok(false, 'Success callback should not be called');
+        done();
+      }, function (error){
+        assert.equal(error.status, 404, "Wrong error status");
+        assert.equal(error.code, 'not-found', "Wrong error code");
+      });
+});
+
 test('findMyClasses', function(assert) {
   const service = this.subject();
   assert.expect(2);

@@ -25,6 +25,22 @@ test('createClass', function(assert) {
     });
 });
 
+test('joinClass', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.put('/api/nucleus/v1/classes/any/members', function() {
+      return [204, {'Content-Type': 'text/plain'}, ''];
+    }, false);
+  });
+  adapter.joinClass("any")
+    .then(function(response) {
+      assert.equal('', response, 'Wrong response');
+    });
+});
+
 test('getMyClasses', function(assert) {
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({

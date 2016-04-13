@@ -32,6 +32,27 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Join class
+   *
+   * @param {string} code class code
+   * @returns {Promise}
+   */
+  joinClass: function(code) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/${code}/members`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({}) //empty body is required by the BE
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
    * Gets the list of classes for a user
    * @returns {Promise}
    */
