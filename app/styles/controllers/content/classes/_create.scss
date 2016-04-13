@@ -1,89 +1,18 @@
 .create-class {
-  margin: 0 -15px;
+  .condition-prompt {
+    padding-top: 20px;
 
-  .modal {
-    display: block;
-    position: relative;
+    .conditions {
+      @include flexbox;
 
-    &.gru-class-new {
-      height: inherit;
-      width: 100%;
-      z-index: 0;
-    }
-
-    .modal-dialog {
-      margin: 10px 0;
-      width: 100%;
-      @media (min-width: $screen-sm) {
-        margin: 30px auto;
-        width: 405px;
+      &>:last-child {
+        margin-left: 15px;
       }
-      @media (min-width: $screen-md) {
-        margin: 70px auto;
-      }
-    }
-
-    .modal-header {
-      padding-top: 32px;
-    }
-
-    .modal-content {
-      border: 0;
-      text-align: center;
-    }
-
-    .modal-body {
-      padding: 0 30px 15px;
-    }
-
-    .form-group {
-      text-align: initial;
-    }
-  }
-
-  .modal-footer {
-    @include flexbox;
-    @include flex-direction(column);
-    padding: 0;
-    text-align: center;
-
-    .cancel-button {
-      margin: 0 auto;
-      padding: 50px 0 25px;
-      width: initial;
-    }
-
-    .get-started-btn {
-      font-size: $font-size-h4;
-      padding-left: 35px;
-      padding-right: 0;
-    }
-
-    i {
-      font-size: $font-size-h3;
-      margin-top: -2px;
-    }
-  }
-
-  .conditions {
-    @include flexbox;
-  }
-
-}
-
-.condition-prompt {
-  padding-top: 20px;
-
-  .conditions {
-
-    &>:last-child {
-      margin-left: 15px;
     }
   }
 }
 
 .class-name-input {
-
   label {
     margin-bottom: 10px;
     margin-left: 3px;

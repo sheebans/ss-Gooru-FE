@@ -33,8 +33,9 @@ Router.map(function() {
       this.route('edit', {path: '/edit/:courseId'});
     });
 
-    this.route('classes', function(){
-      this.route('create',{path: '/create/'});
+    this.route('classes', function() {
+      this.route('create');
+      this.route('join');
     });
 
     this.route('resources', function () {
