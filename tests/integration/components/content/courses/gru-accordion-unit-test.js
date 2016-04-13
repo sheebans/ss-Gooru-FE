@@ -15,6 +15,21 @@ const unitServiceStub = Ember.Service.extend({
         resolve(unit);
       }
     });
+  },
+
+  fetchById(courseId, unitId) {
+    if (courseId && unitId) {
+      let unit = Unit.create(Ember.getOwner(this).ownerInjection(), {
+        bigIdeas: 'Big ideas text',
+        essentialQuestions: 'Essential questions text',
+        id: '123',
+        title: 'Sample Unit Name',
+        children: []
+      });
+      return Ember.RSVP.resolve(unit);
+    } else {
+      return Ember.RSVP.reject('Fetch failed');
+    }
   }
 });
 
@@ -54,14 +69,14 @@ test('it renders a form for a new unit', function (assert) {
 
   const $panelBody = $component.find('.edit .panel-body');
   assert.ok($panelBody.find('> .row .col-sm-6 label textarea').length, 2, 'Text areas');
-  assert.ok($panelBody.find('> .domain').length, 'Domain');
+  assert.equal($panelBody.find('> .data-row').length, 1, 'Domain');
 });
 
 test('it can create a new unit', function (assert) {
 
   var unit = BuilderItem.create({
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
-      id: 0
+      id: ''
     }),
     isEditing: true
   });
@@ -98,7 +113,7 @@ test('it shows an error message if it fails to create a new unit', function (ass
 
   var unit = BuilderItem.create({
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
-      id: 0
+      id: ''
     }),
     isEditing: true
   });
@@ -123,22 +138,22 @@ test('it renders a form when editing an existing unit', function (assert) {
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
       bigIdeas: 'Big ideas text',
       essentialQuestions: 'Essential questions text',
-      id: 123,
-      title: 'Sample Unit Name',
-      sequence: 1
+      id: '123',
+      title: 'Sample Unit Name'
     }),
     isEditing: true
   });
 
   this.set('unit', unit);
-  this.render(hbs`{{content/courses/gru-accordion-unit model=unit }}`);
+  this.set('index', 2);
+  this.render(hbs`{{content/courses/gru-accordion-unit model=unit index=index}}`);
 
   const $component = this.$('.content.courses.gru-accordion.gru-accordion-unit');
   assert.ok($component.length, 'Component');
   assert.ok($component.hasClass('edit'), 'Edit class');
 
   const $heading = $component.find('.edit .panel-heading');
-  assert.ok($heading.find('h3').text(), this.get('i18n').t('common.unit').string + " " + unit.get('data.sequence'), 'Header prefix');
+  assert.ok($heading.find('h3').text(), this.get('i18n').t('common.unit').string + " " + this.get('index'), 'Header prefix');
   assert.ok($heading.find('.gru-input.title').text(), unit.get('data.title'), 'Unit title');
   assert.equal($heading.find('.actions button').length, 2, 'Unit header action buttons');
   assert.ok($heading.find('.actions button:eq(0)').hasClass('cancel'), 'First button is cancel');
@@ -149,7 +164,7 @@ test('it renders a form when editing an existing unit', function (assert) {
   assert.equal($panelBody.find('> .row .col-sm-6:eq(0) textarea').val(), unit.get('data.bigIdeas'), 'First textarea content');
   assert.equal($panelBody.find('> .row .col-sm-6:eq(1) textarea').val(), unit.get('data.essentialQuestions'), 'Second textarea content');
 
-  assert.ok($panelBody.find('> .domain').length, 'Domain');
+  assert.ok($panelBody.find('> .data-row').length, 'Domain');
 });
 
 test('it triggers an external event when clicking cancel on a new unsaved unit', function (assert) {
@@ -157,7 +172,7 @@ test('it triggers an external event when clicking cancel on a new unsaved unit',
 
   const unit = BuilderItem.create({
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
-      id: 0
+      id: ''
     }),
     isEditing: true
   });
@@ -177,7 +192,7 @@ test('it renders the unit correctly, if the unit has no lessons -view mode', fun
 
   const unit = BuilderItem.create({
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
-      id: 123,
+      id: '123',
       title: 'Sample Unit Name',
       sequence: 1
     }),
@@ -213,7 +228,7 @@ test('it expands/collapses the unit -view mode', function (assert) {
 
   const unit = BuilderItem.create({
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
-      id: 123
+      id: '123'
     }),
     isEditing: false,
     isExpanded: false
