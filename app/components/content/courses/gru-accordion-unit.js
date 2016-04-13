@@ -54,9 +54,11 @@ export default Ember.Component.extend(BuilderMixin, {
   actions: {
 
     add: function () {
-      this.loadData();
-      this.get('onExpandUnit')();
-      this.set('model.isExpanded', true);
+      this.loadData().then(function() {
+        this.actions.addLesson.call(this);
+        this.get('onExpandUnit')();
+        this.set('model.isExpanded', true);
+      }.bind(this));
     },
 
     addLesson: function () {
@@ -151,28 +153,30 @@ export default Ember.Component.extend(BuilderMixin, {
       let courseId = this.get('courseId');
       let unitId = this.get('unit.id');
 
-      this.get('unitService')
-       .fetchById(courseId, unitId)
-       .then(function(unit) {
-         this.set('model.data', unit);
+      return this.get('unitService')
+        .fetchById(courseId, unitId)
+        .then(function (unit) {
+          this.set('model.data', unit);
 
-         // Wrap every lesson inside of a builder item
-         var children = unit.get('children').map(function (lesson) {
-           return BuilderItem.create({
-             data: lesson
-           });
-         });
-         unit.set('children', children);
+          // Wrap every lesson inside of a builder item
+          var children = unit.get('children').map(function (lesson) {
+            return BuilderItem.create({
+              data: lesson
+            });
+          });
+          unit.set('children', children);
 
-         this.set('items', children);
-         this.set('isLoaded', true);
-       }.bind(this))
+          this.set('items', children);
+          this.set('isLoaded', true);
+        }.bind(this))
 
-       .catch(function(error) {
-         var message = this.get('i18n').t('common.errors.unit-not-loaded').string;
-         this.get('notifications').error(message);
-         Ember.Logger.error(error);
-       }.bind(this));
+        .catch(function (error) {
+          var message = this.get('i18n').t('common.errors.unit-not-loaded').string;
+          this.get('notifications').error(message);
+          Ember.Logger.error(error);
+        }.bind(this));
+    } else {
+      return Ember.RSVP.resolve(true);
     }
   }
 
