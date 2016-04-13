@@ -1,0 +1,69 @@
+<div class="controller sign-up row">
+  <div class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="progress-dots">
+            <span class="dot"></span>
+            <span class="dot color"></span>
+            <span class="dot"></span>
+          </div>
+          <h3>{{t "sign-up.step-2-title"}}</h3>
+          <div class="description" alt="{{t "sign-up.step-2-description"}}"
+               title="{{t "sign-up.step-2-description"}}">{{t "sign-up.step-2-description"}}
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="wrapper">
+            <div class="main">
+              <div class="sign-up-form">
+                <form id="signUpForm" {{action "next" on="submit"}}>
+                  <div class="form-group role">
+                    <p><span class="required">{{t 'sign-up.role'}}</span></p>
+                    <div class="roles">
+                      {{
+                      validation.gru-radio
+                      model=profile
+                      groupValue=currentClassSharing
+                      valuePath='open'
+                      name="role-radio"
+                      translationPath="sign-up.teacher"
+                      }}
+                      {{
+                      validation.gru-radio
+                      model=profile
+                      groupValue=currentClassSharing
+                      valuePath='restricted'
+                      name="role-radio"
+                      translationPath="sign-up.student"
+                      }}
+                      {{
+                      validation.gru-radio
+                      model=profile
+                      groupValue=currentClassSharing
+                      valuePath='restricted'
+                      name="role-radio"
+                      translationPath="sign-up.other"
+                      }}
+                    </div>
+                  </div>
+
+                  <div class="form-group lastName">
+                    <label>
+                      <span class="required">{{t "sign-up.lastName"}}</span>
+                      {{validation.gru-input model=profile valuePath='lastName' }}
+                    </label>
+                  </div>
+
+                  <div class="sign-up-button form-group text-center">
+                    <button type="submit" class="btn btn-success submit-sign-up">{{t "common.next"}}</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

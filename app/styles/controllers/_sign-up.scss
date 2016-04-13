@@ -107,11 +107,11 @@
             margin: 5px 0 10px 0;
             label {
               width: 100%;
-              span.required {
-                display: block;
-                &:after {
-                  content: ' *';
-                }
+            }
+            span.required {
+              display: block;
+              &:after {
+                content: ' *';
               }
             }
             &.birth-day-date {
@@ -223,6 +223,18 @@
               display: inline-block;
               font-size: 12px;
               margin-top: 4px;
+            }
+            &.role {
+              margin: 10px 0 20px 0;
+              .roles {
+                @include flexbox;
+                .gru-radio {
+                  margin-right: 30px;
+                }
+                &>:last-child {
+                  margin-right: 0;
+                }
+              }
             }
           }
           .bootstrap-select.btn-group.dropup.open .dropdown-toggle .caret {
