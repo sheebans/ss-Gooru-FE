@@ -6,9 +6,9 @@ const Validations = buildValidations({
 });
 
 /**
- * Unit model
+ * Lesson model
  *
- * @typedef {Object} Content/Unit
+ * @typedef {Object} Content/Lesson
  */
 export default Ember.Object.extend(Validations, {
 
