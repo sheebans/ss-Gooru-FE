@@ -260,3 +260,26 @@ test('findById', function (assert) {
     });
   });
 });
+
+test('associateCourseToClass', function(assert) {
+  const service = this.subject();
+  const expectedCourseId = 'course-id';
+  const expectedClassId = 'class-id';
+  assert.expect(3);
+
+  service.set('classAdapter', Ember.Object.create({
+    associateCourseToClass: function(courseId, classId) {
+      assert.equal(courseId, expectedCourseId, 'Wrong course id');
+      assert.equal(classId, expectedClassId, 'Wrong class id');
+      return Ember.RSVP.resolve('');
+    }
+  }));
+
+  var done = assert.async();
+  service.associateCourseToClass(expectedCourseId, expectedClassId)
+    .then(function() {
+      assert.ok(true);
+      done();
+    });
+});
+

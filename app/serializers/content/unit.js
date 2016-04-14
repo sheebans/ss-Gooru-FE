@@ -31,14 +31,13 @@ export default Ember.Object.extend({
    * @param unitData - The endpoint response in JSON format
    * @returns {Content/Unit} unit model
    */
-  normalizeUnit: function (unitData) {
+  normalizeUnit: function (payload) {
     var serializer = this;
-
     return Unit.create(Ember.getOwner(this).ownerInjection(), {
       children: function () {
         var lessons = [];
-        if (unitData.lesson_summary) {
-          lessons = unitData.lesson_summary.map(function (lessonData) {
+        if (payload.lesson_summary) {
+          lessons = payload.lesson_summary.map(function (lessonData) {
             return Lesson.create(Ember.getOwner(serializer).ownerInjection(), {
               assessmentCount: lessonData.assessment_count ? lessonData.assessment_count : 0,
               collectionCount: lessonData.collection_count ? lessonData.collection_count : 0,
@@ -50,14 +49,25 @@ export default Ember.Object.extend({
         }
         return lessons;
       }(),
-      bigIdeas: unitData.big_ideas,
-      essentialQuestions: unitData.essential_questions,
-      id: unitData.unit_id,
-      lessonCount: unitData.lesson_summary ? unitData.lesson_summary.length : 0,
-      sequence: unitData.sequence_id,
-      title: unitData.title,
-      taxonomy: unitData.taxonomy.slice(0)
+      bigIdeas: payload.big_ideas,
+      essentialQuestions: payload.essential_questions,
+      id: payload.unit_id,
+      lessonCount: payload['lesson_summary'] && Ember.isArray(payload['lesson_summary']) ? payload['lesson_summary'].length : (payload['lesson_count'] ? payload['lesson_count'] : 0),
+      sequence: payload.sequence_id,
+      title: payload.title,
+      taxonomy: payload.taxonomy ? payload.taxonomy.slice(0) : null
     });
+  },
+
+  normalizeUnits: function(payload) {
+    const serializer = this;
+    if (Ember.isArray(payload)) {
+      return payload.map(function(unit) {
+        return serializer.normalizeUnit(unit);
+      });
+    } else {
+      return [];
+    }
   }
 
 });

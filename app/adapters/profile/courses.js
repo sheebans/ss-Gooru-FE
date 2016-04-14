@@ -11,6 +11,13 @@ export default Ember.Object.extend({
 
   namespace: '/api/nucleus/v1/profiles',
 
+  /**
+   * Get the list of Courses of a specified profile and filter by subject
+   *
+   * @param profileId the Profile Id owner of the courses
+   * @param subject this is an option parameter to filter the courses
+   * @returns {Promise}
+   */
   getCourses: function(profileId, subject) {
     const adapter = this;
     const namespace = adapter.get('namespace');

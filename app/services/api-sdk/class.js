@@ -93,6 +93,27 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Associates a Course with a Class
+   *
+   * @param classId the class id
+   * @param courseId the course id
+   * @returns {Promise}
+   */
+  associateCourseToClass: function(courseId, classId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classAdapter').associateCourseToClass(courseId, classId)
+        .then(
+          resolve,
+          function(error) {
+            reject(error);
+          });
+    });
+  },
+
+  // TODO These method will be removed once we have full integration with API 3.0
+
+  /**
    * Returns the list of the classes the user is joined (as student).
    * @param {Object} options request options, like limit, offset, etc
    * @returns {Promise.<Class[]>}
