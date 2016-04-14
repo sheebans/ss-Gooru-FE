@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Resource from 'gooru-web/models/content/resource';
-
+import {RESOURCE_TYPES} from 'gooru-web/config/config';
 export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
@@ -32,7 +32,7 @@ export default Ember.Component.extend({
 
 
   actions: {
-    createResource: function () {
+    createResource: function (type) {
       const component = this;
       const resource = this.get('resource');
 
@@ -41,7 +41,11 @@ export default Ember.Component.extend({
           var resourceService = component.get('resourceService');
           resourceService.createResource(resource)
             .then(function (newResource) {
-                component.onNewResource(newResource);
+                if(type==="edit"){
+                  component.onNewResource(newResource);
+                }else{
+                  component.triggerAction({ action: 'closeModal' });
+                }
               },
               function (data) {
                 if (data.resourceId) { //already exists
@@ -56,6 +60,10 @@ export default Ember.Component.extend({
         }
         component.set('didValidate', true);
       });
+    },
+
+    selectType:function(type){
+      this.set('resource.format',type);
     }
   },
 
@@ -64,9 +72,8 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {url: null});
-    resource.set("title", "Untitled"); //TODO remove once fields are added to modal
-    resource.set("format", "video"); //TODO remove once fields are added to modal
+
+    var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {url: null,title:null,format:"webpage"});
     this.set('resource', resource);
   },
 
@@ -93,13 +100,21 @@ export default Ember.Component.extend({
    */
   target: null,
 
+  /**
+   * @type {String} selectedType
+   */
+  selectedType: Ember.computed.alias('resource.format'),
+
 
   /**
    * @type {Content/Resource} resource
    */
   existingResource: null,
 
-
+  /**
+   * @type {Array{}} resourceTypes
+   */
+  resourceTypes:RESOURCE_TYPES,
 
   //
   // Methods

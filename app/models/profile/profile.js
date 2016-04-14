@@ -6,7 +6,7 @@ const Validations = buildValidations({
     validators: [
       validator('presence', {
         presence: true,
-        message: 'Please enter a username.'
+        message: 'Please enter an username.'
       }),
       validator('length', {
         min: 4,
@@ -21,11 +21,11 @@ const Validations = buildValidations({
     validators: [
       validator('presence', {
         presence: true,
-        message: 'Please enter a first name.'
+        message: 'Please enter your first name.'
       }),
       validator('length', {
         min: 2,
-        message: 'First name must have at least two letters.'
+        message: 'First name must have at least 2 letters.'
       })
     ]
   },
@@ -34,11 +34,11 @@ const Validations = buildValidations({
     validators: [
       validator('presence', {
         presence: true,
-        message: 'Please enter a last name.'
+        message: 'Please enter your last name.'
       }),
       validator('length', {
         min: 2,
-        message: 'Last name must have at least two letters.'
+        message: 'Last name must have at least 2 letters.'
       })
     ]
   },
@@ -75,7 +75,7 @@ const Validations = buildValidations({
 
   email: [
     validator('format', {
-      type: 'email',
+      regex: /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
       message: 'Please enter a valid email address.'
     }),
     validator('email')
