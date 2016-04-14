@@ -68,12 +68,16 @@ Router.map(function() {
         });
       });
     });
+
   });
+  //@TODO This route should be inside class with its respective classId, right now it is not working for v3 created classes, which is the purpose of this route.
+  this.route('quick-start');
 
   this.route('reports', function () {
     this.route('collection', {path: '/class/:classId/collection/:collectionId'});
     this.route('student-collection', {path: '/class/:classId/course/:courseId/unit/:unitId/lesson/:lessonId/collection/:collectionId/student/:userId'});
   });
+
 
   this.route('user');
 

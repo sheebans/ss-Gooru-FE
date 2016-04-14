@@ -54,7 +54,11 @@ export default Ember.Route.extend({
   beforeModel: function() {
     // TODO: authenticate session with ember-simple-auth, if not send to log in
   },
-
+  afterModel(model, transition) {
+    if (true) {
+      this.transitionTo('quick-start', this.modelFor('class').class);
+    }
+  },
   model: function () {
     const currentClass = this.modelFor('class').class;
     const units = this.modelFor('class').units;
