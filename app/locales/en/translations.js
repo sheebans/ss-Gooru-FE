@@ -319,6 +319,9 @@ export default {
       "course-title":"Course Title"
     }
   },
+  "content.questions.edit": {
+    "add-to": "Add to",
+  },
 
   "user": {
     "active-classes": "Active Classes",
