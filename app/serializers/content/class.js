@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ClassesModel from 'gooru-web/models/content/classes';
 import ClassModel from 'gooru-web/models/content/class';
+import ProfileSerializer from 'gooru-web/serializers/profile/profile';
 
 /**
  * Serializer to support the Class CRUD operations for API 3.0
@@ -8,6 +9,11 @@ import ClassModel from 'gooru-web/models/content/class';
  * @typedef {Object} ClassSerializer
  */
 export default Ember.Object.extend({
+
+  init: function () {
+    this._super(...arguments);
+    this.set('profileSerializer', ProfileSerializer.create());
+  },
 
   /**
    * Serialize a Class object into a JSON representation required by the Create Class endpoint
@@ -52,6 +58,42 @@ export default Ember.Object.extend({
     }
     return classModel;
   },
+  /**
+   * Normalize the Read Class info endpoint response
+   * @param payload is the endpoint response in JSON format
+   * @returns {ClassModel} a class model object
+   */
+  normalizeReadClassInfo: function(payload) {
+    return ClassModel.create({
+      id: payload.id,
+      code: payload.code,
+      title: payload.title,
+      description: payload.description,
+      greeting: payload.greeting,
+      grade:[], // TODO We need to get the grade values, we have just the IDs.
+      classSharing: payload['class_sharing'],
+      coverImage: payload['cover_image'],
+      minScore: payload['min_score'],
+      startDate: payload['created_at'],
+      endDate: payload['end_date'],
+      collaborator: [],
+      creatorSystem: ''
+    });
+  },
+
+  /**
+   * Normalize the response from class members endpoint
+   * @param payload is the endpoint response in JSON format
+   * @returns {ClassMembersModel} a class members model object
+   */
+  normalizeReadClassMembers: function(payload) {
+    const serializer = this;
+    return Ember.Object.create({
+      owner: this.get('profileSerializer').normalizeReadProfile(payload.details.findBy('id', payload.owner[0])),
+      collaborators: serializer.filterCollaborators(payload),
+      members: serializer.filterMembers(payload)
+    });
+  },
 
   /**
    * Normalize the user classes endpoint response
@@ -75,6 +117,26 @@ export default Ember.Object.extend({
         return normalizedClasses;
       })()
     });
+  },
+
+  filterCollaborators: function(payload) {
+    return this.filterElements(payload, 'collaborator');
+  },
+
+  filterMembers: function(payload) {
+    return this.filterElements(payload, 'member');
+  },
+
+  filterElements: function(payload, property) {
+    const serializer = this;
+    let elements = payload[property];
+    if (Ember.isArray(elements) && elements.length > 0) {
+      return elements.map(function(elementId) {
+        return serializer.get('profileSerializer').normalizeReadProfile(payload.details.findBy('id', elementId));
+      }).compact();
+    } else {
+      return [];
+    }
   }
 
 });

@@ -1,7 +1,7 @@
 <div class="xs-design hidden-md hidden-lg">
     <div class="class-info">
         <div class="class-name">
-            <h4>{{class.name}}</h4>
+            <h4>{{class.title}}</h4>
         </div>
         <div class="navigation-active">
             <div class="greetings">
@@ -35,12 +35,12 @@
         <div class="active-dates">
           <span>{{formatDate class.startDate 'MMMM DD, YYYY'}} - {{formatDate class.endDate 'MMMM DD, YYYY'}}</span>
         </div>
-        <div class="members">{{gru-icon name='group'}}{{class.totalMembers}}</div>
+        <div class="members">{{gru-icon name='group'}}{{class.countMembers}}</div>
     </div>
 </div>
 <div class="md-design hidden-xs hidden-sm">
   <div class="class-info">
-    <h4>{{class.name}}</h4>
+    <h4>{{class.title}}</h4>
     <div class="active-dates">
         <ul>
             <li>{{formatDate class.startDate 'MMMM DD, YYYY'}}</li>
@@ -48,13 +48,13 @@
         </ul>
      </div>
     <div class="members">
-      <p class="lead">{{class.totalMembers}} {{t "class.gru-class-navigation.members"}}</p>
+      <p class="lead">{{class.countMembers}} {{t "class.gru-class-navigation.members"}}</p>
     </div>
     <div class="greetings">
       <p class="lead">{{t "class.gru-class-navigation.greetings"}}</p>
     </div>
     <div class="greetings-description">
-      <p>{{class.greetings}}</p>
+      <p>{{class.greeting}}</p>
     </div>
   </div>
   <div class="class-menu">

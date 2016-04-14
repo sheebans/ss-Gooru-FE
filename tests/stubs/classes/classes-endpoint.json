@@ -106,6 +106,26 @@
       }
     }
   },
+
+  {
+    "description": "API 3.0: Get the Members of a specific class",
+    "request": {
+      "url": "^/api/nucleus/v1/classes/(.+)/members",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "members-class-api3-200-response.json"
+    }
+  },
+
   {
     "description": "Fetch user classes",
     "request": {
@@ -123,5 +143,27 @@
       "body": "File not found!",
       "file": "user-classes-api3-ok-response.json"
     }
+  },
+
+  {
+    "description": "API 3.0: Get the Information of a specific class",
+    "request": {
+      "url": "^/api/nucleus/v1/classes/(.+)",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "class-info-api3-200-response.json"
+    }
   }
+
 ]
+
+
