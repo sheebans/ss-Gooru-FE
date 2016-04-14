@@ -19,6 +19,7 @@ export default {
     "add-new-question": "Add New Question",
     "add-to": "Add To",
     "add-type-question":"What type of question would you like to add?",
+    "add-type-resource":"What type of resource is this?",
     "add-units": "Add Units",
     "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
@@ -125,6 +126,7 @@ export default {
     "myContent": "My Content",
     "mastery":"Mastery",
     "menu": "Menu",
+    "more-details":"More Details",
     "no": "No",
     "no-content": "No content available",
     "no-results": "No Results Found",
@@ -172,6 +174,7 @@ export default {
       "audio"       : "Audio",
       "question"    : "Question"
     },
+    "resource-title":"Resource Title",
     "remaining": "{{number}} Left",
     "remix":"Remix",
     "role": "Role",

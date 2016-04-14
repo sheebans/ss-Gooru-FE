@@ -24,13 +24,15 @@ test('Student Layout', function(assert) {
     const $overviewContainer = find(".controller.class .controller.info");
     T.exists(assert, $overviewContainer, "Missing overview container");
 
-    const $subject =$overviewContainer.find(".subject");
-    T.exists(assert, $subject, "Missing Subject Title");
-    assert.equal(T.text($subject), "Subject: Math", "Incorrect subject");
+    // TODO Remove comment when Subject is supported
+    //const $subject =$overviewContainer.find(".subject");
+    //T.exists(assert, $subject, "Missing Subject Title");
+    //assert.equal(T.text($subject), "Subject: Math", "Incorrect subject");
 
-    const $grade =$overviewContainer.find(".grade");
-    T.exists(assert, $grade, "Missing Grade Title");
-    assert.equal(T.text($grade), "Grade: K,6,6,7,7,8,8", "Incorrect grade");
+    // TODO Remove comment when Grade is supported
+    //const $grade =$overviewContainer.find(".grade");
+    //T.exists(assert, $grade, "Missing Grade Title");
+    //assert.equal(T.text($grade), "Grade: K,6,6,7,7,8,8", "Incorrect grade");
 
     const $descriptionTitle =$overviewContainer.find(".description-legend");
     T.exists(assert, $descriptionTitle, "Missing Description Title");
@@ -38,22 +40,22 @@ test('Student Layout', function(assert) {
 
     const $classCode =$overviewContainer.find(".code");
     T.exists(assert, $classCode, "Missing Class Code Box");
-    assert.equal(T.text($classCode.find(".class-code")), "JR48FMF", "Incorrect Class Code");
+    assert.equal(T.text($classCode.find(".class-code")), "TQLX6OQ", "Incorrect Class Code");
 
     const $teachers =$overviewContainer.find(".teachers-section");
     T.exists(assert, $teachers.find("h5"), "Missing teachers section");
     T.exists(assert, $teachers.find(".teachers"), "Missing teachers list");
     T.exists(assert, $teachers.find("li.profile-card"), "Missing profile cards for teachers");
-    T.exists(assert, $teachers.find("div.invite-collaborator.hide"), "Should be hide");
+    T.exists(assert, $teachers.find("div.invite-collaborator.show"), "Invite Collaborator button should not be hidden");
 
     const $students =$overviewContainer.find(".students-section");
     T.exists(assert, $students.find("h5"), "Missing students section");
     T.exists(assert, $students.find(".students"), "Missing students list");
     T.exists(assert, $students.find("li.profile-card"), "Missing profile cards for students");
-    T.exists(assert, $students.find("div.invite-student.hide"), "Should be hide");
+    T.exists(assert, $students.find("div.invite-student.show"), "Invite Student button should not be hidden");
 
     const $infoButtons =$overviewContainer.find(".info-btns");
-    T.exists(assert, $infoButtons.find("div.edit-share-section.hide"), "Edit and Share buttons should be hide");
+    T.exists(assert, $infoButtons.find("div.edit-share-section.show"), "Edit and Share buttons should not be hidden");
 
   });
 });

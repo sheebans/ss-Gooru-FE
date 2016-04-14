@@ -1,18 +1,18 @@
 import Ember from 'ember';
-import StoreMixin from '../../mixins/store';
 import ClassSerializer from 'gooru-web/serializers/content/class';
 import ClassAdapter from 'gooru-web/adapters/content/class';
 
 /**
  * @typedef {Object} ClassService
  */
-export default Ember.Service.extend(StoreMixin, {
+export default Ember.Service.extend({
 
-  session: Ember.inject.service(),
+  store: Ember.inject.service(),
 
   classSerializer: null,
 
   classAdapter: null,
+
 
   init: function () {
     this._super(...arguments);
@@ -55,6 +55,40 @@ export default Ember.Service.extend(StoreMixin, {
           }, function(error) {
             reject(error);
           });
+    });
+  },
+
+  /**
+   * Reads class information for a specified class ID
+   * @param classId the class id to read
+   * @returns {Promise}
+   */
+  readClassInfo: function(classId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classAdapter').readClassInfo(classId)
+        .then(function(response) {
+          resolve(service.get('classSerializer').normalizeReadClassInfo(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
+  /**
+   * Gets the members, collaborators, invitees and owner for a specified class ID
+   * @param classId the class id to read
+   * @returns {Promise}
+   */
+  readClassMembers: function(classId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classAdapter').readClassMembers(classId)
+        .then(function(response) {
+          resolve(service.get('classSerializer').normalizeReadClassMembers(response));
+        }, function(error) {
+          reject(error);
+        });
     });
   },
 
