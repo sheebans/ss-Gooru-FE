@@ -24,14 +24,14 @@ export default Ember.Controller.extend(ContentEditMixin, {
   // Properties
   /**
    * Request pending approval
-   * // TODO: Change this to a computed property of a collection property
+   * // TODO: Change this to a computed property of a question property
    * @property {Boolean}
    */
   isRequestApproved: false,
 
   /**
-   * Request to make the collection searchable been sent?
-   * // TODO: Change this to a computed property of a collection property
+   * Request to make the question searchable been sent?
+   * // TODO: Change this to a computed property of a question property
    * @property {Boolean}
    */
   wasRequestSent: false,
