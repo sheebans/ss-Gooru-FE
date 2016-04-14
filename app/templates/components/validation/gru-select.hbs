@@ -1,0 +1,14 @@
+<div class="form-group">
+  <select class="selectpicker" title={{title}} data-live-search={{search}} size="false" mobile="true" focus-out="selectValueChange" name={{valuePath}}>
+    {{#each options as |option|}}
+      <option value="{{option.id}}">{{option.name}}</option>
+    {{/each}}
+  </select>
+  <div class="error-messages">
+    {{#if showMessage}}
+      <span class="error">
+        {{v-get model valuePath 'message'}}
+      </span>
+    {{/if}}
+  </div>
+</div>

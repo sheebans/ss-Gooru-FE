@@ -48,13 +48,17 @@
                     </div>
                   </div>
 
-                  <div class="form-group lastName">
+                  <div class="form-group">
                     <label>
-                      <span class="required">{{t "sign-up.lastName"}}</span>
-                      {{validation.gru-input model=profile valuePath='lastName' }}
+                      <span class="required">{{t "sign-up.country"}}</span>
+                      {{validation.gru-select options=countries title=(t "common.select") search="true" optionSelected=optionSelected
+                      model=profile valuePath='country'}}
                     </label>
                   </div>
 
+                  {{#if country2Selected}}
+                    <div>states</div>
+                    {{/if}}
                   <div class="sign-up-button form-group text-center">
                     <button type="submit" class="btn btn-success submit-sign-up">{{t "common.next"}}</button>
                   </div>

@@ -16,6 +16,11 @@ export default Ember.Controller.extend({
    */
   profileService: Ember.inject.service("api-sdk/profile"),
 
+  /**
+   * @property {Ember.Service} Service to do retrieve states, districts
+   */
+  lookupService: Ember.inject.service('api-sdk/lookup'),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -74,7 +79,34 @@ export default Ember.Controller.extend({
   /**
    * @type {Profile} profile
    */
-  profile: null
+  profile: null,
+
+  /**
+   * List of countries
+   * @property {Countries[]}
+   */
+
+  countries: null,
+
+  /**
+   * List of countries
+   * @property {States[]}
+   */
+
+  states: null,
+
+  /**
+   * List of countries
+   * @property {Districts[]}
+   */
+
+  districts: null,
+  optionSelected: null,
+
+  countrySelected2: Ember.computed('optionSelected', function() {
+    console.log('countrySelected-finish', this.get('optionSelected'));
+    return this.get('optionSelected');
+  })
 
   // -------------------------------------------------------------------------
   // Methods
