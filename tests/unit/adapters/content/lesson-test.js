@@ -66,3 +66,30 @@ test('Lesson creation, failure', function (assert) {
       assert.equal(response.status, '500', 'Error code');
     });
 });
+
+test('Get lesson by ID', function (assert) {
+  const lessonData = {
+    title: 'Lesson Title'
+  };
+
+  this.pretender.map(function () {
+    this.get('/api/nucleus/v1/courses/course-id-123/units/unit-id-456/lessons/lesson-id-789', function () {
+      return [
+        200,
+        {
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        JSON.stringify(lessonData)];
+    });
+  });
+
+  const adapter = this.subject();
+  adapter.getLessonById({
+      courseId: 'course-id-123',
+      unitId: 'unit-id-456',
+      lessonId: 'lesson-id-789'
+    })
+    .then(function (response) {
+      assert.deepEqual(response, lessonData, 'Should respond with the corresponding lesson data');
+    });
+});

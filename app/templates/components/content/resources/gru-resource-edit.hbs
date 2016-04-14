@@ -1,0 +1,51 @@
+<header>
+  <h1>{{t "common.edit-resource"}}</h1>
+
+  <div class="actions">
+    <button class="btn btn-default btn-icon">{{gru-icon name="delete"}}</button>
+    <button class="btn btn-default btn-icon">{{gru-icon name="insert_link"}}</button>
+    <button class="btn btn-default">{{t "common.add-to"}}</button>
+    <button class="btn btn-default">{{t "common.preview"}}</button>
+  </div>
+
+  <nav>
+    {{#gru-scroll to="#resource" class="selected" offset='article > header'}}{{t "common.resource"}}{{/gru-scroll}}
+    {{#gru-scroll to="#information" offset='article > header'}}{{t "common.information"}}{{/gru-scroll}}
+    {{#gru-scroll to="#settings" offset='article > header'}}{{t "common.settings"}}{{/gru-scroll}}
+  </nav>
+
+</header>
+
+<section id="resource">
+  <div class="header">
+    <h2>{{t "common.resource"}}</h2>
+  </div>
+  <div class="content">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p>{{t "common.resource-url"}}*</p>
+        <p>{{resource.url}}</p>
+      </div>
+    </div>
+    <div class="panel panel-default placeholder">
+      <div class="panel-body">
+        <h2 class="resource-message">
+          {{t "content.resources.edit.placeholder-message"}}
+        </h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="information">
+  <div class="header">
+    <h2>{{t "common.information"}}</h2>
+  </div>
+  <div class="content">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        INFORMATION
+      </div>
+    </div>
+  </div>
+</section>

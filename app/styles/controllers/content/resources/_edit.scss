@@ -1,0 +1,44 @@
+.controller.content.resources.edit {
+  > article {
+    > section {
+      .panel {
+        &.placeholder {
+          background-color: $blue-400;
+
+          * {
+            color: $white;
+          }
+
+
+          .panel-body {
+            padding: 25px;
+
+            .resource-message {
+              background: url(/assets/gooru/images/multiple-answer-blue.svg) no-repeat center top;
+              display: block;
+              padding-top: 45px;
+              margin: 65px 0;
+              text-align: center;
+              color: $blue-200;
+              span {
+                font-weight: lighter;
+                display: block;
+              }
+            }
+          }
+        }
+      }
+      .panel + .panel {
+        margin-top: 20px;
+      }
+    }
+  }
+  article.fixed-header {
+    #resource {
+      padding-top: 115px;
+    }
+    #information {
+      padding-top: 0;
+    }
+  }
+}

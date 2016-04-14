@@ -15,5 +15,23 @@
         "Location": "2d84ab6c-10ee-4578-b89a-6b41c87dc9fc"
       }
     }
+  },
+  {
+    "description": "Get a resource",
+    "request": {
+      "url": "^/api/nucleus/v1/resources/(.+)",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-resource-200-response.json"
+    }
   }
 ]

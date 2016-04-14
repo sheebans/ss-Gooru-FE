@@ -22,11 +22,6 @@ export default Ember.Component.extend(BuilderMixin, {
   i18n: Ember.inject.service(),
 
   /**
-   * @requires service:api-sdk/collection
-   */
-  collectionService: Ember.inject.service("api-sdk/collection"),
-
-  /**
    * @requires service:api-sdk/lesson
    */
   lessonService: Ember.inject.service("api-sdk/lesson"),
@@ -50,10 +45,6 @@ export default Ember.Component.extend(BuilderMixin, {
   // Actions
 
   actions: {
-
-    add: function () {
-      this.set('model.isExpanded', true);
-    },
 
     cancelEdit: function () {
       if (this.get('model.isNew')) {
@@ -86,6 +77,8 @@ export default Ember.Component.extend(BuilderMixin, {
 
     toggle: function () {
       var toggleValue = !this.get('model.isExpanded');
+
+      this.loadData();
       this.set('model.isExpanded', toggleValue);
     }
 
@@ -126,10 +119,25 @@ export default Ember.Component.extend(BuilderMixin, {
    * @returns {undefined}
    */
   loadData: function () {
-    // Loading of data will only happen if 'items' has not previously been set
-    if (!this.get('items')) {
-      var itemsPromise = this.getLessons();
-      this.set('items', itemsPromise);
+    if (!this.get('isLoaded')) {
+      let courseId = this.get('courseId');
+      let unitId = this.get('unitId');
+      let lessonId = this.get('lesson.id');
+
+      return this.get('lessonService')
+        .fetchById(courseId, unitId, lessonId)
+        .then(function (lesson) {
+          this.set('model.data', lesson);
+          this.set('isLoaded', true);
+        }.bind(this))
+
+        .catch(function (error) {
+          var message = this.get('i18n').t('common.errors.lesson-not-loaded').string;
+          this.get('notifications').error(message);
+          Ember.Logger.error(error);
+        }.bind(this));
+    } else {
+      return Ember.RSVP.resolve(true);
     }
   }
 
