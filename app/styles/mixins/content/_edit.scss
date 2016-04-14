@@ -125,32 +125,6 @@
       .panel {
         margin-bottom: 0;
 
-        &.placeholder {
-          background-color: $blue-400;
-
-          * {
-            color: $white;
-          }
-
-
-          .panel-body {
-            padding: 25px;
-
-            .resource-message {
-              background: url(/assets/gooru/images/multiple-answer-blue.svg) no-repeat center top;
-              display: block;
-              padding-top: 45px;
-              margin: 65px 0;
-              text-align: center;
-              color: $blue-200;
-              span {
-                font-weight: lighter;
-                display: block;
-              }
-            }
-          }
-        }
-
         .panel-heading, .panel-body {
           padding-left: 25px;
           padding-right: 25px;
@@ -170,9 +144,6 @@
         span.label.required:after{
           content: ' *';
         }
-      }
-      .panel + .panel {
-        margin-top: 20px;
       }
     }
   }
@@ -324,17 +295,6 @@
           }
         }
       }
-    }
-  }
-}
-
-.controller.content.resources.edit {
-  article.fixed-header {
-    #resource {
-      padding-top: 115px;
-    }
-    #information {
-      padding-top: 0;
     }
   }
 }

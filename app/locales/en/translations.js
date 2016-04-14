@@ -172,6 +172,7 @@ export default {
       "audio"       : "Audio",
       "question"    : "Question"
     },
+    "resource-url": "Resource URL",
     "remaining": "{{number}} Left",
     "remix":"Remix",
     "role": "Role",
@@ -314,8 +315,6 @@ export default {
   },
 
   "content.resources.edit": {
-    "add-to": "Add to",
-    "resource-url": "Resource URL",
     "placeholder-message": "Add a resource to <span>preview it here.</span>"
   },
 
