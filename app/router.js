@@ -56,6 +56,7 @@ Router.map(function() {
   this.route('class', { path: '/class/:classId' }, function() {
     this.route('overview');
     this.route('info');
+    this.route('quick-start');
 
     this.route('analytics', function() {
       this.route('performance', function() {
@@ -70,8 +71,7 @@ Router.map(function() {
     });
 
   });
-  //@TODO This route should be inside class with its respective classId, right now it is not working for v3 created classes, which is the purpose of this route.
-  this.route('quick-start');
+
 
   this.route('reports', function () {
     this.route('collection', {path: '/class/:classId/collection/:collectionId'});
