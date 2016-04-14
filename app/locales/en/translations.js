@@ -19,6 +19,7 @@ export default {
     "add-new-question": "Add New Question",
     "add-to": "Add To",
     "add-type-question":"What type of question would you like to add?",
+    "add-type-resource":"What type of resource is this?",
     "add-units": "Add Units",
     "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
@@ -68,6 +69,7 @@ export default {
     "courses": "Courses",
     "create": "Create",
     "district": "District",
+    "domain": "Domain",
     "edit": "Edit",
     "edit-assessment": "Edit Assessment",
     "edit-collection": "Edit Collection",
@@ -94,7 +96,8 @@ export default {
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
       "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
-      "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly."
+      "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
+      "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly."
     },
     "explanation": "Explanation",
     "first-name": "First Name",
@@ -126,6 +129,9 @@ export default {
     "myContent": "My Content",
     "mastery":"Mastery",
     "menu": "Menu",
+    "more-details":"More Details",
+    "new-assessment": "New Assessment",
+    "new-collection": "New Collection",
     "no": "No",
     "no-content": "No content available",
     "no-results": "No Results Found",
@@ -173,6 +179,7 @@ export default {
       "audio"       : "Audio",
       "question"    : "Question"
     },
+    "resource-title":"Resource Title",
     "remaining": "{{number}} Left",
     "remix":"Remix",
     "role": "Role",
@@ -314,6 +321,9 @@ export default {
     "information":{
       "course-title":"Course Title"
     }
+  },
+  "content.questions.edit": {
+    "add-to": "Add to",
   },
 
   "user": {

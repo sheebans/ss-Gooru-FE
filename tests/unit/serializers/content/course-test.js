@@ -94,7 +94,7 @@ test('normalizeCourse', function (assert) {
     "sequence_id": 1,
     "subject_bucket": "subject_bucket_value",
     "creator_system": "gooru",
-    "unitSummary": [
+    "unit_summary": [
       {
         "unit_id": "unit-id-1",
         "title": "Unit 1",
@@ -111,14 +111,14 @@ test('normalizeCourse', function (assert) {
   var expected = Course.create(Ember.getOwner(this).ownerInjection(), {
     children: [
       Unit.create(Ember.getOwner(this).ownerInjection(), {
-        id: payload.unitSummary[0].unit_id,
-        sequence: payload.unitSummary[0].sequence_id,
-        title: payload.unitSummary[0].title
+        id: payload.unit_summary[0].unit_id,
+        sequence: payload.unit_summary[0].sequence_id,
+        title: payload.unit_summary[0].title
       }),
       Unit.create(Ember.getOwner(this).ownerInjection(), {
-        id: payload.unitSummary[1].unit_id,
-        sequence: payload.unitSummary[1].sequence_id,
-        title: payload.unitSummary[1].title
+        id: payload.unit_summary[1].unit_id,
+        sequence: payload.unit_summary[1].sequence_id,
+        title: payload.unit_summary[1].title
       })
     ],
     audience: payload.audience.slice(0),

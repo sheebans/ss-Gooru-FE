@@ -35,7 +35,7 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {Number} lessonsTotal - total number of lessons in the unit
    */
-  lessonsTotal: 0,
+  lessonCount: 0,
 
   /**
    * @property {String} sequence - sequence order among other course units

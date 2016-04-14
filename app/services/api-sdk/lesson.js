@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import StoreMixin from '../../mixins/store';
+import LessonSerializer from 'gooru-web/serializers/content/lesson';
+import LessonAdapter from 'gooru-web/adapters/content/lesson';
 
 /**
  * Lesson Service
@@ -14,6 +16,33 @@ import StoreMixin from '../../mixins/store';
  * @augments Ember/Service
  */
 export default Ember.Service.extend(StoreMixin, {
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  init: function () {
+    this._super(...arguments);
+    this.set('serializer', LessonSerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set('adapter', LessonAdapter.create(Ember.getOwner(this).ownerInjection()));
+  },
+
+
+  // -------------------------------------------------------------------------
+  // Properties
+
+  /**
+   * @property {UnitSerializer} serializer
+   */
+  serializer: null,
+
+  /**
+   * @property {UnitAdapter} adapter
+   */
+  adapter: null,
+
+
+  // -------------------------------------------------------------------------
+  // Methods
 
   /**
    * Gets a Lesson by ID that belongs to a course and unit.
@@ -47,6 +76,28 @@ export default Ember.Service.extend(StoreMixin, {
       courseId: courseId,
       unitId: unitId,
       options: options
+    });
+  },
+
+  /**
+   * Create a unit for a course
+   * @param {String} courseId - ID of the course the lesson belongs to
+   * @param {Content/Unit} unitId - ID of the unit the lesson belongs to
+   * @param {Content/Lesson} lesson - Lesson model
+   * @returns {Promise|String} returns the lesson model with the newly assigned ID
+   */
+  createLesson: function (courseId, unitId, lesson) {
+    var lessonData = this.get('serializer').serializeCreateLesson(lesson);
+
+    return this.get('adapter').createLesson({
+      courseId: courseId,
+      unitId: unitId,
+      lesson: lessonData
+    }).then(function (lessonId) {
+      lesson.set('id', lessonId);
+      return lesson;
+    }).catch(function (error) {
+      return error;
     });
   }
 

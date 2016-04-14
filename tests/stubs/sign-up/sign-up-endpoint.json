@@ -34,6 +34,46 @@
       "body": "File not found!",
       "file": "sign-up-api3-200-response.json"
     }
+  },
+
+  {
+    "description": "API 3.0 Endpoint verifies username Availability. Username exists",
+    "request": {
+      "url": "^/api/nucleus-auth/v1/users$",
+      "method": "GET",
+      "query": {
+        "username": "JeffTeach01"
+      },
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "username-availability-api3-200-response.json"
+    }
+  },
+
+  {
+    "description": "API 3.0 Endpoint verifies username Availability. Username DOES NOT exist",
+    "request": {
+      "url": "^/api/nucleus-auth/v1/users$",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 404,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": ""
+    }
   }
 ]
 
