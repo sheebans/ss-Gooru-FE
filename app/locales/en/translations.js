@@ -313,6 +313,12 @@ export default {
     }
   },
 
+  "content.resources.edit": {
+    "add-to": "Add to",
+    "resource-url": "Resource URL",
+    "placeholder-message": "Add a resource to <span>preview it here.</span>"
+  },
+
   "user": {
     "active-classes": "Active Classes",
     "archived-classes": "Archived Classes",
