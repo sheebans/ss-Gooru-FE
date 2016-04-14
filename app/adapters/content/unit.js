@@ -19,7 +19,8 @@ export default Ember.Object.extend({
    */
   createUnit: function (params) {
     const courseId = params.courseId;
-    const url = this.get('namespace') + `/${courseId}/units`;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${courseId}/units`;
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
@@ -49,7 +50,8 @@ export default Ember.Object.extend({
   getUnitById: function (params) {
     const courseId = params.courseId;
     const unitId = params.unitId;
-    const url = this.get('namespace') + `/${courseId}/units/${unitId}`;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${courseId}/units/${unitId}`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
