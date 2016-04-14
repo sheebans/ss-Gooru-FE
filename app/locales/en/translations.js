@@ -191,6 +191,7 @@ export default {
       "question"    : "Question"
     },
     "resource-title":"Resource Title",
+    "resource-url": "Resource URL",
     "remaining": "{{number}} Left",
     "remix":"Remix",
     "role": "Role",
@@ -333,6 +334,10 @@ export default {
   },
   "content.questions.edit": {
     "add-to": "Add to",
+  },
+
+  "content.resources.edit": {
+    "placeholder-message": "Add a resource to <span>preview it here.</span>"
   },
 
   "user": {
