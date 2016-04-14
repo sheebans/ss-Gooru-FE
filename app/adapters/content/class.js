@@ -47,6 +47,40 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Gets the class information of a given class id
+   * @param classId the class ID to be read
+   * @returns {Promise}
+   */
+  readClassInfo: function(classId) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/${classId}`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Get the list of members, invitees, collaborators and owner of the class
+   * @param classId the class ID to be read
+   * @returns {Promise}
+   */
+  readClassMembers: function(classId) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/${classId}/members`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
    * Creates the headers required by API 3.0
    * @returns {{Authorization: string}}
    */
