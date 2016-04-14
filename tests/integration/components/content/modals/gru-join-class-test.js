@@ -65,6 +65,7 @@ test('onJoinClass event', function (assert) {
   this.on("joinClass", function(code){
     assert.equal(code, "any","The event should be thrown");
   });
+
   this.render(hbs`{{content/modals/gru-join-class onJoinClass='joinClass'}}`);
 
   const $component = this.$('.content.modal.gru-join-class');
@@ -72,5 +73,6 @@ test('onJoinClass event', function (assert) {
   const $codeField = $component.find(".gru-input.code");
 
   $codeField.find("input").val("any");
+  $codeField.find("input").blur();
   $component.find("a.join-class-btn").click();
 });

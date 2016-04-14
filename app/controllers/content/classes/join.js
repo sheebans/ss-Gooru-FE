@@ -34,16 +34,14 @@ export default Ember.Controller.extend({
         controller.transitionToRoute('user');
           //TODO redirect to class
         }, function (error){
+          let message = controller.get('i18n').t('common.errors.can-not-join-class').string;
           if (error.code === 'restricted'){
-
+            message = controller.get('i18n').t('content.classes.join.join-not-allowed').string;
           }
           else if(error.code === 'not-found'){
-
+            message = controller.get('i18n').t('content.classes.join.class-not-found').string;
           }
-          else{
-            const message = controller.get('i18n').t('common.errors.can-not-join-class').string;
-            controller.get('notifications').error(message);
-          }
+          controller.get('notifications').error(message);
         });
 
     }

@@ -36,8 +36,8 @@ test('joinClass', function(assert) {
     }, false);
   });
   adapter.joinClass("any")
-    .then(function(response) {
-      assert.equal('', response, 'Wrong response');
+    .then(function() {
+      assert.ok(true, 'This should be called');
     });
 });
 

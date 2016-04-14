@@ -79,6 +79,7 @@ test('joinClass restricted', function(assert) {
       }, function (error){
         assert.equal(error.status, 400, "Wrong error status");
         assert.equal(error.code, 'restricted', "Wrong error code");
+        done();
       });
 });
 
@@ -90,7 +91,7 @@ test('joinClass not found', function(assert) {
   // Pretender was included because it is needed to simulate the response Headers including the Location value
   this.pretender.map(function() {
     this.put('/api/nucleus/v1/classes/any/members', function() {
-      return [400, {'Content-Type': 'text/plain' }, ''];
+      return [404, {'Content-Type': 'text/plain' }, ''];
     }, false);
   });
 
@@ -102,6 +103,7 @@ test('joinClass not found', function(assert) {
       }, function (error){
         assert.equal(error.status, 404, "Wrong error status");
         assert.equal(error.code, 'not-found', "Wrong error code");
+        done();
       });
 });
 
