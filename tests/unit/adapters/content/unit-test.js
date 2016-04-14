@@ -73,7 +73,7 @@ test('Get unit by ID', function (assert) {
   this.pretender.map(function () {
     this.get('/api/nucleus/v1/courses/course-id-123/units/unit-id-456', function () {
       return [
-        201,
+        200,
         {
           'Content-Type': 'application/json; charset=utf-8'
         },
