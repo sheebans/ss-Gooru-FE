@@ -29,7 +29,7 @@ export default Ember.Component.extend(Validations,{
       const component = this;
       component.validate().then(function ({validations }) {
         if (validations.get('isValid')) {
-
+          component.sendAction("onJoinClass", component.get("code"));
         }
         component.set('didValidate', true);
       }.bind(component));
@@ -44,6 +44,14 @@ export default Ember.Component.extend(Validations,{
 
   // -------------------------------------------------------------------------
   // Properties
-  code:null
+  /**
+   * @property {string}
+   */
+  code:null,
+
+  /**
+   * @property {string}
+   */
+  onJoinClass: null
 
 });

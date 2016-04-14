@@ -87,6 +87,7 @@ export default {
     "enter-url":"Enter URL",
     "errors": {
       "join-class-code":"Please enter the class code.",
+      "can-not-join-class" : "Oops! Unable to join class. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
@@ -300,7 +301,9 @@ export default {
       "class-code-input": "Enter a Class Code",
       "terms-and-conditions": 'By clicking "Join Class" I agree to share my collection progress and information with [teacher username]. This information provides [teacher username] with tools that measure your progress and help to enhance your learning experience.',
       "not-now": "Not now",
-      "join-class": "Join Class"
+      "join-class": "Join Class",
+      "class-not-found": "Class not found. Make sure you've entered the correct class code",
+      "join-not-allowed": "You are not able to join this class",
 
     }
   },
