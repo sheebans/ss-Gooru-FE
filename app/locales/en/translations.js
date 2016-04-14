@@ -25,6 +25,10 @@ export default {
     "answer":"Your Answer",
     "approved":"Approved",
     "assessment":"Assessment",
+    "assessment-pl": {
+      one: "Assessment",
+      other: "Assessments"
+    },
     "assessment-title":"Assessment Title",
     "assessments": "Assessments",
     "assessmentInitial": "A",
@@ -54,6 +58,10 @@ export default {
     "classScores": "Class Scores",
     "close": "Close",
     "collection":"Collection",
+    "collection-pl": {
+      one: "Collection",
+      other: "Collections"
+    },
     "collection-title":"Collection Title",
     "collections": "Collections",
     "collectionInitial": "C",
