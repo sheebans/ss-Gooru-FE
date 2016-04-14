@@ -17,6 +17,15 @@ export const RESOURCE_COMPONENT_MAP = {
   'vimeo/video'   : 'player.resources.gru-vimeo-resource'
 };
 
+export const RESOURCE_TYPES = [
+    "webpage",
+    "video",
+    "interactive",
+    "audio",
+    "image",
+    "text"
+  ];
+
 export const DEFAULT_IMAGES = {
   USER_PROFILE: '/assets/gooru/profile.png',
   QUESTION_PLACEHOLDER_IMAGE: '/assets/gooru/question-placeholder-image.png'

@@ -10,6 +10,8 @@ export default Ember.Route.extend({
    */
   session: Ember.inject.service("session"),
 
+  collectionService: Ember.inject.service('api-sdk/collection'),
+
 
   // -------------------------------------------------------------------------
   // Methods

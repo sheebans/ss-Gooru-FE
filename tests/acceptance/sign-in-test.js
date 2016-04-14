@@ -2,6 +2,7 @@ import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 import T from 'gooru-web/tests/helpers/assert';
+import {KEY_CODES} from "gooru-web/config/config";
 
 moduleForAcceptance('Acceptance | sign-in', {
   beforeEach: function() {
@@ -9,7 +10,7 @@ moduleForAcceptance('Acceptance | sign-in', {
       isAnonymous: true,
       token: 'sign-in-token',
       user: {
-        gooruUId: 'session-id'
+        gooruUId: 'pochita'
       }
     });
   }
@@ -97,6 +98,57 @@ test('it shows an error message if the password field is left blank', function (
       return wait().then(function () {
         assert.ok(!$passwordField.find(".error-messages .error").length, 'Password error message was hidden');
       });
+    });
+  });
+});
+test('it shows an error message if the password and username field has only blank spaces', function (assert) {
+  visit('/sign-in');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-in');
+
+
+    const $signInContainer = find(".sign-in");
+    const $usernameField = $signInContainer.find(".gru-input.username");
+
+    assert.ok(!$usernameField.find(".error-messages .error").length, 'Username error message not visible');
+
+    $usernameField.find("input").val('    ');
+    $usernameField.find("input").blur();
+
+    return wait().then(function () {
+
+      assert.ok($usernameField.find(".error-messages .error").length, 'Username error message should be visible');
+      // Fill in the input field
+      const $passwordField = $signInContainer.find(".gru-input.password");
+      $passwordField.find("input").val('    ');
+      $passwordField.find("input").blur();
+
+      return wait().then(function () {
+        assert.ok($passwordField.find(".error-messages .error").length, 'Password error message should be visible');
+      });
+    });
+  });
+});
+
+test('Sign in after try with wrong credentials when press key Enter', function (assert) {
+  visit('/sign-in');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-in');
+    const $signInContainer = find(".controller.sign-in .sign-in-form");
+    const $usernameField = $signInContainer.find(".gru-input.username");
+
+    assert.ok(!$usernameField.find(".error-messages .error").length, 'Username error message not visible');
+
+    $usernameField.find("input").val('');
+    $usernameField.find("input").blur();
+    const $passwordField = $signInContainer.find(".gru-input.password");
+    $passwordField.find("input").val('pochita');
+    // Try submitting without filling in data
+    keyEvent($signInContainer, 'keyup', KEY_CODES.ENTER);
+    andThen(function() {
+      assert.ok($usernameField.find(".error-messages .error").length, 'Username error message should be visible');
     });
   });
 });
