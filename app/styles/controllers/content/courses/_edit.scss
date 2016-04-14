@@ -5,6 +5,9 @@
     > li {
       padding: 10px 0;
     }
+  }
+
+  .accordion-course {
 
     .panel-heading {
       position: relative;
@@ -108,10 +111,6 @@
             }
           }
 
-          .panel-body {
-            padding-top: 20px;
-          }
-
           &.collapsed {
             .panel-heading {
               margin-bottom: 0;
@@ -142,7 +141,7 @@
     .gru-accordion-unit {
 
       .panel-body {
-        padding: 0 25px 25px;
+        padding: 10px 15px 15px;
 
         .col-sm-6 {
           label {
@@ -180,6 +179,27 @@
 
           .add-item a {
             color: $white;
+          }
+        }
+      }
+    }
+
+    .gru-accordion-lesson {
+
+      &.view {
+        > .expanded > .panel-body {
+          background-color: $dark-300;
+        }
+
+        .accordion-lesson {
+
+          + div {
+            padding: 10px 0 5px;
+
+            button {
+              font-size: $font-size-base;
+              padding: 5px 10px;
+            }
           }
         }
       }

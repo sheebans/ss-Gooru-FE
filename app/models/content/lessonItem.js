@@ -1,9 +1,10 @@
 import Ember from 'ember';
+import { CONTENT_TYPES } from "gooru-web/config/config";
 
 /**
  * Builder lesson item
  *
- * @typedef {Object} Builder/LessonItem
+ * @typedef {Object} Content/LessonItem
  */
 export default Ember.Object.extend({
 
@@ -13,7 +14,7 @@ export default Ember.Object.extend({
   id: '',
 
   isCollection: Ember.computed('format', function() {
-    return this.get('format') === 'collection';
+    return this.get('format') === CONTENT_TYPES.COLLECTION;
   }),
 
   /**

@@ -20,7 +20,8 @@ export default Ember.Object.extend({
   createLesson: function (params) {
     const courseId = params.courseId;
     const unitId = params.unitId;
-    const url = this.get('namespace') + `/${courseId}/units/${unitId}/lessons`;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${courseId}/units/${unitId}/lessons`;
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
@@ -51,7 +52,8 @@ export default Ember.Object.extend({
     const courseId = params.courseId;
     const unitId = params.unitId;
     const lessonId = params.lessonId;
-    const url = this.get('namespace') + `/${courseId}/units/${unitId}/lessons/${lessonId}`;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${courseId}/units/${unitId}/lessons/${lessonId}`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',

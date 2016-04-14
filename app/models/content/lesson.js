@@ -6,26 +6,30 @@ const Validations = buildValidations({
 });
 
 /**
- * Unit model
+ * Lesson model
  *
- * @typedef {Object} Content/Unit
+ * @typedef {Object} Content/Lesson
  */
 export default Ember.Object.extend(Validations, {
 
   /**
    * @property {Number} assessmentCount - total number of assessments in the lesson
    */
-  assessmentCount: 0,
+  assessmentCount: Ember.computed('children.[]', function() {
+    return this.get('children').filterBy('isCollection', false).length;
+  }),
 
   /**
    * @property {Content/Lesson[]} children - List of collections/assessments
    */
-  children: [],
+  children: Ember.A([]),
 
   /**
    * @property {Number} collectionCount - total number of collections in the lesson
    */
-  collectionCount: 0,
+  collectionCount: Ember.computed('children.[]', function() {
+    return this.get('children').filterBy('isCollection', true).length;
+  }),
 
   /**
    * @property {String} id - Gooru id for the lesson
@@ -40,7 +44,7 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {String} standards - List of taxonomy terms
    */
-  standards: [],
+  taxonomy: [],
 
   /**
    * @property {String} title

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Lesson from 'gooru-web/models/content/lesson';
-import LessonItem from 'gooru-web/models/content/builder/lessonItem';
+import LessonItem from 'gooru-web/models/content/lessonItem';
 import { CREATOR_SYSTEM } from 'gooru-web/config/config';
 
 /**
@@ -32,9 +32,9 @@ export default Ember.Object.extend({
   normalizeLesson: function (lessonData) {
     return Lesson.create(Ember.getOwner(this).ownerInjection(), {
       children: function () {
-        var lessons = [];
+        var lessonItems = [];
         if (lessonData.collection_summary) {
-          lessons = lessonData.collection_summary.map(function (lessonItemData) {
+          lessonItems = lessonData.collection_summary.map(function (lessonItemData) {
             return LessonItem.create({
               id: lessonItemData.id,
               format: lessonItemData.format,
@@ -45,10 +45,8 @@ export default Ember.Object.extend({
             });
           });
         }
-        return Ember.A(lessons);
+        return Ember.A(lessonItems);
       }(),
-      assessmentCount: lessonData.children.filterBy('isCollection', false).length,
-      collectionCount: lessonData.children.filterBy('isCollection', true).length,
       id: lessonData.lesson_id,
       sequence: lessonData.sequence_id,
       title: lessonData.title,

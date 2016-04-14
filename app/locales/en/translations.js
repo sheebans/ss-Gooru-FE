@@ -25,6 +25,10 @@ export default {
     "answer":"Your Answer",
     "approved":"Approved",
     "assessment":"Assessment",
+    "assessment-pl": {
+      one: "Assessment",
+      other: "Assessments"
+    },
     "assessment-title":"Assessment Title",
     "assessments": "Assessments",
     "assessmentInitial": "A",
@@ -54,6 +58,10 @@ export default {
     "classScores": "Class Scores",
     "close": "Close",
     "collection":"Collection",
+    "collection-pl": {
+      one: "Collection",
+      other: "Collections"
+    },
     "collection-title":"Collection Title",
     "collections": "Collections",
     "collectionInitial": "C",
@@ -92,6 +100,8 @@ export default {
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
+      "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
+      "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
       "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
@@ -102,6 +112,8 @@ export default {
     "first-name": "First Name",
     "follow": "Follow",
     "forgotPassword": "Forgot Password",
+    "from-my-assessments": "From My Assessments",
+    "from-my-collections": "From My Collections",
     "hints": "Hints",
     "hide-results":"Hide Results",
     "if_questions": "If you have any questions,",

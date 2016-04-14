@@ -99,6 +99,26 @@ export default Ember.Service.extend(StoreMixin, {
     }).catch(function (error) {
       return error;
     });
+  },
+
+  /**
+   * Returns a lesson by id
+   * @param {string} courseId - course the lesson belongs to
+   * @param {string} unitId - unit the lesson belongs to
+   * @param {string} lessonId - lesson ID to search for
+   * @returns {Promise|Content/Unit}
+   */
+  fetchById: function (courseId, unitId, lessonId) {
+    return this.get('adapter').getLessonById({
+      courseId: courseId,
+      unitId: unitId,
+      lessonId: lessonId
+    }).then(function (unitData) {
+        return this.get('serializer').normalizeLesson(unitData);
+      }.bind(this))
+      .catch(function (error) {
+        return error;
+      });
   }
 
 });
