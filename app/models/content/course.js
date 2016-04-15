@@ -2,7 +2,15 @@ import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations({
-  title: validator('presence', true),
+  title: {
+    validators: [
+      validator('presence', {
+        presence: true,
+          message: '{{description}}',
+          descriptionKey: 'common.errors.add-course-title'
+      })
+    ]
+  }
 });
 
 /**
