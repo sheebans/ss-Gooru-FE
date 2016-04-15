@@ -24,3 +24,21 @@ test('Layout', function (assert) {
     assert.ok($container.length, "Container is missing");
   });
 });
+
+test('Join class', function (assert) {
+  visit('/content/classes/join');
+
+  andThen(function () {
+    assert.equal(currentURL(), '/content/classes/join');
+
+    let $container = find(".controller.join-class");
+    $container.find(".gru-input.code input").val("any-code");
+    $container.find(".gru-input.code input").blur();
+
+    click($container.find("a.join-class-btn"));
+    andThen(function(){
+      assert.equal(currentURL(), '/user');
+    });
+
+  });
+});

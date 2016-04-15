@@ -24,19 +24,5 @@ test('Layout', function (assert) {
     assert.ok($container.length, "Container");
     assert.ok($container.find('> article').length, "Article");
     assert.ok($container.find('> aside').length, "Aside");
-
-    $container = $container.find('> article');
-
-    const $header = $container.find('> header');
-    assert.ok($header.length, "Header");
-    assert.ok($header.find('> .actions').length, "Header actions");
-    assert.equal($header.find('> .actions > button').length, 5, "Number of header actions");
-    assert.ok($header.find('> nav').length, "Header navigation");
-    assert.equal($header.find('> nav > a').length, 3, "Number of header navigation links");
-
-    assert.equal($container.find('> section').length, 3, "Number of edit sections");
-    assert.ok($container.find('> section#information').length, "Information section");
-    assert.ok($container.find('> section#builder').length, "Builder section");
-    assert.ok($container.find('> section#settings').length, "Settings section");
   });
 });
