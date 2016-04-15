@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
+import {QUESTION_CONFIG} from 'gooru-web/config/question';
 
 
 export default Ember.Component.extend(ContentEditMixin,{
@@ -29,6 +30,18 @@ export default Ember.Component.extend(ContentEditMixin,{
      */
     sendRequest: function () {
       this.set('wasRequestSent', true);
+    },
+    /**
+     * Select question type
+     */
+    selectType:function(type){
+      this.set('tempQuestion.type', type);
+    },
+    /**
+     * Save Content
+     */
+    updateContent: function () {
+
     }
   },
 
@@ -72,6 +85,25 @@ export default Ember.Component.extend(ContentEditMixin,{
   }),Ember.Object.create({
     'label': "Off",
     'value': false
-  })])
+  })]),
 
+  /**
+   * @type {Array{}} questionTypes
+   */
+  questionTypes: Ember.computed(function(){
+    let array = Ember.A(Object.keys(QUESTION_CONFIG));
+    const $component = this;
+    let arrayTypes=array.map(function(item){
+      return $component.normalizeQuestionTypes(item);
+    });
+    return arrayTypes;
+  }),
+
+  //Methods
+  /*
+   * Replace / to _
+   * */
+  normalizeQuestionTypes: function(questionType) {
+    return questionType.replace('/', '_');
+  },
 });

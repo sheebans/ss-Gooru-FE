@@ -193,6 +193,7 @@ export default {
     "score":"Score",
     "search": "Search",
     "search-placeholder": "Search...",
+    "select-question-type":"Select Question Type",
     "send-request":"Send Request",
     "show-correct-answer":"Show Correct Answer",
     "show-results":"Show Results",

@@ -22,38 +22,50 @@
       {{partial 'content/partials/information-actions'}}
     </div>
     <div class="content">
-
         <div class="panel panel-default">
             <div class="panel-body">
-                <div class="title">
-                    <label>
-                        <span class="required">{{t "content.questions.edit.information.question-title"}}</span>
-                      {{#if isEditing}}
-                        {{validation.gru-input model=tempQuestion valuePath='title'}}
-                      {{else}}
-                          <b>{{question.title}}</b>
-                      {{/if}}
-                    </label>
+                <div class="title-section">
+                    <div class="title">
+                        <label>
+                            <span class="required">{{t "content.questions.edit.information.question-title"}}</span>
+                          {{#if isEditing}}
+                            {{validation.gru-input model=tempQuestion valuePath='title'}}
+                          {{else}}
+                              <b>{{question.title}}</b>
+                          {{/if}}
+                        </label>
+                    </div>
+                    <div class="question-types">
+                        <label>
+                            <span class="required">{{t "content.questions.edit.information.question-type"}}</span>
+                          {{#if isEditing}}
+                              <div class="btn-group">
+                                  <a href="#" class="btn btn-primary btn-sm" data-toggle="dropdown">
+                                      <span>
+                                         {{#if tempQuestion.type}}
+                                           {{t (concat 'common.question-type.' tempQuestion.type) }}
+                                        {{else}}
+                                          {{t 'common.select-question-type'}}
+                                        {{/if}}</span>
+                                   </a>
+                                  <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                                  <ul class="dropdown-menu dropdown-menu-right">
+                                    {{#each questionTypes as |questionType|}}
+                                        <li><a {{action 'selectType' questionType }}>{{t (concat 'common.question-type.' questionType) }}</a></li>
+                                    {{/each}}
+                                  </ul>
+                              </div>
+                          {{else}}
+                              <div class="btn-empty btn btn-sm">Multiple Choice</div>
+                          {{/if}}
+                        </label>
+                    </div>
                 </div>
-                <div class="question-types">
-                    <label>
-                        <span class="required">{{t "content.questions.edit.information.question-type"}}</span>
-                      {{#if isEditing}}
-                          <div class="dropdown">
-                              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                                  <span class="caret"></span></button>
-                              <ul class="dropdown-menu">
-                              </ul>
-                          </div>
-                      {{else}}
-                          <div class="btn-empty btn btn-sm">Multiple Choice</div>
-                      {{/if}}
-                    </label>
-                </div>
-                <div class="question-types">
+                <div class="standards">
                     <label>
                         <span class="required">{{t "common.standards"}}</span>
                       {{#if isEditing}}
+                          <button type="button" class="btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
                       {{else}}
                           <span>Not Added</span>
                       {{/if}}
