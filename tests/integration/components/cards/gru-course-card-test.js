@@ -307,6 +307,7 @@ test('Course Card Layout Owner and Private', function(assert) {
 });
 test('Click Edit', function(assert) {
   var course = Ember.Object.create({
+    'id': "1",
     'title': 'Water cycle',
     'totalUnits': 8,
     'subjects': ['Science'],
@@ -343,8 +344,8 @@ test('Click Edit', function(assert) {
   this.set('course', course);
   assert.expect(1);
 
-  this.on('editCourse', function(){
-    assert.ok(true);
+  this.on('editCourse', function(course){
+    assert.equal(course.get("id"), "1", "Wrong course id");
   });
 
   this.render(hbs`{{cards/gru-course-card course=course isOwner=true onEditCourse='editCourse'}}`);
