@@ -321,6 +321,10 @@ export default {
   },
   "content.questions.edit": {
     "add-to": "Add to",
+    "information":{
+      "question-title":"Question Title",
+      "question-type": "Question Type"
+    }
   },
 
   "user": {

@@ -16,7 +16,14 @@ export default Ember.Component.extend(ContentEditMixin,{
   // -------------------------------------------------------------------------
   // Actions
   actions:{
-
+    /**
+     * Edit Content
+     */
+    editContent: function () {
+      var questionForEditing = this.get('question').copy();
+      this.set('tempQuestion', questionForEditing);
+      this.set('isEditing', true);
+    },
     /**
      * Send request to publish a question
      */
@@ -30,6 +37,17 @@ export default Ember.Component.extend(ContentEditMixin,{
 
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * Question model as instantiated by the route. This is the model used when not editing
+   * or after any question changes have been saved.
+   * @property {Question}
+   */
+  question: null,
+  /**
+   * Copy of the question model used for editing.
+   * @property {Question}
+   */
+  tempQuestion: null,
   /**
    * Request pending approval
    * // TODO: Change this to a computed property of a question property
