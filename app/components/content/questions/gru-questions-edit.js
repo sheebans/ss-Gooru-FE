@@ -93,7 +93,6 @@ export default Ember.Component.extend(ContentEditMixin,{
    */
   questionTypes: Ember.computed(function(){
     let array = Ember.A(Object.keys(QUESTION_CONFIG));
-    const $component = this;
     let arrayTypes=array.map(function(item){
       return normalizeQuestionTypes(item);
     });

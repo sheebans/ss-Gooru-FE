@@ -106,7 +106,6 @@ export default Ember.Component.extend({
     this.move(array,6,2);
     this.move(array,7,3);
     this.move(array,7,6);
-    const $component = this;
     let arrayTypes=array.map(function(item){
       return normalizeQuestionTypes(item);
     });
