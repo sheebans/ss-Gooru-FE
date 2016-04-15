@@ -2,7 +2,15 @@ import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations({
-  title: validator('presence', true),
+  title: {
+    validators: [
+      validator('presence', {
+        presence: true,
+          message: '{{description}}',
+          descriptionKey: 'common.errors.add-course-title'
+      })
+    ]
+  }
 });
 
 /**
@@ -10,6 +18,11 @@ const Validations = buildValidations({
  * typedef {Object} Course
  */
 const Course = Ember.Object.extend(Validations, {
+
+  /**
+   * @property {String} id - The Course Id
+   */
+  id: null,
 
   /**
    * @property {Number} category - Category the course belongs to

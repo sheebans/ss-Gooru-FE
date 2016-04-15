@@ -29,6 +29,26 @@ test('it has header and main sections', function (assert) {
   assert.ok($container.find('> section#builder').length, "Builder section");
   assert.ok($container.find('> section#settings').length, "Settings section");
 });
+test('Layout of the information section', function (assert) {
+  this.render(hbs`{{content/questions/gru-questions-edit}}`);
+
+  var $settingsSection = this.$("#information");
+  assert.ok($settingsSection.find('.header h2').length, "Information title missing");
+  assert.ok($settingsSection.find('.panel-body .title label b').length, "Missing title label");
+  assert.ok($settingsSection.find('.panel-body .question-types').length, "Missing question types");
+  assert.ok($settingsSection.find('.panel-body .standards label').length, "Missing standards");
+});
+
+test('Layout of the information section editing mode', function (assert) {
+  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true}}`);
+
+  var $settingsSection = this.$("#information");
+  assert.ok($settingsSection.find('.header h2').length, "Information title missing");
+  assert.ok($settingsSection.find('.panel-body .title label .gru-input').length, "Missing title input");
+  assert.ok($settingsSection.find('.panel-body .question-types .btn-group .dropdown-toggle').length, "Missing question types dropdown");
+  assert.ok($settingsSection.find('.panel-body .standards button.add-prefix').length, "Missing add standards button");
+});
+
 
 test('Layout of the settings section', function (assert) {
   this.render(hbs`{{content/questions/gru-questions-edit}}`);

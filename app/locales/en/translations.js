@@ -95,6 +95,7 @@ export default {
     "enter-url":"Enter URL",
     "errors": {
       "join-class-code":"Please enter the class code.",
+      "add-course-title":"Please enter the course title.",
       "can-not-join-class" : "Oops! Unable to join class. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
@@ -150,6 +151,7 @@ export default {
     "no-results-message":"Check your spelling. We all make mistakes!<br/>Go broader & remove some filters.<br/>Try searching for a similar word instead.",
     "notStarted": "Not started",
     "not-specified":"Not specified",
+    "not-added":"Not Added",
     "number":"No.",
     "numberStudents": {
       one: "{{count}} Student",
@@ -215,6 +217,7 @@ export default {
     "score":"Score",
     "search": "Search",
     "search-placeholder": "Search...",
+    "select-question-type":"Select Question Type",
     "send-request":"Send Request",
     "show-correct-answer":"Show Correct Answer",
     "show-results":"Show Results",
@@ -345,6 +348,10 @@ export default {
   },
   "content.questions.edit": {
     "add-to": "Add to",
+    "information":{
+      "question-title":"Question Title",
+      "question-type": "Question Type"
+    }
   },
 
   "content.resources.edit": {

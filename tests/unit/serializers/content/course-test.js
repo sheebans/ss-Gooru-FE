@@ -35,8 +35,8 @@ test('serializeCreateCourse', function(assert) {
 
 test('serializeUpdateCourse', function (assert) {
   const serializer = this.subject();
-
-  const course = Course.create({
+  const courseModel = Course.create({
+    id: 'course-id',
     title: 'course-title',
     description: 'course-description',
     thumbnailUrl: 'course-thumbnail-url',
@@ -45,23 +45,21 @@ test('serializeUpdateCourse', function (assert) {
     audience: [],
     subject: 'course-subject'
   });
-
-  const expected = {
-    title: course.title,
-    description: course.description,
-    thumbnail: course.thumbnailUrl,
-    visible_on_profile: course.isVisibleOnProfile,
+  const expectedSerializedCourse = {
+    title: courseModel.title,
+    description: courseModel.description,
+    thumbnail: courseModel.thumbnailUrl,
+    visible_on_profile: courseModel.isVisibleOnProfile,
     taxonomy: [],
     audience: [],
-    'subject_bucket': course.subject
+    'subject_bucket': courseModel.subject
   };
-  const courseObject = serializer.serializeUpdateCourse(course);
-  assert.deepEqual(courseObject, expected, 'Serializer response');
+  const serializedCourse = serializer.serializeUpdateCourse(courseModel);
+  assert.deepEqual(serializedCourse, expectedSerializedCourse, 'Wrong serialized Course');
 });
 
 test('normalizeCourse', function (assert) {
   const serializer = this.subject();
-
   const payload = {
     "id": "course-id",
     "title": "Course title",
@@ -107,18 +105,21 @@ test('normalizeCourse', function (assert) {
       }
     ]
   };
-
   var expected = Course.create(Ember.getOwner(this).ownerInjection(), {
     children: [
       Unit.create(Ember.getOwner(this).ownerInjection(), {
         id: payload.unit_summary[0].unit_id,
         sequence: payload.unit_summary[0].sequence_id,
-        title: payload.unit_summary[0].title
+        title: payload.unit_summary[0].title,
+        essentialQuestions: undefined,
+        bigIdeas: undefined
       }),
       Unit.create(Ember.getOwner(this).ownerInjection(), {
         id: payload.unit_summary[1].unit_id,
         sequence: payload.unit_summary[1].sequence_id,
-        title: payload.unit_summary[1].title
+        title: payload.unit_summary[1].title,
+        essentialQuestions: undefined,
+        bigIdeas: undefined
       })
     ],
     audience: payload.audience.slice(0),
@@ -132,9 +133,8 @@ test('normalizeCourse', function (assert) {
     title: payload.title,
     unitCount: 0
   });
-
-  const result = serializer.normalizeCourse(payload);
-  assert.deepEqual(result, expected, 'Serialized response');
+  const normalizedCourse = serializer.normalizeCourse(payload);
+  assert.deepEqual(normalizedCourse, expected, 'Wrong normalized Course');
 });
 
 test('normalizeGetCourses', function(assert) {

@@ -102,6 +102,28 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Associates a Course with a Class
+   *
+   * @param classId the class id
+   * @param courseId the course id
+   * @returns {Promise}
+   */
+  associateCourseToClass: function(courseId, classId) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/${classId}/courses/${courseId}`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({})
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
    * Creates the headers required by API 3.0
    * @returns {{Authorization: string}}
    */

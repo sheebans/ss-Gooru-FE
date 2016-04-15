@@ -32,7 +32,7 @@ export default Ember.Object.extend({
     const serializer = this;
     const format = QuestionModel.normalizeQuestionType(questionData.content_subformat);
     const standards = questionData.taxonomy || [];
-    return QuestionModel.create({
+    return QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: questionData.id,
       title: questionData.title,
       type: format,

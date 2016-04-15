@@ -96,3 +96,22 @@ test('readClassMembers', function(assert) {
       assert.deepEqual({}, response, 'Wrong response');
     });
 });
+
+test('associateCourseToClass', function(assert) {
+  const adapter = this.subject();
+  const courseId = 'course-id';
+  const classId = 'class-id';
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.put('/api/nucleus/v1/classes/class-id/courses/course-id', function() {
+      return [204, {'Content-Type': 'application/json'}, ''];
+    }, false);
+  });
+  adapter.associateCourseToClass(courseId, classId)
+    .then(function(response) {
+      assert.equal(undefined, response, 'Wrong response');
+    });
+});
+
