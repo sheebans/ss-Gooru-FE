@@ -247,7 +247,7 @@ test('it renders the lesson correctly, if the lesson has no collections/assessme
 
   const $lessonList = $component.find('.view .panel-body ol.accordion-lesson');
   assert.ok($lessonList.length, 'Lesson items list');
-  assert.ok(!$lessonList.find('> li.lesson-item').length, 'No lesson items by default');
+  assert.ok(!$lessonList.find('> li.gru-accordion-lesson-item').length, 'No lesson items by default');
 
   const $addActions = $component.find('.view .panel-body > div');
   assert.ok($addActions.length, 'Add actions container');
@@ -320,9 +320,6 @@ test('it loads lesson items and renders them after clicking on the lesson name',
 
   $container.find('> .panel-heading > strong > a').click();
   assert.ok($container.hasClass('expanded'), 'Container expanded');
-
-  // TODO: implementation pending
-  //assert.equal($container.find('.accordion-lesson > li.lesson-item').length, 2, 'Number of lessons loaded');
-
+  assert.equal($container.find('.accordion-lesson > li.gru-accordion-lesson-item').length, 2, 'Number of lesson items loaded');
   assert.ok(this.get('isLoaded'), 'Data was loaded');
 });
