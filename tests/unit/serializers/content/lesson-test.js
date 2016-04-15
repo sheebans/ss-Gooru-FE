@@ -1,7 +1,7 @@
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
+//import Ember from 'ember';
 import Lesson from 'gooru-web/models/content/lesson';
-import LessonItem from 'gooru-web/models/content/lessonItem';
+//import LessonItem from 'gooru-web/models/content/lessonItem';
 import { CREATOR_SYSTEM } from 'gooru-web/config/config';
 
 moduleFor('serializer:content/lesson', 'Unit | Serializer | content/lesson');

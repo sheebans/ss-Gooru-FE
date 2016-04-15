@@ -62,41 +62,11 @@
     <ol class="accordion-lesson" role="tablist" aria-multiselectable="true">
 
       {{#each items as |item index|}}
-        <li class="lesson-item view">
-          <div class="panel panel-default view collapsed">
-            <div class="panel-heading">
-              <h3>{{plus-one index}}</h3>
-              {{#link-to 'sign-in' class="title"}}
-                {{#if item.image}}
-                  <img class="img-rounded" src="{{item.image}}" />
-                {{else}}
-                  <span class="image-placeholder"></span>
-                {{/if}}
-                <div>
-                  <strong>{{item.title}}</strong>
-                  <span>{{item.format}}</span>
-                </div>
-              {{/link-to}}
 
-              <div class="detail">
-                {{#if item.isCollection}}
-                  <span><b>{{item.resourceCount}}</b> {{t "common.resource-pl" count=item.resourceCount}}</span>
-                  {{#if item.questionCount}}
-                    | <span><b>{{item.questionCount}}</b> {{t "common.question-pl" count=item.questionCount}}</span>
-                  {{/if}}
-                {{else}}
-                  <span><b>{{item.questionCount}}</b> {{t "common.question-pl" count=item.questionCount}}</span>
-                {{/if}}
+        {{content.courses.gru-accordion-lesson-item
+          model=item
+          index=index }}
 
-                <div class="actions">
-
-                  {{partial 'content/partials/item-actions'}}
-
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
       {{/each}}
     </ol>
 
