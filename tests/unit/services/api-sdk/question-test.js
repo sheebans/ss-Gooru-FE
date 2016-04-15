@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
+import QuestionModel from 'gooru-web/models/content/question';
 
 moduleForService('service:api-sdk/question', 'Unit | Service | api-sdk/question', {
 
@@ -56,3 +57,29 @@ test('readQuestion', function(assert) {
   var done = assert.async();
   service.readQuestion(1).then(function() { done(); });
 });
+
+test('updateQuestion', function(assert) {
+  const service = this.subject();
+  const expectedQuestionId = 'question-id';
+  const expectedQuestionModel = QuestionModel.create({ title: 'Question title' });
+
+  assert.expect(2);
+
+  service.set('questionAdapter', Ember.Object.create({
+    updateQuestion: function(questionId) {
+      assert.equal(questionId, expectedQuestionId, "Wrong question id" );
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  service.set('questionSerializer', Ember.Object.create({
+    serializeUpdateQuestion: function(questionObject) {
+      assert.deepEqual(questionObject, expectedQuestionModel, 'Wrong question object');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.updateQuestion(expectedQuestionId, expectedQuestionModel).then(function() { done(); });
+});
+

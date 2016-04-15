@@ -35,13 +35,32 @@ test('readQuestion', function(assert) {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   });
-
-  this.pretender.unhandledRequest = function(verb, path) {
-    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
-  };
-
   adapter.readQuestion(12345)
     .then(function(response) {
       assert.deepEqual({}, response, 'Wrong response');
     });
 });
+
+test('updateQuestion', function(assert) {
+  const adapter = this.subject();
+  const expectedData = {
+    'short_title': 'The short title'
+  };
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.put('/api/nucleus/v1/questions/question-id', function(request) {
+      let requestBodyJson = JSON.parse(request.requestBody);
+      assert.deepEqual(requestBodyJson, expectedData, 'Expected request body is not correct');
+      return [204, {'Content-Type': 'application/json'}, ''];
+    }, false);
+  });
+  adapter.updateQuestion('question-id', expectedData)
+    .then(function() {
+      assert.ok(true);
+    }, function() {
+      assert.ok(false, 'Update question failed');
+    });
+});
+
