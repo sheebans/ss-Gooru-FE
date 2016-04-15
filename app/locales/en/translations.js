@@ -95,6 +95,7 @@ export default {
     "enter-url":"Enter URL",
     "errors": {
       "join-class-code":"Please enter the class code.",
+      "add-course-title":"Please enter the course title.",
       "can-not-join-class" : "Oops! Unable to join class. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
