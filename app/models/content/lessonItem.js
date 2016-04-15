@@ -13,6 +13,11 @@ export default Ember.Object.extend({
    */
   id: '',
 
+  /**
+   * @property {String} image - Lesson item image url
+   */
+  image: '',
+
   isCollection: Ember.computed('format', function() {
     return this.get('format') === CONTENT_TYPES.COLLECTION;
   }),
