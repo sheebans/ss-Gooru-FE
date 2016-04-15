@@ -43,6 +43,35 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Join class
+   *
+   * @param {string} code class code
+   * @returns {Promise}
+   */
+  joinClass: function (code) {
+    const service = this;
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      service.get('classAdapter').joinClass(code)
+        .then(function (responseData, textStatus, request) {
+            let classId = request.getResponseHeader('location');
+            resolve(classId);
+        },
+        function (error) { //handling server errors
+          const status = error.status;
+          if (status === 400) {
+              reject({status: status, code: 'restricted'});
+          }
+          else if (status === 404) {
+              reject({status: status, code: 'not-found'});
+          }
+          else {
+            reject(error);
+          }
+        });
+    });
+  },
+
+  /**
    * Return the list of classes related to a user
    * @returns {RSVP.Promise}
    */

@@ -225,6 +225,20 @@ test('it renders the lesson correctly, if the lesson has no collections/assessme
   assert.equal($heading.find('.detail > span').text(), this.get('i18n').t('common.add').string, 'Lesson text');
   assert.equal($heading.find('.actions button').length, 6, 'Unit header action buttons');
   assert.ok($heading.find('.actions button:eq(0)').hasClass('add-item'), 'First button is for adding a lesson');
+
+  // Add dropdown menu
+  const $addDropdown = $heading.find('.actions > .dropdown');
+  assert.ok($addDropdown.length, 'Add dropdown');
+  assert.ok(!$addDropdown.hasClass('open'), 'Add dropdown is closed by default');
+
+  // Click on the add button to open the dropdown menu
+  $heading.find('.actions .add-item').click();
+  assert.ok($addDropdown.hasClass('open'), 'Add dropdown is open');
+  assert.equal($addDropdown.find('.dropdown-menu li').length, 4, 'Dropdown options');
+
+  $heading.find('.actions .add-item').click();
+  assert.ok(!$addDropdown.hasClass('open'), 'Add dropdown is closed');
+
   assert.ok($heading.find('.actions button:eq(1)').hasClass('sort-items'), 'Second button is for reordering the lessons');
   assert.ok($heading.find('.actions button:eq(2)').hasClass('edit-item'), 'Third button is for editing the lesson');
   assert.ok($heading.find('.actions button:eq(3)').hasClass('copy-item'), 'Fourth button is for copying the lesson');

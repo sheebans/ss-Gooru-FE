@@ -6,7 +6,7 @@ const Validations = buildValidations({
     validators: [
       validator('presence', {
         presence: true,
-        message: 'Please enter an username.'
+        message: 'Please enter a username.'
       }),
       validator('length', {
         min: 4,

@@ -102,7 +102,7 @@
               }
 
               .actions {
-                div {
+                div:last-of-type {
                   border-left: 1px solid $gray-light;
                   margin-left: 5px;
                   padding-left: 10px;
@@ -187,6 +187,35 @@
     .gru-accordion-lesson {
 
       &.view {
+        > .view > .panel-heading .actions {
+          .dropdown {
+            &.open > .dropdown-toggle {
+              z-index: $zindex-dropdown + 1;
+              @include box-shadow(0 -4px 4px rgba(0,0,0,.2));
+              border-bottom-left-radius: 0;
+              border-bottom-right-radius: 0;
+              position: relative;
+              background-color: $white;
+            }
+
+            .dropdown-menu {
+              border-top-left-radius: 0;
+              border-top-right-radius: 0;
+              margin-top: -4px;
+
+              li {
+                > a {
+                  padding: 10px 20px 10px 15px;
+                  border-bottom: 1px solid $gray-lighter;
+                }
+
+                &:last-child > a {
+                  border-bottom: 0 none;
+                }
+              }
+            }
+          }
+        }
         > .expanded > .panel-body {
           background-color: $dark-300;
         }
