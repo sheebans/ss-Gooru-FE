@@ -12,6 +12,11 @@ const Validations = buildValidations({
 const Course = Ember.Object.extend(Validations, {
 
   /**
+   * @property {String} id - The Course Id
+   */
+  id: null,
+
+  /**
    * @property {Number} category - Category the course belongs to
    */
   // TODO We need to revisit this property, probably it will be a string

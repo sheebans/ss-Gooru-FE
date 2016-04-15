@@ -73,7 +73,6 @@ export default Ember.Service.extend(StoreMixin, {
    */
   updateCourse: function (courseModel) {
     var courseData = this.get('serializer').serializeUpdateCourse(courseModel);
-
     return this.get('adapter').updateCourse({
       courseId: courseModel.get('id'),
       course: courseData

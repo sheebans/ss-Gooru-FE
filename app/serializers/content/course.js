@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import Course from 'gooru-web/models/content/course';
-import Unit from 'gooru-web/models/content/unit';
+import CourseModel from 'gooru-web/models/content/course';
+import UnitSerializer from 'gooru-web/serializers/content/unit';
 import { CREATOR_SYSTEM } from 'gooru-web/config/config';
 
 /**
@@ -10,6 +10,13 @@ import { CREATOR_SYSTEM } from 'gooru-web/config/config';
  */
 export default Ember.Object.extend({
 
+  unitSerializer: null,
+
+  init: function () {
+    this._super(...arguments);
+    this.set('unitSerializer', UnitSerializer.create(Ember.getOwner(this).ownerInjection()));
+  },
+
   /**
    * Serialize a Course object into a JSON representation required by the Create Course endpoint
    *
@@ -17,8 +24,8 @@ export default Ember.Object.extend({
    * @returns {Object} returns a JSON Object
    */
   serializeCreateCourse: function(courseModel) {
-    var courseData = this.get('serializeUpdateCourse')(courseModel);
-    courseData.creator_system = CREATOR_SYSTEM;
+    var courseData = this.serializeCourse(courseModel);
+    courseData['creator_system'] = CREATOR_SYSTEM;
     return courseData;
   },
 
@@ -29,6 +36,10 @@ export default Ember.Object.extend({
    * @returns {Object} returns a JSON Object
    */
   serializeUpdateCourse: function (courseModel) {
+    return this.serializeCourse(courseModel);
+  },
+
+  serializeCourse: function(courseModel) {
     return {
       title: courseModel.get('title'),
       description: courseModel.get('description'),
@@ -46,51 +57,37 @@ export default Ember.Object.extend({
    * @param payload endpoint response format in JSON format
    * @returns {Content/Course[]} courseData - An array of course models
    */
-  normalizeGetCourses: function(courseData) {
-    if (courseData.courses) {
-      return courseData.courses.map(function (course) {
-        return this.normalizeCourse(course);
-      }.bind(this));
+  normalizeGetCourses: function(payload) {
+    const serializer = this;
+    if (payload.courses && Ember.isArray(payload.courses)) {
+      return payload.courses.map(function(course) {
+        return serializer.normalizeCourse(course);
+      });
     } else {
       return [];
     }
   },
 
-
   /**
-  * Normalize a class response
+  * Normalize a Course response
   *
-  * @param courseData - The endpoint response in JSON format
-  * @returns {Content/Course} course model
+  * @param payload - The endpoint response in JSON format
+  * @returns {Content/Course} Course Model
   */
-  normalizeCourse: function(courseData) {
+  normalizeCourse: function(payload) {
     const serializer = this;
-
-    return Course.create(Ember.getOwner(serializer).ownerInjection(), {
-      children: function () {
-        var units = [];
-        if (courseData.unit_summary) {
-          units = courseData.unit_summary.map(function (unitData) {
-            return Unit.create(Ember.getOwner(serializer).ownerInjection(), {
-              id: unitData.unit_id,
-              lessonCount: unitData.lesson_count ? unitData.lesson_count : 0,
-              sequence: unitData.sequence_id,
-              title: unitData.title
-            });
-          });
-        }
-        return units;
-      }(),
-      audience: courseData.audience ? courseData.audience.slice(0) : [],
-      description: courseData.description,
-      id: courseData.id,
-      isPublished: courseData['publish_status'] && courseData['publish_status'] === 'published',
-      isVisibleOnProfile: courseData['visible_on_profile'],
-      subject: courseData.subject_bucket,
-      taxonomy: courseData.taxonomy.slice(0),
-      thumbnailUrl: courseData.thumbnail,
-      title: courseData.title,
-      unitCount: courseData.unit_count ? courseData.unit_count : 0
+    return CourseModel.create(Ember.getOwner(serializer).ownerInjection(), {
+      id: payload.id,
+      children: serializer.get('unitSerializer').normalizeUnits(payload.unit_summary),
+      audience: payload.audience ? payload.audience.slice(0) : [],
+      description: payload.description,
+      isPublished: payload['publish_status'] && payload['publish_status'] === 'published',
+      isVisibleOnProfile: payload['visible_on_profile'],
+      subject: payload.subject_bucket,
+      taxonomy: payload.taxonomy ? payload.taxonomy.slice(0) : null,
+      thumbnailUrl: payload.thumbnail,
+      title: payload.title,
+      unitCount: payload.unit_count ? payload.unit_count : 0
       // TODO More properties will be added here...
     });
   }
