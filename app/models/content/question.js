@@ -64,8 +64,32 @@ const Question = Ember.Object.extend(Validations, {
   /**
    * @property { { code: string, description: string }[] }
    */
-  standards: null
+  standards: null,
+  /**
+   * Return a copy of the question
+   *
+   * @function
+   * @return {Question}
+   */
+  copy: function() {
 
+    var properties = [];
+    var enumerableKeys = Object.keys(this);
+
+    for (let i = 0; i < enumerableKeys.length; i++) {
+      let key = enumerableKeys[i];
+      let value = Ember.typeOf(this.get(key));
+      if (value === 'string' || value === 'number' || value === 'boolean') {
+        properties.push(key);
+      }
+    }
+
+    // Copy the question data
+    properties = this.getProperties(properties);
+
+
+    return Question.create(Ember.getOwner(this).ownerInjection(), properties);
+  }
 
 
 });

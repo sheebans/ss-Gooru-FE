@@ -307,3 +307,9 @@ export function toTimestamp(date){
 export function toLocal(timestamp){
   return moment.utc(timestamp).toDate();
 }
+/*
+ * Replace / to _
+ * */
+export function normalizeQuestionTypes(questionType) {
+  return questionType.replace('/', '_');
+}
