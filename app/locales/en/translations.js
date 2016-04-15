@@ -163,6 +163,10 @@ export default {
     "preview": "Preview",
     "question":"Question",
     "questions": "Questions",
+    "question-pl": {
+      one: "Question",
+      other: "Questions"
+    },
     "question-title":"Question Title",
     "question-type":{
       "SA"     : "Single Answer",
@@ -190,6 +194,10 @@ export default {
       "webpage"     : "Webpage",
       "audio"       : "Audio",
       "question"    : "Question"
+    },
+    "resource-pl": {
+      one: "Resource",
+      other: "Resources"
     },
     "resource-title":"Resource Title",
     "resource-url": "Resource URL",

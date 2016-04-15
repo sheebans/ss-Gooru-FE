@@ -128,6 +128,7 @@ export default Ember.Component.extend(BuilderMixin, {
         .fetchById(courseId, unitId, lessonId)
         .then(function (lesson) {
           this.set('model.data', lesson);
+          this.set('items', lesson.get('children'));
           this.set('isLoaded', true);
         }.bind(this))
 

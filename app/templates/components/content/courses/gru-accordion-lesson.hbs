@@ -32,7 +32,7 @@
         {{#if lesson.assessmentCount}}
           <span><b>{{lesson.assessmentCount}}</b> {{t "common.assessment-pl" count=lesson.assessmentCount}}</span>
         {{/if}}
-        {{if (and lesson.assessmentCount lesson.collectionCount) ' | ' ''}}
+        {{if (and lesson.assessmentCount lesson.collectionCount) '|' ''}}
         {{#if lesson.collectionCount}}
           <span><b>{{lesson.collectionCount}}</b> {{t "common.collection-pl" count=lesson.collectionCount}}</span>
         {{/if}}
@@ -51,12 +51,9 @@
           </ul>
         </div>
         <button class="btn sort-items" {{action 'swap'}}>{{gru-icon name="swap_vert"}}</button>
-        <div>
-          <button class="btn edit-item" {{action 'edit' model}}>{{gru-icon name="edit"}}</button>
-          <button class="btn copy-item" {{action 'copy' model}}>{{gru-icon name="content_copy"}}</button>
-          <button class="btn move-item" {{action 'move' model}}>{{gru-icon name="subdirectory_arrow_right"}}</button>
-          <button class="btn delete-item" {{action 'delete' model}}>{{gru-icon name="delete"}}</button>
-        </div>
+
+        {{partial 'content/partials/item-actions'}}
+
       </div>
     </div>
   </div>
@@ -64,6 +61,43 @@
 
     <ol class="accordion-lesson" role="tablist" aria-multiselectable="true">
 
+      {{#each items as |item index|}}
+        <li class="lesson-item view">
+          <div class="panel panel-default view collapsed">
+            <div class="panel-heading">
+              <h3>{{plus-one index}}</h3>
+              {{#link-to 'sign-in' class="title"}}
+                {{#if item.image}}
+                  <img class="img-rounded" src="{{item.image}}" />
+                {{else}}
+                  <span class="image-placeholder"></span>
+                {{/if}}
+                <div>
+                  <strong>{{item.title}}</strong>
+                  <span>{{item.format}}</span>
+                </div>
+              {{/link-to}}
+
+              <div class="detail">
+                {{#if item.isCollection}}
+                  <span><b>{{item.resourceCount}}</b> {{t "common.resource-pl" count=item.resourceCount}}</span>
+                  {{#if item.questionCount}}
+                    | <span><b>{{item.questionCount}}</b> {{t "common.question-pl" count=item.questionCount}}</span>
+                  {{/if}}
+                {{else}}
+                  <span><b>{{item.questionCount}}</b> {{t "common.question-pl" count=item.questionCount}}</span>
+                {{/if}}
+
+                <div class="actions">
+
+                  {{partial 'content/partials/item-actions'}}
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      {{/each}}
     </ol>
 
     <div>
