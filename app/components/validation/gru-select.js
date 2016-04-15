@@ -21,15 +21,6 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-  /**
-   * Update user birth date
-   * @param {String} dateValue - birth date as a string
-   */
-  actions:{
-    setValue:function(value){
-      this.set("model."+this.valuePath, value);
-    }
-  },
 
   // -------------------------------------------------------------------------
   // Events
@@ -41,15 +32,22 @@ export default Ember.Component.extend({
 
     this.$('.selectpicker').selectpicker();
     this.$('.selectpicker').on('loaded.bs.select', function () {
-
-      this.$('.selectpicker').on('change', function(e) {
+       this.$('.selectpicker').on('change', function(e) {
         e.stopPropagation();
-        Ember.run(function() {
-          var optionSelected = this.$('.selectpicker option:selected').val();
-          this.set('optionSelected', optionSelected);
-        }.bind(this));
+        var optionSelected = this.$('.selectpicker option:selected').val();
+        this.set('optionSelected', optionSelected);
+        this.sendAction("onOptionSelect", optionSelected);
       }.bind(this));
     }.bind(this));
+  },
+
+  /**
+   * willDestroyElement event
+   */
+  willDestroyElement: function(){
+    this.set('options', null);
+    this.set('title', null);
+    this.set('search', false);
   },
   // -------------------------------------------------------------------------
   // Properties
@@ -60,16 +58,7 @@ export default Ember.Component.extend({
 
   title: null,
 
-  search: false,
-
-  optionSelected: null
-
-  /**
-   * @param {Computed } showErrorClass - computed property that defines the
-   */
-  //showMessage: computed('isTyping', 'showMessage', 'hasContent', 'attributeValidation', function() {
-  //  return this.get('attributeValidation') && !this.get('isTyping') && this.get('showMessage') && this.get('hasContent');
-  //}),
+  search: false
 
   // -------------------------------------------------------------------------
   // Observers

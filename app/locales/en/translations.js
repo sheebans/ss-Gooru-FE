@@ -410,6 +410,8 @@ export default {
     "student": "Student",
     "other": "Other",
     "country": "Country",
+    "state": "State",
+    "district": "District",
     "error-username-taken": "Aww, this username is taken. Try another.",
     "error-email-taken": "This email is taken. Try another.",
   },

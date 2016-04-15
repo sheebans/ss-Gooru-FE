@@ -8,11 +8,16 @@ export default Ember.Route.extend({
   lookupService: Ember.inject.service('api-sdk/lookup'),
 
   model: function() {
-    var countries = this.get("lookupService").readCountries();
-
-    return Ember.RSVP.hash({
-      countries: countries
-    });
+    const route = this;
+    return route.get("lookupService").readCountries()
+      .then(function(countries) {
+        var usCountry = countries.findBy("code", 'US');
+        var usStates = route.get("lookupService").readStates(usCountry.id);
+        return Ember.RSVP.hash({
+          countries: countries,
+          states: usStates
+        });
+      });
   },
 
   /**
@@ -23,5 +28,6 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     this._super(controller, model);
     controller.set("countries", model.countries);
+    controller.set('states', model.states);
   }
 });

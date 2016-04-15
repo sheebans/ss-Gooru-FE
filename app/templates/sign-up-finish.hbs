@@ -16,49 +16,65 @@
         <div class="modal-body">
           <div class="wrapper">
             <div class="main">
-              <div class="sign-up-form">
+              <div class="sign-up-finish-form">
                 <form id="signUpForm" {{action "next" on="submit"}}>
                   <div class="form-group role">
                     <p><span class="required">{{t 'sign-up.role'}}</span></p>
                     <div class="roles">
                       {{
-                      validation.gru-radio
-                      model=profile
-                      groupValue=currentClassSharing
-                      valuePath='open'
-                      name="role-radio"
-                      translationPath="sign-up.teacher"
+                        validation.gru-radio
+                        model=profile
+                        groupValue=currentClassSharing
+                        valuePath='teacher'
+                        name="role-radio"
+                        translationPath="sign-up.teacher"
                       }}
                       {{
-                      validation.gru-radio
-                      model=profile
-                      groupValue=currentClassSharing
-                      valuePath='restricted'
-                      name="role-radio"
-                      translationPath="sign-up.student"
+                        validation.gru-radio
+                        model=profile
+                        groupValue=currentClassSharing
+                        valuePath='student'
+                        name="role-radio"
+                        translationPath="sign-up.student"
                       }}
                       {{
-                      validation.gru-radio
-                      model=profile
-                      groupValue=currentClassSharing
-                      valuePath='restricted'
-                      name="role-radio"
-                      translationPath="sign-up.other"
+                        validation.gru-radio
+                        model=profile
+                        groupValue=currentClassSharing
+                        valuePath='other'
+                        name="role-radio"
+                        translationPath="sign-up.other"
                       }}
                     </div>
                   </div>
-
                   <div class="form-group">
                     <label>
                       <span class="required">{{t "sign-up.country"}}</span>
-                      {{validation.gru-select options=countries title=(t "common.select") search="true" optionSelected=optionSelected
-                      model=profile valuePath='country'}}
+                      {{validation.gru-select options=countries title=(t "common.select") search="true" onOptionSelect="countrySelect"}}
                     </label>
                   </div>
-
-                  {{#if country2Selected}}
-                    <div>states</div>
-                    {{/if}}
+                  {{#if showStates}}
+                    <div class="form-group">
+                      <label>
+                        <span class="required">{{t "sign-up.state"}}</span>
+                        {{validation.gru-select options=states title=(t "common.select") search="true" onOptionSelect="stateSelect"}}
+                      </label>
+                    </div>
+                  {{/if}}
+                  {{#if districts}}
+                    <div class="form-group">
+                      <label>
+                        <span class="required">{{t "sign-up.district"}}</span>
+                        {{validation.gru-select options=districts title=(t "common.select") search="true" onOptionSelect="districtSelect"}}
+                      </label>
+                    </div>
+                    <div class="form-group">
+                      <label>
+                        <span>{{t "sign-up.other"}}</span>
+                        {{validation.gru-input model=profile valuePath='district' type='district'}}
+                      </label>
+                    </div>
+                  {{/if}}
                   <div class="sign-up-button form-group text-center">
                     <button type="submit" class="btn btn-success submit-sign-up">{{t "common.next"}}</button>
                   </div>

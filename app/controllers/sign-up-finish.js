@@ -27,26 +27,37 @@ export default Ember.Controller.extend({
   actions: {
 
     next: function() {
-
+      //to do
       console.log('next');
+    },
 
-      //const controller = this;
-      //const profile = controller.get('profile');
-      //const validDate = controller.validDateSelectPicker();
-      //profile.validate().then(function ({model, validations}) {
-      //  if (validations.get('isValid') && validDate!=='') {
-      //    profile.set('dateOfBirth', validDate);
-      //    controller.get("profileService").createProfile(profile)
-      //      .then(function(profile){
-      //        controller.get("sessionService")
-      //          .signUp(profile).then(function(){
-      //          // Trigger action in parent
-      //          controller.send('signUp');
-      //        });
-      //      });
-      //  }
-      //  controller.set('didValidate', true);
-      //});
+    countrySelect: function(id){
+      var controller = this;
+      var countries = this.get('countries');
+      var countryCode = countries.findBy("id", id).code;
+      if (countryCode==='US') {
+        controller.set('showStates', true);
+      }
+      else {
+        controller.set('showStates', false);
+        controller.set('districts', null);
+      }
+    },
+
+    stateSelect: function(id){
+     var controller = this;
+      controller.set('districts', null);
+
+      controller.get("lookupService").readDistricts(id)
+        .then(function(districts) {
+           controller.set('districts', districts);
+        });
+    },
+
+    districtSelect: function(id){
+
+      //to do
+      console.log(id);
     }
   },
 
@@ -89,24 +100,25 @@ export default Ember.Controller.extend({
   countries: null,
 
   /**
-   * List of countries
+   * List of states
    * @property {States[]}
    */
 
   states: null,
 
   /**
-   * List of countries
+   * showStates
+   * @property {Boolean}
+   */
+
+  showStates: false,
+
+  /**
+   * List of districts
    * @property {Districts[]}
    */
 
-  districts: null,
-  optionSelected: null,
-
-  countrySelected2: Ember.computed('optionSelected', function() {
-    console.log('countrySelected-finish', this.get('optionSelected'));
-    return this.get('optionSelected');
-  })
+  districts: null
 
   // -------------------------------------------------------------------------
   // Methods
