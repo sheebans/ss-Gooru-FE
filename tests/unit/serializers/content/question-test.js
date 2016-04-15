@@ -10,10 +10,26 @@ test('serializeCreateQuestion', function(assert) {
     type: 'MA'
   });
   const expected = {
-    title: 'question-title',
+    'short_title': 'question-title',
     content_subformat: 'multiple_answer_question' //subformat is converted at the serializer
   };
   const response = serializer.serializeCreateQuestion(questionObject);
+  assert.deepEqual(expected, response, 'Wrong serialized response');
+});
+
+test('serializeUpdateQuestion', function(assert) {
+  const serializer = this.subject();
+  const questionObject = QuestionModel.create({
+    title: 'question-title',
+    type: 'MA',
+    text: 'This is the question text?'
+  });
+  const expected = {
+    'short_title': 'question-title',
+    title: 'This is the question text?',
+    content_subformat: 'multiple_answer_question' //subformat is converted at the serializer
+  };
+  const response = serializer.serializeUpdateQuestion(questionObject);
   assert.deepEqual(expected, response, 'Wrong serialized response');
 });
 

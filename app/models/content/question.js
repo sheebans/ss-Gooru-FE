@@ -44,7 +44,7 @@ const Question = Ember.Object.extend(Validations, {
   /**
    * @property {string}
    */
-  description: null,
+  text: null,
 
   /**
    * @property {string} published|unpublished|requested

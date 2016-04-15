@@ -18,8 +18,22 @@ export default Ember.Object.extend({
   serializeCreateQuestion: function(questionModel) {
     const format = QuestionModel.serializeQuestionType(questionModel.get("type"));
     return {
-      title: questionModel.get('title'),
-      content_subformat: format
+      'short_title': questionModel.get('title'),
+      'content_subformat': format
+    };
+  },
+
+  /**
+   * Serialize a Question object into a JSON representation required by the Update Question endpoint
+   *
+   * @param questionModel The Question model to be serialized
+   * @returns {Object} returns a JSON Object
+   */
+  serializeUpdateQuestion: function(questionModel) {
+    return {
+      'short_title': questionModel.get('title'),
+      title: questionModel.get('text'),
+      'content_subformat': QuestionModel.serializeQuestionType(questionModel.get("type"))
     };
   },
 
@@ -54,9 +68,7 @@ export default Ember.Object.extend({
     return standards.map(function(standard){
       return Ember.Object.create({ code: standard, description: null });
     });
-  },
-
-
+  }
 
 });
 
