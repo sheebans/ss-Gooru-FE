@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
 import {QUESTION_CONFIG} from 'gooru-web/config/question';
+import {normalizeQuestionTypes} from 'gooru-web/utils/utils';
 
 
 export default Ember.Component.extend(ContentEditMixin,{
@@ -94,16 +95,9 @@ export default Ember.Component.extend(ContentEditMixin,{
     let array = Ember.A(Object.keys(QUESTION_CONFIG));
     const $component = this;
     let arrayTypes=array.map(function(item){
-      return $component.normalizeQuestionTypes(item);
+      return normalizeQuestionTypes(item);
     });
     return arrayTypes;
   }),
 
-  //Methods
-  /*
-   * Replace / to _
-   * */
-  normalizeQuestionTypes: function(questionType) {
-    return questionType.replace('/', '_');
-  },
 });

@@ -137,6 +137,7 @@ export default {
     "no-results-message":"Check your spelling. We all make mistakes!<br/>Go broader & remove some filters.<br/>Try searching for a similar word instead.",
     "notStarted": "Not started",
     "not-specified":"Not specified",
+    "not-added":"Not Added",
     "number":"No.",
     "numberStudents": {
       one: "{{count}} Student",
