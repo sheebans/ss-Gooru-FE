@@ -7,7 +7,8 @@ const Validations = buildValidations({
     validators: [
       validator('presence', {
         presence: true,
-        message:'Please enter the question title.'
+        message: '{{description}}',
+        descriptionKey: 'common.errors.add-question-title'
       })
     ]
   }
