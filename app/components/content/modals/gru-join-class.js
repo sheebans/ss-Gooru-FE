@@ -44,7 +44,6 @@ export default Ember.Component.extend(Validations,{
 
     joinClass: function () {
       const component = this;
-      component.set("errorMessage", null);
       component.validate().then(function ({validations }) {
         if (validations.get('isValid')) {
           component.sendAction("onJoinClass", component.get("code"));
