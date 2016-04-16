@@ -37,7 +37,7 @@ test('Join class', function (assert) {
 
     click($container.find("a.join-class-btn"));
     andThen(function(){
-      assert.equal(currentURL(), '/user');
+      assert.equal(currentURL(), '/class/2d84ab6c-10ee-4578-b89a-6b41c87dc9fc/overview');
     });
 
   });

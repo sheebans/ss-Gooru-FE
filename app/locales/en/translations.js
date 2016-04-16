@@ -323,11 +323,11 @@ export default {
       "title": "Join a Class",
       "content": "Where the journey begins.",
       "class-code-input": "Enter a Class Code",
-      "terms-and-conditions": 'By clicking "Join Class" I agree to share my collection progress and information with [teacher username]. This information provides [teacher username] with tools that measure your progress and help to enhance your learning experience.',
+      "terms-and-conditions": 'By clicking Join Class, I agree to share my assessment and collection progress data generated from studying this Gooru class, with the teacher(s) of this class.',
       "not-now": "Not now",
       "join-class": "Join Class",
-      "class-not-found": "Class not found. Make sure you've entered the correct class code",
-      "join-not-allowed": "You are not able to join this class",
+      "invalid-code": "Invalid class code.",
+      "join-not-allowed": "You are not allow to join this class",
 
     }
   },
