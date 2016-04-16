@@ -20,7 +20,7 @@ export default Ember.Controller.extend({
   notifications: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
-  // actions
+  // Actions
 
   actions: {
     /**
@@ -29,22 +29,43 @@ export default Ember.Controller.extend({
      */
     joinClass: function(code){
       const controller = this;
-      controller.get("classService")
-        .joinClass(code).then(function(){
-        controller.transitionToRoute('user');
-          //TODO redirect to class
-        }, function (error){
-          let message = controller.get('i18n').t('common.errors.can-not-join-class').string;
-          if (error.code === 'restricted'){
-            message = controller.get('i18n').t('content.classes.join.join-not-allowed').string;
-          }
-          else if(error.code === 'not-found'){
-            message = controller.get('i18n').t('content.classes.join.class-not-found').string;
-          }
-          controller.get('notifications').error(message);
-        });
+      controller.set("allowedCode", true);
+      controller.set("validCode", true);
 
+      controller.get("classService")
+        .joinClass(code)
+        .then(function (classId) {
+          controller.transitionToRoute('class.overview', classId);
+        }, function (error) {
+          if (error.code === 'restricted') {
+            controller.set("allowedCode", null);
+          }
+          else if (error.code === 'not-found') {
+            controller.set("validCode", null);
+          }
+          else {
+            let message = controller.get('i18n').t('common.errors.can-not-join-class').string;
+            controller.get('notifications').error(message);
+          }
+        });
     }
-  }
+  },
+
+  // -------------------------------------------------------------------------
+  // Properties
+  /**
+   * Indicates if the code is valid, false when the class is not found
+   * @property {boolean}
+   */
+  validCode: true,
+
+  /**
+   * Indicates if the code is allowed, false if the user can't join that class
+   * @property {boolean}
+   */
+  allowedCode: true
+
+
+
 
 });
