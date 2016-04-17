@@ -10,11 +10,16 @@ import Ember from 'ember';
  */
 export default Ember.Controller.extend({
 
+  queryParams: ['selectedOptionTypes'],
   // -------------------------------------------------------------------------
   // Dependencies
   searchController: Ember.inject.controller('search'),
 
-  queryParams: ['selectedOptionTypes'],
+  /**
+   * @property {Ember.Service} Service to do the search
+   */
+  searchService: Ember.inject.service('api-sdk/search'),
+
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -28,7 +33,11 @@ export default Ember.Controller.extend({
      * Action triggered to selectMenuOption
      */
     selectMenuOption: function (option) {
-      var selectedOptionTypes = this.get('selectedOptionTypes');
+      var controller = this;
+      var searchService = controller.get('searchService');
+      var selectedOptionTypes = controller.get('selectedOptionTypes');
+      var term = controller.get('term');
+
 
       if(selectedOptionTypes.contains(option)){
         selectedOptionTypes.removeObject(option);
@@ -36,6 +45,10 @@ export default Ember.Controller.extend({
       else {
         selectedOptionTypes.pushObject(option);
       }
+      searchService.searchQuestions(term, selectedOptionTypes)
+        .then(function(questionResults){
+          controller.set("questionResults", questionResults);
+        });
 
       this.set('selectedOptionTypes', selectedOptionTypes);
     }
@@ -43,9 +56,6 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Events
-
-  // -------------------------------------------------------------------------
-  // Services
 
   // -------------------------------------------------------------------------
   // Properties
@@ -58,15 +68,15 @@ export default Ember.Controller.extend({
   selectedOptionTypes: Ember.A([]),
 
   /**
-   * These are the resource search results
-   * @property {resourceResults[]}
+   * These are the question search results
+   * @property {Content/Question[]}
    */
-  resourceResults: null,
+  questionResults: null,
 
   /**
    * @property {string} term filter
    */
-  term: null
+  term: Ember.computed.alias("searchController.term")
 
   // -------------------------------------------------------------------------
   // Methods

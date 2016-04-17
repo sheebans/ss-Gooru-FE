@@ -40,18 +40,37 @@ export default Ember.Service.extend({
   },
 
   /**
-   * Search for resources or questions
+   * Search for resources
    *
    * @param term the term to search
-   * @param categories is an array with the values to filter the search
-   * @returns {Promise}
+   * @param formatValues is an array with the values to filter the search
+   * @returns {Promise.<Content/Resource[]>}
    */
-  searchResources: function(term, categories) {
+  searchResources: function(term, formatValues) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('searchAdapter').searchResources(term, categories)
+      service.get('searchAdapter').searchResources(term, formatValues)
         .then(function(response) {
           resolve(service.get('searchSerializer').normalizeSearchResources(response));
+        }, function(error) {
+          reject(error);
+      });
+    });
+  },
+
+  /**
+   * Search for questions
+   *
+   * @param term the term to search
+   * @param types is an array with the values to filter the search
+   * @returns {Promise.<Content/Question[]>}
+   */
+  searchQuestions: function(term, types) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('searchAdapter').searchQuestions(term, types)
+        .then(function(response) {
+          resolve(service.get('searchSerializer').normalizeSearchQuestions(response));
         }, function(error) {
           reject(error);
       });

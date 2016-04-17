@@ -189,17 +189,14 @@ export default Ember.Service.extend({
     });
   },
 
-  //
-  // TODO The following functions must be deleted once API 3.0 integration is done
-  //
-  findById: function(profileId) {
-    return this.get('store').findRecord('profile', profileId);
-  },
-
+  /**
+   * Returns the current logged user information
+   * @returns {*}
+   */
   findByCurrentUser: function() {
     if (!this.get('session.isAnonymous')) {
       var currentProfileId = this.get('session.userId');
-      return this.findById(currentProfileId);
+      return this.readUserProfile(currentProfileId);
     }
     return null;
   },

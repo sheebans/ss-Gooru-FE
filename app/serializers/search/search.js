@@ -1,6 +1,11 @@
 import Ember from 'ember';
 import SearchCollectionModel from 'gooru-web/models/search/collection';
-import SearchResourceModel from 'gooru-web/models/search/resource';
+
+import ResourceModel from 'gooru-web/models/content/resource';
+import QuestionModel from 'gooru-web/models/content/question';
+import AssessmentModel from 'gooru-web/models/content/assessment';
+import CollectionModel from 'gooru-web/models/content/collection';
+import ProfileModel from 'gooru-web/models/profile/profile';
 
 /**
  * Serializer to support Search functionality
@@ -47,31 +52,92 @@ export default Ember.Object.extend({
    * Normalize the Search resources response
    *
    * @param payload is the endpoint response in JSON format
-   * @returns {SearchResourceModel[]}
+   * @returns {Content/Resource[]}
    */
   normalizeSearchResources: function(payload) {
     const serializer = this;
     if (Ember.isArray(payload.searchResults)) {
       return payload.searchResults.map(function(result) {
-        return SearchResourceModel.create({
-          title: result.title,
-          description: result.description ? result.description : '',
-          format: (result.resourceFormat ? result.resourceFormat.value : ''),
-          publisher: (Ember.isArray(result.publisher) && result.publisher.length > 0 ? result.publisher[0] : ''),
-          thumbnailUrl: (result.thumbnails ? result.thumbnails.url : ''),
-          url: result.url ? result.url : '',
-          owner: Ember.Object.create(result.creator ? {
-            id: result.creator.gooruUId,
-            firstName: result.creator.firstName,
-            lastName: result.creator.lastName,
-            username: result.creator.usernameDisplay,
-            avatarUrl: result.creator.profileImageUrl
-          } : {}),
-          standards: serializer.normalizeStandards(result)
-        });
+        return serializer.normalizeResource(result);
       });
     }
   },
+
+  /**
+   * Normalize the Search question response
+   *
+   * @param payload is the endpoint response in JSON format
+   * @returns {Content/Question[]}
+   */
+  normalizeSearchQuestions: function(payload) {
+    const serializer = this;
+    if (Ember.isArray(payload.searchResults)) {
+      return payload.searchResults.map(function(result) {
+        return serializer.normalizeQuestion(result);
+      });
+    }
+  },
+
+  /**
+   * Normalizes a question
+   * @param {*} result
+   * @returns {Content/Question}
+   */
+  normalizeQuestion: function(result){
+    const serializer = this;
+    const format = result.resourceFormat.value; //value should be 'question'
+    const type = QuestionModel.normalizeQuestionType(result.typeName);
+    return QuestionModel.create({
+      id: result.gooruOid,
+      title: result.title,
+      description: result.description,
+      format: format,
+      publisher: null, //TODO missing publisher at API response,
+      thumbnailUrl: result.thumbnail,
+      type: type,
+      owner: result.user ? serializer.normalizeOwner(result.user) : null,
+      standards: [], //TODO missing standards at API response serializer.normalizeStandards(result)
+    });
+  },
+
+  /**
+   * Normalizes a resource
+   * @param {*} result
+   * @returns {Content/Resource}
+   */
+  normalizeResource: function(result){
+    const serializer = this;
+    const resourceFormat = result.resourceFormat.value;
+    const format = ResourceModel.normalizeResourceFormat(resourceFormat);
+    return ResourceModel.create({
+      id: result.gooruOid,
+      title: result.title,
+      description: result.description,
+      format: format,
+      url: result.url,
+      publisher: null, //TODO missing publisher at API response,
+      thumbnailUrl: result.thumbnail, // TODO missing at API response
+      owner: result.user ? serializer.normalizeOwner(result.user) : null,
+      standards: [] //TODO missing standards at API response serializer.normalizeStandards(result)
+      //publisherStatus //TODO missing at API response
+    });
+  },
+
+  /**
+   * Normalizes owner
+   * @param ownerData
+   * @returns {Profile}
+   */
+  normalizeOwner: function (ownerData) {
+    return ProfileModel.create({
+      id: ownerData.gooruUId,
+      firstName: ownerData.firstName,
+      lastName: ownerData.lastName,
+      username: ownerData.usernameDisplay, //TODO missing username on API response
+      avatarUrl: ownerData.profileImageUrl //TODO missing username on API response
+    });
+  },
+
 
   normalizeStandards(payload) {
     let standards = [];

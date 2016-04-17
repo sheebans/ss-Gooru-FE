@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Question from 'gooru-web/models/content/question';
-import {QUESTION_CONFIG} from 'gooru-web/config/question';
+import {QUESTION_TYPES} from 'gooru-web/config/question';
 import {normalizeQuestionTypes} from 'gooru-web/utils/utils';
 export default Ember.Component.extend({
 
@@ -102,7 +102,7 @@ export default Ember.Component.extend({
    * @type {Array{}} questionTypes
    */
   questionTypes: Ember.computed(function(){
-    let array = Ember.A(Object.keys(QUESTION_CONFIG)).without('OE');
+    let array = Ember.A(Object.keys(QUESTION_TYPES)).without('OE');
     this.move(array,6,2);
     this.move(array,7,3);
     this.move(array,7,6);

@@ -9,8 +9,23 @@ import HotSpotImageUtil from 'gooru-web/utils/question/hot-spot-image';
 import HotSpotTextUtil from 'gooru-web/utils/question/hot-spot-text';
 import HotTextHighlightUtil from 'gooru-web/utils/question/hot-text-highlight';
 
+
+//Question Types
+export const QUESTION_TYPES = {
+  multipleChoice: "MC",
+  multipleAnswer: "MA",
+  trueFalse: "T/F",
+  openEnded: "OE",
+  fib: "FIB",
+  hotSpotText: "HS_TXT",
+  hotSpotImage: "HS_IMG",
+  hotTextReorder: "HT_RO",
+  hotTextHighlight: "HT_HL"
+};
+
+//Question type configuration
 export const QUESTION_CONFIG = {
-  'MC'    : Ember.Object.create({
+  "MC"    : Ember.Object.create({
     apiType: 'multiple_choice_question',
     util: MultipleChoiceUtil,
     component: {
@@ -18,7 +33,7 @@ export const QUESTION_CONFIG = {
       answer: 'reports.assessment.questions.gru-multiple-choice',
     }
   }),
-  'MA'    : Ember.Object.create({
+  "MA"    : Ember.Object.create({
     apiType: 'multiple_answer_question',
     util: MultipleAnswerUtil,
     component: {
@@ -26,7 +41,7 @@ export const QUESTION_CONFIG = {
       answer: 'reports.assessment.questions.gru-multiple-answer',
     }
   }),
-  'T/F'   : Ember.Object.create({
+  "T/F"   : Ember.Object.create({
     apiType: 'true_false_question',
     util: TrueFalseUtil,
     component: {
@@ -34,7 +49,7 @@ export const QUESTION_CONFIG = {
       answer: 'reports.assessment.questions.gru-true-false',
     }
   }),
-  'OE'    : Ember.Object.create({
+  "OE"    : Ember.Object.create({
     apiType: 'open_ended_question',
     util: OpenEndedUtil,
     component: {
@@ -42,7 +57,7 @@ export const QUESTION_CONFIG = {
       answer: 'reports.assessment.questions.gru-open-ended',
     }
   }),
-  'FIB'   : Ember.Object.create({
+  "FIB"   : Ember.Object.create({
     apiType: 'fill_in_the_blank_question',
     util: FillInTheBlankUtil,
     component: {
@@ -50,7 +65,7 @@ export const QUESTION_CONFIG = {
       answer: 'reports.assessment.questions.gru-fib',
     }
   }),
-  'HS_TXT': Ember.Object.create({
+  "HS_TEXT" : Ember.Object.create({
     apiType: 'hot_spot_text_question',
     util: HotSpotTextUtil,
     component: {
@@ -58,7 +73,7 @@ export const QUESTION_CONFIG = {
       answer: 'reports.assessment.questions.gru-hs-text',
     }
   }),
-  'HS_IMG': Ember.Object.create({
+  "HS_IMG"  : Ember.Object.create({
     apiType: 'hot_spot_image_question',
     util: HotSpotImageUtil,
     component: {
@@ -66,7 +81,7 @@ export const QUESTION_CONFIG = {
       answer: 'reports.assessment.questions.gru-hs-image',
     }
   }),
-  'HT_RO' : Ember.Object.create({
+  "HT_RO"   : Ember.Object.create({
     apiType: 'hot_text_reorder_question',
     util: ReorderUtil,
     component: {
