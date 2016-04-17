@@ -22,5 +22,9 @@ test('Layout', function(assert) {
     assert.equal(currentURL(), '/search/resources?term=any');
     T.exists(assert, find(".gru-resource-options"), "Missing gru-resource-options menu");
     T.exists(assert, find(".gru-resource-results"), "Missing gru-resource-results");
+    assert.equal(find(".gru-header .search-input").val(), "any", "Wrong input value");
   });
 });
+
+//test selection options, url should change
+//test changing the term, the url should remain
