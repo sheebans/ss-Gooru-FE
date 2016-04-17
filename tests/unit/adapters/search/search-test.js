@@ -45,14 +45,14 @@ test('searchCollections for assessments', function(assert) {
 test('searchResources for all resource types', function(assert) {
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({
-    'token': 'session-token'
+    'token-api3': 'token-api-3'
   }));
   this.pretender.map(function() {
     this.get('/gooru-search/rest/v2/search/resource', function(request) {
       assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
       assert.equal(request.queryParams['start'], 1, 'Wrong default start');
       assert.equal(request.queryParams['length'], 20, 'Wrong default length');
-      assert.equal(request.queryParams['sessionToken'], "session-token", 'Wrong token');
+      assert.equal(request.queryParams['sessionToken'], "token-api-3", 'Wrong token');
       assert.ok(!request.queryParams['flt.resourceFormat'], 'Wrong format filters');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
@@ -66,14 +66,14 @@ test('searchResources for all resource types', function(assert) {
 test('searchResources for some resource types', function(assert) {
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({
-    'token': 'session-token'
+    'token-api3': 'token-api-3'
   }));
   this.pretender.map(function() {
     this.get('/gooru-search/rest/v2/search/resource', function(request) {
       assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
       assert.equal(request.queryParams['start'], 1, 'Wrong default start');
       assert.equal(request.queryParams['length'], 20, 'Wrong default length');
-      assert.equal(request.queryParams['sessionToken'], "session-token", 'Wrong token');
+      assert.equal(request.queryParams['sessionToken'], "token-api-3", 'Wrong token');
       assert.equal(request.queryParams['flt.resourceFormat'], 'image_resource,interactive_resource', 'Wrong format filters');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
@@ -87,20 +87,20 @@ test('searchResources for some resource types', function(assert) {
 test('searchQuestions for all types', function(assert) {
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({
-    'token': 'session-token'
+    'token-api3': 'token-api-3'
   }));
   this.pretender.map(function() {
     this.get('/gooru-search/rest/v2/search/resource', function(request) {
       assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
       assert.equal(request.queryParams['start'], 1, 'Wrong default start');
       assert.equal(request.queryParams['length'], 20, 'Wrong default length');
-      assert.equal(request.queryParams['sessionToken'], "session-token", 'Wrong token');
+      assert.equal(request.queryParams['sessionToken'], "token-api-3", 'Wrong token');
       assert.equal(request.queryParams['flt.resourceFormat'], 'question', 'Wrong format filter');
       assert.ok(!request.queryParams['flt.questionType'], 'Wrong question type filters');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   });
-  adapter.searchResources('any-term', [])
+  adapter.searchQuestions('any-term', [])
     .then(function(response) {
       assert.deepEqual({}, response, 'Wrong response');
     });
@@ -109,20 +109,20 @@ test('searchQuestions for all types', function(assert) {
 test('searchQuestions for some types', function(assert) {
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({
-    'token': 'session-token'
+    'token-api3': 'token-api-3'
   }));
   this.pretender.map(function() {
     this.get('/gooru-search/rest/v2/search/resource', function(request) {
       assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
       assert.equal(request.queryParams['start'], 1, 'Wrong default start');
       assert.equal(request.queryParams['length'], 20, 'Wrong default length');
-      assert.equal(request.queryParams['sessionToken'], "session-token", 'Wrong token');
+      assert.equal(request.queryParams['sessionToken'], "token-api-3", 'Wrong token');
       assert.equal(request.queryParams['flt.resourceFormat'], 'question', 'Wrong format filter');
       assert.equal(request.queryParams['flt.questionType'], 'multiple_choice_question,multiple_answer_question', 'Wrong type filters');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   });
-  adapter.searchResources('any-term', ['MC', 'MA'])
+  adapter.searchQuestions('any-term', ['MC', 'MA'])
     .then(function(response) {
       assert.deepEqual({}, response, 'Wrong response');
     });

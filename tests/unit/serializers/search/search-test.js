@@ -272,17 +272,18 @@ test('normalizeResource', function(assert) {
 test('normalizeOwner', function(assert) {
   const serializer = this.subject();
   const ownerData = {
-    "gooruUId": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
-    "firstname": "Sachin",
-    "lastname": "Zope",
+    "emailId": "",
+    "firstName": "goorutfa",
+    "gooruUId": "9eb1a416-c225-4a01-9ec3-5371b2274ccb",
+    "lastName": "tfagooru",
     "usernameDisplay": "szope",
     "profileImageUrl": "any"
   };
 
   const owner = serializer.normalizeOwner(ownerData);
-  assert.equal(owner.get("id"), 'f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d', 'Wrong id');
-  assert.equal(owner.get("firstName"), 'Sachin', 'Wrong first name');
-  assert.equal(owner.get("lastName"), 'Zope', 'Wrong last name');
+  assert.equal(owner.get("id"), '9eb1a416-c225-4a01-9ec3-5371b2274ccb', 'Wrong id');
+  assert.equal(owner.get("firstName"), 'goorutfa', 'Wrong first name');
+  assert.equal(owner.get("lastName"), 'tfagooru', 'Wrong last name');
   assert.equal(owner.get("username"), 'szope', 'Wrong username');
   assert.equal(owner.get("avatarUrl"), 'any', 'Wrong avatar url');
 });

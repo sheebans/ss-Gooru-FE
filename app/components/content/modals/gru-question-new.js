@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Question from 'gooru-web/models/content/question';
-import {QUESTION_TYPES} from 'gooru-web/config/question';
+import {QUESTION_CONFIG, QUESTION_TYPES} from 'gooru-web/config/question';
 import {normalizeQuestionTypes} from 'gooru-web/utils/utils';
 export default Ember.Component.extend({
 
@@ -66,7 +66,7 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    var question = Question.create(Ember.getOwner(this).ownerInjection(), {title: null,type:"MC"});
+    var question = Question.create(Ember.getOwner(this).ownerInjection(), {title: null,type: QUESTION_TYPES.multipleChoice});
     this.set('question', question);
   },
 
@@ -102,7 +102,7 @@ export default Ember.Component.extend({
    * @type {Array{}} questionTypes
    */
   questionTypes: Ember.computed(function(){
-    let array = Ember.A(Object.keys(QUESTION_TYPES)).without('OE');
+    let array = Ember.A(Object.keys(QUESTION_CONFIG)).without(QUESTION_TYPES.openEnded);
     this.move(array,6,2);
     this.move(array,7,3);
     this.move(array,7,6);
