@@ -32,8 +32,7 @@ export default Ember.Object.extend({
         q: term,
         'flt.collectionType': 'collection',
         start: 1,
-        length: 20,
-        sessionToken: this.get('session.token-api3') //TODO should be a header?
+        length: 20
       }
     };
     return Ember.$.ajax(url, options);
@@ -58,8 +57,7 @@ export default Ember.Object.extend({
         q: term,
         'flt.collectionType': 'assessment',
         start: 1,
-        length: 20,
-        sessionToken: this.get('session.token-api3') //TODO should be a header?
+        length: 20
       }
     };
     return Ember.$.ajax(url, options);
@@ -82,10 +80,9 @@ export default Ember.Object.extend({
       dataType: 'json',
       headers: adapter.defineHeaders(),
       data: {
-        q: term,
-        start: 1,
-        length: 20,
-        sessionToken: this.get('session.token-api3') //TODO should be a header?
+        "q": term,
+        "start": 1,
+        "length": 20
       }
     };
     if (Ember.isArray(formatValues) && formatValues.length > 0) {
@@ -115,8 +112,7 @@ export default Ember.Object.extend({
         "q": term,
         "start": 1,
         "length": 20,
-        "flt.resourceFormat": "question",
-        "sessionToken": this.get('session.token-api3') //TODO should be a header?
+        "flt.resourceFormat": "question"
       }
     };
     if (Ember.isArray(types) && types.length > 0) {
@@ -128,7 +124,8 @@ export default Ember.Object.extend({
 
   defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      //'Authorization': 'Token ' + this.get('session.token-api3')
+      'Gooru-Session-Token': this.get('session.token-api3')
     };
   }
 

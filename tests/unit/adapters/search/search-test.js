@@ -15,7 +15,6 @@ test('searchCollections', function(assert) {
     this.get('/gooru-search/rest/v2/search/scollection', function(request) {
       assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
       assert.equal(request.queryParams['flt.collectionType'], 'collection', 'Wrong collection type');
-      assert.equal(request.queryParams['sessionToken'], 'token-api-3', 'Wrong token');
       assert.equal(request.queryParams['start'], 1, 'Wrong default start');
       assert.equal(request.queryParams['length'], 20, 'Wrong default length');
 
@@ -37,7 +36,6 @@ test('searchAssessments', function(assert) {
     this.get('/gooru-search/rest/v2/search/scollection', function(request) {
       assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
       assert.equal(request.queryParams['flt.collectionType'], 'assessment', 'Wrong collection type');
-      assert.equal(request.queryParams['sessionToken'], 'token-api-3', 'Wrong token');
       assert.equal(request.queryParams['start'], 1, 'Wrong default start');
       assert.equal(request.queryParams['length'], 20, 'Wrong default length');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
@@ -59,7 +57,6 @@ test('searchResources for all resource types', function(assert) {
       assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
       assert.equal(request.queryParams['start'], 1, 'Wrong default start');
       assert.equal(request.queryParams['length'], 20, 'Wrong default length');
-      assert.equal(request.queryParams['sessionToken'], "token-api-3", 'Wrong token');
       assert.ok(!request.queryParams['flt.resourceFormat'], 'Wrong format filters');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
@@ -80,7 +77,6 @@ test('searchResources for some resource types', function(assert) {
       assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
       assert.equal(request.queryParams['start'], 1, 'Wrong default start');
       assert.equal(request.queryParams['length'], 20, 'Wrong default length');
-      assert.equal(request.queryParams['sessionToken'], "token-api-3", 'Wrong token');
       assert.equal(request.queryParams['flt.resourceFormat'], 'image_resource,interactive_resource', 'Wrong format filters');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
@@ -101,7 +97,6 @@ test('searchQuestions for all types', function(assert) {
       assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
       assert.equal(request.queryParams['start'], 1, 'Wrong default start');
       assert.equal(request.queryParams['length'], 20, 'Wrong default length');
-      assert.equal(request.queryParams['sessionToken'], "token-api-3", 'Wrong token');
       assert.equal(request.queryParams['flt.resourceFormat'], 'question', 'Wrong format filter');
       assert.ok(!request.queryParams['flt.questionType'], 'Wrong question type filters');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
@@ -123,7 +118,6 @@ test('searchQuestions for some types', function(assert) {
       assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
       assert.equal(request.queryParams['start'], 1, 'Wrong default start');
       assert.equal(request.queryParams['length'], 20, 'Wrong default length');
-      assert.equal(request.queryParams['sessionToken'], "token-api-3", 'Wrong token');
       assert.equal(request.queryParams['flt.resourceFormat'], 'question', 'Wrong format filter');
       assert.equal(request.queryParams['flt.questionType'], 'multiple_choice_question,multiple_answer_question', 'Wrong type filters');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
