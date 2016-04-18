@@ -32,7 +32,7 @@ const Validations = buildValidations({
 /**
  * Resource model
  *
- * @typedef {Object} Content/Resource
+ * @typedef {Object} Resource
  */
 const ResourceModel = Ember.Object.extend(Validations,{
 

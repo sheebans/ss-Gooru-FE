@@ -9,9 +9,9 @@ export default Ember.Route.extend({
 
   model: function() {
     const term = this.paramsFor('search').term;
-    var collectionResults = this.get('searchService').searchCollections(term, true);
+    var assessmentResults = this.get('searchService').searchAssessments(term);
     return Ember.RSVP.hash({
-      collections: collectionResults
+      assessments: assessmentResults
     });
   },
 
@@ -22,7 +22,7 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
     this._super(controller, model);
-    controller.set('collectionResults', model.collections);
+    controller.set('assessmentResults', model.assessmentResults);
   }
 
 });

@@ -69,7 +69,7 @@ export default Ember.Controller.extend({
 
   /**
    * These are the question search results
-   * @property {Content/Question[]}
+   * @property {Question[]}
    */
   questionResults: null,
 

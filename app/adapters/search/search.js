@@ -17,10 +17,9 @@ export default Ember.Object.extend({
    * Fetches the collections that match with the term
    *
    * @param term the term to search
-   * @param isTypeAssessment determines if the search is for assessments. By default is false.
-   * @returns {Promise}
+   * @returns {Promise.<Collection[]>}
    */
-  searchCollections: function(term, isTypeAssessment = false) {
+  searchCollections: function(term) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/scollection`;
@@ -31,9 +30,36 @@ export default Ember.Object.extend({
       headers: adapter.defineHeaders(),
       data: {
         q: term,
-        'flt.collectionType': (isTypeAssessment ? 'assessment' : 'collection'),
+        'flt.collectionType': 'collection',
         start: 1,
-        length: 20
+        length: 20,
+        sessionToken: this.get('session.token-api3') //TODO should be a header?
+      }
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Fetches the assessments that match with the term
+   *
+   * @param term the term to search
+   * @returns {Promise.<Assessment[]>}
+   */
+  searchAssessments: function(term) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/scollection`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
+      headers: adapter.defineHeaders(),
+      data: {
+        q: term,
+        'flt.collectionType': 'assessment',
+        start: 1,
+        length: 20,
+        sessionToken: this.get('session.token-api3') //TODO should be a header?
       }
     };
     return Ember.$.ajax(url, options);
@@ -44,7 +70,7 @@ export default Ember.Object.extend({
    *
    * @param term the term to search
    * @param formatValues the resource formatValues to filter the search
-   * @returns {Promise.<Content/Resource[]>}
+   * @returns {Promise.<Resource[]>}
    */
   searchResources: function(term, formatValues = []) {
     const adapter = this;
@@ -74,7 +100,7 @@ export default Ember.Object.extend({
    *
    * @param term the term to search
    * @param types question types to filter the search
-   * @returns {Promise.<Content/Question[]>}
+   * @returns {Promise.<Question[]>}
    */
   searchQuestions: function(term, types = []) {
     const adapter = this;

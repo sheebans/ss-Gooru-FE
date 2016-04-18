@@ -69,7 +69,7 @@ export default Ember.Controller.extend({
 
   /**
    * These are the resource search results
-   * @property {Content/Resource[]}
+   * @property {Resource[]}
    */
   resourceResults: null,
 

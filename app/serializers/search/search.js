@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import SearchCollectionModel from 'gooru-web/models/search/collection';
 
 import ResourceModel from 'gooru-web/models/content/resource';
 import QuestionModel from 'gooru-web/models/content/question';
@@ -18,32 +17,84 @@ export default Ember.Object.extend({
    * Normalize the Search collections response
    *
    * @param payload is the endpoint response in JSON format
-   * @returns {SearchCollectionModel[]}
+   * @returns {Collection[]}
    */
   normalizeSearchCollections: function(payload) {
     const serializer = this;
     if (Ember.isArray(payload.searchResults)) {
       return payload.searchResults.map(function(result) {
-        return SearchCollectionModel.create({
-          id: result.id,
-          title: result.title,
-          description: result.description ? result.description : '',
-          resourceCount: result.resourceCount ? Number(result.resourceCount) : 0,
-          questionCount: result.questionCount ? Number(result.questionCount) : 0,
-          remixCount: result.scollectionRemixCount ? result.scollectionRemixCount : 0,
-          course: result.subject ? result.subject : '',
-          isPublic: (result.sharing ? result.sharing === 'public' : false),
-          isAssessment: (result.collectionType ? result.collectionType === 'assessment' : false),
-          thumbnailUrl: (result.thumbnails ? result.thumbnails.url : ''),
-          owner: Ember.Object.create({
-            id: result.creatorId,
-            username: result.creatornameDisplay,
-            firstName: result.creatorFirstname,
-            lastName: result.creatorLastname,
-            avatarUrl: 'http://profile-images.goorulearning.org.s3.amazonaws.com/' + result.creatorId + '.png'
-          }),
-          standards: serializer.normalizeStandards(result)
-        });
+        return serializer.normalizeCollection(result);
+      });
+    }
+  },
+
+  /**
+   * Normalize a collection
+   * @param {*} collectionData
+   * @returns {Collection}
+   */
+  normalizeCollection: function (collectionData){
+    return CollectionModel.create({
+      id: collectionData.id,
+      title: collectionData.title,
+      image: collectionData.thumbnail,
+      standards: [],//TODO missing at API response,
+      publishStatus: null, //TODO missing at API response,
+      learningObjectives: collectionData.languageObjective,
+      resourceCount: collectionData.resourceCount || 0,
+      questionCount: collectionData.questionCount || 0,
+      remixCount: collectionData.scollectionRemixCount || 0,
+      course: null, //TODO missing at API response,
+      isVisibleOnProfile: collectionData.profileUserVisibility,
+      owner: ProfileModel.create({
+        "id": null, //TODO missing at API response
+        "firstName": collectionData.userFirstName,
+        "lastName": collectionData.userLastName,
+        "avatarUrl": null, //TODO missing at API response,
+        "username": null//TODO missing at API response
+      })
+    });
+  },
+
+  /**
+   * Normalize an assessment
+   * @param {*} assessmentData
+   * @returns {Assessment}
+   */
+  normalizeAssessment: function (assessmentData){
+    return AssessmentModel.create({
+      id: assessmentData.id,
+      title: assessmentData.title,
+      image: assessmentData.thumbnail,
+      standards: [],//TODO missing at API response,
+      publishStatus: null, //TODO missing at API response,
+      learningObjectives: assessmentData.languageObjective,
+      resourceCount: assessmentData.resourceCount ? Number(assessmentData.resourceCount) : 0,
+      questionCount: assessmentData.questionCount ? Number(assessmentData.questionCount) : 0,
+      remixCount: assessmentData.scollectionRemixCount || 0,
+      course: null, //TODO missing at API response,
+      isVisibleOnProfile: assessmentData.profileUserVisibility,
+      owner: ProfileModel.create({
+        "id": null, //TODO missing at API response
+        "firstName": assessmentData.userFirstName,
+        "lastName": assessmentData.userLastName,
+        "avatarUrl": null, //TODO missing at API response,
+        "username": null//TODO missing at API response
+      })
+    });
+  },
+
+  /**
+   * Normalize the Search assessments response
+   *
+   * @param payload is the endpoint response in JSON format
+   * @returns {Assessment[]}
+   */
+  normalizeSearchAssessments: function(payload) {
+    const serializer = this;
+    if (Ember.isArray(payload.searchResults)) {
+      return payload.searchResults.map(function(result) {
+        return serializer.normalizeAssessment(result);
       });
     }
   },
@@ -52,7 +103,7 @@ export default Ember.Object.extend({
    * Normalize the Search resources response
    *
    * @param payload is the endpoint response in JSON format
-   * @returns {Content/Resource[]}
+   * @returns {Resource[]}
    */
   normalizeSearchResources: function(payload) {
     const serializer = this;
@@ -67,7 +118,7 @@ export default Ember.Object.extend({
    * Normalize the Search question response
    *
    * @param payload is the endpoint response in JSON format
-   * @returns {Content/Question[]}
+   * @returns {Question[]}
    */
   normalizeSearchQuestions: function(payload) {
     const serializer = this;
@@ -81,7 +132,7 @@ export default Ember.Object.extend({
   /**
    * Normalizes a question
    * @param {*} result
-   * @returns {Content/Question}
+   * @returns {Question}
    */
   normalizeQuestion: function(result){
     const serializer = this;
@@ -103,7 +154,7 @@ export default Ember.Object.extend({
   /**
    * Normalizes a resource
    * @param {*} result
-   * @returns {Content/Resource}
+   * @returns {Resource}
    */
   normalizeResource: function(result){
     const serializer = this;

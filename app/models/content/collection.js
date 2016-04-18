@@ -101,7 +101,7 @@ const Collection = Ember.Object.extend(Validations, {
   course: null,
 
   /**
-   * @property {Content/User} owner - The resource owner information
+   * @property {profile/Profile} owner - The resource owner information
    */
   owner: null,
 

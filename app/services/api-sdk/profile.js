@@ -204,7 +204,7 @@ export default Ember.Service.extend({
   /**
    * Return the list of resources related to a user
    * @param {string} userId
-   * @returns {RSVP.Promise.<Content/Resource>}
+   * @returns {RSVP.Promise.<Resource>}
    */
   readResources: function(userId) {
     const service = this;
@@ -221,7 +221,7 @@ export default Ember.Service.extend({
   /**
    * Return the list of questions related to a user
    * @param {string} userId
-   * @returns {RSVP.Promise.<Content/Question>}
+   * @returns {RSVP.Promise.<Question>}
    */
   readQuestions: function(userId) {
     const service = this;
@@ -238,7 +238,7 @@ export default Ember.Service.extend({
   /**
    * Return the list of collections related to a user
    * @param {string} userId
-   * @returns {RSVP.Promise.<Content/Collection>}
+   * @returns {RSVP.Promise.<Collection>}
    */
   readCollections: function(userId) {
     const service = this;
@@ -255,7 +255,7 @@ export default Ember.Service.extend({
   /**
    * Return the list of assessments related to a user
    * @param {string} userId
-   * @returns {RSVP.Promise.<Content/Assessment>}
+   * @returns {RSVP.Promise.<Assessment>}
    */
   readAssessments: function(userId) {
     const service = this;

@@ -26,7 +26,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Properties
   /**
-   * @property {Content/Resource|Content/Question} resource
+   * @property {Resource|Question} resource
    */
   resource: null,
 

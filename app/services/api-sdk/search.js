@@ -21,21 +21,34 @@ export default Ember.Service.extend({
   },
 
   /**
-   * Search for collections or assessments
+   * Search for collections
    *
    * @param term the term to search
-   * @param isTypeAssessment indicates if the search is for assessments. The default value is false.
    * @returns {Promise}
    */
-  searchCollections: function(term, isTypeAssessment = false) {
+  searchCollections: function(term) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('searchAdapter').searchCollections(term, isTypeAssessment)
+      service.get('searchAdapter').searchCollections(term)
         .then(function(response) {
           resolve(service.get('searchSerializer').normalizeSearchCollections(response));
-        }, function(error) {
-          reject(error);
-        });
+        }, reject);
+    });
+  },
+
+  /**
+   * Search for assessments
+   *
+   * @param term the term to search
+   * @returns {Promise}
+   */
+  searchAssessments: function(term) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('searchAdapter').searchAssessments(term)
+        .then(function(response) {
+          resolve(service.get('searchSerializer').normalizeSearchAssessments(response));
+        }, reject);
     });
   },
 
@@ -44,7 +57,7 @@ export default Ember.Service.extend({
    *
    * @param term the term to search
    * @param formatValues is an array with the values to filter the search
-   * @returns {Promise.<Content/Resource[]>}
+   * @returns {Promise.<Resource[]>}
    */
   searchResources: function(term, formatValues) {
     const service = this;
@@ -63,7 +76,7 @@ export default Ember.Service.extend({
    *
    * @param term the term to search
    * @param types is an array with the values to filter the search
-   * @returns {Promise.<Content/Question[]>}
+   * @returns {Promise.<Question[]>}
    */
   searchQuestions: function(term, types) {
     const service = this;

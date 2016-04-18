@@ -38,9 +38,9 @@ export default Ember.Object.extend({
   },
 
   /**
-   * Normalize the question data into a Content/Question object
+   * Normalize the question data into a Question object
    * @param questionData
-   * @returns {Content/Question}
+   * @returns {Question}
    */
   normalizeReadQuestion: function(questionData){
     const serializer = this;

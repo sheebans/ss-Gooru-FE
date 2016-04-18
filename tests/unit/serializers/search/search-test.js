@@ -1,121 +1,71 @@
-import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
-import SearchCollectionModel from 'gooru-web/models/search/collection';
+
 
 
 moduleFor('serializer:search/search', 'Unit | Serializer | search/search');
 
-test('normalizeSearchCollections', function(assert) {
+test('normalizeCollection', function(assert) {
   const serializer = this.subject();
-  const collectionsPayload = {
-    "executionTime": 1710,
-    "query": {
-      "userQueryString": "india",
-      "rewrittenQueryString": "india"
-    },
-    "resultCount": 1,
-    "searchCount": 0,
-    "searchResults": [
-      {
-        "addDate": "2014-05-24T01:13:23.000Z",
-        "assetURI": "http://qacdn.gooru.org/qalive/",
-        "category": "noQuestion",
-        "collaboratorCount": 0,
-        "collaborators": "",
-        "collectionItemCount": 4,
-        "collectionItems": [],
-        "collectionType": "collection",
-        "contentId": 21196233,
-        "contentOrganizationCode": "gooru",
-        "contentOrganizationName": "Gooru",
-        "contentOrganizationUid": "4261739e-ccae-11e1-adfb-5404a609bd14",
-        "creatorFirstname": "Ashley",
-        "creatorId": "97cd124f-f10f-4f47-b3fe-9034bf0e5fb6",
-        "creatorLastname": "W.",
-        "creatornameDisplay": "washley",
-        "description": "Students will learn the geography of India.  Students will also learn about the languages and dialects used in India.",
-        "distinguish": 0,
-        "folder": "f000/2119/6233/",
-        "goals": "Students will learn the geography of India.  Students will also learn about the languages and dialects used in India.",
-        "gooruUId": "97cd124f-f10f-4f47-b3fe-9034bf0e5fb6",
-        "grade": "12",
-        "id": "040552f5-1d88-4005-88ea-0066e2f3db0c",
-        "isFeatured": 0,
-        "lastModified": "2015-06-19T14:12:52.000Z",
-        "libraryNames": [],
-        "license": {
-          "code": "",
-          "definition": "",
-          "icon": "",
-          "name": "Other",
-          "tag": "",
-          "url": " "
-        },
-        "numberOfResources": 4,
-        "profileUserVisibility": false,
-        "questionCount": "0",
-        "ratings": {
-          "count": 0,
-          "average": 0
-        },
-        "resourceCount": "4",
-        "scollectionRemixCount": 0,
-        "sharing": "public",
-        "skills": [],
-        "tags": [],
-        "taxonomyDataSet": "{\"course\":[],\"subject\":[],\"curriculum\":{\"curriculumName\":[\"California Social Science State Standards\"],\"curriculumCode\":[\"CA.H-SS.WH10.4.2\",\"CA.H-SS.WH10.4.1\"],\"curriculumDesc\":[\"Discuss the locations of the colonial rule of such nations as England, France, Ger many, Italy, Japan, the Netherlands, Russia, Spain, Portugal, and the United States.\",\"Describe the rise of industrial economies and their link to imperialism and colonial ism (e.g., the role played by national security and strategic advantage; moral issues raised by the search for national hegemony, Social Darwinism, and the missionary impulse; material issues such as land, resources, and technology).\"]}}",
-        "taxonomySkills": "",
-        "thumbnail": "f000/2119/6233/040552f5-1d88-4005-88ea-0066e2f3db0c_838491c8-70c1-4ff8-8906-74a079b2435b.png",
-        "thumbnails": {
-          "defaultImage": false,
-          "dimensions": "80x60,160x120",
-          "url": "http://qacdn.gooru.org/qalive/f000/2119/6233/040552f5-1d88-4005-88ea-0066e2f3db0c_838491c8-70c1-4ff8-8906-74a079b2435b.png"
-        },
-        "title": "The Land of India",
-        "type": "collection",
-        "userFirstName": "Ashley",
-        "userLastName": "W.",
-        "usernameDisplay": "washley",
-        "viewCount": 0
-      }
-    ],
-    "stats": {
-      "pageSize": 20,
-      "totalHitCount": 32102
-    },
-    "totalHitCount": 32102
+
+  const collectionData = {
+    "id": "d9616037-9fc8-4641-8d32-99fb956406d3",
+    "profileUserVisibility": true,
+    "questionCount": "3",
+    "resourceCount": "5",
+    "languageObjective": "In this collection",
+    "scollectionRemixCount": 2,
+    "title": "Cell Growth and Division",
+    "type": "collection",
+    "userFirstName": "Chad",
+    "userLastName": "Barris",
+    "thumbnail": "collection.png"
   };
-  const expected = [SearchCollectionModel.create({
-    id: '040552f5-1d88-4005-88ea-0066e2f3db0c',
-    title: 'The Land of India',
-    description: 'Students will learn the geography of India.  Students will also learn about the languages and dialects used in India.',
-    resourceCount: 4,
-    questionCount: 0,
-    remixCount: 0,
-    course: '',
-    isPublic: true,
-    isAssessment: false,
-    thumbnailUrl: 'http://qacdn.gooru.org/qalive/f000/2119/6233/040552f5-1d88-4005-88ea-0066e2f3db0c_838491c8-70c1-4ff8-8906-74a079b2435b.png',
-    owner: Ember.Object.create({
-      id: '97cd124f-f10f-4f47-b3fe-9034bf0e5fb6',
-      username: 'washley',
-      firstName: 'Ashley',
-      lastName: 'W.',
-      avatarUrl: 'http://profile-images.goorulearning.org.s3.amazonaws.com/97cd124f-f10f-4f47-b3fe-9034bf0e5fb6.png'
-    }),
-    standards: [
-      Ember.Object.create({
-        code: 'CA.H-SS.WH10.4.2',
-        description: 'Discuss the locations of the colonial rule of such nations as England, France, Ger many, Italy, Japan, the Netherlands, Russia, Spain, Portugal, and the United States.'
-      }),
-      Ember.Object.create({
-        code: 'CA.H-SS.WH10.4.1',
-        description: 'Describe the rise of industrial economies and their link to imperialism and colonial ism (e.g., the role played by national security and strategic advantage; moral issues raised by the search for national hegemony, Social Darwinism, and the missionary impulse; material issues such as land, resources, and technology).'
-      })
-    ]
-  })];
-  const normalizedCollections = serializer.normalizeSearchCollections(collectionsPayload);
-  assert.deepEqual(normalizedCollections, expected, 'Wrong normalized response');
+
+  const collection = serializer.normalizeCollection(collectionData);
+  assert.equal(collection.get("id"), 'd9616037-9fc8-4641-8d32-99fb956406d3', 'Wrong id');
+  assert.equal(collection.get("title"), 'Cell Growth and Division', 'Wrong title');
+  // TODO assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
+  assert.equal(collection.get("image"), 'collection.png', 'Wrong image');
+  // TODO assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
+  assert.equal(collection.get("isVisibleOnProfile"), true, 'Wrong visible on profile');
+  assert.equal(collection.get("learningObjectives"), "In this collection", 'Wrong learning objective');
+  assert.equal(collection.get("resourceCount"), 5, 'Wrong resource count');
+  assert.equal(collection.get("questionCount"), 3, 'Wrong question count');
+  assert.equal(collection.get("remixCount"), 2, 'Wrong remix count');
+  // TODO assert.deepEqual(collection.get("standards")[0].get("code"), "K12.MA", 'Wrong standards');
+  assert.equal(collection.get("owner.firstName"), "Chad", 'Wrong owner id');
+});
+
+test('normalizeAssessment', function(assert) {
+  const serializer = this.subject();
+
+  const assessmentData = {
+    "id": "d9616037-9fc8-4641-8d32-99fb956406d3",
+    "profileUserVisibility": true,
+    "questionCount": "3",
+    "resourceCount": "5",
+    "languageObjective": "In this assessment",
+    "scollectionRemixCount": 2,
+    "title": "Cell Growth and Division",
+    "type": "assessment",
+    "userFirstName": "Chad",
+    "userLastName": "Barris",
+    "thumbnail": "assessment.png"
+  };
+
+  const assessment = serializer.normalizeAssessment(assessmentData);
+  assert.equal(assessment.get("id"), 'd9616037-9fc8-4641-8d32-99fb956406d3', 'Wrong id');
+  assert.equal(assessment.get("title"), 'Cell Growth and Division', 'Wrong title');
+  // TODO assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
+  assert.equal(assessment.get("image"), 'assessment.png', 'Wrong image');
+  // TODO assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
+  assert.equal(assessment.get("isVisibleOnProfile"), true, 'Wrong visible on profile');
+  assert.equal(assessment.get("learningObjectives"), "In this assessment", 'Wrong learning objective');
+  assert.equal(assessment.get("resourceCount"), 5, 'Wrong resource count');
+  assert.equal(assessment.get("questionCount"), 3, 'Wrong question count');
+  assert.equal(assessment.get("remixCount"), 2, 'Wrong remix count');
+  // TODO assert.deepEqual(collection.get("standards")[0].get("code"), "K12.MA", 'Wrong standards');
+  assert.equal(assessment.get("owner.firstName"), "Chad", 'Wrong owner id');
 });
 
 test('normalizeSearchResources', function(assert) {

@@ -15,7 +15,7 @@ export default Ember.Route.extend({
   actions: {
     /**
      * On card edit resource button click
-     * @param {Content/Resource} resource
+     * @param {Resource} resource
      */
     editResource: function (resource) {
       this.transitionTo("content.resources.edit", resource.get("id"));

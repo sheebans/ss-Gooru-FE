@@ -37,5 +37,68 @@
       "body": "File not found!",
       "file": "search-resources-200-response.json"
     }
+  },
+  {
+    "description": "API 3.0: Search for Collections using any term",
+    "request": {
+      "url": "^/gooru-search/rest/v2/search/scollection$",
+      "query": {
+        "flt.collectionType": "collection"
+      },
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "search-collections-200-response.json"
+    }
+  },
+  {
+    "description": "API 3.0: Search for Assessments using any term",
+    "request": {
+      "url": "^/gooru-search/rest/v2/search/scollection$",
+      "query": {
+        "flt.collectionType": "assessment"
+      },
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "search-assessments-200-response.json"
+    }
+  },
+  {
+    "description": "Search for collections no results",
+    "request": {
+      "url": "^/gooru-search/rest/v2/search/scollection$",
+      "query": {
+        "q": "noResultFound"
+      },
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "search-no-results-ok-response.json"
+    }
   }
 ]

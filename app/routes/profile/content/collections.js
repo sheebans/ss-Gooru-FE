@@ -15,7 +15,7 @@ export default Ember.Route.extend({
   actions: {
     /**
      * On card edit collection button click
-     * @param {Content/Collection} collection
+     * @param {Collection} collection
      */
     editCollection: function (collection) {
       this.transitionTo("content.collections.edit", collection.get("id"));
