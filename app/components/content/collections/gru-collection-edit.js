@@ -1,13 +1,33 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
 
-export default Ember.Controller.extend(ContentEditMixin, {
+export default Ember.Component.extend(ContentEditMixin, {
+
   // -------------------------------------------------------------------------
   // Dependencies
 
+  /**
+   * @requires service:notifications
+   */
+  notifications: Ember.inject.service(),
+
+  /**
+   * @requires service:api-sdk/course
+   */
+  collectionService: Ember.inject.service("api-sdk/collection"),
+
+
+  // -------------------------------------------------------------------------
+  // Attributes
+
+  classNames: ['content', 'collections', 'gru-collection-edit'],
+
+  tagName: 'article',
+
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
+
+  actions: {
 
     /**
      * Edit Content
@@ -21,9 +41,19 @@ export default Ember.Controller.extend(ContentEditMixin, {
     /**
      * Save Content
      */
-    saveContent: function () {
-      // TODO: API call to save content
-      this.set('isEditing',false);
+    updateContent: function () {
+      var editedCollection = this.get('tempCollection');
+      this.get('collectionService').updateCollection(editedCollection)
+
+        .then(function () {
+          this.set('collection', editedCollection);
+          this.set('isEditing', false);
+        }.bind(this))
+
+        .catch(function () {
+          var message = this.get('i18n').t('common.errors.collection-not-updated').string;
+          this.get('notifications').error(message);
+        }.bind(this));
     },
 
     /**
@@ -32,9 +62,13 @@ export default Ember.Controller.extend(ContentEditMixin, {
     sendRequest: function () {
       this.set('wasRequestSent', true);
     }
+
   },
+
+
   // -------------------------------------------------------------------------
   // Events
+
 
   // -------------------------------------------------------------------------
   // Properties
@@ -54,14 +88,14 @@ export default Ember.Controller.extend(ContentEditMixin, {
 
   /**
    * Request pending approval
-   * // TODO: Change this to a computed property of a collection property
+   * // TODO: Change this to a computed property of a course property
    * @property {Boolean}
    */
   isRequestApproved: false,
 
   /**
-   * Request to make the collection searchable been sent?
-   * // TODO: Change this to a computed property of a collection property
+   * Request to make the course searchable been sent?
+   * // TODO: Change this to a computed property of a course property
    * @property {Boolean}
    */
   wasRequestSent: false,

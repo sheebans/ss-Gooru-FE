@@ -101,6 +101,7 @@ export default {
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
+      "collection-not-updated": "Oops! Unable to update collection right now. Please try again shortly.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
@@ -382,19 +383,16 @@ export default {
       "title": "Join a Class",
       "content": "Where the journey begins.",
       "class-code-input": "Enter a Class Code",
-      "terms-and-conditions": 'By clicking Join Class, I agree to share my assessment and collection progress data generated from studying this Gooru class, with the teacher(s) of this class.',
-      "not-now": "Not now",
-      "join-class": "Join Class",
+      "class-not-found": "Class not found. Make sure you've entered the correct class code",
       "invalid-code": "Invalid class code.",
-      "join-not-allowed": "You are not allow to join this class",
-
+      "join-class": "Join Class",
+      "join-not-allowed": "You are not able to join this class",
+      "not-now": "Not now",
+      "terms-and-conditions": 'By clicking Join Class, I agree to share my assessment and collection progress data generated from studying this Gooru class, with the teacher(s) of this class.'
     }
   },
   "content.collections.edit": {
-    "assign-to-course": "Assign to Course",
-    "information":{
-      "collection-title":"Collection Title"
-    }
+    "assign-to-course": "Assign to Course"
   },
 
   "content.courses.edit": {
@@ -524,7 +522,7 @@ export default {
     "state": "State",
     "district": "District",
     "error-username-taken": "Aww, this username is taken. Try another.",
-    "error-email-taken": "This email is taken. Try another.",
+    "error-email-taken": "This email is taken. Try another."
   },
 
   "gru-user-sign-up-cancel": {
