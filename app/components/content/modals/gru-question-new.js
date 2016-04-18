@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import Question from 'gooru-web/models/content/question';
 import {QUESTION_CONFIG, QUESTION_TYPES} from 'gooru-web/config/question';
-import {normalizeQuestionTypes} from 'gooru-web/utils/utils';
 export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
