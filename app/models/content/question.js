@@ -66,6 +66,12 @@ const Question = Ember.Object.extend(Validations, {
    * @property { { code: string, description: string }[] }
    */
   standards: null,
+
+  /**
+   * @property {Boolean} isVisibleOnProfile - Indicates if the Question is visible on Profile. By default it is true
+   */
+  isVisibleOnProfile: true,
+
   /**
    * Return a copy of the question
    *
