@@ -1,6 +1,8 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
+import Question from 'gooru-web/models/content/question';
+import Ember from 'ember';
 
 moduleForComponent('content/questions/gru-questions-edit', 'Integration | Component | content/questions/gru questions edit', {
   integration: true
@@ -49,64 +51,78 @@ test('Layout of the information section editing mode', function (assert) {
   assert.ok($settingsSection.find('.panel-body .question-types .btn-group .dropdown-toggle').length, "Missing question types dropdown");
   assert.ok($settingsSection.find('.panel-body .standards button.add-prefix').length, "Missing add standards button");
 });
-//test('Validate if the question title field is left blank', function (assert) {
-//  //assert.expect(3);
-//  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true}}`);
-//
-//  const $component = this.$('.gru-questions-edit');
-//  const $titleField = $component.find(".gru-input.title");
-//
-//  assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message not visible');
-//  $titleField.find("input").blur();
-//  return wait().then(function () {
-//    assert.ok($titleField.find(".error-messages .error").length, 'Title error should be visible');
-//    // Fill in the input field
-//    $titleField.find("input").val('Question Name');
-//    $titleField.find("input").blur();
-//
-//    return wait().then(function () {
-//      assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message was hidden');
-//    });
-//  });
-//});
-//test('Validate if the Question Title field has only whitespaces', function (assert) {
-//  assert.expect(3);
-//
-//  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true}}`);
-//
-//  const $component = this.$('.gru-questions-edit');
-//  const $titleField = $component.find(".gru-input.title");
-//
-//  assert.ok(!$titleField.find(".error-messages .error").length, 'Question Title error message not visible');
-//
-//  // Try submitting without filling in data
-//  $titleField.find("input").blur();
-//
-//  return wait().then(function () {
-//
-//    assert.ok($titleField.find(".error-messages .error").length, 'Question Title error should be visible');
-//    // Fill in the input field
-//    $titleField.find("input").val(' ');
-//    $component.find(".actions button[type='submit']").click();
-//
-//    return wait().then(function () {
-//      assert.ok($titleField.find(".error-messages .error").length, 'Question Title error message should be visible');
-//    });
-//  });
-//});
-//test('Validate the character limit in the Question title field', function (assert) {
-//  assert.expect(1);
-//
-//  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true}}`);
-//
-//  const $component = this.$('.gru-questions-edit');
-//  const $titleField = $component.find(".gru-input.title");
-//
-//  $titleField.find("input").val('123456790123456790123456790123456790123456790extra');
-//  $titleField.find("input").blur();
-//
-//  assert.equal($titleField.find("input").val().length,50, "Incorrect number of incorrect characters");
-//});
+test('Validate if the question title field is left blank', function (assert) {
+  assert.expect(3);
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: null
+  });
+  this.set('question',question);
+  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true tempQuestion=question}}`);
+
+  const $component = this.$('.gru-questions-edit');
+  const $titleField = $component.find(".gru-input.title");
+
+  assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message not visible');
+
+  $titleField.find("input").trigger('blur');
+
+  return wait().then(function () {
+    assert.ok($titleField.find(".error-messages .error").length, 'Title error should be visible');
+    $titleField.find("input").val('Question Name');
+
+    $titleField.find("input").trigger('blur');
+
+
+    return wait().then(function () {
+      assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message was hidden');
+    });
+  });
+});
+test('Validate if the Question Title field has only whitespaces', function (assert) {
+  assert.expect(3);
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: null
+  });
+  this.set('question',question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true tempQuestion=question}}`);
+
+  const $component = this.$('.gru-questions-edit');
+  const $titleField = $component.find(".gru-input.title");
+
+  assert.ok(!$titleField.find(".error-messages .error").length, 'Question Title error message not visible');
+
+  $titleField.find("input").trigger('blur');
+
+  return wait().then(function () {
+
+    assert.ok($titleField.find(".error-messages .error").length, 'Question Title error should be visible');
+    // Fill in the input field
+    $titleField.find("input").val(' ');
+    $titleField.find("input").trigger('blur');
+
+    return wait().then(function () {
+      assert.ok($titleField.find(".error-messages .error").length, 'Question Title error message should be visible');
+    });
+  });
+});
+test('Validate the character limit in the Question title field', function (assert) {
+  assert.expect(1);
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: null
+  });
+  this.set('question',question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true tempQuestion=question}}`);
+
+  const $component = this.$('.gru-questions-edit');
+  const $titleField = $component.find(".gru-input.title");
+
+  $titleField.find("input").val('123456790123456790123456790123456790123456790extra');
+  $titleField.find("input").trigger('blur');
+
+  assert.equal($titleField.find("input").val().length,50, "Incorrect number of incorrect characters");
+});
 
 
 test('Layout of the settings section', function (assert) {
