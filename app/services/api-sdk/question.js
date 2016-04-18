@@ -70,7 +70,12 @@ export default Ember.Service.extend({
   updateQuestion: function(questionId, questionModel) {
     const service = this;
     let serializedData = service.get('questionSerializer').serializeUpdateQuestion(questionModel);
-    return service.get('questionAdapter').updateQuestion(questionId, serializedData);
+    return service.get('questionAdapter').updateQuestion(questionId, serializedData)
+      .then(function () {
+      return questionModel;
+    }).catch(function (error) {
+      return error;
+    });
   }
 
 });
