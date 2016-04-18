@@ -14,12 +14,25 @@ export default Ember.Object.extend({
    * @returns {Object} returns a JSON Object
    */
   serializeCreateCollection: function(collectionModel) {
+    return this.serializeCollection(collectionModel);
+  },
+
+  /**
+   * Serialize a Collection object into a JSON representation required by the Update Collection endpoint
+   *
+   * @param collectionModel The Collection model to be serialized
+   * @returns {Object} returns a JSON Object
+   */
+  serializeUpdateCollection: function(collectionModel) {
+    return this.serializeCollection(collectionModel);
+  },
+
+  serializeCollection: function(collectionModel) {
     return {
       title: collectionModel.get('title'),
       learning_objective: collectionModel.get("learningObjectives")
     };
   }
-
 
 });
 
