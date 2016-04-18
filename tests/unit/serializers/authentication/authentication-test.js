@@ -15,7 +15,8 @@ test('normalizeResponse for anonymous account', function(assert) {
     'token-api3': 'token-api-3.0',
     user: {
       username: 'username',
-      gooruUId: 'user-id'
+      gooruUId: 'user-id',
+      isNew: true
     },
     isAnonymous: true
   };
@@ -35,7 +36,8 @@ test('normalizeResponse for normal account', function(assert) {
     'token-api3': 'token-api-3.0',
     user: {
       username: 'username',
-      gooruUId: 'user-id'
+      gooruUId: 'user-id',
+      isNew: true
     },
     isAnonymous: false
   };
@@ -54,7 +56,29 @@ test('normalizeResponse for google account', function(assert) {
     'token-api3': 'token-api-3.0',
     user: {
       username: 'username',
-      gooruUId: 'user-id'
+      gooruUId: 'user-id',
+      isNew: true
+    },
+    isAnonymous: false
+  };
+  const response = serializer.normalizeResponse(payload, false, 'token-api-3.0');
+  assert.deepEqual(expected, response, 'Wrong normalized response');
+});
+
+test('normalizeResponse for google account containing user category', function(assert) {
+  const serializer = this.subject();
+  const payload = {
+    username: 'username',
+    'user_id': 'user-id',
+    user_category: 'user-cateogory'
+  };
+  const expected = {
+    token: Env['API-3.0']['user-token-api-2.0'],
+    'token-api3': 'token-api-3.0',
+    user: {
+      username: 'username',
+      gooruUId: 'user-id',
+      isNew: false
     },
     isAnonymous: false
   };
