@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
+import CollectionModel from 'gooru-web/models/content/collection';
 
 moduleForService('service:api-sdk/collection', 'Unit | Service | api-sdk/collection', {
   needs: ['serializer:collection/collection', 'model:collection/collection',
@@ -34,6 +35,30 @@ test('createCollection', function(assert) {
       assert.equal(collectionModel.get('id'), 'collection-id', 'Wrong collection id');
       done();
     });
+});
+
+test('updateCollection', function(assert) {
+  const service = this.subject();
+  const expectedCollectionId = 'collection-id';
+  const expectedCollectionModel = CollectionModel.create({ title: 'Collection title' });
+
+  assert.expect(2);
+
+  service.set('collectionSerializer', Ember.Object.create({
+    serializeUpdateCollection: function(collectionModel) {
+      assert.deepEqual(collectionModel, expectedCollectionModel, 'Wrong collection model');
+      return {};
+    }
+  }));
+  service.set('collectionAdapter', Ember.Object.create({
+    updateCollection: function(collectionId) {
+      assert.equal(collectionId, expectedCollectionId, 'Wrong collection id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.updateCollection(expectedCollectionId, expectedCollectionModel).then(function() { done(); });
 });
 
 test('findByClassAndCourseAndUnitAndLesson', function (assert) {
