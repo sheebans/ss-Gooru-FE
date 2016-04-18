@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import Question from 'gooru-web/models/content/question';
 import {QUESTION_CONFIG} from 'gooru-web/config/question';
-import {normalizeQuestionTypes} from 'gooru-web/utils/utils';
 export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
@@ -43,7 +42,7 @@ export default Ember.Component.extend({
             .createQuestion(question)
             .then(function(newQuestion) {
                 component.triggerAction({ action: 'closeModal' });
-                component.get('router').transitionTo('content.questions.edit', { questionId : newQuestion.get('id') });
+                component.get('router').transitionTo('content.questions.edit', newQuestion.get('id'));
               },
               function() {
                 const message = component.get('i18n').t('common.errors.question-not-created').string;
@@ -106,10 +105,7 @@ export default Ember.Component.extend({
     this.move(array,6,2);
     this.move(array,7,3);
     this.move(array,7,6);
-    let arrayTypes=array.map(function(item){
-      return normalizeQuestionTypes(item);
-    });
-    return arrayTypes;
+    return array;
   }),
 
 

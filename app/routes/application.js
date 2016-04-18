@@ -102,7 +102,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      * @see gru-header.hbs
      */
     signUp: function() {
-      this.transitionTo("user");
+      this.transitionTo("sign-up-finish");
     },
 
     /**
