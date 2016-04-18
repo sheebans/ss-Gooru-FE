@@ -18,8 +18,24 @@ export default Ember.Object.extend({
   serializeCreateQuestion: function(questionModel) {
     const format = QuestionModel.serializeQuestionType(questionModel.get("type"));
     return {
-      title: questionModel.get('title'),
-      content_subformat: format
+      'short_title': questionModel.get('title'),
+      'content_subformat': format,
+      'visible_on_profile': questionModel.get('isVisibleOnProfile')
+    };
+  },
+
+  /**
+   * Serialize a Question object into a JSON representation required by the Update Question endpoint
+   *
+   * @param questionModel The Question model to be serialized
+   * @returns {Object} returns a JSON Object
+   */
+  serializeUpdateQuestion: function(questionModel) {
+    return {
+      'short_title': questionModel.get('title'),
+      title: questionModel.get('text'),
+      'content_subformat': QuestionModel.serializeQuestionType(questionModel.get("type")),
+      'visible_on_profile': questionModel.get('isVisibleOnProfile')
     };
   },
 
@@ -41,7 +57,8 @@ export default Ember.Object.extend({
       standards: serializer.normalizeStandards(standards),
       answers: null, //TODO the structure is missing some info at the API
       hints: null, //TODO
-      explanation: null //TODO
+      explanation: null, //TODO
+      isVisibleOnProfile: questionData['visible_on_profile'] ? questionData['visible_on_profile'] : true
     });
   },
 
@@ -54,9 +71,7 @@ export default Ember.Object.extend({
     return standards.map(function(standard){
       return Ember.Object.create({ code: standard, description: null });
     });
-  },
-
-
+  }
 
 });
 

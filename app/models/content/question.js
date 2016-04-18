@@ -7,7 +7,8 @@ const Validations = buildValidations({
     validators: [
       validator('presence', {
         presence: true,
-        message:'Please enter the question title.'
+        message: '{{description}}',
+        descriptionKey: 'common.errors.add-question-title'
       })
     ]
   }
@@ -44,7 +45,7 @@ const Question = Ember.Object.extend(Validations, {
   /**
    * @property {string}
    */
-  description: null,
+  text: null,
 
   /**
    * @property {string} published|unpublished|requested
@@ -65,6 +66,12 @@ const Question = Ember.Object.extend(Validations, {
    * @property { { code: string, description: string }[] }
    */
   standards: null,
+
+  /**
+   * @property {Boolean} isVisibleOnProfile - Indicates if the Question is visible on Profile. By default it is true
+   */
+  isVisibleOnProfile: true,
+
   /**
    * Return a copy of the question
    *

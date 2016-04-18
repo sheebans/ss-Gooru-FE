@@ -1,0 +1,19 @@
+[
+  {
+    "description": "API 3.0 Endpoint to update a question info",
+    "request": {
+      "url": "^/api/nucleus/v1/questions/(.+)$",
+      "method": "PUT",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 204,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": ""
+    }
+  }
+]
