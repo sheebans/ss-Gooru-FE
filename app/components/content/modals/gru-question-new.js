@@ -43,7 +43,7 @@ export default Ember.Component.extend({
             .createQuestion(question)
             .then(function(newQuestion) {
                 component.triggerAction({ action: 'closeModal' });
-                component.get('router').transitionTo('content.questions.edit', { questionId : newQuestion.get('id') });
+                component.get('router').transitionTo('content.questions.edit', newQuestion.get('id'));
               },
               function() {
                 const message = component.get('i18n').t('common.errors.question-not-created').string;
