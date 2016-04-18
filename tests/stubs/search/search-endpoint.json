@@ -1,15 +1,12 @@
 [
   {
-    "description": "API 3.0: Search for Resources using any term",
+    "description": "API 3.0: Search for questions using any term",
     "request": {
       "url": "^/gooru-search/rest/v2/search/resource$",
       "query": {
-        "q": "(.+)"
+        "flt.resourceFormat": "question"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -17,7 +14,76 @@
         "Content-Type": "application/json"
       },
       "body": "File not found!",
-      "file": "search-resource-any-term-200-response.json"
+      "file": "search-questions-200-response.json"
+    }
+  },
+  {
+    "description": "API 3.0: Search for Resources using any term",
+    "request": {
+      "url": "^/gooru-search/rest/v2/search/resource$",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "search-resources-200-response.json"
+    }
+  },
+  {
+    "description": "Search for collections no results",
+    "request": {
+      "url": "^/gooru-search/rest/v2/search/scollection$",
+      "query": {
+        "q": "noResultFound"
+      },
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "search-no-results-ok-response.json"
+    }
+  },
+  {
+    "description": "API 3.0: Search for Collections using any term",
+    "request": {
+      "url": "^/gooru-search/rest/v2/search/scollection$",
+      "query": {
+        "flt.collectionType": "collection"
+      },
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "search-collections-200-response.json"
+    }
+  },
+  {
+    "description": "API 3.0: Search for Assessments using any term",
+    "request": {
+      "url": "^/gooru-search/rest/v2/search/scollection$",
+      "query": {
+        "flt.collectionType": "assessment"
+      },
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "search-assessments-200-response.json"
     }
   }
 ]

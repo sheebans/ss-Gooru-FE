@@ -87,7 +87,7 @@ export default Ember.Component.extend({
   'component-class': null,
 
   /**
-   * @type {Content/Resource} resource
+   * @type {Resource} resource
    */
   resource: null,
 
@@ -107,7 +107,7 @@ export default Ember.Component.extend({
 
 
   /**
-   * @type {Content/Resource} resource
+   * @type {Resource} resource
    */
   existingResource: null,
 
@@ -120,7 +120,7 @@ export default Ember.Component.extend({
   // Methods
   /**
    * After a resource is saved
-   * @param {Content/Resource} newResource
+   * @param {Resource} newResource
    */
   onNewResource: function(newResource){
     const component = this;

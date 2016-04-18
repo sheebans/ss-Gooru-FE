@@ -189,17 +189,14 @@ export default Ember.Service.extend({
     });
   },
 
-  //
-  // TODO The following functions must be deleted once API 3.0 integration is done
-  //
-  findById: function(profileId) {
-    return this.get('store').findRecord('profile', profileId);
-  },
-
+  /**
+   * Returns the current logged user information
+   * @returns {*}
+   */
   findByCurrentUser: function() {
     if (!this.get('session.isAnonymous')) {
       var currentProfileId = this.get('session.userId');
-      return this.findById(currentProfileId);
+      return this.readUserProfile(currentProfileId);
     }
     return null;
   },
@@ -207,7 +204,7 @@ export default Ember.Service.extend({
   /**
    * Return the list of resources related to a user
    * @param {string} userId
-   * @returns {RSVP.Promise.<Content/Resource>}
+   * @returns {RSVP.Promise.<Resource>}
    */
   readResources: function(userId) {
     const service = this;
@@ -224,7 +221,7 @@ export default Ember.Service.extend({
   /**
    * Return the list of questions related to a user
    * @param {string} userId
-   * @returns {RSVP.Promise.<Content/Question>}
+   * @returns {RSVP.Promise.<Question>}
    */
   readQuestions: function(userId) {
     const service = this;
@@ -241,7 +238,7 @@ export default Ember.Service.extend({
   /**
    * Return the list of collections related to a user
    * @param {string} userId
-   * @returns {RSVP.Promise.<Content/Collection>}
+   * @returns {RSVP.Promise.<Collection>}
    */
   readCollections: function(userId) {
     const service = this;
@@ -258,7 +255,7 @@ export default Ember.Service.extend({
   /**
    * Return the list of assessments related to a user
    * @param {string} userId
-   * @returns {RSVP.Promise.<Content/Assessment>}
+   * @returns {RSVP.Promise.<Assessment>}
    */
   readAssessments: function(userId) {
     const service = this;

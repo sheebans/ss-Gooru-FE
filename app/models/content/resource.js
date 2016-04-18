@@ -32,9 +32,15 @@ const Validations = buildValidations({
 /**
  * Resource model
  *
- * @typedef {Object} Content/Resource
+ * @typedef {Object} Resource
  */
 const ResourceModel = Ember.Object.extend(Validations,{
+
+
+  /**
+   * @property {Number} id
+   */
+  id: 0,
 
   /**
    * @property {String} url
@@ -42,9 +48,9 @@ const ResourceModel = Ember.Object.extend(Validations,{
   url: null,
 
   /**
-   * @property {Number} id
+   * @property {String} thumbnailUrl
    */
-  id: 0,
+  thumbnailUrl: null,
 
   /**
    * @property {Boolean} isEditing
@@ -90,19 +96,35 @@ const ResourceModel = Ember.Object.extend(Validations,{
 });
 
 ResourceModel.reopenClass({
+
   /**
    * Serializes the resource format to be API compliant
    * @param format
    * @returns {string}
+   * TODO move to util
    */
   serializeResourceFormat: function (format) {
     return format ? `${format}_resource` : undefined;
   },
 
   /**
+   * Converts several app format values to api values
+   * @param {string[]} values values to format
+   * TODO move to util
+   */
+  serializeAllResourceFormat: function(values){
+    const model = this;
+    return values.map(function(format){
+      return model.serializeResourceFormat(format);
+    });
+  },
+
+
+  /**
    * Normalizes the resource format to be App compliant
    * @param format
    * @returns {string}
+   * TODO move to util
    */
   normalizeResourceFormat: function (format) {
     return format ? format.split("_")[0] : undefined;// i.e video_resource to video
