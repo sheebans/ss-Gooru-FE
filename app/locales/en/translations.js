@@ -96,10 +96,12 @@ export default {
     "errors": {
       "join-class-code":"Please enter the class code.",
       "add-course-title":"Please enter the course title.",
+      "add-question-title":"Please enter the question title.",
       "can-not-join-class" : "Oops! Unable to join class. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
+      "collection-not-updated": "Oops! Unable to update collection right now. Please try again shortly.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
@@ -145,6 +147,7 @@ export default {
     "more-details":"More Details",
     "new-assessment": "New Assessment",
     "new-collection": "New Collection",
+    "next": "Next",
     "no": "No",
     "no-content": "No content available",
     "no-results": "No Results Found",
@@ -208,9 +211,9 @@ export default {
     "role": "Role",
     "save": "Save",
     "save-next": "Save and Next",
-    "next": "Next",
     "save-submit": "Save and Submit All",
     "save-finish": "Save and Finish",
+    "select": "Select",
     "settings":"Settings",
     "school": "School",
     "school-info": "School Information",
@@ -302,7 +305,64 @@ export default {
       "button": "Learn More about Our Approach"
     }
   },
-
+  "class":{
+    "info":{
+      "class-info": "Class Information",
+      "teachers":"Teachers",
+      "students":"Students",
+      "subject":"Subject",
+      "grade":"Grade",
+      "description":"Description",
+      "edit-info":"Edit Information",
+      "share-class":"Share Class",
+      "invite-collaborator":"Invite Collaborator",
+      "invite-student":"Invite Student",
+      "class-code": "Class Code"
+    },
+    "overview":{
+      "title":"Course map",
+      "locate":"Locate Me",
+      "editContent":"Edit Content"
+    },
+    "analytics": {
+      "performance": {
+        "title": "View Performance",
+        "better-experience-message":"For a better Gooru experience, view full Class Analytics in tablet or desktop.",
+        "actions": {
+          "share": "Share",
+          "edit": "Edit Content",
+          "download": "Download",
+          "fullScreen": "View Full Screen",
+          "exitFullScreen": "Exit Full Screen",
+          "assessment": "View Assessment",
+          "collection": "View Collection",
+          "both": "View Both"
+        },
+        "teacher": {
+          "metricsTable": {
+            "average": "Average",
+            "class-average": "Class Average"
+          }
+        }
+      },
+      "mastery": {
+        "title": "View Mastery"
+      }
+    },
+    "quick-start":{
+      "add-course": "Add Course",
+      "new-course": "Quick Start a New Course",
+      "new-course-desc": "Jump start to add a collection or assessment",
+      "new-collection": "New Collection",
+      "new-assesment": "New Assesment",
+      "remix-a-sample": "Remix a Sample",
+      "add-existing-course": "Add from Existing Course",
+      "existing-course-desc": "The quickest way to start a class",
+      "choose-course": "Choose Course",
+      "remix-from-course": "Remix from Featured Course",
+      "remix-desc": "Customize your course based on featured courses"
+    }
+  },
   "classes": {
     "classesJoined": "Classes I've Joined",
     "classesTaught": "Classes I Teach",
@@ -323,19 +383,16 @@ export default {
       "title": "Join a Class",
       "content": "Where the journey begins.",
       "class-code-input": "Enter a Class Code",
-      "terms-and-conditions": 'By clicking Join Class, I agree to share my assessment and collection progress data generated from studying this Gooru class, with the teacher(s) of this class.',
-      "not-now": "Not now",
-      "join-class": "Join Class",
+      "class-not-found": "Class not found. Make sure you've entered the correct class code",
       "invalid-code": "Invalid class code.",
-      "join-not-allowed": "You are not allow to join this class",
-
+      "join-class": "Join Class",
+      "join-not-allowed": "You are not able to join this class",
+      "not-now": "Not now",
+      "terms-and-conditions": 'By clicking Join Class, I agree to share my assessment and collection progress data generated from studying this Gooru class, with the teacher(s) of this class.'
     }
   },
   "content.collections.edit": {
-    "assign-to-course": "Assign to Course",
-    "information":{
-      "collection-title":"Collection Title"
-    }
+    "assign-to-course": "Assign to Course"
   },
 
   "content.courses.edit": {
@@ -399,7 +456,15 @@ export default {
       "cta": "Learn More"
     }
   },
-
+  "class.gru-class-navigation": {
+    "active" : "Active:",
+    "members" : "Members",
+    "greetings" : "Greetings",
+    "overview" : "Course Map",
+    "analytics" : "Data",
+    "suggestions" : "Suggestions",
+    "information" : "Class Information"
+  },
   "gru-user-registration": {
     "joinTitle": "Join the Gooru Community!",
     "joinDescription": "Find, remix, and share the best free K-12 learning resources.",
@@ -416,6 +481,8 @@ export default {
   "sign-up": {
     "step-1-title": "Hello!",
     "step-1-description": "We're glad you’ve decided to join us.",
+    "step-2-title": "Basic Info",
+    "step-2-description": "You’re not basic, but this info is.",
     "log-in": "Log In",
     "log-in-description": "if you already have an account.",
     "google-button": "Sign Up with Google",
@@ -447,8 +514,15 @@ export default {
     "email": "Email",
     "password": "Password",
     "rePassword": "Confirm Password",
+    "role": "Role",
+    "teacher": "Teacher",
+    "student": "Student",
+    "other": "Other",
+    "country": "Country",
+    "state": "State",
+    "district": "District",
     "error-username-taken": "Aww, this username is taken. Try another.",
-    "error-email-taken": "This email is taken. Try another.",
+    "error-email-taken": "This email is taken. Try another."
   },
 
   "gru-user-sign-up-cancel": {
@@ -620,59 +694,6 @@ export default {
   },
 
 
-
-  "class.info":{
-    "class-info": "Class Information",
-    "teachers":"Teachers",
-    "students":"Students",
-    "subject":"Subject",
-    "grade":"Grade",
-    "description":"Description",
-    "edit-info":"Edit Information",
-    "share-class":"Share Class",
-    "invite-collaborator":"Invite Collaborator",
-    "invite-student":"Invite Student",
-    "class-code": "Class Code"
-  },
-  "class.gru-class-navigation": {
-    "active" : "Active:",
-    "members" : "Members",
-    "greetings" : "Greetings",
-    "overview" : "Course Map",
-    "analytics" : "Data",
-    "suggestions" : "Suggestions",
-    "information" : "Class Information"
-  },
-  "class.overview":{
-    "title":"Course map",
-    "locate":"Locate Me",
-    "editContent":"Edit Content"
-  },
-  "class.analytics": {
-    "performance": {
-      "title": "View Performance",
-      "better-experience-message":"For a better Gooru experience, view full Class Analytics in tablet or desktop.",
-      "actions": {
-        "share": "Share",
-        "edit": "Edit Content",
-        "download": "Download",
-        "fullScreen": "View Full Screen",
-        "exitFullScreen": "Exit Full Screen",
-        "assessment": "View Assessment",
-        "collection": "View Collection",
-        "both": "View Both"
-      },
-      "teacher": {
-        "metricsTable": {
-          "average": "Average",
-          "class-average": "Class Average"
-        }
-      }
-    },
-    "mastery": {
-      "title": "View Mastery"
-    }
-  },
 
   "player": {
     "gru-navigation": {

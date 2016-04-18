@@ -54,7 +54,7 @@ test('normalizeReadStates', function (assert) {
 test('normalizeReadDistricts', function (assert) {
   const serializer = this.subject();
   const districtsData = {
-    school_districts: [
+    'school-districts': [
       {
         "id": "1",
         "name": "A",

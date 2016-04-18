@@ -1,5 +1,7 @@
 <span class="label">{{t "common.audience"}}</span>
+
 {{#if isEditing}}
+
   <div class="dropdown">
     <button class="btn-primary dropdown-toggle btn-sm add-prefix"
             type="button"
@@ -14,14 +16,16 @@
     </ul>
     {{#each editAudiences as |audience|}}
       {{#if audience.checked}}
-        <button type="button" class="btn-audience btn-info btn btn-sm">
+        <button type="button" {{action 'removeAudience' audience}} class="btn-audience btn-info btn btn-sm">
           <span class="btn-label">{{t audience.label}}</span>
-          <span class="remove-audience" {{action 'removeAudience' audience}}>{{gru-icon name="clear"}}</span>
+          <span class="remove-audience">{{gru-icon name="clear"}}</span>
         </button>
       {{/if}}
     {{/each}}
   </div>
+
 {{else}}
+
   <div>
     {{#if srcSelectedAudiences.length}}
 
@@ -31,8 +35,9 @@
         {{/if}}
       {{/each}}
 
-  {{else}}
+    {{else}}
       <span>{{t "common.not-specified"}}</span>
-  {{/if}}
+    {{/if}}
   </div>
+
 {{/if}}

@@ -43,7 +43,7 @@ export default Ember.Component.extend({
             .createQuestion(question)
             .then(function(newQuestion) {
                 component.triggerAction({ action: 'closeModal' });
-                component.get('router').transitionTo('content.questions.edit', { questionId : newQuestion.get('id') });
+                component.get('router').transitionTo('content.questions.edit', newQuestion.get('id'));
               },
               function() {
                 const message = component.get('i18n').t('common.errors.question-not-created').string;
@@ -106,10 +106,7 @@ export default Ember.Component.extend({
     this.move(array,6,2);
     this.move(array,7,3);
     this.move(array,7,6);
-    let arrayTypes=array.map(function(item){
-      return normalizeQuestionTypes(item);
-    });
-    return arrayTypes;
+    return array;
   }),
 
 

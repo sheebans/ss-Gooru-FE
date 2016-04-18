@@ -24,10 +24,8 @@ test('Layout', function(assert) {
     const $signUpContainer = find(".sign-up");
     var $modal = $signUpContainer.find(".modal");
     T.exists(assert, $modal, "Missing sign-up modal");
-    var $firstStep = $modal.find(".first-step");
-    T.exists(assert, $firstStep, "Missing first-step");
-    T.exists(assert, $firstStep.find(".modal-content"), "Missing modal-content");
-    const $signUpHeader = $firstStep.find(".modal-header");
+    T.exists(assert, $modal.find(".modal-content"), "Missing modal-content");
+    const $signUpHeader = $modal.find(".modal-header");
     T.exists(assert, $signUpHeader, "Missing sign-up-header");
     T.exists(assert, $signUpHeader.find(".progress-dots"), "Missing progress-dots");
     T.exists(assert, $signUpHeader.find("h3"), "Missing sign-up title");
@@ -37,7 +35,8 @@ test('Layout', function(assert) {
     T.exists(assert, $signUpHeader.find(".sign-in-description"), "Missing sign-in description");
     T.exists(assert, $signUpHeader.find(".google-button"), "Missing sign-up google button");
 
-    var $signUpForm = $firstStep.find(".sign-up-form form");
+    const $signUpBody = $modal.find(".modal-body");
+    var $signUpForm = $signUpBody.find(".sign-up-form form");
     T.exists(assert, $signUpForm, "Missing sign up form");
     T.exists(assert, $signUpForm.find(".gru-input.username"), "Missing username field");
     T.exists(assert, $signUpForm.find(".gru-select-date-picker"), "Missing gru-select-date-picker component");
