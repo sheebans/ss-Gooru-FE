@@ -21,37 +21,69 @@ export default Ember.Service.extend({
   },
 
   /**
-   * Search for collections or assessments
+   * Search for collections
    *
    * @param term the term to search
-   * @param isTypeAssessment indicates if the search is for assessments. The default value is false.
    * @returns {Promise}
    */
-  searchCollections: function(term, isTypeAssessment = false) {
+  searchCollections: function(term) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('searchAdapter').searchCollections(term, isTypeAssessment)
+      service.get('searchAdapter').searchCollections(term)
         .then(function(response) {
           resolve(service.get('searchSerializer').normalizeSearchCollections(response));
-        }, function(error) {
-          reject(error);
-        });
+        }, reject);
     });
   },
 
   /**
-   * Search for resources or questions
+   * Search for assessments
    *
    * @param term the term to search
-   * @param categories is an array with the values to filter the search
    * @returns {Promise}
    */
-  searchResources: function(term, categories) {
+  searchAssessments: function(term) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('searchAdapter').searchResources(term, categories)
+      service.get('searchAdapter').searchAssessments(term)
+        .then(function(response) {
+          resolve(service.get('searchSerializer').normalizeSearchAssessments(response));
+        }, reject);
+    });
+  },
+
+  /**
+   * Search for resources
+   *
+   * @param term the term to search
+   * @param formatValues is an array with the values to filter the search
+   * @returns {Promise.<Resource[]>}
+   */
+  searchResources: function(term, formatValues) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('searchAdapter').searchResources(term, formatValues)
         .then(function(response) {
           resolve(service.get('searchSerializer').normalizeSearchResources(response));
+        }, function(error) {
+          reject(error);
+      });
+    });
+  },
+
+  /**
+   * Search for questions
+   *
+   * @param term the term to search
+   * @param types is an array with the values to filter the search
+   * @returns {Promise.<Question[]>}
+   */
+  searchQuestions: function(term, types) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('searchAdapter').searchQuestions(term, types)
+        .then(function(response) {
+          resolve(service.get('searchSerializer').normalizeSearchQuestions(response));
         }, function(error) {
           reject(error);
       });
