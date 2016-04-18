@@ -18,7 +18,7 @@ export default Ember.Object.extend({
   serializeCreateQuestion: function(questionModel) {
     const format = QuestionModel.serializeQuestionType(questionModel.get("type"));
     return {
-      'short_title': questionModel.get('title'),
+      'title': questionModel.get('title'),
       'content_subformat': format,
       'visible_on_profile': questionModel.get('isVisibleOnProfile')
     };
@@ -32,8 +32,8 @@ export default Ember.Object.extend({
    */
   serializeUpdateQuestion: function(questionModel) {
     return {
-      'short_title': questionModel.get('title'),
-      title: questionModel.get('text'),
+      'title': questionModel.get('title'),
+      description: questionModel.get('text'),
       'content_subformat': QuestionModel.serializeQuestionType(questionModel.get("type")),
       'visible_on_profile': questionModel.get('isVisibleOnProfile')
     };

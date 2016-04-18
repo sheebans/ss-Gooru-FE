@@ -10,7 +10,7 @@ test('serializeCreateQuestion', function(assert) {
     type: 'MA'
   });
   const expected = {
-    'short_title': 'question-title',
+    'title': 'question-title',
     content_subformat: 'multiple_answer_question', //subformat is converted at the serializer
     'visible_on_profile': true
   };
@@ -27,8 +27,8 @@ test('serializeUpdateQuestion', function(assert) {
     isVisibleOnProfile: false
   });
   const expected = {
-    'short_title': 'question-title',
-    title: 'This is the question text?',
+    'title': 'question-title',
+    description: 'This is the question text?',
     content_subformat: 'multiple_answer_question', //subformat is converted at the serializer
     'visible_on_profile': false
   };
