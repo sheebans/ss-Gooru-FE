@@ -54,24 +54,7 @@ test('onOpenContentPlayer: When opening a assessment', function(assert) {
     T.exists(assert, $firstCollectionLink, "Missing collection link");
     click($firstCollectionLink); //clicking first collection title
     andThen(function() {
-      assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
-    });
-  });
-});
-
-test('No results found', function(assert) {
-  assert.expect(5);
-  visit('/search/assessments?term=noResultFound');
-  andThen(function() {
-    const $assessmentsButton = find(".content-navigation .category-options .assessments");
-    T.exists(assert, $assessmentsButton, "Missing assessment filter button");
-    click($assessmentsButton); //clicking first collection title
-    andThen(function() {
-      assert.equal(currentURL(), '/search/assessments?term=noResultFound');
-      const $noResultFound = find(".results div.no-results-found");
-      T.exists(assert, $noResultFound.find(".title"), "Missing no result found title");
-      T.exists(assert, $noResultFound.find("i.remove_circle_outline"), "Missing no result found icon");
-      T.exists(assert, $noResultFound.find(".message"), "Missing no result found message");
+      assert.equal(currentURL(), '/player/aa403746-9344-489b-b405-8989d2737532?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
     });
   });
 });

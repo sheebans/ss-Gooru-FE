@@ -54,7 +54,7 @@ test('onOpenContentPlayer: When opening a collection', function(assert) {
     T.exists(assert, $firstCollectionLink, "Missing collection link");
     click($firstCollectionLink); //clicking first collection title
     andThen(function() {
-      assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
+      assert.equal(currentURL(), '/player/aa403746-9344-489b-b405-8989d2737532?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
     });
   });
 });

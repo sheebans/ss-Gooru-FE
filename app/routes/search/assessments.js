@@ -11,7 +11,7 @@ export default Ember.Route.extend({
     const term = this.paramsFor('search').term;
     var assessmentResults = this.get('searchService').searchAssessments(term);
     return Ember.RSVP.hash({
-      assessments: assessmentResults
+      assessmentResults: assessmentResults
     });
   },
 
