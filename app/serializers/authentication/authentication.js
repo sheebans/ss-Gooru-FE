@@ -21,7 +21,8 @@ export default Ember.Object.extend({
       'token-api3': (accessToken ? accessToken : payload['access_token']),
       user: {
         username: payload.username,
-        gooruUId: payload['user_id']
+        gooruUId: payload['user_id'],
+        isNew: payload.user_category ? false : true
       },
       isAnonymous: isAnonymous
     };

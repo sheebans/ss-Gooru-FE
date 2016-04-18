@@ -28,6 +28,8 @@ export default Ember.Route.extend({
   afterModel() {
     if (this.get('session.isAnonymous')) {
       this.transitionTo('sign-in');
+    } else if(this.get('session.userData.isNew')) {
+      this.transitionTo('sign-up-finish');
     } else {
       this.transitionTo('user');
     }
