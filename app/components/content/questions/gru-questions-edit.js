@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
 import {QUESTION_CONFIG} from 'gooru-web/config/question';
-import {normalizeQuestionTypes} from 'gooru-web/utils/utils';
 
 
 export default Ember.Component.extend(ContentEditMixin,{
