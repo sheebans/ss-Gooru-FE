@@ -31,6 +31,10 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Events
+  init: function() {
+    this._super( ...arguments );
+    this.set('editAudiences', this.getOptionsArray(AUDIENCES, this.get('srcSelectedAudiences')));
+  },
 
   /**
    * Overwrites didUpdate hook
@@ -48,12 +52,7 @@ export default Ember.Component.extend({
   /**
    * @type {Ember.A}
    */
-  editAudiences: Ember.computed('srcSelectedAudiences.length', function () {
-    return AUDIENCES.slice(0).map(function (object) {
-      object.checked = this.get('srcSelectedAudiences').indexOf(object.value) > -1;
-      return Ember.Object.create(object);
-    }.bind(this));
-  }),
+  editAudiences: null,
 
   /**
    * @type {Ember.A} editSelectedAudiences - Editable list of audiences selected for the course
@@ -69,11 +68,8 @@ export default Ember.Component.extend({
   /**
    * @type {Ember.A}
    */
-  srcAudiences: Ember.computed('srcSelectedAudiences.length', function () {
-    return AUDIENCES.slice(0).map(function (object) {
-      object.checked = this.get('srcSelectedAudiences').indexOf(object.value) > -1;
-      return Ember.Object.create(object);
-    }.bind(this));
+  srcAudiences: Ember.computed('srcSelectedAudiences.[]', function () {
+    return this.getOptionsArray(AUDIENCES, this.get('srcSelectedAudiences'));
   }),
 
   /**
@@ -93,6 +89,29 @@ export default Ember.Component.extend({
       return audience.get('value');
     });
     this.set('editSelectedAudiences', selectedAudiences);
-  })
+  }),
+
+  resetSelectedAudiences: Ember.observer('isEditing', function () {
+    if (this.get('isEditing')) {
+      this.set('editAudiences', this.getOptionsArray(AUDIENCES, this.get('srcSelectedAudiences')));
+    }
+  }),
+
+  // -------------------------------------------------------------------------
+  // Methods
+
+  /**
+   * Create a copy of an array of value-label objects and add an additional property
+   * 'checked' to each one, where its value will depend on whether the object value is
+   * present or not in the 'selectedOptions' array (list of values)
+   * @param {Object[]} allOptions - Array of objects
+   * @param {Number[]} selectedOptions - Array of values
+   */
+  getOptionsArray: function(allOptions, selectedOptions) {
+    return allOptions.slice(0).map(function (object) {
+      object.checked = selectedOptions.indexOf(object.value) > -1;
+      return Ember.Object.create(object);
+    });
+  }
 
 });

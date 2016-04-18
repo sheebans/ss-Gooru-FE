@@ -12,13 +12,14 @@
 @import 'mixins/gru-accordion';
 
 @import 'controllers/application';
-@import 'controllers/classes';
 @import 'controllers/class';
-@import 'controllers/class/info';
-@import 'controllers/class/overview';
 @import 'controllers/class/analytics/performance/student';
 @import 'controllers/class/analytics/performance/teacher';
 @import 'controllers/class/analytics/performance/teacher/collection';
+@import 'controllers/class/info';
+@import 'controllers/class/overview';
+@import 'controllers/class/quick-start';
+@import 'controllers/classes';
 @import 'controllers/content/classes/modals';
 @import 'controllers/content/classes/create';
 @import 'controllers/content/classes/join';
