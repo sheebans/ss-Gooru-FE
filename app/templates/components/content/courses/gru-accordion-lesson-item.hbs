@@ -1,0 +1,33 @@
+<div class="panel panel-default view collapsed">
+  <div class="panel-heading">
+    <h3>{{plus-one index}}</h3>
+    {{#link-to 'sign-in' class="title"}}
+      {{#if model.image}}
+        <img class="img-rounded" src="{{model.image}}" />
+      {{else}}
+        <span class="image-placeholder"></span>
+      {{/if}}
+      <div>
+        <strong>{{model.title}}</strong>
+        <span>{{model.format}}</span>
+      </div>
+    {{/link-to}}
+
+    <div class="detail">
+      {{#if model.isCollection}}
+        <span><b>{{model.resourceCount}}</b> {{t "common.resource-pl" count=model.resourceCount}}</span>
+        {{#if model.questionCount}}
+          | <span><b>{{model.questionCount}}</b> {{t "common.question-pl" count=model.questionCount}}</span>
+        {{/if}}
+      {{else}}
+        <span><b>{{model.questionCount}}</b> {{t "common.question-pl" count=model.questionCount}}</span>
+      {{/if}}
+
+      <div class="actions">
+
+        {{partial 'content/partials/item-actions'}}
+
+      </div>
+    </div>
+  </div>
+</div>

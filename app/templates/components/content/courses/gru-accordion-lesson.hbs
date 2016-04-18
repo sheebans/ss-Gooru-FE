@@ -1,48 +1,81 @@
-<div class="panel-heading" role="tab" id="{{elementId}}-heading">
+<div class="panel panel-default edit">
+  <div class="panel-heading">
 
-  <span class="panel-title">
-    <a class="title collapsed"
-       role="button"
-       data-toggle="collapse"
-       href="#{{elementId}}-content"
-       aria-expanded="false"
-       aria-controls="{{elementId}}-content"
-      {{action "selectLesson" model.id}}>
-        {{course-sections-prefix  index=index type='lesson' longName=true}}&period;&nbsp;&nbsp;{{model.title}}
-    </a>
-  </span>
+    {{#if lesson.id}}
+      <h3>{{t "common.lesson"}} {{plus-one index}}</h3>
+    {{else}}
+      <h3>{{t "common.lesson"}} {{totalItems}}</h3>
+    {{/if}}
+
+    {{validation.gru-input model=lesson valuePath='title'}}
+
+    <div class="actions">
+      <button class="cancel btn btn-info"  {{action 'cancelEdit'}}>{{t "common.cancel"}}</button>
+      <button class="save btn btn-success" {{action 'saveLesson'}}>{{t "common.save"}}</button>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="data-row standards">
+      <span>{{t "common.standards"}}</span>
+      <button type="button" class="btn btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
+    </div>
+  </div>
 </div>
 
-<div id="{{elementId}}-content"
-     data-index="{{componentIndex}}"
-     class="panel-collapse collapse"
-     role="tabpanel"
-     aria-labelledby="{{elementId}}-heading">
+<div class="panel panel-default view {{if model.isExpanded 'expanded' 'collapsed'}}">
+  <div class="panel-heading">
+    <h3><a href="#" {{action 'toggle'}}>{{t "common.lesson"}} {{plus-one index}}</a></h3>
+    <strong><a href="#" {{action 'toggle'}}>{{lesson.title}}</a></strong>
 
-  <div class="panel-body">
-    <ol class="collections">
-
-      {{#if items.isPending}}
-        {{three-bounce-spinner}}
+    <div class="detail">
+      {{#if (or lesson.assessmentCount lesson.collectionCount)}}
+        {{#if lesson.assessmentCount}}
+          <span><b>{{lesson.assessmentCount}}</b> {{t "common.assessment-pl" count=lesson.assessmentCount}}</span>
+        {{/if}}
+        {{if (and lesson.assessmentCount lesson.collectionCount) '|' ''}}
+        {{#if lesson.collectionCount}}
+          <span><b>{{lesson.collectionCount}}</b> {{t "common.collection-pl" count=lesson.collectionCount}}</span>
+        {{/if}}
       {{else}}
-
-        {{#each visibleItems as |item index|}}
-          <li class="panel {{if item.isAssessment 'assessment' 'collection'}}">
-
-            <div class="panel-heading">
-              <span class="panel-title">
-                <a class="title" {{action "selectResource" item.id}}>
-                    {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
-                </a>
-              </span>
-            </div>
-          </li>
-        {{else}}
-          <li>{{t "common.contentUnavailable"}}</li>
-        {{/each}}
-
+        <span>{{t "common.add"}}</span>
       {{/if}}
+
+      <div class="actions">
+        <div class="dropdown">
+          <button class="btn add-item dropdown-toggle" type="button" data-toggle="dropdown">{{gru-icon name="add"}}</button>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li><a href="#">{{t "common.from-my-collections"}}</a></li>
+            <li><a href="#">{{t "common.from-my-assessments"}}</a></li>
+            <li><a href="#">{{t "common.new-collection"}}</a></li>
+            <li><a href="#">{{t "common.new-assessment"}}</a></li>
+          </ul>
+        </div>
+        <button class="btn sort-items" {{action 'swap'}}>{{gru-icon name="swap_vert"}}</button>
+
+        {{partial 'content/partials/item-actions'}}
+
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+
+    <ol class="accordion-lesson" role="tablist" aria-multiselectable="true">
+
+      {{#each items as |item index|}}
+
+        {{content.courses.gru-accordion-lesson-item
+          model=item
+          index=index }}
+
+      {{/each}}
     </ol>
+
+    <div>
+      <button class="btn btn-success add-prefix">{{t "common.from-my-collections"}}</button>
+      <button class="btn btn-success add-prefix">{{t "common.from-my-assessments"}}</button>
+      <button class="btn btn-success add-prefix" {{action 'addCollection'}}>{{t "common.new-collection"}}</button>
+      <button class="btn btn-success add-prefix" {{action 'addAssessment'}}>{{t "common.new-assessment"}}</button>
+    </div>
 
   </div>
 </div>

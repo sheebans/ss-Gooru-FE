@@ -19,11 +19,16 @@ export default {
     "add-new-question": "Add New Question",
     "add-to": "Add To",
     "add-type-question":"What type of question would you like to add?",
+    "add-type-resource":"What type of resource is this?",
     "add-units": "Add Units",
     "anonymous_mode": "Anonymous Mode",
     "answer":"Your Answer",
     "approved":"Approved",
     "assessment":"Assessment",
+    "assessment-pl": {
+      one: "Assessment",
+      other: "Assessments"
+    },
     "assessment-title":"Assessment Title",
     "assessments": "Assessments",
     "assessmentInitial": "A",
@@ -53,6 +58,10 @@ export default {
     "classScores": "Class Scores",
     "close": "Close",
     "collection":"Collection",
+    "collection-pl": {
+      one: "Collection",
+      other: "Collections"
+    },
     "collection-title":"Collection Title",
     "collections": "Collections",
     "collectionInitial": "C",
@@ -68,6 +77,7 @@ export default {
     "courses": "Courses",
     "create": "Create",
     "district": "District",
+    "domain": "Domain",
     "edit": "Edit",
     "edit-assessment": "Edit Assessment",
     "edit-collection": "Edit Collection",
@@ -85,20 +95,28 @@ export default {
     "enter-url":"Enter URL",
     "errors": {
       "join-class-code":"Please enter the class code.",
+      "add-course-title":"Please enter the course title.",
+      "add-question-title":"Please enter the question title.",
+      "can-not-join-class" : "Oops! Unable to join class. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
+      "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
+      "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
       "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
-      "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly."
+      "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
+      "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly."
     },
     "explanation": "Explanation",
     "first-name": "First Name",
     "follow": "Follow",
     "forgotPassword": "Forgot Password",
+    "from-my-assessments": "From My Assessments",
+    "from-my-collections": "From My Collections",
     "hints": "Hints",
     "hide-results":"Hide Results",
     "if_questions": "If you have any questions,",
@@ -125,6 +143,9 @@ export default {
     "myContent": "My Content",
     "mastery":"Mastery",
     "menu": "Menu",
+    "more-details":"More Details",
+    "new-assessment": "New Assessment",
+    "new-collection": "New Collection",
     "next": "Next",
     "no": "No",
     "no-content": "No content available",
@@ -132,6 +153,7 @@ export default {
     "no-results-message":"Check your spelling. We all make mistakes!<br/>Go broader & remove some filters.<br/>Try searching for a similar word instead.",
     "notStarted": "Not started",
     "not-specified":"Not specified",
+    "not-added":"Not Added",
     "number":"No.",
     "numberStudents": {
       one: "{{count}} Student",
@@ -145,6 +167,10 @@ export default {
     "preview": "Preview",
     "question":"Question",
     "questions": "Questions",
+    "question-pl": {
+      one: "Question",
+      other: "Questions"
+    },
     "question-title":"Question Title",
     "question-type":{
       "SA"     : "Single Answer",
@@ -173,6 +199,12 @@ export default {
       "audio"       : "Audio",
       "question"    : "Question"
     },
+    "resource-pl": {
+      one: "Resource",
+      other: "Resources"
+    },
+    "resource-title":"Resource Title",
+    "resource-url": "Resource URL",
     "remaining": "{{number}} Left",
     "remix":"Remix",
     "role": "Role",
@@ -187,6 +219,7 @@ export default {
     "score":"Score",
     "search": "Search",
     "search-placeholder": "Search...",
+    "select-question-type":"Select Question Type",
     "send-request":"Send Request",
     "show-correct-answer":"Show Correct Answer",
     "show-results":"Show Results",
@@ -271,7 +304,64 @@ export default {
       "button": "Learn More about Our Approach"
     }
   },
-
+  "class":{
+    "info":{
+      "class-info": "Class Information",
+      "teachers":"Teachers",
+      "students":"Students",
+      "subject":"Subject",
+      "grade":"Grade",
+      "description":"Description",
+      "edit-info":"Edit Information",
+      "share-class":"Share Class",
+      "invite-collaborator":"Invite Collaborator",
+      "invite-student":"Invite Student",
+      "class-code": "Class Code"
+    },
+    "overview":{
+      "title":"Course map",
+      "locate":"Locate Me",
+      "editContent":"Edit Content"
+    },
+    "analytics": {
+      "performance": {
+        "title": "View Performance",
+        "better-experience-message":"For a better Gooru experience, view full Class Analytics in tablet or desktop.",
+        "actions": {
+          "share": "Share",
+          "edit": "Edit Content",
+          "download": "Download",
+          "fullScreen": "View Full Screen",
+          "exitFullScreen": "Exit Full Screen",
+          "assessment": "View Assessment",
+          "collection": "View Collection",
+          "both": "View Both"
+        },
+        "teacher": {
+          "metricsTable": {
+            "average": "Average",
+            "class-average": "Class Average"
+          }
+        }
+      },
+      "mastery": {
+        "title": "View Mastery"
+      }
+    },
+    "quick-start":{
+      "add-course": "Add Course",
+      "new-course": "Quick Start a New Course",
+      "new-course-desc": "Jump start to add a collection or assessment",
+      "new-collection": "New Collection",
+      "new-assesment": "New Assesment",
+      "remix-a-sample": "Remix a Sample",
+      "add-existing-course": "Add from Existing Course",
+      "existing-course-desc": "The quickest way to start a class",
+      "choose-course": "Choose Course",
+      "remix-from-course": "Remix from Featured Course",
+      "remix-desc": "Customize your course based on featured courses"
+    }
+  },
   "classes": {
     "classesJoined": "Classes I've Joined",
     "classesTaught": "Classes I Teach",
@@ -292,9 +382,11 @@ export default {
       "title": "Join a Class",
       "content": "Where the journey begins.",
       "class-code-input": "Enter a Class Code",
-      "terms-and-conditions": 'By clicking "Join Class" I agree to share my collection progress and information with [teacher username]. This information provides [teacher username] with tools that measure your progress and help to enhance your learning experience.',
+      "terms-and-conditions": 'By clicking Join Class, I agree to share my assessment and collection progress data generated from studying this Gooru class, with the teacher(s) of this class.',
       "not-now": "Not now",
-      "join-class": "Join Class"
+      "join-class": "Join Class",
+      "invalid-code": "Invalid class code.",
+      "join-not-allowed": "You are not allow to join this class",
 
     }
   },
@@ -312,6 +404,17 @@ export default {
     "information":{
       "course-title":"Course Title"
     }
+  },
+  "content.questions.edit": {
+    "add-to": "Add to",
+    "information":{
+      "question-title":"Question Title",
+      "question-type": "Question Type"
+    }
+  },
+
+  "content.resources.edit": {
+    "placeholder-message": "Add a resource to <span>preview it here.</span>"
   },
 
   "user": {
@@ -355,7 +458,15 @@ export default {
       "cta": "Learn More"
     }
   },
-
+  "class.gru-class-navigation": {
+    "active" : "Active:",
+    "members" : "Members",
+    "greetings" : "Greetings",
+    "overview" : "Course Map",
+    "analytics" : "Data",
+    "suggestions" : "Suggestions",
+    "information" : "Class Information"
+  },
   "gru-user-registration": {
     "joinTitle": "Join the Gooru Community!",
     "joinDescription": "Find, remix, and share the best free K-12 learning resources.",
@@ -585,59 +696,6 @@ export default {
   },
 
 
-
-  "class.info":{
-    "class-info": "Class Information",
-    "teachers":"Teachers",
-    "students":"Students",
-    "subject":"Subject",
-    "grade":"Grade",
-    "description":"Description",
-    "edit-info":"Edit Information",
-    "share-class":"Share Class",
-    "invite-collaborator":"Invite Collaborator",
-    "invite-student":"Invite Student",
-    "class-code": "Class Code"
-  },
-  "class.gru-class-navigation": {
-    "active" : "Active:",
-    "members" : "Members",
-    "greetings" : "Greetings",
-    "overview" : "Course Map",
-    "analytics" : "Data",
-    "suggestions" : "Suggestions",
-    "information" : "Class Information"
-  },
-  "class.overview":{
-    "title":"Course map",
-    "locate":"Locate Me",
-    "editContent":"Edit Content"
-  },
-  "class.analytics": {
-    "performance": {
-      "title": "View Performance",
-      "better-experience-message":"For a better Gooru experience, view full Class Analytics in tablet or desktop.",
-      "actions": {
-        "share": "Share",
-        "edit": "Edit Content",
-        "download": "Download",
-        "fullScreen": "View Full Screen",
-        "exitFullScreen": "Exit Full Screen",
-        "assessment": "View Assessment",
-        "collection": "View Collection",
-        "both": "View Both"
-      },
-      "teacher": {
-        "metricsTable": {
-          "average": "Average",
-          "class-average": "Class Average"
-        }
-      }
-    },
-    "mastery": {
-      "title": "View Mastery"
-    }
-  },
 
   "player": {
     "gru-navigation": {

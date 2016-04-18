@@ -30,21 +30,24 @@
   "sequence_id": 1,
   "subject_bucket": "K12.MA",
   "creator_system": "gooru",
-  "unitSummary": [
+  "unit_summary": [
     {
       "unit_id": "610cff79-d77b-4c23-8de3-1cb6969d4b07",
       "title": "Unit 1",
-      "sequence_id": 1
+      "sequence_id": 1,
+      "lesson_count": 2
     },
     {
       "unit_id": "596c67cd-24c5-4593-96b0-aeb7f77ad7c5",
       "title": "Unit 2",
-      "sequence_id": 2
+      "sequence_id": 2,
+      "lesson_count": null
     },
     {
       "unit_id": "89733ef8-f8bf-4a57-9d8f-74a782f671c7",
       "title": "Unit 3",
-      "sequence_id": 3
+      "sequence_id": 3,
+      "lesson_count": 1
     }
   ]
 }

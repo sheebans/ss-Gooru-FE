@@ -13,6 +13,11 @@ const Validations = buildValidations({
 export default Ember.Object.extend(Validations, {
 
   /**
+   * @property {String} id - Gooru id for the unit
+   */
+  id: null,
+
+  /**
    * @property {String} bigIdeas
    */
   bigIdeas: '',
@@ -28,14 +33,9 @@ export default Ember.Object.extend(Validations, {
   essentialQuestions: '',
 
   /**
-   * @property {String} id - Gooru id for the unit
-   */
-  id: '',
-
-  /**
    * @property {Number} lessonsTotal - total number of lessons in the unit
    */
-  lessonsTotal: 0,
+  lessonCount: 0,
 
   /**
    * @property {String} sequence - sequence order among other course units
@@ -45,6 +45,11 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {String} title
    */
-  title: ''
+  title: '',
+
+  /**
+   * @property {String[]} taxonomy - Taxonomy array
+   */
+  taxonomy: null
 
 });

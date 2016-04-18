@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import BuilderItem from 'gooru-web/models/content/builder/item';
+import Lesson from 'gooru-web/models/content/lesson';
 import Unit from 'gooru-web/models/content/unit';
 import Ember from 'ember';
 
@@ -15,6 +16,32 @@ const unitServiceStub = Ember.Service.extend({
         resolve(unit);
       }
     });
+  },
+
+  fetchById(courseId, unitId) {
+    if (courseId && unitId) {
+      let unit = Unit.create(Ember.getOwner(this).ownerInjection(), {
+        bigIdeas: 'Big ideas text',
+        essentialQuestions: 'Essential questions text',
+        id: '123',
+        title: 'Sample Unit Name',
+        children: [
+          Lesson.create(Ember.getOwner(this).ownerInjection(), {
+            id: 'lesson-123',
+            sequence: 1,
+            title: 'Lesson Title A'
+          }),
+          Lesson.create(Ember.getOwner(this).ownerInjection(), {
+            id: 'lesson-456',
+            sequence: 2,
+            title: 'Lesson Title B'
+          })
+        ]
+      });
+      return Ember.RSVP.resolve(unit);
+    } else {
+      return Ember.RSVP.reject('Fetch failed');
+    }
   }
 });
 
@@ -54,14 +81,14 @@ test('it renders a form for a new unit', function (assert) {
 
   const $panelBody = $component.find('.edit .panel-body');
   assert.ok($panelBody.find('> .row .col-sm-6 label textarea').length, 2, 'Text areas');
-  assert.ok($panelBody.find('> .domain').length, 'Domain');
+  assert.ok($panelBody.find('> .data-row.domain').length, 'Domain');
 });
 
 test('it can create a new unit', function (assert) {
 
   var unit = BuilderItem.create({
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
-      id: 0
+      id: ''
     }),
     isEditing: true
   });
@@ -98,7 +125,7 @@ test('it shows an error message if it fails to create a new unit', function (ass
 
   var unit = BuilderItem.create({
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
-      id: 0
+      id: ''
     }),
     isEditing: true
   });
@@ -123,22 +150,22 @@ test('it renders a form when editing an existing unit', function (assert) {
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
       bigIdeas: 'Big ideas text',
       essentialQuestions: 'Essential questions text',
-      id: 123,
-      title: 'Sample Unit Name',
-      sequence: 1
+      id: '123',
+      title: 'Sample Unit Name'
     }),
     isEditing: true
   });
 
   this.set('unit', unit);
-  this.render(hbs`{{content/courses/gru-accordion-unit model=unit }}`);
+  this.set('index', 2);
+  this.render(hbs`{{content/courses/gru-accordion-unit model=unit index=index}}`);
 
   const $component = this.$('.content.courses.gru-accordion.gru-accordion-unit');
   assert.ok($component.length, 'Component');
   assert.ok($component.hasClass('edit'), 'Edit class');
 
   const $heading = $component.find('.edit .panel-heading');
-  assert.ok($heading.find('h3').text(), this.get('i18n').t('common.unit').string + " " + unit.get('data.sequence'), 'Header prefix');
+  assert.ok($heading.find('h3').text(), this.get('i18n').t('common.unit').string + " " + this.get('index'), 'Header prefix');
   assert.ok($heading.find('.gru-input.title').text(), unit.get('data.title'), 'Unit title');
   assert.equal($heading.find('.actions button').length, 2, 'Unit header action buttons');
   assert.ok($heading.find('.actions button:eq(0)').hasClass('cancel'), 'First button is cancel');
@@ -149,7 +176,7 @@ test('it renders a form when editing an existing unit', function (assert) {
   assert.equal($panelBody.find('> .row .col-sm-6:eq(0) textarea').val(), unit.get('data.bigIdeas'), 'First textarea content');
   assert.equal($panelBody.find('> .row .col-sm-6:eq(1) textarea').val(), unit.get('data.essentialQuestions'), 'Second textarea content');
 
-  assert.ok($panelBody.find('> .domain').length, 'Domain');
+  assert.ok($panelBody.find('> .data-row.domain').length, 'Domain');
 });
 
 test('it triggers an external event when clicking cancel on a new unsaved unit', function (assert) {
@@ -157,7 +184,7 @@ test('it triggers an external event when clicking cancel on a new unsaved unit',
 
   const unit = BuilderItem.create({
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
-      id: 0
+      id: ''
     }),
     isEditing: true
   });
@@ -177,7 +204,7 @@ test('it renders the unit correctly, if the unit has no lessons -view mode', fun
 
   const unit = BuilderItem.create({
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
-      id: 123,
+      id: '123',
       title: 'Sample Unit Name',
       sequence: 1
     }),
@@ -213,7 +240,7 @@ test('it expands/collapses the unit -view mode', function (assert) {
 
   const unit = BuilderItem.create({
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
-      id: 123
+      id: '123'
     }),
     isEditing: false,
     isExpanded: false
@@ -223,38 +250,74 @@ test('it expands/collapses the unit -view mode', function (assert) {
     assert.ok(true);
   });
 
+  this.set('courseId', 'course-id-123');
   this.set('unit', unit);
-  this.render(hbs`{{content/courses/gru-accordion-unit model=unit onExpandUnit=(action 'externalAction') }}`);
+  this.render(hbs`
+    {{content/courses/gru-accordion-unit
+      courseId=courseId
+      model=unit
+      onExpandUnit=(action 'externalAction') }}
+    `);
 
   const $container = this.$('.content.courses.gru-accordion.gru-accordion-unit > .view');
   assert.ok($container.length, 'Container');
   assert.ok($container.hasClass('collapsed'), 'Container collapsed');
 
-  $container.find('.panel-heading > h3 > a').click();
+
+  $container.find('> .panel-heading > h3 > a').click();
   assert.ok($container.hasClass('expanded'), 'Container expanded after clicking header prefix');
 
-  $container.find('.panel-heading > h3 > a').click();
+
+  $container.find('> .panel-heading > h3 > a').click();
   assert.ok($container.hasClass('collapsed'), 'Container collapsed after clicking header prefix');
 
-  $container.find('.panel-heading > strong > a').click();
+
+  $container.find('> .panel-heading > strong > a').click();
   assert.ok($container.hasClass('expanded'), 'Container expanded after clicking header title');
 
-  $container.find('.panel-heading > strong > a').click();
+
+  $container.find('> .panel-heading > strong > a').click();
   assert.ok($container.hasClass('collapsed'), 'Container collapsed after clicking header title');
 
-  $container.find('.panel-heading .actions .add-item').click();
+
+  $container.find('> .panel-heading .actions .add-item').click();
   assert.ok($container.hasClass('expanded'), 'Container expanded after clicking the add button');
 
-  $container.find('.panel-heading .actions .add-item').click();
+
+  $container.find('> .panel-heading .actions .add-item').click();
   assert.ok(!$container.hasClass('collapsed'), 'Container should remain expanded after clicking the add button');
 });
 
 test('it loads lessons and renders them after clicking on the unit name', function (assert) {
-  // TODO: Complete this
-  assert.expect(0);
-});
+  const unit = BuilderItem.create({
+    data: Unit.create(Ember.getOwner(this).ownerInjection(), {
+      id: '123',
+      lessonCount: 2
+    }),
+    isEditing: false,
+    isExpanded: false
+  });
 
-test('it only loads lessons once after clicking on the unit name', function (assert) {
-  // TODO: Complete this
-  assert.expect(0);
+  //onExpandUnit action must be defined
+  this.on('externalAction', function () {});
+
+  this.set('courseId', 'course-id-123');
+  this.set('unit', unit);
+  this.set('isLoaded', false);  // Binding to check on the state
+  this.render(hbs`
+    {{content/courses/gru-accordion-unit
+      courseId=courseId
+      model=unit
+      isLoaded=isLoaded
+      onExpandUnit=(action 'externalAction') }}
+    `);
+
+  const $container = this.$('.content.courses.gru-accordion.gru-accordion-unit > .view');
+  assert.ok($container.hasClass('collapsed'), 'Container collapsed');
+  assert.ok(!this.get('isLoaded'), 'Data not loaded');
+
+  $container.find('> .panel-heading > strong > a').click();
+  assert.ok($container.hasClass('expanded'), 'Container expanded');
+  assert.equal($container.find('.accordion-unit > li.gru-accordion-lesson').length, 2, 'Number of lessons loaded');
+  assert.ok(this.get('isLoaded'), 'Data was loaded');
 });

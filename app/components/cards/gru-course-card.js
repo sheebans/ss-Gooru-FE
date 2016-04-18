@@ -39,7 +39,7 @@ export default Ember.Component.extend({
      *Action triggered when select edit the course
      */
     editCourse:function(){
-      this.sendAction("onEditCourse");
+      this.sendAction("onEditCourse", this.get("course"));
     }
   },
   // -------------------------------------------------------------------------
@@ -52,6 +52,12 @@ export default Ember.Component.extend({
    * @property {Boolean} course
    */
   isOwner:false,
+
+  /**
+   * Edit course action
+   * @property {string}
+   */
+  onEditCourse: null,
 
   /**
    * @property {Array} users

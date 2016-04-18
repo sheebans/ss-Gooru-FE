@@ -20,7 +20,7 @@ export default Ember.Mixin.create({
    * @prop {Ember.RSVP.Promise} items - children of the accordion
    * Will resolve to {Unit[] | Lesson[] | Collection[]}
    */
-  items: null,
+  items: [],
 
   /**
    * @prop {Unit | Lesson} model - Item data model (accordion root)

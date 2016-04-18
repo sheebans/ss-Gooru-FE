@@ -146,3 +146,41 @@ test('it displays a notification if the course cannot be created', function (ass
     $component.find(".actions button[type='submit']").click();
   });
 });
+test('Validate if the Course Title field has only whitespaces', function (assert) {
+  assert.expect(3);
+
+  this.render(hbs`{{content/modals/gru-course-new}}`);
+
+  const $component = this.$('.gru-course-new');
+  const $titleField = $component.find(".gru-input.title");
+
+  assert.ok(!$titleField.find(".error-messages .error").length, 'Course Title error message not visible');
+
+  // Try submitting without filling in data
+  $component.find(".actions button[type='submit']").click();
+
+  return wait().then(function () {
+
+    assert.ok($titleField.find(".error-messages .error").length, 'Course Title error should be visible');
+    // Fill in the input field
+    $titleField.find("input").val(' ');
+    $component.find(".actions button[type='submit']").click();
+
+    return wait().then(function () {
+      assert.ok($titleField.find(".error-messages .error").length, 'Course Title error message should be visible');
+    });
+  });
+});
+test('Validate the character limit in the Course title field', function (assert) {
+  assert.expect(1);
+
+  this.render(hbs`{{content/modals/gru-course-new}}`);
+
+  const $component = this.$('.gru-course-new');
+  const $titleField = $component.find(".gru-input.title");
+
+  $titleField.find("input").val('123456790123456790123456790123456790123456790extra');
+  $titleField.find("input").blur();
+
+  assert.equal($titleField.find("input").val().length,50, "Incorrect number of incorrect characters");
+});

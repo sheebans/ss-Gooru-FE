@@ -1,18 +1,18 @@
 import Ember from 'ember';
-import StoreMixin from '../../mixins/store';
 import ClassSerializer from 'gooru-web/serializers/content/class';
 import ClassAdapter from 'gooru-web/adapters/content/class';
 
 /**
  * @typedef {Object} ClassService
  */
-export default Ember.Service.extend(StoreMixin, {
+export default Ember.Service.extend({
 
-  session: Ember.inject.service(),
+  store: Ember.inject.service(),
 
   classSerializer: null,
 
   classAdapter: null,
+
 
   init: function () {
     this._super(...arguments);
@@ -43,6 +43,35 @@ export default Ember.Service.extend(StoreMixin, {
   },
 
   /**
+   * Join class
+   *
+   * @param {string} code class code
+   * @returns {Promise}
+   */
+  joinClass: function (code) {
+    const service = this;
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      service.get('classAdapter').joinClass(code)
+        .then(function (responseData, textStatus, request) {
+            let classId = request.getResponseHeader('location');
+            resolve(classId);
+        },
+        function (error) { //handling server errors
+          const status = error.status;
+          if (status === 400) {
+              reject({status: status, code: 'restricted'});
+          }
+          else if (status === 404) {
+              reject({status: status, code: 'not-found'});
+          }
+          else {
+            reject(error);
+          }
+        });
+    });
+  },
+
+  /**
    * Return the list of classes related to a user
    * @returns {RSVP.Promise}
    */
@@ -57,6 +86,53 @@ export default Ember.Service.extend(StoreMixin, {
           });
     });
   },
+
+  /**
+   * Reads class information for a specified class ID
+   * @param classId the class id to read
+   * @returns {Promise}
+   */
+  readClassInfo: function(classId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classAdapter').readClassInfo(classId)
+        .then(function(response) {
+          resolve(service.get('classSerializer').normalizeReadClassInfo(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
+  /**
+   * Gets the members, collaborators, invitees and owner for a specified class ID
+   * @param classId the class id to read
+   * @returns {Promise}
+   */
+  readClassMembers: function(classId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classAdapter').readClassMembers(classId)
+        .then(function(response) {
+          resolve(service.get('classSerializer').normalizeReadClassMembers(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
+  /**
+   * Associates a Course with a Class
+   *
+   * @param classId the class id
+   * @param courseId the course id
+   * @returns {Promise}
+   */
+  associateCourseToClass: function(courseId, classId) {
+    return this.get('classAdapter').associateCourseToClass(courseId, classId);
+  },
+
+  // TODO These method will be removed once we have full integration with API 3.0
 
   /**
    * Returns the list of the classes the user is joined (as student).

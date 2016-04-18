@@ -20,10 +20,9 @@ export default Ember.Service.extend({
 
   init: function () {
     this._super(...arguments);
-    this.set('questionSerializer', QuestionSerializer.create());
+    this.set('questionSerializer', QuestionSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('questionAdapter', QuestionAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
-
 
   /**
    * Creates a new question
@@ -59,5 +58,19 @@ export default Ember.Service.extend({
           resolve(serializer.normalizeReadQuestion(responseData));
         }, reject );
     });
+  },
+
+  /**
+   * Updates a question
+   *
+   * @param questionId the id of the question to be updated
+   * @param questionModel the question model with the data
+   * @returns {Promise}
+   */
+  updateQuestion: function(questionId, questionModel) {
+    const service = this;
+    let serializedData = service.get('questionSerializer').serializeUpdateQuestion(questionModel);
+    return service.get('questionAdapter').updateQuestion(questionId, serializedData);
   }
+
 });

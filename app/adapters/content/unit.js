@@ -9,9 +9,7 @@ export default Ember.Object.extend({
 
   session: Ember.inject.service(),
 
-  namespace: function (courseId) {
-    return `/api/nucleus/v1/courses/${courseId}/units`;
-  },
+  namespace: '/api/nucleus/v1/courses',
 
   /**
    * Posts a new unit
@@ -21,7 +19,8 @@ export default Ember.Object.extend({
    */
   createUnit: function (params) {
     const courseId = params.courseId;
-    const url = this.get('namespace')(courseId);
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${courseId}/units`;
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
@@ -36,6 +35,33 @@ export default Ember.Object.extend({
         .then(function (responseData, textStatus, request) {
           var unitId = request.getResponseHeader('location');
           resolve(unitId);
+        }, function (error) {
+          reject(error);
+        });
+    });
+  },
+
+  /**
+   * Get unit data for the corresponding unit ID
+   *
+   * @param params - data to send in the request
+   * @returns {Promise|Object}
+   */
+  getUnitById: function (params) {
+    const courseId = params.courseId;
+    const unitId = params.unitId;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${courseId}/units/${unitId}`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: this.defineHeaders()
+    };
+
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function (responseData) {
+          resolve(responseData);
         }, function (error) {
           reject(error);
         });

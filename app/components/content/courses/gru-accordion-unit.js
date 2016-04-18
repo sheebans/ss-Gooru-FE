@@ -1,5 +1,7 @@
 import Ember from 'ember';
+import BuilderItem from 'gooru-web/models/content/builder/item';
 import BuilderMixin from 'gooru-web/mixins/content/builder';
+import Lesson from 'gooru-web/models/content/lesson';
 
 /**
  * Content Builder: Accordion Unit
@@ -52,12 +54,27 @@ export default Ember.Component.extend(BuilderMixin, {
   actions: {
 
     add: function () {
-      this.get('onExpandUnit')();
-      this.set('model.isExpanded', true);
+      this.loadData().then(function() {
+        this.actions.addLesson.call(this);
+        this.get('onExpandUnit')();
+        this.set('model.isExpanded', true);
+      }.bind(this));
     },
 
     addLesson: function () {
-      Ember.Logger.info('Add new lesson');
+      var lesson = Lesson.create(Ember.getOwner(this).ownerInjection(), {
+        title: null
+      });
+      var builderItem = BuilderItem.create({
+        isEditing: true,
+        data: lesson
+      });
+      this.get('items').pushObject(builderItem);
+    },
+
+    cancelAddLesson: function (builderItem) {
+      this.get('items').removeObject(builderItem);
+      builderItem.destroy();
     },
 
     /**
@@ -86,34 +103,22 @@ export default Ember.Component.extend(BuilderMixin, {
           this.set('model.isEditing', false);
         }.bind(this))
 
-        .catch(function () {
+        .catch(function (error) {
           var message = this.get('i18n').t('common.errors.unit-not-created').string;
           this.get('notifications').error(message);
+          Ember.Logger.error(error);
         }.bind(this));
-    },
-
-    /**
-     * Load the data for this unit (data should only be loaded once)
-     *
-     * @function actions:selectUnit
-     */
-    selectUnit: function () {
-      this.loadData();
     },
 
     toggle: function () {
       var toggleValue = !this.get('model.isExpanded');
+
+      this.loadData();
       this.get('onExpandUnit')();
       this.set('model.isExpanded', toggleValue);
     }
 
   },
-
-  // -------------------------------------------------------------------------
-  // Events
-  initData: Ember.on('init', function () {
-    this.set('items', Ember.A());
-  }),
 
 
   // -------------------------------------------------------------------------
@@ -123,6 +128,11 @@ export default Ember.Component.extend(BuilderMixin, {
    * @prop {String} course - ID of the course this unit belongs to
    */
   courseId: null,
+
+  /**
+   * @prop {Boolean} isLoaded - Has the data for the unit already been loaded
+   */
+  isLoaded: false,
 
   /**
    * @prop {Content/Unit} unit
@@ -139,24 +149,35 @@ export default Ember.Component.extend(BuilderMixin, {
    * @returns {undefined}
    */
   loadData: function () {
-    // Loading of data will only happen if 'items' has not previously been set
-    if (!this.get('items')) {
-      var itemsPromise = this.getLessons();
-      this.set('items', itemsPromise);
+    if (!this.get('isLoaded')) {
+      let courseId = this.get('courseId');
+      let unitId = this.get('unit.id');
+
+      return this.get('unitService')
+        .fetchById(courseId, unitId)
+        .then(function (unit) {
+          this.set('model.data', unit);
+
+          // Wrap every lesson inside of a builder item
+          var children = unit.get('children').map(function (lesson) {
+            return BuilderItem.create({
+              data: lesson
+            });
+          });
+          unit.set('children', children);
+
+          this.set('items', children);
+          this.set('isLoaded', true);
+        }.bind(this))
+
+        .catch(function (error) {
+          var message = this.get('i18n').t('common.errors.unit-not-loaded').string;
+          this.get('notifications').error(message);
+          Ember.Logger.error(error);
+        }.bind(this));
+    } else {
+      return Ember.RSVP.resolve(true);
     }
-  },
-
-  /**
-   * TODO: Get all the lessons for the unit
-   *
-   * @function
-   * @requires api-sdk/lesson#findByClassAndCourseAndUnit
-   * @returns {Ember.RSVP.Promise}
-   */
-  getLessons: function () {
-    const unitId = this.get('model.id');
-
-    return this.get("lessonService").findByClassAndCourseAndUnit(unitId);
   }
 
 });

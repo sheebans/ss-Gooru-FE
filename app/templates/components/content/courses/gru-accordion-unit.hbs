@@ -30,8 +30,8 @@
       </div>
     </div>
 
-    <div class="domain">
-      <span>Domain</span>
+    <div class="data-row domain">
+      <span>{{t "common.domain"}}</span>
       <button type="button" class="btn btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
     </div>
   </div>
@@ -43,27 +43,44 @@
     <strong><a href="#" {{action 'toggle'}}>{{unit.title}}</a></strong>
 
     <div class="detail">
-      {{#if totalSavedItems}}
-        <span><b>{{totalSavedItems}}</b> {{t "common.lessonObj" count=totalSavedItems}}</span>
+      {{#if isLoaded}}
+        {{#if totalSavedItems}}
+          <span><b>{{totalSavedItems}}</b> {{t "common.lessonObj" count=unit.totalSavedItems}}</span>
+        {{else}}
+          <span>{{t "common.add-lessons"}}</span>
+        {{/if}}
       {{else}}
-        <span>{{t "common.add-lessons"}}</span>
+        {{#if unit.lessonCount}}
+          <span><b>{{unit.lessonCount}}</b> {{t "common.lessonObj" count=unit.lessonCount}}</span>
+        {{else}}
+          <span>{{t "common.add-lessons"}}</span>
+        {{/if}}
       {{/if}}
 
       <div class="actions">
         <button class="btn add-item" {{action 'add'}}>{{gru-icon name="add"}}</button>
         <button class="btn sort-items" {{action 'swap'}}>{{gru-icon name="swap_vert"}}</button>
-        <div>
-          <button class="btn edit-item" {{action 'edit' model}}>{{gru-icon name="edit"}}</button>
-          <button class="btn copy-item" {{action 'copy' model}}>{{gru-icon name="content_copy"}}</button>
-          <button class="btn move-item" {{action 'move' model}}>{{gru-icon name="subdirectory_arrow_right"}}</button>
-          <button class="btn delete-item" {{action 'delete' model}}>{{gru-icon name="delete"}}</button>
-        </div>
+
+        {{partial 'content/partials/item-actions'}}
+
       </div>
     </div>
   </div>
   <div class="panel-body">
 
     <ol class="accordion-unit" role="tablist" aria-multiselectable="true">
+
+      {{#each items as |item index|}}
+
+        {{content.courses.gru-accordion-lesson
+          courseId=courseId
+          unitId=unit.id
+          model=item
+          index=index
+          totalItems=items.length
+          onCancelAddLesson=(action 'cancelAddLesson') }}
+
+      {{/each}}
 
       <li class="lesson add-item">
         <a class="add-prefix" href="#" {{action 'addLesson'}}>{{t "common.add-new-lesson"}}</a>

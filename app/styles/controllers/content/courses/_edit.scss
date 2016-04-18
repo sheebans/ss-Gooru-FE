@@ -1,9 +1,14 @@
 .controller.content.courses.edit {
 
-  .accordion-course {
+  .accordion-course,
+  .accordion-unit,
+  .accordion-lesson {
     > li {
       padding: 10px 0;
     }
+  }
+
+  .accordion-course {
 
     .panel-heading {
       position: relative;
@@ -79,7 +84,8 @@
 
               > span {
                 vertical-align: middle;
-                margin-right: 10px;
+                margin-right: 2px;
+                margin-left: 2px;
               }
 
               button {
@@ -98,17 +104,15 @@
               }
 
               .actions {
-                div {
+                margin-left: 5px;
+
+                div:last-of-type {
                   border-left: 1px solid $gray-light;
                   margin-left: 5px;
                   padding-left: 10px;
                 }
               }
             }
-          }
-
-          .panel-body {
-            padding-top: 20px;
           }
 
           &.collapsed {
@@ -141,7 +145,7 @@
     .gru-accordion-unit {
 
       .panel-body {
-        padding: 0 25px 25px;
+        padding: 10px 15px 15px;
 
         .col-sm-6 {
           label {
@@ -165,7 +169,7 @@
           }
         }
 
-        .domain {
+        .data-row {
           > span {
             display: block;
             margin: 10px 0;
@@ -174,11 +178,109 @@
       }
 
       &.view {
-        .panel-body {
+        > .expanded > .panel-body {
           background-color: $dark-400;
 
           .add-item a {
             color: $white;
+          }
+        }
+      }
+    }
+
+    .gru-accordion-lesson {
+
+      &.view {
+        > .view > .panel-heading .actions {
+          .dropdown {
+            &.open > .dropdown-toggle {
+              z-index: $zindex-dropdown + 1;
+              @include box-shadow(0 -4px 4px rgba(0,0,0,.2));
+              border-bottom-left-radius: 0;
+              border-bottom-right-radius: 0;
+              position: relative;
+              background-color: $white;
+            }
+
+            .dropdown-menu {
+              border-top-left-radius: 0;
+              border-top-right-radius: 0;
+              margin-top: -4px;
+
+              li {
+                > a {
+                  padding: 10px 20px 10px 15px;
+                  border-bottom: 1px solid $gray-lighter;
+                }
+
+                &:last-child > a {
+                  border-bottom: 0 none;
+                }
+              }
+            }
+          }
+        }
+        > .expanded > .panel-body {
+          background-color: $dark-300;
+        }
+
+        .accordion-lesson {
+
+          > li.gru-accordion-lesson-item .panel-heading {
+            border-bottom: 0 none;
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+            padding-bottom: 8px;
+
+            > h3 {
+              border-right: 0 none;
+              padding-right: 10px;
+              margin-bottom: 0;
+              vertical-align: top;
+            }
+
+            > .title {
+              > img, > .image-placeholder {
+                display: inline-block;
+                width: 50px;
+                height: 40px;
+                vertical-align: top;
+              }
+
+              > .image-placeholder {
+                border-radius: 3px;
+                background-color: $gray-lighter;
+              }
+
+              > div {
+                border-left: 1px solid $gray-light;
+                display: inline-block;
+                margin-left: 10px;
+                line-height: 1.4;
+
+                > strong {
+                  color: $text-color;
+                  display: block;
+                  line-height: 1.2;
+                  margin-bottom: 5px;
+                }
+
+                > span {
+                  color: $gray-light;
+                  margin-left: 15px;
+                  text-transform: capitalize;
+                }
+              }
+            }
+          }
+
+          + div {
+            padding: 10px 0 5px;
+
+            button {
+              font-size: $font-size-base;
+              padding: 5px 10px;
+            }
           }
         }
       }
