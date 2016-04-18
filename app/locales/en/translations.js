@@ -100,6 +100,7 @@ export default {
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
+      "collection-not-updated": "Oops! Unable to update collection right now. Please try again shortly.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
@@ -327,15 +328,12 @@ export default {
       "not-now": "Not now",
       "join-class": "Join Class",
       "class-not-found": "Class not found. Make sure you've entered the correct class code",
-      "join-not-allowed": "You are not able to join this class",
+      "join-not-allowed": "You are not able to join this class"
 
     }
   },
   "content.collections.edit": {
-    "assign-to-course": "Assign to Course",
-    "information":{
-      "collection-title":"Collection Title"
-    }
+    "assign-to-course": "Assign to Course"
   },
 
   "content.courses.edit": {
@@ -448,7 +446,7 @@ export default {
     "password": "Password",
     "rePassword": "Confirm Password",
     "error-username-taken": "Aww, this username is taken. Try another.",
-    "error-email-taken": "This email is taken. Try another.",
+    "error-email-taken": "This email is taken. Try another."
   },
 
   "gru-user-sign-up-cancel": {
