@@ -46,12 +46,12 @@ test('Select question type', function(assert) {
   assert.equal($component.find('.panel.question-type-MA.active').length,1, 'Multiple answer should be active');
   assert.equal($component.find('.panel.active').length,1, 'Only one type should be active');
 });
-test('Validate if the collection title field is left blank', function (assert) {
+test('Validate if the question title field is left blank', function (assert) {
   assert.expect(3);
 
-  this.render(hbs`{{content/modals/gru-collection-new}}`);
+  this.render(hbs`{{content/modals/gru-question-new}}`);
 
-  const $component = this.$('.gru-collection-new');
+  const $component = this.$('.gru-question-new');
   const $titleField = $component.find(".gru-input.title");
 
   assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message not visible');
@@ -63,7 +63,7 @@ test('Validate if the collection title field is left blank', function (assert) {
 
     assert.ok($titleField.find(".error-messages .error").length, 'Title error should be visible');
     // Fill in the input field
-    $titleField.find("input").val('Collection Name');
+    $titleField.find("input").val('Question Name');
     $titleField.find("input").blur();
 
     return wait().then(function () {
