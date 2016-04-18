@@ -6,10 +6,7 @@
       "query": {
         "flt.resourceFormat": "question"
       },
-      "method": "GET",
-      "headers": {
-        "Authorization": "Token (.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -24,10 +21,7 @@
     "description": "API 3.0: Search for Resources using any term",
     "request": {
       "url": "^/gooru-search/rest/v2/search/resource$",
-      "method": "GET",
-      "headers": {
-        "Authorization": "Token (.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -45,10 +39,7 @@
       "query": {
         "q": "noResultFound"
       },
-      "method": "GET",
-      "headers": {
-        "Authorization": "Token (.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -66,10 +57,7 @@
       "query": {
         "flt.collectionType": "collection"
       },
-      "method": "GET",
-      "headers": {
-        "Authorization": "Token (.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -87,10 +75,7 @@
       "query": {
         "flt.collectionType": "assessment"
       },
-      "method": "GET",
-      "headers": {
-        "Authorization": "Token (.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
