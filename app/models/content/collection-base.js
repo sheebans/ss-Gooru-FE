@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * Object with all of the properties in a collection
  * These properties are also part of assessments
