@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Course from 'gooru-web/models/content/course';
+//import Course from 'gooru-web/models/content/course';
 
 export default Ember.Component.extend({
 
@@ -39,7 +39,7 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    
+
   },
 
 

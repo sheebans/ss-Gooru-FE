@@ -30,7 +30,7 @@ export default Ember.Controller.extend(ModalMixin,{
 
 
   courses:null,
-  
+
 
   // -------------------------------------------------------------------------
   // Observers
