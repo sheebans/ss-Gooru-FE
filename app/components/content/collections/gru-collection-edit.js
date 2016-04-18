@@ -20,7 +20,7 @@ export default Ember.Component.extend(ContentEditMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content', 'courses', 'gru-collection-edit'],
+  classNames: ['content', 'collections', 'gru-collection-edit'],
 
   tagName: 'article',
 
