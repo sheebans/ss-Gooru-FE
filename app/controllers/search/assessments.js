@@ -28,10 +28,15 @@ export default Ember.Controller.extend({
   // Properties
 
   /**
-   * These are the collection search results
-   * @property {CollectionResults[]}
+   * These are the assessment search results
+   * @property {Assessment[]}
    */
-  collectionResults: null
+  assessmentResults: null,
+
+  /**
+   * @property {string} term filter
+   */
+  term: Ember.computed.alias("searchController.term")
 
   // -------------------------------------------------------------------------
   // Methods

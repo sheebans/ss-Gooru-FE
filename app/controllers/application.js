@@ -20,6 +20,13 @@ export default Ember.Controller.extend({
    */
   logService: Ember.inject.service("api-sdk/log"),
 
+  /**
+   * This dependency is here so that the header search input is linked to the controller
+   * @property {SearchController}
+   */
+  searchController: Ember.inject.controller('search'),
+
+
   setupGlobalErrorHandling: Ember.on('init', function () {
     const controller = this;
 
@@ -41,6 +48,12 @@ export default Ember.Controller.extend({
    * @property {string} application theme
    */
   themeId: null,
+
+  /**
+   * This is a link to the search controller so the header is updated
+   * @property {string} term
+   */
+  term: Ember.computed.alias("searchController.term"),
 
   // -------------------------------------------------------------------------
   // Actions

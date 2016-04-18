@@ -118,8 +118,14 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      * @see gru-header.js
      */
     searchTerm: function(term) {
-      var termParam = '?term=' + term;
-      this.transitionTo('/search/collections' + termParam);
+      const routeName = this.get('controller.currentRouteName');
+      if (routeName.indexOf("search") >= 0){
+        this.set("controller.term", term);
+      }
+      else{
+        var termParam = '?term=' + term;
+        this.transitionTo('/search/collections' + termParam);
+      }
     }
   }
 
