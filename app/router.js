@@ -17,6 +17,7 @@ Router.map(function() {
 
   this.route('sign-in');
   this.route('sign-up');
+  this.route('sign-up-finish');
   this.route('logout');
 
   this.route('content', function () {
@@ -56,6 +57,7 @@ Router.map(function() {
   this.route('class', { path: '/class/:classId' }, function() {
     this.route('overview');
     this.route('info');
+    this.route('quick-start');
 
     this.route('analytics', function() {
       this.route('performance', function() {
@@ -68,12 +70,15 @@ Router.map(function() {
         });
       });
     });
+
   });
+
 
   this.route('reports', function () {
     this.route('collection', {path: '/class/:classId/collection/:collectionId'});
     this.route('student-collection', {path: '/class/:classId/course/:courseId/unit/:unitId/lesson/:lessonId/collection/:collectionId/student/:userId'});
   });
+
 
   this.route('user');
 

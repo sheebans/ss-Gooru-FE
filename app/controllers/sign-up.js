@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import Profile from 'gooru-web/models/profile/profile';
+import Env from 'gooru-web/config/environment';
 
 export default Ember.Controller.extend({
 
@@ -59,6 +60,7 @@ export default Ember.Controller.extend({
                   email: null
                 });
     this.set('profile', profile);
+    this.set('googleSignUpUrl', Env['google-sign-in'].url);
   },
 
   /**

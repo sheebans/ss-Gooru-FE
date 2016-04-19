@@ -7,7 +7,8 @@ const Validations = buildValidations({
     validators: [
       validator('presence', {
         presence: true,
-        message:'Please enter the question title.'
+        message: '{{description}}',
+        descriptionKey: 'common.errors.add-question-title'
       })
     ]
   }
@@ -65,6 +66,12 @@ const Question = Ember.Object.extend(Validations, {
    * @property { { code: string, description: string }[] }
    */
   standards: null,
+
+  /**
+   * @property {Boolean} isVisibleOnProfile - Indicates if the Question is visible on Profile. By default it is true
+   */
+  isVisibleOnProfile: true,
+
   /**
    * Return a copy of the question
    *
@@ -95,19 +102,34 @@ const Question = Ember.Object.extend(Validations, {
 });
 
 Question.reopenClass({
+
   /**
    * Serializes the question type to be API compliant
    * @param type
    * @returns {string}
+   * TODO move to util
    */
   serializeQuestionType: function (type) {
     return getQuestionApiType(type);
   },
 
   /**
+   * Converts several app format values to api values
+   * @param {string[]} values values to format
+   * TODO move to util
+   */
+  serializeAllQuestionType: function(values){
+    const model = this;
+    return values.map(function(type){
+      return model.serializeQuestionType(type);
+    });
+  },
+
+  /**
    * Normalizes the question type to be App compliant
    * @param format
    * @returns {string}
+   * TODO move to util
    */
   normalizeQuestionType: function (apiType) {
     return getQuestionTypeByApiType(apiType);

@@ -40,7 +40,7 @@ export default Ember.Object.extend({
    * @returns {District[]}
    */
   normalizeReadDistricts: function (payload) {
-    const districts = payload.school_districts || [];
+    const districts = payload['school-districts'] || [];
     return districts.map(function(district){
       return DistrictModel.create({ id: district.id, name: district.name, code: district.code });
     });

@@ -9,12 +9,10 @@ moduleForService('service:api-sdk/search', 'Unit | Service | api-sdk/search', {
 test('searchCollections', function(assert) {
   const service = this.subject();
 
-  assert.expect(4);
-
+  assert.expect(3);
   service.set('searchAdapter', Ember.Object.create({
-    searchCollections: function(term, isTypeAssessment) {
+    searchCollections: function(term) {
       assert.equal(term, 'the-term', 'Wrong search collections term');
-      assert.equal(isTypeAssessment, false, 'Wrong isTypeAssessment value');
       assert.ok(true, 'searchCollections() function was called' );
       return Ember.RSVP.resolve({});
     }
@@ -29,6 +27,32 @@ test('searchCollections', function(assert) {
 
   var done = assert.async();
   service.searchCollections('the-term')
+    .then(function() {
+      done();
+    });
+});
+
+test('searchAssessments', function(assert) {
+  const service = this.subject();
+
+  assert.expect(3);
+  service.set('searchAdapter', Ember.Object.create({
+    searchAssessments: function(term) {
+      assert.equal(term, 'the-term', 'Wrong search collections term');
+      assert.ok(true, 'searchAssessments() function was called' );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('searchSerializer', Ember.Object.create({
+    normalizeSearchAssessments: function(payload) {
+      assert.deepEqual({}, payload, 'Wrong search collections payload');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.searchAssessments('the-term')
     .then(function() {
       done();
     });

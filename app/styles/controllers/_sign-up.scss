@@ -101,17 +101,17 @@
       }
       .modal-body {
         padding: 0;
-        .sign-up-form {
+        .sign-up-form, .sign-up-finish-form {
           padding: 15px 37px 0;
           .form-group {
             margin: 5px 0 10px 0;
             label {
               width: 100%;
-              span.required {
-                display: block;
-                &:after {
-                  content: ' *';
-                }
+            }
+            span.required {
+              display: block;
+              &:after {
+                content: ' *';
               }
             }
             &.birth-day-date {
@@ -163,6 +163,9 @@
                 .dropdown-menu {
                   top:100%;
                 }
+              }
+              .dropdown-menu {
+                position: relative;
               }
             }
             .birth-months {
@@ -224,6 +227,21 @@
               font-size: 12px;
               margin-top: 4px;
             }
+            &.role {
+              margin: 10px 0 20px 0;
+              .roles {
+                @include flexbox;
+                .gru-radio {
+                  margin-right: 20px;
+                  @media (min-width: $screen-sm-min) {
+                    margin-right: 30px;
+                  }
+                }
+                &>:last-child {
+                  margin-right: 0;
+                }
+              }
+            }
           }
           .bootstrap-select.btn-group.dropup.open .dropdown-toggle .caret {
             border-top: 0;
@@ -235,6 +253,22 @@
           }
           .bootstrap-select.btn-group .dropdown-menu.inner {
             max-height: 300px!important;
+            position: relative;
+          }
+        }
+        .sign-up-finish-form {
+          .bootstrap-select {
+            width: 100%;
+          }
+        }
+        .gru-radio {
+          input[type="radio"]:checked {
+            &:before {
+              background-color: $green-400;
+            }
+            &:after {
+              border-color: $green-400;
+            }
           }
         }
       }

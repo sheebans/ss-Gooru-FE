@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Ember from 'ember';
 
 moduleForComponent('content/gru-audience', 'Integration | Component | content/gru audience', {
   integration: true,
@@ -91,21 +92,22 @@ test('Audience edit, remove audience', function (assert) {
   const $dropDownMenu = $component.find('ul.dropdown-menu');
   assert.equal($dropDownMenu.find('li input:checked').length, 2, 'Checked audience options');
 
-  const $removeFirstAudienceBtn = $component.find('.dropdown > .btn-audience:eq(0) .remove-audience');
+  const $removeFirstAudienceBtn = $component.find('.dropdown > .btn-audience:eq(0)');
 
   $removeFirstAudienceBtn.click();
   assert.equal($component.find('.dropdown > .btn-audience').length, 1, 'Audiences selected after removal');
   assert.equal($dropDownMenu.find('li input:checked').length, 1, 'Checked audience options after removal');
 });
 
-test('Audience edit, add audience', function (assert) {
+test('Audience edit, add audience -returning to edit mode will discard any changes', function (assert) {
   var initialAudiences = [1, 3];
   var selectedAudiences = [1, 3];
   this.set('initialAudiences', initialAudiences);
   this.set('selectedAudiences', selectedAudiences);
+  this.set('isEditing', true);
 
   this.render(hbs`
-    {{content.gru-audience isEditing=true srcSelectedAudiences=initialAudiences editSelectedAudiences=selectedAudiences}}
+    {{content.gru-audience isEditing=isEditing srcSelectedAudiences=initialAudiences editSelectedAudiences=selectedAudiences}}
   `);
 
   const $component = this.$(".content.gru-audience");
@@ -114,10 +116,24 @@ test('Audience edit, add audience', function (assert) {
   const $dropDown = $component.find('.dropdown > button.dropdown-toggle');
   $dropDown.click();
 
-  const $dropDownMenu = $component.find('ul.dropdown-menu');
+  var $dropDownMenu = $component.find('ul.dropdown-menu');
   assert.equal($dropDownMenu.find('li input:checked').length, 2, 'Checked audience options');
 
   $dropDownMenu.find('li input:eq(1)').click();
   assert.equal($component.find('.dropdown > .btn-audience').length, 3, 'Audiences selected after addition');
   assert.equal($dropDownMenu.find('li input:checked').length, 3, 'Checked audience options after addition');
+
+  Ember.run(() => {
+    this.set('isEditing', false);
+  });
+
+  assert.equal($component.find('.btn-empty').length, 2, 'Audiences selected -after exiting edit mode');
+
+  Ember.run(() => {
+    this.set('isEditing', true);
+  });
+
+  $dropDownMenu = $component.find('ul.dropdown-menu');
+  assert.equal($component.find('.dropdown > .btn-audience').length, 2, 'Audiences selected -after returning to edit mode');
+  assert.equal($dropDownMenu.find('li input:checked').length, 2, 'Checked audience options -after returning to edit mode');
 });
