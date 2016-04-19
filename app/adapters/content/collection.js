@@ -50,7 +50,15 @@ export default Ember.Object.extend({
       headers: adapter.defineHeaders(),
       data: JSON.stringify(data)
     };
-    return Ember.$.ajax(url, options);
+
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function () {
+          resolve('');
+        }, function (error) {
+          reject(error);
+        });
+    });
   },
 
   defineHeaders: function() {

@@ -19,18 +19,27 @@ export default Ember.Route.extend({
   beforeModel: function () {
     // TODO: authenticate session with ember-simple-auth, if not send to log in
   },
-  setupController(controller /*, model */) {
 
-    // TODO: Fetch data from model
+  model: function (params) {
+    //var course = this.get('courseService').fetchById(params.courseId);
+
+    // TODO: Remove once courseService#fetchById method is implemented
     var collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
+      id: params.collectionId,
       title: "Collection Title",
       category: 1,
       audience: [2, 4],
-      image: 'assets/gooru/default-image.png',
       learningObjectives: "Learning Objectives"
     });
 
-    controller.set('collection', collection);
+    return Ember.RSVP.hash({
+      collection: collection
+    });
+  },
+
+  setupController(controller, model) {
+
+    controller.set('collection', model.collection);
   }
 
 });
