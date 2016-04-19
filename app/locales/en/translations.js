@@ -108,6 +108,7 @@ export default {
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
+      "question-not-updated": "Oops! Unable to update question right now. Please try again shortly.",
       "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",

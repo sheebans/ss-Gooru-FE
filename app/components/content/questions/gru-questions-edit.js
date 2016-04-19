@@ -1,10 +1,22 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
 import {QUESTION_CONFIG} from 'gooru-web/config/question';
-import {normalizeQuestionTypes} from 'gooru-web/utils/utils';
 
 
 export default Ember.Component.extend(ContentEditMixin,{
+
+  // -------------------------------------------------------------------------
+  // Dependencies
+
+  /**
+   * @requires service:notifications
+   */
+  notifications: Ember.inject.service(),
+
+  /**
+   * @requires service:api-sdk/question
+   */
+  questionService: Ember.inject.service("api-sdk/question"),
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -42,14 +54,16 @@ export default Ember.Component.extend(ContentEditMixin,{
      * Save Content
      */
     updateContent: function () {
-
+      this.saveNewContent();
     },
     /**
-     * Save Content
-     */
+      * Save Content
+    */
     optionSwitch:function(isChecked){
+      var questionForEditing = this.get('question').copy();
+      this.set('tempQuestion', questionForEditing);
       this.set('tempQuestion.isVisibleOnProfile', isChecked);
-
+      this.saveNewContent();
     }
   },
 
@@ -100,10 +114,25 @@ export default Ember.Component.extend(ContentEditMixin,{
    */
   questionTypes: Ember.computed(function(){
     let array = Ember.A(Object.keys(QUESTION_CONFIG));
-    let arrayTypes=array.map(function(item){
-      return normalizeQuestionTypes(item);
-    });
-    return arrayTypes;
+    return array;
   }),
+
+  //Methods
+
+  /**
+   * Save new question content
+   */
+  saveNewContent:function(){
+    var editedQuestion = this.get('tempQuestion');
+    this.get('questionService').updateQuestion(editedQuestion.id,editedQuestion)
+      .then(function () {
+        this.set('question', editedQuestion);
+        this.set('isEditing', false);
+      }.bind(this))
+      .catch(function () {
+        var message = this.get('i18n').t('common.errors.question-not-updated').string;
+        this.get('notifications').error(message);
+      }.bind(this));
+  }
 
 });
