@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import Resource from 'gooru-web/models/content/resource';
+import Question from 'gooru-web/models/content/question';
 
 /**
  * Object with all of the properties in a collection
@@ -21,6 +23,29 @@ export default (function() {
      * @property {Number} category - Category the course belongs to
      */
     category: 1,
+
+    /**
+     * @property {Ember.Array} children - List of collections/assessments
+     */
+    children: Ember.A(),
+
+    /**
+     * @property {Ember.Array} children - List of collections/assessments
+     */
+    computedResourceCount: Ember.computed('children.[]', function() {
+      return this.get('children').filter(function(item) {
+        return item instanceof Resource;
+      }).length;
+    }),
+
+    /**
+     * @property {Ember.Array} children - List of collections/assessments
+     */
+    computedQuestionCount: Ember.computed('children.[]', function() {
+      return this.get('children').filter(function(item) {
+        return item instanceof Question;
+      }).length;
+    }),
 
     /**
      * @property {String} image - Collection image url
