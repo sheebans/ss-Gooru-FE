@@ -43,6 +43,13 @@ export default Ember.Component.extend(ContentEditMixin,{
      */
     updateContent: function () {
 
+    },
+    /**
+     * Save Content
+     */
+    optionSwitch:function(isChecked){
+      this.set('tempQuestion.isVisibleOnProfile', isChecked);
+
     }
   },
 
