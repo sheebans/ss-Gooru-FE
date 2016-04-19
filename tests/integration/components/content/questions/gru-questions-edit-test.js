@@ -138,7 +138,7 @@ test('Layout of the builder section', function (assert) {
   assert.ok($builderSection.find('.panel-body .text-empty').length, "Missing text empty message");
 });
 test('Builder Edit', function (assert) {
-  assert.expect(7);
+  assert.expect(8);
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: null,
     type:'MC'
@@ -155,6 +155,7 @@ test('Builder Edit', function (assert) {
   assert.equal($builderSection.find('.header h2').text(),"Builder - "+ this.i18n.t('common.question-type.'+question.type).toString(), "Missing Question label");
   assert.ok($builderSection.find('.panel-heading .instructions').length, "Missing Instructions");
   assert.ok($builderSection.find('.panel-body textarea').length, "Missing text area");
+  assert.ok($builderSection.find('.panel-body .add-image').length, "Missing add image button");
 });
 
 

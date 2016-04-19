@@ -98,6 +98,7 @@
         <div class="panel-body">
           {{#if isBuilderEditing}}
             {{textarea (if question.text value=question.text) class="form-control" rows="10"}}
+              <button class="add-image btn btn-sm btn-primary">{{t "common.add-question-image"}}</button>
           {{else}}
             {{#if question.text}}
               <span>{{question.text}}</span>

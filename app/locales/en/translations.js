@@ -17,6 +17,7 @@ export default {
     "add-new-unit": "Add New Unit",
     "add-new-resource": "Add New Resource",
     "add-new-question": "Add New Question",
+    "add-question-image": "Add Question Image",
     "add-to": "Add To",
     "add-type-question":"What type of question would you like to add?",
     "add-type-resource":"What type of resource is this?",
