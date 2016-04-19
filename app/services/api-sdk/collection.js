@@ -53,6 +53,19 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Updates a Collection
+   *
+   * @param collectionId the id of the Collection to be updated
+   * @param collectionModel the Collection model with the data
+   * @returns {Promise}
+   */
+  updateCollection: function(collectionId, collectionModel) {
+    const service = this;
+    let serializedData = service.get('collectionSerializer').serializeUpdateCollection(collectionModel);
+    return service.get('collectionAdapter').updateCollection(collectionId, serializedData);
+  },
+
+  /**
    * Gets a specific collection|assessment by ID
    * @param {string} collectionId
    * @returns {Collection}
