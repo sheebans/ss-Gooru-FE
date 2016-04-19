@@ -54,7 +54,7 @@
             <button type="button" class="btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
           {{else}}
             <div class="subjects">
-              <span>No specified</span>
+              <span>Not specified</span>
             </div>
           {{/if}}
         </div>
@@ -62,12 +62,28 @@
         {{content.gru-audience isEditing=isEditing srcSelectedAudiences=collection.audience editSelectedAudiences=tempCollection.audience}}
 
         <div class="century-skill">
-          <span class="label required">21st Century Skills</span>
+          <span class="label">21st Century Skills</span>
           {{#if isEditing}}
             <button type="button" class="btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
           {{else}}
             <div class="skills">
-              <span>No specified</span>
+              <span>Not specified</span>
+            </div>
+          {{/if}}
+        </div>
+
+        <div class="knowledge-depth">
+          <span class="label">Depth of Knowledge</span>
+          {{#if isEditing}}
+            <ul>
+              <li><label>{{input type="checkbox"}}<span>Level 1: Recall</span></label></li>
+              <li><label>{{input type="checkbox"}}<span>Level 2: Skill/Concept</span></label></li>
+              <li><label>{{input type="checkbox"}}<span>Level 3: Strategic Thinking</span></label></li>
+              <li><label>{{input type="checkbox"}}<span>Level 4: Extended Thinking</span></label></li>
+            </ul>
+          {{else}}
+            <div>
+              <span>Not specified</span>
             </div>
           {{/if}}
         </div>

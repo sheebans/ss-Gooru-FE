@@ -13,8 +13,16 @@ const Validations = buildValidations({
   }
 });
 
+const assessmentProperties = {
+
+  knowledgeDepth: []
+
+};
+
+const mergedProperties = $.extend({}, CollectionBase, assessmentProperties);
+
 /**
  * Assessment model
  * typedef {Object} Assessment
  */
-export default Ember.Object.extend(Validations, CollectionBase);
+export default Ember.Object.extend(Validations, mergedProperties);
