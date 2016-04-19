@@ -57,7 +57,9 @@ export default Ember.Service.extend({
   updateAssessment: function(assessmentId, assessmentModel) {
     const service = this;
     let serializedData = service.get('assessmentSerializer').serializeUpdateAssessment(assessmentModel);
-    return service.get('assessmentAdapter').updateAssessment(assessmentId, serializedData);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('assessmentAdapter').updateAssessment(assessmentId, serializedData).then(resolve, reject);
+    });
   }
 
 });
