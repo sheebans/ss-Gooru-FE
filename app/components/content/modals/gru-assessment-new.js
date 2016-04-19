@@ -43,7 +43,7 @@ export default Ember.Component.extend({
             .createAssessment(assessment)
             .then(function(newAssessment) {
                 component.triggerAction({ action: 'closeModal' });
-                component.get('router').transitionTo('content.assessments.edit', { assessmentId : newAssessment.get('id') });
+                component.get('router').transitionTo('content.assessments.edit', newAssessment.get('id'));
               },
               function() {
                 const message = component.get('i18n').t('common.errors.assessment-not-created').string;

@@ -2,6 +2,7 @@ import Ember from 'ember';
 import StoreMixin from '../../mixins/store';
 import LessonSerializer from 'gooru-web/serializers/content/lesson';
 import LessonAdapter from 'gooru-web/adapters/content/lesson';
+import { CONTENT_TYPES } from "gooru-web/config/config";
 
 /**
  * Lesson Service
@@ -88,7 +89,6 @@ export default Ember.Service.extend(StoreMixin, {
    */
   createLesson: function (courseId, unitId, lesson) {
     var lessonData = this.get('serializer').serializeCreateLesson(lesson);
-
     return this.get('adapter').createLesson({
       courseId: courseId,
       unitId: unitId,
@@ -119,6 +119,23 @@ export default Ember.Service.extend(StoreMixin, {
       .catch(function (error) {
         return error;
       });
-  }
+  },
+
+  /**
+   * Associates a Collection/Assesment with a lesson
+   *
+   * @param lessonId the lesson id
+   * @param collectionId the collection/assesment id
+   * @returns {Promise}
+   */
+  associateAssessmentOrCollectionToLesson: function(courseId,unitId, lessonId, collectionId, isCollection) {
+    return this.get('adapter').associateAssessmentOrCollectionToLesson({
+      courseId,
+      unitId,
+      lessonId,
+      collectionId,
+      type: isCollection ? CONTENT_TYPES.COLLECTION : CONTENT_TYPES.ASSESSMENT
+    });
+  },
 
 });

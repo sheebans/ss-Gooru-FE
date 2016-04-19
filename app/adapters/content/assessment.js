@@ -31,6 +31,46 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Reads an Assessment by id
+   *
+   * @param {string} assessmentId
+   * @returns {Promise}
+   */
+  readAssessment: function(assessmentId) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/${assessmentId}`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Update an Assessment
+   *
+   * @param assessmentId the id of the Assessment to be updated
+   * @param data Assessment data to be sent in the request body
+   * @returns {Promise}
+   */
+  updateAssessment: function(assessmentId, data) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${assessmentId}`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify(data)
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')
