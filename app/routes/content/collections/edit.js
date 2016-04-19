@@ -26,10 +26,8 @@ export default Ember.Route.extend({
     // TODO: Remove once courseService#fetchById method is implemented
     var collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
       id: params.collectionId,
-      title: "Collection Title",
       category: 1,
-      audience: [2, 4],
-      learningObjectives: "Learning Objectives"
+      audience: [2, 4]
     });
 
     return Ember.RSVP.hash({
