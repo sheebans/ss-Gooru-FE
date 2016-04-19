@@ -37,7 +37,6 @@ test('createCollection', function(assert) {
     });
 });
 
-
 test('readCollection', function(assert) {
   const service = this.subject();
   const expectedCollectionId = 'collection-id';
