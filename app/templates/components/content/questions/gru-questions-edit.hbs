@@ -88,7 +88,25 @@
           {{/if}}
         </div>
     </div>
-
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div>
+                <h3>{{t "common.question"}}</h3>
+                <span class="instructions">{{t "common.question-edit-instructions"}}</span>
+            </div>
+        </div>
+        <div class="panel-body">
+          {{#if isBuilderEditing}}
+            {{textarea value=question.text class="form-control" rows="5" maxlength=5000}}
+          {{else}}
+            {{#if question.text}}
+              <span>{{question.text}}</span>
+              {{else}}
+              <span>{{t 'common.nothing-to-display-message'}}</span>
+            {{/if}}
+          {{/if}}
+        </div>
+    </div>
 </section>
 
 <section id="settings">

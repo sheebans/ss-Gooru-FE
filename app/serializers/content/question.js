@@ -52,7 +52,7 @@ export default Ember.Object.extend({
       id: questionData.id,
       title: questionData.title,
       type: format,
-      description: questionData.description,
+      text: questionData.description,
       publishStatus: questionData.publish_status,
       standards: serializer.normalizeStandards(standards),
       answers: null, //TODO the structure is missing some info at the API

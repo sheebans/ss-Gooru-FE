@@ -303,5 +303,22 @@
         float: right;
       }
     }
+    .panel {
+      border-radius: 6px;
+
+      .panel-heading {
+        border-top-right-radius: 6px;
+        border-top-left-radius: 6px;
+        div{
+          padding-bottom: 15px;
+          border-bottom: 1px solid $gray-light;
+          margin-bottom: 0;
+          margin-top: 15px;
+          .instructions {
+            color: $gray;
+          }
+        }
+      }
+    }
   }
 }

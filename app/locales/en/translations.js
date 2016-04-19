@@ -156,6 +156,7 @@ export default {
     "notStarted": "Not started",
     "not-specified":"Not specified",
     "not-added":"Not Added",
+    "nothing-to-display-message":"Nothing to display.",
     "number":"No.",
     "numberStudents": {
       one: "{{count}} Student",
@@ -169,6 +170,7 @@ export default {
     "preview": "Preview",
     "question":"Question",
     "questions": "Questions",
+    "question-edit-instructions":"Write your question. Character limit: 5000.",
     "question-pl": {
       one: "Question",
       other: "Questions"
