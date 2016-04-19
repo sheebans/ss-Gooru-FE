@@ -70,6 +70,34 @@ export default Ember.Object.extend({
     });
   },
 
+  /**
+   * Associates a collection/assesment with a lesson
+   *
+   * @param params - data to send in the request
+   * @returns {Promise}
+   */
+  associateAssessmentOrCollectionToLesson: function(params) {
+    const courseId = params.courseId;
+    const unitId = params.unitId;
+    const lessonId = params.lessonId;
+    const collectionId = params.collectionId;
+    const type = params.type;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${courseId}/units/${unitId}/lessons/${lessonId}/collections`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: this.defineHeaders(),
+      data: JSON.stringify({
+        type,
+        collection_id: collectionId
+      })
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function () {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')
