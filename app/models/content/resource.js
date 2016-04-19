@@ -48,6 +48,12 @@ const ResourceModel = Ember.Object.extend(Validations,{
   url: null,
 
   /**
+   * @property {String} assetUrl
+   * TODO: Remove this once API 3.0 integration is completed
+   */
+  assetUrl: Ember.computed.alias('url'),
+
+  /**
    * @property {String} thumbnailUrl
    */
   thumbnailUrl: null,
@@ -90,7 +96,45 @@ const ResourceModel = Ember.Object.extend(Validations,{
   /**
    * @property { { code: string, description: string }[] }
    */
-  standards: null
+  standards: null,
+
+  /**
+   * @property {String} Indicates the resource type. i.e video/youtube, assessment-question, image/png
+   */
+  resourceType: Ember.computed('format', function() {
+    let format = this.get('format');
+    let resourceUrl = this.get('url');
+    let youtubePattern = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+    let vimeoPattern = /(http|https)?:\/\/(www\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|)(\d+)(?:|\/\?)/;
+    let resourceType = 'resource/url'; // Default type
+    if (resourceUrl) {
+      switch (format) {
+        case 'audio':
+        case 'interactive':
+        case 'webpage':
+          resourceType = 'resource/url'; // Default type
+          break;
+        case 'image':
+          resourceType = 'image';
+          break;
+        case 'text':
+          resourceType = 'handouts';
+          break;
+        case 'video':
+          if (youtubePattern.test(resourceUrl)) {
+            resourceType = 'video/youtube';
+          } else if (vimeoPattern.test(resourceUrl)) {
+            resourceType = 'vimeo/video';
+          } else {
+            resourceType = 'resource/url';
+          }
+          break;
+        default:
+          resourceType = 'resource/url'; // Default type
+      }
+    }
+    return resourceType;
+  })
 
 
 });

@@ -24,8 +24,10 @@
 @import 'controllers/content/classes/create';
 @import 'controllers/content/classes/join';
 
+@import 'controllers/content/assessments/edit';
 @import 'controllers/content/courses/edit';
 @import 'controllers/content/resources/edit';
+
 @import 'controllers/index';
 @import 'controllers/partials/player';
 @import 'controllers/profile';
