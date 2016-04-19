@@ -77,7 +77,9 @@ export default Ember.Service.extend({
   updateCollection: function(collectionId, collectionModel) {
     const service = this;
     let serializedData = service.get('collectionSerializer').serializeUpdateCollection(collectionModel);
-    return service.get('collectionAdapter').updateCollection(collectionId, serializedData);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('collectionAdapter').updateCollection(collectionId, serializedData).then(resolve, reject);
+    });
   },
 
   /**
