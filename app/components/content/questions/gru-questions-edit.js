@@ -43,7 +43,20 @@ export default Ember.Component.extend(ContentEditMixin,{
      */
     updateContent: function () {
 
-    }
+    },
+    /**
+     * Enable edit content builder
+     */
+    editBuilderContent: function(){
+      this.set('isBuilderEditing', true);
+    },
+    /**
+     * Disable edit content builder
+     */
+    cancelBuilderEdit: function(){
+      this.set('isBuilderEditing', false);
+    },
+
   },
 
   // -------------------------------------------------------------------------
@@ -89,7 +102,7 @@ export default Ember.Component.extend(ContentEditMixin,{
   })]),
 
   /**
-   * @type {Array{}} questionTypes
+   * @property{Array{}} questionTypes
    */
   questionTypes: Ember.computed(function(){
     let array = Ember.A(Object.keys(QUESTION_CONFIG));
@@ -98,5 +111,10 @@ export default Ember.Component.extend(ContentEditMixin,{
     });
     return arrayTypes;
   }),
+  /**
+   * Toggle Options
+   * @property {Boolean}
+   */
+  isBuilderEditing :false,
 
 });

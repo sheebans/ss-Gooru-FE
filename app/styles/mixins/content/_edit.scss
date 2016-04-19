@@ -297,4 +297,11 @@
       }
     }
   }
+  #builder{
+    > .header {
+      .actions {
+        float: right;
+      }
+    }
+  }
 }
