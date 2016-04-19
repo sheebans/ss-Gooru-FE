@@ -319,6 +319,11 @@
           }
         }
       }
+      .panel-body{
+        .text-empty{
+          font-size: $font-size-large;
+        }
+      }
     }
   }
 }

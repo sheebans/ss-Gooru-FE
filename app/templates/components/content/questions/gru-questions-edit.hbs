@@ -97,12 +97,12 @@
         </div>
         <div class="panel-body">
           {{#if isBuilderEditing}}
-            {{textarea value=question.text class="form-control" rows="5" maxlength=5000}}
+            {{textarea (if question.text value=question.text) class="form-control" rows="10"}}
           {{else}}
             {{#if question.text}}
               <span>{{question.text}}</span>
               {{else}}
-              <span>{{t 'common.nothing-to-display-message'}}</span>
+              <p class="text-empty">{{t 'common.nothing-to-display-message'}}</p>
             {{/if}}
           {{/if}}
         </div>
