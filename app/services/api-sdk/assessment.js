@@ -45,5 +45,21 @@ export default Ember.Service.extend({
         reject(error);
       });
     });
+  },
+
+  /**
+   * Updates an Assessment
+   *
+   * @param assessmentId the id of the Assessment to be updated
+   * @param assessmentModel the Assessment model with the data
+   * @returns {Promise}
+   */
+  updateAssessment: function(assessmentId, assessmentModel) {
+    const service = this;
+    let serializedData = service.get('assessmentSerializer').serializeUpdateAssessment(assessmentModel);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('assessmentAdapter').updateAssessment(assessmentId, serializedData).then(resolve, reject);
+    });
   }
+
 });
