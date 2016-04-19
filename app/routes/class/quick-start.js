@@ -4,6 +4,6 @@ export default Ember.Route.extend({
 
   setupController: function (controller, model) {
     controller.get('classController').selectMenuItem('overview');
-    controller.set('componentModel', model.class);
+    controller.set('class', model.class);
   }
 });
