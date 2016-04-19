@@ -20,10 +20,31 @@ test('Layout', function(assert) {
   visit('/search/collections?term=any');
   andThen(function() {
     assert.equal(currentURL(), '/search/collections?term=any');
-    T.exists(assert, find(".content-navigation"), "Missing content-navigation filters");
-    T.exists(assert, find(".collection-results .results"), "Missing collection results");
+    T.exists(assert, find(".collection-results"), "Missing collection-results");
+    assert.equal(find(".gru-header .search-input").val(), "any", "Wrong input value");
   });
 });
+
+
+test('Changing term should filter the current result without changing the root url', function(assert) {
+  assert.expect(2); //making sure all asserts are called
+  visit('/search/collections?term=any');
+  andThen(function() {
+    assert.equal(currentURL(), '/search/collections?term=any');
+
+    const $appHeader = find('.gru-header');
+    const $searchInput = find(".gru-header .search-input");
+
+    fillIn($searchInput, 'europe');
+    $searchInput.val('europe');
+    $searchInput.change();
+    $appHeader.find('form').submit();
+    andThen(function(){
+      assert.equal(currentURL(), '/search/collections?term=europe');
+    });
+  });
+});
+
 
 test('onOpenContentPlayer: When opening a collection', function(assert) {
   assert.expect(2);
@@ -33,27 +54,7 @@ test('onOpenContentPlayer: When opening a collection', function(assert) {
     T.exists(assert, $firstCollectionLink, "Missing collection link");
     click($firstCollectionLink); //clicking first collection title
     andThen(function() {
-      assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
-    });
-  });
-});
-
-test('searchTerm: Search by term when user is already at the results page', function(assert) {
-  assert.expect(2); //making sure all asserts are called
-  visit('/search/collections?term=any');
-  andThen(function() {
-    const $appHeader = find('.gru-header');
-    const $searchInput = $appHeader.find(".search-input");
-
-    fillIn($searchInput, 'europe');
-    $searchInput.val('europe');
-    $searchInput.change();
-
-    $appHeader.find('form').submit();
-
-    andThen(function(){
-      assert.equal(currentURL(), '/search/collections?term=europe');
-      assert.equal(find(".results div.gru-collection-card").length, 1, "Europe search should return 1 collection");
+      assert.equal(currentURL(), '/player/aa403746-9344-489b-b405-8989d2737532?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
     });
   });
 });

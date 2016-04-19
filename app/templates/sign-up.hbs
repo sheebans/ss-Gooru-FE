@@ -17,17 +17,19 @@
             {{#link-to 'sign-in'}} {{t "sign-up.log-in"}} {{/link-to}}
             {{t "sign-up.log-in-description"}}
           </div>
-          <div class="google-button">
-            <div class="google-button-content-wrapper">
-              <div class="google-button-icon">
-                <div class="google-button-icon-image">
+          <a href="{{unbound googleSignUpUrl}}">
+            <div class="google-button">
+              <div class="google-button-content-wrapper">
+                <div class="google-button-icon">
+                  <div class="google-button-icon-image">
+                  </div>
                 </div>
+                <span class="google-button-content">
+                  <span>{{t "sign-up.google-button"}}</span>
+                </span>
               </div>
-          <span class="google-button-content">
-            <span>{{t "sign-up.google-button"}}</span>
-          </span>
             </div>
-          </div>
+          </a>
         </div>
         <div class="divider"></div>
         <div class="modal-body">

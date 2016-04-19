@@ -1,20 +1,21 @@
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
-import Ember from 'ember';
+import ResourceModel from 'gooru-web/models/content/resource';
+import QuestionModel from 'gooru-web/models/content/question';
 
 moduleForComponent('cards/gru-resource-card', 'Integration | Component | cards/gru resource card', {
   integration: true
 });
 
 test('Resource Card Layout', function(assert) {
-  var resource = Ember.Object.create({
+  var resource = ResourceModel.create({
     title: "Resource Title",
-    isQuestion:false,
     format:"video",
     description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     owner:Ember.Object.create({
-      name:"Publisher"
+      firstName:"Publisher"
     }),
     standards:Ember.A([Ember.Object.create({
       description:"Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.",
@@ -41,13 +42,12 @@ test('Resource Card Layout', function(assert) {
 });
 
 test('Question Card Layout', function(assert) {
-  var question = Ember.Object.create({
+  var question = QuestionModel.create({
     title: "Question Title",
-    isQuestion:true,
     format:"question",
     text:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     owner:Ember.Object.create({
-      name:"Publisher"
+      firstName:"Publisher"
     }),
     standards:Ember.A([Ember.Object.create({
       description:"Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.",
@@ -77,10 +77,9 @@ test('Question Card Layout', function(assert) {
 test('Resource card trying buttons', function(assert) {
   assert.expect(3);
 
-  var resource = Ember.Object.create({
+  var resource = ResourceModel.create({
     id: 1,
     title: "Resource Title",
-    isQuestion:false,
     format:"video",
     description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     owner:Ember.Object.create({

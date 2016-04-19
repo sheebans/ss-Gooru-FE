@@ -15,7 +15,7 @@ export default Ember.Route.extend({
   actions: {
     /**
      * On card edit assessment button click
-     * @param {Content/Assessment} assessment
+     * @param {Assessment} assessment
      */
     editAssessment: function (assessment) {
       this.transitionTo("content.assessments.edit", assessment.get("id"));

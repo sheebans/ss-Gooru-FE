@@ -25,9 +25,9 @@ export default Ember.Object.extend({
   },
 
   /**
-   * Normalize the resource data into a Content/Resource object
+   * Normalize the resource data into a Resource object
    * @param resourceData
-   * @returns {Content/Resource}
+   * @returns {Resource}
    */
   normalizeReadResource: function(resourceData){
     const serializer = this;

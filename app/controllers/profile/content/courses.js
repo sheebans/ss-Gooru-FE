@@ -16,6 +16,11 @@ export default Ember.Controller.extend({
   /**
    * @property {Content/Course[]} courses
    */
-  courses: null
+  courses: null,
+
+  /**
+   * @property {boolean} isMyProfile
+   */
+  isMyProfile: Ember.computed.alias("profileController.isMyProfile")
 
 });

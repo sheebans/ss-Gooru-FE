@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import {QUESTION_TYPES} from 'gooru-web/config/question';
+
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -31,6 +33,11 @@ export default Ember.Component.extend({
   // Properties
 
   /**
+   * @property {*} questionTypes
+   */
+  questionTypes: QUESTION_TYPES,
+
+  /**
    * Types of question selected
    *  @property {array} selectedOptionTypes
    *
@@ -45,7 +52,7 @@ export default Ember.Component.extend({
 
   multipleChoiceSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("multiple-choice");
+    return selectedOptions.contains(QUESTION_TYPES.multipleChoice);
   }),
 
   /**
@@ -56,7 +63,7 @@ export default Ember.Component.extend({
 
   multipleAnswerSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("multiple-answer");
+    return selectedOptions.contains(QUESTION_TYPES.multipleAnswer);
   }),
 
   /**
@@ -67,7 +74,7 @@ export default Ember.Component.extend({
 
   trueFalseSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("true-false");
+    return selectedOptions.contains(QUESTION_TYPES.trueFalse);
   }),
 
   /**
@@ -78,7 +85,7 @@ export default Ember.Component.extend({
 
   fibSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("fib");
+    return selectedOptions.contains(QUESTION_TYPES.fib);
   }),
 
   /**
@@ -89,7 +96,7 @@ export default Ember.Component.extend({
 
   htHighlightSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("ht-highlight");
+    return selectedOptions.contains(QUESTION_TYPES.hotTextHighlight);
   }),
 
   /**
@@ -100,7 +107,7 @@ export default Ember.Component.extend({
 
   htReorderSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get("selectedOptionTypes");
-    return selectedOptions.contains('ht-reorder');
+    return selectedOptions.contains(QUESTION_TYPES.hotTextReorder);
   }),
 
   /**
@@ -111,7 +118,7 @@ export default Ember.Component.extend({
 
   hsTextSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("hs-text");
+    return selectedOptions.contains(QUESTION_TYPES.hotSpotText);
   }),
 
   /**
@@ -122,7 +129,7 @@ export default Ember.Component.extend({
 
   hsImagesSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("hs-images");
+    return selectedOptions.contains(QUESTION_TYPES.hotSpotImage);
   })
 
   // -------------------------------------------------------------------------

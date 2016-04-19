@@ -55,7 +55,7 @@ export default Ember.Component.extend({
    */
   start: Ember.computed("resource.start", function(){
     const component = this;
-    return component.convertToSeconds(this.get("resource.start"));
+    return component.get("resource.start") ? component.convertToSeconds(this.get("resource.start")) : 0;
   }),
 
   /**
@@ -63,7 +63,7 @@ export default Ember.Component.extend({
    */
   stop: Ember.computed("resource.stop", function(){
     const component = this;
-    return component.convertToSeconds(this.get("resource.stop"));
+    return component.get("resource.stop") ? component.convertToSeconds(this.get("resource.stop")) : null;
   }),
   // -------------------------------------------------------------------------
   // Observers
