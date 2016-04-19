@@ -10,9 +10,9 @@ export default Ember.Route.extend({
   model: function(params) {
     const selectedOptionTypes = params.selectedOptionTypes;
     const term = this.paramsFor('search').term;
-    var resourceResults = this.get('searchService').searchResources(term, ['Question']);
+    var questionResults = this.get('searchService').searchQuestions(term);
     return Ember.RSVP.hash({
-      resources: resourceResults,
+      questions: questionResults,
       selectedOptionTypes: selectedOptionTypes
     });
   },
@@ -24,7 +24,7 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
     this._super(controller, model);
-    controller.set('resourceResults', model.resources);
+    controller.set('questionResults', model.questions);
     controller.set('selectedOptionTypes', model.selectedOptionTypes);
   }
 

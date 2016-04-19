@@ -50,7 +50,8 @@ export default Ember.Route.extend({
     this._super(controller, model);
     if (model.profile) {
       var checkableStandards = this.get("standardService").getCheckableStandards();
-      var codes = model.profile.get("user.metadata.taxonomyPreference.code");
+      //TODO load preferences var codes = model.profile.get("user.metadata.taxonomyPreference.code");
+      var codes = model.standards; //for now all are enabled
       checkStandards(model.standards, checkableStandards, codes);
     }
     controller.set("standards", model.standards);

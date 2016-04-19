@@ -10,11 +10,17 @@ import Ember from 'ember';
  */
 export default Ember.Controller.extend({
 
+  queryParams: ['selectedOptionTypes'],
+
   // -------------------------------------------------------------------------
   // Dependencies
   searchController: Ember.inject.controller('search'),
 
-  queryParams: ['selectedOptionTypes'],
+  /**
+   * @property {Ember.Service} Service to do the search
+   */
+  searchService: Ember.inject.service('api-sdk/search'),
+
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -27,10 +33,10 @@ export default Ember.Controller.extend({
      * Action triggered to selectMenuOption
      */
     selectMenuOption: function (option) {
-      var selectedOptionTypes = this.get('selectedOptionTypes');
       var controller = this;
       var searchService = controller.get('searchService');
-      var term = controller.get('searchController.term');
+      var selectedOptionTypes = controller.get('selectedOptionTypes');
+      var term = controller.get('term');
 
       if(selectedOptionTypes.contains(option)){
         selectedOptionTypes.removeObject(option);
@@ -52,14 +58,6 @@ export default Ember.Controller.extend({
   // Events
 
   // -------------------------------------------------------------------------
-  // Services
-  /**
-   * @property {Ember.Service} Service to do the search
-   */
-  searchService: Ember.inject.service('api-sdk/search'),
-
-
-  // -------------------------------------------------------------------------
   // Properties
 
   /**
@@ -71,14 +69,14 @@ export default Ember.Controller.extend({
 
   /**
    * These are the resource search results
-   * @property {resourceResults[]}
+   * @property {Resource[]}
    */
   resourceResults: null,
 
   /**
    * @property {string} term filter
    */
-  term: null
+  term: Ember.computed.alias("searchController.term")
 
   // -------------------------------------------------------------------------
   // Methods

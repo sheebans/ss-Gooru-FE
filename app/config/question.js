@@ -9,6 +9,21 @@ import HotSpotImageUtil from 'gooru-web/utils/question/hot-spot-image';
 import HotSpotTextUtil from 'gooru-web/utils/question/hot-spot-text';
 import HotTextHighlightUtil from 'gooru-web/utils/question/hot-text-highlight';
 
+
+//Question Types
+export const QUESTION_TYPES = {
+  multipleChoice: "MC",
+  multipleAnswer: "MA",
+  trueFalse: "T/F",
+  openEnded: "OE",
+  fib: "FIB",
+  hotSpotText: "HS_TXT",
+  hotSpotImage: "HS_IMG",
+  hotTextReorder: "HT_RO",
+  hotTextHighlight: "HT_HL"
+};
+
+//Question type configuration
 export const QUESTION_CONFIG = {
   'MC'    : Ember.Object.create({
     apiType: 'multiple_choice_question',
