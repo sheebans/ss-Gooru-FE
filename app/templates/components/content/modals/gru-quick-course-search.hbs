@@ -1,17 +1,28 @@
 <div class="modal-header">
-  <h4 class="modal-title">Add from Existing Course</h4>
+  <span class="modal-title">{{t 'gru-quick-course-search.add-from-course'}}</span>
 </div>
 <div class="search-module">
-
+  <span>Search placeholder</span>
 </div>
 <div class="modal-body">
   {{#each model as |course|}}
-    <p>
-      {{cards.gru-course-card course=course isOwner=true}}
-    </p>
+    <div class="{{course.id}}" {{action "selectCourse" course.id}}>
+        {{cards.gru-course-card course=course isOwner=true}}
+    </div>
   {{/each}}
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-  <button type="button" class="btn btn-primary">Save changes</button>
+  <div class="btn-group visible-xs">
+    <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
+        <span aria-hidden="true">{{t 'common.cancel'}}</span>
+    </button>
+    <button type="button" class="btn btn-primary assign">{{t 'gru-quick-course-search.assign'}}</button>
+  </div>
+  <div class="hidden-xs">
+    <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
+        <span aria-hidden="true">{{t 'common.cancel'}}</span>
+    </button>
+    <button type="button" class="btn btn-primary assign">{{t 'gru-quick-course-search.assign'}}</button>
+  </div>
+
 </div>

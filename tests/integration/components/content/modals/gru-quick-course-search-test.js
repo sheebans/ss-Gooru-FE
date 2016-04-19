@@ -5,20 +5,29 @@ moduleForComponent('content/modals/gru-quick-course-search', 'Integration | Comp
   integration: true
 });
 
-test('it renders', function(assert) {
+test('Layout', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
 
   this.render(hbs`{{content/modals/gru-quick-course-search}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  const $component = this.$('.content.modals.gru-quick-course-search');
+  assert.ok($component.length, 'Component classes');
 
-  // Template block usage:
-  this.render(hbs`
-    {{#content/modals/gru-quick-course-search}}
-      template block text
-    {{/content/modals/gru-quick-course-search}}
-  `);
+  const $header = $component.find('.modal-header');
+  assert.ok($header.length, 'Header');
+  assert.ok($header.find('.modal-title').length, 'Header title');
 
-  assert.equal(this.$().text().trim(), 'template block text');
+
+  const $body = $component.find('.modal-body');
+  assert.ok($body.length, 'Body');
+
+  const $footer = $component.find('.modal-footer');
+
+
+  assert.equal($footer.find('.btn-group button').length, 2, 'Number of action buttons');
+  assert.ok($footer.find('.btn-group .cancel').length, 'Cancel button');
+  assert.ok($footer.find('.btn-group .assign').length, 'Join class button');
+
+
 });

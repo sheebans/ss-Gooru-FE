@@ -11,14 +11,11 @@ export default Ember.Route.extend({
 
   model: function () {
     const route = this;
-
-    var coursesPromise = this.get('profileService')
-      .readUserProfile(this.get("session.userId"))
+    var coursesPromise = route.get('profileService')
+      .readUserProfile(route.get("session.userId"))
         .then(function(profile) {
-          return this.get('profileService').getCourses(profile);
-        }.bind(this));
-
-
+          return route.get('profileService').getCourses(profile);
+        }.bind(route));
     return Ember.RSVP.hash({
       courses:coursesPromise
     });
@@ -27,7 +24,6 @@ export default Ember.Route.extend({
   setupController: function (controller, model) {
     controller.get('classController').selectMenuItem('overview');
     controller.set('courses', model.courses);
-    console.log(model.courses);
   }
 
 });

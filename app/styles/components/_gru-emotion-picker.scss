@@ -1,30 +1,35 @@
 .gru-emotion-picker {
-  padding:15px;
-  text-align:center;
-  width:100%;
+  padding: 15px;
+  text-align: center;
+  width: 100%;
+
   .legend {
-    line-height: $emotion-icon-size;
     float: left;
+    line-height: $emotion-icon-size;
     margin-right: 20px;
   }
-  .emotions-list{
-    list-style: none;
-    padding: 0;
-    margin: 0;
+
+  .emotions-list {
     line-height: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
     white-space: nowrap;
+
     li {
       display: inline-block;
       padding: 0 4%;
+
       .emotion {
         cursor: pointer;
-        position:relative;
-        &:after{
-          position:absolute;
-          width: 100%;
+        position: relative;
+
+        &:after {
           height: 100%;
-          top:0;
           left: 0;
+          position: absolute;
+          top: 0;
+          width: 100%;
         }
       }
 

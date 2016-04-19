@@ -14,7 +14,6 @@ export default Ember.Controller.extend(ModalMixin,{
   // Attributes
 
 
-
   // -------------------------------------------------------------------------
   // Actions
   actions: {

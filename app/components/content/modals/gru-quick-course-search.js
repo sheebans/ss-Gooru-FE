@@ -30,7 +30,12 @@ export default Ember.Component.extend({
 
 
   actions: {
-
+    selectCourse:function(id){
+      this.set("selectedCourse", id);
+      $('.gru-quick-course-search .selected').removeClass('selected');
+      $('.'+id).addClass('selected');
+      console.log(this.get('selectedCourse'));
+    }
 
   },
 
@@ -56,9 +61,9 @@ export default Ember.Component.extend({
   courses: null,
 
   /**
-   * @type {String} selectedType
+   * @type {String} selected Course's ID
    */
-
+   selectedCourse: null,
   /**
    * Class handling the actions from the component.
    * This value will be set on instantiation by gru-modal.
