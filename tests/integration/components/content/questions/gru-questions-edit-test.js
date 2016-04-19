@@ -32,6 +32,31 @@ test('it has header and main sections', function (assert) {
   assert.ok($container.find('> section#builder').length, "Builder section");
   assert.ok($container.find('> section#settings').length, "Settings section");
 });
+
+test('Update Question', function (assert) {
+  assert.expect(1);
+  var newTitle ='Question for testing gooru';
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing'
+  });
+  this.set('question',question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true tempQuestion=question}}`);
+
+  const $component = this.$('.gru-questions-edit');
+  const $titleField = $component.find(".gru-input.title");
+
+  $titleField.find("input").val(newTitle);
+  $titleField.find("input").trigger('blur');
+
+  const $save =  $component.find("#information .actions .save");
+  $save.click();
+  return wait().then(function () {
+    assert.equal($component.find(".title label b").text(),newTitle , "The question title should be updated");
+  });
+
+});
+
 test('Layout of the information section', function (assert) {
   this.render(hbs`{{content/questions/gru-questions-edit}}`);
 
@@ -51,6 +76,7 @@ test('Layout of the information section editing mode', function (assert) {
   assert.ok($settingsSection.find('.panel-body .question-types .btn-group .dropdown-toggle').length, "Missing question types dropdown");
   assert.ok($settingsSection.find('.panel-body .standards button.add-prefix').length, "Missing add standards button");
 });
+
 test('Validate if the question title field is left blank', function (assert) {
   assert.expect(3);
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
@@ -78,6 +104,7 @@ test('Validate if the question title field is left blank', function (assert) {
     });
   });
 });
+
 test('Validate if the Question Title field has only whitespaces', function (assert) {
   assert.expect(3);
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
@@ -106,6 +133,7 @@ test('Validate if the Question Title field has only whitespaces', function (asse
     });
   });
 });
+
 test('Validate the character limit in the Question title field', function (assert) {
   assert.expect(1);
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
@@ -123,7 +151,6 @@ test('Validate the character limit in the Question title field', function (asser
 
   assert.equal($titleField.find("input").val().length,50, "Incorrect number of incorrect characters");
 });
-
 
 test('Layout of the settings section', function (assert) {
   this.render(hbs`{{content/questions/gru-questions-edit}}`);
