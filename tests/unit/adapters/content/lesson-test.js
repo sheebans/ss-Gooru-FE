@@ -93,3 +93,27 @@ test('Get lesson by ID', function (assert) {
       assert.deepEqual(response, lessonData, 'Should respond with the corresponding lesson data');
     });
 });
+
+test('associateAssessmentOrCollectionToLesson', function(assert) {
+  const adapter = this.subject();
+  const requestData = {
+    lessonId: 'lesson-id',
+    unitId: 'unit-id',
+    courseId: 'course-id',
+    classId: 'class-id',
+    collectionId: 'collection-id',
+    type: 'collection'
+  };
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.put('/api/nucleus/v1/courses/course-id/units/unit-id/lessons/lesson-id/collections', function() {
+      return [204, {'Content-Type': 'application/json'}, ''];
+    }, false);
+  });
+  adapter.associateAssessmentOrCollectionToLesson(requestData)
+    .then(function(response) {
+      assert.equal(undefined, response, 'Wrong response');
+    });
+});
