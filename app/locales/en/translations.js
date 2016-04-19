@@ -96,10 +96,13 @@ export default {
     "errors": {
       "join-class-code":"Please enter the class code.",
       "add-course-title":"Please enter the course title.",
+      "add-question-title":"Please enter the question title.",
       "can-not-join-class" : "Oops! Unable to join class. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
+      "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
       "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
+      "collection-not-updated": "Oops! Unable to update collection right now. Please try again shortly.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
@@ -145,6 +148,7 @@ export default {
     "more-details":"More Details",
     "new-assessment": "New Assessment",
     "new-collection": "New Collection",
+    "next": "Next",
     "no": "No",
     "no-content": "No content available",
     "no-results": "No Results Found",
@@ -208,9 +212,9 @@ export default {
     "role": "Role",
     "save": "Save",
     "save-next": "Save and Next",
-    "next": "Next",
     "save-submit": "Save and Submit All",
     "save-finish": "Save and Finish",
+    "select": "Select",
     "settings":"Settings",
     "school": "School",
     "school-info": "School Information",
@@ -380,19 +384,16 @@ export default {
       "title": "Join a Class",
       "content": "Where the journey begins.",
       "class-code-input": "Enter a Class Code",
-      "terms-and-conditions": 'By clicking Join Class, I agree to share my assessment and collection progress data generated from studying this Gooru class, with the teacher(s) of this class.',
-      "not-now": "Not now",
-      "join-class": "Join Class",
+      "class-not-found": "Class not found. Make sure you've entered the correct class code",
       "invalid-code": "Invalid class code.",
-      "join-not-allowed": "You are not allow to join this class",
-
+      "join-class": "Join Class",
+      "join-not-allowed": "You are not able to join this class",
+      "not-now": "Not now",
+      "terms-and-conditions": 'By clicking Join Class, I agree to share my assessment and collection progress data generated from studying this Gooru class, with the teacher(s) of this class.'
     }
   },
   "content.collections.edit": {
-    "assign-to-course": "Assign to Course",
-    "information":{
-      "collection-title":"Collection Title"
-    }
+    "assign-to-course": "Assign to Course"
   },
 
   "content.courses.edit": {
@@ -412,7 +413,8 @@ export default {
   },
 
   "content.resources.edit": {
-    "placeholder-message": "Add a resource to <span>preview it here.</span>"
+    "placeholder-message": "Add a resource to <span>preview it here.</span>",
+    "not-implemented": "Resource format preview <span>not implemented yet.</span>"
   },
 
   "user": {
@@ -485,6 +487,8 @@ export default {
   "sign-up": {
     "step-1-title": "Hello!",
     "step-1-description": "We're glad you’ve decided to join us.",
+    "step-2-title": "Basic Info",
+    "step-2-description": "You’re not basic, but this info is.",
     "log-in": "Log In",
     "log-in-description": "if you already have an account.",
     "google-button": "Sign Up with Google",
@@ -516,8 +520,15 @@ export default {
     "email": "Email",
     "password": "Password",
     "rePassword": "Confirm Password",
+    "role": "Role",
+    "teacher": "Teacher",
+    "student": "Student",
+    "other": "Other",
+    "country": "Country",
+    "state": "State",
+    "district": "District",
     "error-username-taken": "Aww, this username is taken. Try another.",
-    "error-email-taken": "This email is taken. Try another.",
+    "error-email-taken": "This email is taken. Try another."
   },
 
   "gru-user-sign-up-cancel": {

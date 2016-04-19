@@ -10,8 +10,9 @@ test('serializeCreateQuestion', function(assert) {
     type: 'MA'
   });
   const expected = {
-    'short_title': 'question-title',
-    content_subformat: 'multiple_answer_question' //subformat is converted at the serializer
+    'title': 'question-title',
+    content_subformat: 'multiple_answer_question', //subformat is converted at the serializer
+    'visible_on_profile': true
   };
   const response = serializer.serializeCreateQuestion(questionObject);
   assert.deepEqual(expected, response, 'Wrong serialized response');
@@ -22,12 +23,14 @@ test('serializeUpdateQuestion', function(assert) {
   const questionObject = QuestionModel.create({
     title: 'question-title',
     type: 'MA',
-    text: 'This is the question text?'
+    text: 'This is the question text?',
+    isVisibleOnProfile: false
   });
   const expected = {
-    'short_title': 'question-title',
-    title: 'This is the question text?',
-    content_subformat: 'multiple_answer_question' //subformat is converted at the serializer
+    'title': 'question-title',
+    description: 'This is the question text?',
+    content_subformat: 'multiple_answer_question', //subformat is converted at the serializer
+    'visible_on_profile': false
   };
   const response = serializer.serializeUpdateQuestion(questionObject);
   assert.deepEqual(expected, response, 'Wrong serialized response');
@@ -45,10 +48,11 @@ test('normalizeReadQuestion', function(assert) {
   };
 
   const question = serializer.normalizeReadQuestion(questionData);
-  assert.equal('abcd', question.get("id"), 'Wrong id');
-  assert.equal('question-title', question.get("title"), 'Wrong title');
-  assert.equal('any desc', question.get("description"), 'Wrong description');
-  assert.equal('published', question.get("publishStatus"), 'Wrong publish');
-  assert.equal(2, question.get("standards").length, 'Wrong standards');
-  assert.equal('MA', question.get("type"), 'Wrong format'); //format is converted at the normalizer
+  assert.equal(question.get("id"), 'abcd', 'Wrong id');
+  assert.equal(question.get("title"), 'question-title', 'Wrong title');
+  assert.equal(question.get("description"), 'any desc', 'Wrong description');
+  assert.equal(question.get("publishStatus"), 'published', 'Wrong publish');
+  assert.equal(question.get("standards").length, 2, 'Wrong standards');
+  assert.equal(question.get("type"), 'MA', 'Wrong format'); //format is converted at the normalizer
+  assert.equal(question.get('isVisibleOnProfile'), true, 'Wrong format');
 });

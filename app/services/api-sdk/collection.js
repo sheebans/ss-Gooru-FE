@@ -53,6 +53,36 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Gets a Collection by id
+   * @param {string} collectionId
+   * @returns {Promise}
+   */
+  readCollection: function(collectionId){
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('collectionAdapter').readCollection(collectionId)
+        .then(function(responseData) {
+          resolve(service.get('collectionSerializer').normalizeReadCollection(responseData));
+        }, reject );
+    });
+  },
+
+  /**
+   * Updates a Collection
+   *
+   * @param collectionId the id of the Collection to be updated
+   * @param collectionModel the Collection model with the data
+   * @returns {Promise}
+   */
+  updateCollection: function(collectionId, collectionModel) {
+    const service = this;
+    let serializedData = service.get('collectionSerializer').serializeUpdateCollection(collectionModel);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('collectionAdapter').updateCollection(collectionId, serializedData).then(resolve, reject);
+    });
+  },
+
+  /**
    * Gets a specific collection|assessment by ID
    * @param {string} collectionId
    * @returns {Collection}

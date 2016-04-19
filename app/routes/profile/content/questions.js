@@ -15,7 +15,7 @@ export default Ember.Route.extend({
   actions: {
     /**
      * On card edit question button click
-     * @param {Content/Question} question
+     * @param {Question} question
      */
     editQuestion: function (question) {
       this.transitionTo("content.questions.edit", question.get("id"));

@@ -101,7 +101,7 @@ export default Ember.Object.extend({
   /**
    * Normalize the resources
    * @param payload
-   * @returns {Content/Resource[]}
+   * @returns {Resource[]}
    */
   normalizeReadResources: function(payload){
     const resources = payload.resources || [];
@@ -116,7 +116,7 @@ export default Ember.Object.extend({
   /**
    * Normalize the questions
    * @param payload
-   * @returns {Content/Question[]}
+   * @returns {Question[]}
    */
   normalizeReadQuestions: function(payload){
     const questions = payload.questions || [];
@@ -131,7 +131,7 @@ export default Ember.Object.extend({
   /**
    * Normalize the collections
    * @param payload
-   * @returns {Content/Collection[]}
+   * @returns {Collection[]}
    */
   normalizeReadCollections: function(payload){
     const collections = payload.collections || [];
@@ -146,7 +146,7 @@ export default Ember.Object.extend({
   /**
    * Normalize the assessments
    * @param payload
-   * @returns {Content/Assessment[]}
+   * @returns {Assessment[]}
    */
   normalizeReadAssessments: function(payload){
     const assessments = payload.assessments || [];
@@ -162,7 +162,7 @@ export default Ember.Object.extend({
    * Normalizes a resource
    * @param {Object} resourceData
    * @param {[]} owners
-   * @returns {Content/Resource}
+   * @returns {Resource}
    */
   normalizeResource: function (resourceData, owners) {
     const serializer = this;
@@ -186,7 +186,7 @@ export default Ember.Object.extend({
    * Normalizes a question
    * @param {Object} questionData
    * @param {[]} owners
-   * @returns {Content/Question}
+   * @returns {Question}
    */
   normalizeQuestion: function (questionData, owners) {
     const serializer = this;
@@ -208,7 +208,7 @@ export default Ember.Object.extend({
    * Normalizes a collection
    * @param {Object} collectionData
    * @param {[]} owners
-   * @returns {Content/Collection}
+   * @returns {Collection}
    */
   normalizeCollection: function (collectionData, owners) {
     const serializer = this;
@@ -235,7 +235,7 @@ export default Ember.Object.extend({
    * Normalizes a assessment
    * @param {Object} assessmentData
    * @param {[]} owners
-   * @returns {Content/Assessment}
+   * @returns {Assessment}
    */
   normalizeAssessment: function (assessmentData, owners) {
     const serializer = this;
