@@ -39,7 +39,7 @@ export default Ember.Component.extend({
             component.get('classService')
                 .createClass(newClass)
                 .then(function(newClass) {
-                  component.get('router').transitionTo('class', { classId : newClass.get('id') });
+                  component.get('router').transitionTo('class.overview', newClass.get('id') );
                 },
 
                 function() {
