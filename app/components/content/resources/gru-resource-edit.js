@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
+import { RESOURCE_COMPONENT_MAP } from "../../../config/config";
 
 export default Ember.Component.extend(ContentEditMixin, {
   // -------------------------------------------------------------------------
@@ -29,11 +30,19 @@ export default Ember.Component.extend(ContentEditMixin, {
    * Toggle Options
    * @property {Ember.Array}
    */
-  switchOptions:Ember.A([Ember.Object.create({
+  switchOptions: Ember.A([Ember.Object.create({
     'label': "On",
     'value': true
   }),Ember.Object.create({
     'label': "Off",
     'value': false
-  })])
+  })]),
+
+  /**
+   * Determines the name of the component that renders the resource
+   * @property {String}
+   */
+  resourceComponent: Ember.computed('resource.resourceType', function() {
+    return RESOURCE_COMPONENT_MAP[this.get('resource.resourceType')];
+  })
 });
