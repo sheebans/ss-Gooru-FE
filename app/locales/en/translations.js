@@ -510,21 +510,16 @@ export default {
       "year": "Year",
       "error-message": 'Please enter your birth date.'
     },
-
-    "firstName": "First Name",
-    "lastName": "Last Name",
     "email": "Email",
     "password": "Password",
     "rePassword": "Confirm Password",
-    "role": "Role",
-    "teacher": "Teacher",
-    "student": "Student",
-    "other": "Other",
-    "country": "Country",
     "state": "State",
-    "district": "District",
     "error-username-taken": "Aww, this username is taken. Try another.",
-    "error-email-taken": "This email is taken. Try another."
+    "error-email-taken": "This email is taken. Try another.",
+    "error-role-message": 'Please select a role.',
+    "error-country-message": 'Please select your country.',
+    "error-state-message": 'Please select your state.',
+    "error-district-message": 'Please enter your district.'
   },
 
   "gru-user-sign-up-cancel": {
