@@ -136,7 +136,8 @@ export default Ember.Component.extend({
     this.get('router').transitionTo('content.collections.edit', { collectionId });
   },
 
-  showErrorMessage: function(){
+  showErrorMessage: function(error){
+    Ember.Logger.error(error);
     const message = this.get('i18n').t('common.errors.collection-not-created').string;
     this.get('notifications').error(message);
   },

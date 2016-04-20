@@ -35,7 +35,8 @@ export default NewCollectionModal.extend({
     this.get('router').transitionTo('content.assessments.edit', { assessmentId });
   },
 
-  showErrorMessage: function(){
+  showErrorMessage: function(error) {
+    Ember.Logger.error(error);
     const message = this.get('i18n').t('common.errors.assessment-not-created').string;
     this.get('notifications').error(message);
   },
