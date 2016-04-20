@@ -117,7 +117,7 @@ export default Ember.Component.extend({
                 .then(function (newCollection) {
                     component.triggerAction({action: 'closeModal'});
                     component.get('router')
-                      .transitionTo('content.collections.edit', {collectionId: newCollection.get('id')});
+                      .transitionTo('content.collections.edit', newCollection.get('id'));
                   },
                   function () {
                     const message = component.get('i18n').t('common.errors.collection-not-created').string;
