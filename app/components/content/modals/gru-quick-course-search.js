@@ -63,28 +63,6 @@ export default Ember.Component.extend({
   /**
    * @type {String} selected Course's ID
    */
-   selectedCourse: null,
-  /**
-   * Class handling the actions from the component.
-   * This value will be set on instantiation by gru-modal.
-   *
-   * @type {Ember.Component}
-   * @private
-   */
-  target: null,
-
-
-
-
+   selectedCourse: null
   //Methods
-
-  /*
-   * Move array object into array
-   * */
-  move(arr, fromIndex, toIndex) {
-  var element = arr[fromIndex];
-  arr.splice(fromIndex, 1);
-  arr.splice(toIndex, 0, element);
-}
-
 });
