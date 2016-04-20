@@ -5,7 +5,11 @@ import Question from 'gooru-web/models/content/question';
 import Ember from 'ember';
 
 moduleForComponent('content/questions/gru-questions-edit', 'Integration | Component | content/questions/gru questions edit', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.i18n = this.container.lookup('service:i18n');
+    this.i18n.set("locale","en");
+  }
 });
 
 test('it has header and main sections', function (assert) {
@@ -150,6 +154,36 @@ test('Validate the character limit in the Question title field', function (asser
   $titleField.find("input").trigger('blur');
 
   assert.equal($titleField.find("input").val().length,50, "Incorrect number of incorrect characters");
+});
+
+test('Layout of the builder section', function (assert) {
+  this.render(hbs`{{content/questions/gru-questions-edit}}`);
+
+  var $builderSection = this.$("#builder");
+  assert.ok($builderSection.find('.header h2').length, "Builder title missing");
+  assert.ok($builderSection.find('.panel-heading h3').length, "Missing Question label");
+  assert.ok($builderSection.find('.panel-heading .instructions').length, "Missing Instructions");
+  assert.ok($builderSection.find('.panel-body .text-empty').length, "Missing text empty message");
+});
+test('Builder Edit', function (assert) {
+  assert.expect(8);
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: null,
+    type:'MC'
+  });
+  this.set('question',question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit isBuilderEditing=true question=question}}`);
+
+  var $builderSection = this.$("#builder");
+  assert.ok($builderSection.find('.actions .save').length, "Save button missing");
+  assert.ok($builderSection.find('.actions .cancel').length, "Cancel button missing");
+  assert.ok($builderSection.find('.header h2').length, "Builder title missing");
+  assert.ok($builderSection.find('.panel-heading h3').length, "Missing Question label");
+  assert.equal($builderSection.find('.header h2').text(),"Builder - "+ this.i18n.t('common.question-type.'+question.type).toString(), "Missing Question label");
+  assert.ok($builderSection.find('.panel-heading .instructions').length, "Missing Instructions");
+  assert.ok($builderSection.find('.panel-body textarea').length, "Missing text area");
+  assert.ok($builderSection.find('.panel-body .add-image').length, "Missing add image button");
 });
 
 test('Layout of the settings section', function (assert) {

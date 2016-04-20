@@ -17,6 +17,7 @@ export default {
     "add-new-unit": "Add New Unit",
     "add-new-resource": "Add New Resource",
     "add-new-question": "Add New Question",
+    "add-question-image": "Add Question Image",
     "add-to": "Add To",
     "add-type-question":"What type of question would you like to add?",
     "add-type-resource":"What type of resource is this?",
@@ -157,6 +158,7 @@ export default {
     "notStarted": "Not started",
     "not-specified":"Not specified",
     "not-added":"Not Added",
+    "nothing-to-display-message":"Nothing to display.",
     "number":"No.",
     "numberStudents": {
       one: "{{count}} Student",
@@ -170,6 +172,7 @@ export default {
     "preview": "Preview",
     "question":"Question",
     "questions": "Questions",
+    "question-edit-instructions":"Write your question. Character limit: 5000.",
     "question-pl": {
       one: "Question",
       other: "Questions"
