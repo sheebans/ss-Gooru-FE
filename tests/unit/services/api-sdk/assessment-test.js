@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
+import AssessmentModel from 'gooru-web/models/content/assessment';
 
 moduleForService('service:api-sdk/assessment', 'Unit | Service | api-sdk/assessment', {
 
@@ -33,4 +34,50 @@ test('createAssessment', function(assert) {
       assert.equal(assessmentModel.get('id'), 'assessment-id', 'Wrong assessment id');
       done();
     });
+});
+
+test('readAssessment', function(assert) {
+  const service = this.subject();
+  const expectedAssessmentId = 'assessment-id';
+  assert.expect(2);
+
+  service.set('assessmentAdapter', Ember.Object.create({
+    readAssessment: function(assessmentId) {
+      assert.equal(assessmentId, expectedAssessmentId, 'Wrong Assessment id');
+      return Ember.RSVP.resolve({ id: assessmentId });
+    }
+  }));
+  service.set('assessmentSerializer', Ember.Object.create({
+    normalizeReadAssessment: function(assessmentData) {
+      assert.deepEqual(assessmentData, { id: expectedAssessmentId }, 'Wrong Assessment data');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.readAssessment(expectedAssessmentId).then(function() { done(); });
+});
+
+test('updateAssessment', function(assert) {
+  const service = this.subject();
+  const expectedAssessmentId = 'assessment-id';
+  const expectedAssessmentModel = AssessmentModel.create({ title: 'Assessment title' });
+
+  assert.expect(2);
+
+  service.set('assessmentSerializer', Ember.Object.create({
+    serializeUpdateAssessment: function(assessmentModel) {
+      assert.deepEqual(assessmentModel, expectedAssessmentModel, 'Wrong assessment model');
+      return {};
+    }
+  }));
+  service.set('assessmentAdapter', Ember.Object.create({
+    updateAssessment: function(assessmentId) {
+      assert.equal(assessmentId, expectedAssessmentId, 'Wrong assessment id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.updateAssessment(expectedAssessmentId, expectedAssessmentModel).then(function() { done(); });
 });
