@@ -89,7 +89,7 @@ test('it renders questions correctly', function (assert) {
   assert.ok($actions.find('button:eq(4)').hasClass('move-item'), 'Third action button');
   assert.ok($actions.find('button:eq(5)').hasClass('delete-item'), 'Fourth action button');
 
-  for (let question_type in QUESTION_CONFIG) {
+  Object.keys(QUESTION_CONFIG).forEach(function(question_type) {
     // Check subtitle specific to each question type
     Ember.run(() => {
       this.set('question.type', question_type);
@@ -97,6 +97,6 @@ test('it renders questions correctly', function (assert) {
 
     assert.ok($container.find('> a span').text(),
       this.get('i18n').t('common.question').string + ' | ' + this.get('i18n').t('common.question-type.' + question_type).string, 'Question subtitle');
-  }
+  }.bind(this));
 
 });
