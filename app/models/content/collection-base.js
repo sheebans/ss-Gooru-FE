@@ -90,7 +90,7 @@ export default (function() {
     /**
      * @property {Object[]} standards - The collection standards information
      */
-    standards: null,
+    standards: [],
 
     /**
      * @property {number} resourceCount - The number of resources in the collection
