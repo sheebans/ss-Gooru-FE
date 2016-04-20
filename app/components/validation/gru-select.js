@@ -29,7 +29,7 @@ export default Ember.Component.extend({
    * DidInsertElement ember event
    */
   didInsertElement: function(){
-
+    this.set('showMessage', false);
     this.$('.selectpicker').selectpicker();
     this.$('.selectpicker').on('loaded.bs.select', function () {
        this.$('.selectpicker').on('change', function(e) {
@@ -51,14 +51,32 @@ export default Ember.Component.extend({
   },
   // -------------------------------------------------------------------------
   // Properties
+
   /**
-   * @param {Object} model - Model that will be attached to the component
+   * @param {Array} options - List of options displayed in the component
    */
   options: null,
 
+  /**
+   * @param {String} title - Placeholder of the select
+   */
   title: null,
 
-  search: false
+  /**
+   * @param {Boolean} search - search option of the select
+   */
+  search: false,
+
+  /**
+   * @param {Boolean} showMessage
+   */
+  showMessage: false,
+
+  /**
+   * @param {String} errorMessage
+   */
+  errorMessage: false
+
 
   // -------------------------------------------------------------------------
   // Observers

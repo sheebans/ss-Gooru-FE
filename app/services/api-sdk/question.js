@@ -70,11 +70,8 @@ export default Ember.Service.extend({
   updateQuestion: function(questionId, questionModel) {
     const service = this;
     let serializedData = service.get('questionSerializer').serializeUpdateQuestion(questionModel);
-    return service.get('questionAdapter').updateQuestion(questionId, serializedData)
-      .then(function () {
-      return questionModel;
-    }).catch(function (error) {
-      return error;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('questionAdapter').updateQuestion(questionId, serializedData).then(resolve, reject);
     });
   }
 

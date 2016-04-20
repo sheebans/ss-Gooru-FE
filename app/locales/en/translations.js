@@ -17,6 +17,7 @@ export default {
     "add-new-unit": "Add New Unit",
     "add-new-resource": "Add New Resource",
     "add-new-question": "Add New Question",
+    "add-question-image": "Add Question Image",
     "add-to": "Add To",
     "add-type-question":"What type of question would you like to add?",
     "add-type-resource":"What type of resource is this?",
@@ -157,6 +158,7 @@ export default {
     "notStarted": "Not started",
     "not-specified":"Not specified",
     "not-added":"Not Added",
+    "nothing-to-display-message":"Nothing to display.",
     "number":"No.",
     "numberStudents": {
       one: "{{count}} Student",
@@ -170,6 +172,7 @@ export default {
     "preview": "Preview",
     "question":"Question",
     "questions": "Questions",
+    "question-edit-instructions":"Write your question. Character limit: 5000.",
     "question-pl": {
       one: "Question",
       other: "Questions"
@@ -414,7 +417,8 @@ export default {
   },
 
   "content.resources.edit": {
-    "placeholder-message": "Add a resource to <span>preview it here.</span>"
+    "placeholder-message": "Add a resource to <span>preview it here.</span>",
+    "not-implemented": "Resource format preview <span>not implemented yet.</span>"
   },
 
   "user": {
@@ -510,21 +514,16 @@ export default {
       "year": "Year",
       "error-message": 'Please enter your birth date.'
     },
-
-    "firstName": "First Name",
-    "lastName": "Last Name",
     "email": "Email",
     "password": "Password",
     "rePassword": "Confirm Password",
-    "role": "Role",
-    "teacher": "Teacher",
-    "student": "Student",
-    "other": "Other",
-    "country": "Country",
     "state": "State",
-    "district": "District",
     "error-username-taken": "Aww, this username is taken. Try another.",
-    "error-email-taken": "This email is taken. Try another."
+    "error-email-taken": "This email is taken. Try another.",
+    "error-role-message": 'Please select a role.',
+    "error-country-message": 'Please select your country.',
+    "error-state-message": 'Please select your state.',
+    "error-district-message": 'Please enter your district.'
   },
 
   "gru-user-sign-up-cancel": {

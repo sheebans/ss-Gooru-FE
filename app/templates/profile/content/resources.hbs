@@ -2,7 +2,7 @@
     <div class="resources clearfix">
       {{#each resources as |resource|}}
           <div class="card">
-            {{cards.gru-resource-card resource=resource editEnabled=true onEditResource="editResource"}}
+            {{cards.gru-resource-card resource=resource editEnabled=isMyProfile onEditResource="editResource"}}
           </div>
       {{/each}}
     </div>

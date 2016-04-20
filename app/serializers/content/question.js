@@ -34,7 +34,7 @@ export default Ember.Object.extend({
     return {
       'title': questionModel.get('title'),
       description: questionModel.get('text'),
-      'content_subformat': QuestionModel.serializeQuestionType(questionModel.get("type")),
+      //'content_subformat': QuestionModel.serializeQuestionType(questionModel.get("type")), // This is not supported on the back end yet
       'visible_on_profile': questionModel.get('isVisibleOnProfile')
     };
   },
@@ -52,13 +52,13 @@ export default Ember.Object.extend({
       id: questionData.id,
       title: questionData.title,
       type: format,
-      description: questionData.description,
+      text: questionData.description,
       publishStatus: questionData.publish_status,
       standards: serializer.normalizeStandards(standards),
       answers: null, //TODO the structure is missing some info at the API
       hints: null, //TODO
       explanation: null, //TODO
-      isVisibleOnProfile: questionData['visible_on_profile'] ? questionData['visible_on_profile'] : true
+      isVisibleOnProfile: typeof questionData['visible_on_profile'] !== 'undefined' ? questionData['visible_on_profile'] : true
     });
   },
 

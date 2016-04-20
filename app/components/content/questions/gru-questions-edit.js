@@ -47,14 +47,30 @@ export default Ember.Component.extend(ContentEditMixin,{
     /**
      * Select question type
      */
-    selectType:function(type){
-      this.set('tempQuestion.type', type);
+    selectType:function(){
+      //TO DO
+      //this.set('tempQuestion.type', type); //Not supported yet
     },
     /**
      * Save Content
      */
     updateContent: function () {
       this.saveNewContent();
+
+    },
+    /**
+     * Enable edit content builder
+     */
+    editBuilderContent: function(){
+      var questionForEditing = this.get('question').copy();
+      this.set('tempQuestion', questionForEditing);
+      this.set('isBuilderEditing', true);
+    },
+    /**
+     * Disable edit content builder
+     */
+    cancelBuilderEdit: function(){
+      this.set('isBuilderEditing', false);
     },
     /**
       * Save Content
@@ -110,12 +126,17 @@ export default Ember.Component.extend(ContentEditMixin,{
   })]),
 
   /**
-   * @type {Array{}} questionTypes
+   * @property{Array{}} questionTypes
    */
   questionTypes: Ember.computed(function(){
     let array = Ember.A(Object.keys(QUESTION_CONFIG));
     return array;
   }),
+  /**
+   * Toggle Options
+   * @property {Boolean}
+   */
+  isBuilderEditing :false,
 
   //Methods
 
@@ -123,16 +144,22 @@ export default Ember.Component.extend(ContentEditMixin,{
    * Save new question content
    */
   saveNewContent:function(){
+    const component = this;
     var editedQuestion = this.get('tempQuestion');
-    this.get('questionService').updateQuestion(editedQuestion.id,editedQuestion)
-      .then(function () {
-        this.set('question', editedQuestion);
-        this.set('isEditing', false);
-      }.bind(this))
-      .catch(function () {
-        var message = this.get('i18n').t('common.errors.question-not-updated').string;
-        this.get('notifications').error(message);
-      }.bind(this));
+    editedQuestion.validate().then(function ({ model, validations }) {
+      if (validations.get('isValid')) {
+        component.get('questionService').updateQuestion(editedQuestion.id,editedQuestion)
+          .then(function () {
+            component.set('question', editedQuestion);
+            component.set('isEditing', false);
+          }.bind(this))
+          .catch(function () {
+            var message = component.get('i18n').t('common.errors.question-not-updated').string;
+            component.get('notifications').error(message);
+          }.bind(component));
+      }
+      component.set('didValidate', true);
+    });
   }
 
 });
