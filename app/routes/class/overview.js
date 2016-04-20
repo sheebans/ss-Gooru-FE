@@ -53,12 +53,12 @@ export default Ember.Route.extend({
 
   beforeModel: function() {
     // TODO: authenticate session with ember-simple-auth, if not send to log in
-  },
-  afterModel() {
-    if (true) {
+    const currentClass = this.modelFor('class').class;
+    if (!currentClass.get('courseId')) {
       this.transitionTo('class.quick-start');
     }
   },
+
   model: function () {
     const currentClass = this.modelFor('class').class;
     const units = this.modelFor('class').units;
@@ -84,13 +84,11 @@ export default Ember.Route.extend({
    */
   setupController: function (controller, model) {
     var userLocation = (Ember.typeOf(model.userLocation) === 'instance') ?
-    model.userLocation.get('unit') + '+' +
-    model.userLocation.get('lesson') + '+' +
-    model.userLocation.get('collection') : model.userLocation;
-
+      model.userLocation.get('unit') + '+' +
+      model.userLocation.get('lesson') + '+' +
+      model.userLocation.get('collection') : model.userLocation;
     controller.set('userLocation', userLocation);
     controller.set('units', model.units);
-
     controller.get('classController').selectMenuItem('overview');
   }
 });
