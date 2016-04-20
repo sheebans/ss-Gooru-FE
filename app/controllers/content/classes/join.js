@@ -31,11 +31,18 @@ export default Ember.Controller.extend({
       const controller = this;
       controller.set("allowedCode", true);
       controller.set("validCode", true);
+      controller.set("notMember", true);
 
       controller.get("classService")
         .joinClass(code)
         .then(function (classId) {
-          controller.transitionToRoute('class.overview', classId);
+          if (!classId){ //no class is provided when is already joined to that class
+            controller.set("notMember", null);
+          }
+          else{
+            controller.transitionToRoute('class.overview', classId);
+          }
+
         }, function (error) {
           if (error.code === 'restricted') {
             controller.set("allowedCode", null);
@@ -63,7 +70,14 @@ export default Ember.Controller.extend({
    * Indicates if the code is allowed, false if the user can't join that class
    * @property {boolean}
    */
-  allowedCode: true
+  allowedCode: true,
+
+  /**
+   * Indicates if user is not a member of this class
+   * @property {boolean}
+   */
+  notMember: true
+
 
 
 
