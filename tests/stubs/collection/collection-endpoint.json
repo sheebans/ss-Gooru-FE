@@ -1,5 +1,24 @@
 [
   {
+    "description": "Gets collection with a specific ID",
+    "request": {
+      "url": "^/api/nucleus/v1/collections/(.+)$",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "get-collection-response.json"
+    }
+  },
+
+  {
     "description": "Create a collection",
     "request": {
       "url": "^/api/nucleus/v1/collections$",

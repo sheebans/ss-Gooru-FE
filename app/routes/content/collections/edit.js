@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import Collection from 'gooru-web/models/content/collection';
 
 export default Ember.Route.extend({
 

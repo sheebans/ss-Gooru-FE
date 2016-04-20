@@ -27,8 +27,8 @@ test('Edit collection information', function (assert) {
     var $headerActions = $container.find("#information .header .actions");
     var $content = $container.find('#information .content');
 
-    assert.equal($content.find('.panel-body .title b').text(), '', 'Title');
-    assert.equal($content.find('.panel-body .learning-objectives b').text(), '', 'Learning objectives');
+    assert.equal($content.find('.panel-body .title b').text(), 'OOP introduction', 'Title');
+    assert.equal($content.find('.panel-body .learning-objectives b').text(), 'This is objective', 'Learning objectives');
 
     click($headerActions.find('button.edit'));
     andThen(function () {
