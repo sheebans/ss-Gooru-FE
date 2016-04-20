@@ -1,5 +1,8 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import CourseModel from 'gooru-web/models/content/course';
+
+import Ember from 'ember';
 
 moduleForComponent('content/modals/gru-quick-course-search', 'Integration | Component | content/modals/gru quick course search', {
   integration: true
@@ -8,8 +11,31 @@ moduleForComponent('content/modals/gru-quick-course-search', 'Integration | Comp
 test('Layout', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
+  this.set('courses', Ember.A([
+    CourseModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'some-id',
+      description: 'some-description',
+      isPublished:true,
+      isVisibleOnProfile: true,
+      subject: 'some-subject',
+      thumbnailUrl: 'some-image-url.png',
+      title: 'some-title',
+      unitCount: '0'
+    }),
+    CourseModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'some-id-2',
+      description: 'some-description-2',
+      isPublished:false,
+      isVisibleOnProfile: true,
+      subject: 'some-subject-2',
+      thumbnailUrl: 'some-image-url-2.png',
+      title: 'some-title-2',
+      unitCount: '1'
+    }),
 
-  this.render(hbs`{{content/modals/gru-quick-course-search}}`);
+  ]));
+
+  this.render(hbs`{{content/modals/gru-quick-course-search model=courses}}`);
 
   const $component = this.$('.content.modals.gru-quick-course-search');
   assert.ok($component.length, 'Component classes');
@@ -21,6 +47,7 @@ test('Layout', function(assert) {
 
   const $body = $component.find('.modal-body');
   assert.ok($body.length, 'Body');
+  assert.equal($body.find('>div').length, 2, 'Number of cards');
 
   const $footer = $component.find('.modal-footer');
 

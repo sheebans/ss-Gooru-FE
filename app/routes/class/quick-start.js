@@ -15,7 +15,7 @@ export default Ember.Route.extend({
       .readUserProfile(route.get("session.userId"))
         .then(function(profile) {
           return route.get('profileService').getCourses(profile);
-        }.bind(route));
+        });
     return Ember.RSVP.hash({
       courses:coursesPromise
     });
