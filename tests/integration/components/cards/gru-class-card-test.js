@@ -54,9 +54,9 @@ test('Class Card Layout', function(assert) {
   T.exists(assert, $classCard, "Missing class card section");
   T.exists(assert, $panel, "Missing class card panel");
   assert.ok($panel.hasClass("teacher"), "Must be a teacher class card");
-  T.exists(assert, $classCard.find("h5 .title"), "Missing class card title");
-  T.exists(assert, $classCard.find("h5 .code"), "Missing class card code");
-  T.exists(assert, $classCard.find("h5 a.action"), "Missing class card action link");
+  T.exists(assert, $classCard.find("h5"), "Missing class card title");
+  T.exists(assert, $classCard.find(".side-info .code"), "Missing class card code");
+  T.exists(assert, $classCard.find(".side-info a.action"), "Missing class card action link");
   T.exists(assert, $classCard.find(".collaborators .collaborator-avatar"), "Missing collaborator avatar");
   T.exists(assert, $classCard.find(".collaborators .name"), "Missing collaborator name");
   T.exists(assert, $classCard.find(".students-info"), "Missing students info");
