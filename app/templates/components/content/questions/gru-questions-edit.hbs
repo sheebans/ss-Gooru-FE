@@ -43,7 +43,11 @@
                                   <a href="#" class="btn btn-primary btn-sm" data-toggle="dropdown">
                                       <span>
                                          {{#if tempQuestion.type}}
-                                           {{t (concat 'common.question-type.' tempQuestion.type) }}
+                                           {{#if (eq questionType 'T/F')}}
+                                             {{t 'common.question-type.T_F'}}
+                                             {{else}}
+                                             {{t (concat 'common.question-type.' tempQuestion.type) }}
+                                           {{/if}}
                                         {{else}}
                                           {{t 'common.select-question-type'}}
                                         {{/if}}</span>
@@ -56,7 +60,7 @@
                                   </ul>
                               </div>
                           {{else}}
-                              <div class="btn-empty btn btn-sm">Multiple Choice</div>
+                              <div class="btn-empty btn btn-sm">{{t (concat 'common.question-type.' question.type) }}</div>
                           {{/if}}
                         </label>
                     </div>
@@ -82,7 +86,7 @@
         <div class="actions">
           {{#if isBuilderEditing}}
               <button class="cancel btn btn-info"  {{action 'cancelBuilderEdit'}}>{{t "common.cancel"}}</button>
-              <button class="save btn btn-success" {{action 'updateContent'}}>{{t "common.save"}}</button>
+              <button class="save btn btn-success">{{t "common.save"}}</button>
           {{else}}
               <button class="edit btn btn-primary" {{action 'editBuilderContent'}}>{{t "common.edit"}}</button>
           {{/if}}
@@ -97,11 +101,11 @@
         </div>
         <div class="panel-body">
           {{#if isBuilderEditing}}
-            {{textarea (if question.text value=question.text) class="form-control" rows="10"}}
+            {{textarea value=tempQuestion.text class="form-control" rows="10"}}
               <button class="add-image btn btn-sm btn-primary">{{t "common.add-question-image"}}</button>
           {{else}}
             {{#if question.text}}
-              <span>{{question.text}}</span>
+              {{textarea  value=question.text class="form-control" rows="10" readonly=true}}
               {{else}}
               <p class="text-empty">{{t 'common.nothing-to-display-message'}}</p>
             {{/if}}

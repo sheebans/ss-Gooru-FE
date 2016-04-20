@@ -34,7 +34,7 @@ export default Ember.Object.extend({
     return {
       'title': questionModel.get('title'),
       description: questionModel.get('text'),
-      'content_subformat': QuestionModel.serializeQuestionType(questionModel.get("type")),
+      //'content_subformat': QuestionModel.serializeQuestionType(questionModel.get("type")), // This is not supported on the back end yet
       'visible_on_profile': questionModel.get('isVisibleOnProfile')
     };
   },

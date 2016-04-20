@@ -22,14 +22,14 @@ test('serializeUpdateQuestion', function(assert) {
   const serializer = this.subject();
   const questionObject = QuestionModel.create({
     title: 'question-title',
-    type: 'MA',
+    //type: 'MA',
     text: 'This is the question text?',
     isVisibleOnProfile: false
   });
   const expected = {
     'title': 'question-title',
     description: 'This is the question text?',
-    content_subformat: 'multiple_answer_question', //subformat is converted at the serializer
+    //content_subformat: 'multiple_answer_question', //subformat is converted at the serializer
     'visible_on_profile': false
   };
   const response = serializer.serializeUpdateQuestion(questionObject);

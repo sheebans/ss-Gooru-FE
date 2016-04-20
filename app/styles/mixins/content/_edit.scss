@@ -320,11 +320,15 @@
         }
       }
       .panel-body{
+        min-height: 184px;
         .text-empty{
           font-size: $font-size-large;
         }
         .add-image{
           margin-top:20px;
+        }
+        textarea{
+          line-height: 1;
         }
       }
     }

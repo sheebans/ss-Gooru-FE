@@ -1,10 +1,22 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
 import {QUESTION_CONFIG} from 'gooru-web/config/question';
-import {normalizeQuestionTypes} from 'gooru-web/utils/utils';
 
 
 export default Ember.Component.extend(ContentEditMixin,{
+
+  // -------------------------------------------------------------------------
+  // Dependencies
+
+  /**
+   * @requires service:notifications
+   */
+  notifications: Ember.inject.service(),
+
+  /**
+   * @requires service:api-sdk/question
+   */
+  questionService: Ember.inject.service("api-sdk/question"),
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -35,19 +47,37 @@ export default Ember.Component.extend(ContentEditMixin,{
     /**
      * Select question type
      */
-    selectType:function(type){
-      this.set('tempQuestion.type', type);
+    selectType:function(){
+      //TO DO
+      //this.set('tempQuestion.type', type); //Not supported yet
     },
     /**
      * Save Content
      */
     updateContent: function () {
-
+      const component = this;
+      var editedQuestion = this.get('tempQuestion');
+      editedQuestion.validate().then(function ({ model, validations }) {
+        if (validations.get('isValid')) {
+          component.get('questionService').updateQuestion(editedQuestion.id,editedQuestion)
+            .then(function () {
+              component.set('question', editedQuestion);
+              component.set('isEditing', false);
+            }.bind(this))
+            .catch(function () {
+              var message = component.get('i18n').t('common.errors.question-not-updated').string;
+              component.get('notifications').error(message);
+            }.bind(component));
+        }
+        component.set('didValidate', true);
+      });
     },
     /**
      * Enable edit content builder
      */
     editBuilderContent: function(){
+      var questionForEditing = this.get('question').copy();
+      this.set('tempQuestion', questionForEditing);
       this.set('isBuilderEditing', true);
     },
     /**
@@ -56,7 +86,6 @@ export default Ember.Component.extend(ContentEditMixin,{
     cancelBuilderEdit: function(){
       this.set('isBuilderEditing', false);
     },
-
   },
 
   // -------------------------------------------------------------------------
@@ -106,10 +135,7 @@ export default Ember.Component.extend(ContentEditMixin,{
    */
   questionTypes: Ember.computed(function(){
     let array = Ember.A(Object.keys(QUESTION_CONFIG));
-    let arrayTypes=array.map(function(item){
-      return normalizeQuestionTypes(item);
-    });
-    return arrayTypes;
+    return array;
   }),
   /**
    * Toggle Options

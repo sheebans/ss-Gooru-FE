@@ -25,7 +25,7 @@ export default Ember.Service.extend({
 
   init: function () {
     this._super(...arguments);
-    this.set('collectionSerializer', CollectionSerializer.create());
+    this.set('collectionSerializer', CollectionSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('collectionAdapter', CollectionAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
@@ -53,6 +53,21 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Gets a Collection by id
+   * @param {string} collectionId
+   * @returns {Promise}
+   */
+  readCollection: function(collectionId){
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('collectionAdapter').readCollection(collectionId)
+        .then(function(responseData) {
+          resolve(service.get('collectionSerializer').normalizeReadCollection(responseData));
+        }, reject );
+    });
+  },
+
+  /**
    * Updates a Collection
    *
    * @param collectionId the id of the Collection to be updated
@@ -62,7 +77,9 @@ export default Ember.Service.extend({
   updateCollection: function(collectionId, collectionModel) {
     const service = this;
     let serializedData = service.get('collectionSerializer').serializeUpdateCollection(collectionModel);
-    return service.get('collectionAdapter').updateCollection(collectionId, serializedData);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('collectionAdapter').updateCollection(collectionId, serializedData).then(resolve, reject);
+    });
   },
 
   /**

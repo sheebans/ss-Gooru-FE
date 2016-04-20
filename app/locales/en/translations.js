@@ -109,6 +109,7 @@ export default {
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
+      "question-not-updated": "Oops! Unable to update question right now. Please try again shortly.",
       "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
@@ -513,21 +514,16 @@ export default {
       "year": "Year",
       "error-message": 'Please enter your birth date.'
     },
-
-    "firstName": "First Name",
-    "lastName": "Last Name",
     "email": "Email",
     "password": "Password",
     "rePassword": "Confirm Password",
-    "role": "Role",
-    "teacher": "Teacher",
-    "student": "Student",
-    "other": "Other",
-    "country": "Country",
     "state": "State",
-    "district": "District",
     "error-username-taken": "Aww, this username is taken. Try another.",
-    "error-email-taken": "This email is taken. Try another."
+    "error-email-taken": "This email is taken. Try another.",
+    "error-role-message": 'Please select a role.',
+    "error-country-message": 'Please select your country.',
+    "error-state-message": 'Please select your state.',
+    "error-district-message": 'Please enter your district.'
   },
 
   "gru-user-sign-up-cancel": {

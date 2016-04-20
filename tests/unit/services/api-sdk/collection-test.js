@@ -37,6 +37,29 @@ test('createCollection', function(assert) {
     });
 });
 
+test('readCollection', function(assert) {
+  const service = this.subject();
+  const expectedCollectionId = 'collection-id';
+  assert.expect(2);
+
+  service.set('collectionAdapter', Ember.Object.create({
+    readCollection: function(collectionId) {
+      assert.equal(collectionId, expectedCollectionId, 'Wrong Collection id');
+      return Ember.RSVP.resolve({ id: collectionId });
+    }
+  }));
+
+  service.set('collectionSerializer', Ember.Object.create({
+    normalizeReadCollection: function(collectionData) {
+      assert.deepEqual(collectionData, { id: expectedCollectionId }, 'Wrong Collection data');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.readCollection(expectedCollectionId).then(function() { done(); });
+});
+
 test('updateCollection', function(assert) {
   const service = this.subject();
   const expectedCollectionId = 'collection-id';

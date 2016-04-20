@@ -32,6 +32,24 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Reads a Collection by id
+   *
+   * @param {string} collectionId
+   * @returns {Promise}
+   */
+  readCollection: function(collectionId) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/${collectionId}`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
    * Update a Collection
    *
    * @param collectionId the id of the Collection to be updated
@@ -50,7 +68,15 @@ export default Ember.Object.extend({
       headers: adapter.defineHeaders(),
       data: JSON.stringify(data)
     };
-    return Ember.$.ajax(url, options);
+
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function () {
+          resolve('');
+        }, function (error) {
+          reject(error);
+        });
+    });
   },
 
   defineHeaders: function() {
