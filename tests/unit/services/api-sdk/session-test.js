@@ -89,3 +89,19 @@ test('signUp', function (assert) {
       done();
     });
 });
+
+test('updateUserData', function (assert) {
+  const service = this.subject();
+  service.set('session', Ember.Object.create({
+    userData: {},
+    data: {},
+    store: {
+      persist: function() {}
+    }
+  }));
+  const expectedData = {
+    isNew: false
+  };
+  service.updateUserData(expectedData);
+  assert.deepEqual(service.get('session.userData'), expectedData, 'Wrong userData');
+});
