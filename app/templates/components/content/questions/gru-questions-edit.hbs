@@ -43,7 +43,11 @@
                                   <a href="#" class="btn btn-primary btn-sm" data-toggle="dropdown">
                                       <span>
                                          {{#if tempQuestion.type}}
-                                           {{t (concat 'common.question-type.' tempQuestion.type) }}
+                                           {{#if (eq questionType 'T/F')}}
+                                             {{t 'common.question-type.T_F'}}
+                                             {{else}}
+                                             {{t (concat 'common.question-type.' tempQuestion.type) }}
+                                           {{/if}}
                                         {{else}}
                                           {{t 'common.select-question-type'}}
                                         {{/if}}</span>
@@ -56,7 +60,7 @@
                                   </ul>
                               </div>
                           {{else}}
-                              <div class="btn-empty btn btn-sm">Multiple Choice</div>
+                              <div class="btn-empty btn btn-sm">{{t (concat 'common.question-type.' question.type) }}</div>
                           {{/if}}
                         </label>
                     </div>
