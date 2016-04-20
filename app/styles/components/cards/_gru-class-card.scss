@@ -4,47 +4,53 @@
     @include border-bottom-radius(4px);
     @include box-shadow(0 0 7px #ddd);
     .panel-heading {
-      position: relative;
+      padding: 0 0 0 15px;
       @include border-top-radius(4px);
+      @include flexbox();
+      @include justify-content(space-between);
+      @include align-items(stretch);
       * {
         color: $white;
       }
       h5 {
-        padding-right: 90px;
+        display: inline-block;
+        padding: 20px 0;
+        margin: 0;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      .side-info {
         @include flexbox();
-        @include flex-direction(row);
-        @include justify-content(space-between);
         @include align-items(center);
-        .title {
-        }
         .code {
-          float: right;
           border: 1px solid $white;
-          font-size: $font-size-large;
+          font-size: $font-size-base;
+          line-height: 1;
           text-transform: uppercase;
           padding: 4px 5px;
           @include border-top-radius(4px);
           @include border-bottom-radius(4px);
+          @media (min-width: $screen-xs) {
+            font-size: $font-size-large;
+          }
         }
-      }
-      .action {
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        font-size: $font-size-large;
-        padding: 0 10px 0 15px;
-        @include border-top-radius(4px);
-        @include border-left-radius(0);
-        span {
-          display: inline-block;
-          line-height: $font-size-large * 2;
-          transform: translateY(50%);
-        }
-        .gru-icon {
-          vertical-align: middle;
-          font-size: $font-size-large * 2;
-          margin: -2px -7px 0 -7px;
+        .action {
+          @include align-self(stretch);
+          @include flexbox();
+          @include align-items(center);
+          font-size: $font-size-large;
+          @include border-top-radius(4px);
+          @include border-left-radius(0);
+          padding: 0 10px;
+          margin-left: 10px;
+          span {
+            white-space: nowrap;
+          }
+          .gru-icon {
+            vertical-align: middle;
+            font-size: $font-size-large * 2;
+            margin: -2px -7px 0 -7px;
+          }
         }
       }
     }
