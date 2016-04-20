@@ -179,6 +179,25 @@
       "body": "File not found!",
       "file": "class-info-api3-200-response.json"
     }
+  },
+
+  {
+    "description": "API 3.0: move an existing course to a class",
+    "request": {
+      "url": "^/api/nucleus/v1/classes/(.+)",
+      "method": "PUT",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 204,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "class-info-api3-200-response.json"
+    }
   }
 
 ]

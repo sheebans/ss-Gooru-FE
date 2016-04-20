@@ -1,24 +1,16 @@
 import Ember from 'ember';
+import NewCollectionModal from 'gooru-web/components/content/modals/gru-collection-new';
 import Assessment from 'gooru-web/models/content/assessment';
 
-export default Ember.Component.extend({
+export default NewCollectionModal.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * @property {AssessmentService} Assessment service API SDK
    */
   assessmentService: Ember.inject.service("api-sdk/assessment"),
-
-  /**
-   * @property {Service} I18N service
-   */
-  i18n: Ember.inject.service(),
-
-  /**
-   * @property {Service} Notifications service
-   */
-  notifications: Ember.inject.service(),
 
 
   // -------------------------------------------------------------------------
@@ -26,35 +18,27 @@ export default Ember.Component.extend({
 
   classNames: ['content', 'modals', 'gru-assessment-new'],
 
-  classNameBindings: ['component-class'],
-
   // -------------------------------------------------------------------------
   // Actions
 
+  validate: function() {
+    const assessment = this.get('assessment');
+    return assessment.validate();
+  },
 
-  actions: {
+  createAssessmentOrCollection: function() {
+    return this.get('assessmentService').createAssessment(this.get('assessment'));
+  },
 
-    createAssessment: function () {
-      const component = this;
-      const assessment = this.get('assessment');
-      assessment.validate().then(function ({ model, validations }) {
-        if (validations.get('isValid')) {
-          component.get('assessmentService')
-            .createAssessment(assessment)
-            .then(function(newAssessment) {
-                component.triggerAction({ action: 'closeModal' });
-                component.get('router').transitionTo('content.assessments.edit', { assessmentId : newAssessment.get('id') });
-              },
-              function() {
-                const message = component.get('i18n').t('common.errors.assessment-not-created').string;
-                component.get('notifications').error(message);
-              }
-            );
-        }
-        this.set('didValidate', true);
-      }.bind(this));
-    }
+  closeModal: function(assessmentId) {
+    this.triggerAction({ action: 'closeModal' });
+    this.get('router').transitionTo('content.assessments.edit', { assessmentId });
+  },
 
+  showErrorMessage: function(error) {
+    Ember.Logger.error(error);
+    const message = this.get('i18n').t('common.errors.assessment-not-created').string;
+    this.get('notifications').error(message);
   },
 
   // -------------------------------------------------------------------------
@@ -69,24 +53,11 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
-  /**
-   * @type {?String} specific class
-   */
-  'component-class': null,
 
   /**
    * @type {Assessment} assessment
    */
-  assessment: null,
-
-  /**
-   * Class handling the actions from the component.
-   * This value will be set on instantiation by gru-modal.
-   *
-   * @type {Ember.Component}
-   * @private
-   */
-  target: null
+  assessment: null
 
 });
 
