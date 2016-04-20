@@ -188,7 +188,7 @@ export default Ember.Service.extend({
           }
         }, function(error) {
 
-          if(error.status===404 || error.status===500 || error.status===200){
+          if(error.status===404 || error.status===200){
             resolve();
           }
           else {
@@ -215,8 +215,7 @@ export default Ember.Service.extend({
             resolve();
           }
         }, function(error) {
-
-          if(error.status===404 || error.status===500 || error.status===200){
+          if(error.status===404 || error.status===200){
             resolve();
           }
           else {
