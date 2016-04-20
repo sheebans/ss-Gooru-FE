@@ -29,7 +29,7 @@ test('Student Layout', function(assert) {
     T.exists(assert, $newCourseContainer.find(".description"), "Missing description for new course");
 
     T.exists(assert, $newCourseContainer.find(".actions button.new-collection"), "Missing new collection button for new course");
-    T.exists(assert, $newCourseContainer.find(".actions button.new-assesment"), "Missing new assesment button for new course");
+    T.exists(assert, $newCourseContainer.find(".actions button.new-assessment"), "Missing new assessment button for new course");
     T.exists(assert, $newCourseContainer.find(".actions button.remix"), "Missing remix button for new course");
 
 
