@@ -14,9 +14,9 @@ export default Ember.Controller.extend({
   // Dependencies
 
   /**
-   * @property {Content/Course[]} courses
+   * @property {Assessment[]} assessments
    */
-  courses: null,
+  assessments: null,
 
   /**
    * @property {boolean} isMyProfile
