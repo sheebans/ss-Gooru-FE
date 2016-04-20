@@ -103,7 +103,7 @@
         .detail {
           float: right;
 
-          > span {
+          > span:last-of-type {
             display: inline-block;
             padding-right: 20px;
             border-right: 1px solid $gray-light;

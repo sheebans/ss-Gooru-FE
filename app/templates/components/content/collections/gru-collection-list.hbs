@@ -3,12 +3,20 @@
 
   <div class="detail">
     {{#if isCollection}}
-      <span><b>{{model.computedResourceCount}}</b> {{t "common.resource-pl" count=model.computedResourceCount}}</span>
-      {{#if model.computedQuestionCount}}
-        | <span><b>{{model.computedQuestionCount}}</b> {{t "common.question-pl" count=model.computedQuestionCount}}</span>
+      {{#if (or model.computedResourceCount model.computedQuestionCount)}}
+        <span><b>{{model.computedResourceCount}}</b> {{t "common.resource-pl" count=model.computedResourceCount}}</span>
+        {{#if model.computedQuestionCount}}
+            | <span><b>{{model.computedQuestionCount}}</b> {{t "common.question-pl" count=model.computedQuestionCount}}</span>
+        {{/if}}
+      {{else}}
+        <span>{{t "common.add-collection-item"}}</span>
       {{/if}}
     {{else}}
-      <span><b>{{model.computedQuestionCount}}</b> {{t "common.question-pl" count=model.computedQuestionCount}}</span>
+      {{#if model.computedQuestionCount}}
+        <span><b>{{model.computedQuestionCount}}</b> {{t "common.question-pl" count=model.computedQuestionCount}}</span>
+      {{else}}
+        <span>{{t "common.add-question"}}</span>
+      {{/if}}
     {{/if}}
 
     <div class="actions">
@@ -30,6 +38,14 @@
 </div>
 
 <ol class="collection-list" role="tablist" aria-multiselectable="true">
+
+  {{#each items as |item index|}}
+
+    {{content.collections.gru-collection-list-item
+      model=item
+      index=index }}
+
+  {{/each}}
 
   <div>
     <button class="btn btn-success add-prefix">{{t "common.from-my-resources"}}</button>
