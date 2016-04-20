@@ -414,7 +414,8 @@ export default {
   },
 
   "content.resources.edit": {
-    "placeholder-message": "Add a resource to <span>preview it here.</span>"
+    "placeholder-message": "Add a resource to <span>preview it here.</span>",
+    "not-implemented": "Resource format preview <span>not implemented yet.</span>"
   },
 
   "user": {
