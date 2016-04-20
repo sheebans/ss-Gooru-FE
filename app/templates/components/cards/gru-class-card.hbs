@@ -1,12 +1,12 @@
 <div class="panel {{if class.isStudent 'student' 'teacher'}}">
   <div class="panel-heading">
-    <h5>
-      <span class="title">{{class.title}}</span>
+    <h5>{{class.title}}</h5>
+    <div class="side-info">
       <span class="code">{{class.code}}</span>
       {{#link-to 'class.overview' class.id class="action"}}
         <span>{{if class.isStudent (t "common.study") (t "common.teach")}} {{gru-icon name="keyboard_arrow_right"}}</span>
       {{/link-to}}
-    </h5>
+    </div>
   </div>
   <div class="panel-body">
     <div class="members-info">
