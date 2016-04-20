@@ -398,6 +398,7 @@ export default {
       "class-code-input": "Enter a Class Code",
       "class-not-found": "Class not found. Make sure you've entered the correct class code",
       "invalid-code": "Invalid class code.",
+      "already-member": "You are already a member of this class.",
       "join-class": "Join Class",
       "join-not-allowed": "You are not able to join this class",
       "not-now": "Not now",
