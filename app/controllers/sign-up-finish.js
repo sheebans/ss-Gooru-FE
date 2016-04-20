@@ -27,14 +27,48 @@ export default Ember.Controller.extend({
   actions: {
 
     next: function() {
-      //to do
-      console.log('next');
+      var controller = this;
+      var role = controller.get('profile.role');
+      var countrySelected =  controller.get('countrySelected');
+      var stateSelected =  controller.get('stateSelected');
+      var districtSelected =  controller.get('districtSelected');
+      var otherDistrict =  $.trim(controller.get('otherDistrict'));
+      var showRoleErrorMessage = false;
+      var showCountryErrorMessage = false;
+      var showStateErrorMessage = false;
+      var showDistrictErrorMessage = false;
+
+      controller.set('otherDistrict', otherDistrict);
+
+      if(!role){
+        showRoleErrorMessage = true;
+      }
+      if(!countrySelected){
+        showCountryErrorMessage = true;
+      }
+
+      if(!stateSelected){
+        showStateErrorMessage = true;
+      }
+
+      if((!otherDistrict && otherDistrict=== '') && stateSelected && !districtSelected){
+        showDistrictErrorMessage = true;
+      }
+
+      controller.set('showRoleErrorMessage', showRoleErrorMessage);
+      controller.set('showCountryErrorMessage', showCountryErrorMessage);
+      controller.set('showStateErrorMessage', showStateErrorMessage);
+      controller.set('showDistrictErrorMessage', showDistrictErrorMessage);
     },
 
     countrySelect: function(id){
       var controller = this;
       var countries = this.get('countries');
       var countryCode = countries.findBy("id", id).code;
+
+      controller.set('showCountryErrorMessage', false);
+      controller.set('countrySelected', id);
+
       if (countryCode==='US') {
         controller.set('showStates', true);
       }
@@ -45,9 +79,12 @@ export default Ember.Controller.extend({
     },
 
     stateSelect: function(id){
-     var controller = this;
-      controller.set('districts', null);
+      var controller = this;
 
+      controller.set('showStateErrorMessage', false);
+      controller.set('showDistrictErrorMessage', false);
+      controller.set('districts', null);
+      controller.set('stateSelected', id);
       controller.get("lookupService").readDistricts(id)
         .then(function(districts) {
            controller.set('districts', districts);
@@ -55,9 +92,10 @@ export default Ember.Controller.extend({
     },
 
     districtSelect: function(id){
+      var controller = this;
 
-      //to do
-      console.log(id);
+      controller.set('showDistrictErrorMessage', false);
+      controller.set('districtSelected', id);
     }
   },
 
@@ -100,6 +138,27 @@ export default Ember.Controller.extend({
   countries: null,
 
   /**
+   * countrySelected
+   * @property {String}
+   */
+
+  countrySelected: null,
+
+  /**
+   * stateSelected
+   * @property {String}
+   */
+
+  stateSelected: null,
+
+  /**
+   * districtSelected
+   * @property {String}
+   */
+
+  districtSelected: null,
+
+  /**
    * List of states
    * @property {States[]}
    */
@@ -118,7 +177,30 @@ export default Ember.Controller.extend({
    * @property {Districts[]}
    */
 
-  districts: null
+  districts: null,
+
+  /**
+   * @type {String} teacher, student or other, tells the component which radio is checked.
+   */
+  currentRole:  Ember.computed.alias('profile.role'),
+
+  /**
+   * showRoleErrorMessage
+   * @property {Boolean}
+   */
+  showRoleErrorMessage: false,
+
+  /**
+   * showCountryErrorMessage
+   * @property {Boolean}
+   */
+  showCountryErrorMessage: false,
+
+  /**
+   * showCountryErrorMessage
+   * @property {Boolean}
+   */
+  showDistrictErrorMessage: false
 
   // -------------------------------------------------------------------------
   // Methods

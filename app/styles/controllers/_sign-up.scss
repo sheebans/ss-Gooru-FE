@@ -255,6 +255,12 @@
             max-height: 300px!important;
             position: relative;
           }
+          .bootstrap-select.btn-group .dropdown-toggle .filter-option {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 95%;
+          }
         }
         .sign-up-finish-form {
           .bootstrap-select {
