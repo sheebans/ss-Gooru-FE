@@ -7,7 +7,9 @@ const Validations = buildValidations({
       validator('presence', {
         presence: true,
         message: 'Please enter a username.'
-      })
+      }),
+      validator('google-username'),
+      validator('google-email')
     ]
   },
 
