@@ -367,7 +367,7 @@ export default {
       "new-course": "Quick Start a New Course",
       "new-course-desc": "Jump start to add a collection or assessment",
       "new-collection": "New Collection",
-      "new-assesment": "New Assesment",
+      "new-assessment": "New Assessment",
       "remix-a-sample": "Remix a Sample",
       "add-existing-course": "Add from Existing Course",
       "existing-course-desc": "The quickest way to start a class",
