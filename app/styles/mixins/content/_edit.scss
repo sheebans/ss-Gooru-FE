@@ -48,28 +48,45 @@
       }
 
       .actions {
-        float: right;
-        margin-top: 5px;
+        margin-top: 15px;
+        text-align: center;
+
+        /**
+         * Required to prevent actions menu breaking up nav layout in phones,
+         * it's below sm breakpoint so it must not be a problem
+         */
+        @media (min-width: 600px) {
+          float: right;
+          text-align: left;
+          margin-top: 5px;
+        }
 
         .btn-icon {
           padding: 5px 8px;
 
           > i {
             font-size: $font-size-h5;
+            line-height: 1.1;
           }
         }
       }
 
       nav {
         padding-top: 15px;
+        white-space: nowrap;
 
         a {
           vertical-align: middle;
           opacity: 0.6;
           font-size: $font-size-h6;
-          padding: 5px 10px;
-          margin-right: 20px;
+          padding: 5px;
+          margin-right: 5px;
           border-bottom: 3px solid $dark-400;
+
+          @media (min-width: $screen-sm-min) {
+            padding: 5px 10px;
+            margin-right: 20px;
+          }
 
           &.selected {
             opacity: 1;
@@ -293,6 +310,42 @@
           &:first-child {
             margin-top: 0;
           }
+        }
+      }
+    }
+  }
+  #builder{
+    > .header {
+      .actions {
+        float: right;
+      }
+    }
+    .panel {
+      border-radius: 6px;
+
+      .panel-heading {
+        border-top-right-radius: 6px;
+        border-top-left-radius: 6px;
+        div{
+          padding-bottom: 15px;
+          border-bottom: 1px solid $gray-light;
+          margin-bottom: 0;
+          margin-top: 15px;
+          .instructions {
+            color: $gray;
+          }
+        }
+      }
+      .panel-body{
+        min-height: 184px;
+        .text-empty{
+          font-size: $font-size-large;
+        }
+        .add-image{
+          margin-top:20px;
+        }
+        textarea{
+          line-height: 1;
         }
       }
     }

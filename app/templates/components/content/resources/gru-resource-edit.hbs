@@ -27,11 +27,16 @@
         <p>{{resource.url}}</p>
       </div>
     </div>
-    <div class="panel panel-default placeholder">
+    <div class="panel panel-default placeholder {{if resourceComponent 'preview'}}">
       <div class="panel-body">
-        <h2 class="resource-message">
-          {{t "content.resources.edit.placeholder-message"}}
-        </h2>
+        {{#if resourceComponent}}
+        {{!component resourceComponentSelected resource=resource calculatedResourceContentHeight=calculatedResourceContentHeight}}
+        {{component resourceComponent resource=resource}}
+        {{else}}
+          <h2 class="resource-message">
+            {{t "content.resources.edit.not-implemented"}}
+          </h2>
+        {{/if}}
       </div>
     </div>
   </div>

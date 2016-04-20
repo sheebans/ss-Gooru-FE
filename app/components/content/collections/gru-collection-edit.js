@@ -43,7 +43,7 @@ export default Ember.Component.extend(ContentEditMixin, {
      */
     updateContent: function () {
       var editedCollection = this.get('tempCollection');
-      this.get('collectionService').updateCollection(editedCollection)
+      this.get('collectionService').updateCollection(editedCollection.get('id'), editedCollection)
 
         .then(function () {
           this.set('collection', editedCollection);

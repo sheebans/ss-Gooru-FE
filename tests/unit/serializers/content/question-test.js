@@ -22,14 +22,14 @@ test('serializeUpdateQuestion', function(assert) {
   const serializer = this.subject();
   const questionObject = QuestionModel.create({
     title: 'question-title',
-    type: 'MA',
+    //type: 'MA',
     text: 'This is the question text?',
     isVisibleOnProfile: false
   });
   const expected = {
     'title': 'question-title',
     description: 'This is the question text?',
-    content_subformat: 'multiple_answer_question', //subformat is converted at the serializer
+    //content_subformat: 'multiple_answer_question', //subformat is converted at the serializer
     'visible_on_profile': false
   };
   const response = serializer.serializeUpdateQuestion(questionObject);
@@ -50,7 +50,7 @@ test('normalizeReadQuestion', function(assert) {
   const question = serializer.normalizeReadQuestion(questionData);
   assert.equal(question.get("id"), 'abcd', 'Wrong id');
   assert.equal(question.get("title"), 'question-title', 'Wrong title');
-  assert.equal(question.get("description"), 'any desc', 'Wrong description');
+  assert.equal(question.get("text"), 'any desc', 'Wrong description');
   assert.equal(question.get("publishStatus"), 'published', 'Wrong publish');
   assert.equal(question.get("standards").length, 2, 'Wrong standards');
   assert.equal(question.get("type"), 'MA', 'Wrong format'); //format is converted at the normalizer
