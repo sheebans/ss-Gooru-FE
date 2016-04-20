@@ -48,6 +48,21 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Gets an Assessment by id
+   * @param {string} assessmentId
+   * @returns {Promise}
+   */
+  readAssessment: function(assessmentId){
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('assessmentAdapter').readAssessment(assessmentId)
+        .then(function(responseData) {
+          resolve(service.get('assessmentSerializer').normalizeReadAssessment(responseData));
+        }, reject );
+    });
+  },
+
+  /**
    * Updates an Assessment
    *
    * @param assessmentId the id of the Assessment to be updated

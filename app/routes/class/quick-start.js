@@ -26,11 +26,8 @@ export default Ember.Route.extend({
   },
   setupController: function (controller, model) {
     controller.get('classController').selectMenuItem('overview');
-    controller.set('courses', model.courses);
     controller.set('class', model.class);
-  },
-  testFunction: function(test){
-    console.log(test,'test');
+    controller.set('courses', model.courses);
   }
 
 });

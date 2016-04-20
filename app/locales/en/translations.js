@@ -17,6 +17,7 @@ export default {
     "add-new-unit": "Add New Unit",
     "add-new-resource": "Add New Resource",
     "add-new-question": "Add New Question",
+    "add-question-image": "Add Question Image",
     "add-to": "Add To",
     "add-type-question":"What type of question would you like to add?",
     "add-type-resource":"What type of resource is this?",
@@ -108,6 +109,7 @@ export default {
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
+      "question-not-updated": "Oops! Unable to update question right now. Please try again shortly.",
       "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
@@ -156,6 +158,7 @@ export default {
     "notStarted": "Not started",
     "not-specified":"Not specified",
     "not-added":"Not Added",
+    "nothing-to-display-message":"Nothing to display.",
     "number":"No.",
     "numberStudents": {
       one: "{{count}} Student",
@@ -169,6 +172,7 @@ export default {
     "preview": "Preview",
     "question":"Question",
     "questions": "Questions",
+    "question-edit-instructions":"Write your question. Character limit: 5000.",
     "question-pl": {
       one: "Question",
       other: "Questions"
@@ -355,7 +359,7 @@ export default {
       "new-course": "Quick Start a New Course",
       "new-course-desc": "Jump start to add a collection or assessment",
       "new-collection": "New Collection",
-      "new-assesment": "New Assesment",
+      "new-assessment": "New Assessment",
       "remix-a-sample": "Remix a Sample",
       "add-existing-course": "Add from Existing Course",
       "existing-course-desc": "The quickest way to start a class",
@@ -386,6 +390,7 @@ export default {
       "class-code-input": "Enter a Class Code",
       "class-not-found": "Class not found. Make sure you've entered the correct class code",
       "invalid-code": "Invalid class code.",
+      "already-member": "You are already a member of this class.",
       "join-class": "Join Class",
       "join-not-allowed": "You are not able to join this class",
       "not-now": "Not now",
@@ -514,21 +519,16 @@ export default {
       "year": "Year",
       "error-message": 'Please enter your birth date.'
     },
-
-    "firstName": "First Name",
-    "lastName": "Last Name",
     "email": "Email",
     "password": "Password",
     "rePassword": "Confirm Password",
-    "role": "Role",
-    "teacher": "Teacher",
-    "student": "Student",
-    "other": "Other",
-    "country": "Country",
     "state": "State",
-    "district": "District",
     "error-username-taken": "Aww, this username is taken. Try another.",
-    "error-email-taken": "This email is taken. Try another."
+    "error-email-taken": "This email is taken. Try another.",
+    "error-role-message": 'Please select a role.',
+    "error-country-message": 'Please select your country.',
+    "error-state-message": 'Please select your state.',
+    "error-district-message": 'Please enter your district.'
   },
 
   "gru-user-sign-up-cancel": {

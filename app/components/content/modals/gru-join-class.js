@@ -21,12 +21,18 @@ const Validations = buildValidations({
         on: ['validCode'],
         message: '{{description}}',
         descriptionKey: 'content.classes.join.invalid-code'
+      }),
+      validator('dependent', {
+        on: ['notMember'],
+        message: '{{description}}',
+        descriptionKey: 'content.classes.join.already-member'
       })
     ]
   },
 
   validCode: validator('presence', true),
-  allowedCode: validator('presence', true)
+  allowedCode: validator('presence', true),
+  notMember: validator('presence', true)
 });
 
 export default Ember.Component.extend(Validations,{
@@ -50,13 +56,34 @@ export default Ember.Component.extend(Validations,{
         }
         component.set('didValidate', true);
       }.bind(component));
+    },
+
+    onCodeFocusOut: function (){
+      this.clearValidations();
+    },
+
+    onCodeTyping: function (){
+      this.clearValidations();
     }
+
 
   },
 
 
   // -------------------------------------------------------------------------
   // Events
+
+  // -------------------------------------------------------------------------
+  // Methods
+  /**
+   * Clear validation messages
+   */
+  clearValidations: function(){
+    const component = this;
+    component.set("allowedCode", true);
+    component.set("validCode", true);
+    component.set("notMember", true);
+  },
 
 
   // -------------------------------------------------------------------------
@@ -81,6 +108,13 @@ export default Ember.Component.extend(Validations,{
    * Indicates if the code is allowed, false if the user can't join that class
    * @property {boolean}
    */
-  allowedCode: true
+  allowedCode: true,
+
+  /**
+   * Indicates if user is not a member of this class
+   * @property {boolean}
+   */
+  notMember: true
+
 
 });

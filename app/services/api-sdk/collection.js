@@ -25,7 +25,7 @@ export default Ember.Service.extend({
 
   init: function () {
     this._super(...arguments);
-    this.set('collectionSerializer', CollectionSerializer.create());
+    this.set('collectionSerializer', CollectionSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('collectionAdapter', CollectionAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
