@@ -57,10 +57,9 @@ export default Ember.Component.extend({
 
     actions: {
 
-      createCollection: function () {
+      create: function () {
         const component = this;
-        const collection = this.get('collection');
-        collection.validate().then(function ({ model, validations }) {
+        component.get('validate').call(component).then(function ({ model, validations }) {
           if (validations.get('isValid')) {
             if (component.get('model')) {
               const course = this.get('course');
@@ -70,7 +69,7 @@ export default Ember.Component.extend({
               let courseId;
               let unitId;
               let lessonId;
-              let collectionId;
+              let assessmentOrCollectionId;
 
               component.get('courseService').createCourse(course)
                 .then(
@@ -91,38 +90,29 @@ export default Ember.Component.extend({
                       .createLesson(courseId, unitId, lesson);
                   })
                 .then(
-                  function(newLesson){
+                  function(newLesson) {
                     lessonId = newLesson.get('id');
-                    return component.get('collectionService')
-                      .createCollection(collection);
+                    return component.get('createAssessmentOrCollection').call(component);
                   })
                 .then(
-                  function(newCollection){
-                    collectionId = newCollection.get('id');
+                  function(newAssessmentOrCollection){
+                    assessmentOrCollectionId = newAssessmentOrCollection.get('id');
                     return component.get('lessonService')
-                      .associateAssessmentOrCollectionToLesson(courseId, unitId, lessonId, collectionId, true);
+                      .associateAssessmentOrCollectionToLesson(courseId, unitId, lessonId, assessmentOrCollectionId, true);
                   })
-                .then(function() {
-                    component.triggerAction({ action: 'closeModal' });
-                    component.get('router')
-                      .transitionTo('content.collections.edit', { collectionId });
+                .then(
+                  function(){
+                    component.get('closeModal').call(component, assessmentOrCollectionId);
                   },
-                  function() {
-                    const message = component.get('i18n').t('common.errors.collection-not-created').string;
-                    component.get('notifications').error(message);
-                  });
+                  component.get('showErrorMessage').bind(component)
+                );
             } else {
-              component.get('collectionService')
-                .createCollection(collection)
-                .then(function (newCollection) {
-                    component.triggerAction({action: 'closeModal'});
-                    component.get('router')
-                      .transitionTo('content.collections.edit', {collectionId: newCollection.get('id')});
+              component.get('createAssessmentOrCollection').call(component)
+                .then(
+                  function (newAssessmentOrCollection) {
+                    component.get('closeModal').call(component, newAssessmentOrCollection.get('id'));
                   },
-                  function () {
-                    const message = component.get('i18n').t('common.errors.collection-not-created').string;
-                    component.get('notifications').error(message);
-                  }
+                  component.get('showErrorMessage')
                 );
             }
           }
@@ -131,6 +121,26 @@ export default Ember.Component.extend({
       }
 
     },
+
+  validate: function(){
+    const collection = this.get('collection');
+    return collection.validate();
+  },
+
+  createAssessmentOrCollection: function() {
+    return this.get('collectionService').createCollection(this.get('collection'));
+  },
+
+  closeModal: function(collectionId) {
+    this.triggerAction({ action: 'closeModal' });
+    this.get('router').transitionTo('content.collections.edit', { collectionId });
+  },
+
+  showErrorMessage: function(error){
+    Ember.Logger.error(error);
+    const message = this.get('i18n').t('common.errors.collection-not-created').string;
+    this.get('notifications').error(message);
+  },
 
   // -------------------------------------------------------------------------
   // Events

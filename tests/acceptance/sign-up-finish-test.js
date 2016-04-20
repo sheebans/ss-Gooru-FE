@@ -42,3 +42,28 @@ test('Layout', function(assert) {
   });
 });
 
+test('it shows error messages if the all fields are left blank', function (assert) {
+  visit('/sign-up-finish');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-up-finish');
+
+
+    const $signUpContainer = find(".sign-up");
+    const $rolesField = $signUpContainer.find(".role");
+    const $countrySelect = $signUpContainer.find(".gru-select");
+
+    assert.ok(!$rolesField.find(".error-messages .error").length, 'Roles error message not visible');
+    assert.ok(!$countrySelect.find(".error-messages .error").length, 'Country error message not visible');
+
+    // Try submitting without filling in data
+    $signUpContainer.find("button.submit-sign-up").click();
+
+    return wait().then(function () {
+
+      assert.ok($rolesField.find(".error-messages .error").length, 'Roles error message visible');
+      assert.ok($countrySelect.find(".error-messages .error").length, 'Country error message visible');
+    });
+  });
+});
+

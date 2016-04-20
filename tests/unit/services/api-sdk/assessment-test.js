@@ -36,6 +36,28 @@ test('createAssessment', function(assert) {
     });
 });
 
+test('readAssessment', function(assert) {
+  const service = this.subject();
+  const expectedAssessmentId = 'assessment-id';
+  assert.expect(2);
+
+  service.set('assessmentAdapter', Ember.Object.create({
+    readAssessment: function(assessmentId) {
+      assert.equal(assessmentId, expectedAssessmentId, 'Wrong Assessment id');
+      return Ember.RSVP.resolve({ id: assessmentId });
+    }
+  }));
+  service.set('assessmentSerializer', Ember.Object.create({
+    normalizeReadAssessment: function(assessmentData) {
+      assert.deepEqual(assessmentData, { id: expectedAssessmentId }, 'Wrong Assessment data');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.readAssessment(expectedAssessmentId).then(function() { done(); });
+});
+
 test('updateAssessment', function(assert) {
   const service = this.subject();
   const expectedAssessmentId = 'assessment-id';
