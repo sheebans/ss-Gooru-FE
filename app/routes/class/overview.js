@@ -53,8 +53,6 @@ export default Ember.Route.extend({
 
   beforeModel: function() {
     // TODO: authenticate session with ember-simple-auth, if not send to log in
-  },
-  afterModel() {
     const currentClass = this.modelFor('class').class;
     let userId = this.get('session.userId');
     if (currentClass.isTeacher(userId) && !currentClass.get('courseId')) {
@@ -85,6 +83,10 @@ export default Ember.Route.extend({
       isTeacher:isTeacher,
       currentClass: currentClass
     });
+  },
+
+  afterModel() {
+
   },
 
   /**
