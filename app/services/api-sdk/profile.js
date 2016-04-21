@@ -171,6 +171,61 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Checks if the email was already taken by a google account
+   * @param email
+   * @returns {Promise}
+   */
+  checkGoogleEmail: function(email) {
+    const service = this;
+    const i18n = service.get('i18n');
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('availabilityAdapter').verifyEmail(email)
+        .then(function(user) {
+          if(user.login_type === "google") {
+            reject(i18n.t("common.errors.sign-in-google-account-exists").string);
+          } else {
+            resolve();
+          }
+        }, function(error) {
+
+          if(error.status===404 || error.status===200){
+            resolve();
+          }
+          else {
+            reject(error);
+          }
+        });
+    });
+  },
+
+  /**
+   * Checks if the username was already taken by a google account
+   * @param username
+   * @returns {Promise}
+   */
+  checkGoogleUsername: function(username) {
+    const service = this;
+    const i18n = service.get('i18n');
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('availabilityAdapter').verifyUsername(username)
+        .then(function(user) {
+          if(user.login_type === "google") {
+            reject(i18n.t("common.errors.sign-in-google-account-exists").string);
+          } else {
+            resolve();
+          }
+        }, function(error) {
+          if(error.status===404 || error.status===200){
+            resolve();
+          }
+          else {
+            reject(error);
+          }
+        });
+    });
+  },
+
+  /**
    * Gets the list of courses created by the profile and filter by subject
    *
    * @param profile the Profile object

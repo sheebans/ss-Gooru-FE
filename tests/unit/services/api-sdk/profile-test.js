@@ -231,6 +231,150 @@ test('checkEmailAvailability-Email already exists', function(assert) {
     });
 });
 
+test('checkGoogleEmail-The account does not exist', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('availabilityAdapter', Ember.Object.create({
+    verifyEmail: function(email) {
+      assert.notEqual(email, 'other-email-value', 'Emails should not be equal');
+      return Ember.RSVP.reject({ status: 404 });
+    }
+  }));
+
+  var done = assert.async();
+  service.checkGoogleEmail('email-value')
+    .then(function() {
+      assert.ok(true);
+      done();
+    }, function() {
+      assert.ok(false, 'Email was not validated correctly');
+      done();
+    });
+});
+
+test('checkGoogleEmail-Account not using google sign-in', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('availabilityAdapter', Ember.Object.create({
+    verifyEmail: function(email) {
+      assert.equal(email, 'email-value', 'Emails should be equal');
+      return Ember.RSVP.resolve({ login_type: 'credential', status: 200 });
+    }
+  }));
+
+  var done = assert.async();
+  service.checkGoogleEmail('email-value')
+    .then(function() {
+      assert.ok(true);
+      done();
+    }, function() {
+      assert.ok(false, 'Email was not validated correctly');
+      done();
+    });
+});
+
+test('checkGoogleEmail-Account using google sign-in already exists', function(assert) {
+  const service = this.subject();
+  var i18n = Ember.Object.create({
+    t: function () {
+      return { string: '"common.errors.sign-in-google-account-exists"'};
+    }
+  });
+  service.set('i18n', i18n);
+  assert.expect(2);
+
+  service.set('availabilityAdapter', Ember.Object.create({
+    verifyEmail: function(email) {
+      assert.equal(email, 'email-value', 'Emails should be equal');
+      return Ember.RSVP.resolve({ login_type: 'google', status: 200 });
+    }
+  }));
+
+  var done = assert.async();
+  service.checkGoogleEmail('email-value')
+    .then(function() {
+      assert.ok(false, 'Email was not validated correctly');
+      done();
+    }, function() {
+      assert.ok(true);
+      done();
+    });
+});
+
+test('checkGoogleUsername-The account does not exist', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('availabilityAdapter', Ember.Object.create({
+    verifyUsername: function(username) {
+      assert.notEqual(username, 'other-username-value', 'Usernames should not be equal');
+      return Ember.RSVP.reject({ status: 404 });
+    }
+  }));
+
+  var done = assert.async();
+  service.checkGoogleUsername('username-value')
+    .then(function() {
+      assert.ok(true);
+      done();
+    }, function() {
+      assert.ok(false, 'Username was not validated correctly');
+      done();
+    });
+});
+
+test('checkGoogleUsername-Account not using google sign-in', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('availabilityAdapter', Ember.Object.create({
+    verifyUsername: function(username) {
+      assert.equal(username, 'username-value', 'Usernames should be equal');
+      return Ember.RSVP.resolve({ login_type: 'credential', status: 200 });
+    }
+  }));
+
+  var done = assert.async();
+  service.checkGoogleUsername('username-value')
+    .then(function() {
+      assert.ok(true);
+      done();
+    }, function() {
+      assert.ok(false, 'Username was not validated correctly');
+      done();
+    });
+});
+
+test('checkGoogleUsername-Account using google sign-in already exists', function(assert) {
+  const service = this.subject();
+  var i18n = Ember.Object.create({
+    t: function () {
+      return { string: '"common.errors.sign-in-google-account-exists"'};
+    }
+  });
+  service.set('i18n', i18n);
+  assert.expect(2);
+
+  service.set('availabilityAdapter', Ember.Object.create({
+    verifyUsername: function(username) {
+      assert.equal(username, 'username-value', 'Usernames should be equal');
+      return Ember.RSVP.resolve({ login_type: 'google', status: 200 });
+    }
+  }));
+
+  var done = assert.async();
+  service.checkGoogleUsername('username-value')
+    .then(function() {
+      assert.ok(false, 'Username was not validated correctly');
+      done();
+    }, function() {
+      assert.ok(true);
+      done();
+    });
+});
+
 test('getCourses', function(assert) {
   const service = this.subject();
 
