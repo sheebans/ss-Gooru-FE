@@ -34,7 +34,7 @@ export default Ember.Object.extend({
       title: unitModel.get('title'),
       big_ideas: unitModel.get('bigIdeas'),
       essential_questions: unitModel.get('essentialQuestions'),
-      taxonomy: [],   // TODO: pending
+      taxonomy: []   // TODO: pending
     };
   },
 

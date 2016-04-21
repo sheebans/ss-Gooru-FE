@@ -45,7 +45,7 @@ export default Ember.Object.extend({
    * Updates an existing unit
    *
    * @param params - data to send in the request
-   * @returns {Ember.Promise|String} ID of the newly created unit
+   * @returns {Ember.Promise|String} ID
    */
   updateUnit: function (params) {
     const courseId = params.courseId;
