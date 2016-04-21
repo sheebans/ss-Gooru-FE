@@ -106,7 +106,24 @@
       }
     }
   },
-
+  {
+    "description": "API 3.0: Get the Members for PochitaAsTeacher-NoCourse ",
+    "request": {
+      "url": "^/api/nucleus/v1/classes/462bcc67-1717-4140-bdc0-672e7bf4cdb1/members",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "members-for-pochita-no-course-api3-200-response.json"
+    }
+  },
   {
     "description": "API 3.0: Get the Members of a specific class",
     "request": {
@@ -125,7 +142,6 @@
       "file": "members-class-api3-200-response.json"
     }
   },
-
   {
     "description": "Fetch user classes",
     "request": {
@@ -161,7 +177,24 @@
       }
     }
   },
-
+  {
+    "description": "Class PochitaAsTeacher-NoCourse",
+    "request": {
+      "url": "^/api/nucleus/v1/classes/462bcc67-1717-4140-bdc0-672e7bf4cdb1$",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "class-for-pochita-no-course-200-response.json"
+    }
+  },
   {
     "description": "API 3.0: Get the Information of a specific class",
     "request": {
@@ -180,7 +213,6 @@
       "file": "class-info-api3-200-response.json"
     }
   },
-
   {
     "description": "API 3.0: move an existing course to a class",
     "request": {

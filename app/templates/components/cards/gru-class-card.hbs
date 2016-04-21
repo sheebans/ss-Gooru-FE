@@ -1,10 +1,10 @@
-<div class="panel {{if class.isStudent 'student' 'teacher'}}">
+<div class="panel {{if (is-teacher class profile.id) 'teacher' 'student' }}">
   <div class="panel-heading">
     <h5>{{class.title}}</h5>
     <div class="side-info">
       <span class="code">{{class.code}}</span>
       {{#link-to 'class.overview' class.id class="action"}}
-        <span>{{if class.isStudent (t "common.study") (t "common.teach")}} {{gru-icon name="keyboard_arrow_right"}}</span>
+        <span>{{if (is-teacher class profile.id) (t "common.teach") (t "common.study") }} {{gru-icon name="keyboard_arrow_right"}}</span>
       {{/link-to}}
     </div>
   </div>
@@ -12,8 +12,8 @@
     <div class="members-info">
       <div class="collaborators">
         {{! Place collaborator avatar and first name in the next two lines }}
-        <img class="collaborator-avatar" src="/assets/gooru/profile.png" alt="{teacher}">
-        <span class="name">{teacher}</span>
+        <img class="collaborator-avatar" src="/assets/gooru/profile.png" alt="{{class.owner.displayName}}">
+        <span class="name">{{class.owner.displayName}}</span>
         {{#if (gt collaboratorsCount 0)}} <span class="collaborators-count">+{{collaboratorsCount}}</span>{{/if}}
       </div>
       <div class="students-info">

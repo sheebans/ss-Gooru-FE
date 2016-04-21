@@ -77,7 +77,7 @@ test('Layout of the information section editing mode', function (assert) {
   var $settingsSection = this.$("#information");
   assert.ok($settingsSection.find('.header h2').length, "Information title missing");
   assert.ok($settingsSection.find('.panel-body .title label .gru-input').length, "Missing title input");
-  assert.ok($settingsSection.find('.panel-body .question-types .btn-group .dropdown-toggle').length, "Missing question types dropdown");
+ // assert.ok($settingsSection.find('.panel-body .question-types .btn-group .dropdown-toggle').length, "Missing question types dropdown");
   assert.ok($settingsSection.find('.panel-body .standards button.add-prefix').length, "Missing add standards button");
 });
 
@@ -187,7 +187,13 @@ test('Builder Edit', function (assert) {
 });
 
 test('Layout of the settings section', function (assert) {
-  this.render(hbs`{{content/questions/gru-questions-edit}}`);
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title:'Question title',
+    isVisibleOnProfile:false
+  });
+  this.set('question',question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
 
   var $settingsSection = this.$("#settings");
   assert.ok($settingsSection.find('.header h2').length, "Section title");
@@ -195,6 +201,10 @@ test('Layout of the settings section', function (assert) {
   assert.ok($settingsSection.find('.panel-body .setting.publish-to i.visibility').length, "Visibility icon");
   assert.ok($settingsSection.find('.panel-body .setting.publish-to i.visibility + span').length, "Visibility label");
   assert.ok($settingsSection.find('.panel-body .gru-switch .toggle').length, "Profile toggle button");
+  assert.ok($settingsSection.find('input[type=checkbox]').not(':checked').length, "Switch should be off");
   assert.ok($settingsSection.find('.panel-body .setting.request-to i.public').length, "Public icon");
   assert.ok($settingsSection.find('.panel-body .setting.request-to i.public + span').length, "Public label");
+
+
 });
+

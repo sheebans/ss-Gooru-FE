@@ -43,7 +43,11 @@ test('serializeUpdateProfile', function(assert) {
     state: 'state',
     school: 'school',
     schoolDistrict: 'school-district',
-    aboutMe: 'about-me'
+    aboutMe: 'about-me',
+    countryId: 'country-id',
+    stateId: 'state-id',
+    schoolId: 'school-id',
+    schoolDistrictId: 'school-district-id'
   });
   const expected = {
     firstname: 'first-name',
@@ -54,7 +58,11 @@ test('serializeUpdateProfile', function(assert) {
     state: 'state',
     school: 'school',
     'school_district': 'school-district',
-    'about_me': 'about-me'
+    'about_me': 'about-me',
+    'country_id': 'country-id',
+    'state_id': 'state-id',
+    'school_id': 'school-id',
+    'school_district_id': 'school-district-id'
   };
   const response = serializer.serializeUpdateProfile(profile);
   assert.deepEqual(expected, response, 'Wrong serialized response');
@@ -134,7 +142,8 @@ test('normalizeCreateProfile', function(assert) {
     'token-api3': "access_token",
     user: {
       username: "username",
-      gooruUId: "user_id"
+      gooruUId: "user_id",
+      isNew: true
     },
     isAnonymous: false
   };

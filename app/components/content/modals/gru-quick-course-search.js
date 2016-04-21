@@ -45,7 +45,7 @@ export default Ember.Component.extend({
       .associateCourseToClass(courseId,classId)
       .then(function(){
           component.triggerAction({ action: 'closeModal' });
-          component.get('router').transitionTo('class.overview', classId);
+          component.get('router').transitionTo('class.info', classId);
         },
         function () {
           const message = component.get('i18n').t('common.errors.course-not-associated').string;

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ProfileModel from 'gooru-web/models/profile/profile';
 import ClassesModel from 'gooru-web/models/content/classes';
 import ClassModel from 'gooru-web/models/content/class';
 import ProfileSerializer from 'gooru-web/serializers/profile/profile';
@@ -9,6 +10,7 @@ import ProfileSerializer from 'gooru-web/serializers/profile/profile';
  * @typedef {Object} ClassSerializer
  */
 export default Ember.Object.extend({
+
 
   init: function () {
     this._super(...arguments);
@@ -32,12 +34,19 @@ export default Ember.Object.extend({
    * Normalize the Read Class info endpoint response
    *
    * @param payload is the endpoint response in JSON format
+   * @param {Profile[]} teachers
    * @returns {ClassModel} a class model object
    */
-  normalizeReadClassInfo: function(payload) {
+  normalizeReadClassInfo: function(payload, teachers = null) {
+    const creatorId = payload['creator_id'];
+    const collaborators = payload.collaborator || [];
+
+    //when teachers are not provided is creates an onwers from creatorId
+    const teachersWrapper = Ember.A(teachers || [ ProfileModel.create({ id: creatorId }) ]);
     return ClassModel.create({
       id: payload.id,
       creatorId: payload['creator_id'],
+      owner: teachersWrapper.findBy("id", payload['creator_id']),
       code: payload.code,
       title: payload.title,
       description: payload.description,
@@ -51,7 +60,10 @@ export default Ember.Object.extend({
       endDate: payload['end_date'],
       creatorSystem: '',
       contentVisibility: payload['content_visibility'],
-      isArchived: payload['is_archived']
+      isArchived: payload['is_archived'],
+      collaborators: collaborators.map(function(collaboratorId){
+        return ProfileModel.create({ id: collaboratorId });
+      })
     });
   },
 
@@ -76,6 +88,7 @@ export default Ember.Object.extend({
    */
   normalizeClasses: function(payload) {
     const serializer = this;
+    const teachers = serializer.normalizeTeachers((payload.teacher_details || []));
     return ClassesModel.create({
       ownerList: payload.owner,
       collaboratorList: payload.collaborator,
@@ -85,11 +98,23 @@ export default Ember.Object.extend({
         let normalizedClasses = [];
         if (payload.classes && payload.classes.length) {
           payload.classes.forEach(function(theClass) {
-            normalizedClasses.push(serializer.normalizeReadClassInfo(theClass));
+            normalizedClasses.push(serializer.normalizeReadClassInfo(theClass, teachers));
           });
         }
         return normalizedClasses;
       })()
+    });
+  },
+
+  /**
+   *
+   * @param teachersData
+   * @returns {Array}
+   */
+  normalizeTeachers: function(teachersData){
+    const profileSerializer = this.get("profileSerializer");
+    return teachersData.map(function(teacherData){
+      return profileSerializer.normalizeReadProfile(teacherData);
     });
   },
 
