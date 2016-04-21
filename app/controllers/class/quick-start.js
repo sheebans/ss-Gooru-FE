@@ -21,10 +21,6 @@ export default Ember.Controller.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-    addCourseToClass:function(courseId){
-      console.log(this.get('class'));      
-      //this.get('classService').associateCourseToClass(courseId, this.get('class.id'));
-    }
   },
 
   // -------------------------------------------------------------------------
@@ -33,11 +29,16 @@ export default Ember.Controller.extend(ModalMixin,{
 
   // -------------------------------------------------------------------------
   // Properties
-  modalTarget: Ember.computed(function(){
-    return this;
-  }),
+
   class: null,
   courses:null,
+  modelForCoursesModal: Ember.computed('class', 'courses', function() {
+    return Ember.Object.create({
+      'classId': this.get('class.id'),
+      'courses': this.get('courses')
+    });
+  })
+
   // -------------------------------------------------------------------------
   // Observers
 

@@ -18,6 +18,8 @@ export default Ember.Component.extend({
    */
   notifications: Ember.inject.service(),
 
+  classService: Ember.inject.service('api-sdk/class'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -34,14 +36,22 @@ export default Ember.Component.extend({
       this.set("selectedCourse", id);
       $('.gru-quick-course-search .selected').removeClass('selected');
       $('.'+id).addClass('selected');
-      console.log(this);
-      console.log(this.get('target'),'target');
-      this.get('target').actions.addCourseToClass(id);
     },
     assignCourse:function(){
-      this.get('target.addCourseToClass')(this.get('selectedCourse'));
-    }
-
+      const component = this;
+      const courseId = component.get('selectedCourse');
+      const classId = component.get('model.classId');
+      component.get('classService')
+      .associateCourseToClass(courseId,classId)
+      .then(function(){
+          component.triggerAction({ action: 'closeModal' });
+          component.get('router').transitionTo('class.overview', classId);
+        },
+        function () {
+          const message = component.get('i18n').t('common.errors.course-not-associated').string;
+          component.get('notifications').error(message);
+        });
+      }
   },
 
   // -------------------------------------------------------------------------
@@ -49,7 +59,6 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-
   },
 
 
@@ -68,28 +77,6 @@ export default Ember.Component.extend({
   /**
    * @type {String} selected Course's ID
    */
-   selectedCourse: null,
-  /**
-   * Class handling the actions from the component.
-   * This value will be set on instantiation by gru-modal.
-   *
-   * @type {Ember.Component}
-   * @private
-   */
-  target: null,
-
-
-
-
+   selectedCourse: null
   //Methods
-
-  /*
-   * Move array object into array
-   * */
-  move(arr, fromIndex, toIndex) {
-  var element = arr[fromIndex];
-  arr.splice(fromIndex, 1);
-  arr.splice(toIndex, 0, element);
-}
-
 });

@@ -35,6 +35,7 @@ test('normalizeClasses', function(assert) {
     "classes": [{
       "id": "d8b6eb04-5466-4e29-92f5-06584b6b6ef5",
       "creator_id": "2afaf0fd-ed92-48c5-9195-7f4bc1e0064e",
+      "created_at": '2016-01-01',
       "title": "My class - 1",
       "description": "This class is intended to make awareness of good habits",
       "greeting": "Hi! Welcome to my class",
@@ -47,7 +48,7 @@ test('normalizeClasses', function(assert) {
       "code": "VZFMEWH",
       "min_score": 75,
       "end_date": "2016-12-31",
-      "course_id": null,
+      "course_id": 'course-id',
       "collaborator": [
         "63dd64b2-bb30-47a9-8daf-8330f57e16c3",
         "E4510f0a-a4a1-46d8-b7c3-fce31754c7d8"
@@ -58,6 +59,7 @@ test('normalizeClasses', function(assert) {
     }, {
       "id": "2a0a0d90-faed-4ba4-9bab-04ddc4c18f30",
       "creator_id": "2afaf0fd-ed92-48c5-9195-7f4bc1e0064e",
+      "created_at": '2016-01-01',
       "title": "My class - 2",
       "description": "This class is intended to make awareness of good habits",
       "greeting": "Hi! Welcome to my class",
@@ -70,7 +72,7 @@ test('normalizeClasses', function(assert) {
       "code": "ALU3LCB",
       "min_score": 75,
       "end_date": "2016-12-31",
-      "course_id": null,
+      "course_id": 'course-id',
       "collaborator": [
         "63dd64b2-bb30-47a9-8daf-8330f57e16c3",
         "E4510f0a-a4a1-46d8-b7c3-fce31754c7d8"
@@ -95,49 +97,35 @@ test('normalizeClasses', function(assert) {
       creatorId: "2afaf0fd-ed92-48c5-9195-7f4bc1e0064e",
       title: "My class - 1",
       description: "This class is intended to make awareness of good habits",
+      courseId: 'course-id',
       greeting: "Hi! Welcome to my class",
-      grade: [
-        4,
-        5
-      ],
+      grade: [],
       classSharing: "open",
       coverImage: "e264cdc8-19d1-4285-88f5-5b359daf33da.png",
       code: "VZFMEWH",
       minScore: 75,
+      startDate: '2016-01-01',
       endDate: "2016-12-31",
-      courseId: null,
-      collaborator: [
-        "63dd64b2-bb30-47a9-8daf-8330f57e16c3",
-        "E4510f0a-a4a1-46d8-b7c3-fce31754c7d8"
-      ],
-      creatorSystem: null,
+      creatorSystem: '',
       contentVisibility: null,
-      isArchived: false,
-      isStudent: false
+      isArchived: false
     }), ClassModel.create({
       id: "2a0a0d90-faed-4ba4-9bab-04ddc4c18f30",
       creatorId: "2afaf0fd-ed92-48c5-9195-7f4bc1e0064e",
       title: "My class - 2",
       description: "This class is intended to make awareness of good habits",
+      courseId: 'course-id',
       greeting: "Hi! Welcome to my class",
-      grade: [
-        4,
-        5
-      ],
+      grade: [],
       classSharing: "open",
       coverImage: "e264cdc8-19d1-4285-88f5-5b359daf33da.png",
       code: "ALU3LCB",
       minScore: 75,
+      startDate: '2016-01-01',
       endDate: "2016-12-31",
-      courseId: null,
-      collaborator: [
-        "63dd64b2-bb30-47a9-8daf-8330f57e16c3",
-        "E4510f0a-a4a1-46d8-b7c3-fce31754c7d8"
-      ],
-      creatorSystem: null,
+      creatorSystem: '',
       contentVisibility: null,
-      isArchived: false,
-      isStudent: false
+      isArchived: false
     })]
   });
   const normalizedClasses = serializer.normalizeClasses(classesPayload);
@@ -167,9 +155,11 @@ test('normalizeReadClassInfo', function(assert) {
   };
   const expected = ClassModel.create({
     id: 'd44d3928-2623-4925-9d38-e933650a7573',
+    creatorId: '327598a1-109a-4bcc-be9a-357981711381',
     code: 'ABC123',
     title: 'My Class 1',
     description: 'Class description',
+    courseId: 'd44d3928-2623-4925-9d38-e933650a7573',
     greeting: 'Greeting message',
     grade: [],
     classSharing: 'open',
@@ -177,7 +167,6 @@ test('normalizeReadClassInfo', function(assert) {
     minScore: 10,
     startDate: '2016-01-01',
     endDate: '2016-01-01',
-    collaborator: [],
     creatorSystem: ''
   });
 
