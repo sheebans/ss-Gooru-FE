@@ -47,7 +47,11 @@ export default Ember.Object.extend({
       state: profile.get('state'),
       school: profile.get('school'),
       'school_district': profile.get('schoolDistrict'),
-      'about_me': profile.get('aboutMe')
+      'about_me': profile.get('aboutMe'),
+      'country_id': profile.get('countryId'),
+      'state_id': profile.get('stateId'),
+      'school_id': profile.get('schoolId'),
+      'school_district_id': profile.get('schoolDistrictId')
     };
   },
 
@@ -57,7 +61,8 @@ export default Ember.Object.extend({
       'token-api3': payload['access_token'],
       user: {
         username: payload.username,
-        gooruUId: payload['user_id']
+        gooruUId: payload['user_id'],
+        isNew: true
       },
       isAnonymous: false
     };

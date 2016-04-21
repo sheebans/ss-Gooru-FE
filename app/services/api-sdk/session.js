@@ -46,6 +46,16 @@ export default Ember.Service.extend({
       hasUserData: true,
       user
     });
+  },
+
+  /**
+   * Updates a session userData
+   * @param userData - the user data
+   */
+  updateUserData: function(userData) {
+    const session = this.get('session');
+    session.set('userData', userData);
+    session.get('store').persist(session.get('data'));
   }
 
 });
