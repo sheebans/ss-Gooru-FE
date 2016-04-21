@@ -55,22 +55,8 @@ export default Ember.Component.extend(ContentEditMixin,{
      * Save Content
      */
     updateContent: function () {
-      const component = this;
-      var editedQuestion = this.get('tempQuestion');
-      editedQuestion.validate().then(function ({ model, validations }) {
-        if (validations.get('isValid')) {
-          component.get('questionService').updateQuestion(editedQuestion.id,editedQuestion)
-            .then(function () {
-              component.set('question', editedQuestion);
-              component.set('isEditing', false);
-            }.bind(this))
-            .catch(function () {
-              var message = component.get('i18n').t('common.errors.question-not-updated').string;
-              component.get('notifications').error(message);
-            }.bind(component));
-        }
-        component.set('didValidate', true);
-      });
+      this.saveNewContent();
+
     },
     /**
      * Enable edit content builder
@@ -86,6 +72,15 @@ export default Ember.Component.extend(ContentEditMixin,{
     cancelBuilderEdit: function(){
       this.set('isBuilderEditing', false);
     },
+    /**
+      * Save Content
+    */
+    optionSwitch:function(isChecked){
+      var questionForEditing = this.get('question').copy();
+      this.set('tempQuestion', questionForEditing);
+      this.set('tempQuestion.isVisibleOnProfile', isChecked);
+      this.saveNewContent();
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -142,5 +137,29 @@ export default Ember.Component.extend(ContentEditMixin,{
    * @property {Boolean}
    */
   isBuilderEditing :false,
+
+  //Methods
+
+  /**
+   * Save new question content
+   */
+  saveNewContent:function(){
+    const component = this;
+    var editedQuestion = this.get('tempQuestion');
+    editedQuestion.validate().then(function ({ model, validations }) {
+      if (validations.get('isValid')) {
+        component.get('questionService').updateQuestion(editedQuestion.id,editedQuestion)
+          .then(function () {
+            component.set('question', editedQuestion);
+            component.set('isEditing', false);
+          }.bind(this))
+          .catch(function () {
+            var message = component.get('i18n').t('common.errors.question-not-updated').string;
+            component.get('notifications').error(message);
+          }.bind(component));
+      }
+      component.set('didValidate', true);
+    });
+  }
 
 });
