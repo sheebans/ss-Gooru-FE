@@ -118,6 +118,7 @@ export default Ember.Component.extend(ContentEditMixin,{
    */
   wasRequestSent: false,
 
+
   /**
    * Toggle Options
    * @property {Ember.Array}

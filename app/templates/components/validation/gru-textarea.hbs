@@ -1,0 +1,10 @@
+<div class="form-group">
+  {{textarea value=rawTextareaValue class="form-control" name=valuePath key-press="textareaTyping" focus-out="textareaValueChange" maxlength=maxlength rows=rows}}
+    <div class="error-messages">
+      {{#if showMessage}}
+          <span class="error">
+            {{v-get model valuePath 'message'}}
+          </span>
+      {{/if}}
+    </div>
+</div>

@@ -6,7 +6,7 @@ const {
 
 
 /**
- * Text field with validation
+ * Text area with validation
  *
  * Text field with support for ember-cp-validations.
  * It provides feedback based on certain validation criteria.
@@ -24,7 +24,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['gru-input','validation'],
+  classNames: ['gru-textarea','validation'],
   classNameBindings: ['showErrorClass:has-error', 'isValid:has-success','valuePath'],
 
   /**
@@ -35,15 +35,15 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions:{
-    inputValueChange: function() {
-      this.set('rawInputValue',this.removeWhiteSpaces(this.get('rawInputValue')));
-      this.set('value', this.get('rawInputValue'));
+    textareaValueChange: function() {
+      this.set('rawTextareaValue',this.removeWhiteSpaces(this.get('rawTextareaValue')));
+      this.set('value', this.get('rawTextareaValue'));
       this.set('isTyping', false);
       if (this.get("onFocusOut")){
         this.sendAction("onFocusOut");
       }
     },
-    inputTyping: function() {
+    textareaTyping: function() {
       this.set('isTyping', true);
       if (this.get("onTyping")){
         this.sendAction("onTyping");
@@ -58,7 +58,7 @@ export default Ember.Component.extend({
     this._super(...arguments);
     var valuePath = this.get('valuePath');
     defineProperty(this, 'attributeValidation', computed.oneWay(`model.validations.attrs.${valuePath}`));
-    this.set('rawInputValue', this.get(`model.${valuePath}`));
+    this.set('rawTextareaValue', this.get(`model.${valuePath}`));
     defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
   },
   // -------------------------------------------------------------------------
@@ -69,29 +69,35 @@ export default Ember.Component.extend({
    */
   model: null,
   /**
-   * @param {String} value - formatted value of the input field.
+   * @param {String} value - formatted value of the textarea field.
    */
   value: null,
   /**
-   * @param {String} rawInputValue - unformatted value of the input field
+   * @param {String} rawInputValue - unformatted value of the textarea field
    */
-  rawInputValue: null,
+  rawTextareaValue: null,
   /**
-   * @param {String} type - type of the input field.
+   * @param {String} type - type of the textarea field.
    */
   type: 'text',
   /**
-   * @param {String} valuePath - value used to set the rawInputValue
+   * @param {String} valuePath - value used to set the rawTextareaValue
    */
   valuePath: '',
   /**
-   * @param {Number} type - max length of the input field.
+   * @param {Number} type - max length of the textarea field.
    */
   maxlength:1000,
+
   /**
-   * @param {Object} attributeValidation - value used to set the rawInputValue
+   * @param {Number} rows of the textarea field.
+   */
+  rows:1000,
+  /**
+   * @param {Object} attributeValidation - value used to set the rawTextareaValue
    */
   attributeValidation: null,
+
   isTyping: false,
 
   /**
@@ -105,7 +111,7 @@ export default Ember.Component.extend({
   onTyping: null,
 
   /**
-   * @param {Computed } didValidate - value used to check if textarea has been validated or not
+   * @param {Computed } didValidate - value used to check if input has been validated or not
    */
   didValidate: computed.oneWay('targetObject.didValidate'),
 
@@ -118,7 +124,7 @@ export default Ember.Component.extend({
   /**
    * @param {Computed } hasContent - computed property that defines whether the rawInputValue is null or not.
    */
-  hasContent: computed.notEmpty('rawInputValue'),
+  hasContent: computed.notEmpty('rawTextareaValue'),
   /**
    * @param {Computed } isValid -  A computed property that says whether the value is valid
    */
@@ -141,8 +147,8 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Methods
   /*
-  * Remove white spaces from input
-  */
+   * Remove white spaces from input
+   */
   removeWhiteSpaces:function(value){
     return $.trim(value);
   },
