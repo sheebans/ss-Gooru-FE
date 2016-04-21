@@ -105,7 +105,7 @@ export default Ember.Component.extend({
   onTyping: null,
 
   /**
-   * @param {Computed } didValidate - value used to check if textarea has been validated or not
+   * @param {Computed } didValidate - value used to check if input has been validated or not
    */
   didValidate: computed.oneWay('targetObject.didValidate'),
 
