@@ -32,28 +32,7 @@ export default Ember.Object.extend({
   normalizeLesson: function (lessonData) {
     return Lesson.create(Ember.getOwner(this).ownerInjection(), {
       children: function () {
-
-        // TODO: Remove once it's possible to test integration
-        var lessonItems = [
-          LessonItem.create({
-            id: 'lesson-item-123',
-            image: '/assets/gooru/question-placeholder-image.png',
-            format: 'collection',
-            questionCount: 5,
-            resourceCount: 5,
-            sequence: 1,
-            title: 'Collection Name'
-          }),
-          LessonItem.create({
-            id: 'lesson-item-456',
-            image: null,
-            format: 'assessment',
-            questionCount: 10,
-            resourceCount: 0,
-            sequence: 2,
-            title: 'Assessment Name'
-          })
-        ];
+        var lessonItems = [];
 
         if (lessonData.collection_summary) {
           lessonItems = lessonData.collection_summary.map(function (lessonItemData) {

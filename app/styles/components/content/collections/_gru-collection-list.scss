@@ -1,0 +1,191 @@
+.content.collections.gru-collection-list {
+
+  > .header {
+    margin-bottom: 15px !important;
+  }
+
+  .collection-list {
+    list-style: none;
+    margin-bottom: 0;
+    padding-left: 0;
+
+    .gru-collection-list-item {
+      padding: 10px 0;
+
+      > .panel > .panel-heading {
+        padding: 12px 10px 10px 25px;
+      }
+
+      h3 {
+        display: inline-block;
+        margin: 0;
+        padding: 0 10px 0 10px;
+        font-weight: bold;
+        line-height: 2.5;
+        vertical-align: top;
+      }
+
+      .title {
+
+        > i {
+          display: inline-block;
+          position: relative;
+          top: -3px;
+
+          &.video-icon {
+            background: url("gooru/images/video-resource-green.svg");
+            -webkit-background-size: 31px 30px;
+            background-size: 31px 30px;
+            height: 30px;
+            width: 31px;
+          }
+          &.webpage-icon {
+            background: url("gooru/images/website-resource-green.svg");
+            -webkit-background-size: 29px 30px;
+            background-size: 29px 30px;
+            height: 30px;
+            width: 29px;
+          }
+          &.interactive-icon {
+            background: url("gooru/images/interactive-resource-green.svg");
+            -webkit-background-size: 34px 30px;
+            background-size: 34px 30px;
+            height: 30px;
+            width: 34px;
+            vertical-align: top;
+            margin: 5px 0 0 0;
+          }
+          &.question-icon {
+            background: url("gooru/images/question-resource-green.svg");
+            -webkit-background-size: 30px 30px;
+            background-size: 30px 30px;
+            height: 30px;
+            width: 30px;
+          }
+          &.image-icon {
+            background: url("gooru/images/image-resource-green.svg");
+            -webkit-background-size: 30px 30px;
+            background-size: 30px 30px;
+            height: 30px;
+            width: 30px;
+          }
+          &.text-icon {
+            background: url("gooru/images/text-resource-green.svg");
+            -webkit-background-size: 31px 30px;
+            background-size: 31px 30px;
+            height: 30px;
+            width: 31px;
+          }
+          &.audio-icon {
+            background: url("gooru/images/audio-resource-green.svg");
+            -webkit-background-size: 34px 30px;
+            background-size: 34px 30px;
+            height: 30px;
+            width: 34px;
+          }
+        }
+
+        > div {
+          border-left: 1px solid $gray-light;
+          display: inline-block;
+          margin-left: 10px;
+          line-height: 1.4;
+
+          > strong {
+            color: $text-color;
+            display: block;
+            line-height: 1.2;
+            margin-bottom: 5px;
+            margin-left: 15px;
+            font-weight: normal;
+            font-size: 16px;
+          }
+
+          > span {
+            color: $gray-light;
+            margin-left: 15px;
+            text-transform: capitalize;
+          }
+        }
+      }
+
+      .detail {
+        float: right;
+
+        > span {
+          vertical-align: middle;
+          margin-right: 2px;
+          margin-left: 2px;
+
+          &.btn {
+            margin: 0;
+            font-size: $font-size-small;
+            padding: 0 8px;
+
+            &.btn-default {
+              color: $white;
+              background-color: $dark-300;
+            }
+
+            &:hover {
+              cursor: default;
+            }
+          }
+        }
+
+        button {
+          background-color: transparent;
+          font-size: 24px;
+          line-height: 1;
+          padding: 7px 5px;
+
+          i {
+            color: $gray;
+          }
+        }
+
+        div {
+          display: inline-block;
+        }
+
+        .actions {
+          margin-left: 5px;
+
+          div:last-of-type {
+            border-left: 1px solid $gray-light;
+            margin-left: 5px;
+            padding-left: 10px;
+          }
+        }
+      }
+    }
+
+    > div {
+      border: 2px dashed $gray-light;
+      padding: 20px;
+      border-radius: 6px;
+      margin-top: 10px;
+
+      > span {
+        margin-left: 20px;
+        vertical-align: text-top;
+      }
+    }
+  }
+
+  .dropdown {
+
+    .dropdown-menu {
+      li {
+        > a {
+          padding: 10px 20px 10px 15px;
+          border-bottom: 1px solid $gray-lighter;
+        }
+
+        &:last-child > a {
+          border-bottom: 0 none;
+        }
+      }
+    }
+  }
+}

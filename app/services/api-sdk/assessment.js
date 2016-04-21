@@ -20,7 +20,7 @@ export default Ember.Service.extend({
 
   init: function () {
     this._super(...arguments);
-    this.set('assessmentSerializer', AssessmentSerializer.create());
+    this.set('assessmentSerializer', AssessmentSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('assessmentAdapter', AssessmentAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 

@@ -13,11 +13,8 @@ const Validations = buildValidations({
   }
 });
 
-const assessmentProperties = {
-
-  knowledgeDepth: []
-
-};
+// Properties specific to assessments should be placed here!
+const assessmentProperties = { };
 
 const mergedProperties = $.extend({}, CollectionBase, assessmentProperties);
 
