@@ -9,7 +9,7 @@
     @include justify-content(center);
     @include align-items(flex-start);
 
-    .active && {
+    .active {
       -webkit-box-shadow: inset 0 -3px 0 $green-400;
       box-shadow: inset 0 -3px 0 $green-400;
     }

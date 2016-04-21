@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    {{#if true}}
+    {{#if courses}}
     <div class="panel panel-default existing-course-container">
       <div class="panel-body">
         <p class="lead">
@@ -28,7 +28,7 @@
           {{t "class.quick-start.existing-course-desc"}}
         </p>
         <div class="actions">
-          <button type="button" name="button" class="btn btn-primary choose-course"><span>{{t "class.quick-start.choose-course"}}</span> {{gru-icon name= "keyboard_arrow_right" class=""}}</button>
+          <button type="button" name="button" class="btn btn-primary choose-course" {{action "showModal" "content.modals.gru-quick-course-search" courses null null "quick-course-search"}}><span>{{t "class.quick-start.choose-course"}}</span> {{gru-icon name= "keyboard_arrow_right" class=""}}</button>
         </div>
       </div>
     </div>
