@@ -31,6 +31,7 @@ export default Ember.Component.extend({
         this.set('isChecked',false);
         this.sendAction("onOptionSwitch", this.get("isChecked"));
       }else{
+        this.set('isChecked',true);
         this.sendAction("onOptionSwitch", this.get("isChecked"));
       }
     }
@@ -46,6 +47,8 @@ export default Ember.Component.extend({
     $('input[type=checkbox][data-toggle^=toggle]').bootstrapToggle();
     if(this.get('isChecked')){
       $('input[type=checkbox][data-toggle^=toggle]').prop('checked', true).change();
+    }else{
+      $('input[type=checkbox][data-toggle^=toggle]').prop('checked', false).change();
     }
   },
 // -------------------------------------------------------------------------
