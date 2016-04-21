@@ -53,17 +53,19 @@ export default Ember.Route.extend({
 
   beforeModel: function() {
     // TODO: authenticate session with ember-simple-auth, if not send to log in
-  },
-  afterModel() {
-    if (true) {
+    const currentClass = this.modelFor('class').class;
+    let userId = this.get('session.userId');
+    if (currentClass.isTeacher(userId) && !currentClass.get('courseId')) {
       this.transitionTo('class.quick-start');
     }
   },
+
   model: function () {
     const currentClass = this.modelFor('class').class;
     const units = this.modelFor('class').units;
-    var userId = this.get('session.userId');
-    var userLocation = Ember.RSVP.resolve('');
+    let isTeacher = false;
+    let userId = this.get('session.userId');
+    let userLocation = Ember.RSVP.resolve('');
     if (currentClass.isStudent(userId)) {
 
       // Get the user location in a course only if the user is enrolled
@@ -71,10 +73,20 @@ export default Ember.Route.extend({
       userLocation = this.get("courseLocationService").findOneByUser(userId);
     }
 
+    if(currentClass.isTeacher(userId)){
+        isTeacher=true;
+    }
+
     return Ember.RSVP.hash({
       userLocation: userLocation,
-      units: units
+      units: units,
+      isTeacher:isTeacher,
+      currentClass: currentClass
     });
+  },
+
+  afterModel() {
+
   },
 
   /**
@@ -84,13 +96,11 @@ export default Ember.Route.extend({
    */
   setupController: function (controller, model) {
     var userLocation = (Ember.typeOf(model.userLocation) === 'instance') ?
-    model.userLocation.get('unit') + '+' +
-    model.userLocation.get('lesson') + '+' +
-    model.userLocation.get('collection') : model.userLocation;
-
+      model.userLocation.get('unit') + '+' +
+      model.userLocation.get('lesson') + '+' +
+      model.userLocation.get('collection') : model.userLocation;
     controller.set('userLocation', userLocation);
     controller.set('units', model.units);
-
     controller.get('classController').selectMenuItem('overview');
   }
 });

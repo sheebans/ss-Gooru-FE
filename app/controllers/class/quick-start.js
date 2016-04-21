@@ -1,18 +1,15 @@
 import Ember from "ember";
 import ModalMixin from 'gooru-web/mixins/modal';
-
 /**
- * Class Overview controller
+ * Class quick start controller
  *
- * Controller responsible of the logic for the class overview page
+ * Controller responsible of the logic for the class quick start page
  */
-export default Ember.Controller.extend(ModalMixin, {
+export default Ember.Controller.extend(ModalMixin,{
 
   // -------------------------------------------------------------------------
   // Dependencies
-
   classController: Ember.inject.controller('class'),
-
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -29,6 +26,9 @@ export default Ember.Controller.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Properties
+
+
+  courses:null,
 
 
   // -------------------------------------------------------------------------
