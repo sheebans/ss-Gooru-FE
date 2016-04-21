@@ -17,10 +17,21 @@ export default Ember.Object.extend({
    * @returns {Object} JSON Object representation of the lesson model
    */
   serializeCreateLesson: function (lessonModel) {
+    var lessonData =  this.get('serializeUpdateLesson')(lessonModel);
+    lessonData.creator_system = CREATOR_SYSTEM;
+    return lessonData;
+  },
+
+  /**
+   * Serialize a Content/Lesson object into a JSON representation required by the Update Lesson endpoint
+   *
+   * @param lessonModel - The lesson model to be serialized
+   * @returns {Object} JSON Object representation of the lesson model
+   */
+  serializeUpdateLesson: function (lessonModel) {
     return {
       title: lessonModel.get('title'),
-      taxonomy: [],   // TODO: pending
-      creator_system: CREATOR_SYSTEM
+      taxonomy: []   // TODO: pending
     };
   },
 
