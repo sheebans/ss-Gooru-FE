@@ -441,6 +441,10 @@ export default {
   /*
    * COMPONENTS: Translations used in a specific component
    */
+  "gru-quick-course-search":{
+    "add-from-course":"Add from Existing Course",
+    "assign":"Assign"
+  },
   "gru-category-panel": {
     "teacher": {
       "title": "For Teachers",
