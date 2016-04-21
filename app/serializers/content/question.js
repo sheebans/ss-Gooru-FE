@@ -58,7 +58,7 @@ export default Ember.Object.extend({
       answers: null, //TODO the structure is missing some info at the API
       hints: null, //TODO
       explanation: null, //TODO
-      isVisibleOnProfile: questionData['visible_on_profile'] ? questionData['visible_on_profile'] : true
+      isVisibleOnProfile: typeof questionData['visible_on_profile'] !== 'undefined' ? questionData['visible_on_profile'] : true
     });
   },
 

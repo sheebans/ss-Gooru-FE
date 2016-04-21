@@ -9,7 +9,7 @@
       <div class="setting publish-to">
         {{gru-icon name="visibility"}}
         <span>{{t "common.publish-to"}}</span>
-            {{gru-switch switchOptions=switchOptions}}
+            {{gru-switch switchOptions=switchOptions onOptionSwitch='optionSwitch' isChecked=question.isVisibleOnProfile}}
         </div>
       <div class="setting request-to">
         {{gru-icon name="public"}}

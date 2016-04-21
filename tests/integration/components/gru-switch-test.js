@@ -34,19 +34,6 @@ test('Switch Layout', function(assert) {
 test('Switch', function(assert) {
   assert.expect(4);
 
-  this.on('parentAction', function(option){
-    var counter = 0;
-    var $switch = $component.find(".gru-switch");
-    if (counter === 0) {
-      assert.equal("Option A", option.label);
-      T.exists(assert, $switch.find(".off"), 'The toggle should be off');
-    } else {
-      assert.equal("Option B", option.label);
-      T.notExists(assert, $switch.find(".off"), 'The toggle should be on');
-    }
-    counter++;
-  });
-
   const switchOptions = Ember.A([Ember.Object.create({
     'label': "Option A",
     'value': 'some-value'
@@ -55,10 +42,24 @@ test('Switch', function(assert) {
     'value': 'some-value'
   })]);
   this.set('switchOptions', switchOptions);
+
   this.render(hbs`{{gru-switch switchOptions=switchOptions onOptionSwitch='parentAction'}}`);
 
-  var $component = this.$(); //component dom element
-  var $switch = $component.find(".switch");
-  $switch.find("a").click();
-  $switch.find("a").click();
+  const $component = this.$(); //component dom element
+  const $switchComponent = $component.find(".gru-switch");
+
+  this.on('parentAction', function(option){
+    var counter = 0;
+    const $switch = $switchComponent.find(".switch");
+    if (counter === 0) {
+      assert.equal(false, option);
+      T.exists(assert, $switch.find(".off"), 'The toggle should be off');
+    } else {
+      assert.equal(true, option);
+     T.notExists(assert, $switch.find(".on"), 'The toggle should be on');
+    }
+    counter++;
+  });
+  $switchComponent.find("a").click();
+  $switchComponent.find("a").click();
 });
