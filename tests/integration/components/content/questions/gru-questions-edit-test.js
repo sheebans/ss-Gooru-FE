@@ -185,6 +185,31 @@ test('Builder Edit', function (assert) {
   assert.ok($builderSection.find('.panel-body textarea').length, "Missing text area");
   assert.ok($builderSection.find('.panel-body .add-image').length, "Missing add image button");
 });
+test('Validate the character limit in text field', function (assert) {
+  assert.expect(1);
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: "",
+    text:""
+  });
+  this.set('question',question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit isBuilderEditing=true tempQuestion=question}}`);
+
+  const $component = this.$('.gru-questions-edit');
+  const $textareaField = $component.find(".gru-textarea.text");
+  var newText ="";
+  var i = 0;
+  for (i = 0; i <=5001 ; i++) {
+      newText+="a";
+  }
+  $textareaField.find("textarea").val(newText);
+  $textareaField.find("textarea").trigger('blur');
+
+  return wait().then(function () {
+    assert.ok($textareaField.find(".error-messages .error").length, 'Question text error message should be visible');
+  });
+
+});
 
 test('Layout of the settings section', function (assert) {
   this.render(hbs`{{content/questions/gru-questions-edit}}`);

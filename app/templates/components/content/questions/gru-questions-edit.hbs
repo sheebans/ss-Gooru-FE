@@ -101,7 +101,7 @@
         </div>
         <div class="panel-body">
           {{#if isBuilderEditing}}
-            {{validation.gru-textarea rawTextareaValue=tempQuestion.text model=tempQuestion valuePath='text' maxlength=5000 rows=10}}
+            {{validation.gru-textarea rawTextareaValue=tempQuestion.text model=tempQuestion valuePath='text' rows=10 maxlength=5000}}
               <button class="add-image btn btn-sm btn-primary">{{t "common.add-question-image"}}</button>
           {{else}}
             {{#if question.text}}

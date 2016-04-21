@@ -87,7 +87,7 @@ export default Ember.Component.extend({
   /**
    * @param {Number} type - max length of the textarea field.
    */
-  maxlength:1000,
+  maxlength:0,
 
   /**
    * @param {Number} rows of the textarea field.
