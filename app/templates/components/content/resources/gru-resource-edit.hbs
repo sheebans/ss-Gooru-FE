@@ -30,7 +30,6 @@
     <div class="panel panel-default placeholder {{if resourceComponent 'preview'}}">
       <div class="panel-body">
         {{#if resourceComponent}}
-        {{!component resourceComponentSelected resource=resource calculatedResourceContentHeight=calculatedResourceContentHeight}}
         {{component resourceComponent resource=resource}}
         {{else}}
           <h2 class="resource-message">
@@ -45,11 +44,120 @@
 <section id="information">
   <div class="header">
     <h2>{{t "common.information"}}</h2>
+    {{partial 'content/partials/information-actions'}}
   </div>
   <div class="content">
     <div class="panel panel-default">
       <div class="panel-body">
-        INFORMATION
+        <div class="row">
+          <div class="col-sm-12 col-md-6 form-field">
+            <label>
+              <span class="required">{{t "common.resource-title"}}</span>
+              {{#if isEditing}}
+                {{validation.gru-input model=tempResource valuePath='title' maxlength=50}}
+              {{else}}
+                <b>{{resource.title}}</b>
+              {{/if}}
+            </label>
+          </div>
+          <div class="col-sm-12 col-md-6 form-field">
+            <label>
+              <span>{{t "common.publisher"}}</span>
+              {{#if isEditing}}
+                {{validation.gru-input model=tempResource valuePath='publisher' class="inline" maxlength=50}}
+                <div class="checkbox-inline">
+                  {{input id="im-publisher" type="checkbox"}}
+                  <label for="im-publisher">{{t "content.resources.edit.information.im-publisher"}}</label>
+                </div>
+              {{else}}
+                {{#if resource.metadata.amIThePublisher}}
+                  <b>{{session.userData.username}}</b>
+                {{else}}
+                  {{#if}}
+                    <b>{{resource.metadata.publisher}}</b>
+                  {{else}}
+                    <b>{{t 'common.not-provided'}}</b>
+                  {{/if}}
+                {{/if}}
+              {{/if}}
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 form-field">
+            <label>
+              <span class="required">{{t "common.type"}}</span>
+              {{#if isEditing}}
+                <div class="btn-group clearfix">
+                  <button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{#if tempResource.format}}
+                      {{t (concat 'common.resource-format.' tempResource.format) }}
+                    {{else}}
+                      {{t 'common.select-resource-type'}}
+                    {{/if}}
+                  </button>
+                  <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    {{#each resourceTypes as |resourceType|}}
+                      <li><a {{action 'selectType' resourceType }}>{{t (concat 'common.resource-format.' resourceType) }}</a></li>
+                    {{/each}}
+                  </ul>
+                </div>
+              {{else}}
+                <b>{{t (concat 'common.resource-format.' resource.format) }}</b>
+              {{/if}}
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 form-field">
+            <label>
+              <span>{{t "common.license"}}</span>
+              {{#if isEditing}}
+                <select onchange={{action (mut tempResource.license) value="target.value"}}>
+                  <option value="">{{t 'content.resources.edit.information.select-a-license'}}</option>
+                </select>
+              {{else}}
+                {{#if resource.license}}
+                  <b>{{resource.license}}</b>
+                {{else}}
+                  <b>{{t 'common.not-provided'}}</b>
+                {{/if}}
+              {{/if}}
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 form-field">
+            <label>
+              <span>{{t "common.description"}}</span>
+              {{#if isEditing}}
+                <textarea name="">{{{resource.description}}}</textarea>
+              {{else}}
+                {{#if resource.description}}
+                  <b>{{resource.description}}</b>
+                {{else}}
+                  <b>{{t 'common.not-provided'}}</b>
+                {{/if}}
+              {{/if}}
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 form-field">
+            <label>
+              <span>{{t "common.standards"}}</span>
+              {{#if isEditing}}
+                <button type="button" class="btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
+              {{else}}
+                <b>{{t 'common.not-added'}}</b>
+              {{/if}}
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
