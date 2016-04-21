@@ -32,9 +32,10 @@ export default Ember.Object.extend({
   normalizeLesson: function (lessonData) {
     return Lesson.create(Ember.getOwner(this).ownerInjection(), {
       children: function () {
+        var lessonItems = [];
 
         if (lessonData.collection_summary) {
-          var lessonItems = lessonData.collection_summary.map(function (lessonItemData) {
+          lessonItems = lessonData.collection_summary.map(function (lessonItemData) {
             return LessonItem.create({
               id: lessonItemData.id,
               image: lessonItemData.thumbnail,

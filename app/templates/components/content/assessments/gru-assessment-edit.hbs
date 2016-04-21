@@ -39,7 +39,7 @@
           <label>
             <span>{{t "common.learning-objectives"}}</span>
             {{#if isEditing}}
-              <textarea id="textarea" name="textarea" rows="2" maxlength="500"></textarea>
+              {{textarea rows="2" maxlength="500" value=tempCollection.learningObjectives}}
             {{else}}
               <b>{{collection.learningObjectives}}</b>
             {{/if}}
