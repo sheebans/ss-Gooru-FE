@@ -68,7 +68,36 @@ test('Modal for creating a course', function (assert) {
     assert.ok(!$modal.hasClass("in"), 'Modal was hidden');
   });
 });
-
+//test('Creating a resource', function (assert) {
+//  visit('/pochita/content/');
+//  andThen(function () {
+//
+//    const $btnGroup = find(".controller.profile .content .content-navigation .btn-group");
+//
+//    const $dropDown = $btnGroup.find("a.dropdown-toggle");
+//    $dropDown.click();
+//    const $resourceBtn = $btnGroup.find(".dropdown-menu li:nth-child(3) a");
+//    $resourceBtn.click();
+//    andThen(function() {
+//     const $urlField = find(".gru-input.url");
+//      $urlField.find("input").val('www.google/123prueba.com');
+//      $urlField.find("input").blur();
+//      const $titleField = find(".gru-input.title");
+//      const $title ='New Test'+Date.now();
+//      $titleField.find("input").val($title);
+//      $titleField.find("input").blur();
+//      const $save =find(".actions .add-btn");
+//      $save.click();
+//      return wait().then(function () {
+//        visit('/pochita/content/resources');
+//        andThen(function () {
+//        const $resourceTitle = find(".resources div:first-child .panel-heading .header .collection-info .title");
+//        assert.equal($title,$resourceTitle.text(),"The new resource should appear in resources list");
+//        });
+//    });
+//  });
+//  });
+//});
 test('Navigation links', function(assert) {
   visit('/pochita/content/');
 
