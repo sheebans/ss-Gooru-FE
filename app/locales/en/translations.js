@@ -102,6 +102,7 @@ export default {
       "join-class-code":"Please enter the class code.",
       "add-course-title":"Please enter the course title.",
       "add-question-title":"Please enter the question title.",
+      "add-question-text":"You've reached the character limit.",
       "can-not-join-class" : "Oops! Unable to join class. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
@@ -366,7 +367,7 @@ export default {
       }
     },
     "quick-start":{
-      "add-course": "Add Course",
+      "title": "How do you want to add a course",
       "new-course": "Quick Start a New Course",
       "new-course-desc": "Jump start to add a collection or assessment",
       "new-collection": "New Collection",
@@ -376,6 +377,7 @@ export default {
       "existing-course-desc": "The quickest way to start a class",
       "choose-course": "Choose Course",
       "remix-from-course": "Remix from Featured Course",
+      "featured-course": "View Featured Course",
       "remix-desc": "Customize your course based on featured courses"
     }
   },

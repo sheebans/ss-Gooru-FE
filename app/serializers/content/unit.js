@@ -17,12 +17,24 @@ export default Ember.Object.extend({
    * @returns {Object} JSON Object representation of the unit model
    */
   serializeCreateUnit: function (unitModel) {
+    var unitData =  this.get('serializeUpdateUnit')(unitModel);
+    unitData.creator_system = CREATOR_SYSTEM;
+    return unitData;
+  },
+
+  /**
+   * Serialize a Content/Unit object into a JSON representation required by the Update Unit endpoint
+   *
+   * @param unitModel - The unit model to be serialized
+   * @returns {Object} JSON Object representation of the unit model
+   */
+  serializeUpdateUnit: function (unitModel) {
+
     return {
       title: unitModel.get('title'),
       big_ideas: unitModel.get('bigIdeas'),
       essential_questions: unitModel.get('essentialQuestions'),
-      taxonomy: [],   // TODO: pending
-      creator_system: CREATOR_SYSTEM
+      taxonomy: []   // TODO: pending
     };
   },
 
