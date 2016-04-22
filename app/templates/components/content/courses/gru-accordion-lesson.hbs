@@ -8,7 +8,9 @@
     {{/if}}
 
     {{validation.gru-input model=lesson valuePath='title'}}
-
+    <p>
+      {{lesson.title}}
+    </p>
     <div class="actions">
       <button class="cancel btn btn-info"  {{action 'cancelEdit'}}>{{t "common.cancel"}}</button>
       <button class="save btn btn-success" {{action 'saveLesson'}}>{{t "common.save"}}</button>

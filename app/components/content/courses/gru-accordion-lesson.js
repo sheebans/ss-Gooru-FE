@@ -61,19 +61,26 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       var courseId = this.get('courseId');
       var unitId = this.get('unitId');
       var lesson = this.get('lesson');
+      const component = this;
+      lesson.validate().then(function ({validations }) {
+        if (validations.get('isValid')) {
 
-      this.get('lessonService')
-        .createLesson(courseId, unitId, lesson)
+          component.get('lessonService')
+            .createLesson(courseId, unitId, lesson)
 
-        .then(function () {
-          this.set('model.isEditing', false);
-        }.bind(this))
+            .then(function () {
+              component.set('model.isEditing', false);
+            }.bind(component))
 
-        .catch(function (error) {
-          var message = this.get('i18n').t('common.errors.lesson-not-created').string;
-          this.get('notifications').error(message);
-          Ember.Logger.error(error);
-        }.bind(this));
+            .catch(function (error) {
+              var message = component.get('i18n').t('common.errors.lesson-not-created').string;
+              component.get('notifications').error(message);
+              Ember.Logger.error(error);
+            }.bind(component));
+        }
+        component.set('didValidate', true);
+      }.bind(component));
+
     },
 
     toggle: function () {
