@@ -15,12 +15,16 @@
 
     <div class="detail">
       {{#if model.isCollection}}
+      <div class="{{if model.questionCount 'mixed'}}">
         <span><b>{{model.resourceCount}}</b> {{t "common.resource-pl" count=model.resourceCount}}</span>
         {{#if model.questionCount}}
-          | <span><b>{{model.questionCount}}</b> {{t "common.question-pl" count=model.questionCount}}</span>
-        {{/if}}
-      {{else}}
         <span><b>{{model.questionCount}}</b> {{t "common.question-pl" count=model.questionCount}}</span>
+        {{/if}}
+      </div>
+      {{else}}
+      <div>
+        <span><b>{{model.questionCount}}</b> {{t "common.question-pl" count=model.questionCount}}</span>
+      </div>
       {{/if}}
 
       <div class="actions">

@@ -121,7 +121,9 @@ test('findMyClasses', function(assert) {
   service.set('classSerializer', Ember.Object.create({
     normalizeClasses: function(classesPayload) {
       assert.deepEqual({}, classesPayload, 'Wrong my classes payload');
-      return {};
+      return Ember.Object.create({
+        "classes": []
+      });
     }
   }));
 
