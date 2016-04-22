@@ -70,11 +70,6 @@ export default Ember.Component.extend({
   'component-class': null,
 
   /**
-   * @type {Array} courses
-   */
-  courses: null,
-
-  /**
    * @type {String} selected Course's ID
    */
    selectedCourse: null

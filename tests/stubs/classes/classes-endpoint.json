@@ -1,95 +1,5 @@
 [
   {
-    "description": "Gets all classes for any teacher",
-    "request": {
-      "url": "^/gooruapi/rest/v3/class/teach$",
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
-    },
-    "response": {
-      "status": 200,
-      "headers": {
-        "Content-Type": "application/json"
-      },
-      "body": "File not found!",
-      "file": "teach-classes-200-response.json"
-    }
-  },
-  {
-    "description": "Gets all classes for any student",
-    "request": {
-      "url": "^/gooruapi/rest/v3/class/study$",
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
-    },
-    "response": {
-      "status": 200,
-      "headers": {
-        "Content-Type": "application/json"
-      },
-      "body": "File not found!",
-      "file": "study-classes-200-response.json"
-    }
-  },
-  {
-    "description": "Get a specific class where pochita is a teacher",
-    "request": {
-      "url": "^/gooruapi/rest/v3/class/class-for-pochita-as-teacher$",
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
-    },
-    "response": {
-      "status": 200,
-      "headers": {
-        "Content-Type": "application/json"
-      },
-      "body": "File not found!",
-      "file": "class-for-pochita-as-teacher-200-response.json"
-    }
-  },
-  {
-    "description": "Get a specific class where pochita is a student",
-    "request": {
-      "url": "^/gooruapi/rest/v3/class/class-for-pochita-as-student$",
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
-    },
-    "response": {
-      "status": 200,
-      "headers": {
-        "Content-Type": "application/json"
-      },
-      "body": "File not found!",
-      "file": "class-for-pochita-as-student-200-response.json"
-    }
-  },
-  {
-    "description": "Get a specific class info",
-    "request": {
-      "url": "^/gooruapi/rest/v3/class/(.+)$",
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
-    },
-    "response": {
-      "status": 200,
-      "headers": {
-        "Content-Type": "application/json"
-      },
-      "body": "File not found!",
-      "file": "any-class-info-200-response.json"
-    }
-  },
-  {
     "description": "Create a class",
     "request": {
       "url": "^/api/nucleus/v1/classes$",
@@ -107,9 +17,9 @@
     }
   },
   {
-    "description": "API 3.0: Get the Members for PochitaAsTeacher-NoCourse ",
+    "description": "API 3.0: Get the Members for Pochita As Teacher",
     "request": {
-      "url": "^/api/nucleus/v1/classes/462bcc67-1717-4140-bdc0-672e7bf4cdb1/members",
+      "url": "^/api/nucleus/v1/classes/class-for-pochita-as-teacher(.*)/members",
       "method": "GET",
       "headers": {
         "authorization": "Token (.+)"
@@ -121,7 +31,7 @@
         "Content-Type": "application/json"
       },
       "body": "File not found!",
-      "file": "members-for-pochita-no-course-api3-200-response.json"
+      "file": "members-for-pochita-as-teacher-api3-200-response.json"
     }
   },
   {
@@ -178,9 +88,45 @@
     }
   },
   {
+    "description": "Get a specific class where pochita is a teacher",
+    "request": {
+      "url": "^/api/nucleus/v1/classes/class-for-pochita-as-teacher$",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "class-for-pochita-as-teacher-200-response.json"
+    }
+  },
+  {
+    "description": "Get a specific class where pochita is a student",
+    "request": {
+      "url": "^/api/nucleus/v1/classes/class-for-pochita-as-student$",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "class-for-pochita-as-student-200-response.json"
+    }
+  },
+  {
     "description": "Class PochitaAsTeacher-NoCourse",
     "request": {
-      "url": "^/api/nucleus/v1/classes/462bcc67-1717-4140-bdc0-672e7bf4cdb1$",
+      "url": "^/api/nucleus/v1/classes/class-for-pochita-as-teacher-no-course$",
       "method": "GET",
       "headers": {
         "authorization": "Token (.+)"

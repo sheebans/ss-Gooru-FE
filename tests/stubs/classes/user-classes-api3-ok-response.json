@@ -38,9 +38,9 @@
   },
   "classes": [
     {
-      "id": "99ad1699-4047-4087-978f-d087148fb224",
+      "id": "class-for-pochita-as-student",
       "creator_id": "a9abf5c5-f64e-41c8-9ade-dccb100ce0da",
-      "title": "Period 1 Algebra",
+      "title": "Pochita as Student",
       "description": null,
       "greeting": null,
       "grade": null,
@@ -58,7 +58,7 @@
       "updated_at": "2016-04-15T23:07:21Z"
     },
     {
-      "id": "462bcc67-1717-4140-bdc0-672e7bf4cdb1",
+      "id": "class-for-pochita-as-teacher-no-course",
       "creator_id": "pochita",
       "title": "Pochita As Teacher - No Course",
       "description": null,
@@ -78,9 +78,9 @@
       "updated_at": "2016-04-06T22:01:24Z"
     },
     {
-      "id": "9878e75c-d67d-4a05-a492-209c5acfc2e2",
+      "id": "class-for-pochita-as-teacher",
       "creator_id": "pochita",
-      "title": "Test Class 3",
+      "title": "Pochita As Teacher",
       "description": null,
       "greeting": null,
       "grade": null,

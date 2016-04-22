@@ -130,6 +130,7 @@ export default {
     "from-my-resources": "From My Resources",
     "hints": "Hints",
     "hide-results":"Hide Results",
+    "home": "Home",
     "if_questions": "If you have any questions,",
     "information": "Information",
     "last-name": "Last Name",
