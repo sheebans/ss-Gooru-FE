@@ -232,10 +232,10 @@
             display: inline-block;
             vertical-align: -9px;
             @include text-overflow();
-            max-width: 27%;
+            max-width: 25%;
 
             @media (min-width: $screen-lg) {
-              max-width: 34%;
+              max-width: 31%;
             }
           }
 
