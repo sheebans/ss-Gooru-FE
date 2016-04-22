@@ -46,6 +46,7 @@
             display: block;
             span {
               display: block;
+              margin-bottom: 10px;
             }
             b {
               display: inline-block;
@@ -83,11 +84,11 @@
             }
             .btn-group{
               display: block;
-              margin-top: 10px;
               .dropdown-toggle {
                 background-color: $blue-300;
                 .caret {
                   display: inline-block;
+                  margin: 0;
                 }
               }
             }
