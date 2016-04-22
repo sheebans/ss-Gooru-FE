@@ -204,34 +204,37 @@ test('it shows a child-layout when user is under 13 years old', function (assert
     assert.equal(currentURL(), '/sign-up');
 
 
-    const $signUpContainer = find(".sign-up");
+    var $signUpContainer = find(".sign-up");
     var $modal = $signUpContainer.find(".modal");
 
-    const $usernameField = $signUpContainer.find(".gru-input.username");
-    const $birthMonthsField = $signUpContainer.find(".gru-select-date-picker #months");
-    const $birthDaysField = $signUpContainer.find(".gru-select-date-picker #days");
-    const $birthYearsField = $signUpContainer.find(".gru-select-date-picker #years");
-    const $firstNameField = $signUpContainer.find(".gru-input.firstName");
-    const $lastNameField = $signUpContainer.find(".gru-input.lastName");
-    const $emailField = $signUpContainer.find(".gru-input.email");
-    const $passwordField = $signUpContainer.find(".gru-input.password");
-    const $rePasswordField = $signUpContainer.find(".gru-input.rePassword");
+    var $usernameField = $signUpContainer.find(".gru-input.username");
+    var $birthMonthsField = $signUpContainer.find(".gru-select-date-picker #months");
+    var $birthDaysField = $signUpContainer.find(".gru-select-date-picker #days");
+    var $birthYearsField = $signUpContainer.find(".gru-select-date-picker #years");
+    var $firstNameField = $signUpContainer.find(".gru-input.firstName");
+    var $lastNameField = $signUpContainer.find(".gru-input.lastName");
+    var $emailField = $signUpContainer.find(".gru-input.email");
+    var $passwordField = $signUpContainer.find(".gru-input.password");
+    var $rePasswordField = $signUpContainer.find(".gru-input.rePassword");
 
     //Filling inputs
-    $usernameField.find("input").val('Jennifer');
-    //$('.gru-select-date-picker #months[value=01]').attr('selected','selected');
-    //$('.gru-select-date-picker #days[value=01]').attr('selected','selected');
-    //$('.gru-select-date-picker #years[value=2016]').attr('selected','selected');
 
-    $birthMonthsField.find("input").val('09').change();
-    $birthDaysField.find("input").val('10').change();
-    $birthYearsField.find("input").val('2015').change();
-    $firstNameField.find("input").val('Jennifer');
-    $lastNameField.find("input").val('Ajoy');
-    $emailField.find("input").val('jenniferajoy@hotmail.com');
-    $passwordField.find("input").val('12345');
-    $rePasswordField.find("input").val('12345');
-    // Try submitting without filling in data
+    fillIn($usernameField, 'username');
+    fillIn($birthMonthsField, '09');
+    fillIn($birthDaysField, '09');
+    fillIn($birthYearsField, '2016');
+    fillIn($firstNameField, 'firstname');
+    fillIn($lastNameField, 'lastname');
+    fillIn($emailField, 'email@gooru.cr');
+    fillIn($passwordField, 'password');
+    fillIn($rePasswordField, 'password');
+
+    assert.ok($birthMonthsField.length, '$birthMonthsField');
+
+    //$('.gru-select-date-picker #months option:first').attr('selected','selected');
+    //$('.gru-select-date-picker #days option:first').attr('selected','selected');
+    //$('.gru-select-date-picker #years option:first').attr('selected','selected');
+
     $signUpContainer.find("button.submit-sign-up").click();
 
     return wait().then(function () {
