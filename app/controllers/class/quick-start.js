@@ -10,6 +10,10 @@ export default Ember.Controller.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Dependencies
   classController: Ember.inject.controller('class'),
+
+  classService: Ember.inject.service('api-sdk/class'),
+
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -17,7 +21,6 @@ export default Ember.Controller.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
   },
 
   // -------------------------------------------------------------------------
@@ -27,9 +30,14 @@ export default Ember.Controller.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Properties
 
-
+  class: null,
   courses:null,
-
+  modelForCoursesModal: Ember.computed('class', 'courses', function() {
+    return Ember.Object.create({
+      'classId': this.get('class.id'),
+      'courses': this.get('courses')
+    });
+  })
 
   // -------------------------------------------------------------------------
   // Observers
