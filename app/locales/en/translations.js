@@ -17,7 +17,6 @@ export default {
     "add-new-unit": "Add New Unit",
     "add-new-resource": "Add New Resource",
     "add-new-question": "Add New Question",
-    "add-question-image": "Add Question Image",
     "add-to": "Add To",
     "add-type-question":"What type of question would you like to add?",
     "add-type-resource":"What type of resource is this?",
@@ -109,7 +108,6 @@ export default {
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
-      "question-not-updated": "Oops! Unable to update question right now. Please try again shortly.",
       "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
       "sign-in-google-account-exists": "Please sign-in with Google to access your account.",
@@ -159,7 +157,6 @@ export default {
     "notStarted": "Not started",
     "not-specified":"Not specified",
     "not-added":"Not Added",
-    "nothing-to-display-message":"Nothing to display.",
     "number":"No.",
     "numberStudents": {
       one: "{{count}} Student",
@@ -173,7 +170,6 @@ export default {
     "preview": "Preview",
     "question":"Question",
     "questions": "Questions",
-    "question-edit-instructions":"Write your question. Character limit: 5000.",
     "question-pl": {
       one: "Question",
       other: "Questions"
@@ -360,7 +356,7 @@ export default {
       "new-course": "Quick Start a New Course",
       "new-course-desc": "Jump start to add a collection or assessment",
       "new-collection": "New Collection",
-      "new-assessment": "New Assessment",
+      "new-assesment": "New Assesment",
       "remix-a-sample": "Remix a Sample",
       "add-existing-course": "Add from Existing Course",
       "existing-course-desc": "The quickest way to start a class",
@@ -391,7 +387,6 @@ export default {
       "class-code-input": "Enter a Class Code",
       "class-not-found": "Class not found. Make sure you've entered the correct class code",
       "invalid-code": "Invalid class code.",
-      "already-member": "You are already a member of this class.",
       "join-class": "Join Class",
       "join-not-allowed": "You are not able to join this class",
       "not-now": "Not now",
@@ -401,7 +396,6 @@ export default {
   "content.collections.edit": {
     "assign-to-course": "Assign to Course"
   },
-
   "content.courses.edit": {
     "assign-to-class": "Assign to Class",
     "big-ideas": "Big Ideas",
@@ -417,12 +411,10 @@ export default {
       "question-type": "Question Type"
     }
   },
-
   "content.resources.edit": {
     "placeholder-message": "Add a resource to <span>preview it here.</span>",
     "not-implemented": "Resource format preview <span>not implemented yet.</span>"
   },
-
   "user": {
     "active-classes": "Active Classes",
     "archived-classes": "Archived Classes",
@@ -485,10 +477,14 @@ export default {
     "haveAccount": "Already have an account?",
     "clickLogIn": "Click here to log in."
   },
-
   "sign-up": {
     "step-1-title": "Hello!",
     "step-1-description": "We're glad you’ve decided to join us.",
+    "step-child-title": "Wowza!",
+    "step-child-subtitle": "A young einsteing in the making!",
+    "step-child-description-1": "Gooru could not create your account due to our ",
+    "step-child-age-requirements": "age requirements",
+    "step-child-description-2": ". Please talk to you teacher or parent to get you started if you would like to use Gooru.",
     "step-2-title": "Basic Info",
     "step-2-description": "You’re not basic, but this info is.",
     "log-in": "Log In",
@@ -695,8 +691,6 @@ export default {
   "player.gru-reorder": {
     "instructions" : "Please reorder the answers in correct order, and click \"Submit\"."
   },
-
-
 
   "player": {
     "gru-navigation": {

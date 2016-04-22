@@ -9,6 +9,7 @@
     width: 100%;
     @media (min-width: $screen-sm-min) {
       width: 425px;
+      max-width: 425px;
       margin: 60px auto;
     }
     .modal-dialog {
@@ -276,6 +277,49 @@
               border-color: $green-400;
             }
           }
+        }
+      }
+    }
+    .child-layout {
+      .modal-header {
+        h3 {
+          margin: 50px 0 5px 0;
+        }
+      }
+      .modal-body {
+        margin: 20px 0 0 0;
+        .form-group {
+          &.username {
+            margin: 5px 0 15px 0;
+            input {
+              border-bottom: 2px solid $green-400;
+              &:focus {
+                border-color: $green-400;
+              }
+            }
+          }
+          &.birth-day-date {
+            input {
+              border-bottom: 2px solid $red-400;
+              margin: 0 5% 0 0;
+              &:focus {
+                border-color: $red-400;
+              }
+              &.months {
+                width: 40%;
+              }
+              &.days {
+                width: 20%;
+              }
+              &.years {
+                width: 27%;
+                margin: 0;
+              }
+            }
+          }
+        }
+        .footer-description {
+          line-height: $font-size-base;
         }
       }
     }

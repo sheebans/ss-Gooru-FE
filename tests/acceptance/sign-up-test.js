@@ -25,6 +25,7 @@ test('Layout', function(assert) {
     var $modal = $signUpContainer.find(".modal");
     T.exists(assert, $modal, "Missing sign-up modal");
     T.exists(assert, $modal.find(".modal-content"), "Missing modal-content");
+    T.notExists(assert, $modal.find(".modal-content.child-layout"), "modal-content child-layout should not be visible");
     const $signUpHeader = $modal.find(".modal-header");
     T.exists(assert, $signUpHeader, "Missing sign-up-header");
     T.exists(assert, $signUpHeader.find(".progress-dots"), "Missing progress-dots");
@@ -192,6 +193,49 @@ test('it shows an error message if the password and rePassword fields do not mat
     return wait().then(function () {
       assert.ok($rePasswordField.find(".error-messages .error").length, 'passwords do not match');
 
+    });
+  });
+});
+
+test('it shows a child-layout when user is under 13 years old', function (assert) {
+  visit('/sign-up');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-up');
+
+
+    const $signUpContainer = find(".sign-up");
+    var $modal = $signUpContainer.find(".modal");
+
+    const $usernameField = $signUpContainer.find(".gru-input.username");
+    const $birthMonthsField = $signUpContainer.find(".gru-select-date-picker #months");
+    const $birthDaysField = $signUpContainer.find(".gru-select-date-picker #days");
+    const $birthYearsField = $signUpContainer.find(".gru-select-date-picker #years");
+    const $firstNameField = $signUpContainer.find(".gru-input.firstName");
+    const $lastNameField = $signUpContainer.find(".gru-input.lastName");
+    const $emailField = $signUpContainer.find(".gru-input.email");
+    const $passwordField = $signUpContainer.find(".gru-input.password");
+    const $rePasswordField = $signUpContainer.find(".gru-input.rePassword");
+
+    //Filling inputs
+    $usernameField.find("input").val('Jennifer');
+    //$('.gru-select-date-picker #months[value=01]').attr('selected','selected');
+    //$('.gru-select-date-picker #days[value=01]').attr('selected','selected');
+    //$('.gru-select-date-picker #years[value=2016]').attr('selected','selected');
+
+    $birthMonthsField.find("input").val('09').change();
+    $birthDaysField.find("input").val('10').change();
+    $birthYearsField.find("input").val('2015').change();
+    $firstNameField.find("input").val('Jennifer');
+    $lastNameField.find("input").val('Ajoy');
+    $emailField.find("input").val('jenniferajoy@hotmail.com');
+    $passwordField.find("input").val('12345');
+    $rePasswordField.find("input").val('12345');
+    // Try submitting without filling in data
+    $signUpContainer.find("button.submit-sign-up").click();
+
+    return wait().then(function () {
+      T.exists(assert, $modal.find(".modal-content.child-layout"), "modal-content child-layout should be visible");
     });
   });
 });
