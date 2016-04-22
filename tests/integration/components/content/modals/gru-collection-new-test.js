@@ -203,7 +203,6 @@ test('Validate quickstart', function (assert) {
 
   return wait().then(function () {
 
-    // Try submitting without filling in data
     $component.find(".actions button[type='submit']").click();
 
     return wait().then(function () {
