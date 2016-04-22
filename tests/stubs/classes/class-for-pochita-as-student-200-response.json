@@ -1,14 +1,20 @@
 {
-  "classUid": "class-for-pochita-as-student",
-  "visibility": true,
-  "name": "Class for Pochita as a student",
-  "classCode": "JR48FMF",
-  "courseGooruOid": "75366215-f9d5-424c-8a90-2cabdfeb3ffa",
-  "grades": "K,6,6,7,7,8,8",
-  "user": {
-    "username": "JeffreyTeacher01",
-    "gooruUId": "88638002-deb6-4f8d-b319-4a7ae18d0efe",
-    "profileImageUrl": "http://profile-qa.s3.amazonaws.com/88638002-deb6-4f8d-b319-4a7ae18d0efe.png"
-  },
-  "memberCount": 0
+  "id": "462bcc67-1717-4140-bdc0-672e7bf4cdb1",
+  "creator_id": "any-other-but-no-pochita",
+  "title": "Pochita As Student - With Course",
+  "description": null,
+  "greeting": null,
+  "grade": null,
+  "class_sharing": "restricted",
+  "cover_image": null,
+  "code": "I4BYYQZ",
+  "min_score": 0,
+  "end_date": null,
+  "course_id": "dummy id",
+  "collaborator": null,
+  "gooru_version": 3,
+  "content_visibility": null,
+  "is_archived": false,
+  "created_at": "2016-04-06T22:01:24Z",
+  "updated_at": "2016-04-06T22:01:24Z"
 }

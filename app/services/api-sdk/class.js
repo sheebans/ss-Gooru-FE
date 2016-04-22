@@ -73,14 +73,22 @@ export default Ember.Service.extend({
 
   /**
    * Return the list of classes related to a user
+   * @property {Profile} profile the owner of classes
    * @returns {RSVP.Promise}
    */
-  findMyClasses: function() {
+  findMyClasses: function(profile) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('classAdapter').getMyClasses()
           .then(function(response) {
-            resolve(service.get('classSerializer').normalizeClasses(response));
+            var classesModel = service.get('classSerializer').normalizeClasses(response);
+            Ember.$.each(classesModel.get("classes"), function(index, aClass){
+              //when it has no owner we asume is the provided profile
+              if (!aClass.get("owner")){
+                aClass.set("owner", profile);
+              }
+            });
+            resolve(classesModel);
           }, function(error) {
             reject(error);
           });

@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 import ClassModel from 'gooru-web/models/content/class';
-import ClassesModel from 'gooru-web/models/content/classes';
 import ProfileModel from 'gooru-web/models/profile/profile';
 
 moduleFor('serializer:content/class', 'Unit | Serializer | content/class');
@@ -35,6 +34,7 @@ test('normalizeClasses', function(assert) {
     "classes": [{
       "id": "d8b6eb04-5466-4e29-92f5-06584b6b6ef5",
       "creator_id": "2afaf0fd-ed92-48c5-9195-7f4bc1e0064e",
+      "created_at": '2016-01-01',
       "title": "My class - 1",
       "description": "This class is intended to make awareness of good habits",
       "greeting": "Hi! Welcome to my class",
@@ -47,7 +47,7 @@ test('normalizeClasses', function(assert) {
       "code": "VZFMEWH",
       "min_score": 75,
       "end_date": "2016-12-31",
-      "course_id": null,
+      "course_id": 'course-id',
       "collaborator": [
         "63dd64b2-bb30-47a9-8daf-8330f57e16c3",
         "E4510f0a-a4a1-46d8-b7c3-fce31754c7d8"
@@ -58,6 +58,7 @@ test('normalizeClasses', function(assert) {
     }, {
       "id": "2a0a0d90-faed-4ba4-9bab-04ddc4c18f30",
       "creator_id": "2afaf0fd-ed92-48c5-9195-7f4bc1e0064e",
+      "created_at": '2016-01-01',
       "title": "My class - 2",
       "description": "This class is intended to make awareness of good habits",
       "greeting": "Hi! Welcome to my class",
@@ -70,7 +71,7 @@ test('normalizeClasses', function(assert) {
       "code": "ALU3LCB",
       "min_score": 75,
       "end_date": "2016-12-31",
-      "course_id": null,
+      "course_id": 'course-id',
       "collaborator": [
         "63dd64b2-bb30-47a9-8daf-8330f57e16c3",
         "E4510f0a-a4a1-46d8-b7c3-fce31754c7d8"
@@ -80,68 +81,12 @@ test('normalizeClasses', function(assert) {
       "is_archived": false
     }]
   };
-  const expected = ClassesModel.create({
-    ownerList: [
-      "d8b6eb04-5466-4e29-92f5-06584b6b6ef5",
-      "2a0a0d90-faed-4ba4-9bab-04ddc4c18f30"
-    ],
-    collaboratorList: ["63dd64b2-bb30-47a9-8daf-8330f57e16c3"],
-    memberList: ["e264cdc8-19d1-4285-88f5-5b359daf33da"],
-    memberCount: {
-      "d8b6eb04-5466-4e29-92f5-06584b6b6ef5": 1
-    },
-    classes: [ClassModel.create({
-      id: "d8b6eb04-5466-4e29-92f5-06584b6b6ef5",
-      creatorId: "2afaf0fd-ed92-48c5-9195-7f4bc1e0064e",
-      title: "My class - 1",
-      description: "This class is intended to make awareness of good habits",
-      greeting: "Hi! Welcome to my class",
-      grade: [
-        4,
-        5
-      ],
-      classSharing: "open",
-      coverImage: "e264cdc8-19d1-4285-88f5-5b359daf33da.png",
-      code: "VZFMEWH",
-      minScore: 75,
-      endDate: "2016-12-31",
-      courseId: null,
-      collaborator: [
-        "63dd64b2-bb30-47a9-8daf-8330f57e16c3",
-        "E4510f0a-a4a1-46d8-b7c3-fce31754c7d8"
-      ],
-      creatorSystem: null,
-      contentVisibility: null,
-      isArchived: false,
-      isStudent: false
-    }), ClassModel.create({
-      id: "2a0a0d90-faed-4ba4-9bab-04ddc4c18f30",
-      creatorId: "2afaf0fd-ed92-48c5-9195-7f4bc1e0064e",
-      title: "My class - 2",
-      description: "This class is intended to make awareness of good habits",
-      greeting: "Hi! Welcome to my class",
-      grade: [
-        4,
-        5
-      ],
-      classSharing: "open",
-      coverImage: "e264cdc8-19d1-4285-88f5-5b359daf33da.png",
-      code: "ALU3LCB",
-      minScore: 75,
-      endDate: "2016-12-31",
-      courseId: null,
-      collaborator: [
-        "63dd64b2-bb30-47a9-8daf-8330f57e16c3",
-        "E4510f0a-a4a1-46d8-b7c3-fce31754c7d8"
-      ],
-      creatorSystem: null,
-      contentVisibility: null,
-      isArchived: false,
-      isStudent: false
-    })]
-  });
+
   const normalizedClasses = serializer.normalizeClasses(classesPayload);
-  assert.deepEqual(expected, normalizedClasses, 'Wrong normalized response');
+  assert.equal(normalizedClasses.get("ownerList.length"), 2, 'Wrong ownerList');
+  assert.equal(normalizedClasses.get("collaboratorList.length"), 1, 'Wrong collaboratorList');
+  assert.equal(normalizedClasses.get("memberCount")['d8b6eb04-5466-4e29-92f5-06584b6b6ef5'], 1, 'Wrong memberCount');
+  assert.equal(normalizedClasses.get("classes.length"), 2, 'Wrong classes');
 });
 
 test('normalizeReadClassInfo', function(assert) {
@@ -160,29 +105,33 @@ test('normalizeReadClassInfo', function(assert) {
     "min_score": 10,
     "end_date": "2016-01-01",
     "course_id": "d44d3928-2623-4925-9d38-e933650a7573",
-    "collaborator": null,
+    "collaborator": ['1', '2'],
     "gooru_version": 3,
-    "content_visibility": null,
+    "content_visibility": true,
     "is_archived": false
   };
-  const expected = ClassModel.create({
-    id: 'd44d3928-2623-4925-9d38-e933650a7573',
-    code: 'ABC123',
-    title: 'My Class 1',
-    description: 'Class description',
-    greeting: 'Greeting message',
-    grade: [],
-    classSharing: 'open',
-    coverImage: 'image-name',
-    minScore: 10,
-    startDate: '2016-01-01',
-    endDate: '2016-01-01',
-    collaborator: [],
-    creatorSystem: ''
-  });
 
   const normalizedClassInfo = serializer.normalizeReadClassInfo(classPayload);
-  assert.deepEqual(normalizedClassInfo, expected, 'Wrong normalized response');
+  assert.equal(normalizedClassInfo.get("id"), "d44d3928-2623-4925-9d38-e933650a7573", 'Wrong id');
+  assert.equal(normalizedClassInfo.get("creatorId"), "327598a1-109a-4bcc-be9a-357981711381", 'Wrong creator id');
+  assert.equal(normalizedClassInfo.get("owner.id"), "327598a1-109a-4bcc-be9a-357981711381", 'Wrong owner id');
+  assert.equal(normalizedClassInfo.get("code"), "ABC123", 'Wrong code');
+  assert.equal(normalizedClassInfo.get("title"), "My Class 1", 'Wrong title');
+  assert.equal(normalizedClassInfo.get("description"), "Class description", 'Wrong description');
+  assert.equal(normalizedClassInfo.get("courseId"), "d44d3928-2623-4925-9d38-e933650a7573", 'Wrong course id');
+  assert.equal(normalizedClassInfo.get("greeting"), "Greeting message", 'Wrong greeting');
+  assert.equal(normalizedClassInfo.get("grade.length"), 0, 'Wrong grade length');
+  assert.equal(normalizedClassInfo.get("classSharing"), "open", 'Wrong classSharing');
+  assert.equal(normalizedClassInfo.get("coverImage"), "image-name", 'Wrong coverImage');
+  assert.equal(normalizedClassInfo.get("minScore"), 10, 'Wrong minScore');
+  assert.equal(normalizedClassInfo.get("startDate"), '2016-01-01', 'Wrong startDate');
+  assert.equal(normalizedClassInfo.get("endDate"), '2016-01-01', 'Wrong endDate');
+  assert.equal(normalizedClassInfo.get("creatorSystem"), '', 'Wrong creator system');
+  assert.equal(normalizedClassInfo.get("contentVisibility"), true, 'Wrong creator contentVisibility');
+  assert.equal(normalizedClassInfo.get("isArchived"), false, 'Wrong creator is archived');
+  assert.equal(normalizedClassInfo.get("collaborators.length"), 2, 'Wrong collaborators');
+  assert.equal(normalizedClassInfo.get("collaborators")[0].get("id"), '1', 'Wrong collaborator id');
+
 });
 
 test('normalizeReadClassMembers', function(assert) {

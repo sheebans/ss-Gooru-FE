@@ -1,0 +1,39 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3>{{plus-one index}}</h3>
+    {{#link-to 'sign-in' class="title"}}
+      <i class="{{model.format}}-icon"></i>
+      <div>
+        <strong>{{model.title}}</strong>
+        {{#if (eq model.format 'question')}}
+          <span>{{t "common.question"}} | {{t (concat "common.question-type." model.type)}}</span>
+        {{else}}
+          <span>{{t "common.resource"}} | {{t (concat "common.resource-format." model.format)}}</span>
+        {{/if}}
+      </div>
+    {{/link-to}}
+
+    <div class="detail">
+      {{#if model.standards.length}}
+
+        {{#each visibleStandardsList as |standard|}}
+          <span class="btn btn-primary btn-small">{{standard.code}}</span>
+        {{/each}}
+
+        {{#if remainingStandards}}
+          <span class="btn btn-default btn-small">+{{remainingStandards}}</span>
+        {{/if}}
+      {{else}}
+        <span>{{t "common.add-standard"}}</span>
+      {{/if}}
+
+      <div class="actions">
+        <button class="btn add-item" {{action 'swap'}}>{{gru-icon name="add"}}</button>
+        <button class="btn narration" {{action 'swap'}}>{{gru-icon name="mode_comment"}}</button>
+
+        {{partial 'content/partials/item-actions'}}
+
+      </div>
+    </div>
+  </div>
+</div>

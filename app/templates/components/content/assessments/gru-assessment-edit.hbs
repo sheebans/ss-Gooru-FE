@@ -39,7 +39,7 @@
           <label>
             <span>{{t "common.learning-objectives"}}</span>
             {{#if isEditing}}
-              <textarea id="textarea" name="textarea" rows="2" maxlength="500"></textarea>
+              {{textarea rows="2" maxlength="500" value=tempCollection.learningObjectives}}
             {{else}}
               <b>{{collection.learningObjectives}}</b>
             {{/if}}
@@ -72,38 +72,15 @@
           {{/if}}
         </div>
 
-        <div class="knowledge-depth">
-          <span class="label">Depth of Knowledge</span>
-          {{#if isEditing}}
-            <ul>
-              <li><label>{{input type="checkbox"}}<span>Level 1: Recall</span></label></li>
-              <li><label>{{input type="checkbox"}}<span>Level 2: Skill/Concept</span></label></li>
-              <li><label>{{input type="checkbox"}}<span>Level 3: Strategic Thinking</span></label></li>
-              <li><label>{{input type="checkbox"}}<span>Level 4: Extended Thinking</span></label></li>
-            </ul>
-          {{else}}
-            <div>
-              <span>Not specified</span>
-            </div>
-          {{/if}}
-        </div>
-
       </div>
     </div>
   </div>
 </section>
 
 <section id="builder">
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sit amet enim accumsan, volutpat sapien ut,
-    rhoncus neque. Sed porta nibh non maximus rutrum. Morbi placerat finibus erat, sit amet condimentum ante
-    faucibus in. Donec sed augue sit amet mi scelerisque consequat quis sed massa. Integer iaculis ultricies
-    feugiat. Nullam ac est sed nisi rutrum semper. Praesent nec egestas orci. Nam eget metus ex. Donec venenatis et
-    erat non dictum. Aenean tristique, magna in luctus bibendum, turpis nisi vehicula tellus, sed porta enim erat
-    vel odio. Nunc sit amet auctor purus. Maecenas aliquet risus non tincidunt porta. Interdum et malesuada fames ac
-    ante ipsum primis in faucibus. Ut faucibus viverra lectus, at suscipit leo. In ac lectus leo. Phasellus interdum
-    rutrum dolor eu commodo.
-  </p>
+  {{content.collections.gru-collection-list
+    model=collection
+    items=collection.children }}
 </section>
 
 <section id="settings">

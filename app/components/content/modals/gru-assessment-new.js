@@ -37,7 +37,7 @@ export default NewCollectionModal.extend({
 
   closeModal: function(assessmentId) {
     this.triggerAction({ action: 'closeModal' });
-    this.get('router').transitionTo('content.assessments.edit', { assessmentId });
+    this.get('router').transitionTo('content.assessments.edit', assessmentId);
   },
 
   showErrorMessage: function(error) {

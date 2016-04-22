@@ -10,6 +10,7 @@ export default {
     "add-plus": "+ Add",
     "add-assessment": "Add New Assessment",
     "add-collection": "Add New Collection",
+    "add-collection-item": "Add Resource or Question",
     "add-course": "Add New Course",
     "add-from-url":"Add from URL",
     "add-lessons": "Add Lessons",
@@ -17,6 +18,9 @@ export default {
     "add-new-unit": "Add New Unit",
     "add-new-resource": "Add New Resource",
     "add-new-question": "Add New Question",
+    "add-question": "Add Question",
+    "add-question-image": "Add Question Image",
+    "add-standard": "Add Standard",
     "add-to": "Add To",
     "add-type-question":"What type of question would you like to add?",
     "add-type-resource":"What type of resource is this?",
@@ -76,8 +80,10 @@ export default {
     "course-title": "Course Title",
     "courses": "Courses",
     "create": "Create",
+    "description": "Description",
     "district": "District",
     "domain": "Domain",
+    "drag-drop-suggestions": "Or Drag and Drop Suggestions ...",
     "edit": "Edit",
     "edit-assessment": "Edit Assessment",
     "edit-collection": "Edit Collection",
@@ -97,6 +103,7 @@ export default {
       "join-class-code":"Please enter the class code.",
       "add-course-title":"Please enter the course title.",
       "add-question-title":"Please enter the question title.",
+      "add-question-text":"You've reached the character limit.",
       "can-not-join-class" : "Oops! Unable to join class. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
@@ -108,7 +115,13 @@ export default {
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
+      "question-not-updated": "Oops! Unable to update question right now. Please try again shortly.",
       "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
+      "resource-invalid-url": "Invalid URL.",
+      "resource-missing-title": "Please enter a resource title.",
+      "resource-missing-type": "Please select a resource type.",
+      "resource-missing-url": "Please enter a valid URL.",
+      "resource-same-host-url": "Resources can not be Gooru's URLs.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
       "sign-in-google-account-exists": "Please sign-in with Google to access your account.",
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
@@ -120,8 +133,11 @@ export default {
     "forgotPassword": "Forgot Password",
     "from-my-assessments": "From My Assessments",
     "from-my-collections": "From My Collections",
+    "from-my-questions": "From My Questions",
+    "from-my-resources": "From My Resources",
     "hints": "Hints",
     "hide-results":"Hide Results",
+    "home": "Home",
     "if_questions": "If you have any questions,",
     "information": "Information",
     "last-name": "Last Name",
@@ -139,6 +155,7 @@ export default {
     },
     "lessonInitial": "L",
     "libraries": "Libraries",
+    "license": "License",
     "loading": "Loading ...",
     "login": "Log in",
     "logout": "Logout",
@@ -149,6 +166,8 @@ export default {
     "more-details":"More Details",
     "new-assessment": "New Assessment",
     "new-collection": "New Collection",
+    "new-question": "New Question",
+    "new-resource": "New Resource",
     "next": "Next",
     "no": "No",
     "no-content": "No content available",
@@ -156,7 +175,9 @@ export default {
     "no-results-message":"Check your spelling. We all make mistakes!<br/>Go broader & remove some filters.<br/>Try searching for a similar word instead.",
     "notStarted": "Not started",
     "not-specified":"Not specified",
+    "not-provided": "Not provided",
     "not-added":"Not Added",
+    "nothing-to-display-message":"Nothing to display.",
     "number":"No.",
     "numberStudents": {
       one: "{{count}} Student",
@@ -167,9 +188,11 @@ export default {
     "please_contact": "Please contact",
     "pending":"Pending",
     "publish-to":" Publish to my profile",
+    "publisher": "Publisher",
     "preview": "Preview",
     "question":"Question",
     "questions": "Questions",
+    "question-edit-instructions":"Write your question. Character limit: 5000.",
     "question-pl": {
       one: "Question",
       other: "Questions"
@@ -223,6 +246,7 @@ export default {
     "search": "Search",
     "search-placeholder": "Search...",
     "select-question-type":"Select Question Type",
+    "select-resource-type": "Select Resource Type",
     "send-request":"Send Request",
     "show-correct-answer":"Show Correct Answer",
     "show-results":"Show Results",
@@ -239,6 +263,7 @@ export default {
     "teach": "Teach",
     "teacher": "Teacher",
     "timeSpent": "Time Spent",
+    "type": "Type",
     "update-thumbnail": "Update Thumbnail",
     "upload-thumbnail":"Upload Thumbnail",
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
@@ -352,16 +377,17 @@ export default {
       }
     },
     "quick-start":{
-      "add-course": "Add Course",
+      "title": "How do you want to add a course",
       "new-course": "Quick Start a New Course",
       "new-course-desc": "Jump start to add a collection or assessment",
       "new-collection": "New Collection",
-      "new-assesment": "New Assesment",
+      "new-assessment": "New Assessment",
       "remix-a-sample": "Remix a Sample",
       "add-existing-course": "Add from Existing Course",
       "existing-course-desc": "The quickest way to start a class",
       "choose-course": "Choose Course",
       "remix-from-course": "Remix from Featured Course",
+      "featured-course": "View Featured Course",
       "remix-desc": "Customize your course based on featured courses"
     }
   },
@@ -387,6 +413,7 @@ export default {
       "class-code-input": "Enter a Class Code",
       "class-not-found": "Class not found. Make sure you've entered the correct class code",
       "invalid-code": "Invalid class code.",
+      "already-member": "You are already a member of this class.",
       "join-class": "Join Class",
       "join-not-allowed": "You are not able to join this class",
       "not-now": "Not now",
@@ -411,9 +438,15 @@ export default {
       "question-type": "Question Type"
     }
   },
-  "content.resources.edit": {
-    "placeholder-message": "Add a resource to <span>preview it here.</span>",
-    "not-implemented": "Resource format preview <span>not implemented yet.</span>"
+  "content.resources": {
+    "edit": {
+      "placeholder-message": "Add a resource to <span>preview it here.</span>",
+      "not-implemented": "Resource format preview <span>not implemented yet.</span>",
+      "information": {
+        "im-publisher": "I'm the publisher",
+        "select-a-license": "Please select a license"
+      }
+    }
   },
   "user": {
     "active-classes": "Active Classes",
@@ -433,6 +466,10 @@ export default {
   /*
    * COMPONENTS: Translations used in a specific component
    */
+  "gru-quick-course-search":{
+    "add-from-course":"Add from Existing Course",
+    "assign":"Assign"
+  },
   "gru-category-panel": {
     "teacher": {
       "title": "For Teachers",

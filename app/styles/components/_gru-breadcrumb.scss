@@ -2,11 +2,11 @@
   .btn-group {
     width: 100%;
     .btn {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
       border-right: 1px solid $white;
       font-size: $font-size-base;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       &:last-child {
         cursor: default;
         &:active,

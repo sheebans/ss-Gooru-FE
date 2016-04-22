@@ -2,6 +2,13 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
+  queryParams: {
+    refresh: {
+      refreshModel: true
+    }
+  },
+
+
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -42,18 +49,23 @@ export default Ember.Route.extend({
   model: function(params) {
     const route = this;
     const classId = params.classId;
-    const classPromise = route.get('classService').readClassInfo(classId);
-    const membersPromise = route.get('classService').readClassMembers(classId);
-
-    // TODO It is required to implement the Get Course Info and the get Units
-    // This code was change to support the new API, a lot of functionality inside class rount is not working at this moment
-    return Ember.RSVP.hash({
-      class: classPromise,
-      course: Ember.Object.create({}),
-      members: membersPromise,
-      units: []
-    });
-
+    return route.get('classService').readClassInfo(classId)
+      .then(function(classObj) {
+        return route.get('classService').readClassMembers(classId)
+          .then(function(members) {
+            classObj.set('owner', members.get('owner'));
+            classObj.set('collaborators', members.get('collaborators'));
+            classObj.set('members', members.get('members'));
+            // TODO It is required to implement the Get Course Info and the get Units
+            // This code was change to support the new API, a lot of functionality inside class rount is not working at this moment
+            return Ember.RSVP.hash({
+              class: classObj,
+              course: Ember.Object.create({}),
+              members: members,
+              units: []
+            });
+          });
+      });
   },
 
   /**
@@ -62,11 +74,6 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
-    let classModel = model.class;
-    classModel.set('owner', model.members.get('owner'));
-    classModel.set('collaborators', model.members.get('collaborators'));
-    classModel.set('members', model.members.get('members'));
-
     controller.set("class", model.class);
     controller.set("course", model.course);
     controller.set("units", model.units);

@@ -44,12 +44,14 @@ export default Ember.Route.extend( {
   model: function() {
     let route = this;
     const myId = route.get("session.userId");
-    let myClasses = route.get('classService').findMyClasses();
-    let profile = route.get('profileService').readUserProfile(myId);
+    let profilePromise = route.get('profileService').readUserProfile(myId);
 
-    return Ember.RSVP.hash({
-      myClasses: myClasses,
-      profile: profile
+    return profilePromise.then(function(profile){
+      let myClasses = route.get('classService').findMyClasses(profile);
+      return Ember.RSVP.hash({
+        myClasses: myClasses,
+        profile: profile
+      });
     });
   },
 

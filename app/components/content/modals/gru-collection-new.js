@@ -62,6 +62,7 @@ export default Ember.Component.extend({
         const modelValue = component.get('model');
         component.get('validate').call(component).then(function ({ value, validations }) {
           if (validations.get('isValid')) {
+            component.$('.actions button.add').prop('disabled', true);
             let assessmentOrCollectionId;
             if(modelValue && modelValue.isQuickstart) {
               const course = this.get('course');
@@ -103,9 +104,13 @@ export default Ember.Component.extend({
                   })
                 .then(
                   function () {
+                    component.$('.actions button.add').prop('disabled', false);
                     component.get('closeModal').call(component, assessmentOrCollectionId);
                   },
-                  component.get('showErrorMessage').bind(component)
+                  function () {
+                    component.$('.actions button.add').prop('disabled', false);
+                    component.get('showErrorMessage').bind(component)();
+                  }
                 );
             } else {
               component.get('createAssessmentOrCollection').call(component)
@@ -124,9 +129,13 @@ export default Ember.Component.extend({
                   })
                 .then(
                   function () {
+                    component.$('.actions button.add').prop('disabled', false);
                     component.get('closeModal').call(component, assessmentOrCollectionId);
                   },
-                  component.get('showErrorMessage')
+                  function () {
+                    component.$('.actions button.add').prop('disabled', false);
+                    component.get('showErrorMessage')();
+                  }
                 );
             }
           }
@@ -152,7 +161,7 @@ export default Ember.Component.extend({
 
   closeModal: function(collectionId) {
     this.triggerAction({ action: 'closeModal' });
-    this.get('router').transitionTo('content.collections.edit', { collectionId });
+    this.get('router').transitionTo('content.collections.edit', collectionId);
   },
 
   showErrorMessage: function(error){

@@ -37,7 +37,7 @@ test('it has header and main sections', function (assert) {
   assert.ok($container.find('> section#settings').length, "Settings section");
 });
 
-test('Update Question', function (assert) {
+test('Update Question Information', function (assert) {
   assert.expect(1);
   var newTitle ='Question for testing gooru';
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
@@ -184,6 +184,56 @@ test('Builder Edit', function (assert) {
   assert.ok($builderSection.find('.panel-heading .instructions').length, "Missing Instructions");
   assert.ok($builderSection.find('.panel-body textarea').length, "Missing text area");
   assert.ok($builderSection.find('.panel-body .add-image').length, "Missing add image button");
+});
+test('Validate the character limit in text field', function (assert) {
+  assert.expect(1);
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: "",
+    text:""
+  });
+  this.set('question',question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit isBuilderEditing=true tempQuestion=question}}`);
+
+  const $component = this.$('.gru-questions-edit');
+  const $textareaField = $component.find(".gru-textarea.text");
+  var newText ="";
+  var i = 0;
+  for (i = 0; i <=5001 ; i++) {
+      newText+="a";
+  }
+  $textareaField.find("textarea").val(newText);
+  $textareaField.find("textarea").trigger('blur');
+
+  return wait().then(function () {
+    assert.ok($textareaField.find(".error-messages .error").length, 'Question text error message should be visible');
+  });
+
+});
+test('Update Question Builder', function (assert) {
+  assert.expect(1);
+  var newText ='Lorem ipsum dolor sit amet';
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type:'MC'
+  });
+  this.set('question',question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit  isBuilderEditing=true tempQuestion=question}}`);
+
+  const $component = this.$('.gru-questions-edit');
+  const $textField = $component.find(".gru-textarea.text");
+  $textField.find("textarea").val(newText);
+  $textField.find("textarea").change();
+
+  const $save =  $component.find("#builder .actions .save");
+  $save.click();
+  return wait().then(function () {
+    const $textFieldRead = $component.find("#builder .panel-body textarea");
+    $textFieldRead.blur();
+    assert.equal($textFieldRead.val(),newText, "The question text should be updated");
+  });
 });
 
 test('Layout of the settings section', function (assert) {
