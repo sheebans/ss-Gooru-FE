@@ -150,10 +150,10 @@ const ResourceModel = Ember.Object.extend(Validations,{
   }),
 
   /**
-   * Return a copy of the course
+   * Return a copy of the resource
    *
    * @function
-   * @return {Course}
+   * @return {Resourse}
    */
   copy: function() {
 
