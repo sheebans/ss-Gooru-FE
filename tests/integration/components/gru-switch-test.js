@@ -32,7 +32,7 @@ test('Switch Layout', function(assert) {
 });
 
 test('Switch', function(assert) {
-// assert.expect(4);
+ assert.expect(2);
 
   const switchOptions = Ember.A([Ember.Object.create({
     'label': "Option A",
