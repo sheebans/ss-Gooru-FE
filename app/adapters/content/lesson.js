@@ -43,6 +43,37 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Updates an existing lesson
+   *
+   * @param params - data to send in the request
+   * @returns {Ember.Promise|String}
+   */
+  updateLesson: function (params) {
+    const courseId = params.courseId;
+    const unitId = params.unitId;
+    const lessonId = params.lessonId;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${courseId}/units/${unitId}/lessons/${lessonId}`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: this.defineHeaders(),
+      data: JSON.stringify(params.lesson)
+    };
+
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function () {
+          resolve('');
+        }, function (error) {
+          reject(error);
+        });
+    });
+  },
+
+  /**
    * Get lesson data for the corresponding lesson ID
    *
    * @param params - data to send in the request

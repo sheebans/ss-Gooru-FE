@@ -90,6 +90,26 @@ export default Ember.Service.extend(StoreMixin, {
   },
 
   /**
+   * Update existing unit
+   * @param {String} courseId - ID of the course the unit belongs to
+   * @param {Content/Unit} unit - Unit model
+   * @returns {Promise|String} returns the unit model
+   */
+  updateUnit: function (courseId, unit) {
+    var unitData = this.get('serializer').serializeUpdateUnit(unit);
+
+    return this.get('adapter').updateUnit({
+      unitId: unit.get('id'),
+      courseId: courseId,
+      unit: unitData
+    }).then(function () {
+      return unit;
+    }).catch(function (error) {
+      return error;
+    });
+  },
+
+  /**
    * Returns a unit by id
    * @param {string} courseId - course the unit belongs to
    * @param {string} unitId - unit ID to search for
