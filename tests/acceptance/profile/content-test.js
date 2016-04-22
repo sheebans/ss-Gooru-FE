@@ -68,6 +68,7 @@ test('Modal for creating a course', function (assert) {
     assert.ok(!$modal.hasClass("in"), 'Modal was hidden');
   });
 });
+
 test('Navigation links', function(assert) {
   visit('/pochita/content/');
 
