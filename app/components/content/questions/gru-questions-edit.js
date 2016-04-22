@@ -56,7 +56,6 @@ export default Ember.Component.extend(ContentEditMixin,{
      */
     updateContent: function () {
       this.saveNewContent();
-
     },
     /**
      * Enable edit content builder
@@ -152,6 +151,7 @@ export default Ember.Component.extend(ContentEditMixin,{
           .then(function () {
             component.set('question', editedQuestion);
             component.set('isEditing', false);
+            component.set('isBuilderEditing', false);
           }.bind(this))
           .catch(function () {
             var message = component.get('i18n').t('common.errors.question-not-updated').string;

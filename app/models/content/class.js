@@ -21,6 +21,7 @@ const Class = Ember.Object.extend(Validations, {
   id: null,
 
   /**
+   * //TODO is this the same as owner?
    * @property {String} creatorId - The id of the creator
    */
   creatorId: null,
@@ -86,12 +87,12 @@ const Class = Ember.Object.extend(Validations, {
   creatorSystem: null,
 
   /**
-   * @property {Object} Owner information
+   * @property {Profile} Owner information
    */
-  owner: Ember.Object.create({}),
+  owner: null,
 
   /**
-   * @property {Object[]} Collaborators on class
+   * @property {Profile[]} Collaborators on class
    */
   collaborators: [],
 
@@ -111,24 +112,6 @@ const Class = Ember.Object.extend(Validations, {
   isArchived: false,
 
   /**
-   * Verifies if the passed id corresponds to a student in the class
-   * @param studentId the student id to search
-   * @returns {Boolean} returns true if is a student, otherwise undefined
-   */
-  isStudent: function(studentId) {
-    return this.get('members').findBy('id', studentId);
-  },
-
-  /**
-   * Verifies if the passed id corresponds to a teacher in the class
-   * @param teacherId the teacher id to search
-   * @returns {Boolean} returns true if is a teacher, otherwise undefined
-   */
-  isTeacher: function(teacherId) {
-    return (this.get('owner.id') === teacherId || this.get('collaborators').findBy('id', teacherId));
-  },
-
-  /**
    * @property {Number} Computed property that counts the number of members in the class
    */
   countMembers: Ember.computed('members', function() {
@@ -139,8 +122,7 @@ const Class = Ember.Object.extend(Validations, {
    * @property {Number} Computed property that counts the number of teachers in the class
    */
   countTeachers: Ember.computed('owner', 'collaborators', function() {
-    let counter = this.get('owner') ? 1 : 0;
-    return counter + this.get('collaborators.length');
+    return 1 /* owner */ + this.get('collaborators.length');
   }),
 
   teachers: Ember.computed('owner', 'collaborators', function() {
@@ -149,7 +131,28 @@ const Class = Ember.Object.extend(Validations, {
       teachers.push(this.get('owner'));
     }
     return teachers.pushObjects(this.get('collaborators'));
-  })
+  }),
+
+  // -------------------
+  // Methods
+  /**
+   * Verifies if the passed id corresponds to a student in the class
+   * @param studentId the student id to search
+   * @returns {Boolean} returns true if is a student, otherwise undefined
+   */
+  isStudent: function(studentId) {
+    return !this.isTeacher(studentId);
+  },
+
+  /**
+   * Verifies if the passed id corresponds to a teacher in the class
+   * @param teacherId the teacher id to search
+   * @returns {Boolean} returns true if is a teacher, otherwise undefined
+   */
+  isTeacher: function(teacherId) {
+    return (this.get('owner.id') === teacherId || this.get('collaborators').findBy('id', teacherId));
+  }
+
 
 });
 

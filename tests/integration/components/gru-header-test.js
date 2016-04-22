@@ -35,7 +35,7 @@ test('header layout', function(assert) {
   T.exists(assert, $navSearch.find(".search-input"), "Missing search input");
 
   var $navMenu = $component.find(".menu-navbar");
-  T.notExists(assert, $navMenu.find(".my-classes-link"), "Link should be available for authenticated users only");
+  T.notExists(assert, $navMenu.find(".home-link"), "Link should be available for authenticated users only");
   T.exists(assert, $navMenu.find(".sign-up-button"), "Missing sign up button");
   T.notExists(assert, $navMenu.find(".user-logged"), "User info should not be present");
 
