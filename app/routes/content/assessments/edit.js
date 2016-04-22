@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import Assessment from 'gooru-web/models/content/assessment';
 
 export default Ember.Route.extend({
 
@@ -12,23 +11,28 @@ export default Ember.Route.extend({
 
   assessmentService: Ember.inject.service('api-sdk/assessment'),
 
+
   // -------------------------------------------------------------------------
   // Methods
 
   beforeModel: function () {
     // TODO: authenticate session with ember-simple-auth, if not send to log in
   },
-  setupController(controller /*, model */) {
 
-    // TODO: Fetch data from model
-    var assessment = Assessment.create(Ember.getOwner(this).ownerInjection(), {
-      title: "Assessment Title",
-      category: 1,
-      audience: [2, 4],
-      learningObjectives: "Learning Objectives"
+  model: function (params) {
+    var assessment = this.get('assessmentService').readAssessment(params.assessmentId);
+
+    return Ember.RSVP.hash({
+      assessment: assessment
     });
+  },
 
-    controller.set('collection', assessment);
+  setupController(controller, model) {
+
+    // Since assessment is a collection with only questions, we'll reuse the same components
+    // for collections (for example, see: /app/components/content/assessments/gru-assessment-edit.js)
+    // and that is why the property 'collection' is being reused here, too.
+    controller.set('collection', model.assessment);
   }
 
 });

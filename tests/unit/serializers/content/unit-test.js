@@ -31,6 +31,30 @@ test('serializeCreateUnit', function (assert) {
   assert.deepEqual(modelObject, expected, 'Serializer response');
 });
 
+test('serializeUpdateUnit', function (assert) {
+  const serializer = this.subject();
+
+  const modelInstance = Unit.create({
+    bigIdeas: 'Big ideas text',
+    children: [],
+    essentialQuestions: 'Essential Questions text',
+    id: 'unit-id',
+    lessonsTotal: 0,
+    sequence: 1,
+    title: 'Unit Title'
+  });
+
+  const expected = {
+    title: modelInstance.get('title'),
+    big_ideas: modelInstance.get('bigIdeas'),
+    essential_questions: modelInstance.get('essentialQuestions'),
+    taxonomy: []
+  };
+
+  const modelObject = serializer.serializeUpdateUnit(modelInstance);
+  assert.deepEqual(modelObject, expected, 'Serializer response');
+});
+
 test('normalizeUnit', function (assert) {
   const serializer = this.subject();
 

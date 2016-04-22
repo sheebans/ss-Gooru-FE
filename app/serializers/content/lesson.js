@@ -17,10 +17,21 @@ export default Ember.Object.extend({
    * @returns {Object} JSON Object representation of the lesson model
    */
   serializeCreateLesson: function (lessonModel) {
+    var lessonData =  this.get('serializeUpdateLesson')(lessonModel);
+    lessonData.creator_system = CREATOR_SYSTEM;
+    return lessonData;
+  },
+
+  /**
+   * Serialize a Content/Lesson object into a JSON representation required by the Update Lesson endpoint
+   *
+   * @param lessonModel - The lesson model to be serialized
+   * @returns {Object} JSON Object representation of the lesson model
+   */
+  serializeUpdateLesson: function (lessonModel) {
     return {
       title: lessonModel.get('title'),
-      taxonomy: [],   // TODO: pending
-      creator_system: CREATOR_SYSTEM
+      taxonomy: []   // TODO: pending
     };
   },
 
@@ -32,28 +43,7 @@ export default Ember.Object.extend({
   normalizeLesson: function (lessonData) {
     return Lesson.create(Ember.getOwner(this).ownerInjection(), {
       children: function () {
-
-        // TODO: Remove once it's possible to test integration
-        var lessonItems = [
-          LessonItem.create({
-            id: 'lesson-item-123',
-            image: '/assets/gooru/question-placeholder-image.png',
-            format: 'collection',
-            questionCount: 5,
-            resourceCount: 5,
-            sequence: 1,
-            title: 'Collection Name'
-          }),
-          LessonItem.create({
-            id: 'lesson-item-456',
-            image: null,
-            format: 'assessment',
-            questionCount: 10,
-            resourceCount: 0,
-            sequence: 2,
-            title: 'Assessment Name'
-          })
-        ];
+        var lessonItems = [];
 
         if (lessonData.collection_summary) {
           lessonItems = lessonData.collection_summary.map(function (lessonItemData) {

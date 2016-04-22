@@ -65,6 +65,28 @@ test('Unit creation, failure', function (assert) {
     });
 });
 
+test('Unit update, success', function (assert) {
+  // Mock backend response
+  this.pretender.map(function () {
+    this.put('/api/nucleus/v1/courses/course-id/units/unit-id', function () {
+      return [ 204, { 'Content-Type': 'text/plain' }, ''];
+    });
+  });
+
+  const adapter = this.subject();
+
+  const params = {
+    courseId: 'course-id',
+    unitId: 'unit-id',
+    unit: {title: 'Sample Unit'}
+  };
+
+  adapter.updateUnit(params)
+    .then(function (response) {
+      assert.equal(response, '', 'Should respond with no content');
+    });
+});
+
 test('Get unit by ID', function (assert) {
   const unitData = {
     title: 'Unit Title'
