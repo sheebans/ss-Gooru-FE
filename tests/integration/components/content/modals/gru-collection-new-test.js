@@ -2,6 +2,7 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
+import ClassModel from 'gooru-web/models/content/class';
 
 const classServiceMock = Ember.Service.extend({
   associateCourseToClass: function(courseId, classId) {
@@ -165,7 +166,7 @@ test('Validate the character limit in the Collection title field', function (ass
   assert.equal($titleField.find("input").val().length,50, "Incorrect number of incorrect characters");
 });
 
-test('Validate quickstart', function (assert) {
+test('it creates a collection and assigns it to a newly created course, unit and lesson', function (assert) {
   assert.expect(3);
 
   var transition;
@@ -182,7 +183,7 @@ test('Validate quickstart', function (assert) {
 
   this.set('class', {
     isQuickstart: true,
-    class: Ember.Object.create({
+    class: ClassModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'class-id',
       title: 'class-title'
     })
@@ -213,7 +214,7 @@ test('Validate quickstart', function (assert) {
 });
 
 
-test('Validate associating lesson', function (assert) {
+test('it creates a collection and assigns it to an existing lesson', function (assert) {
   assert.expect(3);
 
   var transition;
@@ -250,7 +251,6 @@ test('Validate associating lesson', function (assert) {
 
   return wait().then(function () {
 
-    // Try submitting without filling in data
     $component.find(".actions button[type='submit']").click();
 
     return wait().then(function () {
