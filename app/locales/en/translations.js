@@ -365,7 +365,7 @@ export default {
       }
     },
     "quick-start":{
-      "add-course": "Add Course",
+      "title": "How do you want to add a course",
       "new-course": "Quick Start a New Course",
       "new-course-desc": "Jump start to add a collection or assessment",
       "new-collection": "New Collection",
@@ -375,6 +375,7 @@ export default {
       "existing-course-desc": "The quickest way to start a class",
       "choose-course": "Choose Course",
       "remix-from-course": "Remix from Featured Course",
+      "featured-course": "View Featured Course",
       "remix-desc": "Customize your course based on featured courses"
     }
   },
