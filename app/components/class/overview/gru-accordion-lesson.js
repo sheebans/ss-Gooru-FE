@@ -40,6 +40,11 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   performanceService: Ember.inject.service("api-sdk/performance"),
 
+  /**
+   * @requires service:api-sdk/lesson
+   */
+  lessonService:  Ember.inject.service("api-sdk/lesson"),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -205,6 +210,7 @@ export default Ember.Component.extend(AccordionMixin, {
       if (!component.get("isDestroyed")){
         component.set('items', performances);
 
+        /*
         let usersLocationPromise = component.getLessonUsers();
         usersLocationPromise.then(function (usersLocation) {
           component.set('usersLocation', usersLocation);
@@ -214,6 +220,7 @@ export default Ember.Component.extend(AccordionMixin, {
             component.set('location', userLocation);
           }
         });
+        */
         component.set("loading", false);
       }
     });
@@ -229,17 +236,25 @@ export default Ember.Component.extend(AccordionMixin, {
   getCollectionPerformances: function() {
     let component = this;
     const classId = component.get('currentClass.id');
-    const courseId = component.get('currentClass.course');
+    const courseId = component.get('currentClass.courseId');
     const unitId = component.get('unitId');
     const lessonId = component.get('model.id');
     const userId = component.get('session.userId');
 
+    return component.get('lessonService').fetchById(courseId, unitId, lessonId)
+      .then(function(lesson) {
+        const collections = lesson.get('children');
+        return component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections);
+      });
+
+    /*
     return this.get("collectionService").findByClassAndCourseAndUnitAndLesson(classId, courseId, unitId, lessonId).then(function(collections){
       if(component.get('isTeacher')) {
         return component.getTeacherCollections(classId, courseId, unitId, lessonId, collections);
       }
       return component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections);
     });
+    */
   },
 
   /**

@@ -2,7 +2,7 @@
   <div class="fixed">
     <div class="overview-header">
       <div>
-        <h3>{{t "class.overview.title"}}</h3>
+        <h3>{{course.title}}</h3>
       </div>
       {{#if classController.isStudent}}
         <button {{action "updateLocation" userLocation}} class="btn btn-info locate">
@@ -18,12 +18,12 @@
 
   {{class.overview.gru-accordion-course
     currentClass=class
-  onSelectResource="playResource"
-  onLocationUpdate=(action 'updateLocation')
-  onLaunchOnAir="launchOnAir"
-  userLocation=userLocation
-  location=location
-  units=units
-  isTeacher=classController.isTeacher}}
+    onSelectResource="playResource"
+    onLocationUpdate=(action 'updateLocation')
+    onLaunchOnAir="launchOnAir"
+    userLocation=userLocation
+    location=location
+    units=units
+    isTeacher=classController.isTeacher}}
 
 </div>
