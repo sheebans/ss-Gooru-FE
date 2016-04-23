@@ -25,11 +25,41 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Serialize a Resource object into a JSON representation required by the Update Resource endpoint
+   *
+   * @param resourceModel The Resource model to be serialized
+   * @returns {Object} returns a JSON Object
+   */
+  serializeUpdateResource: function(resourceModel) {
+    let serializedResource = {
+      'title': resourceModel.get('title'),
+      'description': resourceModel.get('description'),
+      'narration': resourceModel.get('narration'),
+      'content_subformat': ResourceModel.serializeResourceFormat(resourceModel.get("format")),
+      'taxonomy': resourceModel.get('standards')//,
+      //"depth_of_knowledge": null, // Not required at the moment
+      //"thumbnail": null // Not required at the moment
+    };
+    if (resourceModel.get('metadata.amIThePublisher')) {
+      serializedResource.metadata = {
+        'am_i_the_publisher': true,
+        'publisher': null
+      };
+    } else {
+      serializedResource.metadata = {
+        'am_i_the_publisher': false,
+        'publisher': resourceModel.get('metadata.publisher')
+      };
+    }
+    return serializedResource;
+  },
+
+  /**
    * Normalize the resource data into a Resource object
    * @param resourceData
    * @returns {Resource}
    */
-  normalizeReadResource: function(resourceData){
+  normalizeReadResource: function(resourceData) {
     const serializer = this;
     const format = ResourceModel.normalizeResourceFormat(resourceData.content_subformat);
     const standards = resourceData.taxonomy || [];
@@ -40,7 +70,11 @@ export default Ember.Object.extend({
       format: format,
       description: resourceData.description,
       publishStatus: resourceData.publish_status,
-      standards: serializer.normalizeStandards(standards)
+      standards: serializer.normalizeStandards(standards),
+      metadata: {
+        amIThePublisher: resourceData.metadata && resourceData.metadata['am_i_the_publisher'] ? resourceData.metadata['am_i_the_publisher'] : false,
+        publisher: resourceData.metadata && resourceData.metadata.publisher ? resourceData.metadata.publisher : null
+      }
     });
   },
 

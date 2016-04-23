@@ -112,6 +112,11 @@ const ResourceModel = Ember.Object.extend(Validations,{
   standards: null,
 
   /**
+   * @property {JSONObject}
+   */
+  metadata: null,
+
+  /**
    * @property {String} Indicates the resource type. i.e video/youtube, assessment-question, image/png
    */
   resourceType: Ember.computed('format', function() {
@@ -163,7 +168,7 @@ const ResourceModel = Ember.Object.extend(Validations,{
     for (let i = 0; i < enumerableKeys.length; i++) {
       let key = enumerableKeys[i];
       let value = Ember.typeOf(this.get(key));
-      if (value === 'string' || value === 'number' || value === 'boolean') {
+      if (value === 'string' || value === 'number' || value === 'boolean' || value === 'array' || value === 'object') {
         properties.push(key);
       }
     }
