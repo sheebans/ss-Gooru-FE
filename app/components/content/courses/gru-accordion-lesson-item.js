@@ -24,6 +24,11 @@ export default Ember.Component.extend({
 
   actions: {
 
+    edit: function(item) {
+      var route = item.get('isCollection') ? "content.collections.edit" : "content.assessments.edit";
+      this.get('router').transitionTo(route, item.get("id"));
+    }
+
   },
 
 

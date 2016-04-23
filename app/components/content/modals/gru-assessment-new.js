@@ -30,9 +30,14 @@ export default NewCollectionModal.extend({
     return this.get('assessmentService').createAssessment(this.get('assessment'));
   },
 
+  associateToLesson: function(courseId, unitId, lessonId, assessmentOrCollectionId) {
+    return this.get('lessonService')
+      .associateAssessmentOrCollectionToLesson(courseId, unitId, lessonId, assessmentOrCollectionId, false);
+  },
+
   closeModal: function(assessmentId) {
     this.triggerAction({ action: 'closeModal' });
-    this.get('router').transitionTo('content.assessments.edit', { assessmentId });
+    this.get('router').transitionTo('content.assessments.edit', assessmentId);
   },
 
   showErrorMessage: function(error) {

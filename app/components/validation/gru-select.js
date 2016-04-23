@@ -41,14 +41,6 @@ export default Ember.Component.extend({
     }.bind(this));
   },
 
-  /**
-   * willDestroyElement event
-   */
-  willDestroyElement: function(){
-    this.set('options', null);
-    this.set('title', null);
-    this.set('search', false);
-  },
   // -------------------------------------------------------------------------
   // Properties
 

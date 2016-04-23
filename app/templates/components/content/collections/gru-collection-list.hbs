@@ -1,0 +1,60 @@
+<div class="header">
+  <h2>{{t "common.builder"}}</h2>
+
+  <div class="detail">
+    {{#if isCollection}}
+      {{#if (or model.computedResourceCount model.computedQuestionCount)}}
+        <span><b>{{model.computedResourceCount}}</b> {{t "common.resource-pl" count=model.computedResourceCount}}</span>
+        {{#if model.computedQuestionCount}}
+            | <span><b>{{model.computedQuestionCount}}</b> {{t "common.question-pl" count=model.computedQuestionCount}}</span>
+        {{/if}}
+      {{else}}
+        <span>{{t "common.add-collection-item"}}</span>
+      {{/if}}
+    {{else}}
+      {{#if model.computedQuestionCount}}
+        <span><b>{{model.computedQuestionCount}}</b> {{t "common.question-pl" count=model.computedQuestionCount}}</span>
+      {{else}}
+        <span>{{t "common.add-question"}}</span>
+      {{/if}}
+    {{/if}}
+
+    <div class="actions">
+      <div class="dropdown">
+        <button class="btn btn-primary add-item dropdown-toggle" type="button" data-toggle="dropdown">{{gru-icon name="add"}}</button>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li><a href="#">{{t "common.from-my-resources"}}</a></li>
+          <li><a href="#">{{t "common.from-my-questions"}}</a></li>
+          <li><a href="#">{{t "common.new-resource"}}</a></li>
+          <li><a href="#">{{t "common.new-question"}}</a></li>
+        </ul>
+      </div>
+
+      {{#if (gt children.length 1)}}
+        <button class="btn btn-primary sort-items">{{gru-icon name="swap_vert"}}</button>
+      {{/if}}
+    </div>
+  </div>
+</div>
+
+<ol class="collection-list" role="tablist" aria-multiselectable="true">
+
+  {{#each items as |item index|}}
+
+    {{content.collections.gru-collection-list-item
+      model=item
+      index=index }}
+
+  {{/each}}
+
+  <div>
+    <button class="btn btn-success add-prefix">{{t "common.from-my-resources"}}</button>
+    <button class="btn btn-success add-prefix">{{t "common.from-my-questions"}}</button>
+    <button class="btn btn-success add-prefix">{{t "common.new-resource"}}</button>
+    <button class="btn btn-success add-prefix">{{t "common.new-question"}}</button>
+    <span>{{t "common.drag-drop-suggestions"}}</span>
+  </div>
+
+</ol>
+
+

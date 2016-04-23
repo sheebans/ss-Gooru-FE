@@ -41,6 +41,59 @@
         &.preview {
           background-color: $white;
         }
+        .form-field {
+          label {
+            display: block;
+            span {
+              display: block;
+              margin-bottom: 10px;
+            }
+            b {
+              display: inline-block;
+              font-size: $font-size-large;
+              font-weight: normal;
+            }
+            input[type=text],
+            textarea {
+              outline: 0;
+              display: block;
+            }
+            textarea {
+              width: 100%;
+            }
+            select {
+              padding: 6px 16px 6px 4px;
+              outline: 0;
+              background-color: $white;
+            }
+            .form-group {
+              margin-bottom: 5px;
+            }
+            .inline {
+              display: inline-block;
+            }
+            .checkbox-inline {
+              padding-left: 25px;
+              label {
+                display: inline;
+                padding-left: 0;
+              }
+            }
+            .gru-input {
+              width: 55%;
+            }
+            .btn-group{
+              display: block;
+              .dropdown-toggle {
+                background-color: $blue-300;
+                .caret {
+                  display: inline-block;
+                  margin: 0;
+                }
+              }
+            }
+          }
+        }
       }
       .panel + .panel {
         margin-top: 20px;

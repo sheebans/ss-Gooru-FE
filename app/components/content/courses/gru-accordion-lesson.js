@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import BuilderMixin from 'gooru-web/mixins/content/builder';
+import ModalMixin from 'gooru-web/mixins/modal';
 
 /**
  * Content Builder: Accordion Lesson
@@ -11,7 +12,7 @@ import BuilderMixin from 'gooru-web/mixins/content/builder';
  * @augments Ember/Component
  * @mixes mixins/gru-accordion
  */
-export default Ember.Component.extend(BuilderMixin, {
+export default Ember.Component.extend(BuilderMixin, ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -108,6 +109,10 @@ export default Ember.Component.extend(BuilderMixin, {
    */
   unitId: null,
 
+  /**
+   * @prop {Object} newCollectionModel - model for the new collection/assessment modals
+   */
+  newCollectionModel: null,
 
   // -------------------------------------------------------------------------
   // Methods
@@ -140,6 +145,22 @@ export default Ember.Component.extend(BuilderMixin, {
     } else {
       return Ember.RSVP.resolve(true);
     }
+  },
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  init: function(){
+    this._super(...arguments);
+    let courseId = this.get('courseId');
+    let unitId = this.get('unitId');
+    let lessonId = this.get('lesson.id');
+    this.set('newCollectionModel', {
+      courseId,
+      unitId,
+      lessonId,
+      associateLesson: true
+    });
   }
 
 });

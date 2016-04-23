@@ -86,20 +86,28 @@ export default Ember.Component.extend(BuilderMixin, {
       if (this.get('model.isNew')) {
         this.get('onCancelAddUnit')(this.get('model'));
       } else {
-        // TODO: If the item already exists, set it's 'editing' flag to false
-        // and restore its model
-        //this.set('model.isEditing', false);
+        this.set('model.isEditing', false);
       }
+    },
+
+    edit: function () {
+      var unitForEditing = this.get('unit').copy();
+      this.set('tempUnit', unitForEditing);
+      this.set('model.isEditing', true);
     },
 
     saveUnit: function () {
       var courseId = this.get('courseId');
-      var unit = this.get('unit');
+      var editedUnit = this.get('tempUnit');
+      var unitService = this.get('unitService');
 
-      this.get('unitService')
-        .createUnit(courseId, unit)
+      // Saving an existing unit or a new unit (falsey id)?
+      var savePromise = editedUnit.get('id') ?
+                          unitService.updateUnit(courseId, editedUnit) :
+                            unitService.createUnit(courseId, editedUnit);
 
-        .then(function () {
+      savePromise.then(function () {
+          this.set('unit', editedUnit);
           this.set('model.isEditing', false);
         }.bind(this))
 
@@ -128,6 +136,11 @@ export default Ember.Component.extend(BuilderMixin, {
    * @prop {String} course - ID of the course this unit belongs to
    */
   courseId: null,
+
+  /**
+   * @prop {Content/Unit} tempUnit - Temporary unit model used for editing
+   */
+  tempUnit: null,
 
   /**
    * @prop {Boolean} isLoaded - Has the data for the unit already been loaded

@@ -30,7 +30,11 @@ var mockClass = Ember.Object.create({
   creatorSystem: null,
   contentVisibility: null,
   isArchived: false,
-  isStudent: false
+  isTeacher: function () { return true; }
+});
+
+var mockProfile = Ember.Object.create({
+  id: 'test-profile'
 });
 
 var classStudentCount = Ember.Object.create({
@@ -40,11 +44,12 @@ var classStudentCount = Ember.Object.create({
 test('Class Card Layout', function(assert) {
 
   this.set('class', mockClass);
+  this.set('profile', mockProfile);
   this.set('classStudentCount', classStudentCount);
 
   assert.expect(10);
 
-  this.render(hbs`{{cards/gru-class-card class=class classStudentCount=classStudentCount}}`);
+  this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount}}`);
 
   var $component = this.$(); //component dom element
 
@@ -65,14 +70,16 @@ test('Class Card Layout', function(assert) {
 });
 
 test('Student class card', function (assert) {
-  mockClass.set('isStudent', true);
+  //changing mock to be a student
+  mockClass.set('isTeacher', function () {return false;});
 
   this.set('class', mockClass);
+  this.set('profile', mockProfile);
   this.set('classStudentCount', classStudentCount);
 
   assert.expect(1);
 
-  this.render(hbs`{{cards/gru-class-card class=class classStudentCount=classStudentCount}}`);
+  this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount}}`);
 
   var $component = this.$(); //component dom element
 
@@ -84,11 +91,12 @@ test('Student class card', function (assert) {
 test('Class with just one collaborator', function (assert) {
   mockClass.set('collaborator', ["collaborator-1"]);
   this.set('class', mockClass);
+  this.set('profile', mockProfile);
   this.set('classStudentCount', classStudentCount);
 
   assert.expect(2);
 
-  this.render(hbs`{{cards/gru-class-card class=class classStudentCount=classStudentCount}}`);
+  this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount}}`);
 
   var $component = this.$(); //component dom element
 

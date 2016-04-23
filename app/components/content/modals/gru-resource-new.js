@@ -44,6 +44,7 @@ export default Ember.Component.extend({
                 if(type==="edit"){
                   component.onNewResource(newResource);
                 }else{
+                  component.get('router').router.refresh();
                   component.triggerAction({ action: 'closeModal' });
                 }
               },

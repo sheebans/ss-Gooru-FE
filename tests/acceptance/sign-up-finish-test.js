@@ -6,10 +6,11 @@ import T from 'gooru-web/tests/helpers/assert';
 moduleForAcceptance('Acceptance | sign-up-finish', {
   beforeEach: function() {
     authenticateSession(this.application, {
-      isAnonymous: true,
+      isAnonymous: false,
       token: 'sign-up-token',
       user: {
-        gooruUId: 'session-id'
+        gooruUId: 'pochita',
+        isNew: true
       }
     });
   }

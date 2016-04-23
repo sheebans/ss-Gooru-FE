@@ -2,6 +2,13 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
+  queryParams: {
+    refresh: {
+      refreshModel: true
+    }
+  },
+
+
   // -------------------------------------------------------------------------
   // Dependencies
   /**

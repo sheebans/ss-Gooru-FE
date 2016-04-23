@@ -27,10 +27,12 @@ export default Ember.Component.extend({
      * @function actions:selectOption
      */
     selectOption: function () {
-      if(this.isChecked()){
-        this.sendAction("onOptionSwitch", this.get("optionB"));
+      if(this.get('isChecked')){
+        this.set('isChecked',false);
+        this.sendAction("onOptionSwitch", this.get("isChecked"));
       }else{
-        this.sendAction("onOptionSwitch", this.get("optionA"));
+        this.set('isChecked',true);
+        this.sendAction("onOptionSwitch", this.get("isChecked"));
       }
     }
 
@@ -43,6 +45,11 @@ export default Ember.Component.extend({
    */
   didInsertElement: function() {
     $('input[type=checkbox][data-toggle^=toggle]').bootstrapToggle();
+    if(this.get('isChecked')){
+      $('input[type=checkbox][data-toggle^=toggle]').prop('checked', true).change();
+    }else{
+      $('input[type=checkbox][data-toggle^=toggle]').prop('checked', false).change();
+    }
   },
 // -------------------------------------------------------------------------
 // Properties
@@ -67,15 +74,12 @@ export default Ember.Component.extend({
   optionB:Ember.computed('switchOptions.[]', function() {
     return this.get("switchOptions")[1];
   }),
-
-  // -------------------------------------------------------------------------
-  // Methods
   /**
-   * Checks the input has been checked
+   * Indicate if the switch is checked
+   * @property {Boolean} isChecked
    */
-  isChecked: function() {
-    return this.$('.switch input').checked;
-  }
+  isChecked: false
+
 });
 
 

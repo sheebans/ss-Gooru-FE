@@ -102,6 +102,28 @@ export default Ember.Service.extend(StoreMixin, {
   },
 
   /**
+   * Update existing lesson
+   * @param {String} courseId - ID of the course the lesson belongs to
+   * @param {String} unitId - ID of the unit the lesson belongs to
+   * @param {Content/Lesson} lesson - Lesson model
+   * @returns {Promise|String} returns the lesson model
+   */
+  updateLesson: function (courseId, unitId, lesson) {
+    var lessonData = this.get('serializer').serializeUpdateLesson(lesson);
+
+    return this.get('adapter').updateLesson({
+      lessonId: lesson.get('id'),
+      unitId: unitId,
+      courseId: courseId,
+      lesson: lessonData
+    }).then(function () {
+      return lesson;
+    }).catch(function (error) {
+      return error;
+    });
+  },
+
+  /**
    * Returns a lesson by id
    * @param {string} courseId - course the lesson belongs to
    * @param {string} unitId - unit the lesson belongs to

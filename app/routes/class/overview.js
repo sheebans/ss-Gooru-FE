@@ -54,7 +54,8 @@ export default Ember.Route.extend({
   beforeModel: function() {
     // TODO: authenticate session with ember-simple-auth, if not send to log in
     const currentClass = this.modelFor('class').class;
-    if (!currentClass.get('courseId')) {
+    let userId = this.get('session.userId');
+    if (currentClass.isTeacher(userId) && !currentClass.get('courseId')) {
       this.transitionTo('class.quick-start');
     }
   },
@@ -66,16 +67,27 @@ export default Ember.Route.extend({
     //var userId = this.get('session.userId');
     var userLocation = Ember.RSVP.resolve('');
     //if (currentClass.isStudent(userId)) {
+    let isTeacher = false;
+    let userId = this.get('session.userId');
+    let userLocation = Ember.RSVP.resolve('');
+    if (currentClass.isStudent(userId)) {
 
       // Get the user location in a course only if the user is enrolled
       // as a student for the course
       //userLocation = this.get("courseLocationService").findOneByUser(userId);
     //}
 
+    if(currentClass.isTeacher(userId)){
+        isTeacher=true;
+    }
+
     return Ember.RSVP.hash({
       userLocation: userLocation,
       units: units,
       course: course
+      units: units,
+      isTeacher:isTeacher,
+      currentClass: currentClass
     });
   },
 

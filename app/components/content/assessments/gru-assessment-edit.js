@@ -28,7 +28,7 @@ export default CollectionEdit.extend({
      */
     updateContent: function () {
       var editedAssessment = this.get('tempCollection');
-      this.get('assessmentService').updateAssessment(editedAssessment)
+      this.get('assessmentService').updateAssessment(editedAssessment.get('id'), editedAssessment)
 
         .then(function () {
           this.set('collection', editedAssessment);

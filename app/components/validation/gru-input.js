@@ -39,9 +39,15 @@ export default Ember.Component.extend({
       this.set('rawInputValue',this.removeWhiteSpaces(this.get('rawInputValue')));
       this.set('value', this.get('rawInputValue'));
       this.set('isTyping', false);
+      if (this.get("onFocusOut")){
+        this.sendAction("onFocusOut");
+      }
     },
     inputTyping: function() {
       this.set('isTyping', true);
+      if (this.get("onTyping")){
+        this.sendAction("onTyping");
+      }
     }
   },
 
@@ -87,6 +93,16 @@ export default Ember.Component.extend({
    */
   attributeValidation: null,
   isTyping: false,
+
+  /**
+   * @property {string} onFocusOut action
+   */
+  onFocusOut: null,
+
+  /**
+   * @property {string} onTyping action
+   */
+  onTyping: null,
 
   /**
    * @param {Computed } didValidate - value used to check if input has been validated or not

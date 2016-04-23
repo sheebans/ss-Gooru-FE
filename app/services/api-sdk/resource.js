@@ -20,7 +20,7 @@ export default Ember.Service.extend({
 
   init: function () {
     this._super(...arguments);
-    this.set('resourceSerializer', ResourceSerializer.create());
+    this.set('resourceSerializer', ResourceSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('resourceAdapter', ResourceAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
