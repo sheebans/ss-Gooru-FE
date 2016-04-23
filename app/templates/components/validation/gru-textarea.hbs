@@ -1,5 +1,5 @@
 <div class="form-group">
-  {{textarea value=rawTextareaValue class="form-control" name=valuePath key-press="textareaTyping" focus-out="textareaValueChange" rows=rows}}
+  {{textarea value=rawTextareaValue class="form-control" name=valuePath key-press="textareaTyping" focus-out="textareaValueChange" rows=rows maxlength=maxLength}}
     <div class="error-messages">
       {{#if showMessage}}
           <span class="error">

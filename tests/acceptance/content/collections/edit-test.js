@@ -34,13 +34,14 @@ test('Edit collection information', function (assert) {
     andThen(function () {
       var $contentPanel = $content.find('.panel-body');
       var $title = $contentPanel.find('.title input');
-      var $objectives = $contentPanel.find('.learning-objectives textarea');
+      var $objectives = $contentPanel.find('.learning-objectives  .ember-text-area');
 
       fillIn($title, newTitle);
       // validation.gru-input updates on focus-out
       triggerEvent($title, 'blur');
 
       fillIn($objectives, newLearningObjectives);
+      triggerEvent($objectives, 'blur');
 
       click($headerActions.find('button.save'));
       andThen(function () {

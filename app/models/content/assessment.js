@@ -7,11 +7,20 @@ const Validations = buildValidations({
     validators: [
       validator('presence', {
         presence: true,
-        message:'Please enter the assessment title.'
+        message: '{{description}}',
+        descriptionKey: 'common.errors.assessment-title-presence'
       })
     ]
-  }
+  },
+  learningObjectives: [
+    validator('length', {
+      max: 500,
+      message: '{{description}}',
+      descriptionKey: 'common.errors.collection-learning-objectives-max-length'
+    })
+  ]
 });
+
 
 // Properties specific to assessments should be placed here!
 const assessmentProperties = { };

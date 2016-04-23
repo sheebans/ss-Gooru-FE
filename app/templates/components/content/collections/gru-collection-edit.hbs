@@ -19,27 +19,24 @@
 
   </div>
   <div class="content">
-
     {{content.gru-image isEditing=isEditing srcImage=collection.image editImage=tempCollection.image}}
-
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="title">
           <label>
             <span class="required">{{t "common.collection-title"}}</span>
             {{#if isEditing}}
-              {{validation.gru-input model=tempCollection valuePath='title'}}
+              {{validation.gru-input model=tempCollection valuePath='title' maxLength=50}}
             {{else}}
               <b>{{collection.title}}</b>
             {{/if}}
           </label>
         </div>
-
         <div class="learning-objectives">
           <label>
             <span>{{t "common.learning-objectives"}}</span>
             {{#if isEditing}}
-              {{textarea rows="2" maxlength="500" value=tempCollection.learningObjectives}}
+              {{validation.gru-textarea model=tempCollection valuePath='learningObjectives' rows=2}}
             {{else}}
               <b>{{collection.learningObjectives}}</b>
             {{/if}}

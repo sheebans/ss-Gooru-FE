@@ -34,18 +34,24 @@ test('Edit assessment information', function (assert) {
     andThen(function () {
       var $contentPanel = $content.find('.panel-body');
       var $title = $contentPanel.find('.title input');
-      var $objectives = $contentPanel.find('.learning-objectives textarea');
-
-      fillIn($title, newTitle);
-      // validation.gru-input updates on focus-out
-      triggerEvent($title, 'blur');
-
-      fillIn($objectives, newLearningObjectives);
-
+      var $objectives = $contentPanel.find('.learning-objectives .ember-text-area');
+      fillIn($title, "");
       click($headerActions.find('button.save'));
       andThen(function () {
-        assert.equal($contentPanel.find('.title b').text(), newTitle, 'Title updated');
-        assert.equal($contentPanel.find('.learning-objectives b').text(), newLearningObjectives, 'Learning objectives updated');
+
+        var $titleError = $contentPanel.find('.title .error');
+        assert.equal($titleError.text(), 'Please enter the assessment title.', 'Title validation is not showing');
+        fillIn($title, newTitle);
+        fillIn($objectives, newLearningObjectives);
+        // validations update on focus-out
+        triggerEvent($title, 'blur');
+        triggerEvent($objectives, 'blur');
+
+        click($headerActions.find('button.save'));
+        andThen(function () {
+          assert.equal($contentPanel.find('.title b').text(), newTitle, 'Title updated');
+          assert.equal($contentPanel.find('.learning-objectives b').text(), newLearningObjectives, 'Learning objectives updated');
+        });
       });
     });
   });
