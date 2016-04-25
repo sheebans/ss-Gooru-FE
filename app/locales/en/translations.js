@@ -552,12 +552,13 @@ export default {
     "password": "Password",
     "rePassword": "Confirm Password",
     "state": "State",
+    "district": "District or Charter Organization",
     "error-username-taken": "Aww, this username is taken. Try another.",
     "error-email-taken": "This email is taken. Try another.",
     "error-role-message": 'Please select a role.',
     "error-country-message": 'Please select your country.',
     "error-state-message": 'Please select your state.',
-    "error-district-message": 'Please enter your district.'
+    "error-district-message": 'Please select your district/charter from the list or provide it in "Other".'
   },
 
   "gru-user-sign-up-cancel": {
