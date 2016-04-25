@@ -36,6 +36,7 @@
         {{#unless class.isArchived}}
           {{cards.gru-class-card
           class=class
+          profile=profile
           classStudentCount=myClasses.memberCount}}
         {{/unless}}
       {{/each}}
@@ -45,6 +46,7 @@
         {{#if class.isArchived}}
           {{cards.gru-class-card
           class=class
+          profile=profile
           classStudentCount=myClasses.memberCount}}
         {{/if}}
       {{/each}}

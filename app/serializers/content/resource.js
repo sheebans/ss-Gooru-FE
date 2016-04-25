@@ -33,7 +33,7 @@ export default Ember.Object.extend({
     const serializer = this;
     const format = ResourceModel.normalizeResourceFormat(resourceData.content_subformat);
     const standards = resourceData.taxonomy || [];
-    return ResourceModel.create({
+    return ResourceModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: resourceData.id,
       title: resourceData.title,
       url: resourceData.url,

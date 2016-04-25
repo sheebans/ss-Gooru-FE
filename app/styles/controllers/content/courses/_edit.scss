@@ -10,6 +10,41 @@
 
   .accordion-course {
 
+    // Start with the styles in common,
+    // then continue with a hierarchy of styles
+    .gru-accordion-lesson > .view > .panel-heading,
+    .gru-accordion-lesson-item .panel-heading {
+
+      > .detail {
+        > div:first-of-type {
+
+          &.mixed {
+            @media (max-width: $screen-lg-min) {
+              vertical-align: top;
+            }
+
+            > span:last-child {
+              @media (min-width: $screen-lg) {
+                border-left: 1px solid $gray;
+                padding-left: 4px;
+                margin-left: 2px;
+              }
+            }
+          }
+
+          > span {
+            display: block;
+            line-height: 1.4;
+            text-align: right;
+
+            @media (min-width: $screen-lg) {
+              display: inline;
+            }
+          }
+        }
+      }
+    }
+
     .panel-heading {
       position: relative;
       border-bottom: 1px solid $gray-light;
@@ -191,30 +226,44 @@
     .gru-accordion-lesson {
 
       &.view {
-        > .view > .panel-heading .actions {
-          .dropdown {
-            &.open > .dropdown-toggle {
-              z-index: $zindex-dropdown + 1;
-              @include box-shadow(0 -4px 4px rgba(0,0,0,.2));
-              border-bottom-left-radius: 0;
-              border-bottom-right-radius: 0;
-              position: relative;
-              background-color: $white;
+        > .view > .panel-heading {
+
+          > strong {
+            display: inline-block;
+            vertical-align: -9px;
+            @include text-overflow();
+            max-width: 25%;
+
+            @media (min-width: $screen-lg) {
+              max-width: 31%;
             }
+          }
 
-            .dropdown-menu {
-              border-top-left-radius: 0;
-              border-top-right-radius: 0;
-              margin-top: -4px;
+          .actions {
+            .dropdown {
+              &.open > .dropdown-toggle {
+                z-index: $zindex-dropdown + 1;
+                @include box-shadow(0 -4px 4px rgba(0,0,0,.2));
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                position: relative;
+                background-color: $white;
+              }
 
-              li {
-                > a {
-                  padding: 10px 20px 10px 15px;
-                  border-bottom: 1px solid $gray-lighter;
-                }
+              .dropdown-menu {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                margin-top: -4px;
 
-                &:last-child > a {
-                  border-bottom: 0 none;
+                li {
+                  > a {
+                    padding: 10px 20px 10px 15px;
+                    border-bottom: 1px solid $gray-lighter;
+                  }
+
+                  &:last-child > a {
+                    border-bottom: 0 none;
+                  }
                 }
               }
             }
@@ -257,12 +306,14 @@
                 display: inline-block;
                 margin-left: 10px;
                 line-height: 1.4;
+                max-width: 40%;
 
                 > strong {
                   color: $text-color;
                   display: block;
                   line-height: 1.2;
                   margin-bottom: 5px;
+                  @include text-overflow();
                 }
 
                 > span {
@@ -280,6 +331,18 @@
             button {
               font-size: $font-size-base;
               padding: 5px 10px;
+            }
+          }
+        }
+      }
+
+      &.edit {
+        > .edit > .panel-heading {
+          .gru-input {
+            width: 62%;
+
+            .form-group {
+              width: 100%;
             }
           }
         }

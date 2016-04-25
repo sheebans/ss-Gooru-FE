@@ -85,10 +85,6 @@ export default Ember.Route.extend({
     });
   },
 
-  afterModel() {
-
-  },
-
   /**
    * Set all controller properties from the model
    * @param controller

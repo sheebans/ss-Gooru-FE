@@ -80,6 +80,7 @@ export default {
     "course-title": "Course Title",
     "courses": "Courses",
     "create": "Create",
+    "description": "Description",
     "district": "District",
     "domain": "Domain",
     "drag-drop-suggestions": "Or Drag and Drop Suggestions ...",
@@ -102,6 +103,7 @@ export default {
       "join-class-code":"Please enter the class code.",
       "add-course-title":"Please enter the course title.",
       "add-question-title":"Please enter the question title.",
+      "add-question-text":"You've reached the character limit.",
       "can-not-join-class" : "Oops! Unable to join class. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
@@ -115,6 +117,11 @@ export default {
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
       "question-not-updated": "Oops! Unable to update question right now. Please try again shortly.",
       "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
+      "resource-invalid-url": "Invalid URL.",
+      "resource-missing-title": "Please enter a resource title.",
+      "resource-missing-type": "Please select a resource type.",
+      "resource-missing-url": "Please enter a valid URL.",
+      "resource-same-host-url": "Resources can not be Gooru's URLs.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
       "sign-in-google-account-exists": "Please sign-in with Google to access your account.",
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
@@ -130,6 +137,7 @@ export default {
     "from-my-resources": "From My Resources",
     "hints": "Hints",
     "hide-results":"Hide Results",
+    "home": "Home",
     "if_questions": "If you have any questions,",
     "information": "Information",
     "last-name": "Last Name",
@@ -147,6 +155,7 @@ export default {
     },
     "lessonInitial": "L",
     "libraries": "Libraries",
+    "license": "License",
     "loading": "Loading ...",
     "login": "Log in",
     "logout": "Logout",
@@ -166,6 +175,7 @@ export default {
     "no-results-message":"Check your spelling. We all make mistakes!<br/>Go broader & remove some filters.<br/>Try searching for a similar word instead.",
     "notStarted": "Not started",
     "not-specified":"Not specified",
+    "not-provided": "Not provided",
     "not-added":"Not Added",
     "nothing-to-display-message":"Nothing to display.",
     "number":"No.",
@@ -178,6 +188,7 @@ export default {
     "please_contact": "Please contact",
     "pending":"Pending",
     "publish-to":" Publish to my profile",
+    "publisher": "Publisher",
     "preview": "Preview",
     "question":"Question",
     "questions": "Questions",
@@ -235,6 +246,7 @@ export default {
     "search": "Search",
     "search-placeholder": "Search...",
     "select-question-type":"Select Question Type",
+    "select-resource-type": "Select Resource Type",
     "send-request":"Send Request",
     "show-correct-answer":"Show Correct Answer",
     "show-results":"Show Results",
@@ -251,6 +263,7 @@ export default {
     "teach": "Teach",
     "teacher": "Teacher",
     "timeSpent": "Time Spent",
+    "type": "Type",
     "update-thumbnail": "Update Thumbnail",
     "upload-thumbnail":"Upload Thumbnail",
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
@@ -427,9 +440,15 @@ export default {
     }
   },
 
-  "content.resources.edit": {
-    "placeholder-message": "Add a resource to <span>preview it here.</span>",
-    "not-implemented": "Resource format preview <span>not implemented yet.</span>"
+  "content.resources": {
+    "edit": {
+      "placeholder-message": "Add a resource to <span>preview it here.</span>",
+      "not-implemented": "Resource format preview <span>not implemented yet.</span>",
+      "information": {
+        "im-publisher": "I'm the publisher",
+        "select-a-license": "Please select a license"
+      }
+    }
   },
 
   "user": {
@@ -533,12 +552,13 @@ export default {
     "password": "Password",
     "rePassword": "Confirm Password",
     "state": "State",
+    "district": "District or Charter Organization",
     "error-username-taken": "Aww, this username is taken. Try another.",
     "error-email-taken": "This email is taken. Try another.",
     "error-role-message": 'Please select a role.',
     "error-country-message": 'Please select your country.',
     "error-state-message": 'Please select your state.',
-    "error-district-message": 'Please enter your district.'
+    "error-district-message": 'Please select your district/charter from the list or provide it in "Other".'
   },
 
   "gru-user-sign-up-cancel": {

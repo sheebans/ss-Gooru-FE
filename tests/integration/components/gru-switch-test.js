@@ -32,7 +32,7 @@ test('Switch Layout', function(assert) {
 });
 
 test('Switch', function(assert) {
-  assert.expect(4);
+ assert.expect(2);
 
   const switchOptions = Ember.A([Ember.Object.create({
     'label': "Option A",
@@ -47,16 +47,13 @@ test('Switch', function(assert) {
 
   const $component = this.$(); //component dom element
   const $switchComponent = $component.find(".gru-switch");
+  var counter = 0;
 
   this.on('parentAction', function(option){
-    var counter = 0;
-    const $switch = $switchComponent.find(".switch");
     if (counter === 0) {
-      assert.equal(false, option);
-      T.exists(assert, $switch.find(".off"), 'The toggle should be off');
-    } else {
       assert.equal(true, option);
-     T.notExists(assert, $switch.find(".on"), 'The toggle should be on');
+    } else {
+      assert.equal(false, option);
     }
     counter++;
   });

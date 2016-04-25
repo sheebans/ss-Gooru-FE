@@ -1,5 +1,7 @@
+import Ember from 'ember';
 import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
+import LessonModel from 'gooru-web/models/content/lesson';
 
 moduleForService('service:api-sdk/lesson', 'Unit | Service | api-sdk/lesson', {
   needs: ['serializer:lesson/lesson', 'model:lesson/lesson', 'adapter:lesson/lesson']
@@ -89,4 +91,63 @@ test('findByClassAndCourseAndUnit', function (assert) {
     assert.equal(lesson.get('collection'), 24413346, 'Wrong collection');
     done();
   });
+});
+
+test('createLesson', function(assert) {
+  const service = this.subject();
+  let lessonModel = Ember.Object.create();
+
+  assert.expect(2);
+
+  // There is not a Adapter stub in this case
+  // Pretender was included because it is needed to simulate the response Headers including the Location value
+  this.pretender.map(function() {
+    this.post('/api/nucleus/v1/courses/course-id/units/unit-id/lessons', function() {
+      return [200, {'Content-Type': 'text/plain', 'Location': 'lesson-id'}, ''];
+    }, false);
+  });
+
+  service.set('serializer', Ember.Object.create({
+    serializeCreateLesson: function(lessonObject) {
+      assert.deepEqual(lessonObject, lessonModel, 'Wrong lesson object');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.createLesson('course-id', 'unit-id', lessonModel)
+    .then(function() {
+      assert.equal(lessonModel.get('id'), 'lesson-id', 'Wrong lesson id');
+      done();
+    });
+});
+
+test('updateLesson', function(assert) {
+  const service = this.subject();
+  let lessonModel = LessonModel.create({
+    id: 'lesson-id'
+  });
+
+  assert.expect(1);
+
+  // There is not a Adapter stub in this case
+  // Pretender was included because it is needed to simulate the response Headers including the Location value
+  this.pretender.map(function() {
+    this.put('/api/nucleus/v1/courses/course-id/units/unit-id/lessons/lesson-id', function() {
+      return [204, {'Content-Type': 'text/plain'}, ''];
+    }, false);
+  });
+
+  service.set('serializer', Ember.Object.create({
+    serializeUpdateLesson: function(lessonObject) {
+      assert.deepEqual(lessonObject, lessonModel, 'Wrong lesson object');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.updateLesson('course-id', 'unit-id', lessonModel)
+    .then(function() {
+      done();
+    });
 });

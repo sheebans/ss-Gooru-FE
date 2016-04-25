@@ -13,7 +13,7 @@
             {{#if existingResource}}
                 <span class="validation error">{{t 'gru-resource-new.resource-already-exist'}}</span>
                 <div class="existing-resource-message">
-                {{cards.gru-resource-card resource=existingResource}}
+                {{cards.gru-resource-card resource=existingResource addEnabled=false}}
                 </div>
             {{/if}}
         </label>
