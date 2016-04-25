@@ -35,12 +35,17 @@ test('Edit assessment information', function (assert) {
       var $contentPanel = $content.find('.panel-body');
       var $title = $contentPanel.find('.title input');
       var $objectives = $contentPanel.find('.learning-objectives .ember-text-area');
-      fillIn($title, "");
+
+      fillIn($title, '');
+      triggerEvent($title, 'blur');
+
       click($headerActions.find('button.save'));
       andThen(function () {
 
-        var $titleError = $contentPanel.find('.title .error');
-        assert.equal($titleError.text(), 'Please enter the assessment title.', 'Title validation is not showing');
+        var $errorMessage = $contentPanel.find('.validation.title .error');
+
+        assert.equal($errorMessage.text().trim(), 'Please enter the assessment title.', 'Validation message missing');
+
         fillIn($title, newTitle);
         fillIn($objectives, newLearningObjectives);
         // validations update on focus-out

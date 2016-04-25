@@ -11,14 +11,7 @@ const Validations = buildValidations({
         descriptionKey: 'common.errors.collection-title-presence'
       })
     ]
-  },
-  learningObjectives: [
-    validator('length', {
-      max: 500,
-      message: '{{description}}',
-      descriptionKey: 'common.errors.collection-learning-objectives-max-length'
-    })
-  ]
+  }
 });
 
 /**

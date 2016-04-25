@@ -36,17 +36,26 @@ test('Edit collection information', function (assert) {
       var $title = $contentPanel.find('.title input');
       var $objectives = $contentPanel.find('.learning-objectives  .ember-text-area');
 
-      fillIn($title, newTitle);
-      // validation.gru-input updates on focus-out
+      fillIn($title, '');
       triggerEvent($title, 'blur');
-
-      fillIn($objectives, newLearningObjectives);
-      triggerEvent($objectives, 'blur');
-
       click($headerActions.find('button.save'));
       andThen(function () {
-        assert.equal($contentPanel.find('.title b').text(), newTitle, 'Title updated');
-        assert.equal($contentPanel.find('.learning-objectives b').text(), newLearningObjectives, 'Learning objectives updated');
+
+        var $errorMessage = $contentPanel.find('.validation.title .error');
+
+        assert.equal($errorMessage.text().trim(), 'Please enter the collection title.', 'Validation message missing');
+
+        fillIn($title, newTitle);
+        fillIn($objectives, newLearningObjectives);
+        // validation.gru-input updates on focus-out
+        triggerEvent($title, 'blur');
+        triggerEvent($objectives, 'blur');
+
+        click($headerActions.find('button.save'));
+        andThen(function () {
+          assert.equal($contentPanel.find('.title b').text(), newTitle, 'Title updated');
+          assert.equal($contentPanel.find('.learning-objectives b').text(), newLearningObjectives, 'Learning objectives updated');
+        });
       });
     });
   });

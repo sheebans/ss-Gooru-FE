@@ -36,7 +36,7 @@
           <label>
             <span>{{t "common.learning-objectives"}}</span>
             {{#if isEditing}}
-              {{validation.gru-textarea model=tempCollection valuePath='learningObjectives' rows=2}}
+              {{validation.gru-textarea model=tempCollection valuePath='learningObjectives' rows=2 maxLength=500}}
             {{else}}
               <b>{{collection.learningObjectives}}</b>
             {{/if}}

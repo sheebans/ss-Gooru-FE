@@ -4,7 +4,13 @@
       {{#if showMessage}}
           <span class="error">
             {{v-get model valuePath 'message'}}
+
           </span>
+      {{/if}}
+      {{#if isMaxLength}}
+        <span class="warning">
+          {{t "common.errors.collection-learning-objectives-max-length"}}
+        </span>
       {{/if}}
     </div>
 </div>

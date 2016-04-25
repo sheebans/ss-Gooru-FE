@@ -115,6 +115,11 @@ export default Ember.Component.extend({
    */
   didValidate: computed.oneWay('targetObject.didValidate'),
 
+  isMaxLength: computed('value.length', 'maxLength',
+  function() {
+    return (this.get('value.length') >= this.get('maxLength'));
+  }),
+
   /**
    * @param {Computed } showErrorClass - computed property that defines the
    */
