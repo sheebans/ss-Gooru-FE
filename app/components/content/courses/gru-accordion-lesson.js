@@ -56,24 +56,27 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
         //this.set('model.isEditing', false);
       }
     },
-
     saveLesson: function () {
+      const component = this;
       var courseId = this.get('courseId');
       var unitId = this.get('unitId');
       var lesson = this.get('lesson');
+      lesson.validate().then(function ({validations }) {
+        if (validations.get('isValid')) {
+          component.get('lessonService')
+            .createLesson(courseId, unitId, lesson)
+            .then(function () {
+              component.set('model.isEditing', false);
+            })
+            .catch(function (error) {
+              var message = component.get('i18n').t('common.errors.lesson-not-created').string;
+              component.get('notifications').error(message);
+              Ember.Logger.error(error);
+            });
+        }
+        component.set('didValidate', true);
+      });
 
-      this.get('lessonService')
-        .createLesson(courseId, unitId, lesson)
-
-        .then(function () {
-          this.set('model.isEditing', false);
-        }.bind(this))
-
-        .catch(function (error) {
-          var message = this.get('i18n').t('common.errors.lesson-not-created').string;
-          this.get('notifications').error(message);
-          Ember.Logger.error(error);
-        }.bind(this));
     },
 
     toggle: function () {
@@ -128,12 +131,6 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       let courseId = this.get('courseId');
       let unitId = this.get('unitId');
       let lessonId = this.get('lesson.id');
-      this.set('newCollectionModel', {
-        courseId,
-        unitId,
-        lessonId,
-        associateLesson: true
-      });
 
       return this.get('lessonService')
         .fetchById(courseId, unitId, lessonId)
@@ -151,6 +148,22 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     } else {
       return Ember.RSVP.resolve(true);
     }
+  },
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  init: function(){
+    this._super(...arguments);
+    let courseId = this.get('courseId');
+    let unitId = this.get('unitId');
+    let lessonId = this.get('lesson.id');
+    this.set('newCollectionModel', {
+      courseId,
+      unitId,
+      lessonId,
+      associateLesson: true
+    });
   }
 
 });

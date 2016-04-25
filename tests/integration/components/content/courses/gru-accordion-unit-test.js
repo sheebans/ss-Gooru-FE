@@ -42,7 +42,18 @@ const unitServiceStub = Ember.Service.extend({
     } else {
       return Ember.RSVP.reject('Fetch failed');
     }
+  },
+
+  updateUnit(courseId, unit) {
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      if (courseId === 'course-id-fail' || !unit) {
+        reject({status: 500});
+      } else {
+        resolve(unit);
+      }
+    });
   }
+
 });
 
 moduleForComponent('content/courses/gru-accordion-unit', 'Integration | Component | content/courses/gru accordion unit', {
@@ -75,6 +86,7 @@ test('it renders a form for a new unit', function (assert) {
 
   const $heading = $component.find('.edit .panel-heading');
   assert.ok($heading.find('h3').text(), this.get('i18n').t('common.unit').string + " " + this.get('totalItems'), 'Header prefix');
+  assert.ok($heading.find('.title').text(), '', 'Empty title');
   assert.equal($heading.find('.actions button').length, 2, 'Unit header action buttons');
   assert.ok($heading.find('.actions button:eq(0)').hasClass('cancel'), 'First button is cancel');
   assert.ok($heading.find('.actions button:eq(1)').hasClass('save'), 'Second button is save');
@@ -86,11 +98,13 @@ test('it renders a form for a new unit', function (assert) {
 
 test('it can create a new unit', function (assert) {
 
+  const title = 'New Unit';
+
   var unit = BuilderItem.create({
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
       id: ''
     }),
-    isEditing: true
+    isEditing: false
   });
 
   this.set('unit', unit);
@@ -101,13 +115,92 @@ test('it can create a new unit', function (assert) {
 
   const $component = this.$('.content.courses.gru-accordion.gru-accordion-unit');
   assert.ok($component.length, 'Component');
+  assert.ok($component.hasClass('view'), 'View mode');
+
+  const $editButton = $component.find('.view .detail .item-actions .btn.edit-item');
+
+  Ember.run(() => {
+    $editButton.click();
+  });
+
+  assert.ok($component.hasClass('edit'), 'Edit mode');
+
+  // Form has current unit values
+  const $panelBody = $component.find('.edit .panel-body');
+
+  assert.equal($component.find('.edit .panel-heading .title input').val(), '', 'Unit title');
+  assert.equal($panelBody.find('.big-ideas label textarea').val(), '', 'Big ideas text');
+  assert.equal($panelBody.find('.essential-questions label textarea').val(), '', 'Essential questions text');
+
+  $component.find('.edit .panel-heading .title input').val(title);
+  $component.find('.edit .panel-heading .title input').blur();
 
   const $saveButton = $component.find('.edit .panel-heading .actions button:eq(1)');
-  $saveButton.click();
+
+  Ember.run(() => {
+    $saveButton.click();
+  });
+
+  const $heading = $component.find('.view .panel-heading');
+  assert.equal($heading.find('strong').text(), title, 'Unit title updated');
 
   unit = this.get('unit');
   assert.equal(unit.get('data.id'), 'unit-id-123', 'Unit ID updated after saving');
   assert.equal(unit.get('isEditing'), false, 'Unit is no longer editable');
+});
+
+test('it can edit an existing unit', function (assert) {
+
+  const title = 'Unit Title Updated';
+
+  var unit = BuilderItem.create({
+    data: Unit.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'unit-123',
+      title: 'Unit Title',
+      bigIdeas: 'Big ideas text',
+      essentialQuestions: 'Essential questions text'
+    }),
+    isEditing: false
+  });
+
+  this.set('unit', unit);
+  this.set('courseId', 'course-id-123');
+  this.render(hbs`{{content/courses/gru-accordion-unit
+    courseId=courseId
+    model=unit }}`);
+
+  const $component = this.$('.content.courses.gru-accordion.gru-accordion-unit');
+  assert.ok($component.length, 'Component');
+  assert.ok($component.hasClass('view'), 'View mode');
+
+  const $editButton = $component.find('.view .detail .item-actions .btn.edit-item');
+
+  Ember.run(() => {
+    $editButton.click();
+  });
+
+  assert.ok($component.hasClass('edit'), 'Edit mode');
+
+  // Form has current unit values
+  const $panelBody = $component.find('.edit .panel-body');
+
+  assert.equal($component.find('.edit .panel-heading .title input').val(), unit.get('data.title'), 'Unit title');
+  assert.equal($panelBody.find('.big-ideas label textarea').val(), unit.get('data.bigIdeas'), 'Big ideas text');
+  assert.equal($panelBody.find('.essential-questions label textarea').val(), unit.get('data.essentialQuestions'), 'Essential questions text');
+
+  $component.find('.edit .panel-heading .title input').val(title);
+  $component.find('.edit .panel-heading .title input').blur();
+
+  const $saveButton = $component.find('.edit .panel-heading .actions button:eq(1)');
+
+  Ember.run(() => {
+    $saveButton.click();
+  });
+
+  const $heading = $component.find('.view .panel-heading');
+  assert.equal($heading.find('strong').text(), title, 'Unit title updated');
+  assert.equal(unit.get('isEditing'), false, 'Unit is no longer editable');
+
 });
 
 test('it shows an error message if it fails to create a new unit', function (assert) {
@@ -123,18 +216,21 @@ test('it shows an error message if it fails to create a new unit', function (ass
   }));
   this.inject.service('notifications');
 
-  var unit = BuilderItem.create({
-    data: Unit.create(Ember.getOwner(this).ownerInjection(), {
-      id: ''
-    }),
+  const unit = BuilderItem.create({
     isEditing: true
   });
 
+  const tempUnit = Unit.create(Ember.getOwner(this).ownerInjection(), {
+    id: ''
+  });
+
   this.set('unit', unit);
+  this.set('tempUnit', tempUnit);
   this.set('courseId', 'course-id-fail');
   this.render(hbs`{{content/courses/gru-accordion-unit
     courseId=courseId
-    model=unit }}`);
+    model=unit
+    tempUnit=tempUnit }}`);
 
   const $component = this.$('.content.courses.gru-accordion.gru-accordion-unit');
   assert.ok($component.length, 'Component');
@@ -147,18 +243,20 @@ test('it renders a form when editing an existing unit', function (assert) {
 
   // Unit model
   const unit = BuilderItem.create({
-    data: Unit.create(Ember.getOwner(this).ownerInjection(), {
-      bigIdeas: 'Big ideas text',
-      essentialQuestions: 'Essential questions text',
-      id: '123',
-      title: 'Sample Unit Name'
-    }),
     isEditing: true
   });
 
+  const tempUnit = Unit.create(Ember.getOwner(this).ownerInjection(), {
+    bigIdeas: 'Big ideas text',
+    essentialQuestions: 'Essential questions text',
+    id: '123',
+    title: 'Sample Unit Name'
+  });
+
   this.set('unit', unit);
+  this.set('tempUnit', tempUnit);
   this.set('index', 2);
-  this.render(hbs`{{content/courses/gru-accordion-unit model=unit index=index}}`);
+  this.render(hbs`{{content/courses/gru-accordion-unit model=unit tempUnit=tempUnit index=index}}`);
 
   const $component = this.$('.content.courses.gru-accordion.gru-accordion-unit');
   assert.ok($component.length, 'Component');
@@ -173,8 +271,8 @@ test('it renders a form when editing an existing unit', function (assert) {
 
   const $panelBody = $component.find('.edit .panel-body');
   assert.ok($panelBody.find('> .row .col-sm-6 label textarea').length, 2, 'Text areas');
-  assert.equal($panelBody.find('> .row .col-sm-6:eq(0) textarea').val(), unit.get('data.bigIdeas'), 'First textarea content');
-  assert.equal($panelBody.find('> .row .col-sm-6:eq(1) textarea').val(), unit.get('data.essentialQuestions'), 'Second textarea content');
+  assert.equal($panelBody.find('.big-ideas textarea').val(), tempUnit.get('bigIdeas'), 'First textarea content');
+  assert.equal($panelBody.find('.essential-questions textarea').val(), tempUnit.get('essentialQuestions'), 'Second textarea content');
 
   assert.ok($panelBody.find('> .data-row.domain').length, 'Domain');
 });
