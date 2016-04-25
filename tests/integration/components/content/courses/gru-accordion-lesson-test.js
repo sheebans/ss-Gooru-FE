@@ -97,7 +97,7 @@ test('it renders a form for creating a new lesson', function (assert) {
   assert.ok($panelBody.find('> .data-row.standards').length, 'Standards');
 });
 
-test('it can create a new lesson', function (assert) {
+test('it can create a new lesson in a valid state', function (assert) {
 
   const title = 'New Lesson';
 
@@ -128,11 +128,17 @@ test('it can create a new lesson', function (assert) {
 
   assert.ok($component.hasClass('edit'), 'Edit mode');
 
-  // Form has current unit values
-  assert.equal($component.find('.edit .panel-heading .title input').val(), '', 'Lesson title');
+  // Form has current lesson values
+  const $titleField = $component.find('.edit .panel-heading .title');
+  assert.equal($titleField.find('input').val(), '', 'Lesson title');
 
-  $component.find('.edit .panel-heading .title input').val(title);
-  $component.find('.edit .panel-heading .title input').blur();
+  $titleField.find('input').blur();
+  assert.ok($titleField.find('.error-messages .error').length, 'Error message should exist');
+
+  $titleField.find('input').val(title);
+  $titleField.find('input').blur();
+
+  assert.ok(!$titleField.find('.error-messages .error').length, 'Error message should not exist');
 
   const $saveButton = $component.find('.edit .panel-heading .actions button:eq(1)');
   Ember.run(() => {
@@ -214,7 +220,8 @@ test('it shows an error message if it fails to create a new lesson', function (a
   });
 
   const tempLesson = Lesson.create(Ember.getOwner(this).ownerInjection(), {
-    id: ''
+    id: '',
+    title: 'Lesson Title'
   });
 
   this.set('lesson', lesson);

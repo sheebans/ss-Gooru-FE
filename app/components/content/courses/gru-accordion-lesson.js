@@ -67,22 +67,28 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       var editedLesson = this.get('tempLesson');
       var lessonService = this.get('lessonService');
 
-      // Saving an existing lesson or a new lesson (falsey id)?
-      var savePromise = editedLesson.get('id') ?
-                          lessonService.updateLesson(courseId, unitId, editedLesson) :
-                            lessonService.createLesson(courseId, unitId, editedLesson);
+      editedLesson.validate().then(function ({ validations }) {
+        if (validations.get('isValid')) {
+          // Saving an existing lesson or a new lesson (falsey id)?
+          let savePromise = editedLesson.get('id') ?
+                              lessonService.updateLesson(courseId, unitId, editedLesson) :
+                                lessonService.createLesson(courseId, unitId, editedLesson);
 
-      savePromise
-        .then(function () {
-          this.set('lesson', editedLesson);
-          this.set('model.isEditing', false);
-        }.bind(this))
+          savePromise
+            .then(function () {
+              this.set('lesson', editedLesson);
+              this.set('model.isEditing', false);
+            }.bind(this))
 
-        .catch(function (error) {
-          var message = this.get('i18n').t('common.errors.lesson-not-created').string;
-          this.get('notifications').error(message);
-          Ember.Logger.error(error);
-        }.bind(this));
+            .catch(function (error) {
+              var message = this.get('i18n').t('common.errors.lesson-not-created').string;
+              this.get('notifications').error(message);
+              Ember.Logger.error(error);
+            }.bind(this));
+
+        }
+        this.set('didValidate', true);
+      }.bind(this));
     },
 
     toggle: function () {
