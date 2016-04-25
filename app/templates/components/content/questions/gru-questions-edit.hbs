@@ -105,7 +105,7 @@
               <button class="add-image btn btn-sm btn-primary">{{t "common.add-question-image"}}</button>
           {{else}}
             {{#if question.text}}
-              {{textarea  value=question.text class="form-control" rows="10" readonly=true}}
+              {{textarea class="text-question" value=question.text class="form-control" rows="10" readonly=true}}
               {{else}}
               <p class="text-empty">{{t 'common.nothing-to-display-message'}}</p>
             {{/if}}

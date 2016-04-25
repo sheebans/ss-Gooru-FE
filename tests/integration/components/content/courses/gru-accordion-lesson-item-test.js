@@ -53,16 +53,16 @@ test('it renders a lesson item correctly -collection', function (assert) {
   assert.equal($titleContainer.find('> div > span').text(), lessonItem.get('format'), 'Type');
 
   const $detailContainer = $heading.find('> .detail');
-  assert.equal($detailContainer.find('> span').length, 1, 'Detail text sections');
-  assert.equal($detailContainer.find('> span').text(), '0 ' + this.get('i18n').t('common.resource-pl', { count: 0}).string, 'Detail text');
+  assert.equal($detailContainer.find('> div:first-child > span').length, 1, 'Detail text sections');
+  assert.equal($detailContainer.find('> div:first-child > span').text(), '0 ' + this.get('i18n').t('common.resource-pl', { count: 0}).string, 'Detail text');
 
   // Several questions
   Ember.run(() => {
     lessonItem.set('questionCount', 5);
   });
 
-  assert.equal($detailContainer.find('> span').length, 2, 'Detail text sections');
-  assert.equal($detailContainer.find('> span').text(),
+  assert.equal($detailContainer.find('> div:first-child > span').length, 2, 'Detail text sections');
+  assert.equal($detailContainer.find('> div:first-child > span').text(),
     '0 ' + this.get('i18n').t('common.resource-pl', { count: 0}).string +
     '5 ' + this.get('i18n').t('common.question-pl', { count: 5}).string, 'Detail text');
 
@@ -94,15 +94,15 @@ test('it renders an assessment detail correctly', function (assert) {
   assert.ok($component.length, 'Component');
 
   const $detailContainer = $component.find('.view .panel-heading > .detail');
-  assert.equal($detailContainer.find('> span').length, 1, 'Detail text sections');
-  assert.equal($detailContainer.find('> span').text(), '0 ' + this.get('i18n').t('common.question-pl', { count: 0}).string, 'Detail text');
+  assert.equal($detailContainer.find('> div:first-child > span').length, 1, 'Detail text sections');
+  assert.equal($detailContainer.find('> div:first-child > span').text(), '0 ' + this.get('i18n').t('common.question-pl', { count: 0}).string, 'Detail text');
 
   // Several resources
   Ember.run(() => {
     lessonItem.set('resourceCount', 5);
   });
 
-  assert.equal($detailContainer.find('> span').length, 1, 'Detail text sections -resources not listed');
-  assert.equal($detailContainer.find('> span').text(), '0 ' + this.get('i18n').t('common.question-pl', { count: 0}).string, 'Detail text -resources not listed');
+  assert.equal($detailContainer.find('> div:first-child > span').length, 1, 'Detail text sections -resources not listed');
+  assert.equal($detailContainer.find('> div:first-child > span').text(), '0 ' + this.get('i18n').t('common.question-pl', { count: 0}).string, 'Detail text -resources not listed');
 });
 

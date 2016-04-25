@@ -18,6 +18,8 @@ export default Ember.Component.extend({
    */
   notifications: Ember.inject.service(),
 
+  classService: Ember.inject.service('api-sdk/class'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -34,9 +36,22 @@ export default Ember.Component.extend({
       this.set("selectedCourse", id);
       $('.gru-quick-course-search .selected').removeClass('selected');
       $('.'+id).addClass('selected');
-      console.log(this.get('selectedCourse'));
-    }
-
+    },
+    assignCourse:function(){
+      const component = this;
+      const courseId = component.get('selectedCourse');
+      const classId = component.get('model.classId');
+      component.get('classService')
+      .associateCourseToClass(courseId,classId)
+      .then(function(){
+          component.triggerAction({ action: 'closeModal' });
+          component.get('router').transitionTo('class.overview', classId, { queryParams: { refresh: true } });
+        },
+        function () {
+          const message = component.get('i18n').t('common.errors.course-not-associated').string;
+          component.get('notifications').error(message);
+        });
+      }
   },
 
   // -------------------------------------------------------------------------
@@ -44,7 +59,6 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-
   },
 
 
@@ -54,11 +68,6 @@ export default Ember.Component.extend({
    * @type {?String} specific class
    */
   'component-class': null,
-
-  /**
-   * @type {Array} courses
-   */
-  courses: null,
 
   /**
    * @type {String} selected Course's ID

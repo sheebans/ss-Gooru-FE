@@ -1,41 +1,43 @@
-<div class="panel panel-default edit">
-  <div class="panel-heading">
+{{#if model.isEditing}}
+  <div class="panel panel-default edit">
+    <div class="panel-heading">
 
-    {{#if unit.id}}
-      <h3>{{t "common.unit"}} {{plus-one index}}</h3>
-    {{else}}
-      <h3>{{t "common.unit"}} {{totalItems}}</h3>
-    {{/if}}
+      {{#if unit.id}}
+        <h3>{{t "common.unit"}} {{plus-one index}}</h3>
+      {{else}}
+        <h3>{{t "common.unit"}} {{totalItems}}</h3>
+      {{/if}}
 
-    {{validation.gru-input model=unit valuePath='title'}}
+      {{validation.gru-input model=tempUnit valuePath='title' class="title"}}
 
-    <div class="actions">
-      <button class="cancel btn btn-info"  {{action 'cancelEdit'}}>{{t "common.cancel"}}</button>
-      <button class="save btn btn-success" {{action 'saveUnit'}}>{{t "common.save"}}</button>
-    </div>
-  </div>
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-sm-6">
-        <label>
-          <span>{{t "content.courses.edit.big-ideas"}}</span>
-          <textarea>{{unit.bigIdeas}}</textarea>
-        </label>
-      </div>
-      <div class="col-sm-6">
-        <label>
-          <span>{{t "content.courses.edit.essential-questions"}}</span>
-          <textarea>{{unit.essentialQuestions}}</textarea>
-        </label>
+      <div class="actions">
+        <button class="cancel btn btn-info"  {{action 'cancelEdit'}}>{{t "common.cancel"}}</button>
+        <button class="save btn btn-success" {{action 'saveUnit'}}>{{t "common.save"}}</button>
       </div>
     </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-6 big-ideas">
+          <label>
+            <span>{{t "content.courses.edit.big-ideas"}}</span>
+            {{textarea value=tempUnit.bigIdeas}}
+          </label>
+        </div>
+        <div class="col-sm-6 essential-questions">
+          <label>
+            <span>{{t "content.courses.edit.essential-questions"}}</span>
+            {{textarea value=tempUnit.essentialQuestions}}
+          </label>
+        </div>
+      </div>
 
-    <div class="data-row domain">
-      <span>{{t "common.domain"}}</span>
-      <button type="button" class="btn btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
+      <div class="data-row domain">
+        <span>{{t "common.domain"}}</span>
+        <button type="button" class="btn btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
+      </div>
     </div>
   </div>
-</div>
+{{/if}}
 
 <div class="panel panel-default view {{if model.isExpanded 'expanded' 'collapsed'}}">
   <div class="panel-heading">

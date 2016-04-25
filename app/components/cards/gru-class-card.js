@@ -18,10 +18,15 @@ export default Ember.Component.extend({
   classStudentCount: null,
 
   /**
+   * @property {Profile}
+   */
+  profile: null,
+
+  /**
    * @property {Number} Count of collaborators in the class
    */
-  collaboratorsCount: Ember.computed('class.collaborator', function() {
-    const collaborators = this.get('class.collaborator');
+  collaboratorsCount: Ember.computed('class.collaborators', function() {
+    const collaborators = this.get('class.collaborators');
     return (collaborators && collaborators.length > 1) ? collaborators.length - 1 : 0;
   }),
 
