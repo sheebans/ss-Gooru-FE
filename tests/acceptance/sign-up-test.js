@@ -195,3 +195,29 @@ test('it shows an error message if the password and rePassword fields do not mat
     });
   });
 });
+
+test('it shows an error message if the last name field has special characters and numbers', function (assert) {
+  visit('/sign-up');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-up');
+
+
+    const $signUpContainer = find(".sign-up");
+    const $lastNameField = $signUpContainer.find(".gru-input.lastName");
+
+    // Invalid
+    $lastNameField.find("input").val('lastname#1');
+    $lastNameField.find("input").blur();
+    return wait().then(function () {
+
+      assert.ok($lastNameField.find(".error-messages .error").length, 'lastName error message visible');
+      // Valid
+      $lastNameField.find("input").val('lastname');
+      $lastNameField.find("input").blur();
+      return wait().then(function () {
+        assert.ok(!$lastNameField.find(".error-messages .error").length, 'lastName error message was hidden');
+      });
+    });
+  });
+});
