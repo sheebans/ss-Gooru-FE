@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
+import ResourceModel from 'gooru-web/models/content/resource';
 
 moduleForService('service:api-sdk/resource', 'Unit | Service | api-sdk/resource', {
 
@@ -55,4 +56,29 @@ test('readResource', function(assert) {
 
   var done = assert.async();
   service.readResource(1).then(function() { done(); });
+});
+
+test('updateResource', function(assert) {
+  const service = this.subject();
+  const expectedResourceId = 'resource-id';
+  const expectedResourceModel = ResourceModel.create({ title: 'Resource title' });
+
+  assert.expect(2);
+
+  service.set('resourceAdapter', Ember.Object.create({
+    updateResource: function(resourceId) {
+      assert.equal(resourceId, expectedResourceId, "Wrong resource id" );
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  service.set('resourceSerializer', Ember.Object.create({
+    serializeUpdateResource: function(resourceObject) {
+      assert.deepEqual(resourceObject, expectedResourceModel, 'Wrong resource object');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.updateResource(expectedResourceId, expectedResourceModel).then(function() { done(); });
 });
