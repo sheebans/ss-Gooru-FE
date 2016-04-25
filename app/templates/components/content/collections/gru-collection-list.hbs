@@ -23,9 +23,9 @@
       <div class="dropdown">
         <button class="btn btn-primary add-item dropdown-toggle" type="button" data-toggle="dropdown">{{gru-icon name="add"}}</button>
         <ul class="dropdown-menu dropdown-menu-right">
-          <li><a href="#">{{t "common.from-my-resources"}}</a></li>
+          {{#if isCollection}} <li><a href="#">{{t "common.from-my-resources"}}</a></li> {{/if}}
           <li><a href="#">{{t "common.from-my-questions"}}</a></li>
-          <li><a href="#">{{t "common.new-resource"}}</a></li>
+          {{#if isCollection}} <li><a href="#">{{t "common.new-resource"}}</a></li> {{/if}}
           <li><a href="#">{{t "common.new-question"}}</a></li>
         </ul>
       </div>
@@ -48,9 +48,9 @@
   {{/each}}
 
   <div>
-    <button class="btn btn-success add-prefix">{{t "common.from-my-resources"}}</button>
+    {{#if isCollection}} <button class="btn btn-success add-prefix">{{t "common.from-my-resources"}}</button> {{/if}}
     <button class="btn btn-success add-prefix">{{t "common.from-my-questions"}}</button>
-    <button class="btn btn-success add-prefix">{{t "common.new-resource"}}</button>
+    {{#if isCollection}} <button class="btn btn-success add-prefix">{{t "common.new-resource"}}</button> {{/if}}
     <button class="btn btn-success add-prefix">{{t "common.new-question"}}</button>
     <span>{{t "common.drag-drop-suggestions"}}</span>
   </div>
