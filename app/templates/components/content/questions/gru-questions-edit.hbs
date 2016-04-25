@@ -96,7 +96,7 @@
         <div class="panel-heading">
             <div>
                 <h3>{{t "common.question"}}</h3>
-                <span class="instructions">{{t (concat 'common.question-edit-instructions-' question.type)}}</span>
+                <span class="instructions">{{t (concat 'content.questions.edit.builder.question-instructions.' question.type)}}</span>
             </div>
         </div>
         <div class="panel-body">
@@ -121,7 +121,7 @@
         </div>
         <div class="panel-body">
           {{#if isBuilderEditing}}
-            {{component (questionAnswerConfig question.type 'component.answer')}}
+            {{component (questionConfig question.type 'component.builder_answer')}}
               <button class="add-hint btn btn-sm btn-primary">{{t "content.questions.edit.builder.add-hint"}}</button>
               <button class="add-explanation btn btn-sm btn-primary">{{t "content.questions.edit.builder.add-explanation"}}</button>
           {{else}}

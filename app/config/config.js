@@ -1,4 +1,3 @@
-import Ember from 'ember';
 export const AUDIENCES = [
   {value: 1, label: 'common.audienceList.all'},
   {value: 2, label: 'common.audienceList.english-language-learners'},
@@ -97,72 +96,3 @@ export const REAL_TIME_CLIENT = {
   OUTGOING_HEARTBEAT: 5000,
   INCOMING_HEARTBEAT: 5000
 };
-//Question answer configuration by type
-export const QUESTION_ANSWER_CONFIG = {
-  'MC'    : Ember.Object.create({
-    component: {
-      answer: 'content.questions.answers.gru-multiple-choice'
-    }
-  }),
-  'MA'    : Ember.Object.create({
-    component: {
-      answer: 'content.questions.answers.gru-multiple-answer'
-    }
-  }),
-  'T/F'   : Ember.Object.create({
-    component: {
-      answer: 'content.questions.answers.gru-true-false',
-    }
-  }),
-  'OE'    : Ember.Object.create({
-    component: {
-      answer: 'content.questions.answers.gru-open-ended',
-    }
-  }),
-  'FIB'   : Ember.Object.create({
-    component: {
-      answer: 'content.questions.answers.gru-fib',
-    }
-  }),
-  'HS_TXT': Ember.Object.create({
-    component: {
-      answer: 'content.questions.answers.gru-hs-text',
-    }
-  }),
-  'HS_IMG': Ember.Object.create({
-    component: {
-      answer: 'content.questions.answers.gru-hs-image',
-    }
-  }),
-  'HT_RO' : Ember.Object.create({
-    component: {
-      answer: 'content.questions.answers.gru-reorder',
-    }
-  }),
-  'HT_HL' : Ember.Object.create({
-    component: {
-      answer: 'content.questions.answers.gru-hot-text-highlight',
-    }
-  })
-};
-
-/**
- * Returns the question answer config information
- * @param {string} questionType
- * @param {string} propertyPath a valid property path inside the question config object
- */
-export function getQuestionAnswerConfig(questionType, propertyPath){
-
-  let config = QUESTION_ANSWER_CONFIG[questionType];
-  if (!config) {
-    Ember.Logger.error('Questions of type ' + questionType + ' are currently not supported');
-  }
-  else if (propertyPath && !config.get(propertyPath)){
-    Ember.Logger.error('Property not found ' + propertyPath + ' for question type ' + questionType);
-  }
-  else{
-    config = propertyPath ? config.get(propertyPath) : config;
-  }
-
-  return config;
-}
