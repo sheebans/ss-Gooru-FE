@@ -378,7 +378,7 @@ export default {
       }
     },
     "quick-start":{
-      "title": "How do you want to add a course",
+      "title": "How do you want to add a course?",
       "new-course": "Quick Start a New Course",
       "new-course-desc": "Jump start to add a collection or assessment",
       "new-collection": "New Collection",
