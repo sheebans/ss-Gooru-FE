@@ -61,32 +61,26 @@ export default Ember.Route.extend({
   },
 
   model: function () {
-    //const currentClass = this.modelFor('class').class;
-    const units = this.modelFor('class').units;
+    const currentClass = this.modelFor('class').class;
     const course = this.modelFor('class').course;
-    //var userId = this.get('session.userId');
-    var userLocation = Ember.RSVP.resolve('');
-    //if (currentClass.isStudent(userId)) {
-    let isTeacher = false;
-    let userId = this.get('session.userId');
-    let userLocation = Ember.RSVP.resolve('');
-    if (currentClass.isStudent(userId)) {
+    const units = this.modelFor('class').units;
+    const userId = this.get('session.userId');
+    const isTeacher = currentClass.isTeacher(userId);
 
+    let userLocation = Ember.RSVP.resolve('');
+    /*
+    if (currentClass.isStudent(userId)) {
       // Get the user location in a course only if the user is enrolled
       // as a student for the course
-      //userLocation = this.get("courseLocationService").findOneByUser(userId);
-    //}
-
-    if(currentClass.isTeacher(userId)){
-        isTeacher=true;
+      userLocation = this.get("courseLocationService").findOneByUser(userId);
     }
+    */
 
     return Ember.RSVP.hash({
       userLocation: userLocation,
+      course: course,
       units: units,
-      course: course
-      units: units,
-      isTeacher:isTeacher,
+      isTeacher: isTeacher,
       currentClass: currentClass
     });
   },
