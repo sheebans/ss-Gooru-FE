@@ -31,6 +31,7 @@ export const QUESTION_CONFIG = {
     component: {
       player: 'player.questions.gru-multiple-choice',
       answer: 'reports.assessment.questions.gru-multiple-choice',
+      builder_answer:'content.questions.answers.gru-multiple-choice'
     }
   }),
   'MA'    : Ember.Object.create({
@@ -39,6 +40,7 @@ export const QUESTION_CONFIG = {
     component: {
       player: 'player.questions.gru-multiple-answer',
       answer: 'reports.assessment.questions.gru-multiple-answer',
+      builder_answer:'content.questions.answers.gru-multiple-answer'
     }
   }),
   'T/F'   : Ember.Object.create({
@@ -47,6 +49,7 @@ export const QUESTION_CONFIG = {
     component: {
       player: 'player.questions.gru-true-false',
       answer: 'reports.assessment.questions.gru-true-false',
+      builder_answer:'content.questions.answers.gru-true-false'
     }
   }),
   'OE'    : Ember.Object.create({
@@ -55,6 +58,7 @@ export const QUESTION_CONFIG = {
     component: {
       player: 'player.questions.gru-open-ended',
       answer: 'reports.assessment.questions.gru-open-ended',
+      builder_answer:'content.questions.answers.gru-open-ended'
     }
   }),
   'FIB'   : Ember.Object.create({
@@ -63,6 +67,7 @@ export const QUESTION_CONFIG = {
     component: {
       player: 'player.questions.gru-fib',
       answer: 'reports.assessment.questions.gru-fib',
+      builder_answer:'content.questions.answers.gru-fib'
     }
   }),
   'HS_TXT': Ember.Object.create({
@@ -71,6 +76,7 @@ export const QUESTION_CONFIG = {
     component: {
       player: 'player.questions.gru-hs-text',
       answer: 'reports.assessment.questions.gru-hs-text',
+      builder_answer:'content.questions.answers.gru-hs-text'
     }
   }),
   'HS_IMG': Ember.Object.create({
@@ -79,6 +85,7 @@ export const QUESTION_CONFIG = {
     component: {
       player: 'player.questions.gru-hs-image',
       answer: 'reports.assessment.questions.gru-hs-image',
+      builder_answer:'content.questions.answers.gru-hs-image'
     }
   }),
   'HT_RO' : Ember.Object.create({
@@ -87,6 +94,7 @@ export const QUESTION_CONFIG = {
     component: {
       player: 'player.questions.gru-reorder',
       answer: 'reports.assessment.questions.gru-reorder',
+      builder_answer:'content.questions.answers.gru-reorder'
     }
   }),
   'HT_HL' : Ember.Object.create({
@@ -95,6 +103,7 @@ export const QUESTION_CONFIG = {
     component: {
       player: 'player.questions.gru-hot-text-highlight',
       answer: 'reports.assessment.questions.gru-hot-text-highlight',
+      builder_answer:'content.questions.answers.gru-hot-text-highlight'
     }
   })
 };
