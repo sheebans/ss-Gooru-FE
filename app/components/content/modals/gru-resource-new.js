@@ -11,6 +11,11 @@ export default Ember.Component.extend({
   resourceService: Ember.inject.service("api-sdk/resource"),
 
   /**
+   * @property {CollectionService} Collection service API SDK
+   */
+  collectionService: Ember.inject.service("api-sdk/collection"),
+
+  /**
    * @property {Service} I18N service
    */
   i18n: Ember.inject.service(),
@@ -35,14 +40,27 @@ export default Ember.Component.extend({
     createResource: function (type) {
       const component = this;
       const resource = this.get('resource');
-
       resource.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
           var resourceService = component.get('resourceService');
+          let resourceId;
           resourceService.createResource(resource)
             .then(function (newResource) {
+                resourceId = newResource.get('id');
+                if(component.get('model')) {
+                  return component.get('resourceService').copyResource(resourceId)
+                    .then(function(copyResourceId) {
+                      component.get('collectionService').addResource(
+                        component.get('model').get('id'), copyResourceId
+                      );
+                    });
+                } else {
+                  return Ember.RSVP.resolve(true);
+                }
+            })
+            .then(function(){
                 if(type==="edit"){
-                  component.onNewResource(newResource);
+                  component.onNewResource(resourceId);
                 }else{
                   component.get('router').router.refresh();
                   component.triggerAction({ action: 'closeModal' });
@@ -123,10 +141,10 @@ export default Ember.Component.extend({
    * After a resource is saved
    * @param {Resource} newResource
    */
-  onNewResource: function(newResource){
+  onNewResource: function(newResourceId){
     const component = this;
     component.triggerAction({ action: 'closeModal' });
-    component.get('router').transitionTo('content.resources.edit', newResource.get('id'));
+    component.get('router').transitionTo('content.resources.edit', newResourceId);
   },
 
   /**

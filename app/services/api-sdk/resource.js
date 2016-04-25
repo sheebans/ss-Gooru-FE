@@ -70,5 +70,20 @@ export default Ember.Service.extend({
         resolve(serializer.normalizeReadResource(responseData));
       }, reject );
     });
+  },
+
+  /**
+   * Copies a resources by id
+   * @param {string} resourceId
+   * @returns {Ember.RSVP.Promise}
+   */
+  copyResource: function(resourceId){
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('resourceAdapter').copyResource(resourceId)
+        .then(function(responseData, textStatus, request) {
+          resolve(request.getResponseHeader('location'));
+        }, reject );
+    });
   }
 });
