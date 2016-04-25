@@ -56,7 +56,7 @@ export default Ember.Object.extend(Validations, {
    * Return a copy of the unit for editing
    *
    * @function
-   * @return {Course}
+   * @return {Content/Unit}
    */
   copy: function() {
 

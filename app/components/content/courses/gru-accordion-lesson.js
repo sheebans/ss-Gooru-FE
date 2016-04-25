@@ -51,21 +51,30 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       if (this.get('model.isNew')) {
         this.get('onCancelAddLesson')(this.get('model'));
       } else {
-        // TODO: If the item already exists, set it's 'editing' flag to false
-        // and restore its model
-        //this.set('model.isEditing', false);
+        this.set('model.isEditing', false);
       }
+    },
+
+    edit: function () {
+      var lessonForEditing = this.get('lesson').copy();
+      this.set('tempLesson', lessonForEditing);
+      this.set('model.isEditing', true);
     },
 
     saveLesson: function () {
       var courseId = this.get('courseId');
       var unitId = this.get('unitId');
-      var lesson = this.get('lesson');
+      var editedLesson = this.get('tempLesson');
+      var lessonService = this.get('lessonService');
 
-      this.get('lessonService')
-        .createLesson(courseId, unitId, lesson)
+      // Saving an existing lesson or a new lesson (falsey id)?
+      var savePromise = editedLesson.get('id') ?
+                          lessonService.updateLesson(courseId, unitId, editedLesson) :
+                            lessonService.createLesson(courseId, unitId, editedLesson);
 
+      savePromise
         .then(function () {
+          this.set('lesson', editedLesson);
           this.set('model.isEditing', false);
         }.bind(this))
 
@@ -105,14 +114,20 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   lesson: Ember.computed.alias('model.data'),
 
   /**
+   * @prop {Object} newCollectionModel - model for the new collection/assessment modals
+   */
+  newCollectionModel: null,
+
+  /**
+   * @prop {Content/Lesson} tempLesson - Temporary lesson model used for editing
+   */
+  tempLesson: null,
+
+  /**
    * @prop {String} unitId - ID of the unit this lesson belongs to
    */
   unitId: null,
 
-  /**
-   * @prop {Object} newCollectionModel - model for the new collection/assessment modals
-   */
-  newCollectionModel: null,
 
   // -------------------------------------------------------------------------
   // Methods

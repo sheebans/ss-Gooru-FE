@@ -44,7 +44,18 @@ const lessonServiceStub = Ember.Service.extend({
     } else {
       return Ember.RSVP.reject('Fetch failed');
     }
+  },
+
+  updateLesson(courseId, unitId, lesson) {
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      if (courseId === 'course-id-fail' || !unitId || !lesson) {
+        reject({status: 500});
+      } else {
+        resolve(lesson);
+      }
+    });
   }
+
 });
 
 moduleForComponent('content/courses/gru-accordion-lesson', 'Integration | Component | content/courses/gru accordion lesson', {
@@ -77,6 +88,7 @@ test('it renders a form for creating a new lesson', function (assert) {
 
   const $heading = $component.find('.edit .panel-heading');
   assert.ok($heading.find('h3').text(), this.get('i18n').t('common.lesson').string + " " + this.get('totalItems'), 'Header prefix');
+  assert.ok($heading.find('.title').text(), '', 'Empty title');
   assert.equal($heading.find('.actions button').length, 2, 'Unit header action buttons');
   assert.ok($heading.find('.actions button:eq(0)').hasClass('cancel'), 'First button is cancel');
   assert.ok($heading.find('.actions button:eq(1)').hasClass('save'), 'Second button is save');
@@ -87,11 +99,13 @@ test('it renders a form for creating a new lesson', function (assert) {
 
 test('it can create a new lesson', function (assert) {
 
+  const title = 'New Lesson';
+
   var lesson = BuilderItem.create({
     data: Lesson.create(Ember.getOwner(this).ownerInjection(), {
       id: 0
     }),
-    isEditing: true
+    isEditing: false
   });
 
   this.set('lesson', lesson);
@@ -104,12 +118,81 @@ test('it can create a new lesson', function (assert) {
 
   const $component = this.$('.content.courses.gru-accordion.gru-accordion-lesson');
   assert.ok($component.length, 'Component');
+  assert.ok($component.hasClass('view'), 'View mode');
+
+  const $editButton = $component.find('.view .detail .item-actions .btn.edit-item');
+
+  Ember.run(() => {
+    $editButton.click();
+  });
+
+  assert.ok($component.hasClass('edit'), 'Edit mode');
+
+  // Form has current unit values
+  assert.equal($component.find('.edit .panel-heading .title input').val(), '', 'Lesson title');
+
+  $component.find('.edit .panel-heading .title input').val(title);
+  $component.find('.edit .panel-heading .title input').blur();
 
   const $saveButton = $component.find('.edit .panel-heading .actions button:eq(1)');
-  $saveButton.click();
+  Ember.run(() => {
+    $saveButton.click();
+  });
+
+  const $heading = $component.find('.view .panel-heading');
+  assert.equal($heading.find('strong').text(), title, 'Unit title updated');
 
   lesson = this.get('lesson');
   assert.equal(lesson.get('data.id'), 'lesson-id-123', 'Lesson ID updated after saving');
+  assert.equal(lesson.get('isEditing'), false, 'Lesson is no longer editable');
+});
+
+test('it can edit an existing lesson', function (assert) {
+
+  const title = 'Lesson Title Updated';
+
+  var lesson = BuilderItem.create({
+    data: Lesson.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'lesson-123',
+      title: 'Lesson Title'
+    }),
+    isEditing: false
+  });
+
+  this.set('lesson', lesson);
+  this.set('courseId', 'course-id-123');
+  this.set('unitId', 'unit-id-456');
+  this.render(hbs`{{content/courses/gru-accordion-lesson
+     courseId=courseId
+     unitId=unitId
+     model=lesson }}`);
+
+  const $component = this.$('.content.courses.gru-accordion.gru-accordion-lesson');
+  assert.ok($component.length, 'Component');
+  assert.ok($component.hasClass('view'), 'View mode');
+
+  const $editButton = $component.find('.view .detail .item-actions .btn.edit-item');
+
+  Ember.run(() => {
+    $editButton.click();
+  });
+
+  assert.ok($component.hasClass('edit'), 'Edit mode');
+
+  // Form has current lesson values
+  assert.equal($component.find('.edit .panel-heading .title input').val(), lesson.get('data.title'), 'Lesson title');
+
+  $component.find('.edit .panel-heading .title input').val(title);
+  $component.find('.edit .panel-heading .title input').blur();
+
+  const $saveButton = $component.find('.edit .panel-heading .actions button:eq(1)');
+
+  Ember.run(() => {
+    $saveButton.click();
+  });
+
+  const $heading = $component.find('.view .panel-heading');
+  assert.equal($heading.find('strong').text(), title, 'Lesson title updated');
   assert.equal(lesson.get('isEditing'), false, 'Lesson is no longer editable');
 });
 
@@ -126,20 +209,23 @@ test('it shows an error message if it fails to create a new lesson', function (a
   }));
   this.inject.service('notifications');
 
-  var lesson = BuilderItem.create({
-    data: Lesson.create(Ember.getOwner(this).ownerInjection(), {
-      id: ''
-    }),
+  const lesson = BuilderItem.create({
     isEditing: true
   });
 
+  const tempLesson = Lesson.create(Ember.getOwner(this).ownerInjection(), {
+    id: ''
+  });
+
   this.set('lesson', lesson);
+  this.set('tempLesson', tempLesson);
   this.set('unitId', 'unit-id-123');
   this.set('courseId', 'course-id-fail');
   this.render(hbs`{{content/courses/gru-accordion-lesson
     courseId=courseId
     unitId=unitId
-    model=lesson }}`);
+    model=lesson
+    tempLesson=tempLesson }}`);
 
   const $component = this.$('.content.courses.gru-accordion.gru-accordion-lesson');
   assert.ok($component.length, 'Component');
@@ -152,18 +238,19 @@ test('it renders a form when editing an existing lesson', function (assert) {
 
   // Unit model
   const lesson = BuilderItem.create({
-    data: Lesson.create(Ember.getOwner(this).ownerInjection(), {
-      id: '123',
-      title: 'Sample Lesson Name',
-      taxonomy: [],
-      sequence: 3
-    }),
     isEditing: true
+  });
+
+  const tempLesson = Lesson.create(Ember.getOwner(this).ownerInjection(), {
+    id: '123',
+    title: 'Sample Lesson Name',
+    taxonomy: [],
+    sequence: 3
   });
 
   this.set('lesson', lesson);
   this.set('index', 2);
-  this.render(hbs`{{content/courses/gru-accordion-lesson model=lesson }}`);
+  this.render(hbs`{{content/courses/gru-accordion-lesson model=lesson tempLesson=tempLesson index=index }}`);
 
   const $component = this.$('.content.courses.gru-accordion.gru-accordion-lesson');
   assert.ok($component.length, 'Component');
