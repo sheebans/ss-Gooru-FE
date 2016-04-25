@@ -442,7 +442,8 @@ export default {
       "add-explanation":"Add Explanation",
       "answer":"Answer",
       "answer-instructions":{
-        "FIB":"Add up to 5 hints for answer and an explanation."
+        "FIB":"Add up to 5 hints for answer and an explanation.",
+        "MC":"You can add up ten answers choices and indicate one correct answer.Character Limit: 200."
       },
       "question-instructions":{
         "FIB":"As you write the question, use brackets for your fill-in-the-blank answers. For example: “The big bad [wolf] blew down the [house].” You can also add an image.Character Limit: 5000.",

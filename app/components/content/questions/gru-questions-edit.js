@@ -25,9 +25,6 @@ export default Ember.Component.extend(ContentEditMixin,{
   tagName: 'article',
 
   // -------------------------------------------------------------------------
-  // Dependencies
-
-  // -------------------------------------------------------------------------
   // Actions
   actions:{
     /**
@@ -132,8 +129,7 @@ export default Ember.Component.extend(ContentEditMixin,{
     return array;
   }),
   /**
-   * Toggle Options
-   * @property {Boolean}
+   * @property {Boolean} isBuilderEditing
    */
   isBuilderEditing :false,
 

@@ -8,7 +8,7 @@
     }
     .panel {
       border-radius: 6px;
-
+      margin-bottom: 30px;
       .panel-heading {
         border-top-right-radius: 6px;
         border-top-left-radius: 6px;
@@ -23,7 +23,6 @@
         }
       }
       .panel-body{
-        margin-bottom: 30px;
         .text-empty{
           font-size: $font-size-large;
         }

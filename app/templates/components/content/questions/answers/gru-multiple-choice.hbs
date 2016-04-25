@@ -1,1 +1,17 @@
-{{yield}}
+{{#each multipleChoiceAnswers as |answer index|}}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h3>{{answer-letter index}}</h3>
+        <div>
+          {{textarea valuePath='text' rows=2 maxlength=200}}
+        </div>
+        <div class="detail">
+            <button class="btn delete-item" {{action 'delete' model}}>{{gru-icon name="delete"}}</button>
+            <div>{{gru-icon name="done"}}</div>
+        </div>
+    </div>
+</div>
+{{/each}}
+<div class="panel panel-default add-answer text-center">
+    <span>+ Add Answer Choice</span>
+</div>
