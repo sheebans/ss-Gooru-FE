@@ -168,7 +168,7 @@ const ResourceModel = Ember.Object.extend(Validations,{
     for (let i = 0; i < enumerableKeys.length; i++) {
       let key = enumerableKeys[i];
       let value = Ember.typeOf(this.get(key));
-      if (value === 'string' || value === 'number' || value === 'boolean' || value === 'array' || value === 'object') {
+      if (value === 'string' || value === 'number' || value === 'boolean') {
         properties.push(key);
       }
     }
@@ -176,6 +176,13 @@ const ResourceModel = Ember.Object.extend(Validations,{
     // Copy the resource data
     properties = this.getProperties(properties);
 
+    let standards = this.get('standards');
+    let metadata = this.get('metadata');
+
+    // Copy standards and metadata values
+    properties.standards = standards.slice(0);
+    properties.metadata = JSON.parse(JSON.stringify(metadata));
+    
     return ResourceModel.create(Ember.getOwner(this).ownerInjection(), properties);
   }
 
