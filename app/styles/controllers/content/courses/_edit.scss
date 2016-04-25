@@ -335,6 +335,18 @@
           }
         }
       }
+
+      &.edit {
+        > .edit > .panel-heading {
+          .gru-input {
+            width: 62%;
+
+            .form-group {
+              width: 100%;
+            }
+          }
+        }
+      }
     }
   }
 }
