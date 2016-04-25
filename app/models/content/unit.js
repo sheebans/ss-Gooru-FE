@@ -50,6 +50,30 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {String[]} taxonomy - Taxonomy array
    */
-  taxonomy: null
+  taxonomy: null,
+
+  /**
+   * Return a copy of the unit for editing
+   *
+   * @function
+   * @return {Course}
+   */
+  copy: function() {
+
+    var properties = [];
+    var enumerableKeys = Object.keys(this);
+
+    for (let i = 0; i < enumerableKeys.length; i++) {
+      let key = enumerableKeys[i];
+      let value = Ember.typeOf(this.get(key));
+      if (value === 'string' || value === 'number' || value === 'boolean') {
+        properties.push(key);
+      }
+    }
+
+    // Copy the unit data
+    properties = this.getProperties(properties);
+    return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
+  }
 
 });

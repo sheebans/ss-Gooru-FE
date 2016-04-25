@@ -7,14 +7,17 @@ const Validations = buildValidations({
     validators: [
       validator('presence', {
         presence: true,
-        message:'Please enter a valid URL.'
+        message: '{{description}}',
+        descriptionKey: 'common.errors.resource-missing-url'
       }),
       validator('format', {
         type: 'url',
-        message: 'Invalid URL.'
+        message: '{{description}}',
+        descriptionKey: 'common.errors.resource-invalid-url'
       }),
-      validator('host',{
-        message:'Resources can not be Gooru\'s URLs.',
+      validator('host', {
+        message: '{{description}}',
+        descriptionKey: 'common.errors.resource-same-host-url',
         location: window.location.hostname
       })
     ]
@@ -23,7 +26,17 @@ const Validations = buildValidations({
     validators: [
       validator('presence', {
         presence: true,
-        message:'Please enter a resource title.'
+        message: '{{description}}',
+        descriptionKey: 'common.errors.resource-missing-title'
+      })
+    ]
+  },
+  format: {
+    validators: [
+      validator('presence', {
+        presence: true,
+        message: '{{description}}',
+        descriptionKey: 'common.errors.resource-missing-type'
       })
     ]
   }
@@ -134,8 +147,32 @@ const ResourceModel = Ember.Object.extend(Validations,{
       }
     }
     return resourceType;
-  })
+  }),
 
+  /**
+   * Return a copy of the resource
+   *
+   * @function
+   * @return {Resourse}
+   */
+  copy: function() {
+
+    var properties = [];
+    var enumerableKeys = Object.keys(this);
+
+    for (let i = 0; i < enumerableKeys.length; i++) {
+      let key = enumerableKeys[i];
+      let value = Ember.typeOf(this.get(key));
+      if (value === 'string' || value === 'number' || value === 'boolean') {
+        properties.push(key);
+      }
+    }
+
+    // Copy the resource data
+    properties = this.getProperties(properties);
+
+    return ResourceModel.create(Ember.getOwner(this).ownerInjection(), properties);
+  }
 
 });
 

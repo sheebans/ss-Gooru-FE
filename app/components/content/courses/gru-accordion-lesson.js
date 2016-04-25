@@ -128,12 +128,6 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       let courseId = this.get('courseId');
       let unitId = this.get('unitId');
       let lessonId = this.get('lesson.id');
-      this.set('newCollectionModel', {
-        courseId,
-        unitId,
-        lessonId,
-        associateLesson: true
-      });
 
       return this.get('lessonService')
         .fetchById(courseId, unitId, lessonId)
@@ -151,6 +145,22 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     } else {
       return Ember.RSVP.resolve(true);
     }
+  },
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  init: function(){
+    this._super(...arguments);
+    let courseId = this.get('courseId');
+    let unitId = this.get('unitId');
+    let lessonId = this.get('lesson.id');
+    this.set('newCollectionModel', {
+      courseId,
+      unitId,
+      lessonId,
+      associateLesson: true
+    });
   }
 
 });
