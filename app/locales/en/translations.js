@@ -182,7 +182,14 @@ export default {
     "preview": "Preview",
     "question":"Question",
     "questions": "Questions",
-    "question-edit-instructions":"Write your question. Character limit: 5000.",
+    "question-edit-instructions-FIB":"As you write the question, use brackets for your fill-in-the-blank answers. For example: “The big bad [wolf] blew down the [house].” You can also add an image.Character Limit: 5000.",
+    "question-edit-instructions-HS_TXT":"Write your question. Character limit: 5000.",
+    "question-edit-instructions-HS_IMG":"Write your question. Character limit: 5000.",
+    "question-edit-instructions-HT_RO":"Write your question. Character limit: 5000.",
+    "question-edit-instructions-HT_HL":"Write your question. Character limit: 5000.",
+    "question-edit-instructions-MC":"Write your question. Character limit: 5000.",
+    "question-edit-instructions-MA":"Write your question. Character limit: 5000.",
+    "question-edit-instructions-T/F":"Write your question. Character limit: 5000.",
     "question-pl": {
       one: "Question",
       other: "Questions"
@@ -425,6 +432,14 @@ export default {
     "information":{
       "question-title":"Question Title",
       "question-type": "Question Type"
+    },
+    "builder":{
+      "add-hint":"Add Hints",
+      "add-explanation":"Add Explanation",
+      "answer":"Answer",
+      "answer-instructions":{
+        "FIB":"Add up to 5 hints for answer and an explanation."
+      }
     }
   },
 

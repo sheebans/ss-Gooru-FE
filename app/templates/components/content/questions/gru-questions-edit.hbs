@@ -92,11 +92,11 @@
           {{/if}}
         </div>
     </div>
-    <div class="panel panel-default">
+    <div class="panel panel-default question-text">
         <div class="panel-heading">
             <div>
                 <h3>{{t "common.question"}}</h3>
-                <span class="instructions">{{t "common.question-edit-instructions"}}</span>
+                <span class="instructions">{{t (concat 'common.question-edit-instructions-' question.type)}}</span>
             </div>
         </div>
         <div class="panel-body">
@@ -109,6 +109,23 @@
               {{else}}
               <p class="text-empty">{{t 'common.nothing-to-display-message'}}</p>
             {{/if}}
+          {{/if}}
+        </div>
+    </div>
+    <div class="panel panel-default question-answer">
+        <div class="panel-heading">
+            <div>
+                <h3>{{t "content.questions.edit.builder.answer"}}</h3>
+                <span class="instructions">{{t "content.questions.edit.builder.answer-instructions.FIB"}}</span>
+            </div>
+        </div>
+        <div class="panel-body">
+          {{#if isBuilderEditing}}
+            {{component (questionAnswerConfig question.type 'component.answer')}}
+              <button class="add-hint btn btn-sm btn-primary">{{t "content.questions.edit.builder.add-hint"}}</button>
+              <button class="add-explanation btn btn-sm btn-primary">{{t "content.questions.edit.builder.add-explanation"}}</button>
+          {{else}}
+
           {{/if}}
         </div>
     </div>
