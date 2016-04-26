@@ -92,37 +92,14 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      * @see application.hbs
      * @see gru-header.hbs
      */
-    signIn: function() {
+    signIn: function () {
       this.transitionTo("user");
-    },
-
-    /**
-     * Action triggered when submitting the sign up form
-     * @see application.hbs
-     * @see gru-header.hbs
-     */
-    signUp: function() {
-      this.transitionTo("sign-up-finish");
-    },
-
-    /**
-     * Action triggered when submitting the sign up finish form
-     * @see sign-up-finish.js
-     */
-    signUpFinish: function(role) {
-      if (role === 'teacher'){
-        this.transitionTo("content.classes.create");
-      } else if (role === 'student') {
-        this.transitionTo("content.classes.join");
-      } else {
-        this.transitionTo("index");
-      }
     },
 
     /**
      * Action triggered when login out
      */
-    logout: function() {
+    logout: function () {
       this.transitionTo("logout");
     },
 
@@ -131,12 +108,12 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      * @see application.hbs
      * @see gru-header.js
      */
-    searchTerm: function(term) {
+    searchTerm: function (term) {
       const routeName = this.get('controller.currentRouteName');
-      if (routeName.indexOf("search") >= 0){
+      if (routeName.indexOf("search") >= 0) {
         this.set("controller.term", term);
       }
-      else{
+      else {
         var termParam = '?term=' + term;
         this.transitionTo('/search/collections' + termParam);
       }

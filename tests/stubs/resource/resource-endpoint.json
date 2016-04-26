@@ -33,5 +33,22 @@
       "body": "File not found!",
       "file": "fetch-resource-200-response.json"
     }
+  },
+  {
+    "description": "Update a resource info",
+    "request": {
+      "url": "^/api/nucleus/v1/resources/(.+)$",
+      "method": "PUT",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 204,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": ""
+    }
   }
 ]

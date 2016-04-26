@@ -11,6 +11,8 @@ export default Ember.Object.extend({
 
   namespace: '/api/nucleus/v1/resources',
 
+  copierNamespace: '/api/nucleus/v1/copier/resources',
+
   /**
    * Posts a new resource
    *
@@ -45,6 +47,49 @@ export default Ember.Object.extend({
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
       headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /*
+  * Updates a resource by id
+  *
+  * @param {string} resourceId
+  * @param data resource data to be sent in the request body
+  * @returns {Promise}
+  */
+  updateResource: function(resourceId, data) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/${resourceId}`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify(data)
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Copies a resource by id
+   *
+   * @param data resource data to be sent in the request body
+   * @returns {Promise}
+   */
+  copyResource: function(resourceId) {
+    const adapter = this;
+    const namespace = this.get('copierNamespace');
+    const url = `${namespace}/${resourceId}`;
+    const options = {
+      type: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({})
     };
     return Ember.$.ajax(url, options);
   },

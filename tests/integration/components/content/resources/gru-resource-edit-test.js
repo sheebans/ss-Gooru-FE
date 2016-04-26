@@ -177,6 +177,28 @@ test('Layout of the information section on edit mode', function (assert) {
   assert.ok($informationSection.find('.panel-body .standards label button').length, "Missing standards button");
 });
 
+test('Update Resource Information', function (assert) {
+  assert.expect(1);
+  var newTitle ='Edited resource for testing';
+  var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Resource for testing'
+  });
+  this.set('resource', resource);
+  this.render(hbs`{{content/resources/gru-resource-edit isEditing=true tempResource=resource}}`);
+
+  const $component = this.$('.gru-resource-edit');
+  const $titleField = $component.find(".gru-input.title");
+
+  $titleField.find("input").val(newTitle);
+  $titleField.find("input").trigger('blur');
+
+  const $save =  $component.find("#information .actions .save");
+  $save.click();
+  return wait().then(function () {
+    assert.equal($component.find(".title label b").text(), newTitle, "The resource title should be updated");
+  });
+});
+
 test('Validate if the resource title field is left blank', function (assert) {
   assert.expect(3);
   var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {

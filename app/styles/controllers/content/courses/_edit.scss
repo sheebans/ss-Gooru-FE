@@ -230,7 +230,9 @@
 
           > strong {
             display: inline-block;
-            vertical-align: -9px;
+            vertical-align: middle;
+            margin-top: -6px;
+
             @include text-overflow();
             max-width: 25%;
 

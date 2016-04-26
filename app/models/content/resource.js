@@ -112,6 +112,11 @@ const ResourceModel = Ember.Object.extend(Validations,{
   standards: null,
 
   /**
+   * @property {JSONObject}
+   */
+  metadata: null,
+
+  /**
    * @property {String} Indicates the resource type. i.e video/youtube, assessment-question, image/png
    */
   resourceType: Ember.computed('format', function() {
@@ -171,6 +176,13 @@ const ResourceModel = Ember.Object.extend(Validations,{
     // Copy the resource data
     properties = this.getProperties(properties);
 
+    let standards = this.get('standards');
+    let metadata = this.get('metadata');
+
+    // Copy standards and metadata values
+    properties.standards = standards.slice(0);
+    properties.metadata = JSON.parse(JSON.stringify(metadata));
+    
     return ResourceModel.create(Ember.getOwner(this).ownerInjection(), properties);
   }
 

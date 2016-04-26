@@ -107,7 +107,7 @@ export default Ember.Component.extend(BuilderMixin, {
                             unitService.createUnit(courseId, editedUnit);
 
       savePromise.then(function () {
-          this.set('unit', editedUnit);
+          this.get('unit').merge(editedUnit, ['id', 'title', 'bigIdeas', 'essentialQuestions']);
           this.set('model.isEditing', false);
         }.bind(this))
 
@@ -126,6 +126,18 @@ export default Ember.Component.extend(BuilderMixin, {
       this.set('model.isExpanded', toggleValue);
     }
 
+  },
+
+  // -------------------------------------------------------------------------
+  // Events
+  init() {
+    this._super(...arguments);
+
+    if (!this.get('unit.id')) {
+      // If this a new unit, set the tempUnit value so things don't break in edit mode
+      let unitForEditing = this.get('unit').copy();
+      this.set('tempUnit', unitForEditing);
+    }
   },
 
 
@@ -177,8 +189,6 @@ export default Ember.Component.extend(BuilderMixin, {
               data: lesson
             });
           });
-          unit.set('children', children);
-
           this.set('items', children);
           this.set('isLoaded', true);
         }.bind(this))

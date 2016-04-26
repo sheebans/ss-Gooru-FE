@@ -31,6 +31,11 @@ export default Ember.Component.extend(AccordionMixin, {
   lessonService: Ember.inject.service("api-sdk/lesson"),
 
   /**
+   * @requires service:api-sdk/unit
+   */
+  unitService: Ember.inject.service("api-sdk/unit"),
+
+  /**
    * @requires service:api-sdk/course-location
    */
   courseLocationService: Ember.inject.service("api-sdk/course-location"),
@@ -68,8 +73,9 @@ export default Ember.Component.extend(AccordionMixin, {
      *
      * @function actions:selectUnit
      */
-    selectUnit: function (unitId) {
-      this.loadData();
+    selectUnit: function(unitId) {
+      const courseId = this.get('currentClass.courseId');
+      this.loadData(courseId, unitId);
 
       if (!isUpdatingLocation) {
         let newLocation = this.get('isExpanded') ? '' : unitId;
@@ -218,14 +224,14 @@ export default Ember.Component.extend(AccordionMixin, {
    * @function actions:loadData
    * @returns {undefined}
    */
-  loadData: function () {
+  loadData: function() {
     // Load the lessons and users in the course when the component is instantiated
     let component = this;
     component.set("loading", true);
     let performancePromise = component.getLessons();
-    performancePromise.then(function(performances){
-      component.set('items', performances); //setting the units to the according mixin
-
+    performancePromise.then(function(performances) {
+      component.set('items', performances);
+      /*
       let usersLocationPromise = component.getUnitUsers();
       usersLocationPromise.then(function(usersLocation){
         component.set('usersLocation', usersLocation);
@@ -235,6 +241,7 @@ export default Ember.Component.extend(AccordionMixin, {
           component.set('location', userLocation);
         }
       });
+      */
       component.set("loading", false);
     });
   },
@@ -247,6 +254,18 @@ export default Ember.Component.extend(AccordionMixin, {
    * @returns {Ember.RSVP.Promise}
    */
   getLessons: function() {
+    const component = this;
+    const userId = component.get('session.userId');
+    const classId = component.get('currentClass.id');
+    const courseId = component.get('currentClass.courseId');
+    const unitId = component.get('model.id');
+    return component.get('unitService').fetchById(courseId, unitId)
+      .then(function(unit) {
+        const lessons = unit.get('children');
+        return component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
+      });
+
+    /*
     let component = this;
     const classId = component.get('currentClass.id');
     const courseId = component.get('currentClass.course');
@@ -258,6 +277,7 @@ export default Ember.Component.extend(AccordionMixin, {
       }
       return component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
     });
+    */
   },
 
   /**
