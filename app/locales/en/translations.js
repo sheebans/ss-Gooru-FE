@@ -104,7 +104,7 @@ export default {
       "add-course-title":"Please enter the course title.",
       "add-question-title":"Please enter the question title.",
       "add-question-text":"You've reached the character limit.",
-      "assessment-title-presence" : "Please enter the assessment title."
+      "assessment-title-presence" : "Please enter the assessment title.",
       "can-not-join-class" : "Oops! Unable to join class. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
