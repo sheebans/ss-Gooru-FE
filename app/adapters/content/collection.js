@@ -87,7 +87,6 @@ export default Ember.Object.extend({
    * @returns {Promise}
    */
   addResource: function(collectionId, resourceId) {
-    console.log(resourceId, collectionId);
     const adapter = this;
     const namespace = adapter.get('namespace');
     const url = `${namespace}/${collectionId}/resources`;

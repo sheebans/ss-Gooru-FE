@@ -45,3 +45,19 @@ test('readResource', function(assert) {
       assert.deepEqual({}, response, 'Wrong response');
     });
 });
+
+test('copyResource', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.post('/api/nucleus/v1/copier/resources/resource-id', function() {
+      return [201, {'Content-Type': 'text/plain', 'Location': 'copy-resource-id'}, ''];
+    }, false);
+  });
+  adapter.copyResource('resource-id')
+    .then(function(response) {
+      assert.equal('', response, 'Wrong response');
+    });
+});
