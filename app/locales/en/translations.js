@@ -122,6 +122,7 @@ export default {
       "resource-missing-title": "Please enter a resource title.",
       "resource-missing-type": "Please select a resource type.",
       "resource-missing-url": "Please enter a valid URL.",
+      "resource-not-updated": "Oops! Unable to update resource right now. Please try again shortly.",
       "resource-same-host-url": "Resources can not be Gooru's URLs.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
       "sign-in-google-account-exists": "Please sign-in with Google to access your account.",
