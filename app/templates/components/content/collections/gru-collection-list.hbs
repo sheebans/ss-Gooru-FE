@@ -25,7 +25,7 @@
         <ul class="dropdown-menu dropdown-menu-right">
           {{#if isCollection}} <li><a href="#">{{t "common.from-my-resources"}}</a></li> {{/if}}
           <li><a href="#">{{t "common.from-my-questions"}}</a></li>
-          {{#if isCollection}} <li><a href="#">{{t "common.new-resource"}}</a></li> {{/if}}
+          {{#if isCollection}} <li><a href="#" {{action "showModal" "content.modals.gru-resource-new" model}}>{{t "common.new-resource"}}</a></li> {{/if}}
           <li><a href="#">{{t "common.new-question"}}</a></li>
         </ul>
       </div>
@@ -50,7 +50,7 @@
   <div>
     {{#if isCollection}} <button class="btn btn-success add-prefix">{{t "common.from-my-resources"}}</button> {{/if}}
     <button class="btn btn-success add-prefix">{{t "common.from-my-questions"}}</button>
-    {{#if isCollection}} <button class="btn btn-success add-prefix">{{t "common.new-resource"}}</button> {{/if}}
+    {{#if isCollection}} <button class="btn btn-success add-prefix" {{action "showModal" "content.modals.gru-resource-new" model}}>{{t "common.new-resource"}}</button> {{/if}}
     <button class="btn btn-success add-prefix">{{t "common.new-question"}}</button>
     <span>{{t "common.drag-drop-suggestions"}}</span>
   </div>

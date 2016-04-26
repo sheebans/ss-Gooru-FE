@@ -193,3 +193,24 @@ test('findById', function (assert) {
     });
   });
 });
+
+test('addResource', function(assert) {
+  const service = this.subject();
+  const expectedCollectionId = 'collection-id';
+  const expectedResourceId = 'resource-id';
+
+  assert.expect(2);
+
+  service.set('collectionAdapter', Ember.Object.create({
+    addResource: function(collectionId, resourceId) {
+      assert.equal(collectionId, expectedCollectionId, 'Wrong collection id');
+      assert.equal(resourceId, expectedResourceId, 'Wrong resource id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.addResource(expectedCollectionId, expectedResourceId).then(function() {
+    done();
+  });
+});

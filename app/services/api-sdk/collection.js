@@ -106,5 +106,19 @@ export default Ember.Service.extend({
       unitId : unitId,
       lessonId : lessonId
     });
+  },
+
+  /**
+   * Adds a resource to a specific collection
+   * @param collectionId
+   * @param resourceId
+   * @returns {Collection}
+   */
+  addResource: function(collectionId, resourceId){
+    var service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('collectionAdapter').addResource(collectionId, resourceId)
+        .then(resolve, reject);
+    });
   }
 });

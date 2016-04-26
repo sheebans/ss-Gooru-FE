@@ -82,8 +82,23 @@ export default Ember.Service.extend({
   updateResource: function(resourceId, resourceModel) {
     const service = this;
     let serializedData = service.get('resourceSerializer').serializeUpdateResource(resourceModel);
-    return new Ember.RSVP.Promise(function(resolve, reject) {
+    return new Ember.RSVP.Promise(function (resolve, reject) {
       service.get('resourceAdapter').updateResource(resourceId, serializedData).then(resolve, reject);
+    });
+  },
+
+  /**
+   * Copies a resources by id
+   * @param {string} resourceId
+   * @returns {Ember.RSVP.Promise}
+   */
+  copyResource: function(resourceId){
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('resourceAdapter').copyResource(resourceId)
+        .then(function(responseData, textStatus, request) {
+          resolve(request.getResponseHeader('location'));
+        }, reject );
     });
   }
 });
