@@ -427,7 +427,6 @@ export default {
   "content.collections.edit": {
     "assign-to-course": "Assign to Course"
   },
-
   "content.courses.edit": {
     "assign-to-class": "Assign to Class",
     "big-ideas": "Big Ideas",
@@ -461,7 +460,6 @@ export default {
       }
     }
   },
-
   "content.resources": {
     "edit": {
       "placeholder-message": "Add a resource to <span>preview it here.</span>",
@@ -472,7 +470,6 @@ export default {
       }
     }
   },
-
   "user": {
     "active-classes": "Active Classes",
     "archived-classes": "Archived Classes",
@@ -539,10 +536,14 @@ export default {
     "haveAccount": "Already have an account?",
     "clickLogIn": "Click here to log in."
   },
-
   "sign-up": {
     "step-1-title": "Hello!",
     "step-1-description": "We're glad you’ve decided to join us.",
+    "step-child-title": "Not so fast!",
+    "step-child-subtitle": "We cannot complete your registration.",
+    "step-child-description-1": "Gooru could not create your account due to our ",
+    "step-child-age-requirements": "Terms & Conditions",
+    "step-child-description-2": ". Keep learning and see you in a few years!",
     "step-2-title": "Basic Info",
     "step-2-description": "You’re not basic, but this info is.",
     "log-in": "Log In",
@@ -750,8 +751,6 @@ export default {
   "player.gru-reorder": {
     "instructions" : "Please reorder the answers in correct order, and click \"Submit\"."
   },
-
-
 
   "player": {
     "gru-navigation": {

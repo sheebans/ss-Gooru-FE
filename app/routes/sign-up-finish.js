@@ -2,6 +2,9 @@ import Ember from "ember";
 
 export default Ember.Route.extend({
 
+  // -------------------------------------------------------------------------
+  // Properties
+
   /**
    * @property {Ember.Service} Service to do retrieve countries
    */
@@ -11,6 +14,9 @@ export default Ember.Route.extend({
    * @property {Service} Session service
    */
   session: Ember.inject.service("session"),
+
+  // -------------------------------------------------------------------------
+  // Methods
 
   beforeModel: function() {
     if (this.get('session.isAnonymous') || !this.get('session.userData.isNew')) {
@@ -40,5 +46,24 @@ export default Ember.Route.extend({
     this._super(controller, model);
     controller.set("countries", model.countries);
     controller.set('states', model.states);
+  },
+
+  // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+
+    /**
+     * Action triggered when submitting the sign up finish form
+     */
+    signUpFinish: function (role) {
+      if (role === 'teacher') {
+        this.transitionTo("content.classes.create");
+      } else if (role === 'student') {
+        this.transitionTo("content.classes.join");
+      } else {
+        this.transitionTo("index");
+      }
+    }
   }
 });
