@@ -126,8 +126,8 @@ export default {
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
       "sign-in-google-account-exists": "Please sign-in with Google to access your account.",
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
-      "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly."
-
+      "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly.",
+      "unit-title-required" : "Please enter the unit title."
     },
     "explanation": "Explanation",
     "first-name": "First Name",
