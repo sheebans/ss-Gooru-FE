@@ -107,7 +107,7 @@ export default Ember.Component.extend(BuilderMixin, {
                             unitService.createUnit(courseId, editedUnit);
 
       savePromise.then(function () {
-          this.get('unit').merge(editedUnit, ['title', 'bigIdeas', 'essentialQuestions']);
+          this.get('unit').merge(editedUnit, ['id', 'title', 'bigIdeas', 'essentialQuestions']);
           this.set('model.isEditing', false);
         }.bind(this))
 

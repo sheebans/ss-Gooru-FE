@@ -216,23 +216,20 @@ test('it shows an error message if it fails to create a new lesson', function (a
   this.inject.service('notifications');
 
   const lesson = BuilderItem.create({
+    data: Lesson.create(Ember.getOwner(this).ownerInjection(), {
+      id: '',
+      title: 'Lesson Title'
+    }),
     isEditing: true
   });
 
-  const tempLesson = Lesson.create(Ember.getOwner(this).ownerInjection(), {
-    id: '',
-    title: 'Lesson Title'
-  });
-
   this.set('lesson', lesson);
-  this.set('tempLesson', tempLesson);
   this.set('unitId', 'unit-id-123');
   this.set('courseId', 'course-id-fail');
   this.render(hbs`{{content/courses/gru-accordion-lesson
     courseId=courseId
     unitId=unitId
-    model=lesson
-    tempLesson=tempLesson }}`);
+    model=lesson }}`);
 
   const $component = this.$('.content.courses.gru-accordion.gru-accordion-lesson');
   assert.ok($component.length, 'Component');
@@ -242,18 +239,20 @@ test('it shows an error message if it fails to create a new lesson', function (a
 });
 
 test('it renders a form when editing an existing lesson', function (assert) {
-
-  // Unit model
-  const lesson = BuilderItem.create({
-    isEditing: true
-  });
-
-  const tempLesson = Lesson.create(Ember.getOwner(this).ownerInjection(), {
+  const lessonData = {
     id: '123',
     title: 'Sample Lesson Name',
     taxonomy: [],
     sequence: 3
+  };
+
+  // Lesson model
+  const lesson = BuilderItem.create({
+    data: Lesson.create(Ember.getOwner(this).ownerInjection(), lessonData),
+    isEditing: true
   });
+
+  const tempLesson = Lesson.create(Ember.getOwner(this).ownerInjection(), lessonData);
 
   this.set('tempLesson', tempLesson);
   this.set('lesson', lesson);
