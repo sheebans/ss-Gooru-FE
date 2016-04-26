@@ -130,9 +130,6 @@ export default {
       "collection-title-presence" : "Please enter the collection title.",
       "assessment-title-presence" : "Please enter the assessment title."
     },
-    "warnings": {
-      "character-limit": "You've reached the character limit"
-    },
     "explanation": "Explanation",
     "first-name": "First Name",
     "follow": "Follow",
@@ -282,7 +279,8 @@ export default {
     "verified": "Verified",
     "yes": "Yes",
     "warnings": {
-      "on-air-connection-lost": "The On Air feature has lost connection and is retrying automatically. While it's tempting, please don't refresh your screen!"
+      "on-air-connection-lost": "The On Air feature has lost connection and is retrying automatically. While it's tempting, please don't refresh your screen!",
+      "character-limit": "You've reached the character limit"
     }
   },
 
