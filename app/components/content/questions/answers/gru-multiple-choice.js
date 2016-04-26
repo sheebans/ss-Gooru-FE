@@ -42,13 +42,7 @@ export default Ember.Component.extend({
    * Multiple Choice Answer
    * @property {Ember.Array}
    */
-  multipleChoiceAnswers:Ember.A([Ember.Object.create({
-    'answer': "Answer choice goes here",
-    'isCorrect': true
-  }),Ember.Object.create({
-    'answer': "Answer choice goes here",
-    'isCorrect': false
-  })]),
+  multipleChoiceAnswers:Ember.A([]),
 
   answersList:Ember.computed('multipleChoiceAnswers.[]',function(){
     return this.get('multipleChoiceAnswers');

@@ -12,7 +12,7 @@
      .delete{
        padding: 10px 0 10px 0;
        cursor:pointer;
-       width: 3em;
+       margin: 0 10px 0 10px;
      }
      div.letter-container{
        padding: 10px 0 10px 0;
@@ -46,7 +46,7 @@
        border-bottom-right-radius: 6px;
        border-top-right-radius: 6px;
        text-align: center;
-       line-height: 5.5;
+       line-height: 5.8;
        cursor:pointer;
      }
      .check.correct{
