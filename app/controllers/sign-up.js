@@ -34,21 +34,15 @@ export default Ember.Controller.extend({
 
       profile.validate().then(function ({model, validations}) {
         if (validations.get('isValid') && birthDayDate !== '') {
-          if (controller.calculateAge(birthDayDate)>=13){
-            controller.set('showChildLayout',false);
-            profile.set('dateOfBirth', birthDayDate);
-            controller.get("profileService").createProfile(profile)
-              .then(function (profile) {
-                controller.get("sessionService")
-                  .signUp(profile).then(function () {
-                  // Trigger action in parent
-                  controller.send('signUp');
-                });
+          profile.set('dateOfBirth', birthDayDate);
+          controller.get("profileService").createProfile(profile)
+            .then(function (profile) {
+              controller.get("sessionService")
+                .signUp(profile).then(function () {
+                // Trigger action in parent
+                controller.send('signUp');
               });
-          }
-          else {
-            controller.set('showChildLayout',true);
-          }
+            });
         }
         controller.set('didValidate', true);
       });
@@ -58,6 +52,22 @@ export default Ember.Controller.extend({
       var controller = this;
       controller.set('showChildLayout',false);
       controller.send('closeSignUp');
+    },
+
+    /**
+     * Triggered when the gru-select-date-picker options are selected
+     * @param {*} item
+     */
+    validDate: function(){
+      const controller = this;
+      const birthDayDate = controller.validDateSelectPicker();
+
+      if (controller.calculateAge(birthDayDate)>=13){
+        controller.set('showChildLayout',false);
+      }
+      else {
+        controller.set('showChildLayout',true);
+      }
     }
   },
   // -------------------------------------------------------------------------
