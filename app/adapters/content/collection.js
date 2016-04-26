@@ -102,6 +102,29 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Adds a question to a collection
+   *
+   * @param {string} collectionId
+   * @param {string} questionId
+   * @returns {Promise}
+   */
+  addQuestion: function(collectionId, questionId) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/${collectionId}/questions`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({
+        id: questionId
+      })
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')
