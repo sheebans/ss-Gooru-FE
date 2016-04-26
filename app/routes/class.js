@@ -36,6 +36,9 @@ export default Ember.Route.extend({
    */
   unitService: Ember.inject.service('api-sdk/unit'),
 
+  analyticsService: Ember.inject.service('api-sdk/analytics'),
+
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -49,6 +52,7 @@ export default Ember.Route.extend({
   model: function(params) {
     const route = this;
     const classId = params.classId;
+
     return route.get('classService').readClassInfo(classId)
       .then(function(classObj) {
         return route.get('classService').readClassMembers(classId)
@@ -56,14 +60,37 @@ export default Ember.Route.extend({
             classObj.set('owner', members.get('owner'));
             classObj.set('collaborators', members.get('collaborators'));
             classObj.set('members', members.get('members'));
-            // TODO It is required to implement the Get Course Info and the get Units
-            // This code was change to support the new API, a lot of functionality inside class rount is not working at this moment
-            return Ember.RSVP.hash({
-              class: classObj,
-              course: Ember.Object.create({}),
-              members: members,
-              units: []
-            });
+
+            const courseId = classObj.get('courseId');
+            if (courseId) {
+              return route.get('courseService').fetchById(courseId)
+                .then(function(course) {
+
+                  // TODO Activate this code once Analytics 3.0 is working fine
+                  /*
+                  route.get('analyticsService').getCoursePeers(classId, courseId)
+                    .then(function(coursePeers) {
+                      console.log(coursePeers);
+                    });
+                  */
+
+                  return Ember.RSVP.hash({
+                    class: classObj,
+                    course: course,
+                    members: members,
+                    units: course.get('children')
+                  });
+                });
+            } else {
+              // TODO It is required to implement the Get Course Info and the get Units
+              // This code was change to support the new API, a lot of functionality inside class rount is not working at this moment
+              return Ember.RSVP.hash({
+                class: classObj,
+                course: Ember.Object.create({}),
+                members: members,
+                units: []
+              });
+            }
           });
       });
   },

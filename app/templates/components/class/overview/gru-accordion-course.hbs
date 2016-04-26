@@ -6,15 +6,15 @@
     {{#each items as |item index|}}
 
       {{class.overview.gru-accordion-unit
-          currentClass=currentClass
-          model=item
-          index=index
-      onSelectResource=(action 'selectResource')
-      onLocationUpdate=(action 'updateLocation')
-      onLaunchOnAir=(action 'launchOnAir')
-      currentResource=currentResource
-      parsedLocation=parsedLocation
-      isTeacher=isTeacher}}
+        currentClass=currentClass
+        model=item
+        index=index
+        onSelectResource=(action 'selectResource')
+        onLocationUpdate=(action 'updateLocation')
+        onLaunchOnAir=(action 'launchOnAir')
+        currentResource=currentResource
+        parsedLocation=parsedLocation
+        isTeacher=isTeacher}}
 
     {{else}}
       <li>{{t "common.contentUnavailable"}}</li>

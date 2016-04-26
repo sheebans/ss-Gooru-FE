@@ -1,26 +1,28 @@
-<div class="panel panel-default edit">
-  <div class="panel-heading">
+{{#if model.isEditing}}
+  <div class="panel panel-default edit">
+    <div class="panel-heading">
 
-    {{#if lesson.id}}
-      <h3>{{t "common.lesson"}} {{plus-one index}}</h3>
-    {{else}}
-      <h3>{{t "common.lesson"}} {{totalItems}}</h3>
-    {{/if}}
+      {{#if lesson.id}}
+        <h3>{{t "common.lesson"}} {{plus-one index}}</h3>
+      {{else}}
+        <h3>{{t "common.lesson"}} {{totalItems}}</h3>
+      {{/if}}
 
-    {{validation.gru-input model=lesson valuePath='title'}}
+      {{validation.gru-input model=tempLesson valuePath='title' class="title" maxLength=50}}
 
-    <div class="actions">
-      <button class="cancel btn btn-info"  {{action 'cancelEdit'}}>{{t "common.cancel"}}</button>
-      <button class="save btn btn-success" {{action 'saveLesson'}}>{{t "common.save"}}</button>
+      <div class="actions">
+        <button class="cancel btn btn-info"  {{action 'cancelEdit'}}>{{t "common.cancel"}}</button>
+        <button class="save btn btn-success" {{action 'saveLesson'}}>{{t "common.save"}}</button>
+      </div>
+      <div class="panel-body">
+        <div class="data-row standards">
+          <span>{{t "common.standards"}}</span>
+          <button type="button" class="btn btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="panel-body">
-    <div class="data-row standards">
-      <span>{{t "common.standards"}}</span>
-      <button type="button" class="btn btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
-    </div>
-  </div>
-</div>
+{{/if}}
 
 <div class="panel panel-default view {{if model.isExpanded 'expanded' 'collapsed'}}">
   <div class="panel-heading">

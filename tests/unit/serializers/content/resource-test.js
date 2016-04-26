@@ -1,4 +1,5 @@
 import { moduleFor, test } from 'ember-qunit';
+import Ember from 'ember';
 import ResourceModel from 'gooru-web/models/content/resource';
 
 moduleFor('serializer:content/resource', 'Unit | Serializer | content/resource');
@@ -19,6 +20,28 @@ test('serializeCreateResource', function(assert) {
   assert.deepEqual(expected, response, 'Wrong serialized response');
 });
 
+test('serializeUpdateResource', function(assert) {
+  const serializer = this.subject();
+  const resourceObject = ResourceModel.create({
+    title: 'resource-title',
+    description: 'A description',
+    format: 'video'
+  });
+  const expected = {
+    'title': 'resource-title',
+    'description': 'A description',
+    'narration': undefined,
+    'content_subformat': 'video_resource',
+    'taxonomy': null,
+    'metadata': {
+      'am_i_the_publisher': false,
+      'publisher': null
+    }
+  };
+  const response = serializer.serializeUpdateResource(resourceObject);
+  assert.deepEqual(response, expected, 'Wrong serialized response');
+});
+
 test('normalizeReadResource', function(assert) {
   const serializer = this.subject();
   const resourceData = {
@@ -28,15 +51,22 @@ test('normalizeReadResource', function(assert) {
     content_subformat: 'video_resource',
     description: 'any desc',
     publish_status: 'published',
-    taxonomy: ["a", "b"]
+    taxonomy: []
   };
+  const expected = ResourceModel.create(Ember.getOwner(this).ownerInjection(), {
+    id: "abcd",
+    title: 'resource-title',
+    url: 'any',
+    format: 'video',
+    description: 'any desc',
+    publishStatus: 'published',
+    standards: [],
+    metadata: {
+      'amIThePublisher': false,
+      'publisher': null
+    }
+  });
 
   const resource = serializer.normalizeReadResource(resourceData);
-  assert.equal('abcd', resource.get("id"), 'Wrong id');
-  assert.equal('resource-title', resource.get("title"), 'Wrong title');
-  assert.equal('any', resource.get("url"), 'Wrong url');
-  assert.equal('any desc', resource.get("description"), 'Wrong description');
-  assert.equal('published', resource.get("publishStatus"), 'Wrong publish');
-  assert.equal(2, resource.get("standards").length, 'Wrong standards');
-  assert.equal('video', resource.get("format"), 'Wrong format'); //format is converted at the normalizer
+  assert.deepEqual(resource, expected, 'Wrong normalized response');
 });
