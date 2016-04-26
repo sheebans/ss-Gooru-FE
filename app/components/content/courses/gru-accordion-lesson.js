@@ -76,7 +76,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
 
           savePromise
             .then(function () {
-              this.set('lesson', editedLesson);
+              this.get('lesson').merge(editedLesson, ['title']);
               this.set('model.isEditing', false);
             }.bind(this))
 
@@ -98,6 +98,28 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       this.set('model.isExpanded', toggleValue);
     }
 
+  },
+
+  // -------------------------------------------------------------------------
+  // Events
+  init() {
+    this._super(...arguments);
+
+    let courseId = this.get('courseId');
+    let unitId = this.get('unitId');
+    let lessonId = this.get('lesson.id');
+    this.set('newCollectionModel', {
+      courseId,
+      unitId,
+      lessonId,
+      associateLesson: true
+    });
+
+    if (!this.get('lesson.id')) {
+      // If this a new unit, set the tempUnit value so things don't break in edit mode
+      let lessonForEditing = this.get('lesson').copy();
+      this.set('tempLesson', lessonForEditing);
+    }
   },
 
 
@@ -166,22 +188,6 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     } else {
       return Ember.RSVP.resolve(true);
     }
-  },
-
-  // -------------------------------------------------------------------------
-  // Events
-
-  init: function(){
-    this._super(...arguments);
-    let courseId = this.get('courseId');
-    let unitId = this.get('unitId');
-    let lessonId = this.get('lesson.id');
-    this.set('newCollectionModel', {
-      courseId,
-      unitId,
-      lessonId,
-      associateLesson: true
-    });
   }
 
 });

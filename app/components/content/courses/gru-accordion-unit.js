@@ -107,7 +107,7 @@ export default Ember.Component.extend(BuilderMixin, {
                             unitService.createUnit(courseId, editedUnit);
 
       savePromise.then(function () {
-          this.set('unit', editedUnit);
+          this.get('unit').merge(editedUnit, ['title', 'bigIdeas', 'essentialQuestions']);
           this.set('model.isEditing', false);
         }.bind(this))
 
@@ -190,10 +190,6 @@ export default Ember.Component.extend(BuilderMixin, {
             });
           });
           this.set('items', children);
-
-          // Reference to 'children' can be discarded since all its information
-          // is now in 'items'
-          unit.set('children', null);
           this.set('isLoaded', true);
         }.bind(this))
 

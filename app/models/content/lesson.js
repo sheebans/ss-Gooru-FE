@@ -73,7 +73,9 @@ export default Ember.Object.extend(Validations, {
     for (let i = 0; i < enumerableKeys.length; i++) {
       let key = enumerableKeys[i];
       let value = Ember.typeOf(this.get(key));
-      if (value === 'string' || value === 'number' || value === 'boolean') {
+
+      // Copy null values as well to avoid triggering the validation on empty input fields
+      if (value === 'string' || value === 'number' || value === 'boolean' || value === 'null') {
         properties.push(key);
       }
     }
@@ -81,6 +83,19 @@ export default Ember.Object.extend(Validations, {
     // Copy the lesson data
     properties = this.getProperties(properties);
     return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
+  },
+
+  /**
+   * Copy a list of property values from another lesson to override the current ones
+   *
+   * @function
+   * @param {Content/Lesson} lesson
+   * @param {String[]} propertyList
+   * @return {null}
+   */
+  merge: function(lesson, propertyList = []) {
+    var properties = lesson.getProperties(propertyList);
+    this.setProperties(properties);
   }
 
 });
