@@ -209,43 +209,19 @@ test('it shows an error message if the password and rePassword fields do not mat
 //    var $signUpContainer = find(".sign-up");
 //    var $modal = $signUpContainer.find(".modal");
 //
-//    var $usernameField = $signUpContainer.find(".gru-input.username");
 //    var $birthMonthsField = $signUpContainer.find("select#months.selectpicker.months");
 //    var $birthDaysField = $signUpContainer.find("select#days.selectpicker.days");
 //    var $birthYearsField = $signUpContainer.find("select#years.selectpicker.years");
-//    var $firstNameField = $signUpContainer.find(".gru-input.firstName");
-//    var $lastNameField = $signUpContainer.find(".gru-input.lastName");
-//    var $emailField = $signUpContainer.find(".gru-input.email");
-//    var $passwordField = $signUpContainer.find(".gru-input.password");
-//    var $rePasswordField = $signUpContainer.find(".gru-input.rePassword");
 //
 //    //Filling inputs
 //
-//    //$birthMonthsField.val('09');
-//    //$birthDaysField.val('11');
-//    //$birthYearsField.val('2004');
-//    //
-//    //$usernameField.val('usernameusername');
-//    //$firstNameField.val('firstname');
-//    //$lastNameField.val('lastname');
-//    //$emailField.val('emailemail@gooru.cr');
-//    //$passwordField.val('password');
-//    //$rePasswordField.val('password');
-//
-//    fillIn($usernameField, 'usernameusername');
-//    fillIn($birthMonthsField, '09');
-//    fillIn($birthDaysField, '11');
-//    fillIn($birthYearsField, '2004');
-//
-//    fillIn($firstNameField, '$firstname');
-//    fillIn($lastNameField, 'lastname');
-//    fillIn($emailField, 'emailemail@gooru.cr');
-//    fillIn($passwordField, 'password');
-//    fillIn($rePasswordField, 'password');
+//    $birthMonthsField.val('09');
+//    $birthDaysField.val('11');
+//    $birthYearsField.val('2004');
 //
 //    assert.ok($birthMonthsField.length, '$birthMonthsField');
 //
-//    $signUpContainer.find("button.submit-sign-up").click();
+//    $signUpContainer.find(".birth-day-date").blur();
 //
 //    return wait().then(function () {
 //      assert.ok($modal.find(".modal-content.child-layout").length, 'modal-content child-layout should be visible');
