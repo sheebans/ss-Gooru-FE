@@ -41,7 +41,7 @@ export default CollectionEdit.extend({
               component.set('isEditing', false);
             })
             .catch(function () {
-              var message = component.get('i18n').t('common.errors.collection-not-updated').string;
+              var message = component.get('i18n').t('common.errors.assessment-not-updated').string;
               component.get('notifications').error(message);
             });
         }
