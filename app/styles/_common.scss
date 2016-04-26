@@ -39,12 +39,16 @@ button.btn-link {
 
 .validation span.error,
 span.validation.error {
-  font-size: $font-size-small;
   color: $brand-danger;
   display: inline-block;
+  font-size: $font-size-small;
   margin-top: 4px;
 }
 
+.validation span.warning,
+span.validation.warning {
+  color: $orange-400;
+}
 /* includes of mixins*/
 @include make-padding(30, xs, 2px);
 @include make-padding(30, null, 2px);

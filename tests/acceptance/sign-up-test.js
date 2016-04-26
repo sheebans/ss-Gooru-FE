@@ -25,6 +25,7 @@ test('Layout', function(assert) {
     var $modal = $signUpContainer.find(".modal");
     T.exists(assert, $modal, "Missing sign-up modal");
     T.exists(assert, $modal.find(".modal-content"), "Missing modal-content");
+    T.notExists(assert, $modal.find(".modal-content.child-layout"), "modal-content child-layout should not be visible");
     const $signUpHeader = $modal.find(".modal-header");
     T.exists(assert, $signUpHeader, "Missing sign-up-header");
     T.exists(assert, $signUpHeader.find(".progress-dots"), "Missing progress-dots");
@@ -195,3 +196,35 @@ test('it shows an error message if the password and rePassword fields do not mat
     });
   });
 });
+
+//TODO
+
+//test('it shows a child-layout when user is under 13 years old', function (assert) {
+//  visit('/sign-up');
+//
+//  andThen(function() {
+//    assert.equal(currentURL(), '/sign-up');
+//
+//
+//    var $signUpContainer = find(".sign-up");
+//    var $modal = $signUpContainer.find(".modal");
+//
+//    var $birthMonthsField = $signUpContainer.find("select#months.selectpicker.months");
+//    var $birthDaysField = $signUpContainer.find("select#days.selectpicker.days");
+//    var $birthYearsField = $signUpContainer.find("select#years.selectpicker.years");
+//
+//    //Filling inputs
+//
+//    $birthMonthsField.val('09');
+//    $birthDaysField.val('11');
+//    $birthYearsField.val('2004');
+//
+//    assert.ok($birthMonthsField.length, '$birthMonthsField');
+//
+//    $signUpContainer.find(".birth-day-date").blur();
+//
+//    return wait().then(function () {
+//      assert.ok($modal.find(".modal-content.child-layout").length, 'modal-content child-layout should be visible');
+//    });
+//  });
+//});

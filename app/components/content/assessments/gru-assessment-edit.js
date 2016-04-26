@@ -11,6 +11,10 @@ export default CollectionEdit.extend({
    */
   assessmentService: Ember.inject.service("api-sdk/assessment"),
 
+  /**
+   * @property {Service} I18N service
+   */
+  i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -27,20 +31,23 @@ export default CollectionEdit.extend({
      * Save Content
      */
     updateContent: function () {
-      var editedAssessment = this.get('tempCollection');
-      this.get('assessmentService').updateAssessment(editedAssessment.get('id'), editedAssessment)
-
-        .then(function () {
-          this.set('collection', editedAssessment);
-          this.set('isEditing', false);
-        }.bind(this))
-
-        .catch(function () {
-          var message = this.get('i18n').t('common.errors.assessment-not-updated').string;
-          this.get('notifications').error(message);
-        }.bind(this));
+      const component = this;
+      let editedAssessment = this.get('tempCollection');
+      editedAssessment.validate().then(function ({validations }) {
+        if (validations.get('isValid')) {
+          component.get('collectionService').updateCollection(editedAssessment.get('id'), editedAssessment)
+            .then(function () {
+              component.set('collection', editedAssessment);
+              component.set('isEditing', false);
+            })
+            .catch(function () {
+              var message = component.get('i18n').t('common.errors.assessment-not-updated').string;
+              component.get('notifications').error(message);
+            });
+        }
+        component.set('didValidate', true);
+      });
     }
-
   }
 
 

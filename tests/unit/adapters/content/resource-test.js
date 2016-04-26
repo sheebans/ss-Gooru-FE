@@ -45,3 +45,24 @@ test('readResource', function(assert) {
       assert.deepEqual({}, response, 'Wrong response');
     });
 });
+
+test('updateResource', function(assert) {
+  const adapter = this.subject();
+  const expectedData = {
+    'short_title': 'The short title'
+  };
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.put('/api/nucleus/v1/resources/resource-id', function(request) {
+      let requestBodyJson = JSON.parse(request.requestBody);
+      assert.deepEqual(requestBodyJson, expectedData, 'Expected request body is not correct');
+      return [204, {'Content-Type': 'application/json'}, ''];
+    }, false);
+  });
+  adapter.updateResource('resource-id', expectedData)
+    .then(function() {
+      assert.ok(true);
+    });
+});
