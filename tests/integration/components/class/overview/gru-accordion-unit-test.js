@@ -61,38 +61,42 @@ const lessonServiceStub = Ember.Service.extend({
 // Stub performance service
 const performanceServiceStub = Ember.Service.extend({
 
-  findStudentPerformanceByUnit(userId, classId, courseId, unitId) {
+  findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons) {
     var response;
     var promiseResponse;
 
-    if (classId === '111-333-555' &&
-          courseId === '222-444-666' &&
-            unitId === '777-999') {
-      response = [
-        Ember.Object.create({
-          id: "lesson-1",
-          title: "Lesson 1",
-          visibility: true,
-          completed: 5,
-          total: 10
-        }),
-        Ember.Object.create({
-          id: "lesson-2",
-          title: "Lesson 2",
-          visibility: false,
-          completed: 5,
-          total: 10
-        }),
-        Ember.Object.create({
-          id: "lesson-3",
-          title: "Lesson 3",
-          visibility: true,
-          completed: 5,
-          total: 10
-        })
-      ];
+    if (Ember.isArray(lessons)) {
+      response = lessons;
     } else {
-      response = [];
+      if (classId === '111-333-555' &&
+        courseId === '222-444-666' &&
+        unitId === '777-999') {
+        response = [
+          Ember.Object.create({
+            id: "lesson-1",
+            title: "Lesson 1",
+            visibility: true,
+            completed: 5,
+            total: 10
+          }),
+          Ember.Object.create({
+            id: "lesson-2",
+            title: "Lesson 2",
+            visibility: false,
+            completed: 5,
+            total: 10
+          }),
+          Ember.Object.create({
+            id: "lesson-3",
+            title: "Lesson 3",
+            visibility: true,
+            completed: 5,
+            total: 10
+          })
+        ];
+      } else {
+        response = [];
+      }
     }
 
     promiseResponse = new Ember.RSVP.Promise(function(resolve) {
@@ -145,6 +149,30 @@ const courseLocationStub = Ember.Service.extend({
   }
 });
 
+const unitServiceStub = Ember.Service.extend({
+  fetchById: function(courseId, unitId) {
+
+    let lessons = [];
+    if (unitId === 'unit-with-lessons') {
+      lessons = [
+        Ember.Object.create({id: 'lesson-id-1', title: 'Lesson 1'}),
+        Ember.Object.create({id: 'lesson-id-2', title: 'Lesson 2'}),
+        Ember.Object.create({id: 'lesson-id-3', title: 'Lesson 3'})
+      ];
+    }
+    var unit = Ember.Object.create({
+      id: unitId,
+      title: 'Unit Title',
+      totalLessons: 3,
+      children: lessons
+    });
+    return new Ember.RSVP.Promise(function(resolve) {
+      resolve(unit);
+    });
+  }
+});
+
+
 moduleForComponent('class/overview/gru-accordion-unit', 'Integration | Component | class/overview/gru accordion unit', {
   integration: true,
 
@@ -157,6 +185,8 @@ moduleForComponent('class/overview/gru-accordion-unit', 'Integration | Component
 
     this.register('service:api-sdk/performance', performanceServiceStub);
     this.inject.service('api-sdk/performance', { as: 'performanceService' });
+
+    this.register('service:api-sdk/unit', unitServiceStub);
 
     this.inject.service('i18n');
   }
@@ -173,9 +203,9 @@ test('it renders', function(assert) {
 
   // Unit model
   const unit = Ember.Object.create({
-    id: "777-999",
+    id: "unit-with-lessons",
     title: 'Unit Title',
-    totalLessons: 3
+    lessonCount: 3
   });
 
   this.set('currentClass', currentClass);
@@ -199,7 +229,7 @@ test('it renders', function(assert) {
   const $unitTitleAnchor = $unitTitle.find('> a');
   assert.ok($unitTitleAnchor.length, 'Title anchor element is missing');
   assert.ok($unitTitleAnchor.hasClass('collapsed'), 'Panel should be collapsed by default');
-  assert.equal($unitTitleAnchor.find('span').html().replace(/&nbsp;/g, " "), 'Unit 1.  Unit Title', 'Wrong title text');
+  assert.equal($unitTitleAnchor.find('span').html().replace(/&nbsp;/g, " ").trim(), 'Unit 1.  Unit Title', 'Wrong title text');
 
   const $lessonNumber = $unitTitle.find('> span');
   assert.equal($lessonNumber.text().trim(), '3 Lessons', 'Number of Lessons');
@@ -252,7 +282,7 @@ test('it renders correctly when there are no lessons to load after clicking on t
 
   const $component = this.$('.gru-accordion-unit');
   const $unitTitleAnchor = $component.find('.unit a');
-  assert.equal($unitTitleAnchor.find('span').html().replace(/&nbsp;/g, " "), 'Unit 1.  Unit Title', 'Title text');
+  assert.equal($unitTitleAnchor.find('span').html().replace(/&nbsp;/g, " ").trim(), 'Unit 1.  Unit Title', 'Title text');
 
   //TODO: WE NEED TO TEST THIS ONCE WE ADD THE NUMBER OF LESSONS
   //const $lessonNumber = $component.find('.unit .panel-title > span');
@@ -299,7 +329,7 @@ test('it loads lessons and renders them correctly after clicking on the unit nam
 
   // Unit model
   const unit = Ember.Object.create({
-    id: "777-999",
+    id: "unit-with-lessons",
     title: 'Unit Title'
   });
 
@@ -365,7 +395,7 @@ test('it only loads lessons once after clicking on the unit name', function(asse
 
   // Unit model
   const unit = Ember.Object.create({
-    id: "777-999",
+    id: "unit-with-lessons",
     title: 'Unit Title'
   });
 
@@ -423,7 +453,7 @@ test('it only loads lessons once after clicking on the unit name', function(asse
 
       const $items = $collapsePanel.find('.gru-accordion-lesson');
       assert.equal($items.length, 3, 'Number of lessons listed should not have changed');
-      assert.equal($unitTitleAnchor.find('span').html().replace(/&nbsp;/g, " "), 'Unit 3.  Unit Title', 'Index in the title text should have changed');
+      assert.equal($unitTitleAnchor.find('span').html().replace(/&nbsp;/g, " ").trim(), 'Unit 3.  Unit Title', 'Index in the title text should have changed');
     });
   });
 });

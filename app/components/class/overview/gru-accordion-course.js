@@ -97,6 +97,7 @@ export default Ember.Component.extend(AccordionMixin, {
       // TODO: getCourseUsers is currently dependent on items that's why this declaration
       // takes place after setting items. Once api-sdk/course-location is complete
       // both declarations can be put together, as they should
+      /*
       let usersLocationPromise = component.getCourseUsers();
       usersLocationPromise.then(function(usersLocation){
         component.set('usersLocation', usersLocation);
@@ -105,6 +106,7 @@ export default Ember.Component.extend(AccordionMixin, {
           component.set('location', userLocation);
         }
       });
+      */
       component.set("loading", false);
     });
   }),
@@ -212,16 +214,16 @@ export default Ember.Component.extend(AccordionMixin, {
    * @returns {Ember.RSVP.Promise}
    */
   getUnitsPerformance: function() {
+    const userId = this.get('session.userId');
     const classId = this.get('currentClass.id');
     const courseId = this.get('currentClass.course');
     const units = this.get('units');
-    const userId = this.get('session.userId');
+    /*
     var component = this;
-
     if(component.get('isTeacher')) {
       return component.getTeacherUnits(classId, courseId, units);
     }
-
+    */
     return this.get('performanceService').findStudentPerformanceByCourse(userId, classId, courseId, units);
   },
 
@@ -250,9 +252,7 @@ export default Ember.Component.extend(AccordionMixin, {
   getCourseUsers: function() {
     const courseId = this.get('currentClass.course');
     const component = this;
-
     return component.get("courseLocationService").findByCourse(courseId, { units: component.get("units")});
-
   }
 
 });
