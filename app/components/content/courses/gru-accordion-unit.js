@@ -128,6 +128,18 @@ export default Ember.Component.extend(BuilderMixin, {
 
   },
 
+  // -------------------------------------------------------------------------
+  // Events
+  init() {
+    this._super(...arguments);
+
+    if (!this.get('unit.id')) {
+      // If this a new unit, set the tempUnit value so things don't break in edit mode
+      let unitForEditing = this.get('unit').copy();
+      this.set('tempUnit', unitForEditing);
+    }
+  },
+
 
   // -------------------------------------------------------------------------
   // Properties
@@ -177,9 +189,11 @@ export default Ember.Component.extend(BuilderMixin, {
               data: lesson
             });
           });
-          unit.set('children', children);
-
           this.set('items', children);
+
+          // Reference to 'children' can be discarded since all its information
+          // is now in 'items'
+          unit.set('children', null);
           this.set('isLoaded', true);
         }.bind(this))
 

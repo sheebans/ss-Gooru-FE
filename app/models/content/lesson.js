@@ -57,6 +57,30 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {String} title
    */
-  title: ''
+  title: '',
+
+  /**
+   * Return a copy of the lesson for editing
+   *
+   * @function
+   * @return {Content/Lesson}
+   */
+  copy: function() {
+
+    var properties = [];
+    var enumerableKeys = Object.keys(this);
+
+    for (let i = 0; i < enumerableKeys.length; i++) {
+      let key = enumerableKeys[i];
+      let value = Ember.typeOf(this.get(key));
+      if (value === 'string' || value === 'number' || value === 'boolean') {
+        properties.push(key);
+      }
+    }
+
+    // Copy the lesson data
+    properties = this.getProperties(properties);
+    return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
+  }
 
 });

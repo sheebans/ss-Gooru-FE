@@ -217,20 +217,17 @@ test('it shows an error message if it fails to create a new unit', function (ass
   this.inject.service('notifications');
 
   const unit = BuilderItem.create({
+    data: Unit.create(Ember.getOwner(this).ownerInjection(), {
+      id: ''
+    }),
     isEditing: true
   });
 
-  const tempUnit = Unit.create(Ember.getOwner(this).ownerInjection(), {
-    id: ''
-  });
-
   this.set('unit', unit);
-  this.set('tempUnit', tempUnit);
   this.set('courseId', 'course-id-fail');
   this.render(hbs`{{content/courses/gru-accordion-unit
     courseId=courseId
-    model=unit
-    tempUnit=tempUnit }}`);
+    model=unit }}`);
 
   const $component = this.$('.content.courses.gru-accordion.gru-accordion-unit');
   assert.ok($component.length, 'Component');
@@ -240,18 +237,20 @@ test('it shows an error message if it fails to create a new unit', function (ass
 });
 
 test('it renders a form when editing an existing unit', function (assert) {
-
-  // Unit model
-  const unit = BuilderItem.create({
-    isEditing: true
-  });
-
-  const tempUnit = Unit.create(Ember.getOwner(this).ownerInjection(), {
+  const unitData = {
     bigIdeas: 'Big ideas text',
     essentialQuestions: 'Essential questions text',
     id: '123',
     title: 'Sample Unit Name'
+  };
+
+  // Unit model
+  const unit = BuilderItem.create({
+    data: Unit.create(Ember.getOwner(this).ownerInjection(), unitData),
+    isEditing: true
   });
+
+  const tempUnit = Unit.create(Ember.getOwner(this).ownerInjection(), unitData);
 
   this.set('unit', unit);
   this.set('tempUnit', tempUnit);

@@ -2,7 +2,15 @@ import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations({
-  title: validator('presence', true)
+  title: {
+    validators: [
+      validator('presence', {
+        presence: true,
+        message: '{{description}}',
+        descriptionKey: 'common.errors.unit-title-required'
+      })
+    ]
+  }
 });
 
 /**
@@ -56,7 +64,7 @@ export default Ember.Object.extend(Validations, {
    * Return a copy of the unit for editing
    *
    * @function
-   * @return {Course}
+   * @return {Content/Unit}
    */
   copy: function() {
 
@@ -66,7 +74,7 @@ export default Ember.Object.extend(Validations, {
     for (let i = 0; i < enumerableKeys.length; i++) {
       let key = enumerableKeys[i];
       let value = Ember.typeOf(this.get(key));
-      if (value === 'string' || value === 'number' || value === 'boolean') {
+      if (value === 'string' || value === 'number' || value === 'boolean' || value === 'null') {
         properties.push(key);
       }
     }
