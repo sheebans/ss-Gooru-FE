@@ -132,7 +132,7 @@ export default {
     },
     "warnings": {
       "character-limit": "You've reached the character limit"
-    }
+    },
     "explanation": "Explanation",
     "first-name": "First Name",
     "follow": "Follow",
