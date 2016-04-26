@@ -438,6 +438,7 @@ export default {
       "question-type": "Question Type"
     },
     "builder":{
+      "add-answer-choice":"+ Add Answer Choice",
       "add-hint":"Add Hints",
       "add-explanation":"Add Explanation",
       "answer":"Answer",
