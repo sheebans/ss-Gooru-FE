@@ -255,6 +255,7 @@ test('it renders a form when editing an existing lesson', function (assert) {
     sequence: 3
   });
 
+  this.set('tempLesson', tempLesson);
   this.set('lesson', lesson);
   this.set('index', 2);
   this.render(hbs`{{content/courses/gru-accordion-lesson model=lesson tempLesson=tempLesson index=index }}`);
