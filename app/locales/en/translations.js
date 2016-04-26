@@ -114,6 +114,7 @@ export default {
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
+      "lesson-title-required" : "Please enter the lesson title.",
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
       "question-not-updated": "Oops! Unable to update question right now. Please try again shortly.",
       "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
@@ -121,11 +122,14 @@ export default {
       "resource-missing-title": "Please enter a resource title.",
       "resource-missing-type": "Please select a resource type.",
       "resource-missing-url": "Please enter a valid URL.",
+      "resource-not-updated": "Oops! Unable to update resource right now. Please try again shortly.",
       "resource-same-host-url": "Resources can not be Gooru's URLs.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
       "sign-in-google-account-exists": "Please sign-in with Google to access your account.",
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
-      "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly."
+      "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly.",
+      "collection-title-presence" : "Please enter the collection title.",
+      "assessment-title-presence" : "Please enter the assessment title."
     },
     "explanation": "Explanation",
     "first-name": "First Name",
@@ -192,7 +196,6 @@ export default {
     "preview": "Preview",
     "question":"Question",
     "questions": "Questions",
-    "question-edit-instructions":"Write your question. Character limit: 5000.",
     "question-pl": {
       one: "Question",
       other: "Questions"
@@ -277,7 +280,8 @@ export default {
     "verified": "Verified",
     "yes": "Yes",
     "warnings": {
-      "on-air-connection-lost": "The On Air feature has lost connection and is retrying automatically. While it's tempting, please don't refresh your screen!"
+      "on-air-connection-lost": "The On Air feature has lost connection and is retrying automatically. While it's tempting, please don't refresh your screen!",
+      "character-limit": "You've reached the character limit"
     }
   },
 
@@ -377,7 +381,7 @@ export default {
       }
     },
     "quick-start":{
-      "title": "How do you want to add a course",
+      "title": "How do you want to add a course?",
       "new-course": "Quick Start a New Course",
       "new-course-desc": "Jump start to add a collection or assessment",
       "new-collection": "New Collection",
@@ -423,7 +427,6 @@ export default {
   "content.collections.edit": {
     "assign-to-course": "Assign to Course"
   },
-
   "content.courses.edit": {
     "assign-to-class": "Assign to Class",
     "big-ideas": "Big Ideas",
@@ -437,9 +440,26 @@ export default {
     "information":{
       "question-title":"Question Title",
       "question-type": "Question Type"
+    },
+    "builder":{
+      "add-hint":"Add Hints",
+      "add-explanation":"Add Explanation",
+      "answer":"Answer",
+      "answer-instructions":{
+        "FIB":"Add up to 5 hints for answer and an explanation."
+      },
+      "question-instructions":{
+        "FIB":"As you write the question, use brackets for your fill-in-the-blank answers. For example: “The big bad [wolf] blew down the [house].” You can also add an image.Character Limit: 5000.",
+        "HS_TXT":"Write your question. Character limit: 5000.",
+        "HS_IMG":"Write your question. Character limit: 5000.",
+        "HT_RO":"Write your question. Character limit: 5000.",
+        "HT_HL":"Write your question. Character limit: 5000.",
+        "MC":"Write your question. Character limit: 5000.",
+        "MA":"Write your question. Character limit: 5000.",
+        "T/F":"Write your question. Character limit: 5000.",
+      }
     }
   },
-
   "content.resources": {
     "edit": {
       "placeholder-message": "Add a resource to <span>preview it here.</span>",
@@ -450,7 +470,6 @@ export default {
       }
     }
   },
-
   "user": {
     "active-classes": "Active Classes",
     "archived-classes": "Archived Classes",
@@ -517,10 +536,14 @@ export default {
     "haveAccount": "Already have an account?",
     "clickLogIn": "Click here to log in."
   },
-
   "sign-up": {
     "step-1-title": "Hello!",
     "step-1-description": "We're glad you’ve decided to join us.",
+    "step-child-title": "Not so fast!",
+    "step-child-subtitle": "We cannot complete your registration.",
+    "step-child-description-1": "Gooru could not create your account due to our ",
+    "step-child-age-requirements": "Terms & Conditions",
+    "step-child-description-2": ". Keep learning and see you in a few years!",
     "step-2-title": "Basic Info",
     "step-2-description": "You’re not basic, but this info is.",
     "log-in": "Log In",
@@ -728,8 +751,6 @@ export default {
   "player.gru-reorder": {
     "instructions" : "Please reorder the answers in correct order, and click \"Submit\"."
   },
-
-
 
   "player": {
     "gru-navigation": {

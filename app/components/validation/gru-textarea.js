@@ -87,12 +87,12 @@ export default Ember.Component.extend({
   /**
    * @param {Number} type - max length of the textarea field.
    */
-  maxlength:0,
+  maxLength:null,
 
   /**
    * @param {Number} rows of the textarea field.
    */
-  rows:1000,
+  rows:1,
   /**
    * @param {Object} attributeValidation - value used to set the rawTextareaValue
    */
@@ -114,6 +114,11 @@ export default Ember.Component.extend({
    * @param {Computed } didValidate - value used to check if input has been validated or not
    */
   didValidate: computed.oneWay('targetObject.didValidate'),
+
+  isMaxLength: computed('value.length', 'maxLength',
+  function() {
+    return (this.get('value.length') >= this.get('maxLength'));
+  }),
 
   /**
    * @param {Computed } showErrorClass - computed property that defines the

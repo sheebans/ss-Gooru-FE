@@ -85,7 +85,7 @@ test('it renders a form for creating a new lesson', function (assert) {
   assert.ok($panelBody.find('> .data-row.standards').length, 'Standards');
 });
 
-test('it can create a new lesson', function (assert) {
+test('it can create a new lesson in a valid state', function (assert) {
 
   var lesson = BuilderItem.create({
     data: Lesson.create(Ember.getOwner(this).ownerInjection(), {
@@ -104,6 +104,14 @@ test('it can create a new lesson', function (assert) {
 
   const $component = this.$('.content.courses.gru-accordion.gru-accordion-lesson');
   assert.ok($component.length, 'Component');
+  const $titleField = $component.find('.gru-input.validation.title');
+  $titleField.find("input").blur();
+  assert.ok($titleField.find('.error-messages .error').length, 'Error message should exist');
+
+  $titleField.find("input").val('Lesson Title');
+  $titleField.find("input").blur();
+
+  assert.ok(!$titleField.find('.error-messages .error').length, 'Error message should not exist');
 
   const $saveButton = $component.find('.edit .panel-heading .actions button:eq(1)');
   $saveButton.click();
@@ -128,7 +136,8 @@ test('it shows an error message if it fails to create a new lesson', function (a
 
   var lesson = BuilderItem.create({
     data: Lesson.create(Ember.getOwner(this).ownerInjection(), {
-      id: ''
+      id: '',
+      title: 'any'      
     }),
     isEditing: true
   });

@@ -65,17 +65,21 @@
               <span>{{t "common.publisher"}}</span>
               {{#if isEditing}}
                 <div class="form-group inline">
-                  {{input value=tempResource.metadata.publisher class="form-control" maxlength=50}}
+                  {{#if tempResource.metadata.amIThePublisher}}
+                    {{input value=session.userData.username disabled=true class="form-control" maxlength=50}}
+                  {{else}}
+                    {{input value=tempResource.metadata.publisher class="form-control" maxlength=50}}
+                  {{/if}}
                 </div>
                 <div class="checkbox-inline">
-                  {{input id="im-publisher" type="checkbox"}}
+                  {{input id="im-publisher" type="checkbox" checked=tempResource.metadata.amIThePublisher}}
                   <label for="im-publisher">{{t "content.resources.edit.information.im-publisher"}}</label>
                 </div>
               {{else}}
                 {{#if resource.metadata.amIThePublisher}}
                   <b>{{session.userData.username}}</b>
                 {{else}}
-                  {{#if}}
+                  {{#if resource.metadata.publisher}}
                     <b>{{resource.metadata.publisher}}</b>
                   {{else}}
                     <b>{{t 'common.not-provided'}}</b>
@@ -137,7 +141,7 @@
             <label>
               <span>{{t "common.description"}}</span>
               {{#if isEditing}}
-                <textarea name="">{{{tempResource.description}}}</textarea>
+                {{textarea value=tempResource.description}}
               {{else}}
                 {{#if resource.description}}
                   <b>{{resource.description}}</b>
