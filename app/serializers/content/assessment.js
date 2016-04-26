@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import AssessmentModel from 'gooru-web/models/content/assessment';
+import QuestionSerializer from 'gooru-web/serializers/content/question';
 
 /**
  * Serializer to support the Assessment CRUD operations for API 3.0
@@ -7,6 +8,16 @@ import AssessmentModel from 'gooru-web/models/content/assessment';
  * @typedef {Object} AssessmentSerializer
  */
 export default Ember.Object.extend({
+
+  /**
+   * @property {QuestionSerializer} questionSerializer
+   */
+  questionSerializer: null,
+
+  init: function () {
+    this._super(...arguments);
+    this.set('questionSerializer', QuestionSerializer.create(Ember.getOwner(this).ownerInjection()));
+  },
 
   /**
    * Serialize a Assessment object into a JSON representation required by the Create Assessment endpoint
@@ -42,13 +53,25 @@ export default Ember.Object.extend({
    * @returns {Question}
    */
   normalizeReadAssessment: function(assessmentData){
+    var serializer = this;
     return AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
       id: assessmentData.id,
       title: assessmentData.title,
       learningObjectives: assessmentData['learning_objective'],
-      isVisibleOnProfile: assessmentData['visible_on_profile'] ? assessmentData['visible_on_profile'] : true
+      isVisibleOnProfile: assessmentData['visible_on_profile'] ? assessmentData['visible_on_profile'] : true,
+      children: serializer.normalizeQuestions(assessmentData.question)
       // TODO Add more required properties here...
     });
+  },
+
+  normalizeQuestions: function(payload) {
+    const serializer = this;
+    if (Ember.isArray(payload)) {
+      return payload.map(function(item) {
+        return serializer.get('questionSerializer').normalizeReadQuestion(item);
+      });
+    }
+    return [];
   }
 
 });

@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import CollectionModel from 'gooru-web/models/content/collection';
 import ResourceSerializer from 'gooru-web/serializers/content/resource';
+import QuestionSerializer from 'gooru-web/serializers/content/question';
 
 
 /**
@@ -15,9 +16,15 @@ export default Ember.Object.extend({
    */
   resourceSerializer: null,
 
+  /**
+   * @property {QuestionSerializer} questionSerializer
+   */
+  questionSerializer: null,
+
   init: function () {
     this._super(...arguments);
     this.set('resourceSerializer', ResourceSerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set('questionSerializer', QuestionSerializer.create(Ember.getOwner(this).ownerInjection()));
   },
 
   /**
@@ -68,8 +75,12 @@ export default Ember.Object.extend({
   normalizeResources: function(payload) {
     const serializer = this;
     if (Ember.isArray(payload)) {
-      return payload.map(function(resource) {
-        return serializer.get('resourceSerializer').normalizeReadResource(resource);
+      return payload.map(function(item) {
+        if (item.content_format === 'resource') {
+          return serializer.get('resourceSerializer').normalizeReadResource(item);
+        } else {
+          return serializer.get('questionSerializer').normalizeReadQuestion(item);
+        }
       });
     }
     return [];

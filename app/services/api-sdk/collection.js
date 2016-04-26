@@ -112,12 +112,26 @@ export default Ember.Service.extend({
    * Adds a resource to a specific collection
    * @param collectionId
    * @param resourceId
-   * @returns {Collection}
+   * @returns {Promise}
    */
   addResource: function(collectionId, resourceId){
     var service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('collectionAdapter').addResource(collectionId, resourceId)
+        .then(resolve, reject);
+    });
+  },
+
+  /**
+   * Adds a question to a specific collection
+   * @param collectionId
+   * @param questionId
+   * @returns {Promise}
+   */
+  addQuestion: function(collectionId, questionId){
+    var service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('collectionAdapter').addQuestion(collectionId, questionId)
         .then(resolve, reject);
     });
   }
