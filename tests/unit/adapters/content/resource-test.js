@@ -64,7 +64,5 @@ test('updateResource', function(assert) {
   adapter.updateResource('resource-id', expectedData)
     .then(function() {
       assert.ok(true);
-    }, function() {
-      assert.ok(false, 'Update resource failed');
     });
 });
