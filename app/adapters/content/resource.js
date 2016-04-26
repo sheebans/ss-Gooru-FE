@@ -49,6 +49,28 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Updates a resource by id
+   *
+   * @param {string} resourceId
+   * @param data resource data to be sent in the request body
+   * @returns {Promise}
+   */
+  updateResource: function(resourceId, data) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/${resourceId}`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify(data)
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')
