@@ -35,15 +35,44 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
 
     searchTerm: function () {
       var term = $.trim(this.get('term'));
+      var isIncorrectTermSize = this.get('isIncorrectTermSize');
       if (term) {
-        this.sendAction('onSearch', encodeTerm(term));
+        if (!isIncorrectTermSize){
+          this.sendAction('onSearch', encodeTerm(term));
+        }
       }
+    },
+
+    inputValueChange: function() {
+      this.set('isTyping', false);
     }
   },
 
 
   // -------------------------------------------------------------------------
   // Events
+
+  didInsertElement: function(){
+    $('.search-input').on('keyup', function(ev) {
+      ev.stopPropagation();
+      var evt = ev || window.event;
+      if(evt.keyCode===13){
+        this.set('isTyping', false);
+      }
+      else {
+        this.set('isTyping', true);
+      }
+    }.bind(this));
+  },
+
+  /**
+   * willDestroyElement event
+   */
+  willDestroyElement: function(){
+    this.set('term', null);
+    this.set('searchErrorMessage', null);
+    this.set('isTyping', null);
+  },
 
 
   // -------------------------------------------------------------------------
@@ -71,10 +100,31 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    */
   term: null,
 
+  /**
+   * isTyping
+   * @property {Boolean}
+   */
+  isTyping: null,
+
 
   // -------------------------------------------------------------------------
   // Observers
 
+  /**
+   * @param {Computed } searchErrorMessage - computed property that defines if show searchErrorMessage
+   */
+  searchErrorMessage: Ember.computed('isIncorrectTermSize', 'isTyping', 'term', function() {
+    const isIncorrectTermSize = this.get('isIncorrectTermSize');
+    const term = this.get('term');
+    const isTyping = this.get('isTyping');
+
+    return (term !=='' && isIncorrectTermSize && (isTyping===false));
+  }),
+
+  /**
+   * @param {Computed } searchInputDirty - computed property that defines whether the term is null or not.
+   */
+  searchInputDirty: Ember.computed.notEmpty('term')
 
   // -------------------------------------------------------------------------
   // Methods

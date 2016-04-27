@@ -3,6 +3,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 import { encodeTerm } from 'gooru-web/utils/encode-term';
+import wait from 'ember-test-helpers/wait';
 
 moduleForComponent('gru-header', 'Integration | Component | Header', {
   integration: true,
@@ -127,4 +128,21 @@ test('Encode term', function(assert) {
   $searchInput.val(ANY_TERM);
   $searchInput.change();
   this.$('form').submit();
+});
+
+test('Search terms under 3 letters', function(assert) {
+  assert.expect(1); //making sure all asserts are called
+
+  this.render(hbs`{{gru-header}}`);
+
+  const $component = this.$(); //component dom element
+
+  const $navSearch = $component.find(".search-navbar-form");
+  const $searchInput = $navSearch.find(".search-input");
+  $searchInput.val("te");
+  $searchInput.blur();
+
+  return wait().then(function () {
+    T.exists(assert, $navSearch.find(".error"), "error message should be visible");
+  });
 });
