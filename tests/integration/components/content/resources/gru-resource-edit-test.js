@@ -273,7 +273,7 @@ test('Validate the character limit in the Resource title field', function (asser
   assert.equal($titleField.find("input").val().length,50, "Incorrect number of incorrect characters");
 });
 
-test('Layout of the settings section', function (assert) {
+test('Validate that settings component is present', function (assert) {
   var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
     title: "Resource Title"
   });
@@ -282,11 +282,5 @@ test('Layout of the settings section', function (assert) {
   this.render(hbs`{{content/resources/gru-resource-edit resource=resource}}`);
 
   var $settingsSection = this.$("#settings");
-  assert.ok($settingsSection.find('.header h2').length, "Section title");
-  assert.ok($settingsSection.find('.panel-heading h3').length, "Panel subtitle");
-  assert.ok($settingsSection.find('.panel-body .setting.publish-to i.visibility').length, "Visibility icon");
-  assert.ok($settingsSection.find('.panel-body .setting.publish-to i.visibility + span').length, "Visibility label");
-  assert.ok($settingsSection.find('.panel-body .gru-switch .toggle').length, "Profile toggle button");
-  assert.ok($settingsSection.find('.panel-body .setting.request-to i.public').length, "Public icon");
-  assert.ok($settingsSection.find('.panel-body .setting.request-to i.public + span').length, "Public label");
+  assert.ok($settingsSection.length, "Section component exists");
 });

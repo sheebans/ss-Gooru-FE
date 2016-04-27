@@ -36,7 +36,8 @@ test('serializeUpdateResource', function(assert) {
     'metadata': {
       'am_i_the_publisher': false,
       'publisher': null
-    }
+    },
+    'visible_on_profile': undefined
   };
   const response = serializer.serializeUpdateResource(resourceObject);
   assert.deepEqual(response, expected, 'Wrong serialized response');
@@ -51,7 +52,8 @@ test('normalizeReadResource', function(assert) {
     content_subformat: 'video_resource',
     description: 'any desc',
     publish_status: 'published',
-    taxonomy: []
+    taxonomy: [],
+    visible_on_profile: true
   };
   const expected = ResourceModel.create(Ember.getOwner(this).ownerInjection(), {
     id: "abcd",
@@ -64,7 +66,8 @@ test('normalizeReadResource', function(assert) {
     metadata: {
       'amIThePublisher': false,
       'publisher': null
-    }
+    },
+    isVisibleOnProfile: true
   });
 
   const resource = serializer.normalizeReadResource(resourceData);
