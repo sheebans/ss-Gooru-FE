@@ -75,6 +75,20 @@ export default Ember.Service.extend({
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('assessmentAdapter').updateAssessment(assessmentId, serializedData).then(resolve, reject);
     });
+  },
+
+  /**
+   * Adds a question to a specific assessment
+   * @param assessmentId
+   * @param questionId
+   * @returns {Promise}
+   */
+  addQuestion: function(assessmentId, questionId){
+    var service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('assessmentAdapter').addQuestion(assessmentId, questionId)
+        .then(resolve, reject);
+    });
   }
 
 });

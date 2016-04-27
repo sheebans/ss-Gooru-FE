@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import Question from 'gooru-web/models/content/question';
+import Collection from 'gooru-web/models/content/collection';
 import {QUESTION_CONFIG, QUESTION_TYPES} from 'gooru-web/config/question';
+
 export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
@@ -9,6 +11,16 @@ export default Ember.Component.extend({
    * @property {QuestionService} Question service API SDK
    */
   questionService: Ember.inject.service("api-sdk/question"),
+
+  /**
+   * @property {CollectionService} Collection service API SDK
+   */
+  collectionService: Ember.inject.service("api-sdk/collection"),
+
+  /**
+   * @property {AssessmentService} Assessment service API SDK
+   */
+  assessmentService: Ember.inject.service("api-sdk/assessment"),
 
   /**
    * @property {Service} I18N service
@@ -38,11 +50,22 @@ export default Ember.Component.extend({
       const question = component.get('question');
       question.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
+          let questionId;
           component.get('questionService')
             .createQuestion(question)
-            .then(function(newQuestion) {
+            .then(function(newQuestion){
+              questionId = newQuestion.get('id');
+              if(component.get('model')) {
+                let service = component.get('model') instanceof Collection ?
+                  component.get('collectionService') : component.get('assessmentService');
+                return service.addQuestion(component.get('model').get('id'), questionId);
+              } else {
+                return Ember.RSVP.resolve(true);
+              }
+            })
+            .then(function() {
                 component.triggerAction({ action: 'closeModal' });
-                component.get('router').transitionTo('content.questions.edit', newQuestion.get('id'));
+                component.get('router').transitionTo('content.questions.edit', questionId);
               },
               function() {
                 const message = component.get('i18n').t('common.errors.question-not-created').string;

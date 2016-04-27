@@ -50,7 +50,7 @@ export default Ember.Component.extend({
                 if(component.get('model')) {
                   return component.get('resourceService').copyResource(resourceId)
                     .then(function(copyResourceId) {
-                      component.get('collectionService').addResource(
+                      return component.get('collectionService').addResource(
                         component.get('model').get('id'), copyResourceId
                       );
                     });
