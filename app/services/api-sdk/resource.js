@@ -61,7 +61,7 @@ export default Ember.Service.extend({
    * @param {string} resourceId
    * @returns {Ember.RSVP.Promise}
    */
-  readResource: function(resourceId){
+  readResource: function(resourceId) {
     const service = this;
     const serializer = service.get('resourceSerializer');
     return new Ember.RSVP.Promise(function(resolve, reject) {
@@ -69,6 +69,36 @@ export default Ember.Service.extend({
         .then(function(responseData /*, textStatus, request */) {
         resolve(serializer.normalizeReadResource(responseData));
       }, reject );
+    });
+  },
+
+  /**
+   * Updates a resource
+   *
+   * @param resourceId the id of the resource to be updated
+   * @param resourceModel the resource model with the data
+   * @returns {Promise}
+   */
+  updateResource: function(resourceId, resourceModel) {
+    const service = this;
+    let serializedData = service.get('resourceSerializer').serializeUpdateResource(resourceModel);
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      service.get('resourceAdapter').updateResource(resourceId, serializedData).then(resolve, reject);
+    });
+  },
+
+  /**
+   * Copies a resources by id
+   * @param {string} resourceId
+   * @returns {Ember.RSVP.Promise}
+   */
+  copyResource: function(resourceId){
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('resourceAdapter').copyResource(resourceId)
+        .then(function(responseData, textStatus, request) {
+          resolve(request.getResponseHeader('location'));
+        }, reject );
     });
   }
 });

@@ -7,6 +7,16 @@ export default Ember.Component.extend(ContentEditMixin, {
   // Dependencies
   session: Ember.inject.service('session'),
 
+  /**
+   * @requires service:notifications
+   */
+  notifications: Ember.inject.service(),
+
+  /**
+   * @requires service:api-sdk/resource
+   */
+  resourceService: Ember.inject.service("api-sdk/resource"),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -30,7 +40,16 @@ export default Ember.Component.extend(ContentEditMixin, {
      * Save Content
      */
     updateContent: function () {
-      console.log('UPDATE');
+      var editedResource = this.get('tempResource');
+      this.get('resourceService').updateResource(this.get('resource.id'), editedResource)
+        .then(function () {
+          this.set('resource', editedResource);
+          this.set('isEditing', false);
+        }.bind(this))
+        .catch(function () {
+          var message = this.get('i18n').t('common.errors.resource-not-updated').string;
+          this.get('notifications').error(message);
+        }.bind(this));
     },
 
     /**
@@ -52,7 +71,7 @@ export default Ember.Component.extend(ContentEditMixin, {
 
   /**
    * Copy of the resource model used for editing.
-   * @property {Course}
+   * @property {Resource}
    */
   tempResource: null,
 

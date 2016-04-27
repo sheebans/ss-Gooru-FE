@@ -2,7 +2,15 @@ import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations({
-  title: validator('presence', true)
+  title: {
+    validators: [
+      validator('presence', {
+        presence: true,
+        message: '{{description}}',
+        descriptionKey: 'common.errors.lesson-title-required'
+      })
+    ]
+  }
 });
 
 /**
@@ -49,6 +57,45 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {String} title
    */
-  title: ''
+  title: '',
+
+  /**
+   * Return a copy of the lesson for editing
+   *
+   * @function
+   * @return {Content/Lesson}
+   */
+  copy: function() {
+
+    var properties = [];
+    var enumerableKeys = Object.keys(this);
+
+    for (let i = 0; i < enumerableKeys.length; i++) {
+      let key = enumerableKeys[i];
+      let value = Ember.typeOf(this.get(key));
+
+      // Copy null values as well to avoid triggering the validation on empty input fields
+      if (value === 'string' || value === 'number' || value === 'boolean' || value === 'null') {
+        properties.push(key);
+      }
+    }
+
+    // Copy the lesson data
+    properties = this.getProperties(properties);
+    return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
+  },
+
+  /**
+   * Copy a list of property values from another lesson to override the current ones
+   *
+   * @function
+   * @param {Content/Lesson} lesson
+   * @param {String[]} propertyList
+   * @return {null}
+   */
+  merge: function(lesson, propertyList = []) {
+    var properties = lesson.getProperties(propertyList);
+    this.setProperties(properties);
+  }
 
 });

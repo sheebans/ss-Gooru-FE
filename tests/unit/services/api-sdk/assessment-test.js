@@ -81,3 +81,24 @@ test('updateAssessment', function(assert) {
   var done = assert.async();
   service.updateAssessment(expectedAssessmentId, expectedAssessmentModel).then(function() { done(); });
 });
+
+test('addQuestion', function(assert) {
+  const service = this.subject();
+  const expectedAssessmentId = 'assessment-id';
+  const expectedQuestionId = 'question-id';
+
+  assert.expect(2);
+
+  service.set('assessmentAdapter', Ember.Object.create({
+    addQuestion: function(assessmentId, questionId) {
+      assert.equal(assessmentId, expectedAssessmentId, 'Wrong assessment id');
+      assert.equal(questionId, expectedQuestionId, 'Wrong question id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.addQuestion(expectedAssessmentId, expectedQuestionId).then(function() {
+    done();
+  });
+});

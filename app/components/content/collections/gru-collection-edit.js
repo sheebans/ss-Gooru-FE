@@ -16,7 +16,10 @@ export default Ember.Component.extend(ContentEditMixin, {
    */
   collectionService: Ember.inject.service("api-sdk/collection"),
 
-
+  /**
+   * @property {Service} I18N service
+   */
+  i18n: Ember.inject.service(),
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -42,18 +45,22 @@ export default Ember.Component.extend(ContentEditMixin, {
      * Save Content
      */
     updateContent: function () {
-      var editedCollection = this.get('tempCollection');
-      this.get('collectionService').updateCollection(editedCollection.get('id'), editedCollection)
-
-        .then(function () {
-          this.set('collection', editedCollection);
-          this.set('isEditing', false);
-        }.bind(this))
-
-        .catch(function () {
-          var message = this.get('i18n').t('common.errors.collection-not-updated').string;
-          this.get('notifications').error(message);
-        }.bind(this));
+      const component = this;
+      let editedCollection = component.get('tempCollection');
+      editedCollection.validate().then(function ({validations }) {
+        if (validations.get('isValid')) {
+          component.get('collectionService').updateCollection(editedCollection.get('id'), editedCollection)
+            .then(function () {
+              component.set('collection', editedCollection);
+              component.set('isEditing', false);
+            })
+            .catch(function () {
+              var message = component.get('i18n').t('common.errors.collection-not-updated').string;
+              component.get('notifications').error(message);
+            });
+        }
+        component.set('didValidate', true);
+      });
     },
 
     /**

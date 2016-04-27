@@ -166,7 +166,7 @@ test('Layout of the builder section', function (assert) {
   assert.ok($builderSection.find('.panel-body .text-empty').length, "Missing text empty message");
 });
 test('Builder Edit', function (assert) {
-  assert.expect(8);
+  assert.expect(12);
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: null,
     type:'MC'
@@ -179,11 +179,15 @@ test('Builder Edit', function (assert) {
   assert.ok($builderSection.find('.actions .save').length, "Save button missing");
   assert.ok($builderSection.find('.actions .cancel').length, "Cancel button missing");
   assert.ok($builderSection.find('.header h2').length, "Builder title missing");
-  assert.ok($builderSection.find('.panel-heading h3').length, "Missing Question label");
   assert.equal($builderSection.find('.header h2').text(),"Builder - "+ this.i18n.t('common.question-type.'+question.type).toString(), "Missing Question label");
-  assert.ok($builderSection.find('.panel-heading .instructions').length, "Missing Instructions");
-  assert.ok($builderSection.find('.panel-body textarea').length, "Missing text area");
-  assert.ok($builderSection.find('.panel-body .add-image').length, "Missing add image button");
+  assert.ok($builderSection.find('.question-text .panel-heading h3').length, "Missing Question label");
+  assert.ok($builderSection.find('.question-text .panel-heading .instructions').length, "Missing Question Instructions");
+  assert.ok($builderSection.find('.question-text .panel-body textarea').length, "Missing text area");
+  assert.ok($builderSection.find('.question-text .panel-body .add-image').length, "Missing add image button");
+  assert.ok($builderSection.find('.question-answer .panel-heading h3').length, "Missing Answer label");
+  assert.ok($builderSection.find('.question-answer .panel-heading .instructions').length, "Missing Answer Instructions");
+  assert.ok($builderSection.find('.question-answer .panel-body .add-hint').length, "Missing add hints button");
+  assert.ok($builderSection.find('.question-answer .panel-body .add-explanation').length, "Missing add explanation button");
 });
 test('Validate the character limit in text field', function (assert) {
   assert.expect(1);
@@ -199,14 +203,14 @@ test('Validate the character limit in text field', function (assert) {
   const $textareaField = $component.find(".gru-textarea.text");
   var newText ="";
   var i = 0;
-  for (i = 0; i <=5001 ; i++) {
+  for (i = 0; i <=5000 ; i++) {
       newText+="a";
   }
   $textareaField.find("textarea").val(newText);
   $textareaField.find("textarea").trigger('blur');
 
   return wait().then(function () {
-    assert.ok($textareaField.find(".error-messages .error").length, 'Question text error message should be visible');
+    assert.ok($textareaField.find(".warning").length, 'Question text error message should be visible');
   });
 
 });

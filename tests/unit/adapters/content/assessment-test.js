@@ -64,3 +64,24 @@ test('updateAssessment', function(assert) {
     });
 });
 
+
+test('addQuestion', function(assert) {
+  const adapter = this.subject();
+  const expectedData = {
+    'id': 'question-id'
+  };
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.put('/api/nucleus/v1/assessments/assessment-id/questions', function(request) {
+      let requestBodyJson = JSON.parse(request.requestBody);
+      assert.deepEqual(requestBodyJson, expectedData, 'Expected request body is not correct');
+      return [204, {'Content-Type': 'text/plain'}, ''];
+    }, false);
+  });
+  adapter.addQuestion('assessment-id', 'question-id')
+    .then(function() {
+      assert.ok(true);
+    });
+});
