@@ -4,6 +4,7 @@
 .content.modals.gru-resource-new,
 .content.modals.gru-question-new{
   background-color: transparent;
+  max-width: 500px;
 
   .modal-header {
     border-top-left-radius: $border-radius-base;
@@ -192,13 +193,6 @@
   }
 }
 
-.content.modals.gru-course-new,
-.content.modals.gru-collection-new,
-.content.modals.gru-assessment-new,
-.content.modals.gru-resource-new,
-.content.modals.gru-question-new{
-  width: 500px;
-}
 .content.modals.gru-resource-new{
    .header-add-url {
      width: 100%;

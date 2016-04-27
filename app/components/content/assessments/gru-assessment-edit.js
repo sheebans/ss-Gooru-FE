@@ -35,7 +35,7 @@ export default CollectionEdit.extend({
       let editedAssessment = this.get('tempCollection');
       editedAssessment.validate().then(function ({validations }) {
         if (validations.get('isValid')) {
-          component.get('collectionService').updateCollection(editedAssessment.get('id'), editedAssessment)
+          component.get('assessmentService').updateAssessment(editedAssessment.get('id'), editedAssessment)
             .then(function () {
               component.set('collection', editedAssessment);
               component.set('isEditing', false);
