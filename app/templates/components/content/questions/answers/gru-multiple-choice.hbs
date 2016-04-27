@@ -8,9 +8,9 @@
         {{textarea valuePath='text' rows=2 maxlength=200}}
       </div>
         <button class="delete" {{action 'removeChoice' answer}}>{{gru-icon name="delete"}}</button>
-        <div class="check {{if answer.isCorrect 'correct'}}" {{action 'setCorrect' answer}}>
+        <button class="check {{if answer.isCorrect 'correct'}}" {{action 'setCorrect' answer}}>
             {{gru-icon name="done"}}
-        </div>
+        </button>
     </div>
 </div>
 {{/each}}

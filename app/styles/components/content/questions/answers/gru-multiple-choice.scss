@@ -10,6 +10,7 @@
       display: inline-block;
     }
      .delete{
+       outline: none;
        padding: 10px;
        cursor:pointer;
        border: 0;
@@ -39,7 +40,8 @@
        }
      }
      .check {
-       border-bottom:0;
+       outline: none;
+       border: 0;
        height: 4.9em;
        width: 4.1em;
        background-color: $light-200;
