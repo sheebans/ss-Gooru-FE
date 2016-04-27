@@ -181,7 +181,9 @@ test('Update Resource Information', function (assert) {
   assert.expect(1);
   var newTitle ='Edited resource for testing';
   var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
-    title: 'Resource for testing'
+    title: 'Resource for testing',
+    format: 'video',
+    url: 'http://example.com'
   });
   this.set('resource', resource);
   this.render(hbs`{{content/resources/gru-resource-edit isEditing=true tempResource=resource}}`);
