@@ -203,14 +203,14 @@ test('Validate the character limit in text field', function (assert) {
   const $textareaField = $component.find(".gru-textarea.text");
   var newText ="";
   var i = 0;
-  for (i = 0; i <=5001 ; i++) {
+  for (i = 0; i <=5000 ; i++) {
       newText+="a";
   }
   $textareaField.find("textarea").val(newText);
   $textareaField.find("textarea").trigger('blur');
 
   return wait().then(function () {
-    assert.ok($textareaField.find(".error-messages .error").length, 'Question text error message should be visible');
+    assert.ok($textareaField.find(".warning").length, 'Question text error message should be visible');
   });
 
 });

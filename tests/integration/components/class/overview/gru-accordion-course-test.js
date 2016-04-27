@@ -203,8 +203,8 @@ test('it renders correctly when there are units', function(assert) {
 
     const $items = $panelGroup.find('.gru-accordion-unit');
     assert.equal($items.length, 3, 'Incorrect number of lessons listed');
-    assert.equal($items.first().find('.panel-title .title span').html().replace(/&nbsp;/g, " "), 'Unit 1.  Unit 1', 'Incorrect first unit title');
-    assert.equal($items.last().find('.panel-title .title span').html().replace(/&nbsp;/g, " "), 'Unit 3.  Unit 3', 'Incorrect last unit title');
+    assert.equal($items.first().find('.panel-title .title span').html().replace(/&nbsp;/g, " ").trim(), 'Unit 1.  Unit 1', 'Incorrect first unit title');
+    assert.equal($items.last().find('.panel-title .title span').html().replace(/&nbsp;/g, " ").trim(), 'Unit 3.  Unit 3', 'Incorrect last unit title');
 
     assert.equal($items.first().find('.unit .gru-user-icons .first-view li').length, 1, 'Wrong number of user icons showing for the first unit for mobile');
     assert.equal($items.last().find('.unit .gru-user-icons .first-view li').length, 1, 'Wrong number of user icons showing for the last unit for mobile');

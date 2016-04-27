@@ -63,3 +63,45 @@ test('updateCollection', function(assert) {
       assert.ok(false, 'Update Collection failed');
     });
 });
+
+test('addResource', function(assert) {
+  const adapter = this.subject();
+  const expectedData = {
+    'id': 'resource-id'
+  };
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.put('/api/nucleus/v1/collections/collection-id/resources', function(request) {
+      let requestBodyJson = JSON.parse(request.requestBody);
+      assert.deepEqual(requestBodyJson, expectedData, 'Expected request body is not correct');
+      return [204, {'Content-Type': 'text/plain'}, ''];
+    }, false);
+  });
+  adapter.addResource('collection-id', 'resource-id')
+    .then(function() {
+      assert.ok(true);
+    });
+});
+
+test('addQuestion', function(assert) {
+  const adapter = this.subject();
+  const expectedData = {
+    'id': 'question-id'
+  };
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.put('/api/nucleus/v1/collections/collection-id/questions', function(request) {
+      let requestBodyJson = JSON.parse(request.requestBody);
+      assert.deepEqual(requestBodyJson, expectedData, 'Expected request body is not correct');
+      return [204, {'Content-Type': 'text/plain'}, ''];
+    }, false);
+  });
+  adapter.addQuestion('collection-id', 'question-id')
+    .then(function() {
+      assert.ok(true);
+    });
+});

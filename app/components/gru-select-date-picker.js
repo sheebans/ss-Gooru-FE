@@ -145,10 +145,14 @@ export default Ember.Component.extend({
   wasSubmitted: false,
 
   /**
-   * Show error birth message or not
+   * Show error birth message or not, and tigger action when the gru-select-date-picker options are selected
    * @property {Boolean}
    */
   showBirthMessage: Ember.computed('birthDaySelected', 'birthMonthSelected', 'birthYearSelected', 'focusLost', 'wasSubmitted', function() {
+    if(this.get('birthMonthSelected') && this.get('birthDaySelected') && this.get('birthYearSelected')) {
+      this.sendAction('onValidDate');
+    }
+
     return (((!this.get('birthMonthSelected') || !this.get('birthDaySelected') || !this.get('birthYearSelected')) && this.get('focusLost'))|| ((!this.get('birthMonthSelected') || !this.get('birthDaySelected') || !this.get('birthYearSelected')) && this.get('wasSubmitted')) && this.get('focusLost') !==false);
   })
   // -------------------------------------------------------------------------
