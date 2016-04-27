@@ -17,13 +17,8 @@
   }
 
   .gru-quick-course-search {
-    @include respond-to(sm-to-lg) {
-
-    }
     @include flexbox;
     @include flex-direction(column);
-
-
     border: 0;
   }
 }
