@@ -104,12 +104,14 @@ export default {
       "add-course-title":"Please enter the course title.",
       "add-question-title":"Please enter the question title.",
       "add-question-text":"You've reached the character limit.",
+      "assessment-title-presence" : "Please enter the assessment title.",
       "can-not-join-class" : "Oops! Unable to join class. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
       "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "collection-not-updated": "Oops! Unable to update collection right now. Please try again shortly.",
+      "collection-title-presence" : "Please enter the collection title.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
@@ -128,8 +130,7 @@ export default {
       "sign-in-google-account-exists": "Please sign-in with Google to access your account.",
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
       "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly.",
-      "collection-title-presence" : "Please enter the collection title.",
-      "assessment-title-presence" : "Please enter the assessment title."
+      "unit-title-required" : "Please enter the unit title."
     },
     "explanation": "Explanation",
     "first-name": "First Name",
@@ -457,7 +458,7 @@ export default {
         "HT_HL":"Write your question. Character limit: 5000.",
         "MC":"Write your question. Character limit: 5000.",
         "MA":"Write your question. Character limit: 5000.",
-        "T/F":"Write your question. Character limit: 5000.",
+        "T/F":"Write your question. Character limit: 5000."
       }
     }
   },

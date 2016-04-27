@@ -1,13 +1,49 @@
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Resource from 'gooru-web/models/content/resource';
+import Collection from 'gooru-web/models/content/collection';
+
+const collectionServiceMock = Ember.Service.extend({
+  addResource: function(collectionId, resourceId) {
+    if (collectionId && resourceId) {
+      return Ember.RSVP.resolve('');
+    } else {
+      return Ember.RSVP.reject('Adding resource to collection failed');
+    }
+  }
+});
+
+const resourceServiceMock = Ember.Service.extend({
+  createResource: function(resourceData) {
+    if (resourceData) {
+      return Ember.RSVP.resolve(Ember.Object.create({
+        id: 'resource-id'
+      }));
+    } else {
+      return Ember.RSVP.reject('Resource copy failed');
+    }
+  },
+  copyResource: function(resourceId) {
+    if (resourceId) {
+      return Ember.RSVP.resolve('resource-id');
+    } else {
+      return Ember.RSVP.reject('Resource copy failed');
+    }
+  }
+});
 
 moduleForComponent('content/modals/gru-resource-new', 'Integration | Component | content/modals/gru resource new', {
   integration: true,
   beforeEach: function () {
     this.inject.service('i18n');
 
+    this.register('service:api-sdk/collection', collectionServiceMock);
+    this.register('service:api-sdk/resource', resourceServiceMock);
+
+    this.inject.service('api-sdk/collection');
+    this.inject.service('api-sdk/resource');
   }
 });
 
@@ -187,4 +223,49 @@ test('Validate the character limit in the Resource title field', function (asser
   $titleField.find("input").blur();
 
   assert.equal($titleField.find("input").val().length,50, "Incorrect number of incorrect characters");
+});
+
+test('it creates a resource and assigns it to an existing collection using more details', function (assert) {
+  assert.expect(3);
+
+  var transition;
+  // Mock the transitionTo method in the router
+  this.set('router', {
+      transitionTo(route, resourceId) {
+        transition = {
+          route: route,
+          resource: resourceId
+        };
+      }
+  });
+
+  this.set('collection', Collection.create(Ember.getOwner(this).ownerInjection(), {
+    id: 'collection-id'
+  }));
+
+  this.on('closeModal', function () {
+    assert.ok(true, 'closeModal action triggered');
+  });
+
+  this.render(hbs`{{content/modals/gru-resource-new model=collection router=router}}`);
+
+  const $component = this.$('.gru-resource-new');
+  const $urlField = $component.find(".gru-input.url");
+  const $titleField = $component.find(".gru-input.title");
+
+  // Fill in the input fields
+  $urlField.find("input").val('resource-url.com');
+  $urlField.find("input").blur();
+  $titleField.find("input").val('resource-title');
+  $titleField.find("input").blur();
+
+  return wait().then(function () {
+
+    $component.find(".more-btn").click();
+
+    return wait().then(function () {
+      assert.equal(transition.route, 'content.resources.edit', 'Transition to correct route');
+      assert.equal(transition.resource, 'resource-id', 'Correct resource ID');
+    });
+  });
 });

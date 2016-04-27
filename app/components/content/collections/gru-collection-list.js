@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import Collection from 'gooru-web/models/content/collection';
 import BuilderMixin from 'gooru-web/mixins/content/builder';
+import ModalMixin from 'gooru-web/mixins/modal';
 
 /**
  * Collection List
@@ -11,14 +12,13 @@ import BuilderMixin from 'gooru-web/mixins/content/builder';
  * @augments content/courses/gru-accordion-course
  *
  */
-export default Ember.Component.extend(BuilderMixin, {
+export default Ember.Component.extend(BuilderMixin, ModalMixin, {
 
 
   // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['content', 'collections', 'gru-collection-list'],
-
 
   // -------------------------------------------------------------------------
   // Properties
