@@ -26,6 +26,10 @@ const Validations = buildValidations({
       validator('length', {
         min: 2,
         message: 'First name must have at least 2 letters.'
+      }),
+      validator('format', {
+        regex: /^[a-zA-Z- ]+$/,
+        message: "Please enter only letters."
       })
     ]
   },
@@ -39,6 +43,10 @@ const Validations = buildValidations({
       validator('length', {
         min: 2,
         message: 'Last name must have at least 2 letters.'
+      }),
+      validator('format', {
+        regex: /^[a-zA-Z- ]+$/,
+        message: "Please enter only letters."
       })
     ]
   },
