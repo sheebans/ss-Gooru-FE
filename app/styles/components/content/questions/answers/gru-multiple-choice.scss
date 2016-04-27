@@ -66,8 +66,11 @@
       border: 2px dashed $gray-light;
       border-radius: 6px;
       margin-top: 10px;
-      padding:20px 309px;
       color:$gray;
+      display: block;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
     }
   }
 
