@@ -72,6 +72,11 @@ export default Ember.Component.extend({
   /**
    * @type {String} selected Course's ID
    */
-   selectedCourse: null
+   selectedCourse: null,
+   /**
+    * @type {String} selected Course's ID
+    */
+    hasSelectedCourse: Ember.computed.notEmpty('selectedCourse'),
+
   //Methods
 });
