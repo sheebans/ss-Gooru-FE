@@ -2,6 +2,7 @@ import Ember from "ember";
 import SessionMixin from '../mixins/session';
 import ModalMixin from '../mixins/modal';
 import { encodeTerm } from 'gooru-web/utils/encode-term';
+import {KEY_CODES} from "gooru-web/config/config";
 
 /**
  * Application header component
@@ -53,10 +54,9 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   // Events
 
   didInsertElement: function(){
-    $('.search-input').on('keyup', function(ev) {
-      ev.stopPropagation();
-      var evt = ev || window.event;
-      if(evt.keyCode===13){
+    $('.search-input').on('keyup', function(e) {
+      e.stopPropagation();
+      if(e.which===KEY_CODES.ENTER){
         this.set('isTyping', false);
       }
       else {
