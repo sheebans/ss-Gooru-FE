@@ -36,7 +36,8 @@ export default Ember.Object.extend({
       'description': resourceModel.get('description'),
       'narration': resourceModel.get('narration'),
       'content_subformat': ResourceModel.serializeResourceFormat(resourceModel.get("format")),
-      'taxonomy': resourceModel.get('standards')//,
+      'taxonomy': resourceModel.get('standards'),
+      'visible_on_profile': resourceModel.get('isVisibleOnProfile')//,
       //"depth_of_knowledge": null, // Not required at the moment
       //"thumbnail": null // Not required at the moment
     };
@@ -74,7 +75,8 @@ export default Ember.Object.extend({
       metadata: {
         amIThePublisher: resourceData.metadata && resourceData.metadata['am_i_the_publisher'] ? resourceData.metadata['am_i_the_publisher'] : false,
         publisher: resourceData.metadata && resourceData.metadata.publisher ? resourceData.metadata.publisher : null
-      }
+      },
+      isVisibleOnProfile: typeof resourceData['visible_on_profile'] !== 'undefined' ? resourceData['visible_on_profile'] : true
     });
   },
 
