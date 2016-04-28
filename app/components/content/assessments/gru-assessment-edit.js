@@ -31,32 +31,33 @@ export default CollectionEdit.extend({
      * Save Content
      */
     updateContent: function () {
-      const component = this;
       let editedAssessment = this.get('tempCollection');
       editedAssessment.validate().then(function ({validations }) {
         if (validations.get('isValid')) {
-          component.get('assessmentService').updateAssessment(editedAssessment.get('id'), editedAssessment)
+          this.get('assessmentService').updateAssessment(editedAssessment.get('id'), editedAssessment)
             .then(function () {
-              component.set('collection', editedAssessment);
-              component.set('isEditing', false);
-            })
-            .catch(function () {
-              var message = component.get('i18n').t('common.errors.assessment-not-updated').string;
-              component.get('notifications').error(message);
-            });
+              this.get('collection').merge(editedAssessment, ['title', 'learningObjectives', 'isVisibleOnProfile']);
+              this.set('isEditing', false);
+            }.bind(this))
+            .catch(function (error) {
+              var message = this.get('i18n').t('common.errors.assessment-not-updated').string;
+              this.get('notifications').error(message);
+              Ember.Logger.error(error);
+            }.bind(this));
         }
-        component.set('didValidate', true);
-      });
+        this.set('didValidate', true);
+      }.bind(this));
+    },
+
+    /**
+     * Save setting for visibility of collection in profile
+     */
+    publishToProfile: function(isChecked) {
+      var assessmentForEditing = this.get('collection').copy();
+      this.set('tempCollection', assessmentForEditing);
+      this.set('tempCollection.isVisibleOnProfile', isChecked);
+      this.actions.updateContent.call(this);
     }
   }
-
-
-  // -------------------------------------------------------------------------
-  // Events
-
-
-  // -------------------------------------------------------------------------
-  // Properties
-
 
 });
