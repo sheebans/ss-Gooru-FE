@@ -315,3 +315,15 @@
     }
   }
 }
+
+.controller.content.assessments.edit,
+.controller.content.collections.edit,
+.controller.content.courses.edit {
+  #information .title > label {
+    display: block;
+
+    @media(min-width: $screen-lg) {
+      max-width: 500px;
+    }
+  }
+}
