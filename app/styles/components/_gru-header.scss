@@ -64,8 +64,7 @@
         }
       }
       .search-navbar-form{
-        -webkit-flex-basis: 40%;
-        flex-basis: 40%;
+        @include flex-basis(40%);
         min-width:50%;
         form div.form-group{
           @include justify-content(center);
@@ -109,8 +108,7 @@
         }
       }
       .navbar-collapse {
-        -webkit-flex-basis: 30%;
-        flex-basis: 30%;
+        @include flex-basis(30%);
         padding:0;
       }
 
@@ -233,8 +231,7 @@
             display: none;
           }
           .search-navbar-form {
-            -webkit-flex-basis: 85%;
-            flex-basis: 95%;
+            @include flex-basis(95%);
             padding: 0 0 0 20px;
             .form-inline {
               width: 90%;
