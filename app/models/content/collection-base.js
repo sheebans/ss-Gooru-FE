@@ -128,7 +128,7 @@ export default (function() {
      * Return a copy of the collection
      *
      * @function
-     * @return {Collection}
+     * @return {Collection|Assessment}
      */
     copy: function () {
 
@@ -152,6 +152,19 @@ export default (function() {
       properties.audience = audience.slice(0);
 
       return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
+    },
+
+    /**
+     * Copy a list of property values from another model to override the current ones
+     *
+     * @function
+     * @param {Collection|Assessment} model
+     * @param {String[]} propertyList
+     * @return {null}
+     */
+    merge: function(model, propertyList = []) {
+      var properties = model.getProperties(propertyList);
+      this.setProperties(properties);
     }
 
   };

@@ -12,8 +12,8 @@ test('serializeCreateCollection', function(assert) {
   });
   const expected = {
     title: 'collection-title',
-    'learning_objective': 'any',
-    'visible_on_profile': true
+    learning_objective: 'any',
+    visible_on_profile: true
   };
   const response = serializer.serializeCreateCollection(collectionObject);
   assert.deepEqual(expected, response, 'Wrong serialized response');
@@ -28,8 +28,8 @@ test('serializeUpdateCollection', function(assert) {
   });
   const expected = {
     title: 'collection-title',
-    'learning_objective': 'any',
-    'visible_on_profile': false
+    learning_objective: 'any',
+    visible_on_profile: false
   };
   const response = serializer.serializeUpdateCollection(collectionObject);
   assert.deepEqual(expected, response, 'Wrong serialized response');
@@ -40,8 +40,8 @@ test('normalizeReadCollection', function(assert) {
   const collectionData = {
     id: 'collection-id',
     title: 'collection-title',
-    'learning_objective': 'learning-objectives',
-    'visible_on_profile': true
+    learning_objective: 'learning-objectives',
+    visible_on_profile: true
   };
   const collection = serializer.normalizeReadCollection(collectionData);
   assert.equal(collection.get('id'), 'collection-id', 'Wrong id');

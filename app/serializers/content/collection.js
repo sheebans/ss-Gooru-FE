@@ -51,7 +51,7 @@ export default Ember.Object.extend({
     return {
       title: collectionModel.get('title'),
       learning_objective: collectionModel.get('learningObjectives'),
-      'visible_on_profile': collectionModel.get('isVisibleOnProfile')
+      visible_on_profile: collectionModel.get('isVisibleOnProfile')
     };
   },
 
@@ -66,7 +66,7 @@ export default Ember.Object.extend({
       id: payload.id,
       title: payload.title,
       learningObjectives: payload['learning_objective'],
-      isVisibleOnProfile: payload['visible_on_profile'] ? payload['visible_on_profile'] : true,
+      isVisibleOnProfile: payload['visible_on_profile'] !== 'undefined' ? payload['visible_on_profile'] : true,
       children: serializer.normalizeResources(payload.content)
       // TODO Add more required properties here...
     });

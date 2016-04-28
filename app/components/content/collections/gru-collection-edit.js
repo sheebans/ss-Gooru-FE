@@ -45,31 +45,33 @@ export default Ember.Component.extend(ContentEditMixin, {
      * Save Content
      */
     updateContent: function () {
-      const component = this;
-      let editedCollection = component.get('tempCollection');
+      let editedCollection = this.get('tempCollection');
       editedCollection.validate().then(function ({validations }) {
         if (validations.get('isValid')) {
-          component.get('collectionService').updateCollection(editedCollection.get('id'), editedCollection)
+          this.get('collectionService').updateCollection(editedCollection.get('id'), editedCollection)
             .then(function () {
-              component.set('collection', editedCollection);
-              component.set('isEditing', false);
-            })
-            .catch(function () {
-              var message = component.get('i18n').t('common.errors.collection-not-updated').string;
-              component.get('notifications').error(message);
-            });
+              this.get('collection').merge(editedCollection, ['title', 'learningObjectives', 'isVisibleOnProfile']);
+              this.set('isEditing', false);
+            }.bind(this))
+            .catch(function (error) {
+              var message = this.get('i18n').t('common.errors.collection-not-updated').string;
+              this.get('notifications').error(message);
+              Ember.Logger.error(error);
+            }.bind(this));
         }
-        component.set('didValidate', true);
-      });
+        this.set('didValidate', true);
+      }.bind(this));
     },
 
     /**
-     * Send request to publish a course
+     * Save setting for visibility of collection in profile
      */
-    sendRequest: function () {
-      this.set('wasRequestSent', true);
+    publishToProfile: function(isChecked) {
+      var collectionForEditing = this.get('collection').copy();
+      this.set('tempCollection', collectionForEditing);
+      this.set('tempCollection.isVisibleOnProfile', isChecked);
+      this.actions.updateContent.call(this);
     }
-
   },
 
 
@@ -91,32 +93,6 @@ export default Ember.Component.extend(ContentEditMixin, {
    * Copy of the collection model used for editing.
    * @property {Collection}
    */
-  tempCollection: null,
-
-  /**
-   * Request pending approval
-   * // TODO: Change this to a computed property of a course property
-   * @property {Boolean}
-   */
-  isRequestApproved: false,
-
-  /**
-   * Request to make the course searchable been sent?
-   * // TODO: Change this to a computed property of a course property
-   * @property {Boolean}
-   */
-  wasRequestSent: false,
-
-  /**
-   * Toggle Options
-   * @property {Ember.Array}
-   */
-  switchOptions:Ember.A([Ember.Object.create({
-    'label': "On",
-    'value': true
-  }),Ember.Object.create({
-    'label': "Off",
-    'value': false
-  })])
+  tempCollection: null
 
 });
