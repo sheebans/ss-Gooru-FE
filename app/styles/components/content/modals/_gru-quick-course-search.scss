@@ -13,17 +13,12 @@
     height: 96%;
     margin: 0 auto;
     overflow: visible;
-    width: 335px;
+    width: 353px;
   }
 
   .gru-quick-course-search {
-    @include respond-to(sm-to-lg) {
-      background: $white;
-    }
     @include flexbox;
     @include flex-direction(column);
-
-    background: transparent;
     border: 0;
   }
 }
@@ -67,10 +62,12 @@
     border: 0;
     margin-right: -17px;
     margin-top: 10px;
-    overflow: overlay;
+    overflow-x: hidden;
+    overflow-y: overlay;
     padding: 0 15px 0 0;
 
     >* {
+      border: 1px transparent;
       margin: 5px 0;
 
       &:first-child {
@@ -79,6 +76,7 @@
     }
 
     .panel {
+      box-shadow: 0 0 7px $gray-light;
       margin: 0;
     }
 
