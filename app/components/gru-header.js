@@ -82,7 +82,11 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    * Validate if the property term has the correct number of characters
    * @property
    */
-  isIncorrectTermSize : Ember.computed.lt('term.length',3),
+  isIncorrectTermSize: Ember.computed('term', function() {
+    var term = $.trim(this.get('term'));
+
+    return (!term || term.length <3 );
+  }),
 
   /**
    * @property {?string} action to send up when a user logs out
