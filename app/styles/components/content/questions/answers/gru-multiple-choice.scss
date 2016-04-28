@@ -19,6 +19,7 @@
      div.letter-container{
        padding: 10px 0 10px 0;
        width: 3.5em;
+       margin-right: 10px;
        h3 {
          display: inline-block;
          margin: 0;
@@ -31,12 +32,16 @@
      }
      .text-area-container{
        width: 86%;
-       textarea{
-         width: 96%;
-         height: 50%;
-         margin: 7px 15px 10px 15px;
-         outline: none;
-         resize: none;
+       max-height: 4.9em;
+       .gru-textarea{
+         .form-group{
+           margin-bottom: 0;
+           textarea{
+             height: 2em;
+             outline: none;
+             resize: none;
+           }
+         }
        }
      }
      .check {

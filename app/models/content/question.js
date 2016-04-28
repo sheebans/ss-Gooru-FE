@@ -20,7 +20,7 @@ const Validations = buildValidations({
         descriptionKey: 'common.errors.add-question-text'
       })
     ]
-  },
+  }
 });
 
 /**
@@ -55,6 +55,11 @@ const Question = Ember.Object.extend(Validations, {
    * @property {string}
    */
   text: null,
+
+  /**
+   * @property {Ember.Array}
+   */
+  answers: null,
 
   /**
    * @property {string} published|unpublished|requested

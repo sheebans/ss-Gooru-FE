@@ -102,6 +102,7 @@ export default {
     "errors": {
       "join-class-code":"Please enter the class code.",
       "add-course-title":"Please enter the course title.",
+      "add-question-answer-text":"Please enter the answer choice text.",
       "add-question-title":"Please enter the question title.",
       "add-question-text":"You've reached the character limit.",
       "assessment-title-presence" : "Please enter the assessment title.",

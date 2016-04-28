@@ -61,6 +61,15 @@ export default Ember.Component.extend({
     this.set('rawTextareaValue', this.get(`model.${valuePath}`));
     defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
   },
+  didInsertElement: function() {
+    var $component = this;
+    $("textarea").bind("paste", function(e){
+      //Handle paste event http://stackoverflow.com/questions/11605415/jquery-bind-to-paste-event-how-to-get-the-content-of-the-paste
+      var pastedData = e.originalEvent.clipboardData.getData('text');
+      $component.set('rawTextareaValue',pastedData);
+      $component.set('value', $component.get('rawTextareaValue'));
+    } );
+  },
   // -------------------------------------------------------------------------
   // Properties
 
@@ -144,9 +153,6 @@ export default Ember.Component.extend({
   showMessage: computed('attributeValidation.isDirty', 'isInvalid', 'didValidate', 'isTyping', function() {
     return (this.get('attributeValidation.isDirty') || this.get('didValidate')) && this.get('isInvalid') && !this.get('isTyping');
   }),
-
-  // -------------------------------------------------------------------------
-  // Observers
 
 
   // -------------------------------------------------------------------------

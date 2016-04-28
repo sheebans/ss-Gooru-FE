@@ -133,14 +133,43 @@ export default Ember.Component.extend(ContentEditMixin,{
    */
   isBuilderEditing :false,
 
+  /**
+   * @property {Ember.Array[Answers]} answers
+   */
+  answers:null,
+
   //Methods
 
   /**
    * Save new question content
    */
   saveNewContent:function(){
-    const component = this;
+    const $component = this;
     var editedQuestion = this.get('tempQuestion');
+    var promiseArray = [];
+    var answersValid = true;
+    if(editedQuestion.answers){
+      for (var i = 0; i < editedQuestion.answers.length; i++) {
+        var promise = editedQuestion.answers[i].validate().then(function ({ model, validations }) {
+          return validations.get('isValid');
+        });
+        promiseArray.push(promise);
+      }
+      Promise.all(promiseArray).then(function(values) {
+        values.find(function(promise){
+          if(promise === false){
+            answersValid = false;
+          }
+        });
+        if(answersValid){
+          this.updateQuestion(editedQuestion,$component);
+        }
+      });
+    }else{
+      this.updateQuestion(editedQuestion,$component);
+    }
+  },
+  updateQuestion:function(editedQuestion,component){
     editedQuestion.validate().then(function ({ model, validations }) {
       if (validations.get('isValid')) {
         component.get('questionService').updateQuestion(editedQuestion.id,editedQuestion)
@@ -157,5 +186,4 @@ export default Ember.Component.extend(ContentEditMixin,{
       component.set('didValidate', true);
     });
   }
-
 });

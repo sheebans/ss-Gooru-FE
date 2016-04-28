@@ -1,4 +1,32 @@
 import Ember from 'ember';
+import { validator, buildValidations } from 'ember-cp-validations';
+const Validations = buildValidations({
+  answer: {
+    validators: [
+      validator('presence', {
+        presence: true,
+        message: '{{description}}',
+        descriptionKey: 'common.errors.add-question-answer-text'
+      })
+    ]
+  }
+});
+
+/**
+ * Answer model
+ * typedef {Object} Answer
+ */
+const Answer = Ember.Object.extend(Validations, {
+  /**
+   * @property {string} answer
+   */
+  answer: null,
+
+  /**
+   * @property {Boolean} isCorrect
+   */
+  isCorrect: false
+});
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -14,11 +42,12 @@ export default Ember.Component.extend({
   actions:{
     //Add new answer choice
     addNewChoice:function(){
-     var newChoice = Ember.Object.create({
-        'answer': "Answer choice goes here",
+     var newChoice = Answer.create(Ember.getOwner(this).ownerInjection(),{
+        'answer': null,
         'isCorrect': false
       });
       this.get('multipleChoiceAnswers').pushObject(newChoice);
+      this.set('question.answers',this.get('multipleChoiceAnswers'));
     },
     //Remove existing answer
     removeChoice:function(answer){
@@ -35,6 +64,13 @@ export default Ember.Component.extend({
   },
   // -------------------------------------------------------------------------
   // Events
+  //init(){
+  //this._super(...arguments);
+  //
+  //},
+  didUpdate(){
+    this.validateAnswer();
+  },
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -42,5 +78,15 @@ export default Ember.Component.extend({
    * @property {Ember.Array}
    */
   multipleChoiceAnswers:Ember.A(),
+
+  question:null,
+
+  // -------------------------------------------------------------------------
+  // Method
+
+  validateAnswer:function(){
+    this.$('.text-area-container textarea').trigger('blur');
+  }
+
 
 });
