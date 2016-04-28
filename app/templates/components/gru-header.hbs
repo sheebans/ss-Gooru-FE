@@ -29,14 +29,10 @@
           <ul class="nav navbar-nav menu-navbar">
             {{#if session.isAnonymous}}
               <li class="navbar-nav-list">
-                <button class="btn btn-info sign-in-button">
-                  <a href="/sign-in">{{t "common.login"}}</a>
-                </button>
+                {{#link-to 'sign-in' class="btn btn-info sign-in-button" tagName='button'}} {{t "common.login"}} {{/link-to}}
               </li>
               <li class="navbar-nav-list no-hover">
-                <button class="btn btn-primary sign-up-button">
-                  <a href="/sign-up">{{t "common.signUp"}}</a>
-                </button>
+                {{#link-to 'sign-up' class="btn btn-primary sign-up-button" tagName='button'}} {{t "common.signUp"}} {{/link-to}}
               </li>
             {{else}}
               <li class="navbar-nav-list visible-md visible-lg">
