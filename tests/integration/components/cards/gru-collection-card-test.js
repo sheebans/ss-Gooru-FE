@@ -25,7 +25,8 @@ test('Collection Card Layout', function(assert) {
       avatarUrl: 'avatar-url'
     }),
     course: "Any course title",
-    remixedBy:["James","Andrea","Patric"]
+    remixedBy:["James","Andrea","Patric"],
+    isVisibleOnProfile:true
   });
 
   this.set('collection', collection);
@@ -42,6 +43,7 @@ test('Collection Card Layout', function(assert) {
   T.exists(assert, $collectionCard.find(".panel-body .description"), "Missing Collection Description");
   T.exists(assert, $collectionCard.find(".panel-body .remix-btn"), "Missing Remixed Button");
   T.notExists(assert, $collectionCard.find(".panel-body .edit-btn"), "Edit Button should not be visible");
+  T.exists(assert, $collectionCard.find(".panel-body .visibility .pull-right"), "Missing visibility icon");
 });
 
 test('Assessment Card Layout', function(assert) {
