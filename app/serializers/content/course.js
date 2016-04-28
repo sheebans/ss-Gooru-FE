@@ -46,7 +46,6 @@ export default Ember.Object.extend({
       thumbnail: courseModel.get('thumbnailUrl'),
       'visible_on_profile': courseModel.get('isVisibleOnProfile'),
       taxonomy: courseModel.get('taxonomy'),
-      audience: courseModel.get('audience'),
       'subject_bucket': courseModel.get('subject')
     };
   },
@@ -79,7 +78,6 @@ export default Ember.Object.extend({
     return CourseModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: payload.id,
       children: serializer.get('unitSerializer').normalizeUnits(payload.unit_summary),
-      audience: payload.audience ? payload.audience.slice(0) : [],
       description: payload.description,
       isPublished: payload['publish_status'] && payload['publish_status'] === 'published',
       isVisibleOnProfile: payload['visible_on_profile'],
