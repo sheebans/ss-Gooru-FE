@@ -15,7 +15,6 @@ test('serializeCreateCourse', function(assert) {
     thumbnailUrl: 'course-thumbnail-url',
     isVisibleOnProfile: true,
     taxonomy: [],
-    audience: [],
     subject: 'course-subject'
   });
 
@@ -25,7 +24,6 @@ test('serializeCreateCourse', function(assert) {
     thumbnail: course.thumbnailUrl,
     visible_on_profile: course.isVisibleOnProfile,
     taxonomy: [],
-    audience: [],
     'subject_bucket': course.subject,
     'creator_system': CREATOR_SYSTEM
   };
@@ -42,7 +40,6 @@ test('serializeUpdateCourse', function (assert) {
     thumbnailUrl: 'course-thumbnail-url',
     isVisibleOnProfile: true,
     taxonomy: [],
-    audience: [],
     subject: 'course-subject'
   });
   const expectedSerializedCourse = {
@@ -51,7 +48,6 @@ test('serializeUpdateCourse', function (assert) {
     thumbnail: courseModel.thumbnailUrl,
     visible_on_profile: courseModel.isVisibleOnProfile,
     taxonomy: [],
-    audience: [],
     'subject_bucket': courseModel.subject
   };
   const serializedCourse = serializer.serializeUpdateCourse(courseModel);
@@ -72,10 +68,6 @@ test('normalizeCourse', function (assert) {
     "publish_status": "unpublished",
     "publish_date": null,
     "thumbnail": "thumbnail.png",
-    "audience": [
-      54,
-      23
-    ],
     "metadata": null,
     "taxonomy": [
       "taxonomy_value"
@@ -122,7 +114,6 @@ test('normalizeCourse', function (assert) {
         bigIdeas: undefined
       })
     ],
-    audience: payload.audience.slice(0),
     description: payload.description,
     id: payload.id,
     isPublished: false,
@@ -193,7 +184,6 @@ test('normalizeGetCourses', function(assert) {
   const expected = [
     Course.create(Ember.getOwner(this).ownerInjection(), {
       children: [],
-      audience: [],
       description: undefined,
       id: coursesPayload.courses[0].id,
       isPublished: false,
@@ -206,7 +196,6 @@ test('normalizeGetCourses', function(assert) {
     }),
     Course.create(Ember.getOwner(this).ownerInjection(), {
       children: [],
-      audience: [],
       description: undefined,
       id: coursesPayload.courses[1].id,
       isPublished: true,
