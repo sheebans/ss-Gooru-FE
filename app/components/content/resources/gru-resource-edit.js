@@ -37,26 +37,27 @@ export default Ember.Component.extend(ContentEditMixin, {
     },
 
     /**
-     * Save Content
-     */
-    updateContent: function () {
-      var editedResource = this.get('tempResource');
-      this.get('resourceService').updateResource(this.get('resource.id'), editedResource)
-        .then(function () {
-          this.set('resource', editedResource);
-          this.set('isEditing', false);
-        }.bind(this))
-        .catch(function () {
-          var message = this.get('i18n').t('common.errors.resource-not-updated').string;
-          this.get('notifications').error(message);
-        }.bind(this));
-    },
-
-    /**
      * Select resource type
      */
     selectType:function(type){
       this.set('tempResource.format', type);
+    },
+
+    /**
+     * Save updated content
+     */
+    updateContent: function() {
+      this.saveContent();
+    },
+
+    /**
+     * Save settings profile visibility option
+     */
+    publishToProfile: function(isChecked) {
+      var resourceForEditing = this.get('resource').copy();
+      this.set('tempResource', resourceForEditing);
+      this.set('tempResource.isVisibleOnProfile', isChecked);
+      this.saveContent();
     }
   },
 
@@ -82,22 +83,35 @@ export default Ember.Component.extend(ContentEditMixin, {
   resourceTypes: RESOURCE_TYPES,
 
   /**
-   * Toggle Options
-   * @property {Ember.Array}
-   */
-  switchOptions: Ember.A([Ember.Object.create({
-    'label': "On",
-    'value': true
-  }),Ember.Object.create({
-    'label': "Off",
-    'value': false
-  })]),
-
-  /**
    * Determines the name of the component that renders the resource
    * @property {String}
    */
   resourceComponent: Ember.computed('resource.resourceType', function() {
     return RESOURCE_COMPONENT_MAP[this.get('resource.resourceType')];
-  })
+  }),
+
+  // -------------------------------------------------------------------------
+  // Methods
+
+  /**
+   * Save Content
+   */
+  saveContent: function () {
+    const component = this;
+    var editedResource = component.get('tempResource');
+    editedResource.validate().then(function({model, validations}) {
+      if (validations.get('isValid')) {
+        component.get('resourceService').updateResource(component.get('resource.id'), editedResource)
+          .then(function () {
+            component.set('resource', editedResource);
+            component.set('isEditing', false);
+          })
+          .catch(function () {
+            var message = component.get('i18n').t('common.errors.resource-not-updated').string;
+            component.get('notifications').error(message);
+          });
+      }
+      component.set('didValidate', true);
+    });
+  }
 });

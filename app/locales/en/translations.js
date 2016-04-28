@@ -250,6 +250,7 @@ export default {
     "score":"Score",
     "search": "Search",
     "search-placeholder": "Search...",
+    "search-error-message": "Search terms need to be more than 3 letters.",
     "select-question-type":"Select Question Type",
     "select-resource-type": "Select Resource Type",
     "send-request":"Send Request",

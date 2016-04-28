@@ -87,6 +87,11 @@ const Question = Ember.Object.extend(Validations, {
   isVisibleOnProfile: true,
 
   /**
+   * @property {Answer[]} answers - Array of answers
+   */
+  answers: Ember.A([]),
+
+  /**
    * Return a copy of the question
    *
    * @function

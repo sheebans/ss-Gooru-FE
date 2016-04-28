@@ -80,6 +80,4 @@
     items=collection.children }}
 </section>
 
-<section id="settings">
-  {{partial 'content/partials/settings'}}
-</section>
+{{content.gru-settings-edit id="settings" action='publishToProfile' isChecked=collection.isVisibleOnProfile}}

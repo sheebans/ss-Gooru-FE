@@ -82,7 +82,7 @@ export default Ember.Component.extend({
    * Indicates if the edit functionality is enabled
    * @property {boolean}
    */
-  remixEnabled: true,
+  remixEnabled: Ember.computed.not('editEnabled'),
 
   /**
    * Indicates if the edit functionality is enabled
@@ -93,7 +93,9 @@ export default Ember.Component.extend({
   /**
    * @property {string} edit action
    */
-  onEditCollection: null
+  onEditCollection: null,
+
+  visibility:null,
 
 
 });
