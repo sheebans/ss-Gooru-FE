@@ -197,7 +197,7 @@ test('it can edit an existing unit', function (assert) {
     $saveButton.click();
   });
 
-  const $heading = $component.find('.view .panel-heading');
+  const $heading = $component.find('> .view > .panel-heading');
   assert.equal($heading.find('strong').text(), title, 'Unit title updated');
   assert.equal(unit.get('isEditing'), false, 'Unit is no longer editable');
 

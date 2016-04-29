@@ -8,7 +8,7 @@
         <h3>{{t "common.unit"}} {{totalItems}}</h3>
       {{/if}}
 
-      {{validation.gru-input model=tempUnit valuePath='title' class="title"}}
+      {{validation.gru-input model=tempUnit valuePath='title' class="title" maxLength=50}}
 
       <div class="actions">
         <button class="cancel btn btn-info"  {{action 'cancelEdit'}}>{{t "common.cancel"}}</button>
