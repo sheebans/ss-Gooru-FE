@@ -31,7 +31,6 @@ export default Ember.Route.extend({
   },
 
   setupController: function (controller , model) {
-    console.log(model[0].get('type'));
     controller.set("questions", model);
   }
 
