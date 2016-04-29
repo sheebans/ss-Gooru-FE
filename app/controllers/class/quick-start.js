@@ -34,7 +34,7 @@ export default Ember.Controller.extend(ModalMixin,{
   courses:null,
   modelForCoursesModal: Ember.computed('class', 'courses', function() {
     return Ember.Object.create({
-      'classId': this.get('class.id'),
+      'classId': this.get('class.class.id'),
       'courses': this.get('courses')
     });
   })
