@@ -137,7 +137,11 @@ export default Ember.Service.extend({
    * @returns {Promise}
    */
   associateCourseToClass: function(courseId, classId) {
-    return this.get('classAdapter').associateCourseToClass(courseId, classId);
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classAdapter').associateCourseToClass(courseId, classId)
+        .then(resolve, reject);
+    });
   },
 
   // TODO These method will be removed once we have full integration with API 3.0
