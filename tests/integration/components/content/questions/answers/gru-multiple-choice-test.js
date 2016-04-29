@@ -2,13 +2,18 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
-
+import Answer from 'gooru-web/models/content/answer';
+import Question from 'gooru-web/models/content/question';
 moduleForComponent('content/questions/answers/gru-multiple-choice', 'Integration | Component | content/questions/answers/gru multiple choice', {
   integration: true
 });
 
 test('Multiple choice answer layout', function(assert) {
-  this.render(hbs`{{content/questions/answers/gru-multiple-choice}}`);
+  const question = Question.create({
+    answers:Ember.A([])
+  });
+  this.set('question', question);
+  this.render(hbs`{{content/questions/answers/gru-multiple-choice question=question}}`);
   var $component = this.$(); //component dom element
   const $newAnswer = $component.find('div.add-answer a');
   assert.ok($newAnswer.length, "Add new answer choice button missing");
@@ -28,16 +33,18 @@ test('Multiple choice answer layout', function(assert) {
 });
 
 test('Load a list of answers and add new answer', function(assert) {
-  const multipleChoiceAnswers = Ember.A([Ember.Object.create({
-    'answer': "Option A",
-    'isCorrect': true
-  }), Ember.Object.create({
-    'answer': "Option B",
-    'isCorrect': false
-  })]);
-  this.set('multipleChoiceAnswers', multipleChoiceAnswers);
+  const question = Question.create({
+    answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
+      'text': "Option A",
+      'isCorrect': true,
+    }), Answer.create(Ember.getOwner(this).ownerInjection(),{
+      'text': "Option B",
+      'isCorrect': false
+    })])
+  });
+  this.set('question', question);
 
-  this.render(hbs`{{content/questions/answers/gru-multiple-choice multipleChoiceAnswers=multipleChoiceAnswers}}`);
+  this.render(hbs`{{content/questions/answers/gru-multiple-choice question=question}}`);
   var $component = this.$(); //component dom element
   var $option = $component.find('.multiple-choice');
   assert.equal($option.length,2, "Incorrect number of answers options");
@@ -50,16 +57,18 @@ test('Load a list of answers and add new answer', function(assert) {
 });
 
 test('Delete answer', function(assert) {
-  const multipleChoiceAnswers = Ember.A([Ember.Object.create({
-    'answer': "Option A",
-    'isCorrect': true
-  }), Ember.Object.create({
-    'answer': "Option B",
-    'isCorrect': false
-  })]);
-  this.set('multipleChoiceAnswers', multipleChoiceAnswers);
+  const question = Question.create({
+    answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
+      'text': "Option A",
+      'isCorrect': true,
+    }), Answer.create(Ember.getOwner(this).ownerInjection(),{
+      'text': "Option B",
+      'isCorrect': false
+    })])
+  });
+  this.set('question', question);
 
-  this.render(hbs`{{content/questions/answers/gru-multiple-choice multipleChoiceAnswers=multipleChoiceAnswers}}`);
+  this.render(hbs`{{content/questions/answers/gru-multiple-choice question=question}}`);
   var $component = this.$(); //component dom element
   var $option = $component.find('.multiple-choice');
   assert.equal($option.length,2, "Incorrect number of answer options");
@@ -72,16 +81,18 @@ test('Delete answer', function(assert) {
 });
 
 test('Correct answer', function(assert) {
-  const multipleChoiceAnswers = Ember.A([Ember.Object.create({
-    'answer': "Option A",
-    'isCorrect': true
-  }), Ember.Object.create({
-    'answer': "Option B",
-    'isCorrect': false
-  })]);
-  this.set('multipleChoiceAnswers', multipleChoiceAnswers);
+  const question = Question.create({
+    answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
+      'text': "Option A",
+      'isCorrect': true,
+    }), Answer.create(Ember.getOwner(this).ownerInjection(),{
+      'text': "Option B",
+      'isCorrect': false
+    })])
+  });
+  this.set('question', question);
 
-  this.render(hbs`{{content/questions/answers/gru-multiple-choice multipleChoiceAnswers=multipleChoiceAnswers}}`);
+  this.render(hbs`{{content/questions/answers/gru-multiple-choice question=question}}`);
   var $component = this.$(); //component dom element
   assert.equal($component.find('.check.correct').length,1, "Incorrect number of correct answer");
   var $option = $component.find('.multiple-choice:nth-child(1)');

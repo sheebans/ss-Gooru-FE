@@ -155,18 +155,18 @@ export default Ember.Component.extend(ContentEditMixin,{
         });
         promiseArray.push(promise);
       }
-      Promise.all(promiseArray).then(function(values) {
+      Ember.RSVP.Promise.all(promiseArray).then(function(values) {
         values.find(function(promise){
           if(promise === false){
             answersValid = false;
           }
         });
         if(answersValid){
-          this.updateQuestion(editedQuestion,$component);
+          $component.updateQuestion(editedQuestion,$component);
         }
       });
     }else{
-      this.updateQuestion(editedQuestion,$component);
+      $component.updateQuestion(editedQuestion,$component);
     }
   },
   updateQuestion:function(editedQuestion,component){

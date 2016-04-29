@@ -451,10 +451,10 @@ export default {
       "answer":"Answer",
       "answer-instructions":{
         "FIB":"Add up to 5 hints for answer and an explanation.",
-        "MC":"You can add up ten answers choices and indicate one correct answer.Character Limit: 200."
+        "MC":"You can add up ten answers choices and indicate one correct answer. Character Limit: 200."
       },
       "question-instructions":{
-        "FIB":"As you write the question, use brackets for your fill-in-the-blank answers. For example: “The big bad [wolf] blew down the [house].” You can also add an image.Character Limit: 5000.",
+        "FIB":"As you write the question, use brackets for your fill-in-the-blank answers. For example: “The big bad [wolf] blew down the [house].” You can also add an image. Character Limit: 5000.",
         "HS_TXT":"Write your question. Character limit: 5000.",
         "HS_IMG":"Write your question. Character limit: 5000.",
         "HT_RO":"Write your question. Character limit: 5000.",

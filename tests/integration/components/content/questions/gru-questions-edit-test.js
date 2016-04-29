@@ -239,6 +239,43 @@ test('Update Question Builder', function (assert) {
     assert.equal($textFieldRead.val(),newText, "The question text should be updated");
   });
 });
+test('Update Question Answers', function (assert) {
+  assert.expect(2);
+  var newAnswerText ='Lorem ipsum dolor sit amet';
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type:'MC',
+    answers:Ember.A([])
+  });
+  this.set('question',question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question }}`);
+  const $component = this.$('.gru-questions-edit');
+  const $edit =  $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+    const $option = $component.find('.multiple-choice');
+    assert.notOk($option.length, "Should don't have answers");
+    const $newAnswer = $component.find('div.add-answer a');
+    $newAnswer.click();
+    return wait().then(function () {
+      const $textField = $component.find(".gru-multiple-choice .multiple-choice .gru-textarea");
+      $textField.find("textarea").val(newAnswerText);
+      $textField.find("textarea").change();
+      const $save =  $component.find("#builder .actions .save");
+      $save.click();
+      return wait().then(function () {
+        const $edit =  $component.find("#builder .actions .edit");
+        $edit.click();
+        return wait().then(function () {
+          const $option = $component.find('.multiple-choice');
+          assert.ok($option.length, "New answer is empty");
+        });
+      });
+    });
+  });
+});
 
 test('Layout of the settings section', function (assert) {
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {

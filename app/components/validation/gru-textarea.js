@@ -63,7 +63,7 @@ export default Ember.Component.extend({
   },
   didInsertElement: function() {
     var $component = this;
-    $("textarea").bind("paste", function(e){
+    this.$('textarea').bind("paste", function(e){
       //Handle paste event http://stackoverflow.com/questions/11605415/jquery-bind-to-paste-event-how-to-get-the-content-of-the-paste
       var pastedData = e.originalEvent.clipboardData.getData('text');
       $component.set('rawTextareaValue',pastedData);

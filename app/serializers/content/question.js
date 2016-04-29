@@ -106,7 +106,7 @@ export default Ember.Object.extend({
    * @returns {Answer}
    */
   normalizeAnswer: function(answerData) {
-    return AnswerModel.create({
+    return AnswerModel.create(Ember.getOwner(this).ownerInjection(),{
       sequence: answerData.sequence,
       isCorrect: answerData['is_correct'] === 1,
       text: answerData['answer_text'],

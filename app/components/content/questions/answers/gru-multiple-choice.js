@@ -1,32 +1,5 @@
 import Ember from 'ember';
-import { validator, buildValidations } from 'ember-cp-validations';
-const Validations = buildValidations({
-  answer: {
-    validators: [
-      validator('presence', {
-        presence: true,
-        message: '{{description}}',
-        descriptionKey: 'common.errors.add-question-answer-text'
-      })
-    ]
-  }
-});
-
-/**
- * Answer model
- * typedef {Object} Answer
- */
-const Answer = Ember.Object.extend(Validations, {
-  /**
-   * @property {string} answer
-   */
-  answer: null,
-
-  /**
-   * @property {Boolean} isCorrect
-   */
-  isCorrect: false
-});
+import Answer from 'gooru-web/models/content/answer';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -43,8 +16,9 @@ export default Ember.Component.extend({
     //Add new answer choice
     addNewChoice:function(){
      var newChoice = Answer.create(Ember.getOwner(this).ownerInjection(),{
-        'answer': null,
-        'isCorrect': false
+        'text': null,
+        'isCorrect': false,
+        'type':"text"
       });
       this.get('multipleChoiceAnswers').pushObject(newChoice);
       this.set('question.answers',this.get('multipleChoiceAnswers'));
@@ -64,20 +38,24 @@ export default Ember.Component.extend({
   },
   // -------------------------------------------------------------------------
   // Events
-  //init(){
-  //this._super(...arguments);
-  //
-  //},
+  init(){
+    this._super(...arguments);
+    this.set('multipleChoiceAnswers',this.get('question.answers'));
+  },
   didUpdate(){
     this.validateAnswer();
   },
   // -------------------------------------------------------------------------
   // Properties
   /**
-   * Multiple Choice Answer
+   * Multiple Choice Editing Mode Answers
    * @property {Ember.Array}
    */
   multipleChoiceAnswers:Ember.A(),
+
+  /**
+  * Multiple Choice Question Answers
+  * */
 
   question:null,
 

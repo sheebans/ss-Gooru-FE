@@ -57,11 +57,6 @@ const Question = Ember.Object.extend(Validations, {
   text: null,
 
   /**
-   * @property {Ember.Array}
-   */
-  answers: null,
-
-  /**
    * @property {string} published|unpublished|requested
    */
   publishStatus: null,
@@ -105,7 +100,7 @@ const Question = Ember.Object.extend(Validations, {
     for (let i = 0; i < enumerableKeys.length; i++) {
       let key = enumerableKeys[i];
       let value = Ember.typeOf(this.get(key));
-      if (value === 'string' || value === 'number' || value === 'boolean') {
+      if (value === 'string' || value === 'number' || value === 'boolean' || value ==='array') {
         properties.push(key);
       }
     }
