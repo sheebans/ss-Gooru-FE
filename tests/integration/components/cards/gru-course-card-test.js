@@ -46,20 +46,20 @@ test('Course Card Layout', function(assert) {
   });
 
   this.set('course', course);
-  assert.expect(8);
+  assert.expect(9);
   this.render(hbs`{{cards/gru-course-card course=course}}`);
 
   var $component = this.$(); //component dom element
   const $courseCard = $component.find(".gru-course-card");
   T.exists(assert, $courseCard, "Missing course card section");
-  T.exists(assert, $courseCard.find("h6"), "Missing course card title");
+  T.exists(assert, $courseCard.find(".course-title"), "Missing course card title");
   T.exists(assert, $courseCard.find(".total-units"), "Missing total units");
   T.exists(assert, $courseCard.find(".subject"), "Missing subject");
   T.exists(assert, $courseCard.find(".icon .public"), "Missing public icon");
   T.exists(assert, $courseCard.find(".remixed"), "Missing Remixed By");
   T.exists(assert, $courseCard.find(".users-teaser"), "Missing users teaser");
   T.exists(assert, $courseCard.find(".remix-button  button"), "Missing remix button");
-
+  T.notExists(assert, $courseCard.find(".visibility  .gru-icon"), "Missing visibility icon");
 });
 test('Course Card Private', function(assert) {
   var course = Ember.Object.create({
@@ -243,11 +243,11 @@ test('Course Card Layout Owner and Public', function(assert) {
   var $component = this.$(); //component dom element
   const $courseCard = $component.find(".gru-course-card");
   T.exists(assert, $courseCard, "Missing course card section");
-  T.exists(assert, $courseCard.find("h6"), "Missing course card title");
+  T.exists(assert, $courseCard.find(".course-title"), "Missing course card title");
   T.exists(assert, $courseCard.find(".total-units"), "Missing total units");
   T.exists(assert, $courseCard.find(".subject"), "Missing subject");
   T.exists(assert, $courseCard.find(".icon .public"), "Missing public icon");
-  T.exists(assert, $courseCard.find(".icon.hidden .visibility_off"), "Not visible icon should be hidden");
+  T.exists(assert, $courseCard.find(".visibility  .gru-icon"), "Missing visibility icon");
   T.exists(assert, $courseCard.find(".remixed"), "Missing Remixed By");
   T.exists(assert, $courseCard.find(".users-teaser"), "Missing users teaser");
   T.exists(assert, $courseCard.find(".edit-button  button"), "Missing edit button");
@@ -295,15 +295,14 @@ test('Course Card Layout Owner and Private', function(assert) {
   var $component = this.$(); //component dom element
   const $courseCard = $component.find(".gru-course-card");
   T.exists(assert, $courseCard, "Missing course card section");
-  T.exists(assert, $courseCard.find("h6"), "Missing course card title");
+  T.exists(assert, $courseCard.find(".course-title"), "Missing course card title");
   T.exists(assert, $courseCard.find(".total-units"), "Missing total units");
   T.exists(assert, $courseCard.find(".subject"), "Missing subject");
   T.notExists(assert, $courseCard.find(".icon .public"), "Missing public icon");
   T.exists(assert, $courseCard.find(".remixed"), "Missing Remixed By");
   T.exists(assert, $courseCard.find(".users-teaser"), "Missing users teaser");
   T.exists(assert, $courseCard.find(".edit-button  button"), "Missing edit button");
-  T.exists(assert, $courseCard.find(".icon .visibility_off"), "Missing Not Visible Icon");
-
+  T.notExists(assert, $courseCard.find(".visibility  .gru-icon"), "Missing visibility icon");
 });
 test('Click Edit', function(assert) {
   var course = Ember.Object.create({

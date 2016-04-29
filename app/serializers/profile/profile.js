@@ -198,11 +198,13 @@ export default Ember.Object.extend({
     const creatorId = questionData.creator_id;
     const filteredOwners = Ember.A(owners).filterBy("id", creatorId);
     const standards = questionData.taxonomy || [];
+    const format = QuestionModel.normalizeQuestionType(questionData.content_subformat);
     return QuestionModel.create({
       id: questionData.id,
       title: questionData.title,
       description: questionData.description,
       format: questionData.content_format,
+      type:format,
       publishStatus: questionData.publish_status,
       standards: serializer.normalizeStandards(standards),
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null

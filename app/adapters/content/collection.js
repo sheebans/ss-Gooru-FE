@@ -69,14 +69,7 @@ export default Ember.Object.extend({
       data: JSON.stringify(data)
     };
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function () {
-          resolve('');
-        }, function (error) {
-          reject(error);
-        });
-    });
+    return Ember.$.ajax(url, options);
   },
 
   /**
