@@ -5,7 +5,7 @@
         </div>
         <div class="card-info">
             <div class="header">
-                <h6 class="course-title truncate" {{action 'selectCourse'}}>{{course.title}}</h6>
+                <h3 class="course-title truncate" {{action 'selectCourse'}}>{{course.title}}</h3>
               {{#if course.isPublished}}
                   <span class="icon">{{gru-icon name="public"}}</span>
               {{/if}}
@@ -24,17 +24,22 @@
                   <span class="users-teaser">{{gru-user-teaser users=users}}</span>
                 {{/if}}
             </div>
-          <div>
+          <div class="actions">
             {{#if isOwner}}
-                <div class="edit-button">
-                    <button class="btn btn-sm btn-success" {{action 'editCourse'}}>{{t "common.edit"}}</button>
-                </div>
-                <span class="icon {{if course.isVisibleOnProfile 'hidden' 'show'}}">{{gru-icon name="visibility_off"}}</span>
+              <div class="visibility">
+                {{#if course.isVisibleOnProfile }}
+                  {{gru-icon name="visibility_off"}}
+                {{/if}}
+              </div>
+              <div class="edit-button">
+                  <button class="btn btn-sm btn-success" {{action 'editCourse'}}>{{t "common.edit"}}</button>
+              </div>
+              <span class="icon {{if course.isVisibleOnProfile 'hidden' 'show'}}">{{gru-icon name="visibility_off"}}</span>
             {{else}}
               {{#if course.isPublished}}
-                  <div class="remix-button">
-                      <button class="btn btn-sm btn-success" {{action 'remixCourse'}}>{{t "common.remix"}}</button>
-                  </div>
+                <div class="remix-button">
+                    <button class="btn btn-sm btn-success" {{action 'remixCourse'}}>{{t "common.remix"}}</button>
+                </div>
               {{/if}}
             {{/if}}
           </div>
