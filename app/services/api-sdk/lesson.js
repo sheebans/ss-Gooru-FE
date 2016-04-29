@@ -151,8 +151,9 @@ export default Ember.Service.extend(StoreMixin, {
    * @returns {Promise}
    */
   associateAssessmentOrCollectionToLesson: function(courseId,unitId, lessonId, collectionId, isCollection) {
+    const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      this.get('adapter').associateAssessmentOrCollectionToLesson({
+      service.get('adapter').associateAssessmentOrCollectionToLesson({
         courseId,
         unitId,
         lessonId,

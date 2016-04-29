@@ -137,8 +137,9 @@ export default Ember.Service.extend({
    * @returns {Promise}
    */
   associateCourseToClass: function(courseId, classId) {
+    const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      this.get('classAdapter').associateCourseToClass(courseId, classId)
+      service.get('classAdapter').associateCourseToClass(courseId, classId)
         .then(resolve, reject);
     });
   },
