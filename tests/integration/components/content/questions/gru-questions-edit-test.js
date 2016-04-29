@@ -294,40 +294,40 @@ test('Update Question Save Answers', function (assert) {
 });
 
 test('Change answer text and cancel edit', function (assert) {
-  assert.expect(2);
-  var newAnswerText ='Lorem ipsum dolor sit amet';
+  var newAnswerText = 'Lorem ipsum dolor sit amet';
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
-    text:"",
-    type:'MC',
-    answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
-    'text': "Option A",
-    'isCorrect': true,
-  }), Answer.create(Ember.getOwner(this).ownerInjection(),{
-    'text': "Option B",
-    'isCorrect': false
-  })])
+    text: "",
+    type: 'MC',
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Option A",
+      'isCorrect': true,
+    }), Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Option B",
+      'isCorrect': false
+    })])
   });
-  this.set('question',question);
+  this.set('question', question);
 
   this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
   const $component = this.$('.gru-questions-edit');
-  const $edit =  $component.find("#builder .actions .edit");
+  const $edit = $component.find("#builder .actions .edit");
   $edit.click();
   return wait().then(function () {
-      const $textField = $component.find(".gru-multiple-choice .multiple-choice:nth-child(0) .gru-textarea");
-      $textField.find("textarea").val(newAnswerText);
-      $textField.find("textarea").change();
-      const $cancel =  $component.find("#builder .actions .cancel");
-      $cancel.click();
+    const $textField = $component.find(".gru-multiple-choice .multiple-choice:nth-child(1) .gru-textarea");
+    $textField.find("textarea").val(newAnswerText);
+    $textField.find("textarea").change();
+    const $cancel = $component.find("#builder .actions .cancel");
+    $cancel.click();
+    return wait().then(function () {
+      const $edit = $component.find("#builder .actions .edit");
+      $edit.click();
       return wait().then(function () {
-        const $edit =  $component.find("#builder .actions .edit");
-        $edit.click();
-        return wait().then(function () {
-        assert.equal($textField.find("textarea").val(),question.answers[0].text, "Incorrect answer text");
-        });
+        const $textField = $component.find(".gru-multiple-choice .multiple-choice:nth-child(1) .gru-textarea");
+        assert.equal($textField.find("textarea").val(), question.get('answers')[0].text, "Incorrect answer text");
       });
     });
+  });
 });
 
 
