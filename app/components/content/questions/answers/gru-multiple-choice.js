@@ -38,20 +38,11 @@ export default Ember.Component.extend({
   },
   // -------------------------------------------------------------------------
   // Events
-  //init(){
-  //  this._super(...arguments);
-  //  this.set('multipleChoiceAnswers',this.get('question.answers'));
-  //},
   didUpdate(){
     this.validateAnswer();
   },
   // -------------------------------------------------------------------------
   // Properties
-  ///**
-  // * Multiple Choice Editing Mode Answers
-  // * @property {Ember.Array}
-  // */
-  //multipleChoiceAnswers:Ember.A(),
 
   /**
   * Multiple Choice Question Answers
