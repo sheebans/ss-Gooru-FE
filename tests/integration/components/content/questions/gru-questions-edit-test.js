@@ -2,13 +2,29 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Question from 'gooru-web/models/content/question';
+import Answer from 'gooru-web/models/content/answer';
 import Ember from 'ember';
+const questionServiceStub = Ember.Service.extend({
+
+  updateQuestion(questionID, editedQuestion) {
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      if (questionID === 'question-id-fail' || !editedQuestion) {
+        reject({status: 500});
+      } else {
+        resolve(editedQuestion);
+      }
+    });
+  }
+
+});
 
 moduleForComponent('content/questions/gru-questions-edit', 'Integration | Component | content/questions/gru questions edit', {
   integration: true,
   beforeEach: function () {
     this.i18n = this.container.lookup('service:i18n');
     this.i18n.set("locale","en");
+    this.register('service:api-sdk/question', questionServiceStub);
+    this.inject.service('api-sdk/question');
   }
 });
 
@@ -239,6 +255,81 @@ test('Update Question Builder', function (assert) {
     assert.equal($textFieldRead.val(),newText, "The question text should be updated");
   });
 });
+test('Update Question Save Answers', function (assert) {
+  assert.expect(2);
+  var newAnswerText ='Lorem ipsum dolor sit amet';
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type:'MC',
+    answers:Ember.A([])
+  });
+  this.set('question',question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question }}`);
+  const $component = this.$('.gru-questions-edit');
+  const $edit =  $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+    const $option = $component.find('.multiple-choice');
+    assert.notOk($option.length, "Should don't have answers");
+    const $newAnswer = $component.find('div.add-answer a');
+    $newAnswer.click();
+    return wait().then(function () {
+      const $textField = $component.find(".gru-multiple-choice .multiple-choice .gru-textarea");
+      $textField.find("textarea").val(newAnswerText);
+      $textField.find("textarea").change();
+      const $save =  $component.find("#builder .actions .save");
+      $save.click();
+      return wait().then(function () {
+        const $edit =  $component.find("#builder .actions .edit");
+        $edit.click();
+        return wait().then(function () {
+          const $option = $component.find('.multiple-choice');
+          assert.ok($option.length, "New answer is empty");
+        });
+      });
+    });
+  });
+});
+
+test('Change answer text and cancel edit', function (assert) {
+  var newAnswerText = 'Lorem ipsum dolor sit amet';
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text: "",
+    type: 'MC',
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Option A",
+      'isCorrect': true,
+    }), Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Option B",
+      'isCorrect': false
+    })])
+  });
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+  const $edit = $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+    const $textField = $component.find(".gru-multiple-choice .multiple-choice:nth-child(1) .gru-textarea");
+    $textField.find("textarea").val(newAnswerText);
+    $textField.find("textarea").change();
+    const $cancel = $component.find("#builder .actions .cancel");
+    $cancel.click();
+    return wait().then(function () {
+      const $edit = $component.find("#builder .actions .edit");
+      $edit.click();
+      return wait().then(function () {
+        const $textField = $component.find(".gru-multiple-choice .multiple-choice:nth-child(1) .gru-textarea");
+        assert.equal($textField.find("textarea").val(), question.get('answers')[0].text, "Incorrect answer text");
+      });
+    });
+  });
+});
+
 
 test('Layout of the settings section', function (assert) {
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Answer from 'gooru-web/models/content/answer';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -14,19 +15,21 @@ export default Ember.Component.extend({
   actions:{
     //Add new answer choice
     addNewChoice:function(){
-     var newChoice = Ember.Object.create({
-        'answer': "Answer choice goes here",
-        'isCorrect': false
+     var newChoice = Answer.create(Ember.getOwner(this).ownerInjection(),{
+        'text': null,
+        'isCorrect': false,
+        'type':"text"
       });
-      this.get('multipleChoiceAnswers').pushObject(newChoice);
+      this.get('answers').pushObject(newChoice);
+      //this.set('question.answers',this.get('multipleChoiceAnswers'));
     },
     //Remove existing answer
     removeChoice:function(answer){
-      this.get('multipleChoiceAnswers').removeObject(answer);
+      this.get('answers').removeObject(answer);
     },
     //Select correct answer
     setCorrect:function(answer){
-      var correctAnswer = this.get('multipleChoiceAnswers').findBy('isCorrect',true);
+      var correctAnswer = this.get('answers').findBy('isCorrect',true);
       if(correctAnswer){
         Ember.set(correctAnswer,'isCorrect',false);
       }
@@ -35,12 +38,24 @@ export default Ember.Component.extend({
   },
   // -------------------------------------------------------------------------
   // Events
+  didUpdate(){
+    this.validateAnswer();
+  },
   // -------------------------------------------------------------------------
   // Properties
+
   /**
-   * Multiple Choice Answer
-   * @property {Ember.Array}
-   */
-  multipleChoiceAnswers:Ember.A(),
+  * Multiple Choice Question Answers
+  * */
+
+  answers:null,
+
+  // -------------------------------------------------------------------------
+  // Method
+
+  validateAnswer:function(){
+    this.$('.text-area-container textarea').trigger('blur');
+  }
+
 
 });

@@ -141,6 +141,30 @@ export default Ember.Component.extend(ContentEditMixin,{
   saveNewContent:function(){
     const component = this;
     var editedQuestion = this.get('tempQuestion');
+    var promiseArray = [];
+    var answersValid = true;
+    if(editedQuestion.get('answers')){
+      for (var i = 0; i < editedQuestion.answers.length; i++) {
+        var promise = editedQuestion.answers[i].validate().then(function ({ model, validations }) {
+          return validations.get('isValid');
+        });
+        promiseArray.push(promise);
+      }
+      Ember.RSVP.Promise.all(promiseArray).then(function(values) {
+        values.find(function(promise){
+          if(promise === false){
+            answersValid = false;
+          }
+        });
+        if(answersValid){
+          component.updateQuestion(editedQuestion,component);
+        }
+      });
+    }else{
+      component.updateQuestion(editedQuestion,component);
+    }
+  },
+  updateQuestion:function(editedQuestion,component){
     editedQuestion.validate().then(function ({ model, validations }) {
       if (validations.get('isValid')) {
         component.get('questionService').updateQuestion(editedQuestion.id,editedQuestion)
@@ -157,5 +181,4 @@ export default Ember.Component.extend(ContentEditMixin,{
       component.set('didValidate', true);
     });
   }
-
 });

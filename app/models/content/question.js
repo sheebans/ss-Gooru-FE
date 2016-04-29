@@ -20,7 +20,7 @@ const Validations = buildValidations({
         descriptionKey: 'common.warnings.character-limit'
       })
     ]
-  },
+  }
 });
 
 /**
@@ -107,6 +107,11 @@ const Question = Ember.Object.extend(Validations, {
 
     // Copy the question data
     properties = this.getProperties(properties);
+
+    var answersForEditing = this.get('answers').map(function(answer) {
+      return answer.copy();
+    });
+    properties.answers = answersForEditing;
 
 
     return Question.create(Ember.getOwner(this).ownerInjection(), properties);
