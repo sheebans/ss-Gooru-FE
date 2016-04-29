@@ -6,9 +6,15 @@
           <div>
             <h6 class="title truncate" alt="{{resource.title}}">{{resource.title}}</h6>
           </div>
-          <div class="{{if isQuestion 'question-type' 'resource-type' }}">
+          {{#if isQuestion}}
+            <div class="question-type">
+              <span>{{t (concat "common.question-type." resource.type)}}</span>
+            </div>
+          {{else}}
+          <div class="resource-type">
             <span>{{t (concat "common.resource-format." resource.format)}}</span>
           </div>
+          {{/if}}
         </div>
     </div>
   </div>
@@ -39,9 +45,7 @@
       <button class="edit-btn btn-success btn-sm" {{action "editResource"}}>{{t "common.edit"}}</button>
     {{/if}}
     {{#if addEnabled }}
-      {{#unless isQuestion}}
-        <button class="add-to-btn btn-success btn-sm">{{t "common.add-to"}}</button>
-      {{/unless}}
+      <button class="add-to-btn btn-success btn-sm">{{t "common.add-to"}}</button>
     {{/if}}
     {{#if remixEnabled }}
       {{#if isQuestion}}
