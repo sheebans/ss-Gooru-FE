@@ -37,7 +37,34 @@ const Answer = Ember.Object.extend(Validations,{
   /**
    * @property {String} type - The answer type
    */
-  type: null
+  type: null,
+
+  /**
+   * Return a copy of the answer
+   *
+   * @function
+   * @return {Answer}
+   */
+  copy: function() {
+
+    var properties = [];
+    var enumerableKeys = Object.keys(this);
+
+    for (let i = 0; i < enumerableKeys.length; i++) {
+      let key = enumerableKeys[i];
+      let value = Ember.typeOf(this.get(key));
+      if (value === 'string' || value === 'number' || value === 'boolean') {
+        properties.push(key);
+      }
+    }
+
+    // Copy the question data
+    properties = this.getProperties(properties);
+
+
+    return Answer.create(Ember.getOwner(this).ownerInjection(), properties);
+  }
+
 
 });
 

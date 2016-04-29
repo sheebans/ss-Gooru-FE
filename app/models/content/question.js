@@ -108,10 +108,10 @@ const Question = Ember.Object.extend(Validations, {
     // Copy the question data
     properties = this.getProperties(properties);
 
-    var answers = this.get('answers');
-
-    // Copy the answers values
-    properties.answers = answers.slice(0);
+    var answersForEditing = this.get('answers').map(function(answer) {
+      return answer.copy();
+    });
+    properties.answers = answersForEditing;
 
 
     return Question.create(Ember.getOwner(this).ownerInjection(), properties);

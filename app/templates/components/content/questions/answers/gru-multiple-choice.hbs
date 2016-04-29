@@ -5,7 +5,7 @@
             <h3>{{answer-letter index}}</h3>
         </div>
       <div class="text-area-container">
-        {{validation.gru-textarea  rawTextareaValue=answer model=answer valuePath='text' rows=2 maxLength=200}}
+        {{validation.gru-textarea  model=answer valuePath='text' rows=2 maxLength=200}}
       </div>
         <button class="delete" {{action 'removeChoice' answer}}>{{gru-icon name="delete"}}</button>
         <button class="check {{if answer.isCorrect 'correct'}}" {{action 'setCorrect' answer}}>

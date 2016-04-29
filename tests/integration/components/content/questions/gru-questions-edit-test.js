@@ -2,6 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Question from 'gooru-web/models/content/question';
+import Answer from 'gooru-web/models/content/answer';
 import Ember from 'ember';
 const questionServiceStub = Ember.Service.extend({
 
@@ -291,6 +292,44 @@ test('Update Question Save Answers', function (assert) {
     });
   });
 });
+
+test('Change answer text and cancel edit', function (assert) {
+  assert.expect(2);
+  var newAnswerText ='Lorem ipsum dolor sit amet';
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type:'MC',
+    answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
+    'text': "Option A",
+    'isCorrect': true,
+  }), Answer.create(Ember.getOwner(this).ownerInjection(),{
+    'text': "Option B",
+    'isCorrect': false
+  })])
+  });
+  this.set('question',question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+  const $edit =  $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+      const $textField = $component.find(".gru-multiple-choice .multiple-choice:nth-child(0) .gru-textarea");
+      $textField.find("textarea").val(newAnswerText);
+      $textField.find("textarea").change();
+      const $cancel =  $component.find("#builder .actions .cancel");
+      $cancel.click();
+      return wait().then(function () {
+        const $edit =  $component.find("#builder .actions .edit");
+        $edit.click();
+        return wait().then(function () {
+        assert.equal($textField.find("textarea").val(),question.answers[0].text, "Incorrect answer text");
+        });
+      });
+    });
+});
+
 
 test('Layout of the settings section', function (assert) {
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
