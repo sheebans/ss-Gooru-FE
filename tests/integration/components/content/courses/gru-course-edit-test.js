@@ -31,22 +31,3 @@ test('it has header and main sections', function (assert) {
   assert.ok($container.find('> section#builder').length, "Builder section");
   assert.ok($container.find('> section#settings').length, "Settings section");
 });
-
-test('Layout of the settings section', function (assert) {
-
-  var course = Course.create(Ember.getOwner(this).ownerInjection(), {
-    title: "Course Title"
-  });
-
-  this.set('course', course);
-  this.render(hbs`{{content/courses/gru-course-edit course=course}}`);
-
-  var $settingsSection = this.$("#settings");
-  assert.ok($settingsSection.find('.header h2').length, "Section title");
-  assert.ok($settingsSection.find('.panel-heading h3').length, "Panel subtitle");
-  assert.ok($settingsSection.find('.panel-body .setting.publish-to i.visibility').length, "Visibility icon");
-  assert.ok($settingsSection.find('.panel-body .setting.publish-to i.visibility + span').length, "Visibility label");
-  assert.ok($settingsSection.find('.panel-body .gru-switch .toggle').length, "Profile toggle button");
-  assert.ok($settingsSection.find('.panel-body .setting.request-to i.public').length, "Public icon");
-  assert.ok($settingsSection.find('.panel-body .setting.request-to i.public + span').length, "Public label");
-});
