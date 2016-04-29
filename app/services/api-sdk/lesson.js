@@ -151,12 +151,14 @@ export default Ember.Service.extend(StoreMixin, {
    * @returns {Promise}
    */
   associateAssessmentOrCollectionToLesson: function(courseId,unitId, lessonId, collectionId, isCollection) {
-    return this.get('adapter').associateAssessmentOrCollectionToLesson({
-      courseId,
-      unitId,
-      lessonId,
-      collectionId,
-      type: isCollection ? CONTENT_TYPES.COLLECTION : CONTENT_TYPES.ASSESSMENT
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      this.get('adapter').associateAssessmentOrCollectionToLesson({
+        courseId,
+        unitId,
+        lessonId,
+        collectionId,
+        type: isCollection ? CONTENT_TYPES.COLLECTION : CONTENT_TYPES.ASSESSMENT
+      }).then(resolve, reject);
     });
   },
 
