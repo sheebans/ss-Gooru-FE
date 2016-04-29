@@ -67,28 +67,6 @@
         font-weight: normal;
         font-size: 16px;
       }
-
-      .gru-input {
-        display: inline-block;
-        width: 85%;
-        margin-left: 15px;
-
-        .form-group {
-          display: inline-block;
-          margin-bottom: 0;
-          width: inherit;
-
-          input, .error-messages {
-            display: inline;
-          }
-
-          input {
-            width: 50%;
-            max-width: 25em;
-            margin-right: 10px;
-          }
-        }
-      }
     }
 
     .add-item {
@@ -161,16 +139,28 @@
           }
         }
       }
+
       &.edit {
         > .view {
           display: none;
         }
         > .edit {
           .panel-heading {
-            .actions {
-              position: absolute;
-              top: 15px;
-              right: 20px;
+            @include flexbox;
+
+            > .title {
+              @include flex();
+
+              .form-group {
+                padding-left: 10px;
+                margin-bottom: 0;
+              }
+            }
+
+            > .actions {
+              width: 180px;
+              text-align: right;
+              padding-top: 5px;
             }
           }
         }
@@ -213,6 +203,22 @@
       }
 
       &.view {
+        > .view > .panel-heading {
+
+          > strong {
+            display: inline-block;
+            vertical-align: middle;
+            margin-top: -6px;
+
+            @include text-overflow();
+            max-width: 34%;
+
+            @media (min-width: $screen-lg) {
+              max-width: 45%;
+            }
+          }
+        }
+
         > .expanded > .panel-body {
           background-color: $dark-400;
 
