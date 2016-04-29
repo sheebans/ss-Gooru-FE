@@ -121,7 +121,7 @@
         </div>
         <div class="panel-body">
           {{#if isBuilderEditing}}
-            {{component (questionConfig question.type 'component.builder_answer') question=tempQuestion}}
+            {{component (questionConfig question.type 'component.builder_answer') answers=tempQuestion.answers}}
               <button class="add-hint btn btn-sm btn-primary">{{t "content.questions.edit.builder.add-hint"}}</button>
               <button class="add-explanation btn btn-sm btn-primary">{{t "content.questions.edit.builder.add-explanation"}}</button>
           {{else}}

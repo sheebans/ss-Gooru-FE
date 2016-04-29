@@ -13,7 +13,7 @@ test('Multiple choice answer layout', function(assert) {
     answers:Ember.A([])
   });
   this.set('question', question);
-  this.render(hbs`{{content/questions/answers/gru-multiple-choice question=question}}`);
+  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=question.answers}}`);
   var $component = this.$(); //component dom element
   const $newAnswer = $component.find('div.add-answer a');
   assert.ok($newAnswer.length, "Add new answer choice button missing");
@@ -44,7 +44,7 @@ test('Load a list of answers and add new answer', function(assert) {
   });
   this.set('question', question);
 
-  this.render(hbs`{{content/questions/answers/gru-multiple-choice question=question}}`);
+  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=question.answers}}`);
   var $component = this.$(); //component dom element
   var $option = $component.find('.multiple-choice');
   assert.equal($option.length,2, "Incorrect number of answers options");
@@ -68,7 +68,7 @@ test('Delete answer', function(assert) {
   });
   this.set('question', question);
 
-  this.render(hbs`{{content/questions/answers/gru-multiple-choice question=question}}`);
+  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=question.answers}}`);
   var $component = this.$(); //component dom element
   var $option = $component.find('.multiple-choice');
   assert.equal($option.length,2, "Incorrect number of answer options");
@@ -92,7 +92,7 @@ test('Correct answer', function(assert) {
   });
   this.set('question', question);
 
-  this.render(hbs`{{content/questions/answers/gru-multiple-choice question=question}}`);
+  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=question.answers}}`);
   var $component = this.$(); //component dom element
   assert.equal($component.find('.check.correct').length,1, "Incorrect number of correct answer");
   var $option = $component.find('.multiple-choice:nth-child(1)');

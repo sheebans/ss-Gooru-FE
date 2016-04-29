@@ -3,12 +3,27 @@ import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Question from 'gooru-web/models/content/question';
 import Ember from 'ember';
+const questionServiceStub = Ember.Service.extend({
+
+  updateQuestion(questionID, editedQuestion) {
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      if (questionID === 'question-id-fail' || !editedQuestion) {
+        reject({status: 500});
+      } else {
+        resolve(editedQuestion);
+      }
+    });
+  }
+
+});
 
 moduleForComponent('content/questions/gru-questions-edit', 'Integration | Component | content/questions/gru questions edit', {
   integration: true,
   beforeEach: function () {
     this.i18n = this.container.lookup('service:i18n');
     this.i18n.set("locale","en");
+    this.register('service:api-sdk/question', questionServiceStub);
+    this.inject.service('api-sdk/question');
   }
 });
 
@@ -239,7 +254,7 @@ test('Update Question Builder', function (assert) {
     assert.equal($textFieldRead.val(),newText, "The question text should be updated");
   });
 });
-test('Update Question Answers', function (assert) {
+test('Update Question Save Answers', function (assert) {
   assert.expect(2);
   var newAnswerText ='Lorem ipsum dolor sit amet';
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {

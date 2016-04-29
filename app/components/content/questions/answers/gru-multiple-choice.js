@@ -20,16 +20,16 @@ export default Ember.Component.extend({
         'isCorrect': false,
         'type':"text"
       });
-      this.get('multipleChoiceAnswers').pushObject(newChoice);
-      this.set('question.answers',this.get('multipleChoiceAnswers'));
+      this.get('answers').pushObject(newChoice);
+      //this.set('question.answers',this.get('multipleChoiceAnswers'));
     },
     //Remove existing answer
     removeChoice:function(answer){
-      this.get('multipleChoiceAnswers').removeObject(answer);
+      this.get('answers').removeObject(answer);
     },
     //Select correct answer
     setCorrect:function(answer){
-      var correctAnswer = this.get('multipleChoiceAnswers').findBy('isCorrect',true);
+      var correctAnswer = this.get('answers').findBy('isCorrect',true);
       if(correctAnswer){
         Ember.set(correctAnswer,'isCorrect',false);
       }
@@ -38,26 +38,26 @@ export default Ember.Component.extend({
   },
   // -------------------------------------------------------------------------
   // Events
-  init(){
-    this._super(...arguments);
-    this.set('multipleChoiceAnswers',this.get('question.answers'));
-  },
+  //init(){
+  //  this._super(...arguments);
+  //  this.set('multipleChoiceAnswers',this.get('question.answers'));
+  //},
   didUpdate(){
     this.validateAnswer();
   },
   // -------------------------------------------------------------------------
   // Properties
-  /**
-   * Multiple Choice Editing Mode Answers
-   * @property {Ember.Array}
-   */
-  multipleChoiceAnswers:Ember.A(),
+  ///**
+  // * Multiple Choice Editing Mode Answers
+  // * @property {Ember.Array}
+  // */
+  //multipleChoiceAnswers:Ember.A(),
 
   /**
   * Multiple Choice Question Answers
   * */
 
-  question:null,
+  answers:null,
 
   // -------------------------------------------------------------------------
   // Method

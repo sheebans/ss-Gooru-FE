@@ -133,22 +133,17 @@ export default Ember.Component.extend(ContentEditMixin,{
    */
   isBuilderEditing :false,
 
-  /**
-   * @property {Ember.Array[Answers]} answers
-   */
-  answers:null,
-
   //Methods
 
   /**
    * Save new question content
    */
   saveNewContent:function(){
-    const $component = this;
+    const component = this;
     var editedQuestion = this.get('tempQuestion');
     var promiseArray = [];
     var answersValid = true;
-    if(editedQuestion.answers){
+    if(editedQuestion.get('answers')){
       for (var i = 0; i < editedQuestion.answers.length; i++) {
         var promise = editedQuestion.answers[i].validate().then(function ({ model, validations }) {
           return validations.get('isValid');
@@ -162,11 +157,11 @@ export default Ember.Component.extend(ContentEditMixin,{
           }
         });
         if(answersValid){
-          $component.updateQuestion(editedQuestion,$component);
+          component.updateQuestion(editedQuestion,component);
         }
       });
     }else{
-      $component.updateQuestion(editedQuestion,$component);
+      component.updateQuestion(editedQuestion,component);
     }
   },
   updateQuestion:function(editedQuestion,component){

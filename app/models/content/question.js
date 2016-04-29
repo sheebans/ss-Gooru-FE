@@ -100,13 +100,18 @@ const Question = Ember.Object.extend(Validations, {
     for (let i = 0; i < enumerableKeys.length; i++) {
       let key = enumerableKeys[i];
       let value = Ember.typeOf(this.get(key));
-      if (value === 'string' || value === 'number' || value === 'boolean' || value ==='array') {
+      if (value === 'string' || value === 'number' || value === 'boolean') {
         properties.push(key);
       }
     }
 
     // Copy the question data
     properties = this.getProperties(properties);
+
+    var answers = this.get('answers');
+
+    // Copy the answers values
+    properties.answers = answers.slice(0);
 
 
     return Question.create(Ember.getOwner(this).ownerInjection(), properties);
