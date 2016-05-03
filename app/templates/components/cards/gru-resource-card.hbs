@@ -48,9 +48,9 @@
       <button class="add-to-btn btn-success btn-sm">{{t "common.add-to"}}</button>
     {{/if}}
     {{#if remixEnabled }}
-      {{#if isQuestion}}
+      {{#unless isQuestion}}
         <button class="remix-btn btn-success btn-sm">{{t "common.remix"}}</button>
-      {{/if}}
+      {{/unless}}
     {{/if}}
   </div>
 </div>
