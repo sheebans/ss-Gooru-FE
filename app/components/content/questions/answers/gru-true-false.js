@@ -35,9 +35,11 @@ export default Ember.Component.extend({
         Answer.create(Ember.getOwner(this).ownerInjection(),{
           'text': this.get('i18n').t('common.true').string,
           'isCorrect': true,
+          'type':"text"
         }), Answer.create(Ember.getOwner(this).ownerInjection(),{
           'text': this.get('i18n').t('common.false').string,
-          'isCorrect': false
+          'isCorrect': false,
+          'type':"text"
         })
       ]);
       this.set('answers',options);
@@ -49,7 +51,6 @@ export default Ember.Component.extend({
   /**
    * True/False Question Answers
    * */
-
   answers:null,
 
 
