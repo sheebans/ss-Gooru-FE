@@ -452,7 +452,8 @@ export default {
       "answer":"Answer",
       "answer-instructions":{
         "FIB":"Add up to 5 hints for answer and an explanation.",
-        "MC":"You can add up to ten answers choices and indicate one correct answer. Character Limit: 200."
+        "MC":"You can add up to ten answers choices and indicate one correct answer. Character Limit: 200.",
+        "HT_RO": "You can add up to ten answers choices in the correct order. The order will be scrambled for students."
       },
       "question-instructions":{
         "FIB":"As you write the question, use brackets for your fill-in-the-blank answers. For example: “The big bad [wolf] blew down the [house].” You can also add an image. Character Limit: 5000.",
