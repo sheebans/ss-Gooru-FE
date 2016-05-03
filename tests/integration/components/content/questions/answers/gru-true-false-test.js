@@ -18,9 +18,9 @@ test('True/False answer layout', function(assert) {
   var $component = this.$(); //component dom element
   const $option = $component.find('.true-false');
   assert.equal($option.length,2, "True/False answer missing");
-  assert.ok($option.find('.letter-container'), "Answer letter missing");
-  assert.ok($option.find('.check'), "Correct  button missing");
-  assert.ok($option.find('.true .check.correct'), "Correct  button missing");
+  assert.ok($option.find('.letter-container').length, "Answer letter missing");
+  assert.ok($option.find('.check').length, "Correct  button missing");
+  assert.ok($component.find('.true-false:nth-child(1) .check.correct').length, "Correct  button missing");
 });
 
 test('Load a list of answers', function(assert) {
@@ -39,8 +39,8 @@ test('Load a list of answers', function(assert) {
   var $component = this.$(); //component dom element
   var $option = $component.find('.true-false');
   assert.equal($option.length,2, "True/False answer missing");
-  assert.notOk($option.find('.true .check.correct').length, "True should don't be checked");
-  assert.ok($option.find('.false .check.correct').length, "False should be checked");
+  assert.notOk($component.find('.true-false:nth-child(1) .check.correct').length, "True should don't be checked");
+  assert.ok($component.find('.true-false:nth-child(2) .check.correct').length, "False should be checked");
 });
 
 test('Correct answer', function(assert) {

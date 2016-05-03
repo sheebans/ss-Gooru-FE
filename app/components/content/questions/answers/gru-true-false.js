@@ -5,6 +5,11 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
+  /**
+   * @requires service:i18n
+   */
+  i18n: Ember.inject.service(),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -28,10 +33,10 @@ export default Ember.Component.extend({
     if(this.get('answers').length === 0){
       var options = Ember.A([
         Answer.create(Ember.getOwner(this).ownerInjection(),{
-          'text': "True",
+          'text': this.get('i18n').t('gru-true-false.true').string,
           'isCorrect': true,
         }), Answer.create(Ember.getOwner(this).ownerInjection(),{
-          'text': "False",
+          'text': this.get('i18n').t('gru-true-false.false').string,
           'isCorrect': false
         })
       ]);
