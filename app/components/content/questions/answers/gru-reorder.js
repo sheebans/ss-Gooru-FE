@@ -1,6 +1,14 @@
 import Ember from 'ember';
 import Answer from 'gooru-web/models/content/answer';
 
+/**
+ *
+ * Component for building (i.e. adding/removing answers) of a (drag/drop) re-order question
+ *
+ * @module
+ * @augments Ember/Component
+ *
+ */
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
@@ -39,9 +47,8 @@ export default Ember.Component.extend({
   // Properties
 
   /**
-   * Multiple Choice Question Answers
+   * Question answers
    */
-
   answers:null,
 
   // -------------------------------------------------------------------------
