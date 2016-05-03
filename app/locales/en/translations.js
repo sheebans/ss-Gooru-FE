@@ -135,6 +135,7 @@ export default {
       "unit-title-required" : "Please enter the unit title."
     },
     "explanation": "Explanation",
+    "false":"False",
     "first-name": "First Name",
     "follow": "Follow",
     "forgotPassword": "Forgot Password",
@@ -270,6 +271,7 @@ export default {
     "teach": "Teach",
     "teacher": "Teacher",
     "timeSpent": "Time Spent",
+    "true":"True",
     "type": "Type",
     "update-thumbnail": "Update Thumbnail",
     "upload-thumbnail":"Upload Thumbnail",

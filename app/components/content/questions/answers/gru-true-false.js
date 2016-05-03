@@ -33,10 +33,10 @@ export default Ember.Component.extend({
     if(this.get('answers').length === 0){
       var options = Ember.A([
         Answer.create(Ember.getOwner(this).ownerInjection(),{
-          'text': this.get('i18n').t('gru-true-false.true').string,
+          'text': this.get('i18n').t('common.true').string,
           'isCorrect': true,
         }), Answer.create(Ember.getOwner(this).ownerInjection(),{
-          'text': this.get('i18n').t('gru-true-false.false').string,
+          'text': this.get('i18n').t('common.false').string,
           'isCorrect': false
         })
       ]);
