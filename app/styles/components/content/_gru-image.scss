@@ -61,12 +61,11 @@
     height: auto;
 
     .file-picker__preview > img {
-      max-width: none;
+      max-width: 94%;
       max-height: none;
-      width: 100%;
       height: auto;
       padding: 0;
-      margin: 5px 0 0;
+      margin: 5px 5px 0;
       background-color: transparent;
       border: 0 none;
     }
