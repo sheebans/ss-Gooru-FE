@@ -8,7 +8,11 @@ test('normalizeResponse for anonymous account', function(assert) {
   const payload = {
     'access_token': 'token-api-3.0',
     username: 'username',
-    'user_id': 'user-id'
+    'user_id': 'user-id',
+    'cdn_urls': {
+      'user_cdn_url': 'user-url',
+      'content_cdn_url': 'content-url'
+    }
   };
   const expected = {
     token: Env['API-3.0']['anonymous-token-api-2.0'],
@@ -17,6 +21,10 @@ test('normalizeResponse for anonymous account', function(assert) {
       username: 'username',
       gooruUId: 'user-id',
       isNew: true
+    },
+    'cdnUrls': {
+      'user': 'user-url',
+      'content': 'content-url'
     },
     isAnonymous: true
   };
@@ -29,7 +37,11 @@ test('normalizeResponse for normal account', function(assert) {
   const payload = {
     'access_token': 'token-api-3.0',
     username: 'username',
-    'user_id': 'user-id'
+    'user_id': 'user-id',
+    'cdn_urls': {
+      'user_cdn_url': 'user-url',
+      'content_cdn_url': 'content-url'
+    }
   };
   const expected = {
     token: Env['API-3.0']['user-token-api-2.0'],
@@ -38,6 +50,10 @@ test('normalizeResponse for normal account', function(assert) {
       username: 'username',
       gooruUId: 'user-id',
       isNew: true
+    },
+    'cdnUrls': {
+      'user': 'user-url',
+      'content': 'content-url'
     },
     isAnonymous: false
   };
@@ -49,7 +65,11 @@ test('normalizeResponse for google account', function(assert) {
   const serializer = this.subject();
   const payload = {
     username: 'username',
-    'user_id': 'user-id'
+    'user_id': 'user-id',
+    'cdn_urls': {
+      'user_cdn_url': 'user-url',
+      'content_cdn_url': 'content-url'
+    }
   };
   const expected = {
     token: Env['API-3.0']['user-token-api-2.0'],
@@ -58,6 +78,10 @@ test('normalizeResponse for google account', function(assert) {
       username: 'username',
       gooruUId: 'user-id',
       isNew: true
+    },
+    'cdnUrls': {
+      'user': 'user-url',
+      'content': 'content-url'
     },
     isAnonymous: false
   };
@@ -70,7 +94,11 @@ test('normalizeResponse for google account containing user category', function(a
   const payload = {
     username: 'username',
     'user_id': 'user-id',
-    user_category: 'user-cateogory'
+    user_category: 'user-cateogory',
+    'cdn_urls': {
+      'user_cdn_url': 'user-url',
+      'content_cdn_url': 'content-url'
+    }
   };
   const expected = {
     token: Env['API-3.0']['user-token-api-2.0'],
@@ -79,6 +107,10 @@ test('normalizeResponse for google account containing user category', function(a
       username: 'username',
       gooruUId: 'user-id',
       isNew: false
+    },
+    'cdnUrls': {
+      'user': 'user-url',
+      'content': 'content-url'
     },
     isAnonymous: false
   };

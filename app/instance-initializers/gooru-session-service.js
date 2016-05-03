@@ -21,6 +21,11 @@ export function initialize(application) {
     userData: Ember.computed.alias('data.authenticated.user'),
 
     /**
+     * @property {string} Session user data
+     */
+    cdnUrls: Ember.computed.alias('data.authenticated.cdnUrls'),
+
+    /**
      * @property {string} Session user id
      */
     userId: Ember.computed('userData', function() {

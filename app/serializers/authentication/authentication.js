@@ -13,7 +13,8 @@ export default Ember.Object.extend({
    * @param payload is the response coming from the endpoint
    * @param isAnonymous indicates if normalization is for an anonymous account
    * @param accessToken access token to use when it comes from google sign-in
-   * @returns {{token, token-api3: *, user: {username: (string|string|string), gooruUId: *}, isAnonymous: *}}
+   * @returns {{token, token-api3: *, user: {username: (string|string|string), gooruUId: *, isNew: *},
+   *            cdnUrls:{content: *, user: *}, isAnonymous: *}}
    */
   normalizeResponse: function(payload, isAnonymous, accessToken) {
     return {
@@ -23,6 +24,10 @@ export default Ember.Object.extend({
         username: payload.username,
         gooruUId: payload['user_id'],
         isNew: payload.user_category ? false : true
+      },
+      cdnUrls: {
+        user: payload.cdn_urls.user_cdn_url,
+        content: payload.cdn_urls.content_cdn_url
       },
       isAnonymous: isAnonymous
     };
