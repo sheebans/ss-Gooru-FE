@@ -1,0 +1,17 @@
+.questions.answers.gru-reorder {
+
+  @extend .questions.answers.gru-multiple-choice;
+
+  .panel div.answer-content {
+    padding-right: 10px;
+
+    .letter-container {
+      margin-right: 30px;
+    }
+
+    .text-area-container {
+      @include flex();
+      width: auto;
+    }
+  }
+}
