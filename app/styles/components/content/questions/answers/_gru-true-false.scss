@@ -1,0 +1,57 @@
+.questions.answers.gru-true-false{
+  padding: 10px 0;
+
+  .panel.true-false{
+    margin-bottom: 15px;
+
+    div.answer-content{
+      @include flexbox();
+      > *{
+        display: inline-block;
+      }
+      div.letter-container{
+        padding: 10px 0 10px 0;
+        width: 3.5em;
+        margin-right: 10px;
+        h3 {
+          display: inline-block;
+          margin: 0;
+          padding: 0px 18px 0px 18px;
+          border-right: 1px solid $gray-light;
+          font-weight: bold;
+          line-height: 2.5;
+          vertical-align: top;
+        }
+      }
+      .text-area-container{
+        width: 86%;
+        max-height: 4.9em;
+        margin-top: 10px;
+        textarea{
+          width: 85%;
+          height: 2em;
+          outline: none;
+          resize: none;
+        }
+      }
+      .check {
+        outline: none;
+        border: 0;
+        height: 4.9em;
+        width: 4.1em;
+        background-color: $light-200;
+        color:$light-400;
+        border-bottom-right-radius: 6px;
+        border-top-right-radius: 6px;
+        text-align: center;
+        line-height: 5.8;
+        cursor:pointer;
+      }
+      .check.correct{
+        background-color: $green-300;
+        color:$dark-200;
+      }
+
+    }
+  }
+}

@@ -1,24 +1,67 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Answer from 'gooru-web/models/content/answer';
+import Question from 'gooru-web/models/content/question';
+import wait from 'ember-test-helpers/wait';
+import Ember from 'ember';
 
 moduleForComponent('content/questions/answers/gru-true-false', 'Integration | Component | content/questions/answers/gru true false', {
   integration: true
 });
 
-test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+test('True/False answer layout', function(assert) {
+  const question = Question.create({
+    answers:Ember.A([])
+  });
+  this.set('question', question);
+  this.render(hbs`{{content/questions/answers/gru-true-false answers=question.answers}}`);
+  var $component = this.$(); //component dom element
+  const $option = $component.find('.true-false');
+  assert.equal($option.length,2, "True/False answer missing");
+  assert.ok($option.find('.letter-container'), "Answer letter missing");
+  assert.ok($option.find('.check'), "Correct  button missing");
+  assert.ok($option.find('.true .check.correct'), "Correct  button missing");
+});
 
-  this.render(hbs`{{content/questions/answers/gru-true-false}}`);
+test('Load a list of answers', function(assert) {
+  const question = Question.create({
+    answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
+      'text': "True",
+      'isCorrect': false,
+    }), Answer.create(Ember.getOwner(this).ownerInjection(),{
+      'text': "False",
+      'isCorrect': true
+    })])
+  });
+  this.set('question', question);
 
-  assert.equal(this.$().text().trim(), '');
+  this.render(hbs`{{content/questions/answers/gru-true-false answers=question.answers}}`);
+  var $component = this.$(); //component dom element
+  var $option = $component.find('.true-false');
+  assert.equal($option.length,2, "True/False answer missing");
+  assert.notOk($option.find('.true .check.correct').length, "True should don't be checked");
+  assert.ok($option.find('.false .check.correct').length, "False should be checked");
+});
 
-  // Template block usage:
-  this.render(hbs`
-    {{#content/questions/answers/gru-true-false}}
-      template block text
-    {{/content/questions/answers/gru-true-false}}
-  `);
+test('Correct answer', function(assert) {
+  const question = Question.create({
+    answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
+      'text': "True",
+      'isCorrect': true,
+    }), Answer.create(Ember.getOwner(this).ownerInjection(),{
+      'text': "False",
+      'isCorrect': false
+    })])
+  });
+  this.set('question', question);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+  this.render(hbs`{{content/questions/answers/gru-true-false answers=question.answers}}`);
+  var $component = this.$(); //component dom element
+  assert.equal($component.find('.check.correct').length,1, "Incorrect number of correct answer");
+  var $option = $component.find('.true-false:nth-child(2)');
+  const $check = $option.find('.check');
+  $check.click();
+  return wait().then(function () {
+    assert.equal( $component.find('.check.correct').length,1, "Incorrect number of correct answer");
+  });
 });

@@ -211,11 +211,11 @@ export default {
       "T/F"    : "True or False",
       "T_F"    : "True or False",
       "MA"     : "Multiple Answer",
-      "OE"     : "Open Ended",
-      "HS_TXT" : "Hot Spot Text",
-      "HS_IMG" : "Hot Spot Image",
-      "HT_TO"  : "Hot Text Reorder",
-      "HT_RO"  : "Hot Text Reorder",
+      "OE"     : "Free Response",
+      "HS_TXT" : "Multiple Select - Text",
+      "HS_IMG" : "Multiple Select - Image ",
+      "HT_TO"  : "Drag and Drop Order",
+      "HT_RO"  : "Drag and Drop Order",
       "HT_HL"  : "Hot Text Highlight"
     },
     "reaction": "Reaction",
@@ -452,7 +452,8 @@ export default {
       "answer":"Answer",
       "answer-instructions":{
         "FIB":"Add up to 5 hints for answer and an explanation.",
-        "MC":"You can add up to ten answers choices and indicate one correct answer. Character Limit: 200."
+        "MC":"You can add up to ten answers choices and indicate one correct answer. Character Limit: 200.",
+        "T/F":"Select the correct answer."
       },
       "question-instructions":{
         "FIB":"As you write the question, use brackets for your fill-in-the-blank answers. For example: “The big bad [wolf] blew down the [house].” You can also add an image. Character Limit: 5000.",
@@ -674,9 +675,9 @@ export default {
       "FIB": "Fill in the Blank",
       "T/F": "True / False",
       "MA": "Multiple Answer",
-      "HS_TXT": "Hot Spot- Text",
-      "HS_IMG": "Hot Spot- Image",
-      "HT_RO": "Hot Text- Reorder",
+      "HS_TXT": "Multiple Select - Text",
+      "HS_IMG": "Multiple Select - Image",
+      "HT_RO": "Drag and Drop Order",
       "HT_HL": "Hot Text- Highlight"
     },
     "author": {

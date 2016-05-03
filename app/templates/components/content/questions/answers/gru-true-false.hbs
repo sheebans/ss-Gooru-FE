@@ -1,1 +1,15 @@
-{{yield}}
+{{#each answers as |answer index|}}
+    <div class="panel panel-default true-false">
+        <div class="answer-content {{if (eq answer.text 'True') 'true' 'false'}}">
+            <div class="letter-container">
+                <h3>{{answer-letter index}}</h3>
+            </div>
+            <div class="text-area-container">
+              {{textarea value=answer.text readonly=true}}
+            </div>
+            <button class="check {{if answer.isCorrect 'correct'}}" {{action 'setCorrect' answer}}>
+              {{gru-icon name="done"}}
+            </button>
+        </div>
+    </div>
+{{/each}}
