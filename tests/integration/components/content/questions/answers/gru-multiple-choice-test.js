@@ -19,8 +19,9 @@ test('Multiple choice answer layout', function(assert) {
   assert.ok($newAnswer.length, "Add new answer choice button missing");
   $newAnswer.click();
   return wait().then(function () {
-    const $option = $component.find('.multiple-choice');
-    assert.ok($option.length, "New answer missing");
+    assert.equal($component.find('.panel').length, 1, "Number of answers");
+
+    const $option = $component.find('.panel:eq(0)');
     assert.ok($option.find('.letter-container'), "Answer letter missing");
     assert.ok($option.find('.delete i.delete'), "Delete button missing");
     assert.ok($option.find('.check'), "Correct  button missing");
@@ -36,7 +37,7 @@ test('Load a list of answers and add new answer', function(assert) {
   const question = Question.create({
     answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
       'text': "Option A",
-      'isCorrect': true,
+      'isCorrect': true
     }), Answer.create(Ember.getOwner(this).ownerInjection(),{
       'text': "Option B",
       'isCorrect': false
@@ -46,13 +47,13 @@ test('Load a list of answers and add new answer', function(assert) {
 
   this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=question.answers}}`);
   var $component = this.$(); //component dom element
-  var $option = $component.find('.multiple-choice');
-  assert.equal($option.length,2, "Incorrect number of answers options");
+  var $option = $component.find('.panel');
+  assert.equal($option.length, 2, "Incorrect number of answers options");
   const $newAnswer = $component.find('div.add-answer a');
   $newAnswer.click();
   return wait().then(function () {
-    var $option = $component.find('.multiple-choice');
-    assert.equal($option.length,3, "Incorrect number of answer");
+    var $option = $component.find('.panel');
+    assert.equal($option.length, 3, "Incorrect number of answer");
   });
 });
 
@@ -60,7 +61,7 @@ test('Delete answer', function(assert) {
   const question = Question.create({
     answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
       'text': "Option A",
-      'isCorrect': true,
+      'isCorrect': true
     }), Answer.create(Ember.getOwner(this).ownerInjection(),{
       'text': "Option B",
       'isCorrect': false
@@ -70,13 +71,13 @@ test('Delete answer', function(assert) {
 
   this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=question.answers}}`);
   var $component = this.$(); //component dom element
-  var $option = $component.find('.multiple-choice');
-  assert.equal($option.length,2, "Incorrect number of answer options");
-  const $delete = $component.find('.multiple-choice:nth-child(1) .delete');
+  var $option = $component.find('.panel');
+  assert.equal($option.length, 2, "Incorrect number of answer options");
+  const $delete = $component.find('.panel:first-of-type button.delete');
   $delete.click();
   return wait().then(function () {
-    var $option = $component.find('.multiple-choice');
-    assert.equal($option.length,1, "Incorrect number of answer");
+    var $option = $component.find('.panel');
+    assert.equal($option.length, 1, "Incorrect number of answers");
   });
 });
 
@@ -84,7 +85,7 @@ test('Correct answer', function(assert) {
   const question = Question.create({
     answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
       'text': "Option A",
-      'isCorrect': true,
+      'isCorrect': true
     }), Answer.create(Ember.getOwner(this).ownerInjection(),{
       'text': "Option B",
       'isCorrect': false
@@ -95,10 +96,12 @@ test('Correct answer', function(assert) {
   this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=question.answers}}`);
   var $component = this.$(); //component dom element
   assert.equal($component.find('.check.correct').length,1, "Incorrect number of correct answer");
-  var $option = $component.find('.multiple-choice:nth-child(1)');
-  const $check = $option.find('.check');
+  var $firstOption = $component.find('.panel:nth-child(2)');
+  const $check = $firstOption.find('.check');
+  assert.notOk($check.hasClass('correct'));
   $check.click();
   return wait().then(function () {
+    assert.ok($check.hasClass('correct'));
     assert.equal( $component.find('.check.correct').length,1, "Incorrect number of correct answer");
   });
 });
