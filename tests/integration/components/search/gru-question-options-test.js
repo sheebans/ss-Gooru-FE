@@ -45,7 +45,7 @@ test('gru-question-options-default', function(assert) {
   const $htReorderButton =$component.find('.ht-reorder');
   T.exists(assert, $htReorderButton, "Missing ht-reorder button");
   T.exists(assert, $htReorderButton.find('.icon'), "Missing icon ht-reorder button");
-  assert.equal(T.text($htReorderButton.find('.text')), "Hot Text- Reorder", "Incorrect ht-reorder button text");
+  assert.equal(T.text($htReorderButton.find('.text')), "Drag and Drop Order", "Incorrect ht-reorder button text");
 
   const $htHighlightButton =$component.find('.ht-highlight');
   T.exists(assert, $htHighlightButton, "Missing ht-highlight button");
@@ -55,12 +55,12 @@ test('gru-question-options-default', function(assert) {
   const $hsTextButton =$component.find('.hs-text');
   T.exists(assert, $hsTextButton, "Missing hs-text button");
   T.exists(assert, $hsTextButton.find('.icon'), "Missing icon hs-text button");
-  assert.equal(T.text($hsTextButton.find('.text')), "Hot Spot- Text", "Incorrect hs-text button text");
+  assert.equal(T.text($hsTextButton.find('.text')), "Multiple Select - Text", "Incorrect hs-text button text");
 
   const $hsImagestButton =$component.find('.hs-images');
   T.exists(assert, $hsImagestButton, "Missing hs-images button");
   T.exists(assert, $hsImagestButton.find('.icon'), "Missing icon hs-images button");
-  assert.equal(T.text($hsImagestButton.find('.text')), "Hot Spot- Image", "Incorrect hs-images button text");
+  assert.equal(T.text($hsImagestButton.find('.text')), "Multiple Select - Image", "Incorrect hs-images button text");
 
 });
 
