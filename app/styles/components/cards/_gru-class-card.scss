@@ -1,109 +1,141 @@
-.cards.gru-class-card {
+.gru-class-card {
   .panel {
     @include border-top-radius(4px);
     @include border-bottom-radius(4px);
     @include box-shadow(0 0 7px #ddd);
-    .panel-heading {
-      padding: 0 0 0 15px;
+    width: 100%;
+
+    .title {
+      @include flex-basis(332px);
+
+      h5 {
+        @include ellipsis($font-size-h5, 1.5, 2);
+        display: inline-block;
+        margin: 0;
+        max-width: 316px;
+      }
+    }
+
+    .action {
+      @include flexbox;
+      @include align-items(center);
       @include border-top-radius(4px);
-      @include flexbox();
+      @include border-left-radius(0);
+      font-size: $font-size-large;
+      height: 100%;
+      padding: 0 10px;
+
+      span {
+        white-space: nowrap;
+      }
+
+      .gru-icon {
+        font-size: $font-size-large * 2;
+        margin: 2px -7px 0;
+        vertical-align: middle;
+      }
+    }
+
+    .code {
+      @include border-top-radius(4px);
+      @include border-bottom-radius(4px);
+      @include flex-shrink(0);
+      border: 1px solid $white;
+      font-size: $font-size-base;
+      line-height: 1;
+      padding: 4px 5px;
+      text-transform: uppercase;
+      @media (min-width: $screen-xs) {
+        font-size: $font-size-large;
+      }
+    }
+
+    .panel-heading {
+      @include flexbox;
+      @include align-items(center);
       @include justify-content(space-between);
-      @include align-items(stretch);
+      @include border-top-radius(4px);
+      height: 88px;
+      padding: 0 0 0 15px;
+      width: 100%;
+
       * {
         color: $white;
       }
-      h5 {
-        display: inline-block;
-        padding: 20px 0;
-        margin: 0;
-        text-overflow: ellipsis;
-        overflow: hidden;
-      }
+
       .side-info {
-        @include flexbox();
+        @include flexbox;
         @include align-items(center);
-        .code {
-          border: 1px solid $white;
-          font-size: $font-size-base;
-          line-height: 1;
-          text-transform: uppercase;
-          padding: 4px 5px;
-          @include border-top-radius(4px);
-          @include border-bottom-radius(4px);
-          @media (min-width: $screen-xs) {
-            font-size: $font-size-large;
-          }
-        }
-        .action {
-          @include align-self(stretch);
-          @include flexbox();
-          @include align-items(center);
-          font-size: $font-size-large;
-          @include border-top-radius(4px);
-          @include border-left-radius(0);
-          padding: 0 10px;
-          margin-left: 10px;
-          span {
-            white-space: nowrap;
-          }
-          .gru-icon {
-            vertical-align: middle;
-            font-size: $font-size-large * 2;
-            margin: -2px -7px 0 -7px;
-          }
-        }
+        @include flex-shrink(0);
+        @include justify-content(space-between);
+        height: 100%;
+        overflow: hidden;
+        width: 185px;
       }
     }
+
+    .collaborators {
+      color: $gray;
+      margin-bottom: 15px;
+
+      .collaborator-avatar {
+        @include border-top-radius(50%);
+        @include border-bottom-radius(50%);
+        height: 1.4rem;
+        margin-right: 5px;
+        vertical-align: middle;
+        width: 1.4rem;
+      }
+    }
+
+    .members-info {
+      border-right: 1px solid $gray-lighter;
+      color: $gray-light;
+      float: left;
+      margin-right: -1px;
+
+
+      .gru-icon {
+        font-size: 150%;
+        line-height: 1;
+        vertical-align: middle;
+      }
+    }
+
+    .description {
+      border-left: 1px solid $gray-lighter;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+
+      > div {
+        @include ellipsis($font-size-base, 1.5, 4);
+      }
+    }
+
     .panel-body {
       line-height: 1.5;
       padding: 0;
+
       > div {
         padding: 20px;
       }
-      .members-info {
-        border-right: 1px solid $gray-lighter;
-        color: $gray-light;
-        float: left;
-        margin-right: -1px;
-        .collaborators {
-          margin-bottom: 15px;
-          color: $gray;
-          .collaborator-avatar {
-            height: 1.4rem;
-            width: 1.4rem;
-            vertical-align: middle;
-            margin-right: 5px;
-            @include border-top-radius(50%);
-            @include border-bottom-radius(50%);
-          }
-        }
-        .gru-icon {
-          font-size: 150%;
-          line-height: 1;
-          vertical-align: middle;
-        }
-      }
-      .description {
-        border-left: 1px solid $gray-lighter;
-        position: relative;
-        overflow: hidden;
-        height: 100%;
-        > div {
-          @include ellipsis($font-size-base, 1.5, 4);
-        }
-      }
     }
+
     &.student {
       .panel-heading {
         background-color: $sky-300;
+
         .action {
           background-color: $sky-400;
         }
       }
     }
+
     &.teacher {
       .panel-heading {
         background-color: $teal-300;
+
         .action {
           background-color: $teal-400;
         }
