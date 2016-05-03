@@ -3,17 +3,17 @@ import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
 import Answer from 'gooru-web/models/content/answer';
-import Question from 'gooru-web/models/content/question';
+
 moduleForComponent('content/questions/answers/gru-multiple-choice', 'Integration | Component | content/questions/answers/gru multiple choice', {
   integration: true
 });
 
 test('Multiple choice answer layout', function(assert) {
-  const question = Question.create({
-    answers:Ember.A([])
-  });
-  this.set('question', question);
-  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=question.answers}}`);
+  const answers = Ember.A([]);
+
+  this.set('answers', answers);
+
+  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=answers}}`);
   var $component = this.$(); //component dom element
   const $newAnswer = $component.find('div.add-answer a');
   assert.ok($newAnswer.length, "Add new answer choice button missing");
@@ -34,18 +34,16 @@ test('Multiple choice answer layout', function(assert) {
 });
 
 test('Load a list of answers and add new answer', function(assert) {
-  const question = Question.create({
-    answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
+  const answers = Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
       'text': "Option A",
       'isCorrect': true
     }), Answer.create(Ember.getOwner(this).ownerInjection(),{
       'text': "Option B",
       'isCorrect': false
-    })])
-  });
-  this.set('question', question);
+    })]);
+  this.set('answers', answers);
 
-  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=question.answers}}`);
+  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=answers}}`);
   var $component = this.$(); //component dom element
   var $option = $component.find('.panel');
   assert.equal($option.length, 2, "Incorrect number of answers options");
@@ -58,18 +56,16 @@ test('Load a list of answers and add new answer', function(assert) {
 });
 
 test('Delete answer', function(assert) {
-  const question = Question.create({
-    answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
+  const answers = Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "Option A",
       'isCorrect': true
     }), Answer.create(Ember.getOwner(this).ownerInjection(),{
       'text': "Option B",
       'isCorrect': false
-    })])
-  });
-  this.set('question', question);
+    })]);
+  this.set('answers', answers);
 
-  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=question.answers}}`);
+  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=answers}}`);
   var $component = this.$(); //component dom element
   var $option = $component.find('.panel');
   assert.equal($option.length, 2, "Incorrect number of answer options");
@@ -82,18 +78,16 @@ test('Delete answer', function(assert) {
 });
 
 test('Correct answer', function(assert) {
-  const question = Question.create({
-    answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
+  const answers = Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
       'text': "Option A",
       'isCorrect': true
     }), Answer.create(Ember.getOwner(this).ownerInjection(),{
       'text': "Option B",
       'isCorrect': false
-    })])
-  });
-  this.set('question', question);
+    })]);
+  this.set('answers', answers);
 
-  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=question.answers}}`);
+  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=answers}}`);
   var $component = this.$(); //component dom element
   assert.equal($component.find('.check.correct').length,1, "Incorrect number of correct answer");
   var $firstOption = $component.find('.panel:nth-child(2)');
