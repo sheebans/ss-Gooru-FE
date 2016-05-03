@@ -455,6 +455,7 @@ export default {
       "answer-instructions":{
         "FIB":"Add up to 5 hints for answer and an explanation.",
         "MC":"You can add up to ten answers choices and indicate one correct answer. Character Limit: 200.",
+        "HT_RO": "You can add up to ten answers choices in the correct order. The order will be scrambled for students.",
         "T/F":"Select the correct answer."
       },
       "question-instructions":{

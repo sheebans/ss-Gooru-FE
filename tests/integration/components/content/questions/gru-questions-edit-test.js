@@ -181,6 +181,7 @@ test('Layout of the builder section', function (assert) {
   assert.ok($builderSection.find('.panel-heading .instructions').length, "Missing Instructions");
   assert.ok($builderSection.find('.panel-body .text-empty').length, "Missing text empty message");
 });
+
 test('Builder Edit', function (assert) {
   assert.expect(12);
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
@@ -205,6 +206,7 @@ test('Builder Edit', function (assert) {
   assert.ok($builderSection.find('.question-answer .panel-body .add-hint').length, "Missing add hints button");
   assert.ok($builderSection.find('.question-answer .panel-body .add-explanation').length, "Missing add explanation button");
 });
+
 test('Validate the character limit in text field', function (assert) {
   assert.expect(1);
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
@@ -230,6 +232,7 @@ test('Validate the character limit in text field', function (assert) {
   });
 
 });
+
 test('Update Question Builder', function (assert) {
   assert.expect(1);
   var newText ='Lorem ipsum dolor sit amet';
@@ -255,6 +258,7 @@ test('Update Question Builder', function (assert) {
     assert.equal($textFieldRead.val(),newText, "The question text should be updated");
   });
 });
+
 test('Update Question Save Answers', function (assert) {
   assert.expect(2);
   var newAnswerText ='Lorem ipsum dolor sit amet';
@@ -264,19 +268,19 @@ test('Update Question Save Answers', function (assert) {
     type:'MC',
     answers:Ember.A([])
   });
-  this.set('question',question);
+  this.set('question', question);
 
   this.render(hbs`{{content/questions/gru-questions-edit question=question }}`);
   const $component = this.$('.gru-questions-edit');
   const $edit =  $component.find("#builder .actions .edit");
   $edit.click();
   return wait().then(function () {
-    const $option = $component.find('.multiple-choice');
-    assert.notOk($option.length, "Should don't have answers");
+    const $option = $component.find('.gru-multiple-choice .panel');
+    assert.notOk($option.length, "Should not have answers");
     const $newAnswer = $component.find('div.add-answer a');
     $newAnswer.click();
     return wait().then(function () {
-      const $textField = $component.find(".gru-multiple-choice .multiple-choice .gru-textarea");
+      const $textField = $component.find(".gru-multiple-choice .panel .gru-textarea");
       $textField.find("textarea").val(newAnswerText);
       $textField.find("textarea").change();
       const $save =  $component.find("#builder .actions .save");
@@ -285,7 +289,7 @@ test('Update Question Save Answers', function (assert) {
         const $edit =  $component.find("#builder .actions .edit");
         $edit.click();
         return wait().then(function () {
-          const $option = $component.find('.multiple-choice');
+          const $option = $component.find('.gru-multiple-choice');
           assert.ok($option.length, "New answer is empty");
         });
       });
@@ -314,7 +318,7 @@ test('Change answer text and cancel edit-Multiple Choice', function (assert) {
   const $edit = $component.find("#builder .actions .edit");
   $edit.click();
   return wait().then(function () {
-    const $textField = $component.find(".gru-multiple-choice .multiple-choice:nth-child(1) .gru-textarea");
+    const $textField = $component.find(".gru-multiple-choice .panel:nth-child(1) .gru-textarea");
     $textField.find("textarea").val(newAnswerText);
     $textField.find("textarea").change();
     const $cancel = $component.find("#builder .actions .cancel");
@@ -323,7 +327,7 @@ test('Change answer text and cancel edit-Multiple Choice', function (assert) {
       const $edit = $component.find("#builder .actions .edit");
       $edit.click();
       return wait().then(function () {
-        const $textField = $component.find(".gru-multiple-choice .multiple-choice:nth-child(1) .gru-textarea");
+        const $textField = $component.find(".gru-multiple-choice .panel:nth-child(1) .gru-textarea");
         assert.equal($textField.find("textarea").val(), question.get('answers')[0].text, "Incorrect answer text");
       });
     });
@@ -428,7 +432,5 @@ test('Layout of the settings section', function (assert) {
   assert.ok($settingsSection.find('input[type=checkbox]').not(':checked').length, "Switch should be off");
   assert.ok($settingsSection.find('.panel-body .setting.request-to i.public').length, "Public icon");
   assert.ok($settingsSection.find('.panel-body .setting.request-to i.public + span').length, "Public label");
-
-
 });
 

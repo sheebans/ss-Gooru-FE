@@ -1,14 +1,16 @@
 .questions.answers.gru-multiple-choice{
   padding: 10px 0;
 
- .panel{
+ .panel {
    margin-bottom: 15px;
 
    div.answer-content{
      @include flexbox();
-    > *{
-      display: inline-block;
-    }
+
+     > div, button {
+       display: inline-block;
+     }
+
      .delete{
        outline: none;
        padding: 10px;
@@ -16,7 +18,8 @@
        border: 0;
        background: $white;
      }
-     div.letter-container{
+
+     .letter-container{
        padding: 10px 0 10px 0;
        width: 3.5em;
        margin-right: 10px;
@@ -30,6 +33,7 @@
          vertical-align: top;
        }
      }
+
      .text-area-container{
        width: 86%;
        max-height: 4.9em;
