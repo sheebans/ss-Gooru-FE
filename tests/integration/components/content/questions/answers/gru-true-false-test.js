@@ -16,11 +16,11 @@ test('True/False answer layout', function(assert) {
   this.set('question', question);
   this.render(hbs`{{content/questions/answers/gru-true-false answers=question.answers}}`);
   var $component = this.$(); //component dom element
-  const $option = $component.find('.true-false');
+  const $option = $component.find('.answer-content');
   assert.equal($option.length,2, "True/False answer missing");
   assert.ok($option.find('.letter-container').length, "Answer letter missing");
   assert.ok($option.find('.check').length, "Correct  button missing");
-  assert.ok($component.find('.true-false:nth-child(1) .check.correct').length, "Correct  button missing");
+  assert.ok($component.find('.answer-content:nth-child(1) .check.correct').length, "Correct  button missing");
 });
 
 test('Load a list of answers', function(assert) {
@@ -37,10 +37,10 @@ test('Load a list of answers', function(assert) {
 
   this.render(hbs`{{content/questions/answers/gru-true-false answers=question.answers}}`);
   var $component = this.$(); //component dom element
-  var $option = $component.find('.true-false');
+  var $option = $component.find('.answer-content');
   assert.equal($option.length,2, "True/False answer missing");
-  assert.notOk($component.find('.true-false:nth-child(1) .check.correct').length, "True should don't be checked");
-  assert.ok($component.find('.true-false:nth-child(2) .check.correct').length, "False should be checked");
+  assert.notOk($component.find('.panel:nth-child(1) .check.correct').length, "True should don't be checked");
+  assert.ok($component.find('.panel:nth-child(2) .check.correct').length, "False should be checked");
 });
 
 test('Correct answer', function(assert) {
@@ -58,7 +58,7 @@ test('Correct answer', function(assert) {
   this.render(hbs`{{content/questions/answers/gru-true-false answers=question.answers}}`);
   var $component = this.$(); //component dom element
   assert.equal($component.find('.check.correct').length,1, "Incorrect number of correct answer");
-  var $option = $component.find('.true-false:nth-child(2)');
+  var $option = $component.find('.panel:nth-child(2)');
   const $check = $option.find('.check');
   $check.click();
   return wait().then(function () {

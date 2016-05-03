@@ -1,6 +1,6 @@
 .questions.answers.gru-true-false{
   @extend .questions.answers.gru-multiple-choice;
-  .text-area-container{
+  .text-area-container.read-only{
     margin-top: 10px;
     textarea{
       width: 85%;
