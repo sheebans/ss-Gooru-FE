@@ -21,7 +21,6 @@ export default Ember.Component.extend({
         'type':"text"
       });
       this.get('answers').pushObject(newChoice);
-      //this.set('question.answers',this.get('multipleChoiceAnswers'));
     },
     //Remove existing answer
     removeChoice:function(answer){

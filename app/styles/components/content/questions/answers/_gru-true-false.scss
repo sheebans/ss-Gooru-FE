@@ -1,0 +1,12 @@
+.questions.answers.gru-true-false{
+  @extend .questions.answers.gru-multiple-choice;
+  .text-area-container.read-only{
+    margin-top: 10px;
+    textarea{
+      width: 85%;
+      height: 2em;
+      outline: none;
+      resize: none;
+    }
+  }
+}
