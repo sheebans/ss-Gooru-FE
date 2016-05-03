@@ -28,8 +28,7 @@ export default Ember.Component.extend({
   },
   // -------------------------------------------------------------------------
   // Events
-  init(){
-    this._super(...arguments);
+  didInsertElement: function() {
     if(this.get('answers').length === 0){
       var options = Ember.A([
         Answer.create(Ember.getOwner(this).ownerInjection(),{
