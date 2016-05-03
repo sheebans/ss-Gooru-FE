@@ -155,7 +155,6 @@ test('Validate if the Question Title field has only whitespaces', function (asse
 });
 
 test('Validate the character limit in the Question title field', function (assert) {
-  assert.expect(1);
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: null
   });
@@ -163,13 +162,8 @@ test('Validate the character limit in the Question title field', function (asser
 
   this.render(hbs`{{content/questions/gru-questions-edit isEditing=true tempQuestion=question}}`);
 
-  const $component = this.$('.gru-questions-edit');
-  const $titleField = $component.find(".gru-input.title");
-
-  $titleField.find("input").val('123456790123456790123456790123456790123456790extra');
-  $titleField.find("input").trigger('blur');
-
-  assert.equal($titleField.find("input").val().length,50, "Incorrect number of incorrect characters");
+  const maxLenValue = this.$('.gru-questions-edit .gru-input.title input').prop('maxlength');
+  assert.equal(maxLenValue, 50, "Input max length");
 });
 
 test('Layout of the builder section', function (assert) {

@@ -29,7 +29,7 @@
                         <label>
                             <span class="required">{{t "content.questions.edit.information.question-title"}}</span>
                           {{#if isEditing}}
-                            {{validation.gru-input model=tempQuestion valuePath='title' maxlength=50}}
+                            {{validation.gru-input model=tempQuestion valuePath='title' maxLength=50}}
                           {{else}}
                               <b>{{question.title}}</b>
                           {{/if}}

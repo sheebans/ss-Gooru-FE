@@ -151,18 +151,12 @@ test('Validate if the assessment title field has only whitespaces', function (as
     });
   });
 });
-test('Validate the character limit in the assessment title field', function (assert) {
-  assert.expect(1);
 
+test('Validate the character limit in the assessment title field', function (assert) {
   this.render(hbs`{{content/modals/gru-assessment-new}}`);
 
-  const $component = this.$('.gru-assessment-new');
-  const $titleField = $component.find(".gru-input.title");
-
-  $titleField.find("input").val('123456790123456790123456790123456790123456790extra');
-  $titleField.find("input").blur();
-
-  assert.equal($titleField.find("input").val().length,50, "Incorrect number of incorrect characters");
+  const maxLenValue = this.$('.gru-assessment-new .gru-input.title input').prop('maxlength');
+  assert.equal(maxLenValue, 50, "Input max length");
 });
 
 test('it creates an assessment and assigns it to a newly created course, unit and lesson', function (assert) {
