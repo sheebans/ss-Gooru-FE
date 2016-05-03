@@ -9,7 +9,7 @@
           <span>{{gru-icon name='near_me'}}{{t "class.overview.locate"}}</span>
         </button>
       {{else}}
-        <button {{action "editContent"}} class="btn btn-default edit-content">
+        <button {{action "editContent" course.id}} class="btn btn-default edit-content">
           {{t "class.overview.editContent"}}
         </button>
       {{/if}}
