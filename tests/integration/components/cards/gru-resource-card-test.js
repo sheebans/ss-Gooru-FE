@@ -70,7 +70,7 @@ test('Question Card Layout', function(assert) {
   T.exists(assert, $resourceCard.find(".panel-body .publisher img"), "Missing Publisher Image");
   T.exists(assert, $resourceCard.find(".panel-body .publisher .publisher-name a"), "Missing Publisher Name");
   T.exists(assert, $resourceCard.find(".panel-body .description p"), "Missing Description");
-  T.exists(assert, $resourceCard.find(".panel-footer button.remix-btn"), "Missing Remix Button");
+  T.exists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Add To Button Missing");
   T.notExists(assert, $resourceCard.find(".panel-footer button.edit-btn"), "Edit Button should not be visible");
 
 });
