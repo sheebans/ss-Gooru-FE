@@ -18,6 +18,6 @@ export default Ember.Component.extend({
    * Model id
    * @property {int}
    */
-  modelId: null,
+  model: null,
 
 });

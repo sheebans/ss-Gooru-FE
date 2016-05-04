@@ -1,12 +1,18 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Ember from 'ember';
 
 moduleForComponent('content/gru-item-actions', 'Integration | Component | content/gru item actions', {
   integration: true
 });
 
 test('Layout of item actions component', function (assert) {
-  this.render(hbs`{{content/gru-item-actions transitionTo="settings" modelId="12345"}}`);
+  var model = Ember.Object.create({
+    'id': "12345"
+  });
+
+  this.set('model',model);
+  this.render(hbs`{{content/gru-item-actions transitionTo="settings" model=model}}`);
 
   var $component = this.$();
   assert.ok($component.find('.edit-item').length, "Edit button missing");
