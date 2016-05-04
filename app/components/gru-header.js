@@ -35,7 +35,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
     },
 
     searchTerm: function () {
-      var term = this.get('tempTerm');
+      var term = $.trim(this.get('tempTerm'));
       var isIncorrectTermSize = this.get('isIncorrectTermSize');
       if (!isIncorrectTermSize){
         this.set('term', encodeTerm(term));
