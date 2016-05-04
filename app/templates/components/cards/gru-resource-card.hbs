@@ -44,13 +44,10 @@
     {{#if editEnabled }}
       <button class="edit-btn btn-success btn-sm" {{action "editResource"}}>{{t "common.edit"}}</button>
     {{/if}}
-    {{#if addEnabled }}
+    {{#if isQuestion}}
+      <button class="copy-btn btn-success btn-sm">{{t "common.copy-to"}}</button>
+    {{else}}
       <button class="add-to-btn btn-success btn-sm">{{t "common.add-to"}}</button>
-    {{/if}}
-    {{#if remixEnabled }}
-      {{#unless isQuestion}}
-        <button class="remix-btn btn-success btn-sm">{{t "common.remix"}}</button>
-      {{/unless}}
     {{/if}}
   </div>
 </div>
