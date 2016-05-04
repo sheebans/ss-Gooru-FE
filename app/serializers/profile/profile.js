@@ -13,6 +13,8 @@ import CollectionModel from 'gooru-web/models/content/collection';
  */
 export default Ember.Object.extend({
 
+  session: Ember.inject.service('session'),
+
   /**
    * Serialize a Profile object into a JSON representation required by the Create Profile endpoint
    * @param profileData the profile object
@@ -225,8 +227,8 @@ export default Ember.Object.extend({
     return CollectionModel.create({
       id: collectionData.id,
       title: collectionData.title,
-      image: collectionData.thumbnail,
       standards: standards,
+      imageUrl: collectionData.thumbnail ? serializer.get('session.cdnUrls.content') + collectionData.thumbnail : null,
       publishStatus: collectionData.publish_status,
       learningObjectives: collectionData.learning_objective,
       resourceCount: collectionData.resource_count,

@@ -35,6 +35,12 @@ export default GruImagePicker.extend({
     }
   },
 
+  resetOnSave : function() {
+    if(this.get('isEditing') === false) {
+      this.actions.resetPicker.call(this);
+    }
+  }.observes('isEditing'),
+
   // -------------------------------------------------------------------------
   // Properties
 

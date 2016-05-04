@@ -17,6 +17,11 @@ export default Ember.Component.extend(ContentEditMixin, {
   collectionService: Ember.inject.service("api-sdk/collection"),
 
   /**
+   * @property {MediaService} Media service API SDK
+   */
+  mediaService: Ember.inject.service("api-sdk/media"),
+
+  /**
    * @property {Service} I18N service
    */
   i18n: Ember.inject.service(),
@@ -45,19 +50,28 @@ export default Ember.Component.extend(ContentEditMixin, {
      * Save Content
      */
     updateContent: function () {
-      let editedCollection = this.get('tempCollection');
+      let component = this;
+      let editedCollection = component.get('tempCollection');
+      let collection = component.get('collection');
       editedCollection.validate().then(function ({validations }) {
         if (validations.get('isValid')) {
-          this.get('collectionService').updateCollection(editedCollection.get('id'), editedCollection)
-            .then(function () {
-              this.get('collection').merge(editedCollection, ['title', 'learningObjectives', 'isVisibleOnProfile']);
-              this.set('isEditing', false);
-            }.bind(this))
-            .catch(function (error) {
-              var message = this.get('i18n').t('common.errors.collection-not-updated').string;
-              this.get('notifications').error(message);
-              Ember.Logger.error(error);
-            }.bind(this));
+          let imageIdPromise = new Ember.RSVP.resolve(editedCollection.get('imageUrl'));
+          if(editedCollection.get('imageUrl') && editedCollection.get('imageUrl') !== collection.get('imageUrl')) {
+            imageIdPromise = component.get('mediaService').uploadContentFile(editedCollection.get('imageUrl'));
+          }
+          imageIdPromise.then(function(imageId) {
+            editedCollection.set('imageUrl', imageId);
+            component.get('collectionService').updateCollection(editedCollection.get('id'), editedCollection)
+              .then(function () {
+                collection.merge(editedCollection, ['title', 'learningObjectives', 'isVisibleOnProfile', 'imageUrl']);
+                component.set('isEditing', false);
+              })
+              .catch(function (error) {
+                var message = component.get('i18n').t('common.errors.collection-not-updated').string;
+                component.get('notifications').error(message);
+                Ember.Logger.error(error);
+              });
+          });
         }
         this.set('didValidate', true);
       }.bind(this));

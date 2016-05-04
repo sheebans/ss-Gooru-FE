@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
-import { getQuestionApiType, getQuestionTypeByApiType } from 'gooru-web/config/question';
+import {getQuestionApiType, getQuestionTypeByApiType, QUESTION_TYPES} from 'gooru-web/config/question';
 
 const Validations = buildValidations({
   title: {
@@ -85,6 +85,11 @@ const Question = Ember.Object.extend(Validations, {
    * @property {Answer[]} answers - Array of answers
    */
   answers: Ember.A([]),
+
+  /**
+   * @property {Boolean} isFIB - Indicates is the question type is FIB
+   */
+  isFIB: Ember.computed.equal('type', QUESTION_TYPES.fib),
 
   /**
    * Return a copy of the question
