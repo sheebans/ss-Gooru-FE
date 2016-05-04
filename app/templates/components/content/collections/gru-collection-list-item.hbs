@@ -30,9 +30,7 @@
       <div class="actions">
         <button class="btn add-item" {{action 'swap'}}>{{gru-icon name="add"}}</button>
         <button class="btn narration" {{action 'swap'}}>{{gru-icon name="mode_comment"}}</button>
-
-        {{partial 'content/partials/item-actions'}}
-
+        {{content.gru-item-actions transitionTo=(if (eq model.format 'question') 'content.questions.edit' 'content.resources.edit') modelId=model.id}}
       </div>
     </div>
   </div>
