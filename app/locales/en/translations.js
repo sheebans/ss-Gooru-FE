@@ -113,8 +113,10 @@ export default {
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "collection-not-updated": "Oops! Unable to update collection right now. Please try again shortly.",
       "collection-title-presence" : "Please enter the collection title.",
+      "correct-answer-presence": "Please select at least one correct answer.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
+      "hotspot-text-max-choices": "You have reached the limit of answers choices.",
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
       "lesson-title-required" : "Please enter the lesson title.",
@@ -456,6 +458,7 @@ export default {
       "answer-instructions":{
         "FIB":"Add up to 5 hints for answer and an explanation.",
         "MC":"You can add up to ten answers choices and indicate one correct answer. Character Limit: 200.",
+        "HS_TXT": "You can add up to ten answers choices and select one or more correct answers.",
         "HT_RO": "You can add up to ten answers choices in the correct order. The order will be scrambled for students.",
         "T/F":"Select the correct answer."
       },
