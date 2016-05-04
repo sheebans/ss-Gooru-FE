@@ -44,7 +44,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Properties
   /**
-   * Multi Select Text Answers
+   * Hot Spot Text Answers
    */
   answers: null,
 

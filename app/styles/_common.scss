@@ -37,6 +37,11 @@ button.btn-link {
   padding: 0;
 }
 
+textarea {
+  outline: none;
+  resize: none;
+}
+
 .validation span.error,
 span.validation.error {
   color: $brand-danger;
