@@ -43,18 +43,6 @@ export default Ember.Component.extend({
   editEnabled: false,
 
   /**
-   * Indicates if the edit functionality is enabled
-   * @property {boolean}
-   */
-  remixEnabled: true,
-
-  /**
-   * Indicates if the edit functionality is enabled
-   * @property {boolean}
-   */
-  addEnabled: true,
-
-  /**
    * @property {string} edit action
    */
   onEditResource: null

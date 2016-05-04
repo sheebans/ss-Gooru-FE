@@ -72,6 +72,7 @@ export default {
     "completed": "Completed",
     "content-publishing":"Content Publishing",
     "contentUnavailable": "Content not available",
+    "copy-to": "Copy To",
     "correct": "Correct",
     "correct-answer":"Correct Answer",
     "course-map": "Course Map",
