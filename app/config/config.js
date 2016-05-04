@@ -96,3 +96,8 @@ export const REAL_TIME_CLIENT = {
   OUTGOING_HEARTBEAT: 5000,
   INCOMING_HEARTBEAT: 5000
 };
+
+export const ENTITY_TYPE = {
+  CONTENT: 'content',
+  USER: 'user'
+};
