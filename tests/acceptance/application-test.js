@@ -25,6 +25,8 @@ test('searchTerm: Search box navigation', function(assert) {
     const $searchInput = $appHeader.find(".search-input");
 
     fillIn($searchInput, 'europe');
+    $searchInput.val('europe');
+    $searchInput.change();
 
     $appHeader.find('form').submit();
 
