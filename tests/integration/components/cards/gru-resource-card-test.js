@@ -70,8 +70,8 @@ test('Question Card Layout', function(assert) {
   T.exists(assert, $resourceCard.find(".panel-body .publisher img"), "Missing Publisher Image");
   T.exists(assert, $resourceCard.find(".panel-body .publisher .publisher-name a"), "Missing Publisher Name");
   T.exists(assert, $resourceCard.find(".panel-body .description p"), "Missing Description");
-  T.exists(assert, $resourceCard.find(".panel-footer button.remix-btn"), "Missing Remix Button");
-  T.notExists(assert, $resourceCard.find(".panel-footer button.edit-btn"), "Edit Button should not be visible");
+  T.exists(assert, $resourceCard.find(".panel-footer button.copy-btn"), "Copy To Button Missing");
+  T.notExists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Add To Button should not be visible");
 
 });
 
@@ -103,9 +103,8 @@ test('Resource card trying buttons', function(assert) {
   this.render(hbs`{{cards/gru-resource-card resource=resource editEnabled=true onEditResource="editResource" addEnabled=false}}`);
   var $component = this.$(); //component dom element
   const $resourceCard = $component.find(".gru-resource-card");
-  T.notExists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Add to Button should not be visible");
+  T.exists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Add to Button should be visible");
   T.exists(assert, $resourceCard.find(".panel-footer button.edit-btn"), "Edit Button should be visible");
-
   $resourceCard.find(".panel-footer button.edit-btn").click();
 
 });

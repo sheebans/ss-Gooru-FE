@@ -25,7 +25,7 @@ export default Ember.Service.extend({
 
   init: function () {
     this._super(...arguments);
-    this.set('profileSerializer', ProfileSerializer.create());
+    this.set('profileSerializer', ProfileSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('courseSerializer', CourseSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('profileAdapter', ProfileAdapter.create(Ember.getOwner(this).ownerInjection()));
     this.set('profileCoursesAdapter', ProfileCoursesAdapter.create(Ember.getOwner(this).ownerInjection()));

@@ -13,7 +13,8 @@ import {
   getGradeColor ,
   getLetter,
   numberSort,
-  generateUUID
+  generateUUID,
+  cleanFilename
   } from 'gooru-web/utils/utils';
 
 import { module, test } from 'qunit';
@@ -188,3 +189,10 @@ test('Check Uuid format', function (assert) {
   assert.ok(uuid.match(/([a-f\d]{8}(-[a-f\d]{4}){3}-[a-f\d]{12}?)/i), 'The uuid is not correct');
 });
 
+test('Clean filename', function (assert) {
+  var id = generateUUID() + '.png';
+  var url = `http://test-bucket01.s3.amazonaws.com/${id}`;
+  assert.equal(cleanFilename(url), id, 'Wrong filename with complete url.');
+  assert.equal(cleanFilename(id), id, 'Wrong filename without complete url.');
+  assert.equal(cleanFilename(null), null, 'Wrong filename without complete url.');
+});

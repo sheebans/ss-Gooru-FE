@@ -313,3 +313,14 @@ export function toLocal(timestamp){
 export function normalizeQuestionTypes(questionType) {
   return questionType.replace('/', '_');
 }
+
+/**
+ * Returns filename from url
+ * @param {String} file complete url
+ */
+export function cleanFilename(url){
+  if(url) {
+    return url.split('/').pop();
+  }
+  return url;
+}
