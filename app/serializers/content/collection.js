@@ -55,7 +55,7 @@ export default Ember.Object.extend({
       title: collectionModel.get('title'),
       learning_objective: collectionModel.get('learningObjectives'),
       visible_on_profile: collectionModel.get('isVisibleOnProfile'),
-      thumbnail: cleanFilename(collectionModel.imageUrl)
+      thumbnail: cleanFilename(collectionModel.image)
     };
   },
 
@@ -72,7 +72,7 @@ export default Ember.Object.extend({
       learningObjectives: payload['learning_objective'],
       isVisibleOnProfile: payload['visible_on_profile'] !== 'undefined' ? payload['visible_on_profile'] : true,
       children: serializer.normalizeResources(payload.content),
-      imageUrl: payload.thumbnail ? serializer.get('session.cdnUrls.content') + payload.thumbnail : null
+      image: payload.thumbnail ? serializer.get('session.cdnUrls.content') + payload.thumbnail : null
       // TODO Add more required properties here...
     });
   },
