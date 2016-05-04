@@ -258,7 +258,6 @@ test('Validate if the Resource Title field has only whitespaces', function (asse
 });
 
 test('Validate the character limit in the Resource title field', function (assert) {
-  assert.expect(1);
   var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
     title: null
   });
@@ -266,13 +265,8 @@ test('Validate the character limit in the Resource title field', function (asser
 
   this.render(hbs`{{content/resources/gru-resource-edit isEditing=true tempResource=resource}}`);
 
-  const $component = this.$('.gru-resource-edit');
-  const $titleField = $component.find(".gru-input.title");
-
-  $titleField.find("input").val('123456790123456790123456790123456790123456790extra');
-  $titleField.find("input").trigger('blur');
-
-  assert.equal($titleField.find("input").val().length,50, "Incorrect number of incorrect characters");
+  const maxLenValue = this.$('.gru-resource-edit .gru-input.title input').prop('maxlength');
+  assert.equal(maxLenValue, 50, "Input max length");
 });
 
 test('Validate that settings component is present', function (assert) {
