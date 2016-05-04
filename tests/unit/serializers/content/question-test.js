@@ -13,6 +13,7 @@ test('serializeCreateQuestion', function(assert) {
   });
   const expected = {
     'title': 'question-title',
+    'description': 'question-desc',
     content_subformat: 'multiple_answer_question', //subformat is converted at the serializer
     'visible_on_profile': true
   };
