@@ -286,7 +286,7 @@ test('normalizeCollection', function(assert) {
   assert.equal(collection.get("id"), '50484e74-ad95-44d5-981a-c18411260233', 'Wrong id');
   assert.equal(collection.get("title"), 'oops poly basics', 'Wrong title');
   assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
-  assert.equal(collection.get("imageUrl"), 'content-url/collection.png', 'Wrong image');
+  assert.equal(collection.get("image"), 'content-url/collection.png', 'Wrong image');
   assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
   assert.equal(collection.get("isVisibleOnProfile"), false, 'Wrong visible on profile');
   assert.equal(collection.get("learningObjectives"), "This is important collection", 'Wrong learning objective');
@@ -299,6 +299,11 @@ test('normalizeCollection', function(assert) {
 
 test('normalizeAssessment', function(assert) {
   const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'content-url/'
+    }
+  }));
   const owners = [Ember.Object.create({
     "id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
     "firstname": "Sachin",
@@ -324,7 +329,7 @@ test('normalizeAssessment', function(assert) {
   assert.equal(collection.get("id"), '50484e74-ad95-44d5-981a-c18411260233', 'Wrong id');
   assert.equal(collection.get("title"), 'oops poly basics', 'Wrong title');
   assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
-  assert.equal(collection.get("image"), 'collection.png', 'Wrong image');
+  assert.equal(collection.get("image"), 'content-url/collection.png', 'Wrong image');
   assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
   assert.equal(collection.get("isVisibleOnProfile"), false, 'Wrong visible on profile');
   assert.equal(collection.get("learningObjectives"), "This is important collection", 'Wrong learning objective');
