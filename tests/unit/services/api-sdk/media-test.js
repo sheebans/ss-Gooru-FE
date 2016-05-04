@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
+import { ENTITY_TYPE } from 'gooru-web/config/config';
 
 moduleForService('service:api-sdk/media', 'Unit | Service | api-sdk/media', {
   needs: ['adapter:media']
@@ -17,7 +18,7 @@ test('uploadFile', function(assert) {
       content: 'http://test-bucket01.s3.amazonaws.com/'
     }
   }));
-  let entityType = 'content';
+  let entityType = ENTITY_TYPE.CONTENT;
 
   assert.expect(3);
 

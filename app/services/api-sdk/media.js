@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { ENTITY_TYPE } from 'gooru-web/config/config';
 import MediaAdapter from 'gooru-web/adapters/media';
 
 /**
@@ -25,7 +26,7 @@ export default Ember.Service.extend({
   uploadContentFile: function(fileData) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('mediaAdapter').uploadFile(fileData, 'content')
+      service.get('mediaAdapter').uploadFile(fileData, ENTITY_TYPE.CONTENT)
         .then(function(response) {
           resolve(service.get('session.cdnUrls.content') + response.filename);
         }, function(error) {
