@@ -9,16 +9,14 @@ test('serializeCreateQuestion', function(assert) {
   const serializer = this.subject();
   const questionObject = QuestionModel.create({
     title: 'question-title',
+    description: 'question-desc',
     type: 'MA'
   });
-  const expected = {
-    'title': 'question-title',
-    'description': 'question-desc',
-    content_subformat: 'multiple_answer_question', //subformat is converted at the serializer
-    'visible_on_profile': true
-  };
   const response = serializer.serializeCreateQuestion(questionObject);
-  assert.deepEqual(expected, response, 'Wrong serialized response');
+  assert.equal(response["title"], "question-title", "Wrong title");
+  assert.equal(response["description"], "question-desc", "Wrong description");
+  assert.equal(response["content_subformat"], "multiple_answer_question", "Wrong sub format");
+  assert.equal(response["visible_on_profile"], true, "Wrong visible on profile");
 });
 
 test('serializeUpdateQuestion', function(assert) {
