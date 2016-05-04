@@ -1,5 +1,7 @@
 <header>
-  <h1>{{t "common.edit-collection"}}</h1>
+    {{#link-to 'content.courses.edit' course.id}}{{gru-icon name="arrow_left"}}{{t 'common.course'}}{{course.name}}{{/link-to}}
+
+    <h1>{{t "common.edit-collection"}}</h1>
 
   {{partial 'content/partials/collections-header-actions'}}
 
