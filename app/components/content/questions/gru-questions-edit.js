@@ -134,6 +134,11 @@ export default Ember.Component.extend(ContentEditMixin,{
    */
   isBuilderEditing :false,
 
+  /**
+   * @property {Boolean} Indicates if a correct answer is required
+   */
+  correctAnswerNotSelected: false,
+
   //Methods
 
   /**
@@ -149,7 +154,7 @@ export default Ember.Component.extend(ContentEditMixin,{
       editedQuestion.set('answers', component.defineFIBAnswers(editedQuestion));
       component.updateQuestion(editedQuestion, component);
     } else {
-      if(editedQuestion.get('answers')){
+      if (editedQuestion.get('answers')) {
         for (var i = 0; i < editedQuestion.answers.length; i++) {
           var promise = editedQuestion.answers[i].validate().then(function ({ model, validations }) {
             return validations.get('isValid');
@@ -157,16 +162,27 @@ export default Ember.Component.extend(ContentEditMixin,{
           promiseArray.push(promise);
         }
         Ember.RSVP.Promise.all(promiseArray).then(function(values) {
-          values.find(function(promise){
-            if(promise === false){
+          values.find(function(promise) {
+            if (promise === false) {
               answersValid = false;
             }
           });
-          if(answersValid){
+          if (editedQuestion.get('isHSText')) {
+            let correctAnswers = editedQuestion.get('answers').filter(function(answer) {
+              return answer.get('isCorrect');
+            });
+            if (correctAnswers.length > 0) {
+              component.set('correctAnswerNotSelected', false);
+            } else {
+              component.set('correctAnswerNotSelected', true);
+              answersValid = false;
+            }
+          }
+          if (answersValid) {
             component.updateQuestion(editedQuestion,component);
           }
         });
-      }else{
+      } else {
         component.updateQuestion(editedQuestion,component);
       }
     }

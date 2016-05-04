@@ -121,11 +121,16 @@
         </div>
         <div class="panel-body">
           {{#if isBuilderEditing}}
-            {{component (questionConfig question.type 'component.builder_answer') answers=tempQuestion.answers}}
-              <button class="add-hint btn btn-sm btn-primary">{{t "content.questions.edit.builder.add-hint"}}</button>
-              <button class="add-explanation btn btn-sm btn-primary">{{t "content.questions.edit.builder.add-explanation"}}</button>
+            {{component (questionConfig question.type 'component.builder_answer') answers=tempQuestion.answers editMode=true}}
+            {{#if correctAnswerNotSelected}}
+              <div class="missing-correct-answer">
+                <p><small>{{t "common.errors.correct-answer-presence"}}</small></p>
+              </div>
+            {{/if}}
+            <button class="add-hint btn btn-sm btn-primary">{{t "content.questions.edit.builder.add-hint"}}</button>
+            <button class="add-explanation btn btn-sm btn-primary">{{t "content.questions.edit.builder.add-explanation"}}</button>
           {{else}}
-
+            {{component (questionConfig question.type 'component.builder_answer') answers=question.answers}}
           {{/if}}
         </div>
     </div>

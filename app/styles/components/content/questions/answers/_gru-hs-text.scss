@@ -44,7 +44,7 @@
         background: $white;
       }
       .check {
-        align-self: stretch;
+        @include align-self(stretch);
         outline: none;
         border: 0;
         width: 4.1em;
@@ -62,15 +62,27 @@
           color: $dark-200;
         }
       }
+      &.view-mode {
+        @include justify-content(flex-start);
+        .correct-choice {
+          @include align-self(stretch);
+          @include flexbox();
+          @include justify-content(center);
+          @include align-items(center);
+          margin-left: auto;
+          padding-right: 1em;
+          color: $green-300;
+        }
+      }
     }
   }
   .max-length-error {
     * {
-      color: $brand-danger;
+      color: $orange-400;
     }
   }
   .add-answer {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     a {
       cursor:pointer;
       border: 2px dashed $gray-light;

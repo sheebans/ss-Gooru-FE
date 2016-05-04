@@ -31,7 +31,6 @@ export default Ember.Component.extend({
      * Select correct answer
      */
     setCorrect: function(answer) {
-      console.log(Ember.get(answer, 'isCorrect'));
       Ember.set(answer, 'isCorrect', !Ember.get(answer, 'isCorrect'));
     }
   },
@@ -48,6 +47,11 @@ export default Ember.Component.extend({
    * Multi Select Text Answers
    */
   answers: null,
+
+  /**
+   * Is in edit mode
+   */
+  editMode: false,
 
   // -------------------------------------------------------------------------
   // Method

@@ -113,6 +113,7 @@ export default {
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "collection-not-updated": "Oops! Unable to update collection right now. Please try again shortly.",
       "collection-title-presence" : "Please enter the collection title.",
+      "correct-answer-presence": "Please select at least one correct answer.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
       "hotspot-text-max-choices": "You have reached the limit of answers choices.",
