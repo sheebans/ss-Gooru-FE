@@ -21,19 +21,17 @@ test('searchTerm: Search box navigation', function(assert) {
 
     assert.equal(currentURL(), '/');
 
-
     const $appHeader = find('.gru-header');
     const $searchInput = $appHeader.find(".search-input");
 
-
     fillIn($searchInput, 'europe');
-
     $searchInput.val('europe');
     $searchInput.change();
 
     $appHeader.find('form').submit();
 
     andThen(function(){
+
       assert.equal(currentURL(), '/search/collections?term=europe');
     });
   });
