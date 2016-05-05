@@ -123,6 +123,15 @@ export default (function() {
      */
     owner: null,
 
+    /**
+     * @property {string} assessment|collection
+     */
+    collectionType: null,
+
+    /**
+     * @property {Ember.Array} resources - An children alias property
+     */
+    resources: Ember.computed.alias('children'),
 
     /**
      * Return a copy of the collection
