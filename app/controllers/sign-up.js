@@ -43,6 +43,8 @@ export default Ember.Controller.extend({
                 controller.send('signUp');
               });
             });
+        } else {
+          controller.set('submitFlag', true);
         }
         controller.set('didValidate', true);
       });
@@ -80,10 +82,12 @@ export default Ember.Controller.extend({
     this._super(...arguments);
     var profile = Profile.create(Ember.getOwner(this).ownerInjection(), {
                   username: null,
+                  usernameAsync: null,
                   password: null,
                   firstName: null,
                   lastName: null,
-                  email: null
+                  email: null,
+                  emailAsync: null
                 });
     this.set('profile', profile);
     this.set('googleSignUpUrl', Env['google-sign-in'].url);
@@ -125,6 +129,12 @@ export default Ember.Controller.extend({
    */
 
   showChildLayout: false,
+
+  /**
+   * Submit has been performed
+   * @property {Boolean}
+   */
+  submitFlag: true,
   // -------------------------------------------------------------------------
   // Methods
 
