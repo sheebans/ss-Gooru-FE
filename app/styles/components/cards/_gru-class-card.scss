@@ -1,9 +1,60 @@
 .gru-class-card {
-  .panel {
-    @include border-top-radius(4px);
-    @include border-bottom-radius(4px);
-    @include box-shadow(0 0 7px #ddd);
-    width: 100%;
+  &.cards {
+    .panel {
+      @include border-top-radius(4px);
+      @include border-bottom-radius(4px);
+      @include box-shadow(0 0 7px #ddd);
+      width: 100%;
+    }
+
+    .panel-body {
+      line-height: 1.5;
+      padding: 0;
+
+      > div {
+        padding: 20px;
+      }
+    }
+
+    .panel-heading {
+      @include flexbox;
+      @include align-items(center);
+      @include justify-content(space-between);
+      @include border-top-radius(4px);
+      height: 88px;
+      padding: 0 0 0 15px;
+      width: 100%;
+
+      * {
+        color: $white;
+      }
+
+      .teacher & {
+        background-color: $teal-300;
+
+        .action {
+          background-color: $teal-400;
+        }
+      }
+
+      .student & {
+        background-color: $sky-300;
+
+        .action {
+          background-color: $sky-400;
+        }
+      }
+
+      .side-info {
+        @include flexbox;
+        @include align-items(center);
+        @include flex-shrink(0);
+        @include justify-content(space-between);
+        height: 100%;
+        overflow: hidden;
+        width: 185px;
+      }
+    }
 
     .title {
       @include flex-basis(332px);
@@ -50,30 +101,6 @@
       }
     }
 
-    .panel-heading {
-      @include flexbox;
-      @include align-items(center);
-      @include justify-content(space-between);
-      @include border-top-radius(4px);
-      height: 88px;
-      padding: 0 0 0 15px;
-      width: 100%;
-
-      * {
-        color: $white;
-      }
-
-      .side-info {
-        @include flexbox;
-        @include align-items(center);
-        @include flex-shrink(0);
-        @include justify-content(space-between);
-        height: 100%;
-        overflow: hidden;
-        width: 185px;
-      }
-    }
-
     .collaborators {
       color: $gray;
       margin-bottom: 15px;
@@ -113,33 +140,5 @@
       }
     }
 
-    .panel-body {
-      line-height: 1.5;
-      padding: 0;
-
-      > div {
-        padding: 20px;
-      }
-    }
-
-    &.student {
-      .panel-heading {
-        background-color: $sky-300;
-
-        .action {
-          background-color: $sky-400;
-        }
-      }
-    }
-
-    &.teacher {
-      .panel-heading {
-        background-color: $teal-300;
-
-        .action {
-          background-color: $teal-400;
-        }
-      }
-    }
   }
 }
