@@ -1,111 +1,17 @@
-.index {
+.controller.index {
+  background-image: url("landing-bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  h1 {
+    text-align: center;
+    color: $white;
+    font-size: 38px;
+    text-shadow: 2px 2px #444;
+    padding-top: 100px;
 
-  .hero {
-    background: url('gooru/hero.png') no-repeat;
-    background-size: contain;
-    min-height: 460px;
-  }
-
-  .browse-content{
-    border-radius:4px;
-    border: 1px solid $brand-primary;
-    margin-top: -247px;
-    @media (min-width: $screen-md-min)
-    {
-      margin-top: -181px;
-    }
-    .browse-content-list{
-      list-style: none;
-      .lookingFor,.grade,.learningMaterials,.subject,.or,.browse-content-button,.standard{
-        float:left;
-      }
-    }
-    .btn-browse-content{
-      padding: 10px 16px;
-      font-size: 18px;
-    }
-
-    .title{
-      div{
-        border:1px solid $gray-lighter;
-        border-top-left-radius:4px;
-        border-top-right-radius:4px;
-      }
-    }
-  }
-
-  .category-panels {
-    padding-bottom: 50px;
-  }
-
-  .free_and_open{
-    background: url('gooru/free-to-open-banner.png') no-repeat;
-    height: 385px;
-    .free_and_open_descrip{
-      background: $white;
-      border-radius: 4px 4px;
-      opacity: .75;
-      p{
-        color: $gray-base;
-      }
-    }
-    .free_and_open_button{
-      button{
-        white-space: normal;
-      }
-    }
-  }
-  .empowerStudents {
-    .empowerSprite {
-      min-height: 158px;
-      width: 187px;
-      display: inline-block;
-      background: url('gooru/gooru-sprite.png') no-repeat;
-    }
-    .findImg{
-      background-position: -10px -311px;
-    }
-    .remixImg{
-      background-position: -453px -147px;
-    }
-    .shareImg{
-      background-position: -213px -150px;
-    }
-    .monitorImg{
-      background-position: 23px -151px;
-    }
-  }
-  .getting-started-banner{
-    background:url('gooru/getting-started-banner.png') no-repeat;
-    background-position: center;
-    min-height: 400px;
-  }
-  .getting-started-content{
-    position:relative;
-
-    p{
-      font-size: 15px;
-      color: $gray;
-    }
-    .events{
-      position:absolute;
-      bottom: 0;
-      @media (min-width: $screen-md-min)
-      {
-        margin-bottom: 0px;
-      }
-    }
-    .events-icon{
-      float: left;
-      height: 59px;
-      margin-top: 15px;
-      margin-left: -28px;
-      margin-right: 20px;
-      width: 93px;
-      display: inline-block;
-      left: 10px;
-      background: url('gooru/landingpageSprite.png') no-repeat;
-      background-position: -270px -2px;
+    @media (min-width: $screen-sm) {
+      font-size: 80px;
     }
   }
 }

@@ -11,7 +11,7 @@
               <span>{{gru-icon name='search'}}</span>
               <div class="input-group validation {{if searchErrorMessage 'has-error'}}">
                 {{input type="text" class="form-control search-input"
-                  value=term
+                  value=tempTerm
                   placeholder=(t "common.search-placeholder")
                   spellcheck="true"
                   focus-out="inputValueChange"
@@ -79,4 +79,3 @@
     </div>
   </div>
 </div>
-

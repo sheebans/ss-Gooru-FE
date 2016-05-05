@@ -19,7 +19,8 @@ export default Ember.Object.extend({
   serializeCreateQuestion: function(questionModel) {
     const format = QuestionModel.serializeQuestionType(questionModel.get("type"));
     return {
-      title: questionModel.get('title'),
+      'title': questionModel.get('title'),
+      'description': questionModel.get('description'),
       'content_subformat': format,
       'visible_on_profile': questionModel.get('isVisibleOnProfile')
     };

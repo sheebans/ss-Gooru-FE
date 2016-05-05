@@ -75,4 +75,14 @@
   &.is-editing.has-edit-image {
     background-color: $white;
   }
+
+  > .validation {
+    position: absolute;
+    bottom: -45px;
+    left: 0;
+
+    span.error {
+      line-height: 1.4;
+    }
+  }
 }
