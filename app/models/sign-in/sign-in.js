@@ -7,7 +7,12 @@ const Validations = buildValidations({
       validator('presence', {
         presence: true,
         message: 'Please enter a username.'
-      }),
+      })
+    ]
+  },
+
+  usernameSignIn: {
+    validators: [
       validator('google-username'),
       validator('google-email')
     ]
@@ -33,6 +38,11 @@ export default Ember.Object.extend(Validations,{
    * @property {string} username - The profile username
    */
   username: null,
+
+  /**
+   * @property {string} usernameSignIn - used to validate on submit
+   */
+  usernameSignIn: null,
 
   /**
    * @property {string} password  - The profile password

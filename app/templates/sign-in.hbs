@@ -25,7 +25,7 @@
         <div class="form-group username">
           <label>
             <span>{{t "login.usernameOrEmail"}}</span>
-            {{validation.gru-input model=user valuePath='username' }}
+            {{validation.gru-input-on-submit model=user valuePath='username' valuePathHidden='usernameSignIn' didSubmit=submitFlag}}
           </label>
         </div>
         <div class="form-group">
