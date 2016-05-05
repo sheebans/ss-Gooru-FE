@@ -74,7 +74,7 @@ export default Ember.Object.extend({
    * @returns {ProfileModel} a profile model object
    */
   normalizeReadProfile: function(payload) {
-    return ProfileModel.create({
+    return ProfileModel.create(Ember.getOwner(this).ownerInjection (), {
       id: payload.id,
       firstName: payload.firstname,
       lastName: payload.lastname,
@@ -291,7 +291,7 @@ export default Ember.Object.extend({
    * @returns {Profile}
    */
   normalizeOwner: function (ownerData) {
-    return ProfileModel.create({
+    return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
       "id": ownerData.id,
       "firstName": ownerData.firstname,
       "lastName": ownerData.lastname,

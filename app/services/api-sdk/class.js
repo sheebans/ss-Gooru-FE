@@ -16,7 +16,7 @@ export default Ember.Service.extend({
 
   init: function () {
     this._super(...arguments);
-    this.set('classSerializer', ClassSerializer.create());
+    this.set('classSerializer', ClassSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('classAdapter', ClassAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 

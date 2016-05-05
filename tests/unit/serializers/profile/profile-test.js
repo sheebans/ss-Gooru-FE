@@ -97,7 +97,7 @@ test('normalizeReadProfile', function(assert) {
     followings: 3,
     isFollowing: false
   };
-  const expected = ProfileModel.create({
+  const expected = ProfileModel.create(Ember.getOwner(this).ownerInjection (), {
     id: 'id',
     firstName: 'first-name',
     lastName: 'last-name',

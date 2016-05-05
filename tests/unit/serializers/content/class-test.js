@@ -154,7 +154,7 @@ test('normalizeReadClassMembers', function(assert) {
     }]
   };
   const expected = Ember.Object.create({
-    owner: ProfileModel.create({
+    owner: ProfileModel.create(Ember.getOwner(this).ownerInjection (), {
       id: '08fd3a1a-8118-4b02-ab59-c0b4a5037863',
       firstName: 'Jeffrey',
       lastName: 'Bermudez',
@@ -181,7 +181,7 @@ test('normalizeReadClassMembers', function(assert) {
     }),
     collaborators: [],
     members: [
-      ProfileModel.create({
+      ProfileModel.create(Ember.getOwner(this).ownerInjection (), {
         id: 'e568193d-603a-4c3a-a5d2-320579d32f3f',
         firstName: 'Jeffrey',
         lastName: 'Bermudez',
