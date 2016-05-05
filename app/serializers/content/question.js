@@ -63,9 +63,10 @@ export default Ember.Object.extend({
   /**
    * Normalize the question data into a Question object
    * @param questionData
+   * @param index optional index value, corresponds to the assessment or collection index
    * @returns {Question}
    */
-  normalizeReadQuestion: function(questionData){
+  normalizeReadQuestion: function(questionData, index){
     const serializer = this;
     const format = QuestionModel.normalizeQuestionType(questionData.content_subformat);
     const standards = questionData.taxonomy || [];
@@ -79,7 +80,8 @@ export default Ember.Object.extend({
       answers: serializer.normalizeAnswerArray(questionData.answer),
       hints: null, //TODO
       explanation: null, //TODO
-      isVisibleOnProfile: typeof questionData['visible_on_profile'] !== 'undefined' ? questionData['visible_on_profile'] : true
+      isVisibleOnProfile: typeof questionData['visible_on_profile'] !== 'undefined' ? questionData['visible_on_profile'] : true,
+      order: index //TODO is this ok?
     });
   },
 

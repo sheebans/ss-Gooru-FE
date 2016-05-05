@@ -59,11 +59,14 @@ export default Ember.Object.extend({
   normalizeReadAssessment: function(assessmentData){
     var serializer = this;
     return AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
-      id: assessmentData.id,
-      title: assessmentData.title,
-      learningObjectives: assessmentData['learning_objective'],
-      isVisibleOnProfile: assessmentData['visible_on_profile'] !== 'undefined' ? assessmentData['visible_on_profile'] : true,
-      children: serializer.normalizeQuestions(assessmentData.question),
+      id: payload.id,
+      title: payload.title,
+      image: payload.thumbnail,
+      learningObjectives: payload['learning_objective'],
+      isVisibleOnProfile: payload['visible_on_profile'] ? payload['visible_on_profile'] : true,
+      children: serializer.normalizeQuestions(payload.question),
+      questionCount: payload.question_count ? payload.question_count : 0,
+      sequence: payload.sequence_id,
       image: assessmentData.thumbnail ? serializer.get('session.cdnUrls.content') + assessmentData.thumbnail : null
       // TODO Add more required properties here...
     });
@@ -72,8 +75,8 @@ export default Ember.Object.extend({
   normalizeQuestions: function(payload) {
     const serializer = this;
     if (Ember.isArray(payload)) {
-      return payload.map(function(item) {
-        return serializer.get('questionSerializer').normalizeReadQuestion(item);
+      return payload.map(function(item, index) {
+        return serializer.get('questionSerializer').normalizeReadQuestion(item, index);
       });
     }
     return [];

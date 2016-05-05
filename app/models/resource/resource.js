@@ -1,75 +1,97 @@
 import Ember from 'ember';
-import DS from 'ember-data';
 
 /**
  * Resource Model
  *
  * @typedef {Object} Resource
  */
-export default DS.Model.extend({
+export default Ember.Object.extend({
 
-  // Common Fields
-  assetBasePath: Ember.computed('assetUri', 'folder', function() {
-    return this.get('assetUri') + this.get('folder');
-  }),
+  id: null,
 
   /**
    * @property {string} full resource asset url
    */
-  assetUrl: Ember.computed('assetBasePath', 'url', function() {
-    return this.get('assetBasePath') + this.get('url');
-  }),
+  assetUrl: null,
 
   /**
    * Indicates the resoruce type. i.e video/youtube, assessment-question, image/png
    * @property {string} resource type
    */
-  resourceType: DS.attr('string'),
+  resourceType: null,
 
   /**
    * Indicates the resource format. i.e image, text, video, interaction, webpage, question
    * @property {string} resource format
    */
-  resourceFormat: DS.attr('string'),
-  title: DS.attr('string'),
-  description: DS.attr('string'),
+  resourceFormat: null,
+
+  /**
+   * @property {string}
+   */
+  title: null,
+
+  /**
+   * @property {string}
+   */
+  description: null,
 
   /**
    * @property {string} resource thumbnail
    */
-  thumbnail: DS.attr('string'),
-  /**
-   * @property {string} asset URI
-   */
-  assetUri: DS.attr('string'),
-
-  /**
-   * Folder path for the resource url
-   * @property {string} folder
-   */
-  folder: DS.attr('string'),
+  thumbnail: null,
 
   /**
    * Resource asset url, this is the actual resource content url
    * @property {string} folder
    */
-  url: DS.attr('string'),
+  url: null,
 
-  mediaUrl: DS.attr('string'),
-  narration: DS.attr('string'),
-  order: DS.attr('number'),
-  owner: DS.attr(),
+  /**
+   * @property {string}
+   */
+  mediaUrl: null,
 
-  // Question Fields
-  questionType: DS.attr('string'),
-  text: DS.attr('string'),
-  hints: DS.attr(),
-  explanation: DS.attr('string'),
+  /**
+   * @property {string}
+   */
+  narration: null,
+
+  /**
+   * @property {number}
+   */
+  order: null,
+
+  /**
+   * @property
+   */
+  owner: null,
+
+  // ----------------------------------------- Question Fields
+  /**
+   * @property {string}
+   */
+  questionType: null,
+
+  /**
+   * @property {string}
+   */
+  text: null,
+
+  /**
+   * @property Array
+   */
+  hints: null,
+
+  /**
+   * @property {string}
+   */
+  explanation: null,
 
   /**
    * @property {Answer[]}
    */
-  answers: DS.hasMany('resource/answer'),
+  answers: Ember.A(),
 
   /**
    * Indicates if the question has answers
@@ -80,7 +102,7 @@ export default DS.Model.extend({
   /**
    * @property {*} resource options
    */
-  options: DS.attr(),
+  options: null,
 
   /**
    * @property {string} thumbnail url

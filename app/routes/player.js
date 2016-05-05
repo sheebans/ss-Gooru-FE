@@ -41,6 +41,11 @@ export default Ember.Route.extend({
   collectionService: Ember.inject.service("api-sdk/collection"),
 
   /**
+   * @property {Ember.Service} Service to retrieve an asssessment
+   */
+  assessmentService: Ember.inject.service("api-sdk/assessment"),
+
+  /**
    * @property {Ember.Service} Service to retrieve an assessment result
    */
   performanceService: Ember.inject.service("api-sdk/performance"),
@@ -60,7 +65,14 @@ export default Ember.Route.extend({
     const context = route.getContext(params);
     const collectionId = context.get("collectionId");
 
-    return route.get('collectionService').findById(collectionId).then(function(collection){
+    return Ember.RSVP.hashSettled({
+      assessment: route.get('collectionService').readCollection(collectionId),
+      collection: route.get('assessmentService').readCollection(collectionId)
+    }).then(function(hash){
+      const collectionFound = hash.assessment.get("state") === 'rejected';
+      let collection = collectionFound ? hash.collection : hash.assessment;
+
+      collection = collection.toPlayerCollection();
       context.set("collectionType", collection.get("collectionType"));
       return route.playerModel(params, context, collection);
     });

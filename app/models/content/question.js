@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 import {getQuestionApiType, getQuestionTypeByApiType, QUESTION_TYPES} from 'gooru-web/config/question';
+import PlayerResource from 'gooru-web/models/resource/resource';
 
 const Validations = buildValidations({
   title: {
@@ -55,6 +56,11 @@ const Question = Ember.Object.extend(Validations, {
    * @property {string}
    */
   text: null,
+
+  /**
+   * @property {number}
+   */
+  order: null,
 
   /**
    * @property {string} published|unpublished|requested
@@ -125,6 +131,27 @@ const Question = Ember.Object.extend(Validations, {
 
 
     return Question.create(Ember.getOwner(this).ownerInjection(), properties);
+  },
+
+  /**
+   * Returns a player resource
+   * @return {Resource}
+   */
+  toPlayerResource: function(){
+    const model = this;
+    return PlayerResource.create({
+      id: model.get("id"),
+      order: model.get("order"),
+      title: model.get("title"),
+      resourceFormat: model.get("format"),
+      questionType: model.get("type"),
+      text: model.get("text"),
+      hints: null, //TODO
+      explanation: null, //TODO
+      answers: model.get("answers").map(function(answer){
+        return answer.toPlayerAnswer();
+      })
+    });
   }
 
 

@@ -1,13 +1,27 @@
-import DS from 'ember-data';
+import Ember from 'ember';
 
 /**
  * @typedef {Object} Answer
  */
-export default DS.Model.extend({
+export default Ember.Object.extend({
 
-  text: DS.attr('string'),
-  answerType: DS.attr('string'),
-  order: DS.attr('number'),
-  isCorrect: DS.attr('boolean')
+  /**
+   * @property {string}
+   */
+  text: null,
 
+  /**
+   * @property {string}
+   */
+  answerType: null,
+
+  /**
+   * @property {string}
+   */
+  order: null,
+
+  /**
+   * @property {string}
+   */
+  isCorrect: null
 });
