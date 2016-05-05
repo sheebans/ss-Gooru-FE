@@ -1,0 +1,96 @@
+.questions.answers.gru-hs-text {
+  padding: 10px 0;
+  .panel {
+    margin-bottom: 15px;
+    .answer-content {
+      @include flexbox();
+      @include justify-content(space-between);
+      @include align-items(center);
+      > div, button {
+        display: inline-block;
+      }
+      .letter-container{
+        padding: 10px 0;
+        margin-right: 10px;
+        h3 {
+          display: inline-block;
+          margin: 0;
+          padding: 0px 18px;
+          border-right: 1px solid $light-300;
+          font-weight: normal;
+          font-size: $font-size-h5;
+          line-height: 1.5;
+        }
+      }
+      .text-area-container {
+        width: 86%;
+        margin-top: 5px;
+        .gru-textarea {
+          .form-group {
+            margin-bottom: 0;
+            textarea {
+              height: 2em;
+            }
+          }
+        }
+      }
+      .delete {
+        outline: none;
+        padding: 10px;
+        cursor: pointer;
+        border: 0;
+        background: $white;
+      }
+      .check {
+        @include align-self(stretch);
+        outline: none;
+        border: 0;
+        width: 4.1em;
+        background-color: $light-200;
+        color: $light-400;
+        @include border-right-radius(6px);
+        text-align: center;
+        cursor: pointer;
+        @include flexbox();
+        @include justify-content(center);
+        @include align-items(center);
+        @include transition(all .2s ease-out);
+        &.correct {
+          background-color: $green-300;
+          color: $dark-200;
+        }
+      }
+      &.view-mode {
+        @include justify-content(flex-start);
+        .correct-choice {
+          @include align-self(stretch);
+          @include flexbox();
+          @include justify-content(center);
+          @include align-items(center);
+          margin-left: auto;
+          padding-right: 1em;
+          color: $green-300;
+        }
+      }
+    }
+  }
+  .max-length-error {
+    * {
+      color: $orange-400;
+    }
+  }
+  .add-answer {
+    margin-bottom: 10px;
+    a {
+      cursor:pointer;
+      border: 2px dashed $gray-light;
+      border-radius: 6px;
+      margin-top: 10px;
+      color: $gray;
+      display: block;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+    }
+  }
+}

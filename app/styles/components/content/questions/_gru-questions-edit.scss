@@ -36,4 +36,7 @@
   textarea{
     resize: none;
   }
+  .missing-correct-answer {
+    color: $brand-danger;
+  }
 }

@@ -54,7 +54,7 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {String} Course thumbnail url
    */
-  thumbnailUrl: '',
+  thumbnailUrl: Ember.computed.alias("image"),
 
   /**
    * @property {Boolean} Is this course visible on profile
