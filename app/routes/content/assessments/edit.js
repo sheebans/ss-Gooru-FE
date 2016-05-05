@@ -1,6 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  queryParams: {
+    courseId:{}
+  },
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -10,6 +13,8 @@ export default Ember.Route.extend({
   session: Ember.inject.service("session"),
 
   assessmentService: Ember.inject.service('api-sdk/assessment'),
+
+  courseService: Ember.inject.service('api-sdk/course'),
 
 
   // -------------------------------------------------------------------------
@@ -22,8 +27,15 @@ export default Ember.Route.extend({
   model: function (params) {
     var assessment = this.get('assessmentService').readAssessment(params.assessmentId);
 
+    var course = null;
+
+    if(params.courseId){
+      course = this.get('courseService').fetchById(params.courseId);
+    }
+
     return Ember.RSVP.hash({
-      assessment: assessment
+      assessment: assessment,
+      course:course
     });
   },
 
@@ -33,6 +45,7 @@ export default Ember.Route.extend({
     // for collections (for example, see: /app/components/content/assessments/gru-assessment-edit.js)
     // and that is why the property 'collection' is being reused here, too.
     controller.set('collection', model.assessment);
+    controller.set('course', model.course);
   }
 
 });
