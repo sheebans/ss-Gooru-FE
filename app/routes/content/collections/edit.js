@@ -2,6 +2,10 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
+  queryParams: {
+    courseId:{}
+  },
+
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -10,6 +14,8 @@ export default Ember.Route.extend({
   session: Ember.inject.service("session"),
 
   collectionService: Ember.inject.service('api-sdk/collection'),
+
+  courseService: Ember.inject.service('api-sdk/course'),
 
 
   // -------------------------------------------------------------------------
@@ -22,14 +28,21 @@ export default Ember.Route.extend({
   model: function (params) {
     var collection = this.get('collectionService').readCollection(params.collectionId);
 
+    var course = null;
+
+    if(params.courseId){
+      course = this.get('courseService').fetchById(params.courseId);
+    }
     return Ember.RSVP.hash({
-      collection: collection
+      collection: collection,
+      course:course
     });
   },
 
   setupController(controller, model) {
 
     controller.set('collection', model.collection);
+    controller.set('course', model.course);
   }
 
 });

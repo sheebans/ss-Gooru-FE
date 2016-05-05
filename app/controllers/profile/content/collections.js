@@ -2,7 +2,14 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
+  // -------------------------------------------------------------------------
+  // Actions
 
+  actions: {
+    openContentPlayer: function(collectionId) {
+      this.transitionToRoute('player', collectionId);
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Dependencies

@@ -12,9 +12,9 @@
   accept=".jpg,.jpeg,.gif,.png"
   dropzone=false
   fileLoaded=(action 'prepareForSubmission')
-  readAs="readAsDataURL"
+  readAs="readAsFile"
   errors=filePickerErrors
-  onRemoveImage=(action 'disableButtons')
+  onRemoveImage=(action 'resetImage')
   removePreview=isFileInputEmpty }}
 
     <button class="btn btn-info">

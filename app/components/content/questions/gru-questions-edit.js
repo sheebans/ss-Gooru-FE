@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
+import Answer from 'gooru-web/models/content/answer';
 import {QUESTION_CONFIG} from 'gooru-web/config/question';
 
 
@@ -133,14 +134,61 @@ export default Ember.Component.extend(ContentEditMixin,{
    */
   isBuilderEditing :false,
 
+  /**
+   * @property {Boolean} Indicates if a correct answer is required
+   */
+  correctAnswerNotSelected: false,
+
   //Methods
 
   /**
    * Save new question content
    */
-  saveNewContent:function(){
+  saveNewContent: function() {
     const component = this;
     var editedQuestion = this.get('tempQuestion');
+    var promiseArray = [];
+    var answersValid = true;
+
+    if (editedQuestion.get('isFIB')) {
+      editedQuestion.set('answers', component.defineFIBAnswers(editedQuestion));
+      component.updateQuestion(editedQuestion, component);
+    } else {
+      if (editedQuestion.get('answers')) {
+        for (var i = 0; i < editedQuestion.answers.length; i++) {
+          var promise = editedQuestion.answers[i].validate().then(function ({ model, validations }) {
+            return validations.get('isValid');
+          });
+          promiseArray.push(promise);
+        }
+        Ember.RSVP.Promise.all(promiseArray).then(function(values) {
+          values.find(function(promise) {
+            if (promise === false) {
+              answersValid = false;
+            }
+          });
+          if (editedQuestion.get('isHSText')) {
+            let correctAnswers = editedQuestion.get('answers').filter(function(answer) {
+              return answer.get('isCorrect');
+            });
+            if (correctAnswers.length > 0) {
+              component.set('correctAnswerNotSelected', false);
+            } else {
+              component.set('correctAnswerNotSelected', true);
+              answersValid = false;
+            }
+          }
+          if (answersValid) {
+            component.updateQuestion(editedQuestion,component);
+          }
+        });
+      } else {
+        component.updateQuestion(editedQuestion,component);
+      }
+    }
+  },
+
+  updateQuestion:function(editedQuestion,component){
     editedQuestion.validate().then(function ({ model, validations }) {
       if (validations.get('isValid')) {
         component.get('questionService').updateQuestion(editedQuestion.id,editedQuestion)
@@ -156,6 +204,24 @@ export default Ember.Component.extend(ContentEditMixin,{
       }
       component.set('didValidate', true);
     });
+  },
+
+  defineFIBAnswers: function(question) {
+    let answers = Ember.A([]);
+    const questionText = question.get('text');
+    const regExp = /(\[[^\[\]]+\])+/gi;
+    const matchedAnswers = questionText.match(regExp);
+    if (matchedAnswers) {
+      answers = matchedAnswers.map(function(answer, index) {
+        return Answer.create({
+          sequence: index + 1,
+          text: answer.substring(1, answer.length - 1),
+          isCorrect: true,
+          type: 'text'
+        });
+      });
+    }
+    return answers;
   }
 
 });

@@ -1,10 +1,23 @@
 import Ember from 'ember';
+import { validator, buildValidations } from 'ember-cp-validations';
+
+const Validations = buildValidations({
+  text: {
+    validators: [
+      validator('presence', {
+        presence: true,
+        message: '{{description}}',
+        descriptionKey: 'common.errors.add-question-answer-text'
+      })
+    ]
+  }
+});
 
 /**
  * Answer model
  * typedef {Object} Answer
  */
-const Answer = Ember.Object.extend({
+const Answer = Ember.Object.extend(Validations,{
 
   /**
    * @property {Number} sequence - The order sequence of the answer
@@ -12,7 +25,7 @@ const Answer = Ember.Object.extend({
   sequence: 0,
 
   /**
-   * @property {Boolean} isCorrect - Indicates if the asnwers if correct or not
+   * @property {Boolean} isCorrect - Indicates if the answer is correct or not
    */
   isCorrect: false,
 
@@ -24,7 +37,34 @@ const Answer = Ember.Object.extend({
   /**
    * @property {String} type - The answer type
    */
-  type: null
+  type: null,
+
+  /**
+   * Return a copy of the answer
+   *
+   * @function
+   * @return {Answer}
+   */
+  copy: function() {
+
+    var properties = [];
+    var enumerableKeys = Object.keys(this);
+
+    for (let i = 0; i < enumerableKeys.length; i++) {
+      let key = enumerableKeys[i];
+      let value = Ember.typeOf(this.get(key));
+      if (value === 'string' || value === 'number' || value === 'boolean') {
+        properties.push(key);
+      }
+    }
+
+    // Copy the question data
+    properties = this.getProperties(properties);
+
+
+    return Answer.create(Ember.getOwner(this).ownerInjection(), properties);
+  }
+
 
 });
 

@@ -16,6 +16,11 @@ export default Ember.Component.extend(ContentEditMixin, {
    */
   courseService: Ember.inject.service("api-sdk/course"),
 
+  /**
+   * @property {MediaService} Media service API SDK
+   */
+  mediaService: Ember.inject.service("api-sdk/media"),
+
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -42,25 +47,43 @@ export default Ember.Component.extend(ContentEditMixin, {
      * Save Content
      */
     updateContent: function () {
-      var editedCourse = this.get('tempCourse');
-      this.get('courseService').updateCourse(editedCourse)
+      let component = this;
+      var editedCourse = component.get('tempCourse');
+      let course = component.get('course');
+      editedCourse.validate().then(function ({ validations }) {
+        if (validations.get('isValid')) {
+          let imageIdPromise = new Ember.RSVP.resolve(editedCourse.get('image'));
+          if (editedCourse.get('image') && editedCourse.get('image') !== course.get('image')) {
+            imageIdPromise = component.get('mediaService').uploadContentFile(editedCourse.get('image'));
+          }
+          imageIdPromise.then(function (imageId) {
+            editedCourse.set('image', imageId);
+            component.get('courseService').updateCourse(editedCourse)
 
-        .then(function () {
-          this.set('course', editedCourse);
-          this.set('isEditing', false);
-        }.bind(this))
+              .then(function () {
+                course.merge(editedCourse, ['title', 'isVisibleOnProfile', 'image']);
+                component.set('isEditing', false);
+              })
 
-        .catch(function () {
-          var message = this.get('i18n').t('common.errors.course-not-updated').string;
-          this.get('notifications').error(message);
-        }.bind(this));
+              .catch(function (error) {
+                var message = component.get('i18n').t('common.errors.course-not-updated').string;
+                component.get('notifications').error(message);
+                Ember.Logger.error(error);
+              });
+          });
+          component.set('didValidate', true);
+        }
+      });
     },
 
     /**
-     * Send request to publish a course
-     */
-    sendRequest: function () {
-      this.set('wasRequestSent', true);
+      * Save setting for visibility of collection in profile
+      */
+    publishToProfile: function(isChecked) {
+      var courseForEditing = this.get('course').copy();
+      this.set('tempCourse', courseForEditing);
+      this.set('tempCourse.isVisibleOnProfile', isChecked);
+      this.actions.updateContent.call(this);
     }
 
   },
@@ -84,32 +107,6 @@ export default Ember.Component.extend(ContentEditMixin, {
    * Copy of the course model used for editing.
    * @property {Course}
    */
-  tempCourse: null,
-
-  /**
-   * Request pending approval
-   * // TODO: Change this to a computed property of a course property
-   * @property {Boolean}
-   */
-  isRequestApproved: false,
-
-  /**
-   * Request to make the course searchable been sent?
-   * // TODO: Change this to a computed property of a course property
-   * @property {Boolean}
-   */
-  wasRequestSent: false,
-
-  /**
-   * Toggle Options
-   * @property {Ember.Array}
-   */
-  switchOptions:Ember.A([Ember.Object.create({
-    'label': "On",
-    'value': true
-  }),Ember.Object.create({
-    'label': "Off",
-    'value': false
-  })])
+  tempCourse: null
 
 });

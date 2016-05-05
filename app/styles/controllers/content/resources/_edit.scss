@@ -52,6 +52,7 @@
               display: inline-block;
               font-size: $font-size-large;
               font-weight: normal;
+              word-break: break-all;
             }
             input[type=text],
             textarea {
@@ -79,9 +80,6 @@
                 padding-left: 0;
               }
             }
-            .gru-input {
-              width: 55%;
-            }
             .btn-group{
               display: block;
               .dropdown-toggle {
@@ -90,6 +88,20 @@
                   display: inline-block;
                   margin: 0;
                 }
+              }
+            }
+          }
+          &.publisher {
+            .form-group.inline {
+              width: 100%;
+              @media (min-width: $screen-sm-min) {
+                width: 70%;
+              }
+              @media (min-width: $screen-md-min) {
+                width: 55%;
+              }
+              @media (min-width: $screen-lg-min) {
+                width: 68%;
               }
             }
           }

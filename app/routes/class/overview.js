@@ -45,6 +45,13 @@ export default Ember.Route.extend({
       const classId = currentClass.get("id");
       const courseId = currentClass.get("course");
       this.transitionTo('context-player', classId, courseId, unitId, lessonId, collectionId);
+    },
+    /**
+     * Edit content action, when clicking Edit content on Class Overview
+     * @param {Content/Course}
+     */
+    editContent: function(id){
+      this.transitionTo("content.courses.edit",id);
     }
   },
 

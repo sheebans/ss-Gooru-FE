@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
-import { getQuestionApiType, getQuestionTypeByApiType } from 'gooru-web/config/question';
+import {getQuestionApiType, getQuestionTypeByApiType, QUESTION_TYPES} from 'gooru-web/config/question';
 
 const Validations = buildValidations({
   title: {
@@ -17,10 +17,10 @@ const Validations = buildValidations({
       validator('length', {
         max: 5000,
         message: '{{description}}',
-        descriptionKey: 'common.errors.add-question-text'
+        descriptionKey: 'common.warnings.character-limit'
       })
     ]
-  },
+  }
 });
 
 /**
@@ -87,6 +87,16 @@ const Question = Ember.Object.extend(Validations, {
   answers: Ember.A([]),
 
   /**
+   * @property {Boolean} isFIB - Indicates is the question type is FIB
+   */
+  isFIB: Ember.computed.equal('type', QUESTION_TYPES.fib),
+
+  /**
+   * @property {Boolean} isHSText - Indicates is the question type is HS_TXT
+   */
+  isHSText: Ember.computed.equal('type', QUESTION_TYPES.hotSpotText),
+
+  /**
    * Return a copy of the question
    *
    * @function
@@ -107,6 +117,11 @@ const Question = Ember.Object.extend(Validations, {
 
     // Copy the question data
     properties = this.getProperties(properties);
+
+    var answersForEditing = this.get('answers').map(function(answer) {
+      return answer.copy();
+    });
+    properties.answers = answersForEditing;
 
 
     return Question.create(Ember.getOwner(this).ownerInjection(), properties);

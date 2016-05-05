@@ -72,6 +72,7 @@ export default {
     "completed": "Completed",
     "content-publishing":"Content Publishing",
     "contentUnavailable": "Content not available",
+    "copy-to": "Copy To",
     "correct": "Correct",
     "correct-answer":"Correct Answer",
     "course-map": "Course Map",
@@ -102,8 +103,8 @@ export default {
     "errors": {
       "join-class-code":"Please enter the class code.",
       "add-course-title":"Please enter the course title.",
+      "add-question-answer-text":"Please enter the answer choice text.",
       "add-question-title":"Please enter the question title.",
-      "add-question-text":"You've reached the character limit.",
       "assessment-title-presence" : "Please enter the assessment title.",
       "can-not-join-class" : "Oops! Unable to join class. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
@@ -112,13 +113,16 @@ export default {
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "collection-not-updated": "Oops! Unable to update collection right now. Please try again shortly.",
       "collection-title-presence" : "Please enter the collection title.",
+      "correct-answer-presence": "Please indicate the correct answer.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
+      "hotspot-text-max-choices": "You have reached the limit of answers choices.",
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
       "lesson-title-required" : "Please enter the lesson title.",
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
       "question-not-updated": "Oops! Unable to update question right now. Please try again shortly.",
+      "resource-description-length": "Description can't be longer than 500 characters.",
       "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
       "resource-invalid-url": "Invalid URL.",
       "resource-missing-title": "Please enter a resource title.",
@@ -126,6 +130,7 @@ export default {
       "resource-missing-url": "Please enter a valid URL.",
       "resource-not-updated": "Oops! Unable to update resource right now. Please try again shortly.",
       "resource-same-host-url": "Resources can not be Gooru's URLs.",
+      "resource-title-length": "Title can't be longer than 50 characters.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
       "sign-in-google-account-exists": "Please sign-in with Google to access your account.",
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
@@ -133,6 +138,7 @@ export default {
       "unit-title-required" : "Please enter the unit title."
     },
     "explanation": "Explanation",
+    "false":"False",
     "first-name": "First Name",
     "follow": "Follow",
     "forgotPassword": "Forgot Password",
@@ -209,11 +215,11 @@ export default {
       "T/F"    : "True or False",
       "T_F"    : "True or False",
       "MA"     : "Multiple Answer",
-      "OE"     : "Open Ended",
-      "HS_TXT" : "Hot Spot Text",
-      "HS_IMG" : "Hot Spot Image",
-      "HT_TO"  : "Hot Text Reorder",
-      "HT_RO"  : "Hot Text Reorder",
+      "OE"     : "Free Response",
+      "HS_TXT" : "Multiple Select - Text",
+      "HS_IMG" : "Multiple Select - Image ",
+      "HT_TO"  : "Drag and Drop Order",
+      "HT_RO"  : "Drag and Drop Order",
       "HT_HL"  : "Hot Text Highlight"
     },
     "reaction": "Reaction",
@@ -268,6 +274,7 @@ export default {
     "teach": "Teach",
     "teacher": "Teacher",
     "timeSpent": "Time Spent",
+    "true":"True",
     "type": "Type",
     "update-thumbnail": "Update Thumbnail",
     "upload-thumbnail":"Upload Thumbnail",
@@ -283,7 +290,7 @@ export default {
     "yes": "Yes",
     "warnings": {
       "on-air-connection-lost": "The On Air feature has lost connection and is retrying automatically. While it's tempting, please don't refresh your screen!",
-      "character-limit": "You've reached the character limit"
+      "character-limit": "You've reached the character limit."
     }
   },
 
@@ -450,10 +457,13 @@ export default {
       "answer":"Answer",
       "answer-instructions":{
         "FIB":"Add up to 5 hints for answer and an explanation.",
-        "MC":"You can add up ten answers choices and indicate one correct answer.Character Limit: 200."
+        "MC":"You can add up to ten answers choices and indicate one correct answer. Character Limit: 200.",
+        "HS_TXT": "You can add up to ten answers choices and select one or more correct answers.",
+        "HT_RO": "You can add up to ten answers choices in the correct order. The order will be scrambled for students.",
+        "T/F":"Select the correct answer."
       },
       "question-instructions":{
-        "FIB":"As you write the question, use brackets for your fill-in-the-blank answers. For example: “The big bad [wolf] blew down the [house].” You can also add an image.Character Limit: 5000.",
+        "FIB":"As you write the question, use brackets for your fill-in-the-blank answers. For example: “The big bad [wolf] blew down the [house].” You can also add an image. Character Limit: 5000.",
         "HS_TXT":"Write your question. Character limit: 5000.",
         "HS_IMG":"Write your question. Character limit: 5000.",
         "HT_RO":"Write your question. Character limit: 5000.",
@@ -672,9 +682,9 @@ export default {
       "FIB": "Fill in the Blank",
       "T/F": "True / False",
       "MA": "Multiple Answer",
-      "HS_TXT": "Hot Spot- Text",
-      "HS_IMG": "Hot Spot- Image",
-      "HT_RO": "Hot Text- Reorder",
+      "HS_TXT": "Multiple Select - Text",
+      "HS_IMG": "Multiple Select - Image",
+      "HT_RO": "Drag and Drop Order",
       "HT_HL": "Hot Text- Highlight"
     },
     "author": {

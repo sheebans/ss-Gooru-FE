@@ -17,7 +17,7 @@ const Validations = buildValidations({
  * Course model
  * typedef {Object} Course
  */
-const Course = Ember.Object.extend(Validations, {
+export default Ember.Object.extend(Validations, {
 
   /**
    * @property {String} id - The Course Id
@@ -54,7 +54,7 @@ const Course = Ember.Object.extend(Validations, {
   /**
    * @property {String} Course thumbnail url
    */
-  thumbnailUrl: '',
+  thumbnailUrl: Ember.computed.alias("image"),
 
   /**
    * @property {Boolean} Is this course visible on profile
@@ -113,9 +113,20 @@ const Course = Ember.Object.extend(Validations, {
     // Copy the audience values
     properties.audience = audience.slice(0);
 
-    return Course.create(Ember.getOwner(this).ownerInjection(), properties);
+    return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
+  },
+
+  /**
+   * Copy a list of property values from another model to override the current ones
+   *
+   * @function
+   * @param {Course} model
+   * @param {String[]} propertyList
+   * @return {null}
+   */
+  merge: function(model, propertyList = []) {
+    var properties = model.getProperties(propertyList);
+    this.setProperties(properties);
   }
 
 });
-
-export default Course;

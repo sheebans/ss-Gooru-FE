@@ -31,22 +31,31 @@ export default CollectionEdit.extend({
      * Save Content
      */
     updateContent: function () {
-      let editedAssessment = this.get('tempCollection');
+      let component = this;
+      let editedAssessment = component.get('tempCollection');
+      let assessment = component.get('collection');
       editedAssessment.validate().then(function ({validations }) {
         if (validations.get('isValid')) {
-          this.get('assessmentService').updateAssessment(editedAssessment.get('id'), editedAssessment)
-            .then(function () {
-              this.get('collection').merge(editedAssessment, ['title', 'learningObjectives', 'isVisibleOnProfile']);
-              this.set('isEditing', false);
-            }.bind(this))
-            .catch(function (error) {
-              var message = this.get('i18n').t('common.errors.assessment-not-updated').string;
-              this.get('notifications').error(message);
-              Ember.Logger.error(error);
-            }.bind(this));
+          let imageIdPromise = new Ember.RSVP.resolve(editedAssessment.get('image'));
+          if(editedAssessment.get('image') && editedAssessment.get('image') !== assessment.get('image')) {
+            imageIdPromise = component.get('mediaService').uploadContentFile(editedAssessment.get('image'));
+          }
+          imageIdPromise.then(function(imageId) {
+            editedAssessment.set('image', imageId);
+            component.get('assessmentService').updateAssessment(editedAssessment.get('id'), editedAssessment)
+              .then(function () {
+                assessment.merge(editedAssessment, ['title', 'learningObjectives', 'isVisibleOnProfile', 'image']);
+                component.set('isEditing', false);
+              })
+              .catch(function (error) {
+                var message = component.get('i18n').t('common.errors.assessment-not-updated').string;
+                component.get('notifications').error(message);
+                Ember.Logger.error(error);
+              });
+          });
         }
-        this.set('didValidate', true);
-      }.bind(this));
+        component.set('didValidate', true);
+      });
     },
 
     /**
@@ -58,6 +67,14 @@ export default CollectionEdit.extend({
       this.set('tempCollection.isVisibleOnProfile', isChecked);
       this.actions.updateContent.call(this);
     }
-  }
+  },
+  //// -------------------------------------------------------------------------
+  //// Properties
+  //
+  ///**
+  // * Course model as instantiated by the route. This is the course that have the assigned assessment
+  // * @property {Course}
+  // */
+  //course: null,
 
 });

@@ -54,7 +54,7 @@
             <label>
               <span class="required">{{t "common.resource-title"}}</span>
               {{#if isEditing}}
-                {{validation.gru-input model=tempResource valuePath='title' maxlength=50}}
+                {{validation.gru-input model=tempResource valuePath='title' maxLength=50}}
               {{else}}
                 <b>{{resource.title}}</b>
               {{/if}}
@@ -66,9 +66,9 @@
               {{#if isEditing}}
                 <div class="form-group inline">
                   {{#if tempResource.metadata.amIThePublisher}}
-                    {{input value=session.userData.username disabled=true class="form-control" maxlength=50}}
+                    {{validation.gru-input model=session valuePath='userData.username' maxLength=50 disabled=true}}
                   {{else}}
-                    {{input value=tempResource.metadata.publisher class="form-control" maxlength=50}}
+                    {{validation.gru-input model=tempResource valuePath='metadata.publisher' maxLength=50}}
                   {{/if}}
                 </div>
                 <div class="checkbox-inline">
@@ -141,7 +141,7 @@
             <label>
               <span>{{t "common.description"}}</span>
               {{#if isEditing}}
-                {{textarea value=tempResource.description}}
+                {{validation.gru-textarea model=tempResource valuePath='description' rows=2 maxLength=500}}
               {{else}}
                 {{#if resource.description}}
                   <b>{{resource.description}}</b>

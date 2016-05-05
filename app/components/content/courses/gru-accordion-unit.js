@@ -91,9 +91,11 @@ export default Ember.Component.extend(BuilderMixin, {
     },
 
     edit: function () {
-      var unitForEditing = this.get('unit').copy();
-      this.set('tempUnit', unitForEditing);
-      this.set('model.isEditing', true);
+      this.loadData().then(function() {
+        var unitForEditing = this.get('unit').copy();
+        this.set('tempUnit', unitForEditing);
+        this.set('model.isEditing', true);
+      }.bind(this));
     },
 
     saveUnit: function () {

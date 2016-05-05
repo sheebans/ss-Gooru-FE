@@ -18,10 +18,10 @@ test('load: Layout', function(assert) {
   andThen(function() {
     assert.expect(2);
 
-    assert.equal(currentURL(), '/sign-in');
+    assert.equal(currentURL(), '/');
 
     //hero
-    var $signIn = find('.sign-in');
-    T.exists(assert, $signIn, "Missing sign-in");
+    var $landingPage = find('.controller.index');
+    T.exists(assert, $landingPage, "Missing landing page");
   });
 });

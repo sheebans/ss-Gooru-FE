@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { cleanFilename } from 'gooru-web/utils/utils';
 import CollectionModel from 'gooru-web/models/content/collection';
 import ResourceSerializer from 'gooru-web/serializers/content/resource';
 import QuestionSerializer from 'gooru-web/serializers/content/question';
@@ -10,6 +11,8 @@ import QuestionSerializer from 'gooru-web/serializers/content/question';
  * @typedef {Object} CollectionSerializer
  */
 export default Ember.Object.extend({
+
+  session: Ember.inject.service('session'),
 
   /**
    * @property {ResourceSerializer} resourceSerializer
@@ -51,7 +54,8 @@ export default Ember.Object.extend({
     return {
       title: collectionModel.get('title'),
       learning_objective: collectionModel.get('learningObjectives'),
-      visible_on_profile: collectionModel.get('isVisibleOnProfile')
+      visible_on_profile: collectionModel.get('isVisibleOnProfile'),
+      thumbnail: cleanFilename(collectionModel.image)
     };
   },
 
@@ -67,7 +71,8 @@ export default Ember.Object.extend({
       title: payload.title,
       learningObjectives: payload['learning_objective'],
       isVisibleOnProfile: payload['visible_on_profile'] !== 'undefined' ? payload['visible_on_profile'] : true,
-      children: serializer.normalizeResources(payload.content)
+      children: serializer.normalizeResources(payload.content),
+      image: payload.thumbnail ? serializer.get('session.cdnUrls.content') + payload.thumbnail : null
       // TODO Add more required properties here...
     });
   },

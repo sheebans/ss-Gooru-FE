@@ -13,6 +13,8 @@ import CollectionModel from 'gooru-web/models/content/collection';
  */
 export default Ember.Object.extend({
 
+  session: Ember.inject.service('session'),
+
   /**
    * Serialize a Profile object into a JSON representation required by the Create Profile endpoint
    * @param profileData the profile object
@@ -198,11 +200,13 @@ export default Ember.Object.extend({
     const creatorId = questionData.creator_id;
     const filteredOwners = Ember.A(owners).filterBy("id", creatorId);
     const standards = questionData.taxonomy || [];
+    const format = QuestionModel.normalizeQuestionType(questionData.content_subformat);
     return QuestionModel.create({
       id: questionData.id,
       title: questionData.title,
       description: questionData.description,
       format: questionData.content_format,
+      type:format,
       publishStatus: questionData.publish_status,
       standards: serializer.normalizeStandards(standards),
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
@@ -223,8 +227,8 @@ export default Ember.Object.extend({
     return CollectionModel.create({
       id: collectionData.id,
       title: collectionData.title,
-      image: collectionData.thumbnail,
       standards: standards,
+      image: collectionData.thumbnail ? serializer.get('session.cdnUrls.content') + collectionData.thumbnail : null,
       publishStatus: collectionData.publish_status,
       learningObjectives: collectionData.learning_objective,
       resourceCount: collectionData.resource_count,
@@ -250,7 +254,7 @@ export default Ember.Object.extend({
     return AssessmentModel.create({
       id: assessmentData.id,
       title: assessmentData.title,
-      image: assessmentData.thumbnail,
+      image: assessmentData.thumbnail ? serializer.get('session.cdnUrls.content') + assessmentData.thumbnail : null,
       standards: standards,
       publishStatus: assessmentData.publish_status,
       learningObjectives: assessmentData.learning_objective,

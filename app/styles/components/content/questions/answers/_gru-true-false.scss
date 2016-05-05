@@ -1,0 +1,17 @@
+.questions.answers.gru-true-false{
+  @extend .questions.answers.gru-multiple-choice;
+  .panel{
+    .answer-content{
+      .text-area-container.read-only{
+        width: 88%;
+        margin-top: 10px;
+        textarea{
+          width: 85%;
+          height: 2em;
+          outline: none;
+          resize: none;
+        }
+      }
+    }
+  }
+}

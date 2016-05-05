@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { cleanFilename } from 'gooru-web/utils/utils';
 import CourseModel from 'gooru-web/models/content/course';
 import UnitSerializer from 'gooru-web/serializers/content/unit';
 import { CREATOR_SYSTEM } from 'gooru-web/config/config';
@@ -9,6 +10,8 @@ import { CREATOR_SYSTEM } from 'gooru-web/config/config';
  * @typedef {Object} CourseSerializer
  */
 export default Ember.Object.extend({
+
+  session: Ember.inject.service('session'),
 
   unitSerializer: null,
 
@@ -43,10 +46,9 @@ export default Ember.Object.extend({
     return {
       title: courseModel.get('title'),
       description: courseModel.get('description'),
-      thumbnail: courseModel.get('thumbnailUrl'),
+      thumbnail: cleanFilename(courseModel.get('thumbnailUrl')),
       'visible_on_profile': courseModel.get('isVisibleOnProfile'),
       taxonomy: courseModel.get('taxonomy'),
-      audience: courseModel.get('audience'),
       'subject_bucket': courseModel.get('subject')
     };
   },
@@ -79,13 +81,12 @@ export default Ember.Object.extend({
     return CourseModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: payload.id,
       children: serializer.get('unitSerializer').normalizeUnits(payload.unit_summary),
-      audience: payload.audience ? payload.audience.slice(0) : [],
       description: payload.description,
       isPublished: payload['publish_status'] && payload['publish_status'] === 'published',
       isVisibleOnProfile: payload['visible_on_profile'],
       subject: payload.subject_bucket,
       taxonomy: payload.taxonomy ? payload.taxonomy.slice(0) : null,
-      thumbnailUrl: payload.thumbnail,
+      thumbnailUrl: payload.thumbnail ? serializer.get('session.cdnUrls.content') + payload.thumbnail : null,
       title: payload.title,
       unitCount: payload.unit_count ? payload.unit_count : 0
       // TODO More properties will be added here...

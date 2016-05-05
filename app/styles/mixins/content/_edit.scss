@@ -94,6 +94,16 @@
           }
         }
       }
+      .back-to-course{
+        color:$white;
+        font-size: $font-size-large;
+        div{
+          margin-left: -12px;
+          i{
+            vertical-align: text-top;
+          }
+        }
+      }
     }
 
     > section {
@@ -312,6 +322,18 @@
           }
         }
       }
+    }
+  }
+}
+
+.controller.content.assessments.edit,
+.controller.content.collections.edit,
+.controller.content.courses.edit {
+  #information .title > label {
+    display: block;
+
+    @media(min-width: $screen-lg) {
+      max-width: 500px;
     }
   }
 }

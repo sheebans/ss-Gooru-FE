@@ -1,14 +1,33 @@
 import { moduleForComponent, test } from 'ember-qunit';
+import { QUESTION_TYPES } from 'gooru-web/config/question';
+
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Question from 'gooru-web/models/content/question';
+import Answer from 'gooru-web/models/content/answer';
 import Ember from 'ember';
+
+const questionServiceStub = Ember.Service.extend({
+
+  updateQuestion(questionID, editedQuestion) {
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      if (questionID === 'question-id-fail' || !editedQuestion) {
+        reject({status: 500});
+      } else {
+        resolve(editedQuestion);
+      }
+    });
+  }
+
+});
 
 moduleForComponent('content/questions/gru-questions-edit', 'Integration | Component | content/questions/gru questions edit', {
   integration: true,
   beforeEach: function () {
     this.i18n = this.container.lookup('service:i18n');
     this.i18n.set("locale","en");
+    this.register('service:api-sdk/question', questionServiceStub);
+    this.inject.service('api-sdk/question');
   }
 });
 
@@ -139,7 +158,6 @@ test('Validate if the Question Title field has only whitespaces', function (asse
 });
 
 test('Validate the character limit in the Question title field', function (assert) {
-  assert.expect(1);
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: null
   });
@@ -147,13 +165,8 @@ test('Validate the character limit in the Question title field', function (asser
 
   this.render(hbs`{{content/questions/gru-questions-edit isEditing=true tempQuestion=question}}`);
 
-  const $component = this.$('.gru-questions-edit');
-  const $titleField = $component.find(".gru-input.title");
-
-  $titleField.find("input").val('123456790123456790123456790123456790123456790extra');
-  $titleField.find("input").trigger('blur');
-
-  assert.equal($titleField.find("input").val().length,50, "Incorrect number of incorrect characters");
+  const maxLenValue = this.$('.gru-questions-edit .gru-input.title input').prop('maxlength');
+  assert.equal(maxLenValue, 50, "Input max length");
 });
 
 test('Layout of the builder section', function (assert) {
@@ -165,6 +178,7 @@ test('Layout of the builder section', function (assert) {
   assert.ok($builderSection.find('.panel-heading .instructions').length, "Missing Instructions");
   assert.ok($builderSection.find('.panel-body .text-empty').length, "Missing text empty message");
 });
+
 test('Builder Edit', function (assert) {
   assert.expect(12);
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
@@ -189,6 +203,7 @@ test('Builder Edit', function (assert) {
   assert.ok($builderSection.find('.question-answer .panel-body .add-hint').length, "Missing add hints button");
   assert.ok($builderSection.find('.question-answer .panel-body .add-explanation').length, "Missing add explanation button");
 });
+
 test('Validate the character limit in text field', function (assert) {
   assert.expect(1);
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
@@ -214,6 +229,7 @@ test('Validate the character limit in text field', function (assert) {
   });
 
 });
+
 test('Update Question Builder', function (assert) {
   assert.expect(1);
   var newText ='Lorem ipsum dolor sit amet';
@@ -240,25 +256,256 @@ test('Update Question Builder', function (assert) {
   });
 });
 
-test('Layout of the settings section', function (assert) {
+test('Update Question Save Answers', function (assert) {
+  assert.expect(2);
+  var newAnswerText ='Lorem ipsum dolor sit amet';
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
-    title:'Question title',
-    isVisibleOnProfile:false
+    title: 'Question for testing',
+    text:"",
+    type: QUESTION_TYPES.multipleChoice,
+    answers:Ember.A([])
   });
-  this.set('question',question);
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question }}`);
+  const $component = this.$('.gru-questions-edit');
+  const $edit =  $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+    const $option = $component.find('.gru-multiple-choice .panel');
+    assert.notOk($option.length, "Should not have answers");
+    const $newAnswer = $component.find('div.add-answer a');
+    $newAnswer.click();
+    return wait().then(function () {
+      const $textField = $component.find(".gru-multiple-choice .panel .gru-textarea");
+      $textField.find("textarea").val(newAnswerText);
+      $textField.find("textarea").change();
+      const $save =  $component.find("#builder .actions .save");
+      $save.click();
+      return wait().then(function () {
+        const $edit =  $component.find("#builder .actions .edit");
+        $edit.click();
+        return wait().then(function () {
+          const $option = $component.find('.gru-multiple-choice');
+          assert.ok($option.length, "New answer is empty");
+        });
+      });
+    });
+  });
+});
+
+test('Change answer text and cancel edit-Multiple Choice', function (assert) {
+  var newAnswerText = 'Lorem ipsum dolor sit amet';
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text: "",
+    type: QUESTION_TYPES.multipleChoice,
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Option A",
+      'isCorrect': true,
+    }), Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Option B",
+      'isCorrect': false
+    })])
+  });
+  this.set('question', question);
 
   this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
-
-  var $settingsSection = this.$("#settings");
-  assert.ok($settingsSection.find('.header h2').length, "Section title");
-  assert.ok($settingsSection.find('.panel-heading h3').length, "Panel subtitle");
-  assert.ok($settingsSection.find('.panel-body .setting.publish-to i.visibility').length, "Visibility icon");
-  assert.ok($settingsSection.find('.panel-body .setting.publish-to i.visibility + span').length, "Visibility label");
-  assert.ok($settingsSection.find('.panel-body .gru-switch .toggle').length, "Profile toggle button");
-  assert.ok($settingsSection.find('input[type=checkbox]').not(':checked').length, "Switch should be off");
-  assert.ok($settingsSection.find('.panel-body .setting.request-to i.public').length, "Public icon");
-  assert.ok($settingsSection.find('.panel-body .setting.request-to i.public + span').length, "Public label");
-
-
+  const $component = this.$('.gru-questions-edit');
+  const $edit = $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+    const $textField = $component.find(".gru-multiple-choice .panel:nth-child(1) .gru-textarea");
+    $textField.find("textarea").val(newAnswerText);
+    $textField.find("textarea").change();
+    const $cancel = $component.find("#builder .actions .cancel");
+    $cancel.click();
+    return wait().then(function () {
+      const $edit = $component.find("#builder .actions .edit");
+      $edit.click();
+      return wait().then(function () {
+        const $textField = $component.find(".gru-multiple-choice .panel:nth-child(1) .gru-textarea");
+        assert.equal($textField.find("textarea").val(), question.get('answers')[0].text, "Incorrect answer text");
+      });
+    });
+  });
 });
+
+test('Update answer text - True/False', function (assert) {
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text: "",
+    type: QUESTION_TYPES.trueFalse,
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "True",
+      'isCorrect': true,
+      'type':"text"
+    }), Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "False",
+      'isCorrect': false,
+      'type':"text"
+    })])
+  });
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+  const $edit = $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+    const $trueOption = $component.find(".gru-true-false .panel:nth-child(2)");
+    const $check=$trueOption.find('.check');
+    $check.click();
+    return wait().then(function () {
+      const $save = $component.find("#builder .actions .save");
+      $save.click();
+      return wait().then(function () {
+        const $edit = $component.find("#builder .actions .edit");
+        $edit.click();
+        return wait().then(function () {
+          assert.equal($component.find('.check.correct').length,1, "Incorrect number of correct answer");
+          assert.ok($component.find('.panel:nth-child(2) .check.correct').length, "False should be checked");
+        });
+      });
+    });
+  });
+});
+
+test('Change answer text and cancel- True/False', function (assert) {
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text: "",
+    type: QUESTION_TYPES.trueFalse,
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "True",
+      'isCorrect': true,
+      'type':"text"
+    }), Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "False",
+      'isCorrect': false,
+      'type':"text"
+    })])
+  });
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+  const $edit = $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+    const $trueOption = $component.find(".gru-true-false .panel:nth-child(2)");
+    const $check=$trueOption.find('.check');
+    $check.click();
+    return wait().then(function () {
+      const $cancel = $component.find("#builder .actions .cancel");
+      $cancel.click();
+      return wait().then(function () {
+        const $edit = $component.find("#builder .actions .edit");
+        $edit.click();
+        return wait().then(function () {
+          assert.equal($component.find('.check.correct').length,1, "Incorrect number of correct answer");
+          assert.ok($component.find('.panel:nth-child(1) .check.correct').length, "True should be checked");
+        });
+      });
+    });
+  });
+});
+
+test('Update answer text - (drag/drop) Reorder', function (assert) {
+  const newText = 'Option Text Updated';
+
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text: "",
+    type: QUESTION_TYPES.hotTextReorder,
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Option Text",
+      'isCorrect': null,
+      'type':"text"
+    })])
+  });
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+
+  assert.ok($component.find('.answer-content').hasClass('view-mode'));
+
+  var $options = $component.find('.answer-content .answer-text');
+  assert.equal($options.length, 1, 'Starting options');
+  assert.equal($options.eq(0).text().trim(), question.get('answers')[0].get('text'), 'Option text');
+
+  const $edit = $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+
+    var $optionInput = $component.find(".gru-reorder .panel:first-of-type .gru-textarea textarea");
+    $optionInput.val(newText);
+    $optionInput.trigger('blur');
+
+    $component.find('.gru-reorder .add-answer a').click();
+    return wait().then(function () {
+
+      $optionInput = $component.find(".gru-reorder .panel:eq(1) .gru-textarea textarea");
+      $optionInput.val(newText);
+      $optionInput.trigger('blur');
+
+      const $save = $component.find("#builder .actions .save");
+      $save.click();
+      return wait().then(function () {
+
+        $options = $component.find('.answer-content .answer-text');
+        assert.equal($options.length, 2, 'Options after edit');
+        assert.equal($options.eq(0).text().trim(), newText, 'Option text after edit');
+      });
+    });
+  });
+});
+
+test('Remove answer and cancel - (drag/drop) Reorder', function (assert) {
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text: "",
+    type: QUESTION_TYPES.hotTextReorder,
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Option Text A",
+      'isCorrect': null,
+      'type':"text"
+    }), Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Option Text B",
+      'isCorrect': null,
+      'type':"text"
+    })])
+  });
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+
+  var $options = $component.find('.answer-content .answer-text');
+  assert.equal($options.length, 2, 'Starting options');
+
+  const $edit = $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+
+    // Remove the first item
+    $component.find(".gru-reorder .panel:first-of-type .delete").click();
+    return wait().then(function () {
+
+      $options = $component.find('.gru-reorder .panel');
+      assert.ok($options.length, 1, 'Number of options after delete');
+      assert.equal($options.eq(0).find('.gru-textarea textarea').val(), question.get('answers')[1].get('text'), 'Text of remaining option');
+
+      const $cancel = $component.find("#builder .actions .cancel");
+      $cancel.click();
+      return wait().then(function () {
+
+        var $options = $component.find('.answer-content .answer-text');
+        assert.equal($options.length, 2, 'Starting options');
+      });
+    });
+  });
+});
+
 

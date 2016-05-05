@@ -96,17 +96,11 @@ test('Validate if the Question Title field has only whitespaces', function (asse
     });
   });
 });
-test('Validate the character limit in the Question title field', function (assert) {
-  assert.expect(1);
 
+test('Validate the character limit in the Question title field', function (assert) {
   this.render(hbs`{{content/modals/gru-question-new}}`);
 
-  const $component = this.$('.gru-question-new');
-  const $titleField = $component.find(".gru-input.title");
-
-  $titleField.find("input").val('123456790123456790123456790123456790123456790extra');
-  $titleField.find("input").blur();
-
-  assert.equal($titleField.find("input").val().length,50, "Incorrect number of incorrect characters");
+  const maxLenValue = this.$('.gru-question-new .gru-input.title input').prop('maxlength');
+  assert.equal(maxLenValue, 50, "Input max length");
 });
 

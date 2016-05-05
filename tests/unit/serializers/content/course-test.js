@@ -12,20 +12,18 @@ test('serializeCreateCourse', function(assert) {
   const course = Course.create({
     title: 'course-title',
     description: 'course-description',
-    thumbnailUrl: 'course-thumbnail-url',
+    thumbnailUrl: 'http://test-bucket01.s3.amazonaws.com/image-id.png',
     isVisibleOnProfile: true,
     taxonomy: [],
-    audience: [],
     subject: 'course-subject'
   });
 
   const expected = {
     title: course.title,
     description: course.description,
-    thumbnail: course.thumbnailUrl,
+    thumbnail: 'image-id.png',
     visible_on_profile: course.isVisibleOnProfile,
     taxonomy: [],
-    audience: [],
     'subject_bucket': course.subject,
     'creator_system': CREATOR_SYSTEM
   };
@@ -42,16 +40,14 @@ test('serializeUpdateCourse', function (assert) {
     thumbnailUrl: 'course-thumbnail-url',
     isVisibleOnProfile: true,
     taxonomy: [],
-    audience: [],
     subject: 'course-subject'
   });
   const expectedSerializedCourse = {
     title: courseModel.title,
     description: courseModel.description,
-    thumbnail: courseModel.thumbnailUrl,
+    thumbnail: 'course-thumbnail-url',
     visible_on_profile: courseModel.isVisibleOnProfile,
     taxonomy: [],
-    audience: [],
     'subject_bucket': courseModel.subject
   };
   const serializedCourse = serializer.serializeUpdateCourse(courseModel);
@@ -60,6 +56,12 @@ test('serializeUpdateCourse', function (assert) {
 
 test('normalizeCourse', function (assert) {
   const serializer = this.subject();
+  const contentCdnUrl = 'content-url/';
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: contentCdnUrl
+    }
+  }));
   const payload = {
     "id": "course-id",
     "title": "Course title",
@@ -72,10 +74,6 @@ test('normalizeCourse', function (assert) {
     "publish_status": "unpublished",
     "publish_date": null,
     "thumbnail": "thumbnail.png",
-    "audience": [
-      54,
-      23
-    ],
     "metadata": null,
     "taxonomy": [
       "taxonomy_value"
@@ -122,14 +120,13 @@ test('normalizeCourse', function (assert) {
         bigIdeas: undefined
       })
     ],
-    audience: payload.audience.slice(0),
     description: payload.description,
     id: payload.id,
     isPublished: false,
     isVisibleOnProfile: payload.visible_on_profile,
     subject: payload.subject_bucket,
     taxonomy: payload.taxonomy.slice(0),
-    thumbnailUrl: payload.thumbnail,
+    thumbnailUrl: contentCdnUrl + payload.thumbnail,
     title: payload.title,
     unitCount: 0
   });
@@ -139,6 +136,12 @@ test('normalizeCourse', function (assert) {
 
 test('normalizeGetCourses', function(assert) {
   const serializer = this.subject();
+  const contentCdnUrl = 'content-url/';
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: contentCdnUrl
+    }
+  }));
   const coursesPayload = {
     "courses": [
       {
@@ -193,27 +196,25 @@ test('normalizeGetCourses', function(assert) {
   const expected = [
     Course.create(Ember.getOwner(this).ownerInjection(), {
       children: [],
-      audience: [],
       description: undefined,
       id: coursesPayload.courses[0].id,
       isPublished: false,
       isVisibleOnProfile: coursesPayload.courses[0].visible_on_profile,
       subject: undefined,
       taxonomy: coursesPayload.courses[0].taxonomy.slice(0),
-      thumbnailUrl: coursesPayload.courses[0].thumbnail,
+      thumbnailUrl: contentCdnUrl + coursesPayload.courses[0].thumbnail,
       title: coursesPayload.courses[0].title,
       unitCount: coursesPayload.courses[0].unit_count
     }),
     Course.create(Ember.getOwner(this).ownerInjection(), {
       children: [],
-      audience: [],
       description: undefined,
       id: coursesPayload.courses[1].id,
       isPublished: true,
       isVisibleOnProfile: coursesPayload.courses[1].visible_on_profile,
       subject: undefined,
       taxonomy: coursesPayload.courses[1].taxonomy.slice(0),
-      thumbnailUrl: coursesPayload.courses[1].thumbnail,
+      thumbnailUrl: null,
       title: coursesPayload.courses[1].title,
       unitCount: 0
     })

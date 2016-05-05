@@ -2,7 +2,38 @@ import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations({
-  //TO DO We need use i18n for error messages
+  description: {
+    validators: [
+      validator('length', {
+        max: 500,
+        message: '{{description}}',
+        descriptionKey: 'common.errors.resource-description-length'
+      })
+    ]
+  },
+  format: {
+    validators: [
+      validator('presence', {
+        presence: true,
+        message: '{{description}}',
+        descriptionKey: 'common.errors.resource-missing-type'
+      })
+    ]
+  },
+  title: {
+    validators: [
+      validator('presence', {
+        presence: true,
+        message: '{{description}}',
+        descriptionKey: 'common.errors.resource-missing-title'
+      }),
+      validator('length', {
+        max: 50,
+        message: '{{description}}',
+        descriptionKey: 'common.errors.resource-title-length'
+      })
+    ]
+  },
   url: {
     validators: [
       validator('presence', {
@@ -19,24 +50,6 @@ const Validations = buildValidations({
         message: '{{description}}',
         descriptionKey: 'common.errors.resource-same-host-url',
         location: window.location.hostname
-      })
-    ]
-  },
-  title: {
-    validators: [
-      validator('presence', {
-        presence: true,
-        message: '{{description}}',
-        descriptionKey: 'common.errors.resource-missing-title'
-      })
-    ]
-  },
-  format: {
-    validators: [
-      validator('presence', {
-        presence: true,
-        message: '{{description}}',
-        descriptionKey: 'common.errors.resource-missing-type'
       })
     ]
   }

@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3>{{plus-one index}}</h3>
-    {{#link-to 'sign-in' class="title"}}
+    {{#link-to (if (eq model.format 'question') 'content.questions.edit' 'content.resources.edit') model.id class="title"}}
       <i class="{{model.format}}-icon"></i>
       <div>
         <strong>{{model.title}}</strong>
