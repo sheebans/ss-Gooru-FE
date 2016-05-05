@@ -1,7 +1,7 @@
 <div class="panel panel-default view collapsed">
   <div class="panel-heading">
     <h3>{{plus-one index}}</h3>
-    {{#link-to (if model.isCollection 'content.collections.edit' 'content.assessments.edit')  model.id class="title"}}
+    {{#link-to (if model.isCollection 'content.collections.edit' 'content.assessments.edit')  model.id (query-params courseId=courseId)  class="title"}}
       {{#if model.image}}
         <img class="img-rounded" src="{{model.image}}" />
       {{else}}

@@ -38,6 +38,11 @@ export default Ember.Component.extend({
   /**
    * @prop {Content/Lesson} lesson
    */
-  model: null
+  model: null,
+
+  /**
+   * @prop {String} courseId - ID of the course this unit belongs to
+   */
+  courseId: null,
 
 });

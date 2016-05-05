@@ -67,6 +67,14 @@ export default CollectionEdit.extend({
       this.set('tempCollection.isVisibleOnProfile', isChecked);
       this.actions.updateContent.call(this);
     }
-  }
+  },
+  //// -------------------------------------------------------------------------
+  //// Properties
+  //
+  ///**
+  // * Course model as instantiated by the route. This is the course that have the assigned assessment
+  // * @property {Course}
+  // */
+  //course: null,
 
 });
