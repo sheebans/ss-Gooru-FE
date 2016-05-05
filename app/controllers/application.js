@@ -94,6 +94,11 @@ export default Ember.Controller.extend({
   /**
    * @property {GruTheme} application theme
    */
-  theme: null
+  theme: null,
+
+  /**
+   * @property {ClassesModel} list of user classes
+   */
+  myClasses: null
 
 });

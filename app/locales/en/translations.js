@@ -201,6 +201,7 @@ export default {
     "publish-to":" Publish to my profile",
     "publisher": "Publisher",
     "preview": "Preview",
+    "profile": "Profile",
     "question":"Question",
     "questions": "Questions",
     "question-pl": {
