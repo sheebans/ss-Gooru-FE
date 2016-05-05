@@ -1,10 +1,18 @@
 <header>
+  {{#if assessment}}
+    {{#link-to 'content.assessments.edit' assessment.id class="back-to"}}
+        <div>
+          {{gru-icon name="keyboard_arrow_left"}}{{t 'common.assessment'}} {{assessment.title}}
+        </div>
+    {{/link-to}}
+  {{/if}}
+
     <h1>{{t "common.edit-question"}}</h1>
 
     <div class="actions">
         <button class="btn btn-default btn-icon delete">{{gru-icon name="delete"}}</button>
         <button class="btn btn-default btn-icon share">{{gru-icon name="insert_link"}}</button>
-        <button class="btn btn-default add">{{t "content.questions.edit.add-to"}}</button>
+        <button class="btn btn-default add hidden">{{t "content.questions.edit.add-to"}}</button>
         <button class="btn btn-default preview">{{t "common.preview"}}</button>
     </div>
 

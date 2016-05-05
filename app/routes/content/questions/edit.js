@@ -1,6 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  queryParams: {
+    collectionId:{}
+  },
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -8,6 +11,10 @@ export default Ember.Route.extend({
    * @requires service:api-sdk/question
    */
   questionService: Ember.inject.service("api-sdk/question"),
+  /**
+  * @requires service:api-sdk/collection
+  */
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
 
   /**
    * @requires service:session
@@ -25,13 +32,22 @@ export default Ember.Route.extend({
   model: function (params) {
     var question = this.get('questionService').readQuestion(params.questionId);
 
+    var assessment = null;
+
+    if(params.collectionId){
+      assessment = this.get('assessmentService').readAssessment(params.collectionId);
+    }
+
     return Ember.RSVP.hash({
-      question: question
+      question: question,
+      assessment:assessment
     });
   },
 
   setupController(controller, model) {
 
     controller.set('question', model.question);
+
+    controller.set('assessment', model.assessment);
   }
 });
