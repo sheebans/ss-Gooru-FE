@@ -13,5 +13,9 @@
       @include flex();
       width: auto;
     }
+
+    .answer-text {
+      @include align-self(center);
+    }
   }
 }
