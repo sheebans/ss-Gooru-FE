@@ -35,12 +35,6 @@ export default GruImagePicker.extend({
     }
   },
 
-  resetOnSave : function() {
-    if(this.get('isEditing') === false) {
-      this.actions.resetPicker.call(this);
-    }
-  }.observes('isEditing'),
-
   // -------------------------------------------------------------------------
   // Properties
 
@@ -58,7 +52,18 @@ export default GruImagePicker.extend({
   /**
    * @type {string} srcImage - Initial image url
    */
-  srcImage: null
+  srcImage: null,
 
+
+  // -------------------------------------------------------------------------
+  // Observers
+
+  resetOnSave : function() {
+    if (!this.get('isEditing')) {
+      // Clear any previous errors
+      this.get('filePickerErrors').clear();
+      this.actions.resetPicker.call(this);
+    }
+  }.observes('isEditing')
 
 });
