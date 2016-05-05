@@ -16,6 +16,11 @@ export default Ember.Component.extend(ContentEditMixin, {
    */
   courseService: Ember.inject.service("api-sdk/course"),
 
+  /**
+   * @property {MediaService} Media service API SDK
+   */
+  mediaService: Ember.inject.service("api-sdk/media"),
+
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -42,25 +47,33 @@ export default Ember.Component.extend(ContentEditMixin, {
      * Save Content
      */
     updateContent: function () {
-      var editedCourse = this.get('tempCourse');
-
+      let component = this;
+      var editedCourse = component.get('tempCourse');
+      let course = component.get('course');
       editedCourse.validate().then(function ({ validations }) {
         if (validations.get('isValid')) {
-          this.get('courseService').updateCourse(editedCourse)
+          let imageIdPromise = new Ember.RSVP.resolve(editedCourse.get('image'));
+          if (editedCourse.get('image') && editedCourse.get('image') !== course.get('image')) {
+            imageIdPromise = component.get('mediaService').uploadContentFile(editedCourse.get('image'));
+          }
+          imageIdPromise.then(function (imageId) {
+            editedCourse.set('image', imageId);
+            component.get('courseService').updateCourse(editedCourse)
 
-            .then(function () {
-              this.get('course').merge(editedCourse, ['title', 'isVisibleOnProfile']);
-              this.set('isEditing', false);
-            }.bind(this))
+              .then(function () {
+                course.merge(editedCourse, ['title', 'isVisibleOnProfile', 'image']);
+                component.set('isEditing', false);
+              })
 
-            .catch(function (error) {
-              var message = this.get('i18n').t('common.errors.course-not-updated').string;
-              this.get('notifications').error(message);
-              Ember.Logger.error(error);
-            }.bind(this));
+              .catch(function (error) {
+                var message = component.get('i18n').t('common.errors.course-not-updated').string;
+                component.get('notifications').error(message);
+                Ember.Logger.error(error);
+              });
+          });
+          component.set('didValidate', true);
         }
-        this.set('didValidate', true);
-      }.bind(this));
+      });
     },
 
     /**

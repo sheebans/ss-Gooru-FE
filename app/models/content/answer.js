@@ -25,7 +25,7 @@ const Answer = Ember.Object.extend(Validations,{
   sequence: 0,
 
   /**
-   * @property {Boolean} isCorrect - Indicates if the answers if correct or not
+   * @property {Boolean} isCorrect - Indicates if the answer is correct or not
    */
   isCorrect: false,
 

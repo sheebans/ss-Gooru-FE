@@ -10,7 +10,7 @@ test('serializeCreateCollection', function(assert) {
     title: 'collection-title',
     learningObjectives: 'any',
     isVisibleOnProfile: true,
-    imageUrl: 'http://test-bucket01.s3.amazonaws.com/image-id.png'
+    image: 'http://test-bucket01.s3.amazonaws.com/image-id.png'
   });
   const expected = {
     title: 'collection-title',
@@ -28,7 +28,7 @@ test('serializeUpdateCollection', function(assert) {
     title: 'collection-title',
     learningObjectives: 'any',
     isVisibleOnProfile: false,
-    imageUrl: 'http://test-bucket01.s3.amazonaws.com/image-id.png'
+    image: 'http://test-bucket01.s3.amazonaws.com/image-id.png'
   });
   const expected = {
     title: 'collection-title',
@@ -57,7 +57,7 @@ test('normalizeReadCollection', function(assert) {
   const collection = serializer.normalizeReadCollection(collectionData);
   assert.equal(collection.get('id'), 'collection-id', 'Wrong id');
   assert.equal(collection.get('title'), 'collection-title', 'Wrong title');
-  assert.equal(collection.get('imageUrl'), 'http://test-bucket01.s3.amazonaws.com/image-id.png', 'Wrong image');
+  assert.equal(collection.get('image'), 'http://test-bucket01.s3.amazonaws.com/image-id.png', 'Wrong image');
   assert.equal(collection.get('learningObjectives'), 'learning-objectives', 'Wrong learningObjectives');
   assert.equal(collection.get('isVisibleOnProfile'), true, 'Wrong isVisibleOnProfile');
 });

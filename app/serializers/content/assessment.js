@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { cleanFilename } from 'gooru-web/utils/utils';
 import AssessmentModel from 'gooru-web/models/content/assessment';
 import QuestionSerializer from 'gooru-web/serializers/content/question';
 
@@ -8,6 +9,8 @@ import QuestionSerializer from 'gooru-web/serializers/content/question';
  * @typedef {Object} AssessmentSerializer
  */
 export default Ember.Object.extend({
+
+  session: Ember.inject.service('session'),
 
   /**
    * @property {QuestionSerializer} questionSerializer
@@ -43,7 +46,8 @@ export default Ember.Object.extend({
     return {
       title: assessmentModel.get('title'),
       learning_objective: assessmentModel.get("learningObjectives"),
-      visible_on_profile: assessmentModel.get('isVisibleOnProfile')
+      visible_on_profile: assessmentModel.get('isVisibleOnProfile'),
+      thumbnail: cleanFilename(assessmentModel.image)
     };
   },
 
@@ -59,7 +63,8 @@ export default Ember.Object.extend({
       title: assessmentData.title,
       learningObjectives: assessmentData['learning_objective'],
       isVisibleOnProfile: assessmentData['visible_on_profile'] !== 'undefined' ? assessmentData['visible_on_profile'] : true,
-      children: serializer.normalizeQuestions(assessmentData.question)
+      children: serializer.normalizeQuestions(assessmentData.question),
+      image: assessmentData.thumbnail ? serializer.get('session.cdnUrls.content') + assessmentData.thumbnail : null
       // TODO Add more required properties here...
     });
   },

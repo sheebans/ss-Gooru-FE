@@ -228,7 +228,7 @@ export default Ember.Object.extend({
       id: collectionData.id,
       title: collectionData.title,
       standards: standards,
-      imageUrl: collectionData.thumbnail ? serializer.get('session.cdnUrls.content') + collectionData.thumbnail : null,
+      image: collectionData.thumbnail ? serializer.get('session.cdnUrls.content') + collectionData.thumbnail : null,
       publishStatus: collectionData.publish_status,
       learningObjectives: collectionData.learning_objective,
       resourceCount: collectionData.resource_count,
@@ -254,7 +254,7 @@ export default Ember.Object.extend({
     return AssessmentModel.create({
       id: assessmentData.id,
       title: assessmentData.title,
-      image: assessmentData.thumbnail,
+      image: assessmentData.thumbnail ? serializer.get('session.cdnUrls.content') + assessmentData.thumbnail : null,
       standards: standards,
       publishStatus: assessmentData.publish_status,
       learningObjectives: assessmentData.learning_objective,

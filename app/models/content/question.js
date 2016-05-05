@@ -92,6 +92,11 @@ const Question = Ember.Object.extend(Validations, {
   isFIB: Ember.computed.equal('type', QUESTION_TYPES.fib),
 
   /**
+   * @property {Boolean} isHSText - Indicates is the question type is HS_TXT
+   */
+  isHSText: Ember.computed.equal('type', QUESTION_TYPES.hotSpotText),
+
+  /**
    * Return a copy of the question
    *
    * @function
