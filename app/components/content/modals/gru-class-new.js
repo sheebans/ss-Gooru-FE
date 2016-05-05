@@ -39,6 +39,10 @@ export default Ember.Component.extend({
             component.get('classService')
                 .createClass(newClass)
                 .then(function(newClass) {
+                  let applicationRouter = Ember.getOwner(component).lookup("route:application");
+                  if (applicationRouter) {
+                    applicationRouter.send('refreshModel');
+                  }
                   component.get('router').transitionTo('class.overview', newClass.get('id') );
                 },
 

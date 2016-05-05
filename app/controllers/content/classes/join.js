@@ -40,6 +40,10 @@ export default Ember.Controller.extend({
             controller.set("notMember", null);
           }
           else{
+            let applicationRouter = Ember.getOwner(controller).lookup("route:application");
+            if (applicationRouter) {
+              applicationRouter.send('refreshModel');
+            }
             controller.transitionToRoute('class.overview', classId);
           }
 
