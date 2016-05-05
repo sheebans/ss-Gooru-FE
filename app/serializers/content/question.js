@@ -81,7 +81,7 @@ export default Ember.Object.extend({
       hints: null, //TODO
       explanation: null, //TODO
       isVisibleOnProfile: typeof questionData['visible_on_profile'] !== 'undefined' ? questionData['visible_on_profile'] : true,
-      order: index //TODO is this ok?
+      order: index + 1//TODO is this ok?
     });
   },
 

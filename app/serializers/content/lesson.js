@@ -63,7 +63,7 @@ export default Ember.Object.extend({
       id: lessonData.lesson_id,
       sequence: lessonData.sequence_id,
       title: lessonData.title,
-      taxonomy: lessonData.taxonomy.slice(0)
+      taxonomy: lessonData.taxonomy ? lessonData.taxonomy.slice(0) : []
     });
   }
 

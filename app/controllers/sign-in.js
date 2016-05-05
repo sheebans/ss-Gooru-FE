@@ -48,7 +48,7 @@ export default Ember.Controller.extend({
       user.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
           controller.get("sessionService")
-            .signInWithUser(user, controller.get('useApi3'))
+            .signInWithUser(user, true)
             .then(function() {
               controller.set('didValidate', true);
               // Trigger action in parent
@@ -81,8 +81,6 @@ export default Ember.Controller.extend({
   user: null,
 
   target: null,
-
-  useApi3: true,
 
   /**
    * @param {Boolean } didValidate - value used to check if input has been validated or not

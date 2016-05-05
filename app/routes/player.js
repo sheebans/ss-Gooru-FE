@@ -66,11 +66,11 @@ export default Ember.Route.extend({
     const collectionId = context.get("collectionId");
 
     return Ember.RSVP.hashSettled({
-      assessment: route.get('collectionService').readCollection(collectionId),
-      collection: route.get('assessmentService').readCollection(collectionId)
+      assessment: route.get('assessmentService').readAssessment(collectionId),
+      collection: route.get('collectionService').readCollection(collectionId)
     }).then(function(hash){
-      const collectionFound = hash.assessment.get("state") === 'rejected';
-      let collection = collectionFound ? hash.collection : hash.assessment;
+      const collectionFound = hash.assessment.state === 'rejected';
+      let collection = collectionFound ? hash.collection.value : hash.assessment.value;
 
       collection = collection.toPlayerCollection();
       context.set("collectionType", collection.get("collectionType"));

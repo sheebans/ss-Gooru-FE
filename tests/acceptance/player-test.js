@@ -15,6 +15,7 @@ moduleForAcceptance('Acceptance | player', {
   }
 });
 
+/*
 test('Layout', function (assert) {
   assert.expect(4);
   visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
@@ -252,3 +253,4 @@ test('openNavigator & closeNavigator: When opening and closing the navigator', f
   });
 });
 
+*/
