@@ -15,6 +15,11 @@ const Validations = buildValidations({
 });
 
 
+// Properties specific to assessments should be placed here!
+const assessmentProperties = { };
+
+const mergedProperties = $.extend({}, CollectionBase, assessmentProperties);
+
 /**
  * Assessment model
  * typedef {Object} Assessment

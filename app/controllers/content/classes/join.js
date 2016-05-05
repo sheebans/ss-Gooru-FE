@@ -38,8 +38,8 @@ export default Ember.Controller.extend({
         .then(function (classId) {
           if (!classId){ //no class is provided when is already joined to that class
             controller.set("notMember", null);
-          }
-          else{
+          } else {
+            controller.send('updateUserClasses'); // Triggers the refresh of user classes in top header
             controller.transitionToRoute('class.overview', classId);
           }
 

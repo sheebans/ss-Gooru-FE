@@ -130,6 +130,11 @@ export default (function() {
     collectionType: null,
 
     /**
+     * @property {Ember.Array} resources - An children alias property
+     */
+    resources: Ember.computed.alias('children'),
+
+    /**
      * Return a copy of the collection
      *
      * @function
