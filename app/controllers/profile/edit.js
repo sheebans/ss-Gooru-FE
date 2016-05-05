@@ -65,16 +65,16 @@ export default Ember.Controller.extend({
 
       if(isValid){
 
-        editedProfile.set('countryId', countrySelected);
-        editedProfile.set('stateId', '');
-        editedProfile.set('schoolDistrictId', '');
+        //editedProfile.set('countryId', countrySelected);
+        //editedProfile.set('stateId', '');
+        //editedProfile.set('schoolDistrictId', '');
 
         if(otherSchoolDistrict && otherSchoolDistrict!== ''){
           editedProfile.set('schoolDistrictId', '');
           editedProfile.set('schoolDistrict', otherSchoolDistrict);
         }
         controller.get('parentController').saveProfile(editedProfile);
-        controller.get('profile').merge(editedProfile, ['firstName', 'lastName', 'aboutMe', 'role', 'countryId', 'stateId', 'schoolDistrictId', 'schoolDistrict', 'country', 'state']);
+        controller.get('profile').merge(editedProfile, ['firstName', 'lastName', 'aboutMe', 'role', 'countryId', 'stateId', 'schoolDistrictId', 'schoolDistrict', 'country']);
 
         console.log('profile-merge',controller.get('profile'));
         // Trigger action in route
@@ -99,7 +99,7 @@ export default Ember.Controller.extend({
         controller.set('showStates', false);
         controller.set('districts', null);
         controller.set('stateSelected', '');
-        controller.set('state', '');
+        //controller.set('state', '');
         controller.set('districtSelected', '');
         controller.set('otherSchoolDistrict', '');
       }
