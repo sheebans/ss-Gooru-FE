@@ -68,13 +68,13 @@ export default CollectionEdit.extend({
       this.actions.updateContent.call(this);
     }
   },
-  // -------------------------------------------------------------------------
-  // Properties
-
-  /**
-   * Course model as instantiated by the route. This is the course that have the assigned assessment
-   * @property {Course}
-   */
-  course: null,
+  //// -------------------------------------------------------------------------
+  //// Properties
+  //
+  ///**
+  // * Course model as instantiated by the route. This is the course that have the assigned assessment
+  // * @property {Course}
+  // */
+  //course: null,
 
 });

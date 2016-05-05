@@ -26,7 +26,7 @@ test('it has header and main sections', function (assert) {
   assert.equal($header.find('> .actions > button').length, 5, "Number of header actions");
   assert.ok($header.find('> nav').length, "Header navigation");
   assert.equal($header.find('> nav > a').length, 3, "Number of header navigation links");
-  assert.notOk($header.find('.back-to-course').length, "Should don't have the option Back to course");
+  assert.notOk($header.find('.back-to-course').length, "Should not have the option Back to course");
 
   assert.equal($container.find('> section').length, 3, "Number of edit sections");
   assert.ok($container.find('> section#information').length, "Information section");
