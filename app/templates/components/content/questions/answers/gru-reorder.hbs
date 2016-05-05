@@ -1,16 +1,28 @@
 {{#each answers as |answer index|}}
   <div class="panel panel-default">
-    <div class="answer-content">
+    <div class="answer-content {{unless editMode 'view-mode'}}">
       <div class="letter-container">
         <h3>{{answer-letter index}}</h3>
       </div>
+
+      {{#if editMode}}
       <div class="text-area-container">
         {{validation.gru-textarea  model=answer valuePath='text' rows=2 maxLength=200}}
       </div>
       <button class="delete" {{action 'removeChoice' answer}}>{{gru-icon name="delete"}}</button>
+
+      {{else}}
+      <span class="answer-text">
+        {{answer.text}}
+      </span>
+      {{/if}}
+
     </div>
   </div>
 {{/each}}
-<div class="add-answer">
-  <a  {{action 'addNewChoice'}}>{{t 'content.questions.edit.builder.add-answer-choice'}}</a>
-</div>
+
+{{#if editMode}}
+  <div class="add-answer">
+    <a  {{action 'addNewChoice'}}>{{t 'content.questions.edit.builder.add-answer-choice'}}</a>
+  </div>
+{{/if}}

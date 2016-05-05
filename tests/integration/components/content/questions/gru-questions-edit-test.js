@@ -1,9 +1,12 @@
 import { moduleForComponent, test } from 'ember-qunit';
+import { QUESTION_TYPES } from 'gooru-web/config/question';
+
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Question from 'gooru-web/models/content/question';
 import Answer from 'gooru-web/models/content/answer';
 import Ember from 'ember';
+
 const questionServiceStub = Ember.Service.extend({
 
   updateQuestion(questionID, editedQuestion) {
@@ -259,7 +262,7 @@ test('Update Question Save Answers', function (assert) {
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
     text:"",
-    type:'MC',
+    type: QUESTION_TYPES.multipleChoice,
     answers:Ember.A([])
   });
   this.set('question', question);
@@ -296,7 +299,7 @@ test('Change answer text and cancel edit-Multiple Choice', function (assert) {
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
     text: "",
-    type: 'MC',
+    type: QUESTION_TYPES.multipleChoice,
     answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "Option A",
       'isCorrect': true,
@@ -332,7 +335,7 @@ test('Update answer text - True/False', function (assert) {
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
     text: "",
-    type: 'T/F',
+    type: QUESTION_TYPES.trueFalse,
     answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "True",
       'isCorrect': true,
@@ -372,7 +375,7 @@ test('Change answer text and cancel- True/False', function (assert) {
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
     text: "",
-    type: 'T/F',
+    type: QUESTION_TYPES.trueFalse,
     answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "True",
       'isCorrect': true,
@@ -408,23 +411,101 @@ test('Change answer text and cancel- True/False', function (assert) {
   });
 });
 
-test('Layout of the settings section', function (assert) {
+test('Update answer text - (drag/drop) Reorder', function (assert) {
+  const newText = 'Option Text Updated';
+
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
-    title:'Question title',
-    isVisibleOnProfile:false
+    title: 'Question for testing',
+    text: "",
+    type: QUESTION_TYPES.hotTextReorder,
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Option Text",
+      'isCorrect': null,
+      'type':"text"
+    })])
   });
-  this.set('question',question);
+  this.set('question', question);
 
   this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
 
-  var $settingsSection = this.$("#settings");
-  assert.ok($settingsSection.find('.header h2').length, "Section title");
-  assert.ok($settingsSection.find('.panel-heading h3').length, "Panel subtitle");
-  assert.ok($settingsSection.find('.panel-body .setting.publish-to i.visibility').length, "Visibility icon");
-  assert.ok($settingsSection.find('.panel-body .setting.publish-to i.visibility + span').length, "Visibility label");
-  assert.ok($settingsSection.find('.panel-body .gru-switch .toggle').length, "Profile toggle button");
-  assert.ok($settingsSection.find('input[type=checkbox]').not(':checked').length, "Switch should be off");
-  assert.ok($settingsSection.find('.panel-body .setting.request-to i.public').length, "Public icon");
-  assert.ok($settingsSection.find('.panel-body .setting.request-to i.public + span').length, "Public label");
+  assert.ok($component.find('.answer-content').hasClass('view-mode'));
+
+  var $options = $component.find('.answer-content .answer-text');
+  assert.equal($options.length, 1, 'Starting options');
+  assert.equal($options.eq(0).text().trim(), question.get('answers')[0].get('text'), 'Option text');
+
+  const $edit = $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+
+    var $optionInput = $component.find(".gru-reorder .panel:first-of-type .gru-textarea textarea");
+    $optionInput.val(newText);
+    $optionInput.trigger('blur');
+
+    $component.find('.gru-reorder .add-answer a').click();
+    return wait().then(function () {
+
+      $optionInput = $component.find(".gru-reorder .panel:eq(1) .gru-textarea textarea");
+      $optionInput.val(newText);
+      $optionInput.trigger('blur');
+
+      const $save = $component.find("#builder .actions .save");
+      $save.click();
+      return wait().then(function () {
+
+        $options = $component.find('.answer-content .answer-text');
+        assert.equal($options.length, 2, 'Options after edit');
+        assert.equal($options.eq(0).text().trim(), newText, 'Option text after edit');
+      });
+    });
+  });
 });
+
+test('Remove answer and cancel - (drag/drop) Reorder', function (assert) {
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text: "",
+    type: QUESTION_TYPES.hotTextReorder,
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Option Text A",
+      'isCorrect': null,
+      'type':"text"
+    }), Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Option Text B",
+      'isCorrect': null,
+      'type':"text"
+    })])
+  });
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+
+  var $options = $component.find('.answer-content .answer-text');
+  assert.equal($options.length, 2, 'Starting options');
+
+  const $edit = $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+
+    // Remove the first item
+    $component.find(".gru-reorder .panel:first-of-type .delete").click();
+    return wait().then(function () {
+
+      $options = $component.find('.gru-reorder .panel');
+      assert.ok($options.length, 1, 'Number of options after delete');
+      assert.equal($options.eq(0).find('.gru-textarea textarea').val(), question.get('answers')[1].get('text'), 'Text of remaining option');
+
+      const $cancel = $component.find("#builder .actions .cancel");
+      $cancel.click();
+      return wait().then(function () {
+
+        var $options = $component.find('.answer-content .answer-text');
+        assert.equal($options.length, 2, 'Starting options');
+      });
+    });
+  });
+});
+
 

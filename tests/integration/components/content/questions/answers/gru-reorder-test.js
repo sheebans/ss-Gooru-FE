@@ -12,8 +12,9 @@ test('Reorder answer layout', function(assert) {
   const answers = Ember.A([]);
 
   this.set('answers', answers);
+  this.set('editMode', true);
 
-  this.render(hbs`{{content/questions/answers/gru-reorder answers=answers}}`);
+  this.render(hbs`{{content/questions/answers/gru-reorder answers=answers editMode=editMode}}`);
   var $component = this.$(); //component dom element
   const $newAnswer = $component.find('div.add-answer a');
   assert.ok($newAnswer.length, "Add new answer choice button missing");
@@ -34,8 +35,9 @@ test('Load a list of answers and add new answer', function(assert) {
     'text': "Option B"
   })]);
   this.set('answers', answers);
+  this.set('editMode', true);
 
-  this.render(hbs`{{content/questions/answers/gru-reorder answers=answers}}`);
+  this.render(hbs`{{content/questions/answers/gru-reorder answers=answers editMode=editMode}}`);
   var $component = this.$(); //component dom element
   var $option = $component.find('.panel');
   assert.equal($option.length, 2, "Incorrect number of answers");
@@ -54,8 +56,9 @@ test('Delete answer', function(assert) {
     'text': "Option B"
   })]);
   this.set('answers', answers);
+  this.set('editMode', true);
 
-  this.render(hbs`{{content/questions/answers/gru-reorder answers=answers}}`);
+  this.render(hbs`{{content/questions/answers/gru-reorder answers=answers editMode=editMode}}`);
   var $component = this.$(); //component dom element
   var $option = $component.find('.panel');
   assert.equal($option.length, 2, "Incorrect number of answers");
