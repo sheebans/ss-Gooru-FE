@@ -11,7 +11,7 @@ const Validations = buildValidations({
     ]
   },
 
-  usernameSignIn: {
+  usernameAsync: {
     validators: [
       validator('google-username'),
       validator('google-email')
@@ -40,9 +40,9 @@ export default Ember.Object.extend(Validations,{
   username: null,
 
   /**
-   * @property {string} usernameSignIn - used to validate on submit
+   * @property {string} usernameAsync - used to validate on submit
    */
-  usernameSignIn: null,
+  usernameAsync: null,
 
   /**
    * @property {string} password  - The profile password

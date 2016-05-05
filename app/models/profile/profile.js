@@ -16,7 +16,7 @@ const Validations = buildValidations({
     ]
   },
 
-  usernameSignUp: {
+  usernameAsync: {
     validators: [
       validator('username')
     ]
@@ -93,7 +93,7 @@ const Validations = buildValidations({
     })
   ],
 
-  emailSignUp: {
+  emailAsync: {
     validators: [
       validator('email')
     ]
@@ -129,9 +129,9 @@ export default Ember.Object.extend(Validations,{
   username: null,
 
   /**
-   * @property {string} usernameSignUp - Used to validate on submit
+   * @property {string} usernameAsync - Used to validate on submit
    */
-  usernameSignUp: null,
+  usernameAsync: null,
 
   /**
    * @property {string} password  - The profile password
@@ -144,9 +144,9 @@ export default Ember.Object.extend(Validations,{
   email: null,
 
   /**
-   * @property {string} emailSignUp - Used to validate on submit
+   * @property {string} emailAsync - Used to validate on submit
    */
-  emailSignUp: null,
+  emailAsync: null,
 
   /**
    * @property {string} gender - Profile gender

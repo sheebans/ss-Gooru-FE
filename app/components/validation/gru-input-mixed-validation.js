@@ -7,7 +7,7 @@ const {
 
 
 /**
- * Text field with validation
+ * Text field with async and sync validation
  *
  * Text field with support for ember-cp-validations.
  * It provides feedback based on certain validation criteria.
@@ -25,7 +25,7 @@ export default GruInput.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['gru-input-on-submit','validation'],
+  classNames: ['gru-input-mixed-validation','validation'],
   classNameBindings: ['showErrorClass:has-error', 'isValid:has-success','valuePath'],
 
   /**
@@ -53,7 +53,8 @@ export default GruInput.extend({
 
   init() {
     this._super(...arguments);
-    var valuePathHidden = this.get('valuePathHidden');
+    var valuePathHidden = this.get('valuePath') + 'Async';
+    this.set('valuePathHidden', valuePathHidden);
     defineProperty(this, 'attributeValidationHidden', computed.oneWay(`model.validations.attrs.${valuePathHidden}`));
     this.set('rawInputValueHidden', this.get(`model.${valuePathHidden}`));
     defineProperty(this, 'valueHidden', computed.alias(`model.${valuePathHidden}`));

@@ -82,12 +82,12 @@ export default Ember.Controller.extend({
     this._super(...arguments);
     var profile = Profile.create(Ember.getOwner(this).ownerInjection(), {
                   username: null,
-                  usernameSignUp: null,
+                  usernameAsync: null,
                   password: null,
                   firstName: null,
                   lastName: null,
                   email: null,
-                  emailSignUp: null
+                  emailAsync: null
                 });
     this.set('profile', profile);
     this.set('googleSignUpUrl', Env['google-sign-in'].url);

@@ -61,7 +61,7 @@ export default Ember.Controller.extend({
 
   init(){
     this._super(...arguments);
-    var user = User.create(Ember.getOwner(this).ownerInjection(), {username: null, usernameSignIn: null, password: null});
+    var user = User.create(Ember.getOwner(this).ownerInjection(), {username: null, usernameAsync: null, password: null});
     this.set('user', user);
     this.set('googleSignInUrl', Env['google-sign-in'].url);
   },
