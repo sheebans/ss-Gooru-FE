@@ -105,6 +105,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      * @see gru-header.hbs
      */
     signIn: function () {
+      this.send('updateUserClasses'); // Required to get list of classes after login
       this.transitionTo("user");
     },
 
@@ -140,7 +141,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       const route = this;
       route.get('classService').findMyClasses()
         .then(function(classes) {
-          route.set('controller.myClasses.classes', classes.get('classes'));
+          route.set('controller.myClasses', classes);
         });
     }
   }
