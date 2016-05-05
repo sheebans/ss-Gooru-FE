@@ -94,6 +94,16 @@
           }
         }
       }
+      .back-to-course{
+        color:$white;
+        font-size: $font-size-large;
+        div{
+          margin-left: -12px;
+          i{
+            vertical-align: text-top;
+          }
+        }
+      }
     }
 
     > section {

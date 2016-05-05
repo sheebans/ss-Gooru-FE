@@ -30,6 +30,12 @@
     <button class="delete btn" {{action 'resetImage'}}>{{gru-icon name="delete"}}</button>
   {{/if}}
 
+  <div class="validation">
+    {{#each filePickerErrors as |error|}}
+      <span class="error">{{error}}</span>
+    {{/each}}
+  </div>
+
 {{else}}
 
   {{#if srcImage}}

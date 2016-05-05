@@ -104,6 +104,12 @@ export default Ember.Component.extend(ContentEditMixin, {
   collection: null,
 
   /**
+   * Course model as instantiated by the route. This is the course that have the assigned collection
+   * @property {Course}
+   */
+  course: null,
+
+  /**
    * Copy of the collection model used for editing.
    * @property {Collection}
    */
