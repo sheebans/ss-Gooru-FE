@@ -35,12 +35,11 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
     },
 
     searchTerm: function () {
-      var term = $.trim(this.get('term'));
+      var term = $.trim(this.get('tempTerm'));
       var isIncorrectTermSize = this.get('isIncorrectTermSize');
-      if (term) {
-        if (!isIncorrectTermSize){
-          this.sendAction('onSearch', encodeTerm(term));
-        }
+      if (!isIncorrectTermSize){
+        this.set('term', encodeTerm(term));
+        this.sendAction('onSearch', this.get('term'));
       }
     },
 
@@ -82,10 +81,9 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    * Validate if the property term has the correct number of characters
    * @property
    */
-  isIncorrectTermSize: Ember.computed('term', function() {
-    var term = $.trim(this.get('term'));
-
-    return (!term || term.length <3 );
+  isIncorrectTermSize: Ember.computed('tempTerm', function() {
+    var term = $.trim(this.get('tempTerm'));
+    return (!term || term.length <=3 );
   }),
 
   /**
@@ -110,6 +108,8 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    */
   isTyping: null,
 
+  tempTerm:Ember.computed.oneWay('term'),
+
 
   // -------------------------------------------------------------------------
   // Observers
@@ -117,18 +117,17 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   /**
    * @param {Computed } searchErrorMessage - computed property that defines if show searchErrorMessage
    */
-  searchErrorMessage: Ember.computed('isIncorrectTermSize', 'isTyping', 'term', function() {
+  searchErrorMessage: Ember.computed('isIncorrectTermSize', 'isTyping', 'tempTerm', function() {
     const isIncorrectTermSize = this.get('isIncorrectTermSize');
-    const term = this.get('term');
+    const term = this.get('tempTerm');
     const isTyping = this.get('isTyping');
-
     return (term !=='' && isIncorrectTermSize && (isTyping===false));
   }),
 
   /**
    * @param {Computed } searchInputDirty - computed property that defines whether the term is null or not.
    */
-  searchInputDirty: Ember.computed.notEmpty('term')
+  searchInputDirty: Ember.computed.notEmpty('tempTerm')
 
   // -------------------------------------------------------------------------
   // Methods
