@@ -105,7 +105,6 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      * @see gru-header.hbs
      */
     signIn: function () {
-      this.refresh(); // Forces model refresh to get list of classes once logged in
       this.transitionTo("user");
     },
 
@@ -133,12 +132,16 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     },
 
     /**
-     * Forces the model refresh
-     * @see app/components/content/modals/gru-class-new.js
-     * @see app/controllers/content/classes/join.js
+     * Gets a refreshed list of user classes
+     * @see gru-class-new.js
+     * @see join.js
      */
-    refreshModel: function() {
-      this.refresh();
+    updateUserClasses: function() {
+      const route = this;
+      route.get('classService').findMyClasses()
+        .then(function(classes) {
+          route.set('controller.myClasses.classes', classes.get('classes'));
+        });
     }
   }
 

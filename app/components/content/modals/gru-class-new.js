@@ -39,11 +39,8 @@ export default Ember.Component.extend({
             component.get('classService')
                 .createClass(newClass)
                 .then(function(newClass) {
-                  let applicationRouter = Ember.getOwner(component).lookup("route:application");
-                  if (applicationRouter) {
-                    applicationRouter.send('refreshModel');
-                  }
-                  component.get('router').transitionTo('class.overview', newClass.get('id') );
+                  component.sendAction('updateUserClasses');  // Triggers the refresh of user classes in top header
+                  component.get('router').transitionTo('class.overview', newClass.get('id'));
                 },
 
                 function() {
@@ -78,6 +75,12 @@ export default Ember.Component.extend({
    * @type {Class} class
    */
   newClass: null,
+
+  /**
+   * @property {String} action to send up after creating the class to
+   * refresh the list of classes in the top header
+   */
+  updateUserClasses: null,
 
   /**
    * @type {String} open or restricted, tells the component which radio is checked.
