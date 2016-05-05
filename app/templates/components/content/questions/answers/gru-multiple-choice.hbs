@@ -14,6 +14,9 @@
   </div>
 </div>
 {{/each}}
-<div class="add-answer">
-  <a {{action 'addNewChoice'}}>{{t 'content.questions.edit.builder.add-answer-choice'}}</a>
-</div>
+{{#unless hasLimitAnswers}}
+    <div class="add-answer">
+        <a {{action 'addNewChoice'}}>{{t 'content.questions.edit.builder.add-answer-choice'}}</a>
+    </div>
+{{/unless}}
+
