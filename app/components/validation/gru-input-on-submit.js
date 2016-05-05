@@ -37,6 +37,11 @@ export default GruInput.extend({
   // Actions
 
   actions: {
+    inputValueChange: function() {
+      this._super(...arguments);
+      this.set('rawInputValueHidden', this.get('rawInputValue'));
+      this.set('valueHidden', this.get('rawInputValue'));
+    },
     inputTyping: function () {
       this._super(...arguments);
       this.set('didSubmit', false);

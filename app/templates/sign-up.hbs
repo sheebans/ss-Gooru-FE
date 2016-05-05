@@ -41,7 +41,7 @@
                     <div class="form-group username">
                       <label>
                         <span class="required">{{t "sign-up.username"}}</span>
-                        {{validation.gru-input model=profile valuePath='username' }}
+                        {{validation.gru-input-on-submit model=profile valuePath='username' valuePathHidden='usernameSignUp' didSubmit=submitFlag}}
                       </label>
                     </div>
                     {{gru-select-date-picker wasSubmitted=didValidate onValidDate="validDate"}}
@@ -60,7 +60,7 @@
                     <div class="form-group email">
                       <label>
                         <span class="required">{{t "sign-up.email"}}</span>
-                        {{validation.gru-input model=profile valuePath='email' }}
+                        {{validation.gru-input-on-submit model=profile valuePath='email' valuePathHidden='emailSignUp' didSubmit=submitFlag}}
                       </label>
                     </div>
                     <div class="form-group">
