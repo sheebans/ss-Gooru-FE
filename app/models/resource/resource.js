@@ -79,6 +79,15 @@ export default Ember.Object.extend({
   text: null,
 
   /**
+   * Returns the FIB text
+   * @property {string}
+   */
+  fibText: Ember.computed("text", function(){
+    const regExp = /(\[[^\[\]]+\])+/gi;
+    return this.get("text").replace(regExp, "_______");
+  }),
+
+  /**
    * @property Array
    */
   hints: null,

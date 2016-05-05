@@ -15,7 +15,6 @@ moduleForAcceptance('Acceptance | player', {
   }
 });
 
-/*
 test('Layout', function (assert) {
   assert.expect(4);
   visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
@@ -29,7 +28,7 @@ test('Layout', function (assert) {
   });
 });
 
-test('Navigate to all resources types', function (assert) {
+/*test('Navigate to all resources types', function (assert) {
   assert.expect(10);
   visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9'); //visit all resource types collection
 
@@ -125,7 +124,7 @@ test('Navigate to all question types', function (assert) {
       });
     });
   });
-});
+});*/
 
 test('closePlayer: If navigating directly to the player, closing the player should return the user to the home page', function(assert) {
   visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
@@ -253,4 +252,3 @@ test('openNavigator & closeNavigator: When opening and closing the navigator', f
   });
 });
 
-*/
