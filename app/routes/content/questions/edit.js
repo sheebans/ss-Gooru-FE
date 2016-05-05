@@ -2,7 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   queryParams: {
-    collectionId:{}
+    collectionId:{},
+    isCollection:{},
   },
   // -------------------------------------------------------------------------
   // Dependencies
@@ -11,10 +12,16 @@ export default Ember.Route.extend({
    * @requires service:api-sdk/question
    */
   questionService: Ember.inject.service("api-sdk/question"),
+
   /**
-  * @requires service:api-sdk/collection
+  * @requires service:api-sdk/assessment
   */
   assessmentService: Ember.inject.service('api-sdk/assessment'),
+
+  /**
+   * @requires service:api-sdk/collection
+   */
+  collectionService: Ember.inject.service('api-sdk/collection'),
 
   /**
    * @requires service:session
@@ -32,15 +39,23 @@ export default Ember.Route.extend({
   model: function (params) {
     var question = this.get('questionService').readQuestion(params.questionId);
 
-    var assessment = null;
+    var collection = null;
+
+    var isCollection = false;
 
     if(params.collectionId){
-      assessment = this.get('assessmentService').readAssessment(params.collectionId);
+      if(params.isCollection==="true"){
+        isCollection = true;
+        collection = this.get('collectionService').readCollection(params.collectionId);
+      }else{
+        collection = this.get('assessmentService').readAssessment(params.collectionId);
+      }
     }
 
     return Ember.RSVP.hash({
       question: question,
-      assessment:assessment
+      collection:collection,
+      isCollection:isCollection
     });
   },
 
@@ -48,6 +63,8 @@ export default Ember.Route.extend({
 
     controller.set('question', model.question);
 
-    controller.set('assessment', model.assessment);
+    controller.set('collection', model.collection);
+
+    controller.set('isCollection', model.isCollection);
   }
 });

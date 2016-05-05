@@ -72,7 +72,7 @@ test('Header when comes from content builder', function (assert) {
   this.set('question', question);
   this.set('assessment', assessment);
 
-  this.render(hbs`{{content/questions/gru-questions-edit question=question assessment=assessment}}`);
+  this.render(hbs`{{content/questions/gru-questions-edit question=question collection=assessment}}`);
 
   var $container = this.$("article.content.questions.gru-questions-edit");
   assert.ok($container.length, "Component");
