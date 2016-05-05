@@ -1,1 +1,19 @@
-Network Section
+<div class="content-navigation">
+  <div class="category-menu">
+    <ul class="nav nav-tabs category-options">
+      {{#link-to "profile.content.courses" tagName="li" class='following'}}
+        <a href='{{view.href}}' class="btn btn-category">
+          <span>{{t "common.following"}}</span>
+        </a>
+      {{/link-to}}
+      {{#link-to "profile.content.courses" tagName="li" class='followers'}}
+        <a href='{{view.href}}' class="btn btn-category">
+          <span>{{t "common.followers"}}</span>
+        </a>
+      {{/link-to}}
+    </ul>
+  </div>
+</div>
+<div class="content_outlet">
+  {{outlet}}
+</div>

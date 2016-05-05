@@ -141,6 +141,8 @@ export default {
     "false":"False",
     "first-name": "First Name",
     "follow": "Follow",
+    "followers": "Followers",
+    "following": "Following",
     "forgotPassword": "Forgot Password",
     "from-my-assessments": "From My Assessments",
     "from-my-collections": "From My Collections",

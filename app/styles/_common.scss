@@ -262,8 +262,15 @@ span.validation.warning {
         color: $white;
       }
       &:hover {
+        -webkit-box-shadow: inset 0 -3px 0 $white;
+        box-shadow: inset 0 -3px 0 $white;
         color: $white;
       }
+    }
+    a:hover {
+      -webkit-box-shadow: inset 0 -3px 0 $white;
+      box-shadow: inset 0 -3px 0 $white;
+      color: $white;
     }
     &.collections {
       i {
