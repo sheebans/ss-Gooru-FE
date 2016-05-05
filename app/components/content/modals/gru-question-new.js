@@ -48,6 +48,7 @@ export default Ember.Component.extend({
     createQuestion: function () {
       const component = this;
       const question = component.get('question');
+      question.set("description", "Enter question text here"); //TODO temporal fix
       question.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
           let questionId;
