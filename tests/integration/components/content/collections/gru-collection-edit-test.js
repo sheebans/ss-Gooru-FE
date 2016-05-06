@@ -26,7 +26,7 @@ test('it has header and main sections', function (assert) {
   assert.equal($header.find('> .actions > button').length, 5, "Number of header actions");
   assert.ok($header.find('> nav').length, "Header navigation");
   assert.equal($header.find('> nav > a').length, 3, "Number of header navigation links");
-  assert.notOk($header.find('.back-to-course').length, "Should don't have the option Back to course");
+  assert.notOk($header.find('.back-to').length, "Should don't have the option Back to course");
 
   assert.equal($container.find('> section').length, 3, "Number of edit sections");
   assert.ok($container.find('> section#information').length, "Information section");
@@ -47,6 +47,7 @@ test('Header when comes from content builder', function (assert) {
 
   this.set('collection', collection);
   this.set('course',course);
+
   this.render(hbs`{{content/collections/gru-collection-edit collection=collection course=course}}`);
 
   var $container = this.$("article.content.collections.gru-collection-edit");
@@ -54,6 +55,6 @@ test('Header when comes from content builder', function (assert) {
 
   const $header = $container.find('> header');
   assert.ok($header.length, "Header");
-  assert.ok($header.find('.back-to-course').length, "Should have the option Back to course");
+  assert.ok($header.find('.back-to').length, "Should have the option Back to course");
 
 });

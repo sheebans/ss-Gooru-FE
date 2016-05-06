@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3>{{plus-one index}}</h3>
-    {{#link-to (if (eq model.format 'question') 'content.questions.edit' 'content.resources.edit') model.id class="title"}}
+    {{#link-to (if (eq model.format 'question') 'content.questions.edit' 'content.resources.edit') model.id (query-params collectionId=collection.id isCollection=isCollection) class="title"}}
       <i class="{{model.format}}-icon"></i>
       <div>
         <strong>{{model.title}}</strong>
@@ -31,7 +31,7 @@
         <button class="btn add-item" {{action 'swap'}}>{{gru-icon name="add"}}</button>
         <button class="btn narration" {{action 'swap'}}>{{gru-icon name="mode_comment"}}</button>
           <div class="item-actions">
-            {{#link-to (if (eq model.format 'question') 'content.questions.edit' 'content.resources.edit') model.id class="btn edit-item" tagName="button"}}{{gru-icon name="edit"}}{{/link-to}}
+            {{#link-to (if (eq model.format 'question') 'content.questions.edit' 'content.resources.edit') model.id (query-params collectionId=collection.id isCollection=isCollection) class="btn edit-item" tagName="button"}}{{gru-icon name="edit"}}{{/link-to}}
             {{partial 'content/partials/item-actions'}}
           </div>
       </div>
