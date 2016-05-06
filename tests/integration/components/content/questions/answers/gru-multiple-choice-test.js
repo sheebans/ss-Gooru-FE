@@ -8,12 +8,12 @@ moduleForComponent('content/questions/answers/gru-multiple-choice', 'Integration
   integration: true
 });
 
-test('Multiple choice answer layout', function(assert) {
+test('Multiple choice answer layout in editing mode', function(assert) {
   const answers = Ember.A([]);
 
   this.set('answers', answers);
 
-  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=answers}}`);
+  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=answers editMode=true}}`);
   var $component = this.$(); //component dom element
   const $newAnswer = $component.find('div.add-answer a');
   assert.ok($newAnswer.length, "Add new answer choice button missing");
@@ -33,6 +33,42 @@ test('Multiple choice answer layout', function(assert) {
   });
 });
 
+test('Multiple choice answer view layout', function(assert) {
+  const answers = Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
+    'text': "Option A",
+    'isCorrect': true
+  }), Answer.create(Ember.getOwner(this).ownerInjection(),{
+    'text': "Option B",
+    'isCorrect': false
+  })]);
+
+  this.set('answers', answers);
+
+  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=answers editMode=false}}`);
+  var $component = this.$(); //component dom element
+  const $option = $component.find('.panel:eq(0)');
+  assert.ok($option.find('.letter-container').length, "Answer letter missing");
+  assert.ok($option.find('div.check i.done'.length), "Correct  check icon missing");
+  assert.ok($option.find('div.check.correct').length, "The answer should be correct");
+  assert.ok($option.find('.text-area-container p').length, "The answer text should be appear");
+});
+
+test('Multiple choice answer max answers', function(assert) {
+  const answers = Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
+    'text': "Option A",
+    'isCorrect': true
+  }), Answer.create(Ember.getOwner(this).ownerInjection(),{
+    'text': "Option B",
+    'isCorrect': false
+  })]);
+
+  this.set('answers', answers);
+
+  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=answers editMode=true maxAnswers=2}}`);
+  var $component = this.$(); //component dom element
+  assert.notOk($component.find('div.add-answer a').length, "Add answer should be disabled");
+});
+
 test('Load a list of answers and add new answer', function(assert) {
   const answers = Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
       'text': "Option A",
@@ -43,7 +79,7 @@ test('Load a list of answers and add new answer', function(assert) {
     })]);
   this.set('answers', answers);
 
-  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=answers}}`);
+  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=answers editMode=true}}`);
   var $component = this.$(); //component dom element
   var $option = $component.find('.panel');
   assert.equal($option.length, 2, "Incorrect number of answers options");
@@ -65,7 +101,7 @@ test('Delete answer', function(assert) {
     })]);
   this.set('answers', answers);
 
-  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=answers}}`);
+  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=answers editMode=true}}`);
   var $component = this.$(); //component dom element
   var $option = $component.find('.panel');
   assert.equal($option.length, 2, "Incorrect number of answer options");
@@ -87,7 +123,7 @@ test('Correct answer', function(assert) {
     })]);
   this.set('answers', answers);
 
-  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=answers}}`);
+  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=answers editMode=true}}`);
   var $component = this.$(); //component dom element
   assert.equal($component.find('.check.correct').length,1, "Incorrect number of correct answer");
   var $firstOption = $component.find('.panel:nth-child(2)');
@@ -99,3 +135,4 @@ test('Correct answer', function(assert) {
     assert.equal( $component.find('.check.correct').length,1, "Incorrect number of correct answer");
   });
 });
+

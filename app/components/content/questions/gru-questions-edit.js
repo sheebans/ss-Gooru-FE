@@ -167,7 +167,7 @@ export default Ember.Component.extend(ContentEditMixin,{
               answersValid = false;
             }
           });
-          if (editedQuestion.get('isHSText')) {
+          if(editedQuestion.get('answers').length > 0){
             let correctAnswers = editedQuestion.get('answers').filter(function(answer) {
               return answer.get('isCorrect');
             });
