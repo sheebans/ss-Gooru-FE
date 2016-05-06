@@ -38,15 +38,6 @@
           <a class="btn btn-link" alt="{{t "login.forgotPassword"}}"
              title="{{t "login.forgotPassword"}}" {{action "showModal" "gru-forgot-password-popup"}}>{{t "login.forgotPassword"}}</a>
         </div>
-
-        <!-- TODO: Remove this temporal checkbox once it is not required -->
-        <div class="form-group">
-          <span class="text">Use API 3.0?</span>
-          {{input
-          id="use_api_3"
-          type="checkbox"
-          checked=useApi3}}
-        </div>
         <div class="log-in-button form-group text-center">
           <button class="btn btn-success submit-sign-in" {{action "authenticate"}}>{{t "login.log-in"}} <span>{{gru-icon name='keyboard_arrow_right'}}</span></button>
         </div>

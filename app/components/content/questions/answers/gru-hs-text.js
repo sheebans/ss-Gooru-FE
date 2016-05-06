@@ -17,7 +17,8 @@ export default Ember.Component.extend({
      var newChoice = Answer.create(Ember.getOwner(this).ownerInjection(), {
         'text': null,
         'isCorrect': false,
-        'type': "text"
+        'type': "text",
+        'sequence': (this.get('answers.length') + 1)
       });
       this.get('answers').pushObject(newChoice);
     },

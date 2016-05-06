@@ -77,6 +77,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
           savePromise
             .then(function () {
               this.get('lesson').merge(editedLesson, ['id', 'title']);
+              this.set('newCollectionModel.lessonId', this.get("lesson.id"));
               this.set('model.isEditing', false);
             }.bind(this))
 
