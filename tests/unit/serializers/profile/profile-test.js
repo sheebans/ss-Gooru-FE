@@ -557,14 +557,18 @@ test('normalizeReadNetwork for followers', function(assert) {
       lastname: 'last-name-1',
       thumbnail_path: 'thumbnail-path-1',
       followers_count: 10,
-      followings_count: 20
+      followings_count: 20,
+      country: 'country-1',
+      school_district: 'district-1'
     },{
       id: 'id-2',
       firstname: 'first-name-2',
       lastname: 'last-name-2',
       thumbnail_path: 'thumbnail-path-2',
       followers_count: 20,
-      followings_count: 10
+      followings_count: 10,
+      country: 'country-2',
+      school_district: 'district-2'
     }]
   });
   const response = serializer.normalizeReadNetwork(detailsObject, NETWORK_TYPE.FOLLOWERS);
@@ -572,4 +576,7 @@ test('normalizeReadNetwork for followers', function(assert) {
   assert.equal(response[0].get("id"), "id-1", 'Invalid id for user 1');
   assert.ok(response[0].get("isFollowing"), 'First user has a wrong value for isFollowing');
   assert.ok(!response[1].get("isFollowing"), 'Second user has a wrong value for isFollowing');
+  assert.equal(response[0].get("schoolDistrict"), "district-1", 'Invalid district for user 1');
+  assert.equal(response[1].get("schoolDistrict"), "district-2", 'Invalid district for user 2');
+
 });

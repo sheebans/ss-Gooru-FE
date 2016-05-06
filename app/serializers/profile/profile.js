@@ -326,6 +326,8 @@ export default Ember.Object.extend({
       "firstName": networkData.firstname,
       "lastName": networkData.lastname,
       "avatarUrl": networkData.thumbnail_path,
+      "country": networkData.country,
+      "schoolDistrict": networkData.school_district,
       "followers": networkData.followers_count,
       "followings": networkData.followings_count,
       "isFollowing": type === NETWORK_TYPE.FOLLOWERS ? following.indexOf(networkData.id) > -1 : true
