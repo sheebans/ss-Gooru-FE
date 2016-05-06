@@ -44,7 +44,6 @@ export default Ember.Service.extend({
    */
   searchAssessments: function(term) {
     const service = this;
-    console.log('term in search service in assessments route', term);
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('searchAdapter').searchAssessments(term)
         .then(function(response) {
