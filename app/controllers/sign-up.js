@@ -154,7 +154,7 @@ export default Ember.Controller.extend({
   didValidate: false,
 
   /**
-   * @param {Boolean } didValidate - value used to check if input has been validated or not
+   * @param {Boolean } dateValidated - value used to check if birthdate has been validated or not
    */
   dateValidated: false,
 
