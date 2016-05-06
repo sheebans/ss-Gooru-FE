@@ -122,6 +122,16 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    */
   classes: null,
 
+  /**
+   * @property {Array} list of active classes related to current user
+   */
+  activeClasses: Ember.computed('classes', function() {
+    var classes = this.get('classes');
+    return classes ? classes.filter(function(theClass) {
+      return !theClass.get('isArchived');
+    }) : null;
+  }),
+
   // -------------------------------------------------------------------------
   // Observers
 
