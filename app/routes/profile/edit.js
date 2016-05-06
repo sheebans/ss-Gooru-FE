@@ -85,6 +85,10 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     var profile = model.profile;
 
+    if (profile.get('schoolDistrictId')) {
+      profile.set('schoolDistrict', null);
+    }
+
     controller.set("profile", profile);
     controller.set("tempProfile", profile.copy());
     controller.get('parentController').selectMenuItem(null);
