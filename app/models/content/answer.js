@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
+import ResourceAnswer from 'gooru-web/models/resource/answer';
 
 const Validations = buildValidations({
   text: {
@@ -63,6 +64,21 @@ const Answer = Ember.Object.extend(Validations,{
 
 
     return Answer.create(Ember.getOwner(this).ownerInjection(), properties);
+  },
+
+  /**
+   * Returns a player answer object.
+   * @returns {Answer}
+   */
+  toPlayerAnswer: function(){
+    const answer = this;
+    return ResourceAnswer.create({
+      id: answer.get("id"),
+      text: answer.get("text"),
+      answerType: answer.get("type"),
+      order: answer.get("sequence"),
+      isCorrect: answer.get("isCorrect")
+    });
   }
 
 

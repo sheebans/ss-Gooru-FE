@@ -2,7 +2,7 @@
   <div class="question-container">
     <div class="question">
       <span class="question-number">{{result.question.order}}</span>
-      <span class="question-text">{{{result.question.text}}}</span>
+      <span class="question-text">{{{if result.question.isFIB result.question.fibText result.question.text}}}</span>
     </div>
     <div class="answer">
       <div class="your-answer">

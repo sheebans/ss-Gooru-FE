@@ -1,10 +1,17 @@
 <header>
+  {{#if collection}}
+    {{#link-to 'content.collections.edit' collection.id class="back-to"}}
+        <div>
+          {{gru-icon name="keyboard_arrow_left"}}{{t 'common.collection'}} {{collection.title}}
+        </div>
+    {{/link-to}}
+  {{/if}}
   <h1>{{t "common.edit-resource"}}</h1>
 
   <div class="actions">
     <button class="btn btn-default btn-icon">{{gru-icon name="delete"}}</button>
     <button class="btn btn-default btn-icon">{{gru-icon name="insert_link"}}</button>
-    <button class="btn btn-default">{{t "common.add-to"}}</button>
+    <button class="btn btn-default hidden">{{t "common.add-to"}}</button>
     <button class="btn btn-default">{{t "common.preview"}}</button>
   </div>
 

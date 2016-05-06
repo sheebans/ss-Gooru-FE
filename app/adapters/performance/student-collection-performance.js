@@ -9,9 +9,9 @@ export default ApplicationAdapter.extend({
   namespace: '/api/nucleus-insights/v2',
   //namespace: '/mocked-api/api/nucleus-insights/v2',
 
-  headers: Ember.computed('session.token', function() {
+  headers: Ember.computed('session.token-api3', function() {
     return {
-      'gooru-session-token': this.get('session.token')
+      'gooru-session-token': this.get('session.token-api3')
     };
   }),
 

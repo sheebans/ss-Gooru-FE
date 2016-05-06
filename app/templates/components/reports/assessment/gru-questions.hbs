@@ -43,7 +43,7 @@
           {{result.question.order}}
       </td>
       <td class="question-text top-left">
-        {{{result.question.text}}}
+        {{{if result.question.isFIB result.question.fibText result.question.text}}}
       </td>
       <td class="question-answer top-left">
         {{#if result.answered}}

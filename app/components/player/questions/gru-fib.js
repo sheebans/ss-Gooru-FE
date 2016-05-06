@@ -40,7 +40,7 @@ export default QuestionComponent.extend({
    */
   answers: Ember.computed('question.text', function () {
     const component = this;
-    let answers = component.get("question.text");
+    let answers = component.get("question.fibText");
     let readOnly = component.get("readOnly");
     let disabled = readOnly ? 'disabled': '';
     let userAnswer = component.get("userAnswer");

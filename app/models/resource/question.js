@@ -1,12 +1,12 @@
-import DS from 'ember-data';
+import Ember from 'ember';
 import ResourceModel from './resource';
 
 export default ResourceModel.extend({
 
-  questionType: DS.attr('string'),
-  text: DS.attr('string'),
-  hints: DS.attr(),
-  explanation: DS.attr('string'),
-  answers: DS.hasMany('resource/answer')
+  questionType: null,
+  text: null,
+  hints: null,
+  explanation: null,
+  answers: Ember.A()
 
 });

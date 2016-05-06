@@ -2,7 +2,6 @@ import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
 import Lesson from 'gooru-web/models/content/lesson';
 import Unit from 'gooru-web/models/content/unit';
-import { CREATOR_SYSTEM } from 'gooru-web/config/config';
 
 moduleFor('serializer:content/unit', 'Unit | Serializer | content/unit');
 
@@ -23,8 +22,7 @@ test('serializeCreateUnit', function (assert) {
     title: modelInstance.get('title'),
     big_ideas: modelInstance.get('bigIdeas'),
     essential_questions: modelInstance.get('essentialQuestions'),
-    taxonomy: [],
-    creator_system: CREATOR_SYSTEM
+    taxonomy: []
   };
 
   const modelObject = serializer.serializeCreateUnit(modelInstance);

@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import Resource from 'gooru-web/models/content/resource';
 import Question from 'gooru-web/models/content/question';
+import PlayerCollection from 'gooru-web/models/collection/collection';
 
 /**
  * Object with all of the properties in a collection
@@ -174,6 +175,35 @@ export default (function() {
     merge: function(model, propertyList = []) {
       var properties = model.getProperties(propertyList);
       this.setProperties(properties);
+    },
+
+    toPlayerCollection: function(){
+      const model = this;
+      return PlayerCollection.create({
+        id: model.get("id"),
+        collectionType: model.get("collectionType"),
+        title: model.get("title"),
+        remixes: model.get("remixCount"),
+        views: null, //TODO missing
+        imageUrl: model.get("thumbnailUrl"),
+        url: null, //TODO missing
+        author: model.get("owner.displayName"),
+        authorId: model.get("owner.id"),
+        remixedBy: Ember.A(), //TODO missing
+        course: model.get("course"),
+        avatarUrl: null, //TODO missing
+        profilePageUrl: null, //TODO missing
+        description: model.get("description"),
+        resourceCount: model.get("resourceCount"),
+        questionCount: model.get("questionCount"),
+        hasTeam: null, //TODO missing
+        visibility: null, //TODO missing
+        libraries: Ember.A(), //TODO missing
+        resources: model.get("children").map(function(child){
+          return child.toPlayerResource();
+        }),
+        standards: model.get("standards")
+      });
     }
 
   };
