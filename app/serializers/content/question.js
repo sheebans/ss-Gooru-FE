@@ -39,8 +39,8 @@ export default Ember.Object.extend({
       description: questionModel.get('text'),
       //'content_subformat': QuestionModel.serializeQuestionType(questionModel.get("type")), // This is not supported on the back end yet
       'visible_on_profile': questionModel.get('isVisibleOnProfile'),
-      answer: questionModel.get('answers').map(function(answer) {
-        return serializer.serializerAnswer(answer);
+      answer: questionModel.get('answers').map(function(answer, index) {
+        return serializer.serializerAnswer(answer, index + 1);
       })
     };
   },
@@ -48,12 +48,13 @@ export default Ember.Object.extend({
   /**
    * Serialize an Answer model object into a JSON representation required by the Update Question endpoint
    *
-   * @param answerModel the Answer model to be serialized
+   * @param answerModel - the Answer model to be serialized
+   * @param sequenceNumber - the answer's sequence number
    * @returns {Object}
    */
-  serializerAnswer: function(answerModel) {
+  serializerAnswer: function(answerModel, sequenceNumber) {
     return {
-      'sequence': answerModel.get('sequence'),
+      'sequence': sequenceNumber,
       'is_correct': answerModel.get('isCorrect') ? 1 : 0,
       'answer_text': answerModel.get('text'),
       'answer_type': answerModel.get('type')

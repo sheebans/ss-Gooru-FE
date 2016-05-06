@@ -20,8 +20,7 @@ export default Ember.Component.extend({
         'id': generateUUID(),
         'text': null,
         'isCorrect': false,
-        'type':"text",
-        'sequence': (this.get('answers.length') + 1)
+        'type':"text"
       });
       this.get('answers').pushObject(newChoice);
     },
