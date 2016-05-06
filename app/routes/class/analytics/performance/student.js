@@ -29,7 +29,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     const units = this.modelFor('class').units;
     const userId = this.get('session.userId');
     const classId= classModel.get('id');
-    const courseId = classModel.get('course');
+    const courseId = classModel.get('courseId');
     const unitPerformances = this.get('performanceService').findStudentPerformanceByCourse(userId, classId, courseId, units);
 
     return Ember.RSVP.hash({
