@@ -40,21 +40,27 @@ export default Ember.Object.extend({
    * @returns {Object} returns a JSON Object
    */
   serializeUpdateProfile: function(profile) {
-    return {
+    var profileObject = {
       firstname: profile.get('firstName'),
       lastname: profile.get('lastName'),
       'user_category': profile.get('role'),
       grade: profile.get('grades'),
       country: profile.get('country'),
-      state: profile.get('state'),
-      school: profile.get('school'),
-      'school_district': profile.get('schoolDistrict'),
       'about_me': profile.get('aboutMe'),
       'country_id': profile.get('countryId'),
       'state_id': profile.get('stateId'),
-      'school_id': profile.get('schoolId'),
       'school_district_id': profile.get('schoolDistrictId')
     };
+
+    if(profile.get('state') && profile.get('state')!==''){
+      profileObject["state"] = profile.get('state');
+    }
+
+    if(profile.get('schoolDistrict') && profile.get('schoolDistrict')!==''){
+      profileObject["school_district"] = profile.get('schoolDistrict');
+    }
+
+    return profileObject;
   },
 
   normalizeCreateProfile: function(payload) {
@@ -92,8 +98,6 @@ export default Ember.Object.extend({
       country: payload.country,
       stateId: payload['state_id'],
       state: payload.state,
-      schoolId: payload['school_id'],
-      school: payload.school,
       schoolDistrictId: payload['school_district_id'],
       schoolDistrict: payload['school_district'],
       aboutMe: payload['about_me'],

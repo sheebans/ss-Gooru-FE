@@ -264,6 +264,7 @@ export default {
     "signUp": "Sign Up",
     "sortAlphabetical":"Sort Alphabetically",
     "sortAverage":"Sort by Average",
+    "state":"State",
     "standard":"Standard",
     "standards": "Standards",
     "study": "Study",

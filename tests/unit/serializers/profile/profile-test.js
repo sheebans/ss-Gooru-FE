@@ -41,12 +41,10 @@ test('serializeUpdateProfile', function(assert) {
     grades: [],
     country: 'country',
     state: 'state',
-    school: 'school',
     schoolDistrict: 'school-district',
     aboutMe: 'about-me',
     countryId: 'country-id',
     stateId: 'state-id',
-    schoolId: 'school-id',
     schoolDistrictId: 'school-district-id'
   });
   const expected = {
@@ -56,12 +54,10 @@ test('serializeUpdateProfile', function(assert) {
     grade: [],
     country: 'country',
     state: 'state',
-    school: 'school',
     'school_district': 'school-district',
     'about_me': 'about-me',
     'country_id': 'country-id',
     'state_id': 'state-id',
-    'school_id': 'school-id',
     'school_district_id': 'school-district-id'
   };
   const response = serializer.serializeUpdateProfile(profile);
@@ -86,8 +82,6 @@ test('normalizeReadProfile', function(assert) {
     country: 'country',
     'state_id': '',
     state: 'state',
-    'school_id': '',
-    school: 'school',
     'school_district_id': '',
     'school_district': 'school-district',
     'about_me': 'about-me',
@@ -113,8 +107,6 @@ test('normalizeReadProfile', function(assert) {
     country: 'country',
     stateId: '',
     state: 'state',
-    schoolId:'',
-    school:'school',
     schoolDistrictId: '',
     schoolDistrict: 'school-district',
     aboutMe: 'about-me',

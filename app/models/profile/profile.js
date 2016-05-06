@@ -263,10 +263,9 @@ export default Ember.Object.extend(Validations,{
     for (let i = 0; i < enumerableKeys.length; i++) {
       let key = enumerableKeys[i];
       let value = Ember.typeOf(this.get(key));
-      //if (value === 'string' || value === 'number' || value === 'boolean') {
-      //  properties.push(key);
-      //}
-      properties.push(key);
+      if (value === 'string' || value === 'number' || value === 'boolean') {
+        properties.push(key);
+      }
     }
 
     properties = this.getProperties(properties);
