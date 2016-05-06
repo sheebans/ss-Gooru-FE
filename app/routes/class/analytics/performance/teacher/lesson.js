@@ -53,27 +53,29 @@ export default Ember.Route.extend({
   },
 
   model: function(params) {
-
-    const classModel = this.modelFor('class');
-    const lessonId = params.lessonId;
+    const route = this;
     const unitId = params.unitId;
-    const classId= this.paramsFor('class').classId;
-    const courseId = classModel.class.get('course');
-    const users = classModel.members;
+    const lessonId = params.lessonId;
+    const classModel = route.modelFor('class').class;
+    const classId = classModel.get('id');
+    const courseId = classModel.get('courseId');
+    const members = classModel.get('members');
 
-    const collections = this.get('collectionService').findByClassAndCourseAndUnitAndLesson(classId, courseId, unitId, lessonId);
-    const classPerformanceData = this.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, users);
-    const unit = this.get('unitService').findById(courseId, unitId);
-    const lesson = this.get('lessonService').findById(courseId, unitId, lessonId);
-
-    return Ember.RSVP.hash({
-      collections: collections,
-      classPerformanceData: classPerformanceData,
-      lesson: lesson,
-      unit: unit
-    });
-
+    return route.get('unitService').fetchById(courseId, unitId)
+      .then(function(unit) {
+        return route.get('lessonService').fetchById(courseId, unitId, lessonId)
+          .then(function (lesson) {
+            const classPerformanceData = route.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, members);
+            return Ember.RSVP.hash({
+              unit: unit,
+              lesson: lesson,
+              collections: lesson.get('children'),
+              classPerformanceData: classPerformanceData,
+            });
+          });
+      });
   },
+
   /**
    * Set all controller properties from the model
    * @param controller
