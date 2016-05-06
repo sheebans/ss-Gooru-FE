@@ -558,4 +558,79 @@ test('Remove answer and cancel - (drag/drop) Reorder', function (assert) {
   });
 });
 
+test('Update answer text - Open Ended', function (assert) {
+  const newText = 'Answer text updated';
 
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text: "",
+    type: QUESTION_TYPES.openEnded,
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Answer text",
+      'isCorrect': true,
+      'type':"text"
+    })])
+  });
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+
+  var $options = $component.find('.gru-open-ended .answer-text');
+  assert.equal($options.length, 1, 'Number of answer options');
+  assert.ok($options.find('> textarea'), 'View textarea');
+  assert.equal($options.eq(0).find('textarea').val(), question.get('answers')[0].get('text'), 'Answer text');
+
+  const $edit = $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+
+    var $optionInput = $component.find(".gru-open-ended .text-area-container .gru-textarea textarea");
+    $optionInput.val(newText);
+    $optionInput.trigger('blur');
+
+    const $save = $component.find("#builder .actions .save");
+    $save.click();
+    return wait().then(function () {
+
+      $options = $component.find('.gru-open-ended .answer-text');
+      assert.equal($options.eq(0).find('textarea').val(), newText, 'Answer text after edit');
+    });
+  });
+});
+
+test('Update answer and cancel - Open Ended', function (assert) {
+  const newText = 'Answer text';
+
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text: "",
+    type: QUESTION_TYPES.openEnded,
+    answers: Ember.A([])
+  });
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+
+  var $options = $component.find('.gru-open-ended .answer-text');
+  assert.equal($options.length, 1, 'Number of answer options');
+
+  const $edit = $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+
+    var $optionInput = $component.find(".gru-open-ended .text-area-container .gru-textarea textarea");
+    assert.equal($optionInput.val(), '', 'Empty text for default option');
+    $optionInput.val(newText);
+    $optionInput.trigger('blur');
+
+    const $cancel = $component.find("#builder .actions .cancel");
+    $cancel.click();
+    return wait().then(function () {
+
+      $options = $component.find('.gru-open-ended .answer-text');
+      assert.equal($options.eq(0).find('textarea').val(), '', 'Answer text after cancel');
+    });
+  });
+});
