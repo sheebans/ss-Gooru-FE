@@ -1,21 +1,39 @@
-.network-followers {
-  padding: 30px 0 0 0;
-  text-align: center;
-  @media (min-width: $screen-sm) {
-    padding: 30px 0 0 30px;
-    text-align: left;
+.network {
+  @media (max-width: $screen-sm-max) {
+    .content-navigation .category-menu ul {
+      padding-left: 20px;
+      display: inline-block;
+      li {
+        margin: 0 10px;
+      }
+    }
   }
-  > .followers {
-    margin: 0 auto;
-    float: none;
-    padding: 0;
+  .network-followers {
+    padding: 30px 0 0 0;
+    text-align: center;
+    @media (min-width: $screen-sm) {
+      padding: 30px 0 0 30px;
+      text-align: left;
+    }
+    > .followers {
+      margin: 0 auto;
+      float: none;
+      padding: 0;
+    }
   }
-}
 
-.card {
-  display: inline-block;
-  margin: 0 20px 10px 20px;
-  @media (min-width: $screen-sm) {
-    margin: 0 20px 10px 0;
+  .card {
+    display: inline-block;
+    margin: 0 20px 10px 20px;
+    @media (min-width: $screen-sm) {
+      margin: 0 20px 10px 0;
+    }
+    .gru-user-network-card {
+      button {
+        &:hover {
+          color: $white;
+        }
+      }
+    }
   }
 }
