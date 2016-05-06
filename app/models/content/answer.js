@@ -73,7 +73,7 @@ const Answer = Ember.Object.extend(Validations,{
   toPlayerAnswer: function(){
     const answer = this;
     return ResourceAnswer.create({
-      id: answer.get("text"), //TODO this should come from BE
+      id: answer.get("id"),
       text: answer.get("text"),
       answerType: answer.get("type"),
       order: answer.get("sequence"),

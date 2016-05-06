@@ -110,6 +110,7 @@ export default Ember.Object.extend({
    */
   normalizeAnswer: function(answerData) {
     return AnswerModel.create(Ember.getOwner(this).ownerInjection(),{
+      id: answerData.sequence, // there is not id anymore sequence can be used for this purpose
       sequence: answerData.sequence,
       isCorrect: answerData['is_correct'] === 1,
       text: answerData['answer_text'],
