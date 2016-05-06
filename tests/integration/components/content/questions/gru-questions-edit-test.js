@@ -59,7 +59,7 @@ test('it has header and main sections', function (assert) {
   assert.ok($container.find('> section#settings').length, "Settings section");
 });
 
-test('Header when comes from content builder return to an assessment', function (assert) {
+test('Header return to an assessment', function (assert) {
 
 
   var assessment = Assessment.create(Ember.getOwner(this).ownerInjection(), {
@@ -82,7 +82,7 @@ test('Header when comes from content builder return to an assessment', function 
   assert.ok($header.length, "Header");
   assert.ok($header.find('.back-to .return-assessment').length, "Should have the option Back to Assessment");
 });
-test('Header when comes from content builder return to an assessment', function (assert) {
+test('Header return to an assessment', function (assert) {
 
 
   var collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
