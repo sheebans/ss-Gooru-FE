@@ -78,7 +78,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     playResource: function (unitId, lessonId, collectionId) {
       const currentClass = this.modelFor('class').class;
       const classId = currentClass.get("id");
-      const courseId = currentClass.get("course");
+      const courseId = currentClass.get("courseId");
       this.transitionTo('context-player', classId, courseId, unitId, lessonId, collectionId);
     }
   }

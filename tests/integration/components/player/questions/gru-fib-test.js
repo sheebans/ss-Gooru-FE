@@ -16,6 +16,7 @@ test('Fill in the blanks layout', function(assert) {
     "id": "569906aacea8416665209d53",
     questionType: 'FIB',
     text: 'The sun is _______ and the moon _______',
+    fibText: 'The sun is _______ and the moon _______',
     hints: [],
     explanation: 'Sample explanation text',
     answers: Ember.A([
@@ -44,6 +45,7 @@ test('Fill in the blanks events', function(assert) {
     "id": "569906aacea8416665209d53",
     questionType: 'FIB',
     text: 'The sun is _______ and the moon _______',
+    fibText: 'The sun is _______ and the moon _______',
     hints: [],
     explanation: 'Sample explanation text',
     answers: Ember.A([
@@ -109,6 +111,7 @@ test('Fill in the blanks layout - read only', function(assert) {
     "id": "569906aacea8416665209d53",
     questionType: 'FIB',
     text: 'The sun is _______ and the moon _______',
+    fibText: 'The sun is _______ and the moon _______',
     hints: [],
     explanation: 'Sample explanation text',
     answers: Ember.A([
@@ -135,6 +138,7 @@ test('Fill in the blanks layout - with user answer', function(assert) {
     "id": "569906aacea8416665209d53",
     questionType: 'FIB',
     text: 'The sun is _______ and the moon _______',
+    fibText: 'The sun is _______ and the moon _______',
     hints: [],
     explanation: 'Sample explanation text',
     answers: Ember.A([
@@ -164,6 +168,7 @@ test('Set two questions', function(assert) {
     "id": "569906aacea8416665209d53",
     questionType: 'FIB',
     text: 'The sun is_______ and the moon_______',
+    fibText: 'The sun is_______ and the moon_______',
     hints: [],
     explanation: 'Sample explanation text',
     answers: Ember.A([
@@ -180,6 +185,7 @@ test('Set two questions', function(assert) {
     "id": "569906aacea8416665209d53",
     questionType: 'FIB',
     text: 'The sun is_______ ,the moon_______ and the stars_______',
+    fibText: 'The sun is_______ ,the moon_______ and the stars_______',
     hints: [],
     explanation: 'Sample explanation text',
     answers: Ember.A([

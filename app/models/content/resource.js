@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
+import PlayerResource from 'gooru-web/models/resource/resource';
 
 const Validations = buildValidations({
   description: {
@@ -195,9 +196,32 @@ const ResourceModel = Ember.Object.extend(Validations,{
     // Copy standards and metadata values
     properties.standards = standards.slice(0);
     properties.metadata = JSON.parse(JSON.stringify(metadata));
-    
+
     return ResourceModel.create(Ember.getOwner(this).ownerInjection(), properties);
+  },
+
+  /**
+   * Returns a player resource
+   * @return {Resource}
+   */
+  toPlayerResource: function(){
+    const model = this;
+    return PlayerResource.create({
+      id: model.get("id"),
+      order: model.get("order"),
+      title: model.get("title"),
+      resourceType: model.get("resourceType"),
+      resourceFormat: model.get("format"),
+      description: model.get("description"),
+      thumbnail: model.get("thumbnailUrl"),
+      assetUrl: model.get("assetUrl"),
+      url: model.get("url"),
+      narration: model.get("narration"), //TODO missing
+      options: null //TODO missing
+    });
   }
+
+
 
 });
 

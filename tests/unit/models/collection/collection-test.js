@@ -1,13 +1,8 @@
 import Ember from "ember";
-import { moduleForModel, test } from 'ember-qunit';
+import { moduleFor, test } from 'ember-qunit';
 
-moduleForModel('collection/collection', 'Unit | Model | collection/collection', {
-  // Specify the other units that are required for this test.
-  needs: [
-    "model:resource/resource",
-    "model:resource/answer",
-    "model:search/standard"
-  ]
+moduleFor('model:collection/collection', 'Unit | Model | collection/collection', {
+  unit: true
 });
 
 test('isAssessment', function (assert) {
@@ -33,11 +28,9 @@ test('hasResources empty', function (assert) {
 test('hasResources not empty', function (assert) {
   assert.expect(1);
 
-  let store = this.store();
-
   var resources = Ember.A();
   Ember.run(function () {
-    resources.pushObject(store.createRecord("resource/resource", {id: 1}));
+    resources.pushObject(Ember.Object.create({id: 1}));
   });
   let model = this.subject({
     resources: resources
@@ -49,11 +42,9 @@ test('hasResources not empty', function (assert) {
 
 test('prevResource without resources', function (assert) {
   assert.expect(1);
-  let store = this.store();
-
   var resource = null;
   Ember.run(function () {
-    resource = store.createRecord("resource/resource", {id: 1});
+    resource = Ember.Object.create({id: 1});
   });
 
   let model = this.subject({
@@ -67,15 +58,14 @@ test('prevResource without resources', function (assert) {
 
 test('prevResource', function (assert) {
   assert.expect(3);
-  let store = this.store();
 
   var resources = Ember.A(),
     resourceA = null,
     resourceB = null;
 
   Ember.run(function () {
-    resourceA = store.createRecord("resource/resource", {id: 1});
-    resourceB = store.createRecord("resource/resource", {id: 2});
+    resourceA = Ember.Object.create({id: 1});
+    resourceB = Ember.Object.create({id: 2});
 
     resources.pushObject(resourceA);
     resources.pushObject(resourceB);
@@ -94,11 +84,10 @@ test('prevResource', function (assert) {
 
 test('nextResource without resources', function (assert) {
   assert.expect(1);
-  let store = this.store();
 
   var resource = null;
   Ember.run(function () {
-    resource = store.createRecord("resource/resource", {id: 1});
+    resource = Ember.Object.create({id: 1});
   });
 
   let model = this.subject({
@@ -112,15 +101,14 @@ test('nextResource without resources', function (assert) {
 
 test('nextResource', function (assert) {
   assert.expect(3);
-  let store = this.store();
 
   var resources = Ember.A(),
     resourceA = null,
     resourceB = null;
 
   Ember.run(function () {
-    resourceA = store.createRecord("resource/resource", {id: 1});
-    resourceB = store.createRecord("resource/resource", {id: 2});
+    resourceA = Ember.Object.create({id: 1});
+    resourceB = Ember.Object.create({id: 2});
 
     resources.pushObject(resourceA);
     resources.pushObject(resourceB);
@@ -151,15 +139,14 @@ test('getResourceById without resources', function (assert) {
 
 test('getResourceById', function (assert) {
   assert.expect(2);
-  let store = this.store();
 
   var resources = Ember.A(),
     resourceA = null,
     resourceB = null;
 
   Ember.run(function () {
-    resourceA = store.createRecord("resource/resource", {id: 1});
-    resourceB = store.createRecord("resource/resource", {id: 2});
+    resourceA = Ember.Object.create({id: 1});
+    resourceB = Ember.Object.create({id: 2});
 
     resources.pushObject(resourceA);
     resources.pushObject(resourceB);
@@ -175,15 +162,14 @@ test('getResourceById', function (assert) {
 
 test('isLastResource', function (assert) {
   assert.expect(2);
-  let store = this.store();
 
   var resources = Ember.A(),
     resourceA = null,
     resourceB = null;
 
   Ember.run(function () {
-    resourceA = store.createRecord("resource/resource", {id: 1});
-    resourceB = store.createRecord("resource/resource", {id: 2});
+    resourceA = Ember.Object.create({id: 1});
+    resourceB = Ember.Object.create({id: 2});
 
     resources.pushObject(resourceA);
     resources.pushObject(resourceB);

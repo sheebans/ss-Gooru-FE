@@ -3,7 +3,7 @@
         <div class="panel-body">
             <h2>{{t "gru-question-viewer.question"}}</h2>
             <div class="question">
-                <span>{{{question.text}}}</span>
+                <span>{{{if question.isFIB question.fibText question.text}}}</span>
               {{#if question.hasMedia}}
                   <img src="{{question.mediaUrl}}"/>
               {{/if}}
