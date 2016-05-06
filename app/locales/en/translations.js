@@ -464,9 +464,10 @@ export default {
       "answer":"Answer",
       "answer-instructions":{
         "FIB":"Add up to 5 hints for answer and an explanation.",
-        "MC":"You can add up to ten answers choices and indicate one correct answer. Character Limit: 200.",
         "HS_TXT": "You can add up to ten answers choices and select one or more correct answers.",
         "HT_RO": "You can add up to ten answers choices in the correct order. The order will be scrambled for students.",
+        "MC":"You can add up to ten answers choices and indicate one correct answer. Character Limit: 200.",
+        "OE":"Write the correct response. Character limit: 5000.",
         "T/F":"Select the correct answer."
       },
       "question-instructions":{
@@ -477,6 +478,7 @@ export default {
         "HT_HL":"Write your question. Character limit: 5000.",
         "MC":"Write your question. Character limit: 5000.",
         "MA":"Write your question. Character limit: 5000.",
+        "OE":"Write your question. Character limit: 5000.",
         "T/F":"Write your question. Character limit: 5000."
       }
     }

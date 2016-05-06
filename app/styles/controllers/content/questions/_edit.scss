@@ -1,5 +1,46 @@
 .controller.content.questions.edit {
 
+  textarea{
+    resize: none;
+  }
+
+  label {
+    .title, b,.btn-empty {
+      display: block;
+    }
+    b {
+      font-size: $font-size-large;
+      font-weight: normal;
+    }
+  }
+
+  .missing-correct-answer {
+    color: $brand-danger;
+  }
+
+  #information {
+    .title-section {
+      display:flex;
+      .title,.question-types{
+        width: 49%;
+      }
+      .title {
+        label {
+          width: 100%;
+        }
+      }
+      .question-types {
+        .btn-group {
+          display: block;
+          margin-top: 10px;
+          .dropdown-toggle{
+            background-color:$blue-300;
+          }
+        }
+      }
+    }
+  }
+
   #builder {
     > .header {
       .actions {
@@ -14,7 +55,7 @@
         border-top-left-radius: 6px;
         div.border-bottom{
           padding-bottom: 15px;
-          border-bottom: 1px solid $gray-light;
+          border-bottom: 1px solid $gray-lighter;
           margin-bottom: 0;
           margin-top: 15px;
           .instructions {
@@ -22,7 +63,7 @@
           }
         }
       }
-      .panel-body{
+      .panel-body {
         .text-empty{
           font-size: $font-size-large;
         }
@@ -31,6 +72,12 @@
         }
         textarea{
           line-height: 1;
+        }
+      }
+
+      &.question-text {
+        .panel-body {
+          min-height: 184px;
         }
       }
     }
