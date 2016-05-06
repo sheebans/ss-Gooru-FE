@@ -21,6 +21,7 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Events
+
   init() {
     this._super( ...arguments );
     var answers = this.get('answers');
@@ -32,6 +33,10 @@ export default Ember.Component.extend({
       });
       this.get('answers').pushObject(answer);
     }
+  },
+
+  didUpdate() {
+    this.$('.text-area-container textarea').trigger('blur');
   },
 
   // -------------------------------------------------------------------------
