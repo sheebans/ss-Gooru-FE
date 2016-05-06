@@ -16,6 +16,25 @@
       }
     }
 
+    .teacher {
+      .panel-heading {
+        background-color: $teal-300;
+        .action {
+          background-color: $teal-400;
+        }
+      }
+    }
+
+    .student {
+      .panel-heading {
+        background-color: $sky-300;
+
+        .action {
+          background-color: $sky-400;
+        }
+      }
+    }
+
     .panel-heading {
       @include flexbox;
       @include align-items(center);
@@ -27,22 +46,6 @@
 
       * {
         color: $white;
-      }
-
-      .teacher & {
-        background-color: $teal-300;
-
-        .action {
-          background-color: $teal-400;
-        }
-      }
-
-      .student & {
-        background-color: $sky-300;
-
-        .action {
-          background-color: $sky-400;
-        }
       }
 
       .side-info {
