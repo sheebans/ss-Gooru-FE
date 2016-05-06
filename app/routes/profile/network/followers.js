@@ -20,7 +20,7 @@ export default Ember.Route.extend({
     const profile = this.modelFor("profile").profile;
 
     //followers
-    return this.get("profileService").readResources(profile.get("id"));
+    return this.get("profileService").readFollowers(profile.get("id"));
   },
 
   setupController: function (controller , model) {
