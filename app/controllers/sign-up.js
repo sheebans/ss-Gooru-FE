@@ -32,6 +32,23 @@ export default Ember.Controller.extend({
       const profile = controller.get('profile');
       const birthDayDate = controller.validDateSelectPicker();
 
+      if(controller.get('didValidate') === false) {
+        var username = Ember.$('.gru-input-mixed-validation.username input').val();
+        var email = Ember.$('.gru-input-mixed-validation.email input').val();
+        var password = Ember.$('.gru-input.password input').val();
+        var rePassword = Ember.$('.gru-input.rePassword input').val();
+        var firstName = Ember.$('.gru-input.firstName input').val();
+        var lastName = Ember.$('.gru-input.lastName input').val();
+        profile.set('username', username);
+        profile.set('usernameAsync', username);
+        profile.set('password', password);
+        profile.set('rePassword', rePassword);
+        profile.set('email', email);
+        profile.set('emailAsync', email);
+        profile.set('firstName', firstName);
+        profile.set('lastName', lastName);
+      }
+
       profile.validate().then(function ({model, validations}) {
         if (validations.get('isValid') && birthDayDate !== '') {
           profile.set('dateOfBirth', birthDayDate);
@@ -39,6 +56,7 @@ export default Ember.Controller.extend({
             .then(function (profile) {
               controller.get("sessionService")
                 .signUp(profile).then(function () {
+                controller.set('didValidate', true);
                 // Trigger action in parent
                 controller.send('signUp');
               });
@@ -46,7 +64,7 @@ export default Ember.Controller.extend({
         } else {
           controller.set('submitFlag', true);
         }
-        controller.set('didValidate', true);
+        controller.set('dateValidated', true);
       });
     },
 
@@ -129,6 +147,16 @@ export default Ember.Controller.extend({
    */
 
   showChildLayout: false,
+
+  /**
+   * @param {Boolean } didValidate - value used to check if input has been validated or not
+   */
+  didValidate: false,
+
+  /**
+   * @param {Boolean } dateValidated - value used to check if birthdate has been validated or not
+   */
+  dateValidated: false,
 
   /**
    * Submit has been performed

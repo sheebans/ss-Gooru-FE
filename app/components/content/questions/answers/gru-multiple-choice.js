@@ -51,6 +51,22 @@ export default Ember.Component.extend({
   * */
 
   answers:null,
+  /**
+   * Multiple Choice max answers
+   * */
+  maxAnswers:10,
+
+  /**
+   * Is in edit mode
+   */
+  editMode: false,
+
+  /**
+   * @type {Ember.A}
+   */
+  hasLimitAnswers: Ember.computed('answers.[]', function () {
+    return (this.get('answers').length >= this.get('maxAnswers'));
+  }),
 
   // -------------------------------------------------------------------------
   // Method

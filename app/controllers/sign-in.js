@@ -38,11 +38,20 @@ export default Ember.Controller.extend({
         positionClass: 'toast-top-full-width sign-in'
       });
 
+      if(controller.get('didValidate') === false) {
+        var username = Ember.$('.gru-input-mixed-validation.username input').val();
+        var password = Ember.$('.gru-input.password input').val();
+        user.set('username',username);
+        user.set('usernameAsync',username);
+        user.set('password',password);
+      }
+
       user.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
           controller.get("sessionService")
             .signInWithUser(user, true)
             .then(function() {
+              controller.set('didValidate', true);
               // Trigger action in parent
               controller.send('signIn');
             })
@@ -54,7 +63,6 @@ export default Ember.Controller.extend({
         } else {
           controller.set('submitFlag', true);
         }
-        controller.set('didValidate', true);
       });
     }
   },
