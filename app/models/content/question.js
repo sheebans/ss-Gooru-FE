@@ -97,6 +97,11 @@ const Question = Ember.Object.extend(Validations, {
   isHSText: Ember.computed.equal('type', QUESTION_TYPES.hotSpotText),
 
   /**
+   *  @property {string} questionType - Alias for type property
+   */
+  questionType: Ember.computed.alias('type'),
+
+  /**
    * Return a copy of the question
    *
    * @function
