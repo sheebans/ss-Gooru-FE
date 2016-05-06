@@ -62,6 +62,13 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
         this.set('isTyping', true);
       }
     }.bind(this));
+    // Enables the collapse panel for my classes
+    this.$().on('click', 'a.my-classes', function(e) {
+      var $link = $(this);
+      e.preventDefault();
+      e.stopPropagation();
+      $link.toggleClass('open').siblings('ul').slideToggle();
+    });
   },
 
   /**
@@ -110,6 +117,10 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
 
   tempTerm:Ember.computed.oneWay('term'),
 
+  /**
+   * @property {Array} list of classes related to current user
+   */
+  classes: null,
 
   // -------------------------------------------------------------------------
   // Observers

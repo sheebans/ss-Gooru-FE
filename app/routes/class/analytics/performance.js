@@ -12,7 +12,7 @@ import Ember from 'ember';
 export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -34,11 +34,13 @@ export default Ember.Route.extend({
        at Object.triggerEvent (ember.debug.js:27476)
 
      */
-    const aClass = this.modelFor('class').class;
+
     const route = this;
-    if (!aClass.isTeacher(this.get("session.userId"))){
-      route.transitionTo('class.analytics.performance.student',
-        { queryParams: route.paramsFor("class.analytics.performance.student")});
+    const classModel = this.modelFor('class').class;
+    if (!classModel.isTeacher(route.get('session.userId'))){
+      route.transitionTo('class.analytics.performance.student', {
+        queryParams: route.paramsFor('class.analytics.performance.student')
+      });
     }
   }
 });
