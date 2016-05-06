@@ -2,7 +2,6 @@ import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
 import Course from 'gooru-web/models/content/course';
 import Unit from 'gooru-web/models/content/unit';
-import { CREATOR_SYSTEM } from 'gooru-web/config/config';
 
 moduleFor('serializer:content/course', 'Unit | Serializer | content/course');
 
@@ -24,8 +23,7 @@ test('serializeCreateCourse', function(assert) {
     thumbnail: 'image-id.png',
     visible_on_profile: course.isVisibleOnProfile,
     taxonomy: [],
-    'subject_bucket': course.subject,
-    'creator_system': CREATOR_SYSTEM
+    'subject_bucket': course.subject
   };
   const courseObject = serializer.serializeCreateCourse(course);
   assert.deepEqual(courseObject, expected, 'Serializer response');
