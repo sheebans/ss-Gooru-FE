@@ -3,6 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
 import Resource from 'gooru-web/models/content/resource';
+import Collection from 'gooru-web/models/content/collection';
 
 moduleForComponent('gru-resource-edit', 'Integration | Component | content/resources/gru resource edit', {
   integration: true
@@ -25,11 +26,35 @@ test('it has header and main sections', function (assert) {
   assert.equal($header.find('> .actions > button').length, 4, "Number of header actions");
   assert.ok($header.find('> nav').length, "Header navigation");
   assert.equal($header.find('> nav > a').length, 3, "Number of header navigation links");
+  assert.notOk($header.find('.back-to').length, "Should not have the option Back to Collection");
 
   assert.equal($container.find('> section').length, 3, "Number of edit sections");
   assert.ok($container.find('> section#resource').length, "Resource section");
   assert.ok($container.find('> section#information').length, "Information section");
   assert.ok($container.find('> section#settings').length, "Information section");
+});
+test('Header when comes from content builder', function (assert) {
+
+
+  var collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Collection Title",
+    id:"123445566"
+  });
+  var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Resource Title"
+  });
+
+  this.set('resource', resource);
+  this.set('collection', collection);
+  this.render(hbs`{{content/resources/gru-resource-edit resource=resource collection=collection}}`);
+
+  var $container = this.$("article.content.resources.gru-resource-edit");
+  assert.ok($container.length, "Component");
+
+  const $header = $container.find('> header');
+  assert.ok($header.length, "Header");
+  assert.ok($header.find('.back-to').length, "Should have the option Back to collection");
+
 });
 
 test('Layout of preview section for youtube video', function (assert) {
@@ -38,7 +63,6 @@ test('Layout of preview section for youtube video', function (assert) {
     format: "video",
     url: "https://www.youtube.com/watch?v=hFAOXdXZ5TM"
   });
-
   this.set('resource', resource);
   this.render(hbs`{{content/resources/gru-resource-edit resource=resource}}`);
 
@@ -47,6 +71,7 @@ test('Layout of preview section for youtube video', function (assert) {
   assert.ok($settingsSection.find('.panel.preview').length, "Preview panel");
   assert.ok($settingsSection.find('.panel.preview .panel-body .gru-youtube-resource').length, "YouTube component");
   assert.ok($settingsSection.find('.panel.preview .panel-body .gru-youtube-resource iframe').length, "YouTube iframe");
+
 });
 
 test('Layout of preview section for vimeo video', function (assert) {

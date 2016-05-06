@@ -45,7 +45,14 @@ export default Ember.Component.extend(BuilderMixin, {
     return this.get('model.standards').filter(function(item, index) {
       return index < visibleStandards;
     });
-  })
-
-
+  }),
+  /**
+   * Course model as instantiated by the route. This is the resource that have the assigned collection
+   * @property {Collection}
+   */
+  collection:null,
+  /**
+  * @property {Boolean} isCollection - is this a listing for a collection or for an assessment
+  */
+  isCollection:null,
 });
