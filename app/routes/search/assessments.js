@@ -9,6 +9,8 @@ export default Ember.Route.extend({
 
   model: function() {
     const term = this.paramsFor('search').term;
+    console.log(term);
+    console.log('term in model hook in assessments route',term);
     var assessmentResults = this.get('searchService').searchAssessments(term);
     return Ember.RSVP.hash({
       assessmentResults: assessmentResults
