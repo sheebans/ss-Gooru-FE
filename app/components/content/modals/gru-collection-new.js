@@ -178,8 +178,8 @@ export default Ember.Component.extend({
     if(this.get('model') && this.get('model').isQuickstart) {
       let className = this.get('model').class.title;
       let courseName = `${className} - Course 1`;
-      let unitName = `${courseName} - Unit 1`;
-      let lessonName = `${unitName} - Lesson 1`;
+      let unitName = `Untitled Unit`;
+      let lessonName = `Untitled Lesson`;
       var course = Course.create(Ember.getOwner(this).ownerInjection(), {title: courseName});
       this.set('course', course);
       var unit = Unit.create(Ember.getOwner(this).ownerInjection(), {title: unitName});
