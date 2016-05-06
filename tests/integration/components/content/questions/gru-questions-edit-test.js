@@ -6,6 +6,7 @@ import wait from 'ember-test-helpers/wait';
 import Question from 'gooru-web/models/content/question';
 import Answer from 'gooru-web/models/content/answer';
 import Assessment from 'gooru-web/models/content/assessment';
+import Collection from 'gooru-web/models/content/collection';
 import Ember from 'ember';
 
 const questionServiceStub = Ember.Service.extend({
@@ -58,7 +59,7 @@ test('it has header and main sections', function (assert) {
   assert.ok($container.find('> section#settings').length, "Settings section");
 });
 
-test('Header when comes from content builder', function (assert) {
+test('Header when comes from content builder return to an assessment', function (assert) {
 
 
   var assessment = Assessment.create(Ember.getOwner(this).ownerInjection(), {
@@ -72,15 +73,37 @@ test('Header when comes from content builder', function (assert) {
   this.set('question', question);
   this.set('assessment', assessment);
 
-  this.render(hbs`{{content/questions/gru-questions-edit question=question collection=assessment}}`);
+  this.render(hbs`{{content/questions/gru-questions-edit question=question collection=assessment isCollection=false}}`);
 
   var $container = this.$("article.content.questions.gru-questions-edit");
   assert.ok($container.length, "Component");
 
   const $header = $container.find('> header');
   assert.ok($header.length, "Header");
-  assert.ok($header.find('.back-to').length, "Should have the option Back to Assessment");
+  assert.ok($header.find('.back-to .return-assessment').length, "Should have the option Back to Assessment");
+});
+test('Header when comes from content builder return to an assessment', function (assert) {
 
+
+  var collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Assessment Title",
+    id:"123445566"
+  });
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing'
+  });
+
+  this.set('question', question);
+  this.set('collection', collection);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question collection=collection isCollection=true}}`);
+
+  var $container = this.$("article.content.questions.gru-questions-edit");
+  assert.ok($container.length, "Component");
+
+  const $header = $container.find('> header');
+  assert.ok($header.length, "Header");
+  assert.ok($header.find('.back-to .return-collection').length, "Should have the option Back to Assessment");
 });
 
 test('Update Question Information', function (assert) {
