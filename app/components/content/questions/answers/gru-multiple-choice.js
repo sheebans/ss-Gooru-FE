@@ -54,6 +54,11 @@ export default Ember.Component.extend({
   maxAnswers:10,
 
   /**
+   * Is in edit mode
+   */
+  editMode: false,
+
+  /**
    * @type {Ember.A}
    */
   hasLimitAnswers: Ember.computed('answers.[]', function () {
