@@ -8,6 +8,11 @@ export default Ember.Object.extend({
   /**
    * @property {string}
    */
+  id: null,
+
+  /**
+   * @property {string}
+   */
   text: null,
 
   /**

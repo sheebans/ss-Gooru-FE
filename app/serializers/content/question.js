@@ -53,7 +53,7 @@ export default Ember.Object.extend({
    */
   serializerAnswer: function(answerModel) {
     return {
-      sequence: answerModel.get('sequence'),
+      'sequence': answerModel.get('sequence'),
       'is_correct': answerModel.get('isCorrect') ? 1 : 0,
       'answer_text': answerModel.get('text'),
       'answer_type': answerModel.get('type')
@@ -109,8 +109,9 @@ export default Ember.Object.extend({
    * @returns {Answer}
    */
   normalizeAnswer: function(answerData) {
+    const id = answerData.sequence; //TODO this is risky the ideal scenario would be to have an id
     return AnswerModel.create(Ember.getOwner(this).ownerInjection(),{
-      id: answerData.sequence, // there is not id anymore sequence can be used for this purpose
+      id: `answer_${id}`,
       sequence: answerData.sequence,
       isCorrect: answerData['is_correct'] === 1,
       text: answerData['answer_text'],
