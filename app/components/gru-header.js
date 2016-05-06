@@ -63,7 +63,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
       }
     }.bind(this));
     // Enables the collapse panel for my classes
-    this.$().on('click', '.my-classes', function(e) {
+    this.$().on('click', 'a.my-classes', function(e) {
       var $link = $(this);
       e.preventDefault();
       e.stopPropagation();
