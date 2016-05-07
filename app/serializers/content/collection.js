@@ -55,7 +55,7 @@ export default Ember.Object.extend({
       title: collectionModel.get('title'),
       learning_objective: collectionModel.get('learningObjectives'),
       visible_on_profile: collectionModel.get('isVisibleOnProfile'),
-      thumbnail: cleanFilename(collectionModel.image)
+      thumbnail: cleanFilename(collectionModel.thumbnailUrl)
     };
   },
 

@@ -55,15 +55,15 @@ export default Ember.Component.extend(ContentEditMixin, {
       let collection = component.get('collection');
       editedCollection.validate().then(function ({validations }) {
         if (validations.get('isValid')) {
-          let imageIdPromise = new Ember.RSVP.resolve(editedCollection.get('image'));
-          if(editedCollection.get('image') && editedCollection.get('image') !== collection.get('image')) {
-            imageIdPromise = component.get('mediaService').uploadContentFile(editedCollection.get('image'));
+          let imageIdPromise = new Ember.RSVP.resolve(editedCollection.get('thumbnailUrl'));
+          if(editedCollection.get('thumbnailUrl') && editedCollection.get('thumbnailUrl') !== collection.get('thumbnailUrl')) {
+            imageIdPromise = component.get('mediaService').uploadContentFile(editedCollection.get('thumbnailUrl'));
           }
           imageIdPromise.then(function(imageId) {
-            editedCollection.set('image', imageId);
+            editedCollection.set('thumbnailUrl', imageId);
             component.get('collectionService').updateCollection(editedCollection.get('id'), editedCollection)
               .then(function () {
-                collection.merge(editedCollection, ['title', 'learningObjectives', 'isVisibleOnProfile', 'image']);
+                collection.merge(editedCollection, ['title', 'learningObjectives', 'isVisibleOnProfile', 'thumbnailUrl']);
                 component.set('isEditing', false);
               })
               .catch(function (error) {
