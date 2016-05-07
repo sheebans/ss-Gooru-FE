@@ -10,16 +10,14 @@ test('serializeCreateCollection', function(assert) {
     title: 'collection-title',
     learningObjectives: 'any',
     isVisibleOnProfile: true,
-    image: 'http://test-bucket01.s3.amazonaws.com/image-id.png'
+    thumbnailUrl: 'http://test-bucket01.s3.amazonaws.com/image-id.png'
   });
-  const expected = {
-    title: 'collection-title',
-    learning_objective: 'any',
-    visible_on_profile: true,
-    thumbnail: 'image-id.png'
-  };
   const response = serializer.serializeCreateCollection(collectionObject);
-  assert.deepEqual(expected, response, 'Wrong serialized response');
+  assert.equal(response.title, 'collection-title', "Wrong title");
+  assert.equal(response.learning_objective, 'any', "Wrong learning objective");
+  assert.equal(response.visible_on_profile, true, "Wrong visible on profile");
+  assert.equal(response.thumbnail, 'image-id.png', "Wrong thumbnail");
+
 });
 
 test('serializeUpdateCollection', function(assert) {
@@ -28,16 +26,14 @@ test('serializeUpdateCollection', function(assert) {
     title: 'collection-title',
     learningObjectives: 'any',
     isVisibleOnProfile: false,
-    image: 'http://test-bucket01.s3.amazonaws.com/image-id.png'
+    thumbnailUrl: 'http://test-bucket01.s3.amazonaws.com/image-id.png'
   });
-  const expected = {
-    title: 'collection-title',
-    learning_objective: 'any',
-    visible_on_profile: false,
-    thumbnail: 'image-id.png'
-  };
   const response = serializer.serializeUpdateCollection(collectionObject);
-  assert.deepEqual(expected, response, 'Wrong serialized response');
+  assert.equal(response.title, 'collection-title', "Wrong title");
+  assert.equal(response.learning_objective, 'any', "Wrong learning objective");
+  assert.equal(response.visible_on_profile, false, "Wrong visible on profile");
+  assert.equal(response.thumbnail, 'image-id.png', "Wrong thumbnail");
+
 });
 
 test('normalizeReadCollection', function(assert) {

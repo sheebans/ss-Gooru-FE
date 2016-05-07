@@ -42,7 +42,9 @@
             {{/if}}
         </div>
         <div class="description">
-          {{truncate text=(noTags text=course.description) type='medium-large'}}
+          {{#if course.description}}
+            {{truncate text=(noTags text=course.description) type='medium-large'}}
+          {{/if}}
         </div>
         <div class="visibility">
           {{#unless course.isVisibleOnProfile }}
