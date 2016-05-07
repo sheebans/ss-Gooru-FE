@@ -471,6 +471,7 @@ export default {
         "FIB":"Add up to 5 hints for answer and an explanation.",
         "HS_TXT": "You can add up to ten answers choices and select one or more correct answers.",
         "HT_RO": "You can add up to ten answers choices in the correct order. The order will be scrambled for students.",
+        "MA": "You can add up to ten answers, an image, explanation and up to five hints.",
         "MC":"You can add up to ten answers choices and indicate one correct answer. Character Limit: 200.",
         "OE":"Write the correct response. Character limit: 5000.",
         "T/F":"Select the correct answer."
