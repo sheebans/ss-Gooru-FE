@@ -33,6 +33,7 @@ export default Ember.Component.extend({
 
   actions: {
     selectCourse:function(id){
+      console.log(this.get('model'));
       this.set("selectedCourse", id);
       $('.gru-quick-course-search .selected').removeClass('selected');
       $('.'+id).addClass('selected');
