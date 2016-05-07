@@ -1,7 +1,7 @@
-{{#link-to "profile.about" user.id tagName="span"}}
+{{#link-to "profile.content.courses" user.id tagName="span"}}
   <img class="avatar" src="{{user.avatarUrl}}">
 {{/link-to}}
-{{#link-to "profile.about" user.id tagName="span" class="user-name"}}
+{{#link-to "profile.content.courses" user.id tagName="span" class="user-name"}}
   {{#if user.firstName}}
     <span class="truncate">{{user.firstName}}</span>
     <span class="truncate">{{user.lastName}}</span>

@@ -130,6 +130,16 @@ export default (function() {
     collectionType: null,
 
     /**
+     * @property {boolean}
+     */
+    isCollection: Ember.computed.equal("collectionType", "collection"),
+
+    /**
+     * @property {boolean}
+     */
+    isAssessment: Ember.computed.not("isCollection"),
+
+    /**
      * @property {Ember.Array} resources - An children alias property
      */
     resources: Ember.computed.alias('children'),

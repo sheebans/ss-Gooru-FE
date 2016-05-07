@@ -58,6 +58,20 @@ const Question = Ember.Object.extend(Validations, {
   text: null,
 
   /**
+   * @property {string}
+   */
+  description: Ember.computed.alias("text"),
+
+  /**
+   * Returns the FIB text
+   * @property {string}
+   */
+  fibText: Ember.computed("text", function(){
+    const regExp = /(\[[^\[\]]+\])+/gi;
+    return this.get("text").replace(regExp, "_______");
+  }),
+
+  /**
    * @property {number}
    */
   order: null,

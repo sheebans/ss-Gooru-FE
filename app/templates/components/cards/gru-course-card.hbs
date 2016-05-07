@@ -45,9 +45,9 @@
           {{truncate text=(noTags text='course.description') type='medium-large'}}
         </div>
         <div class="visibility">
-          {{#if course.isVisibleOnProfile }}
+          {{#unless course.isVisibleOnProfile }}
             {{gru-icon name="visibility_off"}}
-          {{/if}}
+          {{/unless}}
         </div>
     </div>
   </div>

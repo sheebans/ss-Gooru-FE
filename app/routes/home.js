@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 /**
- * User route
+ * Home route
  *
  * @module
  * @augments Ember.Route

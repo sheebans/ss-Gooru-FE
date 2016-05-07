@@ -80,7 +80,7 @@ Router.map(function() {
   });
 
 
-  this.route('user');
+  this.route('home');
 
   this.route('api'); //development api for testing end points
 

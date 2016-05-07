@@ -204,7 +204,7 @@ export default Ember.Object.extend({
     return QuestionModel.create({
       id: questionData.id,
       title: questionData.title,
-      description: questionData.description,
+      text: questionData.description,
       format: questionData.content_format,
       type:format,
       publishStatus: questionData.publish_status,

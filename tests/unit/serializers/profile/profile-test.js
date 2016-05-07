@@ -220,6 +220,7 @@ test('normalizeQuestion', function(assert) {
   const question = serializer.normalizeQuestion(questionData, owners);
   assert.equal(question.get("id"), 'f59eff43-767d-4910-af5a-b7dc9a5ce065', 'Wrong id');
   assert.equal(question.get("title"), 'Introduction to Java', 'Wrong title');
+  assert.equal(question.get("text"), 'Some description', 'Wrong description');
   assert.equal(question.get("description"), 'Some description', 'Wrong description');
   assert.equal(question.get("publishStatus"), 'unpublished', 'Wrong publish status');
   assert.equal(question.get("format"), 'question', 'Wrong format');

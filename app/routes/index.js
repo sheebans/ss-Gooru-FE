@@ -30,7 +30,7 @@ export default Ember.Route.extend({
       if (this.get('session.userData.isNew')) {
         this.transitionTo('sign-up-finish');
       } else {
-        this.transitionTo('user');
+        this.transitionTo('home');
       }
     }
   }

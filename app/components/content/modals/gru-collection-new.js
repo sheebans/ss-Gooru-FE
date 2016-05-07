@@ -161,7 +161,15 @@ export default Ember.Component.extend({
 
   closeModal: function(collectionId) {
     this.triggerAction({ action: 'closeModal' });
-    this.get('router').transitionTo('content.collections.edit', collectionId);
+
+    const courseId = this.get("model.courseId");
+    if (courseId){
+      const queryParams = { queryParams: { courseId: courseId } };
+      this.get('router').transitionTo('content.collections.edit', collectionId, queryParams);
+    }
+    else{
+      this.get('router').transitionTo('content.collections.edit', collectionId);
+    }
   },
 
   showErrorMessage: function(error){
