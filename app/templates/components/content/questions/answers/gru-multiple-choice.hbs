@@ -8,7 +8,7 @@
         {{#if editMode}}
            {{validation.gru-textarea  model=answer valuePath='text' rows=2 maxLength=200}}
         {{else}}
-          <p>{{answer.text}}</p>
+          <p>{{{answer.text}}}</p>
         {{/if}}
     </div>
     {{#if editMode}}

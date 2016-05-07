@@ -1,5 +1,5 @@
 import Ember from 'ember';
-
+import {QUESTION_TYPES} from 'gooru-web/config/question';
 /**
  * Resource Model
  *
