@@ -61,7 +61,7 @@ export default Ember.Component.extend(ContentEditMixin, {
             component.get('courseService').updateCourse(editedCourse)
 
               .then(function () {
-                course.merge(editedCourse, ['title', 'isVisibleOnProfile', 'image']);
+                course.merge(editedCourse, ['title', 'isVisibleOnProfile', 'image', 'description']);
                 component.set('isEditing', false);
               })
 

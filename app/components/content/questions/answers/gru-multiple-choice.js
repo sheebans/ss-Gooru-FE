@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import Answer from 'gooru-web/models/content/answer';
-import { generateUUID } from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -17,7 +16,6 @@ export default Ember.Component.extend({
     //Add new answer choice
     addNewChoice:function(){
      var newChoice = Answer.create(Ember.getOwner(this).ownerInjection(),{
-        'id': generateUUID(),
         'text': null,
         'isCorrect': false,
         'type':"text",

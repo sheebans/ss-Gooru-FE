@@ -451,7 +451,8 @@ export default {
     "big-ideas": "Big Ideas",
     "essential-questions": "Essential Questions",
     "information":{
-      "course-title":"Course Title"
+      "course-title":"Course Title",
+      "description":"Description"
     }
   },
   "content.questions.edit": {
