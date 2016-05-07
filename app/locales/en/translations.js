@@ -131,6 +131,7 @@ export default {
       "resource-not-updated": "Oops! Unable to update resource right now. Please try again shortly.",
       "resource-same-host-url": "Resources can not be Gooru's URLs.",
       "resource-title-length": "Title can't be longer than 50 characters.",
+      "select-correct-answer":"Please select the correct answer.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
       "sign-in-google-account-exists": "Please sign-in with Google to access your account.",
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
@@ -277,8 +278,6 @@ export default {
     "timeSpent": "Time Spent",
     "true":"True",
     "type": "Type",
-    "update-thumbnail": "Update Thumbnail",
-    "upload-thumbnail":"Upload Thumbnail",
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
     "unfollow": "Unfollow",
     "unit":"Unit",
@@ -287,6 +286,11 @@ export default {
       one: "Unit",
       other: "Units"
     },
+    "untitled-course": "Course 1",
+    "untitled-lesson": "Untitled Lesson",
+    "untitled-unit": "Untitled Unit",
+    "update-thumbnail": "Update Thumbnail",
+    "upload-thumbnail":"Upload Thumbnail",
     "verified": "Verified",
     "yes": "Yes",
     "warnings": {
@@ -464,9 +468,10 @@ export default {
       "answer":"Answer",
       "answer-instructions":{
         "FIB":"Add up to 5 hints for answer and an explanation.",
-        "MC":"You can add up to ten answers choices and indicate one correct answer. Character Limit: 200.",
         "HS_TXT": "You can add up to ten answers choices and select one or more correct answers.",
         "HT_RO": "You can add up to ten answers choices in the correct order. The order will be scrambled for students.",
+        "MC":"You can add up to ten answers choices and indicate one correct answer. Character Limit: 200.",
+        "OE":"Write the correct response. Character limit: 5000.",
         "T/F":"Select the correct answer."
       },
       "question-instructions":{
@@ -477,6 +482,7 @@ export default {
         "HT_HL":"Write your question. Character limit: 5000.",
         "MC":"Write your question. Character limit: 5000.",
         "MA":"Write your question. Character limit: 5000.",
+        "OE":"Write your question. Character limit: 5000.",
         "T/F":"Write your question. Character limit: 5000."
       }
     }

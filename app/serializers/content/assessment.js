@@ -62,8 +62,10 @@ export default Ember.Object.extend({
       id: assessmentData.id,
       title: assessmentData.title,
       learningObjectives: assessmentData['learning_objective'],
-      isVisibleOnProfile: assessmentData['visible_on_profile'] !== 'undefined' ? assessmentData['visible_on_profile'] : true,
+      isVisibleOnProfile: assessmentData['visible_on_profile'] ? assessmentData['visible_on_profile'] : true,
       children: serializer.normalizeQuestions(assessmentData.question),
+      questionCount: assessmentData.question_count ? assessmentData.question_count : 0,
+      sequence: assessmentData.sequence_id,
       image: assessmentData.thumbnail ? serializer.get('session.cdnUrls.content') + assessmentData.thumbnail : null
       // TODO Add more required properties here...
     });
@@ -72,8 +74,8 @@ export default Ember.Object.extend({
   normalizeQuestions: function(payload) {
     const serializer = this;
     if (Ember.isArray(payload)) {
-      return payload.map(function(item) {
-        return serializer.get('questionSerializer').normalizeReadQuestion(item);
+      return payload.map(function(item, index) {
+        return serializer.get('questionSerializer').normalizeReadQuestion(item, index);
       });
     }
     return [];

@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import Lesson from 'gooru-web/models/content/lesson';
 import Unit from 'gooru-web/models/content/unit';
-import { CREATOR_SYSTEM } from 'gooru-web/config/config';
 
 /**
  * Serializer to support the Unit CRUD operations
@@ -18,7 +17,6 @@ export default Ember.Object.extend({
    */
   serializeCreateUnit: function (unitModel) {
     var unitData =  this.get('serializeUpdateUnit')(unitModel);
-    unitData.creator_system = CREATOR_SYSTEM;
     return unitData;
   },
 

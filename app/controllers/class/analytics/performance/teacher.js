@@ -54,7 +54,7 @@ export default Ember.Controller.extend({
     launchOnAir: function () {
       const currentClass = this.get("classController").class;
       const classId = currentClass.get("id");
-      const courseId = currentClass.get("course");
+      const courseId = currentClass.get("courseId");
       const unitId = this.get("unit.id");
       const lessonId = this.get("lesson.id");
       const collectionId = this.get("collection.id");

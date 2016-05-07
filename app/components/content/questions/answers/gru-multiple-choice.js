@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import Answer from 'gooru-web/models/content/answer';
+import { generateUUID } from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -16,9 +17,11 @@ export default Ember.Component.extend({
     //Add new answer choice
     addNewChoice:function(){
      var newChoice = Answer.create(Ember.getOwner(this).ownerInjection(),{
+        'id': generateUUID(),
         'text': null,
         'isCorrect': false,
-        'type':"text"
+        'type':"text",
+        'sequence': (this.get('answers.length') + 1)
       });
       this.get('answers').pushObject(newChoice);
     },
@@ -48,6 +51,22 @@ export default Ember.Component.extend({
   * */
 
   answers:null,
+  /**
+   * Multiple Choice max answers
+   * */
+  maxAnswers:10,
+
+  /**
+   * Is in edit mode
+   */
+  editMode: false,
+
+  /**
+   * @type {Ember.A}
+   */
+  hasLimitAnswers: Ember.computed('answers.[]', function () {
+    return (this.get('answers').length >= this.get('maxAnswers'));
+  }),
 
   // -------------------------------------------------------------------------
   // Method

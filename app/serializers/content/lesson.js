@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import Lesson from 'gooru-web/models/content/lesson';
 import LessonItem from 'gooru-web/models/content/lessonItem';
-import { CREATOR_SYSTEM } from 'gooru-web/config/config';
 
 /**
  * Serializer to support the Lesson CRUD operations
@@ -18,7 +17,6 @@ export default Ember.Object.extend({
    */
   serializeCreateLesson: function (lessonModel) {
     var lessonData =  this.get('serializeUpdateLesson')(lessonModel);
-    lessonData.creator_system = CREATOR_SYSTEM;
     return lessonData;
   },
 
@@ -63,7 +61,7 @@ export default Ember.Object.extend({
       id: lessonData.lesson_id,
       sequence: lessonData.sequence_id,
       title: lessonData.title,
-      taxonomy: lessonData.taxonomy.slice(0)
+      taxonomy: lessonData.taxonomy ? lessonData.taxonomy.slice(0) : []
     });
   }
 

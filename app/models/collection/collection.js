@@ -1,95 +1,99 @@
 import Ember from 'ember';
-import DS from 'ember-data';
 
 /**
  * @typedef {Object} Collection
  */
 
-export default DS.Model.extend({
+export default Ember.Object.extend({
+
+  /**
+   * @property {string}
+   */
+  id: null,
 
   /**
    * @property {string} Collection's type
    */
-  collectionType: DS.attr('string'),
+  collectionType: null,
 
   /**
    * @property {string} Collection's title
    */
-  title: DS.attr('string'),
+  title: null,
   /**
    * @property {string} Collection's remixes
    */
-  remixes: DS.attr('number'),
+  remixes: null,
   /**
    * @property {string} Collection's views
    */
-  views: DS.attr('number'),
+  views: null,
   /**
    * @property {string} Collection's image url
    */
-  imageUrl: DS.attr('string'),
+  imageUrl: null,
   /**
    * @property {string} Collection's url
    */
-  url: DS.attr('string'),
+  url: null,
   /**
    * @property {string} Collection's author
    */
-  author: DS.attr('string'),
+  author: null,
   /**
    * @property {string} Collection's author id
    */
-  authorId: DS.attr('string'),
+  authorId: null,
   /**
    * @property {Array} List of Collection's Remixed by
    */
-  remixedBy: DS.attr(''),
+  remixedBy: Ember.A(),
   /**
    * @property {string} Collection's Course
    */
-  course: DS.attr('string'),
+  course: null,
 
   /**
    * @property {string} Author's avatar
    */
-  avatarUrl: DS.attr('string'),
+  avatarUrl: null,
   /**
    * @property {string} Author's profile page url
    */
-  profilePageUrl: DS.attr('string'),
+  profilePageUrl: null,
   /**
    * @property {string} Collection's description
    */
-  description: DS.attr('string'),
+  description: null,
   /**
    * @property {number} Total of resources in the collection
    */
-  resourceCount: DS.attr('number'),
+  resourceCount: null,
   /**
    * @property {number} Total of questions in the collection
    */
-  questionCount: DS.attr('number'),
+  questionCount: null,
   /**
    * @property {boolean} It says if collection's owner has a team
    */
-  hasTeam: DS.attr('boolean'),
+  hasTeam: null,
   /**
    * @property {boolean} It says if collection's is visible or not
    */
-  visibility: DS.attr('boolean'),
+  visibility: null,
   /**
    * @property {Array} List of libraries
    */
-  libraries: DS.attr(),
+  libraries: Ember.A(),
   /**
    * @property {Array} List of resources associated to the collection
    */
-  resources: DS.hasMany('resource/resource'),
+  resources: Ember.A(),
 
   /**
    * @property {Array} List of standards associated to the collection
    */
-  standards: DS.hasMany('search/standard'),
+  standards: Ember.A(),
 
   /**
    * @property {boolean} hasResources
@@ -130,7 +134,7 @@ export default DS.Model.extend({
       next = resources.objectAt(index - 1);
     }
     return next;
-},
+  },
 
   /**
    * Gets the resource by id

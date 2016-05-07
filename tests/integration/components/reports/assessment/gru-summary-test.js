@@ -26,7 +26,7 @@ test('it renders', function (assert) {
           order: 1
         },
         correct: false,
-        timeSpent: 20,
+        timeSpent: 20000,
         reaction: 2,
       }),
       QuestionResult.create({
@@ -35,7 +35,7 @@ test('it renders', function (assert) {
           order: 3
         },
         correct: true,
-        timeSpent: 20,
+        timeSpent: 20000,
         reaction: 2
       }),
       QuestionResult.create({
@@ -44,7 +44,7 @@ test('it renders', function (assert) {
           order: 2
         },
         correct: true,
-        timeSpent: 20,
+        timeSpent: 20000,
         reaction: 2
       })
     ],

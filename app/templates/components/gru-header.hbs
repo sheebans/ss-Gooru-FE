@@ -35,17 +35,14 @@
                 {{#link-to 'sign-up' class="btn btn-primary sign-up-button" tagName='button'}} {{t "common.signUp"}} {{/link-to}}
               </li>
             {{else}}
-              <li class="navbar-nav-list visible-md visible-lg">
-                {{#link-to 'index' class="navbar-link home-link"}} {{t "common.home"}} {{/link-to}}
-              </li>
-              {{#if classes}}
+              {{#if activeClasses}}
                 <li class="navbar-nav-list visible-md visible-lg dropdown my-classes">
                   <a class="profile dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <span class="classes">{{t "common.classes"}}</span>
                         {{gru-icon name='keyboard_arrow_down'}}
                     </a>
                     <ul class="dropdown-menu pull-right" role="menu" id="profile-dropdown">
-                      {{#each classes as |class|}}
+                      {{#each activeClasses as |class|}}
                         <li class="navbar-nav-list">
                           {{#link-to 'class.overview' class.id class="navbar-link"}}
                               <span class="class">{{class.title}}</span>
@@ -78,16 +75,13 @@
                       <li class="navbar-nav-list close-menu">
                          <button class="btn dropdown-toggle" data-toggle="dropdown">{{gru-icon name='close'}}</button>
                       </li>
-                      <li class="navbar-nav-list">
-                        {{#link-to 'index' class="navbar-link home-link"}} {{t "common.home"}} {{/link-to}}
-                      </li>
-                      {{#if classes}}
+                      {{#if activeClasses}}
                         <li class="navbar-nav-list">
                           <a class="my-classes">
                             {{t "common.classes"}} {{gru-icon name='keyboard_arrow_down'}} {{gru-icon name='keyboard_arrow_up'}}
                           </a>
                           <ul class="list-group">
-                            {{#each classes as |class|}}
+                            {{#each activeClasses as |class|}}
                               <li class="list-group-item">
                                 {{#link-to 'class.overview' class.id class="navbar-link"}}
                                     <span class="class">{{class.title}}</span>
