@@ -56,6 +56,11 @@ export default Ember.Component.extend({
   onEditCourse: null,
 
   /**
+   * flag that tells if you are owner of card or not.
+   * @property {Boolean}
+   */
+  isOwner : false,
+  /**
    * Edit enabled is a flag for whether the edit button is enabled or not.
    * @property {Boolean}
    */

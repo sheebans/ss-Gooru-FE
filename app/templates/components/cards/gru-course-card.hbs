@@ -6,7 +6,7 @@
       </div>
       <div class="actions">
         {{#if isOwner}}
-          {{#if editEnabled}}
+          {{#if isEditEnabled}}
             <div class="edit-button">
                 <button class="btn btn-block btn-success" {{action 'editCourse'}}>{{t "common.edit"}}</button>
             </div>

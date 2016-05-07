@@ -63,9 +63,10 @@
   .card-info {
     @include flexbox;
     @include flex-direction(column);
+    @include flex-grow(2);
     padding: 20px 18px 0 0;
     position: relative;
-    
+
 
     .header {
       .icon {
