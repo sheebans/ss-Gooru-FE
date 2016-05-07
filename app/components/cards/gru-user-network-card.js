@@ -21,17 +21,13 @@ export default Ember.Component.extend({
   actions: {
     setFollow:function(){
       this.set('isFollowing',true);
-    },
+    }
   },
   // -------------------------------------------------------------------------
   // Properties
   /**
    * @property {User} user
    */
-  user: null,
-  /**
-   * @property {Boolean} isFollowing
-   */
-  isFollowing:false,
+  user: null
 
 });

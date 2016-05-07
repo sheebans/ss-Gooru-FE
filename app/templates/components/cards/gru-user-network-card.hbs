@@ -4,15 +4,15 @@
             <img class="img-responsive" src={{if user.avatarUrl user.avatarUrl "assets/gooru/profile.png"}}>
         </div>
         <div class="user-info">
-            <h6 class="name truncate">Jennifer ajoy{{! user.fullNameInformal }}</h6>
-            <span class="district">Alaska{{user.districtName}}</span>
+            <h6 class="name truncate">{{ user.displayName }}</h6>
+            <span class="district">{{#if user.schoolDistrict}}{{user.schoolDistrict}}{{else}}{{user.country}}{{/if}}</span>
         </div>
     </div>
     <div class="panel-body">
         <div class="following-followers">
             <div class="followers">
                 <div class="count  text-center">
-                    <span>666{{user.totalFollowers}}</span>
+                    <span>{{user.followers}}</span>
                 </div>
                 <div class="description text-center">
                   {{t "cards.gru-profile-card.followers"}}
@@ -20,15 +20,15 @@
             </div>
             <div class="following">
                 <div class="count text-center">
-                    <span>777{{user.totalFollowing}}</span>
+                  <span>{{user.followings}}</span>
                 </div>
                 <div class="description text-center">
-                      {{t "cards.gru-profile-card.following"}}
+                  {{t "cards.gru-profile-card.following"}}
                 </div>
             </div>
         </div>
         <div class="follow-btn">
-            <button class="btn btn-sm {{if isFollowing 'btn-following' 'btn-success'}}"{{action 'setFollow'}}>{{#if isFollowing}}{{t "cards.gru-profile-card.following"}} {{else}}{{t "cards.gru-user-network-card.follow"}}{{/if}}</button>
+            <button class="btn btn-sm {{if user.isFollowing 'btn-following' 'btn-success'}}"{{action 'setFollow'}}>{{#if user.isFollowing}}{{t "cards.gru-profile-card.following"}} {{else}}{{t "cards.gru-user-network-card.follow"}}{{/if}}</button>
         </div>
     </div>
 </div>

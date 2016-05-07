@@ -29,13 +29,14 @@ test('User Network Card Layout', function(assert) {
 });
 test('User Network Card Layout Following User', function(assert) {
   var user =Ember.Object.create({
-    fullNameInformal:"Lisa Keller",
-    districtName:"District Name",
-    totalFollowers:115,
-    totalFollowing:200,
+    displayName:"Lisa Keller",
+    schoolDistrict:"District Name",
+    followers:115,
+    followings:200,
+    isFollowing: true
   });
   this.set('user', user);
-  this.render(hbs`{{cards/gru-user-network-card user=user isFollowing=true}}`);
+  this.render(hbs`{{cards/gru-user-network-card user=user}}`);
   var $component = this.$();
   const $userNetworkCard = $component.find(".gru-user-network-card");
   T.exists(assert, $userNetworkCard.find(".panel-body .follow-btn button.btn-following"), "Missing Following Button");
