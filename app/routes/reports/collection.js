@@ -19,6 +19,8 @@ export default Ember.Route.extend({
 
   collectionService: Ember.inject.service('api-sdk/collection'),
 
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
+
   userService: Ember.inject.service("api-sdk/user"),
 
 
@@ -42,24 +44,28 @@ export default Ember.Route.extend({
   },
 
   model: function (params) {
+    const route = this;
     const classId = params.classId;
     const collectionId = params.collectionId;
     const members = this.get("userService").findMembersByClass(classId);
 
     // Get initialization data from analytics
-    return this.get('collectionService')
-      .findById(collectionId)
-      .then(function (collection) {
+    return Ember.RSVP.hashSettled({
+      assessment: route.get('assessmentService').readAssessment(collectionId),
+      collection: route.get('collectionService').readCollection(collectionId)
+    }).then(function(hash){
+      const collectionFound = hash.assessment.state === 'rejected';
+      let collection = collectionFound ? hash.collection.value : hash.assessment.value;
 
-        return Ember.RSVP.hash({
-          routeParams: Ember.Object.create({
-            classId: classId,
-            collectionId: collectionId
-          }),
-          collection: collection,
-          students: members
-        });
+      return Ember.RSVP.hash({
+        routeParams: Ember.Object.create({
+          classId: classId,
+          collectionId: collectionId
+        }),
+        collection: collection.toPlayerCollection(),
+        students: members
       });
+    });
   },
 
   setupController: function (controller, model) {

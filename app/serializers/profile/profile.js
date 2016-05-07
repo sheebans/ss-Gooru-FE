@@ -204,7 +204,7 @@ export default Ember.Object.extend({
     return QuestionModel.create({
       id: questionData.id,
       title: questionData.title,
-      description: questionData.description,
+      text: questionData.description,
       format: questionData.content_format,
       type:format,
       publishStatus: questionData.publish_status,
@@ -224,11 +224,16 @@ export default Ember.Object.extend({
     const ownerId = collectionData.owner_id;
     const filteredOwners = Ember.A(owners).filterBy("id", ownerId);
     const standards = serializer.normalizeStandards(collectionData.taxonomy || []);
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = collectionData.thumbnail ?
+    basePath + collectionData.thumbnail :
+      '/assets/gooru/collection-default.png'; //TODO configured in properties
+
     return CollectionModel.create({
       id: collectionData.id,
       title: collectionData.title,
       standards: standards,
-      image: collectionData.thumbnail ? serializer.get('session.cdnUrls.content') + collectionData.thumbnail : null,
+      thumbnailUrl: thumbnailUrl,
       publishStatus: collectionData.publish_status,
       learningObjectives: collectionData.learning_objective,
       resourceCount: collectionData.resource_count,
@@ -251,10 +256,15 @@ export default Ember.Object.extend({
     const ownerId = assessmentData.owner_id;
     const filteredOwners = Ember.A(owners).filterBy("id", ownerId);
     const standards = serializer.normalizeStandards(assessmentData.taxonomy || []);
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = assessmentData.thumbnail ?
+    basePath + assessmentData.thumbnail :
+      '/assets/gooru/assessment-default.png'; //TODO configured in properties
+
     return AssessmentModel.create({
       id: assessmentData.id,
       title: assessmentData.title,
-      image: assessmentData.thumbnail ? serializer.get('session.cdnUrls.content') + assessmentData.thumbnail : null,
+      thumbnailUrl: thumbnailUrl,
       standards: standards,
       publishStatus: assessmentData.publish_status,
       learningObjectives: assessmentData.learning_objective,

@@ -55,7 +55,7 @@ export default Ember.Object.extend({
       title: collectionModel.get('title'),
       learning_objective: collectionModel.get('learningObjectives'),
       visible_on_profile: collectionModel.get('isVisibleOnProfile'),
-      thumbnail: cleanFilename(collectionModel.image)
+      thumbnail: cleanFilename(collectionModel.thumbnailUrl)
     };
   },
 
@@ -66,6 +66,11 @@ export default Ember.Object.extend({
    */
   normalizeReadCollection: function(payload) {
     const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = payload.thumbnail ?
+    basePath + payload.thumbnail :
+      '/assets/gooru/collection-default.png'; //TODO configured in properties
+
     return CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: payload.id,
       title: payload.title,
@@ -75,7 +80,7 @@ export default Ember.Object.extend({
       questionCount: payload.question_count ? payload.question_count : 0,
       resourceCount: payload.resource_count ? payload.resource_count : 0,
       sequence: payload.sequence_id,
-      image: payload.thumbnail ? serializer.get('session.cdnUrls.content') + payload.thumbnail : null
+      thumbnailUrl: thumbnailUrl
       // TODO Add more required properties here...
     });
   },

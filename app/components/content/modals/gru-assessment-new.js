@@ -37,7 +37,15 @@ export default NewCollectionModal.extend({
 
   closeModal: function(assessmentId) {
     this.triggerAction({ action: 'closeModal' });
-    this.get('router').transitionTo('content.assessments.edit', assessmentId);
+
+    const courseId = this.get("model.courseId");
+    if (courseId){
+      const queryParams = { queryParams: { courseId: courseId } };
+      this.get('router').transitionTo('content.assessments.edit', assessmentId, queryParams);
+    }
+    else{
+      this.get('router').transitionTo('content.assessments.edit', assessmentId);
+    }
   },
 
   showErrorMessage: function(error) {

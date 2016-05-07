@@ -144,7 +144,15 @@ export default Ember.Component.extend({
   onNewResource: function(newResourceId){
     const component = this;
     component.triggerAction({ action: 'closeModal' });
-    component.get('router').transitionTo('content.resources.edit', newResourceId);
+
+    const collectionId = this.get("model.id");
+    if (collectionId){
+      const queryParams = { queryParams: { collectionId: collectionId } };
+      component.get('router').transitionTo('content.resources.edit', newResourceId, queryParams);
+    }
+    else{
+      component.get('router').transitionTo('content.resources.edit', newResourceId);
+    }
   },
 
   /**

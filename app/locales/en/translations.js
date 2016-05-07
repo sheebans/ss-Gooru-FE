@@ -791,8 +791,8 @@ export default {
     "gru-navigation": {
       "about": "About",
       "about-you": "About You",
-      "content": "Content",
-      "network": "Network"
+      "library": "Library",
+      "followers": "Followers"
     },
     "edit": {
       "select-district": "Select a district..."

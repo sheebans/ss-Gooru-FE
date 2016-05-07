@@ -3,7 +3,7 @@ import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 import T from 'gooru-web/tests/helpers/assert';
 
-moduleForAcceptance('Acceptance | user', {
+moduleForAcceptance('Acceptance | home', {
   beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: false,
@@ -16,10 +16,10 @@ moduleForAcceptance('Acceptance | user', {
 });
 
 test('Layout', function(assert) {
-  visit('/user');
+  visit('/home');
 
   andThen(function() {
-    assert.equal(currentURL(), '/user');
+    assert.equal(currentURL(), '/home');
 
     const $userContainer = find(".controller.user");
     T.exists(assert, $userContainer, "Missing user container");

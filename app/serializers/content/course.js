@@ -76,6 +76,11 @@ export default Ember.Object.extend({
   */
   normalizeCourse: function(payload) {
     const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = payload.thumbnail ?
+      basePath + payload.thumbnail :
+      '/assets/gooru/course-default.png'; //TODO configured in properties
+
     return CourseModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: payload.id,
       children: serializer.get('unitSerializer').normalizeUnits(payload.unit_summary),
@@ -84,7 +89,7 @@ export default Ember.Object.extend({
       isVisibleOnProfile: payload['visible_on_profile'],
       subject: payload.subject_bucket,
       taxonomy: payload.taxonomy ? payload.taxonomy.slice(0) : null,
-      thumbnailUrl: payload.thumbnail ? serializer.get('session.cdnUrls.content') + payload.thumbnail : null,
+      thumbnailUrl: thumbnailUrl,
       title: payload.title,
       unitCount: payload.unit_count ? payload.unit_count : 0
       // TODO More properties will be added here...

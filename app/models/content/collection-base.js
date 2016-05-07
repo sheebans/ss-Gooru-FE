@@ -49,11 +49,6 @@ export default (function() {
     }),
 
     /**
-     * @property {String} image - Collection image url
-     */
-    image: null,
-
-    /**
      * @property {String} subject
      */
     subject: null,
@@ -110,9 +105,8 @@ export default (function() {
 
     /**
      * @property {string} thumbnailUrl - The thumbnail url
-     * //TODO resolve url
      */
-    thumbnailUrl: Ember.computed.alias("image"),
+    thumbnailUrl: null,
 
     /**
      * @property {string} course - The name of the course which this collection belongs to
@@ -128,6 +122,16 @@ export default (function() {
      * @property {string} assessment|collection
      */
     collectionType: null,
+
+    /**
+     * @property {boolean}
+     */
+    isCollection: Ember.computed.equal("collectionType", "collection"),
+
+    /**
+     * @property {boolean}
+     */
+    isAssessment: Ember.computed.not("isCollection"),
 
     /**
      * @property {Ember.Array} resources - An children alias property

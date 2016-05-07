@@ -32,6 +32,14 @@ export default Ember.Controller.extend({
     },
 
     /**
+     * Edit content action, when clicking Edit content on Class Overview
+     * @param {Content/Course}
+     */
+    editContent: function(){
+      this.transitionToRoute("content.courses.edit", this.get("course.id"));
+    },
+
+    /**
      * Triggered when a filter option is selected
      * @param {string} option
      */

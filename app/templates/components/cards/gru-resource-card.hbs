@@ -4,7 +4,7 @@
         <i class="{{resource.format}}-icon"></i>
         <div class="collection-info">
           <div>
-            <h6 class="title truncate" alt="{{resource.title}}">{{resource.title}}</h6>
+            <h6 class="title truncate" alt="{{{resource.title}}}">{{{resource.title}}}</h6>
           </div>
           {{#if isQuestion}}
             <div class="question-type">
@@ -31,13 +31,13 @@
           <img class="img-responsive" src="assets/gooru/profile.png">
       {{/if}}
         <div class="publisher-name">
-          {{#link-to 'profile.about' resource.owner.id target="_blank"}}
+          {{#link-to 'profile.content.courses' resource.owner.id}}
             {{resource.owner.displayName}}
           {{/link-to}}
         </div>
     </div>
     <div class="description">
-      <p class="truncate">{{{ resource.description }}}</p>
+      <p class="truncate">{{{if resource.isFIB resource.fibText resource.description }}}</p>
     </div>
   </div>
   <div class="panel-footer">

@@ -106,7 +106,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      */
     signIn: function () {
       this.send('updateUserClasses'); // Required to get list of classes after login
-      this.transitionTo("user");
+      this.transitionTo("home");
     },
 
     /**

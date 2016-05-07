@@ -17,7 +17,7 @@ test('Course Card Layout', function(assert) {
     'subjects': ['Science'],
     'imageUrl': '/assets/gooru/profile.png',
     'isPublished':true,
-    'isVisibleOnProfile':true,
+    'isVisibleOnProfile':false,
     'remixedBy':  Ember.A([Ember.Object.create({
       'email': 'user_1@test.com',
       'firstName': 'firstname-1',
@@ -159,7 +159,7 @@ test('Click Remix', function(assert) {
     'subjects': ['Science'],
     'imageUrl': '/assets/gooru/profile.png',
     'isPublished':true,
-    'isVisibleOnProfile':true,
+    'isVisibleOnProfile':false,
     'remixedBy':  Ember.A([Ember.Object.create({
       'email': 'user_1@test.com',
       'firstName': 'firstname-1',
@@ -208,7 +208,7 @@ test('Course Card Layout Owner and Public', function(assert) {
     'subjects': ['Science'],
     'imageUrl': '/assets/gooru/profile.png',
     'isPublished':true,
-    'isVisibleOnProfile':true,
+    'isVisibleOnProfile':false,
     'remixedBy':  Ember.A([Ember.Object.create({
       'email': 'user_1@test.com',
       'firstName': 'firstname-1',
@@ -260,7 +260,7 @@ test('Course Card Layout Owner and Private', function(assert) {
     'subjects': ['Science'],
     'imageUrl': '/assets/gooru/profile.png',
     'isPublished':false,
-    'isVisibleOnProfile':false,
+    'isVisibleOnProfile':true,
     'remixedBy':  Ember.A([Ember.Object.create({
       'email': 'user_1@test.com',
       'firstName': 'firstname-1',
@@ -312,7 +312,7 @@ test('Click Edit', function(assert) {
     'subjects': ['Science'],
     'imageUrl': '/assets/gooru/profile.png',
     'isPublished':true,
-    'isVisibleOnProfile':true,
+    'isVisibleOnProfile':false,
     'remixedBy':  Ember.A([Ember.Object.create({
       'email': 'user_1@test.com',
       'firstName': 'firstname-1',
