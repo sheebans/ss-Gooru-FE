@@ -58,6 +58,11 @@ export default Ember.Object.extend({
    */
   normalizeReadAssessment: function(assessmentData){
     var serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = payload.thumbnail ?
+    basePath + payload.thumbnail :
+      '/assets/gooru/assessment-default.png'; //TODO configured in properties
+
     return AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
       id: assessmentData.id,
       title: assessmentData.title,
@@ -66,7 +71,7 @@ export default Ember.Object.extend({
       children: serializer.normalizeQuestions(assessmentData.question),
       questionCount: assessmentData.question_count ? assessmentData.question_count : 0,
       sequence: assessmentData.sequence_id,
-      image: assessmentData.thumbnail ? serializer.get('session.cdnUrls.content') + assessmentData.thumbnail : null
+      thumbnailUrl: thumbnailUrl
       // TODO Add more required properties here...
     });
   },

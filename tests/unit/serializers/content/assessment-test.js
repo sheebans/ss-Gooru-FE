@@ -57,7 +57,7 @@ test('normalizeReadAssessment', function(assert) {
   const assessment = serializer.normalizeReadAssessment(assessmentData);
   assert.equal(assessment.get('id'), 'assessment-id', 'Wrong id');
   assert.equal(assessment.get('title'), 'assessment-title', 'Wrong title');
-  assert.equal(assessment.get('image'), 'http://test-bucket01.s3.amazonaws.com/image-id.png', 'Wrong image');
+  assert.equal(assessment.get('thumbnailUrl'), 'http://test-bucket01.s3.amazonaws.com/image-id.png', 'Wrong image');
   assert.equal(assessment.get('learningObjectives'), 'learning-objectives', 'Wrong learningObjectives');
   assert.equal(assessment.get('isVisibleOnProfile'), true, 'Wrong isVisibleOnProfile');
 });

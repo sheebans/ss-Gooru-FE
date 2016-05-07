@@ -1,7 +1,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="image">
-            <a {{action "openContentPlayer" collection.id}}><img class="img-responsive" src="{{if collection.image collection.image "assets/gooru/profile.png"}}"></a>
+            <a {{action "openContentPlayer" collection.id}}><img class="img-responsive" src="{{collection.thumbnailUrl}}"></a>
         </div>
         <div class="collection-info">
             <a {{action "openContentPlayer" collection.id}}> <h6 class="title truncate" alt="{{ collection.title }}">{{ collection.title }}</h6></a>
