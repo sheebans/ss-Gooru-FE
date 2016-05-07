@@ -4,7 +4,7 @@
     {{#link-to (if (eq model.format 'question') 'content.questions.edit' 'content.resources.edit') model.id (query-params collectionId=collection.id isCollection=isCollection) class="title"}}
       <i class="{{model.format}}-icon"></i>
       <div>
-        <strong>{{model.title}}</strong>
+        <strong>{{{model.title}}}</strong>
         {{#if (eq model.format 'question')}}
           <span>{{t "common.question"}} | {{t (concat "common.question-type." model.type)}}</span>
         {{else}}

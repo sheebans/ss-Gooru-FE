@@ -59,7 +59,7 @@ test('Course Card Layout', function(assert) {
   T.exists(assert, $courseCard.find(".remixed"), "Missing Remixed By");
   T.exists(assert, $courseCard.find(".users-teaser"), "Missing users teaser");
   T.exists(assert, $courseCard.find(".remix-button  button"), "Missing remix button");
-  T.notExists(assert, $courseCard.find(".visibility  .gru-icon"), "Missing visibility icon");
+  T.exists(assert, $courseCard.find(".visibility  .gru-icon"), "Missing visibility icon");
 });
 test('Course Card Private', function(assert) {
   var course = Ember.Object.create({
@@ -238,7 +238,7 @@ test('Course Card Layout Owner and Public', function(assert) {
 
   this.set('course', course);
   assert.expect(9);
-  this.render(hbs`{{cards/gru-course-card course=course isOwner=true }}`);
+  this.render(hbs`{{cards/gru-course-card course=course isOwner=true isEditEnabled=true}}`);
 
   var $component = this.$(); //component dom element
   const $courseCard = $component.find(".gru-course-card");
@@ -290,7 +290,7 @@ test('Course Card Layout Owner and Private', function(assert) {
 
   this.set('course', course);
   assert.expect(9);
-  this.render(hbs`{{cards/gru-course-card course=course isOwner=true }}`);
+  this.render(hbs`{{cards/gru-course-card course=course isOwner=true isEditEnabled=true}}`);
 
   var $component = this.$(); //component dom element
   const $courseCard = $component.find(".gru-course-card");
@@ -347,7 +347,7 @@ test('Click Edit', function(assert) {
     assert.equal(course.get("id"), "1", "Wrong course id");
   });
 
-  this.render(hbs`{{cards/gru-course-card course=course isOwner=true onEditCourse='editCourse'}}`);
+  this.render(hbs`{{cards/gru-course-card course=course isOwner=true isEditEnabled=true onEditCourse='editCourse'}}`);
   var $component = this.$(); //component dom element
   var $editButton = $component.find(".edit-button button");
   $editButton.click();

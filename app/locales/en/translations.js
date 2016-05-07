@@ -278,8 +278,6 @@ export default {
     "timeSpent": "Time Spent",
     "true":"True",
     "type": "Type",
-    "update-thumbnail": "Update Thumbnail",
-    "upload-thumbnail":"Upload Thumbnail",
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
     "unfollow": "Unfollow",
     "unit":"Unit",
@@ -288,6 +286,11 @@ export default {
       one: "Unit",
       other: "Units"
     },
+    "untitled-course": "Course 1",
+    "untitled-lesson": "Untitled Lesson",
+    "untitled-unit": "Untitled Unit",
+    "update-thumbnail": "Update Thumbnail",
+    "upload-thumbnail":"Upload Thumbnail",
     "verified": "Verified",
     "yes": "Yes",
     "warnings": {
@@ -448,7 +451,8 @@ export default {
     "big-ideas": "Big Ideas",
     "essential-questions": "Essential Questions",
     "information":{
-      "course-title":"Course Title"
+      "course-title":"Course Title",
+      "description":"Description"
     }
   },
   "content.questions.edit": {

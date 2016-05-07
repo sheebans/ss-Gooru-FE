@@ -70,7 +70,7 @@ export default Ember.Object.extend({
       id: payload.id,
       title: payload.title,
       learningObjectives: payload['learning_objective'],
-      isVisibleOnProfile: payload['visible_on_profile'] ? payload['visible_on_profile'] : true,
+      isVisibleOnProfile: (payload['visible_on_profile'] !== undefined) ? payload['visible_on_profile'] : true,
       children: serializer.normalizeResources(payload.content),
       questionCount: payload.question_count ? payload.question_count : 0,
       resourceCount: payload.resource_count ? payload.resource_count : 0,
