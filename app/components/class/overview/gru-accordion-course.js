@@ -218,12 +218,12 @@ export default Ember.Component.extend(AccordionMixin, {
     const classId = this.get('currentClass.id');
     const courseId = this.get('currentClass.course');
     const units = this.get('units');
-    /*
+
     var component = this;
     if(component.get('isTeacher')) {
       return component.getTeacherUnits(classId, courseId, units);
     }
-    */
+
     return this.get('performanceService').findStudentPerformanceByCourse(userId, classId, courseId, units);
   },
 
