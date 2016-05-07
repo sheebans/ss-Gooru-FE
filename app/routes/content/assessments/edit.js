@@ -18,7 +18,7 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Events
-  resetController(controller, isExiting, transition) {
+  resetController(controller, isExiting) {
     if (isExiting) {
       controller.set('courseId', undefined);
     }
