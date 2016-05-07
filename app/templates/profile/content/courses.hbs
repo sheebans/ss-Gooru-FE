@@ -5,7 +5,7 @@
   </div>
   <div class="course-content">
     {{#each courses as |course|}}
-      {{cards.gru-course-card course=course isEditEnabled=isMyProfile onEditCourse="editCourse"}}
+      {{cards.gru-course-card course=course isEditEnabled=isMyProfile isOwner=isMyProfile onEditCourse="editCourse"}}
     {{/each}}
   </div>
 </div>
