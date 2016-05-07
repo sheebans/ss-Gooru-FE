@@ -20,6 +20,16 @@ export default Ember.Route.extend({
    */
   session: Ember.inject.service("session"),
 
+  // -------------------------------------------------------------------------
+  // Events
+  resetController(controller, isExiting, transition) {
+    if (isExiting) {
+      controller.set('collectionId', undefined);
+      controller.set('isCollection', undefined);
+    }
+  },
+
+
 
   // -------------------------------------------------------------------------
   // Methods
