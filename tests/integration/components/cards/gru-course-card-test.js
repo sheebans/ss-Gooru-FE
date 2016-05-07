@@ -260,7 +260,7 @@ test('Course Card Layout Owner and Private', function(assert) {
     'subjects': ['Science'],
     'imageUrl': '/assets/gooru/profile.png',
     'isPublished':false,
-    'isVisibleOnProfile':false,
+    'isVisibleOnProfile':true,
     'remixedBy':  Ember.A([Ember.Object.create({
       'email': 'user_1@test.com',
       'firstName': 'firstname-1',

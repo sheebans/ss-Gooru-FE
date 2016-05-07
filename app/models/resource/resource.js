@@ -82,9 +82,9 @@ export default Ember.Object.extend({
    * Returns the FIB text
    * @property {string}
    */
-  fibText: Ember.computed(function(){
+  fibText: Ember.computed("text", function(){
     const regExp = /(\[[^\[\]]+\])+/gi;
-    return this.get("text").replace(regExp, "_______");
+    return this.get("text") ? this.get("text").replace(regExp, "_______") : null;
   }),
 
   /**
@@ -130,55 +130,55 @@ export default Ember.Object.extend({
    * @property {boolean} indicates if the question is multiple choice type
    * @see components/player/gru-multiple-choice.js
    */
-  isMultipleChoice: Ember.computed.equal('questionType', 'MC'),
+  isMultipleChoice: Ember.computed.equal('questionType', QUESTION_TYPES.multipleChoice),
 
   /**
    * @property {boolean} indicates if the question is multiple answer type
    * @see components/player/gru-multiple-answer.js
    */
-  isMultipleAnswer: Ember.computed.equal('questionType', 'MA'),
+  isMultipleAnswer: Ember.computed.equal('questionType', QUESTION_TYPES.multipleAnswer),
 
   /**
    * @property {boolean} indicates if the question is true false type
    * @see components/player/gru-true-false.js
    */
-  isTrueFalse: Ember.computed.equal('questionType', 'T/F'),
+  isTrueFalse: Ember.computed.equal('questionType', QUESTION_TYPES.trueFalse),
 
   /**
    * @property {boolean} indicates if the question is open ended type
    * @see components/player/gru-open-ended.js
    */
-  isOpenEnded: Ember.computed.equal('questionType', 'OE'),
+  isOpenEnded: Ember.computed.equal('questionType', QUESTION_TYPES.openEnded),
 
   /**
    * @property {boolean} indicates if the question is fill in the blank type
    * @see components/player/gru-fib.js
    */
-  isFIB: Ember.computed.equal('questionType', 'FIB'),
+  isFIB: Ember.computed.equal('questionType', QUESTION_TYPES.fib),
 
   /**
    * @property {boolean} indicates if the question is hot spot text type
    * @see components/player/gru-hot-spot-text.js
    */
-  isHotSpotText: Ember.computed.equal('questionType', 'HS_TXT'),
+  isHotSpotText: Ember.computed.equal('questionType', QUESTION_TYPES.hotSpotText),
 
   /**
    * @property {boolean} indicates if the question is hot spot image type
    * @see components/player/gru-hot-spot-image.js
    */
-  isHotSpotImage: Ember.computed.equal('questionType', 'HS_IMG'),
+  isHotSpotImage: Ember.computed.equal('questionType', QUESTION_TYPES.hotSpotImage),
 
   /**
    * @property {boolean} indicates if the question is reorder
    * @see components/player/gru-reorder.js
    */
-  isHotTextReorder: Ember.computed.equal('questionType', 'HT_RO'),
+  isHotTextReorder: Ember.computed.equal('questionType', QUESTION_TYPES.hotTextReorder),
 
   /**
    * @property {boolean} indicates if the question is hot spot text
    * @see components/player/gru-hot-text-highlight.js
    */
-  isHotTextHighlight: Ember.computed.equal('questionType', 'HT_HL'),
+  isHotTextHighlight: Ember.computed.equal('questionType', QUESTION_TYPES.hotTextHighlight),
 
   /**
    * @property {boolean} indicates if the question is hot text word type

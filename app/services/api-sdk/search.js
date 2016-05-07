@@ -16,7 +16,7 @@ export default Ember.Service.extend({
 
   init: function () {
     this._super(...arguments);
-    this.set('searchSerializer', SearchSerializer.create());
+    this.set('searchSerializer', SearchSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('searchAdapter', SearchAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
