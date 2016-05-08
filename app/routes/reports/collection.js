@@ -21,7 +21,7 @@ export default Ember.Route.extend({
 
   assessmentService: Ember.inject.service('api-sdk/assessment'),
 
-  userService: Ember.inject.service("api-sdk/user"),
+  classService: Ember.inject.service("api-sdk/class"),
 
 
   // -------------------------------------------------------------------------
@@ -47,7 +47,6 @@ export default Ember.Route.extend({
     const route = this;
     const classId = params.classId;
     const collectionId = params.collectionId;
-    const members = this.get("userService").findMembersByClass(classId);
 
     // Get initialization data from analytics
     return Ember.RSVP.hashSettled({
@@ -63,22 +62,23 @@ export default Ember.Route.extend({
           collectionId: collectionId
         }),
         collection: collection.toPlayerCollection(),
-        students: members
+        classMembers: route.get('classService').readClassMembers(classId)
       });
     });
   },
 
   setupController: function (controller, model) {
     // Create an instance of report data to pass to the controller.
+    const students = model.classMembers.get("members");
     var reportData = ReportData.create({
-      students: model.students,
+      students: students,
       resources: model.collection.get('resources')
     });
 
     controller.setProperties({
       routeParams: model.routeParams,
       assessment: model.collection,
-      students: model.students
+      students: students
     });
 
     // Because there's an observer on reportData, it's important set all other controller properties beforehand
