@@ -129,6 +129,12 @@ export default Ember.Object.extend(Validations,{
   username: null,
 
   /**
+   * @property {string} code - The profile code
+   * //TODO this should come from BE
+   */
+  code: Ember.computed.alias("username"),
+
+  /**
    * @property {string} usernameAsync - Used to validate on submit
    */
   usernameAsync: null,
