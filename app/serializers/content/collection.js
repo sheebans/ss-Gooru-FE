@@ -3,7 +3,7 @@ import { cleanFilename } from 'gooru-web/utils/utils';
 import CollectionModel from 'gooru-web/models/content/collection';
 import ResourceSerializer from 'gooru-web/serializers/content/resource';
 import QuestionSerializer from 'gooru-web/serializers/content/question';
-
+import { DEFAULT_IMAGES } from "gooru-web/config/config";
 
 /**
  * Serializer to support the Collection CRUD operations for API 3.0
@@ -61,15 +61,14 @@ export default Ember.Object.extend({
 
   /**
    * Normalize the Collection data into a Collection object
-   * @param questionData
+   * @param payload
    * @returns {Question}
    */
   normalizeReadCollection: function(payload) {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = payload.thumbnail ?
-    basePath + payload.thumbnail :
-      '/assets/gooru/collection-default.png'; //TODO configured in properties
+    basePath + payload.thumbnail : DEFAULT_IMAGES.COLLECTION;
 
     return CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: payload.id,

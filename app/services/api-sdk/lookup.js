@@ -18,7 +18,7 @@ export default Ember.Service.extend({
 
   init: function () {
     this._super(...arguments);
-    this.set('lookupSerializer', LookupSerializer.create());
+    this.set('lookupSerializer', LookupSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('lookupAdapter', LookupAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 

@@ -182,23 +182,6 @@ test('normalizeStandards', function(assert) {
 });
 
 
-test('normalizeOwner', function(assert) {
-  const serializer = this.subject();
-  const ownerData = {
-    "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
-    "firstname": "Sachin",
-    "lastname": "Zope",
-    "thumbnail_path": "any"
-  };
-
-  const owner = serializer.normalizeOwner(ownerData);
-  assert.equal(owner.get("id"), 'f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d', 'Wrong id');
-  assert.equal(owner.get("firstName"), 'Sachin', 'Wrong first name');
-  assert.equal(owner.get("lastName"), 'Zope', 'Wrong last name');
-  assert.equal(owner.get("avatarUrl"), 'any', 'Wrong avatar url');
-});
-
-
 test('normalizeQuestion', function(assert) {
   const serializer = this.subject();
   const owners = [Ember.Object.create({

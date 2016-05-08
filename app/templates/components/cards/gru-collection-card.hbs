@@ -31,14 +31,14 @@
               {{#if isAssessment}}
                 {{#link-to 'profile.content.courses' collection.owner.id tagName="div"}}
                   <span class="title">{{t "cards.gru-course-card.created"}}</span>
-                  <img class="img-responsive" src="{{if collection.owner.avatarUrl collection.owner.avatarUrl "assets/gooru/profile.png"}}">
+                  <img class="img-responsive" src="{{collection.owner.avatarUrl}}">
                   <span>{{collection.owner.displayName}}</span>
                 {{/link-to}}
               {{else}}
                 {{#if collection.owner}}
                   {{#link-to 'profile.content.courses' collection.owner.id tagName="div"}}
                     <span class="title">{{t "cards.gru-course-card.remixed-by"}}</span>
-                    <img class="img-responsive" src="{{if collection.owner.avatarUrl collection.owner.avatarUrl "assets/gooru/profile.png"}}">
+                    <img class="img-responsive" src="{{collection.owner.avatarUrl}}">
                     <span>{{collection.owner.displayName}}</span> {{#if collection.remixCount}}+{{collection.remixCount}}{{/if}}
                   {{/link-to}}
                 {{/if}}
