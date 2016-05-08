@@ -132,7 +132,16 @@ export default Ember.Object.extend(Validations,{
    * @property {string} code - The profile code
    * //TODO this should come from BE
    */
-  code: Ember.computed.alias("username"),
+  code: Ember.computed("username", function(){
+    const username = this.get("username");
+    if (username) {
+      return username;
+    }
+    else {
+      const uuid = this.get("id").split("-");
+      return uuid.length >= 3 ? uuid[3] : uuid;
+    }
+  }),
 
   /**
    * @property {string} usernameAsync - Used to validate on submit
