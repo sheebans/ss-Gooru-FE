@@ -28,7 +28,11 @@
             </div>
         </div>
         <div class="follow-btn">
+          {{#if followings}}
+            <button class="btn btn-sm btn-info"{{action 'unFollow'}}>{{t "common.unfollow"}}</button>
+          {{else}}
             <button class="btn btn-sm {{if user.isFollowing 'btn-following' 'btn-success'}}"{{action 'setFollow'}}>{{#if user.isFollowing}}{{t "cards.gru-profile-card.following"}} {{else}}{{t "cards.gru-user-network-card.follow"}}{{/if}}</button>
+          {{/if}}
         </div>
     </div>
 </div>

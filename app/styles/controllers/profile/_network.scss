@@ -8,14 +8,16 @@
       }
     }
   }
-  .network-followers {
+  .network-followers,
+  .network-followings {
     padding: 30px 0 0 0;
     text-align: center;
     @media (min-width: $screen-sm) {
       padding: 30px 0 0 30px;
       text-align: left;
     }
-    > .followers {
+    > .followers,
+    > .followings {
       margin: 0 auto;
       float: none;
       padding: 0;
