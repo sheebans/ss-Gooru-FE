@@ -270,7 +270,7 @@ export default Ember.Object.extend({
       learningObjectives: assessmentData.learning_objective,
       questionCount: assessmentData.question_count,
       remixCount: assessmentData.remix_count, //TODO missing on API
-      course: assessmentData.course_title,
+      course: assessmentData.course ? assessmentData.course.title : '',
       isVisibleOnProfile: assessmentData.visible_on_profile,
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
