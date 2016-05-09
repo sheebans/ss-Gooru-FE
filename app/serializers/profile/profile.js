@@ -239,7 +239,7 @@ export default Ember.Object.extend({
       resourceCount: collectionData.resource_count,
       questionCount: collectionData.question_count,
       remixCount: collectionData.remix_count, //TODO missing on API
-      course: collectionData.course_title,
+      course: collectionData.course ? collectionData.course.title : '',
       isVisibleOnProfile: collectionData.visible_on_profile,
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
