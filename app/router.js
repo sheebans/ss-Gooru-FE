@@ -99,6 +99,7 @@ Router.map(function() {
     });
 
     this.route('network', function() {
+      this.route('followings');
       this.route('followers');
     });
   });

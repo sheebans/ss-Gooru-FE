@@ -77,7 +77,7 @@ test('menu option selection updates when navigating between sections', function 
 
       click($menu.find('.network'));
       andThen(function () {
-        assert.equal(currentURL(), '/pochita/network');
+        assert.equal(currentURL(), '/pochita/network/followings');
         assert.ok(!$menu.find('.about').hasClass('selected'), 'Menu option \'about\' should no longer be selected');
         assert.ok($menu.find('.network').hasClass('selected'), 'Menu option \'network\' should now be selected');
       });
