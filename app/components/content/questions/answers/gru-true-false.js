@@ -34,13 +34,11 @@ export default Ember.Component.extend({
         Answer.create(Ember.getOwner(this).ownerInjection(),{
           'text': this.get('i18n').t('common.true').string,
           'isCorrect': true,
-          'type':"text",
-          'sequence': 1
+          'type':"text"
         }), Answer.create(Ember.getOwner(this).ownerInjection(),{
           'text': this.get('i18n').t('common.false').string,
           'isCorrect': false,
-          'type':"text",
-          'sequence': 2
+          'type':"text"
         })
       ]);
       this.set('answers',options);
