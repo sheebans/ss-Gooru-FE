@@ -56,9 +56,9 @@
             {{/if}}
             </div>
             <div class="visibility">
-              {{#if collection.isVisibleOnProfile }}
+              {{#unless collection.isVisibleOnProfile }}
                 {{gru-icon name="visibility_off" class='pull-right'}}
-              {{/if}}
+              {{/unless}}
             </div>
         </div>
     </div>

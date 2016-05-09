@@ -2,11 +2,7 @@
   <div class="panel-heading">
     <h3>{{plus-one index}}</h3>
     {{#link-to (if model.isCollection 'content.collections.edit' 'content.assessments.edit')  model.id (query-params courseId=courseId)  class="title"}}
-      {{#if model.image}}
-        <img class="img-rounded" src="{{model.image}}" />
-      {{else}}
-        <span class="image-placeholder"></span>
-      {{/if}}
+      <img class="img-rounded" src="{{model.thumbnailUrl}}" />
       <div>
         <strong>{{model.title}}</strong>
         <span>{{model.format}}</span>
