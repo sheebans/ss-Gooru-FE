@@ -1,0 +1,36 @@
+.questions.answers.gru-hs-image{
+  .add-answer, .gru-image{
+    width:106px;
+    height:124px ;
+    border-radius: 4px;
+  }
+
+  .hs-container{
+    float:left;
+    margin-right: 10px;
+    .letter-container,.panel{
+      display:inline-block;
+    }
+    .letter-container{
+      vertical-align: top;
+    }
+    .content.gru-image{
+      margin-right: 0px;
+    }
+  }
+  .add-answer{
+    float:left;
+    a {
+      cursor:pointer;
+      width: 100%;
+      border: 2px dashed $gray-light;
+      border-radius: 6px;
+      margin-top: 10px;
+      color: $gray;
+      display: block;
+      padding: 20px;
+      text-align: center;
+    }
+  }
+
+}
