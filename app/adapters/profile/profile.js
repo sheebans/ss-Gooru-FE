@@ -188,7 +188,7 @@ export default Ember.Object.extend({
    * @param username
    * @returns {*|Promise}
    */
-  forgotPassword: function (username) {
+  forgotPassword: function (email) {
     const adapter = this;
     const namespace = adapter.get('usersNamespace');
     const url = `${namespace}/password-reset`;
@@ -198,7 +198,7 @@ export default Ember.Object.extend({
       dataType: 'text',
       processData: false,
       headers: adapter.defineHeaders(),
-      data: JSON.stringify({"email_id": username})
+      data: JSON.stringify({"email_id": email})
     };
 
     return Ember.$.ajax(url, options);

@@ -495,18 +495,18 @@ test('readAssessments', function(assert) {
 
 test('forgotPassword', function(assert) {
   const service = this.subject();
-  const expectedUsername = 'username';
+  const expectedEmail = 'email-id';
   assert.expect(1);
 
   service.set('profileAdapter', Ember.Object.create({
-    forgotPassword: function(username) {
-      assert.equal(username, expectedUsername, "Wrong username");
+    forgotPassword: function(email) {
+      assert.equal(email, expectedEmail, "Wrong email");
       return Ember.RSVP.resolve({});
     }
   }));
 
   var done = assert.async();
-  service.forgotPassword(expectedUsername)
+  service.forgotPassword(expectedEmail)
     .then(function() {
       done();
     });

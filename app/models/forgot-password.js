@@ -2,11 +2,11 @@ import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations({
-  username: {
+  email: {
     validators: [
       validator('presence', {
         presence: true,
-        message: 'Please enter a username.'
+        message: 'Please enter an email.'
       })
     ]
   }
@@ -20,8 +20,8 @@ const Validations = buildValidations({
 export default Ember.Object.extend(Validations,{
 
   /**
-   * @property {string} username - The profile username
+   * @property {string} email - The profile email
    */
-  username: null
+  email: null
 
 });
