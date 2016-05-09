@@ -58,12 +58,11 @@ test('serializeUpdateQuestion', function(assert) {
 test('serializeAnswer', function(assert) {
   const serializer = this.subject();
   const answer = AnswerModel.create({
-    sequence: 1,
     isCorrect: true,
     text: 'Answer #1 text',
     type: 'text'
   });
-  const response = serializer.serializerAnswer(answer);
+  const response = serializer.serializerAnswer(answer, 1);
 
   assert.equal(response.sequence, 1, 'Wrong sequence');
   assert.equal(response['is_correct'], 1, 'Wrong is_correct');

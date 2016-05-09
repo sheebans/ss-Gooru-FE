@@ -21,13 +21,17 @@
   #information {
     .title-section {
       display:flex;
-      .title,.question-types{
-        width: 49%;
-      }
-      .title {
-        label {
+      .title{
+        width: 60%;
+        label{
           width: 100%;
+          .gru-input.title{
+            width: 92%;
+          }
         }
+      }
+      .question-types{
+        width: 40%;
       }
       .question-types {
         .btn-group {
