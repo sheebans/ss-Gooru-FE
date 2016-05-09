@@ -24,8 +24,7 @@ test('Layout', function(assert) {
     const $contentCourseContainer = find(".controller.network-followers");
     T.exists(assert, $contentCourseContainer, "Missing network followers container");
 
-    //todo
-    //const cards = $contentCourseContainer.find(".followers .card");
-    //assert.equal(cards.length, 6, "Missing cards");
+    const cards = $contentCourseContainer.find(".followers .card");
+    assert.equal(cards.length, 6, "Missing cards");
   });
 });
