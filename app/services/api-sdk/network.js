@@ -18,7 +18,7 @@ export default Ember.Service.extend({
 
   init: function () {
     this._super(...arguments);
-    this.set('networkSerializer', NetworkSerializer.create(Ember.getOwner(this).ownerInjection())));
+    this.set('networkSerializer', NetworkSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('networkAdapter', NetworkAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
