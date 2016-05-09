@@ -1,6 +1,11 @@
 .gru-course-card {
+  @include respond-to(lg) {
+    width: 463px;
+  }
   display: inline-block;
+  height: 183px;
   margin: 5px 12px;
+  width: 336px;
 
   .actions {
     @include flexbox;
@@ -115,12 +120,9 @@
   }
 
   .panel {
-    @include respond-to(lg) {
-      width: 463px;
-    }
     border-radius: 6px;
-    height: 183px;
-    width: 336px;
+    height: 100%;
+    width: 100%;
 
     .panel-body {
       @include flexbox;
