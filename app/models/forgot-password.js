@@ -6,7 +6,8 @@ const Validations = buildValidations({
     validators: [
       validator('presence', {
         presence: true,
-        message: 'Please enter an email.'
+        message: '{{description}}',
+        descriptionKey: 'common.errors.user-email-presence'
       })
     ]
   }
