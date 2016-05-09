@@ -216,7 +216,7 @@ export default Ember.Component.extend(AccordionMixin, {
   getUnitsPerformance: function() {
     const userId = this.get('session.userId');
     const classId = this.get('currentClass.id');
-    const courseId = this.get('currentClass.course');
+    const courseId = this.get('currentClass.courseId');
     const units = this.get('units');
 
     var component = this;
@@ -250,7 +250,7 @@ export default Ember.Component.extend(AccordionMixin, {
    * @returns {Ember.RSVP.Promise}
    */
   getCourseUsers: function() {
-    const courseId = this.get('currentClass.course');
+    const courseId = this.get('currentClass.courseId');
     const component = this;
     return component.get("courseLocationService").findByCourse(courseId, { units: component.get("units")});
   }
