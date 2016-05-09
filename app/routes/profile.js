@@ -61,7 +61,7 @@ export default Ember.Route.extend({
         if (item === 'content'){
           route.transitionTo('profile.' + item + '.courses');
         }else if (item === 'network'){
-          route.transitionTo('profile.' + item + '.followings');
+          route.transitionTo('profile.' + item + '.following');
         }
         else {
           route.transitionTo('profile.' + item);

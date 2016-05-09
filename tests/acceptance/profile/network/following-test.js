@@ -3,7 +3,7 @@ import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 import T from 'gooru-web/tests/helpers/assert';
 
-moduleForAcceptance('Acceptance | profile network followings', {
+moduleForAcceptance('Acceptance | profile network following', {
   beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: false,
@@ -16,10 +16,10 @@ moduleForAcceptance('Acceptance | profile network followings', {
 });
 
 test('Layout', function(assert) {
-  visit('/pochita/network/followings');
+  visit('/pochita/network/following');
 
   andThen(function() {
-    assert.equal(currentURL(), '/pochita/network/followings');
+    assert.equal(currentURL(), '/pochita/network/following');
 
     const $contentCourseContainer = find(".controller.network-followings");
     T.exists(assert, $contentCourseContainer, "Missing network followings container");

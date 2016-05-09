@@ -35,8 +35,8 @@ export default Ember.Component.extend({
    */
   user: null,
   /**
-   * @property {Boolean} followings
+   * @property {Boolean} followingFilter
    */
-  followings: false
+  followingFilter: false
 
 });
