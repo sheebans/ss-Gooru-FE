@@ -183,6 +183,27 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Start the forgot password workflow
+   * @param username
+   * @returns {*|Promise}
+   */
+  forgotPassword: function (username) {
+    const adapter = this;
+    const namespace = adapter.get('usersNamespace');
+    const url = `${namespace}/password-reset`;
+    const options = {
+      type: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({"email_id": username})
+    };
+
+    return Ember.$.ajax(url, options);
+  },
+
 
   defineHeaders: function() {
     return {

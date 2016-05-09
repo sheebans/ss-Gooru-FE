@@ -322,6 +322,23 @@ export default Ember.Service.extend({
         reject
       );
     });
+  },
+
+  /**
+   * Starts the forgot password workflow
+   * @param {string} username - account's username or email
+   * @returns {Ember.RSVP.Promise}
+   */
+  forgotPassword: function(username) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').forgotPassword(username)
+        .then(function() {
+          resolve();
+        }, function(error) {
+          reject(error);
+        });
+    });
   }
 
 });
