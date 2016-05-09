@@ -222,6 +222,7 @@ test('normalizeQuestion', function(assert) {
   const question = serializer.normalizeQuestion(questionData, owners);
   assert.equal(question.get("id"), 'f59eff43-767d-4910-af5a-b7dc9a5ce065', 'Wrong id');
   assert.equal(question.get("title"), 'Introduction to Java', 'Wrong title');
+  assert.equal(question.get("text"), 'Some description', 'Wrong description');
   assert.equal(question.get("description"), 'Some description', 'Wrong description');
   assert.equal(question.get("publishStatus"), 'unpublished', 'Wrong publish status');
   assert.equal(question.get("format"), 'question', 'Wrong format');
@@ -288,7 +289,7 @@ test('normalizeCollection', function(assert) {
   assert.equal(collection.get("id"), '50484e74-ad95-44d5-981a-c18411260233', 'Wrong id');
   assert.equal(collection.get("title"), 'oops poly basics', 'Wrong title');
   assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
-  assert.equal(collection.get("image"), 'content-url/collection.png', 'Wrong image');
+  assert.equal(collection.get("thumbnailUrl"), 'content-url/collection.png', 'Wrong image');
   assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
   assert.equal(collection.get("isVisibleOnProfile"), false, 'Wrong visible on profile');
   assert.equal(collection.get("learningObjectives"), "This is important collection", 'Wrong learning objective');
@@ -331,7 +332,7 @@ test('normalizeAssessment', function(assert) {
   assert.equal(collection.get("id"), '50484e74-ad95-44d5-981a-c18411260233', 'Wrong id');
   assert.equal(collection.get("title"), 'oops poly basics', 'Wrong title');
   assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
-  assert.equal(collection.get("image"), 'content-url/collection.png', 'Wrong image');
+  assert.equal(collection.get("thumbnailUrl"), 'content-url/collection.png', 'Wrong image');
   assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
   assert.equal(collection.get("isVisibleOnProfile"), false, 'Wrong visible on profile');
   assert.equal(collection.get("learningObjectives"), "This is important collection", 'Wrong learning objective');

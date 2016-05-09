@@ -5,6 +5,8 @@ import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Question from 'gooru-web/models/content/question';
 import Answer from 'gooru-web/models/content/answer';
+import Assessment from 'gooru-web/models/content/assessment';
+import Collection from 'gooru-web/models/content/collection';
 import Ember from 'ember';
 
 const questionServiceStub = Ember.Service.extend({
@@ -49,11 +51,59 @@ test('it has header and main sections', function (assert) {
 
   assert.ok($header.find('> nav').length, "Header navigation");
   assert.equal($header.find('> nav > a').length, 3, "Number of header navigation links");
+  assert.notOk($header.find('.back-to').length, "Should not have the option Back to Assessment");
 
   assert.equal($container.find('> section').length, 3, "Number of edit sections");
   assert.ok($container.find('> section#information').length, "Information section");
   assert.ok($container.find('> section#builder').length, "Builder section");
   assert.ok($container.find('> section#settings').length, "Settings section");
+});
+
+test('Header return to an assessment', function (assert) {
+
+
+  var assessment = Assessment.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Assessment Title",
+    id:"123445566"
+  });
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing'
+  });
+
+  this.set('question', question);
+  this.set('assessment', assessment);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question collection=assessment isCollection=false}}`);
+
+  var $container = this.$("article.content.questions.gru-questions-edit");
+  assert.ok($container.length, "Component");
+
+  const $header = $container.find('> header');
+  assert.ok($header.length, "Header");
+  assert.ok($header.find('.back-to .return-assessment').length, "Should have the option Back to Assessment");
+});
+test('Header return to an assessment', function (assert) {
+
+
+  var collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Assessment Title",
+    id:"123445566"
+  });
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing'
+  });
+
+  this.set('question', question);
+  this.set('collection', collection);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question collection=collection isCollection=true}}`);
+
+  var $container = this.$("article.content.questions.gru-questions-edit");
+  assert.ok($container.length, "Component");
+
+  const $header = $container.find('> header');
+  assert.ok($header.length, "Header");
+  assert.ok($header.find('.back-to .return-collection').length, "Should have the option Back to Assessment");
 });
 
 test('Update Question Information', function (assert) {
@@ -182,26 +232,31 @@ test('Layout of the builder section', function (assert) {
 test('Builder Edit', function (assert) {
   assert.expect(12);
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
-    title: null,
-    type:'MC'
+    title: 'Question for testing',
+    type:"MC",
   });
   this.set('question',question);
 
-  this.render(hbs`{{content/questions/gru-questions-edit isBuilderEditing=true question=question}}`);
-
-  var $builderSection = this.$("#builder");
-  assert.ok($builderSection.find('.actions .save').length, "Save button missing");
-  assert.ok($builderSection.find('.actions .cancel').length, "Cancel button missing");
-  assert.ok($builderSection.find('.header h2').length, "Builder title missing");
-  assert.equal($builderSection.find('.header h2').text(),"Builder - "+ this.i18n.t('common.question-type.'+question.type).toString(), "Missing Question label");
-  assert.ok($builderSection.find('.question-text .panel-heading h3').length, "Missing Question label");
-  assert.ok($builderSection.find('.question-text .panel-heading .instructions').length, "Missing Question Instructions");
-  assert.ok($builderSection.find('.question-text .panel-body textarea').length, "Missing text area");
-  assert.ok($builderSection.find('.question-text .panel-body .add-image').length, "Missing add image button");
-  assert.ok($builderSection.find('.question-answer .panel-heading h3').length, "Missing Answer label");
-  assert.ok($builderSection.find('.question-answer .panel-heading .instructions').length, "Missing Answer Instructions");
-  assert.ok($builderSection.find('.question-answer .panel-body .add-hint').length, "Missing add hints button");
-  assert.ok($builderSection.find('.question-answer .panel-body .add-explanation').length, "Missing add explanation button");
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+  const $edit =  $component.find("#builder .actions .edit");
+  var questionType = this.i18n.t('common.question-type.'+question.type).toString();
+  $edit.click();
+  return wait().then(function () {
+    var $builderSection = $component.find("#builder");
+    assert.ok($builderSection.find('.actions .save').length, "Save button missing");
+    assert.ok($builderSection.find('.actions .cancel').length, "Cancel button missing");
+    assert.ok($builderSection.find('.header h2').length, "Builder title missing");
+    assert.equal($builderSection.find('.header h2').text(),"Builder - "+questionType, "Missing Question label");
+    assert.ok($builderSection.find('.question-text .panel-heading h3').length, "Missing Question label");
+    assert.ok($builderSection.find('.question-text .panel-heading .instructions').length, "Missing Question Instructions");
+    assert.ok($builderSection.find('.question-text .panel-body textarea').length, "Missing text area");
+    assert.ok($builderSection.find('.question-text .panel-body .add-image').length, "Missing add image button");
+    assert.ok($builderSection.find('.question-answer .panel-heading h3').length, "Missing Answer label");
+    assert.ok($builderSection.find('.question-answer .panel-heading .instructions').length, "Missing Answer Instructions");
+    assert.ok($builderSection.find('.question-answer .panel-body .add-hint').length, "Missing add hints button");
+    assert.ok($builderSection.find('.question-answer .panel-body .add-explanation').length, "Missing add explanation button");
+  });
 });
 
 test('Validate the character limit in text field', function (assert) {
@@ -420,7 +475,7 @@ test('Update answer text - (drag/drop) Reorder', function (assert) {
     type: QUESTION_TYPES.hotTextReorder,
     answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "Option Text",
-      'isCorrect': null,
+      'isCorrect': true,
       'type':"text"
     })])
   });
@@ -469,7 +524,7 @@ test('Remove answer and cancel - (drag/drop) Reorder', function (assert) {
     type: QUESTION_TYPES.hotTextReorder,
     answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "Option Text A",
-      'isCorrect': null,
+      'isCorrect': true,
       'type':"text"
     }), Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "Option Text B",
@@ -504,6 +559,37 @@ test('Remove answer and cancel - (drag/drop) Reorder', function (assert) {
         var $options = $component.find('.answer-content .answer-text');
         assert.equal($options.length, 2, 'Starting options');
       });
+    });
+  });
+});
+
+
+test('Select one correct answer at least', function(assert) {
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text: "",
+    type: 'MC',
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Option Text A",
+      'isCorrect': false,
+      'type':"text"
+    }), Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Option Text B",
+      'isCorrect': false,
+      'type':"text"
+    })])
+  });
+  this.set('question', question);
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+
+  const $edit = $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+    const $save = $component.find("#builder .actions .save");
+    $save.click();
+    return wait().then(function () {
+      assert.ok($component.find('.missing-correct-answer').length, 'Missing validation for missing correct answer');
     });
   });
 });

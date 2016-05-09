@@ -13,6 +13,8 @@ import ProfileModel from 'gooru-web/models/profile/profile';
  */
 export default Ember.Object.extend({
 
+  session: Ember.inject.service('session'),
+
   /**
    * Normalize the Search collections response
    *
@@ -34,10 +36,16 @@ export default Ember.Object.extend({
    * @returns {Collection}
    */
   normalizeCollection: function (collectionData){
+    const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = collectionData.thumbnail ?
+    basePath + collectionData.thumbnail :
+      '/assets/gooru/collection-default.png'; //TODO configured in properties
+
     return CollectionModel.create({
       id: collectionData.id,
       title: collectionData.title,
-      image: collectionData.thumbnail,
+      thumbnailUrl: thumbnailUrl,
       standards: [],//TODO missing at API response,
       publishStatus: null, //TODO missing at API response,
       learningObjectives: collectionData.languageObjective,
@@ -62,10 +70,16 @@ export default Ember.Object.extend({
    * @returns {Assessment}
    */
   normalizeAssessment: function (assessmentData){
+    const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = assessmentData.thumbnail ?
+    basePath + assessmentData.thumbnail :
+      '/assets/gooru/assessment-default.png'; //TODO configured in properties
+
     return AssessmentModel.create({
       id: assessmentData.id,
       title: assessmentData.title,
-      image: assessmentData.thumbnail,
+      thumbnailUrl: thumbnailUrl,
       standards: [],//TODO missing at API response,
       publishStatus: null, //TODO missing at API response,
       learningObjectives: assessmentData.languageObjective,

@@ -1,75 +1,106 @@
 import Ember from 'ember';
-import DS from 'ember-data';
-
+import {QUESTION_TYPES} from 'gooru-web/config/question';
 /**
  * Resource Model
  *
  * @typedef {Object} Resource
  */
-export default DS.Model.extend({
+export default Ember.Object.extend({
 
-  // Common Fields
-  assetBasePath: Ember.computed('assetUri', 'folder', function() {
-    return this.get('assetUri') + this.get('folder');
-  }),
+  id: null,
 
   /**
    * @property {string} full resource asset url
    */
-  assetUrl: Ember.computed('assetBasePath', 'url', function() {
-    return this.get('assetBasePath') + this.get('url');
-  }),
+  assetUrl: null,
 
   /**
    * Indicates the resoruce type. i.e video/youtube, assessment-question, image/png
    * @property {string} resource type
    */
-  resourceType: DS.attr('string'),
+  resourceType: null,
 
   /**
    * Indicates the resource format. i.e image, text, video, interaction, webpage, question
    * @property {string} resource format
    */
-  resourceFormat: DS.attr('string'),
-  title: DS.attr('string'),
-  description: DS.attr('string'),
+  resourceFormat: null,
+
+  /**
+   * @property {string}
+   */
+  title: null,
+
+  /**
+   * @property {string}
+   */
+  description: null,
 
   /**
    * @property {string} resource thumbnail
    */
-  thumbnail: DS.attr('string'),
-  /**
-   * @property {string} asset URI
-   */
-  assetUri: DS.attr('string'),
-
-  /**
-   * Folder path for the resource url
-   * @property {string} folder
-   */
-  folder: DS.attr('string'),
+  thumbnail: null,
 
   /**
    * Resource asset url, this is the actual resource content url
    * @property {string} folder
    */
-  url: DS.attr('string'),
+  url: null,
 
-  mediaUrl: DS.attr('string'),
-  narration: DS.attr('string'),
-  order: DS.attr('number'),
-  owner: DS.attr(),
+  /**
+   * @property {string}
+   */
+  mediaUrl: null,
 
-  // Question Fields
-  questionType: DS.attr('string'),
-  text: DS.attr('string'),
-  hints: DS.attr(),
-  explanation: DS.attr('string'),
+  /**
+   * @property {string}
+   */
+  narration: null,
+
+  /**
+   * @property {number}
+   */
+  order: null,
+
+  /**
+   * @property
+   */
+  owner: null,
+
+  // ----------------------------------------- Question Fields
+  /**
+   * @property {string}
+   */
+  questionType: null,
+
+  /**
+   * @property {string}
+   */
+  text: null,
+
+  /**
+   * Returns the FIB text
+   * @property {string}
+   */
+  fibText: Ember.computed("text", function(){
+    const regExp = /(\[[^\[\]]+\])+/gi;
+    return this.get("text") ? this.get("text").replace(regExp, "_______") : null;
+  }),
+
+  /**
+   * @property Array
+   */
+  hints: null,
+
+  /**
+   * @property {string}
+   */
+  explanation: null,
 
   /**
    * @property {Answer[]}
    */
-  answers: DS.hasMany('resource/answer'),
+  answers: Ember.A(),
 
   /**
    * Indicates if the question has answers
@@ -80,7 +111,7 @@ export default DS.Model.extend({
   /**
    * @property {*} resource options
    */
-  options: DS.attr(),
+  options: null,
 
   /**
    * @property {string} thumbnail url
@@ -99,55 +130,55 @@ export default DS.Model.extend({
    * @property {boolean} indicates if the question is multiple choice type
    * @see components/player/gru-multiple-choice.js
    */
-  isMultipleChoice: Ember.computed.equal('questionType', 'MC'),
+  isMultipleChoice: Ember.computed.equal('questionType', QUESTION_TYPES.multipleChoice),
 
   /**
    * @property {boolean} indicates if the question is multiple answer type
    * @see components/player/gru-multiple-answer.js
    */
-  isMultipleAnswer: Ember.computed.equal('questionType', 'MA'),
+  isMultipleAnswer: Ember.computed.equal('questionType', QUESTION_TYPES.multipleAnswer),
 
   /**
    * @property {boolean} indicates if the question is true false type
    * @see components/player/gru-true-false.js
    */
-  isTrueFalse: Ember.computed.equal('questionType', 'T/F'),
+  isTrueFalse: Ember.computed.equal('questionType', QUESTION_TYPES.trueFalse),
 
   /**
    * @property {boolean} indicates if the question is open ended type
    * @see components/player/gru-open-ended.js
    */
-  isOpenEnded: Ember.computed.equal('questionType', 'OE'),
+  isOpenEnded: Ember.computed.equal('questionType', QUESTION_TYPES.openEnded),
 
   /**
    * @property {boolean} indicates if the question is fill in the blank type
    * @see components/player/gru-fib.js
    */
-  isFIB: Ember.computed.equal('questionType', 'FIB'),
+  isFIB: Ember.computed.equal('questionType', QUESTION_TYPES.fib),
 
   /**
    * @property {boolean} indicates if the question is hot spot text type
    * @see components/player/gru-hot-spot-text.js
    */
-  isHotSpotText: Ember.computed.equal('questionType', 'HS_TXT'),
+  isHotSpotText: Ember.computed.equal('questionType', QUESTION_TYPES.hotSpotText),
 
   /**
    * @property {boolean} indicates if the question is hot spot image type
    * @see components/player/gru-hot-spot-image.js
    */
-  isHotSpotImage: Ember.computed.equal('questionType', 'HS_IMG'),
+  isHotSpotImage: Ember.computed.equal('questionType', QUESTION_TYPES.hotSpotImage),
 
   /**
    * @property {boolean} indicates if the question is reorder
    * @see components/player/gru-reorder.js
    */
-  isHotTextReorder: Ember.computed.equal('questionType', 'HT_RO'),
+  isHotTextReorder: Ember.computed.equal('questionType', QUESTION_TYPES.hotTextReorder),
 
   /**
    * @property {boolean} indicates if the question is hot spot text
    * @see components/player/gru-hot-text-highlight.js
    */
-  isHotTextHighlight: Ember.computed.equal('questionType', 'HT_HL'),
+  isHotTextHighlight: Ember.computed.equal('questionType', QUESTION_TYPES.hotTextHighlight),
 
   /**
    * @property {boolean} indicates if the question is hot text word type

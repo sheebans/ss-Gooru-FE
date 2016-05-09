@@ -13,7 +13,7 @@
 
       {{else}}
       <span class="answer-text">
-        {{answer.text}}
+        {{{answer.text}}}
       </span>
       {{/if}}
 
@@ -22,7 +22,9 @@
 {{/each}}
 
 {{#if editMode}}
+  {{#unless hasReachedAnswersLimit}}
   <div class="add-answer">
     <a  {{action 'addNewChoice'}}>{{t 'content.questions.edit.builder.add-answer-choice'}}</a>
   </div>
+  {{/unless}}
 {{/if}}

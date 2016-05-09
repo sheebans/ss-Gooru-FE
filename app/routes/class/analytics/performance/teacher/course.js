@@ -43,21 +43,19 @@ export default Ember.Route.extend({
   },
 
   model: function() {
-
-    const classModel = this.modelFor('class');
-    const classId= this.paramsFor('class').classId;
-    const courseId = classModel.course.get("id");
-    const users = classModel.members;
-
-    const units = this.get('unitService').findByClassAndCourse(classId, courseId);
-    const classPerformanceData = this.get('performanceService').findClassPerformance(classId, courseId, users);
+    const classModel = this.modelFor('class').class;
+    const units = this.modelFor('class').units;
+    const classId = classModel.get('id');
+    const courseId = classModel.get('courseId');
+    const members = classModel.get('members');
+    const classPerformanceData = this.get('performanceService').findClassPerformance(classId, courseId, members);
 
     return Ember.RSVP.hash({
       units: units,
       classPerformanceData: classPerformanceData
     });
-
   },
+
   /**
    * Set all controller properties from the model
    * @param controller
@@ -70,10 +68,8 @@ export default Ember.Route.extend({
 
     //updating breadcrumb when navigating back to course
     controller.get("teacherController").updateBreadcrumb(controller.get("course"), "course");
-
     //updating the collectionLevel to show or not the launch anonymous button
     controller.set("teacherController.collectionLevel", false);
-
   }
 
 });

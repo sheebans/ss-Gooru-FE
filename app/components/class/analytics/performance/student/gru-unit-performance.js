@@ -10,6 +10,8 @@ export default Ember.Component.extend({
 
   collectionService: Ember.inject.service('api-sdk/collection'),
 
+  unitService: Ember.inject.service('api-sdk/unit'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -167,7 +169,7 @@ export default Ember.Component.extend({
   loadLessons: function(unitId) {
     const component = this;
     const classId = this.get('classModel.id');
-    const courseId = this.get('classModel.course');
+    const courseId = this.get('classModel.courseId');
     const userId = this.get('userId');
     const hasNoLessons = !this.get('lessons');
 
@@ -181,23 +183,26 @@ export default Ember.Component.extend({
     }
   },
 
-  loadData: function(classId, courseId, unitId, userId){
+  loadData: function(classId, courseId, unitId, userId) {
     const component = this;
-    const lessonsPromise = component.get('lessonService').findByClassAndCourseAndUnit(classId, courseId, unitId);
-    return lessonsPromise.then(function(lessons) {
-      const lessonsPerformancePromises = component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
-        return lessonsPerformancePromises.then(function(lessonPerformances) {
+    return component.get('unitService').fetchById(courseId, unitId)
+      .then(function(unit) {
+        const lessons = unit.get('children');
+        return component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons)
+          .then(function(lessonPerformances) {
             const promises = lessonPerformances.map(function(lessonPerformance) {
               //TODO this should be loaded at the gru-lesson-performance only when the lesson is expanded
               const lessonId = lessonPerformance.get('id');
-              const collectionPromise = component.get('collectionService').findByClassAndCourseAndUnitAndLesson(classId, courseId, unitId, lessonId);
-              return collectionPromise.then(function(collections) {
-                const collectionPerformancePromise = component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections);
-                    return collectionPerformancePromise.then(function(collectionPerformances) {
+              return component.get('lessonService').fetchById(courseId, unitId, lessonId)
+                .then(function(lesson) {
+                  const collections = lesson.get('children');
+                  return component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections)
+                    .then(function(collectionPerformances) {
                       lessonPerformance.set('collections', collectionPerformances);
                     });
                 });
-            });
+              });
+
             //return lesson performances until everything is loaded
             return Ember.RSVP.all(promises).then(function(){
               return lessonPerformances;

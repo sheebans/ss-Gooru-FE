@@ -94,7 +94,7 @@
           }
         }
       }
-      .back-to-course{
+      .back-to{
         color:$white;
         font-size: $font-size-large;
         div{
@@ -335,5 +335,9 @@
     @media(min-width: $screen-lg) {
       max-width: 500px;
     }
+  }
+  #information .description > label {
+    display: block;
+    width:100%;
   }
 }

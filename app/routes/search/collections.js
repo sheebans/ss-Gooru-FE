@@ -24,5 +24,4 @@ export default Ember.Route.extend({
     this._super(controller, model);
     controller.set('collectionResults', model.collectionResults);
   }
-
 });

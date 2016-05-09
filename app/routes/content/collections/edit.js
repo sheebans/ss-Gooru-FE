@@ -17,6 +17,14 @@ export default Ember.Route.extend({
 
   courseService: Ember.inject.service('api-sdk/course'),
 
+  // -------------------------------------------------------------------------
+  // Events
+  resetController(controller, isExiting) {
+    if (isExiting) {
+      controller.set('courseId', undefined);
+    }
+  },
+
 
   // -------------------------------------------------------------------------
   // Methods

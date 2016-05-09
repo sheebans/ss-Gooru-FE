@@ -46,7 +46,7 @@ export default Ember.Component.extend({
      * Action triggered when the user selects the Edit Content option
      */
     editContent: function () {
-      Ember.Logger.log("editContent");
+      this.get("onEditContent")();
     },
 
     /**
@@ -101,6 +101,11 @@ export default Ember.Component.extend({
    * @property {Boolean|Function} onToggleFullScreen - event handler when a  full screen option is selected.
    */
   onToggleFullScreen: null,
+
+  /**
+   * @property {Boolean|Function} onEditContent - event handler when edit content is selected
+   */
+  onEditContent: null,
 
   /**
    * If analytics is fullscreen

@@ -12,6 +12,7 @@ test('Fill in the blank Correct Answer', function(assert) {
   var question = Ember.Object.create({
     questionType: 'FIB',
     text: 'The mountain is _______ and the sky _______',
+    fibText: 'The mountain is _______ and the sky _______',
     hints: [],
     explanation: 'Sample explanation text',
     answers: Ember.A([
@@ -39,6 +40,7 @@ test('Fill in the blank Your Answer Incorrect', function(assert) {
   var question = Ember.Object.create({
     questionType: 'FIB',
     text: 'The mountain is _______ and the sky _______',
+    fibText: 'The mountain is _______ and the sky _______',
     hints: [],
     explanation: 'Sample explanation text',
     answers: Ember.A([
@@ -64,6 +66,7 @@ test('Fill in the blank Your Answer Correct', function(assert) {
   var question = Ember.Object.create({
     questionType: 'FIB',
     text: 'The mountain is _______ and the sky _______',
+    fibText: 'The mountain is _______ and the sky _______',
     hints: [],
     explanation: 'Sample explanation text',
     answers: Ember.A([
@@ -90,6 +93,7 @@ test('Fill in the blank anonymous', function(assert) {
   var question = Ember.Object.create({
     questionType: 'FIB',
     text: 'The mountain is _______ and the sky _______',
+    fibText: 'The mountain is _______ and the sky _______',
     hints: [],
     explanation: 'Sample explanation text',
     answers: Ember.A([

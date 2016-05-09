@@ -1,10 +1,12 @@
 <div class="panel {{if (is-teacher class profile.id) 'teacher' 'student' }}">
   <div class="panel-heading">
-    <h5>{{class.title}}</h5>
+    <div class="title">
+        <h5>{{class.title}}</h5>
+    </div>
     <div class="side-info">
       <span class="code">{{class.code}}</span>
       {{#link-to 'class.overview' class.id class="action"}}
-        <span>{{if (is-teacher class profile.id) (t "common.teach") (t "common.study") }} {{gru-icon name="keyboard_arrow_right"}}</span>
+        <span>{{if (is-teacher class profile.id) (t "common.teach") (t "common.study") }} </span>{{gru-icon name="keyboard_arrow_right"}}
       {{/link-to}}
     </div>
   </div>
@@ -21,7 +23,7 @@
       </div>
     </div>
     <div class="description">
-      <div>{{class.description}}</div>
+      <div>{{class.greeting}}</div>
     </div>
   </div>
 </div>

@@ -38,17 +38,18 @@ export default Ember.Controller.extend({
         positionClass: 'toast-top-full-width sign-in'
       });
 
-      if(controller.get('didValidate')=== false){
-        var username = Ember.$('.gru-input.username input').val();
+      if(controller.get('didValidate') === false) {
+        var username = Ember.$('.gru-input-mixed-validation.username input').val();
         var password = Ember.$('.gru-input.password input').val();
         user.set('username',username);
+        user.set('usernameAsync',username);
         user.set('password',password);
       }
 
       user.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
           controller.get("sessionService")
-            .signInWithUser(user, controller.get('useApi3'))
+            .signInWithUser(user, true)
             .then(function() {
               controller.set('didValidate', true);
               // Trigger action in parent
@@ -59,6 +60,8 @@ export default Ember.Controller.extend({
                 controller.get("notifications").error(errorMessage);
               }
             });
+        } else {
+          controller.set('submitFlag', true);
         }
       });
     }
@@ -66,7 +69,7 @@ export default Ember.Controller.extend({
 
   init(){
     this._super(...arguments);
-    var user = User.create(Ember.getOwner(this).ownerInjection(), {username: null, password: null});
+    var user = User.create(Ember.getOwner(this).ownerInjection(), {username: null, usernameAsync: null, password: null});
     this.set('user', user);
     this.set('googleSignInUrl', Env['google-sign-in'].url);
   },
@@ -76,13 +79,17 @@ export default Ember.Controller.extend({
   // Properties
 
   /**
-   * @type {Course} course
+   * @type {User} user
    */
   user: null,
 
   target: null,
 
-  useApi3: true,
+  /**
+   * Submit has been performed
+   * @property {Boolean}
+   */
+  submitFlag: true,
 
   /**
    * @param {Boolean } didValidate - value used to check if input has been validated or not

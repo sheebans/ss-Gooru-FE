@@ -5,6 +5,9 @@
         <button class="btn dropdown-toggle" data-toggle="dropdown">{{gru-icon name='person'}}{{gru-icon name='keyboard_arrow_down'}}</button>
         <ul class="dropdown-menu">
           <li class="profile-menu-item close"> <button class="btn dropdown-toggle" data-toggle="dropdown">{{gru-icon name='close'}}</button></li>
+          <li class="profile-menu-item content" {{action 'selectItem' 'content'}}>
+            <h6>{{t "profile.gru-navigation.library"}}</h6><i class="gru-icon material-icons content"></i>
+          </li>
           <li class="profile-menu-item about" {{action 'selectItem' 'about'}}>
             {{#if isMyProfile}}
               <h6>{{t "profile.gru-navigation.about-you"}}</h6>
@@ -13,11 +16,8 @@
             {{/if}}
             {{gru-icon name='person'}}
           </li>
-          <li class="profile-menu-item content" {{action 'selectItem' 'content'}}>
-            <h6>{{t "profile.gru-navigation.content"}}</h6><i class="gru-icon material-icons content"></i>
-          </li>
           <li class="profile-menu-item network" {{action 'selectItem' 'network'}}>
-            <h6>{{t "profile.gru-navigation.network"}}</h6><i class="gru-icon material-icons network"></i>
+            <h6>{{t "profile.gru-navigation.followers"}}</h6><i class="gru-icon material-icons network"></i>
           </li>
         </ul>
       </div>
@@ -42,6 +42,10 @@
 
 <div class="md-design hidden-xs hidden-sm">
   <ul class="profile-menu list-group">
+    <li class="list-group-item profile-menu-item content" {{action 'selectItem' 'content'}}>
+      <h6>{{t "profile.gru-navigation.library"}}</h6>
+      <i class="gru-icon material-icons content"></i>
+    </li>
     <li class="list-group-item profile-menu-item about" {{action 'selectItem' 'about'}}>
       {{#if isMyProfile}}
         <h6>{{t "profile.gru-navigation.about-you"}}</h6>
@@ -50,12 +54,8 @@
       {{/if}}
       {{gru-icon name='person'}}
     </li>
-    <li class="list-group-item profile-menu-item content" {{action 'selectItem' 'content'}}>
-      <h6>{{t "profile.gru-navigation.content"}}</h6>
-      <i class="gru-icon material-icons content"></i>
-    </li>
     <li class="list-group-item profile-menu-item network" {{action 'selectItem' 'network'}}>
-      <h6>{{t "profile.gru-navigation.network"}}</h6>
+      <h6>{{t "profile.gru-navigation.followers"}}</h6>
       <i class="gru-icon material-icons network"></i>
     </li>
   </ul>

@@ -29,11 +29,11 @@
         </div>
     </div>
     <div class="description collapse">
-      {{class.description}}
+      {{class.greeting}}
     </div>
     <div class="class-details">
         <div class="active-dates">
-          <span>{{formatDate class.startDate 'MMMM DD, YYYY'}} - {{formatDate class.endDate 'MMMM DD, YYYY'}}</span>
+          <span>{{formatDate class.startDate 'MMMM DD, YYYY'}}</span>
         </div>
         <div class="members">{{gru-icon name='group'}}{{class.countMembers}}</div>
     </div>
@@ -44,7 +44,6 @@
     <div class="active-dates">
         <ul>
             <li>{{formatDate class.startDate 'MMMM DD, YYYY'}}</li>
-            <li>{{formatDate class.endDate 'MMMM DD, YYYY'}}</li>
         </ul>
      </div>
     <div class="members">

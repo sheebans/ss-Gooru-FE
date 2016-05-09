@@ -1,11 +1,8 @@
 import Ember from 'ember';
-import { moduleForModel, test } from 'ember-qunit';
+import { moduleFor, test } from 'ember-qunit';
 
-moduleForModel('resource/resource', 'Unit | Model | resource/resource', {
-  // Specify the other units that are required for this test.
-  needs: [
-    "model:resource/answer"
-  ]
+moduleFor('model:resource/resource', 'Unit | Model | resource/resource', {
+  unit: true
 });
 
 test('thumbnailUrl with no thumbnail', function(assert) {
@@ -177,11 +174,9 @@ test('isHotTextHighlightSentence', function(assert) {
 test('hasAnswers', function(assert) {
   assert.expect(1);
 
-  let store = this.store();
-
   var answers = Ember.A();
   Ember.run(function () {
-    answers.pushObject(store.createRecord("resource/answer", {id: 1}));
+    answers.pushObject(Ember.Object.create({id: 1}));
   });
 
   let model = this.subject({
@@ -191,22 +186,12 @@ test('hasAnswers', function(assert) {
   assert.ok(model.get("hasAnswers"), "It should have answers");
 });
 
-test('assetBasePath', function(assert) {
-  let model = this.subject({
-    assetUri:"uri/",
-    folder:"folder"
-  });
-
-  assert.equal(model.get("assetBasePath"), "uri/folder", "Wrong value for assetBasePath");
-});
-
 test('assetUrl', function(assert) {
   let model = this.subject({
-    assetBasePath:"basePath/",
-    url:"url"
+    assetUrl:"/basePath/url"
   });
 
-  assert.equal(model.get("assetUrl"), "basePath/url", "Wrong value for assetUrl");
+  assert.equal(model.get("assetUrl"), "/basePath/url", "Wrong value for assetUrl");
 });
 
 test('isUrlResource', function(assert) {

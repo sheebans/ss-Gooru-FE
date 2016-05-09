@@ -22,11 +22,14 @@ export default Ember.Object.extend({
     return this.get('format') === CONTENT_TYPES.COLLECTION;
   }),
 
+  isAssessment: Ember.computed.not("isCollection"),
+
   /**
    * @property {String} format - Type of lesson item
    */
   format: '',
 
+  collectionType: Ember.computed.alias("format"),
   /**
    * @property {Number} questionCount - total number of questions in the lesson
    */

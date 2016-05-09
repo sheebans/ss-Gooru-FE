@@ -1,8 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
 import Course from 'gooru-web/models/content/course';
-import Unit from 'gooru-web/models/content/unit';
-import { CREATOR_SYSTEM } from 'gooru-web/config/config';
 
 moduleFor('serializer:content/course', 'Unit | Serializer | content/course');
 
@@ -24,8 +22,7 @@ test('serializeCreateCourse', function(assert) {
     thumbnail: 'image-id.png',
     visible_on_profile: course.isVisibleOnProfile,
     taxonomy: [],
-    'subject_bucket': course.subject,
-    'creator_system': CREATOR_SYSTEM
+    'subject_bucket': course.subject
   };
   const courseObject = serializer.serializeCreateCourse(course);
   assert.deepEqual(courseObject, expected, 'Serializer response');
@@ -73,8 +70,8 @@ test('normalizeCourse', function (assert) {
     "original_course_id": null,
     "publish_status": "unpublished",
     "publish_date": null,
-    "thumbnail": "thumbnail.png",
     "metadata": null,
+    "thumbnail": "thumbnail.png",
     "taxonomy": [
       "taxonomy_value"
     ],
@@ -103,35 +100,18 @@ test('normalizeCourse', function (assert) {
       }
     ]
   };
-  var expected = Course.create(Ember.getOwner(this).ownerInjection(), {
-    children: [
-      Unit.create(Ember.getOwner(this).ownerInjection(), {
-        id: payload.unit_summary[0].unit_id,
-        sequence: payload.unit_summary[0].sequence_id,
-        title: payload.unit_summary[0].title,
-        essentialQuestions: undefined,
-        bigIdeas: undefined
-      }),
-      Unit.create(Ember.getOwner(this).ownerInjection(), {
-        id: payload.unit_summary[1].unit_id,
-        sequence: payload.unit_summary[1].sequence_id,
-        title: payload.unit_summary[1].title,
-        essentialQuestions: undefined,
-        bigIdeas: undefined
-      })
-    ],
-    description: payload.description,
-    id: payload.id,
-    isPublished: false,
-    isVisibleOnProfile: payload.visible_on_profile,
-    subject: payload.subject_bucket,
-    taxonomy: payload.taxonomy.slice(0),
-    thumbnailUrl: contentCdnUrl + payload.thumbnail,
-    title: payload.title,
-    unitCount: 0
-  });
   const normalizedCourse = serializer.normalizeCourse(payload);
-  assert.deepEqual(normalizedCourse, expected, 'Wrong normalized Course');
+  assert.equal(normalizedCourse.get("id"), 'course-id', 'Wrong id');
+  assert.equal(normalizedCourse.get("title"), 'Course title', 'Wrong title');
+  assert.equal(normalizedCourse.get("description"), 'Course description', 'Wrong description');
+  assert.equal(normalizedCourse.get("isPublished"), false, 'Wrong isPublished');
+  assert.equal(normalizedCourse.get("isVisibleOnProfile"), true, 'Wrong isVisibleOnProfile');
+  assert.equal(normalizedCourse.get("subject"), 'subject_bucket_value', 'Wrong subject');
+  assert.equal(normalizedCourse.get("taxonomy"), 'taxonomy_value', 'Wrong taxonomy');
+  assert.equal(normalizedCourse.get("unitCount"), 0, 'Wrong unitCount');
+  assert.equal(normalizedCourse.get("children.length"), 2, 'Wrong children length');
+  assert.equal(normalizedCourse.get("children")[0].get("id"), 'unit-id-1', 'Wrong first children id');
+  assert.equal(normalizedCourse.get("thumbnailUrl"), contentCdnUrl + 'thumbnail.png', 'Wrong thumbnailUrl');
 });
 
 test('normalizeGetCourses', function(assert) {
@@ -193,32 +173,6 @@ test('normalizeGetCourses', function(assert) {
       "offset": 0
     }
   };
-  const expected = [
-    Course.create(Ember.getOwner(this).ownerInjection(), {
-      children: [],
-      description: undefined,
-      id: coursesPayload.courses[0].id,
-      isPublished: false,
-      isVisibleOnProfile: coursesPayload.courses[0].visible_on_profile,
-      subject: undefined,
-      taxonomy: coursesPayload.courses[0].taxonomy.slice(0),
-      thumbnailUrl: contentCdnUrl + coursesPayload.courses[0].thumbnail,
-      title: coursesPayload.courses[0].title,
-      unitCount: coursesPayload.courses[0].unit_count
-    }),
-    Course.create(Ember.getOwner(this).ownerInjection(), {
-      children: [],
-      description: undefined,
-      id: coursesPayload.courses[1].id,
-      isPublished: true,
-      isVisibleOnProfile: coursesPayload.courses[1].visible_on_profile,
-      subject: undefined,
-      taxonomy: coursesPayload.courses[1].taxonomy.slice(0),
-      thumbnailUrl: null,
-      title: coursesPayload.courses[1].title,
-      unitCount: 0
-    })
-  ];
   const normalizedCourses = serializer.normalizeGetCourses(coursesPayload);
-  assert.deepEqual(normalizedCourses, expected, 'Wrong normalized response');
+  assert.equal(normalizedCourses.get("length"), 2, 'Wrong number of courses');
 });

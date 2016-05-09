@@ -84,7 +84,7 @@ test('updateCollection', function(assert) {
   service.updateCollection(expectedCollectionId, expectedCollectionModel).then(function() { done(); });
 });
 
-test('findByClassAndCourseAndUnitAndLesson', function (assert) {
+/*test('findByClassAndCourseAndUnitAndLesson', function (assert) {
   const service = this.subject();
   const response = [
       {
@@ -192,7 +192,7 @@ test('findById', function (assert) {
       done();
     });
   });
-});
+});*/
 
 test('addResource', function(assert) {
   const service = this.subject();

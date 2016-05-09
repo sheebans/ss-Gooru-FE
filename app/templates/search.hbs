@@ -1,26 +1,26 @@
-<div class="controller search">
+<div class="controller search row">
   <div class="content-navigation">
     <div class="category-menu col-md-10 col-sm-12 col-xs-12">
       <ul class="nav nav-tabs category-options">
-        {{#link-to "search.collections" tagName="li" class='collections'}}
+        {{#link-to "search.collections" (query-params term=term) tagName="li" class='collections'}}
           <a href='{{view.href}}' class="btn btn-category">
             <i class="icon"></i>
             <span>{{t "search-filter.collections"}}</span>
           </a>
         {{/link-to}}
-        {{#link-to "search.assessments" tagName="li" class='assessments'}}
+        {{#link-to "search.assessments" (query-params term=term) tagName="li" class='assessments'}}
           <a href='{{view.href}}' class="btn btn-category">
             <i class="icon"></i>
             <span>{{t "search-filter.assessments"}}</span>
           </a>
         {{/link-to}}
-        {{#link-to "search.resources" tagName="li" class='resources'}}
+        {{#link-to "search.resources" (query-params term=term) tagName="li" class='resources'}}
           <a href='{{view.href}}' class="btn btn-category">
             <i class="icon"></i>
             <span>{{t "search-filter.resources"}}</span>
           </a>
         {{/link-to}}
-        {{#link-to "search.questions" tagName="li" class='questions'}}
+        {{#link-to "search.questions" (query-params term=term) tagName="li" class='questions'}}
           <a href='{{view.href}}' class="btn btn-category">
             {{gru-icon name='help_outline'}}
             <span>{{t "search-filter.questions"}}</span>
@@ -38,4 +38,3 @@
     {{outlet}}
   </div>
 </div>
-

@@ -10,7 +10,16 @@ const Validations = buildValidations({
         descriptionKey: 'common.errors.add-course-title'
       })
     ]
-  }
+  },
+  description: {
+  validators: [
+    validator('length', {
+      max: 500,
+      message: '{{description}}',
+      descriptionKey: 'common.warnings.character-limit'
+    })
+  ]
+}
 });
 
 /**
@@ -36,12 +45,6 @@ export default Ember.Object.extend(Validations, {
   children: [],
 
   /**
-   * @property {String} image - Course image url
-   */
-  // TODO This property will be replaced by thumbnailUrl
-  image: '',
-
-  /**
    * @property {String} title
    */
   title: '',
@@ -54,7 +57,7 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {String} Course thumbnail url
    */
-  thumbnailUrl: Ember.computed.alias("image"),
+  thumbnailUrl: null,
 
   /**
    * @property {Boolean} Is this course visible on profile

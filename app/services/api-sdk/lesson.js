@@ -128,7 +128,7 @@ export default Ember.Service.extend(StoreMixin, {
    * @param {string} courseId - course the lesson belongs to
    * @param {string} unitId - unit the lesson belongs to
    * @param {string} lessonId - lesson ID to search for
-   * @returns {Promise|Content/Unit}
+   * @returns {Promise|Content/Lesson}
    */
   fetchById: function (courseId, unitId, lessonId) {
     return this.get('adapter').getLessonById({
