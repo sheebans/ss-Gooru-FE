@@ -146,7 +146,7 @@ test('it renders correctly when there are no units', function(assert) {
   // Class with no units per stub
   const currentClass = Ember.Object.create({
     id: "111-111-111",
-    course: "999-999-999"
+    courseId: "999-999-999"
   });
 
   this.set('currentClass', currentClass);
@@ -178,7 +178,7 @@ test('it renders correctly when there are units', function(assert) {
   // Class with units per stub
   const currentClass = Ember.Object.create({
     id: "111-333-555",
-    course: "222-444-666"
+    courseId: "222-444-666"
   });
 
   this.set('currentClass', currentClass);
