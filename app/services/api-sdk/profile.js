@@ -4,6 +4,7 @@ import CourseSerializer from 'gooru-web/serializers/content/course';
 import ProfileAdapter from 'gooru-web/adapters/profile/profile';
 import ProfileCoursesAdapter from 'gooru-web/adapters/profile/courses';
 import AvailabilityAdapter from 'gooru-web/adapters/profile/availability';
+import { NETWORK_TYPE } from 'gooru-web/config/config';
 
 /**
  * Service to support the Profile CRUD operations
@@ -335,6 +336,40 @@ export default Ember.Service.extend({
       service.get('profileAdapter').forgotPassword(email)
         .then(function() {
           resolve();
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
+  /**
+   * Return the list of profiles the user is following
+   * @param userId
+   * @returns {Ember.RSVP.Promise}
+   */
+  readFollowing: function(userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readNetwork(userId, NETWORK_TYPE.FOLLOWING)
+        .then(function(response) {
+          resolve(service.get('profileSerializer').normalizeReadNetwork(response, NETWORK_TYPE.FOLLOWING));
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
+  /**
+   * Return the list of profiles that are following the user
+   * @param userId
+   * @returns {Ember.RSVP.Promise}
+   */
+  readFollowers: function(userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readNetwork(userId, NETWORK_TYPE.FOLLOWERS)
+        .then(function(response) {
+          resolve(service.get('profileSerializer').normalizeReadNetwork(response, NETWORK_TYPE.FOLLOWERS));
         }, function(error) {
           reject(error);
         });

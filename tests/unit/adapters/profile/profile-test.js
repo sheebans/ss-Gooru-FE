@@ -224,6 +224,29 @@ test('readAssessments', function(assert) {
     });
 });
 
+test('readNetwork', function(assert) {
+  const adapter = this.subject();
+  const userId = "user-id";
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  const routes = function() {
+    this.get('/api/nucleus/v1/profiles/user-id/network', function() {
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  };
+
+  this.pretender.map(routes);
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  adapter.readNetwork(userId, '')
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});
+
 test('forgotPassword', function(assert) {
   const adapter = this.subject();
   const email = "email-id";
