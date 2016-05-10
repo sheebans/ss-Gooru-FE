@@ -20,43 +20,41 @@
      }
 
      .letter-container{
-       padding: 10px 0 10px 0;
        width: 3.5em;
-       margin-right: 10px;
+       border-right: 1px solid $gray-light;
+       margin: 1% 0;
        h3 {
          display: inline-block;
-         margin: 0;
+         margin: 50% 0px;
          padding: 0px 18px 0px 18px;
-         border-right: 1px solid $gray-light;
          font-weight: bold;
-         line-height: 2.5;
-         vertical-align: top;
        }
      }
 
      .text-area-container{
+       margin-left: 10px;
        width: 86%;
-       max-height: 4.9em;
+       min-height: 4.9em;
        margin-top: 5px;
        .gru-textarea{
          .form-group{
            margin-bottom: 0;
            textarea{
-             height: 2em;
+             height: 4em;
              outline: none;
              resize: none;
            }
          }
        }
        p{
-         margin: 10px 0 0 15px;
+         margin: 10px 0 10px 10px;
        }
      }
      .check{
-       height: 4.9em;
+       min-height: 4.9em;
        width: 4.1em;
        text-align: center;
-       line-height: 5.8;
+       height: auto;
      }
      button.check {
        outline: none;
@@ -72,7 +70,10 @@
        color:$dark-200;
      }
      div.check.correct{
+       padding: 10px 0 10px 0;
+       margin: auto 0;
        color:$green-300;
+       line-height: 3.4;
      }
    }
  }

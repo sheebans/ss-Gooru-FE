@@ -2,6 +2,13 @@
   @extend .questions.answers.gru-multiple-choice;
   .panel{
     .answer-content{
+      max-height: 4.9em;
+      .letter-container{
+        h3 {
+          line-height: 0.5;
+        }
+      }
+
       .text-area-container.read-only{
         width: 88%;
         margin-top: 10px;
@@ -11,6 +18,12 @@
           outline: none;
           resize: none;
         }
+      }
+      button.check{
+        margin: 0;
+      }
+      div.check.correct{
+        line-height: 4.5;
       }
     }
   }
