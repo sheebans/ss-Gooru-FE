@@ -103,6 +103,7 @@ test('normalizeCourse', function (assert) {
   const normalizedCourse = serializer.normalizeCourse(payload);
   assert.equal(normalizedCourse.get("id"), 'course-id', 'Wrong id');
   assert.equal(normalizedCourse.get("title"), 'Course title', 'Wrong title');
+  assert.equal(normalizedCourse.get("owner"), 'owner-id', 'Owner');
   assert.equal(normalizedCourse.get("description"), 'Course description', 'Wrong description');
   assert.equal(normalizedCourse.get("isPublished"), false, 'Wrong isPublished');
   assert.equal(normalizedCourse.get("isVisibleOnProfile"), true, 'Wrong isVisibleOnProfile');
