@@ -5,8 +5,7 @@ import ResourceModel from 'gooru-web/models/content/resource';
 import AssessmentModel from 'gooru-web/models/content/assessment';
 import QuestionModel from 'gooru-web/models/content/question';
 import CollectionModel from 'gooru-web/models/content/collection';
-import { NETWORK_TYPE } from 'gooru-web/config/config';
-import { DEFAULT_IMAGES } from "gooru-web/config/config";
+import { NETWORK_TYPE, DEFAULT_IMAGES } from 'gooru-web/config/config';
 
 /**
  * Serializer to support the Profile CRUD operations for API 3.0
@@ -302,7 +301,7 @@ export default Ember.Object.extend({
     return standards.map(function(standard){
       return Ember.Object.create({ code: standard, description: null });
     });
-  }
+  },
 
   /**
    * Normalize the network details list
