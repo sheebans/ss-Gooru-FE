@@ -7,7 +7,7 @@
 
   .hs-container{
     float:left;
-    margin-right: 10px;
+    margin-right: 25px;
     margin-bottom: 30px;
     .panel{
       margin-top: 12px;
@@ -56,6 +56,13 @@
         .check.correct{
           color:$green-300;
         }
+      }
+    }
+    div.correct{
+      text-align: center;
+      color:$green-300;
+      i.check{
+        margin-top: 10px;
       }
     }
   }

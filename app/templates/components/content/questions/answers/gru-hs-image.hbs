@@ -5,14 +5,21 @@
         </div>
       <div class="panel panel-default">
           {{content.gru-image isEditing=editMode srcImage=answer.text editImage=answer.text}}
-          {{#if editMode}}
             <div class="panel-footer">
+             {{#if editMode}}
                 <div class="btn-group" role="group" >
                  <button class="delete" {{action 'removeChoice' answer}}>{{gru-icon name="delete"}}</button>
                  <button class="check {{if answer.isCorrect 'correct'}}" {{action 'setCorrect' answer}}>{{gru-icon name="check"}}</button>
                 </div>
+               {{else}}
+               {{#if answer.isCorrect}}
+                 <div class="correct">
+                  {{gru-icon name="check"}}
+                 </div>
+               {{/if}}
+             {{/if}}
             </div>
-          {{/if}}
+
       </div>
     </div>
 {{/each}}
