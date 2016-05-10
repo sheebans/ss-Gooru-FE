@@ -14,13 +14,13 @@
             <span>{{t "search-filter.assessments"}}</span>
           </a>
         {{/link-to}}
-        {{#link-to "search.resources" tagName="li" class='resources'}}
+        {{#link-to "search.resources" (query-params term=term) tagName="li" class='resources'}}
           <a href='{{view.href}}' class="btn btn-category">
             <i class="icon"></i>
             <span>{{t "search-filter.resources"}}</span>
           </a>
         {{/link-to}}
-        {{#link-to "search.questions" tagName="li" class='questions'}}
+        {{#link-to "search.questions" (query-params term=term) tagName="li" class='questions'}}
           <a href='{{view.href}}' class="btn btn-category">
             {{gru-icon name='help_outline'}}
             <span>{{t "search-filter.questions"}}</span>
