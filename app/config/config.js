@@ -7,8 +7,6 @@ export const AUDIENCES = [
   {value: 6, label: 'common.audienceList.teachers'}
 ];
 
-export const CREATOR_SYSTEM = 'gooru';
-
 export const RESOURCE_COMPONENT_MAP = {
   'video/youtube' : 'player.resources.gru-youtube-resource',
   'resource/url'  : 'player.resources.gru-url-resource',

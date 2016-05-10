@@ -69,3 +69,16 @@ test('Delete answer', function(assert) {
     assert.equal($option.length, 1, "Incorrect number of answers after deleting");
   });
 });
+
+test('Unable to add more than a certain number of answers', function(assert) {
+  const answers = Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+    'text': "Option A"
+  }), Answer.create(Ember.getOwner(this).ownerInjection(),{
+    'text': "Option B"
+  })]);
+
+  this.set('answers', answers);
+  this.render(hbs`{{content/questions/answers/gru-reorder answers=answers editMode=true maxAnswers=2}}`);
+  var $component = this.$(); //component dom element
+  assert.notOk($component.find('.add-answer').length, "Add answers link");
+});

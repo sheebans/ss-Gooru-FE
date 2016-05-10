@@ -86,29 +86,11 @@ export default Ember.Component.extend(AccordionMixin, {
 
   // -------------------------------------------------------------------------
   // Events
-  setupAccordionCourse: Ember.on('init', function() {
-    // Load the units and users in the course when the component is instantiated
-    let component = this;
-    component.set("loading", true);
-    let performancePromise = component.getUnitsPerformance();
-    performancePromise.then(function(performances){
-      component.set('items', performances); //setting the units to the according mixin
-
-      // TODO: getCourseUsers is currently dependent on items that's why this declaration
-      // takes place after setting items. Once api-sdk/course-location is complete
-      // both declarations can be put together, as they should
-      /*
-      let usersLocationPromise = component.getCourseUsers();
-      usersLocationPromise.then(function(usersLocation){
-        component.set('usersLocation', usersLocation);
-        let userLocation = component.get('userLocation');
-        if (!component.get('location') && userLocation) {
-          component.set('location', userLocation);
-        }
-      });
-      */
-      component.set("loading", false);
-    });
+  /**
+   * Load the units and users in the course when the component is instantiated
+   */
+  initAccordionCourse: Ember.on('init', function() {
+    this.setupAccordionCourse();
   }),
 
   // -------------------------------------------------------------------------
@@ -204,6 +186,13 @@ export default Ember.Component.extend(AccordionMixin, {
     }
   }),
 
+  /**
+   * Observe when the 'currentClass.id' has changed and setup the units accordion
+   */
+  updateAccordionCourse: Ember.observer('currentClass.id', function() {
+    this.setupAccordionCourse();
+  }),
+
   // -------------------------------------------------------------------------
   // Methods
   /**
@@ -253,6 +242,33 @@ export default Ember.Component.extend(AccordionMixin, {
     const courseId = this.get('currentClass.courseId');
     const component = this;
     return component.get("courseLocationService").findByCourse(courseId, { units: component.get("units")});
+  },
+
+  /**
+   * Load the units and users in the course when the component is instantiated or the currentClass id changes
+   */
+  setupAccordionCourse: function() {
+    let component = this;
+    component.set("loading", true);
+    let performancePromise = component.getUnitsPerformance();
+    performancePromise.then(function(performances){
+      component.set('items', performances); //setting the units to the according mixin
+
+      // TODO: getCourseUsers is currently dependent on items that's why this declaration
+      // takes place after setting items. Once api-sdk/course-location is complete
+      // both declarations can be put together, as they should
+      /*
+      let usersLocationPromise = component.getCourseUsers();
+      usersLocationPromise.then(function(usersLocation){
+        component.set('usersLocation', usersLocation);
+        let userLocation = component.get('userLocation');
+        if (!component.get('location') && userLocation) {
+          component.set('location', userLocation);
+        }
+      });
+      */
+      component.set("loading", false);
+    });
   }
 
 });

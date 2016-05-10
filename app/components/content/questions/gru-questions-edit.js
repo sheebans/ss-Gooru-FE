@@ -191,15 +191,16 @@ export default Ember.Component.extend(ContentEditMixin,{
   updateQuestion:function(editedQuestion,component){
     editedQuestion.validate().then(function ({ model, validations }) {
       if (validations.get('isValid')) {
-        component.get('questionService').updateQuestion(editedQuestion.id,editedQuestion)
+        component.get('questionService').updateQuestion(editedQuestion.id, editedQuestion)
           .then(function () {
             component.set('question', editedQuestion);
             component.set('isEditing', false);
             component.set('isBuilderEditing', false);
           }.bind(this))
-          .catch(function () {
+          .catch(function (error) {
             var message = component.get('i18n').t('common.errors.question-not-updated').string;
             component.get('notifications').error(message);
+            Ember.Logger.error(error);
           }.bind(component));
       }
       component.set('didValidate', true);

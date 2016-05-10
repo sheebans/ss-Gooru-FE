@@ -27,8 +27,7 @@ export default Ember.Component.extend({
       var newChoice = Answer.create(Ember.getOwner(this).ownerInjection(), {
         'text': null,
         'isCorrect': null,
-        'type':"text",
-        'sequence': (this.get('answers.length') + 1)
+        'type':"text"
       });
       this.get('answers').pushObject(newChoice);
     },
@@ -51,6 +50,18 @@ export default Ember.Component.extend({
    * Question answers
    */
   answers:null,
+
+  /**
+   * Max number of answers
+   */
+  maxAnswers: 10,
+
+  /**
+   * Max number of answers
+   * */
+  hasReachedAnswersLimit: Ember.computed('answers.[]', function () {
+    return (this.get('answers').length >= this.get('maxAnswers'));
+  }),
 
   // -------------------------------------------------------------------------
   // Method
