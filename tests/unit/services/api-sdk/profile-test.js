@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
+import { NETWORK_TYPE } from 'gooru-web/config/config';
 
 moduleForService('service:api-sdk/profile', 'Unit | Service | api-sdk/profile', {
   // Specify the other units that are required for this test.
@@ -510,4 +511,50 @@ test('forgotPassword', function(assert) {
     .then(function() {
       done();
     });
+});
+
+test('readFollowing', function(assert) {
+  const service = this.subject();
+  assert.expect(3);
+
+  service.set('profileAdapter', Ember.Object.create({
+    readNetwork: function(userId, type) {
+      assert.equal(userId, 1, "Wrong user id" );
+      assert.equal(type, NETWORK_TYPE.FOLLOWING, "Wrong type" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    normalizeReadNetwork: function(response) {
+      assert.deepEqual(response, {}, "Wrong response" );
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.readFollowing(1).then(function() { done(); });
+});
+
+test('readFollowers', function(assert) {
+  const service = this.subject();
+  assert.expect(3);
+
+  service.set('profileAdapter', Ember.Object.create({
+    readNetwork: function(userId, type) {
+      assert.equal(userId, 1, "Wrong user id" );
+      assert.equal(type, NETWORK_TYPE.FOLLOWERS, "Wrong type" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    normalizeReadNetwork: function(response) {
+      assert.deepEqual(response, {}, "Wrong response" );
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.readFollowers(1).then(function() { done(); });
 });

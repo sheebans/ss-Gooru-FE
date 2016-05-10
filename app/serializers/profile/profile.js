@@ -5,7 +5,7 @@ import ResourceModel from 'gooru-web/models/content/resource';
 import AssessmentModel from 'gooru-web/models/content/assessment';
 import QuestionModel from 'gooru-web/models/content/question';
 import CollectionModel from 'gooru-web/models/content/collection';
-import { DEFAULT_IMAGES } from "gooru-web/config/config";
+import { NETWORK_TYPE, DEFAULT_IMAGES } from 'gooru-web/config/config';
 
 /**
  * Serializer to support the Profile CRUD operations for API 3.0
@@ -301,7 +301,35 @@ export default Ember.Object.extend({
     return standards.map(function(standard){
       return Ember.Object.create({ code: standard, description: null });
     });
-  }
+  },
 
+  /**
+   * Normalize the network details list
+   * @param payload
+   * @returns {Collection[]}
+   */
+  normalizeReadNetwork: function(payload, type) {
+    const serializer = this;
+    const details = payload.details || [];
+    const following = payload.followings || [];
+
+    return details.map(function(networkData){
+      return serializer.normalizeNetworkDetail(networkData, type, following);
+    });
+  },
+
+  normalizeNetworkDetail: function(networkData, type, following) {
+    return ProfileModel.create({
+      "id": networkData.id,
+      "firstName": networkData.firstname,
+      "lastName": networkData.lastname,
+      "avatarUrl": networkData.thumbnail_path,
+      "country": networkData.country,
+      "schoolDistrict": networkData.school_district,
+      "followers": networkData.followers_count,
+      "followings": networkData.followings_count,
+      "isFollowing": type === NETWORK_TYPE.FOLLOWERS ? following.indexOf(networkData.id) > -1 : true
+    });
+  }
 
 });
