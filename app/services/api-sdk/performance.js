@@ -181,18 +181,7 @@ export default Ember.Service.extend({
     };
   },
 
-  matchStudentsWithPerformances: function (objectsWithTitle, performances) {
-    performances.get('studentPerformanceData').forEach(function (studentPerformance) {
-      var objectWithTitle = objectsWithTitle.findBy('id', studentPerformance.get('id'));
-      if (objectWithTitle) {
-        var user = studentPerformance.get('user');
-        user.set('firstName', objectWithTitle.get('firstName'));
-        user.set('lastName', objectWithTitle.get('lastName'));
-        user.set('username', objectWithTitle.get('username'));
-      }
-    });
-    return performances;
-  },
+
 
   /**
    * Gets the unit teacher performance data for a specific class and course.
@@ -209,7 +198,7 @@ export default Ember.Service.extend({
       classId: classId,
       courseId: courseId
     }).then(function (unitPerformances) {
-      return service.matchStudentsWithPerformances(students, unitPerformances);
+      return service.matchStudentsWithPerformances(students, unitPerformances, 'unit');
     });
   },
 
@@ -230,7 +219,7 @@ export default Ember.Service.extend({
       courseId: courseId,
       unitId: unitId
     }).then(function (lessonPerformances) {
-      return service.matchStudentsWithPerformances(students, lessonPerformances);
+      return service.matchStudentsWithPerformances(students, lessonPerformances, 'lesson');
     });
   },
 
@@ -274,7 +263,7 @@ export default Ember.Service.extend({
       unitId: unitId,
       lessonId: lessonId
     }).then(function (collectionPerformances) {
-      return service.matchStudentsWithPerformances(students, collectionPerformances);
+      return service.matchStudentsWithPerformances(students, collectionPerformances, 'collection');
     });
   },
 
@@ -298,6 +287,27 @@ export default Ember.Service.extend({
     }).then(function(collectionPerformances) {
       return collectionPerformances;
     });
+  },
+
+  matchStudentsWithPerformances: function(students, performances, type) {
+    const service = this;
+    return students.map(function(student) {
+      let studentPerformance = performances.findBy('id', student.get('id'));
+      if (!studentPerformance) {
+        studentPerformance = service.createStudentPerformanceByType(student.get('id'), type);
+      }
+      return studentPerformance;
+    });
+  },
+
+  createStudentPerformanceByType: function(id, type) {
+    const service = this;
+    const modelName = `performance/class-${type}-performance`;
+    let studentPerformance = service.get('store').createRecord(modelName, {
+      id: id
+    });
+    service.get('store').unloadRecord(studentPerformance);
+    return studentPerformance;
   }
 
 });
