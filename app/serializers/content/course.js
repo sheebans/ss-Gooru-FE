@@ -87,6 +87,7 @@ export default Ember.Object.extend({
       description: payload.description,
       isPublished: payload['publish_status'] && payload['publish_status'] === 'published',
       isVisibleOnProfile: payload['visible_on_profile'],
+      owner: payload.owner_id,
       subject: payload.subject_bucket,
       taxonomy: payload.taxonomy ? payload.taxonomy.slice(0) : null,
       thumbnailUrl: thumbnailUrl,
