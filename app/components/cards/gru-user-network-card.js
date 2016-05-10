@@ -21,12 +21,40 @@ export default Ember.Component.extend({
   actions: {
 
     unFollow:function(){
-      this.set('isFollowing',false);
+
+      var component = this;
+      var followingFilter = component.get('followingFilter');
+
+      component.set('isFollowing',false);
+
+      if(followingFilter){
+        this.sendAction("onUnFollowUser", component.get('user.id'));
+      }
     },
 
     setFollow:function(){
       this.set('isFollowing',true);
     }
+  },
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  /**
+   * DidInsertElement ember event
+   */
+  didInsertElement: function(){
+    var component = this;
+
+    this.$(".btn-following")
+      .mouseover(function() {
+        component.set('showUnFollowButton', true);
+      });
+
+    this.$(".btn-unfollow")
+      .mouseout(function() {
+        component.set('showUnFollowButton', false);
+      });
   },
   // -------------------------------------------------------------------------
   // Properties
@@ -37,6 +65,8 @@ export default Ember.Component.extend({
   /**
    * @property {Boolean} followingFilter
    */
-  followingFilter: false
+  followingFilter: false,
+
+  showUnFollowButton: false
 
 });

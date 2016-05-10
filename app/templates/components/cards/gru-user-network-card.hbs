@@ -1,7 +1,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="image">
-            <img class="img-responsive" src={{if user.avatarUrl user.avatarUrl "assets/gooru/profile.png"}}>
+            <img class="img-responsive" src={{user.avatarUrl}}>
         </div>
         <div class="user-info">
             <h6 class="name truncate">{{ user.displayName }}</h6>
@@ -28,10 +28,11 @@
             </div>
         </div>
         <div class="follow-btn">
-          {{#if followingFilter}}
-            <button class="btn btn-sm btn-following"{{action 'unFollow'}}>{{t "cards.gru-profile-card.following"}}</button>
+          {{#if user.isFollowing}}
+            <button class="btn btn-sm btn-following {{if showUnFollowButton 'hidden' 'visible'}}">{{t "cards.gru-profile-card.following"}}</button>
+            <button class="btn btn-sm btn-info btn-unfollow {{if showUnFollowButton 'visible' 'hidden'}}"{{action 'unFollow'}}>{{t "common.unfollow"}}</button>
           {{else}}
-            <button class="btn btn-sm {{if user.isFollowing 'btn-following' 'btn-success'}}"{{action 'setFollow'}}>{{#if user.isFollowing}}{{t "cards.gru-profile-card.following"}} {{else}}{{t "cards.gru-user-network-card.follow"}}{{/if}}</button>
+            <button class="btn btn-sm btn-success btn-follow"{{action 'setFollow'}}>{{t "cards.gru-user-network-card.follow"}}</button>
           {{/if}}
         </div>
     </div>
