@@ -27,10 +27,6 @@ export default Ember.Component.extend({
     },
     //Select correct answer
     setCorrect:function(answer){
-      var correctAnswer = this.get('answers').findBy('isCorrect',true);
-      if(correctAnswer){
-        Ember.set(correctAnswer,'isCorrect',false);
-      }
       Ember.set(answer,'isCorrect',true);
     },
   },
