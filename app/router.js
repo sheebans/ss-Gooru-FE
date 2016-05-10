@@ -99,7 +99,10 @@ Router.map(function() {
       this.route('assessments');
     });
 
-    this.route('network');
+    this.route('network', function() {
+      this.route('following');
+      this.route('followers');
+    });
   });
   /**
    * IMPORTANT! the profile route should be the last one at this file, so we can handle the app urls

@@ -2,6 +2,8 @@ import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 import ProfileModel from 'gooru-web/models/profile/profile';
 import Env from 'gooru-web/config/environment';
+import { NETWORK_TYPE } from 'gooru-web/config/config';
+
 
 moduleFor('serializer:profile/profile', 'Unit | Serializer | profile/profile');
 
@@ -277,7 +279,7 @@ test('normalizeCollection', function(assert) {
     "visible_on_profile": false,
     "learning_objective": "This is important collection",
     "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
-    "course_title": "mathematics course 101",
+    "course": {"title":"mathematics course 101"},
     "resource_count": 5,
     "question_count": 3,
     "remix_count": 2
@@ -321,7 +323,7 @@ test('normalizeAssessment', function(assert) {
     "visible_on_profile": false,
     "learning_objective": "This is important collection",
     "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
-    "course_title": "mathematics course 101",
+    "course": {"title":"mathematics course 101"},
     "question_count": 3,
     "remix_count": 2
   };
@@ -515,4 +517,67 @@ test('normalizeReadAssessments', function(assert) {
   assert.ok(!assessments[1].get("owner"), 'Second assessment should not have an owner');
 });
 
+test('normalizeReadNetwork for following', function(assert) {
+  const serializer = this.subject();
+  const detailsObject = Ember.Object.create({
+    followings: [
+      'id-1', 'id-2'
+    ],
+    details: [{
+      id: 'id-1',
+      firstname: 'first-name-1',
+      lastname: 'last-name-1',
+      thumbnail_path: 'thumbnail-path-1',
+      followers_count: 10,
+      followings_count: 20
+    },{
+      id: 'id-2',
+      firstname: 'first-name-2',
+      lastname: 'last-name-2',
+      thumbnail_path: 'thumbnail-path-2',
+      followers_count: 20,
+      followings_count: 10
+    }]
+  });
+  const response = serializer.normalizeReadNetwork(detailsObject, NETWORK_TYPE.FOLLOWING);
+  assert.equal(response.length, 2, 'Wrong total following');
+  assert.equal(response[0].get("id"), "id-1", 'Invalid id for user 1');
+  assert.ok(response[0].get("isFollowing"), 'First user has a wrong value for isFollowing');
+  assert.ok(response[1].get("isFollowing"), 'Second user has a wrong value for isFollowing');
+});
 
+test('normalizeReadNetwork for followers', function(assert) {
+  const serializer = this.subject();
+  const detailsObject = Ember.Object.create({
+    followings: [
+      'id-1'
+    ],
+    details: [{
+      id: 'id-1',
+      firstname: 'first-name-1',
+      lastname: 'last-name-1',
+      thumbnail_path: 'thumbnail-path-1',
+      followers_count: 10,
+      followings_count: 20,
+      country: 'country-1',
+      school_district: 'district-1'
+    },{
+      id: 'id-2',
+      firstname: 'first-name-2',
+      lastname: 'last-name-2',
+      thumbnail_path: 'thumbnail-path-2',
+      followers_count: 20,
+      followings_count: 10,
+      country: 'country-2',
+      school_district: 'district-2'
+    }]
+  });
+  const response = serializer.normalizeReadNetwork(detailsObject, NETWORK_TYPE.FOLLOWERS);
+  assert.equal(response.length, 2, 'Wrong total followers');
+  assert.equal(response[0].get("id"), "id-1", 'Invalid id for user 1');
+  assert.ok(response[0].get("isFollowing"), 'First user has a wrong value for isFollowing');
+  assert.ok(!response[1].get("isFollowing"), 'Second user has a wrong value for isFollowing');
+  assert.equal(response[0].get("schoolDistrict"), "district-1", 'Invalid district for user 1');
+  assert.equal(response[1].get("schoolDistrict"), "district-2", 'Invalid district for user 2');
+
+});

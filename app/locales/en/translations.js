@@ -137,12 +137,15 @@ export default {
       "sign-in-google-account-exists": "Please sign-in with Google to access your account.",
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
       "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly.",
-      "unit-title-required" : "Please enter the unit title."
+      "unit-title-required" : "Please enter the unit title.",
+      "user-email-presence" : "Please enter a valid email."
     },
     "explanation": "Explanation",
     "false":"False",
     "first-name": "First Name",
     "follow": "Follow",
+    "followers": "Followers",
+    "following": "Following",
     "forgotPassword": "Forgot Password",
     "from-my-assessments": "From My Assessments",
     "from-my-collections": "From My Collections",
@@ -473,6 +476,7 @@ export default {
         "FIB":"Add up to 5 hints for answer and an explanation.",
         "HS_TXT": "You can add up to ten answers choices and select one or more correct answers.",
         "HT_RO": "You can add up to ten answers choices in the correct order. The order will be scrambled for students.",
+        "MA": "You can add up to ten answers, an image, explanation and up to five hints.",
         "MC":"You can add up to ten answers choices and indicate one correct answer. Character Limit: 200.",
         "OE":"Write the correct response. Character limit: 5000.",
         "T/F":"Select the correct answer."

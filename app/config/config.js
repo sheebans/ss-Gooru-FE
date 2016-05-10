@@ -99,3 +99,8 @@ export const ENTITY_TYPE = {
   CONTENT: 'content',
   USER: 'user'
 };
+
+export const NETWORK_TYPE = {
+  FOLLOWING: 'followings',
+  FOLLOWERS: 'followers'
+};
