@@ -19,8 +19,21 @@ test('True/False answer layout', function(assert) {
   const $option = $component.find('.answer-content');
   assert.equal($option.length,2, "True/False answer missing");
   assert.ok($option.find('.letter-container').length, "Answer letter missing");
-  assert.ok($option.find('.check').length, "Correct  button missing");
-  assert.ok($component.find('.answer-content:nth-child(1) .check.correct').length, "Correct  button missing");
+  assert.ok($option.find('div.check').length, "Correct  button missing");
+  assert.ok($component.find('.answer-content:nth-child(1) div.check.correct').length, "Correct  button missing");
+});
+test('True/False answer layout Edit Mode', function(assert) {
+  const question = Question.create({
+    answers:Ember.A([])
+  });
+  this.set('question', question);
+  this.render(hbs`{{content/questions/answers/gru-true-false answers=question.answers editMode=true}}`);
+  var $component = this.$(); //component dom element
+  const $option = $component.find('.answer-content');
+  assert.equal($option.length,2, "True/False answer missing");
+  assert.ok($option.find('.letter-container').length, "Answer letter missing");
+  assert.ok($option.find('button.check').length, "Correct  button missing");
+  assert.ok($component.find('.answer-content:nth-child(1) button.check.correct').length, "Correct  button missing");
 });
 
 test('Load a list of answers', function(assert) {

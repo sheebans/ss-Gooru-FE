@@ -5,6 +5,7 @@ import ResourceModel from 'gooru-web/models/content/resource';
 import AssessmentModel from 'gooru-web/models/content/assessment';
 import QuestionModel from 'gooru-web/models/content/question';
 import CollectionModel from 'gooru-web/models/content/collection';
+import { NETWORK_TYPE } from 'gooru-web/config/config';
 
 /**
  * Serializer to support the Profile CRUD operations for API 3.0
@@ -239,7 +240,7 @@ export default Ember.Object.extend({
       resourceCount: collectionData.resource_count,
       questionCount: collectionData.question_count,
       remixCount: collectionData.remix_count, //TODO missing on API
-      course: collectionData.course_title,
+      course: collectionData.course ? collectionData.course.title : '',
       isVisibleOnProfile: collectionData.visible_on_profile,
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
@@ -270,7 +271,7 @@ export default Ember.Object.extend({
       learningObjectives: assessmentData.learning_objective,
       questionCount: assessmentData.question_count,
       remixCount: assessmentData.remix_count, //TODO missing on API
-      course: assessmentData.course_title,
+      course: assessmentData.course ? assessmentData.course.title : '',
       isVisibleOnProfile: assessmentData.visible_on_profile,
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
@@ -312,7 +313,35 @@ export default Ember.Object.extend({
       "avatarUrl": ownerData.thumbnail_path,
       "username": ownerData.username
     });
-  }
+  },
 
+  /**
+   * Normalize the network details list
+   * @param payload
+   * @returns {Collection[]}
+   */
+  normalizeReadNetwork: function(payload, type) {
+    const serializer = this;
+    const details = payload.details || [];
+    const following = payload.followings || [];
+
+    return details.map(function(networkData){
+      return serializer.normalizeNetworkDetail(networkData, type, following);
+    });
+  },
+
+  normalizeNetworkDetail: function(networkData, type, following) {
+    return ProfileModel.create({
+      "id": networkData.id,
+      "firstName": networkData.firstname,
+      "lastName": networkData.lastname,
+      "avatarUrl": networkData.thumbnail_path,
+      "country": networkData.country,
+      "schoolDistrict": networkData.school_district,
+      "followers": networkData.followers_count,
+      "followings": networkData.followings_count,
+      "isFollowing": type === NETWORK_TYPE.FOLLOWERS ? following.indexOf(networkData.id) > -1 : true
+    });
+  }
 
 });
