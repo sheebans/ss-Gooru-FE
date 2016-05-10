@@ -15,7 +15,7 @@ test('it renders a lesson item correctly -collection', function (assert) {
 
   const lessonItem = LessonItem.create(Ember.getOwner(this).ownerInjection(), {
     id: '123',
-    image: null,
+    thumbnailUrl: 'path/to/image',
     format: 'collection',
     questionCount: 0,
     resourceCount: 0,
@@ -39,16 +39,9 @@ test('it renders a lesson item correctly -collection', function (assert) {
   const $titleContainer = $heading.find('> a.title');
   assert.ok($titleContainer.length, 'Title link');
 
-  // Without image
-  assert.ok($titleContainer.find('> span.image-placeholder').length, 'Image placeholder');
-
-  // With image
-  Ember.run(() => {
-    lessonItem.set('image', 'path/to/image');
-  });
 
   assert.ok($titleContainer.find('> img').length, 'Thumbnail element');
-  assert.equal($titleContainer.find('> img').prop('src'), window.location.origin + '/' + lessonItem.get('image'), 'Thumbnail image');
+  assert.equal($titleContainer.find('> img').prop('src'), window.location.origin + '/' + lessonItem.get('thumbnailUrl'), 'Thumbnail image');
   assert.equal($titleContainer.find('> div > strong').text(), lessonItem.get('title'), 'Title text');
   assert.equal($titleContainer.find('> div > span').text(), lessonItem.get('format'), 'Type');
 

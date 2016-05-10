@@ -5,7 +5,7 @@ import ResourceModel from 'gooru-web/models/content/resource';
 import AssessmentModel from 'gooru-web/models/content/assessment';
 import QuestionModel from 'gooru-web/models/content/question';
 import CollectionModel from 'gooru-web/models/content/collection';
-import { NETWORK_TYPE } from 'gooru-web/config/config';
+import { NETWORK_TYPE, DEFAULT_IMAGES } from 'gooru-web/config/config';
 
 /**
  * Serializer to support the Profile CRUD operations for API 3.0
@@ -77,6 +77,11 @@ export default Ember.Object.extend({
    * @returns {ProfileModel} a profile model object
    */
   normalizeReadProfile: function(payload) {
+    const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = payload['thumbnail_path'] ?
+    basePath + payload['thumbnail_path'] : DEFAULT_IMAGES.USER_PROFILE;
+
     return ProfileModel.create({
       id: payload.id,
       firstName: payload.firstname,
@@ -98,7 +103,7 @@ export default Ember.Object.extend({
       schoolDistrictId: payload['school_district_id'],
       schoolDistrict: payload['school_district'],
       aboutMe: payload['about_me'],
-      avatarUrl: payload['thumbnail_path'],
+      avatarUrl: thumbnailUrl,
       rosterId: payload['roster_id'],
       followers: payload.followers,
       followings: payload.followings,
@@ -227,8 +232,7 @@ export default Ember.Object.extend({
     const standards = serializer.normalizeStandards(collectionData.taxonomy || []);
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = collectionData.thumbnail ?
-    basePath + collectionData.thumbnail :
-      '/assets/gooru/collection-default.png'; //TODO configured in properties
+      basePath + collectionData.thumbnail : DEFAULT_IMAGES.COLLECTION;
 
     return CollectionModel.create({
       id: collectionData.id,
@@ -259,8 +263,7 @@ export default Ember.Object.extend({
     const standards = serializer.normalizeStandards(assessmentData.taxonomy || []);
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = assessmentData.thumbnail ?
-    basePath + assessmentData.thumbnail :
-      '/assets/gooru/assessment-default.png'; //TODO configured in properties
+    basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
 
     return AssessmentModel.create({
       id: assessmentData.id,
@@ -285,7 +288,7 @@ export default Ember.Object.extend({
   normalizeOwners: function (payload) {
     const serializer = this;
     return payload.map(function(ownerData){
-      return serializer.normalizeOwner(ownerData);
+      return serializer.normalizeReadProfile(ownerData);
     });
   },
 
@@ -297,21 +300,6 @@ export default Ember.Object.extend({
   normalizeStandards: function (standards) {
     return standards.map(function(standard){
       return Ember.Object.create({ code: standard, description: null });
-    });
-  },
-
-  /**
-   * Normalizes owner
-   * @param ownerData
-   * @returns {Profile}
-   */
-  normalizeOwner: function (ownerData) {
-    return ProfileModel.create({
-      "id": ownerData.id,
-      "firstName": ownerData.firstname,
-      "lastName": ownerData.lastname,
-      "avatarUrl": ownerData.thumbnail_path,
-      "username": ownerData.username
     });
   },
 
@@ -343,5 +331,6 @@ export default Ember.Object.extend({
       "isFollowing": type === NETWORK_TYPE.FOLLOWERS ? following.indexOf(networkData.id) > -1 : true
     });
   }
+
 
 });

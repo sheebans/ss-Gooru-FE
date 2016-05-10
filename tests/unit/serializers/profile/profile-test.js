@@ -72,6 +72,12 @@ test('serializeUpdateProfile', function(assert) {
 
 test('normalizeReadProfile', function(assert) {
   const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'http://test-bucket01.s3.amazonaws.com/'
+    }
+  }));
+
   const profilePayload = {
     id: 'id',
     firstname: 'first-name',
@@ -84,50 +90,49 @@ test('normalizeReadProfile', function(assert) {
     'user_category': 'role',
     'created_at': '01/01/2000',
     'updated_at': '01/01/2000',
-    'country_id': '',
+    'country_id': '1111',
     country: 'country',
-    'state_id': '',
+    'state_id': '2222',
     state: 'state',
-    'school_id': '',
+    'school_id': '3333',
     school: 'school',
-    'school_district_id': '',
+    'school_district_id': '4444',
     'school_district': 'school-district',
     'about_me': 'about-me',
     'thumbnail_path': 'thumbnail.png',
-    'roster_id': '',
+    'roster_id': '5555',
     followers: 2,
     followings: 3,
     isFollowing: false
   };
-  const expected = ProfileModel.create({
-    id: 'id',
-    firstName: 'first-name',
-    lastName: 'last-name',
-    username: 'username',
-    email: 'email',
-    gender: 'male',
-    grades: [],
-    dateOfBirth: '01/01/2000',
-    role: 'role',
-    createdAt: '01/01/2000',
-    lastUpdate: '01/01/2000',
-    countryId: '',
-    country: 'country',
-    stateId: '',
-    state: 'state',
-    schoolId:'',
-    school:'school',
-    schoolDistrictId: '',
-    schoolDistrict: 'school-district',
-    aboutMe: 'about-me',
-    avatarUrl: 'thumbnail.png',
-    rosterId: '',
-    followers: 2,
-    followings: 3,
-    isFollowing: false
-  });
+
   const normalizedProfile = serializer.normalizeReadProfile(profilePayload);
-  assert.deepEqual(expected, normalizedProfile, 'Wrong normalized response');
+  assert.equal(normalizedProfile.get("id"), "id", 'Wrong id');
+  assert.equal(normalizedProfile.get("firstName"), "first-name", 'Wrong firstName');
+  assert.equal(normalizedProfile.get("lastName"), "last-name", 'Wrong lastName');
+  assert.equal(normalizedProfile.get("username"), "username", 'Wrong username');
+  assert.equal(normalizedProfile.get("email"), "email", 'Wrong email');
+  assert.equal(normalizedProfile.get("gender"), "male", 'Wrong gender');
+  assert.equal(normalizedProfile.get("grades").length, 0, 'Wrong grades');
+  assert.equal(normalizedProfile.get("dateOfBirth"), "01/01/2000", 'Wrong dateOfBirth');
+  assert.equal(normalizedProfile.get("role"), "role", 'Wrong role');
+  assert.equal(normalizedProfile.get("createdAt"), "01/01/2000", 'Wrong createdAt');
+  assert.equal(normalizedProfile.get("lastUpdate"), "01/01/2000", 'Wrong lastUpdate');
+  assert.equal(normalizedProfile.get("countryId"), "1111", 'Wrong countryId');
+  assert.equal(normalizedProfile.get("country"), "country", 'Wrong country');
+  assert.equal(normalizedProfile.get("stateId"), "2222", 'Wrong stateId');
+  assert.equal(normalizedProfile.get("state"), "state", 'Wrong state');
+  assert.equal(normalizedProfile.get("schoolId"), "3333", 'Wrong schoolId');
+  assert.equal(normalizedProfile.get("school"), "school", 'Wrong school');
+  assert.equal(normalizedProfile.get("schoolDistrictId"), "4444", 'Wrong schoolDistrictId');
+  assert.equal(normalizedProfile.get("schoolDistrict"), "school-district", 'Wrong schoolDistrict');
+  assert.equal(normalizedProfile.get("aboutMe"), "about-me", 'Wrong aboutMe');
+  assert.equal(normalizedProfile.get("avatarUrl"), "http://test-bucket01.s3.amazonaws.com/thumbnail.png", 'Wrong avatarUrl');
+  assert.equal(normalizedProfile.get("rosterId"), "5555", 'Wrong rosterId');
+  assert.equal(normalizedProfile.get("followers"), 2, 'Wrong followers');
+  assert.equal(normalizedProfile.get("followings"), 3, 'Wrong followings');
+  assert.equal(normalizedProfile.get("isFollowing"), false, 'Wrong isFollowing');
+
 });
 
 
@@ -181,23 +186,6 @@ test('normalizeStandards', function(assert) {
   const standards = serializer.normalizeStandards(standardsData);
   assert.equal(standards.length, 2, 'Wrong standards length');
   assert.equal(standards[0].get("code"), "a", 'Wrong code');
-});
-
-
-test('normalizeOwner', function(assert) {
-  const serializer = this.subject();
-  const ownerData = {
-    "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
-    "firstname": "Sachin",
-    "lastname": "Zope",
-    "thumbnail_path": "any"
-  };
-
-  const owner = serializer.normalizeOwner(ownerData);
-  assert.equal(owner.get("id"), 'f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d', 'Wrong id');
-  assert.equal(owner.get("firstName"), 'Sachin', 'Wrong first name');
-  assert.equal(owner.get("lastName"), 'Zope', 'Wrong last name');
-  assert.equal(owner.get("avatarUrl"), 'any', 'Wrong avatar url');
 });
 
 

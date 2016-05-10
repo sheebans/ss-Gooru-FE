@@ -14,7 +14,7 @@ export default Ember.Object.extend({
 
   init: function () {
     this._super(...arguments);
-    this.set('profileSerializer', ProfileSerializer.create());
+    this.set('profileSerializer', ProfileSerializer.create(Ember.getOwner(this).ownerInjection()));
   },
 
   /**
