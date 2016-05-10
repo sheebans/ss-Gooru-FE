@@ -104,3 +104,29 @@ test('Navigation links', function(assert) {
     });
   });
 });
+
+test('Navigate to course player by clicking course title', function(assert) {
+  visit('/pochita/content/courses');
+  andThen(function() {
+
+    assert.equal(currentURL(), '/pochita/content/courses');
+    var $courseTitle = find('.gru-course-card:first-of-type .card-info .course-title');
+    click($courseTitle);
+    andThen(function() {
+     assert.equal(currentRouteName(), 'content.courses.play');
+    });
+  });
+});
+
+test('Navigate to course player by clicking course image', function(assert) {
+  visit('/pochita/content/courses');
+  andThen(function() {
+
+    assert.equal(currentURL(), '/pochita/content/courses');
+    var $courseTitle = find('.gru-course-card:first-of-type .interaction-zone .course-image');
+    click($courseTitle);
+    andThen(function() {
+      assert.equal(currentRouteName(), 'content.courses.play');
+    });
+  });
+});

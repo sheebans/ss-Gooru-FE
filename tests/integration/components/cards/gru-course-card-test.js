@@ -105,53 +105,7 @@ test('Course Card Private', function(assert) {
   T.notExists(assert, $courseCard.find(".icon"), "Icon should not appear");
   T.notExists(assert, $courseCard.find(".remix-button  button"), "Remix Button should not appear");
 });
-test('Click Title and Image', function(assert) {
-  var course = Ember.Object.create({
-    'title': 'Water cycle',
-    'totalUnits': 8,
-    'subjects': ['Science'],
-    'imageUrl': '/assets/gooru/profile.png',
-    'remixedBy':  Ember.A([Ember.Object.create({
-      'email': 'user_1@test.com',
-      'firstName': 'firstname-1',
-      'fullName': 'lastname-1 firstname-1',
-      'id': 'id-1',
-      'lastName': 'lastname-1',
-      'avatarUrl': '/assets/gooru/profile.png',
-      'username': 'username-1'
-    }),Ember.Object.create({
-      'email': 'user_2@test.com',
-      'firstName': 'firstname-2',
-      'fullName': 'lastname-2 firstname-2',
-      'id': 'id-2',
-      'lastName': 'lastname-2',
-      'avatarUrl': '/assets/gooru/profile.png',
-      'username': 'username-2'
-    }),Ember.Object.create({
-      'email': 'user_1@test.com',
-      'firstName': 'firstname-3',
-      'fullName': 'lastname-3 firstname-3',
-      'id': 'id-1',
-      'lastName': 'lastname-3',
-      'avatarUrl': '/assets/gooru/profile.png',
-      'username': 'username-3'
-    })])
-  });
 
-  this.set('course', course);
-  assert.expect(2);
-
-  this.on('selectCourse', function(course){
-    assert.equal('Water cycle', course.title);
-  });
-
-  this.render(hbs`{{cards/gru-course-card course=course onSelectCourse='selectCourse'}}`);
-  var $component = this.$(); //component dom element
-  var $courseTitle = $component.find(".course-title");
-  $courseTitle.click();
-  var $thumbnail = $component.find(".course-image");
-  $thumbnail.click();
-});
 test('Click Remix', function(assert) {
   var course = Ember.Object.create({
     'title': 'Water cycle',
