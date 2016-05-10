@@ -1,9 +1,9 @@
 <div class="panel panel-default">
   <div class="panel-body">
     <div class="interaction-zone">
-      <div class="course-image" {{action 'selectCourse'}}>
-          <img class="img-responsive" src="{{course.thumbnailUrl}}"/>
-      </div>
+      {{#link-to "content.courses.play" course.id class="course-image"}}
+        <img class="img-responsive" src="{{course.thumbnailUrl}}"/>
+      {{/link-to}}
       <div class="actions">
         {{#if isOwner}}
           {{#if isEditEnabled}}
