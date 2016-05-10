@@ -22,7 +22,9 @@
     </div>
     <div class="card-info">
         <div class="header">
-            <h3 class="course-title truncate" {{action 'selectCourse'}}>{{course.title}}</h3>
+            {{#link-to "content.courses.play" course.id class="course-title truncate" tagName="h3"}}
+              {{course.title}}
+            {{/link-to}}
           {{#if course.isPublished}}
               <span class="icon">{{gru-icon name="public"}}</span>
           {{/if}}
