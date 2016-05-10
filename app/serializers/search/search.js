@@ -158,7 +158,6 @@ export default Ember.Object.extend({
    */
   normalizeResource: function(result){
     const serializer = this;
-    const resourceFormat = result.resourceFormat.value;    
     const format = ResourceModel.normalizeResourceFormat(result.contentSubFormat);
     return ResourceModel.create({
       id: result.gooruOid,
