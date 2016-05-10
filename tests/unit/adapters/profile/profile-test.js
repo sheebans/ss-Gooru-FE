@@ -246,3 +246,28 @@ test('readNetwork', function(assert) {
       assert.deepEqual({}, response, 'Wrong response');
     });
 });
+
+test('forgotPassword', function(assert) {
+  const adapter = this.subject();
+  const email = "email-id";
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  const routes = function() {
+    this.post('/api/nucleus-auth/v1/users/password-reset', function(request) {
+      let requestBodyJson = JSON.parse(request.requestBody);
+      assert.equal(email, requestBodyJson['email_id']);
+      return [200, {'Content-Type': 'application/json'}, {}];
+    }, false);
+  };
+
+  this.pretender.map(routes);
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  adapter.forgotPassword(email)
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});
