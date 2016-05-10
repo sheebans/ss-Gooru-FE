@@ -492,3 +492,22 @@ test('readAssessments', function(assert) {
   var done = assert.async();
   service.readAssessments(1).then(function() { done(); });
 });
+
+test('forgotPassword', function(assert) {
+  const service = this.subject();
+  const expectedEmail = 'email-id';
+  assert.expect(1);
+
+  service.set('profileAdapter', Ember.Object.create({
+    forgotPassword: function(email) {
+      assert.equal(email, expectedEmail, "Wrong email");
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  var done = assert.async();
+  service.forgotPassword(expectedEmail)
+    .then(function() {
+      done();
+    });
+});
