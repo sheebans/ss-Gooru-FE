@@ -5,6 +5,7 @@ import ResourceModel from 'gooru-web/models/content/resource';
 import AssessmentModel from 'gooru-web/models/content/assessment';
 import QuestionModel from 'gooru-web/models/content/question';
 import CollectionModel from 'gooru-web/models/content/collection';
+import { NETWORK_TYPE, DEFAULT_IMAGES } from 'gooru-web/config/config';
 
 /**
  * Serializer to support the Profile CRUD operations for API 3.0
@@ -76,6 +77,11 @@ export default Ember.Object.extend({
    * @returns {ProfileModel} a profile model object
    */
   normalizeReadProfile: function(payload) {
+    const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = payload['thumbnail_path'] ?
+    basePath + payload['thumbnail_path'] : DEFAULT_IMAGES.USER_PROFILE;
+
     return ProfileModel.create({
       id: payload.id,
       firstName: payload.firstname,
@@ -97,7 +103,7 @@ export default Ember.Object.extend({
       schoolDistrictId: payload['school_district_id'],
       schoolDistrict: payload['school_district'],
       aboutMe: payload['about_me'],
-      avatarUrl: payload['thumbnail_path'],
+      avatarUrl: thumbnailUrl,
       rosterId: payload['roster_id'],
       followers: payload.followers,
       followings: payload.followings,
@@ -226,8 +232,7 @@ export default Ember.Object.extend({
     const standards = serializer.normalizeStandards(collectionData.taxonomy || []);
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = collectionData.thumbnail ?
-    basePath + collectionData.thumbnail :
-      '/assets/gooru/collection-default.png'; //TODO configured in properties
+      basePath + collectionData.thumbnail : DEFAULT_IMAGES.COLLECTION;
 
     return CollectionModel.create({
       id: collectionData.id,
@@ -239,7 +244,7 @@ export default Ember.Object.extend({
       resourceCount: collectionData.resource_count,
       questionCount: collectionData.question_count,
       remixCount: collectionData.remix_count, //TODO missing on API
-      course: collectionData.course_title,
+      course: collectionData.course ? collectionData.course.title : '',
       isVisibleOnProfile: collectionData.visible_on_profile,
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
@@ -258,8 +263,7 @@ export default Ember.Object.extend({
     const standards = serializer.normalizeStandards(assessmentData.taxonomy || []);
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = assessmentData.thumbnail ?
-    basePath + assessmentData.thumbnail :
-      '/assets/gooru/assessment-default.png'; //TODO configured in properties
+    basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
 
     return AssessmentModel.create({
       id: assessmentData.id,
@@ -270,7 +274,7 @@ export default Ember.Object.extend({
       learningObjectives: assessmentData.learning_objective,
       questionCount: assessmentData.question_count,
       remixCount: assessmentData.remix_count, //TODO missing on API
-      course: assessmentData.course_title,
+      course: assessmentData.course ? assessmentData.course.title : '',
       isVisibleOnProfile: assessmentData.visible_on_profile,
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
@@ -284,7 +288,7 @@ export default Ember.Object.extend({
   normalizeOwners: function (payload) {
     const serializer = this;
     return payload.map(function(ownerData){
-      return serializer.normalizeOwner(ownerData);
+      return serializer.normalizeReadProfile(ownerData);
     });
   },
 
@@ -300,17 +304,31 @@ export default Ember.Object.extend({
   },
 
   /**
-   * Normalizes owner
-   * @param ownerData
-   * @returns {Profile}
+   * Normalize the network details list
+   * @param payload
+   * @returns {Collection[]}
    */
-  normalizeOwner: function (ownerData) {
+  normalizeReadNetwork: function(payload, type) {
+    const serializer = this;
+    const details = payload.details || [];
+    const following = payload.followings || [];
+
+    return details.map(function(networkData){
+      return serializer.normalizeNetworkDetail(networkData, type, following);
+    });
+  },
+
+  normalizeNetworkDetail: function(networkData, type, following) {
     return ProfileModel.create({
-      "id": ownerData.id,
-      "firstName": ownerData.firstname,
-      "lastName": ownerData.lastname,
-      "avatarUrl": ownerData.thumbnail_path,
-      "username": ownerData.username
+      "id": networkData.id,
+      "firstName": networkData.firstname,
+      "lastName": networkData.lastname,
+      "avatarUrl": networkData.thumbnail_path,
+      "country": networkData.country,
+      "schoolDistrict": networkData.school_district,
+      "followers": networkData.followers_count,
+      "followings": networkData.followings_count,
+      "isFollowing": type === NETWORK_TYPE.FOLLOWERS ? following.indexOf(networkData.id) > -1 : true
     });
   }
 

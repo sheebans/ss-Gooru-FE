@@ -26,7 +26,7 @@ test('Collection Card Layout', function(assert) {
     }),
     course: "Any course title",
     remixedBy:["James","Andrea","Patric"],
-    isVisibleOnProfile:true
+    isVisibleOnProfile:false
   });
 
   this.set('collection', collection);

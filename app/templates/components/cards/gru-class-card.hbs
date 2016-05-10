@@ -14,7 +14,7 @@
     <div class="members-info">
       <div class="collaborators">
         {{! Place collaborator avatar and first name in the next two lines }}
-        <img class="collaborator-avatar" src="/assets/gooru/profile.png" alt="{{class.owner.displayName}}">
+        <img class="collaborator-avatar" src="{{class.owner.avatarUrl}}" alt="{{class.owner.displayName}}">
         <span class="name">{{class.owner.displayName}}</span>
         {{#if (gt collaboratorsCount 0)}} <span class="collaborators-count">+{{collaboratorsCount}}</span>{{/if}}
       </div>

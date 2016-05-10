@@ -19,9 +19,14 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
+
+    unFollow:function(){
+      this.set('isFollowing',false);
+    },
+
     setFollow:function(){
       this.set('isFollowing',true);
-    },
+    }
   },
   // -------------------------------------------------------------------------
   // Properties
@@ -30,8 +35,8 @@ export default Ember.Component.extend({
    */
   user: null,
   /**
-   * @property {Boolean} isFollowing
+   * @property {Boolean} followingFilter
    */
-  isFollowing:false,
+  followingFilter: false
 
 });

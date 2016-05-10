@@ -136,12 +136,15 @@ export default {
       "sign-in-google-account-exists": "Please sign-in with Google to access your account.",
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
       "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly.",
-      "unit-title-required" : "Please enter the unit title."
+      "unit-title-required" : "Please enter the unit title.",
+      "user-email-presence" : "Please enter a valid email."
     },
     "explanation": "Explanation",
     "false":"False",
     "first-name": "First Name",
     "follow": "Follow",
+    "followers": "Followers",
+    "following": "Following",
     "forgotPassword": "Forgot Password",
     "from-my-assessments": "From My Assessments",
     "from-my-collections": "From My Collections",
