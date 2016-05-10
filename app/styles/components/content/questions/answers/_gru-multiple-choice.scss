@@ -21,7 +21,7 @@
 
      .letter-container{
        width: 3.5em;
-       border-right: 1px solid #bbb;
+       border-right: 1px solid $gray-light;
        margin: 1% 0;
        h3 {
          display: inline-block;
@@ -71,7 +71,7 @@
      }
      div.check.correct{
        padding: 10px 0 10px 0;
-       margin: auto 0px;
+       margin: auto 0;
        color:$green-300;
        line-height: 3.4;
      }
