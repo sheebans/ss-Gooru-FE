@@ -15,7 +15,7 @@
             </span>
             {{#if collection.course }}
               <div class="course">
-                {{gru-icon name="chrome_reader_mode"}}<p>{{t "cards.gru-course-card.in"}}<a>{{collection.course}}</a></p>
+                {{gru-icon name="chrome_reader_mode"}}<p>{{t "cards.gru-course-card.in"}}<a>{{truncate text=collection.course type='collection-card-courses'}}</a></p>
               </div>
             {{/if}}
         </div>
