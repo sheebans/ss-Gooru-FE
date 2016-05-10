@@ -126,7 +126,7 @@ export default Ember.Service.extend({
       if(objectWithTitle) {
         objectWithTitle.set('title', object.get('title'));
       }else{
-        objectWithTitle = service.getRecordByType(type, object);
+        objectWithTitle = service.getPerformanceRecordByType(type, object);
       }
       return objectWithTitle;
     });
@@ -138,11 +138,11 @@ export default Ember.Service.extend({
    * @param object
    * @returns {Promise.<performance[]>}
    */
-  getRecordByType: function(type, object){
+  getPerformanceRecordByType: function(type, object){
     const id = object.get("id");
     const store = this.get('store');
     let modelName = null;
-    let record = this.getRecord(type, object);
+    let record = this.getPerformanceRecord(type, object);
     if(type === 'unit') {
       modelName = "performance/unit-performance";
     }
@@ -171,7 +171,7 @@ export default Ember.Service.extend({
    * @param object
    * @returns {object}
    */
-  getRecord: function(type, object) {
+  getPerformanceRecord: function(type, object) {
     return {
       id: object.get('id'),
       title: object.get('title'),
@@ -181,18 +181,7 @@ export default Ember.Service.extend({
     };
   },
 
-  matchStudentsWithPerformances: function (objectsWithTitle, performances) {
-    performances.get('studentPerformanceData').forEach(function (studentPerformance) {
-      var objectWithTitle = objectsWithTitle.findBy('id', studentPerformance.get('id'));
-      if (objectWithTitle) {
-        var user = studentPerformance.get('user');
-        user.set('firstName', objectWithTitle.get('firstName'));
-        user.set('lastName', objectWithTitle.get('lastName'));
-        user.set('username', objectWithTitle.get('username'));
-      }
-    });
-    return performances;
-  },
+
 
   /**
    * Gets the unit teacher performance data for a specific class and course.
@@ -208,8 +197,8 @@ export default Ember.Service.extend({
       collectionType: options.collectionType,
       classId: classId,
       courseId: courseId
-    }).then(function (unitPerformances) {
-      return service.matchStudentsWithPerformances(students, unitPerformances);
+    }).then(function (unitPerformance) {
+      return service.matchStudentsWithPerformances(students, unitPerformance);
     });
   },
 
@@ -298,6 +287,44 @@ export default Ember.Service.extend({
     }).then(function(collectionPerformances) {
       return collectionPerformances;
     });
+  },
+
+  matchStudentsWithPerformances: function(students, classPerformance) {
+    const service = this;
+    const studentPerformanceData = classPerformance.get('studentPerformanceData');
+    let matchedStudentPerformanceData = students.map(function(student) {
+      let studentPerformance = studentPerformanceData.findBy('user.id', student.get('id'));
+      if (studentPerformance) {
+        studentPerformance.set('user', service.getUserRecord(student));
+      } else {
+        studentPerformance = service.getStudentPerformanceRecord(student);
+      }
+      return studentPerformance;
+    });
+    classPerformance.set('studentPerformanceData', matchedStudentPerformanceData);
+    return classPerformance;
+  },
+
+  getStudentPerformanceRecord: function(student) {
+    const service = this;
+    let studentPerformance = service.getRecord('performance/student-performance', student.get('id'));
+    studentPerformance.set('user', service.getUserRecord(student));
+    return studentPerformance;
+  },
+
+  getUserRecord: function(user) {
+    const service = this;
+    let userRecord = service.getRecord('user/user', user.get('id'));
+    userRecord.set('username', user.get('username'));
+    userRecord.set('firstName', user.get('firstName'));
+    userRecord.set('lastName', user.get('lastName'));
+    return userRecord;
+  },
+
+  getRecord: function(modelName, id) {
+    const store = this.get('store');
+    const found = store.recordIsLoaded(modelName, id);
+    return (found) ? store.recordForId(modelName, id) : store.createRecord(modelName, { id: id });
   }
 
 });
