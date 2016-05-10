@@ -22,9 +22,6 @@ export default Ember.Component.extend({
       this.sendAction("onEditResource", this.get("resource"));
     }
   },
-  didInsertElement() {
-    this._super(...arguments);
-  },
 
 
   // -------------------------------------------------------------------------
