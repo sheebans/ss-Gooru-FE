@@ -1,7 +1,5 @@
-import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 import ClassModel from 'gooru-web/models/content/class';
-import ProfileModel from 'gooru-web/models/profile/profile';
 
 moduleFor('serializer:content/class', 'Unit | Serializer | content/class');
 
@@ -153,61 +151,9 @@ test('normalizeReadClassMembers', function(assert) {
       "thumbnail_path": null
     }]
   };
-  const expected = Ember.Object.create({
-    owner: ProfileModel.create({
-      id: '08fd3a1a-8118-4b02-ab59-c0b4a5037863',
-      firstName: 'Jeffrey',
-      lastName: 'Bermudez',
-      aboutMe: undefined,
-      country: undefined,
-      countryId: undefined,
-      createdAt: undefined,
-      dateOfBirth: undefined,
-      email: undefined,
-      followers: undefined,
-      followings: undefined,
-      gender: undefined,
-      grades: undefined,
-      lastUpdate: undefined,
-      role: undefined,
-      rosterId: undefined,
-      school: undefined,
-      schoolId: undefined,
-      schoolDistrict: undefined,
-      schoolDistrictId: undefined,
-      state: undefined,
-      stateId: undefined,
-      username: undefined
-    }),
-    collaborators: [],
-    members: [
-      ProfileModel.create({
-        id: 'e568193d-603a-4c3a-a5d2-320579d32f3f',
-        firstName: 'Jeffrey',
-        lastName: 'Bermudez',
-        aboutMe: undefined,
-        country: undefined,
-        countryId: undefined,
-        createdAt: undefined,
-        dateOfBirth: undefined,
-        email: undefined,
-        followers: undefined,
-        followings: undefined,
-        gender: undefined,
-        grades: undefined,
-        lastUpdate: undefined,
-        role: undefined,
-        rosterId: undefined,
-        school: undefined,
-        schoolId: undefined,
-        schoolDistrict: undefined,
-        schoolDistrictId: undefined,
-        state: undefined,
-        stateId: undefined,
-        username: undefined
-      })
-    ]
-  });
   const normalizedClassMembers = serializer.normalizeReadClassMembers(classPayload);
-  assert.deepEqual(normalizedClassMembers, expected, 'Wrong normalized response');
+  assert.equal(normalizedClassMembers.get("owner.id"), '08fd3a1a-8118-4b02-ab59-c0b4a5037863', 'Wrong owner id');
+  assert.equal(normalizedClassMembers.get("collaborators").length, 0, 'Wrong collaborators');
+  assert.equal(normalizedClassMembers.get("members").length, 1, 'Wrong members');
+  assert.equal(normalizedClassMembers.get("members")[0].get("id"), 'e568193d-603a-4c3a-a5d2-320579d32f3f', 'Wrong members');
 });

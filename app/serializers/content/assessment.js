@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { cleanFilename } from 'gooru-web/utils/utils';
 import AssessmentModel from 'gooru-web/models/content/assessment';
 import QuestionSerializer from 'gooru-web/serializers/content/question';
-
+import { DEFAULT_IMAGES } from "gooru-web/config/config";
 /**
  * Serializer to support the Assessment CRUD operations for API 3.0
  *
@@ -60,8 +60,7 @@ export default Ember.Object.extend({
     var serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = assessmentData.thumbnail ?
-    basePath + assessmentData.thumbnail :
-      '/assets/gooru/assessment-default.png'; //TODO configured in properties
+    basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
 
     return AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
       id: assessmentData.id,
