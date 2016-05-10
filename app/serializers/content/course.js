@@ -2,6 +2,7 @@ import Ember from 'ember';
 import { cleanFilename } from 'gooru-web/utils/utils';
 import CourseModel from 'gooru-web/models/content/course';
 import UnitSerializer from 'gooru-web/serializers/content/unit';
+import { DEFAULT_IMAGES } from "gooru-web/config/config";
 
 /**
  * Serializer to support the Course CRUD operations for API 3.0
@@ -77,9 +78,7 @@ export default Ember.Object.extend({
   normalizeCourse: function(payload) {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
-    const thumbnailUrl = payload.thumbnail ?
-      basePath + payload.thumbnail :
-      '/assets/gooru/course-default.png'; //TODO configured in properties
+    const thumbnailUrl = payload.thumbnail ? basePath + payload.thumbnail : DEFAULT_IMAGES.COURSE;
 
     return CourseModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: payload.id,

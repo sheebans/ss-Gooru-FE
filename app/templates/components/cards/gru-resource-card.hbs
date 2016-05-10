@@ -25,11 +25,7 @@
       </div>
     {{/if}}
     <div class="publisher">
-      {{#if resource.owner.avatarUrl }}
-          <img class="img-responsive" src="{{ resource.owner.avatarUrl }}">
-      {{else}}
-          <img class="img-responsive" src="assets/gooru/profile.png">
-      {{/if}}
+        <img class="img-responsive" src="{{ resource.owner.avatarUrl }}">
         <div class="publisher-name">
           {{#link-to 'profile.content.courses' resource.owner.id}}
             {{resource.owner.displayName}}

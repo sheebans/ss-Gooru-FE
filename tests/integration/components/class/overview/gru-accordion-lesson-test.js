@@ -228,7 +228,7 @@ test('it renders', function(assert) {
   // Class with no collections per stub
   const currentClass = Ember.Object.create({
     id: "111-111-111",
-    course: "999-999-999"
+    courseId: "999-999-999"
   });
 
   // Lesson model
@@ -294,7 +294,7 @@ test('it renders correctly when there are no collections/assessments to load aft
   // Class with no lessons per stub
   const currentClass = Ember.Object.create({
     id: "111-111-111",
-    course: "999-999-999"
+    courseId: "999-999-999"
   });
 
   // Lesson model
@@ -357,7 +357,7 @@ test('it loads collections/assessments and renders them correctly after clicking
   // Class with lessons per stub
   var currentClass = Ember.Object.create({
     id: "111-333-555",
-    course: "222-444-666"
+    courseId: "222-444-666"
   });
 
   // Lesson model
@@ -464,7 +464,7 @@ test('it loads collections/assessments and renders them correctly for teacher', 
   // Class with lessons per stub
   var currentClass = Ember.Object.create({
     id: "111-333-555",
-    course: "222-444-666"
+    courseId: "222-444-666"
   });
 
   // Lesson model
@@ -540,7 +540,7 @@ test('it only loads collections/assessments once after clicking on the lesson na
   // Class with lessons per stub
   var currentClass = Ember.Object.create({
     id: "111-333-555",
-    course: "222-444-666"
+    courseId: "222-444-666"
   });
 
   // Lesson model
@@ -596,7 +596,7 @@ test('it only loads collections/assessments once after clicking on the lesson na
     // Then, after clicking on the unit name again, assert that the lessons data has not changed.
     var currentClass = Ember.Object.create({
       id: "111-111-111",
-      course: "999-999-999"
+      courseId: "999-999-999"
     });
 
     context.set('currentClass', currentClass);
@@ -623,7 +623,7 @@ test('it triggers event handlers', function (assert) {
   // Class with lessons per stub
   var currentClass = Ember.Object.create({
     id: "111-333-555",
-    course: "222-444-666"
+    courseId: "222-444-666"
   });
 
   // Lesson model
@@ -683,7 +683,7 @@ test('it can start expanded (via "parsedLocation") and be collapsed manually', f
   // Class with lessons per stub
   var currentClass = Ember.Object.create({
     id: "111-333-555",
-    course: "222-444-666"
+    courseId: "222-444-666"
   });
 
   // Lesson model
@@ -734,7 +734,7 @@ test('it can be expanded manually and collapsed by changing the "parsedLocation"
   // Class with lessons per stub
   var currentClass = Ember.Object.create({
     id: "111-333-555",
-    course: "222-444-666"
+    courseId: "222-444-666"
   });
 
   // Lesson model

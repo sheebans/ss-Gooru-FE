@@ -16,7 +16,7 @@ export default Ember.Service.extend({
 
   init: function () {
     this._super(...arguments);
-    this.set('authenticationSerializer', AuthenticationSerializer.create());
+    this.set('authenticationSerializer', AuthenticationSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('authenticationAdapter', AuthenticationAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
