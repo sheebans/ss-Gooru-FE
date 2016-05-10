@@ -279,7 +279,7 @@ test('normalizeCollection', function(assert) {
     "visible_on_profile": false,
     "learning_objective": "This is important collection",
     "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
-    "course_title": "mathematics course 101",
+    "course": {"title":"mathematics course 101"},
     "resource_count": 5,
     "question_count": 3,
     "remix_count": 2
@@ -323,7 +323,7 @@ test('normalizeAssessment', function(assert) {
     "visible_on_profile": false,
     "learning_objective": "This is important collection",
     "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
-    "course_title": "mathematics course 101",
+    "course": {"title":"mathematics course 101"},
     "question_count": 3,
     "remix_count": 2
   };
