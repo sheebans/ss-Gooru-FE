@@ -71,6 +71,8 @@
           height: 96px;
           float: left;
           margin: 0 10px 40px 10px;
+          cursor: pointer;
+
           .panel-body{
             border-top-left-radius: 4px;
             border-top-right-radius: 4px;
@@ -112,6 +114,12 @@
         .question-type-MA{
           i{
             background: url("gooru/images/multiple-answer.svg");
+          }
+        }
+        .question-type-OE{
+          i{
+            // TODO: Add the correct icon
+            background: url("gooru/images/multiple-choice.svg");
           }
         }
         .question-type-T_F{

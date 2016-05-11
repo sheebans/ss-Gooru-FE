@@ -121,10 +121,10 @@ export default Ember.Component.extend({
   target: null,
 
   /**
-   * @type {Array{}} questionTypes
+   * @type {Array[]} questionTypes
    */
   questionTypes: Ember.computed(function(){
-    let array = Ember.A(Object.keys(QUESTION_CONFIG)).without(QUESTION_TYPES.openEnded);
+    let array = Ember.A(Object.keys(QUESTION_CONFIG));
     this.move(array,6,2);
     this.move(array,7,3);
     this.move(array,7,6);
