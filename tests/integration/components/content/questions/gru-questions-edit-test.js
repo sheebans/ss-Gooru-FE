@@ -254,8 +254,8 @@ test('Builder Edit', function (assert) {
     assert.ok($builderSection.find('.question-text .panel-body .add-image').length, "Missing add image button");
     assert.ok($builderSection.find('.question-answer .panel-heading h3').length, "Missing Answer label");
     assert.ok($builderSection.find('.question-answer .panel-heading .instructions').length, "Missing Answer Instructions");
-    assert.ok($builderSection.find('.question-answer .panel-body .add-hint').length, "Missing add hints button");
-    assert.ok($builderSection.find('.question-answer .panel-body .add-explanation').length, "Missing add explanation button");
+    assert.ok($builderSection.find('.question-answer .panel-footer .add-hint').length, "Missing add hints button");
+    assert.ok($builderSection.find('.question-answer .panel-footer .add-explanation').length, "Missing add explanation button");
   });
 });
 

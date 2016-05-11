@@ -10,16 +10,7 @@ const Validations = buildValidations({
         descriptionKey: 'common.errors.add-course-title'
       })
     ]
-  },
-  description: {
-  validators: [
-    validator('length', {
-      max: 500,
-      message: '{{description}}',
-      descriptionKey: 'common.warnings.character-limit'
-    })
-  ]
-}
+  }
 });
 
 /**
