@@ -75,6 +75,11 @@ export default Ember.Object.extend(Validations, {
   audience:[],
 
   /**
+   * @property {String} id of the course's owner
+   */
+  owner: null,
+
+  /**
    * @property {String} subject
    */
   subject: '',

@@ -10,12 +10,12 @@ export default DS.Model.extend({
   /**
    * @property {User} user
    */
-  user: DS.belongsTo("user/user", { async: true }),
+  user: DS.belongsTo("user/user", { async: false }),
 
   /**
    * @property {Performance[]} List of Performance items.
    */
-  performanceData: DS.hasMany('performance/performance', { async: true }),
+  performanceData: DS.hasMany('performance/performance', { async: false }),
 
   /**
    * @property {Number} Computed property with the average score for all student data.

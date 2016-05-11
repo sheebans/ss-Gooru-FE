@@ -32,6 +32,7 @@ Router.map(function() {
 
     this.route('courses', function () {
       this.route('edit', {path: '/edit/:courseId'});
+      this.route('play', {path: '/play/:courseId'});
     });
 
     this.route('classes', function() {

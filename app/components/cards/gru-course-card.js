@@ -24,12 +24,6 @@ export default Ember.Component.extend({
   actions: {
 
     /**
-     *Action triggered when click the course title or image
-     */
-    selectCourse: function() {
-      this.sendAction("onSelectCourse", this.get("course"));
-    },
-    /**
      *Action triggered when select remix the course
      */
     remixCourse:function(){
