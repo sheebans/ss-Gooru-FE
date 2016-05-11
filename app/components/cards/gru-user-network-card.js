@@ -56,7 +56,7 @@ export default Ember.Component.extend({
       });
 
     this.$(".btn-unfollow")
-      .mouseout(function() {
+      .mouseleave(function() {
         component.set('showUnFollowButton', false);
       });
   },
