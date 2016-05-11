@@ -58,7 +58,7 @@ const lessonServiceStub = Ember.Service.extend({
 
 });
 
-moduleForComponent('content/courses/gru-accordion-lesson', 'Integration | Component | content/courses/gru accordion lesson', {
+moduleForComponent('content/courses/edit/gru-accordion-lesson', 'Integration | Component | content/courses/edit/gru accordion lesson', {
   integration: true,
 
   beforeEach: function () {
@@ -80,7 +80,7 @@ test('it renders a form for creating a new lesson', function (assert) {
 
   this.set('lesson', lesson);
   this.set('totalItems', 3);
-  this.render(hbs`{{content/courses/gru-accordion-lesson model=lesson totalItems=3}}`);
+  this.render(hbs`{{content/courses/edit/gru-accordion-lesson model=lesson totalItems=3}}`);
 
   const $component = this.$('.content.courses.gru-accordion.gru-accordion-lesson');
   assert.ok($component.length, 'Component');
@@ -111,7 +111,7 @@ test('it can create a new lesson in a valid state', function (assert) {
   this.set('lesson', lesson);
   this.set('unitId', 'unit-id-123');
   this.set('courseId', 'course-id-123');
-  this.render(hbs`{{content/courses/gru-accordion-lesson
+  this.render(hbs`{{content/courses/edit/gru-accordion-lesson
     courseId=courseId
     unitId=unitId
     model=lesson }}`);
@@ -168,7 +168,7 @@ test('it can edit an existing lesson', function (assert) {
   this.set('lesson', lesson);
   this.set('courseId', 'course-id-123');
   this.set('unitId', 'unit-id-456');
-  this.render(hbs`{{content/courses/gru-accordion-lesson
+  this.render(hbs`{{content/courses/edit/gru-accordion-lesson
      courseId=courseId
      unitId=unitId
      model=lesson }}`);
@@ -226,7 +226,7 @@ test('it shows an error message if it fails to create a new lesson', function (a
   this.set('lesson', lesson);
   this.set('unitId', 'unit-id-123');
   this.set('courseId', 'course-id-fail');
-  this.render(hbs`{{content/courses/gru-accordion-lesson
+  this.render(hbs`{{content/courses/edit/gru-accordion-lesson
     courseId=courseId
     unitId=unitId
     model=lesson }}`);
@@ -257,7 +257,7 @@ test('it renders a form when editing an existing lesson', function (assert) {
   this.set('tempLesson', tempLesson);
   this.set('lesson', lesson);
   this.set('index', 2);
-  this.render(hbs`{{content/courses/gru-accordion-lesson model=lesson tempLesson=tempLesson index=index }}`);
+  this.render(hbs`{{content/courses/edit/gru-accordion-lesson model=lesson tempLesson=tempLesson index=index }}`);
 
   const $component = this.$('.content.courses.gru-accordion.gru-accordion-lesson');
   assert.ok($component.length, 'Component');
@@ -289,7 +289,7 @@ test('it triggers an external event when clicking cancel on a new unsaved lesson
   });
 
   this.set('lesson', lesson);
-  this.render(hbs`{{content/courses/gru-accordion-lesson model=lesson onCancelAddLesson=(action 'externalAction')}}`);
+  this.render(hbs`{{content/courses/edit/gru-accordion-lesson model=lesson onCancelAddLesson=(action 'externalAction')}}`);
 
   const $component = this.$('.content.courses.gru-accordion.gru-accordion-lesson');
   $component.find('.edit .actions button.cancel').click();
@@ -307,7 +307,7 @@ test('it renders the lesson correctly, if the lesson has no collections/assessme
 
   this.set('lesson', lesson);
   this.set('index', 2);
-  this.render(hbs`{{content/courses/gru-accordion-lesson model=lesson index=index}}`);
+  this.render(hbs`{{content/courses/edit/gru-accordion-lesson model=lesson index=index}}`);
 
   const $component = this.$('.content.courses.gru-accordion.gru-accordion-lesson');
   assert.ok($component.length, 'Component');
@@ -362,7 +362,7 @@ test('it expands/collapses the lesson -view mode', function (assert) {
   this.set('unitId', 'unit-id-123');
   this.set('lesson', lesson);
   this.render(hbs`
-    {{content/courses/gru-accordion-lesson
+    {{content/courses/edit/gru-accordion-lesson
       courseId=courseId
       unitId=unitId
       model=lesson }}
@@ -401,7 +401,7 @@ test('it loads lesson items and renders them after clicking on the lesson name',
   this.set('lesson', lesson);
   this.set('isLoaded', false);  // Binding to check on the state
   this.render(hbs`
-    {{content/courses/gru-accordion-lesson
+    {{content/courses/edit/gru-accordion-lesson
       courseId=courseId
       unitId=unitId
       model=lesson

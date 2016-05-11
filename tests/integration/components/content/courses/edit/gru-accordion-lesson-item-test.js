@@ -3,7 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import LessonItem from 'gooru-web/models/content/lessonItem';
 import Ember from 'ember';
 
-moduleForComponent('content/courses/gru-accordion-lesson-item', 'Integration | Component | content/courses/gru accordion lesson item', {
+moduleForComponent('content/courses/edit/gru-accordion-lesson-item', 'Integration | Component | content/courses/edit/gru accordion lesson item', {
   integration: true,
 
   beforeEach: function () {
@@ -25,7 +25,7 @@ test('it renders a lesson item correctly -collection', function (assert) {
   this.set('lessonItem', lessonItem);
   this.set('index', 3);
   this.render(hbs`
-    {{content/courses/gru-accordion-lesson-item
+    {{content/courses/edit/gru-accordion-lesson-item
       model=lessonItem
       index=index}}
     `);
@@ -78,7 +78,7 @@ test('it renders an assessment detail correctly', function (assert) {
   this.set('lessonItem', lessonItem);
   this.set('index', 3);
   this.render(hbs`
-    {{content/courses/gru-accordion-lesson-item
+    {{content/courses/edit/gru-accordion-lesson-item
       model=lessonItem
       index=index}}
     `);

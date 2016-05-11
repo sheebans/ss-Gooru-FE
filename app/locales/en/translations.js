@@ -50,6 +50,7 @@ export default {
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
     "best-practices": "Best Practices",
+    "big-ideas": "Big Ideas",
     "biography": "Biography",
     "builder": "Builder",
     "cancel": "Cancel",
@@ -140,6 +141,7 @@ export default {
       "unit-title-required" : "Please enter the unit title.",
       "user-email-presence" : "Please enter a valid email."
     },
+    "essential-questions": "Essential Questions",
     "explanation": "Explanation",
     "false":"False",
     "first-name": "First Name",
@@ -453,9 +455,7 @@ export default {
   "content.courses.edit": {
     "assign-to-class": "Assign to Class",
     "best-practices": "<p>A course is a folder that allows you to organize your learning content into units and lessons. When creating a course consider the essential questions you are addressing, the learning objectives, and organization of your content.</p><p>You can piece the lessons together to create a diverse experience for your student population (for example, you could sequence your units chronologically, by topic, or by standard).</p>",
-    "big-ideas": "Big Ideas",
-    "essential-questions": "Essential Questions",
-    "information":{
+    "information": {
       "course-title":"Course Title",
       "description":"Description"
     }
