@@ -26,7 +26,7 @@ export default Ember.Component.extend({
     addNewChoice:function(){
       var newChoice = Answer.create(Ember.getOwner(this).ownerInjection(), {
         'text': null,
-        'isCorrect': null,
+        'isCorrect': true,
         'type':"text"
       });
       this.get('answers').pushObject(newChoice);
