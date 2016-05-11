@@ -41,11 +41,11 @@ test('normalizeCollection', function(assert) {
   assert.equal(collection.get("questionCount"), 3, 'Wrong question count');
   assert.equal(collection.get("remixCount"), 2, 'Wrong remix count');
   // TODO assert.deepEqual(collection.get("standards")[0].get("code"), "K12.MA", 'Wrong standards');
-  assert.equal(assessment.get("owner.id"), 12, 'Wrong owner id');
-  assert.equal(assessment.get("owner.firstName"), "Chad", 'Wrong owner first name');
-  assert.equal(assessment.get("owner.lastName"), "Barris", 'Wrong owner last name');
-  assert.equal(assessment.get("owner.avatarUrl"), '//basepath/profile.png', 'Wrong owner avatar');
-  assert.equal(assessment.get("owner.username"), 'username', 'Wrong owner username');
+  assert.equal(collection.get("owner.id"), 12, 'Wrong owner id');
+  assert.equal(collection.get("owner.firstName"), "Chad", 'Wrong owner first name');
+  assert.equal(collection.get("owner.lastName"), "Barris", 'Wrong owner last name');
+  assert.equal(collection.get("owner.avatarUrl"), '//basepath/profile.png', 'Wrong owner avatar');
+  assert.equal(collection.get("owner.username"), 'username', 'Wrong owner username');
 
 });
 
