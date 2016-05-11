@@ -334,20 +334,5 @@ export default Ember.Object.extend({
       "followings": networkData.followings_count,
       "isFollowing": type === NETWORK_TYPE.FOLLOWERS ? following.indexOf(networkData.id) > -1 : true
     });
-  },
-
-  /**
-   * Normalizes owner
-   * @param ownerData
-   * @returns {Profile}
-   */
-  normalizeOwner: function (ownerData) {
-    return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
-      "id": ownerData.id,
-      "firstName": ownerData.firstname,
-      "lastName": ownerData.lastname,
-      "avatarUrl": ownerData.thumbnail_path,
-      "username": ownerData.username
-    });
   }
 });

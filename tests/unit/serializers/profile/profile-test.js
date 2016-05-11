@@ -116,8 +116,6 @@ test('normalizeReadProfile', function(assert) {
   assert.equal(normalizedProfile.get("country"), "country", 'Wrong country');
   assert.equal(normalizedProfile.get("stateId"), "2222", 'Wrong stateId');
   assert.equal(normalizedProfile.get("state"), "state", 'Wrong state');
-  assert.equal(normalizedProfile.get("schoolId"), "3333", 'Wrong schoolId');
-  assert.equal(normalizedProfile.get("school"), "school", 'Wrong school');
   assert.equal(normalizedProfile.get("schoolDistrictId"), "4444", 'Wrong schoolDistrictId');
   assert.equal(normalizedProfile.get("schoolDistrict"), "school-district", 'Wrong schoolDistrict');
   assert.equal(normalizedProfile.get("aboutMe"), "about-me", 'Wrong aboutMe');
