@@ -74,7 +74,7 @@ export default Ember.Controller.extend({
           editedProfile.set('schoolDistrict', otherSchoolDistrict);
         }
         controller.get('parentController').saveProfile(editedProfile);
-        controller.get('profile').merge(editedProfile, ['firstName', 'lastName', 'aboutMe', 'role', 'countryId', 'stateId', 'schoolDistrictId', 'schoolDistrict', 'country']);
+        controller.get('profile').merge(editedProfile, ['firstName', 'lastName', 'aboutMe', 'role', 'countryId', 'stateId', 'state', 'schoolDistrictId', 'schoolDistrict', 'country']);
 
         console.log('profile-merge',controller.get('profile'));
         // Trigger action in route
@@ -99,7 +99,7 @@ export default Ember.Controller.extend({
         controller.set('showStates', false);
         controller.set('districts', null);
         controller.set('stateSelected', '');
-        //controller.set('state', '');
+        controller.set('state', '');
         controller.set('districtSelected', '');
         controller.set('otherSchoolDistrict', '');
       }
@@ -202,19 +202,6 @@ export default Ember.Controller.extend({
    */
 
   states: null,
-
-  /**
-   * isUSASelected
-   * @property {Boolean}
-   */
-
-  //isUSASelected: Ember.computed('tempProfile.countryId', function() {
-  //  var countries = this.get('countries');
-  //  var countryId = this.get('tempProfile.countryId');
-  //  var countryCode = countries.findBy("id", countryId).code;
-  //
-  //  return (countryCode==='US');
-  //}),
 
   /**
    * showStates
