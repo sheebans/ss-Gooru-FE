@@ -18,6 +18,11 @@ export default Ember.Component.extend(ContentEditMixin,{
    * @requires service:api-sdk/question
    */
   questionService: Ember.inject.service("api-sdk/question"),
+
+  /**
+   * @requires service:api-sdk/media
+   */
+  mediaService: Ember.inject.service("api-sdk/media"),
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -148,37 +153,31 @@ export default Ember.Component.extend(ContentEditMixin,{
     const component = this;
     var editedQuestion = this.get('tempQuestion');
     var promiseArray = [];
-    var answersValid = true;
+    var answersPromise = null;
 
     if (editedQuestion.get('isFIB')) {
       editedQuestion.set('answers', component.defineFIBAnswers(editedQuestion));
       component.updateQuestion(editedQuestion, component);
     } else {
       if (editedQuestion.get('answers')) {
-        for (var i = 0; i < editedQuestion.answers.length; i++) {
-          var promise = editedQuestion.answers[i].validate().then(function ({ model, validations }) {
-            return validations.get('isValid');
+        if (editedQuestion.get('isHotSpotImage')) {
+          promiseArray = editedQuestion.get('answers').map(
+            component.getAnswerSaveImagePromise.bind(component)
+          );
+          answersPromise = Ember.RSVP.Promise.all(promiseArray).then(function (values) {
+            for (var i = 0; i < editedQuestion.get('answers').length; i++) {
+              editedQuestion.get('answers')[i].set('text', values[i]);
+            }
+            return Ember.RSVP.Promise.all(
+              editedQuestion.get('answers').map(component.getAnswerValidatePromise)
+            );
           });
-          promiseArray.push(promise);
+        } else {
+          promiseArray = editedQuestion.get('answers').map(component.getAnswerValidatePromise);
+          answersPromise = Ember.RSVP.Promise.all(promiseArray);
         }
-        Ember.RSVP.Promise.all(promiseArray).then(function(values) {
-          values.find(function(promise) {
-            if (promise === false) {
-              answersValid = false;
-            }
-          });
-          if(editedQuestion.get('answers').length > 0){
-            let correctAnswers = editedQuestion.get('answers').filter(function(answer) {
-              return answer.get('isCorrect');
-            });
-            if (correctAnswers.length > 0) {
-              component.set('correctAnswerNotSelected', false);
-            } else {
-              component.set('correctAnswerNotSelected', true);
-              answersValid = false;
-            }
-          }
-          if (answersValid) {
+        answersPromise.then(function(values) {
+          if (component.validateAnswers.call(component, values, editedQuestion)) {
             component.updateQuestion(editedQuestion,component);
           }
         });
@@ -223,6 +222,57 @@ export default Ember.Component.extend(ContentEditMixin,{
       });
     }
     return answers;
+  },
+
+  /**
+   * Check that validate promises are not returning false
+   */
+  validateAnswers: function(promiseValues, question) {
+    var valid = true;
+    promiseValues.find(function (promise) {
+      if (promise === false) {
+        valid = false;
+      }
+    });
+    return valid && this.isCorrectAnswerSelected(question);
+  },
+
+  /**
+   * Check if an answer is selected as correct
+   */
+  isCorrectAnswerSelected: function(question) {
+    if(question.get('answers').length > 0){
+      let correctAnswers = question.get('answers').filter(function(answer) {
+        return answer.get('isCorrect');
+      });
+      if (correctAnswers.length > 0) {
+        this.set('correctAnswerNotSelected', false);
+      } else {
+        this.set('correctAnswerNotSelected', true);
+        return false;
+      }
+    }
+    return true;
+  },
+
+  /**
+   * Returns upload image promises
+   */
+  getAnswerSaveImagePromise: function(answer) {
+    if (answer.get('text') && typeof (answer.get('text').name) === 'string') {
+      return this.get('mediaService').uploadContentFile(answer.get('text'));
+    } else {
+      return answer.get('text');
+    }
+  },
+
+  /**
+   * Returns validate image promises
+   */
+  getAnswerValidatePromise: function(answer) {
+    return answer.validate().then(function ({ model, validations }) {
+      return validations.get('isValid');
+    });
   }
 
 });
