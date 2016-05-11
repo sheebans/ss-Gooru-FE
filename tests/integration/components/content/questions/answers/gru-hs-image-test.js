@@ -115,8 +115,8 @@ test('Correct answer', function(assert) {
   this.render(hbs`{{content/questions/answers/gru-hs-image answers=answers editMode=true}}`);
   var $component = this.$(); //component dom element
   assert.equal($component.find('.panel-footer .check.correct').length,1, "Incorrect number of correct answer");
-  var $firstOption = $component.find('.hs-container:nth-child(2)');
-  const $check = $firstOption.find('.panel-footer .check');
+  var $secondOption = $component.find('.hs-container:nth-child(2)');
+  const $check = $secondOption.find('.panel-footer .check');
   assert.notOk($check.hasClass('correct'));
   $check.click();
   return wait().then(function () {

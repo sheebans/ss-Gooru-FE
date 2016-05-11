@@ -12,8 +12,7 @@
     .panel{
       margin-top: 12px;
       border-radius: 0;
-      -webkit-box-shadow: none;
-      box-shadow: none;
+      @include box-shadow(none);
     }
     .letter-container,.panel{
       display:inline-block;
@@ -42,7 +41,7 @@
         button{
           border:0;
           padding: 10px;
-          width: 56.5px;
+          width: 56px;
           margin: -0.5px;
           background-color: $light-200;
         }
