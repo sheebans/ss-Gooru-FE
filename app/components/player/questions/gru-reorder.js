@@ -31,7 +31,7 @@ export default QuestionComponent.extend({
   initSortableList: Ember.on('didInsertElement', function() {
     const component = this;
     component.setAnswers();
-    if(component.get('hasUserAnswer')){
+    if(!component.get('hasUserAnswer')){
       component.shuffle();
     }
     this.set('areAnswersShuffled',true);
