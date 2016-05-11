@@ -24,11 +24,6 @@ export default Ember.Component.extend(BuilderMixin, {
   i18n: Ember.inject.service(),
 
   /**
-   * @requires service:api-sdk/lesson
-   */
-  lessonService: Ember.inject.service("api-sdk/lesson"),
-
-  /**
    * @requires service:notifications
    */
   notifications: Ember.inject.service(),

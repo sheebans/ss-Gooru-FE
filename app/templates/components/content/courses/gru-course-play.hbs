@@ -26,7 +26,7 @@
       <div class="panel-body">
         <div class="description">
           {{#if course.description}}
-            <p>{{course.description}}</p>
+            {{!-- <p>{{course.description}}</p> --}}
           {{/if}}
         </div>
       </div>
@@ -42,7 +42,7 @@
 </section>
 
 <section id="content">
-  {{content.courses.gru-accordion-course
+  {{content.courses.play.gru-accordion-course
   model=course
   items=course.children }}
 </section>

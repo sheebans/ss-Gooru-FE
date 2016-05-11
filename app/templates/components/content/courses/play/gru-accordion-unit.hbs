@@ -1,0 +1,55 @@
+
+<div class="panel panel-default view {{if model.isExpanded 'expanded' 'collapsed'}}">
+  <div class="panel-heading">
+    <h3><a href="#" {{action 'toggle'}}>{{t "common.unit"}} {{plus-one index}}</a></h3>
+    <strong><a href="#" {{action 'toggle'}}>{{unit.title}}</a></strong>
+
+    <div class="detail">
+      {{#if isLoaded}}
+        <span><b>{{totalSavedItems}}</b> {{t "common.lessonObj" count=totalSavedItems}}</span>
+      {{else}}
+        <span><b>{{unit.lessonCount}}</b> {{t "common.lessonObj" count=unit.lessonCount}}</span>
+      {{/if}}
+    </div>
+  </div>
+  <div class="panel-body">
+
+    {{#if (or unit.bigIdeas unit.essentialQuestions)}}
+    <div class="row">
+      <div class="col-sm-6 big-ideas">
+        <label>
+          <span>{{t "common.big-ideas"}}</span>
+          <p>{{unit.bigIdeas}}</p>
+        </label>
+      </div>
+      <div class="col-sm-6 essential-questions">
+        <label>
+          <span>{{t "common.essential-questions"}}</span>
+          <p>{{unit.essentialQuestions}}</p>
+        </label>
+      </div>
+    </div>
+    {{/if}}
+
+    {{!-- TODO: list domains
+    <div class="data-row domain">
+      <span>{{t "common.domain"}}</span>
+    </div>
+    --}}
+
+    <ol class="accordion-unit" role="tablist" aria-multiselectable="true">
+
+      {{#each items as |item index|}}
+
+        {{content.courses.play.gru-accordion-lesson
+          courseId=courseId
+          unitId=unit.id
+          model=item
+          index=index }}
+
+      {{/each}}
+
+    </ol>
+
+  </div>
+</div>
