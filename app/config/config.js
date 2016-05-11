@@ -7,8 +7,6 @@ export const AUDIENCES = [
   {value: 6, label: 'common.audienceList.teachers'}
 ];
 
-export const CREATOR_SYSTEM = 'gooru';
-
 export const RESOURCE_COMPONENT_MAP = {
   'video/youtube' : 'player.resources.gru-youtube-resource',
   'resource/url'  : 'player.resources.gru-url-resource',
@@ -28,6 +26,9 @@ export const RESOURCE_TYPES = [
 
 export const DEFAULT_IMAGES = {
   USER_PROFILE: '/assets/gooru/profile.png',
+  COURSE: '/assets/gooru/course-default.png',
+  COLLECTION: '/assets/gooru/collection-default.png',
+  ASSESSMENT: '/assets/gooru/assessment-default.png',
   QUESTION_PLACEHOLDER_IMAGE: '/assets/gooru/question-placeholder-image.png'
 };
 
@@ -100,4 +101,9 @@ export const REAL_TIME_CLIENT = {
 export const ENTITY_TYPE = {
   CONTENT: 'content',
   USER: 'user'
+};
+
+export const NETWORK_TYPE = {
+  FOLLOWING: 'followings',
+  FOLLOWERS: 'followers'
 };

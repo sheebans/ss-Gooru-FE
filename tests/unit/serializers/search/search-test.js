@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 
 
@@ -6,6 +7,11 @@ moduleFor('serializer:search/search', 'Unit | Serializer | search/search');
 
 test('normalizeCollection', function(assert) {
   const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: '//basepath/'
+    }
+  }));
 
   const collectionData = {
     "id": "d9616037-9fc8-4641-8d32-99fb956406d3",
@@ -25,7 +31,7 @@ test('normalizeCollection', function(assert) {
   assert.equal(collection.get("id"), 'd9616037-9fc8-4641-8d32-99fb956406d3', 'Wrong id');
   assert.equal(collection.get("title"), 'Cell Growth and Division', 'Wrong title');
   // TODO assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
-  assert.equal(collection.get("image"), 'collection.png', 'Wrong image');
+  assert.equal(collection.get("thumbnailUrl"), '//basepath/collection.png', 'Wrong image');
   // TODO assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
   assert.equal(collection.get("isVisibleOnProfile"), true, 'Wrong visible on profile');
   assert.equal(collection.get("learningObjectives"), "In this collection", 'Wrong learning objective');
@@ -38,6 +44,11 @@ test('normalizeCollection', function(assert) {
 
 test('normalizeAssessment', function(assert) {
   const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: '//basepath/'
+    }
+  }));
 
   const assessmentData = {
     "id": "d9616037-9fc8-4641-8d32-99fb956406d3",
@@ -57,7 +68,7 @@ test('normalizeAssessment', function(assert) {
   assert.equal(assessment.get("id"), 'd9616037-9fc8-4641-8d32-99fb956406d3', 'Wrong id');
   assert.equal(assessment.get("title"), 'Cell Growth and Division', 'Wrong title');
   // TODO assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
-  assert.equal(assessment.get("image"), 'assessment.png', 'Wrong image');
+  assert.equal(assessment.get("thumbnailUrl"), '//basepath/assessment.png', 'Wrong image');
   // TODO assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
   assert.equal(assessment.get("isVisibleOnProfile"), true, 'Wrong visible on profile');
   assert.equal(assessment.get("learningObjectives"), "In this assessment", 'Wrong learning objective');
@@ -75,9 +86,7 @@ test('normalizeSearchResources', function(assert) {
       {
         "description": "7th Grade Cells unit",
         "gooruOid": "415c37da-4727-11e5-8333-22000ac41a3c",
-        "resourceFormat": {
-          "value": "text_resource"
-        },
+        "contentSubFormat":  "text_resource",
         "resourceType": {
           "name": "text_resource"
         },
@@ -94,9 +103,7 @@ test('normalizeSearchResources', function(assert) {
       {
         "description": "7th Grade Cells unit",
         "gooruOid": "415c37da-4727-11e5-8333-22000ac41a3c",
-        "resourceFormat": {
-          "value": "text_resource"
-        },
+        "contentSubFormat":  "text_resource",
         "resourceType": {
           "name": "text_resource"
         },
@@ -145,7 +152,7 @@ test('normalizeSearchQuestions', function(assert) {
     ]
   };
 
-  const resources = serializer.normalizeSearchResources(resourcesPayload);
+  const resources = serializer.normalizeSearchQuestions(resourcesPayload);
   assert.equal(resources.length, 1, 'Wrong resources length');
   assert.equal(resources[0].get("format"), "question", 'Wrong format for resource 1');
 });
@@ -190,9 +197,7 @@ test('normalizeResource', function(assert) {
   const resourceData = {
     "description": "7th Grade Cells unit",
     "gooruOid": "415c37da-4727-11e5-8333-22000ac41a3c",
-    "resourceFormat": {
-      "value": "text_resource"
-    },
+    "contentSubFormat":  "text_resource",
     "resourceType": {
       "name": "text_resource"
     },

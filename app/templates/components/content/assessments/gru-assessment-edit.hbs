@@ -1,6 +1,6 @@
 <header>
 {{#if course}}
-  {{#link-to 'content.courses.edit' course.id class="back-to-course"}}
+  {{#link-to 'content.courses.edit' course.id class="back-to"}}
       <div>
         {{gru-icon name="keyboard_arrow_left"}}{{t 'common.course'}} {{course.title}}
       </div>
@@ -27,7 +27,7 @@
   </div>
   <div class="content">
 
-    {{content.gru-image isEditing=isEditing srcImage=collection.image editImage=tempCollection.image}}
+    {{content.gru-image isEditing=isEditing srcImage=collection.thumbnailUrl editImage=tempCollection.thumbnailUrl}}
 
     <div class="panel panel-default">
       <div class="panel-body">

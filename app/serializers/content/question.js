@@ -39,8 +39,8 @@ export default Ember.Object.extend({
       description: questionModel.get('text'),
       //'content_subformat': QuestionModel.serializeQuestionType(questionModel.get("type")), // This is not supported on the back end yet
       'visible_on_profile': questionModel.get('isVisibleOnProfile'),
-      answer: questionModel.get('answers').map(function(answer) {
-        return serializer.serializerAnswer(answer);
+      answer: questionModel.get('answers').map(function(answer, index) {
+        return serializer.serializerAnswer(answer, index + 1);
       })
     };
   },
@@ -48,12 +48,13 @@ export default Ember.Object.extend({
   /**
    * Serialize an Answer model object into a JSON representation required by the Update Question endpoint
    *
-   * @param answerModel the Answer model to be serialized
+   * @param answerModel - the Answer model to be serialized
+   * @param sequenceNumber - the answer's sequence number
    * @returns {Object}
    */
-  serializerAnswer: function(answerModel) {
+  serializerAnswer: function(answerModel, sequenceNumber) {
     return {
-      sequence: answerModel.get('sequence'),
+      'sequence': sequenceNumber,
       'is_correct': answerModel.get('isCorrect') ? 1 : 0,
       'answer_text': answerModel.get('text'),
       'answer_type': answerModel.get('type')
@@ -63,9 +64,10 @@ export default Ember.Object.extend({
   /**
    * Normalize the question data into a Question object
    * @param questionData
+   * @param index optional index value, corresponds to the assessment or collection index
    * @returns {Question}
    */
-  normalizeReadQuestion: function(questionData){
+  normalizeReadQuestion: function(questionData, index){
     const serializer = this;
     const format = QuestionModel.normalizeQuestionType(questionData.content_subformat);
     const standards = questionData.taxonomy || [];
@@ -79,7 +81,8 @@ export default Ember.Object.extend({
       answers: serializer.normalizeAnswerArray(questionData.answer),
       hints: null, //TODO
       explanation: null, //TODO
-      isVisibleOnProfile: typeof questionData['visible_on_profile'] !== 'undefined' ? questionData['visible_on_profile'] : true
+      isVisibleOnProfile: typeof questionData['visible_on_profile'] !== 'undefined' ? questionData['visible_on_profile'] : true,
+      order: index + 1//TODO is this ok?
     });
   },
 
@@ -107,7 +110,9 @@ export default Ember.Object.extend({
    * @returns {Answer}
    */
   normalizeAnswer: function(answerData) {
+    const id = answerData.sequence; //TODO this is risky the ideal scenario would be to have an id
     return AnswerModel.create(Ember.getOwner(this).ownerInjection(),{
+      id: `answer_${id}`,
       sequence: answerData.sequence,
       isCorrect: answerData['is_correct'] === 1,
       text: answerData['answer_text'],

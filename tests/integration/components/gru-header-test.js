@@ -4,6 +4,7 @@ import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 import { encodeTerm } from 'gooru-web/utils/encode-term';
 import wait from 'ember-test-helpers/wait';
+import ClassModel from 'gooru-web/models/content/class';
 
 moduleForComponent('gru-header', 'Integration | Component | Header', {
   integration: true,
@@ -43,19 +44,32 @@ test('header layout', function(assert) {
 });
 
 test('header layout with user', function(assert) {
-  assert.expect(3); //making sure all asserts are called
+  assert.expect(5); //making sure all asserts are called
 
   this.set('session', Ember.Object.create({
     isAnonymous: false,
     userData: {username: 'jperez'}
   }));
 
-  this.render(hbs`{{gru-header session=session}}`);
+  this.set('classes', [
+      ClassModel.create({
+        id: 'id-1',
+        title: 'title-1'
+      }),
+      ClassModel.create({
+        id: 'id-2',
+        title: 'title-2'
+      })
+    ]);
+
+  this.render(hbs`{{gru-header session=session classes=classes}}`);
 
   const $component = this.$(); //component dom element
 
   const $navMenu = $component.find(".menu-navbar");
   T.notExists(assert, $component.find(".sign-in-button"), "Missing sign-in-btn button");
+  T.exists(assert, $navMenu.find("li.my-classes"), "My classes dropdown must be present");
+  assert.equal($navMenu.find("li.my-classes ul li").length, 2, "Two classes must be present on classes list");
   T.exists(assert, $navMenu.find(".profile .username"), "User info should not be present");
   assert.equal(T.text($navMenu.find(".profile .username")), "jperez", "Wrong username");
 

@@ -82,12 +82,14 @@ export default Ember.Service.extend({
       service.get('classAdapter').getMyClasses()
           .then(function(response) {
             var classesModel = service.get('classSerializer').normalizeClasses(response);
-            Ember.$.each(classesModel.get("classes"), function(index, aClass){
-              //when it has no owner we asume is the provided profile
-              if (!aClass.get("owner")){
-                aClass.set("owner", profile);
-              }
-            });
+            if (profile) {
+              Ember.$.each(classesModel.get("classes"), function(index, aClass){
+                //when it has no owner we asume is the provided profile
+                if (!aClass.get("owner")){
+                  aClass.set("owner", profile);
+                }
+              });
+            }
             resolve(classesModel);
           }, function(error) {
             reject(error);

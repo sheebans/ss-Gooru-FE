@@ -5,6 +5,7 @@ import ResourceModel from 'gooru-web/models/content/resource';
 import AssessmentModel from 'gooru-web/models/content/assessment';
 import QuestionModel from 'gooru-web/models/content/question';
 import CollectionModel from 'gooru-web/models/content/collection';
+import { NETWORK_TYPE, DEFAULT_IMAGES } from 'gooru-web/config/config';
 
 /**
  * Serializer to support the Profile CRUD operations for API 3.0
@@ -82,7 +83,12 @@ export default Ember.Object.extend({
    * @returns {ProfileModel} a profile model object
    */
   normalizeReadProfile: function(payload) {
-    return ProfileModel.create(Ember.getOwner(this).ownerInjection (), {
+    const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = payload['thumbnail_path'] ?
+    basePath + payload['thumbnail_path'] : DEFAULT_IMAGES.USER_PROFILE;
+
+    return ProfileModel.create(Ember.getOwner(this).ownerInjection (),{
       id: payload.id,
       firstName: payload.firstname,
       lastName: payload.lastname,
@@ -101,7 +107,7 @@ export default Ember.Object.extend({
       schoolDistrictId: payload['school_district_id'],
       schoolDistrict: payload['school_district'],
       aboutMe: payload['about_me'],
-      avatarUrl: payload['thumbnail_path'],
+      avatarUrl: thumbnailUrl,
       rosterId: payload['roster_id'],
       followers: payload.followers,
       followings: payload.followings,
@@ -208,7 +214,7 @@ export default Ember.Object.extend({
     return QuestionModel.create({
       id: questionData.id,
       title: questionData.title,
-      description: questionData.description,
+      text: questionData.description,
       format: questionData.content_format,
       type:format,
       publishStatus: questionData.publish_status,
@@ -228,17 +234,21 @@ export default Ember.Object.extend({
     const ownerId = collectionData.owner_id;
     const filteredOwners = Ember.A(owners).filterBy("id", ownerId);
     const standards = serializer.normalizeStandards(collectionData.taxonomy || []);
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = collectionData.thumbnail ?
+      basePath + collectionData.thumbnail : DEFAULT_IMAGES.COLLECTION;
+
     return CollectionModel.create({
       id: collectionData.id,
       title: collectionData.title,
       standards: standards,
-      image: collectionData.thumbnail ? serializer.get('session.cdnUrls.content') + collectionData.thumbnail : null,
+      thumbnailUrl: thumbnailUrl,
       publishStatus: collectionData.publish_status,
       learningObjectives: collectionData.learning_objective,
       resourceCount: collectionData.resource_count,
       questionCount: collectionData.question_count,
       remixCount: collectionData.remix_count, //TODO missing on API
-      course: collectionData.course_title,
+      course: collectionData.course ? collectionData.course.title : '',
       isVisibleOnProfile: collectionData.visible_on_profile,
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
@@ -255,16 +265,20 @@ export default Ember.Object.extend({
     const ownerId = assessmentData.owner_id;
     const filteredOwners = Ember.A(owners).filterBy("id", ownerId);
     const standards = serializer.normalizeStandards(assessmentData.taxonomy || []);
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = assessmentData.thumbnail ?
+    basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
+
     return AssessmentModel.create({
       id: assessmentData.id,
       title: assessmentData.title,
-      image: assessmentData.thumbnail ? serializer.get('session.cdnUrls.content') + assessmentData.thumbnail : null,
+      thumbnailUrl: thumbnailUrl,
       standards: standards,
       publishStatus: assessmentData.publish_status,
       learningObjectives: assessmentData.learning_objective,
       questionCount: assessmentData.question_count,
       remixCount: assessmentData.remix_count, //TODO missing on API
-      course: assessmentData.course_title,
+      course: assessmentData.course ? assessmentData.course.title : '',
       isVisibleOnProfile: assessmentData.visible_on_profile,
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
@@ -278,7 +292,7 @@ export default Ember.Object.extend({
   normalizeOwners: function (payload) {
     const serializer = this;
     return payload.map(function(ownerData){
-      return serializer.normalizeOwner(ownerData);
+      return serializer.normalizeReadProfile(ownerData);
     });
   },
 
@@ -290,6 +304,35 @@ export default Ember.Object.extend({
   normalizeStandards: function (standards) {
     return standards.map(function(standard){
       return Ember.Object.create({ code: standard, description: null });
+    });
+  },
+
+  /**
+   * Normalize the network details list
+   * @param payload
+   * @returns {Collection[]}
+   */
+  normalizeReadNetwork: function(payload, type) {
+    const serializer = this;
+    const details = payload.details || [];
+    const following = payload.followings || [];
+
+    return details.map(function(networkData){
+      return serializer.normalizeNetworkDetail(networkData, type, following);
+    });
+  },
+
+  normalizeNetworkDetail: function(networkData, type, following) {
+    return ProfileModel.create({
+      "id": networkData.id,
+      "firstName": networkData.firstname,
+      "lastName": networkData.lastname,
+      "avatarUrl": networkData.thumbnail_path,
+      "country": networkData.country,
+      "schoolDistrict": networkData.school_district,
+      "followers": networkData.followers_count,
+      "followings": networkData.followings_count,
+      "isFollowing": type === NETWORK_TYPE.FOLLOWERS ? following.indexOf(networkData.id) > -1 : true
     });
   },
 
@@ -307,6 +350,4 @@ export default Ember.Object.extend({
       "username": ownerData.username
     });
   }
-
-
 });

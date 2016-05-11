@@ -9,9 +9,14 @@ import ApplicationRouteMixin from "ember-simple-auth/mixins/application-route-mi
 export default Ember.Route.extend(ApplicationRouteMixin, {
 
   // -------------------------------------------------------------------------
-  // Properties
+  // Dependencies
 
   i18n: Ember.inject.service(),
+
+  /**
+   * @type {ClassService} Service to retrieve user information
+   */
+  classService: Ember.inject.service("api-sdk/class"),
 
 
   // -------------------------------------------------------------------------
@@ -22,6 +27,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     const currentSession = route.get("session.data.authenticated");
     const themeConfig = Env['themes'] || {};
     const themeId = params.themeId || Env['themes'].default;
+    let myClasses = null;
 
     var theme = null;
     if (themeId && themeConfig[themeId]){
@@ -29,19 +35,25 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       theme.set("id", themeId);
     }
 
+    if (!currentSession.isAnonymous) {
+      myClasses = route.get('classService').findMyClasses();
+    }
+
     return Ember.RSVP.hash({
       currentSession: currentSession,
       theme: theme,
-      translations: theme ? theme.loadTranslations() : null
+      translations: theme ? theme.loadTranslations() : null,
+      myClasses: myClasses
     });
   },
 
-  setupController: function(controller, model){
+  setupController: function(controller, model) {
     const theme = model.theme;
     if (theme){
       controller.set("theme", theme);
       this.setupTheme(theme, model.translations);
     }
+    controller.set('myClasses', model.myClasses);
   },
 
   /**
@@ -93,7 +105,8 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      * @see gru-header.hbs
      */
     signIn: function () {
-      this.transitionTo("user");
+      this.send('updateUserClasses'); // Required to get list of classes after login
+      this.transitionTo("home");
     },
 
     /**
@@ -117,6 +130,19 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
         var termParam = '?term=' + term;
         this.transitionTo('/search/collections' + termParam);
       }
+    },
+
+    /**
+     * Gets a refreshed list of user classes
+     * @see gru-class-new.js
+     * @see join.js
+     */
+    updateUserClasses: function() {
+      const route = this;
+      route.get('classService').findMyClasses()
+        .then(function(classes) {
+          route.set('controller.myClasses', classes);
+        });
     }
   }
 

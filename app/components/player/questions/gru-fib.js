@@ -28,7 +28,7 @@ export default QuestionComponent.extend({
   // Events
   initInputEvents: function () {
     const component = this;
-    component.setAnswers();
+    component.setAnswersEvents();
   }.on('didInsertElement'),
 
   // -------------------------------------------------------------------------
@@ -40,13 +40,13 @@ export default QuestionComponent.extend({
    */
   answers: Ember.computed('question.text', function () {
     const component = this;
-    let answers = component.get("question.text");
+    let answers = component.get("question.fibText");
     let readOnly = component.get("readOnly");
     let disabled = readOnly ? 'disabled': '';
-    let userAnswer = component.get("userAnswer");
 
 
-    if (userAnswer) {
+    if (component.get("hasUserAnswer")) {
+      let userAnswer = component.get("userAnswer");
       userAnswer.forEach(function(choice){
         let input = `<input type="text" value="${choice}" ${disabled}/>`;
         answers = answers.replace(/_______/, input);
@@ -89,14 +89,16 @@ export default QuestionComponent.extend({
     }
 
   },
+
   /**
    * Set answers
    */
-  setAnswers:function(){
+  setAnswersEvents:function(){
     const component = this;
-    const inputs = component.$(".fib-answers input[type=text]");
-    inputs.on("keyup", function () {
+    const inputs = component.$(".fib-answers");
+    inputs.on("keyup", "input[type=text]", function () {
       component.notifyInputAnswers();
     });
   }
+
 });

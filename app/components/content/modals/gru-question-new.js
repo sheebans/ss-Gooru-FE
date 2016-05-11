@@ -65,8 +65,7 @@ export default Ember.Component.extend({
               }
             })
             .then(function() {
-                component.triggerAction({ action: 'closeModal' });
-                component.get('router').transitionTo('content.questions.edit', questionId);
+                component.closeModal(questionId);
               },
               function() {
                 const message = component.get('i18n').t('common.errors.question-not-created').string;
@@ -122,10 +121,10 @@ export default Ember.Component.extend({
   target: null,
 
   /**
-   * @type {Array{}} questionTypes
+   * @type {Array[]} questionTypes
    */
   questionTypes: Ember.computed(function(){
-    let array = Ember.A(Object.keys(QUESTION_CONFIG)).without(QUESTION_TYPES.openEnded);
+    let array = Ember.A(Object.keys(QUESTION_CONFIG));
     this.move(array,6,2);
     this.move(array,7,3);
     this.move(array,7,6);
@@ -134,6 +133,28 @@ export default Ember.Component.extend({
 
 
   //Methods
+  closeModal : function(questionId){
+    const component = this;
+    component.triggerAction({ action: 'closeModal' });
+
+    const collectionId = component.get('model.id');
+    const isCollection = component.get('model.isCollection');
+    if (collectionId){
+      const queryParams = {
+        queryParams: {
+          collectionId: collectionId,
+          isCollection: isCollection
+        }
+      };
+      component.get('router').transitionTo('content.questions.edit', questionId, queryParams);
+    }
+    else{
+      component.get('router').transitionTo('content.questions.edit', questionId);
+    }
+
+  },
+
+
   /*
    * Move array object into array
    * */

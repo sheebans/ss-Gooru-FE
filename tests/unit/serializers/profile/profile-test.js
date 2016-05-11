@@ -2,6 +2,8 @@ import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 import ProfileModel from 'gooru-web/models/profile/profile';
 import Env from 'gooru-web/config/environment';
+import { NETWORK_TYPE } from 'gooru-web/config/config';
+
 
 moduleFor('serializer:profile/profile', 'Unit | Serializer | profile/profile');
 
@@ -66,6 +68,12 @@ test('serializeUpdateProfile', function(assert) {
 
 test('normalizeReadProfile', function(assert) {
   const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'http://test-bucket01.s3.amazonaws.com/'
+    }
+  }));
+
   const profilePayload = {
     id: 'id',
     firstname: 'first-name',
@@ -78,46 +86,47 @@ test('normalizeReadProfile', function(assert) {
     'user_category': 'role',
     'created_at': '01/01/2000',
     'updated_at': '01/01/2000',
-    'country_id': '',
+    'country_id': '1111',
     country: 'country',
-    'state_id': '',
+    'state_id': '2222',
     state: 'state',
-    'school_district_id': '',
+    'school_district_id': '4444',
     'school_district': 'school-district',
     'about_me': 'about-me',
     'thumbnail_path': 'thumbnail.png',
-    'roster_id': '',
+    'roster_id': '5555',
     followers: 2,
     followings: 3,
     isFollowing: false
   };
-  const expected = ProfileModel.create(Ember.getOwner(this).ownerInjection (), {
-    id: 'id',
-    firstName: 'first-name',
-    lastName: 'last-name',
-    username: 'username',
-    email: 'email',
-    gender: 'male',
-    grades: [],
-    dateOfBirth: '01/01/2000',
-    role: 'role',
-    createdAt: '01/01/2000',
-    lastUpdate: '01/01/2000',
-    countryId: '',
-    country: 'country',
-    stateId: '',
-    state: 'state',
-    schoolDistrictId: '',
-    schoolDistrict: 'school-district',
-    aboutMe: 'about-me',
-    avatarUrl: 'thumbnail.png',
-    rosterId: '',
-    followers: 2,
-    followings: 3,
-    isFollowing: false
-  });
+
   const normalizedProfile = serializer.normalizeReadProfile(profilePayload);
-  assert.deepEqual(expected, normalizedProfile, 'Wrong normalized response');
+  assert.equal(normalizedProfile.get("id"), "id", 'Wrong id');
+  assert.equal(normalizedProfile.get("firstName"), "first-name", 'Wrong firstName');
+  assert.equal(normalizedProfile.get("lastName"), "last-name", 'Wrong lastName');
+  assert.equal(normalizedProfile.get("username"), "username", 'Wrong username');
+  assert.equal(normalizedProfile.get("email"), "email", 'Wrong email');
+  assert.equal(normalizedProfile.get("gender"), "male", 'Wrong gender');
+  assert.equal(normalizedProfile.get("grades").length, 0, 'Wrong grades');
+  assert.equal(normalizedProfile.get("dateOfBirth"), "01/01/2000", 'Wrong dateOfBirth');
+  assert.equal(normalizedProfile.get("role"), "role", 'Wrong role');
+  assert.equal(normalizedProfile.get("createdAt"), "01/01/2000", 'Wrong createdAt');
+  assert.equal(normalizedProfile.get("lastUpdate"), "01/01/2000", 'Wrong lastUpdate');
+  assert.equal(normalizedProfile.get("countryId"), "1111", 'Wrong countryId');
+  assert.equal(normalizedProfile.get("country"), "country", 'Wrong country');
+  assert.equal(normalizedProfile.get("stateId"), "2222", 'Wrong stateId');
+  assert.equal(normalizedProfile.get("state"), "state", 'Wrong state');
+  assert.equal(normalizedProfile.get("schoolId"), "3333", 'Wrong schoolId');
+  assert.equal(normalizedProfile.get("school"), "school", 'Wrong school');
+  assert.equal(normalizedProfile.get("schoolDistrictId"), "4444", 'Wrong schoolDistrictId');
+  assert.equal(normalizedProfile.get("schoolDistrict"), "school-district", 'Wrong schoolDistrict');
+  assert.equal(normalizedProfile.get("aboutMe"), "about-me", 'Wrong aboutMe');
+  assert.equal(normalizedProfile.get("avatarUrl"), "http://test-bucket01.s3.amazonaws.com/thumbnail.png", 'Wrong avatarUrl');
+  assert.equal(normalizedProfile.get("rosterId"), "5555", 'Wrong rosterId');
+  assert.equal(normalizedProfile.get("followers"), 2, 'Wrong followers');
+  assert.equal(normalizedProfile.get("followings"), 3, 'Wrong followings');
+  assert.equal(normalizedProfile.get("isFollowing"), false, 'Wrong isFollowing');
+
 });
 
 
@@ -174,23 +183,6 @@ test('normalizeStandards', function(assert) {
 });
 
 
-test('normalizeOwner', function(assert) {
-  const serializer = this.subject();
-  const ownerData = {
-    "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
-    "firstname": "Sachin",
-    "lastname": "Zope",
-    "thumbnail_path": "any"
-  };
-
-  const owner = serializer.normalizeOwner(ownerData);
-  assert.equal(owner.get("id"), 'f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d', 'Wrong id');
-  assert.equal(owner.get("firstName"), 'Sachin', 'Wrong first name');
-  assert.equal(owner.get("lastName"), 'Zope', 'Wrong last name');
-  assert.equal(owner.get("avatarUrl"), 'any', 'Wrong avatar url');
-});
-
-
 test('normalizeQuestion', function(assert) {
   const serializer = this.subject();
   const owners = [Ember.Object.create({
@@ -212,6 +204,7 @@ test('normalizeQuestion', function(assert) {
   const question = serializer.normalizeQuestion(questionData, owners);
   assert.equal(question.get("id"), 'f59eff43-767d-4910-af5a-b7dc9a5ce065', 'Wrong id');
   assert.equal(question.get("title"), 'Introduction to Java', 'Wrong title');
+  assert.equal(question.get("text"), 'Some description', 'Wrong description');
   assert.equal(question.get("description"), 'Some description', 'Wrong description');
   assert.equal(question.get("publishStatus"), 'unpublished', 'Wrong publish status');
   assert.equal(question.get("format"), 'question', 'Wrong format');
@@ -268,7 +261,7 @@ test('normalizeCollection', function(assert) {
     "visible_on_profile": false,
     "learning_objective": "This is important collection",
     "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
-    "course_title": "mathematics course 101",
+    "course": {"title":"mathematics course 101"},
     "resource_count": 5,
     "question_count": 3,
     "remix_count": 2
@@ -278,7 +271,7 @@ test('normalizeCollection', function(assert) {
   assert.equal(collection.get("id"), '50484e74-ad95-44d5-981a-c18411260233', 'Wrong id');
   assert.equal(collection.get("title"), 'oops poly basics', 'Wrong title');
   assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
-  assert.equal(collection.get("image"), 'content-url/collection.png', 'Wrong image');
+  assert.equal(collection.get("thumbnailUrl"), 'content-url/collection.png', 'Wrong image');
   assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
   assert.equal(collection.get("isVisibleOnProfile"), false, 'Wrong visible on profile');
   assert.equal(collection.get("learningObjectives"), "This is important collection", 'Wrong learning objective');
@@ -312,7 +305,7 @@ test('normalizeAssessment', function(assert) {
     "visible_on_profile": false,
     "learning_objective": "This is important collection",
     "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
-    "course_title": "mathematics course 101",
+    "course": {"title":"mathematics course 101"},
     "question_count": 3,
     "remix_count": 2
   };
@@ -321,7 +314,7 @@ test('normalizeAssessment', function(assert) {
   assert.equal(collection.get("id"), '50484e74-ad95-44d5-981a-c18411260233', 'Wrong id');
   assert.equal(collection.get("title"), 'oops poly basics', 'Wrong title');
   assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
-  assert.equal(collection.get("image"), 'content-url/collection.png', 'Wrong image');
+  assert.equal(collection.get("thumbnailUrl"), 'content-url/collection.png', 'Wrong image');
   assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
   assert.equal(collection.get("isVisibleOnProfile"), false, 'Wrong visible on profile');
   assert.equal(collection.get("learningObjectives"), "This is important collection", 'Wrong learning objective');
@@ -506,4 +499,67 @@ test('normalizeReadAssessments', function(assert) {
   assert.ok(!assessments[1].get("owner"), 'Second assessment should not have an owner');
 });
 
+test('normalizeReadNetwork for following', function(assert) {
+  const serializer = this.subject();
+  const detailsObject = Ember.Object.create({
+    followings: [
+      'id-1', 'id-2'
+    ],
+    details: [{
+      id: 'id-1',
+      firstname: 'first-name-1',
+      lastname: 'last-name-1',
+      thumbnail_path: 'thumbnail-path-1',
+      followers_count: 10,
+      followings_count: 20
+    },{
+      id: 'id-2',
+      firstname: 'first-name-2',
+      lastname: 'last-name-2',
+      thumbnail_path: 'thumbnail-path-2',
+      followers_count: 20,
+      followings_count: 10
+    }]
+  });
+  const response = serializer.normalizeReadNetwork(detailsObject, NETWORK_TYPE.FOLLOWING);
+  assert.equal(response.length, 2, 'Wrong total following');
+  assert.equal(response[0].get("id"), "id-1", 'Invalid id for user 1');
+  assert.ok(response[0].get("isFollowing"), 'First user has a wrong value for isFollowing');
+  assert.ok(response[1].get("isFollowing"), 'Second user has a wrong value for isFollowing');
+});
 
+test('normalizeReadNetwork for followers', function(assert) {
+  const serializer = this.subject();
+  const detailsObject = Ember.Object.create({
+    followings: [
+      'id-1'
+    ],
+    details: [{
+      id: 'id-1',
+      firstname: 'first-name-1',
+      lastname: 'last-name-1',
+      thumbnail_path: 'thumbnail-path-1',
+      followers_count: 10,
+      followings_count: 20,
+      country: 'country-1',
+      school_district: 'district-1'
+    },{
+      id: 'id-2',
+      firstname: 'first-name-2',
+      lastname: 'last-name-2',
+      thumbnail_path: 'thumbnail-path-2',
+      followers_count: 20,
+      followings_count: 10,
+      country: 'country-2',
+      school_district: 'district-2'
+    }]
+  });
+  const response = serializer.normalizeReadNetwork(detailsObject, NETWORK_TYPE.FOLLOWERS);
+  assert.equal(response.length, 2, 'Wrong total followers');
+  assert.equal(response[0].get("id"), "id-1", 'Invalid id for user 1');
+  assert.ok(response[0].get("isFollowing"), 'First user has a wrong value for isFollowing');
+  assert.ok(!response[1].get("isFollowing"), 'Second user has a wrong value for isFollowing');
+  assert.equal(response[0].get("schoolDistrict"), "district-1", 'Invalid district for user 1');
+  assert.equal(response[1].get("schoolDistrict"), "district-2", 'Invalid district for user 2');
+
+});

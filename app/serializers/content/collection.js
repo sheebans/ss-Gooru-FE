@@ -3,7 +3,7 @@ import { cleanFilename } from 'gooru-web/utils/utils';
 import CollectionModel from 'gooru-web/models/content/collection';
 import ResourceSerializer from 'gooru-web/serializers/content/resource';
 import QuestionSerializer from 'gooru-web/serializers/content/question';
-
+import { DEFAULT_IMAGES } from "gooru-web/config/config";
 
 /**
  * Serializer to support the Collection CRUD operations for API 3.0
@@ -55,24 +55,31 @@ export default Ember.Object.extend({
       title: collectionModel.get('title'),
       learning_objective: collectionModel.get('learningObjectives'),
       visible_on_profile: collectionModel.get('isVisibleOnProfile'),
-      thumbnail: cleanFilename(collectionModel.image)
+      thumbnail: cleanFilename(collectionModel.thumbnailUrl)
     };
   },
 
   /**
    * Normalize the Collection data into a Collection object
-   * @param questionData
+   * @param payload
    * @returns {Question}
    */
   normalizeReadCollection: function(payload) {
     const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = payload.thumbnail ?
+    basePath + payload.thumbnail : DEFAULT_IMAGES.COLLECTION;
+
     return CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: payload.id,
       title: payload.title,
       learningObjectives: payload['learning_objective'],
-      isVisibleOnProfile: payload['visible_on_profile'] !== 'undefined' ? payload['visible_on_profile'] : true,
+      isVisibleOnProfile: (payload['visible_on_profile'] !== undefined) ? payload['visible_on_profile'] : true,
       children: serializer.normalizeResources(payload.content),
-      image: payload.thumbnail ? serializer.get('session.cdnUrls.content') + payload.thumbnail : null
+      questionCount: payload.question_count ? payload.question_count : 0,
+      resourceCount: payload.resource_count ? payload.resource_count : 0,
+      sequence: payload.sequence_id,
+      thumbnailUrl: thumbnailUrl
       // TODO Add more required properties here...
     });
   },

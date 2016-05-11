@@ -11,7 +11,7 @@ moduleForComponent('content/assessments/gru-assessment-edit', 'Integration | Com
 test('it has header and main sections', function (assert) {
 
   var assessment = Assessment.create(Ember.getOwner(this).ownerInjection(), {
-    title: "Collection Title"
+    title: "Assessment Title"
   });
 
   this.set('assessment', assessment);
@@ -26,7 +26,7 @@ test('it has header and main sections', function (assert) {
   assert.equal($header.find('> .actions > button').length, 5, "Number of header actions");
   assert.ok($header.find('> nav').length, "Header navigation");
   assert.equal($header.find('> nav > a').length, 3, "Number of header navigation links");
-  assert.notOk($header.find('.back-to-course').length, "Should not have the option Back to course");
+  assert.notOk($header.find('.back-to').length, "Should not have the option Back to course");
 
   assert.equal($container.find('> section').length, 3, "Number of edit sections");
   assert.ok($container.find('> section#information').length, "Information section");
@@ -37,7 +37,7 @@ test('it has header and main sections', function (assert) {
 test('Header when comes from content builder', function (assert) {
 
   var assessment = Assessment.create(Ember.getOwner(this).ownerInjection(), {
-    title: "Collection Title"
+    title: "Assessment Title"
   });
 
   var course = Course.create(Ember.getOwner(this).ownerInjection(), {
@@ -48,13 +48,13 @@ test('Header when comes from content builder', function (assert) {
   this.set('assessment', assessment);
   this.set('course', course);
 
-  this.render(hbs`{{content/assessments/gru-assessment-edit collection=assessment course=course}}`);
+  this.render(hbs`{{content/assessments/gru-assessment-edit course=course collection=assessment}}`);
 
   var $container = this.$("article.content.assessments.gru-assessment-edit");
   assert.ok($container.length, "Component");
 
   const $header = $container.find('> header');
   assert.ok($header.length, "Header");
-  assert.ok($header.find('.back-to-course').length, "Should have the option Back to course");
+  assert.ok($header.find('.back-to').length, "Should have the option Back to Assessment");
 
 });

@@ -36,12 +36,6 @@ export default Ember.Object.extend(Validations, {
   children: [],
 
   /**
-   * @property {String} image - Course image url
-   */
-  // TODO This property will be replaced by thumbnailUrl
-  image: '',
-
-  /**
    * @property {String} title
    */
   title: '',
@@ -54,7 +48,7 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {String} Course thumbnail url
    */
-  thumbnailUrl: Ember.computed.alias("image"),
+  thumbnailUrl: null,
 
   /**
    * @property {Boolean} Is this course visible on profile
@@ -70,6 +64,11 @@ export default Ember.Object.extend(Validations, {
    * @property {Number[]} Array with the audience ids
    */
   audience:[],
+
+  /**
+   * @property {String} id of the course's owner
+   */
+  owner: null,
 
   /**
    * @property {String} subject

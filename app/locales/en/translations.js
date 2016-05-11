@@ -70,6 +70,7 @@ export default {
     "collections": "Collections",
     "collectionInitial": "C",
     "completed": "Completed",
+    "content":"Content",
     "content-publishing":"Content Publishing",
     "contentUnavailable": "Content not available",
     "copy-to": "Copy To",
@@ -131,16 +132,20 @@ export default {
       "resource-not-updated": "Oops! Unable to update resource right now. Please try again shortly.",
       "resource-same-host-url": "Resources can not be Gooru's URLs.",
       "resource-title-length": "Title can't be longer than 50 characters.",
+      "select-correct-answer":"Please select the correct answer.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
       "sign-in-google-account-exists": "Please sign-in with Google to access your account.",
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
       "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly.",
-      "unit-title-required" : "Please enter the unit title."
+      "unit-title-required" : "Please enter the unit title.",
+      "user-email-presence" : "Please enter a valid email."
     },
     "explanation": "Explanation",
     "false":"False",
     "first-name": "First Name",
     "follow": "Follow",
+    "followers": "Followers",
+    "following": "Following",
     "forgotPassword": "Forgot Password",
     "from-my-assessments": "From My Assessments",
     "from-my-collections": "From My Collections",
@@ -196,11 +201,13 @@ export default {
     },
     "other": "Other",
     "performance":"Show Performance",
+    "play": "Play",
     "please_contact": "Please contact",
     "pending":"Pending",
     "publish-to":" Publish to my profile",
     "publisher": "Publisher",
     "preview": "Preview",
+    "profile": "Profile",
     "question":"Question",
     "questions": "Questions",
     "question-pl": {
@@ -277,8 +284,6 @@ export default {
     "timeSpent": "Time Spent",
     "true":"True",
     "type": "Type",
-    "update-thumbnail": "Update Thumbnail",
-    "upload-thumbnail":"Upload Thumbnail",
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
     "unfollow": "Unfollow",
     "unit":"Unit",
@@ -287,6 +292,11 @@ export default {
       one: "Unit",
       other: "Units"
     },
+    "untitled-course": "Course 1",
+    "untitled-lesson": "Untitled Lesson",
+    "untitled-unit": "Untitled Unit",
+    "update-thumbnail": "Update Thumbnail",
+    "upload-thumbnail":"Upload Thumbnail",
     "verified": "Verified",
     "yes": "Yes",
     "warnings": {
@@ -434,19 +444,26 @@ export default {
       "terms-and-conditions": 'By clicking Join Class, I agree to share my assessment and collection progress data generated from studying this Gooru class, with the teacher(s) of this class.'
     }
   },
+  "content.assessments.edit": {
+    "best-practices": "<p>An assessment is a set of scored questions which you and your students can use to monitor understanding and performance.</p><p>Use a variety of question types (including several based on the SBAC) in your assessment so students can demonstrate understanding in different ways. We recommend tagging each question to standards, micro-standards, and Webb's Depth of Knowledge.</p>"
+  },
   "content.collections.edit": {
-    "assign-to-course": "Assign to Course"
+    "assign-to-course": "Assign to Course",
+    "best-practices": "<p>Students interact with your content at the collection level. When creating a learning collection, make sure to include learning objectives, and consider using a variety of resource types to expose students to the concepts in multiple ways.</p><p>Use the sequencing of the resources to build on concepts. Progression through a collection should flow in a logical manner and take the intended audience from a general to more complex level of understanding if appropriate, or allow adequately for student exploration.</p><p>Include checks for understanding along the way via our Gooru questions or other interactives. We recommend there are enough resources and/or enough variety of resources to accomplish the objectives in the collection and that each resource has a role and purpose.</p>"
   },
   "content.courses.edit": {
     "assign-to-class": "Assign to Class",
+    "best-practices": "<p>A course is a folder that allows you to organize your learning content into units and lessons. When creating a course consider the essential questions you are addressing, the learning objectives, and organization of your content.</p><p>You can piece the lessons together to create a diverse experience for your student population (for example, you could sequence your units chronologically, by topic, or by standard).</p>",
     "big-ideas": "Big Ideas",
     "essential-questions": "Essential Questions",
     "information":{
-      "course-title":"Course Title"
+      "course-title":"Course Title",
+      "description":"Description"
     }
   },
   "content.questions.edit": {
     "add-to": "Add to",
+    "best-practices": "<p>A question is a resource that requires an answer from the student, and we offer a variety of question types to support the kinds of questions your students will see on SBAC, PARCC and other assessments.</p><p>Consider alternating the kinds of questions you use to offer students exposure to these question types and to provide multiple formats for demonstrating knowledge.</p><p>Tag your questions to standards, micro-standards, and Webb's Depth of Knowledge. You can see how your students are interacting with questions through the teacher dashboard.</p>",
     "information":{
       "question-title":"Question Title",
       "question-type": "Question Type"
@@ -458,9 +475,12 @@ export default {
       "answer":"Answer",
       "answer-instructions":{
         "FIB":"Add up to 5 hints for answer and an explanation.",
-        "MC":"You can add up to ten answers choices and indicate one correct answer. Character Limit: 200.",
+        "HS_IMG":"You can add up to ten answers images an select one or more correct answers.",
         "HS_TXT": "You can add up to ten answers choices and select one or more correct answers.",
         "HT_RO": "You can add up to ten answers choices in the correct order. The order will be scrambled for students.",
+        "MA": "You can add up to ten answers, an image, explanation and up to five hints.",
+        "MC":"You can add up to ten answers choices and indicate one correct answer. Character Limit: 200.",
+        "OE":"Write the correct response. Character limit: 5000.",
         "T/F":"Select the correct answer."
       },
       "question-instructions":{
@@ -471,12 +491,14 @@ export default {
         "HT_HL":"Write your question. Character limit: 5000.",
         "MC":"Write your question. Character limit: 5000.",
         "MA":"Write your question. Character limit: 5000.",
+        "OE":"Write your question. Character limit: 5000.",
         "T/F":"Write your question. Character limit: 5000."
       }
     }
   },
   "content.resources": {
     "edit": {
+      "best-practices": "<p>A resource is multimedia content in a variety of formats such as videos, interactives, websites, images, Google docs, and more. Get creative and use your own resources or get “resourceful” and search our ample supply in Gooru.</p><p>Use a variety of resource types to engage your students and include narration so you can help guide your students through the resource.</p><p>We recommend tagging each question to standards, micro-standards and 21st century skills. You can see how your students are interacting with resources through the teacher dashboard.</p>",
       "placeholder-message": "Add a resource to <span>preview it here.</span>",
       "not-implemented": "Resource format preview <span>not implemented yet.</span>",
       "information": {
@@ -777,8 +799,8 @@ export default {
     "gru-navigation": {
       "about": "About",
       "about-you": "About You",
-      "content": "Content",
-      "network": "Network"
+      "library": "Library",
+      "followers": "Followers"
     },
     "edit": {
       "select-district": "Select a district..."

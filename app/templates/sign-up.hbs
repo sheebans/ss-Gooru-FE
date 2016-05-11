@@ -41,10 +41,10 @@
                     <div class="form-group username">
                       <label>
                         <span class="required">{{t "sign-up.username"}}</span>
-                        {{validation.gru-input model=profile valuePath='username' }}
+                        {{validation.gru-input-mixed-validation model=profile valuePath='username' didSubmit=submitFlag}}
                       </label>
                     </div>
-                    {{gru-select-date-picker wasSubmitted=didValidate onValidDate="validDate"}}
+                    {{gru-select-date-picker wasSubmitted=dateValidated onValidDate="validDate"}}
                     <div class="form-group firstName">
                       <label>
                         <span class="required">{{t "common.first-name"}}</span>
@@ -60,7 +60,7 @@
                     <div class="form-group email">
                       <label>
                         <span class="required">{{t "sign-up.email"}}</span>
-                        {{validation.gru-input model=profile valuePath='email' }}
+                        {{validation.gru-input-mixed-validation model=profile valuePath='email' didSubmit=submitFlag}}
                       </label>
                     </div>
                     <div class="form-group">

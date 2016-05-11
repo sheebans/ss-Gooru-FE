@@ -254,16 +254,26 @@ span.validation.warning {
     &.active a{
       -webkit-box-shadow: inset 0 -3px 0 $white;
       box-shadow: inset 0 -3px 0 $white;
+      color: $white;
       padding-bottom:3px;
       >* {
         opacity: 1;
       }
       &:focus:hover {
         color: $white;
+        -webkit-box-shadow: inset 0 -3px 0 $white;
+        box-shadow: inset 0 -3px 0 $white;
       }
       &:hover {
+        -webkit-box-shadow: inset 0 -3px 0 $white;
+        box-shadow: inset 0 -3px 0 $white;
         color: $white;
       }
+    }
+    a:hover {
+      -webkit-box-shadow: inset 0 -3px 0 $white;
+      box-shadow: inset 0 -3px 0 $white;
+      color: $white;
     }
     &.collections {
       i {

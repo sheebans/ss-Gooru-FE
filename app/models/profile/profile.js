@@ -12,7 +12,12 @@ const Validations = buildValidations({
         min: 4,
         max: 20,
         message: 'Username must be between 4 and 20 characters.'
-      }),
+      })
+    ]
+  },
+
+  usernameAsync: {
+    validators: [
       validator('username')
     ]
   },
@@ -85,9 +90,14 @@ const Validations = buildValidations({
     validator('format', {
       regex: /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
       message: 'Please enter a valid email address.'
-    }),
-    validator('email')
-  ]
+    })
+  ],
+
+  emailAsync: {
+    validators: [
+      validator('email')
+    ]
+  }
 
 });
 
@@ -119,6 +129,26 @@ export default Ember.Object.extend(Validations,{
   username: null,
 
   /**
+   * @property {string} code - The profile code
+   * //TODO this should come from BE
+   */
+  code: Ember.computed("username", function(){
+    const username = this.get("username");
+    if (username) {
+      return username;
+    }
+    else {
+      const uuid = this.get("id").split("-");
+      return uuid.length >= 3 ? uuid[3] : uuid;
+    }
+  }),
+
+  /**
+   * @property {string} usernameAsync - Used to validate on submit
+   */
+  usernameAsync: null,
+
+  /**
    * @property {string} password  - The profile password
    */
   password: null,
@@ -127,6 +157,11 @@ export default Ember.Object.extend(Validations,{
    * @property {string} email - The profile email
    */
   email: null,
+
+  /**
+   * @property {string} emailAsync - Used to validate on submit
+   */
+  emailAsync: null,
 
   /**
    * @property {string} gender - Profile gender

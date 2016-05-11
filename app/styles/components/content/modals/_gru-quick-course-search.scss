@@ -1,19 +1,29 @@
 .quick-course-search {
   overflow: hidden;
 
-  >.modal-dialog {
-    @include respond-to(sm-to-lg) {
-      float: right;
-      margin: 0 17px 0 0;
-      width: 400px;
+  &.fade {
+    .modal-dialog {
+      @include respond-to(sm-to-lg) {
+        float: right;
+        width: 400px;
+      }
+      @include respond-to(md-to-lg) {
+        width: 520px;
+      }
+      -webkit-transform: translate3d(125%, 0, 0);
+      height: 96%;
+      margin: 0 auto;
+      overflow: visible;
+      transform: translate3d(125%, 0, 0);
+      width: 353px;
     }
-    @include respond-to(md-to-lg) {
-      width: 520px;
+
+    &.in {
+      .modal-dialog {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }
     }
-    height: 96%;
-    margin: 0 auto;
-    overflow: visible;
-    width: 353px;
   }
 
   .gru-quick-course-search {
@@ -54,11 +64,8 @@
   .modal-body {
     @include flex-grow(1);
     @include flexbox;
-    @include flex-wrap(wrap);
-    @include respond-to(sm-to-lg) {
-      @include justify-content(center);
-      margin-right: 0;
-    }
+    @include flex-direction(column);
+    @include align-items(center);
     border: 0;
     margin-right: -17px;
     margin-top: 10px;
@@ -67,8 +74,16 @@
     padding: 0 15px 0 0;
 
     >* {
+      @include flex-shrink(0);
       border: 1px transparent;
+      height: 183px;
       margin: 5px 0;
+      padding: 0;
+      width: 336px;
+      @media(min-width: $screen-lg) {
+        width: 463px;
+
+      }
 
       &:first-child {
         margin-top: 0;
@@ -85,8 +100,11 @@
     }
 
     .selected {
-      border: 1px solid $blue-400;
-      border-radius: 3px;
+      .gru-course-card {
+        border: 3px solid $blue-400;
+        border-radius: 6px;
+      }
+
     }
   }
 

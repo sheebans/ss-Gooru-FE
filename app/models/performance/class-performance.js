@@ -11,7 +11,7 @@ export default DS.Model.extend({
   /**
    * @property {StudentPerformance[]} List of StudentPerformance items
    */
-  studentPerformanceData: DS.hasMany('performance/student-performance', { async: true }),
+  studentPerformanceData: DS.hasMany('performance/student-performance', { async: false }),
 
   /**
    * @property {Number} Computed property with the average score of the whole class.

@@ -4,7 +4,7 @@
 <div class="modal-body">
   {{#each model.courses as |course|}}
     <div class="{{course.id}}" {{action "selectCourse" course.id}}>
-        {{cards.gru-course-card course=course isOwner=true}}
+        {{cards.gru-course-card course=course isEditEnabled=true}}
     </div>
   {{/each}}
 </div>

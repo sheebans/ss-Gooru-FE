@@ -161,7 +161,15 @@ export default Ember.Component.extend({
 
   closeModal: function(collectionId) {
     this.triggerAction({ action: 'closeModal' });
-    this.get('router').transitionTo('content.collections.edit', collectionId);
+
+    const courseId = this.get("model.courseId");
+    if (courseId){
+      const queryParams = { queryParams: { courseId: courseId } };
+      this.get('router').transitionTo('content.collections.edit', collectionId, queryParams);
+    }
+    else{
+      this.get('router').transitionTo('content.collections.edit', collectionId);
+    }
   },
 
   showErrorMessage: function(error){
@@ -177,9 +185,10 @@ export default Ember.Component.extend({
     this._super(...arguments);
     if(this.get('model') && this.get('model').isQuickstart) {
       let className = this.get('model').class.title;
-      let courseName = `${className} - Course 1`;
-      let unitName = `${courseName} - Unit 1`;
-      let lessonName = `${unitName} - Lesson 1`;
+      let courseTitle = this.get('i18n').t('common.untitled-course').string;
+      let courseName = `${className} - ${courseTitle}`;
+      let unitName = this.get('i18n').t('common.untitled-unit').string;
+      let lessonName = this.get('i18n').t('common.untitled-lesson').string;
       var course = Course.create(Ember.getOwner(this).ownerInjection(), {title: courseName});
       this.set('course', course);
       var unit = Unit.create(Ember.getOwner(this).ownerInjection(), {title: unitName});

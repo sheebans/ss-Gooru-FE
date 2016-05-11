@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { cleanFilename } from 'gooru-web/utils/utils';
 import AssessmentModel from 'gooru-web/models/content/assessment';
 import QuestionSerializer from 'gooru-web/serializers/content/question';
-
+import { DEFAULT_IMAGES } from "gooru-web/config/config";
 /**
  * Serializer to support the Assessment CRUD operations for API 3.0
  *
@@ -47,7 +47,7 @@ export default Ember.Object.extend({
       title: assessmentModel.get('title'),
       learning_objective: assessmentModel.get("learningObjectives"),
       visible_on_profile: assessmentModel.get('isVisibleOnProfile'),
-      thumbnail: cleanFilename(assessmentModel.image)
+      thumbnail: cleanFilename(assessmentModel.get("thumbnailUrl"))
     };
   },
 
@@ -58,13 +58,19 @@ export default Ember.Object.extend({
    */
   normalizeReadAssessment: function(assessmentData){
     var serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = assessmentData.thumbnail ?
+    basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
+
     return AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
       id: assessmentData.id,
       title: assessmentData.title,
       learningObjectives: assessmentData['learning_objective'],
-      isVisibleOnProfile: assessmentData['visible_on_profile'] !== 'undefined' ? assessmentData['visible_on_profile'] : true,
+      isVisibleOnProfile: assessmentData['visible_on_profile'] ? assessmentData['visible_on_profile'] : true,
       children: serializer.normalizeQuestions(assessmentData.question),
-      image: assessmentData.thumbnail ? serializer.get('session.cdnUrls.content') + assessmentData.thumbnail : null
+      questionCount: assessmentData.question_count ? assessmentData.question_count : 0,
+      sequence: assessmentData.sequence_id,
+      thumbnailUrl: thumbnailUrl
       // TODO Add more required properties here...
     });
   },
@@ -72,8 +78,8 @@ export default Ember.Object.extend({
   normalizeQuestions: function(payload) {
     const serializer = this;
     if (Ember.isArray(payload)) {
-      return payload.map(function(item) {
-        return serializer.get('questionSerializer').normalizeReadQuestion(item);
+      return payload.map(function(item, index) {
+        return serializer.get('questionSerializer').normalizeReadQuestion(item, index);
       });
     }
     return [];

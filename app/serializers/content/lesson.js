@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import Lesson from 'gooru-web/models/content/lesson';
 import LessonItem from 'gooru-web/models/content/lessonItem';
-import { CREATOR_SYSTEM } from 'gooru-web/config/config';
+import { DEFAULT_IMAGES } from "gooru-web/config/config";
 
 /**
  * Serializer to support the Lesson CRUD operations
@@ -9,6 +9,8 @@ import { CREATOR_SYSTEM } from 'gooru-web/config/config';
  * @typedef {Object} LessonSerializer
  */
 export default Ember.Object.extend({
+
+  session: Ember.inject.service('session'),
 
   /**
    * Serialize a Content/Lesson object into a JSON representation required by the Create Lesson endpoint
@@ -18,7 +20,6 @@ export default Ember.Object.extend({
    */
   serializeCreateLesson: function (lessonModel) {
     var lessonData =  this.get('serializeUpdateLesson')(lessonModel);
-    lessonData.creator_system = CREATOR_SYSTEM;
     return lessonData;
   },
 
@@ -41,21 +42,28 @@ export default Ember.Object.extend({
    * @returns {Content/Lesson} lesson model
    */
   normalizeLesson: function (lessonData) {
+    const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
     return Lesson.create(Ember.getOwner(this).ownerInjection(), {
       children: function () {
         var lessonItems = [];
 
         if (lessonData.collection_summary) {
           lessonItems = lessonData.collection_summary.map(function (lessonItemData) {
-            return LessonItem.create({
+            const lessonItem  = LessonItem.create({
               id: lessonItemData.id,
-              image: lessonItemData.thumbnail,
               format: lessonItemData.format,
               questionCount: lessonItemData.question_count ? lessonItemData.question_count : 0,
               resourceCount: lessonItemData.resource_count ? lessonItemData.resource_count : 0,
               sequence: lessonItemData.sequence_id,
               title: lessonItemData.title
             });
+
+            const defaultImage = (lessonItem.get("isCollection")) ? DEFAULT_IMAGES.COLLECTION : DEFAULT_IMAGES.ASSESSMENT;
+            const thumbnailUrl = lessonItemData.thumbnail ? basePath + lessonItemData.thumbnail : defaultImage;
+            lessonItem.set("thumbnailUrl", thumbnailUrl);
+
+            return lessonItem;
           });
         }
         return Ember.A(lessonItems);
@@ -63,7 +71,7 @@ export default Ember.Object.extend({
       id: lessonData.lesson_id,
       sequence: lessonData.sequence_id,
       title: lessonData.title,
-      taxonomy: lessonData.taxonomy.slice(0)
+      taxonomy: lessonData.taxonomy ? lessonData.taxonomy.slice(0) : []
     });
   }
 

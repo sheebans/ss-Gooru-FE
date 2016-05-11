@@ -19,7 +19,9 @@ export default Ember.Route.extend({
 
   collectionService: Ember.inject.service('api-sdk/collection'),
 
-  userService: Ember.inject.service("api-sdk/user"),
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
+
+  classService: Ember.inject.service("api-sdk/class"),
 
 
   // -------------------------------------------------------------------------
@@ -42,37 +44,41 @@ export default Ember.Route.extend({
   },
 
   model: function (params) {
+    const route = this;
     const classId = params.classId;
     const collectionId = params.collectionId;
-    const members = this.get("userService").findMembersByClass(classId);
 
     // Get initialization data from analytics
-    return this.get('collectionService')
-      .findById(collectionId)
-      .then(function (collection) {
+    return Ember.RSVP.hashSettled({
+      assessment: route.get('assessmentService').readAssessment(collectionId),
+      collection: route.get('collectionService').readCollection(collectionId)
+    }).then(function(hash){
+      const collectionFound = hash.assessment.state === 'rejected';
+      let collection = collectionFound ? hash.collection.value : hash.assessment.value;
 
-        return Ember.RSVP.hash({
-          routeParams: Ember.Object.create({
-            classId: classId,
-            collectionId: collectionId
-          }),
-          collection: collection,
-          students: members
-        });
+      return Ember.RSVP.hash({
+        routeParams: Ember.Object.create({
+          classId: classId,
+          collectionId: collectionId
+        }),
+        collection: collection.toPlayerCollection(),
+        classMembers: route.get('classService').readClassMembers(classId)
       });
+    });
   },
 
   setupController: function (controller, model) {
     // Create an instance of report data to pass to the controller.
+    const students = model.classMembers.get("members");
     var reportData = ReportData.create({
-      students: model.students,
+      students: students,
       resources: model.collection.get('resources')
     });
 
     controller.setProperties({
       routeParams: model.routeParams,
       assessment: model.collection,
-      students: model.students
+      students: students
     });
 
     // Because there's an observer on reportData, it's important set all other controller properties beforehand

@@ -36,15 +36,15 @@ export default CollectionEdit.extend({
       let assessment = component.get('collection');
       editedAssessment.validate().then(function ({validations }) {
         if (validations.get('isValid')) {
-          let imageIdPromise = new Ember.RSVP.resolve(editedAssessment.get('image'));
-          if(editedAssessment.get('image') && editedAssessment.get('image') !== assessment.get('image')) {
-            imageIdPromise = component.get('mediaService').uploadContentFile(editedAssessment.get('image'));
+          let imageIdPromise = new Ember.RSVP.resolve(editedAssessment.get('thumbnailUrl'));
+          if(editedAssessment.get('thumbnailUrl') && editedAssessment.get('thumbnailUrl') !== assessment.get('thumbnailUrl')) {
+            imageIdPromise = component.get('mediaService').uploadContentFile(editedAssessment.get('thumbnailUrl'));
           }
           imageIdPromise.then(function(imageId) {
-            editedAssessment.set('image', imageId);
+            editedAssessment.set('thumbnailUrl', imageId);
             component.get('assessmentService').updateAssessment(editedAssessment.get('id'), editedAssessment)
               .then(function () {
-                assessment.merge(editedAssessment, ['title', 'learningObjectives', 'isVisibleOnProfile', 'image']);
+                assessment.merge(editedAssessment, ['title', 'learningObjectives', 'isVisibleOnProfile', 'thumbnailUrl']);
                 component.set('isEditing', false);
               })
               .catch(function (error) {
@@ -67,14 +67,5 @@ export default CollectionEdit.extend({
       this.set('tempCollection.isVisibleOnProfile', isChecked);
       this.actions.updateContent.call(this);
     }
-  },
-  //// -------------------------------------------------------------------------
-  //// Properties
-  //
-  ///**
-  // * Course model as instantiated by the route. This is the course that have the assigned assessment
-  // * @property {Course}
-  // */
-  //course: null,
-
+  }
 });

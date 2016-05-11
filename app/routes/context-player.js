@@ -40,9 +40,10 @@ export default PlayerRoute.extend({
       const courseId = context.get("courseId");
       const unitId = context.get("unitId");
       const lessonId = context.get("lessonId");
-      return route.get('lessonService').findById(courseId, unitId, lessonId).then(function(lesson){
-        model.lesson = lesson;
-        return model;
+      return route.get('lessonService').fetchById(courseId, unitId, lessonId)
+        .then(function(lesson){
+          model.lesson = lesson;
+          return model;
       });
     });
   },

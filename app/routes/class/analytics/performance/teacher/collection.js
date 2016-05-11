@@ -15,6 +15,11 @@ export default Ember.Route.extend({
   collectionService: Ember.inject.service('api-sdk/collection'),
 
   /**
+   * @type AssessmentService
+   */
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
+
+  /**
    * @type LessonService
    */
   lessonService: Ember.inject.service('api-sdk/lesson'),
@@ -39,50 +44,58 @@ export default Ember.Route.extend({
   },
 
   model: function(params) {
-
     const route = this;
-    const classModel = this.modelFor('class');
-    const classId = this.paramsFor('class').classId;
-    const courseId = classModel.class.get('course');
     const unitId = params.unitId;
     const lessonId = params.lessonId;
     const collectionId = params.collectionId;
+    const classModel = route.modelFor('class').class;
+    const classId = classModel.get('id');
+    const courseId = classModel.get('courseId');
+    const members = classModel.get('members');
+    const unit = this.get('unitService').fetchById(courseId, unitId);
+    const lesson = this.get('lessonService').fetchById(courseId, unitId, lessonId);
 
-    const unit = this.get('unitService').findById(courseId, unitId);
-    const lesson = this.get('lessonService').findById(courseId, unitId, lessonId);
+    return Ember.RSVP.hashSettled({
+      collection: route.get('collectionService').readCollection(collectionId),
+      assessment: route.get('assessmentService').readAssessment(collectionId)
+    }).then(function(hash) {
+      const collectionFound = hash.assessment.state === 'rejected';
+      const collection = collectionFound ? hash.collection.value : hash.assessment.value;
+      const collectionType = collection.get('collectionType');
 
-    return this.get('collectionService')
-      .findById(collectionId)
-      .then(function(collection) {
-        const collectionType = collection.get('collectionType');
-        return route.get('analyticsService')
-          .findResourcesByCollection(classId, courseId, unitId, lessonId, collectionId, collectionType)
-          .then(function(userResourcesResults) {
-            return Ember.RSVP.hash({
-              unit: unit,
-              lesson: lesson,
-              collection: collection,
-              userResults: userResourcesResults
-            });
+      return route.get('analyticsService')
+        .findResourcesByCollection(classId, courseId, unitId, lessonId, collectionId, collectionType)
+        .then(function(userResourcesResults) {
+          return Ember.RSVP.hash({
+            unit: unit,
+            lesson: lesson,
+            collection: collection,
+            members: members,
+            userResults: userResourcesResults
           });
-      });
+        });
+    });
   },
+
   /**
    * Set all controller properties from the model
    * @param controller
    * @param model
    */
   setupController: function(controller, model) {
-    let collection = model.collection;
-    let reportData = ReportData.create({
-      students: controller.get("students"),
-      resources: collection.get("resources")
+    const collection = model.collection;
+    const reportData = ReportData.create({
+      students: model.members,
+      resources: collection.get('children')
     });
     reportData.merge(model.userResults);
 
     controller.set("collection", collection);
     controller.set("reportData", reportData);
     controller.set("showFilters", false);
+
+    controller.set('students', model.members);
+    controller.set('resources', collection.get('children'));
 
     //updating the breadcrumb with the unit, useful when refreshing the page
     controller.get("teacherController").updateBreadcrumb(model.unit, 'unit');

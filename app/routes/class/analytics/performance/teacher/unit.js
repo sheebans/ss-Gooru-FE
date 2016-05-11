@@ -44,24 +44,24 @@ export default Ember.Route.extend({
   },
 
   model: function(params) {
-
-    const classModel = this.modelFor('class');
+    const route = this;
     const unitId = params.unitId;
-    const classId= this.paramsFor('class').classId;
-    const courseId = classModel.class.get('course');
-    const users = classModel.members;
+    const classModel = this.modelFor('class').class;
+    const classId = classModel.get('id');
+    const courseId = classModel.get('courseId');
+    const members = classModel.get('members');
 
-    const lessons = this.get('lessonService').findByClassAndCourseAndUnit(classId, courseId, unitId);
-    const classPerformanceData = this.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, users);
-    const unit = this.get('unitService').findById(courseId, unitId);
-
-    return Ember.RSVP.hash({
-      lessons: lessons,
-      classPerformanceData: classPerformanceData,
-      unit: unit
-    });
-
+    return this.get('unitService').fetchById(courseId, unitId)
+      .then(function(unit) {
+        const classPerformanceData = route.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, members);
+        return Ember.RSVP.hash({
+          unit: unit,
+          lessons: unit.get('children'),
+          classPerformanceData: classPerformanceData
+        });
+      });
   },
+
   /**
    * Set all controller properties from the model
    * @param controller
@@ -78,6 +78,6 @@ export default Ember.Route.extend({
     controller.set("teacherController.unit", model.unit);
     //updating the collectionLevel to show or not the launch anonymous button
     controller.set("teacherController.collectionLevel", false);
-
   }
+
 });

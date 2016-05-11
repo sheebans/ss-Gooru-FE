@@ -251,6 +251,8 @@ export function truncate(text, maxLength, type, suffix){
     "short": 10,
     "player-nav-sm": 30,
     "medium": 35,
+    "collection-card-courses":75,
+    "medium-large":100,
     "large": 200
   };
   let defaultType = "short";

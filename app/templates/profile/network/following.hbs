@@ -1,0 +1,9 @@
+<div class="controller network-followings">
+  <div class="followings col-md-12 col-sm-12 col-xs-9 clearfix">
+    {{#each followings as |following|}}
+      <div class="card">
+        {{cards.gru-user-network-card user=following followingFilter=true}}
+      </div>
+    {{/each}}
+  </div>
+</div>

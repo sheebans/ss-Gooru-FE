@@ -63,6 +63,11 @@ export default Ember.Component.extend({
 
   },
 
+  init: function() {
+    this._super(...arguments);
+    this.set('filePickerErrors', Ember.A());
+  },
+
   // -------------------------------------------------------------------------
   // Properties
 
@@ -88,6 +93,6 @@ export default Ember.Component.extend({
    * List of error messages to present to the user for conditions that the loaded image does not meet
    * @prop {String[]}
    */
-  filePickerErrors: []
+  filePickerErrors: null
 
 });

@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { cleanFilename } from 'gooru-web/utils/utils';
 import CourseModel from 'gooru-web/models/content/course';
 import UnitSerializer from 'gooru-web/serializers/content/unit';
-import { CREATOR_SYSTEM } from 'gooru-web/config/config';
+import { DEFAULT_IMAGES } from "gooru-web/config/config";
 
 /**
  * Serializer to support the Course CRUD operations for API 3.0
@@ -28,7 +28,6 @@ export default Ember.Object.extend({
    */
   serializeCreateCourse: function(courseModel) {
     var courseData = this.serializeCourse(courseModel);
-    courseData['creator_system'] = CREATOR_SYSTEM;
     return courseData;
   },
 
@@ -78,15 +77,19 @@ export default Ember.Object.extend({
   */
   normalizeCourse: function(payload) {
     const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = payload.thumbnail ? basePath + payload.thumbnail : DEFAULT_IMAGES.COURSE;
+
     return CourseModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: payload.id,
       children: serializer.get('unitSerializer').normalizeUnits(payload.unit_summary),
       description: payload.description,
       isPublished: payload['publish_status'] && payload['publish_status'] === 'published',
       isVisibleOnProfile: payload['visible_on_profile'],
+      owner: payload.owner_id,
       subject: payload.subject_bucket,
       taxonomy: payload.taxonomy ? payload.taxonomy.slice(0) : null,
-      thumbnailUrl: payload.thumbnail ? serializer.get('session.cdnUrls.content') + payload.thumbnail : null,
+      thumbnailUrl: thumbnailUrl,
       title: payload.title,
       unitCount: payload.unit_count ? payload.unit_count : 0
       // TODO More properties will be added here...

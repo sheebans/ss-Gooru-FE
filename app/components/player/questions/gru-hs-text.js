@@ -111,9 +111,8 @@ export default QuestionComponent.extend({
    * Set the user answer
    */
   setUserAnswer: function(){
-    const userAnswer = this.get("userAnswer");
-
-    if (userAnswer) {
+    if (this.get("hasUserAnswer")) {
+      const userAnswer = this.get("userAnswer");
       userAnswer.forEach(function(answerId){
         let selector = `li.answer[data-id='${answerId}']`;
         let $answer = Ember.$(selector);

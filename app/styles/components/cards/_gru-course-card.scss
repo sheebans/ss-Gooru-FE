@@ -1,6 +1,28 @@
 .gru-course-card {
+  @include respond-to(lg) {
+    width: 463px;
+  }
   display: inline-block;
+  height: 183px;
   margin: 5px 12px;
+  width: 336px;
+
+  .actions {
+    @include flexbox;
+    @include flex-direction(row-reverse);
+    @include justify-content(space-between);
+    @include align-items(flex-end);
+    margin-top: 5px;
+    width: 80px;
+    @media(min-width: $screen-sm) {
+      width: 100px;
+    }
+
+    >* {
+      font-size: $font-size-base;
+      width: 100%;
+    }
+  }
 
   .remixed-users {
     height: 35px;
@@ -8,50 +30,51 @@
 
   .course-title {
     font-size: $font-size-h6;
-    margin: 10px 0 0;
+    margin: 0;
+    max-width: 305px;
   }
 
+
+
   .visibility {
+    bottom: 10px;
     height: 24px;
     margin-bottom: -4px;
+    position: absolute;
+    right: 10px;
     width: 24px;
   }
 
-  .actions {
-    @include flexbox;
-    @include flex-direction(row-reverse);
-    @include justify-content(space-between);
-    @include align-items(flex-end);
-    height: 28px;
-    margin-top: 5px;
-  }
+
 
   .course-image {
     float: left;
+    height: 80px;
     margin-bottom: 0;
-    width: 145px;
+    width: 80px;
+    @media(min-width: $screen-sm) {
+      height: 100px;
+      width: 100px;
+    }
 
     img {
       border: 0;
       border-bottom-left-radius: 6px;
       border-top-left-radius: 6px;
-      height: 145px;
-      width: 145px;
+      height: 100%;
+      width: 100%;
     }
   }
 
   .card-info {
-    @include respond-to(lg) {
-      width: 67%;
-    }
     @include flexbox;
     @include flex-direction(column);
-    padding-left: 23px;
-    padding-right: 18px;
+    @include flex-grow(2);
+    padding: 20px 18px 0 0;
+    position: relative;
+
 
     .header {
-      margin-top: 5px;
-
       .icon {
         height: 24px;
         width: 24px;
@@ -70,7 +93,6 @@
 
       .bars {
         border-left: 2px solid $gray-base;
-        border-right: 2px solid $gray-base;
         margin-right: 5px;
       }
     }
@@ -79,23 +101,34 @@
       padding: 0 5px;
     }
 
-    button {
-      font-size: $font-size-base;
-      height: 28px;
-      width: 73px;
+  }
+
+  .description {
+    line-height: 1.3;
+  }
+
+  .interaction-zone {
+    @include flexbox;
+    @include flex-direction(column);
+    @include align-items(center);
+    @include flex-basis(120px);
+    @include flex-shrink(0);
+    padding-top: 20px;
+    @media(min-width: $screen-sm) {
+      @include flex-basis(140px);
     }
   }
 
   .panel {
-    @include respond-to(lg) {
-      width: 463px;
-    }
     border-radius: 6px;
-    height: 145px;
-    width: 353px;
+    height: 100%;
+    width: 100%;
 
     .panel-body {
+      @include flexbox;
+      height: 100%;
       padding: 0;
+
 
       .icon {
         color: $gray-base;

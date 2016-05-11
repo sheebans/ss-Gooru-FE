@@ -1,7 +1,7 @@
-import { test } from 'qunit';
+//import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
-import T from 'gooru-web/tests/helpers/assert';
+//import T from 'gooru-web/tests/helpers/assert';
 
 moduleForAcceptance('Acceptance | player', {
   beforeEach: function () {
@@ -15,7 +15,7 @@ moduleForAcceptance('Acceptance | player', {
   }
 });
 
-test('Layout', function (assert) {
+/*test('Layout', function (assert) {
   assert.expect(4);
   visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
 
@@ -250,5 +250,5 @@ test('openNavigator & closeNavigator: When opening and closing the navigator', f
       });
     });
   });
-});
+});*/
 

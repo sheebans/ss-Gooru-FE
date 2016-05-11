@@ -26,7 +26,7 @@
   </div>
   <div class="content">
 
-    {{content.gru-image isEditing=isEditing srcImage=course.image editImage=tempCourse.image}}
+    {{content.gru-image isEditing=isEditing srcImage=course.thumbnailUrl editImage=tempCourse.thumbnailUrl}}
 
     <div class="panel panel-default">
       <div class="panel-body">
@@ -40,7 +40,18 @@
             {{/if}}
           </label>
         </div>
-
+          <div class="description">
+              <label>
+                  <span>{{t "content.courses.edit.information.description"}}</span>
+                {{#if isEditing}}
+                  {{validation.gru-textarea rawTextareaValue=tempCourse.description model=tempCourse valuePath='description' maxLength=500 rows=2}}
+                {{else}}
+                  {{#if course.description}}
+                  {{textarea class="text-description" value=course.description class="form-control" rows=2 readonly=true}}
+                  {{/if}}
+                {{/if}}
+              </label>
+          </div>
         {{content.gru-category isEditing=isEditing srcCategory=course.category editCategory=tempCourse.category}}
 
         <div class="subject">

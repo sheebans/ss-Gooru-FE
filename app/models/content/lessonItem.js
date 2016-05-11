@@ -14,19 +14,22 @@ export default Ember.Object.extend({
   id: '',
 
   /**
-   * @property {String} image - Lesson item image url
+   * @property {String} thumbnailUrl - Lesson item image url
    */
-  image: '',
+  thumbnailUrl: null,
 
   isCollection: Ember.computed('format', function() {
     return this.get('format') === CONTENT_TYPES.COLLECTION;
   }),
+
+  isAssessment: Ember.computed.not("isCollection"),
 
   /**
    * @property {String} format - Type of lesson item
    */
   format: '',
 
+  collectionType: Ember.computed.alias("format"),
   /**
    * @property {Number} questionCount - total number of questions in the lesson
    */

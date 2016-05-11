@@ -1,7 +1,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="image">
-            <a {{action "openContentPlayer" collection.id}}><img class="img-responsive" src="{{if collection.image collection.image "assets/gooru/profile.png"}}"></a>
+            <a {{action "openContentPlayer" collection.id}}><img class="img-responsive" src="{{collection.thumbnailUrl}}"></a>
         </div>
         <div class="collection-info">
             <a {{action "openContentPlayer" collection.id}}> <h6 class="title truncate" alt="{{ collection.title }}">{{ collection.title }}</h6></a>
@@ -15,7 +15,7 @@
             </span>
             {{#if collection.course }}
               <div class="course">
-                {{gru-icon name="chrome_reader_mode"}}<p>{{t "cards.gru-course-card.in"}}<a>{{collection.course}}</a></p>
+                {{gru-icon name="chrome_reader_mode"}}<p>{{t "cards.gru-course-card.in"}}<a>{{truncate text=collection.course type='collection-card-courses'}}</a></p>
               </div>
             {{/if}}
         </div>
@@ -29,16 +29,16 @@
           {{/if}}
             <div class="{{if isAssessment 'author' 'remixed-by'}}">
               {{#if isAssessment}}
-                {{#link-to 'profile.about' collection.owner.id tagName="div"}}
+                {{#link-to 'profile.content.courses' collection.owner.id tagName="div"}}
                   <span class="title">{{t "cards.gru-course-card.created"}}</span>
-                  <img class="img-responsive" src="{{if collection.owner.avatarUrl collection.owner.avatarUrl "assets/gooru/profile.png"}}">
+                  <img class="img-responsive" src="{{collection.owner.avatarUrl}}">
                   <span>{{collection.owner.displayName}}</span>
                 {{/link-to}}
               {{else}}
                 {{#if collection.owner}}
-                  {{#link-to 'profile.about' collection.owner.id tagName="div"}}
+                  {{#link-to 'profile.content.courses' collection.owner.id tagName="div"}}
                     <span class="title">{{t "cards.gru-course-card.remixed-by"}}</span>
-                    <img class="img-responsive" src="{{if collection.owner.avatarUrl collection.owner.avatarUrl "assets/gooru/profile.png"}}">
+                    <img class="img-responsive" src="{{collection.owner.avatarUrl}}">
                     <span>{{collection.owner.displayName}}</span> {{#if collection.remixCount}}+{{collection.remixCount}}{{/if}}
                   {{/link-to}}
                 {{/if}}
@@ -56,9 +56,9 @@
             {{/if}}
             </div>
             <div class="visibility">
-              {{#if collection.isVisibleOnProfile }}
+              {{#unless collection.isVisibleOnProfile }}
                 {{gru-icon name="visibility_off" class='pull-right'}}
-              {{/if}}
+              {{/unless}}
             </div>
         </div>
     </div>

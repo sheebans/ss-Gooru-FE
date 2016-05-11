@@ -24,12 +24,6 @@ export default Ember.Component.extend({
   actions: {
 
     /**
-     *Action triggered when click the course title or image
-     */
-    selectCourse: function() {
-      this.sendAction("onSelectCourse", this.get("course"));
-    },
-    /**
      *Action triggered when select remix the course
      */
     remixCourse:function(){
@@ -48,16 +42,33 @@ export default Ember.Component.extend({
    * @property {Course} course
    */
   course: null,
-  /**
-   * @property {Boolean} course
-   */
-  isOwner:false,
 
   /**
    * Edit course action
    * @property {string}
    */
   onEditCourse: null,
+
+  /**
+   * flag that tells if you are owner of card or not.
+   * @property {Boolean}
+   */
+  isOwner : false,
+  /**
+   * Edit enabled is a flag for whether the edit button is enabled or not.
+   * @property {Boolean}
+   */
+  isEditEnabled: false,
+  /**
+   * Edit enabled is a flag for whether the remix button is enabled or not.
+   * @property {Boolean} course
+   */
+  isRemixEnabled:false,
+  /**
+   * Edit enabled is a flag for whether the preview button is enabled or not.
+   * @property {Boolean} course
+   */
+  isPreviewEnabled:false,
 
   /**
    * @property {Array} users

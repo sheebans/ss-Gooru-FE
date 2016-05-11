@@ -52,16 +52,16 @@ export default Ember.Component.extend(ContentEditMixin, {
       let course = component.get('course');
       editedCourse.validate().then(function ({ validations }) {
         if (validations.get('isValid')) {
-          let imageIdPromise = new Ember.RSVP.resolve(editedCourse.get('image'));
-          if (editedCourse.get('image') && editedCourse.get('image') !== course.get('image')) {
-            imageIdPromise = component.get('mediaService').uploadContentFile(editedCourse.get('image'));
+          let imageIdPromise = new Ember.RSVP.resolve(editedCourse.get('thumbnailUrl'));
+          if (editedCourse.get('thumbnailUrl') && editedCourse.get('thumbnailUrl') !== course.get('thumbnailUrl')) {
+            imageIdPromise = component.get('mediaService').uploadContentFile(editedCourse.get('thumbnailUrl'));
           }
           imageIdPromise.then(function (imageId) {
-            editedCourse.set('image', imageId);
+            editedCourse.set('thumbnailUrl', imageId);
             component.get('courseService').updateCourse(editedCourse)
 
               .then(function () {
-                course.merge(editedCourse, ['title', 'isVisibleOnProfile', 'image']);
+                course.merge(editedCourse, ['title', 'isVisibleOnProfile', 'thumbnailUrl', 'description']);
                 component.set('isEditing', false);
               })
 

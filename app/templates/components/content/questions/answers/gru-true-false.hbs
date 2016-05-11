@@ -7,9 +7,17 @@
             <div class="text-area-container read-only">
               {{textarea value=answer.text readonly=true}}
             </div>
-            <button class="check {{if answer.isCorrect 'correct'}}" {{action 'setCorrect' answer}}>
-              {{gru-icon name="done"}}
-            </button>
+          {{#if editMode}}
+              <button class="check {{if answer.isCorrect 'correct'}}" {{action 'setCorrect' answer}}>
+                {{gru-icon name="done"}}
+              </button>
+          {{else}}
+            {{#if answer.isCorrect }}
+                <div class="check correct">
+                  {{gru-icon name="done"}}
+                </div>
+            {{/if}}
+          {{/if}}
         </div>
     </div>
 {{/each}}
