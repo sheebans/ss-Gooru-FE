@@ -26,6 +26,7 @@ test('normalizeCollection', function(assert) {
     "userLastName": "Barris",
     "userProfileImage": "profile.png",
     "usernameDisplay": "username",
+    "userId": 12,
     "thumbnail": "collection.png"
   };
 
