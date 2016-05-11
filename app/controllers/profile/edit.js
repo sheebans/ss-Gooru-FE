@@ -76,7 +76,6 @@ export default Ember.Controller.extend({
         controller.get('parentController').saveProfile(editedProfile);
         controller.get('profile').merge(editedProfile, ['firstName', 'lastName', 'aboutMe', 'role', 'countryId', 'stateId', 'state', 'schoolDistrictId', 'schoolDistrict', 'country']);
 
-        console.log('profile-merge',controller.get('profile'));
         // Trigger action in route
         this.send('profileAboutTransition');
       }

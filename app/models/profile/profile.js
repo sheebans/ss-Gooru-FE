@@ -318,7 +318,6 @@ export default Ember.Object.extend(Validations,{
    */
   merge: function(model, propertyList = []) {
     var properties = model.getProperties(propertyList);
-    console.log('properties', properties);
     this.setProperties(properties);
   }
 
