@@ -70,6 +70,7 @@ export default {
     "collections": "Collections",
     "collectionInitial": "C",
     "completed": "Completed",
+    "content":"Content",
     "content-publishing":"Content Publishing",
     "contentUnavailable": "Content not available",
     "copy-to": "Copy To",
@@ -200,6 +201,7 @@ export default {
     },
     "other": "Other",
     "performance":"Show Performance",
+    "play": "Play",
     "please_contact": "Please contact",
     "pending":"Pending",
     "publish-to":" Publish to my profile",
@@ -472,6 +474,7 @@ export default {
       "answer":"Answer",
       "answer-instructions":{
         "FIB":"Add up to 5 hints for answer and an explanation.",
+        "HS_IMG":"You can add up to ten answers images an select one or more correct answers.",
         "HS_TXT": "You can add up to ten answers choices and select one or more correct answers.",
         "HT_RO": "You can add up to ten answers choices in the correct order. The order will be scrambled for students.",
         "MA": "You can add up to ten answers, an image, explanation and up to five hints.",

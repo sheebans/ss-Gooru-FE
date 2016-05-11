@@ -1,6 +1,7 @@
 .content_assessments_edit .app-container,
 .content_collections_edit .app-container,
 .content_courses_edit .app-container,
+.content_courses_play .app-container,
 .content_questions_edit .app-container,
 .content_resources_edit .app-container {
   padding-left: 0;
@@ -14,9 +15,10 @@
 .controller.content.assessments.edit,
 .controller.content.collections.edit,
 .controller.content.courses.edit,
+.controller.content.courses.play,
 .controller.content.questions.edit,
 .controller.content.resources.edit {
-  $aside-padding: 30px;
+  $aside-padding: 25px;
 
   @include flexbox();
 
@@ -178,14 +180,19 @@
   > aside {
     background-color: $white;
     width: 260px;
-    padding: $aside-padding 0 0 $aside-padding;
+    padding: ($aside-padding - 10) 0 0 $aside-padding;
 
     > div {
       position: fixed;
-      padding-right: $aside-padding;
+      padding-right: $aside-padding - 5;
 
       h4 {
         color: $gray;
+      }
+
+      p {
+        line-height: 1.5;
+        margin-bottom: 0.6em;
       }
     }
   }
@@ -328,7 +335,8 @@
 
 .controller.content.assessments.edit,
 .controller.content.collections.edit,
-.controller.content.courses.edit {
+.controller.content.courses.edit,
+.controller.content.courses.play {
   #information .title > label {
     display: block;
 

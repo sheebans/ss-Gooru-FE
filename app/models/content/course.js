@@ -10,16 +10,7 @@ const Validations = buildValidations({
         descriptionKey: 'common.errors.add-course-title'
       })
     ]
-  },
-  description: {
-  validators: [
-    validator('length', {
-      max: 500,
-      message: '{{description}}',
-      descriptionKey: 'common.warnings.character-limit'
-    })
-  ]
-}
+  }
 });
 
 /**
@@ -73,6 +64,11 @@ export default Ember.Object.extend(Validations, {
    * @property {Number[]} Array with the audience ids
    */
   audience:[],
+
+  /**
+   * @property {String} id of the course's owner
+   */
+  owner: null,
 
   /**
    * @property {String} subject

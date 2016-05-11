@@ -28,23 +28,6 @@ test('it renders', function (assert) {
   assert.ok(!$component.find('> .actions').length, 'Buttons container should not be displayed by default');
 });
 
-test('it renders errors', function (assert) {
-
-  var errors = [
-    'error text 1',
-    'error text 2'
-  ];
-
-  this.set('errors', errors);
-
-  this.render(hbs`{{gru-image-picker filePickerErrors=errors }}`);
-
-  const $component = this.$('.gru-image-picker');
-  assert.ok($component.find('> .validation').length, 'Section for displaying image picker errors is missing');
-  assert.equal($component.find('> .validation span').length, 2, 'Wrong number of errors displayed');
-  assert.equal($component.find('> .validation span:last-child').text(), 'error text 2', 'Last error does not display the correct text');
-});
-
 test('it renders submit and reset (cancel) buttons when an image has been selected', function (assert) {
 
   this.set('isFileInputEmpty', false);
