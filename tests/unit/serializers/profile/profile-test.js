@@ -267,7 +267,7 @@ test('normalizeCollection', function(assert) {
     "visible_on_profile": false,
     "learning_objective": "This is important collection",
     "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
-    "course": {"title":"mathematics course 101"},
+    "course": {"id": 1, "title":"mathematics course 101"},
     "resource_count": 5,
     "question_count": 3,
     "remix_count": 2
@@ -279,6 +279,7 @@ test('normalizeCollection', function(assert) {
   assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
   assert.equal(collection.get("thumbnailUrl"), 'content-url/collection.png', 'Wrong image');
   assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
+  assert.equal(collection.get("courseId"), 1, 'Wrong course id');
   assert.equal(collection.get("isVisibleOnProfile"), false, 'Wrong visible on profile');
   assert.equal(collection.get("learningObjectives"), "This is important collection", 'Wrong learning objective');
   assert.equal(collection.get("resourceCount"), 5, 'Wrong resource count');
@@ -311,7 +312,7 @@ test('normalizeAssessment', function(assert) {
     "visible_on_profile": false,
     "learning_objective": "This is important collection",
     "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
-    "course": {"title":"mathematics course 101"},
+    "course": {"id": 1, "title":"mathematics course 101"},
     "question_count": 3,
     "remix_count": 2
   };
@@ -322,6 +323,7 @@ test('normalizeAssessment', function(assert) {
   assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
   assert.equal(collection.get("thumbnailUrl"), 'content-url/collection.png', 'Wrong image');
   assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
+  assert.equal(collection.get("courseId"), 1, 'Wrong course id');
   assert.equal(collection.get("isVisibleOnProfile"), false, 'Wrong visible on profile');
   assert.equal(collection.get("learningObjectives"), "This is important collection", 'Wrong learning objective');
   assert.equal(collection.get("questionCount"), 3, 'Wrong question count');
