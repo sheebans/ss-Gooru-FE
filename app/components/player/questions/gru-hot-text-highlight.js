@@ -94,8 +94,9 @@ export default QuestionComponent.extend({
     const util = component.get("questionUtil");
     let items = util.getItems();
 
-    let userAnswer = component.get("userAnswer");
-    if (userAnswer){
+
+    if (component.get("hasUserAnswer")){
+      let userAnswer = component.get("userAnswer");
       items.forEach(function(item){
         let selected = userAnswer.findBy("index", item.get("index"));
         item.set("selected", selected !== undefined);

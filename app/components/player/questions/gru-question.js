@@ -76,7 +76,7 @@ export default Ember.Component.extend({
    * @property {Boolean}
    */
   hasUserAnswer:Ember.computed("userAnswer", function () {
-    return this.get("userAnswer")===null||this.get("userAnswer")===undefined ? true : false;
+    return this.get("userAnswer") && this.get("userAnswer.length");
   }),
 
 
