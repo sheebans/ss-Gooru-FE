@@ -27,7 +27,7 @@
     <div class="publisher">
         <img class="img-responsive" src="{{ resource.owner.avatarUrl }}">
         <div class="publisher-name">
-          {{#link-to 'profile.content.courses' resource.owner.id}}
+          {{#link-to 'profile.content.courses' resource.owner.id class="pointer" tagName="div"}}
             {{resource.owner.displayName}}
           {{/link-to}}
         </div>

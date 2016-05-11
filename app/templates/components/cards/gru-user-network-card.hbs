@@ -4,7 +4,9 @@
             <img class="img-responsive" src={{user.avatarUrl}}>
         </div>
         <div class="user-info">
-            <h6 class="name truncate">{{ user.displayName }}</h6>
+          <h6 class="name truncate">
+            {{#link-to "profile.content.courses" user.id tagName="div" class="pointer"}} {{ user.displayName }} {{/link-to}}
+          </h6>
             <span class="district">{{#if user.schoolDistrict}}{{user.schoolDistrict}}{{else}}{{user.country}}{{/if}}</span>
         </div>
     </div>
