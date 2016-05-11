@@ -35,7 +35,7 @@ test('Resource Card Layout', function(assert) {
   assert.equal(T.text($resourceCard.find(".panel-heading .resource-type span")), "Video", "Incorrect  resource type");
   T.exists(assert, $resourceCard.find(".panel-body .standards"), "Missing standards");
   T.exists(assert, $resourceCard.find(".panel-body .publisher img"), "Missing Publisher Image");
-  T.exists(assert, $resourceCard.find(".panel-body .publisher .publisher-name a"), "Missing Publisher Name");
+  T.exists(assert, $resourceCard.find(".panel-body .publisher .publisher-name div"), "Missing Publisher Name");
   T.exists(assert, $resourceCard.find(".panel-body .description p"), "Missing Description");
   T.exists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Missing Add to Button");
   T.notExists(assert, $resourceCard.find(".panel-footer button.edit-btn"), "Edit Button should not be visible");
@@ -68,7 +68,7 @@ test('Question Card Layout', function(assert) {
   assert.equal(T.text($resourceCard.find(".panel-heading .question-type span")), "Multiple Choice", "Incorrect question type");
   T.exists(assert, $resourceCard.find(".panel-body .standards"), "Missing standards");
   T.exists(assert, $resourceCard.find(".panel-body .publisher img"), "Missing Publisher Image");
-  T.exists(assert, $resourceCard.find(".panel-body .publisher .publisher-name a"), "Missing Publisher Name");
+  T.exists(assert, $resourceCard.find(".panel-body .publisher .publisher-name div"), "Missing Publisher Name");
   T.exists(assert, $resourceCard.find(".panel-body .description p"), "Missing Description");
   T.exists(assert, $resourceCard.find(".panel-footer button.copy-btn"), "Copy To Button Missing");
   T.notExists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Add To Button should not be visible");
