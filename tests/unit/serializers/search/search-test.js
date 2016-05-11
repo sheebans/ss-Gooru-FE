@@ -86,9 +86,7 @@ test('normalizeSearchResources', function(assert) {
       {
         "description": "7th Grade Cells unit",
         "gooruOid": "415c37da-4727-11e5-8333-22000ac41a3c",
-        "resourceFormat": {
-          "value": "text_resource"
-        },
+        "contentSubFormat":  "text_resource",
         "resourceType": {
           "name": "text_resource"
         },
@@ -105,9 +103,7 @@ test('normalizeSearchResources', function(assert) {
       {
         "description": "7th Grade Cells unit",
         "gooruOid": "415c37da-4727-11e5-8333-22000ac41a3c",
-        "resourceFormat": {
-          "value": "text_resource"
-        },
+        "contentSubFormat":  "text_resource",
         "resourceType": {
           "name": "text_resource"
         },
@@ -156,7 +152,7 @@ test('normalizeSearchQuestions', function(assert) {
     ]
   };
 
-  const resources = serializer.normalizeSearchResources(resourcesPayload);
+  const resources = serializer.normalizeSearchQuestions(resourcesPayload);
   assert.equal(resources.length, 1, 'Wrong resources length');
   assert.equal(resources[0].get("format"), "question", 'Wrong format for resource 1');
 });
@@ -201,9 +197,7 @@ test('normalizeResource', function(assert) {
   const resourceData = {
     "description": "7th Grade Cells unit",
     "gooruOid": "415c37da-4727-11e5-8333-22000ac41a3c",
-    "resourceFormat": {
-      "value": "text_resource"
-    },
+    "contentSubFormat":  "text_resource",
     "resourceType": {
       "name": "text_resource"
     },
