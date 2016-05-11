@@ -525,6 +525,7 @@ export default {
    */
   "gru-quick-course-search":{
     "add-from-course":"Add from Existing Course",
+    "view-featured-courses":"View Featured Courses",
     "assign":"Assign"
   },
   "gru-category-panel": {
