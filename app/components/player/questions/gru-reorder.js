@@ -50,8 +50,9 @@ export default QuestionComponent.extend({
    */
   answers: Ember.computed("question.answers.[]", function(){
     let answers = this.get("question.answers").sortBy("order");
-    let userAnswer = this.get("userAnswer");
-    if (userAnswer){ //@see gooru-web/utils/question/reorder.js
+
+    if (this.get("hasUserAnswer")){ //@see gooru-web/utils/question/reorder.js
+      let userAnswer = this.get("userAnswer");
       answers = userAnswer.map(function(answerId){
         return answers.findBy("id", answerId);
       });
