@@ -80,3 +80,16 @@ test('it has header and main sections', function (assert) {
 //  });
 //
 //});
+test('Validate the character limit in the Description field', function (assert) {
+  var course = Course.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    description:"",
+    audience:[1, 3]
+  });
+  this.set('course',course);
+
+  this.render(hbs`{{content/courses/gru-course-edit isEditing=true course=course tempCourse=course}}`);
+
+  const maxLenValue = this.$('.gru-course-edit .gru-textarea.description textarea').prop('maxlength');
+  assert.equal(maxLenValue, 500, "Input max length");
+});
