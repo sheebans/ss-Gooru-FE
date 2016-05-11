@@ -100,6 +100,7 @@ export const QUESTION_CONFIG = {
   'HT_HL' : Ember.Object.create({
     apiType: 'hot_text_highlight_question',
     util: HotTextHighlightUtil,
+    defaultType: 'word',
     component: {
       player: 'player.questions.gru-hot-text-highlight',
       answer: 'reports.assessment.questions.gru-hot-text-highlight',

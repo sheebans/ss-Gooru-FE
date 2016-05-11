@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Answer from 'gooru-web/models/content/answer';
 import Question from 'gooru-web/models/content/question';
 import Collection from 'gooru-web/models/content/collection';
 import {QUESTION_CONFIG, QUESTION_TYPES} from 'gooru-web/config/question';
@@ -48,7 +49,19 @@ export default Ember.Component.extend({
     createQuestion: function () {
       const component = this;
       const question = component.get('question');
-      question.set("description", "Enter question text here"); //TODO temporal fix
+      const questionTextPlaceholder = "Enter question text here";
+      if (question.get('type') === QUESTION_TYPES.hotTextHighlight) {
+        let answer = Answer.create(Ember.getOwner(component).ownerInjection(), {
+          isCorrect: true,
+          type: 'text',
+          text: questionTextPlaceholder, //TODO temporal fix
+          highlightType: QUESTION_CONFIG[QUESTION_TYPES.hotTextHighlight].defaultType
+        });
+        question.set('answers', Ember.A([answer]));
+      } else {
+        question.set('answers', Ember.A([]));
+      }
+      question.set("description", questionTextPlaceholder); //TODO temporal fix
       question.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
           let questionId;

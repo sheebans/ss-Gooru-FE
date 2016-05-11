@@ -183,12 +183,12 @@ export default Ember.Object.extend({
   /**
    * @property {boolean} indicates if the question is hot text word type
    */
-  isHotTextHighlightWord: Ember.computed.equal('options.hotTextType', 'word'),
+  isHotTextHighlightWord: Ember.computed.equal('answers.firstObject.highlightType', 'word'),
 
   /**
-   * @property {boolean} indicates if the question is hot text word type
+   * @property {boolean} indicates if the question is hot text sentence type
    */
-  isHotTextHighlightSentence: Ember.computed.equal('options.hotTextType', 'sentence'),
+  isHotTextHighlightSentence: Ember.computed.equal('answers.firstObject.highlightType', 'sentence'),
 
   /**
    * The start time for video/youtube

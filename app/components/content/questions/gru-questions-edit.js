@@ -73,10 +73,11 @@ export default Ember.Component.extend(ContentEditMixin,{
      */
     cancelBuilderEdit: function(){
       this.set('isBuilderEditing', false);
+      this.set('tempQuestion', null);
     },
     /**
-      * Save Content
-    */
+     * Save Content
+     */
     optionSwitch:function(isChecked){
       var questionForEditing = this.get('question').copy();
       this.set('tempQuestion', questionForEditing);

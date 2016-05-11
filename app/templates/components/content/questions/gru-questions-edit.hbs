@@ -104,18 +104,44 @@
         <div class="panel-heading">
             <div class="border-bottom">
                 <h3>{{t "common.question"}}</h3>
-                <span class="instructions">{{t (concat 'content.questions.edit.builder.question-instructions.' question.type)}}</span>
+                <div class="instructions">
+                  {{#if question.isHotTextHighlight}}
+                    {{#if isBuilderEditing}}
+                      <div class="form-group">
+                        <label class="radio-inline">
+                          <input type="radio" name="highlightType" value="word" checked={{tempQuestion.isHotTextHighlightWord}} onclick={{action (mut tempQuestion.answers.firstObject.highlightType) value="target.value"}}> {{t 'common.word'}}
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="highlightType" value="sentence" checked={{tempQuestion.isHotTextHighlightSentence}} onclick={{action (mut tempQuestion.answers.firstObject.highlightType) value="target.value"}}> {{t 'common.sentence'}}
+                        </label>
+                      </div>
+                      {{if tempQuestion.isHotTextHighlightWord (t 'content.questions.edit.builder.question-instructions.HT_HL_WD') (t 'content.questions.edit.builder.question-instructions.HT_HL_ST')}}
+                    {{else}}
+                      {{if question.isHotTextHighlightWord (t 'content.questions.edit.builder.question-instructions.HT_HL_WD') (t 'content.questions.edit.builder.question-instructions.HT_HL_ST')}}
+                    {{/if}}
+                  {{else}}
+                    {{t (concat 'content.questions.edit.builder.question-instructions.' question.type)}}
+                  {{/if}}
+                </div>
             </div>
         </div>
         <div class="panel-body">
           {{#if isBuilderEditing}}
-            {{validation.gru-textarea rawTextareaValue=tempQuestion.text model=tempQuestion valuePath='text' rows=10 maxLength=5000}}
-              <button class="add-image btn btn-sm btn-primary">{{t "common.add-question-image"}}</button>
+            {{#if question.isHotTextHighlight}}
+              {{validation.gru-textarea rawTextareaValue=tempQuestion.answers.firstObject.text model=tempQuestion valuePath='answers.firstObject.text' rows=10 maxLength=5000}}
+            {{else}}
+              {{validation.gru-textarea rawTextareaValue=tempQuestion.text model=tempQuestion valuePath='text' rows=10 maxLength=5000}}
+            {{/if}}
+            <button class="add-image btn btn-sm btn-primary">{{t "common.add-question-image"}}</button>
           {{else}}
-            {{#if question.text}}
-              {{textarea class="text-question" value=question.text class="form-control" rows="10" readonly=true}}
+            {{#if question.isHotTextHighlight}}
+              <div>{{{question.answers.firstObject.text}}}</div>
+            {{else}}
+              {{#if question.text}}
+                {{textarea class="text-question" value=question.text class="form-control" rows="10" readonly=true}}
               {{else}}
-              <p class="text-empty">{{t 'common.nothing-to-display-message'}}</p>
+                <p class="text-empty">{{t 'common.nothing-to-display-message'}}</p>
+              {{/if}}
             {{/if}}
           {{/if}}
         </div>

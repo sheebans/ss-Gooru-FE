@@ -167,15 +167,13 @@ const Question = Ember.Object.extend(Validations, {
 
   /**
    * @property {boolean} indicates if the question is hot text word type
-   * TODO: where is this taken from? options is not in the model
    */
-  isHotTextHighlightWord: Ember.computed.equal('options.hotTextType', 'word'),
+  isHotTextHighlightWord: Ember.computed.equal('answers.firstObject.highlightType', 'word'),
 
   /**
-   * @property {boolean} indicates if the question is hot text word type
-   * TODO: where is this taken from? options is not in the model
+   * @property {boolean} indicates if the question is hot text sentence type
    */
-  isHotTextHighlightSentence: Ember.computed.equal('options.hotTextType', 'sentence'),
+  isHotTextHighlightSentence: Ember.computed.equal('answers.firstObject.highlightType', 'sentence'),
 
   /**
    * Return a copy of the question

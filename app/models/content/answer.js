@@ -41,6 +41,11 @@ const Answer = Ember.Object.extend(Validations,{
   type: null,
 
   /**
+   * @property {String} highlightType - The highlight type for hot text highlight answers
+   */
+  highlightType: null,
+
+  /**
    * Return a copy of the answer
    *
    * @function
@@ -77,7 +82,8 @@ const Answer = Ember.Object.extend(Validations,{
       text: answer.get("text"),
       answerType: answer.get("type"),
       order: answer.get("sequence"),
-      isCorrect: answer.get("isCorrect")
+      isCorrect: answer.get("isCorrect"),
+      highlightType: answer.get("highlightType")
     });
   }
 
