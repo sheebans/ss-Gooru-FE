@@ -23,17 +23,21 @@ export default Ember.Component.extend({
     unFollow:function(){
 
       var component = this;
+      var user = component.get('user');
       var followingFilter = component.get('followingFilter');
 
-      component.set('isFollowing',false);
-
       if(followingFilter){
-        this.sendAction("onUnFollowUser", component.get('user.id'));
+        component.sendAction("onUnFollowUser", user);
+      }
+      else {
+        user.set('isFollowing',false);
       }
     },
 
     setFollow:function(){
-      this.set('isFollowing',true);
+      var user = this.get('user');
+
+      user.set('isFollowing',true);
     }
   },
 
@@ -66,7 +70,9 @@ export default Ember.Component.extend({
    * @property {Boolean} followingFilter
    */
   followingFilter: false,
-
+  /**
+   * @property {Boolean} showUnFollowButton
+   */
   showUnFollowButton: false
 
 });

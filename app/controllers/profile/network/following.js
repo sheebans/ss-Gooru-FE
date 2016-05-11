@@ -14,20 +14,16 @@ export default Ember.Controller.extend({
 
   actions: {
 
-    unFollowUser: function () {
-
+    unFollowUser: function (user) {
       var controller = this;
+      var userId = user.id;
+      var countFollowings = controller.get('countFollowings');
 
-      console.log('unFollow', controller.get('profileController.profile.id'));
-      //controller.get('profileService').unfollowUserProfile(controller.get('user.id'))
-      //  .then(function () {
-      //    controller.set('isFollowing', false);
-      //    //component.get('profileService').readUserProfile(controller.get('profile.id'))
-      //    //  .then(function(updatedProfile) {
-      //    //    controller.set('profile', updatedProfile);
-      //    //  });
-      //  });
-
+      controller.get('profileService').unfollowUserProfile(userId)
+        .then(function () {
+          controller.get('followings').removeObject(user);
+          controller.set('countFollowings', countFollowings-1);
+        });
     }
   },
   // -------------------------------------------------------------------------
@@ -41,6 +37,11 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean} isMyProfile
    */
-  isMyProfile: Ember.computed.alias("profileController.isMyProfile")
+  isMyProfile: Ember.computed.alias("profileController.isMyProfile"),
+
+  /**
+   * @property {Number} counter of profile followings
+   */
+  countFollowings: Ember.computed.alias("profileController.profile.followings")
 
 });
