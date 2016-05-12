@@ -282,7 +282,7 @@ export default Ember.Component.extend(ContentEditMixin,{
   },
 
   /**
-   * Check if an answer is selected as correct
+   * Check if an hs-answer has image
    */
   hasImages: function(answers) {
     if(answers.length > 0){
