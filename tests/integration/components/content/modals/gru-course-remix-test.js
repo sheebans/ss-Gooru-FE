@@ -97,10 +97,24 @@ test('it shows an error message if the course title field is left blank', functi
   });
 });
 
-test('it transitions after copying a course', function (assert) {
-  assert.expect(3);
+test('it shows toast and transitions after copying a course', function (assert) {
+  assert.expect(6);
 
-  var transition;
+  var generatedRoute;
+  var context = this;
+
+  this.register('service:notifications', Ember.Service.extend({
+    success(message) {
+      assert.notEqual(message.indexOf(
+        context.get('i18n').t('common.remix-course-success', {courseTitle: 'Course Name'}).string
+      ), -1, 'Notification displayed');
+    },
+    setOption(option, value) {
+      assert.equal(option, 'toastClass', "Toast option changed.");
+      assert.equal(value, 'gooru-toast', "Toast value for toastClass.");
+    }
+  }));
+  this.inject.service('notifications');
 
   this.on('closeModal', function () {
     assert.ok(true, 'closeModal action triggered');
@@ -108,8 +122,8 @@ test('it transitions after copying a course', function (assert) {
 
   // Mock the transitionTo method in the router
   this.set('router', {
-    transitionTo(route, courseId) {
-      transition = {
+    generate(route, courseId) {
+      generatedRoute = {
         route: route,
         course: courseId
       };
@@ -133,8 +147,8 @@ test('it transitions after copying a course', function (assert) {
     $component.find(".actions button[type='submit']").click();
 
     return wait().then(function () {
-      assert.equal(transition.route, 'content.courses.edit', 'Transition to correct route');
-      assert.equal(transition.course, 12345, 'Correct course ID');
+      assert.equal(generatedRoute.route, 'content.courses.edit', 'Generated correct route');
+      assert.equal(generatedRoute.course, 12345, 'Correct generated route course ID');
     });
   });
 });
