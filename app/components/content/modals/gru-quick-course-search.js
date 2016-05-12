@@ -68,6 +68,10 @@ export default Ember.Component.extend({
    * @type {?String} specific class
    */
   'component-class': null,
+  /**
+   * @type {?String} specific class
+   */
+  areFeatured: Ember.computed.bool('model.areFeatured'),
 
   /**
    * @type {String} selected Course's ID

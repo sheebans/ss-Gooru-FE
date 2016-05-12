@@ -1,5 +1,11 @@
 <div class="modal-header">
-  <span class="modal-title">{{t 'gru-quick-course-search.add-from-course'}}</span>
+  <span class="modal-title">
+    {{#if areFeatured}}
+      {{t 'gru-quick-course-search.view-featured-courses'}}
+    {{else}}
+      {{t 'gru-quick-course-search.add-from-course'}}
+    {{/if}}    
+  </span>
 </div>
 <div class="modal-body">
   {{#each model.courses as |course|}}
