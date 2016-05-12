@@ -103,6 +103,7 @@ export default {
     "enter-url":"Enter URL",
     "errors": {
       "join-class-code":"Please enter the class code.",
+      "answer-has-no-image":"Please upload an answer image.",
       "add-course-title":"Please enter the course title.",
       "add-question-answer-text":"Please enter the answer choice text.",
       "add-question-title":"Please enter the question title.",
@@ -526,6 +527,7 @@ export default {
    */
   "gru-quick-course-search":{
     "add-from-course":"Add from Existing Course",
+    "view-featured-courses":"View Featured Courses",
     "assign":"Assign"
   },
   "gru-category-panel": {
