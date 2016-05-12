@@ -71,6 +71,9 @@
       border: 0 none;
     }
   }
+  &.is-viewing {
+    border-bottom: 5px solid $white;
+  }
 
   &.is-viewing.has-src-image,
   &.is-editing.has-edit-image {
