@@ -71,9 +71,27 @@
       > .detail {
         > div:first-of-type {
 
+          > span {
+            display: block;
+            line-height: 3.5;
+            text-align: right;
+
+            @media (min-width: $screen-lg) {
+              display: inline;
+            }
+          }
+
           &.mixed {
             @media (max-width: $screen-lg-min) {
               vertical-align: top;
+            }
+
+            > span {
+              line-height: 1.4;
+
+              @media (min-width: $screen-lg) {
+                line-height: 3.5;
+              }
             }
 
             > span:last-child {
@@ -82,16 +100,6 @@
                 padding-left: 4px;
                 margin-left: 2px;
               }
-            }
-          }
-
-          > span {
-            display: block;
-            line-height: 3.5;
-            text-align: right;
-
-            @media (min-width: $screen-lg) {
-              display: inline;
             }
           }
         }
