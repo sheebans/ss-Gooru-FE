@@ -1,14 +1,18 @@
 import Ember from 'ember';
 import PeerAdapter from 'gooru-web/adapters/analytics/peer';
+import PeerSerializer from 'gooru-web/serializers/analytics/peer';
 
 export default Ember.Service.extend({
 
   peerAdapter: null,
 
+  peerSerializer: null,
+
 
   init: function() {
     this._super(...arguments);
     this.set('peerAdapter', PeerAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set('peerSerializer', PeerSerializer.create(Ember.getOwner(this).ownerInjection()));
   },
 
   getCoursePeers: function(classId, courseId) {
@@ -16,7 +20,31 @@ export default Ember.Service.extend({
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('peerAdapter').getCoursePeers(classId, courseId)
         .then(function(response) {
-          resolve(response);
+          resolve(service.get('peerSerializer').normalizePeers(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
+  getUnitPeers: function(classId, courseId, unitId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('peerAdapter').getUnitPeers(classId, courseId, unitId)
+        .then(function(response) {
+          resolve(service.get('peerSerializer').normalizePeers(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
+  getLessonPeers: function(classId, courseId, unitId, lessonId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('peerAdapter').getLessonPeers(classId, courseId, unitId, lessonId)
+        .then(function(response) {
+          resolve(service.get('peerSerializer').normalizePeers(response));
         }, function(error) {
           reject(error);
         });

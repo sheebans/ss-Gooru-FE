@@ -330,6 +330,24 @@ export default Ember.Object.extend({
       "followings": networkData.followings_count,
       "isFollowing": type === NETWORK_TYPE.FOLLOWERS ? following.indexOf(networkData.id) > -1 : true
     });
+  },
+
+  normalizeReadMultipleProfiles: function(payload) {
+    const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    let profiles = Ember.A([]);
+    if (payload.users) {
+      profiles = payload.users.map(function(userPayload) {
+        return ProfileModel.create({
+          id: userPayload.id,
+          firstName: userPayload.firstname,
+          lastName: userPayload.lastname,
+          username: userPayload.username,
+          avatarUrl: userPayload['thumbnail_path'] ? basePath + userPayload['thumbnail_path'] : DEFAULT_IMAGES.USER_PROFILE
+        });
+      });
+    }
+    return profiles;
   }
 
 

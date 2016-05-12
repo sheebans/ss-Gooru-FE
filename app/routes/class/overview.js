@@ -73,6 +73,7 @@ export default Ember.Route.extend({
     const units = this.modelFor('class').units;
     const userId = this.get('session.userId');
     const isTeacher = currentClass.isTeacher(userId);
+    const classMembers = currentClass.get('members');
 
     let userLocation = Ember.RSVP.resolve('');
     /*
@@ -88,7 +89,8 @@ export default Ember.Route.extend({
       course: course,
       units: units,
       isTeacher: isTeacher,
-      currentClass: currentClass
+      currentClass: currentClass,
+      classMembers: classMembers
     });
   },
 
@@ -106,5 +108,6 @@ export default Ember.Route.extend({
     controller.set('units', model.units);
     controller.set('course', model.course);
     controller.get('classController').selectMenuItem('overview');
+    controller.set('classMembers', model.classMembers);
   }
 });

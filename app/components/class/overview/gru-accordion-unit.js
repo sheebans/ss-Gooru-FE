@@ -45,6 +45,11 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   performanceService: Ember.inject.service("api-sdk/performance"),
 
+  /**
+   * @requires service:api-sdk/analytics
+   */
+  analyticsService: Ember.inject.service('api-sdk/analytics'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -255,14 +260,33 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   getLessons: function() {
     const component = this;
+
     const userId = component.get('session.userId');
     const classId = component.get('currentClass.id');
     const courseId = component.get('currentClass.courseId');
     const unitId = component.get('model.id');
+    const classMembers = component.get('classMembers');
+
     return component.get('unitService').fetchById(courseId, unitId)
       .then(function(unit) {
         const lessons = unit.get('children');
-        return component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
+        return component.get('analyticsService').getUnitPeers(classId, courseId, unitId)
+          .then(function(unitPeers) {
+            return component.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, classMembers)
+              .then(function(classPerformance) {
+                lessons.forEach(function(lesson) {
+                  const peer = unitPeers.findBy('id', lesson.get('id'));
+                  if (peer) {
+                    lesson.set('membersCount', peer.get('peerCount'));
+                  }
+                  const averageScore = classPerformance.calculateAverageScoreByItem(lesson.get('id'));
+                  lesson.set('classAverageScore', averageScore);
+                });
+                return lessons;
+              });
+            });
+
+        //return component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
       });
 
     /*

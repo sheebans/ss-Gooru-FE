@@ -2,15 +2,15 @@
 {{#if showOnlyNumbers}}
     <ul>
       <li class="item num-left">
-          <span>{{totalUsers}}</span>
+          <span>{{membersCount}}</span>
       </li>
     </ul>
 {{else}}
     <ul>
       {{#each firstUsers as |entity index|}}
           <li class="item user {{if entity.isActive 'active' ''}}">
-              <img class="img-circle name-{{index}}" src="{{entity.user.avatarUrl}}" title="{{entity.user.fullName}}" />
-            <span class="user-name">{{truncate text=entity.user.firstName maxLength=10}}</span>
+              <img class="img-circle name-{{index}}" src="{{entity.avatarUrl}}" title="{{entity.fullName}}" />
+            <span class="user-name">{{truncate text=entity.firstName maxLength=10}}</span>
           </li>
       {{/each}}
 
@@ -21,7 +21,7 @@
       {{else}}
         {{#each remainingUsers as |entity|}}
             <li class="item user {{if entity.isActive 'active' ''}}">
-                <img class="img-circle" src="{{entity.user.avatarUrl}}" title="{{entity.user.fullName}}" />
+                <img class="img-circle" src="{{entity.avatarUrl}}" title="{{entity.fullName}}" />
             </li>
         {{/each}}
       {{/if}}
@@ -40,7 +40,7 @@
           <ul>
             {{#each remainingUsers as |entity|}}
               <li class="item user {{if entity.isActive 'active' ''}}">
-                <img class="img-circle" src="{{entity.user.profileImageUrl}}" title="{{entity.user.fullName}}" />
+                <img class="img-circle" src="{{entity.avatarUrl}}" title="{{entity.fullName}}" />
               </li>
             {{/each}}
           </ul>

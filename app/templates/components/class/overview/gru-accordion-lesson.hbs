@@ -23,10 +23,11 @@
         {{course-sections-prefix  index=index type='lesson' longName=true}}&period;&nbsp;&nbsp;{{model.title}}
     </a>
     {{gru-user-icons
-    showOnlyNumbers=true
-    users=model.users
-    viewThreshold=3
-    viewMoreIn='modal' }}
+      showOnlyNumbers=true
+      membersCount=model.membersCount
+      users=model.users
+      viewThreshold=3
+      viewMoreIn='modal' }}
   </span>
 
 </div>
@@ -87,18 +88,20 @@
 
             {{!-- Show only for xs --}}
             {{gru-user-icons
-            class="visible-xs"
-            showOnlyNumbers=true
-            users=item.users
-            viewThreshold=2
-            viewMoreIn='modal' }}
+              class="visible-xs"
+              showOnlyNumbers=true
+              membersCount=item.membersCount
+              users=item.users
+              viewThreshold=2
+              viewMoreIn='modal'}}
 
             {{!-- Show for all other screen sizes --}}
             {{gru-user-icons
-            class="hidden-xs"
-            users=item.users
-            viewThreshold=5
-            viewMoreIn='modal' }}
+              class="hidden-xs"
+              membersCount=item.membersCount
+              users=item.members
+              viewThreshold=5
+              viewMoreIn='modal'}}
 
           </div>
         </li>

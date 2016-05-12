@@ -133,6 +133,8 @@ export default Ember.Component.extend({
     return this.get('usersSorted.length');
   }),
 
+  membersCount: 0,
+
   // -------------------------------------------------------------------------
   // Observers
 

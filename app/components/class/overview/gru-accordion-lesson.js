@@ -45,6 +45,16 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   lessonService:  Ember.inject.service("api-sdk/lesson"),
 
+  /**
+   * @requires service:api-sdk/analytics
+   */
+  analyticsService: Ember.inject.service('api-sdk/analytics'),
+
+  /**
+   * @requires service:api-sdk/profile
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -202,13 +212,41 @@ export default Ember.Component.extend(AccordionMixin, {
    * @function
    * @returns {undefined}
    */
-  loadData: function () {
-    let component = this;
-    var performancePromise = component.getCollectionPerformances();
+  loadData: function() {
+    const component = this;
     component.set("loading", true);
-    performancePromise.then(function(performances) {
-      if (!component.get("isDestroyed")){
-        component.set('items', performances);
+
+    const classId = component.get('currentClass.id');
+    const courseId = component.get('currentClass.courseId');
+    const unitId = component.get('unitId');
+    const lessonId = component.get('model.id');
+
+    component.get('lessonService').fetchById(courseId, unitId, lessonId)
+      .then(function(lesson) {
+        const collections = lesson.get('children');
+        component.get('analyticsService').getLessonPeers(classId, courseId, unitId, lessonId)
+          .then(function(lessonPeers) {
+            collections.forEach(function(collection) {
+              const peer = lessonPeers.findBy('id', collection.get('id'));
+              if (peer) {
+                component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
+                  .then(function(profiles) {
+                    collection.set('members', profiles);
+                  });
+              }
+            });
+            component.set('items', collections);
+            component.set("loading", false);
+          });
+        });
+
+
+    //let component = this;
+    //var performancePromise = component.getCollectionPerformances();
+    //component.set("loading", true);
+    //performancePromise.then(function(performances) {
+    //  if (!component.get("isDestroyed")){
+    //    component.set('items', performances);
 
         /*
         let usersLocationPromise = component.getLessonUsers();
@@ -221,9 +259,9 @@ export default Ember.Component.extend(AccordionMixin, {
           }
         });
         */
-        component.set("loading", false);
-      }
-    });
+    //    component.set("loading", false);
+    //  }
+    //});
   },
 
   /**

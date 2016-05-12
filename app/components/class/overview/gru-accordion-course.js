@@ -36,6 +36,11 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   performanceService: Ember.inject.service("api-sdk/performance"),
 
+  /**
+   * @requires service:api-sdk/analytics
+   */
+  analyticsService: Ember.inject.service('api-sdk/analytics'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -248,11 +253,29 @@ export default Ember.Component.extend(AccordionMixin, {
    * Load the units and users in the course when the component is instantiated or the currentClass id changes
    */
   setupAccordionCourse: function() {
-    let component = this;
+    const component = this;
     component.set("loading", true);
-    let performancePromise = component.getUnitsPerformance();
-    performancePromise.then(function(performances){
-      component.set('items', performances); //setting the units to the according mixin
+
+    const classId = component.get('currentClass.id');
+    const courseId = component.get('currentClass.courseId');
+    const units = component.get('units');
+
+    component.get('analyticsService').getCoursePeers(classId, courseId)
+      .then(function(coursePeers) {
+        units.forEach(function(unit) {
+          const peer = coursePeers.findBy('id', unit.get('id'));
+          if (peer) {
+            unit.set('membersCount', peer.get('peerCount'));
+          }
+        });
+        component.set("loading", false);
+        component.set('items', units);
+      });
+
+
+    //let performancePromise = component.getUnitsPerformance();
+    //performancePromise.then(function(performances){
+    //  component.set('items', performances); //setting the units to the according mixin
 
       // TODO: getCourseUsers is currently dependent on items that's why this declaration
       // takes place after setting items. Once api-sdk/course-location is complete
@@ -267,8 +290,8 @@ export default Ember.Component.extend(AccordionMixin, {
         }
       });
       */
-      component.set("loading", false);
-    });
+      //component.set("loading", false);
+    //});
   }
 
 });
