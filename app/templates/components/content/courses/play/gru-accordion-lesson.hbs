@@ -5,7 +5,7 @@
     <strong><a href="#" {{action 'toggle'}}>{{lesson.title}}</a></strong>
 
     <div class="detail">
-      <div class="{{if (and lesson.assessmentCount lesson.collectionCount) 'mixed'}}">
+      <div class="{{if lesson.assessmentCount 'mixed'}}">
         {{#if lesson.assessmentCount}}
           <span><b>{{lesson.assessmentCount}}</b> {{t "common.assessment-pl" count=lesson.assessmentCount}}</span>
         {{/if}}
