@@ -3,6 +3,12 @@
 
   &.fade {
     .modal-dialog {
+      -webkit-transform: translate3d(125%, 0, 0);
+      height: 96%;
+      margin: 0 auto;
+      overflow: visible;
+      transform: translate3d(125%, 0, 0);
+      width: 310px;
       @media(min-width: $screen-sm-min) {
         width: 353px;
       }
@@ -13,12 +19,6 @@
       @media(min-width: $screen-lg-min) {
         width: 520px;
       }
-      -webkit-transform: translate3d(125%, 0, 0);
-      height: 96%;
-      margin: 0 auto;
-      overflow: visible;
-      transform: translate3d(125%, 0, 0);
-      width: 310px;
     }
 
     &.in {

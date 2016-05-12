@@ -1,14 +1,14 @@
 .gru-course-card {
+  display: inline-block;
+  float: left;
+  height: 183px;
+  width: 300px;
   @media(min-width: $screen-sm-min) {
     width: 336px;
   }
   @media(min-width: $screen-lg-min) {
     width: 463px;
   }
-  display: inline-block;
-  float: left;
-  height: 183px;
-  width: 300px;
 
   .actions {
     @include flexbox;
@@ -17,7 +17,7 @@
     @include align-items(flex-end);
     margin-top: 5px;
     width: 80px;
-    @media(min-width: $screen-sm) {
+    @media(min-width: $screen-lg-min) {
       width: 100px;
     }
 
@@ -88,10 +88,10 @@
     padding: 20px 18px 0 0;
     position: relative;
     @media(min-width: $screen-sm-min) {
-      min-width: 216px;
+      max-width: 216px;
     }
     @media(min-width: $screen-lg-min) {
-      min-width: 317px;
+      max-width: 317px;
     }
 
     .header {

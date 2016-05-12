@@ -23,5 +23,8 @@
     @include flexbox;
     @include flex-wrap(wrap);
     @include justify-content(center);
+    .cards {
+      margin: 0 5px 10px;
+    }
   }
 }
