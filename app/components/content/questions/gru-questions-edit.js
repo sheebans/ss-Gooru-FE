@@ -147,7 +147,7 @@ export default Ember.Component.extend(ContentEditMixin,{
   /**
    * @property {Boolean} Indicates if a Hot spot answer has images
    */
-  hasImages: false,
+  hasNoImages: false,
 
   //Methods
 
@@ -297,6 +297,6 @@ export default Ember.Component.extend(ContentEditMixin,{
       }
     }
     return true;
-  },
+  }
 
 });

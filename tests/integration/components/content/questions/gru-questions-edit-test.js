@@ -781,3 +781,41 @@ test('Delete answer HS-Image ', function (assert) {
     });
   });
 });
+
+test('HS-Image validate has images', function (assert) {
+  assert.expect(1);
+
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: QUESTION_TYPES.hotSpotImage,
+    answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': null,
+      'isCorrect': true,
+      'type':"text"
+    }),Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': null,
+      'isCorrect': true,
+      'type':"text"
+    })
+    ])
+  });
+
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+
+  const $edit = $component.find("#builder .actions .edit");
+  $edit.click();
+
+  return wait().then(function () {
+
+    const $save =  $component.find("#builder .actions .save");
+    $save.click();
+
+    return wait().then(function () {
+      assert.ok($component.find('.missing-images').length, 'Missing validation for missing images');
+    });
+  });
+});
