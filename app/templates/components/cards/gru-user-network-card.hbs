@@ -7,7 +7,7 @@
           <h6 class="name truncate">
             {{#link-to "profile.content.courses" user.id tagName="div" class="pointer"}} {{ user.displayName }} {{/link-to}}
           </h6>
-          <div class="district truncate">{{#if user.schoolDistrict}}{{user.schoolDistrict}}{{else}}{{user.country}}{{/if}}</div>
+          <div class="district truncate">{{if user.schoolDistrict user.schoolDistrict user.country}}</div>
         </div>
     </div>
     <div class="panel-body">
@@ -31,10 +31,12 @@
         </div>
         <div class="follow-btn">
           {{#if user.isFollowing}}
-            <button class="btn btn-sm btn-following {{if showUnFollowButton 'hidden' 'visible'}}">{{t "cards.gru-profile-card.following"}}</button>
-            <button class="btn btn-sm btn-info btn-unfollow {{if showUnFollowButton 'visible' 'hidden'}}"{{action 'unFollow'}}>{{t "common.unfollow"}}</button>
+            <button class="btn btn-sm btn-unfollow" {{action 'unFollow'}}>
+              <span class="unfollow">{{t "common.unfollow"}}</span>
+              <span class="following">{{t "common.following"}}</span>
+            </button>
           {{else}}
-            <button class="btn btn-sm btn-success btn-follow"{{action 'setFollow'}}>{{t "cards.gru-user-network-card.follow"}}</button>
+            <button class="btn btn-sm btn-success btn-follow" {{action 'setFollow'}}>{{t "cards.gru-user-network-card.follow"}}</button>
           {{/if}}
         </div>
     </div>

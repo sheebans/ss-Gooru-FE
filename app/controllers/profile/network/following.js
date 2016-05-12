@@ -23,6 +23,7 @@ export default Ember.Controller.extend({
         .then(function () {
           controller.get('followings').removeObject(user);
           controller.set('countFollowings', countFollowings-1);
+          controller.set('isFollowing', false);
         });
     }
   },
@@ -42,6 +43,11 @@ export default Ember.Controller.extend({
   /**
    * @property {Number} counter of profile followings
    */
-  countFollowings: Ember.computed.alias("profileController.profile.followings")
+  countFollowings: Ember.computed.alias("profileController.profile.followings"),
+
+  /**
+   * @property {boolean} isFollowing
+   */
+  isFollowing: Ember.computed.alias("profileController.profile.isFollowing")
 
 });

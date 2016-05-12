@@ -21,58 +21,40 @@ export default Ember.Component.extend({
   actions: {
 
     unFollow:function(){
-
       var component = this;
       var user = component.get('user');
-      var followingFilter = component.get('followingFilter');
+      var countFollowers = component.get('countFollowers');
 
-      if(followingFilter){
-        component.sendAction("onUnFollowUser", user);
-      }
-      else {
-        user.set('isFollowing',false);
-      }
+      component.set('countFollowers', countFollowers-1);
+      component.sendAction("onUnFollowUser", user);
+      user.set('isFollowing', false);
     },
 
     setFollow:function(){
-      var user = this.get('user');
+      var component = this;
+      var user = component.get('user');
+      var countFollowers = component.get('countFollowers');
 
-      user.set('isFollowing',true);
+      component.set('countFollowers', countFollowers+1);
+      user.set('isFollowing', true);
+      component.sendAction("onFollowUser", user);
     }
   },
 
   // -------------------------------------------------------------------------
   // Events
 
-  /**
-   * DidInsertElement ember event
-   */
-  didInsertElement: function(){
-    var component = this;
-
-    this.$(".btn-following")
-      .mouseover(function() {
-        component.set('showUnFollowButton', true);
-      });
-
-    this.$(".btn-unfollow")
-      .mouseleave(function() {
-        component.set('showUnFollowButton', false);
-      });
-  },
   // -------------------------------------------------------------------------
   // Properties
+
   /**
    * @property {User} user
    */
   user: null,
+
   /**
-   * @property {Boolean} followingFilter
+   * @property {Number} counter of user followers
    */
-  followingFilter: false,
-  /**
-   * @property {Boolean} showUnFollowButton
-   */
-  showUnFollowButton: false
+  countFollowers: Ember.computed.alias("user.followers")
 
 });

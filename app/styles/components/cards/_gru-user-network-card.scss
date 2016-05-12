@@ -57,9 +57,23 @@
           border-top-left-radius: 0;
           border-top-right-radius: 0;
         }
-      }
-      .btn-following{
-        background-color:$light-400;
+        .btn-unfollow {
+          .unfollow {
+            display: none;
+          }
+          .following {
+            display: inline;
+          }
+          &:hover {
+            @extend .btn-info;
+            .unfollow {
+              display: inline;
+            }
+            .following {
+              display: none;
+            }
+          }
+        }
       }
     }
   }
