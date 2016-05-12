@@ -264,7 +264,7 @@ test('it renders a form when editing an existing lesson', function (assert) {
   assert.ok($component.hasClass('edit'), 'Edit class');
 
   const $heading = $component.find('.edit .panel-heading');
-  assert.ok($heading.find('h3').text(), this.get('i18n').t('common.lesson').string + " " + this.get('index'), 'Header prefix');
+  assert.equal($heading.find('h3').text(), this.get('i18n').t('common.lesson').string + " " + (this.get('index') + 1), 'Header prefix');
   assert.ok($heading.find('.gru-input.title').text(), lesson.get('data.title'), 'Lesson title');
   assert.equal($heading.find('.actions button').length, 2, 'Lesson header action buttons');
   assert.ok($heading.find('.actions button:eq(0)').hasClass('cancel'), 'First button is cancel');

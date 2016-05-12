@@ -262,7 +262,7 @@ test('it renders a form when editing an existing unit', function (assert) {
   assert.ok($component.hasClass('edit'), 'Edit class');
 
   const $heading = $component.find('.edit .panel-heading');
-  assert.ok($heading.find('h3').text(), this.get('i18n').t('common.unit').string + " " + this.get('index'), 'Header prefix');
+  assert.equal($heading.find('h3').text(), this.get('i18n').t('common.unit').string + " " + (this.get('index') + 1), 'Header prefix');
   assert.ok($heading.find('.gru-input.title').text(), unit.get('data.title'), 'Unit title');
   assert.equal($heading.find('.actions button').length, 2, 'Unit header action buttons');
   assert.ok($heading.find('.actions button:eq(0)').hasClass('cancel'), 'First button is cancel');

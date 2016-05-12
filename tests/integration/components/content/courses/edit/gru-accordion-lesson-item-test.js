@@ -34,7 +34,7 @@ test('it renders a lesson item correctly -collection', function (assert) {
   assert.ok($component.length, 'Component');
 
   const $heading = $component.find('.view .panel-heading');
-  assert.ok($heading.find('h3').text(), this.get('index'), 'Header prefix');
+  assert.equal($heading.find('h3').text(), (this.get('index') + 1).toString(), 'Header prefix');
 
   const $titleContainer = $heading.find('> a.title');
   assert.ok($titleContainer.length, 'Title link');
