@@ -321,11 +321,16 @@ export default Ember.Object.extend({
   },
 
   normalizeNetworkDetail: function(networkData, type, following) {
+    const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = networkData['thumbnail_path'] ?
+    basePath + networkData['thumbnail_path'] : DEFAULT_IMAGES.USER_PROFILE;
+
     return ProfileModel.create({
       "id": networkData.id,
       "firstName": networkData.firstname,
       "lastName": networkData.lastname,
-      "avatarUrl": networkData.thumbnail_path,
+      "avatarUrl": thumbnailUrl,
       "country": networkData.country,
       "schoolDistrict": networkData.school_district,
       "followers": networkData.followers_count,
