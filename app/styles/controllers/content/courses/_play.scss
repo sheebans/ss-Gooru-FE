@@ -163,6 +163,20 @@
       .panel-body {
         padding: 10px 15px 15px;
 
+        .overview {
+          padding: 10px 10px 20px 10px;
+          margin-bottom: 10px;
+          border-bottom: 1px solid $white;
+
+          span, p {
+            color: $white;
+          }
+          p {
+            font-size: 15px;
+            margin-bottom: 0;
+          }
+        }
+
         .col-sm-6 {
           label {
             width: 100%;

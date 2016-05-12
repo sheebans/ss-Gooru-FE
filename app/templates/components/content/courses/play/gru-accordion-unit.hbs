@@ -14,28 +14,30 @@
   </div>
   <div class="panel-body">
 
-    {{#if (or unit.bigIdeas unit.essentialQuestions)}}
-    <div class="row">
-      <div class="col-sm-6 big-ideas">
-        <label>
-          <span>{{t "common.big-ideas"}}</span>
-          <p>{{unit.bigIdeas}}</p>
-        </label>
-      </div>
-      <div class="col-sm-6 essential-questions">
-        <label>
-          <span>{{t "common.essential-questions"}}</span>
-          <p>{{unit.essentialQuestions}}</p>
-        </label>
-      </div>
-    </div>
-    {{/if}}
+    <div class="overview">
+      {{#if (or unit.bigIdeas unit.essentialQuestions)}}
+        <div class="row">
+          <div class="col-sm-6 big-ideas">
+            <label>
+              <span>{{t "common.big-ideas"}}</span>
+              <p>{{unit.bigIdeas}}</p>
+            </label>
+          </div>
+          <div class="col-sm-6 essential-questions">
+            <label>
+              <span>{{t "common.essential-questions"}}</span>
+              <p>{{unit.essentialQuestions}}</p>
+            </label>
+          </div>
+        </div>
+      {{/if}}
 
-    {{!-- TODO: list domains
-    <div class="data-row domain">
-      <span>{{t "common.domain"}}</span>
+      {{!-- TODO: list domains
+      <div class="data-row domain">
+        <span>{{t "common.domain"}}</span>
+      </div>
+      --}}
     </div>
-    --}}
 
     <ol class="accordion-unit" role="tablist" aria-multiselectable="true">
 
