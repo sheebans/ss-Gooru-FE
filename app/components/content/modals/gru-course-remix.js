@@ -40,27 +40,23 @@ export default Ember.Component.extend({
           component.triggerAction({
             action: 'closeModal'
           });
-          this.get('notifications').setOption('toastClass', 'gooru-toast');
-          var successMsg = this.get('i18n').t('common.remix-course-success', {courseTitle: course.get('title')});
-          var courseEditUrl = component.get('router').generate('content.courses.edit', course.get('id'));
-          this.get('notifications').success(`${successMsg} <a class="btn btn-success" href="${courseEditUrl}">Edit</a>`);
-          /*this.get("courseService")
+          this.get("courseService")
             .copyCourse(course.get('id'))
             .then(function (courseId) {
                 course.set('id', courseId);
                 return component.get('courseService').updateCourse(course);
             })
             .then(function() {
-                component.triggerAction({
-                  action: 'closeModal'
-                });
-                component.get('router').transitionTo('content.courses.edit', course.get('id'));
+                this.get('notifications').setOption('toastClass', 'gooru-toast');
+                var successMsg = this.get('i18n').t('common.remix-course-success', {courseTitle: course.get('title')});
+                var courseEditUrl = component.get('router').generate('content.courses.edit', course.get('id'));
+                this.get('notifications').success(`${successMsg} <a class="btn btn-success" href="${courseEditUrl}">Edit</a>`);
               },
               function () {
                 const message = component.get('i18n').t('common.errors.course-not-copied').string;
                 component.get('notifications').error(message);
               }
-            );*/
+            );
         }
         this.set('didValidate', true);
       }.bind(this));
