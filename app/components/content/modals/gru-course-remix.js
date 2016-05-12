@@ -37,7 +37,13 @@ export default Ember.Component.extend({
       const course = this.get('course');
       course.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
-          this.get("courseService")
+          component.triggerAction({
+            action: 'closeModal'
+          });
+          var successMsg = this.get('i18n').t('common.remix-course-success', {courseTitle: course.get('title')});
+          var courseEditUrl = component.get('router').generate('content.courses.edit', course.get('id'));
+          this.get('notifications').success(`${successMsg} <a class="btn btn-success" href="${courseEditUrl}">Edit</a>`);
+          /*this.get("courseService")
             .copyCourse(course.get('id'))
             .then(function (courseId) {
                 course.set('id', courseId);
@@ -53,7 +59,7 @@ export default Ember.Component.extend({
                 const message = component.get('i18n').t('common.errors.course-not-copied').string;
                 component.get('notifications').error(message);
               }
-            );
+            );*/
         }
         this.set('didValidate', true);
       }.bind(this));
@@ -66,7 +72,7 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    this.set('course', this.get('model'));
+    this.set('course', this.get('model').copy());
     this.get('course').set('title', null);
   },
 

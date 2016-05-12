@@ -235,6 +235,7 @@ export default {
     "remix":"Remix",
     "remix-course": "Remix Course",
     "remix-course-lead": "You are about to remix a course.",
+    "remix-course-success": "You've remixed a course {{courseTitle}}. Do you want to edit that course?",
     "request-to":"Request to be searchable and featured in Gooru",
     "resource":"Resource",
     "resources": "Resources",
