@@ -81,3 +81,23 @@ test('createCourse', function(assert) {
     });
 });
 
+test('copyCourse', function(assert) {
+  const service = this.subject();
+
+  assert.expect(1);
+
+  // There is not a Adapter stub in this case
+  // Pretender was included because it is needed to simulate the response Headers including the Location value
+  this.pretender.map(function() {
+    this.post('/api/nucleus/v1/copier/courses/course-id', function() {
+      return [201, {'Content-Type': 'text/plain', 'Location': 'copy-course-id'}, ''];
+    }, false);
+  });
+
+  var done = assert.async();
+  service.copyCourse('course-id')
+    .then(function(response) {
+      assert.equal(response, 'copy-course-id', 'Wrong course id');
+      done();
+    });
+});

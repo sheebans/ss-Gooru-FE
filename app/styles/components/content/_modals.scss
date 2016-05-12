@@ -1,8 +1,9 @@
 .content.modals.gru-course-new,
+.content.modals.gru-course-remix,
 .content.modals.gru-collection-new,
 .content.modals.gru-assessment-new,
 .content.modals.gru-resource-new,
-.content.modals.gru-question-new{
+.content.modals.gru-question-new {
   background-color: transparent;
   max-width: 500px;
 
@@ -247,3 +248,11 @@
     opacity:0.6;
   }
 }
+
+.content.modals.gru-course-remix {
+  .lead{
+    border-bottom: 2px solid $gray-lighter;
+    padding-bottom: $padding-large-vertical;
+  }
+}
+

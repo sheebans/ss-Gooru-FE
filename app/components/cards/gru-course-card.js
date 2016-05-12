@@ -7,8 +7,9 @@
  */
 
 import Ember from 'ember';
+import ModalMixin from 'gooru-web/mixins/modal';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -28,6 +29,7 @@ export default Ember.Component.extend({
      */
     remixCourse:function(){
       this.sendAction("onRemixCourse");
+      this.actions.showModal.call(this, "content.modals.gru-course-remix", this.get('course'));
     },
     /**
      *Action triggered when select edit the course
