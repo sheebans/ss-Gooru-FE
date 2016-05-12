@@ -43,7 +43,7 @@ export default Ember.Controller.extend(ModalMixin,{
       'classId': this.get('class.class.id'),
       'courses': this.get('featuredCourses'),
       'areFeatured':true
-    })
+    });
   }),
 
   // -------------------------------------------------------------------------
