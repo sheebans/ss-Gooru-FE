@@ -559,7 +559,7 @@ export default {
     "greetings" : "Greetings",
     "overview" : "Course Map",
     "analytics" : "Data",
-    "suggestions" : "Suggestions",
+    "teams" : "Teams",
     "information" : "Class Information"
   },
   "gru-user-registration": {
