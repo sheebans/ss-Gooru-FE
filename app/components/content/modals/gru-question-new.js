@@ -123,12 +123,8 @@ export default Ember.Component.extend({
   /**
    * @type {Array[]} questionTypes
    */
-  questionTypes: Ember.computed(function(){
-    let array = Ember.A(Object.keys(QUESTION_CONFIG));
-    this.move(array,6,2);
-    this.move(array,7,3);
-    this.move(array,7,6);
-    return array;
+  questionTypes: Ember.computed(function() {
+    return Ember.A(Object.keys(QUESTION_CONFIG));
   }),
 
 

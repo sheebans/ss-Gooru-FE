@@ -1,6 +1,6 @@
 {{#each answers as |answer index|}}
     <div class="panel panel-default">
-        <div class="answer-content">
+        <div class="answer-content {{unless editMode 'view-mode'}}">
             <div class="letter-container">
                 <h3>{{answer-letter index}}</h3>
             </div>
@@ -13,7 +13,7 @@
               </button>
           {{else}}
             {{#if answer.isCorrect }}
-                <div class="check correct">
+                <div class="correct-choice">
                   {{gru-icon name="done"}}
                 </div>
             {{/if}}
