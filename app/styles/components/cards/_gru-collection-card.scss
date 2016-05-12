@@ -27,6 +27,10 @@
         vertical-align: top;
         margin-left: 15px;
         width: 65%;
+        .question-resources {
+          display: block;
+          height: 16px;
+        }
         .bar{
           font-weight:bold;
           color:$gray-dark;
@@ -38,6 +42,7 @@
           display: inline;
         }
         .course{
+          height: 50px;
           i{
             color:$gray-light;
             vertical-align: middle;

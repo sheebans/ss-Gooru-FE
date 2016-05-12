@@ -27,11 +27,9 @@
     </div>
     <div class="panel-body">
         <div class="collection-details">
-          {{#if collection.standards }}
             <div class="standards">
                 {{collection-results-standards collection=collection standards=collection.standards}}
             </div>
-          {{/if}}
             <div class="{{if isAssessment 'author' 'remixed-by'}}">
               {{#if isAssessment}}
                 {{#link-to 'profile.content.courses' collection.owner.id class="pointer" tagName="div"}}
