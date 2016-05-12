@@ -144,6 +144,11 @@ export default Ember.Component.extend(ContentEditMixin,{
    */
   correctAnswerNotSelected: false,
 
+  /**
+   * @property {Boolean} Indicates if a Hot spot answer has images
+   */
+  hasNoImages: false,
+
   //Methods
 
   /**
@@ -161,6 +166,7 @@ export default Ember.Component.extend(ContentEditMixin,{
     } else {
       if (editedQuestion.get('answers')) {
         if (editedQuestion.get('isHotSpotImage')) {
+          this.hasImages(editedQuestion.get('answers'));
           promiseArray = editedQuestion.get('answers').map(
             component.getAnswerSaveImagePromise.bind(component)
           );
@@ -273,6 +279,24 @@ export default Ember.Component.extend(ContentEditMixin,{
     return answer.validate().then(function ({ model, validations }) {
       return validations.get('isValid');
     });
+  },
+
+  /**
+   * Check if an hs-answer has image
+   */
+  hasImages: function(answers) {
+    if(answers.length > 0){
+      let answerImages = answers.filter(function(answer) {
+        return answer.get('text')===null;
+      });
+      if (answerImages.length > 0) {
+        this.set('hasNoImages', true);
+      } else {
+        this.set('hasNoImages', false);
+        return false;
+      }
+    }
+    return true;
   }
 
 });
