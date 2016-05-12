@@ -114,6 +114,11 @@ export default (function() {
     course: null,
 
     /**
+     * @property {number} courseId
+     */
+    courseId: null,
+
+    /**
      * @property {Content/User} owner - The resource owner information
      */
     owner: null,
@@ -195,6 +200,7 @@ export default (function() {
         authorId: model.get("owner.id"),
         remixedBy: Ember.A(), //TODO missing
         course: model.get("course"),
+        courseId: model.get("courseId"),
         avatarUrl: null, //TODO missing
         profilePageUrl: null, //TODO missing
         description: model.get("description"),

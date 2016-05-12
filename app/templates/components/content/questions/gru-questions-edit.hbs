@@ -135,12 +135,16 @@
         <div class="panel-body">
           {{#if isBuilderEditing}}
             {{component (questionConfig question.type 'component.builder_answer') answers=tempQuestion.answers editMode=true}}
-            <button class="add-hint btn btn-sm btn-primary">{{t "content.questions.edit.builder.add-hint"}}</button>
-            <button class="add-explanation btn btn-sm btn-primary">{{t "content.questions.edit.builder.add-explanation"}}</button>
           {{else}}
             {{component (questionConfig question.type 'component.builder_answer') answers=question.answers}}
           {{/if}}
         </div>
+      {{#if isBuilderEditing}}
+        <div class="panel-footer">
+            <button class="add-hint btn btn-sm btn-primary">{{t "content.questions.edit.builder.add-hint"}}</button>
+            <button class="add-explanation btn btn-sm btn-primary">{{t "content.questions.edit.builder.add-explanation"}}</button>
+        </div>
+      {{/if}}
     </div>
 </section>
 
