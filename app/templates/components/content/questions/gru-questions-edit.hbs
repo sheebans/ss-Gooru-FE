@@ -130,6 +130,11 @@
                       <p><small>{{t "common.errors.select-correct-answer"}}</small></p>
                   </div>
                 {{/if}}
+              {{#if hasNoImages}}
+                  <div class="missing-images">
+                      <p><small>{{t "common.errors.answer-has-no-image"}}</small></p>
+                  </div>
+              {{/if}}
             </div>
         </div>
         <div class="panel-body">
