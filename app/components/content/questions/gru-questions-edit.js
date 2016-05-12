@@ -287,7 +287,7 @@ export default Ember.Component.extend(ContentEditMixin,{
   hasImages: function(answers) {
     if(answers.length > 0){
       let answerImages = answers.filter(function(answer) {
-        return answer.get('text')==null;
+        return answer.get('text')===null;
       });
       if (answerImages.length > 0) {
         this.set('hasNoImages', true);
