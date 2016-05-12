@@ -11,10 +11,10 @@ const defaultOptions = {
   positionClass: "toast-top-full-width",
   preventDuplicates: false,
   onclick: null,
-  showDuration: 0,
-  hideDuration: 0,
-  timeOut: 0,
-  extendedTimeOut: 0,
+  showDuration: 300,
+  hideDuration: 1000,
+  timeOut: 3000,
+  extendedTimeOut: 1000,
   showEasing: "swing",
   hideEasing: "linear",
   showMethod: "fadeIn",
@@ -94,6 +94,10 @@ export default Service.extend({
 
   setOptions(options) {
     toastr.options = options;
+  },
+
+  setOption(option, value) {
+    toastr.options[option] = value;
   },
 
   restoreOptions() {
