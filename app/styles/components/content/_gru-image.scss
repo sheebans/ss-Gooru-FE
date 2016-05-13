@@ -1,11 +1,12 @@
 .content.gru-image {
+
+  $component-height:  210px;
   position: relative;
   width: 180px;
-  height: 210px;
+  height:$component-height;
   background-color: $dark-300;
   border: none;
   border-radius: 6px;
-  overflow: hidden;
   @include box-shadow(0 1px 4px rgba(0, 0, 0, .3));
 
   @media(min-width: $screen-sm) {
@@ -16,6 +17,7 @@
   img {
     margin: 5px;
     max-width: 94%;
+    max-height: $component-height - 5px;
   }
 
   > i {
