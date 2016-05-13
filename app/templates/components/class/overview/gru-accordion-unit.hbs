@@ -18,6 +18,7 @@
 
   {{gru-user-icons
     showOnlyNumbers=true
+    membersCount=model.membersCount
     users=model.users
     viewThreshold=3
     viewMoreIn='modal'}}
@@ -40,6 +41,7 @@
 
         {{class.overview.gru-accordion-lesson
           currentClass=currentClass
+          classMembers=classMembers
           unitId=model.id
           model=item
           index=index

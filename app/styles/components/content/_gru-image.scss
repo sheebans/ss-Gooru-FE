@@ -4,7 +4,6 @@
   height: 210px;
   background-color: $dark-300;
   border: none;
-  border-bottom: 5px solid $white;
   border-radius: 6px;
   overflow: hidden;
   @include box-shadow(0 1px 4px rgba(0, 0, 0, .3));
@@ -71,6 +70,9 @@
       background-color: transparent;
       border: 0 none;
     }
+  }
+  &.is-viewing {
+    border-bottom: 5px solid $white;
   }
 
   &.is-viewing.has-src-image,

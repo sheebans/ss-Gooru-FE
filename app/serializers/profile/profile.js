@@ -244,7 +244,8 @@ export default Ember.Object.extend({
       resourceCount: collectionData.resource_count,
       questionCount: collectionData.question_count,
       remixCount: collectionData.remix_count, //TODO missing on API
-      course: collectionData.course ? collectionData.course.title : '',
+      course: collectionData.course ? collectionData.course.title : null,
+      courseId: collectionData.course ? collectionData.course.id : null,
       isVisibleOnProfile: collectionData.visible_on_profile,
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
@@ -274,7 +275,8 @@ export default Ember.Object.extend({
       learningObjectives: assessmentData.learning_objective,
       questionCount: assessmentData.question_count,
       remixCount: assessmentData.remix_count, //TODO missing on API
-      course: assessmentData.course ? assessmentData.course.title : '',
+      course: assessmentData.course ? assessmentData.course.title : null,
+      courseId: assessmentData.course ? assessmentData.course.id : null,
       isVisibleOnProfile: assessmentData.visible_on_profile,
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
@@ -319,17 +321,40 @@ export default Ember.Object.extend({
   },
 
   normalizeNetworkDetail: function(networkData, type, following) {
+    const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = networkData['thumbnail_path'] ?
+    basePath + networkData['thumbnail_path'] : DEFAULT_IMAGES.USER_PROFILE;
+
     return ProfileModel.create({
       "id": networkData.id,
       "firstName": networkData.firstname,
       "lastName": networkData.lastname,
-      "avatarUrl": networkData.thumbnail_path,
+      "avatarUrl": thumbnailUrl,
       "country": networkData.country,
       "schoolDistrict": networkData.school_district,
       "followers": networkData.followers_count,
       "followings": networkData.followings_count,
       "isFollowing": type === NETWORK_TYPE.FOLLOWERS ? following.indexOf(networkData.id) > -1 : true
     });
+  },
+
+  normalizeReadMultipleProfiles: function(payload) {
+    const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    let profiles = Ember.A([]);
+    if (payload.users) {
+      profiles = payload.users.map(function(userPayload) {
+        return ProfileModel.create({
+          id: userPayload.id,
+          firstName: userPayload.firstname,
+          lastName: userPayload.lastname,
+          username: userPayload.username,
+          avatarUrl: userPayload['thumbnail_path'] ? basePath + userPayload['thumbnail_path'] : DEFAULT_IMAGES.USER_PROFILE
+        });
+      });
+    }
+    return profiles;
   }
 
 

@@ -4,7 +4,7 @@ import BuilderItem from 'gooru-web/models/content/builder/item';
 import Unit from 'gooru-web/models/content/unit';
 import Ember from 'ember';
 
-moduleForComponent('content/courses/gru-accordion-course', 'Integration | Component | content/courses/gru accordion course', {
+moduleForComponent('content/courses/edit/gru-accordion-course', 'Integration | Component | content/courses/edit/gru accordion course', {
   integration: true,
 
   beforeEach: function () {
@@ -15,7 +15,7 @@ moduleForComponent('content/courses/gru-accordion-course', 'Integration | Compon
 test('it renders correctly when there are no units', function (assert) {
 
   this.set('units', []);
-  this.render(hbs`{{content/courses/gru-accordion-course items=units}}`);
+  this.render(hbs`{{content/courses/edit/gru-accordion-course items=units}}`);
 
   const $component = this.$('.content.courses.gru-accordion-course.gru-accordion');
   assert.ok($component.length, 'Component');
@@ -55,7 +55,7 @@ test('it renders correctly when there are 2 or more units', function (assert) {
     })
   ]));
 
-  this.render(hbs`{{content/courses/gru-accordion-course items=units}}`);
+  this.render(hbs`{{content/courses/edit/gru-accordion-course items=units}}`);
 
   const $component = this.$('.content.courses.gru-accordion-course.gru-accordion');
   assert.ok($component.length, 'Component');
@@ -80,7 +80,7 @@ test('it renders correctly when there are 2 or more units', function (assert) {
 test('it allows creating a new unit by clicking on the add button in the header', function (assert) {
 
   this.set('units', []);
-  this.render(hbs`{{content/courses/gru-accordion-course items=units}}`);
+  this.render(hbs`{{content/courses/edit/gru-accordion-course items=units}}`);
 
   const $component = this.$('.content.courses.gru-accordion-course.gru-accordion');
   const $listContainer = $component.find('> .accordion-course');
@@ -93,7 +93,7 @@ test('it allows creating a new unit by clicking on the add button in the header'
 test('it allows creating a new unit by clicking on the add section at the bottom of the list', function (assert) {
 
   this.set('units', []);
-  this.render(hbs`{{content/courses/gru-accordion-course items=units}}`);
+  this.render(hbs`{{content/courses/edit/gru-accordion-course items=units}}`);
 
   const $component = this.$('.content.courses.gru-accordion-course.gru-accordion');
   const $listContainer = $component.find('> .accordion-course');
@@ -106,7 +106,7 @@ test('it allows creating a new unit by clicking on the add section at the bottom
 test('it removes a unit that has not yet been saved', function (assert) {
 
   this.set('units', []);
-  this.render(hbs`{{content/courses/gru-accordion-course items=units}}`);
+  this.render(hbs`{{content/courses/edit/gru-accordion-course items=units}}`);
 
   const $component = this.$('.content.courses.gru-accordion-course.gru-accordion');
   const $listContainer = $component.find('> .accordion-course');

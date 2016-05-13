@@ -3,19 +3,22 @@
 
   &.fade {
     .modal-dialog {
-      @include respond-to(sm-to-lg) {
-        float: right;
-        width: 400px;
-      }
-      @include respond-to(md-to-lg) {
-        width: 520px;
-      }
       -webkit-transform: translate3d(125%, 0, 0);
       height: 96%;
       margin: 0 auto;
       overflow: visible;
       transform: translate3d(125%, 0, 0);
-      width: 353px;
+      width: 310px;
+      @media(min-width: $screen-sm-min) {
+        width: 353px;
+      }
+      @media(min-width: $screen-md-min) {
+        float: right;
+        width: 400px;
+      }
+      @media(min-width: $screen-lg-min) {
+        width: 520px;
+      }
     }
 
     &.in {
@@ -79,14 +82,12 @@
       height: 183px;
       margin: 5px 0;
       padding: 0;
-      width: 336px;
+      width: 300px;
+      @media(min-width: $screen-sm) {
+        width: 336px;
+      }
       @media(min-width: $screen-lg) {
         width: 463px;
-
-      }
-
-      &:first-child {
-        margin-top: 0;
       }
     }
 
