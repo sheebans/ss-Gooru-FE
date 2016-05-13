@@ -45,6 +45,16 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   lessonService:  Ember.inject.service("api-sdk/lesson"),
 
+  /**
+   * @requires service:api-sdk/analytics
+   */
+  analyticsService: Ember.inject.service('api-sdk/analytics'),
+
+  /**
+   * @requires service:api-sdk/profile
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -202,102 +212,48 @@ export default Ember.Component.extend(AccordionMixin, {
    * @function
    * @returns {undefined}
    */
-  loadData: function () {
-    let component = this;
-    var performancePromise = component.getCollectionPerformances();
+  loadData: function() {
+    const component = this;
     component.set("loading", true);
-    performancePromise.then(function(performances) {
-      if (!component.get("isDestroyed")){
-        component.set('items', performances);
-
-        /*
-        let usersLocationPromise = component.getLessonUsers();
-        usersLocationPromise.then(function (usersLocation) {
-          component.set('usersLocation', usersLocation);
-
-          let userLocation = component.get('userLocation');
-          if (!component.get('location') && userLocation) {
-            component.set('location', userLocation);
-          }
-        });
-        */
-        component.set("loading", false);
-      }
-    });
-  },
-
-  /**
-   * Get all the collections for the lesson
-   *
-   * @function
-   * @requires api-sdk/collection#findByClassAndCourseAndUnitAndLesson
-   * @returns {Ember.RSVP.Promise}
-   */
-  getCollectionPerformances: function() {
-    let component = this;
+    const userId = component.get('session.userId');
     const classId = component.get('currentClass.id');
     const courseId = component.get('currentClass.courseId');
     const unitId = component.get('unitId');
     const lessonId = component.get('model.id');
-    const userId = component.get('session.userId');
+    const classMembers = component.get('classMembers');
+    const isTeacher = component.get('isTeacher');
 
-    return component.get('lessonService').fetchById(courseId, unitId, lessonId)
+    component.get('lessonService').fetchById(courseId, unitId, lessonId)
       .then(function(lesson) {
         const collections = lesson.get('children');
-        return component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections);
+        component.get('analyticsService').getLessonPeers(classId, courseId, unitId, lessonId)
+          .then(function(lessonPeers) {
+            const performancePromise = isTeacher ?
+              component.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, classMembers) :
+              component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections);
+            performancePromise.then(function(performance) {
+              collections.forEach(function(collection) {
+                const peer = lessonPeers.findBy('id', collection.get('id'));
+                if (peer) {
+                  component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
+                    .then(function (profiles) {
+                      collection.set('members', profiles);
+                    });
+                }
+                if (isTeacher) {
+                  const averageScore = performance.calculateAverageScoreByItem(collection.get('id'));
+                  collection.set('classAverageScore', averageScore);
+                } else {
+                  const collectionPerformanceData = performance.findBy('id', collection.get('id'));
+                  const score = collectionPerformanceData ? collectionPerformanceData.get('score') : 0;
+                  collection.set('classAverageScore', score);
+                }
+              });
+              component.set('items', collections);
+              component.set("loading", false);
+            });
+          });
       });
-
-    /*
-    return this.get("collectionService").findByClassAndCourseAndUnitAndLesson(classId, courseId, unitId, lessonId).then(function(collections){
-      if(component.get('isTeacher')) {
-        return component.getTeacherCollections(classId, courseId, unitId, lessonId, collections);
-      }
-      return component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections);
-    });
-    */
-  },
-
-  /**
-   * Get all the collections performances by collections
-   *
-   * @function
-   * @requires api-sdk/performance#findCourseMapPerformanceByLesson
-   * @returns {Ember.RSVP.Promise}
-   */
-  getTeacherCollections: function(classId, courseId, unitId, lessonId, collections){
-    var component = this;
-    collections.forEach(function (collection) {
-      let collectionId = collection.get('id');
-      if (collectionId) {
-        let courseMapPerformances = component.get('performanceService').findCourseMapPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId);
-        courseMapPerformances.then(function (classPerformance) {
-          //Score is the average, you can keep it to avoid change the variable in the hbs,
-          //because the student uses score.
-          collection.set('score', classPerformance.calculateAverageScoreByItem(collectionId));
-        });
-      }else{
-        collection.set('score', 0);
-      }
-    });
-
-    return new Ember.RSVP.resolve(collections);
-
-  },
-
-  /**
-   * Get all the users participating in the lesson
-   *
-   * @function
-   * @requires service:api-sdk/course-location#findByCourseAndUnitAndLesson
-   * @returns {Ember.RSVP.Promise}
-   */
-  getLessonUsers: function() {
-    const component = this;
-    const courseId = component.get('currentClass.courseId');
-    const unitId = component.get('unitId');
-    const lessonId = component.get('model.id');
-
-    return component.get("courseLocationService").findByCourseAndUnitAndLesson(courseId, unitId, lessonId, { collections: component.get('items') });
   }
 
 });

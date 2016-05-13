@@ -48,6 +48,16 @@ export default Ember.Object.extend({
   /**
    * @property {String} title
    */
-  title: ''
+  title: '',
+
+  /**
+   * @property {Number} membersCount - number of members in the collection|assessment (for analytics)
+   */
+  membersCount: 0,
+
+  /**
+   * @property {Profile[]} members - members in the collection|assessment (for analytics)
+   */
+  members: []
 
 });

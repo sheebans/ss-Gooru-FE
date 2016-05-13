@@ -37,7 +37,14 @@ export default Ember.Controller.extend(ModalMixin,{
       'classId': this.get('class.class.id'),
       'courses': this.get('courses')
     });
-  })
+  }),
+  modelForFeaturedCoursesModal: Ember.computed('class', 'featuredCourses', function(){
+    return Ember.Object.create({
+      'classId': this.get('class.class.id'),
+      'courses': this.get('featuredCourses'),
+      'areFeatured':true
+    });
+  }),
 
   // -------------------------------------------------------------------------
   // Observers

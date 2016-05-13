@@ -3,7 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import LessonItem from 'gooru-web/models/content/lessonItem';
 import Ember from 'ember';
 
-moduleForComponent('content/courses/gru-accordion-lesson-item', 'Integration | Component | content/courses/gru accordion lesson item', {
+moduleForComponent('content/courses/play/gru-accordion-lesson-item', 'Integration | Component | content/courses/play/gru accordion lesson item', {
   integration: true,
 
   beforeEach: function () {
@@ -25,7 +25,7 @@ test('it renders a lesson item correctly -collection', function (assert) {
   this.set('lessonItem', lessonItem);
   this.set('index', 3);
   this.render(hbs`
-    {{content/courses/gru-accordion-lesson-item
+    {{content/courses/play/gru-accordion-lesson-item
       model=lessonItem
       index=index}}
     `);
@@ -34,7 +34,7 @@ test('it renders a lesson item correctly -collection', function (assert) {
   assert.ok($component.length, 'Component');
 
   const $heading = $component.find('.view .panel-heading');
-  assert.ok($heading.find('h3').text(), this.get('index'), 'Header prefix');
+  assert.equal($heading.find('h3').text(), (this.get('index') + 1).toString(), 'Header prefix');
 
   const $titleContainer = $heading.find('> a.title');
   assert.ok($titleContainer.length, 'Title link');
@@ -58,12 +58,6 @@ test('it renders a lesson item correctly -collection', function (assert) {
   assert.equal($detailContainer.find('> div:first-child > span').text(),
     '0 ' + this.get('i18n').t('common.resource-pl', { count: 0}).string +
     '5 ' + this.get('i18n').t('common.question-pl', { count: 5}).string, 'Detail text');
-
-  assert.equal($heading.find('.actions button').length, 4, 'Header action buttons');
-  assert.ok($heading.find('.actions button:eq(0)').hasClass('edit-item'), 'First button is for editing');
-  assert.ok($heading.find('.actions button:eq(1)').hasClass('copy-item'), 'Second button is for copying');
-  assert.ok($heading.find('.actions button:eq(2)').hasClass('move-item'), 'Third button is for moving');
-  assert.ok($heading.find('.actions button:eq(3)').hasClass('delete-item'), 'Fourth button is for deleting');
 });
 
 test('it renders an assessment detail correctly', function (assert) {
@@ -78,7 +72,7 @@ test('it renders an assessment detail correctly', function (assert) {
   this.set('lessonItem', lessonItem);
   this.set('index', 3);
   this.render(hbs`
-    {{content/courses/gru-accordion-lesson-item
+    {{content/courses/play/gru-accordion-lesson-item
       model=lessonItem
       index=index}}
     `);

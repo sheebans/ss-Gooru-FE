@@ -19,13 +19,13 @@
       <div class="row">
         <div class="col-sm-6 big-ideas">
           <label>
-            <span>{{t "content.courses.edit.big-ideas"}}</span>
+            <span>{{t "common.big-ideas"}}</span>
             {{textarea value=tempUnit.bigIdeas}}
           </label>
         </div>
         <div class="col-sm-6 essential-questions">
           <label>
-            <span>{{t "content.courses.edit.essential-questions"}}</span>
+            <span>{{t "common.essential-questions"}}</span>
             {{textarea value=tempUnit.essentialQuestions}}
           </label>
         </div>
@@ -77,7 +77,7 @@
 
       {{#each items as |item index|}}
 
-        {{content.courses.gru-accordion-lesson
+        {{content.courses.edit.gru-accordion-lesson
           courseId=courseId
           unitId=unit.id
           model=item
