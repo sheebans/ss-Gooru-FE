@@ -22,6 +22,8 @@ export default Ember.Controller.extend({
       controller.get('profileService').unfollowUserProfile(userId)
         .then(function () {
           controller.set('countFollowings', countFollowings-1);
+          user.set('followers', user.get('followers') - 1);
+          user.set('isFollowing', false);
         });
     },
 
@@ -33,6 +35,8 @@ export default Ember.Controller.extend({
       controller.get('profileService').followUserProfile(userId)
         .then(function () {
           controller.set('countFollowings', countFollowings+1);
+          user.set('followers', user.get('followers') + 1);
+          user.set('isFollowing', true);
         });
     }
   },

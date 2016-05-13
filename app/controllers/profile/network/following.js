@@ -24,6 +24,8 @@ export default Ember.Controller.extend({
           controller.get('followings').removeObject(user);
           controller.set('countFollowings', countFollowings-1);
           controller.set('isFollowing', false);
+          user.set('followers', user.get('followers') - 1);
+          user.set('isFollowing', false);
         });
     }
   },

@@ -23,20 +23,14 @@ export default Ember.Component.extend({
     unFollow:function(){
       var component = this;
       var user = component.get('user');
-      var countFollowers = component.get('countFollowers');
 
-      component.set('countFollowers', countFollowers-1);
       component.sendAction("onUnFollowUser", user);
-      user.set('isFollowing', false);
     },
 
     setFollow:function(){
       var component = this;
       var user = component.get('user');
-      var countFollowers = component.get('countFollowers');
 
-      component.set('countFollowers', countFollowers+1);
-      user.set('isFollowing', true);
       component.sendAction("onFollowUser", user);
     }
   },

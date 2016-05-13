@@ -29,7 +29,7 @@ test('User Network Card Layout', function(assert) {
   assert.equal(T.text($userNetworkCard.find(".panel-body .follow-btn button.btn-follow")), "Follow", "The label button should be Follow");
 });
 
-test('User Network Card Layout - Following Filter', function(assert) {
+test('User Network Card Layout - if isFollowing', function(assert) {
   var user =Ember.Object.create({
     displayName:"Lisa Keller",
     schoolDistrict:"District Name",
@@ -37,24 +37,6 @@ test('User Network Card Layout - Following Filter', function(assert) {
     followings:200,
     isFollowing: true
   });
-  this.set('user', user);
-
-  this.render(hbs`{{cards/gru-user-network-card user=user}}`);
-  var $component = this.$();
-  const $userNetworkCard = $component.find(".gru-user-network-card");
-  T.exists(assert, $userNetworkCard.find(".panel-body .follow-btn button"), "Missing Following Button");
-  assert.equal(T.text($userNetworkCard.find(".panel-body .follow-btn button span.following")), "Following", "The label button should be Following");
-});
-
-test('User Network Card Layout - Followers Filter', function(assert) {
-  var user =Ember.Object.create({
-    displayName:"Lisa Keller",
-    schoolDistrict:"District Name",
-    followers:115,
-    followings:200,
-    isFollowing: true
-  });
-
   this.set('user', user);
 
   this.render(hbs`{{cards/gru-user-network-card user=user}}`);
