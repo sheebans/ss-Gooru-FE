@@ -96,10 +96,6 @@ export default Service.extend({
     toastr.options = options;
   },
 
-  setOption(option, value) {
-    toastr.options[option] = value;
-  },
-
   restoreOptions() {
     toastr.options = defaultOptions;
   }

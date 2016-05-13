@@ -47,7 +47,10 @@ export default Ember.Component.extend({
                 component.triggerAction({
                   action: 'closeModal'
                 });
-                component.get('notifications').setOption('toastClass', 'gooru-toast');
+                component.get('notifications').setOptions({
+                  positionClass: 'toast-top-full-width',
+                  toastClass: 'gooru-toast'
+                });
                 var successMsg = component.get('i18n').t('common.remix-course-success', {courseTitle: course.get('title')});
                 var courseEditUrl = component.get('router').generate('content.courses.edit', course.get('id'));
                 component.get('notifications').success(`${successMsg} <a class="btn btn-success" href="${courseEditUrl}">Edit</a>`);
