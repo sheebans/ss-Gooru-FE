@@ -109,9 +109,10 @@ test('it shows toast and transitions after copying a course', function (assert) 
         context.get('i18n').t('common.remix-course-success', {courseTitle: 'Course Name'}).string
       ), -1, 'Notification displayed');
     },
-    setOption(option, value) {
-      assert.equal(option, 'toastClass', "Toast option changed.");
-      assert.equal(value, 'gooru-toast', "Toast value for toastClass.");
+    setOptions(options) {
+
+      assert.equal(options.positionClass, 'toast-top-full-width', "Toast value for positionClass.");
+      assert.equal(options.toastClass, 'gooru-toast', "Toast value for toastClass.");
     }
   }));
   this.inject.service('notifications');
