@@ -35,6 +35,9 @@
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
       }
+      .delete{
+        display:none;
+      }
     }
     .panel-footer{
       padding: 0;
@@ -54,7 +57,7 @@
 
         }
         .check.correct{
-          color:$green-300;
+          background-color:$green-300;
         }
       }
     }
