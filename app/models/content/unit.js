@@ -61,6 +61,11 @@ export default Ember.Object.extend(Validations, {
   taxonomy: null,
 
   /**
+   * @property {Number} membersCount - number of members in the unit (for analytics)
+   */
+  membersCount: 0,
+
+  /**
    * Return a copy of the unit for editing
    *
    * @function
