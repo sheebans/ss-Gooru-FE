@@ -110,8 +110,8 @@ export default Ember.Component.extend({
       case 'analytics.performance':
         classIconItem = 'graphic_eq';
         break;
-      case 'suggestions':
-        classIconItem = 'chat';
+      case 'teams':
+        classIconItem = 'group';
         break;
       case 'info':
         classIconItem = 'info';

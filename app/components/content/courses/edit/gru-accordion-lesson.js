@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import BuilderMixin from 'gooru-web/mixins/content/builder';
 import ModalMixin from 'gooru-web/mixins/modal';
+import PlayerAccordionLesson from 'gooru-web/components/content/courses/play/gru-accordion-lesson';
 
 /**
  * Content Builder: Accordion Lesson
@@ -9,38 +9,11 @@ import ModalMixin from 'gooru-web/mixins/modal';
  * It is meant to be used inside of an {@link ./gru-accordion-unit|Accordion Unit}
  *
  * @module
- * @augments Ember/Component
- * @mixes mixins/gru-accordion
+ * @augments content/courses/play/gru-accordion-lesson
+ * @mixes mixins/modal
  */
-export default Ember.Component.extend(BuilderMixin, ModalMixin, {
+export default PlayerAccordionLesson.extend(ModalMixin, {
 
-  // -------------------------------------------------------------------------
-  // Dependencies
-
-  /**
-   * @requires service:i18n
-   */
-  i18n: Ember.inject.service(),
-
-  /**
-   * @requires service:api-sdk/lesson
-   */
-  lessonService: Ember.inject.service("api-sdk/lesson"),
-
-  /**
-   * @requires service:notifications
-   */
-  notifications: Ember.inject.service(),
-
-
-  // -------------------------------------------------------------------------
-  // Attributes
-
-  classNames: ['content', 'courses', 'gru-accordion', 'gru-accordion-lesson'],
-
-  classNameBindings: ['model.isEditing:edit:view'],
-
-  tagName: 'li',
 
   // -------------------------------------------------------------------------
   // Actions
@@ -90,13 +63,6 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
         }
         this.set('didValidate', true);
       }.bind(this));
-    },
-
-    toggle: function () {
-      var toggleValue = !this.get('model.isExpanded');
-
-      this.loadData();
-      this.set('model.isExpanded', toggleValue);
     }
 
   },
@@ -128,21 +94,6 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   // Properties
 
   /**
-   * @prop {String} courseId - ID of the course this unit belongs to
-   */
-  courseId: null,
-
-  /**
-   * @prop {Boolean} isLoaded - Has the data for the lesson already been loaded
-   */
-  isLoaded: false,
-
-  /**
-   * @prop {Content/Lesson} lesson
-   */
-  lesson: Ember.computed.alias('model.data'),
-
-  /**
    * @prop {Object} newCollectionModel - model for the new collection/assessment modals
    */
   newCollectionModel: null,
@@ -150,45 +101,6 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   /**
    * @prop {Content/Lesson} tempLesson - Temporary lesson model used for editing
    */
-  tempLesson: null,
-
-  /**
-   * @prop {String} unitId - ID of the unit this lesson belongs to
-   */
-  unitId: null,
-
-
-  // -------------------------------------------------------------------------
-  // Methods
-
-  /**
-   * Load data for the unit
-   *
-   * @function actions:loadData
-   * @returns {undefined}
-   */
-  loadData: function () {
-    if (!this.get('isLoaded')) {
-      let courseId = this.get('courseId');
-      let unitId = this.get('unitId');
-      let lessonId = this.get('lesson.id');
-
-      return this.get('lessonService')
-        .fetchById(courseId, unitId, lessonId)
-        .then(function (lesson) {
-          this.set('model.data', lesson);
-          this.set('items', lesson.get('children'));
-          this.set('isLoaded', true);
-        }.bind(this))
-
-        .catch(function (error) {
-          var message = this.get('i18n').t('common.errors.lesson-not-loaded').string;
-          this.get('notifications').error(message);
-          Ember.Logger.error(error);
-        }.bind(this));
-    } else {
-      return Ember.RSVP.resolve(true);
-    }
-  }
+  tempLesson: null
 
 });

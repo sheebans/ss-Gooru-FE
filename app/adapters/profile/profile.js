@@ -226,6 +226,25 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Get basic Profile data for a list of profile IDs
+   *
+   * @param profileIds the list of profile IDs
+   * @returns {Promise}
+   */
+  readMultipleProfiles: function(profileIds) {
+    const adapter = this;
+    const url = adapter.get('usersNamespace');
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders(),
+      data: {
+        ids: Ember.isArray(profileIds) ? profileIds.join() : null
+      }
+    };
+    return Ember.$.ajax(url, options);
+  },
 
   defineHeaders: function() {
     return {

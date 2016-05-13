@@ -374,6 +374,18 @@ export default Ember.Service.extend({
           reject(error);
         });
     });
+  },
+
+  readMultipleProfiles: function(profileIds) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readMultipleProfiles(profileIds)
+        .then(function(response) {
+          resolve(service.get('profileSerializer').normalizeReadMultipleProfiles(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
   }
 
 });

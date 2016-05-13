@@ -27,14 +27,14 @@ export default Ember.Component.extend(AccordionMixin, {
   unitService: Ember.inject.service("api-sdk/unit"),
 
   /**
-   * @requires service:api-sdk/course-location
-   */
-  courseLocationService: Ember.inject.service("api-sdk/course-location"),
-
-  /**
    * @requires service:api-sdk/performance
    */
   performanceService: Ember.inject.service("api-sdk/performance"),
+
+  /**
+   * @requires service:api-sdk/analytics
+   */
+  analyticsService: Ember.inject.service('api-sdk/analytics'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -195,80 +195,29 @@ export default Ember.Component.extend(AccordionMixin, {
 
   // -------------------------------------------------------------------------
   // Methods
-  /**
-   * Get all the units in a course
-   *
-   * @function
-   * @requires api-sdk/unit#findByClassAndCourse
-   * @returns {Ember.RSVP.Promise}
-   */
-  getUnitsPerformance: function() {
-    const userId = this.get('session.userId');
-    const classId = this.get('currentClass.id');
-    const courseId = this.get('currentClass.courseId');
-    const units = this.get('units');
-
-    var component = this;
-    if(component.get('isTeacher')) {
-      return component.getTeacherUnits(classId, courseId, units);
-    }
-
-    return this.get('performanceService').findStudentPerformanceByCourse(userId, classId, courseId, units);
-  },
-
-  getTeacherUnits: function(classId, courseId, units){
-    var component = this;
-    units.forEach(function (unit) {
-      let unitId = unit.get('id');
-      if (unitId) {
-        let courseMapPerformances = component.get('performanceService').findCourseMapPerformanceByUnit(classId, courseId, unitId);
-        courseMapPerformances.then(function (classPerformance) {
-          unit.set('classAverageScore', classPerformance.get('classAverageScore'));
-        });
-      }
-    });
-    return new Ember.RSVP.resolve(units);
-
-  },
-
-  /**
-   * Get all the users in the course
-   *
-   * @function
-   * @requires service:api-sdk/course-location#findByCourse
-   * @returns {Ember.RSVP.Promise}
-   */
-  getCourseUsers: function() {
-    const courseId = this.get('currentClass.courseId');
-    const component = this;
-    return component.get("courseLocationService").findByCourse(courseId, { units: component.get("units")});
-  },
 
   /**
    * Load the units and users in the course when the component is instantiated or the currentClass id changes
    */
   setupAccordionCourse: function() {
-    let component = this;
+    const component = this;
     component.set("loading", true);
-    let performancePromise = component.getUnitsPerformance();
-    performancePromise.then(function(performances){
-      component.set('items', performances); //setting the units to the according mixin
 
-      // TODO: getCourseUsers is currently dependent on items that's why this declaration
-      // takes place after setting items. Once api-sdk/course-location is complete
-      // both declarations can be put together, as they should
-      /*
-      let usersLocationPromise = component.getCourseUsers();
-      usersLocationPromise.then(function(usersLocation){
-        component.set('usersLocation', usersLocation);
-        let userLocation = component.get('userLocation');
-        if (!component.get('location') && userLocation) {
-          component.set('location', userLocation);
-        }
+    const classId = component.get('currentClass.id');
+    const courseId = component.get('currentClass.courseId');
+    const units = component.get('units');
+
+    component.get('analyticsService').getCoursePeers(classId, courseId)
+      .then(function(coursePeers) {
+        units.forEach(function(unit) {
+          const peer = coursePeers.findBy('id', unit.get('id'));
+          if (peer) {
+            unit.set('membersCount', peer.get('peerCount'));
+          }
+        });
+        component.set("loading", false);
+        component.set('items', units);
       });
-      */
-      component.set("loading", false);
-    });
   }
 
 });

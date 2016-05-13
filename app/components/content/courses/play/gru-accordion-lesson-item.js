@@ -19,18 +19,6 @@ export default Ember.Component.extend({
 
   tagName: 'li',
 
-  // -------------------------------------------------------------------------
-  // Actions
-
-  actions: {
-
-    edit: function(item) {
-      var route = item.get('isCollection') ? "content.collections.edit" : "content.assessments.edit";
-      this.get('router').transitionTo(route, item.get("id"));
-    }
-
-  },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -38,11 +26,6 @@ export default Ember.Component.extend({
   /**
    * @prop {Content/Lesson} lesson
    */
-  model: null,
-
-  /**
-   * @prop {String} courseId - ID of the course this unit belongs to
-   */
-  courseId: null,
+  model: null
 
 });

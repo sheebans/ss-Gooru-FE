@@ -36,9 +36,8 @@ export default Ember.Controller.extend({
      * @param {String} newLocation - String of the form 'unitId[+lessonId[+resourceId]]'
      * @returns {undefined}
      */
-    updateLocation: function (newLocation) {
-      var location = !newLocation ? null : newLocation;
-      this.set('location', location);
+    updateLocation: function(newLocation) {
+      this.set('location', newLocation ? newLocation : null);
     }
   },
 
@@ -67,7 +66,11 @@ export default Ember.Controller.extend({
    * @see controllers/class.js
    * @property {Class}
    */
-  "class": Ember.computed.alias('classController.class')
+  "class": Ember.computed.alias('classController.class'),
+
+  openingLocation: Ember.computed('location', function() {
+    return this.get('location') ? this.get('location') : this.get('userLocation');
+  })
 
   // -------------------------------------------------------------------------
   // Observers

@@ -1,5 +1,5 @@
 .container-fluid {
-  .user {
+  .home {
     @include flexbox;
     @include flex-direction(column);
     @include align-items(center);
@@ -19,7 +19,7 @@
   }
 }
 
-.user {
+.home {
   .greetings {
 
     span {
