@@ -101,7 +101,7 @@ export default Ember.Route.extend({
     let userLocation = model.userLocation ?
       model.userLocation.get('unitId') + '+' +
       model.userLocation.get('lessonId') + '+' +
-      model.userLocation.get('collectionId') : null;
+      model.userLocation.get('collectionId') : '';
 
     controller.set('userLocation', userLocation);
     controller.set('units', model.units);
