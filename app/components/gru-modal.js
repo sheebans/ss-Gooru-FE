@@ -49,14 +49,6 @@ export default Ember.Component.extend(ModalMixin, {
   // Properties
 
   /**
-   * Context listening to the actions from the embedded component.
-   * 'targetObject' for the embedded component will point to this component
-   * @type {String}
-   * @private
-   */
-  'actions-target': Ember.computed.or('modal.target', 'targetObject'),
-
-  /**
    * Specific component class(es). Multiple classes are separated with spaces.
    * @type {?String}
    */
