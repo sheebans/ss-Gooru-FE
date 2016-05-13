@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { COUNTRY_CODES } from "gooru-web/config/config";
 
 export default Ember.Route.extend({
 
@@ -60,7 +61,7 @@ export default Ember.Route.extend({
 
     return route.get("lookupService").readCountries()
       .then(function(countries) {
-        var usCountryId = countries.findBy("code", 'US').id;
+        var usCountryId = countries.findBy("code", COUNTRY_CODES.US).id;
         var usStates = route.get("lookupService").readStates(usCountryId);
         var usDistricts = null;
 

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { COUNTRY_CODES } from "gooru-web/config/config";
 
 export default Ember.Controller.extend({
 
@@ -91,7 +92,7 @@ export default Ember.Controller.extend({
       controller.set('countrySelected', id);
       controller.set('country', countryName);
 
-      if (countryCode==='US') {
+      if (countryCode===COUNTRY_CODES.US) {
         controller.set('showStates', true);
       }
       else {
