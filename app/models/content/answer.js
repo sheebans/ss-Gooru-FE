@@ -9,6 +9,10 @@ const Validations = buildValidations({
         presence: true,
         message: '{{description}}',
         descriptionKey: 'common.errors.add-question-answer-text'
+      }),
+      validator('hot-text-highlight', {
+        answerNotSelectedKey: 'common.errors.highlight-text-not-selected',
+        wrongFormatKey: 'common.errors.highlight-text-wrong-format'
       })
     ]
   }

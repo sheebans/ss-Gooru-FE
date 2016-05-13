@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
 import Answer from 'gooru-web/models/content/answer';
-import {QUESTION_CONFIG} from 'gooru-web/config/question';
+import {QUESTION_CONFIG, QUESTION_TYPES} from 'gooru-web/config/question';
 
 
 export default Ember.Component.extend(ContentEditMixin,{
@@ -274,6 +274,23 @@ export default Ember.Component.extend(ContentEditMixin,{
     return answer.validate().then(function ({ model, validations }) {
       return validations.get('isValid');
     });
-  }
+  },
+
+  // -------------------------------------------------------------------------
+  // Observers
+
+  /**
+   * Observes for changes in the highlight type to force the validation of the answer in that type of questions
+   */
+  highlightTypeChange: Ember.observer('tempQuestion.answers.firstObject.highlightType', function() {
+    const component = this;
+    var question = component.get('tempQuestion');
+    if (question && question.get('type') === QUESTION_TYPES.hotTextHighlight) {
+      Ember.run(function() {
+        var $textarea = component.$('.highlight-textarea textarea');
+        $textarea.focus().val($textarea.val() + " ").trigger('blur'); // Forces the validation of the textarea
+      });
+    }
+  })
 
 });

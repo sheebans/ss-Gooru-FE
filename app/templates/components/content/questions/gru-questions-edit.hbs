@@ -128,7 +128,7 @@
         <div class="panel-body">
           {{#if isBuilderEditing}}
             {{#if question.isHotTextHighlight}}
-              {{validation.gru-textarea rawTextareaValue=tempQuestion.answers.firstObject.text model=tempQuestion valuePath='answers.firstObject.text' rows=10 maxLength=5000}}
+              {{validation.gru-textarea class="highlight-textarea" rawTextareaValue=tempQuestion.answers.firstObject.text model=tempQuestion.answers.firstObject valuePath='text' rows=10 maxLength=5000}}
             {{else}}
               {{validation.gru-textarea rawTextareaValue=tempQuestion.text model=tempQuestion valuePath='text' rows=10 maxLength=5000}}
             {{/if}}
