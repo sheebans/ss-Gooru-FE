@@ -71,11 +71,11 @@ export default Ember.Route.extend({
   model: function() {
     const route = this;
     const currentClass = route.modelFor('class').class;
-    const isTeacher = currentClass.isTeacher(userId);
-    const classMembers = currentClass.get('members');
     const course = route.modelFor('class').course;
     const units = route.modelFor('class').units;
     const userId = route.get('session.userId');
+    const isTeacher = currentClass.isTeacher(userId);
+    const classMembers = currentClass.get('members');
     let userLocation = null;
 
     if (!isTeacher) {
