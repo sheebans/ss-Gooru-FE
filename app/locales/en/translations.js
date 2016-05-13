@@ -499,7 +499,14 @@ export default {
     }
   },
   "content.modals.delete-content":{
-    "legend":"You are about to delete"
+    "legend":"You are about to delete",
+    "delete-instructions":{
+      "links-inaccessible":"All share links will be inaccessible",
+      "content-inaccessible":"All content will be inaccessible to the classes tied to it",
+      "unit-content-deleted":"All content in this unit will be deleted",
+      "course-deleted":"All content in this course will be deleted"
+    },
+    "confirmation":"Are you sure you want to continue? Please type “delete” below and click “delete”."
   },
   "content.resources": {
     "edit": {

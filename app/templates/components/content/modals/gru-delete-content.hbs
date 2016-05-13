@@ -3,7 +3,40 @@
 </div>
 <div class="modal-body">
     <form {{action "deleteContent" on="submit"}}>
-        <p>{{t "content.modals.delete-content.legend"}} {{model.model.title}}</p>
+        <p>{{t "content.modals.delete-content.legend"}} <b>{{model.model.title}}</b></p>
+        <div class="delete-info">
+            <ul>
+                <li>
+                    <label>
+                      {{input type="checkbox" checked=false}}
+                        <span>{{t "content.modals.delete-content.delete-instructions.links-inaccessible"}}</span>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                      {{input type="checkbox" checked=false}}
+                        <span>{{t "content.modals.delete-content.delete-instructions.content-inaccessible"}}</span>
+                    </label>
+                </li>
+              {{#if (eq model.type 'Course')}}
+                <li>
+                    <label>
+                      {{input type="checkbox" checked=false}}
+                        <span>{{t "content.modals.delete-content.delete-instructions.course-deleted"}}</span>
+                    </label>
+                </li>
+                {{else}}
+                  <li>
+                      <label>
+                        {{input type="checkbox" checked=false}}
+                          <span>{{t "content.modals.delete-content.delete-instructions.unit-content-delete"}}</span>
+                      </label>
+                  </li>
+              {{/if}}
+            </ul>
+        </div>
+        <p>{{t "content.modals.delete-content.confirmation"}}</p>
+        {{input class="delete-input"}}
         <div class="actions delete">
             <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
                 <span aria-hidden="true">{{t 'common.cancel'}}</span>

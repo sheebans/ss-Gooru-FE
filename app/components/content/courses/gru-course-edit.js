@@ -43,6 +43,20 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
       this.set('tempCourse', courseForEditing);
       this.set('isEditing', true);
     },
+    /**
+     * Delete course
+     */
+    deleteCourse: function () {
+      let modalModel = {
+          model:this.get('course'),
+          type: 'Course',
+          redirectTo: '',
+          callback: null,
+      };
+      this.actions.showModal.call(this,
+        'content.modals.gru-delete-content',
+        modalModel, null, null, null, false);
+    },
 
     /**
      * Save Content
@@ -110,17 +124,6 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
    */
   tempCourse: null,
 
-  /**
-   * Object sent to Delete modal
-   * @property {Course}
-   */
-  model: Ember.computed('course', function() {
-    const course= this.get('course');
-    return {
-      model:course,
-      type:"Course"
-    }
-  })
 
 
 });
