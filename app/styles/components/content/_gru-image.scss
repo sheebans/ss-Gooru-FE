@@ -1,6 +1,6 @@
 .content.gru-image {
-
   $component-height:  210px;
+
   position: relative;
   width: 180px;
   height:$component-height;
@@ -17,7 +17,7 @@
   img {
     margin: 5px;
     max-width: 94%;
-    max-height: $component-height - 5px;
+    max-height: $component-height - 10px;
   }
 
   > i {
@@ -65,16 +65,13 @@
 
     .file-picker__preview > img {
       max-width: 94%;
-      max-height: none;
+      max-height: $component-height - 10px;
       height: auto;
       padding: 0;
       margin: 5px 5px 0;
       background-color: transparent;
       border: 0 none;
     }
-  }
-  &.is-viewing {
-    border-bottom: 5px solid $white;
   }
 
   &.is-viewing.has-src-image,
