@@ -24,6 +24,9 @@ test('normalizeCollection', function(assert) {
     "type": "collection",
     "userFirstName": "Chad",
     "userLastName": "Barris",
+    "userProfileImage": "profile.png",
+    "usernameDisplay": "username",
+    "userId": 12,
     "thumbnail": "collection.png"
   };
 
@@ -39,7 +42,12 @@ test('normalizeCollection', function(assert) {
   assert.equal(collection.get("questionCount"), 3, 'Wrong question count');
   assert.equal(collection.get("remixCount"), 2, 'Wrong remix count');
   // TODO assert.deepEqual(collection.get("standards")[0].get("code"), "K12.MA", 'Wrong standards');
-  assert.equal(collection.get("owner.firstName"), "Chad", 'Wrong owner id');
+  assert.equal(collection.get("owner.id"), 12, 'Wrong owner id');
+  assert.equal(collection.get("owner.firstName"), "Chad", 'Wrong owner first name');
+  assert.equal(collection.get("owner.lastName"), "Barris", 'Wrong owner last name');
+  assert.equal(collection.get("owner.avatarUrl"), '//basepath/profile.png', 'Wrong owner avatar');
+  assert.equal(collection.get("owner.username"), 'username', 'Wrong owner username');
+
 });
 
 test('normalizeAssessment', function(assert) {
@@ -61,6 +69,9 @@ test('normalizeAssessment', function(assert) {
     "type": "assessment",
     "userFirstName": "Chad",
     "userLastName": "Barris",
+    "userProfileImage": "profile.png",
+    "usernameDisplay": "username",
+    "userId": 12,
     "thumbnail": "assessment.png"
   };
 
@@ -76,7 +87,12 @@ test('normalizeAssessment', function(assert) {
   assert.equal(assessment.get("questionCount"), 3, 'Wrong question count');
   assert.equal(assessment.get("remixCount"), 2, 'Wrong remix count');
   // TODO assert.deepEqual(collection.get("standards")[0].get("code"), "K12.MA", 'Wrong standards');
-  assert.equal(assessment.get("owner.firstName"), "Chad", 'Wrong owner id');
+  assert.equal(assessment.get("owner.id"), 12, 'Wrong owner id');
+  assert.equal(assessment.get("owner.firstName"), "Chad", 'Wrong owner first name');
+  assert.equal(assessment.get("owner.lastName"), "Barris", 'Wrong owner last name');
+  assert.equal(assessment.get("owner.avatarUrl"), '//basepath/profile.png', 'Wrong owner avatar');
+  assert.equal(assessment.get("owner.username"), 'username', 'Wrong owner username');
+
 });
 
 test('normalizeSearchResources', function(assert) {
@@ -86,9 +102,7 @@ test('normalizeSearchResources', function(assert) {
       {
         "description": "7th Grade Cells unit",
         "gooruOid": "415c37da-4727-11e5-8333-22000ac41a3c",
-        "resourceFormat": {
-          "value": "text_resource"
-        },
+        "contentSubFormat":  "text_resource",
         "resourceType": {
           "name": "text_resource"
         },
@@ -105,9 +119,7 @@ test('normalizeSearchResources', function(assert) {
       {
         "description": "7th Grade Cells unit",
         "gooruOid": "415c37da-4727-11e5-8333-22000ac41a3c",
-        "resourceFormat": {
-          "value": "text_resource"
-        },
+        "contentSubFormat":  "text_resource",
         "resourceType": {
           "name": "text_resource"
         },
@@ -156,7 +168,7 @@ test('normalizeSearchQuestions', function(assert) {
     ]
   };
 
-  const resources = serializer.normalizeSearchResources(resourcesPayload);
+  const resources = serializer.normalizeSearchQuestions(resourcesPayload);
   assert.equal(resources.length, 1, 'Wrong resources length');
   assert.equal(resources[0].get("format"), "question", 'Wrong format for resource 1');
 });
@@ -201,9 +213,7 @@ test('normalizeResource', function(assert) {
   const resourceData = {
     "description": "7th Grade Cells unit",
     "gooruOid": "415c37da-4727-11e5-8333-22000ac41a3c",
-    "resourceFormat": {
-      "value": "text_resource"
-    },
+    "contentSubFormat":  "text_resource",
     "resourceType": {
       "name": "text_resource"
     },

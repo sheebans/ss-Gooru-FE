@@ -14,7 +14,7 @@
     }
   }
 
-  .missing-correct-answer {
+  .missing-correct-answer,.missing-images {
     color: $brand-danger;
   }
 
@@ -83,6 +83,9 @@
         .panel-body {
           min-height: 184px;
         }
+      }
+      .panel-footer{
+        background-color:$white;
       }
     }
   }

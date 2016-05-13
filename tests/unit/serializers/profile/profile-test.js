@@ -267,7 +267,7 @@ test('normalizeCollection', function(assert) {
     "visible_on_profile": false,
     "learning_objective": "This is important collection",
     "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
-    "course": {"title":"mathematics course 101"},
+    "course": {"id": 1, "title":"mathematics course 101"},
     "resource_count": 5,
     "question_count": 3,
     "remix_count": 2
@@ -279,6 +279,7 @@ test('normalizeCollection', function(assert) {
   assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
   assert.equal(collection.get("thumbnailUrl"), 'content-url/collection.png', 'Wrong image');
   assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
+  assert.equal(collection.get("courseId"), 1, 'Wrong course id');
   assert.equal(collection.get("isVisibleOnProfile"), false, 'Wrong visible on profile');
   assert.equal(collection.get("learningObjectives"), "This is important collection", 'Wrong learning objective');
   assert.equal(collection.get("resourceCount"), 5, 'Wrong resource count');
@@ -311,7 +312,7 @@ test('normalizeAssessment', function(assert) {
     "visible_on_profile": false,
     "learning_objective": "This is important collection",
     "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
-    "course": {"title":"mathematics course 101"},
+    "course": {"id": 1, "title":"mathematics course 101"},
     "question_count": 3,
     "remix_count": 2
   };
@@ -322,6 +323,7 @@ test('normalizeAssessment', function(assert) {
   assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
   assert.equal(collection.get("thumbnailUrl"), 'content-url/collection.png', 'Wrong image');
   assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
+  assert.equal(collection.get("courseId"), 1, 'Wrong course id');
   assert.equal(collection.get("isVisibleOnProfile"), false, 'Wrong visible on profile');
   assert.equal(collection.get("learningObjectives"), "This is important collection", 'Wrong learning objective');
   assert.equal(collection.get("questionCount"), 3, 'Wrong question count');
@@ -507,6 +509,12 @@ test('normalizeReadAssessments', function(assert) {
 
 test('normalizeReadNetwork for following', function(assert) {
   const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'http://test-bucket01.s3.amazonaws.com/'
+    }
+  }));
+
   const detailsObject = Ember.Object.create({
     followings: [
       'id-1', 'id-2'
@@ -531,11 +539,19 @@ test('normalizeReadNetwork for following', function(assert) {
   assert.equal(response.length, 2, 'Wrong total following');
   assert.equal(response[0].get("id"), "id-1", 'Invalid id for user 1');
   assert.ok(response[0].get("isFollowing"), 'First user has a wrong value for isFollowing');
+  assert.equal(response[0].get("avatarUrl"), "http://test-bucket01.s3.amazonaws.com/thumbnail-path-1", 'Wrong avatarUrl');
   assert.ok(response[1].get("isFollowing"), 'Second user has a wrong value for isFollowing');
+
 });
 
 test('normalizeReadNetwork for followers', function(assert) {
   const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'http://test-bucket01.s3.amazonaws.com/'
+    }
+  }));
+
   const detailsObject = Ember.Object.create({
     followings: [
       'id-1'
@@ -564,6 +580,7 @@ test('normalizeReadNetwork for followers', function(assert) {
   assert.equal(response.length, 2, 'Wrong total followers');
   assert.equal(response[0].get("id"), "id-1", 'Invalid id for user 1');
   assert.ok(response[0].get("isFollowing"), 'First user has a wrong value for isFollowing');
+  assert.equal(response[0].get("avatarUrl"), "http://test-bucket01.s3.amazonaws.com/thumbnail-path-1", 'Wrong avatarUrl');
   assert.ok(!response[1].get("isFollowing"), 'Second user has a wrong value for isFollowing');
   assert.equal(response[0].get("schoolDistrict"), "district-1", 'Invalid district for user 1');
   assert.equal(response[1].get("schoolDistrict"), "district-2", 'Invalid district for user 2');

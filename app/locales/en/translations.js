@@ -50,6 +50,7 @@ export default {
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
     "best-practices": "Best Practices",
+    "big-ideas": "Big Ideas",
     "biography": "Biography",
     "builder": "Builder",
     "cancel": "Cancel",
@@ -103,6 +104,7 @@ export default {
     "enter-url":"Enter URL",
     "errors": {
       "join-class-code":"Please enter the class code.",
+      "answer-has-no-image":"Please upload an answer image.",
       "add-course-title":"Please enter the course title.",
       "add-question-answer-text":"Please enter the answer choice text.",
       "add-question-title":"Please enter the question title.",
@@ -140,6 +142,7 @@ export default {
       "unit-title-required" : "Please enter the unit title.",
       "user-email-presence" : "Please enter a valid email."
     },
+    "essential-questions": "Essential Questions",
     "explanation": "Explanation",
     "false":"False",
     "first-name": "First Name",
@@ -453,9 +456,7 @@ export default {
   "content.courses.edit": {
     "assign-to-class": "Assign to Class",
     "best-practices": "<p>A course is a folder that allows you to organize your learning content into units and lessons. When creating a course consider the essential questions you are addressing, the learning objectives, and organization of your content.</p><p>You can piece the lessons together to create a diverse experience for your student population (for example, you could sequence your units chronologically, by topic, or by standard).</p>",
-    "big-ideas": "Big Ideas",
-    "essential-questions": "Essential Questions",
-    "information":{
+    "information": {
       "course-title":"Course Title",
       "description":"Description"
     }
@@ -474,6 +475,7 @@ export default {
       "answer":"Answer",
       "answer-instructions":{
         "FIB":"Add up to 5 hints for answer and an explanation.",
+        "HS_IMG":"You can add up to ten answers images an select one or more correct answers.",
         "HS_TXT": "You can add up to ten answers choices and select one or more correct answers.",
         "HT_RO": "You can add up to ten answers choices in the correct order. The order will be scrambled for students.",
         "MA": "You can add up to ten answers, an image, explanation and up to five hints.",
@@ -525,6 +527,7 @@ export default {
    */
   "gru-quick-course-search":{
     "add-from-course":"Add from Existing Course",
+    "view-featured-courses":"View Featured Courses",
     "assign":"Assign"
   },
   "gru-category-panel": {
@@ -556,7 +559,7 @@ export default {
     "greetings" : "Greetings",
     "overview" : "Course Map",
     "analytics" : "Data",
-    "suggestions" : "Suggestions",
+    "teams" : "Teams",
     "information" : "Class Information"
   },
   "gru-user-registration": {

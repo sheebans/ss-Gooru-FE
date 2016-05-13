@@ -254,8 +254,8 @@ test('Builder Edit', function (assert) {
     assert.ok($builderSection.find('.question-text .panel-body .add-image').length, "Missing add image button");
     assert.ok($builderSection.find('.question-answer .panel-heading h3').length, "Missing Answer label");
     assert.ok($builderSection.find('.question-answer .panel-heading .instructions').length, "Missing Answer Instructions");
-    assert.ok($builderSection.find('.question-answer .panel-body .add-hint').length, "Missing add hints button");
-    assert.ok($builderSection.find('.question-answer .panel-body .add-explanation').length, "Missing add explanation button");
+    assert.ok($builderSection.find('.question-answer .panel-footer .add-hint').length, "Missing add hints button");
+    assert.ok($builderSection.find('.question-answer .panel-footer .add-explanation').length, "Missing add explanation button");
   });
 });
 
@@ -667,6 +667,155 @@ test('Select one correct answer at least', function(assert) {
     $save.click();
     return wait().then(function () {
       assert.ok($component.find('.missing-correct-answer').length, 'Missing validation for missing correct answer');
+    });
+  });
+});
+
+test('Update HS-Image', function (assert) {
+  assert.expect(2);
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: QUESTION_TYPES.hotSpotImage
+  });
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: QUESTION_TYPES.hotSpotImage,
+    answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Answer text",
+      'isCorrect': true,
+      'type':"text"
+    })
+    ])
+  });
+  this.set('question', question);
+  this.set('tempQuestion', tempQuestion);
+
+  this.render(hbs`{{content/questions/gru-questions-edit isBuilderEditing=true question=question tempQuestion=tempQuestion}}`);
+  const $component = this.$('.gru-questions-edit');
+  const $save =  $component.find("#builder .actions .save");
+  $save.click();
+  return wait().then(function () {
+    const $option = $component.find('.gru-hs-image .hs-container');
+    assert.ok($option.length, "The answer should be saved");
+    assert.ok($option.find('.panel-footer .correct .check'), "New answer should be correct");
+  });
+});
+test('Change HS-Image and Cancel', function (assert) {
+  assert.expect(3);
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: QUESTION_TYPES.hotSpotImage,
+    answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Answer text",
+      'isCorrect': true,
+      'type':"text"
+    }),Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Answer text",
+      'isCorrect': true,
+      'type':"text"
+    })
+    ])
+  });
+
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+  assert.equal($component.find('.hs-container').length, 2, "Should have 2 answers");
+  const $edit = $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+    const $firstAnswer = $component.find('.hs-container:nth-child(1)');
+    const $deleteAnswer = $firstAnswer.find('.panel-footer .btn-group .delete');
+    $deleteAnswer.click();
+    return wait().then(function () {
+      assert.equal($component.find('.hs-container').length, 1, "Should have 1 answers");
+      const $cancel =  $component.find("#builder .actions .cancel");
+      $cancel.click();
+      return wait().then(function () {
+        assert.equal($component.find('.hs-container').length, 2, "Should have 2 answers");
+      });
+    });
+  });
+});
+
+test('Delete answer HS-Image ', function (assert) {
+  assert.expect(3);
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: QUESTION_TYPES.hotSpotImage,
+    answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Answer text",
+      'isCorrect': true,
+      'type':"text"
+    }),Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Answer text",
+      'isCorrect': true,
+      'type':"text"
+    })
+    ])
+  });
+
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+  assert.equal($component.find('.hs-container').length, 2, "Should have 2 answers");
+  const $edit = $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+    const $firstAnswer = $component.find('.hs-container:nth-child(1)');
+    const $deleteAnswer = $firstAnswer.find('.panel-footer .btn-group .delete');
+    $deleteAnswer.click();
+    return wait().then(function () {
+      assert.equal($component.find('.hs-container').length, 1, "Should have 1 answers");
+      const $save =  $component.find("#builder .actions .save");
+      $save.click();
+      return wait().then(function () {
+        assert.equal($component.find('.hs-container').length, 1, "Should have 1 answers");
+      });
+    });
+  });
+});
+
+test('HS-Image validate has images', function (assert) {
+  assert.expect(1);
+
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: QUESTION_TYPES.hotSpotImage,
+    answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': null,
+      'isCorrect': true,
+      'type':"text"
+    }),Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': null,
+      'isCorrect': true,
+      'type':"text"
+    })
+    ])
+  });
+
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+
+  const $edit = $component.find("#builder .actions .edit");
+  $edit.click();
+
+  return wait().then(function () {
+
+    const $save =  $component.find("#builder .actions .save");
+    $save.click();
+
+    return wait().then(function () {
+      assert.ok($component.find('.missing-images').length, 'Missing validation for missing images');
     });
   });
 });

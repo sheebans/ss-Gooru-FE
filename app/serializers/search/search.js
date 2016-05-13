@@ -5,6 +5,7 @@ import QuestionModel from 'gooru-web/models/content/question';
 import AssessmentModel from 'gooru-web/models/content/assessment';
 import CollectionModel from 'gooru-web/models/content/collection';
 import ProfileModel from 'gooru-web/models/profile/profile';
+import { DEFAULT_IMAGES } from 'gooru-web/config/config';
 
 /**
  * Serializer to support Search functionality
@@ -38,9 +39,8 @@ export default Ember.Object.extend({
   normalizeCollection: function (collectionData){
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
-    const thumbnailUrl = collectionData.thumbnail ?
-    basePath + collectionData.thumbnail :
-      '/assets/gooru/collection-default.png'; //TODO configured in properties
+    const thumbnailUrl = collectionData.thumbnail ? basePath + collectionData.thumbnail : DEFAULT_IMAGES.COLLECTION;
+    const userThumbnailUrl = collectionData.userProfileImage ? basePath + collectionData.userProfileImage : DEFAULT_IMAGES.USER_PROFILE;
 
     return CollectionModel.create({
       id: collectionData.id,
@@ -55,11 +55,11 @@ export default Ember.Object.extend({
       course: null, //TODO missing at API response,
       isVisibleOnProfile: collectionData.profileUserVisibility,
       owner: ProfileModel.create({
-        "id": null, //TODO missing at API response
+        "id": collectionData.userId,
         "firstName": collectionData.userFirstName,
         "lastName": collectionData.userLastName,
-        "avatarUrl": null, //TODO missing at API response,
-        "username": null//TODO missing at API response
+        "avatarUrl": userThumbnailUrl,
+        "username": collectionData.usernameDisplay
       })
     });
   },
@@ -72,9 +72,8 @@ export default Ember.Object.extend({
   normalizeAssessment: function (assessmentData){
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
-    const thumbnailUrl = assessmentData.thumbnail ?
-    basePath + assessmentData.thumbnail :
-      '/assets/gooru/assessment-default.png'; //TODO configured in properties
+    const thumbnailUrl = assessmentData.thumbnail ? basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
+    const userThumbnailUrl = assessmentData.userProfileImage ? basePath + assessmentData.userProfileImage : DEFAULT_IMAGES.USER_PROFILE;
 
     return AssessmentModel.create({
       id: assessmentData.id,
@@ -89,11 +88,11 @@ export default Ember.Object.extend({
       course: null, //TODO missing at API response,
       isVisibleOnProfile: assessmentData.profileUserVisibility,
       owner: ProfileModel.create({
-        "id": null, //TODO missing at API response
+        "id": assessmentData.userId,
         "firstName": assessmentData.userFirstName,
         "lastName": assessmentData.userLastName,
-        "avatarUrl": null, //TODO missing at API response,
-        "username": null//TODO missing at API response
+        "avatarUrl": userThumbnailUrl,
+        "username": assessmentData.usernameDisplay
       })
     });
   },
@@ -172,8 +171,7 @@ export default Ember.Object.extend({
    */
   normalizeResource: function(result){
     const serializer = this;
-    const resourceFormat = result.resourceFormat.value;
-    const format = ResourceModel.normalizeResourceFormat(resourceFormat);
+    const format = ResourceModel.normalizeResourceFormat(result.contentSubFormat);
     return ResourceModel.create({
       id: result.gooruOid,
       title: result.title,
