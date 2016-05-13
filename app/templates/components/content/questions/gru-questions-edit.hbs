@@ -135,7 +135,7 @@
             <button class="add-image btn btn-sm btn-primary">{{t "common.add-question-image"}}</button>
           {{else}}
             {{#if question.isHotTextHighlight}}
-              <div>{{{question.answers.firstObject.text}}}</div>
+              <div class="hot-text-highlight-content">{{{question.answers.firstObject.text}}}</div>
             {{else}}
               {{#if question.text}}
                 {{textarea class="text-question" value=question.text class="form-control" rows="10" readonly=true}}
