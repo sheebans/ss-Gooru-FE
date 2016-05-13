@@ -36,7 +36,9 @@ export default Ember.Component.extend(BuilderMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content', 'courses', 'gru-accordion', 'gru-accordion-unit', 'view'],
+  classNames: ['content', 'courses', 'gru-accordion', 'gru-accordion-unit'],
+
+  classNameBindings: ['model.isEditing:edit:view'],
 
   tagName: 'li',
 

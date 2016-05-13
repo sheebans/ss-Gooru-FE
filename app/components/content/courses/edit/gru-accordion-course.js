@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import BuilderItem from 'gooru-web/models/content/builder/item';
-import BuilderMixin from 'gooru-web/mixins/content/builder';
 import Unit from 'gooru-web/models/content/unit';
+import PlayerAccordionCourse from 'gooru-web/components/content/courses/play/gru-accordion-course';
 
 /**
  * Content Builder: Accordion Course
@@ -9,16 +9,10 @@ import Unit from 'gooru-web/models/content/unit';
  * Component responsible for listing a set of units
  *
  * @module
- * @augments Ember/Component
- * @mixes mixins/gru-accordion
+ * @augments /components/content/courses/play/gru-accordion-course
+ *
  */
-export default Ember.Component.extend(BuilderMixin, {
-
-
-  // -------------------------------------------------------------------------
-  // Attributes
-
-  classNames: ['content', 'courses', 'gru-accordion-course', 'gru-accordion'],
+export default PlayerAccordionCourse.extend({
 
 
   // -------------------------------------------------------------------------
@@ -46,19 +40,8 @@ export default Ember.Component.extend(BuilderMixin, {
 
     removeUnit: function () {
       Ember.Logger.log('Unit should be removed');
-    },
-
-    closeAllUnits: function () {
-      this.get('items').forEach(function (builderItem) {
-        builderItem.set('isExpanded', false);
-      });
     }
 
   }
-
-
-  // -------------------------------------------------------------------------
-  // Properties
-
 
 });

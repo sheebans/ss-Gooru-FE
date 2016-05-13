@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import BuilderItem from 'gooru-web/models/content/builder/item';
-import BuilderMixin from 'gooru-web/mixins/content/builder';
 import Lesson from 'gooru-web/models/content/lesson';
+import PlayerAccordionUnit from 'gooru-web/components/content/courses/play/gru-accordion-unit';
 
 /**
  * Content Builder: Accordion Unit
@@ -10,38 +10,10 @@ import Lesson from 'gooru-web/models/content/lesson';
  * It is meant to be used inside of an {@link ./gru-accordion-course|Accordion Course}
  *
  * @module
- * @augments Ember/Component
- * @mixes mixins/gru-accordion
+ * @augments components/content/courses/play/gru-accordion-unit
+ *
  */
-export default Ember.Component.extend(BuilderMixin, {
-
-  // -------------------------------------------------------------------------
-  // Dependencies
-
-  /**
-   * @requires service:i18n
-   */
-  i18n: Ember.inject.service(),
-
-  /**
-   * @requires service:notifications
-   */
-  notifications: Ember.inject.service(),
-
-  /**
-   * @requires service:api-sdk/unit
-   */
-  unitService: Ember.inject.service("api-sdk/unit"),
-
-
-  // -------------------------------------------------------------------------
-  // Attributes
-
-  classNames: ['content', 'courses', 'gru-accordion', 'gru-accordion-unit'],
-
-  classNameBindings: ['model.isEditing:edit:view'],
-
-  tagName: 'li',
+export default PlayerAccordionUnit.extend({
 
   // -------------------------------------------------------------------------
   // Actions
@@ -113,14 +85,6 @@ export default Ember.Component.extend(BuilderMixin, {
           this.get('notifications').error(message);
           Ember.Logger.error(error);
         }.bind(this));
-    },
-
-    toggle: function () {
-      var toggleValue = !this.get('model.isExpanded');
-
-      this.loadData();
-      this.get('onExpandUnit')();
-      this.set('model.isExpanded', toggleValue);
     }
 
   },
@@ -142,62 +106,8 @@ export default Ember.Component.extend(BuilderMixin, {
   // Properties
 
   /**
-   * @prop {String} course - ID of the course this unit belongs to
-   */
-  courseId: null,
-
-  /**
    * @prop {Content/Unit} tempUnit - Temporary unit model used for editing
    */
-  tempUnit: null,
-
-  /**
-   * @prop {Boolean} isLoaded - Has the data for the unit already been loaded
-   */
-  isLoaded: false,
-
-  /**
-   * @prop {Content/Unit} unit
-   */
-  unit: Ember.computed.alias('model.data'),
-
-  // -------------------------------------------------------------------------
-  // Methods
-
-  /**
-   * Load data for the unit
-   *
-   * @function actions:loadData
-   * @returns {undefined}
-   */
-  loadData: function () {
-    if (!this.get('isLoaded')) {
-      let courseId = this.get('courseId');
-      let unitId = this.get('unit.id');
-
-      return this.get('unitService')
-        .fetchById(courseId, unitId)
-        .then(function (unit) {
-          this.set('model.data', unit);
-
-          // Wrap every lesson inside of a builder item
-          var children = unit.get('children').map(function (lesson) {
-            return BuilderItem.create({
-              data: lesson
-            });
-          });
-          this.set('items', children);
-          this.set('isLoaded', true);
-        }.bind(this))
-
-        .catch(function (error) {
-          var message = this.get('i18n').t('common.errors.unit-not-loaded').string;
-          this.get('notifications').error(message);
-          Ember.Logger.error(error);
-        }.bind(this));
-    } else {
-      return Ember.RSVP.resolve(true);
-    }
-  }
+  tempUnit: null
 
 });
