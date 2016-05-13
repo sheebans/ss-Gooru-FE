@@ -233,20 +233,8 @@ export default Ember.Component.extend(AccordionMixin, {
     // Load the lessons and users in the course when the component is instantiated
     let component = this;
     component.set("loading", true);
-    let performancePromise = component.getLessons();
-    performancePromise.then(function(performances) {
+    component.getLessons().then(function(performances) {
       component.set('items', performances);
-      /*
-      let usersLocationPromise = component.getUnitUsers();
-      usersLocationPromise.then(function(usersLocation){
-        component.set('usersLocation', usersLocation);
-
-        let userLocation = component.get('userLocation');
-        if (!component.get('location') && userLocation) {
-          component.set('location', userLocation);
-        }
-      });
-      */
       component.set("loading", false);
     });
   },
@@ -296,45 +284,6 @@ export default Ember.Component.extend(AccordionMixin, {
             });
           });
       });
-  },
-
-  /**
-   * Get all the performances by lesson
-   *
-   * @function
-   * @requires api-sdk/performance#findCourseMapPerformanceByLesson
-   * @returns {Ember.RSVP.Promise}
-   */
-  getTeacherCollections: function(classId, courseId, unitId, lessons){
-    var component = this;
-    lessons.forEach(function (lesson) {
-      let lessonId = lesson.get('id');
-      if (lessonId) {
-        let courseMapPerformances = component.get('performanceService').findCourseMapPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId);
-        courseMapPerformances.then(function (classPerformance) {
-          lesson.set('classAverageScore', classPerformance.get('classAverageScore'));
-        });
-      }
-    });
-
-    return new Ember.RSVP.resolve(lessons);
-
-  },
-
-
-  /**
-   * Get all the users participating in the unit
-   *
-   * @function
-   * @requires service:api-sdk/course-location#findByCourseAndUnit
-   * @returns {Ember.RSVP.Promise}
-   */
-  getUnitUsers: function() {
-    const component = this;
-    const courseId = component.get('currentClass.courseId');
-    const unitId = component.get('model.id');
-
-    return component.get("courseLocationService").findByCourseAndUnit(courseId, unitId, { lessons: component.get("items")});
   }
 
 });
