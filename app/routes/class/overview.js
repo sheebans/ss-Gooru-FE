@@ -8,9 +8,9 @@ export default Ember.Route.extend({
   session: Ember.inject.service("session"),
 
   /**
-   * @requires service:api-sdk/course-location
+   * @requires service:api-sdk/analytics
    */
-  courseLocationService: Ember.inject.service("api-sdk/course-location"),
+  analyticsService: Ember.inject.service("api-sdk/analytics"),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -46,6 +46,7 @@ export default Ember.Route.extend({
       const courseId = currentClass.get("courseId");
       this.transitionTo('context-player', classId, courseId, unitId, lessonId, collectionId);
     },
+
     /**
      * Edit content action, when clicking Edit content on Class Overview
      * @param {Content/Course}
@@ -61,28 +62,25 @@ export default Ember.Route.extend({
   beforeModel: function() {
     // TODO: authenticate session with ember-simple-auth, if not send to log in
     const currentClass = this.modelFor('class').class;
-    let userId = this.get('session.userId');
+    const userId = this.get('session.userId');
     if (currentClass.isTeacher(userId) && !currentClass.get('courseId')) {
       this.transitionTo('class.quick-start');
     }
   },
 
-  model: function () {
-    const currentClass = this.modelFor('class').class;
-    const course = this.modelFor('class').course;
-    const units = this.modelFor('class').units;
-    const userId = this.get('session.userId');
+  model: function() {
+    const route = this;
+    const currentClass = route.modelFor('class').class;
     const isTeacher = currentClass.isTeacher(userId);
     const classMembers = currentClass.get('members');
+    const course = route.modelFor('class').course;
+    const units = route.modelFor('class').units;
+    const userId = route.get('session.userId');
+    let userLocation = null;
 
-    let userLocation = Ember.RSVP.resolve('');
-    /*
-    if (currentClass.isStudent(userId)) {
-      // Get the user location in a course only if the user is enrolled
-      // as a student for the course
-      userLocation = this.get("courseLocationService").findOneByUser(userId);
+    if (!isTeacher) {
+      userLocation = route.get('analyticsService').getUserCurrentLocation(currentClass.get('id'), userId);
     }
-    */
 
     return Ember.RSVP.hash({
       userLocation: userLocation,
@@ -100,14 +98,16 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function (controller, model) {
-    var userLocation = (Ember.typeOf(model.userLocation) === 'instance') ?
-      model.userLocation.get('unit') + '+' +
-      model.userLocation.get('lesson') + '+' +
-      model.userLocation.get('collection') : model.userLocation;
+    let userLocation = model.userLocation ?
+      model.userLocation.get('unitId') + '+' +
+      model.userLocation.get('lessonId') + '+' +
+      model.userLocation.get('collectionId') : null;
+
     controller.set('userLocation', userLocation);
     controller.set('units', model.units);
     controller.set('course', model.course);
-    controller.get('classController').selectMenuItem('overview');
     controller.set('classMembers', model.classMembers);
+    controller.get('classController').selectMenuItem('overview');
   }
+
 });

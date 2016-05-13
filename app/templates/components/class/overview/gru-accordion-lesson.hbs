@@ -1,15 +1,10 @@
 <div class="panel-heading" role="tab" id="{{elementId}}-heading">
-
-  {{!-- TODO: Integrate with BE --}}
   {{#if isTeacher}}
     <span class="score" style="background-color: {{ gradeColor 93 }}">{{model.classAverageScore}}%</span>
   {{else}}
-
-  {{!-- TODO: Integrate with BE @see /app/components/class/overview/gru-accordion-unit.js#addUsersToItems --}}
-    {{ charts/gru-completion-chart
-    completed=model.completionDone
-    total=model.completionTotal }}
-
+    {{charts/gru-completion-chart
+      completed=model.completionDone
+      total=model.completionTotal }}
   {{/if}}
 
   <span class="panel-title">
@@ -29,7 +24,6 @@
       viewThreshold=3
       viewMoreIn='modal' }}
   </span>
-
 </div>
 
 <div id="{{elementId}}-content"
@@ -72,9 +66,8 @@
 
             <div class="icon-container">
               {{#if item.isAssessment}}
-                <span class="score" style="background-color: {{ gradeColor item.score }}">{{if item.score item.score '--'}}%</span>
+                <span class="score" style="background-color: {{ gradeColor item.classAverageScore }}">{{if item.classAverageScore item.classAverageScore '--'}}%</span>
                 <i class="on-air">On Air</i>
-
               {{ else }}
                 {{gru-icon name='apps'}}
               {{/if}}

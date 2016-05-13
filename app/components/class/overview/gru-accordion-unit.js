@@ -260,48 +260,42 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   getLessons: function() {
     const component = this;
-
     const userId = component.get('session.userId');
     const classId = component.get('currentClass.id');
     const courseId = component.get('currentClass.courseId');
     const unitId = component.get('model.id');
     const classMembers = component.get('classMembers');
+    const isTeacher = component.get('isTeacher');
 
     return component.get('unitService').fetchById(courseId, unitId)
       .then(function(unit) {
         const lessons = unit.get('children');
         return component.get('analyticsService').getUnitPeers(classId, courseId, unitId)
           .then(function(unitPeers) {
-            return component.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, classMembers)
-              .then(function(classPerformance) {
-                lessons.forEach(function(lesson) {
-                  const peer = unitPeers.findBy('id', lesson.get('id'));
-                  if (peer) {
-                    lesson.set('membersCount', peer.get('peerCount'));
-                  }
-                  const averageScore = classPerformance.calculateAverageScoreByItem(lesson.get('id'));
+            const performancePromise = isTeacher ?
+              component.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, classMembers) :
+              component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
+            return performancePromise.then(function(performance) {
+              lessons.forEach(function(lesson) {
+                const peer = unitPeers.findBy('id', lesson.get('id'));
+                if (peer) {
+                  lesson.set('membersCount', peer.get('peerCount'));
+                }
+                if (isTeacher) {
+                  const averageScore = performance.calculateAverageScoreByItem(lesson.get('id'));
                   lesson.set('classAverageScore', averageScore);
-                });
-                return lessons;
+                } else {
+                  const lessonPerformanceData = performance.findBy('id', lesson.get('id'));
+                  const completionDone = lessonPerformanceData ? lessonPerformanceData.get('completionDone') : 0;
+                  const completionTotal = lessonPerformanceData ? lessonPerformanceData.get('completionTotal') : 0;
+                  lesson.set('completionDone', completionDone);
+                  lesson.set('completionTotal', completionTotal);
+                }
               });
+              return lessons;
             });
-
-        //return component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
+          });
       });
-
-    /*
-    let component = this;
-    const classId = component.get('currentClass.id');
-    const courseId = component.get('currentClass.course');
-    const unitId = component.get('model.id');
-    const userId = component.get('session.userId');
-    return component.get('lessonService').findByClassAndCourseAndUnit(classId, courseId, unitId).then(function(lessons) {
-      if(component.get('isTeacher')) {
-        return component.getTeacherCollections(classId, courseId, unitId, lessons);
-      }
-      return component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
-    });
-    */
   },
 
   /**

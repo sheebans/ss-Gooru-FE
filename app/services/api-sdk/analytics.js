@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import PeerAdapter from 'gooru-web/adapters/analytics/peer';
 import PeerSerializer from 'gooru-web/serializers/analytics/peer';
+import CurrentLocationAdapter from 'gooru-web/adapters/analytics/current-location';
+import CurrentLocationSerializer from 'gooru-web/serializers/analytics/current-location';
 
 export default Ember.Service.extend({
 
@@ -8,11 +10,17 @@ export default Ember.Service.extend({
 
   peerSerializer: null,
 
+  currentLocationAdapter: null,
+
+  currentLocationSerializer: null,
+
 
   init: function() {
     this._super(...arguments);
     this.set('peerAdapter', PeerAdapter.create(Ember.getOwner(this).ownerInjection()));
     this.set('peerSerializer', PeerSerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set('currentLocationAdapter', CurrentLocationAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set('currentLocationSerializer', CurrentLocationSerializer.create(Ember.getOwner(this).ownerInjection()));
   },
 
   getCoursePeers: function(classId, courseId) {
@@ -66,6 +74,18 @@ export default Ember.Service.extend({
       }, function(error) {
         reject(error);
       });
+    });
+  },
+
+  getUserCurrentLocation: function(classId, userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('currentLocationAdapter').getUserCurrentLocation(classId, userId)
+        .then(function(response) {
+          resolve(service.get('currentLocationSerializer').normalizeCurrentLocation(response));
+        }, function(error) {
+          reject(error);
+        });
     });
   }
 

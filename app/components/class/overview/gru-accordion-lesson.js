@@ -215,30 +215,45 @@ export default Ember.Component.extend(AccordionMixin, {
   loadData: function() {
     const component = this;
     component.set("loading", true);
-
+    const userId = component.get('session.userId');
     const classId = component.get('currentClass.id');
     const courseId = component.get('currentClass.courseId');
     const unitId = component.get('unitId');
     const lessonId = component.get('model.id');
+    const classMembers = component.get('classMembers');
+    const isTeacher = component.get('isTeacher');
 
     component.get('lessonService').fetchById(courseId, unitId, lessonId)
       .then(function(lesson) {
         const collections = lesson.get('children');
         component.get('analyticsService').getLessonPeers(classId, courseId, unitId, lessonId)
           .then(function(lessonPeers) {
-            collections.forEach(function(collection) {
-              const peer = lessonPeers.findBy('id', collection.get('id'));
-              if (peer) {
-                component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
-                  .then(function(profiles) {
-                    collection.set('members', profiles);
-                  });
-              }
+            const performancePromise = isTeacher ?
+              component.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, classMembers) :
+              component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections);
+            performancePromise.then(function(performance) {
+              collections.forEach(function(collection) {
+                const peer = lessonPeers.findBy('id', collection.get('id'));
+                if (peer) {
+                  component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
+                    .then(function (profiles) {
+                      collection.set('members', profiles);
+                    });
+                }
+                if (isTeacher) {
+                  const averageScore = performance.calculateAverageScoreByItem(collection.get('id'));
+                  collection.set('classAverageScore', averageScore);
+                } else {
+                  const collectionPerformanceData = performance.findBy('id', collection.get('id'));
+                  const score = collectionPerformanceData ? collectionPerformanceData.get('score') : 0;
+                  collection.set('classAverageScore', score);
+                }
+              });
+              component.set('items', collections);
+              component.set("loading", false);
             });
-            component.set('items', collections);
-            component.set("loading", false);
           });
-        });
+      });
 
 
     //let component = this;
