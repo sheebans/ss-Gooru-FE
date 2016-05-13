@@ -1,9 +1,8 @@
 import Ember from 'ember';
 import BuilderMixin from 'gooru-web/mixins/content/builder';
-import ModalMixin from 'gooru-web/mixins/modal';
 
 /**
- * Content Builder: Accordion Lesson
+ * Course content viewer: Accordion Lesson
  *
  * Component responsible for behaving as an accordion and listing a set of collections/assessments.
  * It is meant to be used inside of an {@link ./gru-accordion-unit|Accordion Unit}
@@ -11,9 +10,8 @@ import ModalMixin from 'gooru-web/mixins/modal';
  * @module
  * @augments Ember/Component
  * @mixes mixins/content/builder
- * @mixes mixins/modal
  */
-export default Ember.Component.extend(BuilderMixin, ModalMixin, {
+export default Ember.Component.extend(BuilderMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -37,7 +35,9 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content', 'courses', 'gru-accordion', 'gru-accordion-lesson', 'view'],
+  classNames: ['content', 'courses', 'gru-accordion', 'gru-accordion-lesson'],
+
+  classNameBindings: ['model.isEditing:edit:view'],
 
   tagName: 'li',
 

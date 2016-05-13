@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import PlayerAccordionLessonItem from 'gooru-web/components/content/courses/play/gru-accordion-lesson-item';
 
 /**
- * Content Builder: Accordion Lesson Item
+ * Course content viewer: Accordion Lesson Item
  *
  * Component responsible for presenting a collection/assessment within a lesson.
  * It is meant to be used inside of an {@link ./gru-accordion-unit|Accordion Lesson}
@@ -9,15 +9,8 @@ import Ember from 'ember';
  * @module
  * @augments Ember/Component
  */
-export default Ember.Component.extend({
+export default PlayerAccordionLessonItem.extend({
 
-
-  // -------------------------------------------------------------------------
-  // Attributes
-
-  classNames: ['content', 'courses', 'gru-accordion-lesson-item', 'view'],
-
-  tagName: 'li',
 
   // -------------------------------------------------------------------------
   // Actions
@@ -36,13 +29,8 @@ export default Ember.Component.extend({
   // Properties
 
   /**
-   * @prop {Content/Lesson} lesson
-   */
-  model: null,
-
-  /**
    * @prop {String} courseId - ID of the course this unit belongs to
    */
-  courseId: null,
+  courseId: null
 
 });
