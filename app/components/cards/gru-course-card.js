@@ -25,13 +25,6 @@ export default Ember.Component.extend(ModalMixin, {
   actions: {
 
     /**
-     *Action triggered when select remix the course
-     */
-    remixCourse:function(){
-      this.sendAction("onRemixCourse");
-      this.actions.showModal.call(this, "content.modals.gru-course-remix", this.get('course'));
-    },
-    /**
      *Action triggered when select edit the course
      */
     editCourse:function(){
