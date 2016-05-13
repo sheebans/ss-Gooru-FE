@@ -50,7 +50,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
       let modalModel = {
           model:this.get('course'),
           type: 'Course',
-          redirectTo: '',
+          redirectTo: 'profile/:userId/content',
           callback: null,
       };
       this.actions.showModal.call(this,
