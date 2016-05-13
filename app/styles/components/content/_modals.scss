@@ -2,7 +2,8 @@
 .content.modals.gru-collection-new,
 .content.modals.gru-assessment-new,
 .content.modals.gru-resource-new,
-.content.modals.gru-question-new{
+.content.modals.gru-question-new,
+.content.modals.gru-delete-content{
   background-color: transparent;
   max-width: 500px;
 
@@ -245,5 +246,10 @@
   }
   .panel.active{
     opacity:0.6;
+  }
+}
+.content.modals.gru-delete-content{
+  .modal-header.delete {
+    background-color: $yellow-400;
   }
 }

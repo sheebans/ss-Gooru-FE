@@ -83,6 +83,7 @@ export default {
     "course-title": "Course Title",
     "courses": "Courses",
     "create": "Create",
+    "delete":"Delete",
     "description": "Description",
     "district": "District",
     "domain": "Domain",
@@ -496,6 +497,9 @@ export default {
         "T/F":"Write your question. Character limit: 5000."
       }
     }
+  },
+  "content.modals.delete-content":{
+    "legend":"You are about to delete"
   },
   "content.resources": {
     "edit": {

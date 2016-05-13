@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
+import ModalMixin from 'gooru-web/mixins/modal';
 
-export default Ember.Component.extend(ContentEditMixin, {
+export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -107,6 +108,19 @@ export default Ember.Component.extend(ContentEditMixin, {
    * Copy of the course model used for editing.
    * @property {Course}
    */
-  tempCourse: null
+  tempCourse: null,
+
+  /**
+   * Object sent to Delete modal
+   * @property {Course}
+   */
+  model: Ember.computed('course', function() {
+    const course= this.get('course');
+    return {
+      model:course,
+      type:"Course"
+    }
+  })
+
 
 });

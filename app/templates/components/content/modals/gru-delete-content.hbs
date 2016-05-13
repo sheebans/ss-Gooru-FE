@@ -1,0 +1,16 @@
+<div class="modal-header delete">
+    <h4 class="modal-title">{{t "common.delete"}} {{model.type}}</h4>
+</div>
+<div class="modal-body">
+    <form {{action "deleteContent" on="submit"}}>
+        <p>{{t "content.modals.delete-content.legend"}} {{model.model.title}}</p>
+        <div class="actions delete">
+            <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
+                <span aria-hidden="true">{{t 'common.cancel'}}</span>
+            </button>
+            <button type="submit" class="btn btn-warning">{{t 'common.delete'}}</button>
+        </div>
+
+    </form>
+</div>
+
