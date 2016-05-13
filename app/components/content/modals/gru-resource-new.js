@@ -111,15 +111,6 @@ export default Ember.Component.extend({
   resource: null,
 
   /**
-   * Class handling the actions from the component.
-   * This value will be set on instantiation by gru-modal.
-   *
-   * @type {Ember.Component}
-   * @private
-   */
-  target: null,
-
-  /**
    * @type {String} selectedType
    */
   selectedType: Ember.computed.alias('resource.format'),
