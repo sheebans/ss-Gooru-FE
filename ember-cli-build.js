@@ -101,6 +101,10 @@ module.exports = function(defaults) {
     development: 'bower_components/bootstrap-select/dist/js/bootstrap-select.min.js',
     production:  'bower_components/bootstrap-select/dist/js/bootstrap-select.min.js'
   });
+  app.import({
+    development: 'bower_components/clipboard/dist/clipboard.js',
+    production:  'bower_components/clipboard/dist/clipboard.min.js'
+  });
 
   return app.toTree();
 };

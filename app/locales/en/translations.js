@@ -530,6 +530,10 @@ export default {
     "view-featured-courses":"View Featured Courses",
     "assign":"Assign"
   },
+  "gru-share-pop-over":{
+    "share-course":"Share your course with link",
+    "copy": "Copy"
+  },
   "gru-category-panel": {
     "teacher": {
       "title": "For Teachers",
