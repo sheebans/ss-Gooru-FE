@@ -1,17 +1,37 @@
 import Ember from 'ember';
 const { get, set } = Ember;
 export default Ember.Component.extend({
+
+  // -------------------------------------------------------------------------
+  // Dependencies
+
   i18n: Ember.inject.service(),
+
+  // -------------------------------------------------------------------------
+  // Attributes
+
   tagName: 'button',
   classNames:'btn btn-default btn-icon gru-share-pop-over',
   attributeBindings: ['dataToggle:data-toggle'],
   dataToggle:'popover',
   placement: 'bottom',
-  translation: 'test',
-  type:null,
+
   clipboardEvents: ['success', 'error'],
 
-  template: Ember.computed('i18n', function() {
+  // -------------------------------------------------------------------------
+  // Properties
+
+
+  /**
+   * @property {string} type
+   */
+  type:null,
+
+
+  /**
+   * @property {string} template to be used for the popover window
+   */
+  template: Ember.computed('type', function() {
    return `<div class="gru-share-pop-over-content">
     <p>`+this.get('i18n').t('gru-share-pop-over.share'+this.get('type')).string+`</p>
     <div class="share-actions">
@@ -20,6 +40,13 @@ export default Ember.Component.extend({
     </div>
    </div>`;
  }),
+
+ // -------------------------------------------------------------------------
+ // Events
+
+ /**
+  * Overwrites didInsertElement hook to add clipboard and popover functionality
+  */
 
   didInsertElement: function () {
     var component = this;
@@ -56,7 +83,12 @@ export default Ember.Component.extend({
     });
 
   },
+  // -------------------------------------------------------------------------
+  // Events
 
+  /**
+   * Overwrites willDestroyElement hook. Destroys popover instance
+   */
   willDestroyElement: function () {
     this.$().popover('destroy');
   }
