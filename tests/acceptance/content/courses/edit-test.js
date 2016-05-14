@@ -65,7 +65,7 @@ test('Click share button and check clipboard functionality', function (assert) {
 
       T.exists(assert, $popOverContent.find('p'), "Missing share description");
       T.exists(assert, $popOverContent.find('.share-actions #course-popover'), "Missing readonly input");
-      var $copyBtn = $popOverContent.find('.share-actions .copy-btn')
+      var $copyBtn = $popOverContent.find('.share-actions .copy-btn');
       T.exists(assert, $copyBtn, "Missing copy button");
 
       //Is there a way to check the clipboards contents?
