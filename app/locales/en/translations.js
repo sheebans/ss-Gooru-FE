@@ -50,6 +50,7 @@ export default {
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
     "best-practices": "Best Practices",
+    "big-ideas": "Big Ideas",
     "biography": "Biography",
     "builder": "Builder",
     "cancel": "Cancel",
@@ -141,6 +142,7 @@ export default {
       "unit-title-required" : "Please enter the unit title.",
       "user-email-presence" : "Please enter a valid email."
     },
+    "essential-questions": "Essential Questions",
     "explanation": "Explanation",
     "false":"False",
     "first-name": "First Name",
@@ -272,6 +274,7 @@ export default {
     "signUp": "Sign Up",
     "sortAlphabetical":"Sort Alphabetically",
     "sortAverage":"Sort by Average",
+    "state":"State",
     "standard":"Standard",
     "standards": "Standards",
     "study": "Study",
@@ -454,9 +457,7 @@ export default {
   "content.courses.edit": {
     "assign-to-class": "Assign to Class",
     "best-practices": "<p>A course is a folder that allows you to organize your learning content into units and lessons. When creating a course consider the essential questions you are addressing, the learning objectives, and organization of your content.</p><p>You can piece the lessons together to create a diverse experience for your student population (for example, you could sequence your units chronologically, by topic, or by standard).</p>",
-    "big-ideas": "Big Ideas",
-    "essential-questions": "Essential Questions",
-    "information":{
+    "information": {
       "course-title":"Course Title",
       "description":"Description"
     }
@@ -648,6 +649,14 @@ export default {
     "log-in": "Log In"
   },
 
+  "forgot-password": {
+    "description": "It happens to all of us.",
+    "usernameOrEmail": "Please enter your email/username",
+    "footer-description-1":"You will receive an email with a link to reset your password.",
+    "footer-description-2":"If you have any questions, please contact ",
+    "mail":"support@gooru.org"
+  },
+
   "footer": {
     "footerDescription": "Gooru is committed to keeping its platform open-source and community created content CC0.",
     "company": "Company",
@@ -729,13 +738,6 @@ export default {
     "text": "Text",
     "audio": "Audio",
     "oer": "OER"
-  },
-
-  "forgot-password-popup":{
-    "title":"Please enter your email or <br/> username below.",
-    "description":"You will receive an email with a link to reset your password.",
-    "footer":"If you have any questions,<br/> Please contact",
-    "mail":"support@goorulearning.org"
   },
 
   "search-result": {

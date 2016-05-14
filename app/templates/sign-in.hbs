@@ -35,8 +35,7 @@
           </label>
         </div>
         <div class="form-group forgot-password">
-          <a class="btn btn-link" alt="{{t "login.forgotPassword"}}"
-             title="{{t "login.forgotPassword"}}" {{action "showModal" "gru-forgot-password-popup"}}>{{t "login.forgotPassword"}}</a>
+          {{#link-to 'forgot-password'}} {{t "login.forgotPassword"}} {{/link-to}}
         </div>
         <div class="log-in-button form-group text-center">
           <button class="btn btn-success submit-sign-in" {{action "authenticate"}}>{{t "login.log-in"}} <span>{{gru-icon name='keyboard_arrow_right'}}</span></button>

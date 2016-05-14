@@ -107,3 +107,7 @@ export const NETWORK_TYPE = {
   FOLLOWING: 'followings',
   FOLLOWERS: 'followers'
 };
+
+export const COUNTRY_CODES = {
+  US: 'US'
+};
