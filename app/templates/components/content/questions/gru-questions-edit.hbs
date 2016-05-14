@@ -106,19 +106,7 @@
                 <h3>{{t "common.question"}}</h3>
                 <div class="instructions">
                   {{#if question.isHotTextHighlight}}
-                    {{#if isBuilderEditing}}
-                      <div class="form-group">
-                        <label class="radio-inline">
-                          <input type="radio" name="highlightType" value="word" checked={{tempQuestion.isHotTextHighlightWord}} onclick={{action (mut tempQuestion.answers.firstObject.highlightType) value="target.value"}}> {{t 'common.word'}}
-                        </label>
-                        <label class="radio-inline">
-                          <input type="radio" name="highlightType" value="sentence" checked={{tempQuestion.isHotTextHighlightSentence}} onclick={{action (mut tempQuestion.answers.firstObject.highlightType) value="target.value"}}> {{t 'common.sentence'}}
-                        </label>
-                      </div>
-                      {{if tempQuestion.isHotTextHighlightWord (t 'content.questions.edit.builder.question-instructions.HT_HL_WD') (t 'content.questions.edit.builder.question-instructions.HT_HL_ST')}}
-                    {{else}}
-                      {{if question.isHotTextHighlightWord (t 'content.questions.edit.builder.question-instructions.HT_HL_WD') (t 'content.questions.edit.builder.question-instructions.HT_HL_ST')}}
-                    {{/if}}
+                    {{partial 'content/partials/hot-text-highlight-instructions'}}
                   {{else}}
                     {{t (concat 'content.questions.edit.builder.question-instructions.' question.type)}}
                   {{/if}}

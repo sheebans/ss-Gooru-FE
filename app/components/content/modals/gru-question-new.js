@@ -49,19 +49,12 @@ export default Ember.Component.extend({
     createQuestion: function () {
       const component = this;
       const question = component.get('question');
-      const questionTextPlaceholder = "Enter question text here";
       if (question.get('type') === QUESTION_TYPES.hotTextHighlight) {
-        let answer = Answer.create(Ember.getOwner(component).ownerInjection(), {
-          isCorrect: true,
-          type: 'text',
-          text: questionTextPlaceholder, //TODO temporal fix
-          highlightType: QUESTION_CONFIG[QUESTION_TYPES.hotTextHighlight].defaultType
-        });
-        question.set('answers', Ember.A([answer]));
+        question.set('answers', Ember.A([component.createHotTextHighlightAnswer()]));
       } else {
         question.set('answers', Ember.A([]));
       }
-      question.set("description", questionTextPlaceholder); //TODO temporal fix
+      question.set("description", "Enter question text here"); //TODO temporal fix
       question.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
           let questionId;
@@ -171,6 +164,18 @@ export default Ember.Component.extend({
   var element = arr[fromIndex];
   arr.splice(fromIndex, 1);
   arr.splice(toIndex, 0, element);
-}
+},
+
+  /**
+   * Creates a default answer for hot text highlight questions
+   */
+  createHotTextHighlightAnswer() {
+    return Answer.create(Ember.getOwner(this).ownerInjection(), {
+      isCorrect: true,
+      type: 'text',
+      text: "Enter question text here", //TODO temporal fix
+      highlightType: QUESTION_CONFIG[QUESTION_TYPES.hotTextHighlight].defaultType
+    });
+  }
 
 });
