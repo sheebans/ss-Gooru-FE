@@ -11,6 +11,7 @@
     {{reports.gru-assessment-report assessmentResult=assessmentResult }}
   {{else}}
     {{player.gru-navigation
+    collection=collection
     submitted=assessmentResult.submitted
     ratingScore=resourceResult.reaction
     onFinishCollection="finishCollection"

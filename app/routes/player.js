@@ -88,9 +88,12 @@ export default Ember.Route.extend({
   playerModel: function(params, context, collection){
     const route = this;
     const hasUserSession = !route.get('session.isAnonymous');
+    const isAssessment = collection.get("isAssessment");
+    const loadSession = hasUserSession && isAssessment;
 
-    let lastOpenSessionPromise = !hasUserSession ? Ember.RSVP.resolve(null) :
-      route.get("userSessionService").getOpenSession(context);
+    let lastOpenSessionPromise = loadSession ?
+      route.get("userSessionService").getOpenSession(context) :
+      Ember.RSVP.resolve(null);
 
     return lastOpenSessionPromise.then(function (lastSession) {
       //Setting new content if we have some session opened

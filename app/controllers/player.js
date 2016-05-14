@@ -11,7 +11,7 @@ export default Ember.Controller.extend(SessionMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
-  queryParams: ['resourceId'],
+  queryParams: ['resourceId', 'isTeacher'],
 
   /**
    * @dependency {Ember.Service} i18n service
@@ -105,6 +105,21 @@ export default Ember.Controller.extend(SessionMixin, {
   // Properties
 
   /**
+   * Indicates if the teacher is playing it own collection
+   * @property {boolean}
+   */
+  isTeacher: null,
+
+
+  /**
+   * Indicates if the student is playing this collection
+   * @property {boolean}
+   */
+  isStudent: Ember.computed("isTeacher", function(){
+    return this.get("isTeacher") != "true";
+  }),
+
+  /**
    * It contains information about the context where the player is running
    *
    * @see context-player.js route and controller
@@ -124,6 +139,12 @@ export default Ember.Controller.extend(SessionMixin, {
    * @property {Collection} collection
    */
   collection: null,
+
+  /**
+   * Is Assessment
+   * @property {boolean}
+   */
+  isAssessment: Ember.computed.alias("collection.isAssessment"),
 
   /**
    * The resource playing
@@ -191,6 +212,7 @@ export default Ember.Controller.extend(SessionMixin, {
     //setting submitted at, timeSpent is calculated
     questionResult.set("submittedAt", new Date());
     context.set("eventType", "stop");
+    context.set("isStudent", controller.get("isStudent"));
     return controller.saveResourceResult(questionResult, context);
   },
 
@@ -209,6 +231,7 @@ export default Ember.Controller.extend(SessionMixin, {
       context.set("resourceEventId", generateUUID()); //sets the new event id for this resource event
     }
     context.set("eventType", "start");
+    context.set("isStudent", controller.get("isStudent"));
 
     return controller.saveResourceResult(resourceResult, context);
   },
@@ -238,11 +261,13 @@ export default Ember.Controller.extend(SessionMixin, {
     let controller = this;
     let assessmentResult = controller.get("assessmentResult");
     let context = controller.get("context");
+
     return controller.submitPendingQuestionResults().then(function(){
       context.set("eventType", "stop");
+      context.set("isStudent", controller.get("isStudent"));
       assessmentResult.set("submittedAt", new Date());
       return controller.saveCollectionResult(assessmentResult, context).then(function() {
-        controller.set("showReport", true);
+        controller.set("showReport", controller.get("isAssessment")); //show the report if it is an assessment
       });
     });
   },
@@ -259,6 +284,7 @@ export default Ember.Controller.extend(SessionMixin, {
     if (!assessmentResult.get("started")){
       assessmentResult.set("startedAt", new Date());
       context.set("eventType", "start");
+      context.set("isStudent", controller.get("isStudent"));
       return controller.saveCollectionResult(assessmentResult, context);
     }
     return promise;
@@ -290,8 +316,10 @@ export default Ember.Controller.extend(SessionMixin, {
   },
 
   saveReactionForResource: function(resourceResult, reactionType) {
+    const controller = this;
     let eventsService = this.get('eventsService');
     let context = this.get('context');
+    context.set("isStudent", controller.get("isStudent"));
     resourceResult.set('reaction', reactionType);   // Sets the reaction value into the resourceResult
 
     eventsService.saveReaction(resourceResult, context);
