@@ -83,6 +83,7 @@ export default {
     "course-title": "Course Title",
     "courses": "Courses",
     "create": "Create",
+    "created-by":"Created by",
     "description": "Description",
     "district": "District",
     "domain": "Domain",
@@ -233,6 +234,7 @@ export default {
       "HT_HL"  : "Hot Text Highlight"
     },
     "reaction": "Reaction",
+    "remixed-by": "Remixed by",
     "request-to":"Request to be searchable and featured in Gooru",
     "resource":"Resource",
     "resources": "Resources",
@@ -300,6 +302,7 @@ export default {
     "untitled-unit": "Untitled Unit",
     "update-thumbnail": "Update Thumbnail",
     "upload-thumbnail":"Upload Thumbnail",
+    "use-case": "Use Case",
     "verified": "Verified",
     "yes": "Yes",
     "warnings": {
@@ -852,8 +855,6 @@ export default {
     },
     "gru-course-card":{
       "units":"Units",
-      "remixed-by":"Remixed by",
-      "created":"Created by",
       "in":"in",
       "resource": {
         one: "{{count}} Resource",
