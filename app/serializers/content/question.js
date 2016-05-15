@@ -90,7 +90,7 @@ export default Ember.Object.extend({
     if (question.get("isHotSpotImage")){
       answers.forEach(function(answer){ //adding the basepath for HS Image
         answer.set("text", basePath + answer.get("text"));
-      })
+      });
     }
     question.set("answers", answers);
     return question;

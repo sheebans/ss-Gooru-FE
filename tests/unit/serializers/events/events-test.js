@@ -113,7 +113,7 @@ test('serializeReaction', function(assert) {
     },
     version: { logApi: '3.0' },
     metrics: {},
-    payLoadObject: { isStudent: true }
+    payLoadObject: { isStudent: false }
   }];
 
   assert.deepEqual(expected, response, 'Wrong response');

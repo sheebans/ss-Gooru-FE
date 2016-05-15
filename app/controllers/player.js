@@ -116,7 +116,7 @@ export default Ember.Controller.extend(SessionMixin, {
    * @property {boolean}
    */
   isStudent: Ember.computed("isTeacher", function(){
-    return this.get("isTeacher") != "true";
+    return this.get("isTeacher") !== "true";
   }),
 
   /**
