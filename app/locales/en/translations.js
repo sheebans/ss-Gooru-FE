@@ -140,7 +140,7 @@ export default {
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
       "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly.",
       "unit-title-required" : "Please enter the unit title.",
-      "user-email-presence" : "Please enter a valid email."
+      "user-username-presence" : "Please enter a valid username."
     },
     "essential-questions": "Essential Questions",
     "explanation": "Explanation",
