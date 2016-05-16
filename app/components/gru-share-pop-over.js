@@ -39,10 +39,10 @@ export default Ember.Component.extend({
    */
   template: Ember.computed('type', function() {
    return `<div class="gru-share-pop-over-content">
-    <p>`+this.get('i18n').t('gru-share-pop-over.share-'+this.get('type')).string+`</p>
+    <p>${this.get('i18n').t('gru-share-pop-over.share-'+this.get('type')).string}</p>
     <div class="share-actions">
-      <input id="`+this.get('type')+`-popover-input" value="`+this.get('shareUrl')+`" readonly type="text">
-      <input type="button" data-clipboard-target="#`+this.get('type')+`-popover-input" class="btn btn-primary copy-btn" value="`+this.get('i18n').t('gru-share-pop-over.copy').string+`">
+      <input id="${this.get('type')}-popover-input" value="${this.get('shareUrl')}" readonly type="text">
+      <input type="button" data-clipboard-target="#${this.get('type')}-popover-input" class="btn btn-primary copy-btn" value="${this.get('i18n').t('gru-share-pop-over.copy').string}">
     </div>
    </div>`;
  }),
