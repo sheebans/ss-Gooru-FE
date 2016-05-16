@@ -29,17 +29,38 @@ export default Ember.Component.extend({
 
 
   /**
+   * @property {string} type
+   */
+  url:null,
+
+
+  /**
    * @property {string} template to be used for the popover window
    */
   template: Ember.computed('type', function() {
    return `<div class="gru-share-pop-over-content">
-    <p>`+this.get('i18n').t('gru-share-pop-over.share'+this.get('type')).string+`</p>
+    <p>`+this.get('i18n').t('gru-share-pop-over.share-'+this.get('type')).string+`</p>
     <div class="share-actions">
-      <input id="`+this.get('type')+`-popover" value="`+window.location.href+`" readonly type="text">
-      <input type="button" data-clipboard-target="#`+this.get('type')+`-popover" class="btn btn-primary copy-btn" value="`+this.get('i18n').t('gru-share-pop-over.copy').string+`">
+      <input id="`+this.get('type')+`-popover-input" value="`+this.get('shareUrl')+`" readonly type="text">
+      <input type="button" data-clipboard-target="#`+this.get('type')+`-popover-input" class="btn btn-primary copy-btn" value="`+this.get('i18n').t('gru-share-pop-over.copy').string+`">
     </div>
    </div>`;
  }),
+
+  shareUrl: Ember.computed('type', function(){
+    switch(this.get('type')) {
+      case 'course':
+        const courseId = this.get('router.router.state.params')['content.courses.edit'].courseId;
+        return window.location.protocol+ `//`+ window.location.host+`/content/courses/play/`+courseId;
+        break;
+      case 'assessment':
+        break;
+      case 'collection':
+        break;
+      default:
+      break;
+    };
+  }),
 
  // -------------------------------------------------------------------------
  // Events
@@ -50,6 +71,7 @@ export default Ember.Component.extend({
 
   didInsertElement: function () {
     var component = this;
+
 
     component.$().popover({
       animation: false,

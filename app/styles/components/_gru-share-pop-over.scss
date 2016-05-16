@@ -6,6 +6,7 @@
   .share-actions {
     input {
       &[type='text'] {
+        background-color: $light-200;
         float: left;
         height: 34px;
         margin-right: 10px;
