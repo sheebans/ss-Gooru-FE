@@ -648,6 +648,14 @@ export default {
     "log-in": "Log In"
   },
 
+  "forgot-password": {
+    "description": "It happens to all of us.",
+    "usernameOrEmail": "Please enter your email/username",
+    "footer-description-1":"You will receive an email with a link to reset your password.",
+    "footer-description-2":"If you have any questions, please contact ",
+    "mail":"support@gooru.org"
+  },
+
   "footer": {
     "footerDescription": "Gooru is committed to keeping its platform open-source and community created content CC0.",
     "company": "Company",
@@ -729,13 +737,6 @@ export default {
     "text": "Text",
     "audio": "Audio",
     "oer": "OER"
-  },
-
-  "forgot-password-popup":{
-    "title":"Please enter your email or <br/> username below.",
-    "description":"You will receive an email with a link to reset your password.",
-    "footer":"If you have any questions,<br/> Please contact",
-    "mail":"support@goorulearning.org"
   },
 
   "search-result": {
