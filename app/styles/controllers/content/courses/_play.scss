@@ -30,12 +30,45 @@
       padding-top: 40px;
 
       > .content {
-        border-bottom: 1px solid $gray-light;
         padding-bottom: 30px;
 
         .description p {
           line-height: 1.6;
           margin-bottom: 0;
+        }
+      }
+
+      > .panel.aside {
+
+        .col-sm-4 {
+          border-right: 1px solid $gray-lighter;
+
+          strong {
+            display: block;
+            padding-bottom: 15px;
+          }
+
+          &:last-child {
+            border-right: none;
+          }
+        }
+
+        .gru-user-icons {
+          text-align: left;
+
+          .item {
+            margin-right: 10px;
+          }
+        }
+
+        .col-sm-12 {
+          strong {
+            display: block;
+            margin-top: 25px;
+            padding-top: 20px;
+            padding-bottom: 10px;
+            border-top: 1px solid $gray-lighter;
+          }
         }
       }
     }
