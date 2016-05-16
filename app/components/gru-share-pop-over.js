@@ -62,6 +62,18 @@ export default Ember.Component.extend({
     };
   }),
 
+  // -------------------------------------------------------------------------
+  // Methods
+
+  getTemplate: function(){
+    return `
+    <div class="gru-share-pop-over-window popover" role="tooltip">
+      <div class="arrow"></div>
+      <h3 class="popover-title"></h3>
+      <div class="popover-content"></div>
+    </div>`
+},
+
  // -------------------------------------------------------------------------
  // Events
 
@@ -71,25 +83,15 @@ export default Ember.Component.extend({
 
   didInsertElement: function () {
     var component = this;
-
-
     component.$().popover({
       animation: false,
       placement: component.get('placement'),
       html: true,
-      template:`
-      <div class="gru-share-pop-over-window popover" role="tooltip">
-        <div class="arrow"></div>
-        <h3 class="popover-title"></h3>
-        <div class="popover-content"></div>
-      </div>`,
+      template:component.get('getTemplate')(),
       content: function() {
           return component.get('template');
         }
     });
-
-
-
     let clipboard = new Clipboard('.copy-btn');
     set(this, 'clipboard', clipboard);
 
