@@ -52,14 +52,13 @@ export default Ember.Component.extend({
       case 'course':
         const courseId = this.get('router.router.state.params')['content.courses.edit'].courseId;
         return window.location.protocol+ `//`+ window.location.host+`/content/courses/play/`+courseId;
-        break;
       case 'assessment':
         break;
       case 'collection':
         break;
       default:
-      break;
-    };
+        break;
+    }
   }),
 
   // -------------------------------------------------------------------------
@@ -70,8 +69,8 @@ export default Ember.Component.extend({
       <div class="arrow"></div>
       <h3 class="popover-title"></h3>
       <div class="popover-content"></div>
-    </div>`
-},
+    </div>`;
+  },
 
  // -------------------------------------------------------------------------
  // Events
