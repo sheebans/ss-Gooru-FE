@@ -86,25 +86,33 @@
     }
   }
 
-  > aside div {
+  > aside .row {
     position: relative;
-    padding-bottom: 20px;
-    border-bottom: 1px solid $gray-lighter;
+    margin-left: 0;
 
-    strong {
-      display: block;
-      margin: 15px 0 10px 0;
-      font-size: $font-size-large;
-      font-weight: normal;
+    > div {
+      float: none;
+      width: auto;
+      padding-bottom: 20px;
+      border-bottom: 1px solid $gray-lighter;
+
+      strong {
+        display: block;
+        margin: 15px 0 10px 0;
+        font-size: $font-size-large;
+        font-weight: normal;
+      }
+
+      &.gru-user-icons {
+        text-align: left;
+      }
     }
 
     &:last-child {
-      border-bottom: 0 none;
-      margin-bottom: 30px;
-    }
-
-    &.gru-user-icons {
-      text-align: left;
+      > div:last-child {
+        padding-bottom: 30px;
+        border-bottom: 0 none;
+      }
     }
   }
 
