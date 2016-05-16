@@ -48,13 +48,13 @@
                     <div class="form-group firstName">
                       <label>
                         <span class="required">{{t "common.first-name"}}</span>
-                        {{validation.gru-input model=profile valuePath='firstName' }}
+                        {{validation.gru-input model=profile valuePath='firstName' maxLength=25}}
                       </label>
                     </div>
                     <div class="form-group lastName">
                       <label>
                         <span class="required">{{t "common.last-name"}}</span>
-                        {{validation.gru-input model=profile valuePath='lastName' }}
+                        {{validation.gru-input model=profile valuePath='lastName' maxLength=25}}
                       </label>
                     </div>
                     <div class="form-group email">

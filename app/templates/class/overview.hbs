@@ -18,11 +18,12 @@
 
   {{class.overview.gru-accordion-course
     currentClass=class
+    classMembers=classMembers
     onSelectResource="playResource"
     onLocationUpdate=(action 'updateLocation')
     onLaunchOnAir="launchOnAir"
     userLocation=userLocation
-    location=location
+    location=openingLocation
     units=units
     isTeacher=classController.isTeacher}}
 

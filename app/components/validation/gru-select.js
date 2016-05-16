@@ -67,7 +67,12 @@ export default Ember.Component.extend({
   /**
    * @param {String} errorMessage
    */
-  errorMessage: false
+  errorMessage: null,
+
+  /**
+   * @param {String} optionSelected
+   */
+  optionSelected: null
 
 
   // -------------------------------------------------------------------------

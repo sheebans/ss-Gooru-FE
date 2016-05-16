@@ -25,28 +25,11 @@ test('User Network Card Layout', function(assert) {
   T.exists(assert, $userNetworkCard.find(".panel-body .followers .description"), "Missing Followers Label");
   T.exists(assert, $userNetworkCard.find(".panel-body .following .count span"), "Missing Following Count");
   T.exists(assert, $userNetworkCard.find(".panel-body .following .description"), "Missing Following Label");
-  T.exists(assert, $userNetworkCard.find(".panel-body .follow-btn button.btn-success"), "Missing Follow Button");
-  assert.equal(T.text($userNetworkCard.find(".panel-body .follow-btn button")), "Follow", "The label button should be Follow");
-});
-test('User Network Card Layout - Following Filter', function(assert) {
-  var user =Ember.Object.create({
-    displayName:"Lisa Keller",
-    schoolDistrict:"District Name",
-    followers:115,
-    followings:200,
-    isFollowing: true
-  });
-  var followingFilter= true;
-  this.set('user', user);
-  this.set('followingFilter', followingFilter);
-  this.render(hbs`{{cards/gru-user-network-card user=user followingFilter=true}}`);
-  var $component = this.$();
-  const $userNetworkCard = $component.find(".gru-user-network-card");
-  T.exists(assert, $userNetworkCard.find(".panel-body .follow-btn button.btn-following"), "Missing Following Button");
-  assert.equal(T.text($userNetworkCard.find(".panel-body .follow-btn button")), "Following", "The label button should be Following");
+  T.exists(assert, $userNetworkCard.find(".panel-body .follow-btn button.btn-follow"), "Missing Follow Button");
+  assert.equal(T.text($userNetworkCard.find(".panel-body .follow-btn button.btn-follow")), "Follow", "The label button should be Follow");
 });
 
-test('User Network Card Layout - Follower Filter', function(assert) {
+test('User Network Card Layout - if isFollowing', function(assert) {
   var user =Ember.Object.create({
     displayName:"Lisa Keller",
     schoolDistrict:"District Name",
@@ -54,12 +37,63 @@ test('User Network Card Layout - Follower Filter', function(assert) {
     followings:200,
     isFollowing: true
   });
-  var followingFilter= false;
   this.set('user', user);
-  this.set('followingFilter', followingFilter);
-  this.render(hbs`{{cards/gru-user-network-card user=user followingFilter=followingFilter}}`);
+
+  this.render(hbs`{{cards/gru-user-network-card user=user}}`);
   var $component = this.$();
   const $userNetworkCard = $component.find(".gru-user-network-card");
-  T.exists(assert, $userNetworkCard.find(".panel-body .follow-btn button.btn-following"), "Missing Following Button");
-  assert.equal(T.text($userNetworkCard.find(".panel-body .follow-btn button")), "Following", "The label button should be Following");
+  T.exists(assert, $userNetworkCard.find(".panel-body .follow-btn button"), "Missing Following Button");
+  assert.equal(T.text($userNetworkCard.find(".panel-body .follow-btn button span.following")), "Following", "The label button should be Following");
+});
+
+test('User Network Card Layout - Following Filter - unFollow implementation', function(assert) {
+  var user =Ember.Object.create(
+    {
+      displayName:"Lisa Keller",
+      schoolDistrict:"District Name",
+      followers:115,
+      followings:200,
+      isFollowing: true
+    });
+
+  this.on('unFollowUser', function(){
+    assert.ok(true, 'external Action was called!');
+  });
+
+  this.set('user', user);
+
+  this.render(hbs`{{cards/gru-user-network-card user=user onUnFollowUser='unFollowUser'}}`);
+  var $component = this.$();
+  const $userNetworkCard = $component.find(".gru-user-network-card");
+  var $unFollowButton = $userNetworkCard.find(".panel-body .follow-btn button");
+  T.exists(assert, $unFollowButton, "Missing Unfollow Button");
+  assert.equal(T.text($unFollowButton.find("span.unfollow")), "Unfollow", "The label button should be Unfollow");
+
+  $unFollowButton.click();
+});
+
+test('User Network Card Layout - Followers Filter - Follow implementation', function(assert) {
+  var user =Ember.Object.create(
+    {
+      displayName:"Lisa Keller",
+      schoolDistrict:"District Name",
+      followers:115,
+      followings:200,
+      isFollowing: false
+    });
+
+  this.on('followUser', function(){
+    assert.ok(true, 'external Action was called!');
+  });
+
+  this.set('user', user);
+
+  this.render(hbs`{{cards/gru-user-network-card user=user onFollowUser='followUser'}}`);
+  var $component = this.$();
+  const $userNetworkCard = $component.find(".gru-user-network-card");
+  var $followButton = $userNetworkCard.find(".panel-body .follow-btn button.btn-follow");
+  T.exists(assert, $followButton, "Missing Follow Button");
+  assert.equal(T.text($followButton), "Follow", "The label button should be Follow");
+
+  $followButton.click();
 });

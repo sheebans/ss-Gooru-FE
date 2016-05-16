@@ -43,12 +43,10 @@ test('serializeUpdateProfile', function(assert) {
     grades: [],
     country: 'country',
     state: 'state',
-    school: 'school',
     schoolDistrict: 'school-district',
     aboutMe: 'about-me',
     countryId: 'country-id',
     stateId: 'state-id',
-    schoolId: 'school-id',
     schoolDistrictId: 'school-district-id'
   });
   const expected = {
@@ -58,12 +56,10 @@ test('serializeUpdateProfile', function(assert) {
     grade: [],
     country: 'country',
     state: 'state',
-    school: 'school',
     'school_district': 'school-district',
     'about_me': 'about-me',
     'country_id': 'country-id',
     'state_id': 'state-id',
-    'school_id': 'school-id',
     'school_district_id': 'school-district-id'
   };
   const response = serializer.serializeUpdateProfile(profile);
@@ -94,8 +90,6 @@ test('normalizeReadProfile', function(assert) {
     country: 'country',
     'state_id': '2222',
     state: 'state',
-    'school_id': '3333',
-    school: 'school',
     'school_district_id': '4444',
     'school_district': 'school-district',
     'about_me': 'about-me',
@@ -122,8 +116,6 @@ test('normalizeReadProfile', function(assert) {
   assert.equal(normalizedProfile.get("country"), "country", 'Wrong country');
   assert.equal(normalizedProfile.get("stateId"), "2222", 'Wrong stateId');
   assert.equal(normalizedProfile.get("state"), "state", 'Wrong state');
-  assert.equal(normalizedProfile.get("schoolId"), "3333", 'Wrong schoolId');
-  assert.equal(normalizedProfile.get("school"), "school", 'Wrong school');
   assert.equal(normalizedProfile.get("schoolDistrictId"), "4444", 'Wrong schoolDistrictId');
   assert.equal(normalizedProfile.get("schoolDistrict"), "school-district", 'Wrong schoolDistrict');
   assert.equal(normalizedProfile.get("aboutMe"), "about-me", 'Wrong aboutMe');
@@ -509,6 +501,12 @@ test('normalizeReadAssessments', function(assert) {
 
 test('normalizeReadNetwork for following', function(assert) {
   const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'http://test-bucket01.s3.amazonaws.com/'
+    }
+  }));
+
   const detailsObject = Ember.Object.create({
     followings: [
       'id-1', 'id-2'
@@ -533,11 +531,19 @@ test('normalizeReadNetwork for following', function(assert) {
   assert.equal(response.length, 2, 'Wrong total following');
   assert.equal(response[0].get("id"), "id-1", 'Invalid id for user 1');
   assert.ok(response[0].get("isFollowing"), 'First user has a wrong value for isFollowing');
+  assert.equal(response[0].get("avatarUrl"), "http://test-bucket01.s3.amazonaws.com/thumbnail-path-1", 'Wrong avatarUrl');
   assert.ok(response[1].get("isFollowing"), 'Second user has a wrong value for isFollowing');
+
 });
 
 test('normalizeReadNetwork for followers', function(assert) {
   const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'http://test-bucket01.s3.amazonaws.com/'
+    }
+  }));
+
   const detailsObject = Ember.Object.create({
     followings: [
       'id-1'
@@ -566,6 +572,7 @@ test('normalizeReadNetwork for followers', function(assert) {
   assert.equal(response.length, 2, 'Wrong total followers');
   assert.equal(response[0].get("id"), "id-1", 'Invalid id for user 1');
   assert.ok(response[0].get("isFollowing"), 'First user has a wrong value for isFollowing');
+  assert.equal(response[0].get("avatarUrl"), "http://test-bucket01.s3.amazonaws.com/thumbnail-path-1", 'Wrong avatarUrl');
   assert.ok(!response[1].get("isFollowing"), 'Second user has a wrong value for isFollowing');
   assert.equal(response[0].get("schoolDistrict"), "district-1", 'Invalid district for user 1');
   assert.equal(response[1].get("schoolDistrict"), "district-2", 'Invalid district for user 2');

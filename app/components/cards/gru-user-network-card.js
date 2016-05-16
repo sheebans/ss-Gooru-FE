@@ -21,22 +21,34 @@ export default Ember.Component.extend({
   actions: {
 
     unFollow:function(){
-      this.set('isFollowing',false);
+      var component = this;
+      var user = component.get('user');
+
+      component.sendAction("onUnFollowUser", user);
     },
 
     setFollow:function(){
-      this.set('isFollowing',true);
+      var component = this;
+      var user = component.get('user');
+
+      component.sendAction("onFollowUser", user);
     }
   },
+
+  // -------------------------------------------------------------------------
+  // Events
+
   // -------------------------------------------------------------------------
   // Properties
+
   /**
    * @property {User} user
    */
   user: null,
+
   /**
-   * @property {Boolean} followingFilter
+   * @property {Number} counter of user followers
    */
-  followingFilter: false
+  countFollowers: Ember.computed.alias("user.followers")
 
 });
