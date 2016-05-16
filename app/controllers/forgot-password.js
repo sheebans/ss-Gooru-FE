@@ -8,7 +8,7 @@ export default Ember.Controller.extend({
   /**
    * @property {Service} Session service
    */
-  sessionService: Ember.inject.service("api-sdk/session"),
+  profileService: Ember.inject.service("api-sdk/profile"),
 
   /**
    * @property {Service} Notifications service
@@ -34,17 +34,16 @@ export default Ember.Controller.extend({
       if(controller.get('didValidate') === false) {
         var email = Ember.$('.gru-input-mixed-validation.email input').val();
         user.set('email',email);
+        user.set('emailAsync',email);
       }
 
       user.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
-          //controller.get("sessionService")
-          //  .signInWithUser(user, true)
-          //  .then(function() {
-          //    controller.set('didValidate', true);
-          //    // Trigger action in parent
-          //    controller.send('signIn');
-          //  })
+          controller.get("profileService")
+            .forgotPassword(user.get('email'))
+            .then(function() {
+              controller.set('didValidate', true);
+            });
         } else {
           controller.set('submitFlag', true);
         }
