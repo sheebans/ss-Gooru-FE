@@ -66,8 +66,7 @@ export default Ember.Component.extend({
   // Methods
 
   getTemplate: function(){
-    return `
-    <div class="gru-share-pop-over-window popover" role="tooltip">
+    return `<div class="gru-share-pop-over-window popover" role="tooltip">
       <div class="arrow"></div>
       <h3 class="popover-title"></h3>
       <div class="popover-content"></div>
