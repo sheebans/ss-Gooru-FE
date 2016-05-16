@@ -102,7 +102,7 @@ export default Ember.Object.extend({
     const namespace = this.get('namespace');
     const url = `${namespace}/${courseId}`;
     const options = {
-      type: 'POST',
+      type: 'DELETE',
       contentType: 'application/json; charset=utf-8',
       dataType: 'text',
       processData: false,

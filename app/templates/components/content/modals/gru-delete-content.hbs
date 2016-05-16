@@ -2,8 +2,8 @@
     <h4 class="modal-title">{{t "common.delete"}} {{model.type}}</h4>
 </div>
 <div class="modal-body">
-    <form {{action "deleteContent" on="submit"}}>
-        <p class="legend">{{t "content.modals.delete-content.legend"}} <b>{{model.model.title}}</b></p>
+    <form {{action "deleteContent" model on="submit"}}>
+        <p class="legend">{{t "content.modals.delete-content.legend"}} <b>{{model.content.title}}</b></p>
         <div class="delete-info">
             <ul>
                 <li>
@@ -18,7 +18,7 @@
                         <span>{{t "content.modals.delete-content.delete-instructions.content-inaccessible"}}</span>
                     </label>
                 </li>
-              {{#if (eq model.type 'Course')}}
+              {{#if (eq model.type types.COURSE)}}
                 <li>
                     <label>
                       {{input type="checkbox" checked=false}}

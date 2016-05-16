@@ -119,6 +119,7 @@ export default {
       "collection-title-presence" : "Please enter the collection title.",
       "correct-answer-presence": "Please indicate the correct answer.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
+      "course-not-deleted": "Oops! Unable to delete course right now. Please try again shortly.",
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
       "hotspot-text-max-choices": "You have reached the limit of answers choices.",
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
