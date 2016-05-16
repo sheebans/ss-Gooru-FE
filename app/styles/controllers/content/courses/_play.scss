@@ -30,7 +30,7 @@
       padding-top: 40px;
 
       > .content {
-        padding-bottom: 30px;
+        padding-bottom: 10px;
 
         .description p {
           line-height: 1.6;
@@ -39,6 +39,7 @@
       }
 
       > .panel.aside {
+        margin-top: 20px;
 
         .col-sm-4 {
           border-right: 1px solid $gray-lighter;
@@ -82,6 +83,28 @@
       #content {
         display: none;
       }
+    }
+  }
+
+  > aside div {
+    position: relative;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $gray-lighter;
+
+    strong {
+      display: block;
+      margin: 15px 0 10px 0;
+      font-size: $font-size-large;
+      font-weight: normal;
+    }
+
+    &:last-child {
+      border-bottom: 0 none;
+      margin-bottom: 30px;
+    }
+
+    &.gru-user-icons {
+      text-align: left;
     }
   }
 
