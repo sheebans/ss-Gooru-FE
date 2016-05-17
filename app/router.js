@@ -47,6 +47,7 @@ Router.map(function() {
 
     this.route('questions', function () {
       this.route('edit', {path: '/edit/:questionId'});
+      this.route('play', {path: '/play/:Id'});
     });
   });
 
