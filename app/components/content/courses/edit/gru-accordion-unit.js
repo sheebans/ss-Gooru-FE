@@ -2,6 +2,9 @@ import Ember from 'ember';
 import BuilderItem from 'gooru-web/models/content/builder/item';
 import Lesson from 'gooru-web/models/content/lesson';
 import PlayerAccordionUnit from 'gooru-web/components/content/courses/play/gru-accordion-unit';
+import ModalMixin from 'gooru-web/mixins/modal';
+import {CONTENT_TYPES} from 'gooru-web/config/config';
+
 
 /**
  * Content Builder: Accordion Unit
@@ -13,7 +16,15 @@ import PlayerAccordionUnit from 'gooru-web/components/content/courses/play/gru-a
  * @augments components/content/courses/play/gru-accordion-unit
  *
  */
-export default PlayerAccordionUnit.extend({
+export default PlayerAccordionUnit.extend(ModalMixin,{
+
+  // -------------------------------------------------------------------------
+  // Dependencies
+  /**
+   * @requires service:api-sdk/course
+   */
+  unitService: Ember.inject.service("api-sdk/unit"),
+
 
   // -------------------------------------------------------------------------
   // Actions
@@ -85,7 +96,31 @@ export default PlayerAccordionUnit.extend({
           this.get('notifications').error(message);
           Ember.Logger.error(error);
         }.bind(this));
-    }
+    },
+    /**
+     * Delete selected unit
+     *
+     */
+    deleteContent: function (builderItem) {
+      let component = this;
+      var model = {
+          content: this.get('unit'),
+          index:this.get('index'),
+          parentName:this.get('courseTitle'),
+          deleteMethod: function () {
+            return this.get('unitService').deleteUnit(this.get('courseId'),this.get('unit.id'));
+          }.bind(this),
+          type: CONTENT_TYPES.UNIT,
+          callback:{
+            success:function(){
+              component.get('onDeleteUnit')(builderItem);
+            },
+          }
+      };
+      this.actions.showModal.call(this,
+        'content.modals.gru-delete-content',
+        model, null, null, null, false);
+    },
 
   },
 
@@ -108,6 +143,6 @@ export default PlayerAccordionUnit.extend({
   /**
    * @prop {Content/Unit} tempUnit - Temporary unit model used for editing
    */
-  tempUnit: null
+  tempUnit: null,
 
 });

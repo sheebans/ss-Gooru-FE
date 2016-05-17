@@ -152,6 +152,7 @@ export default {
     "followers": "Followers",
     "following": "Following",
     "forgotPassword": "Forgot Password",
+    "from":"from",
     "from-my-assessments": "From My Assessments",
     "from-my-collections": "From My Collections",
     "from-my-questions": "From My Questions",

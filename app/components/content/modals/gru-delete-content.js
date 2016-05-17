@@ -27,6 +27,15 @@ export default Ember.Component.extend({
 
   classNames: ['content', 'modals', 'gru-delete-content'],
   // -------------------------------------------------------------------------
+  // Events
+
+  willDestroyElement() {
+    this.set('validator.confirm',"");
+    this.set('validator.check1',false);
+    this.set('validator.check2',false);
+    this.set('validator.check3',false);
+  },
+  // -------------------------------------------------------------------------
   // Actions
 
   actions: {
@@ -56,6 +65,9 @@ export default Ember.Component.extend({
           component.get('notifications').error(message);
           Ember.Logger.error(error);
         });
+    },
+    cancel:function(){
+
     }
   },
 
