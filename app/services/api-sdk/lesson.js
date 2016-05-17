@@ -163,4 +163,20 @@ export default Ember.Service.extend(StoreMixin, {
     });
   },
 
+  /**
+   * Delete lesson
+   *
+   * @param courseId - course the unit belongs to
+   * @param unitId The Unit id to delete
+   * @param lessonId the lesson id
+   * @returns {Ember.RSVP.Promise}
+   */
+  deleteLesson: function (courseId, unitId, lessonId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('adapter').deleteLesson({ courseId, unitId, lessonId })
+        .then(resolve, reject);
+    });
+  }
+
 });
