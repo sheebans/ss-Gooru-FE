@@ -62,7 +62,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
         }.bind(this),
         type: CONTENT_TYPES.COURSE,
         redirect: {
-          route: 'profile.content',
+          route: 'profile.content.courses',
           params: {
             id: myId
           }
