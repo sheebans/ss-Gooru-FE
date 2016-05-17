@@ -1,7 +1,8 @@
 .questions.answers.gru-hs-image{
+  $component-height: 126px;
   .add-answer, .gru-image{
     width:114px;
-    height:126px ;
+    height:$component-height;
     border-radius: 4px;
   }
 
@@ -22,11 +23,10 @@
       margin-right: 10px;
     }
     .content.gru-image{
-      overflow: visible;
       margin-right: 0;
       border-radius: 0;
       img{
-        max-height: 9em;
+        max-height: $component-height - 5px;
       }
       .validation{
         margin-bottom: -60px;
@@ -34,6 +34,9 @@
       button.btn-info{
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
+      }
+      .delete{
+        display:none;
       }
     }
     .panel-footer{
@@ -54,7 +57,7 @@
 
         }
         .check.correct{
-          color:$green-300;
+          background-color:$green-300;
         }
       }
     }

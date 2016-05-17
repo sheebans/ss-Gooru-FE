@@ -83,6 +83,7 @@ export default {
     "course-title": "Course Title",
     "courses": "Courses",
     "create": "Create",
+    "created-by":"Created by",
     "delete":"Delete",
     "description": "Description",
     "district": "District",
@@ -234,6 +235,7 @@ export default {
       "HT_HL"  : "Hot Text Highlight"
     },
     "reaction": "Reaction",
+    "remixed-by": "Remixed by",
     "request-to":"Request to be searchable and featured in Gooru",
     "resource":"Resource",
     "resources": "Resources",
@@ -301,6 +303,7 @@ export default {
     "untitled-unit": "Untitled Unit",
     "update-thumbnail": "Update Thumbnail",
     "upload-thumbnail":"Upload Thumbnail",
+    "use-case": "Use Case",
     "verified": "Verified",
     "yes": "Yes",
     "warnings": {
@@ -533,7 +536,6 @@ export default {
       "other" : " and teaching {{count}} classes"
     }
   },
-
   /*
    * COMPONENTS: Translations used in a specific component
    */
@@ -541,6 +543,14 @@ export default {
     "add-from-course":"Add from Existing Course",
     "view-featured-courses":"View Featured Courses",
     "assign":"Assign"
+  },
+  "gru-share-pop-over":{
+    "share-course":"Share your course with link",
+    "share-question":"Share your question with link",
+    "share-resource":"Share your resource with link",
+    "share-assessment":"Share your assessment with link",
+    "share-collection":"Share your collection with link",
+    "copy": "Copy"
   },
   "gru-category-panel": {
     "teacher": {
@@ -656,6 +666,15 @@ export default {
     "log-in": "Log In"
   },
 
+  "forgot-password": {
+    "description": "It happens to all of us.",
+    "usernameOrEmail": "Please enter your email",
+    "footer-description-1":"You will receive an email with a link to reset your password.",
+    "footer-description-2":"If you have any questions, please contact ",
+    "mail":"support@gooru.org",
+    "error-email-not-exists": "Sorry we don't recognize this email."
+  },
+
   "footer": {
     "footerDescription": "Gooru is committed to keeping its platform open-source and community created content CC0.",
     "company": "Company",
@@ -737,13 +756,6 @@ export default {
     "text": "Text",
     "audio": "Audio",
     "oer": "OER"
-  },
-
-  "forgot-password-popup":{
-    "title":"Please enter your email or <br/> username below.",
-    "description":"You will receive an email with a link to reset your password.",
-    "footer":"If you have any questions,<br/> Please contact",
-    "mail":"support@goorulearning.org"
   },
 
   "search-result": {
@@ -863,8 +875,6 @@ export default {
     },
     "gru-course-card":{
       "units":"Units",
-      "remixed-by":"Remixed by",
-      "created":"Created by",
       "in":"in",
       "resource": {
         one: "{{count}} Resource",

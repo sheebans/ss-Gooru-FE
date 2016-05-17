@@ -71,6 +71,27 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Deletes a question by id
+   *
+   * @param questionId question id to be sent
+   * @returns {Promise}
+   */
+  deleteQuestion: function(questionId) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${questionId}`;
+    const options = {
+      type: 'DELETE',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({})
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')

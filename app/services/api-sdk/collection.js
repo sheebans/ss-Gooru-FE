@@ -134,5 +134,20 @@ export default Ember.Service.extend({
       service.get('collectionAdapter').addQuestion(collectionId, questionId)
         .then(resolve, reject);
     });
+  },
+
+  /**
+   * Delete collection
+   *
+   * @param collectionId The collection id to delete
+   * @returns {Promise}
+   */
+  deleteCollection: function (collectionId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('adapter').deleteCollection(collectionId)
+        .then(resolve, reject);
+    });
   }
+
 });

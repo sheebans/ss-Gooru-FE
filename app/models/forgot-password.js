@@ -10,6 +10,12 @@ const Validations = buildValidations({
         descriptionKey: 'common.errors.user-email-presence'
       })
     ]
+  },
+
+  emailAsync: {
+    validators: [
+      validator('email-exists')
+    ]
   }
 });
 
@@ -23,6 +29,11 @@ export default Ember.Object.extend(Validations,{
   /**
    * @property {string} email - The profile email
    */
-  email: null
+  email: null,
+
+  /**
+   * @property {string} emailAsync - Used to validate on submit
+   */
+  emailAsync: null
 
 });

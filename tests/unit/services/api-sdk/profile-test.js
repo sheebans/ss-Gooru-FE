@@ -232,6 +232,56 @@ test('checkEmailAvailability-Email already exists', function(assert) {
     });
 });
 
+test('checkEmailExists-Email exists', function(assert) {
+  const service = this.subject();
+  var i18n = Ember.Object.create({
+    t: function () {
+      return { string: 'forgot-password.error-email-not-exists'};
+    }
+  });
+  service.set('i18n', i18n);
+  assert.expect(2);
+
+  service.set('availabilityAdapter', Ember.Object.create({
+    verifyEmail: function(email) {
+      assert.notEqual(email, 'other-email-value', 'Emails should not be equal');
+      return Ember.RSVP.reject({ status: 404 });
+    }
+  }));
+
+  var done = assert.async();
+  service.checkEmailExists('email-value')
+    .then(function() {
+      assert.ok(false, 'Email was not validated correctly');
+      done();
+    }, function() {
+      assert.ok(true);
+      done();
+    });
+});
+
+test('checkEmailExists-Email does not exist', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('availabilityAdapter', Ember.Object.create({
+    verifyEmail: function(email) {
+      assert.equal(email, 'email-value', 'Emails should be equal');
+      return Ember.RSVP.resolve({ status: 200 });
+    }
+  }));
+
+  var done = assert.async();
+  service.checkEmailExists('email-value')
+    .then(function() {
+      assert.ok(true);
+      done();
+    }, function() {
+      assert.ok(false, 'Email was not validated correctly');
+      done();
+    });
+});
+
 test('checkGoogleEmail-The account does not exist', function(assert) {
   const service = this.subject();
   assert.expect(2);

@@ -16,6 +16,7 @@ Router.map(function() {
   });
 
   this.route('sign-in');
+  this.route('forgot-password');
   this.route('sign-up');
   this.route('sign-up-finish');
   this.route('logout');
@@ -42,10 +43,12 @@ Router.map(function() {
 
     this.route('resources', function () {
       this.route('edit', {path: '/edit/:resourceId'});
+      this.route('play', {path: '/play/:resourceId'});
     });
 
     this.route('questions', function () {
       this.route('edit', {path: '/edit/:questionId'});
+      this.route('play', {path: '/play/:questionId'});
     });
   });
 
