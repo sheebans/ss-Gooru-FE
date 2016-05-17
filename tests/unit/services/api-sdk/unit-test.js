@@ -151,3 +151,25 @@ test('updateUnit', function(assert) {
       done();
     });
 });
+
+test('Delete Unit', function(assert) {
+  const expectedCourseId = 'course-id';
+  const expectedUnitId = 'unit-id';
+  const service = this.subject();
+
+  assert.expect(2);
+
+  service.set('adapter', Ember.Object.create({
+    deleteUnit: function(params) {
+      assert.equal(params.courseId, expectedCourseId, 'Wrong course id');
+      assert.equal(params.unitId, expectedUnitId, 'Wrong unit id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.deleteUnit('course-id', 'unit-id')
+    .then(function() {
+      done();
+    });
+});
