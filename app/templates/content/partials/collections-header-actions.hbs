@@ -1,7 +1,9 @@
 <div class="actions">
   <button class="btn btn-default btn-icon">{{gru-icon name="delete"}}</button>
   <button class="btn btn-default btn-icon">{{gru-icon name="person_add"}}</button>
-  <button class="btn btn-default btn-icon">{{gru-icon name="insert_link"}}</button>
+  {{#gru-share-pop-over tagName="button" type="collection"}}
+    {{gru-icon name="insert_link"}}
+  {{/gru-share-pop-over}}
   <button class="btn btn-default hidden">{{t "content.collections.edit.assign-to-course"}}</button>
   <button class="btn btn-default">{{t "common.preview"}}</button>
 </div>

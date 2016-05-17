@@ -51,11 +51,12 @@ export default Ember.Component.extend({
     switch(this.get('type')) {
       case 'course':
         const courseId = this.get('router.router.state.params')['content.courses.edit'].courseId;
-        return window.location.protocol+ `//`+ window.location.host+`/content/courses/play/`+courseId;
+        return `${window.location.protocol}//${window.location.host}/content/courses/play/${courseId}`;
       case 'assessment':
         break;
       case 'collection':
-        break;
+        const collectionId = this.get('router.router.state.params')['content.collections.edit'].collectionId;
+        return `${window.location.protocol}//${window.location.host}/player/${collectionId}`;
       default:
         break;
     }

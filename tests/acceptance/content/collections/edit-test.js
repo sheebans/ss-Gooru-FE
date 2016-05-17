@@ -1,6 +1,7 @@
 import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
+import T from 'gooru-web/tests/helpers/assert';
 
 moduleForAcceptance('Acceptance | Edit Collection', {
   beforeEach: function () {
@@ -57,6 +58,25 @@ test('Edit collection information', function (assert) {
           assert.equal($contentPanel.find('.learning-objectives b').text(), newLearningObjectives, 'Learning objectives updated');
         });
       });
+    });
+  });
+});
+
+test('Click share button', function (assert) {
+  visit('/content/collections/edit/123');
+
+  andThen(function () {
+    assert.equal(currentURL(), '/content/collections/edit/123');
+    var $shareButton = find(".gru-share-pop-over");
+
+    click($shareButton);
+    andThen(function () {
+      var $popOverContent = find(".gru-share-pop-over-content");
+
+      T.exists(assert, $popOverContent.find('p'), "Missing share title");
+      T.exists(assert, $popOverContent.find('.share-actions #collection-popover-input'), "Missing readonly input");
+      var $copyBtn = $popOverContent.find('.share-actions .copy-btn');
+      T.exists(assert, $copyBtn, "Missing copy button");
     });
   });
 });
