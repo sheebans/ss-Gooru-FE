@@ -43,10 +43,12 @@ Router.map(function() {
 
     this.route('resources', function () {
       this.route('edit', {path: '/edit/:resourceId'});
+      this.route('play', {path: '/play/:resourceId'});
     });
 
     this.route('questions', function () {
       this.route('edit', {path: '/edit/:questionId'});
+      this.route('play', {path: '/play/:questionId'});
     });
   });
 

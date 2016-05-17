@@ -83,6 +83,8 @@ export default {
     "course-title": "Course Title",
     "courses": "Courses",
     "create": "Create",
+    "created-by":"Created by",
+    "delete":"Delete",
     "description": "Description",
     "district": "District",
     "domain": "Domain",
@@ -233,6 +235,7 @@ export default {
       "HT_HL"  : "Hot Text Highlight"
     },
     "reaction": "Reaction",
+    "remixed-by": "Remixed by",
     "request-to":"Request to be searchable and featured in Gooru",
     "resource":"Resource",
     "resources": "Resources",
@@ -300,6 +303,7 @@ export default {
     "untitled-unit": "Untitled Unit",
     "update-thumbnail": "Update Thumbnail",
     "upload-thumbnail":"Upload Thumbnail",
+    "use-case": "Use Case",
     "verified": "Verified",
     "yes": "Yes",
     "warnings": {
@@ -497,6 +501,16 @@ export default {
       }
     }
   },
+  "content.modals.delete-content":{
+    "legend":"You are about to delete",
+    "delete-instructions": {
+      "links-inaccessible":"All share links will be inaccessible",
+      "content-inaccessible":"All content will be inaccessible to the classes tied to it"
+    },
+    "delete-warning": "All content in this {{type}} will be deleted",
+    "delete-error": "Oops! Unable to delete {{type}} right now. Please try again shortly.",
+    "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."
+  },
   "content.resources": {
     "edit": {
       "best-practices": "<p>A resource is multimedia content in a variety of formats such as videos, interactives, websites, images, Google docs, and more. Get creative and use your own resources or get “resourceful” and search our ample supply in Gooru.</p><p>Use a variety of resource types to engage your students and include narration so you can help guide your students through the resource.</p><p>We recommend tagging each question to standards, micro-standards and 21st century skills. You can see how your students are interacting with resources through the teacher dashboard.</p>",
@@ -522,7 +536,6 @@ export default {
       "other" : " and teaching {{count}} classes"
     }
   },
-
   /*
    * COMPONENTS: Translations used in a specific component
    */
@@ -533,6 +546,10 @@ export default {
   },
   "gru-share-pop-over":{
     "share-course":"Share your course with link",
+    "share-question":"Share your question with link",
+    "share-resource":"Share your resource with link",
+    "share-assessment":"Share your assessment with link",
+    "share-collection":"Share your collection with link",
     "copy": "Copy"
   },
   "gru-category-panel": {
@@ -861,8 +878,6 @@ export default {
     },
     "gru-course-card":{
       "units":"Units",
-      "remixed-by":"Remixed by",
-      "created":"Created by",
       "in":"in",
       "resource": {
         one: "{{count}} Resource",

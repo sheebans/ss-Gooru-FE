@@ -33,7 +33,6 @@ export default Ember.Route.extend({
 
   model: function (params) {
     var assessment = this.get('assessmentService').readAssessment(params.assessmentId);
-
     var course = null;
 
     if(params.courseId){
@@ -52,6 +51,7 @@ export default Ember.Route.extend({
     // for collections (for example, see: /app/components/content/assessments/gru-assessment-edit.js)
     // and that is why the property 'collection' is being reused here, too.
     controller.set('collection', model.assessment);
+    controller.set('isAssessment',true);
     controller.set('course', model.course);
   }
 

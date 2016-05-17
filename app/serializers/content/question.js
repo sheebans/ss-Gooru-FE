@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { cleanFilename } from 'gooru-web/utils/utils';
 import QuestionModel from 'gooru-web/models/content/question';
 import AnswerModel from 'gooru-web/models/content/answer';
 
@@ -35,13 +36,14 @@ export default Ember.Object.extend({
    */
   serializeUpdateQuestion: function(questionModel) {
     const serializer = this;
+    const isHotSpotImage = questionModel.get('isHotSpotImage');
     return {
       title: questionModel.get('title'),
       description: questionModel.get('text'),
       //'content_subformat': QuestionModel.serializeQuestionType(questionModel.get("type")), // This is not supported on the back end yet
       'visible_on_profile': questionModel.get('isVisibleOnProfile'),
       answer: questionModel.get('answers').map(function(answer, index) {
-        return serializer.serializerAnswer(answer, index + 1);
+        return serializer.serializerAnswer(answer, index + 1, isHotSpotImage);
       })
     };
   },
@@ -53,11 +55,11 @@ export default Ember.Object.extend({
    * @param sequenceNumber - the answer's sequence number
    * @returns {Object}
    */
-  serializerAnswer: function(answerModel, sequenceNumber) {
+  serializerAnswer: function(answerModel, sequenceNumber, isHotSpotImage) {
     return {
       'sequence': sequenceNumber,
       'is_correct': answerModel.get('isCorrect') ? 1 : 0,
-      'answer_text': answerModel.get('text'),
+      'answer_text': isHotSpotImage ? cleanFilename(answerModel.get('text')) : answerModel.get('text'),
       'answer_type': answerModel.get('type')
     };
   },
