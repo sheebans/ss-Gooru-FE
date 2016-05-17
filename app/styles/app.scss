@@ -46,6 +46,7 @@
 @import 'controllers/sign-in';
 @import 'controllers/sign-up';
 @import 'controllers/home';
+@import 'controllers/forgot-password';
 
 
 // TODO: update these components so they follow the naming conventions
@@ -63,10 +64,11 @@
 @import 'components/gru-category-panel';
 @import 'components/gru-emotion-picker';
 @import 'components/gru-footer';
-@import 'components/gru-forgot-password-popup';
 @import 'components/gru-header';
 @import 'components/gru-image-picker';
 @import 'components/gru-modal';
+@import 'components/gru-select';
+@import 'components/gru-share-pop-over';
 @import 'components/gru-standards-popup';
 @import 'components/gru-switch';
 @import 'components/gru-two-tier-header-table';
@@ -77,7 +79,6 @@
 @import 'components/gru-user-sign-up-cancel';
 @import 'components/gru-user-teaser';
 @import 'components/gru-view-layout-picker';
-@import 'components/gru-select';
 
 @import 'components/cards/gru-class-card';
 @import 'components/cards/gru-collection-card';

@@ -58,13 +58,15 @@
           border-top-right-radius: 0;
         }
         .btn-unfollow {
+          background-color: $light-300;
           .unfollow {
             display: none;
           }
           .following {
             display: inline;
           }
-          &:hover {
+          &:hover,
+          &:focus {
             @extend .btn-info;
             .unfollow {
               display: inline;
