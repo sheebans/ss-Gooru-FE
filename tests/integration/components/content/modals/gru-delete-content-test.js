@@ -26,7 +26,6 @@ test('it renders', function(assert) {
   assert.ok($component.find('h4.modal-title').length, 'Missing Title');
 
   Object.keys(CONTENT_TYPES).forEach(function(question_type) {
-    // Check subtitle specific to each question type
     Ember.run(() => {
       this.set('model.type', CONTENT_TYPES[question_type]);
     });
@@ -110,7 +109,6 @@ test('it calls a generic delete method and then a callback (if provided) after c
   const $component = this.$(".gru-delete-content");
 
   Object.keys(CONTENT_TYPES).forEach(function(question_type) {
-    // Check subtitle specific to each question type
     Ember.run(() => {
       this.set('model.type', CONTENT_TYPES[question_type]);
     });
@@ -162,7 +160,6 @@ test('it calls a generic delete method and then redirects (if a route is provide
   const $component = this.$(".gru-delete-content");
 
   Object.keys(CONTENT_TYPES).forEach(function(question_type) {
-    // Check subtitle specific to each question type
     Ember.run(() => {
       this.set('model.type', CONTENT_TYPES[question_type]);
     });
