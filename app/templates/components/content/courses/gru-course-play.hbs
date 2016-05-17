@@ -2,7 +2,9 @@
   <h1>{{course.title}}</h1>
 
   <div class="actions">
-    <button class="btn btn-default share btn-icon">{{gru-icon name="insert_link"}}</button>
+    {{#gru-share-pop-over tagName="button" type="course"}}
+      {{gru-icon name="insert_link"}}
+    {{/gru-share-pop-over}}
     <button class="btn btn-default remix">{{t "common.remix"}}</button>
     {{#if isOwner}}
       {{#link-to 'content.courses.edit' course.id class="btn btn-default edit" tagName="button"}}{{t "common.edit"}}{{/link-to}}

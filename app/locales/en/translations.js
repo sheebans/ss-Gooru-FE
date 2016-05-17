@@ -522,7 +522,6 @@ export default {
       "other" : " and teaching {{count}} classes"
     }
   },
-
   /*
    * COMPONENTS: Translations used in a specific component
    */
@@ -533,6 +532,10 @@ export default {
   },
   "gru-share-pop-over":{
     "share-course":"Share your course with link",
+    "share-question":"Share your question with link",
+    "share-resource":"Share your resource with link",
+    "share-assessment":"Share your assessment with link",
+    "share-collection":"Share your collection with link",
     "copy": "Copy"
   },
   "gru-category-panel": {
