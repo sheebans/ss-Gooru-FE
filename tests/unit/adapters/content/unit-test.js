@@ -123,7 +123,7 @@ test('Delete Unit', function(assert) {
       return [ 204, { 'Content-Type': 'application/json; charset=utf-8' }, ''];
     }, false);
   });
-  adapter.deleteCourse({courseId: 'course-id', unitId: 'unit-id'})
+  adapter.deleteUnit({courseId: 'course-id', unitId: 'unit-id'})
     .then(function() {
       assert.ok(true);
     });

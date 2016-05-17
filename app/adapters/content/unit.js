@@ -104,7 +104,7 @@ export default Ember.Object.extend({
    * @param params - data to send in the request
    * @returns {Promise}
    */
-  deleteCourse: function(params) {
+  deleteUnit: function(params) {
     const courseId = params.courseId;
     const unitId = params.unitId;
     const adapter = this;
