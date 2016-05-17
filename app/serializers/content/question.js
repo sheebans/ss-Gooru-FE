@@ -78,6 +78,7 @@ export default Ember.Object.extend({
       id: questionData.id,
       title: questionData.title,
       type: format,
+      thumbnail: basePath + questionData.thumbnail,
       text: questionData.description,
       publishStatus: questionData.publish_status,
       standards: serializer.normalizeStandards(standards),
