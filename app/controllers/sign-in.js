@@ -67,11 +67,21 @@ export default Ember.Controller.extend({
     }
   },
 
-  init(){
-    this._super(...arguments);
+  // -------------------------------------------------------------------------
+  // Methods
+
+  /**
+   * init and reset all the properties for the validations
+   */
+
+  resetProperties(){
+    var controller = this;
     var user = User.create(Ember.getOwner(this).ownerInjection(), {username: null, usernameAsync: null, password: null});
-    this.set('user', user);
-    this.set('googleSignInUrl', Env['google-sign-in'].url);
+
+    controller.set('user', user);
+    controller.set('googleSignInUrl', Env['google-sign-in'].url);
+    controller.set('didValidate', false);
+    controller.set('submitFlag', true);
   },
 
 
