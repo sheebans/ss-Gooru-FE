@@ -27,6 +27,7 @@
   > article {
     @include flex();
     padding-bottom: 50px;
+    min-width: 730px;
 
     > header {
       z-index: $zindex-navbar-fixed;
@@ -186,7 +187,7 @@
 
     > div {
       position: fixed;
-      padding-right: $aside-padding - 5;
+      margin-right: $aside-padding - 5;
 
       h4 {
         color: $gray;
@@ -236,16 +237,17 @@
 
     > .content {
 
-      @media(min-width: $screen-sm) {
-        @include flexbox();
+      @include flexbox();
+
+      .gru-image {
+        float: left;
+        margin-right: 20px;
       }
 
       .panel {
         border-radius: 6px;
+        @include flex();
 
-        @media(min-width: $screen-sm) {
-          @include flex();
-        }
         .panel-body {
           padding-top: 10px;
 
