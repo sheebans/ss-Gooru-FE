@@ -125,6 +125,21 @@ export default Ember.Service.extend(StoreMixin, {
       .catch(function (error) {
         return error;
       });
+  },
+
+  /**
+   * Delete unit
+   *
+   * @param {string} courseId - course the unit belongs to
+   * @param unitId The Unit id to delete
+   * @returns {Promise}
+   */
+  deleteUnit: function (courseId, unitId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('adapter').deleteUnit({ courseId, unitId })
+        .then(resolve, reject);
+    });
   }
 
 });

@@ -654,10 +654,11 @@ export default {
 
   "forgot-password": {
     "description": "It happens to all of us.",
-    "usernameOrEmail": "Please enter your email/username",
+    "usernameOrEmail": "Please enter your email",
     "footer-description-1":"You will receive an email with a link to reset your password.",
     "footer-description-2":"If you have any questions, please contact ",
-    "mail":"support@gooru.org"
+    "mail":"support@gooru.org",
+    "error-email-not-exists": "Sorry we don't recognize this email."
   },
 
   "footer": {

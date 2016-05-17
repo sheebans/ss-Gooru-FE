@@ -72,6 +72,12 @@ test('serializeAnswer', function(assert) {
 
 test('normalizeReadQuestion', function(assert) {
   const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'http://test-bucket01.s3.amazonaws.com/'
+    }
+  }));
+
   const questionData = {
     id: 'abcd',
     title: 'question-title',
@@ -79,6 +85,7 @@ test('normalizeReadQuestion', function(assert) {
     description: 'any desc',
     publish_status: 'published',
     taxonomy: ['a', 'b'],
+    thumbnail: "image.png",
     answer: [
       {
         'sequence': 1,
@@ -109,6 +116,7 @@ test('normalizeReadQuestion', function(assert) {
   assert.equal(question.get('standards').length, 2, 'Wrong standards');
   assert.equal(question.get('type'), 'MA', 'Wrong format'); //format is converted at the normalizer
   assert.equal(question.get('isVisibleOnProfile'), true, 'Wrong format');
+  assert.equal(question.get('thumbnail'), "http://test-bucket01.s3.amazonaws.com/image.png", 'Wrong thumbnail');
   assert.equal(question.get('answers').length, 3, 'Wrong answers array length');
 });
 
