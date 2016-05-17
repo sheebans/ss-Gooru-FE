@@ -2,6 +2,7 @@
 .content_collections_edit .app-container,
 .content_courses_edit .app-container,
 .content_courses_play .app-container,
+.content_questions_play .app-container,
 .content_questions_edit .app-container,
 .content_resources_edit .app-container {
   padding-left: 0;
@@ -17,6 +18,7 @@
 .controller.content.courses.edit,
 .controller.content.courses.play,
 .controller.content.questions.edit,
+.controller.content.questions.play,
 .controller.content.resources.edit {
   $aside-padding: 25px;
 
