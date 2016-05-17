@@ -87,7 +87,7 @@ test('Delete Course', function(assert) {
       title:"Course Title"
     },
     type: 'course',
-    deleteMethod:this.get('api-sdk/course').deleteCourse,
+    deleteMethod:this.get('api-sdk/course').deleteCourse.bind(this.get('api-sdk/course')),
     redirect:{
       route:'profile.content',
       params:{

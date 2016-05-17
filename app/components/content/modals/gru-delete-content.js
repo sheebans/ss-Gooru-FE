@@ -42,6 +42,7 @@ export default Ember.Component.extend({
           }
         })
         .catch(function (error) {
+          console.log(error);
           var message = component.get('i18n').t('common.errors.course-not-deleted').string;
           component.get('notifications').error(message);
           Ember.Logger.error(error);
