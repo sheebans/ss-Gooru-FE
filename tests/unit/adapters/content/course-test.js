@@ -95,7 +95,7 @@ test('deleteCourse', function(assert) {
     'token-api3': 'token-api-3'
   }));
   this.pretender.map(function() {
-    this.post('/api/nucleus/v1/courses/course-id', function() {
+    this.delete('/api/nucleus/v1/courses/course-id', function() {
       return [ 204, { 'Content-Type': 'application/json; charset=utf-8' }, ''];
     }, false);
   });
