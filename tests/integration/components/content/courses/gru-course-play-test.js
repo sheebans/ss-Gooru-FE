@@ -27,7 +27,7 @@ test('it has correct header when user is course owner', function (assert) {
   const $actions = $header.find('> .actions');
   assert.ok($actions.length, "Header actions");
   assert.equal($actions.find(' > button').length, 4, "Number of header actions");
-  assert.ok($actions.find('> button.share').length, "Share button");
+  assert.ok($actions.find('> button.gru-share-pop-over').length, "Share button");
   assert.ok($actions.find('> button.remix').length, "Remix button");
   assert.ok($actions.find('> button.edit').length, "Edit button");
   assert.ok($actions.find('> button.play').length, "Play button");
@@ -56,7 +56,7 @@ test('it has correct header buttons when user is not course owner', function (as
   const $actions = $container.find('> header > .actions');
   assert.ok($actions.length, "Header actions");
   assert.equal($actions.find(' > button').length, 3, "Number of header actions");
-  assert.ok($actions.find('> button.share').length, "Share button");
+  assert.ok($actions.find('> button.gru-share-pop-over').length, "Share button");
   assert.ok($actions.find('> button.remix').length, "Remix button");
   assert.ok($actions.find('> button.play').length, "Play button");
 });

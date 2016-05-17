@@ -73,6 +73,27 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Deletes a collection by id
+   *
+   * @param collectionId collection id to be sent
+   * @returns {Promise}
+   */
+  deleteCollection: function(collectionId) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${collectionId}`;
+    const options = {
+      type: 'DELETE',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({})
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
    * Adds a resource to a collection
    *
    * @param {string} collectionId

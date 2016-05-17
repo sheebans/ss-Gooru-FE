@@ -34,6 +34,8 @@ export default Ember.Component.extend({
   url:null,
 
 
+
+
   /**
    * @property {string} template to be used for the popover window
    */
@@ -48,14 +50,19 @@ export default Ember.Component.extend({
  }),
 
   shareUrl: Ember.computed('type', function(){
+    var params = this.get('router.router.state.params');
+    params = params[Object.keys(params)[3]];
     switch(this.get('type')) {
       case 'course':
-        const courseId = this.get('router.router.state.params')['content.courses.edit'].courseId;
-        return window.location.protocol+ `//`+ window.location.host+`/content/courses/play/`+courseId;
+        return `${window.location.protocol}//${window.location.host}/content/courses/play/${params.courseId}`;
       case 'assessment':
-        break;
+        return `${window.location.protocol}//${window.location.host}/player/${params.assessmentId}`;
       case 'collection':
-        break;
+        return `${window.location.protocol}//${window.location.host}/player/${params.collectionId}`;
+      case 'resource':
+        return `${window.location.protocol}//${window.location.host}/content/resources/play/${params.resourceId}`;
+      case 'question':
+        return `${window.location.protocol}//${window.location.host}/content/question/play/${params.questionId}`;
       default:
         break;
     }
