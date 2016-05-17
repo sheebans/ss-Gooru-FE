@@ -84,6 +84,7 @@ export default {
     "courses": "Courses",
     "create": "Create",
     "created-by":"Created by",
+    "delete":"Delete",
     "description": "Description",
     "district": "District",
     "domain": "Domain",
@@ -499,6 +500,16 @@ export default {
         "T/F":"Write your question. Character limit: 5000."
       }
     }
+  },
+  "content.modals.delete-content":{
+    "legend":"You are about to delete",
+    "delete-instructions": {
+      "links-inaccessible":"All share links will be inaccessible",
+      "content-inaccessible":"All content will be inaccessible to the classes tied to it"
+    },
+    "delete-warning": "All content in this {{type}} will be deleted",
+    "delete-error": "Oops! Unable to delete {{type}} right now. Please try again shortly.",
+    "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."
   },
   "content.resources": {
     "edit": {
