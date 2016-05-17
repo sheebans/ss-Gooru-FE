@@ -67,14 +67,6 @@ test('Click share button and check clipboard functionality', function (assert) {
       T.exists(assert, $popOverContent.find('.share-actions #course-popover-input'), "Missing readonly input");
       var $copyBtn = $popOverContent.find('.share-actions .copy-btn');
       T.exists(assert, $copyBtn, "Missing copy button");
-
-      //Is there a way to check the clipboards contents?
-      /*click($copyBtn);
-      andThen(function () {
-        assert.equal($contentPanel.find('.title b').text(), newTitle, 'Course title updated');
-        // TODO: add support for saving audience
-        // assert.equal($contentPanel.find('.gru-audience  > div > div.btn-empty').length, 1, 'Audience value updated');
-      });*/
     });
   });
 });

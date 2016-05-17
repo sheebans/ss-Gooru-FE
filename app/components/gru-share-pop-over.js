@@ -48,14 +48,23 @@ export default Ember.Component.extend({
  }),
 
   shareUrl: Ember.computed('type', function(){
+    var params = this.get('router.router.state.params');
     switch(this.get('type')) {
       case 'course':
-        const courseId = this.get('router.router.state.params')['content.courses.edit'].courseId;
-        return window.location.protocol+ `//`+ window.location.host+`/content/courses/play/`+courseId;
+        const courseId = params['content.courses.edit'].courseId;
+        return `${window.location.protocol}//${window.location.host}/content/courses/play/${courseId}`;
       case 'assessment':
-        break;
+        const assessmentId = params['content.assessments.edit'].assessmentId;
+        return `${window.location.protocol}//${window.location.host}/player/${assessmentId}`;
       case 'collection':
-        break;
+        const collectionId = params['content.collections.edit'].collectionId;
+        return `${window.location.protocol}//${window.location.host}/player/${collectionId}`;
+      case 'resource':
+        const resourceId = params['content.resources.edit'].resourceId;
+        return `${window.location.protocol}//${window.location.host}/content/resources/play/${resourceId}`;
+      case 'question':
+        const questionId = params['content.questions.edit'].questionId;
+        return `${window.location.protocol}//${window.location.host}/content/resources/play/${questionId}`;
       default:
         break;
     }
