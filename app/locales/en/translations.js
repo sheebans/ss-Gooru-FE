@@ -140,7 +140,7 @@ export default {
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
       "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly.",
       "unit-title-required" : "Please enter the unit title.",
-      "user-username-presence" : "Please enter a valid username."
+      "user-email-presence" : "Please enter a valid email."
     },
     "essential-questions": "Essential Questions",
     "explanation": "Explanation",
@@ -647,7 +647,7 @@ export default {
 
   "forgot-password": {
     "description": "It happens to all of us.",
-    "usernameOrEmail": "Please enter your email/username",
+    "usernameOrEmail": "Please enter your email",
     "footer-description-1":"You will receive an email with a link to reset your password.",
     "footer-description-2":"If you have any questions, please contact ",
     "mail":"support@gooru.org",
