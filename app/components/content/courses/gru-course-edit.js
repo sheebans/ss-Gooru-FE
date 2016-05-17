@@ -49,26 +49,29 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
       this.set('tempCourse', courseForEditing);
       this.set('isEditing', true);
     },
+
     /**
      * Delete course
      */
     deleteCourse: function () {
       const myId = this.get("session.userId");
-      let modalModel = {
-          content:this.get('course'),
-          deleteMethod:this.get('courseService').deleteCourse.bind(this.get('courseService')),
-          type: CONTENT_TYPES.COURSE,
-          redirect:{
-            route:'profile.content',
-            params:{
-              id:myId
-            }
-          },
-          callback: null,
+      var model = {
+        content: this.get('course'),
+        deleteMethod: function () {
+          return this.get('courseService').deleteCourse(this.get('course.id'));
+        }.bind(this),
+        type: CONTENT_TYPES.COURSE,
+        redirect: {
+          route: 'profile.content',
+          params: {
+            id: myId
+          }
+        }
       };
+
       this.actions.showModal.call(this,
         'content.modals.gru-delete-content',
-        modalModel, null, null, null, false);
+        model, null, null, null, false);
     },
 
     /**
@@ -135,8 +138,6 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
    * Copy of the course model used for editing.
    * @property {Course}
    */
-  tempCourse: null,
-
-
+  tempCourse: null
 
 });
