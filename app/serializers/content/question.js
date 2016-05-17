@@ -9,6 +9,7 @@ import AnswerModel from 'gooru-web/models/content/answer';
  */
 export default Ember.Object.extend({
 
+  session: Ember.inject.service('session'),
 
   /**
    * Serialize a Question object into a JSON representation required by the Create Question endpoint
@@ -69,21 +70,32 @@ export default Ember.Object.extend({
    */
   normalizeReadQuestion: function(questionData, index){
     const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+
     const format = QuestionModel.normalizeQuestionType(questionData.content_subformat);
     const standards = questionData.taxonomy || [];
-    return QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
+    const question = QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: questionData.id,
       title: questionData.title,
       type: format,
+      thumbnail: basePath + questionData.thumbnail,
       text: questionData.description,
       publishStatus: questionData.publish_status,
       standards: serializer.normalizeStandards(standards),
-      answers: serializer.normalizeAnswerArray(questionData.answer),
       hints: null, //TODO
       explanation: null, //TODO
       isVisibleOnProfile: typeof questionData['visible_on_profile'] !== 'undefined' ? questionData['visible_on_profile'] : true,
       order: index + 1//TODO is this ok?
     });
+
+    const answers = serializer.normalizeAnswerArray(questionData.answer);
+    if (question.get("isHotSpotImage")){
+      answers.forEach(function(answer){ //adding the basepath for HS Image
+        answer.set("text", basePath + answer.get("text"));
+      });
+    }
+    question.set("answers", answers);
+    return question;
   },
 
   /**
@@ -114,7 +126,7 @@ export default Ember.Object.extend({
     return AnswerModel.create(Ember.getOwner(this).ownerInjection(),{
       id: `answer_${id}`,
       sequence: answerData.sequence,
-      isCorrect: answerData['is_correct'] === 1,
+      isCorrect: answerData['is_correct'] === 1 || answerData['is_correct'] === true,
       text: answerData['answer_text'],
       type: answerData['answer_type']
     });

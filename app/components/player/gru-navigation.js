@@ -74,7 +74,20 @@ export default Ember.Component.extend({
    * Indicates if changes can be made
    * @property {boolean} readOnly
    */
-  readOnly: Ember.computed.alias("submitted")
+  readOnly: Ember.computed.alias("submitted"),
+
+  /**
+   * @property {Collection
+   */
+  collection: null,
+
+  /**
+   * Indicates if it should show the submit all functionality
+   * @property {boolean}
+   */
+  showSubmitAll: Ember.computed("submitted", "collection.isAssessment", function(){
+    return !this.get("submitted") && this.get("collection.isAssessment");
+  })
 
   // -------------------------------------------------------------------------
   // Methods
