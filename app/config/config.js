@@ -41,7 +41,7 @@ export const CONTENT_TYPES = {
   COLLECTION: 'collection',
   ASSESSMENT: 'assessment',
   COURSE: 'course',
-  UNIT:'unit'
+  UNIT: 'unit'
 };
 
 export const KEY_CODES = {

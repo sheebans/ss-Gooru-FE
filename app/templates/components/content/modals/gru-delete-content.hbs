@@ -1,49 +1,40 @@
 <div class="modal-header delete">
-    <h4 class="modal-title">{{t "common.delete"}} {{t (concat 'common.' model.type)}}</h4>
+  <h4 class="modal-title">{{t "common.delete"}} {{t (concat 'common.' model.type)}}</h4>
 </div>
 <div class="modal-body">
-    <form {{action "deleteContent" model on="submit"}}>
-        <p class="legend">{{t "content.modals.delete-content.legend"}} <b>{{model.content.title}}</b></p>
-        <div class="delete-info">
-            <ul>
-                <li>
-                    <label>
-                      {{input type="checkbox" checked=validator.check1}}
-                        <span>{{t "content.modals.delete-content.delete-instructions.links-inaccessible"}}</span>
-                    </label>
-                </li>
-                <li>
-                    <label>
-                      {{input type="checkbox" checked=validator.check2}}
-                        <span>{{t "content.modals.delete-content.delete-instructions.content-inaccessible"}}</span>
-                    </label>
-                </li>
-              {{#if (eq model.type types.COURSE)}}
-                <li>
-                    <label>
-                      {{input type="checkbox" checked=validator.check3}}
-                        <span>{{t "content.modals.delete-content.delete-instructions.course-deleted"}}</span>
-                    </label>
-                </li>
-                {{else}}
-                  <li>
-                      <label>
-                        {{input type="checkbox" checked=validator.check3}}
-                          <span>{{t "content.modals.delete-content.delete-instructions.unit-content-delete"}}</span>
-                      </label>
-                  </li>
-              {{/if}}
-            </ul>
-        </div>
-        <p class="confirmation">{{t "content.modals.delete-content.confirmation"}}</p>
-        {{input class="delete-input" value=validator.confirm}}
-        <div class="actions delete">
-            <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
-                <span aria-hidden="true">{{t 'common.cancel'}}</span>
-            </button>
-            <button type="submit" class="btn btn-warning delete" disabled={{isDisabled}}>{{t 'common.delete'}}</button>
-        </div>
+  <form {{action "deleteContent" model on="submit"}}>
+    <p class="legend">{{t "content.modals.delete-content.legend"}} <b>{{model.content.title}}</b></p>
+    <div class="delete-info">
+      <ul>
+        <li>
+          <label>
+            {{input type="checkbox" checked=validator.check1}}
+            <span>{{t "content.modals.delete-content.delete-instructions.links-inaccessible"}}</span>
+          </label>
+        </li>
+        <li>
+          <label>
+            {{input type="checkbox" checked=validator.check2}}
+            <span>{{t "content.modals.delete-content.delete-instructions.content-inaccessible"}}</span>
+          </label>
+        </li>
+        <li>
+          <label>
+            {{input type="checkbox" checked=validator.check3}}
+            <span>{{t "content.modals.delete-content.delete-warning" type=(t (concat 'common.' model.type))}}</span>
+          </label>
+        </li>
+      </ul>
+    </div>
+    <p class="confirmation">{{t "content.modals.delete-content.confirmation"}}</p>
+    {{input class="delete-input" value=validator.confirm}}
+    <div class="actions delete">
+      <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
+        <span aria-hidden="true">{{t 'common.cancel'}}</span>
+      </button>
+      <button type="submit" class="btn btn-warning delete" disabled={{isDisabled}}>{{t 'common.delete'}}</button>
+    </div>
 
-    </form>
+  </form>
 </div>
 

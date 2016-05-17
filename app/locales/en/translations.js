@@ -119,7 +119,6 @@ export default {
       "collection-title-presence" : "Please enter the collection title.",
       "correct-answer-presence": "Please indicate the correct answer.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
-      "course-not-deleted": "Oops! Unable to delete course right now. Please try again shortly.",
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
       "hotspot-text-max-choices": "You have reached the limit of answers choices.",
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
@@ -501,13 +500,13 @@ export default {
   },
   "content.modals.delete-content":{
     "legend":"You are about to delete",
-    "delete-instructions":{
+    "delete-instructions": {
       "links-inaccessible":"All share links will be inaccessible",
-      "content-inaccessible":"All content will be inaccessible to the classes tied to it",
-      "unit-content-deleted":"All content in this unit will be deleted",
-      "course-deleted":"All content in this course will be deleted"
+      "content-inaccessible":"All content will be inaccessible to the classes tied to it"
     },
-    "confirmation":"Are you sure you want to continue? Please type “delete” below and click “delete”."
+    "delete-warning": "All content in this {{type}} will be deleted",
+    "delete-error": "Oops! Unable to delete {{type}} right now. Please try again shortly.",
+    "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."
   },
   "content.resources": {
     "edit": {
