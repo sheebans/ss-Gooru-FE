@@ -5,7 +5,7 @@
     <button class="btn btn-default share btn-icon">{{gru-icon name="insert_link"}}</button>
     <button class="btn btn-default remix">{{t "common.remix"}}</button>
     {{#if isOwner}}
-      <button class="btn btn-default edit">{{t "common.edit"}}</button>
+      {{#link-to 'content.courses.edit' course.id class="btn btn-default edit" tagName="button"}}{{t "common.edit"}}{{/link-to}}
     {{/if}}
     <button class="btn btn-default play btn-success">{{t "common.play"}}</button>
   </div>
