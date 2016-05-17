@@ -48,7 +48,7 @@ export default GruHSTextComponent.extend({
   answers: Ember.computed.map('question.answers', function(answer) {
     return {
       id: answer.get('id'),
-      content: this.get('question.assetBasePath') + answer.get('text')
+      content: answer.get('text')
     };
   })
 
