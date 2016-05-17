@@ -98,6 +98,29 @@ export default Ember.Object.extend({
     });
   },
 
+  /**
+   * Deletes a unit by id
+   *
+   * @param params - data to send in the request
+   * @returns {Promise}
+   */
+  deleteCourse: function(params) {
+    const courseId = params.courseId;
+    const unitId = params.unitId;
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${courseId}/units/${unitId}`;
+    const options = {
+      type: 'DELETE',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({})
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function () {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')
