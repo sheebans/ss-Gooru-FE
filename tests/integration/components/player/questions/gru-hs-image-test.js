@@ -43,10 +43,11 @@ test('Layout', function (assert) {
   assert.equal($answersContainer.find("li.answer").length, 3, "Incorrect number of answer choices");
 
   assert.equal($answersContainer.find("li.answer:first-child").data('id'), 1, "First answer choice, data-id value is incorrect");
-  assert.equal($answersContainer.find("li.answer:first-child img").prop('src'), "http://test-base-path/test-1.png", "First image path is not set correctly");
+  const $firstImage = $answersContainer.find("li.answer:first-child img");
+  assert.ok($firstImage.prop('src').indexOf("test-1.png") >= 0, "First image path is not set correctly");
   assert.equal($answersContainer.find("li.answer:last-child").data('id'), 3, "Last answer choice, data-id value is incorrect");
   const $image = $answersContainer.find("li.answer:last-child img");
-  assert.ok($image.prop('src').contains("test-3.png"), "Last image path is not set correctly");
+  assert.ok($image.prop('src').indexOf("test-3.png") >= 0, "Last image path is not set correctly");
 });
 
 test('Selecting answers', function (assert) {
@@ -252,7 +253,6 @@ test('Set two questions', function (assert) {
   let question1 = Ember.Object.create({
     "id": "569906aa04f742731bd4e896",
     isHotSpotImage: true,
-    "assetBasePath": "http://test-base-path/",
     questionType: 'HS_IMG',
     text: 'Sample Question HS_IMG 2',
     hints: [],
@@ -278,9 +278,11 @@ test('Set two questions', function (assert) {
   const $answersContainer = $component.find('.answer-choices');
 
   assert.ok($component.find(".instructions"), "Missing instructions");
-  const $image = $answersContainer.find("li.answer:first-child img");
 
-  assert.ok($image.prop('src').contains("test-1.png"), "Incorrect Answer");
+  let $image = $answersContainer.find("li.answer:first-child img");
+  assert.ok($image.prop('src').indexOf("test-1.png") >= 0 , "Incorrect Answer");
   this.set('question', question1);
-  assert.ok($image.prop('src').contains("test-4.png"), "Incorrect Answer");
+
+  $image = $answersContainer.find("li.answer:first-child img");
+  assert.ok($image.prop('src').indexOf("test-4.png") >= 0, "Incorrect Answer");
 });

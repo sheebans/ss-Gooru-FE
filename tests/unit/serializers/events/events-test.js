@@ -84,7 +84,8 @@ test('serializeReaction', function(assert) {
     courseId: 'course-id',
     unitId: 'unit-id',
     lessonId: 'lesson-id',
-    collectionType:'collection'
+    collectionType:'collection',
+    isStudent: true
   });
   const resourceResult = QuestionResult.create({
     resource: Ember.Object.create({ id: 'resource-id' }),
@@ -113,7 +114,7 @@ test('serializeReaction', function(assert) {
     },
     version: { logApi: '3.0' },
     metrics: {},
-    payLoadObject: { isStudent: false }
+    payLoadObject: { isStudent: true }
   }];
 
   assert.deepEqual(expected, response, 'Wrong response');

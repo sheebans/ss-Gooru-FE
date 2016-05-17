@@ -10,20 +10,24 @@
     </div>
     {{reports.gru-assessment-report assessmentResult=assessmentResult }}
   {{else}}
-    {{player.gru-navigation
-    collection=collection
-    submitted=assessmentResult.submitted
-    ratingScore=resourceResult.reaction
-    onFinishCollection="finishCollection"
-    onOpenNavigator="openNavigator"
-    onChangeEmotion="changeEmotion"}}
+    {{#if collection.hasResources }}
+      {{player.gru-navigation
+      collection=collection
+      submitted=assessmentResult.submitted
+      ratingScore=resourceResult.reaction
+      onFinishCollection="finishCollection"
+      onOpenNavigator="openNavigator"
+      onChangeEmotion="changeEmotion"}}
 
-    {{player.gru-viewer
-    submitted=assessmentResult.submitted
-    resource=resource
-    resourceResult=resourceResult
-    collection=collection
-    onSubmitQuestion="submitQuestion"}}
+      {{player.gru-viewer
+      submitted=assessmentResult.submitted
+      resource=resource
+      resourceResult=resourceResult
+      collection=collection
+      onSubmitQuestion="submitQuestion"}}
+    {{else}}
+      {{! TODO add the not found component here}}
+    {{/if}}
   {{/if}}
 </div>
 {{#unless showReport}}

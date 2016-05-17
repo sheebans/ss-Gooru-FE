@@ -9,6 +9,7 @@ import AnswerModel from 'gooru-web/models/content/answer';
  */
 export default Ember.Object.extend({
 
+  session: Ember.inject.service('session'),
 
   /**
    * Serialize a Question object into a JSON representation required by the Create Question endpoint
