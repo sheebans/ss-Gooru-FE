@@ -18,7 +18,7 @@ export default Ember.Route.extend({
   },
 
   model: function (params) {
-    var question = this.get('questionService').readQuestion(params.Id);
+    var question = this.get('questionService').readQuestion(params.questionId);
 
     return Ember.RSVP.hash({
       question: question
