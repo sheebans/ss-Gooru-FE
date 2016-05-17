@@ -28,21 +28,12 @@ test('Layout', function (assert) {
       "hints": []
     });
 
-  const collection = Ember.Object.create({
-    collectionType: "assessment",
-    resources: Ember.A([question]),
-    isLastResource: function(){
-      return true;
-    }
-  });
-
   const questionResult = QuestionResult.create();
 
   this.set('questionResult', questionResult);
   this.set('question', question);
-  this.set('collection',collection);
 
-  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult}}`);
 
   var $component = this.$(); //component dom element
 
@@ -82,19 +73,10 @@ test('Submit button should become enabled and call action on submit', function (
       "hasMedia": true
     });
 
-  const collection = Ember.Object.create({
-    collectionType: "assessment",
-    resources: Ember.A([question]),
-    isLastResource: function(){
-      return true;
-    }
-  });
-
   const questionResult = QuestionResult.create();
 
   this.set('questionResult', questionResult);
   this.set('question', question);
-  this.set('collection',collection);
 
   this.on("mySubmitQuestion", function(question, questionResult){
     assert.equal(question.get("id"), 10, "Wrong id");
@@ -102,7 +84,7 @@ test('Submit button should become enabled and call action on submit', function (
     assert.equal(questionResult.get("userAnswer"), "test", "Wrong id");
   });
   this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult
-      onSubmitQuestion="mySubmitQuestion" collection=collection}}`);
+      onSubmitQuestion="mySubmitQuestion"}}`);
 
   var $component = this.$(); //component dom element
 
@@ -138,22 +120,12 @@ test('Clicking on the "Hints" button should display a certain number of hints an
         }
       ]
     });
-
-  const collection = Ember.Object.create({
-    collectionType: "assessment",
-    resources: Ember.A([question]),
-    isLastResource: function(){
-      return true;
-    }
-  });
-
   const questionResult = QuestionResult.create();
 
   this.set('questionResult', questionResult);
   this.set('question', question);
-  this.set('collection',collection);
 
-  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult}}`);
 
   var $infoSection = this.$(".question-panel").eq(0);
   assert.ok($infoSection.find(".hints"), "Missing hints section");
@@ -182,20 +154,11 @@ test('Clicking on the "Explanation" button should display an explanation and the
     "explanation": "<p>This is a test explanation</p>"
   });
 
-  const collection = Ember.Object.create({
-    collectionType: "assessment",
-    resources: Ember.A([question]),
-    isLastResource: function(){
-      return true;
-    }
-  });
-
   const questionResult = QuestionResult.create();
 
   this.set('questionResult', questionResult);
   this.set('question', question);
-  this.set('collection', collection);
-  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult}}`);
 
   var $infoSection = this.$(".question-panel").eq(0);
   assert.ok(!$infoSection.find(".btn-group .explanation").attr('disabled'), 'Explanation button should be enabled');
@@ -207,7 +170,7 @@ test('Clicking on the "Explanation" button should display an explanation and the
   assert.ok($infoSection.find(".btn-group .explanation").attr('disabled'), 'Explanation button should be disabled');
 });
 
-test('Save Button Text when assessment and not last resource', function (assert) {
+test('Save Button Text key', function (assert) {
 
   assert.expect(1);
 
@@ -222,141 +185,17 @@ test('Save Button Text when assessment and not last resource', function (assert)
       "hints": []
     });
 
-  const collection = Ember.Object.create({
-    collectionType: "assessment",
-    isAssessment: true,
-    resources: Ember.A([question]),
-    isLastResource: function(){
-      return false;
-    }
-  });
-
   const questionResult = QuestionResult.create();
 
   this.set('questionResult', questionResult);
   this.set('question', question);
-  this.set('collection',collection);
 
-  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult buttonTextKey='common.save-next'}}`);
 
   var $component = this.$(); //component dom element
   var $answerPanel = $component.find(".answers-panel");
   const $saveButton = $answerPanel.find(".actions button.save");
   assert.equal(T.text($saveButton), this.i18n.t('common.save-next').toString(), 'Wrong button text');
-});
-
-test('Save Button Text when assessment and last resource', function (assert) {
-
-  assert.expect(1);
-
-  const question = Ember.Object.create(
-    {
-      "id": 10,
-      "order": 2,
-      "text": "Dummy question text",
-      "mediaUrl": "test.jpg",
-      "questionType": 'OE',
-      "hasMedia": true,
-      "hints": []
-    });
-
-  const collection = Ember.Object.create({
-    collectionType: "assessment",
-    resources: Ember.A([question]),
-    isAssessment: true,
-    isLastResource: function(){
-      return true;
-    }
-  });
-
-  const questionResult = QuestionResult.create();
-
-  this.set('questionResult', questionResult);
-  this.set('question', question);
-  this.set('collection',collection);
-
-  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
-
-  var $component = this.$(); //component dom element
-  var $answerPanel = $component.find(".answers-panel");
-  const $saveButton = $answerPanel.find(".actions button.save");
-  assert.equal(T.text($saveButton), this.i18n.t('common.save-submit').toString(), 'Wrong button text');
-});
-
-test('Save Button Text when collection and not last resource', function (assert) {
-
-  assert.expect(1);
-
-  const question = Ember.Object.create(
-    {
-      "id": 10,
-      "order": 2,
-      "text": "Dummy question text",
-      "mediaUrl": "test.jpg",
-      "questionType": 'OE',
-      "hasMedia": true,
-      "hints": []
-    });
-
-  const collection = Ember.Object.create({
-    collectionType: "collection",
-    isAssessment: false,
-    resources: Ember.A([question]),
-    isLastResource: function(){
-      return false;
-    }
-  });
-
-  const questionResult = QuestionResult.create();
-
-  this.set('questionResult', questionResult);
-  this.set('question', question);
-  this.set('collection',collection);
-
-  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
-
-  var $component = this.$(); //component dom element
-  var $answerPanel = $component.find(".answers-panel");
-  const $saveButton = $answerPanel.find(".actions button.save");
-  assert.equal(T.text($saveButton), this.i18n.t('common.save-next').toString(), 'Wrong button text');
-});
-
-test('Save Button Text when collection and last resource', function (assert) {
-
-  assert.expect(1);
-
-  const question = Ember.Object.create(
-    {
-      "id": 10,
-      "order": 2,
-      "text": "Dummy question text",
-      "mediaUrl": "test.jpg",
-      "questionType": 'OE',
-      "hasMedia": true,
-      "hints": []
-    });
-
-  const collection = Ember.Object.create({
-    collectionType: "collection",
-    isAssessment: false,
-    resources: Ember.A([question]),
-    isLastResource: function(){
-      return true;
-    }
-  });
-
-  const questionResult = QuestionResult.create();
-
-  this.set('questionResult', questionResult);
-  this.set('question', question);
-  this.set('collection',collection);
-
-  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult collection=collection}}`);
-
-  var $component = this.$(); //component dom element
-  var $answerPanel = $component.find(".answers-panel");
-  const $saveButton = $answerPanel.find(".actions button.save");
-  assert.equal(T.text($saveButton), this.i18n.t('common.save-finish').toString(), 'Wrong button text');
 });
 
 test('Submit button disabled when submitted', function (assert) {
@@ -372,22 +211,13 @@ test('Submit button disabled when submitted', function (assert) {
       "hasMedia": true
     });
 
-  const collection = Ember.Object.create({
-    collectionType: "assessment",
-    resources: Ember.A([question]),
-    isLastResource: function(){
-      return true;
-    }
-  });
-
   const questionResult = QuestionResult.create();
 
   this.set('questionResult', questionResult);
   this.set('question', question);
-  this.set('collection',collection);
 
   this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult
-      submitted=true collection=collection}}`);
+      submitted=true}}`);
 
   var $component = this.$(); //component dom element
 
