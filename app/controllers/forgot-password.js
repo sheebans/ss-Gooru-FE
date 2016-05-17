@@ -52,10 +52,21 @@ export default Ember.Controller.extend({
     }
   },
 
-  init(){
-    this._super(...arguments);
+  // -------------------------------------------------------------------------
+  // Methods
+
+  /**
+   * init and reset all the properties for the validations
+   */
+
+  resetProperties(){
+    var controller = this;
     var user = User.create(Ember.getOwner(this).ownerInjection(), {email: null, emailAsync: null});
-    this.set('user', user);
+
+    controller.set('user', user);
+    controller.set("showSecondStep", false);
+    controller.set('didValidate', false);
+    controller.set('submitFlag', true);
   },
 
 
