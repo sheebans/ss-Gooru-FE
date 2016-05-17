@@ -102,3 +102,23 @@ test('addQuestion', function(assert) {
     done();
   });
 });
+
+test('deleteAssessment', function(assert) {
+  const expectedAssessmentId = 'assessment-id';
+  const service = this.subject();
+
+  assert.expect(1);
+
+  service.set('adapter', Ember.Object.create({
+    deleteAssessment: function(assessmentId) {
+      assert.equal(assessmentId, expectedAssessmentId, 'Wrong assessment id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.deleteAssessment('assessment-id')
+    .then(function() {
+      done();
+    });
+});
