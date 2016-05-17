@@ -103,3 +103,23 @@ test('copyResource', function(assert) {
       done();
     });
 });
+
+test('deleteResource', function(assert) {
+  const expectedResourceId = 'resource-id';
+  const service = this.subject();
+
+  assert.expect(1);
+
+  service.set('resourceAdapter', Ember.Object.create({
+    deleteResource: function(resourceId) {
+      assert.equal(resourceId, expectedResourceId, 'Wrong resource id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.deleteResource('resource-id')
+    .then(function() {
+      done();
+    });
+});
