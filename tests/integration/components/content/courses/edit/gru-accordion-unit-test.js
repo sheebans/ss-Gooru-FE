@@ -9,7 +9,7 @@ const unitServiceStub = Ember.Service.extend({
 
   createUnit(courseId, unit) {
     return new Ember.RSVP.Promise(function (resolve, reject) {
-      if (courseId === 'course-id-faipl' || !unit) {
+      if (courseId === 'course-id-fail' || !unit) {
         reject({status: 500});
       } else {
         unit.set('id', 'unit-id-123');

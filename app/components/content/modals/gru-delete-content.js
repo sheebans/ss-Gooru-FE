@@ -30,6 +30,7 @@ export default Ember.Component.extend({
   // Events
   init(){
     this._super(...arguments);
+    // 'validator' should never be set as a param except for testing
     var validator = this.get('validator');
     if (!validator) {
       this.set('validator',Ember.Object.create({
@@ -39,7 +40,7 @@ export default Ember.Component.extend({
         check3:false
       }));
     } else {
-      this.set('validator', validator)
+      this.set('validator', validator);
     }
   },
   // -------------------------------------------------------------------------
