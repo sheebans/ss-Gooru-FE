@@ -1,7 +1,7 @@
 <header>
   <h1>{{t "common.edit-course"}}</h1>
   <div class="actions">
-    <button class="btn btn-default btn-icon">{{gru-icon name="delete"}}</button>
+    <button class="btn btn-default btn-icon" {{action "deleteCourse"}}>{{gru-icon name="delete"}}</button>
     <button class="btn btn-default btn-icon">{{gru-icon name="person_add"}}</button>
     {{#gru-share-pop-over tagName="button" type="course"}}
       {{gru-icon name="insert_link"}}

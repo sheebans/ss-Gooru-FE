@@ -1,14 +1,12 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="header">
-      {{#link-to (if isQuestion 'content.questions.play' 'content.questions.play') resource.id}}
+      {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id}}
         <i class="{{resource.format}}-icon"></i>
       {{/link-to}}
         <div class="collection-info">
           <div>
-            {{#link-to (if isQuestion 'content.questions.play' 'content.questions.play') resource.id}}
-                <h6 class="title truncate" alt="{{{resource.title}}}">{{{resource.title}}}</h6>
-            {{/link-to}}
+            {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id tagName="h6" class="title truncate" alt=resource.title}}{{{resource.title}}}{{/link-to}}
           </div>
           {{#if isQuestion}}
             <div class="question-type">

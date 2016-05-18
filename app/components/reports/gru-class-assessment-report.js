@@ -45,8 +45,7 @@ export default Ember.Component.extend(ModalMixin, {
         reportData: this.get("reportData")
       };
       this.actions.showModal.call(this,
-        'reports.class-assessment.gru-questions-detail',
-        modalModel, null, null, 'gru-questions-detail-modal', true);
+        'reports.class-assessment.gru-questions-detail', modalModel, null, 'gru-questions-detail-modal', true);
     },
 
     /**
@@ -74,8 +73,7 @@ export default Ember.Component.extend(ModalMixin, {
         assessmentResult: assessmentResult
       };
       this.actions.showModal.call(this,
-        'reports.gru-assessment-report', modalModel,
-        null, null, 'gru-assessment-report-modal', true);
+        'reports.gru-assessment-report', modalModel, null, 'gru-assessment-report-modal', true);
     }
   },
 
