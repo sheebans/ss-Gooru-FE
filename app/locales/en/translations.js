@@ -209,10 +209,11 @@ export default {
     "play": "Play",
     "please_contact": "Please contact",
     "pending":"Pending",
-    "publish-to":" Publish to my profile",
-    "publisher": "Publisher",
     "preview": "Preview",
     "profile": "Profile",
+    "publish-to":" Publish to my profile",
+    "published-by": "Published by",
+    "publisher": "Publisher",
     "question":"Question",
     "questions": "Questions",
     "question-pl": {

@@ -4,7 +4,8 @@
 .content_courses_play .app-container,
 .content_questions_play .app-container,
 .content_questions_edit .app-container,
-.content_resources_edit .app-container {
+.content_resources_edit .app-container,
+.content_resources_play .app-container {
   padding-left: 0;
   padding-right: 0;
 
@@ -19,7 +20,8 @@
 .controller.content.courses.play,
 .controller.content.questions.edit,
 .controller.content.questions.play,
-.controller.content.resources.edit {
+.controller.content.resources.edit,
+.controller.content.resources.play {
   $aside-padding: 25px;
 
   @include flexbox();

@@ -88,6 +88,7 @@
           margin: 5px 0 5px 0;
           color: $gray-dark;
           height: 20px;
+          cursor: pointer;
           @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
         }
         .resource-type, .question-type {
