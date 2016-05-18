@@ -1,11 +1,11 @@
 .gru-header {
-  background: #ffffff;
+  background: $white;
   $transparent-opacity: rgba(0, 0, 0, .1);
   box-shadow: 0 2px 30px 0 $transparent-opacity;
   height: 55px;
   top: 0;
   width: 100%;
-  z-index: $zindex-navbar-fixed;
+  z-index: $zindex-navbar-fixed + 1;
 
   .authenticated {
     display: block;
@@ -31,12 +31,13 @@
         @include align-self(flex-start);
         @include align-items(center);
         @include flex-basis(111px);
-        @include flex-grow(1);
+        @include flex-grow(0);
         height: 55px;
         min-width: 111px;
 
         @media(min-width: $screen-sm) {
           @include justify-content(center);
+          @include flex-grow(1);
         }
         @media (min-width: $screen-md) {
           @include flex-basis(111px);
@@ -45,23 +46,25 @@
         }
 
         .navbar-brand {
-          -webkit-transform: scale(.8, .8);
+          @include scale(.8, .8);
           background: url('gooru/images/gooru-logo.svg');
           height: 32px;
           padding: 0;
-          transform: scale(.8, .8);
           width: 111px;
           @media (min-width: $screen-sm) {
-            -ms-transform: scale(1, 1);
-            -webkit-transform: scale(1, 1);
-            transform: scale(1, 1);
+            @include scale(1, 1);
+
           }
         }
       }
 
       .search-navbar-form {
         @include flex-basis(40%);
+        @include flex-grow(2);
         min-width: 50%;
+        @media (min-width: $screen-md) {
+          @include flex-grow(0);
+        }
 
         .form-group {
           @include justify-content(center);
@@ -74,10 +77,12 @@
             height: 58px;
             width: 50%;
           }
+
           span {
             height: 24px;
             margin: 0 5px 0 0;
             min-width: 24px;
+
             i {
               color: $gray-base;
             }
@@ -105,8 +110,12 @@
         }
       }
       .navbar-collapse {
-        @include flex-basis(30%);
-        padding:0;
+        @include flex-basis(10%);
+        padding: 0;
+
+        @media (min-width: $screen-sm) {
+          @include flex-basis(30%);
+        }
       }
 
       .menu-navbar {
