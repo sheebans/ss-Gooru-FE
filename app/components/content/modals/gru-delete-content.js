@@ -30,12 +30,17 @@ export default Ember.Component.extend({
   // Events
   init(){
     this._super(...arguments);
-    this.set('validator',Ember.Object.create({
-      confirm:"",
-      check1:false,
-      check2:false,
-      check3:false
-    }));
+    var validator = this.get('validator');
+    if (!validator) {
+      this.set('validator',Ember.Object.create({
+        confirm:"",
+        check1:false,
+        check2:false,
+        check3:false
+      }));
+    } else {
+      this.set('validator', validator)
+    }
   },
   // -------------------------------------------------------------------------
   // Actions

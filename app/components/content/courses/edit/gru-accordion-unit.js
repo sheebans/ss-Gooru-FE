@@ -21,7 +21,7 @@ export default PlayerAccordionUnit.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Dependencies
   /**
-   * @requires service:api-sdk/course
+   * @requires service:api-sdk/unit
    */
   unitService: Ember.inject.service("api-sdk/unit"),
 
@@ -143,6 +143,6 @@ export default PlayerAccordionUnit.extend(ModalMixin,{
   /**
    * @prop {Content/Unit} tempUnit - Temporary unit model used for editing
    */
-  tempUnit: null,
+  tempUnit: null
 
 });

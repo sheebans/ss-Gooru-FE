@@ -4,13 +4,12 @@ import BuilderItem from 'gooru-web/models/content/builder/item';
 import Lesson from 'gooru-web/models/content/lesson';
 import Unit from 'gooru-web/models/content/unit';
 import Ember from 'ember';
-import wait from 'ember-test-helpers/wait';
 
 const unitServiceStub = Ember.Service.extend({
 
   createUnit(courseId, unit) {
     return new Ember.RSVP.Promise(function (resolve, reject) {
-      if (courseId === 'course-id-fail' || !unit) {
+      if (courseId === 'course-id-faipl' || !unit) {
         reject({status: 500});
       } else {
         unit.set('id', 'unit-id-123');
