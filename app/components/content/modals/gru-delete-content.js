@@ -28,13 +28,21 @@ export default Ember.Component.extend({
   classNames: ['content', 'modals', 'gru-delete-content'],
   // -------------------------------------------------------------------------
   // Events
-
-  willDestroyElement() {
-    this.set('validator.confirm',"");
-    this.set('validator.check1',false);
-    this.set('validator.check2',false);
-    this.set('validator.check3',false);
+  init(){
+    this._super(...arguments);
+    this.set('validator',Ember.Object.create({
+      confirm:"",
+      check1:false,
+      check2:false,
+      check3:false
+    }));
   },
+  //willDestroyElement() {
+  //  this.set('validator.confirm',"");
+  //  this.set('validator.check1',false);
+  //  this.set('validator.check2',false);
+  //  this.set('validator.check3',false);
+  //},
   // -------------------------------------------------------------------------
   // Actions
 
@@ -65,9 +73,6 @@ export default Ember.Component.extend({
           component.get('notifications').error(message);
           Ember.Logger.error(error);
         });
-    },
-    cancel:function(){
-
     }
   },
 
@@ -89,12 +94,7 @@ export default Ember.Component.extend({
    * Object to control when the delete button becomes enabled
    * @property {model}
    */
-  validator: Ember.Object.create({
-    confirm:"",
-    check1:false,
-    check2:false,
-    check3:false
-  }),
+  validator: null,
 
   /**
    * Indicate if delete button is disabled
