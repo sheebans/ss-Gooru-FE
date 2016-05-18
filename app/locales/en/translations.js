@@ -121,6 +121,8 @@ export default {
       "correct-answer-presence": "Please indicate the correct answer.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
+      "highlight-text-not-selected": "Please indicate the correct answer.",
+      "highlight-text-wrong-format": "Incorrect question format.",
       "hotspot-text-max-choices": "You have reached the limit of answers choices.",
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
@@ -263,6 +265,7 @@ export default {
     "save-submit": "Save and Submit All",
     "save-finish": "Save and Finish",
     "select": "Select",
+    "sentence": "Sentence",
     "settings":"Settings",
     "school": "School",
     "school-info": "School Information",
@@ -310,7 +313,8 @@ export default {
     "warnings": {
       "on-air-connection-lost": "The On Air feature has lost connection and is retrying automatically. While it's tempting, please don't refresh your screen!",
       "character-limit": "You've reached the character limit."
-    }
+    },
+    "word": "Word"
   },
 
   /*
@@ -483,6 +487,8 @@ export default {
         "FIB":"Add up to 5 hints for answer and an explanation.",
         "HS_IMG":"You can add up to ten answers images an select one or more correct answers.",
         "HS_TXT": "You can add up to ten answers choices and select one or more correct answers.",
+        "HT_HL_ST": "As you write the question, use brackets to indicate the highlighted sentences. One bracket can only contain one sentence at a time, using a period inside the bracket. For example, The first little pig built his house of straw. [The big bad wolf blew down the house.] The second pig built his house of wood. Character limit: 5000.",
+        "HT_HL_WD": "As you write the question, use brackets for the highlighted words. One bracket can only contain one word at a time. For example, The [big] bad wolf blew [down] the house. Character limit: 5000.",
         "HT_RO": "You can add up to ten answers choices in the correct order. The order will be scrambled for students.",
         "MA": "You can add up to ten answers, an image, explanation and up to five hints.",
         "MC":"You can add up to ten answers choices and indicate one correct answer. Character Limit: 200.",
@@ -494,7 +500,7 @@ export default {
         "HS_TXT":"Write your question. Character limit: 5000.",
         "HS_IMG":"Write your question. Character limit: 5000.",
         "HT_RO":"Write your question. Character limit: 5000.",
-        "HT_HL":"Write your question. Character limit: 5000.",
+        "HT_HL": "Write your question prompt. Character limit: 5000.",
         "MC":"Write your question. Character limit: 5000.",
         "MA":"Write your question. Character limit: 5000.",
         "OE":"Write your question. Character limit: 5000.",

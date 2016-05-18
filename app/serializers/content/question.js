@@ -19,13 +19,21 @@ export default Ember.Object.extend({
    * @returns {Object} returns a JSON Object
    */
   serializeCreateQuestion: function(questionModel) {
+    const serializer = this;
     const format = QuestionModel.serializeQuestionType(questionModel.get("type"));
-    return {
+    const answers = questionModel.get('answers');
+    var serializedQuestion = {
       'title': questionModel.get('title'),
       'description': questionModel.get('description'),
       'content_subformat': format,
       'visible_on_profile': questionModel.get('isVisibleOnProfile')
     };
+    if (answers.length) {
+      serializedQuestion.answer = answers.map(function(answer, index) {
+        return serializer.serializerAnswer(answer, index + 1);
+      });
+    }
+    return serializedQuestion;
   },
 
   /**
@@ -56,12 +64,16 @@ export default Ember.Object.extend({
    * @returns {Object}
    */
   serializerAnswer: function(answerModel, sequenceNumber, isHotSpotImage) {
-    return {
+    var serializedAnswer = {
       'sequence': sequenceNumber,
       'is_correct': answerModel.get('isCorrect') ? 1 : 0,
       'answer_text': isHotSpotImage ? cleanFilename(answerModel.get('text')) : answerModel.get('text'),
       'answer_type': answerModel.get('type')
     };
+    if (answerModel.get('highlightType')) {
+      serializedAnswer['highlight_type'] = answerModel.get('highlightType');
+    }
+    return serializedAnswer;
   },
 
   /**
@@ -130,7 +142,8 @@ export default Ember.Object.extend({
       sequence: answerData.sequence,
       isCorrect: answerData['is_correct'] === 1 || answerData['is_correct'] === true,
       text: answerData['answer_text'],
-      type: answerData['answer_type']
+      type: answerData['answer_type'],
+      highlightType: answerData['highlight_type']
     });
   },
 
