@@ -12,7 +12,7 @@ test('it renders', function(assert) {
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question Title',
     text:"Some text",
-    type: QUESTION_TYPES.multipleChoice,
+    type: QUESTION_TYPES.openEnded,
     answers:Ember.A([])
   });
 
@@ -29,5 +29,5 @@ test('it renders', function(assert) {
 
   const $content = $container.find("> .player");
   assert.ok($content.length, "Missing player content");
-  assert.ok($content.find(".gru-question-viewer .gru-open-ended"), "Missing question type component");
+  assert.ok($content.find(".gru-question-viewer .gru-open-ended").length, "Missing question type component");
 });
