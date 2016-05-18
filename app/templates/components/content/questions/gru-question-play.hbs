@@ -1,9 +1,14 @@
 <header>
     <h1>
-        {{question.title}}
+      {{{question.title}}}
     </h1>
 </header>
 
-<section id="content">
-
-</section>
+<div id="content" class="player">
+  {{player.gru-question-viewer
+  submitted=false
+  question=playerQuestion
+  questionResult=questionResult
+  onSubmitQuestion="submitQuestion"
+  }}
+</div>

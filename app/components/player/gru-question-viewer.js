@@ -182,16 +182,10 @@ export default Ember.Component.extend({
   submitted: false,
 
   /**
-   * The text for the submit button
+   * Default button text key
    * @property {string}
    */
-  buttonText: Ember.computed('collection','question.id',function(){
-    let i18nKey = "common.save-next";
-    if (this.get('collection').isLastResource(this.get('question'))){
-      i18nKey = (this.get('collection').get('isAssessment')) ? 'common.save-submit' : 'common.save-finish';
-    }
-    return this.get('i18n').t(i18nKey);
-  }),
+  buttonTextKey: 'common.save',
 
   // -------------------------------------------------------------------------
   // Observers

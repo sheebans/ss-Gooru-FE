@@ -1,11 +1,12 @@
 <div class="content">
   {{#if resource.isQuestion}}
     {{player.gru-question-viewer
+    buttonTextKey=buttonTextKey
     submitted=submitted
     question=resource
     questionResult=resourceResult
     onSubmitQuestion="submitQuestion"
-    collection=collection}}
+    }}
   {{else}}
     {{#if resource.hasNarration}}
       <div class="panel panel-default narration">
