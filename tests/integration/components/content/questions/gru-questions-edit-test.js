@@ -839,23 +839,23 @@ test('Update answer text - Hot Text Highlight', function (assert) {
   this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
   const $component = this.$('.gru-questions-edit');
 
-  var $answer = $component.find('.hot-text-highlight-content');
-  assert.ok($answer, 'Answer text content');
-  assert.equal($answer.text(), question.get('answers.firstObject').get('text'), 'Answer text');
+  var $answer = $component.find('.gru-hot-text-highlight');
+  assert.ok($answer, 'Answer component');
+  assert.equal($answer.find('.answer-text textarea').val(), question.get('answers.firstObject').get('text'), 'Answer text');
 
   const $edit = $component.find("#builder .actions .edit");
   $edit.click();
   return wait().then(function () {
-    var $optionInput = $component.find(".gru-textarea.highlight-textarea textarea");
+    $answer = $component.find('.gru-hot-text-highlight');
+    var $optionInput = $answer.find(".gru-textarea textarea");
     $optionInput.val(newText);
     $optionInput.trigger('blur');
 
     const $save = $component.find("#builder .actions .save");
     $save.click();
     return wait().then(function () {
-
-      $answer = $component.find('.hot-text-highlight-content');
-      assert.equal($answer.text(), newText, 'Answer text after edit');
+      $answer = $component.find('.gru-hot-text-highlight');
+      assert.equal($answer.find('.answer-text textarea').val(), newText, 'Answer text after edit');
     });
   });
 });
@@ -881,8 +881,9 @@ test('Update answer and cancel - Hot Text Highlight', function (assert) {
   const $edit = $component.find("#builder .actions .edit");
   $edit.click();
   return wait().then(function () {
-
-    var $optionInput = $component.find(".gru-textarea.highlight-textarea textarea");
+    var $answer = $component.find('.gru-hot-text-highlight');
+    var $optionInput = $answer.find(".gru-textarea textarea");
+    assert.ok($answer, 'Answer component');
     assert.equal($optionInput.val(), '', 'Empty text for default option');
     $optionInput.val(newText);
     $optionInput.trigger('blur');
@@ -890,9 +891,8 @@ test('Update answer and cancel - Hot Text Highlight', function (assert) {
     const $cancel = $component.find("#builder .actions .cancel");
     $cancel.click();
     return wait().then(function () {
-
-      var $answer = $component.find('.hot-text-highlight-content');
-      assert.equal($answer.text(), '', 'Answer text after cancel');
+      $answer = $component.find('.gru-hot-text-highlight');
+      assert.equal($answer.find('.answer-text textarea').val(), '', 'Answer text after cancel');
     });
   });
 });

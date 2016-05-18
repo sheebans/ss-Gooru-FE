@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import Answer from 'gooru-web/models/content/answer';
 import Question from 'gooru-web/models/content/question';
 import Collection from 'gooru-web/models/content/collection';
 import {QUESTION_CONFIG, QUESTION_TYPES} from 'gooru-web/config/question';
@@ -49,11 +48,6 @@ export default Ember.Component.extend({
     createQuestion: function () {
       const component = this;
       const question = component.get('question');
-      if (question.get('type') === QUESTION_TYPES.hotTextHighlight) {
-        question.set('answers', Ember.A([component.createHotTextHighlightAnswer()]));
-      } else {
-        question.set('answers', Ember.A([]));
-      }
       question.set("description", "Enter question text here"); //TODO temporal fix
       question.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
@@ -153,21 +147,9 @@ export default Ember.Component.extend({
    * Move array object into array
    * */
   move(arr, fromIndex, toIndex) {
-  var element = arr[fromIndex];
-  arr.splice(fromIndex, 1);
-  arr.splice(toIndex, 0, element);
-},
-
-  /**
-   * Creates a default answer for hot text highlight questions
-   */
-  createHotTextHighlightAnswer() {
-    return Answer.create(Ember.getOwner(this).ownerInjection(), {
-      isCorrect: true,
-      type: 'text',
-      text: "Enter question text here", //TODO temporal fix
-      highlightType: QUESTION_CONFIG[QUESTION_TYPES.hotTextHighlight].defaultType
-    });
+    var element = arr[fromIndex];
+    arr.splice(fromIndex, 1);
+    arr.splice(toIndex, 0, element);
   }
 
 });
