@@ -24,7 +24,8 @@ test('Layout', function(assert) {
     const $forgotPasswordContainer = find(".forgot-password");
     var $modal = $forgotPasswordContainer.find(".modal");
     T.exists(assert, $modal, "Missing forgot-password modal");
-    T.exists(assert, $modal.find(".modal-content"), "Missing modal-content");
+    T.exists(assert, $modal.find(".modal-content.first-step"), "Missing modal-content first-step");
+    T.notExists(assert, $modal.find(".modal-content.second-step"), "modal-content second-step should be hidden");
     const $forgotPasswordHeader = $modal.find(".modal-header");
     T.exists(assert, $forgotPasswordHeader, "Missing forgot-password-header");
     T.exists(assert, $forgotPasswordHeader.find("h3"), "Missing forgot-password title");

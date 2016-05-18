@@ -43,6 +43,7 @@ export default Ember.Controller.extend({
             .forgotPassword(user.get('email'))
             .then(function() {
               controller.set('didValidate', true);
+              controller.set('showSecondStep', true);
             });
         } else {
           controller.set('submitFlag', true);
@@ -51,10 +52,21 @@ export default Ember.Controller.extend({
     }
   },
 
-  init(){
-    this._super(...arguments);
-    var user = User.create(Ember.getOwner(this).ownerInjection(), {email: null});
-    this.set('user', user);
+  // -------------------------------------------------------------------------
+  // Methods
+
+  /**
+   * init and reset all the properties for the validations
+   */
+
+  resetProperties(){
+    var controller = this;
+    var user = User.create(Ember.getOwner(this).ownerInjection(), {email: null, emailAsync: null});
+
+    controller.set('user', user);
+    controller.set("showSecondStep", false);
+    controller.set('didValidate', false);
+    controller.set('submitFlag', true);
   },
 
 
@@ -75,6 +87,11 @@ export default Ember.Controller.extend({
   /**
    * @param {Boolean } didValidate - value used to check if input has been validated or not
    */
-  didValidate: false
+  didValidate: false,
+
+  /**
+   * @param {Boolean } showSecondStep - value used to check if Second Step is showing or not
+   */
+  showSecondStep: false
 
 });

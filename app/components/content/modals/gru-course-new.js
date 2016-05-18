@@ -90,15 +90,6 @@ export default Ember.Component.extend({
   /**
    * @type {Course} course
    */
-  course: null,
-
-  /**
-   * Class handling the actions from the component.
-   * This value will be set on instantiation by gru-modal.
-   *
-   * @type {Ember.Component}
-   * @private
-   */
-  target: null
+  course: null
 
 });

@@ -84,6 +84,7 @@ export default {
     "courses": "Courses",
     "create": "Create",
     "created-by":"Created by",
+    "delete":"Delete",
     "description": "Description",
     "district": "District",
     "domain": "Domain",
@@ -208,10 +209,11 @@ export default {
     "play": "Play",
     "please_contact": "Please contact",
     "pending":"Pending",
-    "publish-to":" Publish to my profile",
-    "publisher": "Publisher",
     "preview": "Preview",
     "profile": "Profile",
+    "publish-to":" Publish to my profile",
+    "published-by": "Published by",
+    "publisher": "Publisher",
     "question":"Question",
     "questions": "Questions",
     "question-pl": {
@@ -500,6 +502,16 @@ export default {
       }
     }
   },
+  "content.modals.delete-content":{
+    "legend":"You are about to delete",
+    "delete-instructions": {
+      "links-inaccessible":"All share links will be inaccessible",
+      "content-inaccessible":"All content will be inaccessible to the classes tied to it"
+    },
+    "delete-warning": "All content in this {{type}} will be deleted",
+    "delete-error": "Oops! Unable to delete {{type}} right now. Please try again shortly.",
+    "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."
+  },
   "content.resources": {
     "edit": {
       "best-practices": "<p>A resource is multimedia content in a variety of formats such as videos, interactives, websites, images, Google docs, and more. Get creative and use your own resources or get “resourceful” and search our ample supply in Gooru.</p><p>Use a variety of resource types to engage your students and include narration so you can help guide your students through the resource.</p><p>We recommend tagging each question to standards, micro-standards and 21st century skills. You can see how your students are interacting with resources through the teacher dashboard.</p>",
@@ -661,7 +673,10 @@ export default {
     "footer-description-1":"You will receive an email with a link to reset your password.",
     "footer-description-2":"If you have any questions, please contact ",
     "mail":"support@gooru.org",
-    "error-email-not-exists": "Sorry we don't recognize this email."
+    "error-email-not-exists": "Sorry we don't recognize this email.",
+    "secondStepTitle": "Check your email",
+    "secondStepDescription-1": "We’ve sent you and email with a link to reset your password.",
+    "secondStepDescription-2": "If you have any questions, please contact"
   },
 
   "footer": {

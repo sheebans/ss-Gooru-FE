@@ -93,31 +93,6 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Events
 
-  /**
-   * init event
-   */
-  init() {
-    this._super(...arguments);
-    var profile = Profile.create(Ember.getOwner(this).ownerInjection(), {
-                  username: null,
-                  usernameAsync: null,
-                  password: null,
-                  firstName: null,
-                  lastName: null,
-                  email: null,
-                  emailAsync: null
-                });
-    this.set('profile', profile);
-    this.set('googleSignUpUrl', Env['google-sign-in'].url);
-  },
-
-  /**
-   * willDestroyElement event
-   */
-  willDestroyElement: function(){
-    this.set('profile', null);
-  },
-
   // -------------------------------------------------------------------------
   // Properties
 
@@ -165,6 +140,28 @@ export default Ember.Controller.extend({
   submitFlag: true,
   // -------------------------------------------------------------------------
   // Methods
+
+  /**
+   * init and reset all the properties for the validations
+   */
+
+  resetProperties(){
+    var controller = this;
+    var profile = Profile.create(Ember.getOwner(this).ownerInjection(), {
+      username: null,
+      usernameAsync: null,
+      password: null,
+      firstName: null,
+      lastName: null,
+      email: null,
+      emailAsync: null
+    });
+
+    controller.set('profile', profile);
+    controller.set('googleSignUpUrl', Env['google-sign-in'].url);
+    controller.set('didValidate', false);
+    controller.set('submitFlag', true);
+  },
 
   /**
    * validate Date SelectPicker

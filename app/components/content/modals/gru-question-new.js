@@ -111,14 +111,6 @@ export default Ember.Component.extend({
   selectedType: Ember.computed('question.type',function(){
     return this.get('question.type');
   }),
-  /**
-   * Class handling the actions from the component.
-   * This value will be set on instantiation by gru-modal.
-   *
-   * @type {Ember.Component}
-   * @private
-   */
-  target: null,
 
   /**
    * @type {Array[]} questionTypes

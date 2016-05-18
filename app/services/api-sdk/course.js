@@ -81,6 +81,20 @@ export default Ember.Service.extend(StoreMixin, {
     }).catch(function (error) {
       return error;
     });
+  },
+
+  /**
+   * Delete course
+   *
+   * @param courseId The Course id to delete
+   * @returns {Promise}
+   */
+  deleteCourse: function (courseId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('adapter').deleteCourse(courseId)
+        .then(resolve, reject);
+    });
   }
 
 });
