@@ -37,12 +37,6 @@ export default Ember.Component.extend({
       check3:false
     }));
   },
-  //willDestroyElement() {
-  //  this.set('validator.confirm',"");
-  //  this.set('validator.check1',false);
-  //  this.set('validator.check2',false);
-  //  this.set('validator.check3',false);
-  //},
   // -------------------------------------------------------------------------
   // Actions
 
