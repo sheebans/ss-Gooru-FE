@@ -87,6 +87,8 @@ Router.map(function() {
   this.route('home');
 
   this.route('api'); //development api for testing end points
+  
+  this.route('featured');
 
   this.route('profile', { path: '/:userId' }, function() {
     this.route('about');
@@ -111,6 +113,7 @@ Router.map(function() {
    * IMPORTANT! the profile route should be the last one at this file, so we can handle the app urls
    * and the vanity urls for profiles like www.gooru.org/javier-perez
    */
+
 });
 
 export default Router;
