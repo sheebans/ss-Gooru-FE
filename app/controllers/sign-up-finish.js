@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import Profile from 'gooru-web/models/profile/profile';
+import { COUNTRY_CODES } from "gooru-web/config/config";
 
 export default Ember.Controller.extend({
 
@@ -100,7 +101,7 @@ export default Ember.Controller.extend({
       controller.set('showCountryErrorMessage', false);
       controller.set('countrySelected', id);
 
-      if (countryCode==='US') {
+      if (countryCode===COUNTRY_CODES.US) {
         controller.set('showStates', true);
       }
       else {
@@ -133,28 +134,6 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Events
-
-  /**
-   * init event
-   */
-  init() {
-    this._super(...arguments);
-    var profile = Profile.create(Ember.getOwner(this).ownerInjection(), {
-      role: null,
-      countryId: null,
-      stateId: null,
-      schoolDistrictId: null,
-      schoolDistrict: null
-    });
-    this.set('profile', profile);
-  },
-
-  /**
-   * willDestroyElement event
-   */
-  willDestroyElement: function(){
-    this.set('profile', null);
-  },
 
   // -------------------------------------------------------------------------
   // Properties
@@ -239,8 +218,25 @@ export default Ember.Controller.extend({
    * showCountryErrorMessage
    * @property {Boolean}
    */
-  showDistrictErrorMessage: false
+  showDistrictErrorMessage: false,
 
   // -------------------------------------------------------------------------
   // Methods
+
+  /**
+   * init and reset all the properties for the validations
+   */
+
+  resetProperties(){
+    var controller = this;
+    var profile = Profile.create(Ember.getOwner(this).ownerInjection(), {
+      role: null,
+      countryId: null,
+      stateId: null,
+      schoolDistrictId: null,
+      schoolDistrict: null
+    });
+
+    controller.set('profile', profile);
+  }
 });

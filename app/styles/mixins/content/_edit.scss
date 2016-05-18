@@ -2,6 +2,7 @@
 .content_collections_edit .app-container,
 .content_courses_edit .app-container,
 .content_courses_play .app-container,
+.content_questions_play .app-container,
 .content_questions_edit .app-container,
 .content_resources_edit .app-container {
   padding-left: 0;
@@ -17,6 +18,7 @@
 .controller.content.courses.edit,
 .controller.content.courses.play,
 .controller.content.questions.edit,
+.controller.content.questions.play,
 .controller.content.resources.edit {
   $aside-padding: 25px;
 
@@ -25,6 +27,7 @@
   > article {
     @include flex();
     padding-bottom: 50px;
+    min-width: 730px;
 
     > header {
       z-index: $zindex-navbar-fixed;
@@ -196,7 +199,7 @@
 
     > div {
       position: fixed;
-      padding-right: $aside-padding - 5;
+      margin-right: $aside-padding - 5;
 
       h4 {
         color: $gray;
@@ -246,16 +249,17 @@
 
     > .content {
 
-      @media(min-width: $screen-sm) {
-        @include flexbox();
+      @include flexbox();
+
+      .gru-image {
+        float: left;
+        margin-right: 20px;
       }
 
       .panel {
         border-radius: 6px;
+        @include flex();
 
-        @media(min-width: $screen-sm) {
-          @include flex();
-        }
         .panel-body {
           padding-top: 10px;
 

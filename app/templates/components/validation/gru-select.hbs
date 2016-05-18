@@ -1,7 +1,11 @@
 <div class="form-group">
   <select class="selectpicker" title={{title}} data-live-search={{search}} size="false" mobile="true">
     {{#each options as |option|}}
-      <option value="{{option.id}}">{{option.name}}</option>
+      {{#if (eq option.id optionSelected)}}
+        <option value="{{option.id}}" selected>{{option.name}}</option>
+      {{else}}
+        <option value="{{option.id}}">{{option.name}}</option>
+      {{/if}}
     {{/each}}
   </select>
   <div class="error-messages">

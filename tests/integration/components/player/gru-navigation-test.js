@@ -1,3 +1,4 @@
+import Ember from "ember";
 import { moduleForComponent, test } from 'ember-qunit';
 import T from 'gooru-web/tests/helpers/assert';
 import hbs from 'htmlbars-inline-precompile';
@@ -12,7 +13,12 @@ moduleForComponent('player/gru-navigation', 'Integration | Component | player/gr
 test('Not submitted layout', function(assert) {
   assert.expect(3);
 
-  this.render(hbs`{{player/gru-navigation}}`);
+  const collection = Ember.Object.create({
+    isAssessment: true
+  });
+
+  this.set("collection", collection);
+  this.render(hbs`{{player/gru-navigation collection=collection}}`);
 
   var $component = this.$(); //component dom element
   const $navigation = $component.find(".gru-navigation");
@@ -24,7 +30,12 @@ test('Not submitted layout', function(assert) {
 test('Submitted layout', function(assert) {
   assert.expect(3);
 
-  this.render(hbs`{{player/gru-navigation submitted=true}}`);
+  const collection = Ember.Object.create({
+    isAssessment: true
+  });
+
+  this.set("collection", collection);
+  this.render(hbs`{{player/gru-navigation submitted=true collection=collection}}`);
 
   var $component = this.$(); //component dom element
   const $navigation = $component.find(".gru-navigation");
@@ -52,11 +63,17 @@ test('Layout when navigator is opened', function(assert) {
 test('Finish collection', function(assert) {
   assert.expect(2);
 
+  const collection = Ember.Object.create({
+    isAssessment: true
+  });
+
+  this.set("collection", collection);
+
   this.on('onFinishCollection', function(){
     assert.ok(true, 'external Action was called!');
   });
 
-  this.render(hbs`{{player/gru-navigation onFinishCollection='onFinishCollection' submitted=false}}`);
+  this.render(hbs`{{player/gru-navigation onFinishCollection='onFinishCollection' submitted=false collection=collection}}`);
   var $component = this.$(); //component dom element
   var $finishButton = $component.find("button.finish-collection");
 

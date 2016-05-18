@@ -1,0 +1,17 @@
+.controller.content.questions.play {
+
+  > article{
+    width: 100%;
+  }
+  > article.fixed-header {
+    > header {
+      top: 55px;
+      padding: 30px;
+
+      h1 {
+        display: inline-block;
+        text-transform: capitalize;
+      }
+    }
+  }
+}

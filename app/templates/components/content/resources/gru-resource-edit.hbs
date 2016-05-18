@@ -10,7 +10,9 @@
 
   <div class="actions">
     <button class="btn btn-default btn-icon">{{gru-icon name="delete"}}</button>
-    <button class="btn btn-default btn-icon">{{gru-icon name="insert_link"}}</button>
+    {{#gru-share-pop-over tagName="button" type="resource"}}
+      {{gru-icon name="insert_link"}}
+    {{/gru-share-pop-over}}
     <button class="btn btn-default hidden">{{t "common.add-to"}}</button>
     <button class="btn btn-default">{{t "common.preview"}}</button>
   </div>

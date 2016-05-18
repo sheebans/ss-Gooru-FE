@@ -23,7 +23,8 @@
     "currentPath",
     "currentRouteName",
     "authenticateSession",
-    "invalidateSession"
+    "invalidateSession",
+    "Clipboard"
   ],
   "node": false,
   "browser": false,

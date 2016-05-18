@@ -1,4 +1,5 @@
 import Ember from "ember";
+import { COUNTRY_CODES } from "gooru-web/config/config";
 
 export default Ember.Route.extend({
 
@@ -28,7 +29,7 @@ export default Ember.Route.extend({
     const route = this;
     return route.get("lookupService").readCountries()
       .then(function(countries) {
-        var usCountry = countries.findBy("code", 'US');
+        var usCountry = countries.findBy("code", COUNTRY_CODES.US);
         var usStates = route.get("lookupService").readStates(usCountry.id);
         return Ember.RSVP.hash({
           countries: countries,
@@ -46,6 +47,7 @@ export default Ember.Route.extend({
     this._super(controller, model);
     controller.set("countries", model.countries);
     controller.set('states', model.states);
+    controller.resetProperties();
   },
 
   // -------------------------------------------------------------------------

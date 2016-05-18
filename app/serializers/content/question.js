@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { cleanFilename } from 'gooru-web/utils/utils';
 import QuestionModel from 'gooru-web/models/content/question';
 import AnswerModel from 'gooru-web/models/content/answer';
 
@@ -9,6 +10,7 @@ import AnswerModel from 'gooru-web/models/content/answer';
  */
 export default Ember.Object.extend({
 
+  session: Ember.inject.service('session'),
 
   /**
    * Serialize a Question object into a JSON representation required by the Create Question endpoint
@@ -42,13 +44,14 @@ export default Ember.Object.extend({
    */
   serializeUpdateQuestion: function(questionModel) {
     const serializer = this;
+    const isHotSpotImage = questionModel.get('isHotSpotImage');
     return {
       title: questionModel.get('title'),
       description: questionModel.get('text'),
       //'content_subformat': QuestionModel.serializeQuestionType(questionModel.get("type")), // This is not supported on the back end yet
       'visible_on_profile': questionModel.get('isVisibleOnProfile'),
       answer: questionModel.get('answers').map(function(answer, index) {
-        return serializer.serializerAnswer(answer, index + 1);
+        return serializer.serializerAnswer(answer, index + 1, isHotSpotImage);
       })
     };
   },
@@ -60,11 +63,11 @@ export default Ember.Object.extend({
    * @param sequenceNumber - the answer's sequence number
    * @returns {Object}
    */
-  serializerAnswer: function(answerModel, sequenceNumber) {
+  serializerAnswer: function(answerModel, sequenceNumber, isHotSpotImage) {
     var serializedAnswer = {
       'sequence': sequenceNumber,
       'is_correct': answerModel.get('isCorrect') ? 1 : 0,
-      'answer_text': answerModel.get('text'),
+      'answer_text': isHotSpotImage ? cleanFilename(answerModel.get('text')) : answerModel.get('text'),
       'answer_type': answerModel.get('type')
     };
     if (answerModel.get('highlightType')) {
@@ -81,21 +84,32 @@ export default Ember.Object.extend({
    */
   normalizeReadQuestion: function(questionData, index){
     const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+
     const format = QuestionModel.normalizeQuestionType(questionData.content_subformat);
     const standards = questionData.taxonomy || [];
-    return QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
+    const question = QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: questionData.id,
       title: questionData.title,
       type: format,
+      thumbnail: basePath + questionData.thumbnail,
       text: questionData.description,
       publishStatus: questionData.publish_status,
       standards: serializer.normalizeStandards(standards),
-      answers: serializer.normalizeAnswerArray(questionData.answer),
       hints: null, //TODO
       explanation: null, //TODO
       isVisibleOnProfile: typeof questionData['visible_on_profile'] !== 'undefined' ? questionData['visible_on_profile'] : true,
       order: index + 1//TODO is this ok?
     });
+
+    const answers = serializer.normalizeAnswerArray(questionData.answer);
+    if (question.get("isHotSpotImage")){
+      answers.forEach(function(answer){ //adding the basepath for HS Image
+        answer.set("text", basePath + answer.get("text"));
+      });
+    }
+    question.set("answers", answers);
+    return question;
   },
 
   /**
@@ -126,7 +140,7 @@ export default Ember.Object.extend({
     return AnswerModel.create(Ember.getOwner(this).ownerInjection(),{
       id: `answer_${id}`,
       sequence: answerData.sequence,
-      isCorrect: answerData['is_correct'] === 1,
+      isCorrect: answerData['is_correct'] === 1 || answerData['is_correct'] === true,
       text: answerData['answer_text'],
       type: answerData['answer_type'],
       highlightType: answerData['highlight_type']

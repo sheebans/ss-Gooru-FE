@@ -131,45 +131,6 @@
                 border-color: $blue-200;
               }
             }
-            .bootstrap-select {
-              border-bottom: 1px solid $table-border-color;
-              .dropdown-toggle {
-                color: $gray;
-                font-size: $font-size-large;
-                font-weight: 300;
-                padding: 0 0 0 3px;
-                background-color: $white;
-                box-shadow: none;
-                background-position: 0;
-                background-size: unset;
-
-                &:hover {
-                  background-color: $white !important;
-                  color: $gray !important;
-                }
-                &:focus {
-                  background-color: $white !important;
-                  color: $gray !important;
-                }
-              }
-              .btn-default {
-                &:focus,
-                &:hover,
-                &:active,
-                &:active:hover {
-                  background-color: $white;
-                  background-image: none;
-                }
-              }
-              &.dropup {
-                .dropdown-menu {
-                  top:100%;
-                }
-              }
-              .dropdown-menu {
-                position: relative;
-              }
-            }
             .birth-months {
               float: left;
               margin-right: 10px;
@@ -244,24 +205,6 @@
                 }
               }
             }
-          }
-          .bootstrap-select.btn-group.dropup.open .dropdown-toggle .caret {
-            border-top: 0;
-            border-bottom: 4px dashed;
-          }
-          .bootstrap-select.btn-group.dropup .dropdown-toggle .caret {
-            border-bottom: 0;
-            border-top: 4px dashed;
-          }
-          .bootstrap-select.btn-group .dropdown-menu.inner {
-            max-height: 300px!important;
-            position: relative;
-          }
-          .bootstrap-select.btn-group .dropdown-toggle .filter-option {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            width: 95%;
           }
         }
         .sign-up-finish-form {

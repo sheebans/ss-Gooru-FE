@@ -117,3 +117,19 @@ test('associateAssessmentOrCollectionToLesson', function(assert) {
       assert.equal(undefined, response, 'Wrong response');
     });
 });
+
+test('Delete Lesson', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.delete('/api/nucleus/v1/courses/course-id/units/unit-id/lessons/lesson-id', function() {
+      return [ 204, { 'Content-Type': 'application/json; charset=utf-8' }, ''];
+    }, false);
+  });
+  adapter.deleteLesson({courseId: 'course-id', unitId: 'unit-id', lessonId: 'lesson-id'})
+    .then(function() {
+      assert.ok(true);
+    });
+});

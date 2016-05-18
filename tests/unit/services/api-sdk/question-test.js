@@ -83,3 +83,22 @@ test('updateQuestion', function(assert) {
   service.updateQuestion(expectedQuestionId, expectedQuestionModel).then(function() { done(); });
 });
 
+test('deleteQuestion', function(assert) {
+  const expectedQuestionId = 'question-id';
+  const service = this.subject();
+
+  assert.expect(1);
+
+  service.set('questionAdapter', Ember.Object.create({
+    deleteQuestion: function(questionId) {
+      assert.equal(questionId, expectedQuestionId, 'Wrong question id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.deleteQuestion('question-id')
+    .then(function() {
+      done();
+    });
+});

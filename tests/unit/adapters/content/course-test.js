@@ -88,3 +88,19 @@ test('Update course, success', function (assert) {
       assert.equal(response, '', 'Should respond with no content');
     });
 });
+
+test('deleteCourse', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.delete('/api/nucleus/v1/courses/course-id', function() {
+      return [ 204, { 'Content-Type': 'application/json; charset=utf-8' }, ''];
+    }, false);
+  });
+  adapter.deleteCourse('course-id')
+    .then(function() {
+      assert.ok(true);
+    });
+});

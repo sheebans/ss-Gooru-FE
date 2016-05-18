@@ -45,7 +45,7 @@ test('it has header and main sections', function (assert) {
   assert.ok($header.find('> .actions').length, "Header actions");
   assert.equal($header.find('> .actions > button').length, 4, "Number of header actions");
   assert.ok($container.find('.actions button.delete').length, "Missing Delete Button");
-  assert.ok($container.find('.actions button.share').length, "Missing Share Button");
+  assert.ok($container.find('.actions button.gru-share-pop-over').length, "Missing Share Button");
   assert.ok($container.find('.actions button.add').length, "Missing Add Button");
   assert.ok($container.find('.actions button.preview').length, "Missing Add Button");
 

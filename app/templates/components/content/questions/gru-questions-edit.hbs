@@ -11,7 +11,9 @@
 
     <div class="actions">
         <button class="btn btn-default btn-icon delete">{{gru-icon name="delete"}}</button>
-        <button class="btn btn-default btn-icon share">{{gru-icon name="insert_link"}}</button>
+        {{#gru-share-pop-over tagName="button" type="question"}}
+          {{gru-icon name="insert_link"}}
+        {{/gru-share-pop-over}}
         <button class="btn btn-default add hidden">{{t "content.questions.edit.add-to"}}</button>
         <button class="btn btn-default preview">{{t "common.preview"}}</button>
     </div>
@@ -170,4 +172,3 @@
 <section id="settings">
   {{partial 'content/partials/settings'}}
 </section>
-

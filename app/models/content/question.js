@@ -65,6 +65,11 @@ const Question = Ember.Object.extend(Validations, {
   /**
    * @property {string}
    */
+  thumbnail: null,
+
+  /**
+   * @property {string}
+   */
   description: Ember.computed.alias("text"),
 
   /**
@@ -219,6 +224,7 @@ const Question = Ember.Object.extend(Validations, {
       resourceFormat: model.get("format"),
       questionType: model.get("type"),
       text: model.get("text"),
+      mediaUrl: model.get("thumbnail"),
       hints: null, //TODO
       explanation: null, //TODO
       answers: model.get("answers").map(function(answer){

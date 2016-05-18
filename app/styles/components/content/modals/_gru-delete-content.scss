@@ -1,0 +1,21 @@
+.content.modals.gru-delete-content{
+  .modal-header.delete {
+    background-color: $yellow-400;
+  }
+  .delete-info{
+    ul{
+      list-style: none;
+      padding-left: 0;
+      span{
+        display: inline-block;
+        text-transform: lowercase;
+      }
+      span:first-letter{
+        text-transform: capitalize;
+      }
+    }
+  }
+  .delete-input{
+    outline: none;
+  }
+}

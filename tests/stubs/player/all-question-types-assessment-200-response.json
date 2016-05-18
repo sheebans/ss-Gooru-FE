@@ -1,531 +1,328 @@
 {
-  "summary":{
-    "resourceCount":0,
-    "questionCount":8
+  "id": "cdde649a-e3be-40c0-8183-c81bb7aec8e8",
+  "title": "All question types",
+  "owner_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
+  "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
+  "original_creator_id": null,
+  "original_collection_id": null,
+  "publish_date": null,
+  "thumbnail": null,
+  "learning_objective": null,
+  "license": null,
+  "metadata": {
+    "audience": [
+      4
+    ]
   },
-  "collectionType":"assessment",
-  "isCollaborator":false,
-  "collectionId":24413252,
-  "settings":{
-    "comment":"turn-on"
+  "taxonomy": null,
+  "setting": {
+    "show_key": "never",
+    "show_hints": false,
+    "show_feedback": "summary",
+    "randomize_play": false,
+    "attempts_allowed": -1,
+    "show_explanation": true,
+    "bidirectional_play": true,
+    "contributes_to_mastery": true,
+    "contributes_to_performance": true
   },
-  "parentGooruOid":"538167d8-d454-4120-b122-1f5d44b1aea9",
-  "itemSequence":1,
-  "type":"assessment",
-  "title":"All question types",
-  "sharing":"public",
-  "description":"",
-  "collectionItems":[
+  "grading": null,
+  "visible_on_profile": true,
+  "question": [
     {
-      "parentGooruOid":"522f6827-f7dd-486f-8631-eba497e2d425",
-      "answers":[
-
+      "id": "d675611c-12a1-11e6-aba0-0935596035e8",
+      "title": "<p>What color is this?</p>",
+      "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
+      "original_creator_id": null,
+      "publish_date": null,
+      "content_subformat": "multiple_choice_question",
+      "answer": [
+        {
+          "sequence": 1,
+          "is_correct": true,
+          "answer_text": "<p>Celeste</p>",
+          "answer_type": "text"
+        },
+        {
+          "sequence": 2,
+          "is_correct": false,
+          "answer_text": "<p>Blanco</p>",
+          "answer_type": "text"
+        },
+        {
+          "sequence": 3,
+          "is_correct": false,
+          "answer_text": "<p>Negro</p>",
+          "answer_type": "text"
+        }
       ],
-      "itemSequence":0,
-      "type":6,
-      "title":"<p>Describa el ciclo del agua</p>",
-      "sharing":"public",
-      "description":"<p>Describa el ciclo del agua</p>",
-      "questionText":"<p>Describa el ciclo del agua</p>",
-      "collectionItemId":"730344cb-8fb7-411f-b40c-01d7cdff3783",
-      "hints":[
-
-      ],
-      "explanation":"",
-      "assetURI":"http://qacdn.gooru.org/qalive/",
-      "resourceType":{
-        "name":"assessment-question"
+      "metadata": null,
+      "taxonomy": null,
+      "hint_explanation_detail": {
+        "hint": [
+          {
+            "text": "<p>Como el azul claro</p>",
+            "sequence": 1
+          },
+          {
+            "text": "<p>Como el cielo</p>",
+            "sequence": 2
+          }
+        ],
+        "explanation": "<p>Necesitamos conocer el color de la imagen</p>"
       },
-      "folder":"f000/2441/3262/",
-      "typeName":"OE",
-      "gooruOid":"46d4a6d4-991b-4c51-a656-f694e037dd68",
-      "resourceFormat":{
-        "value":"question",
-        "displayName":"Question"
-      },
-      "views":2,
-      "user":{
-        "username":"perezedify",
-        "gooruUId":"ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
-        "profileImageUrl":"http://profile-qa.s3.amazonaws.com/ff90e7e2-7788-48fb-9ce2-7b6d7a828840.png"
-      }
+      "thumbnail": "9b5b8543-c8af-4f01-a76f-fa3a7e749636.JPG",
+      "sequence_id": 1,
+      "visible_on_profile": true,
+      "description": "<p>What color is this?</p>"
     },
     {
-      "parentGooruOid":"522f6827-f7dd-486f-8631-eba497e2d425",
-      "answers":[
+      "id": "dc66d543-12a1-11e6-aba0-0935596035e8",
+      "title": "<p>Cuál es su comida favorita?</p>",
+      "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
+      "original_creator_id": null,
+      "publish_date": null,
+      "content_subformat": "multiple_answer_question",
+      "answer": [
         {
-          "answerId":10538552,
-          "answerText":"<p>Celeste</p>",
-          "answerType":"text",
-          "isCorrect":true,
-          "sequence":1
+          "sequence": 1,
+          "is_correct": true,
+          "answer_text": "<p>Frutas</p>",
+          "answer_type": "text"
         },
         {
-          "answerId":10538553,
-          "answerText":"<p>Blanco</p>",
-          "answerType":"text",
-          "isCorrect":false,
-          "sequence":2
+          "sequence": 2,
+          "is_correct": true,
+          "answer_text": "<p>Semillas</p>",
+          "answer_type": "text"
         },
         {
-          "answerId":10538554,
-          "answerText":"<p>Negro</p>",
-          "answerType":"text",
-          "isCorrect":false,
-          "sequence":3
+          "sequence": 3,
+          "is_correct": true,
+          "answer_text": "<p>Verduras</p>",
+          "answer_type": "text"
+        },
+        {
+          "sequence": 4,
+          "is_correct": false,
+          "answer_text": "<p>Chatarra</p>",
+          "answer_type": "text"
         }
       ],
-      "itemSequence":1,
-      "type":1,
-      "title":"<p>What color is this?</p>",
-      "sharing":"public",
-      "description":"<p>What color is this?</p>",
-      "questionText":"<p>What color is this?</p>",
-      "collectionItemId":"4af98c49-eba0-42a9-a3a0-ec5308312640",
-      "hints":[
-        {
-          "hintId":75291,
-          "hintText":"<p>Como el azul claro</p>",
-          "sequence":1
-        },
-        {
-          "hintId":75292,
-          "hintText":"<p>Como el cielo</p>",
-          "sequence":2
-        }
-      ],
-      "explanation":"<p>Necesitamos conocer el color de la imagen</p>",
-      "assetURI":"http://qacdn.gooru.org/qalive/",
-      "thumbnails":{
-        "url":"http://qacdn.gooru.org/qalive//f000/2441/3253/9b5b8543-c8af-4f01-a76f-fa3a7e749636.JPG"
-      },
-      "resourceType":{
-        "name":"assessment-question"
-      },
-      "folder":"f000/2441/3253/",
-      "typeName":"MC",
-      "gooruOid":"0a255924-b887-4200-9e82-fb1e73cd45a9",
-      "resourceFormat":{
-        "value":"question",
-        "displayName":"Question"
-      },
-      "narration":"Sobre los colores",
-      "views":2,
-      "user":{
-        "username":"perezedify",
-        "gooruUId":"ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
-        "profileImageUrl":"http://profile-qa.s3.amazonaws.com/ff90e7e2-7788-48fb-9ce2-7b6d7a828840.png"
-      }
+      "metadata": null,
+      "taxonomy": null,
+      "hint_explanation_detail": null,
+      "thumbnail": null,
+      "sequence_id": 2,
+      "visible_on_profile": true,
+      "description": "<p>Cuál es su comida favorita?</p>"
     },
     {
-      "parentGooruOid":"522f6827-f7dd-486f-8631-eba497e2d425",
-      "answers":[
+      "id": "fd01639f-12a1-11e6-aba0-0935596035e8",
+      "title": "<p>Practica usted ejercicio regularmente</p>",
+      "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
+      "original_creator_id": null,
+      "publish_date": null,
+      "content_subformat": "true_false_question",
+      "answer": [
         {
-          "answerId":10538555,
-          "answerText":"<p>Frutas</p>",
-          "answerType":"text",
-          "isCorrect":true,
-          "sequence":1
+          "sequence": 1,
+          "is_correct": true,
+          "answer_text": "True",
+          "answer_type": "text"
         },
         {
-          "answerId":10538556,
-          "answerText":"<p>Semillas</p>",
-          "answerType":"text",
-          "isCorrect":true,
-          "sequence":2
-        },
-        {
-          "answerId":10538557,
-          "answerText":"<p>Verduras</p>",
-          "answerType":"text",
-          "isCorrect":true,
-          "sequence":3
-        },
-        {
-          "answerId":10538558,
-          "answerText":"<p>Chatarra</p>",
-          "answerType":"text",
-          "isCorrect":false,
-          "sequence":4
+          "sequence": 2,
+          "is_correct": false,
+          "answer_text": "False",
+          "answer_type": "text"
         }
       ],
-      "itemSequence":2,
-      "type":7,
-      "title":"<p>Cuál es su comida favorita?</p>",
-      "sharing":"public",
-      "description":"<p>Cuál es su comida favorita?</p>",
-      "questionText":"<p>Cuál es su comida favorita?</p>",
-      "collectionItemId":"068b7efb-ce30-41bb-aa22-d8427456c114",
-      "hints":[
-
-      ],
-      "explanation":"",
-      "assetURI":"http://qacdn.gooru.org/qalive/",
-      "resourceType":{
-        "name":"assessment-question"
-      },
-      "folder":"f000/2441/3254/",
-      "typeName":"MA",
-      "gooruOid":"62da7af6-90c4-49d6-9b5a-d7ac8117b571",
-      "resourceFormat":{
-        "value":"question",
-        "displayName":"Question"
-      },
-      "views":2,
-      "user":{
-        "username":"perezedify",
-        "gooruUId":"ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
-        "profileImageUrl":"http://profile-qa.s3.amazonaws.com/ff90e7e2-7788-48fb-9ce2-7b6d7a828840.png"
-      }
+      "metadata": null,
+      "taxonomy": null,
+      "hint_explanation_detail": null,
+      "thumbnail": null,
+      "sequence_id": 3,
+      "visible_on_profile": true,
+      "description": "<p>Practica usted ejercicio regularmente</p>"
     },
     {
-      "parentGooruOid":"522f6827-f7dd-486f-8631-eba497e2d425",
-      "answers":[
+      "id": "f77ede06-12a1-11e6-aba0-0935596035e8",
+      "title": "<p>El _______ es amarillo. La luna es_______<br data-mce-bogus=\"1\"></p>",
+      "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
+      "original_creator_id": null,
+      "publish_date": null,
+      "content_subformat": "fill_in_the_blank_question",
+      "answer": [
         {
-          "answerId":10538559,
-          "answerText":"True",
-          "answerType":"text",
-          "isCorrect":true,
-          "sequence":1
+          "sequence": 1,
+          "is_correct": false,
+          "answer_text": "sol",
+          "answer_type": "text"
         },
         {
-          "answerId":10538560,
-          "answerText":"False",
-          "answerType":"text",
-          "isCorrect":false,
-          "sequence":2
+          "sequence": 2,
+          "is_correct": false,
+          "answer_text": "gris",
+          "answer_type": "text"
         }
       ],
-      "itemSequence":3,
-      "type":3,
-      "title":"<p>Practica usted ejercicio regularmente</p>",
-      "sharing":"public",
-      "description":"<p>Practica usted ejercicio regularmente</p>",
-      "questionText":"<p>Practica usted ejercicio regularmente</p>",
-      "collectionItemId":"b2a3b54a-0c4b-4ad6-aec7-37f21f8483fb",
-      "hints":[
-
-      ],
-      "explanation":"",
-      "assetURI":"http://qacdn.gooru.org/qalive/",
-      "resourceType":{
-        "name":"assessment-question"
-      },
-      "folder":"f000/2441/3255/",
-      "typeName":"T/F",
-      "gooruOid":"58db5003-9a1e-423d-8fcc-de3506034173",
-      "resourceFormat":{
-        "value":"question",
-        "displayName":"Question"
-      },
-      "views":3,
-      "user":{
-        "username":"perezedify",
-        "gooruUId":"ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
-        "profileImageUrl":"http://profile-qa.s3.amazonaws.com/ff90e7e2-7788-48fb-9ce2-7b6d7a828840.png"
-      }
+      "metadata": null,
+      "taxonomy": null,
+      "hint_explanation_detail": null,
+      "thumbnail": null,
+      "sequence_id": 4,
+      "visible_on_profile": true,
+      "description": "<p>El _______ es amarillo. La luna es_______<br data-mce-bogus=\"1\"></p>"
     },
     {
-      "parentGooruOid":"522f6827-f7dd-486f-8631-eba497e2d425",
-      "answers":[
+      "id": "f0d555af-1390-11e6-bd2c-c13107c2c772",
+      "title": "<p>Ordene los paises por fecha de independencia</p>",
+      "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
+      "original_creator_id": null,
+      "publish_date": null,
+      "content_subformat": "hot_text_reorder_question",
+      "answer": [
         {
-          "answerId":10538561,
-          "answerText":"sol",
-          "answerType":"text",
-          "isCorrect":false,
-          "sequence":1
+          "sequence": 1,
+          "is_correct": true,
+          "answer_text": "<p>Costa Rica</p>",
+          "answer_type": "text"
         },
         {
-          "answerId":10538562,
-          "answerText":"gris",
-          "answerType":"text",
-          "isCorrect":false,
-          "sequence":2
+          "sequence": 2,
+          "is_correct": true,
+          "answer_text": "<p>Estados Unidos</p>",
+          "answer_type": "text"
+        },
+        {
+          "sequence": 3,
+          "is_correct": true,
+          "answer_text": "<p>Mexico</p>",
+          "answer_type": "text"
+        },
+        {
+          "sequence": 4,
+          "is_correct": true,
+          "answer_text": "<p>Panama</p>",
+          "answer_type": "text"
         }
       ],
-      "itemSequence":4,
-      "type":4,
-      "title":"<p>El _______ es amarillo. La luna es_______<br data-mce-bogus=\"1\"></p>",
-      "sharing":"public",
-      "description":"<p>El _______ es amarillo. La luna es_______<br data-mce-bogus=\"1\"></p>",
-      "questionText":"<p>El _______ es amarillo. La luna es_______<br data-mce-bogus=\"1\"></p>",
-      "collectionItemId":"a5bfb555-b2ca-4ec8-aaf3-7082a89f9b0a",
-      "hints":[
-
-      ],
-      "explanation":"",
-      "assetURI":"http://qacdn.gooru.org/qalive/",
-      "resourceType":{
-        "name":"assessment-question"
+      "metadata": null,
+      "taxonomy": null,
+      "hint_explanation_detail": {
+        "hint": []
       },
-      "folder":"f000/2441/3256/",
-      "typeName":"FIB",
-      "gooruOid":"60a20e19-e122-4e49-8da7-9556b2ad8bd3",
-      "resourceFormat":{
-        "value":"question",
-        "displayName":"Question"
-      },
-      "views":5,
-      "user":{
-        "username":"perezedify",
-        "gooruUId":"ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
-        "profileImageUrl":"http://profile-qa.s3.amazonaws.com/ff90e7e2-7788-48fb-9ce2-7b6d7a828840.png"
-      }
+      "thumbnail": null,
+      "sequence_id": 5,
+      "visible_on_profile": true,
+      "description": "<p>Ordene los paises por fecha de independencia</p>"
     },
     {
-      "hlType":"word",
-      "parentGooruOid":"522f6827-f7dd-486f-8631-eba497e2d425",
-      "answers":[
+      "id": "f0457189-1390-11e6-bd2c-c13107c2c772",
+      "title": "<p>Seleccione las palabras escritas incorrectamente</p>",
+      "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
+      "original_creator_id": null,
+      "publish_date": null,
+      "content_subformat": "hot_text_highlight_question",
+      "answer": [
         {
-          "answerText":"<p>Costa Rica</p>",
-          "answerType":"text",
-          "sequence":1,
-          "isCorrect":true
-        },
-        {
-          "answerText":"<p>Estados Unidos</p>",
-          "answerType":"text",
-          "sequence":2,
-          "isCorrect":true
-        },
-        {
-          "answerText":"<p>Mexico</p>",
-          "answerType":"text",
-          "sequence":3,
-          "isCorrect":true
-        },
-        {
-          "answerText":"<p>Panama</p>",
-          "answerType":"text",
-          "sequence":4,
-          "isCorrect":true
+          "sequence": 1,
+          "is_correct": true,
+          "answer_text": "<p>La casa es de [colo] pero el [teco] es azul</p>",
+          "answer_type": "text"
         }
       ],
-      "itemSequence":5,
-      "type":9,
-      "singleCorrectAnswer":true,
-      "title":"<p>Ordene los paises por fecha de independencia</p>",
-      "sharing":"public",
-      "description":"<p>Ordene los paises por fecha de independencia</p>",
-      "questionText":"<p>Ordene los paises por fecha de independencia</p>",
-      "collectionItemId":"0a2e4c91-bbcb-4595-a324-ea0d992f1a22",
-      "timeToCompleteInSecs":0,
-      "hints":[
-
-      ],
-      "explanation":"",
-      "assetURI":"http://qacdn.gooru.org/qalive/",
-      "resourceType":{
-        "name":"assessment-question"
+      "metadata": null,
+      "taxonomy": null,
+      "hint_explanation_detail": {
+        "hint": []
       },
-      "folder":"f000/2441/3257/",
-      "typeName":"HT_RO",
-      "gooruOid":"dd82de53-a258-43bf-987d-09adf06f1518",
-      "resourceFormat":{
-        "value":"question",
-        "displayName":"Question"
-      },
-      "views":4,
-      "user":{
-        "username":"perezedify",
-        "gooruUId":"ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
-        "profileImageUrl":"http://profile-qa.s3.amazonaws.com/ff90e7e2-7788-48fb-9ce2-7b6d7a828840.png"
-      }
+      "thumbnail": null,
+      "sequence_id": 6,
+      "visible_on_profile": true,
+      "description": "<p>Seleccione las palabras escritas incorrectamente</p>"
     },
     {
-      "hlType":"word",
-      "parentGooruOid":"522f6827-f7dd-486f-8631-eba497e2d425",
-      "answers":[
+      "id": "f06f40ba-1390-11e6-bd2c-c13107c2c772",
+      "title": "<p>Seleccione la imagen que más le guste</p>",
+      "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
+      "original_creator_id": null,
+      "publish_date": null,
+      "content_subformat": "hot_spot_image_question",
+      "answer": [
         {
-          "answerText":"<p>La casa es de [colo] pero el [teco] es azul</p>",
-          "answerType":"text",
-          "sequence":1,
-          "isCorrect":true
+          "sequence": 1,
+          "is_correct": true,
+          "answer_text": "9f2b2f70-545f-43f2-a67d-27efe7ed6a57.png",
+          "answer_type": "image"
+        },
+        {
+          "sequence": 2,
+          "is_correct": true,
+          "answer_text": "b7d104b8-16fb-4d1b-a189-7c7b6816c897.png",
+          "answer_type": "image"
+        },
+        {
+          "sequence": 3,
+          "is_correct": false,
+          "answer_text": "331bbc3f-eeb8-4c4d-867f-73e121ac39ad.png",
+          "answer_type": "image"
         }
       ],
-      "itemSequence":6,
-      "type":8,
-      "singleCorrectAnswer":true,
-      "title":"<p>Seleccione las palabras escritas incorrectamente</p>",
-      "sharing":"public",
-      "description":"<p>Seleccione las palabras escritas incorrectamente</p>",
-      "questionText":"<p>Seleccione las palabras escritas incorrectamente</p>",
-      "collectionItemId":"da018057-3040-4bee-af9c-2010ee5c7635",
-      "timeToCompleteInSecs":0,
-      "hints":[
-
-      ],
-      "explanation":"",
-      "assetURI":"http://qacdn.gooru.org/qalive/",
-      "resourceType":{
-        "name":"assessment-question"
+      "metadata": null,
+      "taxonomy": null,
+      "hint_explanation_detail": {
+        "hint": []
       },
-      "folder":"f000/2441/3258/",
-      "typeName":"HT_HL",
-      "gooruOid":"c2694b45-205f-4fad-9abf-ffc342aff205",
-      "resourceFormat":{
-        "value":"question",
-        "displayName":"Question"
-      },
-      "views":4,
-      "user":{
-        "username":"perezedify",
-        "gooruUId":"ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
-        "profileImageUrl":"http://profile-qa.s3.amazonaws.com/ff90e7e2-7788-48fb-9ce2-7b6d7a828840.png"
-      }
+      "thumbnail": null,
+      "sequence_id": 7,
+      "visible_on_profile": true,
+      "description": "<p>Seleccione la imagen que más le guste</p>"
     },
     {
-      "hlType":"image",
-      "parentGooruOid":"522f6827-f7dd-486f-8631-eba497e2d425",
-      "answers":[
+      "id": "efbf5176-1390-11e6-bd2c-c13107c2c772",
+      "title": "<p>Cuales de los siguientes paises han sido campeones mundiales de futbol?</p>",
+      "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
+      "original_creator_id": null,
+      "publish_date": null,
+      "content_subformat": "hot_spot_text_question",
+      "answer": [
         {
-          "answerText":"9f2b2f70-545f-43f2-a67d-27efe7ed6a57.png",
-          "answerType":"image",
-          "sequence":1,
-          "isCorrect":true
+          "sequence": 1,
+          "is_correct": true,
+          "answer_text": "<p>Brasil</p>",
+          "answer_type": "text"
         },
         {
-          "answerText":"b7d104b8-16fb-4d1b-a189-7c7b6816c897.png",
-          "answerType":"image",
-          "sequence":2,
-          "isCorrect":true
+          "sequence": 2,
+          "is_correct": false,
+          "answer_text": "<p>Costa Rica</p>",
+          "answer_type": "text"
         },
         {
-          "answerText":"331bbc3f-eeb8-4c4d-867f-73e121ac39ad.png",
-          "answerType":"image",
-          "sequence":3,
-          "isCorrect":false
+          "sequence": 3,
+          "is_correct": true,
+          "answer_text": "<p>Italia</p>",
+          "answer_type": "text"
         },
         {
-          "answerText":"9f2b2f70-545f-43f2-a67d-27efe7ed6a57.png",
-          "answerType":"image",
-          "sequence":4,
-          "isCorrect":true
-        },
-        {
-          "answerText":"b7d104b8-16fb-4d1b-a189-7c7b6816c897.png",
-          "answerType":"image",
-          "sequence":5,
-          "isCorrect":true
-        },
-        {
-          "answerText":"331bbc3f-eeb8-4c4d-867f-73e121ac39ad.png",
-          "answerType":"image",
-          "sequence":6,
-          "isCorrect":false
+          "sequence": 4,
+          "is_correct": false,
+          "answer_text": "<p>Japón</p>",
+          "answer_type": "text"
         }
       ],
-      "itemSequence":7,
-      "type":11,
-      "singleCorrectAnswer":false,
-      "title":"<p>Seleccione la imagen que más le guste</p>",
-      "sharing":"public",
-      "description":"<p>Seleccione la imagen que más le guste</p>",
-      "questionText":"<p>Seleccione la imagen que más le guste</p>",
-      "collectionItemId":"92ae338d-1b06-42e6-813d-8fd6a1961b16",
-      "timeToCompleteInSecs":0,
-      "hints":[
-
-      ],
-      "explanation":"",
-      "assetURI":"http://qacdn.gooru.org/qalive/",
-      "resourceType":{
-        "name":"assessment-question"
+      "metadata": null,
+      "taxonomy": null,
+      "hint_explanation_detail": {
+        "hint": []
       },
-      "folder":"f000/2441/3259/",
-      "typeName":"HS_IMG",
-      "gooruOid":"19ffe6fb-d184-4e4e-a159-7844f11ee44a",
-      "resourceFormat":{
-        "value":"question",
-        "displayName":"Question"
-      },
-      "views":5,
-      "user":{
-        "username":"perezedify",
-        "gooruUId":"ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
-        "profileImageUrl":"http://profile-qa.s3.amazonaws.com/ff90e7e2-7788-48fb-9ce2-7b6d7a828840.png"
-      }
-    },
-    {
-      "hlType":"text",
-      "parentGooruOid":"522f6827-f7dd-486f-8631-eba497e2d425",
-      "answers":[
-        {
-          "answerText":"<p>Brasil</p>",
-          "answerType":"text",
-          "sequence":1,
-          "isCorrect":true
-        },
-        {
-          "answerText":"<p>Costa Rica</p>",
-          "answerType":"text",
-          "sequence":2,
-          "isCorrect":false
-        },
-        {
-          "answerText":"<p>Italia</p>",
-          "answerType":"text",
-          "sequence":3,
-          "isCorrect":true
-        },
-        {
-          "answerText":"<p>Japón</p>",
-          "answerType":"text",
-          "sequence":4,
-          "isCorrect":false
-        }
-      ],
-      "itemSequence":8,
-      "type":10,
-      "singleCorrectAnswer":false,
-      "title":"<p>Cuales de los siguientes paises han sido campeones mundiales de futbol?</p>",
-      "sharing":"public",
-      "description":"<p>Cuales de los siguientes paises han sido campeones mundiales de futbol?</p>",
-      "questionText":"<p>Cuales de los siguientes paises han sido campeones mundiales de futbol?</p>",
-      "collectionItemId":"91cd8abe-4586-420b-899f-bc9f84fd13ab",
-      "timeToCompleteInSecs":0,
-      "hints":[
-
-      ],
-      "explanation":"",
-      "assetURI":"http://qacdn.gooru.org/qalive/",
-      "resourceType":{
-        "name":"assessment-question"
-      },
-      "folder":"f000/2441/3260/",
-      "typeName":"HS_TXT",
-      "gooruOid":"524c3970-db05-4eec-8a82-013f27f1a1a6",
-      "resourceFormat":{
-        "value":"question",
-        "displayName":"Question"
-      },
-      "views":4,
-      "user":{
-        "username":"perezedify",
-        "gooruUId":"ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
-        "profileImageUrl":"http://profile-qa.s3.amazonaws.com/ff90e7e2-7788-48fb-9ce2-7b6d7a828840.png"
-      }
+      "thumbnail": null,
+      "sequence_id": 8,
+      "visible_on_profile": true,
+      "description": "<p>Cuales de los siguientes paises han sido campeones mundiales de futbol?</p>"
     }
   ],
-  "permissions":[
-    "view"
-  ],
-  "audience":[
-    {
-      "id":195,
-      "name":"All Students"
-    }
-  ],
-  "collectionItemId":"cdde649a-e3be-40c0-8183-c81bb7aec8e8",
-  "lastModified":1447886464000,
-  "languageObjective":"",
-  "publishStatus":"reviewed",
-  "gooruOid":"522f6827-f7dd-486f-8631-eba497e2d425",
-  "views":5,
-  "user":{
-    "username":"perezedify",
-    "showProfilePage":true,
-    "gooruUId":"ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
-    "profileImageUrl":"http://profile-qa.s3.amazonaws.com/ff90e7e2-7788-48fb-9ce2-7b6d7a828840.png"
-  }
+  "collaborator": []
 }
