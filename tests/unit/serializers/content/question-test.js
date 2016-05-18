@@ -26,6 +26,7 @@ test('serializeUpdateQuestion', function(assert) {
     //type: 'MA',
     text: 'This is the question text?',
     isVisibleOnProfile: false,
+    questionType: 'word',
     answers: Ember.A([
       AnswerModel.create({
         sequence: 1,
@@ -62,11 +63,26 @@ test('serializeAnswer', function(assert) {
     text: 'Answer #1 text',
     type: 'text'
   });
-  const response = serializer.serializerAnswer(answer, 1);
+  const response = serializer.serializerAnswer(answer, 1, false);
 
   assert.equal(response.sequence, 1, 'Wrong sequence');
   assert.equal(response['is_correct'], 1, 'Wrong is_correct');
   assert.equal(response['answer_text'], 'Answer #1 text', 'Wrong answer_text');
+  assert.equal(response['answer_type'], 'text', 'Wrong answer_type');
+});
+
+test('serializeAnswer for image', function(assert) {
+  const serializer = this.subject();
+  const answer = AnswerModel.create({
+    isCorrect: true,
+    text: 'content-url/answer-thumbnail',
+    type: 'text'
+  });
+  const response = serializer.serializerAnswer(answer, 1, true);
+
+  assert.equal(response.sequence, 1, 'Wrong sequence');
+  assert.equal(response['is_correct'], 1, 'Wrong is_correct');
+  assert.equal(response['answer_text'], 'answer-thumbnail', 'Wrong answer_text');
   assert.equal(response['answer_type'], 'text', 'Wrong answer_type');
 });
 

@@ -29,6 +29,7 @@
 @import 'controllers/content/questions/edit';
 @import 'controllers/content/questions/play';
 @import 'controllers/content/resources/edit';
+@import 'controllers/content/resources/play';
 
 @import 'controllers/index';
 @import 'controllers/partials/player';
@@ -113,7 +114,10 @@
 @import 'components/content/gru-image';
 @import 'components/content/collections/gru-collection-list';
 @import 'components/content/modals';
+@import 'components/content/modals/gru-delete-content';
+@import 'components/content/modals/gru-question-new';
 @import 'components/content/modals/gru-quick-course-search';
+@import 'components/content/modals/gru-resource-new';
 @import 'components/content/questions/answers/gru-hs-image';
 @import 'components/content/questions/answers/gru-hs-text';
 @import 'components/content/questions/answers/gru-multiple-answer';
@@ -121,6 +125,7 @@
 @import 'components/content/questions/answers/gru-open-ended';
 @import 'components/content/questions/answers/gru-reorder';
 @import 'components/content/questions/answers/gru-true-false';
+@import 'components/content/questions/gru-question-play';
 
 @import 'components/player/gru-navigation';
 @import 'components/player/gru-navigator';

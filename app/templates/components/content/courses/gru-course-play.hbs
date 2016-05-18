@@ -7,7 +7,7 @@
     {{/gru-share-pop-over}}
     <button class="btn btn-default remix">{{t "common.remix"}}</button>
     {{#if isOwner}}
-      <button class="btn btn-default edit">{{t "common.edit"}}</button>
+      {{#link-to 'content.courses.edit' course.id class="btn btn-default edit" tagName="button"}}{{t "common.edit"}}{{/link-to}}
     {{/if}}
     <button class="btn btn-default play btn-success">{{t "common.play"}}</button>
   </div>
@@ -35,9 +35,13 @@
     </div>
   </div>
 
-  <div class="aside hidden-md hidden-lg">
-    <div>
-      <h4>Aside Placeholder</h4>
+  <hr class="hidden-sm">
+
+  <div class="panel panel-default aside hidden-md hidden-lg">
+    <div class="panel-body">
+
+      {{partial 'content/partials/course-information'}}
+
     </div>
   </div>
 
