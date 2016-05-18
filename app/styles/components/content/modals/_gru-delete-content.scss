@@ -6,16 +6,16 @@
     ul{
       list-style: none;
       padding-left: 0;
-      span{
-        display: inline-block;
-        text-transform: lowercase;
-      }
-      span:first-letter{
-        text-transform: capitalize;
-      }
     }
   }
   .delete-input{
     outline: none;
+  }
+  p span, span{
+    display: inline-block;
+    text-transform: lowercase;
+  }
+  p span:first-letter,span:first-letter{
+    text-transform: capitalize;
   }
 }

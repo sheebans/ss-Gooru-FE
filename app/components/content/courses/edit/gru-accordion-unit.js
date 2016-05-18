@@ -101,7 +101,7 @@ export default PlayerAccordionUnit.extend(ModalMixin,{
      * Delete selected unit
      *
      */
-    deleteContent: function (builderItem) {
+    deleteItem: function (builderItem) {
       let component = this;
       var model = {
           content: this.get('unit'),

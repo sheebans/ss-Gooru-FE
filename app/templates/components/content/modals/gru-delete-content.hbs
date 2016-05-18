@@ -5,7 +5,8 @@
   <form {{action "deleteContent" model on="submit"}}>
     <p class="legend">{{t "content.modals.delete-content.legend"}}
         <b>
-          {{#if (eq model.type 'unit')}}{{t "common.unit"}}{{plus-one model.index}}-{{model.content.title}} {{t "common.from"}} {{model.parentName}}
+          {{#if model.parentName}}
+            <span>{{t "content.modals.delete-content.content-legend" type=model.type index=(plus-one model.index) title=model.content.title parentName=model.parentName}}</span>
           {{else}}
             {{model.content.title}}
           {{/if}}

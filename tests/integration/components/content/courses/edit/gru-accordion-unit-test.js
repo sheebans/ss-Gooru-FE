@@ -4,6 +4,7 @@ import BuilderItem from 'gooru-web/models/content/builder/item';
 import Lesson from 'gooru-web/models/content/lesson';
 import Unit from 'gooru-web/models/content/unit';
 import Ember from 'ember';
+import wait from 'ember-test-helpers/wait';
 
 const unitServiceStub = Ember.Service.extend({
 
@@ -417,4 +418,60 @@ test('it loads lessons and renders them after clicking on the unit name', functi
   assert.ok($container.hasClass('expanded'), 'Container expanded');
   assert.equal($container.find('.accordion-unit > li.gru-accordion-lesson').length, 2, 'Number of lessons loaded');
   assert.ok(this.get('isLoaded'), 'Data was loaded');
+});
+
+test('it triggers an external event when clicking delete', function (assert) {
+  assert.expect(1);
+
+  const unit = BuilderItem.create({
+    data: Unit.create(Ember.getOwner(this).ownerInjection(), {
+      id: '1123erqasw12'
+    }),
+    isEditing: false
+  });
+
+  const courseId='111232';
+
+  const courseTitle='CourseTest';
+
+  this.on('externalAction', function () {
+    assert.ok(true);
+  });
+
+  this.on('showModal', function () {
+    assert.ok(true);
+  });
+
+  this.on('closeModal', function () {
+    assert.ok(true);
+  });
+
+  this.set('unit', unit);
+  this.set('courseId', courseId);
+  this.set('courseTitle', courseTitle);
+  this.render(hbs`{{content/courses/edit/gru-accordion-unit model=unit onDeleteUnit=(action 'externalAction') courseTitle=courseTitle courseId=courseId}}`);
+
+  const $component = this.$('.content.courses.gru-accordion.gru-accordion-unit');
+  Ember.run(function() {
+    $component.find('.detail .item-actions .delete-item').click();
+  });
+
+  const $deleteModal = this.$('.gru-delete-content');
+    const $firstOption = $deleteModal.find('ul li:eq(0) input');
+    $firstOption.click();
+    return wait().then(function () {
+      const $secondOption = $deleteModal.find('ul li:eq(1) input');
+      $secondOption.click();
+      return wait().then(function () {
+        const $thirdOption = $deleteModal.find('ul li:eq(2) input');
+        $thirdOption.click();
+        return wait().then(function () {
+          const $inputDelete = $deleteModal.find('.delete-input');
+          $inputDelete.val('delete');
+          $inputDelete.blur();
+          const $deleteButton = $deleteModal.find('button.delete');
+          $deleteButton.click();
+        });
+      });
+    });
 });
