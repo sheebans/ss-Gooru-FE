@@ -14,7 +14,7 @@
       {{gru-icon name="insert_link"}}
     {{/gru-share-pop-over}}
     <button class="btn btn-default hidden">{{t "common.add-to"}}</button>
-    <button class="btn btn-default">{{t "common.preview"}}</button>
+    {{#link-to 'content.resources.play' resource.id class="btn btn-default preview" tagName="button"}}{{t "common.preview"}}{{/link-to}}
   </div>
 
   <nav>
