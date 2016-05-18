@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { RESOURCE_COMPONENT_MAP } from "../../../config/config";
+import { RESOURCE_COMPONENT_MAP } from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
