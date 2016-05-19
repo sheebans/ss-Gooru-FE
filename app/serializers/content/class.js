@@ -24,6 +24,23 @@ export default Ember.Object.extend({
    * @returns {Object} returns a JSON Object
    */
   serializeCreateClass: function(classModel) {
+    var classData = this.serializeClass(classModel);
+    return classData;
+  },
+
+  /**
+   * Serialize a Class object into a JSON representation required by the Update Class endpoint
+   *
+   * @param classModel The Class model to be serialized
+   * @returns {Object} returns a JSON Object
+   */
+  serializeUpdateClass: function(classModel) {
+    var classData = this.serializeClass(classModel);
+    classData['greeting'] = classModel.get('greeting');
+    return classData;
+  },
+
+  serializeClass: function(classModel) {
     return {
       title: classModel.get('title'),
       class_sharing: classModel.get('classSharing')
