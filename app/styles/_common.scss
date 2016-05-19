@@ -354,6 +354,19 @@ span.validation.warning {
   }
 }
 
+#toast-container.toast-top-full-width > .gooru-toast {
+  width: 100%;
+  background-image: none !important;
+  .btn-success {
+    padding: 2px 30px;
+    margin-left: 25px;
+    font-size: $font-size-base;
+  }
+  .toast-message {
+    text-align: center;
+  }
+}
+
 label {
   span.required {
     &:after {
