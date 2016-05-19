@@ -27,6 +27,23 @@ export default Ember.Component.extend({
 
   classNames: ['content', 'modals', 'gru-delete-content'],
   // -------------------------------------------------------------------------
+  // Events
+  init(){
+    this._super(...arguments);
+    // 'validator' should never be set as a param except for testing
+    var validator = this.get('validator');
+    if (!validator) {
+      this.set('validator',Ember.Object.create({
+        confirm:"",
+        check1:false,
+        check2:false,
+        check3:false
+      }));
+    } else {
+      this.set('validator', validator);
+    }
+  },
+  // -------------------------------------------------------------------------
   // Actions
 
   actions: {
@@ -77,12 +94,7 @@ export default Ember.Component.extend({
    * Object to control when the delete button becomes enabled
    * @property {model}
    */
-  validator: Ember.Object.create({
-    confirm:"",
-    check1:false,
-    check2:false,
-    check3:false
-  }),
+  validator: null,
 
   /**
    * Indicate if delete button is disabled

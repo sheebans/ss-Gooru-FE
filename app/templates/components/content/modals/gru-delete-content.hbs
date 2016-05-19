@@ -3,7 +3,15 @@
 </div>
 <div class="modal-body">
   <form {{action "deleteContent" model on="submit"}}>
-    <p class="legend">{{t "content.modals.delete-content.legend"}} <b>{{model.content.title}}</b></p>
+    <p class="legend">{{t "content.modals.delete-content.legend"}}
+        <b>
+          {{#if model.parentName}}
+            <span>{{t "content.modals.delete-content.content-legend" type=model.type index=(plus-one model.index) title=model.content.title parentName=model.parentName}}</span>
+          {{else}}
+            {{model.content.title}}
+          {{/if}}
+        </b>
+    </p>
     <div class="delete-info">
       <ul>
         <li>
