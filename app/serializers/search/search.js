@@ -4,6 +4,7 @@ import ResourceModel from 'gooru-web/models/content/resource';
 import QuestionModel from 'gooru-web/models/content/question';
 import AssessmentModel from 'gooru-web/models/content/assessment';
 import CollectionModel from 'gooru-web/models/content/collection';
+import CourseModel from 'gooru-web/models/content/course';
 import ProfileModel from 'gooru-web/models/profile/profile';
 import { DEFAULT_IMAGES } from 'gooru-web/config/config';
 
@@ -218,6 +219,41 @@ export default Ember.Object.extend({
       }
     }
     return standards;
+  },
+
+  /**
+   * Normalize the Search course response
+   *
+   * @param payload is the endpoint response in JSON format
+   * @returns {Course[]}
+   */
+  normalizeSearchCourses: function(payload) {
+    const serializer = this;
+    if (Ember.isArray(payload.searchResults)) {
+      return payload.searchResults.map(function(result) {
+        return serializer.normalizeCourse(result);
+      });
+    }
+  },
+
+  /**
+   * Normalizes a course
+   * @param {*} result
+   * @returns {Course}
+   */
+  normalizeCourse: function(result){
+    const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = result.thumbnail ? basePath + result.thumbnail : DEFAULT_IMAGES.COURSE;
+    return CourseModel.create({
+      id: result.id,
+      title: result.title,
+      description: result.description,
+      thumbnailUrl: thumbnailUrl,
+      subject: result.subject_bucket,
+      isVisibleOnProfile: result['visible_on_profile'],
+      owner: result.owner ? serializer.normalizeOwner(result.owner) : null
+    });
   }
 
 });

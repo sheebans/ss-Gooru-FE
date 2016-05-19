@@ -19,6 +19,7 @@
 @import 'controllers/class/info';
 @import 'controllers/class/overview';
 @import 'controllers/class/quick-start';
+@import 'controllers/class/edit';
 @import 'controllers/classes';
 @import 'controllers/content/classes/modals';
 @import 'controllers/content/classes/create';
@@ -118,6 +119,7 @@
 @import 'components/content/modals/gru-question-new';
 @import 'components/content/modals/gru-quick-course-search';
 @import 'components/content/modals/gru-resource-new';
+@import 'components/content/questions/answers/gru-hot-text-highlight';
 @import 'components/content/questions/answers/gru-hs-image';
 @import 'components/content/questions/answers/gru-hs-text';
 @import 'components/content/questions/answers/gru-multiple-answer';

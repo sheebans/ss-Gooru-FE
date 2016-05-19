@@ -39,7 +39,7 @@ test('it renders', function(assert) {
   }.bind(this));
 
   assert.ok($component.find('p.legend').length, 'Missing Delete Course Legend');
-  assert.equal($component.find('p.legend').text(), this.get('i18n').t('content.modals.delete-content.legend').string + " " + model.content.title, 'Incorrect legend');
+  assert.ok($component.find('p.legend').text().indexOf(model.content.title) > -1, 'Incorrect legend');
   assert.ok($component.find('.delete-info').length, 'Missing Delete Information');
   assert.equal($component.find('.delete-info ul li:eq(0) label span').text(), this.get('i18n').t('content.modals.delete-content.delete-instructions.links-inaccessible').string, 'Incorrect links inaccessible check');
   assert.equal($component.find('.delete-info ul li:eq(1) label span').text(), this.get('i18n').t('content.modals.delete-content.delete-instructions.content-inaccessible').string, 'Incorrect content inaccessible check');
