@@ -1,0 +1,25 @@
+{
+  "unit_id": "610cff79-d77b-4c23-8de3-1cb6969d4b07",
+  "course_id":"course-123",
+  "title": "Unit 1",
+  "created_at":"2016-05-19T16:22:25Z",
+  "updated_at":"2016-05-19T16:22:25Z",
+  "owner_id":"1f1114e0-2daa-4034-995a-8b3c1db029d7",
+  "creator_id":"1f1114e0-2daa-4034-995a-8b3c1db029d7",
+  "modifier_id":"1f1114e0-2daa-4034-995a-8b3c1db029d7",
+  "original_creator_id":null,
+  "original_unit_id":null,
+  "big_ideas":"",
+  "essential_questions":"",
+  "metadata":null,
+  "taxonomy":[],
+  "sequence_id":10,
+  "creator_system":null,
+  "lesson_summary":[{
+    "lesson_id":"2bdb6e3d-a64f-49c2-9669-d5b9106d9ea5",
+    "title":"Lesson for test",
+    "sequence_id":4,
+    "collection_count":0,
+    "assessment_count":0}
+  ]
+}
