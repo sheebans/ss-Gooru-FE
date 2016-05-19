@@ -314,7 +314,7 @@ test('normalizeCourse', function(assert) {
     }
   }));
   const courseData = {
-    "id": "course-id"
+    "id": "course-id",
     "sequence": "1",
     "title": "title",
     "description": "description",
