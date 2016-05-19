@@ -62,6 +62,7 @@ Router.map(function() {
     this.route('overview');
     this.route('info');
     this.route('quick-start');
+    this.route('edit');
 
     this.route('analytics', function() {
       this.route('performance', function() {
