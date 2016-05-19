@@ -1,0 +1,67 @@
+<ol>
+
+  {{#each headerItems as |headerItem index|}}
+    <li>
+      <strong>{{headerItem.title}}</strong>
+      <ul class="browse-panel level-{{plus-one index}}">
+
+        {{#if (eq headerItem headerItems.lastObject)}}
+
+          {{!-- last level browser items --}}
+          {{#each headerItem.data as |browseItem|}}
+            <li>
+              <label>
+                {{input type="checkbox" checked=browseItem.isChecked}}
+                <span>{{browseItem.item.label}}</span>
+              </label>
+
+
+              {{#if browseItem.children.length}}
+                <button data-toggle="collapse" data-target="#children-{{browseItem.item.id}}">Collapsible</button>
+                <ul id="children-{{browseItem.item.id}}" class="level-panel sublevel-1">
+
+                  {{#each browseItem.children as |browseItemChild|}}
+                    <li>
+                      <label>
+                        {{input type="checkbox" checked=browseItemChild.isChecked}}
+                        <span>{{browseItemChild.item.label}}</span>
+                      </label>
+
+                      {{#if browseItemChild.children.length}}
+                        <button data-toggle="collapse" data-target="#children-{{browseItemChild.item.id}}">Collapsible</button>
+                        <ul id="children-{{browseItemChild.item.id}}" class="level-panel sublevel-2">
+
+                          {{#each browseItemChild.children as |browseItemGrandChild|}}
+                            <li>
+                              <label>
+                                {{input type="checkbox" checked=browseItemGrandChild.isChecked}}
+                                <span>{{browseItemGrandChild.item.label}}</span>
+                              </label>
+                            </li>
+                          {{/each}}
+
+                        </ul>
+                      {{/if}}
+                    </li>
+                  {{/each}}
+
+                </ul>
+              {{/if}}
+            </li>
+          {{/each}}
+
+        {{else}}
+
+          {{#each headerItem.data as |browseItem|}}
+            <li class="{{if browseItem.hasChildrenChecked 'selected'}}">
+              <a {{action 'selectInsideItem' browseItem}}>{{browseItem.item.label}}</a>
+            </li>
+          {{/each}}
+
+        {{/if}}
+
+      </ul>
+    </li>
+  {{/each}}
+
+</ol>
