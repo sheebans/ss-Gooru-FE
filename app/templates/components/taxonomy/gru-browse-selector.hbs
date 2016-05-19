@@ -17,8 +17,11 @@
 
 
               {{#if browseItem.children.length}}
-                <button data-toggle="collapse" data-target="#children-{{browseItem.item.id}}">Collapsible</button>
-                <ul id="children-{{browseItem.item.id}}" class="level-panel sublevel-1">
+                <button data-toggle="collapse" class="collapsed" data-target="#children-{{browseItem.item.id}}">
+                  {{gru-icon name='keyboard_arrow_up'}}
+                  {{gru-icon name='keyboard_arrow_down'}}
+                </button>
+                <ul id="children-{{browseItem.item.id}}" class="collapse level-panel sublevel-1">
 
                   {{#each browseItem.children as |browseItemChild|}}
                     <li>
@@ -28,8 +31,11 @@
                       </label>
 
                       {{#if browseItemChild.children.length}}
-                        <button data-toggle="collapse" data-target="#children-{{browseItemChild.item.id}}">Collapsible</button>
-                        <ul id="children-{{browseItemChild.item.id}}" class="level-panel sublevel-2">
+                        <button data-toggle="collapse" class="collapsed" data-target="#children-{{browseItemChild.item.id}}">
+                          {{gru-icon name='keyboard_arrow_up'}}
+                          {{gru-icon name='keyboard_arrow_down'}}
+                        </button>
+                        <ul id="children-{{browseItemChild.item.id}}" class="collapse level-panel sublevel-2">
 
                           {{#each browseItemChild.children as |browseItemGrandChild|}}
                             <li>

@@ -236,12 +236,12 @@ test("it keeps track of checked items", function(assert) {
 
 test("it displays exceeding levels of data as accordions in the last browse panel", function(assert) {
 
-  var data = generateTestTree(3);
-  var headers = ['Header Level 1', 'Header Level 2', 'Header Level 3'];
+  var data = generateTestTree(2, 3);
+  var headers = ['Header Level 1', 'Header Level 2'];
 
   this.set('data', data);
   this.set('headers', headers);
-  this.set('selectedPath', ['10', '20', '30']);  // IDs of the selected nodes
+  this.set('selectedPath', ['10']);  // IDs of the selected nodes
 
   this.render(hbs`
     {{taxonomy/gru-browse-selector
@@ -250,6 +250,28 @@ test("it displays exceeding levels of data as accordions in the last browse pane
       selectedPath=selectedPath }}`);
 
   const $component = this.$('.taxonomy.gru-browse-selector');
+  assert.equal($component.find('> ol > li').length, 2, 'Number of panel');
 
-  assert.expect(0);
+  const $lastPanel = $component.find('> ol > li:last-child');
+  const $item = $lastPanel.find('> ul > li:first-child');
+
+  assert.equal($lastPanel.find('> ul > li').length, 2, 'Number of items in the last panel');
+  assert.ok($item.find('> ul').length, 'First item in the last panel has a sublevel');
+  assert.ok($item.find('> ul > li:first-child > ul').length, 'First sublevel has a sublevel');
+  assert.notOk($item.find('> ul > li:first-child > ul > li ul').length, 'More than 2 sublevels');
+  assert.equal($item.find('ul').length,
+    $item.find('ul.collapse').length, 'All sub levels should be collapsible by default');
+  assert.notOk($item.find('ul.in').length, 'All sub levels should be collapsed by default');
+
+  // Expand the first sublevel of the first item
+  $item.find('> button').click();
+  assert.ok($item.find('> ul').hasClass('in'), 'Sublevel expanded');
+
+  // Expand the first sublevel of the sublevel
+  $item.find('> ul > li:first-child > button').click();
+  assert.ok($item.find('> ul > li:first-child > ul').hasClass('in'), 'Sublevel expanded -inside sublevel');
+
+  // Collapse the first sublevel of the sublevel
+  $item.find('> ul > li:first-child > button').click();
+  assert.notOk($item.find('> ul > li:first-child > ul').hasClass('in'), 'Sublevel collapsed -inside sublevel');
 });
