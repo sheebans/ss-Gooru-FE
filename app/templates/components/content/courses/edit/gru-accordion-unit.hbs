@@ -81,10 +81,12 @@
           courseId=courseId
           courseTitle=courseTitle
           unitId=unit.id
+          courseTitle=courseTitle
           model=item
           index=index
           totalItems=items.length
-          onCancelAddLesson=(action 'cancelAddLesson') }}
+          onCancelAddLesson=(action 'cancelAddLesson')
+          onDeleteLesson=(action 'removeLesson')}}
 
       {{/each}}
 

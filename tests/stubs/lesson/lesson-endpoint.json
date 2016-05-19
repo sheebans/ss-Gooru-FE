@@ -1,0 +1,18 @@
+[
+  {
+    "description": "Delete lesson",
+    "request": {
+      "url": "^/api/nucleus/v1/courses/(.+)/units/(.+)$/lessons/(.+)$",
+      "method": "DELETE",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
+  }
+]

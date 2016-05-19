@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 import PlayerAccordionLesson from 'gooru-web/components/content/courses/play/gru-accordion-lesson';
+import {CONTENT_TYPES} from 'gooru-web/config/config';
 
 /**
  * Content Builder: Accordion Lesson
@@ -14,6 +15,12 @@ import PlayerAccordionLesson from 'gooru-web/components/content/courses/play/gru
  */
 export default PlayerAccordionLesson.extend(ModalMixin, {
 
+  // -------------------------------------------------------------------------
+  // Dependencies
+  /**
+   * @requires service:api-sdk/lesson
+   */
+  lessonService: Ember.inject.service("api-sdk/lesson"),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -69,6 +76,30 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
      */
     removeLessonItem: function (builderItem) {
       this.get('items').removeObject(builderItem);
+    },
+    /**
+     * Delete selected lesson
+     *
+     */
+    deleteItem: function (builderItem) {
+      let component = this;
+      var model = {
+        content: this.get('lesson'),
+        index:this.get('index'),
+        parentName:this.get('courseTitle'),
+        deleteMethod: function () {
+          return this.get('lessonService').deleteLesson(this.get('courseId'),this.get('unitId'),this.get('lesson.id'));
+        }.bind(this),
+        type: CONTENT_TYPES.LESSON,
+        callback:{
+          success:function(){
+            component.get('onDeleteLesson')(builderItem);
+          },
+        }
+      };
+      this.actions.showModal.call(this,
+        'content.modals.gru-delete-content',
+        model, null, null, null, false);
     }
   },
 

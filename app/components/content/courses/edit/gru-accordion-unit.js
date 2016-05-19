@@ -120,6 +120,12 @@ export default PlayerAccordionUnit.extend(ModalMixin,{
       this.actions.showModal.call(this,
         'content.modals.gru-delete-content',
         model, null, null, null, false);
+    },
+    /**
+     * Remove Lesson from a list of lessons
+     */
+    removeLesson: function (builderItem) {
+      this.get('items').removeObject(builderItem);
     }
 
   },

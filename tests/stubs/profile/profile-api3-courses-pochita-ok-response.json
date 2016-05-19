@@ -2,8 +2,8 @@
   "courses":
     [
       {
-        "id":"d3e743ce-a47f-4630-a1f9-e3f3c272e530",
-        "title":"Jeff Course07",
+        "id":"course-123",
+        "title":"Test Course",
         "publish_status":"unpublished",
         "thumbnail":"",
         "owner_id":"08fd3a1a-8118-4b02-ab59-c0b4a5037863",
