@@ -53,7 +53,7 @@ test('updateClass', function(assert) {
     updateClass: function(classData) {
       assert.deepEqual(classData.class, {}, 'Wrong class object');
       assert.equal(classData.classId, 'class-id', 'Wrong class id');
-      return Ember.RSVP.resolve({});;
+      return Ember.RSVP.resolve({});
     }
   }));
 
