@@ -140,7 +140,7 @@ test('Delete lesson', function (assert) {
                   var $deleteButton = $deleteContentModal.find("button.delete");
                   click($deleteButton);
                   andThen(function () {
-                    assert.equal(find(".gru-accordion-lesson").length,0, 'Should have 0 units');
+                    assert.equal(find(".gru-accordion-lesson").length,0, 'Should have 0 lessons');
                   });
                 });
               });
