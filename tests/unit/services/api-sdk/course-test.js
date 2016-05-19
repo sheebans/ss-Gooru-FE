@@ -81,6 +81,25 @@ test('createCourse', function(assert) {
     });
 });
 
+test('deleteCourse', function(assert) {
+  const expectedCourseId = 'course-id';
+  const service = this.subject();
+
+  assert.expect(1);
+  service.set('adapter', Ember.Object.create({
+    deleteCourse: function(courseId) {
+      assert.equal(courseId, expectedCourseId, 'Wrong course id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.deleteCourse('course-id')
+    .then(function() {
+      done();
+    });
+});
+
 test('copyCourse', function(assert) {
   const service = this.subject();
 

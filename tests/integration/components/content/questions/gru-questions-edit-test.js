@@ -45,7 +45,7 @@ test('it has header and main sections', function (assert) {
   assert.ok($header.find('> .actions').length, "Header actions");
   assert.equal($header.find('> .actions > button').length, 4, "Number of header actions");
   assert.ok($container.find('.actions button.delete').length, "Missing Delete Button");
-  assert.ok($container.find('.actions button.share').length, "Missing Share Button");
+  assert.ok($container.find('.actions button.gru-share-pop-over').length, "Missing Share Button");
   assert.ok($container.find('.actions button.add').length, "Missing Add Button");
   assert.ok($container.find('.actions button.preview').length, "Missing Add Button");
 
@@ -816,6 +816,83 @@ test('HS-Image validate has images', function (assert) {
 
     return wait().then(function () {
       assert.ok($component.find('.missing-images').length, 'Missing validation for missing images');
+    });
+  });
+});
+
+test('Update answer text - Hot Text Highlight', function (assert) {
+  const newText = 'Answer text [updated]';
+
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text: "",
+    type: QUESTION_TYPES.hotTextHighlight,
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Answer [text]",
+      'isCorrect': true,
+      'type': 'text',
+      'highlightType': 'word'
+    })])
+  });
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+
+  var $answer = $component.find('.gru-hot-text-highlight');
+  assert.ok($answer, 'Answer component');
+  assert.equal($answer.find('.answer-text textarea').val(), question.get('answers.firstObject').get('text'), 'Answer text');
+
+  const $edit = $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+    $answer = $component.find('.gru-hot-text-highlight');
+    var $optionInput = $answer.find(".gru-textarea textarea");
+    $optionInput.val(newText);
+    $optionInput.trigger('blur');
+
+    const $save = $component.find("#builder .actions .save");
+    $save.click();
+    return wait().then(function () {
+      $answer = $component.find('.gru-hot-text-highlight');
+      assert.equal($answer.find('.answer-text textarea').val(), newText, 'Answer text after edit');
+    });
+  });
+});
+
+test('Update answer and cancel - Hot Text Highlight', function (assert) {
+  const newText = 'Answer text';
+
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text: "",
+    type: QUESTION_TYPES.hotTextHighlight,
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "",
+      'isCorrect': true,
+      'type': 'text',
+      'highlightType': 'word'
+    })])
+  });
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+  const $edit = $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+    var $answer = $component.find('.gru-hot-text-highlight');
+    var $optionInput = $answer.find(".gru-textarea textarea");
+    assert.ok($answer, 'Answer component');
+    assert.equal($optionInput.val(), '', 'Empty text for default option');
+    $optionInput.val(newText);
+    $optionInput.trigger('blur');
+
+    const $cancel = $component.find("#builder .actions .cancel");
+    $cancel.click();
+    return wait().then(function () {
+      $answer = $component.find('.gru-hot-text-highlight');
+      assert.equal($answer.find('.answer-text textarea').val(), '', 'Answer text after cancel');
     });
   });
 });

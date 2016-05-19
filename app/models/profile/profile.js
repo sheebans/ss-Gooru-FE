@@ -282,6 +282,43 @@ export default Ember.Object.extend(Validations,{
   /**
    * @property {object} network - The network information object
    */
-  network: null
+  network: null,
+
+  /**
+   * Return a copy of the collection
+   *
+   * @function
+   * @return {Profile}
+   */
+  copy: function () {
+
+    var properties = [];
+    var enumerableKeys = Object.keys(this);
+
+    for (let i = 0; i < enumerableKeys.length; i++) {
+      let key = enumerableKeys[i];
+      let value = Ember.typeOf(this.get(key));
+      if (value === 'string' || value === 'number' || value === 'boolean') {
+        properties.push(key);
+      }
+    }
+
+    properties = this.getProperties(properties);
+
+    return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
+  },
+
+  /**
+   * Copy a list of property values from another model to override the current ones
+   *
+   * @function
+   * @param {Collection|Assessment} model
+   * @param {String[]} propertyList
+   * @return {null}
+   */
+  merge: function(model, propertyList = []) {
+    var properties = model.getProperties(propertyList);
+    this.setProperties(properties);
+  }
 
 });

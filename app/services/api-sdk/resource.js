@@ -100,5 +100,19 @@ export default Ember.Service.extend({
           resolve(request.getResponseHeader('location'));
         }, reject );
     });
+  },
+
+  /**
+   * Delete resource
+   *
+   * @param resourceId resource id to delete
+   * @returns {Ember.RSVP.Promise}
+   */
+  deleteResource: function (resourceId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('resourceAdapter').deleteResource(resourceId)
+        .then(resolve, reject);
+    });
   }
 });

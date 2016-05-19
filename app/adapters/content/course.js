@@ -94,11 +94,32 @@ export default Ember.Object.extend({
   },
 
   /**
-   * Copies a course by id
+   * Deletes a course by id
    *
-   * @param data course data to be sent in the request body
+   * @param courseId course id to be sent
    * @returns {Promise}
    */
+  deleteCourse: function(courseId) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${courseId}`;
+    const options = {
+      type: 'DELETE',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({})
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+ /**
+  * Copies a course by id
+  *
+  * @param data course data to be sent in the request body
+  * @returns {Promise}
+  */
   copyCourse: function(courseId) {
     const adapter = this;
     const namespace = this.get('copierNamespace');
@@ -111,7 +132,7 @@ export default Ember.Object.extend({
       headers: adapter.defineHeaders(),
       data: JSON.stringify({})
     };
-    return Ember.$.ajax(url, options);
+   return Ember.$.ajax(url, options);
   },
 
   defineHeaders: function() {

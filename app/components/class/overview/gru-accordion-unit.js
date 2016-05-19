@@ -45,6 +45,11 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   performanceService: Ember.inject.service("api-sdk/performance"),
 
+  /**
+   * @requires service:api-sdk/analytics
+   */
+  analyticsService: Ember.inject.service('api-sdk/analytics'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -228,20 +233,8 @@ export default Ember.Component.extend(AccordionMixin, {
     // Load the lessons and users in the course when the component is instantiated
     let component = this;
     component.set("loading", true);
-    let performancePromise = component.getLessons();
-    performancePromise.then(function(performances) {
+    component.getLessons().then(function(performances) {
       component.set('items', performances);
-      /*
-      let usersLocationPromise = component.getUnitUsers();
-      usersLocationPromise.then(function(usersLocation){
-        component.set('usersLocation', usersLocation);
-
-        let userLocation = component.get('userLocation');
-        if (!component.get('location') && userLocation) {
-          component.set('location', userLocation);
-        }
-      });
-      */
       component.set("loading", false);
     });
   },
@@ -259,64 +252,38 @@ export default Ember.Component.extend(AccordionMixin, {
     const classId = component.get('currentClass.id');
     const courseId = component.get('currentClass.courseId');
     const unitId = component.get('model.id');
+    const classMembers = component.get('classMembers');
+    const isTeacher = component.get('isTeacher');
+
     return component.get('unitService').fetchById(courseId, unitId)
       .then(function(unit) {
         const lessons = unit.get('children');
-        return component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
+        return component.get('analyticsService').getUnitPeers(classId, courseId, unitId)
+          .then(function(unitPeers) {
+            const performancePromise = isTeacher ?
+              component.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, classMembers) :
+              component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
+            return performancePromise.then(function(performance) {
+              lessons.forEach(function(lesson) {
+                const peer = unitPeers.findBy('id', lesson.get('id'));
+                if (peer) {
+                  lesson.set('membersCount', peer.get('peerCount'));
+                }
+                if (isTeacher) {
+                  const averageScore = performance.calculateAverageScoreByItem(lesson.get('id'));
+                  lesson.set('classAverageScore', averageScore);
+                } else {
+                  const lessonPerformanceData = performance.findBy('id', lesson.get('id'));
+                  const completionDone = lessonPerformanceData ? lessonPerformanceData.get('completionDone') : 0;
+                  const completionTotal = lessonPerformanceData ? lessonPerformanceData.get('completionTotal') : 0;
+                  lesson.set('completionDone', completionDone);
+                  lesson.set('completionTotal', completionTotal);
+                }
+              });
+              return lessons;
+            });
+          });
       });
-
-    /*
-    let component = this;
-    const classId = component.get('currentClass.id');
-    const courseId = component.get('currentClass.course');
-    const unitId = component.get('model.id');
-    const userId = component.get('session.userId');
-    return component.get('lessonService').findByClassAndCourseAndUnit(classId, courseId, unitId).then(function(lessons) {
-      if(component.get('isTeacher')) {
-        return component.getTeacherCollections(classId, courseId, unitId, lessons);
-      }
-      return component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
-    });
-    */
-  },
-
-  /**
-   * Get all the performances by lesson
-   *
-   * @function
-   * @requires api-sdk/performance#findCourseMapPerformanceByLesson
-   * @returns {Ember.RSVP.Promise}
-   */
-  getTeacherCollections: function(classId, courseId, unitId, lessons){
-    var component = this;
-    lessons.forEach(function (lesson) {
-      let lessonId = lesson.get('id');
-      if (lessonId) {
-        let courseMapPerformances = component.get('performanceService').findCourseMapPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId);
-        courseMapPerformances.then(function (classPerformance) {
-          lesson.set('classAverageScore', classPerformance.get('classAverageScore'));
-        });
-      }
-    });
-
-    return new Ember.RSVP.resolve(lessons);
-
-  },
-
-
-  /**
-   * Get all the users participating in the unit
-   *
-   * @function
-   * @requires service:api-sdk/course-location#findByCourseAndUnit
-   * @returns {Ember.RSVP.Promise}
-   */
-  getUnitUsers: function() {
-    const component = this;
-    const courseId = component.get('currentClass.courseId');
-    const unitId = component.get('model.id');
-
-    return component.get("courseLocationService").findByCourseAndUnit(courseId, unitId, { lessons: component.get("items")});
   }
 
 });

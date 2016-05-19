@@ -43,12 +43,10 @@ test('serializeUpdateProfile', function(assert) {
     grades: [],
     country: 'country',
     state: 'state',
-    school: 'school',
     schoolDistrict: 'school-district',
     aboutMe: 'about-me',
     countryId: 'country-id',
     stateId: 'state-id',
-    schoolId: 'school-id',
     schoolDistrictId: 'school-district-id'
   });
   const expected = {
@@ -58,12 +56,10 @@ test('serializeUpdateProfile', function(assert) {
     grade: [],
     country: 'country',
     state: 'state',
-    school: 'school',
     'school_district': 'school-district',
     'about_me': 'about-me',
     'country_id': 'country-id',
     'state_id': 'state-id',
-    'school_id': 'school-id',
     'school_district_id': 'school-district-id'
   };
   const response = serializer.serializeUpdateProfile(profile);
@@ -94,8 +90,6 @@ test('normalizeReadProfile', function(assert) {
     country: 'country',
     'state_id': '2222',
     state: 'state',
-    'school_id': '3333',
-    school: 'school',
     'school_district_id': '4444',
     'school_district': 'school-district',
     'about_me': 'about-me',
@@ -122,8 +116,6 @@ test('normalizeReadProfile', function(assert) {
   assert.equal(normalizedProfile.get("country"), "country", 'Wrong country');
   assert.equal(normalizedProfile.get("stateId"), "2222", 'Wrong stateId');
   assert.equal(normalizedProfile.get("state"), "state", 'Wrong state');
-  assert.equal(normalizedProfile.get("schoolId"), "3333", 'Wrong schoolId');
-  assert.equal(normalizedProfile.get("school"), "school", 'Wrong school');
   assert.equal(normalizedProfile.get("schoolDistrictId"), "4444", 'Wrong schoolDistrictId');
   assert.equal(normalizedProfile.get("schoolDistrict"), "school-district", 'Wrong schoolDistrict');
   assert.equal(normalizedProfile.get("aboutMe"), "about-me", 'Wrong aboutMe');

@@ -2,7 +2,7 @@
   <div class="followers col-md-12 col-sm-12 col-xs-9 clearfix">
     {{#each followers as |follower|}}
       <div class="card">
-        {{cards.gru-user-network-card user=follower followingFilter=false}}
+        {{cards.gru-user-network-card user=follower onUnFollowUser='unFollowUser' onFollowUser='followUser'}}
       </div>
     {{/each}}
   </div>

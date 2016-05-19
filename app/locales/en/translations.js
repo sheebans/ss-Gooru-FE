@@ -50,6 +50,7 @@ export default {
     "averageScore": "Average Score",
     "back": "Back",
     "best-practices": "Best Practices",
+    "big-ideas": "Big Ideas",
     "biography": "Biography",
     "builder": "Builder",
     "cancel": "Cancel",
@@ -83,6 +84,8 @@ export default {
     "course-title": "Course Title",
     "courses": "Courses",
     "create": "Create",
+    "created-by":"Created by",
+    "delete":"Delete",
     "description": "Description",
     "district": "District",
     "domain": "Domain",
@@ -120,6 +123,8 @@ export default {
       "course-not-copied": "Oops! Unable to copy course right now. Please try again shortly.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
+      "highlight-text-not-selected": "Please indicate the correct answer.",
+      "highlight-text-wrong-format": "Incorrect question format.",
       "hotspot-text-max-choices": "You have reached the limit of answers choices.",
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
@@ -143,6 +148,7 @@ export default {
       "unit-title-required" : "Please enter the unit title.",
       "user-email-presence" : "Please enter a valid email."
     },
+    "essential-questions": "Essential Questions",
     "explanation": "Explanation",
     "false":"False",
     "first-name": "First Name",
@@ -150,6 +156,7 @@ export default {
     "followers": "Followers",
     "following": "Following",
     "forgotPassword": "Forgot Password",
+    "from":"from",
     "from-my-assessments": "From My Assessments",
     "from-my-collections": "From My Collections",
     "from-my-questions": "From My Questions",
@@ -206,10 +213,11 @@ export default {
     "performance":"Show Performance",
     "play": "Play",
     "please_contact": "Please contact",
-    "publish-to":" Publish to my profile",
-    "publisher": "Publisher",
     "preview": "Preview",
     "profile": "Profile",
+    "publish-to":" Publish to my profile",
+    "published-by": "Published by",
+    "publisher": "Publisher",
     "question":"Question",
     "questions": "Questions",
     "question-pl": {
@@ -237,6 +245,7 @@ export default {
     "remix-course": "Remix Course",
     "remix-course-lead": "You are about to remix a course.",
     "remix-course-success": "You've remixed a course {{courseTitle}}. Do you want to edit that course?",
+    "remixed-by": "Remixed by",
     "request-to":"Request to be searchable and featured in Gooru",
     "resource":"Resource",
     "resources": "Resources",
@@ -264,6 +273,7 @@ export default {
     "school-info": "School Information",
     "score":"Score",
     "select": "Select",
+    "sentence": "Sentence",
     "settings":"Settings",
     "search": "Search",
     "search-placeholder": "Search...",
@@ -276,6 +286,7 @@ export default {
     "signUp": "Sign Up",
     "sortAlphabetical":"Sort Alphabetically",
     "sortAverage":"Sort by Average",
+    "state":"State",
     "standard":"Standard",
     "standards": "Standards",
     "study": "Study",
@@ -301,11 +312,13 @@ export default {
     "untitled-unit": "Untitled Unit",
     "update-thumbnail": "Update Thumbnail",
     "upload-thumbnail":"Upload Thumbnail",
+    "use-case": "Use Case",
     "verified": "Verified",
     "warnings": {
       "on-air-connection-lost": "The On Air feature has lost connection and is retrying automatically. While it's tempting, please don't refresh your screen!",
       "character-limit": "You've reached the character limit."
     },
+    "word": "Word",
     "yes": "Yes"
   },
 
@@ -458,9 +471,7 @@ export default {
   "content.courses.edit": {
     "assign-to-class": "Assign to Class",
     "best-practices": "<p>A course is a folder that allows you to organize your learning content into units and lessons. When creating a course consider the essential questions you are addressing, the learning objectives, and organization of your content.</p><p>You can piece the lessons together to create a diverse experience for your student population (for example, you could sequence your units chronologically, by topic, or by standard).</p>",
-    "big-ideas": "Big Ideas",
-    "essential-questions": "Essential Questions",
-    "information":{
+    "information": {
       "course-title":"Course Title",
       "description":"Description"
     }
@@ -481,6 +492,8 @@ export default {
         "FIB":"Add up to 5 hints for answer and an explanation.",
         "HS_IMG":"You can add up to ten answers images an select one or more correct answers.",
         "HS_TXT": "You can add up to ten answers choices and select one or more correct answers.",
+        "HT_HL_ST": "As you write the question, use brackets to indicate the highlighted sentences. One bracket can only contain one sentence at a time, using a period inside the bracket. For example, The first little pig built his house of straw. [The big bad wolf blew down the house.] The second pig built his house of wood. Character limit: 5000.",
+        "HT_HL_WD": "As you write the question, use brackets for the highlighted words. One bracket can only contain one word at a time. For example, The [big] bad wolf blew [down] the house. Character limit: 5000.",
         "HT_RO": "You can add up to ten answers choices in the correct order. The order will be scrambled for students.",
         "MA": "You can add up to ten answers, an image, explanation and up to five hints.",
         "MC":"You can add up to ten answers choices and indicate one correct answer. Character Limit: 200.",
@@ -492,13 +505,24 @@ export default {
         "HS_TXT":"Write your question. Character limit: 5000.",
         "HS_IMG":"Write your question. Character limit: 5000.",
         "HT_RO":"Write your question. Character limit: 5000.",
-        "HT_HL":"Write your question. Character limit: 5000.",
+        "HT_HL": "Write your question prompt. Character limit: 5000.",
         "MC":"Write your question. Character limit: 5000.",
         "MA":"Write your question. Character limit: 5000.",
         "OE":"Write your question. Character limit: 5000.",
         "T/F":"Write your question. Character limit: 5000."
       }
     }
+  },
+  "content.modals.delete-content":{
+    "legend":"You are about to delete",
+    "content-legend":"{{type}} {{index}} - <span>{{title}}</span> from <span>{{parentName}}</span>",
+    "delete-instructions": {
+      "links-inaccessible":"All share links will be inaccessible",
+      "content-inaccessible":"All content will be inaccessible to the classes tied to it"
+    },
+    "delete-warning": "All content in this {{type}} will be deleted",
+    "delete-error": "Oops! Unable to delete {{type}} right now. Please try again shortly.",
+    "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."
   },
   "content.resources": {
     "edit": {
@@ -525,7 +549,6 @@ export default {
       "other" : " and teaching {{count}} classes"
     }
   },
-
   /*
    * COMPONENTS: Translations used in a specific component
    */
@@ -533,6 +556,14 @@ export default {
     "add-from-course":"Add from Existing Course",
     "view-featured-courses":"View Featured Courses",
     "assign":"Assign"
+  },
+  "gru-share-pop-over":{
+    "share-course":"Share your course with link",
+    "share-question":"Share your question with link",
+    "share-resource":"Share your resource with link",
+    "share-assessment":"Share your assessment with link",
+    "share-collection":"Share your collection with link",
+    "copy": "Copy"
   },
   "gru-category-panel": {
     "teacher": {
@@ -648,6 +679,18 @@ export default {
     "log-in": "Log In"
   },
 
+  "forgot-password": {
+    "description": "It happens to all of us.",
+    "usernameOrEmail": "Please enter your email",
+    "footer-description-1":"You will receive an email with a link to reset your password.",
+    "footer-description-2":"If you have any questions, please contact ",
+    "mail":"support@gooru.org",
+    "error-email-not-exists": "Sorry we don't recognize this email.",
+    "secondStepTitle": "Check your email",
+    "secondStepDescription-1": "We’ve sent you and email with a link to reset your password.",
+    "secondStepDescription-2": "If you have any questions, please contact"
+  },
+
   "footer": {
     "footerDescription": "Gooru is committed to keeping its platform open-source and community created content CC0.",
     "company": "Company",
@@ -729,13 +772,6 @@ export default {
     "text": "Text",
     "audio": "Audio",
     "oer": "OER"
-  },
-
-  "forgot-password-popup":{
-    "title":"Please enter your email or <br/> username below.",
-    "description":"You will receive an email with a link to reset your password.",
-    "footer":"If you have any questions,<br/> Please contact",
-    "mail":"support@goorulearning.org"
   },
 
   "search-result": {
@@ -855,8 +891,6 @@ export default {
     },
     "gru-course-card":{
       "units":"Units",
-      "remixed-by":"Remixed by",
-      "created":"Created by",
       "in":"in",
       "resource": {
         one: "{{count}} Resource",

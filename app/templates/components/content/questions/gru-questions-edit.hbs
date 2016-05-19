@@ -11,7 +11,9 @@
 
     <div class="actions">
         <button class="btn btn-default btn-icon delete">{{gru-icon name="delete"}}</button>
-        <button class="btn btn-default btn-icon share">{{gru-icon name="insert_link"}}</button>
+        {{#gru-share-pop-over tagName="button" type="question"}}
+          {{gru-icon name="insert_link"}}
+        {{/gru-share-pop-over}}
         <button class="btn btn-default add hidden">{{t "content.questions.edit.add-to"}}</button>
         <button class="btn btn-default preview">{{t "common.preview"}}</button>
     </div>
@@ -110,11 +112,11 @@
         <div class="panel-body">
           {{#if isBuilderEditing}}
             {{validation.gru-textarea rawTextareaValue=tempQuestion.text model=tempQuestion valuePath='text' rows=10 maxLength=5000}}
-              <button class="add-image btn btn-sm btn-primary">{{t "common.add-question-image"}}</button>
+            <button class="add-image btn btn-sm btn-primary">{{t "common.add-question-image"}}</button>
           {{else}}
             {{#if question.text}}
               {{textarea class="text-question" value=question.text class="form-control" rows="10" readonly=true}}
-              {{else}}
+            {{else}}
               <p class="text-empty">{{t 'common.nothing-to-display-message'}}</p>
             {{/if}}
           {{/if}}
@@ -122,9 +124,11 @@
     </div>
     <div class="panel panel-default question-answer">
         <div class="panel-heading">
-            <div class="border-bottom">
+            <div class="{{unless question.isHotTextHighlight 'border-bottom'}}">
                 <h3>{{t "content.questions.edit.builder.answer"}}</h3>
-                <span class="instructions">{{t (concat 'content.questions.edit.builder.answer-instructions.' question.type)}}</span>
+                {{#unless question.isHotTextHighlight}}
+                  <span class="instructions">{{t (concat 'content.questions.edit.builder.answer-instructions.' question.type)}}</span>
+                {{/unless}}
                 {{#if correctAnswerNotSelected}}
                   <div class="missing-correct-answer">
                       <p><small>{{t "common.errors.select-correct-answer"}}</small></p>
@@ -156,4 +160,3 @@
 <section id="settings">
   {{partial 'content/partials/settings'}}
 </section>
-

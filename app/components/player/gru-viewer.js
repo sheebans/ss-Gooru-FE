@@ -109,6 +109,19 @@ export default Ember.Component.extend({
     this.calculateResourceContentHeight();
   }.observes("resource.id"),
 
+  /**
+   * The text for the submit button
+   * @property {string}
+   */
+  buttonTextKey: Ember.computed('collection','resource.id',function(){
+    let i18nKey = "common.save-next";
+    if (this.get('collection').isLastResource(this.get('resource'))){
+      i18nKey = (this.get('collection').get('isAssessment')) ? 'common.save-submit' : 'common.save-finish';
+    }
+    return i18nKey;
+  }),
+
+
   // -------------------------------------------------------------------------
   // Methods
   /**

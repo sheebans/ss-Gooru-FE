@@ -6,7 +6,8 @@
     "SockJS",
     "Stomp",
     "Switchery",
-    "moment"
+    "moment",
+    "Clipboard"
   ],
   "browser": true,
   "jquery": true,

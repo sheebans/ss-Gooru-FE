@@ -35,7 +35,7 @@ export default Ember.Object.extend({
       "context": contextObject,
       "version": {"logApi": ConfigEvent.apiVersion},
       "metrics": {},
-      "payLoadObject": {"gradingType": "System", "isStudent": true}
+      "payLoadObject": { "gradingType": "System", "isStudent": context.get("isStudent") }
     }];
   },
 
@@ -78,13 +78,13 @@ export default Ember.Object.extend({
         "questionType": resourceResult.get('question.questionType'),
         "attemptStatus": (context.get("isStopEvent") ? resourceResult.get('attemptStatus') : undefined),
         "answerObject": util.toJSONAnswerObjects(userAnswer),
-        "isStudent": true,
+        "isStudent": context.get("isStudent"),
         "taxonomyIds": []
       };
     }
     else{
       serialized.payLoadObject = { //TODO looks for resource parameters
-        "isStudent": true,
+        "isStudent": context.get("isStudent"),
         "taxonomyIds": []
       };
     }
@@ -107,7 +107,7 @@ export default Ember.Object.extend({
       context: contextObject,
       version: { logApi: ConfigEvent.apiVersion },
       metrics: {},
-      payLoadObject: { isStudent: true }
+      payLoadObject: { isStudent: context.get("isStudent") }
     };
     return [serialized];
   },

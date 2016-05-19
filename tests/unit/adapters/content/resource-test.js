@@ -82,3 +82,19 @@ test('copyResource', function(assert) {
       assert.equal('', response, 'Wrong response');
     });
 });
+
+test('deleteResource', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.delete('/api/nucleus/v1/resources/resource-id', function() {
+      return [ 204, { 'Content-Type': 'application/json; charset=utf-8' }, ''];
+    }, false);
+  });
+  adapter.deleteResource('resource-id')
+    .then(function() {
+      assert.ok(true);
+    });
+});

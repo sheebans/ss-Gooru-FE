@@ -22,6 +22,28 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  getUnitPeers: function(classId, courseId, unitId) {
+    const namespace = this.get('namespace');
+    const url = `${namespace}/class/${classId}/course/${courseId}/unit/${unitId}/peers`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: this.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  getLessonPeers: function(classId, courseId, unitId, lessonId) {
+    const namespace = this.get('namespace');
+    const url = `${namespace}/class/${classId}/course/${courseId}/unit/${unitId}/lesson/${lessonId}/peers`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: this.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       'gooru-session-token': this.get('session.token-api3')

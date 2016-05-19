@@ -36,9 +36,6 @@ export default Ember.Route.extend({
    */
   unitService: Ember.inject.service('api-sdk/unit'),
 
-  analyticsService: Ember.inject.service('api-sdk/analytics'),
-
-
   // -------------------------------------------------------------------------
   // Methods
 
@@ -65,15 +62,6 @@ export default Ember.Route.extend({
             if (courseId) {
               return route.get('courseService').fetchById(courseId)
                 .then(function(course) {
-
-                  // TODO Activate this code once Analytics 3.0 is working fine
-                  /*
-                  route.get('analyticsService').getCoursePeers(classId, courseId)
-                    .then(function(coursePeers) {
-                      console.log(coursePeers);
-                    });
-                  */
-
                   return Ember.RSVP.hash({
                     class: classObj,
                     course: course,

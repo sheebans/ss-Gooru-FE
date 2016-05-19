@@ -12,16 +12,16 @@
         <div class="row">
           <div class="col-xs-12 col-sm-6">
             <h6><label for="first-name">{{t "common.first-name"}}</label></h6>
-            {{input id="first-name" class="form-control" value=profile.firstName}}
+            {{input id="first-name" class="form-control" value=tempProfile.firstName}}
           </div>
           <div class="col-xs-12 col-sm-6">
             <h6><label for="last-name">{{t "common.last-name"}}</label></h6>
-            {{input id="last-name" class="form-control" value=profile.lastName}}
+            {{input id="last-name" class="form-control" value=tempProfile.lastName}}
           </div>
         </div>
         <h6><label for="bio">{{t "common.biography"}}</label></h6>
         <div class="bio">
-          <textarea id="bio" class="form-control" rows="4" onchange={{action (mut profile.aboutMe) value="target.value"}}>{{{profile.aboutMe}}}</textarea>
+          <textarea id="bio" class="form-control" rows="4" onchange={{action (mut tempProfile.aboutMe) value="target.value"}}>{{{tempProfile.aboutMe}}}</textarea>
         </div>
       </div>
     </div>
@@ -30,42 +30,77 @@
     </h4>
     <div class="panel panel-default">
       <div class="panel-body">
-        <h6>{{t "common.role"}}</h6>
-        <div class="checkbox-inline">
-          {{input id="teacher-role" type="checkbox" checked=(eq profile.role "teacher")}}
-          <label for="teacher-role">{{t "common.teacher"}}</label>
-        </div>
-        <div class="checkbox-inline">
-          {{input id="student-role" type="checkbox" checked=(eq profile.role "student")}}
-          <label for="student-role">{{t "common.student"}}</label>
-        </div>
-        <div class="checkbox-inline">
-          {{input id="other-role" type="checkbox" checked=(eq profile.role "other")}}
-          <label for="other-role">{{t "common.other"}}</label>
-        </div>
-        <h6><label for="school">{{t "common.school"}}</label></h6>
-        <div class="row">
-          <div class="col-xs-12 col-sm-8 col-md-7">
-            {{input id="school" class="form-control" value=profile.school}}
+        <div class="form-group role">
+          <h6><span class="required">{{t "common.role"}}</span></h6>
+          <div class="roles">
+            {{
+              validation.gru-radio
+              model=tempProfile
+              groupValue=currentRole
+              valuePath='teacher'
+              name="role-radio"
+              translationPath="common.teacher"
+            }}
+            {{
+              validation.gru-radio
+              model=tempProfile
+              groupValue=currentRole
+              valuePath='student'
+              name="role-radio"
+              translationPath="common.student"
+            }}
+            {{
+              validation.gru-radio
+              model=tempProfile
+              groupValue=currentRole
+              valuePath='other'
+              name="role-radio"
+              translationPath="common.other"
+            }}
+          </div>
+          <div class="error-messages">
+            {{#if showRoleErrorMessage}}
+              <span class="error">
+                {{t "sign-up.error-role-message"}}
+              </span>
+            {{/if}}
           </div>
         </div>
-        <h6><label for="district">{{t "common.district"}}</label></h6>
+        <h6><span class="required">{{t "common.country"}}</span></h6>
         <div class="row">
-          <div class="col-xs-12">
-            <select id="district" class="form-control" onchange={{action (mut profile.schoolDistrict) value="target.value"}}>
-              <option value="">{{t 'profile.edit.select-district'}}</option>
-              {{#each districts as |districtChoice|}}
-                <option value={{districtChoice}} selected={{eq profile.schoolDistrict districtChoice}}>{{districtChoice}}</option>
-              {{/each}}
-            </select>
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            {{validation.gru-select options=countries optionSelected=tempProfile.countryId title=(t "common.select") search="true" onOptionSelect="countrySelect" showMessage=showCountryErrorMessage errorMessage=(t "sign-up.error-country-message")}}
           </div>
         </div>
-        <h6><label for="country">{{t "common.country"}}</label></h6>
-        <div class="row">
-          <div class="col-xs-12 col-sm-8 col-md-7">
-            {{input id="country" class="form-control" value=profile.country}}
+        {{#if showStates}}
+          <h6><span class="required">{{t "sign-up.state"}}</span></h6>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              {{validation.gru-select options=states optionSelected=tempProfile.stateId title=(t "common.select") search="true" onOptionSelect="stateSelect" showMessage=showStateErrorMessage errorMessage=(t "sign-up.error-state-message")}}
+            </div>
           </div>
-        </div>
+        {{/if}}
+        {{#if districts}}
+          <h6>{{t "sign-up.district"}}</h6>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              {{validation.gru-select options=districts optionSelected=tempProfile.schoolDistrictId title=(t "common.select") search="true" onOptionSelect="districtSelect"}}
+            </div>
+          </div>
+          <h6>{{t "common.other"}}</h6>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              {{input value=otherSchoolDistrict class="form-control" name='otherDistrict'}}
+              <div class="error-messages">
+                {{#if showDistrictErrorMessage}}
+                  <span class="error">
+                    {{t "sign-up.error-district-message"}}
+                  </span>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        {{/if}}
       </div>
     </div>
   </form>

@@ -112,3 +112,19 @@ test('Get unit by ID', function (assert) {
       assert.deepEqual(response, unitData, 'Should respond with the corresponding unit data');
     });
 });
+
+test('Delete Unit', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.delete('/api/nucleus/v1/courses/course-id/units/unit-id', function() {
+      return [ 204, { 'Content-Type': 'application/json; charset=utf-8' }, ''];
+    }, false);
+  });
+  adapter.deleteUnit({courseId: 'course-id', unitId: 'unit-id'})
+    .then(function() {
+      assert.ok(true);
+    });
+});

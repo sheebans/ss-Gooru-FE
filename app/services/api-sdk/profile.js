@@ -172,6 +172,24 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Checks if the email exists
+   * @param email
+   * @returns {Promise}
+   */
+  checkEmailExists: function(email) {
+    const service = this;
+    const i18n = service.get('i18n');
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('availabilityAdapter').verifyEmail(email)
+        .then(function() {
+          resolve();
+        }, function() {
+          reject(i18n.t("forgot-password.error-email-not-exists").string);
+        });
+    });
+  },
+
+  /**
    * Checks if the email was already taken by a google account
    * @param email
    * @returns {Promise}
@@ -370,6 +388,18 @@ export default Ember.Service.extend({
       service.get('profileAdapter').readNetwork(userId, NETWORK_TYPE.FOLLOWERS)
         .then(function(response) {
           resolve(service.get('profileSerializer').normalizeReadNetwork(response, NETWORK_TYPE.FOLLOWERS));
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
+  readMultipleProfiles: function(profileIds) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readMultipleProfiles(profileIds)
+        .then(function(response) {
+          resolve(service.get('profileSerializer').normalizeReadMultipleProfiles(response));
         }, function(error) {
           reject(error);
         });

@@ -65,6 +65,11 @@ const Question = Ember.Object.extend(Validations, {
   /**
    * @property {string}
    */
+  thumbnail: null,
+
+  /**
+   * @property {string}
+   */
   description: Ember.computed.alias("text"),
 
   /**
@@ -167,15 +172,13 @@ const Question = Ember.Object.extend(Validations, {
 
   /**
    * @property {boolean} indicates if the question is hot text word type
-   * TODO: where is this taken from? options is not in the model
    */
-  isHotTextHighlightWord: Ember.computed.equal('options.hotTextType', 'word'),
+  isHotTextHighlightWord: Ember.computed.equal('answers.firstObject.highlightType', 'word'),
 
   /**
-   * @property {boolean} indicates if the question is hot text word type
-   * TODO: where is this taken from? options is not in the model
+   * @property {boolean} indicates if the question is hot text sentence type
    */
-  isHotTextHighlightSentence: Ember.computed.equal('options.hotTextType', 'sentence'),
+  isHotTextHighlightSentence: Ember.computed.equal('answers.firstObject.highlightType', 'sentence'),
 
   /**
    * Return a copy of the question
@@ -221,6 +224,7 @@ const Question = Ember.Object.extend(Validations, {
       resourceFormat: model.get("format"),
       questionType: model.get("type"),
       text: model.get("text"),
+      mediaUrl: model.get("thumbnail"),
       hints: null, //TODO
       explanation: null, //TODO
       answers: model.get("answers").map(function(answer){

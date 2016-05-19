@@ -1,5 +1,8 @@
 .controller.about.edit {
   .panel {
+    .panel-body {
+      padding: 22px;
+    }
     input[type="text"],
     textarea,
     select {
@@ -20,7 +23,33 @@
       input {
         margin-left: 0;
       }
-
+    }
+    .roles {
+      @include flexbox;
+      .gru-radio {
+        margin-right: 20px;
+        @media (min-width: $screen-sm-min) {
+          margin-right: 30px;
+        }
+      }
+      &>:last-child {
+        margin-right: 0;
+      }
+    }
+    .bootstrap-select {
+      width: 100%;
+    }
+    span.error {
+      color: $red-400;
+      display: inline-block;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+    span.required {
+      display: block;
+      &:after {
+        content: ' *';
+      }
     }
   }
   @media (min-width: $screen-sm-min) {

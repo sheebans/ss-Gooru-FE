@@ -27,7 +27,9 @@
 @import 'controllers/content/courses/edit';
 @import 'controllers/content/courses/play';
 @import 'controllers/content/questions/edit';
+@import 'controllers/content/questions/play';
 @import 'controllers/content/resources/edit';
+@import 'controllers/content/resources/play';
 
 @import 'controllers/index';
 @import 'controllers/partials/player';
@@ -45,7 +47,8 @@
 @import 'controllers/search';
 @import 'controllers/sign-in';
 @import 'controllers/sign-up';
-@import 'controllers/user';
+@import 'controllers/home';
+@import 'controllers/forgot-password';
 
 
 // TODO: update these components so they follow the naming conventions
@@ -63,10 +66,11 @@
 @import 'components/gru-category-panel';
 @import 'components/gru-emotion-picker';
 @import 'components/gru-footer';
-@import 'components/gru-forgot-password-popup';
 @import 'components/gru-header';
 @import 'components/gru-image-picker';
 @import 'components/gru-modal';
+@import 'components/gru-select';
+@import 'components/gru-share-pop-over';
 @import 'components/gru-standards-popup';
 @import 'components/gru-switch';
 @import 'components/gru-two-tier-header-table';
@@ -108,7 +112,11 @@
 @import 'components/content/gru-image';
 @import 'components/content/collections/gru-collection-list';
 @import 'components/content/modals';
+@import 'components/content/modals/gru-delete-content';
+@import 'components/content/modals/gru-question-new';
 @import 'components/content/modals/gru-quick-course-search';
+@import 'components/content/modals/gru-resource-new';
+@import 'components/content/questions/answers/gru-hot-text-highlight';
 @import 'components/content/questions/answers/gru-hs-image';
 @import 'components/content/questions/answers/gru-hs-text';
 @import 'components/content/questions/answers/gru-multiple-answer';
@@ -116,6 +124,7 @@
 @import 'components/content/questions/answers/gru-open-ended';
 @import 'components/content/questions/answers/gru-reorder';
 @import 'components/content/questions/answers/gru-true-false';
+@import 'components/content/questions/gru-question-play';
 
 @import 'components/player/gru-navigation';
 @import 'components/player/gru-navigator';

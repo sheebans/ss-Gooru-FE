@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
+import ModalMixin from 'gooru-web/mixins/modal';
+import {CONTENT_TYPES} from 'gooru-web/config/config';
 
-export default Ember.Component.extend(ContentEditMixin, {
+export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -20,6 +22,11 @@ export default Ember.Component.extend(ContentEditMixin, {
    * @property {MediaService} Media service API SDK
    */
   mediaService: Ember.inject.service("api-sdk/media"),
+
+  /**
+   * @type {SessionService} Service to retrieve session information
+   */
+  session: Ember.inject.service("session"),
 
 
   // -------------------------------------------------------------------------
@@ -41,6 +48,30 @@ export default Ember.Component.extend(ContentEditMixin, {
       var courseForEditing = this.get('course').copy();
       this.set('tempCourse', courseForEditing);
       this.set('isEditing', true);
+    },
+
+    /**
+     * Delete course
+     */
+    deleteCourse: function () {
+      const myId = this.get("session.userId");
+      var model = {
+        content: this.get('course'),
+        deleteMethod: function () {
+          return this.get('courseService').deleteCourse(this.get('course.id'));
+        }.bind(this),
+        type: CONTENT_TYPES.COURSE,
+        redirect: {
+          route: 'profile.content.courses',
+          params: {
+            id: myId
+          }
+        }
+      };
+
+      this.actions.showModal.call(this,
+        'content.modals.gru-delete-content',
+        model, null, null, null, false);
     },
 
     /**

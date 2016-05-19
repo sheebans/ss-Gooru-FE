@@ -26,6 +26,7 @@ test('serializeUpdateQuestion', function(assert) {
     //type: 'MA',
     text: 'This is the question text?',
     isVisibleOnProfile: false,
+    questionType: 'word',
     answers: Ember.A([
       AnswerModel.create({
         sequence: 1,
@@ -62,7 +63,7 @@ test('serializeAnswer', function(assert) {
     text: 'Answer #1 text',
     type: 'text'
   });
-  const response = serializer.serializerAnswer(answer, 1);
+  const response = serializer.serializerAnswer(answer, 1, false);
 
   assert.equal(response.sequence, 1, 'Wrong sequence');
   assert.equal(response['is_correct'], 1, 'Wrong is_correct');
@@ -70,8 +71,29 @@ test('serializeAnswer', function(assert) {
   assert.equal(response['answer_type'], 'text', 'Wrong answer_type');
 });
 
+test('serializeAnswer for image', function(assert) {
+  const serializer = this.subject();
+  const answer = AnswerModel.create({
+    isCorrect: true,
+    text: 'content-url/answer-thumbnail',
+    type: 'text'
+  });
+  const response = serializer.serializerAnswer(answer, 1, true);
+
+  assert.equal(response.sequence, 1, 'Wrong sequence');
+  assert.equal(response['is_correct'], 1, 'Wrong is_correct');
+  assert.equal(response['answer_text'], 'answer-thumbnail', 'Wrong answer_text');
+  assert.equal(response['answer_type'], 'text', 'Wrong answer_type');
+});
+
 test('normalizeReadQuestion', function(assert) {
   const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'http://test-bucket01.s3.amazonaws.com/'
+    }
+  }));
+
   const questionData = {
     id: 'abcd',
     title: 'question-title',
@@ -79,6 +101,7 @@ test('normalizeReadQuestion', function(assert) {
     description: 'any desc',
     publish_status: 'published',
     taxonomy: ['a', 'b'],
+    thumbnail: "image.png",
     answer: [
       {
         'sequence': 1,
@@ -109,6 +132,7 @@ test('normalizeReadQuestion', function(assert) {
   assert.equal(question.get('standards').length, 2, 'Wrong standards');
   assert.equal(question.get('type'), 'MA', 'Wrong format'); //format is converted at the normalizer
   assert.equal(question.get('isVisibleOnProfile'), true, 'Wrong format');
+  assert.equal(question.get('thumbnail'), "http://test-bucket01.s3.amazonaws.com/image.png", 'Wrong thumbnail');
   assert.equal(question.get('answers').length, 3, 'Wrong answers array length');
 });
 

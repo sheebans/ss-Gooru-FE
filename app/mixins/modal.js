@@ -13,13 +13,12 @@ export default Ember.Mixin.create({
   }),
 
   actions: {
-    showModal: function(componentName, componentModel, actionsTarget, activeChannel, componentClass, showHeader) {
+    showModal: function(componentName, componentModel, activeChannel, componentClass, showHeader) {
       this.get('modal').setProperties({
           isVisible: true,
           showHeader: showHeader,
           name: componentName,
           model: componentModel,
-          target: actionsTarget,
           activeChannel: activeChannel,
           'component-class': componentClass
       });

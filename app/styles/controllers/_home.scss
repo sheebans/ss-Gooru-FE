@@ -1,0 +1,125 @@
+.container-fluid {
+  .home {
+    @include flexbox;
+    @include flex-direction(column);
+    @include align-items(center);
+    padding-top: 30px;
+    width: 100vw;
+
+    >* {
+      margin: 0 auto;
+      width: 97%;
+      @media (min-width: $screen-sm) {
+        width: 90%;
+      }
+      @media (min-width: $screen-md) {
+        width: 80%;
+      }
+    }
+  }
+}
+
+.home {
+  .greetings {
+
+    span {
+      color: $gray-base;
+      font-size: $font-size-h4;
+      @media (min-width: $screen-sm) {
+        font-size: $font-size-h3;
+      }
+      @media (min-width: $screen-md) {
+        font-size: $font-size-h2;
+      }
+    }
+
+    p {
+      font-weight: lighter;
+      @media (min-width: $screen-sm) {
+        font-size: $font-size-lead;
+      }
+    }
+  }
+  .tab-content {
+    padding-top: 25px;
+    @include transition(width .3s ease-out);
+    @media (min-width: $screen-sm) { width: 65%;}
+    @media (min-width: $screen-md) { width: 100%; }
+  }
+}
+
+
+
+.home-navigator {
+  .nav-tabs {
+    box-shadow: inset 0 -1px 0 $gray-light;
+
+
+    .switch-tab-btn {
+      @include flexbox;
+      @include align-items(center);
+      height: 100%;
+      padding: 0;
+
+      i {
+        font-size: $font-size-h3;
+      }
+    }
+  }
+
+  li {
+    display: none;
+    height: 50px;
+    margin-bottom: 0;
+
+    @media (min-width: $screen-sm) {
+      display: block;
+    }
+
+    &.active {
+      display: block;
+
+      a {
+        box-shadow: inset 0 -4px 0 $gray;
+        padding-left: 0;
+        padding-right: 0;
+
+        &:focus {
+          box-shadow: inset 0 -4px 0 $gray;
+        }
+
+        &:active {
+          box-shadow: inset 0 -4px 0 $gray;
+        }
+
+
+      }
+    }
+
+    &:not(.active) {
+
+      a {
+        box-shadow: none;
+      }
+    }
+
+    &.actions {
+      @include flexbox;
+      @include align-items(flex-end);
+      @include justify-content(space-between);
+      height: 39px;
+      width: 190px;
+    }
+
+    a {
+
+      &:hover {
+        color: initial;
+      }
+
+      span {
+        font-weight: bold;
+      }
+    }
+  }
+}

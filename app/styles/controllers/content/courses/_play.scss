@@ -28,6 +28,50 @@
 
     #information {
       padding-top: 40px;
+
+      > .content {
+        padding-bottom: 10px;
+
+        .description p {
+          line-height: 1.6;
+          margin-bottom: 0;
+        }
+      }
+
+      > .panel.aside {
+        margin-top: 20px;
+
+        .col-sm-4 {
+          border-right: 1px solid $gray-lighter;
+
+          strong {
+            display: block;
+            padding-bottom: 15px;
+          }
+
+          &:last-child {
+            border-right: none;
+          }
+        }
+
+        .gru-user-icons {
+          text-align: left;
+
+          .item {
+            margin-right: 10px;
+          }
+        }
+
+        .col-sm-12 {
+          strong {
+            display: block;
+            margin-top: 25px;
+            padding-top: 20px;
+            padding-bottom: 10px;
+            border-top: 1px solid $gray-lighter;
+          }
+        }
+      }
     }
 
     &.content-view {
@@ -42,6 +86,36 @@
     }
   }
 
+  > aside .row {
+    position: relative;
+    margin-left: 0;
+
+    > div {
+      float: none;
+      width: auto;
+      padding-bottom: 20px;
+      border-bottom: 1px solid $gray-lighter;
+
+      strong {
+        display: block;
+        margin: 15px 0 10px 0;
+        font-size: $font-size-large;
+        font-weight: normal;
+      }
+
+      &.gru-user-icons {
+        text-align: left;
+      }
+    }
+
+    &:last-child {
+      > div:last-child {
+        padding-bottom: 30px;
+        border-bottom: 0 none;
+      }
+    }
+  }
+
   .accordion-course,
   .accordion-unit,
   .accordion-lesson {
@@ -51,6 +125,7 @@
   }
 
   .accordion-course {
+    margin-top: 20px;
 
     // Start with the styles in common,
     // then continue with a hierarchy of styles
@@ -60,9 +135,27 @@
       > .detail {
         > div:first-of-type {
 
+          > span {
+            display: block;
+            line-height: 3.5;
+            text-align: right;
+
+            @media (min-width: $screen-lg) {
+              display: inline;
+            }
+          }
+
           &.mixed {
             @media (max-width: $screen-lg-min) {
               vertical-align: top;
+            }
+
+            > span {
+              line-height: 1.4;
+
+              @media (min-width: $screen-lg) {
+                line-height: 3.5;
+              }
             }
 
             > span:last-child {
@@ -71,16 +164,6 @@
                 padding-left: 4px;
                 margin-left: 2px;
               }
-            }
-          }
-
-          > span {
-            display: block;
-            line-height: 1.4;
-            text-align: right;
-
-            @media (min-width: $screen-lg) {
-              display: inline;
             }
           }
         }
@@ -119,41 +202,17 @@
 
         > .view {
           .panel-heading {
-            padding-right: 10px;
+            padding-right: 20px;
             margin-bottom: 0;
 
             .detail {
               float: right;
 
               > span {
+                line-height: 3.5;
                 vertical-align: middle;
                 margin-right: 2px;
                 margin-left: 2px;
-              }
-
-              button {
-                background-color: transparent;
-                font-size: 24px;
-                line-height: 1;
-                padding: 7px 5px;
-
-                i {
-                  color: $gray;
-                }
-              }
-
-              div {
-                display: inline-block;
-              }
-
-              .actions {
-                margin-left: 5px;
-
-                div:last-of-type {
-                  border-left: 1px solid $gray-light;
-                  margin-left: 5px;
-                  padding-left: 10px;
-                }
               }
             }
           }
@@ -169,38 +228,26 @@
           }
         }
       }
-
-      &.edit {
-        > .view {
-          display: none;
-        }
-        > .edit {
-          .panel-heading {
-            @include flexbox;
-
-            > .title {
-              @include flex();
-
-              .form-group {
-                padding-left: 10px;
-                margin-bottom: 0;
-              }
-            }
-
-            > .actions {
-              width: 180px;
-              text-align: right;
-              padding-top: 5px;
-            }
-          }
-        }
-      }
     }
 
     .gru-accordion-unit {
 
       .panel-body {
         padding: 10px 15px 15px;
+
+        .overview {
+          padding: 10px 10px 20px 10px;
+          margin-bottom: 10px;
+          border-bottom: 1px solid $white;
+
+          span, p {
+            color: $white;
+          }
+          p {
+            font-size: 15px;
+            margin-bottom: 0;
+          }
+        }
 
         .col-sm-6 {
           label {
@@ -272,36 +319,6 @@
               max-width: 31%;
             }
           }
-
-          .actions {
-            .dropdown {
-              &.open > .dropdown-toggle {
-                z-index: $zindex-dropdown + 1;
-                @include box-shadow(0 -4px 4px rgba(0,0,0,.2));
-                border-bottom-left-radius: 0;
-                border-bottom-right-radius: 0;
-                position: relative;
-                background-color: $white;
-              }
-
-              .dropdown-menu {
-                border-top-left-radius: 0;
-                border-top-right-radius: 0;
-                margin-top: -4px;
-
-                li {
-                  > a {
-                    padding: 10px 20px 10px 15px;
-                    border-bottom: 1px solid $gray-lighter;
-                  }
-
-                  &:last-child > a {
-                    border-bottom: 0 none;
-                  }
-                }
-              }
-            }
-          }
         }
         > .expanded > .panel-body {
           background-color: $dark-300;
@@ -365,18 +382,6 @@
             button {
               font-size: $font-size-base;
               padding: 5px 10px;
-            }
-          }
-        }
-      }
-
-      &.edit {
-        > .edit > .panel-heading {
-          .gru-input {
-            width: 62%;
-
-            .form-group {
-              width: 100%;
             }
           }
         }

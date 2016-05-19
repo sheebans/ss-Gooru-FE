@@ -21,7 +21,7 @@ test('Layout', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/home');
 
-    const $userContainer = find(".controller.user");
+    const $userContainer = find(".controller.home");
     T.exists(assert, $userContainer, "Missing user container");
 
 

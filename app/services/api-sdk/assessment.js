@@ -89,6 +89,20 @@ export default Ember.Service.extend({
       service.get('assessmentAdapter').addQuestion(assessmentId, questionId)
         .then(resolve, reject);
     });
+  },
+
+  /**
+   * Delete assessment
+   *
+   * @param assessmentId The assessment id to delete
+   * @returns {Ember.RSVP.Promise}
+   */
+  deleteAssessment: function (assessmentId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('adapter').deleteAssessment(assessmentId)
+        .then(resolve, reject);
+    });
   }
 
 });

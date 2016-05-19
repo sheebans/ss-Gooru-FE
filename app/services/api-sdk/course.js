@@ -84,6 +84,20 @@ export default Ember.Service.extend(StoreMixin, {
   },
 
   /**
+   * Delete course
+   *
+   * @param courseId The Course id to delete
+   * @returns {Ember.RSVP.Promise}
+   */
+  deleteCourse: function (courseId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      service.get('adapter').deleteCourse(courseId)
+        .then(resolve, reject);
+    });
+  },
+
+  /**
    * Copies a course by id
    * @param {string} courseId
    * @returns {Ember.RSVP.Promise}
