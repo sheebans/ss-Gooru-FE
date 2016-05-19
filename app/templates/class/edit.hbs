@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <div class="controller edit">
+    <form {{action "updateClass" on="submit"}}>
+      <div class="class-details row">
+        <div class="class-edit col-md-8 col-sm-8 col-xs-7">
+          <h3 class="hidden-xs">{{t "class.edit.edit-class"}}</h3>
+          <p class="description-legend hidden-sm hidden-md hidden-lg">{{t "class.edit.edit-class"}}</p>
+        </div>
+        <div class="edit-btns col-xs-5 col-sm-3 col-md-3 col-sm-offset-1 col-md-offset-1">
+          <div class="edit-save-section col-center-block {{if isStudent 'hide' 'show'}}">
+            {{#link-to 'class.info' class="cancel"}}{{t 'common.cancel'}}{{/link-to}}
+            <button type="submit" class="save-btn btn btn-success">
+              {{t "common.save"}}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-xs-12 col-sm-5">
+                <label>
+                  <span class="required">{{t 'class.edit.class-name'}}</span>
+                  {{validation.gru-input model=class valuePath='name' maxLength=25}}
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-10">
+                <label>
+                  <span>{{t "class.edit.class-greetings"}}</span>
+                  <textarea id="greetings" class="form-control" rows="2" placeholder={{t "class.edit.class-greetings-placeholder"}}>{{{class.greetings}}}</textarea>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

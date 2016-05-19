@@ -16,12 +16,10 @@
                 <span class="class-code">{{class.code}}</span>
             </div>
             <div class="edit-share-section col-center-block {{if isStudent 'hide' 'show'}}">
-                <button class="edit-btn btn btn-primary">
-                  {{t "class.info.edit-info"}}
-                </button>
-                <button class="share-btn btn btn-success">
-                  {{t "class.info.share-class"}}
-                </button>
+              {{#link-to 'class.edit' class="edit-btn btn btn-primary" tagName='button'}} {{t "class.info.edit-info"}} {{/link-to}}
+              <button class="share-btn btn btn-success">
+                {{t "class.info.share-class"}}
+              </button>
             </div>
          </div>
      </div>

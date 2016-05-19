@@ -23,24 +23,6 @@ export default Ember.Component.extend({
   // Events
   didInsertElement: function () {
     this._super(...arguments);
-
-    const $header = this.$().find('> header');
-
-    if ($header.find('nav').css('display') !== 'none') {
-      // If there's a nav in the header then the resolution must be xs or sm
-      // Set the default view
-      this.set('view', 'content-view');
-    }
-
-    // Add fix header behaviour
-    var headerWidth = $header.css('width');
-    headerWidth = headerWidth && headerWidth.split('px')[0] || '100%';
-
-    // Add inline styles to preserve the same look
-    $header.css({
-      width: headerWidth
-    });
-
     this.set('fixed-header', true);
   },
   // -------------------------------------------------------------------------

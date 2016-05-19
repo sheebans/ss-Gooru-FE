@@ -151,10 +151,12 @@ test('isVimeoResource', function(assert) {
 
 test('isHotTextHighlightWord', function(assert) {
   assert.expect(1);
+  var answers = Ember.A();
+  Ember.run(function () {
+    answers.pushObject(Ember.Object.create({highlightType: 'word'}));
+  });
   let model = this.subject({
-    "options": {
-      hotTextType: "word"
-    }
+    answers: answers
   });
 
   assert.ok(model.get("isHotTextHighlightWord"), "It should be hot text word");
@@ -162,10 +164,12 @@ test('isHotTextHighlightWord', function(assert) {
 
 test('isHotTextHighlightSentence', function(assert) {
   assert.expect(1);
+  var answers = Ember.A();
+  Ember.run(function () {
+    answers.pushObject(Ember.Object.create({highlightType: 'sentence'}));
+  });
   let model = this.subject({
-    "options": {
-      hotTextType: "sentence"
-    }
+    answers: answers
   });
 
   assert.ok(model.get("isHotTextHighlightSentence"), "It should be hot text sentence");
