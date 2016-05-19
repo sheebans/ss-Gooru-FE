@@ -63,8 +63,13 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
         }
         this.set('didValidate', true);
       }.bind(this));
+    },
+    /**
+     * Remove lesson item
+     */
+    removeLessonItem: function (builderItem) {
+      this.get('items').removeObject(builderItem);
     }
-
   },
 
   // -------------------------------------------------------------------------

@@ -120,7 +120,7 @@ export default PlayerAccordionUnit.extend(ModalMixin,{
       this.actions.showModal.call(this,
         'content.modals.gru-delete-content',
         model, null, null, null, false);
-    },
+    }
 
   },
 

@@ -70,7 +70,8 @@
         {{content.courses.edit.gru-accordion-lesson-item
           model=item
           index=index
-          courseId=courseId}}
+          courseId=courseId
+          onDeleteLessonItem=(action 'removeLessonItem') }}
 
       {{/each}}
     </ol>
