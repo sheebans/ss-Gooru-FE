@@ -17,10 +17,10 @@ moduleForAcceptance('Acceptance | Edit Course', {
 });
 
 test('Edit course information', function (assert) {
-  visit('/content/courses/edit/123');
+  visit('/content/courses/edit/course-123');
 
   andThen(function () {
-    assert.equal(currentURL(), '/content/courses/edit/123');
+    assert.equal(currentURL(), '/content/courses/edit/course-123');
 
     var newTitle = 'New Course Name';
 
@@ -54,10 +54,10 @@ test('Edit course information', function (assert) {
 });
 
 test('Click share button and check clipboard functionality', function (assert) {
-  visit('/content/courses/edit/123');
+  visit('/content/courses/edit/course-123');
 
   andThen(function () {
-    assert.equal(currentURL(), '/content/courses/edit/123');
+    assert.equal(currentURL(), '/content/courses/edit/course-123');
     var $shareButton = find(".gru-share-pop-over");
 
     click($shareButton);
@@ -73,10 +73,10 @@ test('Click share button and check clipboard functionality', function (assert) {
 });
 
 test('Delete unit', function (assert) {
-  visit('/content/courses/edit/123');
+  visit('/content/courses/edit/course-123');
 
   andThen(function () {
-    assert.equal(currentURL(), '/content/courses/edit/123');
+    assert.equal(currentURL(), '/content/courses/edit/course-123');
     assert.equal(find(".gru-accordion-unit").length,3, 'Should have 3 units');
     var $unit = find(".gru-accordion-unit:eq(0)");
     var $deleteButton = $unit.find(".item-actions .delete-item");
@@ -110,10 +110,10 @@ test('Delete unit', function (assert) {
   });
 });
 //test('Delete lesson', function (assert) {
-//  visit('/content/courses/edit/123');
+//  visit('/content/courses/edit/course-123');
 //
 //  andThen(function () {
-//    assert.equal(currentURL(), '/content/courses/edit/123');
+//    assert.equal(currentURL(), '/content/courses/edit/course-123');
 //    assert.equal(find(".gru-accordion-unit").length,3, 'Should have 3 units');
 //    var $unit = find(".gru-accordion-unit:eq(0) strong a");
 //    click($unit);
