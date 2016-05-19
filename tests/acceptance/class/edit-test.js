@@ -30,7 +30,7 @@ test('Teacher Layout', function(assert) {
     const $editButtons =$editContainer.find(".edit-btns");
     T.exists(assert, $editButtons.find("div.edit-save-section.show"), "Cancel and Save buttons should be visible");
     T.exists(assert, $editButtons.find(".cancel"), "Missing Cancel Link");
-    T.exists(assert, $editButtons.find(".save-btn"), "Missing Share Button");
+    T.exists(assert, $editButtons.find(".save-btn"), "Missing Save Button");
 
     const $editPanel =$editContainer.find(".panel");
     T.exists(assert, $editPanel.find(".gru-input.name"), "Missing name field");
