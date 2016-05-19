@@ -20,6 +20,8 @@ export default Ember.Component.extend({
 
   classService: Ember.inject.service('api-sdk/class'),
 
+  courseService: Ember.inject.service('api-sdk/course'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -41,16 +43,21 @@ export default Ember.Component.extend({
       const component = this;
       const courseId = component.get('selectedCourse');
       const classId = component.get('model.classId');
-      component.get('classService')
-      .associateCourseToClass(courseId,classId)
-      .then(function(){
+      var courseIdPromise = Ember.RSVP.resolve(courseId);
+      if(component.get('model').get('areFeatured')) {
+        courseIdPromise = component.get('courseService').copyCourse(courseId);
+      }
+      courseIdPromise.then(function(courseIdToAssign) {
+        return component.get('classService')
+          .associateCourseToClass(courseIdToAssign,classId);
+      }).then(function(){
           component.triggerAction({ action: 'closeModal' });
           component.get('router').transitionTo('class.overview', classId, { queryParams: { refresh: true } });
         },
         function () {
           const message = component.get('i18n').t('common.errors.course-not-associated').string;
           component.get('notifications').error(message);
-        });
+      });
       }
   },
 
