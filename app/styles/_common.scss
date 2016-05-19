@@ -366,3 +366,11 @@ span.validation.warning {
     text-align: center;
   }
 }
+
+label {
+  span.required {
+    &:after {
+      content: ' *';
+    }
+  }
+}

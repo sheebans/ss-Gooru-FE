@@ -11,5 +11,5 @@
     {{/gru-share-pop-over}}
   {{/if}}
   <button class="btn btn-default hidden">{{t "content.collections.edit.assign-to-course"}}</button>
-  <button class="btn btn-default">{{t "common.preview"}}</button>
+  {{#link-to 'player' collection.id class="btn btn-default preview" tagName="button"}}{{t "common.preview"}}{{/link-to}}
 </div>

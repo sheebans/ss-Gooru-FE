@@ -387,6 +387,12 @@ export default {
       "invite-student":"Invite Student",
       "class-code": "Class Code"
     },
+    "edit":{
+      "edit-class": "Edit Class Information",
+      "class-name": "Class Name",
+      "class-greetings": "Class Greetings",
+      "class-greetings-placeholder": "Greet your students, motivate them, or make an announcement, etc."
+    },
     "overview":{
       "title":"Course map",
       "locate":"Locate Me",
