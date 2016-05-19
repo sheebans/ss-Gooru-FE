@@ -353,3 +353,11 @@ span.validation.warning {
     }
   }
 }
+
+label {
+  span.required {
+    &:after {
+      content: ' *';
+    }
+  }
+}
