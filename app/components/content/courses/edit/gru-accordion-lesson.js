@@ -72,6 +72,12 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
       }.bind(this));
     },
     /**
+     * Remove lesson item
+     */
+    removeLessonItem: function (builderItem) {
+      this.get('items').removeObject(builderItem);
+    },
+    /**
      * Delete selected lesson
      *
      */
@@ -95,8 +101,6 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
         'content.modals.gru-delete-content',
         model, null, null, null, false);
     }
-
-
   },
 
   // -------------------------------------------------------------------------

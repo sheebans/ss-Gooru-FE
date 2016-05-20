@@ -1,0 +1,26 @@
+{
+  "lesson_id":"2bdb6e3d-a64f-49c2-9669-d5b9106d9ea5",
+  "unit_id":"610cff79-d77b-4c23-8de3-1cb6969d4b07",
+  "course_id":"course-123",
+  "title":"Lesson Test",
+  "created_at":"2016-05-19T21:45:40Z",
+  "updated_at":"2016-05-19T21:45:40Z",
+  "creator_id":"1f1114e0-2daa-4034-995a-8b3c1db029d7",
+  "modifier_id":"1f1114e0-2daa-4034-995a-8b3c1db029d7",
+  "owner_id":"1f1114e0-2daa-4034-995a-8b3c1db029d7",
+  "original_creator_id":null,
+  "original_lesson_id":null,
+  "metadata":null,
+  "taxonomy":[],
+  "sequence_id":5,
+  "creator_system":null,
+  "collection_summary":[{
+    "id":"255dfea0-5ff0-4bf6-bbd9-b02b63a1cb82",
+    "title":"Collection",
+    "format":"collection",
+    "sequence_id":2,
+    "thumbnail":null,
+    "resource_count":0,
+    "question_count":0
+  }]
+}
