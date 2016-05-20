@@ -50,5 +50,21 @@
       },
       "body": ""
     }
+  },
+  {
+    "description": "Delete resource",
+    "request": {
+      "url": "^/api/nucleus/v1/resources/(.+)$",
+      "method": "DELETE",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
   }
 ]

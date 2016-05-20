@@ -86,6 +86,10 @@ export default {
     "create": "Create",
     "created-by":"Created by",
     "delete":"Delete",
+    "delete-instructions": {
+      "links-inaccessible":"All share links will be inaccessible",
+      "content-inaccessible":"All content will be inaccessible to the classes tied to it"
+    },
     "description": "Description",
     "district": "District",
     "domain": "Domain",
@@ -246,6 +250,7 @@ export default {
     "remix-course-lead": "You are about to remix a course.",
     "remix-course-success": "You've remixed a course {{courseTitle}}. Do you want to edit that course?",
     "remixed-by": "Remixed by",
+    "remove":"Remove",
     "request-to":"Request to be searchable and featured in Gooru",
     "resource":"Resource",
     "resources": "Resources",
@@ -522,13 +527,14 @@ export default {
   "content.modals.delete-content":{
     "legend":"You are about to delete",
     "content-legend":"<span>{{type}}</span> {{index}} - {{title}} from <span>{{parentName}}</span>",
-    "delete-instructions": {
-      "links-inaccessible":"All share links will be inaccessible",
-      "content-inaccessible":"All content will be inaccessible to the classes tied to it"
-    },
     "delete-warning": "All content in this {{type}} will be deleted",
     "delete-error": "Oops! Unable to delete {{type}} right now. Please try again shortly.",
     "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."
+  },
+  "content.modals.remove-content":{
+    "legend":"You are about to remove <b>{{title}}</b> from <b>{{parentName}}</b>",
+    "remove-error": "Oops! Unable to remove {{type}} right now. Please try again shortly.",
+    "confirmation": "Are you sure you want to continue? Please type “remove” below and click “remove”."
   },
   "content.resources": {
     "edit": {
