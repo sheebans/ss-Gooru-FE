@@ -8,7 +8,7 @@ import Ember from 'ember';
 export default Ember.Object.extend({
 
   /**
-   * @property {browseItem[]} children - List of item's children
+   * @property {TaxonomyItem[]} children - List of item's children
    */
   children: [],
 
@@ -33,7 +33,7 @@ export default Ember.Object.extend({
   level: 1,
 
   /**
-   * @property {string} parent - Parent item or null if this is node is at the root of the tree.
+   * @property {TaxonomyItem} parent - Parent item or null if this is node is at the root of the tree.
    */
   parent: null,
 
