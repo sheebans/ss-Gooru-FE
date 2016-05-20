@@ -235,3 +235,23 @@ test('addQuestion', function(assert) {
     done();
   });
 });
+
+test('deleteCollection', function(assert) {
+  const expectedCollectionId = 'collection-id';
+  const service = this.subject();
+
+  assert.expect(1);
+
+  service.set('collectionAdapter', Ember.Object.create({
+    deleteCollection: function(collectionId) {
+      assert.equal(collectionId, expectedCollectionId, 'Wrong collection id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.deleteCollection('collection-id')
+    .then(function() {
+      done();
+    });
+});

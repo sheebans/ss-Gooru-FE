@@ -14,7 +14,7 @@
         {{else}}
           {{#if course.isPublished}}
             <div class="remix-button">
-                <button class="btn btn-block btn-success" {{action 'remixCourse'}}>{{t "common.remix"}}</button>
+                <button class="btn btn-block btn-success" {{action 'showModal' "content.modals.gru-course-remix" course}}>{{t "common.remix"}}</button>
             </div>
           {{/if}}
         {{/if}}
@@ -39,7 +39,7 @@
         </div>
         <div class="remixed-users">
             {{#if users}}
-              <span class="remixed">{{t "cards.gru-course-card.remixed-by"}}</span>
+              <span class="remixed">{{t "common.remixed-by"}}</span>
               <span class="users-teaser">{{gru-user-teaser users=users}}</span>
             {{/if}}
         </div>

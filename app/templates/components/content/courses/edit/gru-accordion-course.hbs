@@ -25,12 +25,14 @@
   {{#each items as |item index|}}
 
     {{content.courses.edit.gru-accordion-unit
+    courseTitle=model.title
     courseId=model.id
     model=item
     index=index
     totalItems=items.length
     onCancelAddUnit=(action 'cancelAddUnit')
-    onExpandUnit=(action 'closeAllUnits') }}
+    onExpandUnit=(action 'closeAllUnits')
+    onDeleteUnit=(action 'removeUnit')}}
 
   {{/each}}
 

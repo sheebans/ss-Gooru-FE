@@ -72,6 +72,27 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Deletes an assessment by id
+   *
+   * @param assessmentId assessment id to be sent
+   * @returns {Promise}
+   */
+  deleteAssessment: function(assessmentId) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${assessmentId}`;
+    const options = {
+      type: 'DELETE',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({})
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
    * Adds a question to an assessment
    *
    * @param {string} assessmentId

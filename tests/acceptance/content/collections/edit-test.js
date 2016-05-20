@@ -62,7 +62,7 @@ test('Edit collection information', function (assert) {
   });
 });
 
-test('Click share button', function (assert) {
+test('Click share button and check clipboard functionality', function (assert) {
   visit('/content/collections/edit/123');
 
   andThen(function () {
@@ -73,7 +73,7 @@ test('Click share button', function (assert) {
     andThen(function () {
       var $popOverContent = find(".gru-share-pop-over-content");
 
-      T.exists(assert, $popOverContent.find('p'), "Missing share title");
+      T.exists(assert, $popOverContent.find('p'), "Missing share description");
       T.exists(assert, $popOverContent.find('.share-actions #collection-popover-input'), "Missing readonly input");
       var $copyBtn = $popOverContent.find('.share-actions .copy-btn');
       T.exists(assert, $copyBtn, "Missing copy button");

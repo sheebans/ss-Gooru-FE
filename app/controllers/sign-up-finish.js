@@ -135,28 +135,6 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Events
 
-  /**
-   * init event
-   */
-  init() {
-    this._super(...arguments);
-    var profile = Profile.create(Ember.getOwner(this).ownerInjection(), {
-      role: null,
-      countryId: null,
-      stateId: null,
-      schoolDistrictId: null,
-      schoolDistrict: null
-    });
-    this.set('profile', profile);
-  },
-
-  /**
-   * willDestroyElement event
-   */
-  willDestroyElement: function(){
-    this.set('profile', null);
-  },
-
   // -------------------------------------------------------------------------
   // Properties
 
@@ -240,8 +218,25 @@ export default Ember.Controller.extend({
    * showCountryErrorMessage
    * @property {Boolean}
    */
-  showDistrictErrorMessage: false
+  showDistrictErrorMessage: false,
 
   // -------------------------------------------------------------------------
   // Methods
+
+  /**
+   * init and reset all the properties for the validations
+   */
+
+  resetProperties(){
+    var controller = this;
+    var profile = Profile.create(Ember.getOwner(this).ownerInjection(), {
+      role: null,
+      countryId: null,
+      stateId: null,
+      schoolDistrictId: null,
+      schoolDistrict: null
+    });
+
+    controller.set('profile', profile);
+  }
 });

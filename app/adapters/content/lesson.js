@@ -129,6 +129,30 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Deletes a lesson by id
+   *
+   * @param params - data to send in the request
+   * @returns {Promise}
+   */
+  deleteLesson: function(params) {
+    const courseId = params.courseId;
+    const unitId = params.unitId;
+    const lessonId = params.lessonId;
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${courseId}/units/${unitId}/lessons/${lessonId}`;
+    const options = {
+      type: 'DELETE',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({})
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function () {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')

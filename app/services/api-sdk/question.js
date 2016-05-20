@@ -73,6 +73,20 @@ export default Ember.Service.extend({
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('questionAdapter').updateQuestion(questionId, serializedData).then(resolve, reject);
     });
+  },
+
+  /**
+   * Delete question
+   *
+   * @param questionId question id to delete
+   * @returns {Ember.RSVP.Promise}
+   */
+  deleteQuestion: function (questionId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('questionAdapter').deleteQuestion(questionId)
+        .then(resolve, reject);
+    });
   }
 
 });

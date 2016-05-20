@@ -9,6 +9,10 @@ const Validations = buildValidations({
         presence: true,
         message: '{{description}}',
         descriptionKey: 'common.errors.add-question-answer-text'
+      }),
+      validator('hot-text-highlight', {
+        answerNotSelectedKey: 'common.errors.highlight-text-not-selected',
+        wrongFormatKey: 'common.errors.highlight-text-wrong-format'
       })
     ]
   }
@@ -39,6 +43,11 @@ const Answer = Ember.Object.extend(Validations,{
    * @property {String} type - The answer type
    */
   type: null,
+
+  /**
+   * @property {String} highlightType - The highlight type for hot text highlight answers
+   */
+  highlightType: null,
 
   /**
    * Return a copy of the answer
@@ -77,7 +86,8 @@ const Answer = Ember.Object.extend(Validations,{
       text: answer.get("text"),
       answerType: answer.get("type"),
       order: answer.get("sequence"),
-      isCorrect: answer.get("isCorrect")
+      isCorrect: answer.get("isCorrect"),
+      highlightType: answer.get("highlightType")
     });
   }
 

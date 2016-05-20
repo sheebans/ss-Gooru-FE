@@ -27,7 +27,7 @@ test('it has correct header when user is course owner', function (assert) {
   const $actions = $header.find('> .actions');
   assert.ok($actions.length, "Header actions");
   assert.equal($actions.find(' > button').length, 4, "Number of header actions");
-  assert.ok($actions.find('> button.share').length, "Share button");
+  assert.ok($actions.find('> button.gru-share-pop-over').length, "Share button");
   assert.ok($actions.find('> button.remix').length, "Remix button");
   assert.ok($actions.find('> button.edit').length, "Edit button");
   assert.ok($actions.find('> button.play').length, "Play button");
@@ -56,7 +56,82 @@ test('it has correct header buttons when user is not course owner', function (as
   const $actions = $container.find('> header > .actions');
   assert.ok($actions.length, "Header actions");
   assert.equal($actions.find(' > button').length, 3, "Number of header actions");
-  assert.ok($actions.find('> button.share').length, "Share button");
+  assert.ok($actions.find('> button.gru-share-pop-over').length, "Share button");
   assert.ok($actions.find('> button.remix').length, "Remix button");
   assert.ok($actions.find('> button.play').length, "Play button");
+});
+
+test('it renders the course information in the side panel', function (assert) {
+
+  var course = Course.create(Ember.getOwner(this).ownerInjection(), {
+    owner_details: [
+      {
+        id: 'owner-1',
+        firstName: 'Russell',
+        fullName: 'Russell Owner1',
+        avatarUrl: '/assets/gooru/profile.png'
+      },
+      {
+        id: 'owner-2',
+        firstName: 'Frank',
+        fullName: 'Frank Owner2',
+        avatarUrl: '/assets/gooru/profile.png'
+      }
+    ],
+    collaborator_details: [
+      {
+        id: 'collaborator-1',
+        firstName: 'Shawn',
+        fullName: 'Shawn Collaborator1',
+        avatarUrl: '/assets/gooru/profile.png'
+      }
+    ],
+    license: 'License text',
+    useCase: 'Use case text'
+  });
+
+  this.set('course', course);
+  this.render(hbs`{{content/courses/gru-course-play course=course}}`);
+
+  var $container = this.$("article.content.courses.gru-course-play");
+
+  const $sidePanel = $container.find('#information .panel.aside > .panel-body');
+  assert.ok($sidePanel.length, "Side panel");
+
+  const $rows = $sidePanel.find('> .row');
+  assert.equal($rows.length, 2, 'Number of rows');
+
+  var $row = $rows.eq(0);
+  assert.equal($row.find('> div').length, 3, 'Number of columns -first row');
+
+  var $column = $row.find('> div:eq(0)');
+  assert.ok($column.hasClass('created-by'), 'Class 1 -column 1');
+  assert.ok($column.hasClass('gru-user-icons'), 'Class 2 -column 1');
+  assert.ok($column.find('> strong').length, 'Title -column 1');
+  assert.ok($column.find('li.item.user').length, 2, 'Authors');
+
+  var $user = $column.find('li.item.user:eq(0)');
+  assert.equal($user.find('span').text(), 'Russell', 'First author name');
+
+  $column = $row.find('> div:eq(1)');
+  assert.ok($column.hasClass('remixed-by'), 'Class 1 -column 2');
+  assert.ok($column.hasClass('gru-user-icons'), 'Class 2 -column 2');
+  assert.ok($column.find('> strong').length, 'Title -column 2');
+  assert.ok($column.find('li.item.user').length, 1, 'Collaborators');
+
+  $user = $column.find('li.item.user:eq(0)');
+  assert.equal($user.find('span').text(), 'Shawn', 'First collaborator name');
+
+  $column = $row.find('> div:eq(2)');
+  assert.ok($column.hasClass('license'), 'Class -column 3');
+  assert.ok($column.find('> strong').length, 'Title -column 3');
+  assert.ok($column.find('p').text(), 'License text', 'License text');
+
+  $row = $rows.eq(1);
+  assert.equal($row.find('> div').length, 1, 'Number of columns -second row');
+
+  $column = $row.find('> div:eq(0)');
+  assert.ok($column.hasClass('use-case'), 'Class -column 1, row 2');
+  assert.ok($column.find('> strong').length, 'Title -column 1, row 2');
+  assert.ok($column.find('p').text(), 'Use case text', 'Use case text');
 });

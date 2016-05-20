@@ -1,8 +1,10 @@
 .content.modals.gru-course-new,
+.content.modals.gru-course-remix,
 .content.modals.gru-collection-new,
 .content.modals.gru-assessment-new,
 .content.modals.gru-resource-new,
-.content.modals.gru-question-new{
+.content.modals.gru-question-new,
+.content.modals.gru-delete-content{
   background-color: transparent;
   max-width: 500px;
 
@@ -201,49 +203,11 @@
   }
 }
 
-.content.modals.gru-resource-new{
-   .header-add-url {
-     width: 100%;
-     float: left;
-     margin-bottom: 12px;
-    }
-    span.title{
-      font-size: $font-size-large;
-    }
-    .icon{
-      margin-right:5px;
-      color: $light-300;
-      i{
-        vertical-align: bottom;
-      }
-    }
-      .url-label,.title-label, .type{
-        margin-left: 10px;
-        .gru-input {
-          width: 100%;
-        }
-      }
-  .actions.resource-new{
-    margin-top: 10px;
-  }
-  .panel.active{
-    opacity:0.6;
-  }
-  .existing-resource-message{
-    height: 285px;
-    border: 1px solid $light-200;
-    border-radius: 6px;
-    background-color: $light-100;
-    .gru-resource-card{
-      margin: 14px auto;
-    }
+
+.content.modals.gru-course-remix {
+  .lead{
+    border-bottom: 2px solid $gray-lighter;
+    padding-bottom: $padding-large-vertical;
   }
 }
-.content.modals.gru-question-new{
-  .actions.question-new {
-    margin-top: 10px;
-  }
-  .panel.active{
-    opacity:0.6;
-  }
-}
+

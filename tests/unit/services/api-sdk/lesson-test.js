@@ -151,3 +151,27 @@ test('updateLesson', function(assert) {
       done();
     });
 });
+
+test('Delete Lesson', function(assert) {
+  const expectedCourseId = 'course-id';
+  const expectedUnitId = 'unit-id';
+  const expectedLessonId = 'lesson-id';
+  const service = this.subject();
+
+  assert.expect(3);
+
+  service.set('adapter', Ember.Object.create({
+    deleteLesson: function(params) {
+      assert.equal(params.courseId, expectedCourseId, 'Wrong course id');
+      assert.equal(params.unitId, expectedUnitId, 'Wrong unit id');
+      assert.equal(params.lessonId, expectedLessonId, 'Wrong lesson id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.deleteLesson('course-id', 'unit-id', 'lesson-id')
+    .then(function() {
+      done();
+    });
+});

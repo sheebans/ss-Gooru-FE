@@ -34,8 +34,8 @@ export default {
       other: "Assessments"
     },
     "assessment-title":"Assessment Title",
-    "assessments": "Assessments",
     "assessmentInitial": "A",
+    "assessments": "Assessments",
     "attempt": "Attempt number",
     "audience":"Audience",
     "audienceList": {
@@ -46,9 +46,9 @@ export default {
       "special-needs": "Students With Special Needs",
       "teachers": "Teachers"
     },
-    "of": "of",
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
+    "back": "Back",
     "best-practices": "Best Practices",
     "big-ideas": "Big Ideas",
     "biography": "Biography",
@@ -60,6 +60,7 @@ export default {
       "higher-ed": "Higher Education",
       "professional-dev": "Professional Development"
     },
+    "classes": "Classes",
     "classScores": "Class Scores",
     "close": "Close",
     "collection":"Collection",
@@ -77,12 +78,14 @@ export default {
     "copy-to": "Copy To",
     "correct": "Correct",
     "correct-answer":"Correct Answer",
-    "course-map": "Course Map",
     "country": "Country",
+    "course-map": "Course Map",
     "course":"Course",
     "course-title": "Course Title",
     "courses": "Courses",
     "create": "Create",
+    "created-by":"Created by",
+    "delete":"Delete",
     "description": "Description",
     "district": "District",
     "domain": "Domain",
@@ -117,8 +120,11 @@ export default {
       "collection-not-updated": "Oops! Unable to update collection right now. Please try again shortly.",
       "collection-title-presence" : "Please enter the collection title.",
       "correct-answer-presence": "Please indicate the correct answer.",
+      "course-not-copied": "Oops! Unable to copy course right now. Please try again shortly.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
+      "highlight-text-not-selected": "Please indicate the correct answer.",
+      "highlight-text-wrong-format": "Incorrect question format.",
       "hotspot-text-max-choices": "You have reached the limit of answers choices.",
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
@@ -150,12 +156,13 @@ export default {
     "followers": "Followers",
     "following": "Following",
     "forgotPassword": "Forgot Password",
+    "from":"from",
     "from-my-assessments": "From My Assessments",
     "from-my-collections": "From My Collections",
     "from-my-questions": "From My Questions",
     "from-my-resources": "From My Resources",
-    "hints": "Hints",
     "hide-results":"Hide Results",
+    "hints": "Hints",
     "home": "Home",
     "if_questions": "If you have any questions,",
     "information": "Information",
@@ -167,22 +174,20 @@ export default {
     "learning-target":"Learning Target",
     "learning-target-mobile":"Learning Target in Standard",
     "lesson": "Lesson",
-    "back": "Back",
+    "lessonInitial": "L",
     "lessonObj": {
       one: "Lesson",
       other: "Lessons"
     },
-    "lessonInitial": "L",
     "libraries": "Libraries",
     "license": "License",
     "loading": "Loading ...",
     "login": "Log in",
     "logout": "Logout",
-    "classes": "Classes",
-    "myContent": "My Content",
     "mastery":"Mastery",
     "menu": "Menu",
     "more-details":"More Details",
+    "myContent": "My Content",
     "new-assessment": "New Assessment",
     "new-collection": "New Collection",
     "new-question": "New Question",
@@ -193,24 +198,26 @@ export default {
     "no-results": "No Results Found",
     "no-results-message":"Check your spelling. We all make mistakes!<br/>Go broader & remove some filters.<br/>Try searching for a similar word instead.",
     "notStarted": "Not started",
-    "not-specified":"Not specified",
-    "not-provided": "Not provided",
     "not-added":"Not Added",
+    "not-provided": "Not provided",
+    "not-specified":"Not specified",
     "nothing-to-display-message":"Nothing to display.",
     "number":"No.",
     "numberStudents": {
       one: "{{count}} Student",
       other: "{{count}} Students"
     },
+    "of": "of",
     "other": "Other",
+    "pending":"Pending",
     "performance":"Show Performance",
     "play": "Play",
     "please_contact": "Please contact",
-    "pending":"Pending",
-    "publish-to":" Publish to my profile",
-    "publisher": "Publisher",
     "preview": "Preview",
     "profile": "Profile",
+    "publish-to":" Publish to my profile",
+    "published-by": "Published by",
+    "publisher": "Publisher",
     "question":"Question",
     "questions": "Questions",
     "question-pl": {
@@ -233,6 +240,12 @@ export default {
       "HT_HL"  : "Hot Text Highlight"
     },
     "reaction": "Reaction",
+    "remaining": "{{number}} Left",
+    "remix":"Remix",
+    "remix-course": "Remix Course",
+    "remix-course-lead": "You are about to remix a course.",
+    "remix-course-success": "You've remixed a course {{courseTitle}}. Do you want to edit that course?",
+    "remixed-by": "Remixed by",
     "request-to":"Request to be searchable and featured in Gooru",
     "resource":"Resource",
     "resources": "Resources",
@@ -251,18 +264,17 @@ export default {
     },
     "resource-title":"Resource Title",
     "resource-url": "Resource URL",
-    "remaining": "{{number}} Left",
-    "remix":"Remix",
     "role": "Role",
     "save": "Save",
     "save-next": "Save and Next",
     "save-submit": "Save and Submit All",
     "save-finish": "Save and Finish",
-    "select": "Select",
-    "settings":"Settings",
     "school": "School",
     "school-info": "School Information",
     "score":"Score",
+    "select": "Select",
+    "sentence": "Sentence",
+    "settings":"Settings",
     "search": "Search",
     "search-placeholder": "Search...",
     "search-error-message": "Search terms need to be more than 3 letters.",
@@ -278,9 +290,9 @@ export default {
     "standard":"Standard",
     "standards": "Standards",
     "study": "Study",
+    "student": "Student",
     "submit": "Submit",
     "submit-all":"Submit all",
-    "student": "Student",
     "suggested-resources":"Suggested Resources",
     "teach": "Teach",
     "teacher": "Teacher",
@@ -300,12 +312,14 @@ export default {
     "untitled-unit": "Untitled Unit",
     "update-thumbnail": "Update Thumbnail",
     "upload-thumbnail":"Upload Thumbnail",
+    "use-case": "Use Case",
     "verified": "Verified",
-    "yes": "Yes",
     "warnings": {
       "on-air-connection-lost": "The On Air feature has lost connection and is retrying automatically. While it's tempting, please don't refresh your screen!",
       "character-limit": "You've reached the character limit."
-    }
+    },
+    "word": "Word",
+    "yes": "Yes"
   },
 
   /*
@@ -372,6 +386,12 @@ export default {
       "invite-collaborator":"Invite Collaborator",
       "invite-student":"Invite Student",
       "class-code": "Class Code"
+    },
+    "edit":{
+      "edit-class": "Edit Class Information",
+      "class-name": "Class Name",
+      "class-greetings": "Class Greetings",
+      "class-greetings-placeholder": "Greet your students, motivate them, or make an announcement, etc."
     },
     "overview":{
       "title":"Course map",
@@ -478,6 +498,8 @@ export default {
         "FIB":"Add up to 5 hints for answer and an explanation.",
         "HS_IMG":"You can add up to ten answers images an select one or more correct answers.",
         "HS_TXT": "You can add up to ten answers choices and select one or more correct answers.",
+        "HT_HL_ST": "As you write the question, use brackets to indicate the highlighted sentences. One bracket can only contain one sentence at a time, using a period inside the bracket. For example, The first little pig built his house of straw. [The big bad wolf blew down the house.] The second pig built his house of wood. Character limit: 5000.",
+        "HT_HL_WD": "As you write the question, use brackets for the highlighted words. One bracket can only contain one word at a time. For example, The [big] bad wolf blew [down] the house. Character limit: 5000.",
         "HT_RO": "You can add up to ten answers choices in the correct order. The order will be scrambled for students.",
         "MA": "You can add up to ten answers, an image, explanation and up to five hints.",
         "MC":"You can add up to ten answers choices and indicate one correct answer. Character Limit: 200.",
@@ -489,13 +511,24 @@ export default {
         "HS_TXT":"Write your question. Character limit: 5000.",
         "HS_IMG":"Write your question. Character limit: 5000.",
         "HT_RO":"Write your question. Character limit: 5000.",
-        "HT_HL":"Write your question. Character limit: 5000.",
+        "HT_HL": "Write your question prompt. Character limit: 5000.",
         "MC":"Write your question. Character limit: 5000.",
         "MA":"Write your question. Character limit: 5000.",
         "OE":"Write your question. Character limit: 5000.",
         "T/F":"Write your question. Character limit: 5000."
       }
     }
+  },
+  "content.modals.delete-content":{
+    "legend":"You are about to delete",
+    "content-legend":"{{type}} {{index}} - <span>{{title}}</span> from <span>{{parentName}}</span>",
+    "delete-instructions": {
+      "links-inaccessible":"All share links will be inaccessible",
+      "content-inaccessible":"All content will be inaccessible to the classes tied to it"
+    },
+    "delete-warning": "All content in this {{type}} will be deleted",
+    "delete-error": "Oops! Unable to delete {{type}} right now. Please try again shortly.",
+    "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."
   },
   "content.resources": {
     "edit": {
@@ -522,7 +555,6 @@ export default {
       "other" : " and teaching {{count}} classes"
     }
   },
-
   /*
    * COMPONENTS: Translations used in a specific component
    */
@@ -533,6 +565,9 @@ export default {
   },
   "gru-share-pop-over":{
     "share-course":"Share your course with link",
+    "share-question":"Share your question with link",
+    "share-resource":"Share your resource with link",
+    "share-assessment":"Share your assessment with link",
     "share-collection":"Share your collection with link",
     "copy": "Copy"
   },
@@ -652,10 +687,14 @@ export default {
 
   "forgot-password": {
     "description": "It happens to all of us.",
-    "usernameOrEmail": "Please enter your email/username",
+    "usernameOrEmail": "Please enter your email",
     "footer-description-1":"You will receive an email with a link to reset your password.",
     "footer-description-2":"If you have any questions, please contact ",
-    "mail":"support@gooru.org"
+    "mail":"support@gooru.org",
+    "error-email-not-exists": "Sorry we don't recognize this email.",
+    "secondStepTitle": "Check your email",
+    "secondStepDescription-1": "We’ve sent you and email with a link to reset your password.",
+    "secondStepDescription-2": "If you have any questions, please contact"
   },
 
   "footer": {
@@ -858,8 +897,6 @@ export default {
     },
     "gru-course-card":{
       "units":"Units",
-      "remixed-by":"Remixed by",
-      "created":"Created by",
       "in":"in",
       "resource": {
         one: "{{count}} Resource",

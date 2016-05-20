@@ -43,10 +43,12 @@ Router.map(function() {
 
     this.route('resources', function () {
       this.route('edit', {path: '/edit/:resourceId'});
+      this.route('play', {path: '/play/:resourceId'});
     });
 
     this.route('questions', function () {
       this.route('edit', {path: '/edit/:questionId'});
+      this.route('play', {path: '/play/:questionId'});
     });
   });
 
@@ -60,6 +62,7 @@ Router.map(function() {
     this.route('overview');
     this.route('info');
     this.route('quick-start');
+    this.route('edit');
 
     this.route('analytics', function() {
       this.route('performance', function() {

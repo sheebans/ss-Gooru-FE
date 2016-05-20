@@ -88,9 +88,12 @@ export default Ember.Route.extend({
   playerModel: function(params, context, collection){
     const route = this;
     const hasUserSession = !route.get('session.isAnonymous');
+    const isAssessment = collection.get("isAssessment");
+    const loadSession = hasUserSession && isAssessment;
 
-    let lastOpenSessionPromise = !hasUserSession ? Ember.RSVP.resolve(null) :
-      route.get("userSessionService").getOpenSession(context);
+    let lastOpenSessionPromise = loadSession ?
+      route.get("userSessionService").getOpenSession(context) :
+      Ember.RSVP.resolve(null);
 
     return lastOpenSessionPromise.then(function (lastSession) {
       //Setting new content if we have some session opened
@@ -130,6 +133,7 @@ export default Ember.Route.extend({
    */
   setupController(controller, model) {
     let collection = model.collection;
+    let hasResources = collection.get("hasResources");
     let assessmentResult = model.assessmentResult;
     let hasUserSession = !this.get('session.isAnonymous');
 
@@ -152,12 +156,19 @@ export default Ember.Route.extend({
     controller.set("showReport", assessmentResult.get("submitted"));
 
     controller.startAssessment();
-    var resource = assessmentResult.get("lastVisitedResource");
-    if (model.resourceId) {
-      resource = collection.getResourceById(model.resourceId);
+
+
+    let resource = null;
+    if (hasResources){
+      resource = assessmentResult.get("lastVisitedResource");
+      if (model.resourceId) {
+        resource = collection.getResourceById(model.resourceId);
+      }
     }
 
     controller.set("collection", collection);
-    controller.moveToResource(resource);
+    if (resource) {
+      controller.moveToResource(resource);
+    }
   }
 });
