@@ -33,14 +33,18 @@
             <div class="{{if isAssessment 'author' 'remixed-by'}}">
               {{#if isAssessment}}
                 {{#link-to 'profile.content.courses' collection.owner.id class="pointer" tagName="div"}}
-                  <span class="title">{{t "common.created-by"}}</span>
+                  <span class="title">
+                    {{t (if collection.sameOwnerAndCreator "common.created-by" "common.remixed-by")}}
+                  </span>
                   <img class="img-responsive" src="{{collection.owner.avatarUrl}}">
                   <span>{{collection.owner.displayName}}</span>
                 {{/link-to}}
               {{else}}
                 {{#if collection.owner}}
                   {{#link-to 'profile.content.courses' collection.owner.id class="pointer" tagName="div"}}
-                    <span class="title">{{t "common.remixed-by"}}</span>
+                    <span class="title">
+                      {{t (if collection.sameOwnerAndCreator "common.created-by" "common.remixed-by")}}
+                    </span>
                     <img class="img-responsive" src="{{collection.owner.avatarUrl}}">
                     <span>{{collection.owner.displayName}}</span> {{#if collection.remixCount}}+{{collection.remixCount}}{{/if}}
                   {{/link-to}}
@@ -52,7 +56,7 @@
             </div>
             <div class="buttons">
             {{#if remixEnabled }}
-                <button class="remix-btn btn btn-success btn-sm ">{{t "common.remix"}}</button>
+                <button class="remix-btn btn btn-success btn-sm " {{action "remixCollection"}}>{{t "common.remix"}}</button>
             {{/if}}
             {{#if editEnabled }}
                 <button class="edit-btn btn btn-success btn-sm" {{action "editCollection"}}>{{t "common.edit"}}</button>

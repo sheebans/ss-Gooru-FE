@@ -24,6 +24,6 @@ test('Layout', function(assert) {
     const $contentCourseContainer = find(".controller.profile-courses");
     T.exists(assert, $contentCourseContainer, "Missing content courses container");
     T.exists(assert, $contentCourseContainer.find(".course-content >div:first-child .card-info .course-title"), "Missing first course card");
-    assert.equal(T.text($contentCourseContainer.find(".course-content >div:first-child .card-info .course-title")), "Jeff Course07", "Incorrect course card title text");
+    assert.equal(T.text($contentCourseContainer.find(".course-content >div:first-child .card-info .course-title")), "Test Course", "Incorrect course card title text");
   });
 });

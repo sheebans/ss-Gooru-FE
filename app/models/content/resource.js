@@ -116,6 +116,18 @@ const ResourceModel = Ember.Object.extend(Validations,{
   owner: null,
 
   /**
+   * The original creator
+   * @property { Content/User }
+   */
+  creator: null,
+
+  /**
+   * When the owner and the creator are the same
+   * @property {boolean}
+   */
+  sameOwnerAndCreator: Ember.computed.equal("owner.id", "creator.id"),
+
+  /**
    * @property {Boolean} isPublic
    */
   isPublic: Ember.computed.equal("publishedStatus", "published"),

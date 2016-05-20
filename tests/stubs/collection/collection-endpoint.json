@@ -52,5 +52,21 @@
       },
       "body": ""
     }
+  },
+  {
+    "description": "Delete collection",
+    "request": {
+      "url": "^/api/nucleus/v1/collections/(.+)$",
+      "method": "DELETE",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
   }
 ]
