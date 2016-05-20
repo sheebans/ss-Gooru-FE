@@ -15,7 +15,7 @@ export default Ember.Component.extend({
 
   classNames: ['taxonomy', 'gru-taxonomy-tag'],
 
-  classNameBindings: ['isActive:active', 'isReadonly:read-only'],
+  classNameBindings: ['model.isActive:active', 'model.isReadonly:read-only'],
 
 
   // -------------------------------------------------------------------------
@@ -24,7 +24,7 @@ export default Ember.Component.extend({
   actions: {
 
     toggleState: function() {
-      this.toggleProperty('isActive');
+      this.toggleProperty('model.isActive');
       this.get('onSelect')(this.get('model'));
     },
 
@@ -37,24 +37,7 @@ export default Ember.Component.extend({
   // Properties
 
   /**
-   * @property {boolean} isActive - Is the state of the tag active or not?
-   */
-  isActive: false,
-
-  /**
-   * @property {boolean} isReadonly - Is the tag read-only or does it accept changes
-   * to its state (e.g. by clicking on it)
-   */
-  isReadonly: false,
-
-  /**
-   * @property {boolean} isRemovable - Does the tag show a clear/remove icon to
-   * trigger an action for its removal
-   */
-  isRemovable: false,
-
-  /**
-   * @property {TaxonomyItem} model - Taxonomy item model
+   * @property {TaxonomyItem} model - Taxonomy tag model
    */
   model: null,
 
