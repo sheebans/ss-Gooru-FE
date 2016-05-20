@@ -227,7 +227,7 @@ test('Delete assessment', function (assert) {
                   var $deleteButton = $deleteContentModal.find("button.delete");
                   click($deleteButton);
                   andThen(function () {
-                    assert.equal(find(".gru-accordion-lesson-item").length,1, 'Should have 0 collections');
+                    assert.equal(find(".gru-accordion-lesson-item").length,1, 'Should have 1 lesson item');
                   });
                 });
               });

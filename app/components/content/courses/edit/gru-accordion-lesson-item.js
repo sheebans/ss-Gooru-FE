@@ -40,41 +40,35 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
      */
     deleteItem: function (builderItem) {
       let component = this;
-      var model = null;
+      var model =  {
+        content: this.get('model'),
+        index:this.get('index'),
+        parentName:this.get('courseTitle'),
+        callback:{
+          success:function(){
+            component.get('onDeleteLessonItem')(builderItem);
+          }
+        }
+      };
+      var lessonItem =null;
       if(builderItem.get('isCollection')){
-        model= {
-          content: this.get('model'),
-          index:this.get('index'),
-          parentName:this.get('courseTitle'),
+        lessonItem = {
           deleteMethod: function () {
             return this.get('collectionService').deleteCollection(this.get('model.id'));
           }.bind(this),
-          type: CONTENT_TYPES.COLLECTION,
-          callback:{
-            success:function(){
-              component.get('onDeleteLessonItem')(builderItem);
-            }
-          }
+          type: CONTENT_TYPES.COLLECTION
         };
       }else{
-        model= {
-          content: this.get('model'),
-          index:this.get('index'),
-          parentName:this.get('courseTitle'),
+        lessonItem = {
           deleteMethod: function () {
             return this.get('assessmentService').deleteAssessment(this.get('model.id'));
           }.bind(this),
           type: CONTENT_TYPES.ASSESSMENT,
-          callback:{
-            success:function(){
-              component.get('onDeleteLessonItem')(builderItem);
-            }
-          }
         };
       }
       this.actions.showModal.call(this,
         'content.modals.gru-delete-content',
-        model, null, null, null, false);
+        $.extend(model, lessonItem), null, null, null, false);
     }
 
   },
