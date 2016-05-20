@@ -16,9 +16,14 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Dependencies
   /**
-   * @requires service:api-sdk/unit
+   * @requires service:api-sdk/collection
    */
   collectionService: Ember.inject.service("api-sdk/collection"),
+
+  /**
+   * @requires service:api-sdk/assessment
+   */
+  assessmentService: Ember.inject.service("api-sdk/assessment"),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -35,26 +40,35 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
      */
     deleteItem: function (builderItem) {
       let component = this;
-      var model = null;
+      var model =  {
+        content: this.get('model'),
+        index:this.get('index'),
+        parentName:this.get('courseTitle'),
+        callback:{
+          success:function(){
+            component.get('onDeleteLessonItem')(builderItem);
+          }
+        }
+      };
+      var lessonItem =null;
       if(builderItem.get('isCollection')){
-        model= {
-          content: this.get('model'),
-          index:this.get('index'),
-          parentName:this.get('courseTitle'),
+        lessonItem = {
           deleteMethod: function () {
             return this.get('collectionService').deleteCollection(this.get('model.id'));
           }.bind(this),
-          type: CONTENT_TYPES.COLLECTION,
-          callback:{
-            success:function(){
-              component.get('onDeleteLessonItem')(builderItem);
-            },
-          }
+          type: CONTENT_TYPES.COLLECTION
+        };
+      }else{
+        lessonItem = {
+          deleteMethod: function () {
+            return this.get('assessmentService').deleteAssessment(this.get('model.id'));
+          }.bind(this),
+          type: CONTENT_TYPES.ASSESSMENT,
         };
       }
       this.actions.showModal.call(this,
         'content.modals.gru-delete-content',
-        model, null, null, null, false);
+        $.extend(model, lessonItem), null, null, null, false);
     }
 
   },

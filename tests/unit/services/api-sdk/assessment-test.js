@@ -109,7 +109,7 @@ test('deleteAssessment', function(assert) {
 
   assert.expect(1);
 
-  service.set('adapter', Ember.Object.create({
+  service.set('assessmentAdapter', Ember.Object.create({
     deleteAssessment: function(assessmentId) {
       assert.equal(assessmentId, expectedAssessmentId, 'Wrong assessment id');
       return Ember.RSVP.resolve();
