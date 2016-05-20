@@ -381,7 +381,8 @@ export default {
       "share-class":"Share Class",
       "invite-collaborator":"Invite Collaborator",
       "invite-student":"Invite Student",
-      "class-code": "Class Code"
+      "class-code": "Class Code",
+      "delete":"Delete Class",
     },
     "edit":{
       "edit-class": "Edit Class Information",
