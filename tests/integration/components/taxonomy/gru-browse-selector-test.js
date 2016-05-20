@@ -10,36 +10,31 @@ moduleForComponent('taxonomy/gru-browse-selector', 'Integration | Component | ta
 });
 
 /**
- * Generates a tree data structure for testing the browse selector
+ * Generates a taxonomy tree data structure for testing
  * @param {Number} levels - total number of parent/children levels in the tree
- * @param {Number} lastLevels - number of sub-levels in the last level of the tree
- * @param {BrowseItem} parent - parent item for all the items created in the current level or sub-level
+ * @param {TaxonomyItem} parent - parent item for all the items created in the current level
  * @param {Number} inc - number by which the number of items in each level will increase
- * @param {Number} currentLevel - current tree level or sub-level being built (starts at 1)
- * @return {BrowseItem[][] ...} - the list of browse items in the first level
+ * @param {Number} currentLevel - current tree level being built (starts at 1)
+ * @return {TaxonomyItem[][] ...} - the list of taxonomy items in the first level
  */
-function generateTestTree(levels = 1, lastLevels = 0, parent = null, inc = 1, currentLevel = 1) {
+function generateTaxonomyTestTree(levels = 1, parent = null, inc = 1, currentLevel = 1) {
   var totalItems = currentLevel * inc;
   var items = [];
 
-  if (currentLevel <= levels + lastLevels) {
+  if (currentLevel <= levels) {
 
     for (let i = 0; i < totalItems; i++) {
-      let parentId = (parent) ? parent.get('item.id') : 0;
+      let parentId = (parent) ? parent.get('id') : 0;
 
       let taxonomyItem = TaxonomyItem.create({
         id: '' + currentLevel + i,
-        label: 'Item : ' + currentLevel + ' : ' + parentId + ' : ' + i
+        label: 'Item : ' + currentLevel + ' : ' + parentId + ' : ' + i,
+        level: currentLevel,
+        parent: parent
       });
 
-      let browseItem = BrowseItem.create({
-        parent: parent,
-        item: taxonomyItem,
-        level: currentLevel
-      });
-
-      generateTestTree(levels, lastLevels, browseItem, inc, currentLevel + 1);
-      items.push(browseItem);
+      generateTaxonomyTestTree(levels, taxonomyItem, inc, currentLevel + 1);
+      items.push(taxonomyItem);
     }
 
     if (parent) {
@@ -51,9 +46,30 @@ function generateTestTree(levels = 1, lastLevels = 0, parent = null, inc = 1, cu
   }
 }
 
+/**
+ * Generates a tree data structure for testing the browse selector
+ * @param {Number} levels - total number of parent/children levels in the tree
+ * @param {Number} lastLevels - number of sub-levels in the last level of the tree
+ * @param {Number} inc - number by which the number of items in each level will increase
+ * @return {BrowseItem[][] ...} - the list of browse items in the first level
+ */
+function generateBrowseTestTree(levels = 1, lastLevels = 0, inc = 1) {
+  const startLevel = 1;
+  var browseItems = [];
+
+  var taxonomyItems = generateTaxonomyTestTree(levels + lastLevels, null, inc, startLevel);
+
+  taxonomyItems.forEach(function(rootTaxonomyItem) {
+    var item = BrowseItem.createFromTaxonomyItem(rootTaxonomyItem);
+    browseItems.push(item);
+  });
+
+  return browseItems;
+}
+
 test("it renders the browse panels", function(assert) {
 
-  var data = generateTestTree(1, 0, null, 2);
+  var data = generateBrowseTestTree(1, 0, 2);
   var headers = ['Header Level 1', 'Header Level 2', 'Header Level 3'];
 
   this.set('data', data);
@@ -83,7 +99,7 @@ test("it renders the browse panels", function(assert) {
 
 test("it can populate the the browse panels per a specific item path", function(assert) {
 
-  var data = generateTestTree(3);
+  var data = generateBrowseTestTree(3);
   var headers = ['Header Level 1', 'Header Level 2', 'Header Level 3'];
 
   this.set('data', data);
@@ -105,7 +121,7 @@ test("it can populate the the browse panels per a specific item path", function(
 
 test("it calls an external action when clicking an item that is not in the last browse panel and navigates to that item", function(assert) {
 
-  var data = generateTestTree(3);
+  var data = generateBrowseTestTree(3);
   var headers = ['Header Level 1', 'Header Level 2', 'Header Level 3'];
 
   this.set('data', data);
@@ -137,10 +153,8 @@ test("it loads sub-level items async", function(assert) {
 
   const rootItem = BrowseItem.create({
     parent: null,
-    item: TaxonomyItem.create({
-      id: '10',
-      label: 'Item : 1 : 0 : 0'
-    }),
+    id: '10',
+    label: 'Item : 1 : 0 : 0',
     level: 1,
     children: []
   });
@@ -149,10 +163,8 @@ test("it loads sub-level items async", function(assert) {
 
     const childNode = BrowseItem.create({
       parent: node,
-      item: TaxonomyItem.create({
-        id: '20',
-        label: 'Item : 2 : 10 : 0'
-      }),
+      id: '20',
+      label: 'Item : 2 : 10 : 0',
       level: 2
     });
 
@@ -192,7 +204,7 @@ test("it loads sub-level items async", function(assert) {
 
 test("it keeps track of checked items", function(assert) {
 
-  var data = generateTestTree(3);
+  var data = generateBrowseTestTree(3);
   var headers = ['Header Level 1', 'Header Level 2', 'Header Level 3'];
 
   this.set('data', data);
@@ -236,7 +248,7 @@ test("it keeps track of checked items", function(assert) {
 
 test("it displays exceeding levels of data as accordions in the last browse panel", function(assert) {
 
-  var data = generateTestTree(2, 3);
+  var data = generateBrowseTestTree(2, 3);
   var headers = ['Header Level 1', 'Header Level 2'];
 
   this.set('data', data);

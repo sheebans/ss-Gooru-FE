@@ -6,7 +6,8 @@ import TaxonomyItem from 'gooru-web/models/taxonomy/taxonomy-item';
  *
  * @typedef {Object} BrowseItem
  */
-export default TaxonomyItem.extend({
+
+var BrowseItem = TaxonomyItem.extend({
 
   // -------------------------------------------------------------------------
   // Properties
@@ -14,22 +15,33 @@ export default TaxonomyItem.extend({
   /**
    * @property {boolean} selected - Does this item have children checked or not?
    */
-  hasChildrenChecked: Ember.computed.bool('totalChildrenChecked'),
+  hasChildrenSelected: Ember.computed.bool('totalChildrenSelected'),
 
   /**
-   * @property {string} totalChildrenChecked - Number of children that are currently selected.
+   * @property {string} totalChildrenSelected - Number of children that are currently selected.
    */
-  totalChildrenChecked: 0,
+  totalChildrenSelected: 0,
 
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  init() {
+    this._super( ...arguments );
+
+    if (this.get('isSelected')) {
+      this.increaseSelected();
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Observers
 
   onCheckUpdate: Ember.observer('isSelected', function() {
     if (this.get('isSelected')) {
-      this.increaseCheckedCounters();
+      this.increaseSelected();
     } else {
-      this.decreaseCheckedCounters();
+      this.decreaseSelected();
     }
   }),
 
@@ -38,29 +50,72 @@ export default TaxonomyItem.extend({
   // Methods
 
   /**
-   * @function Decrease the counter 'totalChildrenChecked' in all of this node's ancestors
+   * @function Decrease the counter 'totalChildrenSelected' in all of this node's ancestors
    */
-  decreaseCheckedCounters: function() {
+  decreaseSelected: function() {
     var parent = this.get('parent');
 
     if (parent) {
-      let childrenSelected = parent.get('totalChildrenChecked');
-      parent.set('totalChildrenChecked', --childrenSelected);
-      parent.decreaseCheckedCounters();
+      let childrenSelected = parent.get('totalChildrenSelected');
+      parent.set('totalChildrenSelected', --childrenSelected);
+      parent.decreaseSelected();
     }
   },
 
   /**
-   * @function Increase the counter 'totalChildrenChecked' in all of this node's ancestors
+   * @function Increase the counter 'totalChildrenSelected' in all of this node's ancestors
    */
-  increaseCheckedCounters: function() {
+  increaseSelected: function() {
     var parent = this.get('parent');
 
     if (parent) {
-      let childrenSelected = parent.get('totalChildrenChecked');
-      parent.set('totalChildrenChecked', ++childrenSelected);
-      parent.increaseCheckedCounters();
+      let childrenSelected = parent.get('totalChildrenSelected');
+      parent.set('totalChildrenSelected', ++childrenSelected);
+      parent.increaseSelected();
     }
   }
 
 });
+
+
+BrowseItem.reopenClass({
+
+  /**
+   * @function Create a browse item from an existing taxonomy item
+   * @static
+   * @param {TaxonomyItem}
+   * @return {BrowseItem}
+   */
+  createFromTaxonomyItem: function(taxonomyItem) {
+
+    // Converts a taxonomy item (@see TaxonomyItem) and all its descendants
+    // to browse items
+    function convertToBrowseItem(taxonomyItem, parent = null) {
+      var children = [];
+
+      var properties = $.extend(taxonomyItem.getProperties([
+        'id',
+        'isSelected',
+        'label',
+        'level'
+      ]), { "parent": parent });
+
+      var browseItem = BrowseItem.create(properties);
+
+      taxonomyItem.get('children').forEach(function(child) {
+        // Convert all the children to browse items
+        var browseItemChild = convertToBrowseItem(child, browseItem);
+        children.push(browseItemChild);
+      });
+
+      browseItem.set('children', children);
+
+      return browseItem;
+    }
+
+    return convertToBrowseItem(taxonomyItem);
+  }
+
+});
+
+export default BrowseItem;

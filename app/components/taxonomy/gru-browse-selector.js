@@ -3,9 +3,9 @@ import Ember from 'ember';
 /**
  * Browse selector
  *
- * Component responsible for displaying a tree of data as a hierarchical list of panels
- * where each panel displays a level of data from a branch in the tree. Items in the
- * last levels of the tree can be selected/deselected.
+ * Component responsible for displaying a tree of browse items as a hierarchical
+ * list of panels where each panel displays a level of data from a branch in the
+ * tree. Items in the last levels of the tree can be selected/deselected.
  *
  * If there are more levels in the tree than there are levels of panels, then the
  * exceeding tree levels will be displayed as accordions in the last browse panel.
@@ -32,10 +32,10 @@ export default Ember.Component.extend({
      *
      * @function actions:selectInsideItem
      */
-    selectInsideItem: function(browseItem) {
-      var selectedPath = browseItem.calculateItemPath();
+    selectInsideItem: function(item) {
+      var selectedPath = item.getPath();
 
-      this.get('onSelectItem')(browseItem);
+      this.get('onSelectItem')(item);
       this.set('selectedPath', selectedPath);
     }
   },
@@ -45,7 +45,7 @@ export default Ember.Component.extend({
   // Properties
 
   /**
-   * Tree data structure for the browse panels
+   * List of root nodes for the tree data structure for the browse panels
    * @prop {BrowseItem[][]...}
    */
   data: [],
@@ -57,11 +57,10 @@ export default Ember.Component.extend({
   headers: [],
 
   /**
-   * List of objects, where each object serves as the model for a browse panel i.e.
-   * the first object object will be the model for the first browse panel and so on.
+   * List of objects, where each object serves as the model for a browse panel.
    * Each object is made up of two properties:
    * - title : panel header name (String) -@see headers
-   * - data  : pointer to the list of panel items (BrowseItem[]).
+   * - data  : pointer to a list of browse items (BrowseItem[]).
    *
    * @prop {Object[]}
    */
@@ -75,11 +74,11 @@ export default Ember.Component.extend({
 
       if (index === 0) {
         currentList = this.get('data');
-        browseItem = currentList.findBy('item.id', itemId);
+        browseItem = currentList.findBy('id', itemId);
       } else {
         if (currentList.length) {
           currentList = (browseItem) ? browseItem.get('children') : [];
-          browseItem = currentList.findBy('item.id', itemId);
+          browseItem = currentList.findBy('id', itemId);
         }
       }
 

@@ -57,7 +57,7 @@ export default Ember.Object.extend({
     var level = this.get('level');
     var parent = this.get('parent');
 
-    resultArray[level - 1] = this.get('item.id');
+    resultArray[level - 1] = this.get('id');
     if (parent) {
       parent.constructPath(resultArray);
     }

@@ -11,37 +11,36 @@
           {{#each headerItem.data as |browseItem|}}
             <li>
               <label>
-                {{input type="checkbox" checked=browseItem.isChecked}}
-                <span>{{browseItem.item.label}}</span>
+                {{input type="checkbox" checked=browseItem.isSelected}}
+                <span>{{browseItem.label}}</span>
               </label>
 
-
               {{#if browseItem.children.length}}
-                <button data-toggle="collapse" class="collapsed" data-target="#children-{{browseItem.item.id}}">
+                <button data-toggle="collapse" class="collapsed" data-target="#children-{{browseItem.id}}">
                   {{gru-icon name='keyboard_arrow_up'}}
                   {{gru-icon name='keyboard_arrow_down'}}
                 </button>
-                <ul id="children-{{browseItem.item.id}}" class="collapse level-panel sublevel-1">
+                <ul id="children-{{browseItem.id}}" class="collapse level-panel sublevel-1">
 
                   {{#each browseItem.children as |browseItemChild|}}
                     <li>
                       <label>
-                        {{input type="checkbox" checked=browseItemChild.isChecked}}
-                        <span>{{browseItemChild.item.label}}</span>
+                        {{input type="checkbox" checked=browseItemChild.isSelected}}
+                        <span>{{browseItemChild.label}}</span>
                       </label>
 
                       {{#if browseItemChild.children.length}}
-                        <button data-toggle="collapse" class="collapsed" data-target="#children-{{browseItemChild.item.id}}">
+                        <button data-toggle="collapse" class="collapsed" data-target="#children-{{browseItemChild.id}}">
                           {{gru-icon name='keyboard_arrow_up'}}
                           {{gru-icon name='keyboard_arrow_down'}}
                         </button>
-                        <ul id="children-{{browseItemChild.item.id}}" class="collapse level-panel sublevel-2">
+                        <ul id="children-{{browseItemChild.id}}" class="collapse level-panel sublevel-2">
 
                           {{#each browseItemChild.children as |browseItemGrandChild|}}
                             <li>
                               <label>
-                                {{input type="checkbox" checked=browseItemGrandChild.isChecked}}
-                                <span>{{browseItemGrandChild.item.label}}</span>
+                                {{input type="checkbox" checked=browseItemGrandChild.isSelected}}
+                                <span>{{browseItemGrandChild.label}}</span>
                               </label>
                             </li>
                           {{/each}}
@@ -59,8 +58,8 @@
         {{else}}
 
           {{#each headerItem.data as |browseItem|}}
-            <li class="{{if browseItem.hasChildrenChecked 'selected'}}">
-              <a {{action 'selectInsideItem' browseItem}}>{{browseItem.item.label}}</a>
+            <li class="{{if browseItem.hasChildrenSelected 'selected'}}">
+              <a {{action 'selectInsideItem' browseItem}}>{{browseItem.label}}</a>
             </li>
           {{/each}}
 
