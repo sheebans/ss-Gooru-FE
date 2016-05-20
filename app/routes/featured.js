@@ -21,7 +21,7 @@ export default Ember.Route.extend({
     return route.get('searchService').searchFeaturedCourses("*").then(function(result){
       return Ember.RSVP.hash({
         courses:result
-      })
+      });
     });
   },
 

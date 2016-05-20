@@ -1,4 +1,5 @@
 import { moduleForComponent, test } from 'ember-qunit';
+import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('gru-featured-courses', 'Integration | Component | gru featured courses', {
@@ -28,7 +29,7 @@ test('it renders', function(assert) {
   assert.ok($component.find('.subject-filters').length, 'subject-filters container missing');
   assert.ok($component.find('.subject-menu-option').length, 'subject-filters container missing');
 
-  assert.ok($component.find('.featured-courses').length, 'featured-courses container missing');
+  assert.ok($component.find('.course-container').length, 'courses container missing');
   assert.ok($component.find('.subject-title').length, 'subject title missing');
 
 

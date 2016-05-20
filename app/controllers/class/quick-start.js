@@ -28,7 +28,7 @@ export default Ember.Controller.extend(ModalMixin,{
         .then(function(featuredCourses) {
           controller.set('featuredCourses', featuredCourses);
           controller.send('showModal', "content.modals.gru-quick-course-search",
-            controller.get('modelForFeaturedCoursesModal'), null, null, "quick-course-search");
+            controller.get('modelForFeaturedCoursesModal'), null, "quick-course-search");
         });
     }
   },

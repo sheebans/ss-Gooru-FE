@@ -57,7 +57,6 @@ export default Ember.Component.extend({
     const component = this;
 
     return component.get('subjects').map(function(subject, index){
-      var test = component.get('orderedCourses')[index];
       return Ember.Object.create({
         'category': subject.slice(0,subject.indexOf('.')),
         'subject':  subject.slice(subject.indexOf('.')+1, subject.length),
@@ -69,7 +68,6 @@ export default Ember.Component.extend({
   // Methods
   didInsertElement: function() {
     this._super(...arguments);
-    const component = this;
     $('#affixed-subject-navbar').affix({
       offset: 300
     });
