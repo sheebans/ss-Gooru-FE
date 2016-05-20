@@ -16,6 +16,16 @@ export default Ember.Component.extend({
 
   classNames: ['gru-featured-courses'],
 
+  attributeBindings:[
+    'dataSpy:data-spy',
+    'dataTarget:data-target',
+    'dataOffset:data-offset'
+  ],
+
+
+  dataSpy:"scroll",
+  dataTarget:".navbar",
+  dataOffset:"50",
   // -------------------------------------------------------------------------
   // Actions
 
@@ -54,10 +64,16 @@ export default Ember.Component.extend({
         'courses': component.get('orderedCourses')[index]
       });
     });
-  })
+  }),
   // -------------------------------------------------------------------------
   // Methods
-
+  didInsertElement: function() {
+    this._super(...arguments);
+    const component = this;
+    $('#affixed-subject-navbar').affix({
+      offset: 300
+    });
+  }
 
 
 });

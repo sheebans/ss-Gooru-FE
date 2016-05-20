@@ -250,7 +250,7 @@ export default Ember.Object.extend({
       title: result.title,
       description: result.description,
       thumbnailUrl: thumbnailUrl,
-      subject: result.subject_bucket,
+      subject: result.subjectBucket,
       isVisibleOnProfile: result['visible_on_profile'],
       owner: result.owner ? serializer.normalizeOwner(result.owner) : null
     });

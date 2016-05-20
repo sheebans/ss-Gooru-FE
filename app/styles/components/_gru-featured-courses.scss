@@ -1,5 +1,9 @@
 .gru-featured-courses {
-
+  @include flexbox;
+  @include align-items(center);
+  @include flex-direction(column);
+  margin: 0 auto;
+  
   .navbar {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
     margin: 0;
@@ -15,14 +19,10 @@
 
   .subject-filters {
     @include flexbox;
-    @include flex-direction(column);
-    @include justify-content(center);
+    float: none;
     margin: 0 auto;
     min-height: 50px;
     width: 75%;
-
-
-
 
     .subject-menu-option-container {
       &.active {
@@ -80,24 +80,18 @@
     }
   }
 
-  .subject-menu-option {
-
-  }
-
   .featured-courses {
-    @include flexbox;
-    @include align-items(center);
-    @include flex-direction(column);
-    margin: 0 auto;;
-    padding: 50px 0 0;
-    width: 75%;
+
   }
 
   .subject-container {
     display: inline-block;
     margin-bottom: 20px;
-    width: 100%;
+    width: 75%;
 
+    &:nth-of-type(1) {
+      padding-top: 50px;
+    }
 
     .subject-title {
       border-bottom: 1px solid $light-200;

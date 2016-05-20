@@ -1,21 +1,16 @@
-<div class="navbar navbar-default" data-spy="affix" data-offset-top="300" >
-  <div class="container-fluid">
-    <div class="subject-filters">
-      <ul class="nav navbar-nav">
-        {{#each formattedContent as |content|}}
-        <li class="subject-menu-option-container">
-          <a class="subject-menu-option">
-            <span>{{content.category}}</span><br>
-            <span>{{content.subject}}</span>
-          </a>
-         </li>
-        {{/each}}
-       </ul>
-    </div>
-  </div>
-</div>
 
-<div class="featured-courses">
+  <nav id='affixed-subject-navbar' class="navbar navbar-default" >
+    <ul class="nav navbar-nav subject-filters">
+      {{#each formattedContent as |content|}}
+      <li class="subject-menu-option-container">
+        <a class="subject-menu-option">
+          <span>{{content.category}}</span><br>
+          <span>{{content.subject}}</span>
+        </a>
+       </li>
+      {{/each}}
+     </ul>
+  </nav>
   {{#each formattedContent as |content index|}}
     <div class="subject-container">
       <p class="subject-title">{{content.subject}}</p>
@@ -26,4 +21,3 @@
     </div>
   </div>
   {{/each}}
-</div>
