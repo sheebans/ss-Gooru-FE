@@ -16,9 +16,14 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Dependencies
   /**
-   * @requires service:api-sdk/unit
+   * @requires service:api-sdk/collection
    */
   collectionService: Ember.inject.service("api-sdk/collection"),
+
+  /**
+   * @requires service:api-sdk/assessment
+   */
+  assessmentService: Ember.inject.service("api-sdk/assessment"),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -48,9 +53,24 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
           callback:{
             success:function(){
               component.get('onDeleteLessonItem')(builderItem);
-            },
+            }
           }
         };
+      }else{
+        model= {
+          content: this.get('model'),
+          index:this.get('index'),
+          parentName:this.get('courseTitle'),
+          deleteMethod: function () {
+            return this.get('assessmentService').deleteAssessment(this.get('model.id'));
+          }.bind(this),
+          type: CONTENT_TYPES.ASSESSMENT,
+          callback:{
+            success:function(){
+              component.get('onDeleteLessonItem')(builderItem);
+            }
+          }
+        }
       }
       this.actions.showModal.call(this,
         'content.modals.gru-delete-content',

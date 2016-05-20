@@ -22,5 +22,14 @@
     "thumbnail":null,
     "resource_count":0,
     "question_count":0
-  }]
+  },
+    {"id":"f94ba510-4bcd-454f-ad82-7f06810b1d63",
+      "title":"Assessment",
+      "format":"assessment",
+      "sequence_id":6,
+      "thumbnail":null,
+      "resource_count":0,
+      "question_count":0
+    }
+  ]
 }
