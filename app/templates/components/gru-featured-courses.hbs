@@ -1,47 +1,29 @@
-
-<nav class="navbar navbar-default affix affix-top" data-spy="affix" data-offset-top="300" >
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="subject-filters" id="">
+<div class="navbar navbar-default" data-spy="affix" data-offset-top="300" >
+  <div class="container-fluid">
+    <div class="subject-filters">
       <ul class="nav navbar-nav">
-        {{#each formattedSubjects as |subject|}}
+        {{#each formattedContent as |content|}}
         <li class="subject-menu-option-container">
           <a class="subject-menu-option">
-            <span>{{subject.category}}</span>
-            <span>{{subject.subject}}</span>
+            <span>{{content.category}}</span><br>
+            <span>{{content.subject}}</span>
           </a>
-        </li>
+         </li>
         {{/each}}
-      </ul>
+       </ul>
+    </div>
+  </div>
+</div>
 
-
-    </div><!-- /.navbar-collapse -->
-</nav>
 <div class="featured-courses">
-
-  {{#each orderedCourses as |set index|}}
-  <p>{{formattedSubjects.index.subject}}{{index}}</p>
-  <div class="subject-container">
-    <p class="subject-title">{{formattedSubjects.[index].subject}}</p>
-    <div class="course-container">
-      {{#each set as |course|}}
-        {{cards.gru-course-card course=course}}
-      {{/each}}
+  {{#each formattedContent as |content index|}}
+    <div class="subject-container">
+      <p class="subject-title">{{content.subject}}</p>
+      <div class="course-container">
+        {{#each content.courses as |course index|}}
+          {{cards.gru-course-card course=course}}
+        {{/each}}
     </div>
   </div>
   {{/each}}
-
-</div>
-
-<div class="tests">
-  <p>{{formattedSubjects}}</p>
 </div>

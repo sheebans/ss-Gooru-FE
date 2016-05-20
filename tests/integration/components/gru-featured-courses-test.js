@@ -6,19 +6,31 @@ moduleForComponent('gru-featured-courses', 'Integration | Component | gru featur
 });
 
 test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
+  var courses = Ember.A([
+  Ember.Object.create({
+    'subject':'K12.First'
+  }),
+  Ember.Object.create({
+    'subject':'K12.Second'
+  }),
+  Ember.Object.create({
+    'subject':'K12.First'
+  }),
+  Ember.Object.create({
+    'subject':'K12.Second'
+  })]);
+  this.set('courses', courses);
   // Handle any actions with this.on('myAction', function(val) { ... });
 
-  this.render(hbs`{{gru-featured-courses}}`);
+  this.render(hbs`{{gru-featured-courses courses=courses}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  const $component = this.$(".gru-featured-courses");
+  assert.ok($component.find('.subject-filters').length, 'subject-filters container missing');
+  assert.ok($component.find('.subject-menu-option').length, 'subject-filters container missing');
 
-  // Template block usage:
-  this.render(hbs`
-    {{#gru-featured-courses}}
-      template block text
-    {{/gru-featured-courses}}
-  `);
+  assert.ok($component.find('.featured-courses').length, 'featured-courses container missing');
+  assert.ok($component.find('.subject-title').length, 'subject title missing');
 
-  assert.equal(this.$().text().trim(), 'template block text');
+
+
 });
