@@ -52,7 +52,7 @@
             </div>
             <div class="buttons">
             {{#if remixEnabled }}
-                <button class="remix-btn btn btn-success btn-sm ">{{t "common.remix"}}</button>
+                <button class="remix-btn btn btn-success btn-sm " {{action "remixCollection"}}>{{t "common.remix"}}</button>
             {{/if}}
             {{#if editEnabled }}
                 <button class="edit-btn btn btn-success btn-sm" {{action "editCollection"}}>{{t "common.edit"}}</button>

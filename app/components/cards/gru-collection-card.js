@@ -30,6 +30,10 @@ export default Ember.Component.extend({
 
     editCollection: function(){
       this.sendAction("onEditCollection", this.get("collection"));
+    },
+
+    remixCollection: function(){
+      this.sendAction("onRemixCollection", this.get("collection"));
     }
 
   },
