@@ -1,6 +1,7 @@
 import PlayerAccordionLessonItem from 'gooru-web/components/content/courses/play/gru-accordion-lesson-item';
 import {CONTENT_TYPES} from 'gooru-web/config/config';
 import ModalMixin from 'gooru-web/mixins/modal';
+import Ember from 'ember';
 
 /**
  * Course content viewer: Accordion Lesson Item

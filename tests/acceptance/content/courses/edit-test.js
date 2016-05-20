@@ -162,8 +162,6 @@ test('Delete collection', function (assert) {
       click($lesson);
       andThen(function () {
         assert.equal(find(".gru-accordion-lesson-item").length,1, 'Should have 1 collection');
-        var $collection = find(".gru-accordion-lesson-item:eq(0) .panel a");
-        andThen(function () {
           var $deleteButton = find(".gru-accordion-lesson-item:eq(0) .item-actions .delete-item");
           click($deleteButton);
           andThen(function () {
@@ -191,7 +189,6 @@ test('Delete collection', function (assert) {
                 });
               });
             });
-          });
         });
       });
     });
