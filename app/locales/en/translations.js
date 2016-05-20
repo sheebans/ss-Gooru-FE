@@ -521,7 +521,7 @@ export default {
   },
   "content.modals.delete-content":{
     "legend":"You are about to delete",
-    "content-legend":"{{type}} {{index}} - <span>{{title}}</span> from <span>{{parentName}}</span>",
+    "content-legend":"<span>{{type}}</span> {{index}} - {{title}} from <span>{{parentName}}</span>",
     "delete-instructions": {
       "links-inaccessible":"All share links will be inaccessible",
       "content-inaccessible":"All content will be inaccessible to the classes tied to it"
