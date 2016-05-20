@@ -99,6 +99,11 @@ export default Ember.Component.extend({
    */
   onEditCollection: null,
 
+  /**
+   * @property {string} remix action
+   */
+  onRemixCollection: null,
+
   visibility:null,
 
 
