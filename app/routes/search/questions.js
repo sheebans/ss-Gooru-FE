@@ -10,7 +10,7 @@ export default Ember.Route.extend({
   model: function(params) {
     const selectedOptionTypes = params.selectedOptionTypes;
     const term = this.paramsFor('search').term;
-    var questionResults = this.get('searchService').searchQuestions(term);
+    var questionResults = this.get('searchService').searchQuestions(term, selectedOptionTypes);
     return Ember.RSVP.hash({
       term:term,
       questions: questionResults,
