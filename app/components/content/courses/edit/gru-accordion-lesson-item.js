@@ -70,7 +70,7 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
               component.get('onDeleteLessonItem')(builderItem);
             }
           }
-        }
+        };
       }
       this.actions.showModal.call(this,
         'content.modals.gru-delete-content',
