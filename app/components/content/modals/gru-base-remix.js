@@ -50,8 +50,8 @@ export default Ember.Component.extend({
               component.get('showFailureNotification').bind(component)
             );
         }
-        this.set('didValidate', true);
-      }.bind(this));
+        component.set('didValidate', true);
+      });
     }
 
   },
