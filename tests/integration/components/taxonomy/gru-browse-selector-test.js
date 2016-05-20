@@ -103,7 +103,7 @@ test("it can populate the the browse panels per a specific item path", function(
   });
 });
 
-test("it calls an external deferred action when clicking an item that is not in the last browse panel and navigates to that item", function(assert) {
+test("it calls an external action when clicking an item that is not in the last browse panel and navigates to that item", function(assert) {
 
   var data = generateTestTree(3);
   var headers = ['Header Level 1', 'Header Level 2', 'Header Level 3'];
