@@ -250,8 +250,11 @@ export default Ember.Object.extend({
       title: result.title,
       description: result.description,
       thumbnailUrl: thumbnailUrl,
-      subject: result.subject_bucket,
-      isVisibleOnProfile: result['visible_on_profile'],
+      subject: result.subjectBucket,
+      isVisibleOnProfile: result.visibleOnProfile,
+      isPublished: result.publishStatus === 'published',
+      unitCount: result.unitCount,
+      taxonomy: result.taxonomy && result.taxonomy.subject ? result.taxonomy.subject.slice(0) : null,
       owner: result.owner ? serializer.normalizeOwner(result.owner) : null
     });
   }
