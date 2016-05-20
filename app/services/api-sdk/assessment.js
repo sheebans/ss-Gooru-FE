@@ -100,7 +100,7 @@ export default Ember.Service.extend({
   deleteAssessment: function (assessmentId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('adapter').deleteAssessment(assessmentId)
+      service.get('assessmentAdapter').deleteAssessment(assessmentId)
         .then(resolve, reject);
     });
   }
