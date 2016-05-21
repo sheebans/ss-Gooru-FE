@@ -23,7 +23,7 @@ export default Ember.Controller.extend({
     loadSession: function(session){
       this.loadSession(session);
     }
-  }
+  },
 
   // -------------------------------------------------------------------------
   // Events
@@ -41,6 +41,11 @@ export default Ember.Controller.extend({
    */
   completedSessions: [],
 
+  /**
+   * @property {Context}
+   */
+  context: null,
+
   // -------------------------------------------------------------------------
   // Observers
 
@@ -51,18 +56,14 @@ export default Ember.Controller.extend({
     const controller = this;
 
     //Setting new content if we have some session opened
-    const context = Context.create({
-      sessionId: session.sessionId,
-      collectionType: "assessment"
-    });
+    const context = controller.get("context");
+    context.set("sessionId", session.sessionId);
 
     controller.get("performanceService")
       .findAssessmentResultByCollectionAndStudent(context)
       .then(function (assessmentResult) {
         controller.set("assessmentResult", assessmentResult);
     });
-  });
-}
+  }
 
-})
-;
+});

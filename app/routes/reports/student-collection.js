@@ -1,5 +1,5 @@
 import Ember from 'ember';
-
+import Context from 'gooru-web/models/result/context';
 /**
  *
  * Analytics data for a student related to a collection of resources
@@ -32,7 +32,7 @@ export default Ember.Route.extend({
 
   beforeModel: function () {
     // TODO: authenticate session with ember-simple-auth, if not send to log in
-  }
+  },
 
   /**
    * @param {{ assessmentId: string, resourceId: string }} params
@@ -41,7 +41,10 @@ export default Ember.Route.extend({
     const route = this;
     const context = route.getContext(params);
 
-    return completedSessions: route.get("userSessionService").getCompletedSessions(context);
+    return Ember.RSVP.hash({
+      completedSessions : route.get("userSessionService").getCompletedSessions(context),
+      context: context
+    })
   },
 
   /**
@@ -51,11 +54,11 @@ export default Ember.Route.extend({
    * @returns {Promise.<T>}
    */
   setupController: function(controller, model){
-    const route = this;
-    var completedSessions = model;
+    var completedSessions = model.completedSessions;
     const totalSessions = completedSessions.length;
     const lastCompletedSession = completedSessions[totalSessions - 1];
     controller.set("completedSessions", completedSessions);
+    controller.set("context", model.context);
     controller.loadSession(lastCompletedSession);
   },
 
@@ -67,12 +70,13 @@ export default Ember.Route.extend({
   getContext: function(params){
     const route = this;
     const userId = route.get('session.userId');
-    const collectionId = params.assessmentId;
+    const collectionId = params.collectionId;
     const courseId = params.courseId;
     const unitId = params.unitId;
     const lessonId = params.lessonId;
 
     return Context.create({
+      collectionType: "assessment",
       userId: userId,
       collectionId: collectionId,
       courseId: courseId,
