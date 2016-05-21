@@ -61,6 +61,34 @@ export default Ember.Object.extend({
     if (parent) {
       parent.constructPath(resultArray);
     }
+  },
+
+  /**
+   * @function Find a taxonomy item by traversing down
+   * a taxonomy item tree.
+   * @return {TaxonomyItem | Null}
+   */
+  find: function(path) {
+    var result = null;
+
+    if (path && path.length) {
+      let pathId = path[0];
+
+      if (this.get('id') === pathId) {
+        if (path.length === 1) {
+          // This is it! There are no more elements in the path.
+          result = this;
+        } else {
+          let children = this.get('children');
+          for(let i = children.length - 1; i >= 0; --i) {
+            result = children[i].find(path.slice(1));
+            if (result) { break; }
+          }
+        }
+      }
+    }
+
+    return result;
   }
 
 });
