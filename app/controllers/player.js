@@ -11,7 +11,7 @@ export default Ember.Controller.extend(SessionMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
-  queryParams: ['resourceId', 'isTeacher'],
+  queryParams: ['resourceId', 'role'],
 
   /**
    * @dependency {Ember.Service} i18n service
@@ -105,19 +105,22 @@ export default Ember.Controller.extend(SessionMixin, {
   // Properties
 
   /**
-   * Indicates if the teacher is playing it own collection
-   * @property {boolean}
+   * Indicates the user's role, could be 'student', 'teacher' or null
+   * @property {string}
    */
-  isTeacher: null,
-
+  role: null,
 
   /**
-   * Indicates if the student is playing this collection
+   * Indicates if the student is playing the collection
    * @property {boolean}
    */
-  isStudent: Ember.computed("isTeacher", function(){
-    return this.get("isTeacher") !== "true";
-  }),
+  isStudent: Ember.computed.equal("role", "student"),
+
+  /**
+   * Indicates if the teacher is playing this collection
+   * @property {boolean}
+   */
+  isTeacher: Ember.computed.not("isStudent"),
 
   /**
    * It contains information about the context where the player is running

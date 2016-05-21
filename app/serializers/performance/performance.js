@@ -66,7 +66,8 @@ export default DS.JSONAPISerializer.extend({
         completionTotal: result.totalCount,
         timeSpent: result.timeSpent,
         attempts: result.attempts,
-        ratingScore: 0
+        ratingScore: result.reaction,
+        attemptStatus: result.attemptStatus
       }
     };
   },

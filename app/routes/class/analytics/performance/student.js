@@ -79,7 +79,9 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       const currentClass = this.modelFor('class').class;
       const classId = currentClass.get("id");
       const courseId = currentClass.get("courseId");
-      this.transitionTo('context-player', classId, courseId, unitId, lessonId, collectionId);
+      const role = this.get("controller.isStudent") ? "student" : "teacher";
+      this.transitionTo('context-player', classId, courseId, unitId,
+        lessonId, collectionId, { queryParams: { role: role }});
     }
   }
 
