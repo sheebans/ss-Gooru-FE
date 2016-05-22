@@ -12,6 +12,14 @@ export default Ember.Component.extend({
      */
     bubbleSelect:function(bubbleOption) {
       this.sendAction("onBubbleSelect", bubbleOption);
+    },
+
+    /**
+     * Handle event triggered by gru-bubbles
+     */
+    selectAttempt:function(attempt) {
+      this.set("selectedAttempt", attempt);
+      this.sendAction("onSelectAttempt", attempt);
     }
   },
 
@@ -24,17 +32,7 @@ export default Ember.Component.extend({
   // Events
   init: function () {
     this._super(...arguments);
-
-    var resourceLinks = this.getResourceLinks(this.get('assessmentResult.questionResults'));
-    var attemptList = this.getAttemptList();
-
-    // Sort resource links per the question order number (i.e. label)
-    resourceLinks.sort(function (a, b) {
-      return a.label - b.label;
-    });
-
-    this.set('attempts', attemptList);
-    this.set('resourceLinks', resourceLinks);
+    this.set('selectedAttempt', this.get("assessmentResult.totalAttempts"))
   },
 
   // -------------------------------------------------------------------------
@@ -50,6 +48,30 @@ export default Ember.Component.extend({
    * @prop {Object[]}
    */
   resourceLinks: null,
+
+  /**
+   * @property {number} selected attempt
+   */
+  selectedAttempt: null,
+
+  /**
+   * @property {[]}
+   */
+  resourceLinks: Ember.computed("assessmentResult.questionResults", function(){
+    var resourceLinks = this.getResourceLinks(this.get('assessmentResult.questionResults'));
+    // Sort resource links per the question order number (i.e. label)
+    resourceLinks.sort(function (a, b) {
+      return a.label - b.label;
+    });
+    return resourceLinks;
+  }),
+
+  /**
+   * @property {[]}
+   */
+  attempts: Ember.computed("assessmentResult.totalAttempts", function(){
+    return this.getAttemptList();
+  }),
 
 
   // -------------------------------------------------------------------------

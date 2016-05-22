@@ -26,6 +26,11 @@ export default Ember.Route.extend({
    */
   userSessionService: Ember.inject.service("api-sdk/user-session"),
 
+  /**
+   * @property {AssessmentService} Service to retrieve an assessment
+   */
+  assessmentService: Ember.inject.service("api-sdk/assessment"),
+
 
   // -------------------------------------------------------------------------
   // Methods
@@ -42,6 +47,7 @@ export default Ember.Route.extend({
     const context = route.getContext(params);
 
     return Ember.RSVP.hash({
+      assessment: route.get("assessmentService").readAssessment(params.collectionId),
       completedSessions : route.get("userSessionService").getCompletedSessions(context),
       context: context
     })
@@ -57,6 +63,7 @@ export default Ember.Route.extend({
     var completedSessions = model.completedSessions;
     const totalSessions = completedSessions.length;
     const lastCompletedSession = completedSessions[totalSessions - 1];
+    controller.set("assessment", model.assessment.toPlayerCollection());
     controller.set("completedSessions", completedSessions);
     controller.set("context", model.context);
     controller.loadSession(lastCompletedSession);
@@ -84,6 +91,10 @@ export default Ember.Route.extend({
       unitId: unitId,
       lessonId: lessonId
     });
+  },
+
+  deactivate: function(){
+    this.get("controller").resetValues();
   }
 
 

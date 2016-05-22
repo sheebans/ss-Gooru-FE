@@ -1,4 +1,8 @@
 <div class="controller class analytics collection student">
-  {{reports.gru-assessment-report assessmentResult=assessmentResult }}
+  {{#if assessmentResult}}
+    {{reports.gru-assessment-report assessmentResult=assessmentResult
+      onSelectAttempt='selectAttempt'
+    }}
+  {{/if}}
 </div>
 

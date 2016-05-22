@@ -20,7 +20,8 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-    loadSession: function(session){
+    selectAttempt: function(attempt){
+      const session = this.get("completedSessions")[attempt-1];
       this.loadSession(session);
     }
   },
@@ -31,6 +32,11 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * @property {Collection}
+   */
+  assessment: null,
+
   /**
    * @property {AssessmentResult}
    */
@@ -62,8 +68,16 @@ export default Ember.Controller.extend({
     controller.get("performanceService")
       .findAssessmentResultByCollectionAndStudent(context)
       .then(function (assessmentResult) {
+        assessmentResult.merge(controller.get("assessment"));
+        assessmentResult.set("totalAttempts", controller.get("completedSessions.length")); //TODO this is comming wrong from BE
         controller.set("assessmentResult", assessmentResult);
     });
+  },
+
+  resetValues: function () {
+    this.set("assessmentResult", null);
+    this.set("completedSessions", []);
+    this.set("context", null);
   }
 
 });
