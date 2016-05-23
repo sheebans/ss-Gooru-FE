@@ -115,6 +115,7 @@ export default {
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
       "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
+      "class-title-presence": "Please give your class a name.",
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "collection-not-updated": "Oops! Unable to update collection right now. Please try again shortly.",
       "collection-title-presence" : "Please enter the collection title.",

@@ -60,7 +60,7 @@ export default Ember.Object.extend({
 
     //when teachers are not provided is creates an onwers from creatorId
     const teachersWrapper = Ember.A(teachers || [ ProfileModel.create({ id: creatorId }) ]);
-    return ClassModel.create({
+    return ClassModel.create(Ember.getOwner(this).ownerInjection(), {
       id: payload.id,
       creatorId: payload['creator_id'],
       owner: teachersWrapper.findBy("id", payload['creator_id']),
@@ -106,7 +106,7 @@ export default Ember.Object.extend({
   normalizeClasses: function(payload) {
     const serializer = this;
     const teachers = serializer.normalizeTeachers((payload.teacher_details || []));
-    return ClassesModel.create({
+    return ClassesModel.create(Ember.getOwner(this).ownerInjection(),{
       ownerList: payload.owner,
       collaboratorList: payload.collaborator,
       memberList: payload.member,
