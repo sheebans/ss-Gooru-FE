@@ -42,7 +42,9 @@ export const CONTENT_TYPES = {
   ASSESSMENT: 'assessment',
   COURSE: 'course',
   UNIT: 'unit',
-  LESSON: 'lesson'
+  LESSON: 'lesson',
+  RESOURCE:'resource',
+  QUESTION:'question'
 };
 
 export const KEY_CODES = {
