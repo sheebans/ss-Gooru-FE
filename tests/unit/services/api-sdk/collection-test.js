@@ -242,7 +242,7 @@ test('deleteCollection', function(assert) {
 
   assert.expect(1);
 
-  service.set('adapter', Ember.Object.create({
+  service.set('collectionAdapter', Ember.Object.create({
     deleteCollection: function(collectionId) {
       assert.equal(collectionId, expectedCollectionId, 'Wrong collection id');
       return Ember.RSVP.resolve();

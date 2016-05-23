@@ -6,7 +6,7 @@
     <p class="legend">{{t "content.modals.delete-content.legend"}}
         <b>
           {{#if model.parentName}}
-            <span>{{t "content.modals.delete-content.content-legend" type=model.type index=(plus-one model.index) title=model.content.title parentName=model.parentName}}</span>
+            {{{t "content.modals.delete-content.content-legend" type=model.type index=(plus-one model.index) title=model.content.title parentName=model.parentName}}}
           {{else}}
             {{model.content.title}}
           {{/if}}

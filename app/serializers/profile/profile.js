@@ -270,7 +270,7 @@ export default Ember.Object.extend({
     const thumbnailUrl = assessmentData.thumbnail ?
     basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
 
-    return AssessmentModel.create({
+    return AssessmentModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: assessmentData.id,
       title: assessmentData.title,
       thumbnailUrl: thumbnailUrl,

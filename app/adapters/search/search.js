@@ -82,7 +82,8 @@ export default Ember.Object.extend({
       data: {
         "q": term,
         "start": 1,
-        "length": 20
+        "length": 20,
+        "flt.contentFormat": "resource"
       }
     };
     if (Ember.isArray(formatValues) && formatValues.length > 0) {
