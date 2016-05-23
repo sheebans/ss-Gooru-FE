@@ -46,7 +46,7 @@ test("it can populate the the browse panels per a specific item path", function(
 
   this.set('data', data);
   this.set('headers', headers);
-  this.set('selectedPath', ['10', '20', '30']);  // IDs of the selected nodes
+  this.set('selectedPath', ['100', '200', '300']);  // IDs of the selected nodes
   this.render(hbs`{{taxonomy/gru-browse-selector data=data headers=headers selectedPath=selectedPath}}`);
 
   const $component = this.$('.taxonomy.gru-browse-selector');
@@ -56,7 +56,7 @@ test("it can populate the the browse panels per a specific item path", function(
     assert.equal($(this).find('> ul > li').length, index + 1, 'Number of items in level ' + (index + 1));
 
     if (index === 2) {
-      assert.equal($(this).find('> ul > li:first-child > label > span').text(), 'Item : 3 : 20 : 0', 'Correct item label');
+      assert.equal($(this).find('> ul > li:first-child > label > span').text(), 'Item : 3 : 0 : 0', 'Correct item label');
     }
   });
 });
@@ -68,7 +68,7 @@ test("it calls an external action when clicking an item that is not in the last 
 
   this.set('data', data);
   this.set('headers', headers);
-  this.set('selectedPath', ['10', '20', '30']);  // IDs of the selected nodes
+  this.set('selectedPath', ['100', '200', '300']);  // IDs of the selected nodes
 
   this.on('externalAction', function() {
     assert.ok('true', 'External action called');
@@ -83,19 +83,19 @@ test("it calls an external action when clicking an item that is not in the last 
 
   const $component = this.$('.taxonomy.gru-browse-selector');
 
-  assert.equal($component.find('> ol > li:last-child > ul > li:first-child span').text(), 'Item : 3 : 20 : 0', 'Label of first item in the last panel');
+  assert.equal($component.find('> ol > li:last-child > ul > li:first-child span').text(), 'Item : 3 : 0 : 0', 'Label of first item in the last panel');
 
   // Click on the second item in the second panel
   $component.find('> ol > li:eq(1) a:eq(1)').click();
 
-  assert.equal($component.find('> ol > li:last-child > ul > li:first-child span').text(), 'Item : 3 : 21 : 0', 'Label of first item in the last panel after click');
+  assert.equal($component.find('> ol > li:last-child > ul > li:first-child span').text(), 'Item : 3 : 1 : 0', 'Label of first item in the last panel after click');
 });
 
 test("it loads sub-level items async", function(assert) {
 
   const rootItem = BrowseItem.create({
     parent: null,
-    id: '10',
+    id: '100',
     label: 'Item : 1 : 0 : 0',
     level: 1,
     children: []
@@ -105,8 +105,8 @@ test("it loads sub-level items async", function(assert) {
 
     const childNode = BrowseItem.create({
       parent: node,
-      id: '20',
-      label: 'Item : 2 : 10 : 0',
+      id: '200',
+      label: 'Item : 2 : 0 : 0',
       level: 2
     });
 
@@ -151,7 +151,7 @@ test("it keeps track of checked items", function(assert) {
 
   this.set('data', data);
   this.set('headers', headers);
-  this.set('selectedPath', ['10', '20', '30']);  // IDs of the selected nodes
+  this.set('selectedPath', ['100', '200', '300']);  // IDs of the selected nodes
 
   this.render(hbs`
     {{taxonomy/gru-browse-selector
@@ -195,7 +195,7 @@ test("it displays exceeding levels of data as accordions in the last browse pane
 
   this.set('data', data);
   this.set('headers', headers);
-  this.set('selectedPath', ['10']);  // IDs of the selected nodes
+  this.set('selectedPath', ['100']);  // IDs of the selected nodes
 
   this.render(hbs`
     {{taxonomy/gru-browse-selector
