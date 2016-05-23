@@ -100,7 +100,12 @@ export default Ember.Component.extend({
    * Indicate if delete button is disabled
    */
   isDisabled: Ember.computed('validator.{confirm,check1,check2,check3}',function(){
-    const areChecked = this.get('validator.check1') && this.get('validator.check2') && this.get('validator.check3');
+    var areChecked = null;
+    if(this.get('model.type')==='question'){
+      areChecked = this.get('validator.check1') && this.get('validator.check2');
+    }else{
+      areChecked = this.get('validator.check1') && this.get('validator.check2') && this.get('validator.check3');
+    }
     const isConfirm = this.get('validator.confirm').toUpperCase() === "DELETE";
     return !(areChecked && isConfirm);
   })
