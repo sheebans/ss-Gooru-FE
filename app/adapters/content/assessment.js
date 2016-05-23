@@ -11,6 +11,8 @@ export default Ember.Object.extend({
 
   namespace: '/api/nucleus/v1/assessments',
 
+  copierNamespace: '/api/nucleus/v1/copier/assessments',
+
   /**
    * Posts a new assessment
    *
@@ -111,6 +113,27 @@ export default Ember.Object.extend({
       data: JSON.stringify({
         id: questionId
       })
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Copies an assessment by id
+   *
+   * @param assessmentId
+   * @returns {Promise}
+   */
+  copyAssessment: function(assessmentId) {
+    const adapter = this;
+    const namespace = this.get('copierNamespace');
+    const url = `${namespace}/${assessmentId}`;
+    const options = {
+      type: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({})
     };
     return Ember.$.ajax(url, options);
   },

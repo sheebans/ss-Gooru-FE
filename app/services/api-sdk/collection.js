@@ -145,7 +145,7 @@ export default Ember.Service.extend({
   deleteCollection: function (collectionId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('adapter').deleteCollection(collectionId)
+      service.get('collectionAdapter').deleteCollection(collectionId)
         .then(resolve, reject);
     });
   }
