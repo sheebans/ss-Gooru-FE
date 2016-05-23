@@ -18,14 +18,9 @@ export default Ember.Object.extend({
   id: null,
 
   /**
-   * @property {boolean} isSelected - If this item has been selected or not.
-   */
-  isSelected: false,
-
-  /**
    * @property {string} label - Text label for this item
    */
-  label: null,
+  label: '',
 
   /**
    * @property {Number} level - Depth of the item in the tree. Level values start at 1.
