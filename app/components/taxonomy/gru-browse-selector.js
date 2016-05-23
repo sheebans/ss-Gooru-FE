@@ -37,7 +37,24 @@ export default Ember.Component.extend({
 
       this.get('onSelectItem')(item);
       this.set('selectedPath', selectedPath);
+    },
+
+    /**
+     * Select an item in the last panel
+     *
+     * @function actions:selectCheckableItem
+     */
+    selectCheckableItem: function(item) {
+      var isSelected = !item.get('isSelected');
+
+      item.set('isSelected', isSelected);
+      if (isSelected) {
+        this.get('onCheckItem')(item);
+      } else {
+        this.get('onUncheckItem')(item);
+      }
     }
+
   },
 
 

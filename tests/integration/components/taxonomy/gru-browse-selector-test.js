@@ -39,7 +39,7 @@ test("it renders the browse panels", function(assert) {
 
 });
 
-test("it can populate the the browse panels per a specific item path", function(assert) {
+test("it can populate the browse panels per a specific item path", function(assert) {
 
   var data = generateBrowseTestTree(3);
   var headers = ['Header Level 1', 'Header Level 2', 'Header Level 3'];
@@ -145,6 +145,7 @@ test("it loads sub-level items async", function(assert) {
 });
 
 test("it keeps track of checked items", function(assert) {
+  assert.expect(15);
 
   var data = generateBrowseTestTree(3);
   var headers = ['Header Level 1', 'Header Level 2', 'Header Level 3'];
@@ -153,11 +154,21 @@ test("it keeps track of checked items", function(assert) {
   this.set('headers', headers);
   this.set('selectedPath', ['100', '200', '300']);  // IDs of the selected nodes
 
+  this.on('checkAction', function() {
+    assert.ok(true, 'Check action called');
+  });
+
+  this.on('uncheckAction', function() {
+    assert.ok(true, 'Un-check action called');
+  });
+
   this.render(hbs`
     {{taxonomy/gru-browse-selector
       data=data
       headers=headers
-      selectedPath=selectedPath }}`);
+      selectedPath=selectedPath
+      onCheckItem=(action 'checkAction')
+      onUncheckItem=(action 'uncheckAction') }}`);
 
   const $component = this.$('.taxonomy.gru-browse-selector');
   const $firstPanel = $component.find('> ol > li:eq(0) > ul');
