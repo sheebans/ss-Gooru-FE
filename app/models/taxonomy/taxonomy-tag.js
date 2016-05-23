@@ -1,4 +1,4 @@
-import TaxonomyItem from 'gooru-web/models/taxonomy/taxonomy-item';
+import Ember from 'ember';
 
 /**
  * Taxonomy Tag
@@ -7,7 +7,7 @@ import TaxonomyItem from 'gooru-web/models/taxonomy/taxonomy-item';
  *
  * @typedef {Object} TaxonomyTag
  */
-export default TaxonomyItem.extend({
+export default Ember.Object.extend({
 
   /**
    * @property {boolean} isActive - Is the state of the tag active or not?
@@ -23,6 +23,11 @@ export default TaxonomyItem.extend({
   /**
    * @property {boolean} isRemovable - Can the tag be removed or not?
    */
-  isRemovable: false
+  isRemovable: false,
+
+  /**
+   * @property {TaxonomyItem} taxonomyItem
+   */
+  taxonomyItem: null
 
 });

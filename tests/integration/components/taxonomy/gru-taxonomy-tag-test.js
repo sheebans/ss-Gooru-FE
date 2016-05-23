@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import TaxonomyItem from 'gooru-web/models/taxonomy/taxonomy-item';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 moduleForComponent('taxonomy/gru-taxonomy-tag', 'Integration | Component | taxonomy/gru taxonomy tag', {
@@ -9,11 +10,13 @@ moduleForComponent('taxonomy/gru-taxonomy-tag', 'Integration | Component | taxon
 test('it renders a taxonomy tag correctly', function(assert) {
 
   var taxonomyTag = TaxonomyTag.create({
-    id: "term-123",
-    label: "Taxonomy item text",
     isActive: false,
     isReadonly: false,
-    isRemovable: false
+    isRemovable: false,
+    taxonomyItem: TaxonomyItem.create({
+      id: "term-123",
+      label: "Taxonomy item text"
+    })
   });
   this.set('taxonomyTag', taxonomyTag);
 
@@ -41,17 +44,20 @@ test('it renders a taxonomy tag correctly', function(assert) {
 });
 
 test('if it is not read-only, it toggles its state and calls an external action when the tag is clicked', function(assert) {
-  assert.expect(3);
+  assert.expect(4);
 
   var taxonomyTag = TaxonomyTag.create({
-    id: "term-123",
-    label: "Taxonomy item text",
-    isActive: false
+    isActive: false,
+    taxonomyItem: TaxonomyItem.create({
+      id: "term-123",
+      label: "Taxonomy item text"
+    })
   });
   this.set('taxonomyTag', taxonomyTag);
 
-  this.on('externalAction', function() {
+  this.on('externalAction', function(model) {
     assert.ok(true, 'External action called');
+    assert.equal(model instanceof TaxonomyTag, true, 'Action parameter');
   });
 
   this.render(hbs`{{taxonomy/gru-taxonomy-tag model=taxonomyTag onSelect=(action 'externalAction')}}`);
@@ -67,17 +73,20 @@ test('if it is not read-only, it toggles its state and calls an external action 
 });
 
 test('it calls an external action when its remove button is clicked', function(assert) {
-  assert.expect(1);
+  assert.expect(2);
 
   var taxonomyTag = TaxonomyTag.create({
-    id: "term-123",
-    label: "Taxonomy item text",
-    isRemovable: true
+    isRemovable: true,
+    taxonomyItem: TaxonomyItem.create({
+      id: "term-123",
+      label: "Taxonomy item text"
+    })
   });
   this.set('taxonomyTag', taxonomyTag);
 
-  this.on('externalAction', function() {
+  this.on('externalAction', function(model) {
     assert.ok(true, 'External action called');
+    assert.equal(model instanceof TaxonomyTag, true, 'Action parameter');
   });
 
   this.render(hbs`{{taxonomy/gru-taxonomy-tag model=taxonomyTag onRemove=(action 'externalAction')}}`);
