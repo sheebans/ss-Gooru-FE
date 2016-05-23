@@ -272,42 +272,28 @@ test('Delete resource', function (assert) {
   });
 });
 test('Delete question from collection', function (assert) {
-  visit('/content/courses/edit/course-123');
-
+  visit('/content/collections/edit/255dfea0-5ff0-4bf6-bbd9-b02b63a1cb82?courseId=course-123');
   andThen(function () {
-    assert.equal(currentURL(), '/content/courses/edit/course-123');
-    var $unit = find(".gru-accordion-unit:eq(0) .panel strong a");
-    click($unit);
+    assert.equal(currentURL(), '/content/collections/edit/255dfea0-5ff0-4bf6-bbd9-b02b63a1cb82?courseId=course-123');
+    var $deleteButton = find(".gru-collection-list-item:eq(1) .item-actions .delete-item");
+    click($deleteButton);
     andThen(function () {
-      var $lesson = find(".gru-accordion-lesson:eq(0) .panel strong a");
-      click($lesson);
+      var $deleteContentModal = find(".gru-modal .gru-delete-content");
+      var $check1 = $deleteContentModal.find("ul li:eq(0) input");
+      click($check1);
       andThen(function () {
-        var $collection = find(".gru-accordion-lesson-item:eq(0) .panel a");
-        click($collection);
+        var $check2 = $deleteContentModal.find("ul li:eq(1) input");
+        click($check2);
         andThen(function () {
-          assert.equal(find(".gru-collection-list-item").length,2, 'Should have 2 collection item');
-          var $deleteButton = find(".gru-collection-list-item:eq(1) .item-actions .delete-item");
-          click($deleteButton);
+          var $input = $deleteContentModal.find(".delete-input");
+          $input.val('delete');
+          $input.blur();
+          keyEvent($input, 'keyup', KEY_CODES.ENTER);
           andThen(function () {
-            var $deleteContentModal = find(".gru-modal .gru-delete-content");
-            var $check1 = $deleteContentModal.find("ul li:eq(0) input");
-            click($check1);
+            var $deleteButton = $deleteContentModal.find("button.delete");
+            click($deleteButton);
             andThen(function () {
-              var $check2 = $deleteContentModal.find("ul li:eq(1) input");
-              click($check2);
-              andThen(function () {
-                var $input = $deleteContentModal.find(".delete-input");
-                $input.val('delete');
-                $input.blur();
-                keyEvent($input, 'keyup', KEY_CODES.ENTER);
-                andThen(function () {
-                  var $deleteButton = $deleteContentModal.find("button.delete");
-                  click($deleteButton);
-                  andThen(function () {
-                    assert.equal(find(".gru-collection-list-item").length,1, 'Should have 1 collection item');
-                  });
-                });
-              });
+              assert.equal(find(".gru-collection-list-item").length,1, 'Should have 1 collection item');
             });
           });
         });
@@ -316,42 +302,29 @@ test('Delete question from collection', function (assert) {
   });
 });
 test('Delete question from assessment', function (assert) {
-  visit('/content/courses/edit/course-123');
+  visit('/content/assessments/edit/f94ba510-4bcd-454f-ad82-7f06810b1d63?courseId=course-123');
 
   andThen(function () {
-    assert.equal(currentURL(), '/content/courses/edit/course-123');
-    var $unit = find(".gru-accordion-unit:eq(0) .panel strong a");
-    click($unit);
+    assert.equal(currentURL(), '/content/assessments/edit/f94ba510-4bcd-454f-ad82-7f06810b1d63?courseId=course-123');
+    var $deleteButton = find(".gru-collection-list-item:eq(0) .item-actions .delete-item");
+    click($deleteButton);
     andThen(function () {
-      var $lesson = find(".gru-accordion-lesson:eq(0) .panel strong a");
-      click($lesson);
+      var $deleteContentModal = find(".gru-modal .gru-delete-content");
+      var $check1 = $deleteContentModal.find("ul li:eq(0) input");
+      click($check1);
       andThen(function () {
-        var $assessment = find(".gru-accordion-lesson-item:eq(1) .panel a");
-        click($assessment);
+        var $check2 = $deleteContentModal.find("ul li:eq(1) input");
+        click($check2);
         andThen(function () {
-          assert.equal(find(".gru-collection-list-item").length,2, 'Should have 2 collection item');
-          var $deleteButton = find(".gru-collection-list-item:eq(0) .item-actions .delete-item");
-          click($deleteButton);
+          var $input = $deleteContentModal.find(".delete-input");
+          $input.val('delete');
+          $input.blur();
+          keyEvent($input, 'keyup', KEY_CODES.ENTER);
           andThen(function () {
-            var $deleteContentModal = find(".gru-modal .gru-delete-content");
-            var $check1 = $deleteContentModal.find("ul li:eq(0) input");
-            click($check1);
+            var $deleteButton = $deleteContentModal.find("button.delete");
+            click($deleteButton);
             andThen(function () {
-              var $check2 = $deleteContentModal.find("ul li:eq(1) input");
-              click($check2);
-              andThen(function () {
-                var $input = $deleteContentModal.find(".delete-input");
-                $input.val('delete');
-                $input.blur();
-                keyEvent($input, 'keyup', KEY_CODES.ENTER);
-                andThen(function () {
-                  var $deleteButton = $deleteContentModal.find("button.delete");
-                  click($deleteButton);
-                  andThen(function () {
-                    assert.equal(find(".gru-collection-list-item").length,1, 'Should have 1 collection item');
-                  });
-                });
-              });
+              assert.equal(find(".gru-collection-list-item").length,1, 'Should have 1 collection item');
             });
           });
         });
