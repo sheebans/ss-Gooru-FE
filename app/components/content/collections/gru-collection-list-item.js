@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import BuilderMixin from 'gooru-web/mixins/content/builder';
+import {CONTENT_TYPES} from 'gooru-web/config/config';
+import ModalMixin from 'gooru-web/mixins/modal';
 
 /**
  * Collection List
@@ -10,7 +12,7 @@ import BuilderMixin from 'gooru-web/mixins/content/builder';
  * @augments content/courses/gru-accordion-course
  *
  */
-export default Ember.Component.extend(BuilderMixin, {
+export default Ember.Component.extend(BuilderMixin,ModalMixin, {
 
 
   // -------------------------------------------------------------------------
@@ -19,6 +21,49 @@ export default Ember.Component.extend(BuilderMixin, {
   classNames: ['content', 'collections', 'gru-collection-list-item'],
 
   tagName: 'li',
+
+  // -------------------------------------------------------------------------
+  // Dependencies
+  /**
+   * @requires service:api-sdk/lesson
+   */
+  resourceService: Ember.inject.service("api-sdk/resource"),
+
+  // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+    /**
+     * Remove selected collection item
+     */
+    deleteItem: function (builderItem) {
+      let component = this;
+      var model =  {
+        content: builderItem,
+        index:this.get('index'),
+        parentName:this.get('collection.title'),
+        callback:{
+          success:function(){
+            component.get('onRemoveCollectionItem')(builderItem);
+          }
+        }
+      };
+      var collectionItem = null;
+      if(builderItem.get('format')==='question'){
+        //TODO
+      }else{
+        collectionItem = {
+          removeMethod: function () {
+            return this.get('resourceService').deleteResource(this.get('model.id'));
+          }.bind(this),
+          type: CONTENT_TYPES.RESOURCE,
+        };
+      }
+      this.actions.showModal.call(this,
+        'content.modals.gru-remove-content',
+        $.extend(model, collectionItem), null, null, null, false);
+    }
+  },
 
 
   // -------------------------------------------------------------------------
