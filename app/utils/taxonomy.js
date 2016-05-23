@@ -52,7 +52,7 @@ export function generateBrowseTestTree(levels = 1, lastLevels = 0, inc = 1) {
   var taxonomyItems = generateTaxonomyTestTree(levels + lastLevels, null, inc, startLevel);
 
   taxonomyItems.forEach(function(rootTaxonomyItem) {
-    var item = BrowseItem.createFromTaxonomyItem(rootTaxonomyItem);
+    var item = BrowseItem.createFromTaxonomyItem(rootTaxonomyItem, levels + lastLevels);
     browseItems.push(item);
   });
 
