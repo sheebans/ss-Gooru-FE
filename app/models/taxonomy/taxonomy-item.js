@@ -89,6 +89,23 @@ export default Ember.Object.extend({
     }
 
     return result;
+  },
+
+  /**
+   * @function Destroy an item and all its descendents.
+   * Clear all references between them.
+   * @return {undefined}
+   */
+  destroyItem: function() {
+    var children = this.get('children');
+    if (children && children.length) {
+      children.forEach(function(child) {
+        child.destroyItem();
+      });
+    }
+    this.set('children', null);
+    this.set('parent', null);
+    this.destroy();
   }
 
 });

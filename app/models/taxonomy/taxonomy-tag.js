@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import TaxonomyItem from 'gooru-web/models/taxonomy/taxonomy-item';
 
 /**
