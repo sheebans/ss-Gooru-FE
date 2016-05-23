@@ -74,6 +74,49 @@ test('it calls a generic remove method and then a callback (if provided) after c
   const $component = this.$(".gru-remove-content");
   $component.find('.actions .remove').click();
 
+});
+
+test('it calls a generic delete method and then redirects (if a route is provided) after clicking on the remove button', function(assert) {
+  assert.expect(4);
+
+  const model = {
+    removeMethod: function() {
+      assert.ok(true, 'Delete method invoked');
+      return Ember.RSVP.resolve(true);
+    },
+    redirect: {
+      route:'route.name',
+      params: {
+        id: '345'
+      }
+    },
+    type:CONTENT_TYPES.RESOURCE
+  };
+
+  const validator = Ember.Object.create({
+    confirm:"remove",
+    check1:true,
+    check2:true
+  });
+
+  const router = {
+    transitionTo: function (route,id) {
+      assert.ok(route, "Should have route");
+      assert.ok(id, "Should have id");
+    }
+  };
+
+  this.set('model', model);
+  this.set('validator', validator);
+  this.set('router', router);
+
+  this.actions.closeModal = function() {
+    assert.ok(true, 'Close modal action triggered');
+  };
+
+  this.render(hbs`{{content/modals/gru-remove-content model=model validator=validator router=router}}`);
+  const $component = this.$(".gru-remove-content");
+  $component.find('.actions .remove').click();
 
 });
 
