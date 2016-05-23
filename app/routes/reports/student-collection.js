@@ -17,7 +17,25 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-
+  actions: {
+    goBack: function() {
+      const controller = this.get("controller");
+      const context = controller.get("context");
+      if (context.get("lessonId")){
+        this.transitionTo("class.analytics.performance.student",
+          context.get("classId"),
+          {
+            queryParams: {
+              unitId: context.get("unitId"),
+              lessonId: context.get("lessonId"),
+            }
+          });
+      }
+      else {
+        this.transitionTo("search.assessments");
+      }
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Properties
@@ -30,6 +48,11 @@ export default Ember.Route.extend({
    * @property {AssessmentService} Service to retrieve an assessment
    */
   assessmentService: Ember.inject.service("api-sdk/assessment"),
+
+  /**
+   * @property {LessonService} Service to retrieve a lesson
+   */
+  lessonService: Ember.inject.service("api-sdk/lesson"),
 
 
   // -------------------------------------------------------------------------
@@ -46,9 +69,14 @@ export default Ember.Route.extend({
     const route = this;
     const context = route.getContext(params);
 
+    const lessonPromise = context.get("courseId") ?
+      route.get("lessonService").fetchById(context.get("courseId"), context.get("unitId"), context.get("lessonId")) :
+      null;
+
     return Ember.RSVP.hash({
       assessment: route.get("assessmentService").readAssessment(params.collectionId),
       completedSessions : route.get("userSessionService").getCompletedSessions(context),
+      lesson: lessonPromise,
       context: context
     })
   },
@@ -64,6 +92,7 @@ export default Ember.Route.extend({
     const totalSessions = completedSessions.length;
     const lastCompletedSession = completedSessions[totalSessions - 1];
     controller.set("assessment", model.assessment.toPlayerCollection());
+    controller.set("lesson", model.lesson);
     controller.set("completedSessions", completedSessions);
     controller.set("context", model.context);
     controller.loadSession(lastCompletedSession);

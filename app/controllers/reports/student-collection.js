@@ -52,6 +52,11 @@ export default Ember.Controller.extend({
    */
   context: null,
 
+  /**
+   * @property {Lesson}
+   */
+  lesson: null,
+
   // -------------------------------------------------------------------------
   // Observers
 
@@ -78,6 +83,7 @@ export default Ember.Controller.extend({
     this.set("assessmentResult", null);
     this.set("completedSessions", []);
     this.set("context", null);
+    this.set("lesson", null);
   }
 
 });

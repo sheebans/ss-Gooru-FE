@@ -1,8 +1,20 @@
 <div class="controller class analytics collection student">
-  {{#if assessmentResult}}
-    {{reports.gru-assessment-report assessmentResult=assessmentResult
-      onSelectAttempt='selectAttempt'
-    }}
-  {{/if}}
+  <div class="row">
+    <div class="col-sm-12 navigation">
+      <button {{action "goBack"}} class="btn btn-info back">
+          <span>
+            {{gru-icon name='keyboard_arrow_left'}}
+            {{#if lesson}} {{lesson.title}} {{else}} {{t 'common.back'}} {{/if}}
+          </span>
+      </button>
+    </div>
+    <div class="col-sm-12">
+      {{#if assessmentResult}}
+        {{reports.gru-assessment-report assessmentResult=assessmentResult
+          onSelectAttempt='selectAttempt'
+        }}
+      {{/if}}
+    </div>
+  </div>
 </div>
 
