@@ -85,5 +85,20 @@
       "body": "File not found!",
       "file": "search-assessments-200-response.json"
     }
+  },
+  {
+    "description": "API 3.0: Search for Assessments using any term",
+    "request": {
+      "url": "^/gooru-search/rest/v2/search/course",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "search-courses-200-response.json"
+    }
   }
 ]
