@@ -1,0 +1,25 @@
+{{#if shortcutTags.length}}
+  <ul class="shortcut-list">
+    {{#each shortcutTags as |tag|}}
+      <li>
+        {{taxonomy.gru-taxonomy-tag model=tag onSelect=(action 'openShortcut' tag) }}
+      </li>
+    {{/each}}
+  </ul>
+{{/if}}
+
+{{taxonomy.gru-browse-selector
+  data=browseItems
+  headers=panelHeaders
+  selectedPath=selectedPath
+  onSelectItem=(action 'clearShortcuts')
+  onCheckItem=(action 'addSelectedTag')
+  onUncheckItem=(action 'removeSelectedTag')}}
+
+<ul class="selected-list">
+  {{#each selectedTags as |tag|}}
+    <li>
+      {{taxonomy.gru-taxonomy-tag model=tag onRemove=(action 'uncheckItem' tag) }}
+    </li>
+  {{/each}}
+</ul>
