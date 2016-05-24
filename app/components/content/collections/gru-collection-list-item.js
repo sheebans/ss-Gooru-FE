@@ -25,10 +25,14 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
   /**
-   * @requires service:api-sdk/lesson
+   * @requires service:api-sdk/resource
    */
   resourceService: Ember.inject.service("api-sdk/resource"),
 
+  /**
+   * @requires service:api-sdk/question
+   */
+  questionService: Ember.inject.service("api-sdk/question"),
   // -------------------------------------------------------------------------
   // Actions
 
@@ -50,7 +54,15 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
       };
       var collectionItem = null;
       if(builderItem.get('format')==='question'){
-        //TODO
+        collectionItem = {
+          deleteMethod: function () {
+            return this.get('questionService').deleteQuestion(this.get('model.id'));
+          }.bind(this),
+          type: CONTENT_TYPES.QUESTION,
+        };
+        this.actions.showModal.call(this,
+          'content.modals.gru-delete-content',
+          $.extend(model, collectionItem), null, null, null, false);
       }else{
         collectionItem = {
           removeMethod: function () {
@@ -58,10 +70,10 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
           }.bind(this),
           type: CONTENT_TYPES.RESOURCE,
         };
+        this.actions.showModal.call(this,
+          'content.modals.gru-remove-content',
+          $.extend(model, collectionItem), null, null, null, false);
       }
-      this.actions.showModal.call(this,
-        'content.modals.gru-remove-content',
-        $.extend(model, collectionItem), null, null, null, false);
     }
   },
 

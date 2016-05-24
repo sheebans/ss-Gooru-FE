@@ -25,17 +25,19 @@ test('it renders', function(assert) {
   assert.ok($component.length, 'Missing Component');
   assert.ok($component.find('h4.modal-title').length, 'Missing Title');
 
-  Object.keys(CONTENT_TYPES).forEach(function(question_type) {
+  Object.keys(CONTENT_TYPES).forEach(function(content_type) {
     Ember.run(() => {
-      this.set('model.type', CONTENT_TYPES[question_type]);
+        this.set('model.type', CONTENT_TYPES[content_type]);
+
     });
 
     assert.equal($component.find('h4.modal-title').text(),
       this.get('i18n').t('common.delete').string + " " + this.get('i18n').t('common.' + model.type).string, 'Incorrect Title');
+    if(content_type !== 'QUESTION'){
     assert.equal($component.find('.delete-info ul li:eq(2) label span').text(),
       this.get('i18n').t('content.modals.delete-content.delete-warning',
         { type: this.get('i18n').t('common.' + model.type).string }).string, 'Incorrect content warning');
-
+    }
   }.bind(this));
 
   assert.ok($component.find('p.legend').length, 'Missing Delete Course Legend');
