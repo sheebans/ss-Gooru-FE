@@ -101,8 +101,8 @@ export default Ember.Component.extend({
    */
   isDisabled: Ember.computed('validator.{confirm,check1,check2,check3}',function(){
     var areChecked = this.get('validator.check1') && this.get('validator.check2');
-    if(! this.get('model.type')==='question'){
-      areChecked = this.get('validator.check1') && this.get('validator.check2') && this.get('validator.check3');
+    if(this.get('model.type')!=='question'){
+      areChecked = areChecked && this.get('validator.check3');
     }
     const isConfirm = this.get('validator.confirm').toUpperCase() === "DELETE";
     return !(areChecked && isConfirm);
