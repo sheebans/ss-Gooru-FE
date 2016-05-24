@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
+import ClassModel from 'gooru-web/models/content/class';
 
 moduleForService('service:api-sdk/class', 'Unit | Service | api-sdk/class', {
   needs: [
@@ -37,6 +38,37 @@ test('createClass', function(assert) {
         assert.equal(classModel.get('id'), 'class-id', 'Wrong class id');
         done();
       });
+});
+
+test('updateClass', function(assert) {
+  const service = this.subject();
+  let classModel = ClassModel.create({
+    id: 'class-id',
+    title: 'class-title'
+  });
+
+  assert.expect(3);
+
+  service.set('classAdapter', Ember.Object.create({
+    updateClass: function(classData) {
+      assert.deepEqual(classData.class, {}, 'Wrong class object');
+      assert.equal(classData.classId, 'class-id', 'Wrong class id');
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('classSerializer', Ember.Object.create({
+    serializeUpdateClass: function(classObject) {
+      assert.deepEqual(classObject, classModel, 'Wrong class object');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.updateClass(classModel)
+    .then(function() {
+      done();
+    });
 });
 
 test('joinClass successful', function(assert) {

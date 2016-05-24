@@ -121,6 +121,7 @@ export default {
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
       "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
+      "class-title-presence": "Please give your class a name.",
       "collection-not-copied": "Oops! Unable to copy collection right now. Please try again shortly.",
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "collection-not-updated": "Oops! Unable to update collection right now. Please try again shortly.",
@@ -398,7 +399,8 @@ export default {
       "share-class":"Share Class",
       "invite-collaborator":"Invite Collaborator",
       "invite-student":"Invite Student",
-      "class-code": "Class Code"
+      "class-code": "Class Code",
+      "delete":"Delete Class",
     },
     "edit":{
       "edit-class": "Edit Class Information",
