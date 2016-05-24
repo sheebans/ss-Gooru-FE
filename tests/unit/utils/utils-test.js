@@ -191,8 +191,9 @@ test('Check Uuid format', function (assert) {
 
 test('Clean filename', function (assert) {
   var id = generateUUID() + '.png';
-  var url = `http://test-bucket01.s3.amazonaws.com/${id}`;
+  var url = `//test-bucket01.s3.amazonaws.com/${id}`;
   assert.equal(cleanFilename(url), id, 'Wrong filename with complete url.');
+  assert.equal(cleanFilename(`http:${url}`), id, 'Wrong filename with complete url.');
   assert.equal(cleanFilename(id), id, 'Wrong filename without complete url.');
   assert.equal(cleanFilename(null), null, 'Wrong filename without complete url.');
 });
