@@ -14,6 +14,18 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Actions
 
+  actions: {
+
+    /**
+     *
+     * Triggered when a delete class option is selected
+     */
+    deleteClass: function(){
+      // TODO
+      console.log('deleteClass');
+    }
+  },
+
   // -------------------------------------------------------------------------
   // Events
 
