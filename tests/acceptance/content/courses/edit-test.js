@@ -238,3 +238,97 @@ test('Delete assessment', function (assert) {
     });
   });
 });
+test('Delete resource', function (assert) {
+  visit('/content/collections/edit/255dfea0-5ff0-4bf6-bbd9-b02b63a1cb82?courseId=course-123');
+
+  andThen(function () {
+    assert.equal(currentURL(), '/content/collections/edit/255dfea0-5ff0-4bf6-bbd9-b02b63a1cb82?courseId=course-123');
+    andThen(function () {
+      var $deleteButton = find(".gru-collection-list-item:eq(0) .item-actions .delete-item");
+      click($deleteButton);
+      andThen(function () {
+        var $deleteContentModal = find(".gru-modal .gru-remove-content");
+        var $check1 = $deleteContentModal.find("ul li:eq(0) input");
+        click($check1);
+        andThen(function () {
+          var $check2 = $deleteContentModal.find("ul li:eq(1) input");
+          click($check2);
+          andThen(function () {
+            var $input = $deleteContentModal.find(".remove-input");
+            $input.val('remove');
+            $input.blur();
+            keyEvent($input, 'keyup', KEY_CODES.ENTER);
+            andThen(function () {
+              var $removeButton = $deleteContentModal.find("button.remove");
+              click($removeButton);
+              andThen(function () {
+                assert.equal(find(".gru-collection-list-item").length,1, 'Should have 1 collection item');
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+});
+test('Delete question from collection', function (assert) {
+  visit('/content/collections/edit/255dfea0-5ff0-4bf6-bbd9-b02b63a1cb82?courseId=course-123');
+  andThen(function () {
+    assert.equal(currentURL(), '/content/collections/edit/255dfea0-5ff0-4bf6-bbd9-b02b63a1cb82?courseId=course-123');
+    var $deleteButton = find(".gru-collection-list-item:eq(1) .item-actions .delete-item");
+    click($deleteButton);
+    andThen(function () {
+      var $deleteContentModal = find(".gru-modal .gru-delete-content");
+      var $check1 = $deleteContentModal.find("ul li:eq(0) input");
+      click($check1);
+      andThen(function () {
+        var $check2 = $deleteContentModal.find("ul li:eq(1) input");
+        click($check2);
+        andThen(function () {
+          var $input = $deleteContentModal.find(".delete-input");
+          $input.val('delete');
+          $input.blur();
+          keyEvent($input, 'keyup', KEY_CODES.ENTER);
+          andThen(function () {
+            var $deleteButton = $deleteContentModal.find("button.delete");
+            click($deleteButton);
+            andThen(function () {
+              assert.equal(find(".gru-collection-list-item").length,1, 'Should have 1 collection item');
+            });
+          });
+        });
+      });
+    });
+  });
+});
+test('Delete question from assessment', function (assert) {
+  visit('/content/assessments/edit/f94ba510-4bcd-454f-ad82-7f06810b1d63?courseId=course-123');
+
+  andThen(function () {
+    assert.equal(currentURL(), '/content/assessments/edit/f94ba510-4bcd-454f-ad82-7f06810b1d63?courseId=course-123');
+    var $deleteButton = find(".gru-collection-list-item:eq(0) .item-actions .delete-item");
+    click($deleteButton);
+    andThen(function () {
+      var $deleteContentModal = find(".gru-modal .gru-delete-content");
+      var $check1 = $deleteContentModal.find("ul li:eq(0) input");
+      click($check1);
+      andThen(function () {
+        var $check2 = $deleteContentModal.find("ul li:eq(1) input");
+        click($check2);
+        andThen(function () {
+          var $input = $deleteContentModal.find(".delete-input");
+          $input.val('delete');
+          $input.blur();
+          keyEvent($input, 'keyup', KEY_CODES.ENTER);
+          andThen(function () {
+            var $deleteButton = $deleteContentModal.find("button.delete");
+            click($deleteButton);
+            andThen(function () {
+              assert.equal(find(".gru-collection-list-item").length,1, 'Should have 1 collection item');
+            });
+          });
+        });
+      });
+    });
+  });
+});
