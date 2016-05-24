@@ -27,7 +27,10 @@ export default Ember.Route.extend(ModalMixin, {
      * @param {Assessment} assessment
      */
     remixAssessment: function (assessment) {
-      this.send('showModal', "content.modals.gru-assessment-remix", assessment);
+      var remixModel = {
+        content: assessment
+      };
+      this.send('showModal', "content.modals.gru-assessment-remix", remixModel);
     }
   },
 

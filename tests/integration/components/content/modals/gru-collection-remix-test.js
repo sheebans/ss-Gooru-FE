@@ -41,10 +41,12 @@ moduleForComponent('content/modals/collection-remix', 'Integration | Component |
 
 test('it renders', function (assert) {
 
-  this.set('collection', CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'collection-id',
-    title: 'collection-title'
-  }));
+  this.set('collection', {
+    content: CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'collection-id',
+      title: 'collection-title'
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-collection-remix model=collection}}`);
 
@@ -69,10 +71,12 @@ test('it renders', function (assert) {
 test('it shows an error message if the collection title field is left blank', function (assert) {
   assert.expect(3);
 
-  this.set('collection', CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'collection-id',
-    title: 'collection-title'
-  }));
+  this.set('collection', {
+    content: CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'collection-id',
+      title: 'collection-title'
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-collection-remix model=collection}}`);
 
@@ -131,10 +135,12 @@ test('it shows toast and transitions after copying a collection', function (asse
     }
   });
 
-  this.set('collection', CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
+  this.set('collection', {
+    content: CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'collection-id',
       title: 'collection-title'
-  }));
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-collection-remix router=router model=collection}}`);
 
@@ -167,10 +173,12 @@ test('it displays a notification if the collection cannot be created', function 
   }));
   this.inject.service('notifications');
 
-  this.set('collection', CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'collection-id',
-    title: 'collection-title'
-  }));
+  this.set('collection', {
+    content: CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'collection-id',
+      title: 'collection-title'
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-collection-remix model=collection}}`);
 
@@ -188,10 +196,12 @@ test('it displays a notification if the collection cannot be created', function 
 test('Validate if the collection Title field has only whitespaces', function (assert) {
   assert.expect(3);
 
-  this.set('collection', CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'collection-id',
-    title: 'collection-title'
-  }));
+  this.set('collection', {
+    content: CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'collection-id',
+      title: 'collection-title'
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-collection-remix model=collection}}`);
 
@@ -217,10 +227,12 @@ test('Validate if the collection Title field has only whitespaces', function (as
 });
 
 test('Validate the character limit in the collection title field', function (assert) {
-  this.set('collection', CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'collection-id',
-    title: 'collection-title'
-  }));
+  this.set('collection', {
+    content: CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'collection-id',
+      title: 'collection-title'
+    })
+  });
   this.render(hbs`{{content/modals/gru-collection-remix model=collection}}`);
 
   const maxLenValue = this.$('.gru-collection-remix .gru-input.title input').prop('maxlength');

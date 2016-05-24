@@ -42,7 +42,7 @@ moduleForComponent('content/modals/unit-remix', 'Integration | Component | conte
 test('it renders', function (assert) {
 
   this.set('contentModel', {
-    unit: UnitModel.create(Ember.getOwner(this).ownerInjection(), {
+    content: UnitModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'unit-id',
       title: 'unit-title'
     }),
@@ -73,7 +73,7 @@ test('it shows an error message if the unit title field is left blank', function
   assert.expect(3);
 
   this.set('contentModel', {
-    unit: UnitModel.create(Ember.getOwner(this).ownerInjection(), {
+    content: UnitModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'unit-id',
       title: 'unit-title'
     }),
@@ -103,10 +103,8 @@ test('it shows an error message if the unit title field is left blank', function
   });
 });
 
-test('it shows toast and transitions after copying a unit', function (assert) {
+test('it shows toast and perform event after copying a unit', function (assert) {
   assert.expect(6);
-
-  var generatedRoute;
   var context = this;
 
   this.register('service:notifications', Ember.Service.extend({
@@ -127,25 +125,19 @@ test('it shows toast and transitions after copying a unit', function (assert) {
     assert.ok(true, 'closeModal action triggered');
   });
 
-  // Mock the transitionTo method in the router
-  this.set('router', {
-    generate(route, unitId) {
-      generatedRoute = {
-        route: route,
-        unit: unitId
-      };
-    }
-  });
-
   this.set('contentModel', {
-    unit: UnitModel.create(Ember.getOwner(this).ownerInjection(), {
+    content: UnitModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'unit-id',
       title: 'unit-title'
     }),
-    courseId: 'course-id'
+    courseId: 'course-id',
+    onRemixSuccess: function(unit) {
+      assert.equal(unit.get('id'), '12345');
+      assert.equal(unit.get('title'), 'Unit Name');
+    }
   });
 
-  this.render(hbs`{{content/modals/gru-unit-remix router=router model=contentModel}}`);
+  this.render(hbs`{{content/modals/gru-unit-remix model=contentModel}}`);
 
   const $component = this.$('.content.modals.gru-unit-remix');
   const $titleField = $component.find(".gru-input.title");
@@ -153,12 +145,11 @@ test('it shows toast and transitions after copying a unit', function (assert) {
   $titleField.find("input").val('Unit Name');
   $titleField.find("input").blur();
 
+  var done = assert.async();
   return wait().then(function () {
     $component.find(".actions button[type='submit']").click();
-
-    return wait().then(function () {
-      assert.equal(generatedRoute.route, 'content.units.edit', 'Generated correct route');
-      assert.equal(generatedRoute.unit, 12345, 'Correct generated route unit ID');
+    return wait().then(function (){
+      done();
     });
   });
 });
@@ -177,7 +168,7 @@ test('it displays a notification if the unit cannot be created', function (asser
   this.inject.service('notifications');
 
   this.set('contentModel', {
-    unit: UnitModel.create(Ember.getOwner(this).ownerInjection(), {
+    content: UnitModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'unit-id',
       title: 'unit-title'
     }),
@@ -201,7 +192,7 @@ test('Validate if the unit Title field has only whitespaces', function (assert) 
   assert.expect(3);
 
   this.set('contentModel', {
-    unit: UnitModel.create(Ember.getOwner(this).ownerInjection(), {
+    content: UnitModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'unit-id',
       title: 'unit-title'
     }),
@@ -233,7 +224,7 @@ test('Validate if the unit Title field has only whitespaces', function (assert) 
 
 test('Validate the character limit in the unit title field', function (assert) {
   this.set('contentModel', {
-    unit: UnitModel.create(Ember.getOwner(this).ownerInjection(), {
+    content: UnitModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'unit-id',
       title: 'unit-title'
     }),

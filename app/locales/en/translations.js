@@ -261,7 +261,7 @@ export default {
     "remix-course-success": "You've remixed a course {{courseTitle}}. Do you want to edit that course?",
     "remix-unit": "Remix Unit",
     "remix-unit-lead": "You are about to remix an unit.",
-    "remix-unit-success": "You've remixed a unit {{unitTitle}}. Do you want to edit that unit?",
+    "remix-unit-success": "You've remixed a unit {{unitTitle}}.",
     "remixed-by": "Remixed by",
     "remove":"Remove",
     "request-to":"Request to be searchable and featured in Gooru",

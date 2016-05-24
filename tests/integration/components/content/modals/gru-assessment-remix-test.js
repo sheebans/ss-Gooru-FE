@@ -41,10 +41,12 @@ moduleForComponent('content/modals/assessment-remix', 'Integration | Component |
 
 test('it renders', function (assert) {
 
-  this.set('assessment', AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'assessment-id',
-    title: 'assessment-title'
-  }));
+  this.set('assessment', {
+    content: AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'assessment-id',
+      title: 'assessment-title'
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-assessment-remix model=assessment}}`);
 
@@ -69,10 +71,12 @@ test('it renders', function (assert) {
 test('it shows an error message if the assessment title field is left blank', function (assert) {
   assert.expect(3);
 
-  this.set('assessment', AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'assessment-id',
-    title: 'assessment-title'
-  }));
+  this.set('assessment', {
+    content: AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'assessment-id',
+      title: 'assessment-title'
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-assessment-remix model=assessment}}`);
 
@@ -131,10 +135,12 @@ test('it shows toast and transitions after copying a assessment', function (asse
     }
   });
 
-  this.set('assessment', AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
+  this.set('assessment', {
+    content: AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'assessment-id',
       title: 'assessment-title'
-  }));
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-assessment-remix router=router model=assessment}}`);
 
@@ -167,10 +173,12 @@ test('it displays a notification if the assessment cannot be created', function 
   }));
   this.inject.service('notifications');
 
-  this.set('assessment', AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'assessment-id',
-    title: 'assessment-title'
-  }));
+  this.set('assessment', {
+    content: AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'assessment-id',
+      title: 'assessment-title'
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-assessment-remix model=assessment}}`);
 
@@ -188,10 +196,12 @@ test('it displays a notification if the assessment cannot be created', function 
 test('Validate if the assessment Title field has only whitespaces', function (assert) {
   assert.expect(3);
 
-  this.set('assessment', AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'assessment-id',
-    title: 'assessment-title'
-  }));
+  this.set('assessment', {
+    content: AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'assessment-id',
+      title: 'assessment-title'
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-assessment-remix model=assessment}}`);
 
@@ -217,10 +227,12 @@ test('Validate if the assessment Title field has only whitespaces', function (as
 });
 
 test('Validate the character limit in the Assessment title field', function (assert) {
-  this.set('assessment', AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'assessment-id',
-    title: 'assessment-title'
-  }));
+  this.set('assessment', {
+    content: AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'assessment-id',
+      title: 'assessment-title'
+    })
+  });
   this.render(hbs`{{content/modals/gru-assessment-remix model=assessment}}`);
 
   const maxLenValue = this.$('.gru-assessment-remix .gru-input.title input').prop('maxlength');

@@ -30,9 +30,7 @@ export default RemixBaseModal.extend({
   showSuccessNotification: function(unit) {
     var component = this;
     var successMsg = component.get('i18n').t('common.remix-unit-success', {unitTitle: unit.get('title')});
-    var unitEditUrl = component.get('router').generate('content.units.edit', unit.get('id'));
-    var edit = component.get('i18n').t('common.edit');
-    component.get('notifications').success(`${successMsg} <a class="btn btn-success" href="${unitEditUrl}">${edit}</a>`);
+    component.get('notifications').success(`${successMsg}`);
   },
 
   showFailureNotification: function() {
@@ -40,9 +38,8 @@ export default RemixBaseModal.extend({
     this.get('notifications').error(message);
   },
 
-  copyModel: function() {
-    this.set('contentModel', this.get('model.unit').copy());
-    this.get('contentModel').set('title', null);
+  init: function() {
+    this._super(...arguments);
     this.set('courseId', this.get('model.courseId'));
   },
 

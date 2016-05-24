@@ -41,10 +41,12 @@ moduleForComponent('content/modals/course-remix', 'Integration | Component | con
 
 test('it renders', function (assert) {
 
-  this.set('course', CourseModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'course-id',
-    title: 'course-title'
-  }));
+  this.set('course', {
+    content: CourseModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'course-id',
+      title: 'course-title'
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-course-remix model=course}}`);
 
@@ -69,10 +71,12 @@ test('it renders', function (assert) {
 test('it shows an error message if the course title field is left blank', function (assert) {
   assert.expect(3);
 
-  this.set('course', CourseModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'course-id',
-    title: 'course-title'
-  }));
+  this.set('course', {
+    content: CourseModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'course-id',
+      title: 'course-title'
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-course-remix model=course}}`);
 
@@ -131,10 +135,12 @@ test('it shows toast and transitions after copying a course', function (assert) 
     }
   });
 
-  this.set('course', CourseModel.create(Ember.getOwner(this).ownerInjection(), {
+  this.set('course', {
+    content: CourseModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'course-id',
       title: 'course-title'
-  }));
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-course-remix router=router model=course}}`);
 
@@ -167,10 +173,12 @@ test('it displays a notification if the course cannot be created', function (ass
   }));
   this.inject.service('notifications');
 
-  this.set('course', CourseModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'course-id',
-    title: 'course-title'
-  }));
+  this.set('course', {
+    content: CourseModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'course-id',
+      title: 'course-title'
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-course-remix model=course}}`);
 
@@ -188,10 +196,12 @@ test('it displays a notification if the course cannot be created', function (ass
 test('Validate if the Course Title field has only whitespaces', function (assert) {
   assert.expect(3);
 
-  this.set('course', CourseModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'course-id',
-    title: 'course-title'
-  }));
+  this.set('course', {
+    content: CourseModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'course-id',
+      title: 'course-title'
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-course-remix model=course}}`);
 
@@ -217,10 +227,12 @@ test('Validate if the Course Title field has only whitespaces', function (assert
 });
 
 test('Validate the character limit in the Course title field', function (assert) {
-  this.set('course', CourseModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'course-id',
-    title: 'course-title'
-  }));
+  this.set('course', {
+    content: CourseModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'course-id',
+      title: 'course-title'
+    })
+  });
   this.render(hbs`{{content/modals/gru-course-remix model=course}}`);
 
   const maxLenValue = this.$('.gru-course-remix .gru-input.title input').prop('maxlength');
