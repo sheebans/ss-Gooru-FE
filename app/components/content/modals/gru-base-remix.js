@@ -61,10 +61,13 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
+    this.get('copyModel').call(this);
+  },
+
+  copyModel: function() {
     this.set('contentModel', this.get('model').copy());
     this.get('contentModel').set('title', null);
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
