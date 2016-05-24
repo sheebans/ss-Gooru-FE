@@ -27,7 +27,10 @@ export default Ember.Route.extend(ModalMixin, {
      * @param {Collection} collection
      */
     remixCollection: function (collection) {
-      this.send('showModal', "content.modals.gru-collection-remix", collection);
+      var remixModel = {
+        content: collection
+      };
+      this.send('showModal', 'content.modals.gru-collection-remix', remixModel);
     }
   },
 
