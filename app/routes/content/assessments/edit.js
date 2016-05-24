@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Route.extend({
   queryParams: {
     courseId:{},
-    courseName:{}
+    allowBackToCourse:{}
   },
 
   // -------------------------------------------------------------------------
@@ -22,6 +22,7 @@ export default Ember.Route.extend({
   resetController(controller, isExiting) {
     if (isExiting) {
       controller.set('courseId', undefined);
+      controller.set('allowBackToCourse', undefined);
     }
   },
 
@@ -34,21 +35,24 @@ export default Ember.Route.extend({
 
   model: function (params) {
     var assessment = this.get('assessmentService').readAssessment(params.assessmentId);
-    var courseName = null;
     var course = null;
+    var allowBackToCourse = null;
 
-    if(params.courseName!== "null"){
-      courseName = params.courseName;
-    }
-
-    if(params.courseId){
+    if(params.courseId && params.courseId !== "null"){
       course = this.get('courseService').fetchById(params.courseId);
+    }
+    if(params.allowBackToCourse){
+      if(params.allowBackToCourse === "false"){
+        allowBackToCourse=false;
+      }else{
+        allowBackToCourse=true;
+      }
     }
 
     return Ember.RSVP.hash({
       assessment: assessment,
       course:course,
-      courseName:courseName
+      allowBackToCourse:allowBackToCourse
     });
   },
 
@@ -61,6 +65,7 @@ export default Ember.Route.extend({
     controller.set('collection.course', model.courseName);
     controller.set('isAssessment',true);
     controller.set('course', model.course);
+    controller.set('allowBackToCourse',model.allowBackToCourse);
   }
 
 });

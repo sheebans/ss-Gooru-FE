@@ -113,6 +113,12 @@ export default Ember.Component.extend(ContentEditMixin, {
    * Copy of the collection model used for editing.
    * @property {Collection}
    */
-  tempCollection: null
+  tempCollection: null,
+  /**
+   * Indicate if the button "Back to course" is available.
+   */
+  allowBack: Ember.computed('course','allowBackToCourse',function(){
+    return this.get('course') && this.get('allowBackToCourse') === true;
+  })
 
 });

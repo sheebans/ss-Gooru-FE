@@ -82,7 +82,7 @@ export default CollectionEdit.extend(ModalMixin,{
       var model = {
         content: this.get('collection'),
         isHeaderDelete:true,
-        parentName:this.get('collection.course'),
+        parentName:this.get('course.title'),
         deleteMethod: function () {
           return this.get('assessmentService').deleteAssessment(this.get('collection.id'));
         }.bind(this),
@@ -102,8 +102,10 @@ export default CollectionEdit.extend(ModalMixin,{
   },
   // -------------------------------------------------------------------------
   // Properties
-
-  model: Ember.computed('collection',function(){
-    return this.get('collection');
-  }),
+  /**
+   * Indicate if the button "Back to course" is available.
+   */
+  allowBack: Ember.computed('course','allowBackToCourse',function(){
+    return this.get('course') && this.get('allowBackToCourse') === true;
+  })
 });
