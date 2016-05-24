@@ -2,7 +2,7 @@
   <nav id='subject-navbar' class="navbar navbar-default" >
     <ul class="nav navbar-nav subject-filters">
       {{#each formattedContent as |content index|}}
-        {{#gru-scroll id=(concat "subject-link-" index) to=(concat "#featured-subject-" index) class=(if (eq index 0) "selected subject-menu-option-container" "subject-menu-option-container") offset='175' tagName="li"}}
+        {{#gru-scroll id=(concat "subject-link-" index) to=(concat "#featured-subject-" index) class=(if (eq index 0) "selected subject-menu-option" "subject-menu-option") offset='175' tagName="li"}}
         <a>
           <span>{{content.category}}</span><br>
           <span>{{content.subject}}</span>

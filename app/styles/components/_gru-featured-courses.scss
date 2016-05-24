@@ -29,7 +29,7 @@
     min-height: 50px;
     width: 75%;
 
-    .subject-menu-option-container {
+    .subject-menu-option {
       &.selected {
         a {
           background: none;
@@ -47,7 +47,7 @@
     }
   }
 
-  .subject-menu-option-container {
+  .subject-menu-option {
     margin-right: 40px;
 
     &.selected {
@@ -67,7 +67,7 @@
   }
 
   .affix {
-    .subject-menu-option-container {
+    .subject-menu-option {
       &.selected {
         a {
           border-bottom-color: $white;
