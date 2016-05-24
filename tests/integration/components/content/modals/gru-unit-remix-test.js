@@ -88,17 +88,21 @@ test('it shows an error message if the unit title field is left blank', function
   assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message not visible');
 
   // Try submitting without filling in data
-  $component.find(".actions button[type='submit']").click();
-
+  $titleField.find("input").val('');
+  $titleField.find("input").blur();
   return wait().then(function () {
-
-    assert.ok($titleField.find(".error-messages .error").length, 'Title error message visible');
-    // Fill in the input field
-    $titleField.find("input").val('unit Name');
-    $titleField.find("input").blur();
+    $component.find(".actions button[type='submit']").click();
 
     return wait().then(function () {
-      assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message was hidden');
+
+      assert.ok($titleField.find(".error-messages .error").length, 'Title error message visible');
+      // Fill in the input field
+      $titleField.find("input").val('unit Name');
+      $titleField.find("input").blur();
+
+      return wait().then(function () {
+        assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message was hidden');
+      });
     });
   });
 });
@@ -207,17 +211,21 @@ test('Validate if the unit Title field has only whitespaces', function (assert) 
   assert.ok(!$titleField.find(".error-messages .error").length, 'Unit Title error message not visible');
 
   // Try submitting without filling in data
-  $component.find(".actions button[type='submit']").click();
-
+  $titleField.find("input").val('');
+  $titleField.find("input").blur();
   return wait().then(function () {
-
-    assert.ok($titleField.find(".error-messages .error").length, 'Unit Title error should be visible');
-    // Fill in the input field
-    $titleField.find("input").val(' ');
     $component.find(".actions button[type='submit']").click();
 
     return wait().then(function () {
-      assert.ok($titleField.find(".error-messages .error").length, 'Unit Title error message should be visible');
+
+      assert.ok($titleField.find(".error-messages .error").length, 'Unit Title error should be visible');
+      // Fill in the input field
+      $titleField.find("input").val(' ');
+      $component.find(".actions button[type='submit']").click();
+
+      return wait().then(function () {
+        assert.ok($titleField.find(".error-messages .error").length, 'Unit Title error message should be visible');
+      });
     });
   });
 });
