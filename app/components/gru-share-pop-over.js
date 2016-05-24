@@ -1,5 +1,4 @@
 import Ember from 'ember';
-const { get, set } = Ember;
 export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
@@ -40,11 +39,19 @@ export default Ember.Component.extend({
    * @property {string} template to be used for the popover window
    */
   template: Ember.computed('type', function() {
+    let tooltipText =this.get('i18n').t('gru-share-pop-over-multiarch-tooltip').string;
+
+    if(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream){
+      tooltipText =this.get('i18n').t('gru-share-pop-over-ios-tooltip').string;
+    } else if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+      tooltipText =this.get('i18n').t('gru-share-pop-over-safari-osx-tooltip').string;
+    }
+
    return `<div class="gru-share-pop-over-content">
     <p>${this.get('i18n').t('gru-share-pop-over.share-'+this.get('type')).string}</p>
     <div class="share-actions">
       <input id="${this.get('type')}-popover-input" value="${this.get('shareUrl')}" readonly type="text">
-      <input type="button" data-clipboard-target="#${this.get('type')}-popover-input" class="btn btn-primary copy-btn" value="${this.get('i18n').t('gru-share-pop-over.copy').string}">
+      <input type="button" data-toggle="tooltip" title="`+tooltipText+`" data-clipboard-target="#${this.get('type')}-popover-input" class="btn btn-primary copy-btn" value="${this.get('i18n').t('gru-share-pop-over.copy').string}">
     </div>
    </div>`;
  }),
@@ -98,18 +105,17 @@ export default Ember.Component.extend({
         }
     });
     let clipboard = new Clipboard('.copy-btn');
-    set(this, 'clipboard', clipboard);
+    component.set('clipboard', clipboard);
 
-    get(this, 'clipboardEvents').forEach(action => {
-      clipboard.on(action, Ember.run.bind(this, function(e) {
-        try {
-          this.sendAction(action, e);
-        }
-        catch(error) {
-          Ember.Logger.debug(error.message);
-        }
-      }));
+    $('.copy-btn').tooltip({
+      trigger:'manual',
+      placement:'auto bottom'
     });
+    component.get('clipboard').on('error', Ember.run.bind(this, function() {
+
+      $('.copy-btn').tooltip('show');
+    }));
+
 
   },
   // -------------------------------------------------------------------------
@@ -120,6 +126,9 @@ export default Ember.Component.extend({
    */
   willDestroyElement: function () {
     this.$().popover('destroy');
+  },
+  showErrorTooltip: function() {
+    $('.copy-btn').tooltip('show');
   }
 
 

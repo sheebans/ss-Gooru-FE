@@ -17,6 +17,22 @@ test('serializeCreateClass', function(assert) {
   assert.deepEqual(expected, response, 'Wrong serialized response');
 });
 
+test('serializeUpdateClass', function(assert) {
+  const serializer = this.subject();
+  const classObject = ClassModel.create({
+    title: 'class-title',
+    classSharing: 'open',
+    greeting: 'class-greeting'
+  });
+  const expected = {
+    title: 'class-title',
+    class_sharing: 'open',
+    greeting: 'class-greeting'
+  };
+  const response = serializer.serializeUpdateClass(classObject);
+  assert.deepEqual(expected, response, 'Wrong serialized response');
+});
+
 test('normalizeClasses', function(assert) {
   const serializer = this.subject();
   const classesPayload = {

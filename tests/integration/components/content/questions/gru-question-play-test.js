@@ -5,7 +5,11 @@ import Ember from 'ember';
 import { QUESTION_TYPES } from 'gooru-web/config/question';
 
 moduleForComponent('content/questions/gru-question-play', 'Integration | Component | content/questions/gru question play', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.i18n = this.container.lookup('service:i18n');
+    this.i18n.set("locale","en");
+  }
 });
 
 test('it renders', function(assert) {

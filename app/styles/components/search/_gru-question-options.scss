@@ -4,29 +4,27 @@
     $optionsHeightSM: 53px;
 
     .options {
+      background-color: $light-100;
+      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, .2);
       display: block;
       height: $optionsHeightXS;
-      width: 100%;
-      background-color: $light-100;
-      margin-left: -15px;
-      width: 100vw;
-      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.20);
       text-align: center;
-      padding: 0 0 0 3%;
+
       @media (min-width: $screen-sm) {
         height: $optionsHeightSM;
       }
       ul {
-        padding: 0;
-        list-style: none;
         @include flexbox;
+        list-style: none;
         height: inherit;
-        margin: 0;
         height: 80px;
+        margin: 0;
+        padding: 0 0 85px;
         overflow: hidden;
         overflow-x: auto;
         @media (min-width: $screen-sm) {
           height: 62px;
+          padding: 0 0 68px;
         }
         @media (min-width: $screen-lg) {
           height: $optionsHeightSM;
