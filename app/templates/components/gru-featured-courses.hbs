@@ -1,23 +1,25 @@
 
-  <nav id='affixed-subject-navbar' class="navbar navbar-default" >
+  <nav id='subject-navbar' class="navbar navbar-default" >
     <ul class="nav navbar-nav subject-filters">
-      {{#each formattedContent as |content|}}
+      {{#each formattedContent as |content index|}}
       <li class="subject-menu-option-container">
-        <a class="subject-menu-option">
+        <button class="subject-menu-option" data-target="#course-{{index}}">
           <span>{{content.category}}</span><br>
           <span>{{content.subject}}</span>
-        </a>
+        </button>
        </li>
       {{/each}}
      </ul>
   </nav>
-  {{#each formattedContent as |content index|}}
-    <div class="subject-container">
-      <p class="subject-title">{{content.subject}}</p>
-      <div class="course-container">
-        {{#each content.courses as |course index|}}
-          {{cards.gru-course-card course=course}}
-        {{/each}}
-    </div>
+  <div class="course-list" data-spy="scroll" data-target="#subject-navbar" data-offset='0'>
+    {{#each formattedContent as |content index|}}
+      <div id="course-{{index}}" class="subject-container">
+        <p class="subject-title">{{content.subject}}</p>
+        <div class="course-container">
+          {{#each content.courses as |course index|}}
+            {{cards.gru-course-card course=course}}
+          {{/each}}
+        </div>
+      </div>
+    {{/each}}
   </div>
-  {{/each}}

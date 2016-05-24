@@ -28,6 +28,9 @@
         <div class="navbar-collapse">
           <ul class="nav navbar-nav menu-navbar">
             {{#if session.isAnonymous}}
+            <li class="navbar-nav-list">
+                {{#link-to 'featured' class="navbar-link featured-link" }} {{t "common.featured-courses"}} {{/link-to}}
+            </li>
               <li class="navbar-nav-list visible-md visible-lg">
                 {{#link-to 'sign-in' class="btn btn-info sign-in-button" tagName='button'}} {{t "common.login"}} {{/link-to}}
               </li>
@@ -46,7 +49,9 @@
                       <li class="navbar-nav-list">
                           {{#link-to 'sign-up' class="navbar-link sign-up-link" }} {{t "common.signUp"}} {{/link-to}}
                       </li>
-
+                      <li class="navbar-nav-list">
+                          {{#link-to 'featured' class="navbar-link featured-link" }} {{t "common.featured-courses"}} {{/link-to}}
+                      </li>
                   </ul>
               </li>
             {{else}}
