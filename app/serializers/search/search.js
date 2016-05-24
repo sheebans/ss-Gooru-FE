@@ -4,6 +4,7 @@ import ResourceModel from 'gooru-web/models/content/resource';
 import QuestionModel from 'gooru-web/models/content/question';
 import AssessmentModel from 'gooru-web/models/content/assessment';
 import CollectionModel from 'gooru-web/models/content/collection';
+import CourseModel from 'gooru-web/models/content/course';
 import ProfileModel from 'gooru-web/models/profile/profile';
 import { DEFAULT_IMAGES } from 'gooru-web/config/config';
 
@@ -43,6 +44,7 @@ export default Ember.Object.extend({
     const userThumbnailUrl = collectionData.userProfileImage ? basePath + collectionData.userProfileImage : DEFAULT_IMAGES.USER_PROFILE;
     const creatorThumbnailUrl = collectionData.creatorProfileImage ? basePath + collectionData.creatorProfileImage : DEFAULT_IMAGES.USER_PROFILE;
 
+    const course = collectionData.course || {};
     return CollectionModel.create({
       id: collectionData.id,
       title: collectionData.title,
@@ -53,7 +55,8 @@ export default Ember.Object.extend({
       resourceCount: collectionData.resourceCount || 0,
       questionCount: collectionData.questionCount || 0,
       remixCount: collectionData.scollectionRemixCount || 0,
-      course: null, //TODO missing at API response,
+      course: course.title,
+      courseId: course.id,
       isVisibleOnProfile: collectionData.profileUserVisibility,
       owner: ProfileModel.create({
         "id": collectionData.gooruUId,
@@ -84,6 +87,7 @@ export default Ember.Object.extend({
     const ownerThumbnailUrl = assessmentData.userProfileImage ? basePath + assessmentData.userProfileImage : DEFAULT_IMAGES.USER_PROFILE;
     const creatorThumbnailUrl = assessmentData.creatorProfileImage ? basePath + assessmentData.creatorProfileImage : DEFAULT_IMAGES.USER_PROFILE;
 
+    const course = assessmentData.course || {};
     return AssessmentModel.create({
       id: assessmentData.id,
       title: assessmentData.title,
@@ -94,7 +98,8 @@ export default Ember.Object.extend({
       resourceCount: assessmentData.resourceCount ? Number(assessmentData.resourceCount) : 0,
       questionCount: assessmentData.questionCount ? Number(assessmentData.questionCount) : 0,
       remixCount: assessmentData.scollectionRemixCount || 0,
-      course: null, //TODO missing at API response,
+      course: course.title,
+      courseId: course.id,
       isVisibleOnProfile: assessmentData.profileUserVisibility,
       owner: ProfileModel.create({
         "id": assessmentData.gooruUId,
@@ -237,6 +242,44 @@ export default Ember.Object.extend({
       }
     }
     return standards;
+  },
+
+  /**
+   * Normalize the Search course response
+   *
+   * @param payload is the endpoint response in JSON format
+   * @returns {Course[]}
+   */
+  normalizeSearchCourses: function(payload) {
+    const serializer = this;
+    if (Ember.isArray(payload.searchResults)) {
+      return payload.searchResults.map(function(result) {
+        return serializer.normalizeCourse(result);
+      });
+    }
+  },
+
+  /**
+   * Normalizes a course
+   * @param {*} result
+   * @returns {Course}
+   */
+  normalizeCourse: function(result){
+    const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = result.thumbnail ? basePath + result.thumbnail : DEFAULT_IMAGES.COURSE;
+    return CourseModel.create({
+      id: result.id,
+      title: result.title,
+      description: result.description,
+      thumbnailUrl: thumbnailUrl,
+      subject: result.subjectBucket,
+      isVisibleOnProfile: result.visibleOnProfile,
+      isPublished: result.publishStatus === 'published',
+      unitCount: result.unitCount,
+      taxonomy: result.taxonomy && result.taxonomy.subject ? result.taxonomy.subject.slice(0) : null,
+      owner: result.owner ? serializer.normalizeOwner(result.owner) : null
+    });
   }
 
 });

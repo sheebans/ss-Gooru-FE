@@ -23,6 +23,7 @@ export default AnalyticsSerializer.extend({
         resourceId: collection.gooruOId,
         timeSpent: collection.timeSpent,
         views: collection.views,
+        totalAttempts: collection.attempts,
         resourceResults: serializer.normalizeResourceResults(resources),
         startedAt: payload.startTime ? toLocal(payload.startTime) : toLocal(new Date().getTime()), /* TODO this should come from server */
         submittedAt: payload.endTime ? toLocal(payload.endTime) : null

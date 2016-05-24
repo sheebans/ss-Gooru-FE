@@ -47,7 +47,7 @@
       padding: 30px;
       label {
         width: 100%;
-        span {
+        > span {
           color: $gray;
         }
       }

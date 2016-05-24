@@ -25,6 +25,31 @@ test('createClass', function(assert) {
     });
 });
 
+test('Update class', function (assert) {
+  assert.expect(0);
+
+  this.pretender.map(function () {
+    this.put('/api/nucleus/v1/classes/class-id', function () {
+      return [204, { 'Content-Type': 'application/json; charset=utf-8' }, ''];
+    });
+  });
+
+  const adapter = this.subject();
+
+  const classData = {
+    classId: 'class-id',
+    "class": {
+      title: 'Class Title'
+    }
+  };
+
+  var done = assert.async();
+  adapter.updateClass(classData)
+    .then(function () {
+      done();
+    });
+});
+
 test('joinClass', function(assert) {
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({

@@ -52,6 +52,15 @@ export default Ember.Component.extend({
     },
 
     /**
+     * @function actions:viewReport
+     * @param {string} collectionId - Identifier for a resource (collection/assessment)
+     */
+    viewReport: function (unitId, lessonId, collectionId) {
+      // Send the action so that it bubbles up to the route
+      this.sendAction('onViewReport', unitId, lessonId, collectionId);
+    },
+
+    /**
      * Trigger the 'onLocationUpdate' event handler
      *
      * @function actions:updateLocation

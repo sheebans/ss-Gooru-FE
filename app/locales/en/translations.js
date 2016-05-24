@@ -86,6 +86,10 @@ export default {
     "create": "Create",
     "created-by":"Created by",
     "delete":"Delete",
+    "delete-instructions": {
+      "links-inaccessible":"All share links will be inaccessible",
+      "content-inaccessible":"All content will be inaccessible to the classes tied to it"
+    },
     "description": "Description",
     "district": "District",
     "domain": "Domain",
@@ -117,6 +121,8 @@ export default {
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
       "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
+      "class-title-presence": "Please give your class a name.",
+      "collection-not-copied": "Oops! Unable to copy collection right now. Please try again shortly.",
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "collection-not-updated": "Oops! Unable to update collection right now. Please try again shortly.",
       "collection-title-presence" : "Please enter the collection title.",
@@ -247,6 +253,9 @@ export default {
     "remix-assessment": "Remix Assessment",
     "remix-assessment-lead": "You are about to remix an assessment.",
     "remix-assessment-success": "You've remixed an assessment {{assessmentTitle}}. Do you want to edit that assessment?",
+    "remix-collection": "Remix Collection",
+    "remix-collection-lead": "You are about to remix a collection.",
+    "remix-collection-success": "You've remixed a collection {{collectionTitle}}. Do you want to edit that collection?",
     "remix-course": "Remix Course",
     "remix-course-lead": "You are about to remix a course.",
     "remix-course-success": "You've remixed a course {{courseTitle}}. Do you want to edit that course?",
@@ -254,6 +263,7 @@ export default {
     "remix-unit-lead": "You are about to remix an unit.",
     "remix-unit-success": "You've remixed a unit {{unitTitle}}. Do you want to edit that unit?",
     "remixed-by": "Remixed by",
+    "remove":"Remove",
     "request-to":"Request to be searchable and featured in Gooru",
     "resource":"Resource",
     "resources": "Resources",
@@ -394,7 +404,8 @@ export default {
       "share-class":"Share Class",
       "invite-collaborator":"Invite Collaborator",
       "invite-student":"Invite Student",
-      "class-code": "Class Code"
+      "class-code": "Class Code",
+      "delete":"Delete Class",
     },
     "edit":{
       "edit-class": "Edit Class Information",
@@ -531,13 +542,14 @@ export default {
   "content.modals.delete-content":{
     "legend":"You are about to delete",
     "content-legend":"<span>{{type}}</span> {{index}} - {{title}} from <span>{{parentName}}</span>",
-    "delete-instructions": {
-      "links-inaccessible":"All share links will be inaccessible",
-      "content-inaccessible":"All content will be inaccessible to the classes tied to it"
-    },
     "delete-warning": "All content in this {{type}} will be deleted",
     "delete-error": "Oops! Unable to delete {{type}} right now. Please try again shortly.",
     "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."
+  },
+  "content.modals.remove-content":{
+    "legend":"You are about to remove <b>{{title}}</b> from <b>{{parentName}}</b>",
+    "remove-error": "Oops! Unable to remove {{type}} right now. Please try again shortly.",
+    "confirmation": "Are you sure you want to continue? Please type “remove” below and click “remove”."
   },
   "content.resources": {
     "edit": {
@@ -573,12 +585,15 @@ export default {
     "assign":"Assign"
   },
   "gru-share-pop-over":{
+    "copy": "Copy",
+    "ios-tooltip" : "Hold tap to copy!",
+    "safari-multiarch-tooltip":"Press Ctrl + C to copy!",
+    "safari-osx-tooltip":"Press Ctrl + C to copy!",
     "share-course":"Share your course with link",
     "share-question":"Share your question with link",
     "share-resource":"Share your resource with link",
     "share-assessment":"Share your assessment with link",
     "share-collection":"Share your collection with link",
-    "copy": "Copy"
   },
   "gru-category-panel": {
     "teacher": {
@@ -947,5 +962,9 @@ export default {
   },
   "validations": {
     "unsavedChanges": "Your changes haven't saved yet. Would you like to leave this page?"
+  },
+  "featured":{
+    "featured-title" : "Featured Courses",
+    "featured-description" : "Welcome to the Gooru courses! These featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, discrits, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix and customize courses to personalize learning and increase student engagement! Click here to <a href=''>learn more</a> about the development of these courses."
   }
 };

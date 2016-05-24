@@ -1,0 +1,12 @@
+.featured {
+  & .controller {
+    @include flexbox;
+    @include flex-direction(column);
+    @include align-items(center);
+  }
+
+  .header {
+    width: 75%;
+
+  }
+}

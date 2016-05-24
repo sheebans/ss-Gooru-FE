@@ -75,7 +75,7 @@ test('serializeAnswer for image', function(assert) {
   const serializer = this.subject();
   const answer = AnswerModel.create({
     isCorrect: true,
-    text: 'content-url/answer-thumbnail',
+    text: '//content-url/answer-thumbnail',
     type: 'text'
   });
   const response = serializer.serializerAnswer(answer, 1, true);

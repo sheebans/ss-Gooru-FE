@@ -15,5 +15,21 @@
       },
       "body": ""
     }
+  },
+  {
+    "description": "Delete question",
+    "request": {
+      "url": "^/api/nucleus/v1/questions/(.+)$",
+      "method": "DELETE",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
   }
 ]

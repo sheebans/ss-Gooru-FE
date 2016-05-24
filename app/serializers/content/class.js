@@ -24,6 +24,23 @@ export default Ember.Object.extend({
    * @returns {Object} returns a JSON Object
    */
   serializeCreateClass: function(classModel) {
+    var classData = this.serializeClass(classModel);
+    return classData;
+  },
+
+  /**
+   * Serialize a Class object into a JSON representation required by the Update Class endpoint
+   *
+   * @param classModel The Class model to be serialized
+   * @returns {Object} returns a JSON Object
+   */
+  serializeUpdateClass: function(classModel) {
+    var classData = this.serializeClass(classModel);
+    classData['greeting'] = classModel.get('greeting');
+    return classData;
+  },
+
+  serializeClass: function(classModel) {
     return {
       title: classModel.get('title'),
       class_sharing: classModel.get('classSharing')
@@ -43,7 +60,7 @@ export default Ember.Object.extend({
 
     //when teachers are not provided is creates an onwers from creatorId
     const teachersWrapper = Ember.A(teachers || [ ProfileModel.create({ id: creatorId }) ]);
-    return ClassModel.create({
+    return ClassModel.create(Ember.getOwner(this).ownerInjection(), {
       id: payload.id,
       creatorId: payload['creator_id'],
       owner: teachersWrapper.findBy("id", payload['creator_id']),
@@ -89,7 +106,7 @@ export default Ember.Object.extend({
   normalizeClasses: function(payload) {
     const serializer = this;
     const teachers = serializer.normalizeTeachers((payload.teacher_details || []));
-    return ClassesModel.create({
+    return ClassesModel.create(Ember.getOwner(this).ownerInjection(),{
       ownerList: payload.owner,
       collaboratorList: payload.collaborator,
       memberList: payload.member,

@@ -33,7 +33,44 @@ test('Teacher Layout', function(assert) {
     T.exists(assert, $editButtons.find(".save-btn"), "Missing Save Button");
 
     const $editPanel =$editContainer.find(".panel");
-    T.exists(assert, $editPanel.find(".gru-input.name"), "Missing name field");
-    T.exists(assert, $editPanel.find("textarea#greetings"), "Missing greetings textarea");
+    T.exists(assert, $editPanel.find(".gru-input.title"), "Missing name field");
+    T.exists(assert, $editPanel.find(".gru-textarea.greeting"), "Missing greeting textarea");
+  });
+});
+
+test('it shows an error message if the name field is left blank', function (assert) {
+  visit('/class/class-for-pochita-as-teacher/edit');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/edit');
+
+
+    const $editContainer = find(".controller.class .controller.edit");
+    const $editPanel =$editContainer.find(".panel");
+
+
+    const $titleField = $editPanel.find(".gru-input.title");
+
+    assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message not visible');
+
+    $titleField.find("input").val(' ');
+    $titleField.find("input").blur();
+
+    // Try submitting without filling in data
+    var $saveBtn = $editContainer.find("button.save-btn");
+
+    click($saveBtn);
+
+    return wait().then(function () {
+
+      assert.ok($titleField.find(".error-messages .error").length, 'Title error message visible');
+      // Fill in the input field
+      $titleField.find("input").val('Title');
+      $titleField.find("input").blur();
+
+      return wait().then(function () {
+        assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message was hidden');
+      });
+    });
   });
 });
