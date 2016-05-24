@@ -14,6 +14,7 @@ export default Ember.Object.extend({
   /**
    * Fetches the Taxonomy Subjects for the specific type
    *
+   * @param type the subjects type
    * @returns {Promise}
    */
   fetchSubjects: function(type) {
