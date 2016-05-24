@@ -18,9 +18,14 @@ export default Ember.Object.extend({
   id: null,
 
   /**
-   * @property {string} label - Text label for this item
+   * @property {string} title - Text label for this item
    */
-  label: '',
+  title: '',
+
+  /**
+   * @property {string} description - Text description for this item
+   */
+  description: '',
 
   /**
    * @property {Number} level - Depth of the item in the tree. Level values start at 1.

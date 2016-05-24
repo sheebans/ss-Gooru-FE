@@ -15,7 +15,7 @@ test('it renders a taxonomy tag correctly', function(assert) {
     isRemovable: false,
     taxonomyItem: TaxonomyItem.create({
       id: "term-123",
-      label: "Taxonomy item text"
+      title: "Taxonomy item text"
     })
   });
   this.set('taxonomyTag', taxonomyTag);
@@ -50,7 +50,7 @@ test('if it is not read-only, it toggles its state and calls an external action 
     isActive: false,
     taxonomyItem: TaxonomyItem.create({
       id: "term-123",
-      label: "Taxonomy item text"
+      title: "Taxonomy item text"
     })
   });
   this.set('taxonomyTag', taxonomyTag);
@@ -79,7 +79,7 @@ test('it calls an external action when its remove button is clicked', function(a
     isRemovable: true,
     taxonomyItem: TaxonomyItem.create({
       id: "term-123",
-      label: "Taxonomy item text"
+      title: "Taxonomy item text"
     })
   });
   this.set('taxonomyTag', taxonomyTag);

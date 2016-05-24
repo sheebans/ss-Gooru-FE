@@ -96,7 +96,7 @@ test("it loads sub-level items async", function(assert) {
   const rootItem = BrowseItem.create({
     parent: null,
     id: '100',
-    label: 'Item : 1 : 0 : 0',
+    title: 'Item : 1 : 0 : 0',
     level: 1,
     children: []
   });
@@ -106,7 +106,7 @@ test("it loads sub-level items async", function(assert) {
     const childNode = BrowseItem.create({
       parent: node,
       id: '200',
-      label: 'Item : 2 : 0 : 0',
+      title: 'Item : 2 : 0 : 0',
       level: 2
     });
 

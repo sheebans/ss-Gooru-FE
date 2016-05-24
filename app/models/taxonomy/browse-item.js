@@ -103,7 +103,7 @@ BrowseItem.reopenClass({
 
       var properties = $.extend(taxonomyItem.getProperties([
         'id',
-        'label',
+        'title',
         'level'
       ]), { "parent": parent });
 

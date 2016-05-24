@@ -14,7 +14,7 @@
                 <input type="checkbox"
                        checked={{browseItem.isSelected}}
                        onclick={{action 'selectCheckableItem' browseItem}} />
-                <span>{{browseItem.label}}</span>
+                <span>{{browseItem.title}}</span>
               </label>
 
               {{#if browseItem.children.length}}
@@ -30,7 +30,7 @@
                         <input type="checkbox"
                                checked={{browseItemChild.isSelected}}
                                onclick={{action 'selectCheckableItem' browseItemChild}} />
-                        <span>{{browseItemChild.label}}</span>
+                        <span>{{browseItemChild.title}}</span>
                       </label>
 
                       {{#if browseItemChild.children.length}}
@@ -46,7 +46,7 @@
                                 <input type="checkbox"
                                        checked={{browseItemGrandChild.isSelected}}
                                        onclick={{action 'selectCheckableItem' browseItemGrandChild}} />
-                                <span>{{browseItemGrandChild.label}}</span>
+                                <span>{{browseItemGrandChild.title}}</span>
                               </label>
                             </li>
                           {{/each}}
@@ -65,7 +65,7 @@
 
           {{#each headerItem.data as |browseItem|}}
             <li class="{{if browseItem.hasChildrenSelected 'selected'}}">
-              <a {{action 'selectInsideItem' browseItem}}>{{browseItem.label}}</a>
+              <a {{action 'selectInsideItem' browseItem}}>{{browseItem.title}}</a>
             </li>
           {{/each}}
 

@@ -10,7 +10,7 @@ test('Create taxonomy test tree: one node', function (assert) {
 
   var result = TaxonomyItem.create({
     id: '100',
-    label: 'Item : 1 : 0 : 0',
+    title: 'Item : 1 : 0 : 0',
     level: 1,
     parent: null
   });
@@ -24,7 +24,7 @@ test('Create taxonomy test tree: one node with 2 children', function (assert) {
 
   var parent = TaxonomyItem.create({
     id: '100',
-    label: 'Item : 1 : 0 : 0',
+    title: 'Item : 1 : 0 : 0',
     level: 1,
     parent: null
   });
@@ -32,12 +32,12 @@ test('Create taxonomy test tree: one node with 2 children', function (assert) {
   var children = [
     TaxonomyItem.create({
       id: '200',
-      label: 'Item : 2 : 0 : 0',
+      title: 'Item : 2 : 0 : 0',
       level: 2
     }),
     TaxonomyItem.create({
       id: '201',
-      label: 'Item : 2 : 0 : 1',
+      title: 'Item : 2 : 0 : 1',
       level: 2
     })
   ];
@@ -56,7 +56,7 @@ test('Create taxonomy test tree: one node, 2 children, 3 grandchildren (per chil
 
   var parent = TaxonomyItem.create({
     id: '100',
-    label: 'Item : 1 : 0 : 0',
+    title: 'Item : 1 : 0 : 0',
     level: 1,
     parent: null
   });
@@ -64,12 +64,12 @@ test('Create taxonomy test tree: one node, 2 children, 3 grandchildren (per chil
   var children = [
     TaxonomyItem.create({
       id: '200',
-      label: 'Item : 2 : 0 : 0',
+      title: 'Item : 2 : 0 : 0',
       level: 2
     }),
     TaxonomyItem.create({
       id: '201',
-      label: 'Item : 2 : 0 : 1',
+      title: 'Item : 2 : 0 : 1',
       level: 2
     })
   ];
@@ -77,17 +77,17 @@ test('Create taxonomy test tree: one node, 2 children, 3 grandchildren (per chil
   var children2A = [
     TaxonomyItem.create({
       id: '300',
-      label: 'Item : 3 : 0 : 0',
+      title: 'Item : 3 : 0 : 0',
       level: 3
     }),
     TaxonomyItem.create({
       id: '301',
-      label: 'Item : 3 : 0 : 1',
+      title: 'Item : 3 : 0 : 1',
       level: 3
     }),
     TaxonomyItem.create({
       id: '302',
-      label: 'Item : 3 : 0 : 2',
+      title: 'Item : 3 : 0 : 2',
       level: 3
     })
   ];
@@ -95,17 +95,17 @@ test('Create taxonomy test tree: one node, 2 children, 3 grandchildren (per chil
   var children2B = [
     TaxonomyItem.create({
       id: '310',
-      label: 'Item : 3 : 1 : 0',
+      title: 'Item : 3 : 1 : 0',
       level: 3
     }),
     TaxonomyItem.create({
       id: '311',
-      label: 'Item : 3 : 1 : 1',
+      title: 'Item : 3 : 1 : 1',
       level: 3
     }),
     TaxonomyItem.create({
       id: '312',
-      label: 'Item : 3 : 1 : 2',
+      title: 'Item : 3 : 1 : 2',
       level: 3
     })
   ];
@@ -134,14 +134,14 @@ test('Create taxonomy test tree: two nodes with 4 children each', function (asse
 
   var parent1 = TaxonomyItem.create({
     id: '100',
-    label: 'Item : 1 : 0 : 0',
+    title: 'Item : 1 : 0 : 0',
     level: 1,
     parent: null
   });
 
   var parent2 = TaxonomyItem.create({
     id: '101',
-    label: 'Item : 1 : 0 : 1',
+    title: 'Item : 1 : 0 : 1',
     level: 1,
     parent: null
   });
@@ -149,22 +149,22 @@ test('Create taxonomy test tree: two nodes with 4 children each', function (asse
   var children1 = [
     TaxonomyItem.create({
       id: '200',
-      label: 'Item : 2 : 0 : 0',
+      title: 'Item : 2 : 0 : 0',
       level: 2
     }),
     TaxonomyItem.create({
       id: '201',
-      label: 'Item : 2 : 0 : 1',
+      title: 'Item : 2 : 0 : 1',
       level: 2
     }),
     TaxonomyItem.create({
       id: '202',
-      label: 'Item : 2 : 0 : 2',
+      title: 'Item : 2 : 0 : 2',
       level: 2
     }),
     TaxonomyItem.create({
       id: '203',
-      label: 'Item : 2 : 0 : 3',
+      title: 'Item : 2 : 0 : 3',
       level: 2
     })
   ];
@@ -172,22 +172,22 @@ test('Create taxonomy test tree: two nodes with 4 children each', function (asse
   var children2 = [
     TaxonomyItem.create({
       id: '210',
-      label: 'Item : 2 : 1 : 0',
+      title: 'Item : 2 : 1 : 0',
       level: 2
     }),
     TaxonomyItem.create({
       id: '211',
-      label: 'Item : 2 : 1 : 1',
+      title: 'Item : 2 : 1 : 1',
       level: 2
     }),
     TaxonomyItem.create({
       id: '212',
-      label: 'Item : 2 : 1 : 2',
+      title: 'Item : 2 : 1 : 2',
       level: 2
     }),
     TaxonomyItem.create({
       id: '213',
-      label: 'Item : 2 : 1 : 3',
+      title: 'Item : 2 : 1 : 3',
       level: 2
     })
   ];

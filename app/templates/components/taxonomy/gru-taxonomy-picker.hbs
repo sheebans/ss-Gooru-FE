@@ -1,7 +1,7 @@
 {{#if shortcutTags.length}}
   <ul class="shortcut-list">
     {{#each shortcutTags as |tag|}}
-      <li class="taxonomy-term">
+      <li>
         {{taxonomy.gru-taxonomy-tag model=tag onSelect=(action 'openShortcut' tag) }}
       </li>
     {{/each}}
@@ -18,7 +18,7 @@
 
 <ul class="selected-list">
   {{#each selectedTags as |tag|}}
-    <li class="taxonomy-term">
+    <li>
       {{taxonomy.gru-taxonomy-tag model=tag onRemove=(action 'uncheckItem' tag) }}
     </li>
   {{/each}}
