@@ -7,6 +7,12 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Actions
 
+  actions: {
+    infoClassTransition: function () {
+      this.transitionTo('class.info');
+    }
+  },
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -19,7 +25,13 @@ export default Ember.Route.extend({
    * @param controller
    * @param model
    */
-  setupController: function(controller) {
+  setupController: function(controller, model) {
+    var classModel = model.class;
+
     controller.get('classController').selectMenuItem('info');
+
+    controller.set("class", classModel);
+    controller.set("tempClass", classModel.copy());
+    controller.resetProperties();
   }
 });

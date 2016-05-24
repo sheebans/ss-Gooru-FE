@@ -2,11 +2,15 @@ import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations({
-  //TO DO We need to use i18n for error messages
-  title: validator('presence', {
-    presence: true,
-    message: 'Please give your class a name'
-  }),
+  title: {
+    validators: [
+      validator('presence', {
+        presence: true,
+        message: '{{description}}',
+        descriptionKey: 'common.errors.class-title-presence'
+      })
+    ]
+  },
   classSharing: validator('presence', true)
 });
 
@@ -151,8 +155,44 @@ const Class = Ember.Object.extend(Validations, {
    */
   isTeacher: function(teacherId) {
     return (this.get('owner.id') === teacherId || this.get('collaborators').findBy('id', teacherId));
-  }
+  },
 
+  /**
+   * Return a copy of the class
+   *
+   * @function
+   * @return {Class}
+   */
+  copy: function () {
+
+    var properties = [];
+    var enumerableKeys = Object.keys(this);
+
+    for (let i = 0; i < enumerableKeys.length; i++) {
+      let key = enumerableKeys[i];
+      let value = Ember.typeOf(this.get(key));
+      if (value === 'string' || value === 'number' || value === 'boolean') {
+        properties.push(key);
+      }
+    }
+
+    properties = this.getProperties(properties);
+
+    return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
+  },
+
+  /**
+   * Copy a list of property values from another model to override the current ones
+   *
+   * @function
+   * @param {Class} model
+   * @param {String[]} propertyList
+   * @return {null}
+   */
+  merge: function(model, propertyList = []) {
+    var properties = model.getProperties(propertyList);
+    this.setProperties(properties);
+  }
 
 });
 
