@@ -17,13 +17,13 @@
         <li>
           <label>
             {{input type="checkbox" checked=validator.check1}}
-            <span>{{t "content.modals.delete-content.delete-instructions.links-inaccessible"}}</span>
+            <span>{{t "common.delete-instructions.links-inaccessible"}}</span>
           </label>
         </li>
         <li>
           <label>
             {{input type="checkbox" checked=validator.check2}}
-            <span>{{t "content.modals.delete-content.delete-instructions.content-inaccessible"}}</span>
+            <span>{{t "common.delete-instructions.content-inaccessible"}}</span>
           </label>
         </li>
         <li>
@@ -35,7 +35,7 @@
       </ul>
     </div>
     <p class="confirmation">{{t "content.modals.delete-content.confirmation"}}</p>
-    {{input class="delete-input" value=validator.confirm}}
+    {{input type="text" class="delete-input" value=validator.confirm}}
     <div class="actions delete">
       <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
         <span aria-hidden="true">{{t 'common.cancel'}}</span>

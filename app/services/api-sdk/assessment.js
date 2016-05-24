@@ -103,6 +103,21 @@ export default Ember.Service.extend({
       service.get('assessmentAdapter').deleteAssessment(assessmentId)
         .then(resolve, reject);
     });
+  },
+
+  /**
+   * Copies an assessment by id
+   * @param {string} assessmentId
+   * @returns {Ember.RSVP.Promise}
+   */
+  copyAssessment: function(assessmentId){
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('assessmentAdapter').copyAssessment(assessmentId)
+        .then(function(responseData, textStatus, request) {
+          resolve(request.getResponseHeader('location'));
+        }, reject );
+    });
   }
 
 });
