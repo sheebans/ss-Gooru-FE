@@ -31,7 +31,7 @@ export default Ember.Service.extend({
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('taxonomyAdapter').fetchSubjects(type)
         .then(function(response) {
-          resolve(service.get('taxonomySerializer').normalizeSubjects(response));
+          resolve(service.get('taxonomySerializer').normalizeFetchSubjects(response));
         }, function(error) {
           reject(error);
         });
