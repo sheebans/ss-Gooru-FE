@@ -1,5 +1,5 @@
 <div class="actions">
-  <button class="btn btn-default btn-icon">{{gru-icon name="delete"}}</button>
+  <button class="btn btn-default btn-icon delete" {{action 'deleteItem' model}}>{{gru-icon name="delete"}}</button>
   <button class="btn btn-default btn-icon">{{gru-icon name="person_add"}}</button>
   {{#if isAssessment}}
     {{#gru-share-pop-over tagName="button" type="assessment"}}

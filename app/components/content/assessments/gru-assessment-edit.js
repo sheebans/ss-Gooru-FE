@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import CollectionEdit from 'gooru-web/components/content/collections/gru-collection-edit';
+import ModalMixin from 'gooru-web/mixins/modal';
+import {CONTENT_TYPES} from 'gooru-web/config/config';
 
-export default CollectionEdit.extend({
+export default CollectionEdit.extend(ModalMixin,{
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -15,6 +17,11 @@ export default CollectionEdit.extend({
    * @property {Service} I18N service
    */
   i18n: Ember.inject.service(),
+
+  /**
+   * @type {SessionService} Service to retrieve session information
+   */
+  session: Ember.inject.service("session"),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -66,6 +73,37 @@ export default CollectionEdit.extend({
       this.set('tempCollection', assessmentForEditing);
       this.set('tempCollection.isVisibleOnProfile', isChecked);
       this.actions.updateContent.call(this);
-    }
-  }
+    },
+    /**
+     * Delete assessment
+     */
+    deleteItem: function () {
+      const myId = this.get("session.userId");
+      var model = {
+        content: this.get('collection'),
+        isHeaderDelete:true,
+        parentName:this.get('collection.course'),
+        deleteMethod: function () {
+          return this.get('assessmentService').deleteAssessment(this.get('collection.id'));
+        }.bind(this),
+        type: CONTENT_TYPES.ASSESSMENT,
+        redirect: {
+          route: 'profile.content.courses',
+          params: {
+            id: myId
+          }
+        }
+      };
+
+      this.actions.showModal.call(this,
+        'content.modals.gru-delete-content',
+        model, null, null, null, false);
+    },
+  },
+  // -------------------------------------------------------------------------
+  // Properties
+
+  model: Ember.computed('collection',function(){
+    return this.get('collection');
+  }),
 });

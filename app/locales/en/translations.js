@@ -534,7 +534,8 @@ export default {
   },
   "content.modals.delete-content":{
     "legend":"You are about to delete",
-    "content-legend":"<span>{{type}}</span> {{index}} - {{title}} from <span>{{parentName}}</span>",
+    "content-legend":"<span>{{type}}</span> {{index}} - {{title}} from {{parentName}}",
+    "content-legend-header":"{{title}} from {{parentName}}",
     "delete-warning": "All content in this {{type}} will be deleted",
     "delete-error": "Oops! Unable to delete {{type}} right now. Please try again shortly.",
     "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."

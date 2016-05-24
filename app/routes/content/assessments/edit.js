@@ -2,7 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   queryParams: {
-    courseId:{}
+    courseId:{},
+    courseName:{}
   },
 
   // -------------------------------------------------------------------------
@@ -33,7 +34,12 @@ export default Ember.Route.extend({
 
   model: function (params) {
     var assessment = this.get('assessmentService').readAssessment(params.assessmentId);
+    var courseName = null;
     var course = null;
+
+    if(params.courseName!== "null"){
+      courseName = params.courseName;
+    }
 
     if(params.courseId){
       course = this.get('courseService').fetchById(params.courseId);
@@ -41,7 +47,8 @@ export default Ember.Route.extend({
 
     return Ember.RSVP.hash({
       assessment: assessment,
-      course:course
+      course:course,
+      courseName:courseName
     });
   },
 
@@ -51,6 +58,7 @@ export default Ember.Route.extend({
     // for collections (for example, see: /app/components/content/assessments/gru-assessment-edit.js)
     // and that is why the property 'collection' is being reused here, too.
     controller.set('collection', model.assessment);
+    controller.set('collection.course', model.courseName);
     controller.set('isAssessment',true);
     controller.set('course', model.course);
   }
