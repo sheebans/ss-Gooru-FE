@@ -5,7 +5,8 @@
 .content_questions_play .app-container,
 .content_questions_edit .app-container,
 .content_resources_edit .app-container,
-.content_resources_play .app-container {
+.content_resources_play .app-container,
+.account-settings .app-container {
   padding-left: 0;
   padding-right: 0;
 
@@ -21,7 +22,8 @@
 .controller.content.questions.edit,
 .controller.content.questions.play,
 .controller.content.resources.edit,
-.controller.content.resources.play {
+.controller.content.resources.play,
+.controller.account-settings {
   $aside-padding: 25px;
 
   @include flexbox();
@@ -229,7 +231,9 @@
     }
   }
 
-  #information {
+  #information,
+  #accountInformation,
+  #privateInformation {
 
     > .header {
       .actions {
