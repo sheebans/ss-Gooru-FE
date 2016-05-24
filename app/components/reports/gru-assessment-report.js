@@ -42,8 +42,12 @@ export default Ember.Component.extend({
           Ember.Logger.error("No element was found for selectorTable: " + selectorTable);
         }
       }
-    }
     },
+
+    selectAttempt: function(attempt){
+      this.sendAction("onSelectAttempt", attempt);
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -69,6 +73,11 @@ export default Ember.Component.extend({
    * @property {AssessmentResult} assessment
    */
   assessmentResult: null,
+
+  /**
+   * @property {string} on select attempt action name
+   */
+  onSelectAttempt: null,
 
   /**
    * Return ordered questions array
