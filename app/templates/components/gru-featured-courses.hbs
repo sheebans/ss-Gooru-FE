@@ -2,24 +2,23 @@
   <nav id='subject-navbar' class="navbar navbar-default" >
     <ul class="nav navbar-nav subject-filters">
       {{#each formattedContent as |content index|}}
-      <li class="subject-menu-option-container">
-        <button class="subject-menu-option" data-target="#course-{{index}}">
+        {{#gru-scroll id=(concat "subject-link-" index) to=(concat "#featured-subject-" index) class=(if (eq index 0) "selected subject-menu-option-container" "subject-menu-option-container") offset='175' tagName="li"}}
+        <a>
           <span>{{content.category}}</span><br>
           <span>{{content.subject}}</span>
-        </button>
-       </li>
+        </a>
+        {{/gru-scroll}}
       {{/each}}
      </ul>
   </nav>
-  <div class="course-list" data-spy="scroll" data-target="#subject-navbar" data-offset='0'>
-    {{#each formattedContent as |content index|}}
-      <div id="course-{{index}}" class="subject-container">
-        <p class="subject-title">{{content.subject}}</p>
-        <div class="course-container">
-          {{#each content.courses as |course index|}}
-            {{cards.gru-course-card course=course}}
-          {{/each}}
-        </div>
+
+  {{#each formattedContent as |content index|}}
+    <div id="featured-subject-{{index}}" class="subject-container">
+      <p class="subject-title">{{content.subject}}</p>
+      <div class="course-container">
+        {{#each content.courses as |course index|}}
+          {{cards.gru-course-card course=course}}
+        {{/each}}
       </div>
-    {{/each}}
-  </div>
+    </div>
+  {{/each}}

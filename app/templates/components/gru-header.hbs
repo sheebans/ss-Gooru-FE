@@ -55,6 +55,9 @@
                   </ul>
               </li>
             {{else}}
+            <li class="navbar-nav-list">
+                {{#link-to 'featured' class="navbar-link featured-link" }} {{t "common.featured-courses"}} {{/link-to}}
+            </li>
               {{#if activeClasses}}
                 <li class="navbar-nav-list visible-md visible-lg dropdown my-classes">
                   <a class="profile dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

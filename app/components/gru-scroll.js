@@ -21,7 +21,7 @@ export default Ember.Component.extend({
     const offset = this.get('offset');
 
     if (offset) {
-      if (typeof offset === 'number') {
+      if (!isNaN(offset)) {
         this.set('offsetVal', offset);
       } else {
         let $offsetEl = Ember.$(offset);
