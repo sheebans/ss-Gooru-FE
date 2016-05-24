@@ -6,7 +6,11 @@ import Resource from 'gooru-web/models/content/resource';
 import Collection from 'gooru-web/models/content/collection';
 
 moduleForComponent('gru-resource-edit', 'Integration | Component | content/resources/gru resource edit', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.i18n = this.container.lookup('service:i18n');
+    this.i18n.set("locale","en");
+  }
 });
 
 test('it has header and main sections', function (assert) {

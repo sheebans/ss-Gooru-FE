@@ -3,8 +3,6 @@ import { isNumeric } from './math';
 import {
   EMOTION_VALUES,
   GRADING_SCALE } from 'gooru-web/config/config';
-import { DEFAULT_IMAGES } from "gooru-web/config/config";
-
 /*
  * Function for sorting strings alphabetically in ascending order
  * @param {string} a
@@ -322,6 +320,5 @@ export function normalizeQuestionTypes(questionType) {
  * @param {String} file complete url
  */
 export function cleanFilename(url) {
-  var defaultImages = Ember.$.map(DEFAULT_IMAGES, value => value);
-  return (!url || defaultImages.indexOf(url) > -1) ? null : url.split('/').pop();
+  return url ? /([^\/]*\/\/[^\/]+\/)?(.+)/.exec(url)[2] : url;
 }

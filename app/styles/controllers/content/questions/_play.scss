@@ -1,6 +1,7 @@
 .controller.content.questions.play {
 
   > article{
+    min-width: 0;
     width: 100%;
   }
   > article.fixed-header {

@@ -20,6 +20,15 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
 
   classNames: ['content', 'collections', 'gru-collection-list'],
 
+  actions:{
+    /**
+     * Remove collection item
+     */
+    removeCollectionItem: function (builderItem) {
+      this.get('items').removeObject(builderItem);
+    },
+  },
+
   // -------------------------------------------------------------------------
   // Properties
 

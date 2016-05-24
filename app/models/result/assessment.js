@@ -60,11 +60,6 @@ export default Ember.Object.extend({
   hasMastery: Ember.computed.bool("mastery.length"),
 
   /**
-   * @property {number} selectedAttempt - Attempt to which the data in questionResults correspond
-   */
-  selectedAttempt: 0,
-
-  /**
    * @property {Date} submittedAt - Date in which the attempt was submitted
    */
   submittedAt: null,

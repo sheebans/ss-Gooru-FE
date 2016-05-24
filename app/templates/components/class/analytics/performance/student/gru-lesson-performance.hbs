@@ -22,7 +22,9 @@
           {{class.analytics.performance.gru-performance-summary
           performance=collection
           selectedOption=selectedOption
-          onSelectResource=(action 'selectResource')}}
+          onSelectResource=(action 'selectResource')
+          onViewReport=(action 'viewReport')
+          }}
         </li>
     {{else}}
       <span class="no-content">{{t "gru-performance.no-content"}}</span>
