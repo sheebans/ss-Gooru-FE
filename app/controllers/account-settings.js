@@ -17,7 +17,7 @@ export default Ember.Controller.extend({
      * Edit Account
      */
     editAccount: function () {
-      console.log('edit');
+      //TODO
       //this.set('isEditing', true);
     }
 
