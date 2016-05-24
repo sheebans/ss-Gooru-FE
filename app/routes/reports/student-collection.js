@@ -78,7 +78,7 @@ export default Ember.Route.extend({
       completedSessions : route.get("userSessionService").getCompletedSessions(context),
       lesson: lessonPromise,
       context: context
-    })
+    });
   },
 
   /**

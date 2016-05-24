@@ -1,5 +1,4 @@
 import Ember from "ember";
-import Context from 'gooru-web/models/result/context';
 
 /**
  *

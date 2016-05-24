@@ -32,7 +32,7 @@ export default Ember.Component.extend({
   // Events
   init: function () {
     this._super(...arguments);
-    this.set('selectedAttempt', this.get("assessmentResult.totalAttempts"))
+    this.set('selectedAttempt', this.get("assessmentResult.totalAttempts"));
   },
 
   // -------------------------------------------------------------------------
@@ -42,12 +42,6 @@ export default Ember.Component.extend({
    * @property {AssessmentResult} assessment
    */
   assessmentResult: null,
-
-  /**
-   * Concise model to be used by the gru-bubbles component
-   * @prop {Object[]}
-   */
-  resourceLinks: null,
 
   /**
    * @property {number} selected attempt
