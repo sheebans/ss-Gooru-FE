@@ -11,6 +11,8 @@ export default Ember.Object.extend({
 
   namespace: '/api/nucleus/v1/collections',
 
+  copierNamespace: '/api/nucleus/v1/copier/collections',
+
   /**
    * Posts a new collection
    *
@@ -135,6 +137,27 @@ export default Ember.Object.extend({
       data: JSON.stringify({
         id: questionId
       })
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Copies a collection by id
+   *
+   * @param collectionId
+   * @returns {Promise}
+   */
+  copyCollection: function(collectionId) {
+    const adapter = this;
+    const namespace = this.get('copierNamespace');
+    const url = `${namespace}/${collectionId}`;
+    const options = {
+      type: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({})
     };
     return Ember.$.ajax(url, options);
   },

@@ -121,3 +121,19 @@ test('deleteCollection', function(assert) {
       assert.ok(true);
     });
 });
+
+test('copyCollection', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.post('/api/nucleus/v1/copier/collections/collection-id', function() {
+      return [201, {'Content-Type': 'text/plain', 'Location': 'copy-collection-id'}, ''];
+    }, false);
+  });
+  adapter.copyCollection('collection-id')
+    .then(function(response) {
+      assert.equal('', response, 'Wrong response');
+    });
+});

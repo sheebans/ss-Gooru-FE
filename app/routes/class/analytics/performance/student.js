@@ -79,7 +79,25 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       const currentClass = this.modelFor('class').class;
       const classId = currentClass.get("id");
       const courseId = currentClass.get("courseId");
-      this.transitionTo('context-player', classId, courseId, unitId, lessonId, collectionId);
+      const role = this.get("controller.isStudent") ? "student" : "teacher";
+      this.transitionTo('context-player', classId, courseId, unitId,
+        lessonId, collectionId, { queryParams: { role: role }});
+    },
+    /**
+     * Open the assessment report
+     *
+     * @function actions:viewReport
+     * @param {string} unitId - Identifier for an unit
+     * @param {string} lessonId - Identifier for a lesson
+     * @param {string} collectionId - Identifier for a collection or assessment
+     */
+    viewReport: function (unitId, lessonId, collectionId) {
+      const currentClass = this.modelFor('class').class;
+      const userId = this.get('session.userId');
+      const classId = currentClass.get("id");
+      const courseId = currentClass.get("courseId");
+      this.transitionTo('reports.student-collection', classId, courseId, unitId,
+        lessonId, collectionId, userId);
     }
   }
 

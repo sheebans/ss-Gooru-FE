@@ -45,11 +45,13 @@
 @import 'controllers/profile/courses';
 @import 'controllers/profile/network';
 @import 'controllers/reports/collection';
+@import 'controllers/reports/student-collection';
 @import 'controllers/search';
 @import 'controllers/sign-in';
 @import 'controllers/sign-up';
 @import 'controllers/home';
 @import 'controllers/forgot-password';
+@import 'controllers/featured';
 @import 'controllers/account-settings';
 
 
@@ -67,6 +69,7 @@
 @import 'components/gru-bubbles';
 @import 'components/gru-category-panel';
 @import 'components/gru-emotion-picker';
+@import 'components/gru-featured-courses';
 @import 'components/gru-footer';
 @import 'components/gru-header';
 @import 'components/gru-image-picker';
@@ -118,6 +121,7 @@
 @import 'components/content/modals/gru-delete-content';
 @import 'components/content/modals/gru-question-new';
 @import 'components/content/modals/gru-quick-course-search';
+@import 'components/content/modals/gru-remove-content';
 @import 'components/content/modals/gru-resource-new';
 @import 'components/content/questions/answers/gru-hot-text-highlight';
 @import 'components/content/questions/answers/gru-hs-image';

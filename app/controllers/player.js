@@ -11,7 +11,9 @@ export default Ember.Controller.extend(SessionMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
-  queryParams: ['resourceId', 'isTeacher'],
+  queryParams: ['resourceId', 'role'],
+
+  session: Ember.inject.service("session"),
 
   /**
    * @dependency {Ember.Service} i18n service
@@ -37,7 +39,7 @@ export default Ember.Controller.extend(SessionMixin, {
      */
     finishCollection: function(){
       let controller = this;
-      controller.finishAssessment();
+      controller.finishCollection();
       //TODO finish collections
     },
 
@@ -56,7 +58,7 @@ export default Ember.Controller.extend(SessionMixin, {
           controller.moveToResource(next);
         }
         else{
-          controller.finishAssessment();
+          controller.finishCollection();
         }
       });
     },
@@ -105,19 +107,22 @@ export default Ember.Controller.extend(SessionMixin, {
   // Properties
 
   /**
-   * Indicates if the teacher is playing it own collection
-   * @property {boolean}
+   * Indicates the user's role, could be 'student', 'teacher' or null
+   * @property {string}
    */
-  isTeacher: null,
-
+  role: null,
 
   /**
-   * Indicates if the student is playing this collection
+   * Indicates if the student is playing the collection
    * @property {boolean}
    */
-  isStudent: Ember.computed("isTeacher", function(){
-    return this.get("isTeacher") !== "true";
-  }),
+  isStudent: Ember.computed.equal("role", "student"),
+
+  /**
+   * Indicates if the teacher is playing this collection
+   * @property {boolean}
+   */
+  isTeacher: Ember.computed.not("isStudent"),
 
   /**
    * It contains information about the context where the player is running
@@ -257,7 +262,7 @@ export default Ember.Controller.extend(SessionMixin, {
   /**
    * Finishes the assessment
    */
-  finishAssessment: function(){
+  finishCollection: function(){
     let controller = this;
     let assessmentResult = controller.get("assessmentResult");
     let context = controller.get("context");
@@ -267,7 +272,19 @@ export default Ember.Controller.extend(SessionMixin, {
       context.set("isStudent", controller.get("isStudent"));
       assessmentResult.set("submittedAt", new Date());
       return controller.saveCollectionResult(assessmentResult, context).then(function() {
-        controller.set("showReport", controller.get("isAssessment")); //show the report if it is an assessment
+        if (controller.get("isAssessment") && context.get("courseId")) {
+          const userId = controller.get('session.userId');
+          const classId = context.get("classId");
+          const courseId = context.get("courseId");
+          const unitId = context.get("unitId");
+          const lessonId = context.get("lessonId");
+          const collectionId = context.get("collectionId");
+          controller.transitionToRoute('reports.student-collection', classId, courseId, unitId,
+            lessonId, collectionId, userId);
+        }
+        else {
+          controller.set("showReport", controller.get("isAssessment"));
+        }
       });
     });
   },
