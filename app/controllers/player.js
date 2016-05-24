@@ -51,7 +51,7 @@ export default Ember.Controller.extend(SessionMixin, {
      */
     submitQuestion: function(question, questionResult){
       const controller = this;
-      controller.submitQuestionResult(questionResult).then(function(){
+      controller.finishResourceResult(questionResult).then(function(){
         const next = controller.get("collection").nextResource(question);
         if (next){
           Ember.$(window).scrollTop(0);
@@ -60,6 +60,16 @@ export default Ember.Controller.extend(SessionMixin, {
         else{
           controller.finishCollection();
         }
+      });
+    },
+
+    /**
+     * Finishes a collection
+     */
+    finishCollection: function(){
+      const controller = this;
+      controller.finishResourceResult(controller.get("resourceResult")).then(function(){
+          controller.finishCollection();
       });
     },
 
@@ -191,7 +201,12 @@ export default Ember.Controller.extend(SessionMixin, {
    */
   moveToResource: function(resource) {
     let controller = this;
-    let assessmentResult = this.get("assessmentResult");
+    let currentResource = controller.get("resource");
+    if (currentResource && !currentResource.get("isQuestion")){ //if previous item is a resource
+      controller.finishResourceResult(controller.get("resourceResult"));
+    }
+
+    let assessmentResult = controller.get("assessmentResult");
     let resourceId = resource.get("id");
     let resourceResult = assessmentResult.getResultByResourceId(resourceId);
 
@@ -206,19 +221,19 @@ export default Ember.Controller.extend(SessionMixin, {
   },
 
   /**
-   * Submits a question
-   * @param {QuestionResult} questionResult
+   * Finishes a resource result or submits a question result
+   * @param {ResourceResult} resourceResult
    * @returns {Promise.<boolean>}
    */
-  submitQuestionResult: function(questionResult){
+  finishResourceResult: function(resourceResult){
     let controller = this;
     let context = this.get("context");
 
     //setting submitted at, timeSpent is calculated
-    questionResult.set("submittedAt", new Date());
+    resourceResult.set("submittedAt", new Date());
     context.set("eventType", "stop");
     context.set("isStudent", controller.get("isStudent"));
-    return controller.saveResourceResult(questionResult, context);
+    return controller.saveResourceResult(resourceResult, context);
   },
 
   /**
@@ -266,6 +281,7 @@ export default Ember.Controller.extend(SessionMixin, {
     let controller = this;
     let assessmentResult = controller.get("assessmentResult");
     let context = controller.get("context");
+    let collection = controller.get("collection");
 
     return controller.submitPendingQuestionResults().then(function(){
       context.set("eventType", "stop");
@@ -280,10 +296,10 @@ export default Ember.Controller.extend(SessionMixin, {
           const lessonId = context.get("lessonId");
           const collectionId = context.get("collectionId");
           controller.transitionToRoute('reports.student-collection', classId, courseId, unitId,
-            lessonId, collectionId, userId);
+            lessonId, collectionId, userId, { queryParams: { type: collection.get("collectionType") }});
         }
         else {
-          controller.set("showReport", controller.get("isAssessment"));
+          controller.set("showReport", true);
         }
       });
     });
@@ -327,7 +343,7 @@ export default Ember.Controller.extend(SessionMixin, {
     let controller = this;
     let pendingQuestionResults = this.get("assessmentResult.pendingQuestionResults");
     let promises = pendingQuestionResults.map(function(questionResult){
-      return controller.submitQuestionResult(questionResult);
+      return controller.finishResourceResult(questionResult);
     });
     return Ember.RSVP.all(promises);
   },

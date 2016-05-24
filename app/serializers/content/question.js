@@ -99,7 +99,7 @@ export default Ember.Object.extend({
       hints: null, //TODO
       explanation: null, //TODO
       isVisibleOnProfile: typeof questionData['visible_on_profile'] !== 'undefined' ? questionData['visible_on_profile'] : true,
-      order: index + 1//TODO is this ok?
+      order: questionData.sequence_id || (index + 1);
     });
 
     const answers = serializer.normalizeAnswerArray(questionData.answer);

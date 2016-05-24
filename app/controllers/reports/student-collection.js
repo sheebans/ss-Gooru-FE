@@ -9,6 +9,8 @@ import Ember from "ember";
 
 export default Ember.Controller.extend({
 
+  queryParams: ["type"],
+
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -34,7 +36,7 @@ export default Ember.Controller.extend({
   /**
    * @property {Collection}
    */
-  assessment: null,
+  collection: null,
 
   /**
    * @property {AssessmentResult}
@@ -56,6 +58,23 @@ export default Ember.Controller.extend({
    */
   lesson: null,
 
+  /**
+   * @property {string} indicates if it is collection or assessment
+   */
+  type: null,
+
+  /**
+   * indicates if it is assessment type
+   * @property {boolean}
+   */
+  isAssessment: Ember.computed.equal("type", "assessment"),
+
+  /**
+   * indicates if it is collection type
+   * @property {boolean}
+   */
+  isCollection: Ember.computed.not("isAssessment"),
+
   // -------------------------------------------------------------------------
   // Observers
 
@@ -72,7 +91,7 @@ export default Ember.Controller.extend({
     controller.get("performanceService")
       .findAssessmentResultByCollectionAndStudent(context)
       .then(function (assessmentResult) {
-        assessmentResult.merge(controller.get("assessment"));
+        assessmentResult.merge(controller.get("collection"));
         assessmentResult.set("totalAttempts", controller.get("completedSessions.length")); //TODO this is comming wrong from BE
         controller.set("assessmentResult", assessmentResult);
     });
@@ -83,6 +102,7 @@ export default Ember.Controller.extend({
     this.set("completedSessions", []);
     this.set("context", null);
     this.set("lesson", null);
+    this.set("type", null);
   }
 
 });

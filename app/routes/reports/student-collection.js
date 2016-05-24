@@ -50,6 +50,11 @@ export default Ember.Route.extend({
   assessmentService: Ember.inject.service("api-sdk/assessment"),
 
   /**
+   * @property {CollectionService} Service to retrieve a collection
+   */
+  collectionService: Ember.inject.service("api-sdk/collection"),
+
+  /**
    * @property {LessonService} Service to retrieve a lesson
    */
   lessonService: Ember.inject.service("api-sdk/lesson"),
@@ -68,13 +73,17 @@ export default Ember.Route.extend({
   model(params) {
     const route = this;
     const context = route.getContext(params);
+    const type = params.type || "collection";
 
     const lessonPromise = context.get("courseId") ?
       route.get("lessonService").fetchById(context.get("courseId"), context.get("unitId"), context.get("lessonId")) :
       null;
 
+    const collectionPromise = (type === "collection") ?
+      route.get("collectionService").readCollection(params.collectionId) :
+      route.get("assessmentService").readAssessment(params.collectionId);
     return Ember.RSVP.hash({
-      assessment: route.get("assessmentService").readAssessment(params.collectionId),
+      collection: collectionPromise,
       completedSessions : route.get("userSessionService").getCompletedSessions(context),
       lesson: lessonPromise,
       context: context
@@ -91,7 +100,7 @@ export default Ember.Route.extend({
     var completedSessions = model.completedSessions;
     const totalSessions = completedSessions.length;
     const lastCompletedSession = completedSessions[totalSessions - 1];
-    controller.set("assessment", model.assessment.toPlayerCollection());
+    controller.set("collection", model.collection.toPlayerCollection());
     controller.set("lesson", model.lesson);
     controller.set("completedSessions", completedSessions);
     controller.set("context", model.context);
@@ -112,7 +121,7 @@ export default Ember.Route.extend({
     const lessonId = params.lessonId;
 
     return Context.create({
-      collectionType: "assessment",
+      collectionType: params.type,
       userId: userId,
       collectionId: collectionId,
       courseId: courseId,

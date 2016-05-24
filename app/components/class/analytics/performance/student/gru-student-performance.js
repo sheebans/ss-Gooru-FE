@@ -54,10 +54,11 @@ export default Ember.Component.extend({
     /**
      * @function actions:viewReport
      * @param {string} collectionId - Identifier for a resource (collection/assessment)
+     * @param {string} collectionType - (collection/assessment)
      */
-    viewReport: function (unitId, lessonId, collectionId) {
+    viewReport: function (unitId, lessonId, collectionId, collectionType) {
       // Send the action so that it bubbles up to the route
-      this.sendAction('onViewReport', unitId, lessonId, collectionId);
+      this.sendAction('onViewReport', unitId, lessonId, collectionId, collectionType);
     },
 
     /**

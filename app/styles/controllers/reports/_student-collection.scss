@@ -1,5 +1,13 @@
 .controller.class.analytics.collection.student {
   .navigation {
-    padding: 10px 65px;
+    padding: 10px 35px;
+
+    @media (min-width: $screen-xs) {
+      padding: 10px 27px;
+    }
+
+    @media (min-width: $screen-sm) {
+      padding: 10px 65px;
+    }
   }
 }
