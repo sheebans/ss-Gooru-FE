@@ -33,7 +33,16 @@ export default Ember.Controller.extend({
    * The profile presented to the user
    * @property {Profile}
    */
-  profile: null
+  profile: null,
+
+  /**
+   * @property {String} profile gender
+   */
+  gender: Ember.computed('profile.gender', function() {
+    var gender = this.get('profile.gender');
+    var lowerGender = gender.toLowerCase();
+    return (lowerGender === 'female' || lowerGender === 'male') ? gender : '';
+  })
 
   // -------------------------------------------------------------------------
   // Observers

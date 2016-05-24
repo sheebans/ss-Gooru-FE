@@ -23,6 +23,7 @@
               <label>
                 <span class="required">{{t "account-settings.email-address"}}</span>
                 {{#if isEditing}}
+                  <!--TODO-->
                   {{!validation.gru-input model=tempProfile valuePath='title' maxLength=50}}
                 {{else}}
                   <b>{{profile.email}}</b>
@@ -33,6 +34,7 @@
               <label>
                 <span class="required">{{t "common.password"}}</span>
                 {{#if isEditing}}
+                  <!--TODO-->
                 {{!validation.gru-input model=tempProfile valuePath='title' maxLength=50}}
                 {{else}}
                   <b>
@@ -63,20 +65,22 @@
       <div class="content">
         <div class="panel panel-default">
           <div class="panel-body">
-            <div class="email">
+            <div class="gender">
               <label>
                 <span class="required">{{t "account-settings.gender"}}</span>
                 {{#if isEditing}}
+                  <!--TODO-->
                 {{!validation.gru-input model=tempProfile valuePath='title' maxLength=50}}
                 {{else}}
-                  <b>{{profile.gender}}</b>
+                  <b>{{gender}}</b>
                 {{/if}}
               </label>
             </div>
-            <div class="password">
+            <div class="dateOfBirth">
               <label>
                 <span class="required">{{t "account-settings.birthday"}}</span>
                 {{#if isEditing}}
+                  <!--TODO-->
                 {{!validation.gru-input model=tempProfile valuePath='title' maxLength=50}}
                 {{else}}
                   <b>{{formatDate profile.dateOfBirth 'MMMM DD, YYYY'}}</b>

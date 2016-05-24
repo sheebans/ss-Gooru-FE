@@ -3,6 +3,7 @@
   > article {
     min-width: inherit;
     header {
+      padding: 20px 5% 0 5%;
       h1 {
         @media (max-width: $screen-xs-max) {
           font-size: $font-size-h4;
