@@ -1,14 +1,14 @@
 .content.modals.gru-delete-content{
-  .modal-header.delete {
+  .modal-header {
     background-color: $yellow-400;
   }
-  .delete-info{
+  .modal-body form div{
     ul{
       list-style: none;
       padding-left: 0;
     }
   }
-  .delete-input{
+  input[type=text]{
     outline: none;
   }
   p span, span{

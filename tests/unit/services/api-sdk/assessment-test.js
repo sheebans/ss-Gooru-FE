@@ -122,3 +122,24 @@ test('deleteAssessment', function(assert) {
       done();
     });
 });
+
+test('copyAssessment', function(assert) {
+  const service = this.subject();
+
+  assert.expect(1);
+
+  // There is not a Adapter stub in this case
+  // Pretender was included because it is needed to simulate the response Headers including the Location value
+  this.pretender.map(function() {
+    this.post('/api/nucleus/v1/copier/assessments/assessment-id', function() {
+      return [201, {'Content-Type': 'text/plain', 'Location': 'copy-assessment-id'}, ''];
+    }, false);
+  });
+
+  var done = assert.async();
+  service.copyAssessment('assessment-id')
+    .then(function(response) {
+      assert.equal(response, 'copy-assessment-id', 'Wrong assessment id');
+      done();
+    });
+});

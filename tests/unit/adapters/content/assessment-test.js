@@ -101,3 +101,19 @@ test('deleteAssessment', function(assert) {
       assert.ok(true);
     });
 });
+
+test('copyAssessment', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.post('/api/nucleus/v1/copier/assessments/assessment-id', function() {
+      return [201, {'Content-Type': 'text/plain', 'Location': 'copy-assessment-id'}, ''];
+    }, false);
+  });
+  adapter.copyAssessment('assessment-id')
+    .then(function(response) {
+      assert.equal('', response, 'Wrong response');
+    });
+});

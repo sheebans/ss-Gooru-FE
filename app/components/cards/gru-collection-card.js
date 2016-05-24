@@ -30,6 +30,10 @@ export default Ember.Component.extend({
 
     editCollection: function(){
       this.sendAction("onEditCollection", this.get("collection"));
+    },
+
+    remixCollection: function(){
+      this.sendAction("onRemixCollection", this.get("collection"));
     }
 
   },
@@ -94,6 +98,11 @@ export default Ember.Component.extend({
    * @property {string} edit action
    */
   onEditCollection: null,
+
+  /**
+   * @property {string} remix action
+   */
+  onRemixCollection: null,
 
   visibility:null,
 

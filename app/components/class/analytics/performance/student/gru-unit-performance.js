@@ -50,6 +50,15 @@ export default Ember.Component.extend({
       this.get('onSelectResource')(unitId, lessonId, collectionId);
     },
     /**
+     * @function actions:viewReport
+     * @param {string} lessonId - Identifier for a lesson
+     * @param {string} collectionId - Identifier for collection/assessment
+     */
+    viewReport: function (lessonId, collectionId) {
+      let unitId = this.get("unit.id");
+      this.get('onViewReport')(unitId, lessonId, collectionId);
+    },
+    /**
      * Update selected lesson action
      * @param {string} lessonId
      */

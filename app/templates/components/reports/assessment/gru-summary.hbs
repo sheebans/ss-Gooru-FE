@@ -14,10 +14,10 @@
         <span class="attempt-selector">
           <span class="dropdown current-attempt">
             <button class="btn btn-default dropdown-toggle" type="button"
-                    data-toggle="dropdown">{{assessmentResult.selectedAttempt}}<span class="caret"></span></button>
+                    data-toggle="dropdown">{{selectedAttempt}}<span class="caret"></span></button>
             <ul class="dropdown-menu">
               {{#each attempts as |attempt|}}
-                  <li><a href="#{{attempt.value}}">{{attempt.label}}</a></li>
+                  <li><a {{action 'selectAttempt' attempt.value}}>{{attempt.label}}</a></li>
               {{/each}}
             </ul>
           </span>
