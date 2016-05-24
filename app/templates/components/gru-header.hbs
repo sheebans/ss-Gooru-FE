@@ -80,6 +80,11 @@
                         {{/link-to}}
                       </li>
                       <li class="navbar-nav-list">
+                        {{#link-to 'account-settings' session.userData.gooruUId class="navbar-link"}}
+                          <span class="settings">{{t "common.settings"}}</span>
+                        {{/link-to}}
+                      </li>
+                      <li class="navbar-nav-list">
                           <a class="navbar-link" {{action "logout"}}> {{t "common.logout"}}</a>
                       </li>
                   </ul>
@@ -109,6 +114,11 @@
                       <li class="navbar-nav-list">
                         {{#link-to 'profile.content.courses' session.userData.gooruUId class="navbar-link"}}
                             <span class="">{{t "common.profile"}}</span>
+                        {{/link-to}}
+                      </li>
+                      <li class="navbar-nav-list">
+                        {{#link-to 'account-settings' session.userData.gooruUId class="navbar-link"}}
+                          <span class="settings">{{t "common.settings"}}</span>
                         {{/link-to}}
                       </li>
                       <li class="navbar-nav-list">

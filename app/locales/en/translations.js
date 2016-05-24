@@ -210,6 +210,7 @@ export default {
     },
     "of": "of",
     "other": "Other",
+    "password": "Password",
     "pending":"Pending",
     "performance":"Show Performance",
     "play": "Play",
@@ -942,5 +943,14 @@ export default {
   },
   "validations": {
     "unsavedChanges": "Your changes haven't saved yet. Would you like to leave this page?"
+  },
+
+  "account-settings": {
+    "title": "Account Settings",
+    "account-info": "Account Info",
+    "private-info": "Private Info",
+    "email-address": "Email Address",
+    "gender": "Gender",
+    "birthday": "Birthday"
   }
 };
