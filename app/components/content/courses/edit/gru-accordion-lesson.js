@@ -42,7 +42,7 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
     },
 
     saveLesson: function () {
-      var courseId = this.get('courseId');
+      var courseId = this.get('course.id');
       var unitId = this.get('unitId');
       var editedLesson = this.get('tempLesson');
       var lessonService = this.get('lessonService');
@@ -86,9 +86,9 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
       var model = {
         content: this.get('lesson'),
         index:this.get('index'),
-        parentName:this.get('courseTitle'),
+        parentName:this.get('course.title'),
         deleteMethod: function () {
-          return this.get('lessonService').deleteLesson(this.get('courseId'),this.get('unitId'),this.get('lesson.id'));
+          return this.get('lessonService').deleteLesson(this.get('course.id'),this.get('unitId'),this.get('lesson.id'));
         }.bind(this),
         type: CONTENT_TYPES.LESSON,
         callback:{
@@ -108,7 +108,7 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
   init() {
     this._super(...arguments);
 
-    let courseId = this.get('courseId');
+    let courseId = this.get('course.id');
     let unitId = this.get('unitId');
     let lessonId = this.get('lesson.id');
     this.set('newCollectionModel', {

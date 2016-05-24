@@ -77,7 +77,7 @@ export default PlayerAccordionUnit.extend(ModalMixin,{
     },
 
     saveUnit: function () {
-      var courseId = this.get('courseId');
+      var courseId = this.get('course.id');
       var editedUnit = this.get('tempUnit');
       var unitService = this.get('unitService');
 
@@ -106,9 +106,9 @@ export default PlayerAccordionUnit.extend(ModalMixin,{
       var model = {
           content: this.get('unit'),
           index:this.get('index'),
-          parentName:this.get('courseTitle'),
+          parentName:this.get('course.title'),
           deleteMethod: function () {
-            return this.get('unitService').deleteUnit(this.get('courseId'),this.get('unit.id'));
+            return this.get('unitService').deleteUnit(this.get('course.id'), this.get('unit.id'));
           }.bind(this),
           type: CONTENT_TYPES.UNIT,
           callback:{
