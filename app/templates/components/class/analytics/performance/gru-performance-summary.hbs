@@ -7,7 +7,7 @@
       <div>
         {{#if performance.isCompleted}}
             <div class="btn-group">
-                <button class="btn btn-info collection-view-report-button">
+                <button class="btn btn-info collection-view-report-button" {{action "viewReport" performance.id}}>
                     <span>{{gru-icon name="show_chart"}}{{t "gru-performance-summary.view-report"}}</span></button>
                 <button class="btn btn-info collection-redo-button" {{action "selectResource" performance.id}}>
                     <span>{{gru-icon name="replay"}}{{t "gru-performance-summary.redo"}}</span></button>

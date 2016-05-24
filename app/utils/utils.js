@@ -3,7 +3,6 @@ import { isNumeric } from './math';
 import {
   EMOTION_VALUES,
   GRADING_SCALE } from 'gooru-web/config/config';
-
 /*
  * Function for sorting strings alphabetically in ascending order
  * @param {string} a
@@ -320,9 +319,6 @@ export function normalizeQuestionTypes(questionType) {
  * Returns filename from url
  * @param {String} file complete url
  */
-export function cleanFilename(url){
-  if(url) {
-    return url.split('/').pop();
-  }
-  return url;
+export function cleanFilename(url) {
+  return url ? /([^\/]*\/\/[^\/]+\/)?(.+)/.exec(url)[2] : url;
 }

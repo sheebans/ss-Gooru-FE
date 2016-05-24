@@ -1,9 +1,12 @@
-{{reports.assessment.gru-summary assessmentResult=assessmentResult onBubbleSelect='bubbleSelect'}}
+{{reports.assessment.gru-summary assessmentResult=assessmentResult
+  onSelectAttempt='selectAttempt'
+  onBubbleSelect='bubbleSelect'}}
 
 {{#if assessmentResult.hasMastery}}
   {{reports.assessment.gru-mastery
     learningTargets=assessmentResult.mastery
-    assessmentResult=assessmentResult onBubbleSelect='bubbleSelect'}}
+    assessmentResult=assessmentResult
+    onBubbleSelect='bubbleSelect'}}
 {{/if}}
 
 {{reports.assessment.gru-questions results=orderedQuestions}}

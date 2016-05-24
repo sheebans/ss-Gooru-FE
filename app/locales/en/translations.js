@@ -34,8 +34,8 @@ export default {
       other: "Assessments"
     },
     "assessment-title":"Assessment Title",
-    "assessments": "Assessments",
     "assessmentInitial": "A",
+    "assessments": "Assessments",
     "attempt": "Attempt number",
     "audience":"Audience",
     "audienceList": {
@@ -46,9 +46,9 @@ export default {
       "special-needs": "Students With Special Needs",
       "teachers": "Teachers"
     },
-    "of": "of",
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
+    "back": "Back",
     "best-practices": "Best Practices",
     "big-ideas": "Big Ideas",
     "biography": "Biography",
@@ -60,6 +60,7 @@ export default {
       "higher-ed": "Higher Education",
       "professional-dev": "Professional Development"
     },
+    "classes": "Classes",
     "classScores": "Class Scores",
     "close": "Close",
     "collection":"Collection",
@@ -77,14 +78,18 @@ export default {
     "copy-to": "Copy To",
     "correct": "Correct",
     "correct-answer":"Correct Answer",
-    "course-map": "Course Map",
     "country": "Country",
+    "course-map": "Course Map",
     "course":"Course",
     "course-title": "Course Title",
     "courses": "Courses",
     "create": "Create",
     "created-by":"Created by",
     "delete":"Delete",
+    "delete-instructions": {
+      "links-inaccessible":"All share links will be inaccessible",
+      "content-inaccessible":"All content will be inaccessible to the classes tied to it"
+    },
     "description": "Description",
     "district": "District",
     "domain": "Domain",
@@ -112,13 +117,17 @@ export default {
       "add-question-title":"Please enter the question title.",
       "assessment-title-presence" : "Please enter the assessment title.",
       "can-not-join-class" : "Oops! Unable to join class. Please try again shortly.",
+      "assessment-not-copied": "Oops! Unable to copy assessment right now. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
       "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
+      "class-title-presence": "Please give your class a name.",
+      "collection-not-copied": "Oops! Unable to copy collection right now. Please try again shortly.",
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "collection-not-updated": "Oops! Unable to update collection right now. Please try again shortly.",
       "collection-title-presence" : "Please enter the collection title.",
       "correct-answer-presence": "Please indicate the correct answer.",
+      "course-not-copied": "Oops! Unable to copy course right now. Please try again shortly.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
       "highlight-text-not-selected": "Please indicate the correct answer.",
@@ -154,12 +163,13 @@ export default {
     "followers": "Followers",
     "following": "Following",
     "forgotPassword": "Forgot Password",
+    "from":"from",
     "from-my-assessments": "From My Assessments",
     "from-my-collections": "From My Collections",
     "from-my-questions": "From My Questions",
     "from-my-resources": "From My Resources",
-    "hints": "Hints",
     "hide-results":"Hide Results",
+    "hints": "Hints",
     "home": "Home",
     "if_questions": "If you have any questions,",
     "information": "Information",
@@ -171,22 +181,20 @@ export default {
     "learning-target":"Learning Target",
     "learning-target-mobile":"Learning Target in Standard",
     "lesson": "Lesson",
-    "back": "Back",
+    "lessonInitial": "L",
     "lessonObj": {
       one: "Lesson",
       other: "Lessons"
     },
-    "lessonInitial": "L",
     "libraries": "Libraries",
     "license": "License",
     "loading": "Loading ...",
     "login": "Log in",
     "logout": "Logout",
-    "classes": "Classes",
-    "myContent": "My Content",
     "mastery":"Mastery",
     "menu": "Menu",
     "more-details":"More Details",
+    "myContent": "My Content",
     "new-assessment": "New Assessment",
     "new-collection": "New Collection",
     "new-question": "New Question",
@@ -197,20 +205,21 @@ export default {
     "no-results": "No Results Found",
     "no-results-message":"Check your spelling. We all make mistakes!<br/>Go broader & remove some filters.<br/>Try searching for a similar word instead.",
     "notStarted": "Not started",
-    "not-specified":"Not specified",
-    "not-provided": "Not provided",
     "not-added":"Not Added",
+    "not-provided": "Not provided",
+    "not-specified":"Not specified",
     "nothing-to-display-message":"Nothing to display.",
     "number":"No.",
     "numberStudents": {
       one: "{{count}} Student",
       other: "{{count}} Students"
     },
+    "of": "of",
     "other": "Other",
+    "pending":"Pending",
     "performance":"Show Performance",
     "play": "Play",
     "please_contact": "Please contact",
-    "pending":"Pending",
     "preview": "Preview",
     "profile": "Profile",
     "publish-to":" Publish to my profile",
@@ -238,7 +247,19 @@ export default {
       "HT_HL"  : "Hot Text Highlight"
     },
     "reaction": "Reaction",
+    "remaining": "{{number}} Left",
+    "remix":"Remix",
+    "remix-assessment": "Remix Assessment",
+    "remix-assessment-lead": "You are about to remix an assessment.",
+    "remix-assessment-success": "You've remixed an assessment {{assessmentTitle}}. Do you want to edit that assessment?",
+    "remix-collection": "Remix Collection",
+    "remix-collection-lead": "You are about to remix a collection.",
+    "remix-collection-success": "You've remixed a collection {{collectionTitle}}. Do you want to edit that collection?",
+    "remix-course": "Remix Course",
+    "remix-course-lead": "You are about to remix a course.",
+    "remix-course-success": "You've remixed a course {{courseTitle}}. Do you want to edit that course?",
     "remixed-by": "Remixed by",
+    "remove":"Remove",
     "request-to":"Request to be searchable and featured in Gooru",
     "resource":"Resource",
     "resources": "Resources",
@@ -257,19 +278,17 @@ export default {
     },
     "resource-title":"Resource Title",
     "resource-url": "Resource URL",
-    "remaining": "{{number}} Left",
-    "remix":"Remix",
     "role": "Role",
     "save": "Save",
     "save-next": "Save and Next",
     "save-submit": "Save and Submit All",
     "save-finish": "Save and Finish",
-    "select": "Select",
-    "sentence": "Sentence",
-    "settings":"Settings",
     "school": "School",
     "school-info": "School Information",
     "score":"Score",
+    "select": "Select",
+    "sentence": "Sentence",
+    "settings":"Settings",
     "search": "Search",
     "search-placeholder": "Search...",
     "search-error-message": "Search terms need to be more than 3 letters.",
@@ -285,9 +304,9 @@ export default {
     "standard":"Standard",
     "standards": "Standards",
     "study": "Study",
+    "student": "Student",
     "submit": "Submit",
     "submit-all":"Submit all",
-    "student": "Student",
     "suggested-resources":"Suggested Resources",
     "teach": "Teach",
     "teacher": "Teacher",
@@ -310,12 +329,12 @@ export default {
     "upload-thumbnail":"Upload Thumbnail",
     "use-case": "Use Case",
     "verified": "Verified",
-    "yes": "Yes",
     "warnings": {
       "on-air-connection-lost": "The On Air feature has lost connection and is retrying automatically. While it's tempting, please don't refresh your screen!",
       "character-limit": "You've reached the character limit."
     },
-    "word": "Word"
+    "word": "Word",
+    "yes": "Yes"
   },
 
   /*
@@ -381,7 +400,14 @@ export default {
       "share-class":"Share Class",
       "invite-collaborator":"Invite Collaborator",
       "invite-student":"Invite Student",
-      "class-code": "Class Code"
+      "class-code": "Class Code",
+      "delete":"Delete Class",
+    },
+    "edit":{
+      "edit-class": "Edit Class Information",
+      "class-name": "Class Name",
+      "class-greetings": "Class Greetings",
+      "class-greetings-placeholder": "Greet your students, motivate them, or make an announcement, etc."
     },
     "overview":{
       "title":"Course map",
@@ -511,13 +537,15 @@ export default {
   },
   "content.modals.delete-content":{
     "legend":"You are about to delete",
-    "delete-instructions": {
-      "links-inaccessible":"All share links will be inaccessible",
-      "content-inaccessible":"All content will be inaccessible to the classes tied to it"
-    },
+    "content-legend":"<span>{{type}}</span> {{index}} - {{title}} from <span>{{parentName}}</span>",
     "delete-warning": "All content in this {{type}} will be deleted",
     "delete-error": "Oops! Unable to delete {{type}} right now. Please try again shortly.",
     "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."
+  },
+  "content.modals.remove-content":{
+    "legend":"You are about to remove <b>{{title}}</b> from <b>{{parentName}}</b>",
+    "remove-error": "Oops! Unable to remove {{type}} right now. Please try again shortly.",
+    "confirmation": "Are you sure you want to continue? Please type “remove” below and click “remove”."
   },
   "content.resources": {
     "edit": {
@@ -553,12 +581,15 @@ export default {
     "assign":"Assign"
   },
   "gru-share-pop-over":{
+    "copy": "Copy",
+    "ios-tooltip" : "Hold tap to copy!",
+    "safari-multiarch-tooltip":"Press Ctrl + C to copy!",
+    "safari-osx-tooltip":"Press Ctrl + C to copy!",
     "share-course":"Share your course with link",
     "share-question":"Share your question with link",
     "share-resource":"Share your resource with link",
     "share-assessment":"Share your assessment with link",
     "share-collection":"Share your collection with link",
-    "copy": "Copy"
   },
   "gru-category-panel": {
     "teacher": {
@@ -934,5 +965,9 @@ export default {
   },
   "validations": {
     "unsavedChanges": "Your changes haven't saved yet. Would you like to leave this page?"
+  },
+  "featured":{
+    "featured-title" : "Featured Courses",
+    "featured-description" : "Welcome to the Gooru courses! These featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, discrits, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix and customize courses to personalize learning and increase student engagement! Click here to <a href=''>learn more</a> about the development of these courses."
   }
 };

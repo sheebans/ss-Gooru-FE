@@ -53,6 +53,14 @@ export default Ember.Component.extend({
      */
     selectResource: function (collectionId) {
       this.get('onSelectResource')(collectionId);
+    },
+
+    /**
+     * @function actions:viewReport
+     * @param {string} collectionId - Identifier for a resource (collection/assessment)
+     */
+    viewReport: function (collectionId) {
+      this.get('onViewReport')(collectionId);
     }
   },
 

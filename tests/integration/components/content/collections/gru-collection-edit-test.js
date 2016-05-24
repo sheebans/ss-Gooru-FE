@@ -5,7 +5,11 @@ import Collection from 'gooru-web/models/content/collection';
 import Course from 'gooru-web/models/content/course';
 
 moduleForComponent('content/collections/gru-collection-edit', 'Integration | Component | content/collections/gru collection edit', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.i18n = this.container.lookup('service:i18n');
+    this.i18n.set("locale","en");
+  }
 });
 
 test('it has header and main sections', function (assert) {

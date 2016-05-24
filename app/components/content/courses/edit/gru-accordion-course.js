@@ -38,8 +38,8 @@ export default PlayerAccordionCourse.extend({
       builderItem.destroy();
     },
 
-    removeUnit: function () {
-      Ember.Logger.log('Unit should be removed');
+    removeUnit: function (builderItem) {
+      this.get('items').removeObject(builderItem);
     }
 
   }

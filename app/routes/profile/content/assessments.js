@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import ModalMixin from 'gooru-web/mixins/modal';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -19,6 +20,14 @@ export default Ember.Route.extend({
      */
     editAssessment: function (assessment) {
       this.transitionTo("content.assessments.edit", assessment.get("id"));
+    },
+
+    /**
+     * On card remix assessment button click
+     * @param {Assessment} assessment
+     */
+    remixAssessment: function (assessment) {
+      this.send('showModal', "content.modals.gru-assessment-remix", assessment);
     }
   },
 

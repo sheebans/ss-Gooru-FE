@@ -32,6 +32,28 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Updates an existing class
+   *
+   * @param data class data to be sent in the request body
+   * @returns {Promise}
+   */
+  updateClass: function(data) {
+    const adapter = this;
+    const classId = data.classId;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/${classId}`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify(data.class)
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
    * Join class
    *
    * @param {string} code class code

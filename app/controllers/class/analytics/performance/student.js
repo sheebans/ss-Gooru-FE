@@ -80,6 +80,13 @@ export default Ember.Controller.extend({
   "class": Ember.computed.reads('classController.class'),
 
   /**
+   * A link to the computed property isStudent in class controller
+   * @see controllers/class.js
+   * @property {isStudent}
+   */
+  isStudent: Ember.computed.alias('classController.isStudent'),
+
+  /**
    * The performances for the units that will be shown to the user
    * @property {Ember.Array}
    */

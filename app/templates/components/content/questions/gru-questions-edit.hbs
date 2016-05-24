@@ -15,7 +15,7 @@
           {{gru-icon name="insert_link"}}
         {{/gru-share-pop-over}}
         <button class="btn btn-default add hidden">{{t "content.questions.edit.add-to"}}</button>
-        <button class="btn btn-default preview">{{t "common.preview"}}</button>
+        {{#link-to 'content.questions.play' question.id class="btn btn-default preview" tagName="button"}}{{t "common.preview"}}{{/link-to}}
     </div>
 
     <nav>

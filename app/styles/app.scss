@@ -19,6 +19,7 @@
 @import 'controllers/class/info';
 @import 'controllers/class/overview';
 @import 'controllers/class/quick-start';
+@import 'controllers/class/edit';
 @import 'controllers/classes';
 @import 'controllers/content/classes/modals';
 @import 'controllers/content/classes/create';
@@ -44,11 +45,13 @@
 @import 'controllers/profile/courses';
 @import 'controllers/profile/network';
 @import 'controllers/reports/collection';
+@import 'controllers/reports/student-collection';
 @import 'controllers/search';
 @import 'controllers/sign-in';
 @import 'controllers/sign-up';
 @import 'controllers/home';
 @import 'controllers/forgot-password';
+@import 'controllers/featured';
 
 
 // TODO: update these components so they follow the naming conventions
@@ -65,6 +68,7 @@
 @import 'components/gru-bubbles';
 @import 'components/gru-category-panel';
 @import 'components/gru-emotion-picker';
+@import 'components/gru-featured-courses';
 @import 'components/gru-footer';
 @import 'components/gru-header';
 @import 'components/gru-image-picker';
@@ -113,9 +117,11 @@
 @import 'components/content/gru-taxonomy-selector';
 @import 'components/content/collections/gru-collection-list';
 @import 'components/content/modals';
+@import 'components/content/modals/gru-base-remix';
 @import 'components/content/modals/gru-delete-content';
 @import 'components/content/modals/gru-question-new';
 @import 'components/content/modals/gru-quick-course-search';
+@import 'components/content/modals/gru-remove-content';
 @import 'components/content/modals/gru-resource-new';
 @import 'components/content/questions/answers/gru-hot-text-highlight';
 @import 'components/content/questions/answers/gru-hs-image';

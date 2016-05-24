@@ -4,6 +4,7 @@ import ResourceModel from 'gooru-web/models/content/resource';
 import QuestionModel from 'gooru-web/models/content/question';
 import AssessmentModel from 'gooru-web/models/content/assessment';
 import CollectionModel from 'gooru-web/models/content/collection';
+import CourseModel from 'gooru-web/models/content/course';
 import ProfileModel from 'gooru-web/models/profile/profile';
 import { DEFAULT_IMAGES } from 'gooru-web/config/config';
 
@@ -41,25 +42,35 @@ export default Ember.Object.extend({
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = collectionData.thumbnail ? basePath + collectionData.thumbnail : DEFAULT_IMAGES.COLLECTION;
     const userThumbnailUrl = collectionData.userProfileImage ? basePath + collectionData.userProfileImage : DEFAULT_IMAGES.USER_PROFILE;
+    const creatorThumbnailUrl = collectionData.creatorProfileImage ? basePath + collectionData.creatorProfileImage : DEFAULT_IMAGES.USER_PROFILE;
 
+    const course = collectionData.course || {};
     return CollectionModel.create({
       id: collectionData.id,
       title: collectionData.title,
       thumbnailUrl: thumbnailUrl,
-      standards: [],//TODO missing at API response,
-      publishStatus: null, //TODO missing at API response,
+      standards: serializer.normalizeStandards(collectionData),
+      publishStatus: collectionData.publishStatus,
       learningObjectives: collectionData.languageObjective,
       resourceCount: collectionData.resourceCount || 0,
       questionCount: collectionData.questionCount || 0,
       remixCount: collectionData.scollectionRemixCount || 0,
-      course: null, //TODO missing at API response,
+      course: course.title,
+      courseId: course.id,
       isVisibleOnProfile: collectionData.profileUserVisibility,
       owner: ProfileModel.create({
-        "id": collectionData.userId,
+        "id": collectionData.gooruUId,
         "firstName": collectionData.userFirstName,
         "lastName": collectionData.userLastName,
         "avatarUrl": userThumbnailUrl,
         "username": collectionData.usernameDisplay
+      }),
+      creator: ProfileModel.create({
+        "id": collectionData.creatorId,
+        "firstName": collectionData.creatorFirstname,
+        "lastName": collectionData.creatorLastname,
+        "avatarUrl": creatorThumbnailUrl,
+        "username": collectionData.creatornameDisplay
       })
     });
   },
@@ -73,26 +84,36 @@ export default Ember.Object.extend({
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = assessmentData.thumbnail ? basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
-    const userThumbnailUrl = assessmentData.userProfileImage ? basePath + assessmentData.userProfileImage : DEFAULT_IMAGES.USER_PROFILE;
+    const ownerThumbnailUrl = assessmentData.userProfileImage ? basePath + assessmentData.userProfileImage : DEFAULT_IMAGES.USER_PROFILE;
+    const creatorThumbnailUrl = assessmentData.creatorProfileImage ? basePath + assessmentData.creatorProfileImage : DEFAULT_IMAGES.USER_PROFILE;
 
+    const course = assessmentData.course || {};
     return AssessmentModel.create({
       id: assessmentData.id,
       title: assessmentData.title,
       thumbnailUrl: thumbnailUrl,
-      standards: [],//TODO missing at API response,
-      publishStatus: null, //TODO missing at API response,
+      standards: serializer.normalizeStandards(assessmentData),
+      publishStatus: assessmentData.publishStatus,
       learningObjectives: assessmentData.languageObjective,
       resourceCount: assessmentData.resourceCount ? Number(assessmentData.resourceCount) : 0,
       questionCount: assessmentData.questionCount ? Number(assessmentData.questionCount) : 0,
       remixCount: assessmentData.scollectionRemixCount || 0,
-      course: null, //TODO missing at API response,
+      course: course.title,
+      courseId: course.id,
       isVisibleOnProfile: assessmentData.profileUserVisibility,
       owner: ProfileModel.create({
-        "id": assessmentData.userId,
+        "id": assessmentData.gooruUId,
         "firstName": assessmentData.userFirstName,
         "lastName": assessmentData.userLastName,
-        "avatarUrl": userThumbnailUrl,
+        "avatarUrl": ownerThumbnailUrl,
         "username": assessmentData.usernameDisplay
+      }),
+      creator: ProfileModel.create({
+        "id": assessmentData.creatorId,
+        "firstName": assessmentData.creatorFirstname,
+        "lastName": assessmentData.creatorLastname,
+        "avatarUrl": creatorThumbnailUrl,
+        "username": assessmentData.creatornameDisplay
       })
     });
   },
@@ -160,7 +181,7 @@ export default Ember.Object.extend({
       thumbnailUrl: result.thumbnail,
       type: type,
       owner: result.user ? serializer.normalizeOwner(result.user) : null,
-      standards: [], //TODO missing standards at API response serializer.normalizeStandards(result)
+      standards: serializer.normalizeStandards(result)
     });
   },
 
@@ -178,11 +199,10 @@ export default Ember.Object.extend({
       description: result.description,
       format: format,
       url: result.url,
-      publisher: null, //TODO missing publisher at API response,
-      thumbnailUrl: result.thumbnail, // TODO missing at API response
+      creator: result.creator ? serializer.normalizeOwner(result.creator) : null,
       owner: result.user ? serializer.normalizeOwner(result.user) : null,
-      standards: [] //TODO missing standards at API response serializer.normalizeStandards(result)
-      //publisherStatus //TODO missing at API response
+      standards: serializer.normalizeStandards(result),
+      publishStatus: result.publishStatus
     });
   },
 
@@ -192,12 +212,16 @@ export default Ember.Object.extend({
    * @returns {Profile}
    */
   normalizeOwner: function (ownerData) {
+    const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl =  ownerData.profileImageUrl ? basePath +  ownerData.profileImageUrl : DEFAULT_IMAGES.USER_PROFILE;
+
     return ProfileModel.create({
       id: ownerData.gooruUId,
       firstName: ownerData.firstName,
       lastName: ownerData.lastName,
-      username: ownerData.usernameDisplay, //TODO missing username on API response
-      avatarUrl: ownerData.profileImageUrl //TODO missing username on API response
+      username: ownerData.usernameDisplay,
+      avatarUrl: thumbnailUrl
     });
   },
 
@@ -218,6 +242,44 @@ export default Ember.Object.extend({
       }
     }
     return standards;
+  },
+
+  /**
+   * Normalize the Search course response
+   *
+   * @param payload is the endpoint response in JSON format
+   * @returns {Course[]}
+   */
+  normalizeSearchCourses: function(payload) {
+    const serializer = this;
+    if (Ember.isArray(payload.searchResults)) {
+      return payload.searchResults.map(function(result) {
+        return serializer.normalizeCourse(result);
+      });
+    }
+  },
+
+  /**
+   * Normalizes a course
+   * @param {*} result
+   * @returns {Course}
+   */
+  normalizeCourse: function(result){
+    const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const thumbnailUrl = result.thumbnail ? basePath + result.thumbnail : DEFAULT_IMAGES.COURSE;
+    return CourseModel.create({
+      id: result.id,
+      title: result.title,
+      description: result.description,
+      thumbnailUrl: thumbnailUrl,
+      subject: result.subjectBucket,
+      isVisibleOnProfile: result.visibleOnProfile,
+      isPublished: result.publishStatus === 'published',
+      unitCount: result.unitCount,
+      taxonomy: result.taxonomy && result.taxonomy.subject ? result.taxonomy.subject.slice(0) : null,
+      owner: result.owner ? serializer.normalizeOwner(result.owner) : null
+    });
   }
 
 });

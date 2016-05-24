@@ -145,8 +145,23 @@ export default Ember.Service.extend({
   deleteCollection: function (collectionId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('adapter').deleteCollection(collectionId)
+      service.get('collectionAdapter').deleteCollection(collectionId)
         .then(resolve, reject);
+    });
+  },
+
+  /**
+   * Copies a collection by id
+   * @param {string} collectionId
+   * @returns {Ember.RSVP.Promise}
+   */
+  copyCollection: function(collectionId){
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('collectionAdapter').copyCollection(collectionId)
+        .then(function(responseData, textStatus, request) {
+          resolve(request.getResponseHeader('location'));
+        }, reject );
     });
   }
 

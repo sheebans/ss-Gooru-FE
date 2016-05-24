@@ -124,6 +124,17 @@ export default (function() {
     owner: null,
 
     /**
+     * @property {Content/User} owner - The resource creator information
+     */
+    creator: null,
+
+    /**
+     * When the owner and the creator are the same
+     * @property {boolean}
+     */
+    sameOwnerAndCreator: Ember.computed.equal("owner.id", "creator.id"),
+
+    /**
      * @property {string} assessment|collection
      */
     collectionType: null,

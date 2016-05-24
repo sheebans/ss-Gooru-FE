@@ -26,16 +26,27 @@ test('normalizeCollection', function(assert) {
     "userLastName": "Barris",
     "userProfileImage": "profile.png",
     "usernameDisplay": "username",
-    "userId": 12,
-    "thumbnail": "collection.png"
+    "gooruUId": 12,
+    "creatorFirstname": "Creator",
+    "creatorLastname": "Tail",
+    "creatorProfileImage": "profile-creator.png",
+    "creatornameDisplay": "username-creator",
+    "creatorId": 13,
+    "thumbnail": "collection.png",
+    "publishStatus": 'published',
+    "course": {
+      "title": "Course A",
+      "id": 10
+    }
   };
 
   const collection = serializer.normalizeCollection(collectionData);
   assert.equal(collection.get("id"), 'd9616037-9fc8-4641-8d32-99fb956406d3', 'Wrong id');
   assert.equal(collection.get("title"), 'Cell Growth and Division', 'Wrong title');
-  // TODO assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
+  assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
   assert.equal(collection.get("thumbnailUrl"), '//basepath/collection.png', 'Wrong image');
-  // TODO assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
+  assert.equal(collection.get("course"), 'Course A', 'Wrong course name');
+  assert.equal(collection.get("courseId"), 10, 'Wrong course id');
   assert.equal(collection.get("isVisibleOnProfile"), true, 'Wrong visible on profile');
   assert.equal(collection.get("learningObjectives"), "In this collection", 'Wrong learning objective');
   assert.equal(collection.get("resourceCount"), 5, 'Wrong resource count');
@@ -47,6 +58,11 @@ test('normalizeCollection', function(assert) {
   assert.equal(collection.get("owner.lastName"), "Barris", 'Wrong owner last name');
   assert.equal(collection.get("owner.avatarUrl"), '//basepath/profile.png', 'Wrong owner avatar');
   assert.equal(collection.get("owner.username"), 'username', 'Wrong owner username');
+  assert.equal(collection.get("creator.id"), 13, 'Wrong creator id');
+  assert.equal(collection.get("creator.firstName"), "Creator", 'Wrong creator first name');
+  assert.equal(collection.get("creator.lastName"), "Tail", 'Wrong creator last name');
+  assert.equal(collection.get("creator.avatarUrl"), '//basepath/profile-creator.png', 'Wrong creator avatar');
+  assert.equal(collection.get("creator.username"), 'username-creator', 'Wrong creator username');
 
 });
 
@@ -71,16 +87,27 @@ test('normalizeAssessment', function(assert) {
     "userLastName": "Barris",
     "userProfileImage": "profile.png",
     "usernameDisplay": "username",
-    "userId": 12,
-    "thumbnail": "assessment.png"
+    "gooruUId": 12,
+    "thumbnail": "assessment.png",
+    "creatorFirstname": "Creator",
+    "creatorLastname": "Tail",
+    "creatorProfileImage": "profile-creator.png",
+    "creatornameDisplay": "username-creator",
+    "creatorId": 13,
+    "publishStatus": 'published',
+    "course": {
+      "title": "Course A",
+      "id": 10
+    }
   };
 
   const assessment = serializer.normalizeAssessment(assessmentData);
   assert.equal(assessment.get("id"), 'd9616037-9fc8-4641-8d32-99fb956406d3', 'Wrong id');
   assert.equal(assessment.get("title"), 'Cell Growth and Division', 'Wrong title');
-  // TODO assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
+  assert.equal(assessment.get("publishStatus"), 'published', 'Wrong publish status');
   assert.equal(assessment.get("thumbnailUrl"), '//basepath/assessment.png', 'Wrong image');
-  // TODO assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
+  assert.equal(assessment.get("course"), 'Course A', 'Wrong course name');
+  assert.equal(assessment.get("courseId"), 10, 'Wrong course id');
   assert.equal(assessment.get("isVisibleOnProfile"), true, 'Wrong visible on profile');
   assert.equal(assessment.get("learningObjectives"), "In this assessment", 'Wrong learning objective');
   assert.equal(assessment.get("resourceCount"), 5, 'Wrong resource count');
@@ -92,6 +119,12 @@ test('normalizeAssessment', function(assert) {
   assert.equal(assessment.get("owner.lastName"), "Barris", 'Wrong owner last name');
   assert.equal(assessment.get("owner.avatarUrl"), '//basepath/profile.png', 'Wrong owner avatar');
   assert.equal(assessment.get("owner.username"), 'username', 'Wrong owner username');
+  assert.equal(assessment.get("creator.id"), 13, 'Wrong creator id');
+  assert.equal(assessment.get("creator.firstName"), "Creator", 'Wrong creator first name');
+  assert.equal(assessment.get("creator.lastName"), "Tail", 'Wrong creator last name');
+  assert.equal(assessment.get("creator.avatarUrl"), '//basepath/profile-creator.png', 'Wrong creator avatar');
+  assert.equal(assessment.get("creator.username"), 'username-creator', 'Wrong creator username');
+
 
 });
 
@@ -219,6 +252,13 @@ test('normalizeResource', function(assert) {
     },
     "title": "Cells Unit",
     "url": "https://docs.google.com/file/d/0B9aKdxaTnscydmJGa2pXbEx6Wmc",
+    "creator": {
+      "emailId": "",
+      "firstName": "goorutfa",
+      "gooruUId": "aaaa-c225-4a01-9ec3-5371b2274ccb",
+      "lastName": "tfagooru",
+      "partyUid": "9eb1a416-c225-4a01-9ec3-5371b2274ccb"
+    },
     "user": {
       "emailId": "",
       "firstName": "goorutfa",
@@ -238,10 +278,17 @@ test('normalizeResource', function(assert) {
   //TODO assert.equal(question.get("standards"), 'unpublished', 'Wrong publish status');
   assert.equal(resource.get("url"), "https://docs.google.com/file/d/0B9aKdxaTnscydmJGa2pXbEx6Wmc", 'Wrong url');
   assert.equal(resource.get("owner.id"), "9eb1a416-c225-4a01-9ec3-5371b2274ccb", 'Wrong owner id');
+  assert.equal(resource.get("creator.id"), "aaaa-c225-4a01-9ec3-5371b2274ccb", 'Wrong creator id');
 });
 
 test('normalizeOwner', function(assert) {
   const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: '//basepath/'
+    }
+  }));
+
   const ownerData = {
     "emailId": "",
     "firstName": "goorutfa",
@@ -256,5 +303,82 @@ test('normalizeOwner', function(assert) {
   assert.equal(owner.get("firstName"), 'goorutfa', 'Wrong first name');
   assert.equal(owner.get("lastName"), 'tfagooru', 'Wrong last name');
   assert.equal(owner.get("username"), 'szope', 'Wrong username');
-  assert.equal(owner.get("avatarUrl"), 'any', 'Wrong avatar url');
+  assert.equal(owner.get("avatarUrl"), '//basepath/any', 'Wrong avatar url');
+});
+
+test('normalizeSearchCourses', function(assert) {
+  const serializer = this.subject();
+  const contentCdnUrl = 'content-url/';
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: contentCdnUrl
+    }
+  }));
+
+  const coursesPayload = {
+    "searchResults": [
+      {
+        "sequence": 1,
+        "title": "title-1",
+        "description": "description-1",
+        "thumbnail": "thumbnail-url-1",
+        "owner": {
+          "emailId": "",
+          "firstName": "",
+          "gooruUId": "owner-id-1",
+          "lastName": "",
+          "usernameDisplay": ""
+        }
+      },
+      {
+        "sequence": 2,
+        "title": "title-2",
+        "description": "description-2",
+        "thumbnail": "thumbnail-url-2",
+        "owner": {
+          "emailId": "",
+          "firstName": "",
+          "gooruUId": "owner-id-2",
+          "lastName": "",
+          "usernameDisplay": ""
+        }
+      }
+    ]
+  };
+
+  const courses = serializer.normalizeSearchCourses(coursesPayload);
+  assert.equal(courses.length, 2, 'Wrong courses length');
+  assert.equal(courses[0].get("title"), "title-1", 'Wrong title for course 1');
+  assert.equal(courses[1].get("title"), "title-2", 'Wrong title for course 2');
+});
+
+test('normalizeCourse', function(assert) {
+  const serializer = this.subject();
+  const contentCdnUrl = 'content-url/';
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: contentCdnUrl
+    }
+  }));
+  const courseData = {
+    "id": "course-id",
+    "sequence": "1",
+    "title": "title",
+    "description": "description",
+    "thumbnail": "thumbnail-url",
+    "owner": {
+      "emailId": "",
+      "firstName": "",
+      "gooruUId": "owner-id",
+      "lastName": "",
+      "usernameDisplay": ""
+    }
+  };
+
+  const course = serializer.normalizeCourse(courseData);
+  assert.equal(course.get("id"), "course-id", 'Wrong id');
+  assert.equal(course.get("title"), 'title', 'Wrong title');
+  assert.equal(course.get("description"), 'description', 'Wrong description');
+  assert.equal(course.get("thumbnailUrl"), 'content-url/thumbnail-url', 'Wrong thumbnail');
+  assert.equal(course.get("owner.id"), "owner-id", 'Wrong owner id');
 });

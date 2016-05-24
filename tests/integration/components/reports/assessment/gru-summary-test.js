@@ -48,7 +48,6 @@ test('it renders', function (assert) {
         reaction: 2
       })
     ],
-    selectedAttempt: 3,
     submittedAt: date,
     title: 'Test Assessment Name',
     totalAttempts: 4
@@ -83,7 +82,7 @@ test('it renders', function (assert) {
   // Attempt
   var $overviewSection = $overviewContainer.find('.information .attempt');
   assert.ok($overviewSection.find('title'), "Header element for 'attempt' section in overview is missing");
-  assert.equal($overviewSection.find('.dropdown button').text().trim(), '3', 'Current attempt value is incorrect');
+  assert.equal($overviewSection.find('.dropdown button').text().trim(), '4', 'Current attempt value is incorrect');
   assert.equal($overviewSection.find('.dropdown-menu li').length, 4, 'Incorrect number of attempts in dropdown menu');
   assert.equal($overviewSection.find('.total-attempts').text().trim(), '4', 'Incorrect number of total attempts');
 
