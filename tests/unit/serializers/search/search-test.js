@@ -33,7 +33,11 @@ test('normalizeCollection', function(assert) {
     "creatornameDisplay": "username-creator",
     "creatorId": 13,
     "thumbnail": "collection.png",
-    "publishStatus": 'published'
+    "publishStatus": 'published',
+    "course": {
+      "title": "Course A",
+      "id": 10
+    }
   };
 
   const collection = serializer.normalizeCollection(collectionData);
@@ -41,7 +45,8 @@ test('normalizeCollection', function(assert) {
   assert.equal(collection.get("title"), 'Cell Growth and Division', 'Wrong title');
   assert.equal(collection.get("publishStatus"), 'published', 'Wrong publish status');
   assert.equal(collection.get("thumbnailUrl"), '//basepath/collection.png', 'Wrong image');
-  // TODO assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
+  assert.equal(collection.get("course"), 'Course A', 'Wrong course name');
+  assert.equal(collection.get("courseId"), 10, 'Wrong course id');
   assert.equal(collection.get("isVisibleOnProfile"), true, 'Wrong visible on profile');
   assert.equal(collection.get("learningObjectives"), "In this collection", 'Wrong learning objective');
   assert.equal(collection.get("resourceCount"), 5, 'Wrong resource count');
@@ -89,7 +94,11 @@ test('normalizeAssessment', function(assert) {
     "creatorProfileImage": "profile-creator.png",
     "creatornameDisplay": "username-creator",
     "creatorId": 13,
-    "publishStatus": 'published'
+    "publishStatus": 'published',
+    "course": {
+      "title": "Course A",
+      "id": 10
+    }
   };
 
   const assessment = serializer.normalizeAssessment(assessmentData);
@@ -97,7 +106,8 @@ test('normalizeAssessment', function(assert) {
   assert.equal(assessment.get("title"), 'Cell Growth and Division', 'Wrong title');
   assert.equal(assessment.get("publishStatus"), 'published', 'Wrong publish status');
   assert.equal(assessment.get("thumbnailUrl"), '//basepath/assessment.png', 'Wrong image');
-  // TODO assert.equal(collection.get("course"), 'mathematics course 101', 'Wrong course name');
+  assert.equal(assessment.get("course"), 'Course A', 'Wrong course name');
+  assert.equal(assessment.get("courseId"), 10, 'Wrong course id');
   assert.equal(assessment.get("isVisibleOnProfile"), true, 'Wrong visible on profile');
   assert.equal(assessment.get("learningObjectives"), "In this assessment", 'Wrong learning objective');
   assert.equal(assessment.get("resourceCount"), 5, 'Wrong resource count');
