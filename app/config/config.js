@@ -41,7 +41,10 @@ export const CONTENT_TYPES = {
   COLLECTION: 'collection',
   ASSESSMENT: 'assessment',
   COURSE: 'course',
-  UNIT: 'unit'
+  UNIT: 'unit',
+  LESSON: 'lesson',
+  RESOURCE:'resource',
+  QUESTION:'question'
 };
 
 export const KEY_CODES = {

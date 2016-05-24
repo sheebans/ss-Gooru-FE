@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import RemixBaseModal from 'gooru-web/components/content/modals/gru-base-remix';
 
-export default Ember.Component.extend({
+export default RemixBaseModal.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -10,93 +11,33 @@ export default Ember.Component.extend({
    */
   courseService: Ember.inject.service("api-sdk/course"),
 
-  /**
-   * @property {Service} I18N service
-   */
-  i18n: Ember.inject.service(),
-
-  /**
-   * @property {Service} Notifications service
-   */
-  notifications: Ember.inject.service(),
-
   // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['content', 'modals', 'gru-course-remix'],
 
-  classNameBindings: ['component-class'],
-
   // -------------------------------------------------------------------------
   // Actions
 
-  actions: {
-
-    remixCourse: function () {
-      const component = this;
-      const course = this.get('course');
-      course.validate().then(function ({ model, validations }) {
-        if (validations.get('isValid')) {
-          this.get("courseService")
-            .copyCourse(course.get('id'))
-            .then(function (courseId) {
-                course.set('id', courseId);
-                return component.get('courseService').updateCourse(course);
-            })
-            .then(function() {
-                component.triggerAction({
-                  action: 'closeModal'
-                });
-                component.get('notifications').setOptions({
-                  positionClass: 'toast-top-full-width',
-                  toastClass: 'gooru-toast'
-                });
-                var successMsg = component.get('i18n').t('common.remix-course-success', {courseTitle: course.get('title')});
-                var courseEditUrl = component.get('router').generate('content.courses.edit', course.get('id'));
-                component.get('notifications').success(`${successMsg} <a class="btn btn-success" href="${courseEditUrl}">Edit</a>`);
-              },
-              function () {
-                const message = component.get('i18n').t('common.errors.course-not-copied').string;
-                component.get('notifications').error(message);
-              }
-            );
-        }
-        this.set('didValidate', true);
-      }.bind(this));
-    }
-
+  copyContent: function(course) {
+    return this.get("courseService").copyCourse(course.get('id'));
   },
 
-  // -------------------------------------------------------------------------
-  // Events
-
-  init() {
-    this._super(...arguments);
-    this.set('course', this.get('model').copy());
-    this.get('course').set('title', null);
+  updateContent: function(course) {
+    return this.get('courseService').updateCourse(course);
   },
 
+  showSuccessNotification: function(course) {
+    var component = this;
+    var successMsg = component.get('i18n').t('common.remix-course-success', {courseTitle: course.get('title')});
+    var courseEditUrl = component.get('router').generate('content.courses.edit', course.get('id'));
+    var edit = component.get('i18n').t('common.edit');
+    component.get('notifications').success(`${successMsg} <a class="btn btn-success" href="${courseEditUrl}">${edit}</a>`);
+  },
 
-  // -------------------------------------------------------------------------
-  // Properties
-
-  /**
-   * @type {?String} specific class
-   */
-  'component-class': null,
-
-  /**
-   * @type {Course} course
-   */
-  course: null,
-
-  /**
-   * Class handling the actions from the component.
-   * This value will be set on instantiation by gru-modal.
-   *
-   * @type {Ember.Component}
-   * @private
-   */
-  target: null
+  showFailureNotification: function() {
+    const message = this.get('i18n').t('common.errors.course-not-copied').string;
+    this.get('notifications').error(message);
+  }
 
 });

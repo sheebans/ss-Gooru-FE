@@ -21,13 +21,15 @@
       </div>
       <div class="publisher">
         <span>{{t 'common.published-by'}}</span>
-        <img src="/assets/gooru/profile.png" alt="Publisher">
-        <span>{publisher name}</span>
+        <img src="{{ resource.owner.avatarUrl }}" alt="Publisher">
+          {{#link-to 'profile.content.courses' resource.owner.id class="pointer" tagName="span"}}
+            {{resource.owner.displayName}}
+          {{/link-to}}
       </div>
     </div>
   </div>
 </header>
 
 <section>
-  {{component resourceComponent resource=resource calculatedResourceContentHeight=calculatedResourceContentHeight}}
+  {{component resourceComponent resource=playerResource calculatedResourceContentHeight=calculatedResourceContentHeight}}
 </section>

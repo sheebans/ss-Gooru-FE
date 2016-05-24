@@ -86,6 +86,10 @@ export default {
     "create": "Create",
     "created-by":"Created by",
     "delete":"Delete",
+    "delete-instructions": {
+      "links-inaccessible":"All share links will be inaccessible",
+      "content-inaccessible":"All content will be inaccessible to the classes tied to it"
+    },
     "description": "Description",
     "district": "District",
     "domain": "Domain",
@@ -113,6 +117,7 @@ export default {
       "add-question-title":"Please enter the question title.",
       "assessment-title-presence" : "Please enter the assessment title.",
       "can-not-join-class" : "Oops! Unable to join class. Please try again shortly.",
+      "assessment-not-copied": "Oops! Unable to copy assessment right now. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
       "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
@@ -242,10 +247,14 @@ export default {
     "reaction": "Reaction",
     "remaining": "{{number}} Left",
     "remix":"Remix",
+    "remix-assessment": "Remix Assessment",
+    "remix-assessment-lead": "You are about to remix an assessment.",
+    "remix-assessment-success": "You've remixed an assessment {{assessmentTitle}}. Do you want to edit that assessment?",
     "remix-course": "Remix Course",
     "remix-course-lead": "You are about to remix a course.",
     "remix-course-success": "You've remixed a course {{courseTitle}}. Do you want to edit that course?",
     "remixed-by": "Remixed by",
+    "remove":"Remove",
     "request-to":"Request to be searchable and featured in Gooru",
     "resource":"Resource",
     "resources": "Resources",
@@ -521,14 +530,15 @@ export default {
   },
   "content.modals.delete-content":{
     "legend":"You are about to delete",
-    "content-legend":"{{type}} {{index}} - <span>{{title}}</span> from <span>{{parentName}}</span>",
-    "delete-instructions": {
-      "links-inaccessible":"All share links will be inaccessible",
-      "content-inaccessible":"All content will be inaccessible to the classes tied to it"
-    },
+    "content-legend":"<span>{{type}}</span> {{index}} - {{title}} from <span>{{parentName}}</span>",
     "delete-warning": "All content in this {{type}} will be deleted",
     "delete-error": "Oops! Unable to delete {{type}} right now. Please try again shortly.",
     "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."
+  },
+  "content.modals.remove-content":{
+    "legend":"You are about to remove <b>{{title}}</b> from <b>{{parentName}}</b>",
+    "remove-error": "Oops! Unable to remove {{type}} right now. Please try again shortly.",
+    "confirmation": "Are you sure you want to continue? Please type “remove” below and click “remove”."
   },
   "content.resources": {
     "edit": {
@@ -564,12 +574,15 @@ export default {
     "assign":"Assign"
   },
   "gru-share-pop-over":{
+    "copy": "Copy",
+    "ios-tooltip" : "Hold tap to copy!",
+    "safari-multiarch-tooltip":"Press Ctrl + C to copy!",
+    "safari-osx-tooltip":"Press Ctrl + C to copy!",
     "share-course":"Share your course with link",
     "share-question":"Share your question with link",
     "share-resource":"Share your resource with link",
     "share-assessment":"Share your assessment with link",
     "share-collection":"Share your collection with link",
-    "copy": "Copy"
   },
   "gru-category-panel": {
     "teacher": {

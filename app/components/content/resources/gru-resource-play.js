@@ -42,6 +42,13 @@ export default Ember.Component.extend({
    */
   resource: null,
 
+  /**
+   * @property {Resource}
+   */
+  playerResource: Ember.computed("resource", function(){
+    return this.get("resource").toPlayerResource();
+  }),
+
   /* Calculated height designated for the content area of a resource
   * @see components/player/resources/gru-url-resource.js
   * @property {Number}

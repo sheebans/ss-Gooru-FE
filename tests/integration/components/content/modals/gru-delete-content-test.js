@@ -41,8 +41,8 @@ test('it renders', function(assert) {
   assert.ok($component.find('p.legend').length, 'Missing Delete Course Legend');
   assert.ok($component.find('p.legend').text().indexOf(model.content.title) > -1, 'Incorrect legend');
   assert.ok($component.find('.delete-info').length, 'Missing Delete Information');
-  assert.equal($component.find('.delete-info ul li:eq(0) label span').text(), this.get('i18n').t('content.modals.delete-content.delete-instructions.links-inaccessible').string, 'Incorrect links inaccessible check');
-  assert.equal($component.find('.delete-info ul li:eq(1) label span').text(), this.get('i18n').t('content.modals.delete-content.delete-instructions.content-inaccessible').string, 'Incorrect content inaccessible check');
+  assert.equal($component.find('.delete-info ul li:eq(0) label span').text(), this.get('i18n').t('common.delete-instructions.links-inaccessible').string, 'Incorrect links inaccessible check');
+  assert.equal($component.find('.delete-info ul li:eq(1) label span').text(), this.get('i18n').t('common.delete-instructions.content-inaccessible').string, 'Incorrect content inaccessible check');
 
   assert.ok($component.find('p.confirmation').length, 'Missing Delete Confirmation');
   assert.equal($component.find('p.confirmation').text(), this.get('i18n').t('content.modals.delete-content.confirmation').string, 'Incorrect Confirmation Text');
@@ -77,7 +77,7 @@ test('it enables the delete button under the appropriate conditions', function(a
 });
 
 test('it calls a generic delete method and then a callback (if provided) after clicking on the delete button', function(assert) {
-  assert.expect(12);  // 5 asserts run per question type
+  assert.expect(21);
 
   const model = {
     deleteMethod: function() {
@@ -119,7 +119,7 @@ test('it calls a generic delete method and then a callback (if provided) after c
 });
 
 test('it calls a generic delete method and then redirects (if a route is provided) after clicking on the delete button', function(assert) {
-  assert.expect(16);  // 5 asserts run per question type
+  assert.expect(28);
 
   const model = {
     deleteMethod: function() {

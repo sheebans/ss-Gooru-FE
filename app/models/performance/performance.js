@@ -74,11 +74,16 @@ export default DS.Model.extend({
    *  @property {boolean} Whether the performance is completed or not.
    */
   isCompleted: Ember.computed('completionDone', 'completionTotal', function() {
-    return (this.get('completionTotal') >0 && this.get('completionDone') === this.get('completionTotal'));
+    const completionTotal = this.get('completionTotal');
+    const completionDone = this.get('completionDone');
+    return completionDone > 0 && completionDone >= completionTotal; //TODO sometimes completion total is 0
   }),
 
   completionValue: Ember.computed('completionDone', 'completionTotal', function() {
-    return ( this.get('completionTotal') > 0 && (this.get('completionDone') * 100 / this.get('completionTotal')));
+    const completionTotal = this.get('completionTotal');
+    const completionDone = this.get('completionDone');
+    return (completionTotal > 0) ? (completionDone * 100 / completionTotal) :
+      (completionDone > 0) ? 100 : null;
   }),
 
   hasStarted: Ember.computed('timeSpent', function () {

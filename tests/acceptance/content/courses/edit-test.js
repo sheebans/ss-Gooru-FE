@@ -17,10 +17,10 @@ moduleForAcceptance('Acceptance | Edit Course', {
 });
 
 test('Edit course information', function (assert) {
-  visit('/content/courses/edit/123');
+  visit('/content/courses/edit/course-123');
 
   andThen(function () {
-    assert.equal(currentURL(), '/content/courses/edit/123');
+    assert.equal(currentURL(), '/content/courses/edit/course-123');
 
     var newTitle = 'New Course Name';
 
@@ -54,10 +54,10 @@ test('Edit course information', function (assert) {
 });
 
 test('Click share button and check clipboard functionality', function (assert) {
-  visit('/content/courses/edit/123');
+  visit('/content/courses/edit/course-123');
 
   andThen(function () {
-    assert.equal(currentURL(), '/content/courses/edit/123');
+    assert.equal(currentURL(), '/content/courses/edit/course-123');
     var $shareButton = find(".gru-share-pop-over");
 
     click($shareButton);
@@ -73,10 +73,10 @@ test('Click share button and check clipboard functionality', function (assert) {
 });
 
 test('Delete unit', function (assert) {
-  visit('/content/courses/edit/123');
+  visit('/content/courses/edit/course-123');
 
   andThen(function () {
-    assert.equal(currentURL(), '/content/courses/edit/123');
+    assert.equal(currentURL(), '/content/courses/edit/course-123');
     assert.equal(find(".gru-accordion-unit").length,3, 'Should have 3 units');
     var $unit = find(".gru-accordion-unit:eq(0)");
     var $deleteButton = $unit.find(".item-actions .delete-item");
@@ -109,4 +109,165 @@ test('Delete unit', function (assert) {
     });
   });
 });
+test('Delete lesson', function (assert) {
+  visit('/content/courses/edit/course-123');
 
+  andThen(function () {
+    assert.equal(currentURL(), '/content/courses/edit/course-123');
+    var $unit = find(".gru-accordion-unit:eq(0) .panel strong a");
+    click($unit);
+    andThen(function () {
+      assert.equal(find(".gru-accordion-lesson").length,1, 'Should have 1 lesson');
+      var $lesson = find(".gru-accordion-lesson:eq(0)");
+      var $deleteButton = $lesson.find(".item-actions .delete-item");
+      click($deleteButton);
+      andThen(function () {
+          var $deleteContentModal = find(".gru-modal .gru-delete-content");
+          var $check1 = $deleteContentModal.find("ul li:eq(0) input");
+          click($check1);
+          andThen(function () {
+            var $check2 = $deleteContentModal.find("ul li:eq(1) input");
+            click($check2);
+            andThen(function () {
+              var $check3 = $deleteContentModal.find("ul li:eq(2) input");
+              click($check3);
+              andThen(function () {
+                var $input = $deleteContentModal.find(".delete-input");
+                $input.val('delete');
+                $input.blur();
+                keyEvent($input, 'keyup', KEY_CODES.ENTER);
+                andThen(function () {
+                  var $deleteButton = $deleteContentModal.find("button.delete");
+                  click($deleteButton);
+                  andThen(function () {
+                    assert.equal(find(".gru-accordion-lesson").length,0, 'Should have 0 lessons');
+                  });
+                });
+              });
+          });
+        });
+      });
+    });
+  });
+});
+test('Delete collection', function (assert) {
+  visit('/content/courses/edit/course-123');
+
+  andThen(function () {
+    assert.equal(currentURL(), '/content/courses/edit/course-123');
+    var $unit = find(".gru-accordion-unit:eq(0) .panel strong a");
+    click($unit);
+    andThen(function () {
+      var $lesson = find(".gru-accordion-lesson:eq(0) .panel strong a");
+      click($lesson);
+      andThen(function () {
+        assert.equal(find(".gru-accordion-lesson-item").length,2, 'Should have 2 lesson items');
+          var $deleteButton = find(".gru-accordion-lesson-item:eq(0) .item-actions .delete-item");
+          click($deleteButton);
+          andThen(function () {
+            var $deleteContentModal = find(".gru-modal .gru-delete-content");
+            var $check1 = $deleteContentModal.find("ul li:eq(0) input");
+            click($check1);
+            andThen(function () {
+              var $check2 = $deleteContentModal.find("ul li:eq(1) input");
+              click($check2);
+              andThen(function () {
+                var $check3 = $deleteContentModal.find("ul li:eq(2) input");
+                click($check3);
+                andThen(function () {
+                  var $input = $deleteContentModal.find(".delete-input");
+                  $input.val('delete');
+                  $input.blur();
+                  keyEvent($input, 'keyup', KEY_CODES.ENTER);
+                  andThen(function () {
+                    var $deleteButton = $deleteContentModal.find("button.delete");
+                    click($deleteButton);
+                    andThen(function () {
+                      assert.equal(find(".gru-accordion-lesson-item").length,1, 'Should have 1 lesson item');
+                    });
+                  });
+                });
+              });
+            });
+        });
+      });
+    });
+  });
+});
+test('Delete assessment', function (assert) {
+  visit('/content/courses/edit/course-123');
+
+  andThen(function () {
+    assert.equal(currentURL(), '/content/courses/edit/course-123');
+    var $unit = find(".gru-accordion-unit:eq(0) .panel strong a");
+    click($unit);
+    andThen(function () {
+      var $lesson = find(".gru-accordion-lesson:eq(0) .panel strong a");
+      click($lesson);
+      andThen(function () {
+        assert.equal(find(".gru-accordion-lesson-item").length,2, 'Should have 2 lesson items');
+        var $deleteButton = find(".gru-accordion-lesson-item:eq(1) .item-actions .delete-item");
+        click($deleteButton);
+        andThen(function () {
+          var $deleteContentModal = find(".gru-modal .gru-delete-content");
+          var $check1 = $deleteContentModal.find("ul li:eq(0) input");
+          click($check1);
+          andThen(function () {
+            var $check2 = $deleteContentModal.find("ul li:eq(1) input");
+            click($check2);
+            andThen(function () {
+              var $check3 = $deleteContentModal.find("ul li:eq(2) input");
+              click($check3);
+              andThen(function () {
+                var $input = $deleteContentModal.find(".delete-input");
+                $input.val('delete');
+                $input.blur();
+                keyEvent($input, 'keyup', KEY_CODES.ENTER);
+                andThen(function () {
+                  var $deleteButton = $deleteContentModal.find("button.delete");
+                  click($deleteButton);
+                  andThen(function () {
+                    assert.equal(find(".gru-accordion-lesson-item").length,1, 'Should have 1 lesson item');
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+});
+test('Delete resource', function (assert) {
+  visit('/content/collections/edit/255dfea0-5ff0-4bf6-bbd9-b02b63a1cb82?courseId=course-123');
+
+  andThen(function () {
+    assert.equal(currentURL(), '/content/collections/edit/255dfea0-5ff0-4bf6-bbd9-b02b63a1cb82?courseId=course-123');
+    andThen(function () {
+      var $deleteButton = find(".gru-collection-list-item:eq(0) .item-actions .delete-item");
+      click($deleteButton);
+      andThen(function () {
+        var $deleteContentModal = find(".gru-modal .gru-remove-content");
+        var $check1 = $deleteContentModal.find("ul li:eq(0) input");
+        click($check1);
+        andThen(function () {
+          var $check2 = $deleteContentModal.find("ul li:eq(1) input");
+          click($check2);
+          andThen(function () {
+            var $input = $deleteContentModal.find(".remove-input");
+            $input.val('remove');
+            $input.blur();
+            keyEvent($input, 'keyup', KEY_CODES.ENTER);
+            andThen(function () {
+              var $removeButton = $deleteContentModal.find("button.remove");
+              click($removeButton);
+              andThen(function () {
+                assert.equal(find(".gru-collection-list-item").length,1, 'Should have 1 collection item');
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+});
