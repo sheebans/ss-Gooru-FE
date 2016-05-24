@@ -41,33 +41,20 @@
             {{/if}}
           </label>
         </div>
-          <div class="description">
-              <label>
-                  <span>{{t "content.courses.edit.information.description"}}</span>
-                {{#if isEditing}}
-                  {{validation.gru-textarea rawTextareaValue=tempCourse.description model=tempCourse valuePath='description' maxLength=500 rows=2}}
-                {{else}}
-                  {{#if course.description}}
-                  {{textarea class="text-description" value=course.description class="form-control" rows=2 readonly=true}}
-                  {{/if}}
+        <div class="description">
+            <label>
+                <span>{{t "content.courses.edit.information.description"}}</span>
+              {{#if isEditing}}
+                {{validation.gru-textarea rawTextareaValue=tempCourse.description model=tempCourse valuePath='description' maxLength=500 rows=2}}
+              {{else}}
+                {{#if course.description}}
+                {{textarea class="text-description" value=course.description class="form-control" rows=2 readonly=true}}
                 {{/if}}
-              </label>
-          </div>
-        {{content.gru-category isEditing=isEditing srcCategory=course.category editCategory=tempCourse.category}}
-
-        <div class="subject">
-          <label>
-            <span>K-12 Subject and Course</span>
-            {{#if isEditing}}
-              <button type="button" class="btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
-            {{else}}
-              <div class="subjects">
-                <button type="button" class="btn-empty btn btn-sm">Grade 3 Math</button>
-                <button type="button" class="btn-empty btn btn-sm">Grade 4 Math</button>
-              </div>
-            {{/if}}
-          </label>
+              {{/if}}
+            </label>
         </div>
+
+        {{taxonomy.gru-taxonomy-selector isEditing=isEditing srcObject=course editObject=tempCourse}}
 
         {{content.gru-audience isEditing=isEditing srcSelectedAudiences=course.audience editSelectedAudiences=tempCourse.audience}}
 
