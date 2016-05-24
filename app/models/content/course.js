@@ -70,7 +70,7 @@ export default Ember.Object.extend(Validations, {
   owner: null,
 
   /**
-   * @property {String} subject
+   * @property {String} Taxonomy primary subject ID
    */
   subject: '',
 

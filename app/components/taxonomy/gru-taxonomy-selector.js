@@ -26,6 +26,9 @@ export default Ember.Component.extend({
     setSubject(subject, isPrimary) {
       if (isPrimary) {
         this.set('primarySubject', subject);
+        if (this.get('editObject').hasOwnProperty('subject')) { // Not all the entities have a subject property
+          this.set('editObject.subject', subject.id);
+        }
       } else {
         this.set('secondarySubject', subject);
       }
@@ -51,8 +54,12 @@ export default Ember.Component.extend({
 
   didInsertElement() {
     var category = this.get('srcObject.category');
+    var subject = this.get('srcObject.subject');
     if (!category) {
       this.set('srcObject.category', TAXONOMY_CATEGORIES[0].value);
+    }
+    if (subject) {
+      this.set('primarySubject', {id: subject});
     }
   },
 
