@@ -22,7 +22,7 @@
               <div class="col-xs-12 col-sm-5">
                 <label>
                   <span class="required">{{t 'class.edit.class-name'}}</span>
-                  {{validation.gru-input model=class valuePath='name' maxLength=25}}
+                  {{validation.gru-input model=tempClass valuePath='title' maxLength=25}}
                 </label>
               </div>
             </div>
@@ -30,7 +30,7 @@
               <div class="col-xs-12 col-sm-10">
                 <label>
                   <span>{{t "class.edit.class-greetings"}}</span>
-                  <textarea id="greetings" class="form-control" rows="2" placeholder={{t "class.edit.class-greetings-placeholder"}}>{{{class.greetings}}}</textarea>
+                  {{validation.gru-textarea model=tempClass valuePath='greeting' rows=2 maxLength=200 placeholder=(t "class.edit.class-greetings-placeholder")}}
                 </label>
               </div>
             </div>

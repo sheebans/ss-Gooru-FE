@@ -121,6 +121,7 @@ export default {
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
       "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
+      "class-title-presence": "Please give your class a name.",
       "collection-not-copied": "Oops! Unable to copy collection right now. Please try again shortly.",
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "collection-not-updated": "Oops! Unable to update collection right now. Please try again shortly.",
@@ -149,6 +150,7 @@ export default {
       "select-correct-answer":"Please select the correct answer.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
       "sign-in-google-account-exists": "Please sign-in with Google to access your account.",
+      "unit-not-copied": "Oops! Unable to copy course right now. Please try again shortly.",
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
       "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly.",
       "unit-title-required" : "Please enter the unit title.",
@@ -216,6 +218,7 @@ export default {
     },
     "of": "of",
     "other": "Other",
+    "password": "Password",
     "pending":"Pending",
     "performance":"Show Performance",
     "play": "Play",
@@ -258,6 +261,9 @@ export default {
     "remix-course": "Remix Course",
     "remix-course-lead": "You are about to remix a course.",
     "remix-course-success": "You've remixed a course {{courseTitle}}. Do you want to edit that course?",
+    "remix-unit": "Remix Unit",
+    "remix-unit-lead": "You are about to remix an unit.",
+    "remix-unit-success": "You've remixed a unit {{unitTitle}}.",
     "remixed-by": "Remixed by",
     "remove":"Remove",
     "request-to":"Request to be searchable and featured in Gooru",
@@ -316,6 +322,7 @@ export default {
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
     "unfollow": "Unfollow",
     "unit":"Unit",
+    "unit-title":"Unit Title",
     "unitInitial": "U",
     "unitObj": {
       one: "Unit",
@@ -570,10 +577,6 @@ export default {
       'one':" and teaching 1 class",
       "other" : " and teaching {{count}} classes"
     }
-  },
-  "featured": {
-    "featured-title" : "Featured Courses",
-    "featured-description" : "Welcome to the Gooru courses! These featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, districts, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix and customize courses to personalize learning and increase student engagement! Click here to learn more about the development of these courses."
   },
   /*
    * COMPONENTS: Translations used in a specific component
@@ -961,5 +964,17 @@ export default {
   },
   "validations": {
     "unsavedChanges": "Your changes haven't saved yet. Would you like to leave this page?"
+  },
+  "featured":{
+    "featured-title" : "Featured Courses",
+    "featured-description" : "Welcome to the Gooru courses! These featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, discrits, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix and customize courses to personalize learning and increase student engagement! Click here to <a href=''>learn more</a> about the development of these courses."
+  },
+  "account-settings": {
+    "title": "Account Settings",
+    "account-info": "Account Info",
+    "private-info": "Private Info",
+    "email-address": "Email Address",
+    "gender": "Gender",
+    "birthday": "Birthday"
   }
 };

@@ -40,6 +40,15 @@ export default PlayerAccordionCourse.extend({
 
     removeUnit: function (builderItem) {
       this.get('items').removeObject(builderItem);
+    },
+
+    remixUnit: function (unit) {
+      var builderItem = BuilderItem.create({
+        isEditing: false,
+        data: unit
+      });
+      this.actions.closeAllUnits.apply(this);
+      this.get('items').pushObject(builderItem);
     }
 
   }

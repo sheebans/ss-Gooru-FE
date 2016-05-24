@@ -43,6 +43,25 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Update existing class
+   *
+   * @param classModel The Class model to update
+   * @returns {Promise|Content/Class} Class model updated
+   */
+  updateClass: function (classModel) {
+    var service = this;
+    var classData = service.get('classSerializer').serializeUpdateClass(classModel);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classAdapter').updateClass({
+        classId: classModel.get('id'),
+        "class": classData
+      }).then(function () {
+        resolve(classModel);
+      }, reject);
+    });
+  },
+
+  /**
    * Join class
    *
    * @param {string} code class code

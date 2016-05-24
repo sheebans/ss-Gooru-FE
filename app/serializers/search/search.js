@@ -44,6 +44,7 @@ export default Ember.Object.extend({
     const userThumbnailUrl = collectionData.userProfileImage ? basePath + collectionData.userProfileImage : DEFAULT_IMAGES.USER_PROFILE;
     const creatorThumbnailUrl = collectionData.creatorProfileImage ? basePath + collectionData.creatorProfileImage : DEFAULT_IMAGES.USER_PROFILE;
 
+    const course = collectionData.course || {};
     return CollectionModel.create({
       id: collectionData.id,
       title: collectionData.title,
@@ -54,7 +55,8 @@ export default Ember.Object.extend({
       resourceCount: collectionData.resourceCount || 0,
       questionCount: collectionData.questionCount || 0,
       remixCount: collectionData.scollectionRemixCount || 0,
-      course: null, //TODO missing at API response,
+      course: course.title,
+      courseId: course.id,
       isVisibleOnProfile: collectionData.profileUserVisibility,
       owner: ProfileModel.create({
         "id": collectionData.gooruUId,
@@ -85,6 +87,7 @@ export default Ember.Object.extend({
     const ownerThumbnailUrl = assessmentData.userProfileImage ? basePath + assessmentData.userProfileImage : DEFAULT_IMAGES.USER_PROFILE;
     const creatorThumbnailUrl = assessmentData.creatorProfileImage ? basePath + assessmentData.creatorProfileImage : DEFAULT_IMAGES.USER_PROFILE;
 
+    const course = assessmentData.course || {};
     return AssessmentModel.create({
       id: assessmentData.id,
       title: assessmentData.title,
@@ -95,7 +98,8 @@ export default Ember.Object.extend({
       resourceCount: assessmentData.resourceCount ? Number(assessmentData.resourceCount) : 0,
       questionCount: assessmentData.questionCount ? Number(assessmentData.questionCount) : 0,
       remixCount: assessmentData.scollectionRemixCount || 0,
-      course: null, //TODO missing at API response,
+      course: course.title,
+      courseId: course.id,
       isVisibleOnProfile: assessmentData.profileUserVisibility,
       owner: ProfileModel.create({
         "id": assessmentData.gooruUId,
