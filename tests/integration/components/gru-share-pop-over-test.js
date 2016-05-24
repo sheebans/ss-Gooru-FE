@@ -3,7 +3,11 @@ import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 
 moduleForComponent('gru-share-pop-over', 'Integration | Component | gru share pop over', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.i18n = this.container.lookup('service:i18n');
+    this.i18n.set("locale","en");
+  }
 });
 
 test('it renders for course', function(assert) {

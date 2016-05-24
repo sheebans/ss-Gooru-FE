@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import ModalMixin from 'gooru-web/mixins/modal';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -19,6 +20,14 @@ export default Ember.Route.extend({
      */
     editCollection: function (collection) {
       this.transitionTo("content.collections.edit", collection.get("id"));
+    },
+
+    /**
+     * On card remix collection button click
+     * @param {Collection} collection
+     */
+    remixCollection: function (collection) {
+      this.send('showModal', "content.modals.gru-collection-remix", collection);
     }
   },
 

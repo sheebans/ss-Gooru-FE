@@ -121,6 +121,7 @@ export default {
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
       "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
+      "collection-not-copied": "Oops! Unable to copy collection right now. Please try again shortly.",
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "collection-not-updated": "Oops! Unable to update collection right now. Please try again shortly.",
       "collection-title-presence" : "Please enter the collection title.",
@@ -251,6 +252,9 @@ export default {
     "remix-assessment": "Remix Assessment",
     "remix-assessment-lead": "You are about to remix an assessment.",
     "remix-assessment-success": "You've remixed an assessment {{assessmentTitle}}. Do you want to edit that assessment?",
+    "remix-collection": "Remix Collection",
+    "remix-collection-lead": "You are about to remix a collection.",
+    "remix-collection-success": "You've remixed a collection {{collectionTitle}}. Do you want to edit that collection?",
     "remix-course": "Remix Course",
     "remix-course-lead": "You are about to remix a course.",
     "remix-course-success": "You've remixed a course {{courseTitle}}. Do you want to edit that course?",
@@ -395,7 +399,8 @@ export default {
       "share-class":"Share Class",
       "invite-collaborator":"Invite Collaborator",
       "invite-student":"Invite Student",
-      "class-code": "Class Code"
+      "class-code": "Class Code",
+      "delete":"Delete Class",
     },
     "edit":{
       "edit-class": "Edit Class Information",
@@ -575,12 +580,15 @@ export default {
     "assign":"Assign"
   },
   "gru-share-pop-over":{
+    "copy": "Copy",
+    "ios-tooltip" : "Hold tap to copy!",
+    "safari-multiarch-tooltip":"Press Ctrl + C to copy!",
+    "safari-osx-tooltip":"Press Ctrl + C to copy!",
     "share-course":"Share your course with link",
     "share-question":"Share your question with link",
     "share-resource":"Share your resource with link",
     "share-assessment":"Share your assessment with link",
     "share-collection":"Share your collection with link",
-    "copy": "Copy"
   },
   "gru-category-panel": {
     "teacher": {
