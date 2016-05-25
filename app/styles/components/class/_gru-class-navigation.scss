@@ -20,11 +20,23 @@
         }
       }
     }
+    .greetings {
+      p {
+        display: inline;
+      }
+      i {
+        float: right;
+      }
+    }
     .greetings-description {
       font-size: $font-size-small;
-      p{
+      p.truncate{
         opacity:0.6;
         line-height: 18px;
+        @include text-overflow;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
       }
     }
   }
