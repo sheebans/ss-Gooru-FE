@@ -38,9 +38,18 @@ export default Ember.Controller.extend(SessionMixin, {
      * When clicking at submit all or end
      */
     finishCollection: function(){
-      let controller = this;
-      controller.finishCollection();
-      //TODO finish collections
+      const controller = this;
+      const collection = this.get("collection");
+
+      if (collection.get("isAssessment")){
+        controller.finishCollection();
+      }
+      else{
+        //finishes the last resource
+        controller.finishResourceResult(controller.get("resourceResult")).then(function(){
+          controller.finishCollection();
+        });
+      }
     },
 
     /**
@@ -60,16 +69,6 @@ export default Ember.Controller.extend(SessionMixin, {
         else{
           controller.finishCollection();
         }
-      });
-    },
-
-    /**
-     * Finishes a collection
-     */
-    finishCollection: function(){
-      const controller = this;
-      controller.finishResourceResult(controller.get("resourceResult")).then(function(){
-          controller.finishCollection();
       });
     },
 
@@ -174,6 +173,15 @@ export default Ember.Controller.extend(SessionMixin, {
   resourceResult: null,
 
   /**
+   * Indicates if the current resource type is resource
+   * @property {boolean}
+   */
+  isResource: Ember.computed("resource", function(){
+    const resource = this.get("resource");
+    return (resource && !resource.get("isQuestion"));
+  }),
+
+  /**
    * @property {boolean} indicates if the answer should be saved
    */
   saveEnabled: true, //TODO save only when logged in
@@ -201,8 +209,7 @@ export default Ember.Controller.extend(SessionMixin, {
    */
   moveToResource: function(resource) {
     let controller = this;
-    let currentResource = controller.get("resource");
-    if (currentResource && !currentResource.get("isQuestion")){ //if previous item is a resource
+    if (controller.get("isResource")){ //if previous item is a resource
       controller.finishResourceResult(controller.get("resourceResult"));
     }
 
@@ -288,15 +295,8 @@ export default Ember.Controller.extend(SessionMixin, {
       context.set("isStudent", controller.get("isStudent"));
       assessmentResult.set("submittedAt", new Date());
       return controller.saveCollectionResult(assessmentResult, context).then(function() {
-        if (controller.get("isAssessment") && context.get("courseId")) {
-          const userId = controller.get('session.userId');
-          const classId = context.get("classId");
-          const courseId = context.get("courseId");
-          const unitId = context.get("unitId");
-          const lessonId = context.get("lessonId");
-          const collectionId = context.get("collectionId");
-          controller.transitionToRoute('reports.student-collection', classId, courseId, unitId,
-            lessonId, collectionId, userId, { queryParams: { type: collection.get("collectionType") }});
+        if (controller.get("isAssessment")) {
+          controller.navigateToReport();
         }
         else {
           controller.set("showReport", true);
@@ -356,6 +356,27 @@ export default Ember.Controller.extend(SessionMixin, {
     resourceResult.set('reaction', reactionType);   // Sets the reaction value into the resourceResult
 
     eventsService.saveReaction(resourceResult, context);
+  },
+
+  /**
+   * Navigates to the assessment report
+   */
+  navigateToReport: function (){
+    const controller = this;
+    let context = controller.get("context");
+    let collection = controller.get("collection");
+    const queryParams = {
+      collectionId: context.get("collectionId"),
+      userId: controller.get('session.userId'),
+      type: collection.get("collectionType")
+    }
+    if (context.get("classId")) {
+      queryParams.classId = context.get("classId");
+      queryParams.courseId = context.get("courseId");
+      queryParams.unitId = context.get("unitId");
+      queryParams.lessonId = context.get("lessonId");
+    }
+    controller.transitionToRoute('reports.student-collection', { queryParams: queryParams});
   }
 
 

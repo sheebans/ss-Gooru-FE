@@ -97,8 +97,15 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       const userId = this.get('session.userId');
       const classId = currentClass.get("id");
       const courseId = currentClass.get("courseId");
-      this.transitionTo('reports.student-collection', classId, courseId, unitId,
-        lessonId, collectionId, userId, { queryParams: { type: collectionType }});
+      this.transitionTo('reports.student-collection', { queryParams: {
+          classId: classId,
+          courseId: courseId,
+          unitId: unitId,
+          lessonId: lessonId,
+          collectionId: collectionId,
+          userId: userId,
+          type: collectionType
+        }});
     }
   }
 

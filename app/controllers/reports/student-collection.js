@@ -9,8 +9,7 @@ import Ember from "ember";
 
 export default Ember.Controller.extend({
 
-  queryParams: ["type"],
-
+  queryParams: ["classId", "courseId", "unitId", "lessonId", "collectionId", "userId", "type"],
   // -------------------------------------------------------------------------
   // Dependencies
   /**

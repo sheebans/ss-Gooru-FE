@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {DEFAULT_IMAGES} from 'gooru-web/config/config'
+import {DEFAULT_IMAGES} from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
 

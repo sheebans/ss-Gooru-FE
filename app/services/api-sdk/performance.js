@@ -14,16 +14,20 @@ export default Ember.Service.extend({
    */
   findAssessmentResultByCollectionAndStudent: function (context) {
     const service = this;
-    return service.get('studentCollectionAdapter').queryRecord({
+
+    const params = {
       collectionType: context.collectionType,
-      classId: context.classId,
-      courseId: context.courseId,
-      userId: context.userId,
-      unitId: context.unitId,
-      lessonId: context.lessonId,
       contentId: context.collectionId,
+      userId: context.userId,
       sessionId: context.sessionId
-    }).then(function (payload) {
+    }
+    if (context.classId) {
+      params.classId = context.classId;
+      params.courseId = context.courseId;
+      params.unitId = context.unitId;
+      params.lessonId = context.lessonId;
+    }
+    return service.get('studentCollectionAdapter').queryRecord(params).then(function (payload) {
       return service.get('studentCollectionPerformanceSerializer').normalizeStudentCollection(payload);
     });
   },
