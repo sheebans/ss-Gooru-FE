@@ -41,10 +41,12 @@ moduleForComponent('content/modals/assessment-remix', 'Integration | Component |
 
 test('it renders', function (assert) {
 
-  this.set('assessment', AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'assessment-id',
-    title: 'assessment-title'
-  }));
+  this.set('assessment', {
+    content: AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'assessment-id',
+      title: 'assessment-title'
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-assessment-remix model=assessment}}`);
 
@@ -69,10 +71,12 @@ test('it renders', function (assert) {
 test('it shows an error message if the assessment title field is left blank', function (assert) {
   assert.expect(3);
 
-  this.set('assessment', AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'assessment-id',
-    title: 'assessment-title'
-  }));
+  this.set('assessment', {
+    content: AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'assessment-id',
+      title: 'assessment-title'
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-assessment-remix model=assessment}}`);
 
@@ -82,17 +86,21 @@ test('it shows an error message if the assessment title field is left blank', fu
   assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message not visible');
 
   // Try submitting without filling in data
-  $component.find(".actions button[type='submit']").click();
-
+  $titleField.find("input").val('');
+  $titleField.find("input").blur();
   return wait().then(function () {
-
-    assert.ok($titleField.find(".error-messages .error").length, 'Title error message visible');
-    // Fill in the input field
-    $titleField.find("input").val('Assessment Name');
-    $titleField.find("input").blur();
+    $component.find(".actions button[type='submit']").click();
 
     return wait().then(function () {
-      assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message was hidden');
+
+      assert.ok($titleField.find(".error-messages .error").length, 'Title error message visible');
+      // Fill in the input field
+      $titleField.find("input").val('Assessment Name');
+      $titleField.find("input").blur();
+
+      return wait().then(function () {
+        assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message was hidden');
+      });
     });
   });
 });
@@ -131,10 +139,12 @@ test('it shows toast and transitions after copying a assessment', function (asse
     }
   });
 
-  this.set('assessment', AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
+  this.set('assessment', {
+    content: AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'assessment-id',
       title: 'assessment-title'
-  }));
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-assessment-remix router=router model=assessment}}`);
 
@@ -167,10 +177,12 @@ test('it displays a notification if the assessment cannot be created', function 
   }));
   this.inject.service('notifications');
 
-  this.set('assessment', AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'assessment-id',
-    title: 'assessment-title'
-  }));
+  this.set('assessment', {
+    content: AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'assessment-id',
+      title: 'assessment-title'
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-assessment-remix model=assessment}}`);
 
@@ -188,10 +200,12 @@ test('it displays a notification if the assessment cannot be created', function 
 test('Validate if the assessment Title field has only whitespaces', function (assert) {
   assert.expect(3);
 
-  this.set('assessment', AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'assessment-id',
-    title: 'assessment-title'
-  }));
+  this.set('assessment', {
+    content: AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'assessment-id',
+      title: 'assessment-title'
+    })
+  });
 
   this.render(hbs`{{content/modals/gru-assessment-remix model=assessment}}`);
 
@@ -201,26 +215,32 @@ test('Validate if the assessment Title field has only whitespaces', function (as
   assert.ok(!$titleField.find(".error-messages .error").length, 'Assessment Title error message not visible');
 
   // Try submitting without filling in data
-  $component.find(".actions button[type='submit']").click();
-
+  $titleField.find("input").val('');
+  $titleField.find("input").blur();
   return wait().then(function () {
-
-    assert.ok($titleField.find(".error-messages .error").length, 'Assessment Title error should be visible');
-    // Fill in the input field
-    $titleField.find("input").val(' ');
     $component.find(".actions button[type='submit']").click();
 
     return wait().then(function () {
-      assert.ok($titleField.find(".error-messages .error").length, 'Assessment Title error message should be visible');
+
+      assert.ok($titleField.find(".error-messages .error").length, 'Assessment Title error should be visible');
+      // Fill in the input field
+      $titleField.find("input").val(' ');
+      $component.find(".actions button[type='submit']").click();
+
+      return wait().then(function () {
+        assert.ok($titleField.find(".error-messages .error").length, 'Assessment Title error message should be visible');
+      });
     });
   });
 });
 
 test('Validate the character limit in the Assessment title field', function (assert) {
-  this.set('assessment', AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'assessment-id',
-    title: 'assessment-title'
-  }));
+  this.set('assessment', {
+    content: AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'assessment-id',
+      title: 'assessment-title'
+    })
+  });
   this.render(hbs`{{content/modals/gru-assessment-remix model=assessment}}`);
 
   const maxLenValue = this.$('.gru-assessment-remix .gru-input.title input').prop('maxlength');

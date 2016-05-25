@@ -19,7 +19,7 @@ export default Ember.Route.extend(ModalMixin, {
      * @param {Assessment} assessment
      */
     editAssessment: function (assessment) {
-      this.transitionTo("content.assessments.edit", assessment.get("id"));
+      this.transitionTo("content.assessments.edit", assessment.get("id"),{queryParams: {courseId: assessment.get('courseId'),allowBackToCourse:false}});
     },
 
     /**
@@ -27,7 +27,10 @@ export default Ember.Route.extend(ModalMixin, {
      * @param {Assessment} assessment
      */
     remixAssessment: function (assessment) {
-      this.send('showModal', "content.modals.gru-assessment-remix", assessment);
+      var remixModel = {
+        content: assessment
+      };
+      this.send('showModal', "content.modals.gru-assessment-remix", remixModel);
     }
   },
 

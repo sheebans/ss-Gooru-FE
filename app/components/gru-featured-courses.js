@@ -22,7 +22,6 @@ export default Ember.Component.extend({
     'dataOffset:data-offset'
   ],
 
-
   dataSpy:"scroll",
   dataTarget:".navbar",
   dataOffset:"50",
@@ -68,8 +67,8 @@ export default Ember.Component.extend({
   // Methods
   didInsertElement: function() {
     this._super(...arguments);
-    $('#affixed-subject-navbar').affix({
-      offset: 300
+    $('#subject-navbar').affix({
+      offset: 200
     });
   }
 

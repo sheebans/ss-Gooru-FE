@@ -25,9 +25,13 @@ export default Ember.Controller.extend({
     updateClass: function() {
       var controller = this;
       let editedClass = this.get('tempClass');
+      var greeting = $.trim(this.get('tempClass.greeting'));
 
       editedClass.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
+          if (greeting===''){
+            editedClass.set('greeting', null);
+          }
           controller.get('classService').updateClass(editedClass)
             .then(function() {
               // Trigger action in route
