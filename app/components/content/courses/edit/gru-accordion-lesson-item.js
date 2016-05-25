@@ -72,17 +72,16 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
     },
 
     copy: function() {
-      var model = {
-        content: this.get('model')
-      };
-      let temp = this.get('model');
-      console.log(temp);
-      if(this.get('model.isCollection')){
-        this.send('showModal', 'content.modals.gru-collection-remix', model);
-      }else{
-        this.send('showModal', 'content.modals.gru-assessment-remix', model);
-      }
+      let component = this;
+      component.get('collectionService').readCollection(component.get('model.id')).then(function(result){
+        let model = {
+          content: result
+        };
+        component.send('showModal', 'content.modals.gru-collection-remix', model);
+      })
     }
+
+
 
   },
 
