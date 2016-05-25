@@ -40,7 +40,7 @@ export default NewCollectionModal.extend({
 
     const courseId = this.get("model.courseId");
     if (courseId){
-      const queryParams = { queryParams: { courseId: courseId } };
+      const queryParams = { queryParams: { courseId: courseId, allowBackToCourse:true } };
       this.get('router').transitionTo('content.assessments.edit', assessmentId, queryParams);
     }
     else{
