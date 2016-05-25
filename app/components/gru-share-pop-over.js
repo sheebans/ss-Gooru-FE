@@ -41,7 +41,7 @@ export default Ember.Component.extend({
   template: Ember.computed('type', function() {
     let tooltipText = this.get('i18n').t('gru-share-pop-over.copy').string;
     if(/Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor)){
-      if (navigator.userAgent.indexOf('Mac OS X') != -1) {
+      if (navigator.userAgent.indexOf('Mac OS X') !== -1) {
         tooltipText =this.get('i18n').t('gru-share-pop-over.safari-osx-tooltip').string;
       }else{
         tooltipText =this.get('i18n').t('gru-share-pop-over.multiarch-tooltip').string;
