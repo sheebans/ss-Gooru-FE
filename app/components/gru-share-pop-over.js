@@ -50,7 +50,6 @@ export default Ember.Component.extend({
     if(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream){
       tooltipText =this.get('i18n').t('gru-share-pop-over.ios-tooltip').string;
     }
-    console.log(tooltipText);
    return `<div class="gru-share-pop-over-content">
     <p>${this.get('i18n').t('gru-share-pop-over.share-'+this.get('type')).string}</p>
     <div class="share-actions">
