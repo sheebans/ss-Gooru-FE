@@ -2,7 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   queryParams: {
-    courseId:{}
+    courseId:{},
+    allowBackToCourse:{}
   },
 
   // -------------------------------------------------------------------------
@@ -21,6 +22,7 @@ export default Ember.Route.extend({
   resetController(controller, isExiting) {
     if (isExiting) {
       controller.set('courseId', undefined);
+      controller.set('allowBackToCourse', undefined);
     }
   },
 
@@ -35,13 +37,15 @@ export default Ember.Route.extend({
     var assessment = this.get('assessmentService').readAssessment(params.assessmentId);
     var course = null;
 
-    if(params.courseId){
+    if(params.courseId && params.courseId !== "null"){
       course = this.get('courseService').fetchById(params.courseId);
     }
+    var allowBackToCourse = params.allowBackToCourse && params.allowBackToCourse === 'true';
 
     return Ember.RSVP.hash({
       assessment: assessment,
-      course:course
+      course:course,
+      allowBackToCourse:allowBackToCourse
     });
   },
 
@@ -51,8 +55,10 @@ export default Ember.Route.extend({
     // for collections (for example, see: /app/components/content/assessments/gru-assessment-edit.js)
     // and that is why the property 'collection' is being reused here, too.
     controller.set('collection', model.assessment);
+    controller.set('collection.course', model.courseName);
     controller.set('isAssessment',true);
     controller.set('course', model.course);
+    controller.set('allowBackToCourse',model.allowBackToCourse);
   }
 
 });

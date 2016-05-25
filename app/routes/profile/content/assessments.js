@@ -19,7 +19,7 @@ export default Ember.Route.extend(ModalMixin, {
      * @param {Assessment} assessment
      */
     editAssessment: function (assessment) {
-      this.transitionTo("content.assessments.edit", assessment.get("id"));
+      this.transitionTo("content.assessments.edit", assessment.get("id"),{queryParams: {courseId: assessment.get('courseId'),allowBackToCourse:false}});
     },
 
     /**
