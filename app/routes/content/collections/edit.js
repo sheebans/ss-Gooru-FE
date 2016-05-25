@@ -38,12 +38,11 @@ export default Ember.Route.extend({
   model: function (params) {
     var collection = this.get('collectionService').readCollection(params.collectionId);
     var course = null;
-    var allowBackToCourse = null;
 
     if(params.courseId && params.courseId !== "null"){
       course = this.get('courseService').fetchById(params.courseId);
     }
-    allowBackToCourse = params.allowBackToCourse && params.allowBackToCourse === 'true';
+    var allowBackToCourse = params.allowBackToCourse && params.allowBackToCourse === 'true';
 
     return Ember.RSVP.hash({
       collection: collection,

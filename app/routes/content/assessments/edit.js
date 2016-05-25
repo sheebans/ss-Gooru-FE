@@ -36,13 +36,12 @@ export default Ember.Route.extend({
   model: function (params) {
     var assessment = this.get('assessmentService').readAssessment(params.assessmentId);
     var course = null;
-    var allowBackToCourse = null;
 
     if(params.courseId && params.courseId !== "null"){
       course = this.get('courseService').fetchById(params.courseId);
     }
-    allowBackToCourse = params.allowBackToCourse && params.allowBackToCourse === 'true';
-    
+    var allowBackToCourse = params.allowBackToCourse && params.allowBackToCourse === 'true';
+
     return Ember.RSVP.hash({
       assessment: assessment,
       course:course,
