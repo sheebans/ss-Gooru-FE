@@ -17,6 +17,22 @@ export default Ember.Route.extend({
   session: Ember.inject.service("session"),
 
   // -------------------------------------------------------------------------
+  // Actions
+  actions: {
+
+    /**
+     * Remix collection action, when clicking remix/edit at the collection level
+     * @param {Content/Collection}
+     */
+    remixCollection: function(colection){
+      var remixModel = {
+        content: collection
+      };
+      this.send('showModal', 'content.modals.gru-collection-remix', remixModel);
+    }
+
+  },
+  // -------------------------------------------------------------------------
   // Methods
 
   beforeModel: function () {

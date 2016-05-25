@@ -69,6 +69,19 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
       this.actions.showModal.call(this,
         'content.modals.gru-delete-content',
         $.extend(model, lessonItem), null, null, null, false);
+    },
+
+    copy: function() {
+      var model = {
+        content: this.get('model')
+      };
+      let temp = this.get('model');
+      console.log(temp);
+      if(this.get('model.isCollection')){
+        this.send('showModal', 'content.modals.gru-collection-remix', model);
+      }else{
+        this.send('showModal', 'content.modals.gru-assessment-remix', model);
+      }
     }
 
   },
