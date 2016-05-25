@@ -39,14 +39,18 @@ export default Ember.Component.extend({
    * @property {string} template to be used for the popover window
    */
   template: Ember.computed('type', function() {
-    let tooltipText =this.get('i18n').t('gru-share-pop-over-multiarch-tooltip').string;
-
-    if(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream){
-      tooltipText =this.get('i18n').t('gru-share-pop-over-ios-tooltip').string;
-    } else if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
-      tooltipText =this.get('i18n').t('gru-share-pop-over-safari-osx-tooltip').string;
+    let tooltipText = this.get('i18n').t('gru-share-pop-over.copy').string;
+    if(/Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor)){
+      if (navigator.userAgent.indexOf('Mac OS X') != -1) {
+        tooltipText =this.get('i18n').t('gru-share-pop-over.safari-osx-tooltip').string;
+      }else{
+        tooltipText =this.get('i18n').t('gru-share-pop-over.multiarch-tooltip').string;
+      }
     }
-
+    if(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream){
+      tooltipText =this.get('i18n').t('gru-share-pop-over.ios-tooltip').string;
+    }
+    console.log(tooltipText);
    return `<div class="gru-share-pop-over-content">
     <p>${this.get('i18n').t('gru-share-pop-over.share-'+this.get('type')).string}</p>
     <div class="share-actions">
