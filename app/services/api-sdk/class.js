@@ -58,6 +58,7 @@ export default Ember.Service.extend({
       }).then(function () {
         resolve(classModel);
       }, function(error) {
+        //TODO: we have to remove this
         console.log(error);
         reject(error);
       });
