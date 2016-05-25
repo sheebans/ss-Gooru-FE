@@ -126,6 +126,15 @@ export default PlayerAccordionUnit.extend(ModalMixin,{
      */
     removeLesson: function (builderItem) {
       this.get('items').removeObject(builderItem);
+    },
+
+    copy: function() {
+      var model = {
+        content: this.get('unit'),
+        courseId: this.get('courseId'),
+        onRemixSuccess: this.get('onRemixUnit')
+      };
+      this.send('showModal', 'content.modals.gru-unit-remix', model);
     }
 
   },

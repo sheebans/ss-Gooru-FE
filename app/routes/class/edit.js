@@ -9,7 +9,9 @@ export default Ember.Route.extend({
 
   actions: {
     infoClassTransition: function () {
-      this.transitionTo('class.info');
+      let route = this;
+      let classId = route.controller.get('class.id');
+      this.transitionTo('class.info', classId);
     }
   },
 

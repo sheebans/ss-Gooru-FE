@@ -45,6 +45,9 @@ export default Ember.Component.extend({
                 positionClass: 'toast-top-full-width',
                 toastClass: 'gooru-toast'
               });
+              if(component.get('onRemix')) {
+                component.get('onRemix')(contentModel);
+              }
               component.get('showSuccessNotification').call(component, contentModel);
             },
               component.get('showFailureNotification').bind(component)
@@ -61,10 +64,9 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    this.set('contentModel', this.get('model').copy());
-    this.get('contentModel').set('title', null);
+    this.set('contentModel', this.get('model.content').copy());
+    this.set('onRemix', this.get('model.onRemixSuccess'));
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -78,6 +80,11 @@ export default Ember.Component.extend({
    * @type {Course/Collection/Assessment} contentModel
    */
   contentModel: null,
+
+  /**
+   * Function to call on remix success
+   */
+  onRemix: null,
 
   /**
    * Class handling the actions from the component.

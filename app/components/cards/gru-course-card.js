@@ -7,9 +7,8 @@
  */
 
 import Ember from 'ember';
-import ModalMixin from 'gooru-web/mixins/modal';
 
-export default Ember.Component.extend(ModalMixin, {
+export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -29,6 +28,13 @@ export default Ember.Component.extend(ModalMixin, {
      */
     editCourse:function(){
       this.sendAction("onEditCourse", this.get("course"));
+    },
+
+    /**
+     *Action triggered when select remix the course
+     */
+    remixCourse:function(){
+      this.sendAction("onRemixCourse", this.get("course"));
     }
   },
   // -------------------------------------------------------------------------
@@ -43,6 +49,12 @@ export default Ember.Component.extend(ModalMixin, {
    * @property {string}
    */
   onEditCourse: null,
+
+  /**
+   * Remix course action
+   * @property {string}
+   */
+  onRemixCourse: null,
 
   /**
    * flag that tells if you are owner of card or not.
