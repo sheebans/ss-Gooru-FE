@@ -22,6 +22,14 @@
       -ms-flex-item-align: auto;
       align-self: auto;
 
+      background-image: url("gooru/collection-default.png");
+      background-color: #3671B5;
+      background-position: 0;
+      background-repeat: no-repeat;
+      background-size: contain;
+      text-align: center;
+      color: $white;
+
       @media (min-width: $screen-xs) {
         width: 143px;
         height: 164px;
@@ -31,12 +39,33 @@
         height: 133px;
       }
 
-      img {
-        height: 100%;
-        width: 100%;
+      span {
+        &.title {
+          display: block;
+          font-size: $font-size-h6;
+          padding-top:10px;
+
+          @media (min-width: $screen-xs) {
+            padding-top: 16px;
+            padding-bottom: 20px;
+          }
+        }
+        &.time-spent {
+          span{
+            font-size: $font-size-h4;
+            line-height: $font-size-h4;
+          }
+          i {
+            font-size: $font-size-h3;
+            line-height: $font-size-h3;
+            vertical-align: middle;
+            margin-bottom: 12px;
+          }
+        }
       }
+
     }
-    .grade, {
+    .grade {
       width: 100%;
       height: 88px;
       padding: 10px 25px;

@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import {DEFAULT_IMAGES} from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
 
@@ -48,10 +47,6 @@ export default Ember.Component.extend({
    * @property {Collection}
    */
   collection: Ember.computed.alias("assessmentResult.collection"),
-
-  thumbnailUrl: Ember.computed(function(){
-    return DEFAULT_IMAGES.COLLECTION;
-  }),
 
   /**
    * @property {number} selected attempt

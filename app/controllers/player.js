@@ -288,7 +288,6 @@ export default Ember.Controller.extend(SessionMixin, {
     let controller = this;
     let assessmentResult = controller.get("assessmentResult");
     let context = controller.get("context");
-    let collection = controller.get("collection");
 
     return controller.submitPendingQuestionResults().then(function(){
       context.set("eventType", "stop");
@@ -369,7 +368,7 @@ export default Ember.Controller.extend(SessionMixin, {
       collectionId: context.get("collectionId"),
       userId: controller.get('session.userId'),
       type: collection.get("collectionType")
-    }
+    };
     if (context.get("classId")) {
       queryParams.classId = context.get("classId");
       queryParams.courseId = context.get("courseId");

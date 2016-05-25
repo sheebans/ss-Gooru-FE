@@ -20,7 +20,7 @@ export default Ember.Service.extend({
       contentId: context.collectionId,
       userId: context.userId,
       sessionId: context.sessionId
-    }
+    };
     if (context.classId) {
       params.classId = context.classId;
       params.courseId = context.courseId;

@@ -9,7 +9,8 @@
     </div>
   {{else}}
     <div class="thumbnail">
-      <img src="{{thumbnailUrl}}"/>
+      <span class="title">{{t "gru-assessment-report.gru-summary.total-time-spent"}}</span>
+      <span class="time-spent">{{gru-icon name='av_timer'}}<span>{{formatTime assessmentResult.totalTimeSpent}}</span></span>
     </div>
   {{/if}}
   <div class="overview">

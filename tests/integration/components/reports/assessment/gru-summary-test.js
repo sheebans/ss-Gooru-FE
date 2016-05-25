@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import QuestionResult from 'gooru-web/models/result/question';
@@ -50,13 +51,16 @@ test('it renders for assessment', function (assert) {
       })
     ],
     submittedAt: date,
-    title: 'Test Assessment Name',
-    totalAttempts: 4,
-    collection: Ember.Object.create({
-      isAssessment: true
-    })
+    totalAttempts: 4
   });
 
+  const collection = Ember.Object.create({
+    isAssessment: true,
+    resources: [],
+    title: "collection"
+  });
+
+  assessmentResult.merge(collection);
   this.set('assessmentResult', assessmentResult);
 
   this.render(hbs`{{reports/assessment/gru-summary assessmentResult=assessmentResult}}`);
@@ -81,7 +85,7 @@ test('it renders for assessment', function (assert) {
   var $overviewContainer = $component.find('.summary-container .overview');
   assert.ok($overviewContainer.length, "Overview container is missing");
   assert.ok($overviewContainer.find('h5').length, "Header element is missing");
-  assert.equal($overviewContainer.find('h5').text().trim(), 'Test Assessment Name', "Incorrect header text");
+  assert.equal($overviewContainer.find('h5').text().trim(), 'collection', "Incorrect header text");
 
   // Attempt
   var $overviewSection = $overviewContainer.find('.information .attempt');
@@ -144,13 +148,17 @@ test('it renders for collection', function (assert) {
       })
     ],
     submittedAt: date,
-    title: 'Test Assessment Name',
     totalAttempts: 4,
-    collection: Ember.Object.create({
-      isAssessment: false,
-      imageUrl : "here.png"
-    })
+    collection:null
   });
+
+  const collection = Ember.Object.create({
+    isAssessment: false,
+    imageUrl : "here.png",
+    resources: [],
+    title: "collection"
+  });
+  assessmentResult.merge(collection);
 
   this.set('assessmentResult', assessmentResult);
 
@@ -168,11 +176,11 @@ test('it renders for collection', function (assert) {
   var $overviewContainer = $component.find('.summary-container .overview');
   assert.ok($overviewContainer.length, "Overview container is missing");
   assert.ok($overviewContainer.find('h5').length, "Header element is missing");
-  assert.equal($overviewContainer.find('h5').text().trim(), 'Test Assessment Name', "Incorrect header text");
+  assert.equal($overviewContainer.find('h5').text().trim(), 'collection', "Incorrect header text");
 
   // Attempt
   var $overviewSection = $overviewContainer.find('.information .attempt');
-  assert.ok(!$overviewSection, "'attempt' section should not be visible");
+  assert.ok(!$overviewSection.length, "'attempt' section should not be visible");
 
   // Date
   $overviewSection = $overviewContainer.find('.information .date');

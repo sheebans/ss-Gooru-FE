@@ -902,6 +902,11 @@ export default {
   "gru-resource-new": {
     "resource-already-exist": "This resource already exists in Gooru!"
   },
+  "gru-assessment-report": {
+    "gru-summary": {
+      "total-time-spent": "Total Time Spent"
+    }
+  },
   "cards":{
     "gru-class-card": {
       "student": {

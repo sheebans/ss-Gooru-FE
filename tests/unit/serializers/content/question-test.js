@@ -135,7 +135,7 @@ test('normalizeReadQuestion', function(assert) {
   assert.equal(question.get('isVisibleOnProfile'), true, 'Wrong format');
   assert.equal(question.get('thumbnail'), "http://test-bucket01.s3.amazonaws.com/image.png", 'Wrong thumbnail');
   assert.equal(question.get('answers').length, 3, 'Wrong answers array length');
-  assert.equal(question.get('order').length, 3, 'Wrong order');
+  assert.equal(question.get('order'), 3, 'Wrong order');
 });
 
 test('normalizeAnswer', function(assert) {

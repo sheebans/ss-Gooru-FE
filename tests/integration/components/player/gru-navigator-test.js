@@ -13,7 +13,7 @@ moduleForComponent('player/gru-navigator', 'Integration | Component | player/gru
 
 test('Player Navigator', function(assert) {
 
-  assert.expect(11);
+  assert.expect(10);
 
   const resourceMockA = Ember.Object.create({
     id: '1',
@@ -52,8 +52,8 @@ test('Player Navigator', function(assert) {
   this.set('collection', collectionMock);
   this.set('resourceResults', resourceResults);
 
-  this.on('itemSelected', function(resource) {
-    assert.equal(resource.get("id"), '1', "Incorrect selected resource item id");
+  this.on('itemSelected', function(/*resource*/) {
+    assert.ok(false, "This should not be called");
   });
 
   this.render(hbs`{{player.gru-navigator collection=collection
