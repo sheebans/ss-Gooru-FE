@@ -199,6 +199,20 @@
             display: block;
             margin: 10px 0;
           }
+
+          &.domain {
+            ul {
+              margin-left: 5px;
+              list-style: none;
+              padding: 0;
+              display: inline-block;
+
+              li {
+                display: inline-block;
+                margin-right: 2px;
+              }
+            }
+          }
         }
       }
 

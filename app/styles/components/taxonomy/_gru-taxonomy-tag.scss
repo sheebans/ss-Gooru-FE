@@ -1,0 +1,37 @@
+.taxonomy.gru-taxonomy-tag {
+  display: inline-block;
+  border: 1px solid $gray-light;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background-color: $white;
+
+  button {
+    border: 0 none;
+    margin: 0;
+    background-color: transparent;
+
+    &.toggle {
+      padding: 0 2px;
+    }
+
+    &.remove {
+      padding: 1px;
+      vertical-align: top;
+
+      i {
+        font-size: 13px;
+      }
+    }
+  }
+
+  &.active {
+    border-color: $dark-300;
+    background-color: $dark-300;
+
+    > span, > button {
+      color: $white;
+      height: 100%;
+      min-width: 0;
+    }
+  }
+}
