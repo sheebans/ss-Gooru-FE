@@ -128,3 +128,21 @@ test('Delete Unit', function(assert) {
       assert.ok(true);
     });
 });
+
+test('Copy Unit', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.post('/api/nucleus/v1/copier/courses/course-id/units/unit-id', function() {
+      return [201, {'Content-Type': 'text/plain', 'Location': 'copy-unit-id'}, ''];
+    }, false);
+  });
+  adapter.copyUnit({
+    courseId: 'course-id',
+    unitId: 'unit-id'
+  }).then(function(response) {
+      assert.equal('', response, 'Wrong response');
+    });
+});
