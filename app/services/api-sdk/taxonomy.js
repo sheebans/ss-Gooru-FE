@@ -18,23 +18,18 @@ import { generateTaxonomyTestTree } from 'gooru-web/utils/taxonomy';
 export default Ember.Service.extend({
 
   init() {
-    // Init taxonomy tree
+
+    // TODO: Remove after logic for taxonomy tree creation is ready
+    // Init taxonomy tree for testing the selection of unit domains
     var taxonomyTree = generateTaxonomyTestTree(3, null, 2);
-    this.set('taxonomy', taxonomyTree);
+    this.set('tempTree', taxonomyTree);
   },
 
   getCourses: function() {
-    return this.get('taxonomy');
+    return this.get('tempTree');
   },
 
-  //getDomains: function(rootId, courseId) {
-  //
-  //},
-  //
-  //getStandards: function(rootId, courseId, domainId) {
-  //
-  //},
-
-  taxonomy: null
+  // TODO: Remove after logic for taxonomy tree creation is ready
+  tempTree: null
 
 });
