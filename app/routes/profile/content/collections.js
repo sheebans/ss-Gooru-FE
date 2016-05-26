@@ -19,7 +19,7 @@ export default Ember.Route.extend(ModalMixin, {
      * @param {Collection} collection
      */
     editCollection: function (collection) {
-      this.transitionTo("content.collections.edit", collection.get("id"));
+      this.transitionTo("content.collections.edit", collection.get("id"),{queryParams: {courseId: collection.get('courseId'),allowBackToCourse:false}});
     },
 
     /**

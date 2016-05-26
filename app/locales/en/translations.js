@@ -49,6 +49,7 @@ export default {
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
     "back": "Back",
+    "back-to-data": "Back to Data",
     "best-practices": "Best Practices",
     "big-ideas": "Big Ideas",
     "biography": "Biography",
@@ -136,14 +137,15 @@ export default {
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
       "lesson-title-required" : "Please enter the lesson title.",
+      "question-not-copied": "Oops! Unable to copy question right now. Please try again shortly.",
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
       "question-not-updated": "Oops! Unable to update question right now. Please try again shortly.",
       "resource-description-length": "Description can't be longer than 500 characters.",
-      "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
       "resource-invalid-url": "Invalid URL.",
       "resource-missing-title": "Please enter a resource title.",
       "resource-missing-type": "Please select a resource type.",
       "resource-missing-url": "Please enter a valid URL.",
+      "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
       "resource-not-updated": "Oops! Unable to update resource right now. Please try again shortly.",
       "resource-same-host-url": "Resources can not be Gooru's URLs.",
       "resource-title-length": "Title can't be longer than 50 characters.",
@@ -261,6 +263,9 @@ export default {
     "remix-course": "Remix Course",
     "remix-course-lead": "You are about to remix a course.",
     "remix-course-success": "You've remixed a course {{courseTitle}}. Do you want to edit that course?",
+    "remix-question": "Remix Question",
+    "remix-question-lead": "You are about to remix a question.",
+    "remix-question-success": "You've remixed a question {{questionTitle}}. Do you want to edit that question?",
     "remix-unit": "Remix Unit",
     "remix-unit-lead": "You are about to remix an unit.",
     "remix-unit-success": "You've remixed a unit {{unitTitle}}.",
@@ -590,13 +595,13 @@ export default {
   "gru-share-pop-over":{
     "copy": "Copy",
     "ios-tooltip" : "Hold tap to copy!",
-    "safari-multiarch-tooltip":"Press Ctrl + C to copy!",
-    "safari-osx-tooltip":"Press Ctrl + C to copy!",
+    "multiarch-tooltip":"Press Ctrl + C to copy!",
+    "safari-osx-tooltip":"Press Cmd + C to copy!",
     "share-course":"Share your course with link",
     "share-question":"Share your question with link",
     "share-resource":"Share your resource with link",
     "share-assessment":"Share your assessment with link",
-    "share-collection":"Share your collection with link",
+    "share-collection":"Share your collection with link"
   },
   "gru-category-panel": {
     "teacher": {
@@ -866,6 +871,9 @@ export default {
   "player": {
     "gru-navigation": {
       "view-report": "View Report"
+    },
+    "gru-navigator": {
+      "see-usage-report": "See Usage Report"
     }
   },
 
@@ -914,6 +922,11 @@ export default {
   },
   "gru-resource-new": {
     "resource-already-exist": "This resource already exists in Gooru!"
+  },
+  "gru-assessment-report": {
+    "gru-summary": {
+      "total-time-spent": "Total Time Spent"
+    }
   },
   "cards":{
     "gru-class-card": {

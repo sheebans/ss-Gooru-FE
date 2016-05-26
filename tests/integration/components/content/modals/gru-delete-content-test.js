@@ -31,9 +31,11 @@ test('it renders', function(assert) {
 
     });
 
+    var hasWarning =content_type !== 'QUESTION' && content_type !== 'RESOURCE';
+
     assert.equal($component.find('h4.modal-title').text(),
       this.get('i18n').t('common.delete').string + " " + this.get('i18n').t('common.' + model.type).string, 'Incorrect Title');
-    if(content_type !== 'QUESTION'){
+    if(hasWarning){
     assert.equal($component.find('.delete-info ul li:eq(2) label span').text(),
       this.get('i18n').t('content.modals.delete-content.delete-warning',
         { type: this.get('i18n').t('common.' + model.type).string }).string, 'Incorrect content warning');
