@@ -71,8 +71,12 @@
           model=item
           courseTitle=courseTitle
           index=index
+          lessonId=lesson.id
+          unitId=unitId
           courseId=courseId
-          onDeleteLessonItem=(action 'removeLessonItem') }}
+          onDeleteLessonItem=(action 'removeLessonItem')
+          onRemixLessonItem=(action 'remixLessonItem')
+         }}
 
       {{/each}}
     </ol>
