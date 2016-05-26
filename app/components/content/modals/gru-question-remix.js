@@ -7,12 +7,12 @@ export default RemixBaseModal.extend({
   // Dependencies
 
   /**
-   * @property {Service} Collection service API SDK
+   * @property {Service} Assessment service API SDK
    */
   assessmentService: Ember.inject.service("api-sdk/assessment"),
 
   /**
-   * @property {Service} Assessment service API SDK
+   * @property {Service} Collection service API SDK
    */
   collectionService: Ember.inject.service("api-sdk/collection"),
 
