@@ -11,6 +11,14 @@ import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
  */
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
+  // Dependencies
+
+  /**
+   * @requires service:api-sdk/question
+   */
+  taxonomyService: Ember.inject.service("api-sdk/taxonomy"),
+
+  // -------------------------------------------------------------------------
   // Actions
 
   actions: {
@@ -18,7 +26,12 @@ export default Ember.Component.extend({
      * Set Category
      */
     setCategory(categoryValue) {
-      this.set('editObject.category', categoryValue);
+      this.set('category', categoryValue);
+      this.getSubjects();
+      this.set('primarySubject', null);
+      this.set('secondarySubject', null);
+      // TODO: Make sure that all content entities implement the following method
+      this.get('editObject').setTaxonomySubject(null);
     },
     /**
      * Set Subject
@@ -26,9 +39,8 @@ export default Ember.Component.extend({
     setSubject(subject, isPrimary) {
       if (isPrimary) {
         this.set('primarySubject', subject);
-        if (this.get('editObject').hasOwnProperty('subject')) { // Not all the entities have a subject property
-          this.set('editObject.subject', subject.id);
-        }
+        // TODO: Make sure that all content entities implement the following method
+        this.get('editObject').setTaxonomySubject(subject);
       } else {
         this.set('secondarySubject', subject);
       }
@@ -53,14 +65,8 @@ export default Ember.Component.extend({
   // Events
 
   didInsertElement() {
-    var category = this.get('srcObject.category');
-    var subject = this.get('srcObject.subject');
-    if (!category) {
-      this.set('srcObject.category', TAXONOMY_CATEGORIES[0].value);
-    }
-    if (subject) {
-      this.set('primarySubject', {id: subject});
-    }
+    var component = this;
+    Ember.run.scheduleOnce('afterRender', component, component.getSubjects);
   },
 
   // -------------------------------------------------------------------------
@@ -78,14 +84,19 @@ export default Ember.Component.extend({
   isEditing: null,
 
   /**
+   * @type {String} The taxonomy category
+   */
+  category: null,
+
+  /**
    * @type {Object} The object in edit mode
    */
   editObject: null,
 
   /**
-   * @type {Object} The initial object in edit mode
+   * @type {Boolean} Allows the component to display a secondary subject
    */
-  srcObject: null,
+  enableSecondarySubject: false,
 
   /**
    * @type {Object} The selected subject
@@ -105,22 +116,32 @@ export default Ember.Component.extend({
   /**
    * @type {Array} List of subjects
    */
-  subjectList: Ember.A([
-    {id: "K12.Science", title: "Science"},
-    {id: "K12.Math", title: "Math", subjectStandardFrameworks: [
-      {id: "K12.Math.CCSS", title: "Common Core State Standards"},
-      {id: "K12.Math.TEKS", title: "Texas Essential Knowledge and Skills"},
-      {id: "K12.Math.LWMS", title: "Learning What Matters Standards"}
-    ]},
-    {id: "K12.ELA", title: "English Language Arts"},
-    {id: "K12.SS", title: "Social Studies"},
-    {id: "K12.VPA", title: "Visual and Performing Arts"},
-    {id: "K12.Health", title: "Health"},
-    {id: "K12.PhEd", title: "Physical Education"},
-    {id: "K12.ESL", title: "English as a Second Language"},
-    {id: "K12.HS", title: "Habits of Success"},
-    {id: "K12.WL", title: "World Languages"},
-    {id: "K12.PF", title: "Personal Finance"},
-    {id: "K12.CS", title: "Computer Science"}
-  ])
+  subjectList: null,
+
+  // -------------------------------------------------------------------------
+  // Methods
+
+  /**
+   * Gets all the subjects for existing categories
+   */
+  getSubjects() {
+    var component = this;
+    component.get('taxonomyService').getSubjects(component.get('category')).then(function(subjects) {
+      component.set('subjectList', subjects);
+    });
+  },
+
+  // -------------------------------------------------------------------------
+  // Observers
+
+  /**
+   * Sets the primary subject based on editObject subject
+   */
+  initializePrimarySubject: Ember.observer('editObject.subject', function() {
+    if (this.get('editObject.subject') && !this.get('primarySubject')) {
+      let primarySubject = this.get('taxonomyService').findSubjectById(this.get('category'), this.get('editObject.subject'));
+      this.set('primarySubject', primarySubject);
+    }
+  })
+
 });

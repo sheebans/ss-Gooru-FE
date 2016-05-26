@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import TaxonomyRoot from 'gooru-web/models/taxonomy/taxonomy-root';
 
 /**
  * Serializer for Taxonomy endpoints
@@ -27,9 +28,16 @@ export default Ember.Object.extend({
   },
 
   normalizeSubject: function(subjectPayload) {
-    return Ember.Object.create({
-      id: subjectPayload.id
-      // TODO Normalization goes here
+    var serializer = this;
+    return TaxonomyRoot.create(Ember.getOwner(serializer).ownerInjection(), {
+      id: subjectPayload['taxonomy_subject_id'] ? subjectPayload['taxonomy_subject_id'] : subjectPayload.id,
+      frameworkId: subjectPayload['standard_framework_id'],
+      title: subjectPayload.title,
+      subjectTitle: subjectPayload['taxonomy_subject_title'] ? subjectPayload['taxonomy_subject_title'] : subjectPayload.title,
+      code: subjectPayload.code,
+      children: subjectPayload.frameworks ? subjectPayload.frameworks.map(function(framework) {
+        return serializer.normalizeSubject(framework);
+      }) : []
     });
   }
 

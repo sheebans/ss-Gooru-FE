@@ -2,21 +2,23 @@
   <span class="label required">{{t "common.category"}}</span>
   {{#if isEditing}}
     <div class="btn-group">
-      {{#each categories as |category|}}
-        {{#if (eq category.value editObject.category)}}
-          <button type="button"
-                  class="btn btn-sm btn-primary" {{action 'setCategory' category.value}}>{{t category.label}}</button>
+      {{#each categories as |categoryItem|}}
+        {{#if (eq categoryItem.value category)}}
+          <button type="button" class="btn btn-sm btn-primary" {{action 'setCategory' categoryItem.value}}>
+            {{t categoryItem.label}}
+          </button>
         {{else}}
-          <button type="button"
-                  class="btn btn-sm btn-info" {{action 'setCategory' category.value}}>{{t category.label}}</button>
+          <button type="button" class="btn btn-sm btn-info" {{action 'setCategory' categoryItem.value}}>
+            {{t categoryItem.label}}
+          </button>
         {{/if}}
       {{/each}}
     </div>
   {{else}}
     <div>
-      {{#each categories as |category|}}
-        {{#if (eq category.value srcObject.category)}}
-          <div class="btn-empty btn btn-sm">{{t category.label}}</div>
+      {{#each categories as |categoryItem|}}
+        {{#if (eq categoryItem.value category)}}
+          <div class="btn-empty btn btn-sm">{{t categoryItem.label}}</div>
         {{/if}}
       {{/each}}
     </div>
@@ -25,13 +27,17 @@
 
 <div class="subject">
   <label>
-    <span><span class="required">{{t 'taxonomy.gru-taxonomy-selector.primary-subject-and-course'}}</span>{{#if (and isEditing (not hasSecondary))}} <a href="#" {{action 'toggleSecondary'}}>{{t 'taxonomy.gru-taxonomy-selector.add-secondary'}}</a>{{/if}}</span>
+    <span><span class="required">{{t 'taxonomy.gru-taxonomy-selector.primary-subject-and-course'}}</span>{{#if (and enableSecondarySubject (and isEditing (not hasSecondary)))}} <a {{action 'toggleSecondary'}}>{{t 'taxonomy.gru-taxonomy-selector.add-secondary'}}</a>{{/if}}</span>
   </label>
   {{#if isEditing}}
     <div class="btn-group clearfix">
       <button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         {{#if primarySubject}}
-          {{primarySubject.title}}
+          {{#if primarySubject.code}}
+            {{primarySubject.title}}
+          {{else}}
+            {{primarySubject.subjectTitle}}
+          {{/if}}
         {{else}}
           {{t 'taxonomy.gru-taxonomy-selector.choose-subject'}}
         {{/if}}
@@ -42,30 +48,34 @@
       </button>
       <ul class="dropdown-menu">
         {{#each subjectList as |subject|}}
-          {{#if subject.subjectStandardFrameworks}}
+          {{#if subject.children}}
             <li class="has-children">
-              <a class="trigger">{{subject.title}} {{gru-icon name="keyboard_arrow_right"}}</a>
+              <a class="trigger">{{subject.subjectTitle}} {{gru-icon name="keyboard_arrow_right"}}</a>
               <ul class="dropdown-menu sub-menu">
-                {{#each subject.subjectStandardFrameworks as |framework|}}
+                {{#each subject.children as |framework|}}
                   <li><a {{action 'setSubject' framework true}}>{{framework.title}}</a></li>
                 {{/each}}
               </ul>
             </li>
           {{else}}
             <li>
-              <a {{action 'setSubject' subject true}}>{{subject.title}}</a>
+              <a {{action 'setSubject' subject true}}>{{subject.subjectTitle}}</a>
             </li>
           {{/if}}
         {{/each}}
       </ul>
     </div>
-    {{#if hasSecondary}}
+    {{#if (and enableSecondarySubject hasSecondary)}}
       <div class="secondary-subject">
         <button class="btn btn-link btn-sm remove" {{action "toggleSecondary"}}>{{gru-icon name="close"}}</button>
         <div class="btn-group clearfix">
           <button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{#if secondarySubject}}
-              {{secondarySubject.title}}
+              {{#if secondarySubject.code}}
+                {{secondarySubject.title}}
+              {{else}}
+                {{secondarySubject.subjectTitle}}
+              {{/if}}
             {{else}}
               {{t 'taxonomy.gru-taxonomy-selector.choose-subject'}}
             {{/if}}
@@ -76,18 +86,18 @@
           </button>
           <ul class="dropdown-menu">
             {{#each subjectList as |subject|}}
-              {{#if subject.subjectStandardFrameworks}}
+              {{#if subject.children}}
                 <li class="has-children">
-                  <a class="trigger">{{subject.title}} {{gru-icon name="keyboard_arrow_right"}}</a>
+                  <a class="trigger">{{subject.subjectTitle}} {{gru-icon name="keyboard_arrow_right"}}</a>
                   <ul class="dropdown-menu sub-menu">
-                    {{#each subject.subjectStandardFrameworks as |framework|}}
+                    {{#each subject.children as |framework|}}
                       <li><a {{action 'setSubject' framework}}>{{framework.title}}</a></li>
                     {{/each}}
                   </ul>
                 </li>
               {{else}}
                 <li>
-                  <a {{action 'setSubject' subject}}>{{subject.title}}</a>
+                  <a {{action 'setSubject' subject}}>{{subject.subjectTitle}}</a>
                 </li>
               {{/if}}
             {{/each}}

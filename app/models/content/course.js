@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
+import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 
 const Validations = buildValidations({
   title: {
@@ -27,7 +28,20 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {String} category - Category the course belongs to
    */
-  category: null,
+  category: Ember.computed('subject', function() {
+    var keys = this.get('subject').split('.');
+    var category = TAXONOMY_CATEGORIES[0].value; // Default to K12 category
+    if (keys.length > 1) {
+      for (var i = TAXONOMY_CATEGORIES.length - 1; i >= 0; i--) {
+        // The second part of the subjectId represents the category
+        if (keys[1] === TAXONOMY_CATEGORIES[i].apiCode) {
+          category = TAXONOMY_CATEGORIES[i].value;
+          break;
+        }
+      }
+    }
+    return category;
+  }),
 
   /**
    * @property {Content/Unit[]} children - List of course units
@@ -127,6 +141,16 @@ export default Ember.Object.extend(Validations, {
   merge: function(model, propertyList = []) {
     var properties = model.getProperties(propertyList);
     this.setProperties(properties);
+  },
+
+  /**
+   * Sets the subject of the course
+   *
+   * @function
+   * @param {TaxonomyRoot} taxonomySubject
+   */
+  setTaxonomySubject: function(taxonomySubject) {
+    this.set('subject', taxonomySubject ? taxonomySubject.get('id') : null);
   }
 
 });
