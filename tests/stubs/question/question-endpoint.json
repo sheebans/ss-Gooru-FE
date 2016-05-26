@@ -31,5 +31,23 @@
         "Content-Type": "application/json"
       }
     }
+  },
+  {
+    "description": "Get a question",
+    "request": {
+      "url": "^/api/nucleus/v1/questions/(.+)",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-question-200-response.json"
+    }
   }
 ]

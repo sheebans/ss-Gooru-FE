@@ -102,3 +102,24 @@ test('deleteQuestion', function(assert) {
       done();
     });
 });
+
+test('copyQuestion', function(assert) {
+  const service = this.subject();
+
+  assert.expect(1);
+
+  // There is not a Adapter stub in this case
+  // Pretender was included because it is needed to simulate the response Headers including the Location value
+  this.pretender.map(function() {
+    this.post('/api/nucleus/v1/copier/questions/question-id', function() {
+      return [201, {'Content-Type': 'text/plain', 'Location': 'copy-question-id'}, ''];
+    }, false);
+  });
+
+  var done = assert.async();
+  service.copyQuestion('question-id')
+    .then(function(response) {
+      assert.equal(response, 'copy-question-id', 'Wrong question id');
+      done();
+    });
+});

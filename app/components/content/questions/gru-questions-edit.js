@@ -2,9 +2,11 @@ import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
 import Answer from 'gooru-web/models/content/answer';
 import {QUESTION_CONFIG} from 'gooru-web/config/question';
+import {CONTENT_TYPES} from 'gooru-web/config/config';
+import ModalMixin from 'gooru-web/mixins/modal';
 
 
-export default Ember.Component.extend(ContentEditMixin,{
+export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -23,6 +25,10 @@ export default Ember.Component.extend(ContentEditMixin,{
    * @requires service:api-sdk/media
    */
   mediaService: Ember.inject.service("api-sdk/media"),
+  /**
+   * @type {SessionService} Service to retrieve session information
+   */
+  session: Ember.inject.service("session"),
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -83,6 +89,29 @@ export default Ember.Component.extend(ContentEditMixin,{
       this.set('tempQuestion', questionForEditing);
       this.set('tempQuestion.isVisibleOnProfile', isChecked);
       this.saveNewContent();
+    },
+    /**
+    * Delete Question
+    */
+    deleteQuestion:function(){
+      const myId = this.get("session.userId");
+      var model = {
+        content: this.get('question'),
+        deleteMethod: function () {
+          return this.get('questionService').deleteQuestion(this.get('question.id'));
+        }.bind(this),
+        type: CONTENT_TYPES.QUESTION,
+        redirect: {
+          route: 'profile.content.courses',
+          params: {
+            id: myId
+          }
+        }
+      };
+
+      this.actions.showModal.call(this,
+        'content.modals.gru-delete-content',
+        model, null, null, null, false);
     }
   },
 

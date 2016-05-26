@@ -87,6 +87,21 @@ export default Ember.Service.extend({
       service.get('questionAdapter').deleteQuestion(questionId)
         .then(resolve, reject);
     });
+  },
+
+  /**
+   * Copies a question by id
+   * @param {string} questionId
+   * @returns {Ember.RSVP.Promise}
+   */
+  copyQuestion: function(questionId){
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('questionAdapter').copyQuestion(questionId)
+        .then(function(responseData, textStatus, request) {
+          resolve(request.getResponseHeader('location'));
+        }, reject );
+    });
   }
 
 });
