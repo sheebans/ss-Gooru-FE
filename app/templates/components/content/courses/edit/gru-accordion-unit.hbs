@@ -33,7 +33,14 @@
 
       <div class="data-row domain">
         <span>{{t "common.domain"}}</span>
-        <button type="button" class="btn btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
+        <button type="button" class="btn btn-primary btn-sm add-prefix" {{action 'openDomainPicker'}}>{{t "common.add"}}</button>
+        <ul>
+        {{#each selectedDomains as |domainTag|}}
+          <li>
+            {{taxonomy.gru-taxonomy-tag model=domainTag}}
+          </li>
+        {{/each}}
+        </ul>
       </div>
     </div>
   </div>
@@ -78,10 +85,8 @@
       {{#each items as |item index|}}
 
         {{content.courses.edit.gru-accordion-lesson
-          courseId=courseId
-          courseTitle=courseTitle
+          course=course
           unitId=unit.id
-          courseTitle=courseTitle
           model=item
           index=index
           totalItems=items.length

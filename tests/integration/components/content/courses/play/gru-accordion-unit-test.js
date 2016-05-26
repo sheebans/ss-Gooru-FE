@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import BuilderItem from 'gooru-web/models/content/builder/item';
+import Course from 'gooru-web/models/content/course';
 import Lesson from 'gooru-web/models/content/lesson';
 import Unit from 'gooru-web/models/content/unit';
 import Ember from 'ember';
@@ -87,11 +88,13 @@ test('it expands/collapses the unit', function (assert) {
     assert.ok(true);
   });
 
-  this.set('courseId', 'course-id-123');
+  this.set('course', Course.create({
+    id: 'course-id-123'
+  }));
   this.set('unit', unit);
   this.render(hbs`
     {{content/courses/play/gru-accordion-unit
-      courseId=courseId
+      course=course
       model=unit
       onExpandUnit=(action 'externalAction') }}
     `);
@@ -130,12 +133,14 @@ test('it loads lessons and renders them after clicking on the unit name', functi
   //onExpandUnit action must be defined
   this.on('externalAction', function () {});
 
-  this.set('courseId', 'course-id-123');
+  this.set('course', Course.create({
+    id: 'course-id-123'
+  }));
   this.set('unit', unit);
   this.set('isLoaded', false);  // Binding to check on the state
   this.render(hbs`
     {{content/courses/play/gru-accordion-unit
-      courseId=courseId
+      course=course
       model=unit
       isLoaded=isLoaded
       onExpandUnit=(action 'externalAction') }}

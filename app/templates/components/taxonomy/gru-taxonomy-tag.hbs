@@ -1,0 +1,10 @@
+{{#if model.isReadonly}}
+  <span>{{model.taxonomyItem.title}}</span>
+{{else}}
+  <button class="toggle" {{action 'toggleState'}}>{{model.taxonomyItem.title}}</button>
+{{/if}}
+
+{{#if model.isRemovable}}
+  <button class="remove" {{action 'removeTag'}}>{{gru-icon name="clear"}}</button>
+{{/if}}
+

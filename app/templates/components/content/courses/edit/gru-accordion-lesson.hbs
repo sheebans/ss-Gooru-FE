@@ -14,11 +14,11 @@
         <button class="cancel btn btn-info"  {{action 'cancelEdit'}}>{{t "common.cancel"}}</button>
         <button class="save btn btn-success" {{action 'saveLesson'}}>{{t "common.save"}}</button>
       </div>
-      <div class="panel-body">
-        <div class="data-row standards">
-          <span>{{t "common.standards"}}</span>
-          <button type="button" class="btn btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
-        </div>
+    </div>
+    <div class="panel-body">
+      <div class="data-row standards">
+        <span>{{t "common.standards"}}</span>
+        <button type="button" class="btn btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
       </div>
     </div>
   </div>
@@ -69,9 +69,8 @@
 
         {{content.courses.edit.gru-accordion-lesson-item
           model=item
-          courseTitle=courseTitle
+          course=course
           index=index
-          courseId=courseId
           onDeleteLessonItem=(action 'removeLessonItem') }}
 
       {{/each}}

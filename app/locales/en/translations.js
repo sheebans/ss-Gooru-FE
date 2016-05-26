@@ -7,11 +7,11 @@ export default {
     "about": "About",
     "about-you": "About You",
     "add": "Add",
-    "add-plus": "+ Add",
     "add-assessment": "Add New Assessment",
     "add-collection": "Add New Collection",
     "add-collection-item": "Add Resource or Question",
     "add-course": "Add New Course",
+    "add-domains-to-unit": "Add Domains to Unit",
     "add-from-url":"Add from URL",
     "add-lessons": "Add Lessons",
     "add-new-lesson": "Add New Lesson",
@@ -94,6 +94,7 @@ export default {
     "description": "Description",
     "district": "District",
     "domain": "Domain",
+    "domains": "Domains",
     "drag-drop-suggestions": "Or Drag and Drop Suggestions ...",
     "edit": "Edit",
     "edit-assessment": "Edit Assessment",
@@ -416,7 +417,7 @@ export default {
       "invite-co-teachers":"Invite Co-teachers",
       "add-students":"Add Students",
       "class-code": "Class Code",
-      "delete":"Delete Class",
+      "delete":"Delete Class"
     },
     "edit":{
       "edit-class": "Edit Class Information",
@@ -588,6 +589,7 @@ export default {
       "other" : " and teaching {{count}} classes"
     }
   },
+
   /*
    * COMPONENTS: Translations used in a specific component
    */
@@ -987,6 +989,26 @@ export default {
     "featured-title" : "Featured Courses",
     "featured-description" : "Welcome to the Gooru courses! These featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, discrits, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix and customize courses to personalize learning and increase student engagement! Click here to <a href=''>learn more</a> about the development of these courses."
   },
+
+  "taxonomy.modals": {
+    "gru-domain-picker": {
+      "browseSelectorText": "What domains will this unit cover?",
+      "selectedText": {
+        one: "{{count}} domain selected",
+        other: "{{count}} domains selected"
+      },
+      "shortcutText": "Course is in"
+    },
+    "gru-standard-picker": {
+      "browseSelectorText": "What standards will this collection cover?",
+      "selectedText": {
+        one: "{{count}} standard selected",
+        other: "{{count}} standards selected"
+      },
+      "shortcutText": "Unit is tagged to"
+    }
+  },
+
   "account-settings": {
     "title": "Account Settings",
     "account-info": "Account Info",
