@@ -13,6 +13,11 @@ export default Ember.Object.extend({
   children: [],
 
   /**
+   * @property {string} code - Display code for the item
+   */
+  code: '',
+
+  /**
    * @property {string} id - Item ID
    */
   id: null,
