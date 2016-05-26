@@ -72,22 +72,35 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
     },
 
     copy: function() {
-      let component = this;
-      component.get('collectionService').readCollection(component.get('model.id')).then(function(result){
-        let model = {
-          content: result,
-          lessonId: component.get('lessonId'),
-          unitId: component.get('unitId'),
-          courseId: component.get('courseId'),
-          isCollection: component.get('model.isCollection'),
-          onRemixSuccess: component.get('onRemixLessonItem')
-        };
-        component.send('showModal', 'content.modals.gru-collection-remix', model);
-      });
+      const component = this;
+      const isCollection = component.get('model.isCollection');
+      console.log();
+      if (isCollection) {
+        component.get('collectionService').readCollection(component.get('model.id')).then(function(result){
+          let model = {
+            content: result,
+            lessonId: component.get('lessonId'),
+            unitId: component.get('unitId'),
+            courseId: component.get('courseId'),
+            isCollection: isCollection,
+            onRemixSuccess: component.get('onRemixLessonItem')
+          };
+          component.send('showModal', 'content.modals.gru-collection-remix', model);
+        });
+      } else {
+        component.get('assessmentService').readAssessment(component.get('model.id')).then(function(result){
+          let model = {
+            content: result,
+            lessonId: component.get('lessonId'),
+            unitId: component.get('unitId'),
+            courseId: component.get('courseId'),
+            isCollection: isCollection,
+            onRemixSuccess: component.get('onRemixLessonItem')
+          };
+          component.send('showModal', 'content.modals.gru-assessment-remix', model);
+        });
+      }
     }
-
-
-
   },
 
 
