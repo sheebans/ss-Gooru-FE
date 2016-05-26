@@ -28,7 +28,7 @@ test('Header Layout', function(assert) {
 
   const $header = $container.find('> header');
   assert.ok($header.length, "Header");
-  assert.ok($header.find('h1').text(), 'Resource Title', "Missing title");
+  assert.ok($header.find('h1').text(), 'Question Title', "Missing title");
   assert.ok($header.find('.details .'+question.type+'-icon').length, "Missing icon");
   assert.ok($header.find('.details .type').length, "Missing type");
   assert.ok($header.find('.details .tags').length, "Missing tags");
