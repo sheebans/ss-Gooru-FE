@@ -43,7 +43,7 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
       var model =  {
         content: this.get('model'),
         index:this.get('index'),
-        parentName:this.get('courseTitle'),
+        parentName:this.get('course.title'),
         callback:{
           success:function(){
             component.get('onDeleteLessonItem')(builderItem);
@@ -95,8 +95,8 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
   // Properties
 
   /**
-   * @prop {String} courseId - ID of the course this unit belongs to
+   * @prop {String} course - Course this lesson item belongs to
    */
-  courseId: null
+  course: null
 
 });

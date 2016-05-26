@@ -5,6 +5,8 @@ import PlayerAccordionUnit from 'gooru-web/components/content/courses/play/gru-a
 import ModalMixin from 'gooru-web/mixins/modal';
 import {CONTENT_TYPES} from 'gooru-web/config/config';
 
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+
 
 /**
  * Content Builder: Accordion Unit
@@ -16,7 +18,7 @@ import {CONTENT_TYPES} from 'gooru-web/config/config';
  * @augments components/content/courses/play/gru-accordion-unit
  *
  */
-export default PlayerAccordionUnit.extend(ModalMixin,{
+export default PlayerAccordionUnit.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -24,6 +26,11 @@ export default PlayerAccordionUnit.extend(ModalMixin,{
    * @requires service:api-sdk/unit
    */
   unitService: Ember.inject.service("api-sdk/unit"),
+
+  /**
+   * @requires service:api-sdk/taxonomy
+   */
+  taxonomyService: Ember.inject.service("api-sdk/taxonomy"),
 
 
   // -------------------------------------------------------------------------
@@ -68,6 +75,38 @@ export default PlayerAccordionUnit.extend(ModalMixin,{
       }
     },
 
+    copy: function() {
+      var model = {
+        content: this.get('unit'),
+        courseId: this.get('courseId'),
+        onRemixSuccess: this.get('onRemixUnit')
+      };
+      this.send('showModal', 'content.modals.gru-unit-remix', model);
+    },
+
+    /**
+     * Delete selected unit
+     *
+     */
+    deleteItem: function (builderItem) {
+      let component = this;
+      var model = {
+        content: this.get('unit'),
+        index:this.get('index'),
+        parentName:this.get('course.title'),
+        deleteMethod: function () {
+          return this.get('unitService').deleteUnit(this.get('course.id'), this.get('unit.id'));
+        }.bind(this),
+        type: CONTENT_TYPES.UNIT,
+        callback: {
+          success:function(){
+            component.get('onDeleteUnit')(builderItem);
+          }
+        }
+      };
+      this.actions.showModal.call(this, 'content.modals.gru-delete-content', model);
+    },
+
     edit: function () {
       this.loadData().then(function() {
         var unitForEditing = this.get('unit').copy();
@@ -76,8 +115,46 @@ export default PlayerAccordionUnit.extend(ModalMixin,{
       }.bind(this));
     },
 
+    openDomainPicker: function () {
+      var component = this;
+      var tree = this.get('taxonomyService').getCourses();
+
+      var model = {
+        selected: component.get('selectedDomains').map(function(domainTag) {
+          return domainTag.get('taxonomyItem');
+        }),
+        shortcuts: component.get('selectedCourses'),
+        taxonomyItems: tree,
+        callback: {
+          success: function(selectedTags) {
+            var selectedDomains = component.get('selectedDomains');
+            var selected = selectedTags.map(function(domainTag) {
+              return TaxonomyTag.create({
+                isReadonly: true,
+                taxonomyItem: domainTag.get('taxonomyItem')
+              });
+            });
+
+            Ember.beginPropertyChanges();
+            selectedDomains.clear();
+            selectedDomains.pushObjects(selected);
+            Ember.endPropertyChanges();
+          }
+        }
+      };
+
+      this.actions.showModal.call(this, 'taxonomy.modals.gru-domain-picker', model, null, 'gru-domain-picker');
+    },
+
+    /**
+     * Remove Lesson from a list of lessons
+     */
+    removeLesson: function (builderItem) {
+      this.get('items').removeObject(builderItem);
+    },
+
     saveUnit: function () {
-      var courseId = this.get('courseId');
+      var courseId = this.get('course.id');
       var editedUnit = this.get('tempUnit');
       var unitService = this.get('unitService');
 
@@ -96,51 +173,13 @@ export default PlayerAccordionUnit.extend(ModalMixin,{
           this.get('notifications').error(message);
           Ember.Logger.error(error);
         }.bind(this));
-    },
-    /**
-     * Delete selected unit
-     *
-     */
-    deleteItem: function (builderItem) {
-      let component = this;
-      var model = {
-          content: this.get('unit'),
-          index:this.get('index'),
-          parentName:this.get('courseTitle'),
-          deleteMethod: function () {
-            return this.get('unitService').deleteUnit(this.get('courseId'),this.get('unit.id'));
-          }.bind(this),
-          type: CONTENT_TYPES.UNIT,
-          callback:{
-            success:function(){
-              component.get('onDeleteUnit')(builderItem);
-            },
-          }
-      };
-      this.actions.showModal.call(this,
-        'content.modals.gru-delete-content',
-        model, null, null, null, false);
-    },
-    /**
-     * Remove Lesson from a list of lessons
-     */
-    removeLesson: function (builderItem) {
-      this.get('items').removeObject(builderItem);
-    },
-
-    copy: function() {
-      var model = {
-        content: this.get('unit'),
-        courseId: this.get('courseId'),
-        onRemixSuccess: this.get('onRemixUnit')
-      };
-      this.send('showModal', 'content.modals.gru-unit-remix', model);
     }
-
   },
+
 
   // -------------------------------------------------------------------------
   // Events
+
   init() {
     this._super(...arguments);
 
@@ -149,11 +188,40 @@ export default PlayerAccordionUnit.extend(ModalMixin,{
       let unitForEditing = this.get('unit').copy();
       this.set('tempUnit', unitForEditing);
     }
+
+    // TODO: Init selected domains per unit's taxonomy values
+    var courses = this.get('taxonomyService').getCourses();
+
+    var domainTag1 = TaxonomyTag.create({
+      isReadonly: true,
+      taxonomyItem: courses[0].find(['100', '202'])
+    });
+
+    var domainTag2 = TaxonomyTag.create({
+      isReadonly: true,
+      taxonomyItem: courses[0].find(['100', '203'])
+    });
+
+    var domainTag3 = TaxonomyTag.create({
+      isReadonly: true,
+      taxonomyItem: courses[1].find(['101', '210'])
+    });
+
+    this.set('selectedDomains', [domainTag1, domainTag2, domainTag3]);
+
+    // TODO: Selected courses assumed to exist in gru-accordion-course
+    // or in the course model
+    this.set('selectedCourses', [courses[0]]);
   },
 
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * @property {TaxonomyTag[]} selectedDomains - List of domain tags assigned to this unit
+   */
+  selectedDomains: null,
 
   /**
    * @prop {Content/Unit} tempUnit - Temporary unit model used for editing
