@@ -30,7 +30,7 @@
             <span>{{t "common.delete-instructions.content-inaccessible"}}</span>
           </label>
         </li>
-       {{#unless (eq model.type 'question')}}
+       {{#unless hasNoWarning}}
         <li>
           <label>
             {{input type="checkbox" checked=validator.check3}}
