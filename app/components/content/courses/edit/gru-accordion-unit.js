@@ -78,7 +78,7 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
     copy: function() {
       var model = {
         content: this.get('unit'),
-        courseId: this.get('courseId'),
+        courseId: this.get('course.id'),
         onRemixSuccess: this.get('onRemixUnit')
       };
       this.send('showModal', 'content.modals.gru-unit-remix', model);

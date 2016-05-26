@@ -272,7 +272,7 @@ export default {
     "remix-question-lead": "You are about to remix a question.",
     "remix-question-success": "You've remixed a question {{questionTitle}}. Do you want to edit that question?",
     "remix-unit": "Remix Unit",
-    "remix-unit-lead": "You are about to remix an unit.",
+    "remix-unit-lead": "You are about to remix a unit.",
     "remix-unit-success": "You've remixed a unit {{unitTitle}}.",
     "remixed-by": "Remixed by",
     "remove":"Remove",

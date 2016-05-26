@@ -105,7 +105,7 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
     copy: function() {
       var model = {
         content: this.get('lesson'),
-        courseId: this.get('courseId'),
+        courseId: this.get('course.id'),
         unitId: this.get('unitId'),
         onRemixSuccess: this.get('onRemixLesson')
       };
