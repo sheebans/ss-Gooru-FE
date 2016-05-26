@@ -27,16 +27,18 @@ export default Ember.Object.extend({
     return result;
   },
 
-  normalizeSubject: function(subjectPayload) {
+  normalizeSubject: function(subjectPayload, parentTitle) {
     var serializer = this;
     return TaxonomyRoot.create(Ember.getOwner(serializer).ownerInjection(), {
       id: subjectPayload['taxonomy_subject_id'] ? subjectPayload['taxonomy_subject_id'] : subjectPayload.id,
       frameworkId: subjectPayload['standard_framework_id'],
       title: subjectPayload.title,
-      subjectTitle: subjectPayload['taxonomy_subject_title'] ? subjectPayload['taxonomy_subject_title'] : subjectPayload.title,
+      subjectTitle: parentTitle
+        ? `${subjectPayload['standard_framework_id']} ${parentTitle}`
+        : subjectPayload.title,
       code: subjectPayload.code,
       children: subjectPayload.frameworks ? subjectPayload.frameworks.map(function(framework) {
-        return serializer.normalizeSubject(framework);
+        return serializer.normalizeSubject(framework, subjectPayload.title);
       }) : []
     });
   }

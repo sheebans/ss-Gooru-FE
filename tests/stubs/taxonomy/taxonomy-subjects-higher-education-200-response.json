@@ -1,53 +1,21 @@
 {
-  "subjects": [
-    {
-      "id": "GUF~Math",
-      "title": "Mathematics ",
-      "description": "Global Mathematics",
-      "code": "GUF mathematics",
-      "standard_framework_id": "GUF",
-      "frameworks": [
-        {
-          "standard_framework_id": "TEXS",
-          "taxonomy_subject_id": "TEXS~Math",
-          "title": "TEXS"
-        },
-        {
-          "standard_framework_id": "CSS",
-          "taxonomy_subject_id": "CSS~Math",
-          "title": "CSS"
-        }
-      ]
-    },
-    {
-      "id": "GUF~Science",
-      "title": "Science",
-      "description": "Science",
-      "code": "GUF cience",
-      "standard_framework_id": "GUF",
-      "frameworks": [
-        {
-          "standard_framework_id": "TEXS",
-          "taxonomy_subject_id": "TEXS~Science",
-          "title": "TEXS"
-        }
-      ]
-    },
-    {
-      "id": "GUF~History",
-      "title": "History",
-      "description": "History",
-      "code": "GUF history",
-      "standard_framework_id": "GUF",
-      "frameworks": []
-    },
-    {
-      "id": "GUF~English",
-      "title": "English",
-      "description": "English",
-      "code": "GUF english",
-      "standard_framework_id": "GUF",
-      "frameworks": []
-    }
-  ]
+  "subjects": [{
+    "id": "GDF.HE.AH",
+    "title": "Arts & Humanities",
+    "description": null,
+    "code": "GDF.HE.AH",
+    "standard_framework_id": "GDF"
+  }, {
+    "id": "GDF.HE.TE",
+    "title": "Technology & Engineering",
+    "description": null,
+    "code": "GDF.HE.TE",
+    "standard_framework_id": "GDF"
+  }, {
+    "id": "GDF.HE.OT",
+    "title": "Other",
+    "description": null,
+    "code": "GDF.HE.OT",
+    "standard_framework_id": "GDF"
+  }]
 }

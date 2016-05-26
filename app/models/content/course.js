@@ -29,14 +29,16 @@ export default Ember.Object.extend(Validations, {
    * @property {String} category - Category the course belongs to
    */
   category: Ember.computed('subject', function() {
-    var keys = this.get('subject').split('.');
     var category = TAXONOMY_CATEGORIES[0].value; // Default to K12 category
-    if (keys.length > 1) {
-      for (var i = TAXONOMY_CATEGORIES.length - 1; i >= 0; i--) {
-        // The second part of the subjectId represents the category
-        if (keys[1] === TAXONOMY_CATEGORIES[i].apiCode) {
-          category = TAXONOMY_CATEGORIES[i].value;
-          break;
+    if (this.get('subject')) {
+      let keys = this.get('subject').split('.');
+      if (keys.length > 1) {
+        for (var i = TAXONOMY_CATEGORIES.length - 1; i >= 0; i--) {
+          // The second part of the subjectId represents the category
+          if (keys[1] === TAXONOMY_CATEGORIES[i].apiCode) {
+            category = TAXONOMY_CATEGORIES[i].value;
+            break;
+          }
         }
       }
     }

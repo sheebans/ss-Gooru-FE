@@ -2,23 +2,23 @@
   <span class="label required">{{t "common.category"}}</span>
   {{#if isEditing}}
     <div class="btn-group">
-      {{#each categories as |categoryItem|}}
-        {{#if (eq categoryItem.value category)}}
-          <button type="button" class="btn btn-sm btn-primary" {{action 'setCategory' categoryItem.value}}>
-            {{t categoryItem.label}}
+      {{#each categories as |category|}}
+        {{#if (eq category.value editEntity.category)}}
+          <button type="button" class="btn btn-sm btn-primary" {{action 'setCategory' category.value}}>
+            {{t category.label}}
           </button>
         {{else}}
-          <button type="button" class="btn btn-sm btn-info" {{action 'setCategory' categoryItem.value}}>
-            {{t categoryItem.label}}
+          <button type="button" class="btn btn-sm btn-info" {{action 'setCategory' category.value}}>
+            {{t category.label}}
           </button>
         {{/if}}
       {{/each}}
     </div>
   {{else}}
     <div>
-      {{#each categories as |categoryItem|}}
-        {{#if (eq categoryItem.value category)}}
-          <div class="btn-empty btn btn-sm">{{t categoryItem.label}}</div>
+      {{#each categories as |category|}}
+        {{#if (eq category.value srcEntity.category)}}
+          <div class="btn-empty btn btn-sm">{{t category.label}}</div>
         {{/if}}
       {{/each}}
     </div>
@@ -33,11 +33,7 @@
     <div class="btn-group clearfix">
       <button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         {{#if primarySubject}}
-          {{#if primarySubject.code}}
-            {{primarySubject.title}}
-          {{else}}
-            {{primarySubject.subjectTitle}}
-          {{/if}}
+          {{primarySubject.subjectTitle}}
         {{else}}
           {{t 'taxonomy.gru-taxonomy-selector.choose-subject'}}
         {{/if}}
@@ -50,7 +46,7 @@
         {{#each subjectList as |subject|}}
           {{#if subject.children}}
             <li class="has-children">
-              <a class="trigger">{{subject.subjectTitle}} {{gru-icon name="keyboard_arrow_right"}}</a>
+              <a class="trigger">{{subject.title}} {{gru-icon name="keyboard_arrow_right"}}</a>
               <ul class="dropdown-menu sub-menu">
                 {{#each subject.children as |framework|}}
                   <li><a {{action 'setSubject' framework true}}>{{framework.title}}</a></li>
@@ -59,7 +55,7 @@
             </li>
           {{else}}
             <li>
-              <a {{action 'setSubject' subject true}}>{{subject.subjectTitle}}</a>
+              <a {{action 'setSubject' subject true}}>{{subject.title}}</a>
             </li>
           {{/if}}
         {{/each}}
@@ -71,11 +67,7 @@
         <div class="btn-group clearfix">
           <button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{#if secondarySubject}}
-              {{#if secondarySubject.code}}
-                {{secondarySubject.title}}
-              {{else}}
-                {{secondarySubject.subjectTitle}}
-              {{/if}}
+              {{secondarySubject.subjectTitle}}
             {{else}}
               {{t 'taxonomy.gru-taxonomy-selector.choose-subject'}}
             {{/if}}
@@ -88,7 +80,7 @@
             {{#each subjectList as |subject|}}
               {{#if subject.children}}
                 <li class="has-children">
-                  <a class="trigger">{{subject.subjectTitle}} {{gru-icon name="keyboard_arrow_right"}}</a>
+                  <a class="trigger">{{subject.title}} {{gru-icon name="keyboard_arrow_right"}}</a>
                   <ul class="dropdown-menu sub-menu">
                     {{#each subject.children as |framework|}}
                       <li><a {{action 'setSubject' framework}}>{{framework.title}}</a></li>
@@ -97,7 +89,7 @@
                 </li>
               {{else}}
                 <li>
-                  <a {{action 'setSubject' subject}}>{{subject.subjectTitle}}</a>
+                  <a {{action 'setSubject' subject}}>{{subject.title}}</a>
                 </li>
               {{/if}}
             {{/each}}

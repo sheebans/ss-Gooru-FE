@@ -26,12 +26,12 @@ export default Ember.Component.extend({
      * Set Category
      */
     setCategory(categoryValue) {
-      this.set('category', categoryValue);
-      this.getSubjects();
+      this.set('editEntity.category', categoryValue);
+      this.getSubjects(categoryValue);
       this.set('primarySubject', null);
       this.set('secondarySubject', null);
       // TODO: Make sure that all content entities implement the following method
-      this.get('editObject').setTaxonomySubject(null);
+      this.get('editEntity').setTaxonomySubject(null);
     },
     /**
      * Set Subject
@@ -40,7 +40,7 @@ export default Ember.Component.extend({
       if (isPrimary) {
         this.set('primarySubject', subject);
         // TODO: Make sure that all content entities implement the following method
-        this.get('editObject').setTaxonomySubject(subject);
+        this.get('editEntity').setTaxonomySubject(subject);
       } else {
         this.set('secondarySubject', subject);
       }
@@ -66,7 +66,9 @@ export default Ember.Component.extend({
 
   didInsertElement() {
     var component = this;
-    Ember.run.scheduleOnce('afterRender', component, component.getSubjects);
+    Ember.run.scheduleOnce('afterRender', component, function() {
+      component.getSubjects(component.get('srcEntity.category'));
+    });
   },
 
   // -------------------------------------------------------------------------
@@ -78,20 +80,20 @@ export default Ember.Component.extend({
   categories: TAXONOMY_CATEGORIES,
 
   /**
-   * Is the course being edited or not?
+   * Is the entity being edited or not?
    * @property {Boolean}
    */
   isEditing: null,
 
   /**
-   * @type {String} The taxonomy category
+   * @type {String} The source entity
    */
-  category: null,
+  srcEntity: null,
 
   /**
-   * @type {Object} The object in edit mode
+   * @type {Object} The entity in edit mode
    */
-  editObject: null,
+  editEntity: null,
 
   /**
    * @type {Boolean} Allows the component to display a secondary subject
@@ -124,9 +126,9 @@ export default Ember.Component.extend({
   /**
    * Gets all the subjects for existing categories
    */
-  getSubjects() {
+  getSubjects(category) {
     var component = this;
-    component.get('taxonomyService').getSubjects(component.get('category')).then(function(subjects) {
+    component.get('taxonomyService').getSubjects(category).then(function(subjects) {
       component.set('subjectList', subjects);
     });
   },
@@ -135,12 +137,14 @@ export default Ember.Component.extend({
   // Observers
 
   /**
-   * Sets the primary subject based on editObject subject
+   * Sets the primary subject based on editEntity subject
    */
-  initializePrimarySubject: Ember.observer('editObject.subject', function() {
-    if (this.get('editObject.subject') && !this.get('primarySubject')) {
-      let primarySubject = this.get('taxonomyService').findSubjectById(this.get('category'), this.get('editObject.subject'));
+  initializePrimarySubject: Ember.observer('isEditing', function() {
+    if (!this.get('primarySubject') && this.get('isEditing')) {
+      let primarySubject = this.get('taxonomyService').findSubjectById(this.get('editEntity.category'), this.get('editEntity.subject'));
       this.set('primarySubject', primarySubject);
+    } else {
+      this.set('primarySubject', null);
     }
   })
 
