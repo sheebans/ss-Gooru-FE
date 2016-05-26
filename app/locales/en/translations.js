@@ -49,6 +49,7 @@ export default {
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
     "back": "Back",
+    "back-to-data": "Back to Data",
     "best-practices": "Best Practices",
     "big-ideas": "Big Ideas",
     "biography": "Biography",
@@ -596,7 +597,7 @@ export default {
     "share-question":"Share your question with link",
     "share-resource":"Share your resource with link",
     "share-assessment":"Share your assessment with link",
-    "share-collection":"Share your collection with link",
+    "share-collection":"Share your collection with link"
   },
   "gru-category-panel": {
     "teacher": {
@@ -866,6 +867,9 @@ export default {
   "player": {
     "gru-navigation": {
       "view-report": "View Report"
+    },
+    "gru-navigator": {
+      "see-usage-report": "See Usage Report"
     }
   },
 
@@ -914,6 +918,11 @@ export default {
   },
   "gru-resource-new": {
     "resource-already-exist": "This resource already exists in Gooru!"
+  },
+  "gru-assessment-report": {
+    "gru-summary": {
+      "total-time-spent": "Total Time Spent"
+    }
   },
   "cards":{
     "gru-class-card": {

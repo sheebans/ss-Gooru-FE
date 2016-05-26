@@ -81,14 +81,14 @@ Router.map(function() {
 
   this.route('reports', function () {
     this.route('collection', {path: '/class/:classId/collection/:collectionId'});
-    this.route('student-collection', {path: '/class/:classId/course/:courseId/unit/:unitId/lesson/:lessonId/collection/:collectionId/student/:userId'});
+    this.route('student-collection');
   });
 
 
   this.route('home');
 
   this.route('api'); //development api for testing end points
-  
+
   this.route('featured');
 
   this.route('profile', { path: '/:userId' }, function() {

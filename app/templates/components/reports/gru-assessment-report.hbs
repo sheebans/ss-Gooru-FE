@@ -9,4 +9,7 @@
     onBubbleSelect='bubbleSelect'}}
 {{/if}}
 
-{{reports.assessment.gru-questions results=orderedQuestions}}
+{{#if orderedQuestions.length}}
+  {{reports.assessment.gru-questions results=orderedQuestions}}
+{{/if}}
+

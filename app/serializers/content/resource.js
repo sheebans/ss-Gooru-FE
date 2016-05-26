@@ -77,7 +77,8 @@ export default Ember.Object.extend({
         amIThePublisher: resourceData.metadata && resourceData.metadata['am_i_the_publisher'] ? resourceData.metadata['am_i_the_publisher'] : false,
         publisher: resourceData.metadata && resourceData.metadata.publisher ? resourceData.metadata.publisher : null
       },
-      isVisibleOnProfile: typeof resourceData['visible_on_profile'] !== 'undefined' ? resourceData['visible_on_profile'] : true
+      isVisibleOnProfile: typeof resourceData['visible_on_profile'] !== 'undefined' ? resourceData['visible_on_profile'] : true,
+      order: resourceData.sequence_id
     });
   },
 

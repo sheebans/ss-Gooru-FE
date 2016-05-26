@@ -13,7 +13,7 @@ moduleForComponent('player/gru-navigator', 'Integration | Component | player/gru
 
 test('Player Navigator', function(assert) {
 
-  assert.expect(11);
+  assert.expect(10);
 
   const resourceMockA = Ember.Object.create({
     id: '1',
@@ -52,8 +52,8 @@ test('Player Navigator', function(assert) {
   this.set('collection', collectionMock);
   this.set('resourceResults', resourceResults);
 
-  this.on('itemSelected', function(resource) {
-    assert.equal(resource.get("id"), '1', "Incorrect selected resource item id");
+  this.on('itemSelected', function(/*resource*/) {
+    assert.ok(false, "This should not be called");
   });
 
   this.render(hbs`{{player.gru-navigator collection=collection
@@ -66,7 +66,6 @@ test('Player Navigator', function(assert) {
 
   //$navigatorHeader
   const $navigatorHeader = $component.find(".gru-navigator .navigator-header");
-  T.exists(assert, $navigatorHeader.find(".lead"), "Missing back title");
   T.exists(assert, $navigatorHeader.find(".lesson-title"), "Missing lesson title");
 
   //$navigatorSubheader
@@ -264,5 +263,24 @@ test('Close player', function(assert) {
   var $component = this.$(); //component dom element
   var $closeButton = $component.find(".gru-navigator .navigator-header div:first-child");
   $closeButton.click();
+});
+
+test('See usage report', function(assert) {
+  assert.expect(2);
+
+  const collection = Ember.Object.create({
+    isCollection: true
+  });
+
+  this.set("collection", collection);
+  this.on('parentAction', function(){
+    assert.ok(true, 'external Action was called!');
+  });
+
+  this.render(hbs`{{player/gru-navigator collection=collection onFinishCollection='parentAction' lessonTitle='E-Lesson1'}}`);
+  var $component = this.$(); //component dom element
+  var $seeReportButton = $component.find(".gru-navigator .see-usage-report");
+  assert.ok($seeReportButton.length, "Missing button");
+  $seeReportButton.click();
 });
 
