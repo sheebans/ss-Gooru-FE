@@ -216,4 +216,18 @@
     }
 
   }
+
+
+  .go-back {
+    cursor: pointer;
+    i {
+      float: left;
+    }
+  }
+  .see-usage-report {
+    cursor: pointer;
+    i {
+      float: right;
+    }
+  }
 }

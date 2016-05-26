@@ -78,12 +78,24 @@ export default Ember.Object.extend(Serializable, {
   }),
 
   /**
+   * Indicates if the resource was skipped, a result is skipped
+   * @property {boolean}
+   */
+  skipped: Ember.computed.not("startedAt"),
+
+  /**
    * Indicates if it is completed
    * All started question are treated as completed
    * @return {boolean}
    */
   completed: Ember.computed.bool("started"),
 
+  /**
+   * @property {String}
+   */
+  attemptStatus: Ember.computed("started", function () {
+    return this.get('started') ? 'started' : 'skipped';
+  }),
 
   // -------------------------------------------------------------------------
   // Observer

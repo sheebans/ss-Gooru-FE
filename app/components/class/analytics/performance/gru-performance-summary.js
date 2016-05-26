@@ -60,7 +60,7 @@ export default Ember.Component.extend({
      * @param {string} collectionId - Identifier for a resource (collection/assessment)
      */
     viewReport: function (collectionId) {
-      this.get('onViewReport')(collectionId);
+      this.get('onViewReport')(collectionId, this.get("performance.type"));
     }
   },
 

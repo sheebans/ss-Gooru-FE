@@ -57,10 +57,11 @@ export default Ember.Component.extend({
     /**
      * @function actions:viewReport
      * @param {string} collectionId - Identifier for a resource (collection/assessment)
+     * @param {boolean} collectionType indicates if it is collection or assessment
      */
-    viewReport: function (collectionId) {
+    viewReport: function (collectionId, collectionType) {
       let lessonId = this.get("lesson.id");
-      this.get('onViewReport')(lessonId, collectionId);
+      this.get('onViewReport')(lessonId, collectionId, collectionType);
     }
   },
 

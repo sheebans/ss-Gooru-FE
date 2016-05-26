@@ -44,6 +44,11 @@ export default Ember.Component.extend({
   assessmentResult: null,
 
   /**
+   * @property {Collection}
+   */
+  collection: Ember.computed.alias("assessmentResult.collection"),
+
+  /**
    * @property {number} selected attempt
    */
   selectedAttempt: null,
@@ -51,13 +56,8 @@ export default Ember.Component.extend({
   /**
    * @property {[]}
    */
-  resourceLinks: Ember.computed("assessmentResult.questionResults", function(){
-    var resourceLinks = this.getResourceLinks(this.get('assessmentResult.questionResults'));
-    // Sort resource links per the question order number (i.e. label)
-    resourceLinks.sort(function (a, b) {
-      return a.label - b.label;
-    });
-    return resourceLinks;
+  resourceLinks: Ember.computed("assessmentResult.resourceResults", function(){
+    return this.getResourceLinks(this.get('assessmentResult.resourceResults'));
   }),
 
   /**
@@ -85,15 +85,15 @@ export default Ember.Component.extend({
 
   /**
    * Convenience structure to render resource information
-   * @param questionResults
+   * @param resourceResults
    * @returns {Array}
    */
-  getResourceLinks: function (questionResults) {
-    return questionResults.map(function (questionResult) {
+  getResourceLinks: function (resourceResults) {
+    return resourceResults.map(function (resourceResult, index) {
       return Ember.Object.create({
-        label: questionResult.get('question.order'),
-        status: questionResult.get('correct') ? 'correct' : 'incorrect',
-        value: questionResult.get('id')
+        label: index + 1, //using index here because the resouce.order could have gaps
+        status: resourceResult.get('attemptStatus'),
+        value: resourceResult.get('id')
       });
     });
   }

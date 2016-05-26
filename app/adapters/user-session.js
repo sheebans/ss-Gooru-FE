@@ -36,7 +36,11 @@ export default ApplicationAdapter.extend({
     const classId = query.classId;
     const courseId = query.courseId;
     const openSession = query.openSession;
-    const queryParams = `userUid=${userId}&classGooruId=${classId}&courseGooruId=${courseId}&unitGooruId=${unitId}&lessonGooruId=${lessonId}&openSession=${openSession}`;
+
+    const queryParams = (classId) ?
+      `userUid=${userId}&classGooruId=${classId}&courseGooruId=${courseId}&unitGooruId=${unitId}&lessonGooruId=${lessonId}&openSession=${openSession}` :
+      `userUid=${userId}&openSession=${openSession}`;
+
     const url = `${namespace}/${collectionType}/${contentId}/sessions?${queryParams}`;
 
     delete query.classId;
