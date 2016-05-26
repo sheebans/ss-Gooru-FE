@@ -50,6 +50,10 @@
           }
 
           .information {
+            width: 100%;
+            @media (min-width: $screen-sm) {
+              width: 85%;
+            }
             h1 {
               $line-height: 1.2;
               $lines-to-show: 1;
