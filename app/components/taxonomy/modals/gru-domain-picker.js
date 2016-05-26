@@ -12,13 +12,19 @@ export default Ember.Component.extend({
 
 
   // -------------------------------------------------------------------------
+  // Attributes
+
+  classNames: ['taxonomy', 'modals', 'gru-domain-picker'],
+
+
+  // -------------------------------------------------------------------------
   // Events
   init() {
     this._super( ...arguments );
 
     this.set('panelHeaders', [
-      this.get('i18n').t('common.courses').string,
-      this.get('i18n').t('common.domains').string,
+      this.get('i18n').t('common.course').string,
+      this.get('i18n').t('common.domain').string
     ]);
   },
 

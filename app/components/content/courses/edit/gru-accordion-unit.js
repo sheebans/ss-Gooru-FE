@@ -123,7 +123,7 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
         }
       };
 
-      this.actions.showModal.call(this, 'taxonomy.modals.gru-domain-picker', model);
+      this.actions.showModal.call(this, 'taxonomy.modals.gru-domain-picker', model, null, 'gru-domain-picker');
     },
 
     /**

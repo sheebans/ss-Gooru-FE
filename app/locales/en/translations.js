@@ -7,11 +7,11 @@ export default {
     "about": "About",
     "about-you": "About You",
     "add": "Add",
-    "add-plus": "+ Add",
     "add-assessment": "Add New Assessment",
     "add-collection": "Add New Collection",
     "add-collection-item": "Add Resource or Question",
     "add-course": "Add New Course",
+    "add-domains-to-unit": "Add Domains to Unit",
     "add-from-url":"Add from URL",
     "add-lessons": "Add Lessons",
     "add-new-lesson": "Add New Lesson",
@@ -401,7 +401,7 @@ export default {
       "invite-collaborator":"Invite Collaborator",
       "invite-student":"Invite Student",
       "class-code": "Class Code",
-      "delete":"Delete Class",
+      "delete":"Delete Class"
     },
     "edit":{
       "edit-class": "Edit Class Information",
@@ -590,7 +590,7 @@ export default {
     "share-question":"Share your question with link",
     "share-resource":"Share your resource with link",
     "share-assessment":"Share your assessment with link",
-    "share-collection":"Share your collection with link",
+    "share-collection":"Share your collection with link"
   },
   "gru-category-panel": {
     "teacher": {
