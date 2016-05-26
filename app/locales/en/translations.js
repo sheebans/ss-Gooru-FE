@@ -990,7 +990,7 @@ export default {
       },
       "shortcutText": "Unit is tagged to"
     }
-  }
+  },
 
   "account-settings": {
     "title": "Account Settings",
