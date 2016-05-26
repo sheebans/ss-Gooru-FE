@@ -51,17 +51,13 @@
 
           .information {
             h1 {
-              $line-height: 1.1;
-              display: inline-block;
+              $line-height: 1.2;
+              $lines-to-show: 1;
               text-transform: capitalize;
-              font-size: $font-size-h4!important;
-              @include ellipsis($font-size-h4, $line-height, 1);
-
+              @include ellipsis($font-size: $font-size-h4, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $dark-400);
               @media (min-width: $screen-xs) {
-                font-size: $font-size-h3!important;
-                @include ellipsis($font-size-h3, $line-height, 1);
+                @include ellipsis($font-size: $font-size-h3, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $dark-400);
               }
-
             }
 
             .details {
@@ -191,8 +187,11 @@
               min-width: 125px;
               max-width: 140px;
 
-              span {
-                @include ellipsis($font-size-base, $line-height-base, 1);
+              span.owner {
+                $lines-to-show: 1;
+                text-align: center;
+                width: 100px;
+                @include ellipsis($font-size: $font-size-base, $line-height: $line-height-base, $lines-to-show: $lines-to-show, $excerpt-bg: $dark-400);
               }
 
               img {
