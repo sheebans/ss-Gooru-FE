@@ -10,8 +10,11 @@
     }
     .class-info {
       padding: 24px 15px 20px 60px;
+      width: 80%;
+      float: left;
 
       @media (max-width: $screen-xs-max) {
+        width: 58%;
         padding-left: 10px;
         padding-right: 0;
       }
@@ -27,6 +30,7 @@
         padding-left: 15px;
       }
     }
+
     .info-details.truncate {
       display: inline-block;
       border-left: 2px solid $white;
@@ -37,8 +41,11 @@
 
     }
     .info-btns {
-      padding-top: 45px;
+      padding: 45px 10px 0 0;
+      width: 20%;
+      float: left;
       @media (max-width: $screen-xs-max) {
+        width: 42%;
         padding-left: 0;
         padding-right: 5px;
       }
