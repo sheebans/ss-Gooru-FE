@@ -25,8 +25,7 @@
   {{#each items as |item index|}}
 
     {{content.courses.edit.gru-accordion-unit
-    courseTitle=model.title
-    courseId=model.id
+    course=model
     model=item
     index=index
     totalItems=items.length

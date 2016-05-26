@@ -60,9 +60,9 @@ export default Ember.Component.extend(BuilderMixin, {
   // Properties
 
   /**
-   * @prop {String} courseId - ID of the course this unit belongs to
+   * @prop {String} course - Course this unit belongs to
    */
-  courseId: null,
+  course: null,
 
   /**
    * @prop {Boolean} isLoaded - Has the data for the lesson already been loaded
@@ -91,7 +91,7 @@ export default Ember.Component.extend(BuilderMixin, {
    */
   loadData: function () {
     if (!this.get('isLoaded')) {
-      let courseId = this.get('courseId');
+      let courseId = this.get('course.id');
       let unitId = this.get('unitId');
       let lessonId = this.get('lesson.id');
 

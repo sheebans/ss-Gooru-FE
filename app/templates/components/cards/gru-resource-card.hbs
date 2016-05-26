@@ -21,11 +21,13 @@
     </div>
   </div>
   <div class="panel-body">
-    {{#if resource.standards }}
-      <div class="standards">
+
+    <div class="standards">
+      {{#if resource.standards }}
         {{collection-results-standards collection=resource standards=resource.standards}}
-      </div>
-    {{/if}}
+      {{/if}}
+    </div>
+
     <div class="publisher">
         <img class="img-responsive" src="{{ resource.owner.avatarUrl }}">
         <div class="publisher-name">

@@ -11,6 +11,8 @@ export default Ember.Object.extend({
 
   namespace: '/api/nucleus/v1/questions',
 
+  copierNamespace: '/api/nucleus/v1/copier/questions',
+
   /**
    * Posts a new question
    *
@@ -83,6 +85,27 @@ export default Ember.Object.extend({
     const url = `${namespace}/${questionId}`;
     const options = {
       type: 'DELETE',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({})
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Copies a question by id
+   *
+   * @param data question data to be sent in the request body
+   * @returns {Promise}
+   */
+  copyQuestion: function(questionId) {
+    const adapter = this;
+    const namespace = this.get('copierNamespace');
+    const url = `${namespace}/${questionId}`;
+    const options = {
+      type: 'POST',
       contentType: 'application/json; charset=utf-8',
       dataType: 'text',
       processData: false,

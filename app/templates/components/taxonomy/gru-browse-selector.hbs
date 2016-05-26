@@ -1,0 +1,78 @@
+<ol>
+
+  {{#each headerItems as |headerItem index|}}
+    <li>
+      <strong>{{headerItem.title}}</strong>
+      <ul class="browse-panel level-{{plus-one index}}">
+
+        {{#if (eq headerItem headerItems.lastObject)}}
+
+          {{!-- last level browser items --}}
+          {{#each headerItem.data as |browseItem|}}
+            <li>
+              <label>
+                <input type="checkbox"
+                       checked={{browseItem.isSelected}}
+                       onclick={{action 'selectCheckableItem' browseItem}} />
+                <span>{{browseItem.title}}</span>
+              </label>
+
+              {{#if browseItem.children.length}}
+                <button data-toggle="collapse" class="collapsed" data-target="#children-{{browseItem.id}}">
+                  {{gru-icon name='keyboard_arrow_up'}}
+                  {{gru-icon name='keyboard_arrow_down'}}
+                </button>
+                <ul id="children-{{browseItem.id}}" class="collapse level-panel sublevel-1">
+
+                  {{#each browseItem.children as |browseItemChild|}}
+                    <li>
+                      <label>
+                        <input type="checkbox"
+                               checked={{browseItemChild.isSelected}}
+                               onclick={{action 'selectCheckableItem' browseItemChild}} />
+                        <span>{{browseItemChild.title}}</span>
+                      </label>
+
+                      {{#if browseItemChild.children.length}}
+                        <button data-toggle="collapse" class="collapsed" data-target="#children-{{browseItemChild.id}}">
+                          {{gru-icon name='keyboard_arrow_up'}}
+                          {{gru-icon name='keyboard_arrow_down'}}
+                        </button>
+                        <ul id="children-{{browseItemChild.id}}" class="collapse level-panel sublevel-2">
+
+                          {{#each browseItemChild.children as |browseItemGrandChild|}}
+                            <li>
+                              <label>
+                                <input type="checkbox"
+                                       checked={{browseItemGrandChild.isSelected}}
+                                       onclick={{action 'selectCheckableItem' browseItemGrandChild}} />
+                                <span>{{browseItemGrandChild.title}}</span>
+                              </label>
+                            </li>
+                          {{/each}}
+
+                        </ul>
+                      {{/if}}
+                    </li>
+                  {{/each}}
+
+                </ul>
+              {{/if}}
+            </li>
+          {{/each}}
+
+        {{else}}
+
+          {{#each headerItem.data as |browseItem|}}
+            <li class="{{if browseItem.hasChildrenSelected 'selected'}}">
+              <a {{action 'selectInsideItem' browseItem}}>{{browseItem.title}}</a>
+            </li>
+          {{/each}}
+
+        {{/if}}
+
+      </ul>
+    </li>
+  {{/each}}
+
+</ol>

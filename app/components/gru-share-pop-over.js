@@ -72,7 +72,7 @@ export default Ember.Component.extend({
       case 'resource':
         return `${window.location.protocol}//${window.location.host}/content/resources/play/${params.resourceId}`;
       case 'question':
-        return `${window.location.protocol}//${window.location.host}/content/question/play/${params.questionId}`;
+        return `${window.location.protocol}//${window.location.host}/content/questions/play/${params.questionId}`;
       default:
         break;
     }

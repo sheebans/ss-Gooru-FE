@@ -10,7 +10,7 @@
     <h1>{{t "common.edit-question"}}</h1>
 
     <div class="actions">
-        <button class="btn btn-default btn-icon delete" title="{{t 'common.delete'}}">{{gru-icon name="delete"}}</button>
+        <button class="btn btn-default btn-icon delete" title="{{t 'common.delete'}}" {{action 'deleteQuestion' question}}>{{gru-icon name="delete"}}</button>
         {{#gru-share-pop-over tagName="button" type="question"}}
           {{gru-icon name="insert_link"}}
         {{/gru-share-pop-over}}
