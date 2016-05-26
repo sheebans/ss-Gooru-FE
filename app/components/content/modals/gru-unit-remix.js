@@ -7,7 +7,7 @@ export default RemixBaseModal.extend({
   // Dependencies
 
   /**
-   * @property {Service} User service API SDK
+   * @property {Service} Unit service API SDK
    */
   unitService: Ember.inject.service("api-sdk/unit"),
 

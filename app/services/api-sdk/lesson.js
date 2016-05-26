@@ -177,6 +177,24 @@ export default Ember.Service.extend(StoreMixin, {
       service.get('adapter').deleteLesson({ courseId, unitId, lessonId })
         .then(resolve, reject);
     });
+  },
+
+  /**
+   * Copies a Lesson by id
+   * @param {string} lessonId
+   * @returns {Ember.RSVP.Promise}
+   */
+  copyLesson: function(courseId, unitId, lessonId){
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('adapter').copyLesson({
+        courseId,
+        unitId,
+        lessonId
+      }).then(function(responseData, textStatus, request) {
+          resolve(request.getResponseHeader('location'));
+        }, reject );
+    });
   }
 
 });

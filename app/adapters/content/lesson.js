@@ -11,6 +11,8 @@ export default Ember.Object.extend({
 
   namespace: '/api/nucleus/v1/courses',
 
+  copierNamespace: '/api/nucleus/v1/copier/courses',
+
   /**
    * Posts a new lesson
    *
@@ -149,6 +151,33 @@ export default Ember.Object.extend({
       processData: false,
       headers: adapter.defineHeaders(),
       data: JSON.stringify({})
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Copies a lesson by id
+   *
+   * @param params - data to send in the request
+   * @returns {Promise}
+   */
+  copyLesson: function(params) {
+    const courseId = params.courseId;
+    const unitId = params.unitId;
+    const lessonId = params.lessonId;
+    const adapter = this;
+    const namespace = this.get('copierNamespace');
+    const url = `${namespace}/${courseId}/units/${unitId}/lessons/${lessonId}`;
+    const options = {
+      type: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({
+        target_course_id: courseId,
+        target_unit_id: unitId
+      })
     };
     return Ember.$.ajax(url, options);
   },

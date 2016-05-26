@@ -78,7 +78,7 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
     copy: function() {
       var model = {
         content: this.get('unit'),
-        courseId: this.get('courseId'),
+        courseId: this.get('course.id'),
         onRemixSuccess: this.get('onRemixUnit')
       };
       this.send('showModal', 'content.modals.gru-unit-remix', model);
@@ -151,6 +151,17 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
      */
     removeLesson: function (builderItem) {
       this.get('items').removeObject(builderItem);
+    },
+
+    /**
+     * Remix Lesson from a list of lessons
+     */
+    remixLesson: function (lesson) {
+      var builderItem = BuilderItem.create({
+        isEditing: false,
+        data: lesson
+      });
+      this.get('items').pushObject(builderItem);
     },
 
     saveUnit: function () {
