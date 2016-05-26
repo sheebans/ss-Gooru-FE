@@ -590,8 +590,8 @@ export default {
   "gru-share-pop-over":{
     "copy": "Copy",
     "ios-tooltip" : "Hold tap to copy!",
-    "safari-multiarch-tooltip":"Press Ctrl + C to copy!",
-    "safari-osx-tooltip":"Press Ctrl + C to copy!",
+    "multiarch-tooltip":"Press Ctrl + C to copy!",
+    "safari-osx-tooltip":"Press Cmd + C to copy!",
     "share-course":"Share your course with link",
     "share-question":"Share your question with link",
     "share-resource":"Share your resource with link",
