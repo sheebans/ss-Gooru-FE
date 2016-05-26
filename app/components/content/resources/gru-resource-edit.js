@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
-import { RESOURCE_COMPONENT_MAP, RESOURCE_TYPES } from "../../../config/config";
+import { RESOURCE_COMPONENT_MAP, RESOURCE_TYPES,CONTENT_TYPES } from "../../../config/config";
+import ModalMixin from 'gooru-web/mixins/modal';
 
-export default Ember.Component.extend(ContentEditMixin, {
+export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
   // -------------------------------------------------------------------------
   // Dependencies
   session: Ember.inject.service('session'),
@@ -16,6 +17,7 @@ export default Ember.Component.extend(ContentEditMixin, {
    * @requires service:api-sdk/resource
    */
   resourceService: Ember.inject.service("api-sdk/resource"),
+
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -58,6 +60,29 @@ export default Ember.Component.extend(ContentEditMixin, {
       this.set('tempResource', resourceForEditing);
       this.set('tempResource.isVisibleOnProfile', isChecked);
       this.saveContent();
+    },
+    /**
+     * Delete resource
+     */
+    deleteResource: function () {
+      const myId = this.get("session.userId");
+      var model = {
+        content: this.get('resource'),
+        deleteMethod: function () {
+          return this.get('resourceService').deleteResource(this.get('resource.id'));
+        }.bind(this),
+        type: CONTENT_TYPES.RESOURCE,
+        redirect: {
+          route: 'profile.content.courses',
+          params: {
+            id: myId
+          }
+        }
+      };
+
+      this.actions.showModal.call(this,
+        'content.modals.gru-delete-content',
+        model, null, null, null, false);
     }
   },
 
