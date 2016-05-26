@@ -7,11 +7,11 @@ export default {
     "about": "About",
     "about-you": "About You",
     "add": "Add",
-    "add-plus": "+ Add",
     "add-assessment": "Add New Assessment",
     "add-collection": "Add New Collection",
     "add-collection-item": "Add Resource or Question",
     "add-course": "Add New Course",
+    "add-domains-to-unit": "Add Domains to Unit",
     "add-from-url":"Add from URL",
     "add-lessons": "Add Lessons",
     "add-new-lesson": "Add New Lesson",
@@ -49,6 +49,7 @@ export default {
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
     "back": "Back",
+    "back-to-data": "Back to Data",
     "best-practices": "Best Practices",
     "big-ideas": "Big Ideas",
     "biography": "Biography",
@@ -93,6 +94,7 @@ export default {
     "description": "Description",
     "district": "District",
     "domain": "Domain",
+    "domains": "Domains",
     "drag-drop-suggestions": "Or Drag and Drop Suggestions ...",
     "edit": "Edit",
     "edit-assessment": "Edit Assessment",
@@ -136,20 +138,22 @@ export default {
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
       "lesson-title-required" : "Please enter the lesson title.",
+      "question-not-copied": "Oops! Unable to copy question right now. Please try again shortly.",
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
       "question-not-updated": "Oops! Unable to update question right now. Please try again shortly.",
       "resource-description-length": "Description can't be longer than 500 characters.",
-      "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
       "resource-invalid-url": "Invalid URL.",
       "resource-missing-title": "Please enter a resource title.",
       "resource-missing-type": "Please select a resource type.",
       "resource-missing-url": "Please enter a valid URL.",
+      "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
       "resource-not-updated": "Oops! Unable to update resource right now. Please try again shortly.",
       "resource-same-host-url": "Resources can not be Gooru's URLs.",
       "resource-title-length": "Title can't be longer than 50 characters.",
       "select-correct-answer":"Please select the correct answer.",
       "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
       "sign-in-google-account-exists": "Please sign-in with Google to access your account.",
+      "unit-not-copied": "Oops! Unable to copy course right now. Please try again shortly.",
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
       "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly.",
       "unit-title-required" : "Please enter the unit title.",
@@ -158,6 +162,7 @@ export default {
     "essential-questions": "Essential Questions",
     "explanation": "Explanation",
     "false":"False",
+    "featured-courses":"Featured Courses",
     "first-name": "First Name",
     "follow": "Follow",
     "followers": "Followers",
@@ -216,6 +221,7 @@ export default {
     },
     "of": "of",
     "other": "Other",
+    "password": "Password",
     "pending":"Pending",
     "performance":"Show Performance",
     "play": "Play",
@@ -258,6 +264,12 @@ export default {
     "remix-course": "Remix Course",
     "remix-course-lead": "You are about to remix a course.",
     "remix-course-success": "You've remixed a course {{courseTitle}}. Do you want to edit that course?",
+    "remix-question": "Remix Question",
+    "remix-question-lead": "You are about to remix a question.",
+    "remix-question-success": "You've remixed a question {{questionTitle}}. Do you want to edit that question?",
+    "remix-unit": "Remix Unit",
+    "remix-unit-lead": "You are about to remix an unit.",
+    "remix-unit-success": "You've remixed a unit {{unitTitle}}.",
     "remixed-by": "Remixed by",
     "remove":"Remove",
     "request-to":"Request to be searchable and featured in Gooru",
@@ -317,6 +329,7 @@ export default {
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
     "unfollow": "Unfollow",
     "unit":"Unit",
+    "unit-title":"Unit Title",
     "unitInitial": "U",
     "unitObj": {
       one: "Unit",
@@ -398,10 +411,10 @@ export default {
       "description":"Description",
       "edit-info":"Edit Information",
       "share-class":"Share Class",
-      "invite-collaborator":"Invite Collaborator",
-      "invite-student":"Invite Student",
+      "invite-co-teachers":"Invite Co-teachers",
+      "add-students":"Add Students",
       "class-code": "Class Code",
-      "delete":"Delete Class",
+      "delete":"Delete Class"
     },
     "edit":{
       "edit-class": "Edit Class Information",
@@ -537,7 +550,8 @@ export default {
   },
   "content.modals.delete-content":{
     "legend":"You are about to delete",
-    "content-legend":"<span>{{type}}</span> {{index}} - {{title}} from <span>{{parentName}}</span>",
+    "content-legend":"<span>{{type}}</span> {{index}} - {{title}} from {{parentName}}",
+    "content-legend-header":"{{title}} from {{parentName}}",
     "delete-warning": "All content in this {{type}} will be deleted",
     "delete-error": "Oops! Unable to delete {{type}} right now. Please try again shortly.",
     "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."
@@ -572,6 +586,7 @@ export default {
       "other" : " and teaching {{count}} classes"
     }
   },
+
   /*
    * COMPONENTS: Translations used in a specific component
    */
@@ -583,13 +598,13 @@ export default {
   "gru-share-pop-over":{
     "copy": "Copy",
     "ios-tooltip" : "Hold tap to copy!",
-    "safari-multiarch-tooltip":"Press Ctrl + C to copy!",
-    "safari-osx-tooltip":"Press Ctrl + C to copy!",
+    "multiarch-tooltip":"Press Ctrl + C to copy!",
+    "safari-osx-tooltip":"Press Cmd + C to copy!",
     "share-course":"Share your course with link",
     "share-question":"Share your question with link",
     "share-resource":"Share your resource with link",
     "share-assessment":"Share your assessment with link",
-    "share-collection":"Share your collection with link",
+    "share-collection":"Share your collection with link"
   },
   "gru-category-panel": {
     "teacher": {
@@ -859,6 +874,9 @@ export default {
   "player": {
     "gru-navigation": {
       "view-report": "View Report"
+    },
+    "gru-navigator": {
+      "see-usage-report": "See Usage Report"
     }
   },
 
@@ -907,6 +925,11 @@ export default {
   },
   "gru-resource-new": {
     "resource-already-exist": "This resource already exists in Gooru!"
+  },
+  "gru-assessment-report": {
+    "gru-summary": {
+      "total-time-spent": "Total Time Spent"
+    }
   },
   "cards":{
     "gru-class-card": {
@@ -969,5 +992,33 @@ export default {
   "featured":{
     "featured-title" : "Featured Courses",
     "featured-description" : "Welcome to the Gooru courses! These featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, discrits, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix and customize courses to personalize learning and increase student engagement! Click here to <a href=''>learn more</a> about the development of these courses."
+  },
+
+  "taxonomy.modals": {
+    "gru-domain-picker": {
+      "browseSelectorText": "What domains will this unit cover?",
+      "selectedText": {
+        one: "{{count}} domain selected",
+        other: "{{count}} domains selected"
+      },
+      "shortcutText": "Course is in"
+    },
+    "gru-standard-picker": {
+      "browseSelectorText": "What standards will this collection cover?",
+      "selectedText": {
+        one: "{{count}} standard selected",
+        other: "{{count}} standards selected"
+      },
+      "shortcutText": "Unit is tagged to"
+    }
+  },
+
+  "account-settings": {
+    "title": "Account Settings",
+    "account-info": "Account Info",
+    "private-info": "Private Info",
+    "email-address": "Email Address",
+    "gender": "Gender",
+    "birthday": "Birthday"
   }
 };

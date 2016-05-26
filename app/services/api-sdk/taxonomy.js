@@ -2,6 +2,7 @@ import Ember from 'ember';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 import TaxonomyAdapter from 'gooru-web/adapters/taxonomy/taxonomy';
 import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
+import { generateTaxonomyTestTree } from 'gooru-web/utils/taxonomy';
 
 /**
  * Service for the Taxonomies
@@ -22,10 +23,18 @@ export default Ember.Service.extend({
    */
   taxonomy: null,
 
+  // TODO: Remove after logic for taxonomy tree creation is ready
+  tempTree: null,
+
   init() {
     this._super(...arguments);
     this.set('taxonomySerializer', TaxonomySerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('taxonomyAdapter', TaxonomyAdapter.create(Ember.getOwner(this).ownerInjection()));
+
+    // TODO: Remove after logic for taxonomy tree creation is ready
+    // Init taxonomy tree for testing the selection of unit domains
+    var taxonomyTree = generateTaxonomyTestTree(3, null, 2);
+    this.set('tempTree', taxonomyTree);
   },
 
   /**
@@ -107,5 +116,10 @@ export default Ember.Service.extend({
       return true;
     });
     return subject;
+  },
+
+  // TODO: Remove after logic for taxonomy tree creation is ready
+  getCourses: function() {
+    return this.get('tempTree');
   }
 });

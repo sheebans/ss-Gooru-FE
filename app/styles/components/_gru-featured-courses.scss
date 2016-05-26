@@ -4,15 +4,20 @@
   @include flex-direction(column);
   margin: 0 auto;
 
+  .course-list {
+    overflow-y: scroll;
+  }
+
   .navbar {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
     margin: 0;
     min-height: 50px;
     width: 100%;
+    z-index: 2;
 
     &.affix {
       background-color: $dark-400;
-      top: 55px;
+      top: 63px;
 
     }
   }
@@ -24,8 +29,8 @@
     min-height: 50px;
     width: 75%;
 
-    .subject-menu-option-container {
-      &.active {
+    .subject-menu-option {
+      &.selected {
         a {
           background: none;
         }
@@ -42,10 +47,10 @@
     }
   }
 
-  .subject-menu-option-container {
+  .subject-menu-option {
     margin-right: 40px;
 
-    &.active {
+    &.selected {
       a {
         background: none;
         border-bottom: 2px solid $green-300;
@@ -62,8 +67,8 @@
   }
 
   .affix {
-    .subject-menu-option-container {
-      &.active {
+    .subject-menu-option {
+      &.selected {
         a {
           border-bottom-color: $white;
           color: $white;

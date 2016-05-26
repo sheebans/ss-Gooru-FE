@@ -25,16 +25,6 @@ export default Ember.Component.extend({
   actions: {
 
     /**
-     * Clear any active shortcut tags
-     * @function actions:clearActiveShortcut
-     */
-    clearShortcuts: function() {
-      this.get('shortcutTags').forEach(function(taxonomyTag) {
-        taxonomyTag.set('isActive', false);
-      });
-    },
-
-    /**
      * Add a new tag to the selected tag list
      * @function actions:addSelectedTag
      * @param {BrowseItem} browseItem
@@ -47,6 +37,16 @@ export default Ember.Component.extend({
         taxonomyItem: browseItem
       });
       this.get('selectedTags').pushObject(newSelectedTag);
+    },
+
+    /**
+     * Clear any active shortcut tags
+     * @function actions:clearActiveShortcut
+     */
+    clearShortcuts: function() {
+      this.get('shortcutTags').forEach(function(taxonomyTag) {
+        taxonomyTag.set('isActive', false);
+      });
     },
 
     /**
@@ -75,6 +75,10 @@ export default Ember.Component.extend({
           break;
         }
       }
+    },
+
+    saveSelectedTags: function(selectedTags) {
+      this.get('onSave')(selectedTags);
     },
 
     /**
@@ -169,6 +173,11 @@ export default Ember.Component.extend({
   browseItems: null,
 
   /**
+   * @property {String} browseSelectorText - Intro text for browse selector.
+   */
+  browseSelectorText: '',
+
+  /**
    * @property {String[]} panelHeaders - List of headers, one for each panel in the browse selector.
    * @see gru-browse-selector
    */
@@ -194,10 +203,20 @@ export default Ember.Component.extend({
   selectedTags: Ember.A(),
 
   /**
+   * @property {String} selectedTextKey - i18n text key for selected tags text.
+   */
+  selectedTextKey: '',
+
+  /**
    * @property {TaxonomyItem[]} shortcuts - List of references to a subset of taxonomy
    * items (@see browseItems).
    */
   shortcuts: [],
+
+  /**
+   * @property {String} shortcutText - Intro text for shortcuts.
+   */
+  shortcutText: '',
 
   /**
    * @property {TaxonomyTag[]} shortcutTags - List of taxonomy tags to use as shortcuts in the

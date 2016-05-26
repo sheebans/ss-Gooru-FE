@@ -163,7 +163,8 @@
               li {
                 padding: 0;
                 border-bottom: 1px solid $light-200;
-                &:last-child {
+                &:last-child,
+                &:first-child {
                   border: 0;
                 }
                 a {

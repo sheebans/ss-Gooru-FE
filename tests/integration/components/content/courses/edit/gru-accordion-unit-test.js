@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import BuilderItem from 'gooru-web/models/content/builder/item';
+import Course from 'gooru-web/models/content/course';
 import Lesson from 'gooru-web/models/content/lesson';
 import Unit from 'gooru-web/models/content/unit';
 import Ember from 'ember';
@@ -108,9 +109,11 @@ test('it can create a new unit', function (assert) {
   });
 
   this.set('unit', unit);
-  this.set('courseId', 'course-id-123');
+  this.set('course', Course.create({
+    id: 'course-id-123'
+  }));
   this.render(hbs`{{content/courses/edit/gru-accordion-unit
-    courseId=courseId
+    course=course
     model=unit }}`);
 
   const $component = this.$('.content.courses.gru-accordion.gru-accordion-unit');
@@ -164,9 +167,11 @@ test('it can edit an existing unit', function (assert) {
   });
 
   this.set('unit', unit);
-  this.set('courseId', 'course-id-123');
+  this.set('course', Course.create({
+    id: 'course-id-123'
+  }));
   this.render(hbs`{{content/courses/edit/gru-accordion-unit
-    courseId=courseId
+    course=course
     model=unit }}`);
 
   const $component = this.$('.content.courses.gru-accordion.gru-accordion-unit');
@@ -224,9 +229,11 @@ test('it shows an error message if it fails to create a new unit', function (ass
   });
 
   this.set('unit', unit);
-  this.set('courseId', 'course-id-fail');
+  this.set('course', Course.create({
+    id: 'course-id-fail'
+  }));
   this.render(hbs`{{content/courses/edit/gru-accordion-unit
-    courseId=courseId
+    course=course
     model=unit }}`);
 
   const $component = this.$('.content.courses.gru-accordion.gru-accordion-unit');
@@ -347,11 +354,13 @@ test('it expands/collapses the unit -view mode', function (assert) {
     assert.ok(true);
   });
 
-  this.set('courseId', 'course-id-123');
+  this.set('course', Course.create({
+    id: 'course-id-123'
+  }));
   this.set('unit', unit);
   this.render(hbs`
     {{content/courses/edit/gru-accordion-unit
-      courseId=courseId
+      course=course
       model=unit
       onExpandUnit=(action 'externalAction') }}
     `);
@@ -398,12 +407,14 @@ test('it loads lessons and renders them after clicking on the unit name', functi
   //onExpandUnit action must be defined
   this.on('externalAction', function () {});
 
-  this.set('courseId', 'course-id-123');
+  this.set('course', Course.create({
+    id: 'course-id-123'
+  }));
   this.set('unit', unit);
   this.set('isLoaded', false);  // Binding to check on the state
   this.render(hbs`
     {{content/courses/edit/gru-accordion-unit
-      courseId=courseId
+      course=course
       model=unit
       isLoaded=isLoaded
       onExpandUnit=(action 'externalAction') }}

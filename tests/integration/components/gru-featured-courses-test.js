@@ -27,7 +27,7 @@ test('it renders', function(assert) {
 
   const $component = this.$(".gru-featured-courses");
   assert.ok($component.find('.subject-filters').length, 'subject-filters container missing');
-  assert.ok($component.find('.subject-menu-option').length, 'subject-filters container missing');
+  assert.ok($component.find('.subject-menu-option').length, 'subject-menu-option-container container missing');
 
   assert.ok($component.find('.course-container').length, 'courses container missing');
   assert.ok($component.find('.subject-title').length, 'subject title missing');

@@ -27,6 +27,13 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     removeCollectionItem: function (builderItem) {
       this.get('items').removeObject(builderItem);
     },
+
+    /**
+     * Remix collection item
+     */
+    remixCollectionItem: function (builderItem) {
+      this.get('items').addObject(builderItem);
+    }
   },
 
   // -------------------------------------------------------------------------

@@ -52,6 +52,7 @@
 @import 'controllers/home';
 @import 'controllers/forgot-password';
 @import 'controllers/featured';
+@import 'controllers/account-settings';
 
 
 // TODO: update these components so they follow the naming conventions
@@ -177,3 +178,6 @@
 
 @import 'components/search/gru-question-options';
 @import 'components/search/gru-resource-options';
+
+@import 'components/taxonomy/gru-taxonomy-tag';
+@import 'components/taxonomy/modals/gru-domain-picker';

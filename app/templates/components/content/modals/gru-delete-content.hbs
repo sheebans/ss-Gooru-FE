@@ -6,7 +6,11 @@
     <p class="legend">{{t "content.modals.delete-content.legend"}}
         <b>
           {{#if model.parentName}}
-            {{{t "content.modals.delete-content.content-legend" type=model.type index=(plus-one model.index) title=model.content.title parentName=model.parentName}}}
+            {{#if model.isHeaderDelete}}
+              {{{t "content.modals.delete-content.content-legend-header" title=model.content.title parentName=model.parentName}}}
+            {{else}}
+              {{t "content.modals.delete-content.content-legend" type=model.type index=(plus-one model.index) title=model.content.title parentName=model.parentName}}
+            {{/if}}
           {{else}}
             {{model.content.title}}
           {{/if}}
@@ -26,7 +30,7 @@
             <span>{{t "common.delete-instructions.content-inaccessible"}}</span>
           </label>
         </li>
-       {{#unless (eq model.type 'question')}}
+       {{#unless hasNoWarning}}
         <li>
           <label>
             {{input type="checkbox" checked=validator.check3}}

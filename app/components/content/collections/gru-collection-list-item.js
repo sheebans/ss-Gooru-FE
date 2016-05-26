@@ -74,6 +74,20 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
           'content.modals.gru-remove-content',
           $.extend(model, collectionItem), null, null, null, false);
       }
+    },
+
+    copy: function(builderItem) {
+      var model = {
+        content: this.get('model'),
+        collectionId: this.get('collection.id'),
+        isCollection: this.get('isCollection'),
+        onRemixSuccess: this.get('onRemixCollectionItem')
+      };
+      if(builderItem.get('format') === 'question') {
+        this.send('showModal', 'content.modals.gru-question-remix', model);
+      } else {
+        this.send('showModal', 'content.modals.gru-resource-remix', model);
+      }
     }
   },
 

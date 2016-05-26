@@ -182,8 +182,8 @@ test('it adds/removes a tag from the selected tags after it has been checked/unc
       panelHeaders=panelHeaders }}`);
 
   const $component = this.$('.taxonomy.gru-taxonomy-picker');
-  var $shortcutTags = $component.find('> .shortcut-list');
-  var $selectedTags = $component.find('> .selected-list');
+  var $shortcutTags = $component.find('.shortcut-list');
+  var $selectedTags = $component.find('.selected-list');
   var $browseSelector = $component.find('.taxonomy.gru-browse-selector');
 
   assert.equal($selectedTags.find('li').length, 0, 'Number of selected tags');
@@ -234,9 +234,9 @@ test('it unchecks a tag in the browse selector after its tags is removed from th
       panelHeaders=panelHeaders }}`);
 
   const $component = this.$('.taxonomy.gru-taxonomy-picker');
-  var $shortcutTags = $component.find('> .shortcut-list');
+  var $shortcutTags = $component.find('.shortcut-list');
   var $browseSelector = $component.find('.taxonomy.gru-browse-selector');
-  var $selectedTags = $component.find('> .selected-list');
+  var $selectedTags = $component.find('.selected-list');
 
   assert.equal($selectedTags.find('li').length, 3, 'Number of selected tags');
   assert.equal($selectedTags.find('li:eq(0) .gru-taxonomy-tag > span').text(), 'Item : 3 : 0 : 1', 'First selected tag text');
@@ -257,4 +257,37 @@ test('it unchecks a tag in the browse selector after its tags is removed from th
   $selectedTags.find('li:eq(0) .gru-taxonomy-tag > button.remove').click();
   assert.equal($browseSelector.find('ul.level-3 > li > label > input[type="checkbox"]:checked').length, 0, 'Items checked for sub-level 2 -one unchecked');
   assert.equal($selectedTags.find('li').length, 0, 'Number of selected tags -after removing them');
+});
+
+test('it calls an external action when the save button is clicked', function(assert) {
+  var selected = [];
+  var taxonomyItems = generateTaxonomyTestTree(2);
+  var root = taxonomyItems[0];
+
+  selected.push(root.find(['100', '200']));
+  selected.push(root.find(['100', '201']));
+
+  this.set('taxonomyItems', taxonomyItems);
+  this.set('selected', selected);
+  this.set('panelHeaders', ['Level 1', 'Level 2']);
+
+  this.on('externalAction', function(selectedTags) {
+    assert.ok(true, 'External action called');
+    assert.ok(selected, selectedTags, 'External action receives list of selected tags as parameter');
+  });
+
+  this.render(hbs`{{
+    taxonomy/gru-taxonomy-picker
+      taxonomyItems=taxonomyItems
+      selected=selected
+      panelHeaders=panelHeaders
+      onSave=(action 'externalAction')}}`);
+
+  const $component = this.$('.taxonomy.gru-taxonomy-picker');
+  assert.ok($component.length, 'Component');
+
+  assert.ok($component.find('.actions .cancel').length, 'Cancel button');
+  assert.ok($component.find('.actions .save').length, 'Save button');
+
+  $component.find('.actions .save').click();
 });

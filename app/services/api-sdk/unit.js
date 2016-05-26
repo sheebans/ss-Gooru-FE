@@ -140,6 +140,23 @@ export default Ember.Service.extend(StoreMixin, {
       service.get('adapter').deleteUnit({ courseId, unitId })
         .then(resolve, reject);
     });
+  },
+
+  /**
+   * Copies a unit by id
+   * @param {string} unitId
+   * @returns {Ember.RSVP.Promise}
+   */
+  copyUnit: function(courseId, unitId){
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('adapter').copyUnit({
+        courseId,
+        unitId
+      }).then(function(responseData, textStatus, request) {
+          resolve(request.getResponseHeader('location'));
+        }, reject );
+    });
   }
 
 });

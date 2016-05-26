@@ -105,6 +105,11 @@ export default Ember.Object.extend({
    */
   isAssessment: Ember.computed.equal('collectionType', 'assessment'),
 
+  /**
+   * @property {boolean} Returns true is the collection type is collection
+   */
+  isCollection: Ember.computed.not('isAssessment'),
+
 
   /**
    * Gets the next resource based on the resource provided

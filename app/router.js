@@ -81,14 +81,14 @@ Router.map(function() {
 
   this.route('reports', function () {
     this.route('collection', {path: '/class/:classId/collection/:collectionId'});
-    this.route('student-collection', {path: '/class/:classId/course/:courseId/unit/:unitId/lesson/:lessonId/collection/:collectionId/student/:userId'});
+    this.route('student-collection');
   });
 
 
   this.route('home');
 
   this.route('api'); //development api for testing end points
-  
+
   this.route('featured');
 
   this.route('profile', { path: '/:userId' }, function() {
@@ -110,6 +110,8 @@ Router.map(function() {
       this.route('followers');
     });
   });
+
+  this.route('account-settings', { path: '/account-settings/:userId' });
   /**
    * IMPORTANT! the profile route should be the last one at this file, so we can handle the app urls
    * and the vanity urls for profiles like www.gooru.org/javier-perez
