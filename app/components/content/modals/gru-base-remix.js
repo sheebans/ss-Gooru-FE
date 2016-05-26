@@ -64,7 +64,7 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    this.set('contentModel', this.get('model.content'));
+    this.set('contentModel', this.get('model.content').copy());
     this.set('onRemix', this.get('model.onRemixSuccess'));
   },
 
