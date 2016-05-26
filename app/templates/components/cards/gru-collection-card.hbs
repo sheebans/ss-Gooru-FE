@@ -13,16 +13,18 @@
                   <span class="bar">| </span><p>{{t "cards.gru-course-card.question" count=collection.questionCount}}</p>
               {{/if}}
             </span>
-            {{#if collection.course }}
-              <div class="course">
+
+            <div class="course">
+              {{#if collection.course }}
                 {{gru-icon name="chrome_reader_mode"}}
                 <p>{{t "cards.gru-course-card.in"}}
                 {{#link-to "content.courses.play" collection.courseId class="pointer"}}
                   {{truncate text=collection.course type='collection-card-courses'}}
                 {{/link-to}}
                 </p>
-              </div>
-            {{/if}}
+              {{/if}}
+            </div>
+
         </div>
     </div>
     <div class="panel-body">
