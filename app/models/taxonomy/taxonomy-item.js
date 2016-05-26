@@ -66,6 +66,9 @@ export default Ember.Object.extend({
   /**
    * @function Find a taxonomy item by traversing down
    * a taxonomy item tree.
+   * @param {String[]} path - A hierarchical list of ids
+   * @example
+   * ['grandparent-id', 'parent-id', 'node-id']
    * @return {TaxonomyItem | Null}
    */
   find: function(path) {

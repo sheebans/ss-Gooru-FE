@@ -33,7 +33,14 @@
 
       <div class="data-row domain">
         <span>{{t "common.domain"}}</span>
-        <button type="button" class="btn btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
+        <button type="button" class="btn btn-primary btn-sm add-prefix" {{action 'openDomainPicker'}}>{{t "common.add"}}</button>
+        <ul>
+        {{#each selectedDomains as |domainTag|}}
+          <li>
+            {{taxonomy.gru-taxonomy-tag model=domainTag}}
+          </li>
+        {{/each}}
+        </ul>
       </div>
     </div>
   </div>
