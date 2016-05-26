@@ -47,6 +47,13 @@ export default Ember.Component.extend({
      */
     closeNavigator:function(){
       this.sendAction("onCloseNavigator");
+    },
+
+    /**
+     * Action triggered when the user clicks at see usage report
+     */
+    seeUsageReport:function(){
+      this.sendAction("onFinishCollection");
     }
   },
 
@@ -124,6 +131,11 @@ export default Ember.Component.extend({
    * @property {string} on content player action
    */
   onClosePlayer: 'onClosePlayer',
+
+  /**
+   * @property {string} on finish collection, having type = 'collection'
+   */
+  onFinishCollection: null,
 
   // -------------------------------------------------------------------------
   // Observers

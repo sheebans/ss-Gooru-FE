@@ -143,6 +143,12 @@ const ResourceModel = Ember.Object.extend(Validations,{
   metadata: null,
 
   /**
+   * Sequence number, when is part of a collection
+   * @property {number}
+   */
+  order: null,
+
+  /**
    * @property {String} Indicates the resource type. i.e video/youtube, assessment-question, image/png
    */
   resourceType: Ember.computed('format', function() {

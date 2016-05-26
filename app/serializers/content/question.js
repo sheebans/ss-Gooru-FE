@@ -92,14 +92,14 @@ export default Ember.Object.extend({
       id: questionData.id,
       title: questionData.title,
       type: format,
-      thumbnail: basePath + questionData.thumbnail,
+      thumbnail: questionData.thumbnail ? (basePath + questionData.thumbnail) : null,
       text: questionData.description,
       publishStatus: questionData.publish_status,
       standards: serializer.normalizeStandards(standards),
       hints: null, //TODO
       explanation: null, //TODO
       isVisibleOnProfile: typeof questionData['visible_on_profile'] !== 'undefined' ? questionData['visible_on_profile'] : true,
-      order: index + 1//TODO is this ok?
+      order: questionData.sequence_id || (index + 1)
     });
 
     const answers = serializer.normalizeAnswerArray(questionData.answer);

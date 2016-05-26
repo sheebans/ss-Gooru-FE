@@ -1,14 +1,22 @@
 <div class="summary-container">
-  <div class="grade" style="background-color: {{gradeColor assessmentResult.correctPercentage}}">
-    <span class="percentage">{{assessmentResult.correctPercentage}}%</span>
+  {{#if collection.isAssessment}}
+    <div class="grade" style="background-color: {{gradeColor assessmentResult.correctPercentage}}">
+      <span class="percentage">{{assessmentResult.correctPercentage}}%</span>
     <span class="attempts">
       <span class="fractional fraction"> {{{fractional numerator=assessmentResult.correctAnswers denominator=assessmentResult.totalResources}}}</span>
       <span class="text">{{t 'common.correct'}}</span>
     </span>
-  </div>
+    </div>
+  {{else}}
+    <div class="thumbnail">
+      <span class="title">{{t "gru-assessment-report.gru-summary.total-time-spent"}}</span>
+      <span class="time-spent">{{gru-icon name='av_timer'}}<span>{{formatTime assessmentResult.totalTimeSpent}}</span></span>
+    </div>
+  {{/if}}
   <div class="overview">
     <h5>{{assessmentResult.title}}</h5>
     <div class="information">
+      {{#if collection.isAssessment}}
       <span class="attempt">
         <span class="title">{{t "common.attempt"}}</span>
         <span class="attempt-selector">
@@ -25,6 +33,7 @@
           <span class="total-attempts">{{assessmentResult.totalAttempts}}</span>
         </span>
       </span>
+      {{/if}}
       <span class="date">
         {{gru-icon name='event'}}<span>{{formatDate assessmentResult.submittedAt 'h:mm a MMM. Do, YYYY'}}</span>
       </span>
