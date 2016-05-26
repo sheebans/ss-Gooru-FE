@@ -75,6 +75,15 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
       }
     },
 
+    copy: function() {
+      var model = {
+        content: this.get('unit'),
+        courseId: this.get('courseId'),
+        onRemixSuccess: this.get('onRemixUnit')
+      };
+      this.send('showModal', 'content.modals.gru-unit-remix', model);
+    },
+
     /**
      * Delete selected unit
      *

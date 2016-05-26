@@ -11,6 +11,11 @@ export default Ember.Route.extend({
   resourceService: Ember.inject.service("api-sdk/resource"),
 
   /**
+   * @type {ProfileService} Service to retrieve profile information
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
+
+  /**
    * @requires service:session
    */
   session: Ember.inject.service("session"),
@@ -24,7 +29,15 @@ export default Ember.Route.extend({
   },
 
   model: function (params) {
-    var resource = this.get('resourceService').readResource(params.resourceId);
+
+    var route = this;
+
+    var resource = this.get('resourceService').readResource(params.resourceId).then(function(resource) {
+      return route.get('profileService').readUserProfile(resource.owner).then(function(owner){
+        resource.set('owner', owner);
+        return Ember.RSVP.resolve(resource);
+      });
+    });
 
     return Ember.RSVP.hash({
       resource: resource

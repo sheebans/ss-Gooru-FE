@@ -3,54 +3,55 @@ import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
 import DS from 'ember-data';
-import CourseModel from 'gooru-web/models/content/course';
+import UnitModel from 'gooru-web/models/content/unit';
 
-const courseServiceStub = Ember.Service.extend({
+const unitServiceStub = Ember.Service.extend({
 
-  updateCourse(course) {
+  updateUnit(courseId, unit) {
     var promiseResponse;
 
-    if (course.get('title') === 'COURSE FAIL') {
+    if (unit.get('title') === 'UNIT FAIL') {
       promiseResponse = new Ember.RSVP.reject();
     } else {
-      course.set('id', 12345);
-      promiseResponse = new Ember.RSVP.resolve(course);
+      unit.set('id', 12345);
+      promiseResponse = new Ember.RSVP.resolve(unit);
     }
 
     return DS.PromiseObject.create({
       promise: promiseResponse
     });
   },
-  copyCourse() {
+  copyUnit() {
     return DS.PromiseObject.create({
       promise: new Ember.RSVP.resolve(12345)
     });
   }
 });
 
-moduleForComponent('content/modals/course-remix', 'Integration | Component | content/modals/gru course remix', {
+moduleForComponent('content/modals/unit-remix', 'Integration | Component | content/modals/gru unit remix', {
   integration: true,
 
   beforeEach: function () {
     this.inject.service('i18n');
 
-    this.register('service:api-sdk/course', courseServiceStub);
-    this.inject.service('api-sdk/course', {as: 'courseService'});
+    this.register('service:api-sdk/unit', unitServiceStub);
+    this.inject.service('api-sdk/unit', {as: 'unitService'});
   }
 });
 
 test('it renders', function (assert) {
 
-  this.set('course', {
-    content: CourseModel.create(Ember.getOwner(this).ownerInjection(), {
-      id: 'course-id',
-      title: 'course-title'
-    })
+  this.set('contentModel', {
+    content: UnitModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'unit-id',
+      title: 'unit-title'
+    }),
+    courseId: 'course-id'
   });
 
-  this.render(hbs`{{content/modals/gru-course-remix model=course}}`);
+  this.render(hbs`{{content/modals/gru-unit-remix model=contentModel}}`);
 
-  const $component = this.$('.content.modals.gru-course-remix');
+  const $component = this.$('.content.modals.gru-unit-remix');
   assert.ok($component.length, 'Component classes');
 
   const $header = $component.find('.modal-header');
@@ -61,26 +62,27 @@ test('it renders', function (assert) {
   assert.ok($body.find('p.lead').length, 'Lead message');
   assert.ok($body.length, 'Form');
   assert.equal($body.find('form span.required').length, 1, 'Number of required fields');
-  assert.ok($body.find('form .gru-input.title').length, 'Course title field');
+  assert.ok($body.find('form .gru-input.title').length, 'Unit title field');
 
   assert.equal($body.find('.actions button').length, 2, 'Number of action buttons');
   assert.ok($body.find('.actions button.cancel').length, 'Cancel button');
   assert.ok($body.find('.actions button[type="submit"]').length, 'Submit button');
 });
 
-test('it shows an error message if the course title field is left blank', function (assert) {
+test('it shows an error message if the unit title field is left blank', function (assert) {
   assert.expect(3);
 
-  this.set('course', {
-    content: CourseModel.create(Ember.getOwner(this).ownerInjection(), {
-      id: 'course-id',
-      title: 'course-title'
-    })
+  this.set('contentModel', {
+    content: UnitModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'unit-id',
+      title: 'unit-title'
+    }),
+    courseId: 'course-id'
   });
 
-  this.render(hbs`{{content/modals/gru-course-remix model=course}}`);
+  this.render(hbs`{{content/modals/gru-unit-remix model=contentModel}}`);
 
-  const $component = this.$('.content.modals.gru-course-remix');
+  const $component = this.$('.content.modals.gru-unit-remix');
   const $titleField = $component.find(".gru-input.title");
 
   assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message not visible');
@@ -95,7 +97,7 @@ test('it shows an error message if the course title field is left blank', functi
 
       assert.ok($titleField.find(".error-messages .error").length, 'Title error message visible');
       // Fill in the input field
-      $titleField.find("input").val('Course Name');
+      $titleField.find("input").val('unit Name');
       $titleField.find("input").blur();
 
       return wait().then(function () {
@@ -105,16 +107,14 @@ test('it shows an error message if the course title field is left blank', functi
   });
 });
 
-test('it shows toast and transitions after copying a course', function (assert) {
+test('it shows toast and perform event after copying a unit', function (assert) {
   assert.expect(6);
-
-  var generatedRoute;
   var context = this;
 
   this.register('service:notifications', Ember.Service.extend({
     success(message) {
       assert.notEqual(message.indexOf(
-        context.get('i18n').t('common.remix-course-success', {courseTitle: 'Course Name'}).string
+        context.get('i18n').t('common.remix-unit-success', {unitTitle: 'Unit Name'}).string
       ), -1, 'Notification displayed');
     },
     setOptions(options) {
@@ -129,42 +129,36 @@ test('it shows toast and transitions after copying a course', function (assert) 
     assert.ok(true, 'closeModal action triggered');
   });
 
-  // Mock the transitionTo method in the router
-  this.set('router', {
-    generate(route, courseId) {
-      generatedRoute = {
-        route: route,
-        course: courseId
-      };
+  this.set('contentModel', {
+    content: UnitModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'unit-id',
+      title: 'unit-title'
+    }),
+    courseId: 'course-id',
+    onRemixSuccess: function(unit) {
+      assert.equal(unit.get('id'), '12345');
+      assert.equal(unit.get('title'), 'Unit Name');
     }
   });
 
-  this.set('course', {
-    content: CourseModel.create(Ember.getOwner(this).ownerInjection(), {
-      id: 'course-id',
-      title: 'course-title'
-    })
-  });
+  this.render(hbs`{{content/modals/gru-unit-remix model=contentModel}}`);
 
-  this.render(hbs`{{content/modals/gru-course-remix router=router model=course}}`);
-
-  const $component = this.$('.content.modals.gru-course-remix');
+  const $component = this.$('.content.modals.gru-unit-remix');
   const $titleField = $component.find(".gru-input.title");
 
-  $titleField.find("input").val('Course Name');
+  $titleField.find("input").val('Unit Name');
   $titleField.find("input").blur();
 
+  var done = assert.async();
   return wait().then(function () {
     $component.find(".actions button[type='submit']").click();
-
-    return wait().then(function () {
-      assert.equal(generatedRoute.route, 'content.courses.edit', 'Generated correct route');
-      assert.equal(generatedRoute.course, 12345, 'Correct generated route course ID');
+    return wait().then(function (){
+      done();
     });
   });
 });
 
-test('it displays a notification if the course cannot be created', function (assert) {
+test('it displays a notification if the unit cannot be created', function (assert) {
   assert.expect(1);
 
   const context = this;
@@ -172,24 +166,25 @@ test('it displays a notification if the course cannot be created', function (ass
   // Mock notifications service
   this.register('service:notifications', Ember.Service.extend({
     error(message) {
-      assert.equal(message, context.get('i18n').t('common.errors.course-not-copied').string, 'Notification displayed');
+      assert.equal(message, context.get('i18n').t('common.errors.unit-not-copied').string, 'Notification displayed');
     }
   }));
   this.inject.service('notifications');
 
-  this.set('course', {
-    content: CourseModel.create(Ember.getOwner(this).ownerInjection(), {
-      id: 'course-id',
-      title: 'course-title'
-    })
+  this.set('contentModel', {
+    content: UnitModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'unit-id',
+      title: 'unit-title'
+    }),
+    courseId: 'course-id'
   });
 
-  this.render(hbs`{{content/modals/gru-course-remix model=course}}`);
+  this.render(hbs`{{content/modals/gru-unit-remix model=contentModel}}`);
 
-  const $component = this.$('.content.modals.gru-course-remix');
+  const $component = this.$('.content.modals.gru-unit-remix');
   const $titleField = $component.find(".gru-input.title");
 
-  $titleField.find("input").val('COURSE FAIL');
+  $titleField.find("input").val('UNIT FAIL');
   $titleField.find("input").blur();
 
   return wait().then(function () {
@@ -197,22 +192,23 @@ test('it displays a notification if the course cannot be created', function (ass
   });
 });
 
-test('Validate if the Course Title field has only whitespaces', function (assert) {
+test('Validate if the unit Title field has only whitespaces', function (assert) {
   assert.expect(3);
 
-  this.set('course', {
-    content: CourseModel.create(Ember.getOwner(this).ownerInjection(), {
-      id: 'course-id',
-      title: 'course-title'
-    })
+  this.set('contentModel', {
+    content: UnitModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'unit-id',
+      title: 'unit-title'
+    }),
+    courseId: 'course-id'
   });
 
-  this.render(hbs`{{content/modals/gru-course-remix model=course}}`);
+  this.render(hbs`{{content/modals/gru-unit-remix model=contentModel}}`);
 
-  const $component = this.$('.gru-course-remix');
+  const $component = this.$('.gru-unit-remix');
   const $titleField = $component.find(".gru-input.title");
 
-  assert.ok(!$titleField.find(".error-messages .error").length, 'Course Title error message not visible');
+  assert.ok(!$titleField.find(".error-messages .error").length, 'Unit Title error message not visible');
 
   // Try submitting without filling in data
   $titleField.find("input").val('');
@@ -222,27 +218,28 @@ test('Validate if the Course Title field has only whitespaces', function (assert
 
     return wait().then(function () {
 
-      assert.ok($titleField.find(".error-messages .error").length, 'Course Title error should be visible');
+      assert.ok($titleField.find(".error-messages .error").length, 'Unit Title error should be visible');
       // Fill in the input field
       $titleField.find("input").val(' ');
       $component.find(".actions button[type='submit']").click();
 
       return wait().then(function () {
-        assert.ok($titleField.find(".error-messages .error").length, 'Course Title error message should be visible');
+        assert.ok($titleField.find(".error-messages .error").length, 'Unit Title error message should be visible');
       });
     });
   });
 });
 
-test('Validate the character limit in the Course title field', function (assert) {
-  this.set('course', {
-    content: CourseModel.create(Ember.getOwner(this).ownerInjection(), {
-      id: 'course-id',
-      title: 'course-title'
-    })
+test('Validate the character limit in the unit title field', function (assert) {
+  this.set('contentModel', {
+    content: UnitModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'unit-id',
+      title: 'unit-title'
+    }),
+    courseId: 'course-id'
   });
-  this.render(hbs`{{content/modals/gru-course-remix model=course}}`);
+  this.render(hbs`{{content/modals/gru-unit-remix model=contentModel}}`);
 
-  const maxLenValue = this.$('.gru-course-remix .gru-input.title input').prop('maxlength');
+  const maxLenValue = this.$('.gru-unit-remix .gru-input.title input').prop('maxlength');
   assert.equal(maxLenValue, 50, "Input max length");
 });

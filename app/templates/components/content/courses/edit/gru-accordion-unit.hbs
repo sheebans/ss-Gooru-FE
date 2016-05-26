@@ -67,11 +67,11 @@
       {{/if}}
 
       <div class="actions">
-        <button class="btn add-item" {{action 'add'}}>{{gru-icon name="add"}}</button>
-        <button class="btn sort-items" {{action 'swap'}}>{{gru-icon name="swap_vert"}}</button>
+        <button title="Add" class="btn add-item" {{action 'add'}}>{{gru-icon name="add"}}</button>
+        <button title="Swap" class="btn sort-items" {{action 'swap'}}>{{gru-icon name="swap_vert"}}</button>
 
           <div class="item-actions">
-              <button class="btn edit-item" {{action 'edit' model}}>{{gru-icon name="edit"}}</button>
+              <button title="Edit" class="btn edit-item" {{action 'edit' model}}>{{gru-icon name="edit"}}</button>
             {{partial 'content/partials/item-actions'}}
           </div>
 
