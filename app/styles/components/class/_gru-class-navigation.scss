@@ -30,12 +30,10 @@
     }
     .greetings-description {
       font-size: $font-size-small;
-      p.truncate{
+      p {
         opacity:0.6;
         line-height: 18px;
-        @include text-overflow;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        overflow: hidden;
         width: 100%;
       }
     }
