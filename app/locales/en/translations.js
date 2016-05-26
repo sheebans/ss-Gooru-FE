@@ -49,6 +49,7 @@ export default {
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
     "back": "Back",
+    "back-to-data": "Back to Data",
     "best-practices": "Best Practices",
     "big-ideas": "Big Ideas",
     "biography": "Biography",
@@ -868,6 +869,9 @@ export default {
   "player": {
     "gru-navigation": {
       "view-report": "View Report"
+    },
+    "gru-navigator": {
+      "see-usage-report": "See Usage Report"
     }
   },
 
@@ -916,6 +920,11 @@ export default {
   },
   "gru-resource-new": {
     "resource-already-exist": "This resource already exists in Gooru!"
+  },
+  "gru-assessment-report": {
+    "gru-summary": {
+      "total-time-spent": "Total Time Spent"
+    }
   },
   "cards":{
     "gru-class-card": {

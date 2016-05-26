@@ -54,7 +54,8 @@ test('normalizeReadResource', function(assert) {
     publish_status: 'published',
     taxonomy: [],
     visible_on_profile: true,
-    creator_id: 'anyID',
+    sequence_id: 3,
+    creator_id: 'anyID'
   };
   const expected = ResourceModel.create(Ember.getOwner(this).ownerInjection(), {
     id: "abcd",
@@ -69,7 +70,8 @@ test('normalizeReadResource', function(assert) {
       'amIThePublisher': false,
       'publisher': null
     },
-    isVisibleOnProfile: true
+    isVisibleOnProfile: true,
+    order: 3
   });
 
   const resource = serializer.normalizeReadResource(resourceData);

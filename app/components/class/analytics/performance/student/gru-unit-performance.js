@@ -53,10 +53,11 @@ export default Ember.Component.extend({
      * @function actions:viewReport
      * @param {string} lessonId - Identifier for a lesson
      * @param {string} collectionId - Identifier for collection/assessment
+     * @param {string} type - collection type
      */
-    viewReport: function (lessonId, collectionId) {
+    viewReport: function (lessonId, collectionId, type) {
       let unitId = this.get("unit.id");
-      this.get('onViewReport')(unitId, lessonId, collectionId);
+      this.get('onViewReport')(unitId, lessonId, collectionId, type);
     },
     /**
      * Update selected lesson action

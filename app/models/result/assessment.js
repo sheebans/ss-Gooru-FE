@@ -26,6 +26,12 @@ export default Ember.Object.extend({
   sessionId: null,
 
   /**
+   * The owner collection
+   * @property {Collection}
+   */
+  collection: null,
+
+  /**
    * @property {QuestionResult[]} questionResults
    */
   questionResults: Ember.computed("resourceResults.[]", function(){
@@ -72,7 +78,7 @@ export default Ember.Object.extend({
   /**
    * @property {string} title - Title of the assessment
    */
-  title: '',
+  title: Ember.computed.alias("collection.title"),
 
   /**
    * @property {number} totalAttempts - Number of attempts the user has made for this assessment
@@ -160,6 +166,7 @@ export default Ember.Object.extend({
    * @param {Collection} collection
    */
   merge: function(collection){
+    this.set("collection", collection);
     const resourceResults = this.get("resourceResults");
     const resources = collection.get("resources");
 

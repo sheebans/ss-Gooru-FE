@@ -17,6 +17,14 @@
     border-color: $brand-success;
     background-color: $brand-success;
   }
+  .skipped{
+    border-color: $dark-300;
+    background-color: $dark-300;
+  }
+  .started{
+    border-color: $blue-400;
+    background-color: $blue-400;
+  }
   .bubbles-list{
     list-style: none;
     padding: 10px 0 0 0;
