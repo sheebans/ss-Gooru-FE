@@ -9,6 +9,11 @@ export default Ember.Route.extend({
    */
   questionService: Ember.inject.service("api-sdk/question"),
 
+  /**
+   * @type {ProfileService} Service to retrieve profile information
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
+
 
   // -------------------------------------------------------------------------
   // Methods
@@ -18,7 +23,13 @@ export default Ember.Route.extend({
   },
 
   model: function (params) {
-    var question = this.get('questionService').readQuestion(params.questionId);
+    var route = this;
+    var question = this.get('questionService').readQuestion(params.questionId).then(function(question) {
+      return route.get('profileService').readUserProfile(question.owner).then(function(owner){
+        question.set('owner', owner);
+        return Ember.RSVP.resolve(question);
+      });
+    });
 
     return Ember.RSVP.hash({
       question: question

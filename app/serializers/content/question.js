@@ -95,6 +95,7 @@ export default Ember.Object.extend({
       thumbnail: questionData.thumbnail ? (basePath + questionData.thumbnail) : null,
       text: questionData.description,
       publishStatus: questionData.publish_status,
+      owner: questionData.creator_id,
       standards: serializer.normalizeStandards(standards),
       hints: null, //TODO
       explanation: null, //TODO
