@@ -11,8 +11,6 @@ export default Ember.Route.extend({
    */
   courseService: Ember.inject.service("api-sdk/course"),
 
-  collectionService: Ember.inject.service("api-sdk/collection"),
-
   /**
    * @requires service:session
    */
@@ -20,14 +18,7 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-  actions: {
 
-    /**
-     * Remix collection action, when clicking remix/edit at the collection level
-     * @param {Content/Collection}
-     */
-    
-  },
   // -------------------------------------------------------------------------
   // Methods
 
