@@ -169,6 +169,11 @@ export default Ember.Component.extend({
   browseItems: null,
 
   /**
+   * @property {String} browseSelectorText - Intro text for browse selector.
+   */
+  browseSelectorText: '',
+
+  /**
    * @property {String[]} panelHeaders - List of headers, one for each panel in the browse selector.
    * @see gru-browse-selector
    */
@@ -194,10 +199,20 @@ export default Ember.Component.extend({
   selectedTags: Ember.A(),
 
   /**
+   * @property {String} selectedTextKey - i18n text key for selected tags text.
+   */
+  selectedTextKey: '',
+
+  /**
    * @property {TaxonomyItem[]} shortcuts - List of references to a subset of taxonomy
    * items (@see browseItems).
    */
   shortcuts: [],
+
+  /**
+   * @property {String} shortcutText - Intro text for shortcuts.
+   */
+  shortcutText: '',
 
   /**
    * @property {TaxonomyTag[]} shortcutTags - List of taxonomy tags to use as shortcuts in the
