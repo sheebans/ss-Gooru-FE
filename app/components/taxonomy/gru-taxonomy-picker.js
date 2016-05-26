@@ -25,16 +25,6 @@ export default Ember.Component.extend({
   actions: {
 
     /**
-     * Clear any active shortcut tags
-     * @function actions:clearActiveShortcut
-     */
-    clearShortcuts: function() {
-      this.get('shortcutTags').forEach(function(taxonomyTag) {
-        taxonomyTag.set('isActive', false);
-      });
-    },
-
-    /**
      * Add a new tag to the selected tag list
      * @function actions:addSelectedTag
      * @param {BrowseItem} browseItem
@@ -47,6 +37,16 @@ export default Ember.Component.extend({
         taxonomyItem: browseItem
       });
       this.get('selectedTags').pushObject(newSelectedTag);
+    },
+
+    /**
+     * Clear any active shortcut tags
+     * @function actions:clearActiveShortcut
+     */
+    clearShortcuts: function() {
+      this.get('shortcutTags').forEach(function(taxonomyTag) {
+        taxonomyTag.set('isActive', false);
+      });
     },
 
     /**
@@ -75,6 +75,10 @@ export default Ember.Component.extend({
           break;
         }
       }
+    },
+
+    saveSelectedTags: function(selectedTags) {
+      this.get('onSave')(selectedTags);
     },
 
     /**

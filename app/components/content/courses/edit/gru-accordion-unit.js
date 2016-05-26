@@ -117,8 +117,19 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
         shortcuts: component.get('selectedCourses'),
         taxonomyItems: tree,
         callback: {
-          success: function() {
-            console.log('Time to persist the domain tags!');
+          success: function(selectedTags) {
+            var selectedDomains = component.get('selectedDomains');
+            var selected = selectedTags.map(function(domainTag) {
+              return TaxonomyTag.create({
+                isReadonly: true,
+                taxonomyItem: domainTag.get('taxonomyItem')
+              });
+            });
+
+            Ember.beginPropertyChanges();
+            selectedDomains.clear();
+            selectedDomains.pushObjects(selected);
+            Ember.endPropertyChanges();
           }
         }
       };

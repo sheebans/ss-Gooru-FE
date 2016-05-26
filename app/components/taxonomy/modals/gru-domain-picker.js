@@ -18,7 +18,19 @@ export default Ember.Component.extend({
 
 
   // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+    updateSelectedTags(selectedTags) {
+      this.get('model.callback').success(selectedTags);
+      this.triggerAction({ action: 'closeModal' });
+    }
+  },
+
+
+  // -------------------------------------------------------------------------
   // Events
+
   init() {
     this._super( ...arguments );
 
