@@ -33,9 +33,9 @@ export default Ember.Object.extend({
       id: subjectPayload['taxonomy_subject_id'] ? subjectPayload['taxonomy_subject_id'] : subjectPayload.id,
       frameworkId: subjectPayload['standard_framework_id'],
       title: subjectPayload.title,
-      subjectTitle: parentTitle
-        ? `${subjectPayload['standard_framework_id']} ${parentTitle}`
-        : subjectPayload.title,
+      subjectTitle: parentTitle ?
+        `${subjectPayload['standard_framework_id']} ${parentTitle}` :
+        subjectPayload.title,
       code: subjectPayload.code,
       children: subjectPayload.frameworks ? subjectPayload.frameworks.map(function(framework) {
         return serializer.normalizeSubject(framework, subjectPayload.title);

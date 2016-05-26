@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import Ember from 'ember';
+import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 
 moduleForComponent('gru-taxonomy-selector', 'Integration | Component | taxonomy/gru taxonomy selector', {
   integration: true,
@@ -12,17 +13,20 @@ moduleForComponent('gru-taxonomy-selector', 'Integration | Component | taxonomy/
 test('Layout - read only', function (assert) {
 
   var srcObject = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
-    taxonomy: Ember.A(['ID-1'])
+    category: TAXONOMY_CATEGORIES[0].value
   });
   var editObject = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
-    taxonomy: Ember.A(['ID-1'])
+    category: TAXONOMY_CATEGORIES[0].value
   });
 
-  this.set('srcObject', srcObject);
-  this.set('editObject', editObject);
+  this.set('srcEntity', srcObject);
+  this.set('editEntity', editObject);
 
   this.render(hbs`
-    {{taxonomy.gru-taxonomy-selector isEditing=false srcObject=srcObject editObject=editObject}}
+    {{taxonomy.gru-taxonomy-selector
+          isEditing=false
+          srcEntity=srcEntity
+          editEntity=editEntity}}
   `);
 
   const $component = this.$(".content.gru-taxonomy-selector");
@@ -39,16 +43,16 @@ test('Layout - read only', function (assert) {
 test('Layout - edit', function (assert) {
 
   var srcObject = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
-    taxonomy: Ember.A(['ID-1'])
+    category: TAXONOMY_CATEGORIES[0].value
   });
   var editObject = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
-    taxonomy: Ember.A(['ID-1'])
+    category: TAXONOMY_CATEGORIES[0].value
   });
 
-  this.set('srcObject', srcObject);
-  this.set('editObject', editObject);
+  this.set('srcEntity', srcObject);
+  this.set('editEntity', editObject);
   this.render(hbs`
-    {{taxonomy.gru-taxonomy-selector isEditing=true srcCategory=srcCategory editCategory=editCategory}}
+    {{taxonomy.gru-taxonomy-selector isEditing=true srcEntity=srcEntity editEntity=editEntity}}
   `);
 
   const $component = this.$(".content.gru-category");
@@ -57,7 +61,7 @@ test('Layout - edit', function (assert) {
 
   const $btnGroup = $component.find('> .btn-group');
   assert.ok($btnGroup.length, 'Button group');
-  assert.equal($btnGroup.find('button').length, 3, 'Number of buttons in button group');
+  assert.equal($btnGroup.find('button').length, TAXONOMY_CATEGORIES.length, 'Number of buttons in categories button group');
   assert.equal($btnGroup.find('button.btn-primary').length, 1, 'Number of selected buttons in button group');
   assert.ok($btnGroup.find('button:eq(0)').hasClass('btn-primary'), 'First button is selected');
 

@@ -77,7 +77,7 @@ export default Ember.Service.extend({
           });
           return promises.push(promise);
         });
-        Ember.RSVP.all(promises).then(function(subjectsLists) {
+        Ember.RSVP.all(promises).then(function() {
           service.set('taxonomy', taxonomy);
           resolve(taxonomy[type]);
         });
