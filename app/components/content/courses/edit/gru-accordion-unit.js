@@ -153,6 +153,17 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
       this.get('items').removeObject(builderItem);
     },
 
+    /**
+     * Remix Lesson from a list of lessons
+     */
+    remixLesson: function (lesson) {
+      var builderItem = BuilderItem.create({
+        isEditing: false,
+        data: lesson
+      });
+      this.get('items').pushObject(builderItem);
+    },
+
     saveUnit: function () {
       var courseId = this.get('course.id');
       var editedUnit = this.get('tempUnit');
@@ -173,57 +184,6 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
           this.get('notifications').error(message);
           Ember.Logger.error(error);
         }.bind(this));
-    },
-    /**
-     * Delete selected unit
-     *
-     */
-    deleteItem: function (builderItem) {
-      let component = this;
-      var model = {
-          content: this.get('unit'),
-          index:this.get('index'),
-          parentName:this.get('courseTitle'),
-          deleteMethod: function () {
-            return this.get('unitService').deleteUnit(this.get('courseId'),this.get('unit.id'));
-          }.bind(this),
-          type: CONTENT_TYPES.UNIT,
-          callback:{
-            success:function(){
-              component.get('onDeleteUnit')(builderItem);
-            },
-          }
-      };
-      this.actions.showModal.call(this,
-        'content.modals.gru-delete-content',
-        model, null, null, null, false);
-    },
-
-    /**
-     * Remove Lesson from a list of lessons
-     */
-    removeLesson: function (builderItem) {
-      this.get('items').removeObject(builderItem);
-    },
-
-    /**
-     * Remix Lesson from a list of lessons
-     */
-    remixLesson: function (lesson) {
-      var builderItem = BuilderItem.create({
-        isEditing: false,
-        data: lesson
-      });
-      this.get('items').pushObject(builderItem);
-    },
-
-    copy: function() {
-      var model = {
-        content: this.get('unit'),
-        courseId: this.get('courseId'),
-        onRemixSuccess: this.get('onRemixUnit')
-      };
-      this.send('showModal', 'content.modals.gru-unit-remix', model);
     }
   },
 

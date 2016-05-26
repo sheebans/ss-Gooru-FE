@@ -102,7 +102,7 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
         model, null, null, null, false);
     },
 
-    copy: function(builderItem) {
+    copy: function() {
       var model = {
         content: this.get('lesson'),
         courseId: this.get('courseId'),
