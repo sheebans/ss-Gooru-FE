@@ -40,8 +40,12 @@ export default Ember.Controller.extend({
    */
   gender: Ember.computed('profile.gender', function() {
     var gender = this.get('profile.gender');
-    var lowerGender = gender.toLowerCase();
-    return (lowerGender === 'female' || lowerGender === 'male') ? gender : '';
+
+    if (gender) {
+      return (gender.toLowerCase() === 'female' || gender.toLowerCase() === 'male') ? gender : '';
+    }
+
+    return '';
   })
 
   // -------------------------------------------------------------------------
