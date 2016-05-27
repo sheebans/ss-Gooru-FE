@@ -44,10 +44,11 @@ export default Ember.Component.extend(ModalMixin, {
       var remixModel = {
         content: collection
       };
-      if(collection.get('isCollection'))
+      if(collection.get('isCollection')) {
         this.send('showModal', 'content.modals.gru-collection-remix', remixModel);
-      else
+      } else {
         this.send('showModal', 'content.modals.gru-assessment-remix', remixModel);
+      }
     }
   }
 });
