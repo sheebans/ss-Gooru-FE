@@ -89,16 +89,15 @@ BrowseItem.reopenClass({
    * @function Create a browse item from an existing taxonomy item
    * @static
    * @param {TaxonomyItem} taxonomyItem
-   * @param {Number} untilLevel - Max level of descendants that will be copied onto the browse item (default: 1).
-   *   In other words, by default a new browse item will be created from an existing taxonomy item
-   *   with no children.
+   * @param {Number} untilLevel - Max level of descendants that will be copied onto the browse item.
+   * If not specified, all descendants will be copied.
    * @return {BrowseItem}
    */
   createFromTaxonomyItem: function(taxonomyItem, untilLevel) {
 
     // Converts a taxonomy item (@see TaxonomyItem) and all its descendants
     // to browse items
-    function convertToBrowseItem(taxonomyItem, untilLevel = 1, parent = null) {
+    function convertToBrowseItem(taxonomyItem, untilLevel, parent = null) {
       var children = [];
 
       var properties = $.extend(taxonomyItem.getProperties([
@@ -111,7 +110,7 @@ BrowseItem.reopenClass({
 
       // Restrict the number of children levels that will be copied
       // onto the browse item
-      if (browseItem.get('level') < untilLevel) {
+      if (!untilLevel || browseItem.get('level') < untilLevel) {
 
         taxonomyItem.get('children').forEach(function(child) {
           // Convert all the children to browse items
