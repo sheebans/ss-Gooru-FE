@@ -6,7 +6,7 @@ moduleForAdapter('adapter:collaborator/collaborator', 'Unit | Adapter | collabor
   // needs: []
 });
 
-test('addCollaborators', function(assert) {
+test('updateCollaborators', function(assert) {
   const adapter = this.subject();
   assert.expect(3);
 
@@ -22,7 +22,7 @@ test('addCollaborators', function(assert) {
     }, false);
   });
   var done = assert.async();
-  adapter.addCollaborators(10, "collections", ["1", "2"])
+  adapter.updateCollaborators(10, "collections", ["1", "2"])
     .then(function() {
       assert.ok(true, 'Promise.then should be called');
       done();
