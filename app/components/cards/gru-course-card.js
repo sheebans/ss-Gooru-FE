@@ -78,6 +78,12 @@ export default Ember.Component.extend({
   isPreviewEnabled:false,
 
   /**
+   * Show if the visibility icon is visible or not.
+   * @property {Boolean}
+   */
+  isEyeVisible: true,
+
+  /**
    * @property {Array} users
    */
   users:Ember.computed('course', function() {
