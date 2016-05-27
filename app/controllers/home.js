@@ -12,13 +12,30 @@ export default Ember.Controller.extend({
   // Actions
 
   actions: {
-    switchTab: function () {
-      $('.nav-tabs li.tab:not(.active)').tab('show');
+    showClasses: function (type) {
+      this.set("showActiveClasses", type === "active");
+      this.set("showArchivedClasses", type === "archived");
+    },
+
+    downloadReport: function (aClass) {
+      Ember.Logger.debug(aClass.get("id"));
     }
   },
 
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * Indicates when then active classes are visible
+   * @property {boolean}
+   */
+  showActiveClasses: true,
+
+  /**
+   * Indicates when then archived classes are visible
+   * @property {boolean}
+   */
+  showArchivedClasses: false,
+
 
   /**
    * @property {Number} Total of joined classes

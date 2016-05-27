@@ -115,6 +115,7 @@
 @import 'components/content/gru-audience';
 @import 'components/content/gru-category';
 @import 'components/content/gru-image';
+@import 'components/content/gru-taxonomy-selector';
 @import 'components/content/collections/gru-collection-list';
 @import 'components/content/modals';
 @import 'components/content/modals/gru-base-remix';
@@ -179,4 +180,4 @@
 @import 'components/search/gru-resource-options';
 
 @import 'components/taxonomy/gru-taxonomy-tag';
-@import 'components/taxonomy/modals/gru-domain-picker';
+@import 'components/taxonomy/modals/modals';

@@ -20,6 +20,10 @@ export default Ember.Component.extend({
   actions: {
     editResource: function(){
       this.sendAction("onEditResource", this.get("resource"));
+    },
+
+    remixQuestion: function(){
+      this.sendAction("onRemixQuestion", this.get("resource"));
     }
   },
 
@@ -44,8 +48,19 @@ export default Ember.Component.extend({
   editEnabled: false,
 
   /**
+   * Indicates if the remix functionality is enabled
+   * @property {boolean}
+   */
+  remixEnabled: Ember.computed.not('editEnabled'),
+
+  /**
    * @property {string} edit action
    */
-  onEditResource: null
+  onEditResource: null,
+
+  /**
+   * @property {string} remix action
+   */
+  onRemixQuestion: null
 
 });

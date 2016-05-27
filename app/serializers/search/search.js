@@ -45,7 +45,7 @@ export default Ember.Object.extend({
     const creatorThumbnailUrl = collectionData.creatorProfileImage ? basePath + collectionData.creatorProfileImage : DEFAULT_IMAGES.USER_PROFILE;
 
     const course = collectionData.course || {};
-    return CollectionModel.create({
+    return CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: collectionData.id,
       title: collectionData.title,
       thumbnailUrl: thumbnailUrl,
@@ -88,7 +88,7 @@ export default Ember.Object.extend({
     const creatorThumbnailUrl = assessmentData.creatorProfileImage ? basePath + assessmentData.creatorProfileImage : DEFAULT_IMAGES.USER_PROFILE;
 
     const course = assessmentData.course || {};
-    return AssessmentModel.create({
+    return AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
       id: assessmentData.id,
       title: assessmentData.title,
       thumbnailUrl: thumbnailUrl,
@@ -172,7 +172,7 @@ export default Ember.Object.extend({
     const serializer = this;
     const format = result.resourceFormat.value; //value should be 'question'
     const type = QuestionModel.normalizeQuestionType(result.typeName);
-    return QuestionModel.create({
+    return QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: result.gooruOid,
       title: result.title,
       description: result.description,
@@ -193,7 +193,7 @@ export default Ember.Object.extend({
   normalizeResource: function(result){
     const serializer = this;
     const format = ResourceModel.normalizeResourceFormat(result.contentSubFormat);
-    return ResourceModel.create({
+    return ResourceModel.create(Ember.getOwner(this).ownerInjection(), {
       id: result.gooruOid,
       title: result.title,
       description: result.description,
@@ -216,7 +216,7 @@ export default Ember.Object.extend({
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl =  ownerData.profileImageUrl ? basePath +  ownerData.profileImageUrl : DEFAULT_IMAGES.USER_PROFILE;
 
-    return ProfileModel.create({
+    return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
       id: ownerData.gooruUId,
       firstName: ownerData.firstName,
       lastName: ownerData.lastName,
@@ -268,17 +268,19 @@ export default Ember.Object.extend({
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = result.thumbnail ? basePath + result.thumbnail : DEFAULT_IMAGES.COURSE;
-    return CourseModel.create({
+    return CourseModel.create(Ember.getOwner(this).ownerInjection(), {
       id: result.id,
       title: result.title,
       description: result.description,
       thumbnailUrl: thumbnailUrl,
       subject: result.subjectBucket,
+      subjectSequence: result.subjectSequence,
       isVisibleOnProfile: result.visibleOnProfile,
       isPublished: result.publishStatus === 'published',
       unitCount: result.unitCount,
       taxonomy: result.taxonomy && result.taxonomy.subject ? result.taxonomy.subject.slice(0) : null,
-      owner: result.owner ? serializer.normalizeOwner(result.owner) : null
+      owner: result.owner ? serializer.normalizeOwner(result.owner) : null,
+      sequence: result.sequence
     });
   }
 
