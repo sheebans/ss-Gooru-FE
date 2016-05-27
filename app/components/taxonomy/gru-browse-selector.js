@@ -57,6 +57,20 @@ export default Ember.Component.extend({
 
   },
 
+  // -------------------------------------------------------------------------
+  // Events
+  didInsertElement() {
+    this._super( ...arguments );
+
+    this.$('button[data-toggle="collapse"]').on('click', function(e) {
+      e.preventDefault();
+    });
+  },
+
+  willDestroyElement: function () {
+    this.$('button[data-toggle="collapse"]').off('click');
+  },
+
 
   // -------------------------------------------------------------------------
   // Properties
