@@ -30,11 +30,19 @@ export default Ember.Component.extend({
      * @param {BrowseItem} browseItem
      */
     addSelectedTag: function(browseItem) {
+      var taxonomyItem = null;
+      var itemPath = browseItem.getPath();
+
+      for (let i = this.get('taxonomyItems').length - 1; i >= 0; i--) {
+        taxonomyItem = this.get('taxonomyItems')[i].find(itemPath);
+        if (taxonomyItem) { break; }
+      }
+
       var newSelectedTag = TaxonomyTag.create({
         isActive: true,
         isReadonly: true,
         isRemovable: true,
-        taxonomyItem: browseItem
+        taxonomyItem: taxonomyItem
       });
       this.get('selectedTags').pushObject(newSelectedTag);
     },
