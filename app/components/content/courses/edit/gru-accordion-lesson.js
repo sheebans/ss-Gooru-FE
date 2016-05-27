@@ -117,6 +117,9 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
     removeLessonItem: function (builderItem) {
       this.get('items').removeObject(builderItem);
     },
+    remixLessonItem: function (builderItem) {
+      this.get('items').addObject(builderItem);
+    },
     /**
      * Delete selected lesson
      *
@@ -140,6 +143,16 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
       this.actions.showModal.call(this,
         'content.modals.gru-delete-content',
         model, null, null, null, false);
+    },
+
+    copy: function() {
+      var model = {
+        content: this.get('lesson'),
+        courseId: this.get('course.id'),
+        unitId: this.get('unitId'),
+        onRemixSuccess: this.get('onRemixLesson')
+      };
+      this.send('showModal', 'content.modals.gru-lesson-remix', model);
     }
   },
 

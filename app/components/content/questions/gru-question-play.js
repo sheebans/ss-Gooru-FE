@@ -16,6 +16,12 @@ export default Ember.Component.extend({
   actions:{
     submitQuestion: function(){
       Ember.Logger.debug("Submitting question from question player");
+    },
+    /**
+     * Performs a back action in the browser history
+     */
+    goBack: function() {
+      window.history.go(-1);
     }
   },
 

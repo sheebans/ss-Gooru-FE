@@ -28,10 +28,10 @@
       {{/if}}
 
       <div class="actions">
-        <button class="btn add-item" {{action 'swap'}}>{{gru-icon name="add"}}</button>
-        <button class="btn narration" {{action 'swap'}}>{{gru-icon name="mode_comment"}}</button>
+        <button class="btn add-item" title="{{t 'common.add'}} "{{action 'add'}}>{{gru-icon name="add"}}</button>
+        <button class="btn narration" title="{{t 'common.edit-narration'}} "{{action 'narration'}}>{{gru-icon name="mode_comment"}}</button>
           <div class="item-actions">
-            {{#link-to (if (eq model.format 'question') 'content.questions.edit' 'content.resources.edit') model.id (query-params collectionId=collection.id isCollection=isCollection) class="btn edit-item" tagName="button"}}{{gru-icon name="edit"}}{{/link-to}}
+            {{#link-to (if (eq model.format 'question') 'content.questions.edit' 'content.resources.edit') model.id (query-params collectionId=collection.id isCollection=isCollection) class="btn edit-item" tagName="button" title=(t 'common.edit')}}{{gru-icon name="edit"}}{{/link-to}}
             {{partial 'content/partials/item-actions'}}
           </div>
       </div>

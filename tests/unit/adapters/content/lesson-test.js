@@ -133,3 +133,22 @@ test('Delete Lesson', function(assert) {
       assert.ok(true);
     });
 });
+
+test('Copy Lesson', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.post('/api/nucleus/v1/copier/courses/course-id/units/unit-id/lessons/lesson-id', function() {
+      return [201, {'Content-Type': 'text/plain', 'Location': 'copy-lesson-id'}, ''];
+    }, false);
+  });
+  adapter.copyLesson({
+    courseId: 'course-id',
+    unitId: 'unit-id',
+    lessonId: 'lesson-id'
+  }).then(function(response) {
+      assert.equal('', response, 'Wrong response');
+    });
+});

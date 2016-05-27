@@ -4,13 +4,13 @@
       {{t 'gru-quick-course-search.view-featured-courses'}}
     {{else}}
       {{t 'gru-quick-course-search.add-from-course'}}
-    {{/if}}    
+    {{/if}}
   </span>
 </div>
 <div class="modal-body">
   {{#each model.courses as |course|}}
     <div class="{{course.id}}" {{action "selectCourse" course.id}}>
-        {{cards.gru-course-card course=course isEditEnabled=true}}
+        {{cards.gru-course-card course=course isEditEnabled=true isEyeVisible=false}}
     </div>
   {{/each}}
 </div>
@@ -28,6 +28,4 @@
 
     <button disabled={{if hasSelectedCourse '' 'true'}} type="button" class="btn btn-primary assign" {{action "assignCourse"}}>{{t 'gru-quick-course-search.assign'}}</button>
   </div>
-
-
 </div>

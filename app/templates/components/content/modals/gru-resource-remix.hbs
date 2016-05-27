@@ -1,12 +1,12 @@
 <div class="modal-header">
-  <h4 class="modal-title">{{t "common.resource-collection"}}</h4>
+  <h4 class="modal-title">{{t "common.question-collection"}}</h4>
 </div>
 <div class="modal-body">
-    <p class="lead">{{t 'common.remix-resource-lead'}}</p>
+    <p class="lead">{{t 'common.remix-question-lead'}}</p>
   <form {{action "remix" on="submit"}}>
 
     <label>
-      <span class="required">{{t 'common.resource-title'}}</span>
+      <span class="required">{{t 'common.question-title'}}</span>
       {{validation.gru-input model=contentModel valuePath='title' maxLength=50}}
     </label>
 

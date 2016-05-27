@@ -10,6 +10,7 @@ export default RemixBaseModal.extend({
    * @property {Service} Collection service API SDK
    */
   collectionService: Ember.inject.service("api-sdk/collection"),
+  lessonService: Ember.inject.service("api-sdk/lesson"),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -24,7 +25,17 @@ export default RemixBaseModal.extend({
   },
 
   updateContent: function(collection) {
-    return this.get('collectionService').updateCollection(collection.get('id'), collection);
+    const component = this;
+    return component.get('collectionService').updateCollection(collection.get('id'), collection).then(function(){
+      let courseId = component.get('courseId');
+      let unitId = component.get('unitId');
+      let lessonId = component.get('lessonId');
+      let collectionId = component.get('contentModel.id');
+      let isCollection = component.get('isCollection');
+      return lessonId ?
+        component.get('lessonService').associateAssessmentOrCollectionToLesson(courseId,unitId, lessonId, collectionId, isCollection) :
+        Ember.RSVP.resolve();
+    });
   },
 
   showSuccessNotification: function(collection) {
@@ -38,6 +49,15 @@ export default RemixBaseModal.extend({
   showFailureNotification: function() {
     const message = this.get('i18n').t('common.errors.collection-not-copied').string;
     this.get('notifications').error(message);
-  }
+  },
+
+  init: function() {
+     this._super(...arguments);     
+     this.set('courseId', this.get('model.courseId'));
+     this.set('unitId', this.get('model.unitId'));
+     this.set('lessonId', this.get('model.lessonId'));
+     this.set('isCollection', this.get('model.isCollection'));
+
+   },
 
 });
