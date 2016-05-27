@@ -9,11 +9,11 @@
   <h1>{{t "common.edit-resource"}}</h1>
 
   <div class="actions">
-    <button class="btn btn-default btn-icon delete" {{action 'deleteResource' resource}}>{{gru-icon name="delete"}}</button>
+    <button class="btn btn-default btn-icon delete" title="{{t 'common.delete'}}" {{action 'deleteResource' resource}}>{{gru-icon name="delete"}}</button>
     {{#gru-share-pop-over tagName="button" type="resource"}}
       {{gru-icon name="insert_link"}}
     {{/gru-share-pop-over}}
-    <button class="btn btn-default hidden">{{t "common.add-to"}}</button>
+    <button class="btn btn-default hidden" title="{{t 'common.add-to'}}">{{t "common.add-to"}}</button>
     {{#link-to 'content.resources.play' resource.id class="btn btn-default preview" tagName="button"}}{{t "common.preview"}}{{/link-to}}
   </div>
 

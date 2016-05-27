@@ -45,7 +45,7 @@
 
       <div class="actions">
         <div class="dropdown">
-          <button class="btn add-item dropdown-toggle" type="button" data-toggle="dropdown">{{gru-icon name="add"}}</button>
+          <button class="btn add-item dropdown-toggle" title="{{t 'common.add'}}" type="button" data-toggle="dropdown">{{gru-icon name="add"}}</button>
           <ul class="dropdown-menu dropdown-menu-right">
             <li><a href="#">{{t "common.from-my-collections"}}</a></li>
             <li><a href="#">{{t "common.from-my-assessments"}}</a></li>
@@ -53,9 +53,9 @@
             <li><a href="#" {{action "showModal" "content.modals.gru-assessment-new" newCollectionModel}}>{{t "common.new-assessment"}}</a></li>
           </ul>
         </div>
-        <button class="btn sort-items" {{action 'swap'}}>{{gru-icon name="swap_vert"}}</button>
+        <button class="btn sort-items" {{action 'swap'}} title="{{t 'common.swap'}}">{{gru-icon name="swap_vert"}}</button>
           <div class="item-actions">
-              <button class="btn edit-item" {{action 'edit' model}}>{{gru-icon name="edit"}}</button>
+              <button class="btn edit-item" title="{{t 'common.edit'}}" {{action 'edit' model}}>{{gru-icon name="edit"}}</button>
             {{partial 'content/partials/item-actions'}}
           </div>
       </div>
@@ -71,7 +71,12 @@
           model=item
           course=course
           index=index
-          onDeleteLessonItem=(action 'removeLessonItem') }}
+          lessonId=lesson.id
+          unitId=unitId
+          courseId=course.id
+          onDeleteLessonItem=(action 'removeLessonItem')
+          onRemixLessonItem=(action 'remixLessonItem')
+         }}
 
       {{/each}}
     </ol>

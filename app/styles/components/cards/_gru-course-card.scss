@@ -52,7 +52,7 @@
     @include align-items(center);
     @include flex-basis(100px);
     @include flex-shrink(0);
-    padding-top: 10px;
+    padding-top: 20px;
     @media(min-width: $screen-sm-min) {
       @include flex-basis(120px);
     }
@@ -96,15 +96,13 @@
 
     .header {
       .icon {
+        margin: -7px 0 0 0;
         height: 24px;
         width: 24px;
       }
 
       .truncate {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        width: 90%;
+        width: 85%;
       }
     }
 
