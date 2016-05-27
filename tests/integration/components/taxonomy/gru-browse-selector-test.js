@@ -56,7 +56,7 @@ test("it can populate the browse panels per a specific item path", function(asse
     assert.equal($(this).find('> ul > li').length, index + 1, 'Number of items in level ' + (index + 1));
 
     if (index === 2) {
-      assert.equal($(this).find('> ul > li:first-child > label > span').text(), 'Item : 3 : 0 : 0', 'Correct item label');
+      assert.equal($(this).find('> ul > li:first-child > label > div > strong').text(), 'Item : 3 : 0 : 0', 'Correct item label');
     }
   });
 });
@@ -83,12 +83,12 @@ test("it calls an external action when clicking an item that is not in the last 
 
   const $component = this.$('.taxonomy.gru-browse-selector');
 
-  assert.equal($component.find('> ol > li:last-child > ul > li:first-child span').text(), 'Item : 3 : 0 : 0', 'Label of first item in the last panel');
+  assert.equal($component.find('> ol > li:last-child > ul > li:first-child > label > div > strong').text(), 'Item : 3 : 0 : 0', 'Label of first item in the last panel');
 
   // Click on the second item in the second panel
   $component.find('> ol > li:eq(1) a:eq(1)').click();
 
-  assert.equal($component.find('> ol > li:last-child > ul > li:first-child span').text(), 'Item : 3 : 1 : 0', 'Label of first item in the last panel after click');
+  assert.equal($component.find('> ol > li:last-child > ul > li:first-child > label > div > strong').text(), 'Item : 3 : 1 : 0', 'Label of first item in the last panel after click');
 });
 
 test("it loads sub-level items async", function(assert) {
