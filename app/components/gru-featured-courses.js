@@ -62,7 +62,7 @@ export default Ember.Component.extend({
     return this.get('subjects').map(
       (subjectBucket, index) => Ember.Object.create({
         'category': subjectBucket.subject.slice(0,subjectBucket.subject.indexOf('.')),
-        'subject':  subjectBucket.subject.slice(subjectBucket.subject.indexOf('.')+1, subjectBucket.subject.length),
+        'subject':  subjectBucket.subject.slice(subjectBucket.subject.indexOf('.')+1),
         'courses': this.get('orderedCourses')[index]
       })
     );
