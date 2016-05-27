@@ -6,7 +6,8 @@ import Ember from 'ember';
 moduleForComponent('cards/gru-class-card', 'Integration | Component | cards/gru class card', {
   integration: true,
   beforeEach: function () {
-    this.container.lookup('service:i18n').set("locale","en");
+    this.container.lookup('service:i18n').set("locale", "en");
+    this.inject.service('i18n');
   }
 });
 
