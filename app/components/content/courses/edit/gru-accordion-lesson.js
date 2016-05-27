@@ -77,6 +77,9 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
     removeLessonItem: function (builderItem) {
       this.get('items').removeObject(builderItem);
     },
+    remixLessonItem: function (builderItem) {
+      this.get('items').addObject(builderItem);
+    },
     /**
      * Delete selected lesson
      *
