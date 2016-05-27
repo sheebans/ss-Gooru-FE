@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
+import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 
 const Validations = buildValidations({
   title: {
@@ -25,10 +26,24 @@ export default Ember.Object.extend(Validations, {
   id: null,
 
   /**
-   * @property {Number} category - Category the course belongs to
+   * @property {String} category - Category the course belongs to
    */
-  // TODO We need to revisit this property, probably it will be a string
-  category: 1,
+  category: Ember.computed('subject', function() {
+    var category = TAXONOMY_CATEGORIES[0].value; // Default to K12 category
+    if (this.get('subject')) {
+      let keys = this.get('subject').split('.');
+      if (keys.length > 1) {
+        for (var i = TAXONOMY_CATEGORIES.length - 1; i >= 0; i--) {
+          // The second part of the subjectId represents the category
+          if (keys[1] === TAXONOMY_CATEGORIES[i].apiCode) {
+            category = TAXONOMY_CATEGORIES[i].value;
+            break;
+          }
+        }
+      }
+    }
+    return category;
+  }),
 
   /**
    * @property {Content/Unit[]} children - List of course units
@@ -71,7 +86,7 @@ export default Ember.Object.extend(Validations, {
   owner: null,
 
   /**
-   * @property {String} subject
+   * @property {String} Taxonomy primary subject ID
    */
   subject: '',
 
@@ -107,10 +122,12 @@ export default Ember.Object.extend(Validations, {
     // Copy the course data
     properties = this.getProperties(properties);
 
-    var audience = this.get('audience');
+    let audience = this.get('audience');
+    let taxonomy = this.get('taxonomy');
 
-    // Copy the audience values
+    // Copy the audience and taxonomy values
     properties.audience = audience.slice(0);
+    properties.taxonomy = taxonomy.slice(0);
 
     return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
   },
@@ -126,6 +143,17 @@ export default Ember.Object.extend(Validations, {
   merge: function(model, propertyList = []) {
     var properties = model.getProperties(propertyList);
     this.setProperties(properties);
-  }
+  },
 
+  /**
+   * Sets the subject of the course
+   *
+   * @function
+   * @param {TaxonomyRoot} taxonomySubject
+   */
+  setTaxonomySubject: function(taxonomySubject) {
+    if (!(this.get('isDestroyed') || this.get('isDestroying'))) {
+      this.set('subject', taxonomySubject ? taxonomySubject.get('id') : null);
+    }
+  }
 });
