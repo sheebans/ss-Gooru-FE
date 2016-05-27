@@ -25,7 +25,35 @@ export default Ember.Route.extend({
     closePlayer: function(){
       var route = !this.get('history.lastRoute.name') ? 'index' : this.get('history.lastRoute.url');
       this.transitionTo(route);
+    },
+
+    /**
+     * Navigates to the assessment report
+     */
+    navigateToReport: function (){
+      const route = this;
+      const controller = route.get("controller");
+      let context = controller.get("context");
+      let collection = controller.get("collection");
+      const queryParams = {
+        collectionId: context.get("collectionId"),
+        userId: controller.get('session.userId'),
+        type: collection.get("collectionType")
+      };
+      if (context.get("classId")) {
+        queryParams.classId = context.get("classId");
+        queryParams.courseId = context.get("courseId");
+        queryParams.unitId = context.get("unitId");
+        queryParams.lessonId = context.get("lessonId");
+      }
+
+      const reportController = route.controllerFor('reports.student-collection');
+
+        //this doesn't work when refreshing the page, TODO
+      reportController.set("backUrl", route.get('history.lastRoute.url'));
+      route.transitionTo('reports.student-collection', { queryParams: queryParams});
     }
+
   },
 
   // -------------------------------------------------------------------------

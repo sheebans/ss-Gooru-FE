@@ -2,7 +2,7 @@
   <div class="questions clearfix">
     {{#each questions as |question|}}
       <div class="card">
-        {{cards.gru-resource-card resource=question addEnabled=true editEnabled=isMyProfile onEditResource="editQuestion" remixEditable=false}}
+        {{cards.gru-resource-card resource=question addEnabled=true editEnabled=isMyProfile onEditResource="editQuestion" onRemixQuestion="remixQuestion"}}
       </div>
     {{/each}}
   </div>

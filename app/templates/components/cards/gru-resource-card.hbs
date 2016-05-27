@@ -45,7 +45,9 @@
       <button class="edit-btn btn-success btn-sm" {{action "editResource"}}>{{t "common.edit"}}</button>
     {{/if}}
     {{#if isQuestion}}
-      <button class="copy-btn btn-success btn-sm">{{t "common.copy-to"}}</button>
+      {{#if remixEnabled}}
+        <button class="copy-btn btn-success btn-sm" {{action "remixQuestion"}}>{{t "common.remix"}}</button>
+      {{/if}}
     {{else}}
       <button class="add-to-btn btn-success btn-sm">{{t "common.add-to"}}</button>
     {{/if}}

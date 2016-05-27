@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import ModalMixin from 'gooru-web/mixins/modal';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -19,6 +20,17 @@ export default Ember.Route.extend({
      */
     editQuestion: function (question) {
       this.transitionTo("content.questions.edit", question.get("id"));
+    },
+
+    /**
+     * On card remix question button click
+     * @param {Question} question
+     */
+    remixQuestion: function(question) {
+      var remixModel = {
+        content: question
+      };
+      this.send('showModal', 'content.modals.gru-question-remix', remixModel);
     }
   },
 
