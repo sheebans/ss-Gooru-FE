@@ -53,6 +53,7 @@ test('Edit course information', function (assert) {
   });
 });
 
+// TODO: Fix this test
 /*test('Click share button and check clipboard functionality', function (assert) {
   visit('/content/courses/edit/course-123');
 
@@ -72,6 +73,7 @@ test('Edit course information', function (assert) {
   });
 });*/
 
+// TODO: Fix this test
 /*test('Delete unit', function (assert) {
   visit('/content/courses/edit/course-123');
 
@@ -109,6 +111,7 @@ test('Edit course information', function (assert) {
     });
   });
 });*/
+
 test('Delete lesson', function (assert) {
   visit('/content/courses/edit/course-123');
 
