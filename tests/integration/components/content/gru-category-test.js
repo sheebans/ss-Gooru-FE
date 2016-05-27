@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 
 moduleForComponent('content/gru-category', 'Integration | Component | content/gru category', {
   integration: true,
@@ -10,8 +11,9 @@ moduleForComponent('content/gru-category', 'Integration | Component | content/gr
 
 test('Layout - read only', function (assert) {
 
+  this.set('srcCategory', TAXONOMY_CATEGORIES[0].value);
   this.render(hbs`
-    {{content.gru-category isEditing=false srcCategory=1}}
+    {{content.gru-category isEditing=false srcCategory=srcCategory}}
   `);
 
   const $component = this.$(".content.gru-category");
@@ -19,13 +21,13 @@ test('Layout - read only', function (assert) {
 
   assert.equal($component.find('span.label').text(), this.get('i18n').t('common.category').string, 'Label');
   assert.ok($component.find('.btn-empty').length, 'Selected category');
-  assert.equal($component.find('.btn-empty').text(), this.get('i18n').t('common.categoryOptions.k12').string, 'Selected category text');
+  assert.equal($component.find('.btn-empty').text(), this.get('i18n').t(TAXONOMY_CATEGORIES[0].label).string, 'Selected category text');
 });
 
 test('Layout - edit', function (assert) {
 
-  this.set('srcCategory', 1);
-  this.set('editCategory', 1);
+  this.set('srcCategory', TAXONOMY_CATEGORIES[0].value);
+  this.set('editCategory', TAXONOMY_CATEGORIES[0].value);
   this.render(hbs`
     {{content.gru-category isEditing=true srcCategory=srcCategory editCategory=editCategory}}
   `);
@@ -43,5 +45,5 @@ test('Layout - edit', function (assert) {
   $btnGroup.find('button:eq(2)').click();
   assert.equal($btnGroup.find('button.btn-primary').length, 1, 'Number of selected buttons in button group');
   assert.ok($btnGroup.find('button:eq(2)').hasClass('btn-primary'), 'Third button is selected');
-  assert.equal(this.get('editCategory'), 3, 'Edit category value updated correctly');
+  assert.equal(this.get('editCategory'), TAXONOMY_CATEGORIES[2].value, 'Edit category value updated correctly');
 });

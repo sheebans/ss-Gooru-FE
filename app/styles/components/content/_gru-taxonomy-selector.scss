@@ -1,0 +1,86 @@
+.content.gru-taxonomy-selector {
+
+  .btn-empty {
+    border: 1px solid $gray-light;
+    background-color: $white;
+  }
+
+  button {
+    margin: 1px;
+  }
+
+  > div {
+    &:not(:first-of-type) {
+      margin-top: 20px;
+    }
+    > label > span,
+    > span.label {
+      color: $gray;
+      padding: 0 0 .6em 0;
+      display: block;
+      font-size: 100%;
+      font-weight: normal;
+      text-align: left;
+    }
+    &.subject {
+      label {
+        display: block;
+        span {
+          padding-bottom: 0;
+        }
+      }
+      .dropdown-menu {
+        li {
+          &.has-children {
+            position: relative;
+            &:hover {
+              background-color: $sky-100;
+              .sub-menu {
+                display: block;
+              }
+            }
+          }
+          a {
+            .gru-icon {
+              font-size: $font-size-large;
+              vertical-align: middle;
+            }
+            &:hover {
+              background-color: $sky-100;
+            }
+            &:active + .sub-menu,
+            &:focus + .sub-menu {
+              display: block;
+            }
+          }
+        }
+        .sub-menu {
+          left: 100%;
+          top: -5px;
+        }
+        &.courses {
+          li {
+            padding: 3px 20px;
+            label {
+              padding-left: 25px;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+      .secondary-subject {
+        background-color: $light-100;
+        margin-top: 10px;
+        padding: 5px;
+        @include flexbox();
+        @include align-items(center);
+        .remove {
+          margin-right: 5px;
+          .gru-icon {
+            font-size: $font-size-large * 1.3;
+          }
+        }
+      }
+    }
+  }
+}

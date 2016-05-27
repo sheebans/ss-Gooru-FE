@@ -88,7 +88,7 @@ export default Ember.Object.extend({
     const thumbnailUrl = payload['thumbnail_path'] ?
     basePath + payload['thumbnail_path'] : DEFAULT_IMAGES.USER_PROFILE;
 
-    return ProfileModel.create(Ember.getOwner(this).ownerInjection (),{
+    return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
       id: payload.id,
       firstName: payload.firstname,
       lastName: payload.lastname,
@@ -187,7 +187,7 @@ export default Ember.Object.extend({
     const standards = resourceData.taxonomy || [];
     const creatorId = resourceData.creator_id;
     const filteredOwners = Ember.A(owners).filterBy("id", creatorId);
-    return ResourceModel.create({
+    return ResourceModel.create(Ember.getOwner(this).ownerInjection(), {
       id: resourceData.id,
       title: resourceData.title,
       description: resourceData.description,
@@ -211,7 +211,7 @@ export default Ember.Object.extend({
     const filteredOwners = Ember.A(owners).filterBy("id", creatorId);
     const standards = questionData.taxonomy || [];
     const format = QuestionModel.normalizeQuestionType(questionData.content_subformat);
-    return QuestionModel.create({
+    return QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: questionData.id,
       title: questionData.title,
       text: questionData.description,
@@ -330,7 +330,7 @@ export default Ember.Object.extend({
     const thumbnailUrl = networkData['thumbnail_path'] ?
     basePath + networkData['thumbnail_path'] : DEFAULT_IMAGES.USER_PROFILE;
 
-    return ProfileModel.create({
+    return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
       "id": networkData.id,
       "firstName": networkData.firstname,
       "lastName": networkData.lastname,

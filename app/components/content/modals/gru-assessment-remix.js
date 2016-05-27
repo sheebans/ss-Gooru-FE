@@ -10,7 +10,7 @@ export default RemixBaseModal.extend({
    * @property {Service} Assessment service API SDK
    */
   assessmentService: Ember.inject.service("api-sdk/assessment"),
-
+  lessonService: Ember.inject.service("api-sdk/lesson"),
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -24,7 +24,17 @@ export default RemixBaseModal.extend({
   },
 
   updateContent: function(assessment) {
-    return this.get('assessmentService').updateAssessment(assessment.get('id'), assessment);
+    const component = this;
+    return component.get('assessmentService').updateAssessment(assessment.get('id'), assessment).then(function(){
+      let courseId = component.get('courseId');
+      let unitId = component.get('unitId');
+      let lessonId = component.get('lessonId');
+      let assessmentId = component.get('contentModel.id');
+      let isCollection = component.get('isCollection');
+      return lessonId ?
+        component.get('lessonService').associateAssessmentOrCollectionToLesson(courseId,unitId, lessonId, assessmentId, isCollection) :
+        Ember.RSVP.resolve();
+    });
   },
 
   showSuccessNotification: function(assessment) {

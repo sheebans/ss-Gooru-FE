@@ -339,6 +339,7 @@ export default {
     "teach": "Teach",
     "teacher": "Teacher",
     "timeSpent": "Time Spent",
+    "toggle-dropdown": "Toggle Dropdown",
     "true":"True",
     "type": "Type",
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
@@ -993,6 +994,13 @@ export default {
   },
   "gru-emotion-picker": {
     "react-to-resource": "React to this resource"
+  },
+  "taxonomy": {
+    "gru-taxonomy-selector": {
+      "add-secondary": "Add secondary",
+      "choose-subject": "Choose Subject",
+      "primary-subject-and-course": "Primary Subject and Course"
+    }
   },
   "validations": {
     "unsavedChanges": "Your changes haven't saved yet. Would you like to leave this page?"
