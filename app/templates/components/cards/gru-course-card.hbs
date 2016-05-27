@@ -22,7 +22,7 @@
     </div>
     <div class="card-info">
         <div class="header">
-            {{#link-to "content.courses.play" course.id class="course-title truncate" tagName="h3"}}
+            {{#link-to "content.courses.play" course.id class="course-title ellipsis truncate" tagName="h3"}}
               {{course.title}}
             {{/link-to}}
           {{#if course.isPublished}}
@@ -37,22 +37,24 @@
               {{subjects}}
             </p>
         </div>
-        <div class="remixed-users">
-            {{#if users}}
-              <span class="remixed">{{t "common.remixed-by"}}</span>
-              <span class="users-teaser">{{gru-user-teaser users=users}}</span>
-            {{/if}}
-        </div>
+        {{#if users}}
+          <div class="remixed-users">
+            <span class="remixed">{{t "common.remixed-by"}}</span>
+            <span class="users-teaser">{{gru-user-teaser users=users}}</span>
+          </div>
+        {{/if}}
         <div class="description">
           {{#if course.description}}
             {{truncate text=(noTags text=course.description) type='medium-large'}}
           {{/if}}
         </div>
-        <div class="visibility">
-          {{#unless course.isVisibleOnProfile }}
-            {{gru-icon name="visibility_off"}}
-          {{/unless}}
-        </div>
+        {{#if isEyeVisible}}
+          <div class="visibility">
+            {{#unless course.isVisibleOnProfile }}
+              {{gru-icon name="visibility_off"}}
+            {{/unless}}
+          </div>
+        {{/if}}
     </div>
   </div>
 </div>
