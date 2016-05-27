@@ -59,7 +59,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content', 'gru-taxonomy-selector'],
+  classNames: ['taxonomy', 'gru-taxonomy-selector'],
 
   // -------------------------------------------------------------------------
   // Events
@@ -129,7 +129,9 @@ export default Ember.Component.extend({
   getSubjects(category) {
     var component = this;
     component.get('taxonomyService').getSubjects(category).then(function(subjects) {
-      component.set('subjectList', subjects);
+      if (!(component.get('isDestroyed') || component.get('isDestroying'))) {
+        component.set('subjectList', subjects);
+      }
     });
   },
 

@@ -37,7 +37,7 @@ test('Layout - read only', function (assert) {
     {{taxonomy.gru-taxonomy-selector isEditing=false srcEntity=srcEntity editEntity=editEntity}}
   `);
 
-  const $component = this.$(".content.gru-taxonomy-selector");
+  const $component = this.$(".taxonomy.gru-taxonomy-selector");
   assert.ok($component.length, 'Component found');
 
   assert.equal($component.find('.category span.label').text(), this.get('i18n').t('common.category').string, 'Category label');
@@ -71,7 +71,7 @@ test('Layout - edit', function (assert) {
     {{taxonomy.gru-taxonomy-selector isEditing=false srcEntity=srcEntity editEntity=editEntity}}
   `);
 
-  const $component = this.$(".content.gru-taxonomy-selector");
+  const $component = this.$(".taxonomy.gru-taxonomy-selector");
   assert.ok($component.length, 'Component found');
   assert.equal($component.find('span.label').text(), this.get('i18n').t('common.category').string, 'Label');
 

@@ -152,7 +152,8 @@ export default Ember.Object.extend(Validations, {
    * @param {TaxonomyRoot} taxonomySubject
    */
   setTaxonomySubject: function(taxonomySubject) {
-    this.set('subject', taxonomySubject ? taxonomySubject.get('id') : null);
+    if (!(this.get('isDestroyed') || this.get('isDestroying'))) {
+      this.set('subject', taxonomySubject ? taxonomySubject.get('id') : null);
+    }
   }
-
 });

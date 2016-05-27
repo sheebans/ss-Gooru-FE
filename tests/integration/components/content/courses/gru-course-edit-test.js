@@ -29,7 +29,9 @@ moduleForComponent('content/courses/gru-course-edit', 'Integration | Component |
 test('it has header and main sections', function (assert) {
 
   var course = Course.create(Ember.getOwner(this).ownerInjection(), {
-    title: "Course Title"
+    title: "Course Title",
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
 
   this.set('course', course);
@@ -85,9 +87,11 @@ test('Validate the character limit in the Description field', function (assert) 
   var course = Course.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
     description:"",
-    audience:[1, 3]
+    audience:[1, 3],
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
-  this.set('course',course);
+  this.set('course', course);
 
   this.render(hbs`{{content/courses/gru-course-edit isEditing=true course=course tempCourse=course}}`);
 
