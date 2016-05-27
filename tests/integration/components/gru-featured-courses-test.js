@@ -3,25 +3,31 @@ import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('gru-featured-courses', 'Integration | Component | gru featured courses', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.container.lookup('service:i18n').set("locale","en");
+  }
 });
 
-test('it renders', function(assert) {
+test('Test for featured courses templates', function(assert) {
   var courses = Ember.A([
   Ember.Object.create({
-    'subject':'K12.First'
+    'subject':'K12.First',
+    'subjectSequence':'1'
   }),
   Ember.Object.create({
-    'subject':'K12.Second'
+    'subject':'K12.Second',
+    'subjectSequence':'2'
   }),
   Ember.Object.create({
-    'subject':'K12.First'
+    'subject':'K12.First',
+    'subjectSequence':'1'
   }),
   Ember.Object.create({
-    'subject':'K12.Second'
+    'subject':'K12.Second',
+    'subjectSequence':'2'
   })]);
   this.set('courses', courses);
-  // Handle any actions with this.on('myAction', function(val) { ... });
 
   this.render(hbs`{{gru-featured-courses courses=courses}}`);
 
