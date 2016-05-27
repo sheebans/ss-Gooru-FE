@@ -13,6 +13,12 @@ var BrowseItem = TaxonomyItem.extend({
   // Properties
 
   /**
+   * @property {boolean} isActive - Is this item currently in the selected
+   * path or not? @see gru-browse-selector
+   */
+  isActive: false,
+
+  /**
    * @property {boolean} isSelected - Is this item selected or not.
    */
   isSelected: false,

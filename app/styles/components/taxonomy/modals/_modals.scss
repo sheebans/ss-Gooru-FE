@@ -75,12 +75,15 @@
               li {
                 padding: 3px 15px;
 
-                a {
-                  color: $gray;
-                }
+                a { color: $gray; }
 
                 &.selected {
                   background-color: $blue-100;
+                }
+                &.active {
+                  background-color: $blue-400;
+
+                  a { color: $white; }
                 }
               }
             }

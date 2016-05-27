@@ -72,7 +72,7 @@
         {{else}}
 
           {{#each headerItem.data as |browseItem|}}
-            <li class="{{if browseItem.hasChildrenSelected 'selected'}}">
+            <li class="{{if browseItem.hasChildrenSelected 'selected'}} {{if browseItem.isActive 'active'}}">
               <a {{action 'selectInsideItem' browseItem}}>{{browseItem.title}}</a>
             </li>
           {{/each}}

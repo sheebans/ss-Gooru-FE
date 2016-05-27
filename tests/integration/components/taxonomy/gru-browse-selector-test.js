@@ -46,17 +46,21 @@ test("it can populate the browse panels per a specific item path", function(asse
 
   this.set('data', data);
   this.set('headers', headers);
-  this.set('selectedPath', ['100', '200', '300']);  // IDs of the selected nodes
+  this.set('selectedPath', ['100', '200']);  // IDs of the selected nodes
   this.render(hbs`{{taxonomy/gru-browse-selector data=data headers=headers selectedPath=selectedPath}}`);
 
   const $component = this.$('.taxonomy.gru-browse-selector');
   assert.equal($component.find('> ol > li').length, 3, 'Number of browse panels');
 
   $component.find('> ol > li').each(function(index) {
-    assert.equal($(this).find('> ul > li').length, index + 1, 'Number of items in level ' + (index + 1));
+    var $this = $(this);
+    assert.equal($this.find('> ul > li').length, index + 1, 'Number of items in level ' + (index + 1));
 
-    if (index === 2) {
-      assert.equal($(this).find('> ul > li:first-child > label > div > strong').text(), 'Item : 3 : 0 : 0', 'Correct item label');
+    if (index < (headers.length - 1)) {
+      assert.equal($this.find('> ul > li.active').length, 1, 'Number of items in selected path in level ' + (index + 1));
+      assert.ok($this.find('> ul > li:first-child').hasClass('active'), 'Item in selected path');
+    } else {
+      assert.equal($this.find('> ul > li:first-child > label > div > strong').text(), 'Item : 3 : 0 : 0', 'Correct item label');
     }
   });
 });
@@ -68,7 +72,7 @@ test("it calls an external action when clicking an item that is not in the last 
 
   this.set('data', data);
   this.set('headers', headers);
-  this.set('selectedPath', ['100', '200', '300']);  // IDs of the selected nodes
+  this.set('selectedPath', ['100', '200']);  // IDs of the selected nodes
 
   this.on('externalAction', function() {
     assert.ok('true', 'External action called');
@@ -83,11 +87,27 @@ test("it calls an external action when clicking an item that is not in the last 
 
   const $component = this.$('.taxonomy.gru-browse-selector');
 
+  $component.find('> ol > li').each(function(index) {
+    if (index !== (headers.length - 1)) {
+      let $this = $(this);
+      let level = index + 1;
+      assert.equal($this.find('> ul > li.active').length, 1, 'Before: number of items in selected path in level ' + level);
+      assert.ok($this.find('> ul > li:first-child').hasClass('active'), 'Before: item in selected path in level ' + level);
+    }
+  });
   assert.equal($component.find('> ol > li:last-child > ul > li:first-child > label > div > strong').text(), 'Item : 3 : 0 : 0', 'Label of first item in the last panel');
 
   // Click on the second item in the second panel
   $component.find('> ol > li:eq(1) a:eq(1)').click();
 
+  $component.find('> ol > li').each(function(index) {
+    if (index < (headers.length - 1)) {
+      let $this = $(this);
+      let level = index + 1;
+      assert.equal($this.find('> ul > li.active').length, 1, 'After: number of items in selected path in level ' + level);
+      assert.ok($this.find('> ul > li').eq(index).hasClass('active'), 'After: item in selected path in level ' + level);
+    }
+  });
   assert.equal($component.find('> ol > li:last-child > ul > li:first-child > label > div > strong').text(), 'Item : 3 : 1 : 0', 'Label of first item in the last panel after click');
 });
 
