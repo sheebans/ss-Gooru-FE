@@ -2,7 +2,6 @@ import Ember from 'ember';
 /**
  * featured courses component
  *
- * Component responsible for show  the question bubbles under the assessment report
  *
  * @module
  * @augments ember/Component
@@ -35,30 +34,39 @@ export default Ember.Component.extend({
   courses:null,
 
   subjects: Ember.computed('courses', function() {
-
-    return this.get('courses').map(function(course){
-      return course.subject;
+    let subjects = this.get('courses').map(function(course){
+      return Ember.Object.create({
+        subject: course.subject,
+        subjectSequence: course.subjectSequence,
+      });
     }).filter(function(elem, pos, list) {
-      return list.indexOf(elem) === pos;
+      return list.reduce((result, e, i) => result < 0 && e.subject === elem.subject ? i : result , -1 ) === pos;
     });
+    return subjects.sort((a,b) => a.subjectSequence-b.subjectSequence);
   }),
 
   orderedCourses: Ember.computed('subjects', 'courses', function(){
     const component = this;
-    return component.get('subjects').map(function(subject){
-     return component.get('courses').filter(function(course){
-       return course.subject===subject;
-     });
-   });
+    let result = component.get('subjects').map(function(subjectBucket){
+      return component.get('courses').filter(function(course){
+        return course.subject===subjectBucket.subject;
+       });
+    });
+    let orderedCourses = result.map(function(arrayOfCourses){
+      return arrayOfCourses.sort(function(a,b){
+        return a.sequence-b.sequence;
+      });
+    });
+    return orderedCourses;
   }),
 
   formattedContent: Ember.computed('subjects', 'orderedCourses', function(){
     const component = this;
 
-    return component.get('subjects').map(function(subject, index){
+    return component.get('subjects').map(function(subjectBucket, index){
       return Ember.Object.create({
-        'category': subject.slice(0,subject.indexOf('.')),
-        'subject':  subject.slice(subject.indexOf('.')+1, subject.length),
+        'category': subjectBucket.subject.slice(0,subjectBucket.subject.indexOf('.')),
+        'subject':  subjectBucket.subject.slice(subjectBucket.subject.indexOf('.')+1, subjectBucket.subject.length),
         'courses': component.get('orderedCourses')[index]
       });
     });
