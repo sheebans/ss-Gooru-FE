@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import Profile from 'gooru-web/models/profile/profile';
+import editProfileValidations from 'gooru-web/validations/edit-profile';
 
 export default Ember.Route.extend({
   // -------------------------------------------------------------------------
@@ -22,15 +24,20 @@ export default Ember.Route.extend({
    */
   model: function(params) {
     let route = this;
-    let profile = null;
     let userId = params.userId;
+    var editProfile = Profile.extend(editProfileValidations);
+    var profileModel = editProfile.create(Ember.getOwner(this).ownerInjection(),{});
 
     if (userId) {
-      profile = route.get('profileService').readUserProfile(params.userId);
+      var profile = null;
+      profile = route.get('profileService').readUserProfile(params.userId).then(function(){
+        profileModel = profile.merge(profile,profile.modelProperties());
+      });
+
     }
 
     return Ember.RSVP.hash({
-      profile: profile
+      profile: profileModel
     });
   },
 

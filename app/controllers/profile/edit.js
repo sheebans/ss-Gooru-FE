@@ -65,20 +65,24 @@ export default Ember.Controller.extend({
       controller.set('showDistrictErrorMessage', showDistrictErrorMessage);
 
       if(isValid){
+        editedProfile.validate().then(function ({ validations }) {
 
-        //editedProfile.set('countryId', countrySelected);
-        //editedProfile.set('stateId', '');
-        //editedProfile.set('schoolDistrictId', '');
+          if (validations.get('isValid')) {
+            //editedProfile.set('countryId', countrySelected);
+            //editedProfile.set('stateId', '');
+            //editedProfile.set('schoolDistrictId', '');
 
-        if(otherSchoolDistrict && otherSchoolDistrict!== ''){
-          editedProfile.set('schoolDistrictId', '');
-          editedProfile.set('schoolDistrict', otherSchoolDistrict);
-        }
-        controller.get('parentController').saveProfile(editedProfile);
-        controller.get('profile').merge(editedProfile, ['firstName', 'lastName', 'aboutMe', 'role', 'countryId', 'stateId', 'state', 'schoolDistrictId', 'schoolDistrict', 'country']);
+            if(otherSchoolDistrict && otherSchoolDistrict!== ''){
+              editedProfile.set('schoolDistrictId', '');
+              editedProfile.set('schoolDistrict', otherSchoolDistrict);
+            }
+            controller.get('parentController').saveProfile(editedProfile);
+            controller.get('profile').merge(editedProfile, ['firstName', 'lastName', 'aboutMe', 'role', 'countryId', 'stateId', 'state', 'schoolDistrictId', 'schoolDistrict', 'country']);
 
-        // Trigger action in route
-        this.send('profileAboutTransition');
+            // Trigger action in route
+            controller.send('profileAboutTransition');
+          }
+        });
       }
     },
 

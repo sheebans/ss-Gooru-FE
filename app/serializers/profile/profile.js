@@ -44,6 +44,7 @@ export default Ember.Object.extend({
     var profileObject = {
       firstname: profile.get('firstName'),
       lastname: profile.get('lastName'),
+      'roster_global_userid':profile.get('studentId'),
       'user_category': profile.get('role'),
       grade: profile.get('grades'),
       country: profile.get('country'),
@@ -93,6 +94,7 @@ export default Ember.Object.extend({
       firstName: payload.firstname,
       lastName: payload.lastname,
       username: payload.username,
+      studentId:payload.roster_global_userid,
       email: payload['email_id'],
       gender: payload.gender,
       grades: payload.grade,

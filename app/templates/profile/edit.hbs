@@ -9,6 +9,12 @@
     </h4>
     <div class="panel panel-default">
       <div class="panel-body">
+          <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                  <h6><span class="required"><label for="username">{{t "sign-up.username"}}</label></span></h6>
+                {{validation.gru-input model=tempProfile valuePath='username'}}
+              </div>
+          </div>
         <div class="row">
           <div class="col-xs-12 col-sm-6">
             <h6><label for="first-name">{{t "common.first-name"}}</label></h6>
@@ -101,6 +107,12 @@
             </div>
           </div>
         {{/if}}
+          <h6><span class="required"><label for="student-id">{{t "common.student-id"}}</label></span></h6>
+          <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                {{validation.gru-input model=tempProfile valuePath='studentId' maxLength=25}}
+              </div>
+          </div>
       </div>
     </div>
   </form>
