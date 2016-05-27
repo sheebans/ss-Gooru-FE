@@ -47,11 +47,11 @@ test('Show archived/active classes', function(assert) {
     assert.ok($("#active-classes").hasClass("active"), "Active classes should be visible");
     assert.ok(!$("#archived-classes").hasClass("active"), "Archived classes should not be visible");
 
-    click("#archived-classes");
+    click("li.archived-classes a");
     andThen(function(){
       assert.ok($("#archived-classes").hasClass("active"), "Archived classes should be visible");
       assert.ok(!$("#active-classes").hasClass("active"), "Active classes should not be visible");
-      click("#active-classes");
+      click("li.active-classes a");
       andThen(function(){
         assert.ok($("#active-classes").hasClass("active"), "Active classes should be visible");
         assert.ok(!$("#archived-classes").hasClass("active"), "Archived classes should not be visible");
