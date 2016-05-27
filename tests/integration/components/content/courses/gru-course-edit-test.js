@@ -16,20 +16,48 @@ const courseServiceStub = Ember.Service.extend({
   }
 
 });
+
+const taxonomyServiceStub = Ember.Service.extend({
+
+  getSubjects(category) {
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      if (!category) {
+        reject({status: 500});
+      } else {
+        resolve({
+          "subjects": [{
+            "id": "GDF.K12.CS",
+            "title": "Computer Science",
+            "description": null,
+            "code": "GDF.K12.CS",
+            "standard_framework_id": "GDF"
+          }]
+        });
+      }
+    });
+  }
+
+});
+
 moduleForComponent('content/courses/gru-course-edit', 'Integration | Component | content/courses/gru course edit', {
   integration: true,
   beforeEach: function () {
     this.i18n = this.container.lookup('service:i18n');
     this.i18n.set("locale","en");
+
     this.register('service:api-sdk/course', courseServiceStub);
     this.inject.service('api-sdk/course');
+    this.register('service:api-sdk/taxonomy', taxonomyServiceStub);
+    this.inject.service('api-sdk/taxonomy');
   }
 });
 
 test('it has header and main sections', function (assert) {
 
   var course = Course.create(Ember.getOwner(this).ownerInjection(), {
-    title: "Course Title"
+    title: "Course Title",
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
 
   this.set('course', course);
@@ -50,43 +78,45 @@ test('it has header and main sections', function (assert) {
   assert.ok($container.find('> section#builder').length, "Builder section");
   assert.ok($container.find('> section#settings').length, "Settings section");
 });
-//test('Update Course Information', function (assert) {
-//  assert.expect(1);
-//  var newTitle ='Course for testing gooru';
-//  var newDescription ='Description for testing gooru';
-//  var course = Course.create(Ember.getOwner(this).ownerInjection(), {
-//    title: 'Question for testing',
-//    description:""
-//  });
-//  this.set('course',course);
-//  this.render(hbs`{{content/courses/gru-course-edit course=course isEditing=true}}`);
-//
-//  const $component = this.$('.gru-course-edit');
-//  const $titleField = $component.find(".gru-input.title");
-//
-//  $titleField.find("input").val(newTitle);
-//  $titleField.find("input").trigger('blur');
-//  const $textDescription = $component.find(".gru-textarea.text");
-//  $textDescription.find("textarea").val(newDescription);
-//  $textDescription.find("textarea").change();
-//
-//  const $save =  $component.find("#information .actions .save");
-//  $save.click();
-//  return wait().then(function () {
-//    assert.equal($component.find(".title label b").text(),newTitle , "The question title should be updated");
-//    const $textDescription = $component.find(".description textarea");
-//    $textDescription.blur();
-//    assert.equal($textDescription.text(),newDescription , "The question title should be updated");
-//  });
-//
-//});
+
+/*test('Update Course Information', function (assert) {
+  assert.expect(1);
+  var newTitle ='Course for testing gooru';
+  var newDescription ='Description for testing gooru';
+  var course = Course.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    description:""
+  });
+  this.set('course',course);
+  this.render(hbs`{{content/courses/gru-course-edit course=course isEditing=true}}`);
+
+  const $component = this.$('.gru-course-edit');
+  const $titleField = $component.find(".gru-input.title");
+
+  $titleField.find("input").val(newTitle);
+  $titleField.find("input").trigger('blur');
+  const $textDescription = $component.find(".gru-textarea.text");
+  $textDescription.find("textarea").val(newDescription);
+  $textDescription.find("textarea").change();
+
+  const $save =  $component.find("#information .actions .save");
+  $save.click();
+  return wait().then(function () {
+    assert.equal($component.find(".title label b").text(),newTitle , "The question title should be updated");
+    const $textDescription = $component.find(".description textarea");
+    $textDescription.blur();
+    assert.equal($textDescription.text(),newDescription , "The question title should be updated");
+  });
+});*/
+
 test('Validate the character limit in the Description field', function (assert) {
   var course = Course.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
     description:"",
-    audience:[1, 3]
+    audience:[1, 3],
+    category: 'k_12'
   });
-  this.set('course',course);
+  this.set('course', course);
 
   this.render(hbs`{{content/courses/gru-course-edit isEditing=true course=course tempCourse=course}}`);
 

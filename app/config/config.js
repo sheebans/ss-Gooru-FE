@@ -32,9 +32,9 @@ export const DEFAULT_IMAGES = {
 };
 
 export const TAXONOMY_CATEGORIES = [
-  {value: 1, label: 'common.categoryOptions.k12'},
-  {value: 2, label: 'common.categoryOptions.higher-ed'},
-  {value: 3, label: 'common.categoryOptions.professional-dev'}
+  {value: 'k_12', apiCode: 'K12', label: 'common.categoryOptions.k12'},
+  {value: 'higher_education', apiCode: 'HE', label: 'common.categoryOptions.higher-ed'},
+  {value: 'professional_learning', apiCode: 'PL', label: 'common.categoryOptions.professional-dev'}
 ];
 
 export const CONTENT_TYPES = {

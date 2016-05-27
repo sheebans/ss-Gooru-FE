@@ -31,6 +31,17 @@ export default Ember.Component.extend({
 
 
   // -------------------------------------------------------------------------
+  // Events
+
+  didInsertElement() {
+    var category = this.get('srcCategory');
+    if (!category) {
+      this.set('editCategory', TAXONOMY_CATEGORIES[0].value);
+      this.set('srcCategory', TAXONOMY_CATEGORIES[0].value);
+    }
+  },
+
+  // -------------------------------------------------------------------------
   // Properties
 
   /**
@@ -45,12 +56,12 @@ export default Ember.Component.extend({
   isEditing: null,
 
   /**
-   * @type {Number} Edited category value
+   * @type {String} Edited category value
    */
   editCategory: null,
 
   /**
-   * @type {Number} Initial category value
+   * @type {String} Initial category value
    */
   srcCategory: null
 
