@@ -1,7 +1,6 @@
-import ApplicationAdapter from 'gooru-web/adapters/application';
 import Ember from 'ember';
 
-export default ApplicationAdapter.extend({
+export default Ember.Object.extend({
 
   /**
    * @property {string} End-point URI
