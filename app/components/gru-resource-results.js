@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import ModalMixin from 'gooru-web/mixins/modal';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -13,6 +14,15 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
+
+  actions: {
+    remixQuestion: function(question) {
+      var remixModel = {
+        content: question
+      };
+      this.send('showModal', 'content.modals.gru-question-remix', remixModel);
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Events

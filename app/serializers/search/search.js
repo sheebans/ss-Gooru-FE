@@ -172,7 +172,7 @@ export default Ember.Object.extend({
     const serializer = this;
     const format = result.resourceFormat.value; //value should be 'question'
     const type = QuestionModel.normalizeQuestionType(result.typeName);
-    return QuestionModel.create({
+    return QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: result.gooruOid,
       title: result.title,
       description: result.description,
