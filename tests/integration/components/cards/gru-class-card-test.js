@@ -35,7 +35,8 @@ var mockClass = Ember.Object.create({
 });
 
 var mockProfile = Ember.Object.create({
-  id: 'test-profile'
+  id: 'test-profile',
+  displayName: "test",
 });
 
 var classStudentCount = Ember.Object.create({
@@ -138,7 +139,7 @@ test('Class Card Layout for archived class', function(assert) {
     assert.ok(true, "Action should be called");
   });
 
-  assert.expect(10);
+  assert.expect(11);
 
   this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount onDownloadReport='downloadReport'}}`);
 
