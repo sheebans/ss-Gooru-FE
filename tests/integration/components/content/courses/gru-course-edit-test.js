@@ -16,13 +16,39 @@ const courseServiceStub = Ember.Service.extend({
   }
 
 });
+
+const taxonomyServiceStub = Ember.Service.extend({
+
+  getSubjects(category) {
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      if (!category) {
+        reject({status: 500});
+      } else {
+        resolve({
+          "subjects": [{
+            "id": "GDF.K12.CS",
+            "title": "Computer Science",
+            "description": null,
+            "code": "GDF.K12.CS",
+            "standard_framework_id": "GDF"
+          }]
+        });
+      }
+    });
+  }
+
+});
+
 moduleForComponent('content/courses/gru-course-edit', 'Integration | Component | content/courses/gru course edit', {
   integration: true,
   beforeEach: function () {
     this.i18n = this.container.lookup('service:i18n');
     this.i18n.set("locale","en");
+
     this.register('service:api-sdk/course', courseServiceStub);
     this.inject.service('api-sdk/course');
+    this.register('service:api-sdk/taxonomy', taxonomyServiceStub);
+    this.inject.service('api-sdk/taxonomy');
   }
 });
 
@@ -88,7 +114,6 @@ test('Validate the character limit in the Description field', function (assert) 
     title: 'Question for testing',
     description:"",
     audience:[1, 3],
-    subject: 'CCSS.K12.Math',
     category: 'k_12'
   });
   this.set('course', course);

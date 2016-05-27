@@ -129,9 +129,7 @@ export default Ember.Component.extend({
   getSubjects(category) {
     var component = this;
     component.get('taxonomyService').getSubjects(category).then(function(subjects) {
-      if (!(component.get('isDestroyed') || component.get('isDestroying'))) {
-        component.set('subjectList', subjects);
-      }
+      component.set('subjectList', subjects);
     });
   },
 
