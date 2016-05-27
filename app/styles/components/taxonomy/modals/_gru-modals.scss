@@ -1,9 +1,11 @@
-.modal.gru-domain-picker {
+.modal.gru-domain-picker,
+.modal.gru-standard-picker {
   .modal-dialog {
     width: 80%;
   }
 
-  .taxonomy.modals.gru-domain-picker {
+  .taxonomy.modals.gru-domain-picker,
+  .taxonomy.modals.gru-standard-picker {
     @extend .content.modals.gru-course-new;
 
     max-width: 100%;
@@ -67,6 +69,7 @@
             .browse-panel {
               height: 330px;
               background-color: $gray-lighter;
+              border-left: 1px solid $white;
 
               li {
                 padding: 3px 15px;
@@ -78,6 +81,12 @@
                 &.selected {
                   background-color: $blue-100;
                 }
+              }
+            }
+
+            &:first-child {
+              .browse-panel {
+                border-left: 0 none;
               }
             }
 
@@ -98,6 +107,12 @@
         }
       }
     }
+  }
+}
+
+.modal.gru-standard-picker {
+  .modal-dialog {
+    width: 86%;
   }
 }
 

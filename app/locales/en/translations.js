@@ -21,6 +21,7 @@ export default {
     "add-question": "Add Question",
     "add-question-image": "Add Question Image",
     "add-standard": "Add Standard",
+    "add-standards-to-collection": "Add Standards to Collection",
     "add-to": "Add To",
     "add-type-question":"What type of question would you like to add?",
     "add-type-resource":"What type of resource is this?",
