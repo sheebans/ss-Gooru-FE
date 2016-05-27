@@ -6,6 +6,14 @@ export default Ember.Component.extend({
   classNames: ['cards gru-class-card col-xs-12 col-md-6'],
 
   // -------------------------------------------------------------------------
+  // Actions
+  actions: {
+    downloadReport: function(){
+      this.sendAction("onDownloadReport", this.get("class"));
+    }
+  },
+
+  // -------------------------------------------------------------------------
   // Properties
   /**
    * @property {Class} class information
