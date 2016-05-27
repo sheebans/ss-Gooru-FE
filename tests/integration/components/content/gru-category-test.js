@@ -11,7 +11,7 @@ moduleForComponent('content/gru-category', 'Integration | Component | content/gr
 
 test('Layout - read only', function (assert) {
 
-  this.set('srcCategory', TAXONOMY_CATEGORIES[0]);
+  this.set('srcCategory', TAXONOMY_CATEGORIES[0].value);
   this.render(hbs`
     {{content.gru-category isEditing=false srcCategory=srcCategory}}
   `);

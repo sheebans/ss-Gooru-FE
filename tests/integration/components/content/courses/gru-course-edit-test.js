@@ -50,36 +50,37 @@ test('it has header and main sections', function (assert) {
   assert.ok($container.find('> section#builder').length, "Builder section");
   assert.ok($container.find('> section#settings').length, "Settings section");
 });
-//test('Update Course Information', function (assert) {
-//  assert.expect(1);
-//  var newTitle ='Course for testing gooru';
-//  var newDescription ='Description for testing gooru';
-//  var course = Course.create(Ember.getOwner(this).ownerInjection(), {
-//    title: 'Question for testing',
-//    description:""
-//  });
-//  this.set('course',course);
-//  this.render(hbs`{{content/courses/gru-course-edit course=course isEditing=true}}`);
-//
-//  const $component = this.$('.gru-course-edit');
-//  const $titleField = $component.find(".gru-input.title");
-//
-//  $titleField.find("input").val(newTitle);
-//  $titleField.find("input").trigger('blur');
-//  const $textDescription = $component.find(".gru-textarea.text");
-//  $textDescription.find("textarea").val(newDescription);
-//  $textDescription.find("textarea").change();
-//
-//  const $save =  $component.find("#information .actions .save");
-//  $save.click();
-//  return wait().then(function () {
-//    assert.equal($component.find(".title label b").text(),newTitle , "The question title should be updated");
-//    const $textDescription = $component.find(".description textarea");
-//    $textDescription.blur();
-//    assert.equal($textDescription.text(),newDescription , "The question title should be updated");
-//  });
-//
-//});
+
+/*test('Update Course Information', function (assert) {
+  assert.expect(1);
+  var newTitle ='Course for testing gooru';
+  var newDescription ='Description for testing gooru';
+  var course = Course.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    description:""
+  });
+  this.set('course',course);
+  this.render(hbs`{{content/courses/gru-course-edit course=course isEditing=true}}`);
+
+  const $component = this.$('.gru-course-edit');
+  const $titleField = $component.find(".gru-input.title");
+
+  $titleField.find("input").val(newTitle);
+  $titleField.find("input").trigger('blur');
+  const $textDescription = $component.find(".gru-textarea.text");
+  $textDescription.find("textarea").val(newDescription);
+  $textDescription.find("textarea").change();
+
+  const $save =  $component.find("#information .actions .save");
+  $save.click();
+  return wait().then(function () {
+    assert.equal($component.find(".title label b").text(),newTitle , "The question title should be updated");
+    const $textDescription = $component.find(".description textarea");
+    $textDescription.blur();
+    assert.equal($textDescription.text(),newDescription , "The question title should be updated");
+  });
+});*/
+
 test('Validate the character limit in the Description field', function (assert) {
   var course = Course.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
