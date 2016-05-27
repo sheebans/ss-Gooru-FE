@@ -158,6 +158,16 @@ export default Ember.Component.extend({
     }
   },
 
+  willDestroyElement: function () {
+    this.get('browseItems').forEach(function(browseItem){
+      browseItem.destroyItem();
+    });
+    this.set('browseItems', null);
+    this.set('shortcutTags', null);
+    this.set('selectedTags', null);
+    this.set('selectedPath', null);
+  },
+
 
   // -------------------------------------------------------------------------
   // Properties
