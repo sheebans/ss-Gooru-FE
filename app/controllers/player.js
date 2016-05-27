@@ -25,7 +25,6 @@ export default Ember.Controller.extend(SessionMixin, {
    */
   eventsService: Ember.inject.service("api-sdk/events"),
 
-
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -294,8 +293,8 @@ export default Ember.Controller.extend(SessionMixin, {
       context.set("isStudent", controller.get("isStudent"));
       assessmentResult.set("submittedAt", new Date());
       return controller.saveCollectionResult(assessmentResult, context).then(function() {
-        if (controller.get("isAssessment")) {
-          controller.navigateToReport();
+        if (!controller.get("session.isAnonymous")) {
+          controller.send("navigateToReport");
         }
         else {
           controller.set("showReport", true);
@@ -355,28 +354,6 @@ export default Ember.Controller.extend(SessionMixin, {
     resourceResult.set('reaction', reactionType);   // Sets the reaction value into the resourceResult
 
     eventsService.saveReaction(resourceResult, context);
-  },
-
-  /**
-   * Navigates to the assessment report
-   */
-  navigateToReport: function (){
-    const controller = this;
-    let context = controller.get("context");
-    let collection = controller.get("collection");
-    const queryParams = {
-      collectionId: context.get("collectionId"),
-      userId: controller.get('session.userId'),
-      type: collection.get("collectionType")
-    };
-    if (context.get("classId")) {
-      queryParams.classId = context.get("classId");
-      queryParams.courseId = context.get("courseId");
-      queryParams.unitId = context.get("unitId");
-      queryParams.lessonId = context.get("lessonId");
-    }
-    controller.transitionToRoute('reports.student-collection', { queryParams: queryParams});
   }
-
 
 });

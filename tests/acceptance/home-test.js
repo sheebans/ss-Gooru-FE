@@ -37,3 +37,25 @@ test('Layout', function(assert) {
     T.exists(assert, $userContainer.find(".content"), "Missing user content");
   });
 });
+
+test('Show archived/active classes', function(assert) {
+  visit('/home');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/home');
+
+    assert.ok($("#active-classes").hasClass("active"), "Active classes should be visible");
+    assert.ok(!$("#archived-classes").hasClass("active"), "Archived classes should not be visible");
+
+    click("li.archived-classes a");
+    andThen(function(){
+      assert.ok($("#archived-classes").hasClass("active"), "Archived classes should be visible");
+      assert.ok(!$("#active-classes").hasClass("active"), "Active classes should not be visible");
+      click("li.active-classes a");
+      andThen(function(){
+        assert.ok($("#active-classes").hasClass("active"), "Active classes should be visible");
+        assert.ok(!$("#archived-classes").hasClass("active"), "Archived classes should not be visible");
+      });
+    });
+  });
+});

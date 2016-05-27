@@ -100,6 +100,7 @@ export default {
     "domain": "Domain",
     "domains": "Domains",
     "drag-drop-suggestions": "Or Drag and Drop Suggestions ...",
+    "download-report" : "Download Report",
     "edit": "Edit",
     "edit-assessment": "Edit Assessment",
     "edit-collection": "Edit Collection",

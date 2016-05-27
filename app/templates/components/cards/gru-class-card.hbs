@@ -3,19 +3,23 @@
     <div class="title">
         <h5>{{class.title}}</h5>
     </div>
+    {{#unless class.isArchived}}
     <div class="side-info">
       <span class="code">{{class.code}}</span>
       {{#link-to 'class.overview' class.id class="action"}}
         <span>{{if (is-teacher class profile.id) (t "common.teach") (t "common.study") }} </span>{{gru-icon name="keyboard_arrow_right"}}
       {{/link-to}}
     </div>
+    {{/unless}}
   </div>
   <div class="panel-body">
     <div class="members-info">
       <div class="collaborators">
         {{! Place collaborator avatar and first name in the next two lines }}
         <img class="collaborator-avatar" src="{{class.owner.avatarUrl}}" alt="{{class.owner.displayName}}">
-        <span class="name">{{class.owner.displayName}}</span>
+        {{#link-to 'profile' class.owner.id tagName="span" class="name pointer"}}
+          {{truncate text=class.owner.displayName}}
+        {{/link-to}}
         {{#if (gt collaboratorsCount 0)}} <span class="collaborators-count">+{{collaboratorsCount}}</span>{{/if}}
       </div>
       <div class="students-info">
@@ -25,5 +29,8 @@
     <div class="description">
       <div>{{class.greeting}}</div>
     </div>
+    {{#if class.isArchived}}
+      <button class="btn btn-info download-report" {{action 'downloadReport'}}>{{gru-icon name="get_app"}}{{t "common.download-report"}}</button>
+    {{/if}}
   </div>
 </div>
