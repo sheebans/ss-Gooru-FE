@@ -18,7 +18,7 @@ export default {
     "add-new-lesson": "Add New Lesson",
     "add-new-unit": "Add New Unit",
     "add-new-resource": "Add New Resource",
-    "add-new-question": "Add New Question",
+    "add-new-question": "Add a new question",
     "add-question": "Add Question",
     "add-question-image": "Add Question Image",
     "add-standard": "Add Standard",
