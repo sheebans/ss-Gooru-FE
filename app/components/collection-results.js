@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import ModalMixin from 'gooru-web/mixins/modal';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ModalMixin, {
 
   /**
    * @property {array} Collection results for the search
@@ -33,6 +34,20 @@ export default Ember.Component.extend({
      */
     openContentPlayer: function(collectionId) {
       this.sendAction("onOpenContentPlayer", collectionId);
+    },
+
+    /**
+     * On card remix collection button click
+     * @param {Collection} collection
+     */
+    remixCollection: function (collection) {
+      var remixModel = {
+        content: collection
+      };
+      if(collection.get('isCollection'))
+        this.send('showModal', 'content.modals.gru-collection-remix', remixModel);
+      else
+        this.send('showModal', 'content.modals.gru-assessment-remix', remixModel);
     }
   }
 });
