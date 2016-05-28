@@ -100,11 +100,20 @@
         display: block;
         margin: 15px 0 10px 0;
         font-size: $font-size-large;
-        font-weight: normal;
+        font-weight: 300;
       }
 
       &.gru-user-icons {
         text-align: left;
+        ul {
+          text-align: center;
+        }
+        .item {
+          margin: 0 30px 20px 0;
+          .user-name {
+            font-size: $font-size-base;
+          }
+        }
       }
     }
 
