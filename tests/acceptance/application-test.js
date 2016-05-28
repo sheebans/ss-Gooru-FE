@@ -8,7 +8,10 @@ moduleForAcceptance('Acceptance | application', {
   beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: true,
-      token: 'token-value'
+      token: 'token-value',
+      user: {
+        gooruUId: 'anonymous'
+      }
     });
   }
 });
@@ -67,5 +70,47 @@ test('Theme support - Having translations and styles url', function(assert) {
     T.exists(assert, $styleLink, "Missing link element having theme style");
     assert.equal($styleLink.attr("href"), "themes/edify/styles.css", "Wrong style url");
 
+  });
+});
+
+test('Legacy uri collection-play with no content id', function (assert) {
+  visit("/#collection-play&id=76cb53df-1f6a-41f2-a31d-c75876c6bcf9");
+  andThen(function() {
+    assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=9ddc7da1-bcb1-4ba6-9bfd-b703999f6ec1');
+  });
+});
+
+test('Legacy uri collection-play with content id', function (assert) {
+  visit("/#collection-play&id=76cb53df-1f6a-41f2-a31d-c75876c6bcf9&cid=f86f874c-efc9-4100-9cf7-55eb86ec95ae");
+  andThen(function() {
+    assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
+  });
+});
+
+test('Legacy uri assessment-play with no content id', function (assert) {
+  visit("/#assessment-play&id=76cb53df-1f6a-41f2-a31d-c75876c6bcf9");
+  andThen(function() {
+    assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=9ddc7da1-bcb1-4ba6-9bfd-b703999f6ec1');
+  });
+});
+
+test('Legacy uri assessment-play with content id', function (assert) {
+  visit("/#assessment-play&id=76cb53df-1f6a-41f2-a31d-c75876c6bcf9&cid=f86f874c-efc9-4100-9cf7-55eb86ec95ae");
+  andThen(function() {
+    assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
+  });
+});
+
+test('Legacy uri resource-play', function (assert) {
+  visit("/#resource-play&id=76cb53df-1f6a-41f2-a31d-c75876c6bcf9");
+  andThen(function() {
+    assert.equal(currentURL(), '/content/resources/play/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
+  });
+});
+
+test('Legacy uri profile', function (assert) {
+  visit("/#pochita");
+  andThen(function() {
+    assert.equal(currentURL(), '/pochita');
   });
 });
