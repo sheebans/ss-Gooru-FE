@@ -30,11 +30,19 @@ export default Ember.Component.extend({
      * @param {BrowseItem} browseItem
      */
     addSelectedTag: function(browseItem) {
+      var taxonomyItem = null;
+      var itemPath = browseItem.getPath();
+
+      for (let i = this.get('taxonomyItems').length - 1; i >= 0; i--) {
+        taxonomyItem = this.get('taxonomyItems')[i].find(itemPath);
+        if (taxonomyItem) { break; }
+      }
+
       var newSelectedTag = TaxonomyTag.create({
         isActive: true,
         isReadonly: true,
         isRemovable: true,
-        taxonomyItem: browseItem
+        taxonomyItem: taxonomyItem
       });
       this.get('selectedTags').pushObject(newSelectedTag);
     },
@@ -107,12 +115,8 @@ export default Ember.Component.extend({
   init() {
     this._super( ...arguments );
 
-    var maxLevels = this.get('panelHeaders').length;
+    var maxLevels = this.get('maxLevels');
     var browseItems, shortcutTags, selectedTags, selectedPath;
-
-    if (!maxLevels) {
-      Ember.Logger.error('Number of panel headers must be greater than zero');
-    }
 
     browseItems = this.get('taxonomyItems').map(function(taxonomyItem) {
       return BrowseItem.createFromTaxonomyItem(taxonomyItem, maxLevels);
@@ -162,6 +166,16 @@ export default Ember.Component.extend({
     }
   },
 
+  willDestroyElement: function () {
+    this.get('browseItems').forEach(function(browseItem){
+      browseItem.destroyItem();
+    });
+    this.set('browseItems', null);
+    this.set('shortcutTags', null);
+    this.set('selectedTags', null);
+    this.set('selectedPath', null);
+  },
+
 
   // -------------------------------------------------------------------------
   // Properties
@@ -176,6 +190,13 @@ export default Ember.Component.extend({
    * @property {String} browseSelectorText - Intro text for browse selector.
    */
   browseSelectorText: '',
+
+  /**
+   * @property {Number} maxLevels - Max level of descendants (starting from the root at level 1)
+   * that will be copied from the taxonomy items onto the browse items
+   * @see gru-browse-item#createFromTaxonomyItem
+   */
+  maxLevels: 0,
 
   /**
    * @property {String[]} panelHeaders - List of headers, one for each panel in the browse selector.

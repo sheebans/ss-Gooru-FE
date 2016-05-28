@@ -33,7 +33,7 @@ export default Ember.Service.extend({
 
     // TODO: Remove after logic for taxonomy tree creation is ready
     // Init taxonomy tree for testing the selection of unit domains
-    var taxonomyTree = generateTaxonomyTestTree(3, null, 2);
+    var taxonomyTree = generateTaxonomyTestTree(5, null, 2);
     this.set('tempTree', taxonomyTree);
   },
 

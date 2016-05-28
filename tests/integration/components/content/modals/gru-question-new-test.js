@@ -1,6 +1,5 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import wait from 'ember-test-helpers/wait';
 
 moduleForComponent('content/modals/gru-question-new', 'Integration | Component | content/modals/gru question new', {
   integration: true,
@@ -17,9 +16,6 @@ test('Question New Layout', function(assert) {
   assert.ok($component, 'Missing Component');
   assert.ok($component.find('h4.modal-title'), 'Missing Title');
   assert.equal($component.find('h4.modal-title').text(), this.get('i18n').t('common.add-new-question').string, 'Incorrect Title');
-  assert.ok($component.find('label.title span.required'), 'Missing Collection Title label');
-  assert.equal($component.find('label.title span.required').text(), this.get('i18n').t('common.question-title').string, 'Incorrect Question Title Label');
-  assert.ok($component.find('label.title input'), 'Missing Collection Title Input');
   assert.equal($component.find('label.type span.required').text(), this.get('i18n').t('common.add-type-question').string, 'Incorrect Question Type Label');
   assert.equal($component.find('.question-types .panel').length, 9, 'Incorrect Number of Question Types');
   assert.ok($component.find('.question-type-MC'), 'Missing Multiple Choice Type');
@@ -46,62 +42,5 @@ test('Select question type', function(assert) {
   $multipleAnswer.click();
   assert.equal($component.find('.panel.question-type-MA.active').length,1, 'Multiple answer should be active');
   assert.equal($component.find('.panel.active').length,1, 'Only one type should be active');
-});
-test('Validate if the question title field is left blank', function (assert) {
-  assert.expect(3);
-
-  this.render(hbs`{{content/modals/gru-question-new}}`);
-
-  const $component = this.$('.gru-question-new');
-  const $titleField = $component.find(".gru-input.title");
-
-  assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message not visible');
-
-  // Try submitting without filling in data
-  $component.find(".actions button[type='submit']").click();
-
-  return wait().then(function () {
-
-    assert.ok($titleField.find(".error-messages .error").length, 'Title error should be visible');
-    // Fill in the input field
-    $titleField.find("input").val('Question Name');
-    $titleField.find("input").blur();
-
-    return wait().then(function () {
-      assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message was hidden');
-    });
-  });
-});
-test('Validate if the Question Title field has only whitespaces', function (assert) {
-  assert.expect(3);
-
-  this.render(hbs`{{content/modals/gru-question-new}}`);
-
-  const $component = this.$('.gru-question-new');
-  const $titleField = $component.find(".gru-input.title");
-
-  assert.ok(!$titleField.find(".error-messages .error").length, 'Question Title error message not visible');
-
-  // Try submitting without filling in data
-  $component.find(".actions button[type='submit']").click();
-
-  return wait().then(function () {
-
-    assert.ok($titleField.find(".error-messages .error").length, 'Question Title error should be visible');
-    // Fill in the input field
-    $titleField.find("input").val(' ');
-    $component.find(".actions button[type='submit']").click();
-
-    return wait().then(function () {
-      assert.ok($titleField.find(".error-messages .error").length, 'Question Title error message should be visible');
-    });
-  });
-});
-
-test('Validate the character limit in the Question title field', function (assert) {
-  this.render(hbs`{{content/modals/gru-question-new}}`);
-
-  const maxLenValue = this.$('.gru-question-new .gru-input.title input').prop('maxlength');
-  assert.equal(maxLenValue, 50, "Input max length");
 });
 

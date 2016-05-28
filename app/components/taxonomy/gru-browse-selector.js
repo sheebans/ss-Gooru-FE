@@ -57,6 +57,34 @@ export default Ember.Component.extend({
 
   },
 
+  // -------------------------------------------------------------------------
+  // Events
+  init() {
+    this._super( ...arguments );
+    var currentPath = this.get('selectedPath');
+    this.set('previousSelectedPath', currentPath);
+  },
+
+  didRender() {
+    this._super( ...arguments );
+    this.$('button[data-toggle="collapse"]').on('click', function(e) {
+      e.preventDefault();
+    });
+  },
+
+  willRender() {
+    this._super( ...arguments );
+    var $component = this.$();
+
+    if ($component) {
+      this.$('button[data-toggle="collapse"]').off('click');
+    }
+  },
+
+  willDestroyElement: function () {
+    this.$('button[data-toggle="collapse"]').off('click');
+  },
+
 
   // -------------------------------------------------------------------------
   // Properties
@@ -83,11 +111,16 @@ export default Ember.Component.extend({
    */
   headerItems: Ember.computed('selectedPath', function() {
     var headers = this.get('headers');
-    var selectedPath = this.get('selectedPath');
+    var previousPath = this.get('previousSelectedPath');
+    var currentPath = this.get('selectedPath');
     var currentList, browseItem;
 
+    // Clear and then update cached path
+    this.clearActivePath(previousPath);
+    this.set('previousSelectedPath', currentPath);
+
     return headers.map(function(headerTitle, index) {
-      var itemId = selectedPath[index];
+      var itemId = currentPath[index];
 
       if (index === 0) {
         currentList = this.get('data');
@@ -97,6 +130,10 @@ export default Ember.Component.extend({
           currentList = (browseItem) ? browseItem.get('children') : [];
           browseItem = currentList.findBy('id', itemId);
         }
+      }
+
+      if (browseItem) {
+        browseItem.set('isActive', true);
       }
 
       return Ember.Object.create({
@@ -111,6 +148,35 @@ export default Ember.Component.extend({
    * List of ids of selected panel items where each array index corresponds to a panel level.
    * @prop {String[]}
    */
-  selectedPath: []
+  selectedPath: [],
+
+  /**
+   * Previous value of @see selectedPath.
+   * @prop {String[]}
+   */
+  previousSelectedPath: [],
+
+
+  // -------------------------------------------------------------------------
+  // Properties
+
+  /**
+   * @function clearActivePath
+   * Set the property 'isActive' to false to every browse item found in 'path'.
+   * @param {String[]} path - List of browse item ids
+   */
+  clearActivePath: function(path) {
+    var browseItem = [];
+
+    path.forEach(function(browseItemId, index) {
+      if (index === 0) {
+        browseItem = this.get('data').findBy('id', browseItemId);
+      } else {
+        browseItem = browseItem.get('children').findBy('id', browseItemId);
+      }
+      browseItem.set('isActive', false);
+    }.bind(this));
+  }
+
 
 });
