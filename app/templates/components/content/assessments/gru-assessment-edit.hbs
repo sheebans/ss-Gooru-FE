@@ -54,18 +54,11 @@
           </label>
         </div>
 
-        {{content.gru-category isEditing=isEditing srcCategory=collection.category editCategory=tempCollection.category}}
-
-        <div class="subject">
-          <span class="label required">K-12 Standards</span>
-          {{#if isEditing}}
-            <button type="button" class="btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
-          {{else}}
-            <div class="subjects">
-              <span>Not specified</span>
-            </div>
-          {{/if}}
-        </div>
+        {{taxonomy.gru-taxonomy-selector
+          isEditing=isEditing
+          srcEntity=collection
+          editEntity=tempCollection
+          enableSecondarySubject=true}}
 
         {{content.gru-audience isEditing=isEditing srcSelectedAudiences=collection.audience editSelectedAudiences=tempCollection.audience}}
 
