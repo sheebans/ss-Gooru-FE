@@ -111,6 +111,6 @@ test('Legacy uri resource-play', function (assert) {
 test('Legacy uri profile', function (assert) {
   visit("/#pochita");
   andThen(function() {
-    assert.equal(currentURL(), '/pochita');
+    assert.equal(currentURL(), '/pochita/content/courses');
   });
 });

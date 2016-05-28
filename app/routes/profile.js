@@ -24,14 +24,24 @@ export default Ember.Route.extend({
     let route = this;
     let profile = null;
     let userId = params.userId;
-
     if (userId) {
-      profile = route.get('profileService').readUserProfile(params.userId);
+      let isUsername = !/-.*-/.exec(userId);
+      profile = isUsername ?
+        route.get('profileService').readUserProfileByUsername(params.userId) :
+        route.get('profileService').readUserProfile(params.userId);
     }
 
     return Ember.RSVP.hash({
       profile: profile
     });
+  },
+
+  redirect: function(){
+    const currentUrl = this.get("router.url");
+    const isRoot = !/^\/(.*)\//.exec(currentUrl);
+    if (isRoot) {
+      this.transitionTo("profile.content.courses");
+    }
   },
 
   /**
