@@ -19,7 +19,7 @@ test('Layout', function(assert) {
   visit('/pochita');
 
   andThen(function() {
-    assert.equal(currentURL(), '/pochita');
+    assert.equal(currentURL(), '/pochita/content/courses');
 
     const $profileContainer = find(".controller.profile");
     T.exists(assert, $profileContainer, "Missing profile container");
@@ -111,9 +111,9 @@ test('click follow button', function(assert) {
 });
 
 test('click unfollow button', function(assert) {
-  visit('/param-1234/about');
+  visit('/param-123/about');
   andThen(function() {
-    assert.equal(currentURL(), '/param-1234/about');
+    assert.equal(currentURL(), '/param-123/about');
     andThen(function () {
       var $actions = find('.controller.profile .profile-info .actions');
       var $button = $actions.find('.unfollow');
