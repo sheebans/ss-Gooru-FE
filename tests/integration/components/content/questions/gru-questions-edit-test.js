@@ -23,6 +23,28 @@ const questionServiceStub = Ember.Service.extend({
 
 });
 
+const taxonomyServiceStub = Ember.Service.extend({
+
+  getSubjects(category) {
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      if (!category) {
+        reject({status: 500});
+      } else {
+        resolve({
+          "subjects": [{
+            "id": "GDF.K12.CS",
+            "title": "Computer Science",
+            "description": null,
+            "code": "GDF.K12.CS",
+            "standard_framework_id": "GDF"
+          }]
+        });
+      }
+    });
+  }
+
+});
+
 moduleForComponent('content/questions/gru-questions-edit', 'Integration | Component | content/questions/gru questions edit', {
   integration: true,
   beforeEach: function () {
@@ -30,6 +52,8 @@ moduleForComponent('content/questions/gru-questions-edit', 'Integration | Compon
     this.i18n.set("locale","en");
     this.register('service:api-sdk/question', questionServiceStub);
     this.inject.service('api-sdk/question');
+    this.register('service:api-sdk/taxonomy', taxonomyServiceStub);
+    this.inject.service('api-sdk/taxonomy');
   }
 });
 
@@ -137,7 +161,6 @@ test('Layout of the information section', function (assert) {
   assert.ok($settingsSection.find('.header h2').length, "Information title missing");
   assert.ok($settingsSection.find('.panel-body .title label b').length, "Missing title label");
   assert.ok($settingsSection.find('.panel-body .question-types').length, "Missing question types");
-  assert.ok($settingsSection.find('.panel-body .standards label').length, "Missing standards");
 });
 
 test('Layout of the information section editing mode', function (assert) {
@@ -146,8 +169,7 @@ test('Layout of the information section editing mode', function (assert) {
   var $settingsSection = this.$("#information");
   assert.ok($settingsSection.find('.header h2').length, "Information title missing");
   assert.ok($settingsSection.find('.panel-body .title label .gru-input').length, "Missing title input");
- // assert.ok($settingsSection.find('.panel-body .question-types .btn-group .dropdown-toggle').length, "Missing question types dropdown");
-  assert.ok($settingsSection.find('.panel-body .standards button.add-prefix').length, "Missing add standards button");
+ // assert.ok($settingsSection.find('.panel-body .question-types .btn-group .dropdown-toggle').length, "Missing question types dropdown");;
 });
 
 test('Validate if the question title field is left blank', function (assert) {

@@ -76,14 +76,11 @@
                     </div>
                 </div>
                 <div class="standards">
-                    <label>
-                        <span class="required">{{t "common.standards"}}</span>
-                      {{#if isEditing}}
-                          <button type="button" class="btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
-                      {{else}}
-                          <span>{{t 'common.not-added'}}</span>
-                      {{/if}}
-                    </label>
+                    {{taxonomy.gru-taxonomy-selector
+                      isEditing=isEditing
+                      srcEntity=question
+                      editEntity=tempQuestion
+                      enableSecondarySubject=true}}
                 </div>
             </div>
         </div>
