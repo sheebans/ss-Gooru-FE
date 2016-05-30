@@ -30,7 +30,13 @@
       <div>{{class.greeting}}</div>
     </div>
     {{#if class.isArchived}}
-      <button class="btn btn-info download-report" {{action 'downloadReport'}}>{{gru-icon name="get_app"}}{{t "common.download-report"}}</button>
+      {{#if class.isReportAvailable}}
+        <button class="btn btn-success download-report" {{action 'downloadReport'}}>{{gru-icon name="get_app"}}{{t "common.download-report"}}</button>
+      {{/if}}
+      {{#if class.isReportRequested}}
+        <button class="btn btn-info request-report" {{action 'requestReport'}}>{{gru-icon name="get_app"}}{{t "common.request-report"}}</button>
+      {{/if}}
+
     {{/if}}
   </div>
 </div>

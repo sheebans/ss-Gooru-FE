@@ -137,6 +137,30 @@ const Class = Ember.Object.extend(Validations, {
     return teachers.pushObjects(this.get('collaborators'));
   }),
 
+  /**
+   * This property is only used by archived classes, it indicates the status of the archived class report
+   * This information is not available when retrieving a class form the BE, separate calls are required to
+   * load this information, @see services/api-sdk/class.js#readClassReportStatus
+   *
+   * @property {string} available|queued|in-progress
+   */
+  reportStatus: null,
+
+  /**
+   * @property {boolean}
+   */
+  isReportAvailable: Ember.computed.equal("reportStatus", "available"),
+
+  /**
+   * @property {boolean}
+   */
+  isReportRequested: Ember.computed.equal("reportStatus", "queued"),
+
+  /**
+   * @property {boolean}
+   */
+  isReportInProgress: Ember.computed.equal("reportStatus", "in-progress"),
+
   // -------------------
   // Methods
   /**

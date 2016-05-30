@@ -11,6 +11,8 @@ export default Ember.Object.extend({
 
   namespace: '/api/nucleus/v1/classes',
 
+  reportNamespace: '/api/nucleus-download-reports/v1',
+
   /**
    * Posts a new class
    *
@@ -141,6 +143,24 @@ export default Ember.Object.extend({
       processData: false,
       headers: adapter.defineHeaders(),
       data: JSON.stringify({})
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Gets the class report status for an archived class
+   * @param {string} classId the class id
+   * @param {string} courseId the course id
+   * @returns {Promise.<string>} available|queued|in-progress
+   */
+  readClassReportStatus: function(classId, courseId) {
+    const adapter = this;
+    const namespace = adapter.get('reportNamespace');
+    const url = `${namespace}/class/${classId}/course/${courseId}/download/request`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
     };
     return Ember.$.ajax(url, options);
   },

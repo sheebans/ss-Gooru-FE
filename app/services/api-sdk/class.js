@@ -155,6 +155,34 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Gets the class report status for an archived class
+   * @param {string} classId the class id
+   * @param {string} courseId the course id
+   * @returns {Promise.<string>} available|queued|in-progress
+   */
+  readClassReportStatus: function(classId, courseId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classAdapter').readClassReportStatus(classId, courseId)
+        .then(function(response) {
+          resolve(response.status);
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
+  /**
+   * Requests a class report
+   * @param {string} classId the class id
+   * @param {string} courseId the course id
+   * @returns {Promise.<string>} available|queued|in-progress
+   */
+  requestClassReport: function(classId, courseId) {
+    return this.readClassReportStatus(classId, courseId); //same end point as reading the status
+  },
+
+  /**
    * Associates a Course with a Class
    *
    * @param classId the class id
