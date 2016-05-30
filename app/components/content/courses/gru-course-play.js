@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import ModalMixin from 'gooru-web/mixins/modal';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -18,6 +19,13 @@ export default Ember.Component.extend({
   actions:  {
     view: function(viewName) {
       this.set('view', viewName);
+    },
+
+    remix: function() {
+      var model = {
+        content: this.get('course')
+      };
+      this.send('showModal', 'content.modals.gru-course-remix', model);
     }
   },
 

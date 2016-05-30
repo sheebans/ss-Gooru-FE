@@ -16,7 +16,7 @@ export default Ember.Route.extend({
   // Methods
 
   beforeModel: function() {
-    // TODO: authenticate session with ember-simple-auth, if not send to log in
+    //TODO check for path
   },
 
   /**

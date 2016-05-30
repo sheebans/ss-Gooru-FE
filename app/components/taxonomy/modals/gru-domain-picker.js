@@ -1,5 +1,14 @@
 import Ember from 'ember';
 
+/**
+ * Domain Picker
+ *
+ * Component responsible for displaying two panels (course and domain) for a tree
+ * of browse items. Uses @see ../gru-taxonomy-picker
+ *
+ * @module
+ * @augments ember/Component
+ */
 export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
@@ -43,7 +52,17 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Properties
 
+  /**
+   * Callback object made up of two properties: success and fail
+   * callback.success will be called on the 'updateSelectedTags' action.
+   * @prop {Object}
+   */
   callback: null,
 
+  /**
+   * Headers to display at the top of each one of the panels (course & domain).
+   * There *must* be one for each panel.
+   * @prop {String[]}
+   */
   panelHeaders: []
 });

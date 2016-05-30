@@ -18,10 +18,11 @@ export default {
     "add-new-lesson": "Add New Lesson",
     "add-new-unit": "Add New Unit",
     "add-new-resource": "Add New Resource",
-    "add-new-question": "Add New Question",
+    "add-new-question": "Add a new question",
     "add-question": "Add Question",
     "add-question-image": "Add Question Image",
     "add-standard": "Add Standard",
+    "add-standards-to-collection": "Add Standards to Collection",
     "add-to": "Add To",
     "add-type-question":"What type of question would you like to add?",
     "add-type-resource":"What type of resource is this?",
@@ -100,6 +101,7 @@ export default {
     "domain": "Domain",
     "domains": "Domains",
     "drag-drop-suggestions": "Or Drag and Drop Suggestions ...",
+    "download-report" : "Download Report",
     "edit": "Edit",
     "edit-assessment": "Edit Assessment",
     "edit-collection": "Edit Collection",
@@ -340,6 +342,7 @@ export default {
     "teach": "Teach",
     "teacher": "Teacher",
     "timeSpent": "Time Spent",
+    "toggle-dropdown": "Toggle Dropdown",
     "true":"True",
     "type": "Type",
     "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
@@ -994,6 +997,13 @@ export default {
   },
   "gru-emotion-picker": {
     "react-to-resource": "React to this resource"
+  },
+  "taxonomy": {
+    "gru-taxonomy-selector": {
+      "add-secondary": "Add secondary",
+      "choose-subject": "Choose Subject",
+      "primary-subject-and-course": "Primary Subject and Course"
+    }
   },
   "validations": {
     "unsavedChanges": "Your changes haven't saved yet. Would you like to leave this page?"

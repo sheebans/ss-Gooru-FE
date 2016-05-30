@@ -134,12 +134,20 @@
 
     .description {
       border-left: 1px solid $gray-lighter;
+      min-height:55px;
       height: 100%;
       overflow: hidden;
       position: relative;
 
       > div {
         @include ellipsis($font-size-base, 1.5, 4);
+      }
+    }
+
+    .btn.download-report {
+      margin-left: 10px;
+      i.material-icons {
+        font-style: $font-size-h5;
       }
     }
 

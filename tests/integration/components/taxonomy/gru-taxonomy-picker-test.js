@@ -67,7 +67,7 @@ test('it opens the browse selector to the location of the first shortcut tag by 
 
   var $browseSelector = $component.find('.taxonomy.gru-browse-selector');
   assert.equal($browseSelector.find('ul.browse-panel.level-3 > li').length, 3, 'Number of items in the last panel');
-  assert.equal($browseSelector.find('ul.browse-panel.level-3 > li:first-child > label > span').text(), 'Item : 3 : 1 : 0', 'First item -last panel');
+  assert.equal($browseSelector.find('ul.browse-panel.level-3 > li:first-child > label > div > strong').text(), 'Item : 3 : 1 : 0', 'First item -last panel');
 });
 
 test('it opens the browse selector to a specific location after clicking on a shortcut tag', function(assert) {
@@ -99,7 +99,7 @@ test('it opens the browse selector to a specific location after clicking on a sh
 
   assert.equal($component.find('.shortcut-list li').length, 4, 'Number of shortcut tags');
   assert.equal($browseSelector.find('ul.browse-panel.level-2 > li:first-child > a').text(), 'Item : 2 : 0 : 0', 'First item -second panel');
-  assert.equal($browseSelector.find('ul.browse-panel.level-3 > li:first-child > label > span').text(), 'Item : 3 : 0 : 0', 'First item -last panel');
+  assert.equal($browseSelector.find('ul.browse-panel.level-3 > li:first-child > label > div > strong').text(), 'Item : 3 : 0 : 0', 'First item -last panel');
 
   // Click on shortcut #2
   $shortcutTags.find('li:eq(1) .gru-taxonomy-tag .toggle').click();
@@ -112,12 +112,12 @@ test('it opens the browse selector to a specific location after clicking on a sh
   // Click on shortcut #3
   $shortcutTags.find('li:eq(2) .gru-taxonomy-tag .toggle').click();
   assert.equal($browseSelector.find('ul.browse-panel.level-2 > li:first-child > a').text(), 'Item : 2 : 0 : 0', 'First item -second panel, shortcut #3 clicked');
-  assert.equal($browseSelector.find('ul.browse-panel.level-3 > li:first-child > label > span').text(), 'Item : 3 : 1 : 0', 'First item -last panel, shortcut #3 clicked');
+  assert.equal($browseSelector.find('ul.browse-panel.level-3 > li:first-child > label > div > strong').text(), 'Item : 3 : 1 : 0', 'First item -last panel, shortcut #3 clicked');
 
   // Click on shortcut #4
   $shortcutTags.find('li:eq(3) .gru-taxonomy-tag .toggle').click();
   assert.equal($browseSelector.find('ul.browse-panel.level-2 > li:first-child > a').text(), 'Item : 2 : 1 : 0', 'First item -second panel, shortcut #4 clicked');
-  assert.equal($browseSelector.find('ul.browse-panel.level-3 > li:first-child > label > span').text(), 'Item : 3 : 2 : 0', 'First item -last panel, shortcut #4 clicked');
+  assert.equal($browseSelector.find('ul.browse-panel.level-3 > li:first-child > label > div > strong').text(), 'Item : 3 : 2 : 0', 'First item -last panel, shortcut #4 clicked');
 });
 
 test('it clears any active shortcuts after clicking on a browse selector item', function(assert) {

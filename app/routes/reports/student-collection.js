@@ -19,10 +19,11 @@ export default Ember.Route.extend({
   // Actions
   actions: {
     goBack: function() {
-      const controller = this.get("controller");
+      const route = this;
+      const controller = route.get("controller");
       const context = controller.get("context");
       if (context.get("lessonId")){
-        this.transitionTo("class.analytics.performance.student",
+        route.transitionTo("class.analytics.performance.student",
           context.get("classId"),
           {
             queryParams: {
@@ -32,7 +33,8 @@ export default Ember.Route.extend({
           });
       }
       else {
-        this.transitionTo("search.assessments");
+        const toRoute = controller.get("backUrl") || 'index'; //index when refreshing the page, TODO fix
+        this.transitionTo(toRoute);
       }
     }
   },
@@ -79,12 +81,15 @@ export default Ember.Route.extend({
       route.get("lessonService").fetchById(context.get("courseId"), context.get("unitId"), context.get("lessonId")) :
       null;
 
-    const collectionPromise = (type === "collection") ?
+    const isCollection = (type === "collection");
+    const collectionPromise = (isCollection) ?
       route.get("collectionService").readCollection(params.collectionId) :
       route.get("assessmentService").readAssessment(params.collectionId);
+    const completedSessionsPromise = (isCollection) ? [] :
+      route.get("userSessionService").getCompletedSessions(context);
     return Ember.RSVP.hash({
       collection: collectionPromise,
-      completedSessions : route.get("userSessionService").getCompletedSessions(context),
+      completedSessions : completedSessionsPromise,
       lesson: lessonPromise,
       context: context
     });
@@ -99,7 +104,7 @@ export default Ember.Route.extend({
   setupController: function(controller, model){
     var completedSessions = model.completedSessions;
     const totalSessions = completedSessions.length;
-    const lastCompletedSession = completedSessions[totalSessions - 1];
+    const lastCompletedSession = totalSessions ? completedSessions[totalSessions - 1] : null;
     controller.set("collection", model.collection.toPlayerCollection());
     controller.set("lesson", model.lesson);
     controller.set("completedSessions", completedSessions);

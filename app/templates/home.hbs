@@ -8,17 +8,17 @@
   <div class="home-navigator">
       <ul class="nav nav-tabs" role="tablist">
           <li role="presentation" class="active active-classes tab">
-            <a href="#active-classes" aria-controls="activeClasses" role="tab" data-toggle="tab" {{action 'switchTab'}}>
+            <a href="#active-classes" aria-controls="activeClasses" role="tab" data-toggle="tab" {{action 'showClasses' 'active'}}>
               <span class="lead">{{t 'user.active-classes'}}</span>
             </a>
           </li>
           <li role="presentation" class="archived-classes tab">
-            <a href="#archived-classes" aria-controls="archivedClasses" role="tab" data-toggle="tab" {{action 'switchTab'}}>
+            <a href="#archived-classes" aria-controls="archivedClasses" role="tab" data-toggle="tab" {{action 'showClasses' 'archived'}}>
               <span class="lead">{{t 'user.archived-classes'}}</span>
             </a>
           </li>
           <li class="visible-xs ">
-            <a href='#' class="switch-tab-btn" {{action 'switchTab'}}>{{gru-icon name='keyboard_arrow_right'}}</a>
+            <a href='#' class="switch-tab-btn" alt="{{t 'user.archived-classes'}}" {{action 'showClasses' 'archived'}}>{{gru-icon name='keyboard_arrow_right'}}</a>
           </li>
           <li class="pull-right actions">
             {{#link-to 'content.classes.create' class="btn btn-success create-class-cta" tagName='button'}}
@@ -31,7 +31,7 @@
       </ul>
   </div>
   <div class="content tab-content">
-    <div role="tabpanel" class="tab-pane row active" id="active-classes">
+    <div role="tabpanel" class="tab-pane row {{if showActiveClasses 'active'}}" id="active-classes">
       {{#each myClasses.classes as |class|}}
         {{#unless class.isArchived}}
           {{cards.gru-class-card
@@ -41,12 +41,13 @@
         {{/unless}}
       {{/each}}
     </div>
-    <div role="tabpanel" class="tab-pane row" id="archived-classes">
+    <div role="tabpanel" class="tab-pane row {{if showArchivedClasses 'active'}}" id="archived-classes">
       {{#each myClasses.classes as |class|}}
         {{#if class.isArchived}}
           {{cards.gru-class-card
           class=class
           profile=profile
+          onDownloadReport="downloadReport"
           classStudentCount=myClasses.memberCount}}
         {{/if}}
       {{/each}}
