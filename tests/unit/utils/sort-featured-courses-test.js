@@ -64,12 +64,11 @@ test('getSubjects and sort Courses', function (assert) {
   assert.equal(orderedCourses[1].get("length"), 3, "Wrong ammount of courses");
   assert.equal(orderedCourses[2].get("length"), 2, "Wrong ammount of courses");
 
-  assert.equal(orderedCourses[0][0].sequence, '1', "Wrong subject order 1:1");
-  assert.equal(orderedCourses[0][1].sequence, '2', "Wrong subject order 1:2");
-  assert.equal(orderedCourses[1][0].sequence, '1', "Wrong subject order 2:1");
-  assert.equal(orderedCourses[1][1].sequence, '2', "Wrong subject order 2:2");
-  assert.equal(orderedCourses[1][2].sequence, '3', "Wrong subject order 2:3");
-  assert.equal(orderedCourses[2][0].sequence, '1', "Wrong subject order 3:1");
-  assert.equal(orderedCourses[2][1].sequence, '2', "Wrong subject order 3:2");
+  for (let i = orderedCourses.length-1; i > 0; i--) {
+    for (var o = 0; o < orderedCourses[o].length; o++) {
+      assert.equal(orderedCourses[i][o].sequence, o+1, "Wrong subject order");
+    }
+  }
+
 
 });
