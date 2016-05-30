@@ -213,6 +213,39 @@ const ResourceModel = Ember.Object.extend(Validations,{
   }),
 
   /**
+   * Indicates if it is an image resource
+   * @property {boolean}
+   */
+  isImageResource: Ember.computed("resourceType", function(){
+    var resourceType = this.get("resourceType");
+    return resourceType && resourceType.indexOf("image") >= 0;
+  }),
+
+  /**
+   * Indicates if it is an youtube resource
+   * @property {boolean}
+   */
+  isYoutubeResource: Ember.computed.equal("resourceType", "video/youtube"),
+
+  /**
+   * Indicates if it is an pdf resource
+   * @property {boolean}
+   */
+  isPDFResource: Ember.computed.equal("resourceType", "handouts"),
+
+  /**
+   * Indicates if it is an url resource
+   * @property {boolean}
+   */
+  isUrlResource: Ember.computed.equal("resourceType", "resource/url"),
+
+  /**
+   * Indicates if it is an vimeo resource
+   * @property {boolean}
+   */
+  isVimeoResource: Ember.computed.equal("resourceType", "vimeo/video"),
+
+  /**
    * Return a copy of the resource
    *
    * @function
