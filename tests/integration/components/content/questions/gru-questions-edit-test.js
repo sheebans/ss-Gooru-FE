@@ -59,7 +59,15 @@ moduleForComponent('content/questions/gru-questions-edit', 'Integration | Compon
 
 test('it has header and main sections', function (assert) {
 
-  this.render(hbs`{{content/questions/gru-questions-edit}}`);
+  var question = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Question Title",
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
+  });
+
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
 
   var $container = this.$("article.content.questions.gru-questions-edit");
   assert.ok($container.length, "Component");
@@ -91,7 +99,9 @@ test('Header return to an assessment', function (assert) {
     id:"123445566"
   });
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
-    title: 'Question for testing'
+    title: 'Question for testing',
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
 
   this.set('question', question);
@@ -114,7 +124,9 @@ test('Header return to an assessment', function (assert) {
     id:"123445566"
   });
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
-    title: 'Question for testing'
+    title: 'Question for testing',
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
 
   this.set('question', question);
@@ -134,11 +146,13 @@ test('Update Question Information', function (assert) {
   assert.expect(1);
   var newTitle ='Question for testing gooru';
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
-    title: 'Question for testing'
+    title: 'Question for testing',
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('question',question);
 
-  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true tempQuestion=question}}`);
+  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true question=question tempQuestion=question}}`);
 
   const $component = this.$('.gru-questions-edit');
   const $titleField = $component.find(".gru-input.title");
@@ -155,7 +169,14 @@ test('Update Question Information', function (assert) {
 });
 
 test('Layout of the information section', function (assert) {
-  this.render(hbs`{{content/questions/gru-questions-edit}}`);
+  var question = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Question Title",
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
+  });
+
+  this.set('question', question);
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
 
   var $settingsSection = this.$("#information");
   assert.ok($settingsSection.find('.header h2').length, "Information title missing");
@@ -164,7 +185,14 @@ test('Layout of the information section', function (assert) {
 });
 
 test('Layout of the information section editing mode', function (assert) {
-  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true}}`);
+  var question = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Question Title",
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
+  });
+
+  this.set('question', question);
+  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true question=question}}`);
 
   var $settingsSection = this.$("#information");
   assert.ok($settingsSection.find('.header h2').length, "Information title missing");
@@ -175,10 +203,12 @@ test('Layout of the information section editing mode', function (assert) {
 test('Validate if the question title field is left blank', function (assert) {
   assert.expect(3);
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
-    title: null
+    title: null,
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('question',question);
-  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true tempQuestion=question}}`);
+  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true question=question tempQuestion=question}}`);
 
   const $component = this.$('.gru-questions-edit');
   const $titleField = $component.find(".gru-input.title");
@@ -203,11 +233,13 @@ test('Validate if the question title field is left blank', function (assert) {
 test('Validate if the Question Title field has only whitespaces', function (assert) {
   assert.expect(3);
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
-    title: null
+    title: null,
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('question',question);
 
-  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true tempQuestion=question}}`);
+  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true question=question tempQuestion=question}}`);
 
   const $component = this.$('.gru-questions-edit');
   const $titleField = $component.find(".gru-input.title");
@@ -231,18 +263,27 @@ test('Validate if the Question Title field has only whitespaces', function (asse
 
 test('Validate the character limit in the Question title field', function (assert) {
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
-    title: null
+    title: null,
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('question',question);
 
-  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true tempQuestion=question}}`);
+  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true question=question tempQuestion=question}}`);
 
   const maxLenValue = this.$('.gru-questions-edit .gru-input.title input').prop('maxlength');
   assert.equal(maxLenValue, 50, "Input max length");
 });
 
 test('Layout of the builder section', function (assert) {
-  this.render(hbs`{{content/questions/gru-questions-edit}}`);
+  var question = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Question Title",
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
+  });
+
+  this.set('question', question);
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
 
   var $builderSection = this.$("#builder");
   assert.ok($builderSection.find('.header h2').length, "Builder title missing");
@@ -256,6 +297,8 @@ test('Builder Edit', function (assert) {
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
     type:"MC",
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('question',question);
 
@@ -285,11 +328,13 @@ test('Validate the character limit in text field', function (assert) {
   assert.expect(1);
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: "",
-    text:""
+    text:"",
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('question',question);
 
-  this.render(hbs`{{content/questions/gru-questions-edit isBuilderEditing=true tempQuestion=question}}`);
+  this.render(hbs`{{content/questions/gru-questions-edit isBuilderEditing=true question=question tempQuestion=question}}`);
 
   const $component = this.$('.gru-questions-edit');
   const $textareaField = $component.find(".gru-textarea.text");
@@ -313,11 +358,13 @@ test('Update Question Builder', function (assert) {
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
     text:"",
-    type:'MC'
+    type:'MC',
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('question',question);
 
-  this.render(hbs`{{content/questions/gru-questions-edit  isBuilderEditing=true tempQuestion=question}}`);
+  this.render(hbs`{{content/questions/gru-questions-edit isBuilderEditing=true question=question tempQuestion=question}}`);
 
   const $component = this.$('.gru-questions-edit');
   const $textField = $component.find(".gru-textarea.text");
@@ -340,7 +387,9 @@ test('Update Question Save Answers', function (assert) {
     title: 'Question for testing',
     text:"",
     type: QUESTION_TYPES.multipleChoice,
-    answers:Ember.A([])
+    answers:Ember.A([]),
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('question', question);
 
@@ -383,7 +432,9 @@ test('Change answer text and cancel edit-Multiple Choice', function (assert) {
     }), Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "Option B",
       'isCorrect': false
-    })])
+    })]),
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('question', question);
 
@@ -421,7 +472,9 @@ test('Update answer text - True/False', function (assert) {
       'text': "False",
       'isCorrect': false,
       'type':"text"
-    })])
+    })]),
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('question', question);
 
@@ -461,7 +514,9 @@ test('Change answer text and cancel- True/False', function (assert) {
       'text': "False",
       'isCorrect': false,
       'type':"text"
-    })])
+    })]),
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('question', question);
 
@@ -499,7 +554,9 @@ test('Update answer text - (drag/drop) Reorder', function (assert) {
       'text': "Option Text",
       'isCorrect': true,
       'type':"text"
-    })])
+    })]),
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('question', question);
 
@@ -552,7 +609,9 @@ test('Remove answer and cancel - (drag/drop) Reorder', function (assert) {
       'text': "Option Text B",
       'isCorrect': null,
       'type':"text"
-    })])
+    })]),
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('question', question);
 
@@ -595,7 +654,9 @@ test('Update answer text - Open Ended', function (assert) {
     answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "Answer text",
       'isCorrect': true,
-      'type':"text"
+      'type':"text",
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
     })])
   });
   this.set('question', question);
@@ -633,7 +694,9 @@ test('Update answer and cancel - Open Ended', function (assert) {
     title: 'Question for testing',
     text: "",
     type: QUESTION_TYPES.openEnded,
-    answers: Ember.A([])
+    answers: Ember.A([]),
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('question', question);
 
@@ -675,7 +738,9 @@ test('Select one correct answer at least', function(assert) {
       'text': "Option Text B",
       'isCorrect': false,
       'type':"text"
-    })])
+    })]),
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('question', question);
 
@@ -698,7 +763,9 @@ test('Update HS-Image', function (assert) {
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
     text:"",
-    type: QUESTION_TYPES.hotSpotImage
+    type: QUESTION_TYPES.hotSpotImage,
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
@@ -709,7 +776,9 @@ test('Update HS-Image', function (assert) {
       'isCorrect': true,
       'type':"text"
     })
-    ])
+    ]),
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('question', question);
   this.set('tempQuestion', tempQuestion);
@@ -739,7 +808,9 @@ test('Change HS-Image and Cancel', function (assert) {
       'isCorrect': true,
       'type':"text"
     })
-    ])
+    ]),
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
 
   this.set('question', question);
@@ -779,7 +850,9 @@ test('Delete answer HS-Image ', function (assert) {
       'isCorrect': true,
       'type':"text"
     })
-    ])
+    ]),
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
 
   this.set('question', question);
@@ -820,7 +893,9 @@ test('HS-Image validate has images', function (assert) {
       'isCorrect': true,
       'type':"text"
     })
-    ])
+    ]),
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
 
   this.set('question', question);
@@ -854,7 +929,9 @@ test('Update answer text - Hot Text Highlight', function (assert) {
       'isCorrect': true,
       'type': 'text',
       'highlightType': 'word'
-    })])
+    })]),
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('question', question);
 
@@ -894,7 +971,9 @@ test('Update answer and cancel - Hot Text Highlight', function (assert) {
       'isCorrect': true,
       'type': 'text',
       'highlightType': 'word'
-    })])
+    })]),
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('question', question);
 
