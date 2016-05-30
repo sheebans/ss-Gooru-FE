@@ -91,6 +91,23 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Gets the user Profile information of a given username
+   *
+   * @returns {Promise}
+   */
+  readUserProfileByUsername: function(username) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readUserProfileByUsername(username)
+        .then(function(response) {
+          resolve(service.get('profileSerializer').normalizeReadProfile(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
+  /**
    * Follows a user profile
    * @param userId
    * @returns {Ember.RSVP.Promise}

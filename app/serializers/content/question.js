@@ -150,13 +150,26 @@ export default Ember.Object.extend({
 
   /**
    * Normalizes standards
-   * @param {string[]} payload
-   * @returns {Content/User}
+   *
+   * @param {string[]} standards
+   * @returns {*}
    */
   normalizeStandards: function (standards) {
-    return standards.map(function(standard){
-      return Ember.Object.create({ code: standard, description: null });
-    });
+    const values = [];
+    if (!standards) { return values }
+
+    for (var key in standards) {
+      if (standards.hasOwnProperty(key)) {
+        let standard = standards[key];
+        values.push(Ember.Object.create({
+          key: key,
+          code: standard.code,
+          title: standard.title,
+          parentTitle: standard.parentTitle
+        }));
+      }
+    }
+    return values;
   }
 
 });

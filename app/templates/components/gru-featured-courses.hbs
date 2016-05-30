@@ -4,8 +4,8 @@
       {{#each formattedContent as |content index|}}
         {{#gru-scroll id=(concat "subject-link-" index) to=(concat "#featured-subject-" index) class=(if (eq index 0) "selected subject-menu-option" "subject-menu-option") offset='175' tagName="li"}}
         <a>
-          <span>{{content.category}}</span><br>
-          <span>{{content.subject}}</span>
+          <span class="category">{{content.category}}</span><br>
+          <span class="subject">{{content.subject}}</span>
         </a>
         {{/gru-scroll}}
       {{/each}}
@@ -17,7 +17,7 @@
       <p class="subject-title">{{content.subject}}</p>
       <div class="course-container">
         {{#each content.courses as |course index|}}
-          {{cards.gru-course-card course=course}}
+          {{cards.gru-course-card course=course isEyeVisible=false}}
         {{/each}}
       </div>
     </div>

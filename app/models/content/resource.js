@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 import PlayerResource from 'gooru-web/models/resource/resource';
+import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 
 const Validations = buildValidations({
   description: {
@@ -149,6 +150,31 @@ const ResourceModel = Ember.Object.extend(Validations,{
   order: null,
 
   /**
+   * @property {String} category - Category the course belongs to
+   */
+  category: Ember.computed('subject', function() {
+    var category = TAXONOMY_CATEGORIES[0].value; // Default to K12 category
+    if (this.get('subject')) {
+      let keys = this.get('subject').split('.');
+      if (keys.length > 1) {
+        for (var i = TAXONOMY_CATEGORIES.length - 1; i >= 0; i--) {
+          // The second part of the subjectId represents the category
+          if (keys[1] === TAXONOMY_CATEGORIES[i].apiCode) {
+            category = TAXONOMY_CATEGORIES[i].value;
+            break;
+          }
+        }
+      }
+    }
+    return category;
+  }),
+
+  /**
+   * @property {String} Taxonomy primary subject ID
+   */
+  subject: '',
+
+  /**
    * @property {String} Indicates the resource type. i.e video/youtube, assessment-question, image/png
    */
   resourceType: Ember.computed('format', function() {
@@ -185,6 +211,39 @@ const ResourceModel = Ember.Object.extend(Validations,{
     }
     return resourceType;
   }),
+
+  /**
+   * Indicates if it is an image resource
+   * @property {boolean}
+   */
+  isImageResource: Ember.computed("resourceType", function(){
+    var resourceType = this.get("resourceType");
+    return resourceType && resourceType.indexOf("image") >= 0;
+  }),
+
+  /**
+   * Indicates if it is an youtube resource
+   * @property {boolean}
+   */
+  isYoutubeResource: Ember.computed.equal("resourceType", "video/youtube"),
+
+  /**
+   * Indicates if it is an pdf resource
+   * @property {boolean}
+   */
+  isPDFResource: Ember.computed.equal("resourceType", "handouts"),
+
+  /**
+   * Indicates if it is an url resource
+   * @property {boolean}
+   */
+  isUrlResource: Ember.computed.equal("resourceType", "resource/url"),
+
+  /**
+   * Indicates if it is an vimeo resource
+   * @property {boolean}
+   */
+  isVimeoResource: Ember.computed.equal("resourceType", "vimeo/video"),
 
   /**
    * Return a copy of the resource
@@ -237,9 +296,19 @@ const ResourceModel = Ember.Object.extend(Validations,{
       narration: model.get("narration"), //TODO missing
       options: null //TODO missing
     });
+  },
+
+  /**
+   * Sets the subject of the course
+   *
+   * @function
+   * @param {TaxonomyRoot} taxonomySubject
+   */
+  setTaxonomySubject: function(taxonomySubject) {
+    if (!(this.get('isDestroyed') || this.get('isDestroying'))) {
+      this.set('subject', taxonomySubject ? taxonomySubject.get('id') : null);
+    }
   }
-
-
 
 });
 

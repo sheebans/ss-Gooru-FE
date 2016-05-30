@@ -12,6 +12,51 @@ export default Ember.Object.extend({
   namespace: '/api/nucleus/v1/lookups',
 
   /**
+   * Gets the audience list information
+   * @returns {Promise.<[]>}
+   */
+  readAudiences: function() {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/audience`;
+    const options = {
+      type: 'GET',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Gets the depth of knowledge list information
+   * @returns {Promise.<[]>}
+   */
+  readDepthOfKnowledgeItems: function() {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/dok`;
+    const options = {
+      type: 'GET',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Gets the depth of knowledge list information
+   * @returns {Promise.<[]>}
+   */
+  readLicenses: function() {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/licenses`;
+    const options = {
+      type: 'GET',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
    * Gets the countries information
    *
    * @param {string} keyword optional keyword

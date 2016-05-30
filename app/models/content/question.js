@@ -2,6 +2,7 @@ import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 import {getQuestionApiType, getQuestionTypeByApiType, QUESTION_TYPES} from 'gooru-web/config/question';
 import PlayerResource from 'gooru-web/models/resource/resource';
+import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 
 const Validations = buildValidations({
   title: {
@@ -115,6 +116,31 @@ const Question = Ember.Object.extend(Validations, {
    * @property {Answer[]} answers - Array of answers
    */
   answers: Ember.A([]),
+
+  /**
+   * @property {String} category - Category the course belongs to
+   */
+  category: Ember.computed('subject', function() {
+    var category = TAXONOMY_CATEGORIES[0].value; // Default to K12 category
+    if (this.get('subject')) {
+      let keys = this.get('subject').split('.');
+      if (keys.length > 1) {
+        for (var i = TAXONOMY_CATEGORIES.length - 1; i >= 0; i--) {
+          // The second part of the subjectId represents the category
+          if (keys[1] === TAXONOMY_CATEGORIES[i].apiCode) {
+            category = TAXONOMY_CATEGORIES[i].value;
+            break;
+          }
+        }
+      }
+    }
+    return category;
+  }),
+
+  /**
+   * @property {String} Taxonomy primary subject ID
+   */
+  subject: '',
 
   /**
    * @property {boolean} indicates if the question is multiple choice type
@@ -231,8 +257,19 @@ const Question = Ember.Object.extend(Validations, {
         return answer.toPlayerAnswer();
       })
     });
-  }
+  },
 
+  /**
+   * Sets the subject of the course
+   *
+   * @function
+   * @param {TaxonomyRoot} taxonomySubject
+   */
+  setTaxonomySubject: function(taxonomySubject) {
+    if (!(this.get('isDestroyed') || this.get('isDestroying'))) {
+      this.set('subject', taxonomySubject ? taxonomySubject.get('id') : null);
+    }
+  }
 
 });
 

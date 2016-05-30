@@ -25,10 +25,13 @@ export default Ember.Route.extend({
   model: function(params) {
     let route = this;
     let userId = params.userId;
-
     if (userId) {
-      return route.get('profileService').readUserProfile(params.userId)
-        .then(function(profile) {
+      let isUsername = !/-.*-/.exec(userId);
+      let profilePromise = isUsername ?
+        route.get('profileService').readUserProfileByUsername(params.userId) :
+        route.get('profileService').readUserProfile(params.userId);
+
+      return profilePromise.then(function(profile) {
           var ProfileValidation = Profile.extend(EditProfileValidations);
           var editProfile = ProfileValidation.create(Ember.getOwner(route).ownerInjection());
           editProfile.merge(profile, profile.modelProperties());
@@ -41,6 +44,14 @@ export default Ember.Route.extend({
     return Ember.RSVP.hash({
       profile: null
     });
+  },
+
+  redirect: function(){
+    const currentUrl = this.get("router.url");
+    const isRoot = !/^\/(.*)\//.exec(currentUrl);
+    if (isRoot) {
+      this.transitionTo("profile.content.courses");
+    }
   },
 
   /**
