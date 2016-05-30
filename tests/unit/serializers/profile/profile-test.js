@@ -39,6 +39,7 @@ test('serializeUpdateProfile', function(assert) {
   const profile = ProfileModel.create({
     firstName: 'first-name',
     lastName: 'last-name',
+    username:'username',
     role: 'role',
     grades: [],
     country: 'country',
@@ -47,11 +48,13 @@ test('serializeUpdateProfile', function(assert) {
     aboutMe: 'about-me',
     countryId: 'country-id',
     stateId: 'state-id',
+    studentId:'studentId',
     schoolDistrictId: 'school-district-id'
   });
   const expected = {
     firstname: 'first-name',
     lastname: 'last-name',
+    username:'username',
     'user_category': 'role',
     grade: [],
     country: 'country',
@@ -60,6 +63,7 @@ test('serializeUpdateProfile', function(assert) {
     'about_me': 'about-me',
     'country_id': 'country-id',
     'state_id': 'state-id',
+     studentId:'studentId',
     'school_district_id': 'school-district-id'
   };
   const response = serializer.serializeUpdateProfile(profile);
