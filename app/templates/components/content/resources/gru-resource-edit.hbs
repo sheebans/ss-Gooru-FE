@@ -163,14 +163,11 @@
         </div>
         <div class="row">
           <div class="col-sm-12 form-field standards">
-            <label>
-              <span>{{t "common.standards"}}</span>
-              {{#if isEditing}}
-                <button type="button" class="btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
-              {{else}}
-                <b>{{t 'common.not-added'}}</b>
-              {{/if}}
-            </label>
+            {{taxonomy.gru-taxonomy-selector
+              isEditing=isEditing
+              srcEntity=resource
+              editEntity=tempResource
+              enableSecondarySubject=true}}
           </div>
         </div>
       </div>
