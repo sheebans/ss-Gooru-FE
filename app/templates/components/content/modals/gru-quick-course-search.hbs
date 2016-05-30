@@ -8,10 +8,12 @@
   </span>
 </div>
 <div class="modal-body">
-  {{#each model.courses as |course|}}
-    <div class="{{course.id}}" {{action "selectCourse" course.id}}>
-        {{cards.gru-course-card course=course isEditEnabled=true isEyeVisible=false}}
-    </div>
+  {{#each orderedCourses as |courseStack|}}
+    {{#each courseStack as |course|}}
+      <div class="{{course.id}}" {{action "selectCourse" course.id}}>
+          {{cards.gru-course-card course=course isEditEnabled=true isEyeVisible=false}}
+      </div>
+    {{/each}}
   {{/each}}
 </div>
 <div class="modal-footer">

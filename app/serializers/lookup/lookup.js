@@ -2,6 +2,9 @@ import Ember from 'ember';
 import CountryModel from 'gooru-web/models/country';
 import StateModel from 'gooru-web/models/state';
 import DistrictModel from 'gooru-web/models/district';
+import AudienceModel from 'gooru-web/models/audience';
+import DepthOfKnowledgeModel from 'gooru-web/models/depth-of-knowledge';
+import LicenseModel from 'gooru-web/models/license';
 
 /**
  * Serializer to support the Profile CRUD operations for API 3.0
@@ -9,6 +12,42 @@ import DistrictModel from 'gooru-web/models/district';
  * @typedef {Object} ProfileSerializer
  */
 export default Ember.Object.extend({
+
+  /**
+   * Normalizes audiences
+   * @param {} payload
+   * @returns {Audience[]}
+   */
+  normalizeReadAudiences: function (payload) {
+    const items = payload.audience || [];
+    return items.map(function(audience){
+      return AudienceModel.create({ id: audience.id, name: audience.label, order: audience.sequence_id });
+    });
+  },
+
+  /**
+   * Normalizes depth of knowledge items
+   * @param {} payload
+   * @returns {DepthOfKnowledge[]}
+   */
+  normalizeReadDepthOfKnowledgeItems: function (payload) {
+    const items = payload.depth_of_knowledge || [];
+    return items.map(function(dok){
+      return DepthOfKnowledgeModel.create({ id: dok.id, name: dok.label, order: dok.sequence_id });
+    });
+  },
+
+  /**
+   * Normalizes licenses
+   * @param {} payload
+   * @returns {License[]}
+   */
+  normalizeReadLicenses: function (payload) {
+    const items = payload.license || [];
+    return items.map(function(license){
+      return LicenseModel.create({ id: license.id, name: license.label, order: license.sequence_id });
+    });
+  },
 
   /**
    * Normalizes countries

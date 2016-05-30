@@ -2,6 +2,78 @@ import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('serializer:lookup/lookup', 'Unit | Serializer | lookup/lookup');
 
+test('normalizeReadAudiences', function (assert) {
+  const serializer = this.subject();
+  const data = {
+    audience: [
+      {
+        "id": "1",
+        "label": "AA",
+        "sequence_id": 1
+      },
+      {
+        "id": "2",
+        "label": "BB",
+        "sequence_id": 2
+      }
+    ]
+  };
+
+  const audiences = serializer.normalizeReadAudiences(data);
+  assert.equal(audiences.length, 2, 'Wrong audiences length');
+  assert.equal(audiences[0].get("id"), "1", 'Wrong id');
+  assert.equal(audiences[0].get("name"), "AA", 'Wrong name');
+  assert.equal(audiences[0].get("order"), 1, 'Wrong order');
+});
+
+test('normalizeReadLicenses', function (assert) {
+  const serializer = this.subject();
+  const data = {
+    license: [
+      {
+        "id": "1",
+        "label": "AA",
+        "sequence_id": 1
+      },
+      {
+        "id": "2",
+        "label": "BB",
+        "sequence_id": 2
+      }
+    ]
+  };
+
+  const licenses = serializer.normalizeReadLicenses(data);
+  assert.equal(licenses.length, 2, 'Wrong licenses length');
+  assert.equal(licenses[0].get("id"), "1", 'Wrong id');
+  assert.equal(licenses[0].get("name"), "AA", 'Wrong name');
+  assert.equal(licenses[0].get("order"), 1, 'Wrong order');
+});
+
+test('normalizeReadDepthOfKnowledgeItems', function (assert) {
+  const serializer = this.subject();
+  const data = {
+    depth_of_knowledge: [
+      {
+        "id": "1",
+        "label": "AA",
+        "sequence_id": 1
+      },
+      {
+        "id": "2",
+        "label": "BB",
+        "sequence_id": 2
+      }
+    ]
+  };
+
+  const dok = serializer.normalizeReadDepthOfKnowledgeItems(data);
+  assert.equal(dok.length, 2, 'Wrong dok length');
+  assert.equal(dok[0].get("id"), "1", 'Wrong id');
+  assert.equal(dok[0].get("name"), "AA", 'Wrong name');
+  assert.equal(dok[0].get("order"), 1, 'Wrong order');
+});
+
 test('normalizeReadCountries', function (assert) {
   const serializer = this.subject();
   const countryData = {
