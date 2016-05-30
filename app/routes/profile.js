@@ -31,7 +31,7 @@ export default Ember.Route.extend({
     if (userId) {
       var profile = null;
       profile = route.get('profileService').readUserProfile(params.userId).then(function(){
-        profileModel = profile.merge(profile,profile.modelProperties());
+        
       });
 
     }
