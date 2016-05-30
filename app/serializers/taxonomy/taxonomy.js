@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import TaxonomyRoot from 'gooru-web/models/taxonomy/taxonomy-root';
+import TaxonomyItem from 'gooru-web/models/taxonomy/taxonomy-item';
 
 /**
  * Serializer for Taxonomy endpoints
@@ -40,6 +41,33 @@ export default Ember.Object.extend({
       children: subjectPayload.frameworks ? subjectPayload.frameworks.map(function(framework) {
         return serializer.normalizeSubject(framework, subjectPayload.title);
       }) : []
+    });
+  },
+
+  /**
+   * Normalize the Fetch Taxonomy Courses endpoint's response
+   *
+   * @param payload is the endpoint response in JSON format
+   * @returns {Course[]} an array of courses
+   */
+  normalizeFetchCourses: function(payload) {
+    var result = [];
+    const serializer = this;
+    const courses = payload.courses;
+    if (Ember.isArray(courses)) {
+      result = courses.map(function(course) {
+        return serializer.normalizeCourse(course);
+      });
+    }
+    return result;
+  },
+
+  normalizeCourse: function(coursePayload) {
+    var serializer = this;
+    return TaxonomyItem.create(Ember.getOwner(serializer).ownerInjection(), {
+      id: coursePayload.id,
+      code: coursePayload.code,
+      title: coursePayload.title
     });
   }
 

@@ -57,3 +57,18 @@ test('Fetch Taxonomy Subjects for Professional Learning', function(assert) {
     });
 });
 
+test('Fetch Taxonomy Courses', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.get('/api/nucleus/v1/taxonomy/frameworks/framework-id/subjects/taxonomy-subject-id/courses', function() {
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+  adapter.fetchCourses('framework-id', 'taxonomy-subject-id')
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});

@@ -43,12 +43,24 @@ export default Ember.Service.extend({
    * @param type the subjects type
    * @returns {Promise}
    */
-  fetchSubjects(type) {
+  fetchSubjects: function(type) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('taxonomyAdapter').fetchSubjects(type)
         .then(function(response) {
           resolve(service.get('taxonomySerializer').normalizeFetchSubjects(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
+  fetchCourses: function(frameworkId, taxonomySubjectId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('taxonomyAdapter').fetchCourses(frameworkId, taxonomySubjectId)
+        .then(function(response) {
+          resolve(service.get('taxonomySerializer').normalizeFetchCourses(response));
         }, function(error) {
           reject(error);
         });
