@@ -80,7 +80,7 @@
   {
     "description": "API 3.0 Endpoint to return another (following) user Profile info",
     "request": {
-      "url": "^/api/nucleus/v1/profiles/param-1234/demographics",
+      "url": "^/api/nucleus/v1/profiles/param-123/demographics",
       "method": "GET",
       "headers": {
         "authorization": "Token (.+)"
@@ -100,6 +100,48 @@
     "request": {
       "url": "^/api/nucleus/v1/profiles/(.+)/demographics",
       "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "profile-api3-pochita-200-response.json"
+    }
+  },
+  {
+    "description": "API 3.0 Endpoint to get user by username",
+    "request": {
+      "url": "^/api/nucleus-auth/v1/users",
+      "method": "GET",
+      "query": {
+        "username": "param-123"
+      },
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "profile-api3-param-200-response.json"
+    }
+  },
+  {
+    "description": "API 3.0 Endpoint to get user by username",
+    "request": {
+      "url": "^/api/nucleus-auth/v1/users",
+      "method": "GET",
+      "query": {
+        "username": "(.+)"
+      },
       "headers": {
         "authorization": "Token (.+)"
       }
@@ -151,7 +193,7 @@
   {
     "description": "API 3.0 Endpoint to unfollow a profile",
     "request": {
-      "url": "^/api/nucleus/v1/profiles/param-1234/unfollow",
+      "url": "^/api/nucleus/v1/profiles/param-123/unfollow",
       "method": "DELETE",
       "headers": {
         "authorization": "Token (.+)"
