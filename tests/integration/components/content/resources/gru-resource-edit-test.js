@@ -5,11 +5,35 @@ import Ember from 'ember';
 import Resource from 'gooru-web/models/content/resource';
 import Collection from 'gooru-web/models/content/collection';
 
+const taxonomyServiceStub = Ember.Service.extend({
+
+  getSubjects(category) {
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      if (!category) {
+        reject({status: 500});
+      } else {
+        resolve({
+          "subjects": [{
+            "id": "GDF.K12.CS",
+            "title": "Computer Science",
+            "description": null,
+            "code": "GDF.K12.CS",
+            "standard_framework_id": "GDF"
+          }]
+        });
+      }
+    });
+  }
+
+});
+
 moduleForComponent('gru-resource-edit', 'Integration | Component | content/resources/gru resource edit', {
   integration: true,
   beforeEach: function () {
     this.i18n = this.container.lookup('service:i18n');
     this.i18n.set("locale","en");
+    this.register('service:api-sdk/taxonomy', taxonomyServiceStub);
+    this.inject.service('api-sdk/taxonomy');
   }
 });
 
@@ -190,7 +214,6 @@ test('Layout of the information section', function (assert) {
   assert.ok($informationSection.find('.panel-body .type label b').length, "Missing type label");
   assert.ok($informationSection.find('.panel-body .license label b').length, "Missing license label");
   assert.ok($informationSection.find('.panel-body .description label b').length, "Missing description label");
-  assert.ok($informationSection.find('.panel-body .standards label b').length, "Missing standards label");
 });
 
 test('Layout of the information section on edit mode', function (assert) {
@@ -203,7 +226,6 @@ test('Layout of the information section on edit mode', function (assert) {
   assert.ok($informationSection.find('.panel-body .type .btn-group .dropdown-toggle').length, "Missing type dropdown");
   assert.ok($informationSection.find('.panel-body .license label select').length, "Missing license select");
   assert.ok($informationSection.find('.panel-body .description label textarea').length, "Missing description textarea");
-  assert.ok($informationSection.find('.panel-body .standards label button').length, "Missing standards button");
 });
 
 test('Update Resource Information', function (assert) {
