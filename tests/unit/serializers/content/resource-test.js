@@ -57,23 +57,56 @@ test('normalizeReadResource', function(assert) {
     sequence_id: 3,
     creator_id: 'anyID'
   };
-  const expected = ResourceModel.create(Ember.getOwner(this).ownerInjection(), {
+
+  const resource = serializer.normalizeReadResource(resourceData);
+  assert.equal(resource.get("id"), "abcd", 'Wrong id');
+  assert.equal(resource.get("title"), "resource-title", 'Wrong title');
+  assert.equal(resource.get("url"), "any", 'Wrong url');
+  assert.equal(resource.get("format"), "video", 'Wrong format');
+  assert.equal(resource.get("description"), "any desc", 'Wrong description');
+  assert.equal(resource.get("publishStatus"), "published", 'Wrong publishStatus');
+  assert.equal(resource.get("standards.length"), 0, 'Wrong standards');
+  assert.equal(resource.get("owner"), "anyID", 'Wrong owner');
+  assert.equal(resource.get("metadata.amIThePublisher"), false, 'Wrong amIThePublisher');
+  assert.equal(resource.get("metadata.publisher"), null, 'Wrong publisher');
+  assert.equal(resource.get("isVisibleOnProfile"), true, 'Wrong isVisibleOnProfile');
+  assert.equal(resource.get("order"), 3, 'Wrong order');
+
+});
+
+test('normalizeReadResource for image resource', function(assert) {
+  const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'http://test-bucket01.s3.amazonaws.com/'
+    }
+  }));
+
+  const resourceData = {
     id: "abcd",
     title: 'resource-title',
     url: 'any',
-    format: 'video',
+    content_subformat: 'image_resource',
     description: 'any desc',
-    publishStatus: 'published',
-    standards: [],
-    owner: 'anyID',
-    metadata: {
-      'amIThePublisher': false,
-      'publisher': null
-    },
-    isVisibleOnProfile: true,
-    order: 3
-  });
+    publish_status: 'published',
+    taxonomy: [],
+    visible_on_profile: true,
+    sequence_id: 3,
+    creator_id: 'anyID'
+  };
 
   const resource = serializer.normalizeReadResource(resourceData);
-  assert.deepEqual(resource, expected, 'Wrong normalized response');
+  assert.equal(resource.get("id"), "abcd", 'Wrong id');
+  assert.equal(resource.get("title"), "resource-title", 'Wrong title');
+  assert.equal(resource.get("url"), "http://test-bucket01.s3.amazonaws.com/any", 'Wrong url');
+  assert.equal(resource.get("format"), "image", 'Wrong format');
+  assert.equal(resource.get("description"), "any desc", 'Wrong description');
+  assert.equal(resource.get("publishStatus"), "published", 'Wrong publishStatus');
+  assert.equal(resource.get("standards.length"), 0, 'Wrong standards');
+  assert.equal(resource.get("owner"), "anyID", 'Wrong owner');
+  assert.equal(resource.get("metadata.amIThePublisher"), false, 'Wrong amIThePublisher');
+  assert.equal(resource.get("metadata.publisher"), null, 'Wrong publisher');
+  assert.equal(resource.get("isVisibleOnProfile"), true, 'Wrong isVisibleOnProfile');
+  assert.equal(resource.get("order"), 3, 'Wrong order');
+
 });
