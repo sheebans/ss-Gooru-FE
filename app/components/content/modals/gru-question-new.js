@@ -48,6 +48,7 @@ export default Ember.Component.extend({
     createQuestion: function () {
       const component = this;
       const question = component.get('question');
+      question.set("title", component.get('i18n').t('common.new-question').string); //Default title
       question.set("description", "Enter question text here"); //TODO temporal fix
       question.validate().then(function ({ model, validations }) {
         if (validations.get('isValid')) {
@@ -116,7 +117,13 @@ export default Ember.Component.extend({
    * @type {Array[]} questionTypes
    */
   questionTypes: Ember.computed(function() {
-    return Ember.A(Object.keys(QUESTION_CONFIG));
+    const component = this;
+    const isCollection = component.get('model.isCollection');
+    var questionTypes =  Ember.A(Object.keys(QUESTION_CONFIG));
+    if (isCollection===false){
+      questionTypes = questionTypes.removeObject('OE');
+    }
+    return questionTypes;
   }),
 
 

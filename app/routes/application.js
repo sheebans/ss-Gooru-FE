@@ -2,6 +2,7 @@ import Ember from "ember";
 import GruTheme from '../utils/gru-theme';
 import Env from '../config/environment';
 import ApplicationRouteMixin from "ember-simple-auth/mixins/application-route-mixin";
+import GooruLegacyUrl from 'gooru-web/utils/gooru-legacy-url';
 
 /**
  * @typedef {object} ApplicationRoute
@@ -46,6 +47,21 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       myClasses: myClasses
     });
   },
+
+  afterModel: function(){
+    const route = this;
+    const legacyUrl = GooruLegacyUrl.create({
+      url: route.get("router.url")
+    });
+
+    if (legacyUrl.get("isLegacyUrl")) { //checking for a legacy legacyUrl
+      const routeParams = legacyUrl.get("routeParams");
+      if (routeParams) {
+        route.transitionTo.apply(route, routeParams);
+      }
+    }
+  },
+
 
   setupController: function(controller, model) {
     const theme = model.theme;

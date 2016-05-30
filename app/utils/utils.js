@@ -257,6 +257,8 @@ export function truncate(text, maxLength, type, suffix){
   };
   let defaultType = "short";
 
+  if (!text) { return null; }
+
   if (!maxLength && !type){ //default behavior
     type = defaultType;
   }

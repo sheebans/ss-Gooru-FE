@@ -23,6 +23,63 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Gets the audience information
+   * @returns {Promise.<Audience[]>}
+   */
+  readAudiences: function() {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('lookupAdapter').readAudiences()
+        .then(function(response) {
+          resolve(service.get('lookupSerializer').normalizeReadAudiences(response));
+        }, reject);
+    });
+  },
+
+  /**
+   * Gets the depth of knowlege information
+   * @returns {Promise.<DepthOfKnowledge[]>}
+   */
+  readDepthOfKnowledgeItems: function() {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('lookupAdapter').readDepthOfKnowledgeItems()
+        .then(function(response) {
+          resolve(service.get('lookupSerializer').normalizeReadDepthOfKnowledgeItems(response));
+        }, reject);
+    });
+  },
+
+  /**
+   * Gets the license information
+   * @returns {Promise.<License[]>}
+   */
+  readLicenses: function() {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('lookupAdapter').readLicenses()
+        .then(function(response) {
+          resolve(service.get('lookupSerializer').normalizeReadLicenses(response));
+        }, reject);
+    });
+  },
+
+  /**
+   * Gets the audience information
+   * @returns {Promise.<Audience[]>}
+   */
+  readAudienceItems: function() {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('lookupAdapter').readAudienceItems()
+        .then(function(response) {
+          resolve(response);
+          //resolve(service.get('lookupSerializer').normalizeReadCountries(response));
+        }, reject);
+    });
+  },
+
+  /**
    * Gets the countries information
    * @param {string} keyword optional
    *

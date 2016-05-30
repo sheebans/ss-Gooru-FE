@@ -5,11 +5,35 @@ import Ember from 'ember';
 import Resource from 'gooru-web/models/content/resource';
 import Collection from 'gooru-web/models/content/collection';
 
+const taxonomyServiceStub = Ember.Service.extend({
+
+  getSubjects(category) {
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      if (!category) {
+        reject({status: 500});
+      } else {
+        resolve({
+          "subjects": [{
+            "id": "GDF.K12.CS",
+            "title": "Computer Science",
+            "description": null,
+            "code": "GDF.K12.CS",
+            "standard_framework_id": "GDF"
+          }]
+        });
+      }
+    });
+  }
+
+});
+
 moduleForComponent('gru-resource-edit', 'Integration | Component | content/resources/gru resource edit', {
   integration: true,
   beforeEach: function () {
     this.i18n = this.container.lookup('service:i18n');
     this.i18n.set("locale","en");
+    this.register('service:api-sdk/taxonomy', taxonomyServiceStub);
+    this.inject.service('api-sdk/taxonomy');
   }
 });
 
@@ -181,7 +205,15 @@ test('Layout of preview section for text', function (assert) {
 });
 
 test('Layout of the information section', function (assert) {
-  this.render(hbs`{{content/resources/gru-resource-edit}}`);
+  var resource = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Resource Title",
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
+  });
+
+  this.set('resource', resource);
+
+  this.render(hbs`{{content/resources/gru-resource-edit resource=resource}}`);
 
   var $informationSection = this.$("#information");
   assert.ok($informationSection.find('.header h2').length, "Information title missing");
@@ -190,11 +222,18 @@ test('Layout of the information section', function (assert) {
   assert.ok($informationSection.find('.panel-body .type label b').length, "Missing type label");
   assert.ok($informationSection.find('.panel-body .license label b').length, "Missing license label");
   assert.ok($informationSection.find('.panel-body .description label b').length, "Missing description label");
-  assert.ok($informationSection.find('.panel-body .standards label b').length, "Missing standards label");
 });
 
 test('Layout of the information section on edit mode', function (assert) {
-  this.render(hbs`{{content/resources/gru-resource-edit isEditing=true}}`);
+  var resource = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Resource Title",
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
+  });
+
+  this.set('resource', resource);
+
+  this.render(hbs`{{content/resources/gru-resource-edit resource=resource isEditing=true}}`);
   var $informationSection = this.$("#information");
   assert.ok($informationSection.find('.header h2').length, "Information title missing");
   assert.ok($informationSection.find('.panel-body label .gru-input.title').length, "Missing title label");
@@ -203,7 +242,6 @@ test('Layout of the information section on edit mode', function (assert) {
   assert.ok($informationSection.find('.panel-body .type .btn-group .dropdown-toggle').length, "Missing type dropdown");
   assert.ok($informationSection.find('.panel-body .license label select').length, "Missing license select");
   assert.ok($informationSection.find('.panel-body .description label textarea').length, "Missing description textarea");
-  assert.ok($informationSection.find('.panel-body .standards label button').length, "Missing standards button");
 });
 
 test('Update Resource Information', function (assert) {
@@ -212,10 +250,12 @@ test('Update Resource Information', function (assert) {
   var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Resource for testing',
     format: 'video',
-    url: 'http://example.com'
+    url: 'http://example.com',
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('resource', resource);
-  this.render(hbs`{{content/resources/gru-resource-edit isEditing=true tempResource=resource}}`);
+  this.render(hbs`{{content/resources/gru-resource-edit isEditing=true resource=resource tempResource=resource}}`);
 
   const $component = this.$('.gru-resource-edit');
   const $titleField = $component.find(".gru-input.title");
@@ -233,10 +273,12 @@ test('Update Resource Information', function (assert) {
 test('Validate if the resource title field is left blank', function (assert) {
   assert.expect(3);
   var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
-    title: null
+    title: null,
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('resource',resource);
-  this.render(hbs`{{content/resources/gru-resource-edit isEditing=true tempResource=resource}}`);
+  this.render(hbs`{{content/resources/gru-resource-edit isEditing=true resource=resource tempResource=resource}}`);
 
   const $component = this.$('.gru-resource-edit');
   const $titleField = $component.find(".gru-input.title");
@@ -260,11 +302,13 @@ test('Validate if the resource title field is left blank', function (assert) {
 test('Validate if the Resource Title field has only whitespaces', function (assert) {
   assert.expect(3);
   var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
-    title: null
+    title: null,
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('resource', resource);
 
-  this.render(hbs`{{content/resources/gru-resource-edit isEditing=true tempResource=resource}}`);
+  this.render(hbs`{{content/resources/gru-resource-edit isEditing=true resource=resource tempResource=resource}}`);
 
   const $component = this.$('.gru-resource-edit');
   const $titleField = $component.find(".gru-input.title");
@@ -288,11 +332,13 @@ test('Validate if the Resource Title field has only whitespaces', function (asse
 
 test('Validate the character limit in the Resource title field', function (assert) {
   var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
-    title: null
+    title: null,
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
   this.set('resource',resource);
 
-  this.render(hbs`{{content/resources/gru-resource-edit isEditing=true tempResource=resource}}`);
+  this.render(hbs`{{content/resources/gru-resource-edit isEditing=true resource=resource tempResource=resource}}`);
 
   const maxLenValue = this.$('.gru-resource-edit .gru-input.title input').prop('maxlength');
   assert.equal(maxLenValue, 50, "Input max length");
@@ -300,7 +346,9 @@ test('Validate the character limit in the Resource title field', function (asser
 
 test('Validate that settings component is present', function (assert) {
   var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
-    title: "Resource Title"
+    title: "Resource Title",
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
   });
 
   this.set('resource', resource);

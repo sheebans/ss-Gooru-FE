@@ -1,9 +1,9 @@
 import Ember from 'ember';
 
 /**
- * Domain Picker
+ * Standard Picker
  *
- * Component responsible for displaying two panels (course and domain) for a tree
+ * Component responsible for displaying three panels (course, domain and standards) for a tree
  * of browse items. Uses @see ../gru-taxonomy-picker
  *
  * @module
@@ -23,7 +23,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['taxonomy', 'modals', 'gru-domain-picker'],
+  classNames: ['taxonomy', 'modals', 'gru-standard-picker'],
 
 
   // -------------------------------------------------------------------------
@@ -45,7 +45,8 @@ export default Ember.Component.extend({
 
     this.set('panelHeaders', [
       this.get('i18n').t('common.course').string,
-      this.get('i18n').t('common.domain').string
+      this.get('i18n').t('common.domain').string,
+      this.get('i18n').t('common.standard').string
     ]);
   },
 
@@ -60,8 +61,8 @@ export default Ember.Component.extend({
   callback: null,
 
   /**
-   * Headers to display at the top of each one of the panels (course & domain).
-   * There *must* be one for each panel.
+   * Headers to display at the top of each one of the panels (course, domain
+   * and standards). There *must* be one for each panel.
    * @prop {String[]}
    */
   panelHeaders: []

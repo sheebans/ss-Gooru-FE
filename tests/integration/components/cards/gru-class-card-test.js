@@ -6,7 +6,8 @@ import Ember from 'ember';
 moduleForComponent('cards/gru-class-card', 'Integration | Component | cards/gru class card', {
   integration: true,
   beforeEach: function () {
-    this.container.lookup('service:i18n').set("locale","en");
+    this.container.lookup('service:i18n').set("locale", "en");
+    this.inject.service('i18n');
   }
 });
 
@@ -34,7 +35,8 @@ var mockClass = Ember.Object.create({
 });
 
 var mockProfile = Ember.Object.create({
-  id: 'test-profile'
+  id: 'test-profile',
+  displayName: "test",
 });
 
 var classStudentCount = Ember.Object.create({
@@ -47,7 +49,7 @@ test('Class Card Layout', function(assert) {
   this.set('profile', mockProfile);
   this.set('classStudentCount', classStudentCount);
 
-  assert.expect(10);
+  assert.expect(11);
 
   this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount}}`);
 
@@ -66,6 +68,7 @@ test('Class Card Layout', function(assert) {
   T.exists(assert, $classCard.find(".collaborators .name"), "Missing collaborator name");
   T.exists(assert, $classCard.find(".students-info"), "Missing students info");
   T.exists(assert, $classCard.find(".description div"), "Missing class info");
+  T.notExists(assert, $classCard.find(".download-report"), "Download report shouldn't be visible");
 
 });
 
@@ -105,3 +108,58 @@ test('Class with just one collaborator', function (assert) {
   T.notExists(assert, $classCard.find(".collaborators-count"), "Collaborators count should not exist");
 
 });
+
+test('Class Card Layout for archived class', function(assert) {
+
+  this.set('class', Ember.Object.create({
+    id: "class-id",
+    creatorId: "creator-id",
+    title: "My class - 1",
+    description: "This class is intended to make awareness of good habits",
+    greeting: "Hi! Welcome to my class",
+    grade: [4, 5],
+    classSharing: "open",
+    coverImage: "cover.png",
+    code: "VZFMEWH",
+    minScore: 75,
+    endDate: "2016-12-31",
+    courseId: null,
+    collaborator: [
+      "collaborator-1",
+      "collaborator-2"
+    ],
+    creatorSystem: null,
+    contentVisibility: null,
+    isArchived: true,
+    isTeacher: function () { return true; }
+  }));
+  this.set('profile', mockProfile);
+  this.set('classStudentCount', classStudentCount);
+  this.on('downloadReport', function(){
+    assert.ok(true, "Action should be called");
+  });
+
+  assert.expect(11);
+
+  this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount onDownloadReport='downloadReport'}}`);
+
+  var $component = this.$(); //component dom element
+
+  const $classCard = $component.find(".gru-class-card");
+  const $panel = $classCard.find(".panel");
+
+  T.exists(assert, $classCard, "Missing class card section");
+  T.exists(assert, $panel, "Missing class card panel");
+  assert.ok($panel.hasClass("teacher"), "Must be a teacher class card");
+  T.exists(assert, $classCard.find("h5"), "Missing class card title");
+  T.notExists(assert, $classCard.find(".side-info"), "side info shouldn't be visible");
+  T.exists(assert, $classCard.find(".collaborators .collaborator-avatar"), "Missing collaborator avatar");
+  T.exists(assert, $classCard.find(".collaborators .name"), "Missing collaborator name");
+  T.exists(assert, $classCard.find(".students-info"), "Missing students info");
+  T.exists(assert, $classCard.find(".description div"), "Missing class info");
+  T.exists(assert, $classCard.find(".download-report"), "Download report should be visible");
+
+  $classCard.find(".download-report").click();
+
+});
+

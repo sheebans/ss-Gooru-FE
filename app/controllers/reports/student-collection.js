@@ -74,6 +74,15 @@ export default Ember.Controller.extend({
    */
   isCollection: Ember.computed.not("isAssessment"),
 
+
+  /**
+   * Indicates which is the url to go back when pressing the button
+   * this is usefull when comming from the player out of the context of a class
+   * this needs to be improved so it works when refreshing the page
+   * @property {string}
+   */
+  backUrl: null,
+
   // -------------------------------------------------------------------------
   // Observers
 
@@ -83,9 +92,10 @@ export default Ember.Controller.extend({
   loadSession: function (session) {
     const controller = this;
 
-    //Setting new content if we have some session opened
     const context = controller.get("context");
-    context.set("sessionId", session.sessionId);
+    if (session){ //collections has no session
+      context.set("sessionId", session.sessionId);
+    }
 
     controller.get("performanceService")
       .findAssessmentResultByCollectionAndStudent(context)

@@ -96,6 +96,31 @@ test('readUserProfile', function(assert) {
     });
 });
 
+test('readUserProfileByUsername', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('profileAdapter', Ember.Object.create({
+    readUserProfileByUsername: function(username) {
+      assert.equal(username, "username", "readUserProfileByUsername() function was called" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    normalizeReadProfile: function(profilePayload) {
+      assert.deepEqual({}, profilePayload, 'Wrong profile payload');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.readUserProfileByUsername("username")
+    .then(function() {
+      done();
+    });
+});
+
 test('followUserProfile', function(assert) {
   const service = this.subject();
   assert.expect(1);

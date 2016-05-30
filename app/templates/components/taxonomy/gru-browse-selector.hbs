@@ -14,7 +14,11 @@
                 <input type="checkbox"
                        checked={{browseItem.isSelected}}
                        onclick={{action 'selectCheckableItem' browseItem}} />
-                <span>{{browseItem.title}}</span>
+                <div>
+                  <strong>{{browseItem.title}}</strong>
+                  <!-- TODO: Replace with the item description -->
+                  <span>Maecenas commodo justo nec justo accumsan, quis faucibus velit tempus. Proin convallis mollis nisl, eu iaculis odio scelerisque ac. Phasellus pharetra lacus in pulvinar malesuada. Duis aliquet, ante non blandit imperdiet, ex massa dapibus ipsum, et iaculis massa turpis a neque.</span>
+                </div>
               </label>
 
               {{#if browseItem.children.length}}
@@ -30,7 +34,11 @@
                         <input type="checkbox"
                                checked={{browseItemChild.isSelected}}
                                onclick={{action 'selectCheckableItem' browseItemChild}} />
-                        <span>{{browseItemChild.title}}</span>
+                        <div>
+                          <strong>{{browseItemChild.title}}</strong>
+                          <!-- TODO: Replace with the item description -->
+                          <span>Maecenas commodo justo nec justo accumsan, quis faucibus velit tempus. Proin convallis mollis nisl, eu iaculis odio scelerisque ac. Phasellus pharetra lacus in pulvinar malesuada. Duis aliquet, ante non blandit imperdiet, ex massa dapibus ipsum, et iaculis massa turpis a neque.</span>
+                        </div>
                       </label>
 
                       {{#if browseItemChild.children.length}}
@@ -46,7 +54,9 @@
                                 <input type="checkbox"
                                        checked={{browseItemGrandChild.isSelected}}
                                        onclick={{action 'selectCheckableItem' browseItemGrandChild}} />
-                                <span>{{browseItemGrandChild.title}}</span>
+                                <div>
+                                  <span>{{browseItemGrandChild.title}}</span>
+                                </div>
                               </label>
                             </li>
                           {{/each}}
@@ -64,7 +74,7 @@
         {{else}}
 
           {{#each headerItem.data as |browseItem|}}
-            <li class="{{if browseItem.hasChildrenSelected 'selected'}}">
+            <li class="{{if browseItem.hasChildrenSelected 'selected'}} {{if browseItem.isActive 'active'}}">
               <a {{action 'selectInsideItem' browseItem}}>{{browseItem.title}}</a>
             </li>
           {{/each}}
