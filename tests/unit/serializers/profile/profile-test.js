@@ -18,16 +18,16 @@ test('serializeCreateProfile', function(assert) {
     dateOfBirth: '01/01/2000',
     role: 'role'
   });
-  const expected = {
-    firstname: 'first-name',
-    lastname: 'last-name',
-    username: 'username',
-    'email_id': 'email',
-    password: 'password',
-    'birth_date': '01/01/2000',
-    'user_category': 'role',
-    gender: null,
-    grade: []
+  const expected =  {
+    firstname:"first-name",
+    lastname:"last-name",
+    username:"username",
+    email_id:"email",
+    password:"password",
+    birth_date:"01/01/2000",
+    user_category:"role",
+    gender:null,
+    grade:[]
   };
   const response = serializer.serializeCreateProfile(profileObject);
   assert.deepEqual(expected, response, 'Wrong serialized response');
@@ -50,20 +50,22 @@ test('serializeUpdateProfile', function(assert) {
     stateId: 'state-id',
     schoolDistrictId: 'school-district-id'
   });
+
   const expected = {
-    firstname: 'first-name',
-    lastname: 'last-name',
-    'user_category': 'role',
-    username:'username',
-    grade: [],
-    country: 'country',
-    state: 'state',
-    'school_district': 'school-district',
-    'about_me': 'about-me',
-    'country_id': 'country-id',
-    'state_id': 'state-id',
-    'school_district_id': 'school-district-id'
-  };
+    "firstname":"first-name",
+    "lastname":"last-name",
+    "roster_global_userid":null,
+    "user_category":"role",
+    "username":"username",
+    "grade":[],
+    "country":"country",
+    "about_me":"about-me",
+    "country_id":"country-id",
+    "state_id":"state-id",
+    "school_district_id":"school-district-id",
+    "state":"state",
+    "school_district":"school-district"};
+
   const response = serializer.serializeUpdateProfile(profile);
   assert.deepEqual(expected, response, 'Wrong serialized response');
 });
