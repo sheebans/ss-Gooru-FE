@@ -48,14 +48,13 @@ test('serializeUpdateProfile', function(assert) {
     aboutMe: 'about-me',
     countryId: 'country-id',
     stateId: 'state-id',
-    studentId:'studentId',
     schoolDistrictId: 'school-district-id'
   });
   const expected = {
     firstname: 'first-name',
     lastname: 'last-name',
-    username:'username',
     'user_category': 'role',
+    username:'username',
     grade: [],
     country: 'country',
     state: 'state',
@@ -63,7 +62,6 @@ test('serializeUpdateProfile', function(assert) {
     'about_me': 'about-me',
     'country_id': 'country-id',
     'state_id': 'state-id',
-     studentId:'studentId',
     'school_district_id': 'school-district-id'
   };
   const response = serializer.serializeUpdateProfile(profile);
