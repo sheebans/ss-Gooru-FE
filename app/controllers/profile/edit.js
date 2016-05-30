@@ -13,6 +13,10 @@ export default Ember.Controller.extend({
    */
   lookupService: Ember.inject.service('api-sdk/lookup'),
 
+  /**
+   * @property {Ember.Service} Session service
+   */
+  sessionService: Ember.inject.service("api-sdk/session"),
   // -------------------------------------------------------------------------
   // Actions
 

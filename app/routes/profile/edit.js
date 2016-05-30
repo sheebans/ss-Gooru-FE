@@ -91,7 +91,7 @@ export default Ember.Route.extend({
     }
 
     controller.set("profile", profile);
-    controller.set("tempProfile", profile.copy());
+    controller.set("tempProfile", profile);
     controller.get('parentController').selectMenuItem(null);
     controller.set("countries", model.countries);
     controller.set('states', model.states);

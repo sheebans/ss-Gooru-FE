@@ -9,6 +9,7 @@ export default Ember.Controller.extend({
 
   profileService: Ember.inject.service('api-sdk/profile'),
 
+  sessionService: Ember.inject.service('api-sdk/session'),
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -78,7 +79,13 @@ export default Ember.Controller.extend({
   },
 
   saveProfile(profile) {
-    this.get('profileService').updateMyProfile(profile);
+    const controller = this;
+    this.get('profileService').updateMyProfile(profile).then(function() {
+      let session = controller.get('session');
+      session.set('userData.isNew', false);
+      session.set('userData.username', profile.username);
+      controller.get('sessionService').updateUserData(session.get('userData'));
+    });
   }
 
 });

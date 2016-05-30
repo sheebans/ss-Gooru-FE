@@ -25,10 +25,12 @@ test('Layout', function(assert) {
     T.exists(assert, $editContainer, "Missing edit container");
     T.exists(assert, $editContainer.find(".cancel"), "Missing cancel button");
     T.exists(assert, $editContainer.find(".save"), "Missing save button");
+    T.exists(assert, $editContainer.find("#username"), "Missing username");
     T.exists(assert, $editContainer.find("#first-name"), "Missing user first name");
     T.exists(assert, $editContainer.find("#last-name"), "Missing user last name");
     T.exists(assert, $editContainer.find("#bio"), "Missing user biography");
     T.exists(assert, $editContainer.find(".roles"), "Missing roles radios");
+    T.exists(assert, $editContainer.find("#studentId"), "Missing username");
     assert.equal(find(".roles .gru-radio").length, 3, "Missing roles gru-radio components");
     T.exists(assert, $editContainer.find(".gru-select"), "Missing gru-select component of countries");
   });
