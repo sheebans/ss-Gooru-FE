@@ -15,7 +15,8 @@ test('it renders a taxonomy tag correctly', function(assert) {
     isRemovable: false,
     taxonomyItem: TaxonomyItem.create({
       id: "term-123",
-      title: "Taxonomy item text"
+      label: "Taxonomy item text",
+      caption: "Text caption"
     })
   });
   this.set('taxonomyTag', taxonomyTag);
@@ -29,7 +30,8 @@ test('it renders a taxonomy tag correctly', function(assert) {
   assert.notOk($component.hasClass('read-only'), 'Read only class by default');
   assert.notOk($component.find('button.remove').length, 'Remove button by default');
   assert.ok($component.find('button.toggle').length, 'Toggle button by default');
-  assert.equal($component.find('button.toggle').text(), 'Taxonomy item text', 'Tag text');
+  assert.equal($component.find('button.toggle > div > b').text(), 'Taxonomy item text', 'Tag label -button');
+  assert.equal($component.find('button.toggle > div > span').text(), 'Text caption', 'Tag caption -button');
 
   this.set('taxonomyTag.isActive', true);
   assert.ok($component.hasClass('active'), 'Active');
@@ -37,7 +39,8 @@ test('it renders a taxonomy tag correctly', function(assert) {
   this.set('taxonomyTag.isReadonly', true);
   assert.ok($component.hasClass('read-only'), 'Read-only');
   assert.notOk($component.find('button.toggle').length, 'Toggle button -read-only');
-  assert.equal($component.find('> span').text(), 'Taxonomy item text', 'Tag text -read-only');
+  assert.equal($component.find('> div > b').text(), 'Taxonomy item text', 'Tag label -read-only');
+  assert.equal($component.find('> div > span').text(), 'Text caption', 'Tag caption -read-only');
 
   this.set('taxonomyTag.isRemovable', true);
   assert.ok($component.find('button.remove').length, 'Removable');
@@ -50,7 +53,8 @@ test('if it is not read-only, it toggles its state and calls an external action 
     isActive: false,
     taxonomyItem: TaxonomyItem.create({
       id: "term-123",
-      title: "Taxonomy item text"
+      label: "Taxonomy item text",
+      caption: "Text caption"
     })
   });
   this.set('taxonomyTag', taxonomyTag);
@@ -79,7 +83,8 @@ test('it calls an external action when its remove button is clicked', function(a
     isRemovable: true,
     taxonomyItem: TaxonomyItem.create({
       id: "term-123",
-      title: "Taxonomy item text"
+      label: "Taxonomy item text",
+      caption: "Text caption"
     })
   });
   this.set('taxonomyTag', taxonomyTag);
