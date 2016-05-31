@@ -13,6 +13,7 @@ export default Ember.Object.extend({
 
   /**
    * Normalize the Fetch Taxonomy Subjects endpoint's response
+   *
    * @param payload is the endpoint response in JSON format
    * @returns {Subject[]} an array of subjects
    */
@@ -28,19 +29,36 @@ export default Ember.Object.extend({
     return result;
   },
 
-  normalizeSubject: function(subjectPayload, parentTitle) {
+  normalizeSubject: function(subjectPayload) {
     var serializer = this;
     return TaxonomyRoot.create(Ember.getOwner(serializer).ownerInjection(), {
-      id: subjectPayload['taxonomy_subject_id'] ? subjectPayload['taxonomy_subject_id'] : subjectPayload.id,
+      id: subjectPayload.id,
       frameworkId: subjectPayload['standard_framework_id'],
       title: subjectPayload.title,
-      subjectTitle: parentTitle ?
-        `${subjectPayload['standard_framework_id']} ${parentTitle}` :
-        subjectPayload.title,
+      subjectTitle: subjectPayload.title,
       code: subjectPayload.code,
-      children: subjectPayload.frameworks ? subjectPayload.frameworks.map(function(framework) {
-        return serializer.normalizeSubject(framework, subjectPayload.title);
-      }) : []
+      frameworks: serializer.normalizeFrameworks(subjectPayload.frameworks, subjectPayload.title)
+    });
+  },
+
+  normalizeFrameworks: function(frameworksPayload, parentTitle) {
+    var frameworks = [];
+    const serializer = this;
+    if (frameworksPayload && Ember.isArray(frameworksPayload)) {
+      frameworks = frameworksPayload.map(function(framework) {
+        return serializer.normalizeFramework(framework, parentTitle);
+      });
+    }
+    return frameworks;
+  },
+
+  normalizeFramework: function(subjectPayload, parentTitle) {
+    const serializer = this;
+    return TaxonomyRoot.create(Ember.getOwner(serializer).ownerInjection(), {
+      id: subjectPayload['taxonomy_subject_id'],
+      frameworkId: subjectPayload['standard_framework_id'],
+      title: subjectPayload.title,
+      subjectTitle: `${subjectPayload['standard_framework_id']} ${parentTitle}`
     });
   },
 

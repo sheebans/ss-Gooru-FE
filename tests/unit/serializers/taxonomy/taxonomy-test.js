@@ -51,14 +51,14 @@ test('normalizeFetchSubjects', function(assert) {
   assert.equal(subject1.get('title'), 'Visual & Performing Arts', 'Wrong subject title');
   assert.equal(subject1.get('subjectTitle'), 'Visual & Performing Arts', 'Wrong subject subjectTitle');
   assert.equal(subject1.get('code'), 'GDF.K12.VPA', 'Wrong subject code');
-  const frameworks = subject1.get('children');
+  const frameworks = subject1.get('frameworks');
   assert.equal(frameworks.length, 1, 'Wrong number of frameworks');
   const framework1 = frameworks.objectAt(0);
   assert.equal(framework1.get('id'), 'TEKS.K12.FA', 'Wrong framework id');
   assert.equal(framework1.get('frameworkId'), 'TEKS', 'Wrong framework frameworkId');
   assert.equal(framework1.get('title'), 'Texas Essential Knowledge and Skills', 'Wrong framework title');
   assert.equal(framework1.get('subjectTitle'), 'TEKS Visual & Performing Arts', 'Wrong framework subjectTitle');
-  assert.equal(framework1.get('children.length'), 0, 'Wrong number of framework children');
+  assert.equal(framework1.get('frameworks.length'), 0, 'Wrong number of frameworks');
 });
 
 test('normalizeFetchCourses', function(assert) {
