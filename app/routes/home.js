@@ -65,10 +65,17 @@ export default Ember.Route.extend( {
     const promises = [];
     archivedClasses.forEach(function(aClass){
       aClass.set("reportStatus", classesStatus[aClass.get("id")]);
-      if (aClass.get("isReportInProgress")){
-        promises.push();
+      if (aClass.get("isReportInProgress")){ //checking if the report is ready for those classes having the report in progress
+        const promise = classService.readClassReportStatus(aClass.get("id"), aClass.get("courseId"))
+          .then(function(status){
+            aClass.set("reportStatus", status);
+            return status;
+        });
+        promises.push(promise);
       }
     });
+
+    return Ember.RSVP.all(promises);
   },
 
   /**
