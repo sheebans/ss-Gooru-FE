@@ -13,6 +13,12 @@ export default Ember.Object.extend({
   children: [],
 
   /**
+   * @property {string} caption - Additional detail for the item's label displayed
+   * in a taxonomy tag.
+   */
+  caption: '',
+
+  /**
    * @property {string} code - Display code for the item
    */
   code: '',
@@ -21,6 +27,11 @@ export default Ember.Object.extend({
    * @property {string} id - Item ID
    */
   id: null,
+
+  /**
+   * @property {string} label - Text label to display in a taxonomy tag
+   */
+  label: '',
 
   /**
    * @property {string} title - Text label for this item
