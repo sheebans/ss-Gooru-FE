@@ -37,13 +37,22 @@ export default Ember.Route.extend({
 
     return route.get('courseService').fetchById(params.courseId)
       .then(function (course) {
-        var createdUsers = course.collaborator;
-        createdUsers.addObject(course.creatorId);
-        createdUsersProfile = route.get('profileService').readMultipleProfiles(createdUsers);
-        if(course.originalCourseId){
-          var remixedUsers = [course.creatorId];
-          remixedUsersProfile = route.get('profileService').readMultipleProfiles(remixedUsers);
+        var collaboratorUsers = course.collaborator;
+        var originalCreatorId = course.originalCreatorId;
+        var creatorId = course.creatorId;
+
+        collaboratorUsers.addObject(creatorId);
+
+        if(originalCreatorId && originalCreatorId!==creatorId){
+
+          var createdUsers = [originalCreatorId];
+          createdUsersProfile = route.get('profileService').readMultipleProfiles(createdUsers);
+          remixedUsersProfile = route.get('profileService').readMultipleProfiles(collaboratorUsers);
         }
+        else {
+          createdUsersProfile = route.get('profileService').readMultipleProfiles(collaboratorUsers);
+        }
+
         return Ember.RSVP.hash({
           course: course,
           createdUsers:createdUsersProfile,
