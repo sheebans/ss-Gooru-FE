@@ -288,7 +288,9 @@ export default {
     "remix-unit-success": "You've remixed a unit {{unitTitle}}.",
     "remixed-by": "Remixed by",
     "remove":"Remove",
+    "report-in-progress": "Report in progress",
     "request-to":"Request to be searchable and featured in Gooru",
+    "request-report": "Request Report",
     "resource":"Resource",
     "resources": "Resources",
     "resource-format":{

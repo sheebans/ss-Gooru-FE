@@ -144,7 +144,10 @@
       }
     }
 
-    .btn.download-report {
+    .btn.download-report,
+    .btn.request-report,
+    .btn.report-not-available,
+    .btn.report-in-progress {
       margin-left: 10px;
       i.material-icons {
         font-style: $font-size-h5;
