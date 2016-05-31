@@ -133,6 +133,7 @@ test('Class Card Layout for archived class, report available', function(assert) 
     isArchived: true,
     isReportAvailable: true,
     isReportInProgress: false,
+    hasCourse: true,
     isTeacher: function () { return true; }
   }));
   this.set('profile', mockProfile);
@@ -192,6 +193,7 @@ test('Class Card Layout for archived class, report in progress', function(assert
     isArchived: true,
     isReportAvailable: false,
     isReportInProgress: true,
+    hasCourse: true,
     isTeacher: function () { return true; }
   }));
   this.set('profile', mockProfile);
@@ -234,6 +236,7 @@ test('Class Card Layout for archived class, request report', function(assert) {
     isArchived: true,
     isReportAvailable: false,
     isReportInProgress: false,
+    hasCourse: true,
     canRequestReport: true,
     isTeacher: function () { return true; }
   }));
@@ -282,7 +285,7 @@ test('Class Card Layout for archived class, not available', function(assert) {
     isArchived: true,
     isReportAvailable: false,
     isReportInProgress: false,
-    isReportNotAvailable: true,
+    hasCourse: false,
     canRequestReport: false,
     isTeacher: function () { return true; }
   }));

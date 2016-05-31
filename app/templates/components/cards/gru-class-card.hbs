@@ -33,9 +33,9 @@
       {{#if class.isReportAvailable}}
         <button class="btn btn-success download-report" {{action 'downloadReport'}}>{{gru-icon name="file_download"}} {{t "common.download-report"}}</button>
       {{/if}}
-      {{#if class.isReportNotAvailable}}
+      {{#unless class.hasCourse}}
           <button class="btn btn-info report-not-available disabled">{{gru-icon name="highlight_off"}} {{t "common.no-content"}}</button>
-      {{/if}}
+      {{/unless}}
       {{#if class.isReportInProgress}}
         <button class="btn btn-info report-in-progress disabled">{{gru-icon name="av_timer"}} {{t "common.report-in-progress"}}</button>
       {{/if}}
