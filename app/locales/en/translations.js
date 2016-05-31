@@ -336,7 +336,7 @@ export default {
     "standards": "Standards",
     "study": "Study",
     "student": "Student",
-    "student-id":"Student ID",
+    "student-id":"Student ID (not displayed on Profile)",
     "submit": "Submit",
     "submit-all":"Submit all",
     "swap": "Re-order",
