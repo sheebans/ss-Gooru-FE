@@ -69,6 +69,62 @@ export default Ember.Object.extend({
       code: coursePayload.code,
       title: coursePayload.title
     });
+  },
+
+  /**
+   * Normalize the Fetch Taxonomy Domains endpoint's response
+   *
+   * @param payload is the endpoint response in JSON format
+   * @returns {Course[]} an array of domains
+   */
+  normalizeFetchDomains: function(payload) {
+    var result = [];
+    const serializer = this;
+    const domains = payload.domains;
+    if (Ember.isArray(domains)) {
+      result = domains.map(function(domain) {
+        return serializer.normalizeDomain(domain);
+      });
+    }
+    return result;
+  },
+
+  normalizeDomain: function(domainPayload) {
+    var serializer = this;
+    return TaxonomyItem.create(Ember.getOwner(serializer).ownerInjection(), {
+      id: domainPayload.id,
+      code: domainPayload.code,
+      title: domainPayload.title
+    });
+  },
+
+  /**
+   * Normalize the Fetch Taxonomy Codes endpoint's response
+   *
+   * @param payload is the endpoint response in JSON format
+   * @returns {Course[]} an array of codes
+   */
+  normalizeFetchCodes: function(payload) {
+    var result = [];
+    const serializer = this;
+    const codes = payload.codes;
+    if (Ember.isArray(codes)) {
+      result = codes.map(function(code) {
+        return serializer.normalizeCode(code);
+      });
+    }
+    return result;
+  },
+
+  normalizeCode: function(codePayload) {
+    var serializer = this;
+    return TaxonomyItem.create(Ember.getOwner(serializer).ownerInjection(), {
+      id: codePayload.id,
+      code: codePayload.code,
+      title: codePayload.title,
+      parentTaxonomyCodeId: codePayload['parent_taxonomy_code_id'],
+      codeType: codePayload['code_type']
+    });
   }
 
 });
