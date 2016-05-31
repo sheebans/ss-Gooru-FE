@@ -10,9 +10,7 @@ module.exports = function (grunt) {
       "ember-server-stubby": 'ember server --proxy http://localhost:8882',
       "ember-server-qa": 'ember server --proxy http://qa.gooru.org',
       "ember-server-nginx": 'ember server --proxy http://localhost:80',
-
       "nginx-start-server": 'sudo nginx -p ./ -c ./nginx.conf',
-      'nginx-start-test-server': 'sudo nginx -p ./ -c ./nginx-test.conf',
       'nginx-stop-server': 'sudo nginx -s stop',
 
       'build-dev': 'ember build',

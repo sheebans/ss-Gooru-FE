@@ -4,11 +4,35 @@ import Ember from 'ember';
 import Assessment from 'gooru-web/models/content/assessment';
 import Course from 'gooru-web/models/content/course';
 
+const taxonomyServiceStub = Ember.Service.extend({
+
+  getSubjects(category) {
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      if (!category) {
+        reject({status: 500});
+      } else {
+        resolve({
+          "subjects": [{
+            "id": "GDF.K12.CS",
+            "title": "Computer Science",
+            "description": null,
+            "code": "GDF.K12.CS",
+            "standard_framework_id": "GDF"
+          }]
+        });
+      }
+    });
+  }
+
+});
+
 moduleForComponent('content/assessments/gru-assessment-edit', 'Integration | Component | content/assessments/gru assessment edit', {
   integration: true,
   beforeEach: function () {
     this.i18n = this.container.lookup('service:i18n');
     this.i18n.set("locale","en");
+    this.register('service:api-sdk/taxonomy', taxonomyServiceStub);
+    this.inject.service('api-sdk/taxonomy');
   }
 });
 

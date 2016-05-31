@@ -158,7 +158,8 @@ export default Ember.Controller.extend({
     });
 
     controller.set('profile', profile);
-    controller.set('googleSignUpUrl', Env['google-sign-in'].url);
+    const url = `${window.location.protocol}//${window.location.host}${Env['google-sign-in'].url}`;
+    controller.set('googleSignUpUrl', url);
     controller.set('didValidate', false);
     controller.set('submitFlag', true);
   },

@@ -173,11 +173,21 @@ test('normalizeOwners', function(assert) {
 
 test('normalizeStandards', function(assert) {
   const serializer = this.subject();
-  const standardsData = [ "a", "b"];
+  const standardsData = {
+    "12": {
+      code: "a",
+      title: "title a"
+    },
+    "13": {
+      code: "b",
+      title: "title b"
+    },
+  };
 
   const standards = serializer.normalizeStandards(standardsData);
   assert.equal(standards.length, 2, 'Wrong standards length');
   assert.equal(standards[0].get("code"), "a", 'Wrong code');
+  assert.equal(standards[0].get("key"), "12", 'Wrong key');
 });
 
 
@@ -255,7 +265,7 @@ test('normalizeCollection', function(assert) {
     "title": "oops poly basics",
     "publish_status": "published",
     "thumbnail": "collection.png",
-    "taxonomy": [ "K12.MA" ],
+    "taxonomy": { "K12.MA": { code: "K12.MA"} },
     "visible_on_profile": false,
     "learning_objective": "This is important collection",
     "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
@@ -300,7 +310,7 @@ test('normalizeAssessment', function(assert) {
     "title": "oops poly basics",
     "publish_status": "published",
     "thumbnail": "collection.png",
-    "taxonomy": [ "K12.MA" ],
+    "taxonomy": { "K12.MA": { code: "K12.MA"} },
     "visible_on_profile": false,
     "learning_objective": "This is important collection",
     "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
@@ -408,7 +418,7 @@ test('normalizeReadCollections', function(assert) {
         "title": "oops poly basics",
         "publish_status": "published",
         "thumbnail": "collection.png",
-        "taxonomy": [ "K12.MA" ],
+        "taxonomy": { "K12.MA": { code: "K12.MA"} },
         "visible_on_profile": false,
         "learning_objective": "This is important collection",
         "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
@@ -423,7 +433,7 @@ test('normalizeReadCollections', function(assert) {
         "title": "oops poly basics",
         "publish_status": "published",
         "thumbnail": "collection.png",
-        "taxonomy": [ "K12.MA" ],
+        "taxonomy": { "K12.MA": { code: "K12.MA"} },
         "visible_on_profile": false,
         "learning_objective": "This is important collection",
         "owner_id": "2",
@@ -459,7 +469,7 @@ test('normalizeReadAssessments', function(assert) {
         "title": "oops poly basics",
         "publish_status": "published",
         "thumbnail": "collection.png",
-        "taxonomy": [ "K12.MA" ],
+        "taxonomy": { "K12.MA": { code: "K12.MA"} },
         "visible_on_profile": false,
         "learning_objective": "This is important collection",
         "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
@@ -473,7 +483,7 @@ test('normalizeReadAssessments', function(assert) {
         "title": "oops poly basics",
         "publish_status": "published",
         "thumbnail": "collection.png",
-        "taxonomy": [ "K12.MA" ],
+        "taxonomy": { "K12.MA": { code: "K12.MA"} },
         "visible_on_profile": false,
         "learning_objective": "This is important collection",
         "owner_id": "2",

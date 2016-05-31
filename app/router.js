@@ -87,8 +87,6 @@ Router.map(function() {
 
   this.route('home');
 
-  this.route('api'); //development api for testing end points
-
   this.route('featured');
 
   this.route('account-settings', { path: '/account-settings/:userId' });

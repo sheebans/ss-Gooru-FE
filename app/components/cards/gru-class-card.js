@@ -10,6 +10,10 @@ export default Ember.Component.extend({
   actions: {
     downloadReport: function(){
       this.sendAction("onDownloadReport", this.get("class"));
+    },
+
+    requestReport: function(){
+      this.sendAction("onRequestReport", this.get("class"));
     }
   },
 

@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import { sortFeaturedCourses,getSubjects } from 'gooru-web/utils/sort-featured-courses';
+
 /**
  * featured courses component
  *
@@ -27,46 +29,21 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-
   // -------------------------------------------------------------------------
   // Properties
 
   courses:null,
 
-  subjects: Ember.computed('courses', function() {
-    let subjects = this.get('courses').map(
-      course => Ember.Object.create({
-        subject: course.subject,
-        subjectSequence: course.subjectSequence,
-      })
-    ).filter(
-      (elem, pos, list) => list.reduce(
-        (result, e, i) => result < 0 && e.subject === elem.subject ? i : result , -1
-      ) === pos
-    );
-    return subjects.sort((a,b) => a.subjectSequence-b.subjectSequence);
-  }),
-
-  orderedCourses: Ember.computed('subjects', 'courses', function(){
-    let result = this.get('subjects').map(
-      subjectBucket => this.get('courses').filter(
-        course => course.subject===subjectBucket.subject
-      )
-    );
-    return result.map(
-      arrayOfCourses => arrayOfCourses.sort(
-        (a,b) => a.sequence-b.sequence));
-  }),
-
-  formattedContent: Ember.computed('subjects', 'orderedCourses', function(){
-    return this.get('subjects').map(
+  formattedContent: Ember.computed('courses', function(){
+    return getSubjects(this.get('courses')).map(
       (subjectBucket, index) => Ember.Object.create({
         'category': subjectBucket.subject.slice(0,subjectBucket.subject.indexOf('.')),
         'subject':  subjectBucket.subject.slice(subjectBucket.subject.indexOf('.')+1),
-        'courses': this.get('orderedCourses')[index]
+        'courses': sortFeaturedCourses(this.get('courses'))[index]
       })
     );
   }),
+  
   // -------------------------------------------------------------------------
   // Methods
   didInsertElement: function() {
@@ -75,6 +52,5 @@ export default Ember.Component.extend({
       offset: 200
     });
   }
-
 
 });

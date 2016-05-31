@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { sortFeaturedCourses } from 'gooru-web/utils/sort-featured-courses';
 //import Course from 'gooru-web/models/content/course';
 
 export default Ember.Component.extend({
@@ -87,7 +88,11 @@ export default Ember.Component.extend({
    /**
     * @type {String} selected Course's ID
     */
-    hasSelectedCourse: Ember.computed.notEmpty('selectedCourse'),
+   hasSelectedCourse: Ember.computed.notEmpty('selectedCourse'),
+
+   orderedCourses: Ember.computed( 'model.courses', function(){
+     return sortFeaturedCourses(this.get('model.courses'));
+   }),
 
   //Methods
 });
