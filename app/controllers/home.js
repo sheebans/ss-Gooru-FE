@@ -18,11 +18,11 @@ export default Ember.Controller.extend({
     },
 
     downloadReport: function (aClass) {
-      Ember.Logger.debug(aClass.get("id"));
       const classId = aClass.get("id");
       const courseId = aClass.get("courseId");
-      const url = `/api/nucleus-download-reports/v1/class/${classId}/course/${courseId}/download/file`;
-      console.debug(url);
+      const basePath = `${window.location.protocol}//${window.location.host}`;
+      const url = `${basePath}/api/nucleus-download-reports/v1/class/${classId}/course/${courseId}/download/file`;
+      Ember.$("#download_iframe").attr("src", url);
     },
 
     requestReport: function (aClass) {

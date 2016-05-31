@@ -73,7 +73,7 @@ module.exports = function (environment) {
   };
 
   ENV['google-sign-in'] = {
-    url: 'http://nucleus-qa.gooru.org/api/nucleus-auth-idp/v1/google'
+    url: `/api/nucleus-auth-idp/v1/google`
   };
 
   if (environment === 'development') {
