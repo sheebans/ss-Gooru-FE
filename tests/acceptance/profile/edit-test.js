@@ -26,6 +26,10 @@ test('Layout', function(assert) {
     T.exists(assert, $editContainer.find(".cancel"), "Missing cancel button");
     T.exists(assert, $editContainer.find(".save"), "Missing save button");
     T.exists(assert, $editContainer.find("#username"), "Missing username");
+
+    const maxLenValue = this.$('#username input').prop('maxlength');
+    assert.equal(maxLenValue, 25, "Incorrect input max length");
+
     T.exists(assert, $editContainer.find("#first-name"), "Missing user first name");
     T.exists(assert, $editContainer.find("#last-name"), "Missing user last name");
     T.exists(assert, $editContainer.find("#bio"), "Missing user biography");
@@ -43,6 +47,20 @@ test('no menu option is selected when entering to edit mode', function (assert) 
       var $menu = find('.controller.profile > .navigation .profile-menu');
       assert.equal(currentURL(), '/pochita/edit');
       assert.notOk(!!$menu.find('.selected').length, 'A menu option is selected');
+  });
+});
+
+test('Validate Student ID field', function (assert) {
+  visit('/pochita/edit');
+
+  andThen(function () {
+    const $studentId = find("#studentId");
+    $studentId.find("input").val('!Value');
+    $studentId.find("input").blur();
+
+    return wait().then(function () {
+      assert.ok($studentId.find(".error-messages .error").length, 'Student ID error message should be appear');
+    });
   });
 });
 
