@@ -45,13 +45,29 @@ export default Ember.Route.extend( {
     let route = this;
     const myId = route.get("session.userId");
     let profilePromise = route.get('profileService').readUserProfile(myId);
+    const classesStatus = this.get("classService").getReportClassesStatusFromStore(myId);
 
     return profilePromise.then(function(profile){
       let myClasses = route.get('classService').findMyClasses(profile);
       return Ember.RSVP.hash({
         myClasses: myClasses,
+        classesStatus: classesStatus,
         profile: profile
       });
+    });
+  },
+
+  afterModel: function(model){
+    const classes = model.myClasses.classes || Ember.A([]);
+    const archivedClasses = classes.filterBy("isArchived", true);
+    const classesStatus = model.classesStatus;
+    const classService = this.get("classService");
+    const promises = [];
+    archivedClasses.forEach(function(aClass){
+      aClass.set("reportStatus", classesStatus[aClass.get("id")]);
+      if (aClass.get("isReportInProgress")){
+        promises.push();
+      }
     });
   },
 

@@ -173,11 +173,21 @@ test('normalizeOwners', function(assert) {
 
 test('normalizeStandards', function(assert) {
   const serializer = this.subject();
-  const standardsData = [ "a", "b"];
+  const standardsData = {
+    "12": {
+      code: "a",
+      title: "title a"
+    },
+    "13": {
+      code: "b",
+      title: "title b"
+    },
+  };
 
   const standards = serializer.normalizeStandards(standardsData);
   assert.equal(standards.length, 2, 'Wrong standards length');
   assert.equal(standards[0].get("code"), "a", 'Wrong code');
+  assert.equal(standards[0].get("key"), "12", 'Wrong key');
 });
 
 

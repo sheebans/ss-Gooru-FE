@@ -32,12 +32,15 @@
     {{#if class.isArchived}}
       {{#if class.isReportAvailable}}
         <button class="btn btn-success download-report" {{action 'downloadReport'}}>{{gru-icon name="file_download"}} {{t "common.download-report"}}</button>
-      {{else}}
-        {{#if class.isReportInProgress}}
-          <button class="btn btn-info report-in-progress disabled">{{gru-icon name="av_timer"}} {{t "common.report-in-progress"}}</button>
-        {{else}}
+      {{/if}}
+      {{#if class.isReportNotAvailable}}
+          <button class="btn btn-info report-not-available disabled">{{gru-icon name="highlight_off"}} {{t "common.no-content"}}</button>
+      {{/if}}
+      {{#if class.isReportInProgress}}
+        <button class="btn btn-info report-in-progress disabled">{{gru-icon name="av_timer"}} {{t "common.report-in-progress"}}</button>
+      {{/if}}
+      {{#if class.canRequestReport}}
           <button class="btn btn-info request-report" {{action 'requestReport'}}>{{gru-icon name="timeline"}} {{t "common.request-report"}}</button>
-        {{/if}}
       {{/if}}
     {{/if}}
   </div>

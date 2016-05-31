@@ -32,25 +32,21 @@
   </div>
   <div class="content tab-content">
     <div role="tabpanel" class="tab-pane row {{if showActiveClasses 'active'}}" id="active-classes">
-      {{#each myClasses.classes as |class|}}
-        {{#unless class.isArchived}}
+      {{#each activeClasses as |class|}}
           {{cards.gru-class-card
           class=class
           profile=profile
           classStudentCount=myClasses.memberCount}}
-        {{/unless}}
       {{/each}}
     </div>
     <div role="tabpanel" class="tab-pane row {{if showArchivedClasses 'active'}}" id="archived-classes">
-      {{#each myClasses.classes as |class|}}
-        {{#if class.isArchived}}
+      {{#each archivedClasses as |class|}}
           {{cards.gru-class-card
           class=class
           profile=profile
           onDownloadReport="downloadReport"
           onRequestReport="requestReport"
           classStudentCount=myClasses.memberCount}}
-        {{/if}}
       {{/each}}
     </div>
   </div>

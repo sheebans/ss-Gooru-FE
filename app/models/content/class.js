@@ -154,6 +154,11 @@ const Class = Ember.Object.extend(Validations, {
   /**
    * @property {boolean}
    */
+  isReportNotAvailable: Ember.computed.not("courseId"),
+
+  /**
+   * @property {boolean}
+   */
   isReportRequested: Ember.computed.equal("reportStatus", "queued"),
 
   /**
@@ -161,6 +166,14 @@ const Class = Ember.Object.extend(Validations, {
    */
   isReportInProgress: Ember.computed("reportStatus", function(){
     return this.get("isReportRequested") || this.get("reportStatus") === "in-progress";
+  }),
+
+  /**
+   * @property {boolean}
+   */
+  canRequestReport: Ember.computed("reportStatus", function(){
+    const couldBeAvailable = !this.get("isReportNotAvailable");
+    return couldBeAvailable && !this.get("isReportInProgress") && !this.get("isReportAvailable");
   }),
 
   // -------------------

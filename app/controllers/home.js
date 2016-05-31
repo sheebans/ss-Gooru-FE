@@ -28,7 +28,9 @@ export default Ember.Controller.extend({
     requestReport: function (aClass) {
       const classId = aClass.get("id");
       const courseId = aClass.get("courseId");
-      this.get("classService").requestClassReport(classId, courseId);
+      this.get("classService").requestClassReport(classId, courseId).then(function(status){
+        aClass.set("reportStatus", status);
+      });
     }
   },
 
@@ -45,6 +47,16 @@ export default Ember.Controller.extend({
    * @property {boolean}
    */
   showArchivedClasses: false,
+
+  /**
+   * @property {Class[]}
+   */
+  activeClasses: Ember.computed.filterBy("myClasses.classes", "isArchived", false),
+
+  /**
+   * @property {Class[]}
+   */
+  archivedClasses: Ember.computed.filterBy("myClasses.classes", "isArchived", true),
 
 
   /**
