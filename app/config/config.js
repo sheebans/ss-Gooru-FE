@@ -115,3 +115,10 @@ export const NETWORK_TYPE = {
 export const COUNTRY_CODES = {
   US: 'US'
 };
+
+export const TAXONOMY_LEVELS = {
+  COURSE:   'course',
+  DOMAIN:   'domain',
+  STANDARD: 'standard',
+  MICRO:    'micro-standard'
+};
