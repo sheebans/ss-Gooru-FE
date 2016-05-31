@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import Profile from 'gooru-web/models/profile/profile';
+import EditProfileValidations from 'gooru-web/validations/edit-profile';
 
 export default Ember.Route.extend({
   // -------------------------------------------------------------------------
@@ -14,7 +16,7 @@ export default Ember.Route.extend({
   // Methods
 
   beforeModel: function() {
-    //TODO check for path
+    // TODO: authenticate session with ember-simple-auth, if not send to log in
   },
 
   /**
@@ -22,17 +24,25 @@ export default Ember.Route.extend({
    */
   model: function(params) {
     let route = this;
-    let profile = null;
     let userId = params.userId;
     if (userId) {
       let isUsername = !/-.*-/.exec(userId);
-      profile = isUsername ?
+      let profilePromise = isUsername ?
         route.get('profileService').readUserProfileByUsername(params.userId) :
         route.get('profileService').readUserProfile(params.userId);
+
+      return profilePromise.then(function(profile) {
+          var EditProfileValidation = Profile.extend(EditProfileValidations);
+          var editProfile = EditProfileValidation.create(Ember.getOwner(route).ownerInjection());
+          editProfile.merge(profile, profile.modelProperties());
+          return Ember.RSVP.hash({
+            profile: editProfile
+          });
+        });
     }
 
     return Ember.RSVP.hash({
-      profile: profile
+      profile: null
     });
   },
 

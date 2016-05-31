@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import Profile from 'gooru-web/models/profile/profile';
 import Env from 'gooru-web/config/environment';
+import signUpValidations from 'gooru-web/validations/sign-up';
 
 export default Ember.Controller.extend({
 
@@ -147,7 +148,8 @@ export default Ember.Controller.extend({
 
   resetProperties(){
     var controller = this;
-    var profile = Profile.create(Ember.getOwner(this).ownerInjection(), {
+    var signUpProfile = Profile.extend(signUpValidations);
+    var profile = signUpProfile.create(Ember.getOwner(this).ownerInjection(), {
       username: null,
       usernameAsync: null,
       password: null,
