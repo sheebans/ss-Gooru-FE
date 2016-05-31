@@ -10,13 +10,13 @@
       {{#each firstUsers as |entity index|}}
           <li class="item user {{if entity.isActive 'active' ''}}">
               <img class="img-circle name-{{index}}" src="{{entity.avatarUrl}}" title="{{entity.fullName}}" />
-            <span class="user-name">{{truncate text=entity.firstName maxLength=10}}</span>
+            <span class="user-name">{{truncate text=entity.fullName maxLength=10}}</span>
           </li>
       {{/each}}
 
       {{#if showMoreUsers}}
-          <li class="item num-left">
-              <span>{{remainingUsersNumber}}</span>
+          <li class="item num-left pointer">
+              <span {{action 'showMoreUsers'}}>{{remainingUsersNumber}}+</span>
           </li>
       {{else}}
         {{#each remainingUsers as |entity|}}
@@ -41,6 +41,7 @@
             {{#each remainingUsers as |entity|}}
               <li class="item user {{if entity.isActive 'active' ''}}">
                 <img class="img-circle" src="{{entity.avatarUrl}}" title="{{entity.fullName}}" />
+                <span class="user-name">{{truncate text=entity.fullName maxLength=10}}</span>
               </li>
             {{/each}}
           </ul>

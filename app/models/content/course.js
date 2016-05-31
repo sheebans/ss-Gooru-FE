@@ -101,6 +101,13 @@ export default Ember.Object.extend(Validations, {
   unitCount: 0,
 
   /**
+   * @property {Profile[]}
+   */
+  remixedBy: Ember.computed("user", function(){
+    return Ember.A([this.get("owner")]); //TODO add also collaborators
+  }),
+
+  /**
    * Return a copy of the course
    *
    * @function
