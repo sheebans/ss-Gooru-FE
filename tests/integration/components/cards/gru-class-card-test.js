@@ -109,7 +109,7 @@ test('Class with just one collaborator', function (assert) {
 
 });
 
-test('Class Card Layout for archived class', function(assert) {
+test('Class Card Layout for archived class, report available', function(assert) {
 
   this.set('class', Ember.Object.create({
     id: "class-id",
@@ -131,6 +131,8 @@ test('Class Card Layout for archived class', function(assert) {
     creatorSystem: null,
     contentVisibility: null,
     isArchived: true,
+    isReportAvailable: true,
+    isReportInProgress: false,
     isTeacher: function () { return true; }
   }));
   this.set('profile', mockProfile);
@@ -139,7 +141,7 @@ test('Class Card Layout for archived class', function(assert) {
     assert.ok(true, "Action should be called");
   });
 
-  assert.expect(11);
+  assert.expect(13);
 
   this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount onDownloadReport='downloadReport'}}`);
 
@@ -158,8 +160,97 @@ test('Class Card Layout for archived class', function(assert) {
   T.exists(assert, $classCard.find(".students-info"), "Missing students info");
   T.exists(assert, $classCard.find(".description div"), "Missing class info");
   T.exists(assert, $classCard.find(".download-report"), "Download report should be visible");
+  T.notExists(assert, $classCard.find(".report-in-progress"), "Report in progress should not be visible");
+  T.notExists(assert, $classCard.find(".request-report"), "Request report should not be visible");
 
   $classCard.find(".download-report").click();
 
+});
+
+test('Class Card Layout for archived class, report in progress', function(assert) {
+
+  this.set('class', Ember.Object.create({
+    id: "class-id",
+    creatorId: "creator-id",
+    title: "My class - 1",
+    description: "This class is intended to make awareness of good habits",
+    greeting: "Hi! Welcome to my class",
+    grade: [4, 5],
+    classSharing: "open",
+    coverImage: "cover.png",
+    code: "VZFMEWH",
+    minScore: 75,
+    endDate: "2016-12-31",
+    courseId: null,
+    collaborator: [
+      "collaborator-1",
+      "collaborator-2"
+    ],
+    creatorSystem: null,
+    contentVisibility: null,
+    isArchived: true,
+    isReportAvailable: false,
+    isReportInProgress: true,
+    isTeacher: function () { return true; }
+  }));
+  this.set('profile', mockProfile);
+  this.set('classStudentCount', classStudentCount);
+
+  assert.expect(3);
+
+  this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount}}`);
+
+  var $component = this.$(); //component dom element
+
+  const $classCard = $component.find(".gru-class-card");
+  T.notExists(assert, $classCard.find(".download-report"), "Download report should not be visible");
+  T.exists(assert, $classCard.find(".report-in-progress.disabled"), "Report in progress should be visible");
+  T.notExists(assert, $classCard.find(".request-report"), "Request report should not be visible");
+});
+
+test('Class Card Layout for archived class, request report', function(assert) {
+
+  this.set('class', Ember.Object.create({
+    id: "class-id",
+    creatorId: "creator-id",
+    title: "My class - 1",
+    description: "This class is intended to make awareness of good habits",
+    greeting: "Hi! Welcome to my class",
+    grade: [4, 5],
+    classSharing: "open",
+    coverImage: "cover.png",
+    code: "VZFMEWH",
+    minScore: 75,
+    endDate: "2016-12-31",
+    courseId: null,
+    collaborator: [
+      "collaborator-1",
+      "collaborator-2"
+    ],
+    creatorSystem: null,
+    contentVisibility: null,
+    isArchived: true,
+    isReportAvailable: false,
+    isReportInProgress: false,
+    isTeacher: function () { return true; }
+  }));
+  this.set('profile', mockProfile);
+  this.set('classStudentCount', classStudentCount);
+  this.on('requestReport', function(){
+    assert.ok(true, "Action should be called");
+  });
+
+  assert.expect(4);
+
+  this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount onRequestReport='requestReport'}}`);
+
+  var $component = this.$(); //component dom element
+
+  const $classCard = $component.find(".gru-class-card");
+  T.notExists(assert, $classCard.find(".download-report"), "Download report should not be visible");
+  T.notExists(assert, $classCard.find(".report-in-progress.disabled"), "Report in progress should not be visible");
+  T.exists(assert, $classCard.find(".request-report"), "Request report should be visible");
+
+  $classCard.find(".request-report").click();
 });
 

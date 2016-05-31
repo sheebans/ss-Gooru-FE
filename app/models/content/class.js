@@ -159,7 +159,9 @@ const Class = Ember.Object.extend(Validations, {
   /**
    * @property {boolean}
    */
-  isReportInProgress: Ember.computed.equal("reportStatus", "in-progress"),
+  isReportInProgress: Ember.computed("reportStatus", function(){
+    return this.get("isReportRequested") || this.get("reportStatus") === "in-progress";
+  }),
 
   // -------------------
   // Methods

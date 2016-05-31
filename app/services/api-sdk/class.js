@@ -9,6 +9,8 @@ export default Ember.Service.extend({
 
   store: Ember.inject.service(),
 
+  session: Ember.inject.service("session"),
+
   classSerializer: null,
 
   classAdapter: null,
@@ -179,7 +181,52 @@ export default Ember.Service.extend({
    * @returns {Promise.<string>} available|queued|in-progress
    */
   requestClassReport: function(classId, courseId) {
-    return this.readClassReportStatus(classId, courseId); //same end point as reading the status
+    const service = this;
+    return service.readClassReportStatus(classId, courseId).then(function(response){
+      service.storeClassReportStatus(classId, response);
+      return response;
+    }); //same end point as reading the status
+  },
+
+  /**
+   * Save the request report status in storage
+   * @param {string} classId the class id
+   * @param {string} status status for the class
+   */
+  storeClassReportStatus: function(classId, status) {
+    const localStorage = this.getLocalStorage();
+    const userId = this.get("session.userId");
+    if (localStorage) {
+      const reportInfo = JSON.parse(localStorage.getItem("report-info") || "{}");
+      const userInfo = reportInfo[userId] || { classes: {} };
+      userInfo.classes[classId] = status;
+
+      reportInfo[userId] = userInfo;
+      localStorage.setItem("report-info", JSON.stringify(reportInfo));
+    }
+  },
+
+  /**
+   * Gets the class report status info from storage
+   * @param userId
+   * @returns { * } { 'abcd-1234' : 'available', 'adfc-1223': 'queued' }
+   */
+  getReportClassesStatusFromStore: function (userId) {
+    const localStorage = this.getLocalStorage();
+    if (localStorage) {
+      const reportInfo = JSON.parse(localStorage.getItem("report-info") || "{}");
+      const userInfo = reportInfo[userId] || { classes: {} };
+      return userInfo.classes;
+    }
+    return null;
+  },
+
+  /**
+   * Returns the local storage
+   * @returns {Storage}
+   */
+  getLocalStorage: function(){
+    return window.localStorage;
   },
 
   /**

@@ -4,7 +4,7 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
-
+  classService: Ember.inject.service("api-sdk/class"),
 
   // -------------------------------------------------------------------------
 
@@ -19,6 +19,16 @@ export default Ember.Controller.extend({
 
     downloadReport: function (aClass) {
       Ember.Logger.debug(aClass.get("id"));
+      const classId = aClass.get("id");
+      const courseId = aClass.get("courseId");
+      const url = `/api/nucleus-download-reports/v1/class/${classId}/course/${courseId}/download/file`;
+      console.debug(url);
+    },
+
+    requestReport: function (aClass) {
+      const classId = aClass.get("id");
+      const courseId = aClass.get("courseId");
+      this.get("classService").requestClassReport(classId, courseId);
     }
   },
 
