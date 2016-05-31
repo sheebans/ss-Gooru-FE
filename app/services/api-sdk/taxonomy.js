@@ -55,12 +55,60 @@ export default Ember.Service.extend({
     });
   },
 
+  /**
+   * Fetches the Taxonomy Courses
+   *
+   * @param frameworkId - the framework ID
+   * @param taxonomySubjectId - the taxonomy subject ID
+   * @returns {Promise}
+   */
   fetchCourses: function(frameworkId, taxonomySubjectId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('taxonomyAdapter').fetchCourses(frameworkId, taxonomySubjectId)
         .then(function(response) {
           resolve(service.get('taxonomySerializer').normalizeFetchCourses(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
+  /**
+   * Fetches the Taxonomy Domains
+   *
+   * @param frameworkId - the framework ID
+   * @param taxonomySubjectId - the taxonomy subject ID
+   * @param taxonomyCourseId - the taxonomy course ID
+   * @returns {Promise}
+   */
+  fetchDomains: function(frameworkId, taxonomySubjectId, taxonomyCourseId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('taxonomyAdapter').fetchDomains(frameworkId, taxonomySubjectId, taxonomyCourseId)
+        .then(function(response) {
+          resolve(service.get('taxonomySerializer').normalizeFetchDomains(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
+  /**
+   * Fetches the Taxonomy Codes
+   *
+   * @param frameworkId - the framework ID
+   * @param taxonomySubjectId - the taxonomy subject ID
+   * @param taxonomyCourseId - the taxonomy course ID
+   * @param taxonomyDomainId - the taxonomy domain ID
+   * @returns {Promise}
+   */
+  fetchCodes: function(frameworkId, taxonomySubjectId, taxonomyCourseId, taxonomyDomainId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('taxonomyAdapter').fetchCodes(frameworkId, taxonomySubjectId, taxonomyCourseId, taxonomyDomainId)
+        .then(function(response) {
+          resolve(service.get('taxonomySerializer').normalizeFetchCodes(response));
         }, function(error) {
           reject(error);
         });
