@@ -127,7 +127,8 @@ export default Ember.Object.extend(Validations, {
 
     // Copy the audience and taxonomy values
     properties.audience = audience.slice(0);
-    properties.taxonomy = taxonomy.slice(0);
+    // TODO This needs to be fixed as part of the changes to taxonomy
+    //properties.taxonomy = taxonomy.slice(0);
 
     return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
   },
