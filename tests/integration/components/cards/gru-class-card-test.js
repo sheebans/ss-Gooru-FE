@@ -163,7 +163,7 @@ test('Class Card Layout for archived class, report available', function(assert) 
   T.exists(assert, $classCard.find(".download-report"), "Download report should be visible");
   T.notExists(assert, $classCard.find(".report-in-progress"), "Report in progress should not be visible");
   T.notExists(assert, $classCard.find(".request-report"), "Request report should not be visible");
-  T.notExists(assert, $classCard.find(".report-not-available.disabled"), "Report not available should not be visible");
+  T.notExists(assert, $classCard.find(".report-not-available"), "Report not available should not be visible");
 
   $classCard.find(".download-report").click();
 
@@ -207,8 +207,8 @@ test('Class Card Layout for archived class, report in progress', function(assert
 
   const $classCard = $component.find(".gru-class-card");
   T.notExists(assert, $classCard.find(".download-report"), "Download report should not be visible");
-  T.exists(assert, $classCard.find(".report-in-progress.disabled"), "Report in progress should be visible");
-  T.notExists(assert, $classCard.find(".report-not-available.disabled"), "Report not available should not be visible");
+  T.exists(assert, $classCard.find(".report-in-progress"), "Report in progress should be visible");
+  T.notExists(assert, $classCard.find(".report-not-available"), "Report not available should not be visible");
   T.notExists(assert, $classCard.find(".request-report"), "Request report should not be visible");
 });
 
@@ -254,8 +254,8 @@ test('Class Card Layout for archived class, request report', function(assert) {
 
   const $classCard = $component.find(".gru-class-card");
   T.notExists(assert, $classCard.find(".download-report"), "Download report should not be visible");
-  T.notExists(assert, $classCard.find(".report-in-progress.disabled"), "Report in progress should not be visible");
-  T.notExists(assert, $classCard.find(".report-not-available.disabled"), "Report not available should not be visible");
+  T.notExists(assert, $classCard.find(".report-in-progress"), "Report in progress should not be visible");
+  T.notExists(assert, $classCard.find(".report-not-available"), "Report not available should not be visible");
   T.exists(assert, $classCard.find(".request-report"), "Request report should be visible");
 
   $classCard.find(".request-report").click();
@@ -300,8 +300,8 @@ test('Class Card Layout for archived class, not available', function(assert) {
 
   const $classCard = $component.find(".gru-class-card");
   T.notExists(assert, $classCard.find(".download-report"), "Download report should not be visible");
-  T.notExists(assert, $classCard.find(".report-in-progress.disabled"), "Report in progress should not be visible");
+  T.notExists(assert, $classCard.find(".report-in-progress"), "Report in progress should not be visible");
   T.notExists(assert, $classCard.find(".request-report"), "Request report should not be visible");
-  T.exists(assert, $classCard.find(".report-not-available.disabled"), "Report not available should be visible");
+  T.exists(assert, $classCard.find(".report-not-available"), "Report not available should be visible");
 });
 
