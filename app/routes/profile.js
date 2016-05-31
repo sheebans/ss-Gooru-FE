@@ -32,8 +32,8 @@ export default Ember.Route.extend({
         route.get('profileService').readUserProfile(params.userId);
 
       return profilePromise.then(function(profile) {
-          var ProfileValidation = Profile.extend(EditProfileValidations);
-          var editProfile = ProfileValidation.create(Ember.getOwner(route).ownerInjection());
+          var EditProfileValidation = Profile.extend(EditProfileValidations);
+          var editProfile = EditProfileValidation.create(Ember.getOwner(route).ownerInjection());
           editProfile.merge(profile, profile.modelProperties());
           return Ember.RSVP.hash({
             profile: editProfile
