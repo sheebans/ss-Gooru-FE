@@ -8,6 +8,7 @@ import ResourceModel from 'gooru-web/models/content/resource';
  */
 export default Ember.Object.extend({
 
+  session: Ember.inject.service('session'),
 
   /**
    * Serialize a Resource object into a JSON representation required by the Create Resource endpoint
@@ -64,7 +65,7 @@ export default Ember.Object.extend({
     const serializer = this;
     const format = ResourceModel.normalizeResourceFormat(resourceData.content_subformat);
     const standards = resourceData.taxonomy || [];
-    return ResourceModel.create(Ember.getOwner(serializer).ownerInjection(), {
+    const resource = ResourceModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: resourceData.id,
       title: resourceData.title,
       url: resourceData.url,
@@ -80,18 +81,49 @@ export default Ember.Object.extend({
       isVisibleOnProfile: typeof resourceData['visible_on_profile'] !== 'undefined' ? resourceData['visible_on_profile'] : true,
       order: resourceData.sequence_id
     });
+
+    //is full path if it has protocol
+    const isFullPath = resourceData.url ? /^(?:[a-z]+:)?\/\//.exec(resourceData.url) : false;
+
+    if (resource.get("isImageResource") || resource.get("isPDFResource")){
+      if (!isFullPath){ // if it is a relative url, load from content cdn
+        const basePath = serializer.get('session.cdnUrls.content');
+        const url = resourceData.url ? basePath + resourceData.url : null;
+        resource.set("url", url);
+      }
+    }
+    if (resource.get("isUrlResource")) {
+      if (!isFullPath){ //if no protocol add http as default
+        const url = resourceData.url ? "http://" + resourceData.url : null;
+        resource.set("url", url);
+      }
+    }
+    return resource;
   },
 
   /**
    * Normalizes standards
-   * @param {string[]} standards
-   * @returns {Content/User}
+   *
+   * @param {{*}} standards
+   * @returns {*}
    */
   normalizeStandards: function (standards) {
-    return standards.map(function(standard){
-      return Ember.Object.create({ code: standard, description: null });
-    });
-  },
+    const values = [];
+    if (!standards) { return values }
+
+    for (var key in standards) {
+      if (standards.hasOwnProperty(key)) {
+        let standard = standards[key];
+        values.push(Ember.Object.create({
+          key: key,
+          code: standard.code,
+          title: standard.title,
+          parentTitle: standard.parentTitle
+        }));
+      }
+    }
+    return values;
+  }
 
 
 

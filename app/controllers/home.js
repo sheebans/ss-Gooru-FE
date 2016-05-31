@@ -4,7 +4,7 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
-
+  classService: Ember.inject.service("api-sdk/class"),
 
   // -------------------------------------------------------------------------
 
@@ -18,7 +18,19 @@ export default Ember.Controller.extend({
     },
 
     downloadReport: function (aClass) {
-      Ember.Logger.debug(aClass.get("id"));
+      const classId = aClass.get("id");
+      const courseId = aClass.get("courseId");
+      const basePath = `${window.location.protocol}//${window.location.host}`;
+      const url = `${basePath}/api/nucleus-download-reports/v1/class/${classId}/course/${courseId}/download/file`;
+      Ember.$("#download_iframe").attr("src", url);
+    },
+
+    requestReport: function (aClass) {
+      const classId = aClass.get("id");
+      const courseId = aClass.get("courseId");
+      this.get("classService").requestClassReport(classId, courseId).then(function(status){
+        aClass.set("reportStatus", status);
+      });
     }
   },
 
@@ -35,6 +47,16 @@ export default Ember.Controller.extend({
    * @property {boolean}
    */
   showArchivedClasses: false,
+
+  /**
+   * @property {Class[]}
+   */
+  activeClasses: Ember.computed.filterBy("myClasses.classes", "isArchived", false),
+
+  /**
+   * @property {Class[]}
+   */
+  archivedClasses: Ember.computed.filterBy("myClasses.classes", "isArchived", true),
 
 
   /**

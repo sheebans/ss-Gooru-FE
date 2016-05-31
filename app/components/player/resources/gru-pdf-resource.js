@@ -9,6 +9,7 @@ export default Ember.Component.extend({
   // Attributes
 
   classNames:['gru-pdf-resource'],
+  attributeBindings: ['resourceHeight:style'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -26,7 +27,22 @@ export default Ember.Component.extend({
 
   pdfURL:Ember.computed('resource.assetUrl',function(){
     return this.get("resource.assetUrl");
+  }),
+
+  /**
+   * @property {Number} the calculated resource content height
+   */
+
+  calculatedResourceContentHeight: null,
+
+  /**
+   * @property {string} bind the height css style for the component
+   */
+  resourceHeight: Ember.computed("calculatedResourceContentHeight", function(){
+    var height = this.get('calculatedResourceContentHeight');
+    return new Ember.Handlebars.SafeString("height: " + height + "px");
   })
+
 
   // -------------------------------------------------------------------------
   // Observers

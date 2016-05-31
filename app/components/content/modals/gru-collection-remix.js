@@ -52,12 +52,12 @@ export default RemixBaseModal.extend({
   },
 
   init: function() {
-     this._super(...arguments);     
+     this._super(...arguments);
      this.set('courseId', this.get('model.courseId'));
      this.set('unitId', this.get('model.unitId'));
      this.set('lessonId', this.get('model.lessonId'));
      this.set('isCollection', this.get('model.isCollection'));
 
-   },
+   }
 
 });

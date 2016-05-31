@@ -79,7 +79,8 @@ export default Ember.Controller.extend({
     var user = User.create(Ember.getOwner(this).ownerInjection(), {username: null, usernameAsync: null, password: null});
 
     controller.set('user', user);
-    controller.set('googleSignInUrl', Env['google-sign-in'].url);
+    const url = `${window.location.protocol}//${window.location.host}${Env['google-sign-in'].url}`;
+    controller.set('googleSignInUrl', url);
     controller.set('didValidate', false);
     controller.set('submitFlag', true);
   },

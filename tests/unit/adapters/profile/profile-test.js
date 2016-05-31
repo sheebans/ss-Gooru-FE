@@ -82,6 +82,39 @@ test('readUserProfile', function(assert) {
     });
 });
 
+test('readUserProfileByUsername', function(assert) {
+  assert.expect(2);
+
+  const adapter = this.subject();
+  const username = "user-id";
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+
+  const routes = function() {
+    //serving get profile request for userId 100
+    this.get('/api/nucleus/v1/profiles/100/demographics', function() {
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+
+    //serving get user by username
+    this.get('/api/nucleus-auth/v1/users', function(request) {
+      assert.equal(request.queryParams.username, "user-id", "Wrong username parameter");
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({ id: "100" })];
+    }, false);
+  };
+
+  this.pretender.map(routes);
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  adapter.readUserProfileByUsername(username)
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});
+
 test('followUserProfile', function(assert) {
   const adapter = this.subject();
   const userId = "user-id";

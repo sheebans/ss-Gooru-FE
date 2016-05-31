@@ -35,11 +35,6 @@ export default Ember.Route.extend({
           transition.abort();
         }
       }
-    },
-    profileAboutTransition: function(){
-      let route = this;
-      let userId = route.controller.get('profile.id');
-      this.transitionTo('profile.about', userId);
     }
   },
 
@@ -89,10 +84,9 @@ export default Ember.Route.extend({
     if (profile.get('schoolDistrictId')) {
       profile.set('schoolDistrict', null);
     }
-
+    controller.set("existingUsername", false);
     controller.set("profile", profile);
     controller.set("tempProfile", profile.copy());
-    controller.get('parentController').selectMenuItem(null);
     controller.set("countries", model.countries);
     controller.set('states', model.states);
     controller.set('districts', model.districts);

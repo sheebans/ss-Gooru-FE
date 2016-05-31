@@ -73,6 +73,26 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Gets the profile information of a given user id
+   *
+   * @param userId the unique profile user id
+   * @returns {Promise}
+   */
+  readUserProfileByUsername: function(username) {
+    const adapter = this;
+    const namespace = adapter.get('usersNamespace');
+    const url = `${namespace}?username=${username}`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options).then(function(data){
+      return adapter.readUserProfile(data.id);
+    });
+  },
+
+  /**
    * Follows a user profile
    * @param userId
    * @returns {*|Promise}

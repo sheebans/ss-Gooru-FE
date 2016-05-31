@@ -385,3 +385,86 @@ test('associateCourseToClass', function(assert) {
     });
 });
 
+test('readClassReportStatus', function(assert) {
+  const service = this.subject();
+  const expectedCourseId = 'course-id';
+  const expectedClassId = 'class-id';
+  assert.expect(3);
+
+  service.set('classAdapter', Ember.Object.create({
+    readClassReportStatus: function(classId, courseId) {
+      assert.equal(courseId, expectedCourseId, 'Wrong course id');
+      assert.equal(classId, expectedClassId, 'Wrong class id');
+      return Ember.RSVP.resolve({ status: 'available'});
+    }
+  }));
+
+  var done = assert.async();
+  service.readClassReportStatus(expectedClassId, expectedCourseId)
+    .then(function(response) {
+      assert.equal(response, "available", "Wrong status");
+      done();
+    });
+});
+
+test('requestClassReport', function(assert) {
+  const service = this.subject();
+  const expectedCourseId = 'course-id';
+  const expectedClassId = 'class-id';
+  assert.expect(5);
+
+  service.set('classAdapter', Ember.Object.create({
+    readClassReportStatus: function(classId, courseId) {
+      assert.equal(courseId, expectedCourseId, 'Wrong course id');
+      assert.equal(classId, expectedClassId, 'Wrong class id');
+      return Ember.RSVP.resolve({ status: 'available'});
+    }
+  }));
+
+  service.storeClassReportStatus = function(classId, status){
+    assert.equal(status, "available", 'Wrong status');
+    assert.equal(classId, expectedClassId, 'Wrong class id');
+  };
+
+  var done = assert.async();
+  service.requestClassReport(expectedClassId, expectedCourseId)
+    .then(function(response) {
+      assert.equal(response, "available", "Wrong status");
+      done();
+    });
+});
+
+test('storeClassReportStatus', function(assert) {
+  const service = this.subject();
+  const expectedClassIdA = 'class-id-a';
+  const expectedClassIdB = 'class-id-b';
+
+  service.set('session', Ember.Object.create({
+    "userId": "1"
+  }));
+
+  service.storeClassReportStatus(expectedClassIdA, "available");
+  service.storeClassReportStatus(expectedClassIdB, "queued");
+
+  const storage = window.localStorage;
+  const reportInfo = JSON.parse(storage.getItem("report-info"));
+  const userInfo = reportInfo["1"];
+  assert.ok(userInfo, "Missing user info");
+  assert.equal(userInfo.classes[expectedClassIdA], "available", "wrong class status")
+  assert.equal(userInfo.classes[expectedClassIdB], "queued", "wrong class status")
+});
+
+test('getReportClassesStatusFromStore', function(assert) {
+  const service = this.subject();
+  service.set('session', Ember.Object.create({
+    "userId": "2"
+  }));
+
+  let classesStatus = service.getReportClassesStatusFromStore("2");
+  assert.deepEqual(classesStatus, {}, "Status should be empty");
+
+  service.storeClassReportStatus("2", "available");
+  classesStatus = service.getReportClassesStatusFromStore("2");
+  assert.equal(classesStatus["2"], "available", "Wrong status");
+});
+

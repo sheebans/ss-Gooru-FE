@@ -78,7 +78,7 @@ export default Ember.Component.extend({
    * of the narration -if there is one)
    */
   calculateResourceContentHeight: function() {
-    if (this.get('resource.resourceType') && this.get('resource.resourceType').indexOf('url') > -1) {
+    if (this.get("resource.isUrlResource") || this.get("resource.isPDFResource")) {
       let $component = this.$();
       let $header = $component.find('header');
       this.set('calculatedResourceContentHeight', $component.outerHeight(true) - $header.outerHeight(true) - 20);

@@ -48,6 +48,15 @@ export default RemixBaseModal.extend({
   showFailureNotification: function() {
     const message = this.get('i18n').t('common.errors.assessment-not-copied').string;
     this.get('notifications').error(message);
-  }
+  },
+
+  init: function() {
+     this._super(...arguments);
+     this.set('courseId', this.get('model.courseId'));
+     this.set('unitId', this.get('model.unitId'));
+     this.set('lessonId', this.get('model.lessonId'));
+     this.set('isCollection', this.get('model.isCollection'));
+
+   }
 
 });
