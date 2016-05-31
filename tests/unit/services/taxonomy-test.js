@@ -1,19 +1,20 @@
 import Ember from 'ember';
 import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
+import TaxonomyRoot from 'gooru-web/models/taxonomy/taxonomy-root';
 
 moduleForService('service:taxonomy', 'Unit | Service | taxonomy', {
   // needs: ['serializer:foo']
 });
 
 test('getSubjects', function(assert) {
-  //const service = this.subject();
+  const service = this.subject();
 
-  assert.ok(true, 'Temporal Assert');
+  assert.expect(3); // Just the first time the taxonomy data should be loaded for every category.
 
-  /*
   service.set('apiTaxonomyService', Ember.Object.create({
-    fetchSubjects: function(type) {
+    fetchSubjects: function() {
+      assert.ok(true);  // This assert should be evaluated for every subject category
       var result = Ember.A([
         TaxonomyRoot.create(Ember.getOwner(service).ownerInjection(), {
           id: 'GDF.K12.VPA',
@@ -30,29 +31,25 @@ test('getSubjects', function(assert) {
             })
           ])
         }),
+        TaxonomyRoot.create(Ember.getOwner(service).ownerInjection(), {
+          id: 'GDF.K12.CS',
+          frameworkId: 'GDF',
+          title: 'Computer Science',
+          subjectTitle: 'Computer Science',
+          code: 'GDF.K12.CS'
+        })
       ]);
-
-      return TaxonomyRoot.create(Ember.getOwner(serializer).ownerInjection(), {
-        id: 'subject-id-1',
-        frameworkId: subjectPayload['standard_framework_id'],
-        title: subjectPayload.title,
-        subjectTitle: subjectPayload.title,
-        code: subjectPayload.code,
-        frameworks: serializer.normalizeFrameworks(subjectPayload.frameworks, subjectPayload.title)
-      });
-
-
-
-      assert.deepEqual(type, 'k_12', 'Wrong profile data');
-      return Ember.RSVP.resolve([]);
+      return Ember.RSVP.resolve(result);
     }
   }));
 
   var done = assert.async();
   service.getSubjects('k_12')
     .then(function() {
-      done();
+      service.getSubjects('higher_education') // The second call should not be calling the API fetchSubject method. The taxonomy subjects should be already loaded.
+        .then(function() {
+          done();
+        });
     });
-  */
 });
 

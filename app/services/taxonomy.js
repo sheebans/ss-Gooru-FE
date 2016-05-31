@@ -35,13 +35,14 @@ export default Ember.Service.extend({
    */
   getSubjects(category) {
     const service = this;
+    const apiTaxonomyService = service.get('apiTaxonomyService');
     return new Ember.RSVP.Promise(function(resolve) {
       var taxonomyContainer = service.get('taxonomyContainer');
       if (taxonomyContainer[category]) {
         resolve(taxonomyContainer[category]);
       } else {
         let promises = TAXONOMY_CATEGORIES.map(function(taxonomyCategory) {
-          return service.fetchSubjects(taxonomyCategory.value).then(function(subjects) {
+          return apiTaxonomyService.fetchSubjects(taxonomyCategory.value).then(function(subjects) {
             taxonomyContainer[taxonomyCategory.value] = subjects;
           });
         });
