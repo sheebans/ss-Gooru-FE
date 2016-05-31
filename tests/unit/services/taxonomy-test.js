@@ -4,10 +4,36 @@ import moduleForService from 'gooru-web/tests/helpers/module-for-service';
 import TaxonomyRoot from 'gooru-web/models/taxonomy/taxonomy-root';
 
 moduleForService('service:taxonomy', 'Unit | Service | taxonomy', {
-  // needs: ['serializer:foo']
+  beforeEach: function() {
+    this.taxonomySubjects = Ember.A([
+      TaxonomyRoot.create(Ember.getOwner(this).ownerInjection(), {
+        id: 'GDF.K12.VPA',
+        frameworkId: 'GDF',
+        title: 'Visual & Performing Arts',
+        subjectTitle: 'Visual & Performing Arts',
+        code: 'GDF.K12.VPA',
+        frameworks:  Ember.A([
+          TaxonomyRoot.create(Ember.getOwner(this).ownerInjection(), {
+            id: 'TEKS.K12.FA',
+            frameworkId: 'TEKS',
+            title: 'Texas Essential Knowledge and Skills',
+            subjectTitle: 'TEKS Visual & Performing Arts'
+          })
+        ])
+      }),
+      TaxonomyRoot.create(Ember.getOwner(this).ownerInjection(), {
+        id: 'GDF.K12.CS',
+        frameworkId: 'GDF',
+        title: 'Computer Science',
+        subjectTitle: 'Computer Science',
+        code: 'GDF.K12.CS'
+      })
+    ]);
+  }
 });
 
-test('getSubjects', function(assert) {
+test('getSubjects when taxonomy container has not been loaded', function(assert) {
+  const test = this;
   const service = this.subject();
 
   assert.expect(3); // Just the first time the taxonomy data should be loaded for every category.
@@ -15,31 +41,7 @@ test('getSubjects', function(assert) {
   service.set('apiTaxonomyService', Ember.Object.create({
     fetchSubjects: function() {
       assert.ok(true);  // This assert should be evaluated for every subject category
-      var result = Ember.A([
-        TaxonomyRoot.create(Ember.getOwner(service).ownerInjection(), {
-          id: 'GDF.K12.VPA',
-          frameworkId: 'GDF',
-          title: 'Visual & Performing Arts',
-          subjectTitle: 'Visual & Performing Arts',
-          code: 'GDF.K12.VPA',
-          frameworks:  Ember.A([
-            TaxonomyRoot.create(Ember.getOwner(service).ownerInjection(), {
-              id: 'TEKS.K12.FA',
-              frameworkId: 'TEKS',
-              title: 'Texas Essential Knowledge and Skills',
-              subjectTitle: 'TEKS Visual & Performing Arts'
-            })
-          ])
-        }),
-        TaxonomyRoot.create(Ember.getOwner(service).ownerInjection(), {
-          id: 'GDF.K12.CS',
-          frameworkId: 'GDF',
-          title: 'Computer Science',
-          subjectTitle: 'Computer Science',
-          code: 'GDF.K12.CS'
-        })
-      ]);
-      return Ember.RSVP.resolve(result);
+      return Ember.RSVP.resolve(test.taxonomySubjects);
     }
   }));
 
@@ -53,3 +55,64 @@ test('getSubjects', function(assert) {
     });
 });
 
+test('getSubjects when taxonomy is already loaded', function(assert) {
+  const service = this.subject();
+  const taxonomyContainer = {
+    'k_12': this.taxonomySubjects
+  };
+
+  service.set('taxonomyContainer', taxonomyContainer);
+
+  service.set('apiTaxonomyService', Ember.Object.create({
+    fetchSubjects: function() {
+      assert.ok(false, 'Method fetchSubjects() should not be called.');
+      return Ember.RSVP.resolve([]);
+    }
+  }));
+
+  var done = assert.async();
+  service.getSubjects('k_12')
+    .then(function(subjects) {
+      assert.equal(subjects.length, 2, 'Wrong number of subject elements');
+      done();
+    });
+});
+
+test('findSubjectById for a loaded category and subject', function(assert) {
+  const service = this.subject();
+  const taxonomyContainer = {
+    'k_12': this.taxonomySubjects
+  };
+
+  service.set('taxonomyContainer', taxonomyContainer);
+
+  var subject = service.findSubjectById('k_12', 'GDF.K12.VPA');
+  assert.equal(subject.get('id'), 'GDF.K12.VPA', 'Invalid subject id');
+  assert.equal(subject.get('frameworkId'), 'GDF', 'Invalid subject frameworkId');
+
+  var framework = service.findSubjectById('k_12', 'TEKS.K12.FA');
+  assert.equal(framework.get('id'), 'TEKS.K12.FA', 'Invalid framework id');
+  assert.equal(framework.get('frameworkId'), 'TEKS', 'Invalid framework frameworkId');
+});
+
+test('findSubjectById for a loaded category and non-loaded subject', function(assert) {
+  const service = this.subject();
+  const taxonomyContainer = {
+    'k_12': this.taxonomySubjects
+  };
+
+  service.set('taxonomyContainer', taxonomyContainer);
+
+  var subject = service.findSubjectById('k_12', 'non-existing-subject-id');
+  assert.equal(subject, null, 'Invalid subject. Should be null');
+});
+
+test('findSubjectById for a non-loaded category', function(assert) {
+  const service = this.subject();
+  const taxonomyContainer = {};
+
+  service.set('taxonomyContainer', taxonomyContainer);
+
+  var subject = service.findSubjectById('k_12', 'GDF.K12.VPA');
+  assert.equal(subject, null, 'Invalid subject. Should be null');
+});
