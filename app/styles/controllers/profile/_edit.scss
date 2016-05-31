@@ -51,6 +51,10 @@
         content: ' *';
       }
     }
+    .existing-user-error{
+      position: relative;
+      top:-16px;
+    }
   }
   @media (min-width: $screen-sm-min) {
     .panel {

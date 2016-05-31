@@ -76,16 +76,6 @@ export default Ember.Controller.extend({
    */
   selectMenuItem: function(item){
     this.set("menuItem", item);
-  },
-
-  saveProfile(profile) {
-    const controller = this;
-    this.get('profileService').updateMyProfile(profile).then(function() {
-      let session = controller.get('session');
-      session.set('userData.isNew', false);
-      session.set('userData.username', profile.username);
-      controller.get('sessionService').updateUserData(session.get('userData'));
-    });
   }
 
 });
