@@ -82,6 +82,9 @@ export default Ember.Object.extend({
 
     return CourseModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: payload.id,
+      collaborator: payload.collaborator ? payload.collaborator : [],
+      creatorId: payload.creator_id,
+      originalCourseId: payload.original_course_id,
       children: serializer.get('unitSerializer').normalizeUnits(payload.unit_summary),
       description: payload.description,
       isPublished: payload['publish_status'] && payload['publish_status'] === 'published',
