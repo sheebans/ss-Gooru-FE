@@ -86,13 +86,18 @@ test('findSubjectById for a loaded category and subject', function(assert) {
 
   service.set('taxonomyContainer', taxonomyContainer);
 
-  var subject = service.findSubjectById('k_12', 'GDF.K12.VPA');
-  assert.equal(subject.get('id'), 'GDF.K12.VPA', 'Invalid subject id');
-  assert.equal(subject.get('frameworkId'), 'GDF', 'Invalid subject frameworkId');
-
-  var framework = service.findSubjectById('k_12', 'TEKS.K12.FA');
-  assert.equal(framework.get('id'), 'TEKS.K12.FA', 'Invalid framework id');
-  assert.equal(framework.get('frameworkId'), 'TEKS', 'Invalid framework frameworkId');
+  var done = assert.async();
+  service.findSubjectById('GDF.K12.VPA')
+    .then(function(subject) {
+      assert.equal(subject.get('id'), 'GDF.K12.VPA', 'Invalid subject id');
+      assert.equal(subject.get('frameworkId'), 'GDF', 'Invalid subject frameworkId');
+      service.findSubjectById('TEKS.K12.FA')
+        .then(function(framework) {
+          assert.equal(framework.get('id'), 'TEKS.K12.FA', 'Invalid framework id');
+          assert.equal(framework.get('frameworkId'), 'TEKS', 'Invalid framework frameworkId');
+          done();
+        });
+    });
 });
 
 test('findSubjectById for a loaded category and non-loaded subject', function(assert) {
@@ -103,16 +108,27 @@ test('findSubjectById for a loaded category and non-loaded subject', function(as
 
   service.set('taxonomyContainer', taxonomyContainer);
 
-  var subject = service.findSubjectById('k_12', 'non-existing-subject-id');
-  assert.equal(subject, null, 'Invalid subject. Should be null');
+  service.findSubjectById('non-existing-subject-id')
+    .then(function(subject) {
+      assert.equal(subject, null, 'Invalid subject. Should be null');
+    });
 });
 
 test('findSubjectById for a non-loaded category', function(assert) {
+  const test = this;
   const service = this.subject();
   const taxonomyContainer = {};
 
   service.set('taxonomyContainer', taxonomyContainer);
+  service.set('apiTaxonomyService', Ember.Object.create({
+    fetchSubjects: function() {
+      return Ember.RSVP.resolve(test.taxonomySubjects);
+    }
+  }));
 
-  var subject = service.findSubjectById('k_12', 'GDF.K12.VPA');
-  assert.equal(subject, null, 'Invalid subject. Should be null');
+  var subject = service.findSubjectById('GDF.K12.VPA')
+    .then(function(subject) {
+      assert.equal(subject.get('id'), 'GDF.K12.VPA', 'Invalid subject id');
+      assert.equal(subject.get('frameworkId'), 'GDF', 'Invalid subject frameworkId');
+    });
 });
