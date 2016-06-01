@@ -11,6 +11,12 @@ export default Ember.Route.extend({
    */
   courseService: Ember.inject.service("api-sdk/course"),
 
+
+  /**
+   * @requires service:api-sdk/profile
+   */
+  profileService: Ember.inject.service("api-sdk/profile"),
+
   /**
    * @requires service:session
    */
@@ -25,52 +31,41 @@ export default Ember.Route.extend({
   },
 
   model: function (params) {
-    var course = this.get('courseService').fetchById(params.courseId);
+    var route = this;
+    var createdUsersProfile=[];
+    var remixedUsersProfile=[];
 
-    return Ember.RSVP.hash({
-      course: course
-    });
+    return route.get('courseService').fetchById(params.courseId)
+      .then(function (course) {
+        var collaboratorUsers = course.collaborator;
+        var originalCreatorId = course.originalCreatorId;
+        var creatorId = course.creatorId;
+
+        collaboratorUsers.addObject(creatorId);
+
+        if(originalCreatorId && originalCreatorId!==creatorId){
+
+          var createdUsers = [originalCreatorId];
+          createdUsersProfile = route.get('profileService').readMultipleProfiles(createdUsers);
+          remixedUsersProfile = route.get('profileService').readMultipleProfiles(collaboratorUsers);
+        }
+        else {
+          createdUsersProfile = route.get('profileService').readMultipleProfiles(collaboratorUsers);
+        }
+
+        return Ember.RSVP.hash({
+          course: course,
+          createdUsers:createdUsersProfile,
+          remixedUsers: remixedUsersProfile
+        });
+      });
   },
 
   setupController(controller, model) {
     var isOwner = model.course.get('owner') === this.get('session.userId');
-
-    // TODO: Remove mock data for the information panel
-    var owner_details = [
-      {
-        id: 'owner-1',
-        firstName: 'Russell',
-        fullName: 'Russell Owner1',
-        avatarUrl: '/assets/gooru/profile.png'
-      },
-      {
-        id: 'owner-2',
-        firstName: 'Frank',
-        fullName: 'Frank Owner2',
-        avatarUrl: '/assets/gooru/profile.png'
-      }
-    ];
-
-    var collaborator_details = [
-      {
-        id: 'collaborator-1',
-        firstName: 'Shawn',
-        fullName: 'Shawn Collaborator1',
-        avatarUrl: '/assets/gooru/profile.png'
-      },
-      {
-        id: 'collaborator-2',
-        firstName: 'Megan',
-        fullName: 'Megan Collaborator2',
-        avatarUrl: '/assets/gooru/profile.png'
-      }
-    ];
-
     var license = 'Public Domain';
     var useCase = 'Donec nulla tortor, viverra et posuere id, lobortis non felis. Nam id tristique metus, vitae sollicitudin mauris. Maecenas nec nisi arcu. Proin at ante sit amet velit fermentum porta. Nunc vitae egestas orci, ac pellentesque mi. Donec a urna nisi. Donec iaculis tincidunt nisi vel semper. Nam ullamcorper dictum lacus ac consequat. Nulla tempus tristique erat sed ornare. Etiam aliquet a velit in interdum. Nulla condimentum scelerisque elit, ac rhoncus ex euismod non. Donec vestibulum odio odio, at mollis quam tempor a. Phasellus hendrerit iaculis odio, eget auctor enim finibus at. Fusce posuere vel purus a dapibus.';
 
-    model.course.owner_details = owner_details;
-    model.course.collaborator_details = collaborator_details;
     model.course.license = license;
     model.course.useCase = useCase;
     // end of mock data!
@@ -83,6 +78,8 @@ export default Ember.Route.extend({
     });
 
     controller.set('course', model.course);
+    controller.set('createdUsers', model.createdUsers);
+    controller.set('remixedUsers', model.remixedUsers);
     controller.set('isOwner', isOwner);
   }
 

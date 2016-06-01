@@ -15,22 +15,27 @@ export default Ember.Controller.extend({
   actions: {
     toggleFollowingStatus() {
       const controller = this;
-      if (controller.get('profile.isFollowing')) {
-        controller.get('profileService').unfollowUserProfile(controller.get('profile.id'))
-          .then(function() {
-            controller.get('profileService').readUserProfile(controller.get('profile.id'))
-              .then(function(updatedProfile) {
-                controller.set('profile', updatedProfile);
-              });
-          });
+
+      if (this.get('session.isAnonymous')) {
+        this.send('showModal', 'content.modals.gru-login-prompt');
       } else {
-        controller.get('profileService').followUserProfile(controller.get('profile.id'))
-          .then(function() {
-            controller.get('profileService').readUserProfile(controller.get('profile.id'))
-              .then(function(updatedProfile) {
-                controller.set('profile', updatedProfile);
-              });
-          });
+        if (controller.get('profile.isFollowing')) {
+          controller.get('profileService').unfollowUserProfile(controller.get('profile.id'))
+            .then(function() {
+              controller.get('profileService').readUserProfile(controller.get('profile.id'))
+                .then(function(updatedProfile) {
+                  controller.set('profile', updatedProfile);
+                });
+            });
+        } else {
+          controller.get('profileService').followUserProfile(controller.get('profile.id'))
+            .then(function() {
+              controller.get('profileService').readUserProfile(controller.get('profile.id'))
+                .then(function(updatedProfile) {
+                  controller.set('profile', updatedProfile);
+                });
+            });
+        }
       }
     }
   },

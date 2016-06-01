@@ -1,3 +1,4 @@
+import ModalMixin from 'gooru-web/mixins/modal';
 /**
  * Course card
  *
@@ -8,10 +9,10 @@
 
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
-
+  session: Ember.inject.service('session'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -34,7 +35,12 @@ export default Ember.Component.extend({
      *Action triggered when select remix the course
      */
     remixCourse:function(){
-      this.sendAction("onRemixCourse", this.get("course"));
+
+      if (this.get('session.isAnonymous')) {
+        this.send('showModal', 'content.modals.gru-login-prompt');
+      } else {
+        this.sendAction("onRemixCourse", this.get("course"));
+      }
     }
   },
   // -------------------------------------------------------------------------

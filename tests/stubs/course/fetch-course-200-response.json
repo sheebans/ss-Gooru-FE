@@ -4,7 +4,7 @@
   "description": "this is new descrition",
   "owner_id": "8c2551be-48c3-41e9-89fe-97a59b703e84",
   "creator_id": "8c2551be-48c3-41e9-89fe-97a59b703e84",
-  "original_creator_id": null,
+  "original_creator_id": "8c2551be-48c3-41e9-89fe-97a59b703e84",
   "modifier_id": "8c2551be-48c3-41e9-89fe-97a59b703e84",
   "original_course_id": null,
   "publish_status": "unpublished",

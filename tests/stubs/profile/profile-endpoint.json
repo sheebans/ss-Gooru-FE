@@ -156,6 +156,27 @@
     }
   },
   {
+    "description": "API 3.0 Endpoint to get Multiple Profiles by IDs",
+    "request": {
+      "url": "^/api/nucleus-auth/v1/users",
+      "method": "GET",
+      "query": {
+        "ids": "(.+)"
+      },
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "profile-api3-multiple-profiles-200-response.json"
+    }
+  },
+  {
     "description": "API 3.0 Endpoint to update current user Profile info",
     "request": {
       "url": "^/api/nucleus-auth/v1/users/me",
