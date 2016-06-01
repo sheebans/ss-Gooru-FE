@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ResourceModel from 'gooru-web/models/content/resource';
+import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 
 /**
  * Serializer to support the Resource CRUD operations for API 3.0
@@ -9,6 +10,16 @@ import ResourceModel from 'gooru-web/models/content/resource';
 export default Ember.Object.extend({
 
   session: Ember.inject.service('session'),
+
+  /**
+   * @property {TaxonomySerializer} taxonomySerializer
+   */
+  taxonomySerializer: null,
+
+  init: function () {
+    this._super(...arguments);
+    this.set('taxonomySerializer', TaxonomySerializer.create(Ember.getOwner(this).ownerInjection()));
+  },
 
   /**
    * Serialize a Resource object into a JSON representation required by the Create Resource endpoint
@@ -32,12 +43,13 @@ export default Ember.Object.extend({
    * @returns {Object} returns a JSON Object
    */
   serializeUpdateResource: function(resourceModel) {
+    const serializer = this;
     let serializedResource = {
       'title': resourceModel.get('title'),
       'description': resourceModel.get('description'),
       'narration': resourceModel.get('narration'),
       'content_subformat': ResourceModel.serializeResourceFormat(resourceModel.get("format")),
-      'taxonomy': resourceModel.get('standards'),
+      'taxonomy': serializer.get('taxonomySerializer').serializeTaxonomy(resourceModel.get('standards')),
       'visible_on_profile': resourceModel.get('isVisibleOnProfile')//,
       //"depth_of_knowledge": null, // Not required at the moment
       //"thumbnail": null // Not required at the moment
@@ -72,7 +84,7 @@ export default Ember.Object.extend({
       format: format,
       description: resourceData.description,
       publishStatus: resourceData.publish_status,
-      standards: serializer.normalizeStandards(standards),
+      standards: serializer.get('taxonomySerializer').normalizeTaxonomy(standards),
       owner: resourceData.creator_id,
       metadata: {
         amIThePublisher: resourceData.metadata && resourceData.metadata['am_i_the_publisher'] ? resourceData.metadata['am_i_the_publisher'] : false,
@@ -90,33 +102,7 @@ export default Ember.Object.extend({
       }
     }
     return resource;
-  },
-
-  /**
-   * Normalizes standards
-   *
-   * @param {{*}} standards
-   * @returns {*}
-   */
-  normalizeStandards: function (standards) {
-    const values = [];
-    if (!standards) { return values }
-
-    for (var key in standards) {
-      if (standards.hasOwnProperty(key)) {
-        let standard = standards[key];
-        values.push(Ember.Object.create({
-          key: key,
-          code: standard.code,
-          title: standard.title,
-          parentTitle: standard.parentTitle
-        }));
-      }
-    }
-    return values;
   }
-
-
 
 });
 
