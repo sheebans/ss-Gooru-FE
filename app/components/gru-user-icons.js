@@ -21,16 +21,39 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
+  actions: {
+    showMoreUsers: function(){
+      const component = this;
+      const viewMoreIn = (this.get('viewMoreIn') === 'modal') ? 'modal' : 'tooltip';
 
+      if(!this.get('showOnlyNumbers')){
+        if (viewMoreIn === 'modal') {
+          component.$('.remaining').modal('toggle');
+        } else {
+          const openClass = component.get('tooltipOpenClass');
+          const anyTooltipSelector = '.gru-user-icons .' + openClass;
+          // The popovers are controlled manually so that only one popover
+          // is visible at a time
+          var $open = Ember.$(anyTooltipSelector);
+
+          if ($open.length) {
+            $open.removeClass(openClass).popover('hide');
+          }
+
+          if ($open.get(0) !== this) {
+            $(this).addClass(openClass).popover('show');
+          }
+        }
+      }
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Events
   setup: Ember.on('didInsertElement', function() {
     const viewMoreIn = (this.get('viewMoreIn') === 'modal') ? 'modal' : 'tooltip';
     if(!this.get('showOnlyNumbers')){
-      if (viewMoreIn === 'modal') {
-        this.setupModal();
-      } else {
+      if (viewMoreIn !== 'modal') {
         this.setupTooltip();
       }
     }
@@ -166,36 +189,6 @@ export default Ember.Component.extend({
         },
         trigger: 'manual'
       });
-
-      $anchor.on('click', function() {
-        const openClass = component.get('tooltipOpenClass');
-        const anyTooltipSelector = '.gru-user-icons .' + openClass;
-        // The popovers are controlled manually so that only one popover
-        // is visible at a time
-        var $open = Ember.$(anyTooltipSelector);
-
-        if ($open.length) {
-          $open.removeClass(openClass).popover('hide');
-        }
-
-        if ($open.get(0) !== this) {
-          $(this).addClass(openClass).popover('show');
-        }
-      });
-    }
-  },
-
-  setupModal: function() {
-    const component = this;
-    const $anchor = this.$('a.first-view');
-
-    if (this.get('showMoreUsers')) {
-
-      $anchor.addClass('clickable');
-      $anchor.on('click', function(){
-        component.$('.remaining').modal('toggle');
-      });
     }
   }
-
 });

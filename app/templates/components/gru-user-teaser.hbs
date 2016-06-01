@@ -2,7 +2,7 @@
     <img class="avatar" src="{{firstUser.avatarUrl}}">
 </span>
 <span class="user-full-name">
-  <a {{action 'selectUser'}}>{{firstUser.fullName}}</a>
+    {{#link-to 'profile.content.courses' firstUser.id}}{{firstUser.displayName}}{{/link-to}}
 </span>
 {{#if usersLeft}}
     <span class="total-users-left">

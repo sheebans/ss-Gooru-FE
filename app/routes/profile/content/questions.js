@@ -44,6 +44,10 @@ export default Ember.Route.extend(ModalMixin, {
 
   setupController: function (controller , model) {
     controller.set("questions", model);
+  },
+
+  deactivate: function() {
+    this.get("controller").resetValues();
   }
 
 

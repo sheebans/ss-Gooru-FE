@@ -171,7 +171,9 @@ test('readResources', function(assert) {
     'token-api3': 'token-api-3'
   }));
   const routes = function() {
-    this.get('/api/nucleus/v1/profiles/user-id/resources', function() {
+    this.get('/api/nucleus/v1/profiles/user-id/resources', function(request) {
+      assert.equal(request.queryParams['limit'], '20', 'Wrong limit');
+      assert.equal(request.queryParams['offset'], '40', 'Wrong offset');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   };
@@ -181,7 +183,7 @@ test('readResources', function(assert) {
     assert.ok(false, `Wrong request [${verb}] url: ${path}`);
   };
 
-  adapter.readResources(userId)
+  adapter.readResources(userId, { page: 2 })
     .then(function(response) {
       assert.deepEqual({}, response, 'Wrong response');
     });
@@ -194,7 +196,9 @@ test('readQuestions', function(assert) {
     'token-api3': 'token-api-3'
   }));
   const routes = function() {
-    this.get('/api/nucleus/v1/profiles/user-id/questions', function() {
+    this.get('/api/nucleus/v1/profiles/user-id/questions', function(request) {
+      assert.equal(request.queryParams['limit'], '20', 'Wrong limit');
+      assert.equal(request.queryParams['offset'], '40', 'Wrong offset');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   };
@@ -204,7 +208,7 @@ test('readQuestions', function(assert) {
     assert.ok(false, `Wrong request [${verb}] url: ${path}`);
   };
 
-  adapter.readQuestions(userId)
+  adapter.readQuestions(userId, { page: 2 })
     .then(function(response) {
       assert.deepEqual({}, response, 'Wrong response');
     });
@@ -218,7 +222,9 @@ test('readCollections', function(assert) {
     'token-api3': 'token-api-3'
   }));
   const routes = function() {
-    this.get('/api/nucleus/v1/profiles/user-id/collections', function() {
+    this.get('/api/nucleus/v1/profiles/user-id/collections', function(request) {
+      assert.equal(request.queryParams['limit'], '20', 'Wrong limit');
+      assert.equal(request.queryParams['offset'], '40', 'Wrong offset');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   };
@@ -228,7 +234,7 @@ test('readCollections', function(assert) {
     assert.ok(false, `Wrong request [${verb}] url: ${path}`);
   };
 
-  adapter.readCollections(userId)
+  adapter.readCollections(userId, { page: 2 })
     .then(function(response) {
       assert.deepEqual({}, response, 'Wrong response');
     });
@@ -241,7 +247,9 @@ test('readAssessments', function(assert) {
     'token-api3': 'token-api-3'
   }));
   const routes = function() {
-    this.get('/api/nucleus/v1/profiles/user-id/assessments', function() {
+    this.get('/api/nucleus/v1/profiles/user-id/assessments', function(request) {
+      assert.equal(request.queryParams['limit'], '20', 'Wrong limit');
+      assert.equal(request.queryParams['offset'], '40', 'Wrong offset');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   };
@@ -251,7 +259,7 @@ test('readAssessments', function(assert) {
     assert.ok(false, `Wrong request [${verb}] url: ${path}`);
   };
 
-  adapter.readAssessments(userId)
+  adapter.readAssessments(userId, { page: 2 })
     .then(function(response) {
       assert.deepEqual({}, response, 'Wrong response');
     });

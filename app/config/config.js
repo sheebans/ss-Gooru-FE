@@ -122,3 +122,5 @@ export const TAXONOMY_LEVELS = {
   STANDARD: 'standard',
   MICRO:    'micro-standard'
 };
+
+export const DEFAULT_PAGE_SIZE = 20;

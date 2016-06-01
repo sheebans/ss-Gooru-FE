@@ -268,10 +268,10 @@ export default Ember.Service.extend({
    * @param subject the subject to filter the courses
    * @returns {Promise}
    */
-  getCourses: function(profile, subject) {
+  getCourses: function(profile, subject, params) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileCoursesAdapter').getCourses(profile.get('id'), subject)
+      service.get('profileCoursesAdapter').getCourses(profile.get('id'), subject, params)
         .then(function(response) {
           resolve(service.get('courseSerializer').normalizeGetCourses(response));
         }, function(error) {
@@ -295,12 +295,13 @@ export default Ember.Service.extend({
   /**
    * Return the list of resources related to a user
    * @param {string} userId
+   * @param {*} params
    * @returns {RSVP.Promise.<Resource>}
    */
-  readResources: function(userId) {
+  readResources: function(userId, params) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readResources(userId).then(
+      service.get('profileAdapter').readResources(userId, params).then(
         function(response) {
           resolve(service.get('profileSerializer').normalizeReadResources(response));
         },
@@ -312,12 +313,13 @@ export default Ember.Service.extend({
   /**
    * Return the list of questions related to a user
    * @param {string} userId
+   * @param {*} params
    * @returns {RSVP.Promise.<Question>}
    */
-  readQuestions: function(userId) {
+  readQuestions: function(userId, params) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readQuestions(userId).then(
+      service.get('profileAdapter').readQuestions(userId, params).then(
         function(response) {
           resolve(service.get('profileSerializer').normalizeReadQuestions(response));
         },
@@ -329,12 +331,13 @@ export default Ember.Service.extend({
   /**
    * Return the list of collections related to a user
    * @param {string} userId
+   * @param {*} params
    * @returns {RSVP.Promise.<Collection>}
    */
-  readCollections: function(userId) {
+  readCollections: function(userId, params) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readCollections(userId).then(
+      service.get('profileAdapter').readCollections(userId, params).then(
         function(response) {
           resolve(service.get('profileSerializer').normalizeReadCollections(response));
         },
@@ -346,12 +349,13 @@ export default Ember.Service.extend({
   /**
    * Return the list of assessments related to a user
    * @param {string} userId
+   * @param {*} params
    * @returns {RSVP.Promise.<Assessment>}
    */
-  readAssessments: function(userId) {
+  readAssessments: function(userId, params) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readAssessments(userId).then(
+      service.get('profileAdapter').readAssessments(userId, params).then(
         function(response) {
           resolve(service.get('profileSerializer').normalizeReadAssessments(response));
         },
