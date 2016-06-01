@@ -244,6 +244,8 @@ test('readAssessments', function(assert) {
   }));
   const routes = function() {
     this.get('/api/nucleus/v1/profiles/user-id/assessments', function() {
+      assert.equal(request.queryParams['limit'], '20', 'Wrong limit');
+      assert.equal(request.queryParams['offset'], '40', 'Wrong offset');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   };
@@ -253,7 +255,7 @@ test('readAssessments', function(assert) {
     assert.ok(false, `Wrong request [${verb}] url: ${path}`);
   };
 
-  adapter.readAssessments(userId)
+  adapter.readAssessments(userId, { page: 2 })
     .then(function(response) {
       assert.deepEqual({}, response, 'Wrong response');
     });

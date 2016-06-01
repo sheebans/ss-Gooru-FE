@@ -551,11 +551,12 @@ test('readCollections', function(assert) {
 
 test('readAssessments', function(assert) {
   const service = this.subject();
-  assert.expect(2);
+  assert.expect(3);
 
   service.set('profileAdapter', Ember.Object.create({
-    readAssessments: function(userId) {
+    readAssessments: function(userId, params) {
       assert.equal(userId, 1, "readAssessments(1) function was called" );
+      assert.equal(params.page, 1, "Wrong page number" );
       return Ember.RSVP.resolve({});
     }
   }));
@@ -568,7 +569,7 @@ test('readAssessments', function(assert) {
   }));
 
   var done = assert.async();
-  service.readAssessments(1).then(function() { done(); });
+  service.readAssessments(1, { page:1 }).then(function() { done(); });
 });
 
 test('forgotPassword', function(assert) {

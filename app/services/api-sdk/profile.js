@@ -347,12 +347,13 @@ export default Ember.Service.extend({
   /**
    * Return the list of assessments related to a user
    * @param {string} userId
+   * @param {*} params
    * @returns {RSVP.Promise.<Assessment>}
    */
-  readAssessments: function(userId) {
+  readAssessments: function(userId, params) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readAssessments(userId).then(
+      service.get('profileAdapter').readAssessments(userId, params).then(
         function(response) {
           resolve(service.get('profileSerializer').normalizeReadAssessments(response));
         },
