@@ -56,7 +56,7 @@ test('deleteClass', function(assert) {
     'token-api3': 'token-api-3'
   }));
   this.pretender.map(function() {
-    this.delete('/api/nucleus/v1/classs/class-id', function() {
+    this.delete('/api/nucleus/v1/class/class-id', function() {
       return [ 204, { 'Content-Type': 'application/json; charset=utf-8' }, ''];
     }, false);
   });
