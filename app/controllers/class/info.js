@@ -28,7 +28,12 @@ export default Ember.Controller.extend(ModalMixin,{
     deleteClass: function(){
       var model = {
         content: this.get('class'),
-        deleteMethod: '',
+        deleteMethod: function () {
+          return this.get('classService').deleteClass(this.get('class.id'));
+        }.bind(this),
+        redirect: {
+          route: 'home'
+        }
       };
 
       this.actions.showModal.call(this,
