@@ -1,4 +1,5 @@
 import { moduleFor, test } from 'ember-qunit';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
 moduleFor('serializer:taxonomy/taxonomy', 'Unit | Serializer | taxonomy/taxonomy');
 
@@ -156,3 +157,68 @@ test('normalizeFetchCodes', function(assert) {
   assert.equal(code1.get('parentTaxonomyCodeId'), 'TEKS.K12.PE-K-MOV-01', 'Wrong code parentTaxonomyCodeId');
   assert.equal(code1.get('codeType'), 'standard_level_2', 'Wrong code codeType');
 });
+
+test('serializeTaxonomy', function(assert) {
+  const serializer = this.subject();
+  const taxonomyData = [
+    TaxonomyTagData.create({
+      id: 'GDF.K12.VPA',
+      code: 'GDF.K12.VPA',
+      title: 'Visual & Performing Arts',
+      parentTitle: '',
+      description: '',
+      frameworkCode: 'GDF'
+    }),
+    TaxonomyTagData.create({
+      id: 'TEKS.K12.FA',
+      code: 'TEKS.K12.FA',
+      title: 'Texas Essential Knowledge and Skills',
+      parentTitle: 'Visual & Performing Arts',
+      description: '',
+      frameworkCode: 'TEKS'
+    })
+  ];
+  const serializedTaxonomy = serializer.serializeTaxonomy(taxonomyData);
+  const taxonomySubject = serializedTaxonomy['GDF.K12.VPA'];
+  assert.equal(taxonomySubject.code, 'GDF.K12.VPA', 'Wrong subject code');
+  assert.equal(taxonomySubject.title, 'Visual & Performing Arts', 'Wrong subject title');
+  assert.equal(taxonomySubject['framework_code'], 'GDF', 'Wrong subject framework_code');
+  const taxonomyFramework = serializedTaxonomy['TEKS.K12.FA'];
+  assert.equal(taxonomyFramework.code, 'TEKS.K12.FA', 'Wrong framework code');
+  assert.equal(taxonomyFramework.title, 'Texas Essential Knowledge and Skills', 'Wrong framework title');
+  assert.equal(taxonomyFramework['parent_title'], 'Visual & Performing Arts', 'Wrong framework parent_title');
+  assert.equal(taxonomyFramework['framework_code'], 'TEKS', 'Wrong framework framework_code');
+});
+
+test('normalizeTaxonomy', function(assert) {
+  const serializer = this.subject();
+  const taxonomyJSON = {
+    'GDF.K12.VPA': {
+      code: 'GDF.K12.VPA',
+      title: 'Visual & Performing Arts',
+      'parent_title': '',
+      description: '',
+      'framework_code': 'GDF'
+    },
+    'TEKS.K12.FA': {
+      code: 'TEKS.K12.FA',
+      title: 'Texas Essential Knowledge and Skills',
+      'parent_title': 'Visual & Performing Arts',
+      description: '',
+      'framework_code': 'TEKS'
+    }
+  };
+  const normalizedTaxonomy = serializer.normalizeTaxonomy(taxonomyJSON);
+  assert.equal(normalizedTaxonomy.length, 2, 'Wrong taxonomy elements');
+  const taxonomySubject = normalizedTaxonomy.objectAt(0);
+  assert.equal(taxonomySubject.get('code'), 'GDF.K12.VPA', 'Wrong subject code');
+  assert.equal(taxonomySubject.get('title'), 'Visual & Performing Arts', 'Wrong subject title');
+  assert.equal(taxonomySubject.get('frameworkCode'), 'GDF', 'Wrong subject frameworkCode');
+  const taxonomyFramework = normalizedTaxonomy.objectAt(1);
+  assert.equal(taxonomyFramework.get('code'), 'TEKS.K12.FA', 'Wrong framework code');
+  assert.equal(taxonomyFramework.get('title'), 'Texas Essential Knowledge and Skills', 'Wrong framework title');
+  assert.equal(taxonomyFramework.get('parentTitle'), 'Visual & Performing Arts', 'Wrong framework parentTitle');
+  assert.equal(taxonomyFramework.get('frameworkCode'), 'TEKS', 'Wrong framework frameworkCode');
+});
+
+

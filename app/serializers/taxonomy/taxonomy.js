@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import TaxonomyRoot from 'gooru-web/models/taxonomy/taxonomy-root';
 import TaxonomyItem from 'gooru-web/models/taxonomy/taxonomy-item';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
+import { TAXONOMY_LEVELS } from 'gooru-web/config/config';
 
 /**
  * Serializer for Taxonomy endpoints
@@ -143,6 +145,57 @@ export default Ember.Object.extend({
       parentTaxonomyCodeId: codePayload['parent_taxonomy_code_id'],
       codeType: codePayload['code_type']
     });
+  },
+
+  /**
+   * Serialize a TaxonomyTagData object into a JSON representation required by a core element (course|unit|collection|assessment|resource|question)
+   *
+   * @param taxonomyData the taxonomyData object
+   * @returns {Object} a JSON Object
+   */
+  serializeTaxonomy: function(taxonomyData) {
+    var taxonomyResult = {};
+    if (taxonomyData && Ember.isArray((taxonomyData))) {
+      taxonomyData.forEach(function (taxonomy) {
+        const taxonomyKey = taxonomy.get('id');
+        taxonomyResult[taxonomyKey] = {
+          code: taxonomy.get('code'),
+          title: taxonomy.get('title'),
+          'parent_title': taxonomy.get('parentTitle'),
+          description: taxonomy.get('description'),
+          'framework_code': taxonomy.get('frameworkCode')
+        }
+      });
+    }
+    return taxonomyResult;
+  },
+
+  /**
+   * Normalize the core element taxonomy data into a TaxonomyTagData object
+   *
+   * @param taxonomyPayload the taxonomy data in JSON format
+   * @param level taxonomy level
+   * @returns {TaxonomyTagData[]} a TaxonomyTagData array
+   */
+  normalizeTaxonomy: function(taxonomyPayload, level = TAXONOMY_LEVELS.STANDARD) {
+    var taxonomyData = [];
+    if (taxonomyPayload) {
+      for (var key in taxonomyPayload) {
+        if (taxonomyPayload.hasOwnProperty(key)) {
+          var taxonomy = taxonomyPayload[key];
+          taxonomyData.push(TaxonomyTagData.create({
+            id: key,
+            code: taxonomy.code,
+            title: taxonomy.title,
+            parentTitle: taxonomy['parent_title'],
+            description: taxonomy.description ? taxonomy.description : '',
+            frameworkCode: taxonomy['framework_code'],
+            taxonomyLevel: level
+          }));
+        }
+      }
+    }
+    return taxonomyData;
   }
 
 });
