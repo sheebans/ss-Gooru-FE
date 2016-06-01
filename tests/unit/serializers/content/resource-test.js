@@ -72,7 +72,13 @@ test('normalizeReadResource for image resource with relative path', function(ass
 
   const resourceData = {
     url: 'any',
-    content_subformat: 'image_resource'
+    content_subformat: 'image_resource',
+    description: 'any desc',
+    publish_status: 'published',
+    taxonomy: {},
+    visible_on_profile: true,
+    sequence_id: 3,
+    creator_id: 'anyID'
   };
 
   const resource = serializer.normalizeReadResource(resourceData);

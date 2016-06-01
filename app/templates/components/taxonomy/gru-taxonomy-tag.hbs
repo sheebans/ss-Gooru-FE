@@ -1,7 +1,15 @@
 {{#if model.isReadonly}}
-  <span>{{model.taxonomyItem.title}}</span>
+  <div>
+    <b>{{model.data.label}}</b>
+    <span>{{model.data.caption}}</span>
+  </div>
 {{else}}
-  <button class="toggle" {{action 'toggleState'}}>{{model.taxonomyItem.title}}</button>
+  <button class="toggle" {{action 'toggleState'}}>
+    <div>
+      <b>{{model.data.label}}</b>
+      <span>{{model.data.caption}}</span>
+    </div>
+  </button>
 {{/if}}
 
 {{#if model.isRemovable}}
