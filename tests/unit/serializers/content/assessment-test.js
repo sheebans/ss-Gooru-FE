@@ -10,13 +10,15 @@ test('serializeCreateAssessment', function(assert) {
     title: 'assessment-title',
     learningObjectives: 'any',
     isVisibleOnProfile: true,
-    thumbnailUrl: 'http://test-bucket01.s3.amazonaws.com/image-id.png'
+    thumbnailUrl: 'http://test-bucket01.s3.amazonaws.com/image-id.png',
+    standards: []
   });
   const response = serializer.serializeCreateAssessment(assessmentObject);
   assert.equal(response.title, 'assessment-title', "Wrong title");
   assert.equal(response.learning_objective, 'any', "Wrong learning objective");
   assert.equal(response.visible_on_profile, true, "Wrong visible on profile");
   assert.equal(response.thumbnail, 'image-id.png', "Wrong thumbnail");
+  assert.deepEqual(response.taxonomy, {}, "Wrong taxonomy object");
 });
 
 test('serializeUpdateAssessment', function(assert) {
@@ -25,14 +27,15 @@ test('serializeUpdateAssessment', function(assert) {
     title: 'assessment-title',
     learningObjectives: 'any',
     isVisibleOnProfile: false,
-    thumbnailUrl: 'http://test-bucket01.s3.amazonaws.com/image-id.png'
+    thumbnailUrl: 'http://test-bucket01.s3.amazonaws.com/image-id.png',
+    standards: []
   });
   const response = serializer.serializeUpdateAssessment(assessmentObject);
   assert.equal(response.title, 'assessment-title', "Wrong title");
   assert.equal(response.learning_objective, 'any', "Wrong learning objective");
   assert.equal(response.visible_on_profile, false, "Wrong visible on profile");
   assert.equal(response.thumbnail, 'image-id.png', "Wrong thumbnail");
-
+  assert.deepEqual(response.taxonomy, {}, "Wrong taxonomy object");
 });
 
 test('normalizeReadAssessment', function(assert) {
@@ -47,7 +50,8 @@ test('normalizeReadAssessment', function(assert) {
     title: 'assessment-title',
     'learning_objective': 'learning-objectives',
     'visible_on_profile': true,
-    thumbnail: 'image-id.png'
+    thumbnail: 'image-id.png',
+    taxonomy: {}
   };
   const assessment = serializer.normalizeReadAssessment(assessmentData);
   assert.equal(assessment.get('id'), 'assessment-id', 'Wrong id');
@@ -55,4 +59,5 @@ test('normalizeReadAssessment', function(assert) {
   assert.equal(assessment.get('thumbnailUrl'), 'http://test-bucket01.s3.amazonaws.com/image-id.png', 'Wrong image');
   assert.equal(assessment.get('learningObjectives'), 'learning-objectives', 'Wrong learningObjectives');
   assert.equal(assessment.get('isVisibleOnProfile'), true, 'Wrong isVisibleOnProfile');
+  assert.equal(assessment.get('standards.length'), 0, 'Wrong standards number of elements');
 });

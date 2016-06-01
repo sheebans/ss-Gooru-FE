@@ -4,6 +4,7 @@ import CollectionModel from 'gooru-web/models/content/collection';
 import ResourceSerializer from 'gooru-web/serializers/content/resource';
 import QuestionSerializer from 'gooru-web/serializers/content/question';
 import { DEFAULT_IMAGES } from "gooru-web/config/config";
+import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 
 /**
  * Serializer to support the Collection CRUD operations for API 3.0
@@ -24,10 +25,16 @@ export default Ember.Object.extend({
    */
   questionSerializer: null,
 
+  /**
+   * @property {TaxonomySerializer} taxonomySerializer
+   */
+  taxonomySerializer: null,
+
   init: function () {
     this._super(...arguments);
     this.set('resourceSerializer', ResourceSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('questionSerializer', QuestionSerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set('taxonomySerializer', TaxonomySerializer.create(Ember.getOwner(this).ownerInjection()));
   },
 
   /**
@@ -51,11 +58,13 @@ export default Ember.Object.extend({
   },
 
   serializeCollection: function(collectionModel) {
+    const serializer = this;
     return {
       title: collectionModel.get('title'),
-      learning_objective: collectionModel.get('learningObjectives'),
-      visible_on_profile: collectionModel.get('isVisibleOnProfile'),
-      thumbnail: cleanFilename(collectionModel.thumbnailUrl)
+      'learning_objective': collectionModel.get('learningObjectives'),
+      'visible_on_profile': collectionModel.get('isVisibleOnProfile'),
+      thumbnail: cleanFilename(collectionModel.thumbnailUrl),
+      taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(collectionModel.get('standards'))
     };
   },
 
@@ -76,10 +85,11 @@ export default Ember.Object.extend({
       learningObjectives: payload['learning_objective'],
       isVisibleOnProfile: (payload['visible_on_profile'] !== undefined) ? payload['visible_on_profile'] : true,
       children: serializer.normalizeResources(payload.content),
-      questionCount: payload.question_count ? payload.question_count : 0,
-      resourceCount: payload.resource_count ? payload.resource_count : 0,
-      sequence: payload.sequence_id,
-      thumbnailUrl: thumbnailUrl
+      questionCount: payload['question_count'] ? payload['question_count'] : 0,
+      resourceCount: payload['resource_count'] ? payload['resource_count'] : 0,
+      sequence: payload['sequence_id'],
+      thumbnailUrl: thumbnailUrl,
+      standards: serializer.get('taxonomySerializer').normalizeTaxonomy(payload.taxonomy)
       // TODO Add more required properties here...
     });
   },
