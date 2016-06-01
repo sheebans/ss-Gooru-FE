@@ -469,4 +469,3 @@ test('getReportClassesStatusFromStore', function(assert) {
   classesStatus = service.getReportClassesStatusFromStore("2");
   assert.equal(classesStatus["2"], "available", "Wrong status");
 });
-

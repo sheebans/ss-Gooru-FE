@@ -3,7 +3,7 @@ import Ember from 'ember';
 /**
  * Taxonomy Tag
  *
- * Model representation of a taxonomy item as a tag
+ * Model of a visual representation of a taxonomy tag
  *
  * @typedef {Object} TaxonomyTag
  */
@@ -26,8 +26,8 @@ export default Ember.Object.extend({
   isRemovable: false,
 
   /**
-   * @property {TaxonomyItem} taxonomyItem
+   * @property {TaxonomyTagData} data - Data for the taxonomy tag
    */
-  taxonomyItem: null
+  data: null
 
 });
