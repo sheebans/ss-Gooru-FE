@@ -80,7 +80,7 @@ export default Ember.Service.extend({
   },
 
   getCourses: function() {
-    return []
+    return [];
   }
 
 });
