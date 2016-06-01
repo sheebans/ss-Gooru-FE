@@ -454,7 +454,6 @@ test('storeClassReportStatus', function(assert) {
   assert.equal(userInfo.classes[expectedClassIdB], "queued", "wrong class status");
 });
 
-/*
 test('getReportClassesStatusFromStore', function(assert) {
   window.localStorage.removeItem("report-info");
 
@@ -470,5 +469,3 @@ test('getReportClassesStatusFromStore', function(assert) {
   classesStatus = service.getReportClassesStatusFromStore("2");
   assert.equal(classesStatus["2"], "available", "Wrong status");
 });
-*/
-
