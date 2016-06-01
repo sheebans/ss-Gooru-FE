@@ -247,7 +247,7 @@ test('readAssessments', function(assert) {
     'token-api3': 'token-api-3'
   }));
   const routes = function() {
-    this.get('/api/nucleus/v1/profiles/user-id/assessments', function() {
+    this.get('/api/nucleus/v1/profiles/user-id/assessments', function(request) {
       assert.equal(request.queryParams['limit'], '20', 'Wrong limit');
       assert.equal(request.queryParams['offset'], '40', 'Wrong offset');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
