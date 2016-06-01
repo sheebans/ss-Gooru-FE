@@ -853,39 +853,49 @@ export default {
     "restriction": "*The image must be a JPG, GIF or PNG file smaller than 5 MB.",
     "submit": "Use Image"
   },
+  "gru-fib": {
+    "instructions" : "Please type your answer(s) in the blank(s) provided, and click \"Save and Next\"."
+  },
+
+  "gru-hs-image": {
+    "instructions" : "Please select the correct image(s), and click \"Submit\"."
+  },
+  "gru-hs-text": {
+    "instructions" : "Please select the correct answer(s), and click \"Submit\"."
+  },
+  "gru-hot-text": {
+    "instructions" : "Please select the correct answer, and click \"Submit\"."
+  },
+  "gru-login-prompt":{
+    "title":"Welcome to Gooru!",
+    "instructions" : "You need to sign in to remix content.",
+    "existing-user" : "Already have an account?",
+    "new-user" : "New here?",
+    "not-now" : "Not now",
+    "sign-in" : "Sign in"
+  },
+  "gru-multiple-answer": {
+    "instructions" : "Please select the correct answer, and click \"Submit\"."
+  },
+  "gru-multiple-choice": {
+    "instructions" : "Please select the correct answer, and click \"Submit\"."
+  },
+
+  "gru-open-ended": {
+    "instructions" : "Please type your answer in the field below, and click the \"Submit\" button to save your response when you're done.",
+    "characterLimit": "Character Limit"
+  },
 
   "gru-question-viewer": {
     "answer": "Answer",
     "question": "Question"
-  },
-
-  "gru-multiple-choice": {
-    "instructions" : "Please select the correct answer, and click \"Submit\"."
-  },
-  "gru-hot-text": {
-    "instructions" : "Please select the correct answer, and click \"Submit\"."
   },
   "gru-true-false": {
     "instructions" : "Please select the correct answer, and click \"Submit\".",
     "true":"True",
     "false":"False"
   },
-  "gru-multiple-answer": {
-    "instructions" : "Please select the correct answer, and click \"Submit\"."
-  },
-  "gru-hs-text": {
-    "instructions" : "Please select the correct answer(s), and click \"Submit\"."
-  },
-  "gru-hs-image": {
-    "instructions" : "Please select the correct image(s), and click \"Submit\"."
-  },
-  "gru-open-ended": {
-    "instructions" : "Please type your answer in the field below, and click the \"Submit\" button to save your response when you're done.",
-    "characterLimit": "Character Limit"
-  },
-  "gru-fib": {
-    "instructions" : "Please type your answer(s) in the blank(s) provided, and click \"Save and Next\"."
-  },
+
   "player.gru-reorder": {
     "instructions" : "Please reorder the answers in correct order, and click \"Submit\"."
   },

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ModalMixin from 'gooru-web/mixins/modal';
 /**
  * Collection and Assessment card
  *
@@ -6,10 +7,10 @@ import Ember from 'ember';
  * @module
  */
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Dependencies
-
+  session: Ember.inject.service('session'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -33,9 +34,12 @@ export default Ember.Component.extend({
     },
 
     remixCollection: function(){
-      this.sendAction("onRemixCollection", this.get("collection"));
+      if (this.get('session.isAnonymous')) {
+        this.send('showModal', 'content.modals.gru-login-prompt');
+      } else {
+        this.sendAction("onRemixCollection", this.get("collection"));
+      }
     }
-
   },
   // -------------------------------------------------------------------------
   // Properties

@@ -2,7 +2,9 @@ import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 
 export default Ember.Component.extend(ModalMixin, {
-
+  // -------------------------------------------------------------------------
+  // Dependencies
+  session: Ember.inject.service('session'),
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -22,10 +24,14 @@ export default Ember.Component.extend(ModalMixin, {
     },
 
     remix: function() {
-      var model = {
-        content: this.get('course')
-      };
-      this.send('showModal', 'content.modals.gru-course-remix', model);
+      if (this.get('session.isAnonymous')) {
+        this.send('showModal', 'content.modals.gru-login-prompt');
+      } else {
+        var model = {
+          content: this.get('course')
+        };
+        this.send('showModal', 'content.modals.gru-course-remix', model);
+      }
     }
   },
 
