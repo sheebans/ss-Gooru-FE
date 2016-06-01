@@ -6,7 +6,6 @@ moduleFor('serializer:content/course', 'Unit | Serializer | content/course');
 
 test('serializeCreateCourse', function(assert) {
   const serializer = this.subject();
-
   const course = Course.create({
     title: 'course-title',
     description: 'course-description',
@@ -15,13 +14,12 @@ test('serializeCreateCourse', function(assert) {
     taxonomy: [],
     subject: 'course-subject'
   });
-
   const expected = {
     title: course.title,
     description: course.description,
     thumbnail: 'image-id.png',
     visible_on_profile: course.isVisibleOnProfile,
-    taxonomy: [],
+    taxonomy: {},
     'subject_bucket': course.subject
   };
   const courseObject = serializer.serializeCreateCourse(course);
@@ -44,7 +42,7 @@ test('serializeUpdateCourse', function (assert) {
     description: courseModel.description,
     thumbnail: 'course-thumbnail-url',
     visible_on_profile: courseModel.isVisibleOnProfile,
-    taxonomy: [],
+    taxonomy: {},
     'subject_bucket': courseModel.subject
   };
   const serializedCourse = serializer.serializeUpdateCourse(courseModel);
@@ -59,7 +57,6 @@ test('normalizeCourse', function (assert) {
       content: contentCdnUrl
     }
   }));
-
   const owner = {
     id: 'owner-id',
     username: 'owner'
@@ -77,9 +74,7 @@ test('normalizeCourse', function (assert) {
     "publish_date": null,
     "metadata": null,
     "thumbnail": "thumbnail.png",
-    "taxonomy": [
-      "taxonomy_value"
-    ],
+    "taxonomy": {},
     "collaborator": [
       "collaborator-id-1",
       "collaborator-id-2",
@@ -113,7 +108,7 @@ test('normalizeCourse', function (assert) {
   assert.equal(normalizedCourse.get("isPublished"), false, 'Wrong isPublished');
   assert.equal(normalizedCourse.get("isVisibleOnProfile"), true, 'Wrong isVisibleOnProfile');
   assert.equal(normalizedCourse.get("subject"), 'subject_bucket_value', 'Wrong subject');
-  assert.equal(normalizedCourse.get("taxonomy"), 'taxonomy_value', 'Wrong taxonomy');
+  assert.equal(normalizedCourse.get("taxonomy.length"), 0, 'Wrong taxonomy');
   assert.equal(normalizedCourse.get("unitCount"), 0, 'Wrong unitCount');
   assert.equal(normalizedCourse.get("children.length"), 2, 'Wrong children length');
   assert.equal(normalizedCourse.get("children")[0].get("id"), 'unit-id-1', 'Wrong first children id');
@@ -139,7 +134,7 @@ test('normalizeGetCourses', function(assert) {
         "original_creator_id": null,
         "collaborator": null,
         "original_course_id": null,
-        "taxonomy": [],
+        "taxonomy": {},
         "sequence_id": 1,
         "visible_on_profile": true,
         "unit_count": 5,
@@ -160,7 +155,7 @@ test('normalizeGetCourses', function(assert) {
         "original_creator_id": null,
         "collaborator": null,
         "original_course_id": null,
-        "taxonomy": [],
+        "taxonomy": {},
         "sequence_id": 1,
         "visible_on_profile": true,
         "unit_count": null,

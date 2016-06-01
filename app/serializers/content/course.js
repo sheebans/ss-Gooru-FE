@@ -4,6 +4,7 @@ import CourseModel from 'gooru-web/models/content/course';
 import UnitSerializer from 'gooru-web/serializers/content/unit';
 import ProfileSerializer from 'gooru-web/serializers/profile/profile';
 import { DEFAULT_IMAGES } from "gooru-web/config/config";
+import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 
 /**
  * Serializer to support the Course CRUD operations for API 3.0
@@ -16,10 +17,16 @@ export default Ember.Object.extend({
 
   unitSerializer: null,
 
+  /**
+   * @property {TaxonomySerializer} taxonomySerializer
+   */
+  taxonomySerializer: null,
+
   init: function () {
     this._super(...arguments);
     this.set('unitSerializer', UnitSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('profileSerializer', ProfileSerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set('taxonomySerializer', TaxonomySerializer.create(Ember.getOwner(this).ownerInjection()));
   },
 
   /**
@@ -44,12 +51,13 @@ export default Ember.Object.extend({
   },
 
   serializeCourse: function(courseModel) {
+    const serializer = this;
     return {
       title: courseModel.get('title'),
       description: courseModel.get('description'),
       thumbnail: cleanFilename(courseModel.get('thumbnailUrl')),
       'visible_on_profile': courseModel.get('isVisibleOnProfile'),
-      taxonomy: courseModel.get('taxonomy'),
+      taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(courseModel.get('taxonomy')),
       'subject_bucket': courseModel.get('subject')
     };
   },
@@ -93,12 +101,12 @@ export default Ember.Object.extend({
       isVisibleOnProfile: payload['visible_on_profile'],
       owner: owner ? serializer.get("profileSerializer").normalizeReadProfile(owner): null,
       subject: payload.subject_bucket,
-      taxonomy: payload.taxonomy ? payload.taxonomy.slice(0) : null,
+      taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomy(payload.taxonomy),
       thumbnailUrl: thumbnailUrl,
       title: payload.title,
       unitCount: payload.unit_count ? payload.unit_count : 0
       // TODO More properties will be added here...
     });
-  },
+  }
 
 });
