@@ -164,7 +164,7 @@ export default Ember.Object.extend({
           'parent_title': taxonomy.get('parentTitle'),
           description: taxonomy.get('description'),
           'framework_code': taxonomy.get('frameworkCode')
-        }
+        };
       });
     }
     return taxonomyResult;

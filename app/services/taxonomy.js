@@ -105,6 +105,10 @@ export default Ember.Service.extend({
         subject.set('courses', courses);
       });
     });
+  },
+
+  getCourses: function() {
+    return [];
   }
 
 });
