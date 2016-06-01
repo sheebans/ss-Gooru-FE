@@ -13,7 +13,6 @@ export default Ember.Service.extend({
 
   taxonomyAdapter: null,
 
-
   init() {
     this._super(...arguments);
     this.set('taxonomySerializer', TaxonomySerializer.create(Ember.getOwner(this).ownerInjection()));
