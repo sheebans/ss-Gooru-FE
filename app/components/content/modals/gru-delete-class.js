@@ -50,13 +50,15 @@ export default Ember.Component.extend({
 
       model.deleteMethod()
         .then(function () {
-          if (model.redirect) {
-            component.get('router').transitionTo('home');
+          if (model.callback) {
+            model.callback.success();
           }
+          component.triggerAction({ action: 'closeModal' });
+          component.get('router').transitionTo('home');
         })
         .catch(function (error) {
           var message = component.get('i18n').t('content.modals.delete-content.delete-error',
-            { type: component.get('i18n').t('common.' + model.type).string.toLowerCase() }).string;
+            { type: component.get('i18n').t('common.class').string.toLowerCase() }).string;
           component.get('notifications').error(message);
           Ember.Logger.error(error);
         });

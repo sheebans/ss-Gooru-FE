@@ -26,17 +26,20 @@ export default Ember.Controller.extend(ModalMixin,{
      * Triggered when a delete class option is selected
      */
     deleteClass: function(){
+      let controller = this;
       var model = {
-        content: this.get('class'),
+        content: controller.get('class'),
         deleteMethod: function () {
-          return this.get('classService').deleteClass(this.get('class.id'));
-        }.bind(this),
-        redirect: {
-          route: 'home'
+          return controller.get('classService').deleteClass(controller.get('class.id'));
+        }.bind(controller),
+        callback:{
+          success:function(){
+            controller.send('updateUserClasses');
+          }
         }
       };
 
-      this.actions.showModal.call(this,
+      this.actions.showModal.call(controller,
         'content.modals.gru-delete-class',
         model, null, null, null, false);
     }
