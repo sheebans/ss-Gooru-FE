@@ -456,6 +456,8 @@ test('storeClassReportStatus', function(assert) {
 
 /*
 test('getReportClassesStatusFromStore', function(assert) {
+  window.localStorage.removeItem("report-info");
+
   const service = this.subject();
   service.set('session', Ember.Object.create({
     "userId": "2"

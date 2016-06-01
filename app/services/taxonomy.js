@@ -100,7 +100,7 @@ export default Ember.Service.extend({
   retrieveSubjectCourses(subject) {
     const service = this;
     const apiTaxonomyService = service.get('apiTaxonomyService');
-    return new Ember.RSVP.Promise(function(resolve) {
+    return new Ember.RSVP.Promise(function() {
       apiTaxonomyService.fetchCourses(subject.get('frameworkId'), subject.get('id')).then(function(courses) {
         subject.set('courses', courses);
       });
