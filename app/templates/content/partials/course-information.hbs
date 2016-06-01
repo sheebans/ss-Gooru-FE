@@ -1,26 +1,30 @@
 <div class="row">
-  <div class="col-sm-4 created-by gru-user-icons">
-    <strong>{{t "common.created-by"}}</strong>
-    <ul>
-      {{#each course.owner_details as |owner index|}}
-        <li class="item user">
-          <img class="img-circle" src="{{owner.avatarUrl}}" title="{{owner.fullName}}" />
-          <span class="user-name">{{truncate text=owner.firstName maxLength=10}}</span>
-        </li>
-      {{/each}}
-    </ul>
-  </div>
-  <div class="col-sm-4 remixed-by gru-user-icons">
-    <strong>{{t "common.remixed-by"}}</strong>
-    <ul>
-      {{#each course.collaborator_details as |collaborator index|}}
-        <li class="item user">
-          <img class="img-circle" src="{{collaborator.avatarUrl}}" title="{{collaborator.fullName}}" />
-          <span class="user-name">{{truncate text=collaborator.firstName maxLength=10}}</span>
-        </li>
-      {{/each}}
-    </ul>
-  </div>
+  {{#if remixedUsers}}
+    <div class="col-sm-4 remixed-by gru-user-icons">
+      <strong>{{t "common.remixed-by"}}</strong>
+      <ul>
+        {{#each remixedUsers as |remixedUser index|}}
+          <li class="item user">
+            <img class="img-circle" src="{{remixedUser.avatarUrl}}" title="{{remixedUser.fullName}}" />
+            <span class="user-name">{{truncate text=remixedUser.firstName maxLength=10}}</span>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+  {{/if}}
+  {{#if createdUsers}}
+    <div class="col-sm-4 created-by gru-user-icons">
+      <strong>{{t "common.created-by"}}</strong>
+      <ul>
+        {{#each createdUsers as |createdUser index|}}
+          <li class="item user">
+            <img class="img-circle" src="{{createdUser.avatarUrl}}" title="{{createdUser.fullName}}" />
+            <span class="user-name">{{truncate text=createdUser.firstName maxLength=10}}</span>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+  {{/if}}
   <div class="col-sm-4 license">
     <strong>{{t "common.license"}}</strong>
     <p>{{course.license}}</p>
