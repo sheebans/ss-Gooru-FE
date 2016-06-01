@@ -61,7 +61,7 @@ test('it enables the delete button under the appropriate conditions', function(a
 
 
 test('it calls a generic delete method and then redirects', function(assert) {
-  assert.expect(1);
+  assert.expect(3);
 
   const model = {
     deleteMethod: function() {
