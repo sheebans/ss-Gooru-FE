@@ -329,12 +329,13 @@ export default Ember.Service.extend({
   /**
    * Return the list of collections related to a user
    * @param {string} userId
+   * @param {*} params
    * @returns {RSVP.Promise.<Collection>}
    */
-  readCollections: function(userId) {
+  readCollections: function(userId, params) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readCollections(userId).then(
+      service.get('profileAdapter').readCollections(userId, params).then(
         function(response) {
           resolve(service.get('profileSerializer').normalizeReadCollections(response));
         },

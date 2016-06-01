@@ -7,8 +7,8 @@
     {{#each courses as |course|}}
       {{cards.gru-course-card course=course isEditEnabled=isMyProfile isOwner=isMyProfile onEditCourse="editCourse" onRemixCourse="remixCourse"}}
     {{/each}}
-    {{#if showMoreResultsButton}}
-      <button class="btn btn-info show-more-results" {{action 'showMoreResults'}}>{{t "common.show-more-results"}}</button>
-    {{/if}}
   </div>
+  {{#if showMoreResultsButton}}
+    <span class="show-more-results" {{action 'showMoreResults'}}>{{t "common.show-more-results"}}</span>
+  {{/if}}
 </div>
