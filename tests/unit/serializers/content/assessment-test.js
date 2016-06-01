@@ -18,7 +18,6 @@ test('serializeCreateAssessment', function(assert) {
   assert.equal(response.learning_objective, 'any', "Wrong learning objective");
   assert.equal(response.visible_on_profile, true, "Wrong visible on profile");
   assert.equal(response.thumbnail, 'image-id.png', "Wrong thumbnail");
-  assert.deepEqual(response.taxonomy, {}, "Wrong taxonomy object");
 });
 
 test('serializeUpdateAssessment', function(assert) {
