@@ -30,6 +30,7 @@ export default Ember.Component.extend({
       this.set('editCategory', categoryValue);
       this.set('editEntity.mainSubject', null);
       this.set('secondarySubject', null);
+      this.setLists();
     },
     /**
      * Set Subject

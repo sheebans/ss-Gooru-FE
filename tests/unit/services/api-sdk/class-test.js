@@ -450,23 +450,23 @@ test('storeClassReportStatus', function(assert) {
   const reportInfo = JSON.parse(storage.getItem("report-info"));
   const userInfo = reportInfo["1"];
   assert.ok(userInfo, "Missing user info");
-  assert.equal(userInfo.classes[expectedClassIdA], "available", "wrong class status")
-  assert.equal(userInfo.classes[expectedClassIdB], "queued", "wrong class status")
+  assert.equal(userInfo.classes[expectedClassIdA], "available", "wrong class status");
+  assert.equal(userInfo.classes[expectedClassIdB], "queued", "wrong class status");
 });
 
-//TODO needs to be fixed
+test('getReportClassesStatusFromStore', function(assert) {
+  window.localStorage.removeItem("report-info");
 
-//test('getReportClassesStatusFromStore', function(assert) {
-//  const service = this.subject();
-//  service.set('session', Ember.Object.create({
-//    "userId": "2"
-//  }));
-//
-//  let classesStatus = service.getReportClassesStatusFromStore("2");
-//  assert.deepEqual(classesStatus, {}, "Status should be empty");
-//
-//  service.storeClassReportStatus("2", "available");
-//  classesStatus = service.getReportClassesStatusFromStore("2");
-//  assert.equal(classesStatus["2"], "available", "Wrong status");
-//});
+  const service = this.subject();
+  service.set('session', Ember.Object.create({
+    "userId": "2"
+  }));
+
+  let classesStatus = service.getReportClassesStatusFromStore("2");
+  assert.deepEqual(classesStatus, {}, "Status should be empty");
+
+  service.storeClassReportStatus("2", "available");
+  classesStatus = service.getReportClassesStatusFromStore("2");
+  assert.equal(classesStatus["2"], "available", "Wrong status");
+});
 
