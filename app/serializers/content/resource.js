@@ -82,10 +82,19 @@ export default Ember.Object.extend({
       order: resourceData.sequence_id
     });
 
+    //is full path if it has protocol
+    const isFullPath = resourceData.url ? /^(?:[a-z]+:)?\/\//.exec(resourceData.url) : false;
+
     if (resource.get("isImageResource") || resource.get("isPDFResource")){
-      if (!/^(?:[a-z]+:)?\/\//.exec(resourceData.url)){ // if it is a relative url, load from content cdn
+      if (!isFullPath){ // if it is a relative url, load from content cdn
         const basePath = serializer.get('session.cdnUrls.content');
         const url = resourceData.url ? basePath + resourceData.url : null;
+        resource.set("url", url);
+      }
+    }
+    if (resource.get("isUrlResource")) {
+      if (!isFullPath){ //if no protocol add http as default
+        const url = resourceData.url ? "http://" + resourceData.url : null;
         resource.set("url", url);
       }
     }
