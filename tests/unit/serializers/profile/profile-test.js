@@ -49,7 +49,7 @@ test('serializeUpdateProfile', function(assert) {
     countryId: 'country-id',
     stateId: 'state-id',
     schoolDistrictId: 'school-district-id',
-    avatarUrl: 'baseUrl/image-id'
+    avatarUrl: '//baseUrl/image-id'
   });
 
   const expected = {
