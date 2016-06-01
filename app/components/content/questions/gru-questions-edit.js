@@ -29,6 +29,12 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
    * @type {SessionService} Service to retrieve session information
    */
   session: Ember.inject.service("session"),
+
+  /**
+   * @requires service:i18n
+   */
+  i18n: Ember.inject.service(),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -224,8 +230,21 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
   },
 
   updateQuestion:function(editedQuestion,component){
+
     editedQuestion.validate().then(function ({ model, validations }) {
+
       if (validations.get('isValid')) {
+        var defaultTitle= component.get('i18n').t('common.new-question').string;
+        var defaultText= component.get('i18n').t('common.new-question-text').string;
+        var editedQuestionTitle = editedQuestion.title;
+        var editedQuestionText = editedQuestion.text;
+
+        if (editedQuestionTitle === defaultTitle && editedQuestionText !== defaultText && editedQuestionText !== '') {
+          var editedQuestionText = $.trim(editedQuestionText);
+          var newTitle = editedQuestionText.substr(0, 50);
+
+          editedQuestion.set('title', newTitle);
+        }
         component.get('questionService').updateQuestion(editedQuestion.id, editedQuestion)
           .then(function () {
             component.set('question', editedQuestion);
