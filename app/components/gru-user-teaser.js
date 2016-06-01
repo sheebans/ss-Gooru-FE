@@ -9,16 +9,6 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-  actions: {
-
-    /**
-     *Action triggered when click the username
-     */
-    selectUser: function() {
-      this.sendAction('onSelectUser', this.get('firstUser'));
-    }
-  },
-
   // -------------------------------------------------------------------------
   // Properties
 

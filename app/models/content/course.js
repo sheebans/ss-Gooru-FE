@@ -86,6 +86,13 @@ export default Ember.Object.extend(Validations, {
   unitCount: 0,
 
   /**
+   * @property {Profile[]}
+   */
+  remixedBy: Ember.computed("user", function(){
+    return Ember.A([this.get("owner")]); //TODO add also collaborators
+  }),
+
+  /**
    * Return a copy of the course
    *
    * @function
@@ -112,7 +119,8 @@ export default Ember.Object.extend(Validations, {
 
     // Copy the audience and taxonomy values
     properties.audience = audience.slice(0);
-    properties.taxonomy = taxonomy.slice(0);
+    // TODO This needs to be fixed as part of the changes to taxonomy
+    //properties.taxonomy = taxonomy.slice(0);
 
     // Copy subject reference
     properties.mainSubject = this.get('mainSubject');

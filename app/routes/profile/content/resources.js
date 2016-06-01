@@ -32,7 +32,12 @@ export default Ember.Route.extend({
 
   setupController: function (controller , model) {
     controller.set("resources", model);
+  },
+
+  deactivate: function() {
+    this.get("controller").resetValues();
   }
+
 
 
 });

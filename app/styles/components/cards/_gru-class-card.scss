@@ -144,12 +144,21 @@
       }
     }
 
-    .btn.download-report {
+    .archived-actions {
+      display: inline-block;
       margin-left: 10px;
+      span {
+        display: inline-block;
+        margin-top: 2px;
+        margin-left: 4px;
+      }
       i.material-icons {
-        font-style: $font-size-h5;
+        font-size: $font-size-h4;
+        float:left;
+      }
+      .btn i.material-icons {
+        float: none;
       }
     }
-
   }
 }

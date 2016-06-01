@@ -18,16 +18,16 @@ test('serializeCreateProfile', function(assert) {
     dateOfBirth: '01/01/2000',
     role: 'role'
   });
-  const expected = {
-    firstname: 'first-name',
-    lastname: 'last-name',
-    username: 'username',
-    'email_id': 'email',
-    password: 'password',
-    'birth_date': '01/01/2000',
-    'user_category': 'role',
-    gender: null,
-    grade: []
+  const expected =  {
+    firstname:"first-name",
+    lastname:"last-name",
+    username:"username",
+    email_id:"email",
+    password:"password",
+    birth_date:"01/01/2000",
+    user_category:"role",
+    gender:null,
+    grade:[]
   };
   const response = serializer.serializeCreateProfile(profileObject);
   assert.deepEqual(expected, response, 'Wrong serialized response');
@@ -39,6 +39,7 @@ test('serializeUpdateProfile', function(assert) {
   const profile = ProfileModel.create({
     firstName: 'first-name',
     lastName: 'last-name',
+    username:'username',
     role: 'role',
     grades: [],
     country: 'country',
@@ -49,19 +50,22 @@ test('serializeUpdateProfile', function(assert) {
     stateId: 'state-id',
     schoolDistrictId: 'school-district-id'
   });
+
   const expected = {
-    firstname: 'first-name',
-    lastname: 'last-name',
-    'user_category': 'role',
-    grade: [],
-    country: 'country',
-    state: 'state',
-    'school_district': 'school-district',
-    'about_me': 'about-me',
-    'country_id': 'country-id',
-    'state_id': 'state-id',
-    'school_district_id': 'school-district-id'
-  };
+    "firstname":"first-name",
+    "lastname":"last-name",
+    "roster_global_userid":null,
+    "user_category":"role",
+    "username":"username",
+    "grade":[],
+    "country":"country",
+    "about_me":"about-me",
+    "country_id":"country-id",
+    "state_id":"state-id",
+    "school_district_id":"school-district-id",
+    "state":"state",
+    "school_district":"school-district"};
+
   const response = serializer.serializeUpdateProfile(profile);
   assert.deepEqual(expected, response, 'Wrong serialized response');
 });
@@ -173,11 +177,21 @@ test('normalizeOwners', function(assert) {
 
 test('normalizeStandards', function(assert) {
   const serializer = this.subject();
-  const standardsData = [ "a", "b"];
+  const standardsData = {
+    "12": {
+      code: "a",
+      title: "title a"
+    },
+    "13": {
+      code: "b",
+      title: "title b"
+    },
+  };
 
   const standards = serializer.normalizeStandards(standardsData);
   assert.equal(standards.length, 2, 'Wrong standards length');
   assert.equal(standards[0].get("code"), "a", 'Wrong code');
+  assert.equal(standards[0].get("key"), "12", 'Wrong key');
 });
 
 
@@ -255,7 +269,7 @@ test('normalizeCollection', function(assert) {
     "title": "oops poly basics",
     "publish_status": "published",
     "thumbnail": "collection.png",
-    "taxonomy": [ "K12.MA" ],
+    "taxonomy": { "K12.MA": { code: "K12.MA"} },
     "visible_on_profile": false,
     "learning_objective": "This is important collection",
     "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
@@ -300,7 +314,7 @@ test('normalizeAssessment', function(assert) {
     "title": "oops poly basics",
     "publish_status": "published",
     "thumbnail": "collection.png",
-    "taxonomy": [ "K12.MA" ],
+    "taxonomy": { "K12.MA": { code: "K12.MA"} },
     "visible_on_profile": false,
     "learning_objective": "This is important collection",
     "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
@@ -408,7 +422,7 @@ test('normalizeReadCollections', function(assert) {
         "title": "oops poly basics",
         "publish_status": "published",
         "thumbnail": "collection.png",
-        "taxonomy": [ "K12.MA" ],
+        "taxonomy": { "K12.MA": { code: "K12.MA"} },
         "visible_on_profile": false,
         "learning_objective": "This is important collection",
         "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
@@ -423,7 +437,7 @@ test('normalizeReadCollections', function(assert) {
         "title": "oops poly basics",
         "publish_status": "published",
         "thumbnail": "collection.png",
-        "taxonomy": [ "K12.MA" ],
+        "taxonomy": { "K12.MA": { code: "K12.MA"} },
         "visible_on_profile": false,
         "learning_objective": "This is important collection",
         "owner_id": "2",
@@ -459,7 +473,7 @@ test('normalizeReadAssessments', function(assert) {
         "title": "oops poly basics",
         "publish_status": "published",
         "thumbnail": "collection.png",
-        "taxonomy": [ "K12.MA" ],
+        "taxonomy": { "K12.MA": { code: "K12.MA"} },
         "visible_on_profile": false,
         "learning_objective": "This is important collection",
         "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
@@ -473,7 +487,7 @@ test('normalizeReadAssessments', function(assert) {
         "title": "oops poly basics",
         "publish_status": "published",
         "thumbnail": "collection.png",
-        "taxonomy": [ "K12.MA" ],
+        "taxonomy": { "K12.MA": { code: "K12.MA"} },
         "visible_on_profile": false,
         "learning_objective": "This is important collection",
         "owner_id": "2",

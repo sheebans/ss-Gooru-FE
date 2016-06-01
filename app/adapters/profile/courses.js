@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
 
 /**
  * Adapter to get the list of courses created by a Profile
@@ -18,17 +19,21 @@ export default Ember.Object.extend({
    * @param subject this is an option parameter to filter the courses
    * @returns {Promise}
    */
-  getCourses: function(profileId, subject) {
+  getCourses: function(profileId, subject, params = {}) {
     const adapter = this;
     const namespace = adapter.get('namespace');
     const url = `${namespace}/${profileId}/courses`;
+
+    const page = params.page || 0;
+    const pageSize = params.pageSize || DEFAULT_PAGE_SIZE
+    const offset = page * pageSize;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
       headers: adapter.defineHeaders(),
       data: {
-        limit: 20,
-        offset: 0
+        limit: pageSize,
+        offset: offset
       }
     };
 

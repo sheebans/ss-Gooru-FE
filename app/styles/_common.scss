@@ -374,3 +374,14 @@ label {
     }
   }
 }
+
+.show-more-results {
+  display: block;
+  width: 50%;
+  text-align: center;
+  padding: 20px;
+  border: 2px dashed #ccc;
+  margin: 0 auto;
+  border-radius: 5px 5px;
+  cursor: pointer;
+}

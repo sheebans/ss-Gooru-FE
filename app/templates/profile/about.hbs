@@ -9,16 +9,24 @@
   </h4>
   <div class="panel panel-default">
     <div class="panel-body">
-      <div class="row">
-        <div class="col-xs-12 col-sm-6">
-          <h6>{{t "common.first-name"}}</h6>
-          <p class="first-name">{{profile.firstName}}</p>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+               <h6>{{t "sign-up.username"}}</h6>
+                <div class="username">
+                    <p> {{profile.username}}</p>
+                </div>
+            </div>
         </div>
-        <div class="col-xs-12 col-sm-6">
-          <h6>{{t "common.last-name"}}</h6>
-          <p class="last-name">{{profile.lastName}}</p>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <h6>{{t "common.first-name"}}</h6>
+            <p class="first-name">{{profile.firstName}}</p>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <h6>{{t "common.last-name"}}</h6>
+            <p class="last-name">{{profile.lastName}}</p>
+          </div>
         </div>
-      </div>
       <h6>{{t "common.biography"}}</h6>
       <div class="bio">
         <p> {{profile.aboutMe}}</p>
