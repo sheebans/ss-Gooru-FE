@@ -11,13 +11,10 @@ test('serializeCreateResource', function(assert) {
     url: 'any',
     format: 'video'
   });
-  const expected = {
-    title: 'resource-title',
-    url: 'any',
-    content_subformat: 'video_resource' //subformat is converted at the serializer
-  };
-  const response = serializer.serializeCreateResource(resourceObject);
-  assert.deepEqual(expected, response, 'Wrong serialized response');
+  const serializedResource = serializer.serializeCreateResource(resourceObject);
+  assert.equal(serializedResource.title, 'resource-title', 'Wrong resource title');
+  assert.equal(serializedResource.url, 'any', 'Wrong resource url');
+  assert.equal(serializedResource['content_subformat'], 'video_resource', 'Wrong resource content_subformat');
 });
 
 test('serializeUpdateResource', function(assert) {
@@ -27,20 +24,11 @@ test('serializeUpdateResource', function(assert) {
     description: 'A description',
     format: 'video'
   });
-  const expected = {
-    'title': 'resource-title',
-    'description': 'A description',
-    'narration': undefined,
-    'content_subformat': 'video_resource',
-    'taxonomy': null,
-    'metadata': {
-      'am_i_the_publisher': false,
-      'publisher': null
-    },
-    'visible_on_profile': undefined
-  };
-  const response = serializer.serializeUpdateResource(resourceObject);
-  assert.deepEqual(response, expected, 'Wrong serialized response');
+  const serializedResource = serializer.serializeUpdateResource(resourceObject);
+  assert.equal(serializedResource.title, 'resource-title', 'Wrong resource title');
+  assert.equal(serializedResource.description, 'A description', 'Wrong resource url');
+  assert.equal(serializedResource['content_subformat'], 'video_resource', 'Wrong resource content_subformat');
+  assert.deepEqual(serializedResource['taxonomy'], {}, 'Wrong resource taxonomy');
 });
 
 test('normalizeReadResource', function(assert) {
@@ -52,7 +40,7 @@ test('normalizeReadResource', function(assert) {
     content_subformat: 'video_resource',
     description: 'any desc',
     publish_status: 'published',
-    taxonomy: [],
+    taxonomy: {},
     visible_on_profile: true,
     sequence_id: 3,
     creator_id: 'anyID'
@@ -84,7 +72,13 @@ test('normalizeReadResource for image resource with relative path', function(ass
 
   const resourceData = {
     url: 'any',
-    content_subformat: 'image_resource'
+    content_subformat: 'image_resource',
+    description: 'any desc',
+    publish_status: 'published',
+    taxonomy: {},
+    visible_on_profile: true,
+    sequence_id: 3,
+    creator_id: 'anyID'
   };
 
   const resource = serializer.normalizeReadResource(resourceData);

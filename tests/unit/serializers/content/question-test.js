@@ -27,6 +27,7 @@ test('serializeUpdateQuestion', function(assert) {
     text: 'This is the question text?',
     isVisibleOnProfile: false,
     questionType: 'word',
+    standards: [],
     answers: Ember.A([
       AnswerModel.create({
         sequence: 1,
@@ -54,6 +55,7 @@ test('serializeUpdateQuestion', function(assert) {
   assert.equal(response.description, 'This is the question text?', 'Wrong description');
   assert.equal(response['visible_on_profile'], false, 'Wrong visible_on_profile');
   assert.equal(response.answer.length, 3, 'Wrong answer array length');
+  assert.deepEqual(response.taxonomy, {}, 'Wrong taxonomy object');
 });
 
 test('serializeAnswer', function(assert) {
@@ -100,7 +102,7 @@ test('normalizeReadQuestion', function(assert) {
     content_subformat: 'multiple_answer_question',
     description: 'any desc',
     publish_status: 'published',
-    taxonomy: ['a', 'b'],
+    taxonomy: {},
     thumbnail: "image.png",
     sequence_id: 3,
     answer: [
@@ -130,7 +132,7 @@ test('normalizeReadQuestion', function(assert) {
   assert.equal(question.get('title'), 'question-title', 'Wrong title');
   assert.equal(question.get('text'), 'any desc', 'Wrong description');
   assert.equal(question.get('publishStatus'), 'published', 'Wrong publish');
-  assert.equal(question.get('standards').length, 2, 'Wrong standards');
+  assert.equal(question.get('standards').length, 0, 'Wrong standards');
   assert.equal(question.get('type'), 'MA', 'Wrong format'); //format is converted at the normalizer
   assert.equal(question.get('isVisibleOnProfile'), true, 'Wrong format');
   assert.equal(question.get('thumbnail'), "http://test-bucket01.s3.amazonaws.com/image.png", 'Wrong thumbnail');

@@ -11,6 +11,11 @@ import { TAXONOMY_LEVELS } from 'gooru-web/config/config';
 export default Ember.Object.extend({
 
   /**
+   * @property {String} id
+   */
+  id: null,
+
+  /**
    * @property {String} title
    */
   title: '',
