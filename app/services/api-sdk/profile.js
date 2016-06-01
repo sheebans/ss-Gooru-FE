@@ -295,12 +295,13 @@ export default Ember.Service.extend({
   /**
    * Return the list of resources related to a user
    * @param {string} userId
+   * @param {*} params
    * @returns {RSVP.Promise.<Resource>}
    */
-  readResources: function(userId) {
+  readResources: function(userId, params) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readResources(userId).then(
+      service.get('profileAdapter').readResources(userId, params).then(
         function(response) {
           resolve(service.get('profileSerializer').normalizeReadResources(response));
         },
@@ -312,12 +313,13 @@ export default Ember.Service.extend({
   /**
    * Return the list of questions related to a user
    * @param {string} userId
+   * @param {*} params
    * @returns {RSVP.Promise.<Question>}
    */
-  readQuestions: function(userId) {
+  readQuestions: function(userId, params) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readQuestions(userId).then(
+      service.get('profileAdapter').readQuestions(userId, params).then(
         function(response) {
           resolve(service.get('profileSerializer').normalizeReadQuestions(response));
         },

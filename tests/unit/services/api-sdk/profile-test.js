@@ -484,11 +484,12 @@ test('getCourses', function(assert) {
 
 test('readResources', function(assert) {
   const service = this.subject();
-  assert.expect(2);
+  assert.expect(3);
 
   service.set('profileAdapter', Ember.Object.create({
-    readResources: function(userId) {
+    readResources: function(userId, params) {
       assert.equal(userId, 1, "readResources(1) function was called" );
+      assert.equal(params.page, 1, "Wrong page number" );
       return Ember.RSVP.resolve({});
     }
   }));
@@ -501,16 +502,17 @@ test('readResources', function(assert) {
   }));
 
   var done = assert.async();
-  service.readResources(1).then(function() { done(); });
+  service.readResources(1, { page: 1 }).then(function() { done(); });
 });
 
 test('readQuestions', function(assert) {
   const service = this.subject();
-  assert.expect(2);
+  assert.expect(3);
 
   service.set('profileAdapter', Ember.Object.create({
-    readQuestions: function(userId) {
+    readQuestions: function(userId, params) {
       assert.equal(userId, 1, "readQuestions(1) function was called" );
+      assert.equal(params.page, 1, "Wrong page number" );
       return Ember.RSVP.resolve({});
     }
   }));
@@ -523,7 +525,7 @@ test('readQuestions', function(assert) {
   }));
 
   var done = assert.async();
-  service.readQuestions(1).then(function() { done(); });
+  service.readQuestions(1, { page: 1 }).then(function() { done(); });
 });
 
 test('readCollections', function(assert) {
