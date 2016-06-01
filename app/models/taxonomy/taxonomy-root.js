@@ -33,8 +33,13 @@ export default Ember.Object.extend({
   code: '',
 
   /**
-   * @property {TaxonomyRoot[]} children - List of item's children
+   * @property {TaxonomyItem[]} courses - List of courses
    */
-  children: []
+  courses: [],
+
+  /**
+   * @property {TaxonomyRoot[]} children - List of frameworks
+   */
+  frameworks: []
 
 });
