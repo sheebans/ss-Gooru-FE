@@ -90,7 +90,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    */
   isIncorrectTermSize: Ember.computed('tempTerm', function() {
     var term = $.trim(this.get('tempTerm'));
-    return (!term || term.length <=3 );
+    return (!term || term.length <3 );
   }),
 
   /**
