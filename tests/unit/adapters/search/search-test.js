@@ -15,13 +15,13 @@ test('searchCollections', function(assert) {
     this.get('/gooru-search/rest/v2/search/scollection', function(request) {
       assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
       assert.equal(request.queryParams['flt.collectionType'], 'collection', 'Wrong collection type');
-      assert.equal(request.queryParams['start'], 1, 'Wrong default start');
+      assert.equal(request.queryParams['start'], 3, 'Wrong default start');
       assert.equal(request.queryParams['length'], 20, 'Wrong default length');
 
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   });
-  adapter.searchCollections('any-term')
+  adapter.searchCollections('any-term', { page: 2 })
     .then(function(response) {
       assert.deepEqual({}, response, 'Wrong response');
     });
@@ -36,12 +36,12 @@ test('searchAssessments', function(assert) {
     this.get('/gooru-search/rest/v2/search/scollection', function(request) {
       assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
       assert.equal(request.queryParams['flt.collectionType'], 'assessment', 'Wrong collection type');
-      assert.equal(request.queryParams['start'], 1, 'Wrong default start');
+      assert.equal(request.queryParams['start'], 3, 'Wrong default start');
       assert.equal(request.queryParams['length'], 20, 'Wrong default length');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   });
-  adapter.searchAssessments('any-term', true)
+  adapter.searchAssessments('any-term', { page: 2 })
     .then(function(response) {
       assert.deepEqual({}, response, 'Wrong response');
     });
@@ -55,14 +55,14 @@ test('searchResources for all resource types', function(assert) {
   this.pretender.map(function() {
     this.get('/gooru-search/rest/v2/search/resource', function(request) {
       assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
-      assert.equal(request.queryParams['start'], 1, 'Wrong default start');
+      assert.equal(request.queryParams['start'], 3, 'Wrong default start');
       assert.equal(request.queryParams['length'], 20, 'Wrong default length');
       assert.ok(!request.queryParams['flt.resourceFormat'], 'Wrong format filters');
       assert.equal(request.queryParams['flt.contentFormat'], 'resource', 'Wrong content format');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   });
-  adapter.searchResources('any-term', [])
+  adapter.searchResources('any-term', [], { page: 2 })
     .then(function(response) {
       assert.deepEqual({}, response, 'Wrong response');
     });
@@ -96,14 +96,14 @@ test('searchQuestions for all types', function(assert) {
   this.pretender.map(function() {
     this.get('/gooru-search/rest/v2/search/resource', function(request) {
       assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
-      assert.equal(request.queryParams['start'], 1, 'Wrong default start');
+      assert.equal(request.queryParams['start'], 3, 'Wrong default start');
       assert.equal(request.queryParams['length'], 20, 'Wrong default length');
       assert.equal(request.queryParams['flt.resourceFormat'], 'question', 'Wrong format filter');
       assert.ok(!request.queryParams['flt.questionType'], 'Wrong question type filters');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   });
-  adapter.searchQuestions('any-term', [])
+  adapter.searchQuestions('any-term', [], { page: 2 })
     .then(function(response) {
       assert.deepEqual({}, response, 'Wrong response');
     });

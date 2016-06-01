@@ -11,9 +11,9 @@ test('searchCollections', function(assert) {
 
   assert.expect(3);
   service.set('searchAdapter', Ember.Object.create({
-    searchCollections: function(term) {
+    searchCollections: function(term, params) {
       assert.equal(term, 'the-term', 'Wrong search collections term');
-      assert.ok(true, 'searchCollections() function was called' );
+      assert.equal(params.page, 1, 'Wrong page');
       return Ember.RSVP.resolve({});
     }
   }));
@@ -26,7 +26,7 @@ test('searchCollections', function(assert) {
   }));
 
   var done = assert.async();
-  service.searchCollections('the-term')
+  service.searchCollections('the-term', { page: 1 })
     .then(function() {
       done();
     });
@@ -37,9 +37,9 @@ test('searchAssessments', function(assert) {
 
   assert.expect(3);
   service.set('searchAdapter', Ember.Object.create({
-    searchAssessments: function(term) {
+    searchAssessments: function(term, params) {
       assert.equal(term, 'the-term', 'Wrong search collections term');
-      assert.ok(true, 'searchAssessments() function was called' );
+      assert.equal(params.page, 1, 'Wrong page');
       return Ember.RSVP.resolve({});
     }
   }));
@@ -52,7 +52,7 @@ test('searchAssessments', function(assert) {
   }));
 
   var done = assert.async();
-  service.searchAssessments('the-term')
+  service.searchAssessments('the-term', { page: 1 })
     .then(function() {
       done();
     });
@@ -64,8 +64,9 @@ test('searchResources', function(assert) {
   assert.expect(4);
 
   service.set('searchAdapter', Ember.Object.create({
-    searchResources: function(term, categories) {
+    searchResources: function(term, categories, params) {
       assert.equal(term, 'the-term', 'Wrong search resources term');
+      assert.equal(params.page, 2, 'Wrong page');
       assert.deepEqual(categories, ['image', 'interactive', 'question'], 'Wrong categories value');
       assert.ok(true, 'searchResources() function was called' );
       return Ember.RSVP.resolve({});
@@ -80,7 +81,7 @@ test('searchResources', function(assert) {
   }));
 
   var done = assert.async();
-  service.searchResources('the-term', ['image', 'interactive', 'question'])
+  service.searchResources('the-term', ['image', 'interactive', 'question'], { page: 2 })
     .then(function() {
       done();
     });
