@@ -454,12 +454,13 @@ test('checkGoogleUsername-Account using google sign-in already exists', function
 test('getCourses', function(assert) {
   const service = this.subject();
 
-  assert.expect(3);
+  assert.expect(4);
 
   service.set('profileCoursesAdapter', Ember.Object.create({
-    getCourses: function(profileId, subject) {
+    getCourses: function(profileId, subject, params) {
       assert.equal(profileId, 'profile-id', 'Wrong profile id');
       assert.equal(subject, 'course-subject', 'Wrong course subject');
+      assert.equal(params.page, 1, 'Wrong page number');
       return Ember.RSVP.resolve({});
     }
   }));
@@ -475,7 +476,7 @@ test('getCourses', function(assert) {
     id: 'profile-id'
   });
   var done = assert.async();
-  service.getCourses(profileObject, 'course-subject')
+  service.getCourses(profileObject, 'course-subject', { page: 1 })
     .then(function() {
       done();
     });

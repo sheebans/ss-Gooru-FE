@@ -268,10 +268,10 @@ export default Ember.Service.extend({
    * @param subject the subject to filter the courses
    * @returns {Promise}
    */
-  getCourses: function(profile, subject) {
+  getCourses: function(profile, subject, params) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileCoursesAdapter').getCourses(profile.get('id'), subject)
+      service.get('profileCoursesAdapter').getCourses(profile.get('id'), subject, params)
         .then(function(response) {
           resolve(service.get('courseSerializer').normalizeGetCourses(response));
         }, function(error) {
