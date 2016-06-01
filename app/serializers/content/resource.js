@@ -45,11 +45,11 @@ export default Ember.Object.extend({
   serializeUpdateResource: function(resourceModel) {
     const serializer = this;
     let serializedResource = {
-      'title': resourceModel.get('title'),
-      'description': resourceModel.get('description'),
-      'narration': resourceModel.get('narration'),
+      title: resourceModel.get('title'),
+      description: resourceModel.get('description'),
+      narration: resourceModel.get('narration'),
       'content_subformat': ResourceModel.serializeResourceFormat(resourceModel.get("format")),
-      'taxonomy': serializer.get('taxonomySerializer').serializeTaxonomy(resourceModel.get('standards')),
+      taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(resourceModel.get('standards')),
       'visible_on_profile': resourceModel.get('isVisibleOnProfile')//,
       //"depth_of_knowledge": null, // Not required at the moment
       //"thumbnail": null // Not required at the moment
@@ -76,7 +76,7 @@ export default Ember.Object.extend({
   normalizeReadResource: function(resourceData) {
     const serializer = this;
     const format = ResourceModel.normalizeResourceFormat(resourceData.content_subformat);
-    const standards = resourceData.taxonomy || [];
+    const standards = resourceData.taxonomy || {};
     const resource = ResourceModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: resourceData.id,
       title: resourceData.title,
