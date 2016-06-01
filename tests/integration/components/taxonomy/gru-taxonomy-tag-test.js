@@ -1,6 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import TaxonomyItem from 'gooru-web/models/taxonomy/taxonomy-item';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 moduleForComponent('taxonomy/gru-taxonomy-tag', 'Integration | Component | taxonomy/gru taxonomy tag', {
@@ -13,10 +13,11 @@ test('it renders a taxonomy tag correctly', function(assert) {
     isActive: false,
     isReadonly: false,
     isRemovable: false,
-    taxonomyItem: TaxonomyItem.create({
+    data: TaxonomyTagData.create({
       id: "term-123",
-      label: "Taxonomy item text",
-      caption: "Text caption"
+      code: "ST.03",
+      frameworkCode: "GDF",
+      parentTitle: "Subject"
     })
   });
   this.set('taxonomyTag', taxonomyTag);
@@ -30,8 +31,8 @@ test('it renders a taxonomy tag correctly', function(assert) {
   assert.notOk($component.hasClass('read-only'), 'Read only class by default');
   assert.notOk($component.find('button.remove').length, 'Remove button by default');
   assert.ok($component.find('button.toggle').length, 'Toggle button by default');
-  assert.equal($component.find('button.toggle > div > b').text(), 'Taxonomy item text', 'Tag label -button');
-  assert.equal($component.find('button.toggle > div > span').text(), 'Text caption', 'Tag caption -button');
+  assert.equal($component.find('button.toggle > div > b').text(), 'ST.03', 'Tag label -button');
+  assert.equal($component.find('button.toggle > div > span').text(), 'GDF Subject', 'Tag caption -button');
 
   this.set('taxonomyTag.isActive', true);
   assert.ok($component.hasClass('active'), 'Active');
@@ -39,8 +40,8 @@ test('it renders a taxonomy tag correctly', function(assert) {
   this.set('taxonomyTag.isReadonly', true);
   assert.ok($component.hasClass('read-only'), 'Read-only');
   assert.notOk($component.find('button.toggle').length, 'Toggle button -read-only');
-  assert.equal($component.find('> div > b').text(), 'Taxonomy item text', 'Tag label -read-only');
-  assert.equal($component.find('> div > span').text(), 'Text caption', 'Tag caption -read-only');
+  assert.equal($component.find('> div > b').text(), 'ST.03', 'Tag label -read-only');
+  assert.equal($component.find('> div > span').text(), 'GDF Subject', 'Tag caption -read-only');
 
   this.set('taxonomyTag.isRemovable', true);
   assert.ok($component.find('button.remove').length, 'Removable');
@@ -51,10 +52,11 @@ test('if it is not read-only, it toggles its state and calls an external action 
 
   var taxonomyTag = TaxonomyTag.create({
     isActive: false,
-    taxonomyItem: TaxonomyItem.create({
+    data: TaxonomyTagData.create({
       id: "term-123",
-      label: "Taxonomy item text",
-      caption: "Text caption"
+      code: "ST.03",
+      frameworkCode: "GDF",
+      parentTitle: "Subject"
     })
   });
   this.set('taxonomyTag', taxonomyTag);
@@ -81,10 +83,11 @@ test('it calls an external action when its remove button is clicked', function(a
 
   var taxonomyTag = TaxonomyTag.create({
     isRemovable: true,
-    taxonomyItem: TaxonomyItem.create({
+    data: TaxonomyTagData.create({
       id: "term-123",
-      label: "Taxonomy item text",
-      caption: "Text caption"
+      code: "ST.03",
+      frameworkCode: "GDF",
+      parentTitle: "Subject"
     })
   });
   this.set('taxonomyTag', taxonomyTag);

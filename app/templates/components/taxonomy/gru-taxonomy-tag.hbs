@@ -1,13 +1,14 @@
 {{#if model.isReadonly}}
   <div>
-    <b>{{model.label}}</b>
-    <span>{{model.caption}}</span>
+    {{debugger}}
+    <b>{{model.data.label}}</b>
+    <span>{{model.data.caption}}</span>
   </div>
 {{else}}
   <button class="toggle" {{action 'toggleState'}}>
     <div>
-      <b>{{model.label}}</b>
-      <span>{{model.caption}}</span>
+      <b>{{model.data.label}}</b>
+      <span>{{model.data.caption}}</span>
     </div>
   </button>
 {{/if}}
