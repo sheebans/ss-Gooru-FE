@@ -454,12 +454,13 @@ test('checkGoogleUsername-Account using google sign-in already exists', function
 test('getCourses', function(assert) {
   const service = this.subject();
 
-  assert.expect(3);
+  assert.expect(4);
 
   service.set('profileCoursesAdapter', Ember.Object.create({
-    getCourses: function(profileId, subject) {
+    getCourses: function(profileId, subject, params) {
       assert.equal(profileId, 'profile-id', 'Wrong profile id');
       assert.equal(subject, 'course-subject', 'Wrong course subject');
+      assert.equal(params.page, 1, 'Wrong page number');
       return Ember.RSVP.resolve({});
     }
   }));
@@ -475,7 +476,7 @@ test('getCourses', function(assert) {
     id: 'profile-id'
   });
   var done = assert.async();
-  service.getCourses(profileObject, 'course-subject')
+  service.getCourses(profileObject, 'course-subject', { page: 1 })
     .then(function() {
       done();
     });
@@ -483,11 +484,12 @@ test('getCourses', function(assert) {
 
 test('readResources', function(assert) {
   const service = this.subject();
-  assert.expect(2);
+  assert.expect(3);
 
   service.set('profileAdapter', Ember.Object.create({
-    readResources: function(userId) {
+    readResources: function(userId, params) {
       assert.equal(userId, 1, "readResources(1) function was called" );
+      assert.equal(params.page, 1, "Wrong page number" );
       return Ember.RSVP.resolve({});
     }
   }));
@@ -500,16 +502,17 @@ test('readResources', function(assert) {
   }));
 
   var done = assert.async();
-  service.readResources(1).then(function() { done(); });
+  service.readResources(1, { page: 1 }).then(function() { done(); });
 });
 
 test('readQuestions', function(assert) {
   const service = this.subject();
-  assert.expect(2);
+  assert.expect(3);
 
   service.set('profileAdapter', Ember.Object.create({
-    readQuestions: function(userId) {
+    readQuestions: function(userId, params) {
       assert.equal(userId, 1, "readQuestions(1) function was called" );
+      assert.equal(params.page, 1, "Wrong page number" );
       return Ember.RSVP.resolve({});
     }
   }));
@@ -522,16 +525,17 @@ test('readQuestions', function(assert) {
   }));
 
   var done = assert.async();
-  service.readQuestions(1).then(function() { done(); });
+  service.readQuestions(1, { page: 1 }).then(function() { done(); });
 });
 
 test('readCollections', function(assert) {
   const service = this.subject();
-  assert.expect(2);
+  assert.expect(3);
 
   service.set('profileAdapter', Ember.Object.create({
-    readCollections: function(userId) {
+    readCollections: function(userId, params) {
       assert.equal(userId, 1, "readCollections(1) function was called" );
+      assert.equal(params.page, 1, "Wrong page number" );
       return Ember.RSVP.resolve({});
     }
   }));
@@ -544,16 +548,17 @@ test('readCollections', function(assert) {
   }));
 
   var done = assert.async();
-  service.readCollections(1).then(function() { done(); });
+  service.readCollections(1, { page: 1 }).then(function() { done(); });
 });
 
 test('readAssessments', function(assert) {
   const service = this.subject();
-  assert.expect(2);
+  assert.expect(3);
 
   service.set('profileAdapter', Ember.Object.create({
-    readAssessments: function(userId) {
+    readAssessments: function(userId, params) {
       assert.equal(userId, 1, "readAssessments(1) function was called" );
+      assert.equal(params.page, 1, "Wrong page number" );
       return Ember.RSVP.resolve({});
     }
   }));
@@ -566,7 +571,7 @@ test('readAssessments', function(assert) {
   }));
 
   var done = assert.async();
-  service.readAssessments(1).then(function() { done(); });
+  service.readAssessments(1, { page:1 }).then(function() { done(); });
 });
 
 test('forgotPassword', function(assert) {

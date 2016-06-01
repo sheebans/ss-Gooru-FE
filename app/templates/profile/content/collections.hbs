@@ -11,4 +11,7 @@
       </div>
     {{/each}}
   </div>
+  {{#if showMoreResultsButton}}
+    <span class="show-more-results" {{action 'showMoreResults'}}>{{t "common.show-more-results"}}</span>
+  {{/if}}
 </div>

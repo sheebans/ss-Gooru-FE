@@ -115,3 +115,5 @@ export const NETWORK_TYPE = {
 export const COUNTRY_CODES = {
   US: 'US'
 };
+
+export const DEFAULT_PAGE_SIZE = 20;
