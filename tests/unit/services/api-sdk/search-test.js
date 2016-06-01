@@ -61,7 +61,7 @@ test('searchAssessments', function(assert) {
 test('searchResources', function(assert) {
   const service = this.subject();
 
-  assert.expect(4);
+  assert.expect(5);
 
   service.set('searchAdapter', Ember.Object.create({
     searchResources: function(term, categories, params) {
