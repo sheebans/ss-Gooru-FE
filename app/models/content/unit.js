@@ -56,9 +56,9 @@ export default Ember.Object.extend(Validations, {
   title: '',
 
   /**
-   * @property {String[]} taxonomy - Taxonomy array
+   * @property {Object[]} taxonomy - Taxonomy array
    */
-  taxonomy: null,
+  taxonomy: [],
 
   /**
    * @property {Number} membersCount - number of members in the unit (for analytics)

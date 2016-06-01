@@ -64,7 +64,7 @@ export default Ember.Object.extend({
       'learning_objective': collectionModel.get('learningObjectives'),
       'visible_on_profile': collectionModel.get('isVisibleOnProfile'),
       thumbnail: cleanFilename(collectionModel.thumbnailUrl),
-      taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(collectionModel.get('standards')),
+      taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(collectionModel.get('standards'))
     };
   },
 
