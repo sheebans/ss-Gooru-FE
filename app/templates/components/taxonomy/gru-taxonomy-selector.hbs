@@ -3,7 +3,7 @@
   {{#if isEditing}}
     <div class="btn-group">
       {{#each categories as |category|}}
-        {{#if (eq category.value editEntity.category)}}
+        {{#if (eq category.value editCategory)}}
           <button type="button" class="btn btn-sm btn-primary" {{action 'setCategory' category.value}}>
             {{t category.label}}
           </button>
@@ -17,7 +17,7 @@
   {{else}}
     <div>
       {{#each categories as |category|}}
-        {{#if (eq category.value srcEntity.category)}}
+        {{#if (eq category.value originalCategory)}}
           <div class="btn-empty btn btn-sm">{{t category.label}}</div>
         {{/if}}
       {{/each}}
@@ -32,8 +32,8 @@
   {{#if isEditing}}
     <div class="btn-group clearfix">
       <button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{#if primarySubject}}
-          {{primarySubject.subjectTitle}}
+        {{#if editEntity.mainSubject}}
+          {{editEntity.mainSubject.subjectTitle}}
         {{else}}
           {{t 'taxonomy.gru-taxonomy-selector.choose-subject'}}
         {{/if}}
@@ -44,11 +44,11 @@
       </button>
       <ul class="dropdown-menu">
         {{#each subjectList as |subject|}}
-          {{#if subject.children}}
+          {{#if subject.frameworks}}
             <li class="has-children">
               <a class="trigger">{{subject.title}} {{gru-icon name="keyboard_arrow_right"}}</a>
               <ul class="dropdown-menu sub-menu">
-                {{#each subject.children as |framework|}}
+                {{#each subject.frameworks as |framework|}}
                   <li><a {{action 'setSubject' framework true}}>{{framework.title}}</a></li>
                 {{/each}}
               </ul>
@@ -61,6 +61,26 @@
         {{/each}}
       </ul>
     </div>
+    {{#if (and editEntity.mainSubject editEntity.mainSubject.courses)}}
+      <div class="btn-group clearfix">
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{t 'common.add'}} {{editEntity.mainSubject.subjectTitle}} {{t 'common.course'}}
+        </button>
+        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="caret"></span>
+          <span class="sr-only">{{t "common.toggle-dropdown"}}</span>
+        </button>
+        <ul class="dropdown-menu courses">
+          {{#each editEntity.mainSubject.courses as |subjectCourse|}}
+            <li>
+              <label class="checkbox-inline">
+                <input type="checkbox" checked={{contains subjectCourse.id editObject.taxonomy}} {{action 'selectSubjectCourse' subjectCourse.id on='change'}}> {{subjectCourse.title}}
+              </label>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
+    {{/if}}
     {{#if (and enableSecondarySubject hasSecondary)}}
       <div class="secondary-subject">
         <button class="btn btn-link btn-sm remove" {{action "toggleSecondary"}}>{{gru-icon name="close"}}</button>
@@ -78,11 +98,11 @@
           </button>
           <ul class="dropdown-menu">
             {{#each subjectList as |subject|}}
-              {{#if subject.children}}
+              {{#if subject.frameworks}}
                 <li class="has-children">
                   <a class="trigger">{{subject.title}} {{gru-icon name="keyboard_arrow_right"}}</a>
                   <ul class="dropdown-menu sub-menu">
-                    {{#each subject.children as |framework|}}
+                    {{#each subject.frameworks as |framework|}}
                       <li><a {{action 'setSubject' framework}}>{{framework.title}}</a></li>
                     {{/each}}
                   </ul>
