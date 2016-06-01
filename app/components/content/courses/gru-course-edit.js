@@ -28,6 +28,11 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
    */
   session: Ember.inject.service("session"),
 
+  /**
+   * @requires service:taxonomy
+   */
+  taxonomyService: Ember.inject.service("taxonomy"),
+
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -48,6 +53,14 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
       var courseForEditing = this.get('course').copy();
       this.set('tempCourse', courseForEditing);
       this.set('isEditing', true);
+    },
+
+    /**
+     * Cancel edit content
+     */
+    cancelEdit: function() {
+      this.set('isEditing', false);
+      this.set('tempCourse', null);
     },
 
     /**
@@ -93,6 +106,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
 
               .then(function () {
                 course.merge(editedCourse, ['title', 'isVisibleOnProfile', 'thumbnailUrl', 'description', 'subject']);
+                // component.setMainSubject();
                 component.set('isEditing', false);
               })
 
@@ -119,10 +133,12 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
 
   },
 
-
   // -------------------------------------------------------------------------
   // Events
-
+  init() {
+    this._super(...arguments);
+    this.setMainSubject();
+  },
 
   // -------------------------------------------------------------------------
   // Properties
@@ -138,6 +154,21 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
    * Copy of the course model used for editing.
    * @property {Course}
    */
-  tempCourse: null
+  tempCourse: null,
+
+  // -------------------------------------------------------------------------
+  // Methods
+
+  setMainSubject: function() {
+    var component = this;
+    var subjectId = component.get('course.subject');
+    if (subjectId) {
+      component.get('taxonomyService').findSubjectById(subjectId).then(function(subject) {
+        component.set('course.mainSubject', subject);
+      });
+    } else {
+      component.set('course.mainSubject', null);
+    }
+  }
 
 });

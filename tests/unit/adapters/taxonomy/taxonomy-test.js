@@ -57,3 +57,50 @@ test('Fetch Taxonomy Subjects for Professional Learning', function(assert) {
     });
 });
 
+test('Fetch Taxonomy Courses', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.get('/api/nucleus/v1/taxonomy/frameworks/framework-id/subjects/taxonomy-subject-id/courses', function() {
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+  adapter.fetchCourses('framework-id', 'taxonomy-subject-id')
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});
+
+test('Fetch Taxonomy Domains', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.get('/api/nucleus/v1/taxonomy/frameworks/framework-id/subjects/taxonomy-subject-id/courses/taxonomy-course-id/domains', function() {
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+  adapter.fetchDomains('framework-id', 'taxonomy-subject-id', 'taxonomy-course-id')
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});
+
+test('Fetch Taxonomy Codes', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.get('/api/nucleus/v1/taxonomy/frameworks/framework-id/subjects/taxonomy-subject-id/courses/taxonomy-course-id/domains/taxonomy-domain-id/codes', function() {
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+  adapter.fetchCodes('framework-id', 'taxonomy-subject-id', 'taxonomy-course-id', 'taxonomy-domain-id')
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});

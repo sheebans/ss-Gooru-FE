@@ -103,9 +103,9 @@ const Question = Ember.Object.extend(Validations, {
   owner: null,
 
   /**
-   * @property { { code: string, description: string }[] }
+   * @property {TaxonomyTagData[]} an array with Taxonomy data
    */
-  standards: null,
+  standards: [],
 
   /**
    * @property {Boolean} isVisibleOnProfile - Indicates if the Question is visible on Profile. By default it is true

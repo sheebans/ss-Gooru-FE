@@ -7,7 +7,6 @@ moduleFor('serializer:content/unit', 'Unit | Serializer | content/unit');
 
 test('serializeCreateUnit', function (assert) {
   const serializer = this.subject();
-
   const modelInstance = Unit.create({
     bigIdeas: 'Big ideas text',
     children: [],
@@ -15,23 +14,21 @@ test('serializeCreateUnit', function (assert) {
     id: 'unit-id-123',
     lessonsTotal: 0,
     sequence: 1,
-    title: 'Unit Title'
+    title: 'Unit Title',
+    taxonomy: []
   });
-
   const expected = {
     title: modelInstance.get('title'),
     big_ideas: modelInstance.get('bigIdeas'),
     essential_questions: modelInstance.get('essentialQuestions'),
-    taxonomy: []
+    taxonomy: {}
   };
-
   const modelObject = serializer.serializeCreateUnit(modelInstance);
   assert.deepEqual(modelObject, expected, 'Serializer response');
 });
 
 test('serializeUpdateUnit', function (assert) {
   const serializer = this.subject();
-
   const modelInstance = Unit.create({
     bigIdeas: 'Big ideas text',
     children: [],
@@ -39,23 +36,21 @@ test('serializeUpdateUnit', function (assert) {
     id: 'unit-id',
     lessonsTotal: 0,
     sequence: 1,
-    title: 'Unit Title'
+    title: 'Unit Title',
+    taxonomy: []
   });
-
   const expected = {
     title: modelInstance.get('title'),
     big_ideas: modelInstance.get('bigIdeas'),
     essential_questions: modelInstance.get('essentialQuestions'),
-    taxonomy: []
+    taxonomy: {}
   };
-
   const modelObject = serializer.serializeUpdateUnit(modelInstance);
   assert.deepEqual(modelObject, expected, 'Serializer response');
 });
 
 test('normalizeUnit', function (assert) {
   const serializer = this.subject();
-
   const payload = {
     "unit_id": "unit-id",
     "course_id": "course-id",
@@ -70,10 +65,7 @@ test('normalizeUnit', function (assert) {
     "big_ideas": "Big ideas text",
     "essential_questions": "Essential questions text",
     "metadata": null,
-    "taxonomy": [
-      "K12.MA-MA2",
-      "K12.MA-MAK-CC"
-    ],
+    "taxonomy": {},
     "sequence_id": 4,
     "is_deleted": false,
     "creator_system": "gooru",
@@ -94,8 +86,7 @@ test('normalizeUnit', function (assert) {
       }
     ]
   };
-
-  var expected = Unit.create(Ember.getOwner(this).ownerInjection(), {
+  const expected = Unit.create(Ember.getOwner(this).ownerInjection(), {
     children: [
       Lesson.create(Ember.getOwner(this).ownerInjection(), {
         assessmentCount: 0,
@@ -117,10 +108,9 @@ test('normalizeUnit', function (assert) {
     id: payload.unit_id,
     lessonCount: payload.lesson_summary.length,
     sequence: payload.sequence_id,
-    taxonomy: payload.taxonomy.slice(0),
+    taxonomy: [],
     title: payload.title
   });
-
   const result = serializer.normalizeUnit(payload);
   assert.deepEqual(result, expected, 'Serialized response');
 });

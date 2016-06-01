@@ -2,6 +2,7 @@ import Ember from 'ember';
 import { cleanFilename } from 'gooru-web/utils/utils';
 import CourseModel from 'gooru-web/models/content/course';
 import UnitSerializer from 'gooru-web/serializers/content/unit';
+import ProfileSerializer from 'gooru-web/serializers/profile/profile';
 import { DEFAULT_IMAGES } from "gooru-web/config/config";
 
 /**
@@ -18,6 +19,7 @@ export default Ember.Object.extend({
   init: function () {
     this._super(...arguments);
     this.set('unitSerializer', UnitSerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set('profileSerializer', ProfileSerializer.create(Ember.getOwner(this).ownerInjection()));
   },
 
   /**
@@ -61,8 +63,9 @@ export default Ember.Object.extend({
   normalizeGetCourses: function(payload) {
     const serializer = this;
     if (payload.courses && Ember.isArray(payload.courses)) {
+      const owners = Ember.A(payload.owner_details || []);
       return payload.courses.map(function(course) {
-        return serializer.normalizeCourse(course);
+        return serializer.normalizeCourse(course, owners);
       });
     } else {
       return [];
@@ -73,12 +76,14 @@ export default Ember.Object.extend({
   * Normalize a Course response
   *
   * @param payload - The endpoint response in JSON format
+  * @param {[]} owners owner details
   * @returns {Content/Course} Course Model
   */
-  normalizeCourse: function(payload) {
+  normalizeCourse: function(payload, owners) {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = payload.thumbnail ? basePath + payload.thumbnail : DEFAULT_IMAGES.COURSE;
+    const owner = owners ? owners.findBy("id", payload.owner_id) : null;
 
     return CourseModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: payload.id,
@@ -90,7 +95,7 @@ export default Ember.Object.extend({
       description: payload.description,
       isPublished: payload['publish_status'] && payload['publish_status'] === 'published',
       isVisibleOnProfile: payload['visible_on_profile'],
-      owner: payload.owner_id,
+      owner: owner ? serializer.get("profileSerializer").normalizeReadProfile(owner): null,
       subject: payload.subject_bucket,
       taxonomy: payload.taxonomy ? payload.taxonomy.slice(0) : null,
       thumbnailUrl: thumbnailUrl,
@@ -98,6 +103,6 @@ export default Ember.Object.extend({
       unitCount: payload.unit_count ? payload.unit_count : 0
       // TODO More properties will be added here...
     });
-  }
+  },
 
 });

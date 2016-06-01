@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
 
@@ -8,6 +9,10 @@ export default Ember.Controller.extend({
   actions: {
     openContentPlayer: function(collectionId) {
       this.transitionToRoute('player', collectionId);
+    },
+
+    showMoreResults: function(){
+      this.showMoreResults();
     }
   },
 
@@ -16,6 +21,10 @@ export default Ember.Controller.extend({
 
   profileController: Ember.inject.controller('profile'),
 
+  /**
+   * @type {ProfileService} Service to retrieve profile information
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -28,6 +37,48 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean} isMyProfile
    */
-  isMyProfile: Ember.computed.alias("profileController.isMyProfile")
+  isMyProfile: Ember.computed.alias("profileController.isMyProfile"),
+
+  /**
+   * @property {Profile}
+   */
+  profile: Ember.computed.alias("profileController.profile"),
+
+  /**
+   * @property {*}
+   */
+  pagination: {
+    page: 0,
+    pageSize: DEFAULT_PAGE_SIZE
+  },
+
+  /**
+   * @property {boolean}
+   */
+  showMoreResultsButton: Ember.computed("collections.[]", function(){
+    return this.get("collections.length") % this.get("pagination.pageSize") === 0;
+  }),
+
+  // Methods
+  showMoreResults: function(){
+    const controller = this;
+    const profile = this.get("profile");
+    const pagination = this.get("pagination");
+    pagination.page = pagination.page + 1;
+
+    controller.get('profileService')
+      .readCollections(profile.get("id"), pagination)
+      .then(function(collections){
+        controller.get("collections").pushObjects(collections.toArray());
+      });
+  },
+
+  resetValues: function(){
+    this.set("pagination", {
+      page: 0,
+      pageSize: DEFAULT_PAGE_SIZE
+    })
+  }
+
 
 });
