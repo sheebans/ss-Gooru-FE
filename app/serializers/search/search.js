@@ -40,9 +40,10 @@ export default Ember.Object.extend({
   normalizeCollection: function (collectionData){
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
+    const userBasePath = serializer.get('session.cdnUrls.user');
     const thumbnailUrl = collectionData.thumbnail ? basePath + collectionData.thumbnail : DEFAULT_IMAGES.COLLECTION;
-    const userThumbnailUrl = collectionData.userProfileImage ? basePath + collectionData.userProfileImage : DEFAULT_IMAGES.USER_PROFILE;
-    const creatorThumbnailUrl = collectionData.creatorProfileImage ? basePath + collectionData.creatorProfileImage : DEFAULT_IMAGES.USER_PROFILE;
+    const userThumbnailUrl = collectionData.userProfileImage ? userBasePath + collectionData.userProfileImage : DEFAULT_IMAGES.USER_PROFILE;
+    const creatorThumbnailUrl = collectionData.creatorProfileImage ? userBasePath + collectionData.creatorProfileImage : DEFAULT_IMAGES.USER_PROFILE;
 
     const course = collectionData.course || {};
     return CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
@@ -83,9 +84,10 @@ export default Ember.Object.extend({
   normalizeAssessment: function (assessmentData){
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
+    const userBasePath = serializer.get('session.cdnUrls.user');
     const thumbnailUrl = assessmentData.thumbnail ? basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
-    const ownerThumbnailUrl = assessmentData.userProfileImage ? basePath + assessmentData.userProfileImage : DEFAULT_IMAGES.USER_PROFILE;
-    const creatorThumbnailUrl = assessmentData.creatorProfileImage ? basePath + assessmentData.creatorProfileImage : DEFAULT_IMAGES.USER_PROFILE;
+    const ownerThumbnailUrl = assessmentData.userProfileImage ? userBasePath + assessmentData.userProfileImage : DEFAULT_IMAGES.USER_PROFILE;
+    const creatorThumbnailUrl = assessmentData.creatorProfileImage ? userBasePath + assessmentData.creatorProfileImage : DEFAULT_IMAGES.USER_PROFILE;
 
     const course = assessmentData.course || {};
     return AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
@@ -213,7 +215,7 @@ export default Ember.Object.extend({
    */
   normalizeOwner: function (ownerData) {
     const serializer = this;
-    const basePath = serializer.get('session.cdnUrls.content');
+    const basePath = serializer.get('session.cdnUrls.user');
     const thumbnailUrl =  ownerData.profileImageUrl ? basePath +  ownerData.profileImageUrl : DEFAULT_IMAGES.USER_PROFILE;
 
     return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {

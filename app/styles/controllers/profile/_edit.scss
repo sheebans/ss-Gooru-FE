@@ -1,4 +1,20 @@
 .controller.about.edit {
+  @media(max-width: $screen-sm-min) {
+    $component-height: 210px;
+    .avatar {
+      width: 100%;
+      .gru-image {
+        width: 100%;
+        height: $component-height;
+        border-radius: 4px;
+        img {
+          height: $component-height - 30px;
+          margin: 0 auto;
+        }
+      }
+    }
+  }
+
   .panel {
     .panel-body {
       padding: 22px;
