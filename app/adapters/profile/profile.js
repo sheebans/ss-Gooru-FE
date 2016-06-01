@@ -138,13 +138,21 @@ export default Ember.Object.extend({
    * @param {string} userId
    * @returns {Promise}
    */
-  readResources: function(userId) {
+  readResources: function(userId, params = {}) {
     const adapter = this;
     const namespace = adapter.get('namespace');
     const url = `${namespace}/${userId}/resources`;
+
+    const page = params.page || 0;
+    const pageSize = params.pageSize || DEFAULT_PAGE_SIZE;
+    const offset = page * pageSize;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
+      data: {
+        limit: pageSize,
+        offset: offset
+      },
       headers: adapter.defineHeaders()
     };
     return Ember.$.ajax(url, options);
