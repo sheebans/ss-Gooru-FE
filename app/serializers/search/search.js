@@ -217,7 +217,7 @@ export default Ember.Object.extend({
     const thumbnailUrl =  ownerData.profileImageUrl ? basePath +  ownerData.profileImageUrl : DEFAULT_IMAGES.USER_PROFILE;
 
     return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
-      id: ownerData.gooruUId,
+      id: ownerData.gooruUId || ownerData.id,
       firstName: ownerData.firstName,
       lastName: ownerData.lastName,
       username: ownerData.usernameDisplay,

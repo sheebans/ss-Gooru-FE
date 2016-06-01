@@ -325,6 +325,7 @@ export default {
     "select-resource-type": "Select Resource Type",
     "send-request":"Send Request",
     "show-correct-answer":"Show Correct Answer",
+    "show-more-results" : "Show More Results",
     "show-results":"Show Results",
     "signUp": "Sign Up",
     "sortAlphabetical":"Sort Alphabetically",

@@ -49,6 +49,10 @@ export default Ember.Route.extend(ModalMixin, {
   setupController: function (controller, model) {
     controller.get('profileController').selectMenuItem('content');
     controller.set('courses', model.courses);
+  },
+
+  deactivate: function() {
+    this.get("controller").resetValues();
   }
 
 });

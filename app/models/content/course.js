@@ -26,26 +26,6 @@ export default Ember.Object.extend(Validations, {
   id: null,
 
   /**
-   * @property {String} category - Category the course belongs to
-   */
-  category: Ember.computed('subject', function() {
-    var category = TAXONOMY_CATEGORIES[0].value; // Default to K12 category
-    if (this.get('subject')) {
-      let keys = this.get('subject').split('.');
-      if (keys.length > 1) {
-        for (var i = TAXONOMY_CATEGORIES.length - 1; i >= 0; i--) {
-          // The second part of the subjectId represents the category
-          if (keys[1] === TAXONOMY_CATEGORIES[i].apiCode) {
-            category = TAXONOMY_CATEGORIES[i].value;
-            break;
-          }
-        }
-      }
-    }
-    return category;
-  }),
-
-  /**
    * @property {Content/Unit[]} children - List of course units
    */
   children: [],
@@ -91,6 +71,11 @@ export default Ember.Object.extend(Validations, {
   subject: '',
 
   /**
+   * @property {TaxonomyRoot} Taxonomy primary subject
+   */
+  mainSubject: null,
+
+  /**
    * @property {String[]} Course taxonomy array
    */
   taxonomy: [],
@@ -99,6 +84,13 @@ export default Ember.Object.extend(Validations, {
    * @property {Number} Number of units in the course
    */
   unitCount: 0,
+
+  /**
+   * @property {Profile[]}
+   */
+  remixedBy: Ember.computed("user", function(){
+    return Ember.A([this.get("owner")]); //TODO add also collaborators
+  }),
 
   /**
    * Return a copy of the course
@@ -130,6 +122,9 @@ export default Ember.Object.extend(Validations, {
     // TODO This needs to be fixed as part of the changes to taxonomy
     //properties.taxonomy = taxonomy.slice(0);
 
+    // Copy subject reference
+    properties.mainSubject = this.get('mainSubject');
+
     return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
   },
 
@@ -152,9 +147,8 @@ export default Ember.Object.extend(Validations, {
    * @function
    * @param {TaxonomyRoot} taxonomySubject
    */
-  setTaxonomySubject: function(taxonomySubject) {
-    if (!(this.get('isDestroyed') || this.get('isDestroying'))) {
-      this.set('subject', taxonomySubject ? taxonomySubject.get('id') : null);
-    }
-  }
+  setTaxonomySubject: Ember.observer('mainSubject', function() {
+    var mainSubject = this.get('mainSubject');
+    this.set('subject', mainSubject ? mainSubject.get('id') : null);
+  })
 });

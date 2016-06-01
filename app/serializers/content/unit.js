@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import Lesson from 'gooru-web/models/content/lesson';
 import Unit from 'gooru-web/models/content/unit';
+import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 
 /**
  * Serializer to support the Unit CRUD operations
@@ -10,14 +11,23 @@ import Unit from 'gooru-web/models/content/unit';
 export default Ember.Object.extend({
 
   /**
+   * @property {TaxonomySerializer} taxonomySerializer
+   */
+  taxonomySerializer: null,
+
+  init: function () {
+    this._super(...arguments);
+    this.set('taxonomySerializer', TaxonomySerializer.create(Ember.getOwner(this).ownerInjection()));
+  },
+
+  /**
    * Serialize a Content/Unit object into a JSON representation required by the Create Unit endpoint
    *
    * @param unitModel - The unit model to be serialized
    * @returns {Object} JSON Object representation of the unit model
    */
   serializeCreateUnit: function (unitModel) {
-    var unitData =  this.get('serializeUpdateUnit')(unitModel);
-    return unitData;
+    return this.serializeUpdateUnit(unitModel);
   },
 
   /**
@@ -27,12 +37,12 @@ export default Ember.Object.extend({
    * @returns {Object} JSON Object representation of the unit model
    */
   serializeUpdateUnit: function (unitModel) {
-
+    const serializer = this;
     return {
       title: unitModel.get('title'),
       big_ideas: unitModel.get('bigIdeas'),
       essential_questions: unitModel.get('essentialQuestions'),
-      taxonomy: []   // TODO: pending
+      taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(unitModel.get('taxonomy'))
     };
   },
 
@@ -65,7 +75,7 @@ export default Ember.Object.extend({
       lessonCount: payload['lesson_summary'] && Ember.isArray(payload['lesson_summary']) ? payload['lesson_summary'].length : (payload['lesson_count'] ? payload['lesson_count'] : 0),
       sequence: payload.sequence_id,
       title: payload.title,
-      taxonomy: payload.taxonomy ? payload.taxonomy.slice(0) : null
+      taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomy(payload.taxonomy)
     });
   },
 
