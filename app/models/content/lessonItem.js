@@ -22,6 +22,10 @@ export default Ember.Object.extend({
     return this.get('format') === CONTENT_TYPES.COLLECTION;
   }),
 
+  isExternalAssessment: Ember.computed('format', function() {
+    return this.get('format') === CONTENT_TYPES.EXTERNAL_ASSESSMENT;
+  }),
+
   isAssessment: Ember.computed.not("isCollection"),
 
   /**

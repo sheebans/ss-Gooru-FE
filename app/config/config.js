@@ -40,6 +40,7 @@ export const TAXONOMY_CATEGORIES = [
 export const CONTENT_TYPES = {
   COLLECTION: 'collection',
   ASSESSMENT: 'assessment',
+  EXTERNAL_ASSESSMENT: 'assessment-external',
   COURSE: 'course',
   UNIT: 'unit',
   LESSON: 'lesson',

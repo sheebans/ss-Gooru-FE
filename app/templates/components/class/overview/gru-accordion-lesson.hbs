@@ -48,9 +48,11 @@
           {{#if isTeacher}}
 
             {{#if item.isAssessment}}
+              {{#unless item.isExternalAssessment}}
               <button {{action "setOnAir" item.id}} class="btn btn-success on-air">
                 {{t "common.launch-on-air"}}
               </button>
+              {{/unless}}
             {{/if}}
 
           {{else}}
@@ -74,7 +76,7 @@
             </div>
 
             <span class="panel-title">
-              <a class="title" {{action "selectResource" item.id}}>
+              <a class="title" {{action "selectResource" item}}>
                   {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
               </a>
             </span>

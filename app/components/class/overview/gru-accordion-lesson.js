@@ -86,11 +86,11 @@ export default Ember.Component.extend(AccordionMixin, {
 
     /**
      * @function actions:selectResource
-     * @param {string} collectionId - Identifier for a resource (collection/assessment)
+     * @param {string} collection - (collection/assessment)
      */
-    selectResource: function (collectionId) {
+    selectResource: function (collection) {
       let lessonId = this.get("model.id");
-      this.get('onSelectResource')(lessonId, collectionId);
+      this.get('onSelectResource')(lessonId, collection);
     },
 
     setOnAir: function (collectionId) {
