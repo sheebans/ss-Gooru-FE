@@ -60,3 +60,13 @@ test('normalizeReadAssessment', function(assert) {
   assert.equal(assessment.get('isVisibleOnProfile'), true, 'Wrong isVisibleOnProfile');
   assert.equal(assessment.get('standards.length'), 0, 'Wrong standards number of elements');
 });
+
+test('serializeReorderAssessment', function(assert) {
+  const serializer = this.subject();
+  const ids = ["a", "b", "c"];
+  const data = serializer.serializeReorderAssessment(ids);
+  assert.ok(data.order, 'Missing order');
+  assert.equal(data.order.length, 3, 'Wrong order total');
+  assert.equal(data.order[0].id, "a", 'Wrong id');
+  assert.equal(data.order[0].sequence_id, 1, 'Wrong sequence id');
+});
