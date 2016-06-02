@@ -206,6 +206,45 @@ test('getDomains when taxonomy domains does not exist for course', function(asse
     });
 });
 
+test('getDomains when taxonomy domains exist for course', function(assert) {
+  const test = this;
+  const service = this.subject();
+  service.set('apiTaxonomyService', Ember.Object.create({
+    fetchDomains: function() {
+      assert.ok(false, 'Method fetchDomains() should not be called.');
+      return Ember.RSVP.resolve([]);
+    }
+  }));
+  var done = assert.async();
+  const subject = TaxonomyRoot.create(Ember.getOwner(test).ownerInjection(), {
+    id: 'GDF.K12.CS',
+    frameworkId: 'GDF',
+    courses: []
+  });
+  const course = TaxonomyItem.create(Ember.getOwner(test).ownerInjection(), {
+    id: 'TEKS.K12.PE-K',
+    code: 'TEKS.K12.PE-K',
+    children: [
+      TaxonomyItem.create(Ember.getOwner(test).ownerInjection(), {
+        id: 'TEKS.K12.PE-K-MOV',
+        code: 'TEKS.K12.PE-K-MOV',
+        title: 'Movement'
+      }),
+      TaxonomyItem.create(Ember.getOwner(test).ownerInjection(), {
+        id: 'TEKS.K12.PE-K-PAH',
+        code: 'TEKS.K12.PE-K-PAH',
+        title: 'Physical activity and health'
+      })
+    ]
+  });
+  service.getDomains(subject, course)
+    .then(function(domains) {
+      assert.equal(domains.length, 2, 'Wrong number of courses');
+      assert.equal(domains.objectAt(0).get('id'), 'TEKS.K12.PE-K-MOV', 'Wrong domain id');
+      done();
+    });
+});
+
 test('findSubjectById for a loaded category and subject', function(assert) {
   const service = this.subject();
   const taxonomyContainer = {
