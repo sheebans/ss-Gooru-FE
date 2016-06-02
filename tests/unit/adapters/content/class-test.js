@@ -50,6 +50,22 @@ test('Update class', function (assert) {
     });
 });
 
+test('deleteClass', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.delete('/api/nucleus/v1/classes/class-id', function() {
+      return [ 204, { 'Content-Type': 'application/json; charset=utf-8' }, ''];
+    }, false);
+  });
+  adapter.deleteClass('class-id')
+    .then(function() {
+      assert.ok(true);
+    });
+});
+
 test('joinClass', function(assert) {
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({
