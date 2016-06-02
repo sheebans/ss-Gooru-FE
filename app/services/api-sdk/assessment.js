@@ -118,6 +118,22 @@ export default Ember.Service.extend({
           resolve(request.getResponseHeader('location'));
         }, reject );
     });
+  },
+
+  /**
+   * Reorder assessment resources
+   *
+   * @param assessmentId the id of the Assessment to be updated
+   * @param {string[]} questionIds
+   * @returns {Promise}
+   */
+  reorderAssessment: function(assessmentId, questionIds) {
+    const service = this;
+    let serializedData = service.get('assessmentSerializer').serializeReorderAssessment(questionIds);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('assessmentAdapter').reorderAssessment(assessmentId, serializedData).then(resolve, reject);
+    });
   }
+
 
 });

@@ -135,6 +135,29 @@ export default Ember.Object.extend({
    return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Reorder course units
+   *
+   * @param courseId the id of the Course to be updated
+   * @param data Course data to be sent in the request body
+   * @returns {Promise}
+   */
+  reorderCourse: function(courseId, data) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${courseId}/order`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify(data)
+    };
+
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')

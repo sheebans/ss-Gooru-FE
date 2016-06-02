@@ -88,6 +88,21 @@ export default Ember.Object.extend({
     } else {
       return [];
     }
+  },
+
+  /**
+   * Serialize reorder unit
+   * @param {string[]} lessonIds
+   */
+  serializeReorderUnit: function (lessonIds) {
+    const values = lessonIds.map(function(id, index) {
+      return { "id" : id, "sequence_id" : index + 1 };
+    });
+
+    return {
+      "order": values
+    };
   }
+
 
 });

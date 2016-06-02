@@ -95,7 +95,22 @@ export default Ember.Object.extend({
       });
     }
     return [];
+  },
+
+  /**
+   * Serialize reorder assessment
+   * @param {string[]} questionIds
+   */
+  serializeReorderAssessment: function (questionIds) {
+    const values = questionIds.map(function(id, index) {
+      return { "id" : id, "sequence_id" : index + 1 };
+    });
+
+    return {
+      "order": values
+    };
   }
+
 
 });
 

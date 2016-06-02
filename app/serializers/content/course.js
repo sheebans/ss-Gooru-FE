@@ -111,6 +111,21 @@ export default Ember.Object.extend({
       unitCount: payload.unit_count ? payload.unit_count : 0
       // TODO More properties will be added here...
     });
+  },
+
+  /**
+   * Serialize reorder course
+   * @param {string[]} unitIds
+   */
+  serializeReorderCourse: function (unitIds) {
+    const values = unitIds.map(function(id, index) {
+      return { "id" : id, "sequence_id" : index + 1 };
+    });
+
+    return {
+      "order": values
+    };
   }
+
 
 });

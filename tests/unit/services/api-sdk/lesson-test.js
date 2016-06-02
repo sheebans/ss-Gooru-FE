@@ -196,3 +196,31 @@ test('Copy Lesson', function(assert) {
       done();
     });
 });
+
+test('reorderLesson', function(assert) {
+  const service = this.subject();
+  const expectedUnitId = 'unit-id';
+
+  assert.expect(6);
+
+  service.set('serializer', Ember.Object.create({
+    serializeReorderLesson: function(collectionIds) {
+      assert.equal(collectionIds.length, 2, 'Wrong total collections');
+      assert.equal(collectionIds[0], 'a', 'Wrong id at index 0');
+      return 'fake-data';
+    }
+  }));
+  service.set('adapter', Ember.Object.create({
+    reorderLesson: function(courseId, unitId, lessonId, data) {
+      assert.equal(courseId, 'course-id', 'Wrong course id');
+      assert.equal(unitId, expectedUnitId, 'Wrong unit id');
+      assert.equal(lessonId, 'lesson-id', 'Wrong lesson id');
+      assert.equal(data, 'fake-data', 'Wrong data parameter coming from serializer');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.reorderUnit('course-id', expectedUnitId, 'lesson-id', ["a", "b"]).then(function() { done(); });
+});
+

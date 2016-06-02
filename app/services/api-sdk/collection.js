@@ -83,6 +83,21 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Reorder collection resources
+   *
+   * @param collectionId the id of the Collection to be updated
+   * @param {string[]} resourceIds
+   * @returns {Promise}
+   */
+  reorderCollection: function(collectionId, resourceIds) {
+    const service = this;
+    let serializedData = service.get('collectionSerializer').serializeReorderCollection(resourceIds);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('collectionAdapter').reorderCollection(collectionId, serializedData).then(resolve, reject);
+    });
+  },
+
+  /**
    * Gets a specific collection|assessment by ID
    * @param {string} collectionId
    * @returns {Collection}
