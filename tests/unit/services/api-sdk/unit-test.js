@@ -199,7 +199,7 @@ test('reorderUnit', function(assert) {
   const service = this.subject();
   const expectedUnitId = 'unit-id';
 
-  assert.expect(4);
+  assert.expect(5);
 
   service.set('serializer', Ember.Object.create({
     serializeReorderUnit: function(lessonIds) {

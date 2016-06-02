@@ -127,14 +127,14 @@ test('reorderCourse', function(assert) {
 
   assert.expect(4);
 
-  service.set('courseSerializer', Ember.Object.create({
+  service.set('serializer', Ember.Object.create({
     serializeReorderCourse: function(resourceIds) {
       assert.equal(resourceIds.length, 2, 'Wrong total resources');
       assert.equal(resourceIds[0], 'a', 'Wrong id at index 0');
       return 'fake-data';
     }
   }));
-  service.set('courseAdapter', Ember.Object.create({
+  service.set('adapter', Ember.Object.create({
     reorderCourse: function(courseId, data) {
       assert.equal(courseId, expectedCourseId, 'Wrong course id');
       assert.equal(data, 'fake-data', 'Wrong data parameter coming from serializer');

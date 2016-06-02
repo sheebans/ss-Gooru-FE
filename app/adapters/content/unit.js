@@ -149,7 +149,7 @@ export default Ember.Object.extend({
   },
 
   /**
-   * Reorder unit resources
+   * Reorder unit lessons
    *
    * @param courseId the id of the course
    * @param unitId the id of the unit to be updated

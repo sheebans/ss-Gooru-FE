@@ -121,9 +121,9 @@ export default Ember.Service.extend(StoreMixin, {
    */
   reorderCourse: function(courseId, unitIds) {
     const service = this;
-    let serializedData = service.get('courseSerializer').serializeReorderCourse(unitIds);
+    let serializedData = service.get('serializer').serializeReorderCourse(unitIds);
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('courseAdapter').reorderCourse(courseId, serializedData).then(resolve, reject);
+      service.get('adapter').reorderCourse(courseId, serializedData).then(resolve, reject);
     });
   },
 
