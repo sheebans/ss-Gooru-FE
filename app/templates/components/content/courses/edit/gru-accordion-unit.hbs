@@ -35,9 +35,9 @@
         <span>{{t "common.domain"}}</span>
         <button type="button" class="btn btn-primary btn-sm add-prefix" {{action 'openDomainPicker'}}>{{t "common.add"}}</button>
         <ul>
-        {{#each selectedDomains as |domainTag|}}
+        {{#each selectedTags as |taxonomyTag|}}
           <li>
-            {{taxonomy.gru-taxonomy-tag model=domainTag}}
+            {{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}
           </li>
         {{/each}}
         </ul>
@@ -87,7 +87,6 @@
         {{content.courses.edit.gru-accordion-lesson
           course=course
           unitId=unit.id
-          selectedDomains=selectedDomains
           model=item
           index=index
           totalItems=items.length

@@ -88,6 +88,7 @@ export default Ember.Object.extend(Validations, {
 
     // Copy the unit data
     properties = this.getProperties(properties);
+    properties.taxonomy = Ember.A(this.get('taxonomy').slice(0));
     return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
   },
 
