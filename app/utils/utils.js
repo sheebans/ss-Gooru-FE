@@ -324,5 +324,5 @@ export function normalizeQuestionTypes(questionType) {
  */
 export function cleanFilename(url) {
   var defaultImages = Ember.$.map(DEFAULT_IMAGES, value => value);
-  return (url && defaultImages.indexOf(url) < 0) ? /([^\/]*\/\/[^\/]+\/)?(.+)/.exec(url)[2] : null;
+  return (url && defaultImages.indexOf(url) < 0) ? /([^\/]*\/\/[^\/]+\/)?(.+)/.exec(url)[2] : '';
 }
