@@ -67,11 +67,15 @@ export default Ember.Service.extend({
     const apiTaxonomyService = service.get('apiTaxonomyService');
     return new Ember.RSVP.Promise(function(resolve) {
       if (subject) {
-        apiTaxonomyService.fetchCourses(subject.get('frameworkId'), subject.get('id'))
-          .then(function(courses) {
-            subject.set('courses', courses);
-            resolve(courses);
-          });
+        if (subject.get('courses') && subject.get('courses.length') > 0) {
+          resolve(subject.get('courses'));
+        } else {
+          apiTaxonomyService.fetchCourses(subject.get('frameworkId'), subject.get('id'))
+            .then(function(courses) {
+              subject.set('courses', courses);
+              resolve(courses);
+            });
+        }
       } else {
         resolve(null);
       }
