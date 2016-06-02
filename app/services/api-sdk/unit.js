@@ -157,6 +157,23 @@ export default Ember.Service.extend(StoreMixin, {
           resolve(request.getResponseHeader('location'));
         }, reject );
     });
+  },
+
+  /**
+   * Reorder unit lessons
+   *
+   * @param courseId the id of the Course
+   * @param unitId the id of the Unit to be updated
+   * @param {string[]} lessonIds
+   * @returns {Promise}
+   */
+  reorderUnit: function(courseId, unitId, lessonIds) {
+    const service = this;
+    let serializedData = service.get('serializer').serializeReorderUnit(lessonIds);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('adapter').reorderUnit(courseId, unitId, serializedData).then(resolve, reject);
+    });
   }
+
 
 });
