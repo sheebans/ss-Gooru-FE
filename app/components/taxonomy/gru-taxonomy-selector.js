@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 import { getCategoryFromSubjectId } from 'gooru-web/utils/taxonomy';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
 /**
  * Taxonomy selector component
@@ -28,7 +29,7 @@ export default Ember.Component.extend({
      */
     setCategory(categoryValue) {
       this.set('editCategory', categoryValue);
-      this.set('editEntity.mainSubject', null);
+      this.get('editEntity').set('mainSubject', null);
       this.set('secondarySubject', null);
       this.setLists();
     },
@@ -37,10 +38,30 @@ export default Ember.Component.extend({
      */
     setSubject(subject, isPrimary) {
       if (isPrimary) {
-        this.set('editEntity.mainSubject', subject);
+        this.get('editEntity').set('mainSubject', subject);
       } else {
         this.set('secondarySubject', subject);
       }
+    },
+    /**
+     * Select a subject course
+     */
+    selectSubjectCourse(course) {
+      var selectedCourses = this.get('editEntity.selectedCourses');
+      if (selectedCourses.contains(course)) {
+        selectedCourses.removeObject(course);
+      } else {
+        selectedCourses.pushObject(course);
+      }
+    },
+    /**
+     * Remove a specific tag
+     */
+    removeTag(tag) {
+      var selectedCourses = this.get('editEntity.selectedCourses');
+      var course = selectedCourses.findBy('id', tag.get('data.id'));
+      selectedCourses.removeObject(course);
+      this.get('editEntity.tags').removeObject(tag);
     },
     /**
      * Toggles the appearance of the secondary subject
@@ -57,6 +78,15 @@ export default Ember.Component.extend({
   // Attributes
 
   classNames: ['taxonomy', 'gru-taxonomy-selector'],
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  didInsertElement() {
+    this.$().on('click', 'ul.courses li', function(e) {
+      e.stopPropagation();
+    });
+  },
 
   // -------------------------------------------------------------------------
   // Properties
@@ -136,9 +166,36 @@ export default Ember.Component.extend({
   /**
    * Resets the category when enters to editing mode
    */
-  resetEditCategory: Ember.observer('isEditing', function() {
+  resetEditValues: Ember.observer('isEditing', function() {
     if (this.get('isEditing')) {
       this.set('editCategory', getCategoryFromSubjectId(this.get('editEntity.mainSubject.id')));
+      this.get('editEntity.tags').forEach(function(tag) {
+        tag.set('isReadonly', false);
+        tag.set('isRemovable', true);
+      });
+    }
+  }),
+
+  /**
+   * Sets the taxonomy property when the selected courses change for the editing entity
+   */
+  setTaxonomyProperty: Ember.observer('editEntity.selectedCourses.@each', function() {
+    var entity = this.get('editEntity');
+    if (entity) {
+      let subject = entity.get('mainSubject');
+      let selectedCourses = entity.get('selectedCourses');
+      entity.set('taxonomy', []);
+      if (selectedCourses.length) {
+        selectedCourses.forEach(function(course) {
+          entity.get('taxonomy').push(TaxonomyTagData.create({
+            id: course.get('id'),
+            code: course.get('code'),
+            title: course.get('title'),
+            parentTitle: subject.get('subjectTitle'),
+            frameworkCode: subject.get('frameworkId')
+          }));
+        });
+      }
     }
   })
 

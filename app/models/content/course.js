@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 const Validations = buildValidations({
   title: {
@@ -76,6 +77,38 @@ export default Ember.Object.extend(Validations, {
   mainSubject: null,
 
   /**
+   * @property {TaxonomyTagData[]} Array of selected taxonomy subject courses
+   */
+  selectedCourses: Ember.computed('mainSubject', 'taxonomy.[]', function() {
+    if (this.get('mainSubject') && this.get('taxonomy').length) {
+      let subject = this.get('mainSubject');
+      let taxonomy = this.get('taxonomy');
+      // TODO: Determine the list of courses using the subject and the taxonomy
+      return [];
+    } else {
+      return [];
+    }
+  }),
+
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('taxonomy.[]', function() {
+    if (this.get('taxonomy').length) {
+      return this.get('taxonomy').map(function(tagData) {
+        return TaxonomyTag.create({
+          isActive: false,
+          isReadonly: true,
+          isRemovable: false,
+          data: tagData
+        });
+      });
+    } else {
+      return [];
+    }
+  }),
+
+  /**
    * @property {String[]} Course taxonomy array
    */
   taxonomy: [],
@@ -116,14 +149,19 @@ export default Ember.Object.extend(Validations, {
 
     let audience = this.get('audience');
     let taxonomy = this.get('taxonomy');
+    let selectedCourses = this.get('selectedCourses');
+    let tags = this.get('tags');
 
     // Copy the audience and taxonomy values
     properties.audience = audience.slice(0);
-    // TODO This needs to be fixed as part of the changes to taxonomy
-    //properties.taxonomy = taxonomy.slice(0);
+    properties.taxonomy = taxonomy.slice(0);
+    properties.tags = tags.slice(0);
 
     // Copy subject reference
     properties.mainSubject = this.get('mainSubject');
+
+    // Copy selectedCourses reference
+    properties.selectedCourses = selectedCourses.slice(0);
 
     return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
   },
@@ -143,12 +181,10 @@ export default Ember.Object.extend(Validations, {
 
   /**
    * Sets the subject of the course
-   *
-   * @function
-   * @param {TaxonomyRoot} taxonomySubject
    */
   setTaxonomySubject: Ember.observer('mainSubject', function() {
     var mainSubject = this.get('mainSubject');
     this.set('subject', mainSubject ? mainSubject.get('id') : null);
   })
+
 });
