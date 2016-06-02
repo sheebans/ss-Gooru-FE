@@ -60,10 +60,10 @@ test('it renders a lesson item correctly -collection', function (assert) {
     '5 ' + this.get('i18n').t('common.question-pl', { count: 5}).string, 'Detail text');
 
   assert.equal($heading.find('.actions button').length, 4, 'Header action buttons');
-  assert.ok($heading.find('.actions button:eq(0)').hasClass('edit-item'), 'First button is for editing');
-  assert.ok($heading.find('.actions button:eq(1)').hasClass('copy-item'), 'Second button is for copying');
-  assert.ok($heading.find('.actions button:eq(2)').hasClass('move-item'), 'Third button is for moving');
-  assert.ok($heading.find('.actions button:eq(3)').hasClass('delete-item'), 'Fourth button is for deleting');
+  assert.ok($heading.find('.actions button:eq(0)').hasClass('delete-item'), 'First button is for editing');
+  assert.ok($heading.find('.actions button:eq(1)').hasClass('move-item'), 'Second button is for copying');
+  assert.ok($heading.find('.actions button:eq(2)').hasClass('copy-item'), 'Third button is for moving');
+  assert.ok($heading.find('.actions button:eq(3)').hasClass('edit-item'), 'Fourth button is for deleting');
 });
 
 test('it renders an assessment detail correctly', function (assert) {
@@ -98,4 +98,3 @@ test('it renders an assessment detail correctly', function (assert) {
   assert.equal($detailContainer.find('> div:first-child > span').length, 1, 'Detail text sections -resources not listed');
   assert.equal($detailContainer.find('> div:first-child > span').text(), '0 ' + this.get('i18n').t('common.question-pl', { count: 0}).string, 'Detail text -resources not listed');
 });
-
