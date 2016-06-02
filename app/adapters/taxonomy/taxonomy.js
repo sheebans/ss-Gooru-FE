@@ -14,10 +14,10 @@ export default Ember.Object.extend({
   /**
    * Fetches the Taxonomy Subjects for the specific type
    *
-   * @param type the subjects type
+   * @param category - The classification type
    * @returns {Promise}
    */
-  fetchSubjects: function(type) {
+  fetchSubjects: function(category) {
     const adapter = this;
     const namespace = adapter.get('namespace');
     const url = `${namespace}/subjects`;
@@ -26,7 +26,7 @@ export default Ember.Object.extend({
       contentType: 'application/json; charset=utf-8',
       headers: adapter.defineHeaders(),
       data: {
-        classification_type: type
+        classification_type: category
       }
     };
     return Ember.$.ajax(url, options);
@@ -36,13 +36,13 @@ export default Ember.Object.extend({
    * Fetches the Taxonomy Courses
    *
    * @param frameworkId - the framework ID
-   * @param taxonomySubjectId - the taxonomy subject ID
+   * @param subjectId - the taxonomy subject ID
    * @returns {Promise}
    */
-  fetchCourses: function(frameworkId, taxonomySubjectId) {
+  fetchCourses: function(frameworkId, subjectId) {
     const adapter = this;
     const namespace = adapter.get('namespace');
-    const url = `${namespace}/frameworks/${frameworkId}/subjects/${taxonomySubjectId}/courses`;
+    const url = `${namespace}/frameworks/${frameworkId}/subjects/${subjectId}/courses`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -56,14 +56,14 @@ export default Ember.Object.extend({
    * Fetches the Taxonomy Domains
    *
    * @param frameworkId - the framework ID
-   * @param taxonomySubjectId - the taxonomy subject ID
-   * @param taxonomyCourseId - the taxonomy course ID
+   * @param subjectId - the taxonomy subject ID
+   * @param courseId - the taxonomy course ID
    * @returns {Promise}
    */
-  fetchDomains: function(frameworkId, taxonomySubjectId, taxonomyCourseId) {
+  fetchDomains: function(frameworkId, subjectId, courseId) {
     const adapter = this;
     const namespace = adapter.get('namespace');
-    const url = `${namespace}/frameworks/${frameworkId}/subjects/${taxonomySubjectId}/courses/${taxonomyCourseId}/domains`;
+    const url = `${namespace}/frameworks/${frameworkId}/subjects/${subjectId}/courses/${courseId}/domains`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
