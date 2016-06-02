@@ -2,6 +2,7 @@ import Ember from 'ember';
 import APITaxonomyService from 'gooru-web/services/api-sdk/taxonomy';
 import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 import { getCategoryFromSubjectId } from 'gooru-web/utils/taxonomy';
+import { generateTaxonomyTestTree } from 'gooru-web/utils/taxonomy';
 
 /**
  * Service for the Taxonomy Singleton elements container
@@ -26,6 +27,11 @@ export default Ember.Service.extend({
     this._super(...arguments);
     this.set('taxonomyContainer', {});
     this.set('apiTaxonomyService', APITaxonomyService.create(Ember.getOwner(this).ownerInjection()));
+
+    // TODO: Remove after logic for taxonomy tree creation is ready
+    // Init taxonomy tree for testing the selection of unit domains
+    var taxonomyTree = generateTaxonomyTestTree(3, null, 2);
+    this.set('tempTree', taxonomyTree);
   },
 
   /**
@@ -107,8 +113,9 @@ export default Ember.Service.extend({
     });
   },
 
+// TODO: Remove after logic for taxonomy tree creation is ready
   getCourses: function() {
-    return [];
+    return this.get('tempTree');
   }
 
 });
