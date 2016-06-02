@@ -50,7 +50,9 @@ test('normalizeReadAssessment', function(assert) {
     'learning_objective': 'learning-objectives',
     'visible_on_profile': true,
     thumbnail: 'image-id.png',
-    taxonomy: {}
+    taxonomy: {},
+    format: 'assessment-external',
+    url: "any"
   };
   const assessment = serializer.normalizeReadAssessment(assessmentData);
   assert.equal(assessment.get('id'), 'assessment-id', 'Wrong id');
@@ -59,4 +61,6 @@ test('normalizeReadAssessment', function(assert) {
   assert.equal(assessment.get('learningObjectives'), 'learning-objectives', 'Wrong learningObjectives');
   assert.equal(assessment.get('isVisibleOnProfile'), true, 'Wrong isVisibleOnProfile');
   assert.equal(assessment.get('standards.length'), 0, 'Wrong standards number of elements');
+  assert.equal(assessment.get('format'), 'assessment-external', 'Wrong format');
+  assert.equal(assessment.get('url'), 'any', 'Wrong url');
 });

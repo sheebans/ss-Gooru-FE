@@ -31,7 +31,12 @@ export default Ember.Object.extend({
   /**
    * @property {String} format - Type of lesson item
    */
-  format: '',
+  format: null,
+
+  /**
+   * @property {String} url
+   */
+  url: null,
 
   collectionType: Ember.computed.alias("format"),
   /**

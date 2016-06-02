@@ -82,8 +82,9 @@ export default Ember.Object.extend({
       questionCount: assessmentData.question_count ? assessmentData.question_count : 0,
       sequence: assessmentData.sequence_id,
       thumbnailUrl: thumbnailUrl,
-      standards: serializer.get('taxonomySerializer').normalizeTaxonomy(assessmentData.taxonomy)
-      // TODO Add more required properties here...
+      standards: serializer.get('taxonomySerializer').normalizeTaxonomy(assessmentData.taxonomy),
+      format: assessmentData.format,
+      url: assessmentData.url
     });
   },
 

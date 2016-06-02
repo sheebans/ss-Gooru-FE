@@ -91,7 +91,7 @@ export default Ember.Component.extend(ModalMixin,{
    * @property {boolean}
    */
   remixEnabled: Ember.computed('editEnabled', 'collection', function(){
-    const isEditing = !this.get("editEnabled");
+    const isEditing = this.get("editEnabled");
     if (this.get("isCollection")) {
       return !isEditing;
     }
