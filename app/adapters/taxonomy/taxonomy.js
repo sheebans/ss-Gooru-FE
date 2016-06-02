@@ -77,15 +77,15 @@ export default Ember.Object.extend({
    * Fetches the Taxonomy Codes
    *
    * @param frameworkId - the framework ID
-   * @param taxonomySubjectId - the taxonomy subject ID
-   * @param taxonomyCourseId - the taxonomy course ID
-   * @param taxonomyDomainId - the taxonomy domain ID
+   * @param subjectId - the taxonomy subject ID
+   * @param courseId - the taxonomy course ID
+   * @param domainId - the taxonomy domain ID
    * @returns {Promise}
    */
-  fetchCodes: function(frameworkId, taxonomySubjectId, taxonomyCourseId, taxonomyDomainId) {
+  fetchCodes: function(frameworkId, subjectId, courseId, domainId) {
     const adapter = this;
     const namespace = adapter.get('namespace');
-    const url = `${namespace}/frameworks/${frameworkId}/subjects/${taxonomySubjectId}/courses/${taxonomyCourseId}/domains/${taxonomyDomainId}/codes`;
+    const url = `${namespace}/frameworks/${frameworkId}/subjects/${subjectId}/courses/${courseId}/domains/${domainId}/codes`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',

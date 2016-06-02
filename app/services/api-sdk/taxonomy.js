@@ -80,15 +80,15 @@ export default Ember.Service.extend({
    * Fetches the Taxonomy Codes
    *
    * @param frameworkId - the framework ID
-   * @param taxonomySubjectId - the taxonomy subject ID
-   * @param taxonomyCourseId - the taxonomy course ID
-   * @param taxonomyDomainId - the taxonomy domain ID
+   * @param subjectId - the taxonomy subject ID
+   * @param courseId - the taxonomy course ID
+   * @param domainId - the taxonomy domain ID
    * @returns {Promise}
    */
-  fetchCodes: function(frameworkId, taxonomySubjectId, taxonomyCourseId, taxonomyDomainId) {
+  fetchCodes: function(frameworkId, subjectId, courseId, domainId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('taxonomyAdapter').fetchCodes(frameworkId, taxonomySubjectId, taxonomyCourseId, taxonomyDomainId)
+      service.get('taxonomyAdapter').fetchCodes(frameworkId, subjectId, courseId, domainId)
         .then(function(response) {
           resolve(service.get('taxonomySerializer').normalizeFetchCodes(response));
         }, function(error) {
