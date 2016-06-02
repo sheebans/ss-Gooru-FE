@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ResourceModel from 'gooru-web/models/content/resource';
 import QuestionModel from 'gooru-web/models/content/question';
+import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
 
 /**
  * Adapter to support the Search for Collections, Assessments, Resources and Questions
@@ -19,10 +20,13 @@ export default Ember.Object.extend({
    * @param term the term to search
    * @returns {Promise.<Collection[]>}
    */
-  searchCollections: function(term) {
+  searchCollections: function(term, params = {}) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/scollection`;
+
+    const page = params.page || 0;
+    const pageSize = params.pageSize || DEFAULT_PAGE_SIZE;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -31,8 +35,8 @@ export default Ember.Object.extend({
       data: {
         q: term,
         'flt.collectionType': 'collection',
-        start: 1,
-        length: 20
+        start: page + 1,
+        length: pageSize
       }
     };
     return Ember.$.ajax(url, options);
@@ -42,12 +46,16 @@ export default Ember.Object.extend({
    * Fetches the assessments that match with the term
    *
    * @param term the term to search
+   * @param params
    * @returns {Promise.<Assessment[]>}
    */
-  searchAssessments: function(term) {
+  searchAssessments: function(term, params = {}) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/scollection`;
+
+    const page = params.page || 0;
+    const pageSize = params.pageSize || DEFAULT_PAGE_SIZE;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -56,8 +64,8 @@ export default Ember.Object.extend({
       data: {
         q: term,
         'flt.collectionType': 'assessment',
-        start: 1,
-        length: 20
+        start: page + 1, //page starts at one
+        length: pageSize
       }
     };
     return Ember.$.ajax(url, options);
@@ -70,10 +78,13 @@ export default Ember.Object.extend({
    * @param formatValues the resource formatValues to filter the search
    * @returns {Promise.<Resource[]>}
    */
-  searchResources: function(term, formatValues = []) {
+  searchResources: function(term, formatValues = [], params = {}) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/resource`;
+
+    const page = params.page || 0;
+    const pageSize = params.pageSize || DEFAULT_PAGE_SIZE;
     let options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -81,8 +92,8 @@ export default Ember.Object.extend({
       headers: adapter.defineHeaders(),
       data: {
         "q": term,
-        "start": 1,
-        "length": 20,
+        "start": page + 1,
+        "length": pageSize,
         "flt.contentFormat": "resource"
       }
     };
@@ -98,12 +109,16 @@ export default Ember.Object.extend({
    *
    * @param term the term to search
    * @param types question types to filter the search
+   * @param {*}
    * @returns {Promise.<Question[]>}
    */
-  searchQuestions: function(term, types = []) {
+  searchQuestions: function(term, types = [], params = {}) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/resource`;
+
+    const page = params.page || 0;
+    const pageSize = params.pageSize || DEFAULT_PAGE_SIZE;
     let options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -111,8 +126,8 @@ export default Ember.Object.extend({
       headers: adapter.defineHeaders(),
       data: {
         "q": term,
-        "start": 1,
-        "length": 20,
+        "start": page + 1,
+        "length": pageSize,
         "flt.resourceFormat": "question"
       }
     };
