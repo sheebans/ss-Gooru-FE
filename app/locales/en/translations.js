@@ -210,6 +210,7 @@ export default {
     "move": "Move",
     "myContent": "My Content",
     "edit-narration": "Edit Narration",
+    "narration": "Narration",
     "new-assessment": "New Assessment",
     "new-collection": "New Collection",
     "new-question": "New Question",
