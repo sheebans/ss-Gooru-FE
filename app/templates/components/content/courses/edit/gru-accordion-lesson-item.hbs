@@ -25,8 +25,9 @@
 
       <div class="actions">
           <div class="item-actions">
-              <button class="btn edit-item" title="{{t 'common.edit'}}" {{action 'edit' model}}>{{gru-icon name="edit"}}</button>
               {{partial 'content/partials/item-actions'}}
+              <button class="btn edit-item" title="{{t 'common.edit'}}" {{action 'edit' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="edit"}}</button>
+
           </div>
       </div>
     </div>

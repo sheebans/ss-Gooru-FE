@@ -213,6 +213,9 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
     this.set('selectedStandards', [standardTag1, standardTag2, standardTag3, standardTag4, standardTag5, standardTag6]);
 
   },
+  didRender(){
+    $('[data-toggle="tooltip"]').tooltip();
+  },
 
 
   // -------------------------------------------------------------------------
