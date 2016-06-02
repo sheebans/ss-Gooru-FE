@@ -30,13 +30,21 @@
         </ul>
       </div>
       {{#if (gt items.length 1)}}
-        <button class="btn btn-primary sort-items" {{action 'reOrderElements'}}>{{gru-icon name="swap_vert"}}</button>
+        {{#unless isSorting}}
+          <button class="btn btn-primary sort-items" {{action 'reOrderElements'}}>{{gru-icon name="swap_vert"}}</button>
+        {{/unless}}
       {{/if}}
     </div>
+    {{#if isSorting}}
+        <div class="drag-options">
+            <button class="cancel btn btn-info"  {{action 'cancelSort'}}>{{t "common.cancel"}}</button>
+            <button class="save btn btn-success" {{action 'saveReorder'}}>{{t "common.save"}}</button>
+        </div>
+    {{/if}}
   </div>
 </div>
 
-<ol class="collection-list sortable" role="tablist" aria-multiselectable="true">
+<ol class="collection-list sortable {{if isSorting 'sorting'}}" role="tablist" aria-multiselectable="true">
 
   {{#each items as |item index|}}
 
@@ -44,6 +52,7 @@
       model=item
       index=index
       collection=model
+      isSorting=isSorting
       isCollection=isCollection
       onRemoveCollectionItem=(action 'removeCollectionItem')
       onRemixCollectionItem=(action 'remixCollectionItem')}}

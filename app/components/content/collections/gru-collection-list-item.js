@@ -127,4 +127,9 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
   * @property {Boolean} isCollection - is this a listing for a collection or for an assessment
   */
   isCollection:null,
+
+  /**
+   * @property {Boolean} isSorting
+   */
+  isSorting: null,
 });

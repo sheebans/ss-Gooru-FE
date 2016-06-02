@@ -38,17 +38,37 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
      * Reorder collection items
      */
     reOrderElements:function(){
-      const sortable = this.$('.sortable');
+      var component = this;
+      component.set('isSorting',true);
+
+      const sortable = component.$('.sortable');
       sortable.sortable();
 
       sortable.on('sortupdate', function() {
-
         const $items = component.$('.sortable').find('li');
-        const answers = $items.map(function(idx, item) {
+        const orderList = $items.map(function(idx, item) {
           return $(item).data('id');
         }).toArray();
+        component.set('orderList',orderList);
       });
-    }
+    },
+    /**
+     * Cancel reorder collection items
+     */
+    cancelSort:function(){
+      this.set('isSorting',false);
+      this.$('.sortable').off('sortupdate');
+    },
+
+    /**
+     * Save reorder collection items
+     */
+    saveReorder:function(){
+      console.log(this.get('orderList'));
+      this.set('isSorting',false);
+      this.$('.sortable').off('sortupdate');
+    },
+
   },
 
   // -------------------------------------------------------------------------
@@ -65,5 +85,9 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
    * @property {Boolean} isSorting
    */
   isSorting: false,
+  /**
+   * @property {Array[]} orderList
+   */
+  orderList: null,
 
 });
