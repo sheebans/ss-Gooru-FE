@@ -94,7 +94,7 @@ export default Ember.Service.extend({
     const apiTaxonomyService = service.get('apiTaxonomyService');
     return new Ember.RSVP.Promise(function(resolve) {
       if (subject && course) {
-        if (course.get('children') && subject.get('children.length') > 0) {
+        if (course.get('children') && course.get('children.length') > 0) {
           resolve(subject.get('children'));
         } else {
           apiTaxonomyService.fetchDomains(subject.get('frameworkId'), subject.get('id'), course.get('id'))
