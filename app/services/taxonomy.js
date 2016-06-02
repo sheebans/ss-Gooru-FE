@@ -94,11 +94,15 @@ export default Ember.Service.extend({
     const apiTaxonomyService = service.get('apiTaxonomyService');
     return new Ember.RSVP.Promise(function(resolve) {
       if (subject && course) {
-        apiTaxonomyService.fetchDomains(subject.get('frameworkId'), subject.get('id'), course.get('id'))
-          .then(function (domains) {
-            subject.set('children', domains);
-            resolve(domains);
-          });
+        if (course.get('children') && subject.get('children.length') > 0) {
+          resolve(subject.get('children'));
+        } else {
+          apiTaxonomyService.fetchDomains(subject.get('frameworkId'), subject.get('id'), course.get('id'))
+            .then(function (domains) {
+              subject.set('children', domains);
+              resolve(domains);
+            });
+        }
       } else {
         resolve(null);
       }
@@ -118,14 +122,18 @@ export default Ember.Service.extend({
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       if (subject && course && domain) {
-        const apiTaxonomyService = service.get('apiTaxonomyService');
-        const frameworkId = subject.get('frameworkId');
-        apiTaxonomyService.fetchCodes(subject.get('frameworkId'), subject.get('id'), course.get('id'), domain.get('id'))
-          .then(function(codes) {
-            const organizedCodes = service.organizeCodes(codes);
-            domain.set('children', organizedCodes);
-            resolve(organizedCodes);
-          });
+        if (domain.get('children') && domain.get('children.length') > 0) {
+          resolve(domain.get('children'));
+        } else {
+          const apiTaxonomyService = service.get('apiTaxonomyService');
+          const frameworkId = subject.get('frameworkId');
+          apiTaxonomyService.fetchCodes(subject.get('frameworkId'), subject.get('id'), course.get('id'), domain.get('id'))
+            .then(function (codes) {
+              const organizedCodes = service.organizeCodes(codes);
+              domain.set('children', organizedCodes);
+              resolve(organizedCodes);
+            });
+        }
       } else {
         resolve([]);
       }
