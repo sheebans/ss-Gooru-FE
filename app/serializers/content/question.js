@@ -2,6 +2,7 @@ import Ember from 'ember';
 import { cleanFilename } from 'gooru-web/utils/utils';
 import QuestionModel from 'gooru-web/models/content/question';
 import AnswerModel from 'gooru-web/models/content/answer';
+import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 
 /**
  * Serializer to support the Question CRUD operations for API 3.0
@@ -11,6 +12,16 @@ import AnswerModel from 'gooru-web/models/content/answer';
 export default Ember.Object.extend({
 
   session: Ember.inject.service('session'),
+
+  /**
+   * @property {TaxonomySerializer} taxonomySerializer
+   */
+  taxonomySerializer: null,
+
+  init: function () {
+    this._super(...arguments);
+    this.set('taxonomySerializer', TaxonomySerializer.create(Ember.getOwner(this).ownerInjection()));
+  },
 
   /**
    * Serialize a Question object into a JSON representation required by the Create Question endpoint
@@ -49,6 +60,7 @@ export default Ember.Object.extend({
       title: questionModel.get('title'),
       description: questionModel.get('text'),
       //'content_subformat': QuestionModel.serializeQuestionType(questionModel.get("type")), // This is not supported on the back end yet
+      taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(questionModel.get('standards')),
       'visible_on_profile': questionModel.get('isVisibleOnProfile'),
       answer: questionModel.get('answers').map(function(answer, index) {
         return serializer.serializerAnswer(answer, index + 1, isHotSpotImage);
@@ -85,9 +97,8 @@ export default Ember.Object.extend({
   normalizeReadQuestion: function(questionData, index){
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
-
     const format = QuestionModel.normalizeQuestionType(questionData.content_subformat);
-    const standards = questionData.taxonomy || [];
+    const standards = questionData.taxonomy || {};
     const question = QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: questionData.id,
       title: questionData.title,
@@ -96,7 +107,7 @@ export default Ember.Object.extend({
       text: questionData.description,
       publishStatus: questionData.publish_status,
       owner: questionData.creator_id,
-      standards: serializer.normalizeStandards(standards),
+      standards: serializer.get('taxonomySerializer').normalizeTaxonomy(standards),
       hints: null, //TODO
       explanation: null, //TODO
       isVisibleOnProfile: typeof questionData['visible_on_profile'] !== 'undefined' ? questionData['visible_on_profile'] : true,
@@ -146,30 +157,6 @@ export default Ember.Object.extend({
       type: answerData['answer_type'],
       highlightType: answerData['highlight_type']
     });
-  },
-
-  /**
-   * Normalizes standards
-   *
-   * @param {string[]} standards
-   * @returns {*}
-   */
-  normalizeStandards: function (standards) {
-    const values = [];
-    if (!standards) { return values }
-
-    for (var key in standards) {
-      if (standards.hasOwnProperty(key)) {
-        let standard = standards[key];
-        values.push(Ember.Object.create({
-          key: key,
-          code: standard.code,
-          title: standard.title,
-          parentTitle: standard.parentTitle
-        }));
-      }
-    }
-    return values;
   }
 
 });

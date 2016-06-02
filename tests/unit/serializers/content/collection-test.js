@@ -10,14 +10,15 @@ test('serializeCreateCollection', function(assert) {
     title: 'collection-title',
     learningObjectives: 'any',
     isVisibleOnProfile: true,
-    thumbnailUrl: 'http://test-bucket01.s3.amazonaws.com/image-id.png'
+    thumbnailUrl: 'http://test-bucket01.s3.amazonaws.com/image-id.png',
+    standards: []
   });
   const response = serializer.serializeCreateCollection(collectionObject);
   assert.equal(response.title, 'collection-title', "Wrong title");
   assert.equal(response.learning_objective, 'any', "Wrong learning objective");
   assert.equal(response.visible_on_profile, true, "Wrong visible on profile");
   assert.equal(response.thumbnail, 'image-id.png', "Wrong thumbnail");
-
+  assert.deepEqual(response.taxonomy, {}, "Wrong taxonomy object");
 });
 
 test('serializeUpdateCollection', function(assert) {
@@ -26,14 +27,15 @@ test('serializeUpdateCollection', function(assert) {
     title: 'collection-title',
     learningObjectives: 'any',
     isVisibleOnProfile: false,
-    thumbnailUrl: 'http://test-bucket01.s3.amazonaws.com/image-id.png'
+    thumbnailUrl: 'http://test-bucket01.s3.amazonaws.com/image-id.png',
+    standards: []
   });
   const response = serializer.serializeUpdateCollection(collectionObject);
   assert.equal(response.title, 'collection-title', "Wrong title");
   assert.equal(response.learning_objective, 'any', "Wrong learning objective");
   assert.equal(response.visible_on_profile, false, "Wrong visible on profile");
   assert.equal(response.thumbnail, 'image-id.png', "Wrong thumbnail");
-
+  assert.deepEqual(response.taxonomy, {}, "Wrong taxonomy object");
 });
 
 test('normalizeReadCollection', function(assert) {
@@ -48,7 +50,8 @@ test('normalizeReadCollection', function(assert) {
     title: 'collection-title',
     learning_objective: 'learning-objectives',
     visible_on_profile: true,
-    thumbnail: 'image-id.png'
+    thumbnail: 'image-id.png',
+    taxonomy: {}
   };
   const collection = serializer.normalizeReadCollection(collectionData);
   assert.equal(collection.get('id'), 'collection-id', 'Wrong id');
@@ -56,4 +59,5 @@ test('normalizeReadCollection', function(assert) {
   assert.equal(collection.get('thumbnailUrl'), 'http://test-bucket01.s3.amazonaws.com/image-id.png', 'Wrong image');
   assert.equal(collection.get('learningObjectives'), 'learning-objectives', 'Wrong learningObjectives');
   assert.equal(collection.get('isVisibleOnProfile'), true, 'Wrong isVisibleOnProfile');
+  assert.equal(collection.get('standards.length'), 0, 'Wrong standards number of elements');
 });

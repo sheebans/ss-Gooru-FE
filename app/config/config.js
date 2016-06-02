@@ -117,3 +117,10 @@ export const COUNTRY_CODES = {
 };
 
 export const DEFAULT_PAGE_SIZE = 20;
+
+export const TAXONOMY_LEVELS = {
+  COURSE:   'course',
+  DOMAIN:   'domain',
+  STANDARD: 'standard',
+  MICRO:    'micro-standard'
+};

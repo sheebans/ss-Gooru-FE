@@ -15,7 +15,7 @@ export default Ember.Component.extend({
 
   classNames: ['taxonomy', 'gru-taxonomy-tag'],
 
-  classNameBindings: ['model.isActive:active', 'model.isReadonly:read-only'],
+  classNameBindings: ['model.isActive:active', 'model.isReadonly:read-only', 'model.isRemovable:remove'],
 
 
   // -------------------------------------------------------------------------

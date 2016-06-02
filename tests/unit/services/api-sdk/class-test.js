@@ -450,11 +450,13 @@ test('storeClassReportStatus', function(assert) {
   const reportInfo = JSON.parse(storage.getItem("report-info"));
   const userInfo = reportInfo["1"];
   assert.ok(userInfo, "Missing user info");
-  assert.equal(userInfo.classes[expectedClassIdA], "available", "wrong class status")
-  assert.equal(userInfo.classes[expectedClassIdB], "queued", "wrong class status")
+  assert.equal(userInfo.classes[expectedClassIdA], "available", "wrong class status");
+  assert.equal(userInfo.classes[expectedClassIdB], "queued", "wrong class status");
 });
 
 test('getReportClassesStatusFromStore', function(assert) {
+  window.localStorage.removeItem("report-info");
+
   const service = this.subject();
   service.set('session', Ember.Object.create({
     "userId": "2"
@@ -467,4 +469,3 @@ test('getReportClassesStatusFromStore', function(assert) {
   classesStatus = service.getReportClassesStatusFromStore("2");
   assert.equal(classesStatus["2"], "available", "Wrong status");
 });
-

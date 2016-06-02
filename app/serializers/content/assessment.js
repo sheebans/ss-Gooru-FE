@@ -3,6 +3,8 @@ import { cleanFilename } from 'gooru-web/utils/utils';
 import AssessmentModel from 'gooru-web/models/content/assessment';
 import QuestionSerializer from 'gooru-web/serializers/content/question';
 import { DEFAULT_IMAGES } from "gooru-web/config/config";
+import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
+
 /**
  * Serializer to support the Assessment CRUD operations for API 3.0
  *
@@ -17,9 +19,15 @@ export default Ember.Object.extend({
    */
   questionSerializer: null,
 
+  /**
+   * @property {TaxonomySerializer} taxonomySerializer
+   */
+  taxonomySerializer: null,
+
   init: function () {
     this._super(...arguments);
     this.set('questionSerializer', QuestionSerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set('taxonomySerializer', TaxonomySerializer.create(Ember.getOwner(this).ownerInjection()));
   },
 
   /**
@@ -39,7 +47,10 @@ export default Ember.Object.extend({
    * @returns {Object} returns a JSON Object
    */
   serializeUpdateAssessment: function(assessmentModel) {
-    return this.serializeAssessment(assessmentModel);
+    const serializer = this;
+    var serializedAssessment = this.serializeAssessment(assessmentModel);
+    serializedAssessment.taxonomy = serializer.get('taxonomySerializer').serializeTaxonomy(assessmentModel.get('standards'));
+    return serializedAssessment;
   },
 
   serializeAssessment: function(assessmentModel) {
@@ -47,7 +58,7 @@ export default Ember.Object.extend({
       title: assessmentModel.get('title'),
       learning_objective: assessmentModel.get("learningObjectives"),
       visible_on_profile: assessmentModel.get('isVisibleOnProfile'),
-      thumbnail: cleanFilename(assessmentModel.get("thumbnailUrl"))
+      thumbnail: cleanFilename(assessmentModel.get("thumbnailUrl")),
     };
   },
 
@@ -70,7 +81,8 @@ export default Ember.Object.extend({
       children: serializer.normalizeQuestions(assessmentData.question),
       questionCount: assessmentData.question_count ? assessmentData.question_count : 0,
       sequence: assessmentData.sequence_id,
-      thumbnailUrl: thumbnailUrl
+      thumbnailUrl: thumbnailUrl,
+      standards: serializer.get('taxonomySerializer').normalizeTaxonomy(assessmentData.taxonomy)
       // TODO Add more required properties here...
     });
   },

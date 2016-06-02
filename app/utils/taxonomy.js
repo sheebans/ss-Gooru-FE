@@ -1,5 +1,6 @@
 import TaxonomyItem from 'gooru-web/models/taxonomy/taxonomy-item';
 import BrowseItem from 'gooru-web/models/taxonomy/browse-item';
+import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 
 /**
  * Generates a taxonomy tree data structure for testing
@@ -58,4 +59,27 @@ export function generateBrowseTestTree(levels = 1, lastLevels = 0, inc = 1) {
   });
 
   return browseItems;
+}
+
+/**
+ * Gets a category object from a subjectId
+ * @param {String} subjectId - The subject id with the format 'CCSS.K12.Math'
+ * @return {Object} - An object with the category information
+ */
+export function getCategoryFromSubjectId(subjectId) {
+  var result = TAXONOMY_CATEGORIES[0].value; // Default to K12 category
+  if (subjectId) {
+    let keys = subjectId.split('.');
+    if (keys.length > 1) {
+      let categoryCode = keys[1];
+      for (var i = TAXONOMY_CATEGORIES.length - 1; i >= 0; i--) {
+        // The second part of the subjectId represents the category
+        if (categoryCode === TAXONOMY_CATEGORIES[i].apiCode) {
+          result = TAXONOMY_CATEGORIES[i].value;
+          break;
+        }
+      }
+    }
+  }
+  return result;
 }
