@@ -240,13 +240,16 @@ export default Ember.Component.extend(AccordionMixin, {
                       collection.set('members', profiles);
                     });
                 }
+
                 if (isTeacher) {
                   const averageScore = performance.calculateAverageScoreByItem(collection.get('id'));
                   collection.set('classAverageScore', averageScore);
                 } else {
                   const collectionPerformanceData = performance.findBy('id', collection.get('id'));
                   const score = collectionPerformanceData ? collectionPerformanceData.get('score') : 0;
+                  const hasStarted = collectionPerformanceData ? collectionPerformanceData.get('hasStarted') : false;
                   collection.set('classAverageScore', score);
+                  collection.set('hasStarted', collectionPerformanceData);
                 }
               });
               component.set('items', collections);
