@@ -380,6 +380,32 @@ test('Update Question Builder', function (assert) {
   });
 });
 
+test('Validate update of default Title if the Question Text is updated', function (assert) {
+  assert.expect(1);
+  var newText ='Lorem ipsum dolor sit amet';
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'New Question',
+    text:"",
+    type:'MC',
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
+  });
+  this.set('question',question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit isBuilderEditing=true question=question tempQuestion=question}}`);
+
+  const $component = this.$('.gru-questions-edit');
+  const $textField = $component.find(".gru-textarea.text");
+  $textField.find("textarea").val(newText);
+  $textField.find("textarea").change();
+
+  const $save =  $component.find("#builder .actions .save");
+  $save.click();
+  return wait().then(function () {
+    assert.equal($component.find(".title label b").text(),newText , "The question title should be updated");
+  });
+});
+
 test('Update Question Save Answers', function (assert) {
   assert.expect(2);
   var newAnswerText ='Lorem ipsum dolor sit amet';

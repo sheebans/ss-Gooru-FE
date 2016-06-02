@@ -47,17 +47,18 @@ export default Ember.Object.extend({
    * @returns {Object} returns a JSON Object
    */
   serializeUpdateAssessment: function(assessmentModel) {
-    return this.serializeAssessment(assessmentModel);
+    const serializer = this;
+    var serializedAssessment = this.serializeAssessment(assessmentModel);
+    serializedAssessment.taxonomy = serializer.get('taxonomySerializer').serializeTaxonomy(assessmentModel.get('standards'));
+    return serializedAssessment;
   },
 
   serializeAssessment: function(assessmentModel) {
-    const serializer = this;
     return {
       title: assessmentModel.get('title'),
       learning_objective: assessmentModel.get("learningObjectives"),
       visible_on_profile: assessmentModel.get('isVisibleOnProfile'),
       thumbnail: cleanFilename(assessmentModel.get("thumbnailUrl")),
-      taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(assessmentModel.get('standards'))
     };
   },
 

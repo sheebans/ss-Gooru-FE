@@ -2,3 +2,6 @@
 term=searchController.term
 collectionResults=collectionResults
 onContentPlayerAction="onContentPlayer"}}
+{{#if showMoreResultsButton}}
+  <span class="show-more-results" {{action 'showMoreResults'}}>{{t "common.show-more-results"}}</span>
+{{/if}}

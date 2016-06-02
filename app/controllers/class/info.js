@@ -1,15 +1,20 @@
 import Ember from "ember";
-
+import ModalMixin from 'gooru-web/mixins/modal';
 /**
  * Class Information controller
  *
  * Controller responsible of the logic for the class information page
  */
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(ModalMixin,{
 
   // -------------------------------------------------------------------------
   // Dependencies
   classController: Ember.inject.controller('class'),
+
+  /**
+   * @requires service:api-sdk/class
+   */
+  classService: Ember.inject.service("api-sdk/class"),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -21,8 +26,22 @@ export default Ember.Controller.extend({
      * Triggered when a delete class option is selected
      */
     deleteClass: function(){
-      // TODO
-      console.log('deleteClass');
+      let controller = this;
+      var model = {
+        content: controller.get('class'),
+        deleteMethod: function () {
+          return controller.get('classService').deleteClass(controller.get('class.id'));
+        }.bind(controller),
+        callback:{
+          success:function(){
+            controller.send('updateUserClasses');
+          }
+        }
+      };
+
+      this.actions.showModal.call(controller,
+        'content.modals.gru-delete-class',
+        model, null, null, null, false);
     }
   },
 

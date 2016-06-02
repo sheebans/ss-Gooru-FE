@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ModalMixin from 'gooru-web/mixins/modal';
 /**
  * Resource and Question card
  *
@@ -6,9 +7,9 @@ import Ember from 'ember';
  * @module
  */
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ModalMixin,{
   // Dependencies
-
+  session: Ember.inject.service('session'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -23,7 +24,11 @@ export default Ember.Component.extend({
     },
 
     remixQuestion: function(){
-      this.sendAction("onRemixQuestion", this.get("resource"));
+      if (this.get('session.isAnonymous')) {
+        this.send('showModal', 'content.modals.gru-login-prompt');
+      } else {
+        this.sendAction("onRemixQuestion", this.get("resource"));
+      }
     }
   },
 

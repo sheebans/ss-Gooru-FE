@@ -1,0 +1,67 @@
+.gru-login-prompt {
+  margin: 0 auto;;
+  max-height: 305px;
+  max-width: 500px;
+
+  .modal-header {
+    @include flexbox;
+    border: 0;
+    height: 125px;
+    padding: 30px 30px 0;
+    text-align: left;
+
+    .img-container {
+      display: inline-block;
+      width: 70px;
+    }
+
+    .lead {
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+  }
+
+  .modal-body {
+    @include flexbox;
+    @include align-items(center);
+
+
+    background-color: $blue-400;
+    border: 0;
+    height: 130px;
+    padding: 0;
+
+    >* {
+      text-align: center;
+      width: 50%;
+
+      &:first-child {
+        border-right: 1px solid $blue-300;
+      }
+
+      p {
+        color: $white;
+      }
+
+      .action-container {
+        button {
+          color: $blue-300;
+
+        }
+      }
+    }
+  }
+
+  .modal-footer {
+    border: 0;
+    height: 50px;
+    padding: 0;
+
+    button {
+      color: $blue-300;
+      font-weight: bold;
+      height: 100%;
+    }
+  }
+
+}

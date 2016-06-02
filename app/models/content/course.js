@@ -67,6 +67,21 @@ export default Ember.Object.extend(Validations, {
   owner: null,
 
   /**
+   * @property {String} creatorId - The id of the creator
+   */
+  creatorId: null,
+
+  /**
+   * @property {String} originalCourseId - The id of the original course
+   */
+  originalCourseId: null,
+
+  /**
+   * @property {String} originalCreatorId - The id of the original creator
+   */
+  originalCreatorId: null,
+
+  /**
    * @property {String} Taxonomy primary subject ID
    */
   subject: '',

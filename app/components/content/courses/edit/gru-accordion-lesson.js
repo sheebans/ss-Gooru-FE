@@ -27,7 +27,7 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
   /**
    * @requires service:api-sdk/taxonomy
    */
-  taxonomyService: Ember.inject.service("api-sdk/taxonomy"),
+  taxonomyService: Ember.inject.service("taxonomy"),
 
   // -------------------------------------------------------------------------
   // Actions

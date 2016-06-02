@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
 
 /**
  * Resources search controller
@@ -51,7 +52,12 @@ export default Ember.Controller.extend({
         });
 
       this.set('selectedOptionTypes', selectedOptionTypes);
+    },
+
+    showMoreResults: function(){
+      this.showMoreResults();
     }
+
   },
 
   // -------------------------------------------------------------------------
@@ -76,9 +82,44 @@ export default Ember.Controller.extend({
   /**
    * @property {string} term filter
    */
-  term: Ember.computed.alias("searchController.term")
+  term: Ember.computed.alias("searchController.term"),
+
+  /**
+   * @property {*}
+   */
+  pagination: {
+    page: 0,
+    pageSize: DEFAULT_PAGE_SIZE
+  },
+
+  /**
+   * @property {boolean}
+   */
+  showMoreResultsButton: Ember.computed("resourceResults.[]", function(){
+    return this.get("resourceResults.length") &&
+      (this.get("resourceResults.length") % this.get("pagination.pageSize") === 0);
+  }),
 
   // -------------------------------------------------------------------------
   // Methods
+
+  showMoreResults: function(){
+    const controller = this;
+    const pagination = this.get("pagination");
+    pagination.page = pagination.page + 1;
+
+    this.get('searchService').searchResources(controller.get("term"), controller.get("selectedOptionTypes"), pagination)
+      .then(function(questions){
+        controller.get("resourceResults").pushObjects(questions.toArray());
+      });
+  },
+
+  resetValues: function(){
+    this.set("pagination", {
+      page: 0,
+      pageSize: DEFAULT_PAGE_SIZE
+    })
+  }
+
 
 });

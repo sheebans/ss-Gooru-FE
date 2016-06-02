@@ -18,6 +18,12 @@
     color: $brand-danger;
   }
 
+  article.fixed-header {
+    #information {
+      padding-top: 0;
+    }
+  }
+
   #information {
     .title-section {
       display:flex;
@@ -46,10 +52,15 @@
   }
 
   #builder {
-    > .header {
+    .header,
+    .footer {
       .actions {
         float: right;
       }
+    }
+    .footer {
+      margin: 0 0 20px 0;
+      height: 35px;
     }
     .panel {
       border-radius: 6px;
