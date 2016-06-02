@@ -33,6 +33,21 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
      */
     remixCollectionItem: function (builderItem) {
       this.get('items').addObject(builderItem);
+    },
+    /**
+     * Reorder collection items
+     */
+    reOrderElements:function(){
+      const sortable = this.$('.sortable');
+      sortable.sortable();
+
+      sortable.on('sortupdate', function() {
+
+        const $items = component.$('.sortable').find('li');
+        const answers = $items.map(function(idx, item) {
+          return $(item).data('id');
+        }).toArray();
+      });
     }
   },
 
@@ -44,6 +59,11 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
    */
   isCollection: Ember.computed('model', function() {
     return this.get('model') instanceof Collection;
-  })
+  }),
+
+  /**
+   * @property {Boolean} isSorting
+   */
+  isSorting: false,
 
 });
