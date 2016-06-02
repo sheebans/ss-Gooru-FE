@@ -11,6 +11,8 @@ export default Ember.Component.extend(ModalMixin,{
   // Dependencies
   session: Ember.inject.service('session'),
 
+  profileService: Ember.inject.service('api-sdk/profile'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -28,6 +30,19 @@ export default Ember.Component.extend(ModalMixin,{
         this.send('showModal', 'content.modals.gru-login-prompt');
       } else {
         this.sendAction("onRemixQuestion", this.get("resource"));
+      }
+    },
+
+    addToCollection: function(){
+      if (this.get('session.isAnonymous')) {
+        this.send('showModal', 'content.modals.gru-login-prompt');
+      } else {
+        this.get('profileService').readCollections(this.get('session.userId')).then(
+          collections => this.send('showModal', 'content.modals.gru-add-to', {
+            content: this.get('resource'),
+            collections
+          }, null, "add-to")
+        );
       }
     }
   },
