@@ -122,9 +122,11 @@ export default {
     "errors": {
       "join-class-code":"Please enter the class code.",
       "answer-has-no-image":"Please upload an answer image.",
+      "add-username":"Please enter a username.",
       "add-course-title":"Please enter the course title.",
       "add-question-answer-text":"Please enter the answer choice text.",
       "add-question-title":"Please enter the question title.",
+      "add-student-id":"You cannot use special characters or spaces.",
       "assessment-title-presence" : "Please enter the assessment title.",
       "can-not-join-class" : "Oops! Unable to join class. Please try again shortly.",
       "assessment-not-copied": "Oops! Unable to copy assessment right now. Please try again shortly.",
@@ -169,7 +171,8 @@ export default {
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
       "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly.",
       "unit-title-required" : "Please enter the unit title.",
-      "user-email-presence" : "Please enter a valid email."
+      "user-email-presence" : "Please enter a valid email.",
+      "username-length":"Username must be between 4 and 20 characters."
     },
     "essential-questions": "Essential Questions",
     "explanation": "Explanation",
@@ -339,6 +342,7 @@ export default {
     "standards": "Standards",
     "study": "Study",
     "student": "Student",
+    "student-id":"Student ID (not displayed on Profile)",
     "subject-and-framework": "Subject and Framework",
     "submit": "Submit",
     "submit-all":"Submit all",
