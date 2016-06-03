@@ -9,6 +9,10 @@
 
           {{!-- last level browser items --}}
           {{#each headerItem.data as |browseItem|}}
+
+            {{!-- domain picker only has 2 levels --}}
+            {{#if (eq browseItem.level 2)}}
+
             <li>
               <label>
                 <input type="checkbox"
@@ -16,59 +20,81 @@
                        onclick={{action 'selectCheckableItem' browseItem}} />
                 <div>
                   <strong>{{browseItem.title}}</strong>
-                  <!-- TODO: Replace with the item description -->
-                  <span>Maecenas commodo justo nec justo accumsan, quis faucibus velit tempus. Proin convallis mollis nisl, eu iaculis odio scelerisque ac. Phasellus pharetra lacus in pulvinar malesuada. Duis aliquet, ante non blandit imperdiet, ex massa dapibus ipsum, et iaculis massa turpis a neque.</span>
                 </div>
               </label>
-
-              {{#if browseItem.children.length}}
-                <button data-toggle="collapse" class="collapsed" data-target="#children-{{browseItem.id}}">
-                  {{gru-icon name='keyboard_arrow_up'}}
-                  {{gru-icon name='keyboard_arrow_down'}}
-                </button>
-                <ul id="children-{{browseItem.id}}" class="collapse level-panel sublevel-1">
-
-                  {{#each browseItem.children as |browseItemChild|}}
-                    <li>
-                      <label>
-                        <input type="checkbox"
-                               checked={{browseItemChild.isSelected}}
-                               onclick={{action 'selectCheckableItem' browseItemChild}} />
-                        <div>
-                          <strong>{{browseItemChild.title}}</strong>
-                          <!-- TODO: Replace with the item description -->
-                          <span>Maecenas commodo justo nec justo accumsan, quis faucibus velit tempus. Proin convallis mollis nisl, eu iaculis odio scelerisque ac. Phasellus pharetra lacus in pulvinar malesuada. Duis aliquet, ante non blandit imperdiet, ex massa dapibus ipsum, et iaculis massa turpis a neque.</span>
-                        </div>
-                      </label>
-
-                      {{#if browseItemChild.children.length}}
-                        <button data-toggle="collapse" class="collapsed" data-target="#children-{{browseItemChild.id}}">
-                          {{gru-icon name='keyboard_arrow_up'}}
-                          {{gru-icon name='keyboard_arrow_down'}}
-                        </button>
-                        <ul id="children-{{browseItemChild.id}}" class="collapse level-panel sublevel-2">
-
-                          {{#each browseItemChild.children as |browseItemGrandChild|}}
-                            <li>
-                              <label>
-                                <input type="checkbox"
-                                       checked={{browseItemGrandChild.isSelected}}
-                                       onclick={{action 'selectCheckableItem' browseItemGrandChild}} />
-                                <div>
-                                  <span>{{browseItemGrandChild.title}}</span>
-                                </div>
-                              </label>
-                            </li>
-                          {{/each}}
-
-                        </ul>
-                      {{/if}}
-                    </li>
-                  {{/each}}
-
-                </ul>
-              {{/if}}
             </li>
+
+            {{else}}
+
+              <li>
+                {{#if browseItem.title}}
+                  <p class="category">{{browseItem.title}}</p>
+                {{/if}}
+
+                {{#each browseItem.children as |L1Standard|}}
+                  <div class="standard">
+                    <label>
+                      <input type="checkbox"
+                             checked={{L1Standard.isSelected}}
+                                 onclick={{action 'selectCheckableItem' L1Standard}} />
+                      <div>
+                        <strong>{{L1Standard.code}}</strong>
+                        <span>{{L1Standard.title}}</span>
+                      </div>
+                    </label>
+
+                    {{#if L1Standard.children.length}}
+                      <button data-toggle="collapse" class="collapsed" data-target="#children-{{L1Standard.id}}">
+                        {{gru-icon name='keyboard_arrow_up'}}
+                        {{gru-icon name='keyboard_arrow_down'}}
+                      </button>
+                      <ul id="children-{{L1Standard.id}}" class="collapse level-panel sublevel-1">
+
+                        {{#each L1Standard.children as |L2Standard|}}
+                          <li>
+                            <label>
+                              <input type="checkbox"
+                                     checked={{L2Standard.isSelected}}
+                                         onclick={{action 'selectCheckableItem' L2Standard}} />
+                              <div>
+                                <strong>{{L2Standard.code}}</strong>
+                                <span>{{L2Standard.title}}</span>
+                              </div>
+                            </label>
+
+                            {{#if L2Standard.children.length}}
+                              <button data-toggle="collapse" class="collapsed"
+                                      data-target="#children-{{L2Standard.id}}">
+                                {{gru-icon name='keyboard_arrow_up'}}
+                                {{gru-icon name='keyboard_arrow_down'}}
+                              </button>
+                              <ul id="children-{{L2Standard.id}}" class="collapse level-panel sublevel-2">
+
+                                {{#each L2Standard.children as |LearningTarget|}}
+                                  <li>
+                                    <label>
+                                      <input type="checkbox"
+                                             checked={{LearningTarget.isSelected}}
+                                                 onclick={{action 'selectCheckableItem' LearningTarget}} />
+                                      <div>
+                                        <span>{{LearningTarget.title}}</span>
+                                      </div>
+                                    </label>
+                                  </li>
+                                {{/each}}
+
+                              </ul>
+                            {{/if}}
+                          </li>
+                        {{/each}}
+
+                      </ul>
+                    {{/if}}
+                  </div>
+                {{/each}}
+              </li>
+
+            {{/if}}
           {{/each}}
 
         {{else}}
