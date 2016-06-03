@@ -2,7 +2,6 @@ import Ember from 'ember';
 import APITaxonomyService from 'gooru-web/services/api-sdk/taxonomy';
 import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 import { getCategoryFromSubjectId } from 'gooru-web/utils/taxonomy';
-import { generateTaxonomyTestTree } from 'gooru-web/utils/taxonomy';
 
 /**
  * Service for the Taxonomy Singleton elements container
@@ -27,15 +26,11 @@ export default Ember.Service.extend({
     this._super(...arguments);
     this.set('taxonomyContainer', {});
     this.set('apiTaxonomyService', APITaxonomyService.create(Ember.getOwner(this).ownerInjection()));
-
-    // TODO: Remove after logic for taxonomy tree creation is ready
-    // Init taxonomy tree for testing the selection of unit domains
-    var taxonomyTree = generateTaxonomyTestTree(3, null, 2);
-    this.set('tempTree', taxonomyTree);
   },
 
   /**
-   * Gets the Taxonomy Subjects for a classification type from the API or cache if available
+   * Gets the Taxonomy Subjects for a Category from the cached taxonomy. If the subjects are not available then fetch
+   * them from the Taxonomy API.
    *
    * @param {String} category - The classification type
    * @returns {Promise}
@@ -61,6 +56,90 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Gets the Taxonomy Courses for a Subject from the cached taxonomy. If the courses are not available then fetch
+   * them from the Taxonomy API.
+   *
+   * @param {TaxonomyRoot} subject - The taxonomy subject
+   * @returns {Promise}
+   */
+  getCourses(subject) {
+    const service = this;
+    const apiTaxonomyService = service.get('apiTaxonomyService');
+    return new Ember.RSVP.Promise(function(resolve) {
+      if (subject) {
+        if (subject.get('courses') && subject.get('courses.length') > 0) {
+          resolve(subject.get('courses'));
+        } else {
+          apiTaxonomyService.fetchCourses(subject.get('frameworkId'), subject.get('id'))
+            .then(function(courses) {
+              subject.set('courses', courses);
+              resolve(courses);
+            });
+        }
+      } else {
+        resolve(null);
+      }
+    });
+  },
+
+  /**
+   * Gets the Taxonomy Domains for a Course from the cached taxonomy. If the domains are not available then fetch
+   * them from the Taxonomy API.
+   *
+   * @param {TaxonomyItem} course - The taxonomy course
+   * @returns {Promise}
+   */
+  getDomains(subject, course) {
+    const service = this;
+    const apiTaxonomyService = service.get('apiTaxonomyService');
+    return new Ember.RSVP.Promise(function(resolve) {
+      if (subject && course) {
+        if (course.get('children') && course.get('children.length') > 0) {
+          resolve(course.get('children'));
+        } else {
+          apiTaxonomyService.fetchDomains(subject.get('frameworkId'), subject.get('id'), course.get('id'))
+            .then(function (domains) {
+              subject.set('children', domains);
+              resolve(domains);
+            });
+        }
+      } else {
+        resolve(null);
+      }
+    });
+  },
+
+  /**
+   * Gets the Taxonomy Codes for a Domain from the cached taxonomy. If the codes are not available then fetch
+   * them from the Taxonomy API.
+   *
+   * @param subject
+   * @param course
+   * @param domain
+   * @returns {Ember.RSVP.Promise}
+   */
+  getCodes: function(subject, course, domain) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve) {
+      if (subject && course && domain) {
+        if (domain.get('children') && domain.get('children.length') > 0) {
+          resolve(domain.get('children'));
+        } else {
+          const apiTaxonomyService = service.get('apiTaxonomyService');
+          apiTaxonomyService.fetchCodes(subject.get('frameworkId'), subject.get('id'), course.get('id'), domain.get('id'))
+            .then(function (codes) {
+              const organizedCodes = service.organizeCodes(codes);
+              domain.set('children', organizedCodes);
+              resolve(organizedCodes);
+            });
+        }
+      } else {
+        resolve([]);
+      }
+    });
+  },
+
+  /**
    * Finds a Taxonomy Subject by category and subject ID
    *
    * @param {String} category - The classification type
@@ -70,52 +149,62 @@ export default Ember.Service.extend({
   findSubjectById(subjectId, loadCourses = false) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve) {
-      var subjectResult = null;
       const category = getCategoryFromSubjectId(subjectId);
-      const taxonomyContainer = service.get('taxonomyContainer');
-      const categorySubjects = taxonomyContainer[category];
+      var result = service.findSubject(category, subjectId);
+      if (result && loadCourses) {
+        service.retrieveSubjectCourses(result);
+      }
+      resolve(result);
+    });
+  },
 
+  findSubject: function(categoryId, subjectId) {
+    var result = null;
+    const service = this;
+    const taxonomyContainer = service.get('taxonomyContainer');
+    if (taxonomyContainer) {
+      const categorySubjects = taxonomyContainer[categoryId];
       if (categorySubjects) {
-        subjectResult = categorySubjects.findBy('id', subjectId);
-        if (!subjectResult) {
-          categorySubjects.forEach(function(subject) {
-            if (!subjectResult) {   // Array forEach function does not have a short circuit, so we are testing is the value has not been found, otherwise just jump to the next element
-              subjectResult = subject.get('frameworks').findBy('id', subjectId);
+        result = categorySubjects.findBy('id', subjectId);
+        if (!result) {
+          categorySubjects.forEach(function (subject) {
+            if (!result) {   // Array forEach function does not have a short circuit, so we are testing is the value has not been found, otherwise just jump to the next element
+              result = subject.get('frameworks').findBy('id', subjectId);
             }
           });
         }
-        if (subjectResult && loadCourses) {
-          service.retrieveSubjectCourses(subjectResult);
-        }
-        resolve(subjectResult);
-      } else { // If the tree is not initialized, go get subjects and try again
-        service.getSubjects(category).then(function() {
-          resolve(service.findSubjectById(subjectId, loadCourses));
-        });
       }
-    });
+    }
+    return result;
   },
 
-  /**
-   * Gets the Taxonomy courses for a subject
-   * from the API or cache if available
-   *
-   * @param {TaxonomyRoot} subject - The subject
-   * @returns {Promise}
-   */
-  retrieveSubjectCourses(subject) {
-    const service = this;
-    const apiTaxonomyService = service.get('apiTaxonomyService');
-    return new Ember.RSVP.Promise(function() {
-      apiTaxonomyService.fetchCourses(subject.get('frameworkId'), subject.get('id')).then(function(courses) {
-        subject.set('courses', courses);
+  findCourse: function(subject, courseId) {
+    var result = null;
+    if (subject) {
+      result = subject.get('courses').findBy('id', courseId);
+    }
+    return result;
+  },
+
+  findDomain: function(course, domainId) {
+    var result = null;
+    if (course) {
+      result = course.get('children').findBy('id', domainId);
+    }
+    return result;
+  },
+
+  organizeCodes: function(codes) {
+    const firstLevelCodes = codes.filterBy('codeType', 'standard_level_1');
+    return firstLevelCodes.map(function(firstLevelCode) {
+      const secondLevelCodes = codes.filterBy('parentTaxonomyCodeId', firstLevelCode.get('id'));
+      secondLevelCodes.forEach(function(secondLevelCode) {
+        const thirdLevelCodes = codes.filterBy('parentTaxonomyCodeId', secondLevelCode.get('id'));
+        secondLevelCode.set('children', thirdLevelCodes);
       });
+      firstLevelCode.set('children', secondLevelCodes);
+      return firstLevelCode;
     });
-  },
-
-// TODO: Remove after logic for taxonomy tree creation is ready
-  getCourses: function() {
-    return this.get('tempTree');
   }
 
 });
