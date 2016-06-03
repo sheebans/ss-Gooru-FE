@@ -126,12 +126,12 @@ export default Ember.Component.extend({
   'component-class': null,
 
   /**
-   * @type {String} selected Course's ID
+   * @type {String} selected collection ID
    */
   selectedCollection: null,
 
   /**
-   * @type {String} selected Course's ID
+   * @type {String} selected collection ID
    */
   hasSelectedCollection: Ember.computed.notEmpty('selectedCollection'),
 
