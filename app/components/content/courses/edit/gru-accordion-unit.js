@@ -25,11 +25,6 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
    */
   unitService: Ember.inject.service("api-sdk/unit"),
 
-  /**
-   * @requires service:api-sdk/taxonomy
-   */
-  taxonomyService: Ember.inject.service("taxonomy"),
-
 
   // -------------------------------------------------------------------------
   // Actions
@@ -118,7 +113,7 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
       var model = {
         selected: this.get('tempUnit.taxonomy').slice(0),
         shortcuts: null,  // TODO: TBD
-        taxonomyItems: this.get('mainSubject.courses'),
+        subject: this.get('course.mainSubject'),
         callback: {
           success: function(selectedTags) {
             var dataTags = selectedTags.map(function(taxonomyTag) {
