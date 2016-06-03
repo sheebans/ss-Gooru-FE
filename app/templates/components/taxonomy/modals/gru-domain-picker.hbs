@@ -11,8 +11,9 @@
     selectedTextKey="taxonomy.modals.gru-domain-picker.selectedText"
     shortcuts=model.shortcuts
     shortcutText=(t "taxonomy.modals.gru-domain-picker.shortcutText")
-    taxonomyItems=model.taxonomyItems
-    onSave=(action 'updateSelectedTags')}}
+    subject=model.subject
+    onSave=(action 'updateSelectedTags')
+    onUpdatePath=(action 'loadTaxonomyData')}}
 
 </div>
 
