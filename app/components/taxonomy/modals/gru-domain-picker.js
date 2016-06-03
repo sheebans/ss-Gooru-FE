@@ -38,8 +38,9 @@ export default Ember.Component.extend({
     loadTaxonomyData(path) {
       var subject = this.get('model.subject');
       var courseId = path[0];
+      var course = this.get("taxonomyService").findCourse(subject, courseId);
 
-      return this.get('taxonomyService').getCourseDomains(subject, courseId);
+      return this.get('taxonomyService').getDomains(subject, course);
     },
 
     updateSelectedTags(selectedTags) {

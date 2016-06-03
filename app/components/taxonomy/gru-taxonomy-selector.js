@@ -133,7 +133,7 @@ export default Ember.Component.extend({
 
     if (subject){
       if (component.get("showCourses") && !subject.get('hasCourses')) {
-        component.get('taxonomyService').retrieveSubjectCourses(subject);
+        component.get('taxonomyService').getCourses(subject);
       }
     }
   },

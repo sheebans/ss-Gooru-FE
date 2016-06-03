@@ -100,7 +100,13 @@ export default Ember.Service.extend({
         } else {
           apiTaxonomyService.fetchDomains(subject.get('frameworkId'), subject.get('id'), course.get('id'))
             .then(function (domains) {
-              subject.set('children', domains);
+              course.set('children', domains);
+              domains.forEach(function(domain) {
+                domain.setProperties({
+                  parent: course,
+                  level: 2
+                });
+              });
               resolve(domains);
             });
         }
@@ -226,11 +232,17 @@ export default Ember.Service.extend({
     const service = this;
     return new Ember.RSVP.Promise(function(resolve) {
       const category = getCategoryFromSubjectId(subjectId);
-      var result = service.findSubject(category, subjectId);
-      if (result && loadCourses) {
-        service.retrieveSubjectCourses(result);
-      }
-      resolve(result);
+      service.getSubjects(category).then(function(){
+        var result = service.findSubject(category, subjectId)
+        if (result && loadCourses) {
+          service.getCourses(result).then(function(){
+            resolve(result);
+          });
+        }
+        else{
+          resolve(result);
+        }
+      });
     });
   },
 
