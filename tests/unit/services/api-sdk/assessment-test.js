@@ -143,3 +143,29 @@ test('copyAssessment', function(assert) {
       done();
     });
 });
+
+test('reorderAssessment', function(assert) {
+  const service = this.subject();
+  const expectedAssessmentId = 'assessment-id';
+
+  assert.expect(4);
+
+  service.set('assessmentSerializer', Ember.Object.create({
+    serializeReorderAssessment: function(resourceIds) {
+      assert.equal(resourceIds.length, 2, 'Wrong total resources');
+      assert.equal(resourceIds[0], 'a', 'Wrong id at index 0');
+      return 'fake-data';
+    }
+  }));
+  service.set('assessmentAdapter', Ember.Object.create({
+    reorderAssessment: function(assessmentId, data) {
+      assert.equal(assessmentId, expectedAssessmentId, 'Wrong assessment id');
+      assert.equal(data, 'fake-data', 'Wrong data parameter coming from serializer');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.reorderAssessment(expectedAssessmentId, ["a", "b"]).then(function() { done(); });
+});
+

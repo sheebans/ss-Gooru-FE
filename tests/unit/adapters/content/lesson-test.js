@@ -152,3 +152,26 @@ test('Copy Lesson', function(assert) {
       assert.equal('', response, 'Wrong response');
     });
 });
+
+test('reorderLesson', function(assert) {
+  const adapter = this.subject();
+  const expectedData = {
+    "order": [ { id: "a", sequence_id: 1 }]
+  };
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.put('/api/nucleus/v1/courses/course-id/units/unit-id/lessons/lesson-id/order', function(request) {
+      let requestBodyJson = JSON.parse(request.requestBody);
+      assert.deepEqual(requestBodyJson, expectedData, 'Expected request body is not correct');
+      return [204, {'Content-Type': 'text/plain'}, ''];
+    }, false);
+  });
+  adapter.reorderLesson('course-id', 'unit-id', 'lesson-id', expectedData)
+    .then(function() {
+      assert.ok(true);
+    }, function() {
+      assert.ok(false, 'Reorder Lesson failed');
+    });
+});

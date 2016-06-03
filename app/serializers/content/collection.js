@@ -107,6 +107,20 @@ export default Ember.Object.extend({
       });
     }
     return [];
+  },
+
+  /**
+   * Serialize reorder collection
+   * @param {string[]} resourceIds
+   */
+  serializeReorderCollection: function (resourceIds) {
+    const values = resourceIds.map(function(id, index) {
+      return { "id" : id, "sequence_id" : index + 1 };
+    });
+
+    return {
+      "order": values
+    };
   }
 
 });

@@ -73,6 +73,21 @@ export default Ember.Object.extend({
       title: lessonData.title,
       taxonomy: lessonData.taxonomy ? lessonData.taxonomy.slice(0) : []
     });
+  },
+
+  /**
+   * Serialize reorder lesson
+   * @param {string[]} collectionIds
+   */
+  serializeReorderLesson: function (collectionIds) {
+    const values = collectionIds.map(function(id, index) {
+      return { "id" : id, "sequence_id" : index + 1 };
+    });
+
+    return {
+      "order": values
+    };
   }
+
 
 });
