@@ -9,8 +9,15 @@ import ModalMixin from 'gooru-web/mixins/modal';
 
 export default Ember.Component.extend(ModalMixin,{
   // Dependencies
+
+  /**
+   * @property {Service} session
+   */
   session: Ember.inject.service('session'),
 
+  /**
+   * @property {Service} profile service
+   */
   profileService: Ember.inject.service('api-sdk/profile'),
 
   // -------------------------------------------------------------------------
@@ -21,10 +28,17 @@ export default Ember.Component.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+
+    /**
+     * Action triggered to edit the resource/question
+     */
     editResource: function(){
       this.sendAction("onEditResource", this.get("resource"));
     },
 
+    /**
+     * Action triggered to remix the question
+     */
     remixQuestion: function(){
       if (this.get('session.isAnonymous')) {
         this.send('showModal', 'content.modals.gru-login-prompt');
@@ -33,6 +47,9 @@ export default Ember.Component.extend(ModalMixin,{
       }
     },
 
+    /**
+     * Action triggered to add to collection
+     */
     addToCollection: function(){
       if (this.get('session.isAnonymous')) {
         this.send('showModal', 'content.modals.gru-login-prompt');

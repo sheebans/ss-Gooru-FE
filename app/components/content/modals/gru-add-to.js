@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import SessionMixin from 'gooru-web/mixins/session';
 
 export default Ember.Component.extend({
 
@@ -43,12 +42,18 @@ export default Ember.Component.extend({
 
 
   actions: {
+    /**
+     * Action triggered when a collection is selected
+     */
     selectCollection:function(collection){
       this.set("selectedCollection", collection);
       $('.gru-add-to .selected').removeClass('selected');
       $('.' + collection.id).addClass('selected');
     },
 
+    /**
+     * Action triggered when clicking add to
+     */
     addTo: function() {
       this.get('copyContent').call(this)
         .then(this.get('addContent').bind(this))
@@ -56,6 +61,9 @@ export default Ember.Component.extend({
         .catch(this.get('errorMessage').bind(this));
     },
 
+    /**
+     * Action triggered to redirect to a collection player
+     */
     openCollectionPlayer: function(collectionId) {
       this.get('router').transitionTo('player', collectionId);
       this.triggerAction({ action: 'closeModal' });
@@ -108,7 +116,6 @@ export default Ember.Component.extend({
     this._super(...arguments);
     this.set('collections', this.get('model.collections'));
     this.set('content', this.get('model.content'));
-    this.set('isLesson', this.get('model.isLesson'));
   },
 
   // -------------------------------------------------------------------------
@@ -134,14 +141,9 @@ export default Ember.Component.extend({
   collections: null,
 
   /**
-   * @type {Resource/Question/Lesson} resource or question to add / Lesson to add the collection
+   * @type {Resource/Question} resource or question to add
    */
   content: null,
-
-  /**
-   * @type {Boolean} if content is a lesson
-   */
-  isLesson: false,
 
   /**
    * @type {Boolean} if content is a question
