@@ -72,9 +72,9 @@ test('View mode it renders when no selection is made', function(assert) {
 
 test('View mode it renders - no show categories', function(assert) {
 
-  this.render(hbs`{{taxonomy/gru-taxonomy-selector isEditing=false}}`);
+  this.render(hbs`{{taxonomy/gru-taxonomy-selector isEditing=false showCategories=false}}`);
 
-  const $component = this.$('.gru-taxonomy-selector showCategories=false');
+  const $component = this.$('.gru-taxonomy-selector');
 
   assert.equal($component.find(".categories").length, 0, "There should be no category displayed");
 });
