@@ -138,6 +138,30 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Reorder assessment resources
+   *
+   * @param assessmentId the id of the Assessment to be updated
+   * @param data Assessment data to be sent in the request body
+   * @returns {Promise}
+   */
+  reorderAssessment: function(assessmentId, data) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${assessmentId}/questions/order`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify(data)
+    };
+
+    return Ember.$.ajax(url, options);
+  },
+
+
   defineHeaders: function() {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')

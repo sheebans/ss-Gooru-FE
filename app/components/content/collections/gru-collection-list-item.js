@@ -22,6 +22,9 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
 
   tagName: 'li',
 
+  attributeBindings: ['data-id'],
+
+  'data-id':Ember.computed.alias('model.id'),
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -134,8 +137,6 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
       this.set('model.isExpanded', false);
     }
   },
-
-
   // -------------------------------------------------------------------------
   // Properties
 
@@ -167,15 +168,18 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
    */
   collection:null,
   /**
+  * @property {Boolean} isCollection - is this a listing for a collection or for an assessment
+  */
+  isCollection:null,
+
+  /**
+   * @property {Boolean} isSorting
+   */
+  isSorting: null,
+
+  /**
    * Copy of the resource/question model used for editing.
    * @property {Resource/Question }
    */
-  tempModel: null,
-  /**
-  * @property {Boolean} isCollection - is this a listing for a collection or for an assessment
-  */
-  isCollection:null
-
-  // -------------------------------------------------------------------------
-  // Methods
+  tempModel: null
 });

@@ -84,6 +84,31 @@ test('updateCollection', function(assert) {
   service.updateCollection(expectedCollectionId, expectedCollectionModel).then(function() { done(); });
 });
 
+test('reorderCollection', function(assert) {
+  const service = this.subject();
+  const expectedCollectionId = 'collection-id';
+
+  assert.expect(4);
+
+  service.set('collectionSerializer', Ember.Object.create({
+    serializeReorderCollection: function(resourceIds) {
+      assert.equal(resourceIds.length, 2, 'Wrong total resources');
+      assert.equal(resourceIds[0], 'a', 'Wrong id at index 0');
+      return 'fake-data';
+    }
+  }));
+  service.set('collectionAdapter', Ember.Object.create({
+    reorderCollection: function(collectionId, data) {
+      assert.equal(collectionId, expectedCollectionId, 'Wrong collection id');
+      assert.equal(data, 'fake-data', 'Wrong data parameter coming from serializer');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.reorderCollection(expectedCollectionId, ["a", "b"]).then(function() { done(); });
+});
+
 /*test('findByClassAndCourseAndUnitAndLesson', function (assert) {
   const service = this.subject();
   const response = [

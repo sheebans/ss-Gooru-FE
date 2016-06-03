@@ -9,7 +9,8 @@ test('normalizeCollection', function(assert) {
   const serializer = this.subject();
   serializer.set('session', Ember.Object.create({
     'cdnUrls': {
-      content: '//basepath/'
+      content: '//basepath/',
+      user: '//userbasepath/'
     }
   }));
 
@@ -56,12 +57,12 @@ test('normalizeCollection', function(assert) {
   assert.equal(collection.get("owner.id"), 12, 'Wrong owner id');
   assert.equal(collection.get("owner.firstName"), "Chad", 'Wrong owner first name');
   assert.equal(collection.get("owner.lastName"), "Barris", 'Wrong owner last name');
-  assert.equal(collection.get("owner.avatarUrl"), '//basepath/profile.png', 'Wrong owner avatar');
+  assert.equal(collection.get("owner.avatarUrl"), '//userbasepath/profile.png', 'Wrong owner avatar');
   assert.equal(collection.get("owner.username"), 'username', 'Wrong owner username');
   assert.equal(collection.get("creator.id"), 13, 'Wrong creator id');
   assert.equal(collection.get("creator.firstName"), "Creator", 'Wrong creator first name');
   assert.equal(collection.get("creator.lastName"), "Tail", 'Wrong creator last name');
-  assert.equal(collection.get("creator.avatarUrl"), '//basepath/profile-creator.png', 'Wrong creator avatar');
+  assert.equal(collection.get("creator.avatarUrl"), '//userbasepath/profile-creator.png', 'Wrong creator avatar');
   assert.equal(collection.get("creator.username"), 'username-creator', 'Wrong creator username');
 
 });
@@ -70,7 +71,8 @@ test('normalizeAssessment', function(assert) {
   const serializer = this.subject();
   serializer.set('session', Ember.Object.create({
     'cdnUrls': {
-      content: '//basepath/'
+      content: '//basepath/',
+      user: '//userbasepath/'
     }
   }));
 
@@ -117,12 +119,12 @@ test('normalizeAssessment', function(assert) {
   assert.equal(assessment.get("owner.id"), 12, 'Wrong owner id');
   assert.equal(assessment.get("owner.firstName"), "Chad", 'Wrong owner first name');
   assert.equal(assessment.get("owner.lastName"), "Barris", 'Wrong owner last name');
-  assert.equal(assessment.get("owner.avatarUrl"), '//basepath/profile.png', 'Wrong owner avatar');
+  assert.equal(assessment.get("owner.avatarUrl"), '//userbasepath/profile.png', 'Wrong owner avatar');
   assert.equal(assessment.get("owner.username"), 'username', 'Wrong owner username');
   assert.equal(assessment.get("creator.id"), 13, 'Wrong creator id');
   assert.equal(assessment.get("creator.firstName"), "Creator", 'Wrong creator first name');
   assert.equal(assessment.get("creator.lastName"), "Tail", 'Wrong creator last name');
-  assert.equal(assessment.get("creator.avatarUrl"), '//basepath/profile-creator.png', 'Wrong creator avatar');
+  assert.equal(assessment.get("creator.avatarUrl"), '//userbasepath/profile-creator.png', 'Wrong creator avatar');
   assert.equal(assessment.get("creator.username"), 'username-creator', 'Wrong creator username');
 
 
@@ -172,8 +174,6 @@ test('normalizeSearchResources', function(assert) {
   const resources = serializer.normalizeSearchResources(resourcesPayload);
   assert.equal(resources.length, 2, 'Wrong resources length');
   assert.equal(resources[0].get("format"), "text", 'Wrong format for resource 1');
-
-
 });
 
 test('normalizeSearchQuestions', function(assert) {
@@ -285,7 +285,7 @@ test('normalizeOwner', function(assert) {
   const serializer = this.subject();
   serializer.set('session', Ember.Object.create({
     'cdnUrls': {
-      content: '//basepath/'
+      user: '//basepath/'
     }
   }));
 
