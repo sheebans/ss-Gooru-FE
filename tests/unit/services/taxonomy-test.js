@@ -204,8 +204,7 @@ test('getDomains when taxonomy domains does not exist for course', function(asse
   var done = assert.async();
   const subject = TaxonomyRoot.create(Ember.getOwner(test).ownerInjection(), {
     id: 'GDF.K12.CS',
-    frameworkId: 'GDF',
-    courses: []
+    frameworkId: 'GDF'
   });
   const course = TaxonomyItem.create(Ember.getOwner(test).ownerInjection(), {
     id: 'TEKS.K12.PE-K',
@@ -232,8 +231,7 @@ test('getDomains when taxonomy domains exist for course', function(assert) {
   var done = assert.async();
   const subject = TaxonomyRoot.create(Ember.getOwner(test).ownerInjection(), {
     id: 'GDF.K12.CS',
-    frameworkId: 'GDF',
-    courses: []
+    frameworkId: 'GDF'
   });
   const course = TaxonomyItem.create(Ember.getOwner(test).ownerInjection(), {
     id: 'TEKS.K12.PE-K',
@@ -259,7 +257,7 @@ test('getDomains when taxonomy domains exist for course', function(assert) {
     });
 });
 
-test('getCodes when taxonomy domains does not exist for course', function(assert) {
+test('getCodes when taxonomy codes does not exist for domain', function(assert) {
   const test = this;
   const service = this.subject();
   service.set('apiTaxonomyService', Ember.Object.create({
@@ -284,13 +282,11 @@ test('getCodes when taxonomy domains does not exist for course', function(assert
   var done = assert.async();
   const subject = TaxonomyRoot.create(Ember.getOwner(test).ownerInjection(), {
     id: 'GDF.K12.CS',
-    frameworkId: 'GDF',
-    courses: []
+    frameworkId: 'GDF'
   });
   const course = TaxonomyItem.create(Ember.getOwner(test).ownerInjection(), {
     id: 'TEKS.K12.PE-K',
-    code: 'TEKS.K12.PE-K',
-    children: []
+    code: 'TEKS.K12.PE-K'
   });
   const domain = TaxonomyItem.create(Ember.getOwner(test).ownerInjection(), {
     id: 'TEKS.K12.PE-K-MOV',
@@ -305,6 +301,49 @@ test('getCodes when taxonomy domains does not exist for course', function(assert
     });
 });
 
+test('getCodes when taxonomy codes exist for domain', function(assert) {
+  const test = this;
+  const service = this.subject();
+  service.set('apiTaxonomyService', Ember.Object.create({
+    fetchCodes: function() {
+      assert.ok(false, 'Method fetchDomains() should not be called.');
+      return Ember.RSVP.resolve([]);
+    }
+  }));
+  var done = assert.async();
+  const subject = TaxonomyRoot.create(Ember.getOwner(test).ownerInjection(), {
+    id: 'GDF.K12.CS',
+    frameworkId: 'GDF'
+  });
+  const course = TaxonomyItem.create(Ember.getOwner(test).ownerInjection(), {
+    id: 'TEKS.K12.PE-K',
+    code: 'TEKS.K12.PE-K'
+  });
+  const domain = TaxonomyItem.create(Ember.getOwner(test).ownerInjection(), {
+    id: 'TEKS.K12.PE-K-MOV',
+    code: 'TEKS.K12.PE-K-MOV',
+    children: [
+      TaxonomyItem.create(Ember.getOwner(test).ownerInjection(), {
+        id: 'TEKS.K12.PE-K-MOV-01',
+        code: 'TEKS.PE.K.1',
+        title: 'The student demonstrates competency in fundamental movement patterns and proficiency in a few specialized movement forms.',
+        codeType: 'standard_level_1'
+      }),
+      TaxonomyItem.create(Ember.getOwner(test).ownerInjection(), {
+        id: 'TEKS.K12.PE-K-MOV-02',
+        code: 'TEKS.PE.K.2',
+        title: 'The student applies movement concepts and principles to the learning and development of motor skills.',
+        codeType: 'standard_level_1'
+      })
+    ]
+  });
+  service.getCodes(subject, course, domain)
+    .then(function(codes) {
+      assert.equal(codes.length, 2, 'Wrong number of codes');
+      assert.equal(codes.objectAt(0).get('id'), 'TEKS.K12.PE-K-MOV-01', 'Wrong code id');
+      done();
+    });
+});
 
 test('findSubjectById for a loaded category and subject', function(assert) {
   const service = this.subject();
