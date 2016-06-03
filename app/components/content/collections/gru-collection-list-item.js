@@ -33,6 +33,12 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
    * @requires service:api-sdk/question
    */
   questionService: Ember.inject.service("api-sdk/question"),
+
+  /**
+   * @requires service:notifications
+   */
+  notifications: Ember.inject.service(),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -88,6 +94,44 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
       } else {
         this.send('showModal', 'content.modals.gru-resource-remix', model);
       }
+    },
+
+    editNarration: function (builderItem) {
+      var modelForEditing = builderItem.copy();
+
+      this.set('tempModel', modelForEditing);
+      this.set('model.isExpanded', true);
+    },
+
+    updateItem: function (builderItem) {
+      let component = this;
+      var editedModel = this.get('tempModel');
+
+      if(builderItem.get('format')==='question'){
+        component.get('questionService').updateQuestion(editedModel.id, editedModel)
+          .then(function () {
+            component.set('model.isExpanded', false);
+          }.bind(this))
+          .catch(function (error) {
+            var message = component.get('i18n').t('common.errors.question-not-updated').string;
+            component.get('notifications').error(message);
+            Ember.Logger.error(error);
+          }.bind(component));
+      }else{
+        component.get('resourceService').updateResource(editedModel.id, editedModel)
+          .then(function () {
+            component.set('model.isExpanded', false);
+          }.bind(this))
+          .catch(function (error) {
+            var message = component.get('i18n').t('common.errors.question-not-updated').string;
+            component.get('notifications').error(message);
+            Ember.Logger.error(error);
+          }.bind(component));
+      }
+    },
+
+    cancel: function (){
+      this.set('model.isExpanded', false);
     }
   },
 
@@ -123,7 +167,15 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
    */
   collection:null,
   /**
+   * Copy of the resource/question model used for editing.
+   * @property {Resource/Question }
+   */
+  tempModel: null,
+  /**
   * @property {Boolean} isCollection - is this a listing for a collection or for an assessment
   */
-  isCollection:null,
+  isCollection:null
+
+  // -------------------------------------------------------------------------
+  // Methods
 });

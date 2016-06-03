@@ -100,3 +100,31 @@ test('it renders questions correctly', function (assert) {
   }.bind(this));
 
 });
+
+test('it expands/collapses the narration panel', function (assert) {
+
+  const question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question Title',
+    format: 'question'
+  });
+
+  this.set('question', question);
+  this.set('index', 0);
+  this.render(hbs`{{content/collections/gru-collection-list-item model=question index=index}}`);
+
+  const $panel = this.$('li.content.collections.gru-collection-list-item > .panel');
+  assert.ok($panel.length, 'Panel');
+  assert.ok($panel.hasClass('collapsed'), 'Panel collapsed');
+
+  $panel.find('.detail.visible .actions button.narration i').click();
+
+  assert.ok($panel.hasClass('expanded'), 'Narration Panel expanded after clicking narration button');
+
+  assert.ok($panel.find('> .panel-body').length, 'panel body');
+
+  assert.ok($panel.find('> .panel-body .narration .gru-textarea').length, 'Narration Field');
+
+  $panel.find('.detail .actions .narration').click();
+  assert.ok($panel.hasClass('collapsed'), 'Narration Panel collapsed after clicking narration button');
+
+});
