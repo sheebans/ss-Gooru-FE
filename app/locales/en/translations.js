@@ -24,8 +24,7 @@ export default {
     "add-standard": "Add Standard",
     "add-standards-to-collection": "Add Standards to Collection",
     "add-to": "Add To",
-    "add-to-assessment-success": "You've added {{contentTitle}} to {{collectionTitle}}. Do you want to edit that assessment?",
-    "add-to-collection-success": "You've added {{contentTitle}} to {{collectionTitle}}. Do you want to edit that collection?",
+    "add-to-collection-success": "You've added {{contentTitle}} to {{collectionTitle}}. Do you want to edit that {{collectionType}}?",
     "add-type-question":"What type of question would you like to add?",
     "add-type-resource":"What type of resource is this?",
     "add-units": "Add Units",
@@ -148,7 +147,7 @@ export default {
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
       "lesson-title-required" : "Please enter the lesson title.",
-      "question-not-added-to-assessment": "Oops! Unable to add question to assessment right now. Please try again shortly.",
+      "question-not-added-to": "Oops! Unable to add question to {{collectionType}} right now. Please try again shortly.",
       "question-not-copied": "Oops! Unable to copy question right now. Please try again shortly.",
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
       "question-not-updated": "Oops! Unable to update question right now. Please try again shortly.",
@@ -622,8 +621,8 @@ export default {
   "gru-add-to":{
     "add-to-collection":"Add to collection",
     "add-to-collection-lead":"Choose a collection you want to add {{contentTitle}} to",
-    "add-to-assessment":"Add to assessment",
-    "add-to-assessment-lead":"Choose an assessment you want to add {{contentTitle}} to"
+    "add-to-assessment":"Add to collection or assessment",
+    "add-to-assessment-lead":"Choose a collection or assessment you want to add {{contentTitle}} to"
   },
   "gru-quick-course-search":{
     "add-from-course":"Add from Existing Course",

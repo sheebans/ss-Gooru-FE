@@ -87,10 +87,14 @@ export default Ember.Component.extend({
 
   addContent: function(contentId) {
     var collectionId = this.get('selectedCollection.id');
-    if(this.get('isQuestion')) {
-      return this.get('assessmentService').addQuestion(collectionId, contentId);
+    if(this.get('selectedCollection.isCollection')) {
+      if(this.get('isQuestion')) {
+        return this.get('collectionService').addQuestion(collectionId, contentId);
+      } else {
+        return this.get('collectionService').addResource(collectionId, contentId);
+      }
     } else {
-      return this.get('collectionService').addResource(collectionId, contentId);
+      return this.get('assessmentService').addQuestion(collectionId, contentId);
     }
   },
 
@@ -103,12 +107,11 @@ export default Ember.Component.extend({
     var contentEditUrl = this.get('router').generate('content.collections.edit', this.get('selectedCollection.id'));
     var successMsg = this.get('i18n').t('common.add-to-collection-success', {
       contentTitle: this.get('content.title'),
-      collectionTitle: this.get('selectedCollection.title')});
-    if(this.get('isQuestion')){
+      collectionTitle: this.get('selectedCollection.title'),
+      collectionType: this.get('collectionType').toLowerCase()
+    });
+    if(this.get('selectedCollection.isAssessment')) {
       contentEditUrl = this.get('router').generate('content.assessments.edit', this.get('selectedCollection.id'));
-      successMsg = this.get('i18n').t('common.add-to-assessment-success', {
-        contentTitle: this.get('content.title'),
-        collectionTitle: this.get('selectedCollection.title')});
     }
     var edit = this.get('i18n').t('common.edit');
     this.get('notifications').success(`${successMsg} <a class="btn btn-success" href="${contentEditUrl}">${edit}</a>`);
@@ -117,8 +120,8 @@ export default Ember.Component.extend({
 
   errorMessage: function(error) {
     var message = this.get('isQuestion') ?
-      'common.errors.question-not-added-to-assessment' : 'common.errors.resource-not-added-to-collection';
-    this.get('notifications').error(this.get('i18n').t(message).string);
+      'common.errors.question-not-added-to' : 'common.errors.resource-not-added-to-collection';
+    this.get('notifications').error(this.get('i18n').t(message, {collectionType: this.get('collectionType').toLowerCase()}).string);
     Ember.Logger.error(error);
     this.$('.modal-footer button.add-to').prop('disabled', false)
   },
@@ -162,6 +165,14 @@ export default Ember.Component.extend({
   /**
    * @type {Boolean} if content is a question
    */
-  isQuestion: Ember.computed.equal('content.format', 'question')
+  isQuestion: Ember.computed.equal('content.format', 'question'),
 
+  /**
+   * @type {String} name of the collection type
+   */
+  collectionType: Ember.computed('selectedCollection', function() {
+    return this.get('selectedCollection.isCollection') ?
+      this.get('i18n').t('common.collection').string :
+      this.get('i18n').t('common.assessment').string;
+  })
 });
