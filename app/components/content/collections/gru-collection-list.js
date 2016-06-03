@@ -21,6 +21,11 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
    */
   assessmentService: Ember.inject.service("api-sdk/assessment"),
 
+  /**
+   * @requires service:api-sdk/course
+   */
+  collectionService: Ember.inject.service("api-sdk/collection"),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -70,7 +75,12 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       var component = this;
       const sortable = component.$('.sortable');
       if(this.get('isCollection')){
-        //TODO
+        component.get('collectionService').reorderCollection(component.get('model.id'),component.get('orderList'))
+          .then(function(){
+            component.set('isSorting',false);
+            sortable.sortable('disable');
+            component.refreshList(component.get('orderList'));
+          });
       }else{
         component.get('assessmentService').reorderAssessment(component.get('model.id'),component.get('orderList'))
         .then(function(){
