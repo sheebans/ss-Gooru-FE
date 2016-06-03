@@ -110,5 +110,6 @@ export default Ember.Component.extend(ModalMixin,{
 
   visibility:null,
 
+  isSmall: false
 
 });
