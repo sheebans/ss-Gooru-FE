@@ -34,7 +34,7 @@ test('serializeUpdateAssessment', function(assert) {
   assert.equal(response.learning_objective, 'any', "Wrong learning objective");
   assert.equal(response.visible_on_profile, false, "Wrong visible on profile");
   assert.equal(response.thumbnail, 'image-id.png', "Wrong thumbnail");
-  assert.deepEqual(response.taxonomy, {}, "Wrong taxonomy object");
+  assert.equal(response.taxonomy, null, "Wrong taxonomy object");
 });
 
 test('normalizeReadAssessment', function(assert) {
