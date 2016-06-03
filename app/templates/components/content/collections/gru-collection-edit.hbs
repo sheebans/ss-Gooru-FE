@@ -61,13 +61,26 @@
           }}
 
         <div class="subject">
-          <span class="label">K-12 Standards</span>
+          <span class="label">{{t "common.standards"}}</span>
           {{#if isEditing}}
-            <button type="button" class="btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
+            <button type="button" class="btn btn-primary"
+                    {{action 'openTaxonomyModal'}}
+                    disabled={{standardDisabled}}>
+              {{gru-icon name="open_in_new"}} {{t "common.select"}}
+            </button>
+            <ul class="tags">
+              {{#each editableTags as |taxonomyTag|}}
+                <li>{{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}</li>
+              {{/each}}
+            </ul>
           {{else}}
-            <div class="subjects">
-              <span>No specified</span>
-            </div>
+            <ul class="tags">
+              {{#each tags as |taxonomyTag|}}
+                <li>{{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}</li>
+              {{else}}
+                <li>{{t "common.not-specified"}}</li>
+              {{/each}}
+            </ul>
           {{/if}}
         </div>
 

@@ -2,6 +2,7 @@ import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
 import ModalMixin from 'gooru-web/mixins/modal';
 import {CONTENT_TYPES, K12_CATEGORY} from 'gooru-web/config/config';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
 
@@ -70,7 +71,8 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
             editedCollection.set('thumbnailUrl', imageId);
             component.get('collectionService').updateCollection(editedCollection.get('id'), editedCollection)
               .then(function () {
-                collection.merge(editedCollection, ['title', 'learningObjectives', 'isVisibleOnProfile', 'thumbnailUrl']);
+                collection.merge(editedCollection,
+                  ['title', 'learningObjectives', 'isVisibleOnProfile', 'thumbnailUrl', 'standards']);
                 component.set('isEditing', false);
               })
               .catch(function (error) {
@@ -121,6 +123,35 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
 
     selectSubject: function(subject){
       this.set("selectedSubject", subject);
+    },
+
+    /**
+     * Remove tag data from the taxonomy list in tempUnit
+     */
+    removeTag: function (taxonomyTag) {
+      var tagData = taxonomyTag.get('data');
+      this.get('tempCollection.standards').removeObject(tagData);
+    },
+
+    openTaxonomyModal: function(){
+      var component = this;
+      var standards = component.get('tempCollection.standards') || [];
+      var model = {
+        selected: standards,
+        shortcuts: null,  // TODO: TBD
+        subject: component.get('selectedSubject'),
+        callback: {
+          success: function(selectedTags) {
+            var dataTags = selectedTags.map(function(taxonomyTag) {
+              return taxonomyTag.get('data');
+            });
+            component.set('tempCollection.standards', Ember.A(dataTags));
+          }
+        }
+      };
+
+      this.actions.showModal.call(this, 'taxonomy.modals.gru-domain-picker', model, null, 'gru-domain-picker');
+      //this.actions.showModal.call(this, 'taxonomy.modals.gru-standard-picker', model, null, 'gru-standard-picker');
     }
   },
   // -------------------------------------------------------------------------
@@ -157,10 +188,30 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
   k12Category: K12_CATEGORY.value,
 
   /**
+   * @property {boolean}
+   */
+  standardDisabled: Ember.computed.not("selectedSubject"),
+
+  /**
    * Indicate if the button "Back to course" is available.
    */
   allowBack: Ember.computed('course','allowBackToCourse',function(){
     return this.get('course') && this.get('allowBackToCourse');
+  }),
+
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('collection.standards.[]', function() {
+    return TaxonomyTag.getTaxonomyTags(this.get("collection.standards"), false);
+  }),
+
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  editableTags: Ember.computed('tempCollection.standards.[]', function() {
+    return TaxonomyTag.getTaxonomyTags(this.get("tempCollection.standards"), true);
   })
+
 
 });
