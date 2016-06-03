@@ -17,12 +17,12 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   // Dependencies
 
   /**
-   * @requires service:api-sdk/course
+   * @requires service:api-sdk/assessment
    */
   assessmentService: Ember.inject.service("api-sdk/assessment"),
 
   /**
-   * @requires service:api-sdk/course
+   * @requires service:api-sdk/collection
    */
   collectionService: Ember.inject.service("api-sdk/collection"),
 
