@@ -621,8 +621,8 @@ export default {
   "gru-add-to":{
     "add-to-collection":"Add to collection",
     "add-to-collection-lead":"Choose a collection you want to add {{contentTitle}} to",
-    "add-to-assessment":"Add to collection or assessment",
-    "add-to-assessment-lead":"Choose a collection or assessment you want to add {{contentTitle}} to"
+    "add-to-assessment":"Add to assessment or collection",
+    "add-to-assessment-lead":"Choose an assessment you want to add {{contentTitle}} to"
   },
   "gru-quick-course-search":{
     "add-from-course":"Add from Existing Course",

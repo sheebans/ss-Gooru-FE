@@ -55,18 +55,17 @@ export default Ember.Component.extend(ModalMixin,{
       if (component.get('session.isAnonymous')) {
         component.send('showModal', 'content.modals.gru-login-prompt');
       } else {
-        let assessmentsPromise = Ember.RSVP.resolve([]);
+        let assessmentsPromise = Ember.RSVP.resolve(null);
         if(component.get('isQuestion')) {
           assessmentsPromise = component.get('profileService').readAssessments(component.get('session.userId'));
         }
         assessmentsPromise.then(function(assessments) {
           return component.get('profileService').readCollections(component.get('session.userId'))
-            .then(collections => collections.concat(assessments));
+            .then(function(collections) {
+              return { content: component.get('resource'), collections, assessments };
+            });
         }).then(
-          collections => this.send('showModal', 'content.modals.gru-add-to', {
-              content: this.get('resource'),
-              collections
-            }, null, "add-to")
+          model => this.send('showModal', 'content.modals.gru-add-to', model, null, "add-to")
         );
       }
     }

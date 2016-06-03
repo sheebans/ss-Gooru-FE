@@ -47,6 +47,16 @@ export default Ember.Component.extend({
 
 
   actions: {
+
+    /**
+     * Action triggered when a collection/assessment is selected
+     */
+    changeTab: function(showCollections) {
+      this.set("selectedCollection", null);
+      $('.gru-add-to .selected').removeClass('selected');
+      this.set('showCollections', showCollections);
+    },
+
     /**
      * Action triggered when a collection/assessment is selected
      */
@@ -132,7 +142,11 @@ export default Ember.Component.extend({
   init() {
     this._super(...arguments);
     this.set('collections', this.get('model.collections'));
+    this.set('assessments', this.get('model.assessments'));
     this.set('content', this.get('model.content'));
+    if(this.get('isQuestion')) {
+      this.set('showCollections', false);
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -153,9 +167,14 @@ export default Ember.Component.extend({
   hasSelectedCollection: Ember.computed.notEmpty('selectedCollection'),
 
   /**
-   * @type {List} user collections/assessments
+   * @type {List} user collections
    */
   collections: null,
+
+  /**
+   * @type {List} user assessments
+   */
+  assessments: null,
 
   /**
    * @type {Resource/Question} resource or question to add
@@ -174,5 +193,17 @@ export default Ember.Component.extend({
     return this.get('selectedCollection.isCollection') ?
       this.get('i18n').t('common.collection').string :
       this.get('i18n').t('common.assessment').string;
-  })
+  }),
+
+  /**
+   * @type {Boolean} if collections should be shown
+   */
+   showCollections: true,
+
+   /**
+    * @type {List} collections/assessments to be rendered
+    */
+   collectionsList: Ember.computed('showCollections', function() {
+     return this.get('showCollections') ? this.get('collections') : this.get('assessments');
+   })
 });
