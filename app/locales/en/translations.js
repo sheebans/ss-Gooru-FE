@@ -336,6 +336,7 @@ export default {
     "standards": "Standards",
     "study": "Study",
     "student": "Student",
+    "subject-and-framework": "Subject and Framework",
     "submit": "Submit",
     "submit-all":"Submit all",
     "swap": "Re-order",

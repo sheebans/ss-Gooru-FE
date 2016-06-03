@@ -56,9 +56,13 @@
 
         {{taxonomy.gru-taxonomy-selector
           isEditing=isEditing
-          srcEntity=collection
-          editEntity=tempCollection
-          enableSecondarySubject=true}}
+          onSubjectSelected="selectSubject"
+          selectedSubject=selectedSubject
+          internalCategory=k12Category
+          subjectLabelKey='common.subject-and-framework'
+          showCategories=false
+          showCourses=false
+        }}
 
         {{content.gru-audience isEditing=isEditing srcSelectedAudiences=collection.audience editSelectedAudiences=tempCollection.audience}}
 

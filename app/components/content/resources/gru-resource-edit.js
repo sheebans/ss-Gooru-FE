@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
-import { RESOURCE_COMPONENT_MAP, RESOURCE_TYPES,CONTENT_TYPES } from "../../../config/config";
+import { RESOURCE_COMPONENT_MAP, RESOURCE_TYPES,CONTENT_TYPES, K12_CATEGORY } from "gooru-web/config/config";
 import ModalMixin from 'gooru-web/mixins/modal';
 
 export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
@@ -83,7 +83,12 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
       this.actions.showModal.call(this,
         'content.modals.gru-delete-content',
         model, null, null, null, false);
+    },
+
+    selectSubject: function(subject){
+      this.set("selectedSubject", subject);
     }
+
   },
 
   // -------------------------------------------------------------------------
@@ -114,6 +119,18 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
   resourceComponent: Ember.computed('resource.resourceType', function() {
     return RESOURCE_COMPONENT_MAP[this.get('resource.resourceType')];
   }),
+
+  /**
+   *
+   * @property {TaxonomyRoot}
+   */
+  selectedSubject: null,
+
+  /**
+   * @property {string}
+   */
+  k12Category: K12_CATEGORY.value,
+
 
   // -------------------------------------------------------------------------
   // Methods

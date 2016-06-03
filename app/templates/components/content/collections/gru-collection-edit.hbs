@@ -52,12 +52,16 @@
 
         {{taxonomy.gru-taxonomy-selector
           isEditing=isEditing
-          srcEntity=collection
-          editEntity=tempCollection
-          enableSecondarySubject=true}}
+          onSubjectSelected="selectSubject"
+          selectedSubject=selectedSubject
+          internalCategory=k12Category
+          subjectLabelKey='common.subject-and-framework'
+          showCategories=false
+          showCourses=false
+          }}
 
         <div class="subject">
-          <span class="label required">K-12 Standards</span>
+          <span class="label">K-12 Standards</span>
           {{#if isEditing}}
             <button type="button" class="btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
           {{else}}

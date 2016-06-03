@@ -151,11 +151,15 @@
                     </div>
                 </div>
                 <div class="standards">
-                    {{taxonomy.gru-taxonomy-selector
-                      isEditing=isEditing
-                      srcEntity=question
-                      editEntity=tempQuestion
-                      enableSecondarySubject=true}}
+                  {{taxonomy.gru-taxonomy-selector
+                    isEditing=isEditing
+                    onSubjectSelected="selectSubject"
+                    selectedSubject=selectedSubject
+                    internalCategory=k12Category
+                    subjectLabelKey='common.subject-and-framework'
+                    showCategories=false
+                    showCourses=false
+                  }}
                 </div>
             </div>
         </div>

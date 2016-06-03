@@ -1,3 +1,4 @@
+{{#if showCategories}}
 <div class="category">
   <span class="label required">{{t "common.category"}}</span>
   {{#if isEditing}}
@@ -24,10 +25,10 @@
     </div>
   {{/if}}
 </div>
-
+{{/if}}
 <div class="subject clearfix">
   <label>
-    <span><span class="required">{{t 'taxonomy.gru-taxonomy-selector.primary-subject-and-course'}}</span>{{#if (and enableSecondarySubject (and isEditing (not hasSecondary)))}} <a {{action 'toggleSecondary'}}>{{t 'taxonomy.gru-taxonomy-selector.add-secondary'}}</a>{{/if}}</span>
+    <span>{{t subjectLabelKey}}</span>
   </label>
   {{#if isEditing}}
     {{#if subjects.length}}

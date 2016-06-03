@@ -70,6 +70,16 @@ test('View mode it renders when no selection is made', function(assert) {
   assert.equal($component.find(".subject .tags").length, 0, "There should be no tags displayed");
 });
 
+test('View mode it renders - no show categories', function(assert) {
+
+  this.render(hbs`{{taxonomy/gru-taxonomy-selector isEditing=false}}`);
+
+  const $component = this.$('.gru-taxonomy-selector showCategories=false');
+
+  assert.equal($component.find(".categories").length, 0, "There should be no category displayed");
+});
+
+
 test('Edit mode it renders when no selection is made', function(assert) {
   this.render(hbs`{{taxonomy/gru-taxonomy-selector isEditing=true}}`);
 

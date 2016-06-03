@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
+import { TAXONOMY_LEVELS } from 'gooru-web/config/config';
 
 /**
  * subject course picker component
@@ -43,7 +44,8 @@ export default Ember.Component.extend({
         code: course.get('code'),
         title: course.get('title'),
         parentTitle: subject.get('subjectTitle'),
-        frameworkCode: subject.get('frameworkId')
+        frameworkCode: subject.get('frameworkId'),
+        taxonomyLevel: TAXONOMY_LEVELS.COURSE
       });
       component.addRemoveTaxonomyTagData(taxonomyTagData);
       if (component.get("onTaxonomySelected")) {

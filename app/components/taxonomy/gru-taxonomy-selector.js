@@ -127,8 +127,11 @@ export default Ember.Component.extend({
     const component = this;
     const subject = component.get('selectedSubject');
     const category = component.get("selectedCategory");
-    if (subject){
+    if (category){
       component.loadSubjects(category);
+    }
+
+    if (subject){
       if (component.get("showCourses") && !subject.get('hasCourses')) {
         component.get('taxonomyService').retrieveSubjectCourses(subject);
       }
@@ -138,9 +141,20 @@ export default Ember.Component.extend({
   // Properties
 
   /**
+   * i18n key for the subject dropdown label
+   * @property {string}
+   */
+  subjectLabelKey: 'taxonomy.gru-taxonomy-selector.primary-subject-and-course',
+
+  /**
    * @type {Ember.A} categories - List of course categories
    */
   categories: TAXONOMY_CATEGORIES,
+
+  /**
+   * @property {boolean}
+   */
+  showCategories: true,
 
   /**
    * Is the entity being edited or not?
