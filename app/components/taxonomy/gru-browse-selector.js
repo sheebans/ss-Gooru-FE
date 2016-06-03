@@ -33,10 +33,7 @@ export default Ember.Component.extend({
      * @function actions:selectInsideItem
      */
     selectInsideItem: function(item) {
-      var selectedPath = item.getPath();
-
-      this.get('onSelectItem')(item);
-      this.set('selectedPath', selectedPath);
+      this.get('onSelectItem')(item.getPath());
     },
 
     /**
@@ -59,12 +56,6 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Events
-  init() {
-    this._super( ...arguments );
-    var currentPath = this.get('selectedPath');
-    this.set('previousSelectedPath', currentPath);
-  },
-
   didRender() {
     this._super( ...arguments );
     this.$('button[data-toggle="collapse"]').on('click', function(e) {

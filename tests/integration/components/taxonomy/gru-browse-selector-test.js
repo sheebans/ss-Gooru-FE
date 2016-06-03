@@ -65,7 +65,7 @@ test("it can populate the browse panels per a specific item path", function(asse
   });
 });
 
-test("it calls an external action when clicking an item that is not in the last browse panel and navigates to that item", function(assert) {
+test("it calls an external action when clicking an item that is not in the last browse panel", function(assert) {
 
   var data = generateBrowseTestTree(3);
   var headers = ['Header Level 1', 'Header Level 2', 'Header Level 3'];
@@ -74,8 +74,9 @@ test("it calls an external action when clicking an item that is not in the last 
   this.set('headers', headers);
   this.set('selectedPath', ['100', '200']);  // IDs of the selected nodes
 
-  this.on('externalAction', function() {
+  this.on('externalAction', function(itemPath) {
     assert.ok('true', 'External action called');
+    assert.deepEqual(itemPath, ['100', '201'], 'Item path')
   });
 
   this.render(hbs`
@@ -99,16 +100,6 @@ test("it calls an external action when clicking an item that is not in the last 
 
   // Click on the second item in the second panel
   $component.find('> ol > li:eq(1) a:eq(1)').click();
-
-  $component.find('> ol > li').each(function(index) {
-    if (index < (headers.length - 1)) {
-      let $this = $(this);
-      let level = index + 1;
-      assert.equal($this.find('> ul > li.active').length, 1, 'After: number of items in selected path in level ' + level);
-      assert.ok($this.find('> ul > li').eq(index).hasClass('active'), 'After: item in selected path in level ' + level);
-    }
-  });
-  assert.equal($component.find('> ol > li:last-child > ul > li:first-child > label > div > strong').text(), 'Item : 3 : 1 : 0', 'Label of first item in the last panel after click');
 });
 
 test("it loads sub-level items async", function(assert) {
@@ -136,18 +127,28 @@ test("it loads sub-level items async", function(assert) {
 
   var data = [ rootItem ];
   var headers = ['Header Level 1', 'Header Level 2', 'Header Level 3'];
+  var component = this;
 
   this.set('data', data);
   this.set('headers', headers);
+  this.set('selectedPath', []);
 
-  this.on('externalAction', function() {
+  this.on('externalAction', function(itemPath) {
     // Load child into rootItem asynchronously
     fetchChildrenFor(rootItem).then(function(childrenList) {
       rootItem.set('children', childrenList);
+
+      // Update the selected path after the data has been fetched
+      component.set('selectedPath', itemPath);
     });
   });
 
-  this.render(hbs`{{taxonomy/gru-browse-selector data=data headers=headers onSelectItem=(action 'externalAction')}}`);
+  this.render(hbs`
+    {{taxonomy/gru-browse-selector
+      data=data
+      headers=headers
+      selectedPath=selectedPath
+      onSelectItem=(action 'externalAction')}}`);
 
   const $component = this.$('.taxonomy.gru-browse-selector');
   assert.ok($component.length, 'Component');
