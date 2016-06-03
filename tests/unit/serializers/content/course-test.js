@@ -19,7 +19,7 @@ test('serializeCreateCourse', function(assert) {
     description: course.description,
     thumbnail: 'image-id.png',
     visible_on_profile: course.isVisibleOnProfile,
-    taxonomy: {},
+    taxonomy: null,
     'subject_bucket': course.subject
   };
   const courseObject = serializer.serializeCreateCourse(course);
@@ -42,7 +42,7 @@ test('serializeUpdateCourse', function (assert) {
     description: courseModel.description,
     thumbnail: 'course-thumbnail-url',
     visible_on_profile: courseModel.isVisibleOnProfile,
-    taxonomy: {},
+    taxonomy: null,
     'subject_bucket': courseModel.subject
   };
   const serializedCourse = serializer.serializeUpdateCourse(courseModel);
