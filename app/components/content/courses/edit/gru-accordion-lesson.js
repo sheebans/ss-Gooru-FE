@@ -23,6 +23,7 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
    */
   lessonService: Ember.inject.service("api-sdk/lesson"),
 
+  
   // -------------------------------------------------------------------------
   // Actions
 

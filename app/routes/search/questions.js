@@ -28,6 +28,11 @@ export default Ember.Route.extend({
     controller.set('questionResults', model.questions);
     controller.set('selectedOptionTypes', model.selectedOptionTypes);
     controller.set('term', model.term);
+  },
+
+  deactivate: function() {
+    this.get("controller").resetValues();
   }
+
 
 });

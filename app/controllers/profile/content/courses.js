@@ -42,7 +42,8 @@ export default Ember.Controller.extend({
    * @property {boolean}
    */
   showMoreResultsButton: Ember.computed("courses.[]", function(){
-    return this.get("courses.length") % this.get("pagination.pageSize") === 0;
+    return this.get("courses.length") &&
+      (this.get("courses.length") % this.get("pagination.pageSize") === 0);
   }),
 
   // -------------------------------------------------------------------------

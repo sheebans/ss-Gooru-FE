@@ -53,7 +53,8 @@ export default Ember.Controller.extend({
    * @property {boolean}
    */
   showMoreResultsButton: Ember.computed("resources.[]", function(){
-    return this.get("resources.length") % this.get("pagination.pageSize") === 0;
+    return this.get("resources.length") &&
+      (this.get("resources.length") % this.get("pagination.pageSize") === 0);
   }),
 
   // Methods

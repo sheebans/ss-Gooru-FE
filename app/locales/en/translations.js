@@ -65,6 +65,7 @@ export default {
       "higher-ed": "Higher Education",
       "professional-dev": "Professional Development"
     },
+    "class":"Class",
     "classes": "Classes",
     "classScores": "Class Scores",
     "close": "Close",
@@ -123,7 +124,6 @@ export default {
       "add-course-title":"Please enter the course title.",
       "add-question-answer-text":"Please enter the answer choice text.",
       "add-question-title":"Please enter the question title.",
-      "add-student-id":"You cannot use special characters.",
       "assessment-title-presence" : "Please enter the assessment title.",
       "can-not-join-class" : "Oops! Unable to join class. Please try again shortly.",
       "assessment-not-copied": "Oops! Unable to copy assessment right now. Please try again shortly.",
@@ -214,6 +214,7 @@ export default {
     "new-assessment": "New Assessment",
     "new-collection": "New Collection",
     "new-question": "New Question",
+    "new-question-text": "Enter question text here",
     "new-resource": "New Resource",
     "next": "Next",
     "no": "No",
@@ -289,9 +290,7 @@ export default {
     "remix-unit-success": "You've remixed a unit {{unitTitle}}.",
     "remixed-by": "Remixed by",
     "remove":"Remove",
-    "report-in-progress": "Report in progress",
     "request-to":"Request to be searchable and featured in Gooru",
-    "request-report": "Request Report",
     "resource":"Resource",
     "resources": "Resources",
     "resource-format":{
@@ -337,7 +336,6 @@ export default {
     "standards": "Standards",
     "study": "Study",
     "student": "Student",
-    "student-id":"Student ID (not displayed on Profile)",
     "submit": "Submit",
     "submit-all":"Submit all",
     "swap": "Re-order",
@@ -569,6 +567,11 @@ export default {
         "T/F":"Write your question. Character limit: 5000."
       }
     }
+  },
+  "content.modals.delete-class":{
+    "legend":"Your about to delete your class",
+    "student-access":"Students won’t be able to access the class",
+    "student-data-deleted":"All student data will be deleted"
   },
   "content.modals.delete-content":{
     "legend":"You are about to delete",
@@ -856,39 +859,49 @@ export default {
     "restriction": "*The image must be a JPG, GIF or PNG file smaller than 5 MB.",
     "submit": "Use Image"
   },
+  "gru-fib": {
+    "instructions" : "Please type your answer(s) in the blank(s) provided, and click \"Save and Next\"."
+  },
+
+  "gru-hs-image": {
+    "instructions" : "Please select the correct image(s), and click \"Submit\"."
+  },
+  "gru-hs-text": {
+    "instructions" : "Please select the correct answer(s), and click \"Submit\"."
+  },
+  "gru-hot-text": {
+    "instructions" : "Please select the correct answer, and click \"Submit\"."
+  },
+  "gru-login-prompt":{
+    "title":"Welcome to Gooru!",
+    "instructions" : "You need to sign in to remix content.",
+    "existing-user" : "Already have an account?",
+    "new-user" : "New here?",
+    "not-now" : "Not now",
+    "sign-in" : "Sign in"
+  },
+  "gru-multiple-answer": {
+    "instructions" : "Please select the correct answer, and click \"Submit\"."
+  },
+  "gru-multiple-choice": {
+    "instructions" : "Please select the correct answer, and click \"Submit\"."
+  },
+
+  "gru-open-ended": {
+    "instructions" : "Please type your answer in the field below, and click the \"Submit\" button to save your response when you're done.",
+    "characterLimit": "Character Limit"
+  },
 
   "gru-question-viewer": {
     "answer": "Answer",
     "question": "Question"
-  },
-
-  "gru-multiple-choice": {
-    "instructions" : "Please select the correct answer, and click \"Submit\"."
-  },
-  "gru-hot-text": {
-    "instructions" : "Please select the correct answer, and click \"Submit\"."
   },
   "gru-true-false": {
     "instructions" : "Please select the correct answer, and click \"Submit\".",
     "true":"True",
     "false":"False"
   },
-  "gru-multiple-answer": {
-    "instructions" : "Please select the correct answer, and click \"Submit\"."
-  },
-  "gru-hs-text": {
-    "instructions" : "Please select the correct answer(s), and click \"Submit\"."
-  },
-  "gru-hs-image": {
-    "instructions" : "Please select the correct image(s), and click \"Submit\"."
-  },
-  "gru-open-ended": {
-    "instructions" : "Please type your answer in the field below, and click the \"Submit\" button to save your response when you're done.",
-    "characterLimit": "Character Limit"
-  },
-  "gru-fib": {
-    "instructions" : "Please type your answer(s) in the blank(s) provided, and click \"Save and Next\"."
-  },
+
   "player.gru-reorder": {
     "instructions" : "Please reorder the answers in correct order, and click \"Submit\"."
   },

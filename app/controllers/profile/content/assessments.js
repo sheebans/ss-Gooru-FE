@@ -57,7 +57,8 @@ export default Ember.Controller.extend({
    * @property {boolean}
    */
   showMoreResultsButton: Ember.computed("assessments.[]", function(){
-    return this.get("assessments.length") % this.get("pagination.pageSize") === 0;
+    return this.get("assessments.length") &&
+      (this.get("assessments.length") % this.get("pagination.pageSize") === 0);
   }),
 
   // Methods

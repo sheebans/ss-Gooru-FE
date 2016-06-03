@@ -56,6 +56,27 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Deletes a class by id
+   *
+   * @param classId class id to be sent
+   * @returns {Promise}
+   */
+  deleteClass: function(classId) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${classId}`;
+    const options = {
+      type: 'DELETE',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({})
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
    * Join class
    *
    * @param {string} code class code

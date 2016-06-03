@@ -71,6 +71,26 @@ test('updateClass', function(assert) {
     });
 });
 
+test('deleteClass', function(assert) {
+  const expectedClassId = 'class-id';
+  const service = this.subject();
+
+  assert.expect(1);
+
+  service.set('classAdapter', Ember.Object.create({
+    deleteClass: function(classId) {
+      assert.equal(classId, expectedClassId, 'Wrong class id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.deleteClass('class-id')
+    .then(function() {
+      done();
+    });
+});
+
 test('joinClass successful', function(assert) {
   const service = this.subject();
   assert.expect(1);
