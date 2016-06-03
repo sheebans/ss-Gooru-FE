@@ -36,7 +36,7 @@ export default Ember.Component.extend({
 
   actions: {
     loadTaxonomyData(path) {
-      var subject = this.get('subject');
+      var subject = this.get('model.subject');
       var taxonomyService = this.get('taxonomyService');
 
       if (path.length > 1) {
@@ -75,27 +75,20 @@ export default Ember.Component.extend({
   // Properties
 
   /**
-   * Callback object made up of two properties: success and fail
-   * callback.success will be called on the 'updateSelectedTags' action.
+   * Object with necessary picker information:
+   * - callback: {Object} Callback object made up of two properties: success and fail
+   *             callback.success will be called on the 'updateSelectedTags' action.
+   * - selected: {TaxonomyTagData[]} List of references to a set of taxonomy tag data
+   * - subject: {TaxonomyRoot} Currently selected subject
    * @prop {Object}
    */
-  callback: null,
+  model: null,
 
   /**
    * Headers to display at the top of each one of the panels (course, domain
    * and standards). There *must* be one for each panel.
    * @prop {String[]}
    */
-  panelHeaders: [],
-
-  /**
-   * @property {TaxonomyTagData[]} selected - List of references to a set of taxonomy tag data.
-   */
-  selected: [],
-
-  /**
-   * @property {TaxonomyRoot} subject - Currently selected subject.
-   */
-  subject: {}
+  panelHeaders: []
 
 });

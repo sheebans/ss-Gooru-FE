@@ -113,7 +113,7 @@ export default Ember.Object.extend({
       let children = this.get('children');
       if (children.length) {
         for (let i = children.length - 1; i >= 0; --i) {
-          result = children[i].find(itemId);
+          result = children[i].findItem(itemId);
           if (result) { break; }
         }
       }

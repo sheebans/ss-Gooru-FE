@@ -49,9 +49,11 @@ export default Ember.Component.extend({
      * @return {Promise}
      */
     updatePath: function(path) {
+      /* TODO: Revisit this functionality
       this.get('shortcutTags').forEach(function(taxonomyTag) {
         taxonomyTag.set('isActive', false);
       });
+      */
       return this.updateSelectedPath(path);
     },
 
