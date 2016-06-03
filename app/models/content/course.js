@@ -100,22 +100,6 @@ export default Ember.Object.extend(Validations, {
   }),
 
   /**
-   * @property {TaxonomyTag[]} List of taxonomy tags
-   */
-  editableTags: Ember.computed('taxonomy.[]', function() {
-    return this.getTaxonomyTags(true);
-  }),
-
-  /**
-   * @property {string[]} taxonomy ids
-   */
-  taxonomyIds: Ember.computed('taxonomy.[]', function() {
-    return this.get('taxonomy').map(function(tagData) {
-      return tagData.get("id");
-    });
-  }),
-
-  /**
    * @property {TaxonomyTagData[]} Course taxonomy array
    */
   taxonomy: [],
@@ -178,35 +162,6 @@ export default Ember.Object.extend(Validations, {
   merge: function(model, propertyList = []) {
     var properties = model.getProperties(propertyList);
     this.setProperties(properties);
-  },
-
-  /**
-   * Removes a taxonomy tag data from taxonomy
-   * @param id
-   */
-  removeTaxonomyTagData: function (taxonomyId){
-    const taxonomy = this.get("taxonomy");
-    let taxonomyTagData = taxonomy.findBy("id", taxonomyId);
-    if (taxonomyTagData){
-      taxonomy.removeObject(taxonomyTagData);
-    }
-  },
-
-  /**
-   * Adds or removes a taxonomy tag data
-   * @param {TaxonomyTagData} taxonomyTagData
-   */
-  addRemoveTaxonomyTagData: function (taxonomyTagData){
-    let entity = this;
-    const taxonomy = entity.get("taxonomy");
-    const taxonomyId = taxonomyTagData.get("id");
-    let existingTaxonomyTagData = taxonomy.findBy("id", taxonomyId);
-    if (existingTaxonomyTagData){
-      taxonomy.removeObject(existingTaxonomyTagData);
-    }
-    else {
-      taxonomy.pushObject(taxonomyTagData);
-    }
   },
 
   /**

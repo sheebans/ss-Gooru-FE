@@ -56,9 +56,12 @@
 
         {{taxonomy.gru-taxonomy-selector
           isEditing=isEditing
-          srcEntity=course
-          editEntity=tempCourse
-          enableSecondarySubject=false}}
+          onSubjectSelected="selectSubject"
+          onTaxonomySelected="selectTaxonomy"
+          selectedSubject=(if isEditing tempCourse.mainSubject course.mainSubject)
+          selectedTaxonomy=(if isEditing tempCourse.taxonomy course.taxonomy)
+          showCourses=true
+        }}
 
         {{content.gru-audience isEditing=isEditing srcSelectedAudiences=course.audience editSelectedAudiences=tempCourse.audience}}
 

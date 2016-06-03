@@ -129,6 +129,22 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
       this.set('tempCourse', courseForEditing);
       this.set('tempCourse.isVisibleOnProfile', isChecked);
       this.actions.updateContent.call(this);
+    },
+
+    /**
+     *
+     * @param {TaxonomyRoot} subject
+     */
+    selectSubject: function(subject){
+      this.set("tempCourse.mainSubject", subject);
+    },
+
+    /**
+     *
+     * @param {TaxonomyTagData[]} taxonomy
+     */
+    selectTaxonomy: function(taxonomy){
+      this.set("tempCourse.taxonomy", taxonomy);
     }
 
   },

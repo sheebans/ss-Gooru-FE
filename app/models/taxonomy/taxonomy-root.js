@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 
 /**
  * Taxonomy Root
@@ -47,7 +48,14 @@ export default Ember.Object.extend({
    * @property {string}
    */
   category: Ember.computed("id", function(){
-    return this.get("id").split(".")[1];
-  })
+    const code = this.get("id").split(".")[1];
+    const category = Ember.A(TAXONOMY_CATEGORIES).findBy("apiCode", code);
+    return category ? category.value : null;
+  }),
+
+  /**
+   * @property {boolean}
+   */
+  hasCourses: Ember.computed.bool("courses.length")
 
 });
