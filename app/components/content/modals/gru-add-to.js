@@ -11,6 +11,11 @@ export default Ember.Component.extend({
   collectionService: Ember.inject.service('api-sdk/collection'),
 
   /**
+   * @property {Service} assessment service
+   */
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
+
+  /**
    * @property {Service} resource service
    */
   resourceService: Ember.inject.service('api-sdk/resource'),
@@ -43,7 +48,7 @@ export default Ember.Component.extend({
 
   actions: {
     /**
-     * Action triggered when a collection is selected
+     * Action triggered when a collection/assessment is selected
      */
     selectCollection:function(collection){
       this.set("selectedCollection", collection);
@@ -62,7 +67,7 @@ export default Ember.Component.extend({
     },
 
     /**
-     * Action triggered to redirect to a collection player
+     * Action triggered to redirect to the collection/assessment player
      */
     openCollectionPlayer: function(collectionId) {
       this.get('router').transitionTo('player', collectionId);
@@ -82,7 +87,7 @@ export default Ember.Component.extend({
   addContent: function(contentId) {
     var collectionId = this.get('selectedCollection.id');
     if(this.get('isQuestion')) {
-      return this.get('collectionService').addQuestion(collectionId, contentId);
+      return this.get('assessmentService').addQuestion(collectionId, contentId);
     } else {
       return this.get('collectionService').addResource(collectionId, contentId);
     }
@@ -98,13 +103,19 @@ export default Ember.Component.extend({
     var successMsg = this.get('i18n').t('common.add-to-collection-success', {
       contentTitle: this.get('content.title'),
       collectionTitle: this.get('selectedCollection.title')});
+    if(this.get('isQuestion')){
+      contentEditUrl = this.get('router').generate('content.assessments.edit', this.get('selectedCollection.id'));
+      successMsg = this.get('i18n').t('common.add-to-assessment-success', {
+        contentTitle: this.get('content.title'),
+        collectionTitle: this.get('selectedCollection.title')});
+    }
     var edit = this.get('i18n').t('common.edit');
     this.get('notifications').success(`${successMsg} <a class="btn btn-success" href="${contentEditUrl}">${edit}</a>`);
   },
 
   errorMessage: function(error) {
     var message = this.get('isQuestion') ?
-      'common.errors.question-not-added-to-collection' : 'common.errors.resource-not-added-to-collection';
+      'common.errors.question-not-added-to-assessment' : 'common.errors.resource-not-added-to-collection';
     this.get('notifications').error(this.get('i18n').t(message).string);
     Ember.Logger.error(error);
   },
@@ -126,17 +137,17 @@ export default Ember.Component.extend({
   'component-class': null,
 
   /**
-   * @type {String} selected collection ID
+   * @type {String} selected collection/assessment ID
    */
   selectedCollection: null,
 
   /**
-   * @type {String} selected collection ID
+   * @type {String} selected collection/assessment ID
    */
   hasSelectedCollection: Ember.computed.notEmpty('selectedCollection'),
 
   /**
-   * @type {List} user collections
+   * @type {List} user collections/assessments
    */
   collections: null,
 

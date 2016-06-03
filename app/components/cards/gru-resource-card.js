@@ -54,12 +54,21 @@ export default Ember.Component.extend(ModalMixin,{
       if (this.get('session.isAnonymous')) {
         this.send('showModal', 'content.modals.gru-login-prompt');
       } else {
-        this.get('profileService').readCollections(this.get('session.userId')).then(
-          collections => this.send('showModal', 'content.modals.gru-add-to', {
-            content: this.get('resource'),
-            collections
-          }, null, "add-to")
-        );
+        if(this.get('isQuestion')) {
+          this.get('profileService').readAssessments(this.get('session.userId')).then(
+            collections => this.send('showModal', 'content.modals.gru-add-to', {
+              content: this.get('resource'),
+              collections
+            }, null, "add-to")
+          );
+        } else {
+          this.get('profileService').readCollections(this.get('session.userId')).then(
+            collections => this.send('showModal', 'content.modals.gru-add-to', {
+              content: this.get('resource'),
+              collections
+            }, null, "add-to")
+          );
+        }
       }
     }
   },

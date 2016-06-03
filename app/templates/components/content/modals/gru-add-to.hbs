@@ -1,16 +1,25 @@
 <div class="modal-header">
   <span class="modal-title">
-      {{t 'gru-add-to.add-to-collection'}}
+      {{#if isQuestion}}
+        {{t 'gru-add-to.add-to-assessment'}}
+      {{else}}
+        {{t 'gru-add-to.add-to-collection'}}
+      {{/if}}
   </span>
 </div>
 <div class="modal-body">
   <span class="lead">
-    {{t 'gru-add-to.add-to-collection-lead' contentTitle=content.title}}
+    {{#if isQuestion}}
+      {{t 'gru-add-to.add-to-assessment-lead' contentTitle=content.title}}
+    {{else}}
+      {{t 'gru-add-to.add-to-collection-lead' contentTitle=content.title}}
+    {{/if}}
   </span>
   {{#each collections as |collection|}}
       <div class="{{collection.id}}" {{action "selectCollection" collection}}>
         {{cards.gru-collection-card
         collection=collection
+        openCollectionPlayer=openCollectionPlayer
         isSmall=true}}
       </div>
   {{/each}}
