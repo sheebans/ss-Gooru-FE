@@ -324,5 +324,18 @@ export function normalizeQuestionTypes(questionType) {
  */
 export function cleanFilename(url) {
   var defaultImages = Ember.$.map(DEFAULT_IMAGES, value => value);
-  return (url && defaultImages.indexOf(url) < 0) ? /([^\/]*\/\/[^\/]+\/)?(.+)/.exec(url)[2] : '';
+  return (url && defaultImages.indexOf(url) < 0) ? /([^\/]*\/\/[^\/]+\/)?(.+)/.exec(url)[2] : null;
+}
+
+/**
+ * Returns filename from url
+ * @param {String} file complete url
+ */
+export function getTaxonomyAncestors(taxonomyId) {
+  var segments = taxonomyId.split('-');
+  return {
+    subjectId: segments[0],
+    courseId: segments[1] ? segments[0] + '-' + segments[1] : null,
+    domainId: segments[2] ? segments[0] + '-' + segments[1] + '-' + segments[2] : null
+  }
 }

@@ -99,6 +99,31 @@ export default Ember.Object.extend({
   },
 
   /**
+   * @function Find a taxonomy item by traversing down
+   * a taxonomy item tree.
+   * @param {String} itemId
+   * @return {TaxonomyItem | Null}
+   */
+  findItem: function(itemId) {
+    var result = null;
+
+    if (this.get('id') === itemId) {
+      result = this;
+    } else {
+      let children = this.get('children');
+      if (children.length) {
+        for (let i = children.length - 1; i >= 0; --i) {
+          result = children[i].find(itemId);
+          if (result) { break; }
+        }
+      }
+    }
+
+    return result;
+  },
+
+
+  /**
    * @function Destroy an item and all its descendents.
    * Clear all references between them.
    * @return {undefined}
