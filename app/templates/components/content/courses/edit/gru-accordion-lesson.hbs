@@ -60,17 +60,25 @@
             <li><a href="#" {{action "showModal" "content.modals.gru-assessment-new" newCollectionModel}}>{{t "common.new-assessment"}}</a></li>
           </ul>
         </div>
-        <button class="btn sort-items" {{action 'swap'}} title="{{t 'common.swap'}}">{{gru-icon name="swap_vert"}}</button>
-          <div class="item-actions">
-              <button class="btn edit-item" title="{{t 'common.edit'}}" {{action 'edit' model}}>{{gru-icon name="edit"}}</button>
-            {{partial 'content/partials/item-actions'}}
-          </div>
+        {{#unless isSorting}}
+            <button class="btn sort-items" {{action 'sortLessonItems'}} title="{{t 'common.swap'}}">{{gru-icon name="swap_vert"}}</button>
+            <div class="item-actions">
+                <button class="btn edit-item" title="{{t 'common.edit'}}" {{action 'edit' model}}>{{gru-icon name="edit"}}</button>
+                {{partial 'content/partials/item-actions'}}
+            </div>
+        {{/unless}}
+        {{#if isSorting}}
+            <div class="drag-options">
+                <button class="cancel btn btn-info"  {{action 'cancelSort'}}>{{t "common.cancel"}}</button>
+                <button class="save btn btn-success" {{action 'saveReorder'}}>{{t "common.save"}}</button>
+            </div>
+        {{/if}}
       </div>
     </div>
   </div>
   <div class="panel-body">
 
-    <ol class="accordion-lesson" role="tablist" aria-multiselectable="true">
+    <ol class="accordion-lesson sortable" role="tablist" aria-multiselectable="true">
 
       {{#each items as |item index|}}
 
@@ -78,6 +86,7 @@
           model=item
           course=course
           index=index
+          isSorting=isSorting
           lessonId=lesson.id
           unitId=unitId
           courseId=course.id
