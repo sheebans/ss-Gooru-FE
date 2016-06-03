@@ -2,7 +2,6 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import CollectionModel from 'gooru-web/models/content/collection';
 import ResourceModel from 'gooru-web/models/content/resource';
-import QuestionModel from 'gooru-web/models/content/question';
 import Ember from 'ember';
 
 moduleForComponent('content/modals/gru-add-to', 'Integration | Component | content/modals/gru add to', {
