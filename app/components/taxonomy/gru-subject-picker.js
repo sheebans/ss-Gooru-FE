@@ -57,6 +57,11 @@ export default Ember.Component.extend({
    * when a subject is selected
    * @property {string}
    */
-  onSubjectSelected: null
+  onSubjectSelected: null,
+
+  /**
+   * @property {string}
+   */
+  placeholderLabelKey: 'taxonomy.gru-taxonomy-selector.choose-subject'
 
 });

@@ -29,7 +29,7 @@ export default Ember.Route.extend({
   searchService: Ember.inject.service('api-sdk/search'),
 
   model: function() {
-    var subjects = component.get('taxonomyService').getSubjects(K12_CATEGORY.value);
+    var subjects = this.get('taxonomyService').getSubjects(K12_CATEGORY.value);
     return Ember.RSVP.hash({
       subjects: subjects
     });
