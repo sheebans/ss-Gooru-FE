@@ -120,13 +120,12 @@ export default Ember.Service.extend({
    */
   getCodes: function(subject, course, domain) {
     const service = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
+    return new Ember.RSVP.Promise(function(resolve) {
       if (subject && course && domain) {
         if (domain.get('children') && domain.get('children.length') > 0) {
           resolve(domain.get('children'));
         } else {
           const apiTaxonomyService = service.get('apiTaxonomyService');
-          const frameworkId = subject.get('frameworkId');
           apiTaxonomyService.fetchCodes(subject.get('frameworkId'), subject.get('id'), course.get('id'), domain.get('id'))
             .then(function (codes) {
               const organizedCodes = service.organizeCodes(codes);
@@ -204,6 +203,7 @@ export default Ember.Service.extend({
         secondLevelCode.set('children', thirdLevelCodes);
       });
       firstLevelCode.set('children', secondLevelCodes);
+      return firstLevelCode;
     });
   }
 

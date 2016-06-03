@@ -28,7 +28,21 @@ moduleForService('service:taxonomy', 'Unit | Service | taxonomy', {
                   TaxonomyItem.create(Ember.getOwner(this).ownerInjection(), {
                     id: 'TEKS.K12.PE-K-MOV',
                     code: 'TEKS.K12.PE-K-MOV',
-                    title: 'Movement'
+                    title: 'Movement',
+                    children: Ember.A([
+                      TaxonomyItem.create(Ember.getOwner(this).ownerInjection(), {
+                        id: 'TEKS.K12.PE-K-MOV-01',
+                        code: 'TEKS.PE.K.1',
+                        title: 'The student demonstrates competency in fundamental movement patterns and proficiency in a few specialized movement forms.',
+                        codeType: 'standard_level_1'
+                      }),
+                      TaxonomyItem.create(Ember.getOwner(this).ownerInjection(), {
+                        id: 'TEKS.K12.PE-K-MOV-02',
+                        code: 'TEKS.PE.K.2',
+                        title: 'The student applies movement concepts and principles to the learning and development of motor skills.',
+                        codeType: 'standard_level_1'
+                      })
+                    ])
                   }),
                   TaxonomyItem.create(Ember.getOwner(this).ownerInjection(), {
                     id: 'TEKS.K12.PE-K-PAH',
@@ -239,11 +253,58 @@ test('getDomains when taxonomy domains exist for course', function(assert) {
   });
   service.getDomains(subject, course)
     .then(function(domains) {
-      assert.equal(domains.length, 2, 'Wrong number of courses');
+      assert.equal(domains.length, 2, 'Wrong number of domains');
       assert.equal(domains.objectAt(0).get('id'), 'TEKS.K12.PE-K-MOV', 'Wrong domain id');
       done();
     });
 });
+
+test('getCodes when taxonomy domains does not exist for course', function(assert) {
+  const test = this;
+  const service = this.subject();
+  service.set('apiTaxonomyService', Ember.Object.create({
+    fetchCodes: function() {
+      const codes = [
+        TaxonomyItem.create(Ember.getOwner(test).ownerInjection(), {
+          id: 'TEKS.K12.PE-K-MOV-01',
+          code: 'TEKS.PE.K.1',
+          title: 'The student demonstrates competency in fundamental movement patterns and proficiency in a few specialized movement forms.',
+          codeType: 'standard_level_1'
+        }),
+        TaxonomyItem.create(Ember.getOwner(test).ownerInjection(), {
+          id: 'TEKS.K12.PE-K-MOV-02',
+          code: 'TEKS.PE.K.2',
+          title: 'The student applies movement concepts and principles to the learning and development of motor skills.',
+          codeType: 'standard_level_1'
+        })
+      ];
+      return Ember.RSVP.resolve(codes);
+    }
+  }));
+  var done = assert.async();
+  const subject = TaxonomyRoot.create(Ember.getOwner(test).ownerInjection(), {
+    id: 'GDF.K12.CS',
+    frameworkId: 'GDF',
+    courses: []
+  });
+  const course = TaxonomyItem.create(Ember.getOwner(test).ownerInjection(), {
+    id: 'TEKS.K12.PE-K',
+    code: 'TEKS.K12.PE-K',
+    children: []
+  });
+  const domain = TaxonomyItem.create(Ember.getOwner(test).ownerInjection(), {
+    id: 'TEKS.K12.PE-K-MOV',
+    code: 'TEKS.K12.PE-K-MOV',
+    children: []
+  });
+  service.getCodes(subject, course, domain)
+    .then(function(codes) {
+      assert.equal(codes.length, 2, 'Wrong number of codes');
+      assert.equal(codes.objectAt(0).get('id'), 'TEKS.K12.PE-K-MOV-01', 'Wrong code id');
+      done();
+    });
+});
+
 
 test('findSubjectById for a loaded category and subject', function(assert) {
   const service = this.subject();
