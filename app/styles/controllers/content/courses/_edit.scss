@@ -380,14 +380,13 @@
               padding: 5px 10px;
             }
           }
-          .sortable.sorting {
+          &.sortable.sorting {
             list-style: none;
             padding: 0;
-            li{
+            li .panel{
               cursor: move;
             }
           }
-
           .ui-sortable-helper {
             background-color: $gray-lighter;
           }
