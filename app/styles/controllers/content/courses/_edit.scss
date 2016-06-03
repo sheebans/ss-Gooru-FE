@@ -43,6 +43,23 @@
           }
         }
       }
+
+      .ui-sortable-helper {
+        background-color: $gray-lighter;
+      }
+      .drag-options{
+        display: inline-block;
+        .cancel.btn-info{
+          padding: 10px 15px;
+          font-size: 12px;
+          background-color: $brand-info;
+        }
+        .save.btn-success{
+          padding: 10px 15px;
+          font-size: 12px;
+          background-color: $brand-success;
+        }
+      }
     }
 
     .panel-heading {
@@ -345,6 +362,14 @@
                 }
               }
             }
+
+            .drag-icon{
+              i{
+                vertical-align: super;
+              }
+              color:$light-500;
+            }
+
           }
 
           + div {
@@ -354,6 +379,16 @@
               font-size: $font-size-base;
               padding: 5px 10px;
             }
+          }
+          &.sortable.sorting {
+            list-style: none;
+            padding: 0;
+            li .panel{
+              cursor: move;
+            }
+          }
+          .ui-sortable-helper {
+            background-color: $gray-lighter;
           }
         }
       }

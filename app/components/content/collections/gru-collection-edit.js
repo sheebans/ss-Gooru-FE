@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
 import ModalMixin from 'gooru-web/mixins/modal';
-import {CONTENT_TYPES} from 'gooru-web/config/config';
+import {CONTENT_TYPES, K12_CATEGORY} from 'gooru-web/config/config';
 
 export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
 
@@ -118,6 +118,10 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
         'content.modals.gru-delete-content',
         model, null, null, null, false);
     },
+
+    selectSubject: function(subject){
+      this.set("selectedSubject", subject);
+    }
   },
   // -------------------------------------------------------------------------
   // Properties
@@ -140,6 +144,18 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
    * @property {Collection}
    */
   tempCollection: null,
+
+  /**
+   *
+   * @property {TaxonomyRoot}
+   */
+  selectedSubject: null,
+
+  /**
+   * @property {string}
+   */
+  k12Category: K12_CATEGORY.value,
+
   /**
    * Indicate if the button "Back to course" is available.
    */

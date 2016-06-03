@@ -153,7 +153,47 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
         onRemixSuccess: this.get('onRemixLesson')
       };
       this.send('showModal', 'content.modals.gru-lesson-remix', model);
-    }
+    },
+    /**
+     * Reorder lesson items
+     */
+    sortLessonItems:function(){
+      var component = this;
+      component.loadData();
+      component.set('model.isExpanded', true);
+      component.set('isSorting',true);
+
+      const sortable = component.$('.sortable');
+      sortable.sortable();
+      sortable.sortable('enable');
+    },
+
+    /**
+     * Cancel reorder lesson items
+     */
+    cancelSort:function(){
+      var component = this;
+      const sortable = component.$('.sortable');
+      sortable.sortable('cancel');
+      component.set('isSorting',false);
+      sortable.sortable('disable');
+      component.set('model.isExpanded', false);
+    },
+    /**
+     * Save reorder collection items
+     */
+    saveReorder:function(){
+      var component = this;
+      const sortable = component.$('.sortable');
+
+      component.get('lessonService').reorderLesson(component.get('course.id'),component.get('unitId'),component.get('lesson.id'),component.get('orderList'))
+        .then(function(){
+          component.set('isSorting',false);
+          sortable.sortable('disable');
+          component.refreshList(component.get('orderList'));
+          component.set('model.isExpanded', false);
+        });
+      }
   },
 
   // -------------------------------------------------------------------------
@@ -214,6 +254,34 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
 
   },
 
+  /**
+   * DidInsertElement ember event
+   */
+  didInsertElement: function(){
+    var component = this;
+
+    const sortable = component.$('.sortable');
+    sortable.sortable();
+    sortable.sortable('disable');
+
+    sortable.on('sortupdate', function() {
+      const $items = component.$('.sortable').find('li');
+      const orderList = $items.map(function(idx, item) {
+        return $(item).data('id');
+      }).toArray();
+      component.set('orderList',orderList);
+    });
+  },
+  /**
+   * WillDestroyElement ember event
+   */
+  willDestroyElement:function(){
+    var component = this;
+    const sortable = component.$('.sortable');
+    sortable.sortable();
+    sortable.off('sortupdate');
+  },
+
 
   // -------------------------------------------------------------------------
   // Properties
@@ -231,6 +299,36 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
   /**
    * @prop {Content/Lesson} tempLesson - Temporary lesson model used for editing
    */
-  tempLesson: null
+  tempLesson: null,
+
+  /**
+   * @property {Boolean} isSorting
+   */
+  isSorting:false,
+
+  /**
+   * @property {Array[]} orderList
+   */
+  orderList: null,
+
+  // -------------------------------------------------------------------------
+  // Methods
+
+  /**
+   * Refresh the item list after save reorder
+   */
+  refreshList:function(list){
+    var items = this.get('items');
+    var newItemList = Ember.A();
+    list.forEach(function(item){
+      let newItem = items.findBy('id',item);
+      if(newItem){
+        newItemList.addObject(newItem);
+      }
+    });
+    items.clear();
+    items.addObjects(newItemList);
+  }
+
 
 });
