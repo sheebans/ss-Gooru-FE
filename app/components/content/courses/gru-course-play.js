@@ -68,6 +68,16 @@ export default Ember.Component.extend(ModalMixin, {
    * Course model as instantiated by the route.
    * @property {Course}
    */
-  course: null
+  course: null,
+
+  /**
+   * @property {Profile[]} remixedUsers
+   */
+  remixedUsers: null,
+
+  /**
+   * @property {Profile[]} createdUsers
+   */
+  createdUsers: null
 
 });
