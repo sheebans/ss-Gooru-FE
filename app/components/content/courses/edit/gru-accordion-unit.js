@@ -116,10 +116,15 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
         subject: this.get('course.mainSubject'),
         callback: {
           success: function(selectedTags) {
+            var taxonomyList = component.get('tempUnit.taxonomy');
             var dataTags = selectedTags.map(function(taxonomyTag) {
               return taxonomyTag.get('data');
             });
-            component.set('tempUnit.taxonomy', Ember.A(dataTags));
+
+            Ember.beginPropertyChanges();
+            taxonomyList.clear();
+            taxonomyList.pushObjects(dataTags);
+            Ember.endPropertyChanges();
           }
         }
       };
@@ -200,24 +205,15 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
   /**
    * @property {TaxonomyTag[]} selectedTags - List of domain tags assigned to this unit
    */
-  selectedTags: Ember.computed('model.isEditing', 'unit.taxonomy', 'tempUnit.taxonomy[]', function() {
-    if (this.get('model.isEditing')) {
-      return this.get('tempUnit.taxonomy').map(function(tagData) {
-        return TaxonomyTag.create({
-          isActive: true,
-          isReadonly: true,
-          isRemovable: true,
-          data: tagData
-        });
+  selectedTags: Ember.computed('tempUnit.taxonomy.[]', function() {
+    return this.get('tempUnit.taxonomy').map(function(tagData) {
+      return TaxonomyTag.create({
+        isActive: true,
+        isReadonly: true,
+        isRemovable: true,
+        data: tagData
       });
-    } else {
-      return this.get('unit.taxonomy').map(function(tagData) {
-        return TaxonomyTag.create({
-          isReadonly: true,
-          data: tagData
-        });
-      });
-    }
+    });
   }),
 
   /**
