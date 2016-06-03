@@ -352,7 +352,7 @@ export default Ember.Service.extend({
    */
   getStandardsAsTaxonomyItems(codeBuckets, parent, parentId, bucketIndex) {
     const BASE_LEVEL = 3;  // standards base level
-    const LT_LEVEL = 3
+    const LT_LEVEL = 3;
     var result = [];
 
     if (codeBuckets[bucketIndex] && codeBuckets[bucketIndex].length) {

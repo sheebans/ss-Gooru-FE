@@ -33,7 +33,7 @@ export default Ember.Component.extend({
      * @function actions:selectInsideItem
      */
     selectInsideItem: function(item) {
-      this.get('onSelectItem')(item.getPath());
+      this.get('onSelectItem')(item);
     },
 
     /**

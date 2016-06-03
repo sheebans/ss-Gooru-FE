@@ -45,16 +45,16 @@ export default Ember.Component.extend({
     /**
      * Clear any active shortcut tags, then change the path the browse selector is open to.
      * @function actions:updatePath
-     * @param {String[]} path
+     * @param {BrowseItem} item
      * @return {Promise}
      */
-    updatePath: function(path) {
+    updatePath: function(item) {
       /* TODO: Revisit this functionality
       this.get('shortcutTags').forEach(function(taxonomyTag) {
         taxonomyTag.set('isActive', false);
       });
       */
-      return this.updateSelectedPath(path);
+      return this.updateSelectedPath(item);
     },
 
     /**
@@ -285,8 +285,9 @@ export default Ember.Component.extend({
    * @function updateSelectedPath
    * @return { Promise | undefined }
    */
-  updateSelectedPath: function(path) {
-    return this.get('onUpdatePath')(path).then(function() {
+  updateSelectedPath: function(item) {
+    var path = item.getPath();
+    return this.get('onUpdatePath')(path, item).then(function() {
       this.set('selectedPath', path);
     }.bind(this));
   }

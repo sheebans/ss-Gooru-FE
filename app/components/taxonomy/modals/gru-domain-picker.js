@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import BrowseItem from 'gooru-web/models/taxonomy/browse-item';
 
 /**
  * Domain Picker
@@ -35,12 +36,24 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-    loadTaxonomyData(path) {
+    loadTaxonomyData(path, ParentBrowseItem) {
       var subject = this.get('model.subject');
       var courseId = path[0];
-      var course = this.get("taxonomyService").findCourse(subject, courseId);
 
-      return this.get('taxonomyService').getDomains(subject, course);
+      return this.get('taxonomyService')
+                 .getCourseDomains(subject, courseId)
+                 .then(function(domains) {
+                   if (ParentBrowseItem && !ParentBrowseItem.get('children').length) {
+                     // Add children to the parent browse item
+                     let browseItems = [];
+                     domains.forEach(function(taxonomyItem) {
+                       var browseItem = BrowseItem.createFromTaxonomyItem(taxonomyItem);
+                       browseItem.set('parent', ParentBrowseItem);
+                       browseItems.push(browseItem);
+                     });
+                     ParentBrowseItem.set('children', domains);
+                   }
+                 });
     },
 
     updateSelectedTags(selectedTags) {
