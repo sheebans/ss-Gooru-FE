@@ -49,7 +49,7 @@ export default Ember.Component.extend({
   actions: {
 
     /**
-     * Action triggered when a collection/assessment is selected
+     * Action triggered when a tab is selected
      */
     changeTab: function(showCollections) {
       this.set("selectedCollection", null);

@@ -20,19 +20,22 @@
       </button>
     </div>
   {{/if}}
-  {{#if showCollections}}
-    {{t 'gru-add-to.add-to-collection-lead' contentTitle=content.title}}
-  {{else}}
-    {{t 'gru-add-to.add-to-assessment-lead' contentTitle=content.title}}
-  {{/if}}
-  {{#each collectionsList as |collection|}}
-    <div class="{{collection.id}} collection" {{action "selectCollection" collection}}>
-      {{cards.gru-collection-card
-      collection=collection
-      openCollectionPlayer=openCollectionPlayer
-      isSmall=true}}
-    </div>
-  {{/each}}
+  <div class="lead">
+    {{#if showCollections}}
+      {{t 'gru-add-to.add-to-collection-lead' contentTitle=content.title}}
+      {{else}}
+        {{t 'gru-add-to.add-to-assessment-lead' contentTitle=content.title}}
+    {{/if}}
+  </div>
+  <div class="list {{if isQuestion 'questions' ''}}">
+    {{#each collectionsList as |collection|}}
+      <div class="{{collection.id}} collection" {{action "selectCollection" collection}}>
+        {{cards.gru-collection-card
+        collection=collection
+        isSmall=true}}
+      </div>
+    {{/each}}
+  </div>
 </div>
 <div class="modal-footer">
   <div class="btn-group visible-xs">
