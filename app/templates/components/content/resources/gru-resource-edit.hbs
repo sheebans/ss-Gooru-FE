@@ -165,9 +165,13 @@
           <div class="col-sm-12 form-field standards">
             {{taxonomy.gru-taxonomy-selector
               isEditing=isEditing
-              srcEntity=resource
-              editEntity=tempResource
-              enableSecondarySubject=true}}
+              onSubjectSelected="selectSubject"
+              selectedSubject=selectedSubject
+              internalCategory=k12Category
+              subjectLabelKey='common.subject-and-framework'
+              showCategories=false
+              showCourses=false
+            }}
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import CollectionEdit from 'gooru-web/components/content/collections/gru-collection-edit';
 import ModalMixin from 'gooru-web/mixins/modal';
-import {CONTENT_TYPES} from 'gooru-web/config/config';
+import {CONTENT_TYPES, K12_CATEGORY} from 'gooru-web/config/config';
 
 export default CollectionEdit.extend(ModalMixin,{
 
@@ -99,6 +99,11 @@ export default CollectionEdit.extend(ModalMixin,{
         'content.modals.gru-delete-content',
         model, null, null, null, false);
     },
+
+    selectSubject: function(subject){
+      this.set("selectedSubject", subject);
+    }
+
   },
   // -------------------------------------------------------------------------
   // Properties
@@ -107,5 +112,16 @@ export default CollectionEdit.extend(ModalMixin,{
    */
   allowBack: Ember.computed('course','allowBackToCourse',function(){
     return this.get('course') && this.get('allowBackToCourse');
-  })
+  }),
+
+  /**
+   *
+   * @property {TaxonomyRoot}
+   */
+  selectedSubject: null,
+
+  /**
+   * @property {string}
+   */
+  k12Category: K12_CATEGORY.value
 });

@@ -19,7 +19,7 @@ test('serializeCreateCourse', function(assert) {
     description: course.description,
     thumbnail: 'image-id.png',
     visible_on_profile: course.isVisibleOnProfile,
-    taxonomy: {},
+    taxonomy: null,
     'subject_bucket': course.subject
   };
   const courseObject = serializer.serializeCreateCourse(course);
@@ -42,7 +42,7 @@ test('serializeUpdateCourse', function (assert) {
     description: courseModel.description,
     thumbnail: 'course-thumbnail-url',
     visible_on_profile: courseModel.isVisibleOnProfile,
-    taxonomy: {},
+    taxonomy: null,
     'subject_bucket': courseModel.subject
   };
   const serializedCourse = serializer.serializeUpdateCourse(courseModel);
@@ -177,3 +177,14 @@ test('normalizeGetCourses', function(assert) {
   const normalizedCourses = serializer.normalizeGetCourses(coursesPayload);
   assert.equal(normalizedCourses.get("length"), 2, 'Wrong number of courses');
 });
+
+test('serializeReorderCourse', function(assert) {
+  const serializer = this.subject();
+  const ids = ["a", "b", "c"];
+  const data = serializer.serializeReorderCourse(ids);
+  assert.ok(data.order, 'Missing order');
+  assert.equal(data.order.length, 3, 'Wrong order total');
+  assert.equal(data.order[0].id, "a", 'Wrong id');
+  assert.equal(data.order[0].sequence_id, 1, 'Wrong sequence id');
+});
+

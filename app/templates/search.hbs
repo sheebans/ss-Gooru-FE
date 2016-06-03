@@ -29,9 +29,11 @@
       </ul>
     </div>
     <span class="col-md-2 standards hidden-sm hidden-xs">
-        <button class="btn btn-primary">
-          <span>{{t "common.standards"}}</span>
-        </button>
+      {{taxonomy.gru-subject-picker
+        subjects=subjects
+        placeholderLabelKey='common.standards'
+        onSubjectSelected='setSubject'
+      }}
       </span>
   </div>
   <div class="content">

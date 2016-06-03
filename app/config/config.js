@@ -31,8 +31,10 @@ export const DEFAULT_IMAGES = {
   QUESTION_PLACEHOLDER_IMAGE: '/assets/gooru/question-placeholder-image.png'
 };
 
+export const K12_CATEGORY = {value: 'k_12', apiCode: 'K12', label: 'common.categoryOptions.k12'};
+
 export const TAXONOMY_CATEGORIES = [
-  {value: 'k_12', apiCode: 'K12', label: 'common.categoryOptions.k12'},
+  K12_CATEGORY,
   {value: 'higher_education', apiCode: 'HE', label: 'common.categoryOptions.higher-ed'},
   {value: 'professional_learning', apiCode: 'PL', label: 'common.categoryOptions.professional-dev'}
 ];

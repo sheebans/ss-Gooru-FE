@@ -120,3 +120,28 @@ test('Collection card trying buttons', function(assert) {
   $collectionCard.find(".panel-body .edit-btn").click();
 
 });
+
+
+test('Collection Small Card Layout', function(assert) {
+  var collection = Ember.Object.create({
+    title: "Biodiversity at All Three Levels",
+    resourceCount: 3,
+    questionCount:4,
+    isAssessment:false
+  });
+
+  this.set('collection', collection);
+  this.render(hbs`{{cards/gru-collection-card collection=collection isSmall=true}}`);
+  var $component = this.$(); //component dom element
+  const $collectionCard = $component.find(".gru-collection-card");
+  T.exists(assert, $collectionCard.find(".panel-heading h6.title"), "Missing Title");
+  T.exists(assert, $collectionCard.find(".panel-heading .image img"), "Missing Collection Image");
+  T.exists(assert, $collectionCard.find(".panel-heading .question-resources"), "Missing Question and Resource Label");
+  T.notExists(assert, $collectionCard.find(".panel-heading .course"), "Course Label shouldn't appear");
+  T.notExists(assert, $collectionCard.find(".panel-body .standards"), "Standards shouldn't appear");
+  T.notExists(assert, $collectionCard.find(".panel-body .author"), "Remixed By section shouldn't appear");
+  T.notExists(assert, $collectionCard.find(".panel-body .author img"), "Remixed By image shouldn't appear");
+  T.notExists(assert, $collectionCard.find(".panel-body .description"), "Collection Description shouldn't appear");
+  T.notExists(assert, $collectionCard.find(".panel-body .remix-btn"), "Remixed Button shouldn't appear");
+  T.notExists(assert, $collectionCard.find(".panel-body .edit-btn"), "Edit Button should not be visible");
+});

@@ -55,7 +55,7 @@ test('serializeUpdateQuestion', function(assert) {
   assert.equal(response.description, 'This is the question text?', 'Wrong description');
   assert.equal(response['visible_on_profile'], false, 'Wrong visible_on_profile');
   assert.equal(response.answer.length, 3, 'Wrong answer array length');
-  assert.deepEqual(response.taxonomy, {}, 'Wrong taxonomy object');
+  assert.equal(response.taxonomy, null, 'Wrong taxonomy object');
 });
 
 test('serializeAnswer', function(assert) {

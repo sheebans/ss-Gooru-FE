@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 const Validations = buildValidations({
   title: {
@@ -86,12 +87,20 @@ export default Ember.Object.extend(Validations, {
   subject: '',
 
   /**
+   * These property is not serialized, it is loaded when needed
    * @property {TaxonomyRoot} Taxonomy primary subject
    */
   mainSubject: null,
 
   /**
-   * @property {String[]} Course taxonomy array
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('taxonomy.[]', function() {
+    return this.getTaxonomyTags(false);
+  }),
+
+  /**
+   * @property {TaxonomyTagData[]} Course taxonomy array
    */
   taxonomy: [],
 
@@ -134,8 +143,7 @@ export default Ember.Object.extend(Validations, {
 
     // Copy the audience and taxonomy values
     properties.audience = audience.slice(0);
-    // TODO This needs to be fixed as part of the changes to taxonomy
-    //properties.taxonomy = taxonomy.slice(0);
+    properties.taxonomy = taxonomy.slice(0);
 
     // Copy subject reference
     properties.mainSubject = this.get('mainSubject');
@@ -157,13 +165,31 @@ export default Ember.Object.extend(Validations, {
   },
 
   /**
+   * Gets the taxonomy tags
+   * @param editable
+   * @returns {Array}
+   */
+  getTaxonomyTags: function (editable = false) {
+    return this.get('taxonomy').map(function(tagData) {
+      return TaxonomyTag.create({
+        isActive: false,
+        isReadonly: !editable,
+        isRemovable: editable,
+        data: tagData
+      });
+    });
+  },
+
+  // -------------------------------------------------------------
+  // Events
+  /**
    * Sets the subject of the course
-   *
-   * @function
-   * @param {TaxonomyRoot} taxonomySubject
    */
   setTaxonomySubject: Ember.observer('mainSubject', function() {
     var mainSubject = this.get('mainSubject');
     this.set('subject', mainSubject ? mainSubject.get('id') : null);
   })
+
+
+
 });
