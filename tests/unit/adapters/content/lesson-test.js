@@ -168,7 +168,7 @@ test('reorderLesson', function(assert) {
       return [204, {'Content-Type': 'text/plain'}, ''];
     }, false);
   });
-  adapter.reorderUnit('course-id', 'unit-id', 'lesson-id', expectedData)
+  adapter.reorderLesson('course-id', 'unit-id', 'lesson-id', expectedData)
     .then(function() {
       assert.ok(true);
     }, function() {

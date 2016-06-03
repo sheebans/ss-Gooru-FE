@@ -221,6 +221,6 @@ test('reorderLesson', function(assert) {
   }));
 
   var done = assert.async();
-  service.reorderUnit('course-id', expectedUnitId, 'lesson-id', ["a", "b"]).then(function() { done(); });
+  service.reorderLesson('course-id', expectedUnitId, 'lesson-id', ["a", "b"]).then(function() { done(); });
 });
 
