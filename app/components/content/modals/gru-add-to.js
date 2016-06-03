@@ -62,6 +62,7 @@ export default Ember.Component.extend({
   init() {
     this._super(...arguments);
     this.set('collections', this.get('model.collections'));
+    this.set('content', this.get('model.content'));
   },
 
   // -------------------------------------------------------------------------
@@ -87,7 +88,7 @@ export default Ember.Component.extend({
   collections: null,
 
   /**
-   * @type {Resource/Question} resource or question to add
+   * @type {Resource/Question} resource, question or lesson needed to add
    */
   content: null,
 

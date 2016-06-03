@@ -26,16 +26,6 @@ export default AddToModal.extend({
    */
   questionService: Ember.inject.service('api-sdk/question'),
 
-  /**
-   * @property {Service} I18N service
-   */
-  i18n: Ember.inject.service(),
-
-  /**
-   * @property {Service} Notifications service
-   */
-  notifications: Ember.inject.service(),
-
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -115,7 +105,6 @@ export default AddToModal.extend({
   init() {
     this._super(...arguments);
     this.set('assessments', this.get('model.assessments'));
-    this.set('content', this.get('model.content'));
     if(this.get('isQuestion')) {
       this.set('showCollections', false);
     }
