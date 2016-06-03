@@ -22,7 +22,8 @@ test('it renders resources correctly', function (assert) {
 
   this.set('resource', resource);
   this.set('index', 0);
-  this.render(hbs`{{content/collections/gru-collection-list-item model=resource index=index}}`);
+  this.set('isSorting', false);
+  this.render(hbs`{{content/collections/gru-collection-list-item model=resource index=index isSorting=isSorting}}`);
 
   const $component = this.$('li.content.collections.gru-collection-list-item');
   assert.ok($component.length, 'Component');
@@ -30,6 +31,7 @@ test('it renders resources correctly', function (assert) {
   const $container = $component.find('.panel-heading');
   assert.ok($container.find('> h3').text(), 1, 'Index');
   assert.ok($container.find('> a strong').text(), this.get('resource.title'), 'Resource title');
+  assert.notOk($container.find('.drag-icon .drag_handle').length, 'Drag icon should be hidden');
 
   //TODO: check when there are standards
   assert.ok($container.find('> .detail > span').text(), this.get('i18n').t('common.add-standard').string, 'No standards text');
@@ -55,6 +57,10 @@ test('it renders resources correctly', function (assert) {
       this.get('i18n').t('common.resource').string + ' | ' + this.get('i18n').t('common.resource-format.' + type_string).string, 'Resource subtitle');
 
   }.bind(this));
+
+  this.set('isSorting', true);
+  assert.ok($container.find('.drag-icon .drag_handle').length, 'Drag icon should be appear');
+
 });
 
 test('it renders questions correctly', function (assert) {

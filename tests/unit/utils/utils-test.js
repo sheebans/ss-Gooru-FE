@@ -195,5 +195,5 @@ test('Clean filename', function (assert) {
   assert.equal(cleanFilename(url), id, 'Wrong filename with complete url.');
   assert.equal(cleanFilename(`http:${url}`), id, 'Wrong filename with complete url.');
   assert.equal(cleanFilename(id), id, 'Wrong filename without complete url.');
-  assert.equal(cleanFilename(null), null, 'Wrong filename without complete url.');
+  assert.equal(cleanFilename(null), '', 'Wrong filename without complete url.');
 });

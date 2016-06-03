@@ -24,6 +24,7 @@ export default {
     "add-standard": "Add Standard",
     "add-standards-to-collection": "Add Standards to Collection",
     "add-to": "Add To",
+    "add-to-collection-success": "You've added {{contentTitle}} to {{collectionTitle}}. Do you want to edit that collection?",
     "add-type-question":"What type of question would you like to add?",
     "add-type-resource":"What type of resource is this?",
     "add-units": "Add Units",
@@ -65,6 +66,7 @@ export default {
       "higher-ed": "Higher Education",
       "professional-dev": "Professional Development"
     },
+    "class":"Class",
     "classes": "Classes",
     "classScores": "Class Scores",
     "close": "Close",
@@ -145,6 +147,7 @@ export default {
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
       "lesson-title-required" : "Please enter the lesson title.",
+      "question-not-added-to-collection": "Oops! Unable to add question to collection right now. Please try again shortly.",
       "question-not-copied": "Oops! Unable to copy question right now. Please try again shortly.",
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
       "question-not-updated": "Oops! Unable to update question right now. Please try again shortly.",
@@ -153,6 +156,7 @@ export default {
       "resource-missing-title": "Please enter a resource title.",
       "resource-missing-type": "Please select a resource type.",
       "resource-missing-url": "Please enter a valid URL.",
+      "resource-not-added-to-collection": "Oops! Unable to add resource to collection right now. Please try again shortly.",
       "resource-not-copied": "Oops! Unable to copy resource right now. Please try again shortly.",
       "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
       "resource-not-updated": "Oops! Unable to update resource right now. Please try again shortly.",
@@ -335,6 +339,7 @@ export default {
     "standards": "Standards",
     "study": "Study",
     "student": "Student",
+    "subject-and-framework": "Subject and Framework",
     "submit": "Submit",
     "submit-all":"Submit all",
     "swap": "Re-order",
@@ -567,6 +572,11 @@ export default {
       }
     }
   },
+  "content.modals.delete-class":{
+    "legend":"Your about to delete your class",
+    "student-access":"Students won’t be able to access the class",
+    "student-data-deleted":"All student data will be deleted"
+  },
   "content.modals.delete-content":{
     "legend":"You are about to delete",
     "content-legend":"<span>{{type}}</span> {{index}} - {{title}} from {{parentName}}",
@@ -609,6 +619,10 @@ export default {
   /*
    * COMPONENTS: Translations used in a specific component
    */
+  "gru-add-to":{
+    "add-to-collection":"Add to collection",
+    "add-to-collection-lead":"Choose a collection you want to add {{contentTitle}} to"
+  },
   "gru-quick-course-search":{
     "add-from-course":"Add from Existing Course",
     "view-featured-courses":"View Featured Courses",
