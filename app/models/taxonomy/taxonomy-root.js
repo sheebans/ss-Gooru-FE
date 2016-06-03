@@ -40,6 +40,14 @@ export default Ember.Object.extend({
   /**
    * @property {TaxonomyRoot[]} children - List of frameworks
    */
-  frameworks: []
+  frameworks: [],
+
+  /**
+   * Category
+   * @property {string}
+   */
+  category: Ember.computed("id", function(){
+    return this.get("id").split(".")[1];
+  })
 
 });

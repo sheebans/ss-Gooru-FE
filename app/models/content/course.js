@@ -87,44 +87,36 @@ export default Ember.Object.extend(Validations, {
   subject: '',
 
   /**
+   * These property is not serialized, it is loaded when needed
    * @property {TaxonomyRoot} Taxonomy primary subject
    */
   mainSubject: null,
 
   /**
-   * @property {TaxonomyTagData[]} Array of selected taxonomy subject courses
+   * @property {TaxonomyTag[]} List of taxonomy tags
    */
-  selectedCourses: Ember.computed('mainSubject', 'taxonomy.[]', function() {
-    if (this.get('mainSubject') && this.get('taxonomy').length) {
-      let subject = this.get('mainSubject');
-      let taxonomy = this.get('taxonomy');
-      // TODO: Determine the list of courses using the subject and the taxonomy
-      return [];
-    } else {
-      return [];
-    }
+  tags: Ember.computed('taxonomy.[]', function() {
+    return this.getTaxonomyTags(false);
   }),
 
   /**
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
-  tags: Ember.computed('taxonomy.[]', function() {
-    if (this.get('taxonomy').length) {
-      return this.get('taxonomy').map(function(tagData) {
-        return TaxonomyTag.create({
-          isActive: false,
-          isReadonly: true,
-          isRemovable: false,
-          data: tagData
-        });
-      });
-    } else {
-      return [];
-    }
+  editableTags: Ember.computed('taxonomy.[]', function() {
+    return this.getTaxonomyTags(true);
   }),
 
   /**
-   * @property {String[]} Course taxonomy array
+   * @property {string[]} taxonomy ids
+   */
+  taxonomyIds: Ember.computed('taxonomy.[]', function() {
+    return this.get('taxonomy').map(function(tagData) {
+      return tagData.get("id");
+    });
+  }),
+
+  /**
+   * @property {TaxonomyTagData[]} Course taxonomy array
    */
   taxonomy: [],
 
@@ -164,19 +156,13 @@ export default Ember.Object.extend(Validations, {
 
     let audience = this.get('audience');
     let taxonomy = this.get('taxonomy');
-    let selectedCourses = this.get('selectedCourses');
-    let tags = this.get('tags');
 
     // Copy the audience and taxonomy values
     properties.audience = audience.slice(0);
     properties.taxonomy = taxonomy.slice(0);
-    properties.tags = tags.slice(0);
 
     // Copy subject reference
     properties.mainSubject = this.get('mainSubject');
-
-    // Copy selectedCourses reference
-    properties.selectedCourses = selectedCourses.slice(0);
 
     return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
   },
@@ -195,11 +181,60 @@ export default Ember.Object.extend(Validations, {
   },
 
   /**
+   * Removes a taxonomy tag data from taxonomy
+   * @param id
+   */
+  removeTaxonomyTagData: function (taxonomyId){
+    const taxonomy = this.get("taxonomy");
+    let taxonomyTagData = taxonomy.findBy("id", taxonomyId);
+    if (taxonomyTagData){
+      taxonomy.removeObject(taxonomyTagData);
+    }
+  },
+
+  /**
+   * Adds or removes a taxonomy tag data
+   * @param {TaxonomyTagData} taxonomyTagData
+   */
+  addRemoveTaxonomyTagData: function (taxonomyTagData){
+    let entity = this;
+    const taxonomy = entity.get("taxonomy");
+    const taxonomyId = taxonomyTagData.get("id");
+    let existingTaxonomyTagData = taxonomy.findBy("id", taxonomyId);
+    if (existingTaxonomyTagData){
+      taxonomy.removeObject(existingTaxonomyTagData);
+    }
+    else {
+      taxonomy.pushObject(taxonomyTagData);
+    }
+  },
+
+  /**
+   * Gets the taxonomy tags
+   * @param editable
+   * @returns {Array}
+   */
+  getTaxonomyTags: function (editable = false) {
+    return this.get('taxonomy').map(function(tagData) {
+      return TaxonomyTag.create({
+        isActive: false,
+        isReadonly: !editable,
+        isRemovable: editable,
+        data: tagData
+      });
+    });
+  },
+
+  // -------------------------------------------------------------
+  // Events
+  /**
    * Sets the subject of the course
    */
   setTaxonomySubject: Ember.observer('mainSubject', function() {
     var mainSubject = this.get('mainSubject');
     this.set('subject', mainSubject ? mainSubject.get('id') : null);
   })
+
+
 
 });
