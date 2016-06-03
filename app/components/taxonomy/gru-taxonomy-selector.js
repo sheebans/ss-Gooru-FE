@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 import { getCategoryFromSubjectId } from 'gooru-web/utils/taxonomy';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 /**
  * Taxonomy selector component
@@ -20,51 +22,139 @@ export default Ember.Component.extend({
   taxonomyService: Ember.inject.service("taxonomy"),
 
   // -------------------------------------------------------------------------
+  // Attributes
+
+  classNames: ['taxonomy', 'gru-taxonomy-selector'],
+
+  // -------------------------------------------------------------------------
+  // Events
+  onInit: Ember.on("init", function(){
+    this.setupComponent();
+  }),
+
+  // -------------------------------------------------------------------------
   // Actions
 
   actions: {
     /**
      * Set Category
      */
-    setCategory(categoryValue) {
-      this.set('editCategory', categoryValue);
-      this.set('editEntity.mainSubject', null);
-      this.set('secondarySubject', null);
-      this.setLists();
+    setCategory(category) {
+      const component = this;
+      component.set('selectedSubject', null);
+      component.set('internalCategory', category);
+      component.loadSubjects(category);
+      if (component.get("onCategorySelected")) {
+        component.sendAction("onCategorySelected", category);
+      }
     },
     /**
      * Set Subject
      */
-    setSubject(subject, isPrimary) {
-      if (isPrimary) {
-        this.set('editEntity.mainSubject', subject);
-      } else {
-        this.set('secondarySubject', subject);
+    setSubject(subject) {
+      const component = this;
+      component.set('selectedSubject', subject);
+      if (component.get("onSubjectSelected")) {
+        component.sendAction("onSubjectSelected", subject);
       }
     },
+
     /**
-     * Toggles the appearance of the secondary subject
+     * Select a subject course
      */
-    toggleSecondary() {
-      this.toggleProperty('hasSecondary');
-      if (!this.get('hasSecondary')) {
-        this.set('secondarySubject', null);
+    selectTaxonomy(taxonomy) {
+      const component = this;
+      component.set('selectedTaxonomy', taxonomy);
+      if (component.get("onTaxonomySelected")) {
+        component.sendAction("onTaxonomySelected", this.get("selectedTaxonomy"));
       }
+    },
+
+    /**
+     * Remove a specific tag
+     */
+    removeTag(tag) {
+      const component = this;
+      component.removeTaxonomyTagData(tag.get("data.id"));
+      if (component.get("onTaxonomySelected")){
+        component.sendAction("onTaxonomySelected", this.get("selectedTaxonomy"));
+      }
+    }
+
+  },
+
+  //
+  // Methods
+  /**
+   * Removes a taxonomy tag data from taxonomy
+   * @param id
+   */
+  removeTaxonomyTagData: function (taxonomyId){
+    const taxonomy = this.get("selectedTaxonomy");
+    let taxonomyTagData = taxonomy.findBy("id", taxonomyId);
+    if (taxonomyTagData){
+      taxonomy.removeObject(taxonomyTagData);
     }
   },
 
-  // -------------------------------------------------------------------------
-  // Attributes
+  /**
+   * Gets the taxonomy tags
+   * @param editable
+   * @returns {Array}
+   */
+  getTaxonomyTags: function (taxonomy, editable = false) {
+    return taxonomy.map(function(tagData) {
+      return TaxonomyTag.create({
+        isActive: false,
+        isReadonly: !editable,
+        isRemovable: editable,
+        data: tagData
+      });
+    });
+  },
 
-  classNames: ['taxonomy', 'gru-taxonomy-selector'],
+  /**
+   * Loads subjects by category
+   */
+  loadSubjects: function(category){
+    const component = this;
+    component.get('taxonomyService').getSubjects(category).then(function(subjects) {
+      component.set('subjects', subjects);
+    });
+  },
 
+  setupComponent: function(){
+    const component = this;
+    const subject = component.get('selectedSubject');
+    const category = component.get("selectedCategory");
+    if (category){
+      component.loadSubjects(category);
+    }
+
+    if (subject){
+      if (component.get("showCourses") && !subject.get('hasCourses')) {
+        component.get('taxonomyService').retrieveSubjectCourses(subject);
+      }
+    }
+  },
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * i18n key for the subject dropdown label
+   * @property {string}
+   */
+  subjectLabelKey: 'taxonomy.gru-taxonomy-selector.primary-subject-and-course',
 
   /**
    * @type {Ember.A} categories - List of course categories
    */
   categories: TAXONOMY_CATEGORIES,
+
+  /**
+   * @property {boolean}
+   */
+  showCategories: true,
 
   /**
    * Is the entity being edited or not?
@@ -73,46 +163,87 @@ export default Ember.Component.extend({
   isEditing: null,
 
   /**
-   * @type {String} The source entity
+   * @property {TaxonomyTag[]} List of taxonomy tags
    */
-  srcEntity: null,
+  tags: Ember.computed('selectedTaxonomy.[]', function() {
+    return this.getTaxonomyTags(this.get("selectedTaxonomy"), false);
+  }),
 
   /**
-   * @type {Object} The entity in edit mode
+   * @property {TaxonomyTag[]} List of taxonomy tags
    */
-  editEntity: null,
+  editableTags: Ember.computed('selectedTaxonomy.[]', function() {
+    return this.getTaxonomyTags(this.get("selectedTaxonomy"), true);
+  }),
 
   /**
-   * @type {Boolean} Allows the component to display a secondary subject
+   * @property {string[]} taxonomy ids
    */
-  enableSecondarySubject: false,
-
-  /**
-   * @type {Object} The selected secondary subject
-   */
-  secondarySubject: null,
-
-  /**
-   * @type {Boolean} Indicates id the entity has a secondary subject
-   */
-  hasSecondary: false,
+  selectedTaxonomyIds: Ember.computed('selectedTaxonomy.[]', function() {
+    return this.get('selectedTaxonomy').map(function(tagData) {
+      return tagData.get("id");
+    });
+  }),
 
   /**
    * @type {Array} List of subjects
    */
-  subjectList: null,
+  subjects: null,
 
   /**
-   * @type {String} the original category (before editing)
+   * Internal category used to store the category from UI when subject is not selected
+   * @property {string}
    */
-  originalCategory: Ember.computed('srcEntity.subject', function() {
-    return getCategoryFromSubjectId(this.get('srcEntity.subject'));
-  }),
+  internalCategory: null,
 
   /**
    * @type {String} the selected category
    */
-  editCategory: null,
+  selectedCategory: Ember.computed("selectedSubject.category", "internalCategory", function(){
+    return this.get("selectedSubject.category") || this.get("internalCategory");
+  }),
+
+  /**
+   * the subject selected
+   * @property {TaxonomyRoot}
+   */
+  selectedSubject: null,
+
+  /**
+   * the subject courses to present
+   * @property {[]}
+   */
+  subjectCourses: Ember.computed.alias("selectedSubject.courses"),
+
+  /**
+   * @property {TaxonomyTagData[]}
+   */
+  selectedTaxonomy: Ember.A(),
+
+  /**
+   * Indicates if it should show subject courses
+   * @property {boolean}
+   */
+  showCourses: false,
+
+  /**
+   * when a category is selected
+   * @property {string}
+   */
+  onCategorySelected: null,
+
+  /**
+   * when a subject is selected
+   * @property {string}
+   */
+  onSubjectSelected: null,
+
+  /**
+   * when a taxonomy is selected
+   * @property {string}
+   */
+  onTaxonomySelected: null,
+
 
   // -------------------------------------------------------------------------
   // Observers
@@ -120,26 +251,7 @@ export default Ember.Component.extend({
   /**
    * Sets the corresponding lists of subjects and courses when the primary subject changes
    */
-  setLists: Ember.observer('editEntity.mainSubject', function() {
-    var component = this;
-    var subject = component.get('editEntity.mainSubject');
-    component.get('taxonomyService').getSubjects(component.get('editCategory')).then(function(subjects) {
-      component.set('subjectList', subjects);
-    });
-    if (subject) {
-      if (!subject.get('courses') || subject.get('courses').length === 0) {
-        component.get('taxonomyService').retrieveSubjectCourses(subject);
-      }
-    }
-  }),
-
-  /**
-   * Resets the category when enters to editing mode
-   */
-  resetEditCategory: Ember.observer('isEditing', function() {
-    if (this.get('isEditing')) {
-      this.set('editCategory', getCategoryFromSubjectId(this.get('editEntity.mainSubject.id')));
-    }
+  onSelectedSubjectChanged: Ember.observer('selectedSubject', function() {
+    this.setupComponent();
   })
-
 });

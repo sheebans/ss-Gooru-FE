@@ -195,7 +195,7 @@ export default Ember.Object.extend({
         }
       }
     }
-    return taxonomyData;
+    return Ember.A(taxonomyData);
   }
 
 });

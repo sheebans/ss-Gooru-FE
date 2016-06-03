@@ -105,8 +105,8 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
             component.get('courseService').updateCourse(editedCourse)
 
               .then(function () {
-                course.merge(editedCourse, ['title', 'isVisibleOnProfile', 'thumbnailUrl', 'description', 'subject']);
-                // component.setMainSubject();
+                course.merge(editedCourse, ['title', 'isVisibleOnProfile', 'thumbnailUrl', 'description', 'taxonomy', 'subject']);
+                component.setMainSubject();
                 component.set('isEditing', false);
               })
 
@@ -129,6 +129,22 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
       this.set('tempCourse', courseForEditing);
       this.set('tempCourse.isVisibleOnProfile', isChecked);
       this.actions.updateContent.call(this);
+    },
+
+    /**
+     *
+     * @param {TaxonomyRoot} subject
+     */
+    selectSubject: function(subject){
+      this.set("tempCourse.mainSubject", subject);
+    },
+
+    /**
+     *
+     * @param {TaxonomyTagData[]} taxonomy
+     */
+    selectTaxonomy: function(taxonomy){
+      this.set("tempCourse.taxonomy", taxonomy);
     }
 
   },
@@ -164,10 +180,10 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
     var subjectId = component.get('course.subject');
     if (subjectId) {
       component.get('taxonomyService').findSubjectById(subjectId).then(function(subject) {
-        component.set('course.mainSubject', subject);
+        component.get('course').set('mainSubject', subject);
       });
     } else {
-      component.set('course.mainSubject', null);
+      component.get('course').set('mainSubject', null);
     }
   }
 
