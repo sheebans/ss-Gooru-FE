@@ -121,6 +121,8 @@ export default Ember.Component.extend({
     var browseItems, selectedTags;
     //var shortcutTags, selectedPath;
 
+    Ember.Logger.assert(this.get('subject.courses'), 'Courses not found for subject');
+
     browseItems = this.get('taxonomyItems').map(function(taxonomyItem) {
       return BrowseItem.createFromTaxonomyItem(taxonomyItem, maxLevels);
     });
@@ -176,7 +178,7 @@ export default Ember.Component.extend({
           Ember.Logger.assert(browseItem, 'Unable to find browse item to mark as selected');
           browseItem.set('isSelected', true);
         });
-      });
+      }.bind(this));
     }
   },
 

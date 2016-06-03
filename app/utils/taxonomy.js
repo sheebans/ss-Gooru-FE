@@ -19,9 +19,11 @@ export function generateTaxonomyTestTree(levels = 1, parent = null, inc = 1, cur
     for (let i = 0; i < totalItems; i++) {
       let parentId = (parent) ? parent.get('id') : '0';
       let parentIdNum = parentId.charAt(parentId.length - 1);
+      let itemId = currentLevel + parentIdNum + i;
 
       let taxonomyItem = TaxonomyItem.create({
-        id: '' + currentLevel + parentIdNum + i,
+        id: parentId + '-' + itemId,
+        code: 'Code: ' + currentLevel + ' : ' + parentIdNum + ' : ' + i,
         title: 'Item : ' + currentLevel + ' : ' + parentIdNum + ' : ' + i,
         level: currentLevel,
         parent: parent

@@ -120,7 +120,7 @@ export default Ember.Service.extend({
    */
   getCourseDomains(subject, courseId) {
     const apiTaxonomyService = this.get('apiTaxonomyService');
-    var course = subject.get('courses').find([courseId]);
+    var course = subject.get('courses').findBy('id', courseId);
 
     return new Ember.RSVP.Promise(function(resolve) {
       if (!course.get('children').length) {
@@ -187,10 +187,15 @@ export default Ember.Service.extend({
   getDomainCodes(subject, courseId, domainId) {
     const service = this;
     const apiTaxonomyService = this.get('apiTaxonomyService');
-    var domain = subject.get('courses').find([courseId, domainId]);
+    var domain;
+
+    for(let i = subject.get('courses').length - 1; i >= 0; --i) {
+      domain = subject.get('courses')[i].find([courseId, domainId]);
+      if (domain) { break; }
+    }
 
     return new Ember.RSVP.Promise(function(resolve) {
-      if (!domain.get('children').length) {
+      if (!domain || !domain.get('children').length) {
         // No standards found ... ask for them
         apiTaxonomyService
           .fetchCodes(subject.get('frameworkId'), subject.get('id'), courseId, domainId)
