@@ -24,7 +24,7 @@ export function generateTaxonomyTestTree(levels = 1, parent = null, inc = 1, cur
       let taxonomyItem = TaxonomyItem.create({
         id: parentId + '-' + itemId,
         code: 'Code: ' + currentLevel + ' : ' + parentIdNum + ' : ' + i,
-        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam blandit in nisl a interdum. Praesent viverra augue ac neque convallis viverra. Aliquam erat volutpat. Nunc elit lacus, convallis porta feugiat ut, vulputate vel nisi. Praesent scelerisque feugiat odio, sed mattis nulla facilisis sed.',
+        title: 'Item : ' + currentLevel + ' : ' + parentIdNum + ' : ' + i,
         level: currentLevel,
         parent: parent
       });
