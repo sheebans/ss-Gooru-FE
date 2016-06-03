@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import APITaxonomyService from 'gooru-web/services/api-sdk/taxonomy';
-import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
+import TaxonomyItem from 'gooru-web/models/taxonomy/taxonomy-item';
+import { TAXONOMY_CATEGORIES, CODE_TYPES } from 'gooru-web/config/config';
 import { getCategoryFromSubjectId } from 'gooru-web/utils/taxonomy';
 
 /**
@@ -110,6 +111,41 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Gets the Taxonomy Domains for a Course from the cached taxonomy. If the domains are not available then fetch
+   * them from the Taxonomy API.
+   *
+   * @param {TaxonomyRoot} subject - The subject
+   * @param {String} courseId - ID of course for which to find the domains
+   * @returns {Promise}
+   */
+  getCourseDomains(subject, courseId) {
+    const apiTaxonomyService = this.get('apiTaxonomyService');
+    var course = subject.get('courses').find([courseId]);
+
+    return new Ember.RSVP.Promise(function(resolve) {
+      if (!course.get('children').length) {
+        // No domains found ... ask for them
+        apiTaxonomyService
+          .fetchDomains(subject.get('frameworkId'), subject.get('id'), courseId)
+          .then(function(domains) {
+            course.set('children', domains);
+            // Set reference to parent
+            domains.forEach(function(domain) {
+              domain.setProperties({
+                parent: course,
+                level: 2
+              });
+            });
+            resolve(domains);
+          });
+
+      } else {
+        resolve(course.get('children'));
+      }
+    });
+  },
+
+  /**
    * Gets the Taxonomy Codes for a Domain from the cached taxonomy. If the codes are not available then fetch
    * them from the Taxonomy API.
    *
@@ -135,6 +171,41 @@ export default Ember.Service.extend({
         }
       } else {
         resolve([]);
+      }
+    });
+  },
+
+  /**
+   * Gets the Taxonomy Codes for a Domain from the cached taxonomy. If the codes are not available then fetch
+   * them from the Taxonomy API.
+   *
+   * @param {TaxonomyRoot} subject - The subject
+   * @param {String} courseId - ID of course the domain belongs to
+   * @param {String} domainId - ID of domain for which to find the standards
+   * @returns {Promise}
+   */
+  getDomainCodes(subject, courseId, domainId) {
+    const service = this;
+    const apiTaxonomyService = this.get('apiTaxonomyService');
+    var domain = subject.get('courses').find([courseId, domainId]);
+
+    return new Ember.RSVP.Promise(function(resolve) {
+      if (!domain.get('children').length) {
+        // No standards found ... ask for them
+        apiTaxonomyService
+          .fetchCodes(subject.get('frameworkId'), subject.get('id'), courseId, domainId)
+          .then(function(codes) {
+            var standards = service.createStandardsHierarchy(codes);
+            domain.set('children', standards);
+            // Set reference to parent
+            standards.forEach(function(standard) {
+              standard.set('parent', domain);
+            });
+            resolve(standards);
+          });
+
+      } else {
+        resolve(domain.get('children'));
       }
     });
   },
@@ -194,17 +265,109 @@ export default Ember.Service.extend({
     return result;
   },
 
-  organizeCodes: function(codes) {
-    const firstLevelCodes = codes.filterBy('codeType', 'standard_level_1');
-    return firstLevelCodes.map(function(firstLevelCode) {
-      const secondLevelCodes = codes.filterBy('parentTaxonomyCodeId', firstLevelCode.get('id'));
-      secondLevelCodes.forEach(function(secondLevelCode) {
-        const thirdLevelCodes = codes.filterBy('parentTaxonomyCodeId', secondLevelCode.get('id'));
-        secondLevelCode.set('children', thirdLevelCodes);
-      });
-      firstLevelCode.set('children', secondLevelCodes);
-      return firstLevelCode;
+  createStandardsHierarchy(codes) {
+    var codeBuckets = this.sortCodes(codes);
+
+    // Level 1 standards without parent (standard category)
+    var L1parentless = codeBuckets[1].filter(function(codeObj) {
+      return !codeObj.parentTaxonomyCodeId;
     });
+
+    // Default standard category
+    var L0DefaultParent = TaxonomyItem.create({
+      id: 'default',
+      title: '',
+      level: 3
+    });
+
+    let level0_items = this.getStandardsAsTaxonomyItems(codeBuckets, null, null, 0);
+
+    // Replace L1 codes with codes that don't have a reference to a parent
+    codeBuckets[1] = L1parentless;
+    L1parentless = this.getStandardsAsTaxonomyItems(codeBuckets, L0DefaultParent, null, 1);
+    L0DefaultParent.set('children', L1parentless);
+
+    level0_items.push(L0DefaultParent);
+    return level0_items;
+  },
+
+  sortCodes(codes) {
+    var codesLen = codes.length;
+    var buckets = [];
+
+    for (let i = Object.keys(CODE_TYPES).length - 1; i >= 0; --i) {
+      // Make an array of arrays to store the different levels of standards
+      buckets[i] = [];
+    }
+
+    for (let i = 0; i < codesLen; i++) {
+      let code = codes[i];
+      switch(code.code_type) {
+        case CODE_TYPES.STANDARD_CATEGORY:
+          buckets[0].push(code); break;
+        case CODE_TYPES.STANDARD:
+          buckets[1].push(code); break;
+        case CODE_TYPES.SUB_STANDARD:
+          buckets[2].push(code); break;
+        case CODE_TYPES.LEARNING_TARGET_L0:
+          buckets[3].push(code); break;
+        case CODE_TYPES.LEARNING_TARGET_L1:
+          buckets[4].push(code); break;
+        case CODE_TYPES.LEARNING_TARGET_L2:
+          buckets[5].push(code); break;
+        default:
+          Ember.Logger.error('Unknown code_type: ' + code.code_type);
+      }
+    }
+    return buckets;
+  },
+
+  /**
+   * Gets the Taxonomy standards for a domain
+   * from the API or cache if available
+   *
+   * @param {Object[][]} codeBuckets - An array of arrays of code objects
+   * @param {TaxonomyItem} parent - Parent taxonomy item to link the children to
+   * @param {TaxonomyItem} parent - Id of the ancestor (the ancestor will not necessarily be
+   * the parent taxonomy item.
+   * @param {Number} bucketIndex - Index for the bucket where the codes are
+   * @returns {TaxonomyItem[]} Taxonomy item with children assigned
+   */
+  getStandardsAsTaxonomyItems(codeBuckets, parent, parentId, bucketIndex) {
+    const BASE_LEVEL = 3;  // standards base level
+    const LT_LEVEL = 3
+    var result = [];
+
+    if (codeBuckets[bucketIndex] && codeBuckets[bucketIndex].length) {
+
+      codeBuckets[bucketIndex].forEach(function(codeObj) {
+        var taxonomyItem;
+
+        if (!parentId || codeObj.parentTaxonomyCodeId === parentId || parentId === 'default') {
+          let children;
+
+          taxonomyItem = TaxonomyItem.create({
+            id: codeObj.id,
+            code: codeObj.code,
+            title: codeObj.title,
+            level: (bucketIndex >= LT_LEVEL) ? BASE_LEVEL + LT_LEVEL : BASE_LEVEL + bucketIndex,
+            parent: (parentId) ? parent : null
+          });
+
+          result.push(taxonomyItem);
+
+          if (bucketIndex >= LT_LEVEL) {
+            children = this.getStandardsAsTaxonomyItems(codeBuckets, parent, taxonomyItem.get('id'), bucketIndex + 1);
+            result = result.concat(children);
+            parent.set('children', parent.get('children').concat(result));
+          } else {
+            children = this.getStandardsAsTaxonomyItems(codeBuckets, taxonomyItem, taxonomyItem.get('id'), bucketIndex + 1);
+            taxonomyItem.set('children', children);
+          }
+        }
+      }.bind(this));
+    }
+    return result;
   }
 
 });

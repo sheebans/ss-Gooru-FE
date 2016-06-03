@@ -259,6 +259,7 @@ test('getDomains when taxonomy domains exist for course', function(assert) {
     });
 });
 
+/*
 test('getCodes when taxonomy domains does not exist for course', function(assert) {
   const test = this;
   const service = this.subject();
@@ -304,7 +305,7 @@ test('getCodes when taxonomy domains does not exist for course', function(assert
       done();
     });
 });
-
+*/
 
 test('findSubjectById for a loaded category and subject', function(assert) {
   const service = this.subject();
@@ -363,3 +364,266 @@ test('findSubjectById for a non-loaded category', function(assert) {
     });
 });
 */
+
+test('Sort codes', function(assert) {
+  const service = this.subject();
+  const result = [
+    [{
+      "id": "L0A",
+      "code_type": "standard_level_0"
+    },{
+      "id": "L0B",
+      "code_type": "standard_level_0"
+    }],
+    [{
+      "id": "L1A",
+      "code_type": "standard_level_1"
+    },{
+      "id": "L1B",
+      "code_type": "standard_level_1"
+    }],
+    [{
+      "id": "L2A",
+      "code_type": "standard_level_2"
+    },{
+      "id": "L2B",
+      "code_type": "standard_level_2"
+    }],
+    [{
+      "id": "LT0A",
+      "code_type": "learning_target_level_0"
+    },{
+      "id": "LT0B",
+      "code_type": "learning_target_level_0"
+    }],
+    [{
+      "id": "LT1A",
+      "code_type": "learning_target_level_1"
+    },{
+      "id": "LT1B",
+      "code_type": "learning_target_level_1"
+    }],
+    [{
+      "id": "LT2A",
+      "code_type": "learning_target_level_2"
+    },{
+      "id": "LT2B",
+      "code_type": "learning_target_level_2"
+    }],
+  ];
+  const codes = [
+    {
+      "id": "L0A",
+      "code_type": "standard_level_0"
+    }, {
+      "id": "L1A",
+      "code_type": "standard_level_1"
+    }, {
+      "id": "L2A",
+      "code_type": "standard_level_2"
+    }, {
+      "id": "LT0A",
+      "code_type": "learning_target_level_0"
+    }, {
+      "id": "LT1A",
+      "code_type": "learning_target_level_1"
+    }, {
+      "id": "LT2A",
+      "code_type": "learning_target_level_2"
+    }, {
+      "id": "L0B",
+      "code_type": "standard_level_0"
+    }, {
+      "id": "L1B",
+      "code_type": "standard_level_1"
+    }, {
+      "id": "L2B",
+      "code_type": "standard_level_2"
+    }, {
+      "id": "LT0B",
+      "code_type": "learning_target_level_0"
+    }, {
+      "id": "LT1B",
+      "code_type": "learning_target_level_1"
+    }, {
+      "id": "LT2B",
+      "code_type": "learning_target_level_2"
+    }
+  ];
+
+  var standards = service.sortCodes(codes);
+  assert.deepEqual(standards, result, 'Standard Level 0');
+});
+
+test('Create standards hierarchy -all in L0', function(assert) {
+  const service = this.subject();
+
+  const codes = [{
+    "id": "0A",
+    "code": "C0A",
+    "title": "Item 0A",
+    "code_type": "standard_level_0"
+  }, {
+    "id": "0B",
+    "code": "code_0B",
+    "title": "Item 0B",
+    "code_type": "standard_level_0"
+  }];
+
+  var standards = service.createStandardsHierarchy(codes);
+  assert.equal(standards.length, 3, 'Number of level 0 standards');
+  assert.equal(standards[0].get('id'), '0A', 'ID');
+  assert.equal(standards[0].get('code'), 'C0A', 'code');
+  assert.equal(standards[0].get('title'), 'Item 0A', 'title');
+  assert.equal(standards[0].get('level'), 3, 'level');
+});
+
+test('Create standards hierarchy -L1 with parent', function(assert) {
+  const service = this.subject();
+
+  const codes = [{
+    "id": "0A",
+    "code": "C0A",
+    "title": "Item 0A",
+    "code_type": "standard_level_0"
+  }, {
+    "id": "0B",
+    "code": "C0B",
+    "title": "Item 0B",
+    "code_type": "standard_level_0"
+  }, {
+    "id": "1A",
+    "code": "C1A",
+    "title": "Item 1A",
+    "parentTaxonomyCodeId": "0A",
+    "code_type": "standard_level_1"
+  }, {
+    "id": "1B",
+    "code": "C1B",
+    "title": "Item 1B",
+    "parentTaxonomyCodeId": "0A",
+    "code_type": "standard_level_1"
+  }];
+
+  const standards = service.createStandardsHierarchy(codes);
+  assert.equal(standards.length, 3, 'Number of level 0 standards');
+  assert.equal(standards[0].get('children').length, 2, 'Number of level 1 standards');
+
+  const L1item = standards[0].get('children')[0];
+  assert.equal(L1item.get('id'), '1A', 'ID');
+  assert.equal(L1item.get('code'), 'C1A', 'code');
+  assert.equal(L1item.get('title'), 'Item 1A', 'title');
+  assert.equal(L1item.get('level'), 4, 'level');
+});
+
+test('Create standards hierarchy -L1 with/without parent', function(assert) {
+  const service = this.subject();
+
+  const codes = [{
+    "id": "0A",
+    "code": "C0A",
+    "title": "Item 0A",
+    "code_type": "standard_level_0"
+  }, {
+    "id": "0B",
+    "code": "C0B",
+    "title": "Item 0B",
+    "code_type": "standard_level_0"
+  }, {
+    "id": "1A",
+    "code": "C1A",
+    "title": "Item 1A",
+    "parentTaxonomyCodeId": "0A",
+    "code_type": "standard_level_1"
+  }, {
+    "id": "1B",
+    "code": "C1B",
+    "title": "Item 1B",
+    "code_type": "standard_level_1"
+  }];
+
+  const standards = service.createStandardsHierarchy(codes);
+  assert.equal(standards.length, 3, 'Number of level 0 standards');
+  assert.equal(standards[0].get('children').length, 1, 'Number of level 1 standards');
+  assert.equal(standards[2].get('children').length, 1, 'Number of level 1 standards in default standard category');
+
+  const L1item = standards[0].get('children')[0];
+  assert.equal(L1item.get('id'), '1A', 'ID');
+  assert.equal(L1item.get('code'), 'C1A', 'code');
+  assert.equal(L1item.get('title'), 'Item 1A', 'title');
+  assert.equal(L1item.get('level'), 4, 'level');
+});
+
+test('Create standards hierarchy -one learning target', function(assert) {
+  const service = this.subject();
+
+  const codes = [{
+    "id": "0A",
+    "code_type": "standard_level_0"
+  }, {
+    "id": "1A",
+    "parentTaxonomyCodeId": "0A",
+    "code_type": "standard_level_1"
+  }, {
+    "id": "2A",
+    "parentTaxonomyCodeId": "1A",
+    "code_type": "standard_level_2"
+  }, {
+    "id": "3A",
+    "parentTaxonomyCodeId": "2A",
+    "code_type": 'learning_target_level_0'
+  }];
+
+  const standards = service.createStandardsHierarchy(codes);
+  assert.equal(standards.length, 2, 'Number of level 0 standards');
+  assert.equal(standards[0].get('children').length, 1, 'Number of level 1 standards');
+
+  const L1item = standards[0].get('children')[0];
+  assert.equal(L1item.get('children').length, 1, 'Number of level 2 standards');
+
+  const L2item = L1item.get('children')[0];
+  assert.equal(L2item.get('children').length, 1, 'Number of learning targets');
+});
+
+test('Create standards hierarchy -multi-level learning targets', function(assert) {
+  const service = this.subject();
+
+  const codes = [{
+    "id": "0A",
+    "code_type": "standard_level_0"
+  }, {
+    "id": "1A",
+    "parentTaxonomyCodeId": "0A",
+    "code_type": "standard_level_1"
+  }, {
+    "id": "2A",
+    "parentTaxonomyCodeId": "1A",
+    "code_type": "standard_level_2"
+  }, {
+    "id": "3A",
+    "parentTaxonomyCodeId": "2A",
+    "code_type": 'learning_target_level_0'
+  }, {
+    "id": "4A",
+    "parentTaxonomyCodeId": "3A",
+    "code_type": 'learning_target_level_1'
+  }, {
+    "id": "4B",
+    "parentTaxonomyCodeId": "3A",
+    "code_type": 'learning_target_level_1'
+  }, {
+    "id": "5A",
+    "parentTaxonomyCodeId": "4A",
+    "code_type": 'learning_target_level_2'
+  }];
+
+  const standards = service.createStandardsHierarchy(codes);
+  assert.equal(standards.length, 2, 'Number of level 0 standards');
+  assert.equal(standards[0].get('children').length, 1, 'Number of level 1 standards');
+
+  const L1item = standards[0].get('children')[0];
+  assert.equal(L1item.get('children').length, 1, 'Number of level 2 standards');
+
+  const L2item = L1item.get('children')[0];
+  assert.equal(L2item.get('children').length, 4, 'Number of learning targets');
+});

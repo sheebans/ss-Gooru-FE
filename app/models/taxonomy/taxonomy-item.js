@@ -42,16 +42,6 @@ export default Ember.Object.extend({
    */
   parent: null,
 
-  /**
-   * @property {String} parentTaxonomyCodeId - Used for Taxonomy Codes normalizer
-   */
-  parentTaxonomyCodeId: null,
-
-  /**
-   * @property {String} codeType - Used for Taxonomy Codes normalizer
-   */
-  codeType: null,
-
   // -------------------------------------------------------------------------
   // Methods
 
