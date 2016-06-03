@@ -60,6 +60,7 @@ export default Ember.Component.extend({
      * Action triggered when clicking add to
      */
     addTo: function() {
+      this.$('.modal-footer button.add-to').prop('disabled', true);
       this.get('copyContent').call(this)
         .then(this.get('addContent').bind(this))
         .then(this.get('successMessage').bind(this))
@@ -111,6 +112,7 @@ export default Ember.Component.extend({
     }
     var edit = this.get('i18n').t('common.edit');
     this.get('notifications').success(`${successMsg} <a class="btn btn-success" href="${contentEditUrl}">${edit}</a>`);
+    this.$('.modal-footer button.add-to').prop('disabled', false)
   },
 
   errorMessage: function(error) {
@@ -118,6 +120,7 @@ export default Ember.Component.extend({
       'common.errors.question-not-added-to-assessment' : 'common.errors.resource-not-added-to-collection';
     this.get('notifications').error(this.get('i18n').t(message).string);
     Ember.Logger.error(error);
+    this.$('.modal-footer button.add-to').prop('disabled', false)
   },
 
   // -------------------------------------------------------------------------

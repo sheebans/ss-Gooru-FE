@@ -622,7 +622,7 @@ export default {
   "gru-add-to":{
     "add-to-collection":"Add to collection",
     "add-to-collection-lead":"Choose a collection you want to add {{contentTitle}} to",
-    "add-to-assessment":"Add to collection",
+    "add-to-assessment":"Add to assessment",
     "add-to-assessment-lead":"Choose an assessment you want to add {{contentTitle}} to"
   },
   "gru-quick-course-search":{
