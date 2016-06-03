@@ -4,7 +4,7 @@ import CollectionModel from 'gooru-web/models/content/collection';
 import ResourceModel from 'gooru-web/models/content/resource';
 import Ember from 'ember';
 
-moduleForComponent('content/modals/gru-add-to-collection', 'Integration | Component | content/modals/gru add to colelction', {
+moduleForComponent('content/modals/gru-add-to-collection', 'Integration | Component | content/modals/gru add to collection', {
   integration: true
 });
 
