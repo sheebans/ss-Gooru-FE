@@ -90,6 +90,7 @@ test('Show courses - with selection', function(assert) {
   this.set("courses", courses);
 
   this.render(hbs`{{taxonomy/gru-subject-course-picker
+      selectedTaxonomy=selectedTaxonomy
       selectedSubject=selectedSubject
       courses=courses
     }}`);

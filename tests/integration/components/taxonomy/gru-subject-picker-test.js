@@ -46,13 +46,12 @@ test('Show subjects - no selection', function(assert) {
 
   const $component = this.$('.gru-subject-picker');
 
-  const $subjectDropdown = $component.find(".subject-dropdown");
-  assert.equal($subjectDropdown.length, 1, "Missing subject dropdown");
-  assert.equal($subjectDropdown.find(".selected-subject").length, 1, "Missing select subject");
-  assert.equal(T.text($subjectDropdown.find(".selected-subject")), 'Choose Subject', "Wrong selected subject title");
-  assert.equal($subjectDropdown.find("li.subject").length, 2, "Missing subjects");
+  assert.equal($component.length, 1, "Missing subject dropdown");
+  assert.equal($component.find(".selected-subject").length, 1, "Missing select subject");
+  assert.equal(T.text($component.find(".selected-subject")), 'Choose Subject', "Wrong selected subject title");
+  assert.equal($component.find("li.subject").length, 2, "Missing subjects");
 
-  $subjectDropdown.find("li.subject a.subject-action:eq(0)").click();
+  $component.find("li.subject a.subject-action:eq(0)").click();
 });
 
 test('Show subjects - with selection', function(assert) {
@@ -76,27 +75,27 @@ test('Show subjects - with selection', function(assert) {
   });
 
   this.on("selectSubject", function(subject){
-    assert.equal(subject.get("id"), "subject-1", "Wrong subject");
+    assert.equal(subject.get("id"), "subject-2", "Wrong subject");
   });
 
   this.set("subjects", [t1, t2]);
   this.set("selectedSubject", t1);
 
   this.render(hbs`{{taxonomy/gru-subject-picker
+      selectedSubject=selectedSubject
       subjects=subjects
       onSubjectSelected='selectSubject'
     }}`);
 
   const $component = this.$('.gru-subject-picker');
 
-  const $subjectDropdown = $component.find(".subject-dropdown");
-  assert.equal($subjectDropdown.length, 1, "Missing subject dropdown");
-  assert.equal($subjectDropdown.find(".selected-subject").length, 1, "Missing select subject");
-  assert.equal(T.text($subjectDropdown.find(".selected-subject")), 'Subject 1.1', "Wrong selected subject title");
-  assert.equal($subjectDropdown.find("li.subject").length, 2, "Missing subjects");
+  assert.equal($component.length, 1, "Missing subject dropdown");
+  assert.equal($component.find(".selected-subject").length, 1, "Missing select subject");
+  assert.equal(T.text($component.find(".selected-subject")), 'Subject 1.1', "Wrong selected subject title");
+  assert.equal($component.find("li.subject").length, 2, "Missing subjects");
 
-  $subjectDropdown.find("li.subject a.subject-action:eq(1)").click();
+  $component.find("li.subject a.subject-action:eq(1)").click();
   return wait().then(function(){
-    assert.equal(T.text($subjectDropdown.find(".selected-subject")), 'Subject 2.1', "Wrong selected subject title");
+    assert.equal(T.text($component.find(".selected-subject")), 'Subject 2.1', "Wrong selected subject title");
   })
 });
