@@ -19,6 +19,11 @@ export default Ember.Component.extend({
    */
   i18n: Ember.inject.service(),
 
+  /**
+   * @requires service:api-sdk/taxonomy
+   */
+  taxonomyService: Ember.inject.service("taxonomy"),
+
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -30,6 +35,22 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
+    loadTaxonomyData(path) {
+      var subject = this.get('subject');
+      var taxonomyService = this.get('taxonomyService');
+
+      if (path.length > 1) {
+        let courseId = path[0];
+        let domainId = path[1];
+        return taxonomyService.getCourseDomains(subject, courseId).then(function() {
+          return taxonomyService.getDomainCodes(subject, courseId, domainId);
+        });
+      } else {
+        let courseId = path[0];
+        return taxonomyService.getCourseDomains(subject, courseId);
+      }
+    },
+
     updateSelectedTags(selectedTags) {
       this.get('model.callback').success(selectedTags);
       this.triggerAction({ action: 'closeModal' });
@@ -65,5 +86,16 @@ export default Ember.Component.extend({
    * and standards). There *must* be one for each panel.
    * @prop {String[]}
    */
-  panelHeaders: []
+  panelHeaders: [],
+
+  /**
+   * @property {TaxonomyTagData[]} selected - List of references to a set of taxonomy tag data.
+   */
+  selected: [],
+
+  /**
+   * @property {TaxonomyRoot} subject - Currently selected subject.
+   */
+  subject: {}
+
 });
