@@ -22,6 +22,9 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
 
   tagName: 'li',
 
+  attributeBindings: ['data-id'],
+
+  'data-id':Ember.computed.alias('model.id'),
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -90,8 +93,6 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
       }
     }
   },
-
-
   // -------------------------------------------------------------------------
   // Properties
 
@@ -126,4 +127,9 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
   * @property {Boolean} isCollection - is this a listing for a collection or for an assessment
   */
   isCollection:null,
+
+  /**
+   * @property {Boolean} isSorting
+   */
+  isSorting: null,
 });

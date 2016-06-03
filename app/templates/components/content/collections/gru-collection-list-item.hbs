@@ -1,5 +1,10 @@
 <div class="panel panel-default">
   <div class="panel-heading">
+    {{#if isSorting}}
+      <span class="drag-icon">
+        {{gru-icon name="drag_handle"}}
+      </span>
+    {{/if}}
     <h3>{{plus-one index}}</h3>
     {{#link-to (if (eq model.format 'question') 'content.questions.edit' 'content.resources.edit') model.id (query-params collectionId=collection.id isCollection=isCollection) class="title"}}
       <i class="{{model.format}}-icon"></i>
@@ -37,4 +42,4 @@
       </div>
     </div>
   </div>
-</div>`
+</div>

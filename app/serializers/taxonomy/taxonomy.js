@@ -154,9 +154,10 @@ export default Ember.Object.extend({
    * @returns {Object} a JSON Object
    */
   serializeTaxonomy: function(taxonomyData) {
-    var taxonomyResult = {};
-    if (taxonomyData && Ember.isArray((taxonomyData))) {
-      taxonomyData.forEach(function (taxonomy) {
+    var taxonomyResult = null;
+    if (taxonomyData && Ember.isArray(taxonomyData) && taxonomyData.length > 0) {
+      taxonomyResult = {}
+      taxonomyData.forEach(function(taxonomy) {
         const taxonomyKey = taxonomy.get('id');
         taxonomyResult[taxonomyKey] = {
           code: taxonomy.get('code'),
