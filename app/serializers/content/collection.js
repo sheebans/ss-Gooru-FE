@@ -59,11 +59,12 @@ export default Ember.Object.extend({
 
   serializeCollection: function(collectionModel) {
     const serializer = this;
+    const thumbnail = cleanFilename(collectionModel.thumbnailUrl);
     return {
       title: collectionModel.get('title'),
       'learning_objective': collectionModel.get('learningObjectives'),
       'visible_on_profile': collectionModel.get('isVisibleOnProfile'),
-      thumbnail: cleanFilename(collectionModel.thumbnailUrl),
+      thumbnail: !Ember.isEmpty(thumbnail) ? thumbnail : null,
       taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(collectionModel.get('standards'))
     };
   },

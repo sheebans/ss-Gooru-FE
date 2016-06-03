@@ -21,7 +21,7 @@ test('serializeCreateUnit', function (assert) {
     title: modelInstance.get('title'),
     big_ideas: modelInstance.get('bigIdeas'),
     essential_questions: modelInstance.get('essentialQuestions'),
-    taxonomy: {}
+    taxonomy: null
   };
   const modelObject = serializer.serializeCreateUnit(modelInstance);
   assert.deepEqual(modelObject, expected, 'Serializer response');
@@ -43,7 +43,7 @@ test('serializeUpdateUnit', function (assert) {
     title: modelInstance.get('title'),
     big_ideas: modelInstance.get('bigIdeas'),
     essential_questions: modelInstance.get('essentialQuestions'),
-    taxonomy: {}
+    taxonomy: null
   };
   const modelObject = serializer.serializeUpdateUnit(modelInstance);
   assert.deepEqual(modelObject, expected, 'Serializer response');

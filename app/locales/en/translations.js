@@ -66,6 +66,7 @@ export default {
       "higher-ed": "Higher Education",
       "professional-dev": "Professional Development"
     },
+    "class":"Class",
     "classes": "Classes",
     "classScores": "Class Scores",
     "close": "Close",
@@ -569,6 +570,11 @@ export default {
         "T/F":"Write your question. Character limit: 5000."
       }
     }
+  },
+  "content.modals.delete-class":{
+    "legend":"Your about to delete your class",
+    "student-access":"Students won’t be able to access the class",
+    "student-data-deleted":"All student data will be deleted"
   },
   "content.modals.delete-content":{
     "legend":"You are about to delete",
