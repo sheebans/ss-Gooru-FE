@@ -73,15 +73,20 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      * @function actions:playItem
      * @param {string} unitId - Identifier for an unit
      * @param {string} lessonId - Identifier for a lesson
-     * @param {string} collectionId - Identifier for a collection or assessment
+     * @param {string} collection - collection or assessment
      */
-    playResource: function (unitId, lessonId, collectionId) {
+    playResource: function (unitId, lessonId, collection) {
       const currentClass = this.modelFor('class').class;
       const classId = currentClass.get("id");
       const courseId = currentClass.get("courseId");
       const role = this.get("controller.isStudent") ? "student" : "teacher";
-      this.transitionTo('context-player', classId, courseId, unitId,
-        lessonId, collectionId, { queryParams: { role: role }});
+      if (collection.get("isExternalAssessment")){
+        window.open(collection.get("url")); //todo url?
+      }
+      else {
+        this.transitionTo('context-player', classId, courseId, unitId,
+          lessonId, collection.get("id"), { queryParams: { role: role }});
+      }
     },
     /**
      * Open the assessment report
@@ -89,10 +94,9 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      * @function actions:viewReport
      * @param {string} unitId - Identifier for an unit
      * @param {string} lessonId - Identifier for a lesson
-     * @param {string} collectionId - Identifier for a collection or assessment
-     * @param {string} collectionType - (collection/assessment)
+     * @param {string} collection - collection or assessment
      */
-    viewReport: function (unitId, lessonId, collectionId, collectionType) {
+    viewReport: function (unitId, lessonId, collection) {
       const currentClass = this.modelFor('class').class;
       const userId = this.get('session.userId');
       const classId = currentClass.get("id");
@@ -102,9 +106,9 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
           courseId: courseId,
           unitId: unitId,
           lessonId: lessonId,
-          collectionId: collectionId,
+          collectionId: collection.get("id"),
           userId: userId,
-          type: collectionType
+          type: collection.get("type")
         }});
     }
   }

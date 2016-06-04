@@ -47,21 +47,20 @@ export default Ember.Component.extend({
 
     /**
      * @function actions:selectResource
-     * @param {string} collectionId - Identifier for a resource (collection/assessment)
+     * @param {string} collection - (collection/assessment)
      */
-    selectResource: function (collectionId) {
+    selectResource: function (collection) {
       let lessonId = this.get("lesson.id");
-      this.get('onSelectResource')(lessonId, collectionId);
+      this.get('onSelectResource')(lessonId, collection);
     },
 
     /**
      * @function actions:viewReport
-     * @param {string} collectionId - Identifier for a resource (collection/assessment)
-     * @param {boolean} collectionType indicates if it is collection or assessment
+     * @param {string} collection - Identifier for a resource (collection/assessment)
      */
-    viewReport: function (collectionId, collectionType) {
+    viewReport: function (collection) {
       let lessonId = this.get("lesson.id");
-      this.get('onViewReport')(lessonId, collectionId, collectionType);
+      this.get('onViewReport')(lessonId, collection);
     }
   },
 

@@ -1,6 +1,8 @@
 <div class="panel-heading" role="tab" id="{{elementId}}-heading">
   {{#if isTeacher}}
-    <span class="score" style="background-color: {{ gradeColor 93 }}">{{model.classAverageScore}}%</span>
+    <span class="score" style="background-color: {{ gradeColor (if item.hasStarted item.classAverageScore 'NA') }}">
+      {{if item.hasStarted item.classAverageScore '--'}}%
+    </span>
   {{else}}
     {{charts/gru-completion-chart
       completed=model.completionDone
@@ -48,9 +50,11 @@
           {{#if isTeacher}}
 
             {{#if item.isAssessment}}
+              {{#unless item.isExternalAssessment}}
               <button {{action "setOnAir" item.id}} class="btn btn-success on-air">
                 {{t "common.launch-on-air"}}
               </button>
+              {{/unless}}
             {{/if}}
 
           {{else}}
@@ -66,7 +70,9 @@
 
             <div class="icon-container">
               {{#if item.isAssessment}}
-                <span class="score" style="background-color: {{ gradeColor item.classAverageScore }}">{{if item.classAverageScore item.classAverageScore '--'}}%</span>
+                <span class="score" style="background-color: {{ gradeColor (if item.hasStarted item.classAverageScore 'NA') }}">
+                  {{if item.hasStarted item.classAverageScore '--'}}%
+                </span>
                 <i class="on-air">On Air</i>
               {{ else }}
                 {{gru-icon name='apps'}}
@@ -74,7 +80,7 @@
             </div>
 
             <span class="panel-title">
-              <a class="title" {{action "selectResource" item.id}}>
+              <a class="title" {{action "selectResource" item}}>
                   {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
               </a>
             </span>

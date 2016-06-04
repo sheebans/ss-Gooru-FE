@@ -11,7 +11,7 @@ import {CONTENT_TYPES} from 'gooru-web/config/config';
  *
  * Component responsible for behaving as an accordion and listing a set of lessons.
  * It is meant to be used inside of an {@link ./gru-accordion-course|Accordion Course}
- *
+ * 
  * @module
  * @augments components/content/courses/play/gru-accordion-unit
  *

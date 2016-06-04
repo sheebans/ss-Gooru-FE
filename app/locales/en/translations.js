@@ -33,6 +33,7 @@ export default {
     "answer":"Your Answer",
     "approved":"Approved",
     "assessment":"Assessment",
+    "assessment-external":"Assessment-External",
     "assessment-pl": {
       one: "Assessment",
       other: "Assessments"
