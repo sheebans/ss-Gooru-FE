@@ -29,6 +29,16 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
    */
   taxonomyService: Ember.inject.service("taxonomy"),
 
+  /**
+   * @property {Service} session
+   */
+  session: Ember.inject.service('session'),
+
+  /**
+   * @property {Service} profile service
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -193,7 +203,47 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
           component.refreshList(component.get('orderList'));
           component.set('model.isExpanded', false);
         });
-      }
+    },
+
+    /**
+     * Add from my collections
+     */
+    fromMyCollections: function() {
+      var component = this;
+      component.get('profileService').readCollections(
+        component.get('session.userId'), { 'filterBy': 'notInCourse' }
+      ).then(
+        function(collections) {
+          component.send('showModal', 'content.modals.gru-add-to-lesson', {
+              collections,
+              content: component.get('lesson'),
+              courseId: component.get('course.id'),
+              unitId: component.get('unitId'),
+              isCollection: false,
+              onAdd: component.get('onAddItem').bind(component)
+            }, null, "add-to");
+      });
+    },
+
+    /**
+     * Add from my assessments
+     */
+    fromMyAssessments: function() {
+      var component = this;
+      component.get('profileService').readAssessments(
+        component.get('session.userId'), { 'filterBy': 'notInCourse' }
+      ).then(
+        function(assessments) {
+          component.send('showModal', 'content.modals.gru-add-to-lesson', {
+              collections: assessments,
+              content: component.get('lesson'),
+              courseId: component.get('course.id'),
+              unitId: component.get('unitId'),
+              isCollection: false,
+              onAdd: component.get('onAddItem').bind(component)
+            }, null, "add-to");
+      });
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -282,6 +332,12 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
     sortable.off('sortupdate');
   },
 
+  /**
+   * After adding a collection/assessment
+   */
+  onAddItem: function(builderItem) {
+    this.get('items').addObject(builderItem);
+  },
 
   // -------------------------------------------------------------------------
   // Properties
