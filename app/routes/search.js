@@ -48,10 +48,15 @@ export default Ember.Route.extend({
   actions: {
     /**
      * Action triggered to open the content player
-     * @param {string} collectionId gooruOid collection identifier
+     * @param {string} collection collection identifier
      */
-    onOpenContentPlayer: function(collectionId) {
-      this.transitionTo('player', collectionId);
+    onOpenContentPlayer: function(collection) {
+      if (collection.get("isExternalAssessment")){
+        window.open(collection.get("url")); //TODO url?
+      }
+      else {
+        this.transitionTo('player', collection.get("id"));
+      }
     }
   }
 });
