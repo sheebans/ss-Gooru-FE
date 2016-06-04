@@ -102,6 +102,7 @@ export default Ember.Object.extend({
     const question = QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: questionData.id,
       title: questionData.title,
+      narration: questionData.narration,
       type: format,
       thumbnail: questionData.thumbnail ? (basePath + questionData.thumbnail) : null,
       text: questionData.description,

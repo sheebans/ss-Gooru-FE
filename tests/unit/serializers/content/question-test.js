@@ -101,6 +101,7 @@ test('normalizeReadQuestion', function(assert) {
     title: 'question-title',
     content_subformat: 'multiple_answer_question',
     description: 'any desc',
+    narration: 'any narration',
     publish_status: 'published',
     taxonomy: {},
     thumbnail: "image.png",
@@ -131,6 +132,7 @@ test('normalizeReadQuestion', function(assert) {
   assert.equal(question.get('id'), 'abcd', 'Wrong id');
   assert.equal(question.get('title'), 'question-title', 'Wrong title');
   assert.equal(question.get('text'), 'any desc', 'Wrong description');
+  assert.equal(question.get("narration"), "any narration", 'Wrong narration');
   assert.equal(question.get('publishStatus'), 'published', 'Wrong publish');
   assert.equal(question.get('standards').length, 0, 'Wrong standards');
   assert.equal(question.get('type'), 'MA', 'Wrong format'); //format is converted at the normalizer
