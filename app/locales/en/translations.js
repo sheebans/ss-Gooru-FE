@@ -22,6 +22,7 @@ export default {
     "add-question": "Add Question",
     "add-question-image": "Add Question Image",
     "add-standard": "Add Standard",
+    "add-standards": "Add Standards",
     "add-standards-to-collection": "Add Standards to Collection",
     "add-to": "Add To",
     "add-to-collection-success": "You've added {{contentTitle}} to {{collectionTitle}}. Do you want to edit that {{collectionType}}?",
@@ -1053,7 +1054,7 @@ export default {
       "shortcutText": "Course is in"
     },
     "gru-standard-picker": {
-      "browseSelectorText": "What standards will this collection cover?",
+      "browseSelectorText": "What standards will be covered?",
       "selectedText": {
         one: "{{count}} standard selected",
         other: "{{count}} standards selected"
