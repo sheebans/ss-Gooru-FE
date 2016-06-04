@@ -65,7 +65,7 @@ export default Ember.Component.extend(ModalMixin,{
               return { content: component.get('resource'), collections, assessments };
             });
         }).then(
-          model => this.send('showModal', 'content.modals.gru-add-to-collection', model, null, "add-to")
+          model => component.send('showModal', 'content.modals.gru-add-to-collection', model, null, "add-to")
         );
       }
     }
