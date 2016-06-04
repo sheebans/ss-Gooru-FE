@@ -25,6 +25,7 @@ export default {
     "add-standards-to-collection": "Add Standards to Collection",
     "add-to": "Add To",
     "add-to-collection-success": "You've added {{contentTitle}} to {{collectionTitle}}. Do you want to edit that {{collectionType}}?",
+    "add-to-lesson-success": "You've added {{collectionTitle}} to {{lessonTitle}}. Do you want to edit that {{collectionType}}?",
     "add-type-question":"What type of question would you like to add?",
     "add-type-resource":"What type of resource is this?",
     "add-units": "Add Units",
@@ -128,11 +129,13 @@ export default {
       "add-student-id":"You cannot use special characters.",
       "assessment-title-presence" : "Please enter the assessment title.",
       "can-not-join-class" : "Oops! Unable to join class. Please try again shortly.",
+      "assessment-not-added-to": "Oops! Unable to add assessment to lesson right now. Please try again shortly.",
       "assessment-not-copied": "Oops! Unable to copy assessment right now. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
       "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
       "class-title-presence": "Please give your class a name.",
+      "collection-not-added-to": "Oops! Unable to add collection to lesson right now. Please try again shortly.",
       "collection-not-copied": "Oops! Unable to copy collection right now. Please try again shortly.",
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "collection-not-updated": "Oops! Unable to update collection right now. Please try again shortly.",
@@ -624,6 +627,10 @@ export default {
    * COMPONENTS: Translations used in a specific component
    */
   "gru-add-to":{
+    "add-assessment-to-lesson":"Add from my assessments",
+    "add-assessment-to-lesson-lead":"Select an assessment to add to this lesson",
+    "add-collection-to-lesson":"Add from my collections",
+    "add-collection-to-lesson-lead":"Select a collection to add to this lesson",
     "add-to-collection":"Add to collection",
     "add-to-collection-lead":"Choose a collection you want to add {{contentTitle}} to",
     "add-to-assessment":"Add to assessment or collection",

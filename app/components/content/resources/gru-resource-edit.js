@@ -18,6 +18,11 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
    */
   resourceService: Ember.inject.service("api-sdk/resource"),
 
+  /**
+   * @requires service:api-sdk/profile
+   */
+  profileService: Ember.inject.service("api-sdk/profile"),
+
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -83,6 +88,21 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
       this.actions.showModal.call(this,
         'content.modals.gru-delete-content',
         model, null, null, null, false);
+    },
+
+    addToCollection: function() {
+      const component = this;
+      if (component.get('session.isAnonymous')) {
+        component.send('showModal', 'content.modals.gru-login-prompt');
+      } else {
+        component.get('profileService').readCollections(component.get('session.userId')).then(
+          function(collections) {
+            component.send('showModal', 'content.modals.gru-add-to-collection', {
+              content: component.get('resource'),
+              collections
+            }, null, "add-to");
+        });
+      }
     },
 
     selectSubject: function(subject){
