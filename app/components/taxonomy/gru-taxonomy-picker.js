@@ -166,16 +166,15 @@ export default Ember.Component.extend({
       // Mark selected tags in browse selector
       this.get('selected').forEach(function(tagData) {
         var path = tagData.get('ancestorsPath');
+        var browseItem;
 
-        // Load path data
-        this.get('onUpdatePath')(path).then(function() {
-          var browseItem;
+        for (let i = browseItems.length - 1; i >= 0; --i) {
+          browseItem = browseItems[i].find(path);
+          if (browseItem) { break; }
+        }
 
-          for (let i = browseItems.length - 1; i >= 0; --i) {
-            browseItem = browseItems[i].find(path);
-            if (browseItem) { break; }
-          }
-
+        // Load data for the browse item, then find its child and mark it as selected
+        this.get('onUpdatePath')(path, browseItem).then(function() {
           browseItem = browseItem.findItem(tagData.get('id'));
           Ember.Logger.assert(browseItem, 'Unable to find browse item to mark as selected');
           browseItem.set('isSelected', true);

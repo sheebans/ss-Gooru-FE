@@ -51,14 +51,21 @@ export default Ember.Component.extend(ModalMixin,{
      * Action triggered to add to collection
      */
     addToCollection: function(){
-      if (this.get('session.isAnonymous')) {
-        this.send('showModal', 'content.modals.gru-login-prompt');
+      const component = this;
+      if (component.get('session.isAnonymous')) {
+        component.send('showModal', 'content.modals.gru-login-prompt');
       } else {
-        this.get('profileService').readCollections(this.get('session.userId')).then(
-          collections => this.send('showModal', 'content.modals.gru-add-to', {
-            content: this.get('resource'),
-            collections
-          }, null, "add-to")
+        let assessmentsPromise = Ember.RSVP.resolve(null);
+        if(component.get('isQuestion')) {
+          assessmentsPromise = component.get('profileService').readAssessments(component.get('session.userId'));
+        }
+        assessmentsPromise.then(function(assessments) {
+          return component.get('profileService').readCollections(component.get('session.userId'))
+            .then(function(collections) {
+              return { content: component.get('resource'), collections, assessments };
+            });
+        }).then(
+          model => this.send('showModal', 'content.modals.gru-add-to-collection', model, null, "add-to")
         );
       }
     }
