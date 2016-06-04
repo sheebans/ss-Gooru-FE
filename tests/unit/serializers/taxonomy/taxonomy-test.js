@@ -151,11 +151,11 @@ test('normalizeFetchCodes', function(assert) {
   const normalizedCodes = serializer.normalizeFetchCodes(taxonomyCodesPayload);
   assert.equal(normalizedCodes.length, 4, 'Wrong number of codes');
   const code1 = normalizedCodes.objectAt(0);
-  assert.equal(code1.get('id'), 'TEKS.K12.PE-K-MOV-01.01', 'Wrong code id');
-  assert.equal(code1.get('title'), 'Travel in different ways in a large group without bumping into others or falling.', 'Wrong code title');
-  assert.equal(code1.get('code'), 'TEKS.PE.K.1.A', 'Wrong code code');
-  assert.equal(code1.get('parentTaxonomyCodeId'), 'TEKS.K12.PE-K-MOV-01', 'Wrong code parentTaxonomyCodeId');
-  assert.equal(code1.get('codeType'), 'standard_level_2', 'Wrong code codeType');
+  assert.equal(code1.id, 'TEKS.K12.PE-K-MOV-01.01', 'Wrong code id');
+  assert.equal(code1.title, 'Travel in different ways in a large group without bumping into others or falling.', 'Wrong code title');
+  assert.equal(code1.code, 'TEKS.PE.K.1.A', 'Wrong code code');
+  assert.equal(code1.parentTaxonomyCodeId, 'TEKS.K12.PE-K-MOV-01', 'Wrong code parentTaxonomyCodeId');
+  assert.equal(code1.codeType, 'standard_level_2', 'Wrong code codeType');
 });
 
 test('serializeTaxonomy', function(assert) {
