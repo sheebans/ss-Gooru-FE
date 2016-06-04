@@ -110,8 +110,7 @@ export default Ember.Object.extend({
   },
 
   normalizeDomain: function(domainPayload) {
-    var serializer = this;
-    return TaxonomyItem.create(Ember.getOwner(serializer).ownerInjection(), {
+    return TaxonomyItem.create({
       id: domainPayload.id,
       code: domainPayload.code,
       title: domainPayload.title
@@ -122,7 +121,7 @@ export default Ember.Object.extend({
    * Normalize the Fetch Taxonomy Codes endpoint's response
    *
    * @param payload is the endpoint response in JSON format
-   * @returns {Course[]} an array of codes
+   * @returns {Object[]} an array of objects, each one with code information.
    */
   normalizeFetchCodes: function(payload) {
     var result = [];
@@ -137,14 +136,13 @@ export default Ember.Object.extend({
   },
 
   normalizeCode: function(codePayload) {
-    var serializer = this;
-    return TaxonomyItem.create(Ember.getOwner(serializer).ownerInjection(), {
+    return {
       id: codePayload.id,
       code: codePayload.code,
       title: codePayload.title,
       parentTaxonomyCodeId: codePayload['parent_taxonomy_code_id'],
       codeType: codePayload['code_type']
-    });
+    };
   },
 
   /**
@@ -196,7 +194,7 @@ export default Ember.Object.extend({
         }
       }
     }
-    return taxonomyData;
+    return Ember.A(taxonomyData);
   }
 
 });

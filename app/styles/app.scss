@@ -115,7 +115,6 @@
 @import 'components/content/gru-audience';
 @import 'components/content/gru-category';
 @import 'components/content/gru-image';
-@import 'components/content/gru-taxonomy-selector';
 @import 'components/content/collections/gru-collection-list';
 @import 'components/content/modals';
 @import 'components/content/modals/gru-add-to';
@@ -182,5 +181,8 @@
 @import 'components/search/gru-question-options';
 @import 'components/search/gru-resource-options';
 
+@import 'components/taxonomy/gru-subject-course-picker';
+@import 'components/taxonomy/gru-subject-picker';
+@import 'components/taxonomy/gru-taxonomy-selector';
 @import 'components/taxonomy/gru-taxonomy-tag';
 @import 'components/taxonomy/modals/modals';

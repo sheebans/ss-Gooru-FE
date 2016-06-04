@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import BrowseItem from 'gooru-web/models/taxonomy/browse-item';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
 /**
  * Taxonomy Picker
@@ -30,31 +31,30 @@ export default Ember.Component.extend({
      * @param {BrowseItem} browseItem
      */
     addSelectedTag: function(browseItem) {
-      var taxonomyItem = null;
-      var itemPath = browseItem.getPath();
-
-      for (let i = this.get('taxonomyItems').length - 1; i >= 0; i--) {
-        taxonomyItem = this.get('taxonomyItems')[i].find(itemPath);
-        if (taxonomyItem) { break; }
-      }
+      var tagData = TaxonomyTagData.createFromTaxonomyItem(browseItem, this.get('subject'));
 
       var newSelectedTag = TaxonomyTag.create({
         isActive: true,
         isReadonly: true,
         isRemovable: true,
-        taxonomyItem: taxonomyItem
+        data: tagData
       });
       this.get('selectedTags').pushObject(newSelectedTag);
     },
 
     /**
-     * Clear any active shortcut tags
-     * @function actions:clearActiveShortcut
+     * Clear any active shortcut tags, then change the path the browse selector is open to.
+     * @function actions:updatePath
+     * @param {BrowseItem} item
+     * @return {Promise}
      */
-    clearShortcuts: function() {
+    updatePath: function(item) {
+      /* TODO: Revisit this functionality
       this.get('shortcutTags').forEach(function(taxonomyTag) {
         taxonomyTag.set('isActive', false);
       });
+      */
+      return this.updateSelectedPath(item);
     },
 
     /**
@@ -62,12 +62,14 @@ export default Ember.Component.extend({
      * @function actions:openShortcut
      * @param {TaxonomyTag} taxonomyTag
      */
+    /* TODO: Revisit this functionality
     openShortcut: function(taxonomyTag) {
-      this.actions.clearShortcuts.call(this);
-      taxonomyTag.set('isActive', true);
       var path = taxonomyTag.get('taxonomyItem').getPath();
-      this.set('selectedPath', path);
+      taxonomyTag.set('isActive', true);
+
+      return this.updateSelectedPath(path);
     },
+    */
 
     /**
      * Remove a tag from the selected tag list
@@ -75,10 +77,10 @@ export default Ember.Component.extend({
      */
     removeSelectedTag: function(browseItem) {
       var selectedTags = this.get('selectedTags');
-      var pathToRemove = browseItem.getPath().toString();
+      var idToRemove = browseItem.get('id');
 
       for (let i = selectedTags.length - 1; i >= 0; --i) {
-        if (selectedTags[i].get('taxonomyItem').getPath().toString() === pathToRemove) {
+        if (selectedTags[i].get('data.id') === idToRemove) {
           selectedTags.removeAt(i);
           break;
         }
@@ -96,7 +98,7 @@ export default Ember.Component.extend({
      * @param {TaxonomyTag} taxonomyTag
      */
     uncheckItem: function(taxonomyTag) {
-      var path = taxonomyTag.get('taxonomyItem').getPath();
+      var path = taxonomyTag.get('data.ancestorsPath');
       var browseItems = this.get('browseItems');
       var browseItem = null;
 
@@ -105,6 +107,8 @@ export default Ember.Component.extend({
         if (browseItem) { break; }
       }
 
+      browseItem = browseItem.findItem(taxonomyTag.get('data.id'));
+      Ember.Logger.assert(browseItem, 'Unable to find browse item to deselect');
       this.get('selectedTags').removeObject(taxonomyTag);
       browseItem.set('isSelected', false);
     }
@@ -116,53 +120,66 @@ export default Ember.Component.extend({
     this._super( ...arguments );
 
     var maxLevels = this.get('maxLevels');
-    var browseItems, shortcutTags, selectedTags, selectedPath;
+    var browseItems, selectedTags;
+    //var shortcutTags, selectedPath;
+
+    Ember.Logger.assert(this.get('subject.courses'), 'Courses not found for subject');
 
     browseItems = this.get('taxonomyItems').map(function(taxonomyItem) {
       return BrowseItem.createFromTaxonomyItem(taxonomyItem, maxLevels);
     });
 
+    /* TODO: Revisit this functionality
     shortcutTags = this.get('shortcuts').map(function(taxonomyItem) {
       return TaxonomyTag.create({
         taxonomyItem: taxonomyItem
       });
     });
+    */
 
-    selectedTags = this.get('selected').map(function(taxonomyItem) {
+    selectedTags = this.get('selected').map(function(tagData) {
       return TaxonomyTag.create({
         isActive: true,
         isReadonly: true,
         isRemovable: true,
-        taxonomyItem: taxonomyItem
+        data: tagData
       });
     });
 
     // Init values
     this.set('browseItems', browseItems);
-    this.set('shortcutTags', shortcutTags);
     this.set('selectedTags', Ember.A(selectedTags));
+
+    /* TODO: Revisit this functionality
+    this.set('shortcutTags', shortcutTags);
 
     if (shortcutTags.length) {
       // Set default selectedPath
       var firstShortcut = shortcutTags[0];
       firstShortcut.set('isActive', true);
       selectedPath = firstShortcut.get('taxonomyItem').getPath();
-      this.set('selectedPath', selectedPath);
+      this.updateSelectedPath(selectedPath);
     }
+    */
 
     if (selectedTags.length) {
       // Mark selected tags in browse selector
-      this.get('selected').forEach(function(taxonomyItem) {
-        var path = taxonomyItem.getPath();
+      this.get('selected').forEach(function(tagData) {
+        var path = tagData.get('ancestorsPath');
+        var browseItem;
 
         for (let i = browseItems.length - 1; i >= 0; --i) {
-          let browseItem = browseItems[i].find(path);
-          if (browseItem) {
-            browseItem.set('isSelected', true);
-            break;
-          }
+          browseItem = browseItems[i].find(path);
+          if (browseItem) { break; }
         }
-      });
+
+        // Load data for the browse item, then find its child and mark it as selected
+        this.get('onUpdatePath')(path, browseItem).then(function() {
+          browseItem = browseItem.findItem(tagData.get('id'));
+          Ember.Logger.assert(browseItem, 'Unable to find browse item to mark as selected');
+          browseItem.set('isSelected', true);
+        });
+      }.bind(this));
     }
   },
 
@@ -205,8 +222,7 @@ export default Ember.Component.extend({
   panelHeaders: [],
 
   /**
-   * @property {TaxonomyItem[]} selected - List of references to a subset of taxonomy
-   * items (@see taxonomyItems).
+   * @property {TaxonomyTagData[]} selected - List of references to a set of taxonomy tag data.
    */
   selected: [],
 
@@ -229,10 +245,19 @@ export default Ember.Component.extend({
   selectedTextKey: '',
 
   /**
-   * @property {TaxonomyItem[]} shortcuts - List of references to a subset of taxonomy
-   * items (@see browseItems).
+   * @property {TaxonomyTagData[]} shortcuts - List of references to a set of taxonomy tag data.
    */
+  /* TODO: Revisit this functionality
   shortcuts: [],
+  */
+
+  /**
+   * @property {TaxonomyTag[]} shortcutTags - List of taxonomy tags to use as shortcuts in the
+   * browse item tree (@see shortcuts).
+   */
+  /* TODO: Revisit this functionality
+  shortcutTags: [],
+  */
 
   /**
    * @property {String} shortcutText - Intro text for shortcuts.
@@ -240,15 +265,30 @@ export default Ember.Component.extend({
   shortcutText: '',
 
   /**
-   * @property {TaxonomyTag[]} shortcutTags - List of taxonomy tags to use as shortcuts in the
-   * browse item tree (@see shortcuts).
+   * @property {TaxonomyRoot} subject - Currently selected subject.
    */
-  shortcutTags: [],
+  subject: {},
 
   /**
    * @property {TaxonomyItem[]} taxonomyItems - List of taxonomy items. They are the initial
    * references to all the taxonomy data.
    */
-  taxonomyItems: null
+  taxonomyItems: Ember.computed.alias('subject.courses'),
+
+
+  // -------------------------------------------------------------------------
+  // Methods
+  /**
+   * Run external action to ensure data has been loaded then update the selected path
+   *
+   * @function updateSelectedPath
+   * @return { Promise | undefined }
+   */
+  updateSelectedPath: function(item) {
+    var path = item.getPath();
+    return this.get('onUpdatePath')(path, item).then(function() {
+      this.set('selectedPath', path);
+    }.bind(this));
+  }
 
 });
