@@ -79,7 +79,7 @@ test('it has header and main sections', function (assert) {
   assert.ok($container.find('.actions button.delete').length, "Missing Delete Button");
   assert.ok($container.find('.actions button.gru-share-pop-over').length, "Missing Share Button");
   assert.ok($container.find('.actions button.add').length, "Missing Add Button");
-  assert.ok($container.find('.actions button.preview').length, "Missing Add Button");
+  assert.ok($container.find('.actions button.preview').length, "Missing preview Button");
 
   assert.ok($header.find('> nav').length, "Header navigation");
   assert.equal($header.find('> nav > a').length, 3, "Number of header navigation links");
