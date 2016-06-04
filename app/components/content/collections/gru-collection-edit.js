@@ -135,28 +135,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
     },
 
     openTaxonomyModal: function(){
-      var component = this;
-      var standards = component.get('tempCollection.standards') || [];
-      var subject = component.get('selectedSubject');
-      var subjectStandards = TaxonomyTagData.filterBySubject(subject, standards);
-      var notInSubjectStandards = TaxonomyTagData.filterByNotInSubject(subject, standards);
-      var model = {
-        selected: subjectStandards,
-        shortcuts: null,  // TODO: TBD
-        subject: subject,
-        callback: {
-          success: function(selectedTags) {
-            var dataTags = selectedTags.map(function(taxonomyTag) {
-              return taxonomyTag.get('data');
-            });
-            const standards = Ember.A(dataTags);
-            standards.pushObjects(notInSubjectStandards.toArray());
-            component.set('tempCollection.standards', standards);
-          }
-        }
-      };
-
-      this.actions.showModal.call(this, 'taxonomy.modals.gru-standard-picker', model, null, 'gru-standard-picker');
+      this.openTaxonomyModal();
     }
   },
   // -------------------------------------------------------------------------
@@ -216,7 +195,32 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
    */
   editableTags: Ember.computed('tempCollection.standards.[]', function() {
     return TaxonomyTag.getTaxonomyTags(this.get("tempCollection.standards"), true);
-  })
+  }),
 
+  // ----------------------------
+  // Methods
+  openTaxonomyModal: function(){
+    var component = this;
+    var standards = component.get('tempCollection.standards') || [];
+    var subject = component.get('selectedSubject');
+    var subjectStandards = TaxonomyTagData.filterBySubject(subject, standards);
+    var notInSubjectStandards = TaxonomyTagData.filterByNotInSubject(subject, standards);
+    var model = {
+      selected: subjectStandards,
+      shortcuts: null,  // TODO: TBD
+      subject: subject,
+      callback: {
+        success: function(selectedTags) {
+          var dataTags = selectedTags.map(function(taxonomyTag) {
+            return taxonomyTag.get('data');
+          });
+          const standards = Ember.A(dataTags);
+          standards.pushObjects(notInSubjectStandards.toArray());
+          component.set('tempCollection.standards', standards);
+        }
+      }
+    };
 
+    this.actions.showModal.call(this, 'taxonomy.modals.gru-standard-picker', model, null, 'gru-standard-picker');
+  }
 });
