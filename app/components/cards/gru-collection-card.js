@@ -116,7 +116,7 @@ export default Ember.Component.extend(ModalMixin,{
    */
   onRemixCollection: null,
 
-  visibility:null
+  visibility:null,
 
   isSmall: false
 

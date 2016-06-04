@@ -7,13 +7,13 @@
     {{/if}}
     <h3>{{plus-one index}}</h3>
     {{#if model.isExternalAssessment}}
-      {{#link-to model.url target="_blank" class="title"}}
+      <a href="{{model.url}}" target="_blank" class="title">
         <img class="img-rounded" src="{{model.thumbnailUrl}}" />
         <div>
           <strong>{{model.title}}</strong>
           <span>{{model.format}}</span>
         </div>
-      {{/link-to}}
+      </a>
     {{else}}
       {{#link-to (if model.isCollection 'content.collections.edit' 'content.assessments.edit')  model.id (query-params courseId=course.id allowBackToCourse=true) class="title"}}
         <img class="img-rounded" src="{{model.thumbnailUrl}}" />
