@@ -35,7 +35,7 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-    loadTaxonomyData(path) {
+    loadTaxonomyData(path, parentBrowseItem) {
       var subject = this.get('model.subject');
       var taxonomyService = this.get('taxonomyService');
 
@@ -43,11 +43,35 @@ export default Ember.Component.extend({
         let courseId = path[0];
         let domainId = path[1];
         return taxonomyService.getCourseDomains(subject, courseId).then(function() {
-          return taxonomyService.getDomainCodes(subject, courseId, domainId);
+          return taxonomyService.getDomainCodes(subject, courseId, domainId)
+                  .then(function(standards) {
+                    if (parentBrowseItem && !parentBrowseItem.get('children').length) {
+                      // Add children to the parent browse item
+                      let browseItems = [];
+                      standards.forEach(function(taxonomyItem) {
+                        var browseItem = BrowseItem.createFromTaxonomyItem(taxonomyItem);
+                        browseItem.set('parent', parentBrowseItem);
+                        browseItems.push(browseItem);
+                      });
+                      parentBrowseItem.set('children', browseItems);
+                    }
+                  });
         });
       } else {
         let courseId = path[0];
-        return taxonomyService.getCourseDomains(subject, courseId);
+        return taxonomyService.getCourseDomains(subject, courseId)
+                .then(function(domains) {
+                  if (parentBrowseItem && !parentBrowseItem.get('children').length) {
+                    // Add children to the parent browse item
+                    let browseItems = [];
+                    domains.forEach(function(taxonomyItem) {
+                      var browseItem = BrowseItem.createFromTaxonomyItem(taxonomyItem);
+                      browseItem.set('parent', parentBrowseItem);
+                      browseItems.push(browseItem);
+                    });
+                    parentBrowseItem.set('children', browseItems);
+                  }
+                });
       }
     },
 
