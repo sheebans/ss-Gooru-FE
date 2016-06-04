@@ -50,6 +50,7 @@
           </label>
         </div>
 
+        {{#if isEditing}}
         {{taxonomy.gru-taxonomy-selector
           isEditing=isEditing
           onSubjectSelected="selectSubject"
@@ -58,8 +59,9 @@
           subjectLabelKey='common.subject-and-framework'
           showCategories=false
           showCourses=false
+          onlySubjectsWithStandards=true
           }}
-
+        {{/if}}
         <div class="subject">
           <span class="label">{{t "common.standards"}}</span>
           {{#if isEditing}}

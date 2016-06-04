@@ -156,8 +156,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
         }
       };
 
-      this.actions.showModal.call(this, 'taxonomy.modals.gru-domain-picker', model, null, 'gru-domain-picker');
-      //this.actions.showModal.call(this, 'taxonomy.modals.gru-standard-picker', model, null, 'gru-standard-picker');
+      this.actions.showModal.call(this, 'taxonomy.modals.gru-standard-picker', model, null, 'gru-standard-picker');
     }
   },
   // -------------------------------------------------------------------------

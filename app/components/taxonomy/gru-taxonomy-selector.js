@@ -3,6 +3,7 @@ import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 import { getCategoryFromSubjectId } from 'gooru-web/utils/taxonomy';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import TaxonomyRoot from 'gooru-web/models/taxonomy/taxonomy-root';
 
 /**
  * Taxonomy selector component
@@ -145,6 +146,12 @@ export default Ember.Component.extend({
    * @property {Boolean}
    */
   isEditing: null,
+
+  /**
+   * Indicates if it should only include subjects having standards
+   * @poperty {boolean}
+   */
+  onlySubjectsWithStandards: false,
 
   /**
    * @property {TaxonomyTag[]} List of taxonomy tags

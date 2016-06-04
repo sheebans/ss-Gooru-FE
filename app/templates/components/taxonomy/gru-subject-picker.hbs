@@ -11,21 +11,40 @@
     <span class="sr-only">{{t "common.toggle-dropdown"}}</span>
   </button>
   <ul class="dropdown-menu">
-    {{#each subjects as |subject|}}
-      {{#if subject.frameworks}}
-        <li class="subject has-children">
-          <a class="trigger">{{subject.title}} {{gru-icon name="keyboard_arrow_right"}}</a>
-          <ul class="dropdown-menu sub-menu">
-            {{#each subject.frameworks as |framework|}}
-              <li><a class="subject-action" {{action 'setSubject' framework true}}>{{framework.title}}</a></li>
-            {{/each}}
-          </ul>
-        </li>
-      {{else}}
-        <li class="subject">
-          <a class="subject-action" {{action 'setSubject' subject true}}>{{subject.title}}</a>
-        </li>
-      {{/if}}
-    {{/each}}
+    {{#if onlySubjectsWithStandards}}
+      {{#each subjectsWithStandards as |subject|}}
+        {{#if subject.frameworksWithStandards}}
+          <li class="subject has-children">
+            <a class="trigger">{{subject.title}} {{gru-icon name="keyboard_arrow_right"}}</a>
+            <ul class="dropdown-menu sub-menu">
+              {{#each subject.frameworksWithStandards as |framework|}}
+                <li><a class="subject-action" {{action 'setSubject' framework true}}>{{framework.title}}</a></li>
+              {{/each}}
+            </ul>
+          </li>
+        {{else}}
+          <li class="subject">
+            <a class="subject-action" {{action 'setSubject' subject true}}>{{subject.title}}</a>
+          </li>
+        {{/if}}
+      {{/each}}
+    {{else}}
+      {{#each subjects as |subject|}}
+        {{#if subject.frameworks}}
+          <li class="subject has-children">
+            <a class="trigger">{{subject.title}} {{gru-icon name="keyboard_arrow_right"}}</a>
+            <ul class="dropdown-menu sub-menu">
+              {{#each subject.frameworks as |framework|}}
+                <li><a class="subject-action" {{action 'setSubject' framework true}}>{{framework.title}}</a></li>
+              {{/each}}
+            </ul>
+          </li>
+        {{else}}
+          <li class="subject">
+            <a class="subject-action" {{action 'setSubject' subject true}}>{{subject.title}}</a>
+          </li>
+        {{/if}}
+      {{/each}}
+    {{/if}}
   </ul>
 </div>
