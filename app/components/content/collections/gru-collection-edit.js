@@ -3,6 +3,7 @@ import ContentEditMixin from 'gooru-web/mixins/content/edit';
 import ModalMixin from 'gooru-web/mixins/modal';
 import {CONTENT_TYPES, K12_CATEGORY} from 'gooru-web/config/config';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
 export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
 
@@ -136,16 +137,21 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
     openTaxonomyModal: function(){
       var component = this;
       var standards = component.get('tempCollection.standards') || [];
+      var subject = component.get('selectedSubject');
+      var subjectStandards = TaxonomyTagData.filterBySubject(subject, standards);
+      var notInSubjectStandards = TaxonomyTagData.filterByNotInSubject(subject, standards);
       var model = {
-        selected: standards,
+        selected: subjectStandards,
         shortcuts: null,  // TODO: TBD
-        subject: component.get('selectedSubject'),
+        subject: subject,
         callback: {
           success: function(selectedTags) {
             var dataTags = selectedTags.map(function(taxonomyTag) {
               return taxonomyTag.get('data');
             });
-            component.set('tempCollection.standards', Ember.A(dataTags));
+            const standards = Ember.A(dataTags);
+            standards.pushObjects(notInSubjectStandards.toArray());
+            component.set('tempCollection.standards', standards);
           }
         }
       };

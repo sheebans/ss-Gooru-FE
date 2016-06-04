@@ -68,19 +68,19 @@
                     disabled={{standardDisabled}}>
               {{gru-icon name="open_in_new"}} {{t "common.select"}}
             </button>
-            <ul class="tags">
+            <div class="tags">
               {{#each editableTags as |taxonomyTag|}}
-                <li>{{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}</li>
+                {{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}
               {{/each}}
-            </ul>
+            </div>
           {{else}}
-            <ul class="tags">
+            <div class="tags">
               {{#each tags as |taxonomyTag|}}
-                <li>{{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}</li>
+                {{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}
               {{else}}
-                <li>{{t "common.not-specified"}}</li>
+                {{t "common.not-specified"}}
               {{/each}}
-            </ul>
+            </div>
           {{/if}}
         </div>
 
