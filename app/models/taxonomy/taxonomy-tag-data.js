@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { TAXONOMY_LEVELS } from 'gooru-web/config/config';
+import { getTaxonomyAncestors } from 'gooru-web/utils/utils';
 
 /**
  * Taxonomy Tag Data
@@ -8,7 +9,7 @@ import { TAXONOMY_LEVELS } from 'gooru-web/config/config';
  *
  * @typedef {Object} TaxonomyTagData
  */
-export default Ember.Object.extend({
+var TaxonomyTagData = Ember.Object.extend({
 
   /**
    * @property {String} id
@@ -73,6 +74,67 @@ export default Ember.Object.extend({
   /**
    * @property {String} taxonomyLevel
    */
-  taxonomyLevel: TAXONOMY_LEVELS.STANDARD
+  taxonomyLevel: TAXONOMY_LEVELS.STANDARD,
+
+  /**
+   * @property {String[]} Path useful to find taxonomy items @see TaxonomyItem#find
+   */
+  ancestorsPath: Ember.computed('taxonomyLevel', function() {
+    var level = this.get('taxonomyLevel');
+    var ancestors = getTaxonomyAncestors(this.get('id'));
+
+    if (level === TAXONOMY_LEVELS.MICRO || level === TAXONOMY_LEVELS.STANDARD) {
+      return [ancestors.courseId, ancestors.domainId];
+    } else {
+      // Assume it's at a domain level
+      return [ancestors.courseId];
+    }
+  })
 
 });
+
+TaxonomyTagData.reopenClass({
+
+  /**
+   * @function Create a taxonomy tag data instance from an existing taxonomy item
+   * @static
+   * @param {TaxonomyItem} taxonomyItem
+   * @param {TaxonomyRoot} subject - Taxonomy item subject
+   * @return {TaxonomyTagData}
+   */
+  createFromTaxonomyItem: function(taxonomyItem, subject) {
+    var level = taxonomyItem.get('level');
+    var tagData = TaxonomyTagData.create({
+      id: taxonomyItem.get('id'),
+      title: taxonomyItem.get('title'),
+      code: taxonomyItem.get('code'),
+      description: taxonomyItem.get('description'),
+      frameworkCode: subject.get('frameworkId')
+    });
+
+    switch(level) {
+      case 2:
+        tagData.setProperties({
+          parentTitle: taxonomyItem.get('parent.title'),
+          taxonomyLevel: TAXONOMY_LEVELS.DOMAIN
+        }); break;
+      case 3:
+      case 4:
+      case 5:
+        tagData.setProperties({
+          parentTitle: subject.get('subjectTitle'),
+          taxonomyLevel: TAXONOMY_LEVELS.STANDARD
+        }); break;
+      case 6:
+        tagData.setProperties({
+          parentTitle: taxonomyItem.get('parent.title'),
+          taxonomyLevel: TAXONOMY_LEVELS.MICRO
+        }); break;
+    }
+
+    return tagData;
+  }
+
+});
+
+export default TaxonomyTagData;

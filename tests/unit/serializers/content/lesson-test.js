@@ -87,3 +87,12 @@ test('normalizeLesson', function (assert) {
   assert.equal(child.get("thumbnailUrl"), '/assets/gooru/assessment-default.png', 'Wrong thumbnailUrl');
 
 });
+test('serializeReorderLesson', function(assert) {
+  const serializer = this.subject();
+  const ids = ["a", "b", "c"];
+  const data = serializer.serializeReorderLesson(ids);
+  assert.ok(data.order, 'Missing order');
+  assert.equal(data.order.length, 3, 'Wrong order total');
+  assert.equal(data.order[0].id, "a", 'Wrong id');
+  assert.equal(data.order[0].sequence_id, 1, 'Wrong sequence id');
+});

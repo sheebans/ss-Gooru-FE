@@ -182,6 +182,31 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Reorder lesson collections
+   *
+   * @param courseId the id of the course
+   * @param unitId the id of the unit to be updated
+   * @param lessonId the id of the lesson to be updated
+   * @param data
+   * @returns {Promise}
+   */
+  reorderLesson: function(courseId, unitId, lessonId, data) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${courseId}/units/${unitId}/lessons/${lessonId}/order`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify(data)
+    };
+
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function () {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')

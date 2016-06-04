@@ -28,7 +28,7 @@ test('serializeUpdateResource', function(assert) {
   assert.equal(serializedResource.title, 'resource-title', 'Wrong resource title');
   assert.equal(serializedResource.description, 'A description', 'Wrong resource url');
   assert.equal(serializedResource['content_subformat'], 'video_resource', 'Wrong resource content_subformat');
-  assert.deepEqual(serializedResource['taxonomy'], {}, 'Wrong resource taxonomy');
+  assert.equal(serializedResource['taxonomy'], null, 'Wrong resource taxonomy');
 });
 
 test('normalizeReadResource', function(assert) {

@@ -1,5 +1,10 @@
 <div class="panel panel-default view collapsed">
   <div class="panel-heading">
+    {{#if isSorting}}
+        <span class="drag-icon">
+          {{gru-icon name="drag_handle"}}
+        </span>
+    {{/if}}
     <h3>{{plus-one index}}</h3>
     {{#if model.isExternalAssessment}}
       {{#link-to model.url target="_blank" class="title"}}

@@ -1,9 +1,10 @@
+{{#if showCategories}}
 <div class="category">
   <span class="label required">{{t "common.category"}}</span>
   {{#if isEditing}}
-    <div class="btn-group">
+    <div class="btn-group categories">
       {{#each categories as |category|}}
-        {{#if (eq category.value editCategory)}}
+        {{#if (eq category.value selectedCategory)}}
           <button type="button" class="btn btn-sm btn-primary" {{action 'setCategory' category.value}}>
             {{t category.label}}
           </button>
@@ -15,112 +16,48 @@
       {{/each}}
     </div>
   {{else}}
-    <div>
+    <div class="categories">
       {{#each categories as |category|}}
-        {{#if (eq category.value originalCategory)}}
-          <div class="btn-empty btn btn-sm">{{t category.label}}</div>
+        {{#if (eq category.value selectedCategory)}}
+          <div class="btn-empty btn btn-sm category">{{t category.label}}</div>
         {{/if}}
       {{/each}}
     </div>
   {{/if}}
 </div>
-
-<div class="subject">
+{{/if}}
+<div class="subject clearfix">
   <label>
-    <span><span class="required">{{t 'taxonomy.gru-taxonomy-selector.primary-subject-and-course'}}</span>{{#if (and enableSecondarySubject (and isEditing (not hasSecondary)))}} <a {{action 'toggleSecondary'}}>{{t 'taxonomy.gru-taxonomy-selector.add-secondary'}}</a>{{/if}}</span>
+    <span>{{t subjectLabelKey}}</span>
   </label>
   {{#if isEditing}}
-    <div class="btn-group clearfix">
-      <button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{#if editEntity.mainSubject}}
-          {{editEntity.mainSubject.subjectTitle}}
-        {{else}}
-          {{t 'taxonomy.gru-taxonomy-selector.choose-subject'}}
-        {{/if}}
-      </button>
-      <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="caret"></span>
-        <span class="sr-only">{{t "common.toggle-dropdown"}}</span>
-      </button>
-      <ul class="dropdown-menu">
-        {{#each subjectList as |subject|}}
-          {{#if subject.frameworks}}
-            <li class="has-children">
-              <a class="trigger">{{subject.title}} {{gru-icon name="keyboard_arrow_right"}}</a>
-              <ul class="dropdown-menu sub-menu">
-                {{#each subject.frameworks as |framework|}}
-                  <li><a {{action 'setSubject' framework true}}>{{framework.title}}</a></li>
-                {{/each}}
-              </ul>
-            </li>
-          {{else}}
-            <li>
-              <a {{action 'setSubject' subject true}}>{{subject.title}}</a>
-            </li>
-          {{/if}}
-        {{/each}}
-      </ul>
-    </div>
-    {{#if (and editEntity.mainSubject editEntity.mainSubject.courses)}}
-      <div class="btn-group clearfix">
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{t 'common.add'}} {{editEntity.mainSubject.subjectTitle}} {{t 'common.course'}}
-        </button>
-        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="caret"></span>
-          <span class="sr-only">{{t "common.toggle-dropdown"}}</span>
-        </button>
-        <ul class="dropdown-menu courses">
-          {{#each editEntity.mainSubject.courses as |subjectCourse|}}
-            <li>
-              <label class="checkbox-inline">
-                <input type="checkbox" checked={{contains subjectCourse.id editObject.taxonomy}} {{action 'selectSubjectCourse' subjectCourse.id on='change'}}> {{subjectCourse.title}}
-              </label>
-            </li>
-          {{/each}}
-        </ul>
-      </div>
+    {{#if subjects.length}}
+      {{taxonomy.gru-subject-picker
+        subjects=subjects
+        selectedSubject=selectedSubject
+        onSubjectSelected='setSubject'
+      }}
     {{/if}}
-    {{#if (and enableSecondarySubject hasSecondary)}}
-      <div class="secondary-subject">
-        <button class="btn btn-link btn-sm remove" {{action "toggleSecondary"}}>{{gru-icon name="close"}}</button>
-        <div class="btn-group clearfix">
-          <button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{#if secondarySubject}}
-              {{secondarySubject.subjectTitle}}
-            {{else}}
-              {{t 'taxonomy.gru-taxonomy-selector.choose-subject'}}
-            {{/if}}
-          </button>
-          <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="caret"></span>
-            <span class="sr-only">{{t "common.toggle-dropdown"}}</span>
-          </button>
-          <ul class="dropdown-menu">
-            {{#each subjectList as |subject|}}
-              {{#if subject.frameworks}}
-                <li class="has-children">
-                  <a class="trigger">{{subject.title}} {{gru-icon name="keyboard_arrow_right"}}</a>
-                  <ul class="dropdown-menu sub-menu">
-                    {{#each subject.frameworks as |framework|}}
-                      <li><a {{action 'setSubject' framework}}>{{framework.title}}</a></li>
-                    {{/each}}
-                  </ul>
-                </li>
-              {{else}}
-                <li>
-                  <a {{action 'setSubject' subject}}>{{subject.title}}</a>
-                </li>
-              {{/if}}
-            {{/each}}
-          </ul>
-        </div>
-      </div>
+    {{#if (and showCourses selectedSubject subjectCourses)}}
+      {{taxonomy.gru-subject-course-picker
+        selectedSubject=selectedSubject
+        courses=subjectCourses
+        selectedTaxonomy=selectedTaxonomy
+        onTaxonomySelected='selectTaxonomy'
+      }}
+    <div class="tags">
+      {{#each editableTags as |tag|}}
+        {{taxonomy.gru-taxonomy-tag model=tag onRemove=(action 'removeTag')}}
+      {{/each}}
+    </div>
     {{/if}}
   {{else}}
-    <div class="subjects">
-      <button type="button" class="btn-empty btn btn-sm">Grade 3 Math</button>
-      <button type="button" class="btn-empty btn btn-sm">Grade 4 Math</button>
+    {{#if showCourses}}
+    <div class="tags">
+      {{#each tags as |tag|}}
+        {{taxonomy.gru-taxonomy-tag model=tag}}
+      {{/each}}
     </div>
+    {{/if}}
   {{/if}}
 </div>

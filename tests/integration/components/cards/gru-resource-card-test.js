@@ -71,12 +71,12 @@ test('Question Card Layout', function(assert) {
   T.exists(assert, $resourceCard.find(".panel-body .publisher .publisher-name div"), "Missing Publisher Name");
   T.exists(assert, $resourceCard.find(".panel-body .description p"), "Missing Description");
   T.exists(assert, $resourceCard.find(".panel-footer button.copy-btn"), "Copy To Button Missing");
-  T.notExists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Add To Button should not be visible");
+  T.exists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Add To Button should be visible");
 
 });
 
 test('Resource card trying buttons', function(assert) {
-  assert.expect(3);
+  assert.expect(4);
 
   var resource = ResourceModel.create({
     id: 1,
@@ -99,12 +99,22 @@ test('Resource card trying buttons', function(assert) {
   this.on("editResource", function(resource){
     assert.equal(resource.get("id"), 1, "Wrong resource id");
   });
+  this.set('profileService', {
+    readCollections: function(userId) {
+      assert.equal(userId, 'user-id', "Wrong user id");
+      return Ember.RSVP.resolve([]);
+    }
+  });
+  this.set('session', {
+    userId: 'user-id'
+  });
 
-  this.render(hbs`{{cards/gru-resource-card resource=resource editEnabled=true onEditResource="editResource" addEnabled=false}}`);
+  this.render(hbs`{{cards/gru-resource-card resource=resource editEnabled=true onEditResource="editResource" addEnabled=false session=session profileService=profileService}}`);
   var $component = this.$(); //component dom element
   const $resourceCard = $component.find(".gru-resource-card");
   T.exists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Add to Button should be visible");
   T.exists(assert, $resourceCard.find(".panel-footer button.edit-btn"), "Edit Button should be visible");
   $resourceCard.find(".panel-footer button.edit-btn").click();
+  $resourceCard.find(".panel-footer button.add-to-btn").click();
 
 });

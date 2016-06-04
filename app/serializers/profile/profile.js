@@ -6,6 +6,7 @@ import AssessmentModel from 'gooru-web/models/content/assessment';
 import QuestionModel from 'gooru-web/models/content/question';
 import CollectionModel from 'gooru-web/models/content/collection';
 import { NETWORK_TYPE, DEFAULT_IMAGES } from 'gooru-web/config/config';
+import { cleanFilename } from 'gooru-web/utils/utils';
 
 /**
  * Serializer to support the Profile CRUD operations for API 3.0
@@ -52,7 +53,8 @@ export default Ember.Object.extend({
       'about_me': profile.get('aboutMe'),
       'country_id': profile.get('countryId'),
       'state_id': profile.get('stateId'),
-      'school_district_id': profile.get('schoolDistrictId')
+      'school_district_id': profile.get('schoolDistrictId'),
+      'thumbnail_path': cleanFilename(profile.get('avatarUrl'))
     };
 
     if(profile.get('state') && profile.get('state')!==''){
@@ -86,9 +88,9 @@ export default Ember.Object.extend({
    */
   normalizeReadProfile: function(payload) {
     const serializer = this;
-    const basePath = serializer.get('session.cdnUrls.content');
+    const basePath = serializer.get('session.cdnUrls.user');
     const thumbnailUrl = payload['thumbnail_path'] ?
-    basePath + payload['thumbnail_path'] : DEFAULT_IMAGES.USER_PROFILE;
+      basePath + payload['thumbnail_path'] : DEFAULT_IMAGES.USER_PROFILE;
 
     return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
       id: payload.id,
@@ -271,7 +273,7 @@ export default Ember.Object.extend({
     const standards = serializer.normalizeStandards(assessmentData.taxonomy || []);
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = assessmentData.thumbnail ?
-    basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
+      basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
 
     return AssessmentModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: assessmentData.id,
@@ -344,7 +346,7 @@ export default Ember.Object.extend({
 
   normalizeNetworkDetail: function(networkData, type, following) {
     const serializer = this;
-    const basePath = serializer.get('session.cdnUrls.content');
+    const basePath = serializer.get('session.cdnUrls.user');
     const thumbnailUrl = networkData['thumbnail_path'] ?
     basePath + networkData['thumbnail_path'] : DEFAULT_IMAGES.USER_PROFILE;
 
@@ -363,7 +365,7 @@ export default Ember.Object.extend({
 
   normalizeReadMultipleProfiles: function(payload) {
     const serializer = this;
-    const basePath = serializer.get('session.cdnUrls.content');
+    const basePath = serializer.get('session.cdnUrls.user');
     let profiles = Ember.A([]);
     if (payload.users) {
       profiles = payload.users.map(function(userPayload) {

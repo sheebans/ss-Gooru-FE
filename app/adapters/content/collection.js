@@ -75,6 +75,29 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Reorder collection resources
+   *
+   * @param collectionId the id of the Collection to be updated
+   * @param data Collection data to be sent in the request body
+   * @returns {Promise}
+   */
+  reorderCollection: function(collectionId, data) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${collectionId}/order`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify(data)
+    };
+
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
    * Deletes a collection by id
    *
    * @param collectionId collection id to be sent

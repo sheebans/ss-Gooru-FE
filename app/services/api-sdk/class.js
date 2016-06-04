@@ -68,6 +68,20 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Delete class
+   *
+   * @param classId The class id to delete
+   * @returns {Promise}
+   */
+  deleteClass: function (classId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classAdapter').deleteClass(classId)
+        .then(resolve, reject);
+    });
+  },
+
+  /**
    * Join class
    *
    * @param {string} code class code

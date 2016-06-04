@@ -90,7 +90,7 @@
           display: inline-block;
           margin-left: 10px;
           line-height: 1.4;
-          max-width: 28%;
+          max-width: 35%;
 
           @media (min-width: $screen-lg) {
             max-width: 40%;
@@ -164,6 +164,12 @@
           }
         }
       }
+      .drag-icon{
+        i{
+          vertical-align: super;
+        }
+        color:$light-500;
+      }
     }
 
     > div {
@@ -193,7 +199,7 @@
   }
 
   .dropdown {
-
+    display: inline-block;
     .dropdown-menu {
       li {
         > a {
@@ -206,5 +212,24 @@
         }
       }
     }
+  }
+  .drag-options{
+    display: inline-block;
+      button{
+        font-size: 12px;
+        padding-top: 8px;
+        padding-bottom:8px;
+      }
+  }
+  .sortable.sorting {
+    list-style: none;
+    padding: 0;
+    li{
+      cursor: move;
+    }
+  }
+
+  .ui-sortable-helper {
+    background-color: $gray-lighter;
   }
 }

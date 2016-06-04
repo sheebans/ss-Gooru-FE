@@ -31,8 +31,10 @@ export const DEFAULT_IMAGES = {
   QUESTION_PLACEHOLDER_IMAGE: '/assets/gooru/question-placeholder-image.png'
 };
 
+export const K12_CATEGORY = {value: 'k_12', apiCode: 'K12', label: 'common.categoryOptions.k12'};
+
 export const TAXONOMY_CATEGORIES = [
-  {value: 'k_12', apiCode: 'K12', label: 'common.categoryOptions.k12'},
+  K12_CATEGORY,
   {value: 'higher_education', apiCode: 'HE', label: 'common.categoryOptions.higher-ed'},
   {value: 'professional_learning', apiCode: 'PL', label: 'common.categoryOptions.professional-dev'}
 ];
@@ -124,4 +126,13 @@ export const TAXONOMY_LEVELS = {
   DOMAIN:   'domain',
   STANDARD: 'standard',
   MICRO:    'micro-standard'
+};
+
+export const CODE_TYPES = {
+  STANDARD_CATEGORY:  'standard_level_0',
+  STANDARD:           'standard_level_1',
+  SUB_STANDARD:       'standard_level_2',
+  LEARNING_TARGET_L0: 'learning_target_level_0',
+  LEARNING_TARGET_L1: 'learning_target_level_1',
+  LEARNING_TARGET_L2: 'learning_target_level_2'
 };

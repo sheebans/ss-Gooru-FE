@@ -13,7 +13,7 @@
                   <span class="bar">| </span><p>{{t "cards.gru-course-card.question" count=collection.questionCount}}</p>
               {{/if}}
             </span>
-
+          {{#unless isSmall}}
             <div class="course">
               {{#if collection.course }}
                 {{gru-icon name="chrome_reader_mode"}}
@@ -24,9 +24,10 @@
                 </p>
               {{/if}}
             </div>
-
+          {{/unless}}
         </div>
     </div>
+  {{#unless isSmall}}
     <div class="panel-body">
         <div class="collection-details">
             <div class="standards">
@@ -71,4 +72,5 @@
             </div>
         </div>
     </div>
+  {{/unless}}
 </div>

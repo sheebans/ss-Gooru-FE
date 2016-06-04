@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { COUNTRY_CODES } from "gooru-web/config/config";
+import { DEFAULT_IMAGES } from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
 
@@ -17,6 +18,11 @@ export default Ember.Component.extend({
    * @property {Ember.Service} Session service
    */
   sessionService: Ember.inject.service("api-sdk/session"),
+
+  /**
+   * @property {Ember.Service} Media service
+   */
+  mediaService: Ember.inject.service("api-sdk/media"),
 
   /**
    * @property {Service} Session service
@@ -77,26 +83,36 @@ export default Ember.Component.extend({
         editedProfile.validate().then(function ({ validations }) {
 
           if (validations.get('isValid')) {
-
             let checkUsername = Ember.RSVP.resolve();
-            if(editedProfile.get('username') !== profile.get('username')){
+            if(editedProfile.get('username') !== profile.get('username')) {
               checkUsername= component.get('profileService').checkUsernameAvailability(editedProfile.get('username'))
-            }else{
+            } else {
               editedProfile.set('username', null);
             }
-            checkUsername.then(function(){
+            let imageIdPromise = new Ember.RSVP.resolve(editedProfile.get('avatarUrl'));
+            if(editedProfile.get('avatarUrl') && editedProfile.get('avatarUrl') !== profile.get('avatarUrl')) {
+              imageIdPromise =  component.get('mediaService').uploadUserFile(editedProfile.get('avatarUrl'));
+            }
+            checkUsername.then(() => imageIdPromise, function() {
+              component.set('existingUsername', true);
+            }).then(function(imageId) {
+              editedProfile.set('avatarUrl', imageId);
               if(otherSchoolDistrict && otherSchoolDistrict!== ''){
                 editedProfile.set('schoolDistrictId', '');
                 editedProfile.set('schoolDistrict', otherSchoolDistrict);
               }
-              component.saveProfile(editedProfile).then(function(){
-                component.get('profile').merge(editedProfile, ['username','firstName', 'lastName', 'aboutMe', 'role', 'countryId', 'stateId', 'state', 'schoolDistrictId', 'schoolDistrict', 'country','studentId']);
-
-                component.get('router').transitionTo('profile.about', editedProfile.get('id'));
-              });
-            },function(error){
-              component.set('existingUsername',true);
-            })
+              return component.saveProfile(editedProfile);
+            }).then(function() {
+              if(!editedProfile.get('avatarUrl')) {
+                editedProfile.set('avatarUrl', DEFAULT_IMAGES.USER_PROFILE);
+              }
+              component.get('profile').merge(editedProfile, ['username','firstName', 'lastName', 'aboutMe', 'role', 'countryId', 'stateId', 'state', 'schoolDistrictId', 'schoolDistrict', 'country', 'studentId', 'avatarUrl']);
+              component.get('router').transitionTo('profile.about', editedProfile.get('id'));
+            }, function(error) {
+              var message = component.get('i18n').t('common.errors.collection-not-updated').string;
+              component.get('notifications').error(message);
+              Ember.Logger.error(error);
+            });
           }
         });
       }
@@ -152,6 +168,9 @@ export default Ember.Component.extend({
   init: function() {
     this._super(...arguments);
     this.set('tempProfile', this.get('profile').copy());
+    if(this.get('tempProfile.avatarUrl') === DEFAULT_IMAGES.USER_PROFILE) {
+      this.get('tempProfile').set('avatarUrl', null);
+    }
   },
   /**
    * DidInsertElement ember event

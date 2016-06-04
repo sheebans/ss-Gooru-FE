@@ -2,7 +2,7 @@ import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
 import Answer from 'gooru-web/models/content/answer';
 import {QUESTION_CONFIG} from 'gooru-web/config/question';
-import {CONTENT_TYPES} from 'gooru-web/config/config';
+import {CONTENT_TYPES, K12_CATEGORY} from 'gooru-web/config/config';
 import ModalMixin from 'gooru-web/mixins/modal';
 
 
@@ -20,6 +20,11 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
    * @requires service:api-sdk/question
    */
   questionService: Ember.inject.service("api-sdk/question"),
+
+  /**
+   * @requires service:api-sdk/profile
+   */
+  profileService: Ember.inject.service("api-sdk/profile"),
 
   /**
    * @requires service:api-sdk/media
@@ -118,7 +123,30 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
       this.actions.showModal.call(this,
         'content.modals.gru-delete-content',
         model, null, null, null, false);
+    },
+
+    addToCollection: function() {
+      const component = this;
+      if (component.get('session.isAnonymous')) {
+        component.send('showModal', 'content.modals.gru-login-prompt');
+      } else {
+        component.get('profileService').readAssessments(
+          component.get('session.userId')
+        ).then(function(assessments) {
+          return component.get('profileService').readCollections(component.get('session.userId'))
+            .then(function(collections) {
+              return { content: component.get('question'), collections, assessments };
+            });
+        }).then(
+          model => this.send('showModal', 'content.modals.gru-add-to-collection', model, null, "add-to")
+        );
+      }
+    },
+
+    selectSubject: function(subject){
+      this.set("selectedSubject", subject);
     }
+
   },
 
   // -------------------------------------------------------------------------
@@ -184,6 +212,17 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
    * @property {Boolean} Indicates if a Hot spot answer has images
    */
   hasNoImages: false,
+
+  /**
+   *
+   * @property {TaxonomyRoot}
+   */
+  selectedSubject: null,
+
+  /**
+   * @property {string}
+   */
+  k12Category: K12_CATEGORY.value,
 
   //Methods
 
