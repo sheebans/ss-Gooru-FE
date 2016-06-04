@@ -36,22 +36,22 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-    loadTaxonomyData(path, ParentBrowseItem) {
+    loadTaxonomyData(path, parentBrowseItem) {
       var subject = this.get('model.subject');
       var courseId = path[0];
 
       return this.get('taxonomyService')
                  .getCourseDomains(subject, courseId)
                  .then(function(domains) {
-                   if (ParentBrowseItem && !ParentBrowseItem.get('children').length) {
+                   if (parentBrowseItem && !parentBrowseItem.get('children').length) {
                      // Add children to the parent browse item
                      let browseItems = [];
                      domains.forEach(function(taxonomyItem) {
                        var browseItem = BrowseItem.createFromTaxonomyItem(taxonomyItem);
-                       browseItem.set('parent', ParentBrowseItem);
+                       browseItem.set('parent', parentBrowseItem);
                        browseItems.push(browseItem);
                      });
-                     ParentBrowseItem.set('children', domains);
+                     parentBrowseItem.set('children', browseItems);
                    }
                  });
     },
