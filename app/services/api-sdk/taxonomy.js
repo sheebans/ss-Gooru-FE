@@ -22,13 +22,13 @@ export default Ember.Service.extend({
   /**
    * Fetches the Taxonomy Subjects
    *
-   * @param type the subjects type
+   * @param category - The classification type
    * @returns {Promise}
    */
-  fetchSubjects: function(type) {
+  fetchSubjects: function(category) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('taxonomyAdapter').fetchSubjects(type)
+      service.get('taxonomyAdapter').fetchSubjects(category)
         .then(function(response) {
           resolve(service.get('taxonomySerializer').normalizeFetchSubjects(response));
         }, function(error) {
@@ -41,13 +41,13 @@ export default Ember.Service.extend({
    * Fetches the Taxonomy Courses
    *
    * @param frameworkId - the framework ID
-   * @param taxonomySubjectId - the taxonomy subject ID
+   * @param subjectId - the taxonomy subject ID
    * @returns {Promise}
    */
-  fetchCourses: function(frameworkId, taxonomySubjectId) {
+  fetchCourses: function(frameworkId, subjectId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('taxonomyAdapter').fetchCourses(frameworkId, taxonomySubjectId)
+      service.get('taxonomyAdapter').fetchCourses(frameworkId, subjectId)
         .then(function(response) {
           resolve(service.get('taxonomySerializer').normalizeFetchCourses(response));
         }, function(error) {
@@ -60,14 +60,14 @@ export default Ember.Service.extend({
    * Fetches the Taxonomy Domains
    *
    * @param frameworkId - the framework ID
-   * @param taxonomySubjectId - the taxonomy subject ID
-   * @param taxonomyCourseId - the taxonomy course ID
+   * @param subjectId - the taxonomy subject ID
+   * @param courseId - the taxonomy course ID
    * @returns {Promise}
    */
-  fetchDomains: function(frameworkId, taxonomySubjectId, taxonomyCourseId) {
+  fetchDomains: function(frameworkId, subjectId, courseId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('taxonomyAdapter').fetchDomains(frameworkId, taxonomySubjectId, taxonomyCourseId)
+      service.get('taxonomyAdapter').fetchDomains(frameworkId, subjectId, courseId)
         .then(function(response) {
           resolve(service.get('taxonomySerializer').normalizeFetchDomains(response));
         }, function(error) {
@@ -80,15 +80,15 @@ export default Ember.Service.extend({
    * Fetches the Taxonomy Codes
    *
    * @param frameworkId - the framework ID
-   * @param taxonomySubjectId - the taxonomy subject ID
-   * @param taxonomyCourseId - the taxonomy course ID
-   * @param taxonomyDomainId - the taxonomy domain ID
+   * @param subjectId - the taxonomy subject ID
+   * @param courseId - the taxonomy course ID
+   * @param domainId - the taxonomy domain ID
    * @returns {Promise}
    */
-  fetchCodes: function(frameworkId, taxonomySubjectId, taxonomyCourseId, taxonomyDomainId) {
+  fetchCodes: function(frameworkId, subjectId, courseId, domainId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('taxonomyAdapter').fetchCodes(frameworkId, taxonomySubjectId, taxonomyCourseId, taxonomyDomainId)
+      service.get('taxonomyAdapter').fetchCodes(frameworkId, subjectId, courseId, domainId)
         .then(function(response) {
           resolve(service.get('taxonomySerializer').normalizeFetchCodes(response));
         }, function(error) {

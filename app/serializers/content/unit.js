@@ -2,6 +2,7 @@ import Ember from 'ember';
 import Lesson from 'gooru-web/models/content/lesson';
 import Unit from 'gooru-web/models/content/unit';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
+import { TAXONOMY_LEVELS } from 'gooru-web/config/config';
 
 /**
  * Serializer to support the Unit CRUD operations
@@ -75,7 +76,7 @@ export default Ember.Object.extend({
       lessonCount: payload['lesson_summary'] && Ember.isArray(payload['lesson_summary']) ? payload['lesson_summary'].length : (payload['lesson_count'] ? payload['lesson_count'] : 0),
       sequence: payload.sequence_id,
       title: payload.title,
-      taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomy(payload.taxonomy)
+      taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomy(payload.taxonomy, TAXONOMY_LEVELS.DOMAIN)
     });
   },
 

@@ -32,7 +32,7 @@ const taxonomyServiceStub = Ember.Service.extend({
     return new Ember.RSVP.resolve([t1, t2]);
   },
 
-  retrieveSubjectCourses: function(subject){
+  getCourses: function(subject){
     const courses = [
       TaxonomyItem.create({
         id: 'course-1',

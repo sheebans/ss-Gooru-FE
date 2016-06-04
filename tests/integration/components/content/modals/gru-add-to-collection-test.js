@@ -4,7 +4,7 @@ import CollectionModel from 'gooru-web/models/content/collection';
 import ResourceModel from 'gooru-web/models/content/resource';
 import Ember from 'ember';
 
-moduleForComponent('content/modals/gru-add-to', 'Integration | Component | content/modals/gru add to', {
+moduleForComponent('content/modals/gru-add-to-collection', 'Integration | Component | content/modals/gru add to collection', {
   integration: true
 });
 
@@ -28,7 +28,7 @@ test('Layout', function(assert) {
     })
   });
 
-  this.render(hbs`{{content/modals/gru-add-to model=model}}`);
+  this.render(hbs`{{content/modals/gru-add-to-collection model=model}}`);
 
   const $component = this.$('.content.modals.gru-add-to');
   assert.ok($component.length, 'Component classes');
