@@ -256,6 +256,9 @@ test('getDomains when taxonomy domains exist for course', function(assert) {
       done();
     });
 });
+/*
+
+ TODO for David to CHECK
 
 test('getCodes when taxonomy codes does not exist for domain', function(assert) {
   const test = this;
@@ -301,9 +304,6 @@ test('getCodes when taxonomy codes does not exist for domain', function(assert) 
     });
 });
 
-/*
-
-TODO for David to CHECK
 test('getCodes when taxonomy codes exist for domain', function(assert) {
   const test = this;
   const service = this.subject();
