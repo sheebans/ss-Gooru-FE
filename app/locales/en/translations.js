@@ -542,7 +542,6 @@ export default {
   "content.questions.edit": {
     "add-to": "Add to",
     "best-practices": "<p>A question is a resource that requires an answer from the student, and we offer a variety of question types to support the kinds of questions your students will see on SBAC, PARCC and other assessments.</p><p>Consider alternating the kinds of questions you use to offer students exposure to these question types and to provide multiple formats for demonstrating knowledge.</p><p>Tag your questions to standards, micro-standards, and Webb's Depth of Knowledge. You can see how your students are interacting with questions through the teacher dashboard.</p>",
-    "copy-to": "Copy to",
     "information":{
       "question-title":"Question Title",
       "question-type": "Question Type"
