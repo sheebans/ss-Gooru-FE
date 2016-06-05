@@ -32,14 +32,7 @@
     {{#if selectedTextKey}}
       <span>{{t selectedTextKey count=selectedTags.length}}</span>
     {{/if}}
-
-    <ul>
-      {{#each selectedTags as |tag|}}
-        <li>
-          {{taxonomy.gru-taxonomy-tag model=tag onRemove=(action 'uncheckItem' tag) }}
-        </li>
-      {{/each}}
-    </ul>
+    {{taxonomy.gru-taxonomy-tag-list tags=selectedTags onRemove=(action 'uncheckItem')}}
   </div>
 
   <div class="actions">

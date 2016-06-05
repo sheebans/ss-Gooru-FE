@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 export default Ember.Component.extend(ModalMixin, {
   // -------------------------------------------------------------------------
@@ -78,6 +79,14 @@ export default Ember.Component.extend(ModalMixin, {
   /**
    * @property {Profile[]} createdUsers
    */
-  createdUsers: null
+  createdUsers: null,
+
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('course.taxonomy.[]', function() {
+    return TaxonomyTag.getTaxonomyTags(this.get("course.taxonomy"), false);
+  })
+
 
 });

@@ -1,0 +1,6 @@
+{{#each visibleTags as |taxonomyTag|}}
+  {{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}
+{{/each}}
+{{#if nonVisibleTags}}
+  <div class="non-visible-tags">{{nonVisibleTags}}+</div>
+{{/if}}
