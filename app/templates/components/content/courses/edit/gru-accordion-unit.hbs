@@ -37,13 +37,7 @@
           <div>
             <button type="button" class="btn btn-primary btn-sm add-prefix" {{action 'openDomainPicker'}}>{{t "common.add"}}</button>
           </div>
-          <ul>
-            {{#each selectedTags as |taxonomyTag|}}
-              <li>
-                {{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}
-              </li>
-            {{/each}}
-          </ul>
+          {{taxonomy.gru-taxonomy-tag-list tags=selectedTags onRemove=(action 'removeTag')}}
         </div>
       </div>
     </div>

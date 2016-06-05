@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { RESOURCE_COMPONENT_MAP } from 'gooru-web/config/config';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -70,6 +71,14 @@ export default Ember.Component.extend({
   resourceObserver: Ember.observer('resource.id', function() {
     this.calculateResourceContentHeight();
   }),
+
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('resource.standards.[]', function() {
+    return TaxonomyTag.getTaxonomyTags(this.get("resource.standards"), false);
+  }),
+
 
   // -------------------------------------------------------------------------
   // Methods
