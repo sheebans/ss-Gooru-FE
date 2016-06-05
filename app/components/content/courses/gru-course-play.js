@@ -86,7 +86,9 @@ export default Ember.Component.extend(ModalMixin, {
    */
   tags: Ember.computed('course.taxonomy.[]', function() {
     return TaxonomyTag.getTaxonomyTags(this.get("course.taxonomy"), false);
-  })
+  }),
+
+  isOwner: null,
 
 
 });
