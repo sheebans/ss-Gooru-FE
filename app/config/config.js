@@ -136,3 +136,5 @@ export const CODE_TYPES = {
   LEARNING_TARGET_L1: 'learning_target_level_1',
   LEARNING_TARGET_L2: 'learning_target_level_2'
 };
+
+export const GOORU_DEFAULT_STANDARD = "GDF";

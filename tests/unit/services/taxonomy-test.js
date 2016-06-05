@@ -469,84 +469,84 @@ test('Sort codes', function(assert) {
   const result = [
     [{
       "id": "L0A",
-      "code_type": "standard_level_0"
+      "codeType": "standard_level_0"
     },{
       "id": "L0B",
-      "code_type": "standard_level_0"
+      "codeType": "standard_level_0"
     }],
     [{
       "id": "L1A",
-      "code_type": "standard_level_1"
+      "codeType": "standard_level_1"
     },{
       "id": "L1B",
-      "code_type": "standard_level_1"
+      "codeType": "standard_level_1"
     }],
     [{
       "id": "L2A",
-      "code_type": "standard_level_2"
+      "codeType": "standard_level_2"
     },{
       "id": "L2B",
-      "code_type": "standard_level_2"
+      "codeType": "standard_level_2"
     }],
     [{
       "id": "LT0A",
-      "code_type": "learning_target_level_0"
+      "codeType": "learning_target_level_0"
     },{
       "id": "LT0B",
-      "code_type": "learning_target_level_0"
+      "codeType": "learning_target_level_0"
     }],
     [{
       "id": "LT1A",
-      "code_type": "learning_target_level_1"
+      "codeType": "learning_target_level_1"
     },{
       "id": "LT1B",
-      "code_type": "learning_target_level_1"
+      "codeType": "learning_target_level_1"
     }],
     [{
       "id": "LT2A",
-      "code_type": "learning_target_level_2"
+      "codeType": "learning_target_level_2"
     },{
       "id": "LT2B",
-      "code_type": "learning_target_level_2"
+      "codeType": "learning_target_level_2"
     }],
   ];
   const codes = [
     {
       "id": "L0A",
-      "code_type": "standard_level_0"
+      "codeType": "standard_level_0"
     }, {
       "id": "L1A",
-      "code_type": "standard_level_1"
+      "codeType": "standard_level_1"
     }, {
       "id": "L2A",
-      "code_type": "standard_level_2"
+      "codeType": "standard_level_2"
     }, {
       "id": "LT0A",
-      "code_type": "learning_target_level_0"
+      "codeType": "learning_target_level_0"
     }, {
       "id": "LT1A",
-      "code_type": "learning_target_level_1"
+      "codeType": "learning_target_level_1"
     }, {
       "id": "LT2A",
-      "code_type": "learning_target_level_2"
+      "codeType": "learning_target_level_2"
     }, {
       "id": "L0B",
-      "code_type": "standard_level_0"
+      "codeType": "standard_level_0"
     }, {
       "id": "L1B",
-      "code_type": "standard_level_1"
+      "codeType": "standard_level_1"
     }, {
       "id": "L2B",
-      "code_type": "standard_level_2"
+      "codeType": "standard_level_2"
     }, {
       "id": "LT0B",
-      "code_type": "learning_target_level_0"
+      "codeType": "learning_target_level_0"
     }, {
       "id": "LT1B",
-      "code_type": "learning_target_level_1"
+      "codeType": "learning_target_level_1"
     }, {
       "id": "LT2B",
-      "code_type": "learning_target_level_2"
+      "codeType": "learning_target_level_2"
     }
   ];
 
@@ -561,12 +561,12 @@ test('Create standards hierarchy -all in L0', function(assert) {
     "id": "0A",
     "code": "C0A",
     "title": "Item 0A",
-    "code_type": "standard_level_0"
+    "codeType": "standard_level_0"
   }, {
     "id": "0B",
     "code": "code_0B",
     "title": "Item 0B",
-    "code_type": "standard_level_0"
+    "codeType": "standard_level_0"
   }];
 
   var standards = service.createStandardsHierarchy(codes);
@@ -584,24 +584,24 @@ test('Create standards hierarchy -L1 with parent', function(assert) {
     "id": "0A",
     "code": "C0A",
     "title": "Item 0A",
-    "code_type": "standard_level_0"
+    "codeType": "standard_level_0"
   }, {
     "id": "0B",
     "code": "C0B",
     "title": "Item 0B",
-    "code_type": "standard_level_0"
+    "codeType": "standard_level_0"
   }, {
     "id": "1A",
     "code": "C1A",
     "title": "Item 1A",
     "parentTaxonomyCodeId": "0A",
-    "code_type": "standard_level_1"
+    "codeType": "standard_level_1"
   }, {
     "id": "1B",
     "code": "C1B",
     "title": "Item 1B",
     "parentTaxonomyCodeId": "0A",
-    "code_type": "standard_level_1"
+    "codeType": "standard_level_1"
   }];
 
   const standards = service.createStandardsHierarchy(codes);
@@ -622,23 +622,23 @@ test('Create standards hierarchy -L1 with/without parent', function(assert) {
     "id": "0A",
     "code": "C0A",
     "title": "Item 0A",
-    "code_type": "standard_level_0"
+    "codeType": "standard_level_0"
   }, {
     "id": "0B",
     "code": "C0B",
     "title": "Item 0B",
-    "code_type": "standard_level_0"
+    "codeType": "standard_level_0"
   }, {
     "id": "1A",
     "code": "C1A",
     "title": "Item 1A",
     "parentTaxonomyCodeId": "0A",
-    "code_type": "standard_level_1"
+    "codeType": "standard_level_1"
   }, {
     "id": "1B",
     "code": "C1B",
     "title": "Item 1B",
-    "code_type": "standard_level_1"
+    "codeType": "standard_level_1"
   }];
 
   const standards = service.createStandardsHierarchy(codes);
@@ -658,19 +658,19 @@ test('Create standards hierarchy -one learning target', function(assert) {
 
   const codes = [{
     "id": "0A",
-    "code_type": "standard_level_0"
+    "codeType": "standard_level_0"
   }, {
     "id": "1A",
     "parentTaxonomyCodeId": "0A",
-    "code_type": "standard_level_1"
+    "codeType": "standard_level_1"
   }, {
     "id": "2A",
     "parentTaxonomyCodeId": "1A",
-    "code_type": "standard_level_2"
+    "codeType": "standard_level_2"
   }, {
     "id": "3A",
     "parentTaxonomyCodeId": "2A",
-    "code_type": 'learning_target_level_0'
+    "codeType": 'learning_target_level_0'
   }];
 
   const standards = service.createStandardsHierarchy(codes);
@@ -689,31 +689,31 @@ test('Create standards hierarchy -multi-level learning targets', function(assert
 
   const codes = [{
     "id": "0A",
-    "code_type": "standard_level_0"
+    "codeType": "standard_level_0"
   }, {
     "id": "1A",
     "parentTaxonomyCodeId": "0A",
-    "code_type": "standard_level_1"
+    "codeType": "standard_level_1"
   }, {
     "id": "2A",
     "parentTaxonomyCodeId": "1A",
-    "code_type": "standard_level_2"
+    "codeType": "standard_level_2"
   }, {
     "id": "3A",
     "parentTaxonomyCodeId": "2A",
-    "code_type": 'learning_target_level_0'
+    "codeType": 'learning_target_level_0'
   }, {
     "id": "4A",
     "parentTaxonomyCodeId": "3A",
-    "code_type": 'learning_target_level_1'
+    "codeType": 'learning_target_level_1'
   }, {
     "id": "4B",
     "parentTaxonomyCodeId": "3A",
-    "code_type": 'learning_target_level_1'
+    "codeType": 'learning_target_level_1'
   }, {
     "id": "5A",
     "parentTaxonomyCodeId": "4A",
-    "code_type": 'learning_target_level_2'
+    "codeType": 'learning_target_level_2'
   }];
 
   const standards = service.createStandardsHierarchy(codes);

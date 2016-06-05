@@ -133,6 +133,30 @@ TaxonomyTagData.reopenClass({
     }
 
     return tagData;
+  },
+
+  /**
+   * It returns only standards related to the subject
+   * @param {TaxonomyRoot} subject
+   * @param {TaxonomyTagData[]} standards
+   */
+  filterBySubject: function(subject, standards) {
+    const id = subject.get("id");
+    return standards.filter(function(standard){
+      return standard.get("id").indexOf(id) >= 0;
+    });
+  },
+
+  /**
+   * It returns only standards non related to the subject
+   * @param {TaxonomyRoot} subject
+   * @param {TaxonomyTagData[]} standards
+   */
+  filterByNotInSubject: function(subject, standards) {
+    const id = subject.get("id");
+    return standards.filter(function(standard){
+      return standard.get("id").indexOf(id) < 0;
+    });
   }
 
 });

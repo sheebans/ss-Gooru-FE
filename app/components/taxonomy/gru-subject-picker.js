@@ -48,6 +48,20 @@ export default Ember.Component.extend({
   subjects: null,
 
   /**
+   * @type {Array} List of subjects
+   */
+  subjectsWithStandards: Ember.computed("subjects", function(){
+    return this.get("subjects").filter(function(subject){
+      return subject.get("hasStandards");
+    })
+  }),
+
+  /**
+   * @property {boolean}
+   */
+  onlySubjectsWithStandards: false,
+
+  /**
    * the subject selected
    * @property {TaxonomyRoot}
    */

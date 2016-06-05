@@ -174,11 +174,13 @@ export default Ember.Component.extend({
         }
 
         // Load data for the browse item, then find its child and mark it as selected
-        this.get('onUpdatePath')(path, browseItem).then(function() {
-          browseItem = browseItem.findItem(tagData.get('id'));
-          Ember.Logger.assert(browseItem, 'Unable to find browse item to mark as selected');
-          browseItem.set('isSelected', true);
-        });
+        if (browseItem){ //TODO sometimes it is not found
+          this.get('onUpdatePath')(path, browseItem).then(function() {
+            browseItem = browseItem.findItem(tagData.get('id'));
+            Ember.Logger.assert(browseItem, 'Unable to find browse item to mark as selected');
+            browseItem.set('isSelected', true);
+          });
+        }
       }.bind(this));
     }
   },

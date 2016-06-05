@@ -7,7 +7,7 @@ import Ember from 'ember';
  *
  * @typedef {Object} TaxonomyTag
  */
-export default Ember.Object.extend({
+const TaxonomyTag = Ember.Object.extend({
 
   /**
    * @property {boolean} isActive - Is the state of the tag active or not?
@@ -31,3 +31,26 @@ export default Ember.Object.extend({
   data: null
 
 });
+
+TaxonomyTag.reopenClass({
+  /**
+   * Gets the taxonomy tags
+   * @param {TaxonomyTagData[]} taxonomy
+   * @param editable
+   * @returns {Array}
+   */
+  getTaxonomyTags: function (taxonomy = [], editable = false) {
+    return taxonomy.map(function(tagData) {
+      return TaxonomyTag.create({
+        isActive: false,
+        isReadonly: !editable,
+        isRemovable: editable,
+        data: tagData
+      });
+    });
+  }
+
+});
+
+
+export default TaxonomyTag;
