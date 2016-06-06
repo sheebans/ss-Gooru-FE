@@ -16,7 +16,7 @@
                   <div class="row">
                       <div class="col-xs-12 col-sm-6">
                           <h6><span class="required"><label for="username">{{t "sign-up.username"}}</label></span></h6>
-                        {{validation.gru-input id="username" model=tempProfile valuePath='username' maxLength=25}}
+                        {{validation.gru-input id="username" model=tempProfile valuePath='username' maxLength=20}}
                         {{#if existingUsername}}
                             <span class="validation error existing-user-error">{{t 'sign-up.error-username-taken'}}</span>
                         {{/if}}
@@ -115,7 +115,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-6">
                     <h6><span><label for="student-id">{{t "common.student-id"}}</label></span></h6>
-                  {{validation.gru-input id="studentId" model=tempProfile valuePath='studentId'}}
+                  {{validation.gru-input id="studentId" model=tempProfile valuePath='studentId' maxLength=25}}
                 </div>
             </div>
         </div>
