@@ -122,7 +122,6 @@
       margin: 0 -40px 0 0;
       overflow-y: scroll;
       padding: 0;
-      height: auto;
 
       >* {
         @include flex-shrink(0);
