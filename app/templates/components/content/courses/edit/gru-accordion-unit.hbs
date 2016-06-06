@@ -70,7 +70,11 @@
 
           <div class="item-actions">
             {{partial 'content/partials/item-actions'}}
-            <button title="{{t 'common.edit'}}" class="btn edit-item" data-toggle="tooltip" data-placement="auto">{{gru-icon name="edit"}}</button>
+            <button {{action 'edit' model}}
+                    title="{{t 'common.edit'}}"
+                    class="btn edit-item"
+                    data-toggle="tooltip"
+                    data-placement="auto">{{gru-icon name="edit"}}</button>
 
           </div>
 
