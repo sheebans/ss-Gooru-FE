@@ -23,6 +23,7 @@ export default buildValidations({
   },
   studentId:[
     validator('format', {
+      allowBlank:true,
       regex: /^\w+$/,
       message: '{{description}}',
       descriptionKey: 'common.errors.add-student-id'
