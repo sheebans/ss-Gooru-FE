@@ -58,14 +58,13 @@ export default Ember.Service.extend({
    * Search for resources
    *
    * @param term the term to search
-   * @param formatValues is an array with the values to filter the search
    * @param params
    * @returns {Promise.<Resource[]>}
    */
-  searchResources: function(term, formatValues, params) {
+  searchResources: function(term, params) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('searchAdapter').searchResources(term, formatValues, params)
+      service.get('searchAdapter').searchResources(term, params)
         .then(function(response) {
           resolve(service.get('searchSerializer').normalizeSearchResources(response));
         }, function(error) {
@@ -78,14 +77,13 @@ export default Ember.Service.extend({
    * Search for questions
    *
    * @param term the term to search
-   * @param types is an array with the values to filter the search
    * @param params
    * @returns {Promise.<Question[]>}
    */
-  searchQuestions: function(term, types, params) {
+  searchQuestions: function(term, params) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('searchAdapter').searchQuestions(term, types, params)
+      service.get('searchAdapter').searchQuestions(term, params)
         .then(function(response) {
           resolve(service.get('searchSerializer').normalizeSearchQuestions(response));
         }, function(error) {

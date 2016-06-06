@@ -10,13 +10,21 @@
     <span class="caret"></span>
     <span class="sr-only">{{t "common.toggle-dropdown"}}</span>
   </button>
-  <ul class="dropdown-menu">
+  <ul class="dropdown-menu {{if (eq alignment 'left' ) 'dropdown-menu-right' 'dropdown-menu-left'}}">
     {{#if onlySubjectsWithStandards}}
       {{#each subjectsWithStandards as |subject|}}
         {{#if subject.frameworksWithStandards}}
           <li class="subject has-children">
-            <a class="trigger">{{subject.title}} {{gru-icon name="keyboard_arrow_right"}}</a>
-            <ul class="dropdown-menu sub-menu">
+            <a class="trigger">
+              {{#if (eq alignment 'left' )}}
+                {{gru-icon name="keyboard_arrow_left"}}
+              {{/if}}
+              {{subject.title}}
+              {{#unless (eq alignment 'left' )}}
+                {{gru-icon name="keyboard_arrow_right"}}
+              {{/unless}}
+            </a>
+            <ul class="dropdown-menu sub-menu {{if (eq alignment 'left' ) 'dropdown-menu-right' 'dropdown-menu-left'}}">
               {{#each subject.frameworksWithStandards as |framework|}}
                 <li><a class="subject-action" {{action 'setSubject' framework true}}>{{framework.title}}</a></li>
               {{/each}}
@@ -33,7 +41,7 @@
         {{#if subject.frameworks}}
           <li class="subject has-children">
             <a class="trigger">{{subject.title}} {{gru-icon name="keyboard_arrow_right"}}</a>
-            <ul class="dropdown-menu sub-menu">
+            <ul class="dropdown-menu sub-menu {{if (eq alignment 'left' ) 'dropdown-menu-right' 'dropdown-menu-left'}}">
               {{#each subject.frameworks as |framework|}}
                 <li><a class="subject-action" {{action 'setSubject' framework true}}>{{framework.title}}</a></li>
               {{/each}}

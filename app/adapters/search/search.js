@@ -39,6 +39,11 @@ export default Ember.Object.extend({
         length: pageSize
       }
     };
+    const taxonomies = params.taxonomies;
+    if (Ember.isArray(taxonomies) && taxonomies.length > 0) {
+      options.data['flt.standard'] = taxonomies.join(',');
+    }
+
     return Ember.$.ajax(url, options);
   },
 
@@ -68,6 +73,11 @@ export default Ember.Object.extend({
         length: pageSize
       }
     };
+    const taxonomies = params.taxonomies;
+    if (Ember.isArray(taxonomies) && taxonomies.length > 0) {
+      options.data['flt.standard'] = taxonomies.join(',');
+    }
+
     return Ember.$.ajax(url, options);
   },
 
@@ -75,10 +85,9 @@ export default Ember.Object.extend({
    * Fetches the resources that match with the term
    *
    * @param term the term to search
-   * @param formatValues the resource formatValues to filter the search
    * @returns {Promise.<Resource[]>}
    */
-  searchResources: function(term, formatValues = [], params = {}) {
+  searchResources: function(term, params = {}) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/resource`;
@@ -97,9 +106,15 @@ export default Ember.Object.extend({
         "flt.contentFormat": "resource"
       }
     };
-    if (Ember.isArray(formatValues) && formatValues.length > 0) {
-      const formatFilters = ResourceModel.serializeAllResourceFormat(formatValues);
-      options.data['flt.resourceFormat'] = formatFilters.join(',');
+    const formats = params.formats;
+    if (Ember.isArray(formats) && formats.length > 0) {
+      const filters = ResourceModel.serializeAllResourceFormat(formats);
+      options.data['flt.resourceFormat'] = filters.join(',');
+    }
+
+    const taxonomies = params.taxonomies;
+    if (Ember.isArray(taxonomies) && taxonomies.length > 0) {
+      options.data['flt.standard'] = taxonomies.join(',');
     }
     return Ember.$.ajax(url, options);
   },
@@ -108,11 +123,10 @@ export default Ember.Object.extend({
    * Fetches the questions that match with the term
    *
    * @param term the term to search
-   * @param types question types to filter the search
    * @param {*}
    * @returns {Promise.<Question[]>}
    */
-  searchQuestions: function(term, types = [], params = {}) {
+  searchQuestions: function(term, params = {}) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/resource`;
@@ -131,10 +145,16 @@ export default Ember.Object.extend({
         "flt.resourceFormat": "question"
       }
     };
+    const types = params.types;
     if (Ember.isArray(types) && types.length > 0) {
       const formatFilters = QuestionModel.serializeAllQuestionType(types);
       options.data['flt.questionType'] = formatFilters.join(',');
     }
+    const taxonomies = params.taxonomies;
+    if (Ember.isArray(taxonomies) && taxonomies.length > 0) {
+      options.data['flt.standard'] = taxonomies.join(',');
+    }
+
     return Ember.$.ajax(url, options);
   },
 

@@ -2,5 +2,10 @@
   .non-visible-tags {
     display: inline-block;
     padding: 7px;
+    cursor: pointer;
+  }
+
+  .all-tags {
+    color:black;
   }
 }
