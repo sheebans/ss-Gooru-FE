@@ -27,8 +27,8 @@ test('Layout', function(assert) {
     T.exists(assert, $editContainer.find(".save"), "Missing save button");
     T.exists(assert, $editContainer.find("#username"), "Missing username");
 
-    const maxLenValue = this.$('#username input').prop('maxlength');
-    assert.equal(maxLenValue, 25, "Incorrect input max length");
+    const usernameMaxLenValue = this.$('#username input').prop('maxlength');
+    assert.equal(usernameMaxLenValue, 20, "Incorrect username max length");
 
     T.exists(assert, $editContainer.find("#first-name"), "Missing user first name");
     T.exists(assert, $editContainer.find("#last-name"), "Missing user last name");
@@ -37,6 +37,9 @@ test('Layout', function(assert) {
     T.exists(assert, $editContainer.find("#studentId"), "Missing username");
     assert.equal(find(".roles .gru-radio").length, 3, "Missing roles gru-radio components");
     T.exists(assert, $editContainer.find(".gru-select"), "Missing gru-select component of countries");
+
+    const studentIDMaxLenValue = this.$('#studentId input').prop('maxlength');
+    assert.equal(studentIDMaxLenValue, 25, "Incorrect student id max length");
   });
 });
 
@@ -50,7 +53,7 @@ test('no menu option is selected when entering to edit mode', function (assert) 
   });
 });
 
-test('Validate Student ID field', function (assert) {
+test('Validate Student ID field Special Characters', function (assert) {
   visit('/pochita/edit');
 
   andThen(function () {
@@ -59,10 +62,52 @@ test('Validate Student ID field', function (assert) {
     $studentId.find("input").blur();
 
     return wait().then(function () {
-      assert.ok($studentId.find(".error-messages .error").length, 'Student ID error message should be appear');
+      assert.ok($studentId.find(".error-messages .error").length, 'Student ID speacial chars error message should be appear');
     });
   });
 });
+
+test('Validate Username field Special Characters', function (assert) {
+  visit('/pochita/edit');
+
+  andThen(function () {
+    const $studentId = find("#username");
+    $studentId.find("input").val('!Value');
+    $studentId.find("input").blur();
+
+    return wait().then(function () {
+      assert.ok($studentId.find(".error-messages .error").length, 'Username special chars error message should be appear');
+    });
+  });
+});
+test('Validate Username field Blank Spaces', function (assert) {
+  visit('/pochita/edit');
+
+  andThen(function () {
+    const $studentId = find("#username");
+    $studentId.find("input").val('');
+    $studentId.find("input").blur();
+
+    return wait().then(function () {
+      assert.ok($studentId.find(".error-messages .error").length, 'Username blanck spaces error message should be appear');
+    });
+  });
+});
+
+test('Validate Username field Minimum Chars', function (assert) {
+  visit('/pochita/edit');
+
+  andThen(function () {
+    const $studentId = find("#username");
+    $studentId.find("input").val('abc');
+    $studentId.find("input").blur();
+
+    return wait().then(function () {
+      assert.ok($studentId.find(".error-messages .error").length, 'Username min length error message should be appear');
+    });
+  });
+});
+
 
 //test('menu option \'about\' is selected when cancelling the edit', function (assert) {
 //  visit('/pochita/edit');
