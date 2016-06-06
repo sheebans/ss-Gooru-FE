@@ -899,7 +899,7 @@ export default {
   },
   "gru-login-prompt":{
     "title":"Welcome to Gooru!",
-    "instructions" : "You need to sign in to remix content.",
+    "instructions" : "You need to sign in to complete that action.",
     "existing-user" : "Already have an account?",
     "new-user" : "New here?",
     "not-now" : "Not now",
