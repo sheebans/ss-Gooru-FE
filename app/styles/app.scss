@@ -112,12 +112,14 @@
 @import 'components/class/analytics/performance/teacher/gru-metrics-table';
 @import 'components/class/analytics/performance/teacher/gru-metrics-sub-header';
 
+@import 'components/content/assessments/gru-assessment-edit';
 @import 'components/content/gru-audience';
 @import 'components/content/gru-category';
 @import 'components/content/gru-image';
-@import 'components/content/gru-taxonomy-selector';
+@import 'components/content/collections/gru-collection-edit';
 @import 'components/content/collections/gru-collection-list';
 @import 'components/content/modals';
+@import 'components/content/modals/gru-add-to';
 @import 'components/content/modals/gru-base-remix';
 @import 'components/content/modals/gru-delete-class';
 @import 'components/content/modals/gru-delete-content';
@@ -134,7 +136,9 @@
 @import 'components/content/questions/answers/gru-open-ended';
 @import 'components/content/questions/answers/gru-reorder';
 @import 'components/content/questions/answers/gru-true-false';
+@import 'components/content/questions/gru-question-edit';
 @import 'components/content/questions/gru-question-play';
+@import 'components/content/resources/gru-resource-edit';
 
 @import 'components/player/gru-navigation';
 @import 'components/player/gru-navigator';
@@ -181,5 +185,9 @@
 @import 'components/search/gru-question-options';
 @import 'components/search/gru-resource-options';
 
+@import 'components/taxonomy/gru-subject-course-picker';
+@import 'components/taxonomy/gru-subject-picker';
+@import 'components/taxonomy/gru-taxonomy-selector';
 @import 'components/taxonomy/gru-taxonomy-tag';
+@import 'components/taxonomy/gru-taxonomy-tag-list';
 @import 'components/taxonomy/modals/modals';

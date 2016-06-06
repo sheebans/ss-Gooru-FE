@@ -9,7 +9,16 @@ import ModalMixin from 'gooru-web/mixins/modal';
 
 export default Ember.Component.extend(ModalMixin,{
   // Dependencies
+
+  /**
+   * @property {Service} session
+   */
   session: Ember.inject.service('session'),
+
+  /**
+   * @property {Service} profile service
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -19,15 +28,45 @@ export default Ember.Component.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+
+    /**
+     * Action triggered to edit the resource/question
+     */
     editResource: function(){
       this.sendAction("onEditResource", this.get("resource"));
     },
 
+    /**
+     * Action triggered to remix the question
+     */
     remixQuestion: function(){
       if (this.get('session.isAnonymous')) {
         this.send('showModal', 'content.modals.gru-login-prompt');
       } else {
         this.sendAction("onRemixQuestion", this.get("resource"));
+      }
+    },
+
+    /**
+     * Action triggered to add to collection
+     */
+    addToCollection: function(){
+      const component = this;
+      if (component.get('session.isAnonymous')) {
+        component.send('showModal', 'content.modals.gru-login-prompt');
+      } else {
+        let assessmentsPromise = Ember.RSVP.resolve(null);
+        if(component.get('isQuestion')) {
+          assessmentsPromise = component.get('profileService').readAssessments(component.get('session.userId'));
+        }
+        assessmentsPromise.then(function(assessments) {
+          return component.get('profileService').readCollections(component.get('session.userId'))
+            .then(function(collections) {
+              return { content: component.get('resource'), collections, assessments };
+            });
+        }).then(
+          model => component.send('showModal', 'content.modals.gru-add-to-collection', model, null, "add-to")
+        );
       }
     }
   },

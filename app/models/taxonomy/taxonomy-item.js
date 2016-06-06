@@ -42,16 +42,6 @@ export default Ember.Object.extend({
    */
   parent: null,
 
-  /**
-   * @property {String} parentTaxonomyCodeId - Used for Taxonomy Codes normalizer
-   */
-  parentTaxonomyCodeId: null,
-
-  /**
-   * @property {String} codeType - Used for Taxonomy Codes normalizer
-   */
-  codeType: null,
-
   // -------------------------------------------------------------------------
   // Methods
 
@@ -107,6 +97,31 @@ export default Ember.Object.extend({
 
     return result;
   },
+
+  /**
+   * @function Find a taxonomy item by traversing down
+   * a taxonomy item tree.
+   * @param {String} itemId
+   * @return {TaxonomyItem | Null}
+   */
+  findItem: function(itemId) {
+    var result = null;
+
+    if (this.get('id') === itemId) {
+      result = this;
+    } else {
+      let children = this.get('children');
+      if (children.length) {
+        for (let i = children.length - 1; i >= 0; --i) {
+          result = children[i].findItem(itemId);
+          if (result) { break; }
+        }
+      }
+    }
+
+    return result;
+  },
+
 
   /**
    * @function Destroy an item and all its descendents.

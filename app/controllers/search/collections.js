@@ -74,17 +74,36 @@ export default Ember.Controller.extend({
     const pagination = this.get("pagination");
     pagination.page = pagination.page + 1;
 
-    this.get('searchService').searchCollections(controller.get("term"), pagination)
+    const params = controller.getSearchParams();
+    controller.get('searchService').searchCollections(controller.get("term"), params)
       .then(function(collections){
         controller.get("collectionResults").pushObjects(collections.toArray());
       });
   },
 
+  getSearchParams: function(){
+    const controller = this;
+    const pagination = controller.get("pagination");
+    return {
+      types: controller.get("selectedOptionTypes"),
+      page: pagination.page,
+      pageSize: pagination.pageSize,
+      taxonomies: controller.get("taxonomies")
+    };
+  },
+
   resetValues: function(){
+    this.resetPagination();
+  },
+
+  /**
+   * Resets the pagination values
+   */
+  resetPagination: function () {
     this.set("pagination", {
       page: 0,
       pageSize: DEFAULT_PAGE_SIZE
-    })
+    });
   }
 
 });

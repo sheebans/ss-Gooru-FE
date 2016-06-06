@@ -18,7 +18,7 @@ test('serializeCreateCollection', function(assert) {
   assert.equal(response.learning_objective, 'any', "Wrong learning objective");
   assert.equal(response.visible_on_profile, true, "Wrong visible on profile");
   assert.equal(response.thumbnail, 'image-id.png', "Wrong thumbnail");
-  assert.deepEqual(response.taxonomy, {}, "Wrong taxonomy object");
+  assert.equal(response.taxonomy, null, "Wrong taxonomy object");
 });
 
 test('serializeUpdateCollection', function(assert) {
@@ -35,7 +35,7 @@ test('serializeUpdateCollection', function(assert) {
   assert.equal(response.learning_objective, 'any', "Wrong learning objective");
   assert.equal(response.visible_on_profile, false, "Wrong visible on profile");
   assert.equal(response.thumbnail, 'image-id.png', "Wrong thumbnail");
-  assert.deepEqual(response.taxonomy, {}, "Wrong taxonomy object");
+  assert.equal(response.taxonomy, null, "Wrong taxonomy object");
 });
 
 test('normalizeReadCollection', function(assert) {
@@ -60,4 +60,14 @@ test('normalizeReadCollection', function(assert) {
   assert.equal(collection.get('learningObjectives'), 'learning-objectives', 'Wrong learningObjectives');
   assert.equal(collection.get('isVisibleOnProfile'), true, 'Wrong isVisibleOnProfile');
   assert.equal(collection.get('standards.length'), 0, 'Wrong standards number of elements');
+});
+
+test('serializeReorderCollection', function(assert) {
+  const serializer = this.subject();
+  const ids = ["a", "b", "c"];
+  const data = serializer.serializeReorderCollection(ids);
+  assert.ok(data.order, 'Missing order');
+  assert.equal(data.order.length, 3, 'Wrong order total');
+  assert.equal(data.order[0].id, "a", 'Wrong id');
+  assert.equal(data.order[0].sequence_id, 1, 'Wrong sequence id');
 });

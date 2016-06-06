@@ -1,14 +1,28 @@
 <div class="panel panel-default view collapsed">
   <div class="panel-heading">
+    {{#if isSorting}}
+        <span class="drag-icon">
+          {{gru-icon name="drag_handle"}}
+        </span>
+    {{/if}}
     <h3>{{plus-one index}}</h3>
-    {{#link-to (if model.isCollection 'content.collections.edit' 'content.assessments.edit')  model.id (query-params courseId=course.id allowBackToCourse=true) class="title"}}
-      <img class="img-rounded" src="{{model.thumbnailUrl}}" />
-      <div>
-        <strong>{{model.title}}</strong>
-        <span>{{model.format}}</span>
-      </div>
-    {{/link-to}}
-
+    {{#if model.isExternalAssessment}}
+      <a href="{{model.url}}" target="_blank" class="title">
+        <img class="img-rounded" src="{{model.thumbnailUrl}}" />
+        <div>
+          <strong>{{model.title}}</strong>
+          <span>{{model.format}}</span>
+        </div>
+      </a>
+    {{else}}
+      {{#link-to (if model.isCollection 'content.collections.edit' 'content.assessments.edit')  model.id (query-params courseId=course.id allowBackToCourse=true) class="title"}}
+        <img class="img-rounded" src="{{model.thumbnailUrl}}" />
+        <div>
+          <strong>{{model.title}}</strong>
+          <span>{{model.format}}</span>
+        </div>
+      {{/link-to}}
+    {{/if}}
     <div class="detail">
       {{#if model.isCollection}}
       <div class="{{if model.questionCount 'mixed'}}">
@@ -25,9 +39,10 @@
 
       <div class="actions">
           <div class="item-actions">
-              {{partial 'content/partials/item-actions'}}
+            {{#unless model.isExternalAssessment}}
               <button class="btn edit-item" title="{{t 'common.edit'}}" {{action 'edit' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="edit"}}</button>
-
+            {{/unless}}
+            {{partial 'content/partials/item-actions'}}
           </div>
       </div>
     </div>

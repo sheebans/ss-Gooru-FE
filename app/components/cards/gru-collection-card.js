@@ -23,10 +23,10 @@ export default Ember.Component.extend(ModalMixin,{
   actions: {
     /**
      * Action triggered to open the content player
-     * @param {string} collectionId collection identifier
+     * @param {string} collection collection identifier
      */
-    openContentPlayer: function(collectionId) {
-      this.sendAction("onOpenContentPlayer", collectionId);
+    openContentPlayer: function(collection) {
+      this.sendAction("onOpenContentPlayer", collection);
     },
 
     editCollection: function(){
@@ -90,7 +90,15 @@ export default Ember.Component.extend(ModalMixin,{
    * Indicates if the edit functionality is enabled
    * @property {boolean}
    */
-  remixEnabled: Ember.computed.not('editEnabled'),
+  remixEnabled: Ember.computed('editEnabled', 'collection', function(){
+    const isEditing = this.get("editEnabled");
+    if (this.get("isCollection")) {
+      return !isEditing;
+    }
+    else {
+      return !isEditing && !this.get("isExternalAssessment");
+    }
+  }),
 
   /**
    * Indicates if the edit functionality is enabled
@@ -110,5 +118,6 @@ export default Ember.Component.extend(ModalMixin,{
 
   visibility:null,
 
+  isSmall: false
 
 });

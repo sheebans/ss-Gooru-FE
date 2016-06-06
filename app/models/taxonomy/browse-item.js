@@ -108,7 +108,9 @@ BrowseItem.reopenClass({
 
       var properties = $.extend(taxonomyItem.getProperties([
         'id',
+        'code',
         'title',
+        'description',
         'level'
       ]), { "parent": parent });
 

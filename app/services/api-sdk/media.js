@@ -35,4 +35,22 @@ export default Ember.Service.extend({
     });
   },
 
+  /**
+   * Uploads a file to the user cdn
+   *
+   * @param fileData object with the data
+   * @returns {Promise}
+   */
+  uploadUserFile: function(fileData) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('mediaAdapter').uploadFile(fileData, ENTITY_TYPE.USER)
+        .then(function(response) {
+          resolve(service.get('session.cdnUrls.user') + response.filename);
+        }, function(error) {
+          reject(error);
+        });
+    });
+  }
+
 });

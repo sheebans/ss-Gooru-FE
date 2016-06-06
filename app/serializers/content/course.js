@@ -3,8 +3,8 @@ import { cleanFilename } from 'gooru-web/utils/utils';
 import CourseModel from 'gooru-web/models/content/course';
 import UnitSerializer from 'gooru-web/serializers/content/unit';
 import ProfileSerializer from 'gooru-web/serializers/profile/profile';
-import { DEFAULT_IMAGES } from "gooru-web/config/config";
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
+import { DEFAULT_IMAGES, TAXONOMY_LEVELS } from "gooru-web/config/config";
 
 /**
  * Serializer to support the Course CRUD operations for API 3.0
@@ -105,12 +105,27 @@ export default Ember.Object.extend({
       isVisibleOnProfile: payload['visible_on_profile'],
       owner: owner ? serializer.get("profileSerializer").normalizeReadProfile(owner): null,
       subject: payload.subject_bucket,
-      taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomy(payload.taxonomy),
+      taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomy(payload.taxonomy, TAXONOMY_LEVELS.COURSE),
       thumbnailUrl: thumbnailUrl,
       title: payload.title,
       unitCount: payload.unit_count ? payload.unit_count : 0
       // TODO More properties will be added here...
     });
+  },
+
+  /**
+   * Serialize reorder course
+   * @param {string[]} unitIds
+   */
+  serializeReorderCourse: function (unitIds) {
+    const values = unitIds.map(function(id, index) {
+      return { "id" : id, "sequence_id" : index + 1 };
+    });
+
+    return {
+      "order": values
+    };
   }
+
 
 });

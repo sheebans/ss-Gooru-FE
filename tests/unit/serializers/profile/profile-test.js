@@ -48,7 +48,8 @@ test('serializeUpdateProfile', function(assert) {
     aboutMe: 'about-me',
     countryId: 'country-id',
     stateId: 'state-id',
-    schoolDistrictId: 'school-district-id'
+    schoolDistrictId: 'school-district-id',
+    avatarUrl: '//baseUrl/image-id'
   });
 
   const expected = {
@@ -64,7 +65,9 @@ test('serializeUpdateProfile', function(assert) {
     "state_id":"state-id",
     "school_district_id":"school-district-id",
     "state":"state",
-    "school_district":"school-district"};
+    "school_district":"school-district",
+    "thumbnail_path": "image-id"
+  };
 
   const response = serializer.serializeUpdateProfile(profile);
   assert.deepEqual(expected, response, 'Wrong serialized response');
@@ -74,7 +77,7 @@ test('normalizeReadProfile', function(assert) {
   const serializer = this.subject();
   serializer.set('session', Ember.Object.create({
     'cdnUrls': {
-      content: 'http://test-bucket01.s3.amazonaws.com/'
+      user: 'http://test-bucket01.s3.amazonaws.com/'
     }
   }));
 
@@ -320,7 +323,9 @@ test('normalizeAssessment', function(assert) {
     "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
     "course": {"id": 1, "title":"mathematics course 101"},
     "question_count": 3,
-    "remix_count": 2
+    "remix_count": 2,
+    format: 'assessment-external',
+    url: "any"
   };
 
   const collection = serializer.normalizeAssessment(assessmentData, owners);
@@ -336,6 +341,8 @@ test('normalizeAssessment', function(assert) {
   assert.equal(collection.get("remixCount"), 2, 'Wrong remix count');
   assert.deepEqual(collection.get("standards")[0].get("code"), "K12.MA", 'Wrong standards');
   assert.equal(collection.get("owner.id"), "852f9814-0eb4-461d-bd3b-aca9c2500595", 'Wrong owner id');
+  assert.equal(collection.get('format'), 'assessment-external', 'Wrong format');
+  assert.equal(collection.get('url'), 'any', 'Wrong url');
 });
 
 
@@ -517,7 +524,7 @@ test('normalizeReadNetwork for following', function(assert) {
   const serializer = this.subject();
   serializer.set('session', Ember.Object.create({
     'cdnUrls': {
-      content: 'http://test-bucket01.s3.amazonaws.com/'
+      user: 'http://test-bucket01.s3.amazonaws.com/'
     }
   }));
 
@@ -554,7 +561,7 @@ test('normalizeReadNetwork for followers', function(assert) {
   const serializer = this.subject();
   serializer.set('session', Ember.Object.create({
     'cdnUrls': {
-      content: 'http://test-bucket01.s3.amazonaws.com/'
+      user: 'http://test-bucket01.s3.amazonaws.com/'
     }
   }));
 

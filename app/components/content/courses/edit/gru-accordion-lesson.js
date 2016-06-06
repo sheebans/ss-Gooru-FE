@@ -1,9 +1,8 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 import PlayerAccordionLesson from 'gooru-web/components/content/courses/play/gru-accordion-lesson';
-import {CONTENT_TYPES} from 'gooru-web/config/config';
-
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import {CONTENT_TYPES} from 'gooru-web/config/config';
 
 /**
  * Content Builder: Accordion Lesson
@@ -29,6 +28,16 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
    */
   taxonomyService: Ember.inject.service("taxonomy"),
 
+  /**
+   * @property {Service} session
+   */
+  session: Ember.inject.service('session'),
+
+  /**
+   * @property {Service} profile service
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -46,39 +55,6 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
       var lessonForEditing = this.get('lesson').copy();
       this.set('tempLesson', lessonForEditing);
       this.set('model.isEditing', true);
-    },
-
-    openStandardPicker: function () {
-      var component = this;
-      var tree = this.get('taxonomyService').getCourses();
-
-      var model = {
-        selected: component.get('selectedStandards').map(function(standardTag) {
-          return standardTag.get('taxonomyItem');
-        }),
-        shortcuts: component.get('selectedDomains').map(function(domainTag) {
-          return domainTag.get('taxonomyItem');
-        }),
-        taxonomyItems: tree,
-        callback: {
-          success: function(selectedTags) {
-            var selectedStandards = component.get('selectedStandards');
-            var selected = selectedTags.map(function(domainTag) {
-              return TaxonomyTag.create({
-                isReadonly: true,
-                taxonomyItem: domainTag.get('taxonomyItem')
-              });
-            });
-
-            Ember.beginPropertyChanges();
-            selectedStandards.clear();
-            selectedStandards.pushObjects(selected);
-            Ember.endPropertyChanges();
-          }
-        }
-      };
-
-      this.actions.showModal.call(this, 'taxonomy.modals.gru-standard-picker', model, null, 'gru-standard-picker');
     },
 
     saveLesson: function () {
@@ -153,6 +129,86 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
         onRemixSuccess: this.get('onRemixLesson')
       };
       this.send('showModal', 'content.modals.gru-lesson-remix', model);
+    },
+    /**
+     * Reorder lesson items
+     */
+    sortLessonItems:function(){
+      var component = this;
+      component.loadData();
+      component.set('model.isExpanded', true);
+      component.set('isSorting',true);
+
+      const sortable = component.$('.sortable');
+      sortable.sortable();
+      sortable.sortable('enable');
+    },
+
+    /**
+     * Cancel reorder lesson items
+     */
+    cancelSort:function(){
+      var component = this;
+      const sortable = component.$('.sortable');
+      sortable.sortable('cancel');
+      component.set('isSorting',false);
+      sortable.sortable('disable');
+      component.set('model.isExpanded', false);
+    },
+    /**
+     * Save reorder collection items
+     */
+    saveReorder:function(){
+      var component = this;
+      const sortable = component.$('.sortable');
+
+      component.get('lessonService').reorderLesson(component.get('course.id'),component.get('unitId'),component.get('lesson.id'),component.get('orderList'))
+        .then(function(){
+          component.set('isSorting',false);
+          sortable.sortable('disable');
+          component.refreshList(component.get('orderList'));
+          component.set('model.isExpanded', false);
+        });
+    },
+
+    /**
+     * Add from my collections
+     */
+    fromMyCollections: function() {
+      var component = this;
+      component.get('profileService').readCollections(
+        component.get('session.userId'), { 'filterBy': 'notInCourse' }
+      ).then(
+        function(collections) {
+          component.send('showModal', 'content.modals.gru-add-to-lesson', {
+              collections,
+              content: component.get('lesson'),
+              courseId: component.get('course.id'),
+              unitId: component.get('unitId'),
+              isCollection: false,
+              onAdd: component.get('onAddItem').bind(component)
+            }, null, "add-to");
+      });
+    },
+
+    /**
+     * Add from my assessments
+     */
+    fromMyAssessments: function() {
+      var component = this;
+      component.get('profileService').readAssessments(
+        component.get('session.userId'), { 'filterBy': 'notInCourse' }
+      ).then(
+        function(assessments) {
+          component.send('showModal', 'content.modals.gru-add-to-lesson', {
+              collections: assessments,
+              content: component.get('lesson'),
+              courseId: component.get('course.id'),
+              unitId: component.get('unitId'),
+              isCollection: false,
+              onAdd: component.get('onAddItem').bind(component)
+            }, null, "add-to");
+      });
     }
   },
 
@@ -176,47 +232,45 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
       let lessonForEditing = this.get('lesson').copy();
       this.set('tempLesson', lessonForEditing);
     }
+  },
 
-    // TODO: Init selected standards per lesson's taxonomy values
-    var courses = this.get('taxonomyService').getCourses();
+  /**
+   * DidInsertElement ember event
+   */
+  didInsertElement: function(){
+    var component = this;
 
-    var standardTag1 = TaxonomyTag.create({
-      isReadonly: true,
-      taxonomyItem: courses[0].find(['100', '202', '320'])
+    const sortable = component.$('.sortable');
+    sortable.sortable();
+    sortable.sortable('disable');
+
+    sortable.on('sortupdate', function() {
+      const $items = component.$('.sortable').find('li');
+      const orderList = $items.map(function(idx, item) {
+        return $(item).data('id');
+      }).toArray();
+      component.set('orderList',orderList);
     });
-
-    var standardTag2 = TaxonomyTag.create({
-      isReadonly: true,
-      taxonomyItem: courses[0].find(['100', '202', '323'])
-    });
-
-    var standardTag3 = TaxonomyTag.create({
-      isReadonly: true,
-      taxonomyItem: courses[0].find(['100', '203', '335'])
-    });
-
-    var standardTag4 = TaxonomyTag.create({
-      isReadonly: true,
-      taxonomyItem: courses[1].find(['101', '210', '300'])
-    });
-
-    var standardTag5 = TaxonomyTag.create({
-      isReadonly: true,
-      taxonomyItem: courses[1].find(['101', '210', '301'])
-    });
-
-    var standardTag6 = TaxonomyTag.create({
-      isReadonly: true,
-      taxonomyItem: courses[1].find(['101', '212', '320'])
-    });
-
-    this.set('selectedStandards', [standardTag1, standardTag2, standardTag3, standardTag4, standardTag5, standardTag6]);
-
+  },
+  /**
+   * WillDestroyElement ember event
+   */
+  willDestroyElement:function(){
+    var component = this;
+    const sortable = component.$('.sortable');
+    sortable.sortable();
+    sortable.off('sortupdate');
   },
   didRender(){
     $('[data-toggle="tooltip"]').tooltip();
   },
 
+  /**
+   * After adding a collection/assessment
+   */
+  onAddItem: function(builderItem) {
+    this.get('items').addObject(builderItem);
+  },
 
   // -------------------------------------------------------------------------
   // Properties
@@ -227,13 +281,38 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
   newCollectionModel: null,
 
   /**
-   * @property {TaxonomyTag[]} selectedDomains - List of domain tags assigned to this lesson's unit
-   */
-  selectedDomains: null,
-
-  /**
    * @prop {Content/Lesson} tempLesson - Temporary lesson model used for editing
    */
-  tempLesson: null
+  tempLesson: null,
+
+  /**
+   * @property {Boolean} isSorting
+   */
+  isSorting:false,
+
+  /**
+   * @property {Array[]} orderList
+   */
+  orderList: null,
+
+  // -------------------------------------------------------------------------
+  // Methods
+
+  /**
+   * Refresh the item list after save reorder
+   */
+  refreshList:function(list){
+    var items = this.get('items');
+    var newItemList = Ember.A();
+    list.forEach(function(item){
+      let newItem = items.findBy('id',item);
+      if(newItem){
+        newItemList.addObject(newItem);
+      }
+    });
+    items.clear();
+    items.addObjects(newItemList);
+  }
+
 
 });

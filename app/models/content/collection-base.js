@@ -100,7 +100,7 @@ export default (function() {
     audience: [],
 
     /**
-     * @property {Object[]} standards - The collection standards information
+     * @property {TaxonomyTagData[]} standards - The collection standards information
      */
     standards: [],
 
@@ -193,9 +193,11 @@ export default (function() {
       properties = this.getProperties(properties);
 
       var audience = this.get('audience');
+      var standards = this.get("standards");
 
       // Copy the audience values
       properties.audience = audience.slice(0);
+      properties.standards = standards.slice(0);
 
       return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
     },

@@ -54,11 +54,12 @@ export default Ember.Object.extend({
   },
 
   serializeAssessment: function(assessmentModel) {
+    const thumbnail = cleanFilename(assessmentModel.get("thumbnailUrl"));
     return {
       title: assessmentModel.get('title'),
       learning_objective: assessmentModel.get("learningObjectives"),
       visible_on_profile: assessmentModel.get('isVisibleOnProfile'),
-      thumbnail: cleanFilename(assessmentModel.get("thumbnailUrl")),
+      thumbnail: !Ember.isEmpty(thumbnail) ? thumbnail : null
     };
   },
 
@@ -82,8 +83,9 @@ export default Ember.Object.extend({
       questionCount: assessmentData.question_count ? assessmentData.question_count : 0,
       sequence: assessmentData.sequence_id,
       thumbnailUrl: thumbnailUrl,
-      standards: serializer.get('taxonomySerializer').normalizeTaxonomy(assessmentData.taxonomy)
-      // TODO Add more required properties here...
+      standards: serializer.get('taxonomySerializer').normalizeTaxonomy(assessmentData.taxonomy),
+      format: assessmentData.format,
+      url: assessmentData.url
     });
   },
 
@@ -95,7 +97,22 @@ export default Ember.Object.extend({
       });
     }
     return [];
+  },
+
+  /**
+   * Serialize reorder assessment
+   * @param {string[]} questionIds
+   */
+  serializeReorderAssessment: function (questionIds) {
+    const values = questionIds.map(function(id, index) {
+      return { "id" : id, "sequence_id" : index + 1 };
+    });
+
+    return {
+      "order": values
+    };
   }
+
 
 });
 

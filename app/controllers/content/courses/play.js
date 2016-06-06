@@ -19,6 +19,11 @@ export default Ember.Controller.extend({
   /**
    * @property {Profile[]} createdUsers
    */
-  createdUsers: null
+  createdUsers: null,
+
+  /**
+   * @property {boolean}
+   */
+  isOwner: null
 
 });

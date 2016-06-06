@@ -20,7 +20,7 @@ test('it renders correctly when there are no questions or resources', function (
   });
 
   this.set('model', model);
-  this.render(hbs`{{content/collections/gru-collection-list model=model }}`);
+  this.render(hbs`{{content/collections/gru-collection-list model=model isSorting=false}}`);
 
   const $component = this.$('.content.collections.gru-collection-list');
   assert.ok($component.length, 'Component');
@@ -88,7 +88,7 @@ test('it renders correctly when there are questions and resources', function (as
 
   this.set('model', model);
   this.set('items', model.get('children'));
-  this.render(hbs`{{content/collections/gru-collection-list model=model items=items }}`);
+  this.render(hbs`{{content/collections/gru-collection-list model=model items=items isSorting=true}}`);
 
   const $component = this.$('.content.collections.gru-collection-list');
   assert.ok($component.length, 'Component');
@@ -97,4 +97,36 @@ test('it renders correctly when there are questions and resources', function (as
 
   const $itemsList = $component.find('> .collection-list');
   assert.equal($itemsList.find('.gru-collection-list-item').length, 3, 'Items listed');
+});
+
+test('Check reorder options', function (assert) {
+
+  var model = Collection.create({
+    title: "Sample Collection Title",
+    children: Ember.A([
+      Resource.create({
+        format: 'text',
+        title: 'Resource Title'
+      }),
+      Question.create({
+        format: 'question',
+        type: 'MC',
+        title: 'Question Title A'
+      }),
+      Question.create({
+        format: 'question',
+        type: 'MA',
+        title: 'Question Title B'
+      })
+    ])
+  });
+
+  this.set('model', model);
+  this.set('items', model.get('children'));
+  this.render(hbs`{{content/collections/gru-collection-list model=model items=items isSorting=true}}`);
+
+  const $component = this.$('.content.collections.gru-collection-list');
+  assert.notOk($component.find('button.sort-items').length, 'Sort button should be hidden');
+  assert.ok($component.find('.drag-options .cancel').length, 'Cancel sort should be appear');
+  assert.ok($component.find('.drag-options .save').length, 'Save sort should be appear');
 });
