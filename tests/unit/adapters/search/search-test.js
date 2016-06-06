@@ -39,8 +39,8 @@ test('searchCollections 400', function(assert) {
     }, false);
   });
   adapter.searchCollections('@@@', { page: 2 })
-    .then(function(response) {
-      assert.deepEqual({}, response, 'Wrong response');
+    .then(function(){}, function(response){
+      assert.equal(response.status, 400, "Wrong error code");
     });
 });
 
@@ -64,7 +64,7 @@ test('searchAssessments', function(assert) {
     });
 });
 
-test('searchAssessments', function(assert) {
+test('searchAssessments 400', function(assert) {
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({
     'token-api3': 'token-api-3'
@@ -75,9 +75,9 @@ test('searchAssessments', function(assert) {
     }, false);
   });
   adapter.searchAssessments('@@@', { page: 2 })
-    .then(function(response) {
-      assert.deepEqual({}, response, 'Wrong response');
-    });
+  .then(function(){}, function(response){
+    assert.equal(response.status, 400, "Wrong error code");
+  });
 });
 
 test('searchResources for all resource types', function(assert) {
@@ -112,8 +112,8 @@ test('searchResources for all resource types 404', function(assert) {
     }, false);
   });
   adapter.searchResources('@@@', [], { page: 2 })
-    .then(function(response) {
-      assert.deepEqual({}, response, 'Wrong response');
+    .then(function(){}, function(response){
+      assert.equal(response.status, 400, "Wrong error code");
     });
 });
 
@@ -169,8 +169,8 @@ test('searchQuestions for all types 404', function(assert) {
     }, false);
   });
   adapter.searchQuestions('@@@', [], { page: 2 })
-    .then(function(response) {
-      assert.deepEqual({}, response, 'Wrong response');
+    .then(function(){}, function(response){
+      assert.equal(response.status, 400, "Wrong error code");
     });
 });
 

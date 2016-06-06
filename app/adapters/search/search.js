@@ -22,6 +22,7 @@ export default Ember.Object.extend({
    */
   searchCollections: function(term, params = {}) {
     const adapter = this;
+
     const namespace = this.get('namespace');
     const url = `${namespace}/scollection`;
 
