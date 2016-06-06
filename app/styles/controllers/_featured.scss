@@ -5,10 +5,10 @@
     @include align-items(center);
   }
 
-  .header {
-    width: 100%;
+  >.header {
     padding-left: 20px;
     padding-right: 20px;
+    width: 100%;
 
     @media (min-width: $screen-sm) {
       padding-left: 40px;

@@ -261,6 +261,9 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
     sortable.sortable();
     sortable.off('sortupdate');
   },
+  didRender(){
+    $('[data-toggle="tooltip"]').tooltip();
+  },
 
   /**
    * After adding a collection/assessment
