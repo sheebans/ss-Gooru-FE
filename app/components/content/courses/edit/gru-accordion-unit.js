@@ -1,19 +1,17 @@
 import Ember from 'ember';
 import BuilderItem from 'gooru-web/models/content/builder/item';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import Lesson from 'gooru-web/models/content/lesson';
 import PlayerAccordionUnit from 'gooru-web/components/content/courses/play/gru-accordion-unit';
 import ModalMixin from 'gooru-web/mixins/modal';
 import {CONTENT_TYPES} from 'gooru-web/config/config';
-
-import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
-
 
 /**
  * Content Builder: Accordion Unit
  *
  * Component responsible for behaving as an accordion and listing a set of lessons.
  * It is meant to be used inside of an {@link ./gru-accordion-course|Accordion Course}
- *
+ * 
  * @module
  * @augments components/content/courses/play/gru-accordion-unit
  *
@@ -26,11 +24,6 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
    * @requires service:api-sdk/unit
    */
   unitService: Ember.inject.service("api-sdk/unit"),
-
-  /**
-   * @requires service:api-sdk/taxonomy
-   */
-  taxonomyService: Ember.inject.service("taxonomy"),
 
 
   // -------------------------------------------------------------------------
@@ -117,27 +110,20 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
 
     openDomainPicker: function () {
       var component = this;
-      var tree = this.get('taxonomyService').getCourses();
-
       var model = {
-        selected: component.get('selectedDomains').map(function(domainTag) {
-          return domainTag.get('taxonomyItem');
-        }),
-        shortcuts: component.get('selectedCourses'),
-        taxonomyItems: tree,
+        selected: this.get('tempUnit.taxonomy').slice(0),
+        shortcuts: null,  // TODO: TBD
+        subject: this.get('course.mainSubject'),
         callback: {
           success: function(selectedTags) {
-            var selectedDomains = component.get('selectedDomains');
-            var selected = selectedTags.map(function(domainTag) {
-              return TaxonomyTag.create({
-                isReadonly: true,
-                taxonomyItem: domainTag.get('taxonomyItem')
-              });
+            var taxonomyList = component.get('tempUnit.taxonomy');
+            var dataTags = selectedTags.map(function(taxonomyTag) {
+              return taxonomyTag.get('data');
             });
 
             Ember.beginPropertyChanges();
-            selectedDomains.clear();
-            selectedDomains.pushObjects(selected);
+            taxonomyList.clear();
+            taxonomyList.pushObjects(dataTags);
             Ember.endPropertyChanges();
           }
         }
@@ -151,6 +137,14 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
      */
     removeLesson: function (builderItem) {
       this.get('items').removeObject(builderItem);
+    },
+
+    /**
+     * Remove tag data from the taxonomy list in tempUnit
+     */
+    removeTag: function (taxonomyTag) {
+      var tagData = taxonomyTag.get('data');
+      this.get('tempUnit.taxonomy').removeObject(tagData);
     },
 
     /**
@@ -175,8 +169,11 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
                             unitService.createUnit(courseId, editedUnit);
 
       savePromise.then(function () {
+          Ember.beginPropertyChanges();
           this.get('unit').merge(editedUnit, ['id', 'title', 'bigIdeas', 'essentialQuestions']);
+          this.set('unit.taxonomy', editedUnit.get('taxonomy').toArray());
           this.set('model.isEditing', false);
+          Ember.endPropertyChanges();
         }.bind(this))
 
         .catch(function (error) {
@@ -199,30 +196,6 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
       let unitForEditing = this.get('unit').copy();
       this.set('tempUnit', unitForEditing);
     }
-
-    // TODO: Init selected domains per unit's taxonomy values
-    var courses = this.get('taxonomyService').getCourses();
-
-    var domainTag1 = TaxonomyTag.create({
-      isReadonly: true,
-      taxonomyItem: courses[0].find(['100', '202'])
-    });
-
-    var domainTag2 = TaxonomyTag.create({
-      isReadonly: true,
-      taxonomyItem: courses[0].find(['100', '203'])
-    });
-
-    var domainTag3 = TaxonomyTag.create({
-      isReadonly: true,
-      taxonomyItem: courses[1].find(['101', '210'])
-    });
-
-    this.set('selectedDomains', [domainTag1, domainTag2, domainTag3]);
-
-    // TODO: Selected courses assumed to exist in gru-accordion-course
-    // or in the course model
-    this.set('selectedCourses', [courses[0]]);
   },
 
 
@@ -230,9 +203,18 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
   // Properties
 
   /**
-   * @property {TaxonomyTag[]} selectedDomains - List of domain tags assigned to this unit
+   * @property {TaxonomyTag[]} selectedTags - List of domain tags assigned to this unit
    */
-  selectedDomains: null,
+  selectedTags: Ember.computed('tempUnit.taxonomy.[]', function() {
+    return this.get('tempUnit.taxonomy').map(function(tagData) {
+      return TaxonomyTag.create({
+        isActive: true,
+        isReadonly: true,
+        isRemovable: true,
+        data: tagData
+      });
+    });
+  }),
 
   /**
    * @prop {Content/Unit} tempUnit - Temporary unit model used for editing

@@ -9,8 +9,14 @@ export default Ember.Route.extend({
 
   model: function(params) {
     const selectedOptionTypes = params.selectedOptionTypes;
+    const taxonomies = this.paramsFor('search').taxonomies;
     const term = this.paramsFor('search').term;
-    var questionResults = this.get('searchService').searchQuestions(term, selectedOptionTypes);
+    const options = {
+      formats: selectedOptionTypes,
+      taxonomies: taxonomies
+    };
+
+    var questionResults = this.get('searchService').searchQuestions(term, options);
     return Ember.RSVP.hash({
       term:term,
       questions: questionResults,
@@ -36,8 +42,6 @@ export default Ember.Route.extend({
     }else{
       controller.set('selectedOptionTypes', model.selectedOptionTypes);
     }
-
-    //model.error && controller.setInvalidSearchTerm(true);
   },
 
   deactivate: function() {

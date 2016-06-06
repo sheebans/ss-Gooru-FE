@@ -1,19 +1,29 @@
 <div class="modal-header">
   <span class="modal-title">
-      {{t 'gru-add-to.add-to-collection'}}
+      {{#if isCollection}}
+        {{t 'gru-add-to.add-collection-to-lesson'}}
+      {{else}}
+        {{t 'gru-add-to.add-assessment-to-lesson'}}
+      {{/if}}
   </span>
 </div>
 <div class="modal-body">
-  <span class="lead">
-    {{t 'gru-add-to.add-to-collection-lead' contentTitle=content.title}}
-  </span>
-  {{#each collections as |collection|}}
-      <div class="{{collection.id}}" {{action "selectCollection" collection}}>
+  <div class="lead">
+    {{#if isCollection}}
+        {{t 'gru-add-to.add-collection-to-lesson-lead'}}
+      {{else}}
+        {{t 'gru-add-to.add-assessment-to-lesson-lead'}}
+    {{/if}}
+  </div>
+  <div class="list">
+    {{#each collections as |collection|}}
+      <div class="{{collection.id}} collection" {{action "selectCollection" collection}}>
         {{cards.gru-collection-card
         collection=collection
         isSmall=true}}
       </div>
-  {{/each}}
+    {{/each}}
+  </div>
 </div>
 <div class="modal-footer">
   <div class="btn-group visible-xs">

@@ -25,21 +25,15 @@ const questionServiceStub = Ember.Service.extend({
 
 const taxonomyServiceStub = Ember.Service.extend({
 
-  getSubjects(category) {
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      if (!category) {
-        reject({status: 500});
-      } else {
-        resolve({
-          "subjects": [{
-            "id": "GDF.K12.CS",
-            "title": "Computer Science",
-            "description": null,
-            "code": "GDF.K12.CS",
-            "standard_framework_id": "GDF"
-          }]
-        });
-      }
+  getSubjects() {
+    return Ember.RSVP.resolve({
+      "subjects": [{
+        "id": "GDF.K12.CS",
+        "title": "Computer Science",
+        "description": null,
+        "code": "GDF.K12.CS",
+        "standard_framework_id": "GDF"
+      }]
     });
   }
 
@@ -52,8 +46,8 @@ moduleForComponent('content/questions/gru-questions-edit', 'Integration | Compon
     this.i18n.set("locale","en");
     this.register('service:api-sdk/question', questionServiceStub);
     this.inject.service('api-sdk/question');
-    this.register('service:api-sdk/taxonomy', taxonomyServiceStub);
-    this.inject.service('api-sdk/taxonomy');
+    this.register('service:taxonomy', taxonomyServiceStub);
+    this.inject.service('taxonomy');
   }
 });
 
@@ -61,8 +55,7 @@ test('it has header and main sections', function (assert) {
 
   var question = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
     title: "Question Title",
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
 
   this.set('question', question);
@@ -79,7 +72,7 @@ test('it has header and main sections', function (assert) {
   assert.ok($container.find('.actions button.delete').length, "Missing Delete Button");
   assert.ok($container.find('.actions button.gru-share-pop-over').length, "Missing Share Button");
   assert.ok($container.find('.actions button.add').length, "Missing Add Button");
-  assert.ok($container.find('.actions button.preview').length, "Missing Add Button");
+  assert.ok($container.find('.actions button.preview').length, "Missing preview Button");
 
   assert.ok($header.find('> nav').length, "Header navigation");
   assert.equal($header.find('> nav > a').length, 3, "Number of header navigation links");
@@ -100,8 +93,7 @@ test('Header return to an assessment', function (assert) {
   });
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
 
   this.set('question', question);
@@ -125,8 +117,7 @@ test('Header return to an assessment', function (assert) {
   });
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
 
   this.set('question', question);
@@ -147,8 +138,7 @@ test('Update Question Information', function (assert) {
   var newTitle ='Question for testing gooru';
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
   this.set('question',question);
 
@@ -171,8 +161,7 @@ test('Update Question Information', function (assert) {
 test('Layout of the information section', function (assert) {
   var question = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
     title: "Question Title",
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
 
   this.set('question', question);
@@ -187,12 +176,11 @@ test('Layout of the information section', function (assert) {
 test('Layout of the information section editing mode', function (assert) {
   var question = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
     title: "Question Title",
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
 
   this.set('question', question);
-  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true question=question}}`);
+  this.render(hbs`{{content/questions/gru-questions-edit isEditing=true question=question tempQuestion=question}}`);
 
   var $settingsSection = this.$("#information");
   assert.ok($settingsSection.find('.header h2').length, "Information title missing");
@@ -204,8 +192,7 @@ test('Validate if the question title field is left blank', function (assert) {
   assert.expect(3);
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: null,
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
   this.set('question',question);
   this.render(hbs`{{content/questions/gru-questions-edit isEditing=true question=question tempQuestion=question}}`);
@@ -234,8 +221,7 @@ test('Validate if the Question Title field has only whitespaces', function (asse
   assert.expect(3);
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: null,
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
   this.set('question',question);
 
@@ -264,8 +250,7 @@ test('Validate if the Question Title field has only whitespaces', function (asse
 test('Validate the character limit in the Question title field', function (assert) {
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: null,
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
   this.set('question',question);
 
@@ -278,8 +263,7 @@ test('Validate the character limit in the Question title field', function (asser
 test('Layout of the builder section', function (assert) {
   var question = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
     title: "Question Title",
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
 
   this.set('question', question);
@@ -297,8 +281,7 @@ test('Builder Edit', function (assert) {
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
     type:"MC",
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
   this.set('question',question);
 
@@ -329,8 +312,7 @@ test('Validate the character limit in text field', function (assert) {
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: "",
     text:"",
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
   this.set('question',question);
 
@@ -359,8 +341,7 @@ test('Update Question Builder', function (assert) {
     title: 'Question for testing',
     text:"",
     type:'MC',
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
   this.set('question',question);
 
@@ -387,8 +368,7 @@ test('Validate update of default Title if the Question Text is updated', functio
     title: 'New Question',
     text:"",
     type:'MC',
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
   this.set('question',question);
 
@@ -414,8 +394,7 @@ test('Update Question Save Answers', function (assert) {
     text:"",
     type: QUESTION_TYPES.multipleChoice,
     answers:Ember.A([]),
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
   this.set('question', question);
 
@@ -459,8 +438,7 @@ test('Change answer text and cancel edit-Multiple Choice', function (assert) {
       'text': "Option B",
       'isCorrect': false
     })]),
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
   this.set('question', question);
 
@@ -499,8 +477,7 @@ test('Update answer text - True/False', function (assert) {
       'isCorrect': false,
       'type':"text"
     })]),
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
   this.set('question', question);
 
@@ -541,8 +518,7 @@ test('Change answer text and cancel- True/False', function (assert) {
       'isCorrect': false,
       'type':"text"
     })]),
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
   this.set('question', question);
 
@@ -581,8 +557,7 @@ test('Update answer text - (drag/drop) Reorder', function (assert) {
       'isCorrect': true,
       'type':"text"
     })]),
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
   this.set('question', question);
 
@@ -636,8 +611,7 @@ test('Remove answer and cancel - (drag/drop) Reorder', function (assert) {
       'isCorrect': null,
       'type':"text"
     })]),
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
   this.set('question', question);
 
@@ -681,8 +655,7 @@ test('Update answer text - Open Ended', function (assert) {
       'text': "Answer text",
       'isCorrect': true,
       'type':"text",
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+      standards: []
     })])
   });
   this.set('question', question);
@@ -721,8 +694,7 @@ test('Update answer and cancel - Open Ended', function (assert) {
     text: "",
     type: QUESTION_TYPES.openEnded,
     answers: Ember.A([]),
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
   this.set('question', question);
 
@@ -765,8 +737,7 @@ test('Select one correct answer at least', function(assert) {
       'isCorrect': false,
       'type':"text"
     })]),
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
   this.set('question', question);
 
@@ -790,8 +761,7 @@ test('Update HS-Image', function (assert) {
     title: 'Question for testing',
     text:"",
     type: QUESTION_TYPES.hotSpotImage,
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
   var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
@@ -835,8 +805,7 @@ test('Change HS-Image and Cancel', function (assert) {
       'type':"text"
     })
     ]),
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
 
   this.set('question', question);
@@ -877,8 +846,7 @@ test('Delete answer HS-Image ', function (assert) {
       'type':"text"
     })
     ]),
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
 
   this.set('question', question);
@@ -920,8 +888,7 @@ test('HS-Image validate has images', function (assert) {
       'type':"text"
     })
     ]),
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
 
   this.set('question', question);
@@ -956,8 +923,7 @@ test('Update answer text - Hot Text Highlight', function (assert) {
       'type': 'text',
       'highlightType': 'word'
     })]),
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
   this.set('question', question);
 
@@ -998,8 +964,7 @@ test('Update answer and cancel - Hot Text Highlight', function (assert) {
       'type': 'text',
       'highlightType': 'word'
     })]),
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    standards: []
   });
   this.set('question', question);
 

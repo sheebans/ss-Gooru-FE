@@ -44,21 +44,20 @@ export default Ember.Component.extend({
   actions: {
     /**
      * @function actions:selectResource
-     * @param {string} collectionId - Identifier for a resource (collection/assessment)
+     * @param {string} collection - (collection/assessment)
      */
-    selectResource: function (unitId, lessonId, collectionId) {
+    selectResource: function (unitId, lessonId, collection) {
       // Send the action so that it bubbles up to the route
-      this.sendAction('onSelectResource', unitId, lessonId, collectionId);
+      this.sendAction('onSelectResource', unitId, lessonId, collection);
     },
 
     /**
      * @function actions:viewReport
-     * @param {string} collectionId - Identifier for a resource (collection/assessment)
-     * @param {string} collectionType - (collection/assessment)
+     * @param {string} collection - Identifier for a resource (collection/assessment)
      */
-    viewReport: function (unitId, lessonId, collectionId, collectionType) {
+    viewReport: function (unitId, lessonId, collection) {
       // Send the action so that it bubbles up to the route
-      this.sendAction('onViewReport', unitId, lessonId, collectionId, collectionType);
+      this.sendAction('onViewReport', unitId, lessonId, collection);
     },
 
     /**

@@ -1,7 +1,10 @@
 {{#if performanceData}}
   {{#if showScore}}
     <div class="table-cell">
-      <div class="box score" style="background-color: {{gradeColor performanceData.score}}">{{{performanceData.score}}}%</div>
+      <div class="box score"
+           style="background-color: {{gradeColor (if performanceData.hasStarted performanceData.score 'NA')}}">
+        {{{if performanceData.hasStarted performanceData.score '--'}}}%
+      </div>
     </div>
   {{/if}}
   {{#if showCompletion}}

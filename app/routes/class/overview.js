@@ -38,15 +38,20 @@ export default Ember.Route.extend({
      * @function actions:playItem
      * @param {string} unitId - Identifier for a unit
      * @param {string} lessonId - Identifier for lesson
-     * @param {string} collectionId - Identifier for a collection or assessment
+     * @param {string} collection - collection or assessment
      */
-    playResource: function (unitId, lessonId, collectionId) {
-      const currentClass = this.modelFor('class').class;
-      const classId = currentClass.get("id");
-      const courseId = currentClass.get("courseId");
-      const role = this.get("controller.isStudent") ? "student" : "teacher";
-      this.transitionTo('context-player', classId, courseId, unitId,
-        lessonId, collectionId, { queryParams: { role: role }});
+    playResource: function (unitId, lessonId, collection) {
+      if (collection.get("isExternalAssessment")){
+        window.open(collection.get("url")); //todo url?
+      }
+      else{
+        const currentClass = this.modelFor('class').class;
+        const classId = currentClass.get("id");
+        const courseId = currentClass.get("courseId");
+        const role = this.get("controller.isStudent") ? "student" : "teacher";
+        this.transitionTo('context-player', classId, courseId, unitId,
+          lessonId, collection.get("id"), { queryParams: { role: role }});
+      }
     },
 
     /**

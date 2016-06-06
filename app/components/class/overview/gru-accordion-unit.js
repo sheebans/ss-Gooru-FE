@@ -90,12 +90,12 @@ export default Ember.Component.extend(AccordionMixin, {
 
     /**
      * @function actions:selectItem
-     * @param {string} collectionId - Identifier for a collection or assessment
+     * @param {string} collection - collection or assessment
      * @see components/class/overview/gru-accordion-lesson
      */
-    selectResource: function (lessonId, collectionId) {
+    selectResource: function (lessonId, collection) {
       let unitId = this.get("model.id");
-      this.get('onSelectResource')(unitId, lessonId, collectionId);
+      this.get('onSelectResource')(unitId, lessonId, collection);
     },
 
     /**

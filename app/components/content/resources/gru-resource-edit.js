@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
-import { RESOURCE_COMPONENT_MAP, RESOURCE_TYPES,CONTENT_TYPES } from "../../../config/config";
+import { RESOURCE_COMPONENT_MAP, RESOURCE_TYPES,CONTENT_TYPES, K12_CATEGORY } from "gooru-web/config/config";
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 import ModalMixin from 'gooru-web/mixins/modal';
 
 export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
@@ -17,6 +19,11 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
    * @requires service:api-sdk/resource
    */
   resourceService: Ember.inject.service("api-sdk/resource"),
+
+  /**
+   * @requires service:api-sdk/profile
+   */
+  profileService: Ember.inject.service("api-sdk/profile"),
 
 
   // -------------------------------------------------------------------------
@@ -83,7 +90,39 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
       this.actions.showModal.call(this,
         'content.modals.gru-delete-content',
         model, null, null, null, false);
+    },
+
+    addToCollection: function() {
+      const component = this;
+      if (component.get('session.isAnonymous')) {
+        component.send('showModal', 'content.modals.gru-login-prompt');
+      } else {
+        component.get('profileService').readCollections(component.get('session.userId')).then(
+          function(collections) {
+            component.send('showModal', 'content.modals.gru-add-to-collection', {
+              content: component.get('resource'),
+              collections
+            }, null, "add-to");
+        });
+      }
+    },
+
+    selectSubject: function(subject){
+      this.set("selectedSubject", subject);
+    },
+
+    /**
+     * Remove tag data from the taxonomy list in tempUnit
+     */
+    removeTag: function (taxonomyTag) {
+      var tagData = taxonomyTag.get('data');
+      this.get('tempResource.standards').removeObject(tagData);
+    },
+
+    openTaxonomyModal: function(){
+      this.openTaxonomyModal();
     }
+
   },
 
   // -------------------------------------------------------------------------
@@ -115,8 +154,62 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
     return RESOURCE_COMPONENT_MAP[this.get('resource.resourceType')];
   }),
 
-  // -------------------------------------------------------------------------
+  /**
+   *
+   * @property {TaxonomyRoot}
+   */
+  selectedSubject: null,
+
+  /**
+   * @property {string}
+   */
+  k12Category: K12_CATEGORY.value,
+
+  /**
+   * @property {boolean}
+   */
+  standardDisabled: Ember.computed.not("selectedSubject"),
+
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('resource.standards.[]', function() {
+    return TaxonomyTag.getTaxonomyTags(this.get("resource.standards"), false);
+  }),
+
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  editableTags: Ember.computed('tempResource.standards.[]', function() {
+    return TaxonomyTag.getTaxonomyTags(this.get("tempResource.standards"), true);
+  }),
+
+  // ----------------------------
   // Methods
+  openTaxonomyModal: function(){
+    var component = this;
+    var standards = component.get('tempResource.standards') || [];
+    var subject = component.get('selectedSubject');
+    var subjectStandards = TaxonomyTagData.filterBySubject(subject, standards);
+    var notInSubjectStandards = TaxonomyTagData.filterByNotInSubject(subject, standards);
+    var model = {
+      selected: subjectStandards,
+      shortcuts: null,  // TODO: TBD
+      subject: subject,
+      callback: {
+        success: function(selectedTags) {
+          var dataTags = selectedTags.map(function(taxonomyTag) {
+            return taxonomyTag.get('data');
+          });
+          const standards = Ember.A(dataTags);
+          standards.pushObjects(notInSubjectStandards.toArray());
+          component.set('tempResource.standards', standards);
+        }
+      }
+    };
+
+    this.actions.showModal.call(this, 'taxonomy.modals.gru-standard-picker', model, null, 'gru-standard-picker');
+  },
 
   /**
    * Save Content

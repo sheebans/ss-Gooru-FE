@@ -1,88 +1,295 @@
-import { moduleForComponent } from 'ember-qunit';
-//import { moduleForComponent, test } from 'ember-qunit';
-//import hbs from 'htmlbars-inline-precompile';
-//import Ember from 'ember';
-//import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
+import { moduleForComponent, test } from 'ember-qunit';
+import wait from 'ember-test-helpers/wait';
+import hbs from 'htmlbars-inline-precompile';
+import Ember from 'ember';
+import T from 'gooru-web/tests/helpers/assert';
+import TaxonomyRoot from 'gooru-web/models/taxonomy/taxonomy-root';
+import TaxonomyItem from 'gooru-web/models/taxonomy/taxonomy-item';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
+
+
+const taxonomyServiceStub = Ember.Service.extend({
+
+  getSubjects: function() {
+    const t1 = TaxonomyRoot.create({
+      id: "subject.K12.1",
+      frameworkId: "framework-1",
+      title: "Subject 1",
+      subjectTitle: "Subject 1.1",
+      code: "subject.K12.1-code",
+      frameworks: []
+    });
+
+    const t2 = TaxonomyRoot.create({
+      id: "subject-2",
+      frameworkId: "framework-2",
+      title: "Subject 2",
+      subjectTitle: "Subject 2.1",
+      code: "subject-2-code",
+      frameworks: []
+    });
+
+    return new Ember.RSVP.resolve([t1, t2]);
+  },
+
+  getCourses: function(subject){
+    const courses = [
+      TaxonomyItem.create({
+        id: 'course-1',
+        code: 'course-1-code',
+        title: 'Course 1'
+      }),
+      TaxonomyItem.create({
+        id: 'course-2',
+        code: 'course-2-code',
+        title: 'Course 2'
+      })
+    ];
+    subject.set("courses", courses); //TODO the method should return the courses, not assign it to the parameter
+    return new Ember.RSVP.resolve(courses);
+  }
+});
 
 moduleForComponent('gru-taxonomy-selector', 'Integration | Component | taxonomy/gru taxonomy selector', {
   integration: true,
   beforeEach: function () {
     this.inject.service('i18n');
+
+    this.register('service:taxonomy', taxonomyServiceStub);
+    this.inject.service('taxonomy');
   }
 });
 
-// TODO: Fix these tests
-/*
-test('Layout - read only', function (assert) {
+test('View mode it renders when no selection is made', function(assert) {
 
-  var srcObject = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
-    category: TAXONOMY_CATEGORIES[0].value,
-    subject: null,
-    setTaxonomySubject: function() {
-      return null;
-    }
-  });
-  var editObject = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
-    category: TAXONOMY_CATEGORIES[0].value,
-    subject: null,
-    setTaxonomySubject: function() {
-      return null;
-    }
-  });
+  this.render(hbs`{{taxonomy/gru-taxonomy-selector isEditing=false}}`);
 
-  this.set('srcEntity', srcObject);
-  this.set('editEntity', editObject);
+  const $component = this.$('.gru-taxonomy-selector');
 
-  this.render(hbs`
-    {{taxonomy.gru-taxonomy-selector isEditing=false srcEntity=srcEntity editEntity=editEntity}}
-  `);
-
-  const $component = this.$(".taxonomy.gru-taxonomy-selector");
-  assert.ok($component.length, 'Component found');
-
-  assert.equal($component.find('.category span.label').text(), this.get('i18n').t('common.category').string, 'Category label');
-  assert.ok($component.find('.category .btn-empty').length, 'Default category');
-  assert.equal($component.find('.category .btn-empty').text(), this.get('i18n').t('common.categoryOptions.k12').string, 'Selected category text');
-
-  assert.equal($component.find('.subject label span span').text(), this.get('i18n').t('taxonomy.gru-taxonomy-selector.primary-subject-and-course').string, 'Subject label');
-  assert.ok($component.find('.subject .subjects .btn-empty').length, 'Selected subjects');
+  assert.equal($component.find(".categories .category").length, 0, "There should be no category displayed");
+  assert.equal($component.find(".subject .tags").length, 0, "There should be no tags displayed");
 });
 
-test('Layout - edit', function (assert) {
+test('View mode it renders - no show categories', function(assert) {
 
-  var srcObject = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
-    category: TAXONOMY_CATEGORIES[0].value,
-    subject: null,
-    setTaxonomySubject: function() {
-      return null;
-    }
+  this.render(hbs`{{taxonomy/gru-taxonomy-selector isEditing=false showCategories=false}}`);
+
+  const $component = this.$('.gru-taxonomy-selector');
+
+  assert.equal($component.find(".categories").length, 0, "There should be no category displayed");
+});
+
+
+test('Edit mode it renders when no selection is made', function(assert) {
+  this.render(hbs`{{taxonomy/gru-taxonomy-selector isEditing=true}}`);
+
+  const $component = this.$('.gru-taxonomy-selector');
+
+  assert.equal($component.find(".categories .btn-info").length, 3, "There should be 3 non selected category buttons displayed");
+  assert.equal($component.find(".subject .tags").length, 0, "There should be no tags displayed");
+});
+
+test('Edit mode category selection', function(assert) {
+  assert.expect(8);
+  this.on("selectCategory", function(category){
+    assert.equal(category, "k_12", "Wrong category");
   });
-  var editObject = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
-    category: TAXONOMY_CATEGORIES[0].value,
-    subject: null,
-    setTaxonomySubject: function() {
-      return null;
-    }
+
+  this.render(hbs`{{taxonomy/gru-taxonomy-selector isEditing=true onCategorySelected='selectCategory'}}`);
+
+  const $component = this.$('.gru-taxonomy-selector');
+
+  assert.equal($component.find(".categories .btn-info").length, 3, "There should be 3 non selected category buttons displayed");
+
+  $component.find(".categories .btn-info:eq(0)").click();
+  return wait().then(function () {
+    assert.equal($component.find(".categories .btn-info").length, 2, "There should be 2 non selected category buttons displayed");
+    assert.equal($component.find(".categories .btn-primary").length, 1, "There should be 1 selected category button displayed");
+
+    const $subjectDropdown = $component.find(".gru-subject-picker");
+    assert.equal($subjectDropdown.length, 1, "Missing subject dropdown");
+    assert.equal($subjectDropdown.find(".selected-subject").length, 1, "Missing select subject");
+    assert.equal(T.text($subjectDropdown.find(".selected-subject")), 'Choose Subject', "Wrong selected subject title");
+    assert.equal($subjectDropdown.find("li.subject").length, 2, "Missing subjects");
+  });
+});
+
+test('Edit mode subject selection with showCourses=false', function(assert) {
+  assert.expect(5);
+  this.on("selectCategory", function(category){
+    assert.equal(category, "k_12", "Wrong category");
   });
 
-  this.set('srcEntity', srcObject);
-  this.set('editEntity', editObject);
-  this.render(hbs`
-    {{taxonomy.gru-taxonomy-selector isEditing=false srcEntity=srcEntity editEntity=editEntity}}
-  `);
+  this.on("selectSubject", function(subject){
+    assert.equal(subject.get("id"), "subject.K12.1", "Wrong subject");
+  });
 
-  const $component = this.$(".taxonomy.gru-taxonomy-selector");
-  assert.ok($component.length, 'Component found');
-  assert.equal($component.find('span.label').text(), this.get('i18n').t('common.category').string, 'Label');
+  this.render(hbs`{{taxonomy/gru-taxonomy-selector
+      isEditing=true
+      showCourses=false
+      onCategorySelected='selectCategory'
+      onSubjectSelected='selectSubject'
+    }}`);
 
-  const $btnGroup = $component.find('> .btn-group');
-  assert.ok($btnGroup.length, 'Button group');
-  assert.equal($btnGroup.find('button').length, TAXONOMY_CATEGORIES.length, 'Number of buttons in categories button group');
-  assert.equal($btnGroup.find('button.btn-primary').length, 1, 'Number of selected buttons in button group');
-  assert.ok($btnGroup.find('button:eq(0)').hasClass('btn-primary'), 'First button is selected');
+  const $component = this.$('.gru-taxonomy-selector');
 
-  $btnGroup.find('button:eq(2)').click();
-  assert.equal($btnGroup.find('button.btn-primary').length, 1, 'Number of selected buttons in button group');
-  assert.ok($btnGroup.find('button:eq(2)').hasClass('btn-primary'), 'Third button is selected');
-  assert.equal(this.get('editCategory'), TAXONOMY_CATEGORIES[2].value, 'Edit category value updated correctly');
-});*/
+  $component.find(".categories .btn-info:eq(0)").click();
+  return wait().then(function () {
+    const $subjectDropdown = $component.find(".gru-subject-picker");
+    assert.equal($subjectDropdown.find("li.subject").length, 2, "Missing subjects");
+
+    $subjectDropdown.find("li.subject a.subject-action:eq(0)").click();
+    return wait().then(function () {
+      assert.equal(T.text($subjectDropdown.find(".selected-subject")), 'Subject 1.1', "Wrong selected subject title");
+      assert.equal($component.find(".gru-subject-course-picker").length, 0, "Courses are turn off, it shouldn't be displayed");
+    });
+  });
+});
+
+test('Edit mode course selection', function(assert) {
+  assert.expect(9);
+  this.on("selectCategory", function(category){
+    assert.equal(category, "k_12", "Wrong category");
+  });
+
+  this.on("selectSubject", function(subject){
+    assert.equal(subject.get("id"), "subject.K12.1", "Wrong subject");
+  });
+
+  this.on("selectTaxonomy", function(taxonomy){
+    assert.equal(taxonomy.get("length"), 1, "Wrong taxonomy");
+  });
+
+  this.render(hbs`{{taxonomy/gru-taxonomy-selector
+      isEditing=true
+      showCourses=true
+      onCategorySelected='selectCategory'
+      onSubjectSelected='selectSubject'
+      onTaxonomySelected='selectTaxonomy'
+    }}`);
+
+  const $component = this.$('.gru-taxonomy-selector');
+
+
+  $component.find(".categories .btn-info:eq(0)").click();
+  return wait().then(function () {
+    const $subjectDropdown = $component.find(".gru-subject-picker");
+    assert.equal($subjectDropdown.find("li.subject").length, 2, "Missing subjects");
+
+    $subjectDropdown.find("li.subject a.subject-action:eq(0)").click();
+    return wait().then(function () {
+      assert.equal(T.text($subjectDropdown.find(".selected-subject")), 'Subject 1.1', "Wrong selected subject title");
+      assert.equal($component.find(".subject .tags").length, 1, "Missing tags element");
+
+      const $courses = $component.find(".gru-subject-course-picker");
+      assert.equal($courses.length, 1, "Courses are turn on, it should be displayed");
+      assert.equal($courses.find("input[type=checkbox]").length, 2, "Missing course checkboxes");
+
+      $courses.find("input[type=checkbox]:eq(0)").click();
+      return wait().then(function () {
+        assert.equal($component.find(".subject .tags .gru-taxonomy-tag").length, 1, "There should be 1 tags displayed");
+      });
+    });
+  });
+});
+
+test('View mode with selection', function(assert) {
+  const t1 = TaxonomyRoot.create({
+    id: "subject.K12.1",
+    frameworkId: "framework-1",
+    title: "Subject 1",
+    subjectTitle: "Subject 1.1",
+    code: "subject.K12.1-code",
+    frameworks: []
+  });
+
+  const selectedTaxonomy = Ember.A([
+    TaxonomyTagData.create({
+      id: 'course-1',
+      code: 'course-1-code',
+      title: 'Course 1',
+      parentTitle: t1.get('subjectTitle'),
+      frameworkCode: t1.get('frameworkId')
+    })
+  ]);
+
+  this.set("selectedSubject", t1);
+  this.set("selectedTaxonomy", selectedTaxonomy);
+
+  this.render(hbs`{{taxonomy/gru-taxonomy-selector
+      isEditing=false
+      showCourses=true
+      selectedSubject=selectedSubject
+      selectedTaxonomy=selectedTaxonomy
+    }}`);
+
+  const $component = this.$('.gru-taxonomy-selector');
+  assert.equal($component.find(".categories .category").length, 1, "There should be category displayed");
+  assert.equal($component.find(".subject .tags .gru-taxonomy-tag").length, 1, "There should be 1 tags displayed");
+});
+
+test('Edit mode with selection', function(assert) {
+  const courses = [
+    TaxonomyItem.create({
+      id: 'course-1',
+      code: 'course-1-code',
+      title: 'Course 1'
+    }),
+    TaxonomyItem.create({
+      id: 'course-2',
+      code: 'course-2-code',
+      title: 'Course 2'
+    })
+  ];
+
+  const t1 = TaxonomyRoot.create({
+    id: "subject.K12.1",
+    frameworkId: "framework-1",
+    title: "Subject 1",
+    subjectTitle: "Subject 1.1",
+    code: "subject.K12.1-code",
+    frameworks: [],
+    courses: courses
+  });
+
+  const selectedTaxonomy = Ember.A([
+    TaxonomyTagData.create({
+      id: 'course-1',
+      code: 'course-1-code',
+      title: 'Course 1',
+      parentTitle: t1.get('subjectTitle'),
+      frameworkCode: t1.get('frameworkId')
+    })
+  ]);
+
+  this.set("selectedSubject", t1);
+  this.set("selectedTaxonomy", selectedTaxonomy);
+
+  this.render(hbs`{{taxonomy/gru-taxonomy-selector
+      isEditing=true
+      showCourses=true
+      selectedSubject=selectedSubject
+      selectedTaxonomy=selectedTaxonomy
+    }}`);
+
+  const $component = this.$('.gru-taxonomy-selector');
+  return wait().then(function(){
+    assert.equal($component.find(".subject .tags .gru-taxonomy-tag").length, 1, "There should be 1 tags displayed");
+
+    assert.equal($component.find(".categories .btn-info").length, 2, "There should be 2 non selected category buttons displayed");
+    assert.equal($component.find(".categories .btn-primary").length, 1, "There should be 1 selected category button displayed");
+
+    const $subjectDropdown = $component.find(".gru-subject-picker");
+    assert.equal($subjectDropdown.find("li.subject").length, 2, "Missing subjects");
+
+    assert.equal(T.text($subjectDropdown.find(".selected-subject")), 'Subject 1.1', "Wrong selected subject title");
+
+    const $courses = $component.find(".gru-subject-course-picker");
+    assert.equal($courses.length, 1, "Courses are turn on, it should be displayed");
+    assert.equal($courses.find("input[type=checkbox]").length, 2, "Missing course checkboxes");
+    assert.equal($courses.find("input[type=checkbox]:checked").length, 1, "One course checkbox should be checked");
+
+  });
+
+});
+

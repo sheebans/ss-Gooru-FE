@@ -8,8 +8,13 @@ export default Ember.Route.extend({
   searchService: Ember.inject.service('api-sdk/search'),
 
   model: function() {
+    const taxonomies = this.paramsFor('search').taxonomies;
     const term = this.paramsFor('search').term;
-    var collectionResults = this.get('searchService').searchCollections(term);
+    const options = {
+      taxonomies: taxonomies
+    };
+
+    var collectionResults = this.get('searchService').searchCollections(term, options);
     return Ember.RSVP.hash({
       collectionResults: collectionResults
     }).catch(function(err){

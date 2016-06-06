@@ -136,33 +136,10 @@
                 padding-left: 10px;
                 border-left : 2px solid $dark-300;
 
-                .label {
+                .taxonomy.gru-taxonomy-tag {
+                  border-color: $dark-300;
                   background-color: $dark-300;
-                  text-transform: uppercase;
-                  margin-right: 5px;
-                  padding: 5px;
-                  color: $light-300;
-
-                  span {
-                    display: block;
-                    font-size: $font-size-base;
-                    color: $white;
-                  }
-
-                  &:nth-of-type(n+3) {
-                    display: none;
-                  }
-
-                  @media (min-width: $screen-xs) {
-                    &:nth-of-type(n+3) {
-                      display: block;
-                    }
-                  }
-                }
-
-                span.extra {
-                  @include flexbox();
-                  @include align-items(center);
+                  color: $white;
                 }
               }
             }

@@ -9,8 +9,14 @@ export default Ember.Route.extend({
 
   model: function(params) {
     const selectedOptionTypes = params.selectedOptionTypes;
+    const taxonomies = this.paramsFor('search').taxonomies;
     const term = this.paramsFor('search').term;
-    var resourceResults = this.get('searchService').searchResources(term, selectedOptionTypes);
+    const options = {
+      formats: selectedOptionTypes,
+      taxonomies: taxonomies
+    };
+
+    var resourceResults = this.get('searchService').searchResources(term, options);
     return Ember.RSVP.hash({
       term:term,
       resources: resourceResults,

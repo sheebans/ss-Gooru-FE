@@ -32,8 +32,8 @@ moduleForComponent('gru-resource-edit', 'Integration | Component | content/resou
   beforeEach: function () {
     this.i18n = this.container.lookup('service:i18n');
     this.i18n.set("locale","en");
-    this.register('service:api-sdk/taxonomy', taxonomyServiceStub);
-    this.inject.service('api-sdk/taxonomy');
+    this.register('service:taxonomy', taxonomyServiceStub);
+    this.inject.service('taxonomy');
   }
 });
 
@@ -233,7 +233,7 @@ test('Layout of the information section on edit mode', function (assert) {
 
   this.set('resource', resource);
 
-  this.render(hbs`{{content/resources/gru-resource-edit resource=resource isEditing=true}}`);
+  this.render(hbs`{{content/resources/gru-resource-edit resource=resource tempResource=resource isEditing=true}}`);
   var $informationSection = this.$("#information");
   assert.ok($informationSection.find('.header h2').length, "Information title missing");
   assert.ok($informationSection.find('.panel-body label .gru-input.title').length, "Missing title label");

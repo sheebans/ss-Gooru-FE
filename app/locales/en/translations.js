@@ -22,9 +22,11 @@ export default {
     "add-question": "Add Question",
     "add-question-image": "Add Question Image",
     "add-standard": "Add Standard",
+    "add-standards": "Add Standards",
     "add-standards-to-collection": "Add Standards to Collection",
     "add-to": "Add To",
-    "add-to-collection-success": "You've added {{contentTitle}} to {{collectionTitle}}. Do you want to edit that collection?",
+    "add-to-collection-success": "You've added {{contentTitle}} to {{collectionTitle}}. Do you want to edit that {{collectionType}}?",
+    "add-to-lesson-success": "You've added {{collectionTitle}} to {{lessonTitle}}. Do you want to edit that {{collectionType}}?",
     "add-type-question":"What type of question would you like to add?",
     "add-type-resource":"What type of resource is this?",
     "add-units": "Add Units",
@@ -32,6 +34,7 @@ export default {
     "answer":"Your Answer",
     "approved":"Approved",
     "assessment":"Assessment",
+    "assessment-external":"Assessment-External",
     "assessment-pl": {
       one: "Assessment",
       other: "Assessments"
@@ -122,16 +125,20 @@ export default {
     "errors": {
       "join-class-code":"Please enter the class code.",
       "answer-has-no-image":"Please upload an answer image.",
+      "add-username":"Please enter a username.",
       "add-course-title":"Please enter the course title.",
       "add-question-answer-text":"Please enter the answer choice text.",
       "add-question-title":"Please enter the question title.",
+      "add-student-id":"You cannot use special characters or spaces.",
       "assessment-title-presence" : "Please enter the assessment title.",
       "can-not-join-class" : "Oops! Unable to join class. Please try again shortly.",
+      "assessment-not-added-to": "Oops! Unable to add assessment to lesson right now. Please try again shortly.",
       "assessment-not-copied": "Oops! Unable to copy assessment right now. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
       "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
       "class-title-presence": "Please give your class a name.",
+      "collection-not-added-to": "Oops! Unable to add collection to lesson right now. Please try again shortly.",
       "collection-not-copied": "Oops! Unable to copy collection right now. Please try again shortly.",
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "collection-not-updated": "Oops! Unable to update collection right now. Please try again shortly.",
@@ -147,7 +154,7 @@ export default {
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
       "lesson-title-required" : "Please enter the lesson title.",
-      "question-not-added-to-collection": "Oops! Unable to add question to collection right now. Please try again shortly.",
+      "question-not-added-to": "Oops! Unable to add question to {{collectionType}} right now. Please try again shortly.",
       "question-not-copied": "Oops! Unable to copy question right now. Please try again shortly.",
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
       "question-not-updated": "Oops! Unable to update question right now. Please try again shortly.",
@@ -169,7 +176,8 @@ export default {
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
       "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly.",
       "unit-title-required" : "Please enter the unit title.",
-      "user-email-presence" : "Please enter a valid email."
+      "user-email-presence" : "Please enter a valid email.",
+      "username-length":"Username must be between 4 and 20 characters."
     },
     "essential-questions": "Essential Questions",
     "explanation": "Explanation",
@@ -293,7 +301,9 @@ export default {
     "remix-unit-success": "You've remixed a unit {{unitTitle}}.",
     "remixed-by": "Remixed by",
     "remove":"Remove",
+    "report-in-progress": "Report in progress",
     "request-to":"Request to be searchable and featured in Gooru",
+    "request-report": "Request Report",
     "resource":"Resource",
     "resources": "Resources",
     "resource-format":{
@@ -340,6 +350,8 @@ export default {
     "standards": "Standards",
     "study": "Study",
     "student": "Student",
+    "student-id":"Student ID (not displayed on Profile)",
+    "subject-and-framework": "Subject and Framework",
     "submit": "Submit",
     "submit-all":"Submit all",
     "swap": "Re-order",
@@ -620,8 +632,14 @@ export default {
    * COMPONENTS: Translations used in a specific component
    */
   "gru-add-to":{
+    "add-assessment-to-lesson":"Add from my assessments",
+    "add-assessment-to-lesson-lead":"Select an assessment to add to this lesson",
+    "add-collection-to-lesson":"Add from my collections",
+    "add-collection-to-lesson-lead":"Select a collection to add to this lesson",
     "add-to-collection":"Add to collection",
-    "add-to-collection-lead":"Choose a collection you want to add {{contentTitle}} to"
+    "add-to-collection-lead":"Choose a collection you want to add {{contentTitle}} to",
+    "add-to-assessment":"Add to assessment or collection",
+    "add-to-assessment-lead":"Choose an assessment you want to add {{contentTitle}} to"
   },
   "gru-quick-course-search":{
     "add-from-course":"Add from Existing Course",
@@ -1047,7 +1065,7 @@ export default {
       "shortcutText": "Course is in"
     },
     "gru-standard-picker": {
-      "browseSelectorText": "What standards will this collection cover?",
+      "browseSelectorText": "What standards will be covered?",
       "selectedText": {
         one: "{{count}} standard selected",
         other: "{{count}} standards selected"

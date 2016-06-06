@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { checkStandards } from 'gooru-web/utils/utils';
+import {K12_CATEGORY} from 'gooru-web/config/config';
 
 /**
  * @typedef {object} SearchCollectionsController
@@ -15,18 +15,16 @@ export default Ember.Route.extend({
        @see routes/application.js#searchTerm
        */
       refreshModel: true
+    },
+    taxonomies: {
+      refreshModel: true
     }
   },
 
   /**
-   * @property {Ember.Service} Service to retrieve standards
+   * @requires service:taxonomy
    */
-  standardService: Ember.inject.service("api-sdk/standard"),
-
-  /**
-   * @property {Ember.Service} Service to retrieve profiles
-   */
-  profileService: Ember.inject.service("api-sdk/profile"),
+  taxonomyService: Ember.inject.service("taxonomy"),
 
   /**
    * @property {Ember.Service} Service to do the search
@@ -34,11 +32,9 @@ export default Ember.Route.extend({
   searchService: Ember.inject.service('api-sdk/search'),
 
   model: function() {
-    var standards = this.get("standardService").readAll();
-    var profile = this.get("profileService").findByCurrentUser();
+    var subjects = this.get('taxonomyService').getSubjects(K12_CATEGORY.value);
     return Ember.RSVP.hash({
-      standards: standards,
-      profile: profile
+      subjects: subjects
     });
   },
   /**
@@ -47,14 +43,7 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
-    this._super(controller, model);
-    if (model.profile) {
-      var checkableStandards = this.get("standardService").getCheckableStandards();
-      //TODO load preferences var codes = model.profile.get("user.metadata.taxonomyPreference.code");
-      var codes = model.standards; //for now all are enabled
-      checkStandards(model.standards, checkableStandards, codes);
-    }
-    controller.set("standards", model.standards);
+    controller.set("subjects", model.subjects);
   },
 
   // -------------------------------------------------------------------------
@@ -62,10 +51,15 @@ export default Ember.Route.extend({
   actions: {
     /**
      * Action triggered to open the content player
-     * @param {string} collectionId gooruOid collection identifier
+     * @param {string} collection collection identifier
      */
-    onOpenContentPlayer: function(collectionId) {
-      this.transitionTo('player', collectionId);
+    onOpenContentPlayer: function(collection) {
+      if (collection.get("isExternalAssessment")){
+        window.open(collection.get("url")); //TODO url?
+      }
+      else {
+        this.transitionTo('player', collection.get("id"));
+      }
     }
   }
 });

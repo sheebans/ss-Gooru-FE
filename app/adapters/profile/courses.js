@@ -25,7 +25,7 @@ export default Ember.Object.extend({
     const url = `${namespace}/${profileId}/courses`;
 
     const page = params.page || 0;
-    const pageSize = params.pageSize || DEFAULT_PAGE_SIZE
+    const pageSize = params.pageSize || DEFAULT_PAGE_SIZE;
     const offset = page * pageSize;
     const options = {
       type: 'GET',

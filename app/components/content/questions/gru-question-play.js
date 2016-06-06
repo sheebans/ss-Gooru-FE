@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import QuestionResult from 'gooru-web/models/result/question';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -53,5 +54,13 @@ export default Ember.Component.extend({
    */
   questionResult: Ember.computed(function(){
     return QuestionResult.create({});
+  }),
+
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('question.standards.[]', function() {
+    return TaxonomyTag.getTaxonomyTags(this.get("question.standards"), false);
   })
+
 });

@@ -43,6 +43,23 @@
           }
         }
       }
+
+      .ui-sortable-helper {
+        background-color: $gray-lighter;
+      }
+      .drag-options{
+        display: inline-block;
+        .cancel.btn-info{
+          padding: 10px 15px;
+          font-size: 12px;
+          background-color: $brand-info;
+        }
+        .save.btn-success{
+          padding: 10px 15px;
+          font-size: 12px;
+          background-color: $brand-success;
+        }
+      }
     }
 
     .panel-heading {
@@ -119,7 +136,7 @@
               .actions {
                 margin-left: 5px;
 
-                div:last-of-type {
+                >div:last-of-type {
                   border-left: 1px solid $gray-light;
                   margin-left: 5px;
                   padding-left: 10px;
@@ -172,6 +189,9 @@
       .panel-body {
         padding: 10px 15px 15px;
 
+        .gru-taxonomy-tag-list {
+          padding-left: 5px;
+        }
         .col-sm-6 {
           label {
             width: 100%;
@@ -198,6 +218,14 @@
           > span {
             display: block;
             margin: 10px 0;
+          }
+
+          .add-taxonomy {
+            @include flexbox();
+
+            > ul {
+              @include flex();
+            }
           }
 
           &.domain, &.standards {
@@ -345,6 +373,14 @@
                 }
               }
             }
+
+            .drag-icon{
+              i{
+                vertical-align: super;
+              }
+              color:$light-500;
+            }
+
           }
 
           + div {
@@ -354,6 +390,16 @@
               font-size: $font-size-base;
               padding: 5px 10px;
             }
+          }
+          &.sortable.sorting {
+            list-style: none;
+            padding: 0;
+            li .panel{
+              cursor: move;
+            }
+          }
+          .ui-sortable-helper {
+            background-color: $gray-lighter;
           }
         }
       }
