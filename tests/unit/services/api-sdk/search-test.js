@@ -9,11 +9,12 @@ moduleForService('service:api-sdk/search', 'Unit | Service | api-sdk/search', {
 test('searchCollections', function(assert) {
   const service = this.subject();
 
-  assert.expect(3);
+  assert.expect(4);
   service.set('searchAdapter', Ember.Object.create({
     searchCollections: function(term, params) {
       assert.equal(term, 'the-term', 'Wrong search collections term');
       assert.equal(params.page, 1, 'Wrong page');
+      assert.deepEqual(params.taxonomies, ['a', 'b'], 'Wrong taxonomies');
       return Ember.RSVP.resolve({});
     }
   }));
@@ -26,7 +27,7 @@ test('searchCollections', function(assert) {
   }));
 
   var done = assert.async();
-  service.searchCollections('the-term', { page: 1 })
+  service.searchCollections('the-term', { page: 1, taxonomies: ['a', 'b'] })
     .then(function() {
       done();
     });
@@ -35,11 +36,12 @@ test('searchCollections', function(assert) {
 test('searchAssessments', function(assert) {
   const service = this.subject();
 
-  assert.expect(3);
+  assert.expect(4);
   service.set('searchAdapter', Ember.Object.create({
     searchAssessments: function(term, params) {
       assert.equal(term, 'the-term', 'Wrong search collections term');
       assert.equal(params.page, 1, 'Wrong page');
+      assert.deepEqual(params.taxonomies, ['a', 'b'], 'Wrong taxonomies');
       return Ember.RSVP.resolve({});
     }
   }));
@@ -52,7 +54,7 @@ test('searchAssessments', function(assert) {
   }));
 
   var done = assert.async();
-  service.searchAssessments('the-term', { page: 1 })
+  service.searchAssessments('the-term', { page: 1, taxonomies: ['a', 'b'] })
     .then(function() {
       done();
     });
@@ -61,13 +63,14 @@ test('searchAssessments', function(assert) {
 test('searchResources', function(assert) {
   const service = this.subject();
 
-  assert.expect(5);
+  assert.expect(6);
 
   service.set('searchAdapter', Ember.Object.create({
-    searchResources: function(term, categories, params) {
+    searchResources: function(term, params) {
       assert.equal(term, 'the-term', 'Wrong search resources term');
       assert.equal(params.page, 2, 'Wrong page');
-      assert.deepEqual(categories, ['image', 'interactive', 'question'], 'Wrong categories value');
+      assert.deepEqual(params.formats, ['image', 'interactive', 'question'], 'Wrong categories value');
+      assert.deepEqual(params.taxonomies, ['a', 'b'], 'Wrong taxonomies');
       assert.ok(true, 'searchResources() function was called' );
       return Ember.RSVP.resolve({});
     }
@@ -81,7 +84,39 @@ test('searchResources', function(assert) {
   }));
 
   var done = assert.async();
-  service.searchResources('the-term', ['image', 'interactive', 'question'], { page: 2 })
+  service.searchResources('the-term',
+    { page: 2, formats:['image', 'interactive', 'question'], taxonomies: ['a', 'b'] })
+    .then(function() {
+      done();
+    });
+});
+
+test('searchQuestions', function(assert) {
+  const service = this.subject();
+
+  assert.expect(6);
+
+  service.set('searchAdapter', Ember.Object.create({
+    searchQuestions: function(term, params) {
+      assert.equal(term, 'the-term', 'Wrong search resources term');
+      assert.equal(params.page, 2, 'Wrong page');
+      assert.deepEqual(params.types, ['a', 'b', 'c'], 'Wrong categories value');
+      assert.deepEqual(params.taxonomies, ['a', 'b'], 'Wrong taxonomies');
+      assert.ok(true, 'searchQuestions() function was called' );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('searchSerializer', Ember.Object.create({
+    normalizeSearchQuestions: function(payload) {
+      assert.deepEqual({}, payload, 'Wrong search resources payload');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.searchQuestions('the-term',
+    { page: 2, types:['a', 'b', 'c'], taxonomies: ['a', 'b'] })
     .then(function() {
       done();
     });
