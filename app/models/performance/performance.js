@@ -25,6 +25,12 @@ export default DS.Model.extend({
    * @property {Boolean} Value that tells whether the performance data belongs to an assessment
    */
   isAssessment : Ember.computed.equal('type', 'assessment'),
+
+  /**
+   * @property {Boolean} Value that tells whether the performance data belongs to an assessment
+   */
+  isExternalAssessment : Ember.computed.equal('type', 'assessment-external'),
+
   /**
    * @property {Boolean} Value that tells whether the performance data belongs to a collection
    */
@@ -32,7 +38,7 @@ export default DS.Model.extend({
   /**
    * @property {Boolean} Value that tells whether the performance data belongs to a collection
    */
-  isCollectionOrAssessment: Ember.computed.or('isCollection','isAssessment'),
+  isCollectionOrAssessment: Ember.computed.or('isCollection','isAssessment', 'isExternalAssessment'),
   /**
    * @property {Boolean} Value that tells whether the performance data belongs to an Unit
    */
@@ -86,8 +92,8 @@ export default DS.Model.extend({
       (completionDone > 0) ? 100 : null;
   }),
 
-  hasStarted: Ember.computed('timeSpent', function () {
-    return (Math.floor(this.get('timeSpent')) >0);
+  hasStarted: Ember.computed('timeSpent', 'score', function () {
+    return (Math.floor(this.get('timeSpent')) > 0) || this.get("score") > 0;
   }),
 
   displayableTimeSpent: Ember.computed('timeSpent', function() {

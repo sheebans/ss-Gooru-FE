@@ -3,6 +3,7 @@ import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 import { getCategoryFromSubjectId } from 'gooru-web/utils/taxonomy';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import TaxonomyRoot from 'gooru-web/models/taxonomy/taxonomy-root';
 
 /**
  * Taxonomy selector component
@@ -98,22 +99,6 @@ export default Ember.Component.extend({
   },
 
   /**
-   * Gets the taxonomy tags
-   * @param editable
-   * @returns {Array}
-   */
-  getTaxonomyTags: function (taxonomy, editable = false) {
-    return taxonomy.map(function(tagData) {
-      return TaxonomyTag.create({
-        isActive: false,
-        isReadonly: !editable,
-        isRemovable: editable,
-        data: tagData
-      });
-    });
-  },
-
-  /**
    * Loads subjects by category
    */
   loadSubjects: function(category){
@@ -132,8 +117,8 @@ export default Ember.Component.extend({
     }
 
     if (subject){
-      if (component.get("showCourses") && !subject.get('hasCourses')) {
-        component.get('taxonomyService').retrieveSubjectCourses(subject);
+      if (!subject.get('hasCourses')) {
+        component.get('taxonomyService').getCourses(subject);
       }
     }
   },
@@ -163,17 +148,23 @@ export default Ember.Component.extend({
   isEditing: null,
 
   /**
+   * Indicates if it should only include subjects having standards
+   * @poperty {boolean}
+   */
+  onlySubjectsWithStandards: false,
+
+  /**
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
   tags: Ember.computed('selectedTaxonomy.[]', function() {
-    return this.getTaxonomyTags(this.get("selectedTaxonomy"), false);
+    return TaxonomyTag.getTaxonomyTags(this.get("selectedTaxonomy"), false);
   }),
 
   /**
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
   editableTags: Ember.computed('selectedTaxonomy.[]', function() {
-    return this.getTaxonomyTags(this.get("selectedTaxonomy"), true);
+    return TaxonomyTag.getTaxonomyTags(this.get("selectedTaxonomy"), true);
   }),
 
   /**

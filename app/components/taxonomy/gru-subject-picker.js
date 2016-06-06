@@ -48,6 +48,20 @@ export default Ember.Component.extend({
   subjects: null,
 
   /**
+   * @type {Array} List of subjects
+   */
+  subjectsWithStandards: Ember.computed("subjects", function(){
+    return this.get("subjects").filter(function(subject){
+      return subject.get("hasStandards");
+    })
+  }),
+
+  /**
+   * @property {boolean}
+   */
+  onlySubjectsWithStandards: false,
+
+  /**
    * the subject selected
    * @property {TaxonomyRoot}
    */
@@ -62,6 +76,11 @@ export default Ember.Component.extend({
   /**
    * @property {string}
    */
-  placeholderLabelKey: 'taxonomy.gru-taxonomy-selector.choose-subject'
+  placeholderLabelKey: 'taxonomy.gru-taxonomy-selector.choose-subject',
+
+  /**
+   * @property {string} dropdown alignment, right | left
+   */
+  alignment: null
 
 });

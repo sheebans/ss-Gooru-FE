@@ -14,7 +14,7 @@
       {{#gru-share-pop-over tagName="button" type="question"}}
         {{gru-icon name="insert_link"}}
       {{/gru-share-pop-over}}
-      <button class="btn btn-default add hidden"title="{{t 'common.add-to'}}">{{t "content.questions.edit.add-to"}}</button>
+      <button class="btn btn-default add"title="{{t 'common.add-to'}}" {{action "addToCollection"}}>{{t "content.questions.edit.add-to"}}</button>
       {{#link-to 'content.questions.play' question.id class="btn btn-default preview" tagName="button"}}{{t "common.preview"}}{{/link-to}}
   </div>
 
@@ -151,7 +151,8 @@
                     </div>
                 </div>
                 <div class="standards">
-                  {{taxonomy.gru-taxonomy-selector
+                  {{#if isEditing}}
+                    {{taxonomy.gru-taxonomy-selector
                     isEditing=isEditing
                     onSubjectSelected="selectSubject"
                     selectedSubject=selectedSubject
@@ -159,7 +160,32 @@
                     subjectLabelKey='common.subject-and-framework'
                     showCategories=false
                     showCourses=false
-                  }}
+                    onlySubjectsWithStandards=true
+                    }}
+                  {{/if}}
+                  <div>
+                    <label class="title">
+                      <span>{{t "common.standards"}}</span>
+                    </label>
+                    {{#if isEditing}}
+                      <button type="button" class="btn btn-primary"
+                        {{action 'openTaxonomyModal'}}
+                              disabled={{standardDisabled}}>
+                        {{gru-icon name="open_in_new"}} {{t "common.select"}}
+                      </button>
+                      <div class="tags">
+                          {{taxonomy.gru-taxonomy-tag-list tags=editableTags onRemove=(action 'removeTag')}}
+                      </div>
+                    {{else}}
+                      <div class="tags">
+                        {{#if tags.length}}
+                          {{taxonomy.gru-taxonomy-tag-list tags=tags}}
+                        {{else}}
+                          {{t "common.not-specified"}}
+                        {{/if}}
+                      </div>
+                    {{/if}}
+                  </div>
                 </div>
             </div>
         </div>

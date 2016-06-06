@@ -24,12 +24,16 @@ export default Ember.Component.extend({
   actions: {
 
     toggleState: function() {
-      this.toggleProperty('model.isActive');
-      this.get('onSelect')(this.get('model'));
+      if (this.get('onSelect')){
+        this.toggleProperty('model.isActive');
+        this.get('onSelect')(this.get('model'));
+      }
     },
 
     removeTag: function() {
-      this.get('onRemove')(this.get('model'));
+      if (this.get('onRemove')){
+        this.get('onRemove')(this.get('model'));
+      }
     }
   },
 

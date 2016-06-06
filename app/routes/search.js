@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { checkStandards } from 'gooru-web/utils/utils';
 import {K12_CATEGORY} from 'gooru-web/config/config';
+import TaxonomyRoot from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 /**
  * @typedef {object} SearchCollectionsController
  */
@@ -14,6 +15,9 @@ export default Ember.Route.extend({
 
        @see routes/application.js#searchTerm
        */
+      refreshModel: true
+    },
+    taxonomies: {
       refreshModel: true
     }
   },
@@ -48,10 +52,15 @@ export default Ember.Route.extend({
   actions: {
     /**
      * Action triggered to open the content player
-     * @param {string} collectionId gooruOid collection identifier
+     * @param {string} collection collection identifier
      */
-    onOpenContentPlayer: function(collectionId) {
-      this.transitionTo('player', collectionId);
+    onOpenContentPlayer: function(collection) {
+      if (collection.get("isExternalAssessment")){
+        window.open(collection.get("url")); //TODO url?
+      }
+      else {
+        this.transitionTo('player', collection.get("id"));
+      }
     }
   }
 });

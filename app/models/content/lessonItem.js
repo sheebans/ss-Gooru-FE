@@ -22,12 +22,21 @@ export default Ember.Object.extend({
     return this.get('format') === CONTENT_TYPES.COLLECTION;
   }),
 
+  isExternalAssessment: Ember.computed('format', function() {
+    return this.get('format') === CONTENT_TYPES.EXTERNAL_ASSESSMENT;
+  }),
+
   isAssessment: Ember.computed.not("isCollection"),
 
   /**
    * @property {String} format - Type of lesson item
    */
-  format: '',
+  format: null,
+
+  /**
+   * @property {String} url
+   */
+  url: null,
 
   collectionType: Ember.computed.alias("format"),
   /**

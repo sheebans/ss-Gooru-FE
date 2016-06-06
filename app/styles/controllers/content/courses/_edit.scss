@@ -189,6 +189,9 @@
       .panel-body {
         padding: 10px 15px 15px;
 
+        .gru-taxonomy-tag-list {
+          padding-left: 5px;
+        }
         .col-sm-6 {
           label {
             width: 100%;
@@ -215,6 +218,14 @@
           > span {
             display: block;
             margin: 10px 0;
+          }
+
+          .add-taxonomy {
+            @include flexbox();
+
+            > ul {
+              @include flex();
+            }
           }
 
           &.domain, &.standards {

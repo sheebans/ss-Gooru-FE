@@ -15,19 +15,6 @@
         <button class="save btn btn-success" {{action 'saveLesson'}}>{{t "common.save"}}</button>
       </div>
     </div>
-    <div class="panel-body">
-      <div class="data-row standards">
-        <span>{{t "common.standards"}}</span>
-        <button type="button" class="btn btn-primary btn-sm add-prefix" {{action 'openStandardPicker'}}>{{t "common.add"}}</button>
-        <ul>
-          {{#each selectedStandards as |domainTag|}}
-            <li>
-              {{taxonomy.gru-taxonomy-tag model=domainTag}}
-            </li>
-          {{/each}}
-        </ul>
-      </div>
-    </div>
   </div>
 {{/if}}
 
@@ -56,8 +43,8 @@
             <div class="dropdown">
               <button class="btn add-item dropdown-toggle" title="{{t 'common.add'}}" type="button" data-toggle="dropdown">{{gru-icon name="add"}}</button>
               <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="#">{{t "common.from-my-collections"}}</a></li>
-                <li><a href="#">{{t "common.from-my-assessments"}}</a></li>
+                <li><a href="#" {{action "fromMyCollections"}}>{{t "common.from-my-collections"}}</a></li>
+                <li><a href="#" {{action "fromMyAssessments"}}>{{t "common.from-my-assessments"}}</a></li>
                 <li><a href="#" {{action "showModal" "content.modals.gru-collection-new" newCollectionModel}}>{{t "common.new-collection"}}</a></li>
                 <li><a href="#" {{action "showModal" "content.modals.gru-assessment-new" newCollectionModel}}>{{t "common.new-assessment"}}</a></li>
               </ul>
@@ -101,8 +88,8 @@
     </ol>
 
     <div>
-      <button class="btn btn-success add-prefix">{{t "common.from-my-collections"}}</button>
-      <button class="btn btn-success add-prefix">{{t "common.from-my-assessments"}}</button>
+      <button class="btn btn-success add-prefix" {{action "fromMyCollections"}}>{{t "common.from-my-collections"}}</button>
+      <button class="btn btn-success add-prefix" {{action "fromMyAssessments"}}>{{t "common.from-my-assessments"}}</button>
       <button class="btn btn-success add-prefix" {{action "showModal" "content.modals.gru-collection-new" newCollectionModel}}>{{t "common.new-collection"}}</button>
       <button class="btn btn-success add-prefix" {{action "showModal" "content.modals.gru-assessment-new" newCollectionModel}}>{{t "common.new-assessment"}}</button>
     </div>

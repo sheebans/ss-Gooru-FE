@@ -81,7 +81,7 @@ test('it enables the delete button under the appropriate conditions', function(a
 });
 
 test('it calls a generic delete method and then a callback (if provided) after clicking on the delete button', function(assert) {
-  assert.expect(21);
+  assert.expect(24);
 
   const model = {
     deleteMethod: function() {
@@ -123,7 +123,7 @@ test('it calls a generic delete method and then a callback (if provided) after c
 });
 
 test('it calls a generic delete method and then redirects (if a route is provided) after clicking on the delete button', function(assert) {
-  assert.expect(28);
+  assert.expect(32);
 
   const model = {
     deleteMethod: function() {

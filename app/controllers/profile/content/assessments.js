@@ -7,8 +7,13 @@ export default Ember.Controller.extend({
   // Actions
 
   actions: {
-    openContentPlayer: function(assessmentId) {
-      this.transitionToRoute('player', assessmentId);
+    openContentPlayer: function(assessment) {
+      if (assessment.get("isExternalAssessment")){
+        window.open(assessment.get("url")); //TODO url?
+      }
+      else{
+        this.transitionToRoute('player', assessment.get("id"));
+      }
     },
 
     showMoreResults: function(){

@@ -180,6 +180,12 @@ export default Ember.Object.extend(Validations, {
     });
   },
 
+  isOwner: function(id) {
+    const owner = this.get("owner");
+    const creatorId = this.get("creatorId");
+    return (owner && owner.get("id") === id) || (creatorId === id);
+  },
+
   // -------------------------------------------------------------
   // Events
   /**

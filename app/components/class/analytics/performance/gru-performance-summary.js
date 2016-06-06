@@ -49,18 +49,18 @@ export default Ember.Component.extend({
   actions:{
     /**
      * @function actions:selectResource
-     * @param {string} collectionId - Identifier for a resource (collection/assessment)
+     * @param {string} collection -  (collection/assessment)
      */
-    selectResource: function (collectionId) {
-      this.get('onSelectResource')(collectionId);
+    selectResource: function (collection) {
+      this.get('onSelectResource')(collection);
     },
 
     /**
      * @function actions:viewReport
-     * @param {string} collectionId - Identifier for a resource (collection/assessment)
+     * @param {string} collection - (collection/assessment)
      */
-    viewReport: function (collectionId) {
-      this.get('onViewReport')(collectionId, this.get("performance.type"));
+    viewReport: function (collection) {
+      this.get('onViewReport')(collection);
     }
   },
 

@@ -62,7 +62,7 @@ export default Ember.Route.extend({
   },
 
   setupController(controller, model) {
-    var isOwner = model.course.get('owner') === this.get('session.userId');
+    var isOwner = model.course.isOwner(this.get('session.userId'));
     var license = 'Public Domain';
     var useCase = 'Donec nulla tortor, viverra et posuere id, lobortis non felis. Nam id tristique metus, vitae sollicitudin mauris. Maecenas nec nisi arcu. Proin at ante sit amet velit fermentum porta. Nunc vitae egestas orci, ac pellentesque mi. Donec a urna nisi. Donec iaculis tincidunt nisi vel semper. Nam ullamcorper dictum lacus ac consequat. Nulla tempus tristique erat sed ornare. Etiam aliquet a velit in interdum. Nulla condimentum scelerisque elit, ac rhoncus ex euismod non. Donec vestibulum odio odio, at mollis quam tempor a. Phasellus hendrerit iaculis odio, eget auctor enim finibus at. Fusce posuere vel purus a dapibus.';
 
