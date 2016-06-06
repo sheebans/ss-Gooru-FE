@@ -15,6 +15,7 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
   searchController: Ember.inject.controller('search'),
+  appController: Ember.inject.controller('application'),
 
   /**
    * @property {Ember.Service} Service to do the search
@@ -119,6 +120,9 @@ export default Ember.Controller.extend({
       page: 0,
       pageSize: DEFAULT_PAGE_SIZE
     })
+  },
+  setInvalidSearchTerm : function(value){
+    this.get('appController').setInvalidSearchTerm(value);
   }
 
 

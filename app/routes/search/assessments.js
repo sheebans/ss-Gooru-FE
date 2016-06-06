@@ -8,10 +8,15 @@ export default Ember.Route.extend({
   searchService: Ember.inject.service('api-sdk/search'),
 
   model: function() {
+
     const term = this.paramsFor('search').term;
     var assessmentResults = this.get('searchService').searchAssessments(term);
     return Ember.RSVP.hash({
       assessmentResults: assessmentResults
+    }).catch(function(err){
+       if(err.status===400){
+         return { msg: 'Recovered from rejected promise',error: err };
+       }
     });
   },
 
@@ -23,6 +28,7 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     this._super(controller, model);
     controller.set('assessmentResults', model.assessmentResults);
+    model.error && controller.setInvalidSearchTerm(true);
   },
 
   deactivate: function() {

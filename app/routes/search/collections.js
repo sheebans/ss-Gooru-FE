@@ -12,6 +12,10 @@ export default Ember.Route.extend({
     var collectionResults = this.get('searchService').searchCollections(term);
     return Ember.RSVP.hash({
       collectionResults: collectionResults
+    }).catch(function(err){
+       if(err.status===400){
+         return { msg: 'Recovered from rejected promise',error: err };
+       }
     });
   },
 
@@ -23,6 +27,7 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     this._super(controller, model);
     controller.set('collectionResults', model.collectionResults);
+    model.error && controller.setInvalidSearchTerm(true);
   },
 
   deactivate: function() {

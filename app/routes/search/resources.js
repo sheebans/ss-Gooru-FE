@@ -15,6 +15,10 @@ export default Ember.Route.extend({
       term:term,
       resources: resourceResults,
       selectedOptionTypes: selectedOptionTypes
+    }).catch(function(err){
+       if(err.status===400){
+         return { msg: 'Recovered from rejected promise',error: err };
+       }
     });
   },
 
@@ -26,8 +30,13 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     this._super(controller, model);
     controller.set('resourceResults', model.resources);
-    controller.set('selectedOptionTypes', model.selectedOptionTypes);
     controller.set('term', model.term);
+    if(model.error){
+      controller.setInvalidSearchTerm(true);
+    }else{
+      controller.set('selectedOptionTypes', model.selectedOptionTypes);
+
+    }
   },
 
   deactivate: function() {

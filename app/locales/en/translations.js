@@ -325,6 +325,7 @@ export default {
     "search": "Search",
     "search-placeholder": "Search...",
     "search-error-message": "Search terms need to be more than 3 letters.",
+    "search-400-error-message": "Please enter a valid search term",
     "select-question-type":"Select Question Type",
     "select-resource-type": "Select Resource Type",
     "send-request":"Send Request",
