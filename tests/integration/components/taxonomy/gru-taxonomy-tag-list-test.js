@@ -21,7 +21,7 @@ test('it renders all tags correctly', function(assert) {
         parentTitle: "Subject"
       })
     });
-    tags.push(tags);
+    tags.push(tag);
   }
   this.set('tags', tags);
 
@@ -48,7 +48,7 @@ test('it renders max allowed tags correctly', function(assert) {
         parentTitle: "Subject"
       })
     });
-    tags.push(tags);
+    tags.push(tag);
   }
   this.set('tags', tags);
 

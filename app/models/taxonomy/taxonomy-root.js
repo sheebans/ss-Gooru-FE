@@ -70,7 +70,6 @@ const TaxonomyRoot = Ember.Object.extend({
    * @property {boolean}
    */
   hasStandards: Ember.computed("frameworks", function(){
-    const frameworks = this.get("frameworks");
     const otherThanGDF = this.get("frameworkId") !== GOORU_DEFAULT_STANDARD;
     const frameworksWithStandards = this.get("frameworksWithStandards");
     return otherThanGDF && frameworksWithStandards.length;

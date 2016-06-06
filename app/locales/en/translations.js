@@ -351,7 +351,6 @@ export default {
     "student": "Student",
     "student-id":"Student ID (not displayed on Profile)",
     "subject-and-framework": "Subject and Framework",
-    "student-id":"Student ID (not displayed on Profile)",
     "submit": "Submit",
     "submit-all":"Submit all",
     "swap": "Re-order",

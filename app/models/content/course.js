@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
-import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 const Validations = buildValidations({

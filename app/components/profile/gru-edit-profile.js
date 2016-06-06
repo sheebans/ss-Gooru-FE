@@ -85,7 +85,7 @@ export default Ember.Component.extend({
           if (validations.get('isValid')) {
             let checkUsername = Ember.RSVP.resolve();
             if(editedProfile.get('username') !== profile.get('username')) {
-              checkUsername= component.get('profileService').checkUsernameAvailability(editedProfile.get('username'))
+              checkUsername= component.get('profileService').checkUsernameAvailability(editedProfile.get('username'));
             } else {
               editedProfile.set('username', null);
             }

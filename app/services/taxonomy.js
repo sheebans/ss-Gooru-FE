@@ -233,7 +233,7 @@ export default Ember.Service.extend({
     return new Ember.RSVP.Promise(function(resolve) {
       const category = getCategoryFromSubjectId(subjectId);
       service.getSubjects(category).then(function(){
-        var result = service.findSubject(category, subjectId)
+        var result = service.findSubject(category, subjectId);
         if (result && loadCourses) {
           service.getCourses(result).then(function(){
             resolve(result);

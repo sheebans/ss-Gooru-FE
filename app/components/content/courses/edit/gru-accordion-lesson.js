@@ -1,8 +1,7 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 import PlayerAccordionLesson from 'gooru-web/components/content/courses/play/gru-accordion-lesson';
-import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
-import {CONTENT_TYPES} from 'gooru-web/config/config';
+import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 /**
  * Content Builder: Accordion Lesson
