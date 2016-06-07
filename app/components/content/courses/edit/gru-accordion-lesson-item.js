@@ -101,7 +101,9 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
       }
     }
   },
-
+  didRender(){
+    $('[data-toggle="tooltip"]').tooltip();
+  },
 
   // -------------------------------------------------------------------------
   // Properties

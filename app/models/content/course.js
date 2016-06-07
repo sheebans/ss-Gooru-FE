@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
-import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 const Validations = buildValidations({
@@ -178,6 +177,12 @@ export default Ember.Object.extend(Validations, {
         data: tagData
       });
     });
+  },
+
+  isOwner: function(id) {
+    const owner = this.get("owner");
+    const creatorId = this.get("creatorId");
+    return (owner && owner.get("id") === id) || (creatorId === id);
   },
 
   // -------------------------------------------------------------

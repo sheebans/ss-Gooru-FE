@@ -313,7 +313,7 @@ export default Ember.Object.extend({
    */
   normalizeStandards: function (standards) {
     const values = [];
-    if (!standards) { return values }
+    if (!standards) { return values; }
 
     for (var key in standards) {
       if (standards.hasOwnProperty(key)) {

@@ -1,7 +1,5 @@
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
 import Lesson from 'gooru-web/models/content/lesson';
-import LessonItem from 'gooru-web/models/content/lessonItem';
 
 moduleFor('serializer:content/lesson', 'Unit | Serializer | content/lesson');
 

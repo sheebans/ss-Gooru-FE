@@ -53,8 +53,13 @@ export default Ember.Controller.extend({
    * @returns {bool}
    */
   isMyProfile: Ember.computed('profile', function() {
-    return this.get('profile').get('id') === this.get("session.userId");
+    return this.get('profile').get('id') === this.get("currentUserId");
   }),
+
+  /**
+   * Current user id
+   */
+  currentUserId: Ember.computed.alias("session.userId"),
 
   /**
    * The profile presented to the user

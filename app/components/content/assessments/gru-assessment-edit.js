@@ -1,9 +1,7 @@
 import Ember from 'ember';
 import CollectionEdit from 'gooru-web/components/content/collections/gru-collection-edit';
 import ModalMixin from 'gooru-web/mixins/modal';
-import {CONTENT_TYPES, K12_CATEGORY} from 'gooru-web/config/config';
-import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
-import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
+import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 export default CollectionEdit.extend(ModalMixin,{
 

@@ -88,7 +88,7 @@ export default AddToModal.extend({
     }
     var edit = this.get('i18n').t('common.edit');
     this.get('notifications').success(`${successMsg} <a class="btn btn-success" href="${contentEditUrl}">${edit}</a>`);
-    this.$('.modal-footer button.add-to').prop('disabled', false)
+    this.$('.modal-footer button.add-to').prop('disabled', false);
   },
 
   errorMessage: function(error) {
@@ -96,7 +96,7 @@ export default AddToModal.extend({
       'common.errors.question-not-added-to' : 'common.errors.resource-not-added-to-collection';
     this.get('notifications').error(this.get('i18n').t(message, {collectionType: this.get('collectionType').toLowerCase()}).string);
     Ember.Logger.error(error);
-    this.$('.modal-footer button.add-to').prop('disabled', false)
+    this.$('.modal-footer button.add-to').prop('disabled', false);
   },
 
   // -------------------------------------------------------------------------

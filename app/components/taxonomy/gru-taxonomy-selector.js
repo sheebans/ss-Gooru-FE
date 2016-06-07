@@ -1,9 +1,6 @@
 import Ember from 'ember';
 import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
-import { getCategoryFromSubjectId } from 'gooru-web/utils/taxonomy';
-import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
-import TaxonomyRoot from 'gooru-web/models/taxonomy/taxonomy-root';
 
 /**
  * Taxonomy selector component

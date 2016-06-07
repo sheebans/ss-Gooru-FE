@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import { checkStandards } from 'gooru-web/utils/utils';
 import {K12_CATEGORY} from 'gooru-web/config/config';
+
 /**
  * @typedef {object} SearchCollectionsController
  */
@@ -14,6 +14,9 @@ export default Ember.Route.extend({
 
        @see routes/application.js#searchTerm
        */
+      refreshModel: true
+    },
+    taxonomies: {
       refreshModel: true
     }
   },

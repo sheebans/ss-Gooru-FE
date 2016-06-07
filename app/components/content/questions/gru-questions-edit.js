@@ -338,7 +338,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
         var editedQuestionText = editedQuestion.text;
 
         if (editedQuestionTitle === defaultTitle && editedQuestionText !== defaultText && editedQuestionText !== '') {
-          var editedQuestionText = $.trim(editedQuestionText);
+          editedQuestionText = $.trim(editedQuestionText);
           var newTitle = editedQuestionText.substr(0, 50);
 
           editedQuestion.set('title', newTitle);

@@ -39,10 +39,10 @@
 
       <div class="actions">
           <div class="item-actions">
+            {{partial 'content/partials/item-actions'}}
             {{#unless model.isExternalAssessment}}
-              <button class="btn edit-item" title="{{t 'common.edit'}}" {{action 'edit' model}}>{{gru-icon name="edit"}}</button>
+            <button class="btn edit-item" title="{{t 'common.edit'}}" {{action 'edit' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="edit"}}</button>
             {{/unless}}
-              {{partial 'content/partials/item-actions'}}
           </div>
       </div>
     </div>

@@ -53,7 +53,7 @@ export default Ember.Component.extend({
   subjectsWithStandards: Ember.computed("subjects", function(){
     return this.get("subjects").filter(function(subject){
       return subject.get("hasStandards");
-    })
+    });
   }),
 
   /**
@@ -76,6 +76,11 @@ export default Ember.Component.extend({
   /**
    * @property {string}
    */
-  placeholderLabelKey: 'taxonomy.gru-taxonomy-selector.choose-subject'
+  placeholderLabelKey: 'taxonomy.gru-taxonomy-selector.choose-subject',
+
+  /**
+   * @property {string} dropdown alignment, right | left
+   */
+  alignment: null
 
 });

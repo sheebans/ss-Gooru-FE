@@ -213,8 +213,8 @@ test('View mode with selection', function(assert) {
     })
   ]);
 
-  this.set("selectedSubject", t1)
-  this.set("selectedTaxonomy", selectedTaxonomy)
+  this.set("selectedSubject", t1);
+  this.set("selectedTaxonomy", selectedTaxonomy);
 
   this.render(hbs`{{taxonomy/gru-taxonomy-selector
       isEditing=false

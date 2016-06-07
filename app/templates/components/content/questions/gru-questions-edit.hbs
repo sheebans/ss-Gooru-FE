@@ -174,17 +174,15 @@
                         {{gru-icon name="open_in_new"}} {{t "common.select"}}
                       </button>
                       <div class="tags">
-                        {{#each editableTags as |taxonomyTag|}}
-                          {{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}
-                        {{/each}}
+                          {{taxonomy.gru-taxonomy-tag-list tags=editableTags onRemove=(action 'removeTag')}}
                       </div>
                     {{else}}
                       <div class="tags">
-                        {{#each tags as |taxonomyTag|}}
-                          {{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}
+                        {{#if tags.length}}
+                          {{taxonomy.gru-taxonomy-tag-list tags=tags}}
                         {{else}}
                           {{t "common.not-specified"}}
-                        {{/each}}
+                        {{/if}}
                       </div>
                     {{/if}}
                   </div>

@@ -337,5 +337,5 @@ export function getTaxonomyAncestors(taxonomyId) {
     subjectId: segments[0],
     courseId: segments[1] ? segments[0] + '-' + segments[1] : null,
     domainId: segments[2] ? segments[0] + '-' + segments[1] + '-' + segments[2] : null
-  }
+  };
 }

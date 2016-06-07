@@ -11,12 +11,8 @@
                         <i class="{{if (eq question.type 'T/F') 'T_F-icon' (concat question.type '-icon')}}"></i>
                         <span>{{t (concat "common.question-type." question.type)}}</span>
                     </div>
-                  {{!--Mock Data, these should be removed with the correct component --}}
                     <div class="tags">
-                        <span class="label"><span>3.OA.A.2</span> CCSS MATH</span>
-                        <span class="label"><span>3.OA.A.2</span> CCSS MATH</span>
-                        <span class="label"><span>3.OA.A.2</span> CCSS MATH</span>
-                        <span class="extra">+3</span>
+                      {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=3}}
                     </div>
                 </div>
             </div>

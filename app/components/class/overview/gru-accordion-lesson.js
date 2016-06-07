@@ -249,7 +249,7 @@ export default Ember.Component.extend(AccordionMixin, {
                   const score = collectionPerformanceData ? collectionPerformanceData.get('score') : 0;
                   const hasStarted = collectionPerformanceData ? collectionPerformanceData.get('hasStarted') : false;
                   collection.set('classAverageScore', score);
-                  collection.set('hasStarted', collectionPerformanceData);
+                  collection.set('hasStarted', hasStarted);
                 }
               });
               component.set('items', collections);
