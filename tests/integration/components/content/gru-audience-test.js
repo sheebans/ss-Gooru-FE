@@ -1,42 +1,16 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import Ember from 'ember';
-import AudienceModel from 'gooru-web/models/audience';
-import wait from 'ember-test-helpers/wait';
-
-const lookupServiceStub = Ember.Service.extend({
-
-  readAudiences() {
-    var promiseResponse;
-    var response = [
-      AudienceModel.create({ id: 1, name: 'all students', order: 1 }),
-      AudienceModel.create({ id: 4, name: 'none students', order: 2 })
-    ];
-
-    promiseResponse = new Ember.RSVP.Promise(function(resolve) {
-      Ember.run.next(this, function() {
-        resolve(response);
-      });
-    });
-
-    return DS.PromiseArray.create({
-      promise: promiseResponse
-    });
-  }
-});
 
 moduleForComponent('content/gru-audience', 'Integration | Component | content/gru audience', {
   integration: true,
   beforeEach: function () {
     this.inject.service('i18n');
-
-    this.register('service:api-sdk/lookup', lookupServiceStub);
-    this.inject.service('api-sdk/lookup');
   }
 });
 
 test('Audience layout, no audiences selected - read only', function (assert) {
-  var selectedAudiences = {};
+  var selectedAudiences = [];
   this.set('selectedAudiences', selectedAudiences);
 
   this.render(hbs`
@@ -50,10 +24,7 @@ test('Audience layout, no audiences selected - read only', function (assert) {
 });
 
 test('Audience layout, audiences selected - read only', function (assert) {
-  var selectedAudiences = Ember.Object.create({
-    audience: [4]
-  });
-
+  var selectedAudiences = [1, 3];
   this.set('selectedAudiences', selectedAudiences);
 
   this.render(hbs`
@@ -61,20 +32,14 @@ test('Audience layout, audiences selected - read only', function (assert) {
   `);
 
   const $component = this.$(".content.gru-audience");
-  return wait().then(function(){
-    assert.ok($component.length, 'Component found');
-    assert.equal($component.find('.btn-empty').length, 1, 'Audiences selected');
-  });
+  assert.ok($component.length, 'Component found');
+  assert.equal($component.find('.btn-empty').length, 2, 'Audiences selected');
+  assert.equal($component.find('.btn-empty:eq(0)').text(), this.get('i18n').t('common.audienceList.all').string, 'First selected audience');
 });
 
 test('Audience layout - edit', function (assert) {
-  var initialAudiences = Ember.Object.create({
-    audience: [1,4]
-  });
-  var selectedAudiences = Ember.Object.create({
-    audience: [1,4]
-  });
-
+  var initialAudiences = [1, 3];
+  var selectedAudiences = [1, 3];
   this.set('initialAudiences', initialAudiences);
   this.set('selectedAudiences', selectedAudiences);
 
@@ -88,10 +53,7 @@ test('Audience layout - edit', function (assert) {
 
   const $dropDown = $component.find('.dropdown > button.dropdown-toggle');
   assert.ok($dropDown.length, 'Drop down button');
-
-  return wait().then(function(){
-    assert.equal($component.find('.dropdown > .btn-audience').length, 2, 'Audiences selected');
-  });
+  assert.equal($component.find('.dropdown > .btn-audience').length, 2, 'Audiences selected');
 
   const $audienceBtn = $component.find('.dropdown > .btn-audience');
   assert.ok($audienceBtn.find('.remove-audience').length, 'Selected audience should have a remove button');
@@ -99,21 +61,21 @@ test('Audience layout - edit', function (assert) {
   $dropDown.click();
   assert.ok($component.find('.dropdown').hasClass('open'), 'Drop down open after clicking drop down button');
   const $dropDownMenu = $component.find('ul.dropdown-menu');
-
-  assert.equal($dropDownMenu.find('li').length, 2, 'Drop down menu options');
+  assert.equal($dropDownMenu.find('li').length, 6, 'Drop down menu options');
   assert.equal($dropDownMenu.find('li input:checked').length, 2, 'Drop down menu options');
 
+  const $firstOption = $component.find('ul.dropdown-menu li:first-child');
+  assert.equal($firstOption.text(), this.get('i18n').t('common.audienceList.all').string, 'First option text');
+  assert.ok($firstOption.find('input:checked').length, 'First option should be selected');
+
+  const $thirdOption = $component.find('ul.dropdown-menu li:eq(2)');
+  assert.equal($thirdOption.text(), this.get('i18n').t('common.audienceList.above-grade-level').string, 'Third option text');
+  assert.ok($thirdOption.find('input:checked').length, 'Third option should be selected');
 });
 
 test('Audience edit, remove audience', function (assert) {
-
-  var initialAudiences = Ember.Object.create({
-    audience: [1,4]
-  });
-  var selectedAudiences = Ember.Object.create({
-    audience: [1,4]
-  });
-
+  var initialAudiences = [1, 3];
+  var selectedAudiences = [1, 3];
   this.set('initialAudiences', initialAudiences);
   this.set('selectedAudiences', selectedAudiences);
 
@@ -122,10 +84,7 @@ test('Audience edit, remove audience', function (assert) {
   `);
 
   const $component = this.$(".content.gru-audience");
-
-  return wait().then(function(){
-    assert.equal($component.find('.dropdown > .btn-audience').length, 2, 'Audiences selected');
-  });
+  assert.equal($component.find('.dropdown > .btn-audience').length, 2, 'Audiences selected');
 
   const $dropDown = $component.find('.dropdown > button.dropdown-toggle');
   $dropDown.click();
@@ -141,13 +100,8 @@ test('Audience edit, remove audience', function (assert) {
 });
 
 test('Audience edit, add audience -returning to edit mode will discard any changes', function (assert) {
-  var initialAudiences = Ember.Object.create({
-    audience: [1]
-  });
-  var selectedAudiences = Ember.Object.create({
-    audience: [1]
-  });
-
+  var initialAudiences = [1, 3];
+  var selectedAudiences = [1, 3];
   this.set('initialAudiences', initialAudiences);
   this.set('selectedAudiences', selectedAudiences);
   this.set('isEditing', true);
@@ -157,20 +111,17 @@ test('Audience edit, add audience -returning to edit mode will discard any chang
   `);
 
   const $component = this.$(".content.gru-audience");
-
-  return wait().then(function(){
-    assert.equal($component.find('.dropdown > .btn-audience').length, 1, 'Audiences selected');
-  });
+  assert.equal($component.find('.dropdown > .btn-audience').length, 2, 'Audiences selected');
 
   const $dropDown = $component.find('.dropdown > button.dropdown-toggle');
   $dropDown.click();
 
   var $dropDownMenu = $component.find('ul.dropdown-menu');
-  assert.equal($dropDownMenu.find('li input:checked').length, 1, 'Checked audience options');
+  assert.equal($dropDownMenu.find('li input:checked').length, 2, 'Checked audience options');
 
   $dropDownMenu.find('li input:eq(1)').click();
-  assert.equal($component.find('.dropdown > .btn-audience').length, 2, 'Audiences selected after addition');
-  assert.equal($dropDownMenu.find('li input:checked').length, 2, 'Checked audience options after addition');
+  assert.equal($component.find('.dropdown > .btn-audience').length, 3, 'Audiences selected after addition');
+  assert.equal($dropDownMenu.find('li input:checked').length, 3, 'Checked audience options after addition');
 
   Ember.run(() => {
     this.set('isEditing', false);

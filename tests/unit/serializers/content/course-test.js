@@ -12,9 +12,7 @@ test('serializeCreateCourse', function(assert) {
     thumbnailUrl: 'http://test-bucket01.s3.amazonaws.com/image-id.png',
     isVisibleOnProfile: true,
     taxonomy: [],
-    subject: 'course-subject',
-    useCase: "use-case",
-    metadata: {},
+    subject: 'course-subject'
   });
   const expected = {
     title: course.title,
@@ -22,9 +20,7 @@ test('serializeCreateCourse', function(assert) {
     thumbnail: 'image-id.png',
     visible_on_profile: course.isVisibleOnProfile,
     taxonomy: null,
-    'subject_bucket': course.subject,
-    use_case: course.useCase,
-    metadata: course.metadata
+    'subject_bucket': course.subject
   };
   const courseObject = serializer.serializeCreateCourse(course);
   assert.deepEqual(courseObject, expected, 'Serializer response');
@@ -39,9 +35,7 @@ test('serializeUpdateCourse', function (assert) {
     thumbnailUrl: 'course-thumbnail-url',
     isVisibleOnProfile: true,
     taxonomy: [],
-    subject: 'course-subject',
-    useCase: "use-case",
-    metadata: {},
+    subject: 'course-subject'
   });
   const expectedSerializedCourse = {
     title: courseModel.title,
@@ -49,9 +43,7 @@ test('serializeUpdateCourse', function (assert) {
     thumbnail: 'course-thumbnail-url',
     visible_on_profile: courseModel.isVisibleOnProfile,
     taxonomy: null,
-    'subject_bucket': courseModel.subject,
-    use_case: courseModel.useCase,
-    metadata: courseModel.metadata
+    'subject_bucket': courseModel.subject
   };
   const serializedCourse = serializer.serializeUpdateCourse(courseModel);
   assert.deepEqual(serializedCourse, expectedSerializedCourse, 'Wrong serialized Course');
@@ -73,7 +65,6 @@ test('normalizeCourse', function (assert) {
     "id": "course-id",
     "title": "Course title",
     "description": "Course description",
-    "use_case": "Course use case",
     "owner_id": "owner-id",
     "creator_id": "owner-id",
     "original_creator_id": null,
@@ -81,7 +72,7 @@ test('normalizeCourse', function (assert) {
     "original_course_id": null,
     "publish_status": "unpublished",
     "publish_date": null,
-    "metadata": {},
+    "metadata": null,
     "thumbnail": "thumbnail.png",
     "taxonomy": {},
     "collaborator": [
@@ -114,7 +105,6 @@ test('normalizeCourse', function (assert) {
   assert.equal(normalizedCourse.get("title"), 'Course title', 'Wrong title');
   assert.equal(normalizedCourse.get("owner.username"), 'owner', 'Wrong Owner');
   assert.equal(normalizedCourse.get("description"), 'Course description', 'Wrong description');
-  assert.equal(normalizedCourse.get("useCase"), 'Course use case', 'Wrong use case');
   assert.equal(normalizedCourse.get("isPublished"), false, 'Wrong isPublished');
   assert.equal(normalizedCourse.get("isVisibleOnProfile"), true, 'Wrong isVisibleOnProfile');
   assert.equal(normalizedCourse.get("subject"), 'subject_bucket_value', 'Wrong subject');
@@ -154,9 +144,7 @@ test('normalizeGetCourses', function(assert) {
           "lastname": "Meza",
           "thumbnail_path": null,
           "school_district_id": null
-        },
-        "use_case": "course use case",
-        "metadata": {},
+        }
       },
       {
         "id": "3fc882b2-dd9e-4957-9498-386984f156f7",
@@ -177,9 +165,7 @@ test('normalizeGetCourses', function(assert) {
           "lastname": "Gomez",
           "thumbnail_path": null,
           "school_district_id": null
-        },
-        "use_case": "course use case",
-        "metadata": {},
+        }
       }
     ],
     "filters": {

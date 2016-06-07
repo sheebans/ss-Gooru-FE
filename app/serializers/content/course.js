@@ -58,9 +58,7 @@ export default Ember.Object.extend({
       thumbnail: cleanFilename(courseModel.get('thumbnailUrl')),
       'visible_on_profile': courseModel.get('isVisibleOnProfile'),
       taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(courseModel.get('taxonomy')),
-      'subject_bucket': courseModel.get('subject'),
-      'metadata': courseModel.get('metadata'),
-      'use_case': courseModel.get('useCase')
+      'subject_bucket': courseModel.get('subject')
     };
   },
 
@@ -83,12 +81,12 @@ export default Ember.Object.extend({
   },
 
   /**
-   * Normalize a Course response
-   *
-   * @param payload - The endpoint response in JSON format
-   * @param {[]} owners owner details
-   * @returns {Content/Course} Course Model
-   */
+  * Normalize a Course response
+  *
+  * @param payload - The endpoint response in JSON format
+  * @param {[]} owners owner details
+  * @returns {Content/Course} Course Model
+  */
   normalizeCourse: function(payload, owners) {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
@@ -110,9 +108,7 @@ export default Ember.Object.extend({
       taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomy(payload.taxonomy, TAXONOMY_LEVELS.COURSE),
       thumbnailUrl: thumbnailUrl,
       title: payload.title,
-      unitCount: payload.unit_count ? payload.unit_count : 0,
-      metadata: payload.metadata,
-      useCase: payload.use_case
+      unitCount: payload.unit_count ? payload.unit_count : 0
       // TODO More properties will be added here...
     });
   },
