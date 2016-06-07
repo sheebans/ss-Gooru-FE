@@ -1,8 +1,8 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import wait from 'ember-test-helpers/wait';
-import Ember from 'ember';
-import BrowseItem from 'gooru-web/models/taxonomy/browse-item';
+//import wait from 'ember-test-helpers/wait';
+//import Ember from 'ember';
+//import BrowseItem from 'gooru-web/models/taxonomy/browse-item';
 import { generateBrowseTestTree } from 'gooru-web/utils/taxonomy';
 
 moduleForComponent('taxonomy/gru-browse-selector', 'Integration | Component | taxonomy/gru browse selector', {

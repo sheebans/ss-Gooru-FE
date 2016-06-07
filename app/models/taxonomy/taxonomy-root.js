@@ -1,12 +1,12 @@
 import Ember from 'ember';
-import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
+import { TAXONOMY_CATEGORIES, GOORU_DEFAULT_STANDARD } from 'gooru-web/config/config';
 
 /**
  * Taxonomy Root
  *
  * @typedef {Object} TaxonomyRoot
  */
-export default Ember.Object.extend({
+const TaxonomyRoot = Ember.Object.extend({
 
   /**
    * @property {string} id - Item ID
@@ -56,6 +56,36 @@ export default Ember.Object.extend({
   /**
    * @property {boolean}
    */
-  hasCourses: Ember.computed.bool("courses.length")
+  hasCourses: Ember.computed.bool("courses.length"),
+
+  /**
+   * @property {boolean}
+   */
+  hasFrameworks: Ember.computed.bool("frameworks.length"),
+
+  /**
+   * Indicates if the subject has standards
+   * A subject is considered to have standards if it has a framework that is
+   * the Gooru Default Framework (GDF)
+   * @property {boolean}
+   */
+  hasStandards: Ember.computed("frameworks", function(){
+    const otherThanGDF = this.get("frameworkId") !== GOORU_DEFAULT_STANDARD;
+    const frameworksWithStandards = this.get("frameworksWithStandards");
+    return otherThanGDF && frameworksWithStandards.length;
+  }),
+
+  /**
+   * Returns all the frameworks having standards
+   * @propery {TaxonomyRoot[]}
+   */
+  frameworksWithStandards: Ember.computed("frameworks", function(){
+    const frameworks = this.get("frameworks");
+    return frameworks.filter(function(framework){
+      return framework.get("frameworkId") !== GOORU_DEFAULT_STANDARD; //Gooru default framework
+    });
+  })
 
 });
+
+export default TaxonomyRoot;

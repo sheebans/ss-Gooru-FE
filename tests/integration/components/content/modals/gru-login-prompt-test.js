@@ -1,6 +1,5 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import wait from 'ember-test-helpers/wait';
 
 moduleForComponent('content/modals/gru-login-prompt', 'Integration | Component | content/modals/gru login prompt', {
   integration: true

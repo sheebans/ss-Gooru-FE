@@ -41,10 +41,10 @@ test('it renders resources correctly', function (assert) {
 
   assert.ok($actions.find('button:eq(0)').hasClass('add-item'), 'First action button');
   assert.ok($actions.find('button:eq(1)').hasClass('narration'), 'Second action button');
-  assert.ok($actions.find('button:eq(2)').hasClass('edit-item'), 'Third action button');
-  assert.ok($actions.find('button:eq(3)').hasClass('copy-item'), 'Fourth action button');
-  assert.ok($actions.find('button:eq(4)').hasClass('move-item'), 'Third action button');
-  assert.ok($actions.find('button:eq(5)').hasClass('delete-item'), 'Fourth action button');
+  assert.ok($actions.find('button:eq(2)').hasClass('delete-item'), 'Third action button');
+  assert.ok($actions.find('button:eq(3)').hasClass('move-item'), 'Fourth action button');
+  assert.ok($actions.find('button:eq(4)').hasClass('copy-item'), 'Third action button');
+  assert.ok($actions.find('button:eq(5)').hasClass('edit-item'), 'Fourth action button');
 
   RESOURCE_TYPES.forEach(function(type_string) {
 
@@ -90,10 +90,10 @@ test('it renders questions correctly', function (assert) {
 
   assert.ok($actions.find('button:eq(0)').hasClass('add-item'), 'First action button');
   assert.ok($actions.find('button:eq(1)').hasClass('narration'), 'Second action button');
-  assert.ok($actions.find('button:eq(2)').hasClass('edit-item'), 'Third action button');
-  assert.ok($actions.find('button:eq(3)').hasClass('copy-item'), 'Fourth action button');
-  assert.ok($actions.find('button:eq(4)').hasClass('move-item'), 'Third action button');
-  assert.ok($actions.find('button:eq(5)').hasClass('delete-item'), 'Fourth action button');
+  assert.ok($actions.find('button:eq(2)').hasClass('delete-item'), 'Third action button');
+  assert.ok($actions.find('button:eq(3)').hasClass('move-item'), 'Fourth action button');
+  assert.ok($actions.find('button:eq(4)').hasClass('copy-item'), 'Third action button');
+  assert.ok($actions.find('button:eq(5)').hasClass('edit-item'), 'Fourth action button');
 
   Object.keys(QUESTION_CONFIG).forEach(function(question_type) {
     // Check subtitle specific to each question type

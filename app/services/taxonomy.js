@@ -233,7 +233,7 @@ export default Ember.Service.extend({
     return new Ember.RSVP.Promise(function(resolve) {
       const category = getCategoryFromSubjectId(subjectId);
       service.getSubjects(category).then(function(){
-        var result = service.findSubject(category, subjectId)
+        var result = service.findSubject(category, subjectId);
         if (result && loadCourses) {
           service.getCourses(result).then(function(){
             resolve(result);
@@ -319,7 +319,7 @@ export default Ember.Service.extend({
 
     for (let i = 0; i < codesLen; i++) {
       let code = codes[i];
-      switch(code.code_type) {
+      switch(code.codeType) {
         case CODE_TYPES.STANDARD_CATEGORY:
           buckets[0].push(code); break;
         case CODE_TYPES.STANDARD:
@@ -333,7 +333,7 @@ export default Ember.Service.extend({
         case CODE_TYPES.LEARNING_TARGET_L2:
           buckets[5].push(code); break;
         default:
-          Ember.Logger.error('Unknown code_type: ' + code.code_type);
+          Ember.Logger.error('Unknown code_type: ' + code.codeType);
       }
     }
     return buckets;

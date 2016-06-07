@@ -51,6 +51,9 @@ export default PlayerAccordionCourse.extend({
       this.get('items').pushObject(builderItem);
     }
 
-  }
+  },
+  didRender(){
+    $('[data-toggle="tooltip"]').tooltip();
+  },
 
 });

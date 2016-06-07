@@ -26,6 +26,9 @@
 
     <div class="panel panel-default">
       <div class="panel-body">
+        <div class="tags">
+          {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=2}}
+        </div>
         <div class="description">
           {{#if course.description}}
             <p>{{course.description}}</p>

@@ -323,7 +323,9 @@ test('normalizeAssessment', function(assert) {
     "owner_id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
     "course": {"id": 1, "title":"mathematics course 101"},
     "question_count": 3,
-    "remix_count": 2
+    "remix_count": 2,
+    format: 'assessment-external',
+    url: "any"
   };
 
   const collection = serializer.normalizeAssessment(assessmentData, owners);
@@ -339,6 +341,8 @@ test('normalizeAssessment', function(assert) {
   assert.equal(collection.get("remixCount"), 2, 'Wrong remix count');
   assert.deepEqual(collection.get("standards")[0].get("code"), "K12.MA", 'Wrong standards');
   assert.equal(collection.get("owner.id"), "852f9814-0eb4-461d-bd3b-aca9c2500595", 'Wrong owner id');
+  assert.equal(collection.get('format'), 'assessment-external', 'Wrong format');
+  assert.equal(collection.get('url'), 'any', 'Wrong url');
 });
 
 

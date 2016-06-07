@@ -78,7 +78,7 @@ export default Ember.Controller.extend({
     this.set("pagination", {
       page: 0,
       pageSize: DEFAULT_PAGE_SIZE
-    })
+    });
   }
 
 

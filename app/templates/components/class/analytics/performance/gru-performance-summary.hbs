@@ -12,13 +12,13 @@
       <div>
         {{#if performance.isCompleted}}
             <div class="btn-group">
-                <button class="btn btn-info collection-view-report-button" {{action "viewReport" performance.id}}>
+                <button class="btn btn-info collection-view-report-button" {{action "viewReport" performance}}>
                     <span>{{gru-icon name="show_chart"}}{{t "gru-performance-summary.view-report"}}</span></button>
-                <button class="btn btn-info collection-redo-button" {{action "selectResource" performance.id}}>
+                <button class="btn btn-info collection-redo-button" {{action "selectResource" performance}}>
                     <span>{{gru-icon name="replay"}}{{t "gru-performance-summary.redo"}}</span></button>
             </div>
         {{else}}
-            <button class="btn btn-info collection-study-button" {{action "selectResource" performance.id}}>
+            <button class="btn btn-info collection-study-button" {{action "selectResource" performance}}>
                 <span>{{gru-icon name='near_me'}}{{t "gru-performance-summary.study"}}</span></button>
         {{/if}}
       </div>

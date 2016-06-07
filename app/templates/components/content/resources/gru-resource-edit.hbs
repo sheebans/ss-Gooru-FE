@@ -163,7 +163,8 @@
         </div>
         <div class="row">
           <div class="col-sm-12 form-field standards">
-            {{taxonomy.gru-taxonomy-selector
+            {{#if isEditing}}
+              {{taxonomy.gru-taxonomy-selector
               isEditing=isEditing
               onSubjectSelected="selectSubject"
               selectedSubject=selectedSubject
@@ -171,7 +172,32 @@
               subjectLabelKey='common.subject-and-framework'
               showCategories=false
               showCourses=false
-            }}
+              onlySubjectsWithStandards=true
+              }}
+            {{/if}}
+            <div class="subject">
+              <label>
+                <span>{{t "common.standards"}}</span>
+              </label>
+              {{#if isEditing}}
+                <button type="button" class="btn btn-primary"
+                  {{action 'openTaxonomyModal'}}
+                        disabled={{standardDisabled}}>
+                  {{gru-icon name="open_in_new"}} {{t "common.select"}}
+                </button>
+                <div class="tags">
+                  {{taxonomy.gru-taxonomy-tag-list tags=editableTags onRemove=(action 'removeTag')}}
+                </div>
+              {{else}}
+                <div class="tags">
+                  {{#if tags.length}}
+                    {{taxonomy.gru-taxonomy-tag-list tags=tags}}
+                  {{else}}
+                    {{t "common.not-specified"}}
+                  {{/if}}
+                </div>
+              {{/if}}
+            </div>
           </div>
         </div>
       </div>

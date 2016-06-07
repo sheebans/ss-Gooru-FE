@@ -9,12 +9,16 @@ export default Ember.Route.extend({
 
   model: function(params) {
     const selectedOptionTypes = params.selectedOptionTypes;
+    const taxonomies = this.paramsFor('search').taxonomies;
     const term = this.paramsFor('search').term;
-    var questionResults = this.get('searchService').searchQuestions(term, selectedOptionTypes);
+    const options = {
+      formats: selectedOptionTypes,
+      taxonomies: taxonomies
+    };
+
+    var questionResults = this.get('searchService').searchQuestions(term, options);
     return Ember.RSVP.hash({
-      term:term,
-      questions: questionResults,
-      selectedOptionTypes: selectedOptionTypes
+      questions: questionResults
     });
   },
 
@@ -26,8 +30,6 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     this._super(controller, model);
     controller.set('questionResults', model.questions);
-    controller.set('selectedOptionTypes', model.selectedOptionTypes);
-    controller.set('term', model.term);
   },
 
   deactivate: function() {

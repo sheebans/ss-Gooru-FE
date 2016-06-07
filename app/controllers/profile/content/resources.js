@@ -42,6 +42,11 @@ export default Ember.Controller.extend({
   profile: Ember.computed.alias("profileController.profile"),
 
   /**
+   * Current user id
+   */
+  currentUserId: Ember.computed.alias("profileController.currentUserId"),
+
+  /**
    * @property {*}
    */
   pagination: {
@@ -75,7 +80,7 @@ export default Ember.Controller.extend({
     this.set("pagination", {
       page: 0,
       pageSize: DEFAULT_PAGE_SIZE
-    })
+    });
   }
 
 

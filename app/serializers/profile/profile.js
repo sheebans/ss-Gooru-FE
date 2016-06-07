@@ -287,7 +287,9 @@ export default Ember.Object.extend({
       course: assessmentData.course ? assessmentData.course.title : null,
       courseId: assessmentData.course ? assessmentData.course.id : null,
       isVisibleOnProfile: assessmentData.visible_on_profile,
-      owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
+      owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null,
+      format: assessmentData.format,
+      url: assessmentData.url
     });
   },
 
@@ -311,7 +313,7 @@ export default Ember.Object.extend({
    */
   normalizeStandards: function (standards) {
     const values = [];
-    if (!standards) { return values }
+    if (!standards) { return values; }
 
     for (var key in standards) {
       if (standards.hasOwnProperty(key)) {

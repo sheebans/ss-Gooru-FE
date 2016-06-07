@@ -61,7 +61,7 @@ export default AddToModal.extend({
     var message = this.get('isCollection') ? 'common.errors.collection-not-added-to' : 'common.errors.assessment-not-added-to';
     this.get('notifications').error(this.get('i18n').t(message, {collectionType: ''}).string);
     Ember.Logger.error(error);
-    this.$('.modal-footer button.add-to').prop('disabled', false)
+    this.$('.modal-footer button.add-to').prop('disabled', false);
   },
 
   init() {

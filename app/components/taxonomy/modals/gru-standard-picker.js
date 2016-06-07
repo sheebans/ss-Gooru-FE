@@ -1,5 +1,5 @@
 import Ember from 'ember';
-
+import BrowseItem from 'gooru-web/models/taxonomy/browse-item';
 /**
  * Standard Picker
  *

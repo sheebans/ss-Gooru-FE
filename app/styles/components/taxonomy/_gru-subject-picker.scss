@@ -24,9 +24,15 @@
         }
       }
     }
+
     .sub-menu {
-      left: 100%;
       top: -5px;
+      &.dropdown-menu-left {
+        left: 100%
+      }
+      &.dropdown-menu-right {
+        right: 100%
+      }
     }
   }
 }

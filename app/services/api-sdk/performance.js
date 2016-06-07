@@ -181,7 +181,8 @@ export default Ember.Service.extend({
       title: object.get('title'),
       type: type,
       completionTotal: 0,
-      completionDone: 0
+      completionDone: 0,
+      url: object.get("url")
     };
   },
 

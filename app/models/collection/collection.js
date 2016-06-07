@@ -110,6 +110,10 @@ export default Ember.Object.extend({
    */
   isCollection: Ember.computed.not('isAssessment'),
 
+  isExternalAssessment: Ember.computed("isAssessment", function(){
+    return this.get("isAssessment") && this.get("format") === "assessment-external";
+  }),
+
 
   /**
    * Gets the next resource based on the resource provided

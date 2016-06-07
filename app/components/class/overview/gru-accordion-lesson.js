@@ -86,11 +86,11 @@ export default Ember.Component.extend(AccordionMixin, {
 
     /**
      * @function actions:selectResource
-     * @param {string} collectionId - Identifier for a resource (collection/assessment)
+     * @param {string} collection - (collection/assessment)
      */
-    selectResource: function (collectionId) {
+    selectResource: function (collection) {
       let lessonId = this.get("model.id");
-      this.get('onSelectResource')(lessonId, collectionId);
+      this.get('onSelectResource')(lessonId, collection);
     },
 
     setOnAir: function (collectionId) {
@@ -240,13 +240,16 @@ export default Ember.Component.extend(AccordionMixin, {
                       collection.set('members', profiles);
                     });
                 }
+
                 if (isTeacher) {
                   const averageScore = performance.calculateAverageScoreByItem(collection.get('id'));
                   collection.set('classAverageScore', averageScore);
                 } else {
                   const collectionPerformanceData = performance.findBy('id', collection.get('id'));
                   const score = collectionPerformanceData ? collectionPerformanceData.get('score') : 0;
+                  const hasStarted = collectionPerformanceData ? collectionPerformanceData.get('hasStarted') : false;
                   collection.set('classAverageScore', score);
+                  collection.set('hasStarted', hasStarted);
                 }
               });
               component.set('items', collections);

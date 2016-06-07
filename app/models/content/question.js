@@ -232,6 +232,10 @@ const Question = Ember.Object.extend(Validations, {
       return answer.copy();
     });
     properties.answers = answersForEditing;
+    let standards = this.get('standards');
+
+    // Copy standards and metadata values
+    properties.standards = standards.slice(0);
 
 
     return Question.create(Ember.getOwner(this).ownerInjection(), properties);

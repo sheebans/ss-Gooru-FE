@@ -42,6 +42,7 @@ export const TAXONOMY_CATEGORIES = [
 export const CONTENT_TYPES = {
   COLLECTION: 'collection',
   ASSESSMENT: 'assessment',
+  EXTERNAL_ASSESSMENT: 'assessment-external',
   COURSE: 'course',
   UNIT: 'unit',
   LESSON: 'lesson',
@@ -135,3 +136,5 @@ export const CODE_TYPES = {
   LEARNING_TARGET_L1: 'learning_target_level_1',
   LEARNING_TARGET_L2: 'learning_target_level_2'
 };
+
+export const GOORU_DEFAULT_STANDARD = "GDF";
