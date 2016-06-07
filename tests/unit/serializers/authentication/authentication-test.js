@@ -20,6 +20,7 @@ test('normalizeResponse for anonymous account', function(assert) {
     user: {
       username: 'username',
       gooruUId: 'user-id',
+      avatarUrl: null,
       isNew: true
     },
     'cdnUrls': {
@@ -49,6 +50,7 @@ test('normalizeResponse for normal account', function(assert) {
     user: {
       username: 'username',
       gooruUId: 'user-id',
+      avatarUrl: null,
       isNew: true
     },
     'cdnUrls': {
@@ -77,6 +79,7 @@ test('normalizeResponse for google account', function(assert) {
     user: {
       username: 'username',
       gooruUId: 'user-id',
+      avatarUrl: null,
       isNew: true
     },
     'cdnUrls': {
@@ -106,6 +109,7 @@ test('normalizeResponse for google account containing user category', function(a
     user: {
       username: 'username',
       gooruUId: 'user-id',
+      avatarUrl: null,
       isNew: false
     },
     'cdnUrls': {
@@ -115,5 +119,45 @@ test('normalizeResponse for google account containing user category', function(a
     isAnonymous: false
   };
   const response = serializer.normalizeResponse(payload, false, 'token-api-3.0');
+  assert.deepEqual(expected, response, 'Wrong normalized response');
+});
+
+
+test('normalizeAvatarUrl', function(assert) {
+  const serializer = this.subject();
+  const payload = {
+    thumbnail_path: 'image-id'
+  };
+  const expected = {
+    token: Env['API-3.0']['user-token-api-2.0'],
+    'token-api3': 'token-api-3.0',
+    user: {
+      username: 'username',
+      gooruUId: 'user-id',
+      avatarUrl: null,
+      isNew: false
+    },
+    'cdnUrls': {
+      'user': 'user-url/',
+      'content': 'content-url/'
+    },
+    isAnonymous: false
+  };
+  const expected = {
+    token: Env['API-3.0']['user-token-api-2.0'],
+    'token-api3': 'token-api-3.0',
+    user: {
+      username: 'username',
+      gooruUId: 'user-id',
+      avatarUrl: 'user-url/image-id',
+      isNew: false
+    },
+    'cdnUrls': {
+      'user': 'user-url/',
+      'content': 'content-url/'
+    },
+    isAnonymous: false
+  };
+  const response = serializer.normalizeAvatarUrl(payload, session);
   assert.deepEqual(expected, response, 'Wrong normalized response');
 });
