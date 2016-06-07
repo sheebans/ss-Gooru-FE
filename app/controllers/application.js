@@ -59,6 +59,7 @@ export default Ember.Controller.extend({
    */
   term: Ember.computed.alias("searchController.term"),
 
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -86,6 +87,10 @@ export default Ember.Controller.extend({
     searchTerm: function() {
       return true;
     }
+  },
+  isInvalidSearchTerm:false,
+  setInvalidSearchTerm: function(value){
+    this.set('isInvalidSearchTerm', value);
   },
 
   // -------------------------------------------------------------------------
