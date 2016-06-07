@@ -94,7 +94,6 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
       this.get('items').removeObject(builderItem);
     },
     remixLessonItem: function (builderItem) {
-      console.log(builderItem, 'BI');
       this.get('items').addObject(builderItem);
     },
     /**
