@@ -149,13 +149,13 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
     cancelSort:function(){
       var component = this;
       const sortable = component.$('.sortable');
-      sortable.sortable('cancel');
       component.set('isSorting',false);
       sortable.sortable('disable');
+      component.refreshList(component.get('items').mapBy('id'));
       component.set('model.isExpanded', false);
     },
     /**
-     * Save reorder collection items
+     * Save reorder lesson items
      */
     saveReorder:function(){
       var component = this;
@@ -293,6 +293,12 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
    * @property {Array[]} orderList
    */
   orderList: null,
+  /**
+   * @property {Array[]} originalList
+   */
+  originalList: Ember.computed('items','isSorting',function(){
+    return this.get('items');
+  }),
 
   // -------------------------------------------------------------------------
   // Methods
@@ -312,6 +318,4 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
     items.clear();
     items.addObjects(newItemList);
   }
-
-
 });

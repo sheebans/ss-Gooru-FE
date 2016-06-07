@@ -70,7 +70,7 @@
 
     <ol class="accordion-lesson sortable {{if isSorting 'sorting'}}" role="tablist" aria-multiselectable="true">
 
-      {{#each items as |item index|}}
+      {{#each originalList as |item index|}}
 
         {{content.courses.edit.gru-accordion-lesson-item
           model=item
