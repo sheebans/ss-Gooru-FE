@@ -294,7 +294,8 @@ const ResourceModel = Ember.Object.extend(Validations,{
       assetUrl: model.get("assetUrl"),
       url: model.get("url"),
       narration: model.get("narration"), //TODO missing
-      options: null //TODO missing
+      options: null, //TODO missing
+      taxonomy: model.get('standards')
     });
   },
 

@@ -259,7 +259,8 @@ const Question = Ember.Object.extend(Validations, {
       explanation: null, //TODO
       answers: model.get("answers").map(function(answer){
         return answer.toPlayerAnswer();
-      })
+      }),
+      taxonomy: model.get('standards')
     });
   },
 
