@@ -286,6 +286,11 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
    */
   isSorting:false,
 
+  /**
+   * @property {Array[]} orderList
+   */
+  orderList: null,
+
   // -------------------------------------------------------------------------
   // Methods
 
