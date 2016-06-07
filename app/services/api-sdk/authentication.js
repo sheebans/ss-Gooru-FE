@@ -75,6 +75,19 @@ export default Ember.Service.extend({
         reject(error);
       });
     });
+  },
+
+  /**
+   * Checks if a token is valid
+   * @param accessToken user access token
+   */
+  checkToken: function(accessToken) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('authenticationAdapter').checkToken({
+        accessToken
+      }).then(resolve, reject);
+    });
   }
 
 });

@@ -328,6 +328,7 @@ export default {
     "search": "Search",
     "search-placeholder": "Search...",
     "search-error-message": "Search terms need to be more than 3 letters.",
+    "search-400-error-message": "Please enter a valid search term",
     "select-question-type":"Select Question Type",
     "select-resource-type": "Select Resource Type",
     "send-request":"Send Request",
@@ -892,7 +893,7 @@ export default {
   },
   "gru-login-prompt":{
     "title":"Welcome to Gooru!",
-    "instructions" : "You need to sign in to remix content.",
+    "instructions" : "You need to sign in to complete that action.",
     "existing-user" : "Already have an account?",
     "new-user" : "New here?",
     "not-now" : "Not now",
