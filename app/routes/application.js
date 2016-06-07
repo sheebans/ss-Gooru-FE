@@ -23,6 +23,13 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   // -------------------------------------------------------------------------
   // Methods
 
+  beforeModel: function(transition) {
+    const marketing = this.handleMarketingSiteIfNecessary();
+    if (marketing){
+      transition.abort();
+    }
+  },
+
   model: function(params) {
     const route = this;
     const currentSession = route.get("session.data.authenticated");
@@ -49,17 +56,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   },
 
   afterModel: function(){
-    const route = this;
-    const legacyUrl = GooruLegacyUrl.create({
-      url: route.get("router.url")
-    });
-
-    if (legacyUrl.get("isLegacyUrl")) { //checking for a legacy legacyUrl
-      const routeParams = legacyUrl.get("routeParams");
-      if (routeParams) {
-        route.transitionTo.apply(route, routeParams);
-      }
-    }
+    this.handleLegacyUrlIfNecessary();
   },
 
 
@@ -110,6 +107,39 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     if (themeStylesUrl){
       Ember.$('head').append(`<link id="theme-style-link" rel="stylesheet" type="text/css" href="${themeStylesUrl}">`);
     }
+  },
+
+  /**
+   * Handles a url when necessary
+   */
+  handleLegacyUrlIfNecessary: function() {
+    const route = this;
+    const legacyUrl = GooruLegacyUrl.create({
+      url: route.get("router.url")
+    });
+
+    if (legacyUrl.get("isLegacyUrl")) { //checking for a legacy legacyUrl
+      const routeParams = legacyUrl.get("routeParams");
+      if (routeParams) {
+        route.transitionTo.apply(route, routeParams);
+      }
+    }
+  },
+
+  /**
+   * Handles a marketing site request when necessary
+   */
+  handleMarketingSiteIfNecessary: function() {
+    const route = this;
+    const url = route.get("router.url");
+    const isIndex = url === "/" || url.indexOf("/index") > 0;
+    const isProd = Env.environment === 'production';
+    const googleSignIn = url.indexOf("access_token") > 0; //if it has the access_token parameter
+    if (isIndex && !googleSignIn && !isProd) {
+      window.location = Env.marketingSiteUrl; //this is not an ember route, see nginx.conf
+      return true;
+    }
+    return false;
   },
 
   // -------------------------------------------------------------------------

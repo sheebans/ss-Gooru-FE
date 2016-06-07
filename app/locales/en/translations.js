@@ -1051,7 +1051,7 @@ export default {
   },
   "featured":{
     "featured-title" : "Featured Courses",
-    "featured-description" : "Welcome to the Gooru courses! These featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, discrits, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix and customize courses to personalize learning and increase student engagement! Click here to <a href=''>learn more</a> about the development of these courses."
+    "featured-description" : "Welcome to the Gooru courses! These featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, discrits, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix and customize courses to personalize learning and increase student engagement! Click here to <a href='http://about.gooru.org/courses' target='_blank'>learn more</a> about the development of these courses."
   },
 
   "taxonomy.modals": {

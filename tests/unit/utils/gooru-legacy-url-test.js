@@ -52,6 +52,13 @@ test('isLegacyUrl', function (assert) {
   assert.ok(legacyUrl.get("isLegacyUrl"), "it should be a legacy url");
 });
 
+test('isLegacyUrl - not so', function (assert) {
+  const legacyUrl = GooruLegacyUrl.create({
+    url : "collection-play&id=120&cid=1130"
+  });
+  assert.ok(!legacyUrl.get("isLegacyUrl"), "it should not be a legacy url, missing #");
+});
+
 test('routeParams for collection-play with no content id', function (assert) {
   const legacyUrl = GooruLegacyUrl.create({
     url : "#collection-play&id=120"
