@@ -63,14 +63,16 @@ export default Ember.Component.extend({
     },
 
     loadTaxonomyData(path) {
-      var subject = this.get('model.subject');
-      var courseId = path[0];
+      return new Ember.RSVP.Promise(function(resolve) {
+        var subject = this.get('model.subject');
+        var courseId = path[0];
 
-      return this.get('taxonomyService')
-                 .getCourseDomains(subject, courseId)
-                 .then(function(domains) {
-                   resolve(domains);
-                 });
+        return this.get('taxonomyService')
+          .getCourseDomains(subject, courseId)
+          .then(function(domains) {
+            resolve(domains);
+          });
+      }.bind(this));
     },
 
     updateSelectedTags(selectedTags) {

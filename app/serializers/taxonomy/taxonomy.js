@@ -60,7 +60,7 @@ export default Ember.Object.extend({
       id: subjectPayload['taxonomy_subject_id'],
       frameworkId: subjectPayload['standard_framework_id'],
       title: subjectPayload.title,
-      subjectTitle: `${subjectPayload['standard_framework_id']} ${parentTitle}`
+      subjectTitle: `${parentTitle}`
     });
   },
 
