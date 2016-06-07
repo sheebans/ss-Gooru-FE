@@ -1,13 +1,13 @@
 import Ember from "ember";
 import GruTheme from '../utils/gru-theme';
 import Env from '../config/environment';
-import ApplicationRouteMixin from "ember-simple-auth/mixins/application-route-mixin";
+import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
 import GooruLegacyUrl from 'gooru-web/utils/gooru-legacy-url';
 
 /**
  * @typedef {object} ApplicationRoute
  */
-export default Ember.Route.extend(ApplicationRouteMixin, {
+export default Ember.Route.extend(PublicRouteMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies

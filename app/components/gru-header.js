@@ -38,7 +38,8 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
       var term = $.trim(this.get('tempTerm'));
       var isIncorrectTermSize = this.get('isIncorrectTermSize');
       if (!isIncorrectTermSize){
-        this.set('term', encodeTerm(term));
+        this.set('term', term);
+        this.set('isInvalidSearchTerm',false);
         this.sendAction('onSearch', this.get('term'));
       }
     },
@@ -60,6 +61,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
       }
       else {
         this.set('isTyping', true);
+
       }
     }.bind(this));
     // Enables the collapse panel for my classes
@@ -114,6 +116,8 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    * @property {Boolean}
    */
   isTyping: null,
+
+  isInvalidSearchTerm:false,
 
   tempTerm:Ember.computed.oneWay('term'),
 

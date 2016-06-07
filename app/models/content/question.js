@@ -66,6 +66,11 @@ const Question = Ember.Object.extend(Validations, {
   /**
    * @property {string}
    */
+  narration: null,
+
+  /**
+   * @property {string}
+   */
   thumbnail: null,
 
   /**
@@ -239,6 +244,19 @@ const Question = Ember.Object.extend(Validations, {
 
 
     return Question.create(Ember.getOwner(this).ownerInjection(), properties);
+  },
+
+  /**
+   * Copy a list of property values from another model to override the current ones
+   *
+   * @function
+   * @param {Question} model
+   * @param {String[]} propertyList
+   * @return {null}
+   */
+  merge: function(model, propertyList = []) {
+    var properties = model.getProperties(propertyList);
+    this.setProperties(properties);
   },
 
   /**

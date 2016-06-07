@@ -1,3 +1,4 @@
+
 <div class="container-fluid {{if searchInputDirty 'search-input-dirty'}}">
   <div class="row">
     <div class="col-xs-12">
@@ -19,6 +20,11 @@
                 {{#if searchErrorMessage}}
                   <span class="error">
                     {{t "common.search-error-message"}}
+                  </span>
+                {{/if}}
+                {{#if isInvalidSearchTerm}}
+                  <span class="error">
+                    {{t "common.search-400-error-message"}}
                   </span>
                 {{/if}}
               </div>
