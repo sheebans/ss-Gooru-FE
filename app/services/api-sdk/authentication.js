@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import AuthenticationSerializer from 'gooru-web/serializers/authentication/authentication';
 import AuthenticationAdapter from 'gooru-web/adapters/authentication/authentication';
+import ProfileAdapter from 'gooru-web/adapters/profile/profile';
 
 /**
  * Service for the Authentication (Login) with API 3.0
@@ -13,11 +14,13 @@ export default Ember.Service.extend({
 
   authenticationAdapter: null,
 
+  profileAdapter: null,
 
   init: function () {
     this._super(...arguments);
     this.set('authenticationSerializer', AuthenticationSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('authenticationAdapter', AuthenticationAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set('profileAdapter', ProfileAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
   /**
@@ -46,16 +49,20 @@ export default Ember.Service.extend({
    */
   authenticateWithCredentials: function(username, password) {
     const service = this;
+    var authData;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('authenticationAdapter').postAuthentication({
         isAnonymous: false,
         username: username,
         password: password
       }).then(function(response) {
-          resolve(service.get('authenticationSerializer').normalizeResponse(response, false));
-        }, function(error) {
-          reject(error);
-        });
+        authData = service.get('authenticationSerializer').normalizeResponse(response, false);
+        return service.get('profileAdapter').readUserProfile(authData.user.gooruUId);
+      }).then(function(response) {
+        resolve(service.get('authenticationSerializer').normalizeAvatarUrl(response, authData));
+      }, function(error) {
+        reject(error);
+      });
     });
   },
 
@@ -66,11 +73,15 @@ export default Ember.Service.extend({
    */
   authenticateWithToken: function(accessToken) {
     const service = this;
+    var authData;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('authenticationAdapter').postAuthenticationWithToken({
         accessToken
       }).then(function(response) {
-        resolve(service.get('authenticationSerializer').normalizeResponse(response, false, accessToken));
+        authData = service.get('authenticationSerializer').normalizeResponse(response, false, accessToken);
+        return service.get('profileAdapter').readUserProfile(authData.user.gooruUId);
+      }).then(function(response) {
+        resolve(service.get('authenticationSerializer').normalizeAvatarUrl(response, authData));
       }, function(error) {
         reject(error);
       });
