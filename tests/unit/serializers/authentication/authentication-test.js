@@ -128,7 +128,7 @@ test('normalizeAvatarUrl', function(assert) {
   const payload = {
     thumbnail_path: 'image-id'
   };
-  const expected = {
+  const session = {
     token: Env['API-3.0']['user-token-api-2.0'],
     'token-api3': 'token-api-3.0',
     user: {
