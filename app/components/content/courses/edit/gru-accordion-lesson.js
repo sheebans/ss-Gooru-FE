@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
-import PlayerCollection from 'gooru-web/models/content/collection-base';
 import PlayerAccordionLesson from 'gooru-web/components/content/courses/play/gru-accordion-lesson';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
 
