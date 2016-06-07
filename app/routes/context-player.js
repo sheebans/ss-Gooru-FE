@@ -2,7 +2,7 @@ import Ember from 'ember';
 import PlayerRoute from 'gooru-web/routes/player';
 import Context from 'gooru-web/models/result/context';
 import {generateUUID} from 'gooru-web/utils/utils';
-
+import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 
 /**
  * Context Player Route
@@ -13,7 +13,7 @@ import {generateUUID} from 'gooru-web/utils/utils';
  * @module
  * @extends PlayerRoute
  */
-export default PlayerRoute.extend({
+export default PlayerRoute.extend(PrivateRouteMixin, {
 
 
   // -------------------------------------------------------------------------

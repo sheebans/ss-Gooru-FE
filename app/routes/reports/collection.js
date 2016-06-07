@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ReportData from 'gooru-web/models/result/report-data';
+import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 
 /**
  * Route for collection/assessment report
@@ -10,7 +11,7 @@ import ReportData from 'gooru-web/models/result/report-data';
  * @module
  * @augments ember/Route
  */
-export default Ember.Route.extend({
+export default Ember.Route.extend(PrivateRouteMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -38,10 +39,6 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-
-  beforeModel: function () {
-    // TODO: authenticate session with ember-simple-auth, if not send to log in
-  },
 
   model: function (params) {
     const route = this;

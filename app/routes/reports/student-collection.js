@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import Context from 'gooru-web/models/result/context';
+import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 /**
  *
  * Analytics data for a student related to a collection of resources
@@ -8,7 +9,7 @@ import Context from 'gooru-web/models/result/context';
  * @module
  * @augments ember/Route
  */
-export default Ember.Route.extend({
+export default Ember.Route.extend(PrivateRouteMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -64,10 +65,6 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-
-  beforeModel: function () {
-    // TODO: authenticate session with ember-simple-auth, if not send to log in
-  },
 
   /**
    * @param {{ assessmentId: string, resourceId: string }} params
