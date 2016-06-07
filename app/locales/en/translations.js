@@ -154,6 +154,7 @@ export default {
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
       "lesson-title-required" : "Please enter the lesson title.",
+      "profile-not-updated": "Oops! Unable to update profile right now. Please try again shortly.",
       "question-not-added-to": "Oops! Unable to add question to {{collectionType}} right now. Please try again shortly.",
       "question-not-copied": "Oops! Unable to copy question right now. Please try again shortly.",
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",

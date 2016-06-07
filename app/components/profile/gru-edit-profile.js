@@ -119,7 +119,7 @@ export default Ember.Component.extend({
                   component.get('profile').merge(editedProfile, ['username','firstName', 'lastName', 'aboutMe', 'role', 'countryId', 'stateId', 'state', 'schoolDistrictId', 'schoolDistrict', 'country', 'studentId', 'avatarUrl']);
                   component.get('router').transitionTo('profile.about', editedProfile.get('id'));
                 }, function(error) {
-                  var message = component.get('i18n').t('common.errors.collection-not-updated').string;
+                  var message = component.get('i18n').t('common.errors.profile-not-updated').string;
                   component.get('notifications').error(message);
                   Ember.Logger.error(error);
                 });
