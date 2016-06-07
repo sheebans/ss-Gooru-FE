@@ -62,9 +62,9 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
      * Cancel reorder collection items
      */
     cancelSort:function(){
-      const sortable = this.$('.sortable');
-      sortable.sortable('cancel');
-      this.set('isSorting',false);
+      var component = this;
+      const sortable = component.$('.sortable');
+      component.set('isSorting',false);
       sortable.sortable('disable');
     },
 
