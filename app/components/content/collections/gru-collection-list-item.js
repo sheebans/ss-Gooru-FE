@@ -42,6 +42,12 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
    */
   notifications: Ember.inject.service(),
 
+  /**
+   * @requires service:i18n
+   */
+  i18n: Ember.inject.service(),
+
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -100,7 +106,7 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
     },
 
     editNarration: function (builderItem) {
-      var modelForEditing = builderItem.copy();
+      var modelForEditing = this.get('model').copy();
 
       this.set('tempModel', modelForEditing);
       this.set('model.isExpanded', true);
@@ -109,10 +115,12 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
     updateItem: function (builderItem) {
       let component = this;
       var editedModel = this.get('tempModel');
+      let model = component.get('model');
 
       if(builderItem.get('format')==='question'){
         component.get('questionService').updateQuestion(editedModel.id, editedModel)
           .then(function () {
+            model.merge(editedModel, ['narration']);
             component.set('model.isExpanded', false);
           }.bind(this))
           .catch(function (error) {
@@ -123,6 +131,7 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
       }else{
         component.get('resourceService').updateResource(editedModel.id, editedModel)
           .then(function () {
+            model.merge(editedModel, ['narration']);
             component.set('model.isExpanded', false);
           }.bind(this))
           .catch(function (error) {
