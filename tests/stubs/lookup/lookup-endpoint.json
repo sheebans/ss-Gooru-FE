@@ -52,5 +52,23 @@
       "body": "File not found!",
       "file": "districts-200-response.json"
     }
+  },
+  {
+    "description": "Get Audiences",
+    "request": {
+      "url": "^/api/nucleus/v1/lookups/audience$",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "audience-200-response.json"
+    }
   }
 ]

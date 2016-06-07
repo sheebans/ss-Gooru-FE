@@ -36,6 +36,7 @@ export default Ember.Object.extend({
     var serializedQuestion = {
       'title': questionModel.get('title'),
       'description': questionModel.get('description'),
+      'narration': questionModel.get('narration'),
       'content_subformat': format,
       'visible_on_profile': questionModel.get('isVisibleOnProfile')
     };
@@ -59,6 +60,7 @@ export default Ember.Object.extend({
     return {
       title: questionModel.get('title'),
       description: questionModel.get('text'),
+      narration: questionModel.get('narration'),
       //'content_subformat': QuestionModel.serializeQuestionType(questionModel.get("type")), // This is not supported on the back end yet
       taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(questionModel.get('standards')),
       'visible_on_profile': questionModel.get('isVisibleOnProfile'),
@@ -102,6 +104,7 @@ export default Ember.Object.extend({
     const question = QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: questionData.id,
       title: questionData.title,
+      narration: questionData.narration,
       type: format,
       thumbnail: questionData.thumbnail ? (basePath + questionData.thumbnail) : null,
       text: questionData.description,
