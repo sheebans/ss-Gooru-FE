@@ -220,6 +220,14 @@
             margin: 10px 0;
           }
 
+          .add-taxonomy {
+            @include flexbox();
+
+            > ul {
+              @include flex();
+            }
+          }
+
           &.domain, &.standards {
             ul {
               margin-left: 5px;
@@ -409,13 +417,8 @@
       }
     }
   }
-  #information {
-    .description,
-    .use-case {
-      > label {
-        display: block;
-        width: 100%;
-      }
-    }
+  #information .description > label {
+    display: block;
+    width:100%;
   }
 }

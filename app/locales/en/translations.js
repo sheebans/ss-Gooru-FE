@@ -46,6 +46,14 @@ export default {
     "assign-to-course": "Assign to Course",
     "attempt": "Attempt number",
     "audience":"Audience",
+    "audienceList": {
+      "all": "All Students",
+      "english-language-learners": "English Language Learners",
+      "above-grade-level": "Students Above Grade Level",
+      "below-grade-level": "Students Below Grade Level",
+      "special-needs": "Students With Special Needs",
+      "teachers": "Teachers"
+    },
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
     "back": "Back",
@@ -214,6 +222,7 @@ export default {
     "move": "Move",
     "myContent": "My Content",
     "edit-narration": "Edit Narration",
+    "narration": "Narration",
     "new-assessment": "New Assessment",
     "new-collection": "New Collection",
     "new-question": "New Question",

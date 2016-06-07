@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { AUDIENCES } from 'gooru-web/config/config';
 
 /**
  * Audience component
@@ -9,14 +10,6 @@ import Ember from 'ember';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
-  // -------------------------------------------------------------------------
-  // Dependencies
-
-  /**
-   * @property {Ember.Service} Service to do retrieve audiences
-   */
-  lookupService: Ember.inject.service('api-sdk/lookup'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -39,14 +32,8 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
   init: function() {
-    var component = this;
-    component._super( ...arguments );
-
-    component.get("lookupService").readAudiences()
-      .then(function(audiences) {
-        component.set('audiences', audiences);
-        component.set('editAudiences', component.getOptionsArray(audiences, component.get('srcSelectedAudiences.audience')));
-      });
+    this._super( ...arguments );
+    this.set('editAudiences', this.getOptionsArray(AUDIENCES, this.get('srcSelectedAudiences')));
   },
 
   /**
@@ -81,19 +68,14 @@ export default Ember.Component.extend({
   /**
    * @type {Ember.A}
    */
-  srcAudiences: Ember.computed('srcSelectedAudiences', 'audiences', function () {
-    return this.getOptionsArray(this.get('audiences'), this.get('srcSelectedAudiences.audience'));
+  srcAudiences: Ember.computed('srcSelectedAudiences.[]', function () {
+    return this.getOptionsArray(AUDIENCES, this.get('srcSelectedAudiences'));
   }),
 
   /**
    * @type {Ember.A} srcSelectedAudiences - Initial list of audiences selected for the course
    */
   srcSelectedAudiences: null,
-
-  /**
-   * @type {Ember.A} audiences - List of audiences for the course
-   */
-  audiences: Ember.A(),
 
 
   // -------------------------------------------------------------------------
@@ -104,17 +86,14 @@ export default Ember.Component.extend({
    */
   updateSelectedAudiences: Ember.observer('editAudiences.@each.checked', function () {
     var selectedAudiences = this.get('editAudiences').filterBy('checked').map(function (audience) {
-      return (audience.get('checked')===true)? audience.get('id') : null;
+      return audience.get('value');
     });
-    var audience = Ember.Object.create({
-      'audience': selectedAudiences
-    });
-    this.set('editSelectedAudiences', audience);
+    this.set('editSelectedAudiences', selectedAudiences);
   }),
 
   resetSelectedAudiences: Ember.observer('isEditing', function () {
     if (this.get('isEditing')) {
-      this.set('editAudiences', this.getOptionsArray(this.get('audiences'), this.get('srcSelectedAudiences.audience')));
+      this.set('editAudiences', this.getOptionsArray(AUDIENCES, this.get('srcSelectedAudiences')));
     }
   }),
 
@@ -130,7 +109,7 @@ export default Ember.Component.extend({
    */
   getOptionsArray: function(allOptions, selectedOptions) {
     return allOptions.slice(0).map(function (object) {
-      object.checked = selectedOptions && selectedOptions.indexOf(object.id) > -1;
+      object.checked = selectedOptions.indexOf(object.value) > -1;
       return Ember.Object.create(object);
     });
   }

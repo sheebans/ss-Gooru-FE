@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default {{if model.isExpanded 'expanded' 'collapsed'}}">
   <div class="panel-heading">
     {{#if isSorting}}
       <span class="drag-icon">
@@ -18,29 +18,44 @@
       </div>
     {{/link-to}}
 
-    <div class="detail">
-      {{#if model.standards.length}}
-
-        {{#each visibleStandardsList as |standard|}}
-          <span class="btn btn-primary btn-small">{{standard.code}}</span>
-        {{/each}}
-
-        {{#if remainingStandards}}
-          <span class="btn btn-default btn-small">+{{remainingStandards}}</span>
+    <div class="detail {{if model.isExpanded 'hidden' 'visible'}}">
+        {{#if model.standards.length}}
+          {{#each visibleStandardsList as |standard|}}
+            <span class="btn btn-primary btn-small">{{standard.code}}</span>
+          {{/each}}
+          {{#if remainingStandards}}
+            <span class="btn btn-default btn-small">+{{remainingStandards}}</span>
+          {{/if}}
+        {{else}}
+          <span>{{t "common.add-standard"}}</span>
         {{/if}}
-      {{else}}
-        <span>{{t "common.add-standard"}}</span>
-      {{/if}}
 
+        <div class="actions">
+          <button class="btn add-item no-bgd" title="{{t 'common.add'}} "{{action 'add'}}>{{gru-icon name="add"}}</button>
+          <button class="btn narration no-bgd" title="{{t 'common.edit-narration'}} "{{action 'editNarration' model}}>{{gru-icon name="mode_comment"}}</button>
+            <div class="item-actions">
+              {{partial 'content/partials/item-actions'}}
+              {{#link-to (if (eq model.format 'question') 'content.questions.edit' 'content.resources.edit') model.id (query-params collectionId=collection.id isCollection=isCollection) class="btn edit-item no-bgd" tagName="button" title=(t 'common.edit')}}{{gru-icon name="edit"}}{{/link-to}}
+            </div>
+        </div>
+    </div>
+    <div class="detail {{if model.isExpanded 'visible' 'hidden'}}">
       <div class="actions">
-        <button class="btn add-item" title="{{t 'common.add'}} "{{action 'add'}}>{{gru-icon name="add"}}</button>
-        <button class="btn narration" title="{{t 'common.edit-narration'}} "{{action 'narration'}}>{{gru-icon name="mode_comment"}}</button>
-          <div class="item-actions">
-
-            {{partial 'content/partials/item-actions'}}
-            {{#link-to (if (eq model.format 'question') 'content.questions.edit' 'content.resources.edit') model.id (query-params collectionId=collection.id isCollection=isCollection) class="btn edit-item" tagName="button" title=(t 'common.edit')}}{{gru-icon name="edit"}}{{/link-to}}
-          </div>
+        <button class="btn narration no-bgd" title="{{t 'common.edit-narration'}} "{{action 'cancel'}}>{{gru-icon name="mode_comment"}}</button>
+        <div class="item-actions">
+          <button class="cancel btn btn-info" {{action 'cancel'}}>{{t "common.cancel"}}</button>
+          <button class="save btn btn-success" {{action 'updateItem' model}}>{{t "common.save"}}</button>
+        </div>
       </div>
+    </div>
+  </div>
+
+  <div class="panel-body">
+    <div class="narration">
+      <label>
+        <span>{{t "common.narration"}}</span>
+        {{validation.gru-textarea rawTextareaValue=tempModel.narration model=tempModel valuePath='narration' maxLength=500 rows=2}}
+      </label>
     </div>
   </div>
 </div>

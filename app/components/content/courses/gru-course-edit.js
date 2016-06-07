@@ -105,7 +105,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
             component.get('courseService').updateCourse(editedCourse)
 
               .then(function () {
-                course.merge(editedCourse, ['title', 'isVisibleOnProfile', 'thumbnailUrl', 'description', 'taxonomy', 'subject', 'metadata','useCase']);
+                course.merge(editedCourse, ['title', 'isVisibleOnProfile', 'thumbnailUrl', 'description', 'taxonomy', 'subject']);
                 component.setMainSubject();
                 component.set('isEditing', false);
               })
@@ -122,8 +122,8 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
     },
 
     /**
-     * Save setting for visibility of collection in profile
-     */
+      * Save setting for visibility of collection in profile
+      */
     publishToProfile: function(isChecked) {
       var courseForEditing = this.get('course').copy();
       this.set('tempCourse', courseForEditing);
