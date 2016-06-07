@@ -93,6 +93,19 @@ export default Ember.Component.extend({
     this.set('question', question);
   },
 
+  didInsertElement() {
+    var component = this;
+    setTimeout(function() {
+      component.$().attr('tabindex', 0).focus();
+    }, 400);
+    component.$().off('keyup').on('keyup', function(e) {
+      var keyCode = (event.keyCode ? event.keyCode : event.which);
+      if (keyCode == 13) {
+        component.$('button[type=submit]').trigger('click');
+      }
+    });
+  },
+
 
   // -------------------------------------------------------------------------
   // Properties

@@ -23,6 +23,22 @@ export default Ember.Mixin.create({
           'component-class': componentClass
       });
     }
+  },
+
+  didRender() {
+    const context = this;
+    if (context.$().hasClass('modal')) {
+      setTimeout(function() {
+        context.$('input:first').focus();
+      }, 400);
+      // Handles enter key press
+      context.$().on('keyup', '.modal-body', function(e) {
+        var keyCode = (event.keyCode ? event.keyCode : event.which);
+        if (keyCode == 13) {
+          $(e.target).blur().focus();
+        }
+      });
+    }
   }
 
 });
