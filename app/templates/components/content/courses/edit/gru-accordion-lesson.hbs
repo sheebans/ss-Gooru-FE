@@ -70,21 +70,35 @@
 
     <ol class="accordion-lesson sortable {{if isSorting 'sorting'}}" role="tablist" aria-multiselectable="true">
 
-      {{#each originalList as |item index|}}
-
-        {{content.courses.edit.gru-accordion-lesson-item
+      {{#if isSorting }}
+        {{#each items as |item index|}}
+          {{content.courses.edit.gru-accordion-lesson-item
           model=item
           course=course
           index=index
-          isSorting=isSorting
+          isSorting=true
           lessonId=lesson.id
           unitId=unitId
           courseId=course.id
           onDeleteLessonItem=(action 'removeLessonItem')
           onRemixLessonItem=(action 'remixLessonItem')
-         }}
-
-      {{/each}}
+          }}
+        {{/each}}
+      {{else}}
+        {{#each items as |item index|}}
+          {{content.courses.edit.gru-accordion-lesson-item
+          model=item
+          course=course
+          index=index
+          isSorting=false
+          lessonId=lesson.id
+          unitId=unitId
+          courseId=course.id
+          onDeleteLessonItem=(action 'removeLessonItem')
+          onRemixLessonItem=(action 'remixLessonItem')
+          }}
+        {{/each}}
+      {{/if}}
     </ol>
 
     <div>

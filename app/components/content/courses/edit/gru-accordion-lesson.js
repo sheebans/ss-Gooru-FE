@@ -151,8 +151,6 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
       const sortable = component.$('.sortable');
       component.set('isSorting',false);
       sortable.sortable('disable');
-      component.refreshList(component.get('items').mapBy('id'));
-      component.set('model.isExpanded', false);
     },
     /**
      * Save reorder lesson items
@@ -166,7 +164,6 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
           component.set('isSorting',false);
           sortable.sortable('disable');
           component.refreshList(component.get('orderList'));
-          component.set('model.isExpanded', false);
         });
     },
 
@@ -288,17 +285,6 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
    * @property {Boolean} isSorting
    */
   isSorting:false,
-
-  /**
-   * @property {Array[]} orderList
-   */
-  orderList: null,
-  /**
-   * @property {Array[]} originalList
-   */
-  originalList: Ember.computed('items','isSorting',function(){
-    return this.get('items');
-  }),
 
   // -------------------------------------------------------------------------
   // Methods
