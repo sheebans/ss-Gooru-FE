@@ -67,6 +67,7 @@ export default AddToModal.extend({
   init() {
     this._super(...arguments);
     this.set('onAdd', this.get('model.onAdd'));
+    this.set('isCollection', this.get('model.isCollection'));
   },
 
   // -------------------------------------------------------------------------
