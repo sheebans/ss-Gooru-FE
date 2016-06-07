@@ -58,9 +58,9 @@ var TaxonomyTagData = Ember.Object.extend({
 
     switch(taxonomyLevel) {
       case TAXONOMY_LEVELS.STANDARD:
-      case TAXONOMY_LEVELS.COURSE:
         value = this.get('frameworkCode') + ' ' + this.get('parentTitle');
         break;
+      case TAXONOMY_LEVELS.COURSE:
       case TAXONOMY_LEVELS.DOMAIN:
         value = this.get('parentTitle');
         break;
