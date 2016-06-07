@@ -63,8 +63,20 @@
           showCourses=true
         }}
 
-        {{content.gru-audience isEditing=isEditing srcSelectedAudiences=course.audience editSelectedAudiences=tempCourse.audience}}
+        {{content.gru-audience isEditing=isEditing srcSelectedAudiences=course.metadata editSelectedAudiences=tempCourse.metadata}}
 
+        <div class="use-case">
+          <label>
+            <span>{{t "common.use-case"}}</span>
+            {{#if isEditing}}
+              {{validation.gru-textarea rawTextareaValue=tempCourse.useCase model=tempCourse valuePath='useCase' maxLength=500 rows=2}}
+            {{else}}
+              {{#if course.useCase}}
+                {{textarea class="text-useCase" value=course.useCase class="form-control" rows=2 readonly=true}}
+              {{/if}}
+            {{/if}}
+          </label>
+        </div>
       </div>
     </div>
   </div>

@@ -57,7 +57,9 @@ test('it has header and main sections', function (assert) {
   var course = Course.create(Ember.getOwner(this).ownerInjection(), {
     title: "Course Title",
     subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    category: 'k_12',
+    metadata: {},
+    useCase: "Use Case"
   });
 
   this.set('course', course);
@@ -113,7 +115,8 @@ test('Validate the character limit in the Description field', function (assert) 
   var course = Course.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
     description:"",
-    audience:[1, 3],
+    metadata: {},
+    useCase: "Use Case",
     category: 'k_12'
   });
   this.set('course', course);
@@ -121,5 +124,21 @@ test('Validate the character limit in the Description field', function (assert) 
   this.render(hbs`{{content/courses/gru-course-edit isEditing=true course=course tempCourse=course}}`);
 
   const maxLenValue = this.$('.gru-course-edit .gru-textarea.description textarea').prop('maxlength');
+  assert.equal(maxLenValue, 500, "Input max length");
+});
+
+test('Validate the character limit in the Use Case field', function (assert) {
+  var course = Course.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    description:"",
+    category: 'k_12',
+    metadata: {},
+    useCase:""
+  });
+  this.set('course', course);
+
+  this.render(hbs`{{content/courses/gru-course-edit isEditing=true course=course tempCourse=course}}`);
+
+  const maxLenValue = this.$('.gru-course-edit .gru-textarea.useCase textarea').prop('maxlength');
   assert.equal(maxLenValue, 500, "Input max length");
 });
