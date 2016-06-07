@@ -184,7 +184,7 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
               content: component.get('lesson'),
               courseId: component.get('course.id'),
               unitId: component.get('unitId'),
-              isCollection: false,
+              isCollection: true,
               onAdd: component.get('onAddItem').bind(component)
             }, null, "add-to");
       });
