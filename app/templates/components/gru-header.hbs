@@ -1,3 +1,4 @@
+
 <div class="container-fluid {{if searchInputDirty 'search-input-dirty'}}">
   <div class="row">
     <div class="col-xs-12">
@@ -23,6 +24,11 @@
                 {{#if searchErrorMessage}}
                   <span class="error">
                     {{t "common.search-error-message"}}
+                  </span>
+                {{/if}}
+                {{#if isInvalidSearchTerm}}
+                  <span class="error">
+                    {{t "common.search-400-error-message"}}
                   </span>
                 {{/if}}
               </div>
@@ -84,7 +90,9 @@
 
               <li class="navbar-nav-list visible-md visible-lg dropdown">
                 <a class="profile dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <i class="icon pull-left">&nbsp;</i>
+                  <div class="img-container pull-left">
+                    <img class="img-responsive" src="{{session.userData.avatarUrl}}"/>
+                  </div>
                   <span class="username">{{session.userData.username}}</span>
                   {{gru-icon name='keyboard_arrow_down'}}
                 </a>

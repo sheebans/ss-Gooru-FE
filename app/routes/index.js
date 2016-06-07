@@ -1,8 +1,10 @@
 import Ember from 'ember';
+import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
+
 /**
  * @typedef {object} Index Route
  */
-export default Ember.Route.extend({
+export default Ember.Route.extend(PublicRouteMixin, {
 
   session: Ember.inject.service(),
 

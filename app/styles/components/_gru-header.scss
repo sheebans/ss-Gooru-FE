@@ -288,15 +288,10 @@
           @include flexbox;
           @include justify-content(center);
           @include align-items(center);
-          .icon {
-            background: url("gooru/profile.png") no-repeat;
-            -webkit-background-size: contain;
-            background-size: contain;
+          img {
             border-radius: 15px;
             width: 30px;
             height: 30px;
-            display: block;
-            margin-top: -4px;
           }
           .username {
             margin-left: 10px;

@@ -28,6 +28,23 @@ test('searchCollections', function(assert) {
     });
 });
 
+test('searchCollections 400', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.get('/gooru-search/rest/v2/search/scollection', function(request) {
+
+      return [400, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+  adapter.searchCollections('@@@', { page: 2 })
+    .then(function(){}, function(response){
+      assert.equal(response.status, 400, "Wrong error code");
+    });
+});
+
 test('searchAssessments', function(assert) {
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({
@@ -49,6 +66,22 @@ test('searchAssessments', function(assert) {
     });
 });
 
+test('searchAssessments 400', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.get('/gooru-search/rest/v2/search/scollection', function(request) {
+      return [400, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+  adapter.searchAssessments('@@@', { page: 2 })
+  .then(function(){}, function(response){
+    assert.equal(response.status, 400, "Wrong error code");
+  });
+});
+
 test('searchResources for all resource types', function(assert) {
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({
@@ -68,6 +101,22 @@ test('searchResources for all resource types', function(assert) {
   adapter.searchResources('any-term', { page: 2, taxonomies: ['a', 'b'] })
     .then(function(response) {
       assert.deepEqual({}, response, 'Wrong response');
+    });
+});
+
+test('searchResources for all resource types 404', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.get('/gooru-search/rest/v2/search/resource', function(request) {
+      return [400, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+  adapter.searchResources('@@@', [], { page: 2 })
+    .then(function(){}, function(response){
+      assert.equal(response.status, 400, "Wrong error code");
     });
 });
 
@@ -111,6 +160,23 @@ test('searchQuestions for all types', function(assert) {
       assert.deepEqual({}, response, 'Wrong response');
     });
 });
+
+test('searchQuestions for all types 404', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.get('/gooru-search/rest/v2/search/resource', function(request) {
+      return [400, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+  adapter.searchQuestions('@@@', [], { page: 2 })
+    .then(function(){}, function(response){
+      assert.equal(response.status, 400, "Wrong error code");
+    });
+});
+
 
 test('searchQuestions for some types and standards', function(assert) {
   const adapter = this.subject();

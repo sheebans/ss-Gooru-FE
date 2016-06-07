@@ -36,6 +36,18 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
    * @requires service:api-sdk/question
    */
   questionService: Ember.inject.service("api-sdk/question"),
+
+  /**
+   * @requires service:notifications
+   */
+  notifications: Ember.inject.service(),
+
+  /**
+   * @requires service:i18n
+   */
+  i18n: Ember.inject.service(),
+
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -91,6 +103,47 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
       } else {
         this.send('showModal', 'content.modals.gru-resource-remix', model);
       }
+    },
+
+    editNarration: function (builderItem) {
+      var modelForEditing = this.get('model').copy();
+
+      this.set('tempModel', modelForEditing);
+      this.set('model.isExpanded', true);
+    },
+
+    updateItem: function (builderItem) {
+      let component = this;
+      var editedModel = this.get('tempModel');
+      let model = component.get('model');
+
+      if(builderItem.get('format')==='question'){
+        component.get('questionService').updateQuestion(editedModel.id, editedModel)
+          .then(function () {
+            model.merge(editedModel, ['narration']);
+            component.set('model.isExpanded', false);
+          }.bind(this))
+          .catch(function (error) {
+            var message = component.get('i18n').t('common.errors.question-not-updated').string;
+            component.get('notifications').error(message);
+            Ember.Logger.error(error);
+          }.bind(component));
+      }else{
+        component.get('resourceService').updateResource(editedModel.id, editedModel)
+          .then(function () {
+            model.merge(editedModel, ['narration']);
+            component.set('model.isExpanded', false);
+          }.bind(this))
+          .catch(function (error) {
+            var message = component.get('i18n').t('common.errors.question-not-updated').string;
+            component.get('notifications').error(message);
+            Ember.Logger.error(error);
+          }.bind(component));
+      }
+    },
+
+    cancel: function (){
+      this.set('model.isExpanded', false);
     }
   },
   // -------------------------------------------------------------------------
@@ -132,4 +185,10 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
    * @property {Boolean} isSorting
    */
   isSorting: null,
+
+  /**
+   * Copy of the resource/question model used for editing.
+   * @property {Resource/Question }
+   */
+  tempModel: null
 });
