@@ -10,7 +10,6 @@ export default Ember.Route.extend({
 
   beforeModel: function(){
     this.get("session").invalidate();
-    //this.refresh();
   }
 
 });

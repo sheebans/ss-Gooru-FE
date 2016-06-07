@@ -49,15 +49,32 @@ export default Ember.Object.extend({
    * @returns {Promise}
    */
   postAuthenticationWithToken: function(data) {
-      const url = this.get('namespace');
-      const options = {
-        type: 'GET',
-        contentType: 'application/json; charset=utf-8',
-        headers: {
-          'Authorization' : 'Token ' + data.accessToken
-        }
-      };
-      return Ember.$.ajax(url, options);
-    }
+    const url = this.get('namespace');
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: {
+        'Authorization' : 'Token ' + data.accessToken
+      }
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Get request to check if the token is valid
+   * @param access token required to build the get headers
+   * @returns {Promise}
+   */
+  checkToken: function(data) {
+    const url = this.get('namespace');
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: {
+        'Authorization' : 'Token ' + data.accessToken
+      },
+      global: false /* Stop global ajaxError event from triggerting */
+    };
+    return Ember.$.ajax(url, options);
   }
-);
+});
