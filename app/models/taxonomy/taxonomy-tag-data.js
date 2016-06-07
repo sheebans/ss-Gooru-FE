@@ -136,26 +136,26 @@ TaxonomyTagData.reopenClass({
   },
 
   /**
-   * It returns only standards related to the subject
+   * It returns only taxonomy tag data objects related to the subject
    * @param {TaxonomyRoot} subject
-   * @param {TaxonomyTagData[]} standards
+   * @param {TaxonomyTagData[]} tagDataList
    */
-  filterBySubject: function(subject, standards) {
+  filterBySubject: function(subject, tagDataList) {
     const id = subject.get("id");
-    return standards.filter(function(standard){
-      return standard.get("id").indexOf(id) >= 0;
+    return tagDataList.filter(function(tagData){
+      return tagData.get("id").indexOf(id) >= 0;
     });
   },
 
   /**
-   * It returns only standards non related to the subject
+   * It returns only taxonomy tag data objects non related to the subject
    * @param {TaxonomyRoot} subject
-   * @param {TaxonomyTagData[]} standards
+   * @param {TaxonomyTagData[]} tagDataList
    */
-  filterByNotInSubject: function(subject, standards) {
+  filterByNotInSubject: function(subject, tagDataList) {
     const id = subject.get("id");
-    return standards.filter(function(standard){
-      return standard.get("id").indexOf(id) < 0;
+    return tagDataList.filter(function(tagData){
+      return tagData.get("id").indexOf(id) < 0;
     });
   }
 
