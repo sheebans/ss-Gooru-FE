@@ -76,6 +76,7 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
       const isCollection = component.get('model.isCollection');
       if (isCollection) {
         component.get('collectionService').readCollection(component.get('model.id')).then(function(result){
+          console.log(result.get('computedQuestionCount'));
           let model = {
             content: result,
             lessonId: component.get('lessonId'),
