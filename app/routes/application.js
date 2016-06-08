@@ -135,7 +135,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
     const isIndex = url === "/" || url.indexOf("/index") > 0;
     const isProd = Env.environment === 'production';
     const googleSignIn = url.indexOf("access_token") > 0; //if it has the access_token parameter
-    if (isIndex && !googleSignIn && !isProd) {
+    if (isIndex && !googleSignIn && isProd) {
       window.location = Env.marketingSiteUrl; //this is not an ember route, see nginx.conf
       return true;
     }

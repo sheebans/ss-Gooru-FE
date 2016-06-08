@@ -14,7 +14,10 @@ export default Ember.Object.extend({
   /**
    * Indicates if it is a gooru legacy url
    */
-  isLegacyUrl: Ember.computed.or("isCollectionPlayer", "isAssessmentPlayer", "isResourcePlayer"),
+  isLegacyUrl: Ember.computed("ur", function(){
+    const url = this.get("url");
+    return /#([^&|^?]+)/gm.exec(url);
+  }),
 
   /**
    * Indicates if it is a collection play url
