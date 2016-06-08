@@ -149,13 +149,11 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
     cancelSort:function(){
       var component = this;
       const sortable = component.$('.sortable');
-      sortable.sortable('cancel');
       component.set('isSorting',false);
       sortable.sortable('disable');
-      component.set('model.isExpanded', false);
     },
     /**
-     * Save reorder collection items
+     * Save reorder lesson items
      */
     saveReorder:function(){
       var component = this;
@@ -166,7 +164,6 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
           component.set('isSorting',false);
           sortable.sortable('disable');
           component.refreshList(component.get('orderList'));
-          component.set('model.isExpanded', false);
         });
     },
 
@@ -312,6 +309,4 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
     items.clear();
     items.addObjects(newItemList);
   }
-
-
 });

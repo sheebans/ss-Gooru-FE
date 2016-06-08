@@ -25,15 +25,27 @@
     {{/if}}
     <div class="detail">
       {{#if model.isCollection}}
-      <div class="{{if model.questionCount 'mixed'}}">
-        <span><b>{{model.resourceCount}}</b> {{t "common.resource-pl" count=model.resourceCount}}</span>
-        {{#if model.questionCount}}
-        <span><b>{{model.questionCount}}</b> {{t "common.question-pl" count=model.questionCount}}</span>
-        {{/if}}
-      </div>
+        <div class="{{if model.questionCount 'mixed'}}">
+          {{#if model.computedResourceCount}}
+            <span><b>{{model.computedResourceCount}}</b> {{t "common.resource-pl" count=model.computedResourceCount}}</span>
+          {{else}}
+            <span><b>{{model.resourceCount}}</b> {{t "common.resource-pl" count=model.resourceCount}}</span>
+          {{/if}}
+          {{#if model.computedQuestionCount}}
+            <span><b>{{model.computedQuestionCount}}</b> {{t "common.question-pl" count=model.computedQuestionCount}}</span>
+          {{else}}
+            {{#if model.questionCount}}
+              <span><b>{{model.questionCount}}</b> {{t "common.question-pl" count=model.questionCount}}</span>
+            {{/if}}
+          {{/if}}
+        </div>
       {{else}}
       <div>
-        <span><b>{{model.questionCount}}</b> {{t "common.question-pl" count=model.questionCount}}</span>
+        {{#if model.computedQuestionCount}}
+          <span><b>{{model.computedQuestionCount}}</b> {{t "common.question-pl" count=model.computedQuestionCount}}</span>
+        {{else}}          
+            <span><b>{{model.questionCount}}</b> {{t "common.question-pl" count=model.questionCount}}</span>
+        {{/if}}
       </div>
       {{/if}}
 

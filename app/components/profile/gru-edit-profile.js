@@ -320,6 +320,7 @@ export default Ember.Component.extend({
     const component = this;
     return component.get('profileService').updateMyProfile(profile).then(function() {
       let session = component.get('session');
+      session.set('userData.avatarUrl', profile.get('avatarUrl'));
       session.set('userData.isNew', false);
       if(!profile.username){
         profile.set('username',component.get('profile.username'));

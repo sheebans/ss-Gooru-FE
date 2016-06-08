@@ -1,7 +1,7 @@
 import Ember from 'ember';
+import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 
-export default Ember.Route.extend({
-
+export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
     collectionId:{},
     editing:{}
@@ -36,10 +36,6 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-
-  beforeModel: function () {
-    // TODO: authenticate session with ember-simple-auth, if not send to log in
-  },
 
   model: function (params) {
     var resource = this.get('resourceService').readResource(params.resourceId);

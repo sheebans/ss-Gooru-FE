@@ -4,7 +4,11 @@
     <div class="col-xs-12">
       <nav class="navbar navbar-default row">
         <div class="navbar-header">
-          {{#link-to 'index' class="navbar-brand home-link"}}  {{/link-to}}
+          {{#if session.isAnonymous}}
+            <a href="{{marketingSiteUrl}}" target="_blank" class="navbar-brand home-link"></a>
+          {{else}}
+            {{#link-to 'index' class="navbar-brand home-link"}}  {{/link-to}}
+          {{/if}}
         </div>
         <div class="search-navbar-form {{if session.isAnonymous 'anonymous' 'authenticated'}}">
           <form {{action "searchTerm" on="submit"}} class="form-inline">
@@ -86,7 +90,9 @@
 
               <li class="navbar-nav-list visible-md visible-lg dropdown">
                 <a class="profile dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <i class="icon pull-left">&nbsp;</i>
+                  <div class="img-container pull-left">
+                    <img class="img-responsive" src="{{session.userData.avatarUrl}}"/>
+                  </div>
                   <span class="username">{{session.userData.username}}</span>
                   {{gru-icon name='keyboard_arrow_down'}}
                 </a>

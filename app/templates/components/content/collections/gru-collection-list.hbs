@@ -45,20 +45,29 @@
 </div>
 
 <ol class="collection-list sortable {{if isSorting 'sorting'}}" role="tablist" aria-multiselectable="true">
-
-  {{#each items as |item index|}}
-
-    {{content.collections.gru-collection-list-item
+  {{#if isSorting }}
+    {{#each items as |item index|}}
+      {{content.collections.gru-collection-list-item
+        model=item
+        index=index
+        collection=model
+        isSorting=true
+        isCollection=isCollection
+        onRemoveCollectionItem=(action 'removeCollectionItem')
+        onRemixCollectionItem=(action 'remixCollectionItem')}}
+    {{/each}}
+  {{else}}
+    {{#each items as |item index|}}
+      {{content.collections.gru-collection-list-item
       model=item
       index=index
       collection=model
-      isSorting=isSorting
+      isSorting=false
       isCollection=isCollection
       onRemoveCollectionItem=(action 'removeCollectionItem')
       onRemixCollectionItem=(action 'remixCollectionItem')}}
-
-  {{/each}}
-
+    {{/each}}
+  {{/if}}
   <div>
     {{#if isCollection}} <button class="btn btn-success add-prefix">{{t "common.from-my-resources"}}</button> {{/if}}
     <button class="btn btn-success add-prefix">{{t "common.from-my-questions"}}</button>
