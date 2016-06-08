@@ -27,9 +27,12 @@ export default Ember.Mixin.create({
 
   didRender() {
     const context = this;
-    if (context.$().hasClass('modal')) {
+    if (context && context.$() && context.$().length
+      && context.$().hasClass('modal')) {
       setTimeout(function() {
-        context.$('input:first').focus();
+        if (context && context.$() && context.$().length) {
+          context.$('input:first').focus();
+        }
       }, 400);
       // Handles enter key press
       context.$().on('keyup', '.modal-body', function(e) {

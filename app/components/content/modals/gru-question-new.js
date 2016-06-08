@@ -95,15 +95,19 @@ export default Ember.Component.extend({
 
   didInsertElement() {
     var component = this;
-    setTimeout(function() {
-      component.$().attr('tabindex', 0).focus();
-    }, 400);
-    component.$().off('keyup').on('keyup', function(e) {
-      var keyCode = (event.keyCode ? event.keyCode : event.which);
-      if (keyCode == 13) {
-        component.$('button[type=submit]').trigger('click');
-      }
-    });
+    if (component && component.$() && component.$().length) {
+      setTimeout(function() {
+        if (component && component.$() && component.$().length) {
+          component.$().attr('tabindex', 0).focus();
+        }
+      }, 400);
+      component.$().off('keyup').on('keyup', function(e) {
+        var keyCode = (event.keyCode ? event.keyCode : event.which);
+        if (keyCode == 13) {
+          component.$('button[type=submit]').trigger('click');
+        }
+      });
+    }
   },
 
 
