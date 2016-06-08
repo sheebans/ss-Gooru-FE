@@ -12,6 +12,11 @@ import { getCategoryFromSubjectId } from 'gooru-web/utils/taxonomy';
 export default Ember.Service.extend({
 
   /**
+   * @private {Number} - Starting taxonomy item level for the standards
+   */
+  STANDARDS_BASE_LEVEL: 3,
+
+  /**
    * @property {APITaxonomyService} - the taxonomy service
    */
   apiTaxonomyService: null,
@@ -283,55 +288,60 @@ export default Ember.Service.extend({
   },
 
   createStandardsHierarchy(codes) {
-    var codeBuckets = this.sortCodes(codes);
+    var sortedTaxonomyItems = this.sortCodes(codes);
+    var standardsWithoutCategory;
+    var standardsCategories;
 
-    // Level 1 standards without parent (standard category)
-    var L1parentless = codeBuckets[1].filter(function(codeObj) {
-      return !codeObj.parentTaxonomyCodeId;
-    });
+    this.attachChildren(sortedTaxonomyItems[3], 3, sortedTaxonomyItems[2], sortedTaxonomyItems[1]);
+    //this.attachChildren(sortedTaxonomyItems[2], 2, sortedTaxonomyItems[1], sortedTaxonomyItems[0]);
+    standardsWithoutCategory = this.attachStandards(sortedTaxonomyItems[1], sortedTaxonomyItems[0], []);
 
-    // Default standard category
-    var L0DefaultParent = TaxonomyItem.create({
-      id: 'default',
-      title: '',
-      level: 3
-    });
-
-    let level0_items = this.getStandardsAsTaxonomyItems(codeBuckets, null, null, 0);
-
-    // Replace L1 codes with codes that don't have a reference to a parent
-    codeBuckets[1] = L1parentless;
-    L1parentless = this.getStandardsAsTaxonomyItems(codeBuckets, L0DefaultParent, null, 1);
-    L0DefaultParent.set('children', L1parentless);
-
-    level0_items.push(L0DefaultParent);
-    return level0_items;
+    standardsCategories = this.attachStandardsWithoutCategory(standardsWithoutCategory, sortedTaxonomyItems[0]);
+    return standardsCategories;
   },
 
   sortCodes(codes) {
+    const BASE_LEVEL = this.get('STANDARDS_BASE_LEVEL');  // standards base level
+    const NUM_BUCKETS = 4;
     var codesLen = codes.length;
     var buckets = [];
 
-    for (let i = Object.keys(CODE_TYPES).length - 1; i >= 0; --i) {
+    for (let i = NUM_BUCKETS - 1; i >= 0; --i) {
       // Make an array of arrays to store the different levels of standards
       buckets[i] = [];
     }
 
     for (let i = 0; i < codesLen; i++) {
       let code = codes[i];
+
+      // NOTE: temporarily assign the parentTaxonomyCodeId to the parent property
+      // It will be replaced in the next phase of the process.
+      let taxonomyItem = TaxonomyItem.create({
+        id: code.id,
+        code: code.code,
+        title: code.title,
+        parent: code.parentTaxonomyCodeId
+      });
+
       switch(code.codeType) {
         case CODE_TYPES.STANDARD_CATEGORY:
-          buckets[0].push(code); break;
+          taxonomyItem.set('level', BASE_LEVEL);
+          buckets[0].push(taxonomyItem);
+          break;
         case CODE_TYPES.STANDARD:
-          buckets[1].push(code); break;
+          taxonomyItem.set('level', BASE_LEVEL + 1);
+          buckets[1].push(taxonomyItem);
+          break;
         case CODE_TYPES.SUB_STANDARD:
-          buckets[2].push(code); break;
+          taxonomyItem.set('level', BASE_LEVEL + 2);
+          buckets[2].push(taxonomyItem);
+          break;
         case CODE_TYPES.LEARNING_TARGET_L0:
-          buckets[3].push(code); break;
         case CODE_TYPES.LEARNING_TARGET_L1:
-          buckets[4].push(code); break;
         case CODE_TYPES.LEARNING_TARGET_L2:
-          buckets[5].push(code); break;
+          taxonomyItem.set('level', BASE_LEVEL + 3);
+          buckets[3].push(taxonomyItem);
+          break;
         default:
           Ember.Logger.error('Unknown code_type: ' + code.codeType);
       }
@@ -339,52 +349,106 @@ export default Ember.Service.extend({
     return buckets;
   },
 
-  /**
-   * Gets the Taxonomy standards for a domain
-   * from the API or cache if available
-   *
-   * @param {Object[][]} codeBuckets - An array of arrays of code objects
-   * @param {TaxonomyItem} parent - Parent taxonomy item to link the children to
-   * @param {TaxonomyItem} parent - Id of the ancestor (the ancestor will not necessarily be
-   * the parent taxonomy item.
-   * @param {Number} bucketIndex - Index for the bucket where the codes are
-   * @returns {TaxonomyItem[]} Taxonomy item with children assigned
-   */
-  getStandardsAsTaxonomyItems(codeBuckets, parent, parentId, bucketIndex) {
-    const BASE_LEVEL = 3;  // standards base level
-    const LT_LEVEL = 3;
-    var result = [];
+  attachChildren(children, levelOffset, firstLevelParents, secondLevelParents) {
+    const BASE_LEVEL = this.get('STANDARDS_BASE_LEVEL');  // standards base level
 
-    if (codeBuckets[bucketIndex] && codeBuckets[bucketIndex].length) {
+    if (children.length) {
+      let siblings = [], remaining = [];
+      let lead = children.pop();
+      let parentId = lead.get('parent');  // parentTaxonomyCodeId
+      let parent = firstLevelParents.findBy('id', parentId);
 
-      codeBuckets[bucketIndex].forEach(function(codeObj) {
-        var taxonomyItem;
-
-        if (!parentId || codeObj.parentTaxonomyCodeId === parentId || parentId === 'default') {
-          let children;
-
-          taxonomyItem = TaxonomyItem.create({
-            id: codeObj.id,
-            code: codeObj.code,
-            title: codeObj.title,
-            level: (bucketIndex >= LT_LEVEL) ? BASE_LEVEL + LT_LEVEL : BASE_LEVEL + bucketIndex,
-            parent: (parentId) ? parent : null
-          });
-
-          result.push(taxonomyItem);
-
-          if (bucketIndex >= LT_LEVEL) {
-            children = this.getStandardsAsTaxonomyItems(codeBuckets, parent, taxonomyItem.get('id'), bucketIndex + 1);
-            result = result.concat(children);
-            parent.set('children', parent.get('children').concat(result));
-          } else {
-            children = this.getStandardsAsTaxonomyItems(codeBuckets, taxonomyItem, taxonomyItem.get('id'), bucketIndex + 1);
-            taxonomyItem.set('children', children);
-          }
+      children.forEach(function(taxonomyItem) {
+        if (taxonomyItem.get('parent') === parentId) {
+          siblings.push(taxonomyItem);
+        } else {
+          remaining.push(taxonomyItem);
         }
-      }.bind(this));
+      });
+
+      if (!parent) {
+        let grandparent = secondLevelParents.findBy('id', parentId);
+
+        if (grandparent) {
+          // Use a "fake" parent to close any gaps in the hierarchy
+          parent = TaxonomyItem.create({
+            id: `empty-${parentId}`,
+            level: BASE_LEVEL + (levelOffset - 1),    // Level for fake parent
+            parent: grandparent                            // Save reference to standard
+          });
+          grandparent.set('children', [parent].concat(grandparent.get('children')));
+        } else {
+          Ember.Logger.warn(`Parent with ID ${parentId} not found for items at level: ${levelOffset}`);
+          this.attachChildren(remaining, levelOffset, firstLevelParents, secondLevelParents);
+        }
+      }
+
+      // Add the lead in with its siblings
+      siblings.push(lead);
+      siblings.forEach(function(taxonomyItem) {
+        taxonomyItem.set('parent', parent);
+      });
+
+      // Concat the list of children with any existing children the parent may already have
+      parent.set('children', siblings.concat(parent.get('children')));
+      this.attachChildren(remaining, levelOffset, firstLevelParents, secondLevelParents);
     }
-    return result;
+  },
+
+  attachStandards(standards, categories, listWithoutCategory) {
+    if (!standards.length) {
+      return listWithoutCategory;
+    } else {
+      let lead = standards.pop();
+      if (!lead.get('parent')) {
+        listWithoutCategory.unshift(lead);
+        return this.attachStandards(standards, categories, listWithoutCategory);
+      } else {
+        let siblings = [], remaining = [];
+        let parentId = lead.get('parent');
+        let parent = categories.findBy('id', parentId);
+
+        standards.forEach(function(taxonomyItem) {
+          if (taxonomyItem.get('parent') === parentId) {
+            siblings.push(taxonomyItem);
+          } else {
+            remaining.push(taxonomyItem);
+          }
+        });
+
+        if (!parent) {
+          Ember.Logger.warn(`Category with ID ${parentId} not found standards`);
+          return this.attachStandards(remaining, categories, listWithoutCategory);
+        }
+
+        // Add the lead in with its siblings
+        siblings.push(lead);
+        siblings.forEach(function(taxonomyItem) {
+          taxonomyItem.set('parent', parent);
+        });
+
+        // Concat the list of children with any existing children the parent may already have
+        parent.set('children', siblings.concat(parent.get('children')));
+        return this.attachStandards(remaining, categories, listWithoutCategory);
+      }
+    }
+  },
+
+  attachStandardsWithoutCategory(standards, categories) {
+    const BASE_LEVEL = this.get('STANDARDS_BASE_LEVEL');  // standards base level
+
+    var defaultCategory = TaxonomyItem.create({
+      id: 'defaultCategory',
+      level: BASE_LEVEL,
+      children: standards
+    });
+
+    standards.forEach(function(taxonomyItem) {
+      taxonomyItem.set('parent', defaultCategory);
+    });
+
+    categories.push(defaultCategory);
+    return categories;
   }
 
 });

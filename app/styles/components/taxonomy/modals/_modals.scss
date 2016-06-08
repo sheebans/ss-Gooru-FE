@@ -190,6 +190,12 @@
                           margin-top: 10px;
                         }
 
+                        &.no-content {
+                          border-radius: 0;
+                          background-color: transparent;
+                          margin: 0;
+                        }
+
                         > ul {
                           background-color: $white;
                           border-radius: 3px;
