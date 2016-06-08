@@ -55,7 +55,7 @@ test('it renders correctly when there are no questions or resources', function (
   assert.ok($itemsList.length, 'Items list section');
   assert.equal($itemsList.find('.gru-collection-list-item').length, 0, 'No items listed');
 
-  const $addActions = $itemsList.find('> div');
+  const $addActions = $component.find('.add-resource-question');
   assert.ok($addActions.length, 'Actions for adding content');
 
   assert.ok($addActions.find('button:eq(0)').text(), this.get('i18n').t('common.from-my-resources').string, 'First "add" button');

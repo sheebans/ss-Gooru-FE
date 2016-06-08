@@ -1,6 +1,6 @@
 <div class="modal-header">
   <span class="modal-title">
-      {{#if isQuestion}}
+      {{#if showAssessments}}
         {{t 'gru-add-to.add-to-assessment'}}
       {{else}}
         {{t 'gru-add-to.add-to-collection'}}
@@ -8,7 +8,7 @@
   </span>
 </div>
 <div class="modal-body">
-  {{#if isQuestion}}
+  {{#if showAssessments}}
     <div class="btn-group category-options">
       <button type="button" class="btn btn-lg {{if showCollections 'btn-info' 'btn-primary'}} assessments" {{action "changeTab" false}}>
         <i class="icon"></i>
@@ -27,7 +27,7 @@
         {{t 'gru-add-to.add-to-assessment-lead' contentTitle=content.title}}
     {{/if}}
   </div>
-  <div class="list {{if isQuestion 'questions' ''}}">
+  <div class="list">
     {{#each collectionsList as |collection|}}
       <div class="{{collection.id}} collection" {{action "selectCollection" collection}}>
         {{cards.gru-collection-card
