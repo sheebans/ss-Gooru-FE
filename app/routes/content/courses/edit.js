@@ -3,6 +3,10 @@ import BuilderItem from 'gooru-web/models/content/builder/item';
 
 export default Ember.Route.extend({
 
+  queryParams: {
+    editing:{}
+  },
+
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -28,21 +32,28 @@ export default Ember.Route.extend({
 
   model: function (params) {
     var course = this.get('courseService').fetchById(params.courseId);
+    var isEditing = params.editing;
 
     return Ember.RSVP.hash({
-      course: course
+      course: course,
+      isEditing: !!isEditing
     });
   },
 
   setupController(controller, model) {
-    model.course.children = model.course.children.map(function (unit) {
+    var course = model.course;
+
+    course.children = course.children.map(function (unit) {
       // Wrap every unit inside of a builder item
       return BuilderItem.create({
         data: unit
       });
     });
 
-    controller.set('course', model.course);
+    controller.set('course', course);
+    controller.set('isEditing', model.isEditing);
+    if(model.isEditing) {
+      controller.set('tempCourse', course.copy());
+    }
   }
-
 });
