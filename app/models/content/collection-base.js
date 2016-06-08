@@ -199,6 +199,8 @@ export default (function() {
       properties.audience = audience.slice(0);
       properties.standards = standards.slice(0);
 
+      properties.children = this.get('children');
+
       return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
     },
 
