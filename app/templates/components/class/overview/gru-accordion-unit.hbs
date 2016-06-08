@@ -37,13 +37,13 @@
       {{three-bounce-spinner}}
     {{else}}
 
-      {{#each items as |item index|}}
+      {{#each items as |lesson index|}}
 
         {{class.overview.gru-accordion-lesson
           currentClass=currentClass
           classMembers=classMembers
           unitId=model.id
-          model=item
+          model=lesson
           index=index
           onSelectResource=(action 'selectResource')
           onSelectLesson=(action 'updateLesson')
