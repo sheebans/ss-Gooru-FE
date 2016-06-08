@@ -12,7 +12,6 @@ import { sortFeaturedCourses,getSubjects } from 'gooru-web/utils/sort-featured-c
 export default Ember.Component.extend({
 // -------------------------------------------------------------------------
   // Dependencies
-  i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Attributes
