@@ -106,9 +106,7 @@ export default AddToModal.extend({
   init() {
     this._super(...arguments);
     this.set('assessments', this.get('model.assessments'));
-    if(this.get('isQuestion')) {
-      this.set('showCollections', false);
-    }
+    this.set('showCollections', !this.get('showAssessments'));
   },
 
   // -------------------------------------------------------------------------
@@ -127,6 +125,13 @@ export default AddToModal.extend({
    * @type {Boolean} if collections should be shown
    */
    showCollections: true,
+
+  /**
+   * @type {Boolean} if the option to add to assessments should be shown
+   */
+  showAssessments: Ember.computed('isQuestion', 'content.isOpenEnded', function() {
+    return this.get('isQuestion') && !this.get('content.isOpenEnded');
+  }),
 
    /**
     * @type {List} collections/assessments to be rendered
