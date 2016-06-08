@@ -58,7 +58,7 @@ test('normalizeFetchSubjects', function(assert) {
   assert.equal(framework1.get('id'), 'TEKS.K12.FA', 'Wrong framework id');
   assert.equal(framework1.get('frameworkId'), 'TEKS', 'Wrong framework frameworkId');
   assert.equal(framework1.get('title'), 'Texas Essential Knowledge and Skills', 'Wrong framework title');
-  assert.equal(framework1.get('subjectTitle'), 'TEKS Visual & Performing Arts', 'Wrong framework subjectTitle');
+  assert.equal(framework1.get('subjectTitle'), 'Visual & Performing Arts', 'Wrong framework subjectTitle');
   assert.equal(framework1.get('frameworks.length'), 0, 'Wrong number of frameworks');
 });
 

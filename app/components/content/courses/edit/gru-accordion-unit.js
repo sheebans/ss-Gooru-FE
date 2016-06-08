@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import BuilderItem from 'gooru-web/models/content/builder/item';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 import Lesson from 'gooru-web/models/content/lesson';
 import PlayerAccordionUnit from 'gooru-web/components/content/courses/play/gru-accordion-unit';
 import ModalMixin from 'gooru-web/mixins/modal';
@@ -11,7 +12,7 @@ import {CONTENT_TYPES} from 'gooru-web/config/config';
  *
  * Component responsible for behaving as an accordion and listing a set of lessons.
  * It is meant to be used inside of an {@link ./gru-accordion-course|Accordion Course}
- * 
+ *
  * @module
  * @augments components/content/courses/play/gru-accordion-unit
  *
@@ -110,10 +111,15 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
 
     openDomainPicker: function () {
       var component = this;
+      var domains = this.get('tempUnit.taxonomy').slice(0);
+      var subject = this.get('course.mainSubject');
+      var subjectDomains = TaxonomyTagData.filterBySubject(subject, domains);
+      var notInSubjectDomains = TaxonomyTagData.filterByNotInSubject(subject, domains);
+
       var model = {
-        selected: this.get('tempUnit.taxonomy').slice(0),
+        selected: subjectDomains,
         shortcuts: null,  // TODO: TBD
-        subject: this.get('course.mainSubject'),
+        subject: subject,
         callback: {
           success: function(selectedTags) {
             var taxonomyList = component.get('tempUnit.taxonomy');
@@ -124,6 +130,7 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
             Ember.beginPropertyChanges();
             taxonomyList.clear();
             taxonomyList.pushObjects(dataTags);
+            taxonomyList.pushObjects(notInSubjectDomains);
             Ember.endPropertyChanges();
           }
         }
