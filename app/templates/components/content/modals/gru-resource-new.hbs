@@ -8,47 +8,61 @@
             <span class="title">{{t 'common.add-from-url'}}</span>
         </div>
         <label class="url-label">
-            <span class="required">{{t 'common.enter-url'}}</span>
-            {{validation.gru-input model=resource valuePath='url'}}
-            {{#if existingResource}}
-                <span class="validation error">{{t 'gru-resource-new.resource-already-exist'}}</span>
-                <div class="existing-resource-message">
-                {{cards.gru-resource-card resource=existingResource addEnabled=false}}
-                </div>
-            {{/if}}
-        </label>
-        <label class="title-label">
-            <span class="required">{{t 'common.resource-title'}}</span>
-            {{validation.gru-input model=resource valuePath='title' maxLength=50}}
-        </label>
-        <label class="type">
-            <span class="required">{{t 'common.add-type-resource'}}</span>
-        </label>
-        <div class="resource-types text-center">
-          {{#each resourceTypes as |resourceType|}}
-              <div class="panel panel-default {{concat 'resource-type-' resourceType}} {{set-if-equal 'active' resourceType selectedType}}" {{action 'selectType' resourceType}}>
-                  <div class="panel-body">
-                      <i class="resource-type-icon"></i>
-                  </div>
-                  <div class="panel-footer">
-                    {{t (concat 'common.resource-format.' resourceType) }}
-                  </div>
+          <span class="required">{{t 'common.enter-url'}}</span>
+          {{validation.gru-input model=resource valuePath='url'}}
+          {{#if existingResource}}
+            <span class="validation error">{{t 'gru-resource-new.resource-already-exist'}}</span>
+            {{#if model}}
+              <div class="lead">
+                <span>Do you want to add it to this collection?</span>
               </div>
-          {{/each}}
-        </div>
+            {{/if}}
+            <div class="existing-resource-message">
+            {{cards.gru-resource-card resource=existingResource addEnabled=false}}
+            </div>
+          {{/if}}
+        </label>
+        {{#unless existingResource}}
+          <label class="title-label">
+              <span class="required">{{t 'common.resource-title'}}</span>
+              {{validation.gru-input model=resource valuePath='title' maxLength=50}}
+          </label>
+          <label class="type">
+              <span class="required">{{t 'common.add-type-resource'}}</span>
+          </label>
+          <div class="resource-types text-center">
+            {{#each resourceTypes as |resourceType|}}
+                <div class="panel panel-default {{concat 'resource-type-' resourceType}} {{set-if-equal 'active' resourceType selectedType}}" {{action 'selectType' resourceType}}>
+                    <div class="panel-body">
+                        <i class="resource-type-icon"></i>
+                    </div>
+                    <div class="panel-footer">
+                      {{t (concat 'common.resource-format.' resourceType) }}
+                    </div>
+                </div>
+            {{/each}}
+          </div>
+        {{/unless}}
         <div class="actions resource-new">
           {{#unless existingResource}}
             <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal" aria-label="{{t 'common.close'}}">
               <span aria-hidden="true">{{t 'common.cancel' }}</span>
             </button>
-              <button type="button" class="btn btn-default more-btn" {{action "createResource" "edit"}} aria-label="{{t 'common.more-details'}}">
-                  <span aria-hidden="true">{{t 'common.more-details' }}</span>
-              </button>
-              <button type='submit' class="btn btn-primary add-btn" {{action "createResource" "add"}} aria-label="{{t 'common.close'}}">{{t 'common.add'}}</button>
-          {{else}}
-            <button type="button" class="btn btn-default close-btn" data-dismiss="modal" aria-label="{{t 'common.close'}}">
-              <span aria-hidden="true">{{t 'common.close' }}</span>
+            <button type="button" class="btn btn-default more-btn" {{action "createResource" "edit"}} aria-label="{{t 'common.more-details'}}">
+              <span aria-hidden="true">{{t 'common.more-details' }}</span>
             </button>
+            <button type='submit' class="btn btn-primary add-btn" {{action "createResource" "add"}} aria-label="{{t 'common.close'}}">{{t 'common.add'}}</button>
+          {{else}}
+            {{#if model}}
+              <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal" aria-label="{{t 'common.close'}}">
+                <span aria-hidden="true">{{t 'common.cancel' }}</span>
+              </button>
+              <button type='submit' class="btn btn-primary add-btn" {{action "addTo"}} aria-label="{{t 'common.close'}}">{{t 'common.add'}}</button>
+            {{else}}
+              <button type="button" class="btn btn-primary close-btn" data-dismiss="modal" aria-label="{{t 'common.close'}}">
+                <span aria-hidden="true">{{t 'common.close' }}</span>
+              </button>
+            {{/if}}
           {{/unless}}
         </div>
     </form>

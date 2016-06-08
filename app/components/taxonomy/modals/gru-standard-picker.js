@@ -35,44 +35,64 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-    loadTaxonomyData(path, parentBrowseItem) {
-      var subject = this.get('model.subject');
-      var taxonomyService = this.get('taxonomyService');
+    loadSelected(selected) {
+      if (selected.length) {
+        let coursesToLoad = [], domainsToLoad = [], pathsToLoad = [], promises = [];
+        let subject = this.get('model.subject');
+        let taxonomyService = this.get('taxonomyService');
 
-      if (path.length > 1) {
-        let courseId = path[0];
-        let domainId = path[1];
-        return taxonomyService.getCourseDomains(subject, courseId).then(function() {
-          return taxonomyService.getDomainCodes(subject, courseId, domainId)
-                  .then(function(standards) {
-                    if (parentBrowseItem && !parentBrowseItem.get('children').length) {
-                      // Add children to the parent browse item
-                      let browseItems = [];
-                      standards.forEach(function(taxonomyItem) {
-                        var browseItem = BrowseItem.createFromTaxonomyItem(taxonomyItem);
-                        browseItem.set('parent', parentBrowseItem);
-                        browseItems.push(browseItem);
-                      });
-                      parentBrowseItem.set('children', browseItems);
-                    }
-                  });
+        selected.forEach(function(tagData) {
+          var path = tagData.get('ancestorsPath');
+
+          // Create non-duplicated lists of domains and standards to load
+          if (coursesToLoad.indexOf(path[0]) === -1) {
+            coursesToLoad.push(path[0]);
+          }
+
+          if (domainsToLoad.indexOf(path[1]) === -1) {
+            domainsToLoad.push(path[1]);
+            pathsToLoad.push(path);
+          }
+        });
+
+        promises = coursesToLoad.map(function(courseId) {
+          return taxonomyService.getCourseDomains(subject, courseId);
+        });
+
+        return Ember.RSVP.all(promises).then(function() {
+          promises = pathsToLoad.map(function(path) {
+            return taxonomyService.getDomainCodes(subject, path[0], path[1]);
+          });
+
+          return Ember.RSVP.all(promises);
         });
       } else {
-        let courseId = path[0];
-        return taxonomyService.getCourseDomains(subject, courseId)
-                .then(function(domains) {
-                  if (parentBrowseItem && !parentBrowseItem.get('children').length) {
-                    // Add children to the parent browse item
-                    let browseItems = [];
-                    domains.forEach(function(taxonomyItem) {
-                      var browseItem = BrowseItem.createFromTaxonomyItem(taxonomyItem);
-                      browseItem.set('parent', parentBrowseItem);
-                      browseItems.push(browseItem);
-                    });
-                    parentBrowseItem.set('children', browseItems);
-                  }
-                });
+        return Ember.RSVP.resolve(false);
       }
+    },
+
+    loadTaxonomyData(path) {
+      return new Ember.RSVP.Promise(function(resolve) {
+        var subject = this.get('model.subject');
+        var taxonomyService = this.get('taxonomyService');
+
+        if (path.length > 1) {
+          let courseId = path[0];
+          let domainId = path[1];
+          taxonomyService.getCourseDomains(subject, courseId).then(function() {
+            taxonomyService.getDomainCodes(subject, courseId, domainId)
+              .then(function(standards) {
+                resolve(standards);
+              });
+          });
+        } else {
+          let courseId = path[0];
+          taxonomyService.getCourseDomains(subject, courseId)
+            .then(function(domains) {
+              resolve(domains);
+            });
+        }
+      }.bind(this));
     },
 
     updateSelectedTags(selectedTags) {
