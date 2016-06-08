@@ -5,6 +5,9 @@
       @include border-bottom-radius(4px);
       @include box-shadow(0 0 7px #ddd);
       width: 100%;
+      a{
+        padding: 0;
+      }
     }
 
     .panel-body {
@@ -56,6 +59,10 @@
         height: 100%;
         overflow: hidden;
         width: 185px;
+
+        .profile-link{
+          padding:0 10px;
+        }
       }
     }
 

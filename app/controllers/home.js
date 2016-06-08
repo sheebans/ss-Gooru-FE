@@ -62,14 +62,37 @@ export default Ember.Controller.extend({
   /**
    * @property {Number} Total of joined classes
    */
-  totalJoinedClasses: Ember.computed('myClasses', function() {
-    return this.get('myClasses.memberList').length;
+  totalJoinedClasses: Ember.computed('myClasses.memberList', function() {
+
+    return this.getActiveClasses(this.get('myClasses.memberList'));
   }),
 
   /**
    * @property {Number} Total of teaching classes
    */
   totalTeachingClasses: Ember.computed('myClasses', function() {
-    return this.get('myClasses.ownerList').length + this.get('myClasses.collaboratorList').length;
-  })
+    return this.getActiveClasses(this.get('myClasses.ownerList')) + this.getActiveClasses(this.get('myClasses.collaboratorList'));
+  }),
+
+
+// -------------------------------------------------------------------------
+// Methods
+
+  /**
+   * Return the number of active classes on specific list
+   */
+  getActiveClasses:function(list){
+    var component = this;
+    var totalActiveClasses = Ember.A();
+    list.forEach(function(item){
+      let activeItem = component.get('activeClasses').findBy('id',item);
+      if(activeItem){
+        totalActiveClasses.addObject(activeItem);
+      }
+    });
+
+    return totalActiveClasses.length;
+  }
 });
+
+

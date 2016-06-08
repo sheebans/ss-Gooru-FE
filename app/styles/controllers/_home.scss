@@ -54,7 +54,12 @@
   .nav-tabs {
     box-shadow: inset 0 -1px 0 $gray-light;
 
-
+    li{
+      margin-right: 15px;
+      a{
+        padding: 10px 0;
+      }
+    }
     .switch-tab-btn {
       @include flexbox;
       @include align-items(center);
