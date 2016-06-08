@@ -293,7 +293,7 @@ export default Ember.Service.extend({
     var standardsCategories;
 
     this.attachChildren(sortedTaxonomyItems[3], 3, sortedTaxonomyItems[2], sortedTaxonomyItems[1]);
-    //this.attachChildren(sortedTaxonomyItems[2], 2, sortedTaxonomyItems[1], sortedTaxonomyItems[0]);
+    this.attachChildren(sortedTaxonomyItems[2], 2, sortedTaxonomyItems[1], sortedTaxonomyItems[0]);
     standardsWithoutCategory = this.attachStandards(sortedTaxonomyItems[1], sortedTaxonomyItems[0], []);
 
     standardsCategories = this.attachStandardsWithoutCategory(standardsWithoutCategory, sortedTaxonomyItems[0]);
