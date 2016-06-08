@@ -7,7 +7,7 @@ import T from 'gooru-web/tests/helpers/assert';
 moduleForAcceptance('Acceptance | account-settings', {
   beforeEach: function() {
     authenticateSession(this.application, {
-      isAnonymous: true,
+      isAnonymous: false,
       token: 'account-settings-token',
       user: {
         gooruUId: 'pochita'

@@ -14,8 +14,9 @@ export default Ember.Object.extend({
   /**
    * Indicates if it is a gooru legacy url
    */
-  isLegacyUrl: Ember.computed("url", function(){
-    return this.get("url").indexOf("#") >= 0;
+  isLegacyUrl: Ember.computed("ur", function(){
+    const url = this.get("url");
+    return /#([^&|^?]+)/gm.exec(url);
   }),
 
   /**
