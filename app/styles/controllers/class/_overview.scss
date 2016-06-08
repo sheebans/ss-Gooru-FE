@@ -67,7 +67,11 @@
       .panel-title {
         > a {
           display: inline-block;
-          max-width: 62%;
+          max-width: 54%;
+          @media (min-width: $screen-sm) {
+            max-width: 62%;
+          }
+
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;

@@ -13,7 +13,7 @@ export default {
     "add-collection-item": "Add Resource or Question",
     "add-course": "Add New Course",
     "add-domains-to-unit": "Add Domains to Unit",
-    "add-from-url":"Add from URL",
+    "add-from-url": "Add from URL",
     "add-lessons": "Add Lessons",
     "add-new-lesson": "Add New Lesson",
     "add-new-unit": "Add New Unit",
@@ -27,25 +27,25 @@ export default {
     "add-to": "Add To",
     "add-to-collection-success": "You've added {{contentTitle}} to {{collectionTitle}}. Do you want to edit that {{collectionType}}?",
     "add-to-lesson-success": "You've added {{collectionTitle}} to {{lessonTitle}}. Do you want to edit that {{collectionType}}?",
-    "add-type-question":"What type of question would you like to add?",
-    "add-type-resource":"What type of resource is this?",
+    "add-type-question": "What type of question would you like to add?",
+    "add-type-resource": "What type of resource is this?",
     "add-units": "Add Units",
     "anonymous_mode": "Anonymous Mode",
-    "answer":"Your Answer",
-    "approved":"Approved",
-    "assessment":"Assessment",
-    "assessment-external":"Assessment-External",
+    "answer": "Your Answer",
+    "approved": "Approved",
+    "assessment": "Assessment",
+    "assessment-external": "Assessment-External",
     "assessment-pl": {
       one: "Assessment",
       other: "Assessments"
     },
-    "assessment-title":"Assessment Title",
+    "assessment-title": "Assessment Title",
     "assessmentInitial": "A",
     "assessments": "Assessments",
-    "assign-to-class": "Assign to Class",
+    "assign-to-class": "Assign to Classroom",
     "assign-to-course": "Assign to Course",
     "attempt": "Attempt number",
-    "audience":"Audience",
+    "audience": "Audience",
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
     "back": "Back",
@@ -53,7 +53,7 @@ export default {
     "best-practices": "Best Practices",
     "big-ideas": "Big Ideas",
     "biography": "Biography",
-    "builder": "Builder",
+    "builder": "Editor",
     "cancel": "Cancel",
     "category": "Category",
     "categoryOptions": {
@@ -61,44 +61,44 @@ export default {
       "higher-ed": "Higher Education",
       "professional-dev": "Professional Development"
     },
-    "class":"Class",
-    "classes": "Classes",
+    "class": "Classroom",
+    "classes": "Classrooms",
     "classScores": "Class Scores",
     "close": "Close",
-    "collection":"Collection",
+    "collection": "Collection",
     "collection-pl": {
       one: "Collection",
       other: "Collections"
     },
-    "collection-title":"Collection Title",
+    "collection-title": "Collection Title",
     "collections": "Collections",
     "collectionInitial": "C",
     "completed": "Completed",
-    "content":"Content",
-    "content-publishing":"Content Publishing",
+    "content": "Content",
+    "content-publishing": "Content Publishing",
     "contentUnavailable": "Content not available",
     "copy": "Copy",
     "copy-to": "Copy To",
     "correct": "Correct",
-    "correct-answer":"Correct Answer",
+    "correct-answer": "Correct Answer",
     "country": "Country",
     "course-map": "Course Map",
-    "course":"Course",
+    "course": "Course",
     "course-title": "Course Title",
     "courses": "Courses",
     "create": "Create",
-    "created-by":"Created by",
-    "delete":"Delete",
+    "created-by": "Created by",
+    "delete": "Delete",
     "delete-instructions": {
-      "links-inaccessible":"All share links will be inaccessible",
-      "content-inaccessible":"All content will be inaccessible to the classes tied to it"
+      "links-inaccessible": "All share links will be inaccessible",
+      "content-inaccessible": "All content will be inaccessible to the classrooms tied to it"
     },
     "description": "Description",
     "district": "District",
     "domain": "Domain",
     "domains": "Domains",
     "drag-drop-suggestions": "Or Drag and Drop Suggestions ...",
-    "download-report" : "Download Report",
+    "download-report": "Download Report",
     "edit": "Edit",
     "edit-assessment": "Edit Assessment",
     "edit-collection": "Edit Collection",
@@ -113,45 +113,45 @@ export default {
       "emotion-4": "I understand",
       "emotion-5": "I can explain"
     },
-    "enter-url":"Enter URL",
+    "enter-url": "Enter URL",
     "errors": {
-      "join-class-code":"Please enter the class code.",
-      "answer-has-no-image":"Please upload an answer image.",
-      "add-username":"Please enter a username.",
-      "add-course-title":"Please enter the course title.",
-      "add-question-answer-text":"Please enter the answer choice text.",
-      "add-question-title":"Please enter the question title.",
-      "add-student-id":"You cannot use special characters or spaces.",
-      "assessment-title-presence" : "Please enter the assessment title.",
-      "can-not-join-class" : "Oops! Unable to join class. Please try again shortly.",
+      "join-class-code": "Please enter the classroom code.",
+      "answer-has-no-image": "Please upload an answer image.",
+      "add-username": "Please enter a username.",
+      "add-course-title": "Please enter the course title.",
+      "add-question-answer-text": "Please enter the answer choice text.",
+      "add-question-title": "Please enter the question title.",
+      "add-student-id": "You cannot use special characters or spaces.",
+      "assessment-title-presence": "Please enter the assessment title.",
+      "can-not-join-class": "Oops! Unable to join classroom. Please try again shortly.",
       "assessment-not-added-to": "Oops! Unable to add assessment to lesson right now. Please try again shortly.",
       "assessment-not-copied": "Oops! Unable to copy assessment right now. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
-      "class-not-created": "Oops! Unable to create class right now. Please try again shortly.",
-      "class-title-presence": "Please give your class a name.",
+      "class-not-created": "Oops! Unable to create classroom right now. Please try again shortly.",
+      "class-title-presence": "Please give your classroom a name.",
       "collection-not-added-to": "Oops! Unable to add collection to lesson right now. Please try again shortly.",
       "collection-not-copied": "Oops! Unable to copy collection right now. Please try again shortly.",
       "collection-not-created": "Oops! Unable to create collection right now. Please try again shortly.",
       "collection-not-updated": "Oops! Unable to update collection right now. Please try again shortly.",
-      "collection-title-presence" : "Please enter the collection title.",
+      "collection-title-presence": "Please enter the collection title.",
       "correct-answer-presence": "Please indicate the correct answer.",
       "course-not-copied": "Oops! Unable to copy course right now. Please try again shortly.",
       "course-not-created": "Oops! Unable to create course right now. Please try again shortly.",
       "course-not-updated": "Oops! Unable to update course right now. Please try again shortly.",
       "highlight-text-not-selected": "Please indicate the correct answer.",
       "highlight-text-wrong-format": "Incorrect question format.",
-      "hotspot-text-max-choices": "You have reached the limit of answers choices.",
+      "hotspot-text-max-choices": "You have reached the limit of answer choices.",
       "lesson-not-copied": "Oops! Unable to copy lesson right now. Please try again shortly.",
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
-      "lesson-title-required" : "Please enter the lesson title.",
+      "lesson-title-required": "Please enter the lesson title.",
       "profile-not-updated": "Oops! Unable to update profile right now. Please try again shortly.",
       "question-not-added-to": "Oops! Unable to add question to {{collectionType}} right now. Please try again shortly.",
       "question-not-copied": "Oops! Unable to copy question right now. Please try again shortly.",
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
       "question-not-updated": "Oops! Unable to update question right now. Please try again shortly.",
-      "resource-description-length": "Description can't be longer than 500 characters.",
+      "resource-description-length": "The description cannot be longer than 500 characters.",
       "resource-invalid-url": "Invalid URL.",
       "resource-missing-title": "Please enter a resource title.",
       "resource-missing-type": "Please select a resource type.",
@@ -160,33 +160,33 @@ export default {
       "resource-not-copied": "Oops! Unable to copy resource right now. Please try again shortly.",
       "resource-not-created": "Oops! Unable to create resource right now. Please try again shortly.",
       "resource-not-updated": "Oops! Unable to update resource right now. Please try again shortly.",
-      "resource-same-host-url": "Resources can not be Gooru's URLs.",
-      "resource-title-length": "Title can't be longer than 50 characters.",
-      "select-correct-answer":"Please select the correct answer.",
-      "sign-in-credentials-not-valid": "Uh oh! Something’s not right. Please double check your username and password and try again.",
-      "sign-in-google-account-exists": "Please sign-in with Google to access your account.",
+      "resource-same-host-url": "Resources cannot be Gooru URLs.",
+      "resource-title-length": "The title cannot be longer than 50 characters.",
+      "select-correct-answer": "Please select the correct answer.",
+      "sign-in-credentials-not-valid": "Uh oh! Something's not right. Please double check your username and password and try again.",
+      "sign-in-google-account-exists": "Please sign in with Google to access your account.",
       "unit-not-copied": "Oops! Unable to copy unit right now. Please try again shortly.",
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
       "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly.",
-      "unit-title-required" : "Please enter the unit title.",
-      "user-email-presence" : "Please enter a valid email.",
-      "username-length":"Username must be between 4 and 20 characters."
+      "unit-title-required": "Please enter the unit title.",
+      "user-email-presence": "Please enter a valid email.",
+      "username-length": "Username must be between 4 and 10 characters."
     },
     "essential-questions": "Essential Questions",
     "explanation": "Explanation",
-    "false":"False",
-    "featured-courses":"Featured Courses",
+    "false": "False",
+    "featured-courses": "Featured Courses",
     "first-name": "First Name",
     "follow": "Follow",
     "followers": "Followers",
     "following": "Following",
     "forgotPassword": "Forgot Password",
-    "from":"from",
+    "from": "from",
     "from-my-assessments": "From My Assessments",
     "from-my-collections": "From My Collections",
     "from-my-questions": "From My Questions",
     "from-my-resources": "From My Resources",
-    "hide-results":"Hide Results",
+    "hide-results": "Hide Results",
     "hints": "Hints",
     "home": "Home",
     "if_questions": "If you have any questions,",
@@ -194,10 +194,10 @@ export default {
     "last-name": "Last Name",
     "last-updated": "Last Updated",
     "launch-anonymous": "Launch Anonymous",
-    "launch-on-air": "Launch on air",
-    "learning-objectives":"Learning Objectives",
-    "learning-target":"Learning Target",
-    "learning-target-mobile":"Learning Target in Standard",
+    "launch-on-air": "Go live",
+    "learning-objectives": "Learning Objectives",
+    "learning-target": "Micro-standard",
+    "learning-target-mobile": "Micro-standard in Standard",
     "lesson": "Lesson",
     "lessonInitial": "L",
     "lessonObj": {
@@ -209,10 +209,9 @@ export default {
     "loading": "Loading ...",
     "login": "Log in",
     "logout": "Logout",
-    "nothing-to-display": "Nothing to display",
-    "mastery":"Mastery",
+    "mastery": "Mastery",
     "menu": "Menu",
-    "more-details":"More Details",
+    "more-details": "More Details",
     "move": "Move",
     "myContent": "My Content",
     "edit-narration": "Edit Narration",
@@ -225,14 +224,14 @@ export default {
     "next": "Next",
     "no": "No",
     "no-content": "No content available",
-    "no-results": "No Results Found",
-    "no-results-message":"Check your spelling. We all make mistakes!<br/>Go broader & remove some filters.<br/>Try searching for a similar word instead.",
+    "no-results": "No results found",
+    "no-results-message": "Check your spelling. We all make mistakes!<br/>Go broader and remove some filters.<br/> Or try searching for a similar word instead.",
     "notStarted": "Not started",
-    "not-added":"Not Added",
+    "not-added": "Not Added",
     "not-provided": "Not provided",
-    "not-specified":"Not specified",
-    "nothing-to-display-message":"Nothing to display.",
-    "number":"No.",
+    "not-specified": "Not specified",
+    "nothing-to-display-message": "Nothing to display.",
+    "number": "No.",
     "numberStudents": {
       one: "{{count}} Student",
       other: "{{count}} Students"
@@ -240,39 +239,39 @@ export default {
     "of": "of",
     "other": "Other",
     "password": "Password",
-    "pending":"Pending",
-    "performance":"Show Performance",
+    "pending": "Pending",
+    "performance": "Show Performance",
     "play": "Play",
     "please_contact": "Please contact",
     "preview": "Preview",
     "profile": "Profile",
-    "publish-to":" Publish to my profile",
+    "publish-to": " Publish to my profile",
     "published-by": "Published by",
     "publisher": "Publisher",
-    "question":"Question",
+    "question": "Question",
     "questions": "Questions",
     "question-pl": {
       one: "Question",
       other: "Questions"
     },
-    "question-title":"Question Title",
-    "question-type":{
-      "SA"     : "Single Answer",
-      "MC"     : "Multiple Choice",
-      "FIB"    : "Fill In the Blank",
-      "T/F"    : "True or False",
-      "T_F"    : "True or False",
-      "MA"     : "Multiple Answer",
-      "OE"     : "Free Response",
-      "HS_TXT" : "Multiple Select - Text",
-      "HS_IMG" : "Multiple Select - Image ",
-      "HT_TO"  : "Drag and Drop Order",
-      "HT_RO"  : "Drag and Drop Order",
-      "HT_HL"  : "Hot Text Highlight"
+    "question-title": "Question Title",
+    "question-type": {
+      "SA": "Single Answer",
+      "MC": "Multiple Choice",
+      "FIB": "Fill In the Blank",
+      "T/F": "True or False",
+      "T_F": "True or False",
+      "MA": "Multiple Answer",
+      "OE": "Free Response",
+      "HS_TXT": "Multiple Select - Text",
+      "HS_IMG": "Multiple Select - Image ",
+      "HT_TO": "Drag and Drop Order",
+      "HT_RO": "Drag and Drop Order",
+      "HT_HL": "Hot Text Highlight"
     },
     "reaction": "Reaction",
     "remaining": "{{number}} Left",
-    "remix":"Remix",
+    "remix": "Remix",
     "remix-assessment": "Remix Assessment",
     "remix-assessment-lead": "You are about to remix an assessment.",
     "remix-assessment-success": "You've remixed an assessment {{assessmentTitle}}. Do you want to edit that assessment?",
@@ -295,26 +294,26 @@ export default {
     "remix-unit-lead": "You are about to remix a unit.",
     "remix-unit-success": "You've remixed a unit {{unitTitle}}.",
     "remixed-by": "Remixed by",
-    "remove":"Remove",
+    "remove": "Remove",
     "report-in-progress": "Report in progress",
-    "request-to":"Request to be searchable and featured in Gooru",
+    "request-to": "Request to be searchable and featured in Gooru",
     "request-report": "Request Report",
-    "resource":"Resource",
+    "resource": "Resource",
     "resources": "Resources",
-    "resource-format":{
-      "image"       : "Image",
-      "text"        : "Text",
-      "video"       : "Video",
-      "interactive" : "Interactive",
-      "webpage"     : "Webpage",
-      "audio"       : "Audio",
-      "question"    : "Question"
+    "resource-format": {
+      "image": "Image",
+      "text": "Text",
+      "video": "Video",
+      "interactive": "Interactive",
+      "webpage": "Webpage",
+      "audio": "Audio",
+      "question": "Question"
     },
     "resource-pl": {
       one: "Resource",
       other: "Resources"
     },
-    "resource-title":"Resource Title",
+    "resource-title": "Resource Title",
     "resource-url": "Resource URL",
     "role": "Role",
     "save": "Save",
@@ -323,44 +322,44 @@ export default {
     "save-finish": "Save and Finish",
     "school": "School",
     "school-info": "School Information",
-    "score":"Score",
+    "score": "Score",
     "select": "Select",
     "sentence": "Sentence",
-    "settings":"Settings",
+    "settings": "Settings",
     "search": "Search",
     "search-placeholder": "Search...",
-    "search-error-message": "Search terms need to be more than 3 letters.",
+    "search-error-message": "Search terms need to be at least 3 letters.",
     "search-400-error-message": "Please enter a valid search term",
-    "select-question-type":"Select Question Type",
+    "select-question-type": "Select Question Type",
     "select-resource-type": "Select Resource Type",
-    "send-request":"Send Request",
-    "show-correct-answer":"Show Correct Answer",
-    "show-more-results" : "Show More Results",
-    "show-results":"Show Results",
+    "send-request": "Send Request",
+    "show-correct-answer": "Show Correct Answer",
+    "show-more-results": "Show More Results",
+    "show-results": "Show Results",
     "signUp": "Sign Up",
-    "sortAlphabetical":"Sort Alphabetically",
-    "sortAverage":"Sort by Average",
-    "state":"State",
-    "standard":"Standard",
+    "sortAlphabetical": "Sort Alphabetically",
+    "sortAverage": "Sort by Average",
+    "state": "State",
+    "standard": "Standard",
     "standards": "Standards",
     "study": "Study",
     "student": "Student",
-    "student-id":"Student ID (not displayed on Profile)",
+    "student-id": "Student ID (not displayed on Profile)",
     "subject-and-framework": "Subject and Framework",
     "submit": "Submit",
-    "submit-all":"Submit all",
+    "submit-all": "Submit all",
     "swap": "Re-order",
-    "suggested-resources":"Suggested Resources",
+    "suggested-resources": "Suggested Resources",
     "teach": "Teach",
     "teacher": "Teacher",
     "timeSpent": "Time Spent",
     "toggle-dropdown": "Toggle Dropdown",
-    "true":"True",
+    "true": "True",
     "type": "Type",
-    "unexpectedError": "An unexpected error has occurred and has been reported. Sorry for the inconvenience!",
+    "unexpectedError": "An unexpected error has occurred and has been reported. We're sorry for the inconvenience!",
     "unfollow": "Unfollow",
-    "unit":"Unit",
-    "unit-title":"Unit Title",
+    "unit": "Unit",
+    "unit-title": "Unit Title",
     "unitInitial": "U",
     "unitObj": {
       one: "Unit",
@@ -370,11 +369,11 @@ export default {
     "untitled-lesson": "Untitled Lesson",
     "untitled-unit": "Untitled Unit",
     "update-thumbnail": "Update Thumbnail",
-    "upload-thumbnail":"Upload Thumbnail",
+    "upload-thumbnail": "Upload Thumbnail",
     "use-case": "Use Case",
     "verified": "Verified",
     "warnings": {
-      "on-air-connection-lost": "The On Air feature has lost connection and is retrying automatically. While it's tempting, please don't refresh your screen!",
+      "on-air-connection-lost": "The Go Live feature has lost connection and is retrying automatically. It's tempting, but please don't refresh your screen!",
       "character-limit": "You've reached the character limit."
     },
     "word": "Word",
@@ -424,7 +423,7 @@ export default {
     },
     "findDescription": "Browse thousands of K-12 collections made by teachers, or search over 16M resources",
     "remixDescription": "Remix collections and customize content to meet your students' needs.",
-    "shareDescription": "Share collections with students via My Classes. Login is not required to access.",
+    "shareDescription": "Share collections with students through Gooru classrooms. Login is not required to access.",
     "monitorDescription": "Measure your students' engagement and progress to intervene in real-time.",
     "freeAndOpen": {
       "title": "Free and Open.<br/>Always.",
@@ -432,36 +431,36 @@ export default {
       "button": "Learn More about Our Approach"
     }
   },
-  "class":{
-    "info":{
-      "class-info": "Class Information",
-      "teachers":"Teachers",
-      "students":"Students",
-      "subject":"Subject",
-      "grade":"Grade",
-      "description":"Description",
-      "edit-info":"Edit Information",
-      "share-class":"Share Class",
-      "invite-co-teachers":"Invite Co-teachers",
-      "add-students":"Add Students",
-      "class-code": "Class Code",
-      "delete":"Delete Class"
+  "class": {
+    "info": {
+      "class-info": "Classroom Information",
+      "teachers": "Teachers",
+      "students": "Students",
+      "subject": "Subject",
+      "grade": "Grade",
+      "description": "Description",
+      "edit-info": "Edit Information",
+      "share-class": "Share Classroom",
+      "invite-co-teachers": "Invite Co-teachers",
+      "add-students": "Add Students",
+      "class-code": "Classroom Code",
+      "delete": "Delete Classroom"
     },
-    "edit":{
-      "edit-class": "Edit Class Information",
-      "class-name": "Class Name",
-      "class-greetings": "Class Greetings",
+    "edit": {
+      "edit-class": "Edit Classroom Information",
+      "class-name": "Classroom Name",
+      "class-greetings": "Classroom Announcements",
       "class-greetings-placeholder": "Greet your students, motivate them, or make an announcement, etc."
     },
-    "overview":{
-      "title":"Course map",
-      "locate":"Locate Me",
-      "editContent":"Edit Content"
+    "overview": {
+      "title": "Course Map",
+      "locate": "Locate Me",
+      "editContent": "Edit Content"
     },
     "analytics": {
       "performance": {
         "title": "View Performance",
-        "better-experience-message":"For a better Gooru experience, view full Class Analytics in tablet or desktop.",
+        "better-experience-message": "For a better Gooru experience, view full Classroom Analytics in tablet or desktop.",
         "actions": {
           "share": "Share",
           "edit": "Edit Content",
@@ -483,15 +482,15 @@ export default {
         "title": "View Mastery"
       }
     },
-    "quick-start":{
+    "quick-start": {
       "title": "How do you want to add a course?",
-      "new-course": "Quick Start a New Course",
-      "new-course-desc": "Jump start to add a collection or assessment",
+      "new-course": "Quickstart a New Course",
+      "new-course-desc": "Jumpstart to add a collection or assessment",
       "new-collection": "New Collection",
       "new-assessment": "New Assessment",
       "remix-a-sample": "Remix a Sample",
-      "add-existing-course": "Add from Existing Course",
-      "existing-course-desc": "The quickest way to start a class",
+      "add-existing-course": "Add from an Existing Course",
+      "existing-course-desc": "The quickest way to start a classroom",
       "choose-course": "Choose Course",
       "remix-from-course": "Remix from Featured Course",
       "featured-course": "View Featured Course",
@@ -499,32 +498,32 @@ export default {
     }
   },
   "classes": {
-    "classesJoined": "Classes I've Joined",
-    "classesTaught": "Classes I Teach",
-    "noClassesJoined": "You have not joined any classes",
-    "noClassesTaught": "You do not have any created classes"
+    "classesJoined": "Classrooms I've Joined",
+    "classesTaught": "Classrooms I Teach",
+    "noClassesJoined": "You have not joined any classrooms",
+    "noClassesTaught": "You do not have any created classrooms"
   },
   "content.classes": {
     "create": {
-      "title": "Create a Class",
+      "title": "Create a Classroom",
       "content": "Where students engage with content.",
-      "class-name-input": "Name your Class",
-      "condition-prompt": "How will students join your class?",
-      "condition-prompt-code": "Anyone with Class code",
+      "class-name-input": "Name your Classroom",
+      "condition-prompt": "How will students join your classroom?",
+      "condition-prompt-code": "Anyone with Classroom code",
       "condition-prompt-invite": "Invite only",
       "get-started": "Get Started"
     },
     "join": {
-      "title": "Join a Class",
+      "title": "Join a Classroom",
       "content": "Where the journey begins.",
-      "class-code-input": "Enter a Class Code",
-      "class-not-found": "Class not found. Make sure you've entered the correct class code",
-      "invalid-code": "Invalid class code.",
-      "already-member": "You are already a member of this class.",
-      "join-class": "Join Class",
-      "join-not-allowed": "You are not able to join this class",
+      "class-code-input": "Enter a Classroom Code",
+      "class-not-found": "Classroom not found. Make sure you've entered the correct classroom code",
+      "invalid-code": "Invalid classroom code.",
+      "already-member": "You are already a member of this classroom.",
+      "join-class": "Join Classroom",
+      "join-not-allowed": "You are not able to join this classroom",
       "not-now": "Not now",
-      "terms-and-conditions": 'By clicking Join Class, I agree to share my assessment and collection progress data generated from studying this Gooru class, with the teacher(s) of this class.'
+      "terms-and-conditions": 'By clicking Join Classroom, I agree to share my assessment and collection progress data generated from studying this Gooru classroom with the teacher(s) of this classroom.'
     }
   },
   "content.assessments.edit": {
@@ -532,74 +531,74 @@ export default {
   },
   "content.collections.edit": {
     "assign-to-course": "Assign to Course",
-    "best-practices": "<p>Students interact with your content at the collection level. When creating a learning collection, make sure to include learning objectives, and consider using a variety of resource types to expose students to the concepts in multiple ways.</p><p>Use the sequencing of the resources to build on concepts. Progression through a collection should flow in a logical manner and take the intended audience from a general to more complex level of understanding if appropriate, or allow adequately for student exploration.</p><p>Include checks for understanding along the way via our Gooru questions or other interactives. We recommend there are enough resources and/or enough variety of resources to accomplish the objectives in the collection and that each resource has a role and purpose.</p>"
+    "best-practices": "<p>Students interact with your content at the collection level. When creating a learning collection, make sure to include learning objectives, and consider using a variety of resource types to expose students to the concepts in multiple ways.</p><p>Use the sequencing of the resources to build on concepts. Progression through a collection should flow in a logical manner and take the intended audience from a general to more complex level of understanding if appropriate, or allow adequately for student exploration.</p><p>Include checks for understanding along the way via our Gooru questions or other interactives. We recommend enough resources and/or enough variety of resources to accomplish the objectives in the collection and ensuring that each resource has a role and purpose.</p>"
   },
   "content.courses.edit": {
-    "assign-to-class": "Assign to Class",
+    "assign-to-class": "Assign to Classroom",
     "best-practices": "<p>A course is a folder that allows you to organize your learning content into units and lessons. When creating a course consider the essential questions you are addressing, the learning objectives, and organization of your content.</p><p>You can piece the lessons together to create a diverse experience for your student population (for example, you could sequence your units chronologically, by topic, or by standard).</p>",
     "information": {
-      "course-title":"Course Title",
-      "description":"Description"
+      "course-title": "Course Title",
+      "description": "Description"
     }
   },
   "content.questions.edit": {
     "add-to": "Add to",
     "best-practices": "<p>A question is a resource that requires an answer from the student, and we offer a variety of question types to support the kinds of questions your students will see on SBAC, PARCC and other assessments.</p><p>Consider alternating the kinds of questions you use to offer students exposure to these question types and to provide multiple formats for demonstrating knowledge.</p><p>Tag your questions to standards, micro-standards, and Webb's Depth of Knowledge. You can see how your students are interacting with questions through the teacher dashboard.</p>",
-    "information":{
-      "question-title":"Question Title",
+    "information": {
+      "question-title": "Question Title",
       "question-type": "Question Type"
     },
-    "builder":{
-      "add-answer-choice":"+ Add Answer Choice",
-      "add-hint":"Add Hints",
-      "add-explanation":"Add Explanation",
-      "answer":"Answer",
-      "answer-instructions":{
-        "FIB":"Add up to 5 hints for answer and an explanation.",
-        "HS_IMG":"You can add up to ten answers images an select one or more correct answers.",
-        "HS_TXT": "You can add up to ten answers choices and select one or more correct answers.",
+    "builder": {
+      "add-answer-choice": "+ Add Answer Choice",
+      "add-hint": "Add Hints",
+      "add-explanation": "Add Explanation",
+      "answer": "Answer",
+      "answer-instructions": {
+        "FIB": "Add up to 5 hints for answer and an explanation.",
+        "HS_IMG": "You can add up to ten answer images and select one or more correct answers.",
+        "HS_TXT": "You can add up to ten answer choices and select one or more correct answers.",
         "HT_HL_ST": "As you write the question, use brackets to indicate the highlighted sentences. One bracket can only contain one sentence at a time, using a period inside the bracket. For example, The first little pig built his house of straw. [The big bad wolf blew down the house.] The second pig built his house of wood. Character limit: 5000.",
         "HT_HL_WD": "As you write the question, use brackets for the highlighted words. One bracket can only contain one word at a time. For example, The [big] bad wolf blew [down] the house. Character limit: 5000.",
-        "HT_RO": "You can add up to ten answers choices in the correct order. The order will be scrambled for students.",
-        "MA": "You can add up to ten answers, an image, explanation and up to five hints.",
-        "MC":"You can add up to ten answers choices and indicate one correct answer. Character Limit: 200.",
-        "OE":"Write the correct response. Character limit: 5000.",
-        "T/F":"Select the correct answer."
+        "HT_RO": "You can add up to ten answer choices in the correct order. The order will be scrambled for students.",
+        "MA": "You can add up to ten answers, an image, an explanation, and up to five hints.",
+        "MC": "You can add up to ten answer choices and indicate one correct answer. Character Limit: 200.",
+        "OE": "Write the correct response. Character limit: 5000.",
+        "T/F": "Select the correct answer."
       },
-      "question-instructions":{
-        "FIB":"As you write the question, use brackets for your fill-in-the-blank answers. For example: “The big bad [wolf] blew down the [house].” You can also add an image. Character Limit: 5000.",
-        "HS_TXT":"Write your question. Character limit: 5000.",
-        "HS_IMG":"Write your question. Character limit: 5000.",
-        "HT_RO":"Write your question. Character limit: 5000.",
+      "question-instructions": {
+        "FIB": "As you write the question, use brackets for your fill-in-the-blank answers. For example: “The big bad [wolf] blew down the [house].” You can also add an image. Character Limit: 5000.",
+        "HS_TXT": "Write your question. Character limit: 5000.",
+        "HS_IMG": "Write your question. Character limit: 5000.",
+        "HT_RO": "Write your question. Character limit: 5000.",
         "HT_HL": "Write your question prompt. Character limit: 5000.",
-        "MC":"Write your question. Character limit: 5000.",
-        "MA":"Write your question. Character limit: 5000.",
-        "OE":"Write your question. Character limit: 5000.",
-        "T/F":"Write your question. Character limit: 5000."
+        "MC": "Write your question. Character limit: 5000.",
+        "MA": "Write your question. Character limit: 5000.",
+        "OE": "Write your question. Character limit: 5000.",
+        "T/F": "Write your question. Character limit: 5000."
       }
     }
   },
-  "content.modals.delete-class":{
-    "legend":"Your about to delete your class",
-    "student-access":"Students won’t be able to access the class",
-    "student-data-deleted":"All student data will be deleted"
+  "content.modals.delete-class": {
+    "legend": "You're about to delete your classroom",
+    "student-access": "Students won't be able to access the classroom",
+    "student-data-deleted": "All student data will be deleted"
   },
-  "content.modals.delete-content":{
-    "legend":"You are about to delete",
-    "content-legend":"<span>{{type}}</span> {{index}} - {{title}} from {{parentName}}",
-    "content-legend-header":"{{title}} from {{parentName}}",
+  "content.modals.delete-content": {
+    "legend": "You are about to delete",
+    "content-legend": "<span>{{type}}</span> {{index}} - {{title}} from {{parentName}}",
+    "content-legend-header": "{{title}} from {{parentName}}",
     "delete-warning": "All content in this {{type}} will be deleted",
     "delete-error": "Oops! Unable to delete {{type}} right now. Please try again shortly.",
     "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."
   },
-  "content.modals.remove-content":{
-    "legend":"You are about to remove <b>{{title}}</b> from <b>{{parentName}}</b>",
+  "content.modals.remove-content": {
+    "legend": "You are about to remove <b>{{title}}</b> from <b>{{parentName}}</b>",
     "remove-error": "Oops! Unable to remove {{type}} right now. Please try again shortly.",
     "confirmation": "Are you sure you want to continue? Please type “remove” below and click “remove”."
   },
   "content.resources": {
     "edit": {
-      "best-practices": "<p>A resource is multimedia content in a variety of formats such as videos, interactives, websites, images, Google docs, and more. Get creative and use your own resources or get “resourceful” and search our ample supply in Gooru.</p><p>Use a variety of resource types to engage your students and include narration so you can help guide your students through the resource.</p><p>We recommend tagging each question to standards, micro-standards and 21st century skills. You can see how your students are interacting with resources through the teacher dashboard.</p>",
+      "best-practices": "<p>Resources are multimedia content in a variety of formats such as videos, interactives, websites, images, Google docs, and more. Get creative and use your own resources or get “resourceful” and search our ample supply in Gooru.</p><p>Use a variety of resource types to engage your students and include narration so you can help guide your students through the resource.</p><p>We recommend tagging each question to standards, micro-standards and 21st century skills. You can see how your students are interacting with resources through the teacher dashboard.</p>",
       "placeholder-message": "Add a resource to <span>preview it here.</span>",
       "not-implemented": "Resource format preview <span>not implemented yet.</span>",
       "information": {
@@ -609,48 +608,48 @@ export default {
     }
   },
   "user": {
-    "active-classes": "Active Classes",
-    "archived-classes": "Archived Classes",
-    "create-class": "Create Class",
-    "join-class": "Join Class",
+    "active-classes": "Active Classrooms",
+    "archived-classes": "Archived Classrooms",
+    "create-class": "Create Classroom",
+    "join-class": "Join Classroom",
     "joined-classes": {
-      'one':"You're currently in 1 class",
-      "other" : "You're currently in {{count}} classes"
+      'one': "You're currently in 1 classroom",
+      "other": "You're currently in {{count}} classrooms"
     },
     "teaching-classes": {
-      'one':" and teaching 1 class",
-      "other" : " and teaching {{count}} classes"
+      'one': " and teaching 1 classroom",
+      "other": " and teaching {{count}} classrooms"
     }
   },
 
   /*
    * COMPONENTS: Translations used in a specific component
    */
-  "gru-add-to":{
-    "add-assessment-to-lesson":"Add from my assessments",
-    "add-assessment-to-lesson-lead":"Select an assessment to add to this lesson",
-    "add-collection-to-lesson":"Add from my collections",
-    "add-collection-to-lesson-lead":"Select a collection to add to this lesson",
-    "add-to-collection":"Add to collection",
-    "add-to-collection-lead":"Choose a collection you want to add {{contentTitle}} to",
-    "add-to-assessment":"Add to assessment or collection",
-    "add-to-assessment-lead":"Choose an assessment you want to add {{contentTitle}} to"
+  "gru-add-to": {
+    "add-assessment-to-lesson": "Add from my assessments",
+    "add-assessment-to-lesson-lead": "Select an assessment to add to this lesson",
+    "add-collection-to-lesson": "Add from my collections",
+    "add-collection-to-lesson-lead": "Select a collection to add to this lesson",
+    "add-to-collection": "Add to collection",
+    "add-to-collection-lead": "Choose a collection you want to add {{contentTitle}} to",
+    "add-to-assessment": "Add to assessment or collection",
+    "add-to-assessment-lead": "Choose an assessment you want to add {{contentTitle}} to"
   },
-  "gru-quick-course-search":{
-    "add-from-course":"Add from Existing Course",
-    "view-featured-courses":"View Featured Courses",
-    "assign":"Assign"
+  "gru-quick-course-search": {
+    "add-from-course": "Add from Existing Course",
+    "view-featured-courses": "View Featured Courses",
+    "assign": "Assign"
   },
-  "gru-share-pop-over":{
+  "gru-share-pop-over": {
     "copy": "Copy",
-    "ios-tooltip" : "Hold tap to copy!",
-    "multiarch-tooltip":"Press Ctrl + C to copy!",
-    "safari-osx-tooltip":"Press Cmd + C to copy!",
-    "share-course":"Share your course with link",
-    "share-question":"Share your question with link",
-    "share-resource":"Share your resource with link",
-    "share-assessment":"Share your assessment with link",
-    "share-collection":"Share your collection with link"
+    "ios-tooltip": "Hold tap to copy!",
+    "multiarch-tooltip": "Press Ctrl + C to copy!",
+    "safari-osx-tooltip": "Press Cmd + C to copy!",
+    "share-course": "Share your course with link",
+    "share-question": "Share your question with link",
+    "share-resource": "Share your resource with link",
+    "share-assessment": "Share your assessment with link",
+    "share-collection": "Share your collection with link"
   },
   "gru-category-panel": {
     "teacher": {
@@ -662,7 +661,7 @@ export default {
       "title": "For Students",
       "body": "Explore interests, build, and monitor progress through learning materials.",
       "cta": "Enter",
-      "text-placeholder": "Enter Class Code"
+      "text-placeholder": "Enter Classroom Code"
     },
     "district": {
       "title": "For Districts",
@@ -676,13 +675,13 @@ export default {
     }
   },
   "class.gru-class-navigation": {
-    "active" : "Active:",
-    "members" : "Members",
-    "greetings" : "Greetings",
-    "overview" : "Course Map",
-    "analytics" : "Data",
-    "teams" : "Teams",
-    "information" : "Class Information"
+    "active": "Active:",
+    "members": "Members",
+    "greetings": "Announcements",
+    "overview": "Course Map",
+    "analytics": "Data",
+    "teams": "Teams",
+    "information": "Classroom Information"
   },
   "gru-user-registration": {
     "joinTitle": "Join the Gooru Community!",
@@ -698,14 +697,14 @@ export default {
   },
   "sign-up": {
     "step-1-title": "Hello!",
-    "step-1-description": "We're glad you’ve decided to join us.",
+    "step-1-description": "We're glad you've decided to join us.",
     "step-child-title": "Not so fast!",
     "step-child-subtitle": "We cannot complete your registration.",
     "step-child-description-1": "Gooru could not create your account due to our ",
     "step-child-age-requirements": "Terms & Conditions",
     "step-child-description-2": ". Keep learning and see you in a few years!",
     "step-2-title": "Basic Info",
-    "step-2-description": "You’re not basic, but this info is.",
+    "step-2-description": "You're not basic, but this info is.",
     "log-in": "Log In",
     "log-in-description": "if you already have an account.",
     "google-button": "Sign Up with Google",
@@ -715,18 +714,18 @@ export default {
       "day": "Day",
       "month": "Month",
       "months": {
-        january:"January",
-        february:"February",
-        march:"March",
-        april:"April",
-        may:"May",
-        june:"June",
-        july:"July",
-        august:"August",
-        september:"September",
-        october:"October",
-        november:"November",
-        december:"December"
+        january: "January",
+        february: "February",
+        march: "March",
+        april: "April",
+        may: "May",
+        june: "June",
+        july: "July",
+        august: "August",
+        september: "September",
+        october: "October",
+        november: "November",
+        december: "December"
       },
       "year": "Year",
       "error-message": 'Please enter your birth date.'
@@ -740,7 +739,7 @@ export default {
     "error-email-taken": "This email is taken. Try another.",
     "error-role-message": 'Please select a role.',
     "error-country-message": 'Please select your country.',
-    "error-state-message": 'Please select your state.',
+    "error-state-message": 'Please select your state or territory.',
     "error-district-message": 'Please select your district/charter from the list or provide it in "Other".'
   },
 
@@ -756,7 +755,7 @@ export default {
     "title": "Welcome Back!",
     "description": "Learning is just around the corner.",
     "gooruAccountTitle": "Log in to your Gooru account",
-    "googleButton": "Sign In with Google",
+    "googleButton": "Sign in with Google",
     "or": "Or",
     "haveAccount": "Do you have an account?",
     "signUpHere": "Sign Up here!",
@@ -769,12 +768,12 @@ export default {
   "forgot-password": {
     "description": "It happens to all of us.",
     "usernameOrEmail": "Please enter your email",
-    "footer-description-1":"You will receive an email with a link to reset your password.",
-    "footer-description-2":"If you have any questions, please contact ",
-    "mail":"support@gooru.org",
-    "error-email-not-exists": "Sorry we don't recognize this email.",
+    "footer-description-1": "You will receive an email with a link to reset your password.",
+    "footer-description-2": "If you have any questions, please contact ",
+    "mail": "support@gooru.org",
+    "error-email-not-exists": "Sorry, we don't recognize this email.",
     "secondStepTitle": "Check your email",
-    "secondStepDescription-1": "We’ve sent you and email with a link to reset your password.",
+    "secondStepDescription-1": "We've sent you an email with a link to reset your password.",
     "secondStepDescription-2": "If you have any questions, please contact"
   },
 
@@ -877,39 +876,39 @@ export default {
       "maxSize": "Only files of size smaller than 5MB are supported"
     },
     "instruction": "Upload an image from a file on your computer.",
-    "restriction": "*The image must be a JPG, GIF or PNG file smaller than 5 MB.",
+    "restriction": "The image must be a JPG, GIF or PNG file smaller than 5 MB.",
     "submit": "Use Image"
   },
   "gru-fib": {
-    "instructions" : "Please type your answer(s) in the blank(s) provided, and click \"Save and Next\"."
+    "instructions": "Please type your answer(s) in the blank(s) provided, and click \"Save and Next\"."
   },
 
   "gru-hs-image": {
-    "instructions" : "Please select the correct image(s), and click \"Submit\"."
+    "instructions": "Please select the correct image(s), and click \"Submit\"."
   },
   "gru-hs-text": {
-    "instructions" : "Please select the correct answer(s), and click \"Submit\"."
+    "instructions": "Please select the correct answer(s), and click \"Submit\"."
   },
   "gru-hot-text": {
-    "instructions" : "Please select the correct answer, and click \"Submit\"."
+    "instructions": "Please select the correct answer, and click \"Submit\"."
   },
-  "gru-login-prompt":{
-    "title":"Welcome to Gooru!",
-    "instructions" : "You need to sign in to complete that action.",
-    "existing-user" : "Already have an account?",
-    "new-user" : "New here?",
-    "not-now" : "Not now",
-    "sign-in" : "Sign in"
+  "gru-login-prompt": {
+    "title": "Welcome to Gooru!",
+    "instructions": "You need to sign in to complete that action.",
+    "existing-user": "Already have an account?",
+    "new-user": "New here?",
+    "not-now": "Not now",
+    "sign-in": "Sign in"
   },
   "gru-multiple-answer": {
-    "instructions" : "Please select the correct answer, and click \"Submit\"."
+    "instructions": "Please select the correct answer, and click \"Submit\"."
   },
   "gru-multiple-choice": {
-    "instructions" : "Please select the correct answer, and click \"Submit\"."
+    "instructions": "Please select the correct answer, and click \"Submit\"."
   },
 
   "gru-open-ended": {
-    "instructions" : "Please type your answer in the field below, and click the \"Submit\" button to save your response when you're done.",
+    "instructions": "Please type your answer in the field below, and click the \"Submit\" button to save your response when you're done.",
     "characterLimit": "Character Limit"
   },
 
@@ -918,13 +917,13 @@ export default {
     "question": "Question"
   },
   "gru-true-false": {
-    "instructions" : "Please select the correct answer, and click \"Submit\".",
-    "true":"True",
-    "false":"False"
+    "instructions": "Please select the correct answer, and click \"Submit\".",
+    "true": "True",
+    "false": "False"
   },
 
   "player.gru-reorder": {
-    "instructions" : "Please reorder the answers in correct order, and click \"Submit\"."
+    "instructions": "Please reorder the answers in correct order, and click \"Submit\"."
   },
 
   "player": {
@@ -948,35 +947,35 @@ export default {
     }
   },
 
-  "gru-data-picker":{
+  "gru-data-picker": {
     "score": "Score",
-    "completion":"Completion",
-    "timeSpent":"Time",
-    "study-time":"Study Time",
-    "reaction":"Reaction",
-    "attempts":"Attempt"
+    "completion": "Completion",
+    "timeSpent": "Time",
+    "study-time": "Study Time",
+    "reaction": "Reaction",
+    "attempts": "Attempt"
   },
-  "gru-performance-summary":{
-    "name":"Name",
+  "gru-performance-summary": {
+    "name": "Name",
     "scores": "Scores",
-    "completion":"Completion",
-    "time-spent":"Time Spent",
-    "reaction":"Reaction",
-    "attempts":"Attempts",
-    "redo":"Redo",
-    "resume":"Resume",
-    "study":"Study Now",
-    "view-report":"View Report",
-    "not-applicable":"N/A",
+    "completion": "Completion",
+    "time-spent": "Time Spent",
+    "reaction": "Reaction",
+    "attempts": "Attempts",
+    "redo": "Redo",
+    "resume": "Resume",
+    "study": "Study Now",
+    "view-report": "View Report",
+    "not-applicable": "N/A",
     "not-started": "Not started yet"
   },
-  "gru-performance":{
-    "no-content" : "No content available"
+  "gru-performance": {
+    "no-content": "No content available"
   },
-  "gru-metrics-sub-header":{
-    "student":"Student",
+  "gru-metrics-sub-header": {
+    "student": "Student",
     "score": "Score",
-    "completion":"Completion",
+    "completion": "Completion",
     "study-time": "Study Time"
   },
   "gru-resource-new": {
@@ -987,16 +986,16 @@ export default {
       "total-time-spent": "Total Time Spent"
     }
   },
-  "cards":{
+  "cards": {
     "gru-class-card": {
       "student": {
         one: "{{count}} Student",
         other: "{{count}} Students"
       }
     },
-    "gru-course-card":{
-      "units":"Units",
-      "in":"in",
+    "gru-course-card": {
+      "units": "Units",
+      "in": "in",
       "resource": {
         one: "{{count}} Resource",
         other: "{{count}} Resources"
@@ -1007,18 +1006,18 @@ export default {
         other: "{{count}} Questions"
       }
     },
-    "gru-resource-card":{
+    "gru-resource-card": {
       "add": "Add to"
     },
     "gru-resource-result-card": {
-      "skipped":"Skipped"
+      "skipped": "Skipped"
     },
     "gru-profile-card": {
       "followers": "Followers",
       "following": "Following"
     },
-    "gru-user-network-card":{
-      "follow":"Follow"
+    "gru-user-network-card": {
+      "follow": "Follow"
     }
   },
   "reports.gru-table-view": {
@@ -1043,11 +1042,11 @@ export default {
     }
   },
   "validations": {
-    "unsavedChanges": "Your changes haven't saved yet. Would you like to leave this page?"
+    "unsavedChanges": "Your changes haven't been saved yet. Would you like to leave this page?"
   },
-  "featured":{
-    "featured-title" : "Featured Courses",
-    "featured-description" : "Welcome to the Gooru courses! These featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, discrits, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix and customize courses to personalize learning and increase student engagement! Click here to <a href='http://about.gooru.org/courses' target='_blank'>learn more</a> about the development of these courses."
+  "featured": {
+    "featured-title": "Featured Courses",
+    "featured-description": "Welcome to the Gooru courses! These featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, districts, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix, and customize courses to personalize learning and increase student engagement! Click here to <a href='http://about.gooru.org/courses' target='_blank'>learn more</a> about the development of these courses."
   },
 
   "taxonomy.modals": {
