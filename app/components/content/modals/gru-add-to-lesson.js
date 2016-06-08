@@ -46,7 +46,7 @@ export default AddToModal.extend({
     var contentEditUrl = this.get('router').generate(editRoute, this.get('selectedCollection.id'));
     var successMsg = this.get('i18n').t('common.add-to-lesson-success', {
       collectionTitle: this.get('selectedCollection.title'),
-      collectionType: this.get('collectionType').toLowerCase(),
+      collectionType: this.get('i18n').t(this.get('collectionType')).toLowerCase(),
       lessonTitle: this.get('content.title'),
     });
     var edit = this.get('i18n').t('common.edit');
