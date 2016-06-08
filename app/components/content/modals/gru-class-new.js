@@ -67,6 +67,17 @@ export default Ember.Component.extend({
     this.set('newClass', newClass);
   },
 
+  didRender() {
+    const component = this;
+    component.$().on('keyup', '.modal-body', function(e) {
+      var keyCode = (event.keyCode ? event.keyCode : event.which);
+      if (keyCode == 13) {
+        $(e.target).blur().focus();
+        component.$('.get-started-btn').trigger('click');
+      }
+    });
+  },
+
 
   // -------------------------------------------------------------------------
   // Properties
