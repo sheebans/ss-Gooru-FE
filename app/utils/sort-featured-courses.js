@@ -10,7 +10,6 @@ import Ember from 'ember';
   * @prop {Course[]} ordered featured course subjects
   */
 export function getSubjects(courses) {
-  console.log(courses);
   let result = courses.map(
     course => Ember.Object.create({
       subject: course.subject,
