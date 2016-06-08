@@ -95,7 +95,7 @@ export default Ember.Component.extend(ModalMixin,{
    * Indicates if the add functionality is enabled
    * @property {boolean}
    */
-  addEnabled: false,
+  addEnabled: true,
 
   /**
    * Indicates if the remix functionality is enabled
