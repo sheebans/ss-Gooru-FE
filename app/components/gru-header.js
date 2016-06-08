@@ -3,6 +3,7 @@ import SessionMixin from '../mixins/session';
 import ModalMixin from '../mixins/modal';
 import { encodeTerm } from 'gooru-web/utils/encode-term';
 import {KEY_CODES} from "gooru-web/config/config";
+import Env from 'gooru-web/config/environment';
 
 /**
  * Application header component
@@ -152,7 +153,15 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   /**
    * @param {Computed } searchInputDirty - computed property that defines whether the term is null or not.
    */
-  searchInputDirty: Ember.computed.notEmpty('tempTerm')
+  searchInputDirty: Ember.computed.notEmpty('tempTerm'),
+
+  /**
+   * Marketing site url
+   * @property {string}
+   */
+  marketingSiteUrl: Ember.computed(function(){
+    return Env.marketingSiteUrl;
+  })
 
   // -------------------------------------------------------------------------
   // Methods
