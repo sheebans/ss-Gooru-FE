@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { sortFeaturedCourses,getSubjects } from 'gooru-web/utils/sort-featured-courses';
 
+
 /**
  * featured courses component
  *
@@ -11,6 +12,7 @@ import { sortFeaturedCourses,getSubjects } from 'gooru-web/utils/sort-featured-c
 export default Ember.Component.extend({
 // -------------------------------------------------------------------------
   // Dependencies
+  i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -35,15 +37,16 @@ export default Ember.Component.extend({
   courses:null,
 
   formattedContent: Ember.computed('courses', function(){
+    console.log(this.get('courses'));
     return getSubjects(this.get('courses')).map(
       (subjectBucket, index) => Ember.Object.create({
-        'category': subjectBucket.subject.slice(0,subjectBucket.subject.indexOf('.')),
-        'subject':  subjectBucket.subject.slice(subjectBucket.subject.indexOf('.')+1),
+        'category': subjectBucket.subject.slice(subjectBucket.subject.indexOf('.')+1,subjectBucket.subject.lastIndexOf('.')),
+        'subject': this.get('i18n').t(`gru-featured-courses.subjects.${subjectBucket.subject.slice(subjectBucket.subject.lastIndexOf('.')+1)}`),
         'courses': sortFeaturedCourses(this.get('courses'))[index]
       })
     );
   }),
-  
+
   // -------------------------------------------------------------------------
   // Methods
   didInsertElement: function() {

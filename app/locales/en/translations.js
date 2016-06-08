@@ -635,6 +635,15 @@ export default {
     "add-to-assessment":"Add to assessment or collection",
     "add-to-assessment-lead":"Choose an assessment you want to add {{contentTitle}} to"
   },
+  "gru-featured-courses":{
+    "subjects":{
+      "MA":"Math",
+      "ELA":"English Language Arts",
+      "SS":"Social Studies",
+      "SC":"Science",
+      "OT":"Other"
+    }
+  },
   "gru-quick-course-search":{
     "add-from-course":"Add from Existing Course",
     "view-featured-courses":"View Featured Courses",
