@@ -37,10 +37,11 @@ export default Ember.Component.extend({
   courses:null,
 
   formattedContent: Ember.computed('courses', function(){
+    console.log (getSubjects(this.get('courses')));
     return getSubjects(this.get('courses')).map(
       (subjectBucket, index) => Ember.Object.create({
         'category': subjectBucket.subject.slice(subjectBucket.subject.indexOf('.')+1,subjectBucket.subject.lastIndexOf('.')),
-        'subject': this.get('i18n').t(`gru-featured-courses.subjects.${subjectBucket.subject.slice(subjectBucket.subject.lastIndexOf('.')+1)}`),
+        'subject': subjectBucket.taxonomySubject,
         'courses': sortFeaturedCourses(this.get('courses'))[index]
       })
     );

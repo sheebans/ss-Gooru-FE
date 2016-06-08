@@ -10,10 +10,12 @@ import Ember from 'ember';
   * @prop {Course[]} ordered featured course subjects
   */
 export function getSubjects(courses) {
+  console.log(courses);
   let result = courses.map(
     course => Ember.Object.create({
       subject: course.subject,
       subjectSequence: course.subjectSequence,
+      taxonomySubject: course.taxonomy[0]
     })
   ).filter(
     (elem, pos, list) => list.reduce(
