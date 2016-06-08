@@ -103,6 +103,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     const sortable = component.$('.sortable');
     sortable.sortable();
     sortable.sortable('disable');
+    sortable.sortable({ cancel: '.add-resource-question' });
 
     sortable.on('sortupdate', function() {
       const $items = component.$('.sortable').find('li');
