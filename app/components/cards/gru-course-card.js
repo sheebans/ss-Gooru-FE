@@ -90,6 +90,12 @@ export default Ember.Component.extend(ModalMixin, {
   isEyeVisible: true,
 
   /**
+   * Indicates if remix is enabled
+   * @property {boolean}
+   */
+  isRemixEnabled: true,
+
+  /**
    * @property {Array} users
    */
   users:Ember.computed('course', function() {

@@ -209,6 +209,7 @@ export default {
     "loading": "Loading ...",
     "login": "Log in",
     "logout": "Logout",
+    "nothing-to-display": "Nothing to display",
     "mastery":"Mastery",
     "menu": "Menu",
     "more-details":"More Details",
