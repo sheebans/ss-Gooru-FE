@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 
 /**
  * Home route
@@ -6,7 +7,7 @@ import Ember from 'ember';
  * @module
  * @augments Ember.Route
  */
-export default Ember.Route.extend( {
+export default Ember.Route.extend(PrivateRouteMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -33,10 +34,6 @@ export default Ember.Route.extend( {
 
   // -------------------------------------------------------------------------
   // Methods
-
-  beforeModel: function() {
-    // TODO: authenticate session with ember-simple-auth, if not send to log in
-  },
 
   /**
    * Get model for the controller
