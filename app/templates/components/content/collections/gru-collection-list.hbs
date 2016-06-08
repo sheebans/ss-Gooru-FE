@@ -68,12 +68,12 @@
       onRemixCollectionItem=(action 'remixCollectionItem')}}
     {{/each}}
   {{/if}}
-
-    <div class="add-resource-question">
-      {{#if isCollection}} <button class="btn btn-success add-prefix">{{t "common.from-my-resources"}}</button> {{/if}}
-        <button class="btn btn-success add-prefix">{{t "common.from-my-questions"}}</button>
-      {{#if isCollection}} <button class="btn btn-success add-prefix" {{action "showModal" "content.modals.gru-resource-new" model}}>{{t "common.new-resource"}}</button> {{/if}}
-        <button class="btn btn-success add-prefix" {{action "showModal" "content.modals.gru-question-new" model}}>{{t "common.new-question"}}</button>
-        <span>{{t "common.drag-drop-suggestions"}}</span>
-    </div>
 </ol>
+
+<div class="add-resource-question">
+  {{#if isCollection}} <button class="btn btn-success add-prefix">{{t "common.from-my-resources"}}</button> {{/if}}
+    <button class="btn btn-success add-prefix">{{t "common.from-my-questions"}}</button>
+  {{#if isCollection}} <button class="btn btn-success add-prefix" {{action "showModal" "content.modals.gru-resource-new" model}}>{{t "common.new-resource"}}</button> {{/if}}
+    <button class="btn btn-success add-prefix" {{action "showModal" "content.modals.gru-question-new" model}}>{{t "common.new-question"}}</button>
+    <span>{{t "common.drag-drop-suggestions"}}</span>
+</div>
