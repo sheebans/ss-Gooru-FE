@@ -12,6 +12,10 @@ export default NewCollectionModal.extend({
    */
   assessmentService: Ember.inject.service("api-sdk/assessment"),
 
+  /**
+   * @property {Service} I18N service
+   */
+  i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -40,11 +44,12 @@ export default NewCollectionModal.extend({
 
     const courseId = this.get("model.courseId");
     if (courseId){
-      const queryParams = { queryParams: { courseId: courseId, allowBackToCourse:true } };
+      const queryParams = { queryParams: { courseId: courseId, allowBackToCourse:true, editing: true } };
       this.get('router').transitionTo('content.assessments.edit', assessmentId, queryParams);
     }
     else{
-      this.get('router').transitionTo('content.assessments.edit', assessmentId);
+      const queryParams = { queryParams: { editing: true } };
+      this.get('router').transitionTo('content.assessments.edit', assessmentId, queryParams);
     }
   },
 

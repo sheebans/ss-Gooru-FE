@@ -164,11 +164,12 @@ export default Ember.Component.extend({
 
     const courseId = this.get("model.courseId");
     if (courseId){
-      const queryParams = { queryParams: { courseId: courseId,allowBackToCourse:true } };
+      const queryParams = { queryParams: { courseId: courseId,allowBackToCourse:true, editing: true } };
       this.get('router').transitionTo('content.collections.edit', collectionId, queryParams);
     }
     else{
-      this.get('router').transitionTo('content.collections.edit', collectionId);
+      const queryParams = { queryParams: { editing: true } };
+      this.get('router').transitionTo('content.collections.edit', collectionId, queryParams);
     }
   },
 
