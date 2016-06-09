@@ -697,7 +697,7 @@ export default {
   },
   "sign-up": {
     "step-1-title": "Hello!",
-    "step-1-description": "We’re glad you've decided to join us.",
+    "step-1-description": "We’re glad you’ve decided to join us.",
     "step-child-title": "Not so fast!",
     "step-child-subtitle": "We cannot complete your registration.",
     "step-child-description-1": "Gooru could not create your account due to our ",
