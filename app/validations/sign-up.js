@@ -5,12 +5,19 @@ export default buildValidations({
     validators: [
       validator('presence', {
         presence: true,
-        message: 'Please enter a username.'
+        message: '{{description}}',
+        descriptionKey: 'common.errors.add-username'
       }),
       validator('length', {
         min: 4,
         max: 20,
-        message: 'Username must be between 4 and 20 characters.'
+        message: '{{description}}',
+        descriptionKey: 'common.errors.username-length'
+      }),
+      validator('format', {
+        regex: /^\w+$/,
+        message: '{{description}}',
+        descriptionKey: 'common.errors.add-student-id'
       })
     ]
   },
@@ -25,15 +32,18 @@ export default buildValidations({
     validators: [
       validator('presence', {
         presence: true,
-        message: 'Please enter your first name.'
+        message: '{{description}}',
+        descriptionKey: 'common.errors.sign-up-first-name'
       }),
       validator('length', {
         min: 2,
-        message: 'First name must have at least 2 letters.'
+        message: '{{description}}',
+        descriptionKey: 'common.errors.sign-up-name-length'
       }),
       validator('format', {
         regex: /^[a-zA-Z- ]+$/,
-        message: "Please enter only letters."
+        message: '{{description}}',
+        descriptionKey: 'common.errors.sign-up-name-only-letters'
       })
     ]
   },
@@ -42,15 +52,18 @@ export default buildValidations({
     validators: [
       validator('presence', {
         presence: true,
-        message: 'Please enter your last name.'
+        message: '{{description}}',
+        descriptionKey: 'common.errors.sign-up-last-name'
       }),
       validator('length', {
         min: 2,
-        message: 'Last name must have at least 2 letters.'
+        message: '{{description}}',
+        descriptionKey: 'common.errors.sign-up-name-length'
       }),
       validator('format', {
         regex: /^[a-zA-Z- ]+$/,
-        message: "Please enter only letters."
+        message: '{{description}}',
+        descriptionKey: 'common.errors.sign-up-name-only-letters'
       })
     ]
   },
@@ -58,38 +71,45 @@ export default buildValidations({
   password: [
     validator('presence', {
       presence: true,
-      message: 'Please enter a password.'
+      message: '{{description}}',
+      descriptionKey: 'common.errors.password-required'
     }),
     validator('format', {
       regex: /^\w+$/,
-      message: "Please don't use special characters."
+      message: '{{description}}',
+      descriptionKey: 'common.errors.password-special-characters'
     }),
     validator('length', {
       min: 5,
       max: 14,
-      message: "Password must be between 5 and 14 characters."
-    }),
+      message: '{{description}}',
+      descriptionKey: 'common.errors.password-length'
+    })
   ],
 
   rePassword:[
     validator('presence', {
       presence: true,
-      message: 'Please confirm your password.'
+      message: '{{description}}',
+      descriptionKey: 'common.errors.password-confirm'
     }),
     validator('format', {
       regex: /^\w+$/,
-      message: "Please don't use special characters."
+      message: '{{description}}',
+      descriptionKey: 'common.errors.password-special-characters'
     }),
     validator('confirmation', {
       on: 'password',
-      message: 'Passwords do not match.'
+      message: '{{description}}',
+      descriptionKey: 'common.errors.password-not-match'
     })
   ],
 
   email: [
     validator('format', {
       regex: /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
-      message: 'Please enter a valid email address.'
+      message: '{{description}}',
+      descriptionKey: 'common.errors.sign-up-valid-email'
     })
   ],
 

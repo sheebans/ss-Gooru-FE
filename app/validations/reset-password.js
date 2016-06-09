@@ -4,31 +4,37 @@ export default buildValidations({
   password: [
     validator('presence', {
       presence: true,
-      message: 'Please enter a password.'
+      message: '{{description}}',
+      descriptionKey: 'common.errors.password-required'
     }),
     validator('format', {
       regex: /^\w+$/,
-      message: "Please don't use special characters."
+      message: '{{description}}',
+      descriptionKey: 'common.errors.password-special-characters'
     }),
     validator('length', {
       min: 5,
       max: 14,
-      message: "Password must be between 5 and 14 characters."
+      message: '{{description}}',
+      descriptionKey: 'common.errors.password-length'
     })
   ],
 
   rePassword:[
     validator('presence', {
       presence: true,
-      message: 'Please confirm your password.'
+      message: '{{description}}',
+      descriptionKey: 'common.errors.password-confirm'
     }),
     validator('format', {
       regex: /^\w+$/,
-      message: "Please don't use special characters."
+      message: '{{description}}',
+      descriptionKey: 'common.errors.password-special-characters'
     }),
     validator('confirmation', {
       on: 'password',
-      message: 'Passwords do not match.'
+      message: '{{description}}',
+      descriptionKey: 'common.errors.password-not-match'
     })
   ]
 });
