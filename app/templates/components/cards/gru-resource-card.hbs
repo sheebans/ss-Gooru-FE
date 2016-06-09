@@ -49,6 +49,8 @@
         <button class="copy-btn btn-success btn-sm" {{action "remixQuestion"}}>{{t "common.remix"}}</button>
       {{/if}}
     {{/if}}
-    <button class="add-to-btn btn-success btn-sm" {{action "addToCollection"}}>{{t "common.add-to"}}</button>
+    {{#if addEnabled}}
+      <button class="add-to-btn btn-success btn-sm" {{action "addToCollection"}}>{{t "common.add-to"}}</button>
+    {{/if}}
   </div>
 </div>

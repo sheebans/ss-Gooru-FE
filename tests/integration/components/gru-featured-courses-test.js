@@ -13,18 +13,22 @@ test('Test for featured courses templates', function(assert) {
   var courses = Ember.A([
   Ember.Object.create({
     'subject':'K12.First',
+    'taxonomy':['First'],
     'subjectSequence':'1'
   }),
   Ember.Object.create({
     'subject':'K12.Second',
+    'taxonomy':['Second'],
     'subjectSequence':'2'
   }),
   Ember.Object.create({
     'subject':'K12.First',
+    'taxonomy':['First'],
     'subjectSequence':'1'
   }),
   Ember.Object.create({
     'subject':'K12.Second',
+    'taxonomy':['Second'],
     'subjectSequence':'2'
   })]);
   this.set('courses', courses);

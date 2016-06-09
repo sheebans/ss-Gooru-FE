@@ -50,7 +50,7 @@ export default Ember.Component.extend({
                 component.triggerAction({
                   action: 'closeModal'
                 });
-                component.get('router').transitionTo('content.courses.edit', course.get('id'));
+                component.get('router').transitionTo('content.courses.edit', course.get('id'), { queryParams: { editing: true }});
               },
               function () {
                 const message = component.get('i18n').t('common.errors.course-not-created').string;

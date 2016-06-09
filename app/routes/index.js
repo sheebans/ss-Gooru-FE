@@ -1,8 +1,10 @@
 import Ember from 'ember';
+import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
+
 /**
  * @typedef {object} Index Route
  */
-export default Ember.Route.extend({
+export default Ember.Route.extend(PublicRouteMixin, {
 
   session: Ember.inject.service(),
 
@@ -16,7 +18,7 @@ export default Ember.Route.extend({
     let details = null;
     let accessToken = params.access_token;
 
-    if (accessToken) {
+    if (accessToken) { // this is for google sign in
       details = this.get("sessionService").signInWithToken(accessToken);
     }
 
@@ -26,7 +28,8 @@ export default Ember.Route.extend({
   },
 
   afterModel() {
-    if (!this.get('session.isAnonymous')) {
+    const anonymous = this.get('session.isAnonymous');
+    if (!anonymous) {
       if (this.get('session.userData.isNew')) {
         this.transitionTo('sign-up-finish');
       } else {

@@ -113,15 +113,9 @@ export default Ember.Component.extend({
     return headers.map(function(headerTitle, index) {
       var itemId = currentPath[index];
 
-      if (index === 0) {
-        currentList = this.get('data');
-        browseItem = currentList.findBy('id', itemId);
-      } else {
-        if (currentList.length) {
-          currentList = (browseItem) ? browseItem.get('children') : [];
-          browseItem = currentList.findBy('id', itemId);
-        }
-      }
+      currentList = (index === 0) ? this.get('data') :
+                      (browseItem) ? browseItem.get('children') : [];
+      browseItem = (currentList.length) ? currentList.findBy('id', itemId) : null;
 
       if (browseItem) {
         browseItem.set('isActive', true);

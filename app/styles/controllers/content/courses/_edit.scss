@@ -417,8 +417,13 @@
       }
     }
   }
-  #information .description > label {
-    display: block;
-    width:100%;
+  #information {
+    .description,
+    .use-case {
+      > label {
+        display: block;
+        width: 100%;
+      }
+    }
   }
 }

@@ -148,6 +148,13 @@ export default DS.Model.extend({
       });
     }
     return sumValue;
-  }
+  },
+
+  /**
+   * @property {boolean}
+   */
+  hasStarted: Ember.computed("studentPerformanceData", function(){
+    return this.get("classAverageTimeSpent") > 0 || this.get("classAverageScore") > 0;
+  })
 
 });

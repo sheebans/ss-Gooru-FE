@@ -10,11 +10,13 @@ test('serializeCreateQuestion', function(assert) {
   const questionObject = QuestionModel.create({
     title: 'question-title',
     description: 'question-desc',
+    narration: 'question-narration',
     type: 'MA'
   });
   const response = serializer.serializeCreateQuestion(questionObject);
   assert.equal(response["title"], "question-title", "Wrong title");
   assert.equal(response["description"], "question-desc", "Wrong description");
+  assert.equal(response["narration"], "question-narration", "Wrong narration");
   assert.equal(response["content_subformat"], "multiple_answer_question", "Wrong sub format");
   assert.equal(response["visible_on_profile"], true, "Wrong visible on profile");
 });
@@ -25,6 +27,7 @@ test('serializeUpdateQuestion', function(assert) {
     title: 'Question title',
     //type: 'MA',
     text: 'This is the question text?',
+    narration: 'This is the question narration',
     isVisibleOnProfile: false,
     questionType: 'word',
     standards: [],
@@ -53,6 +56,7 @@ test('serializeUpdateQuestion', function(assert) {
 
   assert.equal(response.title, 'Question title', 'Wrong title');
   assert.equal(response.description, 'This is the question text?', 'Wrong description');
+  assert.equal(response.narration, 'This is the question narration', 'Wrong narration');
   assert.equal(response['visible_on_profile'], false, 'Wrong visible_on_profile');
   assert.equal(response.answer.length, 3, 'Wrong answer array length');
   assert.equal(response.taxonomy, null, 'Wrong taxonomy object');
@@ -101,6 +105,7 @@ test('normalizeReadQuestion', function(assert) {
     title: 'question-title',
     content_subformat: 'multiple_answer_question',
     description: 'any desc',
+    narration: 'any narration',
     publish_status: 'published',
     taxonomy: {},
     thumbnail: "image.png",
@@ -131,6 +136,7 @@ test('normalizeReadQuestion', function(assert) {
   assert.equal(question.get('id'), 'abcd', 'Wrong id');
   assert.equal(question.get('title'), 'question-title', 'Wrong title');
   assert.equal(question.get('text'), 'any desc', 'Wrong description');
+  assert.equal(question.get("narration"), "any narration", 'Wrong narration');
   assert.equal(question.get('publishStatus'), 'published', 'Wrong publish');
   assert.equal(question.get('standards').length, 0, 'Wrong standards');
   assert.equal(question.get('type'), 'MA', 'Wrong format'); //format is converted at the normalizer

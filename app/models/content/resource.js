@@ -107,6 +107,11 @@ const ResourceModel = Ember.Object.extend(Validations,{
   description: null,
 
   /**
+   * @property {string}
+   */
+  narration: null,
+
+  /**
    * @property {string} published|unpublished|requested
    */
   publishStatus: null,
@@ -275,6 +280,19 @@ const ResourceModel = Ember.Object.extend(Validations,{
     properties.metadata = JSON.parse(JSON.stringify(metadata));
 
     return ResourceModel.create(Ember.getOwner(this).ownerInjection(), properties);
+  },
+
+  /**
+   * Copy a list of property values from another model to override the current ones
+   *
+   * @function
+   * @param {Resource} model
+   * @param {String[]} propertyList
+   * @return {null}
+   */
+  merge: function(model, propertyList = []) {
+    var properties = model.getProperties(propertyList);
+    this.setProperties(properties);
   },
 
   /**

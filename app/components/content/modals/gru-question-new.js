@@ -93,6 +93,23 @@ export default Ember.Component.extend({
     this.set('question', question);
   },
 
+  didInsertElement() {
+    var component = this;
+    if (component && component.$() && component.$().length) {
+      setTimeout(function() {
+        if (component && component.$() && component.$().length) {
+          component.$().attr('tabindex', 0).focus();
+        }
+      }, 400);
+      component.$().off('keyup').on('keyup', function() {
+        var keyCode = (event.keyCode ? event.keyCode : event.which);
+        if (keyCode === 13) {
+          component.$('button[type=submit]').trigger('click');
+        }
+      });
+    }
+  },
+
 
   // -------------------------------------------------------------------------
   // Properties
@@ -138,13 +155,15 @@ export default Ember.Component.extend({
       const queryParams = {
         queryParams: {
           collectionId: collectionId,
-          isCollection: isCollection
+          isCollection: isCollection,
+          editing: true
         }
       };
       component.get('router').transitionTo('content.questions.edit', questionId, queryParams);
     }
     else{
-      component.get('router').transitionTo('content.questions.edit', questionId);
+      const queryParams = { queryParams: { editing: true } };
+      component.get('router').transitionTo('content.questions.edit', questionId, queryParams);
     }
 
   },

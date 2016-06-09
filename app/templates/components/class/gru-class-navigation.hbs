@@ -3,7 +3,7 @@
         <div class="class-name">
             <h4>{{class.title}}</h4>
         </div>
-        <div class="navigation-active">
+      <div class="navigation-active">
             <div class="greetings">
                 <button data-toggle="collapse" data-target=".description" aria-expanded="false" aria-controls="description"{{action 'showDescription'}}>{{gru-icon name='textsms'}}</button>
                 <div class="arrow-up"></div>
@@ -32,7 +32,7 @@
       {{class.greeting}}
     </div>
     <div class="class-details">
-        <div class="active-dates">
+        <div class="active-dates out-of-scope">
           <span>{{formatDate class.startDate 'MMMM DD, YYYY'}}</span>
         </div>
         <div class="members">{{gru-icon name='group'}}{{class.countMembers}}</div>
@@ -41,7 +41,8 @@
 <div class="md-design hidden-xs hidden-sm">
   <div class="class-info">
     <h4>{{class.title}}</h4>
-    <div class="active-dates">
+    <div class="code">{{class.code}}</div>
+    <div class="active-dates out-of-scope">
         <ul>
             <li>{{formatDate class.startDate 'MMMM DD, YYYY'}}</li>
         </ul>
@@ -50,7 +51,7 @@
       <p class="lead">{{class.countMembers}} {{t "class.gru-class-navigation.members"}}</p>
     </div>
     <div class="greetings">
-      <p class="lead">{{t "class.gru-class-navigation.greetings"}}</p>{{gru-icon name='mode_edit'}}
+      <p class="lead">{{t "class.gru-class-navigation.greetings"}}</p>{{gru-icon name='mode_edit' class="out-of-scope"}}
     </div>
     <div class="greetings-description">
       <p>{{class.greeting}}</p>

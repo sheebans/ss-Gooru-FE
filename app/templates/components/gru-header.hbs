@@ -1,9 +1,14 @@
+
 <div class="container-fluid {{if searchInputDirty 'search-input-dirty'}}">
   <div class="row">
     <div class="col-xs-12">
       <nav class="navbar navbar-default row">
         <div class="navbar-header">
-          {{#link-to 'index' class="navbar-brand home-link"}}  {{/link-to}}
+          {{#if session.isAnonymous}}
+            <a href="{{marketingSiteUrl}}" target="_blank" class="navbar-brand home-link"></a>
+          {{else}}
+            {{#link-to 'index' class="navbar-brand home-link"}}  {{/link-to}}
+          {{/if}}
         </div>
         <div class="search-navbar-form {{if session.isAnonymous 'anonymous' 'authenticated'}}">
           <form {{action "searchTerm" on="submit"}} class="form-inline">
@@ -19,6 +24,11 @@
                 {{#if searchErrorMessage}}
                   <span class="error">
                     {{t "common.search-error-message"}}
+                  </span>
+                {{/if}}
+                {{#if isInvalidSearchTerm}}
+                  <span class="error">
+                    {{t "common.search-400-error-message"}}
                   </span>
                 {{/if}}
               </div>
@@ -80,14 +90,16 @@
 
               <li class="navbar-nav-list visible-md visible-lg dropdown">
                 <a class="profile dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <i class="icon pull-left">&nbsp;</i>
-                  <span class="username">{{session.userData.username}}</span>
+                  <div class="img-container pull-left">
+                    <img class="img-responsive" src="{{session.userData.avatarUrl}}"/>
+                  </div>
+                  <span class="username">{{truncate text=session.userData.username maxLength=10}}</span>
                   {{gru-icon name='keyboard_arrow_down'}}
                 </a>
                 <ul class="dropdown-menu pull-right" role="menu" id="profile-dropdown">
                   <li class="navbar-nav-list">
                     {{#link-to 'profile.content.courses' session.userData.gooruUId class="navbar-link"}}
-                      <span class="username">{{session.userData.username}}</span>
+                      <span class="username">{{truncate text=session.userData.username maxLength=10}}</span>
                     {{/link-to}}
                   </li>
                   <li class="navbar-nav-list">

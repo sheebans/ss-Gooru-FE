@@ -28,7 +28,7 @@ export default Ember.Object.extend(Validations, {
   }),
 
   /**
-   * @property {Content/Lesson[]} children - List of collections/assessments
+   * @property {Content/LessonItem[]} children - List of collections/assessments
    */
   children: Ember.A([]),
 
@@ -63,6 +63,13 @@ export default Ember.Object.extend(Validations, {
    * @property {Number} membersCount - number of members in the lesson (for analytics)
    */
   membersCount: 0,
+
+  /**
+   * This property is not always available, it contains the lesson performance information
+   * @see components/class/overview/gru-accordion-unit.js
+   * @propery {LessonPerformance|Ember.Object}
+   */
+  performance: null,
 
   /**
    * Return a copy of the lesson for editing

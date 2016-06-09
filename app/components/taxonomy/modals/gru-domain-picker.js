@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import BrowseItem from 'gooru-web/models/taxonomy/browse-item';
 
 /**
  * Domain Picker
@@ -36,24 +35,43 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-    loadTaxonomyData(path, parentBrowseItem) {
-      var subject = this.get('model.subject');
-      var courseId = path[0];
 
-      return this.get('taxonomyService')
-                 .getCourseDomains(subject, courseId)
-                 .then(function(domains) {
-                   if (parentBrowseItem && !parentBrowseItem.get('children').length) {
-                     // Add children to the parent browse item
-                     let browseItems = [];
-                     domains.forEach(function(taxonomyItem) {
-                       var browseItem = BrowseItem.createFromTaxonomyItem(taxonomyItem);
-                       browseItem.set('parent', parentBrowseItem);
-                       browseItems.push(browseItem);
-                     });
-                     parentBrowseItem.set('children', browseItems);
-                   }
-                 });
+    loadSelected(selected) {
+      if (selected.length) {
+        let coursesToLoad = [], promises;
+        let subject = this.get('model.subject');
+        let taxonomyService = this.get('taxonomyService');
+
+        selected.forEach(function(tagData) {
+          var path = tagData.get('ancestorsPath');
+
+          // Create non-duplicated lists of domains to load
+          if (coursesToLoad.indexOf(path[0]) === -1) {
+            coursesToLoad.push(path[0]);
+          }
+        });
+
+        promises = coursesToLoad.map(function(courseId) {
+          return taxonomyService.getCourseDomains(subject, courseId);
+        });
+
+        return Ember.RSVP.all(promises);
+      } else {
+        return Ember.RSVP.resolve(false);
+      }
+    },
+
+    loadTaxonomyData(path) {
+      return new Ember.RSVP.Promise(function(resolve) {
+        var subject = this.get('model.subject');
+        var courseId = path[0];
+
+        return this.get('taxonomyService')
+          .getCourseDomains(subject, courseId)
+          .then(function(domains) {
+            resolve(domains);
+          });
+      }.bind(this));
     },
 
     updateSelectedTags(selectedTags) {

@@ -1,8 +1,8 @@
 import Ember from "ember";
 import SessionMixin from '../mixins/session';
 import ModalMixin from '../mixins/modal';
-import { encodeTerm } from 'gooru-web/utils/encode-term';
 import {KEY_CODES} from "gooru-web/config/config";
+import Env from 'gooru-web/config/environment';
 
 /**
  * Application header component
@@ -38,7 +38,8 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
       var term = $.trim(this.get('tempTerm'));
       var isIncorrectTermSize = this.get('isIncorrectTermSize');
       if (!isIncorrectTermSize){
-        this.set('term', encodeTerm(term));
+        this.set('term', term);
+        this.set('isInvalidSearchTerm',false);
         this.sendAction('onSearch', this.get('term'));
       }
     },
@@ -60,6 +61,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
       }
       else {
         this.set('isTyping', true);
+
       }
     }.bind(this));
     // Enables the collapse panel for my classes
@@ -115,6 +117,8 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    */
   isTyping: null,
 
+  isInvalidSearchTerm:false,
+
   tempTerm:Ember.computed.oneWay('term'),
 
   /**
@@ -148,7 +152,15 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   /**
    * @param {Computed } searchInputDirty - computed property that defines whether the term is null or not.
    */
-  searchInputDirty: Ember.computed.notEmpty('tempTerm')
+  searchInputDirty: Ember.computed.notEmpty('tempTerm'),
+
+  /**
+   * Marketing site url
+   * @property {string}
+   */
+  marketingSiteUrl: Ember.computed(function(){
+    return Env.marketingSiteUrl;
+  })
 
   // -------------------------------------------------------------------------
   // Methods

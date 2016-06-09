@@ -67,7 +67,11 @@
       .panel-title {
         > a {
           display: inline-block;
-          max-width: 62%;
+          max-width: 54%;
+          @media (min-width: $screen-sm) {
+            max-width: 62%;
+          }
+
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -173,7 +177,7 @@
             }
 
             &.collection {
-              line-height: 2.2;
+              line-height: 2.6;
 
               &.submitted {
                 > .panel-heading i {
@@ -224,7 +228,7 @@
               width: 60px;
 
               @media (min-width: $screen-sm) {
-                width: 110px;
+                width: 95px;
               }
 
               > i {
@@ -248,7 +252,7 @@
             }
 
             .panel-title {
-              font-size: $font-size-base;
+              font-size: $font-size-large;
 
               > a {
                 @media (min-width: $screen-sm) {

@@ -4,7 +4,13 @@
          <div class="class-info">
             <h3>{{t "class.info.class-info"}}</h3>
             <p>
-              <span class="info-details truncate">{{class.greeting}}</span>
+              <h5>{{t 'class.gru-class-navigation.greetings'}}</h5>
+              {{#if class.greeting}}
+                <span class="info-details truncate">{{class.greeting}}</span>
+              {{else}}
+                <span class="info-details">{{t 'common.nothing-to-display'}}</span>
+              {{/if}}
+
             </p>
          </div>
          <div class="info-btns">
@@ -34,7 +40,7 @@
                   <h5>{{t "class.info.teachers"}} ({{class.countTeachers}})</h5>
                 </div>
                 <div class="invite-collaborator col-md-6 col-sm-6 col-xs-6 {{if isStudent 'hide' 'show'}}">
-                    <button class="btn btn-primary btn-teacher">
+                    <button class="btn btn-primary btn-teacher out-of-scope">
                       {{t "class.info.invite-co-teachers"}}
                     </button>
                 </div>
@@ -62,7 +68,7 @@
                      <h5>{{t "class.info.students"}} ({{class.countMembers}})</h5>
                  </div>
                  <div class="invite-student col-md-6 col-sm-6 col-xs-6 {{if isStudent 'hide' 'show'}}">
-                     <button class="btn btn-primary btn-teacher">
+                     <button class="btn btn-primary btn-teacher out-of-scope">
                        {{t "class.info.add-students"}}
                      </button>
                  </div>

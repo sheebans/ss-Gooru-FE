@@ -295,7 +295,7 @@ test('Builder Edit', function (assert) {
     assert.ok($builderSection.find('.actions .save').length, "Save button missing");
     assert.ok($builderSection.find('.actions .cancel').length, "Cancel button missing");
     assert.ok($builderSection.find('.header h2').length, "Builder title missing");
-    assert.equal($builderSection.find('.header h2').text(),"Builder - "+questionType, "Missing Question label");
+    assert.equal($builderSection.find('.header h2').text(),"Editor - "+questionType, "Missing Question label");
     assert.ok($builderSection.find('.question-text .panel-heading h3').length, "Missing Question label");
     assert.ok($builderSection.find('.question-text .panel-heading .instructions').length, "Missing Question Instructions");
     assert.ok($builderSection.find('.question-text .panel-body textarea').length, "Missing text area");

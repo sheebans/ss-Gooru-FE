@@ -83,6 +83,7 @@ export default Ember.Object.extend({
       url: resourceData.url,
       format: format,
       description: resourceData.description,
+      narration: resourceData.narration,
       publishStatus: resourceData.publish_status,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomy(standards),
       owner: resourceData.creator_id,

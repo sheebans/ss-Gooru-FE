@@ -67,6 +67,13 @@ export default Ember.Object.extend({
   /**
    * @property {Profile[]} members - members in the collection|assessment (for analytics)
    */
-  members: []
+  members: [],
+
+  /**
+   * This property is not always available, it contains the lesson item(collection) performance information
+   * @see components/class/overview/gru-accordion-lesson.js
+   * @property {CollectionPerformance|Ember.Object}
+   */
+  performance: null
 
 });

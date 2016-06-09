@@ -119,25 +119,13 @@ export default Ember.Component.extend({
   init() {
     this._super( ...arguments );
 
-    var maxLevels = this.get('maxLevels');
-    var browseItems, selectedTags;
+    var selected = this.get('selected');
+    var selectedTags;
     //var shortcutTags, selectedPath;
 
     Ember.Logger.assert(this.get('subject.courses'), 'Courses not found for subject');
 
-    browseItems = this.get('taxonomyItems').map(function(taxonomyItem) {
-      return BrowseItem.createFromTaxonomyItem(taxonomyItem, maxLevels);
-    });
-
-    /* TODO: Revisit this functionality
-    shortcutTags = this.get('shortcuts').map(function(taxonomyItem) {
-      return TaxonomyTag.create({
-        taxonomyItem: taxonomyItem
-      });
-    });
-    */
-
-    selectedTags = this.get('selected').map(function(tagData) {
+    selectedTags = selected.map(function(tagData) {
       return TaxonomyTag.create({
         isActive: true,
         isReadonly: true,
@@ -146,9 +134,56 @@ export default Ember.Component.extend({
       });
     });
 
-    // Init values
-    this.set('browseItems', browseItems);
-    this.set('selectedTags', Ember.A(selectedTags));
+    if (selected && selected.length) {
+      let component = this;
+
+      // Load data for selected items
+      this.get('onInit')(selected).then(function() {
+
+        component.initBrowseItems();
+
+        Ember.run.scheduleOnce('afterRender', component, function() {
+          var browseItems = component.get('browseItems');
+
+          Ember.beginPropertyChanges();
+          component.set('selectedTags', Ember.A(selectedTags));
+
+          selected.forEach(function(tagData, index) {
+            var browseItem = null;
+            var path = tagData.get('ancestorsPath');
+
+            if (index === 0) {
+              // Set an initial default path to refresh the browse selector.
+              // The initial default path will be that of the first selected tag.
+              component.set('selectedPath', path);
+            }
+
+            for (let i = browseItems.length - 1; i >= 0; --i) {
+              browseItem = browseItems[i].find(path);
+              if (browseItem) { break; }
+            }
+
+            browseItem = browseItem.findItem(tagData.get('id'));
+            Ember.Logger.assert(browseItem, 'Unable to find browse item to mark as selected');
+
+            // Mark the corresponding browse items as selected
+            browseItem.set('isSelected', true);
+          });
+          Ember.endPropertyChanges();
+        });
+
+      });
+    } else {
+      this.initBrowseItems();
+    }
+
+    /* TODO: Revisit this functionality
+    shortcutTags = this.get('shortcuts').map(function(taxonomyItem) {
+      return TaxonomyTag.create({
+        taxonomyItem: taxonomyItem
+      });
+    });
+    */
 
     /* TODO: Revisit this functionality
     this.set('shortcutTags', shortcutTags);
@@ -161,28 +196,6 @@ export default Ember.Component.extend({
       this.updateSelectedPath(selectedPath);
     }
     */
-
-    if (selectedTags.length) {
-      // Mark selected tags in browse selector
-      this.get('selected').forEach(function(tagData) {
-        var path = tagData.get('ancestorsPath');
-        var browseItem;
-
-        for (let i = browseItems.length - 1; i >= 0; --i) {
-          browseItem = browseItems[i].find(path);
-          if (browseItem) { break; }
-        }
-
-        // Load data for the browse item, then find its child and mark it as selected
-        if (browseItem){ //TODO sometimes it is not found
-          this.get('onUpdatePath')(path, browseItem).then(function() {
-            browseItem = browseItem.findItem(tagData.get('id'));
-            Ember.Logger.assert(browseItem, 'Unable to find browse item to mark as selected');
-            browseItem.set('isSelected', true);
-          });
-        }
-      }.bind(this));
-    }
   },
 
   willDestroyElement: function () {
@@ -203,7 +216,7 @@ export default Ember.Component.extend({
    * @property {BrowseItem[]} browseItems - List of browse items used by the browse selector.
    * These browse items are created from @see taxonomyItems when the component is initialized.
    */
-  browseItems: null,
+  browseItems: [],
 
   /**
    * @property {String} browseSelectorText - Intro text for browse selector.
@@ -288,9 +301,32 @@ export default Ember.Component.extend({
    */
   updateSelectedPath: function(item) {
     var path = item.getPath();
-    return this.get('onUpdatePath')(path, item).then(function() {
+
+    return this.get('onUpdatePath')(path, item).then(function(taxonomyItems) {
+      if (!item.get('children').length) {
+        // Add children to the parent browse item
+        let browseItems = [];
+
+        taxonomyItems.forEach(function(taxonomyItem) {
+          var browseItem = BrowseItem.createFromTaxonomyItem(taxonomyItem);
+          browseItem.set('parent', item);
+          browseItems.push(browseItem);
+        });
+
+        item.set('children', browseItems);
+      }
+
       this.set('selectedPath', path);
     }.bind(this));
+  },
+
+  initBrowseItems: function() {
+    var maxLevels = this.get('maxLevels');
+    var browseItems = this.get('taxonomyItems').map(function(taxonomyItem) {
+      return BrowseItem.createFromTaxonomyItem(taxonomyItem, maxLevels);
+    });
+
+    this.set('browseItems', browseItems);
   }
 
 });

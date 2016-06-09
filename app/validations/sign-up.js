@@ -9,8 +9,8 @@ export default buildValidations({
       }),
       validator('length', {
         min: 4,
-        max: 20,
-        message: 'Username must be between 4 and 20 characters.'
+        max: 10,
+        message: 'Username must be between 4 and 10 characters.'
       })
     ]
   },

@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
-import { encodeTerm } from 'gooru-web/utils/encode-term';
 import wait from 'ember-test-helpers/wait';
 import ClassModel from 'gooru-web/models/content/class';
 
@@ -104,7 +103,7 @@ test('Do search by hitting Enter', function(assert) {
   const ANY_TERM = 'any term';
 
   this.on('searchAction', function(term){
-    assert.equal(term, encodeTerm(ANY_TERM), 'onSearchAction should be called once');
+    assert.equal(term, ANY_TERM, 'onSearchAction should be called once');
   });
 
   this.render(hbs`{{gru-header onSearch='searchAction'}}`);
@@ -126,23 +125,6 @@ test('Do search with a blank space', function(assert) {
   T.notExists(assert,this.$(".results"), "Result of search should not appear");
 });
 
-test('Encode term', function(assert) {
-  assert.expect(1); //making sure all asserts are called
-
-
-  const ANY_TERM = '@$%*^';
-
-  this.on('searchAction', function(term){
-    assert.equal(term, encodeTerm(ANY_TERM), 'Bad Encode');
-  });
-
-  this.render(hbs`{{gru-header onSearch='searchAction'}}`);
-
-  var $searchInput = this.$('.search-input');
-  $searchInput.val(ANY_TERM);
-  $searchInput.change();
-  this.$('form').submit();
-});
 
 test('Search terms under 3 letters', function(assert) {
   assert.expect(1); //making sure all asserts are called

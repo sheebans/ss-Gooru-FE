@@ -75,7 +75,11 @@
               li {
                 padding: 3px 15px;
 
-                a { color: $gray; }
+                a {
+                  color: $gray;
+                  line-height: 1.4;
+                  display: inline-block;
+                }
 
                 &.selected {
                   background-color: $blue-100;
@@ -184,6 +188,12 @@
 
                         &:first-child {
                           margin-top: 10px;
+                        }
+
+                        &.no-content {
+                          border-radius: 0;
+                          background-color: transparent;
+                          margin: 0;
                         }
 
                         > ul {

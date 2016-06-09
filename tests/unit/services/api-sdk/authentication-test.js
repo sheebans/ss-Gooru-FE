@@ -36,25 +36,45 @@ test('authenticateAsAnonymous', function(assert) {
 
 test('authenticateWithCredentials', function(assert) {
   const service = this.subject();
-  const response = {};
   const expectedData = {
     isAnonymous: false,
     username: 'username',
     password: 'password'
   };
+  const sessionData = {
+    user: {
+      gooruUId: 'user-id'
+    }
+  };
+  const expectedProfile = {
+    avatarUrl: 'image-id'
+  };
 
-  assert.expect(2);
+  assert.expect(5);
 
   service.set('authenticationAdapter', Ember.Object.create({
     postAuthentication: function(data) {
       assert.deepEqual(expectedData, data, 'Wrong authentication data');
-      return Ember.RSVP.resolve(response);
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileAdapter', Ember.Object.create({
+    readUserProfile: function(userId) {
+      assert.deepEqual(userId, 'user-id', 'Wrong user id');
+      return Ember.RSVP.resolve(expectedProfile);
     }
   }));
 
   service.set('authenticationSerializer', Ember.Object.create({
     normalizeResponse: function(payload) {
-      assert.deepEqual(response, payload, 'Wrong response payload');
+      assert.deepEqual({}, payload, 'Wrong response payload');
+      return sessionData;
+    },
+
+    normalizeAvatarUrl: function(payload, session) {
+      assert.deepEqual(expectedProfile, payload, 'Wrong response payload');
+      assert.deepEqual(sessionData, session, 'Wrong session data');
       return {};
     }
   }));
@@ -68,23 +88,42 @@ test('authenticateWithCredentials', function(assert) {
 
 test('authenticateWithToken', function(assert) {
   const service = this.subject();
-  const response = {};
   const expectedData = {
     accessToken: 'access_token'
   };
-
-  assert.expect(2);
+  const sessionData = {
+    user: {
+      gooruUId: 'user-id'
+    }
+  };
+  const expectedProfile = {
+    avatarUrl: 'image-id'
+  };
+  assert.expect(5);
 
   service.set('authenticationAdapter', Ember.Object.create({
     postAuthenticationWithToken: function(data) {
       assert.deepEqual(expectedData, data, 'Wrong authentication data');
-      return Ember.RSVP.resolve(response);
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileAdapter', Ember.Object.create({
+    readUserProfile: function(userId) {
+      assert.deepEqual(userId, 'user-id', 'Wrong user id');
+      return Ember.RSVP.resolve(expectedProfile);
     }
   }));
 
   service.set('authenticationSerializer', Ember.Object.create({
     normalizeResponse: function(payload) {
-      assert.deepEqual(response, payload, 'Wrong response payload');
+      assert.deepEqual({}, payload, 'Wrong response payload');
+      return sessionData;
+    },
+
+    normalizeAvatarUrl: function(payload, session) {
+      assert.deepEqual(expectedProfile, payload, 'Wrong response payload');
+      assert.deepEqual(sessionData, session, 'Wrong session data');
       return {};
     }
   }));
