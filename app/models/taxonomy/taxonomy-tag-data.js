@@ -136,6 +136,15 @@ TaxonomyTagData.reopenClass({
   },
 
   /**
+   * Determines whether an ID looks like an ID for a learning target (micro-standard) or not
+   * @param {String} id
+   * @return {Boolean}
+   */
+  isMicroStandardId: function(id) {
+    return (/.*\d{2}-\d{2}/.test(id) || /.*\.\d{2}\.\d{2}\./.test(id));
+  },
+
+  /**
    * It returns only taxonomy tag data objects related to the subject
    * @param {TaxonomyRoot} subject
    * @param {TaxonomyTagData[]} tagDataList
