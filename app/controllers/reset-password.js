@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import Profile from 'gooru-web/models/profile/profile';
 import ResetPasswordValidations from 'gooru-web/validations/reset-password';
+import Env from 'gooru-web/config/environment';
 
 export default Ember.Controller.extend({
 
@@ -100,6 +101,14 @@ export default Ember.Controller.extend({
   /**
    * @param {Boolean } didValidate - value used to check if input has been validated or not
    */
-  didValidate: false
+  didValidate: false,
+
+  /**
+   * Marketing site url
+   * @property {string}
+   */
+  marketingSiteUrl: Ember.computed(function(){
+    return Env.marketingSiteUrl;
+  })
 
 });
