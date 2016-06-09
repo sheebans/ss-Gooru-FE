@@ -105,6 +105,12 @@ export default Ember.Component.extend({
   onTyping: null,
 
   /**
+   * Indicates if
+   * @property {boolean}
+   */
+  autofocus: false,
+
+  /**
    * @param {Computed } didValidate - value used to check if input has been validated or not
    */
   didValidate: computed.oneWay('targetObject.didValidate'),

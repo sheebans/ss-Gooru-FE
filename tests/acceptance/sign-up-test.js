@@ -32,7 +32,7 @@ test('Layout', function(assert) {
     T.exists(assert, $signUpHeader.find("h3"), "Missing sign-up title");
     assert.equal(T.text($signUpHeader.find("h3")), "Hello!", "Incorrect sign-up title text");
     T.exists(assert, $signUpHeader.find(".description"), "Missing sign-up description");
-    assert.equal(T.text($signUpHeader.find(".description")), "We're glad you’ve decided to join us.", "Incorrect sign-up description text");
+    assert.equal(T.text($signUpHeader.find(".description")), "We’re glad you’ve decided to join us.", "Incorrect sign-up description text");
     T.exists(assert, $signUpHeader.find(".sign-in-description"), "Missing sign-in description");
     T.exists(assert, $signUpHeader.find(".google-button"), "Missing sign-up google button");
 

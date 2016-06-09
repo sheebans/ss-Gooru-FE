@@ -14,6 +14,7 @@ export function getSubjects(courses) {
     course => Ember.Object.create({
       subject: course.subject,
       subjectSequence: course.subjectSequence,
+      taxonomySubject: course.taxonomy[0]
     })
   ).filter(
     (elem, pos, list) => list.reduce(

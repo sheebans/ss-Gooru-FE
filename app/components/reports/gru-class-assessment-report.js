@@ -66,7 +66,8 @@ export default Ember.Component.extend(ModalMixin, {
       let assessmentResult = AssessmentResult.create({
         totalAttempts: 1,
         selectedAttempt: 1,
-        resourceResults: resourceResults
+        resourceResults: resourceResults,
+        collection: assessment
       });
 
       let modalModel = {

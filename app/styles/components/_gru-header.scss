@@ -115,6 +115,11 @@
 
         @media (min-width: $screen-sm) {
           @include flex-basis(36%);
+          min-width: 190px;
+        }
+        @media (min-width: $screen-md) {
+          @include flex-basis(36%);
+          min-width: 380px;
         }
       }
 

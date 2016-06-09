@@ -1,7 +1,6 @@
 import Ember from "ember";
 import SessionMixin from '../mixins/session';
 import ModalMixin from '../mixins/modal';
-import { encodeTerm } from 'gooru-web/utils/encode-term';
 import {KEY_CODES} from "gooru-web/config/config";
 import Env from 'gooru-web/config/environment';
 

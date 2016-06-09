@@ -34,7 +34,7 @@ test('searchCollections 400', function(assert) {
     'token-api3': 'token-api-3'
   }));
   this.pretender.map(function() {
-    this.get('/gooru-search/rest/v2/search/scollection', function(request) {
+    this.get('/gooru-search/rest/v2/search/scollection', function() {
 
       return [400, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
@@ -72,7 +72,7 @@ test('searchAssessments 400', function(assert) {
     'token-api3': 'token-api-3'
   }));
   this.pretender.map(function() {
-    this.get('/gooru-search/rest/v2/search/scollection', function(request) {
+    this.get('/gooru-search/rest/v2/search/scollection', function() {
       return [400, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   });
@@ -110,7 +110,7 @@ test('searchResources for all resource types 404', function(assert) {
     'token-api3': 'token-api-3'
   }));
   this.pretender.map(function() {
-    this.get('/gooru-search/rest/v2/search/resource', function(request) {
+    this.get('/gooru-search/rest/v2/search/resource', function() {
       return [400, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   });
@@ -167,7 +167,7 @@ test('searchQuestions for all types 404', function(assert) {
     'token-api3': 'token-api-3'
   }));
   this.pretender.map(function() {
-    this.get('/gooru-search/rest/v2/search/resource', function(request) {
+    this.get('/gooru-search/rest/v2/search/resource', function() {
       return [400, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   });

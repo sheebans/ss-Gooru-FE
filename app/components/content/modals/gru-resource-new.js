@@ -100,7 +100,7 @@ export default Ember.Component.extend({
           component.get('router').router.refresh();
           component.triggerAction({action: 'closeModal'});
         }, function(error) {
-          var collectionType = component.get('i18n').t(component.get('collectionType')).toLowerCase();
+          var collectionType = this.get('i18n').t(`common.${this.get('collectionType').toLowerCase()}`);
           component.get('notifications').error(component.get('i18n').t('common.errors.resource-not-added-to-collection', {collectionType}).string);
           Ember.Logger.error(error);
           component.$('.resource-new button.add-btn').prop('disabled', false);
@@ -164,11 +164,12 @@ export default Ember.Component.extend({
 
     const collectionId = this.get("model.id");
     if (collectionId){
-      const queryParams = { queryParams: { collectionId: collectionId } };
+      const queryParams = { queryParams: { collectionId: collectionId, editing: true } };
       component.get('router').transitionTo('content.resources.edit', newResourceId, queryParams);
     }
     else{
-      component.get('router').transitionTo('content.resources.edit', newResourceId);
+      const queryParams = { queryParams: { editing: true } };
+      component.get('router').transitionTo('content.resources.edit', newResourceId, queryParams);
     }
   },
 

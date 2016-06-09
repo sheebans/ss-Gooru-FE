@@ -105,7 +105,7 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
       }
     },
 
-    editNarration: function (builderItem) {
+    editNarration: function (/*builderItem*/) {
       var modelForEditing = this.get('model').copy();
 
       this.set('tempModel', modelForEditing);
