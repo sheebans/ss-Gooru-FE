@@ -9,6 +9,11 @@ import Ember from "ember";
 export default Ember.Object.extend({
 
   /**
+   * @property {String} id - The standard|learningTarget ID
+   */
+  id: null,
+
+  /**
    * @property {String} description - Description of the learning target
    */
   description: '',

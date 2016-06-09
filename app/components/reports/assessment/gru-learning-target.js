@@ -76,9 +76,7 @@ export default Ember.Component.extend({
    * @param QuestionResult[]
    */
   getBubblesQuestions: function (questionResults) {
-
     let results = this.getQuestions(questionResults);
-
     return results.map(function (questionResult) {
       return Ember.Object.create({
         label: questionResult.get('question.order'),
@@ -90,9 +88,8 @@ export default Ember.Component.extend({
 
   getQuestions: function (questionResults) {
     let relatedQuestions = this.get('learningTarget.relatedQuestions');
-
     let questions = questionResults.filter(function (questionResult) {
-      return relatedQuestions.contains(questionResult.get("id"));
+      return relatedQuestions.contains(questionResult.get("resourceId"));
     });
     return questions;
   }

@@ -91,7 +91,6 @@ export default Ember.Object.extend({
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/resource`;
-
     const page = params.page || 0;
     const pageSize = params.pageSize || DEFAULT_PAGE_SIZE;
     let options = {
@@ -111,10 +110,17 @@ export default Ember.Object.extend({
       const filters = ResourceModel.serializeAllResourceFormat(formats);
       options.data['flt.resourceFormat'] = filters.join(',');
     }
-
     const taxonomies = params.taxonomies;
     if (Ember.isArray(taxonomies) && taxonomies.length > 0) {
       options.data['flt.standard'] = taxonomies.join(',');
+    }
+    const courseId = params.courseId;
+    if (courseId) {
+      options.data['flt.courseId'] = courseId;
+    }
+    const publishStatus = params.publishStatus;
+    if (publishStatus) {
+      options.data['flt.publishStatus'] = publishStatus;
     }
     return Ember.$.ajax(url, options);
   },
