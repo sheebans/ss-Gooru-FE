@@ -67,6 +67,11 @@ export default Ember.Object.extend({
    */
   owner: null,
 
+  /**
+   * @property {JSONObject}
+   */
+  displayGuide: null,
+
   // ----------------------------------------- Question Fields
   /**
    * @property {string}

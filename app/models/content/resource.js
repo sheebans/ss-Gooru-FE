@@ -155,6 +155,11 @@ const ResourceModel = Ember.Object.extend(Validations,{
   order: null,
 
   /**
+   * @property {JSONObject}
+   */
+  displayGuide: null,
+
+  /**
    * @property {String} category - Category the course belongs to
    */
   category: Ember.computed('subject', function() {
@@ -311,6 +316,7 @@ const ResourceModel = Ember.Object.extend(Validations,{
       thumbnail: model.get("thumbnailUrl"),
       assetUrl: model.get("assetUrl"),
       url: model.get("url"),
+      displayGuide: model.get("displayGuide"),
       narration: model.get("narration"), //TODO missing
       options: null //TODO missing
     });

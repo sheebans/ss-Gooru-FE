@@ -23,6 +23,11 @@
             }
           }
         }
+        &.expanded {
+          > .panel-heading {
+            border-bottom: 1px solid $gray-lighter;
+          }
+        }
       }
 
       > .panel.collapsed > .panel-body {
