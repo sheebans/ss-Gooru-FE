@@ -126,6 +126,7 @@
     }
 
     .members-info {
+      margin-top: 2%;
       border-right: 1px solid $gray-lighter;
       color: $gray-light;
       float: left;
@@ -141,7 +142,7 @@
 
     .description {
       border-left: 1px solid $gray-lighter;
-      min-height:55px;
+      min-height:124px;
       height: 100%;
       overflow: hidden;
       position: relative;
