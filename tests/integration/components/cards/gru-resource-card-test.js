@@ -109,7 +109,7 @@ test('Resource card trying buttons', function(assert) {
     userId: 'user-id'
   });
 
-  this.render(hbs`{{cards/gru-resource-card resource=resource editEnabled=true onEditResource="editResource" addEnabled=false session=session profileService=profileService}}`);
+  this.render(hbs`{{cards/gru-resource-card resource=resource editEnabled=true onEditResource="editResource" session=session profileService=profileService}}`);
   var $component = this.$(); //component dom element
   const $resourceCard = $component.find(".gru-resource-card");
   T.exists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Add to Button should be visible");

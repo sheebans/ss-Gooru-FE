@@ -184,32 +184,33 @@
         color:$light-500;
       }
     }
+  }
 
-    > div {
-      border: 2px dashed $gray-light;
-      padding: 20px 20px 10px 20px;
-      border-radius: 6px;
-      margin-top: 10px;
+  .add-resource-question{
+    border: 2px dashed $gray-light;
+    padding: 20px 20px 10px 20px;
+    border-radius: 6px;
+    margin-top: 10px;
 
-      button {
-        margin-bottom: 10px;
+    button {
+      margin-bottom: 10px;
 
-        &:last-of-type {
-          margin-right: 20px;
-        }
+      &:last-of-type {
+        margin-right: 20px;
       }
+    }
 
-      > span {
-        display: none;
-        margin-bottom: 5px;
-        white-space: nowrap;
+    > span {
+      display: none;
+      margin-bottom: 5px;
+      white-space: nowrap;
 
-        @media(min-width: $screen-md) {
-          display: inline-block;
-        }
+      @media(min-width: $screen-md) {
+        display: inline-block;
       }
     }
   }
+
 
   .dropdown {
     display: inline-block;

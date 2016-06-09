@@ -16,6 +16,11 @@ export default Ember.Component.extend({
   collectionService: Ember.inject.service("api-sdk/collection"),
 
   /**
+   * @property {ProfileService} Profile service API SDK
+   */
+  profileService: Ember.inject.service("api-sdk/profile"),
+
+  /**
    * @property {Service} I18N service
    */
   i18n: Ember.inject.service(),
@@ -44,6 +49,7 @@ export default Ember.Component.extend({
         if (validations.get('isValid')) {
           var resourceService = component.get('resourceService');
           let resourceId;
+          component.$('.resource-new button.add-btn').prop('disabled', true);
           resourceService.createResource(resource)
             .then(function (newResource) {
                 resourceId = newResource.get('id');
@@ -58,13 +64,14 @@ export default Ember.Component.extend({
                   return Ember.RSVP.resolve(true);
                 }
             })
-            .then(function(){
-                if(type==="edit"){
+            .then(function() {
+                if(type === "edit") {
                   component.onNewResource(resourceId);
-                }else{
+                } else {
                   component.get('router').router.refresh();
                   component.triggerAction({ action: 'closeModal' });
                 }
+                component.$('.resource-new button.add-btn').prop('disabled', false);
               },
               function (data) {
                 if (data.resourceId) { //already exists
@@ -74,11 +81,30 @@ export default Ember.Component.extend({
                   const message = component.get('i18n').t('common.errors.resource-not-created').string;
                   component.get('notifications').error(message);
                 }
+                component.$('.resource-new button.add-btn').prop('disabled', false);
               }
             );
         }
         component.set('didValidate', true);
       });
+    },
+
+    addTo: function() {
+      const component = this;
+      var resourceId = component.get('existingResource.id');
+      var collectionId = component.get('model.id');
+      component.$('.resource-new button.add-btn').prop('disabled', true);
+      component.get('resourceService').copyResource(resourceId)
+        .then(copyId => component.get('collectionService').addResource(collectionId, copyId))
+        .then(function() {
+          component.get('router').router.refresh();
+          component.triggerAction({action: 'closeModal'});
+        }, function(error) {
+          var collectionType = this.get('i18n').t(`common.${this.get('collectionType').toLowerCase()}`);
+          component.get('notifications').error(component.get('i18n').t('common.errors.resource-not-added-to-collection', {collectionType}).string);
+          Ember.Logger.error(error);
+          component.$('.resource-new button.add-btn').prop('disabled', false);
+        });
     },
 
     selectType:function(type){
@@ -154,10 +180,17 @@ export default Ember.Component.extend({
   displayExistingResource: function(resourceId){
     const component = this;
     const resourceService = component.get('resourceService');
-    resourceService.readResource(resourceId)
-      .then(function(resource){
-        component.set("existingResource", resource);
-      });
+    const profileService = component.get('profileService');
+    var existingResource;
+    component.$('.gru-input.url input').prop('disabled', true);
+    resourceService.readResource(resourceId).then(function(resource) {
+      existingResource = resource;
+      return profileService.readUserProfile(resource.get('owner'));
+    }).then(function(owner) {
+      console.log(existingResource);
+      existingResource.set('owner', owner);
+      component.set("existingResource", existingResource);
+    });
   }
 
 });

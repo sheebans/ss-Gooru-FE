@@ -13,6 +13,14 @@ var BrowseItem = TaxonomyItem.extend({
   // Properties
 
   /**
+   * @property {String}  - Is this item currently in the selected
+   * path or not? @see gru-browse-selector
+   */
+  accordionId: Ember.computed('id', function() {
+    return 'accordion-' + this.get('id').replace(/\./g, '');
+  }),
+
+  /**
    * @property {boolean} isActive - Is this item currently in the selected
    * path or not? @see gru-browse-selector
    */

@@ -26,17 +26,15 @@
     flex-wrap: wrap;
   }
   .info {
+    width: 100%;
+    padding: 1em 0 0;
     @media (min-width: $screen-sm-min) {
       padding: 0 0 2em 2em;
       width: calc(100% - 180px);
     }
-    @media(max-width: $screen-sm-min){
-      width: 100%;
-      padding: 1em 0 0;
-    }
   }
   .avatar {
-    @media (max-width: $screen-sm-min) {
+    @media (max-width: $screen-xs-max) {
       width: 100%;
       padding: 0;
       overflow: hidden;
