@@ -113,9 +113,6 @@ export default Ember.Component.extend({
                   }
                   return component.saveProfile(editedProfile);
                 }).then(function() {
-                  if(!editedProfile.get('avatarUrl')) {
-                    editedProfile.set('avatarUrl', DEFAULT_IMAGES.USER_PROFILE);
-                  }
                   component.get('profile').merge(editedProfile, ['username','firstName', 'lastName', 'aboutMe', 'role', 'countryId', 'stateId', 'state', 'schoolDistrictId', 'schoolDistrict', 'country', 'studentId', 'avatarUrl']);
                   component.get('router').transitionTo('profile.about', editedProfile.get('id'));
                 }, function(error) {
@@ -320,6 +317,9 @@ export default Ember.Component.extend({
     const component = this;
     return component.get('profileService').updateMyProfile(profile).then(function() {
       let session = component.get('session');
+      if(!profile.get('avatarUrl')) {
+        profile.set('avatarUrl', DEFAULT_IMAGES.USER_PROFILE);
+      }
       session.set('userData.avatarUrl', profile.get('avatarUrl'));
       session.set('userData.isNew', false);
       if(!profile.username){

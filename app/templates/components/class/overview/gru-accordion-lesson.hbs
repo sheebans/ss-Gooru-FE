@@ -1,12 +1,12 @@
 <div class="panel-heading" role="tab" id="{{elementId}}-heading">
   {{#if isTeacher}}
-    <span class="score" style="background-color: {{ gradeColor (if item.hasStarted item.classAverageScore 'NA') }}">
-      {{if item.hasStarted item.classAverageScore '--'}}%
+    <span class="score" style="background-color: {{ gradeColor (if model.performance.hasStarted model.performance.score 'NA') }}">
+      {{if model.performance.hasStarted model.performance.score '--'}}%
     </span>
   {{else}}
     {{charts/gru-completion-chart
-      completed=model.completionDone
-      total=model.completionTotal }}
+      completed=model.performance.completionDone
+      total=model.performance.completionTotal }}
   {{/if}}
 
   <span class="panel-title">
@@ -70,8 +70,8 @@
 
             <div class="icon-container">
               {{#if item.isAssessment}}
-                <span class="score" style="background-color: {{ gradeColor (if item.hasStarted item.classAverageScore 'NA') }}">
-                  {{if item.hasStarted item.classAverageScore '--'}}%
+                <span class="score" style="background-color: {{ gradeColor (if item.performance.hasStarted item.performance.score 'NA') }}">
+                  {{if item.performance.hasStarted item.performance.score '--'}}%
                 </span>
                 <i class="on-air">On Air</i>
               {{ else }}

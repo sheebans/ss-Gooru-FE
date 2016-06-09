@@ -4,7 +4,8 @@ import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
     courseId:{},
-    allowBackToCourse:{}
+    allowBackToCourse:{},
+    editing:{}
   },
 
   // -------------------------------------------------------------------------
@@ -33,6 +34,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   model: function (params) {
     var assessment = this.get('assessmentService').readAssessment(params.assessmentId);
     var course = null;
+    var isEditing = params.editing;
 
     if(params.courseId && params.courseId !== "null"){
       course = this.get('courseService').fetchById(params.courseId);
@@ -42,12 +44,13 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     return Ember.RSVP.hash({
       assessment: assessment,
       course:course,
-      allowBackToCourse:allowBackToCourse
+      allowBackToCourse:allowBackToCourse,
+      isEditing: !!isEditing
     });
   },
 
   setupController(controller, model) {
-
+    var collection = model.assessment;
     // Since assessment is a collection with only questions, we'll reuse the same components
     // for collections (for example, see: /app/components/content/assessments/gru-assessment-edit.js)
     // and that is why the property 'collection' is being reused here, too.
@@ -56,6 +59,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('isAssessment',true);
     controller.set('course', model.course);
     controller.set('allowBackToCourse',model.allowBackToCourse);
+    controller.set('isEditing', model.isEditing);
+    if(model.isEditing) {
+      controller.set('tempCollection', collection.copy());
+    }
   }
-
 });

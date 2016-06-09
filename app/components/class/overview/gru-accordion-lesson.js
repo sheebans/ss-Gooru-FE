@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import AccordionMixin from '../../../mixins/gru-accordion';
+import AccordionMixin from 'gooru-web/mixins/gru-accordion';
 
 // Whenever the observer 'parsedLocationChanged' is running, this flag is set so
 // clicking on the lessons should not update the location
@@ -225,34 +225,34 @@ export default Ember.Component.extend(AccordionMixin, {
 
     component.get('lessonService').fetchById(courseId, unitId, lessonId)
       .then(function(lesson) {
-        const collections = lesson.get('children');
+        const lessonItems = lesson.get('children');
         component.get('analyticsService').getLessonPeers(classId, courseId, unitId, lessonId)
           .then(function(lessonPeers) {
             const performancePromise = isTeacher ?
               component.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, classMembers) :
-              component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections);
+              component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, lessonItems);
             performancePromise.then(function(performance) {
-              collections.forEach(function(collection) {
-                const peer = lessonPeers.findBy('id', collection.get('id'));
+              lessonItems.forEach(function(lessonItem) {
+                const peer = lessonPeers.findBy('id', lessonItem.get('id'));
                 if (peer) {
                   component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
                     .then(function (profiles) {
-                      collection.set('members', profiles);
+                      lessonItem.set('members', profiles);
                     });
                 }
 
                 if (isTeacher) {
-                  const averageScore = performance.calculateAverageScoreByItem(collection.get('id'));
-                  collection.set('classAverageScore', averageScore);
+                  const averageScore = performance.calculateAverageScoreByItem(lessonItem.get('id'));
+                  lessonItem.set('performance', Ember.Object.create({
+                    score: averageScore,
+                    hasStarted: averageScore > 0
+                  }));
                 } else {
-                  const collectionPerformanceData = performance.findBy('id', collection.get('id'));
-                  const score = collectionPerformanceData ? collectionPerformanceData.get('score') : 0;
-                  const hasStarted = collectionPerformanceData ? collectionPerformanceData.get('hasStarted') : false;
-                  collection.set('classAverageScore', score);
-                  collection.set('hasStarted', hasStarted);
+                  const collectionPerformanceData = performance.findBy('id', lessonItem.get('id'));
+                  lessonItem.set('performance', collectionPerformanceData);
                 }
               });
-              component.set('items', collections);
+              component.set('items', lessonItems);
               component.set("loading", false);
             });
           });

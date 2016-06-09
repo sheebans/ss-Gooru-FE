@@ -46,7 +46,7 @@ export default AddToModal.extend({
     var contentEditUrl = this.get('router').generate(editRoute, this.get('selectedCollection.id'));
     var successMsg = this.get('i18n').t('common.add-to-lesson-success', {
       collectionTitle: this.get('selectedCollection.title'),
-      collectionType: this.get('collectionType').toLowerCase(),
+      collectionType: this.get('i18n').t(`common.${this.get('collectionType').toLowerCase()}`),
       lessonTitle: this.get('content.title'),
     });
     var edit = this.get('i18n').t('common.edit');
@@ -59,7 +59,8 @@ export default AddToModal.extend({
 
   errorMessage: function(error) {
     var message = this.get('isCollection') ? 'common.errors.collection-not-added-to' : 'common.errors.assessment-not-added-to';
-    this.get('notifications').error(this.get('i18n').t(message, {collectionType: ''}).string);
+    var collectionType = this.get('i18n').t(`common.${this.get('collectionType').toLowerCase()}`);
+    this.get('notifications').error(this.get('i18n').t(message, {collectionType}).string);
     Ember.Logger.error(error);
     this.$('.modal-footer button.add-to').prop('disabled', false);
   },

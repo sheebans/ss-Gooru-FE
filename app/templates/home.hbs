@@ -8,18 +8,15 @@
   </div>
   <div class="home-navigator">
       <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active active-classes tab">
+          <li role="presentation" class="active active-classes tab hidden-xs">
             <a href="#active-classes" aria-controls="activeClasses" role="tab" data-toggle="tab" {{action 'showClasses' 'active'}}>
               <span class="lead">{{t 'user.active-classes'}}</span>
             </a>
           </li>
-          <li role="presentation" class="archived-classes tab">
+          <li role="presentation" class="archived-classes tab hidden-xs">
             <a href="#archived-classes" aria-controls="archivedClasses" role="tab" data-toggle="tab" {{action 'showClasses' 'archived'}}>
               <span class="lead">{{t 'user.archived-classes'}}</span>
             </a>
-          </li>
-          <li class="visible-xs ">
-            <a href='#' class="switch-tab-btn" alt="{{t 'user.archived-classes'}}" {{action 'showClasses' 'archived'}}>{{gru-icon name='keyboard_arrow_right'}}</a>
           </li>
           <li class="pull-right actions">
             {{#link-to 'content.classes.create' class="btn btn-success create-class-cta" tagName='button'}}

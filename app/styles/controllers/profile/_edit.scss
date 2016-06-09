@@ -1,5 +1,5 @@
 .controller.about.edit {
-  @media(max-width: $screen-sm-min) {
+  @media(max-width: $screen-xs-max) {
     $component-height: 210px;
     .avatar {
       width: 100%;

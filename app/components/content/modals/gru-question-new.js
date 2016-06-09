@@ -101,9 +101,9 @@ export default Ember.Component.extend({
           component.$().attr('tabindex', 0).focus();
         }
       }, 400);
-      component.$().off('keyup').on('keyup', function(e) {
+      component.$().off('keyup').on('keyup', function() {
         var keyCode = (event.keyCode ? event.keyCode : event.which);
-        if (keyCode == 13) {
+        if (keyCode === 13) {
           component.$('button[type=submit]').trigger('click');
         }
       });
@@ -155,13 +155,15 @@ export default Ember.Component.extend({
       const queryParams = {
         queryParams: {
           collectionId: collectionId,
-          isCollection: isCollection
+          isCollection: isCollection,
+          editing: true
         }
       };
       component.get('router').transitionTo('content.questions.edit', questionId, queryParams);
     }
     else{
-      component.get('router').transitionTo('content.questions.edit', questionId);
+      const queryParams = { queryParams: { editing: true } };
+      component.get('router').transitionTo('content.questions.edit', questionId, queryParams);
     }
 
   },

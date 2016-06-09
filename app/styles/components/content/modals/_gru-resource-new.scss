@@ -20,6 +20,14 @@
       width: 100%;
     }
   }
+  .validation.error {
+    position: relative;
+    top: -15px;
+  }
+  .lead {
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
   .actions.resource-new{
     margin-top: 10px;
   }
