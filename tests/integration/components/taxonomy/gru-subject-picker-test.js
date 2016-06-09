@@ -90,12 +90,12 @@ test('Show subjects - with selection', function(assert) {
 
   assert.equal($component.length, 1, "Missing subject dropdown");
   assert.equal($component.find(".selected-subject").length, 1, "Missing select subject");
-  assert.equal(T.text($component.find(".selected-subject")), 'Subject 1.1', "Wrong selected subject title");
+  assert.equal(T.text($component.find(".selected-subject")), 'framework-1 Subject 1.1', "Wrong selected subject title");
   assert.equal($component.find("li.subject").length, 2, "Missing subjects");
 
   $component.find("li.subject a.subject-action:eq(1)").click();
   return wait().then(function(){
-    assert.equal(T.text($component.find(".selected-subject")), 'Subject 2.1', "Wrong selected subject title");
+    assert.equal(T.text($component.find(".selected-subject")), 'framework-2 Subject 2.1', "Wrong selected subject title");
   });
 });
 */
