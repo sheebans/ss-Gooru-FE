@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Env from 'gooru-web/config/environment';
-import { NETWORK_TYPE, DEFAULT_IMAGES } from 'gooru-web/config/config';
+import { DEFAULT_IMAGES } from 'gooru-web/config/config';
 
 /**
  * Serializer for the Authentication (Login) with API 3.0

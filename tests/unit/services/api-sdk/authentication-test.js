@@ -36,7 +36,6 @@ test('authenticateAsAnonymous', function(assert) {
 
 test('authenticateWithCredentials', function(assert) {
   const service = this.subject();
-  const response = {};
   const expectedData = {
     isAnonymous: false,
     username: 'username',

@@ -177,7 +177,8 @@ export default Ember.Object.extend({
   readClassReportStatus: function(classId, courseId) {
     const adapter = this;
     const namespace = adapter.get('reportNamespace');
-    const url = `${namespace}/class/${classId}/course/${courseId}/download/request`;
+    const sessionToken = this.get('session.token-api3');
+    const url = `${namespace}/class/${classId}/course/${courseId}/download/request?sessionToken=${sessionToken}`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',

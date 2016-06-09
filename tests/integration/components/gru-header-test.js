@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
-import { encodeTerm } from 'gooru-web/utils/encode-term';
 import wait from 'ember-test-helpers/wait';
 import ClassModel from 'gooru-web/models/content/class';
 
