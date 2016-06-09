@@ -44,11 +44,11 @@
                     </label>
 
                     {{#if L1Standard.children.length}}
-                      <button data-toggle="collapse" data-target="#{{L1Standard.accordionId}}">
+                      <button data-toggle="collapse" class="collapsed" data-target="#{{L1Standard.accordionId}}">
                         {{gru-icon name='keyboard_arrow_up'}}
                         {{gru-icon name='keyboard_arrow_down'}}
                       </button>
-                      <ul id="{{L1Standard.accordionId}}" class="collapse in level-panel sublevel-1">
+                      <ul id="{{L1Standard.accordionId}}" class="collapse level-panel sublevel-1">
 
                         {{#each L1Standard.children as |L2Standard|}}
 
@@ -66,11 +66,12 @@
 
                               {{#if L2Standard.children.length}}
                                 <button data-toggle="collapse"
+                                        class="collapsed"
                                         data-target="#{{L2Standard.accordionId}}">
                                   {{gru-icon name='keyboard_arrow_up'}}
                                   {{gru-icon name='keyboard_arrow_down'}}
                                 </button>
-                                <ul id="{{L2Standard.accordionId}}" class="collapse in level-panel sublevel-2">
+                                <ul id="{{L2Standard.accordionId}}" class="collapse level-panel sublevel-2">
 
                                   {{#each L2Standard.children as |LearningTarget|}}
                                     <li>
