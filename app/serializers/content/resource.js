@@ -109,7 +109,12 @@ export default Ember.Object.extend({
 
     if (resource.get("isUrlResource")) {
       if(resource.get("displayGuide") && (resource.get("displayGuide.is_broken") ===1 || resource.get("displayGuide.is_frame_breaker") ===1)) {
-        const url = "http:" + basePath + resource.get("url");
+        var url = resource.get("url");
+        var pattern = /^((http|https|ftp):\/\/)/;
+
+        if(!pattern.test(url)) {
+          url = "http:" + basePath + url;
+        }
         resource.set("url", url);
       }
       else{
@@ -121,6 +126,5 @@ export default Ember.Object.extend({
     }
     return resource;
   }
-
 });
 

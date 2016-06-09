@@ -219,6 +219,26 @@
         min-height: 370px;
         iframe {}
       }
+
+      .not-iframe {
+        text-align: center;
+        padding: 25px;
+        .panel-header {
+          margin: 0 0 40px 0;
+        }
+        p.description {
+          line-height: $font-size-base;
+        }
+        p.title, .view-resource-button {
+          font-size: $font-size-large;
+          font-weight: 300;
+          margin: 0 0 7px 0;
+        }
+        .panel-footer {
+          background-color: $white;
+          margin: 190px 0 0 0;
+        }
+      }
     }
   }
 }
