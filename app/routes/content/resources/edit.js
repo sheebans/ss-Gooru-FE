@@ -3,8 +3,10 @@ import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
-    collectionId:{}
+    collectionId:{},
+    editing:{}
   },
+
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -37,6 +39,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   model: function (params) {
     var resource = this.get('resourceService').readResource(params.resourceId);
+    var isEditing = params.editing;
 
     var collection = null;
 
@@ -45,13 +48,19 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     }
     return Ember.RSVP.hash({
       resource: resource,
-      collection:collection
+      collection:collection,
+      isEditing: !!isEditing
     });
   },
 
   setupController(controller, model) {
-    controller.set('resource', model.resource);
-    controller.set('collection', model.collection);
-  }
+    var resource = model.resource;
 
+    controller.set('resource', resource);
+    controller.set('collection', model.collection);
+    controller.set('isEditing', model.isEditing);
+    if(model.isEditing) {
+      controller.set('tempResource', resource.copy());
+    }
+  }
 });
