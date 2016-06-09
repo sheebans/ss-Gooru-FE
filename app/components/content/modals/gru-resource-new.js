@@ -100,7 +100,7 @@ export default Ember.Component.extend({
           component.get('router').router.refresh();
           component.triggerAction({action: 'closeModal'});
         }, function(error) {
-          var collectionType = component.get('i18n').t(component.get('collectionType')).toLowerCase();
+          var collectionType = this.get('i18n').t(`common.${this.get('collectionType').toLowerCase()}`);
           component.get('notifications').error(component.get('i18n').t('common.errors.resource-not-added-to-collection', {collectionType}).string);
           Ember.Logger.error(error);
           component.$('.resource-new button.add-btn').prop('disabled', false);
