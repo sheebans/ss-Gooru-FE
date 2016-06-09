@@ -92,7 +92,7 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
     },
 
     /**
-    * Route
+    * Route to edit with correct query params.
     */
     edit: function(item) {
       var route = item.get('format') ==='question' ? "content.questions.edit" : "content.resources.edit";
@@ -103,7 +103,7 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
         }
       });
     },
-    
+
     copy: function(builderItem) {
       var model = {
         content: this.get('model'),
