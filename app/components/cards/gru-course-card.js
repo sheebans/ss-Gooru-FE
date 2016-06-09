@@ -76,7 +76,7 @@ export default Ember.Component.extend(ModalMixin, {
    * Edit enabled is a flag for whether the remix button is enabled or not.
    * @property {Boolean} course
    */
-  isRemixEnabled:false,
+  isRemixEnabled:true,
   /**
    * Edit enabled is a flag for whether the preview button is enabled or not.
    * @property {Boolean} course
@@ -88,12 +88,6 @@ export default Ember.Component.extend(ModalMixin, {
    * @property {Boolean}
    */
   isEyeVisible: true,
-
-  /**
-   * Indicates if remix is enabled
-   * @property {boolean}
-   */
-  isRemixEnabled: true,
 
   /**
    * @property {Array} users

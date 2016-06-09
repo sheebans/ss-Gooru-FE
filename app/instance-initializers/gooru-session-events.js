@@ -13,7 +13,7 @@ export function initialize(instance) {
       window.location.reload();
     }
   });
-};
+}
 
 export default {
   initialize,
