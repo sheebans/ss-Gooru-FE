@@ -129,7 +129,7 @@ export default Ember.Component.extend({
    * of the narration -if there is one)
    */
   calculateResourceContentHeight: function() {
-    if (this.get('resource.isUrlResource') || this.get("resource.isPDFResource")) {
+    if (this.get('resource.isUrlResource') || this.get("resource.isPDFResource") && this.get("isNotIframeUrl")===false) {
       var narrationHeight = this.$(".narration").innerHeight();
       var contentHeight = this.$('.content').height();
 
