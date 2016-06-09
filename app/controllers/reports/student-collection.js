@@ -115,9 +115,9 @@ export default Ember.Controller.extend({
             assessmentResult.set('mastery', standardsSummary);
             standardsSummary.forEach(function(standardSummary) {
               controller.get('searchService').searchResources('*', {
-                courseId: '00510f7b-8ccc-4fe9-8816-173ac48f7c78', //controller.get('courseId'),
-                taxonomies: ['NGSS.K12.SC-3-MO-01-01','CCSS.K12.MA-HSN-VM-B'], //[standardSummary.get('id')],
-                // publishStatus: 'unpublished'  // TODO this parameter needs to be removed once we go to Production
+                courseId: controller.get('courseId'),
+                taxonomies: [standardSummary.get('id')],
+                publishStatus: 'unpublished'  // TODO this parameter needs to be removed once we go to Production
               }).then(function(resources) {
                 const suggestedResources = resources.map(function(resource) {
                   return {
