@@ -145,7 +145,7 @@ export default Ember.Controller.extend({
     this.set("pagination", {
       page: 0,
       pageSize: DEFAULT_PAGE_SIZE
-    })
+    });
   },
   setInvalidSearchTerm : function(value){
     this.get('appController').setInvalidSearchTerm(value);

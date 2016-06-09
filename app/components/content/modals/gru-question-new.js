@@ -101,9 +101,9 @@ export default Ember.Component.extend({
           component.$().attr('tabindex', 0).focus();
         }
       }, 400);
-      component.$().off('keyup').on('keyup', function(e) {
+      component.$().off('keyup').on('keyup', function() {
         var keyCode = (event.keyCode ? event.keyCode : event.which);
-        if (keyCode == 13) {
+        if (keyCode === 13) {
           component.$('button[type=submit]').trigger('click');
         }
       });
