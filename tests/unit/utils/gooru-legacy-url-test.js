@@ -80,6 +80,13 @@ test('routeParams for collection-play with content id', function (assert) {
   assert.deepEqual(legacyUrl.get("routeParams"), ["player", "120", { queryParams: { resourceId: "100" }}], "Wrong params");
 });
 
+test('routeParams for collection-play with invalid content id, cid={1}', function (assert) {
+  const legacyUrl = GooruLegacyUrl.create({
+    url : "#collection-play&id=120&cid={1}"
+  });
+  assert.deepEqual(legacyUrl.get("routeParams"), ["player", "120"], "Wrong params");
+});
+
 test('routeParams for assessment-play with no content id', function (assert) {
   const legacyUrl = GooruLegacyUrl.create({
     url : "#assessment-play&id=120"
@@ -92,6 +99,13 @@ test('routeParams for assessment-play with content id', function (assert) {
     url : "#assessment-play&id=120&cid=100"
   });
   assert.deepEqual(legacyUrl.get("routeParams"), ["player", "120", { queryParams: { resourceId: "100" }}], "Wrong params");
+});
+
+test('routeParams for assessment-play with invalid content id, cid={1}', function (assert) {
+  const legacyUrl = GooruLegacyUrl.create({
+    url : "#assessment-play&id=120&cid={1}"
+  });
+  assert.deepEqual(legacyUrl.get("routeParams"), ["player", "120"], "Wrong params");
 });
 
 test('routeParams for resource-play', function (assert) {

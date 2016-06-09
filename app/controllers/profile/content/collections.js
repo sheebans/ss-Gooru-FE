@@ -7,8 +7,8 @@ export default Ember.Controller.extend({
   // Actions
 
   actions: {
-    openContentPlayer: function(collectionId) {
-      this.transitionToRoute('player', collectionId);
+    openContentPlayer: function(collection) {
+      this.transitionToRoute('player', collection.id);
     },
 
     showMoreResults: function(){
