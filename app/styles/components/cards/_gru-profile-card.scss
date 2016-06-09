@@ -21,10 +21,11 @@
       overflow: hidden;
       border-radius: 50%;
       background-clip: padding-box;
-      .img-circle {
+      height: 9rem;
+      width: 9rem;
+      img {
         display: block;
-        height: 9rem;
-        width: 9rem;
+        width: 100%;
         margin: -1px;
         border-radius: 0;
         background: url(/assets/gooru/profile.png) center center;
@@ -80,10 +81,8 @@
         margin: 0;
         display: inline-block;
         vertical-align: middle;
-        .img-circle {
-          height: 3rem;
-          width: 3rem;
-        }
+        height: 3rem;
+        width: 3rem;
       }
     }
     > .social {
@@ -105,8 +104,6 @@
       .img-wrapper {
         margin-left: -3.5rem;
         margin-right: 0.5rem;
-        .img-circle {
-        }
       }
     }
     > .social {
