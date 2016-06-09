@@ -52,8 +52,9 @@
 
 .home-navigator {
   .nav-tabs {
-    box-shadow: inset 0 -1px 0 $gray-light;
-
+    @media (min-width: $screen-sm) {
+      box-shadow: inset 0 -1px 0 $gray-light;
+    }
     li{
       margin-right: 15px;
       a{

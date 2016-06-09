@@ -33,7 +33,22 @@
       </div>
     </div>
     <div class="description">
-      <div>{{class.greeting}}</div>
+      {{#if class.isArchived}}
+        {{#if class.isReportAvailable}}
+            <div> {{t "cards.gru-class-card.archived.download-report" }}</div>
+        {{/if}}
+        {{#unless class.hasCourse}}
+            <div>{{t "cards.gru-class-card.archived.no-report-available" }}</div>
+        {{/unless}}
+        {{#if class.isReportInProgress}}
+            <div>{{t "cards.gru-class-card.archived.report-in-progress" }}</div>
+        {{/if}}
+        {{#if class.canRequestReport}}
+            <div>{{t "cards.gru-class-card.archived.request-report" }}</div>
+        {{/if}}
+      {{else}}
+          <div>{{class.greeting}}</div>
+      {{/if}}
     </div>
     {{#if class.isArchived}}
     <span class="archived-actions">
