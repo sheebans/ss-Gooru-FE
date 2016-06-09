@@ -777,6 +777,12 @@ export default {
     "secondStepDescription-2": "If you have any questions, please contact"
   },
 
+  "reset-password": {
+    "new-password": "Enter your new password",
+    "new-password-confirm": "Confirm your password",
+    "title": "Reset password"
+  },
+
   "footer": {
     "footerDescription": "Gooru is committed to keeping its platform open-source and community created content CC0.",
     "company": "Company",

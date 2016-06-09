@@ -80,8 +80,9 @@ export default buildValidations({
       regex: /^\w+$/,
       message: "Please don't use special characters."
     }),
-    validator(function(value,options,model/* ,attribute*/) {
-      return value !== model.get('password') ? `Passwords do not match.` : true ;
+    validator('confirmation', {
+      on: 'password',
+      message: 'Passwords do not match.'
     })
   ],
 

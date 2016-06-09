@@ -17,6 +17,7 @@ Router.map(function() {
 
   this.route('sign-in');
   this.route('forgot-password');
+  this.route('reset-password');
   this.route('sign-up');
   this.route('sign-up-finish');
   this.route('logout');
