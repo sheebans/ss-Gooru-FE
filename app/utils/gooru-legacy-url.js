@@ -75,7 +75,10 @@ export default Ember.Object.extend({
     let params = null;
     if (this.get("isCollectionPlayer") || this.get("isAssessmentPlayer")) {
       const contentId = legacyUrl.get("contentId");
-      params = contentId ? ["player", id, { queryParams: { resourceId: contentId }}] : ["player", id];
+      const validContentId = contentId && contentId.indexOf("{") < 0; // sometimes it contains cid={1}
+      params = (contentId && validContentId) ?
+        ["player", id, { queryParams: { resourceId: contentId }}] :
+        ["player", id];
     }
     else if (this.get("isResourcePlayer")){
       params = ["content.resources.play", legacyUrl.get("id")];
