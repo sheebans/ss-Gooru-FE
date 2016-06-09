@@ -464,96 +464,6 @@ test('findSubjectById for a non-loaded category', function(assert) {
 });
 */
 
-test('Sort codes', function(assert) {
-  const service = this.subject();
-  const result = [
-    [{
-      "id": "L0A",
-      "codeType": "standard_level_0"
-    },{
-      "id": "L0B",
-      "codeType": "standard_level_0"
-    }],
-    [{
-      "id": "L1A",
-      "codeType": "standard_level_1"
-    },{
-      "id": "L1B",
-      "codeType": "standard_level_1"
-    }],
-    [{
-      "id": "L2A",
-      "codeType": "standard_level_2"
-    },{
-      "id": "L2B",
-      "codeType": "standard_level_2"
-    }],
-    [{
-      "id": "LT0A",
-      "codeType": "learning_target_level_0"
-    },{
-      "id": "LT0B",
-      "codeType": "learning_target_level_0"
-    }],
-    [{
-      "id": "LT1A",
-      "codeType": "learning_target_level_1"
-    },{
-      "id": "LT1B",
-      "codeType": "learning_target_level_1"
-    }],
-    [{
-      "id": "LT2A",
-      "codeType": "learning_target_level_2"
-    },{
-      "id": "LT2B",
-      "codeType": "learning_target_level_2"
-    }],
-  ];
-  const codes = [
-    {
-      "id": "L0A",
-      "codeType": "standard_level_0"
-    }, {
-      "id": "L1A",
-      "codeType": "standard_level_1"
-    }, {
-      "id": "L2A",
-      "codeType": "standard_level_2"
-    }, {
-      "id": "LT0A",
-      "codeType": "learning_target_level_0"
-    }, {
-      "id": "LT1A",
-      "codeType": "learning_target_level_1"
-    }, {
-      "id": "LT2A",
-      "codeType": "learning_target_level_2"
-    }, {
-      "id": "L0B",
-      "codeType": "standard_level_0"
-    }, {
-      "id": "L1B",
-      "codeType": "standard_level_1"
-    }, {
-      "id": "L2B",
-      "codeType": "standard_level_2"
-    }, {
-      "id": "LT0B",
-      "codeType": "learning_target_level_0"
-    }, {
-      "id": "LT1B",
-      "codeType": "learning_target_level_1"
-    }, {
-      "id": "LT2B",
-      "codeType": "learning_target_level_2"
-    }
-  ];
-
-  var standards = service.sortCodes(codes);
-  assert.deepEqual(standards, result, 'Standard Level 0');
-});
-
 test('Create standards hierarchy -all in L0', function(assert) {
   const service = this.subject();
 
@@ -704,15 +614,15 @@ test('Create standards hierarchy -multi-level learning targets', function(assert
     "codeType": 'learning_target_level_0'
   }, {
     "id": "4A",
-    "parentTaxonomyCodeId": "3A",
+    "parentTaxonomyCodeId": "2A",
     "codeType": 'learning_target_level_1'
   }, {
     "id": "4B",
-    "parentTaxonomyCodeId": "3A",
+    "parentTaxonomyCodeId": "2A",
     "codeType": 'learning_target_level_1'
   }, {
     "id": "5A",
-    "parentTaxonomyCodeId": "4A",
+    "parentTaxonomyCodeId": "2A",
     "codeType": 'learning_target_level_2'
   }];
 
