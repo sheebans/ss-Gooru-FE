@@ -196,6 +196,16 @@ export default Ember.Controller.extend(SessionMixin, {
    */
   showReport: false,
 
+  /**
+   * Indicates if the current resource type is resource
+   * @property {boolean}
+   */
+  isNotIframeUrl: Ember.computed("resource", function(){
+    const resource = this.get("resource");
+
+    return (resource && resource.displayGuide && (resource.displayGuide.is_broken ===1 || resource.displayGuide.is_frame_breaker ===1));
+  }),
+
   // -------------------------------------------------------------------------
   // Observers
 

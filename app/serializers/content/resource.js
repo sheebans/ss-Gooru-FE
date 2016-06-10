@@ -77,6 +77,7 @@ export default Ember.Object.extend({
     const serializer = this;
     const format = ResourceModel.normalizeResourceFormat(resourceData.content_subformat);
     const standards = resourceData.taxonomy || {};
+    const basePath = serializer.get('session.cdnUrls.content');
     const resource = ResourceModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: resourceData.id,
       title: resourceData.title,
@@ -92,7 +93,8 @@ export default Ember.Object.extend({
         publisher: resourceData.metadata && resourceData.metadata.publisher ? resourceData.metadata.publisher : null
       },
       isVisibleOnProfile: typeof resourceData['visible_on_profile'] !== 'undefined' ? resourceData['visible_on_profile'] : true,
-      order: resourceData.sequence_id
+      order: resourceData.sequence_id,
+      displayGuide: resourceData['display_guide']
     });
 
     //is full path if it has protocol
@@ -100,19 +102,29 @@ export default Ember.Object.extend({
 
     if (resource.get("isImageResource") || resource.get("isPDFResource")){
       if (!isFullPath){ // if it is a relative url, load from content cdn
-        const basePath = serializer.get('session.cdnUrls.content');
         const url = resourceData.url ? basePath + resourceData.url : null;
         resource.set("url", url);
       }
     }
+
     if (resource.get("isUrlResource")) {
-      if (!isFullPath){ //if no protocol add http as default
-        const url = resourceData.url ? "http://" + resourceData.url : null;
+      if(resource.get("displayGuide") && (resource.get("displayGuide.is_broken") ===1 || resource.get("displayGuide.is_frame_breaker") ===1)) {
+        var url = resource.get("url");
+        var pattern = /^((http|https|ftp):\/\/)/;
+
+        if(!pattern.test(url)) {
+          url = "http:" + basePath + url;
+        }
         resource.set("url", url);
+      }
+      else{
+        if (!isFullPath){ //if no protocol add http as default
+          const url = resourceData.url ? "http://" + resourceData.url : null;
+          resource.set("url", url);
+        }
       }
     }
     return resource;
   }
-
 });
 

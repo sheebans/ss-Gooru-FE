@@ -18,10 +18,6 @@ export default Ember.Component.extend({
       if(this.get("onRemove")) {
         this.get("onRemove")(tag);
       }
-    },
-
-    showAll: function(){
-      this.$('.all-tags').modal('toggle');
     }
   },
 

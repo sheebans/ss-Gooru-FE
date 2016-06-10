@@ -17,15 +17,6 @@
         color: $white;
       }
 
-      .taxonomy.gru-taxonomy-tag-list {
-        .all-tags {
-          .modal-title, .close > span {
-            color: $gray-base !important;
-          }
-        }
-      }
-
-
       .header-content {
         padding: 15px 5%;
         @media (min-width: $screen-md) {

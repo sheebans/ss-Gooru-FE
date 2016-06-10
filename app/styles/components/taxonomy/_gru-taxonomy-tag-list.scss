@@ -5,9 +5,8 @@
     cursor: pointer;
   }
 
-  .all-tags {
-    .close, .modal-title {
-      color: $gray-base;
-    }
+  &.tags-tooltip { /* the & is necessary because the tooltip is injected outside of the element */
+    max-width: 300px;
+    background-color: $dark-200;
   }
 }

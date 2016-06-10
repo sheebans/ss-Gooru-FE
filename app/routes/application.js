@@ -19,6 +19,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
    */
   classService: Ember.inject.service("api-sdk/class"),
 
+  session: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Methods
@@ -131,11 +132,12 @@ export default Ember.Route.extend(PublicRouteMixin, {
    */
   handleMarketingSiteIfNecessary: function() {
     const route = this;
+    const anonymous = route.get("session.isAnonymous");
     const url = route.get("router.url");
     const isIndex = url === "/" || url.indexOf("/index") > 0;
     const isProd = Env.environment === 'production';
     const googleSignIn = url.indexOf("access_token") > 0; //if it has the access_token parameter
-    if (isIndex && !googleSignIn && isProd) {
+    if (anonymous && isIndex && !googleSignIn && isProd) {
       window.location = Env.marketingSiteUrl; //this is not an ember route, see nginx.conf
       return true;
     }

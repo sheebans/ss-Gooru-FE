@@ -293,10 +293,14 @@
           @include flexbox;
           @include justify-content(center);
           @include align-items(center);
-          img {
-            border-radius: 15px;
+          .img-container {
             width: 30px;
             height: 30px;
+            overflow: hidden;
+            border-radius: 15px;
+            img {
+              width: 100%;
+            }
           }
           .username {
             margin-left: 10px;
