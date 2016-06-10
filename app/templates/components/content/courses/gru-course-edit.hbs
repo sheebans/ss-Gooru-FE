@@ -2,11 +2,11 @@
   <h1>{{t "common.edit-course"}}</h1>
   <div class="actions">
     <button class="btn btn-default btn-icon" title="{{t 'common.delete'}}" {{action "deleteCourse"}}>{{gru-icon name="delete"}}</button>
-    <button class="btn btn-default btn-icon" title="{{t 'common.add-collaborator'}}">{{gru-icon name="person_add"}}</button>
+    <button class="btn btn-default btn-icon out-of-scope" title="{{t 'common.add-collaborator'}}">{{gru-icon name="person_add"}}</button>
     {{#gru-share-pop-over tagName="button" type="course"}}
       {{gru-icon name="insert_link"}}
     {{/gru-share-pop-over}}
-    <button class="btn btn-default">{{t "content.courses.edit.assign-to-class"}}</button>
+    <button class="btn btn-default out-of-scope">{{t "content.courses.edit.assign-to-class"}}</button>
     {{#link-to 'content.courses.play' course.id class="btn btn-default preview" tagName="button"}}{{t "common.preview"}}{{/link-to}}
   </div>
 
@@ -63,7 +63,7 @@
           showCourses=true
         }}
 
-        {{content.gru-audience isEditing=isEditing srcSelectedAudiences=course.metadata editSelectedAudiences=tempCourse.metadata}}
+        {{!content.gru-audience isEditing=isEditing srcSelectedAudiences=course.metadata editSelectedAudiences=tempCourse.metadata}}
 
         <div class="use-case">
           <label>

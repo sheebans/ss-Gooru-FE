@@ -31,12 +31,12 @@ export default Ember.Component.extend({
       }else{
         //Check if the questions details are showing on table (md or sm devices) or  a list (xs devices)
         if ($elTable.length) {
-          $('.gru-assessment-report').animate({
-            scrollTop: $elTable.offset().top
+          $('html,body').animate({
+            scrollTop: $elTable.offset().top - $('.controller.class.analytics.collection.student').offset().top
           }, animationSpeed);
         } else  if ($elList.length) {
-          $('.gru-assessment-report').animate({
-            scrollTop: $elList.offset().top
+          $('html,body').animate({
+            scrollTop: $elList.offset().top - $('.controller.class.analytics.collection.student').offset().top
           }, animationSpeed);
         }else {
           Ember.Logger.error("No element was found for selectorTable: " + selectorTable);
