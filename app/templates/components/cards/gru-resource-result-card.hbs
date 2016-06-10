@@ -2,17 +2,17 @@
   <div class="panel-body">
     <div class="card-icon">
       {{#if item.resource.isQuestion }}
-        <i class="question-icon"></i>
+        {{#link-to "content.questions.play" item.resource.id class="pointer"}}<i class="question-icon"></i>{{/link-to}}
       {{else}}
-        <i class="{{item.resource.resourceFormat}}-icon"></i>
+        {{#link-to "content.resources.play" item.resource.id class="pointer"}}<i class="{{item.resource.resourceFormat}}-icon"></i>{{/link-to}}
       {{/if}}
     </div>
     <div class="resource-description">
       {{#if item.resource.isQuestion }}
-        <div class="title">{{item.resource.text}}</div>
+        {{#link-to "content.questions.play" item.resource.id class="pointer"}}<div class="title">{{item.resource.text}}</div>{{/link-to}}
         <div class="format">{{t (concat 'common.question-type.' item.resource.questionType) }}</div>
       {{else}}
-        <div class="title">{{item.resource.title}}</div>
+        {{#link-to "content.resources.play" item.resource.id class="pointer"}}<div class="title">{{item.resource.title}}</div>{{/link-to}}
         <div class="format">{{t (concat 'common.resource-format.' item.resource.resourceFormat) }}</div>
       {{/if}}
     </div>
