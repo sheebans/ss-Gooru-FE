@@ -28,5 +28,29 @@
 </header>
 
 <section>
-  {{component resourceComponent resource=playerResource calculatedResourceContentHeight=calculatedResourceContentHeight}}
+  {{#if isNotIframeUrl}}
+    <div class="panel panel-default not-iframe">
+      <div class="panel-header">
+        <p class="title">
+          {{t 'player.gru-viewer.not-iframe-url.header_1'}}<br>
+          {{t 'player.gru-viewer.not-iframe-url.header_2'}}
+        </p>
+      </div>
+      <div class="panel-body">
+        <a href="{{{playerResource.url}}}" class="btn btn-primary view-resource-button" target="_blank">{{t "player.gru-viewer.not-iframe-url.view-resource"}}</a>
+      </div>
+      <div class="panel-footer">
+        <p class="title">
+          {{t 'player.gru-viewer.not-iframe-url.footer_1'}}
+        </p>
+        <p class="description">
+          {{t 'player.gru-viewer.not-iframe-url.footer_2'}}<br>
+          {{t 'player.gru-viewer.not-iframe-url.footer_3'}}<br>
+          {{t 'player.gru-viewer.not-iframe-url.footer_4'}}
+        </p>
+      </div>
+    </div>
+  {{else}}
+    {{component resourceComponent resource=playerResource calculatedResourceContentHeight=calculatedResourceContentHeight}}
+  {{/if}}
 </section>

@@ -44,7 +44,11 @@ test('normalizeReadResource', function(assert) {
     visible_on_profile: true,
     sequence_id: 3,
     creator_id: 'anyID',
-    narration: 'any narration'
+    narration: 'any narration',
+    display_guide: {
+      'is_broken': 1,
+      'is_frame_breaker': 1
+    }
   };
 
   const resource = serializer.normalizeReadResource(resourceData);
@@ -60,8 +64,8 @@ test('normalizeReadResource', function(assert) {
   assert.equal(resource.get("metadata.amIThePublisher"), false, 'Wrong amIThePublisher');
   assert.equal(resource.get("metadata.publisher"), null, 'Wrong publisher');
   assert.equal(resource.get("isVisibleOnProfile"), true, 'Wrong isVisibleOnProfile');
+  assert.equal(resource.get("displayGuide.is_frame_breaker"), 1, 'Url is going to be broke in a frame');
   assert.equal(resource.get("order"), 3, 'Wrong order');
-
 });
 
 test('normalizeReadResource for image resource with relative path', function(assert) {
@@ -98,3 +102,22 @@ test('normalizeReadResource for url resource with no full path', function(assert
   assert.equal(resource.get("url"), "http://any", 'Wrong url');
 
 });
+
+//TODO
+
+//test('normalizeReadResource for url broken/frame_breaker', function(assert) {
+//  const serializer = this.subject();
+//  const resourceData = {
+//    url: 'any',
+//    content_format:"resource",
+//    content_subformat: 'webpage_resource',
+//    display_guide: {
+//      'is_broken': 1,
+//      'is_frame_breaker': 1
+//    }
+//  };
+//
+//  const resource = serializer.normalizeReadResource(resourceData);
+//  assert.equal(resource.get("url"), "http://dev-content-gooru-org.s3-us-west-1.amazonaws.com/any", 'Wrong link-out');
+//
+//});

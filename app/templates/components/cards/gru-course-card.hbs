@@ -12,7 +12,7 @@
             </div>
           {{/if}}
         {{else}}
-          {{#if course.isPublished}}
+          {{#if (and course.isPublished isRemixEnabled)}}
             <div class="remix-button">
                 <button class="btn btn-block btn-success" {{action 'remixCourse'}}>{{t "common.remix"}}</button>
             </div>

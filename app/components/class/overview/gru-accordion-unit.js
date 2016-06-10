@@ -1,6 +1,5 @@
 import Ember from 'ember';
-import AccordionMixin from '../../../mixins/gru-accordion';
-
+import AccordionMixin from 'gooru-web/mixins/gru-accordion';
 // Whenever the observer 'parsedLocationChanged' is running, this flag is set so
 // clicking on the units should not update the location
 var isUpdatingLocation = false;
@@ -233,8 +232,8 @@ export default Ember.Component.extend(AccordionMixin, {
     // Load the lessons and users in the course when the component is instantiated
     let component = this;
     component.set("loading", true);
-    component.getLessons().then(function(performances) {
-      component.set('items', performances);
+    component.getLessons().then(function(lessons) {
+      component.set('items', lessons);
       component.set("loading", false);
     });
   },
@@ -244,7 +243,7 @@ export default Ember.Component.extend(AccordionMixin, {
    *
    * @function
    * @requires api-sdk/lesson#findByClassAndCourseAndUnit
-   * @returns {Ember.RSVP.Promise}
+   * @returns {Lesson[]}
    */
   getLessons: function() {
     const component = this;
@@ -271,13 +270,13 @@ export default Ember.Component.extend(AccordionMixin, {
                 }
                 if (isTeacher) {
                   const averageScore = performance.calculateAverageScoreByItem(lesson.get('id'));
-                  lesson.set('classAverageScore', averageScore);
+                  lesson.set('performance', Ember.Object.create({
+                    score: averageScore,
+                    hasStarted: averageScore > 0
+                  }));
                 } else {
-                  const lessonPerformanceData = performance.findBy('id', lesson.get('id'));
-                  const completionDone = lessonPerformanceData ? lessonPerformanceData.get('completionDone') : 0;
-                  const completionTotal = lessonPerformanceData ? lessonPerformanceData.get('completionTotal') : 0;
-                  lesson.set('completionDone', completionDone);
-                  lesson.set('completionTotal', completionTotal);
+                  const lessonPerformance = performance.findBy('id', lesson.get('id'));
+                  lesson.set('performance', lessonPerformance);
                 }
               });
               return lessons;

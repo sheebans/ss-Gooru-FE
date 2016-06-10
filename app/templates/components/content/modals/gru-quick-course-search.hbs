@@ -11,7 +11,7 @@
   {{#each orderedCourses as |courseStack|}}
     {{#each courseStack as |course|}}
       <div class="{{course.id}}" {{action "selectCourse" course.id}}>
-          {{cards.gru-course-card course=course isEditEnabled=true isEyeVisible=false}}
+          {{cards.gru-course-card course=course isEditEnabled=true isEyeVisible=false isRemixEnabled=false}}
       </div>
     {{/each}}
   {{/each}}

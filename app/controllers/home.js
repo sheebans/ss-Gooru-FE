@@ -6,6 +6,11 @@ export default Ember.Controller.extend({
   // Dependencies
   classService: Ember.inject.service("api-sdk/class"),
 
+  /**
+   * @type {SessionService} Service to retrieve session information
+   */
+  session: Ember.inject.service("session"),
+
   // -------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------
@@ -21,14 +26,17 @@ export default Ember.Controller.extend({
       const classId = aClass.get("id");
       const courseId = aClass.get("courseId");
       const basePath = `${window.location.protocol}//${window.location.host}`;
-      const url = `${basePath}/api/nucleus-download-reports/v1/class/${classId}/course/${courseId}/download/file`;
+      const userId = this.get("session.userId");
+      const sessionToken = encodeURIComponent(this.get('session.token-api3'));
+      const url = `${basePath}/api/nucleus-download-reports/v1/class/${classId}/course/${courseId}/download/file?sessionToken=${sessionToken}&userId=${userId}`;
       Ember.$("#download_iframe").attr("src", url);
     },
 
     requestReport: function (aClass) {
       const classId = aClass.get("id");
       const courseId = aClass.get("courseId");
-      this.get("classService").requestClassReport(classId, courseId).then(function(status){
+      const userId = this.get("session.userId");
+      this.get("classService").requestClassReport(classId, courseId, userId).then(function(status){
         aClass.set("reportStatus", status);
       });
     }

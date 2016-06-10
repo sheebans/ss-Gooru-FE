@@ -5,7 +5,7 @@ import {CONTENT_TYPES, K12_CATEGORY} from 'gooru-web/config/config';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
-export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
+export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -194,7 +194,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
   editableTags: Ember.computed('tempCollection.standards.[]', function() {
-    return TaxonomyTag.getTaxonomyTags(this.get("tempCollection.standards"), true);
+    return TaxonomyTag.getTaxonomyTags(this.get("tempCollection.standards"), false, true);
   }),
 
   // ----------------------------

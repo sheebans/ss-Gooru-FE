@@ -5,6 +5,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
     collectionId:{},
     isCollection:{},
+    editing:{}
   },
   // -------------------------------------------------------------------------
   // Dependencies
@@ -45,10 +46,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   model: function (params) {
     var question = this.get('questionService').readQuestion(params.questionId);
-
     var collection = null;
-
     var isCollection = false;
+    var isEditing = params.editing;
 
     if(params.collectionId){
       if(params.isCollection==="true"){
@@ -62,16 +62,20 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     return Ember.RSVP.hash({
       question: question,
       collection:collection,
-      isCollection:isCollection
+      isCollection:isCollection,
+      isEditing: !!isEditing
     });
   },
 
   setupController(controller, model) {
+    var question = model.question;
 
-    controller.set('question', model.question);
-
+    controller.set('question', question);
     controller.set('collection', model.collection);
-
     controller.set('isCollection', model.isCollection);
+    controller.set('isEditing', model.isEditing);
+    if(model.isEditing) {
+      controller.set('tempQuestion', question.copy());
+    }
   }
 });

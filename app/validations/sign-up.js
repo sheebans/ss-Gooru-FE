@@ -10,14 +10,14 @@ export default buildValidations({
       }),
       validator('length', {
         min: 4,
-        max: 20,
+        max: 10,
         message: '{{description}}',
         descriptionKey: 'common.errors.username-length'
       }),
       validator('format', {
         regex: /^\w+$/,
         message: '{{description}}',
-        descriptionKey: 'common.errors.add-student-id'
+        descriptionKey: 'common.errors.special-characters'
       })
     ]
   },

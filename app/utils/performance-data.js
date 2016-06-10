@@ -48,36 +48,50 @@ export function createDataMatrix(headers, classPerformanceData) {
 }
 
 function createPerformanceObject(performance) {
+  const score = performance.get('score');
+  const timeSpent = performance.get('timeSpent');
   return Ember.Object.create({
-    score: performance.get('score'),
-    timeSpent: formatTime(performance.get('timeSpent')),
+    score: score,
+    timeSpent: formatTime(timeSpent),
+    hasStarted: score > 0 || timeSpent > 0,
     completionDone: performance.get('completionDone'),
     completionTotal: performance.get('completionTotal')
   });
 }
 
 function createUserAverageObject(studentPerformance) {
+  const score = studentPerformance.get('averageScore');
+  const timeSpent = studentPerformance.get('averageTimeSpent');
   return Ember.Object.create({
-    score: roundFloat(studentPerformance.get('averageScore')),
-    timeSpent: formatTime(roundFloat(studentPerformance.get('averageTimeSpent'))),
+    score: roundFloat(score),
+    timeSpent: formatTime(roundFloat(timeSpent)),
+    hasStarted: score > 0 || timeSpent > 0,
     completionDone: studentPerformance.get('sumCompletionDone'),
     completionTotal: studentPerformance.get('sumCompletionTotal')
   });
 }
 
 function createItemAverageObject(classPerformanceData, itemId) {
+  const score = classPerformanceData.calculateAverageScoreByItem(itemId);
+  const timeSpent = classPerformanceData.calculateAverageTimeSpentByItem(itemId);
+
   return Ember.Object.create({
-    score: roundFloat(classPerformanceData.calculateAverageScoreByItem(itemId)),
-    timeSpent: formatTime(roundFloat(classPerformanceData.calculateAverageTimeSpentByItem(itemId))),
+    score: roundFloat(score),
+    timeSpent: formatTime(roundFloat(timeSpent)),
+    hasStarted: score > 0 || timeSpent > 0,
     completionDone: classPerformanceData.calculateSumCompletionDoneByItem(itemId),
     completionTotal: classPerformanceData.calculateSumCompletionTotalByItem(itemId)
   });
 }
 
 function createClassAverageObject(classPerformanceData) {
+  const score = classPerformanceData.get('classAverageScore');
+  const timeSpent = classPerformanceData.get('classAverageTimeSpent');
+
   return Ember.Object.create({
-    score: roundFloat(classPerformanceData.get('classAverageScore')),
-    timeSpent: formatTime(roundFloat(classPerformanceData.get('classAverageTimeSpent'))),
+    score: roundFloat(score),
+    timeSpent: formatTime(roundFloat(timeSpent)),
+    hasStarted: score > 0 || timeSpent > 0,
     completionDone: classPerformanceData.get('classSumCompletionDone'),
     completionTotal: classPerformanceData.get('classSumCompletionTotal')
   });

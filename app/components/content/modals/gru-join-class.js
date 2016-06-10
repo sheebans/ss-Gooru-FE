@@ -77,7 +77,7 @@ export default Ember.Component.extend(Validations,{
     const component = this;
     component.$().on('keyup', '.modal-body', function(e) {
       var keyCode = (event.keyCode ? event.keyCode : event.which);
-      if (keyCode == 13) {
+      if (keyCode === 13) {
         $(e.target).blur().focus();
         component.$('.join-class-btn').trigger('click');
       }

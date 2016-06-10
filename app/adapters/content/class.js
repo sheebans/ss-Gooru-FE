@@ -172,12 +172,14 @@ export default Ember.Object.extend({
    * Gets the class report status for an archived class
    * @param {string} classId the class id
    * @param {string} courseId the course id
+   * @param {string} userId the user id
    * @returns {Promise.<string>} available|queued|in-progress
    */
-  readClassReportStatus: function(classId, courseId) {
+  readClassReportStatus: function(classId, courseId, userId) {
     const adapter = this;
     const namespace = adapter.get('reportNamespace');
-    const url = `${namespace}/class/${classId}/course/${courseId}/download/request`;
+    const sessionToken = encodeURIComponent(this.get('session.token-api3'));
+    const url = `${namespace}/class/${classId}/course/${courseId}/download/request?sessionToken=${sessionToken}&userId=${userId}`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',

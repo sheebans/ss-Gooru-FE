@@ -36,7 +36,6 @@
     }
 
     .browse-selector {
-      padding-top: 10px;
 
       .gru-browse-selector {
         margin-top: 10px;
@@ -67,7 +66,7 @@
             }
 
             .browse-panel {
-              height: 330px;
+              height: 420px;
               background-color: $gray-lighter;
               border-left: 1px solid $white;
               overflow: scroll;
@@ -190,6 +189,12 @@
                           margin-top: 10px;
                         }
 
+                        &.no-content {
+                          border-radius: 0;
+                          background-color: transparent;
+                          margin: 0;
+                        }
+
                         > ul {
                           background-color: $white;
                           border-radius: 3px;
@@ -232,8 +237,9 @@
 
       > span {
         display: block;
-        min-width: 130px;
+        min-width: 140px;
         text-transform: capitalize;
+        margin-top: 5px;
       }
     }
   }

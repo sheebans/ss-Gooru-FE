@@ -93,13 +93,13 @@
                   <div class="img-container pull-left">
                     <img class="img-responsive" src="{{session.userData.avatarUrl}}"/>
                   </div>
-                  <span class="username">{{session.userData.username}}</span>
+                  <span class="username">{{truncate text=session.userData.username maxLength=10}}</span>
                   {{gru-icon name='keyboard_arrow_down'}}
                 </a>
                 <ul class="dropdown-menu pull-right" role="menu" id="profile-dropdown">
                   <li class="navbar-nav-list">
                     {{#link-to 'profile.content.courses' session.userData.gooruUId class="navbar-link"}}
-                      <span class="username">{{session.userData.username}}</span>
+                      <span class="username">{{truncate text=session.userData.username maxLength=10}}</span>
                     {{/link-to}}
                   </li>
                   <li class="navbar-nav-list">

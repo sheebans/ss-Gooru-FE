@@ -185,7 +185,6 @@ export default Ember.Route.extend({
 
     controller.startAssessment();
 
-
     let resource = null;
     if (hasResources){
       resource = assessmentResult.get("lastVisitedResource");
