@@ -25,6 +25,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
   // Methods
 
   beforeModel: function(transition) {
+    this._super(...arguments);
     const marketing = this.handleMarketingSiteIfNecessary();
     if (marketing){
       transition.abort();

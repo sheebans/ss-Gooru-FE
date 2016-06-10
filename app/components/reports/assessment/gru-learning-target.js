@@ -12,6 +12,8 @@ import { correctPercentage } from 'gooru-web/utils/question-result';
  */
 export default Ember.Component.extend({
 
+  maxNumberOfDisplayableResources: 5,
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -68,6 +70,11 @@ export default Ember.Component.extend({
     return correctPercentage(this.get('questionsList'));
   }),
 
+  suggestedResources: Ember.computed('learningTarget.suggestedResources.[]', function() {
+    var suggestedResources = this.get('learningTarget.suggestedResources');
+    return suggestedResources.slice(0, this.get('maxNumberOfDisplayableResources'));
+  }),
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -76,9 +83,7 @@ export default Ember.Component.extend({
    * @param QuestionResult[]
    */
   getBubblesQuestions: function (questionResults) {
-
     let results = this.getQuestions(questionResults);
-
     return results.map(function (questionResult) {
       return Ember.Object.create({
         label: questionResult.get('question.order'),
@@ -90,9 +95,8 @@ export default Ember.Component.extend({
 
   getQuestions: function (questionResults) {
     let relatedQuestions = this.get('learningTarget.relatedQuestions');
-
     let questions = questionResults.filter(function (questionResult) {
-      return relatedQuestions.contains(questionResult.get("id"));
+      return relatedQuestions.contains(questionResult.get("resourceId"));
     });
     return questions;
   }

@@ -196,6 +196,24 @@ export default Ember.Object.extend({
       }
     }
     return Ember.A(taxonomyData);
+  },
+
+  /**
+   * Serialize a TaxonomyTagData object into a JSON representation only for Resource Player Events
+   *
+   * @param taxonomyData the taxonomyData object
+   * @returns {Object} a JSON Object
+   */
+  serializeTaxonomyForEvents: function(taxonomyData) {
+    var taxonomyResult = null;
+    if (taxonomyData && Ember.isArray(taxonomyData) && taxonomyData.length > 0) {
+      taxonomyResult = {};
+      taxonomyData.forEach(function(taxonomy) {
+        const taxonomyKey = taxonomy.get('id');
+        taxonomyResult[taxonomyKey] = taxonomy.get('code')
+      });
+    }
+    return taxonomyResult;
   }
 
 });

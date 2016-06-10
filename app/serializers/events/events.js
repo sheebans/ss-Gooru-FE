@@ -3,8 +3,19 @@ import {getQuestionUtil} from 'gooru-web/config/question';
 import {toTimestamp} from 'gooru-web/utils/utils';
 import Env from '../../config/environment';
 const ConfigEvent = Env['events'] || {};
+import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 
 export default Ember.Object.extend({
+
+  /**
+   * @property {TaxonomySerializer} taxonomySerializer
+   */
+  taxonomySerializer: null,
+
+  init: function () {
+    this._super(...arguments);
+    this.set('taxonomySerializer', TaxonomySerializer.create(Ember.getOwner(this).ownerInjection()));
+  },
 
   /**
    * Serializes a assessment result
@@ -79,13 +90,13 @@ export default Ember.Object.extend({
         "attemptStatus": (context.get("isStopEvent") ? resourceResult.get('attemptStatus') : undefined),
         "answerObject": util.toJSONAnswerObjects(userAnswer),
         "isStudent": context.get("isStudent"),
-        "taxonomyIds": []
+        "taxonomyIds": serializer.get('taxonomySerializer').serializeTaxonomyForEvents(resource.get('taxonomy'))
       };
     }
     else{
       serialized.payLoadObject = { //TODO looks for resource parameters
         "isStudent": context.get("isStudent"),
-        "taxonomyIds": []
+        "taxonomyIds": serializer.get('taxonomySerializer').serializeTaxonomyForEvents(resource.get('taxonomy'))
       };
     }
     return [serialized];

@@ -5,8 +5,8 @@
       <ul>
         {{#each remixedUsers as |remixedUser index|}}
           <li class="item user">
-            <img class="img-circle" src="{{remixedUser.avatarUrl}}" title="{{remixedUser.fullName}}" />
-            <span class="user-name">{{truncate text=remixedUser.firstName maxLength=10}}</span>
+            <img class="img-circle" src="{{remixedUser.avatarUrl}}" title="{{remixedUser.username}}" />
+            <span class="user-name">{{truncate text=remixedUser.username maxLength=10}}</span>
           </li>
         {{/each}}
       </ul>
@@ -18,8 +18,8 @@
       <ul>
         {{#each createdUsers as |createdUser index|}}
           <li class="item user">
-            <img class="img-circle" src="{{createdUser.avatarUrl}}" title="{{createdUser.fullName}}" />
-            <span class="user-name">{{truncate text=createdUser.firstName maxLength=10}}</span>
+            <img class="img-circle" src="{{createdUser.avatarUrl}}" title="{{createdUser.username}}" />
+            <span class="user-name">{{truncate text=createdUser.username maxLength=10}}</span>
           </li>
         {{/each}}
       </ul>

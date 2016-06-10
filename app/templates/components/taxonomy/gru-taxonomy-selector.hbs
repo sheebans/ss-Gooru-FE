@@ -46,15 +46,19 @@
         selectedTaxonomy=selectedTaxonomy
         onTaxonomySelected='selectTaxonomy'
       }}
-    <div class="tags">
-        {{taxonomy.gru-taxonomy-tag-list tags=editableTags onRemove=(action 'removeTag')}}
-    </div>
+      {{#if editableTags}}
+        <div class="tags">
+          {{taxonomy.gru-taxonomy-tag-list tags=editableTags onRemove=(action 'removeTag')}}
+        </div>
+      {{/if}}
     {{/if}}
   {{else}}
     {{#if showCourses}}
-    <div class="tags">
-      {{taxonomy.gru-taxonomy-tag-list tags=tags}}
-    </div>
+      {{#if tags}}
+        <div class="tags">
+          {{taxonomy.gru-taxonomy-tag-list tags=tags}}
+        </div>
+      {{/if}}
     {{/if}}
   {{/if}}
 </div>
