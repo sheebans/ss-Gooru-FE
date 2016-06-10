@@ -22,9 +22,12 @@
       vertical-align: middle;
     }
 
-    .gru-subject-picker .btn.dropdown-toggle {
-      margin-left: 1px;
-      background-color: $blue-400;
+    .gru-subject-picker .btn {
+      background-color: $green-300;
+
+      &.dropdown-toggle {
+        margin-left: 1px;
+      }
     }
   }
 
