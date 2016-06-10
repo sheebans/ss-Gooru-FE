@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import config from './config/environment';
+import googlePageview from './mixins/google-pageview';
 
-var Router = Ember.Router.extend({
+var Router = Ember.Router.extend(googlePageview, {
   location: config.locationType
 });
 
@@ -17,6 +18,7 @@ Router.map(function() {
 
   this.route('sign-in');
   this.route('forgot-password');
+  this.route('reset-password');
   this.route('sign-up');
   this.route('sign-up-finish');
   this.route('logout');

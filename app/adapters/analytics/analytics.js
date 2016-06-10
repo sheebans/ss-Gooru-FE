@@ -1,15 +1,11 @@
 import Ember from 'ember';
-import SessionMixin from 'gooru-web/mixins/session';
 
-export default Ember.Object.extend(SessionMixin, {
+export default Ember.Object.extend({
+
+  session: Ember.inject.service('session'),
 
   namespace: '/api/nucleus-insights/v2',
 
-  headers: Ember.computed('session.token', function() {
-    return {
-      'gooru-session-token': this.get('session.token-api3')
-    };
-  }),
 
   queryRecord: function(query) {
     const namespace = this.get('namespace');
@@ -23,10 +19,27 @@ export default Ember.Object.extend(SessionMixin, {
     const options = {
       type: 'GET',
       dataType: 'json',
-      headers: this.get('headers'),
+      headers: this.defineHeaders(),
       data: {}
     };
     return Ember.$.ajax(url, options);
+  },
+
+  getStandardsSummary: function(sessionId) {
+    const namespace = this.get('namespace');
+    const url = `${namespace}/session/${sessionId}/taxonomy/usage`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: this.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  defineHeaders: function() {
+    return {
+      'gooru-session-token': this.get('session.token-api3')
+    };
   }
 
 });

@@ -119,6 +119,11 @@ export default Ember.Object.extend({
   options: null,
 
   /**
+   * @property {Object[]} an array with Taxonomy data
+   */
+  taxonomy: [],
+
+  /**
    * @property {string} thumbnail url
    */
   thumbnailUrl: Ember.computed('thumbnail', function() {

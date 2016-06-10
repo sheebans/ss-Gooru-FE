@@ -120,12 +120,7 @@ export default Ember.Component.extend({
     this._super( ...arguments );
 
     var selected = this.get('selected');
-    var selectedTags;
-    //var shortcutTags, selectedPath;
-
-    Ember.Logger.assert(this.get('subject.courses'), 'Courses not found for subject');
-
-    selectedTags = selected.map(function(tagData) {
+    var selectedTags = selected.map(function(tagData) {
       return TaxonomyTag.create({
         isActive: true,
         isReadonly: true,
@@ -133,6 +128,12 @@ export default Ember.Component.extend({
         data: tagData
       });
     });
+
+    this.set('selectedTags', Ember.A(selectedTags));
+
+    //var shortcutTags, selectedPath;
+
+    Ember.Logger.assert(this.get('subject.courses'), 'Courses not found for subject');
 
     if (selected && selected.length) {
       let component = this;
@@ -146,8 +147,6 @@ export default Ember.Component.extend({
           var browseItems = component.get('browseItems');
 
           Ember.beginPropertyChanges();
-          component.set('selectedTags', Ember.A(selectedTags));
-
           selected.forEach(function(tagData, index) {
             var browseItem = null;
             var path = tagData.get('ancestorsPath');
@@ -248,11 +247,6 @@ export default Ember.Component.extend({
    * @see gru-browse-selector
    */
   selectedPath: [],
-
-  /**
-   * @property {TaxonomyTag[]} selectedTags - List of taxonomy tags created from @see selected.
-   */
-  selectedTags: Ember.A(),
 
   /**
    * @property {String} selectedTextKey - i18n text key for selected tags text.

@@ -161,7 +161,7 @@ export default Ember.Component.extend({
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
   editableTags: Ember.computed('selectedTaxonomy.[]', function() {
-    return TaxonomyTag.getTaxonomyTags(this.get("selectedTaxonomy"), true);
+    return TaxonomyTag.getTaxonomyTags(this.get("selectedTaxonomy"), false, true);
   }),
 
   /**

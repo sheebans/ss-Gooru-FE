@@ -87,6 +87,18 @@ export default Ember.Service.extend({
           reject(error);
         });
     });
+  },
+
+  getStandardsSummary: function(sessionId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('analyticsAdapter').getStandardsSummary(sessionId)
+        .then(function(response) {
+          resolve(service.get('analyticsSerializer').normalizeGetStandardsSummary(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
   }
 
 });

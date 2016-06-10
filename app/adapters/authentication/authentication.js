@@ -28,7 +28,8 @@ export default Ember.Object.extend({
         'client_key': Env['API-3.0'].clientKey,
         'client_id': Env['API-3.0'].clientId,
         'grant_type': (data.isAnonymous ? 'anonymous' : 'credential')
-      })
+      }),
+      global: false /* Stop global ajaxError event from triggering */
     };
     return Ember.$.ajax(url, options);
   },
@@ -73,7 +74,7 @@ export default Ember.Object.extend({
       headers: {
         'Authorization' : 'Token ' + data.accessToken
       },
-      global: false /* Stop global ajaxError event from triggerting */
+      global: false /* Stop global ajaxError event from triggering */
     };
     return Ember.$.ajax(url, options);
   }

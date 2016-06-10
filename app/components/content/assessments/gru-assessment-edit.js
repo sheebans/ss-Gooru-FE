@@ -1,9 +1,8 @@
 import Ember from 'ember';
 import CollectionEdit from 'gooru-web/components/content/collections/gru-collection-edit';
-import ModalMixin from 'gooru-web/mixins/modal';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
 
-export default CollectionEdit.extend(ModalMixin,{
+export default CollectionEdit.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -98,23 +97,6 @@ export default CollectionEdit.extend(ModalMixin,{
       this.actions.showModal.call(this,
         'content.modals.gru-delete-content',
         model, null, null, null, false);
-    },
-
-    selectSubject: function(subject){
-      this.set("selectedSubject", subject);
-    },
-
-    /**
-     * Remove tag data from the taxonomy list in tempUnit
-     */
-    removeTag: function (taxonomyTag) {
-      var tagData = taxonomyTag.get('data');
-      this.get('tempCollection.standards').removeObject(tagData);
-    },
-
-    openTaxonomyModal: function(){
-      this.openTaxonomyModal();
     }
-
   }
 });

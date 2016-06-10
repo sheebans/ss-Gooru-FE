@@ -312,3 +312,31 @@ test('forgotPassword', function(assert) {
       assert.deepEqual({}, response, 'Wrong response');
     });
 });
+
+test('resetPassword', function(assert) {
+  const adapter = this.subject();
+  const userId = 'user-id';
+  const password = 'password';
+  const token = 'token';
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  const routes = function() {
+    this.put('/api/nucleus-auth/v1/users/user-id/password', function(request) {
+      let requestBodyJson = JSON.parse(request.requestBody);
+      assert.equal(password, requestBodyJson['new_password']);
+      assert.equal(token, requestBodyJson['token']);
+      return [200, {'Content-Type': 'application/json'}, {}];
+    }, false);
+  };
+
+  this.pretender.map(routes);
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  adapter.resetPassword(userId, password, token)
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});

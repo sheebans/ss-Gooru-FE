@@ -176,12 +176,13 @@ export default Ember.Object.extend({
    * @param level taxonomy level
    * @returns {TaxonomyTagData[]} a TaxonomyTagData array
    */
-  normalizeTaxonomy: function(taxonomyPayload, level = TAXONOMY_LEVELS.STANDARD) {
+  normalizeTaxonomy: function(taxonomyPayload, level) {
     var taxonomyData = [];
     if (taxonomyPayload) {
       for (var key in taxonomyPayload) {
         if (taxonomyPayload.hasOwnProperty(key)) {
-          var taxonomy = taxonomyPayload[key];
+          let taxonomy = taxonomyPayload[key];
+          let isMicroStandard = (level) ? false : TaxonomyTagData.isMicroStandardId(key);
           taxonomyData.push(TaxonomyTagData.create({
             id: key,
             code: taxonomy.code,
@@ -189,12 +190,30 @@ export default Ember.Object.extend({
             parentTitle: taxonomy['parent_title'],
             description: taxonomy.description ? taxonomy.description : '',
             frameworkCode: taxonomy['framework_code'],
-            taxonomyLevel: level
+            taxonomyLevel: (level) ? level : isMicroStandard ? TAXONOMY_LEVELS.MICRO : TAXONOMY_LEVELS.STANDARD
           }));
         }
       }
     }
     return Ember.A(taxonomyData);
+  },
+
+  /**
+   * Serialize a TaxonomyTagData object into a JSON representation only for Resource Player Events
+   *
+   * @param taxonomyData the taxonomyData object
+   * @returns {Object} a JSON Object
+   */
+  serializeTaxonomyForEvents: function(taxonomyData) {
+    var taxonomyResult = null;
+    if (taxonomyData && Ember.isArray(taxonomyData) && taxonomyData.length > 0) {
+      taxonomyResult = {};
+      taxonomyData.forEach(function(taxonomy) {
+        const taxonomyKey = taxonomy.get('id');
+        taxonomyResult[taxonomyKey] = taxonomy.get('code')
+      });
+    }
+    return taxonomyResult;
   }
 
 });

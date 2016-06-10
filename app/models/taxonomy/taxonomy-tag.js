@@ -39,12 +39,12 @@ TaxonomyTag.reopenClass({
    * @param editable
    * @returns {Array}
    */
-  getTaxonomyTags: function (taxonomy = [], editable = false) {
+  getTaxonomyTags: function (taxonomy = [], editable = false, removable = false) {
     return taxonomy.map(function(tagData) {
       return TaxonomyTag.create({
         isActive: false,
         isReadonly: !editable,
-        isRemovable: editable,
+        isRemovable: removable,
         data: tagData
       });
     });
