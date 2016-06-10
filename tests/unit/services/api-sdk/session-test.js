@@ -125,14 +125,14 @@ test('authorize', function (assert) {
   };
 
   service.set('session', Ember.Object.create({
-    authenticate: function(useApi3, data) {
-      assert.deepEqual(expectedData, data, 'Wrong data');
-      return Ember.RSVP.resolve(response);
+    authorize: function(useApi3, block) {
+      assert.ok(true, 'authorize() function was called' );
+      block(null);
     }
   }));
 
   var done = assert.async();
-  service.signUp(user)
+  service.authorize()
     .then(function() {
       done();
     });
