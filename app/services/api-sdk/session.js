@@ -49,6 +49,21 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Authorizes with the specified user
+   * @param user - the user data
+   * @returns {*|Ember.RSVP.Promise}
+   */
+  authorize: function() {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve) {
+      service.get('session').authorize('authorizer:auth-api-3', function(err) {
+        if(err) return reject(err);
+        resolve();
+      });
+    });
+  },
+
+  /**
    * Updates a session userData
    * @param userData - the user data
    */

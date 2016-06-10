@@ -105,3 +105,35 @@ test('updateUserData', function (assert) {
   service.updateUserData(expectedData);
   assert.deepEqual(service.get('session.userData'), expectedData, 'Wrong userData');
 });
+
+
+test('authorize', function (assert) {
+  const service = this.subject();
+  const response = {};
+  const user = {
+    username: 'username',
+    password: 'password'
+  };
+  const expectedData = {
+    isAnonymous: false,
+    hasAccessToken: false,
+    hasUserData: true,
+    user: {
+      username: 'username',
+      password: 'password'
+    }
+  };
+
+  service.set('session', Ember.Object.create({
+    authenticate: function(useApi3, data) {
+      assert.deepEqual(expectedData, data, 'Wrong data');
+      return Ember.RSVP.resolve(response);
+    }
+  }));
+
+  var done = assert.async();
+  service.signUp(user)
+    .then(function() {
+      done();
+    });
+});
