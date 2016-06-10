@@ -15,6 +15,7 @@ export default BaseAuthenticator.extend({
   },
 
   authenticate: function(options) {
+    const authenticator = this;
     if (options.isAnonymous) {
       return this.get('authenticationService').authenticateAsAnonymous();
     } else if(options.hasAccessToken) {
@@ -22,7 +23,13 @@ export default BaseAuthenticator.extend({
     } else if(options.hasUserData) {
       return new Ember.RSVP.Promise(function(resolve) {resolve(options.user);});
     } else {
-      return this.get('authenticationService').authenticateWithCredentials(options.username, options.password);
+      return new Ember.RSVP.Promise(function(resolve, reject) {
+        authenticator.get('authenticationService').authenticateWithCredentials(options.username, options.password)
+          .then(resolve, function() {
+            // Authenticate as anonymous if it fails to mantain session
+            authenticator.get('authenticationService').authenticateAsAnonymous().then(resolve, reject);
+          });
+      });
     }
   }
 

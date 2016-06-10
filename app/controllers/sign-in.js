@@ -51,13 +51,12 @@ export default Ember.Controller.extend({
           controller.get("sessionService")
             .signInWithUser(user, true)
             .then(function() {
-              controller.set('didValidate', true);
-              // Trigger action in parent
-              controller.send('signIn');
-            })
-            .catch((reason) => {
-              if(reason.status===404 || reason.status===401){
+              if(controller.get('session.isAnonymous')){
                 controller.get("notifications").error(errorMessage);
+              } else {
+                controller.set('didValidate', true);
+                // Trigger action in parent
+                controller.send('signIn');
               }
             });
         } else {
