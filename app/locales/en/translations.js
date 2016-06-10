@@ -1019,6 +1019,12 @@ export default {
       "student": {
         one: "{{count}} Student",
         other: "{{count}} Students"
+      },
+      "archived":{
+        "request-report":"This class is archived and cannot be modified. Existing class data can be accessed via report.",
+        "report-in-progress":"Report generation can take up to 20 min. Please check back.",
+        "download-report":"Download your data for this class.",
+        "no-report-available":"This class has no assigned course content."
       }
     },
     "gru-course-card": {
