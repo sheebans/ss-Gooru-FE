@@ -156,3 +156,24 @@ test('associateCourseToClass', function(assert) {
     });
 });
 
+test('readClassReportStatus', function(assert) {
+  const adapter = this.subject();
+  const courseId = 'course-id';
+  const classId = 'class-id';
+  const userId = 'user-id';
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.get('/api/nucleus-download-reports/v1/class/class-id/course/course-id/download/request', function(request) {
+      assert.equal(request.queryParams.sessionToken, 'token-api-3', 'Wrong token');
+      assert.equal(request.queryParams.userId, 'user-id', 'Wrong token');
+      return [200, {'Content-Type': 'application/json'}, {}];
+    }, false);
+  });
+  adapter.readClassReportStatus(classId, courseId, userId)
+    .then(function(response) {
+      assert.equal({}, response, 'Wrong response');
+    });
+});
+

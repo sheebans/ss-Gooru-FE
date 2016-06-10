@@ -409,18 +409,19 @@ test('readClassReportStatus', function(assert) {
   const service = this.subject();
   const expectedCourseId = 'course-id';
   const expectedClassId = 'class-id';
-  assert.expect(3);
+  assert.expect(4);
 
   service.set('classAdapter', Ember.Object.create({
-    readClassReportStatus: function(classId, courseId) {
+    readClassReportStatus: function(classId, courseId, userId) {
       assert.equal(courseId, expectedCourseId, 'Wrong course id');
       assert.equal(classId, expectedClassId, 'Wrong class id');
+      assert.equal(userId, 'user-id', 'Wrong user id');
       return Ember.RSVP.resolve({ status: 'available'});
     }
   }));
 
   var done = assert.async();
-  service.readClassReportStatus(expectedClassId, expectedCourseId)
+  service.readClassReportStatus(expectedClassId, expectedCourseId, 'user-id')
     .then(function(response) {
       assert.equal(response, "available", "Wrong status");
       done();
@@ -431,12 +432,13 @@ test('requestClassReport', function(assert) {
   const service = this.subject();
   const expectedCourseId = 'course-id';
   const expectedClassId = 'class-id';
-  assert.expect(5);
+  assert.expect(6);
 
   service.set('classAdapter', Ember.Object.create({
-    readClassReportStatus: function(classId, courseId) {
+    readClassReportStatus: function(classId, courseId, userId) {
       assert.equal(courseId, expectedCourseId, 'Wrong course id');
       assert.equal(classId, expectedClassId, 'Wrong class id');
+      assert.equal(userId, 'user-id', 'Wrong user id');
       return Ember.RSVP.resolve({ status: 'available'});
     }
   }));
@@ -447,7 +449,7 @@ test('requestClassReport', function(assert) {
   };
 
   var done = assert.async();
-  service.requestClassReport(expectedClassId, expectedCourseId)
+  service.requestClassReport(expectedClassId, expectedCourseId, 'user-id')
     .then(function(response) {
       assert.equal(response, "available", "Wrong status");
       done();
