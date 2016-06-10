@@ -1,12 +1,14 @@
 <div class="panel panel-default">
   <div class="panel-body">
+    {{#link-to (if item.resource.isQuestion 'content.questions.play' 'content.resources.play') item.resource.id class="pointer"}}
     <div class="card-icon">
       {{#if item.resource.isQuestion }}
-        {{#link-to "content.questions.play" item.resource.id class="pointer"}}<i class="question-icon"></i>{{/link-to}}
+        <i class="question-icon"></i>
       {{else}}
-        {{#link-to "content.resources.play" item.resource.id class="pointer"}}<i class="{{item.resource.resourceFormat}}-icon"></i>{{/link-to}}
+        <i class="{{item.resource.resourceFormat}}-icon"></i>
       {{/if}}
     </div>
+    {{/link-to}}
     <div class="resource-description">
       {{#if item.resource.isQuestion }}
         {{#link-to "content.questions.play" item.resource.id class="pointer"}}<div class="title">{{item.resource.text}}</div>{{/link-to}}
