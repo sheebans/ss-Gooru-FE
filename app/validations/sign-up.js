@@ -15,7 +15,7 @@ export default buildValidations({
         descriptionKey: 'common.errors.username-length'
       }),
       validator('format', {
-        regex: /^\w+$/,
+        regex: /^[a-z0-9]+$/i,
         message: '{{description}}',
         descriptionKey: 'common.errors.special-characters'
       })
@@ -75,7 +75,7 @@ export default buildValidations({
       descriptionKey: 'common.errors.password-required'
     }),
     validator('format', {
-      regex: /^\w+$/,
+      regex: /^[a-z0-9]+$/i,
       message: '{{description}}',
       descriptionKey: 'common.errors.password-special-characters'
     }),
@@ -94,7 +94,7 @@ export default buildValidations({
       descriptionKey: 'common.errors.password-confirm'
     }),
     validator('format', {
-      regex: /^\w+$/,
+      regex: /^[a-z0-9]+$/i,
       message: '{{description}}',
       descriptionKey: 'common.errors.password-special-characters'
     }),
