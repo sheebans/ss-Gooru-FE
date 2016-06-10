@@ -65,7 +65,8 @@ test('Test for performance summary on invalid unit values', function(assert) {
       isCompleted: false,
       hasStarted: true,
       isUnitOrLesson:true,
-      isCollectionOrAssessment:false
+      isCollectionOrAssessment:false,
+      score: 5
     });
 
   this.set('performance', performance);
@@ -76,7 +77,7 @@ test('Test for performance summary on invalid unit values', function(assert) {
   const $component = this.$(); //component dom element
 
   const $scoreSummary = $component.find(".score .score-box");
-  assert.equal(T.text($scoreSummary), "--%", "Wrong score text");
+  assert.equal(T.text($scoreSummary), "5%", "Wrong score text");
 
   const $completionSummary = $component.find(".completion .gru-completion-chart");
   T.exists(assert, $completionSummary, 'Missing Completion summary');
