@@ -593,6 +593,29 @@ test('forgotPassword', function(assert) {
     });
 });
 
+test('resetPassword', function(assert) {
+  const service = this.subject();
+  const expectedUserId = 'user-id';
+  const expectedPassword = 'password';
+  const expectedToken = 'token';
+  assert.expect(3);
+
+  service.set('profileAdapter', Ember.Object.create({
+    resetPassword: function(userId, password, token) {
+      assert.equal(userId, expectedUserId, "Wrong user id");
+      assert.equal(password, expectedPassword, "Wrong password");
+      assert.equal(token, expectedToken, "Wrong token");
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  var done = assert.async();
+  service.resetPassword(expectedUserId, expectedPassword, expectedToken)
+    .then(function() {
+      done();
+    });
+});
+
 test('readFollowing', function(assert) {
   const service = this.subject();
   assert.expect(3);

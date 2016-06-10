@@ -25,8 +25,11 @@ export default Ember.Controller.extend({
    */
   location: null,
 
+  isFirstLoad: true,
+
   // -------------------------------------------------------------------------
   // Actions
+
   actions: {
 
     /**
@@ -43,7 +46,6 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -69,15 +71,20 @@ export default Ember.Controller.extend({
   "class": Ember.computed.alias('classController.class'),
 
   openingLocation: Ember.computed('location', function() {
-    return this.get('location') ? this.get('location') : this.get('userLocation');
+    if (this.get('isFirstLoad')) {
+      this.set('isFirstLoad', false);
+      var location = this.get('location') ? this.get('location') : this.get('userLocation');
+      this.set('location', location);
+      return location;
+    } else {
+      return this.get('location') ? this.get('location') : '';
+    }
   })
 
   // -------------------------------------------------------------------------
   // Observers
 
-
   // -------------------------------------------------------------------------
   // Methods
-
 
 });

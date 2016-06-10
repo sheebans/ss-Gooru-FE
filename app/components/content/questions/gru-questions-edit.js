@@ -255,7 +255,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
   editableTags: Ember.computed('tempQuestion.standards.[]', function() {
-    return TaxonomyTag.getTaxonomyTags(this.get("tempQuestion.standards"), true);
+    return TaxonomyTag.getTaxonomyTags(this.get("tempQuestion.standards"), false, true);
   }),
 
   // ----------------------------

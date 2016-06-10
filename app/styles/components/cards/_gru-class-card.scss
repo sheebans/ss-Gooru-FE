@@ -5,6 +5,9 @@
       @include border-bottom-radius(4px);
       @include box-shadow(0 0 7px #ddd);
       width: 100%;
+      a{
+        padding: 0;
+      }
     }
 
     .panel-body {
@@ -56,6 +59,10 @@
         height: 100%;
         overflow: hidden;
         width: 185px;
+
+        .profile-link{
+          padding:0 10px;
+        }
       }
     }
 
@@ -119,6 +126,7 @@
     }
 
     .members-info {
+      margin-top: 2%;
       border-right: 1px solid $gray-lighter;
       color: $gray-light;
       float: left;
@@ -134,7 +142,7 @@
 
     .description {
       border-left: 1px solid $gray-lighter;
-      min-height:55px;
+      min-height:124px;
       height: 100%;
       overflow: hidden;
       position: relative;
@@ -146,7 +154,7 @@
 
     .archived-actions {
       display: inline-block;
-      margin-left: 10px;
+      margin-top: 10px;
       span {
         display: inline-block;
         margin-top: 2px;

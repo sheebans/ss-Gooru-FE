@@ -87,3 +87,28 @@ test('Narration', function (assert) {
   T.exists(assert, $gruViewer.find(".narration .avatar img"), "Missing autor image");
   T.exists(assert, $gruViewer.find(".narration .message"), "Missing narration");
 });
+
+test('Layout when a resource url cannot be showed in an iframe', function (assert) {
+  const resourceMockA = Ember.Object.create({
+    id: "1",
+    resourceType: "resource/url",
+    displayGuide: {
+      is_broken: 1,
+      is_frame_breaker: 1
+    }
+  });
+
+  this.set("resource", resourceMockA);
+
+  this.render(hbs`{{player/gru-viewer resource=resource isNotIframeUrl=true}}`);
+
+  var $component = this.$(); //component dom element
+
+  const $panel = $component.find('.not-iframe');
+  assert.ok($panel.length, "Missing not-iframe panel");
+
+  assert.ok($panel.find('.panel-header').length, "panel-header of not-iframe panel");
+  assert.ok($panel.find('.panel-body').length, "panel-body of not-iframe panel");
+  assert.ok($panel.find('.panel-body a').length, "view-resource-button");
+  assert.ok($panel.find('.panel-footer').length, "panel-footer of not-iframe panel");
+});

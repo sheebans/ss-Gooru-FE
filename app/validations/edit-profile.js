@@ -15,9 +15,9 @@ export default buildValidations({
         descriptionKey: 'common.errors.username-length'
       }),
       validator('format', {
-        regex: /^\w+$/,
+        regex: /^[a-z0-9]+$/i,
         message: '{{description}}',
-        descriptionKey: 'common.errors.add-student-id'
+        descriptionKey: 'common.errors.special-characters'
       })
     ]
   },
@@ -26,8 +26,7 @@ export default buildValidations({
       allowBlank:true,
       regex: /^\w+$/,
       message: '{{description}}',
-      descriptionKey: 'common.errors.add-student-id'
+      descriptionKey: 'common.errors.special-characters'
     })
   ]
 });
-

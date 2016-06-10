@@ -168,3 +168,28 @@ test('Layout of preview section for text', function (assert) {
   assert.ok($section.find('.gru-pdf-resource').length, "PDF resource component");
   assert.ok($section.find('.gru-pdf-resource iframe').length, "PDF resource iframe");
 });
+
+test('Layout when a resource url cannot be showed in an iframe', function (assert) {
+  var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
+    title: "resource",
+    format: "resource",
+    url: "http://dev-content-gooru-org.s3-us-west-1.amazonaws.com/0004/9737/CK-12_Middle%20School%20Math_Grade%206_Chapter%206.pdf"
+  });
+
+  this.set('resource', resource);
+  this.render(hbs`{{content/resources/gru-resource-play resource=resource isNotIframeUrl=true}}`);
+
+  var $container = this.$("article.content.resources.gru-resource-play");
+  assert.ok($container.length, "Component");
+
+  const $section = $container.find('> section');
+  assert.ok($section.length, "Missing content section");
+
+  const $panel = $container.find('.not-iframe');
+  assert.ok($panel.length, "Missing not-iframe panel");
+
+  assert.ok($panel.find('.panel-header').length, "panel-header of not-iframe panel");
+  assert.ok($panel.find('.panel-body').length, "panel-body of not-iframe panel");
+  assert.ok($panel.find('.panel-body a').length, "view-resource-button");
+  assert.ok($panel.find('.panel-footer').length, "panel-footer of not-iframe panel");
+});

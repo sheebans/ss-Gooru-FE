@@ -2,20 +2,12 @@
   {{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}
 {{/each}}
 {{#if nonVisibleTags}}
-  <div class="non-visible-tags" {{action 'showAll'}}>{{nonVisibleTags}}+</div>
-  <div class="all-tags modal fade">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">{{t "common.standards"}}</h4>
-        </div>
-        <div class="modal-body">
-          {{#each tags as |taxonomyTag|}}
-            {{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}
-          {{/each}}
-        </div>
-      </div>
-    </div>
+  <div class="non-visible-tags">
+    {{nonVisibleTags}}+
+    {{#tooltip-on-element event='click' side="right" class="taxonomy gru-taxonomy-tag-list tags-tooltip"}}
+      {{#each tags as |taxonomyTag|}}
+        {{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}
+      {{/each}}
+    {{/tooltip-on-element}}
   </div>
 {{/if}}
