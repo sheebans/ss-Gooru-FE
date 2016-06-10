@@ -121,7 +121,6 @@ export default {
       "add-course-title": "Please enter the course title.",
       "add-question-answer-text": "Please enter the answer choice text.",
       "add-question-title": "Please enter the question title.",
-      "add-student-id": "You cannot use special characters or spaces.",
       "assessment-title-presence": "Please enter the assessment title.",
       "can-not-join-class": "Oops! Unable to join classroom. Please try again shortly.",
       "assessment-not-added-to": "Oops! Unable to add assessment to lesson right now. Please try again shortly.",
@@ -145,12 +144,18 @@ export default {
       "lesson-not-copied": "Oops! Unable to copy lesson right now. Please try again shortly.",
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
-      "lesson-title-required": "Please enter the lesson title.",
+      "lesson-title-required" : "Please enter the lesson title.",
+      "password-confirm": "Please confirm your password.",
+      "password-length": "Password must be between 5 and 14 characters.",
+      "password-not-match": "Passwords do not match.",
+      "password-required": "Please enter a password.",
+      "password-special-characters": "Please don't use special characters.",
       "profile-not-updated": "Oops! Unable to update profile right now. Please try again shortly.",
       "question-not-added-to": "Oops! Unable to add question to {{collectionType}} right now. Please try again shortly.",
       "question-not-copied": "Oops! Unable to copy question right now. Please try again shortly.",
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
       "question-not-updated": "Oops! Unable to update question right now. Please try again shortly.",
+      "reset-password-error": "Uh oh! Something’s not right. Unable to reset password. Please try again shortly.",
       "resource-description-length": "The description cannot be longer than 500 characters.",
       "resource-invalid-url": "Invalid URL.",
       "resource-missing-title": "Please enter a resource title.",
@@ -165,6 +170,12 @@ export default {
       "select-correct-answer": "Please select the correct answer.",
       "sign-in-credentials-not-valid": "Uh oh! Something's not right. Please double check your username and password and try again.",
       "sign-in-google-account-exists": "Please sign in with Google to access your account.",
+      "sign-up-first-name": "Please enter your first name.",
+      "sign-up-last-name": "Please enter your last name.",
+      "sign-up-name-length": "Last name must have at least 2 letters.",
+      "sign-up-name-only-letters": "Please enter only letters.",
+      "sign-up-valid-email": "Please enter a valid email address.",
+      "special-characters": "You cannot use special characters or spaces.",
       "unit-not-copied": "Oops! Unable to copy unit right now. Please try again shortly.",
       "unit-not-created": "Oops! Unable to create unit right now. Please try again shortly.",
       "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly.",
@@ -775,6 +786,12 @@ export default {
     "secondStepTitle": "Check your email",
     "secondStepDescription-1": "We've sent you an email with a link to reset your password.",
     "secondStepDescription-2": "If you have any questions, please contact"
+  },
+
+  "reset-password": {
+    "new-password": "Enter your new password",
+    "new-password-confirm": "Confirm your password",
+    "title": "Reset password"
   },
 
   "footer": {

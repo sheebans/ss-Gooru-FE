@@ -382,6 +382,22 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Resets the user password
+   * @param {string} username - account's username or email
+   * @returns {Ember.RSVP.Promise}
+   */
+  resetPassword: function(userId, password, token) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').resetPassword(userId, password, token).then(function() {
+        resolve(token);
+      }, function(error) {
+        reject(error);
+      });
+    });
+  },
+
+  /**
    * Return the list of profiles the user is following
    * @param userId
    * @returns {Ember.RSVP.Promise}

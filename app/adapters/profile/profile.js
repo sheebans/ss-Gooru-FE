@@ -269,6 +269,31 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Resets the user password
+   * @param userId
+   * @param token
+   * @returns {*|Promise}
+   */
+  resetPassword: function (userId, password, token) {
+    const adapter = this;
+    const namespace = adapter.get('usersNamespace');
+    const url = `${namespace}/${userId}/password`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({
+        token,
+        new_password: password
+      })
+    };
+
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
    * Gets network by user id
    *
    * @param {string} userId

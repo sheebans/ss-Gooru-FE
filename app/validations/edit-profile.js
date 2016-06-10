@@ -17,7 +17,7 @@ export default buildValidations({
       validator('format', {
         regex: /^\w+$/,
         message: '{{description}}',
-        descriptionKey: 'common.errors.add-student-id'
+        descriptionKey: 'common.errors.special-characters'
       })
     ]
   },
@@ -26,8 +26,7 @@ export default buildValidations({
       allowBlank:true,
       regex: /^\w+$/,
       message: '{{description}}',
-      descriptionKey: 'common.errors.add-student-id'
+      descriptionKey: 'common.errors.special-characters'
     })
   ]
 });
-
