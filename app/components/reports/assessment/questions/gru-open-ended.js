@@ -28,7 +28,7 @@ export default Ember.Component.extend(QuestionMixin, {
   // Properties
 
   answer: Ember.computed("question", "showCorrect", function () {
-    const correctAnswer = this.get("question.answers.firstObject.text");
+    const correctAnswer = this.get("question.answers.firstObject.text") || "N/A";
     return (this.get("showCorrect")) ? correctAnswer : this.get("userAnswer");
   })
 

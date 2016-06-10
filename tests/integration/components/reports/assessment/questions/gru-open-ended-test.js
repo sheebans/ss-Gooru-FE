@@ -13,7 +13,11 @@ test('Open ended Layout showing correct answer', function (assert) {
   assert.expect(2);
 
   var showCorrect = true;
-  this.set("question", "fake");
+  this.set("question", Ember.Object.create({
+    "answers": [{
+      "text": "Correct answer"
+    }]
+  }));
   this.set('showCorrect', showCorrect);
 
   this.render(hbs`{{reports/assessment/questions/gru-open-ended showCorrect=showCorrect question=question}}`);
@@ -22,7 +26,7 @@ test('Open ended Layout showing correct answer', function (assert) {
   const $answer = $component.find(".answer");
 
   T.exists(assert, $answer, 'Missing answer');
-  assert.equal(T.text($answer), 'N/A', 'It should show N/A when showing the correct answer');
+  assert.equal(T.text($answer), 'Correct answer', 'Wrong correct answer');
 });
 
 
