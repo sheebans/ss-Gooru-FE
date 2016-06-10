@@ -6,6 +6,12 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+
+  /**
+   * @property {Service} Session
+   */
+  session: Ember.inject.service(),
+
   /**
    * @property {Service} Session service
    */
