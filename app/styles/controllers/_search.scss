@@ -6,7 +6,7 @@
     height: 51px;
     padding: 0 0 0 3%;
     width: 100vw;
-    margin-left: -15px;
+
     div.category-menu {
       height: inherit;
       padding: 0;
@@ -20,6 +20,11 @@
       float: none;
       text-align: right;
       vertical-align: middle;
+    }
+
+    .gru-subject-picker .btn.dropdown-toggle {
+      margin-left: 1px;
+      background-color: $blue-400;
     }
   }
 
