@@ -24,6 +24,7 @@ export default Ember.Route.extend({
      */
     closePlayer: function(){
       var route = !this.get('history.lastRoute.name') ? 'index' : this.get('history.lastRoute.url');
+      this.get("controller").submit
       this.transitionTo(route);
     },
 
@@ -197,5 +198,9 @@ export default Ember.Route.extend({
     if (resource) {
       controller.moveToResource(resource);
     }
+  },
+
+  deactivate: function(){
+    this.get("controller").resetValues();
   }
 });

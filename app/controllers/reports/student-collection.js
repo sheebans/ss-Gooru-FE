@@ -102,6 +102,9 @@ export default Ember.Controller.extend({
       .then(function (assessmentResult) {
         assessmentResult.merge(controller.get("collection"));
         assessmentResult.set("totalAttempts", controller.get("completedSessions.length")); //TODO this is comming wrong from BE
+        if (session.eventTime){
+          assessmentResult.set("submittedAt", new Date(session.eventTime));
+        }
         controller.set("assessmentResult", assessmentResult);
     });
   },

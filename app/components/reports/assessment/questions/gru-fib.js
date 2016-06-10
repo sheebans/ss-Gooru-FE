@@ -48,6 +48,8 @@ export default Ember.Component.extend(QuestionMixin, {
       };
     });
 
+    sentences = (userAnswers && userAnswers.length) ? sentences : [];
+
     return this.mergeArrays (sentences, answers);
   }),
 
