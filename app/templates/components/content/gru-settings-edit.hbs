@@ -11,7 +11,7 @@
         <span>{{t "common.publish-to"}}</span>
             {{gru-switch switchOptions=switchOptions onOptionSwitch='switchPublishToProfile' isChecked=isChecked}}
         </div>
-      <div class="setting request-to">
+      <div class="setting request-to out-of-scope">
         {{gru-icon name="public"}}
         <span>{{t "common.request-to"}}</span>
             {{#if wasRequestSent}}

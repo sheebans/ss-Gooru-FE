@@ -258,9 +258,13 @@
           padding-top: 10px;
 
           > div {
-            margin-top: 20px;
+            margin-top: 10px;
+            &:first-child {
+              margin: 0;
+            }
 
             > label {
+              margin: 0;
               input, b {
                 display: block;
               }
@@ -274,11 +278,13 @@
               .form-group {
                 margin-bottom: 5px;
               }
+              textarea {
+                line-height: $font-size-large;
+              }
             }
             > label > span,
             > span.label {
               color: $gray;
-              padding: 0 0 .6em 0;
               display: block;
               font-size: 100%;
               font-weight: normal;
