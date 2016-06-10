@@ -111,7 +111,12 @@ module.exports = function (environment) {
   }
 
   if (environment === 'production') {
-
+    ENV.googleAnalytics = {
+      webPropertyId: 'UA-5033010-34',
+      tracker: "analytics.js",
+      globalVariable: "hewlettOERTracker",
+      cookieName: "hewlettOERCookie"
+    };
   }
 
   return ENV;

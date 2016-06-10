@@ -176,10 +176,10 @@ export default Ember.Service.extend({
    * @param {string} courseId the course id
    * @returns {Promise.<string>} available|queued|in-progress
    */
-  readClassReportStatus: function(classId, courseId) {
+  readClassReportStatus: function(classId, courseId, userId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classAdapter').readClassReportStatus(classId, courseId)
+      service.get('classAdapter').readClassReportStatus(classId, courseId, userId)
         .then(function(response) {
           resolve(response.status);
         }, function(error) {
@@ -192,11 +192,12 @@ export default Ember.Service.extend({
    * Requests a class report
    * @param {string} classId the class id
    * @param {string} courseId the course id
+   * @param {string} userId the user id
    * @returns {Promise.<string>} available|queued|in-progress
    */
-  requestClassReport: function(classId, courseId) {
+  requestClassReport: function(classId, courseId, userId) {
     const service = this;
-    return service.readClassReportStatus(classId, courseId).then(function(response){
+    return service.readClassReportStatus(classId, courseId, userId).then(function(response){
       service.storeClassReportStatus(classId, response);
       return response;
     }); //same end point as reading the status
