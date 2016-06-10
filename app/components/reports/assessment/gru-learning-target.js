@@ -12,6 +12,8 @@ import { correctPercentage } from 'gooru-web/utils/question-result';
  */
 export default Ember.Component.extend({
 
+  maxNumberOfDisplayableResources: 5,
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -66,6 +68,11 @@ export default Ember.Component.extend({
    */
   correctPercentage: Ember.computed('questionsList.[]', function () {
     return correctPercentage(this.get('questionsList'));
+  }),
+
+  suggestedResources: Ember.computed('learningTarget.suggestedResources.[]', function() {
+    var suggestedResources = this.get('learningTarget.suggestedResources');
+    return suggestedResources.slice(0, this.get('maxNumberOfDisplayableResources'));
   }),
 
   // -------------------------------------------------------------------------
