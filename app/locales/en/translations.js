@@ -4,6 +4,11 @@ export default {
    * COMMON: Translations used globally in the app or shared between components
    */
   "common": {
+    "a-collection": "a collection",
+    "a-course": "a course",
+    "a-question": "a question",
+    "a-resource": "a resource",
+    "an-assessment": "an assessment",
     "about": "About",
     "about-you": "About You",
     "add": "Add",
@@ -11,6 +16,7 @@ export default {
     "add-collaborator": "Add Collaborator",
     "add-collection": "Add New Collection",
     "add-collection-item": "Add Resource or Question",
+    "add-content-prompt": "You haven't created <span>{{type}}</span> yet. Go on, be bold.",
     "add-course": "Add New Course",
     "add-domains-to-unit": "Add Domains to Unit",
     "add-from-url": "Add from URL",
@@ -235,6 +241,7 @@ export default {
     "next": "Next",
     "no": "No",
     "no-content": "No content available",
+    "no-content-to-display": "No <span>{{type}}</span> to display.",
     "no-results": "No results found",
     "no-results-message": "Check your spelling. We all make mistakes!<br/>Go broader and remove some filters.<br/> Or try searching for a similar word instead.",
     "notStarted": "Not started",

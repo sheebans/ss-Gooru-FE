@@ -4,6 +4,24 @@
       <div class="card">
         {{cards.gru-resource-card resource=question addEnabled=true editEnabled=isMyProfile onEditResource="editQuestion" onRemixQuestion="remixQuestion"}}
       </div>
+
+    {{else}}
+
+      <div class="panel add-content panel-default">
+        <div class="panel-body">
+          {{gru-icon name='explore'}}
+
+          {{#if isMyProfile}}
+            <p>{{{t "common.add-content-prompt" type=(t "common.a-question")}}}</p>
+            <button class="btn btn-success" {{action "showModal" "content.modals.gru-question-new"}}>
+              {{t "common.add"}} {{t "common.question"}}
+            </button>
+          {{else}}
+            <p>{{{t "common.no-content-to-display" type=(t "common.questions")}}}</p>
+          {{/if}}
+        </div>
+      </div>
+
     {{/each}}
   </div>
   {{#if showMoreResultsButton}}

@@ -206,18 +206,30 @@
   }
   > .content {
     height: 100%;
-    /*This code must be more specific, it is adding properties to the course page which are hard to remove because it is so highly nested.*/
-    >div:last-child {
-      //padding: 20px 0;
-      >*{
-        @media (min-width: $screen-sm-min) {
-          //padding: 0 65px;
+
+    .panel.add-content {
+      border-radius: 5px;
+      width: 90%;
+      margin-top: 30px;
+      padding: 60px 50px 40px;
+
+      .panel-body {
+        text-align: center;
+
+        p {
+          margin-top: 20px;
+          font-size: $font-size-large;
         }
-        @media (min-width: $screen-md-min) {
-          //padding: 0 56px;
+        button {
+          padding-left: 20px;
+          padding-right: 20px;
+          font-size: 14px;
+        }
+        .gru-icon.explore {
+          font-size: 150px;
+          opacity: 0.1;
         }
       }
-
     }
   }
 }
