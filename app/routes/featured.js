@@ -1,7 +1,7 @@
 import Ember from 'ember';
+import ModalMixin from 'gooru-web/mixins/modal';
 
-
-export default Ember.Route.extend({
+export default Ember.Route.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -13,6 +13,19 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Actions
 
+  actions: {
+
+    /**
+     * Remix course action, when clicking remix at the course card
+     * @param {Content/Course}
+     */
+    remixCourse: function(course){
+      var remixModel = {
+        content: course
+      };
+      this.send('showModal', 'content.modals.gru-course-remix', remixModel);
+    }
+  },
   // -------------------------------------------------------------------------
   // Methods
 

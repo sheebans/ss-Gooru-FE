@@ -35,7 +35,6 @@ export default Ember.Component.extend(ModalMixin, {
      *Action triggered when select remix the course
      */
     remixCourse:function(){
-
       if (this.get('session.isAnonymous')) {
         this.send('showModal', 'content.modals.gru-login-prompt');
       } else {

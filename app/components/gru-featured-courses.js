@@ -29,7 +29,19 @@ export default Ember.Component.extend({
   dataOffset:"50",
   // -------------------------------------------------------------------------
   // Actions
-
+  actions: {
+    /**
+     * Remix course action, when clicking remix at the course card
+     * @param {Content/Course}
+     */
+    onRemixCourse: function(course){
+      course.taxonomy=[];
+      var remixModel = {
+        content: course
+      };
+      this.sendAction("onRemixCourse", course);
+    }
+  },
   // -------------------------------------------------------------------------
   // Properties
 
