@@ -3,21 +3,47 @@
   max-height: 305px;
   max-width: 500px;
 
+  .img-container {
+    display: inline-block;
+    height: 30px;
+    margin-top: 15px;
+    width: 70px;
+
+    .brand-image {
+      @include scale(.6, .6);
+      background: url('gooru/images/gooru-logo.svg');
+      display: block;
+      height: 32px;
+      margin-left: -20px;
+      padding: 0;
+      width: 111px;
+    }
+  }
+
   .modal-header {
     @include flexbox;
     border: 0;
     height: 125px;
-    padding: 30px 30px 0;
+    padding: 30px 15px 0;
     text-align: left;
 
-    .img-container {
-      display: inline-block;
-      width: 70px;
+    @media (min-width: $screen-sm-min) {
+      padding: 30px 30px 0;
+    }
+
+    .header-content {
+      padding-left: 30px;
     }
 
     .lead {
       display: inline-block;
+      line-height: 20px;
       margin-bottom: 5px;
+
+    }
+
+    p {
+      line-height: 15px;
     }
   }
 
@@ -32,15 +58,32 @@
     padding: 0;
 
     >* {
+      height: 75px;
       text-align: center;
       width: 50%;
 
       &:first-child {
         border-right: 1px solid $blue-300;
+
+        div {
+          padding: 0 15px;
+        }
+      }
+
+      >div {
+        &:first-child {
+          @include flexbox;
+          @include flex-direction(column);
+          @include justify-content(center);
+          @include align-items(center);
+          height: 41px;
+        }
       }
 
       p {
         color: $white;
+        line-height: 13px;
+        margin: 0;
       }
 
       .action-container {
@@ -51,6 +94,8 @@
       }
     }
   }
+
+
 
   .modal-footer {
     border: 0;

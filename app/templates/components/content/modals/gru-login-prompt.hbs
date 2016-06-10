@@ -1,8 +1,8 @@
 <div class="modal-header">
   <div class="img-container">
-    <img >
+    <span class="brand-image" />
   </div>
-  <div>
+  <div class="header-content">
     <span class="modal-title lead">
       {{t 'gru-login-prompt.title'}}
     </span>
@@ -25,9 +25,11 @@
     </div>
   </div>
   <div class="new-user">
-    <p>
-      {{t 'gru-login-prompt.new-user'}}
-    </p>
+    <div class="">
+      <p>
+        {{t 'gru-login-prompt.new-user'}}
+      </p>
+    </div>    
     <div class="action-container">
       <button type="button" class="btn btn-default sign-up-button" {{action 'signUp'}} data-dismiss="modal" aria-label="{{t 'gru-login-prompt.sign-up'}}">
           <span aria-hidden="true">{{t 'common.signUp'}}</span>

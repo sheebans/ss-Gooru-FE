@@ -35,7 +35,7 @@
           <button class="btn narration no-bgd" title="{{t 'common.edit-narration'}} "{{action 'editNarration' model}}>{{gru-icon name="mode_comment"}}</button>
             <div class="item-actions">
               {{partial 'content/partials/item-actions'}}
-              {{#link-to (if (eq model.format 'question') 'content.questions.edit' 'content.resources.edit') model.id (query-params collectionId=collection.id isCollection=isCollection) class="btn edit-item no-bgd" tagName="button" title=(t 'common.edit')}}{{gru-icon name="edit"}}{{/link-to}}
+              <button class="btn edit-item no-bgd" title="{{t 'common.edit'}}" {{action 'edit' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="edit"}}</button>
             </div>
         </div>
     </div>
