@@ -43,7 +43,7 @@
       <div>
         {{#if model.computedQuestionCount}}
           <span><b>{{model.computedQuestionCount}}</b> {{t "common.question-pl" count=model.computedQuestionCount}}</span>
-        {{else}}          
+        {{else}}
             <span><b>{{model.questionCount}}</b> {{t "common.question-pl" count=model.questionCount}}</span>
         {{/if}}
       </div>
@@ -53,7 +53,7 @@
           <div class="item-actions">
             {{partial 'content/partials/item-actions'}}
             {{#unless model.isExternalAssessment}}
-            <button class="btn edit-item" title="{{t 'common.edit'}}" {{action 'edit' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="edit"}}</button>
+              <button class="btn edit-item" title="{{t 'common.edit'}}" {{action 'edit' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="edit"}}</button>
             {{/unless}}
           </div>
       </div>
