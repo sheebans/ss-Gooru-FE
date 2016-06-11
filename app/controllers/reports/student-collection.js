@@ -1,5 +1,5 @@
 import Ember from "ember";
-
+import { toLocal } from 'gooru-web/utils/utils';
 /**
  *
  * Controls the access to the analytics data for a
@@ -110,6 +110,10 @@ export default Ember.Controller.extend({
       .then(function(assessmentResult) {
         assessmentResult.merge(controller.get("collection"));
         assessmentResult.set("totalAttempts", controller.get("completedSessions.length")); //TODO this is comming wrong from BE
+        if (session && session.eventTime){
+          assessmentResult.set("submittedAt", toLocal(session.eventTime));
+        }
+
         controller.get('analyticsService').getStandardsSummary(context.get('sessionId'))
           .then(function(standardsSummary) {
             assessmentResult.set('mastery', standardsSummary);

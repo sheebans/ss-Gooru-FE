@@ -7,7 +7,8 @@ import Ember from "ember";
  * @returns {Number}
  */
 export function roundFloat(n, decimals = 0) {
-  return (Math.round(n * 10) / 10).toFixed(decimals);
+  const rounded = (Math.round(n * 10) / 10).toFixed(decimals);
+  return parseFloat(rounded);
 }
 
 /**

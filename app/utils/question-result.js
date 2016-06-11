@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { average } from "gooru-web/utils/math";
+import { average, roundFloat } from "gooru-web/utils/math";
 
 /**
  * Utility methods to handle stats for QuestionResult instances
@@ -28,11 +28,12 @@ export function correctAnswers(questionsResults) {
 /**
  * Percentage of correct answers vs. the total number of questions
  * @param {QuestionResult[]} questionsResults
+ * @param {boolean} includeAll, when true it calculates the percentage based on all questions, not only the answered
  * @prop {Number}
  */
-export function correctPercentage(questionsResults) {
+export function correctPercentage(questionsResults, includeAll = false) {
   let totals = stats(questionsResults);
-  return totals.get("correctPercentage");
+  return (includeAll) ? totals.get("correctPercentageFromTotal") : totals.get("correctPercentage");
 }
 /**
  * Total number of seconds spent completing the current attempt
@@ -96,18 +97,18 @@ export function stats(questionResults){
   return Ember.Object.create({
     total: total,
     totalCorrect: correct,
-    correctPercentage: completed ? Math.round(correct / completed * 100) : null,
-    correctPercentageFromTotal: Math.round(correct / total * 100), //percentage including not started
+    correctPercentage: completed ? roundFloat(correct / completed * 100) : null,
+    correctPercentageFromTotal: roundFloat(correct / total * 100), //percentage including not started
     totalIncorrect: incorrect,
-    incorrectPercentage: completed ? Math.round(incorrect / completed * 100) : null,
-    incorrectPercentageFromTotal: Math.round(incorrect / total * 100), //percentage including not started
+    incorrectPercentage: completed ? roundFloat(incorrect / completed * 100) : null,
+    incorrectPercentageFromTotal: roundFloat(incorrect / total * 100), //percentage including not started
     totalSkipped: skipped,
-    skippedPercentage: Math.round(skipped / total * 100),
+    skippedPercentage: roundFloat(skipped / total * 100),
     totalNotStarted: notStarted,
-    notStartedPercentage: Math.round(notStarted / total * 100),
+    notStartedPercentage: roundFloat(notStarted / total * 100),
     totalCompleted: completed,
-    completedPercentage: Math.round(completed / total * 100),
-    averageReaction: reactions.length ? Math.round(average(reactions)) : null,
+    completedPercentage: roundFloat(completed / total * 100),
+    averageReaction: reactions.length ? roundFloat(average(reactions)) : null,
     totalTimeSpent: timeSpent
   });
 }
