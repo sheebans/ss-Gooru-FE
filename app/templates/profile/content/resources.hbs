@@ -6,6 +6,24 @@
               editEnabled=(eq resource.owner.id currentUserId)
               onEditResource="editResource"}}
           </div>
+
+      {{else}}
+
+        <div class="panel add-content panel-default">
+          <div class="panel-body">
+            {{gru-icon name='explore'}}
+
+            {{#if isMyProfile}}
+              <p>{{{t "common.add-content-prompt" type=(t "common.a-resource")}}}</p>
+              <button class="btn btn-success" {{action "showModal" "content.modals.gru-resource-new"}}>
+                {{t "common.add"}} {{t "common.resource"}}
+              </button>
+            {{else}}
+              <p>{{{t "common.no-content-to-display" type=(t "common.resources")}}}</p>
+            {{/if}}
+          </div>
+        </div>
+
       {{/each}}
     </div>
   {{#if showMoreResultsButton}}

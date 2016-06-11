@@ -9,6 +9,24 @@
         onRemixCollection="remixAssessment"
         onOpenContentPlayer="openContentPlayer"}}
       </div>
+
+    {{else}}
+
+      <div class="panel add-content panel-default">
+        <div class="panel-body">
+          {{gru-icon name='explore'}}
+
+          {{#if isMyProfile}}
+            <p>{{{t "common.add-content-prompt" type=(t "common.an-assessment")}}}</p>
+            <button class="btn btn-success" {{action "showModal" "content.modals.gru-assessment-new"}}>
+              {{t "common.add"}} {{t "common.assessment"}}
+            </button>
+          {{else}}
+            <p>{{{t "common.no-content-to-display" type=(t "common.assessments")}}}</p>
+          {{/if}}
+        </div>
+      </div>
+
     {{/each}}
   </div>
   {{#if showMoreResultsButton}}
