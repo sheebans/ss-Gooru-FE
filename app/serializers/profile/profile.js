@@ -7,6 +7,7 @@ import QuestionModel from 'gooru-web/models/content/question';
 import CollectionModel from 'gooru-web/models/content/collection';
 import { NETWORK_TYPE, DEFAULT_IMAGES } from 'gooru-web/config/config';
 import { cleanFilename } from 'gooru-web/utils/utils';
+import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 
 /**
  * Serializer to support the Profile CRUD operations for API 3.0
@@ -16,6 +17,16 @@ import { cleanFilename } from 'gooru-web/utils/utils';
 export default Ember.Object.extend({
 
   session: Ember.inject.service('session'),
+
+  /**
+   * @property {TaxonomySerializer} taxonomySerializer
+   */
+  taxonomySerializer: null,
+
+  init: function () {
+    this._super(...arguments);
+    this.set('taxonomySerializer', TaxonomySerializer.create(Ember.getOwner(this).ownerInjection()));
+  },
 
   /**
    * Serialize a Profile object into a JSON representation required by the Create Profile endpoint
@@ -200,7 +211,7 @@ export default Ember.Object.extend({
       url: resourceData.url,
       format: format,
       publishStatus: resourceData.publish_status,
-      standards: serializer.normalizeStandards(standards),
+      standards: serializer.get('taxonomySerializer').normalizeTaxonomy(standards),
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
   },
@@ -224,7 +235,7 @@ export default Ember.Object.extend({
       format: questionData.content_format,
       type:format,
       publishStatus: questionData.publish_status,
-      standards: serializer.normalizeStandards(standards),
+      standards: serializer.get('taxonomySerializer').normalizeTaxonomy(standards),
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
   },
@@ -239,7 +250,7 @@ export default Ember.Object.extend({
     const serializer = this;
     const ownerId = collectionData.owner_id;
     const filteredOwners = Ember.A(owners).filterBy("id", ownerId);
-    const standards = serializer.normalizeStandards(collectionData.taxonomy || []);
+    const standards = serializer.get('taxonomySerializer').normalizeTaxonomy(collectionData.taxonomy || []);
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = collectionData.thumbnail ?
       basePath + collectionData.thumbnail : DEFAULT_IMAGES.COLLECTION;
@@ -271,7 +282,7 @@ export default Ember.Object.extend({
     const serializer = this;
     const ownerId = assessmentData.owner_id;
     const filteredOwners = Ember.A(owners).filterBy("id", ownerId);
-    const standards = serializer.normalizeStandards(assessmentData.taxonomy || []);
+    const standards = serializer.get('taxonomySerializer').normalizeTaxonomy(assessmentData.taxonomy || []);
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = assessmentData.thumbnail ?
       basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
@@ -304,30 +315,6 @@ export default Ember.Object.extend({
     return payload.map(function(ownerData){
       return serializer.normalizeReadProfile(ownerData);
     });
-  },
-
-  /**
-   * Normalizes standards
-   *
-   * @param {{*}} standards
-   * @returns {*}
-   */
-  normalizeStandards: function (standards) {
-    const values = [];
-    if (!standards) { return values; }
-
-    for (var key in standards) {
-      if (standards.hasOwnProperty(key)) {
-        let standard = standards[key];
-        values.push(Ember.Object.create({
-          key: key,
-          code: standard.code,
-          title: standard.title,
-          parentTitle: standard.parentTitle
-        }));
-      }
-    }
-    return values;
   },
 
   /**
