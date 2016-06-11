@@ -197,5 +197,9 @@ export default Ember.Route.extend({
     if (resource) {
       controller.moveToResource(resource);
     }
+  },
+
+  deactivate: function(){
+    this.get("controller").resetValues();
   }
 });
