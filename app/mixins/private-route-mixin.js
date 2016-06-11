@@ -19,14 +19,14 @@ export default Ember.Mixin.create({
   beforeModel() {
     const mixin = this;
     if(mixin.get('session.isAnonymous')) {
-      this.transitionTo('sign-in');
+      mixin.transitionTo('sign-in');
     } else {
       return mixin.get('authenticationService').checkToken(mixin.get('session.token-api3'))
         .then(function() {
             return Ember.RSVP.resolve(mixin._super(...arguments));
           },
           function() {
-            this.transitionTo('sign-in');
+            mixin.transitionTo('sign-in');
           });
     }
   }
