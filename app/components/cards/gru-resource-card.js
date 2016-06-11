@@ -1,12 +1,13 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+
 /**
  * Resource and Question card
  *
  * Component responsible of showing the resource or question information in cards, so that most useful information is summarized there.
  * @module
  */
-
 export default Ember.Component.extend(ModalMixin,{
   // Dependencies
 
@@ -111,6 +112,13 @@ export default Ember.Component.extend(ModalMixin,{
   /**
    * @property {string} remix action
    */
-  onRemixQuestion: null
+  onRemixQuestion: null,
+
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('resource.standards.[]', function() {
+    return TaxonomyTag.getTaxonomyTags(this.get("resource.standards"));
+  })
 
 });
