@@ -44,6 +44,7 @@ export default Ember.Controller.extend({
         positionClass: 'toast-top-full-width sign-in'
       });
 
+      // TODO needs to be revisited, this is a quick fix
       controller.get('sessionService').authorize().then(function(){
         if(controller.get('didValidate') === false) {
           var username = Ember.$('.gru-input-mixed-validation.username input').val();
