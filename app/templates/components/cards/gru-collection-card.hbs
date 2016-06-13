@@ -30,9 +30,11 @@
   {{#unless isSmall}}
     <div class="panel-body">
         <div class="collection-details">
-            <div class="standards">
-                {{collection-results-standards collection=collection standards=collection.standards}}
-            </div>
+
+            {{#if tags.length}}
+              {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=2}}
+            {{/if}}
+
             <div class="{{if isAssessment 'author' 'remixed-by'}}">
               {{#if isAssessment}}
                 {{#link-to 'profile.content.courses' collection.owner.id class="pointer" tagName="div"}}

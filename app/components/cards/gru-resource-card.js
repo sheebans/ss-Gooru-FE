@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
 /**
  * Resource and Question card
@@ -118,7 +119,12 @@ export default Ember.Component.extend(ModalMixin,{
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
   tags: Ember.computed('resource.standards.[]', function() {
-    return TaxonomyTag.getTaxonomyTags(this.get("resource.standards"));
+    var standards = this.get('resource.standards');
+    standards = standards.filter(function(standard) {
+      // Filter out learning targets (they're too long for the card)
+      return !TaxonomyTagData.isMicroStandardId(standard.get('id'));
+    });
+    return TaxonomyTag.getTaxonomyTags(standards);
   })
 
 });
