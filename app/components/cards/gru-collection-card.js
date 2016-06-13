@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 /**
  * Collection and Assessment card
  *
@@ -118,6 +119,17 @@ export default Ember.Component.extend(ModalMixin,{
 
   visibility:null,
 
-  isSmall: false
+  isSmall: false,
 
+   /**
+    * @property {TaxonomyTag[]} List of taxonomy tags
+    */
+   tags: Ember.computed('collection.standards.[]', function() {
+     return TaxonomyTag.getTaxonomyTags(this.get("collection.standards"));
+  }),
+  /**
+   * Indicates if the collection or assessment is showing on search
+   * @property {boolean}
+   */
+  isSearchResult: false,
 });

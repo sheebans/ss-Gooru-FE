@@ -9,16 +9,15 @@
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
       padding: 10px 15px 0;
-
-      .truncate {
-        @include text-overflow;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        width: 90%;
-      }
+      min-height: 116px;
 
       .image {
         display: inline-block;
+        img {
+          border-radius: 4px;
+          height: 74px;
+          width: 74px;
+        }
       }
 
       .collection-info {
@@ -64,7 +63,7 @@
       padding: 5px 15px 15px;
       position: relative;
       width: 100%;
-
+      min-height: 157px;
       .collection-details {
         height: inherit;
 
@@ -110,33 +109,33 @@
           span.title {
             margin:10px 5px 10px 0;
             cursor: auto;
+            $line-height: 1.3;
+            $lines-to-show: 2;
+            & .truncate {
+              @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
+            }
           }
         }
         .description{
-          height: 88px;
+          height: 51px;
           $line-height: 1.3;
           $lines-to-show: 3;
           p.truncate {
             @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
           }
         }
-        .buttons{
-          width: 100%;
-        }
-        .visibility {
-          width: 100%;
-          height: 24px;
-        }
       }
     }
-  }
-
-  .panel-heading {
-    .image {
-      img {
-        border-radius: 4px;
-        height: 74px;
-        width: 74px;
+    .panel-footer{
+      background-color: $white;
+      padding: 8px 15px 10px 15px;
+      .buttons{
+        display: inline-block;
+      }
+      .visibility {
+        display: inline-block;
+        float: right;
+        height: 24px;
       }
     }
   }
