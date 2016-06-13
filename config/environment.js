@@ -18,7 +18,8 @@ module.exports = function (environment) {
       // when it is created
     },
 
-    marketingSiteUrl: "/welcome"
+    marketingSiteUrl: "/welcome",
+    supportSiteUrl: "http://support.gooru.org"
   };
 
 

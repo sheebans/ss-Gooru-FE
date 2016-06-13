@@ -93,6 +93,7 @@ export default {
     "course-title": "Course Title",
     "courses": "Courses",
     "create": "Create",
+    "create-class": "+ Create classroom",
     "created-by": "Created by",
     "delete": "Delete",
     "delete-instructions": {
@@ -370,6 +371,7 @@ export default {
     "submit-all": "Submit all",
     "swap": "Re-order",
     "suggested-resources": "Suggested Resources",
+    "support": "Support",
     "teach": "Teach",
     "teacher": "Teacher",
     "timeSpent": "Time Spent",

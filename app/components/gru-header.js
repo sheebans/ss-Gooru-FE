@@ -160,6 +160,14 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    */
   marketingSiteUrl: Ember.computed(function(){
     return Env.marketingSiteUrl;
+  }),
+
+  /**
+   * Support site url
+   * @property {string}
+   */
+  supportSiteUrl: Ember.computed(function(){
+    return Env.supportSiteUrl;
   })
 
   // -------------------------------------------------------------------------
