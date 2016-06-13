@@ -44,16 +44,9 @@ export default Ember.Component.extend({
    *
    * @constant {Array}
    */
-  viewLayouts: Ember.A([ Ember.Object.create({
-    'view': VIEW_LAYOUT_PICKER_OPTIONS.LIST,
-    'isActive': true,
-    'icon': 'view_list'
-  }),Ember.Object.create({
-    'view': VIEW_LAYOUT_PICKER_OPTIONS.THUMBNAILS,
-    'isActive': false,
-    'icon': 'view_module'
-  })]),
-
+  viewLayouts: function() {
+    return this.setLayoutFilter();
+  },
   /**
    * Selected view layout
    *
@@ -62,9 +55,20 @@ export default Ember.Component.extend({
   selectedView:null,
 
   // -------------------------------------------------------------------------
-  // Methods
+  // Events
+
   /**
-   * Remove the actual visuatization
+   * DidInsertElement ember event
+   */
+  didInsertElement: function() {
+    this.set('viewLayouts',this.setLayoutFilter());
+  },
+
+  // -------------------------------------------------------------------------
+  // Methods
+
+  /**
+   * layouts to be displayed by the component
    */
   cleanup: function() {
     const component = this;
@@ -72,6 +76,22 @@ export default Ember.Component.extend({
       option.set("isActive", false);
       component.set("selectedView",null);
     });
+  },
+
+  /**
+   * set layouts to be displayed by the component
+   * @return {Array}
+   */
+  setLayoutFilter: function() {
+    return Ember.A([ Ember.Object.create({
+      'view': VIEW_LAYOUT_PICKER_OPTIONS.LIST,
+      'isActive': true,
+      'icon': 'view_list'
+    }),Ember.Object.create({
+      'view': VIEW_LAYOUT_PICKER_OPTIONS.THUMBNAILS,
+      'isActive': false,
+      'icon': 'view_module'
+    })])
   },
   /**
    * Set a new visualization

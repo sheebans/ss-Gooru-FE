@@ -3,8 +3,8 @@
 {{/each}}
 {{#if nonVisibleTags}}
   <button class="non-visible-tags">
-    {{nonVisibleTags}}+
-    {{#tooltip-on-element event='click' side="right" class="taxonomy gru-taxonomy-tag-list tags-tooltip"}}
+    <span>{{nonVisibleTags}}+</span>
+    {{#tooltip-on-element event='click' side="right" class=(if isInCard 'in-card tags-tooltip' 'tags-tooltip')}}
       {{#each tags as |taxonomyTag|}}
         {{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}
       {{/each}}

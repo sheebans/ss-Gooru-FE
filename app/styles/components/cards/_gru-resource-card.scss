@@ -77,7 +77,7 @@
           }
         }
       }
-      .collection-info{
+      .resource-info{
         margin-left: 16px;
         width: 136px;
         $lines-to-show: 1;
@@ -94,6 +94,24 @@
         .resource-type, .question-type {
           span {
             color: $text-color;
+          }
+        }
+        .title-section{
+          h6.title{
+            display: inline;
+            width: 88%;
+            color:$blue-400;
+          }
+          .publish-icon{
+            display: inline-block;
+            float: right;
+            vertical-align: top;
+            margin-top: 5px;
+            background: url("gooru/badge-01.png");
+            -webkit-background-size: 17px 17px;
+            background-size: 17px 17px;
+            height: 17px;
+            width: 17px;
           }
         }
       }

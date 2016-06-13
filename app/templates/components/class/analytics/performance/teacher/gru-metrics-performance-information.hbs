@@ -9,8 +9,10 @@
   {{/if}}
   {{#if showCompletion}}
     <div class="table-cell">
-      <div class="box completion">{{{performanceData.completionDone}}}/{{{performanceData.completionTotal}}}</div>
-   </div>
+      {{ charts/gru-completion-chart
+      completed=performanceData.completionDone
+      total=performanceData.completionTotal }}
+  </div>
   {{/if}}
   {{#if showStudyTime}}
     <div class="table-cell study-time">{{{performanceData.timeSpent}}}</div>

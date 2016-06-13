@@ -2,7 +2,6 @@ import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
-
 /**
  * Collection and Assessment card
  *
@@ -44,6 +43,13 @@ export default Ember.Component.extend(ModalMixin,{
       }
     }
   },
+  // -------------------------------------------------------------------------
+  // Events
+
+  didRender(){
+    $('[data-toggle="tooltip"]').tooltip();
+  },
+
   // -------------------------------------------------------------------------
   // Properties
   /**

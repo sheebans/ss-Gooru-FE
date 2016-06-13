@@ -11,9 +11,4 @@
       outline: 0 none;
     }
   }
-
-  &.tags-tooltip { /* the & is necessary because the tooltip is injected outside of the element */
-    max-width: 300px;
-    background-color: $dark-200;
-  }
 }
