@@ -9,7 +9,6 @@
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
       padding: 10px 15px 0;
-      min-height: 116px;
 
       .image {
         display: inline-block;
@@ -40,21 +39,17 @@
         p{
           display: inline;
         }
-        .course{
-          height: 50px;
-          i{
-            color:$gray-light;
-            vertical-align: middle;
-          }
-          p,a{
-            margin-left: 4px;
-            vertical-align: bottom;
-          }
-        }
         div{
           > *{
             padding-left: 0;
           }
+        }
+        .publish-icon{
+          background: url("gooru/badge-01.png");
+          -webkit-background-size: 30px 30px;
+          background-size: 30px 30px;
+          height: 30px;
+          width: 30px;
         }
       }
     }
@@ -114,6 +109,20 @@
             & .truncate {
               @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
             }
+          }
+        }
+        .course{
+          height: 36px;
+          i{
+            color:$gray-light;
+            vertical-align: middle;
+          }
+          p,a{
+            margin-left: 4px;
+            vertical-align: bottom;
+          }
+          p{
+            display: inline;
           }
         }
         .description{

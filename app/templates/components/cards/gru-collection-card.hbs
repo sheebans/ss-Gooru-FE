@@ -4,7 +4,12 @@
             <a {{action "openContentPlayer" collection}}><img class="img-responsive" src="{{collection.thumbnailUrl}}"></a>
         </div>
         <div class="collection-info">
-            <a {{action "openContentPlayer" collection}}> <h6 class="title truncate" alt="{{ collection.title }}">{{ collection.title }}</h6></a>
+            <div class="title-section">
+                <a {{action "openContentPlayer" collection}}> <h6 class="title truncate" alt="{{ collection.title }}">{{ collection.title }}</h6></a>
+                {{#if collection.isPublished}}
+                    <div class="publish-icon"></div>
+                {{/if}}
+            </div>
             <span class="question-resources">
               {{#if hasResources}}
                   <span class="bar">| </span><p>{{t "cards.gru-course-card.resource" count=collection.resourceCount}}</p>
@@ -13,18 +18,6 @@
                   <span class="bar">| </span><p>{{t "cards.gru-course-card.question" count=collection.questionCount}}</p>
               {{/if}}
             </span>
-          {{#unless isSmall}}
-            <div class="course">
-              {{#if collection.course }}
-                {{gru-icon name="chrome_reader_mode"}}
-                <p>{{t "cards.gru-course-card.in"}}
-                {{#link-to "content.courses.play" collection.courseId class="pointer"}}
-                  {{truncate text=collection.course type='collection-card-courses'}}
-                {{/link-to}}
-                </p>
-              {{/if}}
-            </div>
-          {{/unless}}
         </div>
     </div>
   {{#unless isSmall}}
@@ -54,6 +47,16 @@
                 {{/if}}
               {{/if}}
             </div>
+              <div class="course">
+                {{#if collection.course }}
+                  {{gru-icon name="chrome_reader_mode"}}
+                    <p>{{t "cards.gru-course-card.in"}}
+                      {{#link-to "content.courses.play" collection.courseId class="pointer"}}
+                        {{truncate text=collection.course type='collection-card-courses'}}
+                      {{/link-to}}
+                    </p>
+                {{/if}}
+              </div>
             <div class="description">
                 <p class="truncate">{{ collection.learningObjectives }}</p>
             </div>
@@ -69,7 +72,7 @@
             {{/if}}
           </div>
         {{#unless isSearchResult}}
-            <div class="visibility">
+            <div class="visibility"  title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip">
               {{#unless collection.isVisibleOnProfile }}
                 {{gru-icon name="visibility_off" class='pull-right'}}
               {{/unless}}

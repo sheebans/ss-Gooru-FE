@@ -85,9 +85,9 @@ export default (function() {
     publishStatus: null,
 
     /**
-     * @property {Boolean} isPublic
+     * @property {Boolean} isPublished
      */
-    isPublic: Ember.computed.equal("publishedStatus", "published"), //TODO renamed by isPublished
+    isPublished: Ember.computed.equal("publishedStatus", "published"),
 
     /**
      * @property {Boolean} isVisibleOnProfile

@@ -43,6 +43,13 @@ export default Ember.Component.extend(ModalMixin,{
     }
   },
   // -------------------------------------------------------------------------
+  // Events
+  
+  didRender(){
+    $('[data-toggle="tooltip"]').tooltip();
+  },
+
+  // -------------------------------------------------------------------------
   // Properties
   /**
    * @property {Collection/Resource} collection
