@@ -193,7 +193,7 @@ export default {
     "essential-questions": "Essential Questions",
     "explanation": "Explanation",
     "false": "False",
-    "featured-courses": "Featured Courses",
+    "featured-courses": "Featured&nbsp;Courses",
     "first-name": "First Name",
     "follow": "Follow",
     "followers": "Followers",
