@@ -995,10 +995,10 @@ export default {
     "attempts": "Attempt"
   },
   "gru-performance-summary": {
-    "name": "Name",
+    "title": "Title",
     "scores": "Scores",
     "completion": "Completion",
-    "time-spent": "Time Spent",
+    "time-spent": "Total Time",
     "reaction": "Reaction",
     "attempts": "Attempts",
     "redo": "Redo",

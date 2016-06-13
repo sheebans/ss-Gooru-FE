@@ -7,7 +7,8 @@
     color: $white;
 
     &.anonymous{
-      font-size: $font-size-h3;
+      font-size: $font-size-anonymous;
+      line-height: 28px;
     }
     &.not-started{
       background-color: $dark-300;

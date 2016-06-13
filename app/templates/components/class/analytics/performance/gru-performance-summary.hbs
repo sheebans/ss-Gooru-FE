@@ -13,7 +13,7 @@
         {{#if performance.isCompleted}}
             <div class="btn-group">
                 <button class="btn btn-info collection-view-report-button" {{action "viewReport" performance}}>
-                    <span>{{gru-icon name="show_chart"}}{{t "gru-performance-summary.view-report"}}</span></button>
+                    <span>{{gru-icon name="equalizer"}}{{t "gru-performance-summary.view-report"}}</span></button>
                 <button class="btn btn-info collection-redo-button" {{action "selectResource" performance}}>
                     <span>{{gru-icon name="replay"}}{{t "gru-performance-summary.redo"}}</span></button>
             </div>
@@ -28,7 +28,11 @@
   {{#if performance.hasStarted}}
         <span class="score-box" style="background-color: {{ gradeColor performance.score }}">{{performance.score}}%</span>
   {{else}}
+    {{#if performance.isCollection}}
+      {{gru-icon name='apps'}}
+    {{else}}
       <span class="score-box" style="background-color: #959A9E">--%</span>
+    {{/if}}     
   {{/if}}
 </li>
 <li class="completion {{if completionSelected 'selected'}}">

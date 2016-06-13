@@ -210,21 +210,31 @@ span.validation.warning {
   i.audio-icon {
     background: url("gooru/images/audio-resource.svg");
   }
+}
 
-  .gru-taxonomy-tag-list {
-    .gru-taxonomy-tag {
-      background-color: $blue-400;
-      border: 0 none;
+.gru-taxonomy-tag-list.in-card,
+.in-card.tags-tooltip {
+  .gru-taxonomy-tag {
+    background-color: $blue-400;
+    border: 0 none;
 
-      div {
-        > b {
-          color: $white;
-        }
-        > span {
-          color: $gray-light;
-        }
+    div {
+      > b {
+        color: $white;
+      }
+      > span {
+        color: $gray-light;
       }
     }
+  }
+}
+
+.tags-tooltip {
+  max-width: 300px;
+  background-color: $dark-200;
+
+  &.in-card {
+    background-color: $gray-light;
   }
 }
 
