@@ -58,7 +58,8 @@ export default Ember.Component.extend({
     this._super(...arguments);
     var valuePath = this.get('valuePath');
     defineProperty(this, 'attributeValidation', computed.oneWay(`model.validations.attrs.${valuePath}`));
-    this.set('rawInputValue', this.get(`model.${valuePath}`));
+    var value = this.removeTags(this.get(`model.${valuePath}`));
+    this.set('rawInputValue', value);
     defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
   },
   // -------------------------------------------------------------------------
@@ -152,5 +153,12 @@ export default Ember.Component.extend({
   removeWhiteSpaces:function(value){
     return $.trim(value);
   },
+
+  /*
+   * Remove html tags from value
+   */
+  removeTags:function(value){
+    return $('<p>').html(value).text();
+  }
 
 });
