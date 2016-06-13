@@ -179,26 +179,6 @@ test('normalizeOwners', function(assert) {
   assert.equal(owners.length, 2, 'Wrong owners length');
 });
 
-test('normalizeStandards', function(assert) {
-  const serializer = this.subject();
-  const standardsData = {
-    "12": {
-      code: "a",
-      title: "title a"
-    },
-    "13": {
-      code: "b",
-      title: "title b"
-    },
-  };
-
-  const standards = serializer.normalizeStandards(standardsData);
-  assert.equal(standards.length, 2, 'Wrong standards length');
-  assert.equal(standards[0].get("code"), "a", 'Wrong code');
-  assert.equal(standards[0].get("key"), "12", 'Wrong key');
-});
-
-
 test('normalizeQuestion', function(assert) {
   const serializer = this.subject();
   const owners = [Ember.Object.create({
