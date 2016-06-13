@@ -14,7 +14,7 @@
     font-weight: bold;
     float: right;
     &.anonymous { /** this is a quick fix for a demo, implemenation may change once the final mock is provided **/
-      font-size: $font-size-h3;
+      font-size: $font-size-anonymous;
       margin-top: -18px;
     }
   }
@@ -26,7 +26,7 @@
     }
 
     &.anonymous { /** this is a quick fix for a demo, implemenation may change once the final mock is provided **/
-      font-size: $font-size-h3;
+      font-size: $font-size-anonymous;
 
       .answer-chart {
         width: 75%;

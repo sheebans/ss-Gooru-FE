@@ -58,8 +58,8 @@ test('it renders correctly when there are no questions or resources', function (
   const $addActions = $component.find('.add-resource-question');
   assert.ok($addActions.length, 'Actions for adding content');
 
-  assert.ok($addActions.find('button:eq(0)').text(), this.get('i18n').t('common.from-my-resources').string, 'First "add" button');
-  assert.ok($addActions.find('button:eq(1)').text(), this.get('i18n').t('common.from-my-questions').string, 'Second "add" button');
+  //assert.ok($addActions.find('button:eq(0)').text(), this.get('i18n').t('common.from-my-resources').string, 'First "add" button');
+  //assert.ok($addActions.find('button:eq(1)').text(), this.get('i18n').t('common.from-my-questions').string, 'Second "add" button');
   assert.ok($addActions.find('button:eq(2)').text(), this.get('i18n').t('common.new-resource').string, 'Third "add" button');
   assert.ok($addActions.find('button:eq(3)').text(), this.get('i18n').t('common.new-question').string, 'Fourth "add" button');
 });
